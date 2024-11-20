@@ -188,13 +188,13 @@
       <div class="d-flex flex-column h-100 w-100">
         <div class="row">
           <div class="col-md-6 text-start">
-            <h6 *ngIf="whatAnd">Searching For {{ whatAnd }}</h6>
+            <h6 *ngIf="whatAnd"><strong>Searching For {{ whatAnd }}</strong></h6>
           </div>
           <div class="col-md-6 text-end">
-            <h6 *ngIf="count > 0">Total Jobs: {{ count }}</h6>
+            <h6 *ngIf="count > 0"><strong>Total Jobs: {{ count }}</strong></h6>
           </div>
         </div>
-        <div class="row overflow-y-auto">
+        <div class="row overflow-y-auto" *ngIf="!isShowNoResultFound">
           <div *ngFor="let job of jobs; let i = index" class="col-md-4 col-12 mb-3">
             <div class="card h-100">
               <div class="card-body">
@@ -220,6 +220,9 @@
             </div>
           </div>
         </div>
+          <div class="row justify-content-center no-results" *ngIf="isShowNoResultFound">
+              <h3>No Search Results for {{ whatAnd }}</h3>
+          </div>
         <div class="d-flex justify-content-center align-items-center">
           <p-paginator [rows]="resultPerPage" [totalRecords]="count" *ngIf="count > 0" (onPageChange)="paginate($event)" [rowsPerPageOptions]="[50, 100, 250, 500]"></p-paginator>
         </div>

@@ -21,6 +21,7 @@ import { TooltipModule } from "primeng/tooltip";
 import { DialogModule } from "primeng/dialog";
 import {ButtonModule} from "primeng/button";
 import { PageFacadeService } from "../page-facade.service";
+import { LocationService } from "src/app/location.service";
 
 @Component({
   selector: "uni-infokit",
@@ -57,7 +58,8 @@ export class InfoKitComponent implements OnInit {
     private toastr: MessageService,
     private route: Router,
     private authService: AuthService,
-    private pageFacade: PageFacadeService
+    private pageFacade: PageFacadeService,
+    private locationService: LocationService,
   ) {
     this.authService.getNewUserTimeLeft().subscribe((res) => {
       let data = res.time_left;
@@ -80,7 +82,23 @@ export class InfoKitComponent implements OnInit {
   routedata: any = [];
   parentfolderlists: any = [];
   parentfilelists: any = []; totalcount = 0;
+  ehitlabelIsShow: boolean = true;
+  imagewhitlabeldomainname: any
+  orgnamewhitlabel: any;
+  orglogowhitelabel: any;
   ngOnInit() {
+    this.locationService.getImage().subscribe(imageUrl => {
+      this.orglogowhitelabel = imageUrl;
+    });
+    this.locationService.getOrgName().subscribe(orgname => {
+      this.orgnamewhitlabel = orgname;
+    });
+    this.imagewhitlabeldomainname = window.location.hostname;
+    if (this.imagewhitlabeldomainname === "dev-student.uniprep.ai" || this.imagewhitlabeldomainname === "uniprep.ai" || this.imagewhitlabeldomainname === "localhost") {
+      this.ehitlabelIsShow = true;
+    } else {
+      this.ehitlabelIsShow = false;
+    }
     this.checkplanExpire();
     this.folderdata = {
       parent_id: 0,
@@ -222,7 +240,7 @@ export class InfoKitComponent implements OnInit {
     this.authService.getNewUserTimeLeft().subscribe((res) => {
       let data = res.time_left;
       let subscription_exists_status = res.subscription_details;
-      if (data.plan === "expired" || data.plan === 'subscription_expired' || subscription_exists_status.subscription_plan=="free_trail") {
+      if (data.plan === "expired" || data.plan === 'subscription_expired' || subscription_exists_status.subscription_plan=="free_trail" || subscription_exists_status.subscription_plan=="Student" ||subscription_exists_status.subscription_plan=="Career") {
         this.planExpired = true;
         // this.restrict = true;
       } else {

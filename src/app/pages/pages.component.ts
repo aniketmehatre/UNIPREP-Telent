@@ -41,6 +41,8 @@ export class PagesComponent implements OnInit, OnDestroy {
     ogImage = '../../uniprep-assets/images/uniprep-light.svg';
     ehitlabelIsShow:boolean=true;
     orgnamewhitlabel:any;
+    isPageLoad!: boolean;
+
     @Output() expandicon = !this.sidebarClass
         ? "pi-align-right"
         : "pi-align-justify";
@@ -161,11 +163,13 @@ export class PagesComponent implements OnInit, OnDestroy {
 
         });
         this.MultiLoginPopup = 'none'; //If you want to show the popup change the value as "block"
+        this.howItWorksVideoModal = false;
+        this.howItWorksVideoLink = null;
         this.pageFacade.videoPopupTrigger$.subscribe((data) => {
-            if(data){
+            if(data && this.isPageLoad){ // while loading the first time the popup will hide. next time only i needs to show.
                 this.openVideoPopup(data);
             }
-            
+            this.isPageLoad = true; // after page loading completed this will changed because first time needs to hide the how it works popup
         });
     }
 

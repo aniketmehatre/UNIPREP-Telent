@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { InterviewJobrolesService } from './interview-jobroles.service';
 import { Router } from '@angular/router';
+import { PageFacadeService } from '../page-facade.service';
 
 @Component({
   selector: 'uni-interview-jobroles',
@@ -12,7 +13,7 @@ role: any;
 searchDiv: boolean = false;
 jobRoles: any;
 filteredJobRoles: any[] = [];  
-  constructor(private  jrservice: InterviewJobrolesService , private router: Router) { }
+  constructor(private  jrservice: InterviewJobrolesService , private router: Router,private pageFacade: PageFacadeService) { }
 
   ngOnInit(): void {
     this.getJobRoles();
@@ -52,5 +53,9 @@ filteredJobRoles: any[] = [];
 
   goBack(){
     this.router.navigate(['/pages/job-tool/career-tool']);
+  }
+
+  openVideoPopup(videoLink: string) {
+    this.pageFacade.openHowitWorksVideoPopup(videoLink);
   }
 }

@@ -576,6 +576,10 @@ export class ScholarshipListComponent implements OnInit {
   }
 
   getRecommendation() {
+    if (this.planExpired) {
+      this.restrict = true;
+      return;
+    }
     let keyMapping: any = {"1": "country","2": "study_level","3": "type","4": "cover_id"};
     
     let newData = Object.fromEntries(Object.entries(this.selectedData).map(([key, value]) => {

@@ -908,6 +908,7 @@ export class QuestionListComponent implements OnInit {
     }
     localStorage.setItem("learninghubsubmoduleid", this.subModuleId);
     localStorage.setItem("skillmasteryquizsubmoduleid",this.subModuleId);
+    localStorage.setItem('universityidforquiz',this.subModuleId)
     if(this.currentModuleId==14){
       this.router.navigate([`/pages/modules/k12-category/k12-quiz`]);
       return;

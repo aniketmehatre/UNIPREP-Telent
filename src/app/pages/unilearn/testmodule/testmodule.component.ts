@@ -95,7 +95,7 @@ export class TestModulesComponent implements OnInit {
     if (hasFileType4) {
       this.moduleChange.emit({
         parent_id: 0,
-        module_id: 1,
+        module_id: this.moduleid,
         selected_module: this.selected_module,
         stage: 2,
       });
@@ -109,7 +109,7 @@ export class TestModulesComponent implements OnInit {
     if (this.submoduleList.length == 0) {
       this.moduleChange.emit({
         parent_id: 0,
-        module_id: 1,
+        module_id: this.moduleid,
         selected_module: this.selected_module,
         stage: 2,
       });
@@ -118,7 +118,7 @@ export class TestModulesComponent implements OnInit {
     if (this.submoduleList[0]?.parent_folder_id == 0) {
       this.moduleChange.emit({
         parent_id: 0,
-        module_id: 1,
+        module_id: this.moduleid,
         selected_module: this.selected_module,
         stage: 2,
       });

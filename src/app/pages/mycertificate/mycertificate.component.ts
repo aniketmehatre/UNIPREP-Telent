@@ -6,6 +6,7 @@ import { DataService } from 'src/app/data.service';
 import { Meta } from '@angular/platform-browser';
 import { MessageService } from 'primeng/api';
 import { PageFacadeService } from '../page-facade.service';
+import { LocationService } from 'src/app/location.service';
 @Component({
   selector: 'uni-mycertificate',
   templateUrl: './mycertificate.component.html',
@@ -20,10 +21,27 @@ othercirtificatecountrylist:any=""
 countryname:any;
 restrict: boolean = false;
 planExpired: boolean = false;
+ehitlabelIsShow: boolean = true;
+imagewhitlabeldomainname: any
+orgnamewhitlabel: any;
+orglogowhitelabel: any;
   constructor(private service:MycertificateserviceService,private router: Router,private authService: AuthService,private dataService: DataService,
-    private meta: Meta,private toast: MessageService,private route: ActivatedRoute,private pageFacade: PageFacadeService,) { }
+    private meta: Meta,private toast: MessageService,private route: ActivatedRoute,private pageFacade: PageFacadeService,
+    private locationService: LocationService,) { }
 
   ngOnInit(): void {
+    this.locationService.getImage().subscribe(imageUrl => {
+      this.orglogowhitelabel = imageUrl;
+    });
+    this.locationService.getOrgName().subscribe(orgname => {
+      this.orgnamewhitlabel = orgname;
+    });
+    this.imagewhitlabeldomainname = window.location.hostname;
+    if (this.imagewhitlabeldomainname === "dev-student.uniprep.ai" || this.imagewhitlabeldomainname === "uniprep.ai" || this.imagewhitlabeldomainname === "localhost") {
+      this.ehitlabelIsShow = true;
+    } else {
+      this.ehitlabelIsShow = false;
+    }
     this.dataService.countryNameSource.subscribe((data) => {
       this.countryname = data;
     });

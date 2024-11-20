@@ -448,6 +448,10 @@ else{
     }
   }
   getRecommendation() {
+    if (this.planExpired) {
+      this.restrict = true;
+      return;
+    }
     this.enableModule = true;
     let keyMapping: any = {"1": "investor_type","2": "country","3": "head_quarters"};
     let newData = Object.fromEntries(Object.entries(this.selectedData).map(([key, value]) => {
