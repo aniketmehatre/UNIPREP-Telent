@@ -9,7 +9,7 @@ import { UniLearnService } from "../unilearn.service";
 import {ActivatedRoute, Router} from "@angular/router";
 import {ArrayHeaderService} from "../array-header.service";
 import { Location } from '@angular/common';
-
+import { AuthService } from "src/app/Auth/auth.service";
 @Component({
   selector: "uni-learnsubmodules",
   templateUrl: "./learnsubmodules.component.html",
@@ -24,6 +24,7 @@ export class LearnsubModulesComponent implements OnInit {
   submoduleList: any;
   constructor(
     private pageFacade: PageFacadeService,
+    private authService: AuthService,
     private router: Router, private arrayHeaderService: ArrayHeaderService,
     private learnService: UniLearnService, private route: ActivatedRoute, private cdRef: ChangeDetectorRef
   ) {
@@ -37,10 +38,22 @@ export class LearnsubModulesComponent implements OnInit {
     .fill(0)
     .map((_, index) => index);
   paramData: any;
+  planExpired: boolean = false;
+  restrict: boolean = false;
+  ehitlabelIsShow: boolean = true;
+  orgnamewhitlabel: any;
+  orglogowhitelabel: any;
+  imagewhitlabeldomainname: any
   ngOnInit(): void {
     this.paramData = { parent_id: this.parentid, module_id: this.moduleid };
     this.getModules();
-
+    this.checkplanExpire();
+    this.imagewhitlabeldomainname = window.location.hostname;
+    if (this.imagewhitlabeldomainname === "dev-student.uniprep.ai" || this.imagewhitlabeldomainname === "uniprep.ai" || this.imagewhitlabeldomainname === "localhost") {
+      this.ehitlabelIsShow = true;
+    } else {
+      this.ehitlabelIsShow = false;
+    }
   }
   getFormattedValues(): string {
     return this.arrayHeaderService.getItems().join(' -> ');
@@ -130,6 +143,27 @@ export class LearnsubModulesComponent implements OnInit {
     }
   }
   download() {
+    if (this.planExpired) {
+      this.restrict = true;
+      return;
+    }
     window.open(this.pdfURL, "_blank");
+  }
+  checkplanExpire(): void {
+    this.authService.getNewUserTimeLeft().subscribe((res) => {
+      let data = res.time_left;
+      let subscription_exists_status = res.subscription_details;
+      if (data.plan === "expired" || data.plan === 'subscription_expired'  ) {
+        this.planExpired = true;
+      } else {
+        this.planExpired = false;
+      }
+    })
+  }
+  upgradePlan(): void {
+    this.router.navigate(["/pages/subscriptions"]);
+  }
+  clearRestriction() {
+    this.restrict = false;
   }
 }
