@@ -575,7 +575,10 @@ export class QuestionListComponent implements OnInit {
     isPaused = false;
     currentText: string | null = null;
     currentId: string | null = null;
-
+    ehitlabelIsShow: boolean = true;
+    imagewhitlabeldomainname: any
+    orgnamewhitlabel: any;
+    orglogowhitelabel: any;
     constructor(private languageHubService: LanguageHubService, private lhs: LanguageHubDataService,
                 private location: Location, private route: ActivatedRoute, private toast: MessageService,
                 private deviceService: DeviceDetectorService, private authService: AuthService,
@@ -608,6 +611,12 @@ export class QuestionListComponent implements OnInit {
 
     ngOnInit(): void {
         this.checkPlanExpiry()
+          this.imagewhitlabeldomainname = window.location.hostname;
+          if (this.imagewhitlabeldomainname === "dev-student.uniprep.ai" || this.imagewhitlabeldomainname === "uniprep.ai" || this.imagewhitlabeldomainname === "localhost") {
+            this.ehitlabelIsShow = true;
+          } else {
+            this.ehitlabelIsShow = false;
+          }
         this.heading = this.selectedLanguageName
         this.speech = new Speech()
         if (this.speech.hasBrowserSupport()) { // returns a boolean
@@ -653,6 +662,7 @@ export class QuestionListComponent implements OnInit {
             {label: this.langType},
             {label: `Question`},
         ];
+       
     }
 
     init() {
@@ -698,14 +708,14 @@ export class QuestionListComponent implements OnInit {
     }
 
     viewOneQuestion(data: any) {
-        localStorage.setItem('languageHubData', JSON.stringify(data));
-        this.router.navigateByUrl(`/pages/language-hub/translate-view`);
-        return;
-        this.checkPlanExpiry();
         if (this.planExpired) {
             this.restrict = true;
             return;
         }
+        localStorage.setItem('languageHubData', JSON.stringify(data));
+        this.router.navigateByUrl(`/pages/language-hub/translate-view`);
+        return;
+      
         this.readQuestion(data);
         this.isQuestionAnswerVisible = true
         this.oneQuestionContent = data;
