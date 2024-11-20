@@ -6,6 +6,7 @@ import { MessageService } from 'primeng/api';
 import { AuthService } from 'src/app/Auth/auth.service';
 import { Router } from '@angular/router';
 import { PageFacadeService } from '../page-facade.service';
+import { LocationService } from 'src/app/location.service';
 
 interface country {
   id: number,
@@ -49,7 +50,11 @@ export class EventsComponent implements OnInit {
   selectedCountryId: any;
   planExpired!: boolean;
   restrict: boolean = false;
-  constructor(private fb: FormBuilder, private service: EventsService, private datePipe: DatePipe, private toast: MessageService, private authService: AuthService, private router: Router, private pageFacade: PageFacadeService) {
+  ehitlabelIsShow: boolean = true;
+  imagewhitlabeldomainname: any
+  orgnamewhitlabel: any;
+  orglogowhitelabel: any;
+  constructor(private fb: FormBuilder, private service: EventsService, private datePipe: DatePipe, private toast: MessageService, private authService: AuthService, private router: Router, private pageFacade: PageFacadeService,private locationService: LocationService) {
     this.filterform = this.fb.group({
       from: [''],
       to: [''],
@@ -57,6 +62,18 @@ export class EventsComponent implements OnInit {
     }, { validator: dateRangeValidator });
   }
   ngOnInit(): void {
+    this.locationService.getImage().subscribe(imageUrl => {
+      this.orglogowhitelabel = imageUrl;
+    });
+    this.locationService.getOrgName().subscribe(orgname => {
+      this.orgnamewhitlabel = orgname;
+    });
+    this.imagewhitlabeldomainname = window.location.hostname;
+    if (this.imagewhitlabeldomainname === "dev-student.uniprep.ai" || this.imagewhitlabeldomainname === "uniprep.ai" || this.imagewhitlabeldomainname === "localhost") {
+      this.ehitlabelIsShow = true;
+    } else {
+      this.ehitlabelIsShow = false;
+    }
     this.setActiveButton(this.activeButton)
     this.service.GetCountryList().subscribe((response) => {
       this.countries = response;

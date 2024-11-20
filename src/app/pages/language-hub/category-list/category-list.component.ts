@@ -7,6 +7,7 @@ import {MessageService} from 'primeng/api';
 import { PageFacadeService } from '../../page-facade.service';
 import { AuthService } from 'src/app/Auth/auth.service';
 import {LanguageArrayGlobalService} from "../language-array-global.service";
+import { LocationService } from 'src/app/location.service';
 
 @Component({
     selector: 'uni-category-list',
@@ -27,11 +28,15 @@ export class CategoryListComponent implements OnInit {
     perpage: number = 25
     planExpired: boolean = false;
     selectedLevelName: string = "";
-
+    ehitlabelIsShow: boolean = true;
+    imagewhitlabeldomainname: any
+    orgnamewhitlabel: any;
+    orglogowhitelabel: any;
     constructor(private languageHubService: LanguageHubService, private lhs: LanguageHubDataService,
                 private router: Router, private toast: MessageService,
                 private languageArrayGlobalService: LanguageArrayGlobalService,
-                private location: Location, private pageFacade:PageFacadeService,private authService: AuthService) {
+                private location: Location, private pageFacade:PageFacadeService,private authService: AuthService,
+                private locationService: LocationService,) {
         this.lhs.data$.subscribe((data) => {
             this.selectedLanguageId = data
         })
@@ -47,6 +52,18 @@ export class CategoryListComponent implements OnInit {
     loopRange = Array.from({length: 30}).fill(0).map((_, index) => index);
 
     ngOnInit(): void {
+        this.locationService.getImage().subscribe(imageUrl => {
+            this.orglogowhitelabel = imageUrl;
+          });
+          this.locationService.getOrgName().subscribe(orgname => {
+            this.orgnamewhitlabel = orgname;
+          });
+          this.imagewhitlabeldomainname = window.location.hostname;
+          if (this.imagewhitlabeldomainname === "dev-student.uniprep.ai" || this.imagewhitlabeldomainname === "uniprep.ai" || this.imagewhitlabeldomainname === "localhost") {
+            this.ehitlabelIsShow = true;
+          } else {
+            this.ehitlabelIsShow = false;
+          }
         if (!this.selectedLanguageId || !this.selectedLanguageType) {
             this.toast.add({severity: 'info', summary: 'Info', detail: 'No Data Found'});
             this.location.back();
