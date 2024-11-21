@@ -71,7 +71,8 @@ export class JobToolComponent implements OnInit {
       this.tooltip = "Convert and compare salaries globally to understand the value of potential job offers."
       this.howItWorksVideo = 'https://www.youtube.com/embed/yAhU2DwyXYs?si=0Uhk2fFNwWw6d013';
     } else if (this.currentRoute.includes("company-list")) {
-      this.title = "Career Tools -> company-list";
+      // this.title = "Career Tools -> company-list";
+      this.title = "not_required";
       this.tooltip = "Access a curated list of companies by industry and location to target your job search effectively."
       this.howItWorksVideo = 'https://www.youtube.com/embed/uihpCF4rvB4?si=h8CASyoCT5RaP6Ko';
     } else if (this.currentRoute.includes("coverletter-builder")) {
@@ -79,7 +80,8 @@ export class JobToolComponent implements OnInit {
       this.tooltip = ""
       this.howItWorksVideo = 'https://www.youtube.com/embed/Sv1gVFIgFZ0?si=hHmclRvvE2ZXcEm7';
     } else if (this.currentRoute.includes("career-planner")) {
-      this.title = "Career Tools -> career-planner";
+      // this.title = "Career Tools -> career-planner";
+      this.title = "not_required";
       this.tooltip = ""
       this.howItWorksVideo = 'https://www.youtube.com/embed/ymhI18TJepU?si=w5-rDPvblQzpQ_hw';
     }

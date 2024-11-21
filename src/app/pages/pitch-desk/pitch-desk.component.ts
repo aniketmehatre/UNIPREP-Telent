@@ -21,10 +21,10 @@ export class PitchDeskComponent implements OnInit {
   totalPitchDeckCount = 0;
   isFilterVisible: string = 'none';
   filterForm: FormGroup;
-  countrySelectBox:any = [];
-  fundingTypeSelectBox:any = [];
-  sectorSelectBox:any = [];
-  valueNearYouFilter:string ="";
+  countrySelectBox: any = [];
+  fundingTypeSelectBox: any = [];
+  sectorSelectBox: any = [];
+  valueNearYouFilter: string = "";
   showDiv: boolean = true;
   restrict: boolean = false;
   planExpired!: boolean;
@@ -32,17 +32,26 @@ export class PitchDeskComponent implements OnInit {
   selectAllCheckboxes: boolean = false;
   selectedCheckboxCount: number = 0;
   exportCreditCount: number = 0;
-  exportDataIds:any = [];
+  exportDataIds: any = [];
   isPdfLoaded: boolean = false;
-  favCount:number=0;
+  favCount: number = 0;
   PersonalInfo!: any;
   viewFavourites: boolean = false;
-  ehitlabelIsShow:boolean=true;
-  imagewhitlabeldomainname:any
-  orgnamewhitlabel:any;
-  orglogowhitelabel:any;
-  pdname:any;
-  constructor(private pitchDesk:PitchDeskService,  private userManagementService: UserManagementService, private fb: FormBuilder,private router: Router,private authService: AuthService, private toast: MessageService, private dataService: DataService, private pageFacade: PageFacadeService,private locationService: LocationService,) { 
+  ehitlabelIsShow: boolean = true;
+  imagewhitlabeldomainname: any
+  orgnamewhitlabel: any;
+  orglogowhitelabel: any;
+  pdname: any;
+  constructor(
+    private pitchDesk: PitchDeskService, 
+    private userManagementService: UserManagementService, 
+    private fb: FormBuilder, private router: Router, 
+    private authService: AuthService, 
+    private toast: MessageService, 
+    private dataService: DataService, 
+    private pageFacade: PageFacadeService, 
+    private locationService: LocationService
+  ) {
     this.filterForm = this.fb.group({
       pitchdeck_name: [''],
       country: [''],
@@ -58,13 +67,12 @@ export class PitchDeskComponent implements OnInit {
     this.locationService.getOrgName().subscribe(orgname => {
       this.orgnamewhitlabel = orgname;
     });
-    this.imagewhitlabeldomainname=window.location.hostname;
+    this.imagewhitlabeldomainname = window.location.hostname;
     if (this.imagewhitlabeldomainname === "dev-student.uniprep.ai" || this.imagewhitlabeldomainname === "uniprep.ai" || this.imagewhitlabeldomainname === "localhost") {
-      this.ehitlabelIsShow=true;
-    }else{
-      this.ehitlabelIsShow=false;
+      this.ehitlabelIsShow = true;
+    } else {
+      this.ehitlabelIsShow = false;
     }
-    this.getPitchDeskList();
     this.checkplanExpire();
     this.selectBoxValues();
     this.GetPersonalProfileData();
@@ -78,11 +86,9 @@ export class PitchDeskComponent implements OnInit {
 
   bookmarkQuestion(courseId: any, isFav: any) {
     isFav = isFav != '1' ? true : false;
-    this.favCount=isFav == true ? this.favCount+1 : this.favCount-1;
-    console.log( this.PersonalInfo.user_id);
+    this.favCount = isFav == true ? this.favCount + 1 : this.favCount - 1;
     this.pitchDesk.bookmarkCourseData(courseId, this.PersonalInfo.user_id, isFav).subscribe((response) => {
-      console.log(31);
-      let pitchListData = this.pitchDeskList.find((item : any) => item.id == courseId);
+      let pitchListData = this.pitchDeskList.find((item: any) => item.id == courseId);
       isFav == true ? pitchListData.favourite = 1 : pitchListData.favourite = null;
       this.toast.add({
         severity: "success",
@@ -91,43 +97,49 @@ export class PitchDeskComponent implements OnInit {
       });
     });
   }
+
   viewFav() {
-    //if (this.planExpired) {
-   //   this.restrict = true;
-   //   return;
-   // }
     this.viewFavourites = !this.viewFavourites;
     this.getPitchDeskList();
   }
-  getPitchDeskList(){
-    let data = {
-      pitchdeck_name: this.filterForm.value.pitchdeck_name ? this.filterForm.value.pitchdeck_name : '',
-      country: this.filterForm.value.country ? this.filterForm.value.country : '',
-      funding_type: this.filterForm.value.funding_type ? this.filterForm.value.funding_type : '',
-      sector: this.filterForm.value.sector ? this.filterForm.value.sector : '',
-      page: this.page,
-      perpage: this.pageSize,
-      planname:this.currentPlan?this.currentPlan:"",
-      favourites: this.viewFavourites ? this.viewFavourites : "",
+
+  getPitchDeskList() {
+    let data: any;
+    if(this.viewFavourites){
+      data = {
+        favourites: this.viewFavourites,
+        page: this.page,
+        perpage: this.pageSize,
+      }
+    }else{
+      data = {
+        pitchdeck_name: this.filterForm.value.pitchdeck_name ? this.filterForm.value.pitchdeck_name : '',
+        country: this.filterForm.value.country ? this.filterForm.value.country : '',
+        funding_type: this.filterForm.value.funding_type ? this.filterForm.value.funding_type : '',
+        sector: this.filterForm.value.sector ? this.filterForm.value.sector : '',
+        page: this.page,
+        perpage: this.pageSize,
+        planname: this.currentPlan ? this.currentPlan : "",
+      }
     }
-    this.pitchDesk.getPitchDeskData(data).subscribe((responce)=>{
+    this.pitchDesk.getPitchDeskData(data).subscribe((responce) => {
       this.totalPitchDeckCount = responce.total_count;
       this.pitchDeskList = responce.data;
       this.exportCreditCount = responce.credit_count ? responce.credit_count : 0;
+      this.favCount = responce.fav_count;
     });
     this.isFilterVisible = 'none'
   }
 
-  selectBoxValues(){
-    this.pitchDesk.getSelectBoxValues().subscribe((responce)=>{
-      
+  selectBoxValues() {
+    this.pitchDesk.getSelectBoxValues().subscribe((responce) => {
       this.countrySelectBox = responce.country;
       this.fundingTypeSelectBox = responce.funding_type;
       this.sectorSelectBox = responce.sectors;
     });
   }
 
-  pageChange(event: any){
+  pageChange(event: any) {
     if (this.planExpired) {
       this.restrict = true;
       return;
@@ -139,7 +151,7 @@ export class PitchDeskComponent implements OnInit {
     this.getPitchDeskList();
   }
 
-  filterBy(){
+  filterBy() {
     if (this.planExpired) {
       this.restrict = true;
       return;
@@ -152,87 +164,73 @@ export class PitchDeskComponent implements OnInit {
     this.getPitchDeskList();
   }
 
-  // performSearch() {
-  //   this.page = 1;
-  //   if (this.valueNearYouFilter == "") {
-  //     this.getPitchDeskList();
-  //     return;
-  //   }
-  //   var investorSearchData: any = [];
-  //   this.pitchDeskList.filter(item => {
-  //     if (item.pitchdeck_name?.toLowerCase().includes(this.valueNearYouFilter.toLowerCase())) {
-  //       investorSearchData.push(item);
-  //     };
-  //   });
-  //   this.pitchDeskList = [...investorSearchData];
-  // }
   performSearch() {
     if (this.valueNearYouFilter === "") {
-        this.getPitchDeskList();  
-        return;
+      this.getPitchDeskList();
+      return;
     }
-else{
-  var investorSearchData: any = [];
-    this.pitchDeskList.filter(item => {
-      if (item.pitchdeck_name?.toLowerCase().includes(this.valueNearYouFilter.toLowerCase())) {
-        investorSearchData.push(item);
-      };
-    });
-    this.pitchDeskList = [...investorSearchData];
-    const filteredData = this.pitchDeskList.filter((item: any) => {
-       
+    else {
+      var investorSearchData: any = [];
+      this.pitchDeskList.filter(item => {
+        if (item.pitchdeck_name?.toLowerCase().includes(this.valueNearYouFilter.toLowerCase())) {
+          investorSearchData.push(item);
+        };
+      });
+      this.pitchDeskList = [...investorSearchData];
+      const filteredData = this.pitchDeskList.filter((item: any) => {
+
         return item.pitchdeck_name.toLowerCase().includes(this.valueNearYouFilter.toLowerCase()) ||
-               item.country.toLowerCase().includes(this.valueNearYouFilter.toLowerCase());
-    });
+          item.country.toLowerCase().includes(this.valueNearYouFilter.toLowerCase());
+      });
 
-    
-    this.pitchDeskList = filteredData;
 
-   
-    this.totalPitchDeckCount = filteredData.length;
+      this.pitchDeskList = filteredData;
 
-   
-    if (this.totalPitchDeckCount <= this.pageSize) {
+
+      this.totalPitchDeckCount = filteredData.length;
+
+
+      if (this.totalPitchDeckCount <= this.pageSize) {
         this.page = 1;  // Reset page to 1
-    }
+      }
 
-   
-    const totalPages = Math.ceil(this.totalPitchDeckCount / this.pageSize);
-    if (this.page > totalPages) {
+
+      const totalPages = Math.ceil(this.totalPitchDeckCount / this.pageSize);
+      if (this.page > totalPages) {
         this.page = totalPages;
+      }
     }
   }
-}
- 
-  closeGuidelines(){
+
+  closeGuidelines() {
     this.showDiv = !this.showDiv;
   }
   pdfURL: any
   isPdfDownloadOption: any
-  showPdf(url: any, pdname: string){
+  showPdf(url: any, pdname: string) {
     this.pdfURL = url;
     this.isPdfLoaded = true;
     this.pdname = pdname;
     if (!this.planExpired && this.exportCreditCount != 0) {
       this.isPdfDownloadOption = true;
-    }else{
+    } else {
       this.isPdfDownloadOption = false
     }
 
     //window.open(url, "_blank");
   }
-  
+
   download(): void {
     const parts = this.pdfURL.split('/');
     const lastPart = parts[parts.length - 1];
-  
+
     // Wrap the asynchronous operation in a Promise
     new Promise<void>((resolve) => {
       this.pitchDesk.downloadPdf(this.pdfURL, lastPart);
       resolve(); // Resolve the Promise once the operation is complete
     }).then(() => {
       // After the PDF is downloaded, make the second API call
-      if(this.exportCreditCount != 0){
+      if (this.exportCreditCount != 0) {
         let data = {
           module_id: 6
         };
@@ -241,7 +239,7 @@ else{
           this.getPitchDeskList();
           if (!this.planExpired && this.exportCreditCount != 0) {
             this.isPdfDownloadOption = true;
-          }else{
+          } else {
             this.isPdfDownloadOption = false
           }
         }, error => {
@@ -255,14 +253,14 @@ else{
     });
   }
 
-  goBack(){
+  goBack() {
     this.isPdfLoaded = false;
   }
 
   clearRestriction() {
     this.restrict = false;
   }
-  
+
   upgradePlan(): void {
     this.router.navigate(["/pages/subscriptions"]);
   }
@@ -273,9 +271,9 @@ else{
       let subscription_exists_status = res.subscription_details;
       this.currentPlan = subscription_exists_status.subscription_plan;
       if (data.plan === "expired" || data.plan === 'subscription_expired' ||
-          subscription_exists_status.subscription_plan === 'free_trail' ||
-          subscription_exists_status.subscription_plan === 'Student' ||
-          subscription_exists_status.subscription_plan === 'Career') {
+        subscription_exists_status.subscription_plan === 'free_trail' ||
+        subscription_exists_status.subscription_plan === 'Student' ||
+        subscription_exists_status.subscription_plan === 'Career') {
         this.planExpired = true;
         //this.restrict = true;
       } else {
@@ -286,7 +284,7 @@ else{
     })
   }
 
-  buyCredits(): void{
+  buyCredits(): void {
     if (this.planExpired) {
       this.restrict = true;
       return;
@@ -294,92 +292,92 @@ else{
     this.router.navigate(["/pages/export-credit"]);
   }
 
-  onCheckboxChange(event: any){
+  onCheckboxChange(event: any) {
     const isChecked = (event.target as HTMLInputElement).checked;
     this.selectedCheckboxCount = isChecked ? this.selectedCheckboxCount + 1 : this.selectedCheckboxCount - 1;
 
-    if(isChecked == false){
-      if(this.selectedCheckboxCount){
+    if (isChecked == false) {
+      if (this.selectedCheckboxCount) {
         this.selectAllCheckboxes = false;
       }
-    }else{
-      if(this.pitchDeskList.length == this.selectedCheckboxCount){
+    } else {
+      if (this.pitchDeskList.length == this.selectedCheckboxCount) {
         this.selectAllCheckboxes = true;
       }
     }
   }
 
-  selectAllCheckbox(){
+  selectAllCheckbox() {
     this.selectedCheckboxCount = 0;
     this.selectAllCheckboxes = !this.selectAllCheckboxes;
-    if(this.selectAllCheckboxes){
-      this.pitchDeskList.forEach(item=>{
+    if (this.selectAllCheckboxes) {
+      this.pitchDeskList.forEach(item => {
         item.isChecked = 1;
-        this.selectedCheckboxCount +=1;
+        this.selectedCheckboxCount += 1;
       });
-    }else{
-      this.pitchDeskList.forEach(item=>{
+    } else {
+      this.pitchDeskList.forEach(item => {
         item.isChecked = 0;
       });
     }
   }
 
-  exportData(){
+  exportData() {
     if (this.planExpired) {
       this.restrict = true;
       return;
-    }else if(this.exportCreditCount != 0){
+    } else if (this.exportCreditCount != 0) {
       this.exportDataIds = [];
-      this.pitchDeskList.forEach(item=>{
-        if(item.isChecked == 1){
+      this.pitchDeskList.forEach(item => {
+        if (item.isChecked == 1) {
           this.exportDataIds.push(item.id);
         }
       })
-      if(this.exportDataIds.length == 0){
-        this.toast.add({severity: "error",summary: "error",detail: "Select Some data for export!.",});
+      if (this.exportDataIds.length == 0) {
+        this.toast.add({ severity: "error", summary: "error", detail: "Select Some data for export!.", });
         return;
       }
       if (this.imagewhitlabeldomainname === "dev-student.uniprep.ai" || this.imagewhitlabeldomainname === "uniprep.ai" || this.imagewhitlabeldomainname === "localhost") {
-        if(this.exportCreditCount < this.exportDataIds.length){
-          this.toast.add({severity: "error",summary: "error",detail: "insufficient credits.Please Buy Some Credits.",});
+        if (this.exportCreditCount < this.exportDataIds.length) {
+          this.toast.add({ severity: "error", summary: "error", detail: "insufficient credits.Please Buy Some Credits.", });
           this.router.navigate(["/pages/export-credit"]);
           return;
         }
-      }else{
-        if(this.exportCreditCount < this.exportDataIds.length){
-        this.toast.add({severity: "error",summary: "error",detail: "To download additional data beyond your free credits, please upgrade your plan.",});
-        this.restrict = true;
-        return;
+      } else {
+        if (this.exportCreditCount < this.exportDataIds.length) {
+          this.toast.add({ severity: "error", summary: "error", detail: "To download additional data beyond your free credits, please upgrade your plan.", });
+          this.restrict = true;
+          return;
+        }
       }
-    }
-      let data={
+      let data = {
         module_id: 6,
         export_id: this.exportDataIds
       };
-      this.pitchDesk.exportSelectedData(data).subscribe((response)=>{
+      this.pitchDesk.exportSelectedData(data).subscribe((response) => {
         window.open(response.link, '_blank');
         this.selectAllCheckboxes = false;
         this.selectedCheckboxCount = 0;
         this.getPitchDeskList();
       })
-    }else if(this.exportCreditCount == 0){
+    } else if (this.exportCreditCount == 0) {
       if (this.imagewhitlabeldomainname === "dev-student.uniprep.ai" || this.imagewhitlabeldomainname === "uniprep.ai" || this.imagewhitlabeldomainname === "localhost") {
-        this.toast.add({severity: "error",summary: "error",detail: "Please Buy Some Credits.",});
+        this.toast.add({ severity: "error", summary: "error", detail: "Please Buy Some Credits.", });
         this.router.navigate(["/pages/export-credit"]);
-      }else{
+      } else {
         this.restrict = true;
       }
 
     }
-    
+
   }
 
-  openReport(){
-    
+  openReport() {
+
     let data = {
       isVisible: true,
-      reporttype:7,
-      moduleId:7,
+      reporttype: 7,
+      moduleId: 7,
       report_mode: "other_module"
     };
     this.dataService.openReportWindow(data);

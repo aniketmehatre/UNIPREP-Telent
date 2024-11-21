@@ -161,22 +161,23 @@ export class CompanyListComponent implements OnInit {
     }
   }
   loadCompanyData(isFavourite: number) {
-    let data: any = {
-      company_name: this.filterForm.value.company_name ? this.filterForm.value.company_name : '',
-      country: this.filterForm.value.country ? this.filterForm.value.country : '',
-      head_quarters: this.filterForm.value.head_quarters ? this.filterForm.value.head_quarters : '',
-      // fromdate: this.filterForm.value.fromdate ? this.filterForm.value.fromdate : '',
-      // todate: this.filterForm.value.todate ? this.filterForm.value.todate : '',
-      industry_interested: this.filterForm.value.industry_interested ? this.filterForm.value.industry_interested : '',
-      planname: this.currentPlan ? this.currentPlan : ""
-    }
+    let data: any;
     if(isFavourite==1){
-      data['favourite']=1;
-    }
-    else{
-      data['favourite'] = 0;
-      data['page']=this.page;
-      data['perpage']=this.pageSize;
+      data = {
+        favourite: 1,
+        page: this.page,
+        perpage: this.pageSize
+      }
+    }else{
+      data = {
+        company_name: this.filterForm.value.company_name ? this.filterForm.value.company_name : '',
+        country: this.filterForm.value.country ? this.filterForm.value.country : '',
+        head_quarters: this.filterForm.value.head_quarters ? this.filterForm.value.head_quarters : '',
+        industry_interested: this.filterForm.value.industry_interested ? this.filterForm.value.industry_interested : '',
+        planname: this.currentPlan ? this.currentPlan : "",
+        page: this.page,
+        perpage: this.pageSize
+      }
     }
     this.companyListService.getCompanyList(data).subscribe((response) => {
       this.companyListData = response.data;
