@@ -71,7 +71,7 @@ export class QuizComponent implements OnInit {
     private locationService: LocationService, private ngxService: NgxUiLoaderService, private toast: MessageService,private location: Location) { }
 
   ngOnInit(): void {
-    this.quizModuleName = localStorage.getItem('QuizModuleName')
+
     this.locationService.getImage().subscribe(imageUrl => {
       this.orglogowhitelabel = imageUrl;
     });
@@ -102,6 +102,7 @@ export class QuizComponent implements OnInit {
     this.dataService.countryNameSource.subscribe((data) => {
       this.countryName = data;
     });
+
     switch (this.currentModuleSlug) {
       case 'pre-admission':
         this.currentModuleId = 1;
@@ -175,6 +176,10 @@ export class QuizComponent implements OnInit {
         break;
 
     }
+
+    if (this.currentModuleId != 5 || this.currentModuleId != 10) {
+      localStorage.setItem('QuizModuleName', '')
+    }
     this.responsiveOptions = [
       {
         breakpoint: '1199px',
@@ -244,6 +249,7 @@ export class QuizComponent implements OnInit {
   }
 
   runQuiz() {
+    this.quizModuleName = localStorage.getItem('QuizModuleName')
     this.isInstructionVisible = false;
     this.isStartQuiz = true;
     let cName = "";
