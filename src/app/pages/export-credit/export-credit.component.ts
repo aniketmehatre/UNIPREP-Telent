@@ -5,6 +5,7 @@ import { environment } from '@env/environment';
 import { WindowRefService } from '../subscription/window-ref.service';
 import { Router } from '@angular/router';
 import { HttpClient } from '@angular/common/http';
+import { Location } from '@angular/common';
 
 
 @Component({
@@ -23,13 +24,24 @@ export class ExportCreditComponent implements OnInit {
   perRupeePrice: number = 0;
   currentCurrencySymbol:string = "₹";
 
-  constructor(private exportcreditservice:ExportCreditService, private toastr:MessageService, private winRef: WindowRefService, private router: Router, private http: HttpClient) { }
+  constructor(
+    private exportcreditservice:ExportCreditService, 
+    private toastr:MessageService, 
+    private winRef: WindowRefService, 
+    private router: Router, 
+    private http: HttpClient,
+    private _location: Location
+  ) { }
 
   ngOnInit(): void {
     this.getUserLocation();
     //  this.loadModuleList();
   }
   
+  goBack(){
+    this._location.back();
+  }
+
   getUserLocation(){
     if (navigator.geolocation) {
       navigator.geolocation.getCurrentPosition(
