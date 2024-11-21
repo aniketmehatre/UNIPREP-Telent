@@ -356,6 +356,8 @@ export class JobListingComponent implements OnInit {
             this.jobService.filter(req).subscribe(
                 (data: any) => {
                     if(data.results.length == 0){
+                        this.jobs = []
+                        this.count = 0
                         this.isShowNoResultFound = true;
                     }else{
                         this.jobs = data.results

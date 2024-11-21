@@ -53,13 +53,13 @@ export class JobSearchComponent implements OnInit {
             return;
           }
         this.currentEndpoint = menuName
-        if (menuName == "job-search") {
+        if (this.currentEndpoint == "job-search" || this.currentEndpoint == 'job-listing') {
             if (this.getFilterData()) {
                 this.router.navigate(['/pages/job-portal/job-listing']);
                 return
             }
             this.router.navigate(['/pages/job-portal/job-search']);
-        } else if (menuName == "job-tracker") {
+        } else if (this.currentEndpoint == "job-tracker") {
             this.router.navigate(['/pages/job-portal/job-tracker']);
         }
         // else if(menuName == "cv-builder"){
