@@ -60,47 +60,47 @@ export class JobToolComponent implements OnInit {
       this.hideTitleForPreviewPage = false;
       this.howItWorksVideo = 'not_required';
     } else if (this.currentRoute.includes("cost-of-living")) {
-      this.title = "Cost of living";
+      this.title = "Career Tools -> Cost of living";
       this.tooltip = "Compare the cost of living across different cities and countries to plan your financial needs."
       this.howItWorksVideo = 'https://www.youtube.com/embed/P9YZmCEeR4M?si=hR6GnvMgyKyyLuMr';
     } else if (this.currentRoute.includes("cv-builder")) {
-      this.title = "CV Builder";
+      this.title = "Career Tools -> CV Builder";
       this.howItWorksVideo = 'https://www.youtube.com/embed/MLRlnXF4Zwg?si=y6g4u7JM4LQeuSS5';
     } else if (this.currentRoute.includes("salary-converter")) {
-      this.title = "Global Salary Converter";
+      this.title = "Career Tools -> Global Salary Converter";
       this.tooltip = "Convert and compare salaries globally to understand the value of potential job offers."
       this.howItWorksVideo = 'https://www.youtube.com/embed/yAhU2DwyXYs?si=0Uhk2fFNwWw6d013';
     } else if (this.currentRoute.includes("company-list")) {
-      this.title = "company-list";
+      this.title = "Career Tools -> company-list";
       this.tooltip = "Access a curated list of companies by industry and location to target your job search effectively."
       this.howItWorksVideo = 'https://www.youtube.com/embed/uihpCF4rvB4?si=h8CASyoCT5RaP6Ko';
     } else if (this.currentRoute.includes("coverletter-builder")) {
-      this.title = "Coverletter-Builder";
+      this.title = "Career Tools -> Coverletter-Builder";
       this.tooltip = ""
       this.howItWorksVideo = 'https://www.youtube.com/embed/Sv1gVFIgFZ0?si=hHmclRvvE2ZXcEm7';
     } else if (this.currentRoute.includes("career-planner")) {
-      this.title = "career-planner";
+      this.title = "Career Tools -> career-planner";
       this.tooltip = ""
       this.howItWorksVideo = 'https://www.youtube.com/embed/ymhI18TJepU?si=w5-rDPvblQzpQ_hw';
     }
     else if (this.currentRoute.includes("psychometric")) {
-      this.title = "Psychometric Test";
+      this.title = "Career Tools -> Psychometric Test";
       this.tooltip = "Evaluate your aptitudes and personality traits with tests to find careers that best suit your profile."
       this.hideTitleForPreviewPage = false;
       this.howItWorksVideo = 'https://www.youtube.com/embed/d53Ro1mmJ7Q?si=vVrt_KI4eHBI3_kw';
     } else if (this.currentRoute.includes("personality")) {
-      this.title = "Personality Test";
+      this.title = "Career Tools -> Personality Test";
       this.tooltip = "Discover more about your personality and how it aligns with various career paths."
       this.hideTitleForPreviewPage = false;
       this.howItWorksVideo = 'https://www.youtube.com/embed/SIbgqYiwKqg?si=lTCVsuBM_izNnXIo';
     } else if (this.currentRoute.includes("career-growth-checker")) {
-      this.title = "Career Growth Checker";
+      this.title = "Career Tools -> Career Growth Checker";
       this.tooltip = "Track your professional development and set goals with our career progression tool."
       this.hideTitleForPreviewPage = false;
       this.howItWorksVideo = 'https://www.youtube.com/embed/hwH7xDhaE4c?si=gZG11AMS2BxCYAY1';
     } 
     else {
-      this.title = "Employer Test";
+      this.title = "Career Tools -> Employer Test";
       this.tooltip = "Prepare for potential employer assessments with practice tests and study guides."
       this.hideTitleForPreviewPage = false;
       this.howItWorksVideo = 'https://www.youtube.com/embed/DM2uchyaIYM?si=-pZCduznfOYgNdH5';

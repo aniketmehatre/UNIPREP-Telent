@@ -66,10 +66,12 @@ export class QuizComponent implements OnInit {
   orgnamewhitlabel: any;
   orglogowhitelabel: any;
   timeover:number=0;
+  quizModuleName: any
   constructor(private moduleListService: ModuleServiceService, private authService: AuthService, private router: Router, private dataService: DataService,
     private locationService: LocationService, private ngxService: NgxUiLoaderService, private toast: MessageService,private location: Location) { }
 
   ngOnInit(): void {
+    this.quizModuleName = localStorage.getItem('QuizModuleName')
     this.locationService.getImage().subscribe(imageUrl => {
       this.orglogowhitelabel = imageUrl;
     });

@@ -5,6 +5,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { PageFacadeService } from '../page-facade.service';
 import { AuthService } from 'src/app/Auth/auth.service';
 import { LocationService } from 'src/app/location.service';
+import {MessageService} from 'primeng/api';
 
 @Component({
   selector: 'uni-advisor',
@@ -26,13 +27,16 @@ export class AdvisorComponent implements OnInit {
   responseType: string;
   askExpertResponse: number = 0;
   requestButton: string;
+  smallquestion: boolean = true;
+
   planExpired!: boolean;
   restrict: boolean = false;
   currentPlan: string = "";
-  imagewhitlabeldomainname:any;
-  orgnamewhitlabel:any;
-  orglogowhitelabel:any;
-  ehitlabelIsShow:boolean=true;
+  imagewhitlabeldomainname: any;
+  orgnamewhitlabel: any;
+  orglogowhitelabel: any;
+  ehitlabelIsShow: boolean = true;
+  isQuestionEmpty: boolean = false;
   private scrollToBottom(): void {
     try {
       this.chatContainer.nativeElement.scrollTop = this.chatContainer.nativeElement.scrollHeight;
@@ -42,10 +46,10 @@ export class AdvisorComponent implements OnInit {
   }
   constructor(private service: AdvisorService, private ngxService: NgxUiLoaderService,
     private route: ActivatedRoute, private pageFacade: PageFacadeService, private authService: AuthService,
-    private locationService: LocationService,  private router: Router,
+    private locationService: LocationService, private router: Router,private messageService: MessageService
   ) { }
 
-  ngOnInit(): void {
+  ngOnInit() {
     this.checkplanExpire();
     this.locationService.getImage().subscribe(imageUrl => {
       this.orglogowhitelabel = imageUrl;
@@ -53,15 +57,13 @@ export class AdvisorComponent implements OnInit {
     this.locationService.getOrgName().subscribe(orgname => {
       this.orgnamewhitlabel = orgname;
     });
-    this.imagewhitlabeldomainname=window.location.hostname;
+    this.imagewhitlabeldomainname = window.location.hostname;
     if (this.imagewhitlabeldomainname === "dev-student.uniprep.ai" || this.imagewhitlabeldomainname === "uniprep.ai" || this.imagewhitlabeldomainname === "localhost") {
-      this.ehitlabelIsShow=true;
-    }else{
-      this.ehitlabelIsShow=false;
+      this.ehitlabelIsShow = true;
+    } else {
+      this.ehitlabelIsShow = false;
     }
-    if (this.route.snapshot.paramMap.get('question') != null) {
-      this.userQuestion = this.route.snapshot.paramMap.get('question');
-    }
+
     this.questions = [
       { question: "Must visit places in Milan." },
       { question: "Top 10 fully funded scholarships for international students in the UK." },
@@ -75,77 +77,71 @@ export class AdvisorComponent implements OnInit {
     ]
     this.responseType = "Ask AI Advisor"
     this.requestButton = "Ask an Expert!"
+    this.lengthCheck();
   }
   pquestion: any | null;
 
-  getAns() {
-    console.log("hi");
-    
-    if (this.planExpired) {
-      this.restrict = true;
-      return;
-    }
-    if (this.askExpertResponse == 0) {
-      this.isQuestionAsked = true;
-      this.showSkeleton = true;
-      this.isQuestionNotAsked = false;
-      // alert(this.userQuestion);
-      this.ngxService.startBackground();
-      var data = {
-        question: this.userQuestion
-      }
-      this.service.getAnswer(data).subscribe(response => {
-        this.showSkeleton = false;
-        this.chatdata = response;
-        // this.question = response.question;
-        // this.answer = response.answer;
-        this.ngxService.stopBackground();
-        this.userQuestion = '';
-        this.scrollToBottom();
-      });
+  lengthCheck(){
+    if (this.userQuestion.length < 10 || this.userQuestion.length == 0) {
+      this.smallquestion = true;
     } else {
-      this.isQuestionAsked = true;
-      this.showSkeleton = true;
-      this.isQuestionNotAsked = false;
-      // alert(this.userQuestion);
-      this.ngxService.startBackground();
-      var data = {
-        question: this.userQuestion
-      }
-      this.service.getTeamAnswer(data).subscribe(response => {
-        this.showSkeleton = false;
-        this.chatdata = response;
-        // this.question = response.question;
-        // this.answer = response.answer;
-        this.ngxService.stopBackground();
-        this.userQuestion = '';
-        this.scrollToBottom();
-      });
+      this.smallquestion = false;
+    }
+  }
+  getAns(){
+    if (this.userQuestion && this.userQuestion.trim() === '') {
+      return
+    }
+      this.isQuestionEmpty = true;
+      if (this.askExpertResponse == 0) {
+        this.isQuestionAsked = true;
+        this.showSkeleton = true;
+        this.isQuestionNotAsked = false;
+        this.ngxService.startBackground();
+        var data = {
+          question: this.userQuestion
+        }
+        this.service.getAnswer(data).subscribe(response => {
+          this.showSkeleton = false;
+          this.chatdata = response;
+          this.ngxService.stopBackground();
+          this.userQuestion = '';
+          this.scrollToBottom();
+        });
+      } else {
+        this.isQuestionAsked = true;
+        this.showSkeleton = true;
+        this.isQuestionNotAsked = false;
+
+        this.ngxService.startBackground();
+        var data = {
+          question: this.userQuestion
+        }
+        this.service.getTeamAnswer(data).subscribe(response => {
+          this.showSkeleton = false;
+          this.chatdata = response;
+          this.ngxService.stopBackground();
+          this.userQuestion = '';
+          this.scrollToBottom();
+          // alert("Thank you , Our team will get back to you in next 8 working hours");
+          this.messageService.add({ severity:'success', summary: 'Success', detail: 'Thank you , Our team will get back to you in next 8 working hours'});
+          console.log("this ran");
+        });
+
     }
   }
 
   triggerSample(sample: any) {
     this.userQuestion = sample;
-    // this.isQuestionAsked = true;
-    // this.showSkeleton= true;
-    // this.isQuestionNotAsked = false;
-    // this.ngxService.startBackground();
-    // alert(this.userQuestion);
-    // var data = {
-    //   question : sample
-    // }
-    // this.service.getAnswer(data).subscribe(response => {
-    //   this.showSkeleton= false;
-    //   this.chatdata = response;
-
-    //   // this.question = response.question;
-    //   // this.answer = response.answer;
-    //   this.ngxService.stopBackground();
-    // });
+    this.smallquestion = false;
   }
 
   askExpert() {
-    //alert("Our team will get back to you shortly");
+    this.smallquestion = true;
+    // if (this.userQuestion && this.userQuestion.trim() === '') {
+    //   return
+    // }
+      
     if (this.askExpertResponse == 0) {
       this.responseType = " Ask Expert";
       this.requestButton = "Ask AI Advisor";
@@ -160,23 +156,20 @@ export class AdvisorComponent implements OnInit {
   openVideoPopup(videoLink: string) {
     this.pageFacade.openHowitWorksVideoPopup(videoLink);
   }
-  checkplanExpire(): void {
+  checkplanExpire() {
     this.authService.getNewUserTimeLeft().subscribe((res) => {
       let data = res.time_left;
       let subscription_exists_status = res.subscription_details;
       this.currentPlan = subscription_exists_status.subscription_plan;
       if (data.plan === "expired" || data.plan === 'subscription_expired' ||
-          subscription_exists_status.subscription_plan === 'free_trail') {
+        subscription_exists_status.subscription_plan === 'free_trail') {
         this.planExpired = true;
-        //this.restrict = true;
       } else {
         this.planExpired = false;
-        //this.restrict = false;
       }
-      // this.loadInvestorData(0);  
     })
   }
-  upgradePlan(): void {
+  upgradePlan() {
     this.router.navigate(["/pages/subscriptions"]);
   }
   clearRestriction() {

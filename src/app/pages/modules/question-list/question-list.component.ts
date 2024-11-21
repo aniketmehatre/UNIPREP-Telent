@@ -408,11 +408,21 @@ export class QuestionListComponent implements OnInit {
     this.authService.getNewUserTimeLeft().subscribe((res) => {
       let data = res.time_left;
       let subscription_exists_status = res.subscription_details;
-      if (data.plan === "expired" || data.plan === 'subscription_expired') {
-        this.planExpired = true;
-      } else {
-        this.planExpired = false;
+    
+      if (this.currentModuleId == 8 || this.currentModuleId == 10 ) {   //learning hub restriction
+        if (data.plan === "expired" || data.plan === 'subscription_expired' ||   subscription_exists_status.subscription_plan=="Student") {
+          this.planExpired = true;
+        } else {
+          this.planExpired = false;
+        }
       }
+      else{
+         if (data.plan === "expired" || data.plan === 'subscription_expired') {
+            this.planExpired = true;
+          } else {
+            this.planExpired = false;
+          }
+        }
     })
   }
   goBack() {

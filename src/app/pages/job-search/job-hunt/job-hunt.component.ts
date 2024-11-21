@@ -5,7 +5,7 @@ import {DataService} from 'src/app/data.service';
 import {MessageService} from "primeng/api";
 import {City} from "../../../@Models/cost-of-living";
 import {JobSearchService} from "../job-search.service";
-
+import { AuthService } from "src/app/Auth/auth.service";
 @Component({
   selector: 'uni-job-hunt',
   templateUrl: './job-hunt.component.html',
@@ -20,7 +20,7 @@ export class JobHuntComponent implements OnInit {
   filteredCity: any = [];
   formFields: any = [];
 
-  constructor(private router: Router, private dataService: DataService, private toastr: MessageService,
+  constructor(private router: Router, private authService: AuthService, private dataService: DataService, private toastr: MessageService,
               private jobService: JobSearchService) {
     this.countryCodes = [
       { "name": "Austria", "code": "at", "flag": "https://flagcdn.com/at.svg" },
@@ -50,7 +50,12 @@ export class JobHuntComponent implements OnInit {
     });
 
   }
-
+  planExpired: boolean = false;
+  restrict: boolean = false;
+  ehitlabelIsShow: boolean = true;
+  orgnamewhitlabel: any;
+  orglogowhitelabel: any;
+  imagewhitlabeldomainname: any
   ngOnInit(): void {
     // this.jobService.getCities().subscribe((res: City[]) => {
       
@@ -91,6 +96,13 @@ export class JobHuntComponent implements OnInit {
       this.cities = LocationsList;
     });
     this.getJobRoles();
+    this.checkplanExpire();
+    this.imagewhitlabeldomainname = window.location.hostname;
+    if (this.imagewhitlabeldomainname === "dev-student.uniprep.ai" || this.imagewhitlabeldomainname === "uniprep.ai" || this.imagewhitlabeldomainname === "localhost") {
+      this.ehitlabelIsShow = true;
+    } else {
+      this.ehitlabelIsShow = false;
+    }
   }
 
   getJobRoles(){
@@ -105,6 +117,10 @@ export class JobHuntComponent implements OnInit {
   }
 
   onSubmit() {
+    if (this.planExpired) {
+      this.restrict = true;
+      return;
+    }
     if (this.fG.valid) {
       this.dataService.changeData(this.formFields)
       this.saveFilterData(this.formFields)
@@ -187,5 +203,22 @@ export class JobHuntComponent implements OnInit {
     });
     
     this.filteredCity = [];
+  }
+  checkplanExpire(): void {
+    this.authService.getNewUserTimeLeft().subscribe((res) => {
+      let data = res.time_left;
+      let subscription_exists_status = res.subscription_details;
+      if (data.plan === "expired" || data.plan === 'subscription_expired' || subscription_exists_status.subscription_plan=="Student") {
+        this.planExpired = true;
+      } else {
+        this.planExpired = false;
+      }
+    })
+  }
+  upgradePlan(): void {
+    this.router.navigate(["/pages/subscriptions"]);
+  }
+  clearRestriction() {
+    this.restrict = false;
   }
 }
