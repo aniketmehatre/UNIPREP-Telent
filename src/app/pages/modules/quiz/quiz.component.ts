@@ -114,6 +114,7 @@ export class QuizComponent implements OnInit {
         this.upgradePlanMsg = 'Upgrade your plan now to gain instant access.';
         this.aboutModule = 'Explore a vast database of Q&A about:',
         this.moduleDetails = 'Scholarships, document checklist, Education loan, letter of Recommendation and many more!'
+        localStorage.setItem('QuizModuleName', '')
         break;
       case 'travel-and-tourism':
         this.currentModuleId = 7;
@@ -125,6 +126,7 @@ export class QuizComponent implements OnInit {
         this.upgradePlanMsg = 'Upgrade your plan now to gain instant access.';
         this.aboutModule = 'Explore a vast database of Q&A about:',
         this.moduleDetails = 'Visa, departure, healthcare, tuition fees and many more!'
+        localStorage.setItem('QuizModuleName', '')
         break;
       case 'post-admission':
         this.currentModuleId = 3;
@@ -136,6 +138,7 @@ export class QuizComponent implements OnInit {
         this.upgradePlanMsg = 'Upgrade your plan now to gain instant access.';
         this.aboutModule = 'Post-admission offers information about:',
         this.moduleDetails = ' Arrival, student discounts, banking, full time jobs, post study work and many more!'
+        localStorage.setItem('QuizModuleName', '')
         break;
       case 'career-hub':
         this.currentModuleId = 4;
@@ -147,6 +150,7 @@ export class QuizComponent implements OnInit {
         this.upgradePlanMsg = 'Upgrade your plan now to gain instant access.';
         this.aboutModule = 'Explore a vast database of Q&A about:',
         this.moduleDetails = ' Arrival, student discounts, banking, full time jobs, post study work and many more!'
+        localStorage.setItem('QuizModuleName', '')
         break;
       case 'university':
         this.universityidforquiz = localStorage.getItem('universityidforquiz')
@@ -173,12 +177,9 @@ export class QuizComponent implements OnInit {
         this.aboutModule = 'Explore a vast database of Q&A about:',
         this.moduleDetails = 'Festivals, events, currency, budget, housing and many more!',
         this.selectedModule = 'life-at-country'
+        localStorage.setItem('QuizModuleName', '')
         break;
 
-    }
-
-    if (this.currentModuleId != 5 || this.currentModuleId != 10) {
-      localStorage.setItem('QuizModuleName', '')
     }
     this.responsiveOptions = [
       {
