@@ -380,6 +380,13 @@ border: none;
       width: 46% !important;
   }
 }
+.universityicon
+{
+  color:var(--uniprep-secondary);
+}
+.primary-color{
+  color: var(--uniprep-primary);
+}
 
 :host ::ng-deep .p-carousel .p-carousel-indicators .p-carousel-indicator button {
   width: 10px;
