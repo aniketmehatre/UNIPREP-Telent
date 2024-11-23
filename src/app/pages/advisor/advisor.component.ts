@@ -88,6 +88,20 @@ export class AdvisorComponent implements OnInit {
       this.smallquestion = false;
     }
   }
+
+  getChatHistory(){
+    // alert("called");
+    this.isQuestionAsked = true;
+    this.showSkeleton = true;
+    this.isQuestionNotAsked = false;
+    this.service.getChatHistory().subscribe(response => {
+      this.showSkeleton = false;
+      this.chatdata = response;
+      this.ngxService.stopBackground();
+      this.userQuestion = '';
+      this.scrollToBottom();
+    });
+  }
   getAns(){
     if (this.userQuestion && this.userQuestion.trim() === '') {
       return

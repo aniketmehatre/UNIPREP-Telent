@@ -23,4 +23,11 @@ export class AdvisorService {
       headers: headers,
     });
   }
+
+  getChatHistory(){
+    const headers = new HttpHeaders().set("Accept", "application/json");
+    return this.http.post<any>(environment.ApiUrl + "/chatHistory" ,{
+      headers: headers,
+    });
+  }
 }
