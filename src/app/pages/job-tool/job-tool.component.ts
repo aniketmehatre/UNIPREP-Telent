@@ -1,3 +1,4 @@
+import { EmployerGlobalService } from './employer-global.service';
 import { Component, OnInit } from '@angular/core';
 import { NavigationEnd, Router } from '@angular/router';
 import { PageFacadeService } from '../page-facade.service';
@@ -21,7 +22,7 @@ export class JobToolComponent implements OnInit {
   howItWorksVideo: string = "";
 
   constructor(
-    private router: Router,
+    private router: Router, private employerGlobalService: EmployerGlobalService,
     private location: Location,
     private resumeService: CourseListService,
     private cvBuilderService: CvBuilderService,
@@ -116,7 +117,9 @@ export class JobToolComponent implements OnInit {
   goBack() {
     if (window.history.length > 1) {
       this.location.back()
+      this.employerGlobalService.removeItem(this.employerGlobalService.getItems().length - 1)
     } else {
+      this.employerGlobalService.removeItem(this.employerGlobalService.getItems().length - 1)
       this.router.navigate(['/pages/job-tool/career-tool'])
     }
   }

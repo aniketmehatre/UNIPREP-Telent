@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { TestQuizService } from '../test-quiz.service';
 import { ActivatedRoute, Params, Router } from '@angular/router';
 import { CategoryResponse, GetCategoriesPayload } from 'src/app/@Models/career-tool-category.model';
+import { EmployerGlobalService } from '../employer-global.service';
 
 @Component({
   selector: 'uni-career-category-list',
@@ -18,13 +19,14 @@ export class CareerCategoryListComponent implements OnInit {
 
   constructor(
     private testQuizService: TestQuizService,
-    private router: Router,
+    private router: Router, private employerGlobalService: EmployerGlobalService,
     private activatedRoute: ActivatedRoute
   ) {
     localStorage.setItem('MainTitleCareerTool', "");
   }
 
   ngOnInit(): void {
+    this.employerGlobalService.clearAll();
     this.activatedRoute.params.subscribe((params: Params) => {
         localStorage.setItem('MainTitleCareerTool', "");
       this.module_id = params['id'];
@@ -58,6 +60,8 @@ export class CareerCategoryListComponent implements OnInit {
         moduleUrl = "employer-sub-test";
         break;
     }
+
+    this.employerGlobalService.addItem(category.category);
     localStorage.setItem('MainTitleCareerTool', category.category)
     if (this.module_id != '13') {
       this.router.navigate([`/pages/job-tool/quiz/${moduleUrl}/list`, category_id]);

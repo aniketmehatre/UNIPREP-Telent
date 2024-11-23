@@ -1,3 +1,4 @@
+import { EmployerGlobalService } from './../../job-tool/employer-global.service';
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Params, Router } from "@angular/router";
 import { Observable, Subscription, interval, takeWhile } from "rxjs";
@@ -63,8 +64,11 @@ export class LearninghubquizComponent implements OnInit {
   imagewhitlabeldomainname: any
   orgnamewhitlabel: any;
   orglogowhitelabel: any;
+  quizSubModuleName: any
+  mainTitle: any
   constructor(private moduleListService: ModuleServiceService, private authService: AuthService, private router: Router, private dataService: DataService,
-    private location: Location, private locationService: LocationService, private ngxService: NgxUiLoaderService, private toast: MessageService, private activatedRoute: ActivatedRoute) { }
+    private location: Location, private locationService: LocationService, private ngxService: NgxUiLoaderService,
+     private toast: MessageService, private activatedRoute: ActivatedRoute, private employerGlobalService: EmployerGlobalService) { }
 
   ngOnInit(): void {
     this.locationService.getImage().subscribe(imageUrl => {
@@ -104,6 +108,7 @@ export class LearninghubquizComponent implements OnInit {
         this.currentModuleName = 'Psychometric Test';
         this.currentApiSlug = 'SubmoduleListForStudents';
         this.selectedModule = 'pshychometric-test'
+        this.mainTitle = this.getFormattedValues();;
         break;
       case 'personality':
         this.universityidforquiz = null;
@@ -111,13 +116,15 @@ export class LearninghubquizComponent implements OnInit {
         this.currentModuleName = 'Personality Test';
         this.currentApiSlug = 'SubmoduleListForStudents';
         this.selectedModule = 'personality-test'
+        this.mainTitle = localStorage.getItem('MainTitleCareerTool');
         break;
       case 'employer':
         this.universityidforquiz = null;
         this.currentModuleId = 13;
         this.currentModuleName = 'Employer Test';
         this.currentApiSlug = 'SubmoduleListForStudents';
-        this.selectedModule = 'employer-test'
+        this.selectedModule = 'employer-test';
+        this.mainTitle = this.getFormattedValues();
         break;
       case 'skill-mastery':
         this.universityidforquiz = localStorage.getItem('skillmasteryquizsubmoduleid');
@@ -125,6 +132,7 @@ export class LearninghubquizComponent implements OnInit {
         this.currentModuleName = 'Skill Mastery';
         this.currentApiSlug = 'SubmoduleListForStudents';
         this.selectedModule = 'skill-mastery'
+        this.mainTitle = localStorage.getItem('MainTitleCareerTool');
         break;
       default:
         this.currentModuleId = 8;
@@ -135,6 +143,7 @@ export class LearninghubquizComponent implements OnInit {
           this.upgradePlanMsg = 'Upgrade your plan now to gain instant access.';
         this.aboutModule = 'Explore a vast database of Q&A about:',
           this.moduleDetails = ' Arrival, student discounts, banking, full time jobs, post study work and many more!'
+          this.mainTitle = localStorage.getItem('learningHubQuizBreadCrumb')
         break;
     }
     this.responsiveOptions = [
@@ -168,6 +177,10 @@ export class LearninghubquizComponent implements OnInit {
         this.isInstructionVisible = false;
       }
     });
+  }
+
+  getFormattedValues(): string {
+    return this.employerGlobalService.getItems().join(' -> ');
   }
 
   upgradePlan(): void {

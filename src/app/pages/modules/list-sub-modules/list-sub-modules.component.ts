@@ -682,7 +682,7 @@ export class ListSubModulesComponent implements OnInit {
         this.filteredData = [];
     }
 
-    takeMeToQuestion(data: any) {             
+    takeMeToQuestion(data: any) {                     
         this.router.navigate([`/pages/modules/learning-hub/question-list/${data.submodule_id}`]);
     }
 
