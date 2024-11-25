@@ -80,6 +80,9 @@ export class ListSubModulesComponent implements OnInit {
             //this.isSkeletonVisible = true
             this.dataService.countryNameSource.subscribe((data) => {
                 this.countryName = data;
+                if(data && this.currentModuleId == 6){
+                    this.currentModuleName = 'Life In ' + this.countryName;
+                }
             });
         });
         this.responsiveOptions = [
@@ -154,9 +157,6 @@ export class ListSubModulesComponent implements OnInit {
     init() {
         this.currentCountryId = Number(localStorage.getItem('countryId'));
         this.currentModuleSlug = this.router.url.split('/').pop();
-        this.dataService.countryNameSource.subscribe((data) => {
-            this.countryName = data;
-        });
 
         switch (this.currentModuleSlug) {
             case 'pre-admission':
@@ -253,7 +253,7 @@ export class ListSubModulesComponent implements OnInit {
                 break;
             default:
                 this.currentModuleId = 6;
-                this.currentModuleName = 'Life At ' + this.countryName;
+                this.currentModuleName = 'Life In ' + this.countryName;
                 this.currentApiSlug = 'SubmoduleListForStudents';
                 this.infoMessage = 'Upgrade to access information about life in your chosen destination',
                     this.unlockMessage = 'Unlock the power of success with our exclusive destination',

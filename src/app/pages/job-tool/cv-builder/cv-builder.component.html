@@ -624,7 +624,8 @@
 														<div class="col-md-6">
 															<div class="form-group">
 																<div class="mb-3">
-																	<input class="w-100" type="text" placeholder="Start Year" formControlName="project_start_name" pInputText />
+																	<p-dropdown styleClass="w-100" [options]="yearsList" optionValue="year" placeholder="Start Year" (onChange)="projectYearChange(i)" filterBy="year" [filter]="true" formControlName="project_start_name" optionLabel="year"></p-dropdown>
+																	<!-- <input class="w-100" type="text" placeholder="Start Year" formControlName="project_start_name" pInputText /> -->
 																	<div *ngIf="project.get('project_start_name')?.invalid && project.get('project_start_name')?.touched && submitted" class="text-danger text-xs">
 																		<div>Start date required.</div>
 																	</div>
@@ -634,12 +635,16 @@
 														<div class="col-md-6">
 															<div class="form-group">
 																<div class="mb-3">
-																	<input class="w-100" type="text" placeholder="End Year" formControlName="project_end_name" pInputText />
+																	<p-dropdown styleClass="w-100" [options]="yearsList" optionValue="year" placeholder="Start Year" (onChange)="projectYearChange(i)" filterBy="year" [filter]="true" formControlName="project_end_name" optionLabel="year"></p-dropdown>
+																	<!-- <input class="w-100" type="text" placeholder="End Year" formControlName="project_end_name" pInputText /> -->
 																	<div *ngIf="project.get('project_end_name')?.invalid && project.get('project_end_name')?.touched && submitted" class="text-danger text-xs">
 																		<div>End date required.</div>
 																	</div>
 																</div>
 															</div>
+														</div>
+														<div *ngIf="project.get('project_end_name')?.touched" class="text-danger text-xs">
+															<div *ngIf="project.get('project_end_name')?.hasError('invalidEndDate')" style="margin-left: 10px">End date cannot be earlier than start date.</div>
 														</div>
 													</div>
 												</div>

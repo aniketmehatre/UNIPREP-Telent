@@ -285,6 +285,9 @@ export class DashboardComponent implements OnInit, OnChanges {
             case "Language Hub":
                 moduleName = "language-hub"
                 break;
+            case "K12":
+                moduleName = "k12"
+                break;
         }
         if(moduleName == 'language-hub'){
             this.router.navigate([`pages/${moduleName}/`]);
