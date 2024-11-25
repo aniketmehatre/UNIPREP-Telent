@@ -514,7 +514,9 @@ export class ListSubModulesComponent implements OnInit {
         //   this.restrict=true;
         //   return;
         // }
-
+        if(this.currentModuleId == 5){
+            localStorage.setItem('QuizModuleName', submodule.submodule_name)
+        }
         if (this.currentModuleId == 14) {
             if (submodule.submodule_name) {
                 this.currentModuleSlug = "k12-category"
@@ -680,8 +682,7 @@ export class ListSubModulesComponent implements OnInit {
         this.filteredData = [];
     }
 
-    takeMeToQuestion(data: any) {      
-       
+    takeMeToQuestion(data: any) {                     
         this.router.navigate([`/pages/modules/learning-hub/question-list/${data.submodule_id}`]);
     }
 

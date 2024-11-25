@@ -1,3 +1,4 @@
+import { LanguageArrayGlobalService } from './../../language-hub/language-array-global.service';
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from "@angular/router";
 import { Observable, Subscription, interval, takeWhile } from "rxjs";
@@ -63,8 +64,14 @@ export class LanguagetypequizComponent implements OnInit {
   imagewhitlabeldomainname: any
   orgnamewhitlabel: any;
   orglogowhitelabel: any;
-  constructor(private moduleListService: ModuleServiceService, private authService: AuthService, private router: Router, private dataService: DataService,private location: Location,
-    private locationService: LocationService, private ngxService: NgxUiLoaderService, private toast: MessageService) { }
+  constructor(private moduleListService: ModuleServiceService, private authService: AuthService,
+     private router: Router, private dataService: DataService,private location: Location,
+    private locationService: LocationService, private ngxService: NgxUiLoaderService,
+     private toast: MessageService, private lAGS: LanguageArrayGlobalService) { }
+
+     getFormattedValues(): string {
+      return this.lAGS.getItems().join(' -> ');
+  }
 
   ngOnInit(): void {
     this.locationService.getImage().subscribe(imageUrl => {

@@ -66,10 +66,12 @@ export class QuizComponent implements OnInit {
   orgnamewhitlabel: any;
   orglogowhitelabel: any;
   timeover:number=0;
+  quizModuleName: any
   constructor(private moduleListService: ModuleServiceService, private authService: AuthService, private router: Router, private dataService: DataService,
     private locationService: LocationService, private ngxService: NgxUiLoaderService, private toast: MessageService,private location: Location) { }
 
   ngOnInit(): void {
+
     this.locationService.getImage().subscribe(imageUrl => {
       this.orglogowhitelabel = imageUrl;
     });
@@ -100,6 +102,7 @@ export class QuizComponent implements OnInit {
     this.dataService.countryNameSource.subscribe((data) => {
       this.countryName = data;
     });
+
     switch (this.currentModuleSlug) {
       case 'pre-admission':
         this.currentModuleId = 1;
@@ -111,6 +114,7 @@ export class QuizComponent implements OnInit {
         this.upgradePlanMsg = 'Upgrade your plan now to gain instant access.';
         this.aboutModule = 'Explore a vast database of Q&A about:',
         this.moduleDetails = 'Scholarships, document checklist, Education loan, letter of Recommendation and many more!'
+        localStorage.setItem('QuizModuleName', '')
         break;
       case 'travel-and-tourism':
         this.currentModuleId = 7;
@@ -122,6 +126,7 @@ export class QuizComponent implements OnInit {
         this.upgradePlanMsg = 'Upgrade your plan now to gain instant access.';
         this.aboutModule = 'Explore a vast database of Q&A about:',
         this.moduleDetails = 'Visa, departure, healthcare, tuition fees and many more!'
+        localStorage.setItem('QuizModuleName', '')
         break;
       case 'post-admission':
         this.currentModuleId = 3;
@@ -133,6 +138,7 @@ export class QuizComponent implements OnInit {
         this.upgradePlanMsg = 'Upgrade your plan now to gain instant access.';
         this.aboutModule = 'Post-admission offers information about:',
         this.moduleDetails = ' Arrival, student discounts, banking, full time jobs, post study work and many more!'
+        localStorage.setItem('QuizModuleName', '')
         break;
       case 'career-hub':
         this.currentModuleId = 4;
@@ -144,6 +150,7 @@ export class QuizComponent implements OnInit {
         this.upgradePlanMsg = 'Upgrade your plan now to gain instant access.';
         this.aboutModule = 'Explore a vast database of Q&A about:',
         this.moduleDetails = ' Arrival, student discounts, banking, full time jobs, post study work and many more!'
+        localStorage.setItem('QuizModuleName', '')
         break;
       case 'university':
         this.universityidforquiz = localStorage.getItem('universityidforquiz')
@@ -170,6 +177,7 @@ export class QuizComponent implements OnInit {
         this.aboutModule = 'Explore a vast database of Q&A about:',
         this.moduleDetails = 'Festivals, events, currency, budget, housing and many more!',
         this.selectedModule = 'life-at-country'
+        localStorage.setItem('QuizModuleName', '')
         break;
 
     }
@@ -242,6 +250,7 @@ export class QuizComponent implements OnInit {
   }
 
   runQuiz() {
+    this.quizModuleName = localStorage.getItem('QuizModuleName')
     this.isInstructionVisible = false;
     this.isStartQuiz = true;
     let cName = "";

@@ -4,34 +4,39 @@
             <div class="container-fluid">
                 <div class="desktopuserdetails">
                     <div class="row">
-                            <div class="col-9">
-                                <div class="row">
-                                    <div class="col-3 ">
-                                        <div class="d-flex justify-content-start align-items-center gap-2">
-                                            <div class="profileImg d-md-flex d-none">
-                                                <span>{{ (PersonalInfo?.name || "").charAt(0) }}</span>
-                                            </div>
-                                            <div classs="text-wrap">
-                                                <small>User Name</small>
-                                                <p class="mb-0 fw-semibold">{{ PersonalInfo?.name }}</p>
-                                            </div>
+                        <!-- <div class="col-1">
+                            <div class="backIcon" role="button">
+                                <span class="fa-solid fa-chevron-left"></span>
+                            </div>
+                        </div> -->
+                        <div class="col-8">
+                            <div class="row">
+                                <div class="col-3 ">
+                                    <div class="d-flex justify-content-start align-items-center gap-2">
+                                        <div class="profileImg d-md-flex d-none">
+                                            <span>{{ (PersonalInfo?.name || "").charAt(0) }}</span>
+                                        </div>
+                                        <div classs="text-wrap">
+                                            <small>User Name</small>
+                                            <p class="mb-0 fw-semibold">{{ PersonalInfo?.name }}</p>
                                         </div>
                                     </div>
-                                    <div class="col-3">
-                                        <small> Phone </small>
-                                        <p class="mb-0 fw-semibold">{{ PersonalInfo?.phone }}</p>
-                                    </div>
-                                    <div class="col-6">
-                                        <small> Email </small>
-                                        <p class="mb-0 fw-semibold">{{ PersonalInfo?.email }}</p>
-                                    </div>
+                                </div>
+                                <div class="col-3">
+                                    <small> Phone </small>
+                                    <p class="mb-0 fw-semibold">{{ PersonalInfo?.phone }}</p>
+                                </div>
+                                <div class="col-6">
+                                    <small> Email </small>
+                                    <p class="mb-0 fw-semibold">{{ PersonalInfo?.email }}</p>
                                 </div>
                             </div>
-                            <div class="col-3 text-end">
-                                <a class="btn btn-primary" (click)="onClickSubscribe()">
-                                    <p class="mb-0"><i class="fa-sharp fa-regular fa-crown"></i> My Subscription</p>
-                                </a>
-                            </div>
+                        </div>
+                        <div class="col-3 text-end">
+                            <a class="btn btn-primary" (click)="onClickSubscribe()">
+                                <p class="mb-0"><i class="fa-sharp fa-regular fa-crown"></i> My Subscription</p>
+                            </a>
+                        </div>
                     </div>
                 </div>
                 <div class="mobileuserdetails">

@@ -483,7 +483,7 @@
 							<div><i class="fa-solid fa-location-dot text-white"></i>   {{ f["user_location"].value }}</div>
 							<div><i class="fa-solid fa-phone text-white"></i>   {{ f["user_phone"].value }}</div>
 							<div><i class="fa-solid fa-envelope text-white"></i>   {{ f["user_email"].value }}</div>
-							<div><i class="fa-solid fa-globe text-white"></i>   {{ f["user_website"].value }}</div>
+							<div *ngIf="f['user_website'].value"><i class="fa-solid fa-globe text-white"></i>   {{ f["user_website"].value }}</div>
 						</div>
 					</div>
 					<div class="col-12 content-font-size">
@@ -519,7 +519,7 @@
 							<div><i class="fa-solid fa-location-dot"></i>   {{ f["user_location"].value }}</div>
 							<div><i class="fa-solid fa-phone"></i>   {{ f["user_phone"].value }}</div>
 							<div><i class="fa-solid fa-envelope"></i>   {{ f["user_email"].value }}</div>
-							<div><i class="fa-solid fa-globe"></i>   {{ f["user_website"].value }}</div>
+							<div *ngIf="f['user_website'].value"><i class="fa-solid fa-globe"></i>   {{ f["user_website"].value }}</div>
 						</div>
 					</div>
 					<div class="col-12 content-font-size">
@@ -551,7 +551,7 @@
 							<div><i class="fa-solid fa-location-dot"></i>   {{ f["user_location"].value }}</div>
 							<div><i class="fa-solid fa-phone"></i>   {{ f["user_phone"].value }}</div>
 							<div><i class="fa-solid fa-envelope"></i>   {{ f["user_email"].value }}</div>
-							<div><i class="fa-solid fa-globe"></i>   {{ f["user_website"].value }}</div>
+							<div *ngIf="f['user_website'].value"><i class="fa-solid fa-globe"></i>   {{ f["user_website"].value }}</div>
 						</div>
 					</div>
 					<div class="col-11 text-center py-3 bg-black mb-4" style="border-radius:0px 0px 20px 20px;">
@@ -587,7 +587,7 @@
 							<div><i class="fa-solid fa-location-dot" [ngStyle]="{ 'color': selectedThemeColor }"></i>   {{ f["user_location"].value }}</div>
 							<div><i class="fa-solid fa-phone"[ngStyle]="{ 'color': selectedThemeColor }"></i>   {{ f["user_phone"].value }}</div>
 							<div><i class="fa-solid fa-envelope"[ngStyle]="{ 'color': selectedThemeColor }"></i>   {{ f["user_email"].value }}</div>
-							<div><i class="fa-solid fa-globe"[ngStyle]="{ 'color': selectedThemeColor }"></i>   {{ f["user_website"].value }}</div>
+							<div *ngIf="f['user_website'].value"><i class="fa-solid fa-globe"[ngStyle]="{ 'color': selectedThemeColor }"></i>   {{ f["user_website"].value }}</div>
 						</div>
 					</div>
 					<div class="col-12 mt-4 content-font-size">
@@ -619,7 +619,7 @@
 							<div><i class="fa-solid fa-location-dot"></i>   {{ f["user_location"].value }}</div>
 							<div><i class="fa-solid fa-phone"></i>   {{ f["user_phone"].value }}</div>
 							<div><i class="fa-solid fa-envelope"></i>   {{ f["user_email"].value }}</div>
-							<div><i class="fa-solid fa-globe"></i>   {{ f["user_website"].value }}</div>
+							<div *ngIf="f['user_website'].value"><i class="fa-solid fa-globe"></i>   {{ f["user_website"].value }}</div>
 						</div>
 					</div>
 				</div>

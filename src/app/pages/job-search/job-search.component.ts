@@ -3,7 +3,7 @@ import {ActivatedRoute, Router} from '@angular/router';
 import {DataService} from "../../data.service";
 import { Location } from "@angular/common";
 import { PageFacadeService } from '../page-facade.service';
-
+import { AuthService } from "src/app/Auth/auth.service";
 @Component({
     selector: 'uni-job-search',
     templateUrl: './job-search.component.html',
@@ -15,7 +15,7 @@ export class JobSearchComponent implements OnInit {
     currentEndpoint: string = '';
 
     constructor(private router: Router, private _location: Location,
-                private route: ActivatedRoute, private dataService: DataService,private pageFacade: PageFacadeService,) {
+                private route: ActivatedRoute,     private authService: AuthService, private dataService: DataService,private pageFacade: PageFacadeService,) {
         this.route.params.subscribe(params => {
             const url = this.router.url;
             const urlSegments = url.split('/');
@@ -25,8 +25,20 @@ export class JobSearchComponent implements OnInit {
 
     ngOnInit(): void {
         this.getCurrentEndpoint();
+        this.checkplanExpire();
+        this.imagewhitlabeldomainname = window.location.hostname;
+        if (this.imagewhitlabeldomainname === "dev-student.uniprep.ai" || this.imagewhitlabeldomainname === "uniprep.ai" || this.imagewhitlabeldomainname === "localhost") {
+          this.ehitlabelIsShow = true;
+        } else {
+          this.ehitlabelIsShow = false;
+        }
     }
-
+    planExpired: boolean = false;
+    restrict: boolean = false;
+    ehitlabelIsShow: boolean = true;
+    orgnamewhitlabel: any;
+    orglogowhitelabel: any;
+    imagewhitlabeldomainname: any
     getCurrentEndpoint(): void {
         const url = this.router.url;
         const urlSegments = url.split('/');
@@ -36,15 +48,18 @@ export class JobSearchComponent implements OnInit {
     }
 
     headerMenuClick(menuName: string) {
-        // console.log(menuName);
+        if (this.planExpired) {
+            this.restrict = true;
+            return;
+          }
         this.currentEndpoint = menuName
-        if (menuName == "job-search") {
+        if (this.currentEndpoint == "job-search" || this.currentEndpoint == 'job-listing') {
             if (this.getFilterData()) {
                 this.router.navigate(['/pages/job-portal/job-listing']);
                 return
             }
             this.router.navigate(['/pages/job-portal/job-search']);
-        } else if (menuName == "job-tracker") {
+        } else if (this.currentEndpoint == "job-tracker") {
             this.router.navigate(['/pages/job-portal/job-tracker']);
         }
         // else if(menuName == "cv-builder"){
@@ -73,5 +88,22 @@ export class JobSearchComponent implements OnInit {
     
   openVideoPopup(videoLink: string) {
     this.pageFacade.openHowitWorksVideoPopup(videoLink);
+  }
+  checkplanExpire(): void {
+    this.authService.getNewUserTimeLeft().subscribe((res) => {
+      let data = res.time_left;
+      let subscription_exists_status = res.subscription_details;
+      if (data.plan === "expired" || data.plan === 'subscription_expired' || subscription_exists_status.subscription_plan=="Student") {
+        this.planExpired = true;
+      } else {
+        this.planExpired = false;
+      }
+    })
+  }
+  upgradePlan(): void {
+    this.router.navigate(["/pages/subscriptions"]);
+  }
+  clearRestriction() {
+    this.restrict = false;
   }
 }

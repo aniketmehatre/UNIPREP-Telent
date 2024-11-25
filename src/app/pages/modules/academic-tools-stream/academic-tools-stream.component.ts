@@ -4,7 +4,7 @@ import { Location } from '@angular/common';
 import { GetAcademicListPayload } from 'src/app/@Models/academic-tools.model';
 import { AcademicService } from '../academic.service';
 import { CategoryResponse } from 'src/app/@Models/career-tool-category.model';
-
+import { AuthService } from "src/app/Auth/auth.service";
 
 @Component({
   selector: 'uni-academic-tools-stream',
@@ -19,13 +19,19 @@ export class AcademicToolsStreamComponent implements OnInit {
   currentModuleName: string = '';
   tooltip: string = '';
   submoduleId: string = '';
-
+  planExpired: boolean = false;
+  restrict: boolean = false;
+  ehitlabelIsShow: boolean = true;
+  orgnamewhitlabel: any;
+  orglogowhitelabel: any;
+  imagewhitlabeldomainname: any
   constructor(
     private activatedRoute: ActivatedRoute,
     private location: Location,
     private router: Router,
     private academicService: AcademicService,
     private route: Router,
+    private authService: AuthService,
   ) { }
 
   ngOnInit(): void {
@@ -33,9 +39,24 @@ export class AcademicToolsStreamComponent implements OnInit {
       this.submoduleId = response['id'];
       this.getList();
       this.getAcademicToolList();
+      this.checkplanExpire();
+      this.imagewhitlabeldomainname = window.location.hostname;
+      if (this.imagewhitlabeldomainname === "dev-student.uniprep.ai" || this.imagewhitlabeldomainname === "uniprep.ai" || this.imagewhitlabeldomainname === "localhost") {
+        this.ehitlabelIsShow = true;
+      } else {
+        this.ehitlabelIsShow = false;
+      }
     });
   }
-
+  navigateToQuiz(moduleId: number, academicCategoryId: number): void { 
+    if (this.planExpired) {
+      this.restrict = true;
+      return;
+    }
+     // Navigate to the quiz route 
+     console.log(moduleId);
+    this.router.navigate(["quiz/", moduleId, academicCategoryId], { relativeTo: this.activatedRoute });
+   }
   getList() {
     const params: GetAcademicListPayload = {
       module_id: this.moduleId,
@@ -70,5 +91,21 @@ export class AcademicToolsStreamComponent implements OnInit {
       this.currentModuleName = response.data?.find(category=>category.id===Number(this.submoduleId))?.category as string;
     });
   }
-
+  checkplanExpire(): void {
+    this.authService.getNewUserTimeLeft().subscribe((res) => {
+      let data = res.time_left;
+      let subscription_exists_status = res.subscription_details;
+      if (data.plan === "expired" || data.plan === 'subscription_expired'  ) {
+        this.planExpired = true;
+      } else {
+        this.planExpired = false;
+      }
+    })
+  }
+  upgradePlan(): void {
+    this.router.navigate(["/pages/subscriptions"]);
+  }
+  clearRestriction() {
+    this.restrict = false;
+  }
 }

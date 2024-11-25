@@ -101,6 +101,7 @@ export class QuestionListComponent implements OnInit {
   orglogowhitelabel:any;
   homeCountryLogo: any
   learningHubMainModuleName: any
+  learningHubQuizBreadCrumb: any
   constructor(
     private moduleListService: ModuleServiceService,
     private mService: ModuleServiceService,
@@ -290,7 +291,8 @@ export class QuestionListComponent implements OnInit {
       case "learning-hub":
         this.currentModuleId = 8;
         this.learningHubMainModuleName = localStorage.getItem('learningHubMainModuleName')
-
+        this.learningHubQuizBreadCrumb = this.learningHubMainModuleName +' -> '+this.moduleName
+        localStorage.setItem('learningHubQuizBreadCrumb', this.learningHubQuizBreadCrumb)
         this.currentModuleName = "Learning Hub";
         this.currentApiSlug = "getlearninghubsubmoduleqcount";
         this.howItWorksVideoLink = "https://www.youtube.com/embed/prvvJsgnya8?si=QSAeOB9qPMF-ya-D";
@@ -408,11 +410,21 @@ export class QuestionListComponent implements OnInit {
     this.authService.getNewUserTimeLeft().subscribe((res) => {
       let data = res.time_left;
       let subscription_exists_status = res.subscription_details;
-      if (data.plan === "expired" || data.plan === 'subscription_expired') {
-        this.planExpired = true;
-      } else {
-        this.planExpired = false;
+    
+      if (this.currentModuleId == 8 || this.currentModuleId == 10 ) {   //learning hub restriction
+        if (data.plan === "expired" || data.plan === 'subscription_expired' ||   subscription_exists_status.subscription_plan=="Student") {
+          this.planExpired = true;
+        } else {
+          this.planExpired = false;
+        }
       }
+      else{
+         if (data.plan === "expired" || data.plan === 'subscription_expired') {
+            this.planExpired = true;
+          } else {
+            this.planExpired = false;
+          }
+        }
     })
   }
   goBack() {

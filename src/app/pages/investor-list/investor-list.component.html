@@ -169,13 +169,21 @@
 					</div>
 				</div>
 			</div>
-			<div *ngIf="totalInvestorsCount == 0" class="text-center margin-auto">
+      <div *ngIf="totalInvestorsCount == 0" class="d-flex justify-content-center align-items-center h-100 flex-column">
+        <h3 class="primary-color">It seems we don't have any recommendations that</h3>
+        <h3 class="primary-color">match your current selection.</h3>
+        <br>
+        <h4 class="universityicon">Don't Worry! You can try</h4>
+        <h6 class="primary-color">Adjusting your preferences</h6>
+        <h6 class="primary-color">Exploring other categories</h6>
+      </div>
+			<!-- <div *ngIf="totalInvestorsCount == 0" class="text-center margin-auto">
 				<h3>No Results Found</h3>
 				<p>
 					The applied filter did not provide any results,<br />
 					please try again by changing the parameters.
 				</p>
-			</div>
+			</div> -->
 		</div>
 
     <!-- <p-paginator *ngIf="totalInvestorsCount != 0" [rows]="pageSize" [totalRecords]="totalInvestorsCount" (onPageChange)="pageChange($event)" [rowsPerPageOptions]="[50, 100, 300, 500, 1000]"></p-paginator> -->

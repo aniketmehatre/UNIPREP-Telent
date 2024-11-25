@@ -384,4 +384,8 @@ export class CareerPlannerComponent implements OnInit {
   clearRestriction() {
     this.restrict = false;
   }
+
+  goBack(){
+    this.router.navigate(['/pages/job-tool/career-tool']);
+  }
 }

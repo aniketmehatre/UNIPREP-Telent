@@ -1,3 +1,4 @@
+import { EmployerGlobalService } from './../employer-global.service';
 import { Component, OnInit } from '@angular/core';
 import { TestQuizService } from '../test-quiz.service';
 import { GetSubcategoryPayload, SubCategoryResponse } from 'src/app/@Models/career-tool-category.model';
@@ -19,7 +20,7 @@ export class EmployerSubcategoryComponent implements OnInit {
   constructor(
     private testQuizService: TestQuizService,
     private activatedRoute: ActivatedRoute,
-    private router: Router,
+    private router: Router, private employerGlobalService: EmployerGlobalService,
     private authService: AuthService,
     private locationService: LocationService,
   ) { }
@@ -60,6 +61,7 @@ export class EmployerSubcategoryComponent implements OnInit {
       this.restrict = true;
       return;
     }
+    this.employerGlobalService.addItem(category.category)
     localStorage.setItem('employerName', category.category);
     localStorage.setItem('learningHubMainModuleName', category);
     this.router.navigate(['/pages/job-tool/quiz/employer/list', categoryId]);

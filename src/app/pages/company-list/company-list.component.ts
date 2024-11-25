@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup } from "@angular/forms";
-import { Location } from "@angular/common";
+// import { Location } from "@angular/common";
 import { CompanyListService } from "./company-list.service";
 import { AuthService } from 'src/app/Auth/auth.service';
 import { Route, Router } from '@angular/router';
@@ -64,7 +64,7 @@ export class CompanyListComponent implements OnInit {
   selectedData: { [key: string]: any } = {};
 
   constructor(
-    private _location: Location,
+    // private _location: Location,
     private fb: FormBuilder,
     private companyListService: CompanyListService,
     private authService: AuthService,
@@ -104,9 +104,9 @@ export class CompanyListComponent implements OnInit {
     this.checkRecommendation();
   }
 
-  goBack() {
-    this._location.back();
-  }
+  // goBack() {
+  //   this._location.back();
+  // }
 
   performSearch(events: any) {
     if (this.planExpired) {
@@ -161,22 +161,23 @@ export class CompanyListComponent implements OnInit {
     }
   }
   loadCompanyData(isFavourite: number) {
-    let data: any = {
-      company_name: this.filterForm.value.company_name ? this.filterForm.value.company_name : '',
-      country: this.filterForm.value.country ? this.filterForm.value.country : '',
-      head_quarters: this.filterForm.value.head_quarters ? this.filterForm.value.head_quarters : '',
-      // fromdate: this.filterForm.value.fromdate ? this.filterForm.value.fromdate : '',
-      // todate: this.filterForm.value.todate ? this.filterForm.value.todate : '',
-      industry_interested: this.filterForm.value.industry_interested ? this.filterForm.value.industry_interested : '',
-      planname: this.currentPlan ? this.currentPlan : ""
-    }
+    let data: any;
     if(isFavourite==1){
-      data['favourite']=1;
-    }
-    else{
-      data['favourite'] = 0;
-      data['page']=this.page;
-      data['perpage']=this.pageSize;
+      data = {
+        favourite: 1,
+        page: this.page,
+        perpage: this.pageSize
+      }
+    }else{
+      data = {
+        company_name: this.filterForm.value.company_name ? this.filterForm.value.company_name : '',
+        country: this.filterForm.value.country ? this.filterForm.value.country : '',
+        head_quarters: this.filterForm.value.head_quarters ? this.filterForm.value.head_quarters : '',
+        industry_interested: this.filterForm.value.industry_interested ? this.filterForm.value.industry_interested : '',
+        planname: this.currentPlan ? this.currentPlan : "",
+        page: this.page,
+        perpage: this.pageSize
+      }
     }
     this.companyListService.getCompanyList(data).subscribe((response) => {
       this.companyListData = response.data;
@@ -449,6 +450,10 @@ export class CompanyListComponent implements OnInit {
         this.enableModule = false;
       }
     });
+  }
+
+  goBack(){
+    this.router.navigate(['/pages/job-tool/career-tool']);
   }
 }
 

@@ -137,6 +137,14 @@
     color: var(--uniprep-primary);
 }
 
+.primary-color{
+    color: var(--uniprep-primary);
+}
+
+.secondary-color{
+    color: var(--uniprep-secondary);
+}
+
 .cube.selected {
     border-color: 2px solid var(--uniprep-primary);
 }

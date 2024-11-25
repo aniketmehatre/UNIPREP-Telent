@@ -33,20 +33,20 @@ export class InvestorListComponent implements OnInit {
   planExpired!: boolean;
   restrict: boolean = false;
   currentPlan: string = "";
-  isBookmarked:boolean=false;
-  PersonalInfo!:any;
+  isBookmarked: boolean = false;
+  PersonalInfo!: any;
   viewFavouritesLabel: string = "View Favourites";
   allInvestorList: any[] = [];
-  allInvestorCount:number=0;
-  selectedInvestors:number = 0;
+  allInvestorCount: number = 0;
+  selectedInvestors: number = 0;
   selectAllCheckboxes = false;
-  exportDataIds:any[] = [];
+  exportDataIds: any[] = [];
   exportCreditCount: number = 0;
-  favCount:number=0;
-  ehitlabelIsShow:boolean=true;
-  imagewhitlabeldomainname:any;
-  orgnamewhitlabel:any;
-  orglogowhitelabel:any;
+  favCount: number = 0;
+  ehitlabelIsShow: boolean = true;
+  imagewhitlabeldomainname: any;
+  orgnamewhitlabel: any;
+  orglogowhitelabel: any;
   enableModule: boolean = false;
   activePageIndex: number = 0;
   recommendations: any = [
@@ -69,17 +69,17 @@ export class InvestorListComponent implements OnInit {
 
 
   constructor(
-    private _location: Location, 
-    private fb: FormBuilder, 
-    private investorList: InvestorListService, 
-    private authService: AuthService, 
+    private _location: Location,
+    private fb: FormBuilder,
+    private investorList: InvestorListService,
+    private authService: AuthService,
     private router: Router,
-    private userManagementService:UserManagementService,
+    private userManagementService: UserManagementService,
     private toast: MessageService,
     private dataService: DataService,
-    private pageFacade:PageFacadeService,
+    private pageFacade: PageFacadeService,
     private locationService: LocationService,
-    ) {
+  ) {
     this.filterForm = this.fb.group({
       org_name: [''],
       country: [''],
@@ -96,11 +96,11 @@ export class InvestorListComponent implements OnInit {
     this.locationService.getOrgName().subscribe(orgname => {
       this.orgnamewhitlabel = orgname;
     });
-    this.imagewhitlabeldomainname=window.location.hostname;
+    this.imagewhitlabeldomainname = window.location.hostname;
     if (this.imagewhitlabeldomainname === "dev-student.uniprep.ai" || this.imagewhitlabeldomainname === "uniprep.ai" || this.imagewhitlabeldomainname === "localhost") {
-      this.ehitlabelIsShow=true;
-    }else{
-      this.ehitlabelIsShow=false;
+      this.ehitlabelIsShow = true;
+    } else {
+      this.ehitlabelIsShow = false;
     }
     this.loadMultiSelectData();
     this.checkplanExpire();
@@ -129,47 +129,47 @@ export class InvestorListComponent implements OnInit {
   performSearch() {
     if (this.valueNearYouFilter === "") {
       this.loadInvestorData(0);
-        return;
+      return;
     }
-else{
-  var investorSearchData: any = [];
-    this.investorData.filter(item => {
-      if (item.org_name?.toLowerCase().includes(this.valueNearYouFilter.toLowerCase())) {
-        investorSearchData.push(item);
-      };
-    });
-    this.investorData = [...investorSearchData];
-    const filteredData = this.investorData.filter((item: any) => {
-       
+    else {
+      var investorSearchData: any = [];
+      this.investorData.filter(item => {
+        if (item.org_name?.toLowerCase().includes(this.valueNearYouFilter.toLowerCase())) {
+          investorSearchData.push(item);
+        };
+      });
+      this.investorData = [...investorSearchData];
+      const filteredData = this.investorData.filter((item: any) => {
+
         return item.org_name.toLowerCase().includes(this.valueNearYouFilter.toLowerCase()) ||
-               item.country.toLowerCase().includes(this.valueNearYouFilter.toLowerCase());
-    });
+          item.country.toLowerCase().includes(this.valueNearYouFilter.toLowerCase());
+      });
 
-    
-    this.investorData = filteredData;
 
-   
-    this.totalInvestorsCount = filteredData.length;
+      this.investorData = filteredData;
 
-   
-    if (this.totalInvestorsCount <= this.pageSize) {
+
+      this.totalInvestorsCount = filteredData.length;
+
+
+      if (this.totalInvestorsCount <= this.pageSize) {
         this.page = 1;  // Reset page to 1
-    }
+      }
 
-   
-    const totalPages = Math.ceil(this.totalInvestorsCount / this.pageSize);
-    if (this.page > totalPages) {
+
+      const totalPages = Math.ceil(this.totalInvestorsCount / this.pageSize);
+      if (this.page > totalPages) {
         this.page = totalPages;
+      }
     }
   }
-}
 
   loadMultiSelectData() {
     this.investorList.getMultiSelectData().subscribe((response) => {
       this.investorIndustryInterested = response.investor_industry_interested;
       // this.investorOrgType = response.investor_org_type;
       this.investorType = response.investor_type;
-      let anyInvestor:any = {
+      let anyInvestor: any = {
         id: "any",
         investor_type_name: "Select All"
       };
@@ -177,38 +177,38 @@ else{
       this.countryList = response.countries_list;
     });
   }
-  
-  selectAllCheckbox(){
+
+  selectAllCheckbox() {
     this.selectedInvestors = 0;
     this.selectAllCheckboxes = !this.selectAllCheckboxes;
-    if(this.selectAllCheckboxes){
-      this.allInvestorList.forEach(item=>{
+    if (this.selectAllCheckboxes) {
+      this.allInvestorList.forEach(item => {
         item.isChecked = 1;
         this.selectedInvestors += 1;
       })
-    }else{
-      this.allInvestorList.forEach(item=>{
+    } else {
+      this.allInvestorList.forEach(item => {
         item.isChecked = 0;
       });
     }
-    
+
   }
 
-  onCheckboxChange(event: any){
+  onCheckboxChange(event: any) {
     const isChecked = (event.target as HTMLInputElement).checked;
     this.selectedInvestors = isChecked ? this.selectedInvestors + 1 : this.selectedInvestors - 1;
 
-    if(isChecked == false){
-      if(this.selectedInvestors){
+    if (isChecked == false) {
+      if (this.selectedInvestors) {
         this.selectAllCheckboxes = false;
       }
-    }else{
-      if(this.allInvestorList.length == this.selectedInvestors){
+    } else {
+      if (this.allInvestorList.length == this.selectedInvestors) {
         this.selectAllCheckboxes = true;
       }
     }
   }
-  
+
   // resetFilter() {
   //   this.filterForm.reset();
   //   this.loadInvestorData();
@@ -221,8 +221,8 @@ else{
   investorGuidlines(): void {
     this.router.navigate(["/pages/investor-guidlines"]);
   }
-  
-  buyCredits(): void{
+
+  buyCredits(): void {
     if (this.planExpired) {
       this.restrict = true;
       return;
@@ -230,32 +230,33 @@ else{
     this.router.navigate(["/pages/export-credit"]);
   }
 
-  loadInvestorData(isFavourite:number) {
-  
-    let data:any = {
-      org_name: this.filterForm.value.org_name ? this.filterForm.value.org_name : '',
-      org_type: this.filterForm.value.org_type ? this.filterForm.value.org_type : '',
-      country: this.filterForm.value.country ? this.filterForm.value.country : '',
-      head_quarters: this.filterForm.value.head_quarters ? this.filterForm.value.head_quarters : '',
-      investor_type: this.filterForm.value.investor_type ? this.filterForm.value.investor_type : '',
-      industry_interested: this.filterForm.value.industry_interested ? this.filterForm.value.industry_interested : '',
-      planname:this.currentPlan?this.currentPlan:"",
-    }
-    if(isFavourite==1){
-      data['favourite']=1;
-    }
-    else{
-      data['favourite'] = 0;
-      data['page']=this.page;
-      data['perpage']=this.pageSize;
+  loadInvestorData(isFavourite: number) {
+    let data: any;
+    if(isFavourite == 1){
+      data = {
+        favourite : 1,
+        page: this.page,
+        perpage: this.pageSize,
+      };
+    }else{
+      data = {
+        org_name: this.filterForm.value.org_name ? this.filterForm.value.org_name : '',
+        org_type: this.filterForm.value.org_type ? this.filterForm.value.org_type : '',
+        country: this.filterForm.value.country ? this.filterForm.value.country : '',
+        head_quarters: this.filterForm.value.head_quarters ? this.filterForm.value.head_quarters : '',
+        investor_type: this.filterForm.value.investor_type ? this.filterForm.value.investor_type : '',
+        industry_interested: this.filterForm.value.industry_interested ? this.filterForm.value.industry_interested : '',
+        planname: this.currentPlan ? this.currentPlan : "",
+        page: this.page,
+        perpage: this.pageSize,
+      };
     }
     this.investorList.getInvestorList(data).subscribe((response) => {
       this.investorData = response.data;
-      // console.log(response);
-      this.favCount=response.favourite_count;
+      this.favCount = response.favourite_count;
       this.exportCreditCount = response.credit_count ? response.credit_count : 0;
       if (isFavourite != 1) {
-        this.allInvestorList=response.data;
+        this.allInvestorList = response.data;
         this.allInvestorCount = response.count;
       }
       this.totalInvestorsCount = response.count;
@@ -300,9 +301,9 @@ else{
       let subscription_exists_status = res.subscription_details;
       this.currentPlan = subscription_exists_status.subscription_plan;
       if (data.plan === "expired" || data.plan === 'subscription_expired' ||
-          subscription_exists_status.subscription_plan === 'free_trail' ||
-          subscription_exists_status.subscription_plan === 'Student' ||
-          subscription_exists_status.subscription_plan === 'Career') {
+        subscription_exists_status.subscription_plan === 'free_trail' ||
+        subscription_exists_status.subscription_plan === 'Student' ||
+        subscription_exists_status.subscription_plan === 'Career') {
         this.planExpired = true;
         //this.restrict = true;
       } else {
@@ -330,21 +331,21 @@ else{
   }
   GetPersonalProfileData() {
     this.userManagementService.GetUserPersonalInfo().subscribe(data => {
-        this.PersonalInfo = data;
+      this.PersonalInfo = data;
     });
-}
-  bookmarkQuestion(investorId:any,isFav:any){
-    isFav=isFav!='1'?true:false;
-    this.favCount=isFav == true ? this.favCount+1 : this.favCount-1;
-     this.investorList.bookmarkInvestorData(investorId,this.PersonalInfo.user_id,isFav).subscribe((response) => {
-      let investorListData=this.investorData.find(item=>item.id==investorId);
-      isFav==true?investorListData.favourite=1:investorListData.favourite=null;
+  }
+  bookmarkQuestion(investorId: any, isFav: any) {
+    isFav = isFav != '1' ? true : false;
+    this.favCount = isFav == true ? this.favCount + 1 : this.favCount - 1;
+    this.investorList.bookmarkInvestorData(investorId, this.PersonalInfo.user_id, isFav).subscribe((response) => {
+      let investorListData = this.investorData.find(item => item.id == investorId);
+      isFav == true ? investorListData.favourite = 1 : investorListData.favourite = null;
       this.toast.add({
         severity: "success",
         summary: "Success",
         detail: response.message,
       });
-     });
+    });
   }
   viewFavourites() {
     this.viewFavouritesLabel = this.viewFavouritesLabel == 'View Favourites' ? 'View All' : 'View Favourites';
@@ -352,75 +353,75 @@ else{
       this.loadInvestorData(1);
     }
     else {
-     let investorList=this.allInvestorList.map(investor=>{
-      let foundInvestor = this.investorData.find(s => s.id == investor.id);
-      if (foundInvestor) {
-        investor.favourite = foundInvestor.favourite;
-      }
-      return investor;
-     });
-     let favouriteInvestor = investorList.filter(investor => investor.favourite === 1);
-    let nonFavouriteInvestors = investorList.filter(investor => investor.favourite !== 1);
-     this.investorData=favouriteInvestor.concat(nonFavouriteInvestors);
-     this.totalInvestorsCount=this.allInvestorCount;
-  }
+      let investorList = this.allInvestorList.map(investor => {
+        let foundInvestor = this.investorData.find(s => s.id == investor.id);
+        if (foundInvestor) {
+          investor.favourite = foundInvestor.favourite;
+        }
+        return investor;
+      });
+      let favouriteInvestor = investorList.filter(investor => investor.favourite === 1);
+      let nonFavouriteInvestors = investorList.filter(investor => investor.favourite !== 1);
+      this.investorData = favouriteInvestor.concat(nonFavouriteInvestors);
+      this.totalInvestorsCount = this.allInvestorCount;
+    }
   }
 
-  exportData(){
+  exportData() {
     if (this.planExpired) {
       this.restrict = true;
       return;
-    }else if(this.exportCreditCount != 0){
+    } else if (this.exportCreditCount != 0) {
       this.exportDataIds = [];
-      this.investorData.forEach(item=>{
-        if(item.isChecked == 1){
+      this.investorData.forEach(item => {
+        if (item.isChecked == 1) {
           this.exportDataIds.push(item.id);
         }
       })
-      if(this.exportDataIds.length == 0){
-        this.toast.add({severity: "error",summary: "error",detail: "Select Some data for export!.",});
+      if (this.exportDataIds.length == 0) {
+        this.toast.add({ severity: "error", summary: "error", detail: "Select Some data for export!.", });
         return;
       }
 
       if (this.imagewhitlabeldomainname === "dev-student.uniprep.ai" || this.imagewhitlabeldomainname === "uniprep.ai" || this.imagewhitlabeldomainname === "localhost") {
-        if(this.exportCreditCount < this.exportDataIds.length){
-          this.toast.add({severity: "error",summary: "error",detail: "insufficient credits.Please Buy Some Credits.",});
+        if (this.exportCreditCount < this.exportDataIds.length) {
+          this.toast.add({ severity: "error", summary: "error", detail: "insufficient credits.Please Buy Some Credits.", });
           this.router.navigate(["/pages/export-credit"]);
           return;
         }
-      }else{
-        if(this.exportCreditCount < this.exportDataIds.length){
-        this.toast.add({severity: "error",summary: "error",detail: "To download additional data beyond your free credits, please upgrade your plan.",});
-        this.restrict = true;
-        return;
+      } else {
+        if (this.exportCreditCount < this.exportDataIds.length) {
+          this.toast.add({ severity: "error", summary: "error", detail: "To download additional data beyond your free credits, please upgrade your plan.", });
+          this.restrict = true;
+          return;
+        }
       }
-    }
-      let data={
+      let data = {
         module_id: 1,
         export_id: this.exportDataIds
       };
-      this.investorList.exportSelectedData(data).subscribe((response)=>{
+      this.investorList.exportSelectedData(data).subscribe((response) => {
         window.open(response.link, '_blank');
         this.selectAllCheckboxes = false;
         this.selectedInvestors = 0;
         this.loadInvestorData(0);
       })
-    }else if(this.exportCreditCount == 0){
+    } else if (this.exportCreditCount == 0) {
       if (this.imagewhitlabeldomainname === "dev-student.uniprep.ai" || this.imagewhitlabeldomainname === "uniprep.ai" || this.imagewhitlabeldomainname === "localhost") {
-        this.toast.add({severity: "error",summary: "error",detail: "Please Buy Some Credits.",});
+        this.toast.add({ severity: "error", summary: "error", detail: "Please Buy Some Credits.", });
         this.router.navigate(["/pages/export-credit"]);
-      }else{
+      } else {
         this.restrict = true;
       }
     }
-    
+
   }
 
-  openReport(){
+  openReport() {
     let data = {
       isVisible: true,
-      reporttype:5,
-      moduleId:5,
+      reporttype: 5,
+      moduleId: 5,
       report_mode: "other_module"
     };
     this.dataService.openReportWindow(data);
@@ -453,7 +454,7 @@ else{
       return;
     }
     this.enableModule = true;
-    let keyMapping: any = {"1": "investor_type","2": "country","3": "head_quarters"};
+    let keyMapping: any = { "1": "investor_type", "2": "country", "3": "head_quarters" };
     let newData = Object.fromEntries(Object.entries(this.selectedData).map(([key, value]) => {
       let mappedKey = keyMapping[key] || key;
       // if (Array.isArray(value)) {
@@ -465,7 +466,7 @@ else{
     this.setRecommendationToForm(newData);
   }
 
-  setRecommendationToForm(data: any){
+  setRecommendationToForm(data: any) {
     this.filterForm.patchValue(data);
     this.loadInvestorData(0);
   }
@@ -492,7 +493,7 @@ else{
       } else {
         this.selectedData[key] = this.investorType.map((cube: any) => cube.id);
       }
-    }else {
+    } else {
       if (!Array.isArray(this.selectedData[key])) {
         this.selectedData[key] = [];
       }
@@ -507,26 +508,26 @@ else{
     // console.log(this.selectedData, "selected cube");
   }
 
-  getStoredRecommendation(){
-    this.investorList.getStoredRecommendation().subscribe(res =>{
+  getStoredRecommendation() {
+    this.investorList.getStoredRecommendation().subscribe(res => {
       // console.log(res);
-      if(res.status){
+      if (res.status) {
         this.enableModule = true;
         this.setRecommendationToForm(res.data);
-      }else{
+      } else {
         this.enableModule = false;
       }
     });
   }
 
-  resetRecommendation(){
-    this.investorList.resetRecommendation().subscribe(res =>{
+  resetRecommendation() {
+    this.investorList.resetRecommendation().subscribe(res => {
       this.activePageIndex = 0;
       this.enableModule = false;
       this.selectedData = {};
     });
   }
-  goBackButton(){
+  goBackButton() {
     this.router.navigate(['/pages/founderstool/founderstoollist']);
   }
 }

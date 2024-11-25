@@ -53,6 +53,7 @@ export class CourseListComponent implements OnInit {
   orglogowhitelabel:any;
   enableModule:boolean = false;
   activePageIndex:number = 0;
+  zeroData!: boolean;
   recommendations:any = [
     {
       id:1,
@@ -167,7 +168,7 @@ export class CourseListComponent implements OnInit {
     });
   }
 
-  getSelectBoxValues() {
+  getSelectBoxValues() {  
     this.courseList.loadDropdownValues().subscribe(res => {
       this.countryList = res.country;
       this.allLocations = res.locations;
@@ -177,19 +178,6 @@ export class CourseListComponent implements OnInit {
       this.subjectNameList = res.subject;
       this.durationList = res.duration;
       this.monthList = this.monthList;
-      // if(!this.enableModule){
-      //   let anyCountryArray:any = {
-      //     id: null,
-      //     country: "Any Country"
-      //   };
-      //   this.countryList.unshift(anyCountryArray);
-
-      //   let anySubjectArray:any = {
-      //     id: null,
-      //     category_name: "Any Subject"
-      //   };
-      //   this.subjectNameList.unshift(anySubjectArray);
-      // }
     });
   }
 
@@ -226,29 +214,42 @@ export class CourseListComponent implements OnInit {
 
   getCourseLists() {
     let formValues = this.filterForm.value;
-    let data = {
-      course_keyword: formValues.course_keyword ? formValues.course_keyword : "",
-      study_level: formValues.study_level ? formValues.study_level : "",
-      college_name: formValues.college_name ? formValues.college_name : "",
-      country: formValues.country ? formValues.country : "",
-      campus: formValues.campus ? formValues.campus : "",
-      subject: formValues.subject ? formValues.subject : "",
-      duration: formValues.duration ? formValues.duration : "",
-      pre_requisite: formValues.pre_requisite ? formValues.pre_requisite : "",
-      intake_months: formValues.intake_months ? formValues.intake_months : "",
-      stay_back: formValues.stay_back ? formValues.stay_back : "",
-      world_rank: formValues.world_rank ? formValues.world_rank : "",
-      favourites: this.viewFavourites ? this.viewFavourites : "",
-      page: this.page,
-      perPage: this.perPage,
+    let data:any = [];
+    if(!this.viewFavourites){
+      data = {
+        course_keyword: formValues.course_keyword ? formValues.course_keyword : "",
+        study_level: formValues.study_level ? formValues.study_level : "",
+        college_name: formValues.college_name ? formValues.college_name : "",
+        country: formValues.country ? formValues.country : "",
+        campus: formValues.campus ? formValues.campus : "",
+        subject: formValues.subject ? formValues.subject : "",
+        duration: formValues.duration ? formValues.duration : "",
+        pre_requisite: formValues.pre_requisite ? formValues.pre_requisite : "",
+        intake_months: formValues.intake_months ? formValues.intake_months : "",
+        stay_back: formValues.stay_back ? formValues.stay_back : "",
+        world_rank: formValues.world_rank ? formValues.world_rank : "",
+        page: this.page,
+        perPage: this.perPage,
+      }
+    }else{
+      data = {
+        favourites: this.viewFavourites ? this.viewFavourites : "",
+        page: this.page,
+        perPage: this.perPage,
+      }
     }
+    
 
     this.courseList.getListOfCourses(data).subscribe(response => {
-      console.log(response.fav_count, "response.fav_count");
       this.courseListData = response.data;
       this.totalCourseCount = response.total_count;
       this.buyCreditsCount = response.credit_count;
       this.favCourseCount = response.fav_count;
+      if(response && response.total_count == 0){
+        this.zeroData = true;
+      }else{
+        this.zeroData = false;
+      }
     })
   }
 
@@ -408,8 +409,6 @@ export class CourseListComponent implements OnInit {
     }
 
     this.viewFavourites = !this.viewFavourites;
-    console.log(this.viewFavourites, "viewFavourites");
-    console.log(this.favCourseCount, "fav count");
     this.getCourseLists();
   }
 
@@ -418,7 +417,7 @@ export class CourseListComponent implements OnInit {
       let data = res.time_left;
       let subscription_exists_status = res.subscription_details;
       this.currentPlan = subscription_exists_status.subscription_plan;
-      if (data.plan === "expired" || data.plan === 'subscription_expired' || subscription_exists_status.subscription_plan === 'free_trail' || subscription_exists_status.subscription_plan === 'Student') {
+      if (data.plan === "expired" || data.plan === 'subscription_expired'    ) {
         this.planExpired = true;
       } else {
         this.planExpired = false;
@@ -494,18 +493,23 @@ export class CourseListComponent implements OnInit {
   }
   
   recommendationBasedCourses(data: any){
-    // console.log(data,"recommendation datas");
     this.filterForm.patchValue(data);
     this.courseList.getListOfCourses(data).subscribe(response => {
       this.courseListData = response.data;
       this.totalCourseCount = response.total_count;
       this.buyCreditsCount = response.credit_count;
       this.favCourseCount = response.fav_count;
+      if(response && response.total_count == 0){
+        this.zeroData = true;
+      }else{
+        this.zeroData = false;
+      }
     });
   }
 
   resetRecommendation(){
     this.courseList.resetCourseRecommendation().subscribe(res =>{
+      this.zeroData = false;
       this.enableModule = false;
       this.activePageIndex = 0;
       this.getSelectBoxValues();

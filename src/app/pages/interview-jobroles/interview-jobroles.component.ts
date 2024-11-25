@@ -25,8 +25,9 @@ filteredJobRoles: any[] = [];
     });
   }
 
-  searchRole(event: any){
+  searchRole(event: any) {
     const query = event.target.value.toLowerCase();
+  
     const removeSpecialCharacters = (str: string) => {
       return str
         .replace(/-/g, ' ')               // Replace hyphens with spaces
@@ -34,17 +35,36 @@ filteredJobRoles: any[] = [];
         .replace(/\s+/g, ' ')             // Replace multiple spaces with a single space
         .trim();                          // Remove leading and trailing spaces
     };
-    
-    if(query && query.length > 3){
+  
+    if (query && query.length > 3) {
       const mockJobs = this.jobRoles;
       const queryWords = removeSpecialCharacters(query);
-      this.filteredJobRoles = mockJobs.filter((job: any) => 
-        removeSpecialCharacters(job.jobrole.toLowerCase()).includes(queryWords)
-      );
-    }else if(query.length < 1){
+  
+      this.filteredJobRoles = mockJobs
+        .filter((job: any) =>
+          removeSpecialCharacters(job.jobrole.toLowerCase()).includes(queryWords)
+        )
+        .sort((a: any, b: any) => {
+          const aJob = removeSpecialCharacters(a.jobrole.toLowerCase());
+          const bJob = removeSpecialCharacters(b.jobrole.toLowerCase());
+  
+          if (aJob === queryWords && bJob !== queryWords) {
+            return -1; // Exact match for 'a' comes first
+          } else if (aJob !== queryWords && bJob === queryWords) {
+            return 1; // Exact match for 'b' comes first
+          } else if (aJob.startsWith(queryWords) && !bJob.startsWith(queryWords)) {
+            return -1; // 'a' starts with the query
+          } else if (!aJob.startsWith(queryWords) && bJob.startsWith(queryWords)) {
+            return 1; // 'b' starts with the query
+          } else {
+            return aJob.localeCompare(bJob); // Alphabetical order for similar matches
+          }
+        });
+    } else if (query.length < 1) {
       this.filteredJobRoles = [];
     }
   }
+  
 
   interviewQuestions(slug:string){
     // alert(slug)

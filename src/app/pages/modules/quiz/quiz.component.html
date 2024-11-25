@@ -100,7 +100,7 @@
         <h5 class="fw-bold">{{ selectedQuiz }}/{{ quizcount }} Question Left</h5>
       </div>
       <div class="col-md-8 col-8 text-center">
-        <h5 class="select-title mb-1">{{ currentModuleName }} Quiz</h5>
+        <h5 class="select-title mb-1">{{ currentModuleName }} Quiz  {{ quizModuleName ? ' - '+ quizModuleName : '' }}</h5>
       </div>
       <div class="col-md-2 col-2 text-end">
         <button (click)="closeQuiz()" class="btn btn-quit btn-rounded px-2 py-2">

@@ -7,7 +7,7 @@ import {User, UserData} from '../@Models/user.model';
 import {LoginRequest} from "../@Models/auth.model";
 import {Store} from "@ngrx/store";
 import {AuthState} from "./store/reducer";
-import {login} from "./store/actions";
+import {login, loginFailure} from "./store/actions";
 import {loginData$, selectLoading$, selectloggedIn$, selectMessage$} from "./store/selectors";
 import {Router} from "@angular/router";
 import {DataService} from '../data.service';
@@ -123,6 +123,7 @@ export class AuthService {
     }
 
     logout() {
+        this.store.dispatch(loginFailure());
         const headers = new HttpHeaders().set("Accept", "application/json");
         return this.http.get<any>(environment.ApiUrl + "/logout", {
             headers: headers,
