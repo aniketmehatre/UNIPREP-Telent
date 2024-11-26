@@ -215,7 +215,7 @@ export class QuestionListComponent implements OnInit {
             break;
           default:
             this.currentModuleId = 6;
-            this.currentModuleName = "Life At " + countryName;
+            this.currentModuleName = "Life In " + countryName;
             this.currentApiSlug = "getlifeincountrysubmoduleqcount";
             this.howItWorksVideoLink = "https://www.youtube.com/embed/O35ypi2WJVI?si=CSxuFC1Zma9gk8SG";
             this.tooltip = "";
@@ -315,7 +315,7 @@ export class QuestionListComponent implements OnInit {
         break;
       default:
         this.currentModuleId = 6;
-        this.currentModuleName = "Life At " + countryName;
+        this.currentModuleName = "Life In " + countryName;
         this.currentApiSlug = "getlifeincountrysubmoduleqcount";
         this.howItWorksVideoLink = "https://www.youtube.com/embed/7VFZp47tfLU?si=GPLVjR5vKlNno-cZ";
         this.currentModuleSlug = "life-at-country"
@@ -674,6 +674,9 @@ export class QuestionListComponent implements OnInit {
     } 
     else if (this.currentModuleId == 10) {
       this.router.navigate(["/pages/modules/skill-mastery"]);
+    }
+    else if (this.currentModuleId == 14) {
+      this.router.navigate(["/pages/modules/k12"]);
     }
     else {
       this.router.navigate(["/pages/modules/life-at-country"]);

@@ -4,7 +4,6 @@ import { FormBuilder, FormGroup, FormArray, Validators, AbstractControl } from "
 // import { CourseListService } from '../../course-list/course-list.service';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Router } from '@angular/router';
-import html2canvas from 'html2canvas';
 import { MenuItem } from 'primeng/api';
 import Swiper from 'swiper';
 import {AuthService} from "../../../Auth/auth.service";
@@ -1303,7 +1302,22 @@ export class CvBuilderComponent implements OnInit  {
       console.error(`Form group at index ${index} does not exist.`);
     }
   }
-
+  projectYearChange(index: number){
+    const formArray = this.getProjectDetailsArray as FormArray;
+    const formGroupAtIndex = formArray.at(index) as FormGroup;
+    if (formGroupAtIndex) {
+      let startYear = formGroupAtIndex.get('project_start_name')?.value;
+      let endYear = formGroupAtIndex.get('project_end_name')?.value;
+      console.log(startYear, endYear);
+      if (endYear < startYear) {
+        formGroupAtIndex.get('project_end_name')?.setErrors({ invalidEndDate: true });  
+      } else {
+        formGroupAtIndex.get('project_start_name')?.setErrors(null);  
+      }
+    }else {
+      console.error(`Form group at index ${index} does not exist.`);
+    }
+  }
   getMonthNumber(monthId: string): number {
     let month = this.monthList.find((m: any) => m.id === monthId);
     return this.monthList.indexOf(month) + 1; // January should be 1, February 2, etc.
