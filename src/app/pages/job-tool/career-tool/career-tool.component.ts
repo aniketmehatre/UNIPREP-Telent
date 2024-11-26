@@ -38,15 +38,15 @@ export class CareerToolComponent implements OnInit {
       refLink: "",
       mode: "career-planner"
     },
-    {
-      id: 4,
-      moduleName: "Cost Of Living Comparision",
-      Description: "Compare living expenses across countries to make informed decisions.",
-      tooltip: "Compare the cost of living across different cities and countries to plan your financial needs.",
-      imageLink: "https://api.uniprep.ai/uniprepapi/storage/app/public/resume_icons/cost-of-living.svg",
-      refLink: "",
-      mode: "cost-of-living"
-    },
+    // {
+    //   id: 4,
+    //   moduleName: "Cost Of Living Comparision",
+    //   Description: "Compare living expenses across countries to make informed decisions.",
+    //   tooltip: "Compare the cost of living across different cities and countries to plan your financial needs.",
+    //   imageLink: "https://api.uniprep.ai/uniprepapi/storage/app/public/resume_icons/cost-of-living.svg",
+    //   refLink: "",
+    //   mode: "cost-of-living"
+    // },
     {
       id: 5,
       moduleName: "Global Salary Converter",

@@ -55,7 +55,7 @@ export class SidenavComponent {
       image: "fa fa-star"
     },
     {
-      title: "Education",
+      title: "Academics",
       url: "",
       image: "",
     },
@@ -69,6 +69,12 @@ export class SidenavComponent {
       url: "/pages/modules/academic-tools",
       image: "fa-solid fa-scribble",
     },
+    {
+      title: "International Education",
+      url: "",
+      image: "",
+    },
+
     {
       title: "Pre Admission",
       url: "/pages/modules/pre-admission",
@@ -90,6 +96,11 @@ export class SidenavComponent {
       image: "fa-solid fa-building-columns",
     },
     {
+      title: "UNILEARN",
+      url: "/pages/unilearn/modules",
+      image: "fa-solid fa-ballot",
+    },
+    {
       title: "UNIFINDER",
       url: "/pages/course-list",
       image: "fa-solid fa-landmark-magnifying-glass",
@@ -99,30 +110,17 @@ export class SidenavComponent {
       url: '/pages/scholarship-list',
       image: 'fa-solid fa-diploma',
     },
-    {
-      title: "Career Hub",
-      url: "/pages/modules/career-hub",
-      image: "fa-solid fa-briefcase",
-    },
-    {
-      title: "UNILEARN",
-      url: "/pages/unilearn/modules",
-      image: "fa-solid fa-ballot",
-    },
+
+
     {
       title: "Language Hub",
       url: "/pages/language-hub",
       image: "fa-solid fa-books",
     },
     {
-      title: "Life",
+      title: "Travel & Life",
       url: "",
       image: "",
-    },
-    {
-      title: "Life in",
-      url: "/pages/modules/life-at-country",
-      image: "fa-solid fa-earth-americas",
     },
     {
       title: "Travel and Tourism",
@@ -130,9 +128,25 @@ export class SidenavComponent {
       image: "fa-solid fa-plane",
     },
     {
+      title: "Life in",
+      url: "/pages/modules/life-at-country",
+      image: "fa-solid fa-earth-americas",
+    },
+    {
+      title: "Cost of Living",
+      url: "/pages/job-tool/cost-of-living",
+      image: "fa-solid fa-dollar-sign",
+    },
+
+    {
       title: 'Career',
       url: '',
       image: '',
+    },
+    {
+      title: "Career Hub",
+      url: "/pages/modules/career-hub",
+      image: "fa-solid fa-briefcase",
     },
     {
       title: "Job Portal",
@@ -266,7 +280,7 @@ export class SidenavComponent {
     'Career Tools','Recommendations', 'Career Hub', 'Job Portal', 'Learning Hub', 'Skill Mastery', 'Startup Kit', 'Founders Tool', 'Pitch Deck', 'Career', 'Entrepreneur'
   ]
   HigherEduRestritedMenus: string[] = [
-    'K12 Academy', 'K12 Academic Tools'
+    'K12 Academy', 'K12 Academic Tools','Academics'
   ]
   studentMenus = ['Company List', 'Career Planner', 'Learning Hub', 'Entrepreneur', 'Investor List', 'Startup Kit', 'Pitch Deck'];
   careerMenus = ['Entrepreneur', 'Investor List', 'Startup Kit', 'Pitch Deck'];

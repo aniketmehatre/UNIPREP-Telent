@@ -59,10 +59,10 @@
 					</div>
 				</ng-container>
 				<ng-template #menu>
-					<div class="fw-semibold px-3 py-1 submenutitle mr-4" *ngIf="item.title == 'Education' || item.title == 'Career' || item.title == 'Life' || item.title == 'Explore' || item.title == 'Support' || item.title == 'Entrepreneur' || item.title == 'Others'" >
+					<div class="fw-semibold px-3 py-1 submenutitle mr-4" *ngIf="item.title == 'International Education' || item.title == 'Career' || item.title == 'Travel & Life' || item.title == 'Explore' || item.title == 'Support' || item.title == 'Entrepreneur' || item.title == 'Others' || item.title == 'Academics'" >
 						{{ item.title }}
 					</div>
-					<div [ngClass]="{'sidebarClass': item.title == 'Dashboard' || item.title == 'About UNIPREP' || item.title == 'user' || item.title == 'Tutorials' || item.title == 'FAQ'|| item.title == 'Subscription'|| item.title == '24x7 Support' || item.title == 'Events' || item.title == 'Resources' || item.title == 'Career Planner', 'unsidebarClass': item.title != 'Dashboard' && item.title != 'Tutorials' && item.title != 'FAQ' && item.title!='24x7 Support' && item.title != 'Events' && item.title != 'Subscription' &&  item.title != 'Resources' && item.title != 'Career Planner' && conditionSubscribed == false }"  *ngIf="item.title != 'Education' && item.title != 'Career' && item.title != 'Life' && item.title != 'Explore' && item.title != 'Support' && item.title != 'Entrepreneur'  && item.title != 'Others'" class="system-main__apps" (click)="onexpand(item)">
+					<div [ngClass]="{'sidebarClass': item.title == 'Dashboard' || item.title == 'About UNIPREP' || item.title == 'user' || item.title == 'Tutorials' || item.title == 'FAQ'|| item.title == 'Subscription'|| item.title == '24x7 Support' || item.title == 'Events' || item.title == 'Resources' || item.title == 'Career Planner' , 'unsidebarClass': item.title != 'Dashboard' && item.title != 'Tutorials' && item.title != 'FAQ' && item.title!='24x7 Support' && item.title != 'Events' && item.title != 'Subscription' &&  item.title != 'Resources' && item.title != 'Career Planner' && conditionSubscribed == false }"  *ngIf="item.title != 'International Education' && item.title != 'Career' && item.title != 'Travel & Life' && item.title != 'Explore' && item.title != 'Support' && item.title != 'Entrepreneur'  && item.title != 'Others' && item.title != 'Academics'" class="system-main__apps" (click)="onexpand(item)">
 						<span class="system-main__icon" title="{{ item.title }}"><i class="{{ item.image }}"></i></span>
 						<span class="system-main__name"> {{ item.title }} <span class="badge bg-success"
                           *ngIf="item.title == 'Language Hub' || item.title == 'Career Tools' || item.title == 'Pitch Deck'
@@ -96,14 +96,14 @@
 			</div>
 		</ng-container>
 		<ng-template #menu>
-			<div class="fw-semibold px-3 py-1 submenutitle mr-4" *ngIf="item.title == 'Education' || item.title == 'Career' || item.title == 'Life' || item.title == 'Explore' || item.title == 'Support' || item.title == 'Entrepreneur'|| item.title == 'Subscriptions' || item.title == 'Others'" >
+			<div class="fw-semibold px-3 py-1 submenutitle mr-4" *ngIf="item.title == 'International Education' || item.title == 'Career' || item.title == 'Travel & Life' || item.title == 'Explore' || item.title == 'Support' || item.title == 'Entrepreneur'|| item.title == 'Subscriptions' || item.title == 'Others' || item.title == 'Academics'" >
 				{{ item.title }}
 			</div>
-					<div [ngClass]="{'sidebarClass': item.title == 'Dashboard' || item.title == 'About UNIPREP' || item.title == 'user' || item.title == 'Tutorials' || item.title == 'FAQ'|| item.title == 'Subscription'|| item.title == '24x7 Support' || item.title == 'Events' || item.title == 'Resources' || item.title == 'Career Planner', 'unsidebarClass': item.title != 'Dashboard' && item.title != 'Tutorials' && item.title != 'FAQ' && item.title!='24x7 Support' && item.title != 'Events' && item.title != 'Subscription' &&  item.title != 'Resources' && item.title != 'Career Planner' && conditionSubscribed == false }" *ngIf="item.title != 'Education' && item.title != 'Career' && item.title != 'Life' && item.title != 'Explore' && item.title != 'Support' && item.title != 'Entrepreneur' && item.title != 'Others'" class="system-main__apps" (click)="onexpand(item)">
+					<div [ngClass]="{'sidebarClass': item.title == 'Dashboard' || item.title == 'About UNIPREP' || item.title == 'user' || item.title == 'Tutorials' || item.title == 'FAQ'|| item.title == 'Subscription'|| item.title == '24x7 Support' || item.title == 'Events' || item.title == 'Resources' || item.title == 'Career Planner' , 'unsidebarClass': item.title != 'Dashboard' && item.title != 'Tutorials' && item.title != 'FAQ' && item.title!='24x7 Support' && item.title != 'Events' && item.title != 'Subscription' &&  item.title != 'Resources' && item.title != 'Career Planner' && conditionSubscribed == false }" *ngIf="item.title != 'International Education' && item.title != 'Career' && item.title != 'Travel & Life' && item.title != 'Explore' && item.title != 'Support' && item.title != 'Entrepreneur' && item.title != 'Others' && item.title != 'Academics'" class="system-main__apps" (click)="onexpand(item)">
 				<span class="system-main__icon" title="{{ item.title }}"><i class="{{ item.image }}"></i></span>
 				<span class="system-main__name d-flex flex-column"> <span>{{ item.title }}</span> <span class="badge bg-success"
                     *ngIf="item.title == 'Language Hub' || item.title == 'Career Tools' || item.title == 'Pitch Deck'
-                            || item.title == 'Quiz'" style="width: fit-content;">Popular</span></span>
+                            || item.title == 'Quiz' || item.title == 'Cost of Living' || item.title == 'Job Portal'" style="width: fit-content;">Popular</span></span>
 				
 			</div>
 		</ng-template>

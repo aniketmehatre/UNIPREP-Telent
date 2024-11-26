@@ -3,34 +3,39 @@
     <div class="row h-100">
       <div class="col-xxl-3 col-xl-3 col-lg-6 col-md-6 col-sm-6 col-12 h-100 overflow-y-auto" *ngFor="let status of statuses; let i = index">
         <h5 class="text-start uniprep-primary fw-bold mb-3">{{ status.label }}({{ getJobsByStatus(status.value).length }})</h5>
-        <ng-container *ngFor="let job of getJobsByStatus(status.value)">
-          <div class="card mb-3">
-            <div class="card-body">
-              <div class="d-flex justify-content-between mb-3">
-                <div>
-                  <h5 class="uniprep-primary text-wrap mb-0 text-start" (click)="onClickCard(job)">{{ job.job_title || "No Title" }}</h5>
-                  <p class="text-start text-small" style="color: lightslategrey">{{ job.company_name || "No Company" }} · {{ job.location || "No Location" }}</p>
-                </div>
-                <div class="text-end" *ngIf="job.country_flag">
-                  <img [src]="job.country_flag" alt="logo" class="rounded-image" />
-                </div>
+          <ng-container *ngFor="let job of getJobsByStatus(status.value)">
+              <div class="card mb-3">
+                  <div class="card-body">
+                      <div class="d-flex justify-content-between mb-3">
+                          <div>
+                              <h5 class="uniprep-primary text-wrap mb-0 text-start" (click)="onClickCard(job)">
+                                  {{ job.job_title || "No Title" }}
+                              </h5>
+                              <p class="text-start text-small" style="color: lightslategrey">
+                                  {{ job.company_name || "No Company" }} · {{ job.location || "No Location" }}
+                              </p>
+                          </div>
+                          <div class="text-end" *ngIf="job.country_flag">
+                              <img [src]="job.country_flag" alt="logo" class="rounded-image" />
+                          </div>
+                      </div>
+                      <div class="row align-items-center">
+                          <div class="col-md-6 text-start">
+                              <p-dropdown [(ngModel)]="job.type" [options]="statuses" placeholder="Status" (onChange)="onStatusChange(job, $event)">
+                              </p-dropdown>
+                          </div>
+                          <div class="col-md-4">
+                              <button class="btn btn-primary btn-rounded w-100" (click)="onClickDetails(job)">Details</button>
+                          </div>
+                          <div class="col-md-2">
+                              <button type="button" class="btn btn-danger w-100 btn-rounded" (click)="onClickDeleteDialog(job)">
+                                  <i class="fas fa-trash-alt"></i>
+                              </button>
+                          </div>
+                      </div>
+                  </div>
               </div>
-              <div class="row align-items-center">
-                <div class="col-md-6 text-start">
-                  <p-dropdown [(ngModel)]="job.type" [options]="statuses" placeholder="Status" (onChange)="onStatusChange(job, $event)"></p-dropdown>
-                </div>
-                <div class="col-md-4">
-                  <button class="btn btn-primary btn-rounded w-100" (click)="onClickDetails(job)">Details</button>
-                </div>
-                <div class="col-md-2">
-                  <button type="button" class="btn btn-danger w-100 btn-rounded" (click)="onClickDeleteDialog(job)">
-                    <i class="fas fa-trash-alt"></i>
-                  </button>
-                </div>
-              </div>
-            </div>
-          </div>
-        </ng-container>
+          </ng-container>
       </div>
     </div>
   </div>

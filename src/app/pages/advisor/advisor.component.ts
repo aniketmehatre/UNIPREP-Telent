@@ -82,7 +82,7 @@ export class AdvisorComponent implements OnInit {
   pquestion: any | null;
 
   lengthCheck(){
-    if (this.userQuestion.length < 10 || this.userQuestion.length == 0) {
+    if (this.userQuestion.length < 20 || this.userQuestion.length == 0) {
       this.smallquestion = true;
     } else {
       this.smallquestion = false;

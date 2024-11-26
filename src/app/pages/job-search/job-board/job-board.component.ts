@@ -84,7 +84,15 @@ export class JobBoardComponent implements OnInit {
     }
 
     getJobsByStatus(status: string): any[] {
-        return this.jobs.filter(job => job.type === status);
+        // Filter jobs by status and sort them by created_at in descending order
+        return this.jobs
+            .filter(job => job.type === status) // Filter jobs based on their type (status)
+            .sort((a, b) => {
+                // Parse `created_at` to timestamps and sort by descending order
+                const dateA = new Date(a.created_at).getTime();
+                const dateB = new Date(b.created_at).getTime();
+                return dateB - dateA; // Most recent first
+            });
     }
 
     clearRestriction(){
