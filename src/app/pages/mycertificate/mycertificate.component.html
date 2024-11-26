@@ -44,8 +44,8 @@
 							</div>
 							<div id="resourceLink">
 								<div class="d-flex justify-content-between gap-2">
-									<button type="button" (click)="downloadCertificate(list.certificate_link)" class="btn btn-primary btn-rounded w-100 text-center">Download</button>
-									<button class="btn btn-primary socialShareBtn" (click)="showSocialSharingList(i)"><i class="fa-light fa-share-nodes"></i></button>
+									<button type="button" (click)="downloadCertificate(list.certificate_link,list.module_id)" class="btn btn-primary btn-rounded w-100 text-center">Download</button>
+									<button class="btn btn-primary socialShareBtn" (click)="showSocialSharingList(i,list.module_id)"><i class="fa-light fa-share-nodes"></i></button>
 									<p-card id="socialSharingList{{ i }}" class="socialSharingList" [ngClass]="{ show: selectedIndex === i }">
 										<ul class="list-unstyled">
 											<li (click)="shareViaWhatsapp(list.certificate_link)"><i class="pi pi-whatsapp"></i>Whatsapp</li>

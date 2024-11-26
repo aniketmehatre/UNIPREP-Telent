@@ -90,7 +90,10 @@ export class AdvisorComponent implements OnInit {
   }
 
   getChatHistory(){
-    // alert("called");
+    if (this.planExpired) {
+      this.restrict = true;
+      return;
+    }
     this.isQuestionAsked = true;
     this.showSkeleton = true;
     this.isQuestionNotAsked = false;
@@ -103,6 +106,10 @@ export class AdvisorComponent implements OnInit {
     });
   }
   getAns(){
+    if (this.planExpired) {
+      this.restrict = true;
+      return;
+    }
     if (this.userQuestion && this.userQuestion.trim() === '') {
       return
     }
