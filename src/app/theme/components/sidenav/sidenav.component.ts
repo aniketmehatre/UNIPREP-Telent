@@ -282,7 +282,7 @@ export class SidenavComponent {
   HigherEduRestritedMenus: string[] = [
     'K12 Academy', 'K12 Academic Tools','Academics'
   ]
-  studentMenus = ['Company List', 'Career Planner', 'Learning Hub', 'Entrepreneur', 'Investor List', 'Startup Kit', 'Pitch Deck'];
+  studentMenus = ['Company List', 'Career Planner',  'Entrepreneur', 'Investor List', 'Startup Kit', 'Pitch Deck'];
   careerMenus = ['Entrepreneur', 'Investor List', 'Startup Kit', 'Pitch Deck'];
   whitlabelmenu = ['Subscription', 'About UNIPREP', '24x7 Support', 'Success Stories', 'Recommendations'];
   whitlabelmenuFreeTrails = ['Subscription', 'About UNIPREP', '24x7 Support', 'Success Stories'];
