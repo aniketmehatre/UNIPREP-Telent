@@ -1,6 +1,6 @@
 import { Injectable } from "@angular/core";
 import { environment } from "@env/environment";
-import { BehaviorSubject } from "rxjs";
+import {BehaviorSubject, Observable} from "rxjs";
 import { AuthService } from "./Auth/auth.service";
 import { LocationService } from "./location.service";
 
@@ -168,6 +168,12 @@ export class DataService {
 
     AddMinutesToDate(date: any, minutes: any) {
         return new Date(date.getTime() + minutes * 60000);
+    }
+
+    private jobGroupButtonHandled = new BehaviorSubject<any>(null);
+    jobGroupButtonHandled$: Observable<any> = this.jobGroupButtonHandled.asObservable();
+    setJobGroupButtonHandled(data: any): void {
+        this.jobGroupButtonHandled.next(data);
     }
 
 

@@ -34,12 +34,20 @@ export class JobToolComponent implements OnInit {
       this.employerName = localStorage.getItem("employerName");
       if (event instanceof NavigationEnd) {
         this.currentRoute = event.url;
+        if (this.currentRoute.includes('career-tool')){
+          this.mainTitle = "";
+          this.employerName = "";
+          localStorage.setItem('MainTitleCareerTool', '');
+          localStorage.setItem("employerName", '');
+          this.employerGlobalService.clearAll()
+        }
         this.changeTitle()
       }
     });
   }
 
   ngOnInit(): void {
+    console.log('job tool')
     this.currentRoute = this.router.url;
     this.changeTitle();
     // if (!this.currentRoute.includes("career-tool")&&!this.currentRoute.includes("psychometric") && !this.currentRoute.includes("personality") && !this.currentRoute.includes("employer") && !this.currentRoute.includes("cost-of-living")) {

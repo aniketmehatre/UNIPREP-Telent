@@ -397,6 +397,7 @@ export class JobListingComponent implements OnInit {
                 if (type === 'apply') {
                     window.open(job.redirect_url, '_blank');
                 } else {
+                    this.dataService.setJobGroupButtonHandled('job-tracker');
                     this.router.navigateByUrl(`/pages/job-portal/job-tracker`);
                 }
             },
