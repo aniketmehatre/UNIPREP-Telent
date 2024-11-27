@@ -1417,9 +1417,9 @@ uni-subscription {
 
 .accordionpassword {
 	.accordion-item {
-		border-radius: 20px;
+		border-radius: 10px;
 		overflow: hidden;
-		border: none;
+		border: 1px solid var(--uniprep-primaryop10);
 		background: #fafafa;
 
 		.accordion-button {
