@@ -85,6 +85,10 @@ export class PitchDeskComponent implements OnInit {
   }
 
   bookmarkQuestion(courseId: any, isFav: any) {
+    if (this.planExpired) {
+      this.restrict = true;
+      return;
+    }
     isFav = isFav != '1' ? true : false;
     this.favCount = isFav == true ? this.favCount + 1 : this.favCount - 1;
     this.pitchDesk.bookmarkCourseData(courseId, this.PersonalInfo.user_id, isFav).subscribe((response) => {
@@ -208,6 +212,10 @@ export class PitchDeskComponent implements OnInit {
   pdfURL: any
   isPdfDownloadOption: any
   showPdf(url: any, pdname: string) {
+    if (this.planExpired) {
+      this.restrict = true;
+      return;
+    }
     this.pdfURL = url;
     this.isPdfLoaded = true;
     this.pdname = pdname;
@@ -293,6 +301,10 @@ export class PitchDeskComponent implements OnInit {
   }
 
   onCheckboxChange(event: any) {
+    if (this.planExpired) {
+      this.restrict = true;
+      return;
+    }
     const isChecked = (event.target as HTMLInputElement).checked;
     this.selectedCheckboxCount = isChecked ? this.selectedCheckboxCount + 1 : this.selectedCheckboxCount - 1;
 

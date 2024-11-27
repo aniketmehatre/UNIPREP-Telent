@@ -12,7 +12,7 @@ import { AuthService } from "src/app/Auth/auth.service";
 
 export class JobSearchComponent implements OnInit {
 
-    currentEndpoint: string = '';
+    currentEndpoint: string = 'Job-listing';
 
     constructor(private router: Router, private _location: Location,
                 private route: ActivatedRoute,     private authService: AuthService, private dataService: DataService,private pageFacade: PageFacadeService,) {
@@ -32,6 +32,9 @@ export class JobSearchComponent implements OnInit {
         } else {
           this.ehitlabelIsShow = false;
         }
+        this.dataService.jobGroupButtonHandled$.subscribe((data) => {
+            this.currentEndpoint = data;
+        });
     }
     planExpired: boolean = false;
     restrict: boolean = false;
@@ -53,6 +56,7 @@ export class JobSearchComponent implements OnInit {
             return;
           }
         this.currentEndpoint = menuName
+        this.dataService.setJobGroupButtonHandled(this.currentEndpoint)
         if (this.currentEndpoint == "job-search" || this.currentEndpoint == 'job-listing') {
             if (this.getFilterData()) {
                 this.router.navigate(['/pages/job-portal/job-listing']);

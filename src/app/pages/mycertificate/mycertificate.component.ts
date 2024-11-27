@@ -21,6 +21,7 @@ othercirtificatecountrylist:any=""
 countryname:any;
 restrict: boolean = false;
 planExpired: boolean = false;
+studentplanRestrict: boolean = false;
 ehitlabelIsShow: boolean = true;
 imagewhitlabeldomainname: any
 orgnamewhitlabel: any;
@@ -99,10 +100,17 @@ orglogowhitelabel: any;
     //   console.log(this.totalmodulecirtficatelist);
     // })
   }
-  downloadCertificate(link:any){
-    if(this.planExpired){
-      this.restrict=true;
-      return;
+  downloadCertificate(link:any,module_id:any){
+    if(module_id == 8 || module_id == 10) {
+      if(this.studentplanRestrict){
+        this.restrict=true;
+        return;
+      }
+    }else {
+      if(this.planExpired){
+        this.restrict=true;
+        return;
+      }
     }
     window.open(link, '_blank');
   }
@@ -122,10 +130,28 @@ orglogowhitelabel: any;
       } else {
         this.planExpired = false;
       }
+      if (data.plan === "expired" || data.plan === 'subscription_expired' ||
+        subscription_exists_status?.subscription_plan === "free_trail" || subscription_exists_status?.subscription_plan === "Student") {
+        this.studentplanRestrict = true;   
+      } else {
+        this.studentplanRestrict = false;
+      }
+      
     })
   }
   selectedIndex: any = null;
-  showSocialSharingList(index: any){
+  showSocialSharingList(index: any,module_id: any){
+    if(module_id == 8 || module_id == 10) {
+      if(this.studentplanRestrict){
+        this.restrict=true;
+        return;
+      }
+    }else {
+      if(this.planExpired){
+        this.restrict=true;
+        return;
+      }
+    }
     this.selectedIndex = this.selectedIndex === index ? null : index;
   }
   shareViaWhatsapp(link:any){

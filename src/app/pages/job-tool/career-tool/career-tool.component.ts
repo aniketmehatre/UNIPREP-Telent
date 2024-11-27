@@ -1,6 +1,7 @@
-import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
-import { environment } from '@env/environment';
+import {Component, OnInit} from '@angular/core';
+import {NavigationEnd, Router} from '@angular/router';
+import {environment} from '@env/environment';
+import {EmployerGlobalService} from "../employer-global.service";
 
 @Component({
   selector: 'uni-career-tool',
@@ -9,7 +10,7 @@ import { environment } from '@env/environment';
 })
 export class CareerToolComponent implements OnInit {
   currentEndpoint: string = "";
-
+  currentRoute: any
   modulesList: any = [
     {
       id: 1,
@@ -111,10 +112,21 @@ export class CareerToolComponent implements OnInit {
       mode: "career-growth-checker"
     }
   ]
-  constructor(private router: Router) { }
+
+  constructor(private router: Router, private employerGlobalService: EmployerGlobalService) {
+    this.router.events.subscribe(event => {
+      if (event instanceof NavigationEnd) {
+        this.currentRoute = event.url;
+        if (this.currentRoute.includes('career-tool')) {
+          localStorage.setItem('MainTitleCareerTool', '');
+          localStorage.setItem("employerName", '');
+          this.employerGlobalService.clearAll()
+        }
+      }
+    });
+  }
 
   ngOnInit(): void {
-
   }
 
 

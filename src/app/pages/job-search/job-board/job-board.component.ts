@@ -98,6 +98,7 @@ export class JobBoardComponent implements OnInit {
     clearRestriction(){
         this.isVisibleAddManually = false
         this.isDeleteVisible = false
+        this.dataService.changeManualAdd(false)
     }
 
     onSubmit(){

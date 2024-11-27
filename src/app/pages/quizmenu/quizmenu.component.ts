@@ -42,6 +42,7 @@ export class QuizmenuComponent implements OnInit {
   readingmodulestartbutton: boolean = true;
   restrict: boolean = false;
   planExpired: boolean = false;
+  StudentplanRestrict: boolean = false;
   certificatesList: any[] = []
   universityModulescertificate: any[] = [];
   Modulequizlistcertificate: any[] = [];
@@ -136,7 +137,7 @@ export class QuizmenuComponent implements OnInit {
   // }
 
   startModululeSkillmastery() {
-    if (this.planExpired) {
+    if (this.StudentplanRestrict) {
       this.restrict = true;
       return;
     }
@@ -178,6 +179,11 @@ export class QuizmenuComponent implements OnInit {
         this.planExpired = true;
       } else {
         this.planExpired = false;
+      }
+      if (data.plan === "expired" || data.plan === 'subscription_expired' || subscription_exists_status.subscription_plan == 'Student') {
+        this.StudentplanRestrict = true;
+      } else {
+        this.StudentplanRestrict = false;
       }
     })
   }
@@ -265,7 +271,7 @@ export class QuizmenuComponent implements OnInit {
     }
   }
   StartLearningHubQuiz() {
-    if (this.planExpired) {
+    if (this.StudentplanRestrict) {
       this.restrict = true;
       return;
     }
