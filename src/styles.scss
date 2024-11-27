@@ -483,6 +483,7 @@ uni-national-exam-questions,
 uni-learnsubmodules,
 uni-national-exam-result,
 uni-k12-board,
+uni-user-management,
 uni-national-exam-review,
 uni-quizinfowindow {
 	display: flex;
@@ -1416,9 +1417,9 @@ uni-subscription {
 
 .accordionpassword {
 	.accordion-item {
-		border-radius: 20px;
+		border-radius: 10px;
 		overflow: hidden;
-		border: none;
+		border: 1px solid var(--uniprep-primaryop10);
 		background: #fafafa;
 
 		.accordion-button {

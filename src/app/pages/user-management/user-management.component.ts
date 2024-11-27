@@ -9,7 +9,7 @@ import { SubSink } from "subsink";
 import { Router } from "@angular/router";
 import { DashboardService } from "../dashboard/dashboard.service";
 import { DataService } from "../../data.service";
-import { count } from "rxjs";
+import { Location } from '@angular/common';
 
 
 @Component({
@@ -61,7 +61,8 @@ export class UserManagementComponent implements OnInit {
         private dataService: DataService,
         private dashboardService: DashboardService,
         private userManagementService: UserManagementService,
-        private router: Router
+        private router: Router,
+        private _location: Location,
     ) {
 
         this.registrationForm = this.formBuilder.group({
@@ -92,6 +93,10 @@ export class UserManagementComponent implements OnInit {
 
     get updatepassword() {
         return this.updatedpasswords.controls;
+    }
+
+    goBack(){
+        this._location.back();
     }
 
     ngOnInit(): void {

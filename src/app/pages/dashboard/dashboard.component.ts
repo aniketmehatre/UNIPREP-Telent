@@ -254,44 +254,38 @@ export class DashboardComponent implements OnInit, OnChanges {
 
     onClickReadProgression(data: any): void {
         let moduleName = "";
-        switch (data.module_name) {
-            case "Pre Admission":
+        switch (data.module_id) {
+            case 1:
                 moduleName = "pre-admission"
                 break;
-            case "Travel and Tourism":
+            case 7:
                 moduleName = "travel-and-tourism"
                 break;
-            case "Post Admission":
+            case 3:
                 moduleName = "post-admission"
                 break;
-            case "Career Hub":
+            case 4:
                 moduleName = "career-hub"
                 break;
-            case "University":
+            case 5:
                 moduleName = "university"
                 break;
-            case "Travel And Tourism":
-                moduleName = "travel-and-tourism"
-                break;
-            case "Life at ":
+            case 6:
                 moduleName = "life-at-country"
                 break;
-            case "Skill Mastery":
+            case 10:
                 moduleName = "skill-mastery"
                 break;
-            case "Learning Hub":
+            case 8:
                 moduleName = "learning-hub"
                 break;
-            case "Language Hub":
-                moduleName = "language-hub"
+            case 9:
+                this.router.navigate([`pages/language-hub/`]);
+                return;
                 break;
-            case "K12":
+            case 14:
                 moduleName = "k12"
                 break;
-        }
-        if(moduleName == 'language-hub'){
-            this.router.navigate([`pages/${moduleName}/`]);
-            return;
         }
         this.router.navigate([`pages/modules/${moduleName}/`]);
     }
