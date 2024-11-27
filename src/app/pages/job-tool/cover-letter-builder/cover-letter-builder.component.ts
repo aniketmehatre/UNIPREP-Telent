@@ -533,7 +533,7 @@ export class CoverLetterBuilderComponent implements OnInit {
     this.authService.getNewUserTimeLeft().subscribe((res) => {
       let data = res.time_left;
       let subscription_exists_status = res.subscription_details;
-      if (data.plan === "expired" || data.plan === 'subscription_expired' || subscription_exists_status.subscription_plan=="Student") {
+      if (data.plan === "expired" || data.plan === 'subscription_expired' || subscription_exists_status.subscription_plan=="Student" || subscription_exists_status.subscription_plan=="free_trail") {
         this.planExpired = true;
       } else {
         this.planExpired = false;

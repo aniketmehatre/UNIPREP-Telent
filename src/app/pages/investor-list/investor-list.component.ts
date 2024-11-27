@@ -31,6 +31,7 @@ export class InvestorListComponent implements OnInit {
   isFilterVisible: string = 'none';
   filterForm: FormGroup;
   planExpired!: boolean;
+  recommendRestrict!: boolean;
   restrict: boolean = false;
   currentPlan: string = "";
   isBookmarked: boolean = false;
@@ -305,11 +306,17 @@ export class InvestorListComponent implements OnInit {
         subscription_exists_status.subscription_plan === 'Student' ||
         subscription_exists_status.subscription_plan === 'Career') {
         this.planExpired = true;
-        //this.restrict = true;
       } else {
         this.planExpired = false;
-        //this.restrict = false;
       }
+      if (data.plan === "expired" || data.plan === 'subscription_expired' ||
+        subscription_exists_status.subscription_plan === 'Student' ||
+        subscription_exists_status.subscription_plan === 'Career') {
+        this.recommendRestrict = true;
+      } else {
+        this.recommendRestrict = false;
+      }
+
       // this.loadInvestorData(0);  
     })
   }
@@ -449,7 +456,7 @@ export class InvestorListComponent implements OnInit {
     }
   }
   getRecommendation() {
-    if (this.planExpired) {
+    if (this.recommendRestrict) {
       this.restrict = true;
       return;
     }

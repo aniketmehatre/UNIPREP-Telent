@@ -35,6 +35,7 @@ export class ScholarshipListComponent implements OnInit {
   regionList: any[] = [];
   filterUniversityList: any[] = [];
   planExpired!: boolean;
+  recommendRestrict!: boolean;
   scholarshipTypeList: any[] = [];
   anyScholarshipTypeList: any[] = [];
   coverList: any[] = [];
@@ -368,6 +369,15 @@ export class ScholarshipListComponent implements OnInit {
       } else {
         this.planExpired = false;
       }
+      if (
+        data.plan === "expired" || data.plan === 'subscription_expired' 
+      ) {
+        this.recommendRestrict = true;
+      } else {
+        this.recommendRestrict = false;
+      }
+
+
       this.loadScholarShipData(0);
     });
   }
@@ -576,7 +586,7 @@ export class ScholarshipListComponent implements OnInit {
   }
 
   getRecommendation() {
-    if (this.planExpired) {
+    if (this.recommendRestrict) {
       this.restrict = true;
       return;
     }
