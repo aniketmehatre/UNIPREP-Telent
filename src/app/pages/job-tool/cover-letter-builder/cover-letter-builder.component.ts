@@ -1,9 +1,7 @@
-import { Component, OnInit, ElementRef, ViewChild } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { ConfirmationService, MenuItem, MessageService } from 'primeng/api';
-import { FormBuilder, FormGroup, FormArray, Form, Validators, AbstractControl } from "@angular/forms";
+import { FormBuilder, FormGroup, Validators, AbstractControl } from "@angular/forms";
 import { CourseListService } from '../../course-list/course-list.service';
-import { HttpHeaders, HttpClient } from '@angular/common/http';
-import html2canvas from 'html2canvas';
 import {LocationService} from "../../../location.service";
 import {AuthService} from "../../../Auth/auth.service";
 import {Router} from "@angular/router";
@@ -18,42 +16,20 @@ import { CvBuilderService } from '../cv-builder/cv-builder.service';
 export class CoverLetterBuilderComponent implements OnInit {
   items!: MenuItem[];
   selectedResumeLevel: string = "";
-  experienceLevel: any = [{ id: 1, level: "Fresher" }, { id: 2, level: "1-2 Years" }, { id: 3, level: "3-5 Years" }, { id: 4, level: "5+ Years" },];
-  cgpaPercentage: any = [{ id: "CGPA", value: "CGPA" }, { id: "%", value: "Percentage" }];
-  workTypeValue: any = [{ id: "Fulltime", value: "Fulltime" }, { id: "Parttime", value: "Parttime" }, { id: "Internship", value: "Internship" }, { id: "Freelance", value: "Freelance" }];
-  languageProficiency: any = [{ id: "Beginner", value: "Beginner" }, { id: "Fluent", value: "Fluent" }, { id: "Proficient", value: "Proficient" }, { id: "Native", value: "Native" }];
-  skillProficiency: any = [{ id: "Basic", value: "Basic" }, { id: "Intermediate", value: "Intermediate" }, { id: "Advance", value: "Advance" }];
-  enableModule: boolean = true;
   activePageIndex: number = 0;
   resumeFormInfoData: FormGroup;
   fullScreenVisible: boolean = false;
   isButtonDisabledSelectTemplate: boolean = false;
   submitted: boolean = false;
-  // submittedsummery:boolean=false;
-  //cloning limit
-  eduDetailsLimit: number = 3;
   moduleActiveIndex: number = 0;
-  wrkExpLimit: number = 3;
-  projectLimit: number = 3;
-  languageLimit: number = 5;
-  techSkillLimit: number = 5;
-  hobbyLimit: number = 5;
-  extraCurriLimit: number = 5;
-  certificateLimit: number = 4;
-  referenceLimit: number = 4;
-  submittedFormData: any = [];
-  selectedExpLevel: number = 0;
   selectedThemeColor: string = "#172a99";
   selectedColorCode: number = 1;
-  template1: any;
   planExpired: boolean = false
   restrict: boolean = false
   ehitlabelIsShow: boolean = true;
   imagewhitlabeldomainname: any
   orgnamewhitlabel: any;
   orglogowhitelabel: any;
-  userNameSplit: { firstWord: string, secondWord: string } = { firstWord: '', secondWord: '' };
-  @ViewChild('capture', { static: false }) captureElement!: ElementRef;
   previewImage: string = "";
   coverHistories: any = [];
   loadingResumes: boolean = true;
@@ -109,12 +85,112 @@ export class CoverLetterBuilderComponent implements OnInit {
       templateName: "Functional",
       imageLink: "../../../../uniprep-assets/coverletter-images/functional.svg",
     },
+    {
+      id: 11,
+      templateName: "Traditional",
+      imageLink: "./../../../uniprep-assets/coverletter-images/traditional.svg",
+    },
+    {
+      id: 12,
+      templateName: "Modern",
+      imageLink: "../../../../uniprep-assets/coverletter-images/modern.svg",
+    },
+    {
+      id: 13,
+      templateName: "Academic",
+      imageLink: "../../../../uniprep-assets/coverletter-images/academic.svg",
+    },
+    {
+      id: 14,
+      templateName: "Creative",
+      imageLink: "../../../../uniprep-assets/coverletter-images/creative.svg",
+    },
+    {
+      id: 15,
+      templateName: "Functional",
+      imageLink: "../../../../uniprep-assets/coverletter-images/functional.svg",
+    },
+    {
+      id: 16,
+      templateName: "Traditional",
+      imageLink: "./../../../uniprep-assets/coverletter-images/traditional.svg",
+    },
+    {
+      id: 17,
+      templateName: "Modern",
+      imageLink: "../../../../uniprep-assets/coverletter-images/modern.svg",
+    },
+    {
+      id: 18,
+      templateName: "Academic",
+      imageLink: "../../../../uniprep-assets/coverletter-images/academic.svg",
+    },
+    {
+      id: 19,
+      templateName: "Creative",
+      imageLink: "../../../../uniprep-assets/coverletter-images/creative.svg",
+    },
+    {
+      id: 20,
+      templateName: "Functional",
+      imageLink: "../../../../uniprep-assets/coverletter-images/functional.svg",
+    },
+    {
+      id: 21,
+      templateName: "Traditional",
+      imageLink: "./../../../uniprep-assets/coverletter-images/traditional.svg",
+    },
+    {
+      id: 22,
+      templateName: "Modern",
+      imageLink: "../../../../uniprep-assets/coverletter-images/modern.svg",
+    },
+    {
+      id: 23,
+      templateName: "Academic",
+      imageLink: "../../../../uniprep-assets/coverletter-images/academic.svg",
+    },
+    {
+      id: 24,
+      templateName: "Creative",
+      imageLink: "../../../../uniprep-assets/coverletter-images/creative.svg",
+    },
+    {
+      id: 25,
+      templateName: "Functional",
+      imageLink: "../../../../uniprep-assets/coverletter-images/functional.svg",
+    },
+    {
+      id: 26,
+      templateName: "Traditional",
+      imageLink: "./../../../uniprep-assets/coverletter-images/traditional.svg",
+    },
+    {
+      id: 27,
+      templateName: "Modern",
+      imageLink: "../../../../uniprep-assets/coverletter-images/modern.svg",
+    },
+    {
+      id: 28,
+      templateName: "Academic",
+      imageLink: "../../../../uniprep-assets/coverletter-images/academic.svg",
+    },
+    {
+      id: 29,
+      templateName: "Creative",
+      imageLink: "../../../../uniprep-assets/coverletter-images/creative.svg",
+    },
+    {
+      id: 30,
+      templateName: "Functional",
+      imageLink: "../../../../uniprep-assets/coverletter-images/functional.svg",
+    },
   ];
   editorModules: any;
   swiper!: Swiper;
 
   constructor(private toaster: MessageService, private fb: FormBuilder, private resumeService: CourseListService,
-              private locationService: LocationService, private http: HttpClient, private authService: AuthService,
+              private locationService: LocationService, private authService: AuthService,
               private router: Router,private confirmService: ConfirmationService, private cvBuilderService:CvBuilderService ){
 
     this.resumeFormInfoData = this.fb.group({
@@ -215,6 +291,11 @@ export class CoverLetterBuilderComponent implements OnInit {
         loop: true,
         centeredSlides: true,
         allowTouchMove: false,
+        slideToClickedSlide: true,
+        autoplay: {
+          delay: 3000, // Optional: Auto-slide every 3 seconds
+          disableOnInteraction: false, // Continues autoplay after interaction
+        },
         breakpoints: {
           640: {
             slidesPerView: 2,
@@ -323,6 +404,7 @@ export class CoverLetterBuilderComponent implements OnInit {
       return;
     }
   }
+  
   hideHeader() {
     if (this.activePageIndex == 2) {
       this.resumeService.setData(true);
@@ -344,17 +426,6 @@ export class CoverLetterBuilderComponent implements OnInit {
     return this.resumeFormInfoData.controls;
   }
 
-  changeExperience(event: any) {
-    if (event.value != 1) {
-      this.eduDetailsLimit = 2;
-      this.wrkExpLimit = 5;
-
-    } else {
-      this.eduDetailsLimit = 3;
-      this.wrkExpLimit = 3;
-    }
-  }
-
   previous() {
     this.activePageIndex--;
     if(this.activePageIndex <= 1){
@@ -367,41 +438,6 @@ export class CoverLetterBuilderComponent implements OnInit {
     if(this.activePageIndex == 1){
       this.ngAfterViewInit();
     }
-  }
-
-  get getEduDetailsArray(): FormArray {
-    return this.resumeFormInfoData.get('EduDetailsArray') as FormArray;
-  }
-
-  get getWorkExpArray(): FormArray {
-    return this.resumeFormInfoData.get('workExpArray') as FormArray;
-  }
-
-  get getProjectDetailsArray(): FormArray {
-    return this.resumeFormInfoData.get('projectDetailsArray') as FormArray;
-  }
-
-  get getLanguagesKnownArray(): FormArray {
-    return this.resumeFormInfoData.get('languagesKnownArray') as FormArray;
-  }
-  get getHobbiesArray(): FormArray {
-    return this.resumeFormInfoData.get('hobbiesArray') as FormArray;
-  }
-
-  get getSkillsArray(): FormArray {
-    return this.resumeFormInfoData.get('skillsArray') as FormArray;
-  }
-
-  get getExtraCurricularArray(): FormArray {
-    return this.resumeFormInfoData.get('extraCurricularArray') as FormArray;
-  }
-
-  get getCertificatesArray(): FormArray {
-    return this.resumeFormInfoData.get('certificatesArray') as FormArray;
-  }
-
-  get getReferenceArray(): FormArray {
-    return this.resumeFormInfoData.get('referenceArray') as FormArray;
   }
 
   downloadResume() {
@@ -433,101 +469,19 @@ export class CoverLetterBuilderComponent implements OnInit {
     this.resumeFormInfoData.patchValue({
       user_summary: ''
     });
-
-    const apiKey = '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';
-    // let prompt: string = `Provide the body of the  cover letter for  ${formData.user_name} who is a ${formData.user_job_title} applying to ${formData.org_name} for the position of ${formData.jobposition}`;
-    let prompt: string = `Name: ${ formData.user_name }, current job: ${ formData.user_job_title }, Current location: ${ formData.user_location }, last degree: ${ formData.edu_degree } from ${ formData.degree_college_name }, work experience: ${ formData.exp_designation } for ${ formData.years_of_exp }, Achivements: ${ formData.achievements_one } and ${ formData.achievements_two } ,hiring manager name: ${ formData.managername },Job applying Organization: ${ formData.org_name }, job applying: ${ formData.jobposition }, job opening location: ${ formData.org_location }.For the above given data, write only body of cover letter in minimum 999 words without header, footer & Dear in three paragraph with p HTML Tags.`;
-    const headers = new HttpHeaders({
-      'Content-Type': 'application/json',
-      'Authorization': `Bearer ${apiKey}`
-    });
-    const body = {
-      model: "gpt-3.5-turbo",
-      messages: [
-        { role: "system", content: "You are a helpful assistant" },
-        { role: "user", content: prompt }
-      ],
-      max_tokens: 1500,
-      temperature: 1,
-      n: 1
-    };
-
-    this.http.post<any>('https://api.openai.com/v1/chat/completions', body, { headers: headers }).subscribe(response => {
-      if (response.choices && response.choices.length > 0) {
-        let  GPTResponse = response.choices[0].message.content.trim();
+    
+    this.cvBuilderService.openAiIntegration(formData).subscribe(res =>{
+      if (res.response && res.response.length > 0) {
+        let  GPTResponse = res.response.trim();
         GPTResponse = GPTResponse.split('</p>').filter((part: any) => part.trim() !== '').map((part: any) => part + '</p><br>').join('');
         this.resumeFormInfoData.patchValue({
           user_summary: GPTResponse
         });
       } else {
-        console.error('Unexpected response structure:', response);
+        console.error('Unexpected response structure:', res);
       }
-    }, error => {
-      console.error('Error:', error);
     });
   }
-
-  // chatGPTIntegration() {
-  //   const userNameControl = this.resumeFormInfoData.get('user_name');
-  //   const userJobTitleControl = this.resumeFormInfoData.get('user_job_title');
-  //   const userEmailControl = this.resumeFormInfoData.get('user_email');
-  //   const userLocationControl = this.resumeFormInfoData.get('user_location');
-  //   const userPhoneControl = this.resumeFormInfoData.get('user_phone');
-  //   const eduCollegeNameControl = this.resumeFormInfoData.get('org_name');
-  //   const eduLocationControl = this.resumeFormInfoData.get('org_location');
-  //   const jobPositionControl = this.resumeFormInfoData.get('jobposition');
-  //   const managerNameControl = this.resumeFormInfoData.get('managername');
-  //   const getKnowAboutAsControl = this.resumeFormInfoData.get('getknowaboutas');
-
-  //   if (!userNameControl?.valid || !userJobTitleControl?.valid || !userEmailControl?.valid ||
-  //       !userLocationControl?.valid || !userPhoneControl?.valid || !eduCollegeNameControl?.valid ||
-  //       !eduLocationControl?.valid || !jobPositionControl?.valid || !managerNameControl?.valid ||
-  //       !getKnowAboutAsControl?.valid) {
-  //         this.submitted = true; // Set the form as submitted if any field is invalid
-  //         return;
-  //   }
-  //   this.resumeFormInfoData.patchValue({
-  //     user_summary: ''
-  //   });
-  //   const apiKey = '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';
-  //   let formData = this.resumeFormInfoData.value;
-  //   let prompt: string = `Provide the body of the  cover letter for  ${this.resumeFormInfoData.value.user_name} who is a ${this.resumeFormInfoData.value.user_job_title} applying to ${this.resumeFormInfoData.value.org_name} for the position of ${this.resumeFormInfoData.value.jobposition}`;
-  //   const headers = new HttpHeaders({
-  //     'Content-Type': 'application/json',
-  //     'Authorization': `Bearer ${apiKey}`
-  //   });
-
-  //   const body = {
-  //     model: "gpt-3.5-turbo",
-  //     messages: [
-  //       { role: "system", content: "write only body of cover letter in html format with a <br> tag between paragraphs and have at least three paragraphs without header and footer" },
-  //       { role: "user", content: prompt }
-  //     ],
-  //     max_tokens: 1500,
-  //     n: 1
-  //   };
-
-  //   this.http.post<any>('https://api.openai.com/v1/chat/completions', body, { headers: headers }).subscribe(response => {
-  //     if (response.choices && response.choices.length > 0) {
-  //       const GPTResponse = response.choices[0].message.content.trim();
-  //       this.resumeFormInfoData.patchValue({
-  //         user_summary: GPTResponse
-  //       });
-  //     } else {
-  //       console.error('Unexpected response structure:', response);
-  //     }
-  //   }, error => {
-  //     console.error('Error:', error);
-  //   });
-  // }
-
-  // get templates
-  // getTemplates(){
-  //   this.resumeService.getcoverletterdummy().subscribe(res => {
-  //     console.log(res);
-
-  //   })
-  // }
 
   checkplanExpire(): void {
     this.authService.getNewUserTimeLeft().subscribe((res) => {
@@ -540,6 +494,7 @@ export class CoverLetterBuilderComponent implements OnInit {
       }
     })
   }
+
   upgradePlan(): void {
     this.router.navigate(["/pages/subscriptions"]);
   }
@@ -554,25 +509,9 @@ export class CoverLetterBuilderComponent implements OnInit {
     this.selectedResumeLevel = templateName;
     this.imgOnclick(templateName)
   }
+
   imgOnclick(resumeLevel: any) {
     this.isButtonDisabledSelectTemplate = true;
     this.selectedResumeLevel = resumeLevel;
   }
-  // onAfterChange(event: any): void {
-  //   // The event contains the index of the current slide
-  //   this.selectedResumeLevel=""
-  //   const currentIndex = event.currentSlide;
-  //   const currentSlide = this.resumeSlider[currentIndex];
-  //   this.selectResumeTemplate(currentSlide.templateName);
-  //   // Perform any action with the current slide's templateName
-  //   // this.selectedResumeLevel = currentSlide.templateName;
-  // }
-
-  // Handle the init event
-  // ngAfterViewInit(): void {
-  //   // Assuming the carousel starts at index 0 or you know the initial index
-  //   const initialIndex = 1; // You may need to adjust this if necessary
-  //   const initialSlide = this.resumeSlider[initialIndex];
-  //   this.selectResumeTemplate(initialSlide.templateName);
-  // }
 }
