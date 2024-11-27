@@ -127,7 +127,11 @@ export class PitchDeskComponent implements OnInit {
       }
     }
     this.pitchDesk.getPitchDeskData(data).subscribe((responce) => {
-      this.totalPitchDeckCount = responce.total_count;
+      if (this.planExpired) { //default 50 data, so, it won't show 2,3 ... in the ui
+        this.totalPitchDeckCount = 50;
+       }
+       else  this.totalPitchDeckCount = responce.total_count;
+      
       this.pitchDeskList = responce.data;
       this.exportCreditCount = responce.credit_count ? responce.credit_count : 0;
       this.favCount = responce.fav_count;
