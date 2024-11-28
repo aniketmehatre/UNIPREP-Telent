@@ -34,6 +34,7 @@ export class CoverLetterBuilderComponent implements OnInit {
   coverHistories: any = [];
   loadingResumes: boolean = true;
   currentDate: Date = new Date();
+  isButtonDisabled: boolean = false;
   resumeSlider: any = [
     {
       id: 1,
@@ -292,10 +293,6 @@ export class CoverLetterBuilderComponent implements OnInit {
         centeredSlides: true,
         allowTouchMove: false,
         slideToClickedSlide: true,
-        autoplay: {
-          delay: 3000, // Optional: Auto-slide every 3 seconds
-          disableOnInteraction: false, // Continues autoplay after interaction
-        },
         breakpoints: {
           640: {
             slidesPerView: 2,
@@ -466,6 +463,9 @@ export class CoverLetterBuilderComponent implements OnInit {
 
   chatGPTIntegration(){
     const formData = this.resumeFormInfoData.value;
+    formData.mode = "cover_letter";
+    formData.max_tokens = 1500;
+    this.isButtonDisabled = true;
     this.resumeFormInfoData.patchValue({
       user_summary: ''
     });

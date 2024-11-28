@@ -235,21 +235,8 @@ export class ScholarshipListComponent implements OnInit {
   }
   applyFilter() {
     const formData = this.filterForm.value;
-    if (
-      !formData.home_country &&
-      !formData.country &&
-      !formData.study_level &&
-      !formData.university &&
-      // !formData.region &&
-      !formData.type &&
-      !formData.valueRange &&
-      !formData.cover_id
-    ) {
-      // this.toast.add({
-      //   severity: "error",
-      //   summary: "Error",
-      //   detail: "Please make sure you have some filter!",
-      // });
+    console.log(this.data);
+    if (!formData.home_country && !formData.country && !formData.study_level && !formData.university && !formData.type && !formData.valueRange &&!formData.cover_id) {
       this.regionList = [];
       this.filterForm.reset();
       this.data = {
@@ -664,6 +651,8 @@ export class ScholarshipListComponent implements OnInit {
       this.filterForm.reset();
       this.selectedData = {};
       this.activePageIndex = 0;
+      this.viewFavouritesLabel = "View Favourites";
+      this.data.favourite = 0;
       // this.addAnyValueToOptions();
     });
   }
