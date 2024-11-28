@@ -12,7 +12,7 @@
 		</div>
 	</div>
 	<div class="card-body flex-fill overflow-y-auto">
-		<div class="row mb-3 ">
+		<div class="row mb-3">
 			<div class="col-md-12">
 				<div class="card text-md-start text-center">
 					<div class="card-body">
@@ -22,31 +22,33 @@
                                         <span class="fa-solid fa-chevron-left"></span>
                                     </div>
                                 </div> -->
-							<div class="col-md-9">
-								<div class="row">
-									<div class="col-md-3 text-md-start text-center">
-										<div class="d-flex justify-content-start align-items-center gap-2">
-											<div class="profileImg d-md-flex d-none">
-												<span>{{ (PersonalInfo?.name || "").charAt(0) }}</span>
-											</div>
-											<div classs="text-wrap">
-												<small>User Name</small>
-												<p class="mb-0 fw-semibold">{{ PersonalInfo?.name }}</p>
-											</div>
+							<div class="col-md-9 mb-md-0 mb-3">
+								<div class="d-flex flex-md-row flex-column gap-md-5 gap-2">
+									<div class="d-flex gap-2 d-md-flex d-none">
+										<div class="profileImg">
+											<span>{{ (PersonalInfo?.name || "").charAt(0) }}</span>
+										</div>
+										<div>
+											<small>User Name</small>
+											<p class="mb-0 fw-semibold">{{ PersonalInfo?.name }}</p>
 										</div>
 									</div>
-									<div class="col-md-3">
+									<div class="d-md-none d-block">
+										<small>User Name</small>
+										<p class="mb-0 fw-semibold">{{ PersonalInfo?.name }}</p>
+									</div>
+									<div>
 										<small> Phone </small>
 										<p class="mb-0 fw-semibold">{{ PersonalInfo?.phone }}</p>
 									</div>
-									<div class="col-md-6">
+									<div>
 										<small> Email </small>
 										<p class="mb-0 fw-semibold">{{ PersonalInfo?.email }}</p>
 									</div>
 								</div>
 							</div>
 							<div class="col-md-3 text-md-end text-center">
-								<a class="btn btn-primary" (click)="onClickSubscribe()">
+								<a class="btn btn-primary p-button" (click)="onClickSubscribe()">
 									<p class="mb-0"><i class="fa-sharp fa-regular fa-crown"></i> My Subscription</p>
 								</a>
 							</div>
@@ -263,7 +265,7 @@
                                                 </div> -->
 								</div>
 								<div class="d-flex justify-content-end mt-2">
-									<button type="submit" class="btn btn-primary"><i class="fa-solid fa-circle-up mt-1" style="color: #ffffff"></i> &nbsp; Update Info &nbsp;</button>
+									<button type="submit" class="btn btn-primary p-button"><i class="fa-solid fa-circle-up mt-1" style="color: #ffffff"></i> &nbsp; Update Info &nbsp;</button>
 								</div>
 							</form>
 						</div>
@@ -285,7 +287,7 @@
 												<div class="col-md-4 col-12">
 													<label class="mb-1">Current Password</label>
 													<div class="position-relative">
-														<input [type]="CrntPass" class="form-control" formControlName="current_password" />
+														<input [type]="CrntPass" class="form-control w-100" formControlName="current_password" />
 														<span class="passwordvisibility" role="button" (click)="ShowCurrentPassword()">
 															<i class="fa-solid fa-eye" *ngIf="ShowCrntPass"></i>
 															<i class="fa-solid fa-eye-slash" *ngIf="!ShowCrntPass"></i>
@@ -299,7 +301,7 @@
 												<div class="col-md-4 col-12">
 													<label class="mb-1">Set New Password</label>
 													<div class="position-relative">
-														<input [type]="NewPass" class="form-control" formControlName="new_password" />
+														<input [type]="NewPass" class="form-control w-100" formControlName="new_password" />
 														<span class="passwordvisibility" role="button" (click)="ShowNewPassword()">
 															<i class="fa-solid fa-eye" *ngIf="ShowNewPass"></i>
 															<i class="fa-solid fa-eye-slash" *ngIf="!ShowNewPass"></i>
@@ -312,7 +314,7 @@
 												<div class="col-md-4 col-12">
 													<label class="mb-1">Enter New Password Again</label>
 													<div class="position-relative">
-														<input [type]="CnfrmPass" class="form-control" formControlName="confirm_password" />
+														<input [type]="CnfrmPass" class="form-control w-100" formControlName="confirm_password" />
 														<span class="passwordvisibility" role="button" (click)="ShowConfirmPassword()">
 															<i class="fa-solid fa-eye" *ngIf="ShowCnfrmPass"></i>
 															<i class="fa-solid fa-eye-slash" *ngIf="!ShowCnfrmPass"></i>
@@ -322,8 +324,8 @@
 														<div *ngIf="updatepassword['confirm_password']['errors']['required']">Confirm Password is required</div>
 													</div>
 												</div>
-												<div class="col-md-12 text-md-end text-center mt-3">
-													<button type="submit" class="btn btn-primary"><i class="fa-solid fa-circle-up" style="color: #ffffff"></i> &nbsp; Update Password &nbsp;</button>
+												<div class="col-md-12 col-12 text-md-end text-center mt-3">
+													<button type="submit" class="btn btn-primary p-button"><i class="fa-solid fa-circle-up" style="color: #ffffff"></i> &nbsp; Update Password &nbsp;</button>
 												</div>
 											</div>
 										</div>
