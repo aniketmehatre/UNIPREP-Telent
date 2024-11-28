@@ -87,4 +87,11 @@ export class CvBuilderService {
       headers: headers,
     });
   }
+
+  openAiIntegration(req: any){
+    const headers = new HttpHeaders().set("Accept", "application/json");
+    return this.http.post<any>(environment.ApiUrl + "/AiIntegration", req ,{
+      headers: headers,
+    });
+  }
 }
