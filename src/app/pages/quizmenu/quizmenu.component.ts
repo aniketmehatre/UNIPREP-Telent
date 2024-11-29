@@ -59,6 +59,7 @@ export class QuizmenuComponent implements OnInit {
     private locationService: LocationService, private authService: AuthService, private pageFacade: PageFacadeService) { }
 
   ngOnInit(): void {
+    localStorage.setItem('QuizModuleName', '')
     this.locationService.getImage().subscribe(imageUrl => {
       this.orglogowhitelabel = imageUrl;
     });
@@ -141,6 +142,7 @@ export class QuizmenuComponent implements OnInit {
       this.restrict = true;
       return;
     }
+    //localStorage.setItem('QuizModuleName', '')
     this.currentModuleSlug = "skill-mastery"
     this.router.navigate([`/pages/modules/${this.currentModuleSlug}/quiz`]);
   }
@@ -242,29 +244,33 @@ export class QuizmenuComponent implements OnInit {
       this.subjectlistdropdown = response.data;
     });
   }
-  specializationList() {
+  specializationList(event: any) {
+    localStorage.setItem('QuizModuleName', '')
+    localStorage.setItem('learningHubQuizBreadCrumb', '')
+    localStorage.setItem('QuizModuleName', event.value.category)
     this.specializationlist = [];
     var data = {
       // category_flag:1,
-      category_id: this.subjectid
+      category_id: this.subjectid.category_id
     }
-    localStorage.setItem("learningsubjectidforquiz", this.subjectid);
+    localStorage.setItem("learningsubjectidforquiz", this.subjectid.category_id);
     this.moduleListService.getSpecializationLists(data).subscribe((response) => {
       this.specializationlist = response.data;
     });
   }
   quizpercentage: number = 0
-  specializationdata() {
+  specializationdata(event: any) {
+    localStorage.setItem('QuizModuleName',  localStorage.getItem('QuizModuleName') + ' -> '+event.value.submodule_name)
     var data = {
       moduleid: 8,
       countryid: 0,
-      submoduleid: this.specializationid,
+      submoduleid: this.specializationid.submodule_id,
     }
     this.moduleListService.checkModuleQuizCompletion(data).subscribe((res) => {
       this.quizpercentage = res.progress
     })
-    if (this.specializationid != null) {
-      localStorage.setItem("learninghubsubmoduleid", this.specializationid);
+    if (this.specializationid.submodule_id != null) {
+      localStorage.setItem("learninghubsubmoduleid", this.specializationid.submodule_id);
       this.learningHubQuiz = false;
     } else {
       this.learningHubQuiz = true;
@@ -275,6 +281,7 @@ export class QuizmenuComponent implements OnInit {
       this.restrict = true;
       return;
     }
+    console.log(localStorage.getItem('QuizModuleName'))
     this.currentModuleSlug = "learning-hub"
     this.router.navigate([`/pages/modules/${this.currentModuleSlug}/learninghubquiz`]);
   }
@@ -287,7 +294,7 @@ export class QuizmenuComponent implements OnInit {
   getLaguageListType() {
     this.languagedropdownlisttype = [];
     var data = {
-      languageid: this.laguageid
+      languageid: this.laguageid.id
     }
     this.moduleListService.getLanguageistType(data).subscribe((response) => {
       this.languagedropdownlisttype = response.data;
@@ -296,20 +303,22 @@ export class QuizmenuComponent implements OnInit {
   languageselectdrpodown: number = 0;
   languageselecttypedrpodown: number = 0;
   quizlanguguageprogress: number = 0
-  languageListId() {
-    localStorage.setItem("languageidforquiz", this.laguageid)
+  languageListId(event: any) {
+    localStorage.setItem('QuizModuleName', event.value.language)
+    localStorage.setItem("languageidforquiz", this.laguageid.id)
     this.languageselectdrpodown = 1;
     this.getLaguageListType()
   }
-  languagrTypeId() {
-    localStorage.setItem("languagetypeidforquiz", this.laguagetypeid)
+  languagrTypeId(event: any) {
+    localStorage.setItem('QuizModuleName',  localStorage.getItem('QuizModuleName') +' -> '+ event.value.type)
+    localStorage.setItem("languagetypeidforquiz", this.laguagetypeid.id)
     this.languageselecttypedrpodown = 1;
     if (this.languageselectdrpodown == this.languageselecttypedrpodown) {
 
       var data = {
         moduleid: 9,
-        languageId: this.laguageid,
-        languagetype: this.laguagetypeid,
+        languageId: this.laguageid.id,
+        languagetype: this.laguagetypeid.id,
       }
       this.moduleListService.checklanguageQuizCompletion(data).subscribe((res) => {
         this.quizlanguguageprogress = res.progress
@@ -395,34 +404,35 @@ export class QuizmenuComponent implements OnInit {
   }
   skillmasteryquizpercentage: number = 0
   skillMasteryButtonVisible(eve: any) {
+    localStorage.setItem('QuizModuleName', eve.value.submodule_name)
     var data = {
       moduleid: 10,
       countryid: 0,
-      submoduleid: eve.value,
+      submoduleid: eve.value.id,
     }
     this.moduleListService.checkModuleQuizCompletion(data).subscribe((res) => {
       this.skillmasteryquizpercentage = res.progress
     })
     if (this.skillsmasteryId != null) {
       this.skillunivertybutton = false;
-      localStorage.setItem('skillmasteryquizsubmoduleid', eve.value)
+      localStorage.setItem('skillmasteryquizsubmoduleid', eve.value.id)
     } else {
       this.skillunivertybutton = true;
     }
   }
-  universityidcheck: [] = []
   universityquizpercentagecompletion: number = 0;
-  universityButtonVisible() {
+  universityButtonVisible(event: any) {
+    localStorage.setItem("QuizModuleName", event.value.submodule_name)
     var data = {
       moduleid: 5,
       countryid: this.unversitycontrydropdownid,
-      submoduleid: this.universityId,
+      submoduleid: this.universityId.id,
     }
     this.moduleListService.checkModuleQuizCompletion(data).subscribe((res) => {
       this.universityquizpercentagecompletion = res.progress;
       if (this.universityquizpercentagecompletion <= 89) {
         this.universityquizbutton = false;
-        localStorage.setItem('universityidforquiz', this.universityId)
+        localStorage.setItem('universityidforquiz', this.universityId.id)
       } else {
         this.universityquizbutton = true;
       }

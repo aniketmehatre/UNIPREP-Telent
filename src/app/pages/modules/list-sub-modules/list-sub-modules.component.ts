@@ -155,6 +155,7 @@ export class ListSubModulesComponent implements OnInit {
     description: any
 
     init() {
+        localStorage.setItem('QuizModuleName', '')
         this.currentCountryId = Number(localStorage.getItem('countryId'));
         this.currentModuleSlug = this.router.url.split('/').pop();
 
@@ -556,6 +557,7 @@ export class ListSubModulesComponent implements OnInit {
                 this.selectedSubModule = element.country;
             }
         });
+        localStorage.setItem('QuizModuleName', submodule.submodule_name)
         this.selectedSubModule = id;
         this.router.navigate([`/pages/modules/${this.currentModuleSlug}/question-list/${this.selectedSubModule}`]);
     }

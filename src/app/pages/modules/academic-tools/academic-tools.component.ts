@@ -33,4 +33,12 @@ export class AcademicToolsComponent implements OnInit {
       this.academicTools = response.data;
     });
   }
+
+  navigateToTool(id: any){
+    if (id) {
+      // Navigate dynamically
+
+      this.router.navigateByUrl(`pages/modules/academic-tools/${id}`);
+    }
+  }
 }

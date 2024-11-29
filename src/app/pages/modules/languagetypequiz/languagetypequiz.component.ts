@@ -64,6 +64,7 @@ export class LanguagetypequizComponent implements OnInit {
   imagewhitlabeldomainname: any
   orgnamewhitlabel: any;
   orglogowhitelabel: any;
+  menuView: any
   constructor(private moduleListService: ModuleServiceService, private authService: AuthService,
      private router: Router, private dataService: DataService,private location: Location,
     private locationService: LocationService, private ngxService: NgxUiLoaderService,
@@ -74,6 +75,7 @@ export class LanguagetypequizComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.menuView = localStorage.getItem('QuizModuleName');
     this.locationService.getImage().subscribe(imageUrl => {
       this.orglogowhitelabel = imageUrl;
     });

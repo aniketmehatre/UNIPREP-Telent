@@ -143,7 +143,8 @@ export class LearninghubquizComponent implements OnInit {
           this.upgradePlanMsg = 'Upgrade your plan now to gain instant access.';
         this.aboutModule = 'Explore a vast database of Q&A about:',
           this.moduleDetails = ' Arrival, student discounts, banking, full time jobs, post study work and many more!'
-          this.mainTitle = localStorage.getItem('learningHubQuizBreadCrumb')
+          this.mainTitle = localStorage.getItem('QuizModuleName') ?
+              localStorage.getItem('QuizModuleName') : localStorage.getItem('learningHubQuizBreadCrumb')
         break;
     }
     this.responsiveOptions = [

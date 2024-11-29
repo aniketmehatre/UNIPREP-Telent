@@ -37,7 +37,6 @@ export class NationalExamReviewComponent implements OnInit {
     }
     this.service.showResult(data).subscribe(response => {
       this.questions = response;
-      console.log(this.questions);
       this.activeQuestion = this.questions[this.page].question;
       this.activeQuestionId = this.questions[this.page].id;
       this.activeTestId = this.questions[this.page].test_id;

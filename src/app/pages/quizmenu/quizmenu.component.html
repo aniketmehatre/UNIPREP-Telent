@@ -24,7 +24,10 @@
             <h4>Pre Admission</h4>
             <div class="row" style="width: -webkit-fill-available !important">
               <div class="col-12 mt-1">
-                <p-dropdown dropdownAppendTo="body" (onChange)="preAdmissionCountryListId($event.value)" [(ngModel)]="preaddimissioncontrydropdownid" placeholder="Select the country" [options]="countrydropdownlist" optionValue="id" optionLabel="country" styleClass="w-100 flex-fill" [filter]="true">
+                <p-dropdown dropdownAppendTo="body" (onChange)="preAdmissionCountryListId($event.value)"
+                            [(ngModel)]="preaddimissioncontrydropdownid" placeholder="Select the country"
+                            [options]="countrydropdownlist" optionValue="id" optionLabel="country"
+                            styleClass="w-100 flex-fill" [filter]="true">
                   <ng-template let-countryOption pTemplate="selectedItem">
                     <div class="d-flex gap-1 align-items-center countrydropdown">
                       <img class="countryicon" src="{{ countryOption.flag }}" alt="{{ countryOption.country }}" />
@@ -159,7 +162,7 @@
             <h4>Skill Mastery Quiz</h4>
             <div class="row" style="width: -webkit-fill-available !important">
               <div class="col-12 mt-1">
-                <p-dropdown dropdownAppendTo="body" (onChange)="skillMasteryButtonVisible($event)" [(ngModel)]="skillsmasteryId" placeholder="Select" [options]="skillsmasteryList" optionValue="id" optionLabel="submodule_name" styleClass="w-100" [filter]="true"></p-dropdown>
+                <p-dropdown dropdownAppendTo="body" (onChange)="skillMasteryButtonVisible($event)" [(ngModel)]="skillsmasteryId" placeholder="Select" [options]="skillsmasteryList"  optionLabel="submodule_name" styleClass="w-100" [filter]="true"></p-dropdown>
               </div>
             </div>
             <div class="mt-2" style="text-align: center">
@@ -198,7 +201,7 @@
                 </p-dropdown>
               </div>
               <div class="col-12 mt-2">
-                <p-dropdown dropdownAppendTo="body" class="mt-2" (onChange)="universityButtonVisible()" [(ngModel)]="universityId" placeholder="Select your university" [options]="filterUniversityList" optionValue="id" optionLabel="submodule_name" styleClass="w-100" [filter]="true"></p-dropdown>
+                <p-dropdown dropdownAppendTo="body" class="mt-2" (onChange)="universityButtonVisible($event)" [(ngModel)]="universityId" placeholder="Select your university" [options]="filterUniversityList" optionLabel="submodule_name" styleClass="w-100" [filter]="true"></p-dropdown>
               </div>
             </div>
             <div class="mt-2" style="text-align: center">
@@ -219,10 +222,10 @@
             <h4>Learning Hub Quiz</h4>
             <div class="row" style="width: -webkit-fill-available !important">
               <div class="col-12 mt-1">
-                <p-dropdown dropdownAppendTo="body" class="mt-2" (onChange)="specializationList()" [(ngModel)]="subjectid" placeholder="Select a subject" [options]="subjectlistdropdown" optionValue="category_id" optionLabel="category" styleClass="w-100" [filter]="true"></p-dropdown>
+                <p-dropdown dropdownAppendTo="body" class="mt-2" (onChange)="specializationList($event)" [(ngModel)]="subjectid" placeholder="Select a subject" [options]="subjectlistdropdown" optionLabel="category" styleClass="w-100" [filter]="true"></p-dropdown>
               </div>
               <div class="col-12 mt-2">
-                <p-dropdown dropdownAppendTo="body" class="mt-2" (onChange)="specializationdata()" [(ngModel)]="specializationid" placeholder="Select a specialization" [options]="specializationlist" optionValue="submodule_id" optionLabel="submodule_name" styleClass="w-100" [filter]="true"></p-dropdown>
+                <p-dropdown dropdownAppendTo="body" class="mt-2" (onChange)="specializationdata($event)" [(ngModel)]="specializationid" placeholder="Select a specialization" [options]="specializationlist" optionLabel="submodule_name" styleClass="w-100" [filter]="true"></p-dropdown>
               </div>
             </div>
             <div class="mt-2" style="text-align: center">
@@ -243,10 +246,10 @@
             <h4>Language Hub Quiz</h4>
             <div class="row" style="width: -webkit-fill-available !important">
               <div class="col-12 mt-1">
-                <p-dropdown dropdownAppendTo="body" class="mt-2" (onChange)="languageListId()" [(ngModel)]="laguageid" placeholder="Select the language" [options]="languagedropdownlist" optionValue="id" optionLabel="language" styleClass="w-100" [filter]="true"></p-dropdown>
+                <p-dropdown dropdownAppendTo="body" class="mt-2" (onChange)="languageListId($event)" [(ngModel)]="laguageid" placeholder="Select the language" [options]="languagedropdownlist"  optionLabel="language" styleClass="w-100" [filter]="true"></p-dropdown>
               </div>
               <div class="col-12 mt-2">
-                <p-dropdown dropdownAppendTo="body" class="mt-2" (onChange)="languagrTypeId()" [(ngModel)]="laguagetypeid" placeholder="Select proficiency level" [options]="languagedropdownlisttype" optionValue="id" optionLabel="type" styleClass="w-100" [filter]="true"></p-dropdown>
+                <p-dropdown dropdownAppendTo="body" class="mt-2" (onChange)="languagrTypeId($event)" [(ngModel)]="laguagetypeid" placeholder="Select proficiency level" [options]="languagedropdownlisttype"  optionLabel="type" styleClass="w-100" [filter]="true"></p-dropdown>
               </div>
             </div>
             <div class="mt-2" style="text-align: center">
