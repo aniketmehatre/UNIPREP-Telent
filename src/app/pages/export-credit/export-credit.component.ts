@@ -267,6 +267,12 @@ export class ExportCreditComponent implements OnInit {
     this.router.navigate(["/pages/subscriptions/upgrade-subscription"]);
   }
 
+  blockKeyboardInput(event: KeyboardEvent) :void{
+    // if (event.key !== 'Tab') { // if you want to allow any buttons you can enable the buttons here
+      event.preventDefault();
+    // }
+  }
+
   onInputChangeValue(event: any, module_id:number){
     this.totalPayableAmount = 0;
     if(this.currentCountry == "India"){
