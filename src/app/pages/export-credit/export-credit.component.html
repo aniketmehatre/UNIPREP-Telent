@@ -30,7 +30,7 @@
 								<!-- *ngIf="modules.planValidation == 1; else upgradeRequired" -->
 								<div class="col-md-4 col-4 d-flex flex-column justify-content-center gap-3" *ngIf="modules?.planValidation == 1">
 									<div class="d-flex justify-content-center justify-content-md-end">
-										<p-inputNumber [(ngModel)]="modules.inputvalue" (onInput)="onInputChangeValue($event,modules.id)" [showButtons]="true" buttonLayout="horizontal" spinnerMode="horizontal" incrementButtonIcon="pi pi-plus" decrementButtonIcon="pi pi-minus" [min]="modules.min_credit" [max]="modules.max_credit" [size]="3"></p-inputNumber>
+										<p-inputNumber [(ngModel)]="modules.inputvalue" (onInput)="onInputChangeValue($event,modules.id)" [showButtons]="true" buttonLayout="horizontal" spinnerMode="horizontal" incrementButtonIcon="pi pi-plus" decrementButtonIcon="pi pi-minus" [min]="modules.min_credit" [max]="modules.max_credit" [size]="3" [step]="modules.increment"></p-inputNumber>
 									</div>
 									<div class="d-flex flex-row justify-content-center gap-3 align-items-center text-nowrap ">
 										<h5 *ngIf="currentCountry !='India'" class="mb-0 uniprep-primary">{{ modules.price_per_credit * perRupeePrice | number:'1.2-2' }} {{ currentCurrencySymbol }}/Credit</h5>                

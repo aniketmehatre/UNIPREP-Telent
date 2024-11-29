@@ -532,6 +532,7 @@ export class InvestorListComponent implements OnInit {
       this.activePageIndex = 0;
       this.enableModule = false;
       this.selectedData = {};
+      this.viewFavouritesLabel = "View Favourites";
     });
   }
   goBackButton() {

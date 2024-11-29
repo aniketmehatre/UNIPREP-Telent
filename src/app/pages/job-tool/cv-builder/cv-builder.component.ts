@@ -1109,66 +1109,99 @@ export class CvBuilderComponent implements OnInit  {
 
   chatGPTIntegration(fieldName: string, iteration: number) {
 
-    const apiKey = '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';
+    // const apiKey = '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';
     let formData = this.resumeFormInfoData.value;
-    let prompt: string = "";
+    // let prompt: string = "";
+    let parameters: any = {
+      max_tokens : 300,
+      mode : fieldName,
+    };
     if (fieldName == 'user_summary') {
       if(!formData.selected_exp_level){
         this.toaster.add({ severity: "error", summary: "Error", detail: "Please Select Experience Level and job title." });
         return;
       }
+      parameters.user_job_title =  formData.user_job_title;
+      // parameters.mode =  "user_summary";
+
       if (formData.selected_exp_level == 1) {
-        prompt = `Provide a professional summary for a ${formData.user_job_title} role, up to 30 words, suitable for a resume for freshers.`;
+        parameters.exp_type = "fresher";
+        // prompt = `Provide a professional summary for a ${formData.user_job_title} role, up to 30 words, suitable for a resume for freshers.`;
       } else {
+        parameters.exp_type = "experience";
         const selectedExp = this.experienceLevel[formData.selected_exp_level - 1];
-        prompt = `Provide a professional summary for a resume, up to 30 words, tailored to a ${formData.user_job_title} role with ${selectedExp.level} of experience.`;
+        parameters.experience_level = selectedExp.level;
+        // prompt = `Provide a professional summary for a resume, up to 30 words, tailored to a ${formData.user_job_title} role with ${selectedExp.level} of experience.`;
       }
       this.isButtonDisabled = true;
     } else if (fieldName == 'work_job_description') {
+      // parameters.mode =  "work_job_description";
       this.genreateButtonDisabled[iteration] = true;
       const work_designation = this.getWorkExpArray.value[iteration].work_designation;
+      parameters.work_designation = work_designation;
       // prompt = `Provide five roles and responsibilities for a ${work_designation} role without using headings.`;
-      prompt = `Provide four bullet points with ul and li HTML tags detailing the roles and responsibilities for a ${work_designation} role, without any headings.`;
+      // prompt = `Provide four bullet points with ul and li HTML tags detailing the roles and responsibilities for a ${work_designation} role, without any headings.`;
     }
-
-    const headers = new HttpHeaders({
-      'Content-Type': 'application/json',
-      'Authorization': `Bearer ${apiKey}`
-    });
-
-    const body = {
-      model: "gpt-3.5-turbo",
-      messages: [
-        { role: "system", content: "You are a helpful assistant." },
-        { role: "user", content: prompt }
-      ],
-      max_tokens: 300
-    };
-
-    this.http.post<any>('https://api.openai.com/v1/chat/completions', body, { headers: headers }).subscribe(response => {
-      if (response.choices && response.choices.length > 0) {
-        const GPTResponse = response.choices[0].message.content.trim();
+    console.log(parameters, "parameters");
+    this.resumeService.openAiIntegration(parameters).subscribe(res =>{
+      if (res.response && res.response.length > 0) {
         if (fieldName == 'user_summary') {
           this.resumeFormInfoData.patchValue({
-            user_summary: GPTResponse
+            user_summary: res.response
           });
         } else if (fieldName == 'work_job_description') {
           const workExpArray = this.getWorkExpArray;
           if (workExpArray.length > 0) {
             const firstWorkExpGroup = workExpArray.at(iteration) as FormGroup;
             firstWorkExpGroup.patchValue({
-              work_job_description: GPTResponse
+              work_job_description: res.response
             });
           } else {
             console.error('No work experience entries found.');
           }
         }
-      } else {
-        console.error('Unexpected response structure:', response);
       }
-    }, error => {
-      console.error('Error:', error);
+      console.log(res, "open Ai integration");
     });
+    // return;
+    // const headers = new HttpHeaders({
+    //   'Content-Type': 'application/json',
+    //   'Authorization': `Bearer ${apiKey}`
+    // });
+
+    // const body = {
+    //   model: "gpt-3.5-turbo",
+    //   messages: [
+    //     { role: "system", content: "You are a helpful assistant." },
+    //     { role: "user", content: prompt }
+    //   ],
+    //   max_tokens: 300
+    // };
+
+    // this.http.post<any>('https://api.openai.com/v1/chat/completions', body, { headers: headers }).subscribe(response => {
+    //   if (response.choices && response.choices.length > 0) {
+    //     const GPTResponse = response.choices[0].message.content.trim();
+    //     if (fieldName == 'user_summary') {
+    //       this.resumeFormInfoData.patchValue({
+    //         user_summary: GPTResponse
+    //       });
+    //     } else if (fieldName == 'work_job_description') {
+    //       const workExpArray = this.getWorkExpArray;
+    //       if (workExpArray.length > 0) {
+    //         const firstWorkExpGroup = workExpArray.at(iteration) as FormGroup;
+    //         firstWorkExpGroup.patchValue({
+    //           work_job_description: GPTResponse
+    //         });
+    //       } else {
+    //         console.error('No work experience entries found.');
+    //       }
+    //     }
+    //   } else {
+    //     console.error('Unexpected response structure:', response);
+    //   }
+    // }, error => {
+    //   console.error('Error:', error);
+    // });
   }
 
   downloadOldResume(resumeLink: string) {

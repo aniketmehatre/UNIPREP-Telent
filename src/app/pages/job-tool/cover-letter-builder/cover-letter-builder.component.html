@@ -322,7 +322,7 @@
 								<div class="col-md-12">
 									<div class="d-flex justify-content-between align-items-center">
 										<label class="uniprep-primarydark fw-bold h6 mb-0">Cover Letter Section</label>
-										<button pButton type="button" class="deleteDivButton mb-2" (click)="chatGPTIntegration()" style="background-color: #9bc329">Generate &nbsp;<i class="fa-solid fa-line-columns trashIcon" style="background-color: #9bc329"></i></button>
+										<button pButton type="button" class="deleteDivButton mb-2" [disabled]="isButtonDisabled" (click)="chatGPTIntegration()" style="background-color: #9bc329">Generate &nbsp;<i class="fa-solid fa-line-columns trashIcon" style="background-color: #9bc329"></i></button>
 									</div>
 									<div class="form-group">
 										<div class="mb-3">
@@ -349,7 +349,7 @@
 					<span class="me-2">Next</span><span class="btn-icon px-2 py-2"><i class="fa-solid fa-arrow-right"></i></span>
 				</button>
 				<button pButton type="button" (click)="resumeFormSubmit()" *ngIf="moduleActiveIndex == 2" class="btn btn-success btn-rounded p-1 ps-4">
-					<span class="me-2">Generate</span><span class="btn-icon px-2 py-2"><i class="fa-solid fa-check"></i></span>
+					<span class="me-2">Create</span><span class="btn-icon px-2 py-2"><i class="fa-solid fa-check"></i></span>
 				</button>
 			</div>
 		</div>
