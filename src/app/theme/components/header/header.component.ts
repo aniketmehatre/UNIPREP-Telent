@@ -137,9 +137,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
     });
     this.service.getTimeInfoForCard().subscribe((data) => {
       localStorage.setItem('time_card_info', data.card_message);
-
     });
-    this.timeLeftInfo = localStorage.getItem('time_card_info');
   }
 
   loadCountryList() {
@@ -325,7 +323,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
         this.openModal();
       }
     });
-    this.dashboardService.countryList().subscribe(countryList => {
+    this.locationService.getCountry().subscribe(countryList => {
       this.countryLists = countryList;
       this.countryLists.forEach((element: any) => {
         if (element.id == localStorage.getItem('countryId')) {
@@ -513,6 +511,8 @@ export class HeaderComponent implements OnInit, OnDestroy {
         summary: "Info",
         detail: "logged out successfully",
       });
+      this.service.clearCache();
+      this.locationService.clearCache()
       window.sessionStorage.clear();
       localStorage.clear();
       this.router.navigateByUrl("/login");
@@ -563,11 +563,11 @@ export class HeaderComponent implements OnInit, OnDestroy {
     totalCountryList.toggle(false);
   }
 
-  getCountryList(): void {
-    this.locationService.getCountry().subscribe((countryList) => {
-      this.countryLists = countryList;
-    });
-  }
+  // getCountryList(): void {
+  //   this.locationService.getCountry().subscribe((countryList) => {
+  //     this.countryLists = countryList;
+  //   });
+  // }
 
   onChangeChooseMain(event: any) {
     this.isVisibleModulesMenu = event == 2;

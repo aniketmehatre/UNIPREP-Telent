@@ -75,7 +75,7 @@ export class EventsComponent implements OnInit {
       this.ehitlabelIsShow = false;
     }
     this.setActiveButton(this.activeButton)
-    this.service.GetCountryList().subscribe((response) => {
+    this.locationService.getCountry().subscribe((response) => {
       this.countries = response;
     });
     let data = {

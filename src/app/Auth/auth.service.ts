@@ -1,7 +1,7 @@
 import {Injectable} from '@angular/core';
 import {environment} from '../../environments/environment';
 import {HttpClient, HttpHeaders} from '@angular/common/http';
-import {BehaviorSubject, Observable, of, tap, throwError} from 'rxjs';
+import {BehaviorSubject, Observable, of, shareReplay, tap, throwError} from 'rxjs';
 import {catchError} from 'rxjs/operators';
 import {User, UserData} from '../@Models/user.model';
 import {LoginRequest} from "../@Models/auth.model";
@@ -197,19 +197,32 @@ export class AuthService {
         });
     }
 
-    getCountryList() {
+    // getCountryList() {
+    //     const headers = new HttpHeaders().set("Accept", "application/json");
+    //     return this.http.get<any>(environment.ApiUrl + "/country", {
+    //         headers: headers,
+    //     });
+    // }
+
+    // getNewUserTimeLeft() {
+    //     const headers = new HttpHeaders().set("Accept", "application/json");
+    //     return this.http.post<any>(environment.ApiUrl + "/getsubscriptiontimeleft", {
+    //         headers: headers,
+    //     });
+    // }
+
+    private dataCache$: Observable<any> | null = null;
+    getNewUserTimeLeft(): Observable<any>  {
         const headers = new HttpHeaders().set("Accept", "application/json");
-        return this.http.get<any>(environment.ApiUrl + "/country", {
-            headers: headers,
-        });
+        if (!this.dataCache$) {
+            this.dataCache$ = this.http.post<any>(environment.ApiUrl + "/getsubscriptiontimeleft",{ headers: headers,}).pipe(
+                tap((data) => {}),
+                shareReplay(1)
+            );
+        }
+        return this.dataCache$;
     }
 
-    getNewUserTimeLeft() {
-        const headers = new HttpHeaders().set("Accept", "application/json");
-        return this.http.post<any>(environment.ApiUrl + "/getsubscriptiontimeleft", {
-            headers: headers,
-        });
-    }
     gmailLogin(data: any){
         const headers = new HttpHeaders().set("Accept", "application/json");
         return this.http.post<any>(environment.ApiUrl + "/GoogleLogin", data,{
@@ -235,5 +248,9 @@ export class AuthService {
         return this.http.post<any>(environment.ApiUrl + "/UpdateEduLvl", {current_educaiton : data},{
             headers: headers,
         });
+    }
+
+    clearCache(): void {
+        this.dataCache$ = null; // Clear the cached observable
     }
 }

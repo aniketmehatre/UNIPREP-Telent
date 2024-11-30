@@ -2,11 +2,10 @@ import {Injectable} from '@angular/core';
 import {environment} from '../environments/environment';
 import {HttpClient, HttpHeaders} from '@angular/common/http';
 import {LocationData} from './@Models/location.model'
-import {SessionService} from "./session.service";
 import {DeviceDetectorService} from "ngx-device-detector";
 import {LocalStorageService} from "ngx-localstorage";
-import { BehaviorSubject, Observable, of, tap } from 'rxjs';
-import { educationLevel } from './@Models/module.model';
+import {BehaviorSubject, Observable, of, shareReplay, tap} from 'rxjs';
+import {educationLevel} from './@Models/module.model';
 
 @Injectable({
     providedIn: "root",
@@ -16,10 +15,10 @@ export class LocationService {
     public image$: Observable<string | null> = this.imageSubject.asObservable();
     private organizationname = new BehaviorSubject<string | null>(null);
     public orgname$: Observable<string | null> = this.organizationname.asObservable();
-    constructor(private http: HttpClient, private sessionService: SessionService,
+
+    constructor(private http: HttpClient,
                 private deviceService: DeviceDetectorService, private storage: LocalStorageService) {
     }
-
 
     getLocation() {
         const headers = new HttpHeaders().set("Accept", "application/json");
@@ -115,15 +114,15 @@ export class LocationService {
             headers: headers,
         });
     }
-    private countryList: any[] = [];
+    private dataCache$: Observable<any[]> | null = null;
     getCountry(): Observable<any>  {
-        const headers = new HttpHeaders().set("Accept", "application/json");
-        if (this.countryList.length > 0) {
-            return of(this.countryList);
+        if (!this.dataCache$) {
+            this.dataCache$ = this.http.get<any[]>(environment.ApiUrl + "/country").pipe(
+                tap((data) => {}),
+                shareReplay(1)
+            );
         }
-        return this.http.get<any[]>(environment.ApiUrl + "/country").pipe(
-            tap(data => this.countryList = data) // Cache the response
-        );
+        return this.dataCache$;
     }
 
     getBlogs(data: any) {
@@ -215,5 +214,9 @@ export class LocationService {
         return this.http.get<educationLevel[]>(environment.ApiUrl + "/geteducationtype", {
             headers: headers,
         });
+    }
+
+    clearCache(): void {
+        this.dataCache$ = null; // Clear the cached observable
     }
 }

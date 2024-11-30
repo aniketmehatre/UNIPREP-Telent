@@ -96,7 +96,7 @@ export class QuizmenuComponent implements OnInit {
     this.skillMastery();
   }
   countryDropdown() {
-    this.moduleListService.countryList().subscribe((countryList: any) => {
+    this.locationService.getCountry().subscribe((countryList: any) => {
       this.countrydropdownlist = countryList
     });
   }
