@@ -726,6 +726,9 @@ export class HeaderComponent implements OnInit, OnDestroy {
         this.visible = true;
         clearInterval(this.timerInterval);
       }
+      this.min$ = minutesLeft
+      this.sec$ = secondsLeft
+      this.hrs$ = this.timeHours;
     }, 1000);
   }
 
