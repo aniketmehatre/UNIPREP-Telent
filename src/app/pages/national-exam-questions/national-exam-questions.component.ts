@@ -17,27 +17,27 @@ import { ActivatedRoute, Router } from '@angular/router';
 export class NationalExamQuestionsComponent implements OnInit {
   questions: any;
   responsiveOptions: { breakpoint: string; numVisible: number; numScroll: number; }[];
-  selectedValue: any ;
-  progressvalue:number = 0;
+  selectedValue: any;
+  progressvalue: number = 0;
 
   question_id: any;
-   results: any = [];
-  showError:boolean = false;
-  page:any = 0 ;
-  activeQuestion:string;
-  activeQuestionId:number
-  activeOptOne:string;
-  activeOptTwo:string;
-  activeOptThree:string;
-  activeOptFour:string;
-  activeTestId:string;
+  results: any = [];
+  showError: boolean = false;
+  page: any = 0;
+  activeQuestion: string;
+  activeQuestionId: number
+  activeOptOne: string;
+  activeOptTwo: string;
+  activeOptThree: string;
+  activeOptFour: string;
+  activeTestId: string;
 
-  constructor(private service: NationalExamService , private route: ActivatedRoute,private router: Router ) { }
+  constructor(private service: NationalExamService, private route: ActivatedRoute, private router: Router) { }
 
   ngOnInit() {
     // this.results = null;
     var data = {
-      test_id:  this.route.snapshot.paramMap.get("testid")
+      test_id: this.route.snapshot.paramMap.get("testid")
     }
     this.service.getQuestions(data).subscribe(response => {
       this.questions = response;
@@ -53,18 +53,22 @@ export class NationalExamQuestionsComponent implements OnInit {
   }
 
 
-  nextQues(){
-    if(this.selectedValue == undefined){
+  nextQues() {
+    if (this.selectedValue == undefined) {
       this.showError = true;
-    }else{
+    } else {
       this.showError = false;
-      let newResult: any =  {
-        question_id : this.activeQuestionId,
-        answer_opt : this.selectedValue
+      const answeredQuestion = this.results.find((item: any) => item.question_id == this.activeQuestionId);
+      if (!answeredQuestion) {
+        let newResult: any = {
+          question_id: this.activeQuestionId,
+          answer_opt: this.selectedValue
+        }
+        this.results.push(newResult);
       }
-      this.results.push(newResult);
-      if(this.page != 9){
+      if (this.page != 9) {
         this.page = this.page + 1;
+        this.selectedValue = this.results[this.page]?.answer_opt;
         this.activeQuestion = this.questions[this.page].question;
         this.activeQuestionId = this.questions[this.page].id;
         this.activeTestId = this.questions[this.page].test_id;
@@ -72,11 +76,11 @@ export class NationalExamQuestionsComponent implements OnInit {
         this.activeOptTwo = this.questions[this.page].option_two;
         this.activeOptThree = this.questions[this.page].option_three;
         this.activeOptFour = this.questions[this.page].option_four;
-        this.selectedValue = null;
-        this.progressvalue = this.page*10;
+        // this.selectedValue = null;
+        this.progressvalue = this.page * 10;
 
-          console.log(this.results);
-      }else{
+        console.log(this.results);
+      } else {
         // this.page = this.page + 1;
         // const newResult: result =  {
         //   question_id : this.activeQuestionId,
@@ -93,15 +97,15 @@ export class NationalExamQuestionsComponent implements OnInit {
         console.log(info);
         this.service.submitResult(info).subscribe(response => {
           // this.results = null;
-          this.router.navigate(['/pages/national-exams/result/'+response]);
+          this.router.navigate(['/pages/national-exams/result/' + response]);
           // console.log(response);
         });
       }
     }
   }
 
-  prevQues(){
-    if(this.page != 0){
+  prevQues() {
+    if (this.page != 0) {
       this.page = this.page - 1;
       this.activeQuestion = this.questions[this.page].question;
       this.activeQuestionId = this.questions[this.page].id;
@@ -110,13 +114,15 @@ export class NationalExamQuestionsComponent implements OnInit {
       this.activeOptTwo = this.questions[this.page].option_two;
       this.activeOptThree = this.questions[this.page].option_three;
       this.activeOptFour = this.questions[this.page].option_four;
-      this.results.pop();
+      // this.results.pop();
+      this.selectedValue = this.results[this.page]?.answer_opt;
+      this.progressvalue = this.page * 10;
       // this.results = this.results.filter((result: any) => result.question_id !== this.activeQuestionId-1);
       console.log(this.results);
     }
   }
 
-  goToCats(){
+  goToCats() {
     this.router.navigate(['/pages/national-exams'])
   }
 
