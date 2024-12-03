@@ -35,6 +35,19 @@ export class AppComponent {
     if (window.location.href.includes('forgot-password')) {
       return;
     }
+    if (window.location.href.includes('termsandcondition')) {
+      console.log('yyttt')
+      return
+    }
+    if (window.location.href.includes('privacypolicy')) {
+      return
+    }
+    if (window.location.href.includes('refundpolicy')) {
+      return
+    }
+    if (window.location.href.includes('cancellationpolicy')) {
+      return
+    }
       const token = this.storage.get<string>('token');
       const sessionData = {
         token: token
@@ -55,6 +68,7 @@ export class AppComponent {
       if (this.isPageHidden) {
         console.log('Tab closed');
       } else {
+        console.log(window.location)
         console.log('Tab refreshed or navigated away');
       }
     if (window.location.href.includes('login')) {
@@ -65,6 +79,19 @@ export class AppComponent {
     }
     if (window.location.href.includes('forgot-password')) {
       return;
+    }
+    if (window.location.href.includes('termsandcondition')) {
+      console.log('sasdf')
+      return
+    }
+    if (window.location.href.includes('privacypolicy')) {
+      return
+    }
+    if (window.location.href.includes('refundpolicy')) {
+      return
+    }
+    if (window.location.href.includes('cancellationpolicy')) {
+      return
     }
       event.preventDefault();
       event.returnValue = '';
