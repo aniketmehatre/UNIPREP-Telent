@@ -103,6 +103,7 @@ html,
 body {
 	font-family: "Poppins", sans-serif;
 	font-size: 14px;
+	height: 100%;
 }
 
 .p-tooltip.p-tooltip-top {
@@ -291,7 +292,6 @@ small {
 }
 
 .startbg {
-	min-height: 100vh;
 	background-image: url(uniprep-assets/images/startbg.webp);
 	background-position: center;
 	background-size: cover;
@@ -493,6 +493,16 @@ uni-quizinfowindow {
 	overflow: hidden;
 	border-radius: 10px;
 }
+
+uni-auth,app-login,app-root,app-registration,app-forgot-password,app-verification,app-setpassword
+{
+	display: flex;
+	flex: 1;
+	height: 100%;
+	flex-direction: column;
+	overflow: hidden;
+}
+
 uni-cost-of-living,uni-salary-converter
 {
 overflow-y: auto;
