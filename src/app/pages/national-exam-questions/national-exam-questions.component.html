@@ -2,13 +2,13 @@
 	<div class="card-header border-0 bg-transparent">
 		<div class="row justify-content-center">
 			<div class="col-md-2 col-2 text-start d-flex align-items-center">
-				<h5 class="fw-bold">{{ 10 - this.page }}/10 Questions Left</h5>
+				<h5 class="fw-bold">{{ this.page + 1 }}/10 Questions Left</h5>
 			</div>
 			<div class="col-md-8 col-8 text-center">
 				<h5 class="select-title mb-1">Nationalised Exam Quiz</h5>
 			</div>
 			<div class="col-md-2 col-2 text-end">
-				<button class="btn btn-quit btn-rounded px-2 py-2">
+				<button class="btn btn-quit btn-rounded px-2 py-2" routerLink="/pages/national-exams">
 					<div class="d-flex align-items-center">
 						<span class="fw-normal h6 mb-0 ps-3 pe-2">Quit</span>
 						<div class="btn-icon"><i class="fa-solid fa-power-off"></i></div>
@@ -47,7 +47,7 @@
 				</div>
 			</div>
 			<div class="col-md-4 text-end">
-				<button (click)="prevQues()" class="btn btn-back btn-rounded me-3 px-2 py-2">
+				<button *ngIf="page != 0" (click)="prevQues()" class="btn btn-back btn-rounded me-3 px-2 py-2">
 					<div class="d-flex align-items-center">
 						<span class="fw-normal h6 mb-0 ps-3 pe-2">Previous</span>
 						<div class="btn-icon"><i class="fa-solid fa-arrow-left"></i></div>

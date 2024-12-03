@@ -4,55 +4,91 @@
 			<div class="col-md-12 text-center">
 				<div class="select-title d-flex justify-content-between align-items-center">
 					<div>
-						<h5 class="w-100 mb-0" tooltipPosition="top" pTooltip="Access a wide range of academic resources to enhance your learning and understanding.">Academic Tools<i class="questiontooltip fa-solid fa-circle-question"></i></h5>
+						<h5 class="w-100 mb-0" tooltipPosition="top"
+							pTooltip="Access a wide range of academic resources to enhance your learning and understanding.">
+							Academic Tools<i class="questiontooltip fa-solid fa-circle-question"></i></h5>
 					</div>
 					<div>
-						<button class="how-it-works-button">How it works?<i class="fa-solid fa-play d-md-block d-none"></i></button>
+						<button class="how-it-works-button">How it works?<i
+								class="fa-solid fa-play d-md-block d-none"></i></button>
 					</div>
 				</div>
 			</div>
 		</div>
 	</div>
 	<div class="card-body text-center flex-fill overflow-y-auto">
-		<div  class="row mb-0">
-			<div *ngFor="let academicTool of academicTools" class="col-lg-2 col-md-3 col-sm-4 col-xs-12 col-12 mb-3">
+		<div class="row mb-0" *ngIf="isSkeletonVisible; else showAcademic">
+			<div *ngFor="let academicTool of loopRange" class="col-lg-2 col-md-3 col-sm-4 col-xs-12 col-12 mb-3">
 				<div class="row w-100 m-0 justify-content-center h-100">
-					<div (click)="navigateToTool(academicTool.id)" class="card subjectcard" role="button">
-						<div class="card-body d-flex flex-md-column flex-row justify-content-md-between align-items-center">
+					<div class="card subjectcard" role="button">
+						<div
+							class="card-body d-flex flex-md-column flex-row justify-content-md-between align-items-center">
 							<div>
 								<div class="submoduleicon">
-									<img class="selectimage" [src]="academicTool?.icon" />
+									<p-skeleton width="5rem" height="5rem" styleClass="mb-3"></p-skeleton>
 								</div>
-								<h5 class="text-center mt-3 fw-bold d-md-block d-none mb-0">{{ academicTool?.category }}</h5>
+								<p-skeleton styleClass="mb-2"></p-skeleton>
 							</div>
-							<p class="text-small" *ngIf="academicTool?.category == 'Grade 9'">Start strong in high school with tailored tools for {{ academicTool?.category }}.</p>
-							<p class="text-small" *ngIf="academicTool?.category == 'Grade 10'">Deepen your academic skills with specialized tools for {{ academicTool?.category }}.</p>
-							<p class="text-small" *ngIf="academicTool?.category == 'Grade 11'">Prepare for college with advanced tools for {{ academicTool?.category }}.</p>
-							<p class="text-small" *ngIf="academicTool?.category == 'Grade 12'">Refine your knowledge for college readiness with tools for {{ academicTool?.category }}.</p>
-							<p class="text-small" *ngIf="!(academicTool?.category == 'Grade 9' || academicTool?.category == 'Grade 10' || academicTool?.category == 'Grade 11' || academicTool?.category == 'Grade 12')"> Enhance your future academic journey with tailored tools for {{ academicTool?.category }}. </p>
-						</div>
-					</div>
-				</div>
-			</div>
-
-			<div class="col-lg-2 col-md-3 col-sm-4 col-xs-12 col-12 mb-3" (click)="gotoNE()">
-				<div class="row w-100 m-0 justify-content-center h-100">
-					<div  class="card subjectcard" role="button">
-						<div class="card-body d-flex flex-md-column flex-row justify-content-md-between align-items-center">
-							<div>
-								<div class="submoduleicon">
-									<img class="selectimage" src="https://api.uniprep.ai/uniprepapi/storage/app/NationalisedExam.svg" />
-								</div>
-								<h5 class="text-center mt-3 fw-bold d-md-block d-none mb-0">Nationalised Exams</h5>
-							</div>
-							<p class="text-small">Enhance your future academic journey with tailored tools for Nationalised Exams.</p>
+							<p-skeleton styleClass="mb-2"></p-skeleton>
+							<p-skeleton width="10rem" styleClass="mb-2"></p-skeleton>
+							<p-skeleton width="12rem" styleClass="mb-2"></p-skeleton>
+							<p-skeleton width="9rem" styleClass="mb-2"></p-skeleton>
 						</div>
 					</div>
 				</div>
 			</div>
 		</div>
+		<ng-template #showAcademic>
+			<div class="row mb-0">
+				<div *ngFor="let academicTool of academicTools"
+					class="col-lg-2 col-md-3 col-sm-4 col-xs-12 col-12 mb-3">
+					<div class="row w-100 m-0 justify-content-center h-100">
+						<div (click)="navigateToTool(academicTool.id)" class="card subjectcard" role="button">
+							<div
+								class="card-body d-flex flex-md-column flex-row justify-content-md-between align-items-center">
+								<div>
+									<div class="submoduleicon">
+										<img class="selectimage" [src]="academicTool?.icon" />
+									</div>
+									<h5 class="text-center mt-3 fw-bold d-md-block d-none mb-0">{{
+										academicTool?.category }}</h5>
+								</div>
+								<p class="text-small" *ngIf="academicTool?.category == 'Grade 9'">Start strong in high
+									school with tailored tools for {{ academicTool?.category }}.</p>
+								<p class="text-small" *ngIf="academicTool?.category == 'Grade 10'">Deepen your academic
+									skills with specialized tools for {{ academicTool?.category }}.</p>
+								<p class="text-small" *ngIf="academicTool?.category == 'Grade 11'">Prepare for college
+									with advanced tools for {{ academicTool?.category }}.</p>
+								<p class="text-small" *ngIf="academicTool?.category == 'Grade 12'">Refine your knowledge
+									for college readiness with tools for {{ academicTool?.category }}.</p>
+								<p class="text-small"
+									*ngIf="!(academicTool?.category == 'Grade 9' || academicTool?.category == 'Grade 10' || academicTool?.category == 'Grade 11' || academicTool?.category == 'Grade 12')">
+									Enhance your future academic journey with tailored tools for {{
+									academicTool?.category }}. </p>
+							</div>
+						</div>
+					</div>
+				</div>
 
-
-
+				<div class="col-lg-2 col-md-3 col-sm-4 col-xs-12 col-12 mb-3" (click)="gotoNE()">
+					<div class="row w-100 m-0 justify-content-center h-100">
+						<div class="card subjectcard" role="button">
+							<div
+								class="card-body d-flex flex-md-column flex-row justify-content-md-between align-items-center">
+								<div>
+									<div class="submoduleicon">
+										<img class="selectimage"
+											src="https://api.uniprep.ai/uniprepapi/storage/app/NationalisedExam.svg" />
+									</div>
+									<h5 class="text-center mt-3 fw-bold d-md-block d-none mb-0">Nationalised Exams</h5>
+								</div>
+								<p class="text-small">Enhance your future academic journey with tailored tools for
+									Nationalised Exams.</p>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</ng-template>
 	</div>
 </div>

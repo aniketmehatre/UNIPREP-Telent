@@ -13,16 +13,18 @@ import { Router } from '@angular/router';
 export class AcademicToolsComponent implements OnInit {
   moduleId = '15';
   academicTools: AcademicToolCategory[] = [];
+  isSkeletonVisible: boolean = true;
+  loopRange = [0,1,2];
 
   constructor(
-    private academicService: AcademicService , private router: Router
+    private academicService: AcademicService, private router: Router
   ) { }
 
   ngOnInit(): void {
     this.getAcademicToolList();
   }
 
-  gotoNE(){
+  gotoNE() {
     this.router.navigate(['/pages/national-exams']);
   }
   getAcademicToolList() {
@@ -31,10 +33,11 @@ export class AcademicToolsComponent implements OnInit {
     }
     this.academicService.getAcademicToolList(req).subscribe((response: CategoryResponse) => {
       this.academicTools = response.data;
+      this.isSkeletonVisible = false;
     });
   }
 
-  navigateToTool(id: any){
+  navigateToTool(id: any) {
     if (id) {
       // Navigate dynamically
 
