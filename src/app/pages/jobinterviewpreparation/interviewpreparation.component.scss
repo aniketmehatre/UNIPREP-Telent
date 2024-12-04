@@ -1,0 +1,405 @@
+.industrytext {
+  word-break: break-all !important;
+}
+
+.industryicon {
+  color: var(--uniprep-secondary);
+}
+
+.locationicon {
+  color: #e90707;
+}
+
+.headquartersicon {
+  color: #9bc329;
+}
+
+::ng-deep .p-datatable th {
+  background-color: var(--uniprep-primaryhighlight) !important;
+  border-right: 1px solid var(--uniprep-primaryop30);
+}
+
+:host ::ng-deep .p-paginator .p-dropdown-panel {
+  left: auto !important;
+  right: 0;
+  top: auto !important;
+  bottom: 100%;
+  max-height: none !important;
+  overflow: visible !important;
+}
+
+::ng-deep .p-datatable .p-datatable-tbody > tr > td {
+  border: 1px solid var(--uniprep-primaryop10);
+}
+
+::ng-deep .p-datatable a {
+  text-decoration: none;
+  color: var(--uniprep-primaryhighlight);
+}
+
+.card-container {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.card1 {
+  flex: 0 0 calc(25% - 10px);
+  background-color: #f0f0f0;
+  box-sizing: border-box;
+  text-align: center;
+  border: 1px solid #ccc;
+}
+
+.card1:hover {
+  border: 3px solid var(--uniprep-primary);
+}
+
+.resterbutton {
+  background-color: #fff;
+  color: var(--uniprep-primary);
+}
+
+.resterbutton:hover {
+  background-color: var(--uniprep-primary);
+  color: #fff;
+}
+
+.custom-input {
+  width: 325px;
+}
+
+.eventcard {
+  border: 1px solid #f0f0f0;
+  margin: 10px 0;
+  border-radius: 20px !important;
+}
+
+.eventcard:hover {
+  border: 1px solid var(--uniprep-primary);
+}
+
+.eventcard .event-top {
+  border-bottom: 1px solid #f0f0f0;
+  background-color: white;
+  border-radius: 20px 20px 0 0;
+}
+
+.eventcard .event-bottom {
+  background-color: #f0f0f0;
+}
+
+.theme-blue {
+  border: 1px solid var(--uniprep-primary) !important;
+}
+
+.mobile {
+  display: none;
+}
+
+.company-list-filter {
+  margin-top: 10px;
+}
+
+@media (max-width: 575.98px) {
+  .mobileview {
+    width: 100px;
+    border-radius: 25px !important;
+    border: 1px solid #3f4c83;
+  }
+
+  .desktop {
+    display: none !important;
+  }
+
+  .company-list-filter {
+    margin-top: 10px;
+  }
+
+  :host .company-list-table-header {
+    white-space: nowrap !important;
+  }
+
+  .mobile {
+    display: block;
+  }
+
+  .p-paginator {
+    justify-content: left !important;
+  }
+}
+
+.primary-header {
+  background: #3f4c83 !important;
+}
+
+.company-list-expired {
+  background: url("../../../uniprep-assets/images/Company\ List@2x.jpg");
+  background-size: cover;
+}
+
+.pr-10 {
+  padding-right: 10px;
+}
+
+.fs-10 {
+  font-size: 11px;
+}
+
+.companny-list {
+  background-color: white !important;
+  border: 1.5px solid orange;
+  border-radius: 10px;
+}
+
+.br-8 {
+  border-radius: 25px !important;
+}
+
+.pr-2 {
+  padding-right: 2px;
+}
+
+.filterDialog ::ng-deep .p-dialog-header {
+  border: 1px solid gray !important;
+  padding: 0px 5px !important;
+}
+
+:host ::ng-deep .p-dialog-title {
+  padding: 15px !important;
+}
+
+.company-guidlines {
+  background-color: #ebedf2;
+  color: #001631 !important;
+  border-radius: 20px !important;
+  border: none;
+}
+
+.margin-auto {
+  margin: 5rem auto;
+  padding: 10px;
+}
+
+.exportButton {
+  background-color: #ebedf2;
+  color: #001631 !important;
+  border-radius: 20px !important;
+  border: none;
+  padding: 10px;
+}
+
+.favCount {
+  padding: 6px;
+  border-radius: 25px;
+  color: #3f4c83;
+  background-color: white;
+  margin-left: 5px;
+}
+
+.exhausted-plan-icon-success {
+  padding: 10px;
+  border-radius: 25px;
+  background-color: #9bc329;
+  color: white;
+  margin-left: 5px;
+}
+
+.p-danger-button {
+  background-color: #e53939 !important;
+  color: white !important;
+}
+
+.carousel-container {
+  display: flex;
+  flex-direction: column;
+}
+
+.p-button-info-prev {
+  background-color: #0e3361;
+  color: white;
+  border: none;
+}
+
+.p-button-info-next {
+  background-color: #4552a3;
+  color: white;
+  border: none;
+}
+
+.p-button-info-succes {
+  background-color: #9bc329;
+  color: white;
+  border: none;
+}
+
+.exhausted-plan-icon-prev,
+.exhausted-plan-icon-next {
+  padding: 10px;
+  border-radius: 25px;
+  background-color: #4552a3;
+  color: white;
+  margin-left: 5px;
+}
+
+.product-item-content {
+  margin: auto;
+  width: 70%;
+  padding: 10px;
+}
+
+.question-number {
+  font-size: 18px;
+  color: #3f4c83;
+  font-weight: 500;
+}
+
+.question {
+  color: #001631;
+  font-size: 25px;
+}
+
+:host
+  ::ng-deep
+  .p-carousel
+  .p-carousel-indicators
+  .p-carousel-indicator
+  button {
+  width: 10px;
+  height: 10px;
+  transition: background-color 0.2s, color 0.2s, box-shadow 0.2s;
+  border-radius: 20px;
+}
+
+::ng-deep .p-multiselect .p-multiselect-label {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 100%;
+}
+
+::ng-deep .p-multiselect {
+  width: 100%;
+  max-width: 800px;
+}
+
+::ng-deep .p-multiselect-panel {
+  width: 100% !important;
+}
+
+@media (max-width: 575.98px) {
+  .product-item-content {
+    margin: auto;
+    padding: 10px;
+  }
+
+  .question-number {
+    font-size: 12px;
+    color: #3f4c83;
+    font-weight: 500;
+  }
+
+  .question {
+    color: #001631;
+    font-size: 14px;
+  }
+
+  .module-list {
+    width: 46% !important;
+  }
+}
+
+.universityicon {
+  color: var(--uniprep-secondary);
+}
+
+.primary-color {
+  color: var(--uniprep-primary);
+}
+
+:host
+  ::ng-deep
+  .p-carousel
+  .p-carousel-indicators
+  .p-carousel-indicator
+  button {
+  width: 10px;
+  height: 10px;
+  transition: background-color 0.2s, color 0.2s, box-shadow 0.2s;
+  border-radius: 20px;
+}
+
+:host ::ng-deep .p-carousel-content {
+  height: 100% !important;
+}
+
+:host ::ng-deep .p-carousel-item {
+  width: 100% !important;
+}
+
+:host ::ng-deep .p-carousel .p-carousel-indicators {
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+}
+:host ::ng-deep .p-carousel-content .p-carousel-container {
+  height: 100%;
+}
+
+:host
+  ::ng-deep
+  .p-carousel
+  .p-carousel-indicators
+  .p-carousel-indicator
+  button {
+  width: 10px;
+  height: 10px;
+  transition: background-color 0.2s, color 0.2s, box-shadow 0.2s;
+  border-radius: 20px;
+}
+
+:host ::ng-deep .p-carousel-content {
+  height: 100% !important;
+  .p-carousel-container {
+    height: 100%;
+    .p-carousel-items-container {
+      height: 100%;
+    }
+  }
+}
+.prepmodule {
+  .btn-icon {
+    margin: 0 !important;
+  }
+}
+.option-card {
+  border: 1px solid #ccc;
+  padding: 20px;
+  font-size: 16px;
+  font-weight: bold;
+  text-align: center;
+  cursor: pointer;
+  border-radius: 5px;
+  transition: all 0.3s;
+  height: 15rem;
+  align-content: space-evenly;
+}
+.tick-mark {
+  position: absolute;
+    top: 10px;
+    right: 15px;
+    color: #ffff;
+    font-size: 5px;
+    font-weight: 800;
+    background: #3f4c83;
+    padding: 4px 3px 2px 3px;
+}
+
+.option-card:hover, .option-card.active {
+  border-color: #3f4c83;
+}
+
+.active {
+  border-color: #3f4c83;
+}
