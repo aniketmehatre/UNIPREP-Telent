@@ -27,17 +27,23 @@
                             <i class="fa-solid fa-moon"></i>
                         </label> -->
           </div>
-          <div class="d-md-none d-flex align-items-center">
+          <div class="d-md-none gap-2 d-flex align-items-center">
+            <div label="" role="button" class="headerHomeCountry p-0" [title]="homeCountryName">
+              <img #openCountryPopup src="{{ headerHomeFlag }}" alt="flag" height="auto" width="auto" />
+            </div>
+            <div label="" role="button" class="headercountry p-0">
+              <img #openCountryPopup src="{{ headerFlag }}" alt="flag" height="auto" width="auto" (click)="openFlagModal(totalCountryList, $event)" />
+            </div>
             <a (click)="openchat()"
-              ><p-avatar class="" label="" role="button"> <i class="fa-solid fa-comments"></i> </p-avatar
+              ><p-avatar class=" p-0" label="" role="button"> <i class="fa-solid fa-comments"></i> </p-avatar
             ></a>
             <!-- <p-avatar (click)="togleSidebar.emit()" class="" label="" role="button">
                             <i class="fa-solid fa-bell"></i>
                         </p-avatar> -->
-            <a class="btn m-0 p-0" routerLink="/pages/usermanagement" data-bs-toggle="dropdown" aria-expanded="false">
+            <a class="btn p-0" routerLink="/pages/usermanagement" data-bs-toggle="dropdown" aria-expanded="false">
               <span class="nme me-0">{{ (firstChar || "")?.charAt(0) }}</span>
             </a>
-            <p-avatar (click)="logout()" class="p-0 ms-2 d-flex justify-content-center" label="" role="button"> <i class="fa-solid fa-power-off"></i></p-avatar>
+            <p-avatar (click)="logout()" class="d-flex justify-content-center p-0" label="" role="button"> <i class="fa-solid fa-power-off"></i></p-avatar>
           </div>
         </div>
       </div>
@@ -90,17 +96,16 @@
               <span class="text-small fw-normal px-4"><i class="fa-solid fa-bug"></i> Report</span>
             </button>
           </div>
-          <div class="d-flex">
-            <div label="" role="button" class="headerHomeCountry me-2 d-md-block" [title]="homeCountryName">
-              <!--<img src="../../../uniprep-assets/icons/india.png" alt="flag" height="auto" width="auto" />-->
-              <img #openCountryPopup src="{{ headerHomeFlag }}" alt="flag" height="auto" width="auto" />
-            </div>
+          <!-- <div class="d-flex">
+            
             <div label="" role="button" class="headercountry me-2 d-md-block">
               <img #openCountryPopup src="{{ headerFlag }}" alt="flag" height="auto" width="auto" (click)="openFlagModal(totalCountryList, $event)" />
-              <!-- <img src="{{ headerFlag }}" alt="United Kingdom" height="auto" width="auto" (click)="openFlagModal(totalCountryList, $event)"/> -->
             </div>
-          </div>
-		  <div class="d-flex gap-2 d-md-none">
+          </div> -->
+          <div class="d-flex gap-2 d-md-none align-items-center">
+            <!-- <div label="" role="button" class="headerHomeCountry me-2 d-md-block" [title]="homeCountryName">
+              <img #openCountryPopup src="{{ headerHomeFlag }}" alt="flag" height="auto" width="auto" />
+            </div> -->
             <button class="btn btn-primary p-3 m-0" alt="chat with notification" (click)="onClickSubscribe()">
               <i class="fa-solid fa-crown"></i>
             </button>

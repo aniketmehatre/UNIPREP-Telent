@@ -28,7 +28,7 @@ export class AdvisorComponent implements OnInit {
   askExpertResponse: number = 0;
   requestButton: string;
   smallquestion: boolean = true;
-
+  responsiveOptions: any[] = [];
   planExpired!: boolean;
   restrict: boolean = false;
   currentPlan: string = "";
@@ -75,6 +75,23 @@ export class AdvisorComponent implements OnInit {
       { question: "Top 10 in-demand jobs in the healthcare industry" },
       { question: "Top 20 government funding opportunities for startups in the UK" },
     ]
+    this.responsiveOptions = [
+      {
+        breakpoint: '1199px',
+        numVisible: 3,
+        numScroll: 1
+      },
+      {
+        breakpoint: '991px',
+        numVisible: 2,
+        numScroll: 1
+      },
+      {
+        breakpoint: '767px',
+        numVisible: 1,
+        numScroll: 1,
+      }
+    ];
     this.responseType = "Ask AI Advisor"
     this.requestButton = "Ask an Expert!"
     this.lengthCheck();
