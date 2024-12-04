@@ -25,8 +25,9 @@ export class NationalExamCategoriesComponent implements OnInit {
 		this.location.back()
 	}
 
-  openTest(id:number){
+  openTest(category:any){
     // alert(id);
-    this.router.navigate(['/pages/national-exams/'+id]);
+    localStorage.setItem('nc-name', category.name);
+    this.router.navigate(['/pages/national-exams/'+category.id]);
   }
 }
