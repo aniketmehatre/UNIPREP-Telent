@@ -28,7 +28,7 @@
 						<img style="width: 100px" src="../../../uniprep-assets/images/icon-light.svg" />
 					</div>
 					<!-- <img style="width:150px" src="../../../uniprep-assets/images/icon-light.svg"> -->
-					<p-carousel [value]="questions" [numVisible]="5" [numScroll]="1" [circular]="true"
+					<p-carousel [value]="questions" [responsiveOptions]="responsiveOptions"  [numVisible]="5" [numScroll]="1" [circular]="true"
 						[showIndicators]="false">
 						<ng-template let-question pTemplate="item">
 							<div class="card h-100 mx-2 mb-1" style="border: 1px solid var(--uniprep-secondary)">

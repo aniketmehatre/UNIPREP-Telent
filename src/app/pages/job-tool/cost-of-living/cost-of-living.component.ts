@@ -62,6 +62,23 @@ export class CostOfLivingComponent implements OnInit {
     this.locationService.getOrgName().subscribe((orgname: any) => {
       this.orgnamewhitlabel = orgname;
     });
+    this.responsiveOptions = [
+      {
+        breakpoint: '1199px',
+        numVisible: 3,
+        numScroll: 1
+      },
+      {
+        breakpoint: '991px',
+        numVisible: 2,
+        numScroll: 1
+      },
+      {
+        breakpoint: '767px',
+        numVisible: 1,
+        numScroll: 1,
+      }
+    ];
     this.imagewhitlabeldomainname = window.location.hostname;
     if (this.imagewhitlabeldomainname === "dev-student.uniprep.ai" || this.imagewhitlabeldomainname === "uniprep.ai" || this.imagewhitlabeldomainname === "localhost") {
       this.ehitlabelIsShow = true;

@@ -12,10 +12,10 @@
                 <h5 class="select-title mb-3" tooltipPosition="top" pTooltip="Questions related to the application process are answered">{{ currentModuleName | uppercase }} <i class="questiontooltip fa-solid fa-circle-question"></i></h5>
             </div> -->
 			<!-- after complete the work needs to uncomment the below code -->
-			<div class="col d-flex gap-2 text-center">
+			<div class="col d-flex flex-md-row flex-column gap-2 justify-content-center text-center">
 				<div *ngIf="currentModuleId == 5 || 1 || 7 || 3 || 4">
 					<span *ngIf="this.currentModuleId == 8 && this.canShowQuestionList">
-						<div class="backIcon" (click)="goBack()" role="button">
+						<div class="backIcon d-md-flex d-none" (click)="goBack()" role="button">
 							<span class="fa-solid fa-chevron-left" (click)="goBack()"></span>
 						</div>
 					</span>
@@ -47,7 +47,7 @@
 						<button class="how-it-works-button" (click)="openVideoPopup(howItWorksVideoLink)">How it works?<i class="fa-solid fa-play d-md-block d-none"></i></button>
 					</div>
 				</div>
-				<div class="flex-shrink-0 align-items-center d-flex"  *ngIf="currentModuleId != 8 && currentModuleId != 10 && currentModuleId != 11 && currentModuleId != 14 && currentModuleId != 7 && currentModuleId != 5">
+				<div class="flex-shrink-0 justify-content-center align-items-center d-flex"  *ngIf="currentModuleId != 8 && currentModuleId != 10 && currentModuleId != 11 && currentModuleId != 14 && currentModuleId != 7 && currentModuleId != 5">
 					<button pButton role="button" (click)="startQuiz()" class="m-0 btn btn-primary btn-rounded" [disabled]="quizpercentage >= 90">
 						<p class="mb-0">
 							<i class="fa-regular fa-lightbulb-on"></i> Start Quiz <span class="mb-0">{{ quizpercentage | number : "1.0-0" + "%" }}</span>
