@@ -78,6 +78,7 @@ export class EntreprenuerquizComponent implements OnInit {
       this.orgnamewhitlabel = orgname;
     });
     if(localStorage.getItem('conditionrevieworquiz')=='1'){
+      this.forDirectReviewOpen();
       this.openReviewPopup();
     }else{
     // this.quizmoduleredirectcountryid = Number(localStorage.getItem('modalcountryid'));
@@ -93,6 +94,37 @@ export class EntreprenuerquizComponent implements OnInit {
     // this.quizmoduleredirectcountryid = Number(localStorage.getItem('modalcountryid'));
     // this.init();
     // this.checkplanExpire();
+  }
+  forDirectReviewOpen(){
+    this.currentModuleSlug = this.router.url.split('/').slice(-2, -1).pop();
+    switch (this.currentModuleSlug) {
+      case 'entreprenuersectorproficiencytest':
+        this.currentModuleId = 18;
+        this.submoduleidquiz= localStorage.getItem("entrpreneursubid")
+        this.universityidforquiz = null;
+        this.currentModuleName = 'Entrepreneur Sector Proficiency Test';
+        this.currentApiSlug = 'SubmoduleListForStudents';
+        this.infoMessage = 'Upgrade to access the Pre-admission section',
+          this.unlockMessage = 'Unlock the power of success with our exclusive Pre-admission!',
+          this.upgradePlanMsg = 'Upgrade your plan now to gain instant access.';
+        this.aboutModule = 'Explore a vast database of Q&A about:',
+          this.moduleDetails = 'Scholarships, document checklist, Education loan, letter of Recommendation and many more!'
+        break; 
+      default:
+        this.currentModuleId = 17;
+        this.universityidforquiz = null;
+        this.submoduleidquiz= localStorage.getItem("entrpreneursubid")
+        this.currentModuleName = 'Entreprenuer Skill Test';
+        this.currentApiSlug = 'SubmoduleListForStudents';
+        this.infoMessage = 'Upgrade to access information about life in your chosen destination',
+          this.unlockMessage = 'Unlock the power of success with our exclusive destination',
+          this.upgradePlanMsg = 'Upgrade your plan now to gain instant access.';
+        this.aboutModule = 'Explore a vast database of Q&A about:',
+          this.moduleDetails = 'Festivals, events, currency, budget, housing and many more!',
+          this.selectedModule = 'life-at-country'
+        break;
+
+    }
   }
   init() {
     let cName = "";

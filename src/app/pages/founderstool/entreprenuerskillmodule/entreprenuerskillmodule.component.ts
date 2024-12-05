@@ -87,7 +87,7 @@ export class EntreprenuerskillmoduleComponent implements OnInit {
   review(id:any){
     localStorage.setItem('conditionrevieworquiz','1')
     localStorage.setItem('entrpreneursubid',id)
-    this.currentModuleSlug = "entreprenuersectorproficiencytest"
+    this.currentModuleSlug = "Entreprenuer Skill Test"
     this.router.navigate([`/pages/founderstool/${this.currentModuleSlug}/entrpreneurquiz`]);  
   }
 
