@@ -1,13 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { NationalExamService } from '../national-exam-categories/national-exam.service';
 import { ActivatedRoute, Router } from '@angular/router';
-
-// interface result {
-//   question_id : number;
-//   answer_opt : string;
-// }
-
-// let results: result[] = [];
+import { interval, Subscription, takeWhile } from 'rxjs';
 
 @Component({
   selector: 'uni-national-exam-questions',
@@ -31,11 +25,16 @@ export class NationalExamQuestionsComponent implements OnInit {
   activeOptThree: string;
   activeOptFour: string;
   activeTestId: string;
+  timer: number = 0;
+  timerSubscription: Subscription | null = null;
+  restrict: boolean = false;
+  totalquiztime: any = 0;
+  timeover: number = 0;
+  quizcount: number = 0;
 
   constructor(private service: NationalExamService, private route: ActivatedRoute, private router: Router) { }
 
   ngOnInit() {
-    // this.results = null;
     var data = {
       test_id: this.route.snapshot.paramMap.get("testid")
     }
@@ -48,7 +47,8 @@ export class NationalExamQuestionsComponent implements OnInit {
       this.activeOptTwo = this.questions[this.page].option_two;
       this.activeOptThree = this.questions[this.page].option_three;
       this.activeOptFour = this.questions[this.page].option_four;
-      // alert(this.activeQuestionId);
+      this.quizcount = 10;
+      this.startTimer();
     });
   }
 
@@ -66,7 +66,7 @@ export class NationalExamQuestionsComponent implements OnInit {
         }
         this.results.push(newResult);
       }
-      if (this.page != 9) {
+      if (this.page != 9 && this.page < 9) {
         this.page = this.page + 1;
         this.selectedValue = this.results[this.page]?.answer_opt;
         this.activeQuestion = this.questions[this.page].question;
@@ -76,29 +76,19 @@ export class NationalExamQuestionsComponent implements OnInit {
         this.activeOptTwo = this.questions[this.page].option_two;
         this.activeOptThree = this.questions[this.page].option_three;
         this.activeOptFour = this.questions[this.page].option_four;
-        // this.selectedValue = null;
         this.progressvalue = this.page * 10;
 
         console.log(this.results);
       } else {
-        // this.page = this.page + 1;
-        // const newResult: result =  {
-        //   question_id : this.activeQuestionId,
-        //   answer_opt : this.selectedValue
-        // }
-        // this.selectedValue = null;
-        // this.progressvalue = this.page*10;
-        // results.push(newResult);
-
+        this.page = this.page + 1;
+        this.progressvalue = this.page * 10;
         var info = {
           questions_id: this.results,
           test_id: this.activeTestId,
         }
-        console.log(info);
+        this.stopTimer();
         this.service.submitResult(info).subscribe(response => {
-          // this.results = null;
           this.router.navigate(['/pages/national-exams/result/' + response]);
-          // console.log(response);
         });
       }
     }
@@ -114,11 +104,8 @@ export class NationalExamQuestionsComponent implements OnInit {
       this.activeOptTwo = this.questions[this.page].option_two;
       this.activeOptThree = this.questions[this.page].option_three;
       this.activeOptFour = this.questions[this.page].option_four;
-      // this.results.pop();
       this.selectedValue = this.results[this.page]?.answer_opt;
       this.progressvalue = this.page * 10;
-      // this.results = this.results.filter((result: any) => result.question_id !== this.activeQuestionId-1);
-      console.log(this.results);
     }
   }
 
@@ -126,6 +113,40 @@ export class NationalExamQuestionsComponent implements OnInit {
     this.router.navigate(['/pages/national-exams'])
   }
 
+  formatTime(seconds: number): string {
+    const minutes: number = Math.floor(seconds / 60);
+    const remainingSeconds: number = seconds % 60;
+    return `${this.padZero(minutes)}:${this.padZero(remainingSeconds)}`;
+  }
+  padZero(num: number): string {
+    return num < 10 ? '0' + num : num.toString();
+  }
 
+  closeQuiz() {
+    this.stopTimer();
+    this.router.navigate([`/pages/national-exams`]);
+  }
 
+  startTimer(): void {
+    this.timeover = 0;
+    this.timer = this.quizcount * 60;
+    this.totalquiztime = this.quizcount * 60;
+    if (this.timerSubscription) {
+      this.timerSubscription.unsubscribe();
+    }
+    this.timerSubscription = interval(1000).pipe(
+      takeWhile(() => this.timer > this.timeover)
+    ).subscribe(() => {
+      this.timer--;
+      if (this.timer === this.timeover) {
+        this.restrict = true;
+      }
+    });
+  }
+
+  stopTimer(): void {
+    if (this.timerSubscription) {
+      this.timerSubscription.unsubscribe();
+    }
+  }
 }

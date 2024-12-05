@@ -145,7 +145,7 @@ export class DashboardComponent implements OnInit, OnChanges {
         this.checkquizquestionmodule()
     }
     loadCountryList(data: any) {
-        this.locationService.getCountry().subscribe(countryList => {
+        this.locationService.dashboardLocationList().subscribe(countryList => {
             this.carousel.page = 0;
             this.countryLists = countryList;
             this.countryLists.forEach((element: any) => {

@@ -17,11 +17,14 @@ export class NationalExamTestsComponent implements OnInit {
 	ehitlabelIsShow: boolean = true;
 	orgnamewhitlabel: any;
 	orglogowhitelabel: any;
-	imagewhitlabeldomainname: any
+	imagewhitlabeldomainname: any;
+	nCategory: string = '';
+
 	constructor(private service: NationalExamService, private authService: AuthService, private route: ActivatedRoute, private location: Location ,private router: Router) {}
 
 	ngOnInit() {
-		this.category_id = this.route.snapshot.paramMap.get("slug")
+		this.category_id = this.route.snapshot.paramMap.get("slug");
+		this.nCategory = localStorage.getItem('nc-name') ?? '';
 		var data = {
 			category_id: this.category_id,
 		}

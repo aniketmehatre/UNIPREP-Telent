@@ -8,7 +8,7 @@
 				<h5 class="select-title mb-1">Nationalised Exam Quiz</h5>
 			</div>
 			<div class="col-md-2 col-2 text-end">
-				<button class="btn btn-quit btn-rounded px-2 py-2" routerLink="/pages/national-exams">
+				<button class="btn btn-quit btn-rounded px-2 py-2" (click)="closeQuiz()">
 					<div class="d-flex align-items-center">
 						<span class="fw-normal h6 mb-0 ps-3 pe-2">Quit</span>
 						<div class="btn-icon"><i class="fa-solid fa-power-off"></i></div>
@@ -17,6 +17,12 @@
 			</div>
 		</div>
 	</div>
+	<div class="row">
+		<div class="d-flex justify-content-center uniprep-primary mt-0">
+		  <div class="px-3 py-2 h5 mb-0 border-primary rounded-2 fw-bold">{{ formatTime(timer) }} | {{
+			formatTime(totalquiztime) }}</div>
+		</div>
+	  </div>
 	<div class="card-body flex-fill overflow-y-auto">
 		<p class="text-start mb-0 fw-semibold uniprep-primary">Question Number {{ this.page + 1 }}</p>
 		<h4 class="uniprep-primarydark fw-bold text-start pt-2 pb-2 text-capitalize">{{ this.activeQuestion }}</h4>
@@ -55,11 +61,21 @@
 				</button>
 				<button (click)="nextQues()" class="btn btn-start btn-rounded m-0 px-2 py-2">
 					<div class="d-flex align-items-center">
-						<span class="fw-normal h6 mb-0 ps-3 pe-2">Next</span>
-						<div class="btn-icon"><i class="fa-solid fa-arrow-right"></i></div>
+						<span class="fw-normal h6 mb-0 ps-3 pe-2">{{ page <= 8 ? 'Next' : 'Submit' }}</span>
+						<div class="btn-icon"><i [class]="page <= 8 ? 'fa-solid fa-arrow-right' : 'fa-solid fa-check'"></i></div>
 					</div>
 				</button>
 			</div>
 		</div>
 	</div>
 </div>
+<p-dialog [(visible)]="restrict" [modal]="true" [closable]="false" [style]="{ width: '30vw' }" [draggable]="false"
+  [resizable]="false" class="restrictionDialog" [breakpoints]="{ '960px': '30vw', '959px': '60vw', '425px': '90vw' }">
+  <div class="text-center mt-5 mb-4">
+    <h3 class="uniprep-secondary">Time's Up!</h3>
+    <p class="mb-2">You have run out of time for this quiz. Unfortunately,this means the quiz is marked as failed. Try
+      the quiz again."</p>
+    <button pButton type="button" class="btn btn-secondary btn-rounded text-center" (click)="closeQuiz()"><i
+        class="fa fa-arrow-right"></i></button>
+  </div>
+</p-dialog>
