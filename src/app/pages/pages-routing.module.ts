@@ -29,8 +29,6 @@ import { CourseListComponent } from './course-list/course-list.component';
 import { JobToolComponent } from './job-tool/job-tool.component';
 import {SalaryConverterComponent} from "./job-tool/salary-converter/salary-converter.component";
 import { FounderstoolComponent } from './founderstool/founderstool.component';
-import { InterviewJobrolesComponent } from './interview-jobroles/interview-jobroles.component';
-import { InterviewQuestionsComponent } from './interview-questions/interview-questions.component';
 import {AdvisorComponent} from "./advisor/advisor.component";
 import { NationalExamCategoriesComponent } from './national-exam-categories/national-exam-categories.component';
 import { NationalExamTestsComponent } from './national-exam-tests/national-exam-tests.component';
@@ -38,6 +36,8 @@ import { NationalExamStartComponent } from './national-exam-start/national-exam-
 import { NationalExamQuestionsComponent } from './national-exam-questions/national-exam-questions.component';
 import { NationalExamResultComponent } from './national-exam-result/national-exam-result.component';
 import { NationalExamReviewComponent } from './national-exam-review/national-exam-review.component';
+import { JobPreparationComponent } from './jobinterviewpreparation/interviewpreparation.component';
+import { JobPreparedListComponent } from './jobinterviewpreparation/preparedlist/preparedlist.component';
 
 const routes: Routes = [
     {
@@ -153,6 +153,10 @@ const routes: Routes = [
                 component: PitchDeskComponent  
             },
             {path: 'usermanagement', canActivate: [AuthGuard], component: UserManagementComponent},
+            {
+                path: 'interviewprep',
+                component: JobPreparationComponent,
+            },
             {path: '', redirectTo: 'dashboard', pathMatch: 'full'},
             {
                 path: 'guideline',
@@ -206,14 +210,6 @@ const routes: Routes = [
             {
                 path: 'founderstool',
                 loadChildren: () => import('./founderstool/founderstool/founderstool.module').then(m => m.FounderstoolModule)
-            },
-            {
-                path: 'jobroles',
-                component: InterviewJobrolesComponent
-            },
-            {
-                path: 'interviewprep/questions/:slug',
-                component: InterviewQuestionsComponent
             },
             {
                 path: 'career-growth-checker',

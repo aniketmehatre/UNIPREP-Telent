@@ -76,9 +76,7 @@ import { FoundersacademyComponent } from "./founderstool/foundersacademy/founder
 import { FounderstoollistComponent } from "./founderstool/founderstoollist/founderstoollist.component";
 import { InvestorpitchtrainingComponent } from "./founderstool/investorpitchtraining/investorpitchtraining.component";
 import { StartupglossaryComponent } from "./founderstool/startupglossary/startupglossary.component";
-import { InterviewJobrolesComponent } from "./interview-jobroles/interview-jobroles.component";
 import { AnimateModule } from "primeng/animate";
-import { InterviewQuestionsComponent } from "./interview-questions/interview-questions.component";
 import { CareerGrowthCheckerComponent } from "./career-growth-checker/career-growth-checker.component";
 import { AdvisorComponent } from './advisor/advisor.component';
 import { NationalExamCategoriesComponent } from './national-exam-categories/national-exam-categories.component';
@@ -87,6 +85,8 @@ import { NationalExamStartComponent } from './national-exam-start/national-exam-
 import { NationalExamQuestionsComponent } from './national-exam-questions/national-exam-questions.component';
 import { NationalExamResultComponent } from './national-exam-result/national-exam-result.component';
 import { NationalExamReviewComponent } from './national-exam-review/national-exam-review.component';
+import { JobPreparationComponent } from "./jobinterviewpreparation/interviewpreparation.component";
+import { JobPreparedListComponent } from "./jobinterviewpreparation/preparedlist/preparedlist.component";
 
 
 // import { JobToolComponent } from './job-tool/job-tool.component';
@@ -122,8 +122,6 @@ import { NationalExamReviewComponent } from './national-exam-review/national-exa
     CareerPlannerComponent,
     CertificatesComponent,
     CourseListComponent,
-    InterviewJobrolesComponent,
-    InterviewQuestionsComponent,
     CareerGrowthCheckerComponent,
     AdvisorComponent,
     NationalExamCategoriesComponent,
@@ -133,6 +131,8 @@ import { NationalExamReviewComponent } from './national-exam-review/national-exa
     NationalExamResultComponent,
     NationalExamReviewComponent,
     // JobToolComponent,
+    JobPreparationComponent,
+    JobPreparedListComponent
   ],
   exports: [FooterStatusBoxComponent, HeaderSearchComponent],
   imports: [
