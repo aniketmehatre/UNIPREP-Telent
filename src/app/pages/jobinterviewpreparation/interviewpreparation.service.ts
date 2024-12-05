@@ -47,9 +47,21 @@ export class InterviewPreparationService {
       headers: headers,
     });
   }
+  getsavedquestionByJobrole(data: any) {
+    const headers = new HttpHeaders().set("Accept", "application/json");
+    return this.http.post<any>(environment.ApiUrl + "/getsavedinterviewquestions", data ,{
+      headers: headers,
+    });
+  }
   getcustomizedResponse(data: any) {
     const headers = new HttpHeaders().set("Accept", "application/json");
     return this.http.post<any>(environment.ApiUrl + "/getcustomizedresponse", data ,{
+      headers: headers,
+    });
+  }
+  saveInterviewQuestion(data: any) {
+    const headers = new HttpHeaders().set("Accept", "application/json");
+    return this.http.post<any>(environment.ApiUrl + "/saveinterviewquestion", data ,{
       headers: headers,
     });
   }

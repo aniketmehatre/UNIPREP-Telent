@@ -25,6 +25,7 @@ export class JobPreparedListComponent implements OnInit {
   ListData: any = [];
   selectedJobRole: any;
   @Input() prepData: any;
+  @Output() windowChange = new EventEmitter();
   loopRange = Array.from({ length: 30 })
     .fill(0)
     .map((_, index) => index);
@@ -40,6 +41,16 @@ export class JobPreparedListComponent implements OnInit {
   ) {}
   ngOnInit(): void {
     this.selectedJobRole = this.prepData.role;
+    this.getDefaultQuestions();
+    this.checkPlanExpiry();
+    this.imagewhitlabeldomainname = window.location.hostname;
+    this.ehitlabelIsShow = [
+      "dev-student.uniprep.ai",
+      "uniprep.ai",
+      "localhost",
+    ].includes(this.imagewhitlabeldomainname);
+  }
+  getDefaultQuestions() {
     this.service
       .getquestionByJobrole({
         jobrole: this.prepData.jobrole,
@@ -49,16 +60,21 @@ export class JobPreparedListComponent implements OnInit {
         this.ListData = response;
         this.totalDataCount = this.ListData.length;
       });
-    this.checkPlanExpiry();
-    this.imagewhitlabeldomainname = window.location.hostname;
-    this.ehitlabelIsShow = [
-      "dev-student.uniprep.ai",
-      "uniprep.ai",
-      "localhost",
-    ].includes(this.imagewhitlabeldomainname);
   }
-
-  resetRecommendation() {}
+  getSavedQuestion(){
+    this.service
+      .getsavedquestionByJobrole({
+        jobrole: this.prepData.jobrole,
+      })
+      .subscribe((response: any) => {
+        this.isSkeletonVisible = false;
+        this.ListData = response;
+        this.totalDataCount = this.ListData.length;
+      });
+  }
+  backtoMain() {
+    this.windowChange.emit(false);
+  }
   paginate(event: any) {
     this.page = event.page + 1;
     this.perpage = event.rows;
@@ -88,15 +104,59 @@ export class JobPreparedListComponent implements OnInit {
   }
   selectedQuestion = "";
   selectedAnswer: any;
-  customizedResponse:any;
+  customizedResponse: any;
+  selectedQuestionId: any;
   readAnswer(quizdata: any) {
     this.selectedQuestion = quizdata?.ques;
     this.selectedAnswer = quizdata?.ans;
-    this.service
-      .getcustomizedResponse(this.prepData)
-      .subscribe((response: any) => {
-        this.customizedResponse=response;
+    this.selectedQuestionId = quizdata?.id;
+    this.service.getcustomizedResponse(this.prepData).subscribe(
+      (response: any) => {
+        this.customizedResponse = response;
         this.readanswerpopubVisibility = true;
-      });
+      },
+      (error) => {
+        this.toast.add({
+          severity: "error",
+          summary: "Error",
+          detail: "Something went wrong in Fetch customized Answer",
+        });
+        this.readanswerpopubVisibility = true;
+      }
+    );
+  }
+  saveInterviewQuestion() {
+    let paramData = {
+      questionid: this.selectedQuestionId,
+      ques: this.selectedQuestion,
+      ans: this.selectedAnswer,
+      customized_ans: this.customizedResponse,
+      jobrole_id: this.prepData.jobrole,
+    };
+    this.service.saveInterviewQuestion(paramData).subscribe(
+      (response) => {
+        this.toast.add({
+          severity: "success",
+          summary: "Success",
+          detail: response.message,
+        });
+        this.readanswerpopubVisibility = false;
+      },
+      (error) => {
+        this.toast.add({
+          severity: "error",
+          summary: "Error",
+          detail: error.message,
+        });
+      }
+    );
+  }
+  changeType(event: any) {
+    let tabIndex = event.index;
+    if (tabIndex == 0) {
+      this.getDefaultQuestions();
+    } else {
+      this.getSavedQuestion();
+    }
   }
 }

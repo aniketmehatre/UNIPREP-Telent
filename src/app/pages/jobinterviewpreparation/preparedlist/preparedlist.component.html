@@ -2,7 +2,7 @@
   <div class="card-header border-0 bg-transparent">
     <div class="row justify-content-center">
       <div class="col-md-12 d-flex gap-2 text-center">
-        <div class="backIcon" role="button">
+        <div class="backIcon" role="button" (click)="backtoMain()">
           <span class="fa-solid fa-chevron-left"></span>
         </div>
         <div
@@ -30,6 +30,12 @@
               How it works?<i class="fa-solid fa-play d-md-block d-none"></i>
             </button>
           </div>
+        </div>
+        <div class="question-tab">
+          <p-tabView (onChange)="changeType($event)">
+            <p-tabPanel header="Default"> </p-tabPanel>
+            <p-tabPanel header="Saved"> </p-tabPanel>
+          </p-tabView>
         </div>
       </div>
     </div>
@@ -133,7 +139,7 @@
           pButton
           type="button"
           class="btn btn-quit ps-3 btn-rounded"
-          (click)="resetRecommendation()"
+          (click)="backtoMain()"
         >
           Reset Recommendations<span class="btn-icon"
             ><i class="fa-solid fa-arrow-rotate-right"></i>
@@ -215,7 +221,26 @@
     </div>
     <div class="col-12 h-100 mt-3 justify-content-start d-md-flex col-md-6">
       <div class="card w-100">
-        <div class="card-header border-0">{{ "Customized" | uppercase }}</div>
+        <div
+          class="card-header border-0 justify-content-center d-flex position-relative"
+        >
+          <div class="col"></div>
+          <div class="col">{{ "Customized" | uppercase }}</div>
+          <div class="col text-right">
+            <button
+              (click)="saveInterviewQuestion()"
+              class="btn btn-back btn-rounded me-3"
+              style="padding: 0 !important"
+            >
+              <div class="d-flex align-items-center">
+                <span class="fw-normal h6 mb-0 ps-3 pe-2">Save Response</span>
+                <div class="btn-icon">
+                  <i class="fa-regular fa-floppy-disk"></i>
+                </div>
+              </div>
+            </button>
+          </div>
+        </div>
         <div class="card-body overflow-x-auto">
           <div class="readingarea" [innerHTML]="customizedResponse"></div>
         </div>
