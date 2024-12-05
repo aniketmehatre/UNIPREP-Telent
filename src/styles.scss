@@ -2002,3 +2002,10 @@ p-dialog.restrictionDialog .p-dialog .p-dialog-header .p-dialog-header-icon {
 .input-wrapper {
 	position: relative;
 }
+
+.completed {
+    background-color: #9bc32a !important;
+    color: white !important;
+    border-radius: 20px !important;
+    border: #9bc32a 2px solid;
+}

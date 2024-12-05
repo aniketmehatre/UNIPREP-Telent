@@ -29,9 +29,11 @@ export class NationalExamReviewComponent implements OnInit {
   activeTestId:string;
   answerReason:string;
   answer:string;
+  categoryId: string = '';
 
   ngOnInit(): void {
 
+    this.categoryId = this.route.snapshot.paramMap.get("categoryid") ?? '';
     var data = {
       result_id:  this.route.snapshot.paramMap.get("resultid")
     }
@@ -88,7 +90,7 @@ export class NationalExamReviewComponent implements OnInit {
   }
 
   goToResult(){
-    this.router.navigate(['/pages/national-exams/result/'+this.questions[0].result_id]);
+    this.router.navigate([`/pages/national-exams/${this.categoryId}/result/${this.questions[0].result_id}`]);
   }
 
   goToCats(){

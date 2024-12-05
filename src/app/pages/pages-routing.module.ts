@@ -240,15 +240,15 @@ const routes: Routes = [
                 component: NationalExamStartComponent,
             },
             {
-                path: 'national-exams/questions/:testid',
+                path: 'national-exams/:categoryid/questions/:testid',
                 component: NationalExamQuestionsComponent,
             },
             {
-                path: 'national-exams/result/:resultid',
+                path: 'national-exams/:categoryid/result/:resultid',
                 component: NationalExamResultComponent,
             },
             {
-                path: 'national-exams/review/:resultid',
+                path: 'national-exams/:categoryid/review/:resultid',
                 component: NationalExamReviewComponent,
             },
         ]
