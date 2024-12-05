@@ -52,16 +52,16 @@
 }
 .mainblock {
   height: 75vh;
-  .card-header{
+  .card-header {
     font-size: large;
     color: var(--uniprep-primary);
     font-weight: 700;
     text-align: center;
     background: #ebedf2;
   }
-  .card-body{
+  .card-body {
     background: #ebedf2;
-    .readingarea{
+    .readingarea {
       font-size: medium;
       font-weight: 600;
     }
@@ -73,7 +73,7 @@
   margin-bottom: 10px;
   text-align: center;
 }
-.quesHeading{
+.quesHeading {
   font-size: x-large;
   color: var(--uniprep-primary);
   font-weight: 700;
