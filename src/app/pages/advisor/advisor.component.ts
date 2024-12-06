@@ -117,6 +117,7 @@ export class AdvisorComponent implements OnInit {
     this.service.getChatHistory().subscribe(response => {
       this.showSkeleton = false;
       this.chatdata = response;
+      console.log(response,"response")
       this.ngxService.stopBackground();
       this.userQuestion = '';
       this.scrollToBottom();

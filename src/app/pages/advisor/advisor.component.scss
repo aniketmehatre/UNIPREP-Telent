@@ -24,3 +24,12 @@
 //   height: 500px; /* or your desired height */
 //   overflow-y: auto;
 // }
+
+.UserFirstLetter{
+  margin-right: 10px;
+  background-color: var(--uniprep-primaryop30);
+  padding: 1rem;
+  text-transform: uppercase;
+  font-weight: bold;
+  border-radius: 100%
+}
