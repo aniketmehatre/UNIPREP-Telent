@@ -1,7 +1,7 @@
 <div class="row h-100 justify-content-center align-items-center text-center" *ngIf="!isDetailsCardVisible">
   <div class="container-fluid h-100">
     <div class="row h-100">
-      <div class="col-xxl-3 col-xl-3 col-lg-6 col-md-6 col-sm-6 col-12 h-100 overflow-y-auto" *ngFor="let status of statuses; let i = index">
+      <div class="col-xxl-3 col-xl-3 col-lg-6 col-md-6 col-sm-6 col-12 overflow-y-auto" *ngFor="let status of statuses; let i = index">
         <h5 class="text-start uniprep-primary fw-bold mb-3">{{ status.label }}({{ getJobsByStatus(status.value).length }})</h5>
           <ng-container *ngFor="let job of getJobsByStatus(status.value)">
               <div class="card mb-3">
@@ -20,14 +20,14 @@
                           </div>
                       </div>
                       <div class="row align-items-center">
-                          <div class="col-md-6 text-start">
+                          <div class="col-md-6 text-start col-12 mb-2 mb-md-0">
                               <p-dropdown [(ngModel)]="job.type" [options]="statuses" placeholder="Status" (onChange)="onStatusChange(job, $event)">
                               </p-dropdown>
                           </div>
-                          <div class="col-md-4">
+                          <div class="col-md-4 col-6">
                               <button class="btn btn-primary btn-rounded w-100" (click)="onClickDetails(job)">Details</button>
                           </div>
-                          <div class="col-md-2">
+                          <div class="col-md-2 col-6">
                               <button type="button" class="btn btn-danger w-100 btn-rounded" (click)="onClickDeleteDialog(job)">
                                   <i class="fas fa-trash-alt"></i>
                               </button>
