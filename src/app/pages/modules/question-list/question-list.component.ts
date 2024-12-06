@@ -128,6 +128,7 @@ export class QuestionListComponent implements OnInit {
 
   loopRange = Array.from({ length: 24 }).fill(0).map((_, index) => index);
   ngOnInit(): void {
+
     this.locationService.getImage().subscribe(imageUrl => {
       this.orglogowhitelabel = imageUrl;
     });
@@ -140,6 +141,7 @@ export class QuestionListComponent implements OnInit {
   }else{
     this.ehitlabelIsShow=false;
   }
+ 
     localStorage.setItem("modalcountryid",this.quizmoduleselectcountryidsetzero);
     this.countryId = Number(localStorage.getItem('countryId'));
     this.sharedCountry = Number(localStorage.getItem('countryId'));
@@ -167,7 +169,6 @@ export class QuestionListComponent implements OnInit {
         this.dataService.countryName.subscribe((data) => {
           countryName = data;
         });
-        this.checkplanExpire();
         switch (this.currentSubModuleSlug) {
           case "pre-admission":
             this.currentModuleId = 1;
@@ -233,6 +234,7 @@ export class QuestionListComponent implements OnInit {
       //this.loadInit();
     });
     this.tooltip = "Questions related to the application process are answered";
+    this.checkplanExpire();
   }
 
   loadInit() {
@@ -250,7 +252,7 @@ export class QuestionListComponent implements OnInit {
     this.dataService.countryName.subscribe((data) => {
       countryName = data;
     });
-    this.checkplanExpire();
+    //this.checkplanExpire();
     switch (this.currentSubModuleSlug) {
       case "pre-admission":
         this.currentModuleId = 1;
@@ -407,10 +409,9 @@ export class QuestionListComponent implements OnInit {
    // });
   }
   checkplanExpire(): void {
-    this.authService.getNewUserTimeLeft().subscribe((res) => {
+      this.authService.getNewUserTimeLeft().subscribe((res) => {
       let data = res.time_left;
       let subscription_exists_status = res.subscription_details;
-    
       if (this.currentModuleId == 8 || this.currentModuleId == 10 ) {   //learning hub restriction
         if (data.plan === "expired" || data.plan === 'subscription_expired' ||   subscription_exists_status.subscription_plan=="Student") {
           this.planExpired = true;
@@ -720,7 +721,12 @@ export class QuestionListComponent implements OnInit {
 
   selectedQuestionName: any;
   viewOneQuestion(question: any) {
-    
+
+    if (this.planExpired) {
+      this.restrict = true;
+      return;
+    }
+
   
   
     // this.oneQuestionContent.answer = question.answer;
@@ -737,10 +743,6 @@ export class QuestionListComponent implements OnInit {
     //   let ques = this.questionListData.find((data: any) => data.id == question.id)
     //   questionData['question'] = ques?.question;
     // }
-    if (this.planExpired) {
-      this.restrict = true;
-      return;
-    }
 
     this.meta.updateTag({ name: 'og:title', content: questionData.question });
     this.meta.updateTag({ property: 'og:url', content: 'https://dev-student.uniprep.ai/pages/modules/pre-admission/question-list/2' });
