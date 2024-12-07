@@ -4,10 +4,10 @@
 			<h3 class="text-center uniprep-primary">Apply to millions of job opportunities across top companies, industries and locations</h3>
 			<form [formGroup]="checkForm" (ngSubmit)="search()">
 				<div class="form-group row align-items-center">
-					<div class="col-md-7 position-relative">
+					<div class="col-md-7 position-relative mb-3 mb-md-0">
 						<div class="position-relative">
 						<span class="search-icon"><i class="fas fa-search search-icon"></i></span>
-						<input type="text" id="jobSearch" class="ps-5 w-100 rounded-pill border-secondary" formControlName="jobSearch"/>
+						<input type="text" id="jobSearch" placeholder="Search for a Job" class="ps-5 w-100 rounded-pill border-secondary" formControlName="jobSearch"/>
 						</div>
 					
 						<div class="dropdown-list-container" *ngIf="hasFilteredOptions && filteredOptions.length > 0">
@@ -19,8 +19,8 @@
 						</div>
 							
 					</div>
-					<div class="col-md-3">
-						<p-dropdown [options]="countries" styleClass="w-100" formControlName="country" optionValue="id" optionLabel="country" placeholder="Select Country" [filter]="true" [showClear]="true"> </p-dropdown>
+					<div class="col-md-3 mb-3 mb-md-0">
+						<p-dropdown [options]="countries" styleClass="w-100 rounded-pill border-primary" formControlName="country" optionValue="id" optionLabel="country" placeholder="Select Country" [filter]="true" [showClear]="true"> </p-dropdown>
 						<div *ngIf="invalidClassCountry" class="error-message text-danger mt-2">Please Choose Any one option</div>
 					</div>
 					<div class="col-md-2 text-center">
