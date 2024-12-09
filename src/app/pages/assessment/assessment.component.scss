@@ -1,0 +1,35 @@
+.score-sec {
+    border: 1px solid var(--uniprep-primary);
+    padding: 5px 15px;
+    border-radius: 15px;
+    background-color: white;
+}
+
+.overall-sec {
+    background: #4d9cff;
+    padding: 5px 15px;
+    border-radius: 15px;
+    color: white;
+}
+
+.competition-sec {
+    background: var(--uniprep-green);
+    padding: 5px 15px;
+    border-radius: 15px;
+    color: white;
+}
+
+.assessment-card {
+    border: 1px solid var(--uniprep-primary);
+}
+
+.assessment-status {
+    position: absolute;
+    right: 0;
+    top: 5px;
+    background: orange;
+    color: white;
+    padding: 5px 10px;
+    border-radius: 15px;
+    font-size: 11px;
+}

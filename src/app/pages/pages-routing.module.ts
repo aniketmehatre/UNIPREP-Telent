@@ -251,6 +251,10 @@ const routes: Routes = [
                 path: 'national-exams/:categoryid/review/:resultid',
                 component: NationalExamReviewComponent,
             },
+            {
+                path: 'assessment',
+                loadChildren: () => import('./assessment/assessment.module').then(m => m.AssessmentModule)
+            },
         ]
     }
 ];
