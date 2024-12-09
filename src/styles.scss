@@ -2009,3 +2009,39 @@ p-dialog.restrictionDialog .p-dialog .p-dialog-header .p-dialog-header-icon {
     border-radius: 20px !important;
     border: #9bc32a 2px solid;
 }
+.question-tab {
+	.p-tabview-nav-content {
+		border: 1px solid #3f4c83;
+		border-radius: 30px !important;
+		cursor: pointer;
+	}
+
+	.p-tabview .p-tabview-nav li .p-tabview-nav-link {
+		border: 1px solid #3f4c83 !important;
+		border-radius: 25px !important;
+		height: 20px;
+		padding: 1rem;
+	}
+
+	.p-tabview .p-tabview-nav {
+		padding: 0.2rem 0.2rem 2.2rem 0.2rem !important;
+		height: 30px;
+	}
+
+	.p-tabview .p-tabview-nav li {
+		height: 20px;
+	}
+
+	.p-tabview .p-tabview-nav li.p-highlight .p-tabview-nav-link {
+		color: white;
+		background-color: #3f4c83;
+		height: 20px
+	}
+
+	.p-tabview .p-tabview-nav li .p-tabview-nav-link:not(.p-disabled):focus {
+		box-shadow: none;
+	}
+	.p-tabview .p-tabview-panels{
+		padding: 0 !important;
+	}
+}

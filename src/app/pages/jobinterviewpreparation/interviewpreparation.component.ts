@@ -52,6 +52,9 @@ export class JobPreparationComponent implements OnInit {
     },
   ];
   ngOnInit() {
+    this.selectedData={};
+    this.activePageIndex=0;
+    this.selectedCardIndex=null
     this.getsoftSkills();
     this.getJobExperience();
     this.getJoiningReasons();
@@ -116,6 +119,10 @@ export class JobPreparationComponent implements OnInit {
       this.invalidClass = true;
       return;
     }
+    if (this.selectedData[productId]?.length == 1) {
+      this.invalidClass = true;
+      return;
+    }
     if (productId in this.selectedData) {
       if (this.activePageIndex < this.recommendations.length - 1) {
         this.activePageIndex++;
@@ -148,6 +155,7 @@ export class JobPreparationComponent implements OnInit {
   }
   windowChange(data: any) {
     this.preparedvisibility = data;
+    this.ngOnInit();
   }
   openVideoPopup(videoLink: string) {
     this.pageFacade.openHowitWorksVideoPopup(videoLink);

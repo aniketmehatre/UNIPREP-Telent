@@ -163,7 +163,6 @@ export class AdvisorComponent implements OnInit {
           this.scrollToBottom();
           // alert("Thank you , Our team will get back to you in next 8 working hours");
           this.messageService.add({ severity:'success', summary: 'Success', detail: 'Thank you , Our team will get back to you in next 8 working hours'});
-          console.log("this ran");
         });
 
     }

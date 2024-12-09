@@ -28,8 +28,8 @@
 						<img style="width: 100px" src="../../../uniprep-assets/images/icon-light.svg" />
 					</div>
 					<!-- <img style="width:150px" src="../../../uniprep-assets/images/icon-light.svg"> -->
-					<p-carousel [value]="questions" [responsiveOptions]="responsiveOptions"  [numVisible]="5" [numScroll]="1" [circular]="true"
-						[showIndicators]="false">
+					<p-carousel [value]="questions" [responsiveOptions]="responsiveOptions" [numVisible]="5"
+						[numScroll]="1" [circular]="true" [showIndicators]="false">
 						<ng-template let-question pTemplate="item">
 							<div class="card h-100 mx-2 mb-1" style="border: 1px solid var(--uniprep-secondary)">
 								<div class="card-body">
@@ -129,11 +129,9 @@
 		</div>
 		<div class="row justify-content-center" *ngFor="let chat of chatdata">
 			<div class="col-md-8" #chatContainer>
-				<div class="advisor-question" *ngIf="chat.input == 1">
+				<div class="advisor-question" *ngIf="chat.input == 1 || chat.input == 3">
 					<div class="d-flex align-items-center">
-						<p
-							style="margin-right: 10px; background-color: var(--uniprep-primaryop30); padding: 1rem; text-transform: uppercase; font-weight: bold; border-radius: 100%">
-							{{ chat.name.slice(0, 2) }}</p>
+						<p class="UserFirstLetter">{{ chat.name.slice(0, 2) }}</p>
 						<div class="d-flex flex-column">
 							<p>{{ chat.name }}</p>
 							<p>{{ chat.created }}</p>
@@ -142,13 +140,19 @@
 					<p style="margin-top: 10px">{{ chat.message }}</p>
 					<hr />
 				</div>
-
-				<div class="advisor-answer" *ngIf="chat.input == 2">
-					<div class="d-flex flex-column">
-						<div class="d-flex align-items-center">
+				<div class="advisor-answer" *ngIf="chat.input == 2 || chat.input == 4">
+					<div class="d-flex flex-column" >
+						<div class="d-flex align-items-center" *ngIf="chat.input == 4">
+							<p class="UserFirstLetter">{{ chat.name.slice(0, 2) }}</p>
+							<div class="d-flex flex-column">
+								<p>{{ chat.name }}</p>
+								<p>{{ chat.created }}</p>
+							</div>
+						</div>
+						<div class="d-flex align-items-center" *ngIf="chat.input == 2">
 							<img style="width: 50px" src="../../../uniprep-assets/images/icon-light.svg" />
 							<div class="d-flex flex-column">
-								<p>UNIPREP AI Advisor</p>
+								<p *ngIf="chat.input == 2">UNIPREP AI Advisor</p> 
 								<p>{{ chat.created }}</p>
 							</div>
 						</div>
@@ -158,16 +162,14 @@
 									<div *ngFor="let msg of chat.formatedMsg; index as i">
 										<li class="pb-2" *ngIf="i != 0 ">{{msg}}</li>
 									</div>
-
 								</ul>
 							</div>
+							<div *ngIf="chat.input == 4" [innerHTML]="chat.formatedMsg"></div>
 						</div>
 					</div>
 					<hr />
 				</div>
-
-				
-				<div class="advisor-answer" *ngIf="chat.input == 3">
+				<!-- <div class="advisor-answer" *ngIf="chat.input == 3">
 					<div class="d-flex align-items-center">
 						<p
 							style="margin-right: 10px; background-color: var(--uniprep-primaryop30); padding: 1rem; text-transform: uppercase; font-weight: bold; border-radius: 100%">
@@ -179,17 +181,9 @@
 					</div>
 					<div>
 						<div [innerHTML]="chat.message"></div>
-							<!-- <ul>
-								<div *ngFor="let msg of chat.formatedMsg; index as i">
-									<li class="pb-2" *ngIf="i != 0 ">{{msg}}</li>
-								</div>
-
-							</ul> -->
 					</div>
 					<hr />
-				</div>
-
-
+				</div> -->
 			</div>
 		</div>
 

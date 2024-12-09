@@ -101,26 +101,24 @@ export class SidenavComponent {
       image: "fa-solid fa-ballot",
     },
     {
+      title: 'UNISCHOLAR',
+      url: '/pages/scholarship-list',
+      image: 'fa-solid fa-diploma',
+    },
+    {
       title: "UNIFINDER",
       url: "/pages/course-list",
       image: "fa-solid fa-landmark-magnifying-glass",
     },
     {
-      title: 'UNISCHOLAR',
-      url: '/pages/scholarship-list',
-      image: 'fa-solid fa-diploma',
+      title: "Travel & Life",
+      url: "",
+      image: "",
     },
-
-
     {
       title: "Language Hub",
       url: "/pages/language-hub",
       image: "fa-solid fa-books",
-    },
-    {
-      title: "Travel & Life",
-      url: "",
-      image: "",
     },
     {
       title: "Travel and Tourism",
