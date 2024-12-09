@@ -49,7 +49,7 @@ export class NationalExamTestsComponent implements OnInit {
 			this.restrict = true;
 			return;
 		  }
-		this.router.navigate(['/pages/national-exams/questions/'+testid]);
+		this.router.navigate([`/pages/national-exams/${this.category_id}/questions/${testid}`]);
 	}
 	checkplanExpire(): void {
 		this.authService.getNewUserTimeLeft().subscribe((res) => {

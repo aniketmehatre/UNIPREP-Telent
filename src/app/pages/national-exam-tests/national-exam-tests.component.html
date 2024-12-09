@@ -19,10 +19,19 @@
 	<div class="card-body text-center d-flex flex-column">
 		<div class="row">
 			<div class="col-xxl-2 col-xl-2 col-lg-3 col-md-3 col-sm-4 col-xs-12 col-12 mb-3" *ngFor="let test of tests">
-				<div class="card h-100 subjectcard" role="button" (click)="goToTest(test.id)">
+				<div class="card h-100 subjectcard">
 					<div class="card-body d-flex flex-md-column flex-row justify-content-md-between align-items-center">
 						<h5 class="text-center mt-3 fw-bold mb-3">{{ test.test_name }}</h5>
-                        <button class="btn btn-secondary btn-rounded">Start Quiz <i class="fa-solid fa-stopwatch"></i></button>
+                        <button *ngIf="!test.result_id" class="how-it-works-button" (click)="goToTest(test.id)">
+							&nbsp;&nbsp;&nbsp;&nbsp;Start Quiz &nbsp;&nbsp;<span><i class="fa-solid fa-stopwatch"></i></span>&nbsp;&nbsp;&nbsp;&nbsp;
+						</button>
+						<button *ngIf="test.result_id && test.result_value < 8" class="how-it-works-button" (click)="goToTest(test.id)">
+							&nbsp;&nbsp;&nbsp;&nbsp;Retry &nbsp;&nbsp;<span><i class="fa-solid fa-stopwatch"></i></span>&nbsp;&nbsp;&nbsp;&nbsp;
+						</button>
+                        <button *ngIf="test.result_id && test.result_value >= 8" class="completed">&nbsp;&nbsp;&nbsp;&nbsp;Completed&nbsp;&nbsp;&nbsp;&nbsp;</button>
+						<button *ngIf="test.result_id && test.result_value >= 8" class="how-it-works-button"  [routerLink]="['/pages/national-exams', category_id, 'review', test.result_id]">
+							&nbsp;&nbsp;&nbsp;&nbsp;Review &nbsp;&nbsp;<span><i class="fa-solid fa-list-check"></i></span>&nbsp;&nbsp;&nbsp;&nbsp;
+						</button>
 					</div>
 				</div>
 			</div>

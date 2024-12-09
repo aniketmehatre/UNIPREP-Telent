@@ -26,12 +26,15 @@ export class NationalExamResultComponent implements OnInit {
   }
 
   goToReview(){
-  //  alert(this.route.snapshot.paramMap.get("resultid"));
-    this.router.navigate(['/pages/national-exams/review/'+this.route.snapshot.paramMap.get("resultid")])
+    this.router.navigate([`/pages/national-exams/${this.route.snapshot.paramMap.get("categoryid")}/review/${this.route.snapshot.paramMap.get("resultid")}`]);
   }
 
   goToCats(){
-    this.router.navigate(['/pages/national-exams'])
+    this.router.navigate(['/pages/national-exams', this.route.snapshot.paramMap.get("categoryid")]);
+  }
+
+  goToTest(testId: string){
+    this.router.navigate([`/pages/national-exams/${this.route.snapshot.paramMap.get("categoryid")}/questions/${testId}`]);
   }
 }
 

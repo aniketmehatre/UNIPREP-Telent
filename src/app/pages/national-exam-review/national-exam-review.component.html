@@ -3,7 +3,7 @@
     <div class="card-header d-flex justify-content-between mt-4"
       style="background-color: #fafafa; border-bottom: 0px solid #fafafa">
       <h5>{{10 - this.page}}/10 Question Left</h5>
-      <button routerLink="/pages/national-exams" class="btn btn-quit btn-rounded mt-2 px-2 py-2">
+      <button [routerLink]="['/pages/national-exams', categoryId]" class="btn btn-quit btn-rounded mt-2 px-2 py-2">
         <div class="d-flex align-items-center">
           <span class="fw-normal h6 mb-0 ps-3 pe-2">Quit</span>
           <div class="btn-icon"><i class="fa-solid fa-power-off"></i></div>

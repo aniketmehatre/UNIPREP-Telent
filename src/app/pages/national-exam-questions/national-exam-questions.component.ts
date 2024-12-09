@@ -88,7 +88,7 @@ export class NationalExamQuestionsComponent implements OnInit {
         }
         this.stopTimer();
         this.service.submitResult(info).subscribe(response => {
-          this.router.navigate(['/pages/national-exams/result/' + response]);
+          this.router.navigate([`/pages/national-exams/${this.route.snapshot.paramMap.get("categoryid")}/result/${response}`]);
         });
       }
     }
@@ -124,7 +124,7 @@ export class NationalExamQuestionsComponent implements OnInit {
 
   closeQuiz() {
     this.stopTimer();
-    this.router.navigate([`/pages/national-exams`]);
+    this.router.navigate([`/pages/national-exams/${this.route.snapshot.paramMap.get("categoryid")}`]);
   }
 
   startTimer(): void {
