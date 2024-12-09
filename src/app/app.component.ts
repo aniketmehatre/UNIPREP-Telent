@@ -35,6 +35,9 @@ export class AppComponent {
     if (window.location.href.includes('register')) {
       return
     }
+    if (window.location.href.includes('certificates')) {
+      return
+    }
     if (window.location.href.includes('forgot-password')) {
       return;
     }
