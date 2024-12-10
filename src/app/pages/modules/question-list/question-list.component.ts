@@ -42,14 +42,10 @@ export class QuestionListComponent implements OnInit {
   @ViewChild("refLinksContainer") refLinksContainer!: ElementRef;
   @ViewChild('videoFrame') videoFrame: ElementRef | undefined;
   readQue$!: Observable<ReadQuestion[]>;
-  listQuestion$!: Observable<QuestionList>;
-  questionCount$!: Observable<QuestionList[]>;
   selectedQuestion: number = 0;
   selectedQuestionId: number = 0;
   selectedModule: number = 0;
   selectedSubModule: number = 0;
-  selectedVideo: number = 0;
-  selectedRefLink: number = 0;
   positionNumber: number = 0;
   data: any;
   breadCrumb: MenuItem[] = [];
@@ -86,9 +82,6 @@ export class QuestionListComponent implements OnInit {
   selectedVideoLink: any | null = null;
   allDataSet: any[] = [];
   countryFlag: any
-  ogTitle: any
-  ogDescription: any
-  ogImage: any;
   sharedCountry: number = 0;
   currentModuleSlug: any;
   quizpercentage: any = 0;
@@ -340,17 +333,17 @@ export class QuestionListComponent implements OnInit {
 
     this.responsiveOptions = [
       {
-        breakpoint: "1199px",
-        numVisible: 1,
-        numScroll: 1,
+        breakpoint: '1024px',
+        numVisible: 3,
+        numScroll: 3,
       },
       {
-        breakpoint: "991px",
+        breakpoint: '768px',
         numVisible: 2,
-        numScroll: 1,
+        numScroll: 2,
       },
       {
-        breakpoint: "767px",
+        breakpoint: '560px',
         numVisible: 1,
         numScroll: 1,
       },
@@ -744,12 +737,12 @@ export class QuestionListComponent implements OnInit {
     //   questionData['question'] = ques?.question;
     // }
 
-    this.meta.updateTag({ name: 'og:title', content: questionData.question });
-    this.meta.updateTag({ property: 'og:url', content: 'https://dev-student.uniprep.ai/pages/modules/pre-admission/question-list/2' });
-    this.meta.updateTag({ property: 'og:type', content: 'summary' });
-    this.meta.updateTag({ property: 'og:description', content: 'summary summary summary summary summary summary' });
-    this.meta.updateTag({ name: 'image', property: 'og:image', content: 'https://api.uniprep.ai/uniprepapi/storage/app/public/country-flags/united-kingdom.svg' });
-    this.cdRef.markForCheck();
+    // this.meta.updateTag({ name: 'og:title', content: questionData.question });
+    // this.meta.updateTag({ property: 'og:url', content: 'https://dev-student.uniprep.ai/pages/modules/pre-admission/question-list/2' });
+    // this.meta.updateTag({ property: 'og:type', content: 'summary' });
+    // this.meta.updateTag({ property: 'og:description', content: 'summary summary summary summary summary summary' });
+    // this.meta.updateTag({ name: 'image', property: 'og:image', content: 'https://api.uniprep.ai/uniprepapi/storage/app/public/country-flags/united-kingdom.svg' });
+    // this.cdRef.markForCheck();
     //
     //
     // this.meta.updateTag({ name: 'twitter:card', content: 'summary' });
