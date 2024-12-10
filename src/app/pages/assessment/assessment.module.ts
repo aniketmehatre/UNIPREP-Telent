@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 import { AssessmentComponent } from './assessment.component';
 import { AssessmentRoutingModule } from './assessment-routing.module';
 import { SkeletonModule } from 'primeng/skeleton';
+import { TooltipModule } from 'primeng/tooltip';
 
 
 
@@ -13,7 +14,8 @@ import { SkeletonModule } from 'primeng/skeleton';
   imports: [
     CommonModule,
     AssessmentRoutingModule,
-    SkeletonModule
+    SkeletonModule,
+    TooltipModule
   ]
 })
 export class AssessmentModule { }
