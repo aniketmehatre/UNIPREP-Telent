@@ -23,6 +23,7 @@ import {count, Observable} from "rxjs";
 import {CountryISO, SearchCountryField} from "ngx-intl-tel-input";
 import {SocialAuthService} from "@abacritt/angularx-social-login";
 import { environment } from "@env/environment";
+import CryptoJS from "crypto-js";
 
 // import { SocialAuthService } from "@abacritt/angularx-social-login";
 
@@ -258,14 +259,20 @@ export class HeaderComponent implements OnInit, OnDestroy {
     this.currentEducationForm = this.formBuilder.group({
       current_education: ["", Validators.required]
     });
-
-    if (
-      localStorage.getItem("phone") == "" ||
-      localStorage.getItem("phone") == null ||
-      localStorage.getItem("phone") == "null"
-    ) {
-      this.formvisbility = true;
+    let phone;
+    const encPhone = localStorage.getItem("phone");
+    if (encPhone) {
+      const bytes = CryptoJS.AES.decrypt(encPhone, environment.secretKeySalt);
+      phone = JSON.parse(bytes.toString(CryptoJS.enc.Utf8));
+      if (
+          phone == "" ||
+          phone == null ||
+          phone == "null"
+      ) {
+        this.formvisbility = true;
+      }
     }
+
     if (this.service._checkExistsSubscription === 0) {
       this.checkNewUser();
     } else {

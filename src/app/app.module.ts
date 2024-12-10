@@ -71,6 +71,7 @@ const ngxLocalstorageConfiguration: NgxLocalstorageConfiguration = {
 };
 
 export function tokenGetter() {
+
   return localStorage.getItem(`${ngxLocalstorageConfiguration.prefix}${ngxLocalstorageConfiguration.delimiter}${environment.tokenKey}`)?.replace(/"/g, '') || '';
 }
 

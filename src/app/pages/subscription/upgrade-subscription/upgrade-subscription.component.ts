@@ -30,6 +30,7 @@ import {
 } from "@stripe/stripe-js";
 import { injectStripe, StripeCardComponent, StripePaymentElementComponent, StripeService } from "ngx-stripe";
 import { switchMap } from "rxjs";
+import CryptoJS from "crypto-js";
 
 @Component({
   selector: "uni-upgrade-subscription",
@@ -92,10 +93,22 @@ export class UpgradeSubscriptionComponent implements OnInit {
     private stripeService: StripeService
   ) { }
   timeLeftInfoCard: any;
+  userName: any;
   ngOnInit(): void {
     //this.getLocation();
+    const encryptedData = localStorage.getItem("Name");
+    if (encryptedData) {
+      const bytes = CryptoJS.AES.decrypt(encryptedData, environment.secretKeySalt);
+      this.userName = JSON.parse(bytes.toString(CryptoJS.enc.Utf8));
+    }
+    let homeCountryName;
+    const encHomeCountryName = localStorage.getItem("home_country_name");
+    if (encHomeCountryName) {
+      const bytes = CryptoJS.AES.decrypt(encHomeCountryName, environment.secretKeySalt);
+      homeCountryName = JSON.parse(bytes.toString(CryptoJS.enc.Utf8));
+    }
     this.timeLeftInfoCard = localStorage.getItem("time_card_info");
-    this.currentCountry=String(localStorage.getItem("home_country_name"));
+    this.currentCountry=String(homeCountryName);
     this.loadExistingSubscription();
     this.discountAmountEnable = false;
     this.user = this.authService.user;
@@ -560,6 +573,18 @@ export class UpgradeSubscriptionComponent implements OnInit {
     if (environment.domain == "api.uniprep.ai") {
       razorKey = "rzp_test_Crpr7YkjPaCLEr";
     }
+    let phone;
+    const encPhone = localStorage.getItem("phone");
+    if (encPhone) {
+      const bytes = CryptoJS.AES.decrypt(encPhone, environment.secretKeySalt);
+      phone = JSON.parse(bytes.toString(CryptoJS.enc.Utf8));
+    }
+    let email;
+    const encEmail = localStorage.getItem("email");
+    if (encEmail) {
+      const bytes = CryptoJS.AES.decrypt(encEmail, environment.secretKeySalt);
+      email = JSON.parse(bytes.toString(CryptoJS.enc.Utf8));
+    }
     const options: any = {
       key: razorKey,
       amount: this.subscriptionDetails?.finalPrice * 100,
@@ -571,9 +596,9 @@ export class UpgradeSubscriptionComponent implements OnInit {
 
       prefill: {
         name: this.selectedSubscriptionDetails?.subscription,
-        email: localStorage.getItem("email"),
+        email: email,
        // contact: localStorage.getItem("phone"),
-        contact: (localStorage.getItem("phone") === null || localStorage.getItem("phone") === '') ? '9876543210' : localStorage.getItem("phone"),
+        contact: (phone === null || phone === '') ? '9876543210' : phone,
       },
       notes: {
         address:
@@ -783,7 +808,7 @@ export class UpgradeSubscriptionComponent implements OnInit {
         confirmParams: {
           payment_method_data: {
             billing_details: {
-              name: this.localStorage.getItem("Name"),
+              name: this.userName,
             },
           },
         },

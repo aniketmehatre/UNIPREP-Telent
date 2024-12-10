@@ -15,6 +15,7 @@ export const environment = {
   production: false,
   ApiUrl: devurl,
   tokenKey: 'token',
+  secretKeySalt: 'WaterMelonTea',
   facebookAppId: '892925195633254',
   linkedinId: '86b55xx7n8zomc',
   googleCloud: {

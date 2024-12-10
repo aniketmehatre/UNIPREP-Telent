@@ -11,7 +11,7 @@ import {login, loginFailure} from "./store/actions";
 import {loginData$, selectLoading$, selectloggedIn$, selectMessage$} from "./store/selectors";
 import {Router} from "@angular/router";
 import {DataService} from '../data.service';
-import {LocalStorageService} from "ngx-localstorage";
+const CryptoJS: any = require('crypto-js');
 
 @Injectable({
     providedIn: "root",
@@ -66,14 +66,23 @@ export class AuthService {
                 this.user = response.userdetails[0];
                 this._userLoginCount = response.userdetails[0].login_status;
                 this._checkExistsSubscription = response.userdetails[0].subscription_exists;
-                localStorage.setItem("UserID",response.userdetails[0].id)
-                localStorage.setItem("Name",response.userdetails[0].name)
-                localStorage.setItem("phone",response.userdetails[0].phone)
-                localStorage.setItem("credit_plans",response.userdetails[0].credit_plans)
-                localStorage.setItem("questions_left",response.userdetails[0].questions_left)
-                localStorage.setItem("guidlineAccepted", response.userdetails[0].guidelineaccept)                
-                localStorage.setItem("email", response.userdetails[0].email)
-                localStorage.setItem("home_country_name", response.userdetails[0].home_country_name)
+                const encUserID = CryptoJS.AES.encrypt(JSON.stringify(response.userdetails[0].id), environment.secretKeySalt).toString();
+                const encName = CryptoJS.AES.encrypt(JSON.stringify(response.userdetails[0].name), environment.secretKeySalt).toString();
+                const encPhone = CryptoJS.AES.encrypt(JSON.stringify(response.userdetails[0].phone), environment.secretKeySalt).toString();
+                const encCreditPlan = CryptoJS.AES.encrypt(JSON.stringify(response.userdetails[0].credit_plans), environment.secretKeySalt).toString();
+                const encQuestionLeft = CryptoJS.AES.encrypt(JSON.stringify(response.userdetails[0].questions_left), environment.secretKeySalt).toString();
+                const encGuideLine = CryptoJS.AES.encrypt(JSON.stringify(response.userdetails[0].guidelineaccept), environment.secretKeySalt).toString();
+                const encEmail = CryptoJS.AES.encrypt(JSON.stringify(response.userdetails[0].email), environment.secretKeySalt).toString();
+                const encHomeCountry = CryptoJS.AES.encrypt(JSON.stringify(response.userdetails[0].home_country_name), environment.secretKeySalt).toString();
+
+                localStorage.setItem("UserID", encUserID)
+                localStorage.setItem("Name",encName)
+                localStorage.setItem("phone",encPhone)
+                // localStorage.setItem("credit_plans",encCreditPlan)
+                localStorage.setItem("questions_left",encQuestionLeft)
+                // localStorage.setItem("guidlineAccepted", encGuideLine)
+                localStorage.setItem("email", encEmail)
+                localStorage.setItem("home_country_name", encHomeCountry)
                 setTimeout(() => {
                     this.canDisableSignIn.next(false);
                 }, 5000);

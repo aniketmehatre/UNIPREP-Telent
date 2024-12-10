@@ -13,6 +13,9 @@ import { PageFacadeService } from "../page-facade.service";
 import { Router } from "@angular/router";
 import screenfull from "screenfull";
 import { Location } from "@angular/common";
+import {environment} from "@env/environment";
+const CryptoJS: any = require('crypto-js');
+
 @Component({
   selector: "uni-chat",
   templateUrl: "./chat.component.html",
@@ -136,7 +139,12 @@ export class ChatComponent implements OnInit {
   ngOnInit(): void {
     this.getChatHistoryByUserId();
     this.getOptions();
-    this.username = localStorage.getItem("Name") || "";
+    const encryptedData = localStorage.getItem("Name");
+    if (encryptedData) {
+      const bytes = CryptoJS.AES.decrypt(encryptedData, environment.secretKeySalt);
+      this.username = JSON.parse(bytes.toString(CryptoJS.enc.Utf8));
+    }
+
     this.checkplanExpire();
   }
   checkplanExpire(): void {
@@ -183,7 +191,12 @@ export class ChatComponent implements OnInit {
       this.questionsleft = response?.questionsleft;
     });
     this.authService.getMe().subscribe((response) => {
-      this.totalcredits = Number(localStorage.getItem("questions_left"));
+      const encryptedData = localStorage.getItem("questions_left");
+      if (encryptedData) {
+        const bytes = CryptoJS.AES.decrypt(encryptedData, environment.secretKeySalt);
+        this.totalcredits = JSON.parse(bytes.toString(CryptoJS.enc.Utf8));
+      }
+      // this.totalcredits = Number(localStorage.getItem("questions_left"));
       if (this.totalcredits == 0) {
         this.btnsendmessage = 2;
       } else if (this.totalcredits > 0) {

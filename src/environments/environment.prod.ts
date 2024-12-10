@@ -12,6 +12,7 @@ export const environment = {
   maintenanceMode: false,
   production: true,
   ApiUrl: devurl,
+  secretKeySalt: 'WaterMelonTea',
   tokenKey: 'token',
   facebookAppId: '892925195633254',
   linkedinId: '86b55xx7n8zomc',

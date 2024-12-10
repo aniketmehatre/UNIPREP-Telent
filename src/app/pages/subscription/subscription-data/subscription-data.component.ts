@@ -82,9 +82,15 @@ export class SubscriptionDataComponent implements OnInit {
 
   ngOnInit(): void {
     //this.getLocation();
+    let homeCountryName;
+    const encHomeCountryName = localStorage.getItem("home_country_name");
+    if (encHomeCountryName) {
+      const bytes = CryptoJS.AES.decrypt(encHomeCountryName, environment.secretKeySalt);
+      homeCountryName = JSON.parse(bytes.toString(CryptoJS.enc.Utf8));
+    }
     this.timeLeftInfoCard = localStorage.getItem("time_card_info");
     this.discountAmountEnable = false; 
-    this.currentCountry=String(localStorage.getItem("home_country_name"));
+    this.currentCountry=String(homeCountryName);
     this.user = this.authService.user;
     this.education_level = this.user?.education_level?.replace(/[\s\u00A0]/g, '').trim() || 'HigherEducation';
     this.studentType = this.user?.student_type_id || 0;

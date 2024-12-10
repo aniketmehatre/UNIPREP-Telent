@@ -28,6 +28,7 @@ import {
   StripeElementsOptions,
   StripePaymentElementOptions,
 } from "@stripe/stripe-js";
+import CryptoJS from "crypto-js";
 
 @Component({
   selector: "uni-subscription",
@@ -47,6 +48,7 @@ export class SubscriptionComponent implements OnInit {
   success!: SubscriptionSuccess;
   user: any;
   countryList: any;
+  userName: any;
   isSubOrQuestion: number = 1;
   subscribedCountryList: any[] = [];
   subscribedHistoryData: any[] = [];
@@ -69,6 +71,11 @@ export class SubscriptionComponent implements OnInit {
     private stripeService: StripeService
   ) {}
   ngOnInit(): void {
+    const encryptedData = localStorage.getItem("Name");
+    if (encryptedData) {
+      const bytes = CryptoJS.AES.decrypt(encryptedData, environment.secretKeySalt);
+      this.userName = JSON.parse(bytes.toString(CryptoJS.enc.Utf8));
+    }
     if (this.dashboardService.isinitialstart) {
       window.location.reload();
     }
@@ -205,6 +212,19 @@ export class SubscriptionComponent implements OnInit {
     if (environment.domain == "api.uniprep.ai") {
       razorKey = "rzp_test_Crpr7YkjPaCLEr";
     }
+    let phone;
+    const encPhone = localStorage.getItem("phone");
+    if (encPhone) {
+      const bytes = CryptoJS.AES.decrypt(encPhone, environment.secretKeySalt);
+      phone = JSON.parse(bytes.toString(CryptoJS.enc.Utf8));
+    }
+
+    let email;
+    const encEmail = localStorage.getItem("email");
+    if (encEmail) {
+      const bytes = CryptoJS.AES.decrypt(encEmail, environment.secretKeySalt);
+      email = JSON.parse(bytes.toString(CryptoJS.enc.Utf8));
+    }
       const options: any = {
       key: razorKey,
       amount: this.subscriptionDetails?.finalPrice * 100, // amount should be in paise format to display Rs 1255 without decimal point
@@ -213,12 +233,11 @@ export class SubscriptionComponent implements OnInit {
       description: "UNIPREP Subscription", // product description
       image: "https://uniprep.ai/uniprep-assets/images/icon-light.svg", // company logo or product image
       order_id: orderid, // order_id created by you in backend
-     
+
       prefill: {
         name: this.selectedSubscription?.subscription,
-        email: localStorage.getItem("email"),
-       // contact: localStorage.getItem("phone"),
-        contact: (localStorage.getItem("phone") === null || localStorage.getItem("phone") === '') ? '9876543210' : localStorage.getItem("phone"),
+        email: email,
+        contact: (phone === null || phone === '') ? '9876543210' : phone,
       },
       notes: {
         address:
@@ -387,7 +406,7 @@ export class SubscriptionComponent implements OnInit {
         confirmParams: {
           payment_method_data: {
             billing_details: {
-              name: localStorage.getItem("Name"),
+              name: this.userName,
             },
           },
         },
