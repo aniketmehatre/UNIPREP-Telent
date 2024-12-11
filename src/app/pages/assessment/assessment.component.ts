@@ -12,8 +12,8 @@ export class AssessmentComponent implements OnInit {
 
   assessmentList: Assessment[] = [];
   isSkeletonVisible: boolean = true;
-  loopRange = [0, 1, 2];
-
+  loopRange = [0, 1, 2, 3, 4];
+  
   constructor(
     private assessmentService: AssessmentService,
     private router: Router
