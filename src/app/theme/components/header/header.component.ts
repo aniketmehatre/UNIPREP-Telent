@@ -724,13 +724,16 @@ export class HeaderComponent implements OnInit, OnDestroy {
       //   this.timeLeftMins = textMin;
       //   this.timeLeftSecs = textSec;
       // }
-
+      console.log(minutesLeft)
       if (
         minutesLeft <= 0 &&
         this.timeHours <= 0 &&
         secondsLeft <= 0
       ) {
         this.visible = true;
+        this.locationService.trialEnds().subscribe((res) => {
+          console.log(res)
+        })
         clearInterval(this.timerInterval);
       }
       this.min$ = minutesLeft

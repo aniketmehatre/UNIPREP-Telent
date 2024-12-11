@@ -226,4 +226,12 @@ export class LocationService {
     clearCache(): void {
         this.dataCache$ = null; // Clear the cached observable
     }
+
+    trialEnds() {
+        const headers = new HttpHeaders().set("Accept", "application/json");
+        return this.http.get<LocationData>(environment.ApiUrl + "/trialends", {
+            headers: headers,
+        });
+    }
+
 }
