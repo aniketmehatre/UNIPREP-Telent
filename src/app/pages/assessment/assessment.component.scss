@@ -22,3 +22,10 @@
 .assessment-card {
     border: 1px solid var(--uniprep-primary);
 }
+
+@media (min-width: 992px) {
+    .col-custom-lg-2 {
+        flex: 0 0 auto;
+        width: 20%;
+    }
+}

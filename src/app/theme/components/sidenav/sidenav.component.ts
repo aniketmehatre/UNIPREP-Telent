@@ -332,9 +332,9 @@ export class SidenavComponent {
   ngOnInit(): void {
     //this.sampleMenus = this.menus;
     this.authService.userData.subscribe(data => {
-      // if(data?.student_type_id == 1) {
-      //   this.menus = this.menus.filter(menu => !(this.collegeStudentRestrictedMenus?.includes(menu?.title)));
-      // }
+      if(data?.student_type_id == 1) {
+        this.menus = this.menus.filter(menu => !(this.collegeStudentRestrictedMenus?.includes(menu?.title)));
+      }
       const educationLevel = data?.education_level?.replace(/[\s\u00A0]/g, '').trim() || 'HigherEducation';
       if (educationLevel === 'K10') {
         this.menus = this.menus.filter(menu => !(this.k10RestrictedMenus?.includes(menu?.title)));
