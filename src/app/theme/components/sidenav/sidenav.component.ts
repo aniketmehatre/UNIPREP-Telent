@@ -209,7 +209,7 @@ export class SidenavComponent {
     {
       title: 'Assessment',
       url: '/pages/assessment',
-      image: 'fa-solid fa-link',
+      image: 'fa-regular fa-badge',
     },
     {
       title: "AI Global Advisor",

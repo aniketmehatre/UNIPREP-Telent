@@ -5,6 +5,7 @@ import {LanguageHubService} from "../language-hub.service";
 import {LanguageHubDataService} from "../language-hub-data.service";
 import { PageFacadeService } from '../../page-facade.service';
 import {LanguageArrayGlobalService} from "../language-array-global.service";
+import { AuthService } from 'src/app/Auth/auth.service';
 
 @Component({
     selector: 'uni-language-list',
@@ -23,7 +24,8 @@ export class LanguageListComponent implements OnInit {
 
     constructor(private languageHubService: LanguageHubService,
                 private lhs:LanguageHubDataService, private languageArrayGlobalService: LanguageArrayGlobalService,
-                private router: Router, private pageFacade: PageFacadeService) {
+                private router: Router, private pageFacade: PageFacadeService,
+            public authService: AuthService) {
     }
 
     loopRange = Array.from({length: 30}).fill(0).map((_, index) => index);
