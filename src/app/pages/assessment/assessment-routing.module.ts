@@ -3,6 +3,7 @@ import { RouterModule, Routes } from '@angular/router';
 import { IlearnChallengeComponent } from './ilearn-challenge/ilearn-challenge.component';
 import { AssessmentListComponent } from './assessment-list/assessment-list.component';
 import { AssessmentComponent } from './assessment.component';
+import { ContestRulesComponent } from './contest-rules/contest-rules.component';
 
 const routes: Routes = [
     {
@@ -14,6 +15,9 @@ const routes: Routes = [
             {
                 path: 'ilearn-challenge', component: IlearnChallengeComponent
             },
+            {
+                path: 'contest-rules', component: ContestRulesComponent
+            }
         ]
     }
 ];

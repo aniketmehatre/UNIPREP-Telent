@@ -16,72 +16,82 @@
         </div>
     </div>
     <div class="card-body text-center flex-fill overflow-y-auto">
-
-        <div class="row mb-0">
+        <div class="row mb-0" *ngIf="isSkeletonVisible; else showTableData">
             <div class="col-lg-8 mb-0 mb-md-3">
-                <div class="d-flex justify-content-between align-items-center mb-3">
-                    <div class="overall-sec">Overall Score : 1/100</div>
-                    <div class="contest-rules-btn">Contest Rules</div>
-                </div>
-                <p-table [value]="iLearnChallengeModuleList" class="ilearn-challenge-table" [paginator]="true"
-                    [rows]="10" [rowsPerPageOptions]="[10, 25, 50]">
-                    <ng-template pTemplate="header">
-                        <tr>
-                            <th>Sl.No</th>
-                            <th>Module</th>
-                            <th>Sub Module</th>
-                            <th>Assigned Module</th>
-                            <th>Instructions</th>
-                            <th>Target Score</th>
-                            <th>Your Score</th>
-                        </tr>
-                    </ng-template>
-                    <ng-template pTemplate="body" let-data>
-                        <tr>
-                            <td>{{ '1' }}</td>
-                            <td>{{ data.module_name }}</td>
-                            <td>{{ data.category }}</td>
-                            <td>
-                                <div class="uniprep-secondary d-flex justify-content-between align-items-center"
-                                    role="button">
-                                    <span>{{ data.submodule_name }}</span>
-                                    <i class="fa fa-external-link" aria-hidden="true"></i>
-                                </div>
-                            </td>
-                            <td>
-                                <div role="button" style="color: var(--uniprep-tealgreen);">Guide</div>
-                            </td>
-                            <td>{{ data.assessment_score }}</td>
-                            <td>{{ data.score ?? 0 }}</td>
-                        </tr>
-                    </ng-template>
-                </p-table>
+                <p-skeleton height="35rem"></p-skeleton>
             </div>
             <div class="col-lg-4">
-                <div class="d-flex justify-content-between align-items-center mb-3">
-                    <h4 class="uniprep-primary">Leaderboard</h4>
-                    <div class="leaderboard-sec">You are in 10th place</div>
-                </div>
-                <p-table [value]="leaderBoardList" class="ilearn-challenge-table" [paginator]="true" [rows]="10"
-                    [rowsPerPageOptions]="[10, 25, 50]">
-                    <ng-template pTemplate="header">
-                        <tr>
-                            <th>Sl.No</th>
-                            <th>Name</th>
-                            <th>Score</th>
-                            <th>Status</th>
-                        </tr>
-                    </ng-template>
-                    <ng-template pTemplate="body" let-data>
-                        <tr>
-                            <td>{{ '1' }}</td>
-                            <td>{{ data.user_name }}</td>
-                            <td>{{ data.total_score }}/100</td>
-                            <td>{{ data.total_score == 100 ? 'Completed' : 'In-Progress' }}</td>
-                        </tr>
-                    </ng-template>
-                </p-table>
+                <p-skeleton height="35rem"></p-skeleton>
             </div>
         </div>
+        <ng-template #showTableData>
+            <div class="row mb-0">
+                <div class="col-lg-8 mb-0 mb-md-3">
+                    <div class="d-flex justify-content-between align-items-center mb-3">
+                        <div class="overall-sec">Overall Score : {{currentScore}}/100</div>
+                        <div class="contest-rules-btn" role="button" routerLink="/pages/assessment/contest-rules">
+                            Contest Rules</div>
+                    </div>
+                    <p-table [value]="iLearnChallengeModuleList" class="ilearn-challenge-table" [paginator]="true"
+                        [rows]="10" [rowsPerPageOptions]="[10, 25, 50]">
+                        <ng-template pTemplate="header">
+                            <tr>
+                                <th>Sl.No</th>
+                                <th>Module</th>
+                                <th>Sub Module</th>
+                                <th>Assigned Module</th>
+                                <th>Instructions</th>
+                                <th>Target Score</th>
+                                <th>Your Score</th>
+                            </tr>
+                        </ng-template>
+                        <ng-template pTemplate="body" let-data let-rowIndex="rowIndex">
+                            <tr>
+                                <td>{{ rowIndex + 1 }}</td>
+                                <td>{{ data.module_name }}</td>
+                                <td>{{ data.category }}</td>
+                                <td>
+                                    <div class="uniprep-secondary d-flex justify-content-between align-items-center"
+                                        role="button">
+                                        <span>{{ data.submodule_name }}</span>
+                                        <i class="fa fa-external-link" aria-hidden="true"></i>
+                                    </div>
+                                </td>
+                                <td>
+                                    <div role="button" style="color: var(--uniprep-tealgreen);">Guide</div>
+                                </td>
+                                <td>{{ data.assessment_score }}</td>
+                                <td>{{ data.score ?? 0 }}</td>
+                            </tr>
+                        </ng-template>
+                    </p-table>
+                </div>
+                <div class="col-lg-4">
+                    <div class="d-flex justify-content-between align-items-center mb-3">
+                        <h4 class="uniprep-primary">Leaderboard</h4>
+                        <div class="leaderboard-sec">You are in {{currentPosition}} place</div>
+                    </div>
+                    <p-table [value]="leaderBoardList" class="ilearn-challenge-table" [paginator]="true" [rows]="10"
+                        [rowsPerPageOptions]="[10, 25, 50]">
+                        <ng-template pTemplate="header">
+                            <tr>
+                                <th>Sl.No</th>
+                                <th>Name</th>
+                                <th>Score</th>
+                                <th>Status</th>
+                            </tr>
+                        </ng-template>
+                        <ng-template pTemplate="body" let-data let-rowIndex="rowIndex">
+                            <tr [ngClass]="{ 'uniprep-secondary': rowIndex === currentPositionIndex }">
+                                <td>{{ rowIndex + 1 }}</td>
+                                <td>{{ data.user_name }}</td>
+                                <td>{{ data.total_score }}/100</td>
+                                <td>{{ data.total_score == 100 ? 'Completed' : 'In-Progress' }}</td>
+                            </tr>
+                        </ng-template>
+                    </p-table>
+                </div>
+            </div>
+        </ng-template>
     </div>
 </div>

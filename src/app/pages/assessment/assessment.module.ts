@@ -7,6 +7,7 @@ import { TooltipModule } from 'primeng/tooltip';
 import { IlearnChallengeComponent } from './ilearn-challenge/ilearn-challenge.component';
 import { AssessmentListComponent } from './assessment-list/assessment-list.component';
 import { TableModule } from 'primeng/table';
+import { ContestRulesComponent } from './contest-rules/contest-rules.component';
 
 
 
@@ -14,14 +15,15 @@ import { TableModule } from 'primeng/table';
   declarations: [
     AssessmentComponent,
     IlearnChallengeComponent,
-    AssessmentListComponent
+    AssessmentListComponent,
+    ContestRulesComponent
   ],
   imports: [
     CommonModule,
     AssessmentRoutingModule,
     SkeletonModule,
     TooltipModule,
-    TableModule
+    TableModule,
   ]
 })
 export class AssessmentModule { }
