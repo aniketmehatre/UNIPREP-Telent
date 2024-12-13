@@ -65,7 +65,7 @@ export class ListSubModulesComponent implements OnInit {
     orglogowhitelabel: any;
     learningModuleHeading: string = "";
 
-    constructor(private moduleListService: ModuleServiceService, private router: Router, private dataService: DataService, private authService: AuthService,
+    constructor(private moduleListService: ModuleServiceService, private router: Router, private dataService: DataService, public authService: AuthService,
                 private locationService: LocationService, private route: ActivatedRoute, private ngxService: NgxUiLoaderService,
                 private confirmationService: ConfirmationService, private pageFacade: PageFacadeService,
                 private meta: Meta,

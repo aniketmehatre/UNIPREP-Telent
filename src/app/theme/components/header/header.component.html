@@ -84,6 +84,7 @@
               </div>
             </div>
           </div>
+          <button *ngIf="service._user?.student_type_id == 2" class="btn btn-ilearn" routerLink="/pages/assessment/ilearn-challenge"><span class="text-small fw-normal">iLearn Challenge</span></button>
           <div class="d-none d-md-flex gap-2">
               <div label="" role="button" class="headerHomeCountry" [title]="homeCountryName">
                 <img #openCountryPopup src="{{ headerHomeFlag }}" alt="flag" height="auto" width="auto" />
@@ -172,6 +173,7 @@
               </div>
             </div>
           </div>
+          <button *ngIf="service._user?.student_type_id == 2" class="btn btn-ilearn me-2" routerLink="/pages/assessment/ilearn-challenge"><span class="text-small fw-normal">iLearn Challenge</span></button>
           <!-- <div label="" role="button" class="headercountry me-2 d-none d-md-block" (click)="openFlagModal(totalCountryList, $event)"> -->
           <div class="d-flex gap-2 d-md-none">
             <button class="btn btn-primary p-3 m-0" alt="chat with notification" (click)="onClickSubscribe()">
