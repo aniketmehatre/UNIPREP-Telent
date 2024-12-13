@@ -1,11 +1,11 @@
 import { Injectable } from '@angular/core';
-import { ActivatedRouteSnapshot, CanActivate, Router, RouterStateSnapshot, UrlTree } from '@angular/router';
+import { ActivatedRouteSnapshot, Router, RouterStateSnapshot, UrlTree } from '@angular/router';
 import { Observable, of } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
 })
-export class DomainwhitlabelGuard implements CanActivate {
+export class DomainwhitlabelGuard  {
   private allowedDomains = ["dev-student.uniprep.ai", "uniprep.ai", "localhost"];
   private homePath = '/home';
   private loginPath = '/login';

@@ -4,6 +4,8 @@ import {AppRoutingModule} from './app-routing.module';
 import {AppComponent} from './app.component';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {StoreModule} from '@ngrx/store';
+import { RouterModule } from '@angular/router'; // Import RouterModule
+
 import {pagesReducer} from './pages/store/pages.reducer';
 import {StoreDevtoolsModule} from '@ngrx/store-devtools';
 import {environment} from '@env/environment';
@@ -44,7 +46,7 @@ import {GoogleLoginProvider, SocialAuthServiceConfig, SocialLoginModule,} from '
 // import {NgxLinkedinModule} from "ngx-linkedin";
 import {PrivacyComponent} from './pages/privacy/privacy.component';
 import {FacebookLoginProvider} from "angularx-social-login";
-import {NgxLinkedinModule} from "ngx-linkedin";
+// import {NgxLinkedinModule} from "ngx-linkedin";
 import {MetaModule} from "@ngx-meta/core";
 import {EnterpriseSubscriptionService} from './components/enterprise-subscription/enterprise-subscription.service';
 import {EnterpriseSubscriptionComponent} from './components/enterprise-subscription/enterprise-subscription.component';
@@ -116,12 +118,13 @@ export function tokenGetter() {
         PaginatorModule,
        SocialLoginModule,
         // FacebookModule.forRoot(),
-        NgxLinkedinModule.forRoot({
-            clientId: environment.linkedinId
-        }),
+        // NgxLinkedinModule.forRoot({
+        //     clientId: environment.linkedinId
+        // }),
         MetaModule.forRoot(),
         SharedModule,
         SkeletonModule,
+        RouterModule
     ],
   providers: [
       DeviceDetectorService,
@@ -167,6 +170,6 @@ export function tokenGetter() {
       },
   ],
   bootstrap: [AppComponent],
-  entryComponents: [ModalComponent]
+  // entryComponents: [ModalComponent]
 })
 export class AppModule { }
