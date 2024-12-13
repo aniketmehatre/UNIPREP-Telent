@@ -215,9 +215,12 @@ export class QuestionListComponent implements OnInit {
             this.tooltip = "";
             break;
         }
-        const currentUrl = this.router.url; // Get the current URL
-        if (currentUrl.includes('pages/module')) {
-          this.router.navigateByUrl(`/pages/modules/${this.currentSubModuleSlug}`);
+        this.subModuleId = this.route.snapshot.paramMap.get("id");
+        if(!this.subModuleId.contains('&')){
+          const currentUrl = this.router.url; // Get the current URL
+          if (currentUrl.includes('pages/module')) {
+            this.router.navigateByUrl(`/pages/modules/${this.currentSubModuleSlug}`);
+          }
         }
         //this.loadInit();
       }
@@ -236,8 +239,8 @@ export class QuestionListComponent implements OnInit {
     let countryName: any;
     this.subModuleId = this.route.snapshot.paramMap.get("id");
 
-    if (this.subModuleId.includes("&&")) {
-      let url = this.subModuleId.split("&&");
+    if (this.subModuleId.includes("$")) {
+      let url = this.subModuleId.split("$");
       localStorage.setItem('questionId', url[1]);
       this.subModuleId = url[0];
     }
@@ -362,8 +365,7 @@ export class QuestionListComponent implements OnInit {
       data.countryId = 0;
     }
     this.loadQuestionList(data);
-    //this.ngxService.start();
-    //this.moduleListService.loadQuestionList(data);
+
     var data1 = {
       moduleid: this.currentModuleId,
       countryid: this.currentModuleId == 8 || this.currentModuleId == 10 ? 0 : this.countryId,
@@ -380,26 +382,17 @@ export class QuestionListComponent implements OnInit {
       data.share_link_question_id = questionData?.id;
     }
 
-    //this.mService.studentFullQuestionData(data).subscribe((res: any) => {
-
-      // this.questionListData = data?.questions;
-      // this.isSkeletonVisible = false
-      // this.totalQuestionCount = data?.questioncount;
-      //this.ngxService.stop();
-      //this.meta.updateTag({ property: 'og:image', content: res.country_flag });
       this.mService.studentsSubmoduleQuestions(data).subscribe((data: any) => {
         this.questionListData = data?.questions;
         this.isSkeletonVisible = false;
         this.totalQuestionCount = data?.questioncount;
         this.allDataSet = data;
         this.moduleName = data.submodule_name;
-        //this.ngxService.stop();
         if (questionData.id) {
-          this.viewOneQuestion(questionData);
+          this.viewOneQuestion(data.questions[0]);
           localStorage.removeItem('questionId');
         }
       });
-   // });
   }
   checkplanExpire(): void {
       this.authService.getNewUserTimeLeft().subscribe((res) => {
@@ -422,98 +415,11 @@ export class QuestionListComponent implements OnInit {
     })
   }
   goBack() {
-    this._location.back();
-  }
-
-  // getSubmoduleName(countryId: number) {
-  //   let data = {
-  //     countryId: countryId,
-  //     moduleId: this.currentModuleId,
-  //   };
-  //   if (this.currentModuleId == 8) {
-  //     data.countryId = 0
-  //   }
-  //   //this.moduleListService.loadQuestionList()
-  //   // this.moduleStoreService.loadSubModuleData(data).subscribe((response) => {
-  //   //   console.log(response);
-  //   //   if (response) {
-  //   //     response.filter((res: any) => {
-  //   //       if (res.id == this.subModuleId) {
-  //   //         this.moduleName = res.submodule_name;
-  //   //       }
-  //   //     });
-  //   //   }
-  //   // });
-  //   // this.subModules$ = this.moduleListService.subModuleList$();
-  //   // this.subModules$.subscribe(event => {
-  //   //   if(event){
-  //   //     event.filter(data => {
-  //   //       if (data.id == this.subModuleId) {
-  //   //         this.moduleName = data.submodule_name;
-  //   //       }
-  //   //     })
-  //   //   }
-  //   // })
-  // }
-
-  convertToSlug(text: any) {
-    return text
-      .toLowerCase()
-      .replace(/ /g, "-")
-      .replace(/[^\w-]+/g, "");
-  }
-
-  onQuestionClick(selectedData: any) {
-    this.checkplanExpire();
-    if (this.planExpired) {
-      this.restrict = true;
-      return;
+    if(this.route.snapshot.paramMap.get("id")){
+      this.router.navigateByUrl(`/pages/modules/${this.currentSubModuleSlug}`);
+    }else{
+      this._location.back();
     }
-    this.mService.questionList$().subscribe((data: any) => {
-      this.data = data.questions;
-      // console.log(data);
-    });
-    this.selectedQuestionData = selectedData;
-    this.selectedModule = selectedData.module_id;
-    this.selectedSubModule = selectedData.submodule_id;
-    this.selectedQuestionId = selectedData.id;
-    this.selectedQuestion = this.selectedQuestion - 1;
-    let index = this.data.findIndex((x: any) => x.id === selectedData.id);
-    this.selectedQuestion = index;
-    this.positionNumber = index;
-    this.isQuestionAnswerVisible = true;
-    this.data.filter((res: any) => {
-      if (res.id == selectedData.id) {
-        this.refLink = res.reflink;
-        this.videoLinks = res.videolink;
-      }
-    });
-    let data = {
-      questionId: selectedData.id,
-      countryId: this.countryId,
-      moduleId: this.currentModuleId,
-      submoduleId: Number(this.subModuleId),
-    };
-    if (this.selectedQuestion < 1) {
-      this.isAnswerDialogVisiblePrev = false;
-    } else {
-      this.isAnswerDialogVisiblePrev = true;
-    }
-    if (this.selectedQuestion >= this.data.length - 1) {
-      this.isAnswerDialogVisibleNext = false;
-    } else {
-      this.isAnswerDialogVisibleNext = true;
-    }
-    this.breadCrumb = [
-      {
-        label: this.currentModuleName,
-        command: (event) => this.gotomodulebreadcrump(),
-      },
-      { label: this.moduleName, command: (event) => this.goToHomebreadcrump() },
-      { label: `Question ${index + 1}` },
-    ];
-
-    this.readQuestion(data);
   }
 
   readQuestion(data: any) {
@@ -798,7 +704,7 @@ export class QuestionListComponent implements OnInit {
     }
   }
   shareViaWhatsapp() {
-    let url = window.location.href + '&&' + this.selectedQuestionData?.id
+    let url = window.location.href + '$' + this.selectedQuestionData?.id
     console.log(this.selectedQuestionData);
     console.log(url);
     this.meta.updateTag({ property: 'og:url', content: url });
@@ -806,35 +712,35 @@ export class QuestionListComponent implements OnInit {
     window.open(shareUrl, '_blank');
   }
   shareViaInstagram() {
-    let url = window.location.href + '&&' + this.selectedQuestionData?.id
+    let url = window.location.href + '$' + this.selectedQuestionData?.id
     console.log(url);
     this.meta.updateTag({ property: 'og:url', content: url });
     const shareUrl = `https://www.instagram.com?url=${encodeURIComponent(url)}`;
     window.open(shareUrl, '_blank');
   }
   shareViaFacebook() {
-    let url = window.location.href + '&&' + this.selectedQuestionData?.id
+    let url = window.location.href + '$' + this.selectedQuestionData?.id
     console.log(url);
     this.meta.updateTag({ property: 'og:url', content: url });
     const shareUrl = `https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(url)}`;
     window.open(shareUrl, '_blank');
   }
   shareViaLinkedIn() {
-    let url = window.location.href + '&&' + this.selectedQuestionData?.id
+    let url = window.location.href + '$' + this.selectedQuestionData?.id
     console.log(url);
     this.meta.updateTag({ property: 'og:url', content: url });
     const shareUrl = `https://www.linkedin.com/shareArticle?url=${encodeURIComponent(url)}`;
     window.open(shareUrl, '_blank');
   }
   shareViaTwitter() {
-    let url = window.location.href + '&&' + this.selectedQuestionData?.id
+    let url = window.location.href + '$' + this.selectedQuestionData?.id
     console.log(url);
     this.meta.updateTag({ property: 'og:url', content: url });
     const shareUrl = `https://twitter.com/intent/tweet?url=${encodeURIComponent(url)}`;
     window.open(shareUrl, '_blank');
   }
   shareViaMail() {
-    let url = window.location.href + '&&' + this.selectedQuestionData?.id
+    let url = window.location.href + '$' + this.selectedQuestionData?.id
     console.log(url);
     this.meta.updateTag({ property: 'og:url', content: url });
     const shareUrl = `mailto:?body=${encodeURIComponent(url)}`;
@@ -849,7 +755,8 @@ export class QuestionListComponent implements OnInit {
     // this.meta.updateTag(
     //   { name: 'title', content:  this.selectedQuestionName.question},
     // );
-    textarea.textContent = window.location.href + '&&' + this.selectedQuestionData?.id + '&&' + this.countryId;
+    console.log(window.location.href)
+    textarea.textContent = window.location.href + '$' + this.selectedQuestionData?.id + '$' + this.countryId;
     document.body.append(textarea);
     textarea.select();
     document.execCommand('copy');
