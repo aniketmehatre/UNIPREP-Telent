@@ -3,6 +3,7 @@ import { TestQuizService } from '../test-quiz.service';
 import { ActivatedRoute, Params, Router } from '@angular/router';
 import { CategoryResponse, GetCategoriesPayload } from 'src/app/@Models/career-tool-category.model';
 import { EmployerGlobalService } from '../employer-global.service';
+import { AuthService } from 'src/app/Auth/auth.service';
 
 @Component({
   selector: 'uni-career-category-list',
@@ -20,7 +21,8 @@ export class CareerCategoryListComponent implements OnInit {
   constructor(
     private testQuizService: TestQuizService,
     private router: Router, private employerGlobalService: EmployerGlobalService,
-    private activatedRoute: ActivatedRoute
+    private activatedRoute: ActivatedRoute,
+    public authService: AuthService
   ) {
     localStorage.setItem('MainTitleCareerTool', "");
   }

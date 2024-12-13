@@ -113,7 +113,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
     private router: Router,
     private locationService: LocationService,
     private formBuilder: FormBuilder,
-    private service: AuthService,
+    public service: AuthService,
     private toast: MessageService,
     private themeService: ThemeService,
     route: ActivatedRoute, private authService: SocialAuthService,
