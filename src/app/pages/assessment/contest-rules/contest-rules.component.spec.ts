@@ -1,0 +1,23 @@
+import { ComponentFixture, TestBed } from '@angular/core/testing';
+
+import { ContestRulesComponent } from './contest-rules.component';
+
+describe('ContestRulesComponent', () => {
+  let component: ContestRulesComponent;
+  let fixture: ComponentFixture<ContestRulesComponent>;
+
+  beforeEach(async () => {
+    await TestBed.configureTestingModule({
+      declarations: [ ContestRulesComponent ]
+    })
+    .compileComponents();
+
+    fixture = TestBed.createComponent(ContestRulesComponent);
+    component = fixture.componentInstance;
+    fixture.detectChanges();
+  });
+
+  it('should create', () => {
+    expect(component).toBeTruthy();
+  });
+});
