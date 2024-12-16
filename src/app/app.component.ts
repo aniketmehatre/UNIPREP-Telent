@@ -23,6 +23,7 @@ export class AppComponent {
 
   @HostListener('window:beforeunload', ['$event'])
   unloadHandler(event: BeforeUnloadEvent) {
+    return;
     if (window.location.href.includes('localhost')) {
       return
     }
