@@ -13,7 +13,6 @@ import { CoverLetterBuilderComponent } from './cover-letter-builder/cover-letter
 import { ChipsModule } from 'primeng/chips';
 import { FormsModule } from '@angular/forms';
 import { DropdownModule } from 'primeng/dropdown';
-import { AngularFittextModule } from 'angular-fittext';
 import { EditorModule } from 'primeng/editor';
 import { SidebarModule } from 'primeng/sidebar';
 import { CostOfLivingComponent } from './cost-of-living/cost-of-living.component';
@@ -36,6 +35,7 @@ import {SharedModule} from "../../shared/shared.module";
 import { TooltipModule } from 'primeng/tooltip';
 import { SkeletonModule } from 'primeng/skeleton';
 import {AutoCompleteModule} from 'primeng/autocomplete';
+import { FitTextDirective } from './fit-text.directive';
 
 @NgModule({
   declarations: [
@@ -49,6 +49,7 @@ import {AutoCompleteModule} from 'primeng/autocomplete';
     QuizTestListComponent,
     EmployerSubcategoryComponent,
     CareerCategoryListComponent,
+      FitTextDirective
     ],
     imports: [
         CommonModule,
@@ -61,7 +62,6 @@ import {AutoCompleteModule} from 'primeng/autocomplete';
         ChipsModule,
         FormsModule,
         DropdownModule,
-        AngularFittextModule,
         EditorModule,
         SidebarModule,
         CardModule,
@@ -80,6 +80,7 @@ import {AutoCompleteModule} from 'primeng/autocomplete';
         AutoCompleteModule,
     ],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
-  providers: [ConfirmationService], 
+  providers: [ConfirmationService],
+    exports: [FitTextDirective]
 })
 export class JobToolModule{ }

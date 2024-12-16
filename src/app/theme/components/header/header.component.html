@@ -307,7 +307,10 @@
         <!--                        [style]="{'width': '250px'}"-->
         <!--                        optionValue="id"-->
         <!--                        optionLabel="country"></p-dropdown>-->
-        <p-dropdown id="selectedHomeCountry" styleClass="w-100" style="width: 100% !important" [(ngModel)]="selectedHomeCountry" [options]="countryList" [filter]="true" filterBy="country" [showClear]="true" optionLabel="country" (onChange)="onHomeCountryChange($event)" placeholder="Source Country">
+        <p-dropdown id="selectedHomeCountry" [styleClass]="'w-100'" style="width: 100% !important"
+                    [(ngModel)]="selectedHomeCountry" [options]="countryList" [filter]="true"
+                    filterBy="country" [showClear]="true" optionLabel="country"
+                    (onChange)="onHomeCountryChange($event)" placeholder="Source Country">
           <ng-template pTemplate="selectedItem">
             <div class="flex align-items-center gap-2" *ngIf="selectedHomeCountry">
               <img [src]="selectedHomeCountry.flag" [class]="'flag flag-' + selectedHomeCountry.code" style="width: 18px" />

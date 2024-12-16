@@ -79,13 +79,13 @@ export class AcademicToolsQuizComponent implements OnInit {
     }
   ];
 
-  chartOptions: ChartOptions = {
-    responsive: true,
-    maintainAspectRatio: false,
-    legend: {
-      position: 'right',
-    }
-  };
+  // chartOptions: ChartOptions = {
+  //   responsive: true,
+  //   maintainAspectRatio: false,
+  //   legend: {
+  //     position: 'right',
+  //   }
+  // };
   pdfUrl: string = '';
   moduelName: string = '';
   showLoading: boolean = false;

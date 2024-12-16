@@ -755,8 +755,14 @@ export class QuestionListComponent implements OnInit {
     // this.meta.updateTag(
     //   { name: 'title', content:  this.selectedQuestionName.question},
     // );
-    console.log(window.location.href)
-    textarea.textContent = window.location.href + '$' + this.selectedQuestionData?.id + '$' + this.countryId;
+    const safeUrl = encodeURI(window.location.href);
+    const selectedQuestionId = this.selectedQuestionData?.id || '';
+    const safeCountryId = this.countryId || '';
+
+    // Combine data with a safe format
+    textarea.textContent = `${safeUrl}$${selectedQuestionId}$${safeCountryId}`;
+    
+    // Append the textarea safely
     document.body.append(textarea);
     textarea.select();
     document.execCommand('copy');

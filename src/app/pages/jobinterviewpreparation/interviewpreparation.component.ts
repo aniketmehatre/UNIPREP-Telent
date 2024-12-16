@@ -119,7 +119,7 @@ export class JobPreparationComponent implements OnInit {
       this.invalidClass = true;
       return;
     }
-    if (this.selectedData[productId]?.length == 1) {
+    if (this.selectedData[productId]?.length > 2) {
       this.invalidClass = true;
       return;
     }
