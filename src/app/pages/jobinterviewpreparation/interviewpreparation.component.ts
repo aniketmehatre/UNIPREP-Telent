@@ -123,6 +123,10 @@ export class JobPreparationComponent implements OnInit {
       this.invalidClass = true;
       return;
     }
+    if (this.selectedData[productId]?.length > 2) {
+      this.invalidClass = true;
+      return;
+    }
     if (productId in this.selectedData) {
       if (this.activePageIndex < this.recommendations.length - 1) {
         this.activePageIndex++;
