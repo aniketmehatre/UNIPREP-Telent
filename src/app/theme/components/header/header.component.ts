@@ -109,11 +109,12 @@ export class HeaderComponent implements OnInit, OnDestroy {
   currentEducationForm: any = FormGroup;
   ApiUrl: string = environment.domain;
   educationImage: string = "";
+  currentUserSubscriptionPlan: string =  '';
   constructor(
     private router: Router,
     private locationService: LocationService,
     private formBuilder: FormBuilder,
-    private service: AuthService,
+    public service: AuthService,
     private toast: MessageService,
     private themeService: ThemeService,
     route: ActivatedRoute, private authService: SocialAuthService,
@@ -619,6 +620,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
 
   subScribedUserCount(): void {
     this.service.getNewUserTimeLeft().subscribe((res) => {
+      this.currentUserSubscriptionPlan =  res?.subscription_details?.subscription_plan;
       this.enterpriseSubscriptionLink = res.enterprise_subscription_link;
       let data = res.time_left;
       if (data.plan === "not_started") {
@@ -682,6 +684,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
 
   checkNewUser(): void {
     this.service.getNewUserTimeLeft().subscribe((res) => {
+      this.currentUserSubscriptionPlan =  res?.subscription_details?.subscription_plan;
       this.enterpriseSubscriptionLink = res.enterprise_subscription_link;
       this.dashboardService.updatedata(res.time_left);
       let data = res.time_left;
@@ -1003,4 +1006,9 @@ export class HeaderComponent implements OnInit, OnDestroy {
   }
 
   protected readonly count = count;
+
+  navigateILearnChallenge() {
+    const targetUrl = this.currentUserSubscriptionPlan === 'Career' ? '/pages/assessment/ilearn-challenge': '/pages/subscriptions/upgrade-subscription';
+    this.router.navigateByUrl(targetUrl);
+  }
 }

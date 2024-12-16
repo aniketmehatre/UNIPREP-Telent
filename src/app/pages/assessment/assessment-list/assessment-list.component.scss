@@ -1,0 +1,32 @@
+.score-sec {
+    border: 1px solid var(--uniprep-primary);
+    padding: 5px 15px;
+    border-radius: 15px;
+    background-color: white;
+}
+
+.overall-sec {
+    background: var(--uniprep-skyblue);
+    padding: 5px 15px;
+    border-radius: 15px;
+    color: white;
+}
+
+.assessment-card {
+    border: 1px solid var(--uniprep-primary);
+}
+
+.contest-rules-btn {
+    padding: 5px 20px;
+    border-radius: 15px;
+    background: var(--uniprep-primaryop10);
+    color: var(--uniprep-primarydark);
+    cursor: pointer;
+}
+
+@media (min-width: 992px) {
+    .col-custom-lg-2 {
+        flex: 0 0 auto;
+        width: 20%;
+    }
+}

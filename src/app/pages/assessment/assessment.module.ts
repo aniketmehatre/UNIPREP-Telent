@@ -4,18 +4,26 @@ import { AssessmentComponent } from './assessment.component';
 import { AssessmentRoutingModule } from './assessment-routing.module';
 import { SkeletonModule } from 'primeng/skeleton';
 import { TooltipModule } from 'primeng/tooltip';
+import { IlearnChallengeComponent } from './ilearn-challenge/ilearn-challenge.component';
+import { AssessmentListComponent } from './assessment-list/assessment-list.component';
+import { TableModule } from 'primeng/table';
+import { ContestRulesComponent } from './contest-rules/contest-rules.component';
 
 
 
 @NgModule({
   declarations: [
-    AssessmentComponent
+    AssessmentComponent,
+    IlearnChallengeComponent,
+    AssessmentListComponent,
+    ContestRulesComponent
   ],
   imports: [
     CommonModule,
     AssessmentRoutingModule,
     SkeletonModule,
-    TooltipModule
+    TooltipModule,
+    TableModule,
   ]
 })
 export class AssessmentModule { }
