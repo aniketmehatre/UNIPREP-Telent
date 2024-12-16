@@ -688,7 +688,7 @@ uni-subscription {
 	color: #fff !important;
 	background: var(--uniprep-primary);
 	border-radius: 10px !important;
-
+	
 	&:disabled {
 		background-color: #343a40;
 		background: linear-gradient(0deg, rgb(0, 0, 0) 0%, rgb(77, 77, 77) 100%);
@@ -799,7 +799,6 @@ uni-subscription {
 	background: linear-gradient(0deg, rgba(89, 140, 223, 1) 0%, rgba(186, 222, 242, 1) 100%);
 	border-color: #598cdf !important;
 	border-radius: 10px !important;
-
 	&:hover {
 		color: #000 !important;
 		background: rgb(89, 140, 223);
@@ -821,7 +820,7 @@ uni-subscription {
 	background: var(--uniprep-green);
 	border-radius: 10px !important;
 	border: 1px solid var(--uniprep-green);
-
+	display:flex;
 	&:disabled {
 		background-color: #343a40;
 		background: linear-gradient(0deg, rgb(0, 0, 0) 0%, rgb(77, 77, 77) 100%);
@@ -858,7 +857,7 @@ uni-subscription {
 	padding: 5px;
 	border-color: #ffb2b2 !important;
 	border-radius: 10px !important;
-
+	display:flex;
 	.btn-icon {
 		width: 35px;
 		height: 35px;
@@ -897,7 +896,7 @@ uni-subscription {
 	padding: 5px !important;
 	border-color: var(--uniprep-primaryhighlight) !important;
 	border-radius: 10px !important;
-
+	display:flex;
 	.btn-icon {
 		width: 35px;
 		height: 35px;
@@ -936,7 +935,7 @@ uni-subscription {
 	padding: 5px 10px !important;
 	border-color: #708fb5 !important;
 	border-radius: 10px !important;
-
+	display:flex;
 	.btn-icon {
 		width: 35px;
 		height: 35px;
@@ -973,7 +972,7 @@ uni-subscription {
 	color: var(--uniprep-primarydark) !important;
 	background: var(--uniprep-gray);
 	border-radius: 10px !important;
-
+	display:flex;
 	&:disabled {
 		background-color: #343a40;
 		background: linear-gradient(0deg, rgb(0, 0, 0) 0%, rgb(77, 77, 77) 100%);
@@ -2001,7 +2000,9 @@ p-dialog.restrictionDialog .p-dialog .p-dialog-header .p-dialog-header-icon {
 		}
 	}
 }
-
+.p-input-icon-left>.p-inputtext {
+    padding-left: 2rem;
+}
 .input-wrapper {
 	position: relative;
 }
