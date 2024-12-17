@@ -38,7 +38,7 @@
     "angularx-social-login": "^4.1.0",
     "bootstrap": "^5.3.3",
     "bootstrap-icons": "^1.11.3",
-    "chart.js": "^2.9.3",
+    "chart.js": "^3.9.1",
     "contlo-web-sdk": "^1.0.1",
     "crypto-js": "^4.2.0",
     "dayjs": "^1.11.12",
