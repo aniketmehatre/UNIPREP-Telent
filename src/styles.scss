@@ -820,7 +820,6 @@ uni-subscription {
 	background: var(--uniprep-green);
 	border-radius: 10px !important;
 	border: 1px solid var(--uniprep-green);
-	display:flex;
 	&:disabled {
 		background-color: #343a40;
 		background: linear-gradient(0deg, rgb(0, 0, 0) 0%, rgb(77, 77, 77) 100%);
@@ -857,7 +856,6 @@ uni-subscription {
 	padding: 5px;
 	border-color: #ffb2b2 !important;
 	border-radius: 10px !important;
-	display:flex;
 	.btn-icon {
 		width: 35px;
 		height: 35px;
@@ -896,7 +894,6 @@ uni-subscription {
 	padding: 5px !important;
 	border-color: var(--uniprep-primaryhighlight) !important;
 	border-radius: 10px !important;
-	display:flex;
 	.btn-icon {
 		width: 35px;
 		height: 35px;
@@ -935,7 +932,6 @@ uni-subscription {
 	padding: 5px 10px !important;
 	border-color: #708fb5 !important;
 	border-radius: 10px !important;
-	display:flex;
 	.btn-icon {
 		width: 35px;
 		height: 35px;
@@ -972,7 +968,6 @@ uni-subscription {
 	color: var(--uniprep-primarydark) !important;
 	background: var(--uniprep-gray);
 	border-radius: 10px !important;
-	display:flex;
 	&:disabled {
 		background-color: #343a40;
 		background: linear-gradient(0deg, rgb(0, 0, 0) 0%, rgb(77, 77, 77) 100%);
