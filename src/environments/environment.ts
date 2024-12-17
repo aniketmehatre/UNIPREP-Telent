@@ -10,10 +10,10 @@ const devUniApplyApi = 'http://74.225.142.9/uniapplyStudents/public/api'
 const prodUniApplyApi = 'https://apply.uniabroad.io/uniapplyStudents/public/api'
 
 export const environment = {
-  domain: proddomain,
+  domain: devdomain,
   maintenanceMode: false,
   production: false,
-  ApiUrl: produrl,
+  ApiUrl: devurl,
   tokenKey: 'token',
   secretKeySalt: 'WaterMelonTea',
   facebookAppId: '892925195633254',
@@ -21,6 +21,6 @@ export const environment = {
   googleCloud: {
     apiKey: 'AIzaSyCxrgn6ZZL3IsY_3xrSqQJi_3yT_OKr-n0'
   },
-  uniApplyUrl: prodUniApplyUrl,
-  uniapplyAPI: prodUniApplyApi
+  uniApplyUrl: devUniApplyURL,
+  uniapplyAPI: devUniApplyApi
 };
