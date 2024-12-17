@@ -37,7 +37,7 @@ import { K12BoardComponent } from './k12-board/k12-board.component';
 import { K12SubjectComponent } from './k12-subject/k12-subject.component';
 import { K12ChapterComponent } from './k12-chapter/k12-chapter.component';
 import { K12StateComponent } from './k12-state/k12-state.component';
-import {NgChartsModule} from "ng2-charts";
+import { ChartsModule } from 'ng2-charts';
 
 @NgModule({
   declarations: [
@@ -81,7 +81,7 @@ import {NgChartsModule} from "ng2-charts";
     ReactiveFormsModule,
     DialogModule,
     DropdownModule,
-    NgChartsModule
+    ChartsModule
   ],
   schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })
