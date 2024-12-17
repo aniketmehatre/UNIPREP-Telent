@@ -57,13 +57,13 @@
                 <div class="row justify-content-center text-center">
                   <div class="col-md-12 mb-4">
                     <h5 class="uniprep-primary fw-semibold mb-0">
-                      Question Number {{ recommendation.id }}
+                      Step {{ recommendation.id }}
                     </h5>
                     <h2 class="fw-bold mb-0">{{ recommendation.question }}</h2>
                   </div>
                   <div
                     class="col-md-6"
-                    [ngStyle]="recommendation.id == 6 ? { width: '100%' } : {}"
+                    [ngStyle]="recommendation.id == 7 ? { width: '100%' } : {}"
                   >
                     <div
                       class="recommendationinput d-flex flex-column justify-content-center gap-3"
@@ -165,13 +165,14 @@
                           Please Choose Any one option
                         </p>
                       </ng-container>
-                      <!-- <ng-container *ngIf="recommendation.id == 6">
+                      <ng-container *ngIf="recommendation.id == 6">
                         <p-dropdown
                           styleClass="w-100"
                           placeholder="Industry Type"
                           display="chip"
-                          optionLabel="industry_name"
+                          optionLabel="industry"
                           optionValue="id"
+                          [options]="industries"
                           [(ngModel)]="selectedData[recommendation.id]"
                           [appendTo]="'body'"
                         ></p-dropdown>
@@ -182,8 +183,8 @@
                         >
                           Please Choose Any one option
                         </p>
-                      </ng-container> -->
-                      <ng-container *ngIf="recommendation.id == 6">
+                      </ng-container>
+                      <ng-container *ngIf="recommendation.id == 7">
                         <div class="container mt-5">
                           <div class="row g-3 justify-content-center">
                             <div
@@ -238,7 +239,7 @@
 
                   <button
                     (click)="next(recommendation.id)"
-                    *ngIf="recommendation.id != 6"
+                    *ngIf="recommendation.id != 7"
                     class="btn btn-start btn-rounded m-0 px-2 py-2"
                   >
                     <div class="d-flex align-items-center">
@@ -252,7 +253,7 @@
                     pButton
                     type="button"
                     (click)="getRecommendation()"
-                    *ngIf="recommendation.id == 6"
+                    *ngIf="recommendation.id == 7"
                     class="btn btn-success btn-rounded p-1 ps-4"
                   >
                     <span class="me-2">Get Preparations</span

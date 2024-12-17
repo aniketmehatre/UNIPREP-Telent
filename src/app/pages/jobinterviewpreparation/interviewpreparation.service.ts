@@ -12,6 +12,12 @@ export class InterviewPreparationService {
       headers: headers,
     });
   }
+  getIndustries() {
+    const headers = new HttpHeaders().set("Accept", "application/json");
+    return this.http.get<any>(environment.ApiUrl + "/getindustries", {
+      headers: headers,
+    });
+  }
   getsoftSkills() {
     const headers = new HttpHeaders().set("Accept", "application/json");
     return this.http.get<any>(environment.ApiUrl + "/getsoftskills", {
