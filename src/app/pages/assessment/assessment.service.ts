@@ -1,7 +1,7 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { environment } from '@env/environment';
-import { Assessment } from 'src/app/@Models/assessment.model';
+import { AssessmentResponse } from 'src/app/@Models/assessment.model';
 import { ILearnChallengeResponse } from 'src/app/@Models/ilearn-challenge.model';
 
 @Injectable({
@@ -16,7 +16,7 @@ export class AssessmentService {
   ) { }
 
   getAssessments() {
-    return this.http.get<Assessment[]>(environment.ApiUrl + "/listOfModulesLists", {
+    return this.http.get<AssessmentResponse>(environment.ApiUrl + "/listOfModulesLists", {
       headers: this.headers,
     });
   }

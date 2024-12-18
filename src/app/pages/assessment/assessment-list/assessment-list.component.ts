@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Assessment } from 'src/app/@Models/assessment.model';
+import { Assessment, AssessmentResponse } from 'src/app/@Models/assessment.model';
 import { AssessmentService } from '../assessment.service';
 
 @Component({
@@ -10,6 +10,7 @@ import { AssessmentService } from '../assessment.service';
 export class AssessmentListComponent implements OnInit {
 
   assessmentList: Assessment[] = [];
+  overAllScore: number = 0;
   isSkeletonVisible: boolean = true;
   loopRange = [0, 1, 2, 3, 4];
   
@@ -24,8 +25,9 @@ export class AssessmentListComponent implements OnInit {
 
   getAssessmentList() {
     this.assessmentService.getAssessments().subscribe({
-      next: (response: Assessment[]) => {
-        this.assessmentList = response;
+      next: (response: AssessmentResponse) => {
+        this.assessmentList = response.module_data;
+        this.overAllScore = response.overall_score;
         this.isSkeletonVisible = false;
       },
       error: (error: any) => {
