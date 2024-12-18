@@ -11,15 +11,19 @@
         </div>
         <div class="card-body">
           <div class="text-center">
-            <h5 class="fw-bold mb-3">{{ quiz.submodule_name }}</h5>
-            <button [ngClass]="quiz.progress === 0 ? 'how-it-works-button' : quiz.progress > 0 && quiz.progress < 90 ? 'retry' : 'completed'" [disabled]="quiz.progress > 89" (click)="showQuizQuestions(quiz.id,currentModule,'careertoolquiz',false)">
-              &nbsp;&nbsp;&nbsp;&nbsp; {{ quiz.progress === 0 ? "Start Quiz" : quiz.progress > 0 && quiz.progress < 90 ? "Retry" : "Completed" }}&nbsp;&nbsp;<span *ngIf="quiz.progress == 0"><i class="fa-solid fa-alarm-clock"></i></span>&nbsp;&nbsp;&nbsp;&nbsp;
-            </button>
-            <button class="how-it-works-button" *ngIf="quiz.progress > 89" (click)="showQuizQuestions(quiz.id,currentModule,'careertoolquiz',true)">
-              &nbsp;&nbsp;&nbsp;&nbsp;Review &nbsp;&nbsp;<span><i class="fa-solid fa-list-check"></i></span>&nbsp;&nbsp;&nbsp;&nbsp;
-            </button>
+              <h5 class="fw-bold mb-3">{{ quiz.submodule_name }}</h5>
+              <div class="d-flex justify-content-center flex-wrap">
+                  <button class="quiz-button" [ngClass]="quiz.progress === 0 ? 'how-it-works-button' : quiz.progress > 0 && quiz.progress < 90 ? 'retry' : 'completed'" [disabled]="quiz.progress > 89" (click)="showQuizQuestions(quiz.id, currentModule, 'careertoolquiz', false)">
+                      {{ quiz.progress === 0 ? 'Start Quiz' : quiz.progress > 0 && quiz.progress < 90 ? 'Retry' : 'Completed' }} <span *ngIf="quiz.progress == 0"><i class="fa-solid fa-alarm-clock"></i></span>
+                  </button>
+                  <button class="quiz-button how-it-works-button" *ngIf="quiz.progress > 89" (click)="showQuizQuestions(quiz.id, currentModule, 'careertoolquiz', true)">
+                      Review <span><i class="fa-solid fa-list-check"></i></span>
+                  </button>
+              </div>
           </div>
-        </div>
+      </div>
+      
+      
       </div>
     </div>
   </div>
