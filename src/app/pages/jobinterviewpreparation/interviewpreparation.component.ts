@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, OnInit, Output } from "@angular/core";
+import { Component, Input, OnInit, ViewChild, ElementRef } from "@angular/core";
 import { Router } from "@angular/router";
 import { PageFacadeService } from "../page-facade.service";
 import { InterviewPreparationService } from "./interviewpreparation.service";
@@ -9,6 +9,8 @@ import { InterviewPreparationService } from "./interviewpreparation.service";
   styleUrls: ["./interviewpreparation.component.scss"],
 })
 export class JobPreparationComponent implements OnInit {
+  @ViewChild('jobRoleInput') JobRoleInput: ElementRef;
+
   constructor(
     private router: Router,
     private pageFacade: PageFacadeService,
@@ -21,6 +23,8 @@ export class JobPreparationComponent implements OnInit {
   activePageIndex: number = 0;
   invalidClass: boolean = false;
   selectedData: { [key: string]: any } = {};
+  filterJobRole: any[] = [];
+
   recommendations: any = [
     {
       id: 1,
@@ -162,5 +166,40 @@ export class JobPreparationComponent implements OnInit {
   }
   goBack() {
     this.router.navigate(["/pages/job-tool/career-tool"]);
+  }
+  searchJob(event: Event): void {
+    const input = event.target as HTMLInputElement;
+    const query = input.value.toLowerCase().trim();
+    if (query && query.length > 3) {
+      const mockJobs = this.jobRoles;
+
+      // Filter jobs that include the query
+      this.filterJobRole = mockJobs.filter((job: any) => job.jobrole.toLowerCase().includes(query));
+
+      // Sort the filtered jobs to prioritize exact matches
+      this.filterJobRole.sort((a: any, b: any) => {
+        const aJob = a.jobrole.toLowerCase();
+        const bJob = b.jobrole.toLowerCase();
+
+        if (aJob === query && bJob !== query) {
+          return -1; // a comes first
+        } else if (aJob !== query && bJob === query) {
+          return 1; // b comes first
+        } else if (aJob.startsWith(query) && !bJob.startsWith(query)) {
+          return -1; // a comes first if it starts with the query
+        } else if (!aJob.startsWith(query) && bJob.startsWith(query)) {
+          return 1; // b comes first if it starts with the query
+        } else {
+          return 0; // Keep original order for other cases
+        }
+      });
+    } else if (query.length < 1) {
+      this.filterJobRole = [];
+    }
+  }
+  setJobtitle(jobRoleId: number, jobRoleLabel: string){
+    this.selectedData[1] = jobRoleId;
+    this.JobRoleInput.nativeElement.value = jobRoleLabel;
+    this.filterJobRole = [];
   }
 }

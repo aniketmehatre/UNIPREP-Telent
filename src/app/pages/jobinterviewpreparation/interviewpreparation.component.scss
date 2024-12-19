@@ -403,3 +403,39 @@
 .active {
   border-color: #3f4c83;
 }
+
+.inputHeight{
+  height: 45px;
+}
+
+.dropdown-list {
+  overflow-y: auto;
+  position: absolute;
+  border: 1px solid var(--uniprep-secondary);
+  list-style: none;
+  padding: 0.25rem;
+  border-radius: 20px;
+  width: 96%;
+  text-align: left;
+  margin: 0;
+  top: 3.5rem;
+  max-height: 25vh;
+}
+
+.dropdown-list li {
+  padding: 8px;
+  cursor: pointer;
+}
+
+.dropdown-list li:hover {
+  background-color: #f0f0f0;
+}
+
+.dropdown-list li {
+  padding: 8px;
+  cursor: pointer;
+}
+
+.dropdown-list li:hover {
+  background-color: #f0f0f0;
+}

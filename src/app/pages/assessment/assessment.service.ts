@@ -1,6 +1,7 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { environment } from '@env/environment';
+import { Observable } from 'rxjs/internal/Observable';
 import { Assessment } from 'src/app/@Models/assessment.model';
 import { ILearnChallengeResponse } from 'src/app/@Models/ilearn-challenge.model';
 
@@ -15,8 +16,8 @@ export class AssessmentService {
     private http: HttpClient
   ) { }
 
-  getAssessments() {
-    return this.http.get<Assessment[]>(environment.ApiUrl + "/listOfModulesLists", {
+  getAssessments() : Observable<Assessment>{
+    return this.http.get<Assessment>(environment.ApiUrl + "/listOfModulesLists", {
       headers: this.headers,
     });
   }

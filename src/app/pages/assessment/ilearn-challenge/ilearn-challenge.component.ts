@@ -11,6 +11,7 @@ export class IlearnChallengeComponent implements OnInit {
 
   iLearnChallengeModuleList: ILearnChallengeModule[] = [];
   leaderBoardList: LeaderBoard[] = [];
+  overallScore: number;
 
   constructor(
     private assessmentService: AssessmentService,
@@ -26,6 +27,7 @@ export class IlearnChallengeComponent implements OnInit {
       next: (response: ILearnChallengeResponse) => {
         this.leaderBoardList = response.leaderBoard;
         this.iLearnChallengeModuleList = response.userData;
+        this.overallScore = response.overallScore;
       },
       error: (error: any) => {
       }

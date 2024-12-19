@@ -16,7 +16,7 @@
 			</div>
 		</div>
         <div class="d-flex justify-content-start align-items-center mt-3">
-            <div class="overall-sec">Overall Score : 1/100</div>
+            <div class="overall-sec">Overall Score : {{ overallScore }}/100</div>
 			<!-- <div class="competition-sec">
 				Register to ilearn competition and win an iPad
 			</div> --> 
@@ -58,7 +58,7 @@
 									<h5 class="text-center mt-3 fw-bold mb-0">{{item.module_name}}</h5>
 								</div>
                                 <div class="score-sec mt-2">
-                                    <p class="text-small">Score: {{item.result_percentage}}/100</p>
+                                    <p class="text-small">Score: {{item.user_score}}/{{item.total_score}}</p>
                                 </div>
 							</div>
 						</div>

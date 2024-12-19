@@ -1,6 +1,7 @@
 export interface ILearnChallengeResponse {
     userData: ILearnChallengeModule[]
     leaderBoard: LeaderBoard[]
+    overallScore: number
 }
 
 export interface ILearnChallengeModule {
