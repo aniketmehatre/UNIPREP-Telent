@@ -1,16 +1,16 @@
 <div class="card readingcard" *ngIf="isInstructionVisible">
   <div class="card-header border-0 bg-transparent">
     <div class="row">
-      <div class="col-md-3 gap-3 d-flex align-items-center">
+      <div class="col-md-3 col-12 gap-3 d-flex align-items-center order-2 order-md-1">
         <div class="backIcon d-md-flex d-none" role="button" (click)="goBack()">
           <span class="fa-solid fa-chevron-left"></span>
         </div>
         <h5 class="mb-3 mt-3" style="font-size: 18px">{{ quizcount }}/{{ quizcount }} Questions Left</h5>
       </div>
-      <div class="col-md-6 text-center">
+      <div class="col-md-6 text-center  order-1 order-md-2">
         <h5 class="select-title mb-3">Quiz Instructions</h5>
       </div>
-      <div class="col-md-3"></div>
+      <div class="col-md-3 col-12 order-3 order-md-3"></div>
     </div>
   </div>
   <div class="card-body flex-fill overflow-y-auto">
@@ -77,10 +77,10 @@
   </div>
   <div class="card-footer bg-transparent">
     <div class="row justify-content-center align-items-center">
-      <div class="col-md-6 d-flex align-items-center text-start">
+      <div class="col-md-6 col-6 d-flex align-items-center text-start">
         <h4 class="uniprep-primary">ALL THE BEST!</h4>
       </div>
-      <div class="col-md-6 text-end">
+      <div class="col-md-6 col-6 text-end">
         <button (click)="runQuiz()" class="btn btn-start btn-rounded m-0 px-2 py-2"
           [disabled]="this.quizData.length == 0">
           <div class="d-flex align-items-center">
@@ -96,13 +96,13 @@
 <div class="card readingcard" *ngIf="isStartQuiz">
   <div class="card-header border-0 bg-transparent">
     <div class="row justify-content-center">
-      <div class="col-md-2 col-2 text-start d-flex align-items-center">
+      <div class="col-md-2 col-6 order-2 order-md-1 text-start d-flex align-items-center">
         <h5 class="fw-bold">{{ selectedQuiz }}/{{ quizcount }} Question Left</h5>
       </div>
-      <div class="col-md-8 col-8 text-center">
+      <div class="col-md-8 col-12 order-1 order-md-2 text-center">
         <h5 class="select-title mb-1">{{ currentModuleName }} Quiz  {{ quizModuleName ? ' - '+ quizModuleName : '' }}</h5>
       </div>
-      <div class="col-md-2 col-2 text-end">
+      <div class="col-md-2 col-6 order-3 order-md-3 text-end">
         <button (click)="closeQuiz()" class="btn btn-quit btn-rounded px-2 py-2">
           <div class="d-flex align-items-center">
             <span class="fw-normal h6 mb-0 ps-3 pe-2">Quit</span>

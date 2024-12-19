@@ -21,7 +21,7 @@
             <input class="w-100" type="text" placeholder="Search in Pitch Deck List" pInputText [(ngModel)]="valueNearYouFilter" (input)="performSearch()" />
           </div>
 					<button class="btn btn-primary text-small pitchdeck-guidlines" (click)="closeGuidelines()" type="button"><span class="d-md-block d-none">Pitch Deck Guidelines</span><i class="fa-solid fa-book d-md-none d-block"></i></button>
-					<button *ngIf="ehitlabelIsShow" class="btn btn-primary text-small pitchdeck-guidlines" (click)="buyCredits()" type="button"><span class="d-md-block d-none">Buy Credits</span><i class="fa-solid fa-dollar d-md-none d-block"></i></button>
+					<button *ngIf="ehitlabelIsShow" class="btn btn-primary text-small" (click)="buyCredits()" type="button"><span class="d-md-block d-none">Buy Credits</span><i class="fa-solid fa-dollar d-md-none d-block"></i></button>
 					<button class="btn btn-primary text-small d-flex align-items-center exportButton" (click)="exportData()" type="button">
 						<span class="d-md-block d-none">Export</span><i class="fa-solid fa-file-export d-md-none d-block"></i> <span class="exportCount">{{ exportCreditCount }}</span>
 					</button>
