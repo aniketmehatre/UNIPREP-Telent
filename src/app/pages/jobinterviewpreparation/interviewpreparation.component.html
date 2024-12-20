@@ -126,12 +126,13 @@
                           styleClass="w-100"
                           placeholder="Hard Skills"
                           display="chip"
+                          optionLabel="hard_skill"
+                          optionValue="hard_skill"
                           [options]="hardSkills"
-                          [(ngModel)]="selectedData[recommendation.id]"
                           [selectionLimit]="2"
                           [displaySelectedLabel] = "true"
+                          [(ngModel)]="selectedData[recommendation.id]"
                           [appendTo]="'body'"
-                          [filter]="true" 
                         ></p-multiSelect>
                         <p
                           class="text-center"
