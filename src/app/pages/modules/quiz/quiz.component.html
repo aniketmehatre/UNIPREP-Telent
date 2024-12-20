@@ -375,9 +375,9 @@
             <div class="d-flex align-items-center gap-2">
               <!-- <p class="mb-0 fw-semibold">Reference</p>
                             <p-breadcrumb [model]="breadCrumb" class="max-w-100 quizreference"></p-breadcrumb> -->
-              <span class="h5 mb-0">Source</span>
-              <button (click)="openReferAnswer(val.faqquestion_link)" class="btn btn-back btn-rounded px-2 py-2">
-                <p class="mb-0 px-2">Refer Answer <i class="fa-solid fa-paperclip"></i></p>
+              <span *ngIf="currentModuleId !== 10" class="h5 mb-0">Source</span>
+              <button *ngIf="currentModuleId !== 10" (click)="openReferAnswer(val.faqquestion_link)" class="btn btn-back btn-rounded px-2 py-2">
+                <p class="mb-0 px-2">Refer Answer2 <i class="fa-solid fa-paperclip"></i></p>
               </button>
             </div>
           </ng-template>
