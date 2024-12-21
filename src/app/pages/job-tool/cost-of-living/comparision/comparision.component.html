@@ -46,7 +46,7 @@
                 <!-- <div class="text-small"><span
                                         *ngIf="sourceCountryPrices.country_name==targetCountryPrices.country_name">{{sourceCountryPrices.city_name}},
                                     </span>{{sourceCountryPrices.country_name}}</div> -->
-                <div *ngIf="i < 2" class="flagIconDiv">
+                <div *ngIf="i < 2" class="flagIconDiv d-md-block d-none">
                   <div class="flagicon"><img [src]="sourceFlag" loading="lazy" /></div>
                 </div>
                 <div class="text-small" *ngIf="sourceCountryPrices.city_name">
@@ -64,7 +64,7 @@
                 <!-- <div class="text-small"><span
                                         *ngIf="sourceCountryPrices.country_name==targetCountryPrices.country_name">{{targetCountryPrices.city_name}},
                                     </span>{{targetCountryPrices.country_name}}</div> -->
-                <div *ngIf="i < 2" class="flagIconDiv">
+                <div *ngIf="i < 2" class="flagIconDiv d-md-block d-none">
                   <div class="flagicon"><img [src]="targetFlag" loading="lazy" /></div>
                 </div>
                 <div class="text-small" *ngIf="targetCountryPrices.city_name">
