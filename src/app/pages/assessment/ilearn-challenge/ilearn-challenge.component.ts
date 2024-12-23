@@ -14,6 +14,7 @@ export class IlearnChallengeComponent implements OnInit {
 
   iLearnChallengeModuleList: ILearnChallengeModule[] = [];
   leaderBoardList: LeaderBoard[] = [];
+  overallScore: number;
   currentPosition: string = '';
   currentScore: string = '0';
   currentPositionIndex: number = -1;
@@ -41,6 +42,7 @@ export class IlearnChallengeComponent implements OnInit {
         this.isSkeletonVisible = false;
         this.leaderBoardList = response.leaderBoard;
         this.iLearnChallengeModuleList = response.userData;
+        this.overallScore = response.overallScore;
         let userIndex = this.leaderBoardList.findIndex(item => item.user_id == this.authService._user?.user_id);
         if (userIndex !== -1) {
           this.currentPositionIndex = userIndex;

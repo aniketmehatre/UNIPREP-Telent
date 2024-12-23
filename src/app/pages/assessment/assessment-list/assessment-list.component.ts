@@ -12,7 +12,7 @@ export class AssessmentListComponent implements OnInit {
   assessmentList: Assessment[] = [];
   overAllScore: number = 0;
   isSkeletonVisible: boolean = true;
-  loopRange = [0, 1, 2, 3, 4];
+  loopRange = [0, 1, 2, 3, 4, 5, 6, 7, 8];
   
   constructor(
     private assessmentService: AssessmentService,
