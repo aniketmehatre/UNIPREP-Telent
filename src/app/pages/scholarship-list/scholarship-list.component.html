@@ -248,7 +248,7 @@
 			</div>
 		</div>
 		<div class="card-footer border-0 bg-transparent position-relative">
-      <button pButton type="button" style="bottom:5rem;right:1rem" class="btn btn-quit btn-rounded p-1 ps-3 text-small position-absolute" (click)="resetRecommendation()">
+      <button pButton type="button" style="bottom:5rem;right:1rem" class="btn btn-quit btn-rounded p-1 ps-3 text-small position-absolute d-flex d-md-none " (click)="resetRecommendation()">
         <span>Reset</span><span class="btn-icon"><i class="fa-solid fa-arrow-rotate-right"></i> </span>
       </button>
 			<div class="row">
@@ -256,7 +256,7 @@
 				<div class="col-md-6 col-11">
 					<p-paginator *ngIf="totalScholarShipCount != 0" [rows]="pageSize" [totalRecords]="totalScholarShipCount" (onPageChange)="pageChange($event)" [rowsPerPageOptions]="[100, 300, 500, 1000]"></p-paginator>
 				</div>
-				<div class="col-md-3 d-none text-end">
+				<div class="col-md-3 d-none d-md-block text-end">
 					<button pButton type="button" class="btn ps-md-3 ps-0 btn-quit btn-rounded" (click)="resetRecommendation()">
 						<span>Reset Recommendations</span><span class="btn-icon"><i class="fa-solid fa-arrow-rotate-right"></i> </span>
 					</button>
