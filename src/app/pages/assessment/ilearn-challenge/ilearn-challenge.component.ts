@@ -14,9 +14,7 @@ export class IlearnChallengeComponent implements OnInit {
 
   iLearnChallengeModuleList: ILearnChallengeModule[] = [];
   leaderBoardList: LeaderBoard[] = [];
-<<<<<<< HEAD
   overallScore: number;
-=======
   currentPosition: string = '';
   currentScore: string = '0';
   currentPositionIndex: number = -1;
@@ -24,7 +22,6 @@ export class IlearnChallengeComponent implements OnInit {
   instructionTitle: string = '';
   isInstruction: boolean = false;
   pdfURL: any;
->>>>>>> 788e7fa2a81e10c6a7104e8450a9e8b3d1b249b0
 
   constructor(
     private assessmentService: AssessmentService,
@@ -45,16 +42,13 @@ export class IlearnChallengeComponent implements OnInit {
         this.isSkeletonVisible = false;
         this.leaderBoardList = response.leaderBoard;
         this.iLearnChallengeModuleList = response.userData;
-<<<<<<< HEAD
         this.overallScore = response.overallScore;
-=======
         let userIndex = this.leaderBoardList.findIndex(item => item.user_id == this.authService._user?.user_id);
         if (userIndex !== -1) {
           this.currentPositionIndex = userIndex;
           this.findUserPosition(userIndex + 1);
           this.currentScore = this.leaderBoardList[userIndex].total_score;
         }
->>>>>>> 788e7fa2a81e10c6a7104e8450a9e8b3d1b249b0
       },
       error: (error: any) => {
         this.isSkeletonVisible = false;

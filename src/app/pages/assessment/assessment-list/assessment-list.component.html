@@ -14,14 +14,6 @@
 				</div>
 			</div>
 		</div>
-<<<<<<< HEAD
-        <div class="d-flex justify-content-start align-items-center mt-3">
-            <div class="overall-sec">Overall Score : {{ overallScore }}/100</div>
-			<!-- <div class="competition-sec">
-				Register to ilearn competition and win an iPad
-			</div> --> 
-        </div>
-=======
 		<div *ngIf="isSkeletonVisible; else showScore" class="d-flex justify-content-between align-items-center mt-3">
 			<p-skeleton width="12rem" height="2.5rem"></p-skeleton>
 			<p-skeleton width="12rem" height="2.5rem"></p-skeleton>
@@ -34,7 +26,6 @@
 			</div>
 		</ng-template>
 
->>>>>>> 788e7fa2a81e10c6a7104e8450a9e8b3d1b249b0
 	</div>
 	<div class="card-body text-center flex-fill overflow-y-auto">
 		<div class="row mb-0" *ngIf="isSkeletonVisible; else showAcademic">
@@ -75,15 +66,9 @@
 									</div>
 									<h5 class="text-center mt-3 fw-bold mb-0">{{item.module_name}}</h5>
 								</div>
-<<<<<<< HEAD
                                 <div class="score-sec mt-2">
                                     <p class="text-small">Score: {{item.user_score}}/{{item.total_score}}</p>
                                 </div>
-=======
-								<div class="score-sec mt-2">
-									<p class="text-small">Score: {{item.user_score}}/100</p>
-								</div>
->>>>>>> 788e7fa2a81e10c6a7104e8450a9e8b3d1b249b0
 							</div>
 						</div>
 					</div>
