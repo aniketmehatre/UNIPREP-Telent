@@ -36,7 +36,7 @@ export class JobPreparationComponent implements OnInit {
     },
     {
       id: 3,
-      question: "Select your Technical Skills",
+      question: "Select your Professional Skills",
     },
     {
       id: 4,
