@@ -20,7 +20,7 @@ import { User } from "src/app/@Models/user.model";
 import { LocalStorageService } from "ngx-localstorage";
 import { NgxUiLoaderService } from "ngx-ui-loader";
 import { HttpClient } from "@angular/common/http";
-
+import CryptoJS from "crypto-js";
 @Component({
   selector: "uni-subscription-data",
   templateUrl: "./subscription-data.component.html",
@@ -88,6 +88,7 @@ export class SubscriptionDataComponent implements OnInit {
       const bytes = CryptoJS.AES.decrypt(encHomeCountryName, environment.secretKeySalt);
       homeCountryName = JSON.parse(bytes.toString(CryptoJS.enc.Utf8));
     }
+    console.log(homeCountryName)
     this.timeLeftInfoCard = localStorage.getItem("time_card_info");
     this.discountAmountEnable = false; 
     this.currentCountry=String(homeCountryName);
