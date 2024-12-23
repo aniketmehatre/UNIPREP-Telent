@@ -230,7 +230,7 @@ export class QuestionListComponent implements OnInit {
     this.subModuleId = this.route.snapshot.paramMap.get("id");
     let question_id = this.route.snapshot.paramMap.get("question_id");
     if (question_id) {
-     // this.updateMetaTags();
+      this.updateMetaTags();
       // let url = this.subModuleId.split("$");
       localStorage.setItem('questionId', question_id);
       this.subModuleId = this.subModuleId;
@@ -368,21 +368,16 @@ export class QuestionListComponent implements OnInit {
   }
 
   updateMetaTags(): void {
-    const pageTitle = 'Dynamic Page Title for Route'; // Example title
-    const pageDescription = 'Dynamic description content goes here.'; // Example description
-
-    // Update the title
-    this.title.setTitle(pageTitle);
-
-    // Update meta tags
-    this.meta.updateTag({ name: 'description', content: pageDescription });
-    this.meta.updateTag({ property: 'og:title', content: pageTitle });
-    this.meta.updateTag({ property: 'og:description', content: pageDescription });
-    this.meta.updateTag({ property: 'og:url', content: window.location.href });
-    this.meta.updateTag({
-      property: 'og:image',
-      content: 'https://example.com/image.jpg', // Replace with your image URL
-    });
+    this.title.setTitle('Test question title testing');
+    // Updating an existing meta tag or creating if not present
+    this.meta.updateTag({ name: 'description', content: 'This is a dynamic meta description.' });
+  
+    // Adding a new meta tag
+    this.meta.addTag({ name: 'author', content: 'Angular Developer' });
+  
+    // Updating or adding an Open Graph meta tag
+    this.meta.updateTag({ property: 'og:title', content: 'Dynamic Meta Tag Example' });
+    this.meta.updateTag({ property: 'og:description', content: 'Learn how to dynamically update meta tags in Angular.' });
   }
   
 
