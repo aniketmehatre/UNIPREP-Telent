@@ -64,7 +64,42 @@
   </ng-container>
   <ng-container *ngIf="enableModule">
     <div class="card-header border-0 bg-transparent">
-      <div class="row justify-content-center">
+      <div class="row d-md-none d-flex">
+        <div class="col-12">
+          <div class="select-title d-flex justify-content-between align-items-center">
+            <div>
+              <h6 class="w-100 mb-0" tooltipPosition="top" pTooltip="Company List">Career Tools -> Company List<i class="questiontooltip fa-solid fa-circle-question"></i></h6>
+            </div>
+            <div>
+              <button class="how-it-works-button" (click)="openVideoPopup('https://www.youtube.com/embed/uihpCF4rvB4?si=bBNT7iH_WigFZzoN')">How it works?<i class="fa-solid fa-play d-md-block d-none"></i></button>
+            </div>
+          </div>
+        </div>
+        <div class="col-12">
+          <div class="d-flex justify-content-between mt-2 gap-1">
+            <button *ngIf="ehitlabelIsShow" class="btn btn-secondary text-small btn-rounded flex-fill" (click)="buyCredits()" type="button">Buy Credits</button>
+            <button class="btn btn-outline-primary text-small btn-rounded d-flex gap-2 align-items-center flex-fill" (click)="exportData()" type="button">
+              Export <span class="btn-icon text-white">{{ exportCreditCount }}</span>
+            </button>
+            <button class="btn btn-secondary text-small flex-fill" (click)="openReport()" type="button"><i class="fa-solid fa-circle-exclamation"></i></button>
+            <button class="btn btn-gray text-small flex-fill" (click)="companyGuidlines()" type="button"><i class="fa-solid fa-graduation-cap"></i></button>
+            <button class="btn btn-primary text-small flex-fill" (click)="viewFavourites()" type="button"><i class="fa-solid fa-bookmark"></i><span class="ms-2">({{ favCount }})</span>
+            </button>
+            <button class="btn btn-primary text-small flex-fill" (click)="filterBy()" type="button"><i class="fa-solid fa-bars-filter"></i></button>
+          </div>
+        </div>
+        <div class="col-12 mt-2">
+          <div class="d-flex justify-content-between align-items-center">
+            <div class="d-flex gap-2 align-items-center">
+              <input type="checkbox" class="me-0" [(ngModel)]="selectAllCheckboxes" (click)="selectAllCheckbox()" id="selectAllcheckbox" />
+              <label class="text-small fw-semibold" for="selectAllcheckbox" style="cursor: pointer">Select All</label>
+              <span class="text-small fw-semibold">Selected : {{ selectedCompanies }}</span>
+            </div>
+            <span class="text-muted fw-semibold text-small">Total Companies : {{ totalCompanyCount }}</span>
+          </div>
+        </div>
+      </div>
+      <div class="row justify-content-center d-md-flex d-none">
         <!-- <div class="col-xxl-3 col-xl-3 col-lg-4 col-md-4 col-sm-4 col-xs-12 col-12 text-start order-md-1 order-2">
           <div class="p-input-icon-left w-100 mt-3">
             <i class="pi pi-search"></i>
@@ -96,8 +131,6 @@
             </button>
           </span>
         </div>
-      </div>
-      <div class="row justify-content-center">
         <div class="col-md-12">
           <div class="d-flex justify-content-between">
             <div>
@@ -182,12 +215,15 @@
       </div>
     </div>
     <div class="card-footer border-0 bg-transparent">
+      <button pButton type="button" style="bottom:5rem;right:1rem" class="btn btn-quit btn-rounded p-1 ps-3 text-small position-absolute d-flex d-md-none " (click)="resetRecommendation()">
+        <span>Reset</span><span class="btn-icon"><i class="fa-solid fa-arrow-rotate-right"></i> </span>
+      </button>
       <div class="row">
-        <div class="col-md-3">&nbsp;</div>
+        <div class="col-md-3"></div>
         <div class="col-md-6">
           <p-paginator *ngIf="totalCompanyCount != 0" [rows]="pageSize" [totalRecords]="totalCompanyCount" (onPageChange)="pageChange($event)" [rowsPerPageOptions]="[50, 100, 300, 500, 1000]"></p-paginator>
         </div>
-        <div class="col-md-3 text-end">
+        <div class="col-md-2 d-md-block d-none text-end">
           <button pButton type="button" class="btn btn-quit ps-3 btn-rounded" (click)="resetRecommendation()">
             Reset Recommendations<span class="btn-icon"><i class="fa-solid fa-arrow-rotate-right"></i> </span>
           </button>

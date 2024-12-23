@@ -227,7 +227,7 @@
         <span>Reset</span><span class="btn-icon"><i class="fa-solid fa-arrow-rotate-right"></i> </span>
       </button>
       <div class="row d-flex justify-content-center align-items-center">
-        <div class="col-md-2">&nbsp;</div>
+        <div class="col-md-2"></div>
         <div class="col-md-8">
           <p-paginator *ngIf="totalInvestorsCount != 0" [rows]="pageSize" [totalRecords]="totalInvestorsCount" [first]="(page - 1) * pageSize" (onPageChange)="pageChange($event)" [rowsPerPageOptions]="[50, 100, 300, 500, 1000]" [disabled]="totalInvestorsCount <= pageSize"> </p-paginator>
         </div>
