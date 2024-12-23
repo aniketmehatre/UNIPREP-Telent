@@ -65,15 +65,15 @@ export class AdvisorComponent implements OnInit {
     }
 
     this.questions = [
-      { question: "Must visit places in Milan." },
-      { question: "Top 10 fully funded scholarships for international students in the UK." },
-      { question: "Step-by-step guide to starting a business in France" },
-      { question: "High-paying job opportunities for finance graduates in the US." },
-      { question: "Oxford University admission criteria for international students" },
-      { question: "Number of Public holidays for full-time staff in the UK" },
-      { question: "Document checklist required for Spain travel visa application" },
-      { question: "Top 10 in-demand jobs in the healthcare industry" },
-      { question: "Top 20 government funding opportunities for startups in the UK" },
+      { question: "Must visit places in Milan.",icons:"fa-earth-americas" },
+      { question: "Top 10 fully funded scholarships for international students in the UK.",icons:"fa-diploma" },
+      { question: "Step-by-step guide to starting a business in France",icons:"fa-briefcase" },
+      { question: "High-paying job opportunities for finance graduates in the US.",icons:"fa-coins" },
+      { question: "Oxford University admission criteria for international students",icons:"fa-university" },
+      { question: "Number of Public holidays for full-time staff in the UK",icons:"fa-calendar" },
+      { question: "Document checklist required for Spain travel visa application",icons:"fa-folder" },
+      { question: "Top 10 in-demand jobs in the healthcare industry",icons:"fa-hospital" },
+      { question: "Top 20 government funding opportunities for startups in the UK",icons:"fa-rocket" },
     ]
     this.responsiveOptions = [
       {
