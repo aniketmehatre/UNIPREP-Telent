@@ -60,6 +60,9 @@ const routes: Routes = [{
         {
             path: ':module_name/question-list/:id', component: QuestionListComponent,
         },
+        {
+            path: ':module_name/question-list/:id/:question_id', component: QuestionListComponent,
+        },
         { path: '', redirectTo: 'pre-admission', pathMatch: 'full' },
         {
             path: ':module_name/quiz', component: QuizComponent,
