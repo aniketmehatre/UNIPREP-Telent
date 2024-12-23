@@ -76,7 +76,7 @@ export class EditorDirective implements OnInit, OnDestroy {
       if (!v.range || v?.range?.length > 0 || this.skipSelect) {
         return;
       }
-      let currentPosition = v.range.index;
+      let currentPosition = v?.range?.length;
       let content: string = this.el.quill.container.textContent;
       let currentLetter = content.charAt(currentPosition);
       if (currentLetter.trim() == '') {

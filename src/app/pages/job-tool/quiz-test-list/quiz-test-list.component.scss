@@ -55,3 +55,13 @@
   border-radius: 20px !important;
   border: #d80027 2px solid;
 }
+.quiz-button {
+  flex: 1; /* Allow buttons to grow and shrink based on their content */
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 5px; /* Adjust padding for button content */
+  margin: 5px; /* Add some margin for spacing between buttons */
+  min-width: 60px; /* Optional: Set a minimum width for all buttons */
+}
+

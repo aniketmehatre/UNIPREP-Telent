@@ -9,7 +9,6 @@ import { AuthService } from 'src/app/Auth/auth.service';
 import { NgxUiLoaderService } from "ngx-ui-loader";
 import { Location } from '@angular/common';
 import { GetAcademicListPayload, SubmitRecommendation, SubmitStreamResponse } from 'src/app/@Models/academic-tools.model';
-import { ChartOptions } from 'chart.js';
 import { DomSanitizer, SafeUrl } from '@angular/platform-browser';
 import { AcademicService } from '../academic.service';
 import { QuizResponse } from 'src/app/@Models/career-tool-category.model';
@@ -79,13 +78,13 @@ export class AcademicToolsQuizComponent implements OnInit {
     }
   ];
 
-  chartOptions: ChartOptions = {
-    responsive: true,
-    maintainAspectRatio: false,
-    legend: {
-      position: 'right',
-    }
-  };
+  // chartOptions: ChartOptions = {
+  //   responsive: true,
+  //   maintainAspectRatio: false,
+  //   legend: {
+  //     position: 'right',
+  //   }
+  // };
   pdfUrl: string = '';
   moduelName: string = '';
   showLoading: boolean = false;

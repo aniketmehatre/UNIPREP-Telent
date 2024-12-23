@@ -31,13 +31,13 @@ import { AcademicToolsQuizComponent } from './academic-tools-quiz/academic-tools
 import { K12ClassComponent } from './k12-class/k12-class.component';
 import { K12QuizComponent } from './k12-quiz/k12-quiz.component';
 import { ReactiveFormsModule } from "@angular/forms";
-import { ChartsModule } from 'ng2-charts';
 import { DropdownModule } from 'primeng/dropdown';
 import { PdfViewerModule } from 'ng2-pdf-viewer';
 import { K12BoardComponent } from './k12-board/k12-board.component';
 import { K12SubjectComponent } from './k12-subject/k12-subject.component';
 import { K12ChapterComponent } from './k12-chapter/k12-chapter.component';
 import { K12StateComponent } from './k12-state/k12-state.component';
+import { ChartsModule } from 'ng2-charts';
 
 @NgModule({
   declarations: [

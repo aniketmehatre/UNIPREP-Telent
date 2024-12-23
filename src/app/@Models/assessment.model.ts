@@ -11,6 +11,7 @@
 // }
 
 export interface Assessment {
+<<<<<<< HEAD
   overall_score: number
   module_data: ModuleDaum[]
 }
@@ -25,3 +26,19 @@ export interface ModuleDaum {
   completed_status: string
 }
 
+=======
+  module_id: number;
+  module_name: string;
+  module_url: string;
+  module_icon: string;
+  total_score: any;
+  user_score: string;
+  completed_status: string;
+}
+
+
+export interface AssessmentResponse {
+  overall_score: number;
+  module_data: Assessment[];
+}
+>>>>>>> 788e7fa2a81e10c6a7104e8450a9e8b3d1b249b0

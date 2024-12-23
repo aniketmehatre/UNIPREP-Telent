@@ -1,6 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { AssessmentService } from '../assessment.service';
 import { ILearnChallengeModule, ILearnChallengeResponse, LeaderBoard } from 'src/app/@Models/ilearn-challenge.model';
+import { AuthService } from 'src/app/Auth/auth.service';
+import { Router } from '@angular/router';
+import { DomSanitizer } from '@angular/platform-browser';
 
 @Component({
   selector: 'uni-ilearn-challenge',
@@ -11,10 +14,24 @@ export class IlearnChallengeComponent implements OnInit {
 
   iLearnChallengeModuleList: ILearnChallengeModule[] = [];
   leaderBoardList: LeaderBoard[] = [];
+<<<<<<< HEAD
   overallScore: number;
+=======
+  currentPosition: string = '';
+  currentScore: string = '0';
+  currentPositionIndex: number = -1;
+  isSkeletonVisible: boolean = true;
+  instructionTitle: string = '';
+  isInstruction: boolean = false;
+  pdfURL: any;
+>>>>>>> 788e7fa2a81e10c6a7104e8450a9e8b3d1b249b0
 
   constructor(
     private assessmentService: AssessmentService,
+    private authService: AuthService,
+    private router: Router,
+    private sanitizer: DomSanitizer
+
   ) { }
 
   ngOnInit(): void {
@@ -25,12 +42,60 @@ export class IlearnChallengeComponent implements OnInit {
   getiLearnChallengeList() {
     this.assessmentService.getiLearnChallenges().subscribe({
       next: (response: ILearnChallengeResponse) => {
+        this.isSkeletonVisible = false;
         this.leaderBoardList = response.leaderBoard;
         this.iLearnChallengeModuleList = response.userData;
+<<<<<<< HEAD
         this.overallScore = response.overallScore;
+=======
+        let userIndex = this.leaderBoardList.findIndex(item => item.user_id == this.authService._user?.user_id);
+        if (userIndex !== -1) {
+          this.currentPositionIndex = userIndex;
+          this.findUserPosition(userIndex + 1);
+          this.currentScore = this.leaderBoardList[userIndex].total_score;
+        }
+>>>>>>> 788e7fa2a81e10c6a7104e8450a9e8b3d1b249b0
       },
       error: (error: any) => {
+        this.isSkeletonVisible = false;
       }
     });
+  }
+
+  findUserPosition(position: number) {
+    const suffix = (position % 100 >= 11 && position % 100 <= 13) ? 'th' : ['th', 'st', 'nd', 'rd'][Math.min(position % 10, 4)];
+    this.currentPosition = position + suffix;
+  }
+
+  navigateAssignedmodule(data: ILearnChallengeModule) {
+    switch (data.module_name) {
+      case 'Learning Hub':
+        localStorage.setItem('learningHubMainModuleName', data.category_name);
+        this.router.navigate(['/pages/modules/learning-hub/question-list', data.submodule_id]);
+        break;
+      case 'Skill Mastery':
+        this.router.navigate(['/pages/modules/skill-mastery/question-list', data.submodule_id]);
+        break;
+      case 'Pshychometric Test':
+        localStorage.setItem('MainTitleCareerTool', data.category_name)
+        this.router.navigate(['/pages/job-tool/quiz/psychometric/list', data.category_id]);
+        break;
+      case 'CV Builder':
+        this.router.navigate(['/pages/job-tool/cv-builder']);
+        break;
+      case 'Cover Letter Builder':
+        this.router.navigate(['/pages/job-tool/coverletter-builder']);
+        break;
+    }
+  }
+
+  onClickGuide(data: ILearnChallengeModule) {
+    this.isInstruction = true;
+    this.instructionTitle = data.submodule_name;
+    this.pdfURL = this.sanitizer.bypassSecurityTrustResourceUrl('https://api.uniprep.ai/uniprepapi/storage/app/public/Unilearn//GenralInfo/IELTSAcademic/Test_Format_and_Structure_.pdf');
+  }
+
+  goBack() {
+    this.isInstruction = false;
   }
 }

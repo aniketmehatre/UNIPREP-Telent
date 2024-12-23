@@ -36,7 +36,7 @@ export class JobPreparationComponent implements OnInit {
     },
     {
       id: 3,
-      question: "Select your Hard Skills",
+      question: "Select your Technical Skills",
     },
     {
       id: 4,
@@ -63,11 +63,18 @@ export class JobPreparationComponent implements OnInit {
     this.getJobExperience();
     this.getJoiningReasons();
     this.getJobPreferences();
+    this.getIndustries();
   }
   selectedCardIndex: number | null = null;
 
   selectCard(index: number): void {
     this.selectedCardIndex = index;
+  }
+  industries: any = [];
+  getIndustries() {
+    this.service.getIndustries().subscribe((response) => {
+      this.industries = response;
+    });
   }
   jobPreferences: any = [];
   getJobPreferences() {
@@ -123,7 +130,7 @@ export class JobPreparationComponent implements OnInit {
       this.invalidClass = true;
       return;
     }
-    if (this.selectedData[productId]?.length == 1) {
+    if (this.selectedData[productId]?.length > 2) {
       this.invalidClass = true;
       return;
     }
@@ -154,6 +161,7 @@ export class JobPreparationComponent implements OnInit {
       experience: this.selectedData[4],
       reason: this.selectedData[5],
       job_preference: this.selectedCardIndex + 1,
+      industry:this.selectedData[6]
     };
     this.prepData = processedData;
   }

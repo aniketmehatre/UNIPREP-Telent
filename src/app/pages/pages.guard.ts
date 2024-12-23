@@ -1,5 +1,5 @@
 import {Injectable} from '@angular/core';
-import {ActivatedRouteSnapshot, CanActivate, RouterStateSnapshot, UrlTree} from '@angular/router';
+import { ActivatedRouteSnapshot, RouterStateSnapshot, UrlTree } from '@angular/router';
 import {Observable} from 'rxjs';
 import {AuthService} from '../Auth/auth.service';
 import {DataService} from '../data.service';
@@ -7,7 +7,7 @@ import {DataService} from '../data.service';
 @Injectable({
     providedIn: 'root'
 })
-export class PagesGuard implements CanActivate {
+export class PagesGuard  {
 
     isValid: boolean = false;
 

@@ -15,7 +15,7 @@
                             </button>
                         </div> -->
             <div class="btn btn-secondary m-0 px-2 py-1" style="cursor: default; pointer-events: none">
-              <span class="small fw-regular">V 2.0</span>
+              <span class="small fw-regular">V 1.0</span>
             </div>
             <!-- <label class="me-2">
                             <i class="fa-solid fa-sun"></i>
@@ -84,8 +84,8 @@
               </div>
             </div>
           </div>
-          <button *ngIf="service._user?.student_type_id == 2" class="btn btn-ilearn" routerLink="/pages/assessment/ilearn-challenge"><span class="text-small fw-normal">iLearn Challenge</span></button>
           <div class="d-none d-md-flex gap-2">
+              <button *ngIf="service._user?.student_type_id == 2" class="btn btn-ilearn" (click)="navigateILearnChallenge()"><span class="text-small fw-normal">iLearn Challenge</span></button>
               <div label="" role="button" class="headerHomeCountry" [title]="homeCountryName">
                 <img #openCountryPopup src="{{ headerHomeFlag }}" alt="flag" height="auto" width="auto" />
               </div>
@@ -173,9 +173,8 @@
               </div>
             </div>
           </div>
-          <button *ngIf="service._user?.student_type_id == 2" class="btn btn-ilearn me-2" routerLink="/pages/assessment/ilearn-challenge"><span class="text-small fw-normal">iLearn Challenge</span></button>
           <!-- <div label="" role="button" class="headercountry me-2 d-none d-md-block" (click)="openFlagModal(totalCountryList, $event)"> -->
-          <div class="d-flex gap-2 d-md-none">
+            <div class="d-flex gap-2 d-md-none">
             <button class="btn btn-primary p-3 m-0" alt="chat with notification" (click)="onClickSubscribe()">
               <i class="fa-solid fa-crown"></i>
             </button>
@@ -187,6 +186,7 @@
             </div>
           </div>
           <div class="d-none d-md-block">
+            <button *ngIf="service._user?.student_type_id == 2" class="btn btn-ilearn me-2" (click)="navigateILearnChallenge()"><span class="text-small fw-normal">iLearn Challenge</span></button>
             <button *ngIf="whiteLabelIsNotShow" class="btn btn-primary btn-rounded me-2 ms-0 my-0" alt="chat with notification" (click)="onClickSubscribe()">
               <span class="text-small fw-normal px-3">Subscribe Now</span>
             </button>
@@ -307,7 +307,10 @@
         <!--                        [style]="{'width': '250px'}"-->
         <!--                        optionValue="id"-->
         <!--                        optionLabel="country"></p-dropdown>-->
-        <p-dropdown id="selectedHomeCountry" styleClass="w-100" style="width: 100% !important" [(ngModel)]="selectedHomeCountry" [options]="countryList" [filter]="true" filterBy="country" [showClear]="true" optionLabel="country" (onChange)="onHomeCountryChange($event)" placeholder="Source Country">
+        <p-dropdown id="selectedHomeCountry" [styleClass]="'w-100'" style="width: 100% !important"
+                    [(ngModel)]="selectedHomeCountry" [options]="countryList" [filter]="true"
+                    filterBy="country" [showClear]="true" optionLabel="country"
+                    (onChange)="onHomeCountryChange($event)" placeholder="Source Country">
           <ng-template pTemplate="selectedItem">
             <div class="flex align-items-center gap-2" *ngIf="selectedHomeCountry">
               <img [src]="selectedHomeCountry.flag" [class]="'flag flag-' + selectedHomeCountry.code" style="width: 18px" />
@@ -623,7 +626,7 @@
               {{ freeTrialErrorMsg }}
             </div>
             <div class="icon-container mt-2 d-flex justify-content-center mb-2">
-              <h6 style="color: rgb(63 76 131)">Enjoy access to <strong>UNIPREP</strong> V 2.0</h6>
+              <h6 style="color: rgb(63 76 131)">Enjoy access to <strong>UNIPREP</strong> V 1.0</h6>
             </div>
             <div class="d-flex justify-content-center">
               <button [disabled]="formvisbility && mobileForm.invalid" class="btn btn-primary btn-rounded me-2 ms-0 my-0" (click)="onClickSubscribedUser()" alt="chat with notification">

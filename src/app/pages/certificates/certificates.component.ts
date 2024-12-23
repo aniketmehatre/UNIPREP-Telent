@@ -96,15 +96,15 @@ export class CertificatesComponent implements OnInit {
     const shareUrl = `mailto:?body=${encodeURIComponent(url)}`;
     window.open(shareUrl, '_blank');
   }
-  copyLink(link:any){
+  copyLink(link:any)
+  {
+    const sanitizedCertificate = this.certificateforcopy || '';
     const textarea = document.createElement('textarea');
-    console.log(textarea);
-    textarea.textContent = this.certificateforcopy
+    textarea.textContent = sanitizedCertificate;
     document.body.append(textarea);
     textarea.select();
     document.execCommand('copy');
     textarea.remove();
-
     this.toast.add({ severity: 'success', summary: 'Success', detail: 'Certificate link Copied' });
   }
 }
