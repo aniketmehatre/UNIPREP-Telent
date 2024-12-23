@@ -525,7 +525,8 @@ uni-blogdetail {
 	height: 100%;
 	flex-direction: column;
 	/* Ensure flex children stack vertically */
-	overflow: hidden;
+	overflow-x: hidden;
+	overflow-y: auto;
 	min-height: 100vh;
 }
 
