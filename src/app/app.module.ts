@@ -83,7 +83,7 @@ export function tokenGetter() {
       EnterpriseSubscriptionComponent, BlogdetailComponent, BloglistComponent],
     schemas: [ CUSTOM_ELEMENTS_SCHEMA],
     imports: [
-        BrowserModule,
+        BrowserModule.withServerTransition({ appId: 'serverApp' }),
         BrowserAnimationsModule,
         AppRoutingModule,
         StoreModule.forRoot(reducers, {}),

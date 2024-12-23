@@ -3,7 +3,7 @@
   "version": 1,
   "newProjectRoot": "projects",
   "projects": {
-    "UNIABROAD-ADMIN": {
+    "UNIPREP": {
       "projectType": "application",
       "schematics": {
         "@schematics/angular:component": {
@@ -21,7 +21,7 @@
         "build": {
           "builder": "@angular-devkit/build-angular:browser",
           "options": {
-            "outputPath": "dist/UNIPREP",
+            "outputPath": "dist/UNIPREP/browser",
             "index": "src/index.html",
             "main": "src/main.ts",
             "polyfills": "src/polyfills.ts",
@@ -99,10 +99,10 @@
           "builder": "@angular-devkit/build-angular:dev-server",
           "configurations": {
             "production": {
-              "browserTarget": "UNIABROAD-ADMIN:build:production"
+              "browserTarget": "UNIPREP:build:production"
             },
             "development": {
-              "browserTarget": "UNIABROAD-ADMIN:build:development"
+              "browserTarget": "UNIPREP:build:development"
             }
           },
           "defaultConfiguration": "development"
@@ -110,7 +110,7 @@
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n",
           "options": {
-            "browserTarget": "UNIABROAD-ADMIN:build"
+            "browserTarget": "UNIPREP:build"
           }
         },
         "test": {
@@ -132,6 +132,68 @@
               "node_modules/file-saver/dist/FileSaver.js"
             ]
           }
+        },
+        "server": {
+          "builder": "@angular-devkit/build-angular:server",
+          "options": {
+            "outputPath": "dist/UNIPREP/server",
+            "main": "server.ts",
+            "tsConfig": "tsconfig.server.json",
+            "inlineStyleLanguage": "scss"
+          },
+          "configurations": {
+            "production": {
+              "outputHashing": "media",
+              "fileReplacements": [
+                {
+                  "replace": "src/environments/environment.ts",
+                  "with": "src/environments/environment.prod.ts"
+                }
+              ],
+              "optimization": true,
+              "sourceMap": false,
+              "extractLicenses": true
+            },
+            "development": {
+              "optimization": false,
+              "sourceMap": true,
+              "extractLicenses": false
+            }
+          },
+          "defaultConfiguration": "production"
+        },
+        "serve-ssr": {
+          "builder": "@nguniversal/builders:ssr-dev-server",
+          "configurations": {
+            "development": {
+              "browserTarget": "UNIPREP:build:development",
+              "serverTarget": "UNIPREP:server:development"
+            },
+            "production": {
+              "browserTarget": "UNIPREP:build:production",
+              "serverTarget": "UNIPREP:server:production"
+            }
+          },
+          "defaultConfiguration": "development"
+        },
+        "prerender": {
+          "builder": "@nguniversal/builders:prerender",
+          "options": {
+            "routes": [
+              "/"
+            ]
+          },
+          "configurations": {
+            "production": {
+              "browserTarget": "UNIPREP:build:production",
+              "serverTarget": "UNIPREP:server:production"
+            },
+            "development": {
+              "browserTarget": "UNIPREP:build:development",
+              "serverTarget": "UNIPREP:server:development"
+            }
+          },
+          "defaultConfiguration": "production"
         }
       }
     }
