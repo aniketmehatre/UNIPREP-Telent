@@ -20,3 +20,9 @@ export interface LeaderBoard {
     user_name: string
     total_score: string
 }
+
+export interface ILearnChallengeData {
+    overAllParticipants: number
+    currentPosition: number
+    isILearn: boolean
+}

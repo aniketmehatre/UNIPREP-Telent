@@ -460,3 +460,18 @@ $background-color_4: #fff;
   background: var(--uniprep-basil) !important;
   color: white !important;
 }
+
+.ilearn-sec {
+  display: flex;
+  flex-direction: column;
+  padding: 0 10px;
+
+  .rank {
+    font-weight: 600;
+  }
+
+  .participants {
+    font-size: 10px;
+    margin-top: -3px;
+  }
+}

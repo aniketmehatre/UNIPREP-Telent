@@ -24,6 +24,8 @@ import {CountryISO, SearchCountryField} from "ngx-intl-tel-input";
 import {SocialAuthService} from "@abacritt/angularx-social-login";
 import { environment } from "@env/environment";
 import CryptoJS from "crypto-js";
+import { AssessmentService } from "src/app/pages/assessment/assessment.service";
+import { ILearnChallengeData } from "src/app/@Models/ilearn-challenge.model";
 
 // import { SocialAuthService } from "@abacritt/angularx-social-login";
 
@@ -110,6 +112,8 @@ export class HeaderComponent implements OnInit, OnDestroy {
   ApiUrl: string = environment.domain;
   educationImage: string = "";
   currentUserSubscriptionPlan: string =  '';
+  iLearnChallengeData:ILearnChallengeData;
+  
   constructor(
     private router: Router,
     private locationService: LocationService,
@@ -119,7 +123,8 @@ export class HeaderComponent implements OnInit, OnDestroy {
     private themeService: ThemeService,
     route: ActivatedRoute, private authService: SocialAuthService,
     private dataService: DataService,
-    private dashboardService: DashboardService // private authService: SocialAuthService
+    private dashboardService: DashboardService, // private authService: SocialAuthService
+    private assessmentService: AssessmentService
   ) {
     // this.subs.sink = this.dataService.countryId.subscribe((data) => {
     //
@@ -140,6 +145,9 @@ export class HeaderComponent implements OnInit, OnDestroy {
     this.service.getTimeInfoForCard().subscribe((data) => {
       localStorage.setItem('time_card_info', data.card_message);
     });
+    this.assessmentService.iLearnChallengeData$.subscribe((data) => {
+      this.iLearnChallengeData = data;
+  })
   }
 
   loadCountryList() {
