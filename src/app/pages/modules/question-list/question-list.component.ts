@@ -103,6 +103,7 @@ export class QuestionListComponent implements OnInit {
     private toast: MessageService,
     private pageFacade: PageFacadeService,
     private locationService: LocationService,
+    private title: Title,
   ) {
     Carousel.prototype.changePageOnTouch = (e, diff) => { }
     Carousel.prototype.onTouchMove = () => { };
@@ -111,7 +112,6 @@ export class QuestionListComponent implements OnInit {
 
   loopRange = Array.from({ length: 24 }).fill(0).map((_, index) => index);
   ngOnInit(): void {
-
     this.locationService.getImage().subscribe(imageUrl => {
       this.orglogowhitelabel = imageUrl;
     });
@@ -230,6 +230,7 @@ export class QuestionListComponent implements OnInit {
     this.subModuleId = this.route.snapshot.paramMap.get("id");
     let question_id = this.route.snapshot.paramMap.get("question_id");
     if (question_id) {
+      this.updateMetaTags();
       // let url = this.subModuleId.split("$");
       localStorage.setItem('questionId', question_id);
       this.subModuleId = this.subModuleId;
@@ -365,6 +366,21 @@ export class QuestionListComponent implements OnInit {
       this.quizpercentage = res.progress
     })
   }
+
+  updateMetaTags(): void {
+    this.title.setTitle('Test question title testing');
+    // Updating an existing meta tag or creating if not present
+    this.meta.updateTag({ name: 'description', content: 'This is a dynamic meta description.' });
+  
+    // Adding a new meta tag
+    this.meta.addTag({ name: 'author', content: 'Angular Developer' });
+  
+    // Updating or adding an Open Graph meta tag
+    this.meta.updateTag({ property: 'og:title', content: 'Dynamic Meta Tag Example' });
+    this.meta.updateTag({ property: 'og:description', content: 'Learn how to dynamically update meta tags in Angular.' });
+  }
+  
+
 
   loadQuestionList(data: any) {
     let questionData = { id: localStorage.getItem('questionId') || '' };
