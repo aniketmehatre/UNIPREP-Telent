@@ -58,13 +58,16 @@ export class NationalExamQuestionsComponent implements OnInit {
       this.showError = true;
     } else {
       this.showError = false;
-      const answeredQuestion = this.results.find((item: any) => item.question_id == this.activeQuestionId);
+      const answeredQuestion = this.results.find((item: any) => item.question_id == this.activeQuestionId); // Check if question already pushed in a list or not.  
+      if (answeredQuestion && answeredQuestion.answer_opt != this.selectedValue) {
+        answeredQuestion.answer_opt = this.selectedValue; // if previous selected option and new selected option are not same, then set new value.
+      }
       if (!answeredQuestion) {
         let newResult: any = {
           question_id: this.activeQuestionId,
           answer_opt: this.selectedValue
         }
-        this.results.push(newResult);
+        this.results.push(newResult); // push only new questions
       }
       if (this.page != 9 && this.page < 9) {
         this.page = this.page + 1;
@@ -95,6 +98,17 @@ export class NationalExamQuestionsComponent implements OnInit {
   }
 
   prevQues() {
+    const answeredQuestion = this.results.find((item: any) => item.question_id == this.activeQuestionId);
+    if (answeredQuestion && answeredQuestion.answer_opt != this.selectedValue) {
+      answeredQuestion.answer_opt = this.selectedValue;
+    }
+    if (!answeredQuestion) {
+      let newResult: any = {
+        question_id: this.activeQuestionId,
+        answer_opt: this.selectedValue
+      }
+      this.results.push(newResult);
+    }
     if (this.page != 0) {
       this.page = this.page - 1;
       this.activeQuestion = this.questions[this.page].question;

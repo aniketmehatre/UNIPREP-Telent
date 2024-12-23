@@ -67,7 +67,7 @@ export class NationalExamReviewComponent implements OnInit {
         this.activeOptFour = this.questions[this.page].option_four;
         this.selectedValue = this.questions[this.page].selected_option;
         this.answerReason = this.questions[this.page].ans_reason;
-        this.answer = this.questions[this.page].ans_option
+        this.answer = this.questions[this.page].ans_option;
         this.progressvalue = this.page*10;
       }else{
       }
@@ -86,6 +86,7 @@ export class NationalExamReviewComponent implements OnInit {
       this.activeOptFour = this.questions[this.page].option_four;
       this.selectedValue = this.questions[this.page].selected_option;
       this.answerReason = this.questions[this.page].ans_reason;
+      this.answer = this.questions[this.page].ans_option;
     }
   }
 
