@@ -107,8 +107,13 @@ export class HeaderComponent implements OnInit, OnDestroy {
   programLevelList:any = [];
   currentEducation!: boolean;
   currentEducationForm: any = FormGroup;
+  phoneVerification: any = FormGroup;
+  whatsappVerification:boolean = false;
   ApiUrl: string = environment.domain;
   educationImage: string = "";
+  otp: string[] = ['', '', '', '']; 
+  otpArray = Array(4).fill(0); 
+
   currentUserSubscriptionPlan: string =  '';
   constructor(
     private router: Router,
@@ -194,6 +199,47 @@ export class HeaderComponent implements OnInit, OnDestroy {
     }
   }
 
+  onInputOTP(event: Event, index: number): void {
+    const input = event.target as HTMLInputElement;
+    const value = input.value;
+
+    // Move to next box if a digit is entered
+    if (value && value.length === 1 && index < 3) {
+      const nextInput = document.getElementById(`otp-${index + 1}`) as HTMLInputElement;
+      nextInput.focus();
+    }
+  }
+
+  onKeydownOPT(event: KeyboardEvent, index: number): void {
+    const input = event.target as HTMLInputElement;
+
+    // Move to the previous box if backspace is pressed and input is empty
+    if (event.key === 'Backspace' && !input.value && index > 0) {
+      const prevInput = document.getElementById(`otp-${index - 1}`) as HTMLInputElement;
+      prevInput.focus();
+    }
+  }
+  isSendingOTP: boolean = false;
+  sendOTP(){
+    let formData =  this.phoneVerification.value;
+    let sendOTP: any;
+    if(this.phoneVerification.value.choice == 'yes'){
+      sendOTP = {
+        whatsapp_dial_country_code: formData.verification_phone.countryCode,
+        whatsapp_phone: formData.verification_phone.number,
+        whatsapp_country_code: formData.verification_phone.dialCode,
+      };
+    }else{
+      sendOTP = {
+        phone: formData.verification_phone.number,
+        country_code : formData.verification_phone.dialCode
+      };
+    }
+    sendOTP.whatsapp_number_or_not = this.phoneVerification.value.choice;
+    this.isSendingOTP = true;
+    console.log(sendOTP, "sendOTP");
+  }
+
   exploreNow() {
     this.dataService.showTimerInHeader(null);
   }
@@ -260,6 +306,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
     this.currentEducationForm = this.formBuilder.group({
       current_education: ["", Validators.required]
     });
+
     let phone;
     const encPhone = localStorage.getItem("phone");
     if (encPhone) {
@@ -273,6 +320,11 @@ export class HeaderComponent implements OnInit, OnDestroy {
         this.formvisbility = true;
       }
     }
+
+    this.phoneVerification = this.formBuilder.group({
+      verification_phone: [phone, Validators.required],
+      choice:['', Validators.required]
+    });
 
     if (this.service._checkExistsSubscription === 0) {
       this.checkNewUser();
