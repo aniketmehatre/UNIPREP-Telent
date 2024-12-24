@@ -127,7 +127,7 @@
 				</div>
 			</div>
 		</div>
-		<div class="row justify-content-center" *ngFor="let chat of chatdata">
+		<div class="row justify-content-center" *ngFor="let chat of chatdata; let i = index" [id]="'chat-' + i">
 			<div class="col-md-8" #chatContainer>
 				<div class="advisor-question" *ngIf="chat.input == 1 || chat.input == 3">
 					<div class="d-flex align-items-center">
@@ -157,14 +157,14 @@
 							</div>
 						</div>
 						<div>
-							<div *ngIf="chat.input == 2">
+							<!-- <div *ngIf="chat.input == 2">
 								<ul>
 									<div *ngFor="let msg of chat.formatedMsg; index as i">
 										<li class="pb-2" *ngIf="i != 0 ">{{msg}}</li>
 									</div>
 								</ul>
-							</div>
-							<div *ngIf="chat.input == 4" [innerHTML]="chat.formatedMsg"></div>
+							</div> -->
+							<div [innerHTML]="chat.formatedMsg"></div>
 						</div>
 					</div>
 					<hr />

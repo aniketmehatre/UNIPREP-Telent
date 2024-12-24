@@ -1,4 +1,4 @@
-import { AfterViewChecked, Component, ElementRef, OnInit, ViewChild, ViewEncapsulation } from '@angular/core';
+import { Component, ElementRef, OnInit, ViewChild, ViewEncapsulation } from '@angular/core';
 import { AdvisorService } from './advisor.service';
 import { NgxUiLoaderService } from "ngx-ui-loader";
 import { ActivatedRoute, Router } from '@angular/router';
@@ -19,10 +19,10 @@ export class AdvisorComponent implements OnInit {
   isQuestionAsked: boolean = false;
   isQuestionNotAsked: boolean = true;
   questions: any;
-  userQuestion: any;
+  userQuestion: string = "";
   question: any;
   answer: any;
-  chatdata: any;
+  chatdata: any[] = [];
   showSkeleton: boolean = false;
   responseType: string;
   askExpertResponse: number = 0;
@@ -37,18 +37,18 @@ export class AdvisorComponent implements OnInit {
   orglogowhitelabel: any;
   ehitlabelIsShow: boolean = true;
   isQuestionEmpty: boolean = false;
-  private scrollToBottom(): void {
-    setTimeout(() => {
-      try {
-        const chatContainerElement = this.chatContainer.nativeElement;
-        const scrollHeight = chatContainerElement.scrollHeight;
-        const scrollPosition = scrollHeight * 0.95; // this code scrolls you when the last question and answer approximately only if the question contains the answer.
-        chatContainerElement.scrollTop = scrollPosition;
-      } catch (err) {
-        console.error('Scroll Error:', err);
-      }
-    }, 100);  // Adjust delay if needed (100ms is usually enough for most cases)
-  }
+  // private scrollToBottom(): void {
+    // setTimeout(() => {
+    //   try {
+    //     const chatContainerElement = this.chatContainer.nativeElement;
+    //     const scrollHeight = chatContainerElement.scrollHeight;
+    //     const scrollPosition = scrollHeight * 0.85; // this code scrolls you when the last question and answer approximately only if the question contains the answer.
+    //     chatContainerElement.scrollTop = scrollPosition;
+    //   } catch (err) {
+    //     console.error('Scroll Error:', err);
+    //   }
+    // }, 300);  // Adjust delay if needed (100ms is usually enough for most cases)
+  // }
   
   
   constructor(private service: AdvisorService, private ngxService: NgxUiLoaderService,
@@ -113,6 +113,26 @@ export class AdvisorComponent implements OnInit {
     }
   }
 
+  // ngAfterViewInit() {
+  //   // Ensure all loops have rendered
+  //   setTimeout(() => {
+  //     this.scrollToLastChat();
+  //   }, 0);
+  // }
+  
+  scrollToLastChat() {
+    setTimeout(() => {
+      if (this.chatdata.length > 0) {
+        const lastChatId = `chat-${this.chatdata.length - 1}`;
+        const lastChatElement = document.getElementById(lastChatId);
+        if (lastChatElement) {
+          lastChatElement.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }
+      }
+    }, 300);
+    
+  }
+  
   getChatHistory(){
     if (this.planExpired) {
       this.restrict = true;
@@ -126,12 +146,8 @@ export class AdvisorComponent implements OnInit {
       this.chatdata = response;
       this.ngxService.stopBackground();
       this.userQuestion = '';
-      this.scrollToBottom();
+      this.scrollToLastChat();
     });
-  }
-  private scrollUpSlightly(): void {
-    // Scroll the window up by a small amount after the content is added
-    window.scrollBy(0, -100);  // Adjust -100 as needed
   }
 
   getAns(){
@@ -156,7 +172,7 @@ export class AdvisorComponent implements OnInit {
           this.chatdata = response;
           this.ngxService.stopBackground();
           this.userQuestion = '';
-          this.scrollToBottom();
+          this.scrollToLastChat();
         });
       } else {
         this.isQuestionAsked = true;
@@ -172,7 +188,7 @@ export class AdvisorComponent implements OnInit {
           this.chatdata = response;
           this.ngxService.stopBackground();
           this.userQuestion = '';
-          this.scrollToBottom();
+          this.scrollToLastChat();
           // alert("Thank you , Our team will get back to you in next 8 working hours");
           this.messageService.add({ severity:'success', summary: 'Success', detail: 'Thank you , Our team will get back to you in next 8 working hours'});
         });
