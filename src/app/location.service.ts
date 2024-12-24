@@ -160,6 +160,13 @@ export class LocationService {
         });
     }
 
+    getHomeCountryNew() {
+        const headers = new HttpHeaders().set("Accept", "application/json");
+        return this.http.get<any>(environment.ApiUrl + `/gethomecountry`, {
+            headers: headers,
+        });
+    }
+
     sendSessionData(userInfo: any, status: any) {
         let userId = userInfo.userId;
         let location = userInfo.location;
