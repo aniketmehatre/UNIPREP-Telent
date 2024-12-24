@@ -1,19 +1,13 @@
 import {
-  AfterContentChecked,
   ChangeDetectorRef,
   Component,
   OnInit,
   ViewChild,
   ElementRef,
-  HostListener, Renderer2, PipeTransform, Pipe,
+  HostListener, PipeTransform, Pipe,
 } from "@angular/core";
-import {filter, Observable, Subscription} from "rxjs";
-import { ModuleListSub } from "../../../@Models/module.model";
+import { Observable } from "rxjs";
 import { ReadQuestion } from "../../../@Models/read-question.model";
-import {
-  ListQuestion,
-  QuestionList,
-} from "../../../@Models/question-list.model";
 import { MenuItem, MessageService } from "primeng/api";
 import { ModuleServiceService } from "../../module-store/module-service.service";
 import { ModuleStoreService } from "../../module-store/module-store.service";
@@ -24,7 +18,6 @@ import { DomSanitizer, SafeResourceUrl, Meta, Title } from "@angular/platform-br
 import { Carousel } from "primeng/carousel";
 import { AuthService } from "src/app/Auth/auth.service";
 import { NgxUiLoaderService } from "ngx-ui-loader";
-import { environment } from "@env/environment";
 import { PageFacadeService } from "../../page-facade.service";
 import { LocationService } from "src/app/location.service";
 
@@ -106,13 +99,11 @@ export class QuestionListComponent implements OnInit {
     private router: Router, private ngxService: NgxUiLoaderService,
     private authService: AuthService,
     private sanitizer: DomSanitizer,
-    private renderer: Renderer2,
     private meta: Meta,
     private toast: MessageService,
-    private titleService: Title,
-    private cdRef: ChangeDetectorRef,
     private pageFacade: PageFacadeService,
     private locationService: LocationService,
+    private title: Title,
   ) {
     Carousel.prototype.changePageOnTouch = (e, diff) => { }
     Carousel.prototype.onTouchMove = () => { };
@@ -121,7 +112,6 @@ export class QuestionListComponent implements OnInit {
 
   loopRange = Array.from({ length: 24 }).fill(0).map((_, index) => index);
   ngOnInit(): void {
-
     this.locationService.getImage().subscribe(imageUrl => {
       this.orglogowhitelabel = imageUrl;
     });
@@ -238,11 +228,12 @@ export class QuestionListComponent implements OnInit {
     this.countryId = Number(localStorage.getItem("countryId"));
     let countryName: any;
     this.subModuleId = this.route.snapshot.paramMap.get("id");
-
-    if (this.subModuleId.includes("$")) {
-      let url = this.subModuleId.split("$");
-      localStorage.setItem('questionId', url[1]);
-      this.subModuleId = url[0];
+    let question_id = this.route.snapshot.paramMap.get("question_id");
+    if (question_id) {
+      this.updateMetaTags();
+      // let url = this.subModuleId.split("$");
+      localStorage.setItem('questionId', question_id);
+      this.subModuleId = this.subModuleId;
     }
     this.currentSubModuleSlug = this.route.snapshot.paramMap.get("module_name");
     this.dataService.countryName.subscribe((data) => {
@@ -375,6 +366,21 @@ export class QuestionListComponent implements OnInit {
       this.quizpercentage = res.progress
     })
   }
+
+  updateMetaTags(): void {
+    this.title.setTitle('Test question title testing');
+    // Updating an existing meta tag or creating if not present
+    this.meta.updateTag({ name: 'description', content: 'This is a dynamic meta description.' });
+  
+    // Adding a new meta tag
+    this.meta.addTag({ name: 'author', content: 'Angular Developer' });
+  
+    // Updating or adding an Open Graph meta tag
+    this.meta.updateTag({ property: 'og:title', content: 'Dynamic Meta Tag Example' });
+    this.meta.updateTag({ property: 'og:description', content: 'Learn how to dynamically update meta tags in Angular.' });
+  }
+  
+
 
   loadQuestionList(data: any) {
     let questionData = { id: localStorage.getItem('questionId') || '' };
@@ -704,7 +710,7 @@ export class QuestionListComponent implements OnInit {
     }
   }
   shareViaWhatsapp() {
-    let url = window.location.href + '$' + this.selectedQuestionData?.id
+    let url = window.location.href + '/' + this.selectedQuestionData?.id
     console.log(this.selectedQuestionData);
     console.log(url);
     this.meta.updateTag({ property: 'og:url', content: url });
@@ -712,35 +718,35 @@ export class QuestionListComponent implements OnInit {
     window.open(shareUrl, '_blank');
   }
   shareViaInstagram() {
-    let url = window.location.href + '$' + this.selectedQuestionData?.id
+    let url = window.location.href + '/' + this.selectedQuestionData?.id
     console.log(url);
     this.meta.updateTag({ property: 'og:url', content: url });
     const shareUrl = `https://www.instagram.com?url=${encodeURIComponent(url)}`;
     window.open(shareUrl, '_blank');
   }
   shareViaFacebook() {
-    let url = window.location.href + '$' + this.selectedQuestionData?.id
+    let url = window.location.href + '/' + this.selectedQuestionData?.id
     console.log(url);
     this.meta.updateTag({ property: 'og:url', content: url });
     const shareUrl = `https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(url)}`;
     window.open(shareUrl, '_blank');
   }
   shareViaLinkedIn() {
-    let url = window.location.href + '$' + this.selectedQuestionData?.id
+    let url = window.location.href + '/' + this.selectedQuestionData?.id
     console.log(url);
     this.meta.updateTag({ property: 'og:url', content: url });
     const shareUrl = `https://www.linkedin.com/shareArticle?url=${encodeURIComponent(url)}`;
     window.open(shareUrl, '_blank');
   }
   shareViaTwitter() {
-    let url = window.location.href + '$' + this.selectedQuestionData?.id
+    let url = window.location.href + '/' + this.selectedQuestionData?.id
     console.log(url);
     this.meta.updateTag({ property: 'og:url', content: url });
     const shareUrl = `https://twitter.com/intent/tweet?url=${encodeURIComponent(url)}`;
     window.open(shareUrl, '_blank');
   }
   shareViaMail() {
-    let url = window.location.href + '$' + this.selectedQuestionData?.id
+    let url = window.location.href + '/' + this.selectedQuestionData?.id
     console.log(url);
     this.meta.updateTag({ property: 'og:url', content: url });
     const shareUrl = `mailto:?body=${encodeURIComponent(url)}`;
@@ -760,7 +766,7 @@ export class QuestionListComponent implements OnInit {
     const safeCountryId = this.countryId || '';
 
     // Combine data with a safe format
-    textarea.textContent = `${safeUrl}$${selectedQuestionId}$${safeCountryId}`;
+    textarea.textContent = `${safeUrl}/${selectedQuestionId}`;
     
     // Append the textarea safely
     document.body.append(textarea);
