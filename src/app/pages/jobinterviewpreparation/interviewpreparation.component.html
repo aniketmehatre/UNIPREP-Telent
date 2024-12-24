@@ -69,7 +69,7 @@
                       class="recommendationinput d-flex flex-column justify-content-center gap-3"
                     >
                       <ng-container *ngIf="recommendation.id == 1">
-                        <p-dropdown
+                        <!-- <p-dropdown
                           styleClass="w-100"
                           placeholder="Job Role"
                           display="chip"
@@ -82,7 +82,16 @@
                           [virtualScrollItemSize]="10"
                           [filter]="true"
                           [filterBy]="'jobrole'"
-                        ></p-dropdown>
+                        ></p-dropdown> -->
+                        <div class="col-md-11 col-lg-11 mb-2 mb-md-0 position-relative">
+                          <span class="p-input-icon-left w-100">
+                            <i class="pi pi-search"></i>
+                            <input type="text" #jobRoleInput (input)="searchJob($event)" class="form-control w-100 rounded-5 border-primary inputHeight" pInputText placeholder=" Search by Job Role" />
+                          </span>
+                          <ul *ngIf="filterJobRole.length > 0" class="dropdown-list">
+                            <li *ngFor="let job of filterJobRole" (click)="setJobtitle(job.id, job.jobrole )">{{ job.jobrole }}</li>
+                          </ul>
+                        </div>
                         <p
                           class="text-center"
                           [ngClass]="{ 'd-none': invalidClass === false }"
@@ -99,6 +108,8 @@
                           optionLabel="soft_skill_name"
                           optionValue="id"
                           [options]="softSkills"
+                          [selectionLimit]="2"
+                          [displaySelectedLabel] = "true"
                           [(ngModel)]="selectedData[recommendation.id]"
                           [appendTo]="'body'"
                         ></p-multiSelect>
@@ -115,7 +126,11 @@
                           styleClass="w-100"
                           placeholder="Hard Skills"
                           display="chip"
+                          optionLabel="hard_skill"
+                          optionValue="hard_skill"
                           [options]="hardSkills"
+                          [selectionLimit]="2"
+                          [displaySelectedLabel] = "true"
                           [(ngModel)]="selectedData[recommendation.id]"
                           [appendTo]="'body'"
                         ></p-multiSelect>
@@ -149,7 +164,7 @@
                       <ng-container *ngIf="recommendation.id == 5">
                         <p-dropdown
                           styleClass="w-100"
-                          placeholder="Joining Reason"
+                          placeholder="Select"
                           display="chip"
                           optionLabel="reasons"
                           optionValue="id"

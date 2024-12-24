@@ -38,12 +38,19 @@ export class AdvisorComponent implements OnInit {
   ehitlabelIsShow: boolean = true;
   isQuestionEmpty: boolean = false;
   private scrollToBottom(): void {
-    try {
-      this.chatContainer.nativeElement.scrollTop = this.chatContainer.nativeElement.scrollHeight;
-    } catch (err) {
-      console.error('Scroll Error:', err);
-    }
+    setTimeout(() => {
+      try {
+        const chatContainerElement = this.chatContainer.nativeElement;
+        const scrollHeight = chatContainerElement.scrollHeight;
+        const scrollPosition = scrollHeight * 0.95; // this code scrolls you when the last question and answer approximately only if the question contains the answer.
+        chatContainerElement.scrollTop = scrollPosition;
+      } catch (err) {
+        console.error('Scroll Error:', err);
+      }
+    }, 100);  // Adjust delay if needed (100ms is usually enough for most cases)
   }
+  
+  
   constructor(private service: AdvisorService, private ngxService: NgxUiLoaderService,
     private route: ActivatedRoute, private pageFacade: PageFacadeService, private authService: AuthService,
     private locationService: LocationService, private router: Router,private messageService: MessageService
@@ -122,6 +129,11 @@ export class AdvisorComponent implements OnInit {
       this.scrollToBottom();
     });
   }
+  private scrollUpSlightly(): void {
+    // Scroll the window up by a small amount after the content is added
+    window.scrollBy(0, -100);  // Adjust -100 as needed
+  }
+
   getAns(){
     if (this.planExpired) {
       this.restrict = true;
