@@ -49,4 +49,5 @@ export interface User {
     education_level:string;
     user_id: number;
     is_phn_or_whs_verified: number;
+    login_status: number;
 }
