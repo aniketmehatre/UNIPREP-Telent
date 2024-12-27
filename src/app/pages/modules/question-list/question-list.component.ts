@@ -230,7 +230,7 @@ export class QuestionListComponent implements OnInit {
     this.subModuleId = this.route.snapshot.paramMap.get("id");
     let question_id = this.route.snapshot.paramMap.get("question_id");
     if (question_id) {
-      this.updateMetaTags();
+      //this.updateMetaTags();
       // let url = this.subModuleId.split("$");
       localStorage.setItem('questionId', question_id);
       this.subModuleId = this.subModuleId;
