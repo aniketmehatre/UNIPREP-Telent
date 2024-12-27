@@ -1,8 +1,9 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { environment } from '@env/environment';
+import { BehaviorSubject } from 'rxjs';
 import { AssessmentResponse } from 'src/app/@Models/assessment.model';
-import { ILearnChallengeResponse } from 'src/app/@Models/ilearn-challenge.model';
+import { ILearnChallengeData, ILearnChallengeResponse } from 'src/app/@Models/ilearn-challenge.model';
 
 @Injectable({
   providedIn: 'root'
@@ -10,6 +11,8 @@ import { ILearnChallengeResponse } from 'src/app/@Models/ilearn-challenge.model'
 export class AssessmentService {
 
   headers = new HttpHeaders().set("Accept", "application/json");
+  iLearnChallenge = new BehaviorSubject<ILearnChallengeData>({ overAllParticipants: 0, currentPosition: 0, isILearn: false });
+  iLearnChallengeData$ = this.iLearnChallenge.asObservable();
 
   constructor(
     private http: HttpClient

@@ -262,4 +262,17 @@ export class AuthService {
     clearCache(): void {
         this.dataCache$ = null; // Clear the cached observable
     }
+
+    sendWhatsappOtp(val: any) {
+        const headers = new HttpHeaders()
+            .set('Accept', "application/json")
+        return this.http.post<any>(environment.ApiUrl + '/sendWhatsappOtp', val, {'headers': headers});
+    }
+
+    validateWhatsappOtp(val: any) {
+        const headers = new HttpHeaders()
+            .set('Accept', "application/json")
+        return this.http.post<any>(environment.ApiUrl + '/validateWhatsappOtp', val, {'headers': headers});
+    }
+    
 }

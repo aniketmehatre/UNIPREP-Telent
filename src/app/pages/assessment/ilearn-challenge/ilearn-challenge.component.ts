@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { AssessmentService } from '../assessment.service';
 import { ILearnChallengeModule, ILearnChallengeResponse, LeaderBoard } from 'src/app/@Models/ilearn-challenge.model';
 import { AuthService } from 'src/app/Auth/auth.service';
@@ -10,7 +10,7 @@ import { DomSanitizer } from '@angular/platform-browser';
   templateUrl: './ilearn-challenge.component.html',
   styleUrls: ['./ilearn-challenge.component.scss']
 })
-export class IlearnChallengeComponent implements OnInit {
+export class IlearnChallengeComponent implements OnInit, OnDestroy {
 
   iLearnChallengeModuleList: ILearnChallengeModule[] = [];
   leaderBoardList: LeaderBoard[] = [];
@@ -48,6 +48,7 @@ export class IlearnChallengeComponent implements OnInit {
           this.currentPositionIndex = userIndex;
           this.findUserPosition(userIndex + 1);
           this.currentScore = this.leaderBoardList[userIndex].total_score;
+          this.assessmentService.iLearnChallenge.next({overAllParticipants:this.leaderBoardList.length, currentPosition:userIndex+1, isILearn: true});
         }
       },
       error: (error: any) => {
@@ -91,5 +92,9 @@ export class IlearnChallengeComponent implements OnInit {
 
   goBack() {
     this.isInstruction = false;
+  }
+
+  ngOnDestroy() {
+    this.assessmentService.iLearnChallenge.next({overAllParticipants:0, currentPosition:0, isILearn: false});
   }
 }

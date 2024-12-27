@@ -24,6 +24,8 @@ import {CountryISO, SearchCountryField} from "ngx-intl-tel-input";
 import {SocialAuthService} from "@abacritt/angularx-social-login";
 import { environment } from "@env/environment";
 import CryptoJS from "crypto-js";
+import { AssessmentService } from "src/app/pages/assessment/assessment.service";
+import { ILearnChallengeData } from "src/app/@Models/ilearn-challenge.model";
 
 // import { SocialAuthService } from "@abacritt/angularx-social-login";
 
@@ -115,6 +117,8 @@ export class HeaderComponent implements OnInit, OnDestroy {
   otpArray = Array(4).fill(0); 
 
   currentUserSubscriptionPlan: string =  '';
+  iLearnChallengeData:ILearnChallengeData;
+  
   constructor(
     private router: Router,
     private locationService: LocationService,
@@ -124,7 +128,8 @@ export class HeaderComponent implements OnInit, OnDestroy {
     private themeService: ThemeService,
     route: ActivatedRoute, private authService: SocialAuthService,
     private dataService: DataService,
-    private dashboardService: DashboardService // private authService: SocialAuthService
+    private dashboardService: DashboardService, // private authService: SocialAuthService
+    private assessmentService: AssessmentService
   ) {
     // this.subs.sink = this.dataService.countryId.subscribe((data) => {
     //
@@ -145,6 +150,9 @@ export class HeaderComponent implements OnInit, OnDestroy {
     this.service.getTimeInfoForCard().subscribe((data) => {
       localStorage.setItem('time_card_info', data.card_message);
     });
+    this.assessmentService.iLearnChallengeData$.subscribe((data) => {
+      this.iLearnChallengeData = data;
+  })
   }
 
   loadCountryList() {
@@ -202,7 +210,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
   onInputOTP(event: Event, index: number): void {
     const input = event.target as HTMLInputElement;
     const value = input.value;
-
+    this.otp[index] = value;
     // Move to next box if a digit is entered
     if (value && value.length === 1 && index < 3) {
       const nextInput = document.getElementById(`otp-${index + 1}`) as HTMLInputElement;
@@ -219,25 +227,67 @@ export class HeaderComponent implements OnInit, OnDestroy {
       prevInput.focus();
     }
   }
+
   isSendingOTP: boolean = false;
+  isResendOTP: boolean = false;
+
   sendOTP(){
+    this.phoneVerification.disable();
     let formData =  this.phoneVerification.value;
-    let sendOTP: any;
-    if(this.phoneVerification.value.choice == 'yes'){
-      sendOTP = {
-        whatsapp_dial_country_code: formData.verification_phone.countryCode,
-        whatsapp_phone: formData.verification_phone.number,
-        whatsapp_country_code: formData.verification_phone.dialCode,
-      };
-    }else{
-      sendOTP = {
-        phone: formData.verification_phone.number,
-        country_code : formData.verification_phone.dialCode
-      };
-    }
-    sendOTP.whatsapp_number_or_not = this.phoneVerification.value.choice;
-    this.isSendingOTP = true;
-    console.log(sendOTP, "sendOTP");
+    let sendPhoneNumber = {
+      country_code: formData.verification_phone.dialCode,
+      phone: formData.verification_phone.number,
+    };
+    this.service.sendWhatsappOtp(sendPhoneNumber).subscribe({
+      next: response => {
+        this.isSendingOTP = true;
+        this.toast.add({
+          severity: "success",
+          summary: "Success",
+          detail: response.message,
+        });
+      },
+      error: error => {
+        this.phoneVerification.enable();
+        this.toast.add({
+          severity: "error",
+          summary: "Error",
+          detail: error?.message,
+        });
+      }
+    });
+  }
+
+  submitPhoneVerification() {
+    let formData =  this.phoneVerification.value;
+    let sendOTP = {
+      country_code: formData.verification_phone.dialCode,
+      phone: formData.verification_phone.number,
+      dial_code: formData.verification_phone.countryCode,
+      otp: this.otp.join(''),
+      whatsapp_number_or_not: formData.choice == 'yes' ? 'no' : 'yes'
+    };
+    this.service.validateWhatsappOtp(sendOTP).subscribe({
+      next: response => {
+        this.whatsappVerification = false;
+        this.toast.add({
+          severity: "success",
+          summary: "Success",
+          detail: 'Phone number verified successfully',
+        });
+      },
+      error: error => {
+        this.isResendOTP = true;
+        this.otp = ['', '', '', ''];
+        let otpList = document.querySelectorAll(".otp-box");
+        otpList.forEach((item:any) => item.value = '');
+        this.toast.add({
+          severity: "error",
+          summary: "Error",
+          detail: error?.message,
+        });
+      }
+    });
   }
 
   exploreNow() {
@@ -306,7 +356,6 @@ export class HeaderComponent implements OnInit, OnDestroy {
     this.currentEducationForm = this.formBuilder.group({
       current_education: ["", Validators.required]
     });
-
     let phone;
     const encPhone = localStorage.getItem("phone");
     if (encPhone) {
@@ -488,6 +537,9 @@ export class HeaderComponent implements OnInit, OnDestroy {
     // });
     // this.getCountryList();
     // this.getHomeCountryList();
+    if(this.service.user?.login_status == 1 && this.service.user.is_phn_or_whs_verified == 0) {
+      this.whatsappVerification = true;
+    } 
   }
 
   getProgramlevelList() {

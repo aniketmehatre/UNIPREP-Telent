@@ -85,7 +85,12 @@
             </div>
           </div>
           <div class="d-none d-md-flex gap-2">
-              <button *ngIf="service._user?.student_type_id == 2" class="btn btn-ilearn" (click)="navigateILearnChallenge()"><span class="text-small fw-normal">iLearn Challenge</span></button>
+              <button *ngIf="service._user?.student_type_id == 2" class="btn btn-ilearn" (click)="navigateILearnChallenge()">
+                <span *ngIf="!iLearnChallengeData.isILearn; else showRank" class="text-small fw-normal">iLearn Challenge</span>
+                <ng-template #showRank>
+                  <span class="text-small fw-normal ilearn-sec"><span class="rank">{{iLearnChallengeData.currentPosition}} out of {{iLearnChallengeData.overAllParticipants}}</span> <span class="participants">Participants</span></span>
+                </ng-template>
+              </button>
               <div label="" role="button" class="headerHomeCountry" [title]="homeCountryName">
                 <img #openCountryPopup src="{{ headerHomeFlag }}" alt="flag" height="auto" width="auto" />
               </div>
@@ -186,7 +191,12 @@
             </div>
           </div>
           <div class="d-none d-md-block">
-            <button *ngIf="service._user?.student_type_id == 2" class="btn btn-ilearn me-2" (click)="navigateILearnChallenge()"><span class="text-small fw-normal">iLearn Challenge</span></button>
+            <button *ngIf="service._user?.student_type_id == 2" class="btn btn-ilearn me-2" (click)="navigateILearnChallenge()">
+              <span *ngIf="!iLearnChallengeData.isILearn; else showRank" class="text-small fw-normal">iLearn Challenge</span>
+              <ng-template #showRank>
+                <span class="text-small fw-normal ilearn-sec"><span class="rank">{{iLearnChallengeData.currentPosition}} out of {{iLearnChallengeData.overAllParticipants}}</span> <span class="participants">Participants</span></span>
+              </ng-template>
+            </button>
             <button *ngIf="whiteLabelIsNotShow" class="btn btn-primary btn-rounded me-2 ms-0 my-0" alt="chat with notification" (click)="onClickSubscribe()">
               <span class="text-small fw-normal px-3">Subscribe Now</span>
             </button>
@@ -571,7 +581,11 @@
           <form [formGroup]="phoneVerification">
             <div class="w-100 phonenumberblock mt-2">
               <p class="m-2">Enter Your Whatsapp number to continue the experience</p>
-              <ngx-intl-tel-input class="intel-input w-100" [cssClass]="'custom'" [preferredCountries]="['in', 'gb']" [enableAutoCountrySelect]="true" [enablePlaceholder]="true" [searchCountryFlag]="true" [maxLength]="15" [searchCountryField]="[SearchCountryField.Iso2, SearchCountryField.Name]" [phoneValidation]="true" [selectedCountryISO]="preferredCountry" customPlaceholder="Enter Contact Number" formControlName="verification_phone" [attr.disabled]="isSendingOTP"></ngx-intl-tel-input>
+              <ngx-intl-tel-input class="intel-input w-100" [cssClass]="'custom'" [preferredCountries]="['in', 'gb']" 
+                [enableAutoCountrySelect]="true" [enablePlaceholder]="true" [searchCountryFlag]="true" [maxLength]="15"
+                [searchCountryField]="[SearchCountryField.Iso2, SearchCountryField.Name]" 
+                [phoneValidation]="true" [selectedCountryISO]="preferredCountry" customPlaceholder="Enter Contact Number" 
+                formControlName="verification_phone" [attr.disabled]="isSendingOTP"></ngx-intl-tel-input>
               <p class="m-2">I don't have a Whatsapp Number</p>
               <div class="radio-group m-2">
                 <label><input type="radio" name="choice" formControlName="choice" value="yes" class="radio-input"/>Yes</label>
@@ -588,8 +602,11 @@
               <div class="otp-container m-4">
                 <input *ngFor="let digit of otpArray; let i = index" type="text" maxlength="1" class="otp-box" [id]="'otp-' + i" [(ngModel)]="otp[i]" (input)="onInputOTP($event, i)" (keydown)="onKeydownOPT($event, i)"/>
               </div>
-              <div class="d-flex justify-content-center m-3">
-                <button [disabled]="phoneVerification.invalid" style="padding: 8px 20px;" class="btn btn-primary" (click)="sendOTP()" alt="chat with notification">
+              <div class="d-flex justify-content-center m-3 gap-3">
+                <button *ngIf="isResendOTP" [disabled]="phoneVerification.invalid" style="padding: 8px 20px;" class="btn btn-primary" (click)="sendOTP()" alt="chat with notification">
+                  <span class="fw-medium px-3">Resend OTP</span>
+                </button>
+                <button [disabled]="phoneVerification.invalid" style="padding: 8px 20px;" class="btn btn-primary" (click)="submitPhoneVerification()" alt="chat with notification">
                   <span class="fw-medium px-3">Submit</span>
                 </button>
               </div>
