@@ -37,9 +37,9 @@
             <a (click)="openchat()"
               ><p-avatar class=" p-0" label="" role="button"> <i class="fa-solid fa-comments"></i> </p-avatar
             ></a>
-            <!-- <p-avatar (click)="togleSidebar.emit()" class="" label="" role="button">
-                            <i class="fa-solid fa-bell"></i>
-                        </p-avatar> -->
+            <a *ngIf="false" (click)="np.toggle($event)"
+              ><p-avatar class=" p-0" label="" role="button"> <i class="fa-solid fa-bell"></i> </p-avatar
+            ></a>
             <a class="btn p-0" routerLink="/pages/usermanagement" data-bs-toggle="dropdown" aria-expanded="false">
               <span class="nme me-0">{{ (firstChar || "")?.charAt(0) }}</span>
             </a>
@@ -117,9 +117,9 @@
             <a (click)="openchat()"
               ><p-avatar class="" label="" role="button"> <i class="fa-solid fa-comments"></i> </p-avatar
             ></a>
-            <!-- <p-avatar (click)="togleSidebar.emit()" class="" label="" role="button">
-							<i class="fa-solid fa-bell"></i>
-						</p-avatar> -->
+            <a *ngIf="false" (click)="np.toggle($event)"
+            ><p-avatar class="" label="" role="button"> <i class="fa-solid fa-bell"></i> </p-avatar
+            ></a>
             <div class="dropdown profile-dropdown">
               <button class="button" data-bs-toggle="dropdown" aria-expanded="false">
                 <span class="nme">{{ (firstChar || "")?.charAt(0) }}</span>
@@ -204,9 +204,6 @@
             <a (click)="openchat()" title="Chat">
               <p-avatar class="" label="" role="button"><i class="fa-solid fa-comments"></i></p-avatar>
             </a>
-            <!-- <p-avatar (click)="togleSidebar.emit()" class="" label="" role="button">
-							<i class="fa-solid fa-bell"></i>
-						</p-avatar> -->
             <div class="dropdown profile-dropdown">
               <button class="button" data-bs-toggle="dropdown" aria-expanded="false" title="My Profile">
                 <span class="nme">{{ (firstChar || "")?.charAt(0) }}</span>
@@ -786,3 +783,78 @@
     </div>
   </div>
 </div>
+<p-overlayPanel #np [style]="{width: '350px'}">
+  <div class="container notification-container mt-2">
+    <div class="notifications-header">
+        <h2 class="text-bold">Notifications (2)</h2>
+        <div>
+            <a href="#">Mark all as read</a>
+        </div>
+    </div>
+    <div class="text-end">
+      <i class="pi pi-cog"></i>
+    </div>
+    <!-- PrimeNG TabView for Tab Control -->
+    <div class="card-body">
+      <p-tabView>
+        <!-- Overall Tab -->
+        <p-tabPanel header="Overall">
+            <div class="list-group">
+                <div class="list-group-item d-flex justify-content-between align-items-center">
+                  <i class="pi pi-lock"></i>
+                    <div>
+                        <h5>Your Password has been successfully changed.</h5>
+                        <small>June 21, 2023 at 03:13 PM</small>
+                    </div>
+                </div>
+
+                <div class="list-group-item isread d-flex justify-content-between align-items-center">
+                  <i class="fa-regular fa-crown"></i>
+                    <div>
+                        <h5>Your Subscription has been successfully renewed.</h5>
+                        <small>June 21, 2023 at 03:13 PM</small>
+                    </div>
+                </div>
+
+                <div class="list-group-item d-flex  align-items-center">
+                  <i class="deafult-icon fa-solid fa-check"></i>
+                    <div>
+                        <h5>You have 1 chat credit remaining</h5>
+                        <div ><button class="btn btn-primary btn-sm">Use Now</button></div>
+                        <small>June 20, 2023 at 03:13 PM</small>
+                    </div>
+                </div>                
+                <div class="list-group-item d-flex  align-items-center">
+                  <i class="deafult-icon fa-solid fa-check"></i>
+                    <div>
+                        <h5>You have completed the
+                          Pre-Application Quiz Successfully.</h5>
+                        <small>June 20, 2023 at 03:13 PM</small>
+                    </div>
+                </div>
+            </div>
+            
+        </p-tabPanel>
+
+        <!-- Archive Tab -->
+        <p-tabPanel header="Archive">
+            <div class="text-center py-4">
+                <p>No archived notifications available.</p>
+            </div>
+        </p-tabPanel>
+
+        <!-- Orders Tab -->
+        <p-tabPanel header="Orders">
+            <div class="text-center py-4">
+                <p>No order-related notifications available.</p>
+            </div>
+        </p-tabPanel>
+    </p-tabView>
+    </div>
+    <div class="card-footer">
+      <div class="view-all">
+        <a href="#">View All Notifications</a>
+      </div>
+    </div>
+</div>
+</p-overlayPanel>
