@@ -162,7 +162,7 @@ export class RegistrationComponent implements OnInit {
       emailAddress: ["", [Validators.required, Validators.email]],
       // country_code: ['+91', [Validators.required]],
       // interestedCountry: [null, [Validators.required]],
-
+      home_country: ["", [Validators.required]],
       // lastDegreePassingYear: ["", [Validators.required]],
       // intakeYear: ["", [Validators.required]],
       // intakeMonth: ["", [Validators.required]],
@@ -238,7 +238,7 @@ export class RegistrationComponent implements OnInit {
   }
 
   gethomeCountryList() {
-    this.locationService.getHomeCountry(2).subscribe(
+    this.locationService.getHomeCountryNew().subscribe(
       (res: any) => {
         this.countryList = res;
       },
@@ -320,6 +320,7 @@ export class RegistrationComponent implements OnInit {
       password_confirmation: this.registrationForm.value.confirmPassword,
       platform_id: 1,
       usertype_id: 1,
+      home_country: this.registrationForm.value.home_country,
       // country_id: this.registrationForm.value.country,
       country_code: this.registrationForm.value.contactNumber.dialCode,
       current_country_location: this.currentLocationCountry,
