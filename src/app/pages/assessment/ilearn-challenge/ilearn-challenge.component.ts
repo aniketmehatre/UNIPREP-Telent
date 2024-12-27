@@ -87,7 +87,7 @@ export class IlearnChallengeComponent implements OnInit, OnDestroy {
   onClickGuide(data: ILearnChallengeModule) {
     this.isInstruction = true;
     this.instructionTitle = data.submodule_name;
-    this.pdfURL = this.sanitizer.bypassSecurityTrustResourceUrl('https://api.uniprep.ai/uniprepapi/storage/app/public/Unilearn//GenralInfo/IELTSAcademic/Test_Format_and_Structure_.pdf');
+    this.pdfURL = this.sanitizer.bypassSecurityTrustResourceUrl(data.instruction_guide);
   }
 
   goBack() {
