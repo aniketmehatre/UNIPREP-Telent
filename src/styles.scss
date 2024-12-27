@@ -4,6 +4,11 @@
 // @import "./uniprep-assets/bDefault";
 // @import "./uniprep-assets/primeng";
 // @import "./uniprep-assets/buttons";
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
 :root {
 	--uniprep-primary: rgb(63, 76, 131);
 	--uniprep-primarydark: #001631;
@@ -106,7 +111,7 @@ html,
 body {
 	font-family: "Poppins", sans-serif;
 	font-size: 14px;
-	height: 100%;
+	height: 100dvh;
 }
 
 .p-tooltip.p-tooltip-top {
@@ -345,7 +350,10 @@ small {
 	overflow-y: auto;
 	background: white !important;
 }
-
+uni-pages
+{
+	height:100dvh;
+}
 // uni-cover-letter-builder {
 // 	flex: 1;
 // 	overflow: auto !important;
@@ -525,7 +533,8 @@ uni-blogdetail {
 	height: 100%;
 	flex-direction: column;
 	/* Ensure flex children stack vertically */
-	overflow: hidden;
+	overflow-x: hidden;
+	overflow-y: auto;
 	min-height: 100vh;
 }
 
