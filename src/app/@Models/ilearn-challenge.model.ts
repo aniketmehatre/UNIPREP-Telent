@@ -13,6 +13,7 @@ export interface ILearnChallengeModule {
     submodule_id: number
     module_id: number
     category_id: number
+    instruction_guide: string;
 }
 
 export interface LeaderBoard {
