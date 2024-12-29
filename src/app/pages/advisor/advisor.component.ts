@@ -123,14 +123,13 @@ export class AdvisorComponent implements OnInit {
   scrollToLastChat() {
     setTimeout(() => {
       if (this.chatdata.length > 0) {
-        const lastChatId = `chat-${this.chatdata.length - 1}`;
+        const lastChatId = `chat-${this.chatdata.length - 2}`;
         const lastChatElement = document.getElementById(lastChatId);
         if (lastChatElement) {
           lastChatElement.scrollIntoView({ behavior: 'smooth', block: 'start' });
         }
       }
     }, 300);
-    
   }
   
   getChatHistory(){

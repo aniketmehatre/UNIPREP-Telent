@@ -22,7 +22,7 @@ export class TutorialsComponent implements OnInit {
   constructor(private resourceService: TutorialsService,private sanitizer: DomSanitizer) { }
   ngOnInit(): void {
     var data={
-      usertype:1,
+      // usertype:1,
       category:null
     }
     this.resourceService.getResources(data).subscribe((response:any)=>{
@@ -96,7 +96,7 @@ export class TutorialsComponent implements OnInit {
   filterCat(id:any){
     this.tutoriallist=[];
     var data={
-      usertype:1,
+      // usertype:1,
       category:id
     }
     this.resourceService.getResources(data).subscribe((response:any)=>{
