@@ -4,6 +4,7 @@ import { IlearnChallengeComponent } from './ilearn-challenge/ilearn-challenge.co
 import { AssessmentListComponent } from './assessment-list/assessment-list.component';
 import { AssessmentComponent } from './assessment.component';
 import { ContestRulesComponent } from './contest-rules/contest-rules.component';
+import { AssessmentQuizComponent } from './assessment-quiz/assessment-quiz.component';
 
 const routes: Routes = [
     {
@@ -17,6 +18,9 @@ const routes: Routes = [
             },
             {
                 path: 'contest-rules', component: ContestRulesComponent
+            },
+            {
+                path: 'assessment-quiz', component: AssessmentQuizComponent
             }
         ]
     }

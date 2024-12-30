@@ -8,6 +8,7 @@ import { IlearnChallengeComponent } from './ilearn-challenge/ilearn-challenge.co
 import { AssessmentListComponent } from './assessment-list/assessment-list.component';
 import { TableModule } from 'primeng/table';
 import { ContestRulesComponent } from './contest-rules/contest-rules.component';
+import { AssessmentQuizComponent } from './assessment-quiz/assessment-quiz.component';
 
 
 
@@ -16,7 +17,8 @@ import { ContestRulesComponent } from './contest-rules/contest-rules.component';
     AssessmentComponent,
     IlearnChallengeComponent,
     AssessmentListComponent,
-    ContestRulesComponent
+    ContestRulesComponent,
+    AssessmentQuizComponent
   ],
   imports: [
     CommonModule,

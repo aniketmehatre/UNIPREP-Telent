@@ -537,9 +537,9 @@ export class HeaderComponent implements OnInit, OnDestroy {
     // });
     // this.getCountryList();
     // this.getHomeCountryList();
-    if(this.service.user?.login_status == 1 && this.service.user.is_phn_or_whs_verified == 0) {
-      this.whatsappVerification = true;
-    } 
+    // if(this.service.user?.login_status == 1 && this.service.user.is_phn_or_whs_verified == 0) {
+    //   this.whatsappVerification = true;
+    // } 
   }
 
   getProgramlevelList() {

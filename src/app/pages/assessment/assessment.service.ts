@@ -29,4 +29,10 @@ export class AssessmentService {
       headers: this.headers,
     });
   }
+
+  getAssessmentsQuiz(data:any) {
+    return this.http.post<any>(environment.ApiUrl + "/quizquestions", data, {
+      headers: this.headers,
+    });
+  }
 }

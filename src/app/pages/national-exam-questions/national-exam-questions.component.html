@@ -1,10 +1,13 @@
 <div class="readingcard card">
 	<div class="card-header border-0 bg-transparent">
 		<div class="row justify-content-center">
-			<div class="col-md-2 col-2 text-start d-flex align-items-center">
+			<div class="col-md-3 col-3 text-start d-flex align-items-center gap-2">
+				<div class="backIcon d-md-flex d-none" role="button" (click)="goToHome()">
+					<span class="fa-solid fa-chevron-left"></span>
+				</div>
 				<h5 class="fw-bold">{{ this.page + 1 }}/10 Questions Left</h5>
 			</div>
-			<div class="col-md-8 col-8 text-center">
+			<div class="col-md-7 col-7 text-center">
 				<h5 class="select-title mb-1">Nationalised Exam Quiz</h5>
 			</div>
 			<div class="col-md-2 col-2 text-end">
@@ -59,7 +62,7 @@
 						<div class="btn-icon"><i class="fa-solid fa-arrow-left"></i></div>
 					</div>
 				</button>
-				<button (click)="nextQues()" class="btn btn-start btn-rounded m-0 px-2 py-2">
+				<button (click)="nextQues()" [disabled]="!selectedValue" class="btn btn-start btn-rounded m-0 px-2 py-2">
 					<div class="d-flex align-items-center">
 						<span class="fw-normal h6 mb-0 ps-3 pe-2">{{ page <= 8 ? 'Next' : 'Submit' }}</span>
 						<div class="btn-icon"><i [class]="page <= 8 ? 'fa-solid fa-arrow-right' : 'fa-solid fa-check'"></i></div>

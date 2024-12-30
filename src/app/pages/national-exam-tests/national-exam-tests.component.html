@@ -25,7 +25,7 @@
                         <button *ngIf="!test.result_id" class="how-it-works-button" (click)="goToTest(test.id)">
 							&nbsp;&nbsp;&nbsp;&nbsp;Start Quiz &nbsp;&nbsp;<span><i class="fa-solid fa-stopwatch"></i></span>&nbsp;&nbsp;&nbsp;&nbsp;
 						</button>
-						<button *ngIf="test.result_id && test.result_value < 8" class="how-it-works-button" (click)="goToTest(test.id)">
+						<button *ngIf="test.result_id && test.result_value < 8" class="how-it-works-button retry-btn" (click)="goToTest(test.id)">
 							&nbsp;&nbsp;&nbsp;&nbsp;Retry &nbsp;&nbsp;<span><i class="fa-solid fa-stopwatch"></i></span>&nbsp;&nbsp;&nbsp;&nbsp;
 						</button>
                         <button *ngIf="test.result_id && test.result_value >= 8" class="completed">&nbsp;&nbsp;&nbsp;&nbsp;Completed&nbsp;&nbsp;&nbsp;&nbsp;</button>

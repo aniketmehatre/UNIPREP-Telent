@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { NationalExamService } from '../national-exam-categories/national-exam.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { interval, Subscription, takeWhile } from 'rxjs';
+import { Location } from '@angular/common';
 
 @Component({
   selector: 'uni-national-exam-questions',
@@ -32,7 +33,7 @@ export class NationalExamQuestionsComponent implements OnInit {
   timeover: number = 0;
   quizcount: number = 0;
 
-  constructor(private service: NationalExamService, private route: ActivatedRoute, private router: Router) { }
+  constructor(private service: NationalExamService, private route: ActivatedRoute, private router: Router, private location: Location) { }
 
   ngOnInit() {
     var data = {
@@ -163,4 +164,8 @@ export class NationalExamQuestionsComponent implements OnInit {
       this.timerSubscription.unsubscribe();
     }
   }
+
+  goToHome() {
+		this.location.back();
+	}
 }
