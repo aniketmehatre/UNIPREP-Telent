@@ -9,6 +9,10 @@ import { AssessmentListComponent } from './assessment-list/assessment-list.compo
 import { TableModule } from 'primeng/table';
 import { ContestRulesComponent } from './contest-rules/contest-rules.component';
 import { AssessmentQuizComponent } from './assessment-quiz/assessment-quiz.component';
+import { RadioButtonModule } from 'primeng/radiobutton';
+import { ProgressBarModule } from 'primeng/progressbar';
+import { DialogModule } from 'primeng/dialog';
+import { FormsModule } from '@angular/forms';
 
 
 
@@ -26,6 +30,10 @@ import { AssessmentQuizComponent } from './assessment-quiz/assessment-quiz.compo
     SkeletonModule,
     TooltipModule,
     TableModule,
+    RadioButtonModule,
+    ProgressBarModule,
+    DialogModule,
+    FormsModule
   ]
 })
 export class AssessmentModule { }

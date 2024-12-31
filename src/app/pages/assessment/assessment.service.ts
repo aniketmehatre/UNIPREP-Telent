@@ -2,7 +2,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { environment } from '@env/environment';
 import { BehaviorSubject } from 'rxjs';
-import { AssessmentResponse } from 'src/app/@Models/assessment.model';
+import { AssessmentQuiz, AssessmentResponse } from 'src/app/@Models/assessment.model';
 import { ILearnChallengeData, ILearnChallengeResponse } from 'src/app/@Models/ilearn-challenge.model';
 
 @Injectable({
@@ -30,8 +30,14 @@ export class AssessmentService {
     });
   }
 
-  getAssessmentsQuiz(data:any) {
+  getAssessmentsQuiz(data: any) {
     return this.http.post<any>(environment.ApiUrl + "/quizquestions", data, {
+      headers: this.headers,
+    });
+  }
+
+  getAssessmentQuizList(moduleId: string) {
+    return this.http.get<AssessmentQuiz[]>(`${environment.ApiUrl}/getAssessmentQuiz?moduleId=${moduleId}`, {
       headers: this.headers,
     });
   }

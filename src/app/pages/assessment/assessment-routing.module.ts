@@ -20,7 +20,7 @@ const routes: Routes = [
                 path: 'contest-rules', component: ContestRulesComponent
             },
             {
-                path: 'assessment-quiz', component: AssessmentQuizComponent
+                path: 'assessment-quiz/:moduleId', component: AssessmentQuizComponent
             }
         ]
     }

@@ -81,11 +81,8 @@ export class NationalExamQuestionsComponent implements OnInit {
         this.activeOptThree = this.questions[this.page].option_three;
         this.activeOptFour = this.questions[this.page].option_four;
         this.progressvalue = this.page * 10;
-
-        console.log(this.results);
       } else {
-        this.page = this.page + 1;
-        this.progressvalue = this.page * 10;
+        this.progressvalue = (this.page + 1) * 10;
         var info = {
           questions_id: this.results,
           test_id: this.activeTestId,
@@ -166,6 +163,6 @@ export class NationalExamQuestionsComponent implements OnInit {
   }
 
   goToHome() {
-		this.location.back();
-	}
+    this.location.back();
+  }
 }

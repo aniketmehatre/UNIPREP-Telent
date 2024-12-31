@@ -1,57 +1,141 @@
 <div class="card readingcard">
-	<div class="card-header border-0 bg-transparent">
-		<div class="row justify-content-center align-items-center">
-			<div class="col-md-12 text-center d-flex gap-2">
-                <div class="backIcon d-md-flex d-none" style="height: auto;" (click)="goBack()" role="button">
-                    <span class="fa-solid fa-chevron-left"></span>
-                  </div>
-				<div class="select-title d-flex justify-content-between align-items-center">
-					<div>
-						<h5 class="w-100 mb-0" tooltipPosition="top">
-							Global Salary Converter - Quiz</h5>
-					</div>
-				</div>
-			</div>
-		</div>
-	</div>
-	<div class="card-body text-center flex-fill overflow-y-auto">
-		<div class="row">
-            <div class="col-md-12 text-start"
-              >
-              <p><b>Welcome to the {{'Global Salary Converter'}} Quiz! Please follow these instructions carefully to ensure a smooth
-                  quiz experience:</b></p>
-              <ul class="font-secondarycolor fw-medium lh-md instructionlist mt-4">
-                <li>The total duration of the quiz is {{ '5' }} minutes.</li>
-                <li>You must answer all questions; skipping questions is not allowed.</li>
-                <li>Access to other screens or applications is not permitted during the quiz to maintain focus and integrity.
-                </li>
-                <li>Navigate through the quiz using the "Next" and "Previous" buttons. Do not use your browser's back or
-                  forward buttons as this may lead to accidentally exiting the quiz.</li>
-                <li>Review all your answers before submitting the quiz. You have the option to return to any question and
-                  modify your responses if necessary</li>
-                <li>Once you begin, you cannot save your progress to submit later. Make sure you are prepared to complete the
-                  quiz in one sitting.</li>
-                <li>Selecting "Restart" will refresh your quiz and present a new set of questions</li>
-                <li>Upon successful completion of the quiz, you will receive a certificate that is accredited by prominent
-                  bodies.</li>
-                <li>You must achieve at least 90% correct answers to qualify and complete the quiz.</li>
-              </ul>
-            </div>
-	</div>
-</div>
-<div class="card-footer bg-transparent">
-    <div class="row justify-content-center align-items-center">
-      <div class="col-md-6 col-6 d-flex align-items-center text-start">
-        <h4 class="uniprep-primary">ALL THE BEST!</h4>
+  <div class="card-header border-0 bg-transparent">
+    <div class="row justify-content-center">
+      <div class="col-md-3 col-3 text-start d-flex align-items-center gap-2">
+        <div class="backIcon d-md-flex d-none" role="button" (click)="goBack()">
+          <span class="fa-solid fa-chevron-left"></span>
+        </div>
+        <h5 class="fw-bold">{{ isInstruction ? 5 : page + 1 }}/5 Questions Left </h5>
       </div>
-      <div class="col-md-6 col-6 text-end">
-        <button  class="btn btn-start btn-rounded m-0 px-2 py-2"
-          [disabled]="false">
+      <div class="col-md-7 col-7 text-center">
+        <h5 class="select-title mb-1">{{title}} Quiz</h5>
+      </div>
+      <div class="col-md-2 col-2 text-end">
+        <button *ngIf="!isInstruction" class="btn btn-quit btn-rounded px-2 py-2" (click)="closeQuiz()">
           <div class="d-flex align-items-center">
-            <span class="fw-normal h6 mb-0 ps-3 pe-2">Start</span>
-            <div class="btn-icon"><i class="fa-solid fa-arrow-right"></i></div>
+            <span class="fw-normal h6 mb-0 ps-3 pe-2">Quit</span>
+            <div class="btn-icon"><i class="fa-solid fa-power-off"></i></div>
           </div>
         </button>
       </div>
     </div>
+    <div class="row" *ngIf="!isInstruction">
+      <div class="d-flex justify-content-center uniprep-primary mt-0">
+        <div class="px-3 py-2 h5 mb-0 border-primary rounded-2 fw-bold">{{ formatTime(timer) }} | {{
+          formatTime(totalquiztime) }}</div>
+      </div>
+    </div>
   </div>
+  <ng-container *ngIf="isInstruction; else showQuizSec">
+    <div class="card-body text-center flex-fill overflow-y-auto">
+      <div class="row">
+        <div class="col-md-12 text-start">
+          <p><b>Welcome to the {{title}} Quiz! Please follow these instructions carefully to ensure a
+              smooth
+              quiz experience:</b></p>
+          <ul class="font-secondarycolor fw-medium lh-md instructionlist mt-4">
+            <li>The total duration of the quiz is {{ '5' }} minutes.</li>
+            <li>You must answer all questions; skipping questions is not allowed.</li>
+            <li>Access to other screens or applications is not permitted during the quiz to maintain focus and
+              integrity.
+            </li>
+            <li>Navigate through the quiz using the "Next" and "Previous" buttons. Do not use your browser's back or
+              forward buttons as this may lead to accidentally exiting the quiz.</li>
+            <li>Review all your answers before submitting the quiz. You have the option to return to any question and
+              modify your responses if necessary</li>
+            <li>Once you begin, you cannot save your progress to submit later. Make sure you are prepared to complete
+              the
+              quiz in one sitting.</li>
+            <li>Selecting "Restart" will refresh your quiz and present a new set of questions</li>
+            <li>Upon successful completion of the quiz, you will receive a certificate that is accredited by prominent
+              bodies.</li>
+            <li>You must achieve at least 90% correct answers to qualify and complete the quiz.</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+    <div class="card-footer bg-transparent">
+      <div class="row justify-content-center align-items-center">
+        <div class="col-md-6 col-6 d-flex align-items-center text-start">
+          <h4 class="uniprep-primary">ALL THE BEST!</h4>
+        </div>
+        <div class="col-md-6 col-6 text-end">
+          <button class="btn btn-start btn-rounded m-0 px-2 py-2" (click)="startQuiz()">
+            <div class="d-flex align-items-center">
+              <span class="fw-normal h6 mb-0 ps-3 pe-2">Start</span>
+              <div class="btn-icon"><i class="fa-solid fa-arrow-right"></i></div>
+            </div>
+          </button>
+        </div>
+      </div>
+    </div>
+  </ng-container>
+  <ng-template #showQuizSec>
+    <div class="card-body flex-fill overflow-y-auto">
+      <ng-container *ngIf="isSkeletonVisible; else showQuiz">
+        <p-skeleton height="1rem" width="11rem" styleClass="mb-2"></p-skeleton>
+        <p-skeleton height="1.5rem" styleClass="mb-2"></p-skeleton>
+        <p-skeleton height="3.5rem" styleClass="mb-2"></p-skeleton>
+        <p-skeleton height="3.5rem" styleClass="mb-2"></p-skeleton>
+        <p-skeleton height="3.5rem" styleClass="mb-2"></p-skeleton>
+        <p-skeleton height="3.5rem" styleClass="mb-2"></p-skeleton>
+      </ng-container>
+      <ng-template #showQuiz>
+        <p class="text-start mb-0 fw-semibold uniprep-primary">Question Number {{ page + 1 }}</p>
+        <h4 class="uniprep-primarydark fw-bold text-start pt-2 pb-2 text-capitalize">{{ activeQuestion }}</h4>
+        <div class="d-flex p-3 my-1" style="border: 1px solid #e3e3e3; border-radius: 10px">
+          <p-radioButton name="groupname" value="A" [(ngModel)]="selectedValue" inputId="opt1"></p-radioButton>
+          <label for="opt1" class="ps-2">{{ activeOptOne }}</label>
+        </div>
+        <div class="d-flex p-3 my-1" style="border: 1px solid #e3e3e3; border-radius: 10px">
+          <p-radioButton name="groupname" value="B" [(ngModel)]="selectedValue" inputId="opt2"></p-radioButton>
+          <label for="opt2" class="ps-2">{{ activeOptTwo }}</label>
+        </div>
+        <div class="d-flex p-3 my-1" style="border: 1px solid #e3e3e3; border-radius: 10px">
+          <p-radioButton name="groupname" value="C" [(ngModel)]="selectedValue" inputId="opt3"></p-radioButton>
+          <label for="opt3" class="ps-2">{{ activeOptThree }}</label>
+        </div>
+        <div class="d-flex p-3 my-1" style="border: 1px solid #e3e3e3; border-radius: 10px">
+          <p-radioButton name="groupname" value="D" [(ngModel)]="selectedValue" inputId="opt4"></p-radioButton>
+          <label for="opt4" class="ps-2">{{ activeOptFour }}</label>
+        </div>
+        <p style="color: red" class="fw-semibold" *ngIf="showError">Please select an answer</p>
+      </ng-template>
+    </div>
+    <div class="card-footer bg-transparent">
+      <div class="row justify-content-center">
+        <div class="col-md-8 text-start">
+          <div class="w-100 px-3 quizprogress">
+            <span class="font-secondarycolor fw-semibold">Progress: {{ progressvalue }}% Completed</span>
+            <p-progressBar [value]="progressvalue"></p-progressBar>
+          </div>
+        </div>
+        <div class="col-md-4 text-end">
+          <button *ngIf="page != 0" (click)="prevQues()" class="btn btn-back btn-rounded me-3 px-2 py-2">
+            <div class="d-flex align-items-center">
+              <span class="fw-normal h6 mb-0 ps-3 pe-2">Previous</span>
+              <div class="btn-icon"><i class="fa-solid fa-arrow-left"></i></div>
+            </div>
+          </button>
+          <button (click)="nextQues()" [disabled]="!selectedValue" class="btn btn-start btn-rounded m-0 px-2 py-2">
+            <div class="d-flex align-items-center">
+              <span class="fw-normal h6 mb-0 ps-3 pe-2">{{ page <= 3 ? 'Next' : 'Submit' }}</span>
+                  <div class="btn-icon"><i [class]="page <= 3 ? 'fa-solid fa-arrow-right' : 'fa-solid fa-check'"></i>
+                  </div>
+            </div>
+          </button>
+        </div>
+      </div>
+    </div>
+  </ng-template>
+</div>
+<p-dialog [(visible)]="restrict" [modal]="true" [closable]="false" [style]="{ width: '30vw' }" [draggable]="false"
+  [resizable]="false" class="restrictionDialog" [breakpoints]="{ '960px': '30vw', '959px': '60vw', '425px': '90vw' }">
+  <div class="text-center mt-5 mb-4">
+    <h3 class="uniprep-secondary">Time's Up!</h3>
+    <p class="mb-2">You have run out of time for this quiz. Unfortunately,this means the quiz is marked as failed. Try
+      the quiz again."</p>
+    <button pButton type="button" class="btn btn-secondary btn-rounded text-center" (click)="closeQuiz()"><i
+        class="fa fa-arrow-right"></i></button>
+  </div>
+</p-dialog>
