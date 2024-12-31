@@ -110,6 +110,7 @@ export class JobPreparedListComponent implements OnInit {
     this.selectedQuestion = quizdata?.ques;
     this.selectedAnswer = quizdata?.ans;
     this.selectedQuestionId = quizdata?.id;
+    this.prepData.questionid = quizdata?.id;
     this.service.getcustomizedResponse(this.prepData).subscribe(
       (response: any) => {
         this.customizedResponse = response;

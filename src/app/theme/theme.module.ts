@@ -18,6 +18,7 @@ import { InputTextModule } from "primeng/inputtext";
 import { CardModule } from "primeng/card";
 import { EditorModule } from "primeng/editor";
 import { NgxIntlTelInputModule } from "ngx-intl-tel-input";
+import { TabViewModule } from "primeng/tabview";
 
 @NgModule({
   declarations: [HeaderComponent, SidenavComponent, SideMenuComponent],
@@ -37,7 +38,8 @@ import { NgxIntlTelInputModule } from "ngx-intl-tel-input";
     DialogModule,
     ReactiveFormsModule,
     InputTextModule,
-    NgxIntlTelInputModule
+    NgxIntlTelInputModule,
+    TabViewModule
   ],
   exports: [HeaderComponent, SidenavComponent, CountdownComponent],
 })
