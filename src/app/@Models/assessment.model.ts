@@ -29,5 +29,7 @@ export interface AssessmentQuiz {
   target_city_name: string;
   good_id: number;
   status: number;
+  salary_amount: number;
+  useranswer: string;
   created_at?: string;
 }

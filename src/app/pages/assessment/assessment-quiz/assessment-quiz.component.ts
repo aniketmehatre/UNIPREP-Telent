@@ -5,6 +5,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { firstValueFrom, interval, Subscription, takeWhile } from 'rxjs';
 import { AssessmentQuiz } from 'src/app/@Models/assessment.model';
 import { CostOfLivingService } from '../../job-tool/cost-of-living/cost-of-living.service';
+import { SalaryConverterService } from '../../job-tool/salary-converter/salary-converter.service';
 
 @Component({
   selector: 'uni-assessment-quiz',
@@ -43,25 +44,14 @@ export class AssessmentQuizComponent implements OnInit {
   timeover: number = 0;
   quizcount: number = 0;
 
-  constructor(private assessmentService: AssessmentService, private location: Location, private route: ActivatedRoute, private router: Router, private costOfLivingService: CostOfLivingService) { }
+  constructor(private assessmentService: AssessmentService, private location: Location, private route: ActivatedRoute, private router: Router, private costOfLivingService: CostOfLivingService, private salaryConverterService: SalaryConverterService) { }
 
   ngOnInit(): void {
     this.moduleId = this.route.snapshot.paramMap.get("moduleId") || '';
     if (this.moduleId) {
       this.title = this.moduleId === '21' ? 'Global Salary Converter' : 'Cost of Living';
-      this.moduleId === '21' ? this.getAssessmentsQuiz() : this.getAssessmentQuizList();
+      this.getAssessmentQuizList();
     }
-  }
-
-  getAssessmentsQuiz() {
-    this.assessmentService.getAssessmentsQuiz({ moduleId: this.moduleId, countryId: 0 }).subscribe({
-      next: (response: any) => {
-        this.isSkeletonVisible = false;
-      },
-      error: (error: any) => {
-        this.isSkeletonVisible = false;
-      }
-    });
   }
 
   getAssessmentQuizList() {
@@ -74,11 +64,47 @@ export class AssessmentQuizComponent implements OnInit {
     });
   }
 
-  async processQuestions() {
+  async processGSCQuestions() {
     for (const item of this.questions) {
       this.isSkeletonVisible = true;
       try {
-        // const sourceRateResponse: any = await firstValueFrom(this.costOfLivingService.currencyConvert({
+        const salaryConverterResponse = await firstValueFrom(this.salaryConverterService.getTaxData({
+          codes: item.source_country, amt: item.salary_amount
+        }));
+        switch (item.answer) {
+          case 1:
+            item.option1 = salaryConverterResponse.quiz_amount;
+            break;
+          case 2:
+            item.option2 = salaryConverterResponse.quiz_amount;
+            break;
+          case 3:
+            item.option3 = salaryConverterResponse.quiz_amount;
+            break;
+          case 4:
+            item.option4 = salaryConverterResponse.quiz_amount;
+            break;
+        }
+      } catch (error) {
+        console.error("Error processing item", item, error);
+      }
+    }
+    this.isSkeletonVisible = false;
+    this.activeQuestion = this.questions[this.page].question;
+    this.activeQuestionId = this.questions[this.page].id;
+    this.activeOptOne = this.questions[this.page].option1;
+    this.activeOptTwo = this.questions[this.page].option2;
+    this.activeOptThree = this.questions[this.page].option3;
+    this.activeOptFour = this.questions[this.page].option4;
+    this.quizcount = this.questions.length;
+    this.startTimer();
+  }
+
+  async processCOLQuestions() {
+    for (const item of this.questions) {
+      this.isSkeletonVisible = true;
+      try {
+        // const sourceRateResponse = await firstValueFrom(this.costOfLivingService.currencyConvert({
         //   countries: `United States,${item.source_country}`,
         // }));
         // this.sourceCountryRate = Number(sourceRateResponse.rate);
@@ -106,16 +132,16 @@ export class AssessmentQuizComponent implements OnInit {
         const diff = Number(sourcePrice.usd?.avg || 0) - Number(targetPrice.usd?.avg || 0);
         switch (item.answer) {
           case 1:
-            item.option1 = 'INR ' + (diff * this.targetCountryRate).toFixed(2);
+            item.option1 = `${targetPrice.currency_code} ${(diff * this.targetCountryRate).toFixed(2)}`;
             break;
           case 2:
-            item.option2 = 'INR ' + (diff * this.targetCountryRate).toFixed(2);
+            item.option2 = `${targetPrice.currency_code} ${(diff * this.targetCountryRate).toFixed(2)}`;
             break;
           case 3:
-            item.option3 = 'INR ' + (diff * this.targetCountryRate).toFixed(2);
+            item.option3 = `${targetPrice.currency_code} ${(diff * this.targetCountryRate).toFixed(2)}`;
             break;
           case 4:
-            item.option4 = 'INR ' + (diff * this.targetCountryRate).toFixed(2);
+            item.option4 = `${targetPrice.currency_code} ${(diff * this.targetCountryRate).toFixed(2)}`;
             break;
         }
       } catch (error) {
@@ -135,7 +161,7 @@ export class AssessmentQuizComponent implements OnInit {
 
   startQuiz() {
     this.isInstruction = false;
-    this.processQuestions();
+    this.moduleId === '21' ? this.processGSCQuestions() : this.processCOLQuestions();
   }
 
   nextQues() {
@@ -143,20 +169,18 @@ export class AssessmentQuizComponent implements OnInit {
       this.showError = true;
     } else {
       this.showError = false;
-      const answeredQuestion = this.results.find((item: any) => item.question_id == this.activeQuestionId); // Check if question already pushed in a list or not.  
-      if (answeredQuestion && answeredQuestion.answer != this.selectedValue) {
-        answeredQuestion.answer = this.selectedValue; // if previous selected option and new selected option are not same, then set new value.
+      const answeredQuestion = this.results.find((item: AssessmentQuiz) => item.id == this.activeQuestionId); // Check if question already pushed in a list or not.  
+      if (answeredQuestion && answeredQuestion.useranswer != this.selectedValue) {
+        answeredQuestion.useranswer = this.selectedValue; // if previous selected option and new selected option are not same, then set new value.
       }
       if (!answeredQuestion) {
-        let newResult: any = {
-          question_id: this.activeQuestionId,
-          answer: this.selectedValue
-        }
+        const newResult = this.questions.find(item => item.id == this.activeQuestionId) as AssessmentQuiz;
+        newResult.useranswer = this.selectedValue;
         this.results.push(newResult); // push only new questions
       }
       if (this.page != 4 && this.page < 4) {
         this.page = this.page + 1;
-        this.selectedValue = this.results[this.page]?.answer;
+        this.selectedValue = this.results[this.page]?.useranswer;
         this.activeQuestion = this.questions[this.page].question;
         this.activeQuestionId = this.questions[this.page].id;
         this.activeOptOne = this.questions[this.page].option1;
@@ -167,27 +191,27 @@ export class AssessmentQuizComponent implements OnInit {
       } else {
         this.progressvalue = (this.page + 1) * 20;
         var info = {
-          questions_id: this.results,
+          quizquestion: this.results,
+          module_id: this.moduleId
         }
         this.stopTimer();
-        // this.service.submitResult(info).subscribe(response => {
-        //   this.router.navigate([`/pages/national-exams/${this.route.snapshot.paramMap.get("categoryid")}/result/${response}`]);
-        // });
+        this.assessmentService.storeAssessmentQuizAns(info).subscribe(response => {
+          // this.router.navigate([`/pages/national-exams/${this.route.snapshot.paramMap.get("categoryid")}/result/${response}`]);
+        });
       }
     }
   }
 
   prevQues() {
-    const answeredQuestion = this.results.find((item: any) => item.question_id == this.activeQuestionId);
-    if (answeredQuestion && answeredQuestion.answer != this.selectedValue) {
-      answeredQuestion.answer = this.selectedValue;
+    const answeredQuestion = this.results.find((item: AssessmentQuiz) => item.id == this.activeQuestionId);
+    if (answeredQuestion && answeredQuestion.useranswer != this.selectedValue) {
+      answeredQuestion.useranswer = this.selectedValue;
     }
     if (!answeredQuestion) {
-      let newResult: any = {
-        question_id: this.activeQuestionId,
-        answer: this.selectedValue
-      }
+      const newResult = this.questions.find(item => item.id == this.activeQuestionId) as AssessmentQuiz;
+      newResult.useranswer = this.selectedValue;
       this.results.push(newResult);
+      console.log(this.results);
     }
     if (this.page != 0) {
       this.page = this.page - 1;
@@ -197,7 +221,7 @@ export class AssessmentQuizComponent implements OnInit {
       this.activeOptTwo = this.questions[this.page].option2;
       this.activeOptThree = this.questions[this.page].option3;
       this.activeOptFour = this.questions[this.page].option4;
-      this.selectedValue = this.results[this.page]?.answer;
+      this.selectedValue = this.results[this.page]?.useranswer;
       this.progressvalue = this.page * 20;
     }
   }

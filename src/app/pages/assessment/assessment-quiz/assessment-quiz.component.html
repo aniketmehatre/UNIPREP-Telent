@@ -84,19 +84,19 @@
         <p class="text-start mb-0 fw-semibold uniprep-primary">Question Number {{ page + 1 }}</p>
         <h4 class="uniprep-primarydark fw-bold text-start pt-2 pb-2 text-capitalize">{{ activeQuestion }}</h4>
         <div class="d-flex p-3 my-1" style="border: 1px solid #e3e3e3; border-radius: 10px">
-          <p-radioButton name="groupname" value="A" [(ngModel)]="selectedValue" inputId="opt1"></p-radioButton>
+          <p-radioButton name="groupname" [value]="1" [(ngModel)]="selectedValue" inputId="opt1"></p-radioButton>
           <label for="opt1" class="ps-2">{{ activeOptOne }}</label>
         </div>
         <div class="d-flex p-3 my-1" style="border: 1px solid #e3e3e3; border-radius: 10px">
-          <p-radioButton name="groupname" value="B" [(ngModel)]="selectedValue" inputId="opt2"></p-radioButton>
+          <p-radioButton name="groupname" [value]="2" [(ngModel)]="selectedValue" inputId="opt2"></p-radioButton>
           <label for="opt2" class="ps-2">{{ activeOptTwo }}</label>
         </div>
         <div class="d-flex p-3 my-1" style="border: 1px solid #e3e3e3; border-radius: 10px">
-          <p-radioButton name="groupname" value="C" [(ngModel)]="selectedValue" inputId="opt3"></p-radioButton>
+          <p-radioButton name="groupname" [value]="3" [(ngModel)]="selectedValue" inputId="opt3"></p-radioButton>
           <label for="opt3" class="ps-2">{{ activeOptThree }}</label>
         </div>
         <div class="d-flex p-3 my-1" style="border: 1px solid #e3e3e3; border-radius: 10px">
-          <p-radioButton name="groupname" value="D" [(ngModel)]="selectedValue" inputId="opt4"></p-radioButton>
+          <p-radioButton name="groupname" [value]="4" [(ngModel)]="selectedValue" inputId="opt4"></p-radioButton>
           <label for="opt4" class="ps-2">{{ activeOptFour }}</label>
         </div>
         <p style="color: red" class="fw-semibold" *ngIf="showError">Please select an answer</p>

@@ -5,6 +5,8 @@ import { AssessmentListComponent } from './assessment-list/assessment-list.compo
 import { AssessmentComponent } from './assessment.component';
 import { ContestRulesComponent } from './contest-rules/contest-rules.component';
 import { AssessmentQuizComponent } from './assessment-quiz/assessment-quiz.component';
+import { AssessmentQuizReviewComponent } from './assessment-quiz-review/assessment-quiz-review.component';
+import { AssessmentQuizResultComponent } from './assessment-quiz-result/assessment-quiz-result.component';
 
 const routes: Routes = [
     {
@@ -20,7 +22,13 @@ const routes: Routes = [
                 path: 'contest-rules', component: ContestRulesComponent
             },
             {
-                path: 'assessment-quiz/:moduleId', component: AssessmentQuizComponent
+                path: 'quiz/:moduleId', component: AssessmentQuizComponent
+            },
+            {
+                path: 'quiz-result/:moduleId', component: AssessmentQuizResultComponent
+            },
+            {
+                path: 'quiz-review/:moduleId', component: AssessmentQuizReviewComponent
             }
         ]
     }

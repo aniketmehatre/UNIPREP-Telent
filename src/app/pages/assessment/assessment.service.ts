@@ -30,15 +30,28 @@ export class AssessmentService {
     });
   }
 
-  getAssessmentsQuiz(data: any) {
-    return this.http.post<any>(environment.ApiUrl + "/quizquestions", data, {
-      headers: this.headers,
-    });
-  }
 
   getAssessmentQuizList(moduleId: string) {
     return this.http.get<AssessmentQuiz[]>(`${environment.ApiUrl}/getAssessmentQuiz?moduleId=${moduleId}`, {
       headers: this.headers,
     });
+  }
+
+  storeAssessmentQuizAns(data: any) {
+    return this.http.post<any>(`${environment.ApiUrl}/storeAssessmentQuizAns`, data, {
+      headers: this.headers,
+    });
+  }
+
+  showResult(data:any) {
+    return this.http.post<any>(`${environment.ApiUrl}/storeAssessmentQuizAns`, data, {
+      headers: this.headers,
+    });
+  }
+
+  getReviewAssessmentQuizAns(id:any) {
+    return this.http.get<any>(`${environment.ApiUrl}/reviewAssessmentQuizAns?moduleId=${id}`, {
+      headers: this.headers,
+    }); 
   }
 }

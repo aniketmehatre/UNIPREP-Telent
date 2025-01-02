@@ -208,8 +208,8 @@ export class SidenavComponent {
     },
     {
       title: 'Assessment',
-      url: '/pages/assessment',
-      image: 'fa-regular fa-badge',
+      url: '/pages/assessment/ilearn-challenge',
+      image: 'fa-regular fa-badge-check',
     },
     {
       title: "AI Global Advisor",
@@ -297,6 +297,7 @@ export class SidenavComponent {
   ehitlabelIsShow: boolean = true;
   orgnamewhitlabel: any;
   collegeStudentRestrictedMenus = ['Assessment'];
+  currentUserSubscriptionPlan: string =  '';
 
   constructor(
     private router: Router,
@@ -351,7 +352,7 @@ export class SidenavComponent {
     this.markCurrentMenu();
     this.authService.getNewUserTimeLeft().subscribe((res) => {
       let data = res.time_left;
-
+      this.currentUserSubscriptionPlan =  res?.subscription_details?.subscription_plan;
       if (data.plan === "expired" || data.plan === "subscription_expired") {
         this.conditionSubscribed = false;
       } else {
@@ -487,6 +488,11 @@ export class SidenavComponent {
           window.open(this.enterpriseSubscriptionLink, '_target');
           return;
         }
+      }
+      if(item.title == 'Assessment') {
+        const targetUrl = this.currentUserSubscriptionPlan === 'Career' ? item.url: '/pages/subscriptions/upgrade-subscription';
+        this.router.navigateByUrl(targetUrl);
+        return;
       }
       this.router.navigateByUrl(item.url || "/");
     }

@@ -20,7 +20,7 @@
     </div>
     <div class="card-body text-center flex-fill overflow-y-auto">
         <div class="row mb-0" *ngIf="isSkeletonVisible; else showTableData">
-            <div class="col-lg-8 mb-0 mb-md-3">
+            <div class="col-lg-8 mb-3 mb-md-0">
                 <p-skeleton height="35rem"></p-skeleton>
             </div>
             <div class="col-lg-4">
@@ -29,7 +29,7 @@
         </div>
         <ng-template #showTableData>
             <div class="row mb-0" *ngIf="!isInstruction; else showInstrction">
-                <div class="col-lg-8 mb-0 mb-md-3">
+                <div class="col-lg-8 mb-3 mb-md-0">
                     <div class="d-flex justify-content-between align-items-center mb-3">
                         <div class="overall-sec">Overall Score : {{currentScore}}/100</div>
                         <div class="contest-rules-btn" role="button" routerLink="/pages/assessment/contest-rules">

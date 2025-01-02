@@ -32,6 +32,7 @@ export class NationalExamQuestionsComponent implements OnInit {
   totalquiztime: any = 0;
   timeover: number = 0;
   quizcount: number = 0;
+  isInstruction: boolean = true;
 
   constructor(private service: NationalExamService, private route: ActivatedRoute, private router: Router, private location: Location) { }
 
@@ -49,10 +50,13 @@ export class NationalExamQuestionsComponent implements OnInit {
       this.activeOptThree = this.questions[this.page].option_three;
       this.activeOptFour = this.questions[this.page].option_four;
       this.quizcount = 10;
-      this.startTimer();
     });
   }
 
+  startQuiz() {
+    this.isInstruction = false;
+    this.startTimer();
+  }
 
   nextQues() {
     if (this.selectedValue == undefined) {

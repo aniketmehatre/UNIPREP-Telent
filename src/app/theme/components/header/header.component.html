@@ -88,7 +88,7 @@
               <button *ngIf="service._user?.student_type_id == 2" class="btn btn-ilearn" (click)="navigateILearnChallenge()">
                 <span *ngIf="!iLearnChallengeData.isILearn; else showRank" class="text-small fw-normal">iLearn Challenge</span>
                 <ng-template #showRank>
-                  <span class="text-small fw-normal ilearn-sec"><span class="rank">{{iLearnChallengeData.currentPosition}} out of {{iLearnChallengeData.overAllParticipants}}</span> <span class="participants">Participants</span></span>
+                  <span class="text-small fw-normal ilearn-sec"><span class="rank">{{iLearnChallengeData.currentPosition}} out of {{iLearnChallengeData.overAllParticipants}} </span> <span class="participants">Participants</span></span>
                 </ng-template>
               </button>
               <div label="" role="button" class="headerHomeCountry" [title]="homeCountryName">
@@ -194,7 +194,7 @@
             <button *ngIf="service._user?.student_type_id == 2" class="btn btn-ilearn me-2" (click)="navigateILearnChallenge()">
               <span *ngIf="!iLearnChallengeData.isILearn; else showRank" class="text-small fw-normal">iLearn Challenge</span>
               <ng-template #showRank>
-                <span class="text-small fw-normal ilearn-sec"><span class="rank">{{iLearnChallengeData.currentPosition}} out of {{iLearnChallengeData.overAllParticipants}}</span> <span class="participants">Participants</span></span>
+                <span class="text-small fw-normal ilearn-sec"><span class="rank">{{iLearnChallengeData.currentPosition}} out of {{iLearnChallengeData.overAllParticipants}} </span> <span class="participants">Participants</span></span>
               </ng-template>
             </button>
             <button *ngIf="whiteLabelIsNotShow" class="btn btn-primary btn-rounded me-2 ms-0 my-0" alt="chat with notification" (click)="onClickSubscribe()">
