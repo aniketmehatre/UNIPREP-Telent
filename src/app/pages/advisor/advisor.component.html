@@ -130,7 +130,7 @@
 		<div class="row justify-content-center" *ngFor="let chat of chatdata; let i = index" [id]="'chat-' + i">
 			<div class="col-md-8" #chatContainer>
 				<div class="advisor-question" *ngIf="chat.input == 1 || chat.input == 3">
-					<div class="d-flex align-items-center">
+					<div class="d-flex align-items-center mb-3">
 						<p class="UserFirstLetter">{{ chat.name.slice(0, 2) }}</p>
 						<div class="d-flex flex-column">
 							<p>{{ chat.name }}</p>
@@ -142,14 +142,14 @@
 				</div>
 				<div class="advisor-answer" *ngIf="chat.input == 2 || chat.input == 4">
 					<div class="d-flex flex-column" >
-						<div class="d-flex align-items-center" *ngIf="chat.input == 4">
+						<div class="d-flex align-items-center mb-3" *ngIf="chat.input == 4">
 							<p class="UserFirstLetter">{{ chat.name.slice(0, 2) }}</p>
 							<div class="d-flex flex-column">
 								<p>{{ chat.name }}</p>
 								<p>{{ chat.created }}</p>
 							</div>
 						</div>
-						<div class="d-flex align-items-center" *ngIf="chat.input == 2">
+						<div class="d-flex align-items-center mb-4" *ngIf="chat.input == 2">
 							<img style="width: 50px" src="../../../uniprep-assets/images/icon-light.svg" />
 							<div class="d-flex flex-column">
 								<p *ngIf="chat.input == 2">UNIPREP AI Advisor</p> 
@@ -198,7 +198,7 @@
 		<div class="row justify-content-center">
 			<div class="col-md-12">
 				<div class="p-inputgroup advisorinput">
-					<input type="text" [(ngModel)]="userQuestion" (keyup)="lengthCheck()" pInputText
+					<input type="text" [(ngModel)]="userQuestion" (keyup)="lengthCheck()" pInputText (keydown.enter)="getAns()" 
 						placeholder="Ask any questions you have about traveling abroad, studying abroad, career or entrepreneurship!" />
 					<button type="button" (click)="getAns()" class="btn btn-success btn-rounded" pButton pRipple
 						[disabled]="smallquestion"><i class="fa-solid fa-stars"></i> {{responseType}}</button>

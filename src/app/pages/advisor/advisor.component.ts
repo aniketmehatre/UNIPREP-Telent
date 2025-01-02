@@ -31,26 +31,13 @@ export class AdvisorComponent implements OnInit {
   responsiveOptions: any[] = [];
   planExpired!: boolean;
   restrict: boolean = false;
-  currentPlan: string = "";
+  // currentPlan: string = "";
   imagewhitlabeldomainname: any;
   orgnamewhitlabel: any;
   orglogowhitelabel: any;
   ehitlabelIsShow: boolean = true;
-  isQuestionEmpty: boolean = false;
-  // private scrollToBottom(): void {
-    // setTimeout(() => {
-    //   try {
-    //     const chatContainerElement = this.chatContainer.nativeElement;
-    //     const scrollHeight = chatContainerElement.scrollHeight;
-    //     const scrollPosition = scrollHeight * 0.85; // this code scrolls you when the last question and answer approximately only if the question contains the answer.
-    //     chatContainerElement.scrollTop = scrollPosition;
-    //   } catch (err) {
-    //     console.error('Scroll Error:', err);
-    //   }
-    // }, 300);  // Adjust delay if needed (100ms is usually enough for most cases)
-  // }
-  
-  
+  // isQuestionEmpty: boolean = false;
+
   constructor(private service: AdvisorService, private ngxService: NgxUiLoaderService,
     private route: ActivatedRoute, private pageFacade: PageFacadeService, private authService: AuthService,
     private locationService: LocationService, private router: Router,private messageService: MessageService
@@ -112,13 +99,6 @@ export class AdvisorComponent implements OnInit {
       this.smallquestion = false;
     }
   }
-
-  // ngAfterViewInit() {
-  //   // Ensure all loops have rendered
-  //   setTimeout(() => {
-  //     this.scrollToLastChat();
-  //   }, 0);
-  // }
   
   scrollToLastChat() {
     setTimeout(() => {
@@ -157,7 +137,7 @@ export class AdvisorComponent implements OnInit {
     if (this.userQuestion && this.userQuestion.trim() === '') {
       return
     }
-      this.isQuestionEmpty = true;
+    if(!this.smallquestion){
       if (this.askExpertResponse == 0) {
         this.isQuestionAsked = true;
         this.showSkeleton = true;
@@ -177,7 +157,7 @@ export class AdvisorComponent implements OnInit {
         this.isQuestionAsked = true;
         this.showSkeleton = true;
         this.isQuestionNotAsked = false;
-
+  
         this.ngxService.startBackground();
         var data = {
           question: this.userQuestion
@@ -191,8 +171,9 @@ export class AdvisorComponent implements OnInit {
           // alert("Thank you , Our team will get back to you in next 8 working hours");
           this.messageService.add({ severity:'success', summary: 'Success', detail: 'Thank you , Our team will get back to you in next 8 working hours'});
         });
-
+      }
     }
+    // this.isQuestionEmpty = true;
   }
 
   triggerSample(sample: any) {
@@ -223,10 +204,10 @@ export class AdvisorComponent implements OnInit {
   checkplanExpire() {
     this.authService.getNewUserTimeLeft().subscribe((res) => {
       let data = res.time_left;
-      let subscription_exists_status = res.subscription_details;
-      this.currentPlan = subscription_exists_status.subscription_plan;
-      if (data.plan === "expired" || data.plan === 'subscription_expired' ||
-        subscription_exists_status.subscription_plan === 'free_trail') {
+      // let subscription_exists_status = res.subscription_details;
+      // this.currentPlan = subscription_exists_status.subscription_plan;
+      //subscription_exists_status.subscription_plan === 'free_trail' //checking if the free trail is there or not.
+      if (data.plan === "expired" || data.plan === 'subscription_expired') {
         this.planExpired = true;
       } else {
         this.planExpired = false;
