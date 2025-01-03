@@ -14,8 +14,6 @@ import { ProgressBarModule } from 'primeng/progressbar';
 import { DialogModule } from 'primeng/dialog';
 import { FormsModule } from '@angular/forms';
 import { AssessmentQuizReviewComponent } from './assessment-quiz-review/assessment-quiz-review.component';
-import { AssessmentQuizResultComponent } from './assessment-quiz-result/assessment-quiz-result.component';
-
 
 
 @NgModule({
@@ -26,7 +24,6 @@ import { AssessmentQuizResultComponent } from './assessment-quiz-result/assessme
     ContestRulesComponent,
     AssessmentQuizComponent,
     AssessmentQuizReviewComponent,
-    AssessmentQuizResultComponent
   ],
   imports: [
     CommonModule,

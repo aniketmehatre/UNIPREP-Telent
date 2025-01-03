@@ -2,7 +2,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { environment } from '@env/environment';
 import { BehaviorSubject } from 'rxjs';
-import { AssessmentQuiz, AssessmentResponse } from 'src/app/@Models/assessment.model';
+import { AssessmentQuiz, AssessmentResponse, StoreQuizResponse, UserquizResponseData } from 'src/app/@Models/assessment.model';
 import { ILearnChallengeData, ILearnChallengeResponse } from 'src/app/@Models/ilearn-challenge.model';
 
 @Injectable({
@@ -38,20 +38,14 @@ export class AssessmentService {
   }
 
   storeAssessmentQuizAns(data: any) {
-    return this.http.post<any>(`${environment.ApiUrl}/storeAssessmentQuizAns`, data, {
+    return this.http.post<StoreQuizResponse>(`${environment.ApiUrl}/storeAssessmentQuizAns`, data, {
       headers: this.headers,
     });
   }
 
-  showResult(data:any) {
-    return this.http.post<any>(`${environment.ApiUrl}/storeAssessmentQuizAns`, data, {
+  getReviewAssessmentQuizAns(moduleId: string) {
+    return this.http.get<UserquizResponseData>(`${environment.ApiUrl}/reviewAssessmentQuizAns?moduleId=${moduleId}`, {
       headers: this.headers,
     });
-  }
-
-  getReviewAssessmentQuizAns(id:any) {
-    return this.http.get<any>(`${environment.ApiUrl}/reviewAssessmentQuizAns?moduleId=${id}`, {
-      headers: this.headers,
-    }); 
   }
 }

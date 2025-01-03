@@ -6,6 +6,7 @@ import { firstValueFrom, interval, Subscription, takeWhile } from 'rxjs';
 import { AssessmentQuiz } from 'src/app/@Models/assessment.model';
 import { CostOfLivingService } from '../../job-tool/cost-of-living/cost-of-living.service';
 import { SalaryConverterService } from '../../job-tool/salary-converter/salary-converter.service';
+import { MessageService } from 'primeng/api';
 
 @Component({
   selector: 'uni-assessment-quiz',
@@ -23,7 +24,7 @@ export class AssessmentQuizComponent implements OnInit {
   selectedValue: any;
   questions: AssessmentQuiz[] = [];
   question_id: any;
-  results: any = [];
+  results: AssessmentQuiz[] = [];
   showError: boolean = false;
   activeQuestion: string;
   activeQuestionId: number
@@ -31,6 +32,13 @@ export class AssessmentQuizComponent implements OnInit {
   activeOptTwo: string;
   activeOptThree: string;
   activeOptFour: string;
+  isStartQuiz: boolean = false;
+  isQuizSubmit: boolean = false;
+  percentageValue: string = '';
+  totalPercentage: number = 0;
+  certificatesurl: any = "";
+  totalanswercorret: number = 0;
+  totalanswerquistionaftersubmited: number = 0;
 
   sourceCountryPrices: any;
   targetCountryPrices: any;
@@ -44,7 +52,9 @@ export class AssessmentQuizComponent implements OnInit {
   timeover: number = 0;
   quizcount: number = 0;
 
-  constructor(private assessmentService: AssessmentService, private location: Location, private route: ActivatedRoute, private router: Router, private costOfLivingService: CostOfLivingService, private salaryConverterService: SalaryConverterService) { }
+  constructor(private assessmentService: AssessmentService, private location: Location, private route: ActivatedRoute,
+    private router: Router, private costOfLivingService: CostOfLivingService, private salaryConverterService: SalaryConverterService,
+    private toast: MessageService) { }
 
   ngOnInit(): void {
     this.moduleId = this.route.snapshot.paramMap.get("moduleId") || '';
@@ -58,10 +68,21 @@ export class AssessmentQuizComponent implements OnInit {
     this.assessmentService.getAssessmentQuizList(this.moduleId).subscribe({
       next: (response: AssessmentQuiz[]) => {
         this.questions = response;
+        this.quizcount = this.questions.length;
       },
       error: (error: any) => {
       }
     });
+  }
+
+  initializeQuiz() {
+    this.activeQuestion = this.questions[this.page].question;
+    this.activeQuestionId = this.questions[this.page].id;
+    this.activeOptOne = this.questions[this.page].option1;
+    this.activeOptTwo = this.questions[this.page].option2;
+    this.activeOptThree = this.questions[this.page].option3;
+    this.activeOptFour = this.questions[this.page].option4;
+    this.startTimer();
   }
 
   async processGSCQuestions() {
@@ -90,14 +111,7 @@ export class AssessmentQuizComponent implements OnInit {
       }
     }
     this.isSkeletonVisible = false;
-    this.activeQuestion = this.questions[this.page].question;
-    this.activeQuestionId = this.questions[this.page].id;
-    this.activeOptOne = this.questions[this.page].option1;
-    this.activeOptTwo = this.questions[this.page].option2;
-    this.activeOptThree = this.questions[this.page].option3;
-    this.activeOptFour = this.questions[this.page].option4;
-    this.quizcount = this.questions.length;
-    this.startTimer();
+    this.initializeQuiz();
   }
 
   async processCOLQuestions() {
@@ -149,18 +163,13 @@ export class AssessmentQuizComponent implements OnInit {
       }
     }
     this.isSkeletonVisible = false;
-    this.activeQuestion = this.questions[this.page].question;
-    this.activeQuestionId = this.questions[this.page].id;
-    this.activeOptOne = this.questions[this.page].option1;
-    this.activeOptTwo = this.questions[this.page].option2;
-    this.activeOptThree = this.questions[this.page].option3;
-    this.activeOptFour = this.questions[this.page].option4;
-    this.quizcount = this.questions.length;
-    this.startTimer();
+    this.initializeQuiz();
   }
 
   startQuiz() {
     this.isInstruction = false;
+    this.isStartQuiz = true;
+    this.isQuizSubmit = false;
     this.moduleId === '21' ? this.processGSCQuestions() : this.processCOLQuestions();
   }
 
@@ -195,8 +204,25 @@ export class AssessmentQuizComponent implements OnInit {
           module_id: this.moduleId
         }
         this.stopTimer();
-        this.assessmentService.storeAssessmentQuizAns(info).subscribe(response => {
-          // this.router.navigate([`/pages/national-exams/${this.route.snapshot.paramMap.get("categoryid")}/result/${response}`]);
+        this.assessmentService.storeAssessmentQuizAns(info).subscribe(res => {
+          this.totalPercentage = res.percentageCompleted;
+          this.totalanswerquistionaftersubmited = res.totalquestions;
+          this.totalanswercorret = res.answered;
+          if (this.totalPercentage < 40) {
+            this.percentageValue = 'Average';
+          } else if (this.totalPercentage >= 40 && this.totalPercentage <= 80) {
+            this.percentageValue = 'Good';
+          } else {
+            this.percentageValue = 'Excellent';
+          }
+          this.toast.add({
+            severity: "success",
+            summary: "success",
+            detail: res.message,
+          });
+          this.isInstruction = false;
+          this.isStartQuiz = false;
+          this.isQuizSubmit = true;
         });
       }
     }
@@ -226,19 +252,25 @@ export class AssessmentQuizComponent implements OnInit {
     }
   }
 
-  formatTime(seconds: number): string {
-    const minutes: number = Math.floor(seconds / 60);
-    const remainingSeconds: number = seconds % 60;
-    return `${this.padZero(minutes)}:${this.padZero(remainingSeconds)}`;
-  }
-
-  padZero(num: number): string {
-    return num < 10 ? '0' + num : num.toString();
-  }
-
   closeQuiz() {
     this.stopTimer();
     this.location.back();
+  }
+
+  retryQuiz() {
+    this.isInstruction = true;
+    this.isStartQuiz = false;
+    this.isQuizSubmit = false;
+    this.page = 0;
+    this.initializeQuiz();
+  }
+
+  takeAnotherquiz() {
+    this.router.navigate([`/pages/assessment/ilearn-challenge`]);
+  }
+
+  gotoReview() {
+    this.router.navigate([`/pages/assessment/quiz-review/${this.moduleId}`]);
   }
 
   startTimer(): void {
@@ -262,6 +294,16 @@ export class AssessmentQuizComponent implements OnInit {
     if (this.timerSubscription) {
       this.timerSubscription.unsubscribe();
     }
+  }
+
+  formatTime(seconds: number): string {
+    const minutes: number = Math.floor(seconds / 60);
+    const remainingSeconds: number = seconds % 60;
+    return `${this.padZero(minutes)}:${this.padZero(remainingSeconds)}`;
+  }
+
+  padZero(num: number): string {
+    return num < 10 ? '0' + num : num.toString();
   }
 
   goBack() {

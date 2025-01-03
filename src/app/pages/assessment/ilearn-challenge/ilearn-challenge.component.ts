@@ -48,7 +48,7 @@ export class IlearnChallengeComponent implements OnInit, OnDestroy {
           this.currentPositionIndex = userIndex;
           this.findUserPosition(userIndex + 1);
           this.currentScore = this.leaderBoardList[userIndex].total_score;
-          this.assessmentService.iLearnChallenge.next({overAllParticipants:this.leaderBoardList.length, currentPosition:userIndex+1, isILearn: true});
+          this.assessmentService.iLearnChallenge.next({ overAllParticipants: this.leaderBoardList.length, currentPosition: userIndex + 1, isILearn: true });
         }
       },
       error: (error: any) => {
@@ -81,6 +81,12 @@ export class IlearnChallengeComponent implements OnInit, OnDestroy {
       case 'Cover Letter Builder':
         this.router.navigate(['/pages/job-tool/coverletter-builder']);
         break;
+      case 'Cost of Living':
+        this.router.navigate(['/pages/assessment/quiz', data.module_id]);
+        break;
+      case 'Global Salary Converter':
+        this.router.navigate(['/pages/assessment/quiz', data.module_id]);
+        break;
     }
   }
 
@@ -95,6 +101,6 @@ export class IlearnChallengeComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy() {
-    this.assessmentService.iLearnChallenge.next({overAllParticipants:0, currentPosition:0, isILearn: false});
+    this.assessmentService.iLearnChallenge.next({ overAllParticipants: 0, currentPosition: 0, isILearn: false });
   }
 }

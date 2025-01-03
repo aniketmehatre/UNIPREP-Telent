@@ -33,3 +33,40 @@ export interface AssessmentQuiz {
   useranswer: string;
   created_at?: string;
 }
+
+export interface UserquizResponseData {
+  success: boolean;
+  userquiz: UserquizResponse[];
+}
+
+export interface UserquizResponse {
+  id: number;
+  user_id: number;
+  country_id: any;
+  module_id: number;
+  submodule_id: any;
+  language_id: any;
+  languagetype: any;
+  question: string;
+  option1: string;
+  option2: string;
+  option3: string;
+  option4: string;
+  option5: any;
+  option6: any;
+  answer: number;
+  useranswer: number;
+  faqquestion_link: any;
+  retry: any;
+  status: number;
+  created_at: string;
+  updated_at: string;
+}
+
+export interface StoreQuizResponse {
+  status: string;
+  message: string;
+  percentageCompleted: number;
+  totalquestions: number;
+  answered: number;
+}
