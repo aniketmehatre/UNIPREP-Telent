@@ -7,7 +7,6 @@ import { TooltipModule } from 'primeng/tooltip';
 import { IlearnChallengeComponent } from './ilearn-challenge/ilearn-challenge.component';
 import { AssessmentListComponent } from './assessment-list/assessment-list.component';
 import { TableModule } from 'primeng/table';
-import { ContestRulesComponent } from './contest-rules/contest-rules.component';
 import { AssessmentQuizComponent } from './assessment-quiz/assessment-quiz.component';
 import { RadioButtonModule } from 'primeng/radiobutton';
 import { ProgressBarModule } from 'primeng/progressbar';
@@ -21,7 +20,6 @@ import { AssessmentQuizReviewComponent } from './assessment-quiz-review/assessme
     AssessmentComponent,
     IlearnChallengeComponent,
     AssessmentListComponent,
-    ContestRulesComponent,
     AssessmentQuizComponent,
     AssessmentQuizReviewComponent,
   ],

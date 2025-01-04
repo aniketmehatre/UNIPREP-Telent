@@ -22,13 +22,13 @@ export class IlearnChallengeComponent implements OnInit, OnDestroy {
   instructionTitle: string = '';
   isInstruction: boolean = false;
   pdfURL: any;
+  contestRulePdfURL: any;
 
   constructor(
     private assessmentService: AssessmentService,
     private authService: AuthService,
     private router: Router,
     private sanitizer: DomSanitizer
-
   ) { }
 
   ngOnInit(): void {
@@ -43,6 +43,7 @@ export class IlearnChallengeComponent implements OnInit, OnDestroy {
         this.leaderBoardList = response.leaderBoard;
         this.iLearnChallengeModuleList = response.userData;
         this.overallScore = response.overallScore;
+        this.contestRulePdfURL = this.sanitizer.bypassSecurityTrustResourceUrl('https://api.uniprep.ai/uniprepapi/storage/app/public/Unilearn//GenralInfo/IELTSAcademic/Test_Format_and_Structure_.pdf');
         let userIndex = this.leaderBoardList.findIndex(item => item.user_id == this.authService._user?.user_id);
         if (userIndex !== -1) {
           this.currentPositionIndex = userIndex;
@@ -94,6 +95,12 @@ export class IlearnChallengeComponent implements OnInit, OnDestroy {
     this.isInstruction = true;
     this.instructionTitle = data.submodule_name;
     this.pdfURL = this.sanitizer.bypassSecurityTrustResourceUrl(data.instruction_guide);
+  }
+
+  onClickContestRule() {
+    this.isInstruction = true;
+    this.instructionTitle = 'Contest Rules';
+    this.pdfURL = this.contestRulePdfURL;
   }
 
   goBack() {
