@@ -6,6 +6,7 @@ import {LanguageHubDataService} from "../language-hub-data.service";
 import {Location} from "@angular/common";
 import { PageFacadeService } from '../../page-facade.service';
 import {LanguageArrayGlobalService} from "../language-array-global.service";
+import { AuthService } from 'src/app/Auth/auth.service';
 
 @Component({
     selector: 'uni-levels',
@@ -20,7 +21,7 @@ export class LevelsComponent implements OnInit {
     selectedLanguageName: string =  "";
     
     constructor(private languageHubService: LanguageHubService, private lhs:LanguageHubDataService, private router: Router,
-                private location: Location, private pageFacade:PageFacadeService,
+                private location: Location, private pageFacade:PageFacadeService, public authService: AuthService,
                 private languageArrayGlobalService: LanguageArrayGlobalService) {
         this.lhs.data$.subscribe((data) => {
             this.selectedLanguageId = data
