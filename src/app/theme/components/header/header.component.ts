@@ -1112,7 +1112,8 @@ export class HeaderComponent implements OnInit, OnDestroy {
   protected readonly count = count;
 
   navigateILearnChallenge() {
-    const targetUrl = this.currentUserSubscriptionPlan === 'Career' || this.currentUserSubscriptionPlan === 'Entrepreneur' ? '/pages/assessment/ilearn-challenge': '/pages/subscriptions/upgrade-subscription';
+    const targetUrl = this.currentUserSubscriptionPlan === 'Career' || this.currentUserSubscriptionPlan === 'Entrepreneur' 
+    ? '/pages/assessment/ilearn-challenge': this.service?.user?.subscription ? '/pages/subscriptions/upgrade-subscription' : '/pages/subscriptions';
     this.router.navigateByUrl(targetUrl);
   }
 }
