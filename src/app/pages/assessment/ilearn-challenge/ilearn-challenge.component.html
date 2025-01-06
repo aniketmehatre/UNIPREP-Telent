@@ -35,12 +35,12 @@
             <div class="row mb-0" *ngIf="!isInstruction; else showInstrction">
                 <div class="col-lg-8 mb-3 mb-md-0">
                     <div class="d-flex justify-content-between align-items-center mb-3">
-                        <div class="overall-sec">Overall Score : {{currentScore}}/100</div>
+                        <div class="overall-sec">Overall Score : {{currentScore}}/50</div>
                         <div class="contest-rules-btn" role="button" (click)="onClickContestRule()">
                             Contest Rules</div>
                     </div>
                     <p-table [value]="iLearnChallengeModuleList" class="ilearn-challenge-table" [paginator]="true"
-                        [rows]="10" [rowsPerPageOptions]="[10, 25, 50]">
+                        [rows]="25" [rowsPerPageOptions]="[25, 50, 100]">
                         <ng-template pTemplate="header">
                             <tr>
                                 <th>Sl.No</th>
@@ -79,8 +79,8 @@
                         <h4 class="uniprep-primary">Leaderboard</h4>
                         <div class="leaderboard-sec" *ngIf="currentPosition">You are in {{currentPosition}} place</div>
                     </div>
-                    <p-table [value]="leaderBoardList" class="ilearn-challenge-table" [paginator]="true" [rows]="10"
-                        [rowsPerPageOptions]="[10, 25, 50]">
+                    <p-table [value]="leaderBoardList" class="ilearn-challenge-table" [paginator]="true" [rows]="25"
+                        [rowsPerPageOptions]="[25, 50, 100]">
                         <ng-template pTemplate="header">
                             <tr>
                                 <th>Sl.No</th>
@@ -93,8 +93,8 @@
                             <tr [ngClass]="{ 'uniprep-secondary': rowIndex === currentPositionIndex }">
                                 <td>{{ rowIndex + 1 }}</td>
                                 <td>{{ data.user_name }}</td>
-                                <td>{{ data.total_score }}/100</td>
-                                <td>{{ data.total_score == 100 ? 'Completed' : 'In-Progress' }}</td>
+                                <td>{{ data.total_score }}/50</td>
+                                <td>{{ data.total_score == 50 ? 'Completed' : 'In-Progress' }}</td>
                             </tr>
                         </ng-template>
                     </p-table>

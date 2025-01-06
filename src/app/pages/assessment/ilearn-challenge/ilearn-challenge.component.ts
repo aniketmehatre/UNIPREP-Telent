@@ -88,6 +88,12 @@ export class IlearnChallengeComponent implements OnInit, OnDestroy {
       case 'Global Salary Converter':
         this.router.navigate(['/pages/assessment/quiz', data.module_id]);
         break;
+      case 'Employer Test':
+        this.router.navigate(['/pages/language-hub/levels', data.submodule_id]);
+        break;
+      case 'Language Hub':
+        this.router.navigate(['/pages/language-hub/levels', data.submodule_id]);
+        break;
     }
   }
 

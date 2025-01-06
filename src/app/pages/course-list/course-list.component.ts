@@ -433,6 +433,7 @@ export class CourseListComponent implements OnInit {
   }
 
   next(productId: number): void {
+    debugger
     this.invalidClass = false;
     if (productId in this.selectedData) {
       if (this.activePageIndex < this.recommendations.length - 1) {
