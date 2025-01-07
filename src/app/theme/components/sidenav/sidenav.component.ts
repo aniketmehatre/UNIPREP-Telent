@@ -135,7 +135,11 @@ export class SidenavComponent {
       url: "/pages/job-tool/cost-of-living",
       image: "fa-solid fa-dollar-sign",
     },
-
+    {
+      title: "Travel Tools",
+      url: "/pages/travel-tools",
+      image: "fa-solid fa-compass",
+    },
     {
       title: 'Career',
       url: '',

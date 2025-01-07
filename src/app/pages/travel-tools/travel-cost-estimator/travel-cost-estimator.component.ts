@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { CostOfLivingService } from '../job-tool/cost-of-living/cost-of-living.service';
+import { CostOfLivingService } from '../../job-tool/cost-of-living/cost-of-living.service';
 import { City } from 'src/app/@Models/cost-of-living';
 
 @Component({
@@ -59,8 +59,9 @@ export class TravelCostEstimatorComponent implements OnInit {
         this.departureLocationList = response;
         this.destinationLocationList = response;
       }
-    })
+    });
   }
+
   customFilterFunction(type: string) {
     if (type === 'departure') {
       if (this.departureFilter === "") {
@@ -80,9 +81,8 @@ export class TravelCostEstimatorComponent implements OnInit {
         city?.city_name?.toLowerCase().includes(this.destinationFilter.toLowerCase()) || city.country_name.toLowerCase().includes(this.destinationFilter.toLowerCase())
       );
     }
-
-
   }
+
   resetFunction(type: string) {
     if (type === 'departure') {
       this.departureFilter = '';
@@ -107,14 +107,15 @@ export class TravelCostEstimatorComponent implements OnInit {
     this.departureFilter = "";
     this.destinationFilter = "";
     this.invalidClass = false;
-    if (productId in this.selectedData) {
+    // if (productId in this.selectedData) {
       if (this.activePageIndex < this.recommendations.length - 1) {
         this.activePageIndex++;
       }
-    } else {
-      this.invalidClass = true;
-    }
+    // } else {
+    //   this.invalidClass = true;
+    // }
   }
+
   getRecommendation() {
 
   }

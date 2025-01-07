@@ -89,10 +89,11 @@ export class IlearnChallengeComponent implements OnInit, OnDestroy {
         this.router.navigate(['/pages/assessment/quiz', data.module_id]);
         break;
       case 'Employer Test':
-        this.router.navigate(['/pages/language-hub/levels', data.submodule_id]);
+        this.router.navigate(['pages/job-tool/quiz/employer/list', data.category_id]);
         break;
       case 'Language Hub':
-        this.router.navigate(['/pages/language-hub/levels', data.submodule_id]);
+        data.submodule_id == 100 ? this.router.navigate(['/pages/language-hub/languages'])
+          : this.router.navigate(['/pages/language-hub/levels', data.submodule_id]);
         break;
     }
   }
