@@ -8,7 +8,7 @@ import { Currency } from 'src/app/@Models/currency.model';
 })
 export class TravelToolsService {
 
- headers = new HttpHeaders().set("Accept", "application/json");
+  headers = new HttpHeaders().set("Accept", "application/json");
 
   constructor(
     private http: HttpClient
@@ -20,8 +20,14 @@ export class TravelToolsService {
     });
   }
 
-  getRecommendationforTravelCostEstimator(data:any) {
-    return this.http.post<{response:string}>(environment.ApiUrl + "/careerplannercountrywisecurrency", data, {
+  getRecommendationforTravelCostEstimator(data: any) {
+    return this.http.post<{ response: string }>(environment.ApiUrl + "/careerplannercountrywisecurrency", data, {
+      headers: this.headers,
+    });
+  }
+
+  getCountriesList() {
+    return this.http.post<any>(environment.ApiUrl + "/AllCountries", {
       headers: this.headers,
     });
   }

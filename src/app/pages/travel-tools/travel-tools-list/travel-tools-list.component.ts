@@ -12,7 +12,7 @@ export class TravelToolsListComponent implements OnInit {
         title: "Gloabal Travel Visa",
         description:'This tool lets you get a global travel visa with the help of few easy steps',
         image: "https://api.uniprep.ai/uniprepapi/storage/app//public/icon/modules/job-interview.svg",
-        url: "/pages/travel-tools/travel-cost-estimator",
+        url: "/pages/travel-tools/travel-visa",
       },
       {
         title: "Travel Cost Estimator",
