@@ -72,4 +72,23 @@ checkModuleQuizCompletion(data: any) {
       headers: headers,
   });
 }
+// wealth leaders
+wealthLeadersList(data: any) {
+  const headers = new HttpHeaders().set("Accept", "application/json");
+  return this.http.post<any>(environment.ApiUrl + "/getwealthleaderlist", data, {
+      headers: headers,
+  });
+}
+getCountry() {
+  const headers = new HttpHeaders().set("Accept", "application/json");
+  return this.http.get<any>(environment.ApiUrl + "/getwealthleadercountrylist", {
+      headers: headers,
+  });
+}
+wealthLeadersListquizAns(data: any) {
+  const headers = new HttpHeaders().set("Accept", "application/json");
+  return this.http.post<any>(environment.ApiUrl + "/getwealthleaderqa", data, {
+      headers: headers,
+  });
+}
 }

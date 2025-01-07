@@ -1,0 +1,45 @@
+<div class="body" *ngIf="isFormVisible">
+    <form role="form" [formGroup]="form" (ngSubmit)="formSubmit()">
+        <div class="row">
+            <div class="col-12">
+                <div class="form-group">
+                    <h3>Select Your Country</h3>
+                    <p-dropdown [options]="countries" styleClass="w-100 rounded-pill border-primary"
+                        formControlName="country" optionValue="country" optionLabel="country"
+                        placeholder="Select Country" [filter]="true" [showClear]="true"> </p-dropdown>
+                    <div *ngIf="submitted && form.get('country')?.hasError('required')" style="color: red;">
+                        Country is required.
+                    </div>
+                </div>
+            </div>
+            <div class="col-12">
+                <div class="form-group">
+                    <h3>Select Your Preferred Currency</h3>
+                    <p-dropdown [options]="countries" styleClass="w-100 rounded-pill border-primary"
+                        formControlName="currency" optionValue="currency_code" optionLabel="currency_code"
+                        placeholder="Select Currency" [filter]="true" [showClear]="true"> </p-dropdown>
+                    <div *ngIf="submitted && form.get('currency')?.hasError('required')" style="color: red;">
+                        Currency is required.
+                    </div>
+                </div>
+            </div>
+        </div>
+        <button pButton class="btn btn-success btn-rounded footer-btn" type="submit">
+            <span class="me-2">Get Recommendations</span>
+            <span class="btn-icon px-2 py-2">
+                <i class="fa fa-check-circle"></i>
+            </span>
+        </button>
+    </form>
+</div>
+<div *ngIf="!isFormVisible">
+    <div class="row">
+        <div class="col-12">
+            <div class="card">
+                <div class="card-body overflow-x-auto">
+                    <div class="readingarea" [innerHTML]="customizedResponse"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

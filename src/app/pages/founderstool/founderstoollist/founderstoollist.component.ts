@@ -91,4 +91,7 @@ export class FounderstoollistComponent implements OnInit {
   clearRestriction() {
     this.restrict = false;
   }
+  openWealthLeaders(){
+    this.router.navigate(['/pages/founderstool/wealthleaderslist']);
+  }
 }

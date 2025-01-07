@@ -109,6 +109,17 @@ export class JobToolComponent implements OnInit {
       this.tooltip = "Track your professional development and set goals with our career progression tool."
       this.hideTitleForPreviewPage = false;
       this.howItWorksVideo = 'https://www.youtube.com/embed/hwH7xDhaE4c?si=gZG11AMS2BxCYAY1';
+    } else if (this.currentRoute.includes("careerplannerlist")) {
+      this.title = "Career Tools -> Career Planner";
+      this.tooltip = "Plan your career path by exploring job opportunities worldwide."
+      this.hideTitleForPreviewPage = false;
+      this.howItWorksVideo = 'https://www.youtube.com/embed/hwH7xDhaE4c?si=gZG11AMS2BxCYAY1';
+    } 
+    else if (this.currentRoute.includes("careerplannercountrywise")) {
+      this.title = "Career Tools -> Career Planner";
+      this.tooltip = "Plan your career path by exploring job opportunities worldwide."
+      this.hideTitleForPreviewPage = false;
+      this.howItWorksVideo = 'https://www.youtube.com/embed/hwH7xDhaE4c?si=gZG11AMS2BxCYAY1';
     } 
     else {
       this.title = "Career Tools -> Employer Test";

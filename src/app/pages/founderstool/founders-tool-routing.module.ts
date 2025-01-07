@@ -8,6 +8,8 @@ import { StartupglossaryComponent } from './startupglossary/startupglossary.comp
 import { EntreprenuerskillmoduleComponent } from './entreprenuerskillmodule/entreprenuerskillmodule.component';
 import { EntreprenuersectorproficiencyComponent } from './entreprenuersectorproficiency/entreprenuersectorproficiency.component';
 import { EntreprenuerquizComponent } from './entreprenuerquiz/entreprenuerquiz.component';
+import { WealthleaderslistComponent } from './wealthleaderslist/wealthleaderslist.component';
+import { WealthleaderreadansComponent } from './wealthleaderreadans/wealthleaderreadans.component';
 
 const routes: Routes = [
   {
@@ -34,6 +36,12 @@ const routes: Routes = [
        {
         path: ':module_name/entrpreneurquiz', component: EntreprenuerquizComponent
       },
+      {
+        path: 'wealthleaderslist', component: WealthleaderslistComponent
+      }, 
+      {
+        path:'wealthleaderreadanswer/:id',component:WealthleaderreadansComponent
+      }
     ]
   }
 ];

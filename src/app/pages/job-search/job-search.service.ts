@@ -106,4 +106,16 @@ export class JobSearchService {
         headers: headers,
         });
     }
+    getCountryCurrency() {
+        const headers = new HttpHeaders().set("Accept", "application/json");
+        return this.http.post<any>(environment.ApiUrl + "/getcountryandcurrency",{
+        headers: headers,
+        });
+    }
+    getCountryCurrencyChatGptOutput(data:any) {
+        const headers = new HttpHeaders().set("Accept", "application/json");
+        return this.http.post<any>(environment.ApiUrl + "/careerplannercountrywisecurrency",data,{
+        headers: headers,
+        });
+    }
 }

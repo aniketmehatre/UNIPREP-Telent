@@ -20,6 +20,8 @@ import { StartupglossaryComponent } from '../startupglossary/startupglossary.com
 import { EntreprenuerskillmoduleComponent } from '../entreprenuerskillmodule/entreprenuerskillmodule.component';
 import { EntreprenuersectorproficiencyComponent } from '../entreprenuersectorproficiency/entreprenuersectorproficiency.component';
 import { EntreprenuerquizComponent } from '../entreprenuerquiz/entreprenuerquiz.component';
+import { WealthleaderslistComponent } from '../wealthleaderslist/wealthleaderslist.component';
+import { WealthleaderreadansComponent } from '../wealthleaderreadans/wealthleaderreadans.component';
 
 
 @NgModule({
@@ -32,6 +34,8 @@ import { EntreprenuerquizComponent } from '../entreprenuerquiz/entreprenuerquiz.
     EntreprenuerskillmoduleComponent,
     EntreprenuersectorproficiencyComponent,
     EntreprenuerquizComponent,
+    WealthleaderslistComponent,
+    WealthleaderreadansComponent
   ],
   imports: [
     CommonModule,

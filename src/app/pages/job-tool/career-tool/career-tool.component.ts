@@ -137,7 +137,8 @@ export class CareerToolComponent implements OnInit {
     } else if (mode == "coverletter-builder") {
       this.router.navigate(['/pages/job-tool/coverletter-builder']);
     } else if (mode == "career-planner") {
-      this.router.navigate(['/pages/job-tool/career-planner']);
+      // this.router.navigate(['/pages/job-tool/career-planner']);
+      this.router.navigate(['/pages/job-tool/careerplannerlist']);
     } else if (mode == "cost-of-living") {
       this.router.navigate(['/pages/job-tool/cost-of-living']);
     } else if (mode == "salary-converter") {
