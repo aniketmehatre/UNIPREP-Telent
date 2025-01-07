@@ -2112,4 +2112,11 @@ uni-assessment {
 
 .instructionlist li {
 	margin-bottom: 20px;
-  }
+}
+
+  @media (min-width: 992px) {
+    .col-custom-lg-2 {
+        flex: 0 0 auto;
+        width: 20%;
+    }
+}

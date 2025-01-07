@@ -70,7 +70,7 @@
                                                     </div>
                                                     <div>
                                                         <span *ngIf="country.city_name !== null">
-                                                            {{ country.city_name }}, 
+                                                            {{ country.city_name }},
                                                         </span>{{ country.country_name }}
                                                     </div>
                                                 </div>
@@ -81,7 +81,7 @@
                                     </ng-container>
                                     <ng-container *ngIf="recommendation.id == 2">
                                         <p-dropdown [options]="destinationLocationList" optionValue="city_id"
-                                            placeholder="Departure Country" [filter]="true" [virtualScroll]="true"
+                                            placeholder="Destination Country" [filter]="true" [virtualScroll]="true"
                                             [virtualScrollItemSize]="50" [showClear]="true" [appendTo]="'body'"
                                             styleClass="w-100 border-secondary"
                                             [(ngModel)]="selectedData[recommendation.id]">
@@ -102,7 +102,8 @@
                                             <ng-template pTemplate="selectedItem" let-selectedOption>
                                                 <div class="d-flex align-items-center gap-2">
                                                     <div class="dropdownimg">
-                                                        <img [src]="selectedOption.flag" class="img-fluid" /></div>
+                                                        <img [src]="selectedOption.flag" class="img-fluid" />
+                                                    </div>
                                                     <div>
                                                         <span *ngIf="selectedOption.city_name !== null">
                                                             {{ selectedOption.city_name }},
@@ -118,7 +119,7 @@
                                                     <div>
                                                         <span *ngIf="country.city_name !== null">
                                                             {{ country.city_name }},
-                                                         </span>{{ country.country_name }}
+                                                        </span>{{ country.country_name }}
                                                     </div>
                                                 </div>
                                             </ng-template>
@@ -127,12 +128,12 @@
                                             style="color: red">Please Choose Any one option</p>
                                     </ng-container>
                                     <ng-container *ngIf="recommendation.id == 3">
-                                        <!-- <div class="cube-container gap-3">
-                            <div *ngFor="let cube of studyLevelCubes" class="cube" (click)="selectCube(3, cube.id)" [ngClass]="{ selected: selectedData[3]?.includes(cube.id) }">
-                              <label>{{ cube.label }}</label>
-                              <i class="fa-solid fa-circle-check tickPlacement" *ngIf="selectedData[3]?.includes(cube.id)"></i>
-                            </div>
-                          </div> -->
+                                        <p-inputNumber [showButtons]="true" buttonLayout="horizontal"
+                                            spinnerMode="horizontal" incrementButtonIcon="pi pi-plus"
+                                            incrementButtonClass="plus-icon" decrementButtonClass="minus-icon"
+                                            decrementButtonIcon="pi pi-minus" suffix=" days" [min]="1" [max]="5" [step]="1"
+                                            [inputStyle]="{'pointer-events': 'none', 'caret-color': 'transparent'}">
+                                        </p-inputNumber>
                                         <p class="text-center" [ngClass]="{ 'd-none': invalidClass === false }"
                                             style="color: red">Please Choose Any one option</p>
                                     </ng-container>

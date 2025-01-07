@@ -256,8 +256,8 @@ const routes: Routes = [
                 loadChildren: () => import('./assessment/assessment.module').then(m => m.AssessmentModule)
             },
             {
-                path: 'travel-cost-estimator',
-                loadChildren: () => import('./travel-cost-estimator/travel-cost-estimator.module').then(m => m.TravelCostEstimatorModule)
+                path: 'travel-tools',
+                loadChildren: () => import('./travel-tools/travel-tools.module').then(m => m.TravelToolsModule)
             },
         ]
     }
