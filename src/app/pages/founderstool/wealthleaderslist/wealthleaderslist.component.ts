@@ -73,9 +73,8 @@ export class WealthleaderslistComponent implements OnInit {
     this.perpage = event.rows;
     this.getWealthLeaders();
   }
-  viewReadAns(id:any){
-    console.log(id);
+  viewReadAns(id:any,name:any){
+    localStorage.setItem("wealthleadersname",name)
     this.router.navigate(['/pages/founderstool/wealthleaderreadanswer',id]);
-
   }
 }

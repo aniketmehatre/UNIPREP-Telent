@@ -91,4 +91,10 @@ wealthLeadersListquizAns(data: any) {
       headers: headers,
   });
 }
+wealthLeadersquestion(data: any) {
+  const headers = new HttpHeaders().set("Accept", "application/json");
+  return this.http.post<any>(environment.ApiUrl + "/getwealthleaderquestion", data, {
+      headers: headers,
+  });
+}
 }
