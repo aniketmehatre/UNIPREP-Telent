@@ -36,13 +36,19 @@ export class TravelToolsListComponent implements OnInit {
         title: "Trip Length Finder",
         description:'This tool lets you get a global travel visa with the help of few easy steps',
         image: "https://api.uniprep.ai/uniprepapi/storage/app//public/icon/modules/job-interview.svg",
-        url: "/pages/travel-tools/travel-cost-estimator",
+        url: "/pages/travel-tools/trip-length-finder",
       },
       {
         title: "Travel Glossary",
         description:'This tool lets you get a global travel visa with the help of few easy steps',
         image: "https://api.uniprep.ai/uniprepapi/storage/app//public/icon/modules/job-interview.svg",
-        url: "/pages/travel-tools/travel-cost-estimator",
+        url: "/pages/travel-tools/travel-glossary",
+      },
+      {
+        title: "Cost of Living Comparision",
+        description:'This tool lets you get a global travel visa with the help of few easy steps',
+        image: "https://api.uniprep.ai/uniprepapi/storage/app//public/icon/modules/job-interview.svg",
+        url: "/pages/travel-tools/cost-of-living-comparision",
       },
     ];
 

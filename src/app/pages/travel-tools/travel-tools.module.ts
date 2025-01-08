@@ -15,6 +15,10 @@ import { InputNumberModule } from 'primeng/inputnumber';
 import { GlobalTravelVisaComponent } from './global-travel-visa/global-travel-visa.component';
 import { TravelPackingPlannerComponent } from './travel-packing-planner/travel-packing-planner.component';
 import { TravelVisitPlannerComponent } from './travel-visit-planner/travel-visit-planner.component';
+import { MultiSelectModule } from 'primeng/multiselect';
+import { TripLengthFinderComponent } from './trip-length-finder/trip-length-finder.component';
+import { TravelGlossaryComponent } from './travel-glossary/travel-glossary.component';
+import { CostOfLivingComparisionComponent } from './cost-of-living-comparision/cost-of-living-comparision.component';
 
 @NgModule({
   declarations: [
@@ -23,7 +27,7 @@ import { TravelVisitPlannerComponent } from './travel-visit-planner/travel-visit
     TravelToolsListComponent, 
     GlobalTravelVisaComponent, 
     TravelPackingPlannerComponent, 
-    TravelVisitPlannerComponent
+    TravelVisitPlannerComponent, TripLengthFinderComponent, TravelGlossaryComponent, CostOfLivingComparisionComponent
   ],
   imports: [
     CommonModule,
@@ -34,7 +38,8 @@ import { TravelVisitPlannerComponent } from './travel-visit-planner/travel-visit
     ButtonModule,
     DropdownModule,
     InputTextModule,
-    InputNumberModule
+    InputNumberModule,
+    MultiSelectModule
   ]
 })
 export class TravelToolsModule { }

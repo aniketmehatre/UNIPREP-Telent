@@ -2139,7 +2139,8 @@ uni-travel-tools{
 	height: 100%;
 	flex-direction: column;
 	overflow: hidden;
-	uni-global-travel-visa, uni-travel-cost-estimator{
+	uni-global-travel-visa, uni-travel-cost-estimator, uni-travel-packing-planner, uni-travel-visit-planner, 
+	uni-trip-length-finder, uni-travel-glossary, uni-cost-of-living-comparision {
 		display: flex;
 		flex: 1;
 		height: 100%;
@@ -2147,4 +2148,33 @@ uni-travel-tools{
 		overflow: hidden;
 		border-radius: 10px;
 	}
+}
+
+.custom-number-input .number-input {
+    border-right: 0;
+}
+
+.custom-number-input .plus-icon,
+.custom-number-input .minus-icon {
+    background-color: white !important;
+    color: black !important;
+    border: 1px solid #ced4da;
+}
+
+.custom-number-input .minus-icon {
+    order: 2 !important;
+    border-top-left-radius: 0;
+    border-bottom-left-radius: 0;
+    border-left: 0;
+    border-right: 0;
+}
+
+.custom-number-input .plus-icon {
+    border-left: 0;
+}
+
+.custom-number-input .number-input.p-inputtext:enabled:focus {
+    border: 1px solid #ced4da;
+    border-right: 0;
+    box-shadow: none;
 }

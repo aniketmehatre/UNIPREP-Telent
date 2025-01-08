@@ -16,3 +16,14 @@
     bottom: 20px; 
     right: 20px; 
   }
+  .readingarea{
+    font-size: 15px;
+  }
+  .btn-red {
+    background-color: red !important;
+    border-color: red !important;
+    color: white !important; /* Ensure text is visible */
+}
+::ng-deep .border-primary{
+  padding: 7px !important;
+}

@@ -35,8 +35,7 @@
                                     <ng-container *ngIf="recommendation.id == 1">
                                         <p-dropdown [options]="departureLocationList"
                                             [(ngModel)]="selectedData[recommendation.id]" optionLabel="country"
-                                            optionValue="country" [appendTo]="'body'" [filter]="true"
-                                            [virtualScroll]="true" [virtualScrollItemSize]="50" [showClear]="true"
+                                            optionValue="country" [appendTo]="'body'" [filter]="true" [showClear]="true"
                                             placeholder="Departure Country" styleClass="w-100">
                                             <ng-template pTemplate="filter" let-options="options">
                                                 <div class="d-flex gap-2">
@@ -60,8 +59,7 @@
                                         <p-dropdown [options]="destinationLocationList"
                                             [(ngModel)]="selectedData[recommendation.id]" optionLabel="country"
                                             optionValue="country" [appendTo]="'body'" placeholder="Destination Country"
-                                            [filter]="true" [virtualScroll]="true" [virtualScrollItemSize]="50"
-                                            [showClear]="true" styleClass="w-100">
+                                            [filter]="true" [showClear]="true" styleClass="w-100">
                                             <ng-template pTemplate="filter" let-options="options">
                                                 <div class="d-flex gap-2">
                                                     <div class="p-inputgroup" (click)="$event.stopPropagation()">
@@ -87,7 +85,7 @@
                                             decrementButtonClass="minus-icon" decrementButtonIcon="pi pi-minus"
                                             inputStyleClass="number-input" suffix=" days" [min]="1" [max]="7" [step]="1"
                                             [inputStyle]="{'pointer-events': 'none', 'caret-color': 'transparent'}"
-                                            styleClass="w-100">
+                                            styleClass="w-100 custom-number-input">
                                         </p-inputNumber>
                                         <p class="text-center" [ngClass]="{ 'd-none': invalidClass === false }"
                                             style="color: red">Please Choose Any one option</p>
@@ -104,8 +102,8 @@
                                         <p-dropdown [options]="currencyList"
                                             [(ngModel)]="selectedData[recommendation.id]" optionLabel="currency_code"
                                             optionValue="currency_code" [appendTo]="'body'"
-                                            placeholder="Preferred Currency" [filter]="true" [virtualScroll]="true"
-                                            [virtualScrollItemSize]="50" [showClear]="true" styleClass="w-100">
+                                            placeholder="Preferred Currency" [filter]="true" [showClear]="true"
+                                            styleClass="w-100">
                                             <ng-template let-data pTemplate="item">
                                                 <div>{{data.country}} - {{data.currency_code}}</div>
                                             </ng-template>
@@ -226,17 +224,18 @@
     </div>
     <div class="card-body text-center flex-fill overflow-y-auto">
         <div class="row mb-0">
-            <div *ngFor="let item of recommadationSavedQuestionList"
+            <div *ngFor="let item of recommadationSavedQuestionList; let i=index;"
                 class="col-lg-3 col-md-3 col-sm-4 col-xs-12 col-12 mb-3">
                 <div class="row w-100 m-0 justify-content-center h-100">
-                    <div class="card subjectcard" role="button" (click)="showRecommandationData()">
+                    <div class="card subjectcard" role="button" (click)="showRecommandationData(item.response)">
                         <div class="card-body text-start">
-                            <h5 class="fw-bold mb-0">Trip 1</h5>
-                            <p class="text-small"><b>Departure :</b>{{'item.description'}}</p>
-                            <p class="text-small"><b>Destination :</b>{{'item.description'}}</p>
-                            <p class="text-small"><b>Duration :</b>{{'item.description'}}</p>
-                            <p class="text-small"><b>Travel Experience :</b>{{'item.description'}}</p>
-                            <p class="text-small"><b>Prefferred Currency :</b>{{'item.description'}}</p>
+                            <h5 class="fw-bold mb-0">Trip {{i+1}}</h5>
+                            <p class="text-small"><b>Departure : </b>{{item.country}}</p>
+                            <p class="text-small"><b>Destination : </b>{{item.destination}}</p>
+                            <p class="text-small"><b>Duration : </b>{{item.duration}} {{item.duration == '1' ? 'day' :
+                                'days'}}</p>
+                            <p class="text-small"><b>Travel Experience : </b>{{item.experience}}</p>
+                            <p class="text-small"><b>Prefferred Currency : </b>{{item.currency}}</p>
                         </div>
                     </div>
                 </div>

@@ -1,23 +1,23 @@
 <div class="body" *ngIf="isFormVisible">
     <form role="form" [formGroup]="form" (ngSubmit)="formSubmit()">
         <div class="row">
-            <div class="col-12">
+            <div class="col-12 p-2">
                 <div class="form-group">
-                    <h3>Select Your Country</h3>
-                    <p-dropdown [options]="countries" styleClass="w-100 rounded-pill border-primary"
-                        formControlName="country" optionValue="country" optionLabel="country"
-                        placeholder="Select Country" [filter]="true" [showClear]="true"> </p-dropdown>
+                    <h2>Select Your Country</h2>
+                    <p-dropdown [options]="countries" styleClass="w-100 border-primary" formControlName="country"
+                        optionValue="country" optionLabel="country" placeholder="Select Country" [filter]="true"
+                        [showClear]="true"> </p-dropdown>
                     <div *ngIf="submitted && form.get('country')?.hasError('required')" style="color: red;">
                         Country is required.
                     </div>
                 </div>
             </div>
-            <div class="col-12">
+            <div class="col-12 mt-4 p-2">
                 <div class="form-group">
-                    <h3>Select Your Preferred Currency</h3>
-                    <p-dropdown [options]="countries" styleClass="w-100 rounded-pill border-primary"
-                        formControlName="currency" optionValue="currency_code" optionLabel="currency_code"
-                        placeholder="Select Currency" [filter]="true" [showClear]="true"> </p-dropdown>
+                    <h2>Select Your Preferred Currency</h2>
+                    <p-dropdown [options]="countries" styleClass="w-100 border-primary" formControlName="currency"
+                        optionValue="'currency_code,'+',country'" optionLabel="currency_code" placeholder="Select Currency"
+                        [filter]="true" [showClear]="true"> </p-dropdown>
                     <div *ngIf="submitted && form.get('currency')?.hasError('required')" style="color: red;">
                         Currency is required.
                     </div>
@@ -34,12 +34,20 @@
 </div>
 <div *ngIf="!isFormVisible">
     <div class="row">
-        <div class="col-12">
-            <div class="card">
+        <div class="col-3"></div>
+        <div class="col-6">
+            <div class="card" style="background-color: white !important;">
                 <div class="card-body overflow-x-auto">
                     <div class="readingarea" [innerHTML]="customizedResponse"></div>
                 </div>
             </div>
         </div>
+        <div class="col-3"></div>
     </div>
+    <button pButton class="btn btn-rounded footer-btn" type="submit" [ngClass]="{ 'btn-red': true }">
+        <span class="me-2">Reset Recommendations</span>
+        <span class="btn-icon px-2 py-2">
+            <i class="fa-solid fa-rotate-right"></i>
+        </span>
+    </button>
 </div>
