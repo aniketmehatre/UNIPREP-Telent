@@ -135,7 +135,11 @@ export class SidenavComponent {
       url: "/pages/job-tool/cost-of-living",
       image: "fa-solid fa-dollar-sign",
     },
-
+    {
+      title: "Travel Tools",
+      url: "/pages/travel-tools",
+      image: "fa-solid fa-compass",
+    },
     {
       title: 'Career',
       url: '',
@@ -490,7 +494,8 @@ export class SidenavComponent {
         }
       }
       if(item.title == 'Assessment') {
-        const targetUrl = this.currentUserSubscriptionPlan === 'Career' ? item.url: '/pages/subscriptions/upgrade-subscription';
+        const targetUrl = this.currentUserSubscriptionPlan === 'Career' || this.currentUserSubscriptionPlan === 'Entrepreneur' 
+          ? item.url: this.authService?.user?.subscription ? '/pages/subscriptions/upgrade-subscription' : '/pages/subscriptions';
         this.router.navigateByUrl(targetUrl);
         return;
       }

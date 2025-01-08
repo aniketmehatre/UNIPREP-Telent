@@ -154,19 +154,19 @@
         <h5 class="select-title">{{ title }} Quiz</h5>
       </div>
       <div class="col-md-2 col-2 text-end">
-        <button [disabled]="quizpercentage >= 90" (click)="retryQuiz()" class="btn btn-quit btn-rounded mt-2 px-2 py-2">
+        <!-- <button [disabled]="quizpercentage >= 90" (click)="retryQuiz()" class="btn btn-quit btn-rounded mt-2 px-2 py-2">
           <div class="d-flex align-items-center">
             <span class="fw-normal h6 mb-0">Retry</span>
             <div class="btn-icon"><i class="fa-solid fa-arrow-rotate-right"></i></div>
           </div>
-        </button>
+        </button> -->
       </div>
     </div>
   </div>
   <div class="card-body flex-fill overflow-y-auto">
     <div class="row">
       <div class="col-md-12 text-center">
-        <img *ngIf="totalPercentage >= 90" class="pb-2" src="/uniprep-assets/images/icons/quizcomplete.webp"
+        <!-- <img *ngIf="totalPercentage >= 90" class="pb-2" src="/uniprep-assets/images/icons/quizcomplete.webp"
           alt="retry" />
         <img *ngIf="totalPercentage <= 89" class="pb-2" src="/uniprep-assets/images/icons/quizfailed.png" alt="retry" />
         <h3 class="text-center mb-2" *ngIf="totalPercentage >= 90">Congratulations<br />{{ totalanswercorret }}/{{
@@ -176,7 +176,10 @@
         <p *ngIf="totalPercentage >= 90" class="text-center mb-2 fw-medium">You have completed the quiz on <br />{{
           currentModuleName }} module</p>
         <p *ngIf="totalPercentage <= 89" class="text-center mb-2 fw-medium">Completion of this module requires<br />a
-          minimum score of 90%</p>
+          minimum score of 90%</p> -->
+        <img class="pb-2" src="/uniprep-assets/images/icons/quizcomplete.webp" alt="success_img" />
+        <h3 class="text-center mb-2">You completed this quiz<br />{{ totalanswercorret }}/{{
+          totalanswerquistionaftersubmited }}</h3>
         <button (click)="takeAnotherquiz()" class="btn btn-back btn-rounded px-2 py-2">
           <div class="d-flex align-items-center">
             <span class="fw-normal h6 mb-0">Take Another Quiz</span>

@@ -2114,4 +2114,37 @@ uni-assessment {
 
 .instructionlist li {
 	margin-bottom: 20px;
-  }
+}
+
+  @media (min-width: 992px) {
+    .col-custom-lg-2 {
+        flex: 0 0 auto;
+        width: 20%;
+    }
+}
+
+.carousal-container-sec .p-carousel-content {
+    height: 100% !important;
+    .p-carousel-container {
+      height: 100%;
+      .p-carousel-items-container {
+        height: 100%;
+      }
+    }
+}
+
+uni-travel-tools{
+	display: flex;
+	flex: 1;
+	height: 100%;
+	flex-direction: column;
+	overflow: hidden;
+	uni-global-travel-visa, uni-travel-cost-estimator{
+		display: flex;
+		flex: 1;
+		height: 100%;
+		flex-direction: column;
+		overflow: hidden;
+		border-radius: 10px;
+	}
+}

@@ -1,0 +1,28 @@
+::ng-deep .number-input {
+    border-right: 0;
+}
+
+::ng-deep .plus-icon,
+::ng-deep .minus-icon {
+    background-color: white !important;
+    color: black !important;
+    border: 1px solid #ced4da;
+}
+
+::ng-deep .minus-icon {
+    order: 2 !important;
+    border-top-left-radius: 0;
+    border-bottom-left-radius: 0;
+    border-left: 0;
+    border-right: 0;
+}
+
+::ng-deep .plus-icon {
+    border-left: 0;
+}
+
+::ng-deep .number-input.p-inputtext:enabled:focus {
+    border: 1px solid #ced4da;
+    border-right: 0;
+    box-shadow: none;
+}
