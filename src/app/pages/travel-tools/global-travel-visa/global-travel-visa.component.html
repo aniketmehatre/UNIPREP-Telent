@@ -40,8 +40,8 @@
                                     <p class="text-center" [ngClass]="{ 'd-none': invalidClass === false }" style="color: red">Please Choose Any one option</p>
                                 </ng-container>
                                 <ng-container *ngIf="recommendation.id == 3">
-                                    <p-dropdown [options]="residentStatus" [(ngModel)]="selectedData[recommendation.id]" optionLabel="value" styleClass="w-100" 
-                                            optionValue="id" placeholder="Residential Details" [appendTo]="'body'"></p-dropdown>
+                                    <p-dropdown [options]="residentStatus" [(ngModel)]="selectedData[recommendation.id]" optionLabel="label" styleClass="w-100" 
+                                            optionValue="value" placeholder="Residential Details" [appendTo]="'body'"></p-dropdown>
                                     <p class="text-center" [ngClass]="{ 'd-none': invalidClass === false }" style="color: red">Please Choose Any one option</p>
                                 </ng-container>
                             </div>

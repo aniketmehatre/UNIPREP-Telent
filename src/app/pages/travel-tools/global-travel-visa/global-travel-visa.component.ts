@@ -23,8 +23,9 @@ export class GlobalTravelVisaComponent implements OnInit {
   ];
 
   residentStatus: any = [
-    { value : "Resident" },
-    { value : "Non-Resident"}
+    { value: null, label : "Select Residential Details"},
+    { value: "Resident", label : "Resident" },
+    { value: "Non-Resident", label : "Non-Resident"}
   ];
   activePageIndex: number = 0;
   selectedData: { [key: string]: any } = {};
