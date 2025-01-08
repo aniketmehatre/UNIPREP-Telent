@@ -13,12 +13,17 @@ import { TravelToolsListComponent } from './travel-tools-list/travel-tools-list.
 import { TravelToolsComponent } from './travel-tools.component';
 import { InputNumberModule } from 'primeng/inputnumber';
 import { GlobalTravelVisaComponent } from './global-travel-visa/global-travel-visa.component';
+import { TravelPackingPlannerComponent } from './travel-packing-planner/travel-packing-planner.component';
+import { TravelVisitPlannerComponent } from './travel-visit-planner/travel-visit-planner.component';
 
 @NgModule({
   declarations: [
     TravelToolsComponent, 
     TravelCostEstimatorComponent, 
-    TravelToolsListComponent, GlobalTravelVisaComponent
+    TravelToolsListComponent, 
+    GlobalTravelVisaComponent, 
+    TravelPackingPlannerComponent, 
+    TravelVisitPlannerComponent
   ],
   imports: [
     CommonModule,
