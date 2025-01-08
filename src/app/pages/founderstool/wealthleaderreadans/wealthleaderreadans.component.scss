@@ -1,2 +1,46 @@
 
-  
+#socialSharingList {
+	display: none;
+	position: absolute;
+	right: 0rem;
+	top: 3rem;
+	::ng-deep.p-card-body {
+		padding: 0px;
+		.p-card-content {
+			padding: 0px;
+		}
+	}
+	ul {
+		padding: 10px !important;
+		margin-bottom: 0;
+		li {
+			display: flex;
+			align-items: center;
+			margin-bottom: 5px;
+		}
+		i {
+			margin-right: 10px;
+		}
+	}
+}
+.socialShareBtn {
+	height: 35px;
+    width: 35px;
+	border-radius: 50px !important;
+	margin: 0;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	position: absolute;
+	top: 10px;
+    right: 10px;
+    z-index: 1; 
+}
+::ng-deep .p-dialog-content {
+    overflow: hidden !important;
+}
+.read-btn {
+	background-color: #4E4E4E !important;
+	border-color: #4E4E4E !important;
+	color: white !important; /* Optional: Change text color */
+  }

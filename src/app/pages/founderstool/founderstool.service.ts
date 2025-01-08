@@ -97,4 +97,10 @@ wealthLeadersquestion(data: any) {
       headers: headers,
   });
 }
+wealthLeadersans(data: any) {
+  const headers = new HttpHeaders().set("Accept", "application/json");
+  return this.http.post<any>(environment.ApiUrl + "/getwealthleaderanswer", data, {
+      headers: headers,
+  });
+}
 }
