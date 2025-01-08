@@ -1,6 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { TravelToolsService } from '../travel-tools.service';
 import { CountryandCurrency } from 'src/app/@Models/currency.model';
+import { Location } from '@angular/common';
+import { TravelCostEstimatorQuestionList } from '../trvel-tool-questions';
+import { ChatGPTResponse, TravelCostEstimator } from 'src/app/@Models/chat-gpt.model';
 
 @Component({
   selector: 'uni-travel-cost-estimator',
@@ -9,56 +12,33 @@ import { CountryandCurrency } from 'src/app/@Models/currency.model';
 })
 export class TravelCostEstimatorComponent implements OnInit {
 
-  recommendations: { id: number, question: string }[] = [
-    {
-      id: 1,
-      question: "Select your Departure Location",
-    },
-    {
-      id: 2,
-      question: "Select your Destination",
-    },
-    {
-      id: 3,
-      question: "Duration of Travel",
-    },
-    {
-      id: 4,
-      question: "Select your experience preference"
-    },
-    {
-      id: 5,
-      question: "Select your preferred currency"
-    },
+  recommendations: { id: number, question: string }[] = TravelCostEstimatorQuestionList;
+  trvelExperienceList: { id: number, name: string }[] = [
+    { id: 1, name: 'Basic' },
+    { id: 2, name: 'Standard' },
+    { id: 3, name: 'Luxury' }
   ];
   activePageIndex: number = 0;
+  selectedData: { [key: string]: any } = {};
+  invalidClass: boolean = false;
   currencyList: CountryandCurrency[] = [];
   departureLocationList: CountryandCurrency[] = [];
   destinationLocationList: CountryandCurrency[] = [];
+  countryandCurrencyList: CountryandCurrency[] = [];
+  isRecommendationQuestion: boolean = true;
+  isRecommendationData: boolean = false;
+  isRecommendationSavedData: boolean = false;
   departureFilter: string = '';
   destinationFilter: string = '';
-  selectedData: { [key: string]: any } = {};
-  invalidClass: boolean = false;
-  trvelExperienceList: { id: number, name: string }[] = [
-    {
-      id: 1,
-      name: 'Basic'
-    },
-    {
-      id: 2,
-      name: 'Standard'
-    },
-    {
-      id: 3,
-      name: 'Luxury'
-    }
-  ];
-  countryandCurrencyList: CountryandCurrency[] = [];
+  currencyFilter: string = '';
   recommendationData: string = '';
-  isRecommendationData: boolean = false;
+  recommadationSavedQuestionList: TravelCostEstimator[] = [];
+  isFromSavedData: boolean = false;
+
 
   constructor(
-    private travelToolsService: TravelToolsService
+    private travelToolsService: TravelToolsService,
+    private location: Location
   ) { }
 
   ngOnInit(): void {
@@ -87,13 +67,22 @@ export class TravelCostEstimatorComponent implements OnInit {
         item?.country.toLowerCase().includes(this.departureFilter.toLowerCase())
       );
     }
-    else {
+    else if (type === 'destination') {
       if (this.destinationFilter === "") {
         this.destinationLocationList = this.countryandCurrencyList;
         return;
       }
       this.destinationLocationList = this.countryandCurrencyList.filter(item =>
         item?.country.toLowerCase().includes(this.destinationFilter.toLowerCase())
+      );
+    }
+    else {
+      if (this.currencyFilter === "") {
+        this.currencyList = this.countryandCurrencyList;
+        return;
+      }
+      this.currencyList = this.countryandCurrencyList.filter(item =>
+        item?.currency_code?.toLowerCase().includes(this.currencyFilter.toLowerCase())
       );
     }
   }
@@ -103,52 +92,94 @@ export class TravelCostEstimatorComponent implements OnInit {
       this.departureFilter = '';
       this.departureLocationList = this.countryandCurrencyList;
     }
-    else {
+    else if (type === 'destination') {
       this.destinationFilter = '';
       this.destinationLocationList = this.countryandCurrencyList;
     }
+    else {
+      this.currencyFilter = '';
+      this.currencyList = this.countryandCurrencyList;
+    }
   }
 
-  cityChange(typeOfField: string, cityDetails: any) { }
-
-  previous(): void {
+  previous() {
     this.invalidClass = false;
     if (this.activePageIndex > 0) {
       this.activePageIndex--;
     }
   }
 
-  next(productId: number): void {
-    // debugger
+  next(itemId: number) {
     this.departureFilter = "";
     this.destinationFilter = "";
+    this.departureLocationList = this.countryandCurrencyList;
+    this.destinationLocationList = this.countryandCurrencyList;
     this.invalidClass = false;
-    // if (productId in this.selectedData) {
-    if (this.activePageIndex < this.recommendations.length - 1) {
-      this.activePageIndex++;
+    if (itemId in this.selectedData) {
+      if (this.activePageIndex < this.recommendations.length - 1) {
+        this.activePageIndex++;
+      }
+    } else {
+      this.invalidClass = true;
     }
-    // } else {
-    //   this.invalidClass = true;
-    // }
   }
 
   getRecommendation() {
-    let data:any = {
+    let data: any = {
       country: this.selectedData[1],
       destination: this.selectedData[2],
       duration: this.selectedData[3],
-      experinece: this.selectedData[4],
+      experience: this.selectedData[4],
       currency: this.selectedData[5],
-      mode: 'travecostestimator'
+      mode: 'travelcostestimator'
     }
-    // this.travelToolsService.getRecommendationforTravelCostEstimator(data).subscribe({
-    //   next: response => {
-    //     this.isRecommendationData = true;
-    //     this.recommendationData = response.response;
-    //   },
-    //   error: error => {
-    //     this.isRecommendationData = false;
-    //   }
-    // });
+    this.travelToolsService.getChatgptRecommendations(data).subscribe({
+      next: response => {
+        this.isRecommendationQuestion = false;
+        this.isRecommendationData = true;
+        this.isRecommendationSavedData = false;
+        this.recommendationData = response.response;
+      },
+      error: error => {
+        this.isRecommendationData = false;
+      }
+    });
   }
+
+  resetRecommendation() {
+    this.activePageIndex = 0;
+    this.selectedData = { 3: 1 };
+    this.isRecommendationQuestion = true;
+    this.isRecommendationData = false;
+    this.isRecommendationSavedData = false;
+    this.isFromSavedData = false;
+  }
+
+  saveRecommadation() {
+    if (!this.isFromSavedData) {
+      this.travelToolsService.getTripList('travelcostestimator').subscribe({
+        next: response => {
+          this.isRecommendationQuestion = false;
+          this.isRecommendationData = false;
+          this.isRecommendationSavedData = true;
+          this.recommadationSavedQuestionList = response.data;
+        },
+        error: error => {
+        }
+      });
+    }
+  }
+
+  showRecommandationData(data: string) {
+    this.isRecommendationQuestion = false;
+    this.isRecommendationData = true;
+    this.isRecommendationSavedData = false;
+    this.isFromSavedData = true;
+    this.recommendationData = data;
+  }
+
+  goBack() {
+    this.location.back();
+  }
+  
 }

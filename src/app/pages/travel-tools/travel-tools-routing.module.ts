@@ -4,6 +4,11 @@ import { TravelToolsListComponent } from './travel-tools-list/travel-tools-list.
 import { TravelCostEstimatorComponent } from './travel-cost-estimator/travel-cost-estimator.component';
 import { TravelToolsComponent } from './travel-tools.component';
 import { GlobalTravelVisaComponent } from './global-travel-visa/global-travel-visa.component';
+import { TravelPackingPlannerComponent } from './travel-packing-planner/travel-packing-planner.component';
+import { TravelVisitPlannerComponent } from './travel-visit-planner/travel-visit-planner.component';
+import { TripLengthFinderComponent } from './trip-length-finder/trip-length-finder.component';
+import { TravelGlossaryComponent } from './travel-glossary/travel-glossary.component';
+import { CostOfLivingComparisionComponent } from './cost-of-living-comparision/cost-of-living-comparision.component';
 
 const routes: Routes = [
   {
@@ -17,6 +22,21 @@ const routes: Routes = [
       },
       {
         path: 'travel-visa', component: GlobalTravelVisaComponent
+      },
+      {
+        path: 'travel-visit-planner', component: TravelVisitPlannerComponent
+      },
+      {
+        path: 'travel-packing-planner', component: TravelPackingPlannerComponent
+      },
+      {
+        path: 'trip-length-finder', component: TripLengthFinderComponent
+      }, 
+      {
+        path: 'travel-glossary', component: TravelGlossaryComponent
+      }, 
+      {
+        path: 'cost-of-living-comparision', component: CostOfLivingComparisionComponent
       },
     ]
   }
