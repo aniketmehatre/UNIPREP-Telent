@@ -41,7 +41,6 @@ export class CareerplannercountrywiseComponent implements OnInit {
         country :this.form.value.country
       }
       this.service.getCountryCurrencyChatGptOutput(data).subscribe((res:any)=>{
-        console.log(res);
         this.customizedResponse=res.response
         this.submitted=false;
       })
