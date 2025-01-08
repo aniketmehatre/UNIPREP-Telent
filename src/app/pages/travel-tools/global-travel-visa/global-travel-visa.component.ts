@@ -10,16 +10,21 @@ export class GlobalTravelVisaComponent implements OnInit {
   recommendations: { id: number, question: string }[] = [
     {
       id: 1,
-      question: "Where are you Planning to travel?",
+      question: "Select Your Nationality",
     },
     {
       id: 2,
-      question: "How many days will your trip be?",
+      question: "Select the country you are looking for",
     },
     {
       id: 3,
-      question: "Which Season or month are you planning your trip?",
+      question: "Select your residential status of ",
     }
+  ];
+
+  residentStatus: any = [
+    { value : "Resident" },
+    { value : "Non-Resident"}
   ];
   activePageIndex: number = 0;
   selectedData: { [key: string]: any } = {};
@@ -45,14 +50,17 @@ export class GlobalTravelVisaComponent implements OnInit {
     }
   }
 
-  next(){
-    this.invalidClass = false;
-    if (this.activePageIndex < this.recommendations.length - 1) {
-      this.activePageIndex++;
+  next(productId: number){
+    if (productId in this.selectedData) {
+      if (this.activePageIndex < this.recommendations.length - 1) {
+        this.activePageIndex++;
+      }
+    } else {
+      this.invalidClass = true;
     }
   }
 
-  getRecommendation(){
+  getRecommendation(productId: number){
 
   }
 }
