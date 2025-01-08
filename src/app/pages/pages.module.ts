@@ -132,7 +132,7 @@ import { JobPreparedListComponent } from "./jobinterviewpreparation/preparedlist
     NationalExamReviewComponent,
     // JobToolComponent,
     JobPreparationComponent,
-    JobPreparedListComponent
+    JobPreparedListComponent,
   ],
   exports: [FooterStatusBoxComponent, HeaderSearchComponent],
   imports: [
