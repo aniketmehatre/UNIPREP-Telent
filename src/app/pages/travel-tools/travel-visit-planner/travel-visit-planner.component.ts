@@ -72,7 +72,7 @@ export class TravelVisitPlannerComponent implements OnInit {
           mode: "travel_visit_planner"
         };
         console.log(data);
-        this.travelToolService.getRecommendationforTravelCostEstimator(data).subscribe(response =>{
+        this.travelToolService.getChatgptRecommendations(data).subscribe(response =>{
           console.log(response,"chatgpt response");
         })
       }
