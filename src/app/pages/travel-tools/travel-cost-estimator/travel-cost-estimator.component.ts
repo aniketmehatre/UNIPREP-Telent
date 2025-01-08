@@ -3,6 +3,7 @@ import { TravelToolsService } from '../travel-tools.service';
 import { CountryandCurrency } from 'src/app/@Models/currency.model';
 import { Location } from '@angular/common';
 import { TravelCostEstimatorQuestionList } from '../trvel-tool-questions';
+import { ChatGPTResponse, TravelCostEstimator } from 'src/app/@Models/chat-gpt.model';
 
 @Component({
   selector: 'uni-travel-cost-estimator',
@@ -12,35 +13,28 @@ import { TravelCostEstimatorQuestionList } from '../trvel-tool-questions';
 export class TravelCostEstimatorComponent implements OnInit {
 
   recommendations: { id: number, question: string }[] = TravelCostEstimatorQuestionList;
+  trvelExperienceList: { id: number, name: string }[] = [
+    { id: 1, name: 'Basic' },
+    { id: 2, name: 'Standard' },
+    { id: 3, name: 'Luxury' }
+  ];
   activePageIndex: number = 0;
-  currencyList: CountryandCurrency[] = [];
-  departureLocationList: CountryandCurrency[] = []; 
-  destinationLocationList: CountryandCurrency[] = [];
-  departureFilter: string = '';
-  destinationFilter: string = '';
-  currencyFilter: string = '';
   selectedData: { [key: string]: any } = {};
   invalidClass: boolean = false;
-  trvelExperienceList: { id: number, name: string }[] = [
-    {
-      id: 1,
-      name: 'Basic'
-    },
-    {
-      id: 2,
-      name: 'Standard'
-    },
-    {
-      id: 3,
-      name: 'Luxury'
-    }
-  ];
+  currencyList: CountryandCurrency[] = [];
+  departureLocationList: CountryandCurrency[] = [];
+  destinationLocationList: CountryandCurrency[] = [];
   countryandCurrencyList: CountryandCurrency[] = [];
-  recommendationData: string = '';
   isRecommendationQuestion: boolean = true;
   isRecommendationData: boolean = false;
   isRecommendationSavedData: boolean = false;
-  recommadationSavedQuestionList: any[] = [{}];
+  departureFilter: string = '';
+  destinationFilter: string = '';
+  currencyFilter: string = '';
+  recommendationData: string = '';
+  recommadationSavedQuestionList: TravelCostEstimator[] = [];
+  isFromSavedData: boolean = false;
+
 
   constructor(
     private travelToolsService: TravelToolsService,
@@ -139,7 +133,7 @@ export class TravelCostEstimatorComponent implements OnInit {
       currency: this.selectedData[5],
       mode: 'travelcostestimator'
     }
-    this.travelToolsService.getRecommendationforTravelCostEstimator(data).subscribe({
+    this.travelToolsService.getChatgptRecommendations(data).subscribe({
       next: response => {
         this.isRecommendationQuestion = false;
         this.isRecommendationData = true;
@@ -158,21 +152,34 @@ export class TravelCostEstimatorComponent implements OnInit {
     this.isRecommendationQuestion = true;
     this.isRecommendationData = false;
     this.isRecommendationSavedData = false;
+    this.isFromSavedData = false;
   }
 
   saveRecommadation() {
-    this.isRecommendationQuestion = false;
-    this.isRecommendationData = false;
-    this.isRecommendationSavedData = true;
+    if (!this.isFromSavedData) {
+      this.travelToolsService.getTripList('travelcostestimator').subscribe({
+        next: response => {
+          this.isRecommendationQuestion = false;
+          this.isRecommendationData = false;
+          this.isRecommendationSavedData = true;
+          this.recommadationSavedQuestionList = response.data;
+        },
+        error: error => {
+        }
+      });
+    }
   }
 
-  showRecommandationData() {
+  showRecommandationData(data: string) {
     this.isRecommendationQuestion = false;
     this.isRecommendationData = true;
     this.isRecommendationSavedData = false;
+    this.isFromSavedData = true;
+    this.recommendationData = data;
   }
 
   goBack() {
     this.location.back();
   }
+  
 }

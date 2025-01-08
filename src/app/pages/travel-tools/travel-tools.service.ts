@@ -1,6 +1,7 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { environment } from '@env/environment';
+import { ChatGPTResponse } from 'src/app/@Models/chat-gpt.model';
 import { CountryandCurrency } from 'src/app/@Models/currency.model';
 
 @Injectable({
@@ -20,7 +21,7 @@ export class TravelToolsService {
     });
   }
 
-  getRecommendationforTravelCostEstimator(data: any) {
+  getChatgptRecommendations(data: any) {
     return this.http.post<{ response: string }>(environment.ApiUrl + "/careerplannercountrywisecurrency", data, {
       headers: this.headers,
     });
@@ -28,6 +29,12 @@ export class TravelToolsService {
 
   getCountriesList() {
     return this.http.post<any>(environment.ApiUrl + "/AllCountries", {
+      headers: this.headers,
+    });
+  }
+
+  getTripList(type:string) {
+    return this.http.get<ChatGPTResponse>(environment.ApiUrl + `/travelcostuserdata?mode=${type}`, {
       headers: this.headers,
     });
   }
