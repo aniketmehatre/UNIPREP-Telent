@@ -1,4 +1,4 @@
-export interface Currency {
+export interface CountryandCurrency {
     country: string;
     currency_code: string;
   }

@@ -1,7 +1,7 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { environment } from '@env/environment';
-import { Currency } from 'src/app/@Models/currency.model';
+import { CountryandCurrency } from 'src/app/@Models/currency.model';
 
 @Injectable({
   providedIn: 'root'
@@ -15,7 +15,7 @@ export class TravelToolsService {
   ) { }
 
   getCurrencies() {
-    return this.http.post<Currency[]>(environment.ApiUrl + "/getcountryandcurrency", {
+    return this.http.post<CountryandCurrency[]>(environment.ApiUrl + "/getcountryandcurrency", {
       headers: this.headers,
     });
   }
