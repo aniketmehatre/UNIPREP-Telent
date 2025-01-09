@@ -22,7 +22,7 @@ export class TravelToolsService {
   }
 
   getChatgptRecommendations(data: any) {
-    return this.http.post<{ response: string }>(environment.ApiUrl + "/careerplannercountrywisecurrency", data, {
+    return this.http.post<{ response: string }>(environment.ApiUrl + "/getIntegratedRecom", data, {
       headers: this.headers,
     });
   }
@@ -34,7 +34,7 @@ export class TravelToolsService {
   }
 
   getTripList(type:string) {
-    return this.http.get<ChatGPTResponse>(environment.ApiUrl + `/travelcostuserdata?mode=${type}`, {
+    return this.http.get<ChatGPTResponse>(environment.ApiUrl + `/userSavedResponse?mode=${type}`, {
       headers: this.headers,
     });
   }
