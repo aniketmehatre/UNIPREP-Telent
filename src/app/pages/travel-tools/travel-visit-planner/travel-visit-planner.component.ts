@@ -15,14 +15,6 @@ export class TravelVisitPlannerComponent implements OnInit {
     {
       id: 1,
       question: "Where are you planning to travel?",
-    },
-    {
-      id: 2,
-      question: "How many days will your trip be?",
-    },
-    {
-      id: 3,
-      question: "Which season or month are you planning your trip? ",
     }
   ];
   seasons: any = [
@@ -39,6 +31,8 @@ export class TravelVisitPlannerComponent implements OnInit {
   allCountries: any = [];
   invalidClass: boolean = false;
   recommendationData: any = [];
+  savedResponse: any = [];
+
   ngOnInit(): void {
     this.selectedData[2] = 1; //second page i need to show the days count so manually i enter the day.
     this.getCountriesList();
@@ -68,8 +62,6 @@ export class TravelVisitPlannerComponent implements OnInit {
 
   getRecommendation(productId: number) {
     this.hideWarning(productId);
-    this.isRecommendation = false;
-    this.isResponsePage = true;
     if (!this.invalidClass) {
       let data = {
         destination: this.selectedData[1],
@@ -79,6 +71,8 @@ export class TravelVisitPlannerComponent implements OnInit {
       };
       this.travelToolService.getChatgptRecommendations(data).subscribe(response => {
         this.recommendationData = response.response;
+        this.isRecommendation = false;
+        this.isResponsePage = true;
       })
     }
   }
@@ -105,6 +99,16 @@ export class TravelVisitPlannerComponent implements OnInit {
     this.isRecommendation = false;
     this.isResponsePage = false;
     this.isSavedPage = true;
+    
+    this.travelToolService.getTripList('travel_visit_planner').subscribe( response =>{
+      this.savedResponse = response.data;
+    })
+  }
+  clickRecommendation(response: any){
+    this.isRecommendation = false;
+    this.isResponsePage = true;
+    this.isSavedPage = false;
+    this.recommendationData = response;
   }
 
   goBack() {
