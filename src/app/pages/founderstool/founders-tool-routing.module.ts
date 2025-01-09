@@ -12,6 +12,7 @@ import { WealthleaderslistComponent } from './wealthleaderslist/wealthleaderslis
 import { WealthleaderreadansComponent } from './wealthleaderreadans/wealthleaderreadans.component';
 import { BusinessPlanGeneratorComponent } from './business-plan-generator/business-plan-generator.component';
 import { ComponentStoriesComponent } from './component-stories/component-stories.component';
+import { GovermentFundingOppurtunityComponent } from './goverment-funding-opportunity/goverment-funding-opportunity.component';
 
 const routes: Routes = [
   {
@@ -28,6 +29,9 @@ const routes: Routes = [
       },
       {
         path: 'startupglossary', component: StartupglossaryComponent
+      },
+      {
+        path: 'governmentfunds', component: GovermentFundingOppurtunityComponent
       },
       {
         path: 'entrepreneurskillmodule', component: EntreprenuerskillmoduleComponent

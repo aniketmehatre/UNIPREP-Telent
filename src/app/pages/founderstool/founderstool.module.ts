@@ -24,6 +24,8 @@ import { WealthleaderslistComponent } from './wealthleaderslist/wealthleaderslis
 import { WealthleaderreadansComponent } from './wealthleaderreadans/wealthleaderreadans.component';
 import { BusinessPlanGeneratorComponent } from './business-plan-generator/business-plan-generator.component';
 import { ComponentStoriesComponent } from './component-stories/component-stories.component';
+import { GovermentFundingOppurtunityComponent } from './goverment-funding-opportunity/goverment-funding-opportunity.component';
+import { MultiSelectModule } from 'primeng/multiselect';
 
 
 @NgModule({
@@ -40,6 +42,7 @@ import { ComponentStoriesComponent } from './component-stories/component-stories
     WealthleaderreadansComponent,
     BusinessPlanGeneratorComponent,
     ComponentStoriesComponent
+    GovermentFundingOppurtunityComponent
   ],
   imports: [
     CommonModule,
@@ -56,6 +59,11 @@ import { ComponentStoriesComponent } from './component-stories/component-stories
     TooltipModule
   ],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
-  providers: [ConfirmationService], 
+  providers: [ConfirmationService, 
+    TooltipModule,
+    MultiSelectModule
+  ],
+  schemas: [CUSTOM_ELEMENTS_SCHEMA],
+  providers: [ConfirmationService],
 })
 export class FounderstoolModule { }
