@@ -134,6 +134,10 @@ export class JobToolComponent implements OnInit {
   }
 
   goBack() {
+    if (this.currentRoute.includes("careerplannerlist")){
+      this.router.navigate(['/pages/job-tool/career-tool'])
+      return;
+    }
     if (window.history.length > 1) {
       this.location.back()
       this.employerGlobalService.removeItem(this.employerGlobalService.getItems().length - 1)

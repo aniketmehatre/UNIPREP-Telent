@@ -3,7 +3,7 @@
 	<div class="card-header border-0 bg-transparent">
 		<div class="row justify-content-center">
 			<div class="col-md-12 d-flex gap-2 text-center">
-				<div class="backIcon d-md-flex d-none" role="button" (click)="goBack()">
+				<div class="backIcon d-md-flex d-none" role="button" (click)="goBackcareerPlanList()">
 					<span class="fa-solid fa-chevron-left"></span>
 				</div>
 				<div class="select-title d-flex justify-content-between align-items-center">
@@ -20,52 +20,52 @@
 				</div>
 			</div>
 		</div>
-        <div class="body mt-4">
-            <form role="form" [formGroup]="form" (ngSubmit)="formSubmit()">
-                <div class="row">
-                    <div class="col-12 p-2">
-                        <div class="form-group">
-                            <h2>Select Your Country</h2>
-                            <p-dropdown [options]="countries" styleClass="w-100 border-primary" formControlName="country"
-                                optionValue="country" optionLabel="country" placeholder="Select Country" [filter]="true"
-                                [showClear]="true"> </p-dropdown>
-                            <div *ngIf="submitted && form.get('country')?.hasError('required')" style="color: red;">
-                                Country is required.
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-12 mt-4 p-2">
-                        <div class="form-group">
-                            <h2>Select Your Preferred Currency</h2>
-                            <p-dropdown [options]="countries" styleClass="w-100 border-primary" formControlName="currency"
-                                optionValue="currency_code" optionLabel="currency_code" placeholder="Select Currency"
-                                [filter]="true" [showClear]="true">
-                                <ng-template let-data pTemplate="item">
-                                    <div>{{data.country}} - {{data.currency_code}}</div>
-                                </ng-template> 
-                            </p-dropdown>
-                            <div *ngIf="submitted && form.get('currency')?.hasError('required')" style="color: red;">
-                                Currency is required.
-                            </div>
+	</div>
+    <div class="body mt-4">
+        <form role="form" [formGroup]="form" (ngSubmit)="formSubmit()">
+            <div class="row">
+                <div class="col-12 p-2">
+                    <div class="form-group">
+                        <h2>Select Your Country</h2>
+                        <p-dropdown [options]="countries" styleClass="w-100 border-primary" formControlName="country"
+                            optionValue="country" optionLabel="country" placeholder="Select Country" [filter]="true"
+                            [showClear]="true"> </p-dropdown>
+                        <div *ngIf="submitted && form.get('country')?.hasError('required')" style="color: red;">
+                            Country is required.
                         </div>
                     </div>
                 </div>
-                <button pButton class="btn btn-success btn-rounded footer-btn" type="submit">
-                    <span class="me-2">Get Recommendations</span>
-                    <span class="btn-icon px-2 py-2">
-                        <i class="fa fa-check-circle"></i>
-                    </span>
-                </button>
-            </form>
-        </div>
-	</div>
+                <div class="col-12 mt-4 p-2">
+                    <div class="form-group">
+                        <h2>Select Your Preferred Currency</h2>
+                        <p-dropdown [options]="countries" styleClass="w-100 border-primary" formControlName="currency"
+                            optionValue="currency_code" optionLabel="currency_code" placeholder="Select Currency"
+                            [filter]="true" [showClear]="true">
+                            <ng-template let-data pTemplate="item">
+                                <div>{{data.country}} - {{data.currency_code}}</div>
+                            </ng-template> 
+                        </p-dropdown>
+                        <div *ngIf="submitted && form.get('currency')?.hasError('required')" style="color: red;">
+                            Currency is required.
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <button pButton class="btn btn-success btn-rounded footer-btn" type="submit">
+                <span class="me-2">Get Recommendations</span>
+                <span class="btn-icon px-2 py-2">
+                    <i class="fa fa-check-circle"></i>
+                </span>
+            </button>
+        </form>
+    </div>
 </div>
 <!-- get chatgpt response -->
 <div class="card readingcard" *ngIf="isFormChatgptresponse">
 	<div class="card-header border-0 bg-transparent">
 		<div class="row justify-content-center">
 			<div class="col-md-12 d-flex gap-3 text-center">
-				<div class="backIcon d-md-flex d-none" role="button" (click)="goBack()">
+				<div class="backIcon d-md-flex d-none" role="button" (click)="BackReset()">
 					<span class="fa-solid fa-chevron-left"></span>
 				</div>
 				<div class="select-title d-flex justify-content-between align-items-center">

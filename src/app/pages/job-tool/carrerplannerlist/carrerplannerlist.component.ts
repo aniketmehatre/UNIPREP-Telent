@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { PageFacadeService } from '../../page-facade.service';
 
 @Component({
   selector: 'uni-carrerplannerlist',
@@ -8,7 +9,7 @@ import { Router } from '@angular/router';
 })
 export class CarrerplannerlistComponent implements OnInit {
   listcreerplaner:any=[];
-  constructor(private router: Router) { }
+  constructor(private router: Router,private pageFacade: PageFacadeService,) { }
 
   ngOnInit(): void {
     this.listcreerplaner=[]
@@ -18,5 +19,11 @@ export class CarrerplannerlistComponent implements OnInit {
   }
   goToCareetPlanerCountryWise(){
     this.router.navigate(['/pages/job-tool/careerplannercountrywise']);
+  }
+  goBackCareerTool(){
+    this.router.navigate(['/pages/job-tool/careerplannercountrywise']);
+  }
+  openVideoPopup(videoLink: string) {
+    this.pageFacade.openHowitWorksVideoPopup(videoLink);
   }
 }
