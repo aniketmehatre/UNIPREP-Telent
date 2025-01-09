@@ -3,6 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { environment } from '@env/environment';
 import { Observable } from 'rxjs/internal/Observable';
+import {LocalStorageService} from "ngx-localstorage";
 
 @Injectable({
   providedIn: 'root',
@@ -10,7 +11,7 @@ import { Observable } from 'rxjs/internal/Observable';
 export class ThemeService {
   private theme: 'light' | 'dark' = 'light';
 
-  constructor(private http:HttpClient) {
+  constructor(private http:HttpClient, private storage: LocalStorageService, ) {
     this.loadTheme();
   }
 
@@ -52,7 +53,8 @@ export class ThemeService {
     const date = new Date();
     date.setTime(date.getTime() + days * 24 * 60 * 60 * 1000);
     const expires = `expires=${date.toUTCString()}`;
-    document.cookie = `${name}=${value};${expires};path=/`;
+    let token = this.storage.get(environment.tokenKey);
+    document.cookie = `authToken=${token};${name}=${value};${expires};path=/`;
   }
 
   private getCookie(name: string): string | undefined {
