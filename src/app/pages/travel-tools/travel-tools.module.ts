@@ -18,7 +18,6 @@ import { TravelVisitPlannerComponent } from './travel-visit-planner/travel-visit
 import { MultiSelectModule } from 'primeng/multiselect';
 import { TripLengthFinderComponent } from './trip-length-finder/trip-length-finder.component';
 import { TravelGlossaryComponent } from './travel-glossary/travel-glossary.component';
-import { CostOfLivingComparisionComponent } from './cost-of-living-comparision/cost-of-living-comparision.component';
 
 @NgModule({
   declarations: [
@@ -27,7 +26,9 @@ import { CostOfLivingComparisionComponent } from './cost-of-living-comparision/c
     TravelToolsListComponent, 
     GlobalTravelVisaComponent, 
     TravelPackingPlannerComponent, 
-    TravelVisitPlannerComponent, TripLengthFinderComponent, TravelGlossaryComponent, CostOfLivingComparisionComponent
+    TravelVisitPlannerComponent, 
+    TripLengthFinderComponent, 
+    TravelGlossaryComponent
   ],
   imports: [
     CommonModule,

@@ -8,7 +8,6 @@ import { TravelPackingPlannerComponent } from './travel-packing-planner/travel-p
 import { TravelVisitPlannerComponent } from './travel-visit-planner/travel-visit-planner.component';
 import { TripLengthFinderComponent } from './trip-length-finder/trip-length-finder.component';
 import { TravelGlossaryComponent } from './travel-glossary/travel-glossary.component';
-import { CostOfLivingComparisionComponent } from './cost-of-living-comparision/cost-of-living-comparision.component';
 
 const routes: Routes = [
   {
@@ -35,9 +34,6 @@ const routes: Routes = [
       {
         path: 'travel-glossary', component: TravelGlossaryComponent
       }, 
-      {
-        path: 'cost-of-living-comparision', component: CostOfLivingComparisionComponent
-      },
     ]
   }
 ];
