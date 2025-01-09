@@ -6,7 +6,7 @@
                 <div class="select-title d-flex justify-content-between align-items-center">
                     <div>
                         <h5 class="w-100 mb-0" tooltipPosition="top" pTooltip="">
-                            Travel Packing Planner<i class="questiontooltip fa-solid fa-circle-question"></i></h5>
+                            Travel Packing Planner</h5>
                     </div>
                     <div>
                         <button class="how-it-works-button">How it works?
@@ -131,7 +131,7 @@
                 <div class="select-title d-flex justify-content-between align-items-center">
                     <div>
                         <h5 class="w-100 mb-0" tooltipPosition="top" pTooltip="">
-                            Travel Packing Planner<i class="questiontooltip fa-solid fa-circle-question"></i></h5>
+                            Travel Packing Planner</h5>
                     </div>
                     <div>
                         <button class="how-it-works-button">How it works?
@@ -177,7 +177,7 @@
                 <div class="select-title d-flex justify-content-between align-items-center">
                     <div>
                         <h5 class="w-100 mb-0" tooltipPosition="top" pTooltip="">
-                            Travel Packing Planner<i class="questiontooltip fa-solid fa-circle-question"></i></h5>
+                            Travel Packing Planner</h5>
                     </div>
                     <div>
                         <button class="how-it-works-button">How it works?
@@ -189,17 +189,17 @@
     </div>
     <div class="card-body text-center flex-fill overflow-y-auto">
         <div class="row mb-0">
-            <div *ngFor="let item of recommadationSavedQuestionList"
+            <div *ngFor="let item of recommadationSavedQuestionList; let i=index;"
                 class="col-lg-3 col-md-3 col-sm-4 col-xs-12 col-12 mb-3">
                 <div class="row w-100 m-0 justify-content-center h-100">
-                    <div class="card subjectcard" role="button" (click)="showRecommandationData()">
+                    <div class="card subjectcard" role="button" (click)="showRecommandationData(item.response)">
                         <div class="card-body text-start">
-                            <h5 class="fw-bold mb-0">Trip 1</h5>
-                            <p class="text-small"><b>Departure :</b>{{'item.description'}}</p>
-                            <p class="text-small"><b>Destination :</b>{{'item.description'}}</p>
-                            <p class="text-small"><b>Duration :</b>{{'item.description'}}</p>
-                            <p class="text-small"><b>Travel Experience :</b>{{'item.description'}}</p>
-                            <p class="text-small"><b>Prefferred Currency :</b>{{'item.description'}}</p>
+                            <h5 class="fw-bold mb-0">Trip {{i+1}}</h5>
+                            <p class="text-small"><b>Destination : </b>{{item.destination}}</p>
+                            <p class="text-small"><b>Type : </b>{{item.travel_type}}</p>
+                            <p class="text-small"><b>Travel mode : </b>{{item.travel_mode}}</p>
+                            <p class="text-small"><b>Days : </b>{{item.duration}}</p>
+                            <p class="text-small"><b>Seasons : </b>{{item.travel_month}}</p>
                         </div>
                     </div>
                 </div>

@@ -1,4 +1,3 @@
-<!-- ----------------- Recommandation Question View ----------------- -->
 <div class="card readingcard">
     <div class="card-header border-0 bg-transparent">
         <div class="row justify-content-center align-items-center">
@@ -17,140 +16,114 @@
         </div>
     </div>
     <div class="card-body text-center flex-fill overflow-y-auto">
-        <div class="container-fluid h-100">
+        <form [formGroup]="form" class="mt-4">
             <p-carousel [value]="recommendations" [numVisible]="1" [numScroll]="1" [circular]="false"
-                [showNavigators]="false" [showIndicators]="false" [page]="activePageIndex"
-                styleClass="h-100 carousal-container-sec">
-                <ng-template let-recommendation let-i="index" pTemplate="item">
-                    <form >
-                        <div class="row justify-content-center text-center">
-                            <div class="col-md-12 mb-4">
-                                <h2 class="fw-bold">Basic Information</h2>
-                                <h5 class="uniprep-primary fw-semibold">Enter Your Business Name</h5>
-                                <div>test</div>
+                [showNavigators]="false" [showIndicators]="false" [page]="activePageIndex">
+                <ng-template let-recommendation pTemplate="item">
+                    <div class="row text-center">
+                        <!-- ------------------ Basic Information View -------------------- -->
+                        <div *ngIf="recommendation.stage == 1" class="col-md-6 offset-md-3">
+                            <h2 class="fw-bold mb-4">{{recommendation.title}}</h2>
+                            <div class="d-flex flex-column gap-2 mb-4">
+                                <label class="uniprep-primary fw-semibold fs-5">Enter Your Business Name</label>
+                                <input type="text" formControlName="business_name" pInputText class="w-100"
+                                    placeholder="Name of your business" />
+                                <div *ngIf="submitted && form.get('business_name')?.errors?.['required']"
+                                    class="text-danger">Business Name is required
+                                </div>
                             </div>
-                            <div class="col-md-6">
-                                <!-- <div class="recommendationinput d-flex flex-column justify-content-center gap-3">
-                                    <ng-container *ngIf="recommendation.id == 1">
-                                        <p-dropdown [options]="departureLocationList"
-                                            [(ngModel)]="selectedData[recommendation.id]" optionLabel="country"
-                                            optionValue="country" [appendTo]="'body'" [filter]="true" [showClear]="true"
-                                            placeholder="Departure Country" styleClass="w-100">
-                                            <ng-template pTemplate="filter" let-options="options">
-                                                <div class="d-flex gap-2">
-                                                    <div class="p-inputgroup" (click)="$event.stopPropagation()">
-                                                        <span class="p-inputgroup-addon">
-                                                            <i class="pi pi-search"></i></span>
-                                                        <input type="text" pInputText placeholder="Filter"
-                                                            [(ngModel)]="departureFilter"
-                                                            (keyup)="customFilterFunction('departure')" />
-                                                    </div>
-                                                    <button pButton icon="pi pi-times" class="btn btn-primary"
-                                                        (click)="resetFunction('departure')"
-                                                        severity="secondary"></button>
-                                                </div>
-                                            </ng-template>
-                                        </p-dropdown>
-                                        <p class="text-center" [ngClass]="{ 'd-none': invalidClass === false }"
-                                            style="color: red">Please Choose Any one option</p>
-                                    </ng-container>
-                                    <ng-container *ngIf="recommendation.id == 2">
-                                        <p-dropdown [options]="destinationLocationList"
-                                            [(ngModel)]="selectedData[recommendation.id]" optionLabel="country"
-                                            optionValue="country" [appendTo]="'body'" placeholder="Destination Country"
-                                            [filter]="true" [showClear]="true" styleClass="w-100">
-                                            <ng-template pTemplate="filter" let-options="options">
-                                                <div class="d-flex gap-2">
-                                                    <div class="p-inputgroup" (click)="$event.stopPropagation()">
-                                                        <span class="p-inputgroup-addon">
-                                                            <i class="pi pi-search"></i></span>
-                                                        <input type="text" pInputText placeholder="Filter"
-                                                            [(ngModel)]="destinationFilter"
-                                                            (keyup)="customFilterFunction('destination')" />
-                                                    </div>
-                                                    <button pButton icon="pi pi-times" class="btn btn-primary"
-                                                        (click)="resetFunction('destination')" severity="secondary">
-                                                    </button>
-                                                </div>
-                                            </ng-template>
-                                        </p-dropdown>
-                                        <p class="text-center" [ngClass]="{ 'd-none': invalidClass === false }"
-                                            style="color: red">Please Choose Any one option</p>
-                                    </ng-container>
-                                    <ng-container *ngIf="recommendation.id == 3">
-                                        <p-inputNumber [showButtons]="true" buttonLayout="horizontal"
-                                            [(ngModel)]="selectedData[recommendation.id]" spinnerMode="horizontal"
-                                            incrementButtonIcon="pi pi-plus" incrementButtonClass="plus-icon"
-                                            decrementButtonClass="minus-icon" decrementButtonIcon="pi pi-minus"
-                                            inputStyleClass="number-input" [min]="1" [max]="7" [step]="1"
-                                            [suffix]="selectedData[recommendation.id] == 1 ? ' day' :  ' days'"
-                                            [inputStyle]="{'pointer-events': 'none', 'caret-color': 'transparent'}"
-                                            styleClass="w-100 custom-number-input">
-                                        </p-inputNumber>
-                                        <p class="text-center" [ngClass]="{ 'd-none': invalidClass === false }"
-                                            style="color: red">Please Choose Any one option</p>
-                                    </ng-container>
-                                    <ng-container *ngIf="recommendation.id == 4">
-                                        <p-dropdown [options]="trvelExperienceList" styleClass="w-100"
-                                            [(ngModel)]="selectedData[recommendation.id]" optionLabel="name"
-                                            optionValue="name" [appendTo]="'body'" placeholder="Travel Experience">
-                                        </p-dropdown>
-                                        <p class="text-center" [ngClass]="{ 'd-none': invalidClass === false }"
-                                            style="color: red">Please Choose Any one option</p>
-                                    </ng-container>
-                                    <ng-container *ngIf="recommendation.id == 5">
-                                        <p-dropdown [options]="currencyList"
-                                            [(ngModel)]="selectedData[recommendation.id]" optionLabel="currency_code"
-                                            optionValue="currency_code" [appendTo]="'body'"
-                                            placeholder="Preferred Currency" [filter]="true" [showClear]="true"
-                                            styleClass="w-100">
-                                            <ng-template let-data pTemplate="item">
-                                                <div>{{data.country}} - {{data.currency_code}}</div>
-                                            </ng-template>
-                                            <ng-template pTemplate="selectedItem" let-selectedOption>
-                                                {{ selectedOption.country }} - {{ selectedOption.currency_code }}
-                                            </ng-template>
-                                            <ng-template pTemplate="filter" let-options="options">
-                                                <div class="d-flex gap-2">
-                                                    <div class="p-inputgroup" (click)="$event.stopPropagation()">
-                                                        <span class="p-inputgroup-addon">
-                                                            <i class="pi pi-search"></i></span>
-                                                        <input type="text" pInputText placeholder="Filter"
-                                                            [(ngModel)]="currencyFilter"
-                                                            (keyup)="customFilterFunction('currency')" />
-                                                    </div>
-                                                    <button pButton icon="pi pi-times" class="btn btn-primary"
-                                                        (click)="resetFunction('currency')"
-                                                        severity="secondary"></button>
-                                                </div>
-                                            </ng-template>
-                                        </p-dropdown>
-                                        <p class="text-center" [ngClass]="{ 'd-none': invalidClass === false }"
-                                            style="color: red">Please Choose Any one option</p>
-                                    </ng-container>
-                                </div> -->
+                            <div class="d-flex flex-column gap-2 mb-4">
+                                <label class="uniprep-primary fw-semibold fs-5">What is your Target Market?</label>
+                                <input type="text" formControlName="target_market" pInputText class="w-100"
+                                    placeholder="Enter your target market" />
+                                <div *ngIf="submitted && form.get('target_market')?.errors?.['required']"
+                                    class="text-danger">Target Market is required
+                                </div>
+                            </div>
+                            <div class="d-flex flex-column gap-2">
+                                <label class="uniprep-primary fw-semibold fs-5">What is your Business About?</label>
+                                <textarea formControlName="business_overview" pInputTextarea class="w-100"
+                                    placeholder="Give us a brief overview of your business" [rows]="5"></textarea>
+                                <div *ngIf="submitted && form.get('business_overview')?.errors?.['required']"
+                                    class="text-danger">Business About is required
+                                </div>
                             </div>
                         </div>
-                    </form>
+
+                        <!-- ------------------ Market Analysis View -------------------- -->
+                        <div *ngIf="recommendation.stage == 2" class="col-md-6 offset-md-3">
+                            <h2 class="fw-bold mb-4">{{recommendation.title}}</h2>
+                            <div class="d-flex flex-column gap-2 mb-4">
+                                <label class="uniprep-primary fw-semibold fs-5">What Product/Service are you offering?
+                                </label>
+                                <textarea formControlName="product_or_service" pInputTextarea class="w-100"
+                                    placeholder="Enter your product/service" [rows]="5"></textarea>
+                                <div *ngIf="submitted && form.get('product_or_service')?.errors?.['required']"
+                                    class="text-danger">Product/Service is required
+                                </div>
+                            </div>
+                            <div class="d-flex flex-column gap-2">
+                                <label class="uniprep-primary fw-semibold fs-5">What makes the business unique?</label>
+                                <textarea formControlName="unique_value" pInputTextarea class="w-100"
+                                    placeholder="Unique Value Proposition" [rows]="5"></textarea>
+                                <div *ngIf="submitted && form.get('unique_value')?.errors?.['required']"
+                                    class="text-danger">Unique Business Value is required
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- ------------------ Finances View -------------------- -->
+                        <div *ngIf="recommendation.stage == 3" class="col-md-6 offset-md-3">
+                            <h2 class="fw-bold mb-4">{{recommendation.title}}</h2>
+                            <div class="d-flex flex-column gap-2 mb-4">
+                                <label class="uniprep-primary fw-semibold fs-5">What is your Revenue Model?</label>
+                                <p-dropdown formControlName="revenue_model" [options]="revenueModelList"
+                                    styleClass="w-100" optionLabel="name" optionValue="name" [appendTo]="'body'"
+                                    placeholder="Revenue Model">
+                                </p-dropdown>
+                                <div *ngIf="submitted && form.get('revenue_model')?.errors?.['required']"
+                                    class="text-danger">Revenue Model is required
+                                </div>
+                            </div>
+                            <div class="d-flex flex-column gap-2 mb-4">
+                                <label class="uniprep-primary fw-semibold fs-5">What is your Initial Funding
+                                    Requirement?</label>
+                                <input type="text" formControlName="initial_funding" pInputText class="w-100"
+                                    placeholder="Initial Funding Requirement" />
+                                <div *ngIf="submitted && form.get('initial_funding')?.errors?.['required']"
+                                    class="text-danger">Initial Funding is required
+                                </div>
+                            </div>
+                            <div class="d-flex flex-column gap-2">
+                                <label class="uniprep-primary fw-semibold fs-5">What is your project revenue of the
+                                    first year?</label>
+                                <input type="text" formControlName="project_revenue" pInputText class="w-100"
+                                    placeholder="Project Revenue" />
+                                <div *ngIf="submitted && form.get('project_revenue')?.errors?.['required']"
+                                    class="text-danger">Project Revenue is required
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </ng-template>
             </p-carousel>
-        </div>
+        </form>
     </div>
     <div class="card-footer bg-transparent border-0">
         <div class="d-flex justify-content-between mt-2">
             <button pButton type="button" class="btn btn-primary btn-rounded p-1 pe-4"
-                [style.visibility]="'1' == '1' ? 'hidden' : 'visible'" (click)="previous()">
+                [style.visibility]="activePageIndex == 0 ? 'hidden' : 'visible'" (click)="previous()">
                 <span class="btn-icon px-2 py-2"><i class="fa fa-arrow-left"></i></span> <span
                     class="ms-2">Previous</span>
             </button>
-            <button pButton type="button" (click)="next('recommendation.id')" *ngIf="true"
+            <button pButton type="button" (click)="next()" *ngIf="activePageIndex <= 3"
                 class="btn btn-primary btn-rounded p-1 ps-4">
                 <span class="me-2">Next</span><span class="btn-icon px-2 py-2"><i class="fa fa-arrow-right"></i></span>
             </button>
-            <button pButton type="button" (click)="getRecommendation()" *ngIf="false"
+            <button pButton type="button" (click)="getRecommendation()" *ngIf="activePageIndex == 4"
                 class="btn btn-success btn-rounded p-1 ps-4">
-                <span class="me-2">Get Recommendations</span><span class="btn-icon px-2 py-2"><i
-                        class="fa fa-check-circle"></i></span>
+                <span class="me-2">Get Recommendations</span><span class="btn-icon px-2 py-2">
+                    <i class="fa fa-check-circle"></i></span>
             </button>
         </div>
     </div>

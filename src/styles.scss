@@ -2141,7 +2141,7 @@ uni-travel-tools{
 	flex-direction: column;
 	overflow: hidden;
 	uni-global-travel-visa, uni-travel-cost-estimator, uni-travel-packing-planner, uni-travel-visit-planner, 
-	uni-trip-length-finder, uni-travel-glossary, uni-cost-of-living-comparision {
+	uni-trip-length-finder, uni-travel-glossary {
 		display: flex;
 		flex: 1;
 		height: 100%;
@@ -2178,4 +2178,20 @@ uni-travel-tools{
     border: 1px solid #ced4da;
     border-right: 0;
     box-shadow: none;
+}
+
+uni-founderstool{
+	display: flex;
+	flex: 1;
+	height: 100%;
+	flex-direction: column;
+	overflow: hidden;
+	uni-business-plan-generator {
+		display: flex;
+		flex: 1;
+		height: 100%;
+		flex-direction: column;
+		overflow: hidden;
+		border-radius: 10px;
+	}
 }

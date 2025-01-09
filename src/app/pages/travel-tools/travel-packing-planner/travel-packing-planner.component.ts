@@ -107,9 +107,9 @@ export class TravelPackingPlannerComponent implements OnInit {
       destination: this.selectedData[1],
       travel_type: this.selectedData[2],
       travel_mode: this.selectedData[3],
-      duaration: this.selectedData[4],
+      duration: this.selectedData[4],
       travel_month: this.selectedData[5],
-      mode: 'travelpackingplanner'
+      mode: 'travel_packaging_planner'
     }
     this.travelToolsService.getChatgptRecommendations(data).subscribe({
       next: response => {
@@ -135,7 +135,7 @@ export class TravelPackingPlannerComponent implements OnInit {
 
   saveRecommadation() {
     if(!this.isFromSavedData) {
-      this.travelToolsService.getTripList('travelpackingplanner').subscribe({
+      this.travelToolsService.getTripList('travel_packaging_planner').subscribe({
         next: response => {
           this.isRecommendationQuestion = false;
           this.isRecommendationData = false;
