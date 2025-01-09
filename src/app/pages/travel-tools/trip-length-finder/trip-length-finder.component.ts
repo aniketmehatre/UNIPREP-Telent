@@ -14,22 +14,8 @@ export class TripLengthFinderComponent implements OnInit {
   recommendations: { id: number, question: string }[] = [
     {
       id: 1,
-      question: "Where are you planning to travel?",
-    },
-    {
-      id: 2,
-      question: "How many days will your trip be?",
-    },
-    {
-      id: 3,
-      question: "Which season or month are you planning your trip? ",
+      question: "What is your travel destination?",
     }
-  ];
-  seasons: any = [
-    { value: "Summer" },
-    { value: "Winter" },
-    { value: "Fall" },
-    { value: "Spring" }
   ];
   isRecommendation: boolean = true;
   isResponsePage: boolean = false;
@@ -42,7 +28,6 @@ export class TripLengthFinderComponent implements OnInit {
   savedResponse: any = [];
 
   ngOnInit(): void {
-    this.selectedData[2] = 1; //second page i need to show the days count so manually i enter the day.
     this.getCountriesList();
   }
 
@@ -52,29 +37,11 @@ export class TripLengthFinderComponent implements OnInit {
     });
   }
 
-  previous() {
-    this.invalidClass = false;
-    if (this.activePageIndex > 0) {
-      this.activePageIndex--;
-    }
-  }
-
-  next(productId: number) {
-    this.hideWarning(productId);
-    if (!this.invalidClass) {
-      if (this.activePageIndex < this.recommendations.length - 1) {
-        this.activePageIndex++;
-      }
-    }
-  }
-
   getRecommendation(productId: number) {
     this.hideWarning(productId);
     if (!this.invalidClass) {
       let data = {
-        destination: this.selectedData[1],
-        trip_duration: this.selectedData[2] + " days",
-        season: this.selectedData[3],
+        country: this.selectedData[1],
         mode: "trip_length_finder"
       };
       this.travelToolService.getChatgptRecommendations(data).subscribe(response => {
@@ -100,7 +67,6 @@ export class TripLengthFinderComponent implements OnInit {
     this.isSavedPage = false;
     this.activePageIndex = 0;
     this.selectedData = [];
-    this.selectedData[2] = 1;
   }
 
   savedRecommendations() {
@@ -108,7 +74,7 @@ export class TripLengthFinderComponent implements OnInit {
     this.isResponsePage = false;
     this.isSavedPage = true;
     
-    this.travelToolService.getTripList('travel_visit_planner').subscribe( response =>{
+    this.travelToolService.getTripList('trip_length_finder').subscribe( response =>{
       this.savedResponse = response.data;
     })
   }
