@@ -1,0 +1,157 @@
+<!-- ----------------- Recommandation Question View ----------------- -->
+<div class="card readingcard">
+    <div class="card-header border-0 bg-transparent">
+        <div class="row justify-content-center align-items-center">
+            <div class="col-md-12 text-center">
+                <div class="select-title d-flex justify-content-between align-items-center">
+                    <div>
+                        <h5 class="w-100 mb-0" tooltipPosition="top" pTooltip="">
+                            Business Plan Generator</h5>
+                    </div>
+                    <div>
+                        <button class="how-it-works-button">How it works?
+                            <i class="fa-solid fa-play d-md-block d-none"></i></button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="card-body text-center flex-fill overflow-y-auto">
+        <div class="container-fluid h-100">
+            <p-carousel [value]="recommendations" [numVisible]="1" [numScroll]="1" [circular]="false"
+                [showNavigators]="false" [showIndicators]="false" [page]="activePageIndex"
+                styleClass="h-100 carousal-container-sec">
+                <ng-template let-recommendation let-i="index" pTemplate="item">
+                    <form >
+                        <div class="row justify-content-center text-center">
+                            <div class="col-md-12 mb-4">
+                                <h2 class="fw-bold">Basic Information</h2>
+                                <h5 class="uniprep-primary fw-semibold">Enter Your Business Name</h5>
+                                <div>test</div>
+                            </div>
+                            <div class="col-md-6">
+                                <!-- <div class="recommendationinput d-flex flex-column justify-content-center gap-3">
+                                    <ng-container *ngIf="recommendation.id == 1">
+                                        <p-dropdown [options]="departureLocationList"
+                                            [(ngModel)]="selectedData[recommendation.id]" optionLabel="country"
+                                            optionValue="country" [appendTo]="'body'" [filter]="true" [showClear]="true"
+                                            placeholder="Departure Country" styleClass="w-100">
+                                            <ng-template pTemplate="filter" let-options="options">
+                                                <div class="d-flex gap-2">
+                                                    <div class="p-inputgroup" (click)="$event.stopPropagation()">
+                                                        <span class="p-inputgroup-addon">
+                                                            <i class="pi pi-search"></i></span>
+                                                        <input type="text" pInputText placeholder="Filter"
+                                                            [(ngModel)]="departureFilter"
+                                                            (keyup)="customFilterFunction('departure')" />
+                                                    </div>
+                                                    <button pButton icon="pi pi-times" class="btn btn-primary"
+                                                        (click)="resetFunction('departure')"
+                                                        severity="secondary"></button>
+                                                </div>
+                                            </ng-template>
+                                        </p-dropdown>
+                                        <p class="text-center" [ngClass]="{ 'd-none': invalidClass === false }"
+                                            style="color: red">Please Choose Any one option</p>
+                                    </ng-container>
+                                    <ng-container *ngIf="recommendation.id == 2">
+                                        <p-dropdown [options]="destinationLocationList"
+                                            [(ngModel)]="selectedData[recommendation.id]" optionLabel="country"
+                                            optionValue="country" [appendTo]="'body'" placeholder="Destination Country"
+                                            [filter]="true" [showClear]="true" styleClass="w-100">
+                                            <ng-template pTemplate="filter" let-options="options">
+                                                <div class="d-flex gap-2">
+                                                    <div class="p-inputgroup" (click)="$event.stopPropagation()">
+                                                        <span class="p-inputgroup-addon">
+                                                            <i class="pi pi-search"></i></span>
+                                                        <input type="text" pInputText placeholder="Filter"
+                                                            [(ngModel)]="destinationFilter"
+                                                            (keyup)="customFilterFunction('destination')" />
+                                                    </div>
+                                                    <button pButton icon="pi pi-times" class="btn btn-primary"
+                                                        (click)="resetFunction('destination')" severity="secondary">
+                                                    </button>
+                                                </div>
+                                            </ng-template>
+                                        </p-dropdown>
+                                        <p class="text-center" [ngClass]="{ 'd-none': invalidClass === false }"
+                                            style="color: red">Please Choose Any one option</p>
+                                    </ng-container>
+                                    <ng-container *ngIf="recommendation.id == 3">
+                                        <p-inputNumber [showButtons]="true" buttonLayout="horizontal"
+                                            [(ngModel)]="selectedData[recommendation.id]" spinnerMode="horizontal"
+                                            incrementButtonIcon="pi pi-plus" incrementButtonClass="plus-icon"
+                                            decrementButtonClass="minus-icon" decrementButtonIcon="pi pi-minus"
+                                            inputStyleClass="number-input" [min]="1" [max]="7" [step]="1"
+                                            [suffix]="selectedData[recommendation.id] == 1 ? ' day' :  ' days'"
+                                            [inputStyle]="{'pointer-events': 'none', 'caret-color': 'transparent'}"
+                                            styleClass="w-100 custom-number-input">
+                                        </p-inputNumber>
+                                        <p class="text-center" [ngClass]="{ 'd-none': invalidClass === false }"
+                                            style="color: red">Please Choose Any one option</p>
+                                    </ng-container>
+                                    <ng-container *ngIf="recommendation.id == 4">
+                                        <p-dropdown [options]="trvelExperienceList" styleClass="w-100"
+                                            [(ngModel)]="selectedData[recommendation.id]" optionLabel="name"
+                                            optionValue="name" [appendTo]="'body'" placeholder="Travel Experience">
+                                        </p-dropdown>
+                                        <p class="text-center" [ngClass]="{ 'd-none': invalidClass === false }"
+                                            style="color: red">Please Choose Any one option</p>
+                                    </ng-container>
+                                    <ng-container *ngIf="recommendation.id == 5">
+                                        <p-dropdown [options]="currencyList"
+                                            [(ngModel)]="selectedData[recommendation.id]" optionLabel="currency_code"
+                                            optionValue="currency_code" [appendTo]="'body'"
+                                            placeholder="Preferred Currency" [filter]="true" [showClear]="true"
+                                            styleClass="w-100">
+                                            <ng-template let-data pTemplate="item">
+                                                <div>{{data.country}} - {{data.currency_code}}</div>
+                                            </ng-template>
+                                            <ng-template pTemplate="selectedItem" let-selectedOption>
+                                                {{ selectedOption.country }} - {{ selectedOption.currency_code }}
+                                            </ng-template>
+                                            <ng-template pTemplate="filter" let-options="options">
+                                                <div class="d-flex gap-2">
+                                                    <div class="p-inputgroup" (click)="$event.stopPropagation()">
+                                                        <span class="p-inputgroup-addon">
+                                                            <i class="pi pi-search"></i></span>
+                                                        <input type="text" pInputText placeholder="Filter"
+                                                            [(ngModel)]="currencyFilter"
+                                                            (keyup)="customFilterFunction('currency')" />
+                                                    </div>
+                                                    <button pButton icon="pi pi-times" class="btn btn-primary"
+                                                        (click)="resetFunction('currency')"
+                                                        severity="secondary"></button>
+                                                </div>
+                                            </ng-template>
+                                        </p-dropdown>
+                                        <p class="text-center" [ngClass]="{ 'd-none': invalidClass === false }"
+                                            style="color: red">Please Choose Any one option</p>
+                                    </ng-container>
+                                </div> -->
+                            </div>
+                        </div>
+                    </form>
+                </ng-template>
+            </p-carousel>
+        </div>
+    </div>
+    <div class="card-footer bg-transparent border-0">
+        <div class="d-flex justify-content-between mt-2">
+            <button pButton type="button" class="btn btn-primary btn-rounded p-1 pe-4"
+                [style.visibility]="'1' == '1' ? 'hidden' : 'visible'" (click)="previous()">
+                <span class="btn-icon px-2 py-2"><i class="fa fa-arrow-left"></i></span> <span
+                    class="ms-2">Previous</span>
+            </button>
+            <button pButton type="button" (click)="next('recommendation.id')" *ngIf="true"
+                class="btn btn-primary btn-rounded p-1 ps-4">
+                <span class="me-2">Next</span><span class="btn-icon px-2 py-2"><i class="fa fa-arrow-right"></i></span>
+            </button>
+            <button pButton type="button" (click)="getRecommendation()" *ngIf="false"
+                class="btn btn-success btn-rounded p-1 ps-4">
+                <span class="me-2">Get Recommendations</span><span class="btn-icon px-2 py-2"><i
+                        class="fa fa-check-circle"></i></span>
+            </button>
+        </div>
+    </div>
+</div>

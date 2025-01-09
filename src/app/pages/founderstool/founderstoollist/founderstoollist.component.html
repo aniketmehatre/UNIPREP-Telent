@@ -18,130 +18,19 @@
 	</div>
 	<div class="card-body text-center flex-fill overflow-y-auto">
 		<div class="row mb-0">
-			<div class="readingcardgrid mb-3">
+			<div class="readingcardgrid mb-3" *ngFor="let item of founderToolsList">
 				<div class="row w-100 m-0 justify-content-center h-100">
-					<div (click)="openAcademy()" class="card subjectcard" role="button">
+					<div (click)="navigateSubModule(item.url)" class="card subjectcard" role="button">
 						<div class="card-body d-flex flex-md-column gap-2 flex-row justify-content-md-between align-items-center">
 							<div>
 								<div class="submoduleicon">
-									<img class="selectimage" src="../../../uniprep-assets/images/founderstool/foundersacademy.svg" />
+									<img class="selectimage" [src]="item.image" />
 								</div>
-								<h5 class="text-center mt-3 fw-bold d-md-block d-none mb-0">Founders Academy</h5>
+								<h5 class="text-center mt-3 fw-bold d-md-block d-none mb-0">{{item.title}}</h5>
 							</div>
 							<div class="d-flex flex-column text-md-center text-start">
-								<h5 class=" mt-3 fw-bold d-block d-md-none mb-0">Founders Academy</h5>
-								<p class="text-small">A comprehensive video library covering key topics to help entrepreneurs build successful startups.</p>
-							</div>
-						</div>
-					</div>
-				</div>
-			</div>
-			<div class="readingcardgrid mb-3">
-				<div class="row w-100 m-0 justify-content-center h-100">
-					<div (click)="openInvestorTraining()" class="card subjectcard" role="button">
-						<div class="card-body d-flex flex-md-column gap-2 flex-row justify-content-md-between align-items-center">
-							<div>
-								<div class="submoduleicon">
-									<img class="selectimage" src="../../../uniprep-assets/images/founderstool/investorpitch.svg" />
-								</div>
-								<h5 class="text-center mt-3 fw-bold d-md-block d-none mb-0">Investor Pitch Training</h5>
-							</div>
-							<div class="d-flex flex-column text-md-center text-start">
-								<h5 class=" mt-3 fw-bold d-block d-md-none mb-0">Investor Pitch Training</h5>
-								<p class="text-small">Offers in-depth analysis and insights into businesses, providing tailored guidance to prepare effective investor pitches.</p>
-							</div>
-						</div>
-					</div>
-				</div>
-			</div>
-			<div class="readingcardgrid mb-3">
-				<div class="row w-100 m-0 justify-content-center h-100">
-					<div (click)="openStartUpGlossary()" class="card subjectcard" role="button">
-						<div class="card-body d-flex flex-md-column gap-2 flex-row justify-content-md-between align-items-center">
-							<div>
-								<div class="submoduleicon">
-									<img class="selectimage" src="../../../uniprep-assets/images/founderstool/startupglossary.svg" />
-								</div>
-								<h5 class="text-center mt-3 fw-bold d-md-block d-none mb-0">Startup Glossary</h5>
-							</div>
-							<div class="d-flex flex-column text-md-center text-start">
-								<h5 class=" mt-3 fw-bold d-block d-md-none mb-0">Startup Glossary</h5>
-								<p class="text-small">A curated collection of essential startup terms, definitions, and jargon, helping entrepreneurs navigate the business landscape with clarity.</p>
-							</div>
-							
-						</div>
-					</div>
-				</div>
-			</div>
-			<div class="readingcardgrid mb-3">
-				<div class="row w-100 m-0 justify-content-center h-100">
-					<div (click)="openInvestorList()" class="card subjectcard" role="button">
-						<div class="card-body d-flex flex-md-column gap-2 flex-row justify-content-md-between align-items-center">
-							<div>
-								<div class="submoduleicon">
-									<img class="selectimage" src="../../../uniprep-assets/images/founderstool/investorlist.svg" />
-								</div>
-								<h5 class="text-center mt-3 fw-bold d-md-block d-none mb-0">Investor List</h5>
-							</div>
-							<div class="d-flex flex-column text-md-center text-start">
-								<h5 class=" mt-3 fw-bold d-block d-md-none mb-0">Investor List</h5>
-								<p class="text-small">Access a database of 100,000+ global investors with detailed profiles and contact information.</p>
-							</div>
-							
-						</div>
-					</div>
-				</div>
-			</div>
-			<div class="readingcardgrid mb-3">
-				<div class="row w-100 m-0 justify-content-center h-100">
-					<div (click)="openEntreprenuerSkill()" class="card subjectcard" role="button">
-						<div class="card-body d-flex flex-md-column gap-2 flex-row justify-content-md-between align-items-center">
-							<div>
-								<div class="submoduleicon">
-									<img class="selectimage" src="../../../uniprep-assets/images/founderstool/entrepreneurskilltest.svg" />
-								</div>
-								<h5 class="text-center mt-3 fw-bold d-md-block d-none mb-0">Entrepreneur Skill Test</h5>
-							</div>
-							<div class="d-flex flex-column text-md-center text-start">
-								<h5 class=" mt-3 fw-bold d-block d-md-none mb-0">Entrepreneur Skill Test</h5>
-								<p class="text-small">A knowledge-based assessment designed to evaluate an entrepreneur's understanding of various business concepts and skills.</p>
-							</div>
-							
-						</div>
-					</div>
-				</div>
-			</div>
-			<div class="readingcardgrid mb-3">
-				<div class="row w-100 m-0 justify-content-center h-100">
-					<div (click)="openEntreprenuerSector()" class="card subjectcard" role="button">
-						<div class="card-body d-flex flex-md-column gap-2 flex-row justify-content-md-between align-items-center">
-							<div>
-								<div class="submoduleicon">
-									<img class="selectimage" src="../../../uniprep-assets/images/founderstool/entrepreneurproficiencytest.svg" />
-								</div>
-								<h5 class="text-center mt-3 fw-bold d-md-block d-none mb-0">Entrepreneur Sector Proficiency Test</h5>
-							</div>
-							<div class="d-flex flex-column text-md-center text-start">
-								<h5 class=" mt-3 fw-bold d-block d-md-none mb-0">Entrepreneur Sector Proficiency Test</h5>
-								<p class="text-small">An assessment that evaluates an entrepreneur's in-depth knowledge and proficiency in specific industries.</p>
-							</div>
-						</div>
-					</div>
-				</div>
-			</div>
-			<div class="readingcardgrid mb-3">
-				<div class="row w-100 m-0 justify-content-center h-100">
-					<div (click)="openWealthLeaders()" class="card subjectcard" role="button">
-						<div class="card-body d-flex flex-md-column gap-2 flex-row justify-content-md-between align-items-center">
-							<div>
-								<div class="submoduleicon">
-									<img class="selectimage" src="../../../uniprep-assets/images/icons/wealthy.svg" />
-								</div>
-								<h5 class="text-center mt-3 fw-bold d-md-block d-none mb-0">Wealth Leaders</h5>
-							</div>
-							<div class="d-flex flex-column text-md-center text-start">
-								<h5 class=" mt-3 fw-bold d-block d-md-none mb-0">Wealth Leaders</h5>
-								<p class="text-small">An assessment that evaluates an entrepreneur's in-depth knowledge and proficiency in specific industries.</p>
+								<h5 class=" mt-3 fw-bold d-block d-md-none mb-0">{{item.title}}</h5>
+								<p class="text-small">{{item.description}}</p>
 							</div>
 						</div>
 					</div>
