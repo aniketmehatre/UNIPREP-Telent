@@ -3,6 +3,7 @@ import { Router } from '@angular/router';
 import { TestQuizService } from '../test-quiz.service';
 import { JobSearchService } from '../../job-search/job-search.service';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { TravelCostEstimator } from 'src/app/@Models/chat-gpt.model';
 
 @Component({
   selector: 'uni-careerplannercountrywise',
@@ -15,6 +16,9 @@ export class CareerplannercountrywiseComponent implements OnInit {
   submitted: boolean = false;
   isFormVisible:boolean=true;
   customizedResponse: any;
+  isFormChatgptresponse:boolean=false;
+  isSavedResponse:boolean=false;
+  recommadationSavedQuestionList: any[] = [];
   constructor(private router: Router,private service: JobSearchService,private fb:FormBuilder) { 
     this.form = this.fb.group({
       country: ['',[Validators.required]],
@@ -33,8 +37,6 @@ export class CareerplannercountrywiseComponent implements OnInit {
   formSubmit(){
     this.submitted=true;
     if(this.form.valid){
-      this.submitted=false
-      this.isFormVisible=false
       var data={
         mode:"careerplanner",
         currency_code:this.form.value.currency,
@@ -42,8 +44,44 @@ export class CareerplannercountrywiseComponent implements OnInit {
       }
       this.service.getCountryCurrencyChatGptOutput(data).subscribe((res:any)=>{
         this.customizedResponse=res.response
-        this.submitted=false;
+        this.submitted=false
+        this.isFormVisible=false;
+        this.isFormChatgptresponse=true;
+        this.isSavedResponse=false;
       })
     }
+  }
+  BackReset(){
+    this.isFormVisible=true;
+    this.isFormChatgptresponse=false;
+    this.isSavedResponse=false;
+    this.form.reset();
+    // this.router.navigate(['/pages/job-tool/careerplannerlist']);
+  }
+  goBack(){
+    this.router.navigate(['/pages/job-tool/careerplannerlist']);
+  }
+  saveRecommadation(){
+    this.service.getTripList('careerplanner').subscribe({
+      next: response => {
+        this.isFormVisible=false;
+        this.isFormChatgptresponse=false;
+        this.isSavedResponse=true;
+        this.recommadationSavedQuestionList = response.data;
+      },
+      error: error => {
+      }
+    });
+  }
+  goBackChatGptResp(){
+    this.isFormVisible=false;
+    this.isFormChatgptresponse=true;
+    this.isSavedResponse=false;
+  }
+  showRecommandationData(data:any){
+    this.customizedResponse=data
+    this.isFormVisible=false;
+    this.isFormChatgptresponse=true;
+    this.isSavedResponse=false;
   }
 }

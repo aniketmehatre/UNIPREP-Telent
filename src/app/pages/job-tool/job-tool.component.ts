@@ -20,7 +20,6 @@ export class JobToolComponent implements OnInit {
   employerName: any;
   mainTitle: any;
   howItWorksVideo: string = "";
-
   constructor(
     private router: Router, private employerGlobalService: EmployerGlobalService,
     private location: Location,
@@ -116,9 +115,10 @@ export class JobToolComponent implements OnInit {
       this.howItWorksVideo = 'https://www.youtube.com/embed/hwH7xDhaE4c?si=gZG11AMS2BxCYAY1';
     } 
     else if (this.currentRoute.includes("careerplannercountrywise")) {
-      this.title = "Career Tools -> Career Planner";
+      // console.log("hi");
+      this.title = "not_required";
       this.tooltip = "Plan your career path by exploring job opportunities worldwide."
-      this.hideTitleForPreviewPage = false;
+      this.hideTitleForPreviewPage = true;
       this.howItWorksVideo = 'https://www.youtube.com/embed/hwH7xDhaE4c?si=gZG11AMS2BxCYAY1';
     } 
     else {
