@@ -1,6 +1,6 @@
 import { NgModule,CUSTOM_ELEMENTS_SCHEMA  } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { FounderstoolComponent } from '../founderstool.component';
+import { FounderstoolComponent } from './founderstool.component';
 import { InputTextModule } from 'primeng/inputtext';
 import { CarouselModule } from 'primeng/carousel';
 import { ButtonModule } from 'primeng/button';
@@ -10,16 +10,19 @@ import { DropdownModule } from 'primeng/dropdown';
 import { PaginatorModule } from 'primeng/paginator';
 import { CardModule } from 'primeng/card';
 import { DialogModule } from 'primeng/dialog';
-import { foundersToolRountingModule } from '../founders-tool-routing.module';
+import { foundersToolRountingModule } from './founders-tool-routing.module';
 import { TooltipModule } from 'primeng/tooltip';
-import { FoundersacademyComponent } from '../foundersacademy/foundersacademy.component';
+import { FoundersacademyComponent } from './foundersacademy/foundersacademy.component';
 import {ConfirmationService} from 'primeng/api';
-import { FounderstoollistComponent } from '../founderstoollist/founderstoollist.component';
-import { InvestorpitchtrainingComponent } from '../investorpitchtraining/investorpitchtraining.component';
-import { StartupglossaryComponent } from '../startupglossary/startupglossary.component';
-import { EntreprenuerskillmoduleComponent } from '../entreprenuerskillmodule/entreprenuerskillmodule.component';
-import { EntreprenuersectorproficiencyComponent } from '../entreprenuersectorproficiency/entreprenuersectorproficiency.component';
-import { EntreprenuerquizComponent } from '../entreprenuerquiz/entreprenuerquiz.component';
+import { FounderstoollistComponent } from './founderstoollist/founderstoollist.component';
+import { InvestorpitchtrainingComponent } from './investorpitchtraining/investorpitchtraining.component';
+import { StartupglossaryComponent } from './startupglossary/startupglossary.component';
+import { EntreprenuerskillmoduleComponent } from './entreprenuerskillmodule/entreprenuerskillmodule.component';
+import { EntreprenuersectorproficiencyComponent } from './entreprenuersectorproficiency/entreprenuersectorproficiency.component';
+import { EntreprenuerquizComponent } from './entreprenuerquiz/entreprenuerquiz.component';
+import { WealthleaderslistComponent } from './wealthleaderslist/wealthleaderslist.component';
+import { WealthleaderreadansComponent } from './wealthleaderreadans/wealthleaderreadans.component';
+import { BusinessPlanGeneratorComponent } from './business-plan-generator/business-plan-generator.component';
 
 
 @NgModule({
@@ -32,6 +35,9 @@ import { EntreprenuerquizComponent } from '../entreprenuerquiz/entreprenuerquiz.
     EntreprenuerskillmoduleComponent,
     EntreprenuersectorproficiencyComponent,
     EntreprenuerquizComponent,
+    WealthleaderslistComponent,
+    WealthleaderreadansComponent,
+    BusinessPlanGeneratorComponent
   ],
   imports: [
     CommonModule,

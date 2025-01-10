@@ -478,6 +478,7 @@ uni-entreprenuerskillmodule,
 uni-entreprenuersectorproficiency,
 uni-startupglossary,
 uni-investorpitchtraining,
+uni-wealthleaderslist,
 uni-translate-view,
 uni-entreprenuerquiz,
 uni-faq,
@@ -498,7 +499,9 @@ uni-user-management,
 uni-national-exam-review,
 uni-quizinfowindow,
 uni-job-prep,
-uni-preparedlist {
+uni-wealthleaderreadans,
+uni-preparedlist,
+uni-careerplannercountrywise {
 	display: flex;
 	flex: 1;
 	height: 100%;
@@ -2112,4 +2115,83 @@ uni-assessment {
 
 .instructionlist li {
 	margin-bottom: 20px;
-  }
+}
+
+  @media (min-width: 992px) {
+    .col-custom-lg-2 {
+        flex: 0 0 auto;
+        width: 20%;
+    }
+}
+
+.carousal-container-sec .p-carousel-content {
+    height: 100% !important;
+    .p-carousel-container {
+      height: 100%;
+      .p-carousel-items-container {
+        height: 100%;
+      }
+    }
+}
+
+uni-travel-tools{
+	display: flex;
+	flex: 1;
+	height: 100%;
+	flex-direction: column;
+	overflow: hidden;
+	uni-global-travel-visa, uni-travel-cost-estimator, uni-travel-packing-planner, uni-travel-visit-planner, 
+	uni-trip-length-finder, uni-travel-glossary {
+		display: flex;
+		flex: 1;
+		height: 100%;
+		flex-direction: column;
+		overflow: hidden;
+		border-radius: 10px;
+	}
+}
+
+.custom-number-input .number-input {
+    border-right: 0;
+}
+
+.custom-number-input .plus-icon,
+.custom-number-input .minus-icon {
+    background-color: white !important;
+    color: black !important;
+    border: 1px solid #ced4da;
+}
+
+.custom-number-input .minus-icon {
+    order: 2 !important;
+    border-top-left-radius: 0;
+    border-bottom-left-radius: 0;
+    border-left: 0;
+    border-right: 0;
+}
+
+.custom-number-input .plus-icon {
+    border-left: 0;
+}
+
+.custom-number-input .number-input.p-inputtext:enabled:focus {
+    border: 1px solid #ced4da;
+    border-right: 0;
+    box-shadow: none;
+}
+
+uni-founderstool{
+	display: flex;
+	flex: 1;
+	height: 100%;
+	flex-direction: column;
+	overflow: hidden;
+	uni-business-plan-generator {
+		display: flex;
+		flex: 1;
+		height: 100%;
+		flex-direction: column;
+		overflow: hidden;
+		border-radius: 10px;
+	}
+}

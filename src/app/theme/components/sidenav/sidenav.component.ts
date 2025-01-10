@@ -130,12 +130,16 @@ export class SidenavComponent {
       url: "/pages/modules/life-at-country",
       image: "fa-solid fa-earth-americas",
     },
+    // {
+    //   title: "Cost of Living",
+    //   url: "/pages/job-tool/cost-of-living",
+    //   image: "fa-solid fa-dollar-sign",
+    // },
     {
-      title: "Cost of Living",
-      url: "/pages/job-tool/cost-of-living",
-      image: "fa-solid fa-dollar-sign",
+      title: "Travel Tools",
+      url: "/pages/travel-tools",
+      image: "fa-solid fa-compass",
     },
-
     {
       title: 'Career',
       url: '',

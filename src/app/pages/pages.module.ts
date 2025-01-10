@@ -88,7 +88,6 @@ import { NationalExamReviewComponent } from './national-exam-review/national-exa
 import { JobPreparationComponent } from "./jobinterviewpreparation/interviewpreparation.component";
 import { JobPreparedListComponent } from "./jobinterviewpreparation/preparedlist/preparedlist.component";
 
-
 // import { JobToolComponent } from './job-tool/job-tool.component';
 @NgModule({
   declarations: [
@@ -132,7 +131,7 @@ import { JobPreparedListComponent } from "./jobinterviewpreparation/preparedlist
     NationalExamReviewComponent,
     // JobToolComponent,
     JobPreparationComponent,
-    JobPreparedListComponent
+    JobPreparedListComponent,
   ],
   exports: [FooterStatusBoxComponent, HeaderSearchComponent],
   imports: [

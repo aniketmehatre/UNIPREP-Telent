@@ -3,6 +3,7 @@ import {HttpClient, HttpHeaders, HttpParams} from "@angular/common/http";
 import {Observable} from "rxjs/internal/Observable";
 import {environment} from "@env/environment";
 import {City} from "../../@Models/cost-of-living";
+import { ChatGPTResponse } from 'src/app/@Models/chat-gpt.model';
 
 @Injectable({
     providedIn: 'root'
@@ -106,4 +107,22 @@ export class JobSearchService {
         headers: headers,
         });
     }
+    getCountryCurrency() {
+        const headers = new HttpHeaders().set("Accept", "application/json");
+        return this.http.post<any>(environment.ApiUrl + "/getcountryandcurrency",{
+        headers: headers,
+        });
+    }
+    getCountryCurrencyChatGptOutput(data:any) {
+        const headers = new HttpHeaders().set("Accept", "application/json");
+        return this.http.post<any>(environment.ApiUrl + "/getIntegratedRecom",data,{
+        headers: headers,
+        });
+    }
+    getTripList(type:string) {
+        const headers = new HttpHeaders().set("Accept", "application/json");
+        return this.http.get<any>(environment.ApiUrl + `/userSavedResponse?mode=${type}`, {
+          headers: headers,
+        });
+      }
 }

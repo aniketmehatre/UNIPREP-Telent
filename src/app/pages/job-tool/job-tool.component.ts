@@ -20,7 +20,6 @@ export class JobToolComponent implements OnInit {
   employerName: any;
   mainTitle: any;
   howItWorksVideo: string = "";
-
   constructor(
     private router: Router, private employerGlobalService: EmployerGlobalService,
     private location: Location,
@@ -109,6 +108,18 @@ export class JobToolComponent implements OnInit {
       this.tooltip = "Track your professional development and set goals with our career progression tool."
       this.hideTitleForPreviewPage = false;
       this.howItWorksVideo = 'https://www.youtube.com/embed/hwH7xDhaE4c?si=gZG11AMS2BxCYAY1';
+    } else if (this.currentRoute.includes("careerplannerlist")) {
+      this.title = "Career Tools -> Career Planner";
+      this.tooltip = "Plan your career path by exploring job opportunities worldwide."
+      this.hideTitleForPreviewPage = false;
+      this.howItWorksVideo = 'https://www.youtube.com/embed/hwH7xDhaE4c?si=gZG11AMS2BxCYAY1';
+    } 
+    else if (this.currentRoute.includes("careerplannercountrywise")) {
+      // console.log("hi");
+      this.title = "not_required";
+      this.tooltip = "Plan your career path by exploring job opportunities worldwide."
+      this.hideTitleForPreviewPage = true;
+      this.howItWorksVideo = 'https://www.youtube.com/embed/hwH7xDhaE4c?si=gZG11AMS2BxCYAY1';
     } 
     else {
       this.title = "Career Tools -> Employer Test";
@@ -123,6 +134,10 @@ export class JobToolComponent implements OnInit {
   }
 
   goBack() {
+    if (this.currentRoute.includes("careerplannerlist")){
+      this.router.navigate(['/pages/job-tool/career-tool'])
+      return;
+    }
     if (window.history.length > 1) {
       this.location.back()
       this.employerGlobalService.removeItem(this.employerGlobalService.getItems().length - 1)
