@@ -1,4 +1,4 @@
-import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { environment } from '@env/environment';
 
@@ -72,73 +72,4 @@ checkModuleQuizCompletion(data: any) {
       headers: headers,
   });
 }
-
-  getFundList(val: any) {
-    const headers = new HttpHeaders().set("Accept", "application/json");
-    return this.http.post<any>(environment.ApiUrl + "/getscholarshiplist", val, {
-      headers: headers,
-    });
-  }
-
-  getFundType() {
-    const headers = new HttpHeaders().set("Accept", "application/json");
-    return this.http.get<any>(environment.ApiUrl + "/getFundtype", { headers: headers });
-  }
-
-  bookmarkFundData(Fund_id: any, user_id: any, fav: any) {
-    let params = {
-      Fund_id: Fund_id,
-      user_id: user_id,
-      updateFavourite: fav
-    }
-    const headers = new HttpHeaders().set("Accept", "application/json");
-    return this.http.post<any>(environment.ApiUrl + "/addFundfavourite", params, {
-      headers: headers,
-    });
-  }
-
-  exportSelectedData(data: any) {
-    const headers = new HttpHeaders().set("Accept", "application/json");
-    return this.http.post<any>(environment.ApiUrl + "/BuyCreditexportData", data, {
-      headers: headers,
-    });
-  }
-
-  getFundCountry(scholarship_country: number) {
-    let params = new HttpParams();
-    params = params.append("fund_country", scholarship_country)
-    const headers = new HttpHeaders().set("Accept", "application/json");
-    return this.http.get<any>(environment.ApiUrl + "/country", {
-      headers: headers, params: params
-    });
-  }
-
-  getFunderCountry() {
-    const headers = new HttpHeaders().set("Accept", "application/json");
-    return this.http.get<any>(environment.ApiUrl + "/scholarCountry", {
-      headers: headers
-    });
-  }
-
-
-  storeRecommendation(data: any) {
-    const headers = new HttpHeaders().set("Accept", "application/json");
-    return this.http.post<any>(environment.ApiUrl + "/storeScholarRec", data, {
-      headers: headers,
-    });
-  }
-
-  getRecommendations() {
-    const headers = new HttpHeaders().set("Accept", "application/json");
-    return this.http.post<any>(environment.ApiUrl + "/getScholarRec", {
-      headers: headers,
-    });
-  }
-
-  resetRecommendation() {
-    const headers = new HttpHeaders().set("Accept", "application/json");
-    return this.http.post<any>(environment.ApiUrl + "/resetScholarRec", {
-      headers: headers,
-    });
-  }
 }

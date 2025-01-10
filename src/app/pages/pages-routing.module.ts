@@ -209,7 +209,7 @@ const routes: Routes = [
             },
             {
                 path: 'founderstool',
-                loadChildren: () => import('./founderstool/founderstool.module').then(m => m.FounderstoolModule)
+                loadChildren: () => import('./founderstool/founderstool/founderstool.module').then(m => m.FounderstoolModule)
             },
             {
                 path: 'career-growth-checker',

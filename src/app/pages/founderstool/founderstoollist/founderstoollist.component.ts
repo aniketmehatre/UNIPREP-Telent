@@ -71,19 +71,9 @@ export class FounderstoollistComponent implements OnInit {
     }
     this.router.navigate(['/pages/founderstool/entreprenuerproficiencymodule']);
   }
-
-  openGovernmentFundsOpportunity() {
-    if (this.planExpired) {
-      this.restrict = true;
-      return;
-    }
-    this.router.navigate(['/pages/founderstool/governmentfunds']);
-  }
-
   openInvestorList(){
     this.router.navigate(['/pages/investor-list']);
   }
-
   checkplanExpire(): void {
     this.authService.getNewUserTimeLeft().subscribe((res) => {
       let data = res.time_left;
