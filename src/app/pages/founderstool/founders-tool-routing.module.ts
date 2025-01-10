@@ -11,6 +11,7 @@ import { EntreprenuerquizComponent } from './entreprenuerquiz/entreprenuerquiz.c
 import { WealthleaderslistComponent } from './wealthleaderslist/wealthleaderslist.component';
 import { WealthleaderreadansComponent } from './wealthleaderreadans/wealthleaderreadans.component';
 import { BusinessPlanGeneratorComponent } from './business-plan-generator/business-plan-generator.component';
+import { ComponentStoriesComponent } from './component-stories/component-stories.component';
 
 const routes: Routes = [
   {
@@ -46,6 +47,21 @@ const routes: Routes = [
       {
         path: 'business-plan-generator', component: BusinessPlanGeneratorComponent
       }, 
+      {
+        path: 'startup-funding-hacks', component: ComponentStoriesComponent
+      }, 
+      {
+        path: 'founder-success-stories', component: ComponentStoriesComponent
+      },
+      {
+        path: 'founder-failure-stories', component: ComponentStoriesComponent
+      },
+      {
+        path: 'startup-success-stories', component: ComponentStoriesComponent
+      },  
+      {
+        path: 'startup-failure-stories', component: ComponentStoriesComponent
+      },    
     ]
   }
 ];
