@@ -259,6 +259,10 @@ const routes: Routes = [
                 path: 'travel-tools',
                 loadChildren: () => import('./travel-tools/travel-tools.module').then(m => m.TravelToolsModule)
             },
+            {
+                path: 'education-tools',
+                loadChildren: () => import('./education-tools/education-tools.module').then(m => m.EducationToolsModule)
+            },
         ]
     }
 ];

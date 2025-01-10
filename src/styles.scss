@@ -2060,14 +2060,17 @@ p-dialog.restrictionDialog .p-dialog .p-dialog-header .p-dialog-header-icon {
 	}
 }
 
-uni-assessment {
+uni-assessment, uni-travel-tools, uni-founderstool, uni-education-tools {
 	display: flex;
 	flex: 1;
 	height: 100%;
 	flex-direction: column;
 	overflow: hidden;
 	
-	uni-assessment-list, uni-ilearn-challenge, uni-assessment-quiz, uni-assessment-quiz-review {
+	uni-assessment-list, uni-ilearn-challenge, uni-assessment-quiz, uni-assessment-quiz-review,
+	uni-global-travel-visa, uni-travel-cost-estimator, uni-travel-packing-planner, uni-travel-visit-planner, 
+	uni-trip-length-finder, uni-travel-glossary, uni-business-plan-generator, uni-education-tools-list, 
+	uni-course-navigator {
 		flex: 1;
 		overflow-y: auto;
 		display: flex;
@@ -2134,23 +2137,6 @@ uni-assessment {
     }
 }
 
-uni-travel-tools{
-	display: flex;
-	flex: 1;
-	height: 100%;
-	flex-direction: column;
-	overflow: hidden;
-	uni-global-travel-visa, uni-travel-cost-estimator, uni-travel-packing-planner, uni-travel-visit-planner, 
-	uni-trip-length-finder, uni-travel-glossary {
-		display: flex;
-		flex: 1;
-		height: 100%;
-		flex-direction: column;
-		overflow: hidden;
-		border-radius: 10px;
-	}
-}
-
 .custom-number-input .number-input {
     border-right: 0;
 }
@@ -2178,20 +2164,4 @@ uni-travel-tools{
     border: 1px solid #ced4da;
     border-right: 0;
     box-shadow: none;
-}
-
-uni-founderstool{
-	display: flex;
-	flex: 1;
-	height: 100%;
-	flex-direction: column;
-	overflow: hidden;
-	uni-business-plan-generator {
-		display: flex;
-		flex: 1;
-		height: 100%;
-		flex-direction: column;
-		overflow: hidden;
-		border-radius: 10px;
-	}
 }

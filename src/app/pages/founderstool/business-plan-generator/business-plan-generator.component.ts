@@ -50,24 +50,36 @@ export class BusinessPlanGeneratorComponent implements OnInit {
   next() {
     this.submitted = false;
     const formData = this.form.value;
-    // if (this.activePageIndex == 0) {
-    //   if (!formData.business_name || !formData.target_market || !formData.business_overview) {
-    //     this.submitted = true;
-    //     return;
-    //   }
-    // }
-    // if (this.activePageIndex == 1) {
-    //   if (!formData.product_or_service || !formData.unique_value) {
-    //     this.submitted = true;
-    //     return;
-    //   }
-    // }
-    // if (this.activePageIndex == 2) {
-    //   if (!formData.revenue_model || !formData.initial_funding || !formData.project_revenue) {
-    //     this.submitted = true;
-    //     return;
-    //   }
-    // }
+    if (this.activePageIndex == 0) {
+      if (!formData.business_name || !formData.target_market || !formData.business_overview) {
+        this.submitted = true;
+        return;
+      }
+    }
+    if (this.activePageIndex == 1) {
+      if (!formData.product_or_service || !formData.unique_value) {
+        this.submitted = true;
+        return;
+      }
+    }
+    if (this.activePageIndex == 2) {
+      if (!formData.revenue_model || !formData.initial_funding || !formData.project_revenue) {
+        this.submitted = true;
+        return;
+      }
+    }
+    if (this.activePageIndex == 3) {
+      if (!formData.competitor || !formData.sales_strategy) {
+        this.submitted = true;
+        return;
+      }
+    }
+    if (this.activePageIndex == 4) {
+      if (!formData.opertions || !formData.founders_key_term) {
+        this.submitted = true;
+        return;
+      }
+    }
     this.activePageIndex++;
   }
 
