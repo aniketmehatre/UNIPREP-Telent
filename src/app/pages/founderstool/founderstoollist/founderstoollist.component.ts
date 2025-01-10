@@ -59,10 +59,10 @@ export class FounderstoollistComponent implements OnInit {
   }
 
   navigateSubModule(url:string) {
-    if (this.planExpired) {
-      this.restrict = true;
-      return;
-    }
+    // if (this.planExpired) {
+    //   this.restrict = true;
+    //   return;
+    // }
     this.router.navigateByUrl(url);
   }
 }
