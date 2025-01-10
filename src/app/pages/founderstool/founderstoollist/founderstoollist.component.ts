@@ -83,6 +83,14 @@ export class FounderstoollistComponent implements OnInit {
     this.router.navigate(['/pages/founderstool/governmentfunds']);
   }
 
+  openMarketingAnaylsis() {
+    if (this.planExpired) {
+      this.restrict = true;
+      return;
+    }
+    this.router.navigate(['/pages/founderstool/marketing-anaylsis']);
+  }
+
   openInvestorList(){
     this.router.navigate(['/pages/investor-list']);
   }

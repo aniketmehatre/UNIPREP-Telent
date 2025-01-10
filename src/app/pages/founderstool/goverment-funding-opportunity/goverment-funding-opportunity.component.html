@@ -35,7 +35,7 @@
 											<p class="text-center" [ngClass]="{ 'd-none': invalidClass === false }" style="color: red">Please Choose Any one option</p>
 									</ng-container>
 									<ng-container *ngIf="recommendation.id == 3">
-											<p-multiSelect styleClass="w-100" placeholder="Select Your Fund Type" [options]="fundTypeList" display="chip" optionLabel="type" optionValue="id" [(ngModel)]="selectedData[recommendation.id]" [appendTo]="'body'"></p-multiSelect>
+											<p-multiSelect styleClass="w-100" placeholder="Select Your Fund Type" [options]="fundTypeList" display="chip" optionLabel="funding_type_name" optionValue="id" [(ngModel)]="selectedData[recommendation.id]" [appendTo]="'body'"></p-multiSelect>
 											<p class="text-center" [ngClass]="{ 'd-none': invalidClass === false }" style="color: red">Please Choose Any one option</p>
 									</ng-container>
 								</div>

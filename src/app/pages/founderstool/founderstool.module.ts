@@ -26,6 +26,9 @@ import { BusinessPlanGeneratorComponent } from './business-plan-generator/busine
 import { ComponentStoriesComponent } from './component-stories/component-stories.component';
 import { GovermentFundingOppurtunityComponent } from './goverment-funding-opportunity/goverment-funding-opportunity.component';
 import { MultiSelectModule } from 'primeng/multiselect';
+import { MarketingAnalysisComponent } from './marketing-analysis/marketing-analysis.component';
+import { PdfViewerModule } from 'ng2-pdf-viewer';
+import { NgxExtendedPdfViewerModule } from 'ngx-extended-pdf-viewer';
 
 
 @NgModule({
@@ -42,7 +45,8 @@ import { MultiSelectModule } from 'primeng/multiselect';
     WealthleaderreadansComponent,
     BusinessPlanGeneratorComponent,
     ComponentStoriesComponent
-    GovermentFundingOppurtunityComponent
+    GovermentFundingOppurtunityComponent,
+    MarketingAnalysisComponent
   ],
   imports: [
     CommonModule,
@@ -61,7 +65,9 @@ import { MultiSelectModule } from 'primeng/multiselect';
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
   providers: [ConfirmationService, 
     TooltipModule,
-    MultiSelectModule
+    MultiSelectModule,
+    PdfViewerModule,
+    NgxExtendedPdfViewerModule
   ],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
   providers: [ConfirmationService],

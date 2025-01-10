@@ -13,6 +13,7 @@ import { WealthleaderreadansComponent } from './wealthleaderreadans/wealthleader
 import { BusinessPlanGeneratorComponent } from './business-plan-generator/business-plan-generator.component';
 import { ComponentStoriesComponent } from './component-stories/component-stories.component';
 import { GovermentFundingOppurtunityComponent } from './goverment-funding-opportunity/goverment-funding-opportunity.component';
+import { MarketingAnalysisComponent } from './marketing-analysis/marketing-analysis.component';
 
 const routes: Routes = [
   {
@@ -38,8 +39,11 @@ const routes: Routes = [
       },     
        {
         path: 'entreprenuerproficiencymodule', component: EntreprenuersectorproficiencyComponent
-      },     
-       {
+      },
+      {
+        path: 'marketing-anaylsis', component: MarketingAnalysisComponent
+      },
+      {
         path: ':module_name/entrpreneurquiz', component: EntreprenuerquizComponent
       },
       {

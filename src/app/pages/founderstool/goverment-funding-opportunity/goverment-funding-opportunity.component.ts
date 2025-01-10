@@ -10,6 +10,7 @@ import { UserManagementService } from '../../user-management/user-management.ser
 import { FounderstoolService } from '../founderstool.service';
 import { HttpHeaders, HttpParams } from '@angular/common/http';
 import { environment } from '@env/environment';
+import { Country } from 'ngx-intl-tel-input/lib/model/country.model';
 
 @Component({
   selector: 'uni-goverment-funding-opportunity',
@@ -41,22 +42,8 @@ export class GovermentFundingOppurtunityComponent implements OnInit {
         "isFavorite": 0
       }
     ];
-  countryList: unknown = [
-    {
-      "id": 31,
-      "country": "Angola",
-      "flag": "https://flagcdn.com/ao.svg",
-      "country_code": "+244"
-    }
-  ];
-  stateList: unknown = [
-    {
-      "id": 31,
-      "state": "Angola",
-      "flag": "https://flagcdn.com/ao.svg",
-      "country_code": "+244"
-    }
-  ];
+  countryList: Country[] = [];
+  stateList: unknown = [];
   tempCountryList: unknown;
   headQuartersList: any;
   page = 1;
@@ -149,12 +136,12 @@ export class GovermentFundingOppurtunityComponent implements OnInit {
     } else {
       this.ehitlabelIsShow = false;
     }
-    // this.checkUserRecommendation();
-    // this.getFundCountry();
-    // this.gethomeCountryList();
-    // this.checkplanExpire();
-    // this.getFundType();
-    // this.GetPersonalProfileData();
+    this.checkUserRecommendation();
+    this.getFundCountry();
+    this.getStateListByCountry();
+    this.checkplanExpire();
+    this.getFundType();
+    this.GetPersonalProfileData();
   }
 
   performSearch() {
@@ -182,18 +169,16 @@ export class GovermentFundingOppurtunityComponent implements OnInit {
 
   }
   getFundCountry() {
-    this.fundListService.getFunderCountry().subscribe(res => {
+    this.fundListService.getFundCountries().subscribe(res => {
       let allCountries = res;
       this.countryList = allCountries;
     });
   }
 
-
-
-  gethomeCountryList() {
-    this.fundListService.getFundCountry(2).subscribe(
+  getStateListByCountry() {
+    this.fundListService.getFundStateByCountry().subscribe(
       (res: any) => {
-        this.homeCountryList = res;
+        this.stateList = res;
       },
       (error: any) => {
         this.toast.add({
@@ -361,7 +346,7 @@ export class GovermentFundingOppurtunityComponent implements OnInit {
     isFav = isFav != '1' ? true : false;
     this.favCount = isFav == true ? this.favCount + 1 : this.favCount - 1;
 
-    this.fundListService.bookmarkFundData(FundId, this.PersonalInfo.user_id, isFav).subscribe((response) => {
+    this.fundListService.addFavFundData(FundId, this.PersonalInfo.user_id, isFav).subscribe((response) => {
       let fundListData = this.fundData.find(item => item.id == FundId);
       isFav == true ? fundListData.favourite = 1 : fundListData.favourite = null;
       this.toast.add({
@@ -515,18 +500,17 @@ export class GovermentFundingOppurtunityComponent implements OnInit {
       this.restrict = true;
       return;
     }
-    // let keyMapping: any = { "1": "country", "2": "state", "3": "type" };
-
-    // let newData = Object.fromEntries(Object.entries(this.selectedData).map(([key, value]) => {
-    //   let mappedKey = keyMapping[key] || key;
-    //   if (Array.isArray(value)) {
-    //     value = value.filter(item => item !== null);
-    //   }
-    //   return [mappedKey, value];
-    // }));
-    // this.fundListService.storeRecommendation(newData).subscribe();
+    let keyMapping: any = { "1": "country", "2": "state", "3": "type" };
+    let newData = Object.fromEntries(Object.entries(this.selectedData).map(([key, value]) => {
+      let mappedKey = keyMapping[key] || key;
+      if (Array.isArray(value)) {
+        value = value.filter(item => item !== null);
+      }
+      return [mappedKey, value];
+    }));
+    this.fundListService.storeRecommendation(newData).subscribe();
     this.enableModule = true;
-    // this.setRecommendationToForm(newData);
+    this.setRecommendationToForm(newData);
   }
 
   previous(): void {

@@ -113,17 +113,17 @@ wealthLeadersans(data: any) {
 
   getFundType() {
     const headers = new HttpHeaders().set("Accept", "application/json");
-    return this.http.get<any>(environment.ApiUrl + "/getFundtype", { headers: headers });
+    return this.http.get<any>(environment.ApiUrl + "/govtfundingtypes ", { headers: headers });
   }
 
-  bookmarkFundData(Fund_id: any, user_id: any, fav: any) {
+  addFavFundData(Fund_id: any, user_id: any, fav: any) {
     let params = {
       Fund_id: Fund_id,
       user_id: user_id,
       updateFavourite: fav
     }
     const headers = new HttpHeaders().set("Accept", "application/json");
-    return this.http.post<any>(environment.ApiUrl + "/addFundfavourite", params, {
+    return this.http.post<any>(environment.ApiUrl + "/addGovtFundFavourite", params, {
       headers: headers,
     });
   }
@@ -135,18 +135,18 @@ wealthLeadersans(data: any) {
     });
   }
 
-  getFundCountry(scholarship_country: number) {
+  getFundStateByCountry() {
     let params = new HttpParams();
-    params = params.append("fund_country", scholarship_country)
+    // params = params.append("country_id", scholarship_country.toString())
     const headers = new HttpHeaders().set("Accept", "application/json");
-    return this.http.get<any>(environment.ApiUrl + "/country", {
-      headers: headers, params: params
+    return this.http.get<any>(environment.ApiUrl + "/govtfundingRegions", {
+      headers: headers
     });
   }
 
-  getFunderCountry() {
+  getFundCountries() {
     const headers = new HttpHeaders().set("Accept", "application/json");
-    return this.http.get<any>(environment.ApiUrl + "/scholarCountry", {
+    return this.http.get<any>(environment.ApiUrl + "/govtfundingCountry", {
       headers: headers
     });
   }
@@ -154,7 +154,7 @@ wealthLeadersans(data: any) {
 
   storeRecommendation(data: any) {
     const headers = new HttpHeaders().set("Accept", "application/json");
-    return this.http.post<any>(environment.ApiUrl + "/storeScholarRec", data, {
+    return this.http.post<any>(environment.ApiUrl + "/storeFundRec", data, {
       headers: headers,
     });
   }
@@ -172,4 +172,5 @@ wealthLeadersans(data: any) {
       headers: headers,
     });
   }
+
 }
