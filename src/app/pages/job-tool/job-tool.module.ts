@@ -38,6 +38,7 @@ import {AutoCompleteModule} from 'primeng/autocomplete';
 import { FitTextDirective } from './fit-text.directive';
 import { CarrerplannerlistComponent } from './carrerplannerlist/carrerplannerlist.component';
 import { CareerplannercountrywiseComponent } from './careerplannercountrywise/careerplannercountrywise.component';
+import { JoboffercomparisontoolComponent } from './joboffercomparisontool/joboffercomparisontool.component';
 
 @NgModule({
   declarations: [
@@ -53,7 +54,8 @@ import { CareerplannercountrywiseComponent } from './careerplannercountrywise/ca
     CareerCategoryListComponent,
       FitTextDirective,
       CarrerplannerlistComponent,
-      CareerplannercountrywiseComponent
+      CareerplannercountrywiseComponent,
+      JoboffercomparisontoolComponent
     ],
     imports: [
         CommonModule,
