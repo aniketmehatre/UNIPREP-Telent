@@ -52,11 +52,10 @@ export class LanguageListComponent implements OnInit {
         this.lhs.setDataLanguageName(data.language)
         this.lhs.setLanguageData(data.id)
         this.lhs.setLanguageCode(data.languagecode)
-        this.router.navigate([`/pages/language-hub/levels/${data.id}`]);
+        this.router.navigate([`/pages/language-hub/pvl/${data.id}`]);
     }
 
     paginatePost(event: any) {
-        console.log('comess')
         this.page = event.page + 1;
         this.perpage = event.rows;
         this.init();
