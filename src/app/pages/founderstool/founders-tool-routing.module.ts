@@ -8,6 +8,7 @@ import { StartupglossaryComponent } from './startupglossary/startupglossary.comp
 import { EntreprenuerskillmoduleComponent } from './entreprenuerskillmodule/entreprenuerskillmodule.component';
 import { EntreprenuersectorproficiencyComponent } from './entreprenuersectorproficiency/entreprenuersectorproficiency.component';
 import { EntreprenuerquizComponent } from './entreprenuerquiz/entreprenuerquiz.component';
+import { GovermentFundingOppurtunityComponent } from './goverment-funding-opportunity/goverment-funding-opportunity.component';
 
 const routes: Routes = [
   {
@@ -24,6 +25,9 @@ const routes: Routes = [
       },
       {
         path: 'startupglossary', component: StartupglossaryComponent
+      },
+      {
+        path: 'governmentfunds', component: GovermentFundingOppurtunityComponent
       },
       {
         path: 'entrepreneurskillmodule', component: EntreprenuerskillmoduleComponent
