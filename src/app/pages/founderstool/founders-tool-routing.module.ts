@@ -14,6 +14,8 @@ import { BusinessPlanGeneratorComponent } from './business-plan-generator/busine
 import { ComponentStoriesComponent } from './component-stories/component-stories.component';
 import { GovermentFundingOppurtunityComponent } from './goverment-funding-opportunity/goverment-funding-opportunity.component';
 import { MarketingAnalysisComponent } from './marketing-analysis/marketing-analysis.component';
+import { AiBusinessAdvisorComponent } from './ai-business-advisor/ai-business-advisor.component';
+import { StartupRiskAssessmentComponent } from './startup-risk-assessment/startup-risk-assessment.component';
 
 const routes: Routes = [
   {
@@ -69,7 +71,13 @@ const routes: Routes = [
       },  
       {
         path: 'startup-failure-stories', component: ComponentStoriesComponent
-      },    
+      },  
+      {
+        path: 'ai-business-advisor', component: AiBusinessAdvisorComponent
+      },
+      {
+        path: 'risk-assessment', component: StartupRiskAssessmentComponent
+      },  
     ]
   }
 ];

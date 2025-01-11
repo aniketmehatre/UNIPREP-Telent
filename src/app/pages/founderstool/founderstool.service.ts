@@ -106,7 +106,7 @@ wealthLeadersans(data: any) {
 
   getFundList(val: any) {
     const headers = new HttpHeaders().set("Accept", "application/json");
-    return this.http.post<any>(environment.ApiUrl + "/getscholarshiplist", val, {
+    return this.http.post<any>(environment.ApiUrl + "/getgovernmentfundlist", val, {
       headers: headers,
     });
   }
@@ -130,7 +130,7 @@ wealthLeadersans(data: any) {
 
   exportSelectedData(data: any) {
     const headers = new HttpHeaders().set("Accept", "application/json");
-    return this.http.post<any>(environment.ApiUrl + "/BuyCreditexportData", data, {
+    return this.http.post<any>(environment.ApiUrl + "/api/exportgovernmentfunding  ", data, {
       headers: headers,
     });
   }
@@ -161,7 +161,7 @@ wealthLeadersans(data: any) {
 
   getRecommendations() {
     const headers = new HttpHeaders().set("Accept", "application/json");
-    return this.http.post<any>(environment.ApiUrl + "/getScholarRec", {
+    return this.http.post<any>(environment.ApiUrl + "/getgovernmentfundlist", {
       headers: headers,
     });
   }

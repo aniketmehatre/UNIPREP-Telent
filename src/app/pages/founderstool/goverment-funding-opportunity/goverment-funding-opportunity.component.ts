@@ -100,7 +100,7 @@ export class GovermentFundingOppurtunityComponent implements OnInit {
   ) {
     this.filterForm = this.fb.group({
       country: [null],
-      state: [null],
+      region: [null],
       type: [null],
     });
   }
@@ -161,11 +161,8 @@ export class GovermentFundingOppurtunityComponent implements OnInit {
   clearFilter() {
     this.filterForm.reset();
     delete this.data.country;
-    delete this.data.home_country;
+    delete this.data.region;
     delete this.data.type;
-    delete this.data.study_level;
-    delete this.data.university;
-    delete this.data.cover_id;
 
   }
   getFundCountry() {
@@ -225,7 +222,7 @@ export class GovermentFundingOppurtunityComponent implements OnInit {
   applyFilter() {
     const formData = this.filterForm.value;
     console.log(this.data);
-    if (!formData.home_country && !formData.country && !formData.study_level && !formData.university && !formData.type && !formData.valueRange && !formData.cover_id) {
+    if (!formData.country && !formData.region && !formData.type) {
       this.filterForm.reset();
       this.data = {
         page: this.page,
@@ -240,26 +237,11 @@ export class GovermentFundingOppurtunityComponent implements OnInit {
     if (this.filterForm.value.country) {
       this.data.country = this.filterForm.value.country;
     }
-    if (this.filterForm.value.home_country) {
-      this.data.home_country = this.filterForm.value.home_country;
+    if (this.filterForm.value.region) {
+      this.data.region = this.filterForm.value.region;
     }
     if (this.filterForm.value.type) {
       this.data.type = this.filterForm.value.type;
-    }
-    if (
-      this.filterForm.value.study_level &&
-      this.filterForm.value.study_level.length > 0
-    ) {
-      this.data.study_level = this.filterForm.value.study_level;
-    }
-    if (
-      this.filterForm.value.university &&
-      this.filterForm.value.university.length > 0
-    ) {
-      this.data.university = this.filterForm.value.university;
-    }
-    if (this.filterForm.value.cover_id) {
-      this.data.cover_id = this.filterForm.value.cover_id;
     }
     this.first = 0;
     this.fundListService
@@ -500,7 +482,7 @@ export class GovermentFundingOppurtunityComponent implements OnInit {
       this.restrict = true;
       return;
     }
-    let keyMapping: any = { "1": "country", "2": "state", "3": "type" };
+    let keyMapping: any = { "1": "country", "2": "region", "3": "type" };
     let newData = Object.fromEntries(Object.entries(this.selectedData).map(([key, value]) => {
       let mappedKey = keyMapping[key] || key;
       if (Array.isArray(value)) {
@@ -529,34 +511,6 @@ export class GovermentFundingOppurtunityComponent implements OnInit {
     } else {
       this.invalidClass = true;
     }
-  }
-
-  selectCube(key: number, id: number | string) {
-    if (id === "any") {
-      if (this.selectedData[key]?.includes(id)) {
-        this.selectedData[key] = [];
-      } else {
-        if (key === 3) {
-          this.selectedData[key] = this.anyFundTypeList.map((cube: any) => cube.id);
-        } else if (key === 4) {
-          this.selectedData[key] = this.anyCoverList.map((cube: any) => cube.id);
-        }
-
-      }
-    } else {
-      // this.selectedData[key] = [id];
-      if (!Array.isArray(this.selectedData[key])) {
-        this.selectedData[key] = [];
-      }
-
-      const index = this.selectedData[key].indexOf(id);
-      if (index > -1) {
-        this.selectedData[key].splice(index, 1);
-      } else {
-        this.selectedData[key].push(id);
-      }
-    }
-    // console.log(this.selectedData, "selected cube");
   }
 
   resetRecommendation() {

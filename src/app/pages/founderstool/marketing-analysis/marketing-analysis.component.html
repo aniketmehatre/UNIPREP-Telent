@@ -1,335 +1,542 @@
-<div class="card readingcard">
-	<ng-container *ngIf="!enableModule">
-		<div class="card-header border-0 bg-transparent">
-			<div class="row justify-content-center">
-				<div class="col-md-12 text-center">
-					<div class="select-title d-flex justify-content-between align-items-center">
-						<div>
-							<h5 class="w-100 mb-0" tooltipPosition="top" pTooltip="Access fully and partially funded opportunities for education.">MARKETING ANALYSIS<i class="questiontooltip fa-solid fa-circle-question"></i></h5>
-						</div>
-						<div>
-							<button class="how-it-works-button" (click)="openHowItWorksVideoPopup('https://www.youtube.com/embed/5B7AeCCKCKw?si=uUXSoWHIsi3fxJH2')">How it works?<i class="fa-solid fa-play d-md-block d-none"></i></button>
-						</div>
-					</div>
-				</div>
-			</div>
-		</div>
-		<div class="card-body" style="height: calc(100vh - 220px)">
-			<div class="container-fluid h-100" >
-				<p-carousel [value]="recommendations" [numVisible]="1" [numScroll]="1" [circular]="false" [showNavigators]="false" [showIndicators]="false" [page]="activePageIndex" styleClass="h-100">
-					<ng-template let-recommendation let-i="index" pTemplate="item">
-						<div class="h-100 d-flex flex-column justify-content-between">
-							<div>&nbsp;</div>
-                                <div class="row justify-content-center align-items-center text-center my-auto" [formGroup]="marketingForm">
-                                    <div class="col-md-6">
-                                        <ng-container *ngIf="recommendation.id == 1" >
-                                            <div role="form" formGroupName="basics">
-                                                <h2 class="fw-bold mb-3">{{ recommendation.question.heading }}</h2>
-                                                <div>
-                                                  <h5 class="uniprep-primary fw-semibold mt-3 mb-2">{{ recommendation.question.branches[0] }}</h5>
-                                                  <input 
-                                                    class="w-100" 
-                                                    type="text"
-                                                    pInputText
-                                                    placeholder="Industry Type" 
-                                                    formControlName="industry" 
-                                                  />
-                                                  <p class="text-center" *ngIf="marketingForm.get('basics.industry').invalid && marketingForm.get('basics.industry').touched" style="color: red">
-                                                    Please enter the industry type
-                                                  </p>
-                                                </div>
-                                                <div>
-                                                  <h5 class="uniprep-primary fw-semibold mt-3 mb-2">{{ recommendation.question.branches[1] }}</h5>
-                                                  <p-dropdown 
-                                                    styleClass="w-100" 
-                                                    appendTo="body" 
-                                                    [options]="locationList" 
-                                                    [filter]="true" 
-                                                    formControlName="location"
-                                                    filterBy="location" 
-                                                    optionLabel="location" 
-                                                    optionValue="id" 
-                                                    [autoDisplayFirst]="false">
-                                                  </p-dropdown>
-                                                  <p class="text-center" *ngIf="marketingForm.get('basics.location').invalid && marketingForm.get('basics.location').touched" style="color: red">
-                                                    Please Choose Any one option
-                                                  </p>
-                                                </div>
-                                                <div>
-                                                  <h5 class="uniprep-primary fw-semibold mt-3 mb-2">{{ recommendation.question.branches[2] }}</h5>
-                                                  <p-multiSelect 
-                                                    styleClass="w-100" 
-                                                    placeholder="Target Market" 
-                                                    [options]="targetMarketList" 
-                                                    display="chip" 
-                                                    optionLabel="targetMarket" 
-                                                    optionValue="id" 
-                                                    formControlName="targetMarket">
-                                                  </p-multiSelect>
-                                                  <p class="text-center" *ngIf="marketingForm.get('basics.targetMarket').invalid && marketingForm.get('basics.targetMarket').touched" style="color: red">
-                                                    Please Choose Any one option
-                                                  </p>
-                                                </div>
-                                                <div>
-                                                  <h5 class="uniprep-primary fw-semibold mt-3 mb-2">{{ recommendation.question.branches[3] }}</h5>
-                                                  <p-dropdown 
-                                                    styleClass="w-100" 
-                                                    formControlName="productService" 
-                                                    appendTo="body" 
-                                                    [options]="productServiceList" 
-                                                    [filter]="true" 
-                                                    filterBy="productService" 
-                                                    optionLabel="productService" 
-                                                    optionValue="id" 
-                                                    [autoDisplayFirst]="false">
-                                                  </p-dropdown>
-                                                  <p class="text-center" *ngIf="marketingForm.get('basics.productService').invalid && marketingForm.get('basics.productService').touched" style="color: red">
-                                                    Please Choose Any one option
-                                                  </p>
-                                                </div>
-                                            </div>
-                                          </ng-container>
-                                          
-                                          <ng-container *ngIf="recommendation.id == 2" formGroupName="marketingAndSales">
-                                            <h2 class="fw-bold mb-3">{{ recommendation.question.heading }}</h2>
-                                            <div>
-                                              <h5 class="uniprep-primary fw-semibold mt-3 mb-2">{{ recommendation.question.branches[0] }}</h5>
-                                              <p-multiSelect 
-                                                styleClass="w-100" 
-                                                placeholder="Business Model" 
-                                                [options]="businessModelList" 
-                                                display="chip" 
-                                                optionLabel="businessModel" 
-                                                optionValue="id" 
-                                                formControlName="businessModel">
-                                              </p-multiSelect>
-                                              <p class="text-center" *ngIf="marketingForm.get('marketingAndSales.businessModel').invalid && marketingForm.get('marketingAndSales.businessModel').touched" style="color: red">
-                                                Please Choose Any one option
-                                              </p>
-                                            </div>
-                                            <div>
-                                              <h5 class="uniprep-primary fw-semibold mt-3 mb-2">{{ recommendation.question.branches[1] }}</h5>
-                                              <p-multiSelect 
-                                                styleClass="w-100" 
-                                                placeholder="Sales Channels" 
-                                                [options]="salesChannelsList" 
-                                                display="chip" 
-                                                optionLabel="salesChannel" 
-                                                optionValue="id" 
-                                                formControlName="salesChannel">
-                                              </p-multiSelect>
-                                              <p class="text-center" *ngIf="marketingForm.get('marketingAndSales.salesChannel').invalid && marketingForm.get('marketingAndSales.salesChannel').touched" style="color: red">
-                                                Please Choose Any one option
-                                              </p>
-                                            </div>
-                                            <div>
-                                              <h5 class="uniprep-primary fw-semibold mt-3 mb-2">{{ recommendation.question.branches[2] }}</h5>
-                                              <p-multiSelect 
-                                                styleClass="w-100" 
-                                                placeholder="Time Frame" 
-                                                [options]="timeFramesList" 
-                                                display="chip" 
-                                                optionLabel="timeFrame" 
-                                                optionValue="id" 
-                                                formControlName="timeFrame">
-                                              </p-multiSelect>
-                                              <p class="text-center" *ngIf="marketingForm.get('marketingAndSales.timeFrame').invalid && marketingForm.get('marketingAndSales.timeFrame').touched" style="color: red">
-                                                Please Choose Any one option
-                                              </p>
-                                            </div>
-                                          </ng-container>
-                                          
-                                          <ng-container *ngIf="recommendation.id == 3" formGroupName="finance">
-                                            <h2 class="fw-bold mb-3">{{ recommendation.question.heading }}</h2>
-                                            <div>
-                                              <h5 class="uniprep-primary fw-semibold mt-3 mb-2">{{ recommendation.question.branches[0] }}</h5>
-                                              <div class="w-100 d-flex gap-2 flex-fill">
-                                                <p-dropdown 
-                                                  formControlName="budget" 
-                                                  appendTo="body" 
-                                                  [options]="currencyList" 
-                                                  [filter]="true" 
-                                                  filterBy="currency" 
-                                                  placeholder=" Currency" 
-                                                  optionLabel="currency" 
-                                                  optionValue="id" 
-                                                  [autoDisplayFirst]="false">
-                                                </p-dropdown>
-                                                <input 
-                                                  class="w-100 pl-2 border border-gray rounded-3" 
-                                                  type="text" 
-                                                  placeholder=" Budget" 
-                                                  formControlName="budget" 
-                                                />
-                                              </div>
-                                              <p class="text-center" *ngIf="marketingForm.get('finance.budget').invalid && marketingForm.get('finance.budget').touched" style="color: red">
-                                                Please Choose Any one option
-                                              </p>
-                                            </div>
-                                            <div>
-                                              <h5 class="uniprep-primary fw-semibold mt-3 mb-2">{{ recommendation.question.branches[1] }}</h5>
-                                              <p-multiSelect 
-                                                styleClass="w-100" 
-                                                placeholder="Revenue Streams" 
-                                                [options]="revenueStreamsList" 
-                                                display="chip" 
-                                                optionLabel="country" 
-                                                optionValue="id" 
-                                                formControlName="revenueStreams">
-                                              </p-multiSelect>
-                                              <p class="text-center" *ngIf="marketingForm.get('finance.revenueStreams').invalid && marketingForm.get('finance.revenueStreams').touched" style="color: red">
-                                                Please Choose Any one option
-                                              </p>
-                                            </div>
-                                            <div>
-                                              <h5 class="uniprep-primary fw-semibold mt-3 mb-2">{{ recommendation.question.branches[2] }}</h5>
-                                              <p-multiSelect 
-                                                styleClass="w-100" 
-                                                placeholder="Competitor Analysis Focus" 
-                                                [options]="competitorList" 
-                                                display="chip" 
-                                                optionLabel="country" 
-                                                optionValue="id" 
-                                                formControlName="competitorAnalysis">
-                                              </p-multiSelect>
-                                              <p class="text-center" *ngIf="marketingForm.get('finance.competitorAnalysis').invalid && marketingForm.get('finance.competitorAnalysis').touched" style="color: red">
-                                                Please Choose Any one option
-                                              </p>
-                                            </div>
-                                          </ng-container>
-                                    </div>
-                                </div>
-							<div class="d-flex justify-content-between mt-2">
-								<button pButton type="button" class="btn btn-primary btn-rounded p-1 pe-4" [style.visibility]="recommendation.id == 1 ? 'hidden' : 'visible'" (click)="previous()">
-									<span class="btn-icon px-2 py-2"><i class="fa fa-arrow-left"></i></span> <span class="ms-2">Previous</span>
-								</button>
-								<button pButton type="button" (click)="next(recommendation.id)" *ngIf="recommendation.id != 3" class="btn btn-primary btn-rounded p-1 ps-4">
-									<span class="me-2">Next</span><span class="btn-icon px-2 py-2"><i class="fa fa-arrow-right"></i></span>
-								</button>
-								<button pButton type="button" (click)="getRecommendation()" *ngIf="recommendation.id == 3" class="btn btn-success btn-rounded p-1 ps-4">
-									<span class="me-2">Get Recommendations</span><span class="btn-icon px-2 py-2"><i class="fa fa-check-circle"></i></span>
-								</button>
-							</div>
-						</div>
-					</ng-template>
-				</p-carousel>
-			</div>
-		</div>
-	</ng-container>
-	<ng-container *ngIf="enableModule">
-        <div class="card-header border-0 bg-transparent">
-            <div class="row">
-                <div class="col-md-12 d-flex flex-md-row flex-column gap-2 text-center">
-                    <div class="d-flex gap-2 flex-fill align-items-center justify-content-center">
-                        <div class="backIcon" role="button" (click)="backtoMain()">
-                            <span class="fa-solid fa-chevron-left"></span>
-                        </div>
-                        <div class="select-title d-flex justify-content-between align-items-center">
-                            <div>
-                                <h6 class="mb-0" tooltipPosition="top" pTooltip="Marketing Anaylsis">
-                                    MARKETING ANALYSIS
-                                    <i class="questiontooltip fa-solid fa-circle-question"></i>
-                                </h6>
-                            </div>
-                            <div>
-                                <button class="how-it-works-button" (click)="openHowItWorksVideoPopup('https://www.youtube.com/embed/4evbW8B-z_M?si=alycFSacGOFGuZ9F')">How it works?<i class="fa-solid fa-play d-md-block d-none"></i></button>
-                            </div>
-                        </div>
-                        <div *ngIf="enableModule">
-                            <div class="text-black bg-secondary-subtle rounded-pill p-component p-2 px-4" (click)="download()">
-                                Saved
-                            </div>
-                        </div>
-                    </div>
-                </div>
+<div class="card readingcard" style="height: calc(100vh - 165px)">
+    <ng-container *ngIf="!enableModule">
+      <div class="card-header border-0 bg-transparent">
+        <div class="row justify-content-center">
+          <div class="col-md-12 text-center">
+            <div
+              class="select-title d-flex justify-content-between align-items-center"
+            >
+              <div>
+                <h5
+                  class="w-100 mb-0"
+                  tooltipPosition="top"
+                  pTooltip="Access fully and partially funded opportunities for education."
+                >
+                  MARKETING ANALYSIS<i
+                    class="questiontooltip fa-solid fa-circle-question"
+                  ></i>
+                </h5>
+              </div>
+              <div>
+                <button
+                  class="how-it-works-button"
+                  (click)="
+                    openHowItWorksVideoPopup(
+                      'https://www.youtube.com/embed/5B7AeCCKCKw?si=uUXSoWHIsi3fxJH2'
+                    )
+                  "
+                >
+                  How it works?<i class="fa-solid fa-play d-md-block d-none"></i>
+                </button>
+              </div>
             </div>
+          </div>
         </div>
-      
-        <div class="card-body text-center flex-fill overflow-y-auto" style="height: calc(100vh - 300px)">
-          <div class="container-fluid" *ngIf="!restrict">
-            <div class="row">
-              <div class="row justify-content-center h-100" *ngIf="enableModule">
-                <div class="col-md-8 col-12">
-                    <pdf-viewer
-                    [src]="src"
-                    [rotation]="0"
-                    [original-size]="false"
-                    [show-all]="true"
-                    [fit-to-page]="false"
-                    [zoom]="1"
-                    [zoom-scale]="'page-width'"
-                    [stick-to-page]="false"
-                    [render-text]="true"
-                    [external-link-target]="'blank'"
-                    [autoresize]="true"
-                    [show-borders]="false"
-                    style="width: 100%; height: 100vh;"
-                    class="pdf-viewer"
-                  ></pdf-viewer>
+      </div>
+      <div class="card-body text-center flex-fill overflow-y-auto">
+        <form [formGroup]="marketingForm" class="mt-4">
+          <p-carousel
+            [value]="recommendations"
+            [numVisible]="1"
+            [numScroll]="1"
+            [circular]="false"
+            [showNavigators]="false"
+            [showIndicators]="false"
+            [page]="activePageIndex"
+            styleClass="h-100"
+          >
+            <ng-template let-recommendation let-i="index" pTemplate="item">
+              <div class="row text-center">
+                <!-- ------------------ Basic Information View -------------------- -->
+                <div *ngIf="recommendation.id == 1" class="col-md-6 offset-md-3">
+                  <h2 class="fw-bold mb-2">
+                    {{ recommendation.question.heading }}
+                  </h2>
+                  <div class="d-flex flex-column gap-2 mb-2">
+                    <h5 class="uniprep-primary fw-semibold mt-3 mb-1">
+                      {{ recommendation.question.branches[0] }}
+                    </h5>
+                    <input
+                      class="w-100"
+                      type="text"
+                      pInputText
+                      placeholder="Industry Type"
+                      formControlName="industry"
+                    />
+                    <p
+                      class="text-center"
+                      *ngIf="marketingForm.get('industry')?.errors?.required && submitted"
+                      style="color: red"
+                    >
+                      Please enter the industry type
+                    </p>
+                  </div>
+                  <div class="d-flex flex-column gap-2 mb-1">
+                    <h5 class="uniprep-primary fw-semibold mt-3 mb-1">
+                      {{ recommendation.question.branches[1] }}
+                    </h5>
+                    <p-dropdown
+                      styleClass="w-100"
+                      appendTo="body"
+                      [options]="locationList"
+                      [filter]="true"
+                      formControlName="location"
+                      filterBy="location"
+                      optionLabel="location"
+                      optionValue="id"
+                      [autoDisplayFirst]="false"
+                    >
+                    </p-dropdown>
+                    <p
+                      class="text-center"
+                      *ngIf="marketingForm.get('location')?.errors?.required && submitted"
+                      style="color: red"
+                    >
+                      Please Choose Any one option
+                    </p>
+                  </div>
+                  <div class="d-flex flex-column gap-2 mb-1">
+                    <h5 class="uniprep-primary fw-semibold mt-3 mb-1">
+                      {{ recommendation.question.branches[2] }}
+                    </h5>
+                    <p-multiSelect
+                      styleClass="w-100"
+                      placeholder="Target Market"
+                      [options]="targetMarketList"
+                      display="chip"
+                      optionLabel="targetMarket"
+                      optionValue="id"
+                      formControlName="targetMarket"
+                    >
+                    </p-multiSelect>
+                    <p
+                      class="text-center"
+                      *ngIf="
+                        marketingForm.get('targetMarket')?.errors?.required && submitted
+                      "
+                      style="color: red"
+                    >
+                      Please Choose Any one option
+                    </p>
+                  </div>
+                  <div class="d-flex flex-column gap-2 mb-1">
+                    <h5 class="uniprep-primary fw-semibold mt-3 mb-1">
+                      {{ recommendation.question.branches[3] }}
+                    </h5>
+                    <p-dropdown
+                      styleClass="w-100"
+                      formControlName="productService"
+                      appendTo="body"
+                      [options]="productServiceList"
+                      [filter]="true"
+                      filterBy="productService"
+                      optionLabel="productService"
+                      optionValue="id"
+                      [autoDisplayFirst]="false"
+                    >
+                    </p-dropdown>
+                    <p
+                      class="text-center"
+                      *ngIf="
+                        marketingForm.get('productService')?.errors?.required && submitted
+                      "
+                      style="color: red"
+                    >
+                      Please Choose Any one option
+                    </p>
+                  </div>
+                </div>
+  
+                <div *ngIf="recommendation.id == 2" class="col-md-6 offset-md-3">
+                  <h2 class="fw-bold mb-2">
+                    {{ recommendation.question.heading }}
+                  </h2>
+                  <div>
+                    <h5 class="uniprep-primary fw-semibold mt-3 mb-1">
+                      {{ recommendation.question.branches[0] }}
+                    </h5>
+                    <p-multiSelect
+                      styleClass="w-100"
+                      placeholder="Business Model"
+                      [options]="businessModelList"
+                      display="chip"
+                      optionLabel="businessModel"
+                      optionValue="id"
+                      formControlName="businessModel"
+                    >
+                    </p-multiSelect>
+                    <p
+                      class="text-center"
+                      *ngIf="
+                        marketingForm.get('businessModel')?.errors?.required && submitted
+                      "
+                      style="color: red"
+                    >
+                      Please Choose Any one option
+                    </p>
+                  </div>
+                  <div>
+                    <h5 class="uniprep-primary fw-semibold mt-3 mb-1">
+                      {{ recommendation.question.branches[1] }}
+                    </h5>
+                    <p-multiSelect
+                      styleClass="w-100"
+                      placeholder="Sales Channels"
+                      [options]="salesChannelsList"
+                      display="chip"
+                      optionLabel="salesChannel"
+                      optionValue="id"
+                      formControlName="salesChannel"
+                    >
+                    </p-multiSelect>
+                    <p
+                      class="text-center"
+                      *ngIf="
+                        marketingForm.get('salesChannel')?.errors?.required && submitted
+                      "
+                      style="color: red"
+                    >
+                      Please Choose Any one option
+                    </p>
+                  </div>
+                  <div>
+                    <h5 class="uniprep-primary fw-semibold mt-3 mb-1">
+                      {{ recommendation.question.branches[2] }}
+                    </h5>
+                    <p-multiSelect
+                      styleClass="w-100"
+                      placeholder="Time Frame"
+                      [options]="timeFramesList"
+                      display="chip"
+                      optionLabel="timeFrame"
+                      optionValue="id"
+                      formControlName="timeFrame"
+                    >
+                    </p-multiSelect>
+                    <p
+                      class="text-center"
+                      *ngIf="marketingForm.get('timeFrame')?.errors?.required && submitted"
+                      style="color: red"
+                    >
+                      Please Choose Any one option
+                    </p>
+                  </div>
+                </div>
+                <div *ngIf="recommendation.id == 3" class="col-md-6 offset-md-3">
+                  <h2 class="fw-bold mb-2">
+                    {{ recommendation.question.heading }}
+                  </h2>
+                  <div>
+                    <h5 class="uniprep-primary fw-semibold mt-3 mb-1">
+                      {{ recommendation.question.branches[0] }}
+                    </h5>
+                    <div class="w-100 d-flex gap-2 flex-fill">
+                      <p-dropdown
+                        formControlName="budget"
+                        appendTo="body"
+                        [options]="currencyList"
+                        [filter]="true"
+                        filterBy="currency"
+                        placeholder=" Currency"
+                        optionLabel="currency"
+                        optionValue="id"
+                        [autoDisplayFirst]="false"
+                      >
+                      </p-dropdown>
+                      <input
+                        class="w-100 pl-2 border border-gray rounded-3"
+                        type="text"
+                        placeholder=" Budget"
+                        formControlName="budget"
+                      />
+                    </div>
+                    <p
+                      class="text-center"
+                      *ngIf="marketingForm.get('budget')?.errors?.required && submitted"
+                      style="color: red"
+                    >
+                      Please Choose Any one option
+                    </p>
+                  </div>
+                  <div>
+                    <h5 class="uniprep-primary fw-semibold mt-3 mb-1">
+                      {{ recommendation.question.branches[1] }}
+                    </h5>
+                    <p-multiSelect
+                      styleClass="w-100"
+                      placeholder="Revenue Streams"
+                      [options]="revenueStreamsList"
+                      display="chip"
+                      optionLabel="country"
+                      optionValue="id"
+                      formControlName="revenueStreams"
+                    >
+                    </p-multiSelect>
+                    <p
+                      class="text-center"
+                      *ngIf="
+                        marketingForm.get('revenueStreams')?.errors?.required && submitted
+                      "
+                      style="color: red"
+                    >
+                      Please Choose Any one option
+                    </p>
+                  </div>
+                  <div>
+                    <h5 class="uniprep-primary fw-semibold mt-3 mb-2">
+                      {{ recommendation.question.branches[2] }}
+                    </h5>
+                    <p-multiSelect
+                      styleClass="w-100"
+                      placeholder="Competitor Analysis Focus"
+                      [options]="competitorList"
+                      display="chip"
+                      optionLabel="country"
+                      optionValue="id"
+                      formControlName="competitorAnalysis"
+                    >
+                    </p-multiSelect>
+                    <p
+                      class="text-center"
+                      *ngIf="
+                        marketingForm.get('competitorAnalysis')?.errors?.required &&
+                          submitted;
+                        submitted
+                      "
+                      style="color: red"
+                    >
+                      Please Choose Any one option
+                    </p>
+                  </div>
+                </div>
+              </div>
+            </ng-template>
+          </p-carousel>
+        </form>
+      </div>
+      <div class="card-footer bg-transparent border-0">
+        <div class="d-flex justify-content-between mt-2">
+          <button
+            pButton
+            type="button"
+            class="btn btn-primary btn-rounded p-1 pe-4"
+            [style.visibility]="activePageIndex == 0 ? 'hidden' : 'visible'"
+            (click)="previous()"
+          >
+            <span class="btn-icon px-2 py-2"
+              ><i class="fa fa-arrow-left"></i
+            ></span>
+            <span class="ms-2">Previous</span>
+          </button>
+          <button
+            pButton
+            type="button"
+            (click)="next()"
+            *ngIf="activePageIndex <= 2"
+            class="btn btn-primary btn-rounded p-1 ps-4"
+          >
+            <span class="me-2">Next</span
+            ><span class="btn-icon px-2 py-2"
+              ><i class="fa fa-arrow-right"></i
+            ></span>
+          </button>
+          <button
+            pButton
+            type="button"
+            (click)="getRecommendation()"
+            *ngIf="activePageIndex == 3"
+            class="btn btn-success btn-rounded p-1 ps-4"
+          >
+            <span class="me-2">Get Recommendations</span
+            ><span class="btn-icon px-2 py-2">
+              <i class="fa fa-check-circle"></i
+            ></span>
+          </button>
+        </div>
+      </div>
+    </ng-container>
+    <ng-container *ngIf="enableModule">
+      <div class="card-header border-0 bg-transparent">
+        <div class="row">
+          <div class="col-md-12 d-flex flex-md-row flex-column gap-2 text-center">
+            <div
+              class="d-flex gap-2 flex-fill align-items-center justify-content-center"
+            >
+              <div class="backIcon" role="button" (click)="backtoMain()">
+                <span class="fa-solid fa-chevron-left"></span>
+              </div>
+              <div
+                class="select-title d-flex justify-content-between align-items-center"
+              >
+                <div>
+                  <h6
+                    class="mb-0"
+                    tooltipPosition="top"
+                    pTooltip="Marketing Anaylsis"
+                  >
+                    MARKETING ANALYSIS
+                    <i class="questiontooltip fa-solid fa-circle-question"></i>
+                  </h6>
+                </div>
+                <div>
+                  <button
+                    class="how-it-works-button"
+                    (click)="
+                      openHowItWorksVideoPopup(
+                        'https://www.youtube.com/embed/4evbW8B-z_M?si=alycFSacGOFGuZ9F'
+                      )
+                    "
+                  >
+                    How it works?<i
+                      class="fa-solid fa-play d-md-block d-none"
+                    ></i>
+                  </button>
+                </div>
+              </div>
+              <div *ngIf="enableModule">
+                <div
+                  class="text-black bg-secondary-subtle rounded-pill p-component p-2 px-4"
+                  (click)="download()"
+                >
+                  Saved
                 </div>
               </div>
             </div>
           </div>
         </div>
-      
-        <div class="card-footer border-0 bg-transparent position-relative">
-          <button
-            pButton
-            type="button"
-            style="bottom:5rem; right:1rem"
-            class="btn btn-quit btn-rounded p-1 ps-3 text-small position-absolute d-flex d-md-none"
-            (click)="resetRecommendation()">
-            <span>Reset</span>
-            <span class="btn-icon">
-              <i class="fa-solid fa-arrow-rotate-right"></i>
-            </span>
-          </button>
-      
+      </div>
+  
+      <div
+        class="card-body text-center flex-fill overflow-y-auto"
+        style="height: calc(100vh - 300px)"
+      >
+        <div class="container-fluid" *ngIf="!restrict">
           <div class="row">
-            <div class="col-md-3 d-md-block d-none">&nbsp;</div>
-            <div class="col-md-6 col-11"></div>
-            <div class="col-md-3 d-none d-md-block text-end">
-              <button
-                pButton
-                type="button"
-                class="btn ps-md-3 ps-0 btn-quit btn-rounded"
-                (click)="resetRecommendation()">
-                <span>Reset Recommendations</span>
-                <span class="btn-icon">
-                  <i class="fa-solid fa-arrow-rotate-right"></i>
-                </span>
-              </button>
+            <div class="row justify-content-center h-100" *ngIf="enableModule">
+              <div class="col-md-8 col-12">
+                <pdf-viewer
+                  [src]="src"
+                  [rotation]="0"
+                  [original-size]="false"
+                  [show-all]="true"
+                  [fit-to-page]="false"
+                  [zoom]="1"
+                  [zoom-scale]="'page-width'"
+                  [stick-to-page]="false"
+                  [render-text]="true"
+                  [external-link-target]="'blank'"
+                  [autoresize]="true"
+                  [show-borders]="false"
+                  style="width: 100%; height: 100vh"
+                  class="pdf-viewer"
+                ></pdf-viewer>
+              </div>
             </div>
           </div>
         </div>
-      </ng-container>
-      
+      </div>
+  
+      <div class="card-footer border-0 bg-transparent position-relative">
+        <button
+          pButton
+          type="button"
+          style="bottom: 5rem; right: 1rem"
+          class="btn btn-quit btn-rounded p-1 ps-3 text-small position-absolute d-flex d-md-none"
+          (click)="resetRecommendation()"
+        >
+          <span>Reset</span>
+          <span class="btn-icon">
+            <i class="fa-solid fa-arrow-rotate-right"></i>
+          </span>
+        </button>
+  
+        <div class="row">
+          <div class="col-md-3 d-md-block d-none">&nbsp;</div>
+          <div class="col-md-6 col-11"></div>
+          <div class="col-md-3 d-none d-md-block text-end">
+            <button
+              pButton
+              type="button"
+              class="btn ps-md-3 ps-0 btn-quit btn-rounded"
+              (click)="resetRecommendation()"
+            >
+              <span>Reset Recommendations</span>
+              <span class="btn-icon">
+                <i class="fa-solid fa-arrow-rotate-right"></i>
+              </span>
+            </button>
+          </div>
+        </div>
+      </div>
+    </ng-container>
 </div>
 
-<p-dialog [(visible)]="restrict" [style]="{ width: '30vw' }" [draggable]="false" [resizable]="false" class="restrictionDialog" [breakpoints]="{ '960px': '30vw', '959px': '60vw', '425px': '90vw' }" (onHide)="clearRestriction()">
-	<div *ngIf="ehitlabelIsShow" class="text-center mt-5 mb-4">
-		<img src="../../../uniprep-assets/images/smartloack.png" class="image" width="60" />
-		<h3 class="offer">Upgrade Required</h3>
-		<p>To access this exclusive module,please upgrade your plan now</p>
-		<button pButton type="button" class="text-white p-ripple p-button-rounded p-button-warning p-button p-component p-2" (click)="upgradePlan()">Upgrade Plan<i class="fa fa-arrow-right exhausted-plan-icon"></i></button>
-	</div>
-	<div *ngIf="!ehitlabelIsShow" class="text-center mt-5 mb-4">
-		<img src="../../../uniprep-assets/images/smartloack.png" class="image" width="60" />
-		<h3 class="offer">Upgrade Required</h3>
-		<p>Please contact {{ orgnamewhitlabel }} Company for access</p>
-	</div>
+<p-dialog
+  [(visible)]="restrict"
+  [style]="{ width: '30vw' }"
+  [draggable]="false"
+  [resizable]="false"
+  class="restrictionDialog"
+  [breakpoints]="{ '960px': '30vw', '959px': '60vw', '425px': '90vw' }"
+  (onHide)="clearRestriction()"
+>
+  <div *ngIf="ehitlabelIsShow" class="text-center mt-5 mb-1">
+    <img
+      src="../../../uniprep-assets/images/smartloack.png"
+      class="image"
+      width="60"
+    />
+    <h3 class="offer">Upgrade Required</h3>
+    <p>To access this exclusive module,please upgrade your plan now</p>
+    <button
+      pButton
+      type="button"
+      class="text-white p-ripple p-button-rounded p-button-warning p-button p-component p-2"
+      (click)="upgradePlan()"
+    >
+      Upgrade Plan<i class="fa fa-arrow-right exhausted-plan-icon"></i>
+    </button>
+  </div>
+  <div *ngIf="!ehitlabelIsShow" class="text-center mt-5 mb-1">
+    <img
+      src="../../../uniprep-assets/images/smartloack.png"
+      class="image"
+      width="60"
+    />
+    <h3 class="offer">Upgrade Required</h3>
+    <p>Please contact {{ orgnamewhitlabel }} Company for access</p>
+  </div>
 </p-dialog>
 
-<p-dialog [(visible)]="restrict" [style]="{ width: '30vw' }" [draggable]="false" [resizable]="false" class="restrictionDialog" [breakpoints]="{ '960px': '30vw', '959px': '60vw', '425px': '90vw' }" (onHide)="clearRestriction()">
-	<div *ngIf="ehitlabelIsShow" class="text-center mt-5 mb-4">
-		<img src="../../../uniprep-assets/images/smartloack.png" class="image" width="60" />
-		<h3 class="offer">Upgrade Required</h3>
-		<p>To access this exclusive module,please upgrade your plan now</p>
-		<button pButton type="button" class="text-white p-ripple p-button-rounded p-button-warning p-button p-component p-2" (click)="upgradePlan()">Upgrade Plan<i class="fa fa-arrow-right exhausted-plan-icon"></i></button>
-	</div>
-	<div *ngIf="!ehitlabelIsShow" class="text-center mt-5 mb-4">
-		<img src="{{ orglogowhitelabel }}" class="image" width="60" />
-		<h3 class="offer">Upgrade Required</h3>
-		<p>Please contact {{ orgnamewhitlabel }} Company for access</p>
-	</div>
+<p-dialog
+  [(visible)]="restrict"
+  [style]="{ width: '30vw' }"
+  [draggable]="false"
+  [resizable]="false"
+  class="restrictionDialog"
+  [breakpoints]="{ '960px': '30vw', '959px': '60vw', '425px': '90vw' }"
+  (onHide)="clearRestriction()"
+>
+  <div *ngIf="ehitlabelIsShow" class="text-center mt-5 mb-1">
+    <img
+      src="../../../uniprep-assets/images/smartloack.png"
+      class="image"
+      width="60"
+    />
+    <h3 class="offer">Upgrade Required</h3>
+    <p>To access this exclusive module,please upgrade your plan now</p>
+    <button
+      pButton
+      type="button"
+      class="text-white p-ripple p-button-rounded p-button-warning p-button p-component p-2"
+      (click)="upgradePlan()"
+    >
+      Upgrade Plan<i class="fa fa-arrow-right exhausted-plan-icon"></i>
+    </button>
+  </div>
+  <div *ngIf="!ehitlabelIsShow" class="text-center mt-5 mb-1">
+    <img src="{{ orglogowhitelabel }}" class="image" width="60" />
+    <h3 class="offer">Upgrade Required</h3>
+    <p>Please contact {{ orgnamewhitlabel }} Company for access</p>
+  </div>
 </p-dialog>

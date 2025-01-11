@@ -1,4 +1,4 @@
-<div class="card readingcard">
+<div class="card readingcard" style="height: calc(100vh - 160px)">
 	<ng-container *ngIf="!enableModule">
 		<div class="card-header border-0 bg-transparent">
 			<div class="row justify-content-center">
@@ -14,7 +14,7 @@
 				</div>
 			</div>
 		</div>
-		<div class="card-body" style="height: calc(100vh - 220px)">
+		<div class="card-body text-center flex-fill overflow-y-auto">
 			<div class="container-fluid h-100" >
 				<p-carousel [value]="recommendations" [numVisible]="1" [numScroll]="1" [circular]="false" [showNavigators]="false" [showIndicators]="false" [page]="activePageIndex" styleClass="h-100">
 					<ng-template let-recommendation let-i="index" pTemplate="item">
@@ -254,7 +254,7 @@
 						<label class="form-label" style="font-size: medium; font-weight: 500">Filter by State</label>
 						<div class="form-group">
 							<div class="mb-3">
-								<p-multiSelect [options]="homeCountryList" styleClass="w-100" formControlName="state" optionValue="id" placeholder="Select  Home Country" optionLabel="country" class="filterInput" [appendTo]="'body'"> </p-multiSelect>
+								<p-multiSelect [options]="stateList" styleClass="w-100" formControlName="region" optionValue="id" placeholder="Select  State" optionLabel="state" class="filterInput" [appendTo]="'body'"> </p-multiSelect>
 							</div>
 						</div>
 					</div>

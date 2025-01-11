@@ -29,6 +29,8 @@ import { MultiSelectModule } from 'primeng/multiselect';
 import { MarketingAnalysisComponent } from './marketing-analysis/marketing-analysis.component';
 import { PdfViewerModule } from 'ng2-pdf-viewer';
 import { NgxExtendedPdfViewerModule } from 'ngx-extended-pdf-viewer';
+import { AiBusinessAdvisorComponent } from './ai-business-advisor/ai-business-advisor.component';
+import { StartupRiskAssessmentComponent } from './startup-risk-assessment/startup-risk-assessment.component';
 
 
 @NgModule({
@@ -44,9 +46,11 @@ import { NgxExtendedPdfViewerModule } from 'ngx-extended-pdf-viewer';
     WealthleaderslistComponent,
     WealthleaderreadansComponent,
     BusinessPlanGeneratorComponent,
-    ComponentStoriesComponent
+    ComponentStoriesComponent,
     GovermentFundingOppurtunityComponent,
-    MarketingAnalysisComponent
+    MarketingAnalysisComponent,
+    AiBusinessAdvisorComponent,
+    StartupRiskAssessmentComponent,
   ],
   imports: [
     CommonModule,
@@ -60,7 +64,9 @@ import { NgxExtendedPdfViewerModule } from 'ngx-extended-pdf-viewer';
     CardModule,
     DialogModule,
     foundersToolRountingModule,
-    TooltipModule
+    TooltipModule,
+    MultiSelectModule,
+    PdfViewerModule
   ],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
   providers: [ConfirmationService, 
@@ -69,7 +75,5 @@ import { NgxExtendedPdfViewerModule } from 'ngx-extended-pdf-viewer';
     PdfViewerModule,
     NgxExtendedPdfViewerModule
   ],
-  schemas: [CUSTOM_ELEMENTS_SCHEMA],
-  providers: [ConfirmationService],
 })
 export class FounderstoolModule { }

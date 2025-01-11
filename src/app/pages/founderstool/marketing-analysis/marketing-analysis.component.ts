@@ -38,6 +38,7 @@ export class MarketingAnalysisComponent implements OnInit {
   orglogowhitelabel: any;
   orgnamewhitlabel: any;
   locationName: string = '';
+  submitted: boolean = false;
   data: any = {
     page: this.page,
     perpage: this.pageSize,
@@ -54,22 +55,16 @@ export class MarketingAnalysisComponent implements OnInit {
     private pageFacade: PageFacadeService
   ) {
     this.marketingForm = this.fb.group({
-      basics: this.fb.group({
-        industry: ['', Validators.required],
-        location: ['', Validators.required],
-        targetMarket: ['', Validators.required],
-        productService: ['', Validators.required],
-      }),
-      marketingAndSales: this.fb.group({
-        businessModel: ['', Validators.required],
-        salesChannel: ['', Validators.required],
-        timeFrame: ['', Validators.required],
-      }),
-      finance: this.fb.group({
-        budget: ['', Validators.required],
-        revenueStreams: ['', Validators.required],
-        competitorAnalysis: ['', Validators.required],
-      })
+      industry: ['', Validators.required],
+      location: ['', Validators.required],
+      targetMarket: ['', Validators.required],
+      productService: ['', Validators.required],
+      businessModel: ['', Validators.required],
+      salesChannel: ['', Validators.required],
+      timeFrame: ['', Validators.required],
+      budget: ['', Validators.required],
+      revenueStreams: ['', Validators.required],
+      competitorAnalysis: ['', Validators.required],
     });
 
   }
@@ -205,20 +200,6 @@ export class MarketingAnalysisComponent implements OnInit {
     this.restrict = false;
   }
 
-  // onCheckboxChange(event: any) {
-  //   const isChecked = (event.target as HTMLInputElement).checked;
-  //   this.selectedFund = isChecked ? this.selectedFund + 1 : this.selectedFund - 1;
-  //   if (isChecked == false) {
-  //     if (this.selectedFund) {
-  //       this.selectAllCheckboxes = false;
-  //     }
-  //   } else {
-  //     if (this.fundData.length == this.selectedFund) {
-  //       this.selectAllCheckboxes = true;
-  //     }
-  //   }
-  // }
-
   openHowItWorksVideoPopup(videoLink: string) {
     this.pageFacade.openHowitWorksVideoPopup(videoLink);
   }
@@ -260,14 +241,29 @@ export class MarketingAnalysisComponent implements OnInit {
     }
   }
 
-  next(productId: number): void {
-    this.invalidClass = false;
-    if (this.activePageIndex < this.recommendations.length - 1) {
-      this.activePageIndex++;
-
-    } else {
-      this.invalidClass = true;
+  next() {
+    debugger;
+    this.submitted = false;
+    const formData = this.marketingForm.value;
+    if (this.activePageIndex == 0) {
+      if (!formData.industry || !formData.location || !formData.targetMarket || !formData.productService) {
+        this.submitted = true;
+        return;
+      }
     }
+    if (this.activePageIndex == 1) {
+      if (!formData.businessModel || !formData.salesChannel || !formData.timeFrame) {
+        this.submitted = true;
+        return;
+      }
+    }
+    if (this.activePageIndex == 2) {
+      if (!formData.budget || !formData.revenueStreams || !formData.competitorAnalysis) {
+        this.submitted = true;
+        return;
+      }
+    }
+    this.activePageIndex++;
   }
 
   resetRecommendation() {
