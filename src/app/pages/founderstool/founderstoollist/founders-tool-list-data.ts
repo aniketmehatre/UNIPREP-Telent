@@ -56,31 +56,31 @@ export const FoundersToolsData = [
     {
         title: "Startup Funding Hacks",
         description: "An assessment that evaluates an entrepreneur's in-depth knowledge and proficiency in specific industries.",
-        image: "../../../uniprep-assets/images/icons/wealthy.svg",
+        image: "../../../uniprep-assets/images/founderstool/startupfunding.svg",
         url: "/pages/founderstool/startup-funding-hacks"
     },
     {
         title: "Founder Success Stories",
         description: "An assessment that evaluates an entrepreneur's in-depth knowledge and proficiency in specific industries.",
-        image: "../../../uniprep-assets/images/icons/wealthy.svg",
+        image: "../../../uniprep-assets/images/founderstool/foundersuccess.svg",
         url: "/pages/founderstool/founder-success-stories"
     },
     {
         title: "Founder Failure Stories",
         description: "An assessment that evaluates an entrepreneur's in-depth knowledge and proficiency in specific industries.",
-        image: "../../../uniprep-assets/images/icons/wealthy.svg",
+        image: "../../../uniprep-assets/images/founderstool/founderfailure.svg",
         url: "/pages/founderstool/founder-failure-stories"
     },
     {
         title: "Startup Success Stories",
         description: "An assessment that evaluates an entrepreneur's in-depth knowledge and proficiency in specific industries.",
-        image: "../../../uniprep-assets/images/icons/wealthy.svg",
+        image: "../../../uniprep-assets/images/founderstool/startupsuccess.svg",
         url: "/pages/founderstool/startup-success-stories"
     },
     {
         title: "Startup Failure Stories",
         description: "An assessment that evaluates an entrepreneur's in-depth knowledge and proficiency in specific industries.",
-        image: "../../../uniprep-assets/images/icons/wealthy.svg",
+        image: "../../../uniprep-assets/images/founderstool/startupfailure.svg",
         url: "/pages/founderstool/startup-failure-stories"
     }
 ];
