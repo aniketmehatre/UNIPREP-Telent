@@ -111,6 +111,11 @@ export class SidenavComponent {
       image: "fa-solid fa-landmark-magnifying-glass",
     },
     {
+      title: "Education Tools",
+      url: "/pages/education-tools",
+      image: "fa-solid fa-landmark-magnifying-glass",
+    },
+    {
       title: "Travel & Life",
       url: "",
       image: "",

@@ -194,7 +194,6 @@ export class LocationService {
         const sessionData = {
             token: this.storage.get<string>('token')
         };
-        console.log('update track')
         const headers = new HttpHeaders().set("Accept", "application/json");
         return this.http.post<any>(environment.ApiUrl + "/updatetracking", sessionData, {
             headers: headers,
