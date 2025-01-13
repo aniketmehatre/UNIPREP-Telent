@@ -9,6 +9,8 @@ import { FormsModule } from '@angular/forms';
 import { CarouselModule } from 'primeng/carousel';
 import { DropdownModule } from 'primeng/dropdown';
 import { ButtonModule } from 'primeng/button';
+import { CardModule } from 'primeng/card';
+import { DialogModule } from 'primeng/dialog';
 
 
 @NgModule({
@@ -23,7 +25,9 @@ import { ButtonModule } from 'primeng/button';
     FormsModule,
     CarouselModule,
     DropdownModule,
-    ButtonModule
+    ButtonModule,
+    CardModule,
+    DialogModule
   ]
 })
 export class EducationToolsModule { }
