@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { TravelToolsService } from '../travel-tools.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'uni-global-travel-visa',
@@ -31,16 +32,36 @@ export class GlobalTravelVisaComponent implements OnInit {
   selectedData: { [key: string]: any } = {};
   allCountries: any = [];
   invalidClass: boolean = false;
-  constructor(private travelToolService: TravelToolsService) { }
+  title:string = "";
+  currentUrl: string = "";
+  constructor(private travelToolService: TravelToolsService,private router: Router) {
+    // console.log(this.router.url,"current urlsss");
+    this.currentUrl = this.router.url;
+    let urls = this.currentUrl.split('/');
+    let currentEndpoint = urls[urls.length - 1];
+    console.log(currentEndpoint," current link");
+    if(currentEndpoint == "travel-visa"){
+      this.title = "Global Travel Visa";
+    }else if(currentEndpoint == "global-work-visa"){
+      this.title = "Global Work Visa";
+    }else if(currentEndpoint == "global-entrepreneur-visa"){
+      this.title = "Global Entrepreneur Visa";
+    }
+  }
 
   ngOnInit(): void {
     this.getCountriesList();
+    // this.getRouterName();
   }
+
+  // getRouterName(){
+  //   console.log(this.router.url,"current url");
+    
+  // }
 
   getCountriesList(): void{
     this.travelToolService.getCountriesList().subscribe( response => {
       this.allCountries = response;
-      console.log(response);
     });
   }
 

@@ -110,6 +110,15 @@ export class CareerToolComponent implements OnInit {
       imageLink: environment.production === false ? "https://api.uniprep.ai/uniprepapi/storage/app//public/icon/modules/growth.svg" : "https://uniprep.ai/uniprepapi/storage/app/public/icon/modules/growth.svg",
       refLink: "",
       mode: "career-growth-checker"
+    },
+    {
+      id: 12,
+      moduleName: "Global Work Visas",
+      Description: "Get insight into your next 5 career growth oppurtunity.",
+      tooltip: "Track your professional development and set goals with our career progression tool.",
+      imageLink: environment.production === false ? "https://api.uniprep.ai/uniprepapi/storage/app//public/icon/modules/growth.svg" : "https://uniprep.ai/uniprepapi/storage/app/public/icon/modules/growth.svg",
+      refLink: "",
+      mode: "global-work-visa"
     }
   ]
 
@@ -153,6 +162,8 @@ export class CareerToolComponent implements OnInit {
       this.router.navigate(['/pages/interviewprep']);
     } else if (mode == "career-growth-checker") {
       this.router.navigate(['/pages/job-tool/career-growth-checker']);
+    } else if (mode == "global-work-visa") {
+      this.router.navigate(['/pages/job-tool/global-work-visa']);
     } else {
       this.router.navigate(['/pages/job-tool/list/employer-test/13']);
     }

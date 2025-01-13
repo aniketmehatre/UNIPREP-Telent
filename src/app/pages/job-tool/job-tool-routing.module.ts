@@ -14,6 +14,7 @@ import { CareerCategoryListComponent } from './career-category-list/career-categ
 import { CareerGrowthCheckerComponent } from '../career-growth-checker/career-growth-checker.component';
 import { CarrerplannerlistComponent } from './carrerplannerlist/carrerplannerlist.component';
 import { CareerplannercountrywiseComponent } from './careerplannercountrywise/careerplannercountrywise.component';
+import { GlobalTravelVisaComponent } from '../travel-tools/global-travel-visa/global-travel-visa.component';
 
 const routes: Routes = [
   {
@@ -31,7 +32,8 @@ const routes: Routes = [
       { path: 'quiz/:name/list/:id', component: QuizTestListComponent},
       { path: 'career-growth-checker', component: CareerGrowthCheckerComponent},
       { path: 'careerplannerlist', component: CarrerplannerlistComponent},
-      { path: 'careerplannercountrywise', component: CareerplannercountrywiseComponent}
+      { path: 'careerplannercountrywise', component: CareerplannercountrywiseComponent},
+      { path: 'global-work-visa', component: GlobalTravelVisaComponent}
     ]
   }
 ];
