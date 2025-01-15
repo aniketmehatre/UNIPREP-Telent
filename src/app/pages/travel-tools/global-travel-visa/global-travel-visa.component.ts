@@ -44,8 +44,10 @@ export class GlobalTravelVisaComponent implements OnInit {
       this.title = "Global Travel Visa";
     }else if(currentEndpoint == "global-work-visa"){
       this.title = "Global Work Visa";
-    }else if(currentEndpoint == "global-entrepreneur-visa"){
+    }else if(currentEndpoint == "enterpreneur-visa"){
       this.title = "Global Entrepreneur Visa";
+    }else if(currentEndpoint == "study-visa"){
+      this.title = "Global Study Visa";
     }
   }
 

@@ -41,12 +41,12 @@ export const FoundersToolsData = [
         image: "../../../uniprep-assets/images/icons/wealthy.svg",
         url: "/pages/founderstool/wealthleaderslist"
     },
-    // {
-    //     title: "Global Enterpreneur Visa",
-    //     description: "An assessment that evaluates an entrepreneur's in-depth knowledge and proficiency in specific industries.",
-    //     image: "../../../uniprep-assets/images/icons/wealthy.svg",
-    //     url: ""
-    // },
+    {
+        title: "Global Enterpreneur Visa",
+        description: "An assessment that evaluates an entrepreneur's in-depth knowledge and proficiency in specific industries.",
+        image: "../../../uniprep-assets/images/icons/wealthy.svg",
+        url: "/pages/founderstool/enterpreneur-visa"
+    },
     {
         title: "AI Business Plan Generator",
         description: "An assessment that evaluates an entrepreneur's in-depth knowledge and proficiency in specific industries.",

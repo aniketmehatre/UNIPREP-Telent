@@ -12,6 +12,7 @@ import { WealthleaderslistComponent } from './wealthleaderslist/wealthleaderslis
 import { WealthleaderreadansComponent } from './wealthleaderreadans/wealthleaderreadans.component';
 import { BusinessPlanGeneratorComponent } from './business-plan-generator/business-plan-generator.component';
 import { ComponentStoriesComponent } from './component-stories/component-stories.component';
+import { GlobalTravelVisaComponent } from '../travel-tools/global-travel-visa/global-travel-visa.component';
 
 const routes: Routes = [
   {
@@ -61,7 +62,10 @@ const routes: Routes = [
       },  
       {
         path: 'startup-failure-stories', component: ComponentStoriesComponent
-      },    
+      },  
+      {
+        path: 'enterpreneur-visa', component: GlobalTravelVisaComponent
+      },   
     ]
   }
 ];
