@@ -19,15 +19,15 @@
 			</div>
 		</div>
 	</div>
-    <div class="card-body text-center flex-fill overflow-y-auto">
+    <div class="card-body text-center flex-fill overflow-y-auto" *ngIf="isShowCountryData">
         <div class="row mb-0">
-            <div *ngFor="let item of countrylist; let i=index;"
+            <div *ngFor="let item of recommadationSavedQuestionList; let i=index;"
                 class="col-lg-3 col-md-3 col-sm-4 col-xs-12 col-12 mb-3">
                 <div class="row w-100 m-0 justify-content-center h-100">
-                    <div class="card subjectcard" role="button">
-                        <div class="card-body">
-                           <img src="{{item.flag}}" alt="" height="70" width="70">
-                           <p class="mt-2" style="font-size: small;"><b>{{item.country}}</b></p>
+                    <div class="card subjectcard" role="button" (click)="showRecommandationData(item.response)">
+                        <div class="card-body text-start">
+                            <p class="text-small"><b>Counntry : </b>{{item.country}}</p>
+                            <p class="text-small"><b>Currency : </b>{{item.currency_code}}</p>
                         </div>
                     </div>
                 </div>

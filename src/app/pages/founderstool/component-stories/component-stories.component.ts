@@ -15,21 +15,22 @@ export class ComponentStoriesComponent implements OnInit {
   countrylist: any[] = [];
   currentRoute: string = '';
   headertooltipname: any;
+  isShowCountryData: boolean = true;
+  countrydatas: any[] = [];
   ngOnInit(): void {
     this.locationService.dashboardLocationList().subscribe((res: any) => {
       this.countrylist = res
     })
     this.currentRoute = this.router.url;
-    console.log(this.currentRoute);
     if (this.currentRoute.includes('startup-funding-hacks')) {
       this.headertooltipname = "Startup Funding Hacks"
     } else if (this.currentRoute.includes('founder-success-stories')) {
       this.headertooltipname = "Founder-Success-Stories"
-    }else if (this.currentRoute.includes('founder-failure-stories')) {
+    } else if (this.currentRoute.includes('founder-failure-stories')) {
       this.headertooltipname = "Founder-Failure-Stories"
-    }else if (this.currentRoute.includes('startup-success-stories')) {
+    } else if (this.currentRoute.includes('startup-success-stories')) {
       this.headertooltipname = "Startup Success Stories"
-    }else if (this.currentRoute.includes('startup-failure-stories')) {
+    } else if (this.currentRoute.includes('startup-failure-stories')) {
       this.headertooltipname = "Startup Failure Stories"
     }
   }
@@ -38,5 +39,8 @@ export class ComponentStoriesComponent implements OnInit {
   }
   goBack() {
     this.router.navigate(["/pages/founderstool/founderstoollist"])
+  }
+  showDatas(data: any) {
+    this.isShowCountryData = false;;
   }
 }
