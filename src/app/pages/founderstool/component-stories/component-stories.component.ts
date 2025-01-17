@@ -38,9 +38,16 @@ export class ComponentStoriesComponent implements OnInit {
     this.pageFacade.openHowitWorksVideoPopup(videoLink);
   }
   goBack() {
-    this.router.navigate(["/pages/founderstool/founderstoollist"])
+    if(this.isShowCountryData){
+      this.router.navigate(["/pages/founderstool/founderstoollist"])
+    }else{
+      this.isShowCountryData = true;
+    }
   }
   showDatas(data: any) {
-    this.isShowCountryData = false;;
+    this.isShowCountryData = false;
+  }
+  showDataAnswer(data:any){
+    
   }
 }
