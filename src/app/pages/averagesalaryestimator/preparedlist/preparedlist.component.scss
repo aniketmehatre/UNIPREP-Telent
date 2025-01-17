@@ -1,0 +1,86 @@
+.questioncard {
+  border: 1px solid var(--uniprep-primarylight);
+  padding: 0;
+  .homecountry {
+    width: 25px;
+    height: 25px;
+    border-radius: 100px;
+    padding: 0;
+    img {
+      height: 100%;
+      width: 100%;
+      border-radius: 100%;
+      border: 1px solid transparent;
+      object-fit: cover;
+    }
+  }
+}
+.universityicon {
+  color: var(--uniprep-secondary);
+}
+.primary-color {
+  color: var(--uniprep-primary);
+}
+.popup-header {
+  background-color: #2e2f89;
+  color: white;
+  font-size: 1.25rem;
+  font-weight: bold;
+  padding: 10px 15px;
+  text-align: center;
+  border-radius: 8px 8px 0 0;
+}
+
+.popup-body {
+  padding: 20px;
+  background-color: #ffffff;
+}
+
+.popup-sections {
+  display: flex;
+  gap: 20px;
+  flex-wrap: wrap;
+}
+
+.popup-section {
+  flex: 1;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  padding: 15px;
+  background-color: #f9f9f9;
+  overflow-y: auto;
+}
+.estimatemainblock {
+  background: #ececec;
+  width: 100vh;
+  border-radius: 1rem;
+  font-weight: 700;
+}
+.mainblock {
+  height: 75vh;
+  .card-header {
+    font-size: large;
+    color: var(--uniprep-primary);
+    font-weight: 700;
+    text-align: center;
+    background: #ebedf2;
+  }
+  .card-body {
+    background: #ebedf2;
+    .readingarea {
+      font-size: medium;
+      font-weight: 600;
+    }
+  }
+}
+.popup-section h6 {
+  font-size: 1.1rem;
+  font-weight: bold;
+  margin-bottom: 10px;
+  text-align: center;
+}
+.quesHeading {
+  font-size: x-large;
+  color: var(--uniprep-primary);
+  font-weight: 700;
+}

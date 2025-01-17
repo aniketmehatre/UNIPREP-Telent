@@ -87,6 +87,8 @@ import { NationalExamResultComponent } from './national-exam-result/national-exa
 import { NationalExamReviewComponent } from './national-exam-review/national-exam-review.component';
 import { JobPreparationComponent } from "./jobinterviewpreparation/interviewpreparation.component";
 import { JobPreparedListComponent } from "./jobinterviewpreparation/preparedlist/preparedlist.component";
+import { AverageSalaryComponent } from "./averagesalaryestimator/averagesalaryestimator.component";
+import { AverageSalaryPreparedListComponent } from "./averagesalaryestimator/preparedlist/preparedlist.component";
 
 
 // import { JobToolComponent } from './job-tool/job-tool.component';
@@ -132,7 +134,9 @@ import { JobPreparedListComponent } from "./jobinterviewpreparation/preparedlist
     NationalExamReviewComponent,
     // JobToolComponent,
     JobPreparationComponent,
-    JobPreparedListComponent
+    JobPreparedListComponent,
+    AverageSalaryComponent,
+    AverageSalaryPreparedListComponent
   ],
   exports: [FooterStatusBoxComponent, HeaderSearchComponent],
   imports: [

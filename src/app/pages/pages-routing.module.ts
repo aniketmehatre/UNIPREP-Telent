@@ -38,6 +38,8 @@ import { NationalExamResultComponent } from './national-exam-result/national-exa
 import { NationalExamReviewComponent } from './national-exam-review/national-exam-review.component';
 import { JobPreparationComponent } from './jobinterviewpreparation/interviewpreparation.component';
 import { JobPreparedListComponent } from './jobinterviewpreparation/preparedlist/preparedlist.component';
+import { AverageSalaryPreparedListComponent } from './averagesalaryestimator/preparedlist/preparedlist.component';
+import { AverageSalaryComponent } from './averagesalaryestimator/averagesalaryestimator.component';
 
 const routes: Routes = [
     {
@@ -258,6 +260,10 @@ const routes: Routes = [
             {
                 path: 'travel-cost-estimator',
                 loadChildren: () => import('./travel-cost-estimator/travel-cost-estimator.module').then(m => m.TravelCostEstimatorModule)
+            },
+            {
+                path: 'average-salary-estimator',
+                component: AverageSalaryComponent  
             },
         ]
     }
