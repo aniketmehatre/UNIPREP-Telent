@@ -17,15 +17,24 @@ export class StartupRiskAssessmentComponent implements OnInit {
     { id: 7, question: 'Who are your ideal customers?' },
     { id: 8, question: 'What is your budget for addressing risks?' }
   ];
-  businessModelList = [];
-  startupStageList = [];
-  financialStatusList = [];
-  competitiveMarketList = [];
+  businessModelList = [{
+    id: 1, name: 'option'
+  }];
+  startupStageList = [{
+    id: 1, name: 'option'
+  }];
+  financialStatusList = [{
+    id: 1, name: 'option'
+  }];
+  competitiveMarketList = [{
+    id: 1, name: 'option'
+  }];
   activePageIndex: number = 0;
   form: FormGroup;
   inValidClass: boolean = false;
   selectedData: { [key: string]: any } = {};
   enableModule: boolean = false;
+  src = 'https://vadimdez.github.io/ng2-pdf-viewer/assets/pdf-test.pdf';
   constructor(
     private fb: FormBuilder,
   ) { }

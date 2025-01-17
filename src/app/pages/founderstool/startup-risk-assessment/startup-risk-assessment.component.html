@@ -94,11 +94,11 @@
                                 <span class="btn-icon px-2 py-2"><i class="fa fa-arrow-left"></i></span> <span
                                     class="ms-2">Previous</span>
                             </button>
-                            <button pButton type="button" (click)="next(activePageIndex+1)" *ngIf="activePageIndex <= 3"
+                            <button pButton type="button" (click)="next(activePageIndex+1)" *ngIf="activePageIndex <= 6"
                                 class="btn btn-primary btn-rounded p-1 ps-4">
                                 <span class="me-2">Next</span><span class="btn-icon px-2 py-2"><i class="fa fa-arrow-right"></i></span>
                             </button>
-                            <button pButton type="button" (click)="getRecommendation()" *ngIf="activePageIndex == 4"
+                            <button pButton type="button" (click)="getRecommendation()" *ngIf="activePageIndex == 7"
                                 class="btn btn-success btn-rounded p-1 ps-4">
                                 <span class="me-2">Get Recommendations</span><span class="btn-icon px-2 py-2">
                                     <i class="fa fa-check-circle"></i></span>
@@ -169,22 +169,21 @@
               <div class="row justify-content-center h-100" *ngIf="enableModule">
                 <div class="col-md-8 col-12">
                   <pdf-viewer
-                    [src]="src"
-                    [rotation]="0"
-                    [original-size]="false"
-                    [show-all]="true"
-                    [fit-to-page]="false"
-                    [zoom]="1"
-                    [zoom-scale]="'page-width'"
-                    [stick-to-page]="false"
-                    [render-text]="true"
-                    [external-link-target]="'blank'"
-                    [autoresize]="true"
-                    [show-borders]="false"
-                    style="width: 100%; height: 100vh"
-                    class="pdf-viewer"
-                  ></pdf-viewer>
-                </div>
+                  [src]="src"
+                  [rotation]="0"
+                  [original-size]="false"
+                  [show-all]="true"
+                  [fit-to-page]="false"
+                  [zoom]="1"
+                  [zoom-scale]="'page-width'"
+                  [stick-to-page]="false"
+                  [render-text]="true"
+                  [external-link-target]="'blank'"
+                  [autoresize]="true"
+                  [show-borders]="false"
+                  style="width: 100%; height: 100vh"
+                  class="pdf-viewer"
+                ></pdf-viewer>                </div>
               </div>
             </div>
           </div>

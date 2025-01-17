@@ -40,3 +40,12 @@
   input[type="checkbox"] {
     zoom: 1.0;
   }
+
+  ::ng-deep .ng2-pdf-viewer-container {
+    scrollbar-width: none; /* Firefox */
+    -ms-overflow-style: none; /* IE and Edge */
+  }
+  
+  ::ng-deep .ng2-pdf-viewer-container::-webkit-scrollbar {
+    display: none; /* Chrome, Safari, and Opera */
+  }

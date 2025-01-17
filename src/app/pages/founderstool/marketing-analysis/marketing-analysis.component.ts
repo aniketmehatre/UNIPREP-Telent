@@ -69,7 +69,7 @@ export class MarketingAnalysisComponent implements OnInit {
 
   }
 
-  enableModule: boolean = false;
+  enableModule: boolean = true;
   activePageIndex: number = 0;
   recommendations: any = [
     {

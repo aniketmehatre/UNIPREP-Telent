@@ -7,6 +7,10 @@ import { FormGroup, FormBuilder, Validators } from '@angular/forms';
   styleUrls: ['./ai-business-advisor.component.scss']
 })
 export class AiBusinessAdvisorComponent implements OnInit {
+  strategyBusinessList: any = [{
+    id: 1, name: 'option'
+  }]
+  src = 'https://vadimdez.github.io/ng2-pdf-viewer/assets/pdf-test.pdf';
 
   recommendations: { id: number, question: string }[] = [
     { id: 1, question: 'What type of business are you running or planning to run?' },
