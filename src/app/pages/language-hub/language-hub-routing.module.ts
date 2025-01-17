@@ -6,6 +6,9 @@ import { QuestionListComponent } from "./question-list/question-list.component";
 import { LanguageListComponent } from "./language-list/language-list.component";
 import { LanguageHubComponent } from "./language-hub.component";
 import { TranslateViewComponent } from "./translate-view/translate-view.component";
+import { PvlComponent } from './pvl/pvl.component';
+import { VocabularyComponent } from './vocabulary/vocabulary.component';
+import { LearningVideosComponent } from './learning-videos/learning-videos.component';
 
 const routes: Routes = [
     {
@@ -16,6 +19,15 @@ const routes: Routes = [
             },
             {
                 path: 'levels/:id', component: LevelsComponent,
+            },
+            {
+                path: 'pvl/:id', component: PvlComponent,
+            },
+            {
+                path: 'vocabulary', component: VocabularyComponent,
+            },
+            {
+                path: 'learning-videos', component: LearningVideosComponent,
             },
             {
                 path: 'category', component: CategoryListComponent,

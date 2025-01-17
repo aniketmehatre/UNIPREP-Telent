@@ -111,6 +111,11 @@ export class SidenavComponent {
       image: "fa-solid fa-landmark-magnifying-glass",
     },
     {
+      title: "Education Tools",
+      url: "/pages/education-tools",
+      image: "fa-solid fa-landmark-magnifying-glass",
+    },
+    {
       title: "Travel & Life",
       url: "",
       image: "",
@@ -130,12 +135,16 @@ export class SidenavComponent {
       url: "/pages/modules/life-at-country",
       image: "fa-solid fa-earth-americas",
     },
+    // {
+    //   title: "Cost of Living",
+    //   url: "/pages/job-tool/cost-of-living",
+    //   image: "fa-solid fa-dollar-sign",
+    // },
     {
-      title: "Cost of Living",
-      url: "/pages/job-tool/cost-of-living",
-      image: "fa-solid fa-dollar-sign",
+      title: "Travel Tools",
+      url: "/pages/travel-tools",
+      image: "fa-solid fa-compass",
     },
-
     {
       title: 'Career',
       url: '',

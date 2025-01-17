@@ -237,6 +237,8 @@ export class HeaderComponent implements OnInit, OnDestroy {
     let sendPhoneNumber = {
       country_code: formData.verification_phone.dialCode,
       phone: formData.verification_phone.number,
+      whatsapp_number_or_not: formData.choice,
+      dial_code: formData.verification_phone.countryCode,
     };
     this.service.sendWhatsappOtp(sendPhoneNumber).subscribe({
       next: response => {
@@ -372,7 +374,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
 
     this.phoneVerification = this.formBuilder.group({
       verification_phone: [phone, Validators.required],
-      choice:['', Validators.required]
+      choice:[false, Validators.required]
     });
 
     if (this.service._checkExistsSubscription === 0) {
@@ -539,7 +541,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
     // this.getHomeCountryList();
     // if(this.service.user?.login_status == 1 && this.service.user.is_phn_or_whs_verified == 0) {
     //   this.whatsappVerification = true;
-    // } 
+    // }
   }
 
   getProgramlevelList() {

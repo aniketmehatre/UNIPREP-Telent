@@ -3,6 +3,7 @@ import { PageFacadeService } from '../../page-facade.service';
 import { Router } from '@angular/router';
 import { AuthService } from 'src/app/Auth/auth.service';
 import { LocationService } from 'src/app/location.service';
+import { FoundersToolsData } from './founders-tool-list-data';
 
 @Component({
   selector: 'uni-founderstoollist',
@@ -10,12 +11,14 @@ import { LocationService } from 'src/app/location.service';
   styleUrls: ['./founderstoollist.component.scss']
 })
 export class FounderstoollistComponent implements OnInit {
+  founderToolsList = FoundersToolsData;
   ehitlabelIsShow: boolean = true;
   imagewhitlabeldomainname: any
   orgnamewhitlabel: any;
   orglogowhitelabel: any;
   restrict: boolean = false;
   planExpired: boolean = false;
+
   constructor(  private pageFacade: PageFacadeService, private router:Router,private locationService: LocationService, private authService: AuthService,) { }
 
   ngOnInit(): void {
@@ -36,44 +39,7 @@ export class FounderstoollistComponent implements OnInit {
   openVideoPopup(videoLink: string) {
     this.pageFacade.openHowitWorksVideoPopup(videoLink);
   }
-  openAcademy(){
-    if (this.planExpired) {
-      this.restrict = true;
-      return;
-    }
-    this.router.navigate(['/pages/founderstool/foundersacademy']);
-  }
-  openInvestorTraining(){
-    if (this.planExpired) {
-      this.restrict = true;
-      return;
-    }
-    this.router.navigate(['/pages/founderstool/investorpitchtraining']);
-  }
-  openStartUpGlossary(){
-    if (this.planExpired) {
-      this.restrict = true;
-      return;
-    }
-    this.router.navigate(['/pages/founderstool/startupglossary']);
-  }
-  openEntreprenuerSkill(){
-    if (this.planExpired) {
-      this.restrict = true;
-      return;
-    }
-    this.router.navigate(['/pages/founderstool/entrepreneurskillmodule']);
-  }
-  openEntreprenuerSector(){
-    if (this.planExpired) {
-      this.restrict = true;
-      return;
-    }
-    this.router.navigate(['/pages/founderstool/entreprenuerproficiencymodule']);
-  }
-  openInvestorList(){
-    this.router.navigate(['/pages/investor-list']);
-  }
+
   checkplanExpire(): void {
     this.authService.getNewUserTimeLeft().subscribe((res) => {
       let data = res.time_left;
@@ -90,5 +56,13 @@ export class FounderstoollistComponent implements OnInit {
   }
   clearRestriction() {
     this.restrict = false;
+  }
+
+  navigateSubModule(url:string) {
+    // if (this.planExpired) {
+    //   this.restrict = true;
+    //   return;
+    // }
+    this.router.navigateByUrl(url);
   }
 }

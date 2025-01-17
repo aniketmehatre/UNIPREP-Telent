@@ -1,0 +1,105 @@
+.headerTextColor{
+    color: var(--uniprep-secondary) !important;
+}
+.dictionary {
+    padding: 20px;
+    .dict {
+        overflow-y: auto;
+        max-height: 63vh;
+    }
+
+    .alphabet-nav {
+      margin-bottom: 20px;
+  
+      p {
+        text-decoration: none;
+        margin-right: 5px;
+        margin-left: 5px;
+        font-weight: bold;
+        cursor: pointer;
+        &.all {
+          color: orange;
+        }
+      }
+    }
+  
+    .search-bar {
+      margin-bottom: 20px;
+  
+      input {
+        width: 100%;
+        border-radius: 4px;
+      }
+    }
+  
+    .word-entry {
+      margin-bottom: 15px;
+      border-bottom: 1px solid #ddd;
+      padding-bottom: 10px;
+  
+      .word {
+        font-size: 18px;
+        font-weight: bold;
+      }
+  
+      .translation {
+        font-size: 16px;
+        color: gray;
+      }
+    }
+  }
+
+  .header-container {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 30px;
+    margin-bottom: 20px;
+  
+    .alphabet-nav {
+      flex-grow: 0; // Ensures it takes up available space
+      white-space: nowrap; // Keeps all letters in a single line
+      overflow-x: auto; // Adds horizontal scrolling if needed
+      display: flex;
+      align-items: center;
+  
+      p {
+        text-decoration: none;
+        margin-right: 20px;
+        font-weight: bold;
+        cursor: pointer;
+        &.all {
+          color: orange;
+        }
+      }
+    }
+  
+    .search-bar {
+        flex-shrink: 0;
+        flex-grow: 1;
+      
+        .p-inputgroup {
+          width: 100%; // Makes the input group occupy full width
+        }
+      
+        input {
+          border-radius: 4px;
+          border: 1px solid orange;
+        }
+      
+        .p-inputgroup-addon {
+          display: flex;
+          align-items: center;
+          background-color: white;
+          border-right: none;
+          justify-content: center;
+          border: 1px solid orange;
+        }
+      
+        i.pi {
+          font-size: 18px; // Customize icon size
+        }
+      }
+  }
+  
+  

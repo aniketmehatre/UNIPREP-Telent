@@ -211,7 +211,7 @@ const routes: Routes = [
             },
             {
                 path: 'founderstool',
-                loadChildren: () => import('./founderstool/founderstool/founderstool.module').then(m => m.FounderstoolModule)
+                loadChildren: () => import('./founderstool/founderstool.module').then(m => m.FounderstoolModule)
             },
             {
                 path: 'career-growth-checker',
@@ -258,8 +258,12 @@ const routes: Routes = [
                 loadChildren: () => import('./assessment/assessment.module').then(m => m.AssessmentModule)
             },
             {
-                path: 'travel-cost-estimator',
-                loadChildren: () => import('./travel-cost-estimator/travel-cost-estimator.module').then(m => m.TravelCostEstimatorModule)
+                path: 'travel-tools',
+                loadChildren: () => import('./travel-tools/travel-tools.module').then(m => m.TravelToolsModule)
+            },
+            {
+                path: 'education-tools',
+                loadChildren: () => import('./education-tools/education-tools.module').then(m => m.EducationToolsModule)
             },
             {
                 path: 'average-salary-estimator',

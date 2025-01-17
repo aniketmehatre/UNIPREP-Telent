@@ -36,6 +36,9 @@ import { TooltipModule } from 'primeng/tooltip';
 import { SkeletonModule } from 'primeng/skeleton';
 import {AutoCompleteModule} from 'primeng/autocomplete';
 import { FitTextDirective } from './fit-text.directive';
+import { CarrerplannerlistComponent } from './carrerplannerlist/carrerplannerlist.component';
+import { CareerplannercountrywiseComponent } from './careerplannercountrywise/careerplannercountrywise.component';
+import { JoboffercomparisontoolComponent } from './joboffercomparisontool/joboffercomparisontool.component';
 
 @NgModule({
   declarations: [
@@ -49,7 +52,10 @@ import { FitTextDirective } from './fit-text.directive';
     QuizTestListComponent,
     EmployerSubcategoryComponent,
     CareerCategoryListComponent,
-      FitTextDirective
+      FitTextDirective,
+      CarrerplannerlistComponent,
+      CareerplannercountrywiseComponent,
+      JoboffercomparisontoolComponent
     ],
     imports: [
         CommonModule,

@@ -1,0 +1,175 @@
+<div class="card readingcard">
+    <div class="card-header border-0 bg-transparent">
+        <div class="row justify-content-center align-items-center">
+            <div class="col-md-12 text-center">
+                <div class="select-title d-flex justify-content-between align-items-center">
+                    <div>
+                        <h5 class="w-100 mb-0" tooltipPosition="top" pTooltip="">
+                            Business Plan Generator</h5>
+                    </div>
+                    <div>
+                        <button class="how-it-works-button">How it works?
+                            <i class="fa-solid fa-play d-md-block d-none"></i></button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="card-body text-center flex-fill overflow-y-auto">
+        <form [formGroup]="form" class="mt-4">
+            <p-carousel [value]="recommendations" [numVisible]="1" [numScroll]="1" [circular]="false"
+                [showNavigators]="false" [showIndicators]="false" [page]="activePageIndex">
+                <ng-template let-recommendation pTemplate="item">
+                    <div class="row text-center">
+                        <!-- ------------------ Basic Information View -------------------- -->
+                        <div *ngIf="recommendation.stage == 1" class="col-md-6 offset-md-3">
+                            <h2 class="fw-bold mb-4">{{recommendation.title}}</h2>
+                            <div class="d-flex flex-column gap-2 mb-4">
+                                <label class="uniprep-primary fw-semibold fs-5">Enter Your Business Name</label>
+                                <input type="text" formControlName="business_name" pInputText class="w-100"
+                                    placeholder="Name of your business" />
+                                <div *ngIf="submitted && form.get('business_name')?.errors?.['required']"
+                                    class="text-danger">Business Name is required
+                                </div>
+                            </div>
+                            <div class="d-flex flex-column gap-2 mb-4">
+                                <label class="uniprep-primary fw-semibold fs-5">What is your Target Market?</label>
+                                <input type="text" formControlName="target_market" pInputText class="w-100"
+                                    placeholder="Enter your target market" />
+                                <div *ngIf="submitted && form.get('target_market')?.errors?.['required']"
+                                    class="text-danger">Target Market is required
+                                </div>
+                            </div>
+                            <div class="d-flex flex-column gap-2">
+                                <label class="uniprep-primary fw-semibold fs-5">What is your Business About?</label>
+                                <textarea formControlName="business_overview" pInputTextarea class="w-100"
+                                    placeholder="Give us a brief overview of your business" [rows]="5"></textarea>
+                                <div *ngIf="submitted && form.get('business_overview')?.errors?.['required']"
+                                    class="text-danger">Business About is required
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- ------------------ Market Analysis View -------------------- -->
+                        <div *ngIf="recommendation.stage == 2" class="col-md-6 offset-md-3">
+                            <h2 class="fw-bold mb-4">{{recommendation.title}}</h2>
+                            <div class="d-flex flex-column gap-2 mb-4">
+                                <label class="uniprep-primary fw-semibold fs-5">What Product/Service are you offering?
+                                </label>
+                                <textarea formControlName="product_or_service" pInputTextarea class="w-100"
+                                    placeholder="Enter your product/service" [rows]="5"></textarea>
+                                <div *ngIf="submitted && form.get('product_or_service')?.errors?.['required']"
+                                    class="text-danger">Product/Service is required
+                                </div>
+                            </div>
+                            <div class="d-flex flex-column gap-2">
+                                <label class="uniprep-primary fw-semibold fs-5">What makes the business unique?</label>
+                                <textarea formControlName="unique_value" pInputTextarea class="w-100"
+                                    placeholder="Unique Value Proposition" [rows]="5"></textarea>
+                                <div *ngIf="submitted && form.get('unique_value')?.errors?.['required']"
+                                    class="text-danger">Unique Business Value is required
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- ------------------ Finances View -------------------- -->
+                        <div *ngIf="recommendation.stage == 3" class="col-md-6 offset-md-3">
+                            <h2 class="fw-bold mb-4">{{recommendation.title}}</h2>
+                            <div class="d-flex flex-column gap-2 mb-4">
+                                <label class="uniprep-primary fw-semibold fs-5">What is your Revenue Model?</label>
+                                <p-dropdown formControlName="revenue_model" [options]="revenueModelList"
+                                    styleClass="w-100" optionLabel="name" optionValue="name" [appendTo]="'body'"
+                                    placeholder="Revenue Model">
+                                </p-dropdown>
+                                <div *ngIf="submitted && form.get('revenue_model')?.errors?.['required']"
+                                    class="text-danger">Revenue Model is required
+                                </div>
+                            </div>
+                            <div class="d-flex flex-column gap-2 mb-4">
+                                <label class="uniprep-primary fw-semibold fs-5">What is your Initial Funding
+                                    Requirement?</label>
+                                <input type="text" formControlName="initial_funding" pInputText class="w-100"
+                                    placeholder="Initial Funding Requirement" />
+                                <div *ngIf="submitted && form.get('initial_funding')?.errors?.['required']"
+                                    class="text-danger">Initial Funding is required
+                                </div>
+                            </div>
+                            <div class="d-flex flex-column gap-2">
+                                <label class="uniprep-primary fw-semibold fs-5">What is your project revenue of the
+                                    first year?</label>
+                                <input type="text" formControlName="project_revenue" pInputText class="w-100"
+                                    placeholder="Project Revenue" />
+                                <div *ngIf="submitted && form.get('project_revenue')?.errors?.['required']"
+                                    class="text-danger">Project Revenue is required
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- ------------------ Marketing & Sales View -------------------- -->
+                        <div *ngIf="recommendation.stage == 4" class="col-md-6 offset-md-3">
+                            <h2 class="fw-bold mb-4">{{recommendation.title}}</h2>
+                            <div class="d-flex flex-column gap-2 mb-4">
+                                <label class="uniprep-primary fw-semibold fs-5">Who are your competitors?
+                                </label>
+                                <textarea formControlName="competitor" pInputTextarea class="w-100"
+                                    placeholder="Enter your competitors" [rows]="5"></textarea>
+                                <div *ngIf="submitted && form.get('competitor')?.errors?.['required']"
+                                    class="text-danger">Competitors is required
+                                </div>
+                            </div>
+                            <div class="d-flex flex-column gap-2">
+                                <label class="uniprep-primary fw-semibold fs-5">What is your sales strategy?</label>
+                                <textarea formControlName="sales_strategy" pInputTextarea class="w-100"
+                                    placeholder="Unique Value Proposition" [rows]="5"></textarea>
+                                <div *ngIf="submitted && form.get('sales_strategy')?.errors?.['required']"
+                                    class="text-danger">Sales strategy is required
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- ------------------Operations View -------------------- -->
+                        <div *ngIf="recommendation.stage == 5" class="col-md-6 offset-md-3">
+                            <h2 class="fw-bold mb-4">{{recommendation.title}}</h2>
+                            <div class="d-flex flex-column gap-2 mb-4">
+                                <label class="uniprep-primary fw-semibold fs-5">Enter the details on your day to day
+                                    operations?
+                                </label>
+                                <textarea formControlName="opertions" pInputTextarea class="w-100"
+                                    placeholder="Enter your day to day operations" [rows]="5"></textarea>
+                                <div *ngIf="submitted && form.get('opertions')?.errors?.['required']"
+                                    class="text-danger">Day to day operations is required
+                                </div>
+                            </div>
+                            <div class="d-flex flex-column gap-2">
+                                <label class="uniprep-primary fw-semibold fs-5">Founders and Key Team Mebers?</label>
+                                <textarea formControlName="founders_key_term" pInputTextarea class="w-100"
+                                    placeholder="Unique Value Proposition" [rows]="5"></textarea>
+                                <div *ngIf="submitted && form.get('founders_key_term')?.errors?.['required']"
+                                    class="text-danger">Founders and Key Team Mebers is required
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </ng-template>
+            </p-carousel>
+        </form>
+    </div>
+    <div class="card-footer bg-transparent border-0">
+        <div class="d-flex justify-content-between mt-2">
+            <button pButton type="button" class="btn btn-primary btn-rounded p-1 pe-4"
+                [style.visibility]="activePageIndex == 0 ? 'hidden' : 'visible'" (click)="previous()">
+                <span class="btn-icon px-2 py-2"><i class="fa fa-arrow-left"></i></span> <span
+                    class="ms-2">Previous</span>
+            </button>
+            <button pButton type="button" (click)="next()" *ngIf="activePageIndex <= 3"
+                class="btn btn-primary btn-rounded p-1 ps-4">
+                <span class="me-2">Next</span><span class="btn-icon px-2 py-2"><i class="fa fa-arrow-right"></i></span>
+            </button>
+            <button pButton type="button" (click)="getRecommendation()" *ngIf="activePageIndex == 4"
+                class="btn btn-success btn-rounded p-1 ps-4">
+                <span class="me-2">Get Recommendations</span><span class="btn-icon px-2 py-2">
+                    <i class="fa fa-check-circle"></i></span>
+            </button>
+        </div>
+    </div>
+</div>

@@ -1,12 +1,12 @@
-import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import {NgModule} from "@angular/core";
+import {CommonModule} from "@angular/common";
 
-import { LanguageHubRoutingModule } from './language-hub-routing.module';
-import { LanguageHubComponent } from './language-hub.component';
-import { LanguageListComponent } from './language-list/language-list.component';
-import { LevelsComponent } from './levels/levels.component';
-import { CategoryListComponent } from './category-list/category-list.component';
-import { QuestionListComponent } from './question-list/question-list.component';
+import {LanguageHubRoutingModule} from "./language-hub-routing.module";
+import {LanguageHubComponent} from "./language-hub.component";
+import {LanguageListComponent} from "./language-list/language-list.component";
+import {LevelsComponent} from "./levels/levels.component";
+import {CategoryListComponent} from "./category-list/category-list.component";
+import {QuestionListComponent} from "./question-list/question-list.component";
 import {BreadcrumbModule} from "primeng/breadcrumb";
 import {ButtonModule} from "primeng/button";
 import {CarouselModule} from "primeng/carousel";
@@ -19,17 +19,22 @@ import {CardModule} from "primeng/card";
 import {PaginatorModule} from "primeng/paginator";
 import {TranslateViewComponent} from "./translate-view/translate-view.component";
 import {ChipsModule} from "primeng/chips";
-
+import {PvlComponent} from "./pvl/pvl.component";
+import { VocabularyComponent } from "./vocabulary/vocabulary.component";
+import { LearningVideosComponent } from './learning-videos/learning-videos.component';
 
 @NgModule({
-  declarations: [
-    LanguageHubComponent,
-    LanguageListComponent,
-    LevelsComponent,
-    CategoryListComponent,
-    QuestionListComponent,
-      TranslateViewComponent
-  ],
+    declarations: [
+        LanguageHubComponent,
+        LanguageListComponent,
+        LevelsComponent,
+        CategoryListComponent,
+        QuestionListComponent,
+        TranslateViewComponent,
+        PvlComponent,
+        VocabularyComponent,
+        LearningVideosComponent,
+    ],
     imports: [
         CommonModule,
         LanguageHubRoutingModule,
@@ -44,7 +49,7 @@ import {ChipsModule} from "primeng/chips";
         SkeletonModule,
         CardModule,
         PaginatorModule,
-        ChipsModule
-    ]
+        ChipsModule,
+    ],
 })
-export class LanguageHubModule { }
+export class LanguageHubModule {}

@@ -1,0 +1,85 @@
+<div class="card readingcard" style="border-radius: 15px 15px 0px 0px !important;">
+    <div class="card-header border-0 bg-transparent">
+        <div class="row justify-content-center">
+            <div class="col-md-12 d-flex gap-2 text-center">
+                <div class="backIcon d-md-flex d-none" (click)="goBack()" role="button">
+                    <span class="fa-solid fa-chevron-left"></span>
+                </div>
+                <div class="select-title d-flex justify-content-between align-items-center">
+                    <div>
+                        <h5 class="w-100 mb-0" tooltipPosition="top"
+                            pTooltip="Access resources for starting your business, from ideation to execution.">
+                            {{wealthleadersname}}<i class="questiontooltip fa-solid fa-circle-question"></i></h5>
+                    </div>
+                    <div>
+                        <button
+                            (click)="openVideoPopup('https://www.youtube.com/embed/zcCrD75FHJo?si=1Q3p4wI2uV4xOYF6')"
+                            class="how-it-works-button">How it works?<i
+                                class="fa-solid fa-play d-md-block d-none"></i></button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="card-body flex-fill overflow-y-auto">
+        <div class="row">
+            <div class="readingcardgrid mb-3" *ngFor="let list of wealthleadersqueslist">
+                <div class="card subjectcard h-100">
+                    <div class="card-body d-flex justify-content-between flex-column">
+                        <p class="text-start fw-medium mb-2">{{list.question}}</p>
+                        <div class="d-flex justify-content-center align-items-center">
+                            <button 
+                            class="btn btn-primary btn-rounded w-100"
+                            [ngClass]="{ 'read-btn': list.read == 1 }"
+                            (click)="seeAnswer(list.id)">
+                            {{list.read == 1 ? 'Read' : 'Read Answer'}}
+                          </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="card" style="border-radius: 0px 0px 15px 15px !important;">
+    <p-paginator [rows]="10" [totalRecords]="totalcount" (onPageChange)="paginate($event)" [rowsPerPageOptions]="[ 50, 100, 200,500,1000]" dropdownAppendTo="body"></p-paginator>
+  </div>
+<p-dialog  [(visible)]="isQuestionAnswerVisible" class="questionmodal" [draggable]="false" [modal]="true" 
+[breakpoints]="{ '960px': '30vw', '959px': '60vw', '425px': '90vw' }" [style]="{ width: '50vw' }">
+<div class="row p-3 ps-4 pe-4">
+    <div class="col-12 p-2" style="background-color: black; color: white; text-align: center; border-radius: 10px;">
+        <h3>{{wealthleadersname}}</h3>
+    </div>
+</div>
+<div class="row p-3 ps-4 pe-4">
+    <div class="col-12" *ngFor="let list of wealthleaderanswer">
+        <div class="card p-4" style="background-color: #EAEDF2; position: relative;">
+            <!-- Button fixed to the top-right corner -->
+            <button 
+              class="btn btn-primary socialShareBtn" 
+              style="position: absolute; top: 10px; right: 10px;" 
+              (click)="showSocialSharingList()">
+                <i class="fa-light fa-xl fa-share-nodes"></i>
+            </button>
+            
+            <!-- Social Sharing List -->
+            <p-card id="socialSharingList" [appendTo]="'body'">
+              <ul style="list-style: none; cursor: pointer">
+                <li (click)="shareViaWhatsapp()"><i class="pi pi-whatsapp"></i>Whatsapp</li>
+                <li (click)="shareViaMail()"><i class="pi pi-envelope"></i>Email</li>
+                <li (click)="shareViaFacebook()"><i class="pi pi-facebook"></i>Facebook</li>
+                <li (click)="shareViaTwitter()"><i class="pi pi-twitter"></i>Twitter</li>
+                <li (click)="shareViaInstagram()"><i class="pi pi-instagram"></i>Instagram</li>
+                <li (click)="shareViaLinkedIn()"><i class="pi pi-linkedin"></i>LinkedIn</li>
+                <li (click)="copyLink()"><i class="pi pi-link"></i>Copy Link</li>
+              </ul>
+            </p-card>
+
+            <!-- Content -->
+            <h2 style="color: #394D83;">{{list.question}}</h2>
+            <p style="font-size: 16px;">{{list.answer}}</p>
+        </div>
+    </div>
+</div>
+  </p-dialog>
+

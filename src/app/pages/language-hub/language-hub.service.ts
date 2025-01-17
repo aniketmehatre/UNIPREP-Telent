@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpHeaders } from "@angular/common/http";
+import { HttpClient, HttpHeaders, HttpParams } from "@angular/common/http";
 import { environment } from "@env/environment";
 
 @Injectable({
@@ -16,6 +16,29 @@ export class LanguageHubService {
       headers: headers,
     });
   }
+
+  getVocabulary(req: any) {
+    if (req){
+      const headers = new HttpHeaders().set("Accept", "application/json");
+      return this.http.get(environment.ApiUrl + `/getvocabulary?letter=${req}`,   {
+        headers: headers,
+      });
+    }else{
+      const headers = new HttpHeaders().set("Accept", "application/json");
+      return this.http.get<any>(environment.ApiUrl + "/getvocabulary",  {
+        headers: headers,
+      });
+    }
+     
+  }
+
+  learningVideos(req: any) {
+    const headers = new HttpHeaders().set("Accept", "application/json");
+    return this.http.get(environment.ApiUrl + `/language_hub_learning_videos?language_id=${req}`,   {
+      headers: headers,
+    }); 
+  }
+
 
   getLanguageTypeList(data: any) {
     let req = {

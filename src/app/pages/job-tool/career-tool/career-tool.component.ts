@@ -122,6 +122,16 @@ export class CareerToolComponent implements OnInit {
     },
     {
       id: 12,
+      moduleName: "Global Work Visas",
+      Description: "Get insight into your next 5 career growth oppurtunity.",
+      tooltip: "Track your professional development and set goals with our career progression tool.",
+      imageLink: environment.production === false ? "https://api.uniprep.ai/uniprepapi/storage/app//public/icon/modules/growth.svg" : "https://uniprep.ai/uniprepapi/storage/app/public/icon/modules/growth.svg",
+      refLink: "",
+      mode: "global-work-visa"
+
+    },
+    {
+      id: 13,
       moduleName: "Job Offer Comparison Tool",
       Description: "Compare multiple job offers to make informed career decisions.",
       tooltip: "Evaluate and weigh job offers based on salary, benefits, and growth opportunities.",
@@ -155,7 +165,8 @@ export class CareerToolComponent implements OnInit {
     } else if (mode == "coverletter-builder") {
       this.router.navigate(['/pages/job-tool/coverletter-builder']);
     } else if (mode == "career-planner") {
-      this.router.navigate(['/pages/job-tool/career-planner']);
+      // this.router.navigate(['/pages/job-tool/career-planner']);
+      this.router.navigate(['/pages/job-tool/careerplannerlist']);
     } else if (mode == "cost-of-living") {
       this.router.navigate(['/pages/job-tool/cost-of-living']);
     } else if (mode == "salary-converter") {
@@ -176,6 +187,9 @@ export class CareerToolComponent implements OnInit {
     }
     else if(mode=="job-offer-comparison") {
       this.router.navigate(['/pages/job-offer-comparison']);
+    }
+    else if (mode == "global-work-visa") {
+      this.router.navigate(['/pages/job-tool/global-work-visa']);
     }
     else {
       this.router.navigate(['/pages/job-tool/list/employer-test/13']);
