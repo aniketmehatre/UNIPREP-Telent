@@ -265,6 +265,10 @@ const routes: Routes = [
                 path: 'average-salary-estimator',
                 component: AverageSalaryComponent  
             },
+            {
+                path:'job-offer-comparison',
+                component: AverageSalaryComponent  
+            }
         ]
     }
 ];
