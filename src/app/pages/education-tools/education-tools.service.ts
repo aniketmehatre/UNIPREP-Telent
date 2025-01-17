@@ -13,13 +13,24 @@ export class EducationToolsService {
     private http: HttpClient
   ) { }
 
-  getEduRecommadations(data:any) {
+  getCurrentSpecializations() {
+    return this.http.get<{ id: number, specialization_name: string }[]>(environment.ApiUrl + "/getcurrentspecialization", {
+      headers: this.headers,
+    });
+  }
+
+  getEducationSpecializations() {
+    return this.http.get<any>(environment.ApiUrl + "/educationspecialization", {
+      headers: this.headers,
+    });
+  }
+  getEduRecommadations(data: any) {
     return this.http.post<any>(environment.ApiUrl + "/getEduRecommadations", {
       headers: this.headers,
     });
   }
 
-  getEduSavedRecommadations(data:any) {
+  getEduSavedRecommadations(data: any) {
     return this.http.post<any>(environment.ApiUrl + "/getEduSavedRecommadations", {
       headers: this.headers,
     });

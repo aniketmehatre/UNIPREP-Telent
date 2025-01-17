@@ -34,8 +34,8 @@
                                 <div class="recommendationinput d-flex flex-column justify-content-center gap-3">
                                     <ng-container *ngIf="recommendation.id == 1">
                                         <p-dropdown [options]="specializationList" styleClass="w-100"
-                                            [(ngModel)]="selectedData[recommendation.id]" optionLabel="name"
-                                            optionValue="name" [appendTo]="'body'" placeholder="Specialization">
+                                            [(ngModel)]="selectedData[recommendation.id]" optionLabel="specialization_name"
+                                            optionValue="specialization_name" [appendTo]="'body'" placeholder="Specialization">
                                         </p-dropdown>
                                         <p class="text-center" [ngClass]="{ 'd-none': invalidClass === false }"
                                             style="color: red">Please Choose Any one option</p>
@@ -189,31 +189,13 @@
     <ng-template pTemplate="header">
       <div class="d-flex w-100 flex-column px-4">
         <div class="d-flex flex-row justify-content-md-between justify-content-center">
-          <!-- <div class="d-md-block d-none">
-            <button (click)="goToHome($event)" class="btn btn-secondary homecardbtn px-3 mt-4 mb-3">
-              <i class="fa-solid h5 fa-house"></i><br />
-              <span>Home</span>
-            </button>
-          </div> -->
+          <div class="d-md-block d-none">
+          </div>
             <div class="col-md-8 col-auto-2 col-6">
             <h5 class="select-title w-100 text-center mb-0">Course Navigator</h5>
             <p-breadcrumb [model]="breadCrumb" class="w-100 mt-2 d-md-block d-none text-small"></p-breadcrumb>
           </div>
           <div class="d-md-block d-none">
-              <!-- <button class="btn btn-primary theme-dark-blue mx-0 px-5 py-2 my-2 text-xs"
-                      (click)="onClickAsk(oneQuestionContent?.question)">
-                  <i class="fa-solid h5 fa-file-contract"></i>
-                  <br/>
-                  Click here to ask <br/>
-                  Personalised Questions
-              </button>
-              <button (click)="openReport()" class="btn btn-primary px-3 py-3 homecardbtn mt-2 mb-2 mx-2">
-              <i class="fa-solid h5 fa-file-contract"></i>
-              <br />
-              <span>Report</span>
-                  <br/>
-            </button> -->
-  
           </div>
         </div>
         <div class="d-flex justify-content-between d-md-none d-block align-items-center">
@@ -250,6 +232,7 @@
               </ul>
             </p-card>
           </div>
+          
           <h3 class="unselectable d-md-block d-none">{{ oneQuestionContent?.question }}</h3>
           <h5 class="unselectable d-md-none d-block">{{ oneQuestionContent?.question }}</h5>
           <div class="fw-medium" style="white-space: inherit; max-height: 80%; min-height: 80%" [innerHTML]="oneQuestionContent?.answer"></div>
