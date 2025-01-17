@@ -24,4 +24,18 @@ export class EducationToolsService {
       headers: this.headers,
     });
   }
+
+  getCountry() {
+    const headers = new HttpHeaders().set("Accept", "application/json");
+    return this.http.get<any>(environment.ApiUrl + "/getwealthleadercountrylist", {
+      headers: headers,
+    });
+  }
+
+  getPoliticiansListByCountry(data: any) {
+    const headers = new HttpHeaders().set("Accept", "application/json");
+    return this.http.post<any>(environment.ApiUrl + "/getpoliticianslist", data, {
+      headers: headers,
+    });
+  }
 }

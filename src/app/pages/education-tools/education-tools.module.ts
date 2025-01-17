@@ -9,13 +9,16 @@ import { FormsModule } from '@angular/forms';
 import { CarouselModule } from 'primeng/carousel';
 import { DropdownModule } from 'primeng/dropdown';
 import { ButtonModule } from 'primeng/button';
+import { PoliticianInsightsComponent } from './politician-insights/politician-insights.component';
+import { PaginatorModule } from 'primeng/paginator';
 
 
 @NgModule({
   declarations: [
     EducationToolsComponent,
     EducationToolsListComponent,
-    CourseNavigatorComponent
+    CourseNavigatorComponent,
+    PoliticianInsightsComponent
   ],
   imports: [
     CommonModule,
@@ -23,7 +26,8 @@ import { ButtonModule } from 'primeng/button';
     FormsModule,
     CarouselModule,
     DropdownModule,
-    ButtonModule
+    ButtonModule,
+    PaginatorModule
   ]
 })
 export class EducationToolsModule { }
