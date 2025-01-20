@@ -2,3 +2,41 @@
 	border: 1px solid var(--uniprep-primary);
 	padding: 0;
 }
+
+.answercard {
+	background-color: var(--uniprep-primaryop10);
+	border: 2px solid var(--uniprep-primary);
+	overflow-y: auto;
+}
+
+.socialShareBtn {
+	height: 40px;
+	width: 40px;
+	border-radius: 50px !important;
+	margin: 0;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
+
+#socialSharingList {
+	display: none;
+	position: absolute;
+	right: 0rem;
+	top: 3rem;
+}
+
+#socialSharingList ul {
+	padding: 10px !important;
+	margin-bottom: 0;
+
+	li {
+		display: flex;
+		align-items: center;
+		margin-bottom: 5px;
+	}
+
+	i {
+		margin-right: 10px;
+	}
+}
