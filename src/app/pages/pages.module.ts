@@ -168,7 +168,7 @@ import { JobPreparedListComponent } from "./jobinterviewpreparation/preparedlist
     NgxExtendedPdfViewerModule,
     PdfViewerModule,
     AnimateModule,
-    SkeletonModule,
+    SkeletonModule
   ],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
 })

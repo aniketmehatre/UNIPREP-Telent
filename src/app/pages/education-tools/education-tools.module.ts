@@ -13,6 +13,7 @@ import { PoliticianInsightsComponent } from './politician-insights/politician-in
 import { PaginatorModule } from 'primeng/paginator';
 import { CardModule } from 'primeng/card';
 import { DialogModule } from 'primeng/dialog';
+import {SharedModule} from "../../shared/shared.module";
 
 
 @NgModule({
@@ -31,7 +32,8 @@ import { DialogModule } from 'primeng/dialog';
     ButtonModule,
     PaginatorModule,
     CardModule,
-    DialogModule
+    DialogModule,
+    SharedModule
   ]
 })
 export class EducationToolsModule { }
