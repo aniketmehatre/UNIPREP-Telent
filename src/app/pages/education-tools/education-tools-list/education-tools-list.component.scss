@@ -4,3 +4,7 @@
 .launch-soon-tag {
     border-top-right-radius: 10px;
 }
+.card.disabled {
+    opacity: 0.6; /* Makes the card appear grayed out */
+    cursor: not-allowed; /* Shows a disabled cursor */
+}
