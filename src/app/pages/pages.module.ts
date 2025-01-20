@@ -178,7 +178,7 @@ import { AverageSalaryPreparedListComponent } from "./averagesalaryestimator/pre
     NgxExtendedPdfViewerModule,
     PdfViewerModule,
     AnimateModule,
-    SkeletonModule,
+    SkeletonModule
   ],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
 })

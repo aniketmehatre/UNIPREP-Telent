@@ -11,13 +11,14 @@ import { DropdownModule } from 'primeng/dropdown';
 import { ButtonModule } from 'primeng/button';
 import { CardModule } from 'primeng/card';
 import { DialogModule } from 'primeng/dialog';
+import {SharedModule} from "../../shared/shared.module";
 
 
 @NgModule({
   declarations: [
     EducationToolsComponent,
     EducationToolsListComponent,
-    CourseNavigatorComponent
+    CourseNavigatorComponent,
   ],
   imports: [
     CommonModule,
@@ -27,7 +28,8 @@ import { DialogModule } from 'primeng/dialog';
     DropdownModule,
     ButtonModule,
     CardModule,
-    DialogModule
+    DialogModule,
+      SharedModule
   ]
 })
 export class EducationToolsModule { }
