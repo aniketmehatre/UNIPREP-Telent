@@ -1,11 +1,11 @@
 <section class="darksection" id="home">
 	<div class="container-fluid pt-2 text-center">
 		<div class="row justify-content-center align-items-between">
-			<div class="col-md-5 col-4">&nbsp;</div>
-			<div class="col-md-2 col-4 d-flex">
+			<div class="col-md-5 d-md-block d-none">&nbsp;</div>
+			<div class="col-md-2 col-12 d-flex justify-content-center">
 				<a href="https://uniprep.ai"><img class="lightmodelogo m-auto" height="75px;" src="/uniprep-assets/images/uniprep-dark.svg" /></a>
 			</div>
-			<div class="col-md-5 col-4">&nbsp;</div>
+			<div class="col-md-5 d-md-block d-none">&nbsp;</div>
 		</div>
 	</div>
 </section>
@@ -14,16 +14,19 @@
 		<div class="row justify-content-center align-items-between">
 			<div class="col-md-6">
 				<form class="row" [formGroup]="form" (ngSubmit)="certificateValid()">
-					<div class="col-md-9 col-10">
+					<div class="col-md-9 col-12">
 						<input type="text" formControlName="certificateid" class="w-100" placeholder="Certificate ID" pInputText />
 					</div>
-					<div class="col-md-3 col-2">
+					<div class="col-md-3 col-12 mt-md-0 mt-3">
 						<button class="btn btn-secondary w-100 h-100" type="submit">Submit</button>
 					</div>
 				</form>
 			</div>
 		</div>
 	</div>
+		<div class="container py-2 text-center h-100" *ngIf="!certificateAvailable">
+			<h2 class="text-white">{{ certificateforcopy }}</h2>
+		</div>
 </section>
 <section *ngIf="certificateAvailable" class="darksection h-100">
 	<div class="container-fluid py-2 text-center h-100">
@@ -53,15 +56,9 @@
 				<div class="d-flex flex-fill h-100">
 					<embed [src]="certificateValidOrInvalid" type="application/pdf" style="width: 100%; height: 100%" toolbar="0" scrollbars="0" download="none" />
 				</div>
-				
 			</div>
 		</div>
 	</div>
-</section>
-<section *ngIf="!certificateAvailable">
-	<div class="container py-2 text-center h-100">
-	<h2 style="color: #fff;">{{certificateforcopy}}</h2>
-</div>
 </section>
 <footer class="text-center">
 	<section class="bg-black">
