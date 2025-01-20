@@ -94,7 +94,7 @@ export class HeaderSearchComponent implements OnInit, OnDestroy {
     var insightsResults = document.getElementsByClassName(
         'scroller'
     )[0];
-    var childInsights = insightsResults?.scrollHeight;
+    const childInsights = insightsResults?.scrollHeight;
     var windowScroll = window.scrollY;
     if (Math.floor(windowScroll) >= Math.floor(childInsights)) {
       this.loadMore();
@@ -151,8 +151,8 @@ export class HeaderSearchComponent implements OnInit, OnDestroy {
 
   dataContentChange(test: any) {
     let searchValue = this.searchKeyword;
-    const small = new RegExp(searchValue, "g");
-    const caps = new RegExp(searchValue.toUpperCase(), "g");
+    const small = new RegExp(searchValue, "gi");
+    const caps = new RegExp(searchValue.toUpperCase(), "gi");
     let newText = test.replace(small, '<span class="fw-bold uniprep-secondary" >' + searchValue + '</span>')
     return newText.replace(caps, '<span class="fw-bold uniprep-secondary">' + searchValue + '</span>');
   }
@@ -185,7 +185,7 @@ export class HeaderSearchComponent implements OnInit, OnDestroy {
         searchedResult = searchedResult.split(" ");
         searchedResult.forEach((element: any) => {
           //if (element !== 'an'){
-            const small = new RegExp(`\\b${element}\\b`, "g");
+            const small = new RegExp(`\\b${element}\\b`, "gi");
             const tagData = '<span class="fw-bold sec-color" style="color:var(--uniprep-secondary)">' + element + '</span>'
             data.question = data.question.replace(small, tagData);
           //}

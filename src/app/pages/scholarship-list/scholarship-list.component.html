@@ -138,9 +138,9 @@
 						</div>
 						<div class="d-flex justify-content-end gap-2">
 							<button class="btn btn-gray text-small btn-rounded" (click)="scholarGuidlines()" type="button">Scholarship Guidelines</button>
-							<button *ngIf="ehitlabelIsShow" class="btn btn-secondary text-small btn-rounded" (click)="buyCredits()" type="button">Buy Credits</button>
+							<button *ngIf="ehitlabelIsShow && PersonalInfo.usertype_id !== 14 && (PersonalInfo.trail_config_id >= 4 && PersonalInfo.trail_config_id <= 7) && PersonalInfo.trail_expired_flag == 2 " class="btn btn-secondary text-small btn-rounded" (click)="buyCredits()" type="button">Buy Credits</button>
 							<button class="btn btn-outline-primary text-small btn-rounded d-flex gap-2 align-items-center" (click)="exportData()" type="button">
-								Export <span class="btn-icon text-white">{{ exportCreditCount }}</span>
+								Export <span *ngIf=" PersonalInfo.usertype_id !== 14 && (PersonalInfo.trail_config_id >= 4 && PersonalInfo.trail_config_id <= 7) && PersonalInfo.trail_expired_flag == 2 " class="btn-icon text-white">{{ exportCreditCount }}</span>
 							</button>
 						</div>
 					</div>

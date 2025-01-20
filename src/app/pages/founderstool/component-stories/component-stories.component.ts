@@ -11,21 +11,43 @@ import { FounderstoolService } from '../founderstool.service';
 })
 export class ComponentStoriesComponent implements OnInit {
 
-  constructor(private pageFacade: PageFacadeService,private router:Router,private service: FounderstoolService,private locationService: LocationService) { }
- countrylist:any[]=[];
- currentRoute: string = '';
+  constructor(private pageFacade: PageFacadeService, private router: Router, private service: FounderstoolService, private locationService: LocationService) { }
+  countrylist: any[] = [];
+  currentRoute: string = '';
+  headertooltipname: any;
+  isShowCountryData: boolean = true;
+  countrydatas: any[] = [];
   ngOnInit(): void {
-    this.locationService.dashboardLocationList().subscribe((res:any)=>{
-      this.countrylist=res
+    this.locationService.dashboardLocationList().subscribe((res: any) => {
+      this.countrylist = res
     })
     this.currentRoute = this.router.url;
-    console.log(this.currentRoute);
-    
+    if (this.currentRoute.includes('startup-funding-hacks')) {
+      this.headertooltipname = "Startup Funding Hacks"
+    } else if (this.currentRoute.includes('founder-success-stories')) {
+      this.headertooltipname = "Founder-Success-Stories"
+    } else if (this.currentRoute.includes('founder-failure-stories')) {
+      this.headertooltipname = "Founder-Failure-Stories"
+    } else if (this.currentRoute.includes('startup-success-stories')) {
+      this.headertooltipname = "Startup Success Stories"
+    } else if (this.currentRoute.includes('startup-failure-stories')) {
+      this.headertooltipname = "Startup Failure Stories"
+    }
   }
   openVideoPopup(videoLink: string) {
     this.pageFacade.openHowitWorksVideoPopup(videoLink);
   }
-  goBack(){
-    this.router.navigate(["/pages/founderstool/founderstoollist"])
+  goBack() {
+    if(this.isShowCountryData){
+      this.router.navigate(["/pages/founderstool/founderstoollist"])
+    }else{
+      this.isShowCountryData = true;
+    }
+  }
+  showDatas(data: any) {
+    this.isShowCountryData = false;
+  }
+  showDataAnswer(data:any){
+    
   }
 }
