@@ -103,4 +103,10 @@ wealthLeadersans(data: any) {
       headers: headers,
   });
 }
+entrepreneurToolsSuccess(data: any) {
+  const headers = new HttpHeaders().set("Accept", "application/json");
+  return this.http.post<any>(environment.ApiUrl + "/EntrepreneurtoolsList", data, {
+      headers: headers,
+  });
+}
 }
