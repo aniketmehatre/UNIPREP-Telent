@@ -41,14 +41,6 @@ export class PoliticianInsightsComponent implements OnInit, OnDestroy {
   countryList: any;
   totalPoliticianList = 2;
   politicians: Politician[] = [
-    {
-      name: 'Nirmala Sitharaman',
-      country: 'India',
-      occupation: 'Minister of Finance',
-      description: 'Manages the country’s financial policies, taxation, budget, and public debt management.',
-      imageUrl: 'path-to-sitharaman-image.jpg',
-      flag: 'https://flagcdn.com/in.svg'
-    },
   ];
   constructor(private toast: MessageService,
     private educationToolsService: EducationToolsService,
@@ -93,7 +85,7 @@ export class PoliticianInsightsComponent implements OnInit, OnDestroy {
     this.educationToolsService.getPoliticiansListByCountry({ ...newData, ...data }).subscribe({
       next: response => {
         this.enableModule = true;
-        console.log(response);
+        this.politicians = response?.politicians;
       },
       error: error => {
         this.toast.add({

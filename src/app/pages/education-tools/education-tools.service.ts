@@ -27,7 +27,7 @@ export class EducationToolsService {
 
   getCountry() {
     const headers = new HttpHeaders().set("Accept", "application/json");
-    return this.http.get<any>(environment.ApiUrl + "/getwealthleadercountrylist", {
+    return this.http.get<any>(environment.ApiUrl + "/govtfundingCountry", {
       headers: headers,
     });
   }
