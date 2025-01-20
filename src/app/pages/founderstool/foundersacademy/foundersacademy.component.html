@@ -15,9 +15,14 @@
 				</div>
 			</div>
 		</div>
-		<div class="row mt-2">
+		<!-- <div class="row mt-2 d-md-block d-none">
 			<div class="d-flex gap-4 justify-content-center mb-2">
 				<p role="button" *ngFor="let cat of categorylist" [ngClass]="{'selected-category': isSelected(cat.id)}" (click)="filterCat(cat.id)">{{cat.name}}</p>
+			</div>
+		</div> -->
+		<div class="row">
+			<div class="d-flex flex-row gap-4 flex-nowrap overflow-y-auto py-3">
+				<p role="button" class="text-nowrap" *ngFor="let cat of categorylist" [ngClass]="{'selected-category': isSelected(cat.id)}" (click)="filterCat(cat.id)">{{cat.name}}</p>
 			</div>
 		</div>
 	</div>
