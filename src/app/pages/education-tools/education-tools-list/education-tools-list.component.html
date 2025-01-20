@@ -21,11 +21,7 @@
                 <div class="row w-100 m-0 justify-content-center h-100">
                     <div [class.disabled]="!isLaunchingSoon" [routerLink]="!isLaunchingSoon ? null : item.url" class="card subjectcard position-relative" role="button">
                         <!-- Launch Soon Tag -->
-                        <div
-                                *ngIf="true"
-                                class="launch-soon-tag position-absolute top-0 end-0 bg-danger text-white px-2 py-1 rounded-start text-small">
-                            Launching Soon
-                        </div>
+                        <uni-launch-soon-tag *ngIf="!isLaunchingSoon" message="Launching soon"></uni-launch-soon-tag>
                         <!-- Card Body -->
                         <div class="card-body d-flex flex-md-column flex-row justify-content-md-between align-items-center">
                             <div>
