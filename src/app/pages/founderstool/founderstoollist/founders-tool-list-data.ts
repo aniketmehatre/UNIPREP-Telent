@@ -82,5 +82,29 @@ export const FoundersToolsData = [
         description: "An assessment that evaluates an entrepreneur's in-depth knowledge and proficiency in specific industries.",
         image: "../../../uniprep-assets/images/founderstool/startupfailure.svg",
         url: "/pages/founderstool/startup-failure-stories"
+    },
+    {
+        title: "Government Funds Opportunity",
+        description: "This tool lets you build a cover letter with the help of a few easy steps.",
+        image: "../../../uniprep-assets/images/founderstool/investorlist.svg",
+        url: "/pages/founderstool/governmentfunds"
+    },
+    {
+        title: "Marketing Analysis",
+        description: "An assessment that evaluates an entrepreneur's in-depth knowledge and proficiency in specific industries.",
+        image: "../../../uniprep-assets/images/founderstool/investorpitch.svg",
+        url: "/pages/founderstool/marketing-anaylsis"
+    },
+    {
+        title: "AI Business Advisor",
+        description: "An assessment that evaluates an entrepreneur's in-depth knowledge and proficiency in specific industries.",
+        image: "../../../uniprep-assets/images/founderstool/foundersacademy.svg",
+        url: "/pages/founderstool/ai-business-advisor"
+    },
+    {
+        title: "Startup Risk Assessment",
+        description: "An assessment that evaluates an entrepreneur's in-depth knowledge and proficiency in specific industries.",
+        image: "../../../uniprep-assets/images/founderstool/foundersacademy.svg",
+        url: "/pages/founderstool/risk-assessment"
     }
 ];

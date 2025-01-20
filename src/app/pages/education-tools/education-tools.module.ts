@@ -9,6 +9,8 @@ import { FormsModule } from '@angular/forms';
 import { CarouselModule } from 'primeng/carousel';
 import { DropdownModule } from 'primeng/dropdown';
 import { ButtonModule } from 'primeng/button';
+import { PoliticianInsightsComponent } from './politician-insights/politician-insights.component';
+import { PaginatorModule } from 'primeng/paginator';
 import { CardModule } from 'primeng/card';
 import { DialogModule } from 'primeng/dialog';
 import {SharedModule} from "../../shared/shared.module";
@@ -19,6 +21,7 @@ import {SharedModule} from "../../shared/shared.module";
     EducationToolsComponent,
     EducationToolsListComponent,
     CourseNavigatorComponent,
+    PoliticianInsightsComponent
   ],
   imports: [
     CommonModule,
@@ -27,9 +30,10 @@ import {SharedModule} from "../../shared/shared.module";
     CarouselModule,
     DropdownModule,
     ButtonModule,
+    PaginatorModule,
     CardModule,
     DialogModule,
-      SharedModule
+    SharedModule
   ]
 })
 export class EducationToolsModule { }

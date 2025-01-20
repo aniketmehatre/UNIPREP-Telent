@@ -678,7 +678,7 @@ uni-subscription {
 }
 
 .readingcard {
-	flex: 1;
+	flex: 1 !important;
 	/* Take the full height within container-fluid */
 	overflow-y: auto;
 	/* Enable vertical scrolling */
@@ -2071,7 +2071,7 @@ uni-assessment, uni-travel-tools, uni-founderstool, uni-education-tools {
 	uni-assessment-list, uni-ilearn-challenge, uni-assessment-quiz, uni-assessment-quiz-review,
 	uni-global-travel-visa, uni-travel-cost-estimator, uni-travel-packing-planner, uni-travel-visit-planner, 
 	uni-trip-length-finder, uni-travel-glossary, uni-business-plan-generator, uni-education-tools-list, 
-	uni-course-navigator {
+	uni-course-navigator, uni-startup-risk-assessment,  uni-marketing-analysis, uni-government-funding-opportunity, uni-ai-business-advisor, uni-politician-insights {
 		flex: 1;
 		overflow-y: auto;
 		display: flex;
