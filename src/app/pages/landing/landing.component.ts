@@ -3,6 +3,8 @@ import { ThemeService } from '../../theme.service';
 import { FormBuilder, FormsModule, ReactiveFormsModule,FormControl,FormGroup,Validators } from '@angular/forms';
 import {AuthService} from "../../Auth/auth.service";
 import {LocationService} from "../../location.service";
+import { environment } from '@env/environment';
+
 @Component({
   selector: 'uni-landing',
   templateUrl: './landing.component.html',
@@ -20,8 +22,7 @@ export class LandingComponent implements OnInit {
   currentImage: string = '/uniprep-assets/images/feature1.webp';
   contactForm: any;
   blogs: any;
- 
-
+  welcomevideoLink: string = `https://${environment.domain}/uniprepapi/storage/app/public/Landing/welcome.mp4`;
 
   showTandC() {
     this.displaytandc = true;
