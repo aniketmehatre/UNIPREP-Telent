@@ -71,6 +71,11 @@ import { CertificatesComponent } from "./certificates/certificates.component";
 import { CourseListComponent } from "./course-list/course-list.component";
 import {SkeletonModule} from 'primeng/skeleton';
 import { NgxStripeModule } from "ngx-stripe";
+import { FounderstoolComponent } from "./founderstool/founderstool.component";
+import { FoundersacademyComponent } from "./founderstool/foundersacademy/foundersacademy.component";
+import { FounderstoollistComponent } from "./founderstool/founderstoollist/founderstoollist.component";
+import { InvestorpitchtrainingComponent } from "./founderstool/investorpitchtraining/investorpitchtraining.component";
+import { StartupglossaryComponent } from "./founderstool/startupglossary/startupglossary.component";
 import { AnimateModule } from "primeng/animate";
 import { CareerGrowthCheckerComponent } from "./career-growth-checker/career-growth-checker.component";
 import { AdvisorComponent } from './advisor/advisor.component';
@@ -82,6 +87,9 @@ import { NationalExamResultComponent } from './national-exam-result/national-exa
 import { NationalExamReviewComponent } from './national-exam-review/national-exam-review.component';
 import { JobPreparationComponent } from "./jobinterviewpreparation/interviewpreparation.component";
 import { JobPreparedListComponent } from "./jobinterviewpreparation/preparedlist/preparedlist.component";
+import { AverageSalaryComponent } from "./averagesalaryestimator/averagesalaryestimator.component";
+import { AverageSalaryPreparedListComponent } from "./averagesalaryestimator/preparedlist/preparedlist.component";
+
 
 // import { JobToolComponent } from './job-tool/job-tool.component';
 @NgModule({
@@ -127,6 +135,8 @@ import { JobPreparedListComponent } from "./jobinterviewpreparation/preparedlist
     // JobToolComponent,
     JobPreparationComponent,
     JobPreparedListComponent,
+    AverageSalaryComponent,
+    AverageSalaryPreparedListComponent
   ],
   exports: [FooterStatusBoxComponent, HeaderSearchComponent],
   imports: [
