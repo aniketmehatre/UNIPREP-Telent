@@ -11,6 +11,8 @@ import { DropdownModule } from 'primeng/dropdown';
 import { ButtonModule } from 'primeng/button';
 import { PoliticianInsightsComponent } from './politician-insights/politician-insights.component';
 import { PaginatorModule } from 'primeng/paginator';
+import { CardModule } from 'primeng/card';
+import { DialogModule } from 'primeng/dialog';
 
 
 @NgModule({
@@ -27,7 +29,9 @@ import { PaginatorModule } from 'primeng/paginator';
     CarouselModule,
     DropdownModule,
     ButtonModule,
-    PaginatorModule
+    PaginatorModule,
+    CardModule,
+    DialogModule
   ]
 })
 export class EducationToolsModule { }

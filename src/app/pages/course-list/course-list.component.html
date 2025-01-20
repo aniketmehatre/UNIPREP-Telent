@@ -133,9 +133,9 @@
             <div>
               <span class="d-flex justify-content-md-end justify-content-center gap-2">
                 <button class="btn btn-primary flex-shrink-0 text-small course-guidelines" (click)="closeGuidelines()" type="button">Course Guidelines</button>
-                <button *ngIf="ehitlabelIsShow && PersonalInfo.usertype_id !== 14" class="btn btn-primary flex-shrink-0 text-small buy-credits-button" (click)="buyCredits()" type="button">Buy Credits</button>
+                <button *ngIf="ehitlabelIsShow && PersonalInfo.usertype_id !== 14 && (PersonalInfo.trail_config_id >= 4 && PersonalInfo.trail_config_id <= 7) && PersonalInfo.trail_expired_flag == 2 " class="btn btn-primary flex-shrink-0 text-small buy-credits-button" (click)="buyCredits()" type="button">Buy Credits</button>
                 <button class="btn btn-primary text-small flex-shrink-0 exportButton" (click)="exportData()" type="button">
-                  Export <span *ngIf="PersonalInfo.usertype_id !== 14" class="exportCount">{{ buyCreditsCount }}</span>
+                  Export <span *ngIf="PersonalInfo.usertype_id !== 14 && (PersonalInfo.trail_config_id >= 4 && PersonalInfo.trail_config_id <= 7) && PersonalInfo.trail_expired_flag == 2 " class="exportCount">{{ buyCreditsCount }}</span>
                 </button>
               </span>
             </div>

@@ -121,6 +121,12 @@ export class JobToolComponent implements OnInit {
       this.hideTitleForPreviewPage = true;
       this.howItWorksVideo = 'https://www.youtube.com/embed/hwH7xDhaE4c?si=gZG11AMS2BxCYAY1';
     } 
+    else if (this.currentRoute.includes("global-work-visa")) {
+      this.title = "not_required";
+      // this.tooltip = "Plan your career path by exploring job opportunities worldwide."
+      // this.hideTitleForPreviewPage = false;
+      // this.howItWorksVideo = 'https://www.youtube.com/embed/hwH7xDhaE4c?si=gZG11AMS2BxCYAY1';
+    }
     else {
       this.title = "Career Tools -> Employer Test";
       this.tooltip = "Prepare for potential employer assessments with practice tests and study guides."

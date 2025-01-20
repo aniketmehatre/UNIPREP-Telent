@@ -16,12 +16,12 @@
       </div>
     </div>
     <div class="row mt-2 align-items-center">
-      <div class="col-8 d-flex">
+      <div class="col-md-8 col-12 d-flex overflow-x-auto order-md-1 order-2 py-3">
         <p *ngFor="let cat of category_dropdown" [ngClass]="{ 'selected-category': isSelected(cat.id) }" (click)="filterCat(cat.id)" style="margin-left: 20px">
           <span style="cursor: pointer">{{ cat.name }}</span>
         </p>
       </div>
-      <div class="col-4 text-end">
+      <div class="col-md-4 col-12 text-md-end text-center order-md-2 order-1">
         <div class="p-input-icon-left w-100">
           <i class="pi pi-search"></i>
           <input class="w-100 px-5 py-2 mb-1" type="text" placeholder="Search for a term" pInputText [(ngModel)]="valueNearYouFilter" (input)="performSearch()" />

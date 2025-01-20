@@ -16,6 +16,7 @@ import { GovermentFundingOppurtunityComponent } from './goverment-funding-opport
 import { MarketingAnalysisComponent } from './marketing-analysis/marketing-analysis.component';
 import { AiBusinessAdvisorComponent } from './ai-business-advisor/ai-business-advisor.component';
 import { StartupRiskAssessmentComponent } from './startup-risk-assessment/startup-risk-assessment.component';
+import { GlobalTravelVisaComponent } from '../travel-tools/global-travel-visa/global-travel-visa.component';
 
 const routes: Routes = [
   {
@@ -38,8 +39,8 @@ const routes: Routes = [
       },
       {
         path: 'entrepreneurskillmodule', component: EntreprenuerskillmoduleComponent
-      },     
-       {
+      },
+      {
         path: 'entreprenuerproficiencymodule', component: EntreprenuersectorproficiencyComponent
       },
       {
@@ -50,16 +51,16 @@ const routes: Routes = [
       },
       {
         path: 'wealthleaderslist', component: WealthleaderslistComponent
-      }, 
+      },
       {
-        path:'wealthleaderreadanswer/:id',component:WealthleaderreadansComponent
+        path: 'wealthleaderreadanswer/:id', component: WealthleaderreadansComponent
       },
       {
         path: 'business-plan-generator', component: BusinessPlanGeneratorComponent
-      }, 
+      },
       {
         path: 'startup-funding-hacks', component: ComponentStoriesComponent
-      }, 
+      },
       {
         path: 'founder-success-stories', component: ComponentStoriesComponent
       },
@@ -68,16 +69,19 @@ const routes: Routes = [
       },
       {
         path: 'startup-success-stories', component: ComponentStoriesComponent
-      },  
+      },
       {
         path: 'startup-failure-stories', component: ComponentStoriesComponent
-      },  
+      },
       {
         path: 'ai-business-advisor', component: AiBusinessAdvisorComponent
       },
       {
         path: 'risk-assessment', component: StartupRiskAssessmentComponent
-      },  
+      },
+      {
+        path: 'enterpreneur-visa', component: GlobalTravelVisaComponent
+      },
     ]
   }
 ];
