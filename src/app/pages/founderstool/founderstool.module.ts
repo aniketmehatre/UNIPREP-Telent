@@ -31,6 +31,8 @@ import { PdfViewerModule } from 'ng2-pdf-viewer';
 import { NgxExtendedPdfViewerModule } from 'ngx-extended-pdf-viewer';
 import { AiBusinessAdvisorComponent } from './ai-business-advisor/ai-business-advisor.component';
 import { StartupRiskAssessmentComponent } from './startup-risk-assessment/startup-risk-assessment.component';
+import { StartUpExpenseEstimateComponent } from './start-up-expense-estimate/start-up-expense-estimate.component';
+import { BusinessForecastingToolComponent } from './business-forecasting-tool/business-forecasting-tool.component';
 
 
 @NgModule({
@@ -51,6 +53,8 @@ import { StartupRiskAssessmentComponent } from './startup-risk-assessment/startu
     MarketingAnalysisComponent,
     AiBusinessAdvisorComponent,
     StartupRiskAssessmentComponent,
+    StartUpExpenseEstimateComponent,
+    BusinessForecastingToolComponent,
   ],
   imports: [
     CommonModule,

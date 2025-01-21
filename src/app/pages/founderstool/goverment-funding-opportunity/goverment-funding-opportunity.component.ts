@@ -247,7 +247,7 @@ export class GovermentFundingOppurtunityComponent implements OnInit {
     this.fundListService
       .getFundList(this.data)
       .subscribe((response) => {
-        this.fundData = response.fund;
+        this.fundData = response.governmentfundings;
         this.totalFundCount = response.count;
       });
     this.isFilterVisible = false;
