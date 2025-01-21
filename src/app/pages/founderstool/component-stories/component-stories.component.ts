@@ -16,9 +16,12 @@ export class ComponentStoriesComponent implements OnInit {
   currentRoute: string = '';
   headertooltipname: any;
   isShowCountryData: boolean = true;
+  isShowCountryQuesAns:boolean=false;
   countrydatas: any[] = [];
   modename: any;
   questuionanswerlist:any[]=[];
+  isQuestionAnswerVisible: boolean = false;
+  dataanswerquestion:any;
   ngOnInit(): void {
     this.locationService.dashboardLocationList().subscribe((res: any) => {
       this.countrylist = res
@@ -49,6 +52,7 @@ export class ComponentStoriesComponent implements OnInit {
       this.router.navigate(["/pages/founderstool/founderstoollist"])
     } else {
       this.isShowCountryData = true;
+      this.isShowCountryQuesAns=false;
     }
   }
   showDatas(data: any) {
@@ -58,13 +62,25 @@ export class ComponentStoriesComponent implements OnInit {
       country:data.id
     }
     this.service.entrepreneurToolsSuccess(datas).subscribe((res: any) => {
-      // this.countrylist = res
       this.isShowCountryData = false;
+      this.isShowCountryQuesAns=true;
       this.questuionanswerlist=res.data
     })
     
   }
   showDataAnswer(data: any) {
+    console.log(data);
+    this.dataanswerquestion=data;
+  this.isQuestionAnswerVisible = true;
+  }
+  goToHome(data:any){
 
+  }
+  openReport(){
+
+  }
+  onShowModal(value: any) {
+    let socialShare: any = document.getElementById("socialSharingList");
+    socialShare.style.display = "none";
   }
 }

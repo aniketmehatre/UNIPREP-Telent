@@ -34,14 +34,14 @@
             </div>
         </div>
     </div>
-    <div class="card-body text-center flex-fill overflow-y-auto" *ngIf="!isShowCountryData">
+    <div class="card-body text-center flex-fill overflow-y-auto" *ngIf="isShowCountryQuesAns">
         <div class="row mb-0">
-            <div
+            <div *ngFor="let item of questuionanswerlist; let i=index;"
                 class="col-lg-3 col-md-3 col-sm-4 col-xs-12 col-12 mb-3">
                 <div class="row w-100 m-0 justify-content-center h-100">
                     <div class="card subjectcard" role="button" (click)="showDataAnswer(item)">
                         <div class="card-body text-start">
-                            <p class="text-small">vkfdsaabljsa ;lajdpajd </p>
+                            <p class="text-medium">{{item.blogs}} </p>
                         </div>
                     </div>
                 </div>
@@ -49,3 +49,56 @@
         </div>
     </div>
 </div>
+
+<!-- question ans -->
+<p-dialog #dialogContent [(visible)]="isQuestionAnswerVisible" [draggable]="false" [modal]="true" class="questionmodal" header="Header" [maximizable]="true" (onShow)="onShowModal($event)">
+    <ng-template pTemplate="header">
+      <div class="d-flex w-100 flex-column px-4">
+        <div class="d-flex flex-row justify-content-md-between justify-content-center">
+          <div class="d-md-block d-none">
+            <button (click)="goToHome($event)" class="btn btn-secondary homecardbtn px-3 mt-4 mb-3">
+              <i class="fa-solid h5 fa-house"></i><br />
+              <span>Home</span>
+            </button>
+          </div>
+            <div class="col-md-8 col-6">
+            <h5 class="select-title w-100 text-center mb-0">{{headertooltipname}}</h5>
+          </div>
+          <div class="d-md-block d-none">
+              <button (click)="openReport()" class="btn btn-primary px-3 py-3 homecardbtn mt-2 mb-2 mx-2">
+              <i class="fa-solid h5 fa-file-contract"></i>
+              <br />
+              <span>Report</span>
+                  <br/>
+            </button>
+  
+          </div>
+        </div>
+      </div>
+    </ng-template>
+    <div class="carousel-container px-4">
+      <div class="card flex-fill answercard">
+        <div class="card-body text-start">
+          <div class="d-flex align-items-center justify-content-between position-relative">
+            <!-- <button class="btn btn-primary socialShareBtn" (click)="showSocialSharingList()"><i class="fa-light fa-xl fa-share-nodes"></i></button>
+            <p-card id="socialSharingList">
+              <ul style="list-style: none; cursor: pointer">
+                <li (click)="shareViaWhatsapp()"><i class="pi pi-whatsapp"></i>Whatsapp</li>
+                <li (click)="shareViaMail()"><i class="pi pi-envelope"></i>Email</li>
+                <li (click)="shareViaFacebook()"><i class="pi pi-facebook"></i>Facebook</li>
+                <li (click)="shareViaTwitter()"><i class="pi pi-twitter"></i>Twitter</li>
+                <li (click)="shareViaInstagram()"><i class="pi pi-instagram"></i>Instagram</li>
+                <li (click)="shareViaLinkedIn()"><i class="pi pi-linkedin"></i>LinkedIn</li>
+                <li (click)="copyLink()"><i class="pi pi-link"></i>Copy Link</li>
+              </ul>
+            </p-card> -->
+          </div>
+          <h3 class="unselectable d-md-block d-none">name</h3>
+          <!-- <h5 class="unselectable d-md-none d-block">hssksk</h5> -->
+          <!-- <div class="fw-medium" style="white-space: inherit; max-height: 80%; min-height: 80%" [innerHTML]="oneQuestionContent?.answer"></div> -->
+          <div class="fw-medium" style="white-space: inherit; max-height: 80%; min-height: 80%"> asdlhdhqowhdbbb qwhdqw </div>
+
+        </div>
+      </div>
+    </div>
+  </p-dialog>
