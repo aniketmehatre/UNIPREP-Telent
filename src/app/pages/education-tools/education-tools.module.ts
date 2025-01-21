@@ -14,6 +14,7 @@ import { PaginatorModule } from 'primeng/paginator';
 import { CardModule } from 'primeng/card';
 import { DialogModule } from 'primeng/dialog';
 import {SharedModule} from "../../shared/shared.module";
+import { InputTextModule } from 'primeng/inputtext';
 
 
 @NgModule({
@@ -33,7 +34,8 @@ import {SharedModule} from "../../shared/shared.module";
     PaginatorModule,
     CardModule,
     DialogModule,
-    SharedModule
+    SharedModule,
+    InputTextModule
   ]
 })
 export class EducationToolsModule { }

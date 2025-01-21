@@ -180,6 +180,11 @@ export class TravelCostEstimatorComponent implements OnInit {
         }
       });
     }
+    else {
+      this.isRecommendationQuestion = false;
+      this.isRecommendationData = false;
+      this.isRecommendationSavedData = true;
+    }
   }
 
   showRecommandationData(data: string) {
