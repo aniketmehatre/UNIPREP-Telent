@@ -112,6 +112,15 @@ export class CareerToolComponent implements OnInit {
       mode: "career-growth-checker"
     },
     {
+      id: 11,
+      moduleName: "Average Salary Estimator",
+      Description: "Estimate the average salary for your role based on industry and location trends.",
+      tooltip: "Discover salary benchmarks and plan your career with our reliable salary estimation tool.",
+      imageLink: environment.production === false ? "https://api.uniprep.ai/uniprepapi/storage/app//public/icon/modules/avgsest.png" : "https://uniprep.ai/uniprepapi/storage/app/public/icon/modules/avgsest.png",
+      refLink: "",
+      mode: "average-salary-estimator"
+    },
+    {
       id: 12,
       moduleName: "Global Work Visas",
       Description: "Get insight into your next 5 career growth oppurtunity.",
@@ -119,6 +128,16 @@ export class CareerToolComponent implements OnInit {
       imageLink: environment.production === false ? "https://api.uniprep.ai/uniprepapi/storage/app//public/icon/modules/growth.svg" : "https://uniprep.ai/uniprepapi/storage/app/public/icon/modules/growth.svg",
       refLink: "",
       mode: "global-work-visa"
+
+    },
+    {
+      id: 13,
+      moduleName: "Job Offer Comparison Tool",
+      Description: "Compare multiple job offers to make informed career decisions.",
+      tooltip: "Evaluate and weigh job offers based on salary, benefits, and growth opportunities.",
+      imageLink: environment.production === false ? "https://api.uniprep.ai/uniprepapi/storage/app//public/icon/modules/joc.png" : "https://uniprep.ai/uniprepapi/storage/app/public/icon/modules/joc.png",
+      refLink: "",
+      mode: "job-offer-comparison"
     }
   ]
 
@@ -162,9 +181,17 @@ export class CareerToolComponent implements OnInit {
       this.router.navigate(['/pages/interviewprep']);
     } else if (mode == "career-growth-checker") {
       this.router.navigate(['/pages/job-tool/career-growth-checker']);
-    } else if (mode == "global-work-visa") {
+    }
+    else if(mode=="average-salary-estimator") {
+      this.router.navigate(['/pages/average-salary-estimator']);
+    }
+    else if(mode=="job-offer-comparison") {
+      this.router.navigate(['/pages/job-offer-comparison']);
+    }
+    else if (mode == "global-work-visa") {
       this.router.navigate(['/pages/job-tool/global-work-visa']);
-    } else {
+    }
+    else {
       this.router.navigate(['/pages/job-tool/list/employer-test/13']);
     }
   }

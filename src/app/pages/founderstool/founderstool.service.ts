@@ -1,4 +1,4 @@
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { environment } from '@env/environment';
 
@@ -103,10 +103,79 @@ wealthLeadersans(data: any) {
       headers: headers,
   });
 }
-entrepreneurToolsSuccess(data: any) {
-  const headers = new HttpHeaders().set("Accept", "application/json");
-  return this.http.post<any>(environment.ApiUrl + "/EntrepreneurtoolsList", data, {
+
+  getFundList(val: any) {
+    const headers = new HttpHeaders().set("Accept", "application/json");
+    return this.http.post<any>(environment.ApiUrl + "/getgovernmentfundlist", val, {
       headers: headers,
-  });
-}
+    });
+  }
+
+  getFundType() {
+    const headers = new HttpHeaders().set("Accept", "application/json");
+    return this.http.get<any>(environment.ApiUrl + "/govtfundingtypes ", { headers: headers });
+  }
+
+  addFavFundData(Fund_id: any, user_id: any, fav: any) {
+    let params = {
+      Fund_id: Fund_id,
+      user_id: user_id,
+      updateFavourite: fav
+    }
+    const headers = new HttpHeaders().set("Accept", "application/json");
+    return this.http.post<any>(environment.ApiUrl + "/addGovtFundFavourite", params, {
+      headers: headers,
+    });
+  }
+
+  exportSelectedData(data: any) {
+    const headers = new HttpHeaders().set("Accept", "application/json");
+    return this.http.post<any>(environment.ApiUrl + "/api/exportgovernmentfunding  ", data, {
+      headers: headers,
+    });
+  }
+
+  getFundStateByCountry() {
+    let params = new HttpParams();
+    // params = params.append("country_id", scholarship_country.toString())
+    const headers = new HttpHeaders().set("Accept", "application/json");
+    return this.http.get<any>(environment.ApiUrl + "/govtfundingRegions", {
+      headers: headers
+    });
+  }
+
+  getFundCountries() {
+    const headers = new HttpHeaders().set("Accept", "application/json");
+    return this.http.get<any>(environment.ApiUrl + "/govtfundingCountry", {
+      headers: headers
+    });
+  }
+
+
+  storeRecommendation(data: any) {
+    const headers = new HttpHeaders().set("Accept", "application/json");
+    return this.http.post<any>(environment.ApiUrl + "/storeFundRec", data, {
+      headers: headers,
+    });
+  }
+
+  getRecommendations() {
+    const headers = new HttpHeaders().set("Accept", "application/json");
+    return this.http.post<any>(environment.ApiUrl + "/getgovernmentfundlist", {
+      headers: headers,
+    });
+  }
+
+  resetRecommendation() {
+    const headers = new HttpHeaders().set("Accept", "application/json");
+    return this.http.post<any>(environment.ApiUrl + "/resetScholarRec", {
+      headers: headers,
+    });
+  }
+  entrepreneurToolsSuccess(data: any) {
+    const headers = new HttpHeaders().set("Accept", "application/json");
+    return this.http.post<any>(environment.ApiUrl + "/EntrepreneurtoolsList", data, {
+        headers: headers,
+    });
+  }
 }

@@ -33,9 +33,9 @@
                             <div class="col-md-6">
                                 <div class="recommendationinput d-flex flex-column justify-content-center gap-3">
                                     <ng-container *ngIf="recommendation.id == 1">
-                                        <p-dropdown [options]="departureLocationList"
-                                            [(ngModel)]="selectedData[recommendation.id]" optionLabel="country"
-                                            optionValue="country" [appendTo]="'body'" [filter]="true" [showClear]="true"
+                                        <p-dropdown [options]="departureLocationList" [virtualScroll]="true"
+                                            [virtualScrollItemSize]="50" [(ngModel)]="selectedData[recommendation.id]"
+                                            [appendTo]="'body'" [filter]="true" [showClear]="true"
                                             placeholder="Departure Country" styleClass="w-100">
                                             <ng-template pTemplate="filter" let-options="options">
                                                 <div class="d-flex gap-2">
@@ -51,15 +51,39 @@
                                                         severity="secondary"></button>
                                                 </div>
                                             </ng-template>
+                                            <ng-template let-country pTemplate="item">
+                                                <div class="d-flex align-items-center gap-2">
+                                                    <div class="dropdownimg">
+                                                        <img [src]="country.flag" class="img-fluid" />
+                                                    </div>
+                                                    <div>
+                                                        <span *ngIf="country.city_name !== null">
+                                                            {{ country.city_name }},
+                                                        </span>{{ country.country_name }}
+                                                    </div>
+                                                </div>
+                                            </ng-template>
+                                            <ng-template pTemplate="selectedItem" let-selectedOption>
+                                                <div class="d-flex align-items-center gap-2">
+                                                    <div class="dropdownimg">
+                                                        <img [src]="selectedOption.flag" class="img-fluid" />
+                                                    </div>
+                                                    <div>
+                                                        <span *ngIf="selectedOption.city_name !== null">
+                                                            {{ selectedOption.city_name }},
+                                                        </span>{{ selectedOption.country_name }}
+                                                    </div>
+                                                </div>
+                                            </ng-template>
                                         </p-dropdown>
                                         <p class="text-center" [ngClass]="{ 'd-none': invalidClass === false }"
                                             style="color: red">Please Choose Any one option</p>
                                     </ng-container>
                                     <ng-container *ngIf="recommendation.id == 2">
-                                        <p-dropdown [options]="destinationLocationList"
-                                            [(ngModel)]="selectedData[recommendation.id]" optionLabel="country"
-                                            optionValue="country" [appendTo]="'body'" placeholder="Destination Country"
-                                            [filter]="true" [showClear]="true" styleClass="w-100">
+                                        <p-dropdown [options]="destinationLocationList" [virtualScroll]="true"
+                                            [virtualScrollItemSize]="50" [(ngModel)]="selectedData[recommendation.id]"
+                                            [appendTo]="'body'" placeholder="Destination Country" [filter]="true"
+                                            [showClear]="true" styleClass="w-100">
                                             <ng-template pTemplate="filter" let-options="options">
                                                 <div class="d-flex gap-2">
                                                     <div class="p-inputgroup" (click)="$event.stopPropagation()">
@@ -72,6 +96,30 @@
                                                     <button pButton icon="pi pi-times" class="btn btn-primary"
                                                         (click)="resetFunction('destination')" severity="secondary">
                                                     </button>
+                                                </div>
+                                            </ng-template>
+                                            <ng-template let-country pTemplate="item">
+                                                <div class="d-flex align-items-center gap-2">
+                                                    <div class="dropdownimg">
+                                                        <img [src]="country.flag" class="img-fluid" />
+                                                    </div>
+                                                    <div>
+                                                        <span *ngIf="country.city_name !== null">
+                                                            {{ country.city_name }},
+                                                        </span>{{ country.country_name }}
+                                                    </div>
+                                                </div>
+                                            </ng-template>
+                                            <ng-template pTemplate="selectedItem" let-selectedOption>
+                                                <div class="d-flex align-items-center gap-2">
+                                                    <div class="dropdownimg">
+                                                        <img [src]="selectedOption.flag" class="img-fluid" />
+                                                    </div>
+                                                    <div>
+                                                        <span *ngIf="selectedOption.city_name !== null">
+                                                            {{ selectedOption.city_name }},
+                                                        </span>{{ selectedOption.country_name }}
+                                                    </div>
                                                 </div>
                                             </ng-template>
                                         </p-dropdown>
@@ -183,7 +231,7 @@
             </div>
         </div>
     </div>
-    <div class="card-body text-center flex-fill overflow-y-auto">
+    <div class="card-body worksans flex-fill overflow-y-auto">
         <div class="row">
             <div class="col-md-3"></div>
             <div class="col-md-6">

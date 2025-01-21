@@ -18,11 +18,7 @@ export class CourseNavigatorComponent implements OnInit {
   activePageIndex: number = 0;
   selectedData: { [key: string]: any } = {};
   invalidClass: boolean = false;
-  specializationList: { id: number, name: string }[] = [
-    { id: 1, name: 'Computer Science and Engineering' },
-    { id: 2, name: 'Information Technology' },
-    { id: 3, name: 'Diploma in Computer Applications' }
-  ];
+  specializationList: { id: number, specialization_name: string }[] = [];
   DegreeList: { id: number, name: string }[] = [
     { id: 1, name: 'BE' },
     { id: 2, name: 'BTech' },
@@ -41,7 +37,9 @@ export class CourseNavigatorComponent implements OnInit {
   ];
   isFromSavedData: boolean = false;
   isQuestionAnswerVisible: boolean = false;
-  oneQuestionContent: any;
+  oneQuestionContent: any = {
+    answer: 'Lorem ipsum dolor sit, amet consectetur adipisicing elit. Natus dolorem nihil dolores dicta maiores. Ducimus, eos aperiam enim perspiciatis, impedit molestiae dolorum temporibus nam doloremque quo magni voluptatum quae at eum necessitatibus ipsa repellendus ullam repellat odio, iusto sunt. Dolore magni sapiente omnis, eos iste corrupti quas nobis, dolores quasi dignissimos cumque natus voluptatem debitis sit recusandae eum! Facilis corporis quibusdam, iusto labore dolores ex beatae incidunt accusamus dolorum harum cupiditate maxime blanditiis! Impedit ad iusto optio consectetur, saepe numquam et minus aspernatur dignissimos, pariatur deserunt dolorum? Atque, in suscipit ad, illum sequi magni, eligendi perferendis explicabo maxime voluptatibus quam. Nihil quos aliquam delectus? Nisi aliquid molestiae expedita odit perferendis est fuga illo repudiandae! Doloribus voluptatem aliquid sequi rem aut nisi nesciunt tenetur esse molestias corporis qui fuga inventore cumque assumenda quos nulla voluptates mollitia iste culpa, amet id voluptas animi. Vitae officiis at ut hic laborum ullam esse libero, aliquam temporibus quos doloremque dolorum quod nam assumenda reiciendis mollitia pariatur! Nobis iste ratione, itaque expedita enim, ut aut minus at error animi nesciunt nostrum aperiam dolore temporibus dolorum accusamus sequi eaque, quibusdam totam? Et, repudiandae libero sit labore numquam modi, nostrum ut sint nemo quos doloribus vitae dolores earum dolor itaque! Reprehenderit aliquam sint est at non? Non tenetur sit dolorem soluta saepe ducimus dolores reprehenderit mollitia omnis dignissimos inventore deleniti dolorum libero in, odit consequuntur? Ipsam modi nihil dolorem ullam quod labore alias recusandae consequuntur commodi, quam iusto totam dicta voluptatum eos quibusdam sapiente, dolores incidunt beatae? Dignissimos blanditiis expedita dolore deserunt non possimus magni aspernatur dolores doloremque. Exercitationem delectus perspiciatis est expedita, saepe et. Corporis, labore consectetur iure dolores assumenda inventore, aspernatur modi magnam incidunt saepe iusto sunt blanditiis quaerat repellat totam nihil esse recusandae ducimus similique nemo expedita obcaecati aliquam placeat? Maxime placeat commodi autem voluptas!'
+  };
   selectedQuestionData: any;
   countryId: any;
 
@@ -54,9 +52,27 @@ export class CourseNavigatorComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-
+    this.getCurrentSpecializations();
+    this.getEducationSpecializations();
   }
-
+  getCurrentSpecializations() {
+    this.educationToolsService.getCurrentSpecializations().subscribe({
+      next: response => {
+        this.specializationList = response;
+      },
+      error: error => {
+      }
+    });
+  }
+  getEducationSpecializations() {
+    this.educationToolsService.getEducationSpecializations().subscribe({
+      next: response => {
+        // this.specializationList = response;
+      },
+      error: error => {
+      }
+    });
+  }
   previous() {
     this.invalidClass = false;
     if (this.activePageIndex > 0) {

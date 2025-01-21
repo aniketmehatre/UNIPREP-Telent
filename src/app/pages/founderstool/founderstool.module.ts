@@ -24,6 +24,13 @@ import { WealthleaderslistComponent } from './wealthleaderslist/wealthleaderslis
 import { WealthleaderreadansComponent } from './wealthleaderreadans/wealthleaderreadans.component';
 import { BusinessPlanGeneratorComponent } from './business-plan-generator/business-plan-generator.component';
 import { ComponentStoriesComponent } from './component-stories/component-stories.component';
+import { GovermentFundingOppurtunityComponent } from './goverment-funding-opportunity/goverment-funding-opportunity.component';
+import { MultiSelectModule } from 'primeng/multiselect';
+import { MarketingAnalysisComponent } from './marketing-analysis/marketing-analysis.component';
+import { PdfViewerModule } from 'ng2-pdf-viewer';
+import { NgxExtendedPdfViewerModule } from 'ngx-extended-pdf-viewer';
+import { AiBusinessAdvisorComponent } from './ai-business-advisor/ai-business-advisor.component';
+import { StartupRiskAssessmentComponent } from './startup-risk-assessment/startup-risk-assessment.component';
 
 
 @NgModule({
@@ -39,7 +46,11 @@ import { ComponentStoriesComponent } from './component-stories/component-stories
     WealthleaderslistComponent,
     WealthleaderreadansComponent,
     BusinessPlanGeneratorComponent,
-    ComponentStoriesComponent
+    ComponentStoriesComponent,
+    GovermentFundingOppurtunityComponent,
+    MarketingAnalysisComponent,
+    AiBusinessAdvisorComponent,
+    StartupRiskAssessmentComponent,
   ],
   imports: [
     CommonModule,
@@ -53,9 +64,16 @@ import { ComponentStoriesComponent } from './component-stories/component-stories
     CardModule,
     DialogModule,
     foundersToolRountingModule,
-    TooltipModule
+    TooltipModule,
+    MultiSelectModule,
+    PdfViewerModule
   ],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
-  providers: [ConfirmationService], 
+  providers: [ConfirmationService, 
+    TooltipModule,
+    MultiSelectModule,
+    PdfViewerModule,
+    NgxExtendedPdfViewerModule
+  ],
 })
 export class FounderstoolModule { }

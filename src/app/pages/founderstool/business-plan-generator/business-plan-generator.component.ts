@@ -74,12 +74,6 @@ export class BusinessPlanGeneratorComponent implements OnInit {
         return;
       }
     }
-    if (this.activePageIndex == 4) {
-      if (!formData.opertions || !formData.founders_key_term) {
-        this.submitted = true;
-        return;
-      }
-    }
     this.activePageIndex++;
   }
 

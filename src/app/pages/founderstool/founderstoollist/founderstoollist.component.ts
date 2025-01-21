@@ -39,6 +39,61 @@ export class FounderstoollistComponent implements OnInit {
   openVideoPopup(videoLink: string) {
     this.pageFacade.openHowitWorksVideoPopup(videoLink);
   }
+  openAcademy(){
+    if (this.planExpired) {
+      this.restrict = true;
+      return;
+    }
+    this.router.navigate(['/pages/founderstool/foundersacademy']);
+  }
+  openInvestorTraining(){
+    if (this.planExpired) {
+      this.restrict = true;
+      return;
+    }
+    this.router.navigate(['/pages/founderstool/investorpitchtraining']);
+  }
+  openStartUpGlossary(){
+    if (this.planExpired) {
+      this.restrict = true;
+      return;
+    }
+    this.router.navigate(['/pages/founderstool/startupglossary']);
+  }
+  openEntreprenuerSkill(){
+    if (this.planExpired) {
+      this.restrict = true;
+      return;
+    }
+    this.router.navigate(['/pages/founderstool/entrepreneurskillmodule']);
+  }
+  openEntreprenuerSector(){
+    if (this.planExpired) {
+      this.restrict = true;
+      return;
+    }
+    this.router.navigate(['/pages/founderstool/entreprenuerproficiencymodule']);
+  }
+
+  openGovernmentFundsOpportunity() {
+    if (this.planExpired) {
+      this.restrict = true;
+      return;
+    }
+    this.router.navigate(['/pages/founderstool/governmentfunds']);
+  }
+
+  openMarketingAnaylsis() {
+    if (this.planExpired) {
+      this.restrict = true;
+      return;
+    }
+    this.router.navigate(['/pages/founderstool/marketing-anaylsis']);
+  }
+
+  openInvestorList(){
+    this.router.navigate(['/pages/investor-list']);
+  }
 
   checkplanExpire(): void {
     this.authService.getNewUserTimeLeft().subscribe((res) => {

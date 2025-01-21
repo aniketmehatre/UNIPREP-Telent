@@ -1,8 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { TravelToolsService } from '../travel-tools.service';
-import { CountryandCurrency } from 'src/app/@Models/currency.model';
-import { Location } from '@angular/common';
 import { TravelPackingPlannerQuestionList } from '../trvel-tool-questions';
+import { Router } from '@angular/router';
+import { CostOfLivingService } from '../../job-tool/cost-of-living/cost-of-living.service';
+import { City } from 'src/app/@Models/cost-of-living';
 
 @Component({
   selector: 'uni-travel-packing-planner',
@@ -13,7 +14,7 @@ export class TravelPackingPlannerComponent implements OnInit {
 
   recommendations: { id: number, question: string }[] = TravelPackingPlannerQuestionList;
   activePageIndex: number = 0;
-  destinationLocationList: CountryandCurrency[] = [];
+  destinationLocationList: City[] = [];
   destinationFilter: string = '';
   selectedData: { [key: string]: any } = {};
   invalidClass: boolean = false;
@@ -41,7 +42,7 @@ export class TravelPackingPlannerComponent implements OnInit {
     { id: 11, name: 'November' },
     { id: 12, name: 'December' }
   ];
-  countryandCurrencyList: CountryandCurrency[] = [];
+  cityList: City[] = [];
   recommendationData: string = '';
   isRecommendationQuestion: boolean = true;
   isRecommendationData: boolean = false;
@@ -50,18 +51,19 @@ export class TravelPackingPlannerComponent implements OnInit {
   isFromSavedData: boolean = false;
   constructor(
     private travelToolsService: TravelToolsService,
-    private location: Location
+    private router: Router,
+    private costOfLivingService: CostOfLivingService
   ) { }
 
   ngOnInit(): void {
     this.selectedData = { 4: 1 };
-    this.getCurrencyList();
+    this.getCityList();
   }
 
-  getCurrencyList() {
-    this.travelToolsService.getCurrencies().subscribe({
+  getCityList() {
+    this.costOfLivingService.getCities().subscribe({
       next: response => {
-        this.countryandCurrencyList = response;
+        this.cityList = response;
         this.destinationLocationList = response;
       }
     });
@@ -69,17 +71,17 @@ export class TravelPackingPlannerComponent implements OnInit {
 
   customFilterFunction(type: string) {
     if (this.destinationFilter === "") {
-      this.destinationLocationList = this.countryandCurrencyList;
+      this.destinationLocationList = this.cityList;
       return;
     }
-    this.destinationLocationList = this.countryandCurrencyList.filter(item =>
-      item?.country.toLowerCase().includes(this.destinationFilter.toLowerCase())
+    this.destinationLocationList = this.cityList.filter(city =>
+      city?.city_name?.toLowerCase().includes(this.destinationFilter.toLowerCase()) || city?.country_name?.toLowerCase().includes(this.destinationFilter.toLowerCase())
     );
   }
 
   resetFunction(type: string) {
     this.destinationFilter = '';
-    this.destinationLocationList = this.countryandCurrencyList;
+    this.destinationLocationList = this.cityList;
   }
 
   previous() {
@@ -91,7 +93,7 @@ export class TravelPackingPlannerComponent implements OnInit {
 
   next(itemId: number) {
     this.destinationFilter = "";
-    this.destinationLocationList = this.countryandCurrencyList;
+    this.destinationLocationList = this.cityList;
     this.invalidClass = false;
     if (itemId in this.selectedData) {
       if (this.activePageIndex < this.recommendations.length - 1) {
@@ -104,7 +106,7 @@ export class TravelPackingPlannerComponent implements OnInit {
 
   getRecommendation() {
     let data: any = {
-      destination: this.selectedData[1],
+      destination: this.selectedData[1].city_name ?? this.selectedData[1].country_name,
       travel_type: this.selectedData[2],
       travel_mode: this.selectedData[3],
       duration: this.selectedData[4],
@@ -157,6 +159,6 @@ export class TravelPackingPlannerComponent implements OnInit {
   }
 
   goBack() {
-    this.location.back();
+    this.router.navigateByUrl('/pages/travel-tools');
   }
 }
