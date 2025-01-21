@@ -41,7 +41,7 @@
                 <div class="row w-100 m-0 justify-content-center h-100">
                     <div class="card subjectcard" role="button" (click)="showDataAnswer(item)">
                         <div class="card-body text-start">
-                            <p class="text-medium">{{item.blogs}} </p>
+                            <p class="text-medium">{{item.quesions}} </p>
                         </div>
                     </div>
                 </div>
@@ -80,7 +80,7 @@
       <div class="card flex-fill answercard">
         <div class="card-body text-start">
           <div class="d-flex align-items-center justify-content-between position-relative">
-            <!-- <button class="btn btn-primary socialShareBtn" (click)="showSocialSharingList()"><i class="fa-light fa-xl fa-share-nodes"></i></button>
+            <button class="btn btn-primary socialShareBtn" (click)="showSocialSharingList()"><i class="fa-light fa-xl fa-share-nodes"></i></button>
             <p-card id="socialSharingList">
               <ul style="list-style: none; cursor: pointer">
                 <li (click)="shareViaWhatsapp()"><i class="pi pi-whatsapp"></i>Whatsapp</li>
@@ -91,12 +91,12 @@
                 <li (click)="shareViaLinkedIn()"><i class="pi pi-linkedin"></i>LinkedIn</li>
                 <li (click)="copyLink()"><i class="pi pi-link"></i>Copy Link</li>
               </ul>
-            </p-card> -->
+            </p-card>
           </div>
-          <h3 class="unselectable d-md-block d-none">name</h3>
+          <h3 class="unselectable d-md-block d-none">{{dataanswerquestion?.quesions}}</h3>
           <!-- <h5 class="unselectable d-md-none d-block">hssksk</h5> -->
           <!-- <div class="fw-medium" style="white-space: inherit; max-height: 80%; min-height: 80%" [innerHTML]="oneQuestionContent?.answer"></div> -->
-          <div class="fw-medium" style="white-space: inherit; max-height: 80%; min-height: 80%"> asdlhdhqowhdbbb qwhdqw </div>
+          <div class="fw-medium" style="white-space: inherit; max-height: 80%; min-height: 80%"> {{dataanswerquestion?.blogs}}</div>
 
         </div>
       </div>
