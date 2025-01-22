@@ -20,6 +20,14 @@ export class LocationService {
                 private deviceService: DeviceDetectorService, private storage: LocalStorageService) {
     }
 
+
+    getValidateToken(req: any) {
+        const headers = new HttpHeaders().set("Accept", "application/json");
+        return this.http.post<any>(environment.ApiUrl + "/validateToken", req, {
+            headers: headers,
+        });
+    }
+
     getLocation() {
         const headers = new HttpHeaders().set("Accept", "application/json");
         return this.http.get<LocationData>(environment.ApiUrl + "/location", {
