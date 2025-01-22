@@ -38,9 +38,9 @@ export class TravelToolsService {
       headers: this.headers,
     });
   }
-  getStartUpGlossary(val:any) {
+  getStravelGlossary(val:any) {
     const headers = new HttpHeaders().set("Accept", "application/json");
-    return this.http.post<any>(environment.ApiUrl + "/liststartupglossary",val, {
+    return this.http.post<any>(environment.ApiUrl + "/travelGlossaryList",val, {
         headers: headers,
     });
   }

@@ -18,12 +18,7 @@ export class EducationToolsService {
       headers: this.headers,
     });
   }
-
-  getEducationSpecializations() {
-    return this.http.get<any>(environment.ApiUrl + "/educationspecialization", {
-      headers: this.headers,
-    });
-  }
+  
   getEduRecommadations(data: any) {
     return this.http.post<any>(environment.ApiUrl + "/getEduRecommadations", {
       headers: this.headers,

@@ -19,10 +19,11 @@ export class CourseNavigatorComponent implements OnInit {
   selectedData: { [key: string]: any } = {};
   invalidClass: boolean = false;
   specializationList: { id: number, specialization_name: string }[] = [];
+  specializations: { id: number, specialization_name: string }[] = [];
   DegreeList: { id: number, name: string }[] = [
-    { id: 1, name: 'BE' },
-    { id: 2, name: 'BTech' },
-    { id: 3, name: 'BSC' }
+    { id: 1, name: 'Bachelors' },
+    { id: 2, name: 'Masters' },
+    { id: 3, name: 'Diploma' },
   ];
   recommendationDataList: any[] = [
     { id: 1, title: 'BCA', image: 'uniprep-assets/images/founderstool/foundersacademy.svg' },
@@ -42,6 +43,7 @@ export class CourseNavigatorComponent implements OnInit {
   };
   selectedQuestionData: any;
   countryId: any;
+  specializationFilter: string = '';
 
   constructor(
     private educationToolsService: EducationToolsService,
@@ -53,26 +55,29 @@ export class CourseNavigatorComponent implements OnInit {
 
   ngOnInit(): void {
     this.getCurrentSpecializations();
-    this.getEducationSpecializations();
   }
+
   getCurrentSpecializations() {
     this.educationToolsService.getCurrentSpecializations().subscribe({
       next: response => {
         this.specializationList = response;
+        this.specializations = response;
       },
       error: error => {
       }
     });
   }
-  getEducationSpecializations() {
-    this.educationToolsService.getEducationSpecializations().subscribe({
-      next: response => {
-        // this.specializationList = response;
-      },
-      error: error => {
-      }
-    });
+
+  customFilterFunction() {
+    if (this.specializationFilter === "") {
+      this.specializationList = this.specializations;
+      return;
+    }
+    this.specializationList = this.specializations.filter(item =>
+      item?.specialization_name?.toLowerCase().includes(this.specializationFilter.toLowerCase())
+    );
   }
+
   previous() {
     this.invalidClass = false;
     if (this.activePageIndex > 0) {
@@ -81,18 +86,13 @@ export class CourseNavigatorComponent implements OnInit {
   }
 
   next(itemId: number) {
-    this.invalidClass = false;
-    if (itemId in this.selectedData) {
-      if (this.activePageIndex < this.recommendations.length - 1) {
-        this.activePageIndex++;
-      }
-    } else {
-      this.invalidClass = true;
+    this.invalidClass = !(itemId in this.selectedData);
+    if (!this.invalidClass) {
+      this.activePageIndex < this.recommendations.length - 1 ? this.activePageIndex++ : this.getRecommendation();
     }
   }
 
   getRecommendation() {
-
     this.isRecommendationQuestion = false;
     this.isRecommendationData = true;
     this.isRecommendationSavedData = false;
