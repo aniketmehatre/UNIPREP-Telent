@@ -12,6 +12,7 @@ import {loginData$, selectLoading$, selectloggedIn$, selectMessage$} from "./sto
 import {Router} from "@angular/router";
 import {DataService} from '../data.service';
 const CryptoJS: any = require('crypto-js');
+import { jwtDecode } from 'jwt-decode'; // Use named import
 
 @Injectable({
     providedIn: "root",
@@ -25,6 +26,8 @@ export class AuthService {
     userData = new BehaviorSubject<User | null>(null);
     canDisableSignIn= new BehaviorSubject<boolean>(true)
     public _checkExistsSubscription!: number;
+    private tokenKey = '123';
+
     constructor(
         private http: HttpClient,
         private store: Store<AuthState>,
@@ -139,9 +142,9 @@ export class AuthService {
         });
     }
 
-    getToken() {
-        return of('123');
-    }
+    // getToken() {
+    //     return of('123');
+    // }
 
     isAuthenticated(val: any): Observable<UserData> {
         const headers = new HttpHeaders().set("Accept", "application/json");
@@ -274,5 +277,32 @@ export class AuthService {
             .set('Accept', "application/json")
         return this.http.post<any>(environment.ApiUrl + '/validateWhatsappOtp', val, {'headers': headers});
     }
+
+    saveToken(token: string): void {
+        console.log('save', token);
+        localStorage.setItem(this.tokenKey, token);
+      }
+    
+      // Retrieve token from localStorage
+      getToken(): string | null {
+        return localStorage.getItem(this.tokenKey);
+      }
+    
+      // Validate token
+      isTokenValid(): boolean {
+        const token = this.getToken();
+        console.log('sss', token);
+        
+        if (token) {
+          try {
+            const decoded: any = jwtDecode(token);
+            const currentTime = Math.floor(Date.now() / 1000);
+            return decoded.exp > currentTime; // Token is valid if current time is before expiration
+          } catch (error) {
+            return false; // Invalid token
+          }
+        }
+        return false; // No token
+      }
     
 }
