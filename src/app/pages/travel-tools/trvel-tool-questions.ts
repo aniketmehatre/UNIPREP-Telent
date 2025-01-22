@@ -40,6 +40,6 @@ export const TravelPackingPlannerQuestionList = [
   },
   {
     id: 5,
-    question: "Select your preferred currency?"
+    question: "Which season or month are you plnning your trip?"
   },
 ];

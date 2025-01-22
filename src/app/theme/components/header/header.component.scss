@@ -577,3 +577,32 @@ $background-color_4: #fff;
   align-items: center;
   justify-content: center;
 }
+
+.icon-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 50px;
+  /* Adjust the height as needed */
+}
+
+.assessment-popup {
+  width: 400px;
+  .p-dialog-titlebar, .p-dialog-content {
+    border-radius: 15px !important;
+  }
+}
+
+.popup-close {
+  background: var(--uniprep-primary);
+  border-radius: 50%;
+  height: 26px;
+  width: 26px;
+  position: absolute;
+  right: 7px;
+  top: 5px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+}

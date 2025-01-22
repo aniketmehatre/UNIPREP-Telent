@@ -72,7 +72,7 @@ export class HttpErrorInterceptor implements HttpInterceptor {
               summary: "Error",
               detail: msg,
             });
-          }
+          }          
           this.router.navigateByUrl("/login");
         }
         if (err?.status === 422) {

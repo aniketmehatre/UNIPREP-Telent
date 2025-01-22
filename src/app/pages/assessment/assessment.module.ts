@@ -13,6 +13,7 @@ import { ProgressBarModule } from 'primeng/progressbar';
 import { DialogModule } from 'primeng/dialog';
 import { FormsModule } from '@angular/forms';
 import { AssessmentQuizReviewComponent } from './assessment-quiz-review/assessment-quiz-review.component';
+import { DropdownModule } from 'primeng/dropdown';
 
 
 @NgModule({
@@ -32,7 +33,8 @@ import { AssessmentQuizReviewComponent } from './assessment-quiz-review/assessme
     RadioButtonModule,
     ProgressBarModule,
     DialogModule,
-    FormsModule
+    FormsModule,
+    DropdownModule
   ]
 })
 export class AssessmentModule { }
