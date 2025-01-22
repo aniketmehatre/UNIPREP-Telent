@@ -124,7 +124,7 @@ export class BusinessForecastingToolComponent implements OnInit {
   }
 
   backtoMain() {
-    this.router.navigateByUrl('/pages/founder-tools');
+    this.router.navigateByUrl('/pages/founderstool');
   }
 
   getForeCastingOptionLists() {

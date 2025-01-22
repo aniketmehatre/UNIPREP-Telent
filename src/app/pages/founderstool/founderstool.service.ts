@@ -162,7 +162,7 @@ export class FounderstoolService {
   }
 
   getRecommendations() {
-    return this.http.post<any>(environment.ApiUrl + "/getgovernmentfundlist", {
+    return this.http.get<any>(environment.ApiUrl + "/getFundingRec", {
       headers: this.headers,
     });
   }

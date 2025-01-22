@@ -14,7 +14,7 @@ export class FundListGuidlinesComponent implements OnInit {
   }
 
   close(): void {
-    this.router.navigate(["/pages/governmentfunds"]);
+    this.router.navigate(["/pages/founderstool/governmentfunds"]);
   }
 
 }

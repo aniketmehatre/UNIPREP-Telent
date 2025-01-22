@@ -122,7 +122,7 @@ export class MarketingAnalysisComponent implements OnInit {
   }
 
   goBack() {
-    this.router.navigateByUrl('/pages/founder-tools');
+    this.router.navigateByUrl('/pages/founderstool');
   }
 
   getMarketAnalysisLists() {
