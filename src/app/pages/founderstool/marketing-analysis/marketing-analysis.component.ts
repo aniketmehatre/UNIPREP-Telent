@@ -122,7 +122,7 @@ export class MarketingAnalysisComponent implements OnInit {
   }
 
   goBack() {
-    this.router.navigateByUrl('/pages/founderstool');
+    this.router.navigateByUrl('/pages/founderstool/founderstoollist');
   }
 
   getMarketAnalysisLists() {
@@ -246,7 +246,7 @@ export class MarketingAnalysisComponent implements OnInit {
 
   saveRecommadation() {
     if (!this.isFromSavedData) {
-      this.foundersToolsService.getAnalysisList('marketing_analysis').subscribe({
+      this.foundersToolsService.getAnalysisList('market_analysis').subscribe({
         next: response => {
           this.isRecommendationQuestion = false;
           this.isRecommendationData = false;

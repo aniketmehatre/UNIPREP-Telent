@@ -138,6 +138,6 @@ export class StartupRiskAssessmentComponent implements OnInit {
   }
 
   goBack() {
-    this.router.navigateByUrl('/pages/founderstool');
+    this.router.navigateByUrl('/pages/founderstool/founderstoollist');
   }
 }

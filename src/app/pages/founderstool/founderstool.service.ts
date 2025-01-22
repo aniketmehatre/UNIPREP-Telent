@@ -129,7 +129,7 @@ export class FounderstoolService {
   }
 
   exportSelectedData(data: any) {
-    return this.http.post<any>(environment.ApiUrl + "/api/exportgovernmentfunding  ", data, {
+    return this.http.post<any>(environment.ApiUrl + "/exportgovernmentfunding  ", data, {
       headers: this.headers,
     });
   }
