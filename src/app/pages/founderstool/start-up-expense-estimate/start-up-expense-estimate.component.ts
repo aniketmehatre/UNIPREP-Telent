@@ -118,7 +118,7 @@ export class StartUpExpenseEstimateComponent implements OnInit {
     this.getCurrenyandCountry();
   }
 
-  backtoMain() {
+  goBack() {
     this.router.navigateByUrl('/pages/founder-tools');
   }
 

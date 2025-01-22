@@ -121,7 +121,7 @@ export class MarketingAnalysisComponent implements OnInit {
     this.getCurrenyandCountry();
   }
 
-  backtoMain() {
+  goBack() {
     this.router.navigateByUrl('/pages/founder-tools');
   }
 

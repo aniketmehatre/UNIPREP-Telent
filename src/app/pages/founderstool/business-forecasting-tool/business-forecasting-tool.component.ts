@@ -173,6 +173,7 @@ export class BusinessForecastingToolComponent implements OnInit {
   upgradePlan(): void {
     this.router.navigate(["/pages/subscriptions"]);
   }
+
   clearRestriction() {
     this.restrict = false;
   }
