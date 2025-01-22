@@ -1,175 +1,205 @@
-import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
+import { HttpClient, HttpParams, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { environment } from '@env/environment';
+import { ChatGPTResponse } from 'src/app/@Models/chat-gpt.model';
 
 @Injectable({
   providedIn: 'root'
 })
 export class FounderstoolService {
+  headers = new HttpHeaders().set("Accept", "application/json")
 
   constructor(private http: HttpClient) { }
-  getAcademy(val:any) {
-    const headers = new HttpHeaders().set("Accept", "application/json");
-    return this.http.post<any>(environment.ApiUrl + "/founderslist",val, {
-        headers: headers,
+  getAcademy(val: any) {
+    return this.http.post<any>(environment.ApiUrl + "/founderslist", val, {
+      headers: this.headers,
     });
   }
+
   getFounderCategory() {
-    const headers = new HttpHeaders().set("Accept", "application/json");
     return this.http.post<any>(environment.ApiUrl + "/getfoundercategory", {
-        headers: headers,
+      headers: this.headers,
     });
   }
+
   // investor training
   getAInvestorTraining() {
-    const headers = new HttpHeaders().set("Accept", "application/json");
     return this.http.post<any>(environment.ApiUrl + "/listinvestorpitch", {
-        headers: headers,
+      headers: this.headers,
     });
   }
+
   // startup glossary
-  getStartUpGlossary(val:any) {
-    const headers = new HttpHeaders().set("Accept", "application/json");
-    return this.http.post<any>(environment.ApiUrl + "/liststartupglossary",val, {
-        headers: headers,
+  getStartUpGlossary(val: any) {
+    return this.http.post<any>(environment.ApiUrl + "/liststartupglossary", val, {
+      headers: this.headers,
     });
   }
+
   // entrprenuerskill
-  getEntreprenuerTest(val:any) {
-    const headers = new HttpHeaders().set("Accept", "application/json");
-    return this.http.post<any>(environment.ApiUrl + "/getentrepreneurtestlist",val, {
-        headers: headers,
+  getEntreprenuerTest(val: any) {
+    return this.http.post<any>(environment.ApiUrl + "/getentrepreneurtestlist", val, {
+      headers: this.headers,
     });
   }
+
   // quiz 
   GetQuestionsCount(data: any) {
-    const headers = new HttpHeaders().set("Accept", "application/json");
-        return this.http.post<any>(environment.ApiUrl + "/getrandomquizlh", data, {
-            headers: headers,
-        });
-}
-submitQuiz(data: any) {
-  const headers = new HttpHeaders().set("Accept", "application/json");
-  return this.http.post<any>(environment.ApiUrl + "/submitquizanswers", data, {
-      headers: headers,
-  });
-}
-ReviewQuiz(data: any) {
-  const headers = new HttpHeaders().set("Accept", "application/json");
-  return this.http.post<any>(environment.ApiUrl + "/reviewquiz", data, {
-      headers: headers,
-  });
-}
-quizCount(data: any) {
-  const headers = new HttpHeaders().set("Accept", "application/json");
-  return this.http.post<any>(environment.ApiUrl + "/getrandomquizlh", data, {
-      headers: headers,
-  });
-}
-checkModuleQuizCompletion(data: any) {
-  const headers = new HttpHeaders().set("Accept", "application/json");
-  return this.http.post<any>(environment.ApiUrl + "/checkmodulequizcompletion", data, {
-      headers: headers,
-  });
-}
-// wealth leaders
-wealthLeadersList(data: any) {
-  const headers = new HttpHeaders().set("Accept", "application/json");
-  return this.http.post<any>(environment.ApiUrl + "/getwealthleaderlist", data, {
-      headers: headers,
-  });
-}
-getCountry() {
-  const headers = new HttpHeaders().set("Accept", "application/json");
-  return this.http.get<any>(environment.ApiUrl + "/getwealthleadercountrylist", {
-      headers: headers,
-  });
-}
-wealthLeadersListquizAns(data: any) {
-  const headers = new HttpHeaders().set("Accept", "application/json");
-  return this.http.post<any>(environment.ApiUrl + "/getwealthleaderqa", data, {
-      headers: headers,
-  });
-}
-wealthLeadersquestion(data: any) {
-  const headers = new HttpHeaders().set("Accept", "application/json");
-  return this.http.post<any>(environment.ApiUrl + "/getwealthleaderquestion", data, {
-      headers: headers,
-  });
-}
-wealthLeadersans(data: any) {
-  const headers = new HttpHeaders().set("Accept", "application/json");
-  return this.http.post<any>(environment.ApiUrl + "/getwealthleaderanswer", data, {
-      headers: headers,
-  });
-}
+    return this.http.post<any>(environment.ApiUrl + "/getrandomquizlh", data, {
+      headers: this.headers,
+    });
+  }
+
+  submitQuiz(data: any) {
+    return this.http.post<any>(environment.ApiUrl + "/submitquizanswers", data, {
+      headers: this.headers,
+    });
+  }
+
+  ReviewQuiz(data: any) {
+    return this.http.post<any>(environment.ApiUrl + "/reviewquiz", data, {
+      headers: this.headers,
+    });
+  }
+
+  quizCount(data: any) {
+    return this.http.post<any>(environment.ApiUrl + "/getrandomquizlh", data, {
+      headers: this.headers,
+    });
+  }
+
+  checkModuleQuizCompletion(data: any) {
+    return this.http.post<any>(environment.ApiUrl + "/checkmodulequizcompletion", data, {
+      headers: this.headers,
+    });
+  }
+
+  // wealth leaders
+  wealthLeadersList(data: any) {
+    return this.http.post<any>(environment.ApiUrl + "/getwealthleaderlist", data, {
+      headers: this.headers,
+    });
+  }
+
+  getCountry() {
+    return this.http.get<any>(environment.ApiUrl + "/getwealthleadercountrylist", {
+      headers: this.headers,
+    });
+  }
+
+  wealthLeadersListquizAns(data: any) {
+    return this.http.post<any>(environment.ApiUrl + "/getwealthleaderqa", data, {
+      headers: this.headers,
+    });
+  }
+
+  wealthLeadersquestion(data: any) {
+
+    return this.http.post<any>(environment.ApiUrl + "/getwealthleaderquestion", data, {
+      headers: this.headers,
+    });
+  }
+
+  wealthLeadersans(data: any) {
+    return this.http.post<any>(environment.ApiUrl + "/getwealthleaderanswer", data, {
+      headers: this.headers,
+    });
+  }
 
   getFundList(val: any) {
-    const headers = new HttpHeaders().set("Accept", "application/json");
     return this.http.post<any>(environment.ApiUrl + "/getgovernmentfundlist", val, {
-      headers: headers,
+      headers: this.headers,
     });
   }
 
   getFundType() {
-    const headers = new HttpHeaders().set("Accept", "application/json");
-    return this.http.get<any>(environment.ApiUrl + "/govtfundingtypes ", { headers: headers });
+    return this.http.get<any>(environment.ApiUrl + "/govtfundingtypes ", { headers: this.headers });
   }
 
   addFavFundData(Fund_id: any, user_id: any, fav: any) {
     let params = {
-      Fund_id: Fund_id,
+      govtfund_id: Fund_id,
       user_id: user_id,
       updateFavourite: fav
     }
-    const headers = new HttpHeaders().set("Accept", "application/json");
+
     return this.http.post<any>(environment.ApiUrl + "/addGovtFundFavourite", params, {
-      headers: headers,
+      headers: this.headers,
     });
   }
 
   exportSelectedData(data: any) {
-    const headers = new HttpHeaders().set("Accept", "application/json");
     return this.http.post<any>(environment.ApiUrl + "/api/exportgovernmentfunding  ", data, {
-      headers: headers,
+      headers: this.headers,
     });
   }
 
   getFundStateByCountry() {
     let params = new HttpParams();
     // params = params.append("country_id", scholarship_country.toString())
-    const headers = new HttpHeaders().set("Accept", "application/json");
+
     return this.http.get<any>(environment.ApiUrl + "/govtfundingRegions", {
-      headers: headers
+      headers: this.headers
     });
   }
 
   getFundCountries() {
-    const headers = new HttpHeaders().set("Accept", "application/json");
     return this.http.get<any>(environment.ApiUrl + "/govtfundingCountry", {
-      headers: headers
+      headers: this.headers
     });
   }
 
+  getCurrencyAndCountries() {
+    return this.http.post<any>(environment.ApiUrl + "/getcountryandcurrency", {
+      headers: this.headers
+    });
+  }
 
   storeRecommendation(data: any) {
-    const headers = new HttpHeaders().set("Accept", "application/json");
     return this.http.post<any>(environment.ApiUrl + "/storeFundRec", data, {
-      headers: headers,
+      headers: this.headers,
     });
   }
 
   getRecommendations() {
-    const headers = new HttpHeaders().set("Accept", "application/json");
     return this.http.post<any>(environment.ApiUrl + "/getgovernmentfundlist", {
-      headers: headers,
+      headers: this.headers,
     });
   }
 
   resetRecommendation() {
-    const headers = new HttpHeaders().set("Accept", "application/json");
     return this.http.post<any>(environment.ApiUrl + "/resetScholarRec", {
-      headers: headers,
+      headers: this.headers,
+    });
+  }
+
+  getChatgptRecommendations(data: any) {
+    return this.http.post<{ response: string }>(environment.ApiUrl + "/getIntegratedRecom", data, {
+      headers: this.headers,
+    });
+  }
+
+  getCountriesList() {
+    return this.http.post<any>(environment.ApiUrl + "/AllCountries", {
+      headers: this.headers,
+    });
+  }
+
+  getmarketingAnaylsisOptionsList() {
+    return this.http.get<any>(environment.ApiUrl + "/getmarketanalysislists", {
+      headers: this.headers,
+    });
+  }
+
+  getStartUpRiskAssesmentOptionsList() {
+    return this.http.get<any>(environment.ApiUrl + "/getstartupriskslists", {
+      headers: this.headers,
+    });
+  }
+
+  getAnalysisList(type: string) {
+    return this.http.get<ChatGPTResponse>(environment.ApiUrl + `/userSavedResponse?mode=${type}`, {
+      headers: this.headers,
     });
   }
 

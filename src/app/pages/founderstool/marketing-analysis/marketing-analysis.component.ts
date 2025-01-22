@@ -9,22 +9,25 @@ import { LocationService } from 'src/app/location.service';
 import { PageFacadeService } from '../../page-facade.service';
 import { UserManagementService } from '../../user-management/user-management.service';
 import { FounderstoolService } from '../founderstool.service';
-
+export interface selectList {
+  name: string;
+}
 @Component({
   selector: 'uni-marketing-analysis',
   templateUrl: './marketing-analysis.component.html',
   styleUrls: ['./marketing-analysis.component.scss']
 })
 export class MarketingAnalysisComponent implements OnInit {
-  locationList: unknown[] = [];
-  targetMarketList: unknown[] = [];
-  productServiceList: unknown[] = [];
-  businessModelList: unknown[] = [];
-  salesChannelsList: unknown[] = [];
-  timeFramesList: unknown[] = [];
-  revenueStreamsList: unknown[] = [];
-  competitorList: unknown[] = [];
-  src = 'https://vadimdez.github.io/ng2-pdf-viewer/assets/pdf-test.pdf';
+  locationList: any[] = [];
+  targetMarketList: selectList[] = [];
+  productServiceList: selectList[] = [];
+  businessModelList: selectList[] = [];
+  salesChannelsList: selectList[] = [];
+  timeFramesList: selectList[] = [];
+  revenueStreamsList: selectList[] = [];
+  competitorList: selectList[] = [];
+  isFromSavedData: boolean = false;
+  recommadationSavedQuestionList: any = [];
   page = 1;
   pageSize = 25;
   first: number = 0;
@@ -43,14 +46,17 @@ export class MarketingAnalysisComponent implements OnInit {
     page: this.page,
     perpage: this.pageSize,
   };
+  isRecommendationQuestion: boolean = true;
+  isRecommendationData: boolean = false;
+  isRecommendationSavedData: boolean = false;
+  recommendationData: string = '';
   constructor(
     private fb: FormBuilder,
-    private fundListService: FounderstoolService,
+    private foundersToolsService: FounderstoolService,
     private locationService: LocationService,
     private toast: MessageService,
     private authService: AuthService,
     private router: Router,
-    private userManagementService: UserManagementService,
     private dataService: DataService,
     private pageFacade: PageFacadeService
   ) {
@@ -65,6 +71,7 @@ export class MarketingAnalysisComponent implements OnInit {
       budget: ['', Validators.required],
       revenueStreams: ['', Validators.required],
       competitorAnalysis: ['', Validators.required],
+      currencycode: ['']
     });
 
   }
@@ -110,62 +117,33 @@ export class MarketingAnalysisComponent implements OnInit {
     } else {
       this.ehitlabelIsShow = false;
     }
-    // this.checkUserRecommendation();
-    this.getFundCountry();
-    // this.gethomeCountryList();
-    // this.checkplanExpire();
-    // this.getFundType();
-    // this.GetPersonalProfileData();
+    this.getMarketAnalysisLists();
+    this.getCurrenyandCountry();
   }
 
-  backtoMain() {
-
+  goBack() {
+    this.router.navigateByUrl('/pages/founder-tools');
   }
 
-  performSearch() {
-    if (this.locationName == "") {
-      // this.loadFundData(0);
-      return;
-    }
-    var searchedFund: any = [];
-    // this..filter((item) => {
-    //   if (item.name?.toLowerCase().includes(this.searchScholarshpName.toLowerCase())) {
-    //     searchedFund.push(item);
-    //   }
-    // });
-    // this.fundData = [...searchedFund];
-  }
-
-  getFundCountry() {
-    this.fundListService.getFundCountries().subscribe(res => {
-      let allCountries = res;
+  getMarketAnalysisLists() {
+    this.foundersToolsService.getmarketingAnaylsisOptionsList().subscribe((res: any) => {
+      console.log(res);
+      this.competitorList = res?.competitor;
+      this.timeFramesList = res?.duration;
+      this.targetMarketList = res?.market;
+      this.businessModelList = res?.models;
+      this.productServiceList = res?.productservice;
+      this.revenueStreamsList = res?.revenuestreams;
+      this.salesChannelsList = res?.saleschannel;
     });
   }
 
-
-  // getFundType() {
-  //   this.fundListService.getFundType().subscribe((response) => {
-  //     this.fundTypeList = response;
-  //     this.anyFundTypeList = [...response, { id: "any", type: "Select All" }];
-  //   });
-  // }
-
-
-
-  pageChange(event: any) {
-    if (this.planExpired) {
-      this.restrict = true;
-      return;
-    }
-    this.page = event.first / this.pageSize + 1;
-    this.pageSize = event.rows;
-    this.first = event.first;
-    this.data.page = this.page;
-    this.data.perpage = this.pageSize;
-    // this.loadFundData(0);
+  getCurrenyandCountry() {
+    this.foundersToolsService.getCurrencyAndCountries().subscribe((res: any) => {
+      console.log(res);
+      this.locationList = res;
+    });
   }
-
-  exportTable() { }
 
   checkplanExpire(): void {
     this.authService.getNewUserTimeLeft().subscribe((res) => {
@@ -187,9 +165,6 @@ export class MarketingAnalysisComponent implements OnInit {
       } else {
         this.recommendRestrict = false;
       }
-
-
-      // this.loadFundData(0);
     });
   }
 
@@ -205,7 +180,7 @@ export class MarketingAnalysisComponent implements OnInit {
   }
 
   checkUserRecommendation() {
-    this.fundListService.getRecommendations().subscribe(res => {
+    this.foundersToolsService.getRecommendations().subscribe(res => {
       if (res.status) {
         this.enableModule = true;
       } else {
@@ -220,18 +195,21 @@ export class MarketingAnalysisComponent implements OnInit {
       this.restrict = true;
       return;
     }
-    // let keyMapping: any = { "1": "country", "2": "state", "3": "type" };
-
-    // let newData = Object.fromEntries(Object.entries(this.selectedData).map(([key, value]) => {
-    //   let mappedKey = keyMapping[key] || key;
-    //   if (Array.isArray(value)) {
-    //     value = value.filter(item => item !== null);
-    //   }
-    //   return [mappedKey, value];
-    // }));
-    // this.fundListService.storeRecommendation(newData).subscribe();
-    this.enableModule = true;
-    // this.setRecommendationToForm(newData);
+    let data: any = {
+      ...this.marketingForm.value,
+      mode: 'market_analysis'
+    }
+    this.foundersToolsService.getChatgptRecommendations(data).subscribe({
+      next: response => {
+        this.isRecommendationQuestion = false;
+        this.isRecommendationData = true;
+        this.isRecommendationSavedData = false;
+        this.recommendationData = response.response;
+      },
+      error: error => {
+        this.isRecommendationData = false;
+      }
+    });
   }
 
   previous(): void {
@@ -242,9 +220,9 @@ export class MarketingAnalysisComponent implements OnInit {
   }
 
   next() {
-    debugger;
     this.submitted = false;
     const formData = this.marketingForm.value;
+    console.log(formData)
     if (this.activePageIndex == 0) {
       if (!formData.industry || !formData.location || !formData.targetMarket || !formData.productService) {
         this.submitted = true;
@@ -266,12 +244,40 @@ export class MarketingAnalysisComponent implements OnInit {
     this.activePageIndex++;
   }
 
+  saveRecommadation() {
+    if (!this.isFromSavedData) {
+      this.foundersToolsService.getAnalysisList('marketing_analysis').subscribe({
+        next: response => {
+          this.isRecommendationQuestion = false;
+          this.isRecommendationData = false;
+          this.isRecommendationSavedData = true;
+          this.recommadationSavedQuestionList = response.data;
+        },
+        error: error => {
+        }
+      });
+    }
+  }
+
+  showRecommandationData(data: string) {
+    this.isRecommendationQuestion = false;
+    this.isRecommendationData = true;
+    this.isRecommendationSavedData = false;
+    this.isFromSavedData = true;
+    this.recommendationData = data;
+  }
+
+
+
+
   resetRecommendation() {
-    this.fundListService.resetRecommendation().subscribe(res => {
-      this.enableModule = false;
-      this.selectedData = {};
+    this.foundersToolsService.resetRecommendation().subscribe(res => {
+      this.isRecommendationQuestion = true;
+      this.isRecommendationData = false;
+      this.isRecommendationSavedData = false;
+      this.marketingForm.reset();
       this.activePageIndex = 0;
-      this.data.favourite = 0;
+      this.isFromSavedData = false;
     });
   }
 

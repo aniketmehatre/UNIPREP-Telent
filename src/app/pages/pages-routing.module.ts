@@ -40,6 +40,7 @@ import { JobPreparationComponent } from './jobinterviewpreparation/interviewprep
 import { JobPreparedListComponent } from './jobinterviewpreparation/preparedlist/preparedlist.component';
 import { AverageSalaryPreparedListComponent } from './averagesalaryestimator/preparedlist/preparedlist.component';
 import { AverageSalaryComponent } from './averagesalaryestimator/averagesalaryestimator.component';
+import { FundListGuidlinesComponent } from './fund-list-guidelines/fund-list-guidlines.component';
 
 const routes: Routes = [
     {
@@ -175,6 +176,10 @@ const routes: Routes = [
             {
                 path: 'scholarship-guidlines',
                 component: ScholarshipListGuidlinesComponent
+            },
+            {
+                path: 'funding-guidlines',
+                component: FundListGuidlinesComponent
             },
             {
                 path: 'investor-guidlines',
