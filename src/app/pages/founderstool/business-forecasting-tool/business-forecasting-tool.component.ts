@@ -16,13 +16,13 @@ import { selectList } from '../marketing-analysis/marketing-analysis.component';
 })
 export class BusinessForecastingToolComponent implements OnInit {
   locationList: any[] = [];
-  targetMarketList: selectList[] = [];
-  productServiceList: selectList[] = [];
-  businessModelList: selectList[] = [];
-  salesChannelsList: selectList[] = [];
-  timeFramesList: selectList[] = [];
-  revenueStreamsList: selectList[] = [];
-  competitorList: selectList[] = [];
+  seasonsList: any[] = [{ name: 'Sample Seaons' }];
+  factorsList: selectList[] = [{ name: 'Sample Seaons' }];
+  targetAudienceList: selectList[] = [{ name: 'Sample Seaons' }];
+  assumptionsList: selectList[] = [{ name: 'Sample Seaons' }];
+  upComingMarketList: selectList[] = [{ name: 'Sample Seaons' }];
+  durationList: selectList[] = [{ name: 'Sample Seaons' }];
+  analyseList: selectList[] = [{ name: 'Sample Seaons' }];
   isFromSavedData: boolean = false;
   recommadationSavedQuestionList: any = [];
   page = 1;
@@ -30,7 +30,7 @@ export class BusinessForecastingToolComponent implements OnInit {
   first: number = 0;
   planExpired!: boolean;
   recommendRestrict: boolean = false;
-  marketingForm: FormGroup = new FormGroup({});
+  form: FormGroup = new FormGroup({});
   restrict: boolean = false;
   currentPlan: string = "";
   ehitlabelIsShow: boolean = true;
@@ -47,32 +47,7 @@ export class BusinessForecastingToolComponent implements OnInit {
   isRecommendationData: boolean = false;
   isRecommendationSavedData: boolean = false;
   recommendationData: string = '';
-  constructor(
-    private fb: FormBuilder,
-    private foundersToolsService: FounderstoolService,
-    private locationService: LocationService,
-    private toast: MessageService,
-    private authService: AuthService,
-    private router: Router,
-    private dataService: DataService,
-    private pageFacade: PageFacadeService
-  ) {
-    this.marketingForm = this.fb.group({
-      industry: ['', Validators.required],
-      location: ['', Validators.required],
-      targetMarket: ['', Validators.required],
-      productService: ['', Validators.required],
-      businessModel: ['', Validators.required],
-      salesChannel: ['', Validators.required],
-      timeFrame: ['', Validators.required],
-      budget: ['', Validators.required],
-      revenueStreams: ['', Validators.required],
-      competitorAnalysis: ['', Validators.required],
-      currencycode: ['']
-    });
-
-  }
-
+  isSessonEnable: boolean = false;
   enableModule: boolean = true;
   activePageIndex: number = 0;
   recommendations: any = [
@@ -80,26 +55,56 @@ export class BusinessForecastingToolComponent implements OnInit {
       id: 1,
       question: {
         heading: 'Basic Information',
-        branches: ["What is Your Industry", "Where are you located", "What is the Target Market", "Is your business a product/service"]
+        branches: ["What is your industry?",
+          "Does your business have seasonal functionalities?",
+          "What are the seasons?",
+          "What are the key factors influencing your revenue?"]
       },
     },
     {
       id: 2,
       question: {
         heading: 'Marketing & Sales',
-        branches: ["What is Your Business Model?", "Where are you sales channel?", "Select the analysis time frame"]
+        branches: ["Who are your target audience?",
+          "What assumptions are you making about business growth?",
+          "Are there any current or upcoming market trends affecting revenue?"]
       },
     },
     {
       id: 3,
       question: {
-        heading: 'Finance',
-        branches: ["What is your budget for marketing", "what are your revenue streams", "what is your competitor analysis focus?"]
+        heading: 'Analysis',
+        branches: ["Revenue forecast timeframe",
+          "What are your specific revenue targets for the forecast period?",
+          "How much data do you have to analyze for your forecast?"]
       },
     },
   ];
   invalidClass: boolean = false;
   selectedData: { [key: string]: any } = {};
+  constructor(
+    private fb: FormBuilder,
+    private foundersToolsService: FounderstoolService,
+    private locationService: LocationService,
+    private authService: AuthService,
+    private router: Router,
+    private pageFacade: PageFacadeService
+  ) {
+    this.form = this.fb.group({
+      industry: ['', Validators.required],
+      seasons: [[]],
+      factors: [[], Validators.required],
+      target_audience: [[], Validators.required],
+      assumptions: [[], Validators.required],
+      upcoming_market: ['', Validators.required],
+      duration: ['', Validators.required],
+      currency_code: ['', Validators.required],
+      forecast_peroid: ['', Validators.required],
+      analyse: [[], Validators.required],
+    });
+
+  }
+
 
   ngOnInit(): void {
     this.locationService.getImage().subscribe(imageUrl => {
@@ -114,7 +119,7 @@ export class BusinessForecastingToolComponent implements OnInit {
     } else {
       this.ehitlabelIsShow = false;
     }
-    this.getMarketAnalysisLists();
+    this.getForeCastingOptionLists();
     this.getCurrenyandCountry();
   }
 
@@ -122,16 +127,16 @@ export class BusinessForecastingToolComponent implements OnInit {
     this.router.navigateByUrl('/pages/founder-tools');
   }
 
-  getMarketAnalysisLists() {
+  getForeCastingOptionLists() {
     this.foundersToolsService.getmarketingAnaylsisOptionsList().subscribe((res: any) => {
-      console.log(res);
-      this.competitorList = res?.competitor;
-      this.timeFramesList = res?.duration;
-      this.targetMarketList = res?.market;
-      this.businessModelList = res?.models;
-      this.productServiceList = res?.productservice;
-      this.revenueStreamsList = res?.revenuestreams;
-      this.salesChannelsList = res?.saleschannel;
+      // console.log(res);
+      // this.seasonsList = res?.seasons;
+      // this.factorsList = res?.competitor;
+      // this.targetAudienceList = res?.market;
+      // this.assumptionsList = res?.models;
+      // this.upComingMarketList = res?.productservice;
+      // this.durationList = res?.revenuestreams;
+      // this.analyseList = res?.saleschannel;
     });
   }
 
@@ -193,7 +198,7 @@ export class BusinessForecastingToolComponent implements OnInit {
       return;
     }
     let data: any = {
-      ...this.marketingForm.value,
+      ...this.form.value,
       mode: 'business_forecasting_tool'
     }
     this.foundersToolsService.getChatgptRecommendations(data).subscribe({
@@ -218,22 +223,22 @@ export class BusinessForecastingToolComponent implements OnInit {
 
   next() {
     this.submitted = false;
-    const formData = this.marketingForm.value;
+    const formData = this.form.value;
     console.log(formData)
     if (this.activePageIndex == 0) {
-      if (!formData.industry || !formData.location || !formData.targetMarket || !formData.productService) {
+      if (!formData.industry || (!formData.seasons && this.isSessonEnable) || !formData.factors) {
         this.submitted = true;
         return;
       }
     }
     if (this.activePageIndex == 1) {
-      if (!formData.businessModel || !formData.salesChannel || !formData.timeFrame) {
+      if (!formData.target_audience || !formData.assumptions || !formData.upcoming_market) {
         this.submitted = true;
         return;
       }
     }
     if (this.activePageIndex == 2) {
-      if (!formData.budget || !formData.revenueStreams || !formData.competitorAnalysis) {
+      if (!formData.duration || !formData.forecast_peroid || !formData.analyse) {
         this.submitted = true;
         return;
       }
@@ -265,6 +270,19 @@ export class BusinessForecastingToolComponent implements OnInit {
   }
 
 
+  onEnableDisableSeason(isSeasonEnable: boolean) {
+    console.log(this.form.controls?.['factors']); // Debugging line, ensure this is intentional
+    this.isSessonEnable = isSeasonEnable;
+
+    if (this.isSessonEnable) {
+      this.form.controls?.['seasons'].addValidators(Validators.required);
+      this.form.controls?.['seasons'].updateValueAndValidity();
+    } else {
+      this.form.controls?.['seasons'].clearValidators();
+      this.form.controls?.['seasons'].updateValueAndValidity();
+    }
+  }
+
 
 
   resetRecommendation() {
@@ -272,7 +290,7 @@ export class BusinessForecastingToolComponent implements OnInit {
       this.isRecommendationQuestion = true;
       this.isRecommendationData = false;
       this.isRecommendationSavedData = false;
-      this.marketingForm.reset();
+      this.form.reset();
       this.activePageIndex = 0;
       this.isFromSavedData = false;
     });

@@ -88,9 +88,9 @@
             <div class="d-flex gap-2 align-items-center">
               <input type="checkbox" class="me-0" [(ngModel)]="selectAllCheckboxes" (click)="selectAllCheckbox()" id="selectAllcheckbox" />
               <label class="text-small fw-semibold" for="selectAllcheckbox" style="cursor: pointer">Select All</label>
-              <span class="text-small fw-semibold">Selected : {{ selectedScholarship }}</span>
+              <span class="text-small fw-semibold">Selected : {{ selectedFund }}</span>
             </div>
-            <span class="text-muted fw-semibold text-small">Total Scholarship : {{ totalScholarShipCount || 0}}</span>
+            <span class="text-muted fw-semibold text-small">Total Funds: {{ totalFundCount || 0}}</span>
           </div>
         </div>
 			</div>
@@ -116,7 +116,7 @@
 							</div>
 						</div>
 						<div class="d-flex justify-content-end gap-2">
-							<button class="btn btn-gray text-small btn-rounded" (click)="scholarGuidlines()" type="button">Scholarship Guidelines</button>
+							<button class="btn btn-gray text-small btn-rounded" (click)="fundingGuidlines()" type="button">Fund Guidelines</button>
 							<button *ngIf="ehitlabelIsShow" class="btn btn-secondary text-small btn-rounded" (click)="buyCredits()" type="button">Buy Credits</button>
 							<button class="btn btn-outline-primary text-small btn-rounded d-flex gap-2 align-items-center" (click)="exportData()" type="button">
 								Export <span class="btn-icon text-white">{{ exportCreditCount }}</span>
@@ -141,7 +141,7 @@
 							<button class="btn btn-primary text-small btn-rounded" (click)="filterBy()" type="button">Filter by</button>
 							<div class="pe-2">
 								<span class="text-muted text-small"
-									><strong>Total Scholarship : {{ totalScholarShipCount || 0}}</strong></span
+									><strong>Total Funds: {{ totalFundCount || 0}}</strong></span
 								>
 							</div>
 						</div>
@@ -164,7 +164,7 @@
 											<div class=" fw-bold">{{ fundData.name }}</div>
 										</a>
 									</div>
-									<i class="text-danger" role="button" [class]="fundData.isFavorite == 1 ? 'fa-solid fa-heart' : 'fa-regular fa-heart'" (click)="bookmarkQuestion(scholarshipData.id, scholarshipData.favourite)"></i>
+									<i class="text-danger" role="button" [class]="fundData.isFavorite == 1 ? 'fa-solid fa-heart' : 'fa-regular fa-heart'" (click)="bookmarkQuestion(fundData.id, fundData.favourite)"></i>
 								</div>
 
 								<div>
@@ -262,7 +262,7 @@
 						<label class="form-label" style="font-size: medium; font-weight: 500">Filter by Fund Type</label>
 						<div class="form-group">
 							<div class="mb-3">
-								<p-multiSelect [options]="fundTypeList" styleClass="w-100" formControlName="type" optionValue="id" placeholder="Select  Scholarship Type" optionLabel="type" class="filterInput" [appendTo]="'body'"> </p-multiSelect>
+								<p-multiSelect [options]="fundTypeList" styleClass="w-100" formControlName="type" optionValue="id" placeholder="Select Fund Type" optionLabel="funding_type_name" class="filterInput" [appendTo]="'body'"> </p-multiSelect>
 							</div>
 						</div>
 					</div>

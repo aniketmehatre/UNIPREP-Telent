@@ -118,7 +118,7 @@ export class FounderstoolService {
 
   addFavFundData(Fund_id: any, user_id: any, fav: any) {
     let params = {
-      Fund_id: Fund_id,
+      govtfund_id: Fund_id,
       user_id: user_id,
       updateFavourite: fav
     }

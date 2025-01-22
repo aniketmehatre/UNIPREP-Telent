@@ -65,7 +65,7 @@
                   formControlName="targetMarket" optionLabel="name"
                   optionValue="name" [appendTo]="'body'" placeholder="Enter your TargetMarket">
               </p-multiSelect>
-              <p class="text-center" [ngClass]="{ 'd-none': invalidClass === false }"
+              <p class="text-center" *ngIf="marketingForm.get('targetMarket')?.errors?.required && submitted"
                   style="color: red">Please Choose Any one option</p>
                 </div>
                 <div class="d-flex flex-column gap-2 mb-1">
