@@ -4,7 +4,7 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { StoreModule } from '@ngrx/store';
-import { RouterModule } from '@angular/router'; // Import RouterModule
+import { RouterModule } from '@angular/router';
 
 import { pagesReducer } from './pages/store/pages.reducer';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
@@ -40,26 +40,15 @@ import { LandingComponent } from './pages/landing/landing.component';
 import { BlogdetailComponent } from './pages/blogdetail/blogdetail.component';
 import { BloglistComponent } from './pages/bloglist/bloglist.component';
 import { GoogleLoginProvider, SocialAuthServiceConfig, SocialLoginModule } from '@abacritt/angularx-social-login';
-// import {FacebookInitService} from "./Auth/facebook-init.service";
-// import {FacebookModule} from "ngx-facebook";
-// import {NgxLinkedinModule} from "ngx-linkedin";
 import { PrivacyComponent } from './pages/privacy/privacy.component';
 import { FacebookLoginProvider } from "angularx-social-login";
-// import {NgxLinkedinModule} from "ngx-linkedin";
 import { MetaModule } from "@ngx-meta/core";
 import { EnterpriseSubscriptionService } from './components/enterprise-subscription/enterprise-subscription.service';
 import { EnterpriseSubscriptionComponent } from './components/enterprise-subscription/enterprise-subscription.component';
 import { DeviceDetectorService } from "ngx-device-detector";
 import { PaginatorModule } from 'primeng/paginator';
 import { SharedModule } from "./shared/shared.module";
-
-const reducers = {
-  pageSelector: pagesReducer
-}
-
-// export function initFacebook(facebookInitService: FacebookInitService) {
-//     return () => facebookInitService.init();
-// }
+import { ChartsModule } from 'ng2-charts'; // Ensure compatibility with Angular 16
 
 const ngxLocalstorageConfiguration: NgxLocalstorageConfiguration = {
   delimiter: '@',
@@ -86,7 +75,7 @@ export function tokenGetter() {
     BrowserModule,
     BrowserAnimationsModule,
     AppRoutingModule,
-    StoreModule.forRoot(reducers, {}),
+    StoreModule.forRoot({ pages: pagesReducer })
     AuthModule,
     HttpClientModule,
     ToastModule,
@@ -117,24 +106,14 @@ export function tokenGetter() {
     ToastModule,
     PaginatorModule,
     SocialLoginModule,
-    // FacebookModule.forRoot(),
-    // NgxLinkedinModule.forRoot({
-    //     clientId: environment.linkedinId
-    // }),
     MetaModule.forRoot(),
     SharedModule,
     SkeletonModule,
-    RouterModule
+    RouterModule,
+    ChartsModule
   ],
   providers: [
     DeviceDetectorService,
-    // FacebookInitService,
-    // {
-    //     provide: APP_INITIALIZER,
-    //     useFactory: initFacebook,
-    //     deps: [FacebookInitService],
-    //     multi: true,
-    // },
     DatePipe,
     AuthService,
     EnterpriseSubscriptionService,
@@ -167,7 +146,6 @@ export function tokenGetter() {
       } as SocialAuthServiceConfig,
     },
   ],
-  bootstrap: [AppComponent],
-  // entryComponents: [ModalComponent]
+  bootstrap: [AppComponent]
 })
 export class AppModule { }
