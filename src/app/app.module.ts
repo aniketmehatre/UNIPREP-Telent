@@ -43,7 +43,6 @@ import { GoogleLoginProvider, SocialAuthServiceConfig, SocialLoginModule } from 
 // import {FacebookInitService} from "./Auth/facebook-init.service";
 // import {FacebookModule} from "ngx-facebook";
 // import {NgxLinkedinModule} from "ngx-linkedin";
-<<<<<<< HEAD
 import {PrivacyComponent} from './pages/privacy/privacy.component';
 import {FacebookLoginProvider} from "angularx-social-login";
 import {NgxLinkedinModule} from "ngx-linkedin";
@@ -58,17 +57,15 @@ import { NgxStripeModule } from 'ngx-stripe';
 import {TestComponent} from "./pages/test/test.component";
 
 
-=======
 import { PrivacyComponent } from './pages/privacy/privacy.component';
 import { FacebookLoginProvider } from "angularx-social-login";
 // import {NgxLinkedinModule} from "ngx-linkedin";
 import { MetaModule } from "@ngx-meta/core";
 import { EnterpriseSubscriptionService } from './components/enterprise-subscription/enterprise-subscription.service';
-import { EnterpriseSubscriptionComponent } from './components/enterprise-subscription/enterprise-subscription.component';
 import { DeviceDetectorService } from "ngx-device-detector";
 import { PaginatorModule } from 'primeng/paginator';
 import { SharedModule } from "./shared/shared.module";
->>>>>>> pre-prod-new
+
 
 const reducers = {
   pageSelector: pagesReducer
@@ -89,63 +86,8 @@ export function tokenGetter() {
 
 @NgModule({
   declarations: [
-<<<<<<< HEAD
       AppComponent, LandingComponent, ModalComponent, ScrollToBottomDirective, PrivacyComponent,
-      EnterpriseSubscriptionComponent, BlogdetailComponent, BloglistComponent, TestComponent],
-    schemas: [ CUSTOM_ELEMENTS_SCHEMA],
-    imports: [
-        BrowserModule.withServerTransition({ appId: 'serverApp' }),
-        BrowserAnimationsModule,
-        AppRoutingModule,
-        StoreModule.forRoot(reducers, {}),
-        AuthModule,
-        HttpClientModule,
-        ToastModule,
-        StoreDevtoolsModule.instrument({maxAge: 25, logOnly: environment.production}),
-        EffectsModule.forRoot([]),
-        JwtModule.forRoot({
-            config: {
-                tokenGetter: tokenGetter,
-                allowedDomains: [environment.domain],
-                disallowedRoutes: [],
-            },
-        }),
-        NgxUiLoaderModule,
-        CountdownModule,
-        AvatarModule,
-        DropdownModule,
-        ButtonModule,
-        InputTextModule,
-        ReactiveFormsModule,
-        InputTextareaModule,
-        OverlayPanelModule,
-        DialogModule,
-        CardModule,
-        FormsModule,
-        TooltipModule,
-        PipesModule,
-        ConfirmDialogModule,
-        ToastModule,
-        PaginatorModule,
-       SocialLoginModule,
-        // FacebookModule.forRoot(),
-        NgxLinkedinModule.forRoot({
-            clientId: environment.linkedinId
-        }),
-        MetaModule.forRoot(),
-        SharedModule,
-        SkeletonModule,
-    ],
-=======
-    AppComponent,
-    LandingComponent,
-    ModalComponent,
-    ScrollToBottomDirective,
-    PrivacyComponent,
-    EnterpriseSubscriptionComponent,
-    BlogdetailComponent,
-    BloglistComponent
-  ],
+      EnterpriseSubscriptionComponent, BlogdetailComponent, BloglistComponent],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
   imports: [
     BrowserModule,
@@ -191,7 +133,7 @@ export function tokenGetter() {
     SkeletonModule,
     RouterModule
   ],
->>>>>>> pre-prod-new
+
   providers: [
     DeviceDetectorService,
     // FacebookInitService,
