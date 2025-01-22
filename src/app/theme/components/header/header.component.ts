@@ -119,6 +119,9 @@ export class HeaderComponent implements OnInit, OnDestroy {
   currentUserSubscriptionPlan: string =  '';
   iLearnChallengeData:ILearnChallengeData;
   isUpgradePlanVisible: boolean = false;
+  isILeanrParticipantsVisible: boolean = false;
+  isILearnLiveVisible: boolean = false;
+  isILearnCompletedVisible: boolean = false;
 
   constructor(
     private router: Router,
@@ -153,7 +156,12 @@ export class HeaderComponent implements OnInit, OnDestroy {
     });
     this.assessmentService.iLearnChallengeData$.subscribe((data) => {
       this.iLearnChallengeData = data;
-  })
+    });
+    this.assessmentService.sideMenuiLearnChallengeData$.subscribe((data) => {
+      if(data && this.router.url !== '/pages/assessment/ilearn-challenge') {
+        this.navigateILearnChallenge();
+      }
+    });
   }
 
   loadCountryList() {
@@ -1115,8 +1123,11 @@ export class HeaderComponent implements OnInit, OnDestroy {
   protected readonly count = count;
 
   navigateILearnChallenge() {
+    // const targetUrl = this.currentUserSubscriptionPlan === 'Career' || this.currentUserSubscriptionPlan === 'Entrepreneur' 
+    //   ? item.url: this.authService?.user?.subscription ? '/pages/subscriptions/upgrade-subscription' : '/pages/subscriptions';
+    // this.router.navigateByUrl(targetUrl);
     if (this.currentUserSubscriptionPlan === 'Career' || this.currentUserSubscriptionPlan === 'Entrepreneur') {
-      this.router.navigateByUrl('/pages/assessment/ilearn-challenge');
+      this.isILeanrParticipantsVisible = true;
       return;
     }
     this.isUpgradePlanVisible = true;
@@ -1126,5 +1137,16 @@ export class HeaderComponent implements OnInit, OnDestroy {
     this.isUpgradePlanVisible = false;
     const targetUrl = this.service?.user?.subscription ? '/pages/subscriptions/upgrade-subscription' : '/pages/subscriptions';
     this.router.navigateByUrl(targetUrl);
+  }
+  
+  onClickParticipants() {
+    this.isILeanrParticipantsVisible = false;
+    this.isILearnLiveVisible = true;
+  }
+
+  onClickiLearnChallenge() {
+    this.isILearnLiveVisible = false;
+    this.isILearnCompletedVisible = false;
+    this.router.navigateByUrl('/pages/assessment/ilearn-challenge');
   }
 }

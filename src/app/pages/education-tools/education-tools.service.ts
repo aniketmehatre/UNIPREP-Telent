@@ -1,6 +1,7 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { environment } from '@env/environment';
+import { EducatiionsRec } from 'src/app/@Models/course-navigator.model';
 
 @Injectable({
   providedIn: 'root'
@@ -18,9 +19,8 @@ export class EducationToolsService {
       headers: this.headers,
     });
   }
-  
-  getEduRecommadations(data: any) {
-    return this.http.post<any>(environment.ApiUrl + "/getEduRecommadations", {
+  getDegreeRecommadations(data: any) {
+    return this.http.get<EducatiionsRec[]>(`${environment.ApiUrl}/getDegrees?spec_id=${data.spec_id}&edu_id=${data.edu_id}`, {
       headers: this.headers,
     });
   }

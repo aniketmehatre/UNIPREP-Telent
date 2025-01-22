@@ -13,6 +13,8 @@ export class AssessmentService {
   headers = new HttpHeaders().set("Accept", "application/json");
   iLearnChallenge = new BehaviorSubject<ILearnChallengeData>({ overAllParticipants: 0, currentPosition: 0, isILearn: false });
   iLearnChallengeData$ = this.iLearnChallenge.asObservable();
+  sideMenuiLearnChallenge = new BehaviorSubject<boolean>(false);
+  sideMenuiLearnChallengeData$ = this.sideMenuiLearnChallenge.asObservable();
 
   constructor(
     private http: HttpClient
@@ -45,6 +47,12 @@ export class AssessmentService {
 
   getReviewAssessmentQuizAns(moduleId: string) {
     return this.http.get<UserquizResponseData>(`${environment.ApiUrl}/reviewAssessmentQuizAns?moduleId=${moduleId}`, {
+      headers: this.headers,
+    });
+  }
+
+  updatePopStatus() {
+    return this.http.get<any>(environment.ApiUrl + "/closePopupFlag", {
       headers: this.headers,
     });
   }

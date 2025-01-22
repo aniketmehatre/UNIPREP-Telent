@@ -21,3 +21,12 @@
 .uniprep-secondary {
     color: var(--uniprep-secondary) !important;
 }
+
+@media (min-width: 992px) {
+    .col-lg-8 {
+        width: 64.666667%;
+    }
+    .col-lg-4 {
+        width: 35.333333%;
+    }
+}
