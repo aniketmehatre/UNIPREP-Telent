@@ -33,9 +33,23 @@
                             <div class="col-md-6">
                                 <div class="recommendationinput d-flex flex-column justify-content-center gap-3">
                                     <ng-container *ngIf="recommendation.id == 1">
-                                        <p-dropdown [options]="specializationList" styleClass="w-100"
+                                        <p-dropdown [options]="specializationList" styleClass="w-100" [filter]="true"
                                             [(ngModel)]="selectedData[recommendation.id]" optionLabel="specialization_name"
-                                            optionValue="specialization_name" [appendTo]="'body'" placeholder="Specialization">
+                                            optionValue="id" [appendTo]="'body'" placeholder="Specialization">
+                                            <ng-template pTemplate="filter" let-options="options">
+                                                <div class="d-flex gap-2">
+                                                    <div class="p-inputgroup" (click)="$event.stopPropagation()">
+                                                        <span class="p-inputgroup-addon">
+                                                            <i class="pi pi-search"></i></span>
+                                                        <input type="text" pInputText placeholder="Filter"
+                                                            [(ngModel)]="specializationFilter"
+                                                            (keyup)="customFilterFunction()" />
+                                                    </div>
+                                                    <button pButton icon="pi pi-times" class="btn btn-primary"
+                                                        (click)="resetFunction()"
+                                                        severity="secondary"></button>
+                                                </div>
+                                            </ng-template>
                                         </p-dropdown>
                                         <p class="text-center" [ngClass]="{ 'd-none': invalidClass === false }"
                                             style="color: red">Please Choose Any one option</p>
@@ -43,7 +57,7 @@
                                     <ng-container *ngIf="recommendation.id == 2">
                                         <p-dropdown [options]="DegreeList" styleClass="w-100"
                                             [(ngModel)]="selectedData[recommendation.id]" optionLabel="name"
-                                            optionValue="name" [appendTo]="'body'" placeholder="Your Degree">
+                                            optionValue="id" [appendTo]="'body'" placeholder="Your Degree">
                                         </p-dropdown>
                                         <p class="text-center" [ngClass]="{ 'd-none': invalidClass === false }"
                                             style="color: red">Please Choose Any one option</p>
@@ -62,7 +76,7 @@
                                 <span class="me-2">Next</span><span class="btn-icon px-2 py-2"><i
                                         class="fa fa-arrow-right"></i></span>
                             </button>
-                            <button pButton type="button" (click)="getRecommendation()" *ngIf="recommendation.id == 2"
+                            <button pButton type="button" (click)="next(recommendation.id)" *ngIf="recommendation.id == 2"
                                 class="btn btn-success btn-rounded p-1 ps-4">
                                 <span class="me-2">Get Recommendations</span><span class="btn-icon px-2 py-2"><i
                                         class="fa fa-check-circle"></i></span>

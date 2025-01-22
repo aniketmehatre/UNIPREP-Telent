@@ -118,7 +118,8 @@ export class HeaderComponent implements OnInit, OnDestroy {
 
   currentUserSubscriptionPlan: string =  '';
   iLearnChallengeData:ILearnChallengeData;
-  
+  isUpgradePlanVisible: boolean = false;
+
   constructor(
     private router: Router,
     private locationService: LocationService,
@@ -1114,8 +1115,16 @@ export class HeaderComponent implements OnInit, OnDestroy {
   protected readonly count = count;
 
   navigateILearnChallenge() {
-    const targetUrl = this.currentUserSubscriptionPlan === 'Career' || this.currentUserSubscriptionPlan === 'Entrepreneur' 
-    ? '/pages/assessment/ilearn-challenge': this.service?.user?.subscription ? '/pages/subscriptions/upgrade-subscription' : '/pages/subscriptions';
+    if (this.currentUserSubscriptionPlan === 'Career' || this.currentUserSubscriptionPlan === 'Entrepreneur') {
+      this.router.navigateByUrl('/pages/assessment/ilearn-challenge');
+      return;
+    }
+    this.isUpgradePlanVisible = true;
+  }
+
+  onSubscribe() {
+    this.isUpgradePlanVisible = false;
+    const targetUrl = this.service?.user?.subscription ? '/pages/subscriptions/upgrade-subscription' : '/pages/subscriptions';
     this.router.navigateByUrl(targetUrl);
   }
 }

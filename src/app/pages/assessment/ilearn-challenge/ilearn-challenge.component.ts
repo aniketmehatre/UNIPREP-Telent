@@ -23,7 +23,11 @@ export class IlearnChallengeComponent implements OnInit, OnDestroy {
   isInstruction: boolean = false;
   pdfURL: any;
   contestRulePdfURL: any;
-
+  groupList: { id: number, name: string }[] = [
+    { id: 1, name: 'Group 1' },
+    { id: 2, name: 'Group 2' },
+    { id: 3, name: 'Group 3' }
+  ]
   constructor(
     private assessmentService: AssessmentService,
     private authService: AuthService,
