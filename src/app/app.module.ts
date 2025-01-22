@@ -43,29 +43,15 @@ import { GoogleLoginProvider, SocialAuthServiceConfig, SocialLoginModule } from 
 // import {FacebookInitService} from "./Auth/facebook-init.service";
 // import {FacebookModule} from "ngx-facebook";
 // import {NgxLinkedinModule} from "ngx-linkedin";
-import {PrivacyComponent} from './pages/privacy/privacy.component';
-import {FacebookLoginProvider} from "angularx-social-login";
-import {NgxLinkedinModule} from "ngx-linkedin";
-import {MetaModule} from "@ngx-meta/core";
-import {EnterpriseSubscriptionService} from './components/enterprise-subscription/enterprise-subscription.service';
-import {EnterpriseSubscriptionComponent} from './components/enterprise-subscription/enterprise-subscription.component';
-import {DeviceDetectorService} from "ngx-device-detector";
-import {PaginatorModule} from 'primeng/paginator';
-import {RestrictionDialogComponent} from './shared/restriction-dialog/restriction-dialog.component';
-import {SharedModule} from "./shared/shared.module";
-import { NgxStripeModule } from 'ngx-stripe';
-import {TestComponent} from "./pages/test/test.component";
-
-
 import { PrivacyComponent } from './pages/privacy/privacy.component';
 import { FacebookLoginProvider } from "angularx-social-login";
 // import {NgxLinkedinModule} from "ngx-linkedin";
 import { MetaModule } from "@ngx-meta/core";
 import { EnterpriseSubscriptionService } from './components/enterprise-subscription/enterprise-subscription.service';
+import { EnterpriseSubscriptionComponent } from './components/enterprise-subscription/enterprise-subscription.component';
 import { DeviceDetectorService } from "ngx-device-detector";
 import { PaginatorModule } from 'primeng/paginator';
 import { SharedModule } from "./shared/shared.module";
-
 
 const reducers = {
   pageSelector: pagesReducer
@@ -86,8 +72,15 @@ export function tokenGetter() {
 
 @NgModule({
   declarations: [
-      AppComponent, LandingComponent, ModalComponent, ScrollToBottomDirective, PrivacyComponent,
-      EnterpriseSubscriptionComponent, BlogdetailComponent, BloglistComponent],
+    AppComponent,
+    LandingComponent,
+    ModalComponent,
+    ScrollToBottomDirective,
+    PrivacyComponent,
+    EnterpriseSubscriptionComponent,
+    BlogdetailComponent,
+    BloglistComponent
+  ],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
   imports: [
     BrowserModule,
@@ -133,7 +126,6 @@ export function tokenGetter() {
     SkeletonModule,
     RouterModule
   ],
-
   providers: [
     DeviceDetectorService,
     // FacebookInitService,
