@@ -67,6 +67,9 @@ export class LoginComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit() {
+    if (this.service.isTokenValid()) {
+      this.route.navigate(['/pages/dashboard']); // Redirect to dashboard
+    }
     this.locationService.getImage().subscribe(imageUrl => {
       this.imageUrlWhitelabel = imageUrl;
     });
@@ -90,7 +93,8 @@ export class LoginComponent implements OnInit, OnDestroy {
             if(data.status == 'error'){
               this.toast.add({ severity: 'error', summary: 'Error', detail: data });
               return;
-            }
+            }          
+            this.service.saveToken(data.token);
             this.storage.set(environment.tokenKey, data.token);
             this.service.getMe().subscribe((data) => {
                   this.loadCountryList(data);
@@ -124,7 +128,8 @@ export class LoginComponent implements OnInit, OnDestroy {
       }
 
       this.dataService.showTimerInHeader(loggedIn);
-      this.subs.sink = this.service!.getMe().subscribe((data) => {
+      this.subs.sink = this.service!.getMe().subscribe((data) => {          
+        this.service.saveToken(data.userdetails[0].token);
         this.loadCountryList(data);
         this.subs.sink = this.service.selectMessage$().subscribe(message => {
           if (message == 'Login Success') {

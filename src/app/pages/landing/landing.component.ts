@@ -4,6 +4,8 @@ import { FormBuilder, FormsModule, ReactiveFormsModule,FormControl,FormGroup,Val
 import {AuthService} from "../../Auth/auth.service";
 import {LocationService} from "../../location.service";
 import { environment } from '@env/environment';
+import { LocalStorageService } from 'ngx-localstorage';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'uni-landing',
@@ -40,7 +42,9 @@ export class LandingComponent implements OnInit {
     this.displaycontactform = true;
   }
 
-  constructor(private themeService: ThemeService , private formbuilder: FormBuilder, private service: LocationService) {
+  constructor(private themeService: ThemeService , private formbuilder: FormBuilder,
+     private service: LocationService, private storage: LocalStorageService,
+    private router: Router, private authService: AuthService) {
     // Initialize the isDarkMode property with the value from the service
     this.isDarkMode = this.themeService.getInitialSwitchState();
   }
@@ -73,9 +77,24 @@ export class LandingComponent implements OnInit {
     }
   }
   timeLeftInfoCard: any
-  ngOnInit() {
-    // this.service.getTimeInfoForCard().subscribe((data) => {
-    //   this.timeLeftInfoCard = localStorage.setItem('time_card_info', data.card_message);
+  ngOnInit() {    
+    if (this.authService.isTokenValid()) {
+      this.router.navigate(['/pages/dashboard']); // Redirect to dashboard
+    }
+    // const token = this.storage.get<string>('token');
+    // let req = {
+    //   token: token
+    // }
+    // console.log('token', token)
+    // this.service.getValidateToken(req).subscribe((data) => {
+    //   console.log('data', data)
+
+    //   if (data.message == 'valid token') {
+    //     console.log('come')
+    //     this.router.navigateByUrl('/login');
+    //   } else {
+    //     this.router.navigateByUrl('/');
+    //   }
     // });
 
     this.service.getFeatBlogs().subscribe((response) => {
