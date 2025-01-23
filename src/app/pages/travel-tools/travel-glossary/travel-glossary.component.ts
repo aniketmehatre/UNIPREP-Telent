@@ -12,7 +12,7 @@ import { Router } from '@angular/router';
 export class TravelGlossaryComponent implements OnInit {
   category_dropdown: { id: any, name: string }[] = [];
   selectedCategoryId: number | null = null;
-  startupglossarylists: any[] = [];
+  travelglossarylists: any[] = [];
   groupedTerms: { [key: string]: any[] } = {};
   valueNearYouFilter: string = '';
   constructor( private sanitizer: DomSanitizer, private router: Router,private pageFacade: PageFacadeService,
@@ -66,11 +66,11 @@ export class TravelGlossaryComponent implements OnInit {
     var val = {
       alphabet: data
     }
-    this.service.getStartUpGlossary(val).subscribe((response) => {
-      this.startupglossarylists = [];
+    this.service.getStravelGlossary(val).subscribe((response) => {
+      this.travelglossarylists = [];
       this.groupedTerms = {};
-      this.startupglossarylists = response.startupglossary;
-      this.startupglossarylists.forEach(item => {
+      this.travelglossarylists = response.travelglossary;
+      this.travelglossarylists.forEach(item => {
         if (!this.groupedTerms[item.alphabet]) {
           this.groupedTerms[item.alphabet] = [];
         }
@@ -83,7 +83,7 @@ export class TravelGlossaryComponent implements OnInit {
     this.router.navigate(['/pages/travel-tools']);
   }
   // performSearch() {
-  //   const filteredData = this.startupglossarylists.filter((item: any) => {
+  //   const filteredData = this.travelglossarylists.filter((item: any) => {
   //     return item.glossaryterm.toLowerCase().includes(this.valueNearYouFilter.toLowerCase());
   //   });
   //   this.groupedTerms = {};
@@ -96,7 +96,7 @@ export class TravelGlossaryComponent implements OnInit {
   // }
   performSearch() {
     const searchValue = this.valueNearYouFilter.toLowerCase();
-    const filteredData = this.startupglossarylists.filter((item: any) => {
+    const filteredData = this.travelglossarylists.filter((item: any) => {
       return (
         item.glossaryterm?.toLowerCase().includes(searchValue) ||
       item.summary?.toLowerCase().includes(searchValue) ||

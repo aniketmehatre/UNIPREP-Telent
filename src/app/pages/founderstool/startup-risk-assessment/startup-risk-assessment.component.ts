@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder } from '@angular/forms';
+import { FounderstoolService } from '../founderstool.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'uni-startup-risk-assessment',
@@ -29,25 +31,35 @@ export class StartupRiskAssessmentComponent implements OnInit {
   competitiveMarketList = [{
     id: 1, name: 'option'
   }];
+  isRecommendationQuestion: boolean = true;
+  isRecommendationData: boolean = false;
+  isRecommendationSavedData: boolean = false;
+  recommadationSavedQuestionList: any = [];
+  recommendationData: string = '';
   activePageIndex: number = 0;
   form: FormGroup;
   inValidClass: boolean = false;
   selectedData: { [key: string]: any } = {};
   enableModule: boolean = false;
-  src = 'https://vadimdez.github.io/ng2-pdf-viewer/assets/pdf-test.pdf';
+  isFromSavedData: boolean = false;
   constructor(
     private fb: FormBuilder,
+    private founderToolService: FounderstoolService,
+    private router: Router
   ) { }
 
   ngOnInit(): void {
-    // this.form = this.fb.group({
-    //   business_type: ["", [Validators.required]],
-    //   business_primary_goals: ["", [Validators.required]],
-    //   business_time: ["", [Validators.required]],
-    //   business_challenges: ["", [Validators.required]],
-    //   ideal_customers: ["", [Validators.required]],
-    //   business_budget: ["", [Validators.required]],
-    // });
+    this.getStartUpRiskAssesmentOptionsList();
+  }
+
+  getStartUpRiskAssesmentOptionsList() {
+    this.founderToolService.getStartUpRiskAssesmentOptionsList().subscribe((res: any) => {
+      console.log(res);
+      this.competitiveMarketList = res?.competitive;
+      this.financialStatusList = res?.financialstatus;
+      this.businessModelList = res?.models;
+      this.startupStageList = res?.stages;
+    });
   }
 
   previous(): void {
@@ -66,5 +78,66 @@ export class StartupRiskAssessmentComponent implements OnInit {
     } else {
       this.inValidClass = true;
     }
+  }
+
+  getRecommendation() {
+    let data: any = {
+      type: this.selectedData[1],
+      model: this.selectedData[2],
+      stage: this.selectedData[3],
+      risks: this.selectedData[4],
+      financial_status: this.selectedData[5],
+      competitive_market: this.selectedData[6],
+      customers: this.selectedData[7],
+      budget: this.selectedData[8],
+      mode: 'startup_risk_assessment'
+    }
+    this.founderToolService.getChatgptRecommendations(data).subscribe({
+      next: response => {
+        this.isRecommendationQuestion = false;
+        this.isRecommendationData = true;
+        this.isRecommendationSavedData = false;
+        this.recommendationData = response.response;
+      },
+      error: error => {
+        this.isRecommendationData = false;
+      }
+    });
+  }
+
+  resetRecommendation() {
+    this.activePageIndex = 0;
+    this.selectedData = { 3: 1 };
+    this.isRecommendationQuestion = true;
+    this.isRecommendationData = false;
+    this.isRecommendationSavedData = false;
+    this.isFromSavedData = false;
+  }
+
+  saveRecommadation() {
+    if (!this.isFromSavedData) {
+      this.founderToolService.getAnalysisList('startup_risk_assessment').subscribe({
+        next: response => {
+          this.isRecommendationQuestion = false;
+          this.isRecommendationData = false;
+          this.isRecommendationSavedData = true;
+          this.recommadationSavedQuestionList = response.data;
+        },
+        error: error => {
+        }
+      });
+    }
+  }
+
+  showRecommandationData(data: string) {
+    this.isRecommendationQuestion = false;
+    this.isRecommendationData = true;
+    this.isRecommendationSavedData = false;
+    this.isFromSavedData = true;
+    this.recommendationData = data;
+  }
+
+  goBack() {
+    this.router.navigateByUrl('/pages/founder-tools');
   }
 }

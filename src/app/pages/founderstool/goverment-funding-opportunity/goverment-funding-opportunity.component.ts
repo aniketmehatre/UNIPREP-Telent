@@ -19,29 +19,7 @@ import { Country } from 'ngx-intl-tel-input/lib/model/country.model';
 })
 export class GovermentFundingOppurtunityComponent implements OnInit {
 
-  fundData: any[] =
-    [
-      {
-        "id": 1,
-        "name": "Fund Name",
-        "country": "Country Name",
-        "state": "State Name",
-        "website": "https://example.com",
-        "fundType": "Fund Type",
-        "isSelected": true,
-        "isFavorite": 1
-      },
-      {
-        "id": 2,
-        "name": "CSU Alumngive Scholarship",
-        "country": "Country Name",
-        "state": "State Name",
-        "website": "https://example.com",
-        "fundType": "Fund Type",
-        "isSelected": false,
-        "isFavorite": 0
-      }
-    ];
+  fundData: any[] = [];
   countryList: Country[] = [];
   stateList: unknown = [];
   tempCountryList: unknown;
@@ -247,7 +225,7 @@ export class GovermentFundingOppurtunityComponent implements OnInit {
     this.fundListService
       .getFundList(this.data)
       .subscribe((response) => {
-        this.fundData = response.fund;
+        this.fundData = response.governmentfundings;
         this.totalFundCount = response.count;
       });
     this.isFilterVisible = false;
@@ -317,20 +295,22 @@ export class GovermentFundingOppurtunityComponent implements OnInit {
   }
 
   fundingGuidlines(): void {
-    this.router.navigate(["/pages/fund-guidlines"]);
+    this.router.navigate(["/pages/funding-guidlines"]);
   }
+
   GetPersonalProfileData() {
     this.userManagementService.GetUserPersonalInfo().subscribe(data => {
       this.PersonalInfo = data;
     });
   }
-  bookmarkQuestion(FundId: any, isFav: any) {
-    isFav = isFav != '1' ? true : false;
-    this.favCount = isFav == true ? this.favCount + 1 : this.favCount - 1;
 
+  bookmarkQuestion(FundId: any, isFav: any) {
+    console.log(isFav);
+    isFav = isFav != '1' ? true : false;
     this.fundListService.addFavFundData(FundId, this.PersonalInfo.user_id, isFav).subscribe((response) => {
       let fundListData = this.fundData.find(item => item.id == FundId);
       isFav == true ? fundListData.favourite = 1 : fundListData.favourite = null;
+      this.favCount = isFav == true ? this.favCount + 1 : this.favCount - 1;
       this.toast.add({
         severity: "success",
         summary: "Success",
@@ -462,7 +442,7 @@ export class GovermentFundingOppurtunityComponent implements OnInit {
 
   checkUserRecommendation() {
     this.fundListService.getRecommendations().subscribe(res => {
-      if (res.status) {
+      if (res.success) {
         this.enableModule = true;
         this.setRecommendationToForm(res.data);
       } else {

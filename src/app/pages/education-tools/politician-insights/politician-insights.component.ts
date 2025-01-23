@@ -52,6 +52,7 @@ export class PoliticianInsightsComponent implements OnInit, OnDestroy {
   }
 
   pageChange(event: any) {
+    debugger;
     if (this.planExpired) {
       this.restrict = true;
       return;

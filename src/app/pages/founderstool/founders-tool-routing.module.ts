@@ -17,6 +17,8 @@ import { MarketingAnalysisComponent } from './marketing-analysis/marketing-analy
 import { AiBusinessAdvisorComponent } from './ai-business-advisor/ai-business-advisor.component';
 import { StartupRiskAssessmentComponent } from './startup-risk-assessment/startup-risk-assessment.component';
 import { GlobalTravelVisaComponent } from '../travel-tools/global-travel-visa/global-travel-visa.component';
+import { StartUpExpenseEstimateComponent } from './start-up-expense-estimate/start-up-expense-estimate.component';
+import { BusinessForecastingToolComponent } from './business-forecasting-tool/business-forecasting-tool.component';
 
 const routes: Routes = [
   {
@@ -81,6 +83,12 @@ const routes: Routes = [
       },
       {
         path: 'enterpreneur-visa', component: GlobalTravelVisaComponent
+      },
+      {
+        path: 'startup-expense-estimate', component: StartUpExpenseEstimateComponent
+      },
+      {
+        path: 'business-forecasting-tool', component: BusinessForecastingToolComponent
       },
     ]
   }
