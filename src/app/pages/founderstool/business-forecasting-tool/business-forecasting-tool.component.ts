@@ -124,7 +124,7 @@ export class BusinessForecastingToolComponent implements OnInit {
   }
 
   backtoMain() {
-    this.router.navigateByUrl('/pages/founder-tools');
+    this.router.navigateByUrl('/pages/founderstool');
   }
 
   getForeCastingOptionLists() {
@@ -200,7 +200,8 @@ export class BusinessForecastingToolComponent implements OnInit {
     }
     let data: any = {
       ...this.form.value,
-      mode: 'business_forecasting_tool'
+      mode: 'revenue_forescasting_tool',
+      seasonalfunctionality: this.isSessonEnable
     }
     this.foundersToolsService.getChatgptRecommendations(data).subscribe({
       next: response => {
@@ -249,7 +250,7 @@ export class BusinessForecastingToolComponent implements OnInit {
 
   saveRecommadation() {
     if (!this.isFromSavedData) {
-      this.foundersToolsService.getAnalysisList('business_forecasting_tool').subscribe({
+      this.foundersToolsService.getAnalysisList('revenue_forescasting_tool').subscribe({
         next: response => {
           this.isRecommendationQuestion = false;
           this.isRecommendationData = false;
