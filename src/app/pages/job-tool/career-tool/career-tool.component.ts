@@ -19,7 +19,8 @@ export class CareerToolComponent implements OnInit {
       tooltip: "Craft a standout CV that highlights your skills and experience, ready for any job application.",
       imageLink: "https://api.uniprep.ai/uniprepapi/storage/app/public/resources-coverimage/cv.svg",
       refLink: "https://novoresume.com/",
-      mode: "cv-builder"
+      mode: "cv-builder",
+      launch_soon: false
     },
     {
       id: 2,
@@ -28,7 +29,8 @@ export class CareerToolComponent implements OnInit {
       tooltip: "Generate a cover letter that strengthens your job application.",
       imageLink: "https://api.uniprep.ai/uniprepapi/storage/app/public/resources-coverimage/CoverLetter.svg",
       refLink: "https://resumaker.ai/cover-letter/",
-      mode: "coverletter-builder"
+      mode: "coverletter-builder",
+      launch_soon: false
     },
     {
       id: 3,
@@ -37,7 +39,8 @@ export class CareerToolComponent implements OnInit {
       tooltip: "Plan your career path by exploring job opportunities worldwide.",
       imageLink: "https://api.uniprep.ai/uniprepapi/storage/app/public/resume_icons/careerplanner.svg",
       refLink: "",
-      mode: "career-planner"
+      mode: "career-planner",
+      launch_soon: false
     },
     // {
     //   id: 4,
@@ -55,7 +58,8 @@ export class CareerToolComponent implements OnInit {
       tooltip: "Convert and compare salaries globally to understand the value of potential job offers.",
       imageLink: "https://api.uniprep.ai/uniprepapi/storage/app/public/resume_icons/salaryconverter.svg",
       refLink: "",
-      mode: "salary-converter"
+      mode: "salary-converter",
+      launch_soon: false
     },
     {
       id: 6,
@@ -64,7 +68,8 @@ export class CareerToolComponent implements OnInit {
       tooltip: "Access a curated list of companies by industry and location to target your job search effectively.",
       imageLink: "https://api.uniprep.ai/uniprepapi/storage/app/public/resume_icons/companylist.svg",
       refLink: "",
-      mode: "company-list"
+      mode: "company-list",
+      launch_soon: false
     },
     {
       id: 7,
@@ -73,7 +78,8 @@ export class CareerToolComponent implements OnInit {
       tooltip: "Evaluate your aptitudes and personality traits with tests to find careers that best suit your profile.",
       imageLink: environment.production === false ? "https://api.uniprep.ai/uniprepapi/storage/app//public/icon/modules/psychometrictest.svg" : "https://uniprep.ai/uniprepapi/storage/app/public/icon/modules/psychometrictest.svg",
       refLink: "",
-      mode: "psychometric-test"
+      mode: "psychometric-test",
+      launch_soon: false
     },
     {
       id: 8,
@@ -82,7 +88,8 @@ export class CareerToolComponent implements OnInit {
       tooltip: "Discover more about your personality and how it aligns with various career paths.",
       imageLink: environment.production === false ? "https://api.uniprep.ai/uniprepapi/storage/app//public/icon/modules/personalitytest.svg" : "https://uniprep.ai/uniprepapi/storage/app/public/icon/modules/personalitytest.svg",
       refLink: "",
-      mode: "personality-test"
+      mode: "personality-test",
+      launch_soon: false
     },
     {
       id: 9,
@@ -91,7 +98,8 @@ export class CareerToolComponent implements OnInit {
       tooltip: "Prepare for potential employer assessments with practice tests and study guides.",
       imageLink: environment.production === false ? "https://api.uniprep.ai/uniprepapi/storage/app//public/icon/modules/employertest.svg" : "https://uniprep.ai/uniprepapi/storage/app/public/icon/modules/employertest.svg",
       refLink: "",
-      mode: "employer-test"
+      mode: "employer-test",
+      launch_soon: false
     },
     {
       id: 10,
@@ -100,7 +108,8 @@ export class CareerToolComponent implements OnInit {
       tooltip: "Prepare effectively with role-focused guidance and company-centric tips",
       imageLink: environment.production === false ? "https://api.uniprep.ai/uniprepapi/storage/app//public/icon/modules/job-interview.svg" : "https://uniprep.ai/uniprepapi/storage/app/public/icon/modules/job-interview.svg",
       refLink: "",
-      mode: "job-role"
+      mode: "job-role",
+      launch_soon: false
     },
     {
       id: 10,
@@ -109,7 +118,8 @@ export class CareerToolComponent implements OnInit {
       tooltip: "Track your professional development and set goals with our career progression tool.",
       imageLink: environment.production === false ? "https://api.uniprep.ai/uniprepapi/storage/app//public/icon/modules/growth.svg" : "https://uniprep.ai/uniprepapi/storage/app/public/icon/modules/growth.svg",
       refLink: "",
-      mode: "career-growth-checker"
+      mode: "career-growth-checker",
+      launch_soon: false
     },
     {
       id: 11,
@@ -118,7 +128,8 @@ export class CareerToolComponent implements OnInit {
       tooltip: "Discover salary benchmarks and plan your career with our reliable salary estimation tool.",
       imageLink: environment.production === false ? "https://api.uniprep.ai/uniprepapi/storage/app//public/icon/modules/avgsest.png" : "https://uniprep.ai/uniprepapi/storage/app/public/icon/modules/avgsest.png",
       refLink: "",
-      mode: "average-salary-estimator"
+      mode: "average-salary-estimator",
+      launch_soon: true
     },
     {
       id: 12,
@@ -127,7 +138,8 @@ export class CareerToolComponent implements OnInit {
       tooltip: "Track your professional development and set goals with our career progression tool.",
       imageLink: environment.production === false ? "https://api.uniprep.ai/uniprepapi/storage/app//public/icon/modules/growth.svg" : "https://uniprep.ai/uniprepapi/storage/app/public/icon/modules/growth.svg",
       refLink: "",
-      mode: "global-work-visa"
+      mode: "global-work-visa",
+      launch_soon: true
 
     },
     {
@@ -137,7 +149,8 @@ export class CareerToolComponent implements OnInit {
       tooltip: "Evaluate and weigh job offers based on salary, benefits, and growth opportunities.",
       imageLink: environment.production === false ? "https://api.uniprep.ai/uniprepapi/storage/app//public/icon/modules/joc.png" : "https://uniprep.ai/uniprepapi/storage/app/public/icon/modules/joc.png",
       refLink: "",
-      mode: "job-offer-comparison"
+      mode: "job-offer-comparison",
+      launch_soon: true
     }
   ]
 
@@ -158,7 +171,10 @@ export class CareerToolComponent implements OnInit {
   }
 
 
-  chooseOneOption(mode: string) {
+  chooseOneOption(mode: string, launch_soon: any) {
+    if(launch_soon){
+      return launch_soon;
+    }
     this.currentEndpoint = mode;
     if (mode == "cv-builder") {
       this.router.navigate(['/pages/job-tool/cv-builder']);

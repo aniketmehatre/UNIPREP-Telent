@@ -57,3 +57,7 @@
     padding: 1rem; /* Adjust padding for better fit on smaller screens */
   }
 }
+.card.disabled {
+  opacity: 0.6; /* Makes the card appear grayed out */
+  cursor: not-allowed; /* Shows a disabled cursor */
+}
