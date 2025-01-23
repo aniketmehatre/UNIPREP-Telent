@@ -122,6 +122,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
   isILeanrParticipantsVisible: boolean = false;
   isILearnLiveVisible: boolean = false;
   isILearnCompletedVisible: boolean = false;
+  assParticipations: number = 0;
 
   constructor(
     private router: Router,
@@ -158,7 +159,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
       this.iLearnChallengeData = data;
     });
     this.assessmentService.sideMenuiLearnChallengeData$.subscribe((data) => {
-      if(data && this.router.url !== '/pages/assessment/ilearn-challenge') {
+      if(data) {
         this.navigateILearnChallenge();
       }
     });
@@ -1127,7 +1128,28 @@ export class HeaderComponent implements OnInit, OnDestroy {
     //   ? item.url: this.authService?.user?.subscription ? '/pages/subscriptions/upgrade-subscription' : '/pages/subscriptions';
     // this.router.navigateByUrl(targetUrl);
     if (this.currentUserSubscriptionPlan === 'Career' || this.currentUserSubscriptionPlan === 'Entrepreneur') {
-      this.isILeanrParticipantsVisible = true;
+      switch (this.service?._user?.ilearn_popup_status) {
+        case 0: case 1:
+          if(this.router.url !== '/pages/assessment/ilearn-challenge') {
+            this.assessmentService.getAssessmentParticipatingCount().subscribe({
+              next: res => {
+                this.assParticipations = res.cluster_count;
+                this.isILeanrParticipantsVisible = true;
+              }
+            });
+          }
+          break;
+        case 2:
+          if(this.router.url !== '/pages/assessment/ilearn-challenge') {
+            this.isILearnLiveVisible = true;
+          }
+          break;
+        case 3:
+          this.isILearnCompletedVisible = true;
+          break;
+        default: 
+          console.log(this.service?._user?.ilearn_popup_status);
+      }
       return;
     }
     this.isUpgradePlanVisible = true;
@@ -1137,11 +1159,6 @@ export class HeaderComponent implements OnInit, OnDestroy {
     this.isUpgradePlanVisible = false;
     const targetUrl = this.service?.user?.subscription ? '/pages/subscriptions/upgrade-subscription' : '/pages/subscriptions';
     this.router.navigateByUrl(targetUrl);
-  }
-  
-  onClickParticipants() {
-    this.isILeanrParticipantsVisible = false;
-    this.isILearnLiveVisible = true;
   }
 
   onClickiLearnChallenge() {

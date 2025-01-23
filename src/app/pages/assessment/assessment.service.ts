@@ -51,8 +51,8 @@ export class AssessmentService {
     });
   }
 
-  updatePopStatus() {
-    return this.http.get<any>(environment.ApiUrl + "/closePopupFlag", {
+  getAssessmentParticipatingCount() {
+    return this.http.get<{ cluster_count: number }>(environment.ApiUrl + "/clusterCount", {
       headers: this.headers,
     });
   }

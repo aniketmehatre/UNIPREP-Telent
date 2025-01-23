@@ -952,8 +952,8 @@
       <p>Awaiting participants...</p>
       <p>Your challenge being soon.</p>
     </div>
-    <button class="btn btn-outline-secondary btn-rounded" (click)="onClickParticipants()">
-      <span class="text-small fw-normal px-3">{{'45'}}/100 Participants</span>
+    <button class="btn btn-outline-secondary btn-rounded" (click)="isILeanrParticipantsVisible = !isILeanrParticipantsVisible">
+      <span class="text-small fw-normal px-3">{{assParticipations}}/100 Participants</span>
     </button>
   </div>
 </p-dialog>
