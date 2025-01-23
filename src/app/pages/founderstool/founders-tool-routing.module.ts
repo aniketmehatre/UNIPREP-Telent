@@ -76,6 +76,21 @@ const routes: Routes = [
         path: 'startup-failure-stories', component: ComponentStoriesComponent
       },
       {
+        path: 'startup-funding-hacks/:id', component: ComponentStoriesComponent
+      },
+      {
+        path: 'founder-success-stories/:id', component: ComponentStoriesComponent
+      },
+      {
+        path: 'founder-failure-stories/:id', component: ComponentStoriesComponent
+      },
+      {
+        path: 'startup-success-stories/:id', component: ComponentStoriesComponent
+      },
+      {
+        path: 'startup-failure-stories/:id', component: ComponentStoriesComponent
+      },
+      {
         path: 'ai-business-advisor', component: AiBusinessAdvisorComponent
       },
       {
