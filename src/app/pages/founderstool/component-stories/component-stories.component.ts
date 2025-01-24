@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { PageFacadeService } from '../../page-facade.service';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { LocationService } from 'src/app/location.service';
 import { FounderstoolService } from '../founderstool.service';
 import { MessageService } from 'primeng/api';
@@ -13,11 +13,11 @@ import { Meta } from '@angular/platform-browser';
 })
 export class ComponentStoriesComponent implements OnInit {
 
-  constructor(private pageFacade: PageFacadeService,private meta: Meta,  private toast: MessageService, private router: Router, private service: FounderstoolService, private locationService: LocationService) { }
+  constructor(private pageFacade: PageFacadeService,private activatedRoute: ActivatedRoute,private meta: Meta,  private toast: MessageService, private router: Router, private service: FounderstoolService, private locationService: LocationService) { }
   countrylist: any[] = [];
   currentRoute: string = '';
   headertooltipname: any;
-  isShowCountryData: boolean = true;
+  isShowCountryData: boolean = false;
   isShowCountryQuesAns: boolean = false;
   countrydatas: any[] = [];
   modename: any;
@@ -45,6 +45,16 @@ export class ComponentStoriesComponent implements OnInit {
       this.headertooltipname = "Startup Failure Stories"
       this.modename = "startup_failure_stories";
     }
+    this.activatedRoute.params.subscribe(params => {
+      if (params['id']) {
+        this.isShowCountryQuesAns=true;
+        this.isShowCountryData=false;
+        this.getQueAns(params['id'])
+      } else {
+        this.isShowCountryQuesAns=false;
+        this.isShowCountryData=true;
+      }
+    });
   }
   openVideoPopup(videoLink: string) {
     this.pageFacade.openHowitWorksVideoPopup(videoLink);
@@ -58,17 +68,30 @@ export class ComponentStoriesComponent implements OnInit {
     }
   }
   showDatas(data: any) {
-    // get all country ,question, answer api 
+    // get all country ,question, answer api
+    this.questuionanswerlist=[]; 
+    if (this.currentRoute.includes('startup-funding-hacks')) {
+      this.router.navigate(['/pages/founderstool/startup-funding-hacks', data.id]); 
+    } else if (this.currentRoute.includes('founder-success-stories')) {
+      this.router.navigate(['/pages/founderstool/founder-success-stories', data.id]); 
+    } else if (this.currentRoute.includes('founder-failure-stories')) {
+      this.router.navigate(['/pages/founderstool/founder-failure-stories', data.id]); 
+    } else if (this.currentRoute.includes('startup-success-stories')) {
+      this.router.navigate(['/pages/founderstool/startup-success-stories', data.id]); 
+    } else if (this.currentRoute.includes('startup-failure-stories')) {
+      this.router.navigate(['/pages/founderstool/startup-failure-stories', data.id]); 
+    }
+  }
+  getQueAns(id:any){
     var datas = {
       mode: this.modename,
-      country: data.id
+      country:id
     }
     this.service.entrepreneurToolsSuccess(datas).subscribe((res: any) => {
       this.isShowCountryData = false;
       this.isShowCountryQuesAns = true;
       this.questuionanswerlist = res.data
     })
-
   }
   showDataAnswer(data: any) {
     this.dataanswerquestion = data;
