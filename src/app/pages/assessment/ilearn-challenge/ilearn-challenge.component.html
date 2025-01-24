@@ -76,12 +76,15 @@
                 </div>
                 <div class="col-lg-4">
                     <div class="d-flex justify-content-between align-items-center mb-3">
-                        <h4 class="uniprep-primary">Leaderboard</h4>
-                        <div class="d-flex gap-3">
-                            <p-dropdown [options]="groupList" optionLabel="name" optionValue="name" [appendTo]="'body'"
+                        <h5 class="uniprep-primary mb-0">Leaderboard</h5>
+                        <div class="d-flex gap-3 align-items-center">
+                            <p-dropdown [options]="groupList" optionValue="cluster_id" [appendTo]="'body'"
                                 placeholder="View Groups" styleClass="w-100 grp-drpdwn">
+                                <ng-template let-data pTemplate="item">
+                                    <div>Group {{data.cluster_id}}</div>
+                                </ng-template>
                             </p-dropdown>
-                            <div class="leaderboard-sec" *ngIf="currentPosition">You are in {{currentPosition}} place
+                            <div class="leaderboard-sec text-small" *ngIf="currentPosition">You are in {{currentPosition}} place
                             </div>
                         </div>
                     </div>

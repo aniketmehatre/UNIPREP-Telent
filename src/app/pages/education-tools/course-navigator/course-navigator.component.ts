@@ -3,6 +3,7 @@ import { Router } from '@angular/router';
 import { EducationToolsService } from '../education-tools.service';
 import { Meta } from '@angular/platform-browser';
 import { MessageService } from 'primeng/api';
+import { EducatiionsRec } from 'src/app/@Models/course-navigator.model';
 
 @Component({
   selector: 'uni-course-navigator',
@@ -20,15 +21,12 @@ export class CourseNavigatorComponent implements OnInit {
   invalidClass: boolean = false;
   specializationList: { id: number, specialization_name: string }[] = [];
   specializations: { id: number, specialization_name: string }[] = [];
-  DegreeList: { id: number, name: string }[] = [
+  educationList: { id: number, name: string }[] = [
     { id: 1, name: 'Bachelors' },
     { id: 2, name: 'Masters' },
     { id: 3, name: 'Diploma' },
   ];
-  recommendationDataList: any[] = [
-    { id: 1, title: 'BCA', image: 'uniprep-assets/images/founderstool/foundersacademy.svg' },
-    { id: 2, title: 'BSC', image: 'uniprep-assets/images/founderstool/foundersacademy.svg' },
-  ];
+  recommendationDataList: EducatiionsRec[] = [];
   isRecommendationQuestion: boolean = true;
   isRecommendationData: boolean = false;
   isRecommendationSavedData: boolean = false;
@@ -93,25 +91,21 @@ export class CourseNavigatorComponent implements OnInit {
   }
 
   getRecommendation() {
-    this.isRecommendationQuestion = false;
-    this.isRecommendationData = true;
-    this.isRecommendationSavedData = false;
-    // this.recommendationDataList = response.response;
-    // let data: any = {
-    //   current_specialization: this.selectedData[1],
-    //   degree: this.selectedData[2]
-    // }
-    // this.educationToolsService.getEduRecommadations(data).subscribe({
-    //   next: response => {
-    //     this.isRecommendationQuestion = false;
-    //     this.isRecommendationData = true;
-    //     this.isRecommendationSavedData = false;
-    //     this.recommendationDataList = response.response;
-    //   },
-    //   error: error => {
-    //     this.isRecommendationData = false;
-    //   }
-    // });
+    let data: any = {
+      spec_id: this.selectedData[1],
+      edu_id: this.selectedData[2]
+    }
+    this.educationToolsService.getDegreeRecommadations(data).subscribe({
+      next: response => {
+        this.isRecommendationQuestion = false;
+        this.isRecommendationData = true;
+        this.isRecommendationSavedData = false;
+        this.recommendationDataList = response;
+      },
+      error: error => {
+        this.isRecommendationData = false;
+      }
+    });
   }
 
   resetRecommendation() {

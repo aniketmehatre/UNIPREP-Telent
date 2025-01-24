@@ -55,7 +55,7 @@
                                             style="color: red">Please Choose Any one option</p>
                                     </ng-container>
                                     <ng-container *ngIf="recommendation.id == 2">
-                                        <p-dropdown [options]="DegreeList" styleClass="w-100"
+                                        <p-dropdown [options]="educationList" styleClass="w-100"
                                             [(ngModel)]="selectedData[recommendation.id]" optionLabel="name"
                                             optionValue="id" [appendTo]="'body'" placeholder="Your Degree">
                                         </p-dropdown>
@@ -119,9 +119,9 @@
                             class="card-body d-flex flex-md-column flex-row justify-content-md-between align-items-center">
                             <div>
                                 <div class="submoduleicon">
-                                    <img class="selectimage" [src]="item.image" />
+                                    <img class="selectimage" [src]="item.icon" />
                                 </div>
-                                <h5 class="text-center mt-3 fw-bold mb-0">{{item.title}}</h5>
+                                <h5 class="text-center mt-3 fw-bold mb-0">{{item.degree_name}}</h5>
                             </div>
                         </div>
                     </div>

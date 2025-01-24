@@ -1,7 +1,8 @@
 export interface ILearnChallengeResponse {
     userData: ILearnChallengeModule[]
     leaderBoard: LeaderBoard[]
-    overallScore: number
+    overallScore: number;
+    groups_list: {cluster_id:number}[]
 }
 
 export interface ILearnChallengeModule {

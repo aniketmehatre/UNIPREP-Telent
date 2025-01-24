@@ -23,11 +23,7 @@ export class IlearnChallengeComponent implements OnInit, OnDestroy {
   isInstruction: boolean = false;
   pdfURL: any;
   contestRulePdfURL: any;
-  groupList: { id: number, name: string }[] = [
-    { id: 1, name: 'Group 1' },
-    { id: 2, name: 'Group 2' },
-    { id: 3, name: 'Group 3' }
-  ]
+  groupList: { cluster_id: number }[] = []
   constructor(
     private assessmentService: AssessmentService,
     private authService: AuthService,
@@ -47,6 +43,7 @@ export class IlearnChallengeComponent implements OnInit, OnDestroy {
         this.leaderBoardList = response.leaderBoard;
         this.iLearnChallengeModuleList = response.userData;
         this.overallScore = response.overallScore;
+        this.groupList = response.groups_list;
         this.contestRulePdfURL = this.sanitizer.bypassSecurityTrustResourceUrl('https://api.uniprep.ai/uniprepapi/storage/app/public/Unilearn//GenralInfo/IELTSAcademic/Test_Format_and_Structure_.pdf');
         let userIndex = this.leaderBoardList.findIndex(item => item.user_id == this.authService._user?.user_id);
         if (userIndex !== -1) {
