@@ -15,6 +15,7 @@ import { CardModule } from 'primeng/card';
 import { DialogModule } from 'primeng/dialog';
 import {SharedModule} from "../../shared/shared.module";
 import { InputTextModule } from 'primeng/inputtext';
+import { SelectButtonModule } from 'primeng/selectbutton';
 
 
 @NgModule({
@@ -35,7 +36,8 @@ import { InputTextModule } from 'primeng/inputtext';
     CardModule,
     DialogModule,
     SharedModule,
-    InputTextModule
+    InputTextModule,
+    SelectButtonModule
   ]
 })
 export class EducationToolsModule { }
