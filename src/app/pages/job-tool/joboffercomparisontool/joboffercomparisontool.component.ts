@@ -1,15 +1,309 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, ElementRef, Input, OnInit, ViewChild } from "@angular/core";
+import { Router } from "@angular/router";
+import { AveragesalaryestimatorService } from "../../averagesalaryestimator/averagesalaryestimator.service";
+import { PageFacadeService } from "../../page-facade.service";
+import { FormArray, FormBuilder, FormGroup, Validators } from "@angular/forms";
+import { JobOfferComparisionService } from "./joboffercomparison.service";
 
 @Component({
-  selector: 'uni-joboffercomparisontool',
-  templateUrl: './joboffercomparisontool.component.html',
-  styleUrls: ['./joboffercomparisontool.component.scss']
+  selector: "uni-joboffercomparisontool",
+  templateUrl: "./joboffercomparisontool.component.html",
+  styleUrls: ["./joboffercomparisontool.component.scss"],
 })
 export class JoboffercomparisontoolComponent implements OnInit {
-
-  constructor() { }
-
-  ngOnInit(): void {
+  basicInformationForm: FormGroup;
+  salaryandemployeeBenefitsForm: FormGroup;
+  worktimingsForm: FormGroup;
+  additionalPerksForm: FormGroup;
+  maxEntries = 3; // Maximum entries allowed
+  preparedvisibility = false;
+  constructor(
+    private router: Router,
+    private pageFacade: PageFacadeService,
+    private avgestservice: AveragesalaryestimatorService,
+    private service:JobOfferComparisionService,
+    private fb: FormBuilder
+  ) {
+    this.basicInformationForm = this.fb.group({
+      basicInformation: this.fb.array([
+        this.createBasicInfoGroup(),
+        this.createBasicInfoGroup(),
+      ]), // Initialize with 2 groups
+    });
+    this.salaryandemployeeBenefitsForm = this.fb.group({
+      benefitsInformation: this.fb.array([]),
+    });
+    this.worktimingsForm = this.fb.group({
+      worktimingsInformation: this.fb.array([]),
+    });
+    this.additionalPerksForm = this.fb.group({
+      additionalPerksInformation: this.fb.array([]),
+    });
+  }
+  //get basic information controls
+  get basicInformation(): FormArray {
+    return this.basicInformationForm.get("basicInformation") as FormArray;
   }
 
+  // Create a new group for Basic Information with Validators
+  createBasicInfoGroup(): FormGroup {
+    return this.fb.group({
+      companyName: ["", Validators.required], // Input field for Company Name
+      position_title: [null, Validators.required], // Dropdown for Position
+      location: [null, Validators.required], // Dropdown for Location
+    });
+  }
+  // Add a new group to the array (if limit is not exceeded)
+  addEntry(): void {
+    if (this.basicInformation.length < this.maxEntries) {
+      this.basicInformation.push(this.createBasicInfoGroup());
+    }
+  }
+
+  // Remove a group from the array
+  removeEntry(index: number): void {
+    if (this.basicInformation.length > 2) {
+      this.basicInformation.removeAt(index); // Allow removal only if more than 2 remain
+    }
+  }
+  //create Benefits Information
+  createBenfitInfoGroup(): FormGroup {
+    return this.fb.group({
+      currency: ["", Validators.required], // Input field for Company Name
+      salary: [null, Validators.required], // Dropdown for salary
+      benefits: [null, Validators.required], // Dropdown for benefits
+    });
+  }
+  //get basic information controls
+  get benefitsInformation(): FormArray {
+    return this.salaryandemployeeBenefitsForm.get(
+      "benefitsInformation"
+    ) as FormArray;
+  }
+  //create worktimings Information
+  createworktimingsGroup(): FormGroup {
+    return this.fb.group({
+      work_hours: ["", Validators.required], // Dropdown for workinghours
+      working_days: [null, Validators.required], // Dropdown for workingdays
+      employment_type: [null, Validators.required], // Dropdown for employmenttype
+    });
+  }
+  //get worktimings controls
+  get worktimingsInformation(): FormArray {
+    return this.worktimingsForm.get("worktimingsInformation") as FormArray;
+  }
+  //create addtionalperks Information
+  createadditionalPerksGroup(): FormGroup {
+    return this.fb.group({
+      perks: ["", Validators.required], // Dropdown for benefits
+      travel_opportunities: [null, Validators.required], // Dropdown for opportunities
+    });
+  }
+  //get additionalPerks controls
+  get additionalPerksInformation(): FormArray {
+    return this.additionalPerksForm.get("additionalPerksInformation") as FormArray;
+  }
+  @Input() prepData: any;
+  enableModule: boolean = false;
+  activePageIndex: number = 0;
+  invalidClass: boolean = false;
+  selectedData: { [key: string]: any } = {};
+  filterJobRole: any[] = [];
+
+  recommendations: any = [
+    {
+      id: 1,
+      question: "Basic Information",
+    },
+    {
+      id: 2,
+      question: "Salary & Employee Benefits",
+    },
+    {
+      id: 3,
+      question: "Work Timings",
+    },
+    {
+      id: 4,
+      question: "Additional Perks",
+    },
+  ];
+  positions = [];
+  currencies=[];
+  locations = [];
+  employeebenefits=[];
+  traveloppurtunities=[];
+  workbenefits=[];
+  workhours=[];
+  workingdays=[];
+  //position dropdown
+  getJobRoles() {
+    this.avgestservice.getJobRoles().subscribe((response) => {
+      this.positions = response;
+    });
+  }
+  //location dropdown
+  getCities() {
+    this.avgestservice.getCities().subscribe((response) => {
+      this.locations = response;
+    });
+  }
+  //currency dropdown
+  getCurrencyList() {
+    this.avgestservice.getCurrencies().subscribe({
+      next: response => {
+        this.currencies = response;
+      }
+    });
+  }
+  //employeeBenefits dropdown
+  getemployeeBenefits() {
+    this.service.getemployeeBenefits().subscribe((response) => {
+      this.employeebenefits = response;
+    });
+  }
+  //travelOppertunities dropdown
+  gettravelOppertunities() {
+    this.service.gettravelOppertunities().subscribe((response) => {
+      this.traveloppurtunities = response;
+    });
+  }
+  //workBenefits dropdown
+  getworkBenefits() {
+    this.service.getworkBenefits().subscribe({
+      next: response => {
+        this.workbenefits = response;
+      }
+    });
+  }
+  //workHours dropdown
+  getworkHours() {
+    this.service.getworkHours().subscribe({
+      next: response => {
+        this.workhours = response;
+      }
+    });
+  }//workingDays dropdown
+  getworkingDays() {
+    this.service.getworkingDays().subscribe({
+      next: response => {
+        this.workingdays = response;
+      }
+    });
+  }
+  //employement type
+  jobPreferences: any = [];
+  getJobPreferences() {
+    this.avgestservice.getJobPreferences().subscribe((response) => {
+      this.jobPreferences = response;
+    });
+  }
+  ngOnInit() {
+    this.activePageIndex = 0;
+    this.getJobRoles();
+    this.getCities();
+    this.getCurrencyList();
+    this.getemployeeBenefits()
+    this.gettravelOppertunities();
+    this.getworkBenefits();
+    this.getworkHours();
+    this.getworkingDays();
+    this.getJobPreferences();
+  }
+  previous(): void {
+    if (this.activePageIndex > 0) {
+      this.activePageIndex--;
+    }
+  }
+
+  next(selectedId: number): void {
+    if (selectedId == 1) {
+      if (this.basicInformationForm.invalid) {
+        this.basicInformationForm.markAllAsTouched();
+        return;
+      } else {
+        this.benefitsInformation.clear();
+        this.basicInformation.value.forEach((infodetail: any) => {
+          this.benefitsInformation.push(this.createBenfitInfoGroup());
+        });
+        this.worktimingsInformation.clear();
+        this.basicInformation.value.forEach((infodetail: any) => {
+          this.worktimingsInformation.push(this.createworktimingsGroup());
+        });
+        this.additionalPerksInformation.clear();
+        this.basicInformation.value.forEach((infodetail: any) => {
+          this.additionalPerksInformation.push(this.createadditionalPerksGroup());
+        });
+        this.activePageIndex++;
+      }
+    }
+    if (selectedId == 2) {
+      if (this.benefitsInformation.invalid) {
+        this.benefitsInformation.markAllAsTouched();
+        return;
+      } else {
+        this.activePageIndex++;
+      }
+    }
+    if (selectedId == 3) {
+      if (this.worktimingsForm.invalid) {
+        this.worktimingsForm.markAllAsTouched();
+        return;
+      } else {
+        this.activePageIndex++;
+      }
+    }
+    if (selectedId == 4) {
+      if (this.additionalPerksForm.invalid) {
+        this.additionalPerksForm.markAllAsTouched();
+        return;
+      } else {
+        //get recommendation
+        let processData={
+          jobs: this.constructJobsArray(),
+        }
+        this.prepData=processData;
+        this.preparedvisibility=true;
+      }
+    }
+  }
+  constructJobsArray(): any[] {
+    const jobs = [];
+    for (let i = 0; i < this.basicInformation.length; i++) {
+      const basicInfo = this.basicInformation.at(i).value;
+      const benefitsInfo = this.benefitsInformation.at(i)?.value || {};
+      const workTimingInfo = this.worktimingsInformation.at(i)?.value || {};
+      const additionalPerksInfo = this.additionalPerksInformation.at(i)?.value || {};
+  
+      // Construct the job object
+      const job = {
+        company: basicInfo.companyName,
+        position_title: basicInfo.position_title,
+        location: basicInfo.location,
+        currency: benefitsInfo.currency,
+        benefits: benefitsInfo.benefits[0],
+        salary: benefitsInfo.salary,
+        perks: additionalPerksInfo.perks,
+        working_days: workTimingInfo.working_days,
+        work_hours: workTimingInfo.work_hours,
+        employment_type: workTimingInfo.employment_type,
+        travel_opportunities: additionalPerksInfo.travel_opportunities,
+      };
+  
+      jobs.push(job);
+    }
+  
+    return jobs;
+  }
+  
+  openVideoPopup(videoLink: string) {
+    this.pageFacade.openHowitWorksVideoPopup(videoLink);
+  }
+  goBack() {
+    this.router.navigate(["/pages/job-offer-comparison"]);
+  }
+  windowChange(data: any) {
+    this.preparedvisibility = data;
+    this.ngOnInit();
+  }
 }
