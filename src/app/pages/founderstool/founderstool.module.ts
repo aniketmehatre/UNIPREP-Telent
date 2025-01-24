@@ -33,6 +33,7 @@ import { AiBusinessAdvisorComponent } from './ai-business-advisor/ai-business-ad
 import { StartupRiskAssessmentComponent } from './startup-risk-assessment/startup-risk-assessment.component';
 import { StartUpExpenseEstimateComponent } from './start-up-expense-estimate/start-up-expense-estimate.component';
 import { BusinessForecastingToolComponent } from './business-forecasting-tool/business-forecasting-tool.component';
+import {SharedModule} from "../../shared/shared.module";
 
 
 @NgModule({
@@ -56,22 +57,23 @@ import { BusinessForecastingToolComponent } from './business-forecasting-tool/bu
     StartUpExpenseEstimateComponent,
     BusinessForecastingToolComponent,
   ],
-  imports: [
-    CommonModule,
-    InputTextModule,
-    CarouselModule,
-    ButtonModule,
-    ReactiveFormsModule,
-    InputTextareaModule,
-    DropdownModule,
-    PaginatorModule,
-    CardModule,
-    DialogModule,
-    foundersToolRountingModule,
-    TooltipModule,
-    MultiSelectModule,
-    PdfViewerModule
-  ],
+    imports: [
+        CommonModule,
+        InputTextModule,
+        CarouselModule,
+        ButtonModule,
+        ReactiveFormsModule,
+        InputTextareaModule,
+        DropdownModule,
+        PaginatorModule,
+        CardModule,
+        DialogModule,
+        foundersToolRountingModule,
+        TooltipModule,
+        MultiSelectModule,
+        PdfViewerModule,
+        SharedModule
+    ],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
   providers: [ConfirmationService, 
     TooltipModule,

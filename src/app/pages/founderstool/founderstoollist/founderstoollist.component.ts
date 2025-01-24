@@ -113,7 +113,10 @@ export class FounderstoollistComponent implements OnInit {
     this.restrict = false;
   }
 
-  navigateSubModule(url:string) {
+  navigateSubModule(url:string, launch_soon: any) {
+    if (launch_soon){
+      return launch_soon;
+    }
     // if (this.planExpired) {
     //   this.restrict = true;
     //   return;

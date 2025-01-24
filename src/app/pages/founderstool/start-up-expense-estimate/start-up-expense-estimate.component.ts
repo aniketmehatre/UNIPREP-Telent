@@ -119,7 +119,7 @@ export class StartUpExpenseEstimateComponent implements OnInit {
   }
 
   goBack() {
-    this.router.navigateByUrl('/pages/founder-tools');
+    this.router.navigateByUrl('/pages/founderstool/founderstoollist');
   }
 
   getMarketAnalysisLists() {

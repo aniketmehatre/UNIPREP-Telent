@@ -141,8 +141,8 @@ export class GovermentFundingOppurtunityComponent implements OnInit {
     delete this.data.country;
     delete this.data.region;
     delete this.data.type;
-
   }
+
   getFundCountry() {
     this.fundListService.getFundCountries().subscribe(res => {
       let allCountries = res;
@@ -281,8 +281,6 @@ export class GovermentFundingOppurtunityComponent implements OnInit {
       } else {
         this.recommendRestrict = false;
       }
-
-
       this.loadFundData(0);
     });
   }
@@ -442,7 +440,7 @@ export class GovermentFundingOppurtunityComponent implements OnInit {
 
   checkUserRecommendation() {
     this.fundListService.getRecommendations().subscribe(res => {
-      if (res.success) {
+      if (res.status) {
         this.enableModule = true;
         this.setRecommendationToForm(res.data);
       } else {
