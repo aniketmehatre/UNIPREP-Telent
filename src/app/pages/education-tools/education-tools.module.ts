@@ -15,6 +15,7 @@ import { CardModule } from 'primeng/card';
 import { DialogModule } from 'primeng/dialog';
 import {SharedModule} from "../../shared/shared.module";
 import { InputTextModule } from 'primeng/inputtext';
+import { CountryInsightsComponent } from './country-insights/country-insights.component';
 
 
 @NgModule({
@@ -22,7 +23,8 @@ import { InputTextModule } from 'primeng/inputtext';
     EducationToolsComponent,
     EducationToolsListComponent,
     CourseNavigatorComponent,
-    PoliticianInsightsComponent
+    PoliticianInsightsComponent,
+    CountryInsightsComponent
   ],
   imports: [
     CommonModule,
@@ -35,7 +37,7 @@ import { InputTextModule } from 'primeng/inputtext';
     CardModule,
     DialogModule,
     SharedModule,
-    InputTextModule
+    InputTextModule,
   ]
 })
 export class EducationToolsModule { }

@@ -5,6 +5,7 @@ import { EducationToolsListComponent } from './education-tools-list/education-to
 import { CourseNavigatorComponent } from './course-navigator/course-navigator.component';
 import { PoliticianInsightsComponent } from './politician-insights/politician-insights.component';
 import { GlobalTravelVisaComponent } from '../travel-tools/global-travel-visa/global-travel-visa.component';
+import { CountryInsightsComponent } from './country-insights/country-insights.component';
 
 const routes: Routes = [
   {
@@ -18,6 +19,9 @@ const routes: Routes = [
       },
       {
         path: 'politician-insights', component: PoliticianInsightsComponent
+      },
+      {
+        path: 'country-insights', component: CountryInsightsComponent
       },
       {
         path:'study-visa', component: GlobalTravelVisaComponent
