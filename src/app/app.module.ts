@@ -52,6 +52,7 @@ import { EnterpriseSubscriptionComponent } from './components/enterprise-subscri
 import { DeviceDetectorService } from "ngx-device-detector";
 import { PaginatorModule } from 'primeng/paginator';
 import { SharedModule } from "./shared/shared.module";
+import {MarkdownModule} from "ngx-markdown";
 
 const reducers = {
   pageSelector: pagesReducer
@@ -124,7 +125,8 @@ export function tokenGetter() {
     MetaModule.forRoot(),
     SharedModule,
     SkeletonModule,
-    RouterModule
+    RouterModule,
+    MarkdownModule.forRoot()
   ],
   providers: [
     DeviceDetectorService,

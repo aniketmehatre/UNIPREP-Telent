@@ -20,11 +20,13 @@ import { AuthService } from "src/app/Auth/auth.service";
 import { NgxUiLoaderService } from "ngx-ui-loader";
 import { PageFacadeService } from "../../page-facade.service";
 import { LocationService } from "src/app/location.service";
+import {MarkdownService} from "ngx-markdown";
 
 @Component({
   selector: "uni-question-list",
   templateUrl: "./question-list.component.html",
   styleUrls: ["./question-list.component.scss"],
+  providers: [MarkdownService]
 })
 export class QuestionListComponent implements OnInit {
   @ViewChild("carouselVideoElm") carouselVideoElm: any;

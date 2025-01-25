@@ -505,7 +505,9 @@ uni-careerplannercountrywise,
 uni-component-stories,
 uni-preparedlist,
 uni-averagesalaryestimator,
-uni-aspreparedlist {
+uni-aspreparedlist,
+uni-joboffercomparisontool,
+uni-jopreparedlist {
 	display: flex;
 	flex: 1;
 	height: 100%;
@@ -2172,4 +2174,24 @@ uni-assessment, uni-travel-tools, uni-founderstool, uni-education-tools {
 
 .grp-drpdwn .p-dropdown-label {
     padding: 4px;
+}
+
+.btn-outline-secondary {
+	color: var(--uniprep-secondary);
+	background: var(--uniprep-tertiary);
+	border-radius: 10px;
+	border: 1px solid var(--uniprep-secondary);
+
+    &:hover {
+      color: var(--uniprep-tertiary);
+      background: var(--uniprep-secondary);
+		border: 1px solid var(--uniprep-secondary);
+    }
+	
+	&:focus {
+		color: var(--uniprep-tertiary);
+		background: var(--uniprep-secondary);
+		box-shadow: 0 0 0 0.25rem var(--uniprep-secondaryop10);
+		border-color: var(--uniprep-secondary);
+	}
 }

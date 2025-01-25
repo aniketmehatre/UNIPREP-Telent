@@ -1,8 +1,10 @@
 <div class="row" style="overflow-y: auto; max-height: 100%;">
-    <div class="col-lg-2 col-md-4 col-12 mt-3" *ngFor="let modules of modulesList"
-        (click)="chooseOneOption(modules.mode)">
-        <div class="card resourcecard text-black h-100">
+    <div class="col-lg-2 col-md-4 col-12 mt-3" *ngFor="let modules of modulesList">
+        <div [class.disabled]="modules.launch_soon" (click)="chooseOneOption(modules.mode, modules.launch_soon)"
+             class="card resourcecard text-black h-100">
             <div class="card-body text-center d-flex flex-column">
+                <uni-launch-soon-tag *ngIf="modules.launch_soon" message="Launching soon"></uni-launch-soon-tag>
+
                 <!-- Image at the top center -->
                 <div class="resourceimg mx-auto mb-3">
                     <img [src]="modules?.imageLink" alt="" />

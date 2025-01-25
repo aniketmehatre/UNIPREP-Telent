@@ -1,0 +1,229 @@
+.industrytext {
+  word-break: break-all !important;
+}
+
+.industryicon {
+  color: var(--uniprep-secondary);
+}
+
+.locationicon {
+  color: #e90707;
+}
+
+.headquartersicon {
+  color: #9bc329;
+}
+
+.theme-blue {
+  border: 1px solid var(--uniprep-primary) !important;
+}
+
+.mobile {
+  display: none;
+}
+
+.company-list-filter {
+  margin-top: 10px;
+}
+
+@media (max-width: 575.98px) {
+  .mobileview {
+      width: 100px;
+      border-radius: 25px !important;
+      border: 1px solid #3f4c83;
+  }
+
+  .desktop {
+      display: none !important;
+  }
+
+  .company-list-filter {
+      margin-top: 10px;
+  }
+
+  :host .company-list-table-header {
+      white-space: nowrap !important;
+  }
+
+  .mobile {
+      display: block;
+  }
+
+  .p-paginator {
+      justify-content: left !important;
+  }
+}
+
+.primary-header {
+  background: #3f4c83 !important;
+}
+
+.fs-10 {
+  font-size: 11px;
+}
+
+.br-8 {
+  border-radius: 25px !important;
+}
+
+.filterDialog ::ng-deep .p-dialog-header {
+  border: 1px solid gray !important;
+  padding: 0px 5px !important;
+}
+
+:host ::ng-deep .p-dialog-title {
+  padding: 15px !important;
+}
+
+.margin-auto {
+  margin: 5rem auto;
+  padding: 10px;
+}
+
+.exhausted-plan-icon-success {
+  padding: 10px;
+  border-radius: 25px;
+  background-color: #9bc329;
+  color: white;
+  margin-left: 5px;
+}
+
+.p-danger-button {
+  background-color: #e53939 !important;
+  color: white !important;
+}
+
+.carousel-container {
+  display: flex;
+  flex-direction: column;
+}
+
+.p-button-info-prev {
+  background-color: #0e3361;
+  color: white;
+  border: none;
+}
+
+.p-button-info-next {
+  background-color: #4552a3;
+  color: white;
+  border: none;
+}
+
+.p-button-info-succes {
+  background-color: #9bc329;
+  color: white;
+  border: none;
+}
+
+.exhausted-plan-icon-prev,
+.exhausted-plan-icon-next {
+  padding: 10px;
+  border-radius: 25px;
+  background-color: #4552a3;
+  color: white;
+  margin-left: 5px;
+}
+
+.question-number {
+  font-size: 18px;
+  color: #3f4c83;
+  font-weight: 500;
+}
+
+:host ::ng-deep .p-carousel .p-carousel-indicators .p-carousel-indicator button {
+  width: 10px;
+  height: 10px;
+  transition: background-color 0.2s, color 0.2s, box-shadow 0.2s;
+  border-radius: 20px;
+}
+
+::ng-deep .p-multiselect .p-multiselect-label {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 100%;
+}
+
+::ng-deep .p-multiselect {
+  width: 100%;
+  max-width: 800px;
+}
+
+::ng-deep .p-multiselect-panel {
+  width: 100% !important;
+}
+
+@media (max-width: 575.98px) {
+  .product-item-content {
+      margin: auto;
+      padding: 10px;
+  }
+
+  .question-number {
+      font-size: 12px;
+      color: #3f4c83;
+      font-weight: 500;
+  }
+
+  .question {
+      color: #001631;
+      font-size: 14px;
+  }
+
+  .module-list {
+      width: 46% !important;
+  }
+}
+
+.universityicon {
+  color: var(--uniprep-secondary);
+}
+
+.primary-color {
+  color: var(--uniprep-primary);
+}
+
+:host ::ng-deep .p-carousel .p-carousel-indicators .p-carousel-indicator button {
+  width: 10px;
+  height: 10px;
+  transition: background-color 0.2s, color 0.2s, box-shadow 0.2s;
+  border-radius: 20px;
+}
+
+:host ::ng-deep .p-carousel-content {
+  height: 100% !important;
+}
+
+:host ::ng-deep .p-carousel-item {
+  width: 100% !important;
+}
+
+:host ::ng-deep .p-carousel .p-carousel-indicators {
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+}
+:host ::ng-deep .p-carousel-content {
+  height: 100% !important;
+  .p-carousel-container {
+    height: 100%;
+    .p-carousel-items-container {
+      height: 100%;
+    }
+  }
+}
+.formarraybtn {
+  width: 30%;
+  padding: 0.575rem 0.95rem;
+  font-size: large;
+}
+.comparisonform{
+  h5{
+    color: var(--uniprep-primary);
+  }
+  h6{
+    color: var(--uniprep-secondary);
+  }
+}

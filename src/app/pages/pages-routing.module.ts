@@ -41,6 +41,7 @@ import { JobPreparedListComponent } from './jobinterviewpreparation/preparedlist
 import { AverageSalaryPreparedListComponent } from './averagesalaryestimator/preparedlist/preparedlist.component';
 import { AverageSalaryComponent } from './averagesalaryestimator/averagesalaryestimator.component';
 import { FundListGuidlinesComponent } from './fund-list-guidelines/fund-list-guidlines.component';
+import { JoboffercomparisontoolComponent } from './job-tool/joboffercomparisontool/joboffercomparisontool.component';
 
 const routes: Routes = [
     {
@@ -276,7 +277,7 @@ const routes: Routes = [
             },
             {
                 path:'job-offer-comparison',
-                component: AverageSalaryComponent  
+                component: JoboffercomparisontoolComponent  
             }
         ]
     }
