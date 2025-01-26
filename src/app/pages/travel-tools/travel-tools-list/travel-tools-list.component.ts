@@ -38,10 +38,9 @@ export class TravelToolsListComponent implements OnInit {
       },
       {
         title: "Trip Length Finder",
-       
         image: "https://api.uniprep.ai/uniprepapi/storage/app//public/icon/modules/job-interview.svg",
         url: "/pages/travel-tools/trip-length-finder",
-        launch_soon: false
+        launch_soon: true
       },
       {
         title: "Travel Glossary",
