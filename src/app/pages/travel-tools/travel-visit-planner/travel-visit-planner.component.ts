@@ -15,6 +15,14 @@ export class TravelVisitPlannerComponent implements OnInit {
     {
       id: 1,
       question: "Where are you planning to travel?",
+    },
+    {
+      id: 2,
+      question: "How many days will your trip be?",
+    },
+    {
+      id: 3,
+      question: "Which season or month are you planning your trip?",
     }
   ];
   seasons: any = [
