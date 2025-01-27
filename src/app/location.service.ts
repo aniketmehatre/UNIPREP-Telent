@@ -139,6 +139,12 @@ export class LocationService {
             headers: headers,
         });
     }
+    getAllCountryList() {
+        const headers = new HttpHeaders().set("Accept", "application/json");
+        return this.http.get<any>(environment.ApiUrl + "/getallcountrylist", {
+            headers: headers,
+        });
+    }
 
     getBlogs(data: any) {
         const headers = new HttpHeaders().set("Accept", "application/json");
