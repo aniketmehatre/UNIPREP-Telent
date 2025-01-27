@@ -24,6 +24,7 @@ export class ComponentStoriesComponent implements OnInit {
   questuionanswerlist: any[] = [];
   isQuestionAnswerVisible: boolean = false;
   dataanswerquestion: any;
+
   ngOnInit(): void {
     this.locationService.dashboardLocationList().subscribe((res: any) => {
       this.countrylist = res
@@ -46,7 +47,12 @@ export class ComponentStoriesComponent implements OnInit {
       this.modename = "startup_failure_stories";
     }
     this.activatedRoute.params.subscribe(params => {
-      if (params['id']) {
+      if (params['id'] && params['question_id']) {
+        this.isShowCountryQuesAns=true;
+        this.isShowCountryData=false;
+        this.getQueAns(params['id'],params['question_id'])
+      }
+      else if (params['id']) {
         this.isShowCountryQuesAns=true;
         this.isShowCountryData=false;
         this.getQueAns(params['id'])
@@ -82,17 +88,32 @@ export class ComponentStoriesComponent implements OnInit {
       this.router.navigate(['/pages/founderstool/startup-failure-stories', data.id]); 
     }
   }
-  getQueAns(id:any){
-    var datas = {
+  getQueAns(id: any, question_id?: any) {
+    const datas: any = {
       mode: this.modename,
-      country:id
-    }
-    this.service.entrepreneurToolsSuccess(datas).subscribe((res: any) => {
-      this.isShowCountryData = false;
-      this.isShowCountryQuesAns = true;
-      this.questuionanswerlist = res.data
-    })
+      country: id,
+      ...(question_id ? { share_link_question_id: question_id } : {}) // Include question_id only if it's truthy
+    };
+  
+    this.service.entrepreneurToolsSuccess(datas).subscribe(
+      (res: any) => {
+        this.isShowCountryData = false;
+        this.isShowCountryQuesAns = true;
+        this.questuionanswerlist = res.data; // Assign the response data to the list
+          
+        if (question_id) {
+            this.showDataAnswer(res.data[0]);
+        }
+      },
+      (error) => {
+        console.error("Error fetching question data:", error); // Handle errors
+        this.isShowCountryData = true; // Fallback to show general data if API fails
+      }
+      
+    );
+   
   }
+  
   showDataAnswer(data: any) {
     this.dataanswerquestion = data;
     this.isQuestionAnswerVisible = true;
