@@ -26,8 +26,8 @@ export class ComponentStoriesComponent implements OnInit {
   dataanswerquestion: any;
 
   ngOnInit(): void {
-    this.locationService.dashboardLocationList().subscribe((res: any) => {
-      this.countrylist = res
+    this.locationService.getAllCountryList().subscribe((res: any) => {
+      this.countrylist = res.data
     })
     this.currentRoute = this.router.url;
     if (this.currentRoute.includes('startup-funding-hacks')) {
