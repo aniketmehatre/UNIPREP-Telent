@@ -3,7 +3,7 @@ import { Injectable } from '@angular/core';
 import { environment } from '@env/environment';
 import { BehaviorSubject } from 'rxjs';
 import { AssessmentQuiz, AssessmentResponse, StoreQuizResponse, UserquizResponseData } from 'src/app/@Models/assessment.model';
-import { ILearnChallengeData, ILearnChallengeResponse } from 'src/app/@Models/ilearn-challenge.model';
+import { ILearnChallengeData, ILearnChallengeResponse, LeaderBoard } from 'src/app/@Models/ilearn-challenge.model';
 
 @Injectable({
   providedIn: 'root'
@@ -53,6 +53,12 @@ export class AssessmentService {
 
   getAssessmentParticipatingCount() {
     return this.http.get<{ cluster_count: number }>(environment.ApiUrl + "/clusterCount", {
+      headers: this.headers,
+    });
+  }
+
+  getLeaderBoardUsers(grpId: string) {
+    return this.http.get<LeaderBoard[]>(`${environment.ApiUrl}/leaderBoardUsers?cluster_id=${grpId}`, {
       headers: this.headers,
     });
   }
