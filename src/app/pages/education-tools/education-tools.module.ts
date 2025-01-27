@@ -16,7 +16,7 @@ import { DialogModule } from 'primeng/dialog';
 import {SharedModule} from "../../shared/shared.module";
 import { InputTextModule } from 'primeng/inputtext';
 import { CountryInsightsComponent } from './country-insights/country-insights.component';
-
+import { SelectButtonModule } from 'primeng/selectbutton';
 
 @NgModule({
   declarations: [
@@ -38,6 +38,7 @@ import { CountryInsightsComponent } from './country-insights/country-insights.co
     DialogModule,
     SharedModule,
     InputTextModule,
+    SelectButtonModule
   ]
 })
 export class EducationToolsModule { }
