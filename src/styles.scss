@@ -507,7 +507,9 @@ uni-preparedlist,
 uni-averagesalaryestimator,
 uni-aspreparedlist,
 uni-joboffercomparisontool,
-uni-jopreparedlist {
+uni-jopreparedlist,
+uni-careerhackslists,
+uni-careercountries {
 	display: flex;
 	flex: 1;
 	height: 100%;
@@ -2211,3 +2213,17 @@ uni-assessment, uni-travel-tools, uni-founderstool, uni-education-tools {
 		}
 	}
   }
+  uni-career-hacks {
+	display: flex;
+	flex: 1;
+	height: 100%;
+	flex-direction: column;
+	overflow: hidden;
+	uni-careerhackslists {
+		flex: 1;
+		overflow-y: auto;
+		display: flex;
+		flex-direction: column;
+	}
+
+}

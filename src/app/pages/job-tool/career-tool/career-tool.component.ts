@@ -151,7 +151,17 @@ export class CareerToolComponent implements OnInit {
       refLink: "",
       mode: "job-offer-comparison",
       launch_soon: true
-    }
+    },
+    {
+      id: 14,
+      moduleName: "Career Hacks",  
+      Description: "Access actionable tips and strategies to accelerate your career growth and achieve your goals.",  
+      tooltip: "Unleash your potential with proven career hacks designed to fast-track your success.",
+      imageLink: environment.production === false ? "https://api.uniprep.ai/uniprepapi/storage/app//public/icon/modules/chacks.png" : "https://uniprep.ai/uniprepapi/storage/app/public/icon/modules/chacks.png",
+      refLink: "",
+      mode: "career-hacks",
+      launch_soon: false
+    },
   ]
 
   constructor(private router: Router, private employerGlobalService: EmployerGlobalService) {
@@ -206,6 +216,9 @@ export class CareerToolComponent implements OnInit {
     }
     else if (mode == "global-work-visa") {
       this.router.navigate(['/pages/job-tool/global-work-visa']);
+    }
+    else if (mode == "career-hacks") {
+      this.router.navigate(['/pages/career-hacks']);
     }
     else {
       this.router.navigate(['/pages/job-tool/list/employer-test/13']);

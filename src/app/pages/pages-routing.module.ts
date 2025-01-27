@@ -278,7 +278,11 @@ const routes: Routes = [
             {
                 path:'job-offer-comparison',
                 component: JoboffercomparisontoolComponent  
-            }
+            },
+            {
+                path: 'career-hacks',
+                loadChildren: () => import('./career-hacks/careerhacks.module').then(m => m.CareerHacksModule)
+            },
         ]
     }
 ];
