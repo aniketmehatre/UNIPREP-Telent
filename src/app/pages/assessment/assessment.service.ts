@@ -58,7 +58,7 @@ export class AssessmentService {
   }
 
   getLeaderBoardUsers(grpId: string) {
-    return this.http.get<LeaderBoard[]>(`${environment.ApiUrl}/leaderBoardUsers?cluster_id=${grpId}`, {
+    return this.http.get<{ leaderBoard: LeaderBoard[]}>(`${environment.ApiUrl}/leaderBoardUsers?cluster_id=${grpId}`, {
       headers: this.headers,
     });
   }

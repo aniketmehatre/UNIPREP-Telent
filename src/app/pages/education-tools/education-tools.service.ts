@@ -2,6 +2,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { environment } from '@env/environment';
 import { EducatiionsRec } from 'src/app/@Models/course-navigator.model';
+import { CountryAndUniversity } from 'src/app/@Models/education-tools.model';
 
 @Injectable({
   providedIn: 'root'
@@ -62,6 +63,13 @@ export class EducationToolsService {
   getCNUserSavedQuestions() {
     const headers = new HttpHeaders().set("Accept", "application/json");
     return this.http.get<any>(`${environment.ApiUrl}/getCNUserSavedQuestions`, {
+      headers: headers,
+    });
+  }
+
+  getDropdownValues(){
+    const headers = new HttpHeaders().set("Accept", "application/json");
+    return this.http.get<CountryAndUniversity>(`${environment.ApiUrl}/getDropdownValues`, {
       headers: headers,
     });
   }

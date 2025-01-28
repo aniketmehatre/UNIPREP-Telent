@@ -17,6 +17,7 @@ import {SharedModule} from "../../shared/shared.module";
 import { InputTextModule } from 'primeng/inputtext';
 import { CountryInsightsComponent } from './country-insights/country-insights.component';
 import { SelectButtonModule } from 'primeng/selectbutton';
+import { StudentBudgetPlannerComponent } from './student-budget-planner/student-budget-planner.component';
 
 @NgModule({
   declarations: [
@@ -24,7 +25,8 @@ import { SelectButtonModule } from 'primeng/selectbutton';
     EducationToolsListComponent,
     CourseNavigatorComponent,
     PoliticianInsightsComponent,
-    CountryInsightsComponent
+    CountryInsightsComponent,
+    StudentBudgetPlannerComponent
   ],
   imports: [
     CommonModule,
