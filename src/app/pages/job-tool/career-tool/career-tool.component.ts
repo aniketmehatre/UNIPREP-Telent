@@ -153,15 +153,25 @@ export class CareerToolComponent implements OnInit {
       launch_soon: true
     },
     {
-      id: 14,
-      moduleName: "Career Hacks",  
-      Description: "Access actionable tips and strategies to accelerate your career growth and achieve your goals.",  
-      tooltip: "Unleash your potential with proven career hacks designed to fast-track your success.",
-      imageLink: environment.production === false ? "https://api.uniprep.ai/uniprepapi/storage/app//public/icon/modules/chacks.png" : "https://uniprep.ai/uniprepapi/storage/app/public/icon/modules/chacks.png",
+      id: 15,
+      moduleName: "Salary Hacks",  
+      Description: "Unlock the secrets to negotiating better pay, maximizing your earnings, and achieving financial growth in your career.",  
+      tooltip: "Master the art of salary negotiation and take control of your financial future.",
+      imageLink: environment.production === false ? "https://api.uniprep.ai/uniprepapi/storage/app//public/icon/modules/snh.png" : "https://uniprep.ai/uniprepapi/storage/app/public/icon/modules/snh.png",
       refLink: "",
-      mode: "career-hacks",
+      mode: "salary-hacks",
       launch_soon: false
     },
+    {
+      id: 16,
+      moduleName: "Job Seeker Success Stories",  
+      Description: "Get inspired by real-life stories of job seekers who overcame challenges to achieve their dream roles.",  
+      tooltip: "Learn from the experiences of successful job seekers and gain insights to land your ideal job.",
+      imageLink: environment.production === false ? "https://api.uniprep.ai/uniprepapi/storage/app//public/icon/modules/jsss.png" : "https://uniprep.ai/uniprepapi/storage/app/public/icon/modules/jsss.png",
+      refLink: "",
+      mode: "job-seeker-success-stories",
+      launch_soon: false
+    }
   ]
 
   constructor(private router: Router, private employerGlobalService: EmployerGlobalService) {
@@ -219,6 +229,12 @@ export class CareerToolComponent implements OnInit {
     }
     else if (mode == "career-hacks") {
       this.router.navigate(['/pages/career-hacks']);
+    }
+    else if (mode == "salary-hacks") {
+      this.router.navigate(['/pages/salary-hacks']);
+    }
+    else if (mode == "job-seeker-success-stories") {
+      this.router.navigate(['/pages/job-seeker-success-stories']);
     }
     else {
       this.router.navigate(['/pages/job-tool/list/employer-test/13']);
