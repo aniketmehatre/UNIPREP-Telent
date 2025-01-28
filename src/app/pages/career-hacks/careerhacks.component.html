@@ -1,0 +1,9 @@
+<ng-container [ngSwitch]="componentswitch">
+	<ng-container *ngSwitchCase=1>
+		<uni-careercountries [prepData]="prepData" (windowChange)="windowChange($event)"></uni-careercountries>
+	</ng-container>
+	<ng-container *ngSwitchCase=2>
+		<uni-careerhackslists [prepData]="prepData" (windowChange)="windowChange($event)"></uni-careerhackslists>
+	</ng-container>
+</ng-container>
+<router-outlet></router-outlet>
