@@ -23,25 +23,22 @@ export class CourseNavigatorComponent implements OnInit {
   specializations: { id: number, specialization_name: string }[] = [];
   educationList: { id: number, name: string }[] = [
     { id: 1, name: 'Bachelors' },
-    { id: 2, name: 'Masters' },
-    { id: 3, name: 'Diploma' },
+    { id: 2, name: 'Masters' }
   ];
   recommendationDataList: EducatiionsRec[] = [];
   isRecommendationQuestion: boolean = true;
   isRecommendationData: boolean = false;
   isRecommendationSavedData: boolean = false;
-  recommadationSavedQuestionList: any[] = [
-    { id: 1, question: 'What are the career opportunities after a Bsc in Computer Science?', read: 1 },
-    { id: 2, question: 'What are the career opportunities after a Bsc in Matheatics?', read: 0 },
-  ];
-  isFromSavedData: boolean = false;
+  recommadationSavedQuestionList: any[] = [];
+  recommadationQuestionList: any[] = [];
   isQuestionAnswerVisible: boolean = false;
-  oneQuestionContent: any = {
-    answer: 'Lorem ipsum dolor sit, amet consectetur adipisicing elit. Natus dolorem nihil dolores dicta maiores. Ducimus, eos aperiam enim perspiciatis, impedit molestiae dolorum temporibus nam doloremque quo magni voluptatum quae at eum necessitatibus ipsa repellendus ullam repellat odio, iusto sunt. Dolore magni sapiente omnis, eos iste corrupti quas nobis, dolores quasi dignissimos cumque natus voluptatem debitis sit recusandae eum! Facilis corporis quibusdam, iusto labore dolores ex beatae incidunt accusamus dolorum harum cupiditate maxime blanditiis! Impedit ad iusto optio consectetur, saepe numquam et minus aspernatur dignissimos, pariatur deserunt dolorum? Atque, in suscipit ad, illum sequi magni, eligendi perferendis explicabo maxime voluptatibus quam. Nihil quos aliquam delectus? Nisi aliquid molestiae expedita odit perferendis est fuga illo repudiandae! Doloribus voluptatem aliquid sequi rem aut nisi nesciunt tenetur esse molestias corporis qui fuga inventore cumque assumenda quos nulla voluptates mollitia iste culpa, amet id voluptas animi. Vitae officiis at ut hic laborum ullam esse libero, aliquam temporibus quos doloremque dolorum quod nam assumenda reiciendis mollitia pariatur! Nobis iste ratione, itaque expedita enim, ut aut minus at error animi nesciunt nostrum aperiam dolore temporibus dolorum accusamus sequi eaque, quibusdam totam? Et, repudiandae libero sit labore numquam modi, nostrum ut sint nemo quos doloribus vitae dolores earum dolor itaque! Reprehenderit aliquam sint est at non? Non tenetur sit dolorem soluta saepe ducimus dolores reprehenderit mollitia omnis dignissimos inventore deleniti dolorum libero in, odit consequuntur? Ipsam modi nihil dolorem ullam quod labore alias recusandae consequuntur commodi, quam iusto totam dicta voluptatum eos quibusdam sapiente, dolores incidunt beatae? Dignissimos blanditiis expedita dolore deserunt non possimus magni aspernatur dolores doloremque. Exercitationem delectus perspiciatis est expedita, saepe et. Corporis, labore consectetur iure dolores assumenda inventore, aspernatur modi magnam incidunt saepe iusto sunt blanditiis quaerat repellat totam nihil esse recusandae ducimus similique nemo expedita obcaecati aliquam placeat? Maxime placeat commodi autem voluptas!'
-  };
+  oneQuestionContent: any;
+  stateOptions = [{ label: 'Default', value: 'default' }, { label: 'Saved', value: 'saved' }];
+  selectedState: string = 'default';
   selectedQuestionData: any;
   countryId: any;
   specializationFilter: string = '';
+  recommandedQandAList: any[] = [];
 
   constructor(
     private educationToolsService: EducationToolsService,
@@ -113,45 +110,70 @@ export class CourseNavigatorComponent implements OnInit {
     this.isRecommendationQuestion = true;
     this.isRecommendationData = false;
     this.isRecommendationSavedData = false;
-    this.isFromSavedData = false;
     this.selectedData = {};
   }
 
-  saveRecommadation() {
-    if (!this.isFromSavedData) {
-      this.isRecommendationQuestion = false;
-      this.isRecommendationData = false;
-      this.isRecommendationSavedData = true;
-      // this.educationToolsService.getEduSavedRecommadations('').subscribe({
-      //   next: response => {
-      //     this.isRecommendationQuestion = false;
-      //     this.isRecommendationData = false;
-      //     this.isRecommendationSavedData = true;
-      //     this.recommadationSavedQuestionList = response.data;
-      //   },
-      //   error: error => {
-      //   }
-      // });
-    }
+  getCourseQandAList(degree_id: number) {
+    this.educationToolsService.getCourseQandA(degree_id).subscribe({
+      next: response => {
+        this.isRecommendationQuestion = false;
+        this.isRecommendationData = false;
+        this.isRecommendationSavedData = true;
+        this.recommadationQuestionList = response;
+        this.recommandedQandAList = response;
+      },
+      error: error => {
+      }
+    });
+    this.getCNUserSavedQuestions();
   }
 
-  showRecommandationData(data: any) {
-    this.isRecommendationQuestion = false;
-    this.isRecommendationData = true;
-    this.isRecommendationSavedData = false;
-    this.isFromSavedData = true;
-    this.recommendationDataList = data;
+  addCNUserQuestions(question: any) {
+    let data = {
+      question_id: question.id
+    }
+    this.educationToolsService.addCNUserQuestions(data).subscribe({
+      next: response => {
+        this.toast.add({
+          severity: "success",
+          summary: "Success",
+          detail: response.message,
+        });
+        this.recommadationSavedQuestionList.push(question);
+      },
+      error: error => {
+        this.toast.add({
+          severity: "error",
+          summary: "Warning",
+          detail: error.message,
+        });
+      }
+    });
+  }
+
+  getCNUserSavedQuestions() {
+    this.educationToolsService.getCNUserSavedQuestions().subscribe({
+      next: response => {
+        this.recommadationSavedQuestionList = response;
+      },
+      error: error => {
+      }
+    });
+  }
+
+  onChangeSelect(event: any) {
+    this.recommandedQandAList = event.value == 'default' ? this.recommadationQuestionList : this.recommadationSavedQuestionList;
   }
 
   viewOneQuestion(data: any) {
     this.isQuestionAnswerVisible = true;
+    this.oneQuestionContent = data;
+    this.selectedQuestionData = data;
   }
+  
   onShowModal(value: any) {
     let socialShare: any = document.getElementById("socialSharingList");
     socialShare.style.display = "none";
-  }
-  goToHome(event: any) {
-    this.isQuestionAnswerVisible = false;
   }
 
   showSocialSharingList() {
@@ -165,7 +187,6 @@ export class CourseNavigatorComponent implements OnInit {
   }
   shareViaWhatsapp() {
     let url = window.location.href + '/' + this.selectedQuestionData?.id
-    console.log(this.selectedQuestionData);
     console.log(url);
     this.meta.updateTag({ property: 'og:url', content: url });
     const shareUrl = `whatsapp://send?text=${encodeURIComponent(url)}`;

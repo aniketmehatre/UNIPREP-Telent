@@ -507,7 +507,13 @@ uni-preparedlist,
 uni-averagesalaryestimator,
 uni-aspreparedlist,
 uni-joboffercomparisontool,
-uni-jopreparedlist {
+uni-jopreparedlist,
+uni-careerhackslists,
+uni-careercountries,
+uni-salaryhackscountries,
+uni-salaryhackslists,
+uni-seekercountries,
+uni-seekerlists {
 	display: flex;
 	flex: 1;
 	height: 100%;
@@ -2194,4 +2200,62 @@ uni-assessment, uni-travel-tools, uni-founderstool, uni-education-tools {
 		box-shadow: 0 0 0 0.25rem var(--uniprep-secondaryop10);
 		border-color: var(--uniprep-secondary);
 	}
+}
+
+.p-selectbutton .p-button {
+	background: var(--uniprep-primaryop10);
+	border-radius: 25px;
+	&.p-highlight {
+		background: var(--uniprep-primary);
+		border-color: var(--uniprep-primary);
+		color: var(--uniprep-tertiary);
+		&:hover {
+			background: var(--uniprep-primaryhighlight);
+		}
+		&:focus {
+			box-shadow: 0 0 0 0.25rem var(--uniprep-primaryop10) !important;
+		}
+	}
+  }
+  uni-career-hacks {
+	display: flex;
+	flex: 1;
+	height: 100%;
+	flex-direction: column;
+	overflow: hidden;
+	uni-careerhackslists {
+		flex: 1;
+		overflow-y: auto;
+		display: flex;
+		flex-direction: column;
+	}
+
+}
+uni-salary-hacks {
+	display: flex;
+	flex: 1;
+	height: 100%;
+	flex-direction: column;
+	overflow: hidden;
+	uni-salaryhackslists {
+		flex: 1;
+		overflow-y: auto;
+		display: flex;
+		flex-direction: column;
+	}
+
+}
+uni-job-seeker-success-stories {
+	display: flex;
+	flex: 1;
+	height: 100%;
+	flex-direction: column;
+	overflow: hidden;
+	uni-seekerlists {
+		flex: 1;
+		overflow-y: auto;
+		display: flex;
+		flex-direction: column;
+	}
+
 }

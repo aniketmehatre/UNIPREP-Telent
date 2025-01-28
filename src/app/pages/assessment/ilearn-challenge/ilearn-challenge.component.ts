@@ -23,7 +23,11 @@ export class IlearnChallengeComponent implements OnInit, OnDestroy {
   isInstruction: boolean = false;
   pdfURL: any;
   contestRulePdfURL: any;
-  groupList: { cluster_id: number }[] = []
+  groupList: { cluster_id: number, current_cluster: boolean }[] = [];
+  currentLBUserList: LeaderBoard[] = [];
+  currentLBUser: any;
+  selectedLBuser: number = 0;
+
   constructor(
     private assessmentService: AssessmentService,
     private authService: AuthService,
@@ -41,9 +45,14 @@ export class IlearnChallengeComponent implements OnInit, OnDestroy {
       next: (response: ILearnChallengeResponse) => {
         this.isSkeletonVisible = false;
         this.leaderBoardList = response.leaderBoard;
+        this.currentLBUserList = response.leaderBoard;
         this.iLearnChallengeModuleList = response.userData;
         this.overallScore = response.overallScore;
         this.groupList = response.groups_list;
+        this.currentLBUser = this.groupList.find(item => item.current_cluster == true);
+        if(this.currentLBUser) {
+          this.selectedLBuser = this.currentLBUser.cluster_id;
+        }
         this.contestRulePdfURL = this.sanitizer.bypassSecurityTrustResourceUrl('https://api.uniprep.ai/uniprepapi/storage/app/public/Unilearn//GenralInfo/IELTSAcademic/Test_Format_and_Structure_.pdf');
         let userIndex = this.leaderBoardList.findIndex(item => item.user_id == this.authService._user?.user_id);
         if (userIndex !== -1) {
@@ -109,6 +118,20 @@ export class IlearnChallengeComponent implements OnInit, OnDestroy {
     this.isInstruction = true;
     this.instructionTitle = 'Contest Rules';
     this.pdfURL = this.contestRulePdfURL;
+  }
+
+  onChangegrp(event: any) {
+    if (event.value == this.currentLBUser.cluster_id) {
+      this.leaderBoardList = this.currentLBUserList;
+      return;
+    }
+    this.assessmentService.getLeaderBoardUsers(event.value).subscribe({
+      next: (response) => {
+        this.leaderBoardList = response;
+      },
+      error: error => {
+      }
+    });
   }
 
   goBack() {

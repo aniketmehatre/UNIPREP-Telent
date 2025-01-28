@@ -61,4 +61,25 @@ export class EducationToolsService {
       headers: headers,
     });
   }
+  
+  getCourseQandA(degree_id: number) {
+    const headers = new HttpHeaders().set("Accept", "application/json");
+    return this.http.get<any>(`${environment.ApiUrl}/getCourseQandA?degree_id=${degree_id}`, {
+      headers: headers,
+    });
+  }
+
+  addCNUserQuestions(data: any) {
+    const headers = new HttpHeaders().set("Accept", "application/json");
+    return this.http.post<{ message: string, status: boolean }>(environment.ApiUrl + "/addCNUserQuestions", data, {
+      headers: headers,
+    });
+  }
+
+  getCNUserSavedQuestions() {
+    const headers = new HttpHeaders().set("Accept", "application/json");
+    return this.http.get<any>(`${environment.ApiUrl}/getCNUserSavedQuestions`, {
+      headers: headers,
+    });
+  }
 }
