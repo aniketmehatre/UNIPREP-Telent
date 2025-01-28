@@ -32,45 +32,75 @@
     </div>
 
     <div class="modal" tabindex="-1" role="dialog" [ngClass]="{ 'd-block': questionModal }" (click)="closeModal()">
-        <div class="modal-dialog modal-md modal-dialog-centered" role="document">
+        <div class="modal-dialog modal-md modal-dialog-centered" role="document" (click)="$event.stopPropagation()">
           <div class="modal-content">
             <div class="modal-body position-relative pt-4">
               <div class="modalbuttons">
                 <div class="d-flex gap-2">
-                  <button type="button" title="Close Popup" class="btn btn-primary btn-rounded" (click)="closeModal()"><i class="fa-solid fa-xmark"></i></button>
+                  <button
+                    type="button"
+                    title="Close Popup"
+                    class="btn btn-primary btn-rounded"
+                    (click)="closeModal()"
+                  >
+                    <i class="fa-solid fa-xmark"></i>
+                  </button>
                 </div>
               </div>
               <div>
                 <div class="select-title d-flex justify-content-between align-items-center">
-                    <div>
-                        <h5 class="w-100 mb-0 py-2" tooltipPosition="top" pTooltip="">
-                             India Insights</h5>
-                    </div>
+                  <div>
+                    <h5 class="w-100 mb-0 py-2" tooltipPosition="top" pTooltip="">
+                      India Insights
+                    </h5>
+                  </div>
                 </div>
                 <div class="rounded-3 mt-1 bg-light p-4">
-                    <div class="w-100 d-flex">
-                        <h2 class="question-title w-75">{{questionDetail?.title}}</h2>
-                        <div style="text-align: right" class="w-25">
-                            <button (click)="showSocialSharingList(1)" class="btn btn-primary btn-rounded sharebtn"><i class="fa-light fa-share-nodes"></i></button>
-                            <p-card id="socialSharingList" class="socialSharingList" [ngClass]="{ show: selectedIndex === 1 }">
-                                <ul style="list-style: none; cursor: pointer">
-                                    <li (click)="shareViaWhatsapp('')"><i class="pi pi-whatsapp"></i>Whatsapp</li>
-                                    <li (click)="shareViaMail('')"><i class="pi pi-envelope"></i>Email</li>
-                                    <li (click)="shareViaFacebook('')"><i class="pi pi-facebook"></i>Facebook</li>
-                                    <li (click)="shareViaTwitter('')"><i class="pi pi-twitter"></i>Twitter</li>
-                                    <li (click)="shareViaInstagram('')"><i class="pi pi-instagram"></i>Instagram</li>
-                                    <li (click)="shareViaLinkedIn('')"><i class="pi pi-linkedin"></i>LinkedIn</li>
-                                    <li (click)="copyLink('')"><i class="pi pi-link"></i>Copy Link</li>
-                                </ul>
-                            </p-card>
-                        </div>
+                  <div class="w-100 d-flex justify-content-between align-items-center">
+                    <h2 class="question-title flex-grow-1 me-3">{{ questionDetail?.title }}</h2>
+                    <div class="flex-shrink-0">
+                      <button
+                        (click)="showSocialSharingList(1); $event.stopPropagation()"
+                        class="btn btn-primary btn-rounded sharebtn"
+                      >
+                        <i class="fa-light fa-share-nodes"></i>
+                      </button>
+                      <p-card
+                        id="socialSharingList"
+                        class="socialSharingList"
+                        [ngClass]="{ show: selectedIndex === 1 }"
+                      >
+                        <ul style="list-style: none; cursor: pointer">
+                          <li (click)="shareViaWhatsapp(''); $event.stopPropagation()">
+                            <i class="pi pi-whatsapp"></i>Whatsapp
+                          </li>
+                          <li (click)="shareViaMail(''); $event.stopPropagation()">
+                            <i class="pi pi-envelope"></i>Email
+                          </li>
+                          <li (click)="shareViaFacebook(''); $event.stopPropagation()">
+                            <i class="pi pi-facebook"></i>Facebook
+                          </li>
+                          <li (click)="shareViaTwitter(''); $event.stopPropagation()">
+                            <i class="pi pi-twitter"></i>Twitter
+                          </li>
+                          <li (click)="shareViaInstagram(''); $event.stopPropagation()">
+                            <i class="pi pi-instagram"></i>Instagram
+                          </li>
+                          <li (click)="shareViaLinkedIn(''); $event.stopPropagation()">
+                            <i class="pi pi-linkedin"></i>LinkedIn
+                          </li>
+                          <li (click)="copyLink(''); $event.stopPropagation()">
+                            <i class="pi pi-link"></i>Copy Link
+                          </li>
+                        </ul>
+                      </p-card>
                     </div>
-                    <p class="answer-text" [innerHTML]="questionDetail?.answer">
-                    </p>
+                  </div>
+                  <p class="answer-text" [innerHTML]="questionDetail?.answer"></p>
                 </div>
               </div>
-              <!-- <div class="embed-responsive"><iframe #videoFrame [src]="selectedVideoLink" width="100%" frameborder="0" allowfullscreen></iframe></div> -->
             </div>
           </div>
         </div>
       </div>
+      

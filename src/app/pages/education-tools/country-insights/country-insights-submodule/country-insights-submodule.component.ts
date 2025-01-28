@@ -60,49 +60,63 @@ export class CountryInsightsSubmoduleComponent implements OnInit {
     this.selectedIndex = this.selectedIndex === index ? null : index;
   }
   shareViaWhatsapp(link: any) {
-    let url = this.questionDetail
-    this.meta.updateTag({ property: 'og:url', content: url });
-    const shareUrl = `whatsapp://send?text=${encodeURIComponent(url)}`;
+    const { title, answer } = this.questionDetail || {};
+    const message = `*${title}*\n${answer}`;
+    const shareUrl = `whatsapp://send?text=${encodeURIComponent(message)}`;
     window.open(shareUrl, '_blank');
   }
+
   shareViaInstagram(link: any) {
-    let url = this.questionDetail
-    this.meta.updateTag({ property: 'og:url', content: url });
-    const shareUrl = `https://www.instagram.com?url=${encodeURIComponent(url)}`;
-    window.open(shareUrl, '_blank');
+    const { title, answer } = this.questionDetail || {};
+    const message = `${title}\n${answer}`;
+    // Instagram doesn't support direct text sharing via URLs.
+    alert('Instagram sharing requires manual pasting. Text has been copied to your clipboard.');
+    this.copyTextToClipboard(message);
   }
+
   shareViaFacebook(link: any) {
-    let url = this.questionDetail
-    this.meta.updateTag({ property: 'og:url', content: url });
-    const shareUrl = `https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(url)}`;
+    const { title, answer } = this.questionDetail || {};
+    const url = encodeURIComponent(`${title}\n${answer}`);
+    const shareUrl = `https://www.facebook.com/sharer/sharer.php?u=${url}`;
     window.open(shareUrl, '_blank');
   }
+
   shareViaLinkedIn(link: any) {
-    let url = this.questionDetail
-    this.meta.updateTag({ property: 'og:url', content: url });
-    const shareUrl = `https://www.linkedin.com/shareArticle?url=${encodeURIComponent(url)}`;
+    const { title, answer } = this.questionDetail || {};
+    const url = encodeURIComponent(`${title}\n${answer}`);
+    const shareUrl = `https://www.linkedin.com/shareArticle?url=${url}`;
     window.open(shareUrl, '_blank');
   }
+
   shareViaTwitter(link: any) {
-    let url = this.questionDetail
-    this.meta.updateTag({ property: 'og:url', content: url });
-    const shareUrl = `https://twitter.com/intent/tweet?url=${encodeURIComponent(url)}`;
+    const { title, answer } = this.questionDetail || {};
+    const message = `${title}\n${answer}`;
+    const shareUrl = `https://twitter.com/intent/tweet?text=${encodeURIComponent(message)}`;
     window.open(shareUrl, '_blank');
   }
+
   shareViaMail(link: any) {
-    let url = this.questionDetail
-    this.meta.updateTag({ property: 'og:url', content: url });
-    const shareUrl = `mailto:?body=${encodeURIComponent(url)}`;
+    const { title, answer } = this.questionDetail || {};
+    const message = `${title}\n\n${answer}`;
+    const shareUrl = `mailto:?subject=${encodeURIComponent(title)}&body=${encodeURIComponent(message)}`;
     window.open(shareUrl, '_blank');
   }
+
   copyLink(link: any) {
-    const sanitizedCertificate = this.questionDetail || '';
+    const { title, answer } = this.questionDetail || {};
+    const message = `${title}\n${answer}`;
+    this.copyTextToClipboard(message);
+  }
+
+  private copyTextToClipboard(text: string) {
     const textarea = document.createElement('textarea');
-    textarea.textContent = sanitizedCertificate;
+    textarea.textContent = text;
     document.body.append(textarea);
     textarea.select();
     document.execCommand('copy');
     textarea.remove();
+    alert('Text copied to clipboard!');
   }
+
 
 }
