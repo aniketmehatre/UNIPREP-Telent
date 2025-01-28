@@ -1,6 +1,8 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { environment } from '@env/environment';
+import { Observable } from 'rxjs';
+import { CountryInsight, CountryInsightPayload, CountryInsightsResponse, QuestionListSuccess, QuestionsListPayLoad } from 'src/app/@Models/country-insights.model';
 import { EducatiionsRec } from 'src/app/@Models/course-navigator.model';
 
 @Injectable({
@@ -41,6 +43,21 @@ export class EducationToolsService {
   getPoliticiansListByCountry(data: any) {
     const headers = new HttpHeaders().set("Accept", "application/json");
     return this.http.post<any>(environment.ApiUrl + "/getpoliticianslist", data, {
+      headers: headers,
+    });
+  }
+
+  getCountryInsightsList(req: CountryInsightPayload): Observable<CountryInsightsResponse> {
+    let params = {
+      page: req.page,
+      perpage: req.perpage,
+    };
+    return this.http.post<CountryInsightsResponse>(environment.ApiUrl + `/getcountryinsightslists`, params)
+  }
+
+  getQuizQuestion(req: QuestionsListPayLoad): Observable<QuestionListSuccess> {
+    const headers = new HttpHeaders().set("Accept", "application/json");
+    return this.http.post<QuestionListSuccess>(environment.ApiUrl + '/showcountryinsight', req, {
       headers: headers,
     });
   }
