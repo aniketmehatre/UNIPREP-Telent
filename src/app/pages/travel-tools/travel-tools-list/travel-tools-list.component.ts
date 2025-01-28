@@ -9,11 +9,11 @@ export class TravelToolsListComponent implements OnInit {
     isLaunchingSoon = false;
     travelToolsList: any[] = [
       {
-        title: "Gloabal Travel Visa",
+        title: "Global Travel Visa",
        
         image: "https://api.uniprep.ai/uniprepapi/storage/app//public/icon/modules/job-interview.svg",
         url: "/pages/travel-tools/travel-visa",
-        launch_soon: false
+        launch_soon: true
       },
       {
         title: "Travel Cost Estimator",
