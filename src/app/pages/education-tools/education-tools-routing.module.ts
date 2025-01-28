@@ -16,7 +16,10 @@ const routes: Routes = [
         path: '', component: EducationToolsListComponent
       },
       {
-        path:'course-navigator', component:CourseNavigatorComponent
+        path: 'course-navigator', component: CourseNavigatorComponent
+      },
+      {
+        path: 'course-navigator/:degreeId/:questionId', component: CourseNavigatorComponent // Question Share
       },
       {
         path: 'politician-insights', component: PoliticianInsightsComponent
@@ -25,7 +28,7 @@ const routes: Routes = [
         path: 'country-insights', component: CountryInsightsComponent
       },
       {
-        path:'study-visa', component: GlobalTravelVisaComponent
+        path: 'study-visa', component: GlobalTravelVisaComponent
       },
       {
         path:'student-budget-planner', component: StudentBudgetPlannerComponent

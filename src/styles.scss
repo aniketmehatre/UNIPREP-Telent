@@ -2199,6 +2199,9 @@ uni-assessment, uni-travel-tools, uni-founderstool, uni-education-tools {
 .p-selectbutton .p-button {
 	background: var(--uniprep-primaryop10);
 	border-radius: 25px;
+	.p-button-label {
+		font-weight: 600;
+	}
 	&.p-highlight {
 		background: var(--uniprep-primary);
 		border-color: var(--uniprep-primary);
@@ -2210,4 +2213,8 @@ uni-assessment, uni-travel-tools, uni-founderstool, uni-education-tools {
 			box-shadow: 0 0 0 0.25rem var(--uniprep-primaryop10) !important;
 		}
 	}
-  }
+}
+
+.cn-select-btn .p-button {
+    padding: 0.5rem 1.25rem;
+}
