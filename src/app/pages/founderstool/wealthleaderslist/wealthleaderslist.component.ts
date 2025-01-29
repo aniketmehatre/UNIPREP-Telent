@@ -34,7 +34,7 @@ export class WealthleaderslistComponent implements OnInit {
     })
   }
   goBack(){
-    this.router.navigate(['/pages/founderstool/founderstoollist']);
+    this.router.navigate(['/pages/education-tools']);
   }
   openVideoPopup(videoLink: string) {
     this.pageFacade.openHowitWorksVideoPopup(videoLink);
@@ -75,6 +75,6 @@ export class WealthleaderslistComponent implements OnInit {
   }
   viewReadAns(id:any,name:any){
     localStorage.setItem("wealthleadersname",name)
-    this.router.navigate(['/pages/founderstool/wealthleaderreadanswer',id]);
+    this.router.navigate(['/pages/education-tools/wealthleaderreadanswer',id]);
   }
 }
