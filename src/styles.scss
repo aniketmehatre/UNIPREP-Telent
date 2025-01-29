@@ -507,7 +507,13 @@ uni-preparedlist,
 uni-averagesalaryestimator,
 uni-aspreparedlist,
 uni-joboffercomparisontool,
-uni-jopreparedlist {
+uni-jopreparedlist,
+uni-careerhackslists,
+uni-careercountries,
+uni-salaryhackscountries,
+uni-salaryhackslists,
+uni-seekercountries,
+uni-seekerlists {
 	display: flex;
 	flex: 1;
 	height: 100%;
@@ -2217,4 +2223,47 @@ uni-assessment, uni-travel-tools, uni-founderstool, uni-education-tools {
 
 .cn-select-btn .p-button {
     padding: 0.5rem 1.25rem;
+}
+  
+uni-career-hacks {
+	display: flex;
+	flex: 1;
+	height: 100%;
+	flex-direction: column;
+	overflow: hidden;
+	uni-careerhackslists {
+		flex: 1;
+		overflow-y: auto;
+		display: flex;
+		flex-direction: column;
+	}
+
+}
+uni-salary-hacks {
+	display: flex;
+	flex: 1;
+	height: 100%;
+	flex-direction: column;
+	overflow: hidden;
+	uni-salaryhackslists {
+		flex: 1;
+		overflow-y: auto;
+		display: flex;
+		flex-direction: column;
+	}
+
+}
+uni-job-seeker-success-stories {
+	display: flex;
+	flex: 1;
+	height: 100%;
+	flex-direction: column;
+	overflow: hidden;
+	uni-seekerlists {
+		flex: 1;
+		overflow-y: auto;
+		display: flex;
+		flex-direction: column;
+	}
+
 }
