@@ -80,21 +80,21 @@ export class StartUpExpenseEstimateComponent implements OnInit {
       id: 1,
       question: {
         heading: 'Basic Information',
-        branches: ["What is Your Industry", "Where are you located", "What is the start-up stage", "What is your team size"]
+        branches: ["What industry is your startup in?", "At what phase is your startup currently?", "Where is your startup located?", "What is the current size of your team?"]
       },
     },
     {
       id: 2,
       question: {
         heading: 'Expense',
-        branches: ["What are the primary expenses you anticipate for your startup?", "What is current inestment in your start-up?", "What is your revenue model?", "what is your monthly opeartiing system"]
+        branches: ["What are the key expense categories for your startup?", "How much capital have you invested in the startup so far?", "What is your revenue model ?", "What are your monthly operating expenses?"]
       },
     },
     {
       id: 3,
       question: {
         heading: 'Analysis',
-        branches: ["How much do you plant to allocate for marketing and sales", "what is you startup expense time frame?"]
+        branches: ["How much is allocated to the sales and marketing budget each month?", "Over what period would you like the expense estimation to be calculated?"]
       },
     },
   ];

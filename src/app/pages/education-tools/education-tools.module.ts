@@ -5,7 +5,7 @@ import { EducationToolsRoutingModule } from './education-tools-routing.module';
 import { EducationToolsComponent } from './education-tools.component';
 import { EducationToolsListComponent } from './education-tools-list/education-tools-list.component';
 import { CourseNavigatorComponent } from './course-navigator/course-navigator.component';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { CarouselModule } from 'primeng/carousel';
 import { DropdownModule } from 'primeng/dropdown';
 import { ButtonModule } from 'primeng/button';
@@ -19,6 +19,8 @@ import { CountryInsightsComponent } from './country-insights/country-insights.co
 import { CountryInsightsSubmoduleComponent } from './country-insights/country-insights-submodule/country-insights-submodule.component';
 import { SelectButtonModule } from 'primeng/selectbutton';
 import { StudentBudgetPlannerComponent } from './student-budget-planner/student-budget-planner.component';
+import { WealthleaderreadansComponent } from '../founderstool/wealthleaderreadans/wealthleaderreadans.component';
+import { WealthleaderslistComponent } from '../founderstool/wealthleaderslist/wealthleaderslist.component';
 
 @NgModule({
   declarations: [
@@ -28,7 +30,9 @@ import { StudentBudgetPlannerComponent } from './student-budget-planner/student-
     PoliticianInsightsComponent,
     CountryInsightsComponent,
     CountryInsightsSubmoduleComponent,
-    StudentBudgetPlannerComponent
+    StudentBudgetPlannerComponent,
+    WealthleaderslistComponent,
+    WealthleaderreadansComponent
   ],
   imports: [
     CommonModule,
@@ -42,7 +46,8 @@ import { StudentBudgetPlannerComponent } from './student-budget-planner/student-
     DialogModule,
     SharedModule,
     InputTextModule,
-    SelectButtonModule
+    SelectButtonModule,
+    ReactiveFormsModule
   ]
 })
 export class EducationToolsModule { }

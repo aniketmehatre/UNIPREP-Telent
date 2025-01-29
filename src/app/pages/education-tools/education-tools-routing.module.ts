@@ -8,6 +8,8 @@ import { GlobalTravelVisaComponent } from '../travel-tools/global-travel-visa/gl
 import { CountryInsightsComponent } from './country-insights/country-insights.component';
 import { CountryInsightsSubmoduleComponent } from './country-insights/country-insights-submodule/country-insights-submodule.component';
 import { StudentBudgetPlannerComponent } from './student-budget-planner/student-budget-planner.component';
+import { WealthleaderreadansComponent } from '../founderstool/wealthleaderreadans/wealthleaderreadans.component';
+import { WealthleaderslistComponent } from '../founderstool/wealthleaderslist/wealthleaderslist.component';
 
 const routes: Routes = [
   {
@@ -38,7 +40,13 @@ const routes: Routes = [
       },
       {
         path:'student-budget-planner', component: StudentBudgetPlannerComponent
-      }
+      },
+      {
+        path: 'wealthleaderslist', component: WealthleaderslistComponent
+      },
+      {
+        path: 'wealthleaderreadanswer/:id', component: WealthleaderreadansComponent
+      },
     ]
   }
 ];

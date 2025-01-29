@@ -25,7 +25,8 @@ export class ComponentStoriesComponent implements OnInit {
   questuionanswerlist: any[] = [];
   isQuestionAnswerVisible: boolean = false;
   dataanswerquestion: any;
-
+  countryId:any;
+  moduleid:any;
   ngOnInit(): void {
     this.locationService.getAllCountryList().subscribe((res: any) => {
       this.countrylist = res.data
@@ -34,28 +35,35 @@ export class ComponentStoriesComponent implements OnInit {
     if (this.currentRoute.includes('startup-funding-hacks')) {
       this.headertooltipname = "Startup Funding Hacks"
       this.modename = "startup_funding_hacks";
+      this.moduleid=23;
     } else if (this.currentRoute.includes('founder-success-stories')) {
       this.headertooltipname = "Founder-Success-Stories"
       this.modename = "founder_success_stories";
+      this.moduleid=24;
     } else if (this.currentRoute.includes('founder-failure-stories')) {
       this.modename = "founder_failure_stories";
       this.headertooltipname = "Founder-Failure-Stories"
+      this.moduleid=25;
     } else if (this.currentRoute.includes('startup-success-stories')) {
       this.modename = "startup_success_stories";
       this.headertooltipname = "Startup Success Stories"
+      this.moduleid=26;
     } else if (this.currentRoute.includes('startup-failure-stories')) {
       this.headertooltipname = "Startup Failure Stories"
       this.modename = "startup_failure_stories";
+      this.moduleid=27;
     }
     this.activatedRoute.params.subscribe(params => {
       if (params['id'] && params['question_id']) {
         this.isShowCountryQuesAns=true;
         this.isShowCountryData=false;
+        this.countryId=params['id']
         this.getQueAns(params['id'],params['question_id'])
       }
       else if (params['id']) {
         this.isShowCountryQuesAns=true;
         this.isShowCountryData=false;
+        this.countryId=params['id']
         this.getQueAns(params['id'])
       } else {
         this.isShowCountryQuesAns=false;
@@ -125,10 +133,9 @@ export class ComponentStoriesComponent implements OnInit {
   openReport() {
     let data: any = {
       isVisible: true,
-      moduleId: null,
-      subModuleId: null,
+      moduleId: this.moduleid,
       questionId: this.dataanswerquestion?.id,
-      from: "module",
+      countryId:this.countryId,
     };
     // if (this.currentModuleId == 8) {
     //   data.reporttype = 8;
@@ -156,35 +163,30 @@ export class ComponentStoriesComponent implements OnInit {
   }
   shareViaInstagram() {
     let url = window.location.href + '/' + this.dataanswerquestion?.id
-    console.log(url);
     this.meta.updateTag({ property: 'og:url', content: url });
     const shareUrl = `https://www.instagram.com?url=${encodeURIComponent(url)}`;
     window.open(shareUrl, '_blank');
   }
   shareViaFacebook() {
     let url = window.location.href + '/' + this.dataanswerquestion?.id
-    console.log(url);
     this.meta.updateTag({ property: 'og:url', content: url });
     const shareUrl = `https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(url)}`;
     window.open(shareUrl, '_blank');
   }
   shareViaLinkedIn() {
     let url = window.location.href + '/' + this.dataanswerquestion?.id
-    console.log(url);
     this.meta.updateTag({ property: 'og:url', content: url });
     const shareUrl = `https://www.linkedin.com/shareArticle?url=${encodeURIComponent(url)}`;
     window.open(shareUrl, '_blank');
   }
   shareViaTwitter() {
     let url = window.location.href + '/' + this.dataanswerquestion?.id
-    console.log(url);
     this.meta.updateTag({ property: 'og:url', content: url });
     const shareUrl = `https://twitter.com/intent/tweet?url=${encodeURIComponent(url)}`;
     window.open(shareUrl, '_blank');
   }
   shareViaMail() {
     let url = window.location.href + '/' + this.dataanswerquestion?.id
-    console.log(url);
     this.meta.updateTag({ property: 'og:url', content: url });
     const shareUrl = `mailto:?body=${encodeURIComponent(url)}`;
     window.open(shareUrl, '_blank');
