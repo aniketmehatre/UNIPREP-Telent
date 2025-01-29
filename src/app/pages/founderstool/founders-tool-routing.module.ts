@@ -25,6 +25,9 @@ const routes: Routes = [
     path: '', component: FounderstoolComponent,
     children: [
       {
+        path: '',  redirectTo: 'founderstoollist', pathMatch: 'full'
+      },
+      {
         path: 'foundersacademy', component: FoundersacademyComponent
       },
       {
