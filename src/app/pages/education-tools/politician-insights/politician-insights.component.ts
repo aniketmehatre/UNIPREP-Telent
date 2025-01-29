@@ -3,6 +3,7 @@ import { Subscription } from 'rxjs/internal/Subscription';
 import { EducationToolsService } from '../education-tools.service';
 import { AuthService } from 'src/app/Auth/auth.service';
 import { MessageService } from 'primeng/api';
+import { Router } from '@angular/router';
 
 export interface Politician {
   name: string;
@@ -44,6 +45,7 @@ export class PoliticianInsightsComponent implements OnInit, OnDestroy {
   ];
   constructor(private toast: MessageService,
     private educationToolsService: EducationToolsService,
+    private router: Router,
     private authService: AuthService) { }
 
   ngOnInit(): void {
@@ -63,6 +65,10 @@ export class PoliticianInsightsComponent implements OnInit, OnDestroy {
     this.data.page = this.page;
     this.data.perpage = this.pageSize;
     this.getPoliticiansList(this.data);
+  }
+
+  backtoMain() {
+    this.router.navigateByUrl('/pages/education-tools');
   }
 
   getRecommendation() {
@@ -129,7 +135,7 @@ export class PoliticianInsightsComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy() {
-    this.subscription.unsubscribe();
+    // this.subscription.unsubscribe();
   }
 
 
