@@ -18,6 +18,7 @@ import { InputTextModule } from 'primeng/inputtext';
 import { CountryInsightsComponent } from './country-insights/country-insights.component';
 import { CountryInsightsSubmoduleComponent } from './country-insights/country-insights-submodule/country-insights-submodule.component';
 import { SelectButtonModule } from 'primeng/selectbutton';
+import { StudentBudgetPlannerComponent } from './student-budget-planner/student-budget-planner.component';
 
 @NgModule({
   declarations: [
@@ -26,7 +27,8 @@ import { SelectButtonModule } from 'primeng/selectbutton';
     CourseNavigatorComponent,
     PoliticianInsightsComponent,
     CountryInsightsComponent,
-    CountryInsightsSubmoduleComponent
+    CountryInsightsSubmoduleComponent,
+    StudentBudgetPlannerComponent
   ],
   imports: [
     CommonModule,

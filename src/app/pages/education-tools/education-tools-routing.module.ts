@@ -7,6 +7,7 @@ import { PoliticianInsightsComponent } from './politician-insights/politician-in
 import { GlobalTravelVisaComponent } from '../travel-tools/global-travel-visa/global-travel-visa.component';
 import { CountryInsightsComponent } from './country-insights/country-insights.component';
 import { CountryInsightsSubmoduleComponent } from './country-insights/country-insights-submodule/country-insights-submodule.component';
+import { StudentBudgetPlannerComponent } from './student-budget-planner/student-budget-planner.component';
 
 const routes: Routes = [
   {
@@ -16,7 +17,10 @@ const routes: Routes = [
         path: '', component: EducationToolsListComponent
       },
       {
-        path:'course-navigator', component:CourseNavigatorComponent
+        path: 'course-navigator', component: CourseNavigatorComponent
+      },
+      {
+        path: 'course-navigator/:degreeId/:questionId', component: CourseNavigatorComponent // Question Share
       },
       {
         path: 'politician-insights', component: PoliticianInsightsComponent
@@ -30,7 +34,10 @@ const routes: Routes = [
         component: CountryInsightsSubmoduleComponent
       },
       {
-        path:'study-visa', component: GlobalTravelVisaComponent
+        path: 'study-visa', component: GlobalTravelVisaComponent
+      },
+      {
+        path:'student-budget-planner', component: StudentBudgetPlannerComponent
       }
     ]
   }

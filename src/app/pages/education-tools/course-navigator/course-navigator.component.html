@@ -111,22 +111,27 @@
         </div>
     </div>
     <div class="card-body text-center flex-fill overflow-y-auto">
-        <div class="row mb-0">
-            <div *ngFor="let item of recommendationDataList" class="col-lg-2 col-md-3 col-sm-4 col-xs-12 col-12 mb-3">
-                <div class="row w-100 m-0 justify-content-center h-100">
-                    <div class="card subjectcard" role="button" (click)="getCourseQandAList(item.id)">
-                        <div
-                            class="card-body d-flex flex-md-column flex-row justify-content-md-between align-items-center">
-                            <div>
-                                <div class="submoduleicon">
-                                    <img class="selectimage" [src]="item.icon" />
+        <div class="h-100 d-flex flex-column justify-content-between">
+            <div></div>
+            <div class="row" [ngClass]="{'justify-content-center': recommendationDataList.length <=6 }">
+                <div *ngFor="let item of recommendationDataList"
+                    class="col-lg-2 col-md-3 col-sm-4 col-xs-12 col-12 mb-3">
+                    <div class="row w-100 m-0 justify-content-center h-100">
+                        <div class="card subjectcard" role="button" (click)="getCourseQandAList(item.id)">
+                            <div
+                                class="card-body d-flex flex-md-column flex-row justify-content-md-between align-items-center">
+                                <div>
+                                    <div class="submoduleicon">
+                                        <img class="selectimage" [src]="item.icon" />
+                                    </div>
+                                    <h5 class="text-center mt-3 fw-bold mb-0">{{item.degree_name}}</h5>
                                 </div>
-                                <h5 class="text-center mt-3 fw-bold mb-0">{{item.degree_name}}</h5>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
+            <div></div>
         </div>
     </div>
     <div class="card-footer bg-transparent border-0">
@@ -159,7 +164,8 @@
                 </div>
                 <div class="d-flex align-items-center">
                     <p-selectButton [options]="stateOptions" [(ngModel)]="selectedState" optionLabel="label"
-                        optionValue="value" (onChange)="onChangeSelect($event)"></p-selectButton>
+                        optionValue="value" (onChange)="onChangeSelect($event)"
+                        styleClass="cn-select-btn"></p-selectButton>
                 </div>
             </div>
         </div>
@@ -173,23 +179,18 @@
                             class="card-body d-flex flex-sm-column flex-row justify-content-sm-between align-items-center gap-2">
                             <div class="row justify-content-center w-100">
                                 <div class="col">
-                                    <p class="text-start fw-bold questiontext mb-0" title="{{ sub.question }}">{{
-                                        sub.question
-                                        }}</p>
+                                    <p class="text-start fw-bold questiontext mb-0" title="{{ sub.question }}">
+                                        {{ sub.question }}</p>
                                 </div>
-
                             </div>
 
                             <button
                                 class="btn d-md-block d-none w-100 flex-shrink-0 btn-primary btn-rounded m-0 primary-btn {{ sub.read == 1 ? 'questionread' : '' }}"
-                                pButton type="button">
-                                Read Answer</button>
+                                pButton type="button">Read Answer</button>
 
                             <button
                                 class="btn d-md-none d-flex flex-shrink-0 btn-primary btn-rounded m-0 primary-btn {{ sub.read == 1 ? 'questionread' : '' }}"
-                                pButton type="button">
-                                Read Answer
-                            </button>
+                                pButton type="button">Read Answer</button>
                         </div>
                     </div>
                 </div>
@@ -215,20 +216,20 @@
             <div class="d-flex justify-content-between align-items-center my-3">
                 <div></div>
                 <div>
-                    <h3 class="uniprep-primary unselectable d-md-block d-none">{{ oneQuestionContent?.question }}</h3>
-                    <h5 class="uniprep-primary unselectable d-md-none d-block">{{ oneQuestionContent?.question }}</h5>
+                    <h3 class="uniprep-primary unselectable d-md-block d-none">{{ selectedQuestionData?.question }}</h3>
+                    <h5 class="uniprep-primary unselectable d-md-none d-block">{{ selectedQuestionData?.question }}</h5>
                 </div>
                 <div>
-                    <button pButton type="button" (click)="addCNUserQuestions(oneQuestionContent)"
+                    <button pButton type="button" (click)="addCNUserQuestions(selectedQuestionData)"
                         class="btn btn-primary btn-rounded p-1 ps-4">
-                        <span class="me-2">Save Response</span><span class="btn-icon px-2 py-2"><i
-                                class="fa fa-arrow-right"></i></span>
+                        <span class="me-2">Save Response</span><span class="btn-icon px-2 py-2">
+                            <i class="fa-regular fa-floppy-disk"></i></span>
                     </button>
                 </div>
             </div>
         </div>
     </ng-template>
-    <div class="carousel-container px-4">
+    <div class="carousel-container px-4 pb-3">
         <div class="card flex-fill answercard">
             <div class="card-body text-start">
                 <div class="d-flex align-items-center justify-content-between position-relative">
@@ -248,7 +249,7 @@
                     </p-card>
                 </div>
                 <div class="fw-medium" style="white-space: inherit; max-height: 80%; min-height: 80%"
-                    [innerHTML]="oneQuestionContent?.answer"></div>
+                    [innerHTML]="selectedQuestionData?.answer"></div>
             </div>
         </div>
     </div>
