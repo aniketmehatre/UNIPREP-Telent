@@ -6,6 +6,8 @@ import { CourseNavigatorComponent } from './course-navigator/course-navigator.co
 import { PoliticianInsightsComponent } from './politician-insights/politician-insights.component';
 import { GlobalTravelVisaComponent } from '../travel-tools/global-travel-visa/global-travel-visa.component';
 import { CountryInsightsComponent } from './country-insights/country-insights.component';
+import { WealthleaderslistComponent } from '../founderstool/wealthleaderslist/wealthleaderslist.component';
+import { WealthleaderreadansComponent } from '../founderstool/wealthleaderreadans/wealthleaderreadans.component';
 
 const routes: Routes = [
   {
@@ -25,7 +27,13 @@ const routes: Routes = [
       },
       {
         path:'study-visa', component: GlobalTravelVisaComponent
-      }
+      },
+      {
+        path: 'wealthleaderslist', component: WealthleaderslistComponent
+      },
+      {
+        path: 'wealthleaderreadanswer/:id', component: WealthleaderreadansComponent
+      },
     ]
   }
 ];

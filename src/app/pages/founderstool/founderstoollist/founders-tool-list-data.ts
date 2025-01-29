@@ -42,13 +42,6 @@ export const FoundersToolsData = [
         launch_soon: false
     },
     {
-        title: "Wealth Leaders",
-        description: "An assessment that evaluates an entrepreneur's in-depth knowledge and proficiency in specific industries.",
-        image: "../../../uniprep-assets/images/icons/wealthy.svg",
-        url: "/pages/founderstool/wealthleaderslist",
-        launch_soon: true
-    },
-    {
         title: "Global Enterpreneur Visa",
         description: "An assessment that evaluates an entrepreneur's in-depth knowledge and proficiency in specific industries.",
         image: "../../../uniprep-assets/images/icons/wealthy.svg",

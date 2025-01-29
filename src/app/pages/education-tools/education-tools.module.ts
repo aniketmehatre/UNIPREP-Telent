@@ -5,7 +5,7 @@ import { EducationToolsRoutingModule } from './education-tools-routing.module';
 import { EducationToolsComponent } from './education-tools.component';
 import { EducationToolsListComponent } from './education-tools-list/education-tools-list.component';
 import { CourseNavigatorComponent } from './course-navigator/course-navigator.component';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { CarouselModule } from 'primeng/carousel';
 import { DropdownModule } from 'primeng/dropdown';
 import { ButtonModule } from 'primeng/button';
@@ -17,6 +17,8 @@ import {SharedModule} from "../../shared/shared.module";
 import { InputTextModule } from 'primeng/inputtext';
 import { CountryInsightsComponent } from './country-insights/country-insights.component';
 import { SelectButtonModule } from 'primeng/selectbutton';
+import { WealthleaderslistComponent } from '../founderstool/wealthleaderslist/wealthleaderslist.component';
+import { WealthleaderreadansComponent } from '../founderstool/wealthleaderreadans/wealthleaderreadans.component';
 
 @NgModule({
   declarations: [
@@ -24,7 +26,9 @@ import { SelectButtonModule } from 'primeng/selectbutton';
     EducationToolsListComponent,
     CourseNavigatorComponent,
     PoliticianInsightsComponent,
-    CountryInsightsComponent
+    CountryInsightsComponent,
+    WealthleaderslistComponent,
+    WealthleaderreadansComponent
   ],
   imports: [
     CommonModule,
@@ -38,7 +42,8 @@ import { SelectButtonModule } from 'primeng/selectbutton';
     DialogModule,
     SharedModule,
     InputTextModule,
-    SelectButtonModule
+    SelectButtonModule,
+    ReactiveFormsModule
   ]
 })
 export class EducationToolsModule { }

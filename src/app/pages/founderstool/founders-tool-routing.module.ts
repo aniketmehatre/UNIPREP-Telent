@@ -52,12 +52,6 @@ const routes: Routes = [
         path: ':module_name/entrpreneurquiz', component: EntreprenuerquizComponent
       },
       {
-        path: 'wealthleaderslist', component: WealthleaderslistComponent
-      },
-      {
-        path: 'wealthleaderreadanswer/:id', component: WealthleaderreadansComponent
-      },
-      {
         path: 'business-plan-generator', component: BusinessPlanGeneratorComponent
       },
       {

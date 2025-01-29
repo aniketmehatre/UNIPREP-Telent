@@ -27,4 +27,11 @@ export const EducationToolsData = [
         url: "/pages/education-tools/country-insights",
         launch_soon: true,
     },
+    {
+        title: "Wealth Leaders",
+        description: "An assessment that evaluates an entrepreneur's in-depth knowledge and proficiency in specific industries.",
+        image: "../../../uniprep-assets/images/icons/wealthy.svg",
+        url: "/pages/education-tools/wealthleaderslist",
+        launch_soon: true,
+    },
 ]
