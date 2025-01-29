@@ -25,6 +25,9 @@ const routes: Routes = [
     path: '', component: FounderstoolComponent,
     children: [
       {
+        path: '',  redirectTo: 'founderstoollist', pathMatch: 'full'
+      },
+      {
         path: 'foundersacademy', component: FoundersacademyComponent
       },
       {
@@ -50,12 +53,6 @@ const routes: Routes = [
       },
       {
         path: ':module_name/entrpreneurquiz', component: EntreprenuerquizComponent
-      },
-      {
-        path: 'wealthleaderslist', component: WealthleaderslistComponent
-      },
-      {
-        path: 'wealthleaderreadanswer/:id', component: WealthleaderreadansComponent
       },
       {
         path: 'business-plan-generator', component: BusinessPlanGeneratorComponent

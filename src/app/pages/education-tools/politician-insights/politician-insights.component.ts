@@ -43,10 +43,12 @@ export class PoliticianInsightsComponent implements OnInit, OnDestroy {
   totalPoliticianList = 2;
   politicians: Politician[] = [
   ];
-  constructor(private toast: MessageService,
+  constructor(
+    private toast: MessageService,
     private educationToolsService: EducationToolsService,
-    private router: Router,
-    private authService: AuthService) { }
+    private authService: AuthService,
+    private router: Router
+  ) { }
 
   ngOnInit(): void {
     this.checkplanExpire();
@@ -132,6 +134,10 @@ export class PoliticianInsightsComponent implements OnInit, OnDestroy {
       let allCountries = res;
       this.countryList = allCountries;
     })
+  }
+
+  goBack() {
+    this.router.navigateByUrl('/pages/education-tools');
   }
 
   ngOnDestroy() {

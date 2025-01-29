@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { TravelToolsService } from '../travel-tools.service';
-import { Location } from '@angular/common';
+import { Router } from '@angular/router';
+import { City } from 'src/app/@Models/cost-of-living';
+import { CostOfLivingService } from '../../job-tool/cost-of-living/cost-of-living.service';
 
 @Component({
   selector: 'uni-travel-visit-planner',
@@ -9,7 +11,12 @@ import { Location } from '@angular/common';
 })
 export class TravelVisitPlannerComponent implements OnInit {
 
-  constructor(private travelToolService: TravelToolsService, private location: Location) { }
+  constructor(
+    private travelToolService: TravelToolsService,
+    private router: Router,
+    private costOfLivingService: CostOfLivingService
+
+  ) { }
 
   recommendations: { id: number, question: string }[] = [
     {
@@ -40,16 +47,37 @@ export class TravelVisitPlannerComponent implements OnInit {
   invalidClass: boolean = false;
   recommendationData: any = [];
   savedResponse: any = [];
+  destinationLocationList: City[] = [];
+  cityList: City[] = [];
+  destinationFilter: string = '';
 
   ngOnInit(): void {
     this.selectedData[2] = 1; //second page i need to show the days count so manually i enter the day.
-    this.getCountriesList();
+    this.getCityList();
   }
 
-  getCountriesList(): void {
-    this.travelToolService.getCurrencies().subscribe(response => {
-      this.allCountries = response;
+  getCityList() {
+    this.costOfLivingService.getCities().subscribe({
+      next: response => {
+        this.cityList = response;
+        this.destinationLocationList = response;
+      }
     });
+  }
+
+  customFilterFunction() {
+    if (this.destinationFilter === "") {
+      this.destinationLocationList = this.cityList;
+      return;
+    }
+    this.destinationLocationList = this.cityList.filter(city =>
+      city?.city_name?.toLowerCase().includes(this.destinationFilter.toLowerCase()) || city?.country_name?.toLowerCase().includes(this.destinationFilter.toLowerCase())
+    );
+  }
+
+  resetFunction() {
+    this.destinationFilter = '';
+    this.destinationLocationList = this.cityList;
   }
 
   previous() {
@@ -72,7 +100,7 @@ export class TravelVisitPlannerComponent implements OnInit {
     this.hideWarning(productId);
     if (!this.invalidClass) {
       let data = {
-        destination: this.selectedData[1],
+        destination: this.selectedData[1].city_name ?? this.selectedData[1].country_name,
         trip_duration: this.selectedData[2] + " days",
         season: this.selectedData[3],
         mode: "travel_visit_planner"
@@ -107,12 +135,12 @@ export class TravelVisitPlannerComponent implements OnInit {
     this.isRecommendation = false;
     this.isResponsePage = false;
     this.isSavedPage = true;
-    
-    this.travelToolService.getTripList('travel_visit_planner').subscribe( response =>{
+
+    this.travelToolService.getTripList('travel_visit_planner').subscribe(response => {
       this.savedResponse = response.data;
     })
   }
-  clickRecommendation(response: any){
+  clickRecommendation(response: any) {
     this.isRecommendation = false;
     this.isResponsePage = true;
     this.isSavedPage = false;
@@ -120,6 +148,6 @@ export class TravelVisitPlannerComponent implements OnInit {
   }
 
   goBack() {
-    this.location.back();
+    this.router.navigateByUrl('/pages/travel-tools');
   }
 }

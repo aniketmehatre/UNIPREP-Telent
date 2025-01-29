@@ -1,9 +1,11 @@
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { environment } from '@env/environment';
 import { Observable } from 'rxjs';
 import { CountryInsight, CountryInsightPayload, CountryInsightsResponse, QuestionListSuccess, QuestionsListPayLoad } from 'src/app/@Models/country-insights.model';
 import { EducatiionsRec } from 'src/app/@Models/course-navigator.model';
+import { CountryAndUniversity } from 'src/app/@Models/education-tools.model';
+import { CourseNavigator } from 'src/app/@Models/course-navigator.model';
 
 @Injectable({
   providedIn: 'root'
@@ -62,10 +64,15 @@ export class EducationToolsService {
     });
   }
   
-  getCourseQandA(degree_id: number) {
+  // getCourseQandA(degree_id: number) {
+  getCourseQandA(degreeId: number, questionId?: number) {
     const headers = new HttpHeaders().set("Accept", "application/json");
-    return this.http.get<any>(`${environment.ApiUrl}/getCourseQandA?degree_id=${degree_id}`, {
-      headers: headers,
+    let params = new HttpParams().set('degree_id', degreeId);
+    if (questionId) {
+      params = params.set('question_id', questionId);
+    }
+    return this.http.get<CourseNavigator[]>(`${environment.ApiUrl}/getCourseQandA`, {
+      headers, params
     });
   }
 
@@ -78,7 +85,14 @@ export class EducationToolsService {
 
   getCNUserSavedQuestions() {
     const headers = new HttpHeaders().set("Accept", "application/json");
-    return this.http.get<any>(`${environment.ApiUrl}/getCNUserSavedQuestions`, {
+    return this.http.get<CourseNavigator[]>(`${environment.ApiUrl}/getCNUserSavedQuestions`, {
+      headers: headers,
+    });
+  }
+
+  getDropdownValues(){
+    const headers = new HttpHeaders().set("Accept", "application/json");
+    return this.http.get<CountryAndUniversity>(`${environment.ApiUrl}/getDropdownValues`, {
       headers: headers,
     });
   }
