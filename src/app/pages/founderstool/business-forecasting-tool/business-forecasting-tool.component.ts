@@ -55,28 +55,28 @@ export class BusinessForecastingToolComponent implements OnInit {
       id: 1,
       question: {
         heading: 'Basic Information',
-        branches: ["What is your industry?",
-          "Does your business have seasonal functionalities?",
-          "What are the seasons?",
-          "What are the key factors influencing your revenue?"]
+        branches: ["What industry is your startup in?",
+          "What is the duration of the historical data you have available for analysis?",
+          "What are the key revenue drivers for your business?",
+          "What are the current market trends affecting your industry?"]
       },
     },
     {
       id: 2,
       question: {
         heading: 'Marketing & Sales',
-        branches: ["Who are your target audience?",
-          "What assumptions are you making about business growth?",
-          "Are there any current or upcoming market trends affecting revenue?"]
+        branches: ["Who is your target audience?",
+          "What are your growth assumptions?",
+          "What are the current market trends affecting your industry?"]
       },
     },
     {
       id: 3,
       question: {
         heading: 'Analysis',
-        branches: ["Revenue forecast timeframe",
-          "What are your specific revenue targets for the forecast period?",
-          "How much data do you have to analyze for your forecast?"]
+        branches: ["What is the desired forecast period for this revenue forecasting?",
+          "What are your revenue goals for the forecast period?",
+          "How extensive is the data set available for your business?"]
       },
     },
   ];
