@@ -32,7 +32,7 @@ export const EducationToolsData = [
         description: "An assessment that evaluates an entrepreneur's in-depth knowledge and proficiency in specific industries.",
         image: "../../../uniprep-assets/images/icons/wealthy.svg",
         url: "/pages/education-tools/wealthleaderslist",
-        launch_soon: true,
+        launch_soon: false,
     },
     {
         title: "Student Budget Planner",
