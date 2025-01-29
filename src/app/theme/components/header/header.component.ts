@@ -901,6 +901,9 @@ export class HeaderComponent implements OnInit, OnDestroy {
     if (data.moduleId == 8) {
       data.countryId = 0;
     }
+    if (data.moduleId == 23||data.moduleId == 24||data.moduleId == 25||data.moduleId == 27||data.moduleId == 27) {
+      data.countryId = this.moduleQuestionReport.countryId;
+    }
 
     let maildata = {
       reportOption: this.reportSubmitForm.value.reportOption,
