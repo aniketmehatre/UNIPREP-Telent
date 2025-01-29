@@ -505,7 +505,15 @@ uni-careerplannercountrywise,
 uni-component-stories,
 uni-preparedlist,
 uni-averagesalaryestimator,
-uni-aspreparedlist {
+uni-aspreparedlist,
+uni-joboffercomparisontool,
+uni-jopreparedlist,
+uni-careerhackslists,
+uni-careercountries,
+uni-salaryhackscountries,
+uni-salaryhackslists,
+uni-seekercountries,
+uni-seekerlists {
 	display: flex;
 	flex: 1;
 	height: 100%;
@@ -2074,7 +2082,7 @@ uni-assessment, uni-travel-tools, uni-founderstool, uni-education-tools {
 	uni-assessment-list, uni-ilearn-challenge, uni-assessment-quiz, uni-assessment-quiz-review,
 	uni-global-travel-visa, uni-travel-cost-estimator, uni-travel-packing-planner, uni-travel-visit-planner, 
 	uni-trip-length-finder, uni-travel-glossary, uni-business-plan-generator, uni-education-tools-list, 
-	uni-course-navigator, uni-startup-risk-assessment,  uni-marketing-analysis, uni-goverment-funding-opportunity, uni-ai-business-advisor, uni-politician-insights,uni-start-up-expense-estimate, uni-business-forecasting-tool  {
+	uni-course-navigator, uni-startup-risk-assessment,  uni-marketing-analysis, uni-goverment-funding-opportunity, uni-ai-business-advisor, uni-politician-insights,uni-start-up-expense-estimate, uni-business-forecasting-tool, uni-country-insights, uni-country-insights-submodule, uni-student-budget-planner {
 		flex: 1;
 		overflow-y: auto;
 		display: flex;
@@ -2172,4 +2180,107 @@ uni-assessment, uni-travel-tools, uni-founderstool, uni-education-tools {
 
 .grp-drpdwn .p-dropdown-label {
     padding: 4px;
+}
+
+.btn-outline-secondary {
+	color: var(--uniprep-secondary);
+	background: var(--uniprep-tertiary);
+	border-radius: 10px;
+	border: 1px solid var(--uniprep-secondary);
+
+    &:hover {
+      color: var(--uniprep-tertiary);
+      background: var(--uniprep-secondary);
+		border: 1px solid var(--uniprep-secondary);
+    }
+	
+	&:focus {
+		color: var(--uniprep-tertiary);
+		background: var(--uniprep-secondary);
+		box-shadow: 0 0 0 0.25rem var(--uniprep-secondaryop10);
+		border-color: var(--uniprep-secondary);
+	}
+}
+
+.p-selectbutton .p-button {
+	background: var(--uniprep-primaryop10);
+	border-radius: 25px;
+	.p-button-label {
+		font-weight: 600;
+	}
+	&.p-highlight {
+		background: var(--uniprep-primary);
+		border-color: var(--uniprep-primary);
+		color: var(--uniprep-tertiary);
+		&:hover {
+			background: var(--uniprep-primaryhighlight);
+		}
+		&:focus {
+			box-shadow: 0 0 0 0.25rem var(--uniprep-primaryop10) !important;
+		}
+	}
+}
+
+.cn-select-btn .p-button {
+    padding: 0.5rem 1.25rem;
+}
+  
+
+uni-career-hacks {
+	display: flex;
+	flex: 1;
+	height: 100%;
+	flex-direction: column;
+	overflow: hidden;
+	uni-careerhackslists {
+		flex: 1;
+		overflow-y: auto;
+		display: flex;
+		flex-direction: column;
+	}
+
+}
+uni-salary-hacks {
+	display: flex;
+	flex: 1;
+	height: 100%;
+	flex-direction: column;
+	overflow: hidden;
+	uni-salaryhackslists {
+		flex: 1;
+		overflow-y: auto;
+		display: flex;
+		flex-direction: column;
+	}
+
+}
+uni-job-seeker-success-stories {
+	display: flex;
+	flex: 1;
+	height: 100%;
+	flex-direction: column;
+	overflow: hidden;
+	uni-seekerlists {
+		flex: 1;
+		overflow-y: auto;
+		display: flex;
+		flex-direction: column;
+	}
+
+}
+
+.dropdownimg {
+    width: 24px;
+    height: 24px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    img {
+        height: 100%;
+        width: 100%;
+        border-radius: 100%;
+        border: 2px solid var(--uniprep-primaryop10);
+        object-fit: cover;
+    }
 }

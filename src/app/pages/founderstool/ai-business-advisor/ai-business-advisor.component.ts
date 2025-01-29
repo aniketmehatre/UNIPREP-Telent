@@ -14,13 +14,13 @@ export class AiBusinessAdvisorComponent implements OnInit {
   }];
   recommadationSavedQuestionList: any = [];
   recommendations: { id: number, question: string }[] = [
-    { id: 1, question: 'What type of business are you running or planning to run?' },
-    { id: 2, question: 'What are the primary goals of the business' },
-    { id: 3, question: 'How long do you want the strategy to focus on' },
-    { id: 4, question: 'What specfic challenges are you facing  in your business' },
-    { id: 5, question: 'Who are your ideal Customers' },
-    { id: 6, question: 'What is your budget for scaling your business' },
-    { id: 7, question: 'Any specific of focus you would like the strategy to emphasize' }
+    { id: 1, question: 'What industry are you operating in?' },
+    { id: 2, question: 'What are your primary business goals for the specified duration?' },
+    { id: 3, question: 'What is the duration in which you want to achieve your goals?' },
+    { id: 4, question: 'What challenges your business is currently facing?' },
+    { id: 5, question: 'Who is your target audience?' },
+    { id: 6, question: 'What is your budget for your business goals?' },
+    { id: 7, question: 'What is the overall strategy you want to align with?' }
   ];
   isRecommendationQuestion: boolean = true;
   isRecommendationData: boolean = false;
@@ -116,7 +116,7 @@ export class AiBusinessAdvisorComponent implements OnInit {
   }
 
   goBack() {
-    this.router.navigateByUrl('/pages/founder-tools');
+    this.router.navigateByUrl('/pages/founderstool');
   }
 
 

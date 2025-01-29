@@ -118,7 +118,7 @@
                   <h5 class="uniprep-primary fw-semibold mt-3 mb-1">
                     {{ recommendation.question.branches[2] }}
                   </h5>
-                  <p-multiSelect styleClass="w-100" placeholder="Time Frame" [options]="timeFramesList" display="chip"
+                  <p-multiSelect styleClass="w-100 h-100" placeholder="Time Frame" [options]="timeFramesList" 
                     optionLabel="name" optionValue="name" formControlName="timeFrame">
                   </p-multiSelect>
                   <p class="text-center" *ngIf="marketingForm.get('timeFrame')?.errors?.required && submitted"
@@ -137,10 +137,10 @@
                   </h5>
                   <div class="w-100 d-flex gap-2 flex-fill">
                     <p-dropdown formControlName="currencycode" appendTo="body" [options]="locationList" [filter]="true"
-                      filterBy="currency" placeholder=" Currency" optionLabel="currency_code" optionValue="currency_code"
+                      filterBy="currency_code" placeholder=" Currency" optionLabel="currency_code" optionValue="currency_code"
                       [autoDisplayFirst]="false">
                     </p-dropdown>
-                    <input class="w-100 pl-2 border border-gray rounded-3" type="text" placeholder=" Budget"
+                    <input class="w-100 border border-gray rounded-3" pInputText type="text" placeholder=" Budget"
                       formControlName="budget" />
                   </div>
                   <p class="text-center" *ngIf="marketingForm.get('budget')?.errors?.required && submitted"
@@ -165,8 +165,8 @@
                   <h5 class="uniprep-primary fw-semibold mt-3 mb-2">
                     {{ recommendation.question.branches[2] }}
                   </h5>
-                  <p-multiSelect styleClass="w-100" placeholder="Competitor Analysis Focus" [options]="competitorList"
-                    display="chip" optionLabel="name" optionValue="name" formControlName="competitorAnalysis">
+                  <p-multiSelect styleClass="w-100 h-100" placeholder="Competitor Analysis Focus" [options]="competitorList"
+                    optionLabel="name" optionValue="name" formControlName="competitorAnalysis">
                   </p-multiSelect>
                   <p class="text-center" *ngIf="
                         marketingForm.get('competitorAnalysis')?.errors?.required &&

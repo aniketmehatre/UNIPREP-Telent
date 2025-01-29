@@ -28,7 +28,7 @@ export class WealthleaderreadansComponent implements OnInit {
     this.getWealthLeaders();
   }
   goBack(){
-    this.router.navigate(['/pages/founderstool/wealthleaderslist']);
+    this.router.navigate(['/pages/education-tools/wealthleaderslist']);
   }
   openVideoPopup(videoLink: string) {
     this.pageFacade.openHowitWorksVideoPopup(videoLink);

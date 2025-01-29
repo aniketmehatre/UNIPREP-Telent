@@ -105,10 +105,10 @@
                     </h5>
                     <div class="w-100 d-flex gap-2 flex-fill">
                       <p-dropdown formControlName="investment_currency_code" appendTo="body" [options]="locationList" [filter]="true"
-                        filterBy="currency" placeholder=" Currency" optionLabel="currency_code" optionValue="currency_code"
+                        filterBy="currency_code" placeholder=" Currency" optionLabel="currency_code" optionValue="currency_code"
                         [autoDisplayFirst]="false">
                       </p-dropdown>
-                      <input class="w-100 pl-4 border border-gray rounded-3" type="text" placeholder="Investment Amount"
+                      <input class="w-100 pl-4 border border-gray rounded-3" type="text" pInputText placeholder="Investment Amount"
                         formControlName="current_investment" />
                     </div>
                     <p class="text-center" *ngIf="marketingForm.get('budget')?.errors?.required && submitted"
@@ -135,10 +135,10 @@
                     </h5>
                     <div class="w-100 d-flex gap-2 flex-fill">
                       <p-dropdown formControlName="expense_currency_code" appendTo="body" [options]="locationList" [filter]="true"
-                        filterBy="currency" placeholder="Currency" optionLabel="currency_code" optionValue="currency_code"
+                        filterBy="currency_code" placeholder="Currency" optionLabel="currency_code" optionValue="currency_code"
                         [autoDisplayFirst]="false">
                       </p-dropdown>
-                      <input class="w-100 pl-4 border border-gray rounded-3" type="text" placeholder=" Budget"
+                      <input class="w-100 pl-4 border border-gray rounded-3" type="text" pInputText placeholder=" Budget"
                         formControlName="operating_expense" />
                     </div>
                     <p class="text-center" *ngIf="marketingForm.get('operating_expense')?.errors?.required && submitted"
@@ -157,10 +157,10 @@
                     </h5>
                     <div class="w-100 d-flex gap-2 flex-fill">
                       <p-dropdown formControlName="sales_currency_code" appendTo="body" [options]="locationList" [filter]="true"
-                        filterBy="currency" placeholder=" Currency" optionLabel="currency_code" optionValue="currency_code"
+                        filterBy="currency_code" placeholder=" Currency" optionLabel="currency_code" optionValue="currency_code"
                         [autoDisplayFirst]="false">
                       </p-dropdown>
-                      <input class="w-100 pl-4 border border-gray rounded-3" type="text" placeholder=" Budget"
+                      <input class="w-100 pl-4 border border-gray rounded-3" type="text" pInputText placeholder=" Budget"
                         formControlName="budget" />
                     </div>
                     <p class="text-center" *ngIf="marketingForm.get('budget')?.errors?.required && submitted"
@@ -173,7 +173,7 @@
                       {{ recommendation.question.branches[1] }}
                     </h5>
                     <p-dropdown styleClass="w-100" formControlName="duration" appendTo="body" [options]="durationList" [filter]="true"
-                    filterBy="currency" placeholder=" Currency" optionLabel="name" optionValue="name"
+                    filterBy="currency_code" placeholder=" Currency" optionLabel="name" optionValue="name"
                     [autoDisplayFirst]="false">
                   </p-dropdown>
                     <p class="text-center" *ngIf="

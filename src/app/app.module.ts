@@ -49,6 +49,15 @@ import { DeviceDetectorService } from "ngx-device-detector";
 import { PaginatorModule } from 'primeng/paginator';
 import { SharedModule } from "./shared/shared.module";
 import { ChartsModule } from 'ng2-charts'; // Ensure compatibility with Angular 16
+import {MarkdownModule} from "ngx-markdown";
+
+const reducers = {
+  pageSelector: pagesReducer
+}
+
+// export function initFacebook(facebookInitService: FacebookInitService) {
+//     return () => facebookInitService.init();
+// }
 
 const ngxLocalstorageConfiguration: NgxLocalstorageConfiguration = {
   delimiter: '@',
@@ -111,6 +120,7 @@ export function tokenGetter() {
     SkeletonModule,
     RouterModule,
     ChartsModule
+    MarkdownModule.forRoot()
   ],
   providers: [
     DeviceDetectorService,

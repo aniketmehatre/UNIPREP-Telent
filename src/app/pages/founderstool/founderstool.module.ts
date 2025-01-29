@@ -20,8 +20,6 @@ import { StartupglossaryComponent } from './startupglossary/startupglossary.comp
 import { EntreprenuerskillmoduleComponent } from './entreprenuerskillmodule/entreprenuerskillmodule.component';
 import { EntreprenuersectorproficiencyComponent } from './entreprenuersectorproficiency/entreprenuersectorproficiency.component';
 import { EntreprenuerquizComponent } from './entreprenuerquiz/entreprenuerquiz.component';
-import { WealthleaderslistComponent } from './wealthleaderslist/wealthleaderslist.component';
-import { WealthleaderreadansComponent } from './wealthleaderreadans/wealthleaderreadans.component';
 import { BusinessPlanGeneratorComponent } from './business-plan-generator/business-plan-generator.component';
 import { ComponentStoriesComponent } from './component-stories/component-stories.component';
 import { GovermentFundingOppurtunityComponent } from './goverment-funding-opportunity/goverment-funding-opportunity.component';
@@ -33,6 +31,7 @@ import { AiBusinessAdvisorComponent } from './ai-business-advisor/ai-business-ad
 import { StartupRiskAssessmentComponent } from './startup-risk-assessment/startup-risk-assessment.component';
 import { StartUpExpenseEstimateComponent } from './start-up-expense-estimate/start-up-expense-estimate.component';
 import { BusinessForecastingToolComponent } from './business-forecasting-tool/business-forecasting-tool.component';
+import {SharedModule} from "../../shared/shared.module";
 
 
 @NgModule({
@@ -45,8 +44,6 @@ import { BusinessForecastingToolComponent } from './business-forecasting-tool/bu
     EntreprenuerskillmoduleComponent,
     EntreprenuersectorproficiencyComponent,
     EntreprenuerquizComponent,
-    WealthleaderslistComponent,
-    WealthleaderreadansComponent,
     BusinessPlanGeneratorComponent,
     ComponentStoriesComponent,
     GovermentFundingOppurtunityComponent,
@@ -56,22 +53,23 @@ import { BusinessForecastingToolComponent } from './business-forecasting-tool/bu
     StartUpExpenseEstimateComponent,
     BusinessForecastingToolComponent,
   ],
-  imports: [
-    CommonModule,
-    InputTextModule,
-    CarouselModule,
-    ButtonModule,
-    ReactiveFormsModule,
-    InputTextareaModule,
-    DropdownModule,
-    PaginatorModule,
-    CardModule,
-    DialogModule,
-    foundersToolRountingModule,
-    TooltipModule,
-    MultiSelectModule,
-    PdfViewerModule
-  ],
+    imports: [
+        CommonModule,
+        InputTextModule,
+        CarouselModule,
+        ButtonModule,
+        ReactiveFormsModule,
+        InputTextareaModule,
+        DropdownModule,
+        PaginatorModule,
+        CardModule,
+        DialogModule,
+        foundersToolRountingModule,
+        TooltipModule,
+        MultiSelectModule,
+        PdfViewerModule,
+        SharedModule
+    ],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
   providers: [ConfirmationService, 
     TooltipModule,

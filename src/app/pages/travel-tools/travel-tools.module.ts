@@ -19,6 +19,7 @@ import { MultiSelectModule } from 'primeng/multiselect';
 import { TripLengthFinderComponent } from './trip-length-finder/trip-length-finder.component';
 import { TravelGlossaryComponent } from './travel-glossary/travel-glossary.component';
 import {SharedModule} from "../../shared/shared.module";
+import {MarkdownComponent} from "ngx-markdown";
 
 @NgModule({
   declarations: [
@@ -42,7 +43,8 @@ import {SharedModule} from "../../shared/shared.module";
     InputTextModule,
     InputNumberModule,
     MultiSelectModule,
-    SharedModule
+    SharedModule,
+    MarkdownComponent
   ]
 })
 export class TravelToolsModule { }
