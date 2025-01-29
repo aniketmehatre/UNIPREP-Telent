@@ -2220,7 +2220,12 @@ uni-assessment, uni-travel-tools, uni-founderstool, uni-education-tools {
 		}
 	}
   }
-  uni-career-hacks {
+
+.cn-select-btn .p-button {
+    padding: 0.5rem 1.25rem;
+}
+
+uni-career-hacks {
 	display: flex;
 	flex: 1;
 	height: 100%;
