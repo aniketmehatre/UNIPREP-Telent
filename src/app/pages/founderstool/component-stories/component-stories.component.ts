@@ -1,10 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { PageFacadeService } from '../../page-facade.service';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { LocationService } from 'src/app/location.service';
 import { FounderstoolService } from '../founderstool.service';
 import { MessageService } from 'primeng/api';
 import { Meta } from '@angular/platform-browser';
+import { DataService } from 'src/app/data.service';
 
 @Component({
   selector: 'uni-component-stories',
@@ -13,20 +14,21 @@ import { Meta } from '@angular/platform-browser';
 })
 export class ComponentStoriesComponent implements OnInit {
 
-  constructor(private pageFacade: PageFacadeService,private meta: Meta,  private toast: MessageService, private router: Router, private service: FounderstoolService, private locationService: LocationService) { }
+  constructor(private pageFacade: PageFacadeService,private dataService: DataService,private activatedRoute: ActivatedRoute,private meta: Meta,  private toast: MessageService, private router: Router, private service: FounderstoolService, private locationService: LocationService) { }
   countrylist: any[] = [];
   currentRoute: string = '';
   headertooltipname: any;
-  isShowCountryData: boolean = true;
+  isShowCountryData: boolean = false;
   isShowCountryQuesAns: boolean = false;
   countrydatas: any[] = [];
   modename: any;
   questuionanswerlist: any[] = [];
   isQuestionAnswerVisible: boolean = false;
   dataanswerquestion: any;
+
   ngOnInit(): void {
-    this.locationService.dashboardLocationList().subscribe((res: any) => {
-      this.countrylist = res
+    this.locationService.getAllCountryList().subscribe((res: any) => {
+      this.countrylist = res.data
     })
     this.currentRoute = this.router.url;
     if (this.currentRoute.includes('startup-funding-hacks')) {
@@ -45,6 +47,21 @@ export class ComponentStoriesComponent implements OnInit {
       this.headertooltipname = "Startup Failure Stories"
       this.modename = "startup_failure_stories";
     }
+    this.activatedRoute.params.subscribe(params => {
+      if (params['id'] && params['question_id']) {
+        this.isShowCountryQuesAns=true;
+        this.isShowCountryData=false;
+        this.getQueAns(params['id'],params['question_id'])
+      }
+      else if (params['id']) {
+        this.isShowCountryQuesAns=true;
+        this.isShowCountryData=false;
+        this.getQueAns(params['id'])
+      } else {
+        this.isShowCountryQuesAns=false;
+        this.isShowCountryData=true;
+      }
+    });
   }
   openVideoPopup(videoLink: string) {
     this.pageFacade.openHowitWorksVideoPopup(videoLink);
@@ -58,18 +75,46 @@ export class ComponentStoriesComponent implements OnInit {
     }
   }
   showDatas(data: any) {
-    // get all country ,question, answer api 
-    var datas = {
-      mode: this.modename,
-      country: data.id
+    // get all country ,question, answer api
+    this.questuionanswerlist=[]; 
+    if (this.currentRoute.includes('startup-funding-hacks')) {
+      this.router.navigate(['/pages/founderstool/startup-funding-hacks', data.id]); 
+    } else if (this.currentRoute.includes('founder-success-stories')) {
+      this.router.navigate(['/pages/founderstool/founder-success-stories', data.id]); 
+    } else if (this.currentRoute.includes('founder-failure-stories')) {
+      this.router.navigate(['/pages/founderstool/founder-failure-stories', data.id]); 
+    } else if (this.currentRoute.includes('startup-success-stories')) {
+      this.router.navigate(['/pages/founderstool/startup-success-stories', data.id]); 
+    } else if (this.currentRoute.includes('startup-failure-stories')) {
+      this.router.navigate(['/pages/founderstool/startup-failure-stories', data.id]); 
     }
-    this.service.entrepreneurToolsSuccess(datas).subscribe((res: any) => {
-      this.isShowCountryData = false;
-      this.isShowCountryQuesAns = true;
-      this.questuionanswerlist = res.data
-    })
-
   }
+  getQueAns(id: any, question_id?: any) {
+    const datas: any = {
+      mode: this.modename,
+      country: id,
+      ...(question_id ? { share_link_question_id: question_id } : {}) // Include question_id only if it's truthy
+    };
+  
+    this.service.entrepreneurToolsSuccess(datas).subscribe(
+      (res: any) => {
+        this.isShowCountryData = false;
+        this.isShowCountryQuesAns = true;
+        this.questuionanswerlist = res.data; // Assign the response data to the list
+          
+        if (question_id) {
+            this.showDataAnswer(res.data[0]);
+        }
+      },
+      (error) => {
+        console.error("Error fetching question data:", error); // Handle errors
+        this.isShowCountryData = true; // Fallback to show general data if API fails
+      }
+      
+    );
+   
+  }
+  
   showDataAnswer(data: any) {
     this.dataanswerquestion = data;
     this.isQuestionAnswerVisible = true;
@@ -78,17 +123,17 @@ export class ComponentStoriesComponent implements OnInit {
     this.isQuestionAnswerVisible = false;
   }
   openReport() {
-    // let data: any = {
-    //   isVisible: true,
-    //   moduleId: this.selectedQuestionData.module_id,
-    //   subModuleId: this.selectedQuestionData.submodule_id,
-    //   questionId: this.selectedQuestionData.id,
-    //   from: "module",
-    // };
+    let data: any = {
+      isVisible: true,
+      moduleId: null,
+      subModuleId: null,
+      questionId: this.dataanswerquestion?.id,
+      from: "module",
+    };
     // if (this.currentModuleId == 8) {
     //   data.reporttype = 8;
     // }
-    // this.dataService.openReportWindow(data);
+    this.dataService.openReportWindow(data);
   }
   onShowModal(value: any) {
     let socialShare: any = document.getElementById("socialSharingList");

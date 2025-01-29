@@ -136,8 +136,6 @@ export class FounderstoolService {
 
   getFundStateByCountry() {
     let params = new HttpParams();
-    // params = params.append("country_id", scholarship_country.toString())
-
     return this.http.get<any>(environment.ApiUrl + "/govtfundingRegions", {
       headers: this.headers
     });

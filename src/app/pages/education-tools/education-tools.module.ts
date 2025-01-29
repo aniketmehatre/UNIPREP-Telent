@@ -15,14 +15,20 @@ import { CardModule } from 'primeng/card';
 import { DialogModule } from 'primeng/dialog';
 import {SharedModule} from "../../shared/shared.module";
 import { InputTextModule } from 'primeng/inputtext';
-
+import { CountryInsightsComponent } from './country-insights/country-insights.component';
+import { CountryInsightsSubmoduleComponent } from './country-insights/country-insights-submodule/country-insights-submodule.component';
+import { SelectButtonModule } from 'primeng/selectbutton';
+import { StudentBudgetPlannerComponent } from './student-budget-planner/student-budget-planner.component';
 
 @NgModule({
   declarations: [
     EducationToolsComponent,
     EducationToolsListComponent,
     CourseNavigatorComponent,
-    PoliticianInsightsComponent
+    PoliticianInsightsComponent,
+    CountryInsightsComponent,
+    CountryInsightsSubmoduleComponent,
+    StudentBudgetPlannerComponent
   ],
   imports: [
     CommonModule,
@@ -35,7 +41,8 @@ import { InputTextModule } from 'primeng/inputtext';
     CardModule,
     DialogModule,
     SharedModule,
-    InputTextModule
+    InputTextModule,
+    SelectButtonModule
   ]
 })
 export class EducationToolsModule { }

@@ -175,6 +175,7 @@ export class GovermentFundingOppurtunityComponent implements OnInit {
 
 
   loadFundData(isFavourite: number) {
+    debugger;
     if (isFavourite == 1) {
       this.data = {}
       this.data['favourite'] = 1;
@@ -186,10 +187,10 @@ export class GovermentFundingOppurtunityComponent implements OnInit {
     this.fundListService
       .getFundList(this.data)
       .subscribe((response) => {
-        this.fundData = response.fund;
+        this.fundData = response.governmentfundings;
         this.favCount = response.favourite_count;
         if (isFavourite != 1) {
-          this.allfundList = response.fund;
+          this.allfundList = response.governmentfundings;
           this.allFundCount = response.count;
         }
         this.exportCreditCount = response.credit_count ? response.credit_count : 0;

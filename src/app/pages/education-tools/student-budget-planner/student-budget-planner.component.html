@@ -1,0 +1,102 @@
+<div class="card readingcard">
+    <div class="card-header border-0 bg-transparent">
+        <div class="row justify-content-center align-items-center">
+            <div class="col-md-12 text-center">
+                <div class="select-title d-flex justify-content-between align-items-center">
+                    <h5 class="w-100 mb-0" tooltipPosition="top" pTooltip="">Student Budget Planner</h5>
+                    <button class="how-it-works-button">
+                        How it works?<i class="fa-solid fa-play d-md-block d-none"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="card-body text-center flex-fill overflow-y-auto">
+        <div class="container-fluid h-100">
+            <p-carousel [value]="recommendations" [numVisible]="1" [numScroll]="1" [circular]="false"
+                [showNavigators]="false" [showIndicators]="false" [page]="activePageIndex"
+                styleClass="h-100 carousal-container-sec">
+                <ng-template let-recommendation let-i="index" pTemplate="item">
+                    <div class="h-100 d-flex flex-column justify-content-between">
+                        <div>&nbsp;</div>
+                        <div class="row justify-content-center text-center">
+                            <div class="col-md-12 mb-4">
+                                <h2 class="fw-bold mb-0">{{ recommendation.question }}</h2>
+                            </div>
+                            <div class="col-md-12">
+                                <ng-container *ngIf="recommendation.id == 1">
+                                    <!-- Country of Study -->
+                                    <div class="d-flex justify-content-center mb-3">
+                                        <div class="col-md-3">
+                                            <h5>Country of Study</h5>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <p-dropdown [options]="countriesList" styleClass="w-100"
+                                                [(ngModel)]="selectedData[recommendation.id]" optionLabel="country"
+                                                optionValue="id" [appendTo]="'body'" placeholder="Select Country">
+                                            </p-dropdown>
+                                        </div>
+                                    </div>
+                                    <!-- University -->
+                                    <div class="d-flex justify-content-center mb-3">
+                                        <div class="col-md-3">
+                                            <h5>University</h5>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <p-dropdown [options]="universityList" styleClass="w-100"
+                                                [(ngModel)]="selectedData[recommendation.id]" optionLabel="university_name"
+                                                optionValue="id" [appendTo]="'body'" placeholder="Select University">
+                                            </p-dropdown>
+                                        </div>
+                                    </div>
+                                    <!-- Course Duration -->
+                                    <!-- <div class="d-flex justify-content-center mb-3">
+                                        <div class="col-md-3">
+                                            <h5>Course Duration</h5>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <p-dropdown [options]="courseDurationList" styleClass="w-100"
+                                                [(ngModel)]="selectedData[recommendation.id]" optionLabel="duration"
+                                                optionValue="id" [appendTo]="'body'" placeholder="Select Duration">
+                                            </p-dropdown>
+                                        </div>
+                                    </div> -->
+                                    <!-- Stay Back Period -->
+                                    <!-- <div class="d-flex justify-content-center mb-3">
+                                        <div class="col-md-3">
+                                            <h5>Stay Back Period</h5>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <p-dropdown [options]="stayBackPeriodList" styleClass="w-100"
+                                                [(ngModel)]="selectedData[recommendation.id]" optionLabel="period"
+                                                optionValue="id" [appendTo]="'body'" placeholder="Select Stay Back Period">
+                                            </p-dropdown>
+                                        </div>
+                                    </div> -->
+                                </ng-container>
+                            </div>
+                        </div>
+                        <!-- Navigation Buttons -->
+                        <div class="d-flex justify-content-between mt-2">
+                            <button pButton type="button" class="btn btn-primary btn-rounded p-1 pe-4"
+                                [style.visibility]="recommendation.id == 1 ? 'hidden' : 'visible'" (click)="previous()">
+                                <span class="btn-icon px-2 py-2"><i class="fa fa-arrow-left"></i></span>
+                                <span class="ms-2">Previous</span>
+                            </button>
+                            <button pButton type="button" class="btn btn-primary btn-rounded p-1 ps-4"
+                                (click)="next(recommendation.id)" *ngIf="recommendation.id != 2">
+                                <span class="me-2">Next</span>
+                                <span class="btn-icon px-2 py-2"><i class="fa fa-arrow-right"></i></span>
+                            </button>
+                            <button pButton type="button" class="btn btn-success btn-rounded p-1 ps-4"
+                                (click)="submit()" *ngIf="recommendation.id == 2">
+                                <span class="me-2">Get Recommendations</span>
+                                <span class="btn-icon px-2 py-2"><i class="fa fa-check-circle"></i></span>
+                            </button>
+                        </div>
+                    </div>
+                </ng-template>
+            </p-carousel>
+        </div>
+    </div>
+</div>

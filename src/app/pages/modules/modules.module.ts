@@ -38,6 +38,7 @@ import { K12SubjectComponent } from './k12-subject/k12-subject.component';
 import { K12ChapterComponent } from './k12-chapter/k12-chapter.component';
 import { K12StateComponent } from './k12-state/k12-state.component';
 import { ChartsModule } from 'ng2-charts';
+import {MarkdownComponent} from "ngx-markdown";
 
 @NgModule({
   declarations: [
@@ -58,31 +59,32 @@ import { ChartsModule } from 'ng2-charts';
     K12ChapterComponent,
     K12StateComponent,
   ],
-  imports: [
-    PdfViewerModule,
-    CommonModule,
-    ModulesRoutingModule,
-    BreadcrumbModule,
-    CarouselModule,
-    ConfirmDialogModule,
-    DialogModule,
-    ProgressBarModule,
-    SharedModule,
-    TooltipModule,
-    PipesModule,
-    TagModule,
-    PaginatorModule,
-    ButtonModule,
-    CardModule,
-    NgxUiLoaderModule,
-    SkeletonModule,
-    AccordionModule,
-    InputTextModule,
-    ReactiveFormsModule,
-    DialogModule,
-    DropdownModule,
-    ChartsModule
-  ],
+    imports: [
+        PdfViewerModule,
+        CommonModule,
+        ModulesRoutingModule,
+        BreadcrumbModule,
+        CarouselModule,
+        ConfirmDialogModule,
+        DialogModule,
+        ProgressBarModule,
+        SharedModule,
+        TooltipModule,
+        PipesModule,
+        TagModule,
+        PaginatorModule,
+        ButtonModule,
+        CardModule,
+        NgxUiLoaderModule,
+        SkeletonModule,
+        AccordionModule,
+        InputTextModule,
+        ReactiveFormsModule,
+        DialogModule,
+        DropdownModule,
+        ChartsModule,
+        MarkdownComponent,
+    ],
   schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })
 export class ModulesModule { }
