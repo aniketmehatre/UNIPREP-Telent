@@ -48,7 +48,7 @@ import { EnterpriseSubscriptionComponent } from './components/enterprise-subscri
 import { DeviceDetectorService } from "ngx-device-detector";
 import { PaginatorModule } from 'primeng/paginator';
 import { SharedModule } from "./shared/shared.module";
-import { ChartsModule } from 'ng2-charts'; // Ensure compatibility with Angular 16
+import { NgChartsModule } from 'ng2-charts';
 import {MarkdownModule} from "ngx-markdown";
 
 const reducers = {
@@ -84,7 +84,7 @@ export function tokenGetter() {
     BrowserModule,
     BrowserAnimationsModule,
     AppRoutingModule,
-    StoreModule.forRoot({ pages: pagesReducer })
+    StoreModule.forRoot({ pages: pagesReducer }),
     AuthModule,
     HttpClientModule,
     ToastModule,
@@ -119,7 +119,7 @@ export function tokenGetter() {
     SharedModule,
     SkeletonModule,
     RouterModule,
-    ChartsModule
+    NgChartsModule,
     MarkdownModule.forRoot()
   ],
   providers: [
