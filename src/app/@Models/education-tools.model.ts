@@ -1,6 +1,7 @@
 export interface AllCountryRes{
     id: number
     country: string
+    stay_back: string
 }
 
 export interface UniversityRes{
@@ -12,4 +13,9 @@ export interface UniversityRes{
 export interface CountryAndUniversity{
     country: AllCountryRes[]
     university: UniversityRes[]
+}
+
+export interface CurrencyList{
+    country: string
+    currency_code: string
 }
