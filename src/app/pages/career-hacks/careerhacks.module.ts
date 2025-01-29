@@ -1,0 +1,67 @@
+import { CommonModule } from "@angular/common";
+import { NgModule, CUSTOM_ELEMENTS_SCHEMA } from "@angular/core";
+import { ReactiveFormsModule, FormsModule } from "@angular/forms";
+import { PipesModule } from "@pipes/pipes.module";
+import { PdfViewerModule } from "ng2-pdf-viewer";
+import { SlickCarouselModule } from "ngx-slick-carousel";
+import { SharedModule, ConfirmationService } from "primeng/api";
+import { AutoCompleteModule } from "primeng/autocomplete";
+import { ButtonModule } from "primeng/button";
+import { CardModule } from "primeng/card";
+import { CarouselModule } from "primeng/carousel";
+import { ChipsModule } from "primeng/chips";
+import { ConfirmPopupModule } from "primeng/confirmpopup";
+import { DialogModule } from "primeng/dialog";
+import { DropdownModule } from "primeng/dropdown";
+import { EditorModule } from "primeng/editor";
+import { InputTextModule } from "primeng/inputtext";
+import { InputTextareaModule } from "primeng/inputtextarea";
+import { PaginatorModule } from "primeng/paginator";
+import { SidebarModule } from "primeng/sidebar";
+import { SkeletonModule } from "primeng/skeleton";
+import { SplitButtonModule } from "primeng/splitbutton";
+import { StepsModule } from "primeng/steps";
+import { TooltipModule } from "primeng/tooltip";
+import { CareerHacksRoutingModule } from "./careerhacks-routing.module";
+import { CareerListsComponent } from "./career-lists/careerlists.component";
+import { CHCountryListsComponent } from "./career-countries/careercountries.component";
+import { CareerhacksComponent } from "./careerhacks.component";
+
+@NgModule({
+  declarations: [
+    CareerhacksComponent,
+    CareerListsComponent,
+    CHCountryListsComponent
+    ],
+    imports: [
+        CommonModule,
+        InputTextModule,
+        CarouselModule,
+        ButtonModule,
+        ReactiveFormsModule,
+        InputTextareaModule,
+        CareerHacksRoutingModule,
+        ChipsModule,
+        FormsModule,
+        DropdownModule,
+        EditorModule,
+        SidebarModule,
+        CardModule,
+        SplitButtonModule,
+        ReactiveFormsModule,
+        PipesModule,
+        PaginatorModule,
+        SlickCarouselModule,
+        StepsModule,
+        PdfViewerModule,
+        ConfirmPopupModule,
+        DialogModule,
+        SharedModule,
+        TooltipModule,
+        SkeletonModule,
+        AutoCompleteModule,
+    ],
+  schemas: [CUSTOM_ELEMENTS_SCHEMA],
+  providers: [ConfirmationService]
+})
+export class CareerHacksModule{ }

@@ -5,6 +5,7 @@ import { LocationService } from 'src/app/location.service';
 import { FounderstoolService } from '../founderstool.service';
 import { MessageService } from 'primeng/api';
 import { Meta } from '@angular/platform-browser';
+import { DataService } from 'src/app/data.service';
 
 @Component({
   selector: 'uni-component-stories',
@@ -13,7 +14,7 @@ import { Meta } from '@angular/platform-browser';
 })
 export class ComponentStoriesComponent implements OnInit {
 
-  constructor(private pageFacade: PageFacadeService,private activatedRoute: ActivatedRoute,private meta: Meta,  private toast: MessageService, private router: Router, private service: FounderstoolService, private locationService: LocationService) { }
+  constructor(private pageFacade: PageFacadeService,private dataService: DataService,private activatedRoute: ActivatedRoute,private meta: Meta,  private toast: MessageService, private router: Router, private service: FounderstoolService, private locationService: LocationService) { }
   countrylist: any[] = [];
   currentRoute: string = '';
   headertooltipname: any;
@@ -122,17 +123,17 @@ export class ComponentStoriesComponent implements OnInit {
     this.isQuestionAnswerVisible = false;
   }
   openReport() {
-    // let data: any = {
-    //   isVisible: true,
-    //   moduleId: this.selectedQuestionData.module_id,
-    //   subModuleId: this.selectedQuestionData.submodule_id,
-    //   questionId: this.selectedQuestionData.id,
-    //   from: "module",
-    // };
+    let data: any = {
+      isVisible: true,
+      moduleId: null,
+      subModuleId: null,
+      questionId: this.dataanswerquestion?.id,
+      from: "module",
+    };
     // if (this.currentModuleId == 8) {
     //   data.reporttype = 8;
     // }
-    // this.dataService.openReportWindow(data);
+    this.dataService.openReportWindow(data);
   }
   onShowModal(value: any) {
     let socialShare: any = document.getElementById("socialSharingList");
