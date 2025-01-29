@@ -34,51 +34,57 @@
                 </div>
                 <div class="col-md-6">
                   <ng-container *ngIf="recommendation.id == 1">
-                    <input type="text" [(ngModel)]="selectedData[recommendation.id]" pInputText class="w-100"
-                      placeholder="Business Type" />
+                    <p-dropdown [(ngModel)]="selectedData[recommendation.id]" [options]="industryList"
+                      styleClass="w-100" optionLabel="industry" optionValue="industry" [appendTo]="'body'" placeholder="Time">
+                    </p-dropdown>
                     <div class="text-center" [ngClass]="{ 'd-none': inValidClass === false }" style="color: red">
                       Business Type is required
                     </div>
                   </ng-container>
                   <ng-container *ngIf="recommendation.id == 2">
-                    <textarea [(ngModel)]="selectedData[recommendation.id]" pInputTextarea class="w-100"
-                      placeholder="Enter your primary goals" [rows]="5"></textarea>
+                    <p-dropdown [(ngModel)]="selectedData[recommendation.id]" [options]="businessGoalsList"
+                      styleClass="w-100" optionLabel="goal" optionValue="goal" [appendTo]="'body'" placeholder="Time">
+                    </p-dropdown>
                     <div class="text-center" [ngClass]="{ 'd-none': inValidClass === false }" style="color: red">
                       Business Primary Goals is required
                     </div>
                   </ng-container>
                   <ng-container *ngIf="recommendation.id == 3">
-                    <p-dropdown [(ngModel)]="selectedData[recommendation.id]" [options]="strategyBusinessList"
-                      styleClass="w-100" optionLabel="name" optionValue="name" [appendTo]="'body'" placeholder="Time">
+                    <p-dropdown [(ngModel)]="selectedData[recommendation.id]" [options]="durationList"
+                      styleClass="w-100" optionLabel="duration" optionValue="duration" [appendTo]="'body'" placeholder="Time">
                     </p-dropdown>
                     <div class="text-center" [ngClass]="{ 'd-none': inValidClass === false }" style="color: red">
                       Business strategy is required
                     </div>
                   </ng-container>
                   <ng-container *ngIf="recommendation.id == 4">
-                    <textarea [(ngModel)]="selectedData[recommendation.id]" pInputTextarea class="w-100"
-                      placeholder="Enter your challenges" [rows]="5"></textarea>
+                    <p-dropdown [(ngModel)]="selectedData[recommendation.id]" [options]="challengesList"
+                      styleClass="w-100" optionLabel="challenge" optionValue="challenge" [appendTo]="'body'" placeholder="Time">
+                    </p-dropdown>
                     <div class="text-center" [ngClass]="{ 'd-none': inValidClass === false }" style="color: red">
-                      Business challenges is required
+                      Challenges are required
                     </div>
                   </ng-container>
                   <ng-container *ngIf="recommendation.id == 5">
-                    <textarea [(ngModel)]="selectedData[recommendation.id]" pInputTextarea class="w-100"
-                      placeholder="Enter your challenges" [rows]="5"></textarea>
+                    <p-dropdown [(ngModel)]="selectedData[recommendation.id]" [options]="targetAudienceList"
+                      styleClass="w-100" optionLabel="audience" optionValue="audience" [appendTo]="'body'" placeholder="Time">
+                    </p-dropdown>
                     <div [ngClass]="{ 'd-none': inValidClass === false }" style="color: red" class="text-danger">
                       Ideal customers is required
                     </div>
                   </ng-container>
                   <ng-container *ngIf="recommendation.id == 6">
-                    <textarea [(ngModel)]="selectedData[recommendation.id]" pInputTextarea class="w-100"
-                      placeholder="Enter your budget" [rows]="5"></textarea>
+                    <p-dropdown [(ngModel)]="selectedData[recommendation.id]" [options]="budgetList"
+                      styleClass="w-100" optionLabel="goal" optionValue="goal" [appendTo]="'body'" placeholder="Time">
+                    </p-dropdown>
                     <div class="text-center" [ngClass]="{ 'd-none': inValidClass === false }" style="color: red">
-                      Business challenges is required
+                      Budget is required
                     </div>
                   </ng-container>
                   <ng-container *ngIf="recommendation.id == 7">
-                    <input type="text" [(ngModel)]="selectedData[recommendation.id]" pInputText class="w-100"
-                      placeholder="Strategy" />
+                    <p-dropdown [(ngModel)]="selectedData[recommendation.id]" [options]="strategyBusinessList"
+                      styleClass="w-100" optionLabel="name" optionValue="name" [appendTo]="'body'" placeholder="Time">
+                    </p-dropdown>
                     <div class="text-center" [ngClass]="{ 'd-none': inValidClass === false }" style="color: red">
                        Strategy is required
                     </div>
