@@ -127,7 +127,7 @@ export class IlearnChallengeComponent implements OnInit, OnDestroy {
     }
     this.assessmentService.getLeaderBoardUsers(event.value).subscribe({
       next: (response) => {
-        this.leaderBoardList = response;
+        this.leaderBoardList = response.leaderBoard;
       },
       error: error => {
       }

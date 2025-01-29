@@ -2082,7 +2082,7 @@ uni-assessment, uni-travel-tools, uni-founderstool, uni-education-tools {
 	uni-assessment-list, uni-ilearn-challenge, uni-assessment-quiz, uni-assessment-quiz-review,
 	uni-global-travel-visa, uni-travel-cost-estimator, uni-travel-packing-planner, uni-travel-visit-planner, 
 	uni-trip-length-finder, uni-travel-glossary, uni-business-plan-generator, uni-education-tools-list, 
-	uni-course-navigator, uni-startup-risk-assessment,  uni-marketing-analysis, uni-goverment-funding-opportunity, uni-ai-business-advisor, uni-politician-insights,uni-start-up-expense-estimate, uni-business-forecasting-tool  {
+	uni-course-navigator, uni-startup-risk-assessment,  uni-marketing-analysis, uni-goverment-funding-opportunity, uni-ai-business-advisor, uni-politician-insights,uni-start-up-expense-estimate, uni-business-forecasting-tool, uni-country-insights, uni-country-insights-submodule, uni-student-budget-planner {
 		flex: 1;
 		overflow-y: auto;
 		display: flex;
@@ -2205,6 +2205,9 @@ uni-assessment, uni-travel-tools, uni-founderstool, uni-education-tools {
 .p-selectbutton .p-button {
 	background: var(--uniprep-primaryop10);
 	border-radius: 25px;
+	.p-button-label {
+		font-weight: 600;
+	}
 	&.p-highlight {
 		background: var(--uniprep-primary);
 		border-color: var(--uniprep-primary);
@@ -2216,8 +2219,13 @@ uni-assessment, uni-travel-tools, uni-founderstool, uni-education-tools {
 			box-shadow: 0 0 0 0.25rem var(--uniprep-primaryop10) !important;
 		}
 	}
-  }
-  uni-career-hacks {
+}
+
+.cn-select-btn .p-button {
+    padding: 0.5rem 1.25rem;
+}
+  
+uni-career-hacks {
 	display: flex;
 	flex: 1;
 	height: 100%;

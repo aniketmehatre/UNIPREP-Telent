@@ -16,9 +16,11 @@ import { DialogModule } from 'primeng/dialog';
 import {SharedModule} from "../../shared/shared.module";
 import { InputTextModule } from 'primeng/inputtext';
 import { CountryInsightsComponent } from './country-insights/country-insights.component';
+import { CountryInsightsSubmoduleComponent } from './country-insights/country-insights-submodule/country-insights-submodule.component';
 import { SelectButtonModule } from 'primeng/selectbutton';
-import { WealthleaderslistComponent } from '../founderstool/wealthleaderslist/wealthleaderslist.component';
+import { StudentBudgetPlannerComponent } from './student-budget-planner/student-budget-planner.component';
 import { WealthleaderreadansComponent } from '../founderstool/wealthleaderreadans/wealthleaderreadans.component';
+import { WealthleaderslistComponent } from '../founderstool/wealthleaderslist/wealthleaderslist.component';
 
 @NgModule({
   declarations: [
@@ -27,6 +29,8 @@ import { WealthleaderreadansComponent } from '../founderstool/wealthleaderreadan
     CourseNavigatorComponent,
     PoliticianInsightsComponent,
     CountryInsightsComponent,
+    CountryInsightsSubmoduleComponent,
+    StudentBudgetPlannerComponent,
     WealthleaderslistComponent,
     WealthleaderreadansComponent
   ],
