@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { FounderstoolService } from '../founderstool.service';
 import { Router } from '@angular/router';
+import { businessAdvisor } from './business-advisor.data';
 
 @Component({
   selector: 'uni-ai-business-advisor',
@@ -9,9 +10,14 @@ import { Router } from '@angular/router';
   styleUrls: ['./ai-business-advisor.component.scss']
 })
 export class AiBusinessAdvisorComponent implements OnInit {
-  strategyBusinessList: any = [{
-    id: 1, name: 'option'
-  }];
+  strategyBusinessList: any = businessAdvisor.strategies;
+  industryList: { industry: string }[] = businessAdvisor.industry;
+  businessGoalsList: { goal: string }[] = businessAdvisor.businessGoals;
+  challengeList: { challenge: string }[] = businessAdvisor.challenges;
+  targetAudienceList: { audience: string }[] = businessAdvisor.targetAudience;
+  budgetList: { goal: string }[] = businessAdvisor.budgetGoals;
+  durationList: { duration: number }[] = businessAdvisor.timeDuration;
+
   recommadationSavedQuestionList: any = [];
   recommendations: { id: number, question: string }[] = [
     { id: 1, question: 'What industry are you operating in?' },

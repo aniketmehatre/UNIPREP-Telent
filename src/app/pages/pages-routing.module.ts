@@ -290,6 +290,10 @@ const routes: Routes = [
             {
                 path: 'job-seeker-success-stories',
                 loadChildren: () => import('./job-seeker-success-stories/job-seeker-success-stories.module').then(m => m.JobSeekerSuccessStoriesModule)
+            },
+            {
+                path: 'fortune-companies',
+                loadChildren: () => import('./fortune-companies/fortune-companies.module').then(m => m.FortuneCompaniesModule)
             }
         ]
     }

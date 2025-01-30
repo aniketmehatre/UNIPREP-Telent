@@ -154,7 +154,7 @@ export class CareerToolComponent implements OnInit {
     },
     {
       id: 15,
-      moduleName: "Salary Hacks",  
+      moduleName: "Salary Negotiation Hacks",  
       Description: "Unlock the secrets to negotiating better pay, maximizing your earnings, and achieving financial growth in your career.",  
       tooltip: "Master the art of salary negotiation and take control of your financial future.",
       imageLink: environment.production === false ? "https://api.uniprep.ai/uniprepapi/storage/app//public/icon/modules/snh.png" : "https://uniprep.ai/uniprepapi/storage/app/public/icon/modules/snh.png",
@@ -170,6 +170,16 @@ export class CareerToolComponent implements OnInit {
       imageLink: environment.production === false ? "https://api.uniprep.ai/uniprepapi/storage/app//public/icon/modules/jsss.png" : "https://uniprep.ai/uniprepapi/storage/app/public/icon/modules/jsss.png",
       refLink: "",
       mode: "job-seeker-success-stories",
+      launch_soon: false
+    },
+    {
+      id: 17,
+      moduleName: "Fortune Companies",
+      Description: "Explore insights, trends, and success strategies from top Fortune companies across industries.",
+      tooltip: "Gain valuable knowledge about Fortune companies to enhance your career and business decisions.",
+      imageLink: environment.production === false ? "https://api.uniprep.ai/uniprepapi/storage/app//public/icon/modules/fc.png" : "https://uniprep.ai/uniprepapi/storage/app/public/icon/modules/fc.png",
+      refLink: "",
+      mode: "fortune-companies",
       launch_soon: false
     }
   ]
@@ -235,6 +245,9 @@ export class CareerToolComponent implements OnInit {
     }
     else if (mode == "job-seeker-success-stories") {
       this.router.navigate(['/pages/job-seeker-success-stories']);
+    }
+    else if (mode == "fortune-companies") {
+      this.router.navigate(['/pages/fortune-companies']);
     }
     else {
       this.router.navigate(['/pages/job-tool/list/employer-test/13']);

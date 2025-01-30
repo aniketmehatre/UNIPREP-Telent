@@ -513,7 +513,9 @@ uni-careercountries,
 uni-salaryhackscountries,
 uni-salaryhackslists,
 uni-seekercountries,
-uni-seekerlists {
+uni-seekerlists,
+uni-fortune-companies-lists,
+uni-fortune-companies-data-list {
 	display: flex;
 	flex: 1;
 	height: 100%;
@@ -2284,3 +2286,24 @@ uni-job-seeker-success-stories {
         object-fit: cover;
     }
 }
+uni-fortune-companies {
+	display: flex;
+	flex: 1;
+	height: 100%;
+	flex-direction: column;
+	overflow: hidden;
+	uni-fortune-companies-data-list {
+		flex: 1;
+		overflow-y: auto;
+		display: flex;
+		flex-direction: column;
+	}
+
+}
+.fortunequestionmodal {
+	.p-dialog {
+	  width: 50%;
+	  height: max-content;
+	  max-height: 98%;
+	}
+  }

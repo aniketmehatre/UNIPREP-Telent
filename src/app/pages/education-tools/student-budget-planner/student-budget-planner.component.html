@@ -1,4 +1,4 @@
-<div class="card readingcard">
+<div class="card readingcard"  *ngIf="isRecommendation">
     <div class="card-header border-0 bg-transparent">
         <div class="row justify-content-center align-items-center">
             <div class="col-md-12 d-flex gap-4">
@@ -65,7 +65,7 @@
                                         </div>
                                         <div class="col-md-6">
                                             <p-dropdown [options]="courseDurationList" styleClass="w-100" [(ngModel)]="selectedData['course_duration']" optionLabel="value"
-                                                optionValue="id" [appendTo]="'body'" placeholder="Select Duration">
+                                                optionValue="value" [appendTo]="'body'" placeholder="Select Duration">
                                             </p-dropdown>
                                             <div *ngIf="notfilledArray.includes('course_duration')" class="text-danger text-xs">
                                                 <div>Course Duration Required</div>
@@ -78,7 +78,10 @@
                                             <h5 class="mt-2">Stay Back Period</h5>
                                         </div>
                                         <div class="col-md-6">
-                                            <input type="text" pInputText placeholder="Stay Back Months" class="w-100" disabled="true" [(ngModel)]="selectedData['stay_back']" />
+                                            <p-dropdown [options]="stayBackList" styleClass="w-100" [(ngModel)]="selectedData['stay_back']" optionLabel="value"
+                                                optionValue="value" [appendTo]="'body'" placeholder="Select Stay Back Months">
+                                            </p-dropdown>
+                                            <!-- <input type="text" pInputText placeholder="Stay Back Months" class="w-100" disabled="true" [(ngModel)]="selectedData['stay_back']" /> -->
                                             <div *ngIf="notfilledArray.includes('stay_back')" class="text-danger text-xs">
                                                 <div>Stay Back Required</div>
                                             </div>
@@ -104,7 +107,7 @@
                                             <h5 class="mt-2">Overall Net Tution</h5>
                                         </div>
                                         <div class="col-md-6">
-                                            <input type="text" pInputText placeholder="Overall Net Tution" class="w-100"  [(ngModel)]="selectedData['tution']" />
+                                            <input type="text" pInputText [placeholder]="'Overall Net Tution' +  (selectedData['currency'] ? ' in '+ selectedData['currency'] : '')" class="w-100"  [(ngModel)]="selectedData['tution']" />
                                             <div *ngIf="notfilledArray.includes('tution')" class="text-danger text-xs">
                                                 <div>Overall Net Tution Required</div>
                                             </div>
@@ -115,7 +118,7 @@
                                             <h5 class="mt-2">Accommodation</h5>
                                         </div>
                                         <div class="col-md-6">
-                                            <input type="text" pInputText placeholder="Cost/Month" class="w-100"  [(ngModel)]="selectedData['accommodation']" />
+                                            <input type="text" pInputText [placeholder]="'Cost/Month' + (selectedData['currency'] ? ' in '+ selectedData['currency'] : '')" class="w-100"  [(ngModel)]="selectedData['accommodation']" />
                                             <div *ngIf="notfilledArray.includes('accommodation')" class="text-danger text-xs">
                                                 <div>Accommodation Required</div>
                                             </div>
@@ -126,7 +129,7 @@
                                             <h5 class="mt-2">Travel Expenses</h5>
                                         </div>
                                         <div class="col-md-6">
-                                            <input type="text" pInputText placeholder="Cost/Month" class="w-100"  [(ngModel)]="selectedData['travel_expense']" />
+                                            <input type="text" pInputText [placeholder]="'Cost/Month' + (selectedData['currency'] ? ' in '+ selectedData['currency'] : '')" class="w-100"  [(ngModel)]="selectedData['travel_expense']" />
                                             <div *ngIf="notfilledArray.includes('travel_expense')" class="text-danger text-xs">
                                                 <div>Travel Expenses Required</div>
                                             </div>
@@ -137,7 +140,7 @@
                                             <h5 class="mt-2">Food & Groceries</h5>
                                         </div>
                                         <div class="col-md-6">
-                                            <input type="text" pInputText placeholder="Cost/Month" class="w-100"  [(ngModel)]="selectedData['food_and_grocery']" />
+                                            <input type="text" pInputText [placeholder]="'Cost/Month' + (selectedData['currency'] ? ' in '+ selectedData['currency'] : '')" class="w-100"  [(ngModel)]="selectedData['food_and_grocery']" />
                                             <div *ngIf="notfilledArray.includes('food_and_grocery')" class="text-danger text-xs">
                                                 <div>Food & Groceries Required</div>
                                             </div>
@@ -148,7 +151,7 @@
                                             <h5 class="mt-2">Miscellaneous</h5>
                                         </div>
                                         <div class="col-md-6">
-                                            <input type="text" pInputText placeholder="Cost/Month" class="w-100"  [(ngModel)]="selectedData['miscellaneous']" />
+                                            <input type="text" pInputText [placeholder]="'Cost/Month' + (selectedData['currency'] ? ' in '+ selectedData['currency'] : '')" class="w-100"  [(ngModel)]="selectedData['miscellaneous']" />
                                             <div *ngIf="notfilledArray.includes('miscellaneous')" class="text-danger text-xs">
                                                 <div>Miscellaneous Required</div>
                                             </div>
@@ -161,10 +164,7 @@
                                             <h5 class="mt-2">Education Loan</h5>
                                         </div>
                                         <div class="col-md-6">
-                                            <input type="text" pInputText placeholder="Cost/Month" class="w-100"  [(ngModel)]="selectedData['education_loan']" />
-                                            <div *ngIf="notfilledArray.includes('education_loan')" class="text-danger text-xs">
-                                                <div>Education Loan Required</div>
-                                            </div>
+                                            <input type="text" pInputText [placeholder]="'Cost/Month' + (selectedData['currency'] ? ' in '+ selectedData['currency'] : '')" class="w-100"  [(ngModel)]="selectedData['education_loan']" />
                                         </div>
                                     </div>
                                     <div class="d-flex justify-content-center mb-3">
@@ -172,10 +172,7 @@
                                             <h5 class="mt-2">Friends & Family Loan</h5>
                                         </div>
                                         <div class="col-md-6">
-                                            <input type="text" pInputText placeholder="Cost/Month" class="w-100"  [(ngModel)]="selectedData['family_loan']" />
-                                            <div *ngIf="notfilledArray.includes('family_loan')" class="text-danger text-xs">
-                                                <div>Friends & Family Loan Required</div>
-                                            </div>
+                                            <input type="text" pInputText [placeholder]="'Cost/Month' + (selectedData['currency'] ? ' in '+ selectedData['currency'] : '')" class="w-100"  [(ngModel)]="selectedData['family_loan']" />
                                         </div>
                                     </div>
                                     <div class="d-flex justify-content-center mb-3">
@@ -183,10 +180,7 @@
                                             <h5 class="mt-2">Monthly Payment</h5>
                                         </div>
                                         <div class="col-md-6">
-                                            <input type="text" pInputText placeholder="Cost/Month" class="w-100"  [(ngModel)]="selectedData['monthly_payment']" />
-                                            <div *ngIf="notfilledArray.includes('monthly_payment')" class="text-danger text-xs">
-                                                <div>Monthly Payment Required</div>
-                                            </div>
+                                            <input type="text" pInputText [placeholder]="'Cost/Month' + (selectedData['currency'] ? ' in '+ selectedData['currency'] : '')" class="w-100"  [(ngModel)]="selectedData['monthly_payment']" />
                                         </div>
                                     </div>
                                     <div class="d-flex justify-content-center mb-3">
@@ -195,9 +189,6 @@
                                         </div>
                                         <div class="col-md-6">
                                             <input type="text" pInputText placeholder="Months" class="w-100"  [(ngModel)]="selectedData['repayment_period']" />
-                                            <div *ngIf="notfilledArray.includes('repayment_period')" class="text-danger text-xs">
-                                                <div>Repayment Period Required</div>
-                                            </div>
                                         </div>
                                     </div>
                                 </ng-container>
@@ -207,10 +198,7 @@
                                             <h5 class="mt-2">Part Time Income</h5>
                                         </div>
                                         <div class="col-md-6">
-                                            <input type="text" pInputText placeholder="Cost/Month" class="w-100"  [(ngModel)]="selectedData['part_time_income']" />
-                                            <div *ngIf="notfilledArray.includes('repayment_period')" class="text-danger text-xs">
-                                                <div>Part Time Income Required</div>
-                                            </div>
+                                            <input type="text" pInputText [placeholder]="'Cost/Month' + (selectedData['currency'] ? ' in '+ selectedData['currency'] : '')" class="w-100"  [(ngModel)]="selectedData['part_time_income']" />
                                         </div>
                                     </div>
                                     <div class="d-flex justify-content-center mb-3">
@@ -218,10 +206,7 @@
                                             <h5 class="mt-2">Full Time Income</h5>
                                         </div>
                                         <div class="col-md-6">
-                                            <input type="text" pInputText placeholder="Cost/Month" class="w-100"  [(ngModel)]="selectedData['full_time_income']" />
-                                            <div *ngIf="notfilledArray.includes('full_time_income')" class="text-danger text-xs">
-                                                <div>Full Time Income Required</div>
-                                            </div>
+                                            <input type="text" pInputText [placeholder]="'Cost/Month' + (selectedData['currency'] ? ' in '+ selectedData['currency'] : '')" class="w-100"  [(ngModel)]="selectedData['full_time_income']" />
                                         </div>
                                     </div>
                                     <div class="d-flex justify-content-center mb-3">
@@ -229,10 +214,7 @@
                                             <h5 class="mt-2">Other Income</h5>
                                         </div>
                                         <div class="col-md-6">
-                                            <input type="text" pInputText placeholder="Cost/Month" class="w-100"  [(ngModel)]="selectedData['other_income']" />
-                                            <div *ngIf="notfilledArray.includes('full_time_income')" class="text-danger text-xs">
-                                                <div>Other Income Required</div>
-                                            </div>
+                                            <input type="text" pInputText [placeholder]="'Cost/Month' + (selectedData['currency'] ? ' in '+ selectedData['currency'] : '')" class="w-100"  [(ngModel)]="selectedData['other_income']" />
                                         </div>
                                     </div>
                                 </ng-container>
@@ -259,6 +241,52 @@
                     </div>
                 </ng-template>
             </p-carousel>
+        </div>
+    </div>
+</div>
+<div class="card readingcard" *ngIf="isResponsePage">
+    <div class="card-header border-0 bg-transparent">
+        <div class="row justify-content-center align-items-center">
+            <div class="col-md-12 d-flex gap-4">
+                <div class="backIcon d-md-flex d-none" role="button" (click)="goBack()" style="height: auto;">
+                    <span class="fa-solid fa-chevron-left"></span>
+                </div>
+                <div class="select-title d-flex justify-content-between align-items-center">
+                    <div>
+                        <h5 class="w-100 mb-0" tooltipPosition="top" pTooltip="">
+                            Student Budget Planner<i class="questiontooltip fa-solid fa-circle-question"></i></h5>
+                    </div>
+                    <div>
+                        <button class="how-it-works-button">How it works?
+                            <i class="fa-solid fa-play d-md-block d-none"></i></button>
+                    </div>
+                </div>
+                <div class="d-flex align-items-center">
+                    <button pButton type="button" (click)="savedRecommendations()"
+                        class="btn btn-primary btn-rounded py-2 px-4">
+                        <span>History</span>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="card-body worksans flex-fill overflow-y-auto">
+        <div class="row">
+            <div class="col-md-3"></div>
+            <div class="col-md-6">
+                <markdown emoji>
+                    <div class="card p-3" [innerHtml]="recommendationData"></div>
+                </markdown>
+            </div>
+            <div class="col-md-3"></div>
+        </div>
+    </div>
+    <div class="card-footer bg-transparent border-0">
+        <div class="text-end">
+            <button pButton type="button" class="btn ps-3 btn-quit btn-rounded" (click)="resetRecommendation()">
+                Reset Recommendations<span class="btn-icon"><i class="fa-solid fa-arrow-rotate-right"></i>
+                </span>
+            </button>
         </div>
     </div>
 </div>

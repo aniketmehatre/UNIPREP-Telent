@@ -69,6 +69,10 @@ export class PoliticianInsightsComponent implements OnInit, OnDestroy {
     this.getPoliticiansList(this.data);
   }
 
+  backtoMain() {
+    this.router.navigateByUrl('/pages/education-tools');
+  }
+
   getRecommendation() {
     if (this.recommendRestrict) {
       this.restrict = true;
@@ -137,7 +141,7 @@ export class PoliticianInsightsComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy() {
-    this.subscription?.unsubscribe();
+    // this.subscription.unsubscribe();
   }
 
 
