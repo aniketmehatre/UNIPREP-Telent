@@ -20,8 +20,6 @@ import { StartupglossaryComponent } from './startupglossary/startupglossary.comp
 import { EntreprenuerskillmoduleComponent } from './entreprenuerskillmodule/entreprenuerskillmodule.component';
 import { EntreprenuersectorproficiencyComponent } from './entreprenuersectorproficiency/entreprenuersectorproficiency.component';
 import { EntreprenuerquizComponent } from './entreprenuerquiz/entreprenuerquiz.component';
-import { WealthleaderslistComponent } from './wealthleaderslist/wealthleaderslist.component';
-import { WealthleaderreadansComponent } from './wealthleaderreadans/wealthleaderreadans.component';
 import { BusinessPlanGeneratorComponent } from './business-plan-generator/business-plan-generator.component';
 import { ComponentStoriesComponent } from './component-stories/component-stories.component';
 import { GovermentFundingOppurtunityComponent } from './goverment-funding-opportunity/goverment-funding-opportunity.component';
@@ -46,8 +44,6 @@ import {SharedModule} from "../../shared/shared.module";
     EntreprenuerskillmoduleComponent,
     EntreprenuersectorproficiencyComponent,
     EntreprenuerquizComponent,
-    WealthleaderslistComponent,
-    WealthleaderreadansComponent,
     BusinessPlanGeneratorComponent,
     ComponentStoriesComponent,
     GovermentFundingOppurtunityComponent,

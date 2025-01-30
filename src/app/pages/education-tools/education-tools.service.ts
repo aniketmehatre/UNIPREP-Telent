@@ -1,8 +1,11 @@
 import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { environment } from '@env/environment';
+import { Observable } from 'rxjs';
+import { CountryInsight, CountryInsightPayload, CountryInsightsResponse, QuestionListSuccess, QuestionsListPayLoad } from 'src/app/@Models/country-insights.model';
+import { EducatiionsRec } from 'src/app/@Models/course-navigator.model';
 import { CountryAndUniversity } from 'src/app/@Models/education-tools.model';
-import { CourseNavigator, EducatiionsRec } from 'src/app/@Models/course-navigator.model';
+import { CourseNavigator } from 'src/app/@Models/course-navigator.model';
 
 @Injectable({
   providedIn: 'root'
@@ -46,6 +49,22 @@ export class EducationToolsService {
     });
   }
 
+  getCountryInsightsList(req: CountryInsightPayload): Observable<CountryInsightsResponse> {
+    let params = {
+      page: req.page,
+      perpage: req.perpage,
+    };
+    return this.http.post<CountryInsightsResponse>(environment.ApiUrl + `/getcountryinsightslists`, params)
+  }
+
+  getQuizQuestion(req: QuestionsListPayLoad): Observable<QuestionListSuccess> {
+    const headers = new HttpHeaders().set("Accept", "application/json");
+    return this.http.post<QuestionListSuccess>(environment.ApiUrl + '/showcountryinsight', req, {
+      headers: headers,
+    });
+  }
+  
+  // getCourseQandA(degree_id: number) {
   getCourseQandA(degreeId: number, questionId?: number) {
     const headers = new HttpHeaders().set("Accept", "application/json");
     let params = new HttpParams().set('degree_id', degreeId);

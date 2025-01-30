@@ -9,7 +9,7 @@ import { EducationToolsData } from './education-tools-list-data';
 export class EducationToolsListComponent implements OnInit {
 
   EducationToolsList = EducationToolsData;
-  isLaunchingSoon: false
+  isLaunchingSoon: true;
   constructor() { }
 
   ngOnInit(): void {

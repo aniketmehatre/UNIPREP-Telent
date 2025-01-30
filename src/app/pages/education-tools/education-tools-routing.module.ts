@@ -6,7 +6,10 @@ import { CourseNavigatorComponent } from './course-navigator/course-navigator.co
 import { PoliticianInsightsComponent } from './politician-insights/politician-insights.component';
 import { GlobalTravelVisaComponent } from '../travel-tools/global-travel-visa/global-travel-visa.component';
 import { CountryInsightsComponent } from './country-insights/country-insights.component';
+import { CountryInsightsSubmoduleComponent } from './country-insights/country-insights-submodule/country-insights-submodule.component';
 import { StudentBudgetPlannerComponent } from './student-budget-planner/student-budget-planner.component';
+import { WealthleaderreadansComponent } from '../founderstool/wealthleaderreadans/wealthleaderreadans.component';
+import { WealthleaderslistComponent } from '../founderstool/wealthleaderslist/wealthleaderslist.component';
 
 const routes: Routes = [
   {
@@ -25,14 +28,25 @@ const routes: Routes = [
         path: 'politician-insights', component: PoliticianInsightsComponent
       },
       {
-        path: 'country-insights', component: CountryInsightsComponent
+        path: 'country-insights',
+        component: CountryInsightsComponent,
+      },
+      {
+        path: 'country-insights/:id',
+        component: CountryInsightsSubmoduleComponent
       },
       {
         path: 'study-visa', component: GlobalTravelVisaComponent
       },
       {
         path:'student-budget-planner', component: StudentBudgetPlannerComponent
-      }
+      },
+      {
+        path: 'wealthleaderslist', component: WealthleaderslistComponent
+      },
+      {
+        path: 'wealthleaderreadanswer/:id', component: WealthleaderreadansComponent
+      },
     ]
   }
 ];
