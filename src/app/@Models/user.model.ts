@@ -50,4 +50,5 @@ export interface User {
     user_id: number;
     is_phn_or_whs_verified: number;
     login_status: number;
+    ilearn_popup_status: number;
 }

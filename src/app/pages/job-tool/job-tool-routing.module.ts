@@ -20,6 +20,7 @@ const routes: Routes = [
   {
     path: '', component: JobToolComponent,
     children: [
+      {path: '',  redirectTo: 'career-tool', pathMatch: 'full'},
       { path: 'cv-builder', component: CvBuilderComponent },
       { path: 'coverletter-builder', component: CoverLetterBuilderComponent },
       { path: 'career-tool', component: CareerToolComponent },

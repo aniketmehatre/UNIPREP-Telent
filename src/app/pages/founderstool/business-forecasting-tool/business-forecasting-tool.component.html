@@ -141,11 +141,11 @@
                                     </h5>
                                     <div class="w-100 d-flex gap-2 flex-fill">
                                         <p-dropdown formControlName="currency_code" appendTo="body"
-                                            [options]="locationList" [filter]="true" filterBy="currency"
+                                            [options]="locationList" [filter]="true" filterBy="currency_code"
                                             placeholder=" Currency" optionLabel="currency_code"
                                             optionValue="currency_code" [autoDisplayFirst]="false">
                                         </p-dropdown>
-                                        <input class="w-100 pl-2 border border-gray rounded-3" type="text"
+                                        <input class="w-100 pl-2 border border-gray rounded-3" pInputText type="text"
                                             placeholder="Forecast period Revenue" formControlName="forecast_peroid" />
                                     </div>
                                     <p class="text-center" *ngIf="form.get('forecast_peroid')?.errors?.required && submitted" style="color: red">
@@ -267,12 +267,8 @@
                     <div class="row w-100 m-0 justify-content-center h-100">
                         <div class="card subjectcard" role="button" (click)="showRecommandationData(item.response)">
                             <div class="card-body text-start">
-                                <h5 class="fw-bold mb-0">Market Analysis {{ i + 1 }}</h5>
-                                <p class="text-small"><b>Industry : </b>{{ item.industry }}</p>
-                                <p class="text-small"><b>Location : </b>{{ item.location }}</p>
-                                <p class="text-small">
-                                    <b>Target Market : </b>{{ item.targetMarket }}
-                                </p>
+                                <h5 class="fw-bold mb-0">Business Forecast {{ i + 1 }}</h5>
+                                <p class="text-small"><b>Industry : </b>{{ item.type }}</p>
                             </div>
                         </div>
                     </div>

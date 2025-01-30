@@ -3,7 +3,7 @@ import { Injectable } from '@angular/core';
 import { environment } from '@env/environment';
 import { BehaviorSubject } from 'rxjs';
 import { AssessmentQuiz, AssessmentResponse, StoreQuizResponse, UserquizResponseData } from 'src/app/@Models/assessment.model';
-import { ILearnChallengeData, ILearnChallengeResponse } from 'src/app/@Models/ilearn-challenge.model';
+import { ILearnChallengeData, ILearnChallengeResponse, LeaderBoard } from 'src/app/@Models/ilearn-challenge.model';
 
 @Injectable({
   providedIn: 'root'
@@ -13,6 +13,8 @@ export class AssessmentService {
   headers = new HttpHeaders().set("Accept", "application/json");
   iLearnChallenge = new BehaviorSubject<ILearnChallengeData>({ overAllParticipants: 0, currentPosition: 0, isILearn: false });
   iLearnChallengeData$ = this.iLearnChallenge.asObservable();
+  sideMenuiLearnChallenge = new BehaviorSubject<boolean>(false);
+  sideMenuiLearnChallengeData$ = this.sideMenuiLearnChallenge.asObservable();
 
   constructor(
     private http: HttpClient
@@ -45,6 +47,18 @@ export class AssessmentService {
 
   getReviewAssessmentQuizAns(moduleId: string) {
     return this.http.get<UserquizResponseData>(`${environment.ApiUrl}/reviewAssessmentQuizAns?moduleId=${moduleId}`, {
+      headers: this.headers,
+    });
+  }
+
+  getAssessmentParticipatingCount() {
+    return this.http.get<{ cluster_count: number }>(environment.ApiUrl + "/clusterCount", {
+      headers: this.headers,
+    });
+  }
+
+  getLeaderBoardUsers(grpId: string) {
+    return this.http.get<{ leaderBoard: LeaderBoard[]}>(`${environment.ApiUrl}/leaderBoardUsers?cluster_id=${grpId}`, {
       headers: this.headers,
     });
   }

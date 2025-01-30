@@ -25,6 +25,9 @@ const routes: Routes = [
     path: '', component: FounderstoolComponent,
     children: [
       {
+        path: '',  redirectTo: 'founderstoollist', pathMatch: 'full'
+      },
+      {
         path: 'foundersacademy', component: FoundersacademyComponent
       },
       {
@@ -52,12 +55,6 @@ const routes: Routes = [
         path: ':module_name/entrpreneurquiz', component: EntreprenuerquizComponent
       },
       {
-        path: 'wealthleaderslist', component: WealthleaderslistComponent
-      },
-      {
-        path: 'wealthleaderreadanswer/:id', component: WealthleaderreadansComponent
-      },
-      {
         path: 'business-plan-generator', component: BusinessPlanGeneratorComponent
       },
       {
@@ -74,6 +71,36 @@ const routes: Routes = [
       },
       {
         path: 'startup-failure-stories', component: ComponentStoriesComponent
+      },
+      {
+        path: 'startup-funding-hacks/:id', component: ComponentStoriesComponent
+      },
+      {
+        path: 'founder-success-stories/:id', component: ComponentStoriesComponent
+      },
+      {
+        path: 'founder-failure-stories/:id', component: ComponentStoriesComponent
+      },
+      {
+        path: 'startup-success-stories/:id', component: ComponentStoriesComponent
+      },
+      {
+        path: 'startup-failure-stories/:id', component: ComponentStoriesComponent
+      },
+      {
+        path: 'startup-funding-hacks/:id/:question_id', component: ComponentStoriesComponent
+      },
+      {
+        path: 'founder-success-stories/:id/:question_id', component: ComponentStoriesComponent
+      },
+      {
+        path: 'founder-failure-stories/:id/:question_id', component: ComponentStoriesComponent
+      },
+      {
+        path: 'startup-success-stories/:id/:question_id', component: ComponentStoriesComponent
+      },
+      {
+        path: 'startup-failure-stories/:id/:question_id', component: ComponentStoriesComponent
       },
       {
         path: 'ai-business-advisor', component: AiBusinessAdvisorComponent

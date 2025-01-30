@@ -164,7 +164,7 @@
 											<div class=" fw-bold">{{ fundData.name }}</div>
 										</a>
 									</div>
-									<i class="text-danger" role="button" [class]="fundData.isFavorite == 1 ? 'fa-solid fa-heart' : 'fa-regular fa-heart'" (click)="bookmarkQuestion(fundData.id, fundData.favourite)"></i>
+									<i class="text-danger" role="button" [class]="fundData.favourite == 1 ? 'fa-solid fa-heart' : 'fa-regular fa-heart'" (click)="bookmarkQuestion(fundData.id, fundData.favourite)"></i>
 								</div>
 
 								<div>

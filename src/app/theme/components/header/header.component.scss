@@ -582,14 +582,17 @@ $background-color_4: #fff;
   display: flex;
   align-items: center;
   justify-content: center;
-  height: 50px;
+  height: 80px;
   /* Adjust the height as needed */
 }
 
 .assessment-popup {
-  width: 400px;
+  width: 460px;
   .p-dialog-titlebar, .p-dialog-content {
     border-radius: 15px !important;
+  }
+  &.upgrade-plan {
+    width: 400px;
   }
 }
 

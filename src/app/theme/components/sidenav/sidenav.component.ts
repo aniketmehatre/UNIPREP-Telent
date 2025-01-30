@@ -13,6 +13,7 @@ import { map } from "rxjs/operators";
 import { AuthService } from "src/app/Auth/auth.service";
 import { DataService } from "src/app/data.service";
 import { LocationService } from "src/app/location.service";
+import { AssessmentService } from "src/app/pages/assessment/assessment.service";
 
 export interface SideMenu {
   title: string;
@@ -113,7 +114,7 @@ export class SidenavComponent {
     {
       title: "Education Tools",
       url: "/pages/education-tools",
-      image: "fa-solid fa-landmark-magnifying-glass",
+      image: "fa-solid fa-school",
     },
     {
       title: "Travel & Life",
@@ -314,6 +315,7 @@ export class SidenavComponent {
     private dataService: DataService,
     private authService: AuthService,
     private locationService: LocationService,
+    private assessmentService: AssessmentService
   ) {
     this.dataService.countryNameSource.subscribe((countryName) => {
       this.menus.filter((data) => {
@@ -499,9 +501,7 @@ export class SidenavComponent {
         }
       }
       if(item.title == 'Assessment') {
-        const targetUrl = this.currentUserSubscriptionPlan === 'Career' || this.currentUserSubscriptionPlan === 'Entrepreneur' 
-          ? item.url: this.authService?.user?.subscription ? '/pages/subscriptions/upgrade-subscription' : '/pages/subscriptions';
-        this.router.navigateByUrl(targetUrl);
+        this.assessmentService.sideMenuiLearnChallenge.next(true);
         return;
       }
       this.router.navigateByUrl(item.url || "/");

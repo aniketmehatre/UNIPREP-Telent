@@ -68,7 +68,7 @@ export class JobToolComponent implements OnInit {
       this.hideTitleForPreviewPage = false;
       this.howItWorksVideo = 'not_required';
     } else if (this.currentRoute.includes("cost-of-living")) {
-      this.title = "Career Tools -> Cost of living";
+      this.title = "Travel Tools -> Cost of living";
       this.tooltip = "Compare the cost of living across different cities and countries to plan your financial needs."
       this.howItWorksVideo = 'https://www.youtube.com/embed/P9YZmCEeR4M?si=hR6GnvMgyKyyLuMr';
     } else if (this.currentRoute.includes("cv-builder")) {

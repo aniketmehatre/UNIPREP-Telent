@@ -26,7 +26,7 @@
                 <div class="row w-100 m-0 justify-content-center h-100">
                     <div class="card subjectcard" role="button">
                         <div class="card-body" (click)="showDatas(item)">
-                           <img src="{{item.flag}}" alt="" height="70" width="70">
+                           <img src="{{item.country_flag}}" style="border-radius: 50px;" alt="" height="70" width="70">
                            <p class="mt-2" style="font-size: small;"><b>{{item.country}}</b></p>
                         </div>
                     </div>
@@ -79,7 +79,7 @@
     <div class="carousel-container px-4">
       <div class="card flex-fill answercard">
         <div class="card-body text-start">
-          <div class="d-flex align-items-center justify-content-between position-relative">
+          <div class="d-flex align-items-center justify-content-between position-relative" style="float: right;">
             <button class="btn btn-primary socialShareBtn" (click)="showSocialSharingList()"><i class="fa-light fa-xl fa-share-nodes"></i></button>
             <p-card id="socialSharingList">
               <ul style="list-style: none; cursor: pointer">
@@ -93,10 +93,10 @@
               </ul>
             </p-card>
           </div>
-          <h3 class="unselectable d-md-block d-none">{{dataanswerquestion?.quesions}}</h3>
+          <!-- <h3 class="unselectable d-md-block d-none">{{dataanswerquestion?.quesions}}</h3> -->
           <!-- <h5 class="unselectable d-md-none d-block">hssksk</h5> -->
-          <!-- <div class="fw-medium" style="white-space: inherit; max-height: 80%; min-height: 80%" [innerHTML]="oneQuestionContent?.answer"></div> -->
-          <div class="fw-medium" style="white-space: inherit; max-height: 80%; min-height: 80%"> {{dataanswerquestion?.blogs}}</div>
+          <div class="fw-medium" style="white-space: inherit; max-height: 80%; min-height: 80%" [innerHTML]="dataanswerquestion?.blogs"></div>
+          <!-- <div class="fw-medium" style="white-space: inherit; max-height: 80%; min-height: 80%"> {{dataanswerquestion?.blogs}}</div> -->
 
         </div>
       </div>

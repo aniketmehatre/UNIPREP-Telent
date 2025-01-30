@@ -129,15 +129,13 @@ export class FounderstoolService {
   }
 
   exportSelectedData(data: any) {
-    return this.http.post<any>(environment.ApiUrl + "/api/exportgovernmentfunding  ", data, {
+    return this.http.post<any>(environment.ApiUrl + "/exportgovernmentfunding  ", data, {
       headers: this.headers,
     });
   }
 
   getFundStateByCountry() {
     let params = new HttpParams();
-    // params = params.append("country_id", scholarship_country.toString())
-
     return this.http.get<any>(environment.ApiUrl + "/govtfundingRegions", {
       headers: this.headers
     });
@@ -162,7 +160,7 @@ export class FounderstoolService {
   }
 
   getRecommendations() {
-    return this.http.post<any>(environment.ApiUrl + "/getgovernmentfundlist", {
+    return this.http.get<any>(environment.ApiUrl + "/getFundingRec", {
       headers: this.headers,
     });
   }
