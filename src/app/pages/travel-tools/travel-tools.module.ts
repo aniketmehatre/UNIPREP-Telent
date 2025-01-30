@@ -20,6 +20,8 @@ import { TripLengthFinderComponent } from './trip-length-finder/trip-length-find
 import { TravelGlossaryComponent } from './travel-glossary/travel-glossary.component';
 import {SharedModule} from "../../shared/shared.module";
 import {MarkdownComponent} from "ngx-markdown";
+import { CardModule } from 'primeng/card';
+import { DialogModule } from 'primeng/dialog';
 
 @NgModule({
   declarations: [
@@ -44,7 +46,9 @@ import {MarkdownComponent} from "ngx-markdown";
     InputNumberModule,
     MultiSelectModule,
     SharedModule,
-    MarkdownComponent
+    MarkdownComponent,
+    CardModule,
+    DialogModule
   ]
 })
 export class TravelToolsModule { }
