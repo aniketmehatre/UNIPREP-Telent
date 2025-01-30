@@ -3,6 +3,7 @@ import { EducationToolsService } from '../education-tools.service';
 import { TravelToolsService } from '../../travel-tools/travel-tools.service';
 import { AllCountryRes,UniversityRes,CurrencyList } from 'src/app/@Models/education-tools.model';
 import { Router } from '@angular/router';
+import { log } from 'console';
 @Component({
   selector: 'uni-student-budget-planner',
   templateUrl: './student-budget-planner.component.html',
@@ -30,20 +31,56 @@ export class StudentBudgetPlannerComponent implements OnInit {
   allUniversityList: UniversityRes[] = [];
   currencyList: CurrencyList[] = [];
   universityList: any[] = [];
-  selectedData: any = {};
+  recommendationData: string = "";
+  isRecommendation:boolean = true;
+  isResponsePage:boolean = false;
+  selectedData: any = {
+    country: null,
+    university: null,
+    course_duration: null,
+    stay_back: null,
+    currency: null,
+    tution: null,
+    accommodation: null,
+    travel_expense: null,
+    food_and_grocery: null,
+    miscellaneous: null,
+    education_loan: null,
+    family_loan: null,
+    monthly_payment: null,
+    repayment_period: null,
+    part_time_income: null,
+    full_time_income: null,
+    other_income: null,
+    mode: 'student_budget_planner',
+  };
+  
   notfilledArray: any = [];
-  courseDurationList:{id: number, value: string}[] = [
-    { id: 6,value: '6 Months'},
-    { id: 12,value: '12 Months'},
-    { id: 18,value: '18 Months'},
-    { id: 24,value: '24 Months'},
-    { id: 30,value: '30 Months'},
-    { id: 36,value: '36 Months'},
-    { id: 42,value: '42 Months'},
-    { id: 48,value: '48 Months'},
-    { id: 60,value: '60 Months'},
+  courseDurationList:{ value: string}[] = [
+    { value: '6 Months'},
+    { value: '12 Months'},
+    { value: '18 Months'},
+    { value: '24 Months'},
+    { value: '30 Months'},
+    { value: '36 Months'},
+    { value: '42 Months'},
+    { value: '48 Months'},
+    { value: '54 Months'},
+    { value: '60 Months'},
   ];
 
+  stayBackList: any[] = [
+    { value: 'Upto 6 Months'},
+    { value: 'Upto 12 Months'},
+    { value: 'Upto 18 Months'},
+    { value: 'Upto 24 Months'},
+    { value: 'Upto 30 Months'},
+    { value: 'Upto 36 Months'},
+    { value: 'Upto 42 Months'},
+    { value: 'Upto 48 Months'},
+    { value: 'Upto 54 Months'},
+    { value: 'Upto 60 Months'},
+  ]
   ngOnInit(): void {
     this.dropdownValues();
   }
@@ -68,11 +105,6 @@ export class StudentBudgetPlannerComponent implements OnInit {
     this.universityList = this.allUniversityList.filter(item =>{
       return countryId === item.country_id
     })
-
-    let getStayBack = this.countriesList.find(item =>
-      countryId === item.id
-    )
-    this.selectedData['stay_back'] = getStayBack?.stay_back;
   }
 
   next(productId: number): void {
@@ -83,10 +115,6 @@ export class StudentBudgetPlannerComponent implements OnInit {
       fillables = ['country','university','course_duration','stay_back'];
     }else if(productId === 2){
       fillables = ['currency','tution','accommodation','travel_expense','food_and_grocery','miscellaneous'];
-    }else if(productId === 3){
-      fillables = ['education_loan','family_loan','monthly_payment','repayment_period'];
-    }else if(productId === 3){
-      fillables = ['part_time_income','full_time_income','other_income'];
     }
     fillables.forEach((element:any) => {
       if(!this.selectedData[element]){
@@ -105,7 +133,22 @@ export class StudentBudgetPlannerComponent implements OnInit {
   }
 
   submit(){
-    console.log(this.selectedData, "submited data");
+    console.log(this.selectedData, "before selected data");
+    Object.entries(this.selectedData).forEach(([key, value]) =>{
+      if(value === null){
+        this.selectedData[key] = "none";
+      }
+    });
+    console.log(this.selectedData, "after selected data");
+
+    this.travelService.getChatgptRecommendations(this.selectedData).subscribe({
+      next: response =>{
+        this.recommendationData = response.response;
+        console.log(this.recommendationData)
+        this.isResponsePage = true;
+        this.isRecommendation = false;
+      }
+    })
   }
 
   goBack(){
