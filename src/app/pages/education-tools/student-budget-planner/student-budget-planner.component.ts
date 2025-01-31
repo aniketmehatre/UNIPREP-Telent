@@ -1,9 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { EducationToolsService } from '../education-tools.service';
 import { TravelToolsService } from '../../travel-tools/travel-tools.service';
-import { AllCountryRes,UniversityRes,CurrencyList } from 'src/app/@Models/education-tools.model';
+import { AllCountryRes,UniversityRes,CurrencyList,SaveResponse,SavedReponseArray } from 'src/app/@Models/education-tools.model';
 import { Router } from '@angular/router';
-import { log } from 'console';
+import { MessageService } from 'primeng/api';
 @Component({
   selector: 'uni-student-budget-planner',
   templateUrl: './student-budget-planner.component.html',
@@ -11,7 +11,12 @@ import { log } from 'console';
 })
 export class StudentBudgetPlannerComponent implements OnInit {
 
-  constructor(private educationService: EducationToolsService, private travelService: TravelToolsService, private router: Router) { }
+  constructor(
+    private educationService: EducationToolsService, 
+    private travelService: TravelToolsService, 
+    private router: Router, 
+    private toastr: MessageService,
+  ) { }
   recommendations: { id: number, question: string}[] = [
     {
       id: 1, question: 'Student Information'
@@ -34,7 +39,12 @@ export class StudentBudgetPlannerComponent implements OnInit {
   recommendationData: string = "";
   isRecommendation:boolean = true;
   isResponsePage:boolean = false;
-  selectedData: any = {
+  isSavedResponse:boolean = false;
+  isOldResponse:boolean = false;
+  isSubmitted: boolean = false;
+  responseBtnDisable: boolean = false;
+  recommadationSavedQuestionList:SavedReponseArray[] = []; 
+  selectedDataArray: any = {
     country: null,
     university: null,
     course_duration: null,
@@ -53,9 +63,9 @@ export class StudentBudgetPlannerComponent implements OnInit {
     full_time_income: null,
     other_income: null,
     mode: 'student_budget_planner',
-  };
+  }
+  selectedData: any = {...this.selectedDataArray}
   
-  notfilledArray: any = [];
   courseDurationList:{ value: string}[] = [
     { value: '6 Months'},
     { value: '12 Months'},
@@ -95,7 +105,6 @@ export class StudentBudgetPlannerComponent implements OnInit {
     this.travelService.getCurrencies().subscribe({
       next: response =>{
         this.currencyList = response;
-        console.log(response, "currency list");
       }
     })
   }
@@ -108,8 +117,8 @@ export class StudentBudgetPlannerComponent implements OnInit {
   }
 
   next(productId: number): void {
+    this.isSubmitted = true;
     let fillables: any = [];
-    this.notfilledArray = [];
     let isAllFieldsFields: boolean = true;
     if(productId === 1){
       fillables = ['country','university','course_duration','stay_back'];
@@ -118,14 +127,13 @@ export class StudentBudgetPlannerComponent implements OnInit {
     }
     fillables.forEach((element:any) => {
       if(!this.selectedData[element]){
-        this.notfilledArray.push(element);
         isAllFieldsFields = false;
       }
     });
     if(isAllFieldsFields){
       this.activePageIndex++;
+      this.isSubmitted = false;
     }
-    console.log(this.notfilledArray, "not fillables");
   }
 
   previous(){
@@ -133,25 +141,83 @@ export class StudentBudgetPlannerComponent implements OnInit {
   }
 
   submit(){
-    console.log(this.selectedData, "before selected data");
+    this.isOldResponse = true;
     Object.entries(this.selectedData).forEach(([key, value]) =>{
+      if(key === 'country'){
+        let countryName = this.getCountryName();
+        this.selectedData['country'] = countryName;
+      }
       if(value === null){
         this.selectedData[key] = "none";
       }
     });
-    console.log(this.selectedData, "after selected data");
-
     this.travelService.getChatgptRecommendations(this.selectedData).subscribe({
       next: response =>{
         this.recommendationData = response.response;
-        console.log(this.recommendationData)
         this.isResponsePage = true;
         this.isRecommendation = false;
+        this.isSavedResponse = false;
+        this.isOldResponse = false;
       }
     })
   }
 
+  getCountryName(){
+    let getCountryName = this.countriesList.find(u => u.id === this.selectedData['country']);
+    return getCountryName?.country; //returns only the country name
+  }
+
   goBack(){
     this.router.navigateByUrl('/pages/education-tools');
+  }
+
+  saveResponse(){
+    let params:SaveResponse = {
+      country_name: this.selectedData['country'],
+      university_name: this.selectedData['university'],
+      response: this.recommendationData
+    };
+    
+    this.educationService.saveResponse(params).subscribe({
+      next: response => {
+        if(response.status && response.status == true){
+          this.toastr.add({
+            severity: "success",
+            summary: "Success",
+            detail: "Response Saved Successfully.",
+          });
+          this.responseBtnDisable = true;
+        }
+      }
+    })
+  }
+
+  listOfSavedResponse(){
+    this.educationService.getSavedRes().subscribe({
+      next: response =>{
+        this.recommadationSavedQuestionList = response.data;
+        this.isSavedResponse = true;
+        this.isRecommendation = false;
+        this.isResponsePage = false;
+      }
+    })
+  }
+
+  showRecommandationData(response: string){
+    this.recommendationData = response;
+    this.isSavedResponse = false;
+    this.isRecommendation = false;
+    this.isResponsePage = true;
+    this.isOldResponse = true;
+  }
+
+  resetRecommendation(){
+    this.universityList = [];
+    this.isSavedResponse = false;
+    this.isRecommendation = true;
+    this.isResponsePage = false;
+    this.isOldResponse = false;
+    this.activePageIndex = 0;
+    this.selectedData = {...this.selectedDataArray}
   }
 }
