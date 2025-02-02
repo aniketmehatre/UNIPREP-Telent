@@ -36,7 +36,7 @@ export class GlobalTravelVisaComponent implements OnInit {
   ];
   visaCategoryList: any[] = [
     {
-      id: 1, 
+      id: 1,
       question: "What is the VISA Eligibility",
       answer: `Lorem ipsum dolor sit amet consectetur adipisicing elit.Consequatur harum neque deserunt reiciendis minus repellat tempora deleniti mollitia, in natus sint laudantium repellendus earum beatae nostrum dolorum illo dolorem culpa a. Eveniet perferendis aut quisquam? Ipsa illo minima inventore assumenda quibusdam voluptas eum iure, magnam consectetur omnis officiis, similique accusantium nobis natus vero nulla nostrum distinctio. Officiis porro dolore veniam ad a sint quia vel ipsam, aliquam repellendus repudiandae commodi odit, hic praesentium eius rem quo nobis animi doloremque dignissimos impedit! Nobis ratione quidem dolor tenetur quod, quae at? Vel amet esse suscipit quas iure, libero dolor adipisci eos exercitationem reiciendis earum? Veniam, at. Nesciunt eaque quas dolorem itaque beatae ratione sunt sapiente, placeat sint impedit et nostrum doloremque. Maiores, eveniet sed tempora quia accusantium qui maxime vero aperiam? Quo consectetur quod quidem. Aspernatur, sit officia! Vitae molestiae atque distinctio harum fugit, eaque minus, placeat ab excepturi voluptas impedit inventore dolore dolorem unde ipsum, corporis molestias laboriosam ipsam. Nulla rerum deserunt asperiores provident, distinctio ad nemo laborum, eveniet doloribus quis veniam itaque fugit autem quae alias minus magnam. Magni, pariatur error. Voluptatem, pariatur quis ipsa, corrupti praesentium animi maiores odit iure esse hic aliquam cum, perspiciatis ipsum architecto sunt repellat.`
     },
@@ -85,6 +85,14 @@ export class GlobalTravelVisaComponent implements OnInit {
     if (!this.invalidClass) {
       this.activePageIndex < this.recommendations.length - 1 ? this.activePageIndex++ : this.getRecommendation();
     }
+  }
+
+  resetRecommendation() {
+    this.activePageIndex = 0;
+    this.isRecommendationQuestion = true;
+    this.isRecommendationData = false;
+    this.isRecommendationSavedData = false;
+    this.selectedData = {};
   }
 
   getRecommendation() {
@@ -150,45 +158,18 @@ export class GlobalTravelVisaComponent implements OnInit {
     }
   }
 
-  shareViaWhatsapp() {
-    let url = window.location.href + '/' + this.selectedQuestionData?.id
+  shareQuestion(type: string) {
+    const socialMedias: { [key: string]: string } = {
+      "Whatsapp": "whatsapp://send?text=",
+      "Instagram": "https://www.instagram.com?url=",
+      "Facebook": "https://www.facebook.com/sharer/sharer.php?u=",
+      "LinkedIn": "https://www.linkedin.com/shareArticle?url=",
+      "Twitter": "https://twitter.com/intent/tweet?url=",
+      "Mail": "mailto:?body=",
+    }
+    const url = window.location.href + '/' + this.selectedQuestionData?.id;
     this.meta.updateTag({ property: 'og:url', content: url });
-    const shareUrl = `whatsapp://send?text=${encodeURIComponent(url)}`;
-    window.open(shareUrl, '_blank');
-  }
-
-  shareViaInstagram() {
-    let url = window.location.href + '/' + this.selectedQuestionData?.id
-    this.meta.updateTag({ property: 'og:url', content: url });
-    const shareUrl = `https://www.instagram.com?url=${encodeURIComponent(url)}`;
-    window.open(shareUrl, '_blank');
-  }
-
-  shareViaFacebook() {
-    let url = window.location.href + '/' + this.selectedQuestionData?.id
-    this.meta.updateTag({ property: 'og:url', content: url });
-    const shareUrl = `https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(url)}`;
-    window.open(shareUrl, '_blank');
-  }
-
-  shareViaLinkedIn() {
-    let url = window.location.href + '/' + this.selectedQuestionData?.id
-    this.meta.updateTag({ property: 'og:url', content: url });
-    const shareUrl = `https://www.linkedin.com/shareArticle?url=${encodeURIComponent(url)}`;
-    window.open(shareUrl, '_blank');
-  }
-
-  shareViaTwitter() {
-    let url = window.location.href + '/' + this.selectedQuestionData?.id
-    this.meta.updateTag({ property: 'og:url', content: url });
-    const shareUrl = `https://twitter.com/intent/tweet?url=${encodeURIComponent(url)}`;
-    window.open(shareUrl, '_blank');
-  }
-
-  shareViaMail() {
-    let url = window.location.href + '/' + this.selectedQuestionData?.id
-    this.meta.updateTag({ property: 'og:url', content: url });
-    const shareUrl = `mailto:?body=${encodeURIComponent(url)}`;
+    const shareUrl = socialMedias[type] + encodeURIComponent(url);
     window.open(shareUrl, '_blank');
   }
 
