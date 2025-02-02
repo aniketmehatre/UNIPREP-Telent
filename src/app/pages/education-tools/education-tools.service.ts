@@ -3,9 +3,8 @@ import { Injectable } from '@angular/core';
 import { environment } from '@env/environment';
 import { Observable } from 'rxjs';
 import { CountryInsight, CountryInsightPayload, CountryInsightsResponse, QuestionListSuccess, QuestionsListPayLoad } from 'src/app/@Models/country-insights.model';
-import { EducatiionsRec } from 'src/app/@Models/course-navigator.model';
-import { CountryAndUniversity } from 'src/app/@Models/education-tools.model';
-import { CourseNavigator } from 'src/app/@Models/course-navigator.model';
+import { EducatiionsRec,CourseNavigator } from 'src/app/@Models/course-navigator.model';
+import { CountryAndUniversity,SavedResponse } from 'src/app/@Models/education-tools.model';
 
 @Injectable({
   providedIn: 'root'
@@ -94,6 +93,20 @@ export class EducationToolsService {
     const headers = new HttpHeaders().set("Accept", "application/json");
     return this.http.get<CountryAndUniversity>(`${environment.ApiUrl}/getDropdownValues`, {
       headers: headers,
+    });
+  }
+
+  saveResponse(data: any){
+    const headers = new HttpHeaders().set("Accept", "application/json");
+    return this.http.post<any>(`${environment.ApiUrl}/saveResponse`, data ,{
+      headers: headers
+    });
+  }
+
+  getSavedRes(){
+    const headers = new HttpHeaders().set("Accept", "application/json");
+    return this.http.get<SavedResponse>(`${environment.ApiUrl}/getBudgetPlannerSavedRes` ,{
+      headers: headers
     });
   }
 }
