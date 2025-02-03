@@ -189,6 +189,12 @@ export class FounderstoolService {
     });
   }
 
+  getLocationList() {
+    return this.http.get<any>(environment.ApiUrl + "/location", {
+      headers: this.headers,
+    });
+  }
+
   getStartUpRiskAssesmentOptionsList() {
     return this.http.get<any>(environment.ApiUrl + "/getstartupriskslists", {
       headers: this.headers,
