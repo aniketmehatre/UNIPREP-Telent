@@ -9,9 +9,8 @@ import { LocationService } from 'src/app/location.service';
 import { PageFacadeService } from '../../page-facade.service';
 import { UserManagementService } from '../../user-management/user-management.service';
 import { FounderstoolService } from '../founderstool.service';
-export interface selectList {
-  name: string;
-}
+import { marketingAnalysisData } from './marketing-analysis.data';
+
 @Component({
   selector: 'uni-marketing-analysis',
   templateUrl: './marketing-analysis.component.html',
@@ -19,13 +18,15 @@ export interface selectList {
 })
 export class MarketingAnalysisComponent implements OnInit {
   locationList: any[] = [];
-  targetMarketList: selectList[] = [];
-  productServiceList: selectList[] = [];
-  businessModelList: selectList[] = [];
-  salesChannelsList: selectList[] = [];
-  timeFramesList: selectList[] = [];
-  revenueStreamsList: selectList[] = [];
-  competitorList: selectList[] = [];
+  targetMarketList = marketingAnalysisData['Target Audience'];
+  productServiceList = marketingAnalysisData['Product/Service'];
+  businessModelList = marketingAnalysisData.Model;
+  salesChannelsList = marketingAnalysisData['Sales Channels'];
+  timeFramesList = marketingAnalysisData['Analysis Duration'];
+  revenueStreamsList = marketingAnalysisData['Revenue Streams'];
+  competitorList = marketingAnalysisData['Competitor Analysis Focus'];
+  industryList = marketingAnalysisData.Industry;
+  forecastingList = marketingAnalysisData['Market Forecast'];
   isFromSavedData: boolean = false;
   recommadationSavedQuestionList: any = [];
   page = 1;
@@ -46,6 +47,7 @@ export class MarketingAnalysisComponent implements OnInit {
     page: this.page,
     perpage: this.pageSize,
   };
+  currencyList: any;
   isRecommendationQuestion: boolean = true;
   isRecommendationData: boolean = false;
   isRecommendationSavedData: boolean = false;
@@ -71,7 +73,8 @@ export class MarketingAnalysisComponent implements OnInit {
       budget: ['', Validators.required],
       revenueStreams: ['', Validators.required],
       competitorAnalysis: ['', Validators.required],
-      currencycode: ['']
+      currencycode: [''],
+      forecast: ['', Validators.required]
     });
 
   }
@@ -83,21 +86,21 @@ export class MarketingAnalysisComponent implements OnInit {
       id: 1,
       question: {
         heading: 'Basic Information',
-        branches: ["What is Your Industry", "Where are you located", "What is the Target Market", "Is your business a product/service"]
+        branches: ["What industry does your business operate in?", "Where is your business or target market location?", "Who is your target market ?", "What products or services does your business offer?"]
       },
     },
     {
       id: 2,
       question: {
         heading: 'Marketing & Sales',
-        branches: ["What is Your Business Model?", "Where are you sales channel?", "Select the analysis time frame"]
+        branches: ["Can you describe your business model?", "Through which sales channels do you reach your customers?", "Over what duration do you want this analysis to be conducted?"]
       },
     },
     {
       id: 3,
       question: {
         heading: 'Finance',
-        branches: ["What is your budget for marketing", "what are your revenue streams", "what is your competitor analysis focus?"]
+        branches: ["What budget have you allocated for conducting this market research?", "What budget have you allocated for conducting this market research?", "What specific aspects do you want to focus on in the competitor analysis?", "What time frame do you have in mind for the market forecast?"]
       },
     },
   ];
@@ -117,29 +120,20 @@ export class MarketingAnalysisComponent implements OnInit {
     } else {
       this.ehitlabelIsShow = false;
     }
-    this.getMarketAnalysisLists();
-    this.getCurrenyandCountry();
+    this.getCurrenyandLocation();
   }
 
   goBack() {
     this.router.navigateByUrl('/pages/founderstool/founderstoollist');
   }
 
-  getMarketAnalysisLists() {
-    this.foundersToolsService.getmarketingAnaylsisOptionsList().subscribe((res: any) => {
-      console.log(res);
-      this.competitorList = res?.competitor;
-      this.timeFramesList = res?.duration;
-      this.targetMarketList = res?.market;
-      this.businessModelList = res?.models;
-      this.productServiceList = res?.productservice;
-      this.revenueStreamsList = res?.revenuestreams;
-      this.salesChannelsList = res?.saleschannel;
-    });
-  }
 
-  getCurrenyandCountry() {
+  getCurrenyandLocation() {
     this.foundersToolsService.getCurrencyAndCountries().subscribe((res: any) => {
+      console.log(res);
+      this.currencyList = res;
+    });
+    this.foundersToolsService.getLocationList().subscribe((res: any) => {
       console.log(res);
       this.locationList = res;
     });
