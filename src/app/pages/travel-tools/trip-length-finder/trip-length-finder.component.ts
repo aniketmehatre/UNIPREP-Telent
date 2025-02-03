@@ -19,10 +19,7 @@ export class TripLengthFinderComponent implements OnInit {
   ) { }
 
   recommendations: { id: number, question: string }[] = [
-    {
-      id: 1,
-      question: "Which country are you planning to visit?",
-    }
+    { id: 1, question: "Which Destination are you planning to visit?" }
   ];
   isRecommendation: boolean = true;
   isResponsePage: boolean = false;
