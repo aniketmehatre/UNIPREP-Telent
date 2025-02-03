@@ -1,0 +1,40 @@
+.search-dropdown {
+	width: 100%;
+	position: relative;
+  .searchcard
+  {
+    position:absolute;
+    z-index: 999;
+    top: 4rem;
+    left: 0;
+    right: 0;
+    background: white;
+    border-radius: 10px;
+    max-height: 50vh;
+    overflow-y: auto;
+  }
+	.p-inputgroup {
+		padding: 3px;
+		background: #F1F1F1;
+		border-radius: 10px;
+		.p-button {
+			border-radius: 0px 8px 8px 0 !important;
+		}
+	}
+	.searchheight {
+		input {
+			border: none;
+			background-color: #F1F1F1;
+		}
+	}
+	.search-icon {
+		justify-content: center;
+		align-items: center;
+		vertical-align: middle;
+		display: flex;
+		font-size: 1.5rem;
+		color: var(--uniprep-primary);
+		// border-right: 1px solid var(--uniprep-primary);
+		padding: 10px;
+	}
+}
