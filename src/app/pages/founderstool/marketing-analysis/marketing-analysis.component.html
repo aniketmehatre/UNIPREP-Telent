@@ -51,8 +51,8 @@
                   <h5 class="uniprep-primary fw-semibold mt-3 mb-1">
                     {{ recommendation.question.branches[1] }}
                   </h5>
-                  <p-dropdown styleClass="w-100" appendTo="body" [options]="locationList" [filter]="true"
-                    formControlName="location" filterBy="district" optionLabel="district" optionValue="district"
+                  <p-dropdown styleClass="w-100" appendTo="body" [options]="currencyandCountryList" [filter]="true"
+                    formControlName="location" filterBy="country" optionLabel="country" optionValue="country"
                     [autoDisplayFirst]="false">
                   </p-dropdown>
                   <p class="text-center" *ngIf="marketingForm.get('location')?.errors?.required && submitted"
@@ -140,7 +140,7 @@
                     {{ recommendation.question.branches[0] }}
                   </h5>
                   <div class="w-100 d-flex gap-2 flex-fill">
-                    <p-dropdown formControlName="currencycode" appendTo="body" [options]="currencyList" [filter]="true"
+                    <p-dropdown formControlName="currencycode" appendTo="body" [options]="currencyandCountryList" [filter]="true"
                       filterBy="currency_code" placeholder=" Currency" optionLabel="currency_code" optionValue="currency_code"
                       [autoDisplayFirst]="false">
                     </p-dropdown>
