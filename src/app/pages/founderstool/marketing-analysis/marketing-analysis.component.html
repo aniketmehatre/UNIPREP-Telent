@@ -188,11 +188,11 @@
                   <h5 class="uniprep-primary fw-semibold mt-3 mb-2">
                     {{ recommendation.question.branches[3] }}
                   </h5>
-                  <p-dropdown styleClass="w-100 h-100" placeholder="Forecating" [options]="forecastingList" [filter]="true" filterBy="Market Forecast"
-                    optionLabel="Market Forecast" optionValue="Market Forecast" formControlName="forecast">
+                  <p-dropdown styleClass="w-100 h-100" placeholder="Forecating" [options]="forecastingList" [filter]="true" filterBy="Forecast"
+                    optionLabel="Forecast" optionValue="Forecast" formControlName="forecast">
                   </p-dropdown>
                   <p class="text-center" *ngIf="
-                        marketingForm.get('competitorAnalysis')?.errors?.required &&
+                        marketingForm.get('forecast')?.errors?.required &&
                           submitted;
                         submitted
                       " style="color: red">

@@ -230,7 +230,7 @@ export class MarketingAnalysisComponent implements OnInit {
       }
     }
     if (this.activePageIndex == 2) {
-      if (!formData.budget || !formData.revenueStreams || !formData.competitorAnalysis) {
+      if (!formData.budget || !formData.revenueStreams || !formData.forecast || !formData.competitorAnalysis) {
         this.submitted = true;
         return;
       }
