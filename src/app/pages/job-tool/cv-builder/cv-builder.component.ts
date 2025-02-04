@@ -455,7 +455,7 @@ export class CvBuilderComponent implements OnInit  {
         if(achievementData.length != 0){
           achievementData.forEach((element: any) => {
             this.getExtraCurricularArray.push(this.fb.group({
-              extra_curricular_activites: [element.extra_curricular_activites, Validators.required]
+              extra_curricular_activites: [element.extra_curricular_activites]
             }));
           });
           this.filledFields.push('extra_curricular');
@@ -964,7 +964,7 @@ export class CvBuilderComponent implements OnInit  {
       this.removeHideHeaderElement('skills');
     } else if (fieldName == "extra_curricular") {
       this.getExtraCurricularArray.push(this.fb.group({
-        extra_curricular_activites: ['', Validators.required]
+        extra_curricular_activites: ['']
       }));
       this.removeHideHeaderElement('extra_curricular');
     } else if (fieldName == "certificate") {
