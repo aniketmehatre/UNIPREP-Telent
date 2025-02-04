@@ -252,13 +252,25 @@
     </div>
     <div class="card-body worksans flex-fill overflow-y-auto">
       <div class="row">
-        <div class="col-md-3"></div>
-        <div class="col-md-6">
-          <div class="card p-3" [innerHtml]="recommendationData"></div>
-        </div>
-        <div class="col-md-3"></div>
+          <div class="col-md-2"></div>
+          <div class="col-md-8">
+              <div class="d-flex justify-content-end gap-3 mb-3">
+                  <button pButton type="button" (click)="downloadRecommadation()"
+                      class="btn btn-secondary btn-rounded p-1 ps-4">
+                      <span class="me-2">Download</span><span class="btn-icon px-2 py-2">
+                          <i class="fa-regular fa-download"></i></span>
+                  </button>
+                  <button pButton type="button" (click)="onSaveRes()"
+                      class="btn btn-primary btn-rounded p-1 ps-4">
+                      <span class="me-2">Save Response</span><span class="btn-icon px-2 py-2">
+                          <i class="fa-regular fa-floppy-disk"></i></span>
+                  </button>
+              </div>
+              <div class="card p-3" [innerHtml]="recommendationData"></div>
+          </div>
+          <div class="col-md-2"></div>
       </div>
-    </div>
+  </div>
     <div class="card-footer bg-transparent border-0">
       <div class="text-end">
         <button pButton type="button" class="btn ps-3 btn-quit btn-rounded" (click)="resetRecommendation()">

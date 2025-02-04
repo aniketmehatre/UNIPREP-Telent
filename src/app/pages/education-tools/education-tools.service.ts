@@ -2,9 +2,10 @@ import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { environment } from '@env/environment';
 import { Observable } from 'rxjs';
+import { ChatGPTResponse } from 'src/app/@Models/chat-gpt.model';
 import { CountryInsight, CountryInsightPayload, CountryInsightsResponse, QuestionListSuccess, QuestionsListPayLoad } from 'src/app/@Models/country-insights.model';
 import { EducatiionsRec,CourseNavigator } from 'src/app/@Models/course-navigator.model';
-import { CountryAndUniversity,SavedResponse } from 'src/app/@Models/education-tools.model';
+import { CountryAndUniversity } from 'src/app/@Models/education-tools.model';
 
 @Injectable({
   providedIn: 'root'
@@ -105,8 +106,52 @@ export class EducationToolsService {
 
   getSavedRes(){
     const headers = new HttpHeaders().set("Accept", "application/json");
-    return this.http.get<SavedResponse>(`${environment.ApiUrl}/getBudgetPlannerSavedRes` ,{
+    return this.http.get<any>(`${environment.ApiUrl}/getBudgetPlannerSavedRes`, {
       headers: headers
     });
   }
+
+  getCountryList() {
+    const headers = new HttpHeaders().set("Accept", "application/json");
+    return this.http.get<any>(`${environment.ApiUrl}/country`, {
+      headers: headers
+    });
+  }
+
+  getUniverstityByCountry(country_id: string) {
+    return this.http.post<any>(`${environment.ApiUrl}/getuniversitybycountry`, {
+      country_id: country_id
+    });
+  }
+
+  getCurrencyAndCountries() {
+    return this.http.post<any>(environment.ApiUrl + "/getcountryandcurrency", {
+      headers: this.headers
+    });
+  }
+
+  getChatgptRecommendations(data: any) {
+    return this.http.post<{ response: string }>(environment.ApiUrl + "/getIntegratedRecom", data, {
+      headers: this.headers,
+    });
+  }
+
+  getAnalysisList(type: string) {
+    return this.http.get<ChatGPTResponse>(environment.ApiUrl + `/userSavedResponse?mode=${type}`, {
+      headers: this.headers,
+    });
+  }
+
+  resetRecommendation() {
+    return this.http.post<any>(environment.ApiUrl + "/resetScholarRec", {
+      headers: this.headers,
+    });
+  }
+
+  downloadResponse(mode: string) {
+    return this.http.post<any>(environment.ApiUrl + `/downloadReponse?mode=${mode}`, {
+      headers: this.headers,
+    });
+  }
+
 }

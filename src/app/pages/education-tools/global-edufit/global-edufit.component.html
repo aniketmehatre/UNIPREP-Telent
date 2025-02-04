@@ -7,7 +7,7 @@
               <div>
                 <h5 class="w-100 mb-0" tooltipPosition="top"
                   pTooltip="Access fully and partially funded opportunities for education.">
-                  Start Expense Estimator<i class="questiontooltip fa-solid fa-circle-question"></i>
+                 Global Edufit<i class="questiontooltip fa-solid fa-circle-question"></i>
                 </h5>
               </div>
               <div>
@@ -21,7 +21,7 @@
         </div>
       </div>
       <div class="card-body text-center flex-fill overflow-y-auto">
-        <form [formGroup]="marketingForm" class="mt-4">
+        <form [formGroup]="form" class="mt-4">
           <p-carousel [value]="recommendations" [numVisible]="1" [numScroll]="1" [circular]="false"
             [showNavigators]="false" [showIndicators]="false" [page]="activePageIndex" styleClass="h-100">
             <ng-template let-recommendation let-i="index" pTemplate="item">
@@ -35,11 +35,11 @@
                     <h5 class="uniprep-primary fw-semibold mt-3 mb-1">
                       {{ recommendation.question.branches[0] }}
                     </h5>
-                    <p-dropdown styleClass="w-100" appendTo="body" [options]="industryList" [filter]="true"
-                      formControlName="industry" filterBy="Industry" optionLabel="Industry" optionValue="Industry"
+                    <p-dropdown styleClass="w-100" appendTo="body" [options]="countryList" [filter]="true"
+                      formControlName="home_country" filterBy="country" optionLabel="country" optionValue="country"
                       [autoDisplayFirst]="false">
                     </p-dropdown>
-                    <p class="text-center" *ngIf="marketingForm.get('industry')?.errors?.required && submitted"
+                    <p class="text-center" *ngIf="form.get('home_country')?.errors?.required && submitted"
                       style="color: red">
                       Please enter the industry type
                     </p>
@@ -48,11 +48,11 @@
                     <h5 class="uniprep-primary fw-semibold mt-3 mb-1">
                       {{ recommendation.question.branches[1] }}
                     </h5>
-                    <p-dropdown styleClass="w-100" appendTo="body" [options]="startupStageList" [filter]="true"
-                      formControlName="startup_stage" filterBy="name" optionLabel="name" optionValue="name"
+                    <p-dropdown styleClass="w-100" appendTo="body" [options]="countryList" [filter]="true"
+                      formControlName="interested_country" filterBy="country" optionLabel="country" optionValue="country" (ngModelChange)="setUniversityList($event);"
                       [autoDisplayFirst]="false">
                     </p-dropdown>
-                    <p class="text-center" *ngIf="marketingForm.get('startup_stage')?.errors?.required && submitted"
+                    <p class="text-center" *ngIf="form.get('interested_country')?.errors?.required && submitted"
                       style="color: red">
                       Please Choose Any one option
                     </p>
@@ -61,11 +61,11 @@
                     <h5 class="uniprep-primary fw-semibold mt-3 mb-1">
                       {{ recommendation.question.branches[2] }}
                     </h5>
-                    <p-dropdown styleClass="w-100" appendTo="body" [options]="currencyandCountryList" [filter]="true"
-                      formControlName="location" filterBy="country" optionLabel="country" optionValue="country"
+                    <p-dropdown styleClass="w-100" appendTo="body" [options]="universityList" [filter]="true"
+                      formControlName="university" filterBy="submodule_name" optionLabel="submodule_name" optionValue="submodule_name"
                       [autoDisplayFirst]="false">
                     </p-dropdown>
-                    <p class="text-center" *ngIf="marketingForm.get('location')?.errors?.required && submitted"
+                    <p class="text-center" *ngIf="form.get('university')?.errors?.required && submitted"
                       style="color: red">
                       Please Choose Any one option
                     </p>
@@ -74,11 +74,11 @@
                     <h5 class="uniprep-primary fw-semibold mt-3 mb-1">
                       {{ recommendation.question.branches[3] }}
                     </h5>
-                    <p-dropdown styleClass="w-100" appendTo="body" [options]="teamSizeList" [filter]="true"
-                      formControlName="team_size" filterBy="name" optionLabel="name" optionValue="name"
+                    <p-dropdown styleClass="w-100" appendTo="body" [options]="specializationList" [filter]="true"
+                      formControlName="specialization" filterBy="specialization_name" optionLabel="specialization_name" optionValue="specialization_name"
                       [autoDisplayFirst]="false">
                     </p-dropdown>
-                    <p class="text-center" *ngIf="marketingForm.get('team_size')?.errors?.required && submitted"
+                    <p class="text-center" *ngIf="form.get('specialization_name')?.errors?.required && submitted"
                       style="color: red">
                       Please Choose Any one option
                     </p>
@@ -93,24 +93,11 @@
                     <h5 class="uniprep-primary fw-semibold mt-3 mb-1">
                       {{ recommendation.question.branches[0] }}
                     </h5>
-                    <p-multiSelect styleClass="w-100" placeholder="Expense" [options]="primaryExpenseList"
-                     optionLabel="name" optionValue="name" formControlName="primary_expense">
-                    </p-multiSelect>
+                    <p-dropdown styleClass="w-100" placeholder="Degree" [options]="degreeList"
+                     optionLabel="name" optionValue="name" formControlName="degree">
+                    </p-dropdown>
                     <p class="text-center" *ngIf="
-                          marketingForm.get('primary_expense')?.errors?.required && submitted
-                        " style="color: red">
-                      Please Choose Any one option
-                    </p>
-                  </div>
-                  <div>
-                    <h5 class="uniprep-primary fw-semibold mt-3 mb-1">
-                      {{ recommendation.question.branches[2] }}
-                    </h5>
-                    <p-multiSelect styleClass="w-100" placeholder="Revenue Model" [options]="revenueModelsList"
-                      optionLabel="name" optionValue="name" formControlName="revenue_model">
-                    </p-multiSelect>  
-                    <p class="text-center" *ngIf="
-                          marketingForm.get('revenue_model')?.errors?.required && submitted
+                          form.get('degree')?.errors?.required && submitted
                         " style="color: red">
                       Please Choose Any one option
                     </p>
@@ -119,33 +106,12 @@
                     <h5 class="uniprep-primary fw-semibold mt-3 mb-1">
                       {{ recommendation.question.branches[1] }}
                     </h5>
-                    <div class="w-100 d-flex gap-2 flex-fill">
-                      <p-dropdown formControlName="investment_currency_code" appendTo="body" [options]="currencyandCountryList" [filter]="true"
-                        filterBy="currency_code" placeholder=" Currency" optionLabel="currency_code" optionValue="currency_code"
-                        [autoDisplayFirst]="false">
-                      </p-dropdown>
-                      <input class="w-100 pl-4 border border-gray rounded-3" type="number" [min]="100" pInputText placeholder="Investment Amount"
-                        formControlName="current_investment" />
-                    </div>  
-                    <p class="text-center" *ngIf="marketingForm.get('budget')?.errors?.required && submitted"
-                      style="color: red">
-                      Please Choose Any one option
-                    </p>
-                  </div>
-                  <div>
-                    <h5 class="uniprep-primary fw-semibold mt-3 mb-1">
-                      {{ recommendation.question.branches[3] }}
-                    </h5>
-                    <div class="w-100 d-flex gap-2 flex-fill">
-                      <p-dropdown formControlName="expense_currency_code" appendTo="body" [options]="currencyandCountryList" [filter]="true"
-                        filterBy="currency_code" placeholder="Currency" optionLabel="currency_code" optionValue="currency_code"
-                        [autoDisplayFirst]="false">
-                      </p-dropdown>
-                      <input class="w-100 pl-4 border border-gray rounded-3" type="number" pInputText placeholder=" Budget"
-                        formControlName="operating_expense" />
-                    </div>
-                    <p class="text-center" *ngIf="marketingForm.get('operating_expense')?.errors?.required && submitted"
-                      style="color: red">
+                    <p-dropdown styleClass="w-100" placeholder="Months" [options]="durationList"
+                      optionLabel="name" optionValue="name" formControlName="duration">
+                    </p-dropdown>  
+                    <p class="text-center" *ngIf="
+                          form.get('duration')?.errors?.required && submitted
+                        " style="color: red">
                       Please Choose Any one option
                     </p>
                   </div>
@@ -159,14 +125,14 @@
                       {{ recommendation.question.branches[0] }}
                     </h5>
                     <div class="w-100 d-flex gap-2 flex-fill">
-                      <p-dropdown formControlName="sales_currency_code" appendTo="body" [options]="currencyandCountryList" [filter]="true"
+                      <p-dropdown formControlName="currency_code" appendTo="body" [options]="currencyandCountryList" [filter]="true"
                         filterBy="currency_code" placeholder=" Currency" optionLabel="currency_code" optionValue="currency_code"
                         [autoDisplayFirst]="false">
                       </p-dropdown>
-                      <input class="w-100 pl-4 border border-gray rounded-3" type="text" pInputText placeholder=" Budget"
-                        formControlName="budget" />
+                      <input class="w-100 pl-4 border border-gray rounded-3" type="text" pInputText placeholder="Fees"
+                        formControlName="fees" />
                     </div>
-                    <p class="text-center" *ngIf="marketingForm.get('budget')?.errors?.required && submitted"
+                    <p class="text-center" *ngIf="form.get('fees')?.errors?.required && submitted"
                       style="color: red">
                       Please Choose Any one option
                     </p>
@@ -175,12 +141,26 @@
                     <h5 class="uniprep-primary fw-semibold mt-3 mb-1">
                       {{ recommendation.question.branches[1] }}
                     </h5>
-                    <p-dropdown styleClass="w-100" formControlName="expense_estimation" appendTo="body" [options]="expenseEstimation" [filter]="true"
+                    <p-dropdown styleClass="w-100" formControlName="cost_estimation" appendTo="body" [options]="costEstimationList" [filter]="true"
                     filterBy="name" placeholder=" Currency" optionLabel="name" optionValue="name"
                     [autoDisplayFirst]="false">
                   </p-dropdown>
                     <p class="text-center" *ngIf="
-                          marketingForm.get('expense_estimation')?.errors?.required && submitted
+                          form.get('cost_estimation')?.errors?.required && submitted
+                        " style="color: red">
+                      Please Choose Any one option
+                    </p>
+                  </div>
+                  <div>
+                    <h5 class="uniprep-primary fw-semibold mt-3 mb-1">
+                      {{ recommendation.question.branches[2] }}
+                    </h5>
+                    <p-dropdown styleClass="w-100" formControlName="period" appendTo="body" [options]="periodsList" [filter]="true"
+                    filterBy="name" placeholder=" Period" optionLabel="name" optionValue="name"
+                    [autoDisplayFirst]="false">
+                  </p-dropdown>
+                    <p class="text-center" *ngIf="
+                          form.get('period')?.errors?.required && submitted
                         " style="color: red">
                       Please Choose Any one option
                     </p>
@@ -221,7 +201,7 @@
             <div class="select-title d-flex justify-content-between align-items-center">
               <div>
                 <h5 class="w-100 mb-0" tooltipPosition="top" pTooltip="">
-                  Start Expense Estimator<i class="questiontooltip fa-solid fa-circle-question"></i></h5>
+                 Global Edufit<i class="questiontooltip fa-solid fa-circle-question"></i></h5>
               </div>
               <div>
                 <button class="how-it-works-button">How it works?
@@ -278,7 +258,7 @@
             <div class="select-title d-flex justify-content-between align-items-center">
               <div>
                 <h5 class="w-100 mb-0" tooltipPosition="top" pTooltip="">
-                  Start Expense Estimator<i class="questiontooltip fa-solid fa-circle-question"></i></h5>
+                 Global Edufit<i class="questiontooltip fa-solid fa-circle-question"></i></h5>
               </div>
               <div>
                 <button class="how-it-works-button">How it works?
