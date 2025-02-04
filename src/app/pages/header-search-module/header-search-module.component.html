@@ -1,0 +1,13 @@
+<div class="search-dropdown px-0 mb-2">
+	<div class="col-md-12">
+		<div class="p-inputgroup searchheight">
+			<div class="search-icon"><i class="fa-solid fa-magnifying-glass"></i></div>
+			<input #searchInput (keyup)="onKey(searchInput.value)" (keyup.enter)="searchKeyWord(searchInput)" [(ngModel)]="searchInputText" (input)="onSearchChange(searchInput.value)" pInputText placeholder="Enter Your Keywords Here" type="text" />
+			<span (click)="clearText()" *ngIf="showCloseIcon" class="border-0 input-group-text passwordvisibility" role="button" style="background: transparent">
+				<i class="fa-solid fa-xmark text-danger" style="font-size: 1.25rem"></i>
+			</span>
+            <button (click)="searchKeyWord(searchInput)" class="btn-primary" label="Module" pButton pRipple type="button"></button>
+			<button (click)="searchKeyWord(searchInput)" class="btn-primary" label="Questions" pButton pRipple type="button"></button>
+		</div>
+	</div>
+</div>
