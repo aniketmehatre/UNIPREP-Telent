@@ -29,15 +29,15 @@ export class AverageSalaryComponent implements OnInit {
   recommendations: any = [
     {
       id: 1,
-      question: "Select your Job Title/Role",
+      question: "What is your Job Role",
     },
     {
       id: 2,
-      question: "Select your Preferred work type",
+      question: "How many years of experience do you have?",
     },
     {
       id: 3,
-      question: "Select your Preferred work mode",
+      question: "What is the type of your work place",
     },
     {
       id: 4,
@@ -45,7 +45,7 @@ export class AverageSalaryComponent implements OnInit {
     },
     {
       id: 5,
-      question: "Select your years of experience",
+      question: "What is your work type",
     },
     {
       id: 6,
@@ -100,11 +100,9 @@ export class AverageSalaryComponent implements OnInit {
   yearsOfExperience:any = [];
   getyearsofExperience() {
     this.yearsOfExperience=[];
-    for (let i = 0; i <= 30; i++) {
-      // Example: From 0 to 30 years of experience
-      let data = i == 0 ? { id: i, value: "Fresher" } : { id: i, value: i };
-      this.yearsOfExperience.push(data);
-    }
+    this.service.getExperiences().subscribe((response) => {
+      this.yearsOfExperience = [...response];
+    });
   }
   previous(): void {
     this.invalidClass = false;
@@ -141,10 +139,10 @@ export class AverageSalaryComponent implements OnInit {
     let processedData = {
       role: selectedJob.jobrole,
       jobrole: selectedJob.id,
-      worktype: this.selectedData[2],
-      workplace_type: this.selectedData[3],
+      worktype: this.selectedData[3],
+      workplace_type: this.selectedData[5],
       locationid: this.selectedData[4],
-      experience: this.selectedData[5],
+      experience: this.selectedData[2],
       currency: this.selectedData[6],
     };
     this.prepData = processedData;

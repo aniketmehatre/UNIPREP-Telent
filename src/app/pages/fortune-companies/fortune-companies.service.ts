@@ -32,7 +32,7 @@ export class FortuneCompaniesService {
   }
   getfortunecompanieslists(reqdata: any) {
     const headers = new HttpHeaders().set("Accept", "application/json");
-    return this.http.post<any>(environment.ApiUrl + "/getfortunecompanylist", {
+    return this.http.post<any>(environment.ApiUrl + "/getfortunecompanylist",reqdata, {
       headers: headers,
     });
   }

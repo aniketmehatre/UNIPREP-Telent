@@ -71,4 +71,11 @@ export class AveragesalaryestimatorService {
       headers: headers,
     });
   }
+  getExperiences() {
+    const headers = new HttpHeaders().set("Accept", "application/json");
+    return this.http.get<any>(environment.ApiUrl + "/getexperiences", {
+      headers: headers,
+    });
+  }
+  
 }
