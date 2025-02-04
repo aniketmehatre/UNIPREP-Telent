@@ -11,7 +11,7 @@ import { businessAdvisor } from './business-advisor.data';
 })
 export class AiBusinessAdvisorComponent implements OnInit {
   strategyBusinessList: any = businessAdvisor.strategies;
-  industryList: { industry: string }[] = businessAdvisor.industry;
+  industryList: { Industry: string }[] = businessAdvisor.Industry;
   businessGoalsList: { goal: string }[] = businessAdvisor.businessGoals;
   challengeList: { challenge: string }[] = businessAdvisor.challenges;
   targetAudienceList: { audience: string }[] = businessAdvisor.targetAudience;
@@ -69,7 +69,7 @@ export class AiBusinessAdvisorComponent implements OnInit {
     let data: any = {
       type: this.selectedData[1],
       goals: this.selectedData[2],
-      duration: [this.selectedData[3]],
+      duration: this.selectedData[3],
       challenges: this.selectedData[4],
       customers: this.selectedData[5],
       budget: this.selectedData[6],

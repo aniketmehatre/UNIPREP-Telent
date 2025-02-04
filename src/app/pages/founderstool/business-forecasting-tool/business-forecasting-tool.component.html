@@ -34,8 +34,10 @@
                                     <h5 class="uniprep-primary fw-semibold mt-3 mb-1">
                                         {{ recommendation.question.branches[0] }}
                                     </h5>
-                                    <input class="w-100" type="text" pInputText placeholder="Industry Type"
-                                        formControlName="industry" />
+                                    <p-dropdown styleClass="w-100" class="w-100" formControlName="industry" appendTo="body" [options]="industryList"
+                                    [filter]="true" filterBy="Industry" placeholder="Forecast" optionLabel="Industry" optionValue="Industry"
+                                     [autoDisplayFirst]="false">
+                                </p-dropdown>
                                     <p class="text-center" *ngIf="form.get('industry')?.errors?.required && submitted" style="color: red">
                                         Please enter the industry type
                                     </p>
@@ -106,16 +108,6 @@
                                         Please Choose Any one option
                                     </p>
                                 </div>
-                                <div>
-                                    <h5 class="uniprep-primary fw-semibold mt-3 mb-1">
-                                        {{ recommendation.question.branches[2] }}
-                                    </h5>
-                                    <input class="w-100" type="text" pInputText placeholder="Input Feilds"
-                                        formControlName="upcoming_market" />
-                                    <p class="text-center" *ngIf="form.get('upcoming_market')?.errors?.required && submitted" style="color: red">
-                                        Please enter this feild
-                                    </p>
-                                </div>
                             </div>
                             <div *ngIf="recommendation.id == 3" class="col-md-6 offset-md-3">
                                 <h2 class="fw-bold mb-2">
@@ -126,12 +118,12 @@
                                         {{ recommendation.question.branches[0] }}
                                     </h5>
                                     <div class="w-100 d-flex gap-2 flex-fill">
-                                        <p-dropdown styleClass="w-100" class="w-100" formControlName="duration" appendTo="body" [options]="durationList"
-                                            [filter]="true" filterBy="name" placeholder="Time Frame" optionLabel="name"
+                                        <p-dropdown styleClass="w-100" class="w-100" formControlName="forecast_peroid" appendTo="body" [options]="durationList"
+                                            [filter]="true" filterBy="name" placeholder="Forecast" optionLabel="name"
                                             optionValue="name" [autoDisplayFirst]="false">
                                         </p-dropdown>
                                     </div>
-                                    <p class="text-center" *ngIf="form.get('duration')?.errors?.required && submitted" style="color: red">
+                                    <p class="text-center" *ngIf="form.get('forecast_peroid')?.errors?.required && submitted" style="color: red">
                                         Please Choose Any one option
                                     </p>
                                 </div>
@@ -139,27 +131,12 @@
                                     <h5 class="uniprep-primary fw-semibold mt-3 mb-1">
                                         {{ recommendation.question.branches[1] }}
                                     </h5>
-                                    <div class="w-100 d-flex gap-2 flex-fill">
-                                        <p-dropdown formControlName="currency_code" appendTo="body"
-                                            [options]="locationList" [filter]="true" filterBy="currency_code"
-                                            placeholder=" Currency" optionLabel="currency_code"
-                                            optionValue="currency_code" [autoDisplayFirst]="false">
+                                        <p-dropdown formControlName="goals" appendTo="body"
+                                            [options]="goalsList" [filter]="true" filterBy="name"
+                                            placeholder="Goals" optionLabel="name"
+                                            optionValue="name" [autoDisplayFirst]="false" tyleClass="w-100">
                                         </p-dropdown>
-                                        <input class="w-100 pl-2 border border-gray rounded-3" pInputText type="text"
-                                            placeholder="Forecast period Revenue" formControlName="forecast_peroid" />
-                                    </div>
-                                    <p class="text-center" *ngIf="form.get('forecast_peroid')?.errors?.required && submitted" style="color: red">
-                                        Please Choose Any one option
-                                    </p>
-                                </div>
-                                <div>
-                                    <h5 class="uniprep-primary fw-semibold mt-3 mb-2">
-                                        {{ recommendation.question.branches[2] }}
-                                    </h5>
-                                    <p-multiSelect styleClass="w-100" placeholder="Data" [options]="analyseList"
-                                        optionLabel="name" optionValue="name" formControlName="analyse">
-                                    </p-multiSelect>
-                                    <p class="text-center" *ngIf=" form.get('analyse')?.errors?.required && submitted" style="color: red">
+                                    <p class="text-center" *ngIf="form.get('goals')?.errors?.required && submitted" style="color: red">
                                         Please Choose Any one option
                                     </p>
                                 </div>
