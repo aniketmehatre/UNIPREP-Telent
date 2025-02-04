@@ -181,6 +181,16 @@ export class CareerToolComponent implements OnInit {
       refLink: "",
       mode: "fortune-companies",
       launch_soon: false
+    },
+    {
+      id: 18,
+      moduleName: "Career Hacks",  
+      Description: "Access actionable tips and strategies to accelerate your career growth and achieve your goals.",  
+      tooltip: "Unleash your potential with proven career hacks designed to fast-track your success.",
+      imageLink: environment.production === false ? "https://api.uniprep.ai/uniprepapi/storage/app//public/icon/modules/chacks.png" : "https://uniprep.ai/uniprepapi/storage/app/public/icon/modules/chacks.png",
+      refLink: "",
+      mode: "career-hacks",
+      launch_soon: false
     }
   ]
 
