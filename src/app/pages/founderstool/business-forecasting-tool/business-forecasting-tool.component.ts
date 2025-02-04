@@ -7,7 +7,7 @@ import { DataService } from 'src/app/data.service';
 import { LocationService } from 'src/app/location.service';
 import { PageFacadeService } from '../../page-facade.service';
 import { FounderstoolService } from '../founderstool.service';
-import { selectList } from '../marketing-analysis/marketing-analysis.component';
+import { businessForeCastData } from './business-forcasting.data';
 
 @Component({
   selector: 'uni-business-forecasting-tool',
@@ -15,14 +15,14 @@ import { selectList } from '../marketing-analysis/marketing-analysis.component';
   styleUrls: ['./business-forecasting-tool.component.scss']
 })
 export class BusinessForecastingToolComponent implements OnInit {
-  locationList: any[] = [];
-  seasonsList: any[] = [{ name: 'Sample Seaons' }];
-  factorsList: selectList[] = [{ name: 'Sample Seaons' }];
-  targetAudienceList: selectList[] = [{ name: 'Sample Seaons' }];
-  assumptionsList: selectList[] = [{ name: 'Sample Seaons' }];
-  upComingMarketList: selectList[] = [{ name: 'Sample Seaons' }];
-  durationList: selectList[] = [{ name: 'Sample Seaons' }];
-  analyseList: selectList[] = [{ name: 'Sample Seaons' }];
+  industryList: any[] = businessForeCastData.Industry;
+  locationList: any;
+  seasonsList: any[] = businessForeCastData.Seasons;
+  factorsList = businessForeCastData['Revenue Drivers'];
+  targetAudienceList = businessForeCastData['Target Audience'];
+  assumptionsList = businessForeCastData['Growth Assumption'];
+  durationList = businessForeCastData['Forecast period'];
+  goalsList = businessForeCastData['Revenue goals'];
   isFromSavedData: boolean = false;
   recommadationSavedQuestionList: any = [];
   page = 1;
@@ -38,6 +38,7 @@ export class BusinessForecastingToolComponent implements OnInit {
   orglogowhitelabel: any;
   orgnamewhitlabel: any;
   locationName: string = '';
+  currencyList: any;
   submitted: boolean = false;
   data: any = {
     page: this.page,
@@ -55,10 +56,9 @@ export class BusinessForecastingToolComponent implements OnInit {
       id: 1,
       question: {
         heading: 'Basic Information',
-        branches: ["What industry is your startup in?",
-          "What is the duration of the historical data you have available for analysis?",
+        branches: ["What is your business type or industry?",
           "What are the key revenue drivers for your business?",
-          "What are the current market trends affecting your industry?"]
+          "Does your business experience seasonality? If yes, please specify the peak seasons"]
       },
     },
     {
@@ -75,8 +75,7 @@ export class BusinessForecastingToolComponent implements OnInit {
       question: {
         heading: 'Analysis',
         branches: ["What is the desired forecast period for this revenue forecasting?",
-          "What are your revenue goals for the forecast period?",
-          "How extensive is the data set available for your business?"]
+          "What are your revenue goals for the forecast period?"]
       },
     },
   ];
@@ -96,11 +95,8 @@ export class BusinessForecastingToolComponent implements OnInit {
       factors: [[], Validators.required],
       target_audience: [[], Validators.required],
       assumptions: [[], Validators.required],
-      upcoming_market: ['', Validators.required],
-      duration: ['', Validators.required],
-      currency_code: ['', Validators.required],
       forecast_peroid: ['', Validators.required],
-      analyse: [[], Validators.required],
+      goals: [[], Validators.required],
     });
 
   }
@@ -120,7 +116,7 @@ export class BusinessForecastingToolComponent implements OnInit {
       this.ehitlabelIsShow = false;
     }
     this.getForeCastingOptionLists();
-    this.getCurrenyandCountry();
+    this.getCurrenyandLocation();
   }
 
   backtoMain() {
@@ -140,9 +136,11 @@ export class BusinessForecastingToolComponent implements OnInit {
     });
   }
 
-  getCurrenyandCountry() {
+  getCurrenyandLocation() {
     this.foundersToolsService.getCurrencyAndCountries().subscribe((res: any) => {
-      console.log(res);
+      this.currencyList = res;
+    });
+    this.foundersToolsService.getLocationList().subscribe((res: any) => {
       this.locationList = res;
     });
   }
@@ -234,13 +232,13 @@ export class BusinessForecastingToolComponent implements OnInit {
       }
     }
     if (this.activePageIndex == 1) {
-      if (!formData.target_audience || !formData.assumptions || !formData.upcoming_market) {
+      if (!formData.target_audience || !formData.assumptions) {
         this.submitted = true;
         return;
       }
     }
     if (this.activePageIndex == 2) {
-      if (!formData.duration || !formData.forecast_peroid || !formData.analyse) {
+      if (!formData.forecast_peroid || !formData.goals) {
         this.submitted = true;
         return;
       }

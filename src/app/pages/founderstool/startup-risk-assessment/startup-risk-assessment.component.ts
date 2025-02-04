@@ -4,8 +4,8 @@ import { FounderstoolService } from '../founderstool.service';
 import { Router } from '@angular/router';
 import { riskAssessment } from './risk-assessment.data';
 
-interface DropDown<T> {
-  T: string;
+interface DropDown {
+  [key: string]: string;
 }
 
 @Component({
@@ -25,15 +25,15 @@ export class StartupRiskAssessmentComponent implements OnInit {
     { id: 8, question: 'How have you allocated your budget across different areas of your business?' },
     { id: 9, question: 'What is the geographical focus of your startup?' }
   ];
-  businessModelList: any = riskAssessment.businessModel;
-  startupStageList: any = riskAssessment.startupStage;
-  financialStatusList: any = riskAssessment.financialSituation;
-  competitiveMarketList: any = riskAssessment.marketCompetition;
-  targetAudienceList: any = riskAssessment.targetAudience;
-  keyRisksList: any = riskAssessment.keyRisks;
-  budgetAllocationList: any = riskAssessment.budgetAllocation;
-  geographicalList: any = riskAssessment.geographicalFocus;
-  industryList: any = riskAssessment.industry;
+  businessModelList: DropDown[] = riskAssessment.businessModel;
+  startupStageList: DropDown[] = riskAssessment.startupStage;
+  financialStatusList: DropDown[] = riskAssessment.financialSituation;
+  competitiveMarketList: DropDown[] = riskAssessment.marketCompetition;
+  targetAudienceList: DropDown[] = riskAssessment.targetAudience;
+  keyRisksList: DropDown[] = riskAssessment.keyRisks;
+  budgetAllocationList: DropDown[] = riskAssessment.budgetAllocation;
+  geographicalList: DropDown[] = riskAssessment.geographicalFocus;
+  industryList: DropDown[] = riskAssessment.Industry;
 
   isRecommendationQuestion: boolean = true;
   isRecommendationData: boolean = false;
@@ -95,7 +95,7 @@ export class StartupRiskAssessmentComponent implements OnInit {
       competitive_market: this.selectedData[6],
       customers: this.selectedData[7],
       budget: this.selectedData[8],
-      geopraphical: this.selectedData[9],
+      geographical_focus: this.selectedData[9],
       mode: 'startup_risk_assessment'
     }
     this.founderToolService.getChatgptRecommendations(data).subscribe({
