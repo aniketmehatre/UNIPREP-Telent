@@ -6,3 +6,8 @@ export interface Country {
     updated_at?: any;
     deleted_at?: any;
 }
+
+export interface Countries {
+    id: number;
+    country: string;
+}

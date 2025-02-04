@@ -60,35 +60,35 @@ export const FoundersToolsData = [
         description: "An assessment that evaluates an entrepreneur's in-depth knowledge and proficiency in specific industries.",
         image: "../../../uniprep-assets/images/founderstool/startupfunding.svg",
         url: "/pages/founderstool/startup-funding-hacks",
-        launch_soon: true
+        launch_soon: false
     },
     {
         title: "Founder Success Stories",
         description: "An assessment that evaluates an entrepreneur's in-depth knowledge and proficiency in specific industries.",
         image: "../../../uniprep-assets/images/founderstool/foundersuccess.svg",
         url: "/pages/founderstool/founder-success-stories",
-        launch_soon: true
+        launch_soon: false
     },
     {
         title: "Founder Failure Stories",
         description: "An assessment that evaluates an entrepreneur's in-depth knowledge and proficiency in specific industries.",
         image: "../../../uniprep-assets/images/founderstool/founderfailure.svg",
         url: "/pages/founderstool/founder-failure-stories",
-        launch_soon: true
+        launch_soon: false
     },
     {
         title: "Startup Success Stories",
         description: "An assessment that evaluates an entrepreneur's in-depth knowledge and proficiency in specific industries.",
         image: "../../../uniprep-assets/images/founderstool/startupsuccess.svg",
         url: "/pages/founderstool/startup-success-stories",
-        launch_soon: true
+        launch_soon: false
     },
     {
         title: "Startup Failure Stories",
         description: "An assessment that evaluates an entrepreneur's in-depth knowledge and proficiency in specific industries.",
         image: "../../../uniprep-assets/images/founderstool/startupfailure.svg",
         url: "/pages/founderstool/startup-failure-stories",
-        launch_soon: true
+        launch_soon: false
     },
     {
         title: "Government Funds Opportunity",
