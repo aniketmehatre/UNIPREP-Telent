@@ -47,7 +47,7 @@ export class MarketingAnalysisComponent implements OnInit {
     page: this.page,
     perpage: this.pageSize,
   };
-  currencyList: any;
+  currencyandCountryList: any;
   isRecommendationQuestion: boolean = true;
   isRecommendationData: boolean = false;
   isRecommendationSavedData: boolean = false;
@@ -131,12 +131,12 @@ export class MarketingAnalysisComponent implements OnInit {
   getCurrenyandLocation() {
     this.foundersToolsService.getCurrencyAndCountries().subscribe((res: any) => {
       console.log(res);
-      this.currencyList = res;
+      this.currencyandCountryList = res;
     });
-    this.foundersToolsService.getLocationList().subscribe((res: any) => {
-      console.log(res);
-      this.locationList = res;
-    });
+    // this.foundersToolsService.getLocationList().subscribe((res: any) => {
+    //   console.log(res);
+    //   this.locationList = res;
+    // });
   }
 
   checkplanExpire(): void {
@@ -230,7 +230,7 @@ export class MarketingAnalysisComponent implements OnInit {
       }
     }
     if (this.activePageIndex == 2) {
-      if (!formData.budget || !formData.revenueStreams || !formData.competitorAnalysis) {
+      if (!formData.budget || !formData.revenueStreams || !formData.forecast || !formData.competitorAnalysis) {
         this.submitted = true;
         return;
       }
