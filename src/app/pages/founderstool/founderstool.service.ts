@@ -212,4 +212,10 @@ export class FounderstoolService {
         headers: headers,
     });
   }
+
+  downloadRecommendation(data: any) {
+    return this.http.post<{ url: string }>(environment.ApiUrl + "/downloadIntegratedRecom", data, {
+      headers: this.headers,
+    });
+  }
 }

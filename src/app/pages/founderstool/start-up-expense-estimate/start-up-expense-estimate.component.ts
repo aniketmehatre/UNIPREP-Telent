@@ -262,6 +262,21 @@ export class StartUpExpenseEstimateComponent implements OnInit {
     }
   }
 
+  onSaveRes() {
+    this.toast.add({ severity: "success", summary: "Success", detail: "Response saved successfully" });
+  }
+
+  downloadRecommadation() {
+    this.foundersToolsService.downloadRecommendation({ data: this.recommendationData }).subscribe({
+      next: res => {
+        window.open(res.url, "_blank");
+      },
+      error: err => {
+        console.log(err?.error?.message);
+      }
+    });
+  }
+
   showRecommandationData(data: string) {
     this.isRecommendationQuestion = false;
     this.isRecommendationData = true;

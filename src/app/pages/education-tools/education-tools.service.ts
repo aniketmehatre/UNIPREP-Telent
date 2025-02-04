@@ -148,10 +148,11 @@ export class EducationToolsService {
     });
   }
 
-  downloadResponse(mode: string) {
-    return this.http.post<any>(environment.ApiUrl + `/downloadReponse?mode=${mode}`, {
+  downloadRecommendation(data: any) {
+    return this.http.post<{ url: string }>(environment.ApiUrl + "/downloadIntegratedRecom", data, {
       headers: this.headers,
     });
   }
+
 
 }
