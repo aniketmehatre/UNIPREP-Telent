@@ -9,7 +9,6 @@ import { RouterModule } from '@angular/router';
 import { pagesReducer } from './pages/store/pages.reducer';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 import { environment } from '@env/environment';
-import { AuthModule } from './Auth/auth.module';
 import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 import { DatePipe } from '@angular/common';
 import { AuthService } from './Auth/auth.service';
@@ -49,6 +48,7 @@ import { DeviceDetectorService } from "ngx-device-detector";
 import { PaginatorModule } from 'primeng/paginator';
 import { SharedModule } from "./shared/shared.module";
 import { ChartsModule } from 'ng2-charts'; // Ensure compatibility with Angular 16
+import { AuthModule } from './Auth/auth.module';
 
 const ngxLocalstorageConfiguration: NgxLocalstorageConfiguration = {
   delimiter: '@',
@@ -75,7 +75,7 @@ export function tokenGetter() {
     BrowserModule,
     BrowserAnimationsModule,
     AppRoutingModule,
-    StoreModule.forRoot({ pages: pagesReducer })
+    StoreModule.forRoot({ pages: pagesReducer }),
     AuthModule,
     HttpClientModule,
     ToastModule,
