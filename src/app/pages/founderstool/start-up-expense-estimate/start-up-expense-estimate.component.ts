@@ -194,6 +194,14 @@ export class StartUpExpenseEstimateComponent implements OnInit {
   }
 
   getRecommendation() {
+    this.submitted = false;
+    const formData = this.marketingForm.value;
+    if (this.activePageIndex == 2) {
+      if (!formData.budget || !formData.expense_estimation) {
+        this.submitted = true;
+        return;
+      }
+    }
     if (this.recommendRestrict) {
       this.restrict = true;
       return;
@@ -225,7 +233,6 @@ export class StartUpExpenseEstimateComponent implements OnInit {
   next() {
     this.submitted = false;
     const formData = this.marketingForm.value;
-    console.log(formData)
     if (this.activePageIndex == 0) {
       if (!formData.industry || !formData.location || !formData.startup_stage || !formData.team_size) {
         this.submitted = true;
@@ -233,13 +240,13 @@ export class StartUpExpenseEstimateComponent implements OnInit {
       }
     }
     if (this.activePageIndex == 1) {
-      if (!formData.current_investment || !formData.revenue_model || !formData.primary_expense || !formData.operating_expense) {
+      if (!formData.current_investment || (!formData.revenue_model || formData.revenue_model?.length == 0) || (!formData.primary_expense || formData.primary_expense?.length == 0) || !formData.operating_expense) {
         this.submitted = true;
         return;
       }
     }
     if (this.activePageIndex == 2) {
-      if (!formData.budget || !formData.duration) {
+      if (!formData.budget || !formData.expense_estimation) {
         this.submitted = true;
         return;
       }

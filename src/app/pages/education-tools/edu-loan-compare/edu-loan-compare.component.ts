@@ -5,23 +5,24 @@ import { MessageService } from 'primeng/api';
 import { AuthService } from 'src/app/Auth/auth.service';
 import { DataService } from 'src/app/data.service';
 import { LocationService } from 'src/app/location.service';
-import { FounderstoolService } from '../../founderstool/founderstool.service';
-import { startupDropdownData } from '../../founderstool/start-up-expense-estimate/startup-expense.data';
 import { PageFacadeService } from '../../page-facade.service';
 import { EducationToolsService } from '../education-tools.service';
+import { eduLoanOptions } from './edu-loan-compare.data';
 
 @Component({
-  selector: 'uni-uni-compare',
-  templateUrl: './uni-compare.component.html',
-  styleUrls: ['./uni-compare.component.scss']
+  selector: 'uni-edu-loan-compare',
+  templateUrl: './edu-loan-compare.component.html',
+  styleUrls: ['./edu-loan-compare.component.scss']
 })
-export class UniCompareComponent implements OnInit {
+export class EduLoanCompareComponent implements OnInit {
 
-  universityCountryList: any[];
-  compareUniversityList: any[];
-  universityList: any = [];
-  specializationList: any = [];
-  stayBackAfterGraduations: { name: string }[] = [{ name: 'Months' }, { name: 'Years' }];
+  bankNameList: any[] = eduLoanOptions?.bankNames;
+  interestedRateTypeList: string[] = eduLoanOptions['Interest Rate Type'];
+  intersetedRateList: string[] = eduLoanOptions['Interest Rate'];
+  studyDurationList: string[] = eduLoanOptions['Study Duration in months'];
+  moratoriumPeriodList: string[] = eduLoanOptions['Moratorium Period: Repayment Start'];
+  repaymentLoanList: string[] = eduLoanOptions['Repayment Start'];
+  intersetedTermList = ['Months', 'Years'];
 
   isFromSavedData: boolean = false;
   recommadationSavedQuestionList: any = [];
@@ -59,20 +60,26 @@ export class UniCompareComponent implements OnInit {
     private pageFacade: PageFacadeService
   ) {
     this.form = this.fb.group({
-      country: ['', Validators.required],
-      compare_country: ['', Validators.required],
-      university: ['', Validators.required],
-      compare_university: ['', Validators.required],
-      specialization: ['', Validators.required],
-      compare_specialization: ['', Validators.required],
-      fees: ['', Validators.required],
-      currency_code: [''],
-      compare_currency_code: [''],
-      compare_fees: ['', Validators.required],
-      expense: ['', Validators.required],
-      compare_expenses: ['', Validators.required],
-      period: ['', Validators.required],
-      compare_period: ['', Validators.required],
+      bankname: ['', Validators.required],
+      compare_bankname: ['', Validators.required],
+      currency: ['', Validators.required],
+      compare_currency: ['', Validators.required],
+      loanamount: ['', Validators.required],
+      compare_loanamount: ['', Validators.required],
+      location: ['', Validators.required],
+      compare_location: ['', Validators.required],
+      interestrate_type: ['', Validators.required],
+      compare_interestrate_type: [''],
+      interestrate: [''],
+      compare_interestrate: ['', Validators.required],
+      interestterm: ['', Validators.required],
+      compare_interestterm: ['', Validators.required],
+      studyduration: ['', Validators.required],
+      compare_studyduration: ['', Validators.required],
+      moratoriumperiod: ['', Validators.required],
+      compare_moratoriumperiod: ['', Validators.required],
+      loanrepaymentperiod: ['', Validators.required],
+      compare_loanrepaymentperiod: ['', Validators.required],
     });
 
   }
@@ -83,11 +90,17 @@ export class UniCompareComponent implements OnInit {
     {
       id: 1,
       question: {
-        heading: 'University Details',
+        heading: 'Bank Information',
       },
     },
     {
       id: 2,
+      question: {
+        heading: 'Loan Details',
+      },
+    },
+    {
+      id: 3,
       question: {
         heading: 'Addtional Details',
       },
@@ -109,20 +122,14 @@ export class UniCompareComponent implements OnInit {
     } else {
       this.ehitlabelIsShow = false;
     }
-    this.getCountryandSpecilizationList();
+    this.getCountryList();
   }
 
   goBack() {
     this.router.navigateByUrl('/pages/education-tools');
   }
 
-  getCountryandSpecilizationList() {
-    this.educationToolService.getCountryList().subscribe(data => {
-      this.universityCountryList = data;
-    });
-    this.educationToolService.getCurrentSpecializations().subscribe(data => {
-      this.specializationList = data;
-    });
+  getCountryList() {
     this.educationToolService.getCurrencyAndCountries().subscribe(data => {
       this.currencyandCountryList = data;
     });
@@ -167,8 +174,8 @@ export class UniCompareComponent implements OnInit {
   getRecommendation() {
     this.submitted = false;
     const formData = this.form.value;
-    if (this.activePageIndex == 1) {
-      if (!formData.fees || !formData.compare_fees || !formData.expense || !formData.compare_expenses || !formData.compare_period || !formData.period) {
+    if (this.activePageIndex == 2) {
+      if (!formData.studyduration || !formData.compare_studyduration || !formData.moratoriumperiod || !formData.compare_moratoriumperiod || !formData.loanrepaymentperiod || !formData.compare_loanrepaymentperiod) {
         this.submitted = true;
         return;
       }
@@ -179,7 +186,7 @@ export class UniCompareComponent implements OnInit {
     }
     let data: any = {
       ...this.form.value,
-      mode: 'uni_compare'
+      mode: 'loan_comparison_tool'
     }
     this.educationToolService.getChatgptRecommendations(data).subscribe({
       next: response => {
@@ -205,14 +212,13 @@ export class UniCompareComponent implements OnInit {
     this.submitted = false;
     const formData = this.form.value;
     if (this.activePageIndex == 0) {
-      if (!formData.country || !formData.compare_country || !formData.university || !formData.compare_university || !formData.specialization || !formData.compare_specialization) {
+      if (!formData.bankname || !formData.compare_bankname || !formData.loanamount || !formData.compare_loanamount || !formData.location || !formData.compare_location) {
         this.submitted = true;
-        console.log(this.activePageIndex)
         return;
       }
     }
     if (this.activePageIndex == 1) {
-      if (!formData.fees || !formData.compare_fees || !formData.expense || !formData.compare_expenses || !formData.compare_period || !formData.period) {
+      if (!formData.interestrate_type || !formData.compare_interestrate_type || !formData.interestrate || !formData.compare_interestrate || !formData.interestterm || !formData.compare_interestterm) {
         this.submitted = true;
         return;
       }
@@ -222,7 +228,7 @@ export class UniCompareComponent implements OnInit {
 
   saveRecommadation() {
     if (!this.isFromSavedData) {
-      this.educationToolService.getAnalysisList('uni_compare').subscribe({
+      this.educationToolService.getAnalysisList('loan_comparison_tool').subscribe({
         next: response => {
           this.isRecommendationQuestion = false;
           this.isRecommendationData = false;
@@ -258,18 +264,6 @@ export class UniCompareComponent implements OnInit {
     });
   }
 
-  setUniversityList(id: string) {
-    this.educationToolService.getUniverstityByCountry(id).subscribe(data => {
-      this.universityList = data;
-    })
-  }
-
-  setCompareUniversityList(id: string) {
-    this.educationToolService.getUniverstityByCountry(id).subscribe(data => {
-      this.compareUniversityList = data;
-    })
-  }
-
   onSaveRes() {
     this.toast.add({ severity: "success", summary: "Success", detail: "Response saved successfully" });
   }
@@ -284,6 +278,5 @@ export class UniCompareComponent implements OnInit {
       }
     });
   }
-
 
 }

@@ -39,18 +39,20 @@
     }
   }
 
-
-  ::ng-deep .university-dropdown .p-dropdown {
+  ::ng-deep .p-dropdown {
     width: 100% !important;
   }
-  ::ng-deep .university-dropdown .p-dropdown-panel {
-    @media (max-width: 850px) {
+  
+  @media (max-width: 850px) {
+    ::ng-deep .bank-dropdown .p-dropdown-panel {
       width: 100% !important;
       min-width: 100% !important;
       max-width: 100% !important;
     }
-    
-    @media (min-width: 851px) {
+  }
+  
+  @media (min-width: 851px) {
+    ::ng-deep .bank-dropdown .p-dropdown-panel {
       width: 73% !important;
       min-width: 73% !important;
       max-width: 73% !important;

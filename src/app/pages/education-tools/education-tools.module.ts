@@ -24,6 +24,7 @@ import { WealthleaderslistComponent } from '../founderstool/wealthleaderslist/we
 import { UniCompareComponent } from './uni-compare/uni-compare.component';
 import { GlobalEdufitComponent } from './global-edufit/global-edufit.component';
 import { MultiSelectModule } from 'primeng/multiselect';
+import { EduLoanCompareComponent } from './edu-loan-compare/edu-loan-compare.component';
 
 @NgModule({
   declarations: [
@@ -37,7 +38,8 @@ import { MultiSelectModule } from 'primeng/multiselect';
     WealthleaderslistComponent,
     WealthleaderreadansComponent,
     UniCompareComponent,
-    GlobalEdufitComponent
+    GlobalEdufitComponent,
+    EduLoanCompareComponent
   ],
   imports: [
     CommonModule,

@@ -67,7 +67,12 @@ export class AiBusinessAdvisorComponent implements OnInit {
     }
   }
 
-  getRecommendation() {
+  getRecommendation(productId: number) {
+    this.inValidClass = false;
+    if (!(productId in this.selectedData)) {
+      this.inValidClass = true;
+      return;
+    } 
     let data: any = {
       type: this.selectedData[1],
       goals: this.selectedData[2],

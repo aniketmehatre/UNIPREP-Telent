@@ -21,7 +21,7 @@
         </div>
       </div>
       <div class="card-body text-center flex-fill overflow-y-auto">
-        <form [formGroup]="marketingForm" class="mt-4">
+        <form [formGroup]="form" class="mt-4">
           <p-carousel [value]="recommendations" [numVisible]="1" [numScroll]="1" [circular]="false"
             [showNavigators]="false" [showIndicators]="false" [page]="activePageIndex" styleClass="h-100">
             <ng-template let-recommendation let-i="index" pTemplate="item">
@@ -30,7 +30,7 @@
                       <div class="col-xl-10">
                         <form [formGroup]="form">
                           <!-- University Details Card -->
-                          <div class="card mb-4" *ngIf="recommendation.id == 1">
+                          <div class="card card-border-none h-100 mb-4" *ngIf="recommendation.id == 1">
                             <div class="card-body p-4">
                               <h2 class="text-center mb-4">University Details</h2>
                               
@@ -47,7 +47,7 @@
                                              filterBy="country"
                                              formControlName="country"
                                              placeholder="Country"
-                                             styleClass="w-100" (ngModelChange)="setUniversityList($event);">
+                                             styleClass="w-100" appendTo="body" (ngModelChange)="setUniversityList($event);">
                                   </p-dropdown>
                                 </div>
                                 <div class="col-lg-4 mb-2">
@@ -58,7 +58,7 @@
                                              filterBy="country"
                                              formControlName="compare_country"
                                              placeholder="Compare Country"
-                                             styleClass="w-100" (ngModelChange)="setCompareUniversityList($event);">
+                                             styleClass="w-100" appendTo="body" (ngModelChange)="setCompareUniversityList($event);">
                                   </p-dropdown>
                                 </div>
                               </div>
@@ -71,23 +71,25 @@
                                 <div class="col-lg-4">
                                   <label class="form-label uniprep-primary fw-bold">University</label>
                                 </div>
-                                <div class="col-lg-4 mb-2">
-                                  <p-dropdown [options]="universityList"
-                                             optionLabel="submodule_name"
-                                             optionValue="submodule_name"
-                                             [filter]="true"
-                                             filterBy="submodule_name"
-                                             formControlName="university"
-                                             placeholder="Select University"
-                                             styleClass="w-100">
-                                  </p-dropdown>
+                                <div class="col-lg-4 mb-2 university-dropdown">
+                                    <p-dropdown [options]="universityList"
+                                               optionLabel="submodule_name"
+                                               optionValue="submodule_name"
+                                               filterBy="submodule_name"
+                                               [style]="{'width': '100%'}"
+                                               formControlName="university"
+                                               [autoWidth]="false"
+                                               placeholder="Select University"
+                                               styleClass="w-100">
+                                    </p-dropdown>
                                 </div>
-                                <div class="col-lg-4 mb-2">
+                                <div class="col-lg-4 mb-2 university-dropdown">
                                   <p-dropdown [options]="compareUniversityList"
                                   optionLabel="submodule_name"
                                   optionValue="submodule_name"
                                   [filter]="true"
                                   filterBy="submodule_name"
+                                            [autoWidth]="false"
                                              formControlName="compare_university"
                                              placeholder="Compare University"
                                              styleClass="w-100">
@@ -111,7 +113,7 @@
                                              filterBy="specialization_name"
                                              formControlName="specialization"
                                              placeholder="Select Field of Study"
-                                             styleClass="w-100">
+                                             styleClass="w-100" appendTo="body">
                                   </p-dropdown>
                                 </div>
                                 <div class="col-lg-4 mb-2">
@@ -122,7 +124,7 @@
                                              filterBy="name"
                                              formControlName="compare_specialization"
                                              placeholder="Compare Field of Study"
-                                             styleClass="w-100">
+                                             styleClass="w-100" appendTo="body" >
                                   </p-dropdown>
                                 </div>
                               </div>
@@ -133,7 +135,7 @@
                           </div>
                   
                           <!-- Additional Details Card -->
-                          <div class="card" *ngIf="recommendation.id == 2">
+                          <div class="card card-border-none h-100" *ngIf="recommendation.id == 2">
                             <div class="card-body p-4">
                               <h2 class="text-center mb-4">Additional Details</h2>
                               <!-- Tuition Fees -->
@@ -154,8 +156,9 @@
                                               [autoDisplayFirst]="false">
                                     </p-dropdown>
                                     <input type="number" 
-                                           class="form-control" 
-                                           [min]="100" 
+                                           class="form-control w-100 m-0" 
+                                           [min]="100"
+                                           
                                            formControlName="fees" 
                                            placeholder="Amount">
                                   </div>
@@ -173,7 +176,7 @@
                                               [autoDisplayFirst]="false">
                                     </p-dropdown>
                                     <input type="number" 
-                                           class="form-control" 
+                                           class="form-control w-100 m-0" 
                                            [min]="100" 
                                            formControlName="compare_fees" 
                                            placeholder="Amount">
@@ -192,7 +195,7 @@
                                 <div class="col-lg-4 mb-2">
                                   <input type="number" 
                                   styleClass="w-100"
-                                         class="form-control" 
+                                         class="form-control w-100 m-0" 
                                          [min]="100" 
                                          formControlName="expense" 
                                          placeholder="Enter Amount">
@@ -200,7 +203,7 @@
                                 <div class="col-lg-4 mb-2">
                                   <input type="number" 
                                   styleClass="w-100"
-                                         class="form-control" 
+                                         class="form-control w-100 m-0" 
                                          [min]="100" 
                                          formControlName="compare_expenses" 
                                          placeholder="Enter Amount">
@@ -223,7 +226,7 @@
                                              filterBy="name"
                                              formControlName="period"
                                              placeholder="Select Period"
-                                             styleClass="w-100">
+                                             styleClass="w-100" appendTo="body">
                                   </p-dropdown>
                                 </div>
                                 <div class="col-lg-4 mb-2">
@@ -234,7 +237,7 @@
                                              filterBy="name"
                                              formControlName="compare_period"
                                              placeholder="Select Period"
-                                             styleClass="w-100">
+                                             styleClass="w-100"  appendTo="body">
                                   </p-dropdown>
                                 </div>
                               </div>
@@ -264,7 +267,7 @@
           </button>
           <button pButton type="button" (click)="getRecommendation()" *ngIf="activePageIndex == 1"
             class="btn btn-success btn-rounded p-1 ps-4">
-            <span class="me-2">Get Recommendations</span><span class="btn-icon px-2 py-2">
+            <span class="me-2">Compare</span><span class="btn-icon px-2 py-2">
               <i class="fa fa-check-circle"></i></span>
           </button>
         </div>

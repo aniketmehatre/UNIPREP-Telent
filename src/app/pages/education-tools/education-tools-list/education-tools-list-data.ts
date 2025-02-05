@@ -55,5 +55,12 @@ export const EducationToolsData = [
         url: "/pages/education-tools/global-edufit",
         launch_soon: false,
     },
+    {
+        title: "Education Loan Comparison",
+        description: "This tool lets you get a global travel visa with the help of few easy steps",
+        image: "../../../uniprep-assets/images/founderstool/foundersacademy.svg",
+        url: "/pages/education-tools/edu-loan-compare",
+        launch_soon: false,
+    },
     
 ]

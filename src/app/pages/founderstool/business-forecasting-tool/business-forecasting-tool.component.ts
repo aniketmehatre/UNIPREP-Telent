@@ -193,6 +193,12 @@ export class BusinessForecastingToolComponent implements OnInit {
   }
 
   getRecommendation() {
+    this.submitted = false;
+    const formData = this.form.value;
+    if (!formData.forecast_peroid || !formData.goals) {
+      this.submitted = true;
+      return;
+    }
     if (this.recommendRestrict) {
       this.restrict = true;
       return;
@@ -227,13 +233,13 @@ export class BusinessForecastingToolComponent implements OnInit {
     const formData = this.form.value;
     console.log(formData)
     if (this.activePageIndex == 0) {
-      if (!formData.industry || (!formData.seasons && this.isSessonEnable) || !formData.factors) {
+      if (!formData.industry || (this.isSessonEnable && (!formData.seasons || formData.seasons.length == 0)) || (!formData.factors || formData.factors?.length == 0)) {
         this.submitted = true;
         return;
       }
     }
     if (this.activePageIndex == 1) {
-      if (!formData.target_audience || !formData.assumptions) {
+      if ((!formData.target_audience || formData.target_audience?.length == 0) || (!formData.assumptions || formData.assumptions?.length == 0)) {
         this.submitted = true;
         return;
       }
@@ -310,6 +316,10 @@ export class BusinessForecastingToolComponent implements OnInit {
         console.log(err?.error?.message);
       }
     });
+  }
+
+  isGoBackNavigation() {
+    this.router.navigateByUrl('/pages/founderstool/founderstoollist')
   }
 
 }

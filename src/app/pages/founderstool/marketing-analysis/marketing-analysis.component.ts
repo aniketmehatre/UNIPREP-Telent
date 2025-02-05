@@ -185,6 +185,14 @@ export class MarketingAnalysisComponent implements OnInit {
   }
 
   getRecommendation() {
+    this.submitted = false;
+    const formData = this.marketingForm.value;
+    if (this.activePageIndex == 2) {
+      if (!formData.budget || !formData.revenueStreams || !formData.forecast || !formData.competitorAnalysis) {
+        this.submitted = true;
+        return;
+      }
+    }
     if (this.recommendRestrict) {
       this.restrict = true;
       return;

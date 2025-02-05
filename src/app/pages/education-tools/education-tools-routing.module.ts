@@ -12,6 +12,7 @@ import { WealthleaderreadansComponent } from '../founderstool/wealthleaderreadan
 import { WealthleaderslistComponent } from '../founderstool/wealthleaderslist/wealthleaderslist.component';
 import { UniCompareComponent } from './uni-compare/uni-compare.component';
 import { GlobalEdufitComponent } from './global-edufit/global-edufit.component';
+import { EduLoanCompareComponent } from './edu-loan-compare/edu-loan-compare.component';
 
 const routes: Routes = [
   {
@@ -54,6 +55,9 @@ const routes: Routes = [
       },
       {
         path: 'global-edufit', component: GlobalEdufitComponent
+      },
+      {
+        path: 'edu-loan-compare', component: EduLoanCompareComponent
       },
     ]
   }
