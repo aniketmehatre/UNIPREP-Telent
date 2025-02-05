@@ -3,6 +3,7 @@ import { FormGroup, FormBuilder } from '@angular/forms';
 import { FounderstoolService } from '../founderstool.service';
 import { Router } from '@angular/router';
 import { riskAssessment } from './risk-assessment.data';
+import { MessageService } from 'primeng/api';
 
 interface DropDown {
   [key: string]: string;
@@ -49,7 +50,8 @@ export class StartupRiskAssessmentComponent implements OnInit {
   constructor(
     private fb: FormBuilder,
     private founderToolService: FounderstoolService,
-    private router: Router
+    private router: Router,
+    private toast: MessageService
   ) { }
 
   ngOnInit(): void {
@@ -145,5 +147,20 @@ export class StartupRiskAssessmentComponent implements OnInit {
 
   goBack() {
     this.router.navigateByUrl('/pages/founderstool/founderstoollist');
+  }
+
+  onSaveRes() {
+    this.toast.add({ severity: "success", summary: "Success", detail: "Response saved successfully" });
+  }
+
+  downloadRecommadation() {
+    this.founderToolService.downloadRecommendation({ data: this.recommendationData }).subscribe({
+      next: res => {
+        window.open(res.url, "_blank");
+      },
+      error: err => {
+        console.log(err?.error?.message);
+      }
+    });
   }
 }

@@ -5,26 +5,23 @@ import { MessageService } from 'primeng/api';
 import { AuthService } from 'src/app/Auth/auth.service';
 import { DataService } from 'src/app/data.service';
 import { LocationService } from 'src/app/location.service';
+import { FounderstoolService } from '../../founderstool/founderstool.service';
+import { startupDropdownData } from '../../founderstool/start-up-expense-estimate/startup-expense.data';
 import { PageFacadeService } from '../../page-facade.service';
-import { FounderstoolService } from '../founderstool.service';
-import { startupDropdownData } from './startup-expense.data';
-interface selectList {
-  name: string;
-}
+import { EducationToolsService } from '../education-tools.service';
+
 @Component({
-  selector: 'uni-start-up-expense-estimate',
-  templateUrl: './start-up-expense-estimate.component.html',
-  styleUrls: ['./start-up-expense-estimate.component.scss']
+  selector: 'uni-uni-compare',
+  templateUrl: './uni-compare.component.html',
+  styleUrls: ['./uni-compare.component.scss']
 })
-export class StartUpExpenseEstimateComponent implements OnInit {
-  locationList: any[];
-  industryList: { Industry: string }[] = startupDropdownData.Industry;
-  startupStageList: selectList[] = startupDropdownData['Startup Stage'];
-  teamSizeList: selectList[] = startupDropdownData['Team Size'];
-  primaryExpenseList: selectList[] = startupDropdownData['Key expenses'];
-  revenueModelsList: selectList[] = startupDropdownData['Revenue Model'];
-  captialInvestedList: selectList[] = startupDropdownData['Capital Investment'];
-  expenseEstimation: selectList[] = startupDropdownData['Expense Estimation'];
+export class UniCompareComponent implements OnInit {
+
+  universityCountryList: any[];
+  compareUniversityList: any[];
+  universityList: any = [];
+  specializationList: any = [];
+  stayBackAfterGraduations: { name: string }[] = [{ name: 'Months' }, { name: 'Years' }];
 
   isFromSavedData: boolean = false;
   recommadationSavedQuestionList: any = [];
@@ -33,7 +30,7 @@ export class StartUpExpenseEstimateComponent implements OnInit {
   first: number = 0;
   planExpired!: boolean;
   recommendRestrict: boolean = false;
-  marketingForm: FormGroup = new FormGroup({});
+  form: FormGroup = new FormGroup({});
   restrict: boolean = false;
   currentPlan: string = "";
   ehitlabelIsShow: boolean = true;
@@ -53,7 +50,7 @@ export class StartUpExpenseEstimateComponent implements OnInit {
   recommendationData: string = '';
   constructor(
     private fb: FormBuilder,
-    private foundersToolsService: FounderstoolService,
+    private educationToolService: EducationToolsService,
     private locationService: LocationService,
     private toast: MessageService,
     private authService: AuthService,
@@ -61,20 +58,21 @@ export class StartUpExpenseEstimateComponent implements OnInit {
     private dataService: DataService,
     private pageFacade: PageFacadeService
   ) {
-    this.marketingForm = this.fb.group({
-      industry: ['', Validators.required],
-      location: ['', Validators.required],
-      startup_stage: ['', Validators.required],
-      team_size: ['', Validators.required],
-      primary_expense: ['', Validators.required],
-      current_investment: ['', Validators.required],
-      revenue_model: ['', Validators.required],
-      operating_expense: ['', Validators.required],
-      budget: ['', Validators.required],
-      expense_estimation: ['', Validators.required],
-      investment_currency_code: [],
-      expense_currency_code: [],
-      sales_currency_code: []
+    this.form = this.fb.group({
+      country: ['', Validators.required],
+      compare_country: ['', Validators.required],
+      university: ['', Validators.required],
+      compare_university: ['', Validators.required],
+      specialization: ['', Validators.required],
+      compare_specialization: ['', Validators.required],
+      fees: ['', Validators.required],
+      currency_code: [''],
+      compare_currency_code: [''],
+      compare_fees: ['', Validators.required],
+      expense: ['', Validators.required],
+      compare_expenses: ['', Validators.required],
+      period: ['', Validators.required],
+      compare_period: ['', Validators.required],
     });
 
   }
@@ -85,22 +83,13 @@ export class StartUpExpenseEstimateComponent implements OnInit {
     {
       id: 1,
       question: {
-        heading: 'Basic Information',
-        branches: ["What is the industry of your business?", "At what phase is your startup currently?", "Where is your startup located?", "What is the current size of your team?"]
+        heading: 'University Details',
       },
     },
     {
       id: 2,
       question: {
-        heading: 'Expense',
-        branches: ["What are the key expense categories for your startup?", "How much capital have you invested in the startup so far?", "What is your revenue model ?", "What are your monthly operating expenses?"]
-      },
-    },
-    {
-      id: 3,
-      question: {
-        heading: 'Analysis',
-        branches: ["How much is allocated to the sales and marketing budget each month?", "Over what period would you like the expense estimation to be calculated?"]
+        heading: 'Addtional Details',
       },
     },
   ];
@@ -120,33 +109,25 @@ export class StartUpExpenseEstimateComponent implements OnInit {
     } else {
       this.ehitlabelIsShow = false;
     }
-    // this.getMarketAnalysisLists();
-    this.getCurrenyandLocation();
+    this.getCountryandSpecilizationList();
   }
 
   goBack() {
-    this.router.navigateByUrl('/pages/founderstool/founderstoollist');
+    this.router.navigateByUrl('/pages/education-tools');
   }
 
-  getMarketAnalysisLists() {
-    // this.foundersToolsService.getmarketingAnaylsisOptionsList().subscribe((res: any) => {
-    //   console.log(res);
-    //   this.competitorList = res?.competitor;
-    //   this.timeFramesList = res?.duration;
-    //   this.targetMarketList = res?.market;
-    //   this.businessModelList = res?.models;
-    //   this.productServiceList = res?.productservice;
-    //   this.revenueStreamsList = res?.revenuestreams;
-    //   this.salesChannelsList = res?.saleschannel;
-    // });
-  }
-
-  getCurrenyandLocation() {
-    this.foundersToolsService.getCurrencyAndCountries().subscribe((res: any) => {
-      console.log(res);
-      this.currencyandCountryList = res;
+  getCountryandSpecilizationList() {
+    this.educationToolService.getCountryList().subscribe(data => {
+      this.universityCountryList = data;
+    });
+    this.educationToolService.getCurrentSpecializations().subscribe(data => {
+      this.specializationList = data;
+    });
+    this.educationToolService.getCurrencyAndCountries().subscribe(data => {
+      this.currencyandCountryList = data;
     });
   }
+
 
   checkplanExpire(): void {
     this.authService.getNewUserTimeLeft().subscribe((res) => {
@@ -182,16 +163,6 @@ export class StartUpExpenseEstimateComponent implements OnInit {
     this.pageFacade.openHowitWorksVideoPopup(videoLink);
   }
 
-  checkUserRecommendation() {
-    this.foundersToolsService.getRecommendations().subscribe(res => {
-      if (res.status) {
-        this.enableModule = true;
-      } else {
-        this.enableModule = false;
-        // this.addAnyValueToOptions();
-      }
-    });
-  }
 
   getRecommendation() {
     if (this.recommendRestrict) {
@@ -199,10 +170,10 @@ export class StartUpExpenseEstimateComponent implements OnInit {
       return;
     }
     let data: any = {
-      ...this.marketingForm.value,
-      mode: 'startup_expense_estimator'
+      ...this.form.value,
+      mode: 'uni_compare'
     }
-    this.foundersToolsService.getChatgptRecommendations(data).subscribe({
+    this.educationToolService.getChatgptRecommendations(data).subscribe({
       next: response => {
         this.isRecommendationQuestion = false;
         this.isRecommendationData = true;
@@ -224,22 +195,16 @@ export class StartUpExpenseEstimateComponent implements OnInit {
 
   next() {
     this.submitted = false;
-    const formData = this.marketingForm.value;
-    console.log(formData)
+    const formData = this.form.value;
     if (this.activePageIndex == 0) {
-      if (!formData.industry || !formData.location || !formData.startup_stage || !formData.team_size) {
+      if (!formData.country || !formData.compare_country || !formData.university || !formData.compare_university || !formData.specialization || !formData.compare_specialization) {
         this.submitted = true;
+        console.log(this.activePageIndex)
         return;
       }
     }
     if (this.activePageIndex == 1) {
-      if (!formData.current_investment || !formData.revenue_model || !formData.primary_expense || !formData.operating_expense) {
-        this.submitted = true;
-        return;
-      }
-    }
-    if (this.activePageIndex == 2) {
-      if (!formData.budget || !formData.duration) {
+      if (!formData.fees || !formData.compare_fees || !formData.expense || !formData.compare_expenses || !formData.compare_period || !formData.period) {
         this.submitted = true;
         return;
       }
@@ -249,7 +214,7 @@ export class StartUpExpenseEstimateComponent implements OnInit {
 
   saveRecommadation() {
     if (!this.isFromSavedData) {
-      this.foundersToolsService.getAnalysisList('startup_expense_estimator').subscribe({
+      this.educationToolService.getAnalysisList('uni_compare').subscribe({
         next: response => {
           this.isRecommendationQuestion = false;
           this.isRecommendationData = false;
@@ -262,20 +227,6 @@ export class StartUpExpenseEstimateComponent implements OnInit {
     }
   }
 
-  onSaveRes() {
-    this.toast.add({ severity: "success", summary: "Success", detail: "Response saved successfully" });
-  }
-
-  downloadRecommadation() {
-    this.foundersToolsService.downloadRecommendation({ data: this.recommendationData }).subscribe({
-      next: res => {
-        window.open(res.url, "_blank");
-      },
-      error: err => {
-        console.log(err?.error?.message);
-      }
-    });
-  }
 
   showRecommandationData(data: string) {
     this.isRecommendationQuestion = false;
@@ -289,14 +240,42 @@ export class StartUpExpenseEstimateComponent implements OnInit {
 
 
   resetRecommendation() {
-    this.foundersToolsService.resetRecommendation().subscribe(res => {
+    this.educationToolService.resetRecommendation().subscribe(res => {
       this.isRecommendationQuestion = true;
       this.isRecommendationData = false;
       this.isRecommendationSavedData = false;
-      this.marketingForm.reset();
+      this.form.reset();
       this.activePageIndex = 0;
       this.isFromSavedData = false;
     });
   }
+
+  setUniversityList(id: string) {
+    this.educationToolService.getUniverstityByCountry(id).subscribe(data => {
+      this.universityList = data;
+    })
+  }
+
+  setCompareUniversityList(id: string) {
+    this.educationToolService.getUniverstityByCountry(id).subscribe(data => {
+      this.compareUniversityList = data;
+    })
+  }
+
+  onSaveRes() {
+    this.toast.add({ severity: "success", summary: "Success", detail: "Response saved successfully" });
+  }
+
+  downloadRecommadation() {
+    this.educationToolService.downloadRecommendation({ data: this.recommendationData }).subscribe({
+      next: res => {
+        window.open(res.url, "_blank");
+      },
+      error: err => {
+        console.log(err?.error?.message);
+      }
+    });
+  }
+
 
 }

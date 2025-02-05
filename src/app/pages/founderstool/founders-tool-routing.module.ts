@@ -117,6 +117,9 @@ const routes: Routes = [
       {
         path: 'business-forecasting-tool', component: BusinessForecastingToolComponent
       },
+      {
+        path: 'global-edufit', component: BusinessForecastingToolComponent
+      },
     ]
   }
 ];

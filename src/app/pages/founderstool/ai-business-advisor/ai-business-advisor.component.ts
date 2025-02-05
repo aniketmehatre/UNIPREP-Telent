@@ -3,6 +3,7 @@ import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { FounderstoolService } from '../founderstool.service';
 import { Router } from '@angular/router';
 import { businessAdvisor } from './business-advisor.data';
+import { MessageService } from 'primeng/api';
 
 @Component({
   selector: 'uni-ai-business-advisor',
@@ -41,7 +42,8 @@ export class AiBusinessAdvisorComponent implements OnInit {
   constructor(
     private fb: FormBuilder,
     private foundersToolService: FounderstoolService,
-    private router: Router
+    private router: Router,
+    private toast: MessageService
   ) { }
 
   ngOnInit(): void {
@@ -123,6 +125,21 @@ export class AiBusinessAdvisorComponent implements OnInit {
 
   goBack() {
     this.router.navigateByUrl('/pages/founderstool');
+  }
+
+  onSaveRes() {
+    this.toast.add({ severity: "success", summary: "Success", detail: "Response saved successfully" });
+  }
+
+  downloadRecommadation() {
+    this.foundersToolService.downloadRecommendation({ data: this.recommendationData }).subscribe({
+      next: res => {
+        window.open(res.url, "_blank");
+      },
+      error: err => {
+        console.log(err?.error?.message);
+      }
+    });
   }
 
 
