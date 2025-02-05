@@ -1,0 +1,34 @@
+.contributor-img-sec {
+    width: 80px;
+    height: 80px;
+    border: 1px solid #dfe4f8;
+    border-radius: 50%;
+    padding: 10px;
+
+    img {
+        width: 100%;
+        height: 100%;
+        object-fit: contain;
+    }
+}
+
+.contributor-tag {
+    background: var(--uniprep-primarylight);
+    color: var(--uniprep-tertiary);
+    padding: 3px 10px;
+    border-radius: 15px;
+    font-size: 0.85rem;
+    width: 75px;
+    line-height: initial;
+    position: absolute;
+    top: 7px;
+    right: 7px;
+}
+
+.contributor-modal {
+
+    .p-dialog {
+        width: 500px;
+    }
+
+}

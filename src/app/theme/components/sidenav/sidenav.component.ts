@@ -262,6 +262,11 @@ export class SidenavComponent {
       image: "fa-solid fa-video",
     },
     {
+      title: "Contributors",
+      url: "/pages/contributors",
+      image: "fa-solid fa-hands-holding-dollar",
+    },
+    {
       title: "FAQ",
       url: "/pages/faq",
       image: "fa-solid fa-comments-question",
