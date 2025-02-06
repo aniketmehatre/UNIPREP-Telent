@@ -1,5 +1,6 @@
 import {
   Component,
+  CommonModule,
   ElementRef,
   EventEmitter,
   Input,
@@ -26,8 +27,6 @@ import { environment } from "@env/environment";
 import CryptoJS from "crypto-js";
 import { AssessmentService } from "src/app/pages/assessment/assessment.service";
 import { ILearnChallengeData } from "src/app/@Models/ilearn-challenge.model";
-
-// import { SocialAuthService } from "@abacritt/angularx-social-login";
 
 @Component({
   selector: "uni-header",
