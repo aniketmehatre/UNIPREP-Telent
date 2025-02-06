@@ -11,7 +11,7 @@ import { CountdownModule } from "ngx-countdown";
 import { ButtonModule } from "primeng/button";
 import { FormsModule, ReactiveFormsModule } from "@angular/forms";
 import { DropdownModule } from "primeng/dropdown";
-import { InputTextareaModule } from "primeng/inputtextarea";
+import { InputTextarea } from "primeng/inputtextarea";
 import { OverlayPanelModule } from "primeng/overlaypanel";
 import { DialogModule } from "primeng/dialog";
 import { InputTextModule } from "primeng/inputtext";
@@ -33,7 +33,7 @@ import { TabViewModule } from "primeng/tabview";
     ButtonModule,
     FormsModule,
     DropdownModule,
-    InputTextareaModule,
+    InputTextarea,
     OverlayPanelModule,
     DialogModule,
     ReactiveFormsModule,
@@ -41,6 +41,6 @@ import { TabViewModule } from "primeng/tabview";
     NgxIntlTelInputModule,
     TabViewModule
   ],
-  exports: [HeaderComponent, SidenavComponent, CountdownComponent],
+  exports: [CommonModule,HeaderComponent, SidenavComponent, CountdownComponent],
 })
 export class ThemeModule {}

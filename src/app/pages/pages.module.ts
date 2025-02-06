@@ -41,7 +41,7 @@ import { ConfirmPopupModule } from "primeng/confirmpopup";
 import { AccordionModule } from "primeng/accordion";
 import { GuidelineComponent } from "./chat/guidelines/guidelines.component";
 import { OverlayPanelModule } from "primeng/overlaypanel";
-import { InputTextareaModule } from "primeng/inputtextarea";
+import { InputTextarea } from "primeng/inputtextarea";
 import { TooltipModule } from "primeng/tooltip";
 import { PrivacypolicyComponent } from "./footersection/privacypolicy/privacypolicy.component";
 import { PaginatorModule } from "primeng/paginator";
@@ -76,7 +76,7 @@ import { FoundersacademyComponent } from "./founderstool/foundersacademy/founder
 import { FounderstoollistComponent } from "./founderstool/founderstoollist/founderstoollist.component";
 import { InvestorpitchtrainingComponent } from "./founderstool/investorpitchtraining/investorpitchtraining.component";
 import { StartupglossaryComponent } from "./founderstool/startupglossary/startupglossary.component";
-import { AnimateModule } from "primeng/animate";
+// import { AnimateModule } from "primeng/animate";
 import { CareerGrowthCheckerComponent } from "./career-growth-checker/career-growth-checker.component";
 import { AdvisorComponent } from './advisor/advisor.component';
 import { NationalExamCategoriesComponent } from './national-exam-categories/national-exam-categories.component';
@@ -173,7 +173,7 @@ import { JobOfferPreparedListComponent } from "./job-tool/joboffercomparisontool
     ConfirmDialogModule,
     AccordionModule,
     OverlayPanelModule,
-    InputTextareaModule,
+    InputTextarea,
     TooltipModule,
     DividerModule,
     CheckboxModule,
@@ -181,7 +181,7 @@ import { JobOfferPreparedListComponent } from "./job-tool/joboffercomparisontool
     RadioButtonModule,
     NgxExtendedPdfViewerModule,
     PdfViewerModule,
-    AnimateModule,
+    // AnimateModule,
     SkeletonModule
   ],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],

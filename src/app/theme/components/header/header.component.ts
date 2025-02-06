@@ -1,6 +1,5 @@
 import {
   Component,
-  CommonModule,
   ElementRef,
   EventEmitter,
   Input,
