@@ -61,7 +61,7 @@
                                     <p class="text-start fw-bold questiontext mb-0" title="{{ sub?.question }}">{{
                                         sub?.question }}</p>
                                     <!-- <p class="text-start questiontext mt-2 mb-0 content-preview">
-                                        {{sub?.content.length > 75 ? sub?.content.slice(0, 75) + ' ...' : sub?.content}}
+                                        {{getContentPreview(sub?.content)}}
                                     </p> -->
                                 </div>
                             </div>
@@ -107,13 +107,13 @@
 <p-dialog #dialogContent [(visible)]="isQuestionAnswerVisible" [style]="{width:'40vw'}" [draggable]="false" [closable]="false" [modal]="true"
     header="Header" (onShow)="onShowModal($event)">
     <ng-template pTemplate="header">
-        <div class="card-header border-0 bg-transparent p-4">
+        <div class="card-header border-0 bg-transparent px-4 pt-4 pb-0 w-100">
             <div class="row justify-content-center">
                 <div class="col-md-12 d-flex gap-2 text-center">
-                    <div class="career-homeIcon" role="button" (click)="backtoMain()">
+                    <div class="career-homeIcon px-3" role="button" (click)="backtoMain()">
                         <span class="fa-solid fa-home me-2"></span>Home
                     </div>
-                    <div class="select-title d-flex justify-content-between align-items-center w-100">
+                    <div class="select-title d-flex flex-fill justify-content-between align-items-center w-100">
                         <div>
                             <h5 class="mb-0">
                                 {{ SelectedCompany | uppercase
@@ -121,7 +121,7 @@
                             </h5>
                         </div>
                     </div>
-                    <div class="career-reportIcon" role="button" (click)="openReport()">
+                    <div class="career-reportIcon px-3" role="button" (click)="openReport()">
                         <span class="fa-solid fa-file me-2"></span>Report
                     </div>
                     <div class="career-closeIcon" role="button" (click)="isQuestionAnswerVisible=!isQuestionAnswerVisible">
@@ -131,7 +131,7 @@
             </div>
         </div>
     </ng-template>
-    <div class="flex-fill bg-none p-4">
+    <div class="flex-fill bg-none px-4 pb-4 pt-2">
         <div class="card-body bg-none text-start">
             <div class="d-flex align-items-center text-end justify-content-between position-relative">
                 <span class="text-small blockquote text-start mb-0">
