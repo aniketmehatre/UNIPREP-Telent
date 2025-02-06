@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { MessageService } from 'primeng/api';
@@ -15,7 +15,8 @@ import { EducationToolsService } from '../education-tools.service';
   templateUrl: './uni-compare.component.html',
   styleUrls: ['./uni-compare.component.scss']
 })
-export class UniCompareComponent implements OnInit {
+export class UniCompareComponent implements OnInit, OnDestroy {
+  panelStyle: { width: string } = { width: '320px' };
 
   universityCountryList: any[];
   compareUniversityList: any[];
@@ -97,6 +98,8 @@ export class UniCompareComponent implements OnInit {
   selectedData: { [key: string]: any } = {};
 
   ngOnInit(): void {
+    this.updatePanelStyle();
+    window.addEventListener('resize', this.updatePanelStyle);
     this.locationService.getImage().subscribe(imageUrl => {
       this.orglogowhitelabel = imageUrl;
     });
@@ -283,6 +286,14 @@ export class UniCompareComponent implements OnInit {
         console.log(err?.error?.message);
       }
     });
+  }
+
+  updatePanelStyle = () => {
+    this.panelStyle = window.innerWidth > 990 ? { width: '320px' } : { width: '100%' };
+  };
+
+  ngOnDestroy() {
+    window.removeEventListener('resize', this.updatePanelStyle);
   }
 
 

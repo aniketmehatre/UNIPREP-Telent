@@ -38,24 +38,5 @@
       border-color: #e68541 !important;
     }
   }
-
-  ::ng-deep .p-dropdown {
-    width: 100% !important;
-  }
   
-  @media (max-width: 850px) {
-    ::ng-deep .bank-dropdown .p-dropdown-panel {
-      width: 100% !important;
-      min-width: 100% !important;
-      max-width: 100% !important;
-    }
-  }
-  
-  @media (min-width: 851px) {
-    ::ng-deep .bank-dropdown .p-dropdown-panel {
-      width: 73% !important;
-      min-width: 73% !important;
-      max-width: 73% !important;
-    }
-  }
   

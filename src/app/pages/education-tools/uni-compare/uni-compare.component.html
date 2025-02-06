@@ -72,29 +72,33 @@
                                   <label class="form-label uniprep-primary fw-bold">University</label>
                                 </div>
                                 <div class="col-lg-4 mb-2 university-dropdown">
-                                    <p-dropdown [options]="universityList"
-                                               optionLabel="submodule_name"
-                                               optionValue="submodule_name"
-                                               filterBy="submodule_name"
-                                               [style]="{'width': '100%'}"
-                                               formControlName="university"
-                                               [autoWidth]="false"
-                                               placeholder="Select University"
-                                               styleClass="w-100">
-                                    </p-dropdown>
-                                </div>
-                                <div class="col-lg-4 mb-2 university-dropdown">
-                                  <p-dropdown [options]="compareUniversityList"
-                                  optionLabel="submodule_name"
-                                  optionValue="submodule_name"
-                                  [filter]="true"
-                                  filterBy="submodule_name"
-                                            [autoWidth]="false"
-                                             formControlName="compare_university"
-                                             placeholder="Compare University"
-                                             styleClass="w-100">
+                                  <p-dropdown [options]="universityList"
+                                              optionLabel="submodule_name"
+                                              optionValue="submodule_name"
+                                              filterBy="submodule_name"
+                                              [filter]="true"
+                                              formControlName="university"
+                                              placeholder="Select University"
+                                              styleClass="w-100"
+                                              appendTo="body"
+                                              [panelStyle]="panelStyle"> <!-- Adjust width as needed -->
                                   </p-dropdown>
-                                </div>
+                              </div>
+                              
+                              <div class="col-lg-4 mb-2 university-dropdown">
+                                  <p-dropdown [options]="compareUniversityList"
+                                              optionLabel="submodule_name"
+                                              optionValue="submodule_name"
+                                              filterBy="submodule_name"
+                                              [filter]="true"
+                                              formControlName="compare_university"
+                                              placeholder="Compare University"
+                                              styleClass="w-100"
+                                              appendTo="body"
+                                              [panelStyle]="panelStyle"> <!-- Adjust width as needed -->
+                                  </p-dropdown>
+                              </div>
+                              
                               </div>
                               <div class="text-danger text-center small" *ngIf="(form.get('university')?.errors?.required || form.get('compare_university')?.errors?.required) && submitted">
                                 Please select both universities

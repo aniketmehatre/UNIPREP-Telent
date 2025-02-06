@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { MessageService } from 'primeng/api';
@@ -14,9 +14,10 @@ import { eduLoanOptions } from './edu-loan-compare.data';
   templateUrl: './edu-loan-compare.component.html',
   styleUrls: ['./edu-loan-compare.component.scss']
 })
-export class EduLoanCompareComponent implements OnInit {
+export class EduLoanCompareComponent implements OnInit, OnDestroy {
+  panelStyle: { width: string } = { width: '320px' };
 
-  bankNameList: any[] = eduLoanOptions?.bankNames;
+  bankNameList: any[] = eduLoanOptions?.banknames;
   interestedRateTypeList: string[] = eduLoanOptions['Interest Rate Type'];
   intersetedRateList: string[] = eduLoanOptions['Interest Rate'];
   studyDurationList: string[] = eduLoanOptions['Study Duration in months'];
@@ -110,6 +111,8 @@ export class EduLoanCompareComponent implements OnInit {
   selectedData: { [key: string]: any } = {};
 
   ngOnInit(): void {
+    this.updatePanelStyle();
+    window.addEventListener('resize', this.updatePanelStyle);
     this.locationService.getImage().subscribe(imageUrl => {
       this.orglogowhitelabel = imageUrl;
     });
@@ -124,6 +127,10 @@ export class EduLoanCompareComponent implements OnInit {
     }
     this.getCountryList();
   }
+
+  updatePanelStyle = () => {
+    this.panelStyle = window.innerWidth > 982 ? { width: '320px' } : { width: '100%' };
+  };
 
   goBack() {
     this.router.navigateByUrl('/pages/education-tools');
@@ -277,6 +284,10 @@ export class EduLoanCompareComponent implements OnInit {
         console.log(err?.error?.message);
       }
     });
+  }
+
+  ngOnDestroy() {
+    window.removeEventListener('resize', this.updatePanelStyle);
   }
 
 }
