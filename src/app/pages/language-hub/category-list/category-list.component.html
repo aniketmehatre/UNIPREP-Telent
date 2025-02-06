@@ -18,7 +18,7 @@
         </div>
 		<button role="button" class="m-0 btn btn-primary btn-rounded" (click)="startQuiz()" [disabled]="quizpercentage >= 80">
 			<p class="mb-0">
-			  <i class="fa-regular fa-lightbulb-on"></i> Start Quiz <span class="mb-0">{{ quizpercentage | number : "1.0-0" + "%" }}</span>
+			  <i class="fa-regular fa-lightbulb-on"></i> Start Quiz <span class="mb-0">{{ quizpercentage | percent:'1.0-0' }}</span>
 			</p>
 		  </button>
       </div>
