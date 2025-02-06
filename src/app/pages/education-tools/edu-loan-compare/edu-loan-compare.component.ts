@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { MessageService } from 'primeng/api';
@@ -6,23 +6,25 @@ import { AuthService } from 'src/app/Auth/auth.service';
 import { DataService } from 'src/app/data.service';
 import { LocationService } from 'src/app/location.service';
 import { PageFacadeService } from '../../page-facade.service';
-import { FounderstoolService } from '../founderstool.service';
-import { businessForeCastData } from './business-forcasting.data';
+import { EducationToolsService } from '../education-tools.service';
+import { eduLoanOptions } from './edu-loan-compare.data';
 
 @Component({
-  selector: 'uni-business-forecasting-tool',
-  templateUrl: './business-forecasting-tool.component.html',
-  styleUrls: ['./business-forecasting-tool.component.scss']
+  selector: 'uni-edu-loan-compare',
+  templateUrl: './edu-loan-compare.component.html',
+  styleUrls: ['./edu-loan-compare.component.scss']
 })
-export class BusinessForecastingToolComponent implements OnInit {
-  industryList: any[] = businessForeCastData.Industry;
-  locationList: any;
-  seasonsList: any[] = businessForeCastData.Seasons;
-  factorsList = businessForeCastData['Revenue Drivers'];
-  targetAudienceList = businessForeCastData['Target Audience'];
-  assumptionsList = businessForeCastData['Growth Assumption'];
-  durationList = businessForeCastData['Forecast period'];
-  goalsList = businessForeCastData['Revenue goals'];
+export class EduLoanCompareComponent implements OnInit, OnDestroy {
+  panelStyle: { width: string } = { width: '320px' };
+
+  bankNameList: any[] = eduLoanOptions?.banknames;
+  interestedRateTypeList: string[] = eduLoanOptions['Interest Rate Type'];
+  intersetedRateList: string[] = eduLoanOptions['Interest Rate'];
+  studyDurationList: string[] = eduLoanOptions['Study Duration in months'];
+  moratoriumPeriodList: string[] = eduLoanOptions['Moratorium Period: Repayment Start'];
+  repaymentLoanList: string[] = eduLoanOptions['Repayment Start'];
+  intersetedTermList = ['Months', 'Years'];
+
   isFromSavedData: boolean = false;
   recommadationSavedQuestionList: any = [];
   page = 1;
@@ -38,72 +40,79 @@ export class BusinessForecastingToolComponent implements OnInit {
   orglogowhitelabel: any;
   orgnamewhitlabel: any;
   locationName: string = '';
-  currencyList: any;
   submitted: boolean = false;
   data: any = {
     page: this.page,
     perpage: this.pageSize,
   };
+  currencyandCountryList: any;
   isRecommendationQuestion: boolean = true;
   isRecommendationData: boolean = false;
   isRecommendationSavedData: boolean = false;
   recommendationData: string = '';
-  isSessonEnable: boolean = false;
+  constructor(
+    private fb: FormBuilder,
+    private educationToolService: EducationToolsService,
+    private locationService: LocationService,
+    private toast: MessageService,
+    private authService: AuthService,
+    private router: Router,
+    private dataService: DataService,
+    private pageFacade: PageFacadeService
+  ) {
+    this.form = this.fb.group({
+      bankname: ['', Validators.required],
+      compare_bankname: ['', Validators.required],
+      currency: ['', Validators.required],
+      compare_currency: ['', Validators.required],
+      loanamount: ['', Validators.required],
+      compare_loanamount: ['', Validators.required],
+      location: ['', Validators.required],
+      compare_location: ['', Validators.required],
+      interestrate_type: ['', Validators.required],
+      compare_interestrate_type: [''],
+      interestrate: [''],
+      compare_interestrate: ['', Validators.required],
+      interestterm: ['', Validators.required],
+      compare_interestterm: ['', Validators.required],
+      studyduration: ['', Validators.required],
+      compare_studyduration: ['', Validators.required],
+      moratoriumperiod: ['', Validators.required],
+      compare_moratoriumperiod: ['', Validators.required],
+      loanrepaymentperiod: ['', Validators.required],
+      compare_loanrepaymentperiod: ['', Validators.required],
+    });
+
+  }
+
   enableModule: boolean = true;
   activePageIndex: number = 0;
   recommendations: any = [
     {
       id: 1,
       question: {
-        heading: 'Basic Information',
-        branches: ["What is your business type or industry?",
-          "What are the key revenue drivers for your business?",
-          "Does your business experience seasonality? If yes, please specify the peak seasons"]
+        heading: 'Bank Information',
       },
     },
     {
       id: 2,
       question: {
-        heading: 'Marketing & Sales',
-        branches: ["Who is your target audience?",
-          "What are your growth assumptions?",
-          "What are the current market trends affecting your industry?"]
+        heading: 'Loan Details',
       },
     },
     {
       id: 3,
       question: {
-        heading: 'Analysis',
-        branches: ["What is the desired forecast period for this revenue forecasting?",
-          "What are your revenue goals for the forecast period?"]
+        heading: 'Addtional Details',
       },
     },
   ];
   invalidClass: boolean = false;
   selectedData: { [key: string]: any } = {};
-  constructor(
-    private fb: FormBuilder,
-    private foundersToolsService: FounderstoolService,
-    private locationService: LocationService,
-    private authService: AuthService,
-    private router: Router,
-    private pageFacade: PageFacadeService,
-    private toast: MessageService
-  ) {
-    this.form = this.fb.group({
-      industry: ['', Validators.required],
-      seasons: [[]],
-      factors: [[], Validators.required],
-      target_audience: [[], Validators.required],
-      assumptions: [[], Validators.required],
-      forecast_peroid: ['', Validators.required],
-      goals: [[], Validators.required],
-    });
-
-  }
-
 
   ngOnInit(): void {
+    this.updatePanelStyle();
+    window.addEventListener('resize', this.updatePanelStyle);
     this.locationService.getImage().subscribe(imageUrl => {
       this.orglogowhitelabel = imageUrl;
     });
@@ -116,35 +125,23 @@ export class BusinessForecastingToolComponent implements OnInit {
     } else {
       this.ehitlabelIsShow = false;
     }
-    this.getForeCastingOptionLists();
-    this.getCurrenyandLocation();
+    this.getCountryList();
   }
 
-  backtoMain() {
-    this.router.navigateByUrl('/pages/founderstool');
+  updatePanelStyle = () => {
+    this.panelStyle = window.innerWidth > 982 ? { width: '320px' } : { width: '100%' };
+  };
+
+  goBack() {
+    this.router.navigateByUrl('/pages/education-tools');
   }
 
-  getForeCastingOptionLists() {
-    this.foundersToolsService.getmarketingAnaylsisOptionsList().subscribe((res: any) => {
-      // console.log(res);
-      // this.seasonsList = res?.seasons;
-      // this.factorsList = res?.competitor;
-      // this.targetAudienceList = res?.market;
-      // this.assumptionsList = res?.models;
-      // this.upComingMarketList = res?.productservice;
-      // this.durationList = res?.revenuestreams;
-      // this.analyseList = res?.saleschannel;
+  getCountryList() {
+    this.educationToolService.getCurrencyAndCountries().subscribe(data => {
+      this.currencyandCountryList = data;
     });
   }
 
-  getCurrenyandLocation() {
-    this.foundersToolsService.getCurrencyAndCountries().subscribe((res: any) => {
-      this.currencyList = res;
-    });
-    this.foundersToolsService.getLocationList().subscribe((res: any) => {
-      this.locationList = res;
-    });
-  }
 
   checkplanExpire(): void {
     this.authService.getNewUserTimeLeft().subscribe((res) => {
@@ -172,7 +169,6 @@ export class BusinessForecastingToolComponent implements OnInit {
   upgradePlan(): void {
     this.router.navigate(["/pages/subscriptions"]);
   }
-
   clearRestriction() {
     this.restrict = false;
   }
@@ -181,23 +177,15 @@ export class BusinessForecastingToolComponent implements OnInit {
     this.pageFacade.openHowitWorksVideoPopup(videoLink);
   }
 
-  checkUserRecommendation() {
-    this.foundersToolsService.getRecommendations().subscribe(res => {
-      if (res.status) {
-        this.enableModule = true;
-      } else {
-        this.enableModule = false;
-        // this.addAnyValueToOptions();
-      }
-    });
-  }
 
   getRecommendation() {
     this.submitted = false;
     const formData = this.form.value;
-    if (!formData.forecast_peroid || !formData.goals) {
-      this.submitted = true;
-      return;
+    if (this.activePageIndex == 2) {
+      if (!formData.studyduration || !formData.compare_studyduration || !formData.moratoriumperiod || !formData.compare_moratoriumperiod || !formData.loanrepaymentperiod || !formData.compare_loanrepaymentperiod) {
+        this.submitted = true;
+        return;
+      }
     }
     if (this.recommendRestrict) {
       this.restrict = true;
@@ -205,10 +193,9 @@ export class BusinessForecastingToolComponent implements OnInit {
     }
     let data: any = {
       ...this.form.value,
-      mode: 'revenue_forescasting_tool',
-      seasonalfunctionality: this.isSessonEnable
+      mode: 'loan_comparison_tool'
     }
-    this.foundersToolsService.getChatgptRecommendations(data).subscribe({
+    this.educationToolService.getChatgptRecommendations(data).subscribe({
       next: response => {
         this.isRecommendationQuestion = false;
         this.isRecommendationData = true;
@@ -231,21 +218,14 @@ export class BusinessForecastingToolComponent implements OnInit {
   next() {
     this.submitted = false;
     const formData = this.form.value;
-    console.log(formData)
     if (this.activePageIndex == 0) {
-      if (!formData.industry || (this.isSessonEnable && (!formData.seasons || formData.seasons.length == 0)) || (!formData.factors || formData.factors?.length == 0)) {
+      if (!formData.bankname || !formData.compare_bankname || !formData.loanamount || !formData.compare_loanamount || !formData.location || !formData.compare_location) {
         this.submitted = true;
         return;
       }
     }
     if (this.activePageIndex == 1) {
-      if ((!formData.target_audience || formData.target_audience?.length == 0) || (!formData.assumptions || formData.assumptions?.length == 0)) {
-        this.submitted = true;
-        return;
-      }
-    }
-    if (this.activePageIndex == 2) {
-      if (!formData.forecast_peroid || !formData.goals) {
+      if (!formData.interestrate_type || !formData.compare_interestrate_type || !formData.interestrate || !formData.compare_interestrate || !formData.interestterm || !formData.compare_interestterm) {
         this.submitted = true;
         return;
       }
@@ -255,7 +235,7 @@ export class BusinessForecastingToolComponent implements OnInit {
 
   saveRecommadation() {
     if (!this.isFromSavedData) {
-      this.foundersToolsService.getAnalysisList('revenue_forescasting_tool').subscribe({
+      this.educationToolService.getAnalysisList('loan_comparison_tool').subscribe({
         next: response => {
           this.isRecommendationQuestion = false;
           this.isRecommendationData = false;
@@ -268,6 +248,7 @@ export class BusinessForecastingToolComponent implements OnInit {
     }
   }
 
+
   showRecommandationData(data: string) {
     this.isRecommendationQuestion = false;
     this.isRecommendationData = true;
@@ -277,23 +258,10 @@ export class BusinessForecastingToolComponent implements OnInit {
   }
 
 
-  onEnableDisableSeason(isSeasonEnable: boolean) {
-    console.log(this.form.controls?.['factors']); // Debugging line, ensure this is intentional
-    this.isSessonEnable = isSeasonEnable;
-
-    if (this.isSessonEnable) {
-      this.form.controls?.['seasons'].addValidators(Validators.required);
-      this.form.controls?.['seasons'].updateValueAndValidity();
-    } else {
-      this.form.controls?.['seasons'].clearValidators();
-      this.form.controls?.['seasons'].updateValueAndValidity();
-    }
-  }
-
 
 
   resetRecommendation() {
-    this.foundersToolsService.resetRecommendation().subscribe(res => {
+    this.educationToolService.resetRecommendation().subscribe(res => {
       this.isRecommendationQuestion = true;
       this.isRecommendationData = false;
       this.isRecommendationSavedData = false;
@@ -308,7 +276,7 @@ export class BusinessForecastingToolComponent implements OnInit {
   }
 
   downloadRecommadation() {
-    this.foundersToolsService.downloadRecommendation({ data: this.recommendationData }).subscribe({
+    this.educationToolService.downloadRecommendation({ data: this.recommendationData }).subscribe({
       next: res => {
         window.open(res.url, "_blank");
       },
@@ -318,8 +286,8 @@ export class BusinessForecastingToolComponent implements OnInit {
     });
   }
 
-  isGoBackNavigation() {
-    this.router.navigateByUrl('/pages/founderstool/founderstoollist')
+  ngOnDestroy() {
+    window.removeEventListener('resize', this.updatePanelStyle);
   }
 
 }

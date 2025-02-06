@@ -97,7 +97,7 @@
                     {{ recommendation.question.branches[0] }}
                   </h5>
                   <p-dropdown styleClass="w-100" placeholder="Business Model" [options]="businessModelList"
-                    display="chip" optionLabel="Model" optionValue="Model"  formControlName="businessModel">
+                    display="chip" optionLabel="Model" appendTo="body" optionValue="Model"  formControlName="businessModel">
                   </p-dropdown>
                   <p class="text-center" *ngIf="
                         marketingForm.get('businessModel')?.errors?.required && submitted
@@ -109,7 +109,7 @@
                   <h5 class="uniprep-primary fw-semibold mt-3 mb-1">
                     {{ recommendation.question.branches[1] }}
                   </h5>
-                  <p-dropdown styleClass="w-100" placeholder="Sales Channels" [options]="salesChannelsList" [filter]="true" filterBy="Sales Channel"
+                  <p-dropdown styleClass="w-100" appendTo="body" placeholder="Sales Channels" [options]="salesChannelsList" [filter]="true" filterBy="Sales Channel"
                     display="chip" optionLabel="Sales Channel" optionValue="Sales Channel" formControlName="salesChannel">
                   </p-dropdown>
                   <p class="text-center" *ngIf="
@@ -122,7 +122,7 @@
                   <h5 class="uniprep-primary fw-semibold mt-3 mb-1">
                     {{ recommendation.question.branches[2] }}
                   </h5>
-                  <p-dropdown styleClass="w-100 h-100" placeholder="Time Frame" [filter]="true" filterBy="Analysis Duration" [options]="timeFramesList" 
+                  <p-dropdown styleClass="w-100 h-100" appendTo="body" placeholder="Time Frame" [filter]="true" filterBy="Analysis Duration" [options]="timeFramesList" 
                     optionLabel="Analysis Duration" optionValue="Analysis Duration" formControlName="timeFrame">
                   </p-dropdown>
                   <p class="text-center" *ngIf="marketingForm.get('timeFrame')?.errors?.required && submitted"
@@ -140,7 +140,7 @@
                     {{ recommendation.question.branches[0] }}
                   </h5>
                   <div class="w-100 d-flex gap-2 flex-fill">
-                    <p-dropdown formControlName="currencycode" appendTo="body" [options]="currencyandCountryList" [filter]="true"
+                    <p-dropdown formControlName="currencycode" [options]="currencyandCountryList" [filter]="true"
                       filterBy="currency_code" placeholder=" Currency" optionLabel="currency_code" optionValue="currency_code"
                       [autoDisplayFirst]="false">
                     </p-dropdown>
@@ -160,7 +160,7 @@
                   <h5 class="uniprep-primary fw-semibold mt-3 mb-1">
                     {{ recommendation.question.branches[1] }}
                   </h5>
-                  <p-dropdown styleClass="w-100" placeholder="Revenue Streams" [options]="revenueStreamsList" [filter]="true" filterBy="Revenue Streams"
+                  <p-dropdown styleClass="w-100" placeholder="Revenue Streams" appendTo="body" [options]="revenueStreamsList" [filter]="true" filterBy="Revenue Streams"
                     display="chip" optionLabel="Revenue Stream" optionValue="Revenue Stream" formControlName="revenueStreams">
                   </p-dropdown>
                   <p class="text-center" *ngIf="
@@ -173,7 +173,7 @@
                   <h5 class="uniprep-primary fw-semibold mt-3 mb-2">
                     {{ recommendation.question.branches[2] }}
                   </h5>
-                  <p-dropdown styleClass="w-100 h-100" placeholder="Competitor Analysis Focus" [options]="competitorList" [filter]="true" filterBy="Focus"
+                  <p-dropdown styleClass="w-100 h-100" placeholder="Competitor Analysis Focus" appendTo="body" [options]="competitorList" [filter]="true" filterBy="Focus"
                     optionLabel="Focus" optionValue="Focus" formControlName="competitorAnalysis">
                   </p-dropdown>
                   <p class="text-center" *ngIf="
@@ -188,7 +188,7 @@
                   <h5 class="uniprep-primary fw-semibold mt-3 mb-2">
                     {{ recommendation.question.branches[3] }}
                   </h5>
-                  <p-dropdown styleClass="w-100 h-100" placeholder="Forecating" [options]="forecastingList" [filter]="true" filterBy="Forecast"
+                  <p-dropdown styleClass="w-100 h-100" placeholder="Forecating" appendTo="body" [options]="forecastingList" [filter]="true" filterBy="Forecast"
                     optionLabel="Forecast" optionValue="Forecast" formControlName="forecast">
                   </p-dropdown>
                   <p class="text-center" *ngIf="
@@ -312,7 +312,7 @@
                 <h5 class="fw-bold mb-0">Market Analysis {{i+1}}</h5>
                 <p class="text-small"><b>Industry : </b>{{item.industry}}</p>
                 <p class="text-small"><b>Location : </b>{{item.location}}</p>
-                <p class="text-small"><b>Target Market : </b>{{item.targetMarket}}</p>
+                <p class="text-small"><b>Target Market : </b>{{item.targetaudience}}</p>
             </div>
             </div>
           </div>

@@ -94,7 +94,7 @@
                       {{ recommendation.question.branches[0] }}
                     </h5>
                     <p-multiSelect styleClass="w-100" placeholder="Expense" [options]="primaryExpenseList"
-                     optionLabel="name" optionValue="name" formControlName="primary_expense">
+                     optionLabel="name" optionValue="name" appendTo="body" formControlName="primary_expense">
                     </p-multiSelect>
                     <p class="text-center" *ngIf="
                           marketingForm.get('primary_expense')?.errors?.required && submitted
@@ -107,7 +107,7 @@
                       {{ recommendation.question.branches[2] }}
                     </h5>
                     <p-multiSelect styleClass="w-100" placeholder="Revenue Model" [options]="revenueModelsList"
-                      optionLabel="name" optionValue="name" formControlName="revenue_model">
+                      optionLabel="name" optionValue="name" appendTo="body" formControlName="revenue_model">
                     </p-multiSelect>  
                     <p class="text-center" *ngIf="
                           marketingForm.get('revenue_model')?.errors?.required && submitted
@@ -120,14 +120,14 @@
                       {{ recommendation.question.branches[1] }}
                     </h5>
                     <div class="w-100 d-flex gap-2 flex-fill">
-                      <p-dropdown formControlName="investment_currency_code" appendTo="body" [options]="currencyandCountryList" [filter]="true"
+                      <p-dropdown formControlName="investment_currency_code" [options]="currencyandCountryList" [filter]="true"
                         filterBy="currency_code" placeholder=" Currency" optionLabel="currency_code" optionValue="currency_code"
                         [autoDisplayFirst]="false">
                       </p-dropdown>
                       <input class="w-100 pl-4 border border-gray rounded-3" type="number" [min]="100" pInputText placeholder="Investment Amount"
                         formControlName="current_investment" />
                     </div>  
-                    <p class="text-center" *ngIf="marketingForm.get('budget')?.errors?.required && submitted"
+                    <p class="text-center" *ngIf="marketingForm.get('current_investment')?.errors?.required && submitted"
                       style="color: red">
                       Please Choose Any one option
                     </p>
@@ -137,7 +137,7 @@
                       {{ recommendation.question.branches[3] }}
                     </h5>
                     <div class="w-100 d-flex gap-2 flex-fill">
-                      <p-dropdown formControlName="expense_currency_code" appendTo="body" [options]="currencyandCountryList" [filter]="true"
+                      <p-dropdown formControlName="expense_currency_code" [options]="currencyandCountryList" [filter]="true"
                         filterBy="currency_code" placeholder="Currency" optionLabel="currency_code" optionValue="currency_code"
                         [autoDisplayFirst]="false">
                       </p-dropdown>
@@ -159,7 +159,7 @@
                       {{ recommendation.question.branches[0] }}
                     </h5>
                     <div class="w-100 d-flex gap-2 flex-fill">
-                      <p-dropdown formControlName="sales_currency_code" appendTo="body" [options]="currencyandCountryList" [filter]="true"
+                      <p-dropdown formControlName="sales_currency_code"  [options]="currencyandCountryList" [filter]="true"
                         filterBy="currency_code" placeholder=" Currency" optionLabel="currency_code" optionValue="currency_code"
                         [autoDisplayFirst]="false">
                       </p-dropdown>
@@ -296,7 +296,7 @@
               <div class="card subjectcard" role="button" (click)="showRecommandationData(item.response)">
                 <div class="card-body text-start">
                   <h5 class="fw-bold mb-0">Startup Expense Estimate {{i+1}}</h5>
-                  <p class="text-small"><b>Industry : </b>{{item.type}}</p>
+                  <p class="text-small"><b>Industry : </b>{{item.industry}}</p>
                   <p class="text-small"><b>Location : </b>{{item.location}}</p>
                   <p class="text-small"><b>Startup Stage : </b>{{item.stage}}</p>
                   <p class="text-small"><b>Team Size : </b>{{item.teamsize}}</p>

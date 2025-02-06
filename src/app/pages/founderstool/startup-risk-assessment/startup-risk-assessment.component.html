@@ -31,7 +31,7 @@
                             </div>
                             <div class="col-md-6">
                                 <ng-container *ngIf="recommendation.id == 1">
-                                  <p-dropdown [(ngModel)]="selectedData[recommendation.id]" [options]="industryList"
+                                  <p-dropdown [(ngModel)]="selectedData[recommendation.id]"  [filter]="true" filterBy="Industry" [options]="industryList"
                                   styleClass="w-100" optionLabel="Industry" optionValue="Industry" [appendTo]="'body'"
                                   placeholder="Enter the Industry Type">
                               </p-dropdown>
@@ -78,7 +78,7 @@
                                    </div>
                                 </ng-container>
                                 <ng-container *ngIf="recommendation.id == 7">
-                                  <p-dropdown [(ngModel)]="selectedData[recommendation.id]" [options]="targetAudienceList"
+                                  <p-dropdown [(ngModel)]="selectedData[recommendation.id]" [options]="targetAudienceList" [filter]="true" filterBy="targetAudience" 
                                   styleClass="w-100" optionLabel="targetAudience" optionValue="targetAudience" [appendTo]="'body'"
                                   placeholder="Audience">
                                   </p-dropdown>
@@ -113,7 +113,7 @@
                                 class="btn btn-primary btn-rounded p-1 ps-4">
                                 <span class="me-2">Next</span><span class="btn-icon px-2 py-2"><i class="fa fa-arrow-right"></i></span>
                             </button>
-                            <button pButton type="button" (click)="getRecommendation()" *ngIf="activePageIndex == 8"
+                            <button pButton type="button" (click)="getRecommendation(activePageIndex+1)" *ngIf="activePageIndex == 8"
                                 class="btn btn-success btn-rounded p-1 ps-4">
                                 <span class="me-2">Get Recommendations</span><span class="btn-icon px-2 py-2">
                                     <i class="fa fa-check-circle"></i></span>
@@ -211,7 +211,7 @@
               <div class="card subjectcard" role="button" (click)="showRecommandationData(item.response)">
                 <div class="card-body text-start">
                   <h5 class="fw-bold mb-0">Start-up Risk Assessment {{i+1}}</h5>
-                  <p class="text-small"><b>Types of Business : </b>{{item.type}}</p>
+                  <p class="text-small"><b>Types of Business : </b>{{item.industry}}</p>
                   <p class="text-small"><b>Business Model : </b>{{item.model}}</p>
                   <p class="text-small"><b>Stage : </b>{{item.stage}}</p>
                   <p class="text-small"><b>Financial Status : </b>{{item.financial_status }}</p>

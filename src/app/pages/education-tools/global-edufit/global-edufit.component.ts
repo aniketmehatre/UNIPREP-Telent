@@ -10,6 +10,8 @@ import { startupDropdownData } from '../../founderstool/start-up-expense-estimat
 import { PageFacadeService } from '../../page-facade.service';
 import { EducationToolsService } from '../education-tools.service';
 import { University } from 'src/app/@Models/sop-response.model';
+import { options } from 'marked';
+import { optionsGlobal } from './global-edufit.data';
 
 @Component({
   selector: 'uni-global-edufit',
@@ -17,13 +19,13 @@ import { University } from 'src/app/@Models/sop-response.model';
   styleUrls: ['./global-edufit.component.scss']
 })
 export class GlobalEdufitComponent implements OnInit {
-  universityList: any = [{ submodule_name: 'University' }];
+  universityList: any = [];
   countryList: any = [];
   specializationList: any = [];
-  degreeList: any = [{ name: 'computer science' }, { name: 'MCA' }]
-  durationList: { name: number }[] = [{ name: 10 }, { name: 20 }, { name: 30 }];
-  costEstimationList: { name: string }[] = [{ name: 'cost-estimation' }];
-  periodsList: { name: string }[] = [{ name: 'months' }, { name: 'year' }]
+  degreeList: any = optionsGlobal.Degree;
+  durationList: { name: string }[] = optionsGlobal.CourseDuration;
+  // costEstimationList: { name: string }[] = optionsGlobal.;
+  periodsList: { name: string }[] = optionsGlobal.Stayback;
   isFromSavedData: boolean = false;
   recommadationSavedQuestionList: any = [];
   page = 1;
@@ -170,6 +172,12 @@ export class GlobalEdufitComponent implements OnInit {
 
 
   getRecommendation() {
+    this.submitted = false;
+    const formData = this.form.value;
+    if (!formData.fees || !formData.period || !formData.cost_estimation) {
+      this.submitted = true;
+      return;
+    }
     if (this.recommendRestrict) {
       this.restrict = true;
       return;
@@ -277,7 +285,7 @@ export class GlobalEdufitComponent implements OnInit {
 
   setUniversityList(event: any) {
     this.educationToolService.getUniverstityByCountry(event).subscribe(data => {
-      // this.universityList = data;
+      this.universityList = data;
     })
   }
 

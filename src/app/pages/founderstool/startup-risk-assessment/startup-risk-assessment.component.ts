@@ -87,7 +87,12 @@ export class StartupRiskAssessmentComponent implements OnInit {
     }
   }
 
-  getRecommendation() {
+  getRecommendation(productId: number) {
+    this.inValidClass = false;
+    if (!(productId in this.selectedData)) {
+      this.inValidClass = true;
+      return;
+    }
     let data: any = {
       type: this.selectedData[1],
       model: this.selectedData[2],
