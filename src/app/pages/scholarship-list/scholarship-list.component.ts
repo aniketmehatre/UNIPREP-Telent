@@ -10,9 +10,10 @@ import { DataService } from "src/app/data.service";
 import { PageFacadeService } from "../page-facade.service";
 
 @Component({
-  selector: "uni-scholarship-list",
-  templateUrl: "./scholarship-list.component.html",
-  styleUrls: ["./scholarship-list.component.scss"],
+    selector: "uni-scholarship-list",
+    templateUrl: "./scholarship-list.component.html",
+    styleUrls: ["./scholarship-list.component.scss"],
+    standalone: false
 })
 export class ScholarshipListComponent implements OnInit {
   scholarshipData: any[] = [];

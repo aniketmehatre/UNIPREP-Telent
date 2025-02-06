@@ -9,9 +9,10 @@ import { AuthService } from "src/app/Auth/auth.service";
 import { LocationService } from "src/app/location.service";
 
 @Component({
-  selector: "uni-quiz-test-list",
-  templateUrl: "./quiz-test-list.component.html",
-  styleUrls: ["./quiz-test-list.component.scss"],
+    selector: "uni-quiz-test-list",
+    templateUrl: "./quiz-test-list.component.html",
+    styleUrls: ["./quiz-test-list.component.scss"],
+    standalone: false
 })
 export class QuizTestListComponent implements OnInit {
   quizlist: any = [];

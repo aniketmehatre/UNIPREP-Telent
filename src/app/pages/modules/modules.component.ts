@@ -2,9 +2,10 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 
 @Component({
-  selector: 'uni-modules',
-  templateUrl: './modules.component.html',
-  styleUrls: ['./modules.component.scss']
+    selector: 'uni-modules',
+    templateUrl: './modules.component.html',
+    styleUrls: ['./modules.component.scss'],
+    standalone: false
 })
 export class ModulesComponent implements OnInit {
 

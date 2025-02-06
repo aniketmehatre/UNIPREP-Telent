@@ -4,9 +4,10 @@ import {environment} from '@env/environment';
 import {EmployerGlobalService} from "../employer-global.service";
 
 @Component({
-  selector: 'uni-career-tool',
-  templateUrl: './career-tool.component.html',
-  styleUrls: ['./career-tool.component.scss']
+    selector: 'uni-career-tool',
+    templateUrl: './career-tool.component.html',
+    styleUrls: ['./career-tool.component.scss'],
+    standalone: false
 })
 export class CareerToolComponent implements OnInit {
   currentEndpoint: string = "";

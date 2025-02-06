@@ -29,10 +29,11 @@ import { AssessmentService } from "src/app/pages/assessment/assessment.service";
 import { ILearnChallengeData } from "src/app/@Models/ilearn-challenge.model";
 
 @Component({
-  selector: "uni-header",
-  templateUrl: "./header.component.html",
-  styleUrls: ["./header.component.scss"],
-  encapsulation: ViewEncapsulation.None,
+    selector: "uni-header",
+    templateUrl: "./header.component.html",
+    styleUrls: ["./header.component.scss"],
+    encapsulation: ViewEncapsulation.None,
+    standalone: false
 })
 export class HeaderComponent implements OnInit, OnDestroy {
   @ViewChild("op") op!: ElementRef<HTMLInputElement>;

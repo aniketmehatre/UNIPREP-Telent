@@ -4,7 +4,8 @@ import {DialogService, DynamicDialogConfig, DynamicDialogRef} from "primeng/dyna
 @Component({
     selector: 'uni-dashboard',
     templateUrl: './editor-dialog.html',
-    styleUrls: ['./editor-dialog.scss']
+    styleUrls: ['./editor-dialog.scss'],
+    standalone: false
 })
 export class EditorDialog{
 

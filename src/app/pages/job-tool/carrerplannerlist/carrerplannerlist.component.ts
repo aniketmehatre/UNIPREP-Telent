@@ -3,9 +3,10 @@ import { Router } from '@angular/router';
 import { PageFacadeService } from '../../page-facade.service';
 
 @Component({
-  selector: 'uni-carrerplannerlist',
-  templateUrl: './carrerplannerlist.component.html',
-  styleUrls: ['./carrerplannerlist.component.scss']
+    selector: 'uni-carrerplannerlist',
+    templateUrl: './carrerplannerlist.component.html',
+    styleUrls: ['./carrerplannerlist.component.scss'],
+    standalone: false
 })
 export class CarrerplannerlistComponent implements OnInit {
   listcreerplaner:any=[];

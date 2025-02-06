@@ -1,7 +1,8 @@
 import { Directive, ElementRef } from '@angular/core';
 
 @Directive({
-  selector: '[scroll-to-bottom]'
+    selector: '[scroll-to-bottom]',
+    standalone: false
 })
 export class ScrollToBottomDirective {
   constructor(private _el: ElementRef) { }

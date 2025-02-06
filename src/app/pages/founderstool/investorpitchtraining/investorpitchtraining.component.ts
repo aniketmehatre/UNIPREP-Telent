@@ -5,9 +5,10 @@ import { Router } from '@angular/router';
 import { PageFacadeService } from '../../page-facade.service';
 
 @Component({
-  selector: 'uni-investorpitchtraining',
-  templateUrl: './investorpitchtraining.component.html',
-  styleUrls: ['./investorpitchtraining.component.scss']
+    selector: 'uni-investorpitchtraining',
+    templateUrl: './investorpitchtraining.component.html',
+    styleUrls: ['./investorpitchtraining.component.scss'],
+    standalone: false
 })
 export class InvestorpitchtrainingComponent implements OnInit {
   investorlists:any[]=[];

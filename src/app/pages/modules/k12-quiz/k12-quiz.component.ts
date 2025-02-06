@@ -10,9 +10,10 @@ import {LocationService} from "../../../location.service";
 import {NgxUiLoaderService} from "ngx-ui-loader";
 
 @Component({
-  selector: 'uni-k12-quiz',
-  templateUrl: './k12-quiz.component.html',
-  styleUrls: ['./k12-quiz.component.scss']
+    selector: 'uni-k12-quiz',
+    templateUrl: './k12-quiz.component.html',
+    styleUrls: ['./k12-quiz.component.scss'],
+    standalone: false
 })
 export class K12QuizComponent implements OnInit {
   quizData: any[] = [];

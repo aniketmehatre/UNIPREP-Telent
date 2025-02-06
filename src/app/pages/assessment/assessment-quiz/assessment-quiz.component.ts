@@ -9,9 +9,10 @@ import { SalaryConverterService } from '../../job-tool/salary-converter/salary-c
 import { MessageService } from 'primeng/api';
 
 @Component({
-  selector: 'uni-assessment-quiz',
-  templateUrl: './assessment-quiz.component.html',
-  styleUrls: ['./assessment-quiz.component.scss']
+    selector: 'uni-assessment-quiz',
+    templateUrl: './assessment-quiz.component.html',
+    styleUrls: ['./assessment-quiz.component.scss'],
+    standalone: false
 })
 export class AssessmentQuizComponent implements OnInit {
 

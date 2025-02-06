@@ -1,9 +1,10 @@
 import {Component, HostBinding, HostListener, Input, OnInit} from '@angular/core';
 
 @Component({
-  selector: 'uni-avatar',
-  template: '',
-  styleUrls: ['./avatar.component.scss']
+    selector: 'uni-avatar',
+    template: '',
+    styleUrls: ['./avatar.component.scss'],
+    standalone: false
 })
 export class AvatarComponent {
 

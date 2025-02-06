@@ -6,9 +6,10 @@ import { AuthService } from "../auth.service";
 import { MessageService } from "primeng/api";
 
 @Component({
-  selector: "app-setpassword",
-  templateUrl: "./setpassword.component.html",
-  styleUrls: ["./setpassword.component.scss"],
+    selector: "app-setpassword",
+    templateUrl: "./setpassword.component.html",
+    styleUrls: ["./setpassword.component.scss"],
+    standalone: false
 })
 export class SetpasswordComponent implements OnInit {
   public setpasswordForm: any = FormGroup;

@@ -6,9 +6,10 @@ import { AuthService } from 'src/app/Auth/auth.service';
 import { LocationService } from 'src/app/location.service';
 import { PageFacadeService } from '../../page-facade.service';
 @Component({
-  selector: 'uni-entreprenuersectorproficiency',
-  templateUrl: './entreprenuersectorproficiency.component.html',
-  styleUrls: ['./entreprenuersectorproficiency.component.scss']
+    selector: 'uni-entreprenuersectorproficiency',
+    templateUrl: './entreprenuersectorproficiency.component.html',
+    styleUrls: ['./entreprenuersectorproficiency.component.scss'],
+    standalone: false
 })
 export class EntreprenuersectorproficiencyComponent implements OnInit {
   categoryCount:number=0;

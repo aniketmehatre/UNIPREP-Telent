@@ -7,9 +7,10 @@ import {City} from "../../../@Models/cost-of-living";
 import {JobSearchService} from "../job-search.service";
 import { AuthService } from "src/app/Auth/auth.service";
 @Component({
-  selector: 'uni-job-hunt',
-  templateUrl: './job-hunt.component.html',
-  styleUrls: ['./job-hunt.component.scss']
+    selector: 'uni-job-hunt',
+    templateUrl: './job-hunt.component.html',
+    styleUrls: ['./job-hunt.component.scss'],
+    standalone: false
 })
 export class JobHuntComponent implements OnInit {
   fG: FormGroup;

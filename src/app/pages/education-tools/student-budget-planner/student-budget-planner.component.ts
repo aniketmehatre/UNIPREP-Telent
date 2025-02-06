@@ -4,9 +4,10 @@ import { TravelToolsService } from '../../travel-tools/travel-tools.service';
 import { AllCountryRes,UniversityRes,CurrencyList } from 'src/app/@Models/education-tools.model';
 import { Router } from '@angular/router';
 @Component({
-  selector: 'uni-student-budget-planner',
-  templateUrl: './student-budget-planner.component.html',
-  styleUrls: ['./student-budget-planner.component.scss']
+    selector: 'uni-student-budget-planner',
+    templateUrl: './student-budget-planner.component.html',
+    styleUrls: ['./student-budget-planner.component.scss'],
+    standalone: false
 })
 export class StudentBudgetPlannerComponent implements OnInit {
 

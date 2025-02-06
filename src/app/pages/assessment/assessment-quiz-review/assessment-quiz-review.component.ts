@@ -4,9 +4,10 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { UserquizResponse } from 'src/app/@Models/assessment.model';
 
 @Component({
-  selector: 'uni-assessment-quiz-review',
-  templateUrl: './assessment-quiz-review.component.html',
-  styleUrls: ['./assessment-quiz-review.component.scss']
+    selector: 'uni-assessment-quiz-review',
+    templateUrl: './assessment-quiz-review.component.html',
+    styleUrls: ['./assessment-quiz-review.component.scss'],
+    standalone: false
 })
 export class AssessmentQuizReviewComponent implements OnInit {
 

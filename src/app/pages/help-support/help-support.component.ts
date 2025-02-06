@@ -3,7 +3,8 @@ import {Component, OnInit} from '@angular/core';
 @Component({
     selector: 'uni-help-support',
     templateUrl: './help-support.component.html',
-    styleUrls: ['./help-support.component.scss']
+    styleUrls: ['./help-support.component.scss'],
+    standalone: false
 })
 export class HelpSupportComponent implements OnInit {
 

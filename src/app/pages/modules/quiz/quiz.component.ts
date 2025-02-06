@@ -12,9 +12,10 @@ import { Location } from '@angular/common';
 
 
 @Component({
-  selector: 'uni-quiz',
-  templateUrl: './quiz.component.html',
-  styleUrls: ['./quiz.component.scss']
+    selector: 'uni-quiz',
+    templateUrl: './quiz.component.html',
+    styleUrls: ['./quiz.component.scss'],
+    standalone: false
 })
 export class QuizComponent implements OnInit {
   quizData: any[] = [];

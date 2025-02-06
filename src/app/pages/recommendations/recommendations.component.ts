@@ -12,9 +12,10 @@ interface Provider {
 }
 
 @Component({
-  selector: 'uni-recommendations',
-  templateUrl: './recommendations.component.html',
-  styleUrls: ['./recommendations.component.scss']
+    selector: 'uni-recommendations',
+    templateUrl: './recommendations.component.html',
+    styleUrls: ['./recommendations.component.scss'],
+    standalone: false
 })
 export class RecommendationsComponent implements OnInit {
   selectedData: { [key: string]: boolean } = {};

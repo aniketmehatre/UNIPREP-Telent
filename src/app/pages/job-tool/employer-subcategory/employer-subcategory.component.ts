@@ -7,9 +7,10 @@ import { AuthService } from 'src/app/Auth/auth.service';
 import { LocationService } from 'src/app/location.service';
 
 @Component({
-  selector: 'uni-employer-subcategory',
-  templateUrl: './employer-subcategory.component.html',
-  styleUrls: ['./employer-subcategory.component.scss']
+    selector: 'uni-employer-subcategory',
+    templateUrl: './employer-subcategory.component.html',
+    styleUrls: ['./employer-subcategory.component.scss'],
+    standalone: false
 })
 export class EmployerSubcategoryComponent implements OnInit {
   subCategories: any = [];

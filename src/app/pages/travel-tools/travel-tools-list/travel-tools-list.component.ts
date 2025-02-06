@@ -1,9 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 
 @Component({
-  selector: 'uni-travel-tools-list',
-  templateUrl: './travel-tools-list.component.html',
-  styleUrls: ['./travel-tools-list.component.scss']
+    selector: 'uni-travel-tools-list',
+    templateUrl: './travel-tools-list.component.html',
+    styleUrls: ['./travel-tools-list.component.scss'],
+    standalone: false
 })
 export class TravelToolsListComponent implements OnInit {
     isLaunchingSoon = false;

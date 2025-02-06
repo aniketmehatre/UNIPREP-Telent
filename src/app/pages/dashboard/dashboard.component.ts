@@ -11,7 +11,8 @@ import {LocationService} from 'src/app/location.service';
 @Component({
     selector: 'uni-dashboard',
     templateUrl: './dashboard.component.html',
-    styleUrls: ['./dashboard.component.scss']
+    styleUrls: ['./dashboard.component.scss'],
+    standalone: false
 })
 export class DashboardComponent implements OnInit, OnChanges {
     private subs = new SubSink();

@@ -3,9 +3,10 @@ import { TravelToolsService } from '../travel-tools.service';
 import { Router } from '@angular/router';
 
 @Component({
-  selector: 'uni-global-travel-visa',
-  templateUrl: './global-travel-visa.component.html',
-  styleUrls: ['./global-travel-visa.component.scss']
+    selector: 'uni-global-travel-visa',
+    templateUrl: './global-travel-visa.component.html',
+    styleUrls: ['./global-travel-visa.component.scss'],
+    standalone: false
 })
 export class GlobalTravelVisaComponent implements OnInit {
   recommendations: { id: number, question: string }[] = [

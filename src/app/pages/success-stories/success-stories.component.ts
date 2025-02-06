@@ -5,9 +5,10 @@ import { Pipe, PipeTransform } from '@angular/core';
 
 
 @Component({
-  selector: 'uni-success-stories',
-  templateUrl: './success-stories.component.html',
-  styleUrls: ['./success-stories.component.scss']
+    selector: 'uni-success-stories',
+    templateUrl: './success-stories.component.html',
+    styleUrls: ['./success-stories.component.scss'],
+    standalone: false
 })
 export class SuccessStoriesComponent implements OnInit {
   @ViewChild('videoFrame') videoFrame: ElementRef | undefined;

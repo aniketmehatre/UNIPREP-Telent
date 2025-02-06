@@ -10,9 +10,10 @@ import { LocationService } from 'src/app/location.service';
 import { environment } from 'src/environments/environment';
 
 @Component({
-  selector: 'uni-course-list',
-  templateUrl: './course-list.component.html',
-  styleUrls: ['./course-list.component.scss']
+    selector: 'uni-course-list',
+    templateUrl: './course-list.component.html',
+    styleUrls: ['./course-list.component.scss'],
+    standalone: false
 })
 export class CourseListComponent implements OnInit {
 

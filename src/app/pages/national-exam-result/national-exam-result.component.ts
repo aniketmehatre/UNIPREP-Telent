@@ -3,9 +3,10 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { NationalExamService } from '../national-exam-categories/national-exam.service';
 
 @Component({
-  selector: 'uni-national-exam-result',
-  templateUrl: './national-exam-result.component.html',
-  styleUrls: ['./national-exam-result.component.scss']
+    selector: 'uni-national-exam-result',
+    templateUrl: './national-exam-result.component.html',
+    styleUrls: ['./national-exam-result.component.scss'],
+    standalone: false
 })
 export class NationalExamResultComponent implements OnInit {
   results: any;

@@ -33,9 +33,10 @@ import { switchMap } from "rxjs";
 import CryptoJS from "crypto-js";
 
 @Component({
-  selector: "uni-upgrade-subscription",
-  templateUrl: "./upgrade-subscription.component.html",
-  styleUrls: ["./upgrade-subscription.component.scss"],
+    selector: "uni-upgrade-subscription",
+    templateUrl: "./upgrade-subscription.component.html",
+    styleUrls: ["./upgrade-subscription.component.scss"],
+    standalone: false
 })
 export class UpgradeSubscriptionComponent implements OnInit {
   selectedButton: any;

@@ -11,9 +11,10 @@ import { FounderstoolService } from '../founderstool.service';
 import { Location } from '@angular/common';
 
 @Component({
-  selector: 'uni-entreprenuerquiz',
-  templateUrl: './entreprenuerquiz.component.html',
-  styleUrls: ['./entreprenuerquiz.component.scss']
+    selector: 'uni-entreprenuerquiz',
+    templateUrl: './entreprenuerquiz.component.html',
+    styleUrls: ['./entreprenuerquiz.component.scss'],
+    standalone: false
 })
 export class EntreprenuerquizComponent implements OnInit {
   quizData: any[] = [];

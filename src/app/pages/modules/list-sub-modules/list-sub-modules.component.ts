@@ -15,7 +15,8 @@ import {Meta, Title} from "@angular/platform-browser";
     selector: 'uni-list-sub-modules',
     templateUrl: './list-sub-modules.component.html',
     styleUrls: ['./list-sub-modules.component.scss'],
-    providers: [ConfirmationService]
+    providers: [ConfirmationService],
+    standalone: false
 })
 export class ListSubModulesComponent implements OnInit {
     subModules$!: Observable<ModuleListSub[]>;

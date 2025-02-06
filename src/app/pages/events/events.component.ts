@@ -29,9 +29,10 @@ const dateRangeValidator: any = (control: FormGroup): ValidationErrors | null =>
   return null;
 };
 @Component({
-  selector: 'uni-events',
-  templateUrl: './events.component.html',
-  styleUrls: ['./events.component.scss']
+    selector: 'uni-events',
+    templateUrl: './events.component.html',
+    styleUrls: ['./events.component.scss'],
+    standalone: false
 })
 export class EventsComponent implements OnInit {
   activeButton: number = 1;

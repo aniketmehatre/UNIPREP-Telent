@@ -12,9 +12,10 @@ import { NgxUiLoaderService } from "ngx-ui-loader";
 import { Location } from '@angular/common';
 
 @Component({
-  selector: 'uni-learninghubquiz',
-  templateUrl: './learninghubquiz.component.html',
-  styleUrls: ['./learninghubquiz.component.scss']
+    selector: 'uni-learninghubquiz',
+    templateUrl: './learninghubquiz.component.html',
+    styleUrls: ['./learninghubquiz.component.scss'],
+    standalone: false
 })
 export class LearninghubquizComponent implements OnInit {
   quizData: any[] = [];

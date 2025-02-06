@@ -3,9 +3,10 @@ import {PlanService} from "../plan.service";
 import {Router} from "@angular/router";
 
 @Component({
-  selector: 'uni-restriction-dialog',
-  templateUrl: './restriction-dialog.component.html',
-  styleUrls: ['./restriction-dialog.component.scss']
+    selector: 'uni-restriction-dialog',
+    templateUrl: './restriction-dialog.component.html',
+    styleUrls: ['./restriction-dialog.component.scss'],
+    standalone: false
 })
 export class RestrictionDialogComponent implements OnInit {
   @Input() isWhiteLabelVisible: boolean = false

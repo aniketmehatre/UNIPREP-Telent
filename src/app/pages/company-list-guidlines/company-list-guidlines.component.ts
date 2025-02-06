@@ -2,9 +2,10 @@ import { Component, OnInit } from '@angular/core';
 import { Route, Router } from '@angular/router';
 
 @Component({
-  selector: 'uni-company-list-guidlines',
-  templateUrl: './company-list-guidlines.component.html',
-  styleUrls: ['./company-list-guidlines.component.scss']
+    selector: 'uni-company-list-guidlines',
+    templateUrl: './company-list-guidlines.component.html',
+    styleUrls: ['./company-list-guidlines.component.scss'],
+    standalone: false
 })
 export class CompanyListGuidlinesComponent implements OnInit {
 

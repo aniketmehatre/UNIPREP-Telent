@@ -7,7 +7,8 @@ import { AuthService } from 'src/app/Auth/auth.service';
 @Component({
     selector: 'uni-footer-status-box',
     templateUrl: './footer-status-box.component.html',
-    styleUrls: ['./footer-status-box.component.scss']
+    styleUrls: ['./footer-status-box.component.scss'],
+    standalone: false
 })
 export class FooterStatusBoxComponent implements OnInit {
     dashboardCount: any = [];

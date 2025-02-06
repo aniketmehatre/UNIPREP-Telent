@@ -11,9 +11,10 @@ import { AuthService } from 'src/app/Auth/auth.service';
 import { NgxUiLoaderService } from "ngx-ui-loader";
 import { Location } from '@angular/common';
 @Component({
-  selector: 'uni-languagetypequiz',
-  templateUrl: './languagetypequiz.component.html',
-  styleUrls: ['./languagetypequiz.component.scss']
+    selector: 'uni-languagetypequiz',
+    templateUrl: './languagetypequiz.component.html',
+    styleUrls: ['./languagetypequiz.component.scss'],
+    standalone: false
 })
 export class LanguagetypequizComponent implements OnInit {
 

@@ -15,7 +15,8 @@ import { Location } from "@angular/common";
     selector: 'uni-k12-chapter',
     templateUrl: './k12-chapter.component.html',
     styleUrls: ['./k12-chapter.component.scss'],
-    providers: [ConfirmationService]
+    providers: [ConfirmationService],
+    standalone: false
 })
 export class K12ChapterComponent implements OnInit {
     answeredCorrect: number = 0;

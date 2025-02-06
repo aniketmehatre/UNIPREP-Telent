@@ -5,9 +5,10 @@ import { ActivatedRoute } from '@angular/router';
 import { Meta } from '@angular/platform-browser';
 
 @Component({
-  selector: 'uni-country-insights-submodule',
-  templateUrl: './country-insights-submodule.component.html',
-  styleUrls: ['./country-insights-submodule.component.scss']
+    selector: 'uni-country-insights-submodule',
+    templateUrl: './country-insights-submodule.component.html',
+    styleUrls: ['./country-insights-submodule.component.scss'],
+    standalone: false
 })
 export class CountryInsightsSubmoduleComponent implements OnInit {
   questionsList: QuestionsList[] = [];

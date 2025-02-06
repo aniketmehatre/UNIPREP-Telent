@@ -16,6 +16,7 @@ import { Location } from '@angular/common';
     selector: 'uni-user-management',
     templateUrl: './user-management.component.html',
     styleUrls: ['./user-management.component.scss'],
+    standalone: false
 })
 export class UserManagementComponent implements OnInit {
     user!: User | null;

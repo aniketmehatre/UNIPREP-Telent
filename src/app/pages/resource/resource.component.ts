@@ -16,9 +16,10 @@ interface country {
   updated_at: string,
 };
 @Component({
-  selector: 'uni-resource',
-  templateUrl: './resource.component.html',
-  styleUrls: ['./resource.component.scss']
+    selector: 'uni-resource',
+    templateUrl: './resource.component.html',
+    styleUrls: ['./resource.component.scss'],
+    standalone: false
 })
 export class ResourceComponent implements OnInit {
   filterform: FormGroup;

@@ -6,9 +6,10 @@ import { LocationService } from 'src/app/location.service';
 import { FoundersToolsData } from './founders-tool-list-data';
 
 @Component({
-  selector: 'uni-founderstoollist',
-  templateUrl: './founderstoollist.component.html',
-  styleUrls: ['./founderstoollist.component.scss']
+    selector: 'uni-founderstoollist',
+    templateUrl: './founderstoollist.component.html',
+    styleUrls: ['./founderstoollist.component.scss'],
+    standalone: false
 })
 export class FounderstoollistComponent implements OnInit {
   founderToolsList = FoundersToolsData;

@@ -3,9 +3,10 @@ import { Assessment, AssessmentResponse } from 'src/app/@Models/assessment.model
 import { AssessmentService } from '../assessment.service';
 
 @Component({
-  selector: 'uni-assessment-list',
-  templateUrl: './assessment-list.component.html',
-  styleUrls: ['./assessment-list.component.scss']
+    selector: 'uni-assessment-list',
+    templateUrl: './assessment-list.component.html',
+    styleUrls: ['./assessment-list.component.scss'],
+    standalone: false
 })
 export class AssessmentListComponent implements OnInit {
 

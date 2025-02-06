@@ -8,9 +8,10 @@ import { OrderHistory } from 'src/app/@Models/subscription';
 import { environment } from '@env/environment';
 
 @Component({
-  selector: 'uni-subscription-history',
-  templateUrl: './subscription-history.component.html',
-  styleUrls: ['./subscription-history.component.scss']
+    selector: 'uni-subscription-history',
+    templateUrl: './subscription-history.component.html',
+    styleUrls: ['./subscription-history.component.scss'],
+    standalone: false
 })
 export class SubscriptionHistoryComponent implements OnInit {
 

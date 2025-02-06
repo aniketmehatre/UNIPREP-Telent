@@ -2,9 +2,10 @@ import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { SubscriptionPlan } from "../../../@Models/subscription";
 
 @Component({
-  selector: 'uni-subscription-billing',
-  templateUrl: './subscription-billing.component.html',
-  styleUrls: ['./subscription-billing.component.scss']
+    selector: 'uni-subscription-billing',
+    templateUrl: './subscription-billing.component.html',
+    styleUrls: ['./subscription-billing.component.scss'],
+    standalone: false
 })
 export class SubscriptionBillingComponent implements OnInit {
   @Input() plan!: SubscriptionPlan | null;

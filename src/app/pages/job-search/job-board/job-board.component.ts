@@ -13,7 +13,8 @@ interface Status {
 @Component({
     selector: 'uni-job-board',
     templateUrl: './job-board.component.html',
-    styleUrls: ['./job-board.component.scss']
+    styleUrls: ['./job-board.component.scss'],
+    standalone: false
 })
 export class JobBoardComponent implements OnInit {
     addManual: FormGroup

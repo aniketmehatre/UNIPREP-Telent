@@ -20,9 +20,10 @@ import { AuthService } from 'src/app/Auth/auth.service';
 import { DomSanitizer } from '@angular/platform-browser';
 
 @Component({
-  selector: 'uni-header-search',
-  templateUrl: './header-search.component.html',
-  styleUrls: ['./header-search.component.scss']
+    selector: 'uni-header-search',
+    templateUrl: './header-search.component.html',
+    styleUrls: ['./header-search.component.scss'],
+    standalone: false
 })
 export class HeaderSearchComponent implements OnInit, OnDestroy {
   @ViewChild('searchInput', { static: false, read: ElementRef }) elRef: any;

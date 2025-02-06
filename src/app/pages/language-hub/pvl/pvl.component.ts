@@ -8,9 +8,10 @@ import { LanguageArrayGlobalService } from "../language-array-global.service";
 import {Location} from "@angular/common";
 
 @Component({
-  selector: "app-pvl",
-  templateUrl: "./pvl.component.html",
-  styleUrls: ["./pvl.component.scss"],
+    selector: "app-pvl",
+    templateUrl: "./pvl.component.html",
+    styleUrls: ["./pvl.component.scss"],
+    standalone: false
 })
 export class PvlComponent implements OnInit {
   isSkeletonVisible: boolean = true;

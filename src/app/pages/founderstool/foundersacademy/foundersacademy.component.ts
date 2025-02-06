@@ -4,9 +4,10 @@ import { FounderstoolService } from '../founderstool.service';
 import { Router } from '@angular/router';
 
 @Component({
-  selector: 'uni-foundersacademy',
-  templateUrl: './foundersacademy.component.html',
-  styleUrls: ['./foundersacademy.component.scss']
+    selector: 'uni-foundersacademy',
+    templateUrl: './foundersacademy.component.html',
+    styleUrls: ['./foundersacademy.component.scss'],
+    standalone: false
 })
 export class FoundersacademyComponent implements OnInit {
   @ViewChild('videoFrame') videoFrame: ElementRef | undefined;

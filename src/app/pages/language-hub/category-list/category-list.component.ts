@@ -12,7 +12,8 @@ import { LocationService } from 'src/app/location.service';
 @Component({
     selector: 'uni-category-list',
     templateUrl: './category-list.component.html',
-    styleUrls: ['./category-list.component.scss']
+    styleUrls: ['./category-list.component.scss'],
+    standalone: false
 })
 export class CategoryListComponent implements OnInit {
 

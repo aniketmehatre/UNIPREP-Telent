@@ -5,9 +5,10 @@ import { interval, Subscription, takeWhile } from 'rxjs';
 import { Location } from '@angular/common';
 
 @Component({
-  selector: 'uni-national-exam-questions',
-  templateUrl: './national-exam-questions.component.html',
-  styleUrls: ['./national-exam-questions.component.scss']
+    selector: 'uni-national-exam-questions',
+    templateUrl: './national-exam-questions.component.html',
+    styleUrls: ['./national-exam-questions.component.scss'],
+    standalone: false
 })
 export class NationalExamQuestionsComponent implements OnInit {
   questions: any;

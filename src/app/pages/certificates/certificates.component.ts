@@ -5,9 +5,10 @@ import { DomSanitizer, Meta, SafeResourceUrl } from '@angular/platform-browser';
 import { MessageService } from 'primeng/api';
 
 @Component({
-  selector: 'uni-certificates',
-  templateUrl: './certificates.component.html',
-  styleUrls: ['./certificates.component.scss']
+    selector: 'uni-certificates',
+    templateUrl: './certificates.component.html',
+    styleUrls: ['./certificates.component.scss'],
+    standalone: false
 })
 export class CertificatesComponent implements OnInit {
   certificateValidOrInvalid: SafeResourceUrl | null = null;

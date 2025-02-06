@@ -15,7 +15,8 @@ import { Location } from "@angular/common";
     selector: 'uni-k12-board',
     templateUrl: './k12-board.component.html',
     styleUrls: ['./k12-board.component.scss'],
-    providers: [ConfirmationService]
+    providers: [ConfirmationService],
+    standalone: false
 })
 export class K12BoardComponent implements OnInit {
     answeredCorrect: number = 0;

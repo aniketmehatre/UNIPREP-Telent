@@ -23,10 +23,11 @@ import { LocationService } from "src/app/location.service";
 import {MarkdownService} from "ngx-markdown";
 
 @Component({
-  selector: "uni-question-list",
-  templateUrl: "./question-list.component.html",
-  styleUrls: ["./question-list.component.scss"],
-  providers: [MarkdownService]
+    selector: "uni-question-list",
+    templateUrl: "./question-list.component.html",
+    styleUrls: ["./question-list.component.scss"],
+    providers: [MarkdownService],
+    standalone: false
 })
 export class QuestionListComponent implements OnInit {
   @ViewChild("carouselVideoElm") carouselVideoElm: any;
@@ -855,7 +856,10 @@ export class QuestionListComponent implements OnInit {
   }
 
 }
-@Pipe({ name: 'safe' })
+@Pipe({
+    name: 'safe',
+    standalone: false
+})
 export class SafePipe implements PipeTransform {
   constructor(private sanitizer: DomSanitizer) { }
 

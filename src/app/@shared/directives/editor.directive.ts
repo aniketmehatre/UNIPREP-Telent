@@ -13,8 +13,9 @@ import {SubSink} from "subsink";
 var worddiff = require('word-diff');
 
 @Directive({
-  selector: '[uniEditor]',
-  providers: [DialogService]
+    selector: '[uniEditor]',
+    providers: [DialogService],
+    standalone: false
 })
 export class EditorDirective implements OnInit, OnDestroy {
 

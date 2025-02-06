@@ -5,9 +5,10 @@ import { Pipe, PipeTransform } from '@angular/core';
 
 
 @Component({
-  selector: 'uni-tutorials',
-  templateUrl: './tutorials.component.html',
-  styleUrls: ['./tutorials.component.scss']
+    selector: 'uni-tutorials',
+    templateUrl: './tutorials.component.html',
+    styleUrls: ['./tutorials.component.scss'],
+    standalone: false
 })
 
 export class TutorialsComponent implements OnInit {

@@ -7,7 +7,8 @@ import { AuthService } from "src/app/Auth/auth.service";
 @Component({
     selector: 'uni-job-search',
     templateUrl: './job-search.component.html',
-    styleUrls: ['./job-search.component.scss']
+    styleUrls: ['./job-search.component.scss'],
+    standalone: false
 })
 
 export class JobSearchComponent implements OnInit {

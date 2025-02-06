@@ -8,9 +8,10 @@ import { MessageService } from 'primeng/api';
 import { PageFacadeService } from '../page-facade.service';
 import { LocationService } from 'src/app/location.service';
 @Component({
-  selector: 'uni-mycertificate',
-  templateUrl: './mycertificate.component.html',
-  styleUrls: ['./mycertificate.component.scss']
+    selector: 'uni-mycertificate',
+    templateUrl: './mycertificate.component.html',
+    styleUrls: ['./mycertificate.component.scss'],
+    standalone: false
 })
 export class MycertificateComponent implements OnInit {
 certificatesList:any[]=[]

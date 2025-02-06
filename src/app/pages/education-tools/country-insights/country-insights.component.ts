@@ -4,9 +4,10 @@ import { CountryInsight } from 'src/app/@Models/country-insights.model';
 import { Router } from '@angular/router';
 
 @Component({
-  selector: 'uni-country-insights',
-  templateUrl: './country-insights.component.html',
-  styleUrls: ['./country-insights.component.scss']
+    selector: 'uni-country-insights',
+    templateUrl: './country-insights.component.html',
+    styleUrls: ['./country-insights.component.scss'],
+    standalone: false
 })
 export class CountryInsightsComponent implements OnInit {
   first = 0;

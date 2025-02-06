@@ -7,9 +7,10 @@ import { TravelCostEstimator } from 'src/app/@Models/chat-gpt.model';
 import { PageFacadeService } from '../../page-facade.service';
 
 @Component({
-  selector: 'uni-careerplannercountrywise',
-  templateUrl: './careerplannercountrywise.component.html',
-  styleUrls: ['./careerplannercountrywise.component.scss']
+    selector: 'uni-careerplannercountrywise',
+    templateUrl: './careerplannercountrywise.component.html',
+    styleUrls: ['./careerplannercountrywise.component.scss'],
+    standalone: false
 })
 export class CareerplannercountrywiseComponent implements OnInit {
   countries:any=[];

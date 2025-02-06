@@ -22,9 +22,10 @@ import { NgxUiLoaderService } from "ngx-ui-loader";
 import { HttpClient } from "@angular/common/http";
 import CryptoJS from "crypto-js";
 @Component({
-  selector: "uni-subscription-data",
-  templateUrl: "./subscription-data.component.html",
-  styleUrls: ["./subscription-data.component.scss"],
+    selector: "uni-subscription-data",
+    templateUrl: "./subscription-data.component.html",
+    styleUrls: ["./subscription-data.component.scss"],
+    standalone: false
 })
 export class SubscriptionDataComponent implements OnInit {
   selectedButton: any;

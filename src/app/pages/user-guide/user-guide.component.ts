@@ -3,9 +3,10 @@ import { UserGuideService } from "./user-guide.service";
 import { DomSanitizer, SafeHtml, SafeUrl } from "@angular/platform-browser";
 
 @Component({
-  selector: "uni-user-guide",
-  templateUrl: "./user-guide.component.html",
-  styleUrls: ["./user-guide.component.scss"],
+    selector: "uni-user-guide",
+    templateUrl: "./user-guide.component.html",
+    styleUrls: ["./user-guide.component.scss"],
+    standalone: false
 })
 export class UserGuideComponent implements OnInit {
   pdfUrl: SafeUrl | undefined;

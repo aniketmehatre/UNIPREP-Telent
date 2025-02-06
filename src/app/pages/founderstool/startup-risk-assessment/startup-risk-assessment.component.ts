@@ -4,9 +4,10 @@ import { FounderstoolService } from '../founderstool.service';
 import { Router } from '@angular/router';
 
 @Component({
-  selector: 'uni-startup-risk-assessment',
-  templateUrl: './startup-risk-assessment.component.html',
-  styleUrls: ['./startup-risk-assessment.component.scss']
+    selector: 'uni-startup-risk-assessment',
+    templateUrl: './startup-risk-assessment.component.html',
+    styleUrls: ['./startup-risk-assessment.component.scss'],
+    standalone: false
 })
 export class StartupRiskAssessmentComponent implements OnInit {
   recommendations: { id: number, question: string }[] = [

@@ -7,9 +7,10 @@ import { LocationService } from 'src/app/location.service';
 import { PageFacadeService } from '../../page-facade.service';
 
 @Component({
-  selector: 'uni-entreprenuerskillmodule',
-  templateUrl: './entreprenuerskillmodule.component.html',
-  styleUrls: ['./entreprenuerskillmodule.component.scss']
+    selector: 'uni-entreprenuerskillmodule',
+    templateUrl: './entreprenuerskillmodule.component.html',
+    styleUrls: ['./entreprenuerskillmodule.component.scss'],
+    standalone: false
 })
 export class EntreprenuerskillmoduleComponent implements OnInit {
   categoryCount:number=0;

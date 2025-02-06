@@ -4,9 +4,10 @@ import { Router } from '@angular/router';
 import { Location } from "@angular/common"
 
 @Component({
-  selector: 'uni-national-exam-categories',
-  templateUrl: './national-exam-categories.component.html',
-  styleUrls: ['./national-exam-categories.component.scss']
+    selector: 'uni-national-exam-categories',
+    templateUrl: './national-exam-categories.component.html',
+    styleUrls: ['./national-exam-categories.component.scss'],
+    standalone: false
 })
 export class NationalExamCategoriesComponent implements OnInit {
   categories: any;

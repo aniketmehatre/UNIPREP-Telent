@@ -11,7 +11,8 @@ import { AuthService } from 'src/app/Auth/auth.service';
 @Component({
     selector: 'uni-levels',
     templateUrl: './levels.component.html',
-    styleUrls: ['./levels.component.scss']
+    styleUrls: ['./levels.component.scss'],
+    standalone: false
 })
 export class LevelsComponent implements OnInit {
 

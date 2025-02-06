@@ -8,9 +8,10 @@ import {
 import { CostOfLivingService } from "../cost-of-living.service";
 
 @Component({
-  selector: "uni-comparision",
-  templateUrl: "./comparision.component.html",
-  styleUrls: ["./comparision.component.scss"],
+    selector: "uni-comparision",
+    templateUrl: "./comparision.component.html",
+    styleUrls: ["./comparision.component.scss"],
+    standalone: false
 })
 export class ComparisionComponent implements OnInit {
   @Input() sourceCountryPrices!: CostOfLiving;

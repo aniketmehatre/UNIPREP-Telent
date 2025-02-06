@@ -7,6 +7,7 @@ import {SubscriptionService} from "../subscription.service";
     selector: "uni-subscription-list",
     templateUrl: "./subscription-list.component.html",
     styleUrls: ["./subscription-list.component.scss"],
+    standalone: false
 })
 export class SubscriptionListComponent implements OnInit {
     @Input() plans: customsopSubscriptionplans[] = [];

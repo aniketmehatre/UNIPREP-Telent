@@ -6,9 +6,10 @@ import { FounderstoolService } from '../founderstool.service';
 import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
 
 @Component({
-  selector: 'uni-wealthleaderslist',
-  templateUrl: './wealthleaderslist.component.html',
-  styleUrls: ['./wealthleaderslist.component.scss']
+    selector: 'uni-wealthleaderslist',
+    templateUrl: './wealthleaderslist.component.html',
+    styleUrls: ['./wealthleaderslist.component.scss'],
+    standalone: false
 })
 export class WealthleaderslistComponent implements OnInit {
   valueNearYouFilter: string = '';

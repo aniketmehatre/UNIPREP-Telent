@@ -5,9 +5,10 @@ import { CostOfLivingService } from '../../job-tool/cost-of-living/cost-of-livin
 import { City } from 'src/app/@Models/cost-of-living';
 
 @Component({
-  selector: 'uni-trip-length-finder',
-  templateUrl: './trip-length-finder.component.html',
-  styleUrls: ['./trip-length-finder.component.scss']
+    selector: 'uni-trip-length-finder',
+    templateUrl: './trip-length-finder.component.html',
+    styleUrls: ['./trip-length-finder.component.scss'],
+    standalone: false
 })
 export class TripLengthFinderComponent implements OnInit {
 

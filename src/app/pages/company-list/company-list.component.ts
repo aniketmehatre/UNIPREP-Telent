@@ -11,9 +11,10 @@ import { PageFacadeService } from '../page-facade.service';
 import { LocationService } from 'src/app/location.service';
 
 @Component({
-  selector: 'uni-company-list',
-  templateUrl: './company-list.component.html',
-  styleUrls: ['./company-list.component.scss']
+    selector: 'uni-company-list',
+    templateUrl: './company-list.component.html',
+    styleUrls: ['./company-list.component.scss'],
+    standalone: false
 })
 export class CompanyListComponent implements OnInit {
   companyListData: any[] = []

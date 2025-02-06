@@ -13,9 +13,10 @@ export interface selectList {
   name: string;
 }
 @Component({
-  selector: 'uni-marketing-analysis',
-  templateUrl: './marketing-analysis.component.html',
-  styleUrls: ['./marketing-analysis.component.scss']
+    selector: 'uni-marketing-analysis',
+    templateUrl: './marketing-analysis.component.html',
+    styleUrls: ['./marketing-analysis.component.scss'],
+    standalone: false
 })
 export class MarketingAnalysisComponent implements OnInit {
   locationList: any[] = [];

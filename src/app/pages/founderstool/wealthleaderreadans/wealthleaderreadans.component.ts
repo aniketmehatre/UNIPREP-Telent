@@ -6,9 +6,10 @@ import { Meta } from '@angular/platform-browser';
 import { MessageService } from 'primeng/api';
 
 @Component({
-  selector: 'uni-wealthleaderreadans',
-  templateUrl: './wealthleaderreadans.component.html',
-  styleUrls: ['./wealthleaderreadans.component.scss']
+    selector: 'uni-wealthleaderreadans',
+    templateUrl: './wealthleaderreadans.component.html',
+    styleUrls: ['./wealthleaderreadans.component.scss'],
+    standalone: false
 })
 export class WealthleaderreadansComponent implements OnInit {
   wealthleadersname:any;

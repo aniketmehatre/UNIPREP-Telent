@@ -9,9 +9,10 @@ import { Location } from '@angular/common';
 
 
 @Component({
-  selector: 'uni-export-credit',
-  templateUrl: './export-credit.component.html',
-  styleUrls: ['./export-credit.component.scss']
+    selector: 'uni-export-credit',
+    templateUrl: './export-credit.component.html',
+    styleUrls: ['./export-credit.component.scss'],
+    standalone: false
 })
 export class ExportCreditComponent implements OnInit {
  

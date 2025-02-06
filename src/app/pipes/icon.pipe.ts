@@ -1,7 +1,8 @@
 import { Pipe, PipeTransform } from '@angular/core';
 
 @Pipe({
-  name: 'icon'
+    name: 'icon',
+    standalone: false
 })
 export class IconPipe implements PipeTransform {
 

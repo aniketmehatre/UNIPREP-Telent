@@ -5,7 +5,8 @@ import {SubscriptionService} from "../subscription.service";
 @Component({
     selector: 'uni-buy-credits',
     templateUrl: './buy-credits.component.html',
-    styleUrls: ['./buy-credits.component.scss']
+    styleUrls: ['./buy-credits.component.scss'],
+    standalone: false
 })
 export class BuyCreditsComponent implements OnInit {
     stage = 1;

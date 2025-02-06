@@ -10,7 +10,8 @@ import { AuthService } from 'src/app/Auth/auth.service';
 @Component({
     selector: 'uni-language-list',
     templateUrl: './language-list.component.html',
-    styleUrls: ['./language-list.component.scss']
+    styleUrls: ['./language-list.component.scss'],
+    standalone: false
 })
 export class LanguageListComponent implements OnInit {
 

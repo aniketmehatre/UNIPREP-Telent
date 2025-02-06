@@ -5,21 +5,22 @@ import { ActivatedRoute, NavigationEnd, Router } from '@angular/router';
 import { filter, map } from 'rxjs';
 
 @Component({
-  selector: 'uni-side-menu',
-  templateUrl: './side-menu.component.html',
-  styleUrls: ['./side-menu.component.scss'],
-  changeDetection: ChangeDetectionStrategy.OnPush,
-  animations:[
-    trigger('accordion', [
-      transition(':enter', [
-        style({ height: 0 }),
-        animate('100ms', style({ "height": '*' })),
-      ]),
-      transition(':leave', [
-        animate('100ms', style({ "height": 0 }))
-      ])
-    ]),
-  ]
+    selector: 'uni-side-menu',
+    templateUrl: './side-menu.component.html',
+    styleUrls: ['./side-menu.component.scss'],
+    changeDetection: ChangeDetectionStrategy.OnPush,
+    animations: [
+        trigger('accordion', [
+            transition(':enter', [
+                style({ height: 0 }),
+                animate('100ms', style({ "height": '*' })),
+            ]),
+            transition(':leave', [
+                animate('100ms', style({ "height": 0 }))
+            ])
+        ]),
+    ],
+    standalone: false
 })
 export class SideMenuComponent implements OnInit {
 

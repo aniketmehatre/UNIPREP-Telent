@@ -7,9 +7,10 @@ import { CategoryResponse } from 'src/app/@Models/career-tool-category.model';
 import { AuthService } from "src/app/Auth/auth.service";
 
 @Component({
-  selector: 'uni-academic-tools-stream',
-  templateUrl: './academic-tools-stream.component.html',
-  styleUrls: ['./academic-tools-stream.component.scss']
+    selector: 'uni-academic-tools-stream',
+    templateUrl: './academic-tools-stream.component.html',
+    styleUrls: ['./academic-tools-stream.component.scss'],
+    standalone: false
 })
 export class AcademicToolsStreamComponent implements OnInit {
   modulesList: any[] = []

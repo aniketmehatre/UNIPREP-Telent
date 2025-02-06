@@ -4,7 +4,8 @@ import { FaqService } from './faq.service';
 @Component({
     selector: 'uni-faq',
     templateUrl: './faq.component.html',
-    styleUrls: ['./faq.component.scss']
+    styleUrls: ['./faq.component.scss'],
+    standalone: false
 })
 export class FaqComponent implements OnInit {
     faqcatlist: any[] = [];

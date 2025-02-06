@@ -7,9 +7,10 @@ import { WindowRefService } from 'src/app/pages/subscription/window-ref.service'
 import { BehaviorSubject } from 'rxjs';
 
 @Component({
-  selector: 'uni-enterprise-subscription',
-  templateUrl: './enterprise-subscription.component.html',
-  styleUrls: ['./enterprise-subscription.component.scss']
+    selector: 'uni-enterprise-subscription',
+    templateUrl: './enterprise-subscription.component.html',
+    styleUrls: ['./enterprise-subscription.component.scss'],
+    standalone: false
 })
 export class EnterpriseSubscriptionComponent implements OnInit,OnDestroy {
   collegeName: string = "";

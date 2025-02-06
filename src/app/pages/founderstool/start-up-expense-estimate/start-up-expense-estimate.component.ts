@@ -10,9 +10,10 @@ import { FounderstoolService } from '../founderstool.service';
 import { selectList } from '../marketing-analysis/marketing-analysis.component';
 
 @Component({
-  selector: 'uni-start-up-expense-estimate',
-  templateUrl: './start-up-expense-estimate.component.html',
-  styleUrls: ['./start-up-expense-estimate.component.scss']
+    selector: 'uni-start-up-expense-estimate',
+    templateUrl: './start-up-expense-estimate.component.html',
+    styleUrls: ['./start-up-expense-estimate.component.scss'],
+    standalone: false
 })
 export class StartUpExpenseEstimateComponent implements OnInit {
   locationList: any[] = [{ name: 'India' }];

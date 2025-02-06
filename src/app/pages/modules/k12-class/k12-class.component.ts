@@ -15,7 +15,8 @@ import { Location } from "@angular/common";
     selector: 'uni-k12-class',
     templateUrl: './k12-class.component.html',
     styleUrls: ['./k12-class.component.scss'],
-    providers: [ConfirmationService]
+    providers: [ConfirmationService],
+    standalone: false
 })
 export class K12ClassComponent implements OnInit {
     subModuleList: any[] = [];

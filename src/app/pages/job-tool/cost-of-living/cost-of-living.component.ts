@@ -8,9 +8,10 @@ import { MessageService } from 'primeng/api';
 import { LocationService } from 'src/app/location.service';
 
 @Component({
-  selector: 'uni-cost-of-living',
-  templateUrl: './cost-of-living.component.html',
-  styleUrls: ['./cost-of-living.component.scss']
+    selector: 'uni-cost-of-living',
+    templateUrl: './cost-of-living.component.html',
+    styleUrls: ['./cost-of-living.component.scss'],
+    standalone: false
 })
 export class CostOfLivingComponent implements OnInit {
 

@@ -18,9 +18,10 @@ import {FacebookLoginProvider} from "angularx-social-login";
 // import {FacebookService} from "ngx-facebook";
 import {LocationService} from "../../location.service";
 @Component({
-  selector: "app-login",
-  templateUrl: "./login.component.html",
-  styleUrls: ["./login.component.scss"],
+    selector: "app-login",
+    templateUrl: "./login.component.html",
+    styleUrls: ["./login.component.scss"],
+    standalone: false
 })
 export class LoginComponent implements OnInit, OnDestroy {
   @ViewChild('button2') button2!: ElementRef;

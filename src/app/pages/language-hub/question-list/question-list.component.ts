@@ -16,7 +16,8 @@ import {LanguageArrayGlobalService} from "../language-array-global.service";
 @Component({
     selector: 'uni-question-list',
     templateUrl: './question-list.component.html',
-    styleUrls: ['./question-list.component.scss']
+    styleUrls: ['./question-list.component.scss'],
+    standalone: false
 })
 export class QuestionListComponent implements OnInit {
     jsonData: any = [

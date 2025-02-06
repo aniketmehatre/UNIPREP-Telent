@@ -10,9 +10,10 @@ import { FounderstoolService } from '../founderstool.service';
 import { selectList } from '../marketing-analysis/marketing-analysis.component';
 
 @Component({
-  selector: 'uni-business-forecasting-tool',
-  templateUrl: './business-forecasting-tool.component.html',
-  styleUrls: ['./business-forecasting-tool.component.scss']
+    selector: 'uni-business-forecasting-tool',
+    templateUrl: './business-forecasting-tool.component.html',
+    styleUrls: ['./business-forecasting-tool.component.scss'],
+    standalone: false
 })
 export class BusinessForecastingToolComponent implements OnInit {
   locationList: any[] = [];

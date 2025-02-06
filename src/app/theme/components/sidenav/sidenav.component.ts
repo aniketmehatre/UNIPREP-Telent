@@ -26,9 +26,10 @@ export interface SideMenu {
 }
 
 @Component({
-  selector: "uni-sidenav",
-  templateUrl: "./sidenav.component.html",
-  styleUrls: ["./sidenav.component.scss"],
+    selector: "uni-sidenav",
+    templateUrl: "./sidenav.component.html",
+    styleUrls: ["./sidenav.component.scss"],
+    standalone: false
 })
 export class SidenavComponent {
   @ContentChild("appTitle") appTitle!: TemplateRef<any>;

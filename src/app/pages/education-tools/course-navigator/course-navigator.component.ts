@@ -7,9 +7,10 @@ import { CourseNavigator, EducatiionsRec } from 'src/app/@Models/course-navigato
 import { CurrentSpecialization, BasicType, RecommandationQuestion } from 'src/app/@Models/recommandation-question.model';
 
 @Component({
-  selector: 'uni-course-navigator',
-  templateUrl: './course-navigator.component.html',
-  styleUrls: ['./course-navigator.component.scss']
+    selector: 'uni-course-navigator',
+    templateUrl: './course-navigator.component.html',
+    styleUrls: ['./course-navigator.component.scss'],
+    standalone: false
 })
 export class CourseNavigatorComponent implements OnInit {
 

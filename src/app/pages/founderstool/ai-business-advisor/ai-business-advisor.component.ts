@@ -4,9 +4,10 @@ import { FounderstoolService } from '../founderstool.service';
 import { Router } from '@angular/router';
 
 @Component({
-  selector: 'uni-ai-business-advisor',
-  templateUrl: './ai-business-advisor.component.html',
-  styleUrls: ['./ai-business-advisor.component.scss']
+    selector: 'uni-ai-business-advisor',
+    templateUrl: './ai-business-advisor.component.html',
+    styleUrls: ['./ai-business-advisor.component.scss'],
+    standalone: false
 })
 export class AiBusinessAdvisorComponent implements OnInit {
   strategyBusinessList: any = [{

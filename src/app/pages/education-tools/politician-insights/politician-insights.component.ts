@@ -15,9 +15,10 @@ export interface Politician {
 }
 
 @Component({
-  selector: 'uni-politician-insights',
-  templateUrl: './politician-insights.component.html',
-  styleUrls: ['./politician-insights.component.scss']
+    selector: 'uni-politician-insights',
+    templateUrl: './politician-insights.component.html',
+    styleUrls: ['./politician-insights.component.scss'],
+    standalone: false
 })
 export class PoliticianInsightsComponent implements OnInit, OnDestroy {
   recommendations: { id: number, question: string }[] = [

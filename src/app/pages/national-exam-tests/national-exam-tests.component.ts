@@ -4,9 +4,10 @@ import { ActivatedRoute, Router } from "@angular/router"
 import { Location } from "@angular/common"
 import { AuthService } from "src/app/Auth/auth.service";
 @Component({
-	selector: "uni-national-exam-tests",
-	templateUrl: "./national-exam-tests.component.html",
-	styleUrls: ["./national-exam-tests.component.scss"],
+    selector: "uni-national-exam-tests",
+    templateUrl: "./national-exam-tests.component.html",
+    styleUrls: ["./national-exam-tests.component.scss"],
+    standalone: false
 })
 export class NationalExamTestsComponent implements OnInit {
 	tests: any

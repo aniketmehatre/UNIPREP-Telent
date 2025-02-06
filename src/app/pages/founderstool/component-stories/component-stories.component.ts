@@ -8,9 +8,10 @@ import { Meta } from '@angular/platform-browser';
 import { DataService } from 'src/app/data.service';
 
 @Component({
-  selector: 'uni-component-stories',
-  templateUrl: './component-stories.component.html',
-  styleUrls: ['./component-stories.component.scss']
+    selector: 'uni-component-stories',
+    templateUrl: './component-stories.component.html',
+    styleUrls: ['./component-stories.component.scss'],
+    standalone: false
 })
 export class ComponentStoriesComponent implements OnInit {
 

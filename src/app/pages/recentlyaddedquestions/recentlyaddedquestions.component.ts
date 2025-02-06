@@ -14,9 +14,10 @@ import {loadQuestionList} from "../module-store/module-store.actions";
 import {LocationService} from "../../location.service";
 
 @Component({
-  selector: 'uni-recentlyaddedquestions',
-  templateUrl: './recentlyaddedquestions.component.html',
-  styleUrls: ['./recentlyaddedquestions.component.scss']
+    selector: 'uni-recentlyaddedquestions',
+    templateUrl: './recentlyaddedquestions.component.html',
+    styleUrls: ['./recentlyaddedquestions.component.scss'],
+    standalone: false
 })
 export class RecentlyaddedquestionsComponent implements OnInit {
   @ViewChild('carouselVideoElm') carouselVideoElm: any;

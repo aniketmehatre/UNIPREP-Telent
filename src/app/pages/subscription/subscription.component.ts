@@ -31,9 +31,10 @@ import {
 import CryptoJS from "crypto-js";
 
 @Component({
-  selector: "uni-subscription",
-  templateUrl: "./subscription.component.html",
-  styleUrls: ["./subscription.component.scss"],
+    selector: "uni-subscription",
+    templateUrl: "./subscription.component.html",
+    styleUrls: ["./subscription.component.scss"],
+    standalone: false
 })
 export class SubscriptionComponent implements OnInit {
   stage = 1;

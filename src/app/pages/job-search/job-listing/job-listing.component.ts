@@ -11,7 +11,8 @@ import {filter} from "rxjs";
 @Component({
     selector: 'uni-job-listing',
     templateUrl: './job-listing.component.html',
-    styleUrls: ['./job-listing.component.scss']
+    styleUrls: ['./job-listing.component.scss'],
+    standalone: false
 })
 export class JobListingComponent implements OnInit {
     jobs: any[] = [];

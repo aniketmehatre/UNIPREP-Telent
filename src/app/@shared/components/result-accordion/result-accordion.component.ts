@@ -17,9 +17,10 @@ export interface ResultAccordionData {
 }
 
 @Component({
-  selector: 'uni-result-accordion',
-  templateUrl: './result-accordion.component.html',
-  styleUrls: ['./result-accordion.component.scss']
+    selector: 'uni-result-accordion',
+    templateUrl: './result-accordion.component.html',
+    styleUrls: ['./result-accordion.component.scss'],
+    standalone: false
 })
 export class ResultAccordionComponent {
 

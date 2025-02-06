@@ -5,7 +5,8 @@ import {MessageService} from "primeng/api";
 @Component({
     selector: 'uni-support-card',
     templateUrl: './support-card.component.html',
-    styleUrls: ['./support-card.component.scss']
+    styleUrls: ['./support-card.component.scss'],
+    standalone: false
 })
 export class SupportCardComponent implements OnInit {
 

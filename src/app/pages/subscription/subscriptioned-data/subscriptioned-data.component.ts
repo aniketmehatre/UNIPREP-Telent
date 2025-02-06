@@ -1,9 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 
 @Component({
-  selector: 'uni-subscriptioned-data',
-  templateUrl: './subscriptioned-data.component.html',
-  styleUrls: ['./subscriptioned-data.component.scss']
+    selector: 'uni-subscriptioned-data',
+    templateUrl: './subscriptioned-data.component.html',
+    styleUrls: ['./subscriptioned-data.component.scss'],
+    standalone: false
 })
 export class SubscriptionedDataComponent implements OnInit {
 

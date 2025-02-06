@@ -11,9 +11,10 @@ import { PageFacadeService } from '../page-facade.service';
 import { LocationService } from 'src/app/location.service';
 
 @Component({
-  selector: 'uni-investor-list',
-  templateUrl: './investor-list.component.html',
-  styleUrls: ['./investor-list.component.scss']
+    selector: 'uni-investor-list',
+    templateUrl: './investor-list.component.html',
+    styleUrls: ['./investor-list.component.scss'],
+    standalone: false
 })
 export class InvestorListComponent implements OnInit {
   investorData: any[] = []

@@ -12,9 +12,10 @@ import { CvBuilderService } from './cv-builder.service';
 import { JobSearchService } from '../../job-search/job-search.service';
 import { City } from 'src/app/@Models/cost-of-living';
 @Component({
-  selector: 'uni-cv-builder',
-  templateUrl: './cv-builder.component.html',
-  styleUrls: ['./cv-builder.component.scss'],
+    selector: 'uni-cv-builder',
+    templateUrl: './cv-builder.component.html',
+    styleUrls: ['./cv-builder.component.scss'],
+    standalone: false
 })
 export class CvBuilderComponent implements OnInit  {
   selectedResumeLevel: string = "";

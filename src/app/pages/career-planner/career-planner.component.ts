@@ -11,9 +11,10 @@ interface Specialisation {
   specialisation_name: string;
 }
 @Component({
-  selector: 'uni-career-planner',
-  templateUrl: './career-planner.component.html',
-  styleUrls: ['./career-planner.component.scss']
+    selector: 'uni-career-planner',
+    templateUrl: './career-planner.component.html',
+    styleUrls: ['./career-planner.component.scss'],
+    standalone: false
 })
 
 export class CareerPlannerComponent implements OnInit {

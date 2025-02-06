@@ -16,6 +16,7 @@ import { LocationService } from "../location.service";
     selector: "uni-pages",
     templateUrl: "./pages.component.html",
     styleUrls: ["./pages.component.scss"],
+    standalone: false
 })
 export class PagesComponent implements OnInit, OnDestroy {
     @ViewChild('videoFrame') videoFrame: ElementRef | undefined;

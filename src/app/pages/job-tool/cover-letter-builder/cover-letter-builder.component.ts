@@ -9,9 +9,10 @@ import Swiper from 'swiper';
 import { CvBuilderService } from '../cv-builder/cv-builder.service';
 
 @Component({
-  selector: 'uni-cover-letter-builder',
-  templateUrl: './cover-letter-builder.component.html',
-  styleUrls: ['./cover-letter-builder.component.scss']
+    selector: 'uni-cover-letter-builder',
+    templateUrl: './cover-letter-builder.component.html',
+    styleUrls: ['./cover-letter-builder.component.scss'],
+    standalone: false
 })
 export class CoverLetterBuilderComponent implements OnInit {
   items!: MenuItem[];

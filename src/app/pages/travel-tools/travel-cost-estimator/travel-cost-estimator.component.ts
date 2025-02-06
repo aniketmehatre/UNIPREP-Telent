@@ -8,9 +8,10 @@ import { CostOfLivingService } from '../../job-tool/cost-of-living/cost-of-livin
 import { City } from 'src/app/@Models/cost-of-living';
 
 @Component({
-  selector: 'uni-travel-cost-estimator',
-  templateUrl: './travel-cost-estimator.component.html',
-  styleUrls: ['./travel-cost-estimator.component.scss']
+    selector: 'uni-travel-cost-estimator',
+    templateUrl: './travel-cost-estimator.component.html',
+    styleUrls: ['./travel-cost-estimator.component.scss'],
+    standalone: false
 })
 export class TravelCostEstimatorComponent implements OnInit {
 

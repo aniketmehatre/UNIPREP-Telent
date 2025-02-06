@@ -3,9 +3,10 @@ import { PageFacadeService } from '../page-facade.service';
 import { Router } from '@angular/router';
 
 @Component({
-  selector: 'uni-founderstool',
-  templateUrl: './founderstool.component.html',
-  styleUrls: ['./founderstool.component.scss']
+    selector: 'uni-founderstool',
+    templateUrl: './founderstool.component.html',
+    styleUrls: ['./founderstool.component.scss'],
+    standalone: false
 })
 export class FounderstoolComponent implements OnInit {
 

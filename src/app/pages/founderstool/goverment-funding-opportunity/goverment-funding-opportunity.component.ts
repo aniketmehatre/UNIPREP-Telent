@@ -13,9 +13,10 @@ import { environment } from '@env/environment';
 import { Country } from 'ngx-intl-tel-input/lib/model/country.model';
 
 @Component({
-  selector: 'uni-goverment-funding-opportunity',
-  templateUrl: './goverment-funding-opportunity.component.html',
-  styleUrls: ['./goverment-funding-opportunity.component.scss']
+    selector: 'uni-goverment-funding-opportunity',
+    templateUrl: './goverment-funding-opportunity.component.html',
+    styleUrls: ['./goverment-funding-opportunity.component.scss'],
+    standalone: false
 })
 export class GovermentFundingOppurtunityComponent implements OnInit {
 

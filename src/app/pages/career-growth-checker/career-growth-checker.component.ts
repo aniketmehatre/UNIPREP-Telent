@@ -51,9 +51,10 @@ interface Country {
 }
 
 @Component({
-  selector: "uni-career-growth-checker",
-  templateUrl: "./career-growth-checker.component.html",
-  styleUrls: ["./career-growth-checker.component.scss"],
+    selector: "uni-career-growth-checker",
+    templateUrl: "./career-growth-checker.component.html",
+    styleUrls: ["./career-growth-checker.component.scss"],
+    standalone: false
 })
 export class CareerGrowthCheckerComponent implements OnInit {
   constructor(

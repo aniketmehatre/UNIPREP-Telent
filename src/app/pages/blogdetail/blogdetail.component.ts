@@ -3,9 +3,10 @@ import { ActivatedRoute, Router } from '@angular/router';
 import {LocationService} from "../../location.service";
 
 @Component({
-  selector: 'uni-blogdetail',
-  templateUrl: './blogdetail.component.html',
-  styleUrls: ['./blogdetail.component.scss']
+    selector: 'uni-blogdetail',
+    templateUrl: './blogdetail.component.html',
+    styleUrls: ['./blogdetail.component.scss'],
+    standalone: false
 })
 export class BlogdetailComponent implements OnInit {
   slug: any;

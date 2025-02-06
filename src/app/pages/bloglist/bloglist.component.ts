@@ -1,9 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import {LocationService} from "../../location.service";
 @Component({
-  selector: 'uni-bloglist',
-  templateUrl: './bloglist.component.html',
-  styleUrls: ['./bloglist.component.scss']
+    selector: 'uni-bloglist',
+    templateUrl: './bloglist.component.html',
+    styleUrls: ['./bloglist.component.scss'],
+    standalone: false
 })
 export class BloglistComponent implements OnInit {
   blogs: any;

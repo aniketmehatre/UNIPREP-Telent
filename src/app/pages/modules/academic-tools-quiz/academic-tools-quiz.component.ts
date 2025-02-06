@@ -14,9 +14,10 @@ import { AcademicService } from '../academic.service';
 import { QuizResponse } from 'src/app/@Models/career-tool-category.model';
 
 @Component({
-  selector: 'uni-academic-tools-quiz',
-  templateUrl: './academic-tools-quiz.component.html',
-  styleUrls: ['./academic-tools-quiz.component.scss']
+    selector: 'uni-academic-tools-quiz',
+    templateUrl: './academic-tools-quiz.component.html',
+    styleUrls: ['./academic-tools-quiz.component.scss'],
+    standalone: false
 })
 export class AcademicToolsQuizComponent implements OnInit {
   quizData: any[] = [];

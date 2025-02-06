@@ -12,11 +12,11 @@ import {Location} from "@angular/common";
 import {filter} from "rxjs";
 
 @Component({
-  selector: 'uni-k12-state',
-  templateUrl: './k12-state.component.html',
-  styleUrls: ['./k12-state.component.scss'],
-  providers: [ConfirmationService]
-
+    selector: 'uni-k12-state',
+    templateUrl: './k12-state.component.html',
+    styleUrls: ['./k12-state.component.scss'],
+    providers: [ConfirmationService],
+    standalone: false
 })
 export class K12StateComponent implements OnInit {
 

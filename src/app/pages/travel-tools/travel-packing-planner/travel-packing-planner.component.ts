@@ -6,9 +6,10 @@ import { CostOfLivingService } from '../../job-tool/cost-of-living/cost-of-livin
 import { City } from 'src/app/@Models/cost-of-living';
 
 @Component({
-  selector: 'uni-travel-packing-planner',
-  templateUrl: './travel-packing-planner.component.html',
-  styleUrls: ['./travel-packing-planner.component.scss']
+    selector: 'uni-travel-packing-planner',
+    templateUrl: './travel-packing-planner.component.html',
+    styleUrls: ['./travel-packing-planner.component.scss'],
+    standalone: false
 })
 export class TravelPackingPlannerComponent implements OnInit {
 

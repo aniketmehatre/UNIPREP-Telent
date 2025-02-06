@@ -13,10 +13,11 @@ import { Location } from "@angular/common";
 import {state} from "@angular/animations";
 
 @Component({
-  selector: 'uni-k12-subject',
-  templateUrl: './k12-subject.component.html',
-  styleUrls: ['./k12-subject.component.scss'],
-  providers: [ConfirmationService]
+    selector: 'uni-k12-subject',
+    templateUrl: './k12-subject.component.html',
+    styleUrls: ['./k12-subject.component.scss'],
+    providers: [ConfirmationService],
+    standalone: false
 })
 export class K12SubjectComponent implements OnInit {
 

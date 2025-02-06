@@ -15,9 +15,10 @@ import { DomSanitizer } from "@angular/platform-browser";
 import { LanguageHubService } from "../language-hub.service";
 
 @Component({
-  selector: "uni-learning-videos",
-  templateUrl: "./learning-videos.component.html",
-  styleUrls: ["./learning-videos.component.scss"],
+    selector: "uni-learning-videos",
+    templateUrl: "./learning-videos.component.html",
+    styleUrls: ["./learning-videos.component.scss"],
+    standalone: false
 })
 export class LearningVideosComponent implements OnInit {
   @ViewChild("videoFrame") videoFrame: ElementRef | undefined;

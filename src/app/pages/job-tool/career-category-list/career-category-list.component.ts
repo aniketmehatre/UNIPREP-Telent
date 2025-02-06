@@ -6,9 +6,10 @@ import { EmployerGlobalService } from '../employer-global.service';
 import { AuthService } from 'src/app/Auth/auth.service';
 
 @Component({
-  selector: 'uni-career-category-list',
-  templateUrl: './career-category-list.component.html',
-  styleUrls: ['./career-category-list.component.scss']
+    selector: 'uni-career-category-list',
+    templateUrl: './career-category-list.component.html',
+    styleUrls: ['./career-category-list.component.scss'],
+    standalone: false
 })
 export class CareerCategoryListComponent implements OnInit {
   categories: any = [];

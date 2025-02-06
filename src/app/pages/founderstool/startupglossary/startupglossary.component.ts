@@ -4,9 +4,10 @@ import { FounderstoolService } from '../founderstool.service';
 import { Router } from '@angular/router';
 import { PageFacadeService } from '../../page-facade.service';
 @Component({
-  selector: 'uni-startupglossary',
-  templateUrl: './startupglossary.component.html',
-  styleUrls: ['./startupglossary.component.scss']
+    selector: 'uni-startupglossary',
+    templateUrl: './startupglossary.component.html',
+    styleUrls: ['./startupglossary.component.scss'],
+    standalone: false
 })
 export class StartupglossaryComponent implements OnInit {
   category_dropdown: { id: any, name: string }[] = [];

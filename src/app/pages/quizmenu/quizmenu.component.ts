@@ -7,9 +7,10 @@ import { AuthService } from 'src/app/Auth/auth.service';
 import { PageFacadeService } from '../page-facade.service';
 
 @Component({
-  selector: 'uni-quizmenu',
-  templateUrl: './quizmenu.component.html',
-  styleUrls: ['./quizmenu.component.scss'],
+    selector: 'uni-quizmenu',
+    templateUrl: './quizmenu.component.html',
+    styleUrls: ['./quizmenu.component.scss'],
+    standalone: false
 })
 export class QuizmenuComponent implements OnInit {
   tooltip: any;

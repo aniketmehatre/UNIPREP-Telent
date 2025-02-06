@@ -2,9 +2,10 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 @Component({
-  selector: 'uni-business-plan-generator',
-  templateUrl: './business-plan-generator.component.html',
-  styleUrls: ['./business-plan-generator.component.scss']
+    selector: 'uni-business-plan-generator',
+    templateUrl: './business-plan-generator.component.html',
+    styleUrls: ['./business-plan-generator.component.scss'],
+    standalone: false
 })
 export class BusinessPlanGeneratorComponent implements OnInit {
 

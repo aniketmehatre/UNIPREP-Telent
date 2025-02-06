@@ -6,9 +6,10 @@ import { Router } from '@angular/router';
 
 
 @Component({
-  selector: 'uni-academic-tools',
-  templateUrl: './academic-tools.component.html',
-  styleUrls: ['./academic-tools.component.scss']
+    selector: 'uni-academic-tools',
+    templateUrl: './academic-tools.component.html',
+    styleUrls: ['./academic-tools.component.scss'],
+    standalone: false
 })
 export class AcademicToolsComponent implements OnInit {
   moduleId = '15';

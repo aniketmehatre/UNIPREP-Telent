@@ -8,9 +8,10 @@ import { LocalStorageService } from 'ngx-localstorage';
 import { Router } from '@angular/router';
 
 @Component({
-  selector: 'uni-landing',
-  templateUrl: './landing.component.html',
-  styleUrls: ['./landing.component.scss']
+    selector: 'uni-landing',
+    templateUrl: './landing.component.html',
+    styleUrls: ['./landing.component.scss'],
+    standalone: false
 })
 export class LandingComponent implements OnInit {
   @ViewChild('videoPlayer')

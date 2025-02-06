@@ -5,9 +5,10 @@ import { AuthService } from '../auth.service';
 import {MessageService} from "primeng/api";
 
 @Component({
-  selector: 'app-verification',
-  templateUrl: './verification.component.html',
-  styleUrls: ['./verification.component.scss']
+    selector: 'app-verification',
+    templateUrl: './verification.component.html',
+    styleUrls: ['./verification.component.scss'],
+    standalone: false
 })
 export class VerificationComponent implements OnInit {
   @ViewChild('otp1') otp1!: ElementRef;

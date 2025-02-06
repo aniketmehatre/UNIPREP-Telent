@@ -5,9 +5,10 @@ import { DomSanitizer } from '@angular/platform-browser';
 import { Router } from '@angular/router';
 
 @Component({
-  selector: 'uni-travel-glossary',
-  templateUrl: './travel-glossary.component.html',
-  styleUrls: ['./travel-glossary.component.scss']
+    selector: 'uni-travel-glossary',
+    templateUrl: './travel-glossary.component.html',
+    styleUrls: ['./travel-glossary.component.scss'],
+    standalone: false
 })
 export class TravelGlossaryComponent implements OnInit {
   category_dropdown: { id: any, name: string }[] = [];

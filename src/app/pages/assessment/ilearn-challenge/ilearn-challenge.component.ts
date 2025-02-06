@@ -6,9 +6,10 @@ import { Router } from '@angular/router';
 import { DomSanitizer } from '@angular/platform-browser';
 
 @Component({
-  selector: 'uni-ilearn-challenge',
-  templateUrl: './ilearn-challenge.component.html',
-  styleUrls: ['./ilearn-challenge.component.scss']
+    selector: 'uni-ilearn-challenge',
+    templateUrl: './ilearn-challenge.component.html',
+    styleUrls: ['./ilearn-challenge.component.scss'],
+    standalone: false
 })
 export class IlearnChallengeComponent implements OnInit, OnDestroy {
 
