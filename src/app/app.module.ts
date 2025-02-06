@@ -62,25 +62,19 @@ export function tokenGetter() {
 @NgModule({
   declarations: [
     AppComponent,
-    
-    
-    ScrollToBottomDirective,
-
-    
+    ScrollToBottomDirective,         // Keep this here in declarations
+    LandingComponent,                // Declare LandingComponent here               // Declare ModalComponent here
   ],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
   imports: [
     AuthModule,
+    PrivacyComponent,                // Declare PrivacyComponent here
+    BlogdetailComponent,             // Declare BlogdetailComponent here
+    BloglistComponent,               // Declare BloglistComponent here
+    ModalComponent    ,
     BrowserModule,
-    LandingComponent,
-    BrowserAnimationsModule,
-    PrivacyComponent,
-    ModalComponent,
-    EnterpriseSubscriptionComponent,
-    BlogdetailComponent,
     AppRoutingModule,
     StoreModule.forRoot({ pages: pagesReducer }),
-    BloglistComponent,
     CommonModule,
     HttpClientModule,
     ToastModule,
@@ -108,7 +102,6 @@ export function tokenGetter() {
     TooltipModule,
     PipesModule,
     ConfirmDialogModule,
-    ToastModule,
     PaginatorModule,
     SocialLoginModule,
     MetaModule.forRoot(),

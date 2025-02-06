@@ -3,7 +3,7 @@ import { HttpClient, HttpHeaders } from "@angular/common/http";
 import { environment } from "@env/environment";
 import { Observable } from 'rxjs';
 import { BehaviorSubject } from 'rxjs';
-const saveAs = require('file-saver');
+import { saveAs } from 'file-saver';
 @Injectable({
   providedIn: 'root'
 })

@@ -12,8 +12,8 @@ import { DialogModule } from "primeng/dialog";
   selector: "uni-landing",
   templateUrl: "./landing.component.html",
   styleUrls: ["./landing.component.scss"],
-  standalone: true,
-  imports: [CommonModule, FormsModule, ReactiveFormsModule, DialogModule, RouterModule],
+  standalone: false,
+  // imports: [CommonModule, FormsModule, ReactiveFormsModule, DialogModule, RouterModule],
 })
 export class LandingComponent implements OnInit {
   @ViewChild("videoPlayer")
