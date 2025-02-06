@@ -191,7 +191,47 @@ export class CareerToolComponent implements OnInit {
       refLink: "",
       mode: "career-hacks",
       launch_soon: false
-    }
+    },
+    {
+      id: 19,
+      moduleName: "Global Employment Insights",  
+      Description: "Access actionable tips and strategies to accelerate your career growth and achieve your goals.",  
+      tooltip: "Unleash your potential with proven career hacks designed to fast-track your success.",
+      imageLink: environment.production === false ? "https://api.uniprep.ai/uniprepapi/storage/app//public/icon/modules/Global-Employement-Insights.svg" : "https://uniprep.ai/uniprepapi/storage/app/public/icon/modules/Global-Employement-Insights.svg",
+      refLink: "",
+      mode: "global-employment-insights",
+      launch_soon: true
+    },
+    // {
+    //   id: 20,
+    //   moduleName: "Modules-enterprenuer tools",
+    //   Description: "Access actionable tips and strategies to accelerate your career growth and achieve your goals.",
+    //   tooltip: "Unleash your potential with proven career hacks designed to fast-track your success.",
+    //   imageLink: environment.production === false ? "https://api.uniprep.ai/uniprepapi/storage/app//public/icon/modules/chacks.png" : "https://uniprep.ai/uniprepapi/storage/app/public/icon/modules/chacks.png",
+    //   refLink: "",
+    //   mode: "modules-enterprenuer-tools",
+    //   launch_soon: true
+    // },
+    // {
+    //   id: 21,
+    //   moduleName: "Virtual Incubation Center",
+    //   Description: "Access actionable tips and strategies to accelerate your career growth and achieve your goals.",
+    //   tooltip: "Unleash your potential with proven career hacks designed to fast-track your success.",
+    //   imageLink: environment.production === false ? "https://api.uniprep.ai/uniprepapi/storage/app//public/icon/modules/chacks.png" : "https://uniprep.ai/uniprepapi/storage/app/public/icon/modules/chacks.png",
+    //   refLink: "",
+    //   mode: "virtual-incubation-center",
+    //   launch_soon: true
+    // },
+    // {
+    //   id: 22,
+    //   moduleName: "Market Analysis",
+    //   Description: "Access actionable tips and strategies to accelerate your career growth and achieve your goals.",
+    //   tooltip: "Unleash your potential with proven career hacks designed to fast-track your success.",
+    //   imageLink: environment.production === false ? "https://api.uniprep.ai/uniprepapi/storage/app//public/icon/modules/chacks.png" : "https://uniprep.ai/uniprepapi/storage/app/public/icon/modules/chacks.png",
+    //   refLink: "",
+    //   mode: "market-analysis",
+    //   launch_soon: true
+    // }
   ]
 
   constructor(private router: Router, private employerGlobalService: EmployerGlobalService) {
