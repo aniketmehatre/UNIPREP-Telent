@@ -213,3 +213,152 @@
   font-size: 10px;
 }
 
+.questioncard .content-preview {
+  opacity: 0;
+  max-height: 0;
+  overflow: hidden;
+  transition: opacity 0.3s ease-in-out, max-height 0.3s ease-in-out;
+}
+
+.questioncard:hover .content-preview {
+  opacity: 1;
+  max-height: 100px; /* Adjust as needed */
+}
+.careerreadingcardgrid {
+flex: 0 0 25%;
+max-width: 25%;
+}
+
+@media (max-width: 1499.98px) {
+.careerreadingcardgrid {
+  flex: 0 0 25%;
+  max-width: 25%;
+}
+}
+
+@media (max-width: 1399.98px) {
+.careerreadingcardgrid {
+  flex: 0 0 25%;
+  max-width: 25%;
+}
+}
+
+@media (max-width: 1299.98px) {
+.careerreadingcardgrid {
+  flex: 0 0 25%;
+  max-width: 25%;
+}
+}
+
+@media (max-width: 1199.98px) {
+.careerreadingcardgrid {
+  flex: 0 0 33%;
+  max-width: 33%;
+}
+}
+
+@media (max-width: 991.98px) {
+.careerreadingcardgrid {
+  flex: 0 0 33%;
+  max-width: 33%;
+}
+}
+
+@media (max-width: 767.98px) {
+.careerreadingcardgrid {
+  flex: 0 0 50%;
+  max-width: 50%;
+}
+}
+
+@media (max-width: 575.98px) {
+.careerreadingcardgrid {
+  flex: 0 0 100%;
+  max-width: 100%;
+}
+}
+@media screen and (max-width: 480px) {
+.careerreadingcardgrid {
+  flex: 0 0 100%;
+  max-width: 100%;
+}
+}
+
+.header-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: black;
+  padding: 10px 20px;
+  color: white;
+}
+.dialog-title {
+  text-align: center;
+  font-size: 24px;
+  font-weight: bold;
+}
+.content-container {
+  padding: 20px;
+}
+.content-title {
+  font-size: 28px;
+  font-weight: bold;
+}
+.answer-section {
+  font-size: 18px;
+}
+.social-share-btn {
+  position: fixed;
+  right: 20px;
+  top: 50%;
+}
+.social-card {
+  position: absolute;
+  right: 20px;
+  display: none;
+}
+
+.career-homeIcon {
+  height: 100%;
+  width: 80px;
+  min-height: 40px;
+  border-radius: 8px;
+  background-color: var(--uniprep-secondary);
+  color: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.career-reportIcon {
+  height: 100%;
+  width: 90px;
+  min-height: 40px;
+  border-radius: 8px;
+  background-color: var(--uniprep-primary);
+  color: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.career-closeIcon {
+  height: 100%;
+  width: 50px;
+  min-height: 40px;
+  border-radius: 8px;
+  background-color: #1c1b17;
+  color: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.career-shareIcon {
+  height: 100%;
+  width: 40px;
+  min-height: 40px;
+  border-radius: 8px !important;
+  background-color: #1c1b17;
+  color: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
