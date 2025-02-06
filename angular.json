@@ -32,7 +32,9 @@
               "src/uniprep-assets"
             ],
             "styles": [
-              "node_modules/quill/dist/quill.core.css", "node_modules/quill/dist/quill.snow.css",
+              "node_modules/bootstrap/dist/css/bootstrap.min.css",
+              "node_modules/quill/dist/quill.core.css",
+              "node_modules/quill/dist/quill.snow.css",
               "node_modules/primeicons/primeicons.css",
               "node_modules/primeng/resources/themes/lara-light-blue/theme.css",
               "node_modules/primeng/resources/primeng.min.css",
@@ -42,6 +44,7 @@
               "node_modules/slick-carousel/slick/slick-theme.scss"
             ],
             "scripts": [
+              "node_modules/bootstrap/dist/js/bootstrap.bundle.min.js",
               "node_modules/quill/dist/quill.js",
               "node_modules/file-saver/dist/FileSaver.js",
               "node_modules/jquery/dist/jquery.min.js",
