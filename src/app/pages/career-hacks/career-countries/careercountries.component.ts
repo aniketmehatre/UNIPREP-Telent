@@ -4,11 +4,15 @@ import { CareerJobHacksService } from "../careerhacks.service";
 import { PageFacadeService } from "../../page-facade.service";
 import { Router } from "@angular/router";
 import { count } from "console";
+import { CommonModule } from "@angular/common";
+import { DialogModule } from "primeng/dialog";
 
 @Component({
   selector: "uni-careercountries",
   templateUrl: "./careercountries.component.html",
   styleUrls: ["./careercountries.component.scss"],
+  standalone: true,
+  imports: [CommonModule, DialogModule],
 })
 export class CHCountryListsComponent implements OnInit {
   constructor(

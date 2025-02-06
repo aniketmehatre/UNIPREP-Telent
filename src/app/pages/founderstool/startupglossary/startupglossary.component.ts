@@ -3,11 +3,15 @@ import { DomSanitizer } from '@angular/platform-browser';
 import { FounderstoolService } from '../founderstool.service';
 import { Router } from '@angular/router';
 import { PageFacadeService } from '../../page-facade.service';
+import { CommonModule } from '@angular/common';
+import { DropdownModule } from 'primeng/dropdown';
+import { FormsModule } from '@angular/forms';
 @Component({
     selector: 'uni-startupglossary',
     templateUrl: './startupglossary.component.html',
     styleUrls: ['./startupglossary.component.scss'],
-    standalone: false
+    standalone: true,
+    imports: [CommonModule, DropdownModule, FormsModule]
 })
 export class StartupglossaryComponent implements OnInit {
   category_dropdown: { id: any, name: string }[] = [];

@@ -9,6 +9,8 @@ import { LocationService } from 'src/app/location.service';
 import { PageFacadeService } from '../../page-facade.service';
 import { UserManagementService } from '../../user-management/user-management.service';
 import { FounderstoolService } from '../founderstool.service';
+import { CommonModule } from '@angular/common';
+import { DialogModule } from 'primeng/dialog';
 export interface selectList {
   name: string;
 }
@@ -16,7 +18,8 @@ export interface selectList {
     selector: 'uni-marketing-analysis',
     templateUrl: './marketing-analysis.component.html',
     styleUrls: ['./marketing-analysis.component.scss'],
-    standalone: false
+    standalone: true,
+    imports: [CommonModule, DialogModule]
 })
 export class MarketingAnalysisComponent implements OnInit {
   locationList: any[] = [];

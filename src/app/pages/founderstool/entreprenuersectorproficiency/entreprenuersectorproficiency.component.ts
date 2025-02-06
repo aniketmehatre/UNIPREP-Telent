@@ -5,11 +5,14 @@ import { Router } from '@angular/router';
 import { AuthService } from 'src/app/Auth/auth.service';
 import { LocationService } from 'src/app/location.service';
 import { PageFacadeService } from '../../page-facade.service';
+import { CommonModule } from "@angular/common";
+import { DialogModule } from "primeng/dialog";
 @Component({
     selector: 'uni-entreprenuersectorproficiency',
     templateUrl: './entreprenuersectorproficiency.component.html',
     styleUrls: ['./entreprenuersectorproficiency.component.scss'],
-    standalone: false
+    standalone: true,
+    imports: [CommonModule, DialogModule]
 })
 export class EntreprenuersectorproficiencyComponent implements OnInit {
   categoryCount:number=0;

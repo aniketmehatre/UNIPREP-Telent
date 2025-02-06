@@ -5,11 +5,16 @@ import { ActivatedRoute, Router } from "@angular/router";
 import { AuthService } from "../../../Auth/auth.service";
 import { PageFacadeService } from "../../page-facade.service";
 import { InterviewPreparationService } from "../interviewpreparation.service";
-
+import { CommonModule } from "@angular/common";
+import { PaginatorModule } from "primeng/paginator";
+import { DialogModule } from "primeng/dialog";
+import { TabViewModule } from "primeng/tabview";
 @Component({
   selector: "uni-preparedlist",
   templateUrl: "./preparedlist.component.html",
   styleUrls: ["./preparedlist.component.scss"],
+  standalone: true,
+  imports: [CommonModule, PaginatorModule, DialogModule, TabViewModule],
 })
 export class JobPreparedListComponent implements OnInit {
   isSkeletonVisible: boolean = true;
@@ -30,25 +35,13 @@ export class JobPreparedListComponent implements OnInit {
     .fill(0)
     .map((_, index) => index);
   readanswerpopubVisibility = false;
-  constructor(
-    private location: Location,
-    private route: ActivatedRoute,
-    private toast: MessageService,
-    private authService: AuthService,
-    private service: InterviewPreparationService,
-    private router: Router,
-    private pageFacade: PageFacadeService
-  ) {}
+  constructor(private location: Location, private route: ActivatedRoute, private toast: MessageService, private authService: AuthService, private service: InterviewPreparationService, private router: Router, private pageFacade: PageFacadeService) {}
   ngOnInit(): void {
     this.selectedJobRole = this.prepData.role;
     this.getDefaultQuestions();
     this.checkPlanExpiry();
     this.imagewhitlabeldomainname = window.location.hostname;
-    this.ehitlabelIsShow = [
-      "dev-student.uniprep.ai",
-      "uniprep.ai",
-      "localhost",
-    ].includes(this.imagewhitlabeldomainname);
+    this.ehitlabelIsShow = ["dev-student.uniprep.ai", "uniprep.ai", "localhost"].includes(this.imagewhitlabeldomainname);
   }
   getDefaultQuestions() {
     this.service
@@ -61,7 +54,7 @@ export class JobPreparedListComponent implements OnInit {
         this.totalDataCount = this.ListData.length;
       });
   }
-  getSavedQuestion(){
+  getSavedQuestion() {
     this.service
       .getsavedquestionByJobrole({
         jobrole: this.prepData.jobrole,

@@ -1,16 +1,19 @@
 import {Component, OnInit} from '@angular/core';
-import {FormControl, FormGroup, Validators} from '@angular/forms';
+import {FormControl, FormGroup, Validators, FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {ActivatedRoute, Params, Router} from "@angular/router";
 import {DataService} from 'src/app/data.service';
 import {MessageService} from "primeng/api";
 import {City} from "../../../@Models/cost-of-living";
 import {JobSearchService} from "../job-search.service";
 import { AuthService } from "src/app/Auth/auth.service";
+import { CommonModule } from '@angular/common';
+import { DialogModule } from 'primeng/dialog';
 @Component({
     selector: 'uni-job-hunt',
     templateUrl: './job-hunt.component.html',
     styleUrls: ['./job-hunt.component.scss'],
-    standalone: false
+    standalone: true,
+    imports: [CommonModule, DialogModule, FormsModule, ReactiveFormsModule],
 })
 export class JobHuntComponent implements OnInit {
   fG: FormGroup;

@@ -1,14 +1,15 @@
 import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
-import { IconPipe } from './icon.pipe';
-import {CountryImagePipe} from "@pipes/country-image.pipe";
-import {SafePipe} from "@pipes/safe.pipe";
+import { CountryImagePipe } from './country-image.pipe';
+import { SafePipe } from './safe.pipe';
 
 @NgModule({
-  declarations: [IconPipe, CountryImagePipe, SafePipe],
   imports: [
-    CommonModule
+    CountryImagePipe,
+    SafePipe
   ],
-  exports: [IconPipe, CountryImagePipe, SafePipe]
+  exports: [
+    CountryImagePipe,
+    SafePipe
+  ]
 })
 export class PipesModule { }

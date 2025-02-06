@@ -17,11 +17,9 @@ import {CardModule} from "primeng/card";
 
 
 @NgModule({
-  declarations: [
-    RecentlyaddedquestionsComponent
-  ],
     imports: [
         CommonModule,
+        RecentlyaddedquestionsComponent,
         BreadcrumbModule,
         CarouselModule,
         ConfirmDialogModule,

@@ -6,11 +6,16 @@ import { PageFacadeService } from "../../page-facade.service";
 import { AuthService } from "src/app/Auth/auth.service";
 import { Meta } from "@angular/platform-browser";
 import { CareerJobHacksService } from "../careerhacks.service";
-
+import { CommonModule } from "@angular/common";
+import { DialogModule } from "primeng/dialog";
+import { CardModule } from "primeng/card";
+import { PaginatorModule } from "primeng/paginator";
 @Component({
   selector: "uni-careerhackslists",
   templateUrl: "./careerlists.component.html",
   styleUrls: ["./careerlists.component.scss"],
+  standalone: true,
+  imports: [CommonModule, DialogModule, CardModule, PaginatorModule],
 })
 export class CareerListsComponent implements OnInit {
   isSkeletonVisible: boolean = true;

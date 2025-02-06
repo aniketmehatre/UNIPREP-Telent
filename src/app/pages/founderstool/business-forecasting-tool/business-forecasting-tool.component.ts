@@ -8,12 +8,14 @@ import { LocationService } from 'src/app/location.service';
 import { PageFacadeService } from '../../page-facade.service';
 import { FounderstoolService } from '../founderstool.service';
 import { selectList } from '../marketing-analysis/marketing-analysis.component';
-
+import { CommonModule } from "@angular/common";
+import { DialogModule } from "primeng/dialog";
 @Component({
     selector: 'uni-business-forecasting-tool',
     templateUrl: './business-forecasting-tool.component.html',
     styleUrls: ['./business-forecasting-tool.component.scss'],
-    standalone: false
+    standalone: true,
+    imports: [CommonModule, DialogModule]
 })
 export class BusinessForecastingToolComponent implements OnInit {
   locationList: any[] = [];

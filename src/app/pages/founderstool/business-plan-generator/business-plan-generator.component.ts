@@ -1,11 +1,14 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-
+import { FormBuilder, FormGroup, Validators, FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { CommonModule } from "@angular/common";
+import { DialogModule } from "primeng/dialog";
+import { CarouselModule } from 'primeng/carousel';
 @Component({
     selector: 'uni-business-plan-generator',
     templateUrl: './business-plan-generator.component.html',
     styleUrls: ['./business-plan-generator.component.scss'],
-    standalone: false
+    standalone: true,
+    imports: [CommonModule, DialogModule, CarouselModule, FormsModule, ReactiveFormsModule]
 })
 export class BusinessPlanGeneratorComponent implements OnInit {
 

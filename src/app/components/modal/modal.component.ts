@@ -1,23 +1,18 @@
-import {
-  Component,
-  ElementRef,
-  EventEmitter,
-  OnInit,
-  Output,
-  ViewChild,
-} from "@angular/core";
+import { Component, ElementRef, EventEmitter, OnInit, Output, ViewChild } from "@angular/core";
 import { ModalService } from "./modal.service";
 import { MessageService } from "primeng/api";
 import { SubSink } from "subsink";
 import { AuthService } from "../../Auth/auth.service";
 import { interval } from "rxjs";
 import { ScrollToBottomDirective } from "src/app/scroll-to-bottom.directive";
-
+import { CommonModule } from "@angular/common";
+import { DialogModule } from "primeng/dialog";
 @Component({
-    selector: "app-modal",
-    templateUrl: "./modal.component.html",
-    styleUrls: ["./modal.component.scss"],
-    standalone: false
+  selector: "app-modal",
+  templateUrl: "./modal.component.html",
+  styleUrls: ["./modal.component.scss"],
+  standalone: true,
+  imports: [CommonModule, DialogModule],
 })
 export class ModalComponent implements OnInit {
   @Output() closeModal: EventEmitter<any> = new EventEmitter<any>();
@@ -37,18 +32,13 @@ export class ModalComponent implements OnInit {
   visible: boolean = true;
   showReportSuccess: boolean = false;
   reportValueSelected: any;
-  message: string = '';
+  message: string = "";
 
-  constructor(
-    private modalService: ModalService,
-    private toast: MessageService,
-    private service: AuthService
-  ) {
+  constructor(private modalService: ModalService, private toast: MessageService, private service: AuthService) {
     this.subs.sink = interval(5000).subscribe((x) => {
       this.getChatHistoryData();
     });
   }
-
 
   ngOnInit() {
     this.questionLeft = "0";
@@ -70,7 +60,7 @@ export class ModalComponent implements OnInit {
         this.issueType = res.reportOptions;
       },
       (err) => {
-        this.toast.add({ severity: 'error', summary: 'Error', detail: err });
+        this.toast.add({ severity: "error", summary: "Error", detail: err });
       }
     );
   }
@@ -80,11 +70,11 @@ export class ModalComponent implements OnInit {
       (res: any) => {
         if (res.status === 404) {
           return;
-        };
+        }
         this.details = res.messages;
       },
       (err) => {
-        this.toast.add({ severity: 'error', summary: 'Error', detail: err });
+        this.toast.add({ severity: "error", summary: "Error", detail: err });
       }
     );
   }
@@ -110,7 +100,7 @@ export class ModalComponent implements OnInit {
         if (res.status === 404) {
           return;
         }
-        this.message = '';
+        this.message = "";
         this.toast.add({
           severity: "success",
           summary: "Info",
@@ -119,7 +109,6 @@ export class ModalComponent implements OnInit {
         this.init();
       },
       (err) => {
-
         this.toast.add({ severity: "info", summary: "Alert", detail: err });
       }
     );

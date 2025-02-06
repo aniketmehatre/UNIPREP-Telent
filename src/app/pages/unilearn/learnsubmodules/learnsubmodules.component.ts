@@ -1,19 +1,20 @@
-import {ChangeDetectorRef, Component, EventEmitter, Input, OnInit, Output} from "@angular/core";
+import { CommonModule } from "@angular/common";
+import { ChangeDetectorRef, Component, EventEmitter, Input, OnInit, Output } from "@angular/core";
 import { PageFacadeService } from "../../page-facade.service";
-import {
-  learnModules,
-  learnsubModules,
-  submoduledata,
-} from "../unilearn.model";
+import { learnModules, learnsubModules, submoduledata } from "../unilearn.model";
 import { UniLearnService } from "../unilearn.service";
-import {ActivatedRoute, Router} from "@angular/router";
-import {ArrayHeaderService} from "../array-header.service";
-import { Location } from '@angular/common';
+import { ActivatedRoute, Router } from "@angular/router";
+import { ArrayHeaderService } from "../array-header.service";
+import { Location } from "@angular/common";
 import { AuthService } from "src/app/Auth/auth.service";
+import { DialogModule } from "primeng/dialog";
+
 @Component({
   selector: "uni-learnsubmodules",
   templateUrl: "./learnsubmodules.component.html",
   styleUrls: ["./learnsubmodules.component.scss"],
+  imports: [DialogModule,CommonModule],
+    standalone: true,
 })
 export class LearnsubModulesComponent implements OnInit {
   @Input() parentid: number;
@@ -22,12 +23,7 @@ export class LearnsubModulesComponent implements OnInit {
   @Output() moduleChange = new EventEmitter();
   isSkeletonVisible: boolean = true;
   submoduleList: any;
-  constructor(
-    private pageFacade: PageFacadeService,
-    private authService: AuthService,
-    private router: Router, private arrayHeaderService: ArrayHeaderService,
-    private learnService: UniLearnService, private route: ActivatedRoute, private cdRef: ChangeDetectorRef
-  ) {
+  constructor(private pageFacade: PageFacadeService, private authService: AuthService, private router: Router, private arrayHeaderService: ArrayHeaderService, private learnService: UniLearnService, private route: ActivatedRoute, private cdRef: ChangeDetectorRef) {
     // this.route.params.subscribe(() => {
     //   console.log('asfdasdf', this.arrayHeaderService.getItems().length)
     //
@@ -43,7 +39,7 @@ export class LearnsubModulesComponent implements OnInit {
   ehitlabelIsShow: boolean = true;
   orgnamewhitlabel: any;
   orglogowhitelabel: any;
-  imagewhitlabeldomainname: any
+  imagewhitlabeldomainname: any;
   ngOnInit(): void {
     this.paramData = { parent_id: this.parentid, module_id: this.moduleid };
     this.getModules();
@@ -56,17 +52,14 @@ export class LearnsubModulesComponent implements OnInit {
     }
   }
   getFormattedValues(): string {
-    return this.arrayHeaderService.getItems().join(' -> ');
+    return this.arrayHeaderService.getItems().join(" -> ");
   }
   getModules() {
-    this.learnService
-      .getUniLearnsubModules(this.paramData)
-      .subscribe((res: learnsubModules) => {
-        this.isSkeletonVisible = false;
-        this.submoduleList = res.data;
-        localStorage.setItem("parent_id", String(res.previous_id));
-        
-      });
+    this.learnService.getUniLearnsubModules(this.paramData).subscribe((res: learnsubModules) => {
+      this.isSkeletonVisible = false;
+      this.submoduleList = res.data;
+      localStorage.setItem("parent_id", String(res.previous_id));
+    });
   }
   openVideoPopup(videoLink: string) {
     this.pageFacade.openHowitWorksVideoPopup(videoLink);
@@ -75,17 +68,17 @@ export class LearnsubModulesComponent implements OnInit {
   pdfvisibility = false;
   onModuleClick(moduledata: submoduledata) {
     if (moduledata.isTestmodule == 1) {
-      this.arrayHeaderService.addItem(moduledata.submodule_name)
+      this.arrayHeaderService.addItem(moduledata.submodule_name);
       this.moduleChange.emit({
         parent_id: moduledata.id,
         module_id: moduledata.module_id,
         selected_module: moduledata.submodule_name,
         stage: 3,
-        isfromquizinfo:false,
+        isfromquizinfo: false,
       });
       return;
     }
-    this.arrayHeaderService.addItem(moduledata.submodule_name)
+    this.arrayHeaderService.addItem(moduledata.submodule_name);
     this.paramData.parent_id = moduledata.id;
     this.paramData.module_id = moduledata.module_id;
     this.selected_module = moduledata.submodule_name;
@@ -100,9 +93,7 @@ export class LearnsubModulesComponent implements OnInit {
         this.pdfURL = moduledata.attachment_filename;
         break;
       case 3:
-        this.pageFacade.openHowitWorksVideoPopup(
-          moduledata.attachment_filename
-        );
+        this.pageFacade.openHowitWorksVideoPopup(moduledata.attachment_filename);
         break;
       case 4:
         break;
@@ -153,12 +144,12 @@ export class LearnsubModulesComponent implements OnInit {
     this.authService.getNewUserTimeLeft().subscribe((res) => {
       let data = res.time_left;
       let subscription_exists_status = res.subscription_details;
-      if (data.plan === "expired" || data.plan === 'subscription_expired'  ) {
+      if (data.plan === "expired" || data.plan === "subscription_expired") {
         this.planExpired = true;
       } else {
         this.planExpired = false;
       }
-    })
+    });
   }
   upgradePlan(): void {
     this.router.navigate(["/pages/subscriptions"]);

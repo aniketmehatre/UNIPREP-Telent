@@ -12,12 +12,10 @@ import { DialogModule } from 'primeng/dialog';
  
 
 @NgModule({
-    declarations: [
-        EventsComponent
-    ],
     imports: [
         CommonModule,
         EventsRoutingModule,
+        EventsComponent,
         AccordionModule,
         ReactiveFormsModule,
         PaginatorModule,

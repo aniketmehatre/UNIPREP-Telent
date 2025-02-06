@@ -1,32 +1,37 @@
-import {Component, OnInit, ViewChild, ElementRef, HostListener} from '@angular/core';
-import {ActivatedRoute, Router} from '@angular/router';
-import {Observable} from 'rxjs';
-import {ListQuestion} from 'src/app/@Models/question-list.model';
-import {DataService} from 'src/app/data.service';
-import {ModuleServiceService} from '../module-store/module-service.service';
-import {ReadQuestion} from 'src/app/@Models/read-question.model';
-import {RecentlyaddedquestionService} from './recentlyaddedquestion.service';
-import {Location} from "@angular/common";
-import {ModuleListSub} from "../../@Models/module.model";
-import {MenuItem} from "primeng/api";
-import {DomSanitizer} from "@angular/platform-browser";
-import {loadQuestionList} from "../module-store/module-store.actions";
-import {LocationService} from "../../location.service";
-
+import { Component, OnInit, ViewChild, ElementRef, HostListener } from "@angular/core";
+import { ActivatedRoute, Router } from "@angular/router";
+import { Observable } from "rxjs";
+import { ListQuestion } from "src/app/@Models/question-list.model";
+import { DataService } from "src/app/data.service";
+import { ModuleServiceService } from "../module-store/module-service.service";
+import { ReadQuestion } from "src/app/@Models/read-question.model";
+import { RecentlyaddedquestionService } from "./recentlyaddedquestion.service";
+import { Location } from "@angular/common";
+import { ModuleListSub } from "../../@Models/module.model";
+import { MenuItem } from "primeng/api";
+import { DomSanitizer } from "@angular/platform-browser";
+import { loadQuestionList } from "../module-store/module-store.actions";
+import { LocationService } from "../../location.service";
+import { ButtonModule } from "primeng/button";
+import { CommonModule } from "@angular/common";
+import { DialogModule } from "primeng/dialog";
+import { CarouselModule } from "primeng/carousel";
+import { PaginatorModule } from "primeng/paginator";
 @Component({
-    selector: 'uni-recentlyaddedquestions',
-    templateUrl: './recentlyaddedquestions.component.html',
-    styleUrls: ['./recentlyaddedquestions.component.scss'],
-    standalone: false
+  selector: "uni-recentlyaddedquestions",
+  templateUrl: "./recentlyaddedquestions.component.html",
+  styleUrls: ["./recentlyaddedquestions.component.scss"],
+  standalone: true,
+  imports: [ButtonModule, CommonModule, DialogModule, CarouselModule, PaginatorModule],
 })
 export class RecentlyaddedquestionsComponent implements OnInit {
-  @ViewChild('carouselVideoElm') carouselVideoElm: any;
-  @ViewChild('carouselRefElm') carouselRefElm: any;
-  @ViewChild('carouselPopupVideoElm') carouselPopupVideoElm: any;
-  @ViewChild('carouselPopupRefElm') carouselPopupRefElm: any;
-  @ViewChild('videoLinksContainer') videoLinksContainer !: ElementRef;
-  @ViewChild('refLinksContainer') refLinksContainer !: ElementRef;
-  @ViewChild('videoFrame') videoFrame: ElementRef | undefined;
+  @ViewChild("carouselVideoElm") carouselVideoElm: any;
+  @ViewChild("carouselRefElm") carouselRefElm: any;
+  @ViewChild("carouselPopupVideoElm") carouselPopupVideoElm: any;
+  @ViewChild("carouselPopupRefElm") carouselPopupRefElm: any;
+  @ViewChild("videoLinksContainer") videoLinksContainer!: ElementRef;
+  @ViewChild("refLinksContainer") refLinksContainer!: ElementRef;
+  @ViewChild("videoFrame") videoFrame: ElementRef | undefined;
 
   subModules$!: Observable<ModuleListSub[]>;
   readQue$!: Observable<ReadQuestion[]>;
@@ -48,74 +53,76 @@ export class RecentlyaddedquestionsComponent implements OnInit {
   isAnswerDialogVisiblePrev: boolean = false;
   isAnswerDialogVisibleNext: boolean = false;
   responsiveOptions: any[] = [];
-  message: string = '';
+  message: string = "";
   moduleName: any;
   subModuleId: any;
-  videoLinks: any [] = [];
-  refLink: any [] = [];
+  videoLinks: any[] = [];
+  refLink: any[] = [];
   countryId: any;
   selectedQuestionData: any;
   popUpItemVideoLink: any;
   reviewedByOrgList: any;
   currentSubModuleSlug: any;
   currentModuleName: any;
-  currentModuleId: any
+  currentModuleId: any;
   currentApiSlug: any;
   listQuestions: any;
   listQuestionCount: any;
   leftScrollButtonVisible: boolean = false;
   rightScrollButtonVisible: boolean = true;
-  leftScrollButtonVisibleRef:boolean = false;
-  rightScrollButtonVisibleRef:boolean = true;
+  leftScrollButtonVisibleRef: boolean = false;
+  rightScrollButtonVisibleRef: boolean = true;
   isSkeletonVisible: boolean = true;
   showVideoPopup: boolean = false;
   selectedVideoLink: any | null = null;
-  loopRange = Array.from({ length: 30 }).fill(0).map((_, index) => index);
+  loopRange = Array.from({ length: 30 })
+    .fill(0)
+    .map((_, index) => index);
 
-  constructor(private route: ActivatedRoute, private dataService: DataService,
-              private moduleListService: ModuleServiceService, private service: RecentlyaddedquestionService,
-              private _location: Location, private locationService: LocationService,
-              private _sanitizer: DomSanitizer, private router: Router) {
-  }
+  constructor(private route: ActivatedRoute, private dataService: DataService, private moduleListService: ModuleServiceService, private service: RecentlyaddedquestionService, private _location: Location, private locationService: LocationService, private _sanitizer: DomSanitizer, private router: Router) {}
 
   ngOnInit(): void {
-    this.countryId = Number(localStorage.getItem('countryId'));
-    this.route.params.subscribe(params => {
+    this.countryId = Number(localStorage.getItem("countryId"));
+    this.route.params.subscribe((params) => {
       this.perpage = 50;
       this.pageno = 1;
-      this.type = this.route.snapshot.paramMap.get('type');
+      this.type = this.route.snapshot.paramMap.get("type");
       this.loadInit();
     });
     //this.getSubmoduleName(this.countryId);
   }
 
   loadInit(): void {
-    this.subModuleId = this.route.snapshot.paramMap.get('id');
-    this.currentSubModuleSlug = this.route.snapshot.paramMap.get('module_name');
+    this.subModuleId = this.route.snapshot.paramMap.get("id");
+    this.currentSubModuleSlug = this.route.snapshot.paramMap.get("module_name");
     //this.getSubmoduleName(this.countryId);
 
-    this.dataService.currentMessage.subscribe(message => this.message = message)
-    this.breadCrumb = [{
-      label: this.currentModuleName,
-      command: (event) => this.gotomodulebreadcrump()
-    }, {label: this.moduleName, command: (event) => this.goToHomebreadcrump()}, {label: `Question ${this.selectedQuestion + 1}`}];
+    this.dataService.currentMessage.subscribe((message) => (this.message = message));
+    this.breadCrumb = [
+      {
+        label: this.currentModuleName,
+        command: (event) => this.gotomodulebreadcrump(),
+      },
+      { label: this.moduleName, command: (event) => this.goToHomebreadcrump() },
+      { label: `Question ${this.selectedQuestion + 1}` },
+    ];
 
     this.responsiveOptions = [
       {
-        breakpoint: '1199px',
+        breakpoint: "1199px",
         numVisible: 1,
-        numScroll: 1
+        numScroll: 1,
       },
       {
-        breakpoint: '991px',
+        breakpoint: "991px",
         numVisible: 2,
-        numScroll: 1
+        numScroll: 1,
       },
       {
-        breakpoint: '767px',
+        breakpoint: "767px",
         numVisible: 1,
-        numScroll: 1
-      }
+        numScroll: 1,
+      },
     ];
     // this.listQuestion$ = this.moduleListService.questionList$();
     // let data = {
@@ -127,19 +134,19 @@ export class RecentlyaddedquestionsComponent implements OnInit {
     this.loadQuestionList();
   }
 
-  loadQuestionList(){
+  loadQuestionList() {
     let req = {
       getcountry_id: this.countryId,
       perpage: this.perpage,
       page: this.pageno,
-      popular: this.type == 'popular' ? 1 : null
-    }
-    let apiName = 'getlatestfaqquestions';
+      popular: this.type == "popular" ? 1 : null,
+    };
+    let apiName = "getlatestfaqquestions";
     this.service.getRecentlyAddedQuestions(req, apiName).subscribe((response) => {
       this.isSkeletonVisible = false;
       this.listQuestions = response.latestaddedfaqquestions;
       this.listQuestionCount = response.count;
-    })
+    });
   }
 
   goBack() {
@@ -150,41 +157,50 @@ export class RecentlyaddedquestionsComponent implements OnInit {
     let data = {
       countryId: countryId,
       api_module_name: this.currentApiSlug,
-      moduleId: this.selectedModule
-    }
+      moduleId: this.selectedModule,
+    };
 
     this.locationService.getUniPerpModuleList().subscribe((data: any) => {
       data.modules.filter((res: any) => {
-        if(res.id == this.selectedModule){
+        if (res.id == this.selectedModule) {
           this.currentModuleName = res.module_name;
-          this.breadCrumb = [{
-            label: this.currentModuleName,
-            command: (event) => this.gotomodulebreadcrump()
-          }, {label: this.moduleName, command: (event) => this.goToHomebreadcrump()}, {label: `Question ${this.selectedQuestion + 1}`}];
+          this.breadCrumb = [
+            {
+              label: this.currentModuleName,
+              command: (event) => this.gotomodulebreadcrump(),
+            },
+            { label: this.moduleName, command: (event) => this.goToHomebreadcrump() },
+            { label: `Question ${this.selectedQuestion + 1}` },
+          ];
         }
-      })
-    })
+      });
+    });
     this.moduleListService.loadSubModules(data);
     this.subModules$ = this.moduleListService.subModuleList$();
-    this.subModules$.subscribe(event => {
+    this.subModules$.subscribe((event) => {
       if (event) {
-        event.filter(data => {
+        event.filter((data) => {
           if (data.submodule_id == this.selectedSubModule) {
             this.moduleName = data.submodule_name;
-            this.breadCrumb = [{
-              label: this.currentModuleName,
-              command: (event) => this.gotomodulebreadcrump()
-            }, {label: this.moduleName, command: (event) => this.goToHomebreadcrump()}, {label: `Question ${this.selectedQuestion + 1}`}];
+            this.breadCrumb = [
+              {
+                label: this.currentModuleName,
+                command: (event) => this.gotomodulebreadcrump(),
+              },
+              { label: this.moduleName, command: (event) => this.goToHomebreadcrump() },
+              { label: `Question ${this.selectedQuestion + 1}` },
+            ];
           }
-        })
+        });
       }
-    })
+    });
   }
 
   convertToSlug(text: any) {
-    return text.toLowerCase()
-        .replace(/ /g, '-')
-        .replace(/[^\w-]+/g, '');
+    return text
+      .toLowerCase()
+      .replace(/ /g, "-")
+      .replace(/[^\w-]+/g, "");
   }
 
   onQuestionClick(selectedData: any) {
@@ -200,10 +216,14 @@ export class RecentlyaddedquestionsComponent implements OnInit {
     this.selectedQuestion = index;
     this.positionNumber = index;
     this.getSubmoduleName(this.countryId);
-    this.breadCrumb = [{
-      label: this.currentModuleName,
-      command: (event) => this.gotomodulebreadcrump()
-    }, {label: this.moduleName, command: (event) => this.goToHomebreadcrump()}, {label: `Question ${this.selectedQuestion + 1}`}];
+    this.breadCrumb = [
+      {
+        label: this.currentModuleName,
+        command: (event) => this.gotomodulebreadcrump(),
+      },
+      { label: this.moduleName, command: (event) => this.goToHomebreadcrump() },
+      { label: `Question ${this.selectedQuestion + 1}` },
+    ];
 
     this.isQuestionAnswerVisible = true;
     this.listQuestions.filter((res: any) => {
@@ -216,8 +236,8 @@ export class RecentlyaddedquestionsComponent implements OnInit {
       questionId: selectedData.id,
       countryId: this.countryId,
       moduleId: this.selectedModule,
-      submoduleId: Number(this.selectedSubModule)
-    }
+      submoduleId: Number(this.selectedSubModule),
+    };
     this.isAnswerDialogVisiblePrev = this.selectedQuestion >= 1;
     this.isAnswerDialogVisibleNext = this.selectedQuestion < this.listQuestions.length - 1;
     this.readQuestion(data);
@@ -229,19 +249,19 @@ export class RecentlyaddedquestionsComponent implements OnInit {
     let data1 = {
       countryId: this.countryId,
       moduleId: this.selectedModule,
-      submoduleId: Number(this.selectedSubModule)
-    }
+      submoduleId: Number(this.selectedSubModule),
+    };
     //this.moduleListService.loadQuestionList(data1);
     //this.listQuestion$ = this.moduleListService.questionList$();
     this.loadQuestionList();
   }
 
   setPage(page: any) {
-    let pageNum: number = 0
+    let pageNum: number = 0;
     if (page.page < 0) {
       pageNum = this.listQuestions.length;
     } else {
-      pageNum = page.page
+      pageNum = page.page;
     }
     this.listQuestions.filter((res: any) => {
       if (res.id == pageNum + 1) {
@@ -250,10 +270,14 @@ export class RecentlyaddedquestionsComponent implements OnInit {
       }
     });
     this.positionNumber = pageNum + 1;
-    this.breadCrumb = [{
-      label: this.currentModuleName,
-      command: (event) => this.gotomodulebreadcrump()
-    }, { label: this.moduleName, command: (event) => this.goToHomebreadcrump() }, { label: `Question ${pageNum + 1}`}];
+    this.breadCrumb = [
+      {
+        label: this.currentModuleName,
+        command: (event) => this.gotomodulebreadcrump(),
+      },
+      { label: this.moduleName, command: (event) => this.goToHomebreadcrump() },
+      { label: `Question ${pageNum + 1}` },
+    ];
   }
 
   clickPrevious(carousel: any, event: any) {
@@ -268,7 +292,7 @@ export class RecentlyaddedquestionsComponent implements OnInit {
       return;
     }
     this.getSubmoduleName(this.countryId);
-    let selectedData = this.listQuestions[this.selectedQuestion-1];
+    let selectedData = this.listQuestions[this.selectedQuestion - 1];
     this.selectedQuestionData = selectedData;
     this.selectedModule = selectedData.module_id;
     this.selectedSubModule = selectedData.submodule_id;
@@ -285,8 +309,8 @@ export class RecentlyaddedquestionsComponent implements OnInit {
       questionId: selectedData.id,
       moduleId: this.selectedModule,
       countryId: this.countryId,
-      submoduleId: Number(this.selectedSubModule)
-    }
+      submoduleId: Number(this.selectedSubModule),
+    };
     this.readQuestion(data);
   }
 
@@ -302,7 +326,7 @@ export class RecentlyaddedquestionsComponent implements OnInit {
       return;
     }
     this.getSubmoduleName(this.countryId);
-    let selectedData = this.listQuestions[this.selectedQuestion+1];
+    let selectedData = this.listQuestions[this.selectedQuestion + 1];
     this.selectedQuestionData = selectedData;
     this.selectedModule = selectedData.module_id;
     this.selectedSubModule = selectedData.submodule_id;
@@ -314,13 +338,13 @@ export class RecentlyaddedquestionsComponent implements OnInit {
         this.videoLinks = res.videolink;
       }
     });
-    carousel.navForward(event, this.selectedQuestion)
+    carousel.navForward(event, this.selectedQuestion);
     let data = {
       questionId: selectedData.id,
       moduleId: this.selectedModule,
       countryId: this.countryId,
-      submoduleId: Number(this.selectedSubModule)
-    }
+      submoduleId: Number(this.selectedSubModule),
+    };
     this.readQuestion(data);
   }
 
@@ -329,7 +353,7 @@ export class RecentlyaddedquestionsComponent implements OnInit {
       return;
     }
     this.selectedVideo = this.selectedVideo - 1;
-    this.carouselVideoElm.navBackward(event, this.selectedVideo)
+    this.carouselVideoElm.navBackward(event, this.selectedVideo);
   }
 
   clickNextVideo(event: any) {
@@ -338,7 +362,7 @@ export class RecentlyaddedquestionsComponent implements OnInit {
     }
     this.selectedVideo += 1;
 
-    this.carouselVideoElm.navForward(event, this.selectedVideo)
+    this.carouselVideoElm.navForward(event, this.selectedVideo);
   }
 
   clickPreviousRef(event: any) {
@@ -347,16 +371,16 @@ export class RecentlyaddedquestionsComponent implements OnInit {
     }
     this.selectedRefLink = this.selectedRefLink - 1;
 
-    this.carouselRefElm.navBackward(event, this.selectedRefLink)
+    this.carouselRefElm.navBackward(event, this.selectedRefLink);
   }
 
   clickNextRef(event: any) {
-    if (this.selectedRefLink >= (this.refLink.length / 2) - 1) {
+    if (this.selectedRefLink >= this.refLink.length / 2 - 1) {
       return;
     }
     this.selectedRefLink += 1;
 
-    this.carouselRefElm.navForward(event, this.selectedRefLink)
+    this.carouselRefElm.navForward(event, this.selectedRefLink);
   }
 
   onClickRecommendedVideo(data: any) {
@@ -370,7 +394,7 @@ export class RecentlyaddedquestionsComponent implements OnInit {
   }
 
   onClickAsk() {
-    this.router.navigateByUrl(`/pages/chat`)
+    this.router.navigateByUrl(`/pages/chat`);
     //this.dataService.changeChatOpenStatus("open chat window");
   }
 
@@ -380,11 +404,10 @@ export class RecentlyaddedquestionsComponent implements OnInit {
       moduleId: this.selectedQuestionData.module_id,
       subModuleId: this.selectedQuestionData.submodule_id,
       questionId: this.selectedQuestionData.id,
-      from: 'module'
-    }
+      from: "module",
+    };
     this.dataService.openReportWindow(data);
   }
-
 
   goToHome(event: any) {
     this.isQuestionAnswerVisible = false;
@@ -396,17 +419,17 @@ export class RecentlyaddedquestionsComponent implements OnInit {
 
   gotomodulebreadcrump() {
     if (this.currentModuleId == 1) {
-      this.router.navigate(['/pages/modules/pre-admission'])
+      this.router.navigate(["/pages/modules/pre-admission"]);
     } else if (this.currentModuleId == 7) {
-      this.router.navigate(['/pages/modules/travel-and-tourism'])
+      this.router.navigate(["/pages/modules/travel-and-tourism"]);
     } else if (this.currentModuleId == 3) {
-      this.router.navigate(['//pages/modules/post-admission'])
+      this.router.navigate(["//pages/modules/post-admission"]);
     } else if (this.currentModuleId == 4) {
-      this.router.navigate(['/pages/modules/career-hub'])
+      this.router.navigate(["/pages/modules/career-hub"]);
     } else if (this.currentModuleId == 5) {
-      this.router.navigate(['/pages/modules/university'])
+      this.router.navigate(["/pages/modules/university"]);
     } else if (this.currentModuleId == 6) {
-      this.router.navigate(['/pages/modules/life-at-country'])
+      this.router.navigate(["/pages/modules/life-at-country"]);
     }
   }
 
@@ -417,7 +440,7 @@ export class RecentlyaddedquestionsComponent implements OnInit {
     }
     this.selectedVideo = this.selectedVideo - 1;
 
-    this.carouselPopupRefElm.navBackward(event, this.selectedVideo)
+    this.carouselPopupRefElm.navBackward(event, this.selectedVideo);
   }
 
   // popup video next
@@ -425,12 +448,12 @@ export class RecentlyaddedquestionsComponent implements OnInit {
     if (this.selectedVideo >= this.videoLinks.length - 1) {
       return;
     }
-    let vdoLinks = this.videoLinks.find((x: any) => x.id == this.selectedVideo)
+    let vdoLinks = this.videoLinks.find((x: any) => x.id == this.selectedVideo);
     this.popUpItemVideoLink = this._sanitizer.bypassSecurityTrustResourceUrl(data[0].link);
 
     this.selectedVideo += 1;
 
-    this.carouselPopupRefElm.navForward(event, this.selectedVideo)
+    this.carouselPopupRefElm.navForward(event, this.selectedVideo);
   }
 
   clickPreviousRefPopup(data: any) {
@@ -439,7 +462,7 @@ export class RecentlyaddedquestionsComponent implements OnInit {
     }
     this.selectedRefLink = this.selectedRefLink - 1;
 
-    this.carouselPopupRefElm.navBackward(event, this.selectedRefLink)
+    this.carouselPopupRefElm.navBackward(event, this.selectedRefLink);
   }
 
   clickNextRefPopup(data: any) {
@@ -448,23 +471,23 @@ export class RecentlyaddedquestionsComponent implements OnInit {
     }
     this.selectedRefLink += 1;
 
-    this.carouselPopupRefElm.navForward(event, this.selectedRefLink)
+    this.carouselPopupRefElm.navForward(event, this.selectedRefLink);
   }
 
-  reviewBy(){
+  reviewBy() {
     this.reviewedByOrgList = [];
     this.isReviewedByVisible = true;
     let request = {
-      question_id: this.selectedQuestionId
-    }
+      question_id: this.selectedQuestionId,
+    };
     // this.moduleStoreService.GetReviewedByOrgLogo(request).subscribe((response) => {
     //   this.reviewedByOrgList = response;
     // })
   }
 
-  perpage:number = 10;
-  pageno:number = 1;
-  paginate(event: any){
+  perpage: number = 10;
+  pageno: number = 1;
+  paginate(event: any) {
     this.pageno = event.page + 1;
     this.perpage = event.rows;
     this.loadInit();
@@ -473,28 +496,28 @@ export class RecentlyaddedquestionsComponent implements OnInit {
   scrollRightVideo() {
     const container = this.videoLinksContainer.nativeElement;
     const scrollAmount = container.offsetWidth / 2;
-    container.scrollBy({ left: scrollAmount, behavior: 'smooth' });
+    container.scrollBy({ left: scrollAmount, behavior: "smooth" });
     this.checkScrollPosition();
   }
 
   scrollLeftVideo() {
     const container = this.videoLinksContainer.nativeElement;
     const scrollAmount = -container.offsetWidth / 2;
-    container.scrollBy({ left: scrollAmount, behavior: 'smooth' });
+    container.scrollBy({ left: scrollAmount, behavior: "smooth" });
     this.checkScrollPosition();
   }
 
   scrollLeftRef() {
     const container = this.refLinksContainer.nativeElement;
     const scrollAmount = -container.offsetWidth / 2;
-    container.scrollBy({ left: scrollAmount, behavior: 'smooth' });
+    container.scrollBy({ left: scrollAmount, behavior: "smooth" });
     this.checkScrollPositionRef();
   }
 
   scrollRightRef() {
     const container = this.refLinksContainer.nativeElement;
     const scrollAmount = container.offsetWidth / 2;
-    container.scrollBy({ left: scrollAmount, behavior: 'smooth' });
+    container.scrollBy({ left: scrollAmount, behavior: "smooth" });
     this.checkScrollPositionRef();
   }
 
@@ -509,59 +532,59 @@ export class RecentlyaddedquestionsComponent implements OnInit {
     this.leftScrollButtonVisibleRef = container.scrollLeft > 0;
     this.rightScrollButtonVisibleRef = container.scrollWidth - container.clientWidth > container.scrollLeft;
   }
-   // vedio pop-up code
-   openNextPageLink:any;
-   openVideoPopup(link: any): void {
-     const sanitizedLink = this._sanitizer.bypassSecurityTrustResourceUrl(link);
-     this.openNextPageLink=link
-     // Check if it's a YouTube video link
-     if (this.isYoutubeVideoLink(link)) {
-       // If it's a YouTube video link, extract the video ID and construct the embeddable URL
-       const videoId = this.extractYoutubeVideoId(link);
-       const embedUrl = `https://www.youtube.com/embed/${videoId}`;
-       this.selectedVideoLink = this._sanitizer.bypassSecurityTrustResourceUrl(embedUrl);
-     } else {
-       // If it's not a YouTube video link, use the URL directly
-       this.selectedVideoLink = sanitizedLink;
-     }
- 
-     this.showVideoPopup = true;
-   }
- 
-   private isYoutubeVideoLink(link: string): boolean {
-     // Check if the link is a YouTube video link based on a simple pattern
-     return link.includes('youtube.com') || link.includes('youtu.be');
-   }
- 
-   private extractYoutubeVideoId(url: string): string {
-     const videoIdRegex = /(?:youtube\.com\/(?:[^\/\n\s]+\/\S+\/|(?:v|e(?:mbed)?)\/|\S*?[?&]v=)|youtu\.be\/)([^"'&?\n\s]+)/;
-     const match = url.match(videoIdRegex);
-     return match ? match[1] : '';
-   }
- 
-   @HostListener('document:keydown', ['$event'])
-   onKeyDown(event: KeyboardEvent): void {
-     // Check if the pressed key is the Escape key (code 27)
-     if (event.code === 'Escape') {
-       this.closeVideoPopup();
-     }
-   }
+  // vedio pop-up code
+  openNextPageLink: any;
+  openVideoPopup(link: any): void {
+    const sanitizedLink = this._sanitizer.bypassSecurityTrustResourceUrl(link);
+    this.openNextPageLink = link;
+    // Check if it's a YouTube video link
+    if (this.isYoutubeVideoLink(link)) {
+      // If it's a YouTube video link, extract the video ID and construct the embeddable URL
+      const videoId = this.extractYoutubeVideoId(link);
+      const embedUrl = `https://www.youtube.com/embed/${videoId}`;
+      this.selectedVideoLink = this._sanitizer.bypassSecurityTrustResourceUrl(embedUrl);
+    } else {
+      // If it's not a YouTube video link, use the URL directly
+      this.selectedVideoLink = sanitizedLink;
+    }
+
+    this.showVideoPopup = true;
+  }
+
+  private isYoutubeVideoLink(link: string): boolean {
+    // Check if the link is a YouTube video link based on a simple pattern
+    return link.includes("youtube.com") || link.includes("youtu.be");
+  }
+
+  private extractYoutubeVideoId(url: string): string {
+    const videoIdRegex = /(?:youtube\.com\/(?:[^\/\n\s]+\/\S+\/|(?:v|e(?:mbed)?)\/|\S*?[?&]v=)|youtu\.be\/)([^"'&?\n\s]+)/;
+    const match = url.match(videoIdRegex);
+    return match ? match[1] : "";
+  }
+
+  @HostListener("document:keydown", ["$event"])
+  onKeyDown(event: KeyboardEvent): void {
+    // Check if the pressed key is the Escape key (code 27)
+    if (event.code === "Escape") {
+      this.closeVideoPopup();
+    }
+  }
   closeVideoPopup(): void {
     if (this.videoFrame && this.videoFrame.nativeElement) {
       const player = this.videoFrame.nativeElement as HTMLIFrameElement;
-      player.src = '';
+      player.src = "";
     }
     this.selectedVideoLink = null;
     this.showVideoPopup = false;
   }
-   openNextVideo(): void {
-    console.log('Opening next video:', this.openNextPageLink);
+  openNextVideo(): void {
+    console.log("Opening next video:", this.openNextPageLink);
     if (this.openNextPageLink) {
       window.open(this.openNextPageLink);
     }
   }
-   onShowModal(value : any) {
-    let socialShare:any=document.getElementById("socialSharingList");
+  onShowModal(value: any) {
+    let socialShare: any = document.getElementById("socialSharingList");
     socialShare.style.display = "none";
-   }
+  }
 }

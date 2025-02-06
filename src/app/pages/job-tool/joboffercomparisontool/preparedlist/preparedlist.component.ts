@@ -5,11 +5,14 @@ import { ActivatedRoute, Router } from "@angular/router";
 import { AuthService } from "../../../../Auth/auth.service";
 import { PageFacadeService } from "../../../page-facade.service";
 import { JobOfferComparisionService } from "../joboffercomparison.service";
-
+import { CommonModule } from "@angular/common";
+import { DialogModule } from "primeng/dialog";
 @Component({
   selector: "uni-jopreparedlist",
   templateUrl: "./preparedlist.component.html",
   styleUrls: ["./preparedlist.component.scss"],
+  standalone: true,
+  imports: [CommonModule, DialogModule]
 })
 export class JobOfferPreparedListComponent implements OnInit {
   isSkeletonVisible: boolean = true;

@@ -1,10 +1,5 @@
 import { Component, ElementRef, Input, OnInit, ViewChild } from "@angular/core";
-import {
-  FormBuilder,
-  FormGroup,
-  ReactiveFormsModule,
-  Validators,
-} from "@angular/forms";
+import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from "@angular/forms";
 import { Accordion, AccordionModule } from "primeng/accordion";
 import { InformationService } from "./information.service";
 import { MessageService } from "primeng/api";
@@ -19,28 +14,14 @@ import { AuthService } from "src/app/Auth/auth.service";
 import { PaginatorModule } from "primeng/paginator";
 import { TooltipModule } from "primeng/tooltip";
 import { DialogModule } from "primeng/dialog";
-import {ButtonModule} from "primeng/button";
+import { ButtonModule } from "primeng/button";
 import { PageFacadeService } from "../page-facade.service";
 import { LocationService } from "src/app/location.service";
-
+import { FormsModule } from "@angular/forms";
 @Component({
   selector: "uni-infokit",
   standalone: true,
-  imports: [
-    CommonModule,
-    InputTextModule,
-    TabViewModule,
-    TableModule,
-    AccordionModule,
-    DropdownModule,
-    ReactiveFormsModule,
-    MultiSelectModule,
-    PaginatorModule,
-    TooltipModule,
-    DialogModule,
-    ButtonModule,
-
-  ],
+  imports: [FormsModule,CommonModule, InputTextModule, TabViewModule, TableModule, AccordionModule, DropdownModule, ReactiveFormsModule, MultiSelectModule, PaginatorModule, TooltipModule, DialogModule, ButtonModule],
   templateUrl: "./infokit.component.html",
   styleUrls: ["./infokit.component.scss"],
 })
@@ -52,25 +33,11 @@ export class InfoKitComponent implements OnInit {
   // originalFileLists: any[];
   allFoldersAndFiles: any[] = [];
   filteredFiles: any[] = [];
-  constructor(
-    private fb: FormBuilder,
-    private service: InformationService,
-    private toastr: MessageService,
-    private route: Router,
-    private authService: AuthService,
-    private pageFacade: PageFacadeService,
-    private locationService: LocationService,
-  ) {
+  constructor(private fb: FormBuilder, private service: InformationService, private toastr: MessageService, private route: Router, private authService: AuthService, private pageFacade: PageFacadeService, private locationService: LocationService) {
     this.authService.getNewUserTimeLeft().subscribe((res) => {
       let data = res.time_left;
       let subscription_exists_status = res.subscription_details;
-      if (
-        data.plan === "expired" ||
-        subscription_exists_status.subscription_plan === "free_trail" ||
-        subscription_exists_status.subscription_plan === "Student" ||
-        subscription_exists_status.subscription_plan === "Career" ||
-        data.plan === 'subscription_expired'
-      ) {
+      if (data.plan === "expired" || subscription_exists_status.subscription_plan === "free_trail" || subscription_exists_status.subscription_plan === "Student" || subscription_exists_status.subscription_plan === "Career" || data.plan === "subscription_expired") {
         this.planExpired = true;
       } else {
         this.planExpired = false;
@@ -81,16 +48,17 @@ export class InfoKitComponent implements OnInit {
   folderdata: any = {};
   routedata: any = [];
   parentfolderlists: any = [];
-  parentfilelists: any = []; totalcount = 0;
+  parentfilelists: any = [];
+  totalcount = 0;
   ehitlabelIsShow: boolean = true;
-  imagewhitlabeldomainname: any
+  imagewhitlabeldomainname: any;
   orgnamewhitlabel: any;
   orglogowhitelabel: any;
   ngOnInit() {
-    this.locationService.getImage().subscribe(imageUrl => {
+    this.locationService.getImage().subscribe((imageUrl) => {
       this.orglogowhitelabel = imageUrl;
     });
-    this.locationService.getOrgName().subscribe(orgname => {
+    this.locationService.getOrgName().subscribe((orgname) => {
       this.orgnamewhitlabel = orgname;
     });
     this.imagewhitlabeldomainname = window.location.hostname;
@@ -108,40 +76,34 @@ export class InfoKitComponent implements OnInit {
     this.getFolderData();
     this.getFileteredData();
   }
-  getFileteredData(){
-    this.service.getAllFolderAndFiles().subscribe(res =>{
+  getFileteredData() {
+    this.service.getAllFolderAndFiles().subscribe((res) => {
       this.allFoldersAndFiles = res;
       // console.log(this.allFoldersAndFiles, "all folder and files");
     });
   }
   getFolderData() {
-    this.searchText = '';
-    this.service
-      .GetFolderList(this.folderdata)
-      .subscribe((res) => {
-        this.totalcount = res?.count;
-        let responseData = res?.data;
-        this.parentfolderlists = responseData.filter(
-          (fdata: any) => fdata.isFolder == 1
-        );
-        this.parentfilelists = responseData.filter(
-          (fdata: any) => fdata.isFolder == 2
-        );
-        // this.originalFolderLists = [...this.parentfolderlists];
-        // this.originalFileLists = [...this.parentfilelists];
-      });
+    this.searchText = "";
+    this.service.GetFolderList(this.folderdata).subscribe((res) => {
+      this.totalcount = res?.count;
+      let responseData = res?.data;
+      this.parentfolderlists = responseData.filter((fdata: any) => fdata.isFolder == 1);
+      this.parentfilelists = responseData.filter((fdata: any) => fdata.isFolder == 2);
+      // this.originalFolderLists = [...this.parentfolderlists];
+      // this.originalFileLists = [...this.parentfilelists];
+    });
   }
   filterLists() {
-    if(this.searchText.length > 1){
-      this.filteredFiles = this.allFoldersAndFiles.filter((file:any) => {
-        if(file.isFolder == 1){
-          file.icon_path = file.img_path
-        }else{
+    if (this.searchText.length > 1) {
+      this.filteredFiles = this.allFoldersAndFiles.filter((file: any) => {
+        if (file.isFolder == 1) {
+          file.icon_path = file.img_path;
+        } else {
           file.icon_path = "../../../uniprep-assets/images/pdf.svg";
         }
-        return file.name.toLowerCase().includes(this.searchText.toLowerCase())
+        return file.name.toLowerCase().includes(this.searchText.toLowerCase());
       });
-    }else{
+    } else {
       this.filteredFiles = [];
     }
   }
@@ -154,7 +116,7 @@ export class InfoKitComponent implements OnInit {
     this.folderdata.perpage = event.rows;
     this.getFolderData();
   }
-  getchildinfo(data: any){
+  getchildinfo(data: any) {
     if (data.isFolder == "2") {
       return;
     }
@@ -179,7 +141,7 @@ export class InfoKitComponent implements OnInit {
       this.titletext = data.name;
     }
     this.routedata = [];
-    if(data.full_array){
+    if (data.full_array) {
       data.full_array.forEach((element: any) => {
         this.routedata.push({
           id: element.id,
@@ -240,14 +202,14 @@ export class InfoKitComponent implements OnInit {
     this.authService.getNewUserTimeLeft().subscribe((res) => {
       let data = res.time_left;
       let subscription_exists_status = res.subscription_details;
-      if (data.plan === "expired" || data.plan === 'subscription_expired' || subscription_exists_status.subscription_plan=="free_trail" || subscription_exists_status.subscription_plan=="Student" ||subscription_exists_status.subscription_plan=="Career") {
+      if (data.plan === "expired" || data.plan === "subscription_expired" || subscription_exists_status.subscription_plan == "free_trail" || subscription_exists_status.subscription_plan == "Student" || subscription_exists_status.subscription_plan == "Career") {
         this.planExpired = true;
         // this.restrict = true;
       } else {
         this.planExpired = false;
         // this.restrict = false;
       }
-    })
+    });
   }
   openVideoPopup(videoLink: string) {
     this.pageFacade.openHowitWorksVideoPopup(videoLink);

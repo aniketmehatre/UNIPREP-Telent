@@ -7,12 +7,13 @@ import {Location} from "@angular/common";
 import { PageFacadeService } from '../../page-facade.service';
 import {LanguageArrayGlobalService} from "../language-array-global.service";
 import { AuthService } from 'src/app/Auth/auth.service';
-
+import { CommonModule } from '@angular/common';
 @Component({
     selector: 'uni-levels',
     templateUrl: './levels.component.html',
     styleUrls: ['./levels.component.scss'],
-    standalone: false
+    standalone: true,
+    imports: [CommonModule]
 })
 export class LevelsComponent implements OnInit {
 

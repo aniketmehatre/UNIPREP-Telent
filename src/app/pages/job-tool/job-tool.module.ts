@@ -4,13 +4,12 @@ import {InputTextModule} from 'primeng/inputtext';
 import {CarouselModule} from 'primeng/carousel';
 import {ButtonModule} from 'primeng/button';
 import { ReactiveFormsModule } from '@angular/forms';
-import {InputTextareaModule} from 'primeng/inputtextarea';
 import { JobToolRoutingModule } from './job-tool-routing.module';
 import { JobToolComponent } from './job-tool.component';
 import { CareerToolComponent } from './career-tool/career-tool.component';
 import { CvBuilderComponent } from './cv-builder/cv-builder.component';
 import { CoverLetterBuilderComponent } from './cover-letter-builder/cover-letter-builder.component';
-import { ChipsModule } from 'primeng/chips';
+import { ChipModule } from 'primeng/chip';
 import { FormsModule } from '@angular/forms';
 import { DropdownModule } from 'primeng/dropdown';
 import { EditorModule } from 'primeng/editor';
@@ -43,27 +42,31 @@ import { CareerplannercountrywiseComponent } from './careerplannercountrywise/ca
   declarations: [
     JobToolComponent,
     CareerToolComponent,
-    CvBuilderComponent,
-    CoverLetterBuilderComponent,
-    CostOfLivingComponent,
-    ComparisionComponent,
-    SalaryConverterComponent,
-    QuizTestListComponent,
-    EmployerSubcategoryComponent,
+    
+    
+
+    
+    
     CareerCategoryListComponent,
-      FitTextDirective,
       CarrerplannerlistComponent,
       CareerplannercountrywiseComponent,
     ],
     imports: [
         CommonModule,
+        FitTextDirective,
+        CoverLetterBuilderComponent,
+        CostOfLivingComponent,
+        ComparisionComponent,
+        SalaryConverterComponent,
+        QuizTestListComponent,
         InputTextModule,
+        EmployerSubcategoryComponent,
         CarouselModule,
         ButtonModule,
+        CvBuilderComponent,
         ReactiveFormsModule,
-        InputTextareaModule,
         JobToolRoutingModule,
-        ChipsModule,
+        ChipModule,
         FormsModule,
         DropdownModule,
         EditorModule,

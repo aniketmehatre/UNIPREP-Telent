@@ -4,11 +4,14 @@ import { JobseekerSuccessStoriesService } from "../job-seeker-success-stories.se
 import { PageFacadeService } from "../../page-facade.service";
 import { Router } from "@angular/router";
 import { count } from "console";
-
+import { CommonModule } from "@angular/common";
+import { DialogModule } from "primeng/dialog";
 @Component({
   selector: "uni-seekercountries",
   templateUrl: "./seekercountries.component.html",
   styleUrls: ["./seekercountries.component.scss"],
+  standalone: true,
+  imports: [CommonModule, DialogModule]
 })
 export class SeekercountriesComponent implements OnInit {
   constructor(

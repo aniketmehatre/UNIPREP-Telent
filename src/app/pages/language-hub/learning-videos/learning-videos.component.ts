@@ -1,10 +1,4 @@
-import {
-  Component,
-  ElementRef,
-  HostListener,
-  OnInit,
-  ViewChild,
-} from "@angular/core";
+import { Component, ElementRef, HostListener, OnInit, ViewChild } from "@angular/core";
 import { Location } from "@angular/common";
 import { LanguageHubDataService } from "../language-hub-data.service";
 import { Router } from "@angular/router";
@@ -13,12 +7,15 @@ import { LanguageArrayGlobalService } from "../language-array-global.service";
 import { AuthService } from "src/app/Auth/auth.service";
 import { DomSanitizer } from "@angular/platform-browser";
 import { LanguageHubService } from "../language-hub.service";
+import { CommonModule } from "@angular/common";
+import { PaginatorModule } from "primeng/paginator";
 
 @Component({
-    selector: "uni-learning-videos",
-    templateUrl: "./learning-videos.component.html",
-    styleUrls: ["./learning-videos.component.scss"],
-    standalone: false
+  selector: "uni-learning-videos",
+  templateUrl: "./learning-videos.component.html",
+  styleUrls: ["./learning-videos.component.scss"],
+  standalone: true,
+  imports: [CommonModule, PaginatorModule],
 })
 export class LearningVideosComponent implements OnInit {
   @ViewChild("videoFrame") videoFrame: ElementRef | undefined;
@@ -30,15 +27,7 @@ export class LearningVideosComponent implements OnInit {
   tutorialList: any;
   selectedLanguageName: string = "";
 
-  constructor(
-    private lhs: LanguageHubDataService,
-    private location: Location,
-    private pageFacade: PageFacadeService,
-    public authService: AuthService,
-    private sanitizer: DomSanitizer,
-    private languageHubService: LanguageHubService,
-    private languageArrayGlobalService: LanguageArrayGlobalService
-  ) {
+  constructor(private lhs: LanguageHubDataService, private location: Location, private pageFacade: PageFacadeService, public authService: AuthService, private sanitizer: DomSanitizer, private languageHubService: LanguageHubService, private languageArrayGlobalService: LanguageArrayGlobalService) {
     this.lhs.data$.subscribe((data) => {
       this.selectedLanguageId = data;
     });
@@ -53,12 +42,10 @@ export class LearningVideosComponent implements OnInit {
   }
 
   init() {
-    this.languageHubService
-      .learningVideos(this.selectedLanguageId)
-      .subscribe((_res) => {
-        this.isSkeletonVisible = false;
-        this.tutorialList = _res;
-      });
+    this.languageHubService.learningVideos(this.selectedLanguageId).subscribe((_res) => {
+      this.isSkeletonVisible = false;
+      this.tutorialList = _res;
+    });
   }
 
   getFormattedValues(): string {
@@ -70,9 +57,7 @@ export class LearningVideosComponent implements OnInit {
   }
 
   goToHome(event: any) {
-    this.languageArrayGlobalService.removeItem(
-      this.languageArrayGlobalService.getItems().length - 1
-    );
+    this.languageArrayGlobalService.removeItem(this.languageArrayGlobalService.getItems().length - 1);
     this.location.back();
   }
 
@@ -83,12 +68,10 @@ export class LearningVideosComponent implements OnInit {
       // If it's a YouTube video link, extract the video ID and construct the embeddable URL
       const videoId = this.extractYoutubeVideoId(link);
       const embedUrl = `https://www.youtube.com/embed/${videoId}`;
-      this.selectedVideoLink =
-        this.sanitizer.bypassSecurityTrustResourceUrl(embedUrl);
+      this.selectedVideoLink = this.sanitizer.bypassSecurityTrustResourceUrl(embedUrl);
     } else {
       // If it's not a YouTube video link, use the URL directly
-      this.selectedVideoLink =
-        this.sanitizer.bypassSecurityTrustResourceUrl(link);
+      this.selectedVideoLink = this.sanitizer.bypassSecurityTrustResourceUrl(link);
     }
 
     // Set the flag to show the modal
@@ -101,8 +84,7 @@ export class LearningVideosComponent implements OnInit {
   }
 
   private extractYoutubeVideoId(url: string): string {
-    const videoIdRegex =
-      /(?:youtube\.com\/(?:[^\/\n\s]+\/\S+\/|(?:v|e(?:mbed)?)\/|\S*?[?&]v=)|youtu\.be\/)([^"'&?\n\s]+)/;
+    const videoIdRegex = /(?:youtube\.com\/(?:[^\/\n\s]+\/\S+\/|(?:v|e(?:mbed)?)\/|\S*?[?&]v=)|youtu\.be\/)([^"'&?\n\s]+)/;
     const match = url.match(videoIdRegex);
     return match ? match[1] : "";
   }

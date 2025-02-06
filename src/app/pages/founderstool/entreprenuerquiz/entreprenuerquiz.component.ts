@@ -9,12 +9,15 @@ import { Router } from '@angular/router';
 import { DataService } from 'src/app/data.service';
 import { FounderstoolService } from '../founderstool.service';
 import { Location } from '@angular/common';
-
+import { CommonModule } from "@angular/common";
+import { DialogModule } from "primeng/dialog";
+import { CardModule } from "primeng/card";
 @Component({
     selector: 'uni-entreprenuerquiz',
     templateUrl: './entreprenuerquiz.component.html',
     styleUrls: ['./entreprenuerquiz.component.scss'],
-    standalone: false
+    standalone: true,
+    imports: [CommonModule, DialogModule, CardModule]
 })
 export class EntreprenuerquizComponent implements OnInit {
   quizData: any[] = [];

@@ -4,7 +4,6 @@ import {DashboardRoutingModule} from './dashboard-routing.module';
 import {DashboardComponent} from "./dashboard.component";
 import {TableModule} from "primeng/table";
 import {FormsModule} from "@angular/forms";
-import {InputTextareaModule} from "primeng/inputtextarea";
 import {SharedDirectives} from "../../@shared/directives/common-d";
 import {EditorModule} from 'primeng/editor';
 import {InputTextModule} from "primeng/inputtext";
@@ -20,13 +19,12 @@ import { OverlayPanelModule } from 'primeng/overlaypanel';
 import { SkeletonModule } from 'primeng/skeleton';
 
 @NgModule({
-    declarations: [DashboardComponent],
     imports: [
         CommonModule,
+        DashboardComponent,
         DashboardRoutingModule,
         TableModule,
         FormsModule,
-        InputTextareaModule,
         SharedDirectives,
         EditorModule,
         InputTextModule,

@@ -1,25 +1,27 @@
-import {
-  Component,
-  ElementRef,
-  HostListener,
-  OnInit,
-  ViewChild,
-} from "@angular/core";
+import { Component, ElementRef, HostListener, OnInit, ViewChild } from "@angular/core";
 import { ChathistoryService } from "./chat.service";
 import { AuthService } from "src/app/Auth/auth.service";
 import { ConfirmationService, MessageService } from "primeng/api";
-import { FormBuilder, FormGroup, Validators } from "@angular/forms";
+import { FormBuilder, FormGroup, Validators, FormsModule, ReactiveFormsModule } from "@angular/forms";
 import { PageFacadeService } from "../page-facade.service";
 import { Router } from "@angular/router";
 import screenfull from "screenfull";
 import { Location } from "@angular/common";
-import {environment} from "@env/environment";
-const CryptoJS: any = require('crypto-js');
+import { environment } from "@env/environment";
+import { CommonModule } from "@angular/common";
+import { DialogModule } from "primeng/dialog";
+import { DropdownModule } from "primeng/dropdown";
+import { OverlayPanelModule } from 'primeng/overlaypanel';
+import { ConfirmPopupModule } from "primeng/confirmpopup";
+import { ButtonModule } from "primeng/button";
+const CryptoJS: any = require("crypto-js");
 
 @Component({
   selector: "uni-chat",
   templateUrl: "./chat.component.html",
   styleUrls: ["./chat.component.scss"],
+  standalone: true,
+  imports: [CommonModule, DialogModule, DropdownModule, FormsModule, ReactiveFormsModule, OverlayPanelModule, ConfirmPopupModule, ButtonModule],
   providers: [ConfirmationService],
 })
 export class ChatComponent implements OnInit {
@@ -42,16 +44,7 @@ export class ChatComponent implements OnInit {
   planExpired: boolean = false;
   restrict: boolean = false;
   subtext: string = "";
-  constructor(
-    private service: ChathistoryService,
-    private authService: AuthService,
-    private toast: MessageService,
-    private fb: FormBuilder,
-    private pageService: PageFacadeService,
-    private confirmationService: ConfirmationService,
-    private route: Router,
-    private location:Location
-  ) {
+  constructor(private service: ChathistoryService, private authService: AuthService, private toast: MessageService, private fb: FormBuilder, private pageService: PageFacadeService, private confirmationService: ConfirmationService, private route: Router, private location: Location) {
     this.reportForm = fb.group({
       reportOption: ["", Validators.required],
       comment: ["", Validators.required],
@@ -66,8 +59,7 @@ export class ChatComponent implements OnInit {
         this.canChat = false;
       } else if (subscription_exists_status.subscription_plan != "free_trail") {
         this.planstatus == "expired";
-        this.planmessage =
-          "Your question credits are exhausted! Additional credits will be available at 12:00 AM tommorow.";
+        this.planmessage = "Your question credits are exhausted! Additional credits will be available at 12:00 AM tommorow.";
         this.canChat = false;
       }
     });
@@ -153,26 +145,20 @@ export class ChatComponent implements OnInit {
       let subscription_exists_status = res.subscription_details;
       if (data.plan === "expired" || data.plan === "subscription_expired") {
         this.planExpired = true;
-        this.subtext =
-          "Welcome to UNIPREP. You have 1 free question credit. Your personalised questions will be answered by the experts. Each message will be considered as 1 credit.";
+        this.subtext = "Welcome to UNIPREP. You have 1 free question credit. Your personalised questions will be answered by the experts. Each message will be considered as 1 credit.";
       } else {
         this.planExpired = false;
-        this.subtext =
-          "Welcome to UNIPREP.You have 2 question credits.Your personalised questions will be answered by the experts.Each message will be considered as 1 credit.";
+        this.subtext = "Welcome to UNIPREP.You have 2 question credits.Your personalised questions will be answered by the experts.Each message will be considered as 1 credit.";
       }
       if (subscription_exists_status.subscription_plan == "free_trail") {
-        this.subtext =
-          "Welcome to UNIPREP. You have 1 free question credit. Your personalised questions will be answered by the experts. Each message will be considered as 1 credit.";
+        this.subtext = "Welcome to UNIPREP. You have 1 free question credit. Your personalised questions will be answered by the experts. Each message will be considered as 1 credit.";
       }
     });
   }
   getOptions() {
     this.service.getReportoption().subscribe((response) => {
       this.reportOptions = [];
-      this.reportOptions = [
-        { id: null, reportoption_name: "Select" },
-        ...response.reportOptions,
-      ];
+      this.reportOptions = [{ id: null, reportoption_name: "Select" }, ...response.reportOptions];
     });
   }
   previouspage() {
@@ -204,14 +190,8 @@ export class ChatComponent implements OnInit {
       } else {
         this.btnsendmessage = 3;
       }
-      if (
-        this.subscriptioninfo.time_left.plan === "expired" ||
-        this.subscriptioninfo.time_left.plan === "subscription_expired"
-      ) {
-        if (
-          this.subscriptioninfo.subscription_details.subscription_plan ===
-          "free_trail"
-        ) {
+      if (this.subscriptioninfo.time_left.plan === "expired" || this.subscriptioninfo.time_left.plan === "subscription_expired") {
+        if (this.subscriptioninfo.subscription_details.subscription_plan === "free_trail") {
           this.btnsendmessage = 2;
         } else {
           this.btnsendmessage = 2;
@@ -264,8 +244,7 @@ export class ChatComponent implements OnInit {
   confirm(event: Event) {
     this.confirmationService.confirm({
       target: event.target as EventTarget,
-      message:
-        "You will be using one of the chat credit to send this message. Do you confirm?",
+      message: "You will be using one of the chat credit to send this message. Do you confirm?",
       icon: "pi pi-exclamation-triangle",
       accept: () => {
         this.sendMessage();
@@ -286,9 +265,7 @@ export class ChatComponent implements OnInit {
     );
   }
   getData(questionNumber: any): string {
-    return this.messages?.find(
-      (data: { questionNumber: any }) => data.questionNumber == questionNumber
-    ).message;
+    return this.messages?.find((data: { questionNumber: any }) => data.questionNumber == questionNumber).message;
   }
 
   creditspopupVisibility = false;

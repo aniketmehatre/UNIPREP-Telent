@@ -1,61 +1,61 @@
-
 <div class="container-fluid h-100 d-flex flex-column justify-content-center" *ngIf="activePageIndex == 0">
-	<div class="row justify-content-center">
-		<div class="flex-column">
-			<div>
-				<h3 class="text-center uniprep-primary">Your Cover Letters</h3>
-				<div class="cvSampleImg d-flex flex-wrap">
-					<div class="flex-column overflow-hidden" *ngFor="let resumes of coverHistories; let i = index">
-						<div [ngClass]="{ 'skeleton-loader': loadingResumes }">
-							<pdf-viewer [ngStyle]="{ visibility: loadingResumes ? 'hidden' : 'visible' }" [src]="resumes.pdf_name" [render-text]="false" [autoresize]="false" [show-all]="false" [original-size]="false" (after-load-complete)="pdfViewLoader()" ></pdf-viewer>
-							<i class="fa-solid fa-trash HistoryDeleteIcon" [ngStyle]="{ visibility: loadingResumes ? 'hidden' : 'visible' }" (click)="confirm($event, resumes.pdf_name, resumes.id)"></i>
-							<p-confirmPopup></p-confirmPopup>
-							<i class="fa-solid fa-download HistoryDownloadIcon" [ngStyle]="{ visibility: loadingResumes ? 'hidden' : 'visible' }" (click)="downloadOldResume(resumes.pdf_name)"></i>
-						</div>
-						<div [ngClass]="{ 'skeleton-loader': loadingResumes }">
-							<p [ngStyle]="{ visibility: loadingResumes ? 'hidden' : 'visible' }">Version {{ i + 1 }}</p>
-							<small [ngStyle]="{ visibility: loadingResumes ? 'hidden' : 'visible' }">{{ resumes.created_time }}</small>
-						</div>
-					</div>
-				</div>
-			</div>
-			<div class="row justify-content-center">
-				<button class="createResumeButton" (click)="next()" >Create your Cover Letter &nbsp;&nbsp;&nbsp;<i class="fa-solid fa-arrow-right tickIcon"></i></button>
-			</div>
-		</div>
-	</div>
+  <div class="row justify-content-center">
+    <div class="flex-column">
+      <div>
+        <h3 class="text-center uniprep-primary">Your Cover Letters</h3>
+        <div class="cvSampleImg d-flex flex-wrap">
+          <div class="flex-column overflow-hidden" *ngFor="let resumes of coverHistories; let i = index">
+            <div [ngClass]="{ 'skeleton-loader': loadingResumes }">
+              <!-- <pdf-viewer [ngStyle]="{ visibility: loadingResumes ? 'hidden' : 'visible' }" [src]="resumes.pdf_name" [render-text]="false" [autoresize]="false" [show-all]="false" [original-size]="false" (after-load-complete)="pdfViewLoader()" ></pdf-viewer> -->
+              <ngx-extended-pdf-viewer [ngStyle]="{ visibility: loadingResumes ? 'hidden' : 'visible' }" [src]="resumes.pdf_name" [useBrowserLocale]="true" [showToolbar]="false" [textLayer]="false" [spreadMode]="'none'" [height]="'500px'" (pdfLoaded)="pdfViewLoader()"></ngx-extended-pdf-viewer>
+              <i class="fa-solid fa-trash HistoryDeleteIcon" [ngStyle]="{ visibility: loadingResumes ? 'hidden' : 'visible' }" (click)="confirm($event, resumes.pdf_name, resumes.id)"></i>
+              <p-confirmPopup></p-confirmPopup>
+              <i class="fa-solid fa-download HistoryDownloadIcon" [ngStyle]="{ visibility: loadingResumes ? 'hidden' : 'visible' }" (click)="downloadOldResume(resumes.pdf_name)"></i>
+            </div>
+            <div [ngClass]="{ 'skeleton-loader': loadingResumes }">
+              <p [ngStyle]="{ visibility: loadingResumes ? 'hidden' : 'visible' }">Version {{ i + 1 }}</p>
+              <small [ngStyle]="{ visibility: loadingResumes ? 'hidden' : 'visible' }">{{ resumes.created_time }}</small>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="row justify-content-center">
+        <button class="createResumeButton" (click)="next()">Create your Cover Letter &nbsp;&nbsp;&nbsp;<i class="fa-solid fa-arrow-right tickIcon"></i></button>
+      </div>
+    </div>
+  </div>
 </div>
 <div class="container-fluid h-100 d-flex flex-column justify-content-center" *ngIf="activePageIndex == 1">
-	<div class="row">
-		<div class="col-md-12">
-			<h3 class="text-center uniprep-primary">Select your Cover Letter style to get started</h3>
-		</div>
-		<div class="col-md-12">
-			<div class="swiper-wrapper-custom">
-				<div class="d-flex">
-					<div class="d-flex align-items-center justify-content-center">
-						<button type="button" class="swiper-prev" aria-label="Previous-Slide"><i class="fa-solid fa-angle-left"></i></button>
-					</div>
-					<div class="overflow-hidden py-5">
-						<div class="swiper">
-							<div class="swiper-wrapper">
-								<div class="swiper-slide text-center d-flex justify-content-center" *ngFor="let slide of resumeSlider">
-									<div class="cvBuilderSampleImg position-relative" [ngClass]="{ selectedResumeLevel: selectedResumeLevel == slide.templateName }">
-										<h5 class="text-center uniprep-primary">{{ slide.templateName }}</h5>
-										<img [src]="slide.imageLink" alt="{{ slide.templateName }}" />
-										<button class="center-button btn btn-primary" (click)="selectResumeTemplate(slide.templateName)">Select</button>
-									</div>
-								</div>
-							</div>
-						</div>
-					</div>
-					<div class="d-flex align-items-center justify-content-center">
-						<button type="button" class="swiper-next" aria-label="Next-Slide"><i class="fa-solid fa-angle-right"></i></button>
-					</div>
-				</div>
-			</div>
-		</div>
-	</div>
+  <div class="row">
+    <div class="col-md-12">
+      <h3 class="text-center uniprep-primary">Select your Cover Letter style to get started</h3>
+    </div>
+    <div class="col-md-12">
+      <div class="swiper-wrapper-custom">
+        <div class="d-flex">
+          <div class="d-flex align-items-center justify-content-center">
+            <button type="button" class="swiper-prev" aria-label="Previous-Slide"><i class="fa-solid fa-angle-left"></i></button>
+          </div>
+          <div class="overflow-hidden py-5">
+            <div class="swiper">
+              <div class="swiper-wrapper">
+                <div class="swiper-slide text-center d-flex justify-content-center" *ngFor="let slide of resumeSlider">
+                  <div class="cvBuilderSampleImg position-relative" [ngClass]="{ selectedResumeLevel: selectedResumeLevel == slide.templateName }">
+                    <h5 class="text-center uniprep-primary">{{ slide.templateName }}</h5>
+                    <img [src]="slide.imageLink" alt="{{ slide.templateName }}" />
+                    <button class="center-button btn btn-primary" (click)="selectResumeTemplate(slide.templateName)">Select</button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="d-flex align-items-center justify-content-center">
+            <button type="button" class="swiper-next" aria-label="Next-Slide"><i class="fa-solid fa-angle-right"></i></button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
 </div>
 <!-- <div class="" *ngIf="activePageIndex == 3">
 
@@ -89,219 +89,219 @@
 	</div>
 </div> -->
 <div class="container-fluid h-100" *ngIf="activePageIndex == 3" style="overflow-y: auto">
-	<div class="row justify-content-center">
-		<div class="flex-column">
-			<div style="height: 15%">
-				<h3 class="text-center uniprep-primary">Your Cover Letter</h3>
-				<h5 class="text-center uniprep-primary">{{ selectedResumeLevel }}</h5>
-				<div class="d-flex justify-content-center align-items-center">
-					<button class="downloadButton" (click)="downloadResume()">Download &nbsp;&nbsp;&nbsp;<i class="fa-solid fa-download tickIcon"></i></button>
-				</div>
-			</div>
-			<div class="col-md-12 d-flex justify-content-center" style="height: 80%">
-				<div class="col-md-6">
-					<div class="previewcontainer">
-						<div class="previewbody">
-							<ng-container *ngTemplateOutlet="sharedContent"></ng-container>
-						</div>
-					</div>
-				</div>
-			</div>
-			<!-- style="visibility:hidden;" -->
-			<div class="d-flex justify-content-between" style="height: 5%">
-				<button pButton type="button" (click)="previous()" class="text-white p-ripple p-button-rounded p-button-info-prev p-button p-component p-2"><i class="fa fa-arrow-left exhausted-plan-icon-prev"></i> Previous</button>
-				<!-- <button class="downloadButton" style="margin: 0px" (click)="next()">CV Builder &nbsp;&nbsp;&nbsp;<i class="fa-sharp fa-regular fa-house tickIcon"></i></button> -->
-			</div>
-		</div>
-	</div>
+  <div class="row justify-content-center">
+    <div class="flex-column">
+      <div style="height: 15%">
+        <h3 class="text-center uniprep-primary">Your Cover Letter</h3>
+        <h5 class="text-center uniprep-primary">{{ selectedResumeLevel }}</h5>
+        <div class="d-flex justify-content-center align-items-center">
+          <button class="downloadButton" (click)="downloadResume()">Download &nbsp;&nbsp;&nbsp;<i class="fa-solid fa-download tickIcon"></i></button>
+        </div>
+      </div>
+      <div class="col-md-12 d-flex justify-content-center" style="height: 80%">
+        <div class="col-md-6">
+          <div class="previewcontainer">
+            <div class="previewbody">
+              <ng-container *ngTemplateOutlet="sharedContent"></ng-container>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- style="visibility:hidden;" -->
+      <div class="d-flex justify-content-between" style="height: 5%">
+        <button pButton type="button" (click)="previous()" class="text-white p-ripple p-button-rounded p-button-info-prev p-button p-component p-2"><i class="fa fa-arrow-left exhausted-plan-icon-prev"></i> Previous</button>
+        <!-- <button class="downloadButton" style="margin: 0px" (click)="next()">CV Builder &nbsp;&nbsp;&nbsp;<i class="fa-sharp fa-regular fa-house tickIcon"></i></button> -->
+      </div>
+    </div>
+  </div>
 </div>
 <div class="container-fluid h-100 d-flex flex-column" *ngIf="activePageIndex == 2">
-	<div class="row align-items-center mb-2">
-		<div class="col-md-1">
-			<div class="backIcon d-md-flex d-none" role="button" (click)="previous()">
-				<span class="pi pi-angle-left"></span>
-			</div>
-		</div>
-		<div class="col-md-10">
-			<p-steps [model]="items" [readonly]="false" [activeIndex]="moduleActiveIndex"></p-steps>
-		</div>
-		<div class="col-md-1">&nbsp;</div>
-	</div>
-	<div class="row flex-fill overflow-hidden">
-		<div class="col-md-6 h-100 d-flex flex-column overflow-hidden gap-2">
-			<div class="flex-fill overflow-y-auto">
-				<form role="form" class="row" [formGroup]="resumeFormInfoData" #form="ngForm">
-					<div class="col-md-12 mb-3">
-						<ng-container *ngIf="moduleActiveIndex == 0">
-							<h4 class="uniprep-primary">Enter Your Personal Information</h4>
-							<div class="row mb-3">
-								<div class="col-md-6">
-									<label class="uniprep-primarydark fw-bold h6">Your Name</label>
-									<div class="form-group">
-										<div class="mb-3">
-											<input class="w-100" type="text" placeholder="Full Name" formControlName="user_name" pInputText />
-											<div *ngIf="submitted && f['user_name'].errors" class="text-danger text-xs">
-												<div style="margin-left: 10px" *ngIf="f['user_name'].errors">Full Name Required</div>
-											</div>
-										</div>
-									</div>
-								</div>
-								<div class="col-md-6">
-									<label class="uniprep-primarydark fw-bold h6">Job Title</label>
-									<div class="form-group">
-										<div class="mb-3">
-											<input class="w-100" type="text" placeholder="Your Job Title" formControlName="user_job_title" pInputText />
-											<div *ngIf="submitted && f['user_job_title'].errors" class="text-danger text-xs">
-												<div style="margin-left: 10px" *ngIf="f['user_job_title'].errors">Your Job Title Required</div>
-											</div>
-										</div>
-									</div>
-								</div>
-								<div class="col-md-6">
-									<label class="uniprep-primarydark fw-bold h6">Your Email</label>
-									<div class="form-group">
-										<div class="mb-3">
-											<input class="w-100" type="text" placeholder="Email Address" formControlName="user_email" pInputText />
-											<div *ngIf="submitted && f['user_email'].errors" class="text-danger text-xs">
-												<div style="margin-left: 10px" *ngIf="f['user_email'].errors?.['required']">Email Required</div>
-												<div style="margin-left: 10px" *ngIf="f['user_email'].errors?.['email']">Enter Valid email Address</div>
-											</div>
-										</div>
-									</div>
-								</div>
-								<div class="col-md-6">
-									<label class="uniprep-primarydark fw-bold h6">Current Address</label>
-									<div class="form-group">
-										<div class="mb-3">
-											<input class="w-100" type="text" placeholder="Location" formControlName="user_location" pInputText />
-											<div *ngIf="submitted && f['user_location'].errors" class="text-danger text-xs">
-												<div style="margin-left: 10px" *ngIf="f['user_location'].errors">Location Required</div>
-											</div>
-										</div>
-									</div>
-								</div>
-								<div class="col-md-6">
-									<label class="uniprep-primarydark fw-bold h6">Phone Number</label>
-									<div class="form-group">
-										<div class="mb-3">
-											<input class="w-100" type="text" placeholder="Phone Number" formControlName="user_phone" pInputText />
-											<div *ngIf="f['user_phone'].invalid && (f['user_phone'].dirty || f['user_phone'].touched)" class="text-danger text-xs">
-												<div style="margin-left: 10px" *ngIf="f['user_phone'].errors?.['required']">Phone number Required</div>
-												<div style="margin-left: 10px" *ngIf="f['user_phone'].errors?.['pattern']">Enter Valid Phone number</div>
-											</div>
-										</div>
-									</div>
-								</div>
-								<div class="col-md-12">
-									<label class="uniprep-primarydark fw-bold h6">Website (Optional)</label>
-									<div class="form-group">
-										<div class="mb-3">
-											<input class="w-100" type="text" placeholder="Website or portfolio Link" formControlName="user_website" pInputText />
-										</div>
-									</div>
-								</div>
-							</div>
-							<h4 class="uniprep-primary">Enter Your Latest Degree (Optional)</h4>
-							<div class="row mb-3">
-								<div class="col-md-6">
-									<label class="uniprep-primarydark fw-bold h6">College/School Name</label>
-									<div class="form-group">
-										<div class="mb-3">
-											<input class="w-100" type="text" placeholder="College/School Name" formControlName="degree_college_name" pInputText />
-										</div>
-									</div>
-								</div>
-								<div class="col-md-6">
-									<label class="uniprep-primarydark fw-bold h6">Degree</label>
-									<div class="form-group">
-										<div class="mb-3">
-											<input class="w-100" type="text" placeholder="Your Degree" formControlName="edu_degree" pInputText />
-										</div>
-									</div>
-								</div>
-							</div>
-							<h4 class="uniprep-primary">Relevant Experience (Optional)</h4>
-							<div class="row mb-3">
-								<div class="col-md-6">
-									<label class="uniprep-primarydark fw-bold h6">Designation</label>
-									<div class="form-group">
-										<div class="mb-3">
-											<input class="w-100" type="text" placeholder="Your Previous Designation" formControlName="exp_designation" pInputText />
-										</div>
-									</div>
-								</div>
-								<div class="col-md-6">
-									<label class="uniprep-primarydark fw-bold h6">Years of Experience</label>
-									<div class="form-group">
-										<div class="mb-3">
-											<input class="w-100" type="text" placeholder="Your Experience" formControlName="years_of_exp" pInputText />
-										</div>
-									</div>
-								</div>
-							</div>
-							<h4 class="uniprep-primary">Achievements (Optional)</h4>
-							<div class="row">
-								<div class="col-md-12">
-									<div class="form-group">
-										<div class="mb-3">
-											<input class="w-100 m-1" type="text" placeholder="Your Achievements" formControlName="achievements_one" pInputText />
-											<input class="w-100 m-1" type="text" placeholder="Your Achievements" formControlName="achievements_two" pInputText />
-										</div>
-									</div>
-								</div>
-							</div>
-						</ng-container>
-						<ng-container *ngIf="moduleActiveIndex == 1">
-							<h4 class="p-mb-1 PageTitle">Enter Organization Details</h4>
-							<div class="row">
-								<div class="col-md-6">
-									<label class="uniprep-primarydark fw-bold h6">Organization Name</label>
-									<div class="form-group">
-										<div class="mb-3">
-											<input class="w-100" type="text" placeholder="Organization Name" formControlName="org_name" pInputText />
-											<div *ngIf="submitted && f['org_name'].errors" class="text-danger text-xs">
-												<div style="margin-left: 10px" *ngIf="f['org_name'].errors">Organization Name Required</div>
-											</div>
-										</div>
-									</div>
-								</div>
-								<div class="col-md-6">
-									<label class="uniprep-primarydark fw-bold h6">Manager Name</label>
-									<div class="row">
-										<div class="form-group">
-											<div class="mb-3">
-												<input class="w-100" type="text" placeholder="Manger Name" formControlName="managername" pInputText />
-												<div *ngIf="submitted && f['managername'].errors" class="text-danger text-xs">
-													<div style="margin-left: 10px" *ngIf="f['managername'].errors">Manger Name Required</div>
-												</div>
-											</div>
-										</div>
-									</div>
-								</div>
-								<div class="col-md-6">
-									<label class="uniprep-primarydark fw-bold h6">Location</label>
-									<div class="form-group">
-										<div class="mb-3">
-											<input class="w-100" type="text" placeholder="Organization Location" formControlName="org_location" pInputText />
-											<div *ngIf="submitted && f['org_location'].errors" class="text-danger text-xs">
-												<div style="margin-left: 10px" *ngIf="f['org_location'].errors">Organization Location Required</div>
-											</div>
-										</div>
-									</div>
-								</div>
-								<div class="col-md-6">
-									<label class="uniprep-primarydark fw-bold h6">Job Position</label>
-									<div class="form-group">
-										<div class="mb-3">
-											<input class="w-100" type="text" placeholder="Your Job Position" formControlName="jobposition" pInputText />
-											<div *ngIf="submitted && f['jobposition'].errors" class="text-danger text-xs">
-												<div style="margin-left: 10px" *ngIf="f['jobposition'].errors">Your Job Position Required</div>
-											</div>
-										</div>
-									</div>
-								</div>
+  <div class="row align-items-center mb-2">
+    <div class="col-md-1">
+      <div class="backIcon d-md-flex d-none" role="button" (click)="previous()">
+        <span class="pi pi-angle-left"></span>
+      </div>
+    </div>
+    <div class="col-md-10">
+      <p-steps [model]="items" [readonly]="false" [activeIndex]="moduleActiveIndex"></p-steps>
+    </div>
+    <div class="col-md-1">&nbsp;</div>
+  </div>
+  <div class="row flex-fill overflow-hidden">
+    <div class="col-md-6 h-100 d-flex flex-column overflow-hidden gap-2">
+      <div class="flex-fill overflow-y-auto">
+        <form role="form" class="row" [formGroup]="resumeFormInfoData" #form="ngForm">
+          <div class="col-md-12 mb-3">
+            <ng-container *ngIf="moduleActiveIndex == 0">
+              <h4 class="uniprep-primary">Enter Your Personal Information</h4>
+              <div class="row mb-3">
+                <div class="col-md-6">
+                  <label class="uniprep-primarydark fw-bold h6">Your Name</label>
+                  <div class="form-group">
+                    <div class="mb-3">
+                      <input class="w-100" type="text" placeholder="Full Name" formControlName="user_name" pInputText />
+                      <div *ngIf="submitted && f['user_name'].errors" class="text-danger text-xs">
+                        <div style="margin-left: 10px" *ngIf="f['user_name'].errors">Full Name Required</div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-md-6">
+                  <label class="uniprep-primarydark fw-bold h6">Job Title</label>
+                  <div class="form-group">
+                    <div class="mb-3">
+                      <input class="w-100" type="text" placeholder="Your Job Title" formControlName="user_job_title" pInputText />
+                      <div *ngIf="submitted && f['user_job_title'].errors" class="text-danger text-xs">
+                        <div style="margin-left: 10px" *ngIf="f['user_job_title'].errors">Your Job Title Required</div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-md-6">
+                  <label class="uniprep-primarydark fw-bold h6">Your Email</label>
+                  <div class="form-group">
+                    <div class="mb-3">
+                      <input class="w-100" type="text" placeholder="Email Address" formControlName="user_email" pInputText />
+                      <div *ngIf="submitted && f['user_email'].errors" class="text-danger text-xs">
+                        <div style="margin-left: 10px" *ngIf="f['user_email'].errors?.['required']">Email Required</div>
+                        <div style="margin-left: 10px" *ngIf="f['user_email'].errors?.['email']">Enter Valid email Address</div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-md-6">
+                  <label class="uniprep-primarydark fw-bold h6">Current Address</label>
+                  <div class="form-group">
+                    <div class="mb-3">
+                      <input class="w-100" type="text" placeholder="Location" formControlName="user_location" pInputText />
+                      <div *ngIf="submitted && f['user_location'].errors" class="text-danger text-xs">
+                        <div style="margin-left: 10px" *ngIf="f['user_location'].errors">Location Required</div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-md-6">
+                  <label class="uniprep-primarydark fw-bold h6">Phone Number</label>
+                  <div class="form-group">
+                    <div class="mb-3">
+                      <input class="w-100" type="text" placeholder="Phone Number" formControlName="user_phone" pInputText />
+                      <div *ngIf="f['user_phone'].invalid && (f['user_phone'].dirty || f['user_phone'].touched)" class="text-danger text-xs">
+                        <div style="margin-left: 10px" *ngIf="f['user_phone'].errors?.['required']">Phone number Required</div>
+                        <div style="margin-left: 10px" *ngIf="f['user_phone'].errors?.['pattern']">Enter Valid Phone number</div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-md-12">
+                  <label class="uniprep-primarydark fw-bold h6">Website (Optional)</label>
+                  <div class="form-group">
+                    <div class="mb-3">
+                      <input class="w-100" type="text" placeholder="Website or portfolio Link" formControlName="user_website" pInputText />
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <h4 class="uniprep-primary">Enter Your Latest Degree (Optional)</h4>
+              <div class="row mb-3">
+                <div class="col-md-6">
+                  <label class="uniprep-primarydark fw-bold h6">College/School Name</label>
+                  <div class="form-group">
+                    <div class="mb-3">
+                      <input class="w-100" type="text" placeholder="College/School Name" formControlName="degree_college_name" pInputText />
+                    </div>
+                  </div>
+                </div>
+                <div class="col-md-6">
+                  <label class="uniprep-primarydark fw-bold h6">Degree</label>
+                  <div class="form-group">
+                    <div class="mb-3">
+                      <input class="w-100" type="text" placeholder="Your Degree" formControlName="edu_degree" pInputText />
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <h4 class="uniprep-primary">Relevant Experience (Optional)</h4>
+              <div class="row mb-3">
+                <div class="col-md-6">
+                  <label class="uniprep-primarydark fw-bold h6">Designation</label>
+                  <div class="form-group">
+                    <div class="mb-3">
+                      <input class="w-100" type="text" placeholder="Your Previous Designation" formControlName="exp_designation" pInputText />
+                    </div>
+                  </div>
+                </div>
+                <div class="col-md-6">
+                  <label class="uniprep-primarydark fw-bold h6">Years of Experience</label>
+                  <div class="form-group">
+                    <div class="mb-3">
+                      <input class="w-100" type="text" placeholder="Your Experience" formControlName="years_of_exp" pInputText />
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <h4 class="uniprep-primary">Achievements (Optional)</h4>
+              <div class="row">
+                <div class="col-md-12">
+                  <div class="form-group">
+                    <div class="mb-3">
+                      <input class="w-100 m-1" type="text" placeholder="Your Achievements" formControlName="achievements_one" pInputText />
+                      <input class="w-100 m-1" type="text" placeholder="Your Achievements" formControlName="achievements_two" pInputText />
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </ng-container>
+            <ng-container *ngIf="moduleActiveIndex == 1">
+              <h4 class="p-mb-1 PageTitle">Enter Organization Details</h4>
+              <div class="row">
+                <div class="col-md-6">
+                  <label class="uniprep-primarydark fw-bold h6">Organization Name</label>
+                  <div class="form-group">
+                    <div class="mb-3">
+                      <input class="w-100" type="text" placeholder="Organization Name" formControlName="org_name" pInputText />
+                      <div *ngIf="submitted && f['org_name'].errors" class="text-danger text-xs">
+                        <div style="margin-left: 10px" *ngIf="f['org_name'].errors">Organization Name Required</div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-md-6">
+                  <label class="uniprep-primarydark fw-bold h6">Manager Name</label>
+                  <div class="row">
+                    <div class="form-group">
+                      <div class="mb-3">
+                        <input class="w-100" type="text" placeholder="Manger Name" formControlName="managername" pInputText />
+                        <div *ngIf="submitted && f['managername'].errors" class="text-danger text-xs">
+                          <div style="margin-left: 10px" *ngIf="f['managername'].errors">Manger Name Required</div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-md-6">
+                  <label class="uniprep-primarydark fw-bold h6">Location</label>
+                  <div class="form-group">
+                    <div class="mb-3">
+                      <input class="w-100" type="text" placeholder="Organization Location" formControlName="org_location" pInputText />
+                      <div *ngIf="submitted && f['org_location'].errors" class="text-danger text-xs">
+                        <div style="margin-left: 10px" *ngIf="f['org_location'].errors">Organization Location Required</div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-md-6">
+                  <label class="uniprep-primarydark fw-bold h6">Job Position</label>
+                  <div class="form-group">
+                    <div class="mb-3">
+                      <input class="w-100" type="text" placeholder="Your Job Position" formControlName="jobposition" pInputText />
+                      <div *ngIf="submitted && f['jobposition'].errors" class="text-danger text-xs">
+                        <div style="margin-left: 10px" *ngIf="f['jobposition'].errors">Your Job Position Required</div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
 
-								<!-- <div class="col-md-12">
+                <!-- <div class="col-md-12">
 								<label class="uniprep-primarydark fw-bold h6">How did you get to know about us</label>
 								<div class="form-group">
 									<div class="mb-3">
@@ -315,352 +315,350 @@
 									</div>
 								</div>
 							</div> -->
-							</div>
-						</ng-container>
-						<ng-container *ngIf="moduleActiveIndex == 2">
-							<div class="row">
-								<div class="col-md-12">
-									<div class="d-flex justify-content-between align-items-center">
-										<label class="uniprep-primarydark fw-bold h6 mb-0">Cover Letter Section</label>
-										<button pButton type="button" class="deleteDivButton mb-2" [disabled]="isButtonDisabled" (click)="chatGPTIntegration()" style="background-color: #9bc329">Generate &nbsp;<i class="fa-solid fa-line-columns trashIcon" style="background-color: #9bc329"></i></button>
-									</div>
-									<div class="form-group">
-										<div class="mb-3">
-											<!-- <button pButton type="button" (click)="chatGPTIntegration()"
+              </div>
+            </ng-container>
+            <ng-container *ngIf="moduleActiveIndex == 2">
+              <div class="row">
+                <div class="col-md-12">
+                  <div class="d-flex justify-content-between align-items-center">
+                    <label class="uniprep-primarydark fw-bold h6 mb-0">Cover Letter Section</label>
+                    <button pButton type="button" class="deleteDivButton mb-2" [disabled]="isButtonDisabled" (click)="chatGPTIntegration()" style="background-color: #9bc329">Generate &nbsp;<i class="fa-solid fa-line-columns trashIcon" style="background-color: #9bc329"></i></button>
+                  </div>
+                  <div class="form-group">
+                    <div class="mb-3">
+                      <!-- <button pButton type="button" (click)="chatGPTIntegration()"
 											class="text-white p-ripple p-button-rounded p-button-info-prev p-button p-component p-2"><i
 												class="fa fa-arrow-left exhausted-plan-icon-prev"></i> Generate</button> -->
-											<p-editor [style]="{ height: '50vh' }" class="mt-2" formControlName="user_summary" placeholder="Generate Your Content" [modules]="editorModules"></p-editor>
-											<div *ngIf="submitted && f['user_summary'].errors" class="text-danger text-xs">
-												<div style="margin-left: 10px" *ngIf="f['user_summary'].errors">Required</div>
-											</div>
-										</div>
-									</div>
-								</div>
-							</div>
-						</ng-container>
-					</div>
-				</form>
-			</div>
-			<div class="d-flex justify-content-between">
-				<button pButton type="button" (click)="prevStage()" class="btn btn-primary btn-rounded p-1 pe-4">
-					<span class="btn-icon px-2 py-2"><i class="fa-solid fa-arrow-left"></i></span> <span class="ms-2">Previous</span>
-				</button>
-				<button pButton type="button" (click)="resumeFormSubmit()" *ngIf="moduleActiveIndex != 2" class="btn btn-primary btn-rounded p-1 ps-4">
-					<span class="me-2">Next</span><span class="btn-icon px-2 py-2"><i class="fa-solid fa-arrow-right"></i></span>
-				</button>
-				<button pButton type="button" (click)="resumeFormSubmit()" *ngIf="moduleActiveIndex == 2" class="btn btn-success btn-rounded p-1 ps-4">
-					<span class="me-2">Create</span><span class="btn-icon px-2 py-2"><i class="fa-solid fa-check"></i></span>
-				</button>
-			</div>
-		</div>
-		<div class="col-md-6 h-100">
-			<div class="card h-100">
-				<div class="card-header d-flex justify-content-between align-items-center border-0 bg-transparent">
-					<h4 class="uniprep-primary mb-0">Preview</h4>
-					<div class="d-flex gap-2 align-items-center">
-						<span class="templateButton gap-2"
-							>Template
-							<div class="template-dropdown position-relative">
-								<span class="templateName">{{ selectedResumeLevel }} <i class="fa fa-caret-down"></i></span>
-								<div class="template-dropdown-content">
-									<a class="cursorPointer" [ngClass]="{ activeTemplate: selectedResumeLevel === 'Traditional' }" (click)="imgOnclick('Traditional')">Traditional</a>
-									<a class="cursorPointer" [ngClass]="{ activeTemplate: selectedResumeLevel === 'Creative' }" (click)="imgOnclick('Creative')">Creative</a>
-									<a class="cursorPointer" [ngClass]="{ activeTemplate: selectedResumeLevel === 'Modern' }" (click)="imgOnclick('Modern')">Modern</a>
-									<a class="cursorPointer" [ngClass]="{ activeTemplate: selectedResumeLevel === 'Functional' }" (click)="imgOnclick('Functional')">Functional</a>
-									<a class="cursorPointer" [ngClass]="{ activeTemplate: selectedResumeLevel === 'Academic' }" (click)="imgOnclick('Academic')">Academic</a>
-								</div>
-							</div>
-						</span>
-						<ng-container *ngTemplateOutlet="colorPickerContent"></ng-container>
-					</div>
-					<i class="fa-sharp fa-solid fa-expand" style="cursor: pointer" (click)="toggleFullScreen()"></i>
-				</div>
-				<div class="card-body overflow-y-auto">
-					<div class="previewcontainer">
-						<div class="previewbody">
-							<ng-container *ngTemplateOutlet="sharedContent"></ng-container>
-						</div>
-					</div>
-				</div>
-			</div>
-		</div>
-	</div>
+                      <p-editor [style]="{ height: '50vh' }" class="mt-2" formControlName="user_summary" placeholder="Generate Your Content" [modules]="editorModules"></p-editor>
+                      <div *ngIf="submitted && f['user_summary'].errors" class="text-danger text-xs">
+                        <div style="margin-left: 10px" *ngIf="f['user_summary'].errors">Required</div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </ng-container>
+          </div>
+        </form>
+      </div>
+      <div class="d-flex justify-content-between">
+        <button pButton type="button" (click)="prevStage()" class="btn btn-primary btn-rounded p-1 pe-4">
+          <span class="btn-icon px-2 py-2"><i class="fa-solid fa-arrow-left"></i></span> <span class="ms-2">Previous</span>
+        </button>
+        <button pButton type="button" (click)="resumeFormSubmit()" *ngIf="moduleActiveIndex != 2" class="btn btn-primary btn-rounded p-1 ps-4">
+          <span class="me-2">Next</span><span class="btn-icon px-2 py-2"><i class="fa-solid fa-arrow-right"></i></span>
+        </button>
+        <button pButton type="button" (click)="resumeFormSubmit()" *ngIf="moduleActiveIndex == 2" class="btn btn-success btn-rounded p-1 ps-4">
+          <span class="me-2">Create</span><span class="btn-icon px-2 py-2"><i class="fa-solid fa-check"></i></span>
+        </button>
+      </div>
+    </div>
+    <div class="col-md-6 h-100">
+      <div class="card h-100">
+        <div class="card-header d-flex justify-content-between align-items-center border-0 bg-transparent">
+          <h4 class="uniprep-primary mb-0">Preview</h4>
+          <div class="d-flex gap-2 align-items-center">
+            <span class="templateButton gap-2"
+              >Template
+              <div class="template-dropdown position-relative">
+                <span class="templateName">{{ selectedResumeLevel }} <i class="fa fa-caret-down"></i></span>
+                <div class="template-dropdown-content">
+                  <a class="cursorPointer" [ngClass]="{ activeTemplate: selectedResumeLevel === 'Traditional' }" (click)="imgOnclick('Traditional')">Traditional</a>
+                  <a class="cursorPointer" [ngClass]="{ activeTemplate: selectedResumeLevel === 'Creative' }" (click)="imgOnclick('Creative')">Creative</a>
+                  <a class="cursorPointer" [ngClass]="{ activeTemplate: selectedResumeLevel === 'Modern' }" (click)="imgOnclick('Modern')">Modern</a>
+                  <a class="cursorPointer" [ngClass]="{ activeTemplate: selectedResumeLevel === 'Functional' }" (click)="imgOnclick('Functional')">Functional</a>
+                  <a class="cursorPointer" [ngClass]="{ activeTemplate: selectedResumeLevel === 'Academic' }" (click)="imgOnclick('Academic')">Academic</a>
+                </div>
+              </div>
+            </span>
+            <ng-container *ngTemplateOutlet="colorPickerContent"></ng-container>
+          </div>
+          <i class="fa-sharp fa-solid fa-expand" style="cursor: pointer" (click)="toggleFullScreen()"></i>
+        </div>
+        <div class="card-body overflow-y-auto">
+          <div class="previewcontainer">
+            <div class="previewbody">
+              <ng-container *ngTemplateOutlet="sharedContent"></ng-container>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
 </div>
 <!-- templates -->
 
 <p-sidebar [(visible)]="fullScreenVisible" [fullScreen]="true" [showCloseIcon]="false">
-	<div class="col-md-12 h-100">
-		<div class="card h-100 border-0">
-			<div class="card-header cvPreview border-0 rounded-0">
-				<h4 class="mb-0">Cover Letter Preview</h4>
-				<div class="d-flex gap-2 align-items-center">
-					<span class="templateButton gap-2"
-						>Template
-						<div class="template-dropdown position-relative">
-							<span class="templateName">{{ selectedResumeLevel }} <i class="fa fa-caret-down"></i></span>
-							<div class="template-dropdown-content">
-								<a class="cursorPointer" [ngClass]="{ activeTemplate: selectedResumeLevel === 'Traditional' }" (click)="imgOnclick('Traditional')">Traditional</a>
-								<a class="cursorPointer" [ngClass]="{ activeTemplate: selectedResumeLevel === 'Creative' }" (click)="imgOnclick('Creative')">Creative</a>
-								<a class="cursorPointer" [ngClass]="{ activeTemplate: selectedResumeLevel === 'Modern' }" (click)="imgOnclick('Modern')">Modern</a>
-								<a class="cursorPointer" [ngClass]="{ activeTemplate: selectedResumeLevel === 'Functional' }" (click)="imgOnclick('Functional')">Functional</a>
-								<a class="cursorPointer" [ngClass]="{ activeTemplate: selectedResumeLevel === 'Academic' }" (click)="imgOnclick('Academic')">Academic</a>
-							</div>
-						</div>
-					</span>
-					<ng-container *ngTemplateOutlet="colorPickerContent"></ng-container>
-				</div>
-				<i class="fa-sharp fa-solid fa-compress" role="button" (click)="toggleFullScreen()"></i>
-			</div>
-			<div class="card-body overflow-y-auto" style="background-color: #3f4c83">
-				<div class="row justify-content-center">
-					<div class="col-md-5">
-						<div class="previewcontainer">
-							<div class="previewbody">
-								<ng-container *ngTemplateOutlet="sharedContent"></ng-container>
-							</div>
-						</div>
-					</div>
-				</div>
-			</div>
-		</div>
-	</div>
+  <div class="col-md-12 h-100">
+    <div class="card h-100 border-0">
+      <div class="card-header cvPreview border-0 rounded-0">
+        <h4 class="mb-0">Cover Letter Preview</h4>
+        <div class="d-flex gap-2 align-items-center">
+          <span class="templateButton gap-2"
+            >Template
+            <div class="template-dropdown position-relative">
+              <span class="templateName">{{ selectedResumeLevel }} <i class="fa fa-caret-down"></i></span>
+              <div class="template-dropdown-content">
+                <a class="cursorPointer" [ngClass]="{ activeTemplate: selectedResumeLevel === 'Traditional' }" (click)="imgOnclick('Traditional')">Traditional</a>
+                <a class="cursorPointer" [ngClass]="{ activeTemplate: selectedResumeLevel === 'Creative' }" (click)="imgOnclick('Creative')">Creative</a>
+                <a class="cursorPointer" [ngClass]="{ activeTemplate: selectedResumeLevel === 'Modern' }" (click)="imgOnclick('Modern')">Modern</a>
+                <a class="cursorPointer" [ngClass]="{ activeTemplate: selectedResumeLevel === 'Functional' }" (click)="imgOnclick('Functional')">Functional</a>
+                <a class="cursorPointer" [ngClass]="{ activeTemplate: selectedResumeLevel === 'Academic' }" (click)="imgOnclick('Academic')">Academic</a>
+              </div>
+            </div>
+          </span>
+          <ng-container *ngTemplateOutlet="colorPickerContent"></ng-container>
+        </div>
+        <i class="fa-sharp fa-solid fa-compress" role="button" (click)="toggleFullScreen()"></i>
+      </div>
+      <div class="card-body overflow-y-auto" style="background-color: #3f4c83">
+        <div class="row justify-content-center">
+          <div class="col-md-5">
+            <div class="previewcontainer">
+              <div class="previewbody">
+                <ng-container *ngTemplateOutlet="sharedContent"></ng-container>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
 </p-sidebar>
 
 <ng-template #colorPickerContent>
-	<div class="dropdown">
-		<div class="colorDiv d-flex colorButton align-items-center gap-2">
-			<p>Color</p>
-			<div style="background-color: black" [ngStyle]="{ 'background-color': selectedThemeColor }" class="selectedColor"></div>
-		</div>
-		<div class="dropdown-content">
-			<div class="d-flex justify-content-center">
-				<a (click)="selectColor('#172a99', 1)" class="p-2 cursorPointer">
-					<div style="background-color: #172a99" class="colorSelector"></div>
-					<i *ngIf="selectedColorCode == 1" class="fa-solid fa-check ColorCheckBox colorWhite"></i>
-				</a>
-				<a (click)="selectColor('#469199', 2)" class="p-2 cursorPointer">
-					<div style="background-color: #469199" class="colorSelector"></div>
-					<i *ngIf="selectedColorCode == 2" class="fa-solid fa-check ColorCheckBox colorWhite"></i>
-				</a>
-				<a (click)="selectColor('#973131', 3)" class="p-2 cursorPointer">
-					<div style="background-color: #973131" class="colorSelector"></div>
-					<i *ngIf="selectedColorCode == 3" class="fa-solid fa-check ColorCheckBox"></i>
-				</a>
-				<a (click)="selectColor('#C80036', 4)" class="p-2 cursorPointer">
-					<div style="background-color: #c80036" class="colorSelector"></div>
-					<i *ngIf="selectedColorCode == 4" class="fa-solid fa-check ColorCheckBox colorWhite"></i>
-				</a>
-			</div>
-			<div class="d-flex justify-content-center">
-				<a (click)="selectColor('#E2C742', 5)" class="p-2 cursorPointer">
-					<div style="background-color: #e2c742" class="colorSelector"></div>
-					<i *ngIf="selectedColorCode == 5" class="fa-solid fa-check ColorCheckBox colorWhite"></i>
-				</a>
-				<a (click)="selectColor('#686D76', 6)" class="p-2 cursorPointer">
-					<div style="background-color: #686d76" class="colorSelector"></div>
-					<i *ngIf="selectedColorCode == 6" class="fa-solid fa-check ColorCheckBox"></i>
-				</a>
-				<a (click)="selectColor('#373A40', 7)" class="p-2 cursorPointer">
-					<div style="background-color: #373a40" class="colorSelector"></div>
-					<i *ngIf="selectedColorCode == 7" class="fa-solid fa-check ColorCheckBox colorWhite"></i>
-				</a>
-			</div>
-		</div>
-	</div>
+  <div class="dropdown">
+    <div class="colorDiv d-flex colorButton align-items-center gap-2">
+      <p>Color</p>
+      <div style="background-color: black" [ngStyle]="{ 'background-color': selectedThemeColor }" class="selectedColor"></div>
+    </div>
+    <div class="dropdown-content">
+      <div class="d-flex justify-content-center">
+        <a (click)="selectColor('#172a99', 1)" class="p-2 cursorPointer">
+          <div style="background-color: #172a99" class="colorSelector"></div>
+          <i *ngIf="selectedColorCode == 1" class="fa-solid fa-check ColorCheckBox colorWhite"></i>
+        </a>
+        <a (click)="selectColor('#469199', 2)" class="p-2 cursorPointer">
+          <div style="background-color: #469199" class="colorSelector"></div>
+          <i *ngIf="selectedColorCode == 2" class="fa-solid fa-check ColorCheckBox colorWhite"></i>
+        </a>
+        <a (click)="selectColor('#973131', 3)" class="p-2 cursorPointer">
+          <div style="background-color: #973131" class="colorSelector"></div>
+          <i *ngIf="selectedColorCode == 3" class="fa-solid fa-check ColorCheckBox"></i>
+        </a>
+        <a (click)="selectColor('#C80036', 4)" class="p-2 cursorPointer">
+          <div style="background-color: #c80036" class="colorSelector"></div>
+          <i *ngIf="selectedColorCode == 4" class="fa-solid fa-check ColorCheckBox colorWhite"></i>
+        </a>
+      </div>
+      <div class="d-flex justify-content-center">
+        <a (click)="selectColor('#E2C742', 5)" class="p-2 cursorPointer">
+          <div style="background-color: #e2c742" class="colorSelector"></div>
+          <i *ngIf="selectedColorCode == 5" class="fa-solid fa-check ColorCheckBox colorWhite"></i>
+        </a>
+        <a (click)="selectColor('#686D76', 6)" class="p-2 cursorPointer">
+          <div style="background-color: #686d76" class="colorSelector"></div>
+          <i *ngIf="selectedColorCode == 6" class="fa-solid fa-check ColorCheckBox"></i>
+        </a>
+        <a (click)="selectColor('#373A40', 7)" class="p-2 cursorPointer">
+          <div style="background-color: #373a40" class="colorSelector"></div>
+          <i *ngIf="selectedColorCode == 7" class="fa-solid fa-check ColorCheckBox colorWhite"></i>
+        </a>
+      </div>
+    </div>
+  </div>
 </ng-template>
 
 <ng-template #sharedContent>
-	<div class="h-100" id="cv-preview-container" [ngClass]="{ previewBodyForm: !fullScreenVisible, previewBodyFormFull: fullScreenVisible }" *ngIf="selectedResumeLevel == 'Modern'">
-		<div class="container-fluid d-flex flex-column h-100">
-			<div class="h-100">
-				<div class="row pt-5 flex-fill justify-content-center">
-					<div class="col-12 text-center">
-						<h1 class="mb-0 text-uppercase">{{ f["user_name"].value }}</h1>
-						<h5 class="mb-3 text-uppercase fw-medium">{{ f["user_job_title"].value }}</h5>
-					</div>
-					<div class="col-11 py-3 mb-5" [ngStyle]="{ 'background-color': selectedThemeColor }">
-						<div class="d-flex justify-content-between px-3 text-white">
-							<div><i class="fa-solid fa-location-dot text-white"></i>   {{ f["user_location"].value }}</div>
-							<div><i class="fa-solid fa-phone text-white"></i>   {{ f["user_phone"].value }}</div>
-							<div><i class="fa-solid fa-envelope text-white"></i>   {{ f["user_email"].value }}</div>
-							<div *ngIf="f['user_website'].value"><i class="fa-solid fa-globe text-white"></i>   {{ f["user_website"].value }}</div>
-						</div>
-					</div>
-					<div class="col-12 content-font-size">
-						<div class="row pt-2 pb-2 mb-3 flex-fill gap-1" >
-							<div>{{ f["managername"].value }}</div>
-							<div>{{ f["org_name"].value }}</div>
-							<div>{{ f["org_location"].value }}</div>
-							<div>{{ currentDate | date:'dd-MM-yyyy' }}</div>
-						</div>
-						<p class="mb-2">Dear {{ f["managername"].value }},</p>
-						<p class="centered-paragraph">
-							<span class="UserSummary" [innerHTML]="f['user_summary'].value"></span>
-						</p>
-						<p class="mt-3">Warm regards,</p>
-						<p>{{ f["user_name"].value }}</p>
-					</div>
-				</div>
-			</div>
-		</div>
-	</div>
-	<div class="h-100" id="cv-preview-container" [ngClass]="{ previewBodyForm: !fullScreenVisible, previewBodyFormFull: fullScreenVisible }" *ngIf="selectedResumeLevel == 'Academic'">
-		<div class="container-fluid d-flex flex-column h-100">
-			<div class="h-100">
-				<div class="row pt-5 flex-fill justify-content-center">
-					<div class="col-12 text-center mb-4">
-						<div class="card text-start" [ngStyle]="{ 'background-color': selectedThemeColor }">
-							<div class="card-body">
-								<h1 class="mb-0 text-uppercase text-white">{{ f["user_name"].value }}</h1>
-								<h5 class="mb-3 text-uppercase fw-medium text-white">{{ f["user_job_title"].value }}</h5>
-							</div>
-						</div>
-					</div>
-					<div class="col-11 mb-5">
-						<div class="d-flex justify-content-between px-3">
-							<div><i class="fa-solid fa-location-dot"></i>   {{ f["user_location"].value }}</div>
-							<div><i class="fa-solid fa-phone"></i>   {{ f["user_phone"].value }}</div>
-							<div><i class="fa-solid fa-envelope"></i>   {{ f["user_email"].value }}</div>
-							<div *ngIf="f['user_website'].value"><i class="fa-solid fa-globe"></i>   {{ f["user_website"].value }}</div>
-						</div>
-					</div>
-					<div class="col-12 content-font-size">
-						<div class="row pt-2 pb-2 mb-3 flex-fill gap-1" >
-							<div>{{ f["managername"].value }}</div>
-							<div>{{ f["org_name"].value }}</div>
-							<div>{{ f["org_location"].value }}</div>
-							<div>{{ currentDate | date:'dd-MM-yyyy' }}</div>
-						</div>
-						<p class="mb-2">Dear {{ f["managername"].value }},</p>
-						<p class="centered-paragraph">
-							<span class="UserSummary" [innerHTML]="f['user_summary'].value"></span>
-						</p>
-						<p class="mt-3">Warm regards,</p>
-						<p>{{ f["user_name"].value }}</p>
-					</div>
-				</div>
-			</div>
-		</div>
-	</div>
-	<div class="h-100" id="cv-preview-container" [ngClass]="{ previewBodyForm: !fullScreenVisible, previewBodyFormFull: fullScreenVisible }" *ngIf="selectedResumeLevel === 'Creative'">
-		<div class="container-fluid d-flex flex-column h-100">
-			<div class="h-100">
-				<div class="row pt-0 flex-fill justify-content-center">
-					<div class="col-11 text-center bg-black pt-5">
-						<h1 class="mb-0 text-uppercase" [ngStyle]="{ color: selectedThemeColor }">{{ f["user_name"].value }}</h1>
-						<h5 class="mb-3 text-uppercase fw-medium text-white">{{ f["user_job_title"].value }}</h5>
-					</div>
-					<div class="col-12 py-3" [ngStyle]="{ 'background-color': selectedThemeColor }">
-						<div class="d-flex justify-content-between px-3 text-white">
-							<div><i class="fa-solid fa-location-dot"></i>   {{ f["user_location"].value }}</div>
-							<div><i class="fa-solid fa-phone"></i>   {{ f["user_phone"].value }}</div>
-							<div><i class="fa-solid fa-envelope"></i>   {{ f["user_email"].value }}</div>
-							<div *ngIf="f['user_website'].value"><i class="fa-solid fa-globe"></i>   {{ f["user_website"].value }}</div>
-						</div>
-					</div>
-					<div class="col-11 text-center py-3 bg-black mb-4" style="border-radius:0px 0px 20px 20px;">
-						&nbsp;
-					</div>
-					<div class="col-12 content-font-size" >
-						<div class="row pt-2 pb-2 mb-3 flex-fill gap-1" >
-							<div>{{ f["managername"].value }}</div>
-							<div>{{ f["org_name"].value }}</div>
-							<div>{{ f["org_location"].value }}</div>
-							<div>{{ currentDate | date:'dd-MM-yyyy' }}</div>
-						</div>
-						<p class="mb-2">Dear {{ f["managername"].value }},</p>
-						<p class="centered-paragraph">
-							<span class="UserSummary" [innerHTML]="f['user_summary'].value"></span>
-						</p>
-						<p class="mt-3">Warm regards,</p>
-						<p>{{ f["user_name"].value }}</p>
-					</div>
-				</div>
-			</div>
-		</div>
-	</div>
-	<div class="h-100" id="cv-preview-container" [ngClass]="{ previewBodyForm: !fullScreenVisible, previewBodyFormFull: fullScreenVisible }" *ngIf="selectedResumeLevel == 'Functional'">
-		<div class="container-fluid d-flex flex-column h-100">
-			<div class="h-100">
-				<div class="row pt-5 px-3 flex-fill justify-content-center">
-					<div class="col-8 text-start">
-						<h1 class="mb-0 text-uppercase">{{ f["user_name"].value }}</h1>
-						<div class="py-1 mb-3" [ngStyle]="{ 'background-color': selectedThemeColor }"></div>
-						<h5 class="text-uppercase fw-medium">{{ f["user_job_title"].value }}</h5>
-					</div>
-					<div class="col-4">
-						<div class="d-flex flex-column gap-3">
-							<div><i class="fa-solid fa-location-dot" [ngStyle]="{ 'color': selectedThemeColor }"></i>   {{ f["user_location"].value }}</div>
-							<div><i class="fa-solid fa-phone"[ngStyle]="{ 'color': selectedThemeColor }"></i>   {{ f["user_phone"].value }}</div>
-							<div><i class="fa-solid fa-envelope"[ngStyle]="{ 'color': selectedThemeColor }"></i>   {{ f["user_email"].value }}</div>
-							<div *ngIf="f['user_website'].value"><i class="fa-solid fa-globe"[ngStyle]="{ 'color': selectedThemeColor }"></i>   {{ f["user_website"].value }}</div>
-						</div>
-					</div>
-					<div class="col-12 mt-4 content-font-size">
-						<div class="row pt-2 pb-2 mb-3 flex-fill gap-1" >
-							<div>{{ f["managername"].value }}</div>
-							<div>{{ f["org_name"].value }}</div>
-							<div>{{ f["org_location"].value }}</div>
-							<div>{{ currentDate | date:'dd-MM-yyyy' }}</div>
-						</div>
-						<p class="mb-2">Dear {{ f["managername"].value }},</p>
-						<p class="centered-paragraph">
-							<span class="UserSummary" [innerHTML]="f['user_summary'].value"></span>
-						</p>
-						<p class="mt-3">Warm regards,</p>
-						<p>{{ f["user_name"].value }}</p>
-					</div>
-				</div>
-			</div>
-		</div>
-	</div>
-	<div class="h-100" id="cv-preview-container" [ngClass]="{ previewBodyForm: !fullScreenVisible, previewBodyFormFull: fullScreenVisible }" *ngIf="selectedResumeLevel == 'Traditional'">
-		<div class="container-fluid d-flex flex-column h-100">
-			<div class="h-100">
-				<div class="row pt-5 pb-4 px-3 flex-fill justify-content-center" style="background-color: #f4f1eb;" >
-					<div class="col-8 text-start text-uppercase">
-						<h1 class="mb-3">{{ f["user_name"].value }}</h1>
-						<h5 class="fw-medium mb-0">{{ f["user_job_title"].value }}</h5>
-					</div>
-					<div class="col-4">
-						<div class="d-flex flex-column gap-3">
-							<div><i class="fa-solid fa-location-dot"></i>   {{ f["user_location"].value }}</div>
-							<div><i class="fa-solid fa-phone"></i>   {{ f["user_phone"].value }}</div>
-							<div><i class="fa-solid fa-envelope"></i>   {{ f["user_email"].value }}</div>
-							<div *ngIf="f['user_website'].value"><i class="fa-solid fa-globe"></i>   {{ f["user_website"].value }}</div>
-						</div>
-					</div>
-				</div>
-				<div class="row px-3">
-					<div class="row pt-2 pb-2 mb-3 flex-fill gap-1 content-font-size" >
-						<div>{{ f["managername"].value }}</div>
-						<div>{{ f["org_name"].value }}</div>
-						<div>{{ f["org_location"].value }}</div>
-						<div>{{ currentDate | date:'dd-MM-yyyy' }}</div>
-					</div>
-					<div class="col-12 content-font-size">
-						<p class="mb-2">Dear {{ f["managername"].value }},</p>
-						<p class="centered-paragraph">
-							<span class="UserSummary" [innerHTML]="f['user_summary'].value"></span>
-						</p>
-						<p class="mt-3">Warm regards,</p>
-						<p>{{ f["user_name"].value }}</p>
-					</div>
-				</div>
-			</div>
-		</div>
-	</div>
+  <div class="h-100" id="cv-preview-container" [ngClass]="{ previewBodyForm: !fullScreenVisible, previewBodyFormFull: fullScreenVisible }" *ngIf="selectedResumeLevel == 'Modern'">
+    <div class="container-fluid d-flex flex-column h-100">
+      <div class="h-100">
+        <div class="row pt-5 flex-fill justify-content-center">
+          <div class="col-12 text-center">
+            <h1 class="mb-0 text-uppercase">{{ f["user_name"].value }}</h1>
+            <h5 class="mb-3 text-uppercase fw-medium">{{ f["user_job_title"].value }}</h5>
+          </div>
+          <div class="col-11 py-3 mb-5" [ngStyle]="{ 'background-color': selectedThemeColor }">
+            <div class="d-flex justify-content-between px-3 text-white">
+              <div><i class="fa-solid fa-location-dot text-white"></i> {{ f["user_location"].value }}</div>
+              <div><i class="fa-solid fa-phone text-white"></i> {{ f["user_phone"].value }}</div>
+              <div><i class="fa-solid fa-envelope text-white"></i> {{ f["user_email"].value }}</div>
+              <div *ngIf="f['user_website'].value"><i class="fa-solid fa-globe text-white"></i> {{ f["user_website"].value }}</div>
+            </div>
+          </div>
+          <div class="col-12 content-font-size">
+            <div class="row pt-2 pb-2 mb-3 flex-fill gap-1">
+              <div>{{ f["managername"].value }}</div>
+              <div>{{ f["org_name"].value }}</div>
+              <div>{{ f["org_location"].value }}</div>
+              <div>{{ currentDate | date : "dd-MM-yyyy" }}</div>
+            </div>
+            <p class="mb-2">Dear {{ f["managername"].value }},</p>
+            <p class="centered-paragraph">
+              <span class="UserSummary" [innerHTML]="f['user_summary'].value"></span>
+            </p>
+            <p class="mt-3">Warm regards,</p>
+            <p>{{ f["user_name"].value }}</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="h-100" id="cv-preview-container" [ngClass]="{ previewBodyForm: !fullScreenVisible, previewBodyFormFull: fullScreenVisible }" *ngIf="selectedResumeLevel == 'Academic'">
+    <div class="container-fluid d-flex flex-column h-100">
+      <div class="h-100">
+        <div class="row pt-5 flex-fill justify-content-center">
+          <div class="col-12 text-center mb-4">
+            <div class="card text-start" [ngStyle]="{ 'background-color': selectedThemeColor }">
+              <div class="card-body">
+                <h1 class="mb-0 text-uppercase text-white">{{ f["user_name"].value }}</h1>
+                <h5 class="mb-3 text-uppercase fw-medium text-white">{{ f["user_job_title"].value }}</h5>
+              </div>
+            </div>
+          </div>
+          <div class="col-11 mb-5">
+            <div class="d-flex justify-content-between px-3">
+              <div><i class="fa-solid fa-location-dot"></i> {{ f["user_location"].value }}</div>
+              <div><i class="fa-solid fa-phone"></i> {{ f["user_phone"].value }}</div>
+              <div><i class="fa-solid fa-envelope"></i> {{ f["user_email"].value }}</div>
+              <div *ngIf="f['user_website'].value"><i class="fa-solid fa-globe"></i> {{ f["user_website"].value }}</div>
+            </div>
+          </div>
+          <div class="col-12 content-font-size">
+            <div class="row pt-2 pb-2 mb-3 flex-fill gap-1">
+              <div>{{ f["managername"].value }}</div>
+              <div>{{ f["org_name"].value }}</div>
+              <div>{{ f["org_location"].value }}</div>
+              <div>{{ currentDate | date : "dd-MM-yyyy" }}</div>
+            </div>
+            <p class="mb-2">Dear {{ f["managername"].value }},</p>
+            <p class="centered-paragraph">
+              <span class="UserSummary" [innerHTML]="f['user_summary'].value"></span>
+            </p>
+            <p class="mt-3">Warm regards,</p>
+            <p>{{ f["user_name"].value }}</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="h-100" id="cv-preview-container" [ngClass]="{ previewBodyForm: !fullScreenVisible, previewBodyFormFull: fullScreenVisible }" *ngIf="selectedResumeLevel === 'Creative'">
+    <div class="container-fluid d-flex flex-column h-100">
+      <div class="h-100">
+        <div class="row pt-0 flex-fill justify-content-center">
+          <div class="col-11 text-center bg-black pt-5">
+            <h1 class="mb-0 text-uppercase" [ngStyle]="{ color: selectedThemeColor }">{{ f["user_name"].value }}</h1>
+            <h5 class="mb-3 text-uppercase fw-medium text-white">{{ f["user_job_title"].value }}</h5>
+          </div>
+          <div class="col-12 py-3" [ngStyle]="{ 'background-color': selectedThemeColor }">
+            <div class="d-flex justify-content-between px-3 text-white">
+              <div><i class="fa-solid fa-location-dot"></i> {{ f["user_location"].value }}</div>
+              <div><i class="fa-solid fa-phone"></i> {{ f["user_phone"].value }}</div>
+              <div><i class="fa-solid fa-envelope"></i> {{ f["user_email"].value }}</div>
+              <div *ngIf="f['user_website'].value"><i class="fa-solid fa-globe"></i> {{ f["user_website"].value }}</div>
+            </div>
+          </div>
+          <div class="col-11 text-center py-3 bg-black mb-4" style="border-radius: 0px 0px 20px 20px">&nbsp;</div>
+          <div class="col-12 content-font-size">
+            <div class="row pt-2 pb-2 mb-3 flex-fill gap-1">
+              <div>{{ f["managername"].value }}</div>
+              <div>{{ f["org_name"].value }}</div>
+              <div>{{ f["org_location"].value }}</div>
+              <div>{{ currentDate | date : "dd-MM-yyyy" }}</div>
+            </div>
+            <p class="mb-2">Dear {{ f["managername"].value }},</p>
+            <p class="centered-paragraph">
+              <span class="UserSummary" [innerHTML]="f['user_summary'].value"></span>
+            </p>
+            <p class="mt-3">Warm regards,</p>
+            <p>{{ f["user_name"].value }}</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="h-100" id="cv-preview-container" [ngClass]="{ previewBodyForm: !fullScreenVisible, previewBodyFormFull: fullScreenVisible }" *ngIf="selectedResumeLevel == 'Functional'">
+    <div class="container-fluid d-flex flex-column h-100">
+      <div class="h-100">
+        <div class="row pt-5 px-3 flex-fill justify-content-center">
+          <div class="col-8 text-start">
+            <h1 class="mb-0 text-uppercase">{{ f["user_name"].value }}</h1>
+            <div class="py-1 mb-3" [ngStyle]="{ 'background-color': selectedThemeColor }"></div>
+            <h5 class="text-uppercase fw-medium">{{ f["user_job_title"].value }}</h5>
+          </div>
+          <div class="col-4">
+            <div class="d-flex flex-column gap-3">
+              <div><i class="fa-solid fa-location-dot" [ngStyle]="{ color: selectedThemeColor }"></i> {{ f["user_location"].value }}</div>
+              <div><i class="fa-solid fa-phone" [ngStyle]="{ color: selectedThemeColor }"></i> {{ f["user_phone"].value }}</div>
+              <div><i class="fa-solid fa-envelope" [ngStyle]="{ color: selectedThemeColor }"></i> {{ f["user_email"].value }}</div>
+              <div *ngIf="f['user_website'].value"><i class="fa-solid fa-globe" [ngStyle]="{ color: selectedThemeColor }"></i> {{ f["user_website"].value }}</div>
+            </div>
+          </div>
+          <div class="col-12 mt-4 content-font-size">
+            <div class="row pt-2 pb-2 mb-3 flex-fill gap-1">
+              <div>{{ f["managername"].value }}</div>
+              <div>{{ f["org_name"].value }}</div>
+              <div>{{ f["org_location"].value }}</div>
+              <div>{{ currentDate | date : "dd-MM-yyyy" }}</div>
+            </div>
+            <p class="mb-2">Dear {{ f["managername"].value }},</p>
+            <p class="centered-paragraph">
+              <span class="UserSummary" [innerHTML]="f['user_summary'].value"></span>
+            </p>
+            <p class="mt-3">Warm regards,</p>
+            <p>{{ f["user_name"].value }}</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="h-100" id="cv-preview-container" [ngClass]="{ previewBodyForm: !fullScreenVisible, previewBodyFormFull: fullScreenVisible }" *ngIf="selectedResumeLevel == 'Traditional'">
+    <div class="container-fluid d-flex flex-column h-100">
+      <div class="h-100">
+        <div class="row pt-5 pb-4 px-3 flex-fill justify-content-center" style="background-color: #f4f1eb">
+          <div class="col-8 text-start text-uppercase">
+            <h1 class="mb-3">{{ f["user_name"].value }}</h1>
+            <h5 class="fw-medium mb-0">{{ f["user_job_title"].value }}</h5>
+          </div>
+          <div class="col-4">
+            <div class="d-flex flex-column gap-3">
+              <div><i class="fa-solid fa-location-dot"></i> {{ f["user_location"].value }}</div>
+              <div><i class="fa-solid fa-phone"></i> {{ f["user_phone"].value }}</div>
+              <div><i class="fa-solid fa-envelope"></i> {{ f["user_email"].value }}</div>
+              <div *ngIf="f['user_website'].value"><i class="fa-solid fa-globe"></i> {{ f["user_website"].value }}</div>
+            </div>
+          </div>
+        </div>
+        <div class="row px-3">
+          <div class="row pt-2 pb-2 mb-3 flex-fill gap-1 content-font-size">
+            <div>{{ f["managername"].value }}</div>
+            <div>{{ f["org_name"].value }}</div>
+            <div>{{ f["org_location"].value }}</div>
+            <div>{{ currentDate | date : "dd-MM-yyyy" }}</div>
+          </div>
+          <div class="col-12 content-font-size">
+            <p class="mb-2">Dear {{ f["managername"].value }},</p>
+            <p class="centered-paragraph">
+              <span class="UserSummary" [innerHTML]="f['user_summary'].value"></span>
+            </p>
+            <p class="mt-3">Warm regards,</p>
+            <p>{{ f["user_name"].value }}</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
 </ng-template>
 <p-dialog [(visible)]="restrict" [modal]="true" [style]="{ width: '30vw' }" [draggable]="false" [resizable]="false" class="restrictionDialog" [breakpoints]="{ '960px': '30vw', '959px': '60vw', '425px': '90vw' }" (onHide)="clearRestriction()">
-	<div *ngIf="ehitlabelIsShow" class="text-center mt-5 mb-4">
-		<img src="../../../uniprep-assets/images/smartloack.png" class="image" width="60" />
-		<h3 class="offer">Upgrade Required</h3>
-		<p>To access this exclusive module,please upgrade your plan now</p>
-		<button pButton type="button" class="text-white p-ripple p-button-rounded p-button-warning p-button p-component p-2" (click)="upgradePlan()">Upgrade Plan<i class="fa fa-arrow-right exhausted-plan-icon"></i></button>
-	</div>
-	<div *ngIf="!ehitlabelIsShow" class="text-center mt-5 mb-4">
-		<img src="../../../uniprep-assets/images/smartloack.png" class="image" width="60" />
-		<h3 class="offer">Upgrade Required</h3>
-		<p>Please contact {{ orgnamewhitlabel }} Company for access</p>
-	</div>
+  <div *ngIf="ehitlabelIsShow" class="text-center mt-5 mb-4">
+    <img src="../../../uniprep-assets/images/smartloack.png" class="image" width="60" />
+    <h3 class="offer">Upgrade Required</h3>
+    <p>To access this exclusive module,please upgrade your plan now</p>
+    <button pButton type="button" class="text-white p-ripple p-button-rounded p-button-warning p-button p-component p-2" (click)="upgradePlan()">Upgrade Plan<i class="fa fa-arrow-right exhausted-plan-icon"></i></button>
+  </div>
+  <div *ngIf="!ehitlabelIsShow" class="text-center mt-5 mb-4">
+    <img src="../../../uniprep-assets/images/smartloack.png" class="image" width="60" />
+    <h3 class="offer">Upgrade Required</h3>
+    <p>Please contact {{ orgnamewhitlabel }} Company for access</p>
+  </div>
 </p-dialog>

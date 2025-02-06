@@ -1,10 +1,16 @@
 import { Component, OnInit } from '@angular/core';
 import {LocationService} from "../../location.service";
+import { CommonModule } from "@angular/common";
+import { DialogModule } from "primeng/dialog";
+import { CardModule } from "primeng/card";
+import { PaginatorModule } from "primeng/paginator";
+import { RouterModule } from '@angular/router';
 @Component({
     selector: 'uni-bloglist',
     templateUrl: './bloglist.component.html',
     styleUrls: ['./bloglist.component.scss'],
-    standalone: false
+    standalone: true,
+    imports: [CommonModule, DialogModule, CardModule, PaginatorModule, RouterModule],
 })
 export class BloglistComponent implements OnInit {
   blogs: any;

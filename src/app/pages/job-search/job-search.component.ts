@@ -1,14 +1,17 @@
 import {Component, OnInit} from '@angular/core';
 import {ActivatedRoute, Router} from '@angular/router';
 import {DataService} from "../../data.service";
-import { Location } from "@angular/common";
+import { CommonModule, Location } from "@angular/common";
 import { PageFacadeService } from '../page-facade.service';
 import { AuthService } from "src/app/Auth/auth.service";
+import { DialogModule } from 'primeng/dialog';
+import { RouterModule } from '@angular/router';
 @Component({
     selector: 'uni-job-search',
     templateUrl: './job-search.component.html',
     styleUrls: ['./job-search.component.scss'],
-    standalone: false
+    standalone: true,
+    imports: [CommonModule, DialogModule, RouterModule],
 })
 
 export class JobSearchComponent implements OnInit {

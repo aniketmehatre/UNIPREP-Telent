@@ -5,11 +5,15 @@ import { ActivatedRoute, Router } from "@angular/router";
 import { AuthService } from "../../../Auth/auth.service";
 import { PageFacadeService } from "../../page-facade.service";
 import { AveragesalaryestimatorService } from "../averagesalaryestimator.service";
-
+import { CommonModule } from "@angular/common";
+import { DialogModule } from "primeng/dialog";
+import { TabViewModule } from "primeng/tabview";
 @Component({
   selector: "uni-aspreparedlist",
   templateUrl: "./preparedlist.component.html",
   styleUrls: ["./preparedlist.component.scss"],
+  standalone: true,
+  imports: [CommonModule, DialogModule, TabViewModule],
 })
 export class AverageSalaryPreparedListComponent implements OnInit {
   isSkeletonVisible: boolean = true;

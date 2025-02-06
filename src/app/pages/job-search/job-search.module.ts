@@ -8,7 +8,6 @@ import {InputTextModule} from 'primeng/inputtext';
 import {CarouselModule} from 'primeng/carousel';
 import {ButtonModule} from 'primeng/button';
 import { ReactiveFormsModule } from '@angular/forms';
-import {InputTextareaModule} from 'primeng/inputtextarea';
 import { JobListingComponent } from './job-listing/job-listing.component';
 import { DropdownModule } from 'primeng/dropdown';
 import { PaginatorModule } from 'primeng/paginator';
@@ -18,21 +17,18 @@ import {DialogModule} from "primeng/dialog";
 import { TooltipModule } from 'primeng/tooltip';
 
 @NgModule({
-  declarations: [
-    JobSearchComponent,
-    JobHuntComponent,
-    JobBoardComponent,
-    JobListingComponent,
-    TimeAgoPipe
-  ],
     imports: [
         CommonModule,
+        TimeAgoPipe,
+        JobBoardComponent,
+        JobSearchComponent,
+        JobHuntComponent,
+        JobListingComponent,
         JobSearchRoutingModule,
         InputTextModule,
         CarouselModule,
         ButtonModule,
         ReactiveFormsModule,
-        InputTextareaModule,
         DropdownModule,
         PaginatorModule,
         CardModule,

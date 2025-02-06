@@ -69,22 +69,21 @@ import { PdfViewerModule } from "ng2-pdf-viewer";
 import { CareerPlannerComponent } from "./career-planner/career-planner.component";
 import { CertificatesComponent } from "./certificates/certificates.component";
 import { CourseListComponent } from "./course-list/course-list.component";
-import {SkeletonModule} from 'primeng/skeleton';
+import { SkeletonModule } from "primeng/skeleton";
 import { NgxStripeModule } from "ngx-stripe";
 import { FounderstoolComponent } from "./founderstool/founderstool.component";
 import { FoundersacademyComponent } from "./founderstool/foundersacademy/foundersacademy.component";
 import { FounderstoollistComponent } from "./founderstool/founderstoollist/founderstoollist.component";
 import { InvestorpitchtrainingComponent } from "./founderstool/investorpitchtraining/investorpitchtraining.component";
 import { StartupglossaryComponent } from "./founderstool/startupglossary/startupglossary.component";
-// import { AnimateModule } from "primeng/animate";
 import { CareerGrowthCheckerComponent } from "./career-growth-checker/career-growth-checker.component";
-import { AdvisorComponent } from './advisor/advisor.component';
-import { NationalExamCategoriesComponent } from './national-exam-categories/national-exam-categories.component';
-import { NationalExamTestsComponent } from './national-exam-tests/national-exam-tests.component';
-import { NationalExamStartComponent } from './national-exam-start/national-exam-start.component';
-import { NationalExamQuestionsComponent } from './national-exam-questions/national-exam-questions.component';
-import { NationalExamResultComponent } from './national-exam-result/national-exam-result.component';
-import { NationalExamReviewComponent } from './national-exam-review/national-exam-review.component';
+import { AdvisorComponent } from "./advisor/advisor.component";
+import { NationalExamCategoriesComponent } from "./national-exam-categories/national-exam-categories.component";
+import { NationalExamTestsComponent } from "./national-exam-tests/national-exam-tests.component";
+import { NationalExamStartComponent } from "./national-exam-start/national-exam-start.component";
+import { NationalExamQuestionsComponent } from "./national-exam-questions/national-exam-questions.component";
+import { NationalExamResultComponent } from "./national-exam-result/national-exam-result.component";
+import { NationalExamReviewComponent } from "./national-exam-review/national-exam-review.component";
 import { JobPreparationComponent } from "./jobinterviewpreparation/interviewpreparation.component";
 import { JobPreparedListComponent } from "./jobinterviewpreparation/preparedlist/preparedlist.component";
 import { AverageSalaryComponent } from "./averagesalaryestimator/averagesalaryestimator.component";
@@ -92,8 +91,6 @@ import { AverageSalaryPreparedListComponent } from "./averagesalaryestimator/pre
 import { JoboffercomparisontoolComponent } from "./job-tool/joboffercomparisontool/joboffercomparisontool.component";
 import { JobOfferPreparedListComponent } from "./job-tool/joboffercomparisontool/preparedlist/preparedlist.component";
 
-
-// import { JobToolComponent } from './job-tool/job-tool.component';
 @NgModule({
   declarations: [
     PagesComponent,
@@ -105,12 +102,8 @@ import { JobOfferPreparedListComponent } from "./job-tool/joboffercomparisontool
     FooterStatusBoxComponent,
     HeaderSearchComponent,
     QuestionCreditComponent,
-    ChatComponent,
-    GuidelineComponent,
     PrivacypolicyComponent,
-    ScrollTrackerDirective,
     RefundpolicyComponent,
-    SupportComponent,
     CancellationpolicyComponent,
     InvestorListComponent,
     CompanyListComponent,
@@ -134,19 +127,22 @@ import { JobOfferPreparedListComponent } from "./job-tool/joboffercomparisontool
     NationalExamQuestionsComponent,
     NationalExamResultComponent,
     NationalExamReviewComponent,
-    // JobToolComponent,
-    JobPreparationComponent,
-    JobPreparedListComponent,
-    AverageSalaryComponent,
-    AverageSalaryPreparedListComponent,
-    JoboffercomparisontoolComponent,
-    JobOfferPreparedListComponent
   ],
   exports: [FooterStatusBoxComponent, HeaderSearchComponent],
   imports: [
     CommonModule,
     PagesRoutingModule,
+    GuidelineComponent,
     ThemeModule,
+    JobOfferPreparedListComponent,
+    JoboffercomparisontoolComponent,
+    ScrollTrackerDirective,
+    AverageSalaryComponent,
+    ChatComponent,
+    JobPreparationComponent,
+    JobPreparedListComponent,
+    SupportComponent,
+    AverageSalaryPreparedListComponent,
     StoreModule.forFeature(pagesFeatureKey, pagesReducer),
     StoreModule.forFeature(appFeatureKey, ModuleStoreReducer),
     EffectsModule.forFeature([ModuleStoreEffects]),
@@ -181,8 +177,7 @@ import { JobOfferPreparedListComponent } from "./job-tool/joboffercomparisontool
     RadioButtonModule,
     NgxExtendedPdfViewerModule,
     PdfViewerModule,
-    // AnimateModule,
-    SkeletonModule
+    SkeletonModule,
   ],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
 })

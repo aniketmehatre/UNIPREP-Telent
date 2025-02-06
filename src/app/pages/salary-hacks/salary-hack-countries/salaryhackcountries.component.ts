@@ -1,3 +1,4 @@
+import { CommonModule } from "@angular/common"; // Import CommonModule
 import { Component, EventEmitter, Input, OnInit, Output } from "@angular/core";
 import { ArrayHeaderService } from "../../unilearn/array-header.service";
 import { SalaryHacksService } from "../salaryhacks.service";
@@ -9,6 +10,8 @@ import { count } from "console";
   selector: "uni-salaryhackscountries",
   templateUrl: "./salaryhackcountries.component.html",
   styleUrls: ["./salaryhackcountries.component.scss"],
+  standalone: true,
+  imports: [CommonModule]
 })
 export class SalaryhacksCountryListsComponent implements OnInit {
   constructor(

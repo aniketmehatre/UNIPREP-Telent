@@ -1,17 +1,20 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup } from '@angular/forms';
+import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { CostOfLivingService } from './cost-of-living.service';
 import { City, CostOfLiving, Price } from 'src/app/@Models/cost-of-living';
 import { Router } from "@angular/router";
 import { AuthService } from "../../../Auth/auth.service";
 import { MessageService } from 'primeng/api';
 import { LocationService } from 'src/app/location.service';
-
+import { CommonModule } from '@angular/common';
+import { DialogModule } from 'primeng/dialog';
+import { DropdownModule } from 'primeng/dropdown';
 @Component({
     selector: 'uni-cost-of-living',
     templateUrl: './cost-of-living.component.html',
     styleUrls: ['./cost-of-living.component.scss'],
-    standalone: false
+    standalone: true,
+    imports: [CommonModule, DialogModule, DropdownModule, FormsModule, ReactiveFormsModule],
 })
 export class CostOfLivingComponent implements OnInit {
 

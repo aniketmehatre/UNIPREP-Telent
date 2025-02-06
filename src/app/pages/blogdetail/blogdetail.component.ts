@@ -1,12 +1,15 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import {LocationService} from "../../location.service";
-
+import { CommonModule } from "@angular/common";
+import { DialogModule } from "primeng/dialog";
+import { RouterModule } from '@angular/router';
 @Component({
     selector: 'uni-blogdetail',
     templateUrl: './blogdetail.component.html',
     styleUrls: ['./blogdetail.component.scss'],
-    standalone: false
+    standalone: true,
+    imports: [CommonModule, DialogModule, RouterModule],
 })
 export class BlogdetailComponent implements OnInit {
   slug: any;

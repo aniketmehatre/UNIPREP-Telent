@@ -1,25 +1,29 @@
-import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup } from '@angular/forms';
-import { Router } from '@angular/router';
-import { MessageService } from 'primeng/api';
-import { AuthService } from 'src/app/Auth/auth.service';
-import { DataService } from 'src/app/data.service';
-import { LocationService } from 'src/app/location.service';
-import { PageFacadeService } from '../../page-facade.service';
-import { UserManagementService } from '../../user-management/user-management.service';
-import { FounderstoolService } from '../founderstool.service';
-import { HttpHeaders, HttpParams } from '@angular/common/http';
-import { environment } from '@env/environment';
-import { Country } from 'ngx-intl-tel-input/lib/model/country.model';
-
+import { Component, OnInit } from "@angular/core";
+import { FormBuilder, FormGroup } from "@angular/forms";
+import { Router } from "@angular/router";
+import { MessageService } from "primeng/api";
+import { AuthService } from "src/app/Auth/auth.service";
+import { DataService } from "src/app/data.service";
+import { LocationService } from "src/app/location.service";
+import { PageFacadeService } from "../../page-facade.service";
+import { UserManagementService } from "../../user-management/user-management.service";
+import { FounderstoolService } from "../founderstool.service";
+import { HttpHeaders, HttpParams } from "@angular/common/http";
+import { environment } from "@env/environment";
+import { Country } from "ngx-intl-tel-input/lib/model/country.model";
+import { CommonModule } from "@angular/common";
+import { DialogModule } from "primeng/dialog";
+import { SelectModule } from "primeng/select";
+import { MultiSelectModule } from "primeng/multiselect";
+import { FormsModule, ReactiveFormsModule } from "@angular/forms";
 @Component({
-    selector: 'uni-goverment-funding-opportunity',
-    templateUrl: './goverment-funding-opportunity.component.html',
-    styleUrls: ['./goverment-funding-opportunity.component.scss'],
-    standalone: false
+  selector: "uni-goverment-funding-opportunity",
+  templateUrl: "./goverment-funding-opportunity.component.html",
+  styleUrls: ["./goverment-funding-opportunity.component.scss"],
+  standalone: true,
+  imports: [CommonModule, DialogModule, SelectModule, MultiSelectModule, FormsModule, ReactiveFormsModule],
 })
 export class GovermentFundingOppurtunityComponent implements OnInit {
-
   fundData: any[] = [];
   countryList: Country[] = [];
   stateList: unknown = [];
@@ -38,12 +42,12 @@ export class GovermentFundingOppurtunityComponent implements OnInit {
   recommendRestrict!: boolean;
   fundTypeList: any[] = [
     {
-      "id": 31,
-      "type": "Angola",
-      "flag": "https://flagcdn.com/ao.svg",
-      "country_code": "+244"
-    }
-  ];;
+      id: 31,
+      type: "Angola",
+      flag: "https://flagcdn.com/ao.svg",
+      country_code: "+244",
+    },
+  ];
   anyFundTypeList: any[] = [];
   coverList: any[] = [];
   anyCoverList: any[] = [];
@@ -66,17 +70,7 @@ export class GovermentFundingOppurtunityComponent implements OnInit {
     page: this.page,
     perpage: this.pageSize,
   };
-  constructor(
-    private fb: FormBuilder,
-    private fundListService: FounderstoolService,
-    private locationService: LocationService,
-    private toast: MessageService,
-    private authService: AuthService,
-    private router: Router,
-    private userManagementService: UserManagementService,
-    private dataService: DataService,
-    private pageFacade: PageFacadeService
-  ) {
+  constructor(private fb: FormBuilder, private fundListService: FounderstoolService, private locationService: LocationService, private toast: MessageService, private authService: AuthService, private router: Router, private userManagementService: UserManagementService, private dataService: DataService, private pageFacade: PageFacadeService) {
     this.filterForm = this.fb.group({
       country: [null],
       region: [null],
@@ -103,10 +97,10 @@ export class GovermentFundingOppurtunityComponent implements OnInit {
   selectedData: { [key: string]: any } = {};
 
   ngOnInit(): void {
-    this.locationService.getImage().subscribe(imageUrl => {
+    this.locationService.getImage().subscribe((imageUrl) => {
       this.orglogowhitelabel = imageUrl;
     });
-    this.locationService.getOrgName().subscribe(orgname => {
+    this.locationService.getOrgName().subscribe((orgname) => {
       this.orgnamewhitlabel = orgname;
     });
     this.imagewhitlabeldomainname = window.location.hostname;
@@ -145,7 +139,7 @@ export class GovermentFundingOppurtunityComponent implements OnInit {
   }
 
   getFundCountry() {
-    this.fundListService.getFundCountries().subscribe(res => {
+    this.fundListService.getFundCountries().subscribe((res) => {
       let allCountries = res;
       this.countryList = allCountries;
     });
@@ -166,7 +160,6 @@ export class GovermentFundingOppurtunityComponent implements OnInit {
     );
   }
 
-
   getFundType() {
     this.fundListService.getFundType().subscribe((response) => {
       this.fundTypeList = response;
@@ -174,29 +167,26 @@ export class GovermentFundingOppurtunityComponent implements OnInit {
     });
   }
 
-
   loadFundData(isFavourite: number) {
     debugger;
     if (isFavourite == 1) {
-      this.data = {}
-      this.data['favourite'] = 1;
+      this.data = {};
+      this.data["favourite"] = 1;
     } else {
-      this.data['favourite'] = 0;
+      this.data["favourite"] = 0;
     }
     this.data.planname = this.currentPlan ? this.currentPlan : "";
 
-    this.fundListService
-      .getFundList(this.data)
-      .subscribe((response) => {
-        this.fundData = response.governmentfundings;
-        this.favCount = response.favourite_count;
-        if (isFavourite != 1) {
-          this.allfundList = response.governmentfundings;
-          this.allFundCount = response.count;
-        }
-        this.exportCreditCount = response.credit_count ? response.credit_count : 0;
-        this.totalFundCount = response.count;
-      });
+    this.fundListService.getFundList(this.data).subscribe((response) => {
+      this.fundData = response.governmentfundings;
+      this.favCount = response.favourite_count;
+      if (isFavourite != 1) {
+        this.allfundList = response.governmentfundings;
+        this.allFundCount = response.count;
+      }
+      this.exportCreditCount = response.credit_count ? response.credit_count : 0;
+      this.totalFundCount = response.count;
+    });
     this.isFilterVisible = false;
   }
   applyFilter() {
@@ -207,7 +197,7 @@ export class GovermentFundingOppurtunityComponent implements OnInit {
       this.data = {
         page: this.page,
         perpage: this.pageSize,
-      }
+      };
       this.loadFundData(0);
       this.isFilterVisible = false;
       return;
@@ -224,15 +214,12 @@ export class GovermentFundingOppurtunityComponent implements OnInit {
       this.data.type = this.filterForm.value.type;
     }
     this.first = 0;
-    this.fundListService
-      .getFundList(this.data)
-      .subscribe((response) => {
-        this.fundData = response.governmentfundings;
-        this.totalFundCount = response.count;
-      });
+    this.fundListService.getFundList(this.data).subscribe((response) => {
+      this.fundData = response.governmentfundings;
+      this.totalFundCount = response.count;
+    });
     this.isFilterVisible = false;
   }
-
 
   pageChange(event: any) {
     if (this.planExpired) {
@@ -261,24 +248,19 @@ export class GovermentFundingOppurtunityComponent implements OnInit {
     this.isFilterVisible = true;
   }
 
-  exportTable() { }
+  exportTable() {}
 
   checkplanExpire(): void {
     this.authService.getNewUserTimeLeft().subscribe((res) => {
       let data = res.time_left;
       let subscription_exists_status = res.subscription_details;
       this.currentPlan = subscription_exists_status?.subscription_plan;
-      if (
-        data.plan === "expired" || data.plan === 'subscription_expired' ||
-        subscription_exists_status?.subscription_plan === "free_trail"
-      ) {
+      if (data.plan === "expired" || data.plan === "subscription_expired" || subscription_exists_status?.subscription_plan === "free_trail") {
         this.planExpired = true;
       } else {
         this.planExpired = false;
       }
-      if (
-        data.plan === "expired" || data.plan === 'subscription_expired'
-      ) {
+      if (data.plan === "expired" || data.plan === "subscription_expired") {
         this.recommendRestrict = true;
       } else {
         this.recommendRestrict = false;
@@ -299,17 +281,17 @@ export class GovermentFundingOppurtunityComponent implements OnInit {
   }
 
   GetPersonalProfileData() {
-    this.userManagementService.GetUserPersonalInfo().subscribe(data => {
+    this.userManagementService.GetUserPersonalInfo().subscribe((data) => {
       this.PersonalInfo = data;
     });
   }
 
   bookmarkQuestion(FundId: any, isFav: any) {
     console.log(isFav);
-    isFav = isFav != '1' ? true : false;
+    isFav = isFav != "1" ? true : false;
     this.fundListService.addFavFundData(FundId, this.PersonalInfo.user_id, isFav).subscribe((response) => {
-      let fundListData = this.fundData.find(item => item.id == FundId);
-      isFav == true ? fundListData.favourite = 1 : fundListData.favourite = null;
+      let fundListData = this.fundData.find((item) => item.id == FundId);
+      isFav == true ? (fundListData.favourite = 1) : (fundListData.favourite = null);
       this.favCount = isFav == true ? this.favCount + 1 : this.favCount - 1;
       this.toast.add({
         severity: "success",
@@ -319,20 +301,19 @@ export class GovermentFundingOppurtunityComponent implements OnInit {
     });
   }
   viewFavourites() {
-    this.viewFavouritesLabel = this.viewFavouritesLabel == 'View Favourites' ? 'View All' : 'View Favourites';
+    this.viewFavouritesLabel = this.viewFavouritesLabel == "View Favourites" ? "View All" : "View Favourites";
     if (this.viewFavouritesLabel == "View All") {
       this.loadFundData(1);
-    }
-    else {
-      let fundList = this.allfundList.map(fund => {
-        let foundFund = this.fundData.find(s => s.id == fund.id);
+    } else {
+      let fundList = this.allfundList.map((fund) => {
+        let foundFund = this.fundData.find((s) => s.id == fund.id);
         if (foundFund) {
           fund.favourite = foundFund.favourite;
         }
         return fund;
       });
-      let favouriteFunds = fundList.filter(fund => fund.favourite === 1);
-      let nonFavouriteFunds = fundList.filter(fund => fund.favourite !== 1);
+      let favouriteFunds = fundList.filter((fund) => fund.favourite === 1);
+      let nonFavouriteFunds = fundList.filter((fund) => fund.favourite !== 1);
       this.fundData = favouriteFunds.concat(nonFavouriteFunds);
       this.totalFundCount = this.allFundCount;
     }
@@ -343,10 +324,9 @@ export class GovermentFundingOppurtunityComponent implements OnInit {
       isVisible: true,
       reporttype: 4,
       moduleId: 4,
-      report_mode: "other_module"
+      report_mode: "other_module",
     };
     this.dataService.openReportWindow(data);
-
   }
 
   buyCredits(): void {
@@ -361,12 +341,12 @@ export class GovermentFundingOppurtunityComponent implements OnInit {
     this.selectedFund = 0;
     this.selectAllCheckboxes = !this.selectAllCheckboxes;
     if (this.selectAllCheckboxes) {
-      this.fundData.forEach(item => {
+      this.fundData.forEach((item) => {
         item.isChecked = 1;
         this.selectedFund += 1;
       });
     } else {
-      this.fundData.forEach(item => {
+      this.fundData.forEach((item) => {
         item.isChecked = 0;
       });
     }
@@ -378,48 +358,47 @@ export class GovermentFundingOppurtunityComponent implements OnInit {
       return;
     } else if (this.exportCreditCount != 0) {
       this.exportDataIds = [];
-      this.fundData.forEach(item => {
+      this.fundData.forEach((item) => {
         if (item.isChecked == 1) {
           this.exportDataIds.push(item.id);
         }
-      })
+      });
       if (this.exportDataIds.length == 0) {
-        this.toast.add({ severity: "error", summary: "error", detail: "Select Some data for export!.", });
+        this.toast.add({ severity: "error", summary: "error", detail: "Select Some data for export!." });
         return;
       }
       if (this.exportCreditCount < this.exportDataIds.length) {
         if (this.exportCreditCount < this.exportDataIds.length) {
-          this.toast.add({ severity: "error", summary: "error", detail: "insufficient credits.Please Buy Some Credits.", });
+          this.toast.add({ severity: "error", summary: "error", detail: "insufficient credits.Please Buy Some Credits." });
           this.router.navigate(["/pages/export-credit"]);
           return;
         }
       } else {
         if (this.exportCreditCount < this.exportDataIds.length) {
-          this.toast.add({ severity: "error", summary: "error", detail: "To download additional data beyond your free credits, please upgrade your plan.", });
+          this.toast.add({ severity: "error", summary: "error", detail: "To download additional data beyond your free credits, please upgrade your plan." });
           this.restrict = true;
           return;
         }
       }
       let data = {
         module_id: 3,
-        export_id: this.exportDataIds
+        export_id: this.exportDataIds,
       };
       this.fundListService.exportSelectedData(data).subscribe((response) => {
-        window.open(response.link, '_blank');
+        window.open(response.link, "_blank");
         this.selectAllCheckboxes = false;
         // this.selectedCheckboxCount = 0;
         this.selectedFund = 0;
         this.loadFundData(0);
-      })
+      });
     } else if (this.exportCreditCount == 0) {
       if (this.imagewhitlabeldomainname === "dev-student.uniprep.ai" || this.imagewhitlabeldomainname === "uniprep.ai" || this.imagewhitlabeldomainname === "localhost") {
-        this.toast.add({ severity: "error", summary: "error", detail: "Please Buy Some Credits.", });
+        this.toast.add({ severity: "error", summary: "error", detail: "Please Buy Some Credits." });
         this.router.navigate(["/pages/export-credit"]);
       } else {
         this.restrict = true;
       }
     }
-
   }
 
   onCheckboxChange(event: any) {
@@ -441,7 +420,7 @@ export class GovermentFundingOppurtunityComponent implements OnInit {
   }
 
   checkUserRecommendation() {
-    this.fundListService.getRecommendations().subscribe(res => {
+    this.fundListService.getRecommendations().subscribe((res) => {
       if (res.status) {
         this.enableModule = true;
         this.setRecommendationToForm(res.data);
@@ -463,13 +442,15 @@ export class GovermentFundingOppurtunityComponent implements OnInit {
       return;
     }
     let keyMapping: any = { "1": "country", "2": "region", "3": "type" };
-    let newData = Object.fromEntries(Object.entries(this.selectedData).map(([key, value]) => {
-      let mappedKey = keyMapping[key] || key;
-      if (Array.isArray(value)) {
-        value = value.filter(item => item !== null);
-      }
-      return [mappedKey, value];
-    }));
+    let newData = Object.fromEntries(
+      Object.entries(this.selectedData).map(([key, value]) => {
+        let mappedKey = keyMapping[key] || key;
+        if (Array.isArray(value)) {
+          value = value.filter((item) => item !== null);
+        }
+        return [mappedKey, value];
+      })
+    );
     this.fundListService.storeRecommendation(newData).subscribe();
     this.enableModule = true;
     this.setRecommendationToForm(newData);
@@ -494,7 +475,7 @@ export class GovermentFundingOppurtunityComponent implements OnInit {
   }
 
   resetRecommendation() {
-    this.fundListService.resetRecommendation().subscribe(res => {
+    this.fundListService.resetRecommendation().subscribe((res) => {
       this.enableModule = false;
       this.filterForm.reset();
       this.selectedData = {};

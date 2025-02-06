@@ -55,7 +55,6 @@ Chart.register(BarElement, BarController, CategoryScale, LinearScale, Title, Too
     LanguagetypequizComponent,
     AcademicToolsComponent,
     AcademicToolsStreamComponent,
-    AcademicToolsQuizComponent,
     K12ClassComponent,
     K12QuizComponent,
     K12BoardComponent,
@@ -65,6 +64,7 @@ Chart.register(BarElement, BarController, CategoryScale, LinearScale, Title, Too
   ],
     imports: [
         PdfViewerModule,
+        AcademicToolsQuizComponent,
         CommonModule,
         ModulesRoutingModule,
         BreadcrumbModule,

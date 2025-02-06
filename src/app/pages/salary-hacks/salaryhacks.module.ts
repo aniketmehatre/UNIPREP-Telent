@@ -1,4 +1,5 @@
 import { CommonModule } from "@angular/common";
+import { RouterModule } from "@angular/router";
 import { NgModule, CUSTOM_ELEMENTS_SCHEMA } from "@angular/core";
 import { ReactiveFormsModule, FormsModule } from "@angular/forms";
 import { PipesModule } from "@pipes/pipes.module";
@@ -9,13 +10,13 @@ import { AutoCompleteModule } from "primeng/autocomplete";
 import { ButtonModule } from "primeng/button";
 import { CardModule } from "primeng/card";
 import { CarouselModule } from "primeng/carousel";
-import { ChipsModule } from "primeng/chips";
+import { ChipModule } from "primeng/chip";
 import { ConfirmPopupModule } from "primeng/confirmpopup";
 import { DialogModule } from "primeng/dialog";
 import { DropdownModule } from "primeng/dropdown";
 import { EditorModule } from "primeng/editor";
 import { InputTextModule } from "primeng/inputtext";
-import { InputTextareaModule } from "primeng/inputtextarea";
+import { InputTextarea } from "primeng/inputtextarea";
 import { PaginatorModule } from "primeng/paginator";
 import { SidebarModule } from "primeng/sidebar";
 import { SkeletonModule } from "primeng/skeleton";
@@ -28,40 +29,39 @@ import { SalaryhacksCountryListsComponent } from "./salary-hack-countries/salary
 import { SalaryHacksRoutingModule } from "./salaryhacks-routing.module";
 
 @NgModule({
-  declarations: [
+  imports: [
+    CommonModule,
+    RouterModule,
+    InputTextModule,
+    CarouselModule,
+    ButtonModule,
+    ReactiveFormsModule,
+    InputTextarea,
+    SalaryHacksRoutingModule,
+    ChipModule,
+    FormsModule,
+    DropdownModule,
+    EditorModule,
+    SidebarModule,
+    CardModule,
+    SplitButtonModule,
+    ReactiveFormsModule,
+    PipesModule,
+    PaginatorModule,
+    SlickCarouselModule,
+    StepsModule,
+    PdfViewerModule,
+    ConfirmPopupModule,
+    DialogModule,
+    SharedModule,
+    TooltipModule,
+    SkeletonModule,
+    AutoCompleteModule,
+    SalaryhacksCountryListsComponent,
     SalaryhacksComponent,
     SalaryhacksListsComponent,
-    SalaryhacksCountryListsComponent
-    ],
-    imports: [
-        CommonModule,
-        InputTextModule,
-        CarouselModule,
-        ButtonModule,
-        ReactiveFormsModule,
-        InputTextareaModule,
-        SalaryHacksRoutingModule,
-        ChipsModule,
-        FormsModule,
-        DropdownModule,
-        EditorModule,
-        SidebarModule,
-        CardModule,
-        SplitButtonModule,
-        ReactiveFormsModule,
-        PipesModule,
-        PaginatorModule,
-        SlickCarouselModule,
-        StepsModule,
-        PdfViewerModule,
-        ConfirmPopupModule,
-        DialogModule,
-        SharedModule,
-        TooltipModule,
-        SkeletonModule,
-        AutoCompleteModule,
-    ],
+  ],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
-  providers: [ConfirmationService]
+  providers: [ConfirmationService],
 })
-export class SalaryHacksModule{ }
+export class SalaryHacksModule {}

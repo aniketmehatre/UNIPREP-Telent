@@ -1,12 +1,13 @@
 import { Component, OnInit } from '@angular/core';
 import { PageFacadeService } from '../page-facade.service';
-import { Router } from '@angular/router';
-
+import { Router, RouterModule } from '@angular/router';
+import { CommonModule } from "@angular/common";
 @Component({
     selector: 'uni-founderstool',
     templateUrl: './founderstool.component.html',
     styleUrls: ['./founderstool.component.scss'],
-    standalone: false
+    standalone: true,
+    imports: [CommonModule, RouterModule]
 })
 export class FounderstoolComponent implements OnInit {
 

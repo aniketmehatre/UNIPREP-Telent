@@ -5,12 +5,15 @@ import { MessageService } from 'primeng/api';
 import { environment } from '@env/environment';
 import { WindowRefService } from 'src/app/pages/subscription/window-ref.service';
 import { BehaviorSubject } from 'rxjs';
-
+import { CommonModule } from "@angular/common";
+import { DialogModule } from "primeng/dialog";
+import { ToastModule } from 'primeng/toast';
 @Component({
     selector: 'uni-enterprise-subscription',
     templateUrl: './enterprise-subscription.component.html',
     styleUrls: ['./enterprise-subscription.component.scss'],
-    standalone: false
+    standalone: true,
+    imports: [CommonModule, DialogModule,ToastModule],
 })
 export class EnterpriseSubscriptionComponent implements OnInit,OnDestroy {
   collegeName: string = "";

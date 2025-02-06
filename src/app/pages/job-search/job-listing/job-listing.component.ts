@@ -1,18 +1,21 @@
 import {Component, OnInit} from '@angular/core';
 import {JobSearchService} from "../job-search.service";
 import {SalaryConverterService} from '../../job-tool/salary-converter/salary-converter.service';
-import {FormControl, FormGroup, Validators} from '@angular/forms';
+import {FormControl, FormGroup, Validators, FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {DataService} from 'src/app/data.service';
 import {ActivatedRoute, Params, Router} from "@angular/router";
 import {MessageService} from "primeng/api";
 import {City} from "../../../@Models/cost-of-living";
 import {filter} from "rxjs";
-
+import { DropdownModule } from 'primeng/dropdown';
+import { CommonModule } from "@angular/common";
+import { DialogModule } from "primeng/dialog";
 @Component({
     selector: 'uni-job-listing',
     templateUrl: './job-listing.component.html',
     styleUrls: ['./job-listing.component.scss'],
-    standalone: false
+    standalone: true,
+    imports: [DropdownModule, FormsModule, ReactiveFormsModule, CommonModule, DialogModule],
 })
 export class JobListingComponent implements OnInit {
     jobs: any[] = [];

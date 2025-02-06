@@ -2,12 +2,14 @@ import { Component, ElementRef, HostListener, OnInit, ViewChild } from '@angular
 import { DomSanitizer } from '@angular/platform-browser';
 import { FounderstoolService } from '../founderstool.service';
 import { Router } from '@angular/router';
-
+import { CommonModule } from "@angular/common";
+import { DialogModule } from "primeng/dialog";
 @Component({
     selector: 'uni-foundersacademy',
     templateUrl: './foundersacademy.component.html',
     styleUrls: ['./foundersacademy.component.scss'],
-    standalone: false
+    standalone: true,
+    imports: [CommonModule, DialogModule]
 })
 export class FoundersacademyComponent implements OnInit {
   @ViewChild('videoFrame') videoFrame: ElementRef | undefined;

@@ -1,9 +1,11 @@
 import {Component, OnInit} from '@angular/core';
 import {JobSearchService} from "../job-search.service";
 import {DataService} from "../../../data.service";
-import {FormControl, FormGroup} from "@angular/forms";
+import {FormControl, FormGroup, FormsModule, ReactiveFormsModule} from "@angular/forms";
 import {Location} from "@angular/common";
-
+import { CommonModule } from '@angular/common';
+import { DialogModule } from 'primeng/dialog';
+import { DropdownModule } from 'primeng/dropdown';
 interface Status {
     label: string;
     value: string;
@@ -14,7 +16,8 @@ interface Status {
     selector: 'uni-job-board',
     templateUrl: './job-board.component.html',
     styleUrls: ['./job-board.component.scss'],
-    standalone: false
+    standalone: true,
+    imports: [CommonModule, DialogModule, DropdownModule, FormsModule, ReactiveFormsModule],
 })
 export class JobBoardComponent implements OnInit {
     addManual: FormGroup

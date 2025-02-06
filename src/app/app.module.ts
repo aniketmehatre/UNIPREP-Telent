@@ -62,21 +62,25 @@ export function tokenGetter() {
 @NgModule({
   declarations: [
     AppComponent,
-    LandingComponent,
-    ModalComponent,
+    
+    
     ScrollToBottomDirective,
-    PrivacyComponent,
-    EnterpriseSubscriptionComponent,
-    BlogdetailComponent,
-    BloglistComponent
+
+    
   ],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
   imports: [
+    AuthModule,
     BrowserModule,
+    LandingComponent,
     BrowserAnimationsModule,
+    PrivacyComponent,
+    ModalComponent,
+    EnterpriseSubscriptionComponent,
+    BlogdetailComponent,
     AppRoutingModule,
     StoreModule.forRoot({ pages: pagesReducer }),
-    AuthModule,
+    BloglistComponent,
     CommonModule,
     HttpClientModule,
     ToastModule,
@@ -111,7 +115,6 @@ export function tokenGetter() {
     SharedModule,
     SkeletonModule,
     RouterModule,
-    ChartsModule
   ],
   providers: [
     DeviceDetectorService,

@@ -1,14 +1,17 @@
 import { Component, OnInit } from '@angular/core';
+import { CommonModule } from '@angular/common';
 import { LanguageArrayGlobalService } from '../language-array-global.service';
 import { PageFacadeService } from '../../page-facade.service';
 import {Location} from "@angular/common";
 import { LanguageHubService } from '../language-hub.service';
+import { FormsModule } from "@angular/forms";
 
 @Component({
     selector: 'app-vocabulary',
     templateUrl: './vocabulary.component.html',
     styleUrls: ['./vocabulary.component.scss'],
-    standalone: false
+    standalone: true,
+    imports: [CommonModule,FormsModule]
 })
 export class VocabularyComponent implements OnInit {
   alphabet: string[] = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'.split('');

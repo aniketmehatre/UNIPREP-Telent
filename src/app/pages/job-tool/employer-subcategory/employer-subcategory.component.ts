@@ -5,12 +5,15 @@ import { GetSubcategoryPayload, SubCategoryResponse } from 'src/app/@Models/care
 import {ActivatedRoute, Params, Router} from '@angular/router';
 import { AuthService } from 'src/app/Auth/auth.service';
 import { LocationService } from 'src/app/location.service';
-
+import { CommonModule } from '@angular/common';
+import { DialogModule } from 'primeng/dialog';
 @Component({
     selector: 'uni-employer-subcategory',
     templateUrl: './employer-subcategory.component.html',
     styleUrls: ['./employer-subcategory.component.scss'],
-    standalone: false
+    standalone: true,
+    imports: [CommonModule, DialogModule]
+
 })
 export class EmployerSubcategoryComponent implements OnInit {
   subCategories: any = [];

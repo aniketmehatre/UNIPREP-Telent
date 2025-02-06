@@ -5,12 +5,14 @@ import { FounderstoolService } from '../founderstool.service';
 import { AuthService } from 'src/app/Auth/auth.service';
 import { LocationService } from 'src/app/location.service';
 import { PageFacadeService } from '../../page-facade.service';
-
+import { CommonModule } from "@angular/common";
+import { DialogModule } from "primeng/dialog";
 @Component({
     selector: 'uni-entreprenuerskillmodule',
     templateUrl: './entreprenuerskillmodule.component.html',
     styleUrls: ['./entreprenuerskillmodule.component.scss'],
-    standalone: false
+    standalone: true,
+    imports: [CommonModule, DialogModule]
 })
 export class EntreprenuerskillmoduleComponent implements OnInit {
   categoryCount:number=0;

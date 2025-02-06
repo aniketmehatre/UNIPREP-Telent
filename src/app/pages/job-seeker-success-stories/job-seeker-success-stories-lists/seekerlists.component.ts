@@ -6,11 +6,16 @@ import { PageFacadeService } from "../../page-facade.service";
 import { AuthService } from "src/app/Auth/auth.service";
 import { Meta } from "@angular/platform-browser";
 import { JobseekerSuccessStoriesService } from "../job-seeker-success-stories.service";
-
+import { CommonModule } from "@angular/common";
+import { CardModule } from "primeng/card";
+import { DialogModule } from "primeng/dialog";
+import { PaginatorModule } from "primeng/paginator";
 @Component({
   selector: "uni-seekerlists",
   templateUrl: "./seekerlists.component.html",
   styleUrls: ["./seekerlists.component.scss"],
+  standalone: true,
+  imports: [CommonModule, CardModule, DialogModule, PaginatorModule],
 })
 export class SeekerListsComponent implements OnInit {
   isSkeletonVisible: boolean = true;
@@ -31,25 +36,12 @@ export class SeekerListsComponent implements OnInit {
   loopRange = Array.from({ length: 30 })
     .fill(0)
     .map((_, index) => index);
-  constructor(
-    private location: Location,
-    private route: ActivatedRoute,
-    private toast: MessageService,
-    private router: Router,
-    private pageFacade: PageFacadeService,
-    private authService: AuthService,
-    private meta: Meta,
-    private service: JobseekerSuccessStoriesService
-  ) {}
+  constructor(private location: Location, private route: ActivatedRoute, private toast: MessageService, private router: Router, private pageFacade: PageFacadeService, private authService: AuthService, private meta: Meta, private service: JobseekerSuccessStoriesService) {}
   ngOnInit(): void {
     this.gethackList();
     this.checkPlanExpiry();
     this.imagewhitlabeldomainname = window.location.hostname;
-    this.ehitlabelIsShow = [
-      "dev-student.uniprep.ai",
-      "uniprep.ai",
-      "localhost",
-    ].includes(this.imagewhitlabeldomainname);
+    this.ehitlabelIsShow = ["dev-student.uniprep.ai", "uniprep.ai", "localhost"].includes(this.imagewhitlabeldomainname);
   }
   onShowModal(value: any) {
     let socialShare: any = document.getElementById("socialSharingList");
@@ -117,8 +109,7 @@ export class SeekerListsComponent implements OnInit {
     if (socialShare.style.display == "") {
       socialShare.style.display = "block";
     } else {
-      socialShare.style.display =
-        socialShare.style.display == "none" ? "block" : "none";
+      socialShare.style.display = socialShare.style.display == "none" ? "block" : "none";
     }
   }
   shareViaWhatsapp() {
@@ -138,25 +129,19 @@ export class SeekerListsComponent implements OnInit {
   shareViaFacebook() {
     let url = window.location.href + "/" + this.selectedQuestionData?.id;
     this.meta.updateTag({ property: "og:url", content: url });
-    const shareUrl = `https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(
-      url
-    )}`;
+    const shareUrl = `https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(url)}`;
     window.open(shareUrl, "_blank");
   }
   shareViaLinkedIn() {
     let url = window.location.href + "/" + this.selectedQuestionData?.id;
     this.meta.updateTag({ property: "og:url", content: url });
-    const shareUrl = `https://www.linkedin.com/shareArticle?url=${encodeURIComponent(
-      url
-    )}`;
+    const shareUrl = `https://www.linkedin.com/shareArticle?url=${encodeURIComponent(url)}`;
     window.open(shareUrl, "_blank");
   }
   shareViaTwitter() {
     let url = window.location.href + "/" + this.selectedQuestionData?.id;
     this.meta.updateTag({ property: "og:url", content: url });
-    const shareUrl = `https://twitter.com/intent/tweet?url=${encodeURIComponent(
-      url
-    )}`;
+    const shareUrl = `https://twitter.com/intent/tweet?url=${encodeURIComponent(url)}`;
     window.open(shareUrl, "_blank");
   }
   shareViaMail() {

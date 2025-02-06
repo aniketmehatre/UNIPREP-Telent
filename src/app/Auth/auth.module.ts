@@ -26,7 +26,6 @@ import {MaintenanceComponent} from "./maintenance/maintenance.component";
 
 @NgModule({
   declarations: [
-    AuthComponent,
     LoginComponent,
     RegistrationComponent,
     ForgotPasswordComponent,
@@ -36,6 +35,7 @@ import {MaintenanceComponent} from "./maintenance/maintenance.component";
   ],
     imports: [
         FormsModule,
+        AuthComponent,
         ReactiveFormsModule,
         CommonModule,
         RouterModule,

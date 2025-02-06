@@ -6,12 +6,15 @@ import { FounderstoolService } from '../founderstool.service';
 import { MessageService } from 'primeng/api';
 import { Meta } from '@angular/platform-browser';
 import { DataService } from 'src/app/data.service';
-
+import { CommonModule } from "@angular/common";
+import { DialogModule } from "primeng/dialog";
+import { CardModule  } from "primeng/card";
 @Component({
     selector: 'uni-component-stories',
     templateUrl: './component-stories.component.html',
     styleUrls: ['./component-stories.component.scss'],
-    standalone: false
+    standalone: true,
+    imports: [CommonModule, DialogModule, CardModule]
 })
 export class ComponentStoriesComponent implements OnInit {
 

@@ -1,36 +1,39 @@
 import { Component } from "@angular/core";
-import {DeviceDetectorService} from "ngx-device-detector";
-
+import { RouterModule } from "@angular/router";
+import { DeviceDetectorService } from "ngx-device-detector";
+import { CommonModule } from "@angular/common";
+import { ToastModule } from "primeng/toast";
 @Component({
   selector: "uni-auth",
   templateUrl: "./auth.component.html",
   styleUrls: ["./auth.component.scss"],
+  standalone: true,
+  imports: [CommonModule, RouterModule, ToastModule],
 })
 export class AuthComponent {
-  isDeviceStatus: any = 'none'
-  isDeviceStatusPopupView: boolean = false
+  isDeviceStatus: any = "none";
+  isDeviceStatusPopupView: boolean = false;
   deviceInfo: any;
-
 
   constructor(private deviceService: DeviceDetectorService) {
     this.deviceCheck();
   }
-  deviceCheck(){
+  deviceCheck() {
     this.deviceInfo = this.deviceService.getDeviceInfo();
     const isMobile = this.deviceService.isMobile();
     const isTablet = this.deviceService.isTablet();
     const isDesktopDevice = this.deviceService.isDesktop();
-    if(isMobile || isTablet){
-      this.isDeviceStatus = 'block';
+    if (isMobile || isTablet) {
+      this.isDeviceStatus = "block";
       this.isDeviceStatusPopupView = false;
-    }else{
-      this.isDeviceStatus = 'none';
+    } else {
+      this.isDeviceStatus = "none";
       this.isDeviceStatusPopupView = true;
     }
   }
 
-  moveToDesktop(){
-    this.isDeviceStatus = 'none';
+  moveToDesktop() {
+    this.isDeviceStatus = "none";
     this.isDeviceStatusPopupView = true;
   }
 }

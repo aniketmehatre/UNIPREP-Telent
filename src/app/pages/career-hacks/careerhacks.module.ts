@@ -9,13 +9,12 @@ import { AutoCompleteModule } from "primeng/autocomplete";
 import { ButtonModule } from "primeng/button";
 import { CardModule } from "primeng/card";
 import { CarouselModule } from "primeng/carousel";
-import { ChipsModule } from "primeng/chips";
+import { ChipModule } from "primeng/chip";
 import { ConfirmPopupModule } from "primeng/confirmpopup";
 import { DialogModule } from "primeng/dialog";
 import { DropdownModule } from "primeng/dropdown";
 import { EditorModule } from "primeng/editor";
 import { InputTextModule } from "primeng/inputtext";
-import { InputTextareaModule } from "primeng/inputtextarea";
 import { PaginatorModule } from "primeng/paginator";
 import { SidebarModule } from "primeng/sidebar";
 import { SkeletonModule } from "primeng/skeleton";
@@ -28,20 +27,17 @@ import { CHCountryListsComponent } from "./career-countries/careercountries.comp
 import { CareerhacksComponent } from "./careerhacks.component";
 
 @NgModule({
-  declarations: [
-    CareerhacksComponent,
-    CareerListsComponent,
-    CHCountryListsComponent
-    ],
     imports: [
         CommonModule,
         InputTextModule,
         CarouselModule,
+        CareerhacksComponent,
+        CareerListsComponent,
+        CHCountryListsComponent,
         ButtonModule,
         ReactiveFormsModule,
-        InputTextareaModule,
         CareerHacksRoutingModule,
-        ChipsModule,
+        ChipModule,
         FormsModule,
         DropdownModule,
         EditorModule,

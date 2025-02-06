@@ -7,12 +7,16 @@ import {AuthService} from "../../../Auth/auth.service";
 import {Router} from "@angular/router";
 import Swiper from 'swiper';
 import { CvBuilderService } from '../cv-builder/cv-builder.service';
-
+import { CommonModule } from '@angular/common';
+import { DialogModule } from 'primeng/dialog';
+import { SidebarModule } from 'primeng/sidebar';
+import { NgxExtendedPdfViewerModule } from 'ngx-extended-pdf-viewer';
 @Component({
     selector: 'uni-cover-letter-builder',
     templateUrl: './cover-letter-builder.component.html',
     styleUrls: ['./cover-letter-builder.component.scss'],
-    standalone: false
+    standalone: true,
+    imports: [CommonModule, DialogModule, SidebarModule,NgxExtendedPdfViewerModule],
 })
 export class CoverLetterBuilderComponent implements OnInit {
   items!: MenuItem[];

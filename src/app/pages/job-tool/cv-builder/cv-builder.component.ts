@@ -1,33 +1,98 @@
-import { Component, OnInit, Renderer2, ElementRef,HostListener , AfterViewInit  } from '@angular/core';
-import { MessageService, ConfirmationService } from 'primeng/api';
+import { Component, OnInit, Renderer2, ElementRef, HostListener, AfterViewInit } from "@angular/core";
+import { MessageService, ConfirmationService } from "primeng/api";
 import { FormBuilder, FormGroup, FormArray, Validators, AbstractControl } from "@angular/forms";
 // import { CourseListService } from '../../course-list/course-list.service';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { Router } from '@angular/router';
-import { MenuItem } from 'primeng/api';
-import Swiper from 'swiper';
-import {AuthService} from "../../../Auth/auth.service";
-import {LocationService} from "../../../location.service";
-import { CvBuilderService } from './cv-builder.service';
-import { JobSearchService } from '../../job-search/job-search.service';
-import { City } from 'src/app/@Models/cost-of-living';
+import { HttpClient, HttpHeaders } from "@angular/common/http";
+import { Router } from "@angular/router";
+import { MenuItem } from "primeng/api";
+import Swiper from "swiper";
+import { AuthService } from "../../../Auth/auth.service";
+import { LocationService } from "../../../location.service";
+import { CvBuilderService } from "./cv-builder.service";
+import { JobSearchService } from "../../job-search/job-search.service";
+import { City } from "src/app/@Models/cost-of-living";
+import { CommonModule } from "@angular/common";
+import { DialogModule } from "primeng/dialog";
+import { SidebarModule } from "primeng/sidebar";
+import { NgxExtendedPdfViewerModule } from 'ngx-extended-pdf-viewer';
 @Component({
-    selector: 'uni-cv-builder',
-    templateUrl: './cv-builder.component.html',
-    styleUrls: ['./cv-builder.component.scss'],
-    standalone: false
+  selector: "uni-cv-builder",
+  templateUrl: "./cv-builder.component.html",
+  styleUrls: ["./cv-builder.component.scss"],
+  standalone: true,
+  imports: [CommonModule, DialogModule, SidebarModule, NgxExtendedPdfViewerModule],
 })
-export class CvBuilderComponent implements OnInit  {
+export class CvBuilderComponent implements OnInit {
   selectedResumeLevel: string = "";
-  experienceLevel: any = [{ id: 1, level: "Fresher" }, { id: 2, level: "Experience" }];
+  experienceLevel: any = [
+    { id: 1, level: "Fresher" },
+    { id: 2, level: "Experience" },
+  ];
   // experienceLevel: any = [{ id: 1, level: "Fresher" }, { id: 2, level: "1-2 Years" }, { id: 3, level: "3-5 Years" }, { id: 4, level: "5+ Years" },];
-  monthList: any = [{ id: "Jan", name: "January" }, { id: "Feb", name: "February" }, { id: "Mar", name: "March" }, { id: "Apr", name: "Apr" }, { id: "May", name: "May" }, { id: "Jun", name: "June" }, { id: "Jul", name: "July" }, { id: "Aug", name: "August" }, { id: "Sep", name: "September" }, { id: "Oct", name: "October" }, { id: "Nov", name: "November" }, { id: "Dec", name: "December" }];
+  monthList: any = [
+    { id: "Jan", name: "January" },
+    { id: "Feb", name: "February" },
+    { id: "Mar", name: "March" },
+    { id: "Apr", name: "Apr" },
+    { id: "May", name: "May" },
+    { id: "Jun", name: "June" },
+    { id: "Jul", name: "July" },
+    { id: "Aug", name: "August" },
+    { id: "Sep", name: "September" },
+    { id: "Oct", name: "October" },
+    { id: "Nov", name: "November" },
+    { id: "Dec", name: "December" },
+  ];
 
-  cgpaPercentage: any = [{ id: "CGPA", value: "CGPA" }, { id: "%", value: "Percentage" }];
-  workTypeValue: any = [{ id: "Full Time", value: "Full-Time" }, { id: "Part Time", value: "Part-Time" }, { id: "Internship", value: "Internship" }, { id: "Freelancer", value: "Freelancer" }];
-  languageProficiency: any = [{ id: "Beginner", value: "Beginner" }, { id: "Fluent", value: "Fluent" }, { id: "Proficient", value: "Proficient" }, { id: "Native", value: "Native" }];
-  skillProficiency: any = [{ id: "Basic", value: "Basic" }, { id: "Intermediate", value: "Intermediate" }, { id: "Advance", value: "Advance" }];
-  languageLists: any = [{value: "Kannada"},{value: "German"},{value: "Hindi"},{value: "Spanish"},{value: "French"},{value: "Italian"},{value: "Arabic"},{value: "Polish"},{value: "Swedish"},{value: "Dutch"},{value: "Danish"},{value: "Greek"},{value: "Portugese"},{value: "Chinese"},{value: "Korean"},{value: "Japanese"},{value: "Tamil"},{value: "Telugu"},{value: "Urdu"},{value: "Malyalam"},{value: "Russian"},{value: "Turkish"},{value: "Bengali"},{value: "Punjabi"},{value: "Marathi"},{value:"English"}];
+  cgpaPercentage: any = [
+    { id: "CGPA", value: "CGPA" },
+    { id: "%", value: "Percentage" },
+  ];
+  workTypeValue: any = [
+    { id: "Full Time", value: "Full-Time" },
+    { id: "Part Time", value: "Part-Time" },
+    { id: "Internship", value: "Internship" },
+    { id: "Freelancer", value: "Freelancer" },
+  ];
+  languageProficiency: any = [
+    { id: "Beginner", value: "Beginner" },
+    { id: "Fluent", value: "Fluent" },
+    { id: "Proficient", value: "Proficient" },
+    { id: "Native", value: "Native" },
+  ];
+  skillProficiency: any = [
+    { id: "Basic", value: "Basic" },
+    { id: "Intermediate", value: "Intermediate" },
+    { id: "Advance", value: "Advance" },
+  ];
+  languageLists: any = [
+    { value: "Kannada" },
+    { value: "German" },
+    { value: "Hindi" },
+    { value: "Spanish" },
+    { value: "French" },
+    { value: "Italian" },
+    { value: "Arabic" },
+    { value: "Polish" },
+    { value: "Swedish" },
+    { value: "Dutch" },
+    { value: "Danish" },
+    { value: "Greek" },
+    { value: "Portugese" },
+    { value: "Chinese" },
+    { value: "Korean" },
+    { value: "Japanese" },
+    { value: "Tamil" },
+    { value: "Telugu" },
+    { value: "Urdu" },
+    { value: "Malyalam" },
+    { value: "Russian" },
+    { value: "Turkish" },
+    { value: "Bengali" },
+    { value: "Punjabi" },
+    { value: "Marathi" },
+    { value: "English" },
+  ];
   enableModule: boolean = true;
   activePageIndex: number = 0;
   moduleActiveIndex: number = 0;
@@ -50,7 +115,7 @@ export class CvBuilderComponent implements OnInit  {
   selectedFontColor: string = "#000000";
   selectedColorCode: number = 1;
   template1: any;
-  userNameSplit: { firstWord: string, secondWord: string } = { firstWord: '', secondWord: '' };
+  userNameSplit: { firstWord: string; secondWord: string } = { firstWord: "", secondWord: "" };
   stableFileName = Math.floor(100000000 + Math.random() * 900000);
   resumeHistory: any = [];
   clickedDownloadButton: boolean = false;
@@ -114,17 +179,16 @@ export class CvBuilderComponent implements OnInit  {
       templateName: "Traditional",
       imageLink: "../../../uniprep-assets/resume-images/Traditional.webp",
     },
-
   ];
 
   editorModules: any;
-  planExpired: boolean = false
-  restrict: boolean = false
+  planExpired: boolean = false;
+  restrict: boolean = false;
   ehitlabelIsShow: boolean = true;
-  imagewhitlabeldomainname: any
+  imagewhitlabeldomainname: any;
   orgnamewhitlabel: any;
   orglogowhitelabel: any;
-  hidingHeaders: string[] = ['project_details'];
+  hidingHeaders: string[] = ["project_details"];
   swiper!: Swiper;
   loadingResumes: boolean = true;
   filledFields: string[] = [];
@@ -135,23 +199,19 @@ export class CvBuilderComponent implements OnInit  {
   filteredLocations: any = [];
   filteredExpeAndEduLocations: { [key: number]: any[] } = {};
 
-  constructor(private toaster: MessageService, private fb: FormBuilder, private resumeService: CvBuilderService,
-              private http: HttpClient, private router: Router, private confirmService: ConfirmationService,
-              private renderer: Renderer2, private el: ElementRef,  private authService: AuthService,
-              private locationService: LocationService, private cityService: JobSearchService) {
-
+  constructor(private toaster: MessageService, private fb: FormBuilder, private resumeService: CvBuilderService, private http: HttpClient, private router: Router, private confirmService: ConfirmationService, private renderer: Renderer2, private el: ElementRef, private authService: AuthService, private locationService: LocationService, private cityService: JobSearchService) {
     this.resumeFormInfoData = this.fb.group({
-      selected_exp_level: ['', Validators.required],
-      user_name: ['Your Full Name', Validators.required],
-      user_job_title: ['Your Job Title', Validators.required],
-      user_email: ['', [Validators.required, Validators.email]],
-      user_location: ['', Validators.required],
-      country_code: ['+91'],
-      user_phone: ['',[Validators.required, Validators.pattern('^\\+?[1-9]\\d{1,14}$')]],
-      user_linkedin:['', Validators.required],
-      user_linkedin_link: [''],
-      user_website: [''],
-      user_summary: ['', Validators.required],
+      selected_exp_level: ["", Validators.required],
+      user_name: ["Your Full Name", Validators.required],
+      user_job_title: ["Your Job Title", Validators.required],
+      user_email: ["", [Validators.required, Validators.email]],
+      user_location: ["", Validators.required],
+      country_code: ["+91"],
+      user_phone: ["", [Validators.required, Validators.pattern("^\\+?[1-9]\\d{1,14}$")]],
+      user_linkedin: ["", Validators.required],
+      user_linkedin_link: [""],
+      user_website: [""],
+      user_summary: ["", Validators.required],
       // selected_exp_level: ['', [Validators.required]],
       // user_name: ['vivek kaliyaperumal', [Validators.required]],
       // user_job_title: ['full stack developer', [Validators.required]],
@@ -173,7 +233,6 @@ export class CvBuilderComponent implements OnInit  {
       certificatesArray: this.fb.array([]),
       referenceArray: this.fb.array([]),
     });
-
   }
 
   onFocusOut() {
@@ -182,13 +241,13 @@ export class CvBuilderComponent implements OnInit  {
       this.filteredDesignations = [];
       this.filteredLocations = [];
       this.filteredExpeAndEduLocations = [];
-    }, 200);  // Delay clearing the dropdown by 200 milliseconds
+    }, 200); // Delay clearing the dropdown by 200 milliseconds
   }
 
   ngAfterViewInit(): void {
     setTimeout(() => {
-      this.swiper = new Swiper('.swiper', {
-        direction: 'horizontal',
+      this.swiper = new Swiper(".swiper", {
+        direction: "horizontal",
         loop: true,
         centeredSlides: true,
         allowTouchMove: false,
@@ -213,20 +272,19 @@ export class CvBuilderComponent implements OnInit  {
       });
     }, 500);
     setTimeout(() => {
-      const nextButton = document.querySelector('.swiper-next');
-      const prevButton = document.querySelector('.swiper-prev');
+      const nextButton = document.querySelector(".swiper-next");
+      const prevButton = document.querySelector(".swiper-prev");
       if (nextButton) {
-        nextButton.addEventListener('click', () => {
+        nextButton.addEventListener("click", () => {
           this.swiper.slideNext();
         });
       }
       if (prevButton) {
-        prevButton.addEventListener('click', () => {
+        prevButton.addEventListener("click", () => {
           this.swiper.slidePrev();
         });
       }
     }, 200);
-
   }
   pdfViewLoader() {
     setTimeout(() => {
@@ -239,24 +297,24 @@ export class CvBuilderComponent implements OnInit  {
     this.getLocationsList();
     this.editorModules = {
       toolbar: [
-        ['bold', 'italic', 'underline'],
-        [{ 'list': 'ordered' }, { 'list': 'bullet' }],
-        ['clean'] // Clear formatting button
-      ]
+        ["bold", "italic", "underline"],
+        [{ list: "ordered" }, { list: "bullet" }],
+        ["clean"], // Clear formatting button
+      ],
     };
     // this.triggerAddMoreButton();
-    this.checkplanExpire()
-    this.locationService.getImage().subscribe(imageUrl => {
+    this.checkplanExpire();
+    this.locationService.getImage().subscribe((imageUrl) => {
       this.orglogowhitelabel = imageUrl;
     });
-    this.locationService.getOrgName().subscribe(orgname => {
+    this.locationService.getOrgName().subscribe((orgname) => {
       this.orgnamewhitlabel = orgname;
     });
     this.imagewhitlabeldomainname = window.location.hostname;
     this.previousResumes();
     let currentuserName = this.resumeFormInfoData.value.user_name;
     this.splitUserName(currentuserName); // it calls when the page refresh
-    this.resumeFormInfoData.get('user_name')?.valueChanges.subscribe(value => {
+    this.resumeFormInfoData.get("user_name")?.valueChanges.subscribe((value) => {
       this.splitUserName(value); // it calls when the user enters the user name
     });
     // if (this.resumeFormInfoData.invalid) {
@@ -265,13 +323,7 @@ export class CvBuilderComponent implements OnInit  {
     //   );
     //   return;
     // }
-    this.items = [
-      { label: 'Personal Information' },
-      { label: 'Work Experience' },
-      { label: 'Your Education' },
-      { label: 'Skills & Certifications' },
-      { label: 'Additional Information' },
-    ];
+    this.items = [{ label: "Personal Information" }, { label: "Work Experience" }, { label: "Your Education" }, { label: "Skills & Certifications" }, { label: "Additional Information" }];
     this.getCountryCodeList();
     this.skillsList();
     this.getUserPrefilledData();
@@ -280,10 +332,10 @@ export class CvBuilderComponent implements OnInit  {
       this.yearsList.push({ year: i });
     }
     this.getOccupationList();
-    this.locationService.getImage().subscribe(imageUrl => {
+    this.locationService.getImage().subscribe((imageUrl) => {
       this.orglogowhitelabel = imageUrl;
     });
-    this.locationService.getOrgName().subscribe(orgname => {
+    this.locationService.getOrgName().subscribe((orgname) => {
       this.orgnamewhitlabel = orgname;
     });
     this.imagewhitlabeldomainname = window.location.hostname;
@@ -294,46 +346,46 @@ export class CvBuilderComponent implements OnInit  {
     }
   }
 
-  getLocationsList(){
+  getLocationsList() {
     this.resumeService.getLocationList().subscribe((res: any) => {
       this.cities = res;
     });
   }
 
-  getOccupationList(){
-    this.resumeService.getJobList().subscribe(res =>{
+  getOccupationList() {
+    this.resumeService.getJobList().subscribe((res) => {
       this.occupationList = res;
-    })
+    });
   }
 
   searchJob(event: any) {
     const query = event.target.value.toLowerCase();
-    if(query.length > 3){
+    if (query.length > 3) {
       this.filteredJobs = this.getFilteredJobs(query);
-    }else if(query.length < 2){
+    } else if (query.length < 2) {
       this.filteredJobs = [];
     }
   }
 
-  searchDesignation(event: any, index: number){
+  searchDesignation(event: any, index: number) {
     const query = event.target.value.toLowerCase();
-    if(query.length > 3){
+    if (query.length > 3) {
       this.filteredDesignations[index] = this.getFilteredJobs(query);
-    }else if(query.length < 2){
+    } else if (query.length < 2) {
       this.filteredDesignations[index] = [];
     }
   }
 
   selectJob(job: any, fieldName: string, index?: any) {
-    if(fieldName == "jobTitle"){
+    if (fieldName == "jobTitle") {
       this.resumeFormInfoData.patchValue({
         user_job_title: job.jobrole,
       });
       this.filteredJobs = [];
-    }else if(fieldName == "experience" ){
+    } else if (fieldName == "experience") {
       const formArray = this.getWorkExpArray as FormArray;
       formArray.at(index).patchValue({
-        work_designation: job.jobrole
+        work_designation: job.jobrole,
       });
       this.filteredDesignations[index] = [];
     }
@@ -351,49 +403,48 @@ export class CvBuilderComponent implements OnInit  {
     return mockLocations.filter((city: any) => city.country_name.toLowerCase().includes(query.toLowerCase()));
   }
 
-  searchLocation(event: any){
+  searchLocation(event: any) {
     const query = event.target.value.toLowerCase();
-    if(query.length > 3){
+    if (query.length > 3) {
       this.filteredLocations = this.getFilteredLocations(query);
-    }else if(query.length < 2){
+    } else if (query.length < 2) {
       this.filteredLocations = [];
     }
   }
 
-  searchExpandEduLocation(event: any, index: number){
+  searchExpandEduLocation(event: any, index: number) {
     const query = event.target.value.toLowerCase();
-    if(query.length > 3){
+    if (query.length > 3) {
       this.filteredExpeAndEduLocations[index] = this.getFilteredLocations(query);
-    }else if(query.length < 2){
+    } else if (query.length < 2) {
       this.filteredExpeAndEduLocations[index] = [];
     }
   }
 
   selectLocation(city: any, fieldName: string, index?: any) {
-    if(fieldName == "userLocation"){
+    if (fieldName == "userLocation") {
       this.resumeFormInfoData.patchValue({
         user_location: city.country_name,
       });
       this.filteredLocations = [];
-    }else if(fieldName == "userExpLocation"){
+    } else if (fieldName == "userExpLocation") {
       const formArray = this.getWorkExpArray as FormArray;
       formArray.at(index).patchValue({
-        work_location: city.country_name
+        work_location: city.country_name,
       });
       this.filteredExpeAndEduLocations[index] = [];
-    }else if(fieldName == "userEduLocation"){
+    } else if (fieldName == "userEduLocation") {
       const formArray = this.getEduDetailsArray as FormArray;
       formArray.at(index).patchValue({
-        edu_location: city.country_name
+        edu_location: city.country_name,
       });
       this.filteredExpeAndEduLocations[index] = [];
     }
   }
 
-
-  getUserPrefilledData(){
-    this.resumeService.getCVPrefilledData().subscribe(res => {
-      if(res.status){
+  getUserPrefilledData() {
+    this.resumeService.getCVPrefilledData().subscribe((res) => {
+      if (res.status) {
         const responseData = res.data;
         const storedValues = JSON.parse(responseData.data);
         this.resumeFormInfoData.patchValue(storedValues);
@@ -401,100 +452,112 @@ export class CvBuilderComponent implements OnInit  {
         this.hidingHeaders = JSON.parse(responseData.hiding_headers);
         // this.changeExperience();
         const workExpData = storedValues.workExpArray;
-        if(workExpData.length != 0){
-          workExpData.forEach((activity:any) => {
-            let workEndMonth = activity.work_end_month == null ? '' : activity.work_end_month;
-            const workEndMonthControl = activity.work_currently_working == true ? [workEndMonth]  : [workEndMonth, Validators.required];
-            this.getWorkExpArray.push(this.fb.group({
-              work_org_name: [activity.work_org_name,Validators.required],
-              work_currently_working:[activity.work_currently_working],
-              work_start_year: [activity.work_start_year,Validators.required],
-              work_start_month: [activity.work_start_month,Validators.required],
-              work_end_year: [activity.work_end_year,Validators.required],
-              work_end_month: workEndMonthControl,
-              work_designation: [activity.work_designation,Validators.required],
-              work_type: [activity.work_type,Validators.required],
-              work_location: [activity.work_location,Validators.required],
-              work_job_description: [activity.work_job_description,Validators.required],
-            }));
+        if (workExpData.length != 0) {
+          workExpData.forEach((activity: any) => {
+            let workEndMonth = activity.work_end_month == null ? "" : activity.work_end_month;
+            const workEndMonthControl = activity.work_currently_working == true ? [workEndMonth] : [workEndMonth, Validators.required];
+            this.getWorkExpArray.push(
+              this.fb.group({
+                work_org_name: [activity.work_org_name, Validators.required],
+                work_currently_working: [activity.work_currently_working],
+                work_start_year: [activity.work_start_year, Validators.required],
+                work_start_month: [activity.work_start_month, Validators.required],
+                work_end_year: [activity.work_end_year, Validators.required],
+                work_end_month: workEndMonthControl,
+                work_designation: [activity.work_designation, Validators.required],
+                work_type: [activity.work_type, Validators.required],
+                work_location: [activity.work_location, Validators.required],
+                work_job_description: [activity.work_job_description, Validators.required],
+              })
+            );
           });
-          this.hidingHeaders.push('project_details');
-          this.filledFields.push('project_details','work_experience');
+          this.hidingHeaders.push("project_details");
+          this.filledFields.push("project_details", "work_experience");
         }
 
         const educationData = storedValues.EduDetailsArray;
-        if(educationData.length != 0){
+        if (educationData.length != 0) {
           educationData.forEach((element: any) => {
-            this.getEduDetailsArray.push(this.fb.group({
-              edu_college_name: [element.edu_college_name,Validators.required],
-              edu_still_pursuing:[element.edu_still_pursuing],
-              edu_start_year: [element.edu_start_year, Validators.required],
-              edu_end_year: [element.edu_end_year, Validators.required],
-              edu_degree: [element.edu_degree, Validators.required],
-              edu_location: [element.edu_location, Validators.required],
-              edu_percentage: [element.edu_percentage, Validators.required],
-              edu_cgpa_percentage: [element.edu_cgpa_percentage],
-            }));
+            this.getEduDetailsArray.push(
+              this.fb.group({
+                edu_college_name: [element.edu_college_name, Validators.required],
+                edu_still_pursuing: [element.edu_still_pursuing],
+                edu_start_year: [element.edu_start_year, Validators.required],
+                edu_end_year: [element.edu_end_year, Validators.required],
+                edu_degree: [element.edu_degree, Validators.required],
+                edu_location: [element.edu_location, Validators.required],
+                edu_percentage: [element.edu_percentage, Validators.required],
+                edu_cgpa_percentage: [element.edu_cgpa_percentage],
+              })
+            );
           });
-          this.filledFields.push('education_detail');
+          this.filledFields.push("education_detail");
         }
 
         const certificateData = storedValues.certificatesArray;
-        if(certificateData.length != 0){
+        if (certificateData.length != 0) {
           certificateData.forEach((element: any) => {
-            this.getCertificatesArray.push(this.fb.group({
-              certificate_name: [element.certificate_name, Validators.required],
-              certificate_issued: [element.certificate_issued, Validators.required],
-              certificate_id: [element.certificate_id],
-              certicate_link: [element.certicate_link],
-            }));
+            this.getCertificatesArray.push(
+              this.fb.group({
+                certificate_name: [element.certificate_name, Validators.required],
+                certificate_issued: [element.certificate_issued, Validators.required],
+                certificate_id: [element.certificate_id],
+                certicate_link: [element.certicate_link],
+              })
+            );
           });
-          this.filledFields.push('certificate');
+          this.filledFields.push("certificate");
         }
 
         const achievementData = storedValues.extraCurricularArray;
-        if(achievementData.length != 0){
+        if (achievementData.length != 0) {
           achievementData.forEach((element: any) => {
-            this.getExtraCurricularArray.push(this.fb.group({
-              extra_curricular_activites: [element.extra_curricular_activites, Validators.required]
-            }));
+            this.getExtraCurricularArray.push(
+              this.fb.group({
+                extra_curricular_activites: [element.extra_curricular_activites, Validators.required],
+              })
+            );
           });
-          this.filledFields.push('extra_curricular');
+          this.filledFields.push("extra_curricular");
         }
 
         const skillsData = storedValues.skillsArray;
-        if(skillsData.length != 0){
+        if (skillsData.length != 0) {
           skillsData.forEach((element: any) => {
-            this.getSkillsArray.push(this.fb.group({
-              skills: [element.skills, Validators.required],
-              skills_proficiency: [element.skills_proficiency, Validators.required],
-            }));
+            this.getSkillsArray.push(
+              this.fb.group({
+                skills: [element.skills, Validators.required],
+                skills_proficiency: [element.skills_proficiency, Validators.required],
+              })
+            );
           });
-          this.filledFields.push('skills');
+          this.filledFields.push("skills");
         }
 
         const languageData = storedValues.languagesKnownArray;
-        if(languageData.length != 0){
+        if (languageData.length != 0) {
           languageData.forEach((element: any) => {
-            this.getLanguagesKnownArray.push(this.fb.group({
-              language: [element.language, Validators.required],
-              lang_proficiency: [element.lang_proficiency, Validators.required],
-            }));
+            this.getLanguagesKnownArray.push(
+              this.fb.group({
+                language: [element.language, Validators.required],
+                lang_proficiency: [element.lang_proficiency, Validators.required],
+              })
+            );
           });
-          this.filledFields.push('language_known');
+          this.filledFields.push("language_known");
         }
       }
     });
   }
 
-  skillsList(){
-    this.resumeService.getSkills().subscribe(res => {
+  skillsList() {
+    this.resumeService.getSkills().subscribe((res) => {
       this.skillsLists = res;
     });
   }
 
-  getCountryCodeList(){
-    this.resumeService.getCountryCodes().subscribe(res =>{
+  getCountryCodeList() {
+    this.resumeService.getCountryCodes().subscribe((res) => {
       this.countryCodeList = res;
     });
   }
@@ -503,16 +566,16 @@ export class CvBuilderComponent implements OnInit  {
     this.checkSkillsDuplilcation();
   }
 
-  onLanguageChange(){
+  onLanguageChange() {
     this.checkLanguageDuplication();
   }
 
-  checkSkillsDuplilcation(){
-    const skills = this.getSkillsArray.controls.map(skill => skill.get('skills')?.value);
+  checkSkillsDuplilcation() {
+    const skills = this.getSkillsArray.controls.map((skill) => skill.get("skills")?.value);
 
     skills.forEach((skill, index) => {
-      const duplicateCount = skills.filter(s => s === skill).length;
-      const skillControl = this.getSkillsArray.at(index).get('skills');
+      const duplicateCount = skills.filter((s) => s === skill).length;
+      const skillControl = this.getSkillsArray.at(index).get("skills");
 
       if (duplicateCount > 1 && skill) {
         skillControl?.setErrors({ duplicate: true });
@@ -522,11 +585,11 @@ export class CvBuilderComponent implements OnInit  {
     });
   }
 
-  checkLanguageDuplication(){
-    const language = this.getLanguagesKnownArray.controls.map(language => language.get('language')?.value);
+  checkLanguageDuplication() {
+    const language = this.getLanguagesKnownArray.controls.map((language) => language.get("language")?.value);
     language.forEach((lang, index) => {
-      const duplicateCount = language.filter(s => s === lang).length;
-      const langControl = this.getLanguagesKnownArray.at(index).get('language');
+      const duplicateCount = language.filter((s) => s === lang).length;
+      const langControl = this.getLanguagesKnownArray.at(index).get("language");
 
       if (duplicateCount > 1 && lang) {
         langControl?.setErrors({ duplicate: true });
@@ -534,14 +597,13 @@ export class CvBuilderComponent implements OnInit  {
         langControl?.setErrors(null);
       }
     });
-
   }
 
   SortBasedOnProficiency(fieldName: string) {
     if (fieldName === "skills") {
       const proficiencyOrder = ["Advance", "Intermediate", "Basic"];
       const sortedControls = this.getSkillsArray.controls.sort((a, b) => {
-        return proficiencyOrder.indexOf(a.get('skills_proficiency')?.value) - proficiencyOrder.indexOf(b.get('skills_proficiency')?.value);
+        return proficiencyOrder.indexOf(a.get("skills_proficiency")?.value) - proficiencyOrder.indexOf(b.get("skills_proficiency")?.value);
       });
 
       // Reorder the existing FormArray without resetting it
@@ -552,7 +614,7 @@ export class CvBuilderComponent implements OnInit  {
     } else {
       const proficiencyOrder = ["Native", "Proficient", "Fluent", "Beginner"];
       const sortedControls = this.getLanguagesKnownArray.controls.sort((a, b) => {
-        return proficiencyOrder.indexOf(a.get('lang_proficiency')?.value) - proficiencyOrder.indexOf(b.get('lang_proficiency')?.value);
+        return proficiencyOrder.indexOf(a.get("lang_proficiency")?.value) - proficiencyOrder.indexOf(b.get("lang_proficiency")?.value);
       });
 
       // Reorder the existing FormArray without resetting it
@@ -579,9 +641,9 @@ export class CvBuilderComponent implements OnInit  {
 
   splitUserName(currentUserName: string) {
     const words = currentUserName.trim().split(/\s+/);
-    this.userNameSplit.firstWord = words[0] || '';
+    this.userNameSplit.firstWord = words[0] || "";
     words.shift();
-    this.userNameSplit.secondWord = words.join(' ') || '';
+    this.userNameSplit.secondWord = words.join(" ") || "";
   }
 
   toggleFullScreen() {
@@ -591,9 +653,9 @@ export class CvBuilderComponent implements OnInit  {
   selectColor(selectedColor: string, selectedColorCode: number) {
     this.selectedThemeColor = selectedColor;
     this.selectedColorCode = selectedColorCode;
-    if(this.selectedColorCode == 5){
+    if (this.selectedColorCode == 5) {
       this.selectedFontColor = "#000000";
-    }else{
+    } else {
       this.selectedFontColor = "#FFFFFF";
     }
   }
@@ -615,39 +677,38 @@ export class CvBuilderComponent implements OnInit  {
   // }
 
   updateValidatorsForAllProjects() {
-    this.getProjectDetailsArray.controls.forEach(control => {
+    this.getProjectDetailsArray.controls.forEach((control) => {
       const projectFormGroup = control as FormGroup;
       this.updateValidators(projectFormGroup);
     });
   }
 
   updateValidators(formGroup: FormGroup) {
-
     if (this.resumeFormInfoData.value.selected_exp_level === 1) {
-      formGroup.get('project_name')?.setValidators(Validators.required);
-      formGroup.get('project_start_name')?.setValidators(Validators.required);
-      formGroup.get('project_end_name')?.setValidators(Validators.required);
-      formGroup.get('project_description')?.setValidators(Validators.required);
+      formGroup.get("project_name")?.setValidators(Validators.required);
+      formGroup.get("project_start_name")?.setValidators(Validators.required);
+      formGroup.get("project_end_name")?.setValidators(Validators.required);
+      formGroup.get("project_description")?.setValidators(Validators.required);
     } else {
-      formGroup.get('project_name')?.clearValidators();
-      formGroup.get('project_start_name')?.clearValidators();
-      formGroup.get('project_end_name')?.clearValidators();
-      formGroup.get('project_description')?.clearValidators();
+      formGroup.get("project_name")?.clearValidators();
+      formGroup.get("project_start_name")?.clearValidators();
+      formGroup.get("project_end_name")?.clearValidators();
+      formGroup.get("project_description")?.clearValidators();
     }
 
     // Update value and validity
-    formGroup.get('project_name')?.updateValueAndValidity();
-    formGroup.get('project_start_name')?.updateValueAndValidity();
-    formGroup.get('project_end_name')?.updateValueAndValidity();
-    formGroup.get('project_description')?.updateValueAndValidity();
+    formGroup.get("project_name")?.updateValueAndValidity();
+    formGroup.get("project_start_name")?.updateValueAndValidity();
+    formGroup.get("project_end_name")?.updateValueAndValidity();
+    formGroup.get("project_description")?.updateValueAndValidity();
   }
 
   resumeFormSubmit() {
     const visibleFormControls = this.getVisibleFormControls();
     this.submitted = true;
-    if (!visibleFormControls.every(control => control.valid)) {
+    if (!visibleFormControls.every((control) => control.valid)) {
       this.toaster.add({ severity: "error", summary: "Error", detail: "Please fill all the required fields." });
-      visibleFormControls.forEach(control => control.markAsTouched());
+      visibleFormControls.forEach((control) => control.markAsTouched());
     } else {
       this.fieldNextButton();
     }
@@ -656,49 +717,48 @@ export class CvBuilderComponent implements OnInit  {
   fieldNextButton() {
     this.storeUserFilledData();
     this.moduleActiveIndex++;
-    if(this.moduleActiveIndex > 4){
+    if (this.moduleActiveIndex > 4) {
       this.moduleActiveIndex--;
       this.activePageIndex++;
-      this.filledFields.push('skills','language_known');
+      this.filledFields.push("skills", "language_known");
       return;
     }
     const fieldNameArray: string[] = [];
 
-
     switch (this.moduleActiveIndex) {
       case 1:
-        if (this.getWorkExpArray.length === 0 && !this.hidingHeaders.includes('work_experience')) {
-          fieldNameArray.push('work_experience');
+        if (this.getWorkExpArray.length === 0 && !this.hidingHeaders.includes("work_experience")) {
+          fieldNameArray.push("work_experience");
         }
         break;
 
       case 2:
-        this.filledFields.push('work_experience');
-        if (this.getEduDetailsArray.length === 0 && !this.hidingHeaders.includes('education_detail')) {
-          fieldNameArray.push('education_detail');
+        this.filledFields.push("work_experience");
+        if (this.getEduDetailsArray.length === 0 && !this.hidingHeaders.includes("education_detail")) {
+          fieldNameArray.push("education_detail");
         }
-        if (this.resumeFormInfoData.value.selected_exp_level == 1 && this.getProjectDetailsArray.length === 0 && !this.hidingHeaders.includes('project_details')) {
-          fieldNameArray.push('project_details');
+        if (this.resumeFormInfoData.value.selected_exp_level == 1 && this.getProjectDetailsArray.length === 0 && !this.hidingHeaders.includes("project_details")) {
+          fieldNameArray.push("project_details");
         }
         break;
 
       case 3:
-        this.filledFields.push('education_detail','project_details');
-        if (this.getCertificatesArray.length === 0  && !this.hidingHeaders.includes('certificate')) {
-          fieldNameArray.push('certificate');
+        this.filledFields.push("education_detail", "project_details");
+        if (this.getCertificatesArray.length === 0 && !this.hidingHeaders.includes("certificate")) {
+          fieldNameArray.push("certificate");
         }
-        if (this.getExtraCurricularArray.length === 0 && !this.hidingHeaders.includes('extra_curricular')) {
-          fieldNameArray.push('extra_curricular');
+        if (this.getExtraCurricularArray.length === 0 && !this.hidingHeaders.includes("extra_curricular")) {
+          fieldNameArray.push("extra_curricular");
         }
         break;
 
       case 4:
-        this.filledFields.push('certificate','extra_curricular');
-        if (this.getSkillsArray.length === 0 && !this.hidingHeaders.includes('skills')) {
-          fieldNameArray.push('skills');
+        this.filledFields.push("certificate", "extra_curricular");
+        if (this.getSkillsArray.length === 0 && !this.hidingHeaders.includes("skills")) {
+          fieldNameArray.push("skills");
         }
-        if (this.getLanguagesKnownArray.length === 0 && !this.hidingHeaders.includes('language_known')) {
-          fieldNameArray.push('language_known');
+        if (this.getLanguagesKnownArray.length === 0 && !this.hidingHeaders.includes("language_known")) {
+          fieldNameArray.push("language_known");
         }
         this.clickedDownloadButton = false;
         break;
@@ -713,7 +773,7 @@ export class CvBuilderComponent implements OnInit  {
     }
   }
 
-  storeUserFilledData(){
+  storeUserFilledData() {
     let formData = this.resumeFormInfoData.value;
     let data = {
       userdata: { ...formData },
@@ -725,12 +785,12 @@ export class CvBuilderComponent implements OnInit  {
   }
 
   fieldPreviousButton() {
-    if(this.moduleActiveIndex == 0){
+    if (this.moduleActiveIndex == 0) {
       this.activePageIndex = 1;
       this.hideHeader();
       this.ngAfterViewInit();
-      this.selectedResumeLevel = '';
-    }else{
+      this.selectedResumeLevel = "";
+    } else {
       this.moduleActiveIndex--;
     }
   }
@@ -738,8 +798,8 @@ export class CvBuilderComponent implements OnInit  {
   getVisibleFormControls(): AbstractControl[] {
     const controls: AbstractControl[] = [];
     if (this.moduleActiveIndex === 0) {
-      const controlNames = ['selected_exp_level','user_name', 'user_email', 'user_job_title', 'user_location', 'user_phone', 'user_summary'];
-      controlNames.forEach(controlName => {
+      const controlNames = ["selected_exp_level", "user_name", "user_email", "user_job_title", "user_location", "user_phone", "user_summary"];
+      controlNames.forEach((controlName) => {
         const control = this.resumeFormInfoData.get(controlName);
         if (control) {
           controls.push(control);
@@ -750,25 +810,25 @@ export class CvBuilderComponent implements OnInit  {
       let formControlFields: FormArray[] = [];
 
       if (this.moduleActiveIndex === 1) {
-        controlNames = ['work_org_name', 'work_currently_working', 'work_start_year','work_start_month', 'work_end_year', 'work_end_month', 'work_designation', 'work_type', 'work_location', 'work_job_description'];
-        formControlFields.push(this.resumeFormInfoData.get('workExpArray') as FormArray);
+        controlNames = ["work_org_name", "work_currently_working", "work_start_year", "work_start_month", "work_end_year", "work_end_month", "work_designation", "work_type", "work_location", "work_job_description"];
+        formControlFields.push(this.resumeFormInfoData.get("workExpArray") as FormArray);
       } else if (this.moduleActiveIndex === 2) {
-        controlNames = ['edu_college_name', 'edu_start_year', 'edu_end_year', 'edu_degree', 'edu_location', 'edu_percentage', 'project_name', 'project_start_name', 'project_end_name', 'project_description'];
-        formControlFields.push(this.resumeFormInfoData.get('EduDetailsArray') as FormArray);
-        formControlFields.push(this.resumeFormInfoData.get('projectDetailsArray') as FormArray);
+        controlNames = ["edu_college_name", "edu_start_year", "edu_end_year", "edu_degree", "edu_location", "edu_percentage", "project_name", "project_start_name", "project_end_name", "project_description"];
+        formControlFields.push(this.resumeFormInfoData.get("EduDetailsArray") as FormArray);
+        formControlFields.push(this.resumeFormInfoData.get("projectDetailsArray") as FormArray);
       } else if (this.moduleActiveIndex === 3) {
-        controlNames = ['certificate_name', 'certificate_issued', 'extra_curricular_activites'];
-        formControlFields.push(this.resumeFormInfoData.get('certificatesArray') as FormArray);
-        formControlFields.push(this.resumeFormInfoData.get('extraCurricularArray') as FormArray);
+        controlNames = ["certificate_name", "certificate_issued", "extra_curricular_activites"];
+        formControlFields.push(this.resumeFormInfoData.get("certificatesArray") as FormArray);
+        formControlFields.push(this.resumeFormInfoData.get("extraCurricularArray") as FormArray);
       } else if (this.moduleActiveIndex === 4) {
-        controlNames = ['language', 'lang_proficiency', 'skills', 'skills_proficiency'];
-        formControlFields.push(this.resumeFormInfoData.get('languagesKnownArray') as FormArray);
-        formControlFields.push(this.resumeFormInfoData.get('skillsArray') as FormArray);
+        controlNames = ["language", "lang_proficiency", "skills", "skills_proficiency"];
+        formControlFields.push(this.resumeFormInfoData.get("languagesKnownArray") as FormArray);
+        formControlFields.push(this.resumeFormInfoData.get("skillsArray") as FormArray);
       }
 
-      formControlFields.forEach(formArray => {
+      formControlFields.forEach((formArray) => {
         formArray.controls.forEach((eduGroup: AbstractControl) => {
-          controlNames.forEach(controlName => {
+          controlNames.forEach((controlName) => {
             const control = eduGroup.get(controlName);
             if (control) {
               controls.push(control);
@@ -782,16 +842,16 @@ export class CvBuilderComponent implements OnInit  {
 
   imgOnclick(resumeLevel: any) {
     this.selectedResumeLevel = resumeLevel;
-    if (resumeLevel == 'Modern') {
-      this.selectedThemeColor = '#172a99';
-      this.selectedFontColor = '#FFFFFF';
+    if (resumeLevel == "Modern") {
+      this.selectedThemeColor = "#172a99";
+      this.selectedFontColor = "#FFFFFF";
       this.selectedColorCode = 1;
-    } else if (resumeLevel == 'Creative') {
-      this.selectedThemeColor = '#E2C742';
-      this.selectedFontColor = '#000000';
+    } else if (resumeLevel == "Creative") {
+      this.selectedThemeColor = "#E2C742";
+      this.selectedFontColor = "#000000";
       this.selectedColorCode = 5;
-    } else if (resumeLevel == 'Functional') {
-      this.selectedThemeColor = '#469199';
+    } else if (resumeLevel == "Functional") {
+      this.selectedThemeColor = "#469199";
       this.selectedFontColor = "#FFFFFF";
       this.selectedColorCode = 2;
     }
@@ -799,17 +859,17 @@ export class CvBuilderComponent implements OnInit  {
 
   selectResumeTemplate(resumeTemplate: string) {
     this.selectedResumeLevel = resumeTemplate;
-    if (resumeTemplate == 'Modern') {
-      this.selectedThemeColor = '#172a99';
-      this.selectedFontColor = '#FFFFFF';
+    if (resumeTemplate == "Modern") {
+      this.selectedThemeColor = "#172a99";
+      this.selectedFontColor = "#FFFFFF";
       this.selectedColorCode = 1;
-    } else if (resumeTemplate == 'Creative') {
-      this.selectedThemeColor = '#E2C742';
-      this.selectedFontColor = '#000000';
+    } else if (resumeTemplate == "Creative") {
+      this.selectedThemeColor = "#E2C742";
+      this.selectedFontColor = "#000000";
       this.selectedColorCode = 5;
-    } else if (resumeTemplate == 'Functional') {
-      this.selectedThemeColor = '#469199';
-      this.selectedFontColor = '#FFFFFF';
+    } else if (resumeTemplate == "Functional") {
+      this.selectedThemeColor = "#469199";
+      this.selectedFontColor = "#FFFFFF";
       this.selectedColorCode = 2;
     }
     this.activePageIndex++;
@@ -820,37 +880,38 @@ export class CvBuilderComponent implements OnInit  {
   previous() {
     this.activePageIndex--;
     this.hideHeader();
-    if(this.activePageIndex == 0 || this.activePageIndex == 1){
-      this.selectedResumeLevel = '';
+    if (this.activePageIndex == 0 || this.activePageIndex == 1) {
+      this.selectedResumeLevel = "";
       this.ngAfterViewInit();
     }
   }
 
   next() {
-    if(this.activePageIndex == 0){
+    if (this.activePageIndex == 0) {
       this.ngAfterViewInit();
     }
     this.activePageIndex++;
     if (this.activePageIndex == 4) {
-      if (this.clickedDownloadButton) { //if the user not donwload the resume,in the presently created resume is not visible in the resume history page.
+      if (this.clickedDownloadButton) {
+        //if the user not donwload the resume,in the presently created resume is not visible in the resume history page.
         this.previousResumes();
       } else {
         this.activePageIndex--;
-        this.toaster.add({ severity: "error", summary: "Error", detail: "Please Download the Resume First!!" })
+        this.toaster.add({ severity: "error", summary: "Error", detail: "Please Download the Resume First!!" });
       }
-    }else if(this.activePageIndex > 4){
+    } else if (this.activePageIndex > 4) {
       this.activePageIndex = 1;
       this.moduleActiveIndex = 0;
-      this.clickedDownloadButton =  false;
+      this.clickedDownloadButton = false;
       this.selectedResumeLevel = "";
       this.submitted = false;
     }
   }
 
-  previousResumes(){
-    this.resumeService.getAlreadyCreatedResumes().subscribe(res => {
+  previousResumes() {
+    this.resumeService.getAlreadyCreatedResumes().subscribe((res) => {
       this.resumeHistory = res;
-      if(res.length == 0){
+      if (res.length == 0) {
         this.activePageIndex = 1;
         this.ngAfterViewInit();
       }
@@ -858,45 +919,47 @@ export class CvBuilderComponent implements OnInit  {
   }
 
   get getEduDetailsArray(): FormArray {
-    return this.resumeFormInfoData.get('EduDetailsArray') as FormArray;
+    return this.resumeFormInfoData.get("EduDetailsArray") as FormArray;
   }
 
   get getWorkExpArray(): FormArray {
-    return this.resumeFormInfoData.get('workExpArray') as FormArray;
+    return this.resumeFormInfoData.get("workExpArray") as FormArray;
   }
 
   get getProjectDetailsArray(): FormArray {
-    return this.resumeFormInfoData.get('projectDetailsArray') as FormArray;
+    return this.resumeFormInfoData.get("projectDetailsArray") as FormArray;
   }
 
   get getLanguagesKnownArray(): FormArray {
-    return this.resumeFormInfoData.get('languagesKnownArray') as FormArray;
+    return this.resumeFormInfoData.get("languagesKnownArray") as FormArray;
   }
 
   get getSkillsArray(): FormArray {
-    return this.resumeFormInfoData.get('skillsArray') as FormArray;
+    return this.resumeFormInfoData.get("skillsArray") as FormArray;
   }
 
   get getExtraCurricularArray(): FormArray {
-    return this.resumeFormInfoData.get('extraCurricularArray') as FormArray;
+    return this.resumeFormInfoData.get("extraCurricularArray") as FormArray;
   }
 
   get getCertificatesArray(): FormArray {
-    return this.resumeFormInfoData.get('certificatesArray') as FormArray;
+    return this.resumeFormInfoData.get("certificatesArray") as FormArray;
   }
 
   clickAddMoreButton(fieldName: string) {
     if (fieldName == "education_detail") {
-      this.getEduDetailsArray.push(this.fb.group({
-        edu_college_name: ['',Validators.required],
-        edu_still_pursuing:[''],
-        edu_start_year: ['', Validators.required],
-        edu_end_year: ['', Validators.required],
-        edu_degree: ['', Validators.required],
-        edu_location: ['', Validators.required],
-        edu_percentage: ['', Validators.required],
-        edu_cgpa_percentage: ['CGPA', Validators.required],
-      }));
+      this.getEduDetailsArray.push(
+        this.fb.group({
+          edu_college_name: ["", Validators.required],
+          edu_still_pursuing: [""],
+          edu_start_year: ["", Validators.required],
+          edu_end_year: ["", Validators.required],
+          edu_degree: ["", Validators.required],
+          edu_location: ["", Validators.required],
+          edu_percentage: ["", Validators.required],
+          edu_cgpa_percentage: ["CGPA", Validators.required],
+        })
+      );
       // this.getEduDetailsArray.push(this.fb.group({
       //   edu_college_name: ['Srinivasan Engg College', Validators.required],
       //   edu_still_pursuing: [''],
@@ -908,20 +971,22 @@ export class CvBuilderComponent implements OnInit  {
       //   edu_cgpa_percentage: ['%', Validators.required],
       // }));
 
-      this.removeHideHeaderElement('education_detail');
+      this.removeHideHeaderElement("education_detail");
     } else if (fieldName == "work_experience") {
-      this.getWorkExpArray.push(this.fb.group({
-        work_org_name: ['',Validators.required],
-        work_currently_working:[''],
-        work_start_year: ['',Validators.required],
-        work_start_month: ['',Validators.required],
-        work_end_year: ['',Validators.required],
-        work_end_month: ['',Validators.required],
-        work_designation: ['',Validators.required],
-        work_type: ['',Validators.required],
-        work_location: ['',Validators.required],
-        work_job_description: ['',Validators.required],
-      }));
+      this.getWorkExpArray.push(
+        this.fb.group({
+          work_org_name: ["", Validators.required],
+          work_currently_working: [""],
+          work_start_year: ["", Validators.required],
+          work_start_month: ["", Validators.required],
+          work_end_year: ["", Validators.required],
+          work_end_month: ["", Validators.required],
+          work_designation: ["", Validators.required],
+          work_type: ["", Validators.required],
+          work_location: ["", Validators.required],
+          work_job_description: ["", Validators.required],
+        })
+      );
       // this.getWorkExpArray.push(this.fb.group({
       //   work_org_name: ['Uniabroad Private Ltd', Validators.required],
       //   work_currently_working: [''],
@@ -932,42 +997,50 @@ export class CvBuilderComponent implements OnInit  {
       //   work_location: ['Mysore', Validators.required],
       //   work_job_description: ['- Develop and maintain front-end architecture, ensuring responsive design and user-friendly interfaces - Implement back-end functionality, including database integration and server-side logic - Write efficient and scalable code in multiple programming languages for both client and server-side applications - Collaborate with cross-functional teams to gather requirements, design solutions, and provide technical support - Stay up-to-date with industry trends and best practices to continually improve development processes and deliver high-quality products', Validators.required],
       // }));
-      this.removeHideHeaderElement('work_experience');
-      this.hidingHeaders.push('project_details');
+      this.removeHideHeaderElement("work_experience");
+      this.hidingHeaders.push("project_details");
       // this.errorMessages.push('');
     } else if (fieldName == "project_details") {
-      this.getProjectDetailsArray.push(this.fb.group({
-        project_name: ['',Validators.required],
-        project_start_name: ['',Validators.required],
-        project_end_name: ['',Validators.required],
-        project_description: ['',Validators.required],
-      }));
+      this.getProjectDetailsArray.push(
+        this.fb.group({
+          project_name: ["", Validators.required],
+          project_start_name: ["", Validators.required],
+          project_end_name: ["", Validators.required],
+          project_description: ["", Validators.required],
+        })
+      );
       // this.getProjectDetailsArray.push(this.fb.group({
       //   project_name: ['Anonymity', Validators.required],
       //   project_start_name: ['2015', Validators.required],
       //   project_end_name: ['2019', Validators.required],
       //   project_description: ['Together with developers, collect and assess user requirements.Using storyboards, process flows, and sitemaps, illustrate design concepts.Create visual user interface components such as menus, tabs, and widgets.Create UI mockups and prototypes that clearly show how websites work and appear.Determine and address UX issues (e.g., responsiveness).', Validators.required],
       // }));
-      this.removeHideHeaderElement('project_details');
+      this.removeHideHeaderElement("project_details");
     } else if (fieldName == "language_known") {
-      this.getLanguagesKnownArray.push(this.fb.group({
-        language: ['', Validators.required],
-        lang_proficiency: ['', Validators.required],
-      }));
+      this.getLanguagesKnownArray.push(
+        this.fb.group({
+          language: ["", Validators.required],
+          lang_proficiency: ["", Validators.required],
+        })
+      );
       this.checkLanguageDuplication();
-      this.removeHideHeaderElement('language_known');
+      this.removeHideHeaderElement("language_known");
     } else if (fieldName == "skills") {
-      this.getSkillsArray.push(this.fb.group({
-        skills: ['', Validators.required],
-        skills_proficiency: ['', Validators.required],
-      }));
+      this.getSkillsArray.push(
+        this.fb.group({
+          skills: ["", Validators.required],
+          skills_proficiency: ["", Validators.required],
+        })
+      );
       this.checkSkillsDuplilcation();
-      this.removeHideHeaderElement('skills');
+      this.removeHideHeaderElement("skills");
     } else if (fieldName == "extra_curricular") {
-      this.getExtraCurricularArray.push(this.fb.group({
-        extra_curricular_activites: ['', Validators.required]
-      }));
-      this.removeHideHeaderElement('extra_curricular');
+      this.getExtraCurricularArray.push(
+        this.fb.group({
+          extra_curricular_activites: ["", Validators.required],
+        })
+      );
+      this.removeHideHeaderElement("extra_curricular");
     } else if (fieldName == "certificate") {
       // this.getCertificatesArray.push(this.fb.group({
       //   certificate_name: ['Certificate Name', Validators.required],
@@ -975,65 +1048,66 @@ export class CvBuilderComponent implements OnInit  {
       //   certificate_id: ['certificate Id'],
       //   certicate_link: ['certificate link'],
       // }));
-      this.getCertificatesArray.push(this.fb.group({
-        certificate_name: ['', Validators.required],
-        certificate_issued: ['', Validators.required],
-        certificate_id: [''],
-        certicate_link: [''],
-      }));
-      this.removeHideHeaderElement('certificate');
+      this.getCertificatesArray.push(
+        this.fb.group({
+          certificate_name: ["", Validators.required],
+          certificate_issued: ["", Validators.required],
+          certificate_id: [""],
+          certicate_link: [""],
+        })
+      );
+      this.removeHideHeaderElement("certificate");
     }
   }
 
-  removeHideHeaderElement(fieldName: string){
-    if(this.hidingHeaders.includes(fieldName)){
-      this.hidingHeaders = this.hidingHeaders.filter(item => item !== fieldName);
+  removeHideHeaderElement(fieldName: string) {
+    if (this.hidingHeaders.includes(fieldName)) {
+      this.hidingHeaders = this.hidingHeaders.filter((item) => item !== fieldName);
     }
   }
 
   clickDeleteButton(fieldName: string, index: number) {
-
     if (fieldName == "education_detail") {
       this.getEduDetailsArray.removeAt(index);
       if (this.getEduDetailsArray.length === 0) {
-        this.hidingHeaders.push('education_detail');
+        this.hidingHeaders.push("education_detail");
       }
     } else if (fieldName == "work_experience") {
       this.getWorkExpArray.removeAt(index);
       if (this.getWorkExpArray.length === 0) {
-        this.hidingHeaders.push('work_experience');
-        this.removeHideHeaderElement('project_details');
+        this.hidingHeaders.push("work_experience");
+        this.removeHideHeaderElement("project_details");
         // this.hidingHeaders.push('project_details');
-      }else{
-        this.hidingHeaders.push('project_details');
+      } else {
+        this.hidingHeaders.push("project_details");
       }
       // this.errorMessages.splice(index, 1);
     } else if (fieldName == "project_details") {
       this.getProjectDetailsArray.removeAt(index);
       if (this.getProjectDetailsArray.length === 0) {
-        this.hidingHeaders.push('project_details');
+        this.hidingHeaders.push("project_details");
       }
     } else if (fieldName == "language_known") {
       this.getLanguagesKnownArray.removeAt(index);
       this.checkLanguageDuplication();
       if (this.getLanguagesKnownArray.length === 0) {
-        this.hidingHeaders.push('language_known');
+        this.hidingHeaders.push("language_known");
       }
     } else if (fieldName == "skills") {
       this.getSkillsArray.removeAt(index);
       this.checkSkillsDuplilcation();
       if (this.getSkillsArray.length === 0) {
-        this.hidingHeaders.push('skills');
+        this.hidingHeaders.push("skills");
       }
-    }else if (fieldName == "extra_curricular") {
+    } else if (fieldName == "extra_curricular") {
       this.getExtraCurricularArray.removeAt(index);
       if (this.getExtraCurricularArray.length === 0) {
-        this.hidingHeaders.push('extra_curricular');
+        this.hidingHeaders.push("extra_curricular");
       }
     } else if (fieldName == "certificate") {
       this.getCertificatesArray.removeAt(index);
       if (this.getCertificatesArray.length === 0) {
-        this.hidingHeaders.push('certificate');
+        this.hidingHeaders.push("certificate");
       }
     }
   }
@@ -1046,32 +1120,32 @@ export class CvBuilderComponent implements OnInit  {
       const workExpGroup = workExpArray.at(index) as FormGroup;
       if (isChecked) {
         workExpGroup.patchValue({
-          work_end_year: 'Present',
-          work_end_month:''
+          work_end_year: "Present",
+          work_end_month: "",
         });
       } else {
         workExpGroup.patchValue({
-          work_end_year: '',
-          work_end_month:''
+          work_end_year: "",
+          work_end_month: "",
         });
       }
-      const isCurrentlyWorking = workExpGroup.get('work_currently_working')?.value;
+      const isCurrentlyWorking = workExpGroup.get("work_currently_working")?.value;
       if (isCurrentlyWorking) {
-        workExpGroup.get('work_end_month')?.clearValidators();
+        workExpGroup.get("work_end_month")?.clearValidators();
       } else {
-        workExpGroup.get('work_end_month')?.setValidators([Validators.required]);
+        workExpGroup.get("work_end_month")?.setValidators([Validators.required]);
       }
-      workExpGroup.get('work_end_month')?.updateValueAndValidity();
+      workExpGroup.get("work_end_month")?.updateValueAndValidity();
     } else {
       const getEduDetailsArray = this.getEduDetailsArray;
       const getEduDetailsGroup = getEduDetailsArray.at(index) as FormGroup;
       if (isChecked) {
         getEduDetailsGroup.patchValue({
-          edu_end_year: 'Present'
+          edu_end_year: "Present",
         });
       } else {
         getEduDetailsGroup.patchValue({
-          edu_end_year: ''
+          edu_end_year: "",
         });
       }
     }
@@ -1091,9 +1165,9 @@ export class CvBuilderComponent implements OnInit  {
       selected_color: this.selectedThemeColor,
       selected_font_color: this.selectedFontColor,
     };
-    this.resumeService.downloadResume(data).subscribe(res => {
+    this.resumeService.downloadResume(data).subscribe((res) => {
       this.previousResumes();
-      const parts = res.split('/');
+      const parts = res.split("/");
       const lastPart = parts[parts.length - 1];
       this.resumeService.downloadPdf(res, lastPart);
       this.toaster.add({ severity: "success", summary: "Success", detail: "File Download Successfully." });
@@ -1103,26 +1177,25 @@ export class CvBuilderComponent implements OnInit  {
       this.selectedResumeLevel = "";
       this.hideHeader();
       // setTimeout(() => {
-        this.previousResumes();
+      this.previousResumes();
       // }, 500);
-    })
+    });
   }
 
   chatGPTIntegration(fieldName: string, iteration: number) {
-
     // const apiKey = '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';
     let formData = this.resumeFormInfoData.value;
     // let prompt: string = "";
     let parameters: any = {
-      max_tokens : 300,
-      mode : fieldName,
+      max_tokens: 300,
+      mode: fieldName,
     };
-    if (fieldName == 'user_summary') {
-      if(!formData.selected_exp_level){
+    if (fieldName == "user_summary") {
+      if (!formData.selected_exp_level) {
         this.toaster.add({ severity: "error", summary: "Error", detail: "Please Select Experience Level and job title." });
         return;
       }
-      parameters.user_job_title =  formData.user_job_title;
+      parameters.user_job_title = formData.user_job_title;
       // parameters.mode =  "user_summary";
 
       if (formData.selected_exp_level == 1) {
@@ -1135,7 +1208,7 @@ export class CvBuilderComponent implements OnInit  {
         // prompt = `Provide a professional summary for a resume, up to 30 words, tailored to a ${formData.user_job_title} role with ${selectedExp.level} of experience.`;
       }
       this.isButtonDisabled = true;
-    } else if (fieldName == 'work_job_description') {
+    } else if (fieldName == "work_job_description") {
       // parameters.mode =  "work_job_description";
       this.genreateButtonDisabled[iteration] = true;
       const work_designation = this.getWorkExpArray.value[iteration].work_designation;
@@ -1144,21 +1217,21 @@ export class CvBuilderComponent implements OnInit  {
       // prompt = `Provide four bullet points with ul and li HTML tags detailing the roles and responsibilities for a ${work_designation} role, without any headings.`;
     }
     console.log(parameters, "parameters");
-    this.resumeService.openAiIntegration(parameters).subscribe(res =>{
+    this.resumeService.openAiIntegration(parameters).subscribe((res) => {
       if (res.response && res.response.length > 0) {
-        if (fieldName == 'user_summary') {
+        if (fieldName == "user_summary") {
           this.resumeFormInfoData.patchValue({
-            user_summary: res.response
+            user_summary: res.response,
           });
-        } else if (fieldName == 'work_job_description') {
+        } else if (fieldName == "work_job_description") {
           const workExpArray = this.getWorkExpArray;
           if (workExpArray.length > 0) {
             const firstWorkExpGroup = workExpArray.at(iteration) as FormGroup;
             firstWorkExpGroup.patchValue({
-              work_job_description: res.response
+              work_job_description: res.response,
             });
           } else {
-            console.error('No work experience entries found.');
+            console.error("No work experience entries found.");
           }
         }
       }
@@ -1206,7 +1279,7 @@ export class CvBuilderComponent implements OnInit  {
   }
 
   downloadOldResume(resumeLink: string) {
-    window.open(resumeLink, '_blank')
+    window.open(resumeLink, "_blank");
   }
 
   // onTextModelChange(value: string) {
@@ -1249,40 +1322,40 @@ export class CvBuilderComponent implements OnInit  {
   confirm(event: Event, resumeLink: string, resumeId: number) {
     this.confirmService.confirm({
       target: event.target as EventTarget,
-      message: 'Are you sure that you want to proceed?',
-      icon: 'pi pi-exclamation-triangle',
+      message: "Are you sure that you want to proceed?",
+      icon: "pi pi-exclamation-triangle",
       accept: () => {
         const data = {
           resumeLink: resumeLink,
           resumeId: resumeId,
         };
-        this.resumeService.deleteResumes(data).subscribe(res => {
+        this.resumeService.deleteResumes(data).subscribe((res) => {
           this.previousResumes();
           this.toaster.add({ severity: res.status, summary: res.status, detail: res.message });
         });
       },
       reject: () => {
         this.toaster.add({ severity: "error", summary: "Error", detail: "you declined." });
-      }
+      },
     });
   }
 
   clearFieldOnFocus(controlName: string, formGroup: FormGroup) {
     const control = formGroup.get(controlName);
     if (control && control.value) {
-      control.setValue('');
+      control.setValue("");
     }
   }
   checkplanExpire(): void {
     this.authService.getNewUserTimeLeft().subscribe((res) => {
       let data = res.time_left;
       let subscription_exists_status = res.subscription_details;
-      if (data.plan === "expired" || data.plan === 'subscription_expired' || subscription_exists_status.subscription_plan=="Student"  || subscription_exists_status.subscription_plan=="free_trail") {
+      if (data.plan === "expired" || data.plan === "subscription_expired" || subscription_exists_status.subscription_plan == "Student" || subscription_exists_status.subscription_plan == "free_trail") {
         this.planExpired = true;
       } else {
         this.planExpired = false;
       }
-    })
+    });
   }
 
   upgradePlan(): void {
@@ -1294,61 +1367,61 @@ export class CvBuilderComponent implements OnInit  {
   }
 
   //Validation for start year and end year for Work experience field
-  workYearChange(index: number) { 
+  workYearChange(index: number) {
     const formArray = this.getWorkExpArray as FormArray;
     const formGroupAtIndex = formArray.at(index) as FormGroup;
-    
+
     if (formGroupAtIndex) {
-      let startYear = formGroupAtIndex.get('work_start_year')?.value;
-      let endYear = formGroupAtIndex.get('work_end_year')?.value;
-      let startMonth = formGroupAtIndex.get('work_start_month')?.value;
-      let endMonth = formGroupAtIndex.get('work_end_month')?.value;
+      let startYear = formGroupAtIndex.get("work_start_year")?.value;
+      let endYear = formGroupAtIndex.get("work_end_year")?.value;
+      let startMonth = formGroupAtIndex.get("work_start_month")?.value;
+      let endMonth = formGroupAtIndex.get("work_end_month")?.value;
 
       let startMonthNum = this.getMonthNumber(startMonth);
       let endMonthNum = this.getMonthNumber(endMonth);
 
       if (endYear < startYear || (endYear === startYear && endMonthNum < startMonthNum)) {
-        formGroupAtIndex.get('work_end_year')?.setErrors({ invalidEndDate: true });  
-        formGroupAtIndex.get('work_end_month')?.setErrors({ invalidEndDate: true }); 
+        formGroupAtIndex.get("work_end_year")?.setErrors({ invalidEndDate: true });
+        formGroupAtIndex.get("work_end_month")?.setErrors({ invalidEndDate: true });
       } else {
-        formGroupAtIndex.get('work_end_year')?.setErrors(null);  
-        formGroupAtIndex.get('work_end_month')?.setErrors(null); 
+        formGroupAtIndex.get("work_end_year")?.setErrors(null);
+        formGroupAtIndex.get("work_end_month")?.setErrors(null);
       }
-    }else {
+    } else {
       console.error(`Form group at index ${index} does not exist.`);
     }
   }
 
   //Validation for start year and end year for education field
-  eduYearChange(index: number){ 
+  eduYearChange(index: number) {
     const formArray = this.getEduDetailsArray as FormArray;
     const formGroupAtIndex = formArray.at(index) as FormGroup;
     if (formGroupAtIndex) {
-      let startYear = formGroupAtIndex.get('edu_start_year')?.value;
-      let endYear = formGroupAtIndex.get('edu_end_year')?.value;
-      
+      let startYear = formGroupAtIndex.get("edu_start_year")?.value;
+      let endYear = formGroupAtIndex.get("edu_end_year")?.value;
+
       if (endYear < startYear) {
-        formGroupAtIndex.get('edu_end_year')?.setErrors({ invalidEndDate: true });  
+        formGroupAtIndex.get("edu_end_year")?.setErrors({ invalidEndDate: true });
       } else {
-        formGroupAtIndex.get('edu_end_year')?.setErrors(null);  
+        formGroupAtIndex.get("edu_end_year")?.setErrors(null);
       }
-    }else {
+    } else {
       console.error(`Form group at index ${index} does not exist.`);
     }
   }
-  projectYearChange(index: number){
+  projectYearChange(index: number) {
     const formArray = this.getProjectDetailsArray as FormArray;
     const formGroupAtIndex = formArray.at(index) as FormGroup;
     if (formGroupAtIndex) {
-      let startYear = formGroupAtIndex.get('project_start_name')?.value;
-      let endYear = formGroupAtIndex.get('project_end_name')?.value;
+      let startYear = formGroupAtIndex.get("project_start_name")?.value;
+      let endYear = formGroupAtIndex.get("project_end_name")?.value;
       console.log(startYear, endYear);
       if (endYear < startYear) {
-        formGroupAtIndex.get('project_end_name')?.setErrors({ invalidEndDate: true });  
+        formGroupAtIndex.get("project_end_name")?.setErrors({ invalidEndDate: true });
       } else {
-        formGroupAtIndex.get('project_start_name')?.setErrors(null);  
+        formGroupAtIndex.get("project_start_name")?.setErrors(null);
       }
-    }else {
+    } else {
       console.error(`Form group at index ${index} does not exist.`);
     }
   }
@@ -1356,5 +1429,4 @@ export class CvBuilderComponent implements OnInit  {
     let month = this.monthList.find((m: any) => m.id === monthId);
     return this.monthList.indexOf(month) + 1; // January should be 1, February 2, etc.
   }
-  
 }

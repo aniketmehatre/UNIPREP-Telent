@@ -1,33 +1,33 @@
-import { Component, Input, OnInit } from "@angular/core";
-import {ArrayHeaderService} from "./array-header.service";
+import { Component } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { ArrayHeaderService } from "./array-header.service";
 
 @Component({
-  selector: "uni-learn",
-  templateUrl: "./unilearn.component.html",
-  styleUrls: ["./unilearn.component.scss"],
+  selector: 'app-unilearn',
+  templateUrl: './unilearn.component.html',
+  standalone: true,
+  imports: [
+    CommonModule
+  ]
 })
-export class UniLearnComponent implements OnInit {
+export class UniLearnComponent {
   constructor(private arrayHeaderService: ArrayHeaderService) {}
   stage = 1;
-  @Input() parentid:number;
-  @Input() moduleid:number;  
-  @Input() totalquestion: number;
-  @Input() selected_module: string;
-  @Input() _contentalignment:boolean;
-  ngOnInit(): void {
-  }
+  parentid: number;
+  moduleid: number;
+  totalquestion: number;
+  selected_module: string;
+  _contentalignment: boolean;
   moduleChange(data: any) {
-    // this.arrayHeaderService.addItem(data.selected_module)
-    if (data.isfromquizinfo){
-      this._contentalignment=true;
+    if (data.isfromquizinfo) {
+      this._contentalignment = true;
+    } else {
+      this._contentalignment = false;
     }
-    else{
-      this._contentalignment=false;
-    }
-    this.parentid=data.parent_id;
-    this.moduleid=data.module_id;
-    this.selected_module=data.selected_module
-    this.totalquestion=data.totalquestion
+    this.parentid = data.parent_id;
+    this.moduleid = data.module_id;
+    this.selected_module = data.selected_module;
+    this.totalquestion = data.totalquestion;
     this.stage = data.stage;
   }
 }

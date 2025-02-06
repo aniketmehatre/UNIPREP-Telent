@@ -1,20 +1,22 @@
-import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
-import { ThemeService } from '../../theme.service';
-import { FormBuilder, FormsModule, ReactiveFormsModule,FormControl,FormGroup,Validators } from '@angular/forms';
-import {AuthService} from "../../Auth/auth.service";
-import {LocationService} from "../../location.service";
-import { environment } from '@env/environment';
-import { LocalStorageService } from 'ngx-localstorage';
-import { Router } from '@angular/router';
-
+import { Component, ElementRef, OnInit, ViewChild } from "@angular/core";
+import { ThemeService } from "../../theme.service";
+import { FormBuilder, FormsModule, ReactiveFormsModule, FormControl, FormGroup, Validators } from "@angular/forms";
+import { AuthService } from "../../Auth/auth.service";
+import { LocationService } from "../../location.service";
+import { environment } from "@env/environment";
+import { LocalStorageService } from "ngx-localstorage";
+import { Router, RouterModule } from "@angular/router";
+import { CommonModule } from "@angular/common";
+import { DialogModule } from "primeng/dialog";
 @Component({
-    selector: 'uni-landing',
-    templateUrl: './landing.component.html',
-    styleUrls: ['./landing.component.scss'],
-    standalone: false
+  selector: "uni-landing",
+  templateUrl: "./landing.component.html",
+  styleUrls: ["./landing.component.scss"],
+  standalone: true,
+  imports: [CommonModule, FormsModule, ReactiveFormsModule, DialogModule, RouterModule],
 })
 export class LandingComponent implements OnInit {
-  @ViewChild('videoPlayer')
+  @ViewChild("videoPlayer")
   videoPlayer!: ElementRef;
   isPlaying = false;
   isDarkMode: boolean;
@@ -22,7 +24,7 @@ export class LandingComponent implements OnInit {
   displayprivacypolicy!: boolean;
   displaycancellationpolicy!: boolean;
   displaycontactform!: boolean;
-  currentImage: string = '/uniprep-assets/images/feature1.webp';
+  currentImage: string = "/uniprep-assets/images/feature1.webp";
   contactForm: any;
   blogs: any;
   welcomevideoLink: string = `https://${environment.domain}/uniprepapi/storage/app/public/Landing/welcome.mp4`;
@@ -30,28 +32,26 @@ export class LandingComponent implements OnInit {
   showTandC() {
     this.displaytandc = true;
   }
-  
+
   showprivacypolicy() {
     this.displayprivacypolicy = true;
   }
-  
+
   showcancellationpolicy() {
     this.displaycancellationpolicy = true;
   }
-  
+
   showcontactform() {
     this.displaycontactform = true;
   }
 
-  constructor(private themeService: ThemeService , private formbuilder: FormBuilder,
-     private service: LocationService, private storage: LocalStorageService,
-    private router: Router, private authService: AuthService) {
+  constructor(private themeService: ThemeService, private formbuilder: FormBuilder, private service: LocationService, private storage: LocalStorageService, private router: Router, private authService: AuthService) {
     // Initialize the isDarkMode property with the value from the service
     this.isDarkMode = this.themeService.getInitialSwitchState();
   }
 
   changeImage(imageName: string): void {
-    this.currentImage = '/uniprep-assets/images/' + imageName;
+    this.currentImage = "/uniprep-assets/images/" + imageName;
   }
 
   toggleVideo() {
@@ -74,13 +74,13 @@ export class LandingComponent implements OnInit {
 
     // If the section exists, scroll to it smoothly
     if (section) {
-      section.scrollIntoView({ behavior: 'smooth' });
+      section.scrollIntoView({ behavior: "smooth" });
     }
   }
-  timeLeftInfoCard: any
-  ngOnInit() {    
+  timeLeftInfoCard: any;
+  ngOnInit() {
     if (this.authService.isTokenValid()) {
-      this.router.navigate(['/pages/dashboard']); // Redirect to dashboard
+      this.router.navigate(["/pages/dashboard"]); // Redirect to dashboard
     }
     // const token = this.storage.get<string>('token');
     // let req = {
@@ -99,25 +99,20 @@ export class LandingComponent implements OnInit {
     // });
 
     this.service.getFeatBlogs().subscribe((response) => {
-        this.blogs = response;
-      }); 
+      this.blogs = response;
+    });
 
-
-
-    this.timeLeftInfoCard = "24 Hours"
+    this.timeLeftInfoCard = "24 Hours";
     // Any additional initialization can go here
-    this.currentImage = '/uniprep-assets/images/uf1.webp';
-
+    this.currentImage = "/uniprep-assets/images/uf1.webp";
 
     this.contactForm = this.formbuilder.group({
-      name:['',Validators.required],
-      email:['',Validators.required],
-      subject:['',Validators.required],
-      phone:['',Validators.required],
-      message:['', Validators.required],
-    })
-
-
+      name: ["", Validators.required],
+      email: ["", Validators.required],
+      subject: ["", Validators.required],
+      phone: ["", Validators.required],
+      message: ["", Validators.required],
+    });
   }
 
   toggleTheme() {
@@ -126,23 +121,22 @@ export class LandingComponent implements OnInit {
     this.isDarkMode = this.themeService.isDarkMode();
   }
 
-
-  submitForm(){
+  submitForm() {
     // alert("subit");
 
     let contactData = {
       name: this.contactForm.value.name,
       email: this.contactForm.value.email,
-      phone:this.contactForm.value.phone,
+      phone: this.contactForm.value.phone,
       subject: this.contactForm.value.subject,
-      message: this.contactForm.value.message
-    }
+      message: this.contactForm.value.message,
+    };
     this.themeService.storeContatForm(contactData).subscribe((response) => {
-    // this.toastr.add({severity: 'success', summary: 'Success', detail: "Organization Added"});
-    // this.getOrgList();
-    // this.reviewOrg.reset()
-    alert('Thank You , we will get back to you .')
-    this.displaycontactform = false;
-    }); 
+      // this.toastr.add({severity: 'success', summary: 'Success', detail: "Organization Added"});
+      // this.getOrgList();
+      // this.reviewOrg.reset()
+      alert("Thank You , we will get back to you .");
+      this.displaycontactform = false;
+    });
   }
 }

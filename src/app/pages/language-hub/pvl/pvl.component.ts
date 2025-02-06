@@ -1,4 +1,5 @@
 import { Component, OnInit } from "@angular/core";
+import { CommonModule } from "@angular/common";
 import { LanguageHubService } from "../language-hub.service";
 import { LanguageHubDataService } from "../language-hub-data.service";
 import { Router } from "@angular/router";
@@ -11,7 +12,8 @@ import {Location} from "@angular/common";
     selector: "app-pvl",
     templateUrl: "./pvl.component.html",
     styleUrls: ["./pvl.component.scss"],
-    standalone: false
+    standalone: true,
+    imports: [CommonModule]
 })
 export class PvlComponent implements OnInit {
   isSkeletonVisible: boolean = true;

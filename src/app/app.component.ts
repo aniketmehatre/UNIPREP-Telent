@@ -10,7 +10,7 @@ import {LocalStorageService} from "ngx-localstorage";
     <p-toast position="top-right"></p-toast>
     <ngx-ui-loader overlayColor="rgba(0,0,0,0.8)" logoUrl="uniprep-assets/images/icon-loader.svg" 
                    [bgsSize]="40" bgsType="three-bounce" [bgsOpacity]="1" bgsColor="#f0780e" 
-                   [fgsOpacity]="1" fgsColor="#f0780e" [hasProgressBar]="false"></ngx-ui-loader>`,
+                   [fgsOpacity]="1" fgsColor="#f0780e" hasProgressBar="false"></ngx-ui-loader>`,
     standalone: false
 })
 export class AppComponent {
