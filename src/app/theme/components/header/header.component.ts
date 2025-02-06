@@ -186,7 +186,9 @@ export class HeaderComponent implements OnInit, OnDestroy {
       // });
     });
   }
-
+  get isDialogVisible(): boolean {
+    return this.currentEducation && !this.formvisbility;
+  }
   isMenuOpen = true;
   toggleMenu() {
     const sidenav: Element | null = document.getElementById("sidenav");
