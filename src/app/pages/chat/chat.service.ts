@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import {HttpClient, HttpHeaders} from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import {BehaviorSubject, Observable, of, tap, throwError} from 'rxjs';
 import { catchError } from 'rxjs/operators';
 import {Store} from "@ngrx/store";

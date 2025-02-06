@@ -1,6 +1,6 @@
 import {Injectable} from '@angular/core';
 import {environment} from '../../environments/environment';
-import {HttpClient, HttpHeaders} from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import {BehaviorSubject, Observable, of, shareReplay, tap, throwError} from 'rxjs';
 import {catchError} from 'rxjs/operators';
 import {User, UserData} from '../@Models/user.model';

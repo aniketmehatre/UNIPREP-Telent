@@ -1,6 +1,6 @@
 import {Injectable} from '@angular/core';
 import {environment} from '../environments/environment';
-import {HttpClient, HttpHeaders} from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import {LocationData} from './@Models/location.model'
 import {DeviceDetectorService} from "ngx-device-detector";
 import {LocalStorageService} from "ngx-localstorage";

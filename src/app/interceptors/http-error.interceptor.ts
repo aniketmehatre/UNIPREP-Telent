@@ -1,10 +1,5 @@
 import { Injectable } from "@angular/core";
-import {
-  HttpRequest,
-  HttpHandler,
-  HttpEvent,
-  HttpInterceptor,
-} from "@angular/common/http";
+import { HttpRequest, HttpHandler, HttpEvent, HttpInterceptor } from "@angular/common/http";
 import { catchError, Observable, tap, throwError } from "rxjs";
 import { MessageService } from "primeng/api";
 import { NgxUiLoaderService } from "ngx-ui-loader";

@@ -1,6 +1,6 @@
 import {ComponentFactoryResolver, Injectable, ViewContainerRef} from "@angular/core";
 import {ModalComponent} from "./modal.component";
-import {HttpClient, HttpHeaders} from "@angular/common/http";
+import { HttpClient, HttpHeaders } from "@angular/common/http";
 import {environment} from "@env/environment";
 import {Observable, Observer} from 'rxjs';
 import {AnonymousSubject} from 'rxjs/internal/Subject';

@@ -1,5 +1,5 @@
 import {Injectable} from '@angular/core';
-import {HttpClient, HttpHeaders, HttpParams} from "@angular/common/http";
+import { HttpClient, HttpHeaders, HttpParams } from "@angular/common/http";
 import {Observable} from "rxjs/internal/Observable";
 import {environment} from "@env/environment";
 import {City} from "../../@Models/cost-of-living";

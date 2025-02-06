@@ -10,7 +10,7 @@ import { pagesReducer } from './pages/store/pages.reducer';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 import { environment } from '@env/environment';
 import { AuthModule } from './Auth/auth.module';
-import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
+import { HTTP_INTERCEPTORS, provideHttpClient, withInterceptorsFromDi } from '@angular/common/http';
 import { DatePipe } from '@angular/common';
 import { AuthService } from './Auth/auth.service';
 import { EffectsModule } from '@ngrx/effects';
@@ -68,94 +68,88 @@ export function tokenGetter() {
   return localStorage.getItem(`${ngxLocalstorageConfiguration.prefix}${ngxLocalstorageConfiguration.delimiter}${environment.tokenKey}`)?.replace(/"/g, '') || '';
 }
 
-@NgModule({
-  declarations: [
-    AppComponent,
-    LandingComponent,
-    ModalComponent,
-    ScrollToBottomDirective,
-    PrivacyComponent,
-    EnterpriseSubscriptionComponent,
-    BlogdetailComponent,
-    BloglistComponent
-  ],
-  schemas: [CUSTOM_ELEMENTS_SCHEMA],
-  imports: [
-    BrowserModule,
-    BrowserAnimationsModule,
-    AppRoutingModule,
-    StoreModule.forRoot({ pages: pagesReducer }),
-    AuthModule,
-    HttpClientModule,
-    ToastModule,
-    StoreDevtoolsModule.instrument({ maxAge: 25, logOnly: environment.production }),
-    EffectsModule.forRoot([]),
-    JwtModule.forRoot({
-      config: {
-        tokenGetter: tokenGetter,
-        allowedDomains: [environment.domain],
-        disallowedRoutes: [],
-      },
-    }),
-    NgxUiLoaderModule,
-    CountdownModule,
-    AvatarModule,
-    DropdownModule,
-    ButtonModule,
-    InputTextModule,
-    ReactiveFormsModule,
-    InputTextareaModule,
-    OverlayPanelModule,
-    DialogModule,
-    CardModule,
-    FormsModule,
-    TooltipModule,
-    PipesModule,
-    ConfirmDialogModule,
-    ToastModule,
-    PaginatorModule,
-    SocialLoginModule,
-    MetaModule.forRoot(),
-    SharedModule,
-    SkeletonModule,
-    RouterModule,
-    NgChartsModule,
-    MarkdownModule.forRoot()
-  ],
-  providers: [
-    DeviceDetectorService,
-    DatePipe,
-    AuthService,
-    EnterpriseSubscriptionService,
-    {
-      provide: HTTP_INTERCEPTORS,
-      useClass: HttpErrorInterceptor,
-      multi: true
-    },
-    {
-      provide: NGX_LOCAL_STORAGE_CONFIG,
-      useValue: ngxLocalstorageConfiguration
-    },
-    ModalService,
-    {
-      provide: 'SocialAuthServiceConfig',
-      useValue: {
-        autoLogin: false,
-        providers: [
-          {
-            id: GoogleLoginProvider.PROVIDER_ID,
-            provider: new GoogleLoginProvider('32944187384-4jubeedmfdusvhk6n7ben61ce7u9ber8.apps.googleusercontent.com', {
-              oneTapEnabled: false,
-            }),
-          },
-          {
-            id: FacebookLoginProvider.PROVIDER_ID,
-            provider: new FacebookLoginProvider('892925195633254'),
-          },
-        ],
-      } as SocialAuthServiceConfig,
-    },
-  ],
-  bootstrap: [AppComponent]
-})
+@NgModule({ declarations: [
+        AppComponent,
+        LandingComponent,
+        ModalComponent,
+        ScrollToBottomDirective,
+        PrivacyComponent,
+        EnterpriseSubscriptionComponent,
+        BlogdetailComponent,
+        BloglistComponent
+    ],
+    schemas: [CUSTOM_ELEMENTS_SCHEMA],
+    bootstrap: [AppComponent], imports: [BrowserModule,
+        BrowserAnimationsModule,
+        AppRoutingModule,
+        StoreModule.forRoot({ pages: pagesReducer }),
+        AuthModule,
+        ToastModule,
+        StoreDevtoolsModule.instrument({ maxAge: 25, logOnly: environment.production }),
+        EffectsModule.forRoot([]),
+        JwtModule.forRoot({
+            config: {
+                tokenGetter: tokenGetter,
+                allowedDomains: [environment.domain],
+                disallowedRoutes: [],
+            },
+        }),
+        NgxUiLoaderModule,
+        CountdownModule,
+        AvatarModule,
+        DropdownModule,
+        ButtonModule,
+        InputTextModule,
+        ReactiveFormsModule,
+        InputTextareaModule,
+        OverlayPanelModule,
+        DialogModule,
+        CardModule,
+        FormsModule,
+        TooltipModule,
+        PipesModule,
+        ConfirmDialogModule,
+        ToastModule,
+        PaginatorModule,
+        SocialLoginModule,
+        MetaModule.forRoot(),
+        SharedModule,
+        SkeletonModule,
+        RouterModule,
+        NgChartsModule,
+        MarkdownModule.forRoot()], providers: [
+        DeviceDetectorService,
+        DatePipe,
+        AuthService,
+        EnterpriseSubscriptionService,
+        {
+            provide: HTTP_INTERCEPTORS,
+            useClass: HttpErrorInterceptor,
+            multi: true
+        },
+        {
+            provide: NGX_LOCAL_STORAGE_CONFIG,
+            useValue: ngxLocalstorageConfiguration
+        },
+        ModalService,
+        {
+            provide: 'SocialAuthServiceConfig',
+            useValue: {
+                autoLogin: false,
+                providers: [
+                    {
+                        id: GoogleLoginProvider.PROVIDER_ID,
+                        provider: new GoogleLoginProvider('32944187384-4jubeedmfdusvhk6n7ben61ce7u9ber8.apps.googleusercontent.com', {
+                            oneTapEnabled: false,
+                        }),
+                    },
+                    {
+                        id: FacebookLoginProvider.PROVIDER_ID,
+                        provider: new FacebookLoginProvider('892925195633254'),
+                    },
+                ],
+            } as SocialAuthServiceConfig,
+        },
+        provideHttpClient(withInterceptorsFromDi()),
+    ] })
 export class AppModule { }
