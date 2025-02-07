@@ -2,51 +2,105 @@
 // // @import "../../../uniprep-assets/cards";
 
 .countrycard {
-	.card-header {
-		background: transparent;
-		text-align: center;
-	}
-	.card-body {
-		.p-carousel .p-carousel-indicators .p-carousel-indicator.p-highlight button {
-			background-color: #001631;
-			height: 5px;
-		}
-	}
-	.card-footer {
-		background: transparent;
-		text-align: center;
-		padding-bottom: 0;
-		border-top: none;
-	}
-	.countryicon {
-		width: 60px;
-	}
-	.bottom-text {
-		width: auto;
-		font-size: 0.9rem;
-		font-weight: normal;
-		padding: 15px 30px;
-		border-radius: 10px 10px 0px 0px;
-	}
+  .card-header {
+    background: transparent;
+    text-align: center;
+  }
+
+  .card-body {
+    .p-carousel .p-carousel-indicators .p-carousel-indicator.p-highlight button {
+      background-color: #001631;
+      height: 5px;
+    }
+  }
+
+  .card-footer {
+    background: transparent;
+    text-align: center;
+    padding-bottom: 0;
+    border-top: none;
+  }
+
+  .countryicon {
+    width: 60px;
+  }
+
+  .bottom-text {
+    width: auto;
+    font-size: 0.9rem;
+    font-weight: normal;
+    padding: 15px 30px;
+    border-radius: 10px 10px 0px 0px;
+  }
+
   .country-text {
-  color: var(--uniprep-primary);
-  font-weight: 600;
-  font-size: 1rem;
-}
+    color: var(--uniprep-primary);
+    font-weight: 600;
+    font-size: 1rem;
+  }
 
-.country-text-small {
-  color: #001631;
-  font-weight: 600;
-  font-size: 1rem;
-}
+  .country-text-small {
+    color: #001631;
+    font-weight: 600;
+    font-size: 1rem;
+  }
 
-.country-border {
-  border: 2px solid var(--uniprep-primary);
-  border-radius: 10px;
-  background: var(--uniprep-primaryop10);
+  .country-border {
+    border: 2px solid var(--uniprep-primary);
+    border-radius: 10px;
+    background: var(--uniprep-primaryop10);
+  }
 }
-}
+.fav-card {
+  .card-header {
+    background: transparent;
+    text-align: center;
+  }
 
+  .card-body {
+    .p-carousel .p-carousel-indicators .p-carousel-indicator.p-highlight button {
+      background-color: var(--uniprep-primary);
+      height: 5px;
+    }
+  }
+
+  .card-footer {
+    background: transparent;
+    text-align: center;
+    padding-bottom: 0;
+    border-top: none;
+  }
+
+  .countryicon {
+    width: 60px;
+  }
+
+  .bottom-text {
+    width: auto;
+    font-size: 0.9rem;
+    font-weight: normal;
+    padding: 15px 30px;
+    border-radius: 10px 10px 0px 0px;
+  }
+
+  .country-text {
+    color: var(--uniprep-primarylight);
+    font-weight: 600;
+    font-size: 1rem;
+  }
+
+  .country-text-small {
+    color: #001631;
+    font-weight: 600;
+    font-size: 1rem;
+  }
+
+  .country-border {
+    border: 1px solid var(--uniprep-primarylight);
+    border-radius: 10px;
+    background: var(--uniprep-primaryop10);
+  }
+}
 // small progress
 $borderWidth: 10px;
 $animationTime: 0.5s;
@@ -186,12 +240,11 @@ Due to the split circle of progress-left and progress right, we must use the ani
   }
 }
 
-.trustedbylogo
-{
+.trustedbylogo {
   width: 100%;
   object-fit: contain;
   height: 100%;
-  padding:0.5rem 1.5rem;
+  padding: 0.5rem 1.5rem;
 }
 
 .certificatelock {
@@ -204,35 +257,38 @@ Due to the split circle of progress-left and progress right, we must use the ani
   height: 100px;
 }
 
- //.homecardbtn {
- //  padding: 10px !important;
- //  color: #fff !important;
- //  background-color: #f0780e;
- //}
+//.homecardbtn {
+//  padding: 10px !important;
+//  color: #fff !important;
+//  background-color: #f0780e;
+//}
 
 .homecardbtnquiz {
-	background-color: #f0780e;
-	color: white;
+  background-color: #f0780e;
+  color: white;
 }
+
 .ellipse-button {
-	width: auto;
-	padding: 10px 35px;
-	height: auto;
-	//background-color: #f0780e;
-    background-color: #000;
-	border-radius: 50px;
-	display: flex;
-	justify-content: center;
-	align-items: center;
-	cursor: not-allowed;
-	font-size: 14px;
+  width: auto;
+  padding: 10px 35px;
+  height: auto;
+  //background-color: #f0780e;
+  background-color: #000;
+  border-radius: 50px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: not-allowed;
+  font-size: 14px;
 }
+
 @media (min-width: 992px) {
   .row .col-lg-5 {
     flex: 0 0 auto;
     width: 20%;
   }
 }
+
 .progress-circle {
   position: relative;
   width: 100px;
@@ -287,7 +343,7 @@ Due to the split circle of progress-left and progress right, we must use the ani
 
 .progress1-text {
   position: absolute;
-  top:30%;
+  top: 30%;
   left: 50%;
   transform: translate(-50%, -50%);
   font-size: 20px;
