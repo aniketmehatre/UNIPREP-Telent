@@ -50,7 +50,6 @@ export class TravelCostEstimatorComponent implements OnInit {
     this.selectedData = { 3: 1 };
     this.getCurrencyList();
     this.getCityList();
-    this.saveRecommadation()
   }
 
   getCityList() {
