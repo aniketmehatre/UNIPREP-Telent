@@ -5,10 +5,10 @@ import { BlogdetailComponent } from './pages/blogdetail/blogdetail.component';
 import { BloglistComponent } from './pages/bloglist/bloglist.component';
 
 export const appRoutes: Routes = [
-  { path: 'pages/landing', component: LandingComponent },
-  { path: 'privacy', component: PrivacyComponent },
-  { path: 'blog/:id', component: BlogdetailComponent },
-  { path: 'blogs', component: BloglistComponent },
-  { path: '', redirectTo: '/pages/landing', pathMatch: 'full' },  // Default route to LandingComponent
-  { path: '**', redirectTo: '/pages/landing', pathMatch: 'full' }  // Fallback route
+  // Public routes
+  { path: '', redirectTo: '/landing', pathMatch: 'full' }, // Default route
+  { path: 'landing', component: LandingComponent }, // Landing outside of auth
+
+  // Fallback route (if none match)
+  { path: '**', redirectTo: '/landing', pathMatch: 'full' }
 ];

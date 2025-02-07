@@ -1,6 +1,6 @@
-import { Component, ElementRef, OnInit, ViewChild } from "@angular/core";
+import { Component, OnInit, ViewChild, ElementRef } from "@angular/core";
 import { ThemeService } from "../../theme.service";
-import { FormBuilder, FormsModule, ReactiveFormsModule, FormControl, FormGroup, Validators } from "@angular/forms";
+import { FormBuilder, FormsModule, ReactiveFormsModule, FormGroup, Validators } from "@angular/forms";
 import { AuthService } from "../../Auth/auth.service";
 import { LocationService } from "../../location.service";
 import { environment } from "@env/environment";
@@ -8,12 +8,21 @@ import { LocalStorageService } from "ngx-localstorage";
 import { Router, RouterModule } from "@angular/router";
 import { CommonModule } from "@angular/common";
 import { DialogModule } from "primeng/dialog";
+import { MessageService } from "primeng/api";
+
 @Component({
   selector: "uni-landing",
   templateUrl: "./landing.component.html",
   styleUrls: ["./landing.component.scss"],
-  standalone: false,
-  // imports: [CommonModule, FormsModule, ReactiveFormsModule, DialogModule, RouterModule],
+  standalone: true,
+  imports: [
+    CommonModule, 
+    FormsModule, 
+    ReactiveFormsModule, 
+    DialogModule, 
+    RouterModule, // Empty reducer configuration or actual reducers here
+  ],
+  providers: [MessageService, AuthService],  // Only provide services like MessageService and AuthService
 })
 export class LandingComponent implements OnInit {
   @ViewChild("videoPlayer")

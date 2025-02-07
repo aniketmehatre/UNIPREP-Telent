@@ -8,12 +8,12 @@ import { ArrayHeaderService } from "../array-header.service";
 import { Location } from "@angular/common";
 import { AuthService } from "src/app/Auth/auth.service";
 import { DialogModule } from "primeng/dialog";
-
+import { NgxExtendedPdfViewerModule } from "ngx-extended-pdf-viewer";
 @Component({
   selector: "uni-learnsubmodules",
   templateUrl: "./learnsubmodules.component.html",
   styleUrls: ["./learnsubmodules.component.scss"],
-  imports: [DialogModule,CommonModule],
+  imports: [DialogModule,CommonModule,NgxExtendedPdfViewerModule],
     standalone: true,
 })
 export class LearnsubModulesComponent implements OnInit {
