@@ -148,6 +148,7 @@
 	position: absolute;
 	right: 0rem;
 	top: 3rem;
+	z-index: 10;
 
 	::ng-deep.p-card-body {
 		padding: 0px;
@@ -240,9 +241,10 @@
 ::ng-deep .p-dialog-header {
 	padding: 3px !important;
 }
+
 .socialShareBtn {
-	height: 40px;
-	width: 40px;
+	height: 38px;
+	width: 38px;
 	border-radius: 5px !important;
 	margin: 0;
 	display: flex;
@@ -250,21 +252,104 @@
 	align-items: center;
 	left: 12px;
 	background-color: black !important;
-	margin-right: 8px;
 }
-.select-title{
+
+.select-title {
 	border-radius: 5px !important;
 }
-.p-dialog .p-dialog-header .p-dialog-header-icon {
-	background-color: black !important;
-	color: white !important;
-	border-radius: 5px !important;
+
+.career-closeIcon {
+	height: 100%;
+	width: 50px;
+	min-height: 40px;
+	border-radius: 8px;
+	background-color: #1c1b17;
+	color: white;
+	display: flex;
+	align-items: center;
+	justify-content: center;
 }
-::ng-deep .p-dialog .p-dialog-header .p-dialog-header-icon {
-	position: fixed;
-	top: 9px !important;
-    right: 31px !important;
-	border-radius: 10%;
-	height: 3rem;
-	width: 3rem;
+
+.career-homeIcon {
+	height: 100%;
+	width: 80px;
+	min-height: 40px;
+	border-radius: 8px;
+	background-color: var(--uniprep-secondary);
+	color: white;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+}
+
+.career-reportIcon {
+	height: 100%;
+	width: 90px;
+	min-height: 40px;
+	border-radius: 8px;
+	background-color: var(--uniprep-primary);
+	color: white;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+}
+
+.careerreadingcardgrid {
+	flex: 0 0 25%;
+	max-width: 25%;
+}
+
+@media (max-width: 1499.98px) {
+	.careerreadingcardgrid {
+		flex: 0 0 25%;
+		max-width: 25%;
+	}
+}
+
+@media (max-width: 1399.98px) {
+	.careerreadingcardgrid {
+		flex: 0 0 25%;
+		max-width: 25%;
+	}
+}
+
+@media (max-width: 1299.98px) {
+	.careerreadingcardgrid {
+		flex: 0 0 25%;
+		max-width: 25%;
+	}
+}
+
+@media (max-width: 1199.98px) {
+	.careerreadingcardgrid {
+		flex: 0 0 33%;
+		max-width: 33%;
+	}
+}
+
+@media (max-width: 991.98px) {
+	.careerreadingcardgrid {
+		flex: 0 0 33%;
+		max-width: 33%;
+	}
+}
+
+@media (max-width: 767.98px) {
+	.careerreadingcardgrid {
+		flex: 0 0 50%;
+		max-width: 50%;
+	}
+}
+
+.questioncard .content-preview {
+	opacity: 0;
+	max-height: 0;
+	overflow: hidden;
+	transition: opacity 0.3s ease-in-out, max-height 0.3s ease-in-out;
+}
+
+.questioncard:hover .content-preview {
+	opacity: 1;
+	max-height: 100px;
+	/* Adjust as needed */
 }
