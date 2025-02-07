@@ -41,6 +41,7 @@ export class PoliticianInsightsComponent implements OnInit, OnDestroy {
   currentPlan: any;
   countryList: any;
   totalPoliticianList = 2;
+  isSkeletonVisible: boolean = false;
   politicians: Politician[] = [
   ];
   constructor(
@@ -56,7 +57,6 @@ export class PoliticianInsightsComponent implements OnInit, OnDestroy {
   }
 
   pageChange(event: any) {
-    debugger;
     if (this.planExpired) {
       this.restrict = true;
       return;
@@ -83,6 +83,7 @@ export class PoliticianInsightsComponent implements OnInit, OnDestroy {
   }
 
   getPoliticiansList(data: any) {
+    this.isSkeletonVisible = true;
     let keyMapping: any = { "1": "country" };
     let newData = Object.fromEntries(Object.entries(this.selectedData).map(([key, value]) => {
       let mappedKey = keyMapping[key] || key;
@@ -93,10 +94,12 @@ export class PoliticianInsightsComponent implements OnInit, OnDestroy {
     }));
     this.educationToolsService.getPoliticiansListByCountry({ ...newData, ...data }).subscribe({
       next: response => {
+        this.isSkeletonVisible = false;
         this.enableModule = true;
         this.politicians = response?.politicians;
       },
       error: error => {
+        this.isSkeletonVisible = false;
         this.toast.add({
           severity: "warning",
           summary: "Warning",

@@ -16,7 +16,7 @@ import { EducationToolsService } from '../education-tools.service';
   styleUrls: ['./uni-compare.component.scss']
 })
 export class UniCompareComponent implements OnInit, OnDestroy {
-  panelStyle: { width: string } = { width: '320px' };
+  panelStyle: { width: string } = { width: '360px' };
 
   universityCountryList: any[];
   compareUniversityList: any[];
@@ -289,7 +289,7 @@ export class UniCompareComponent implements OnInit, OnDestroy {
   }
 
   updatePanelStyle = () => {
-    this.panelStyle = window.innerWidth > 990 ? { width: '320px' } : { width: '100%' };
+    this.panelStyle = window.innerWidth > 990 ? { width: '370px' } : { width: '100%' };
   };
 
   ngOnDestroy() {

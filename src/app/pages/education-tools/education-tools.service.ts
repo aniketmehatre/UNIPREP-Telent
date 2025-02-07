@@ -113,7 +113,7 @@ export class EducationToolsService {
 
   getCountryList() {
     const headers = new HttpHeaders().set("Accept", "application/json");
-    return this.http.get<any>(`${environment.ApiUrl}/country`, {
+    return this.http.get<any>(`${environment.ApiUrl}/countrydropdown`, {
       headers: headers
     });
   }

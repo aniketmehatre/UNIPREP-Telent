@@ -25,6 +25,7 @@ import { UniCompareComponent } from './uni-compare/uni-compare.component';
 import { GlobalEdufitComponent } from './global-edufit/global-edufit.component';
 import { MultiSelectModule } from 'primeng/multiselect';
 import { EduLoanCompareComponent } from './edu-loan-compare/edu-loan-compare.component';
+import { SkeletonModule } from 'primeng/skeleton';
 
 @NgModule({
   declarations: [
@@ -55,7 +56,8 @@ import { EduLoanCompareComponent } from './edu-loan-compare/edu-loan-compare.com
     InputTextModule,
     SelectButtonModule,
     ReactiveFormsModule,
-    MultiSelectModule
+    MultiSelectModule,
+    SkeletonModule
   ]
 })
 export class EducationToolsModule { }
