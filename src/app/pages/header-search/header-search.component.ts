@@ -70,6 +70,7 @@ export class HeaderSearchComponent implements OnInit, OnDestroy {
   selectedVideoLink: any | null = null;
   ehitlabelIsShow:boolean=true;
   orgnamewhitlabel:any;
+  flobalsearchbuttonname="Module"
   constructor(private dashboardService: DashboardService, private dataService: DataService, private moduleStoreService: ModuleStoreService,
     private toastr: MessageService, private moduleListService: ModuleServiceService,    private sanitizer: DomSanitizer,
     private locationService: LocationService, private route: Router, private elementRef: ElementRef,
