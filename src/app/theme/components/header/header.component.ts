@@ -171,23 +171,20 @@ export class HeaderComponent implements OnInit, OnDestroy {
           if(val.url.includes('subscriptions') || val.url.includes('support-help')
           || val.url.includes('usermanagement')|| val.url.includes('chat') || val.url.includes('guideline')
           ||val.url.includes('termsandcondition')||val.url.includes('privacypolicy')||val.url.includes('refundpolicy')
-          ||val.url.includes('cancellationpolicy') ||val.url.includes('export-credit') ||val.url.includes('cv-builder') ||val.url.includes('coverletter-builder')){
+          ||val.url.includes('cancellationpolicy') ||val.url.includes('export-credit') ||val.url.includes('cv-builder') ||val.url.includes('coverletter-builder')){         
               this.showSearch = false;
           }else{
               this.showSearch = true;
-          }
+            }
       }
-      // if(val instanceof NavigationEnd){
-      //   if(val.url.includes('learning-hub')||val.url.includes('k12')||val.url.includes('unilearn')||val.url.includes('startup')
-      //   ||val.url.includes('resource')||val.url.includes('events')||val.url.includes('success-stories')||val.url.includes('tutorials')){
-      //     this.isShowHeaderSearchForModule=true;
-      //     console.log("111");
-          
-      //   }else{
-      //     this.isShowHeaderSearchForModule=false;
-      //     console.log("222");
-      //   }
-      // }
+      if(val instanceof NavigationEnd){
+        if(val.url.includes('learning-hub')||val.url.includes('k12')||val.url.includes('unilearn')||val.url.includes('startup')
+        ||val.url.includes('resource')||val.url.includes('events')||val.url.includes('success-stories')||val.url.includes('tutorials')){
+          this.isShowHeaderSearchForModule=true;
+        }else{
+          this.isShowHeaderSearchForModule=false;
+        }
+      }
   })
   }
 
@@ -354,15 +351,13 @@ export class HeaderComponent implements OnInit, OnDestroy {
   ngOnInit() {
     // this headerserch  condition for modules and question (two component used) 
   this.currentRoute = this.router.url;
-  // if (this.currentRoute.includes('learning-hub')||this.currentRoute.includes('k12')||this.currentRoute.includes('startup')
-  //     ||this.currentRoute.includes('unilearn')||this.currentRoute.includes('resource')||this.currentRoute.includes('events')
-  // ||this.currentRoute.includes('success-stories')||this.currentRoute.includes('tutorials')) {
-  //   this.isShowHeaderSearchForModule=true;
-  //   console.log("1000");
-  // }else{
-  //   this.isShowHeaderSearchForModule=false;
-  //   console.log("2000");
-  // }
+  if (this.currentRoute.includes('learning-hub')||this.currentRoute.includes('k12')||this.currentRoute.includes('startup')
+      ||this.currentRoute.includes('unilearn')||this.currentRoute.includes('resource')||this.currentRoute.includes('events')
+  ||this.currentRoute.includes('success-stories')||this.currentRoute.includes('tutorials')) {
+    this.isShowHeaderSearchForModule=true;
+  }else{
+    this.isShowHeaderSearchForModule=false;
+  }
     this.locationService.getOrgName().subscribe(orgname => {
       this.orgnamewhitlabel = orgname;
     });

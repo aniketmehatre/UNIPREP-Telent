@@ -23,18 +23,25 @@ export class HeaderSearchModuleComponent implements OnInit {
   flobalsearchbuttonplaceholder:any;
   constructor(private dataService: DataService, private moduleStoreService: ModuleStoreService,
     private toastr: MessageService, private moduleListService: ModuleServiceService, private sanitizer: DomSanitizer,
-    private locationService: LocationService, private router: Router, private elementRef: ElementRef, private activatedRoute: ActivatedRoute) { }
+    private locationService: LocationService, private router: Router, private elementRef: ElementRef, private activatedRoute: ActivatedRoute) {
+      router.events.subscribe((val) => {
+        if(val instanceof NavigationEnd){
+         this.moduleDatasWithurl();
+        }
+    })
+     }
 
   ngOnInit(): void {
+    this.moduleDatasWithurl()
+  }
+  moduleDatasWithurl(){
     this.currentRoute = this.router.url;
     if (this.currentRoute.includes('learning-hub')) {
       this.flobalsearchbuttonname="Module";
       this.flobalsearchbuttonplaceholder="Enter Your Keywords Here"
-      console.log("1");
       this.moduleListService.TransferSubmoduleAndSpecializationForGlobalSearch().subscribe({
         next: (res: any) => {
           this.allSearchedResult = res; 
-          console.log(this.allSearchedResult);
         },
         error: (err) => {
           console.error("Error fetching data:", err);
@@ -44,12 +51,10 @@ export class HeaderSearchModuleComponent implements OnInit {
       this.allSearchedResult=[]
       this.flobalsearchbuttonname="Subject";
       this.flobalsearchbuttonplaceholder="Search for a subject"
-      console.log("1");
     }else if(this.currentRoute.includes('unilearn')){
       this.allSearchedResult=[]
       this.flobalsearchbuttonname="Module";
       this.flobalsearchbuttonplaceholder="Enter Your Keywords Here"
-      console.log("1");
     }else if(this.currentRoute.includes('startup')){
       this.allSearchedResult=[]
       this.flobalsearchbuttonname="Files";
@@ -94,7 +99,6 @@ export class HeaderSearchModuleComponent implements OnInit {
   }
   performSearch() {
     if (this.searchLearning) {
-      console.log(this.allSearchedResult);
       this.filteredData = this.allSearchedResult
         .filter((item: any) =>
           item.submodule_name.toLowerCase().includes(this.searchLearning.toLowerCase()) ||
