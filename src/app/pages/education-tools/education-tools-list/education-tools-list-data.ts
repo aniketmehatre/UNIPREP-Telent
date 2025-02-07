@@ -4,7 +4,7 @@ export const EducationToolsData = [
         description: "This tool lets you get a global travel visa with the help of few easy steps",
         image: "../../../uniprep-assets/images/founderstool/foundersacademy.svg",
         url: "/pages/education-tools/course-navigator",
-        launch_soon: true,
+        launch_soon: false,
     },
     {
         title: "Politician Insights",
