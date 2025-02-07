@@ -5,7 +5,7 @@ import { emptyQuestionList, loadQuestionList, loadQuizList, loadSubModules, read
 import { ModuleStoreState } from "./module-store.reducer";
 import { readQuestion$, selectQuestionList$, selectQuizList$, selectSubModule$ } from './module-store.selectors';
 import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
-import { Observable } from 'rxjs';
+import { BehaviorSubject, Observable, tap } from 'rxjs';
 import { Meta } from '@angular/platform-browser';
 import { SubmitRecommendation, SubmitStreamResponse } from 'src/app/@Models/academic-tools.model';
 
@@ -13,6 +13,8 @@ import { SubmitRecommendation, SubmitStreamResponse } from 'src/app/@Models/acad
   providedIn: 'root'
 })
 export class ModuleServiceService {
+  private getSubmodulesSpecialization = new BehaviorSubject<string | null>(null);
+  public getSubmodulesSpecialization$: Observable<string | null> = this.getSubmodulesSpecialization.asObservable();
   constructor(
     private store: Store<ModuleStoreState>,
     private http: HttpClient,
@@ -112,10 +114,17 @@ export class ModuleServiceService {
 
   getSubmodulesAndSpecialization() {
     const headers = new HttpHeaders().set("Accept", "application/json");
-    return this.http.get(environment.ApiUrl + "/getSubmodulesAndSpecialization", {
-      headers: headers,
-    });
+    return this.http.get(environment.ApiUrl + "/getSubmodulesAndSpecialization", { headers }) 
+    .pipe(
+      tap((response:any) => {
+        console.log("API Response: ", response);
+        this.getSubmodulesSpecialization.next(response);
+      })
+    );
   }
+  TransferSubmoduleAndSpecializationForGlobalSearch(): Observable<string | null> {
+    return this.getSubmodulesSpecialization$
+  } 
   quizCount(data: any) {
     const headers = new HttpHeaders().set("Accept", "application/json");
     return this.http.post<any>(environment.ApiUrl + "/quizquestions", data, {

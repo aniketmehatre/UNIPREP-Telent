@@ -12,7 +12,7 @@ import {
 import {MenuItem, MessageService} from "primeng/api";
 import {AuthService} from "../../../Auth/auth.service";
 import {SubSink} from "subsink";
-import {ActivatedRoute, Router} from "@angular/router";
+import {ActivatedRoute, NavigationEnd, Router} from "@angular/router";
 import {LocationService} from "../../../location.service";
 import {DataService} from "src/app/data.service";
 import {FormBuilder, FormGroup, Validators} from "@angular/forms";
@@ -26,6 +26,7 @@ import { environment } from "@env/environment";
 import CryptoJS from "crypto-js";
 import { AssessmentService } from "src/app/pages/assessment/assessment.service";
 import { ILearnChallengeData } from "src/app/@Models/ilearn-challenge.model";
+import { ModuleServiceService } from "src/app/pages/module-store/module-service.service";
 
 // import { SocialAuthService } from "@abacritt/angularx-social-login";
 
@@ -123,7 +124,8 @@ export class HeaderComponent implements OnInit, OnDestroy {
   isILearnLiveVisible: boolean = false;
   isILearnCompletedVisible: boolean = false;
   assParticipations: number = 0;
-
+  showSearch:boolean = true;
+  isShowHeaderSearchForModule:boolean=false;
   constructor(
     private router: Router,
     private locationService: LocationService,
@@ -134,7 +136,8 @@ export class HeaderComponent implements OnInit, OnDestroy {
     route: ActivatedRoute, private authService: SocialAuthService,
     private dataService: DataService,
     private dashboardService: DashboardService, // private authService: SocialAuthService
-    private assessmentService: AssessmentService
+    private assessmentService: AssessmentService,
+    private moduleListService: ModuleServiceService,
   ) {
     // this.subs.sink = this.dataService.countryId.subscribe((data) => {
     //
@@ -163,6 +166,21 @@ export class HeaderComponent implements OnInit, OnDestroy {
         this.navigateILearnChallenge();
       }
     });
+    router.events.subscribe((val) => {
+      if(val instanceof NavigationEnd){
+          if(val.url.includes('subscriptions') || val.url.includes('support-help')
+          || val.url.includes('usermanagement')|| val.url.includes('chat') || val.url.includes('guideline')
+          ||val.url.includes('termsandcondition')||val.url.includes('privacypolicy')||val.url.includes('refundpolicy')
+          ||val.url.includes('cancellationpolicy') ||val.url.includes('export-credit') ||val.url.includes('cv-builder') ||val.url.includes('coverletter-builder')){         
+              this.showSearch = false;
+          }else{
+              this.showSearch = true;
+            }
+      }
+      if(val instanceof NavigationEnd){
+      this.conditionModuleOrQuestionComponent()
+      }
+  })
   }
 
   loadCountryList() {
@@ -186,7 +204,6 @@ export class HeaderComponent implements OnInit, OnDestroy {
       // });
     });
   }
-
   isMenuOpen = true;
   toggleMenu() {
     const sidenav: Element | null = document.getElementById("sidenav");
@@ -323,16 +340,19 @@ export class HeaderComponent implements OnInit, OnDestroy {
   preferredCountry: any;
   imagewhitlabeldomainname: any;
   orgnamewhitlabel: any;
+  allSearchedResult:any[]=[];
+  currentRoute: string = '';
   ngOnInit() {
+    this.conditionModuleOrQuestionComponent();
     this.locationService.getOrgName().subscribe(orgname => {
       this.orgnamewhitlabel = orgname;
     });
-    this.imagewhitlabeldomainname = window.location.hostname;
-    if (this.imagewhitlabeldomainname === "dev-student.uniprep.ai" || this.imagewhitlabeldomainname === "uniprep.ai" || this.imagewhitlabeldomainname === "localhost") {
-      this.whiteLabelIsNotShow = true;
-    } else {
-      this.whiteLabelIsNotShow = false;
-    }
+    // this.imagewhitlabeldomainname = window.location.hostname;
+    // if (this.imagewhitlabeldomainname === "dev-student.uniprep.ai" || this.imagewhitlabeldomainname === "uniprep.ai" || this.imagewhitlabeldomainname === "localhost") {
+    //   this.whiteLabelIsNotShow = true;
+    // } else {
+    //   this.whiteLabelIsNotShow = false;
+    // }
     fetch('https://ipapi.co/json/').then(response => response.json()).then(data => {
       this.preferredCountry = data.country_code.toLocaleLowerCase()
     });
@@ -1168,5 +1188,17 @@ export class HeaderComponent implements OnInit, OnDestroy {
     this.isILearnLiveVisible = false;
     this.isILearnCompletedVisible = false;
     this.router.navigateByUrl('/pages/assessment/ilearn-challenge');
+  }
+  conditionModuleOrQuestionComponent(){
+    this.currentRoute = this.router.url;
+    // this headerserch  condition for modules and question (two component used) 
+    this.currentRoute = this.router.url;
+    if (this.currentRoute.includes('learning-hub')||this.currentRoute.includes('k12')||this.currentRoute.includes('startup')
+        ||this.currentRoute.includes('unilearn')||this.currentRoute.includes('resource')||this.currentRoute.includes('events')
+    ||this.currentRoute.includes('success-stories')||this.currentRoute.includes('tutorials')) {
+      this.isShowHeaderSearchForModule=true;
+    }else{
+      this.isShowHeaderSearchForModule=false;
+    }
   }
 }
