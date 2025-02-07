@@ -23,10 +23,11 @@ import {CalendarModule} from "primeng/calendar";
 import { NgxIntlTelInputModule } from 'ngx-intl-tel-input';
 import {GoogleSigninButtonModule} from "@abacritt/angularx-social-login";
 import {MaintenanceComponent} from "./maintenance/maintenance.component";
-
+import { InputIconModule } from 'primeng/inputicon';
+import { InputGroupModule } from 'primeng/inputgroup';
+import { InputGroupAddonModule } from 'primeng/inputgroupaddon';
 @NgModule({
   declarations: [
-    LoginComponent,
     RegistrationComponent,
     ForgotPasswordComponent,
     VerificationComponent,
@@ -34,9 +35,12 @@ import {MaintenanceComponent} from "./maintenance/maintenance.component";
       MaintenanceComponent
   ],
     imports: [
-        FormsModule,
+        FormsModule,LoginComponent,
+        InputGroupModule,
+        InputGroupAddonModule,
         AuthComponent,
         ReactiveFormsModule,
+        InputIconModule,
         CommonModule,
         RouterModule,
         AuthRoutingModule,
