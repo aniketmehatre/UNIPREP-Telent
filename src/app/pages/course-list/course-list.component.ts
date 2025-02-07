@@ -8,12 +8,15 @@ import { AuthService } from 'src/app/Auth/auth.service';
 import { UserManagementService } from "../user-management/user-management.service";
 import { LocationService } from 'src/app/location.service';
 import { environment } from 'src/environments/environment';
+import { CommonModule } from '@angular/common';
+import { DialogModule } from 'primeng/dialog';
 
 @Component({
     selector: 'uni-course-list',
     templateUrl: './course-list.component.html',
     styleUrls: ['./course-list.component.scss'],
-    standalone: false
+    standalone: true,
+    imports: [CommonModule, DialogModule]
 })
 export class CourseListComponent implements OnInit {
 

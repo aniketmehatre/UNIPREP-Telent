@@ -6,7 +6,7 @@ import { DataService } from "../data.service";
 import {DashboardService} from "./dashboard/dashboard.service";
 import { AuthService } from "../Auth/auth.service";
 import {DeviceDetectorService} from "ngx-device-detector";
-
+import { CommonModule } from "@angular/common";
 // @ts-ignore
 import Contlo from 'contlo-web-sdk';
 import {DomSanitizer,Meta, Title} from "@angular/platform-browser";
@@ -16,7 +16,8 @@ import { LocationService } from "../location.service";
     selector: "uni-pages",
     templateUrl: "./pages.component.html",
     styleUrls: ["./pages.component.scss"],
-    standalone: false
+    standalone: true,
+    imports: [CommonModule],
 })
 export class PagesComponent implements OnInit, OnDestroy {
     @ViewChild('videoFrame') videoFrame: ElementRef | undefined;

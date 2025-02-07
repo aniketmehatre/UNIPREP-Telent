@@ -3,12 +3,15 @@ import {DashboardService} from "../dashboard/dashboard.service";
 import {MessageService} from "primeng/api";
 import {ActivatedRoute, Router} from "@angular/router";
 import { AuthService } from 'src/app/Auth/auth.service';
+import { CommonModule } from '@angular/common';
+import { DialogModule } from 'primeng/dialog';
 
 @Component({
     selector: 'uni-footer-status-box',
     templateUrl: './footer-status-box.component.html',
     styleUrls: ['./footer-status-box.component.scss'],
-    standalone: false
+    standalone: true,
+    imports: [CommonModule, DialogModule]
 })
 export class FooterStatusBoxComponent implements OnInit {
     dashboardCount: any = [];

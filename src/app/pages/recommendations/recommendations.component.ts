@@ -1,8 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { SubStoreService } from '../subscription/store/service';
-import { Router } from "@angular/router";
+import { Router, RouterOutlet } from "@angular/router";
 import { SubscriptionService } from '../subscription/subscription.service';
 import { PageFacadeService } from '../page-facade.service';
+import { CommonModule } from '@angular/common';
 
 interface Provider {
   modules: [],
@@ -15,7 +16,8 @@ interface Provider {
     selector: 'uni-recommendations',
     templateUrl: './recommendations.component.html',
     styleUrls: ['./recommendations.component.scss'],
-    standalone: false
+    standalone: true,
+    imports: [CommonModule, RouterOutlet]
 })
 export class RecommendationsComponent implements OnInit {
   selectedData: { [key: string]: boolean } = {};

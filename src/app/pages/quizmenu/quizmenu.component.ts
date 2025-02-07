@@ -5,12 +5,16 @@ import { LocationService } from 'src/app/location.service';
 import { DataService } from 'src/app/data.service';
 import { AuthService } from 'src/app/Auth/auth.service';
 import { PageFacadeService } from '../page-facade.service';
-
+import { DialogModule } from 'primeng/dialog';
+import { CommonModule } from '@angular/common';
+import { DropdownModule } from 'primeng/dropdown';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 @Component({
     selector: 'uni-quizmenu',
     templateUrl: './quizmenu.component.html',
     styleUrls: ['./quizmenu.component.scss'],
-    standalone: false
+    standalone: true,
+    imports: [CommonModule, DialogModule, DropdownModule, FormsModule, ReactiveFormsModule],
 })
 export class QuizmenuComponent implements OnInit {
   tooltip: any;

@@ -3,7 +3,7 @@ import { RouterModule } from "@angular/router";
 import { NgModule, CUSTOM_ELEMENTS_SCHEMA } from "@angular/core";
 import { ReactiveFormsModule, FormsModule } from "@angular/forms";
 import { PipesModule } from "@pipes/pipes.module";
-import { PdfViewerModule } from "ng2-pdf-viewer";
+// import { PdfViewerModule } from "ng2-pdf-viewer";
 import { SlickCarouselModule } from "ngx-slick-carousel";
 import { SharedModule, ConfirmationService } from "primeng/api";
 import { AutoCompleteModule } from "primeng/autocomplete";
@@ -50,7 +50,6 @@ import { SalaryHacksRoutingModule } from "./salaryhacks-routing.module";
     PaginatorModule,
     SlickCarouselModule,
     StepsModule,
-    PdfViewerModule,
     ConfirmPopupModule,
     DialogModule,
     SharedModule,

@@ -1,5 +1,5 @@
 import { Component, OnInit } from "@angular/core";
-import { FormBuilder, FormGroup } from "@angular/forms";
+import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule } from "@angular/forms";
 import { ScholarshipListService } from "./scholarship-list.service";
 import { LocationService } from "src/app/location.service";
 import { MessageService } from "primeng/api";
@@ -8,12 +8,15 @@ import { Router } from "@angular/router";
 import { UserManagementService } from "../user-management/user-management.service";
 import { DataService } from "src/app/data.service";
 import { PageFacadeService } from "../page-facade.service";
-
+import { CommonModule } from '@angular/common';
+import { DialogModule } from "primeng/dialog";
+import { MultiSelectModule } from "primeng/multiselect";
 @Component({
     selector: "uni-scholarship-list",
     templateUrl: "./scholarship-list.component.html",
     styleUrls: ["./scholarship-list.component.scss"],
-    standalone: false
+    standalone: true,
+    imports: [CommonModule, DialogModule, MultiSelectModule, FormsModule, ReactiveFormsModule],
 })
 export class ScholarshipListComponent implements OnInit {
   scholarshipData: any[] = [];

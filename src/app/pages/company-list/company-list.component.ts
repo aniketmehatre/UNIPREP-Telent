@@ -9,12 +9,15 @@ import { MessageService } from 'primeng/api';
 import { DataService } from 'src/app/data.service';
 import { PageFacadeService } from '../page-facade.service';
 import { LocationService } from 'src/app/location.service';
+import { CommonModule } from '@angular/common';
+import { DialogModule } from 'primeng/dialog';
 
 @Component({
     selector: 'uni-company-list',
     templateUrl: './company-list.component.html',
     styleUrls: ['./company-list.component.scss'],
-    standalone: false
+    standalone: true,
+    imports: [CommonModule, DialogModule],
 })
 export class CompanyListComponent implements OnInit {
   companyListData: any[] = []

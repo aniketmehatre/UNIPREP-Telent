@@ -1,11 +1,12 @@
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
-
+import { Router, RouterModule } from '@angular/router';
+import { CommonModule } from '@angular/common';
 @Component({
     selector: 'uni-modules',
     templateUrl: './modules.component.html',
     styleUrls: ['./modules.component.scss'],
-    standalone: false
+    standalone: true,
+    imports: [RouterModule, CommonModule]
 })
 export class ModulesComponent implements OnInit {
 

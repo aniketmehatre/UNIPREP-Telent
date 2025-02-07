@@ -10,13 +10,15 @@ import {PageFacadeService} from "../../page-facade.service";
 import {Meta, Title} from "@angular/platform-browser";
 import {filter} from "rxjs";
 import { Location } from "@angular/common";
-
+import { CommonModule } from '@angular/common';
+import { DialogModule } from 'primeng/dialog';
 @Component({
     selector: 'uni-k12-chapter',
     templateUrl: './k12-chapter.component.html',
     styleUrls: ['./k12-chapter.component.scss'],
     providers: [ConfirmationService],
-    standalone: false
+    standalone: true,
+    imports: [CommonModule, DialogModule]
 })
 export class K12ChapterComponent implements OnInit {
     answeredCorrect: number = 0;

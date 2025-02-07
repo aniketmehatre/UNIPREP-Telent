@@ -9,12 +9,15 @@ import { MessageService } from 'primeng/api';
 import { DataService } from 'src/app/data.service';
 import { PageFacadeService } from '../page-facade.service';
 import { LocationService } from 'src/app/location.service';
+import { CommonModule } from '@angular/common';
+import { DialogModule } from 'primeng/dialog';
 
 @Component({
     selector: 'uni-investor-list',
     templateUrl: './investor-list.component.html',
     styleUrls: ['./investor-list.component.scss'],
-    standalone: false
+    standalone: true,
+    imports: [CommonModule, DialogModule],
 })
 export class InvestorListComponent implements OnInit {
   investorData: any[] = []

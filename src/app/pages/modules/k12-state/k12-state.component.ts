@@ -10,13 +10,16 @@ import {PageFacadeService} from "../../page-facade.service";
 import {Meta, Title} from "@angular/platform-browser";
 import {Location} from "@angular/common";
 import {filter} from "rxjs";
+import { CommonModule } from '@angular/common';
+import { DialogModule } from 'primeng/dialog';
 
 @Component({
     selector: 'uni-k12-state',
     templateUrl: './k12-state.component.html',
     styleUrls: ['./k12-state.component.scss'],
     providers: [ConfirmationService],
-    standalone: false
+    standalone: true,
+    imports: [CommonModule, DialogModule]
 })
 export class K12StateComponent implements OnInit {
 

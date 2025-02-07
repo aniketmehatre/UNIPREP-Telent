@@ -4,6 +4,8 @@ import { PageFacadeService } from '../page-facade.service';
 import { AuthService } from 'src/app/Auth/auth.service';
 import { Router } from '@angular/router';
 import { LocationService } from 'src/app/location.service';
+import { CommonModule } from '@angular/common';
+import { DialogModule } from 'primeng/dialog';
 
 interface Specialisation {
   id: number;
@@ -14,7 +16,8 @@ interface Specialisation {
     selector: 'uni-career-planner',
     templateUrl: './career-planner.component.html',
     styleUrls: ['./career-planner.component.scss'],
-    standalone: false
+    standalone: true,
+    imports: [CommonModule, DialogModule]
 })
 
 export class CareerPlannerComponent implements OnInit {

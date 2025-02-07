@@ -21,13 +21,18 @@ import { NgxUiLoaderService } from "ngx-ui-loader";
 import { PageFacadeService } from "../../page-facade.service";
 import { LocationService } from "src/app/location.service";
 import {MarkdownService} from "ngx-markdown";
+import { CommonModule } from '@angular/common';
+import { DialogModule } from 'primeng/dialog';
+import { CardModule } from "primeng/card";
+import { PaginatorModule } from "primeng/paginator";
 
 @Component({
     selector: "uni-question-list",
     templateUrl: "./question-list.component.html",
     styleUrls: ["./question-list.component.scss"],
     providers: [MarkdownService],
-    standalone: false
+    standalone: true,
+    imports: [CommonModule, DialogModule, CardModule, PaginatorModule]
 })
 export class QuestionListComponent implements OnInit {
   @ViewChild("carouselVideoElm") carouselVideoElm: any;

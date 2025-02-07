@@ -11,13 +11,16 @@ import {Meta, Title} from "@angular/platform-browser";
 import {filter} from "rxjs";
 import { Location } from "@angular/common";
 import {state} from "@angular/animations";
+import { CommonModule } from '@angular/common';
+import { DialogModule } from 'primeng/dialog';
 
 @Component({
     selector: 'uni-k12-subject',
     templateUrl: './k12-subject.component.html',
     styleUrls: ['./k12-subject.component.scss'],
     providers: [ConfirmationService],
-    standalone: false
+    standalone: true,
+    imports: [CommonModule, DialogModule]
 })
 export class K12SubjectComponent implements OnInit {
 

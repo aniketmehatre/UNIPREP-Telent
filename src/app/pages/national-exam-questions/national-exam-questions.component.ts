@@ -3,12 +3,14 @@ import { NationalExamService } from '../national-exam-categories/national-exam.s
 import { ActivatedRoute, Router } from '@angular/router';
 import { interval, Subscription, takeWhile } from 'rxjs';
 import { Location } from '@angular/common';
-
+import { CommonModule } from '@angular/common';
+import { DialogModule } from 'primeng/dialog';
 @Component({
     selector: 'uni-national-exam-questions',
     templateUrl: './national-exam-questions.component.html',
     styleUrls: ['./national-exam-questions.component.scss'],
-    standalone: false
+    standalone: true,
+    imports: [CommonModule, DialogModule]
 })
 export class NationalExamQuestionsComponent implements OnInit {
   questions: any;

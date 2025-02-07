@@ -7,11 +7,14 @@ import { Meta } from '@angular/platform-browser';
 import { MessageService } from 'primeng/api';
 import { PageFacadeService } from '../page-facade.service';
 import { LocationService } from 'src/app/location.service';
+import {CommonModule} from '@angular/common';
+import {DialogModule} from 'primeng/dialog';
 @Component({
     selector: 'uni-mycertificate',
     templateUrl: './mycertificate.component.html',
     styleUrls: ['./mycertificate.component.scss'],
-    standalone: false
+    standalone: true,
+    imports: [CommonModule, DialogModule]
 })
 export class MycertificateComponent implements OnInit {
 certificatesList:any[]=[]

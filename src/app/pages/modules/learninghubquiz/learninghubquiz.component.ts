@@ -10,12 +10,15 @@ import { LocationService } from "../../../location.service";
 import { AuthService } from 'src/app/Auth/auth.service';
 import { NgxUiLoaderService } from "ngx-ui-loader";
 import { Location } from '@angular/common';
+import { CommonModule } from '@angular/common';
+import { DialogModule } from 'primeng/dialog';
 
 @Component({
     selector: 'uni-learninghubquiz',
     templateUrl: './learninghubquiz.component.html',
     styleUrls: ['./learninghubquiz.component.scss'],
-    standalone: false
+    standalone: true,
+    imports: [CommonModule, DialogModule],
 })
 export class LearninghubquizComponent implements OnInit {
   quizData: any[] = [];

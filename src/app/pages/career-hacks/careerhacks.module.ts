@@ -2,7 +2,6 @@ import { CommonModule } from "@angular/common";
 import { NgModule, CUSTOM_ELEMENTS_SCHEMA } from "@angular/core";
 import { ReactiveFormsModule, FormsModule } from "@angular/forms";
 import { PipesModule } from "@pipes/pipes.module";
-import { PdfViewerModule } from "ng2-pdf-viewer";
 import { SlickCarouselModule } from "ngx-slick-carousel";
 import { SharedModule, ConfirmationService } from "primeng/api";
 import { AutoCompleteModule } from "primeng/autocomplete";
@@ -49,7 +48,6 @@ import { CareerhacksComponent } from "./careerhacks.component";
         PaginatorModule,
         SlickCarouselModule,
         StepsModule,
-        PdfViewerModule,
         ConfirmPopupModule,
         DialogModule,
         SharedModule,

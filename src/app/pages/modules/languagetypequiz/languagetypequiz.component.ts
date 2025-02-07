@@ -10,11 +10,15 @@ import { LocationService } from "../../../location.service";
 import { AuthService } from 'src/app/Auth/auth.service';
 import { NgxUiLoaderService } from "ngx-ui-loader";
 import { Location } from '@angular/common';
+import { CommonModule } from '@angular/common';
+import { DialogModule } from 'primeng/dialog';
+
 @Component({
     selector: 'uni-languagetypequiz',
     templateUrl: './languagetypequiz.component.html',
     styleUrls: ['./languagetypequiz.component.scss'],
-    standalone: false
+    standalone: true,
+    imports: [CommonModule, DialogModule],
 })
 export class LanguagetypequizComponent implements OnInit {
 

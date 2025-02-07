@@ -6,13 +6,16 @@ import { PageFacadeService } from '../page-facade.service';
 import { AuthService } from 'src/app/Auth/auth.service';
 import { LocationService } from 'src/app/location.service';
 import {MessageService} from 'primeng/api';
+import { CommonModule } from '@angular/common';
+import { DialogModule } from 'primeng/dialog';
 
 @Component({
     selector: 'uni-advisor',
     templateUrl: './advisor.component.html',
     styleUrls: ['./advisor.component.scss'],
     encapsulation: ViewEncapsulation.None,
-    standalone: false
+    standalone: true,
+    imports: [CommonModule, DialogModule],
 })
 export class AdvisorComponent implements OnInit {
   @ViewChild('chatContainer') private chatContainer: ElementRef;

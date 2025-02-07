@@ -18,12 +18,15 @@ import { ModuleServiceService } from "../module-store/module-service.service";
 import { ModuleStoreService } from "../module-store/module-store.service";
 import { AuthService } from 'src/app/Auth/auth.service';
 import { DomSanitizer } from '@angular/platform-browser';
+import { CommonModule } from '@angular/common';
+import { DialogModule } from 'primeng/dialog';
 
 @Component({
     selector: 'uni-header-search',
     templateUrl: './header-search.component.html',
     styleUrls: ['./header-search.component.scss'],
-    standalone: false
+    standalone: true,
+    imports: [CommonModule, DialogModule]
 })
 export class HeaderSearchComponent implements OnInit, OnDestroy {
   @ViewChild('searchInput', { static: false, read: ElementRef }) elRef: any;

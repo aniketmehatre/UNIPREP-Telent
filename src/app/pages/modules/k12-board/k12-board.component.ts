@@ -10,13 +10,15 @@ import {NgxUiLoaderService} from "ngx-ui-loader";
 import {PageFacadeService} from "../../page-facade.service";
 import {Meta, Title} from "@angular/platform-browser";
 import { Location } from "@angular/common";
-
+import { CommonModule } from '@angular/common';
+import { DialogModule } from 'primeng/dialog';
 @Component({
     selector: 'uni-k12-board',
     templateUrl: './k12-board.component.html',
     styleUrls: ['./k12-board.component.scss'],
     providers: [ConfirmationService],
-    standalone: false
+    standalone: true,
+    imports: [CommonModule, DialogModule]
 })
 export class K12BoardComponent implements OnInit {
     answeredCorrect: number = 0;

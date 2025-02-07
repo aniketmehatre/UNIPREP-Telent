@@ -24,7 +24,6 @@ import { ComponentStoriesComponent } from './component-stories/component-stories
 import { GovermentFundingOppurtunityComponent } from './goverment-funding-opportunity/goverment-funding-opportunity.component';
 import { MultiSelectModule } from 'primeng/multiselect';
 import { MarketingAnalysisComponent } from './marketing-analysis/marketing-analysis.component';
-import { PdfViewerModule } from 'ng2-pdf-viewer';
 import { NgxExtendedPdfViewerModule } from 'ngx-extended-pdf-viewer';
 import { AiBusinessAdvisorComponent } from './ai-business-advisor/ai-business-advisor.component';
 import { StartupRiskAssessmentComponent } from './startup-risk-assessment/startup-risk-assessment.component';
@@ -76,14 +75,12 @@ import {SharedModule} from "../../shared/shared.module";
         foundersToolRountingModule,
         TooltipModule,
         MultiSelectModule,
-        PdfViewerModule,
         SharedModule
     ],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
   providers: [ConfirmationService, 
     TooltipModule,
     MultiSelectModule,
-    PdfViewerModule,
     NgxExtendedPdfViewerModule
   ],
 })

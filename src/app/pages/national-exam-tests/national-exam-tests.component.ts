@@ -3,11 +3,13 @@ import { NationalExamService } from "../national-exam-categories/national-exam.s
 import { ActivatedRoute, Router } from "@angular/router"
 import { Location } from "@angular/common"
 import { AuthService } from "src/app/Auth/auth.service";
+import { CommonModule } from "@angular/common";
 @Component({
     selector: "uni-national-exam-tests",
     templateUrl: "./national-exam-tests.component.html",
     styleUrls: ["./national-exam-tests.component.scss"],
-    standalone: false
+    standalone: true,
+	imports: [CommonModule],
 })
 export class NationalExamTestsComponent implements OnInit {
 	tests: any

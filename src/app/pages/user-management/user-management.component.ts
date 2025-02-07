@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from "@angular/forms";
+import { FormBuilder, FormGroup, Validators, FormsModule, ReactiveFormsModule } from "@angular/forms";
 import { AuthService } from "../../Auth/auth.service";
 import { LocationService } from "../../location.service";
 import { MessageService } from "primeng/api";
@@ -10,13 +10,14 @@ import { Router } from "@angular/router";
 import { DashboardService } from "../dashboard/dashboard.service";
 import { DataService } from "../../data.service";
 import { Location } from '@angular/common';
-
+import { CommonModule } from '@angular/common';
 
 @Component({
     selector: 'uni-user-management',
     templateUrl: './user-management.component.html',
     styleUrls: ['./user-management.component.scss'],
-    standalone: false
+    standalone: true,
+    imports: [CommonModule, FormsModule, ReactiveFormsModule],
 })
 export class UserManagementComponent implements OnInit {
     user!: User | null;

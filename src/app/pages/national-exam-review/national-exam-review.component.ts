@@ -1,12 +1,13 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { NationalExamService } from '../national-exam-categories/national-exam.service';
-
+import { CommonModule } from '@angular/common';
 @Component({
     selector: 'uni-national-exam-review',
     templateUrl: './national-exam-review.component.html',
     styleUrls: ['./national-exam-review.component.scss'],
-    standalone: false
+    standalone: true,
+    imports: [CommonModule]
 })
 export class NationalExamReviewComponent implements OnInit {
 

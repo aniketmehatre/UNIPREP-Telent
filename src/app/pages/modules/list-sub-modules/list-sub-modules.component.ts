@@ -10,13 +10,16 @@ import {AuthService} from 'src/app/Auth/auth.service';
 import {NgxUiLoaderService} from "ngx-ui-loader";
 import {PageFacadeService} from '../../page-facade.service';
 import {Meta, Title} from "@angular/platform-browser";
+import { CommonModule } from '@angular/common';
+import { DialogModule } from 'primeng/dialog';
 
 @Component({
     selector: 'uni-list-sub-modules',
     templateUrl: './list-sub-modules.component.html',
     styleUrls: ['./list-sub-modules.component.scss'],
     providers: [ConfirmationService],
-    standalone: false
+    standalone: true,
+    imports: [CommonModule, DialogModule]
 })
 export class ListSubModulesComponent implements OnInit {
     subModules$!: Observable<ModuleListSub[]>;

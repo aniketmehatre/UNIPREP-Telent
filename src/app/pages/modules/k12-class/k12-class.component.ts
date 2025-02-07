@@ -10,13 +10,15 @@ import {NgxUiLoaderService} from "ngx-ui-loader";
 import {PageFacadeService} from "../../page-facade.service";
 import {Meta, Title} from "@angular/platform-browser";
 import { Location } from "@angular/common";
-
+import { CommonModule } from '@angular/common';
+import { DialogModule } from 'primeng/dialog';
 @Component({
     selector: 'uni-k12-class',
     templateUrl: './k12-class.component.html',
     styleUrls: ['./k12-class.component.scss'],
     providers: [ConfirmationService],
-    standalone: false
+    standalone: true,
+    imports: [CommonModule, DialogModule]
 })
 export class K12ClassComponent implements OnInit {
     subModuleList: any[] = [];

@@ -17,7 +17,7 @@ import { UniLearnComponent } from "./unilearn.component";
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { LearnModulesComponent } from "./learnmodules/learnmodules.component";
 import { LearnsubModulesComponent } from "./learnsubmodules/learnsubmodules.component";
-import { PdfViewerModule } from "ng2-pdf-viewer";
+// import { PdfViewerModule } from "ng2-pdf-viewer";
 import { NgxExtendedPdfViewerModule } from "ngx-extended-pdf-viewer";
 import { TestModulesComponent } from "./testmodule/testmodule.component";
 import { QuizinfowindowComponent } from "./quizinfowindow/quizinfowindow.component";
@@ -54,7 +54,7 @@ import { RadioButtonModule } from "primeng/radiobutton";
     CardModule,
     PaginatorModule,
     NgxExtendedPdfViewerModule,
-    PdfViewerModule,
+    // PdfViewerModule,
     NgxAudioPlayerModule,
     FormsModule,
     ReactiveFormsModule,

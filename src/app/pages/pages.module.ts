@@ -65,7 +65,6 @@ import { PitchDeskComponent } from "./pitch-desk/pitch-desk.component"
 import { NgxExtendedPdfViewerModule } from "ngx-extended-pdf-viewer"
 import { ExportCreditComponent } from "./export-credit/export-credit.component"
 import { MycertificateComponent } from "./mycertificate/mycertificate.component"
-import { PdfViewerModule } from "ng2-pdf-viewer"
 import { CareerPlannerComponent } from "./career-planner/career-planner.component"
 import { CertificatesComponent } from "./certificates/certificates.component"
 import { CourseListComponent } from "./course-list/course-list.component"
@@ -92,14 +91,18 @@ import { JoboffercomparisontoolComponent } from "./job-tool/joboffercomparisonto
 import { JobOfferPreparedListComponent } from "./job-tool/joboffercomparisontool/preparedlist/preparedlist.component"
 
 @NgModule({
-	declarations: [PagesComponent, ButtonComponent, CardsComponent, HelpSupportComponent, UserManagementComponent, EditprofileComponent, FooterStatusBoxComponent, HeaderSearchComponent, QuestionCreditComponent, PrivacypolicyComponent, RefundpolicyComponent, CancellationpolicyComponent, InvestorListComponent, CompanyListComponent, ScholarshipListComponent, UserGuideComponent, CompanyListGuidlinesComponent, ScholarshipListGuidlinesComponent, InvestorListGuidlinesComponent, RecommendationsComponent, ExportCreditComponent, MycertificateComponent, CareerPlannerComponent, CertificatesComponent, CourseListComponent, CareerGrowthCheckerComponent, AdvisorComponent, NationalExamCategoriesComponent, NationalExamTestsComponent, NationalExamStartComponent, NationalExamQuestionsComponent, NationalExamResultComponent, NationalExamReviewComponent],
+	declarations: [PagesComponent, ButtonComponent, CardsComponent, HelpSupportComponent, EditprofileComponent, FooterStatusBoxComponent, HeaderSearchComponent, QuestionCreditComponent, PrivacypolicyComponent, RefundpolicyComponent, CancellationpolicyComponent, InvestorListComponent, CompanyListComponent, UserGuideComponent, CompanyListGuidlinesComponent, ScholarshipListGuidlinesComponent, InvestorListGuidlinesComponent, ExportCreditComponent, MycertificateComponent, CareerPlannerComponent, CourseListComponent, CareerGrowthCheckerComponent, AdvisorComponent, NationalExamCategoriesComponent, NationalExamTestsComponent, NationalExamStartComponent, NationalExamQuestionsComponent, NationalExamResultComponent, NationalExamReviewComponent],
 	exports: [FooterStatusBoxComponent, HeaderSearchComponent],
 	imports: [
 		CommonModule,
+    CertificatesComponent,
 		PitchDeskComponent,
 		PagesRoutingModule,
 		GuidelineComponent,
+    UserManagementComponent,
+    ScholarshipListComponent,
 		ThemeModule,
+    RecommendationsComponent,
 		JobOfferPreparedListComponent,
 		JoboffercomparisontoolComponent,
 		ScrollTrackerDirective,
@@ -142,7 +145,6 @@ import { JobOfferPreparedListComponent } from "./job-tool/joboffercomparisontool
 		StepsModule,
 		RadioButtonModule,
 		NgxExtendedPdfViewerModule,
-		PdfViewerModule,
 		SkeletonModule,
 	],
 	schemas: [CUSTOM_ELEMENTS_SCHEMA],

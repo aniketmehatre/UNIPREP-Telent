@@ -23,7 +23,6 @@ import {SalaryConverterComponent} from "./salary-converter/salary-converter.comp
 import {PaginatorModule} from "primeng/paginator";
 import { SlickCarouselModule } from 'ngx-slick-carousel';
 import {StepsModule} from 'primeng/steps';
-import { PdfViewerModule } from 'ng2-pdf-viewer';
 import { ConfirmPopupModule } from 'primeng/confirmpopup';
 import {ConfirmationService} from 'primeng/api';
 import { QuizTestListComponent } from './quiz-test-list/quiz-test-list.component';
@@ -78,7 +77,6 @@ import { CareerplannercountrywiseComponent } from './careerplannercountrywise/ca
         PaginatorModule,
         SlickCarouselModule,
         StepsModule,
-        PdfViewerModule,
         ConfirmPopupModule,
         DialogModule,
         SharedModule,
