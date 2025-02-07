@@ -9,7 +9,7 @@ import { LoginRequest } from "../@Models/auth.model";
 import { Store } from "@ngrx/store";
 import { AuthState } from "./store/reducer";
 import { login, loginFailure } from "./store/actions";
-import { loginData$, selectLoading$, selectloggedIn$, selectMessage$ } from "./store/selectors";
+import { loginData$, selectLoading$, selectLoggedIn$, selectMessage$ } from "./store/selectors";
 import { Router } from "@angular/router";
 import { DataService } from "../data.service";
 import { jwtDecode } from "jwt-decode"; // Use named import
@@ -120,7 +120,7 @@ export class AuthService {
   }
 
   selectloggedIn$() {
-    return this.store.select(selectloggedIn$);
+    return this.store.select(selectLoggedIn$);
   }
 
   selectLogInData$() {

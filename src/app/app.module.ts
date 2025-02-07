@@ -5,7 +5,7 @@ import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { StoreModule } from '@ngrx/store';
 import { RouterModule } from '@angular/router';
-import { CommonModule } from '@angular/common';
+
 import { pagesReducer } from './pages/store/pages.reducer';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 import { environment } from '@env/environment';
@@ -47,7 +47,7 @@ import { EnterpriseSubscriptionComponent } from './components/enterprise-subscri
 import { DeviceDetectorService } from "ngx-device-detector";
 import { PaginatorModule } from 'primeng/paginator';
 import { SharedModule } from "./shared/shared.module";
-// import { ChartsModule } from 'ng2-charts'; // Ensure compatibility with Angular 16
+import { NgChartsModule } from 'ng2-charts'; // Ensure compatibility with Angular 16
 import { AuthModule } from './Auth/auth.module';
 
 const ngxLocalstorageConfiguration: NgxLocalstorageConfiguration = {
@@ -61,21 +61,23 @@ export function tokenGetter() {
 
 @NgModule({
   declarations: [
-    AppComponent,
-    ScrollToBottomDirective,         // Keep this here in declarations
-    LandingComponent,                // Declare LandingComponent here               // Declare ModalComponent here
+    LandingComponent,
+    ModalComponent,
+    ScrollToBottomDirective,
+    PrivacyComponent,
+    EnterpriseSubscriptionComponent,
+    
   ],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
   imports: [
-    AuthModule,
-    PrivacyComponent,                // Declare PrivacyComponent here
-    BlogdetailComponent,             // Declare BlogdetailComponent here
-    BloglistComponent,               // Declare BloglistComponent here
-    ModalComponent    ,
+    AppComponent,
     BrowserModule,
+    BlogdetailComponent,
+    BloglistComponent,
+    BrowserAnimationsModule,
     AppRoutingModule,
     StoreModule.forRoot({ pages: pagesReducer }),
-    CommonModule,
+    AuthModule,
     HttpClientModule,
     ToastModule,
     StoreDevtoolsModule.instrument({ maxAge: 25, logOnly: environment.production }),
@@ -94,7 +96,7 @@ export function tokenGetter() {
     ButtonModule,
     InputTextModule,
     ReactiveFormsModule,
-    InputTextarea,
+    InputTextModule,
     OverlayPanelModule,
     DialogModule,
     CardModule,
@@ -102,12 +104,14 @@ export function tokenGetter() {
     TooltipModule,
     PipesModule,
     ConfirmDialogModule,
+    ToastModule,
     PaginatorModule,
     SocialLoginModule,
     MetaModule.forRoot(),
     SharedModule,
     SkeletonModule,
     RouterModule,
+    NgChartsModule
   ],
   providers: [
     DeviceDetectorService,

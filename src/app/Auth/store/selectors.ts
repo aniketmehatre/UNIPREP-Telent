@@ -1,11 +1,27 @@
-import {createFeatureSelector, createSelector} from "@ngrx/store";
-import {AuthState} from "./reducer";
+import { createFeatureSelector, createSelector } from '@ngrx/store';
+import { AuthState } from './reducer';
 
 export const authFeatureKey = 'authFeatureKey';
 
 const featureSelect = createFeatureSelector<AuthState>(authFeatureKey);
 
-export const selectLoading$ = createSelector(featureSelect, (state: AuthState) => state.loading);
-export const selectMessage$ = createSelector(featureSelect, (state: AuthState) => state.message);
-export const selectloggedIn$ = createSelector(featureSelect, (state: AuthState) => state.loggedIn);
-export const loginData$ = createSelector(featureSelect, (state: AuthState) => state.data);
+// Use optional chaining and fallback values to handle undefined state
+export const selectLoading$ = createSelector(
+  featureSelect,
+  (state: AuthState) => state?.loading ?? false
+);
+
+export const selectMessage$ = createSelector(
+  featureSelect,
+  (state: AuthState) => state?.message ?? ''
+);
+
+export const selectLoggedIn$ = createSelector(
+  featureSelect,
+  (state: AuthState) => state?.loggedIn ?? false
+);
+
+export const loginData$ = createSelector(
+  featureSelect,
+  (state: AuthState) => state?.data ?? null
+);

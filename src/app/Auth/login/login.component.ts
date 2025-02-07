@@ -1,4 +1,4 @@
-import { Component, ElementRef, Input, OnDestroy, OnInit, ViewChild, CUSTOM_ELEMENTS_SCHEMA  } from "@angular/core"
+import { Component, ElementRef, Input, OnDestroy, OnInit, ViewChild, CUSTOM_ELEMENTS_SCHEMA } from "@angular/core"
 import { FormGroup, Validators, FormBuilder, FormsModule, ReactiveFormsModule } from "@angular/forms"
 import { Router, RouterModule } from "@angular/router"
 import { AuthService } from "../auth.service"
@@ -13,20 +13,20 @@ import { Observable } from "rxjs/internal/Observable"
 import { FacebookLoginProvider } from "angularx-social-login"
 // import {FacebookService} from "ngx-facebook";
 import { LocationService } from "../../location.service"
-import { InputGroupModule } from 'primeng/inputgroup';
-import { InputGroupAddonModule } from 'primeng/inputgroupaddon';
+import { InputGroupModule } from "primeng/inputgroup"
+import { InputGroupAddonModule } from "primeng/inputgroupaddon"
 import { InputTextModule } from "primeng/inputtext"
 import { CommonModule } from "@angular/common"
 import { InputIconModule } from "primeng/inputicon"
-import { SocialLoginModule, SocialAuthServiceConfig } from '@abacritt/angularx-social-login';
+import { SocialLoginModule, SocialAuthServiceConfig } from "@abacritt/angularx-social-login"
 
 @Component({
 	selector: "app-login",
 	templateUrl: "./login.component.html",
 	styleUrls: ["./login.component.scss"],
-  schemas: [CUSTOM_ELEMENTS_SCHEMA], 
+	schemas: [CUSTOM_ELEMENTS_SCHEMA],
 	standalone: true,
-	imports: [CommonModule, RouterModule,InputTextModule, InputIconModule, InputGroupModule,InputGroupAddonModule, SocialLoginModule, FormsModule, ReactiveFormsModule],
+	imports: [CommonModule, RouterModule, InputTextModule, InputIconModule, InputGroupModule, InputGroupAddonModule, SocialLoginModule, FormsModule, ReactiveFormsModule],
 })
 export class LoginComponent implements OnInit, OnDestroy {
 	@ViewChild("button2") button2!: ElementRef
@@ -178,9 +178,9 @@ export class LoginComponent implements OnInit, OnDestroy {
 	}
 
 	onSubmit(): void {
-		this.submitted = true
+		this.submitted = true;
 		if (this.loginForm.invalid) {
-			return
+			return;
 		}
 		this.service.canDisableSignIn.next(true)
 		this.service.login(this.loginForm.value)
