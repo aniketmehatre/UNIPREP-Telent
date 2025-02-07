@@ -91,6 +91,7 @@ import { AverageSalaryComponent } from "./averagesalaryestimator/averagesalaryes
 import { AverageSalaryPreparedListComponent } from "./averagesalaryestimator/preparedlist/preparedlist.component";
 import { JoboffercomparisontoolComponent } from "./job-tool/joboffercomparisontool/joboffercomparisontool.component";
 import { JobOfferPreparedListComponent } from "./job-tool/joboffercomparisontool/preparedlist/preparedlist.component";
+import { GlobalRepositoryComponent } from './global-repository/global-repository.component';
 
 
 // import { JobToolComponent } from './job-tool/job-tool.component';
@@ -140,7 +141,8 @@ import { JobOfferPreparedListComponent } from "./job-tool/joboffercomparisontool
     AverageSalaryComponent,
     AverageSalaryPreparedListComponent,
     JoboffercomparisontoolComponent,
-    JobOfferPreparedListComponent
+    JobOfferPreparedListComponent,
+    GlobalRepositoryComponent
   ],
   exports: [FooterStatusBoxComponent, HeaderSearchComponent],
   imports: [

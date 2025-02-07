@@ -75,27 +75,31 @@ export class SidenavComponent {
       url: "",
       image: "",
     },
-
     {
-      title: "Pre Admission",
-      url: "/pages/modules/pre-admission",
-      image: "fa-solid fa-file-import",
+      title: "Global Repository",
+      url: "/pages/global-repo",
+      image: "fa-solid fa fa-globe",
     },
+    // {
+    //   title: "Pre Admission",
+    //   url: "/pages/modules/pre-admission",
+    //   image: "fa-solid fa-file-import",
+    // },
     // {
     //   title: "Post Application",
     //   url: "/pages/modules/post-application",
     //   image: "fa-solid fa-file-export",
     // },
-    {
-      title: "Post Admission",
-      url: "/pages/modules/post-admission",
-      image: "fa-solid fa-ticket",
-    },
-    {
-      title: "University",
-      url: "/pages/modules/university",
-      image: "fa-solid fa-building-columns",
-    },
+    // {
+    //   title: "Post Admission",
+    //   url: "/pages/modules/post-admission",
+    //   image: "fa-solid fa-ticket",
+    // },
+    // {
+    //   title: "University",
+    //   url: "/pages/modules/university",
+    //   image: "fa-solid fa-building-columns",
+    // },
     {
       title: "UNILEARN",
       url: "/pages/unilearn/modules",
@@ -126,16 +130,16 @@ export class SidenavComponent {
       url: "/pages/language-hub",
       image: "fa-solid fa-books",
     },
-    {
-      title: "Travel and Tourism",
-      url: "/pages/modules/travel-and-tourism",
-      image: "fa-solid fa-plane",
-    },
-    {
-      title: "Life in",
-      url: "/pages/modules/life-at-country",
-      image: "fa-solid fa-earth-americas",
-    },
+    // {
+    //   title: "Travel and Tourism",
+    //   url: "/pages/modules/travel-and-tourism",
+    //   image: "fa-solid fa-plane",
+    // },
+    // {
+    //   title: "Life in",
+    //   url: "/pages/modules/life-at-country",
+    //   image: "fa-solid fa-earth-americas",
+    // },
     // {
     //   title: "Cost of Living",
     //   url: "/pages/job-tool/cost-of-living",
@@ -151,11 +155,11 @@ export class SidenavComponent {
       url: '',
       image: '',
     },
-    {
-      title: "Career Hub",
-      url: "/pages/modules/career-hub",
-      image: "fa-solid fa-briefcase",
-    },
+    // {
+    //   title: "Career Hub",
+    //   url: "/pages/modules/career-hub",
+    //   image: "fa-solid fa-briefcase",
+    // },
     {
       title: "Job Portal",
       url: "/pages/job-portal/job-search",
