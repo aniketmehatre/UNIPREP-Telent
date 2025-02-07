@@ -38,7 +38,7 @@ import { K12ChapterComponent } from './k12-chapter/k12-chapter.component';
 import { K12StateComponent } from './k12-state/k12-state.component';
 import {MarkdownComponent} from "ngx-markdown";
 import { Chart, BarElement, BarController, CategoryScale, LinearScale, Title, Tooltip, Legend } from 'chart.js';
-import {NgChartsModule} from "ng2-charts";
+import { BaseChartDirective  } from 'ng2-charts';
 
 // ✅ Register required Chart.js components
 Chart.register(BarElement, BarController, CategoryScale, LinearScale, Title, Tooltip, Legend);
@@ -82,8 +82,8 @@ Chart.register(BarElement, BarController, CategoryScale, LinearScale, Title, Too
         ReactiveFormsModule,
         DialogModule,
         DropdownModule,
-        NgChartsModule,
         MarkdownComponent,
+        BaseChartDirective
     ],
   schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })
