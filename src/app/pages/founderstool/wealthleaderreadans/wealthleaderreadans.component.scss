@@ -44,3 +44,6 @@
 	border-color: #4E4E4E !important;
 	color: white !important; /* Optional: Change text color */
   }
+  ::ng-deep .p-dialog .p-dialog-content:last-of-type{
+	min-height: 40vh;
+  }
