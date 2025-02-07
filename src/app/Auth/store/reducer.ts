@@ -1,23 +1,42 @@
-import {createReducer, on} from "@ngrx/store";
-import {login, loginFailure, loginSuccess} from "./actions";
+import { createReducer, on } from '@ngrx/store';
+import { AuthActions } from './actions';
 
 export interface AuthState {
-    loading: boolean;
-    message: string;
-    loggedIn: boolean;
-    data: any;
+  loading: boolean;
+  loggedIn: boolean;
+  message: string | null;
+  loginData: any;
+  error: string | null;
 }
 
 export const initialState: AuthState = {
-    loading: false,
-    message: '',
-    loggedIn: false,
-    data: '',
-}
+  loading: false,
+  loggedIn: false,
+  message: null,
+  loginData: null,
+  error: null
+};
 
 export const authReducer = createReducer(
-    initialState,
-    on(login, (state: AuthState) => ({...state, loading: true, message: '', loggedIn: false, data: ''})),
-    on(loginSuccess, (state: AuthState, payload) => ({...state, loading: false, message: 'Login Success', loggedIn: true, data: payload})),
-    on(loginFailure, (state: AuthState) => ({...state, loading: false, message: '', loggedIn: false, data: ''}))
+  initialState,
+  on(AuthActions.login, (state) => ({
+    ...state,
+    loading: true,
+    error: null
+  })),
+  on(AuthActions.loginSuccess, (state, { token }) => ({
+    ...state,
+    loading: false,
+    loggedIn: true,
+    message: 'Login Success',
+    loginData: token,
+    error: null
+  })),
+  on(AuthActions.loginFailure, (state, { error }) => ({
+    ...state,
+    loading: false,
+    loggedIn: false,
+    message: 'Login Failed',
+    error: error || 'Unknown error occurred'
+  }))
 );

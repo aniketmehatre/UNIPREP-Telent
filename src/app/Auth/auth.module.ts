@@ -15,7 +15,7 @@ import {PasswordModule} from "primeng/password";
 import {ToastModule} from "primeng/toast";
 import {MessageService} from "primeng/api";
 import {StoreModule} from "@ngrx/store";
-import {authFeatureKey} from "./store/selectors";
+import { authFeature } from "./store/selectors";
 import {authReducer} from "./store/reducer";
 import {EffectsModule} from "@ngrx/effects";
 import {AuthEffects} from "./store/effects";
@@ -26,6 +26,7 @@ import {MaintenanceComponent} from "./maintenance/maintenance.component";
 import { InputIconModule } from 'primeng/inputicon';
 import { InputGroupModule } from 'primeng/inputgroup';
 import { InputGroupAddonModule } from 'primeng/inputgroupaddon';
+
 @NgModule({
   declarations: [
     RegistrationComponent,
@@ -48,7 +49,7 @@ import { InputGroupAddonModule } from 'primeng/inputgroupaddon';
         DropdownModule,
         PasswordModule,
         ToastModule,
-        StoreModule.forFeature(authFeatureKey, authReducer),
+        StoreModule.forFeature(authFeature),
         EffectsModule.forFeature([AuthEffects]),
         CalendarModule,
         NgxIntlTelInputModule,

@@ -1,19 +1,19 @@
-import { Injectable } from "@angular/core";
 import CryptoJS from "crypto-js";
 import { environment } from "../../environments/environment";
-import { HttpClient, HttpHeaders } from "@angular/common/http";
 import { BehaviorSubject, Observable, of, shareReplay, tap, throwError } from "rxjs";
 import { catchError } from "rxjs/operators";
 import { User, UserData } from "../@Models/user.model";
 import { LoginRequest } from "../@Models/auth.model";
-import { Store } from "@ngrx/store";
-import { AuthState } from "./store/reducer";
-import { login, loginFailure } from "./store/actions";
-import { loginData$, selectLoading$, selectloggedIn$, selectMessage$ } from "./store/selectors";
 import { Router } from "@angular/router";
 import { DataService } from "../data.service";
 import { jwtDecode } from "jwt-decode"; // Use named import
-
+import { Injectable } from "@angular/core";
+import { HttpClient, HttpHeaders } from "@angular/common/http";
+import { Store } from "@ngrx/store";
+import { AuthState } from "./store/reducer";
+import { AuthActions } from "./store/actions";
+import { selectLoading, selectLoggedIn, selectMessage, selectLoginData } from "./store/selectors";
+import { authFeature } from "./store/selectors";
 @Injectable({
   providedIn: "root",
 })
@@ -28,7 +28,12 @@ export class AuthService {
   public _checkExistsSubscription!: number;
   private tokenKey = "123";
 
-  constructor(private http: HttpClient, private store: Store<AuthState>, private router: Router, private dataService: DataService) {}
+  constructor(
+    private http: HttpClient, 
+    private store: Store<AuthState>, 
+    private router: Router, 
+    private dataService: DataService
+  ) {}
   set user(u: User | null) {
     this._user = u;
     this.userData.next(u);
@@ -53,6 +58,37 @@ export class AuthService {
     return this.http.get<any>(environment.ApiUrl + "/getfreetrailtime", {
       headers: headers,
     });
+  }
+
+  login(data: LoginRequest) {
+    this.store.dispatch(AuthActions.login({ request: { 
+      email: 'user@example.com', 
+      password: 'password123', 
+      domain_type: 'your_domain'  // ✅ Add this field
+    } }));
+    
+  }
+
+  selectLoading$() {
+    return this.store.select(authFeature.selectLoading);
+  }
+
+  selectMessage$() {
+    return this.store.select(authFeature.selectMessage);
+  }
+
+  selectloggedIn$() {
+    return this.store.select(authFeature.selectLoggedIn);
+  }
+
+  selectLogInData$() {
+    return this.store.select(authFeature.selectLoginData);
+  }
+
+  logout() {
+    this.store.dispatch(AuthActions.loginFailure({ error: undefined }));
+    const headers = new HttpHeaders().set("Accept", "application/json");
+    return this.http.get<any>(environment.ApiUrl + "/logout", { headers });
   }
 
   getMe(): Observable<any> {
@@ -103,34 +139,6 @@ export class AuthService {
   getCountry() {
     const headers = new HttpHeaders().set("Accept", "application/json");
     return this.http.get<any>(environment.ApiUrl + "/country", {
-      headers: headers,
-    });
-  }
-
-  login(data: LoginRequest) {
-    this.store.dispatch(login(data)); // action dispatch
-  }
-
-  selectLoading$() {
-    return this.store.select(selectLoading$);
-  }
-
-  selectMessage$() {
-    return this.store.select(selectMessage$);
-  }
-
-  selectloggedIn$() {
-    return this.store.select(selectloggedIn$);
-  }
-
-  selectLogInData$() {
-    return this.store.select(loginData$);
-  }
-
-  logout() {
-    this.store.dispatch(loginFailure());
-    const headers = new HttpHeaders().set("Accept", "application/json");
-    return this.http.get<any>(environment.ApiUrl + "/logout", {
       headers: headers,
     });
   }
