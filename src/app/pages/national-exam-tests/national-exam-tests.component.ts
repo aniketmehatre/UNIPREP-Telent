@@ -4,12 +4,13 @@ import { ActivatedRoute, Router } from "@angular/router"
 import { Location } from "@angular/common"
 import { AuthService } from "src/app/Auth/auth.service";
 import { CommonModule } from "@angular/common";
+import { DialogModule } from "primeng/dialog";
 @Component({
     selector: "uni-national-exam-tests",
     templateUrl: "./national-exam-tests.component.html",
     styleUrls: ["./national-exam-tests.component.scss"],
     standalone: true,
-	imports: [CommonModule],
+	imports: [CommonModule, DialogModule],
 })
 export class NationalExamTestsComponent implements OnInit {
 	tests: any

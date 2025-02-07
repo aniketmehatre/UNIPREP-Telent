@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Location } from "@angular/common";
-import { FormBuilder, FormGroup } from "@angular/forms";
+import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule } from "@angular/forms";
 import { InvestorListService } from "./investor-list.service";
 import { AuthService } from 'src/app/Auth/auth.service';
 import { Router } from '@angular/router';
@@ -11,13 +11,13 @@ import { PageFacadeService } from '../page-facade.service';
 import { LocationService } from 'src/app/location.service';
 import { CommonModule } from '@angular/common';
 import { DialogModule } from 'primeng/dialog';
-
+import { MultiSelectModule } from 'primeng/multiselect';
 @Component({
     selector: 'uni-investor-list',
     templateUrl: './investor-list.component.html',
     styleUrls: ['./investor-list.component.scss'],
     standalone: true,
-    imports: [CommonModule, DialogModule],
+    imports: [CommonModule, DialogModule,MultiSelectModule, FormsModule, ReactiveFormsModule],
 })
 export class InvestorListComponent implements OnInit {
   investorData: any[] = []

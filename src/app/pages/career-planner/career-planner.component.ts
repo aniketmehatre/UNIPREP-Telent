@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { CareerPlannerService } from './career-planner.service';
 import { PageFacadeService } from '../page-facade.service';
 import { AuthService } from 'src/app/Auth/auth.service';
-import { Router } from '@angular/router';
+import { Router, RouterModule } from '@angular/router';
 import { LocationService } from 'src/app/location.service';
 import { CommonModule } from '@angular/common';
 import { DialogModule } from 'primeng/dialog';
@@ -17,7 +17,7 @@ interface Specialisation {
     templateUrl: './career-planner.component.html',
     styleUrls: ['./career-planner.component.scss'],
     standalone: true,
-    imports: [CommonModule, DialogModule]
+    imports: [CommonModule, DialogModule, RouterModule]
 })
 
 export class CareerPlannerComponent implements OnInit {

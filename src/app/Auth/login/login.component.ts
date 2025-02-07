@@ -1,12 +1,12 @@
-import { Component, ElementRef, Input, OnDestroy, OnInit, ViewChild } from "@angular/core"
-import { FormGroup, Validators, FormBuilder } from "@angular/forms"
-import { Router } from "@angular/router"
+import { Component, ElementRef, Input, OnDestroy, OnInit, ViewChild, CUSTOM_ELEMENTS_SCHEMA  } from "@angular/core"
+import { FormGroup, Validators, FormBuilder, FormsModule, ReactiveFormsModule } from "@angular/forms"
+import { Router, RouterModule } from "@angular/router"
 import { AuthService } from "../auth.service"
 import { MessageService } from "primeng/api"
 import { SubSink } from "subsink"
 import { DataService } from "src/app/data.service"
 import { DashboardService } from "../../pages/dashboard/dashboard.service"
-import { GoogleLoginProvider, SocialAuthService } from "@abacritt/angularx-social-login"
+import { GoogleLoginProvider, GoogleSigninButtonModule, SocialAuthService } from "@abacritt/angularx-social-login"
 import { environment } from "@env/environment"
 import { LocalStorageService } from "ngx-localstorage"
 import { Observable } from "rxjs/internal/Observable"
@@ -18,12 +18,15 @@ import { InputGroupAddonModule } from 'primeng/inputgroupaddon';
 import { InputTextModule } from "primeng/inputtext"
 import { CommonModule } from "@angular/common"
 import { InputIconModule } from "primeng/inputicon"
+import { SocialLoginModule, SocialAuthServiceConfig } from '@abacritt/angularx-social-login';
+
 @Component({
 	selector: "app-login",
 	templateUrl: "./login.component.html",
 	styleUrls: ["./login.component.scss"],
+  schemas: [CUSTOM_ELEMENTS_SCHEMA], 
 	standalone: true,
-	imports: [CommonModule, InputTextModule, InputIconModule, InputGroupModule,InputGroupAddonModule],
+	imports: [CommonModule, RouterModule,InputTextModule, InputIconModule, InputGroupModule,InputGroupAddonModule, SocialLoginModule, FormsModule, ReactiveFormsModule],
 })
 export class LoginComponent implements OnInit, OnDestroy {
 	@ViewChild("button2") button2!: ElementRef

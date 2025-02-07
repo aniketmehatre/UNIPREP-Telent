@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup } from "@angular/forms";
+import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule } from "@angular/forms";
 // import { Location } from "@angular/common";
 import { CompanyListService } from "./company-list.service";
 import { AuthService } from 'src/app/Auth/auth.service';
@@ -11,13 +11,13 @@ import { PageFacadeService } from '../page-facade.service';
 import { LocationService } from 'src/app/location.service';
 import { CommonModule } from '@angular/common';
 import { DialogModule } from 'primeng/dialog';
-
+import { MultiSelectModule } from 'primeng/multiselect';
 @Component({
     selector: 'uni-company-list',
     templateUrl: './company-list.component.html',
     styleUrls: ['./company-list.component.scss'],
     standalone: true,
-    imports: [CommonModule, DialogModule],
+    imports: [CommonModule, DialogModule, MultiSelectModule, FormsModule, ReactiveFormsModule],
 })
 export class CompanyListComponent implements OnInit {
   companyListData: any[] = []

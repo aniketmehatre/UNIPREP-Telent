@@ -3,13 +3,15 @@ import { AcademicService } from '../academic.service';
 import { AcademicToolCategory } from 'src/app/@Models/academic-tools.model';
 import { CategoryResponse } from 'src/app/@Models/career-tool-category.model';
 import { Router } from '@angular/router';
+import { CommonModule } from '@angular/common';
 
 
 @Component({
     selector: 'uni-academic-tools',
     templateUrl: './academic-tools.component.html',
     styleUrls: ['./academic-tools.component.scss'],
-    standalone: false
+    standalone: true,
+    imports: [ CommonModule]
 })
 export class AcademicToolsComponent implements OnInit {
   moduleId = '15';

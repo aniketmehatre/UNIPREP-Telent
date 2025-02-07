@@ -12,14 +12,15 @@ import {PageFacadeService} from '../../page-facade.service';
 import {Meta, Title} from "@angular/platform-browser";
 import { CommonModule } from '@angular/common';
 import { DialogModule } from 'primeng/dialog';
-
+import { CarouselModule } from 'primeng/carousel';
+import { TooltipModule } from 'primeng/tooltip';
 @Component({
     selector: 'uni-list-sub-modules',
     templateUrl: './list-sub-modules.component.html',
     styleUrls: ['./list-sub-modules.component.scss'],
     providers: [ConfirmationService],
     standalone: true,
-    imports: [CommonModule, DialogModule]
+    imports: [CommonModule, DialogModule, CarouselModule,TooltipModule]
 })
 export class ListSubModulesComponent implements OnInit {
     subModules$!: Observable<ModuleListSub[]>;

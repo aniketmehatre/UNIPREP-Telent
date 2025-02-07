@@ -1,13 +1,15 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
+import { ActivatedRoute, Router, RouterModule } from '@angular/router';
 import { NationalExamService } from '../national-exam-categories/national-exam.service';
 import { CommonModule } from '@angular/common';
+import { RadioButtonModule } from 'primeng/radiobutton';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 @Component({
     selector: 'uni-national-exam-review',
     templateUrl: './national-exam-review.component.html',
     styleUrls: ['./national-exam-review.component.scss'],
     standalone: true,
-    imports: [CommonModule]
+    imports: [CommonModule,RadioButtonModule, FormsModule, ReactiveFormsModule, RouterModule]
 })
 export class NationalExamReviewComponent implements OnInit {
 

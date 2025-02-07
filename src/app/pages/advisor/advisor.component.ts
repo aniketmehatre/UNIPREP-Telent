@@ -8,14 +8,14 @@ import { LocationService } from 'src/app/location.service';
 import {MessageService} from 'primeng/api';
 import { CommonModule } from '@angular/common';
 import { DialogModule } from 'primeng/dialog';
-
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 @Component({
     selector: 'uni-advisor',
     templateUrl: './advisor.component.html',
     styleUrls: ['./advisor.component.scss'],
     encapsulation: ViewEncapsulation.None,
     standalone: true,
-    imports: [CommonModule, DialogModule],
+    imports: [CommonModule, DialogModule, FormsModule, ReactiveFormsModule],
 })
 export class AdvisorComponent implements OnInit {
   @ViewChild('chatContainer') private chatContainer: ElementRef;
