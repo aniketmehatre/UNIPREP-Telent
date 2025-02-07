@@ -4,8 +4,7 @@ import {DynamicDialogModule} from 'primeng/dynamicdialog';
 import {EditorDialog} from "./editor-dialog/editor-dialog";
 import {NgForOf} from "@angular/common";
 @NgModule({
-    declarations: [EditorDirective, EditorDialog],
-    imports: [DynamicDialogModule, NgForOf],
-    exports: [EditorDirective, EditorDirective]
-})
+    imports: [EditorDirective], // ✅ Import standalone directive instead
+    exports: [EditorDirective] // ✅ Now you can export it
+  })
 export class SharedDirectives {}
