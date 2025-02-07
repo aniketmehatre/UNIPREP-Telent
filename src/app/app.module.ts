@@ -61,18 +61,21 @@ export function tokenGetter() {
 
 @NgModule({
   declarations: [
-    LandingComponent,
-    ModalComponent,
+    
     ScrollToBottomDirective,
-    PrivacyComponent,
-    EnterpriseSubscriptionComponent,
+    
+    
     
   ],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
   imports: [
     AppComponent,
+    LandingComponent,
+    ModalComponent,
     BrowserModule,
     BlogdetailComponent,
+    PrivacyComponent,
+    EnterpriseSubscriptionComponent,
     BloglistComponent,
     BrowserAnimationsModule,
     AppRoutingModule,
