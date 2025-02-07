@@ -9,7 +9,7 @@ export const EducationToolsData = [
     {
         title: "Politician Insights",
         description: "This tool lets you get a polician insights with the help of few easy steps",
-        image: "../../../uniprep-assets/images/founderstool/foundersacademy.svg",
+        image: "../../../uniprep-assets/images/founderstool/politician-insights.svg",
         url: "/pages/education-tools/politician-insights",
         launch_soon: true,
     },
@@ -23,7 +23,7 @@ export const EducationToolsData = [
     {
         title: "Country Insights",
         description: "This tool lets you get a global travel visa with the help of few easy steps",
-        image: "../../../uniprep-assets/images/founderstool/foundersacademy.svg",
+        image: "../../../uniprep-assets/images/founderstool/country-insights.svg",
         url: "/pages/education-tools/country-insights",
         launch_soon: true,
     },
@@ -44,21 +44,21 @@ export const EducationToolsData = [
     {
         title: "UniCompare",
         description: "This tool lets you get a global travel visa with the help of few easy steps",
-        image: "../../../uniprep-assets/images/icons/wealthy.svg",
+        image: "../../../uniprep-assets/images/founderstool/uni-compare.svg",
         url: "/pages/education-tools/uni-compare",
         launch_soon: false,
     },
     {
         title: "Global Edufit",
         description: "This tool lets you get a global travel visa with the help of few easy steps",
-        image: "../../../uniprep-assets/images/founderstool/foundersacademy.svg",
+        image: "../../../uniprep-assets/images/founderstool/global-edufit.svg",
         url: "/pages/education-tools/global-edufit",
         launch_soon: false,
     },
     {
-        title: "Education Loan Comparison",
+        title: "Loan Comparison Tool",
         description: "This tool lets you get a global travel visa with the help of few easy steps",
-        image: "../../../uniprep-assets/images/founderstool/foundersacademy.svg",
+        image: "../../../uniprep-assets/images/founderstool/loan-comparison-tool.svg",
         url: "/pages/education-tools/edu-loan-compare",
         launch_soon: false,
     },
