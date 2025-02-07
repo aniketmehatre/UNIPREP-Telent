@@ -177,17 +177,17 @@ export class HeaderComponent implements OnInit, OnDestroy {
               this.showSearch = true;
           }
       }
-      if(val instanceof NavigationEnd){
-        if(val.url.includes('learning-hub')||val.url.includes('k12')||val.url.includes('unilearn')||val.url.includes('startup')
-        ||val.url.includes('resource')||val.url.includes('events')||val.url.includes('success-stories')||val.url.includes('tutorials')){
-          this.isShowHeaderSearchForModule=true;
-          console.log("111");
+      // if(val instanceof NavigationEnd){
+      //   if(val.url.includes('learning-hub')||val.url.includes('k12')||val.url.includes('unilearn')||val.url.includes('startup')
+      //   ||val.url.includes('resource')||val.url.includes('events')||val.url.includes('success-stories')||val.url.includes('tutorials')){
+      //     this.isShowHeaderSearchForModule=true;
+      //     console.log("111");
           
-        }else{
-          this.isShowHeaderSearchForModule=false;
-          console.log("222");
-        }
-      }
+      //   }else{
+      //     this.isShowHeaderSearchForModule=false;
+      //     console.log("222");
+      //   }
+      // }
   })
   }
 
@@ -366,12 +366,12 @@ export class HeaderComponent implements OnInit, OnDestroy {
     this.locationService.getOrgName().subscribe(orgname => {
       this.orgnamewhitlabel = orgname;
     });
-    this.imagewhitlabeldomainname = window.location.hostname;
-    if (this.imagewhitlabeldomainname === "dev-student.uniprep.ai" || this.imagewhitlabeldomainname === "uniprep.ai" || this.imagewhitlabeldomainname === "localhost") {
-      this.whiteLabelIsNotShow = true;
-    } else {
-      this.whiteLabelIsNotShow = false;
-    }
+    // this.imagewhitlabeldomainname = window.location.hostname;
+    // if (this.imagewhitlabeldomainname === "dev-student.uniprep.ai" || this.imagewhitlabeldomainname === "uniprep.ai" || this.imagewhitlabeldomainname === "localhost") {
+    //   this.whiteLabelIsNotShow = true;
+    // } else {
+    //   this.whiteLabelIsNotShow = false;
+    // }
     fetch('https://ipapi.co/json/').then(response => response.json()).then(data => {
       this.preferredCountry = data.country_code.toLocaleLowerCase()
     });
