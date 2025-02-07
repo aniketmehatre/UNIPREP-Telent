@@ -19,14 +19,14 @@ import { InputTextModule } from "primeng/inputtext"
 import { CommonModule } from "@angular/common"
 import { InputIconModule } from "primeng/inputicon"
 import { SocialLoginModule, SocialAuthServiceConfig } from "@abacritt/angularx-social-login"
-
+import { PasswordModule } from "primeng/password"
 @Component({
 	selector: "app-login",
 	templateUrl: "./login.component.html",
 	styleUrls: ["./login.component.scss"],
 	schemas: [CUSTOM_ELEMENTS_SCHEMA],
 	standalone: true,
-	imports: [CommonModule, RouterModule, InputTextModule, InputIconModule, InputGroupModule, InputGroupAddonModule, SocialLoginModule, FormsModule, ReactiveFormsModule],
+	imports: [CommonModule,PasswordModule, RouterModule, InputTextModule, InputIconModule, InputGroupModule, InputGroupAddonModule, SocialLoginModule, FormsModule, ReactiveFormsModule],
 })
 export class LoginComponent implements OnInit, OnDestroy {
 	@ViewChild("button2") button2!: ElementRef

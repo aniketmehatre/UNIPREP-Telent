@@ -16,7 +16,7 @@ export const selectMessage$ = createSelector(
   (state: AuthState) => state?.message ?? ''
 );
 
-export const selectLoggedIn$ = createSelector(
+export const selectloggedIn$ = createSelector(
   featureSelect,
   (state: AuthState) => state?.loggedIn ?? false
 );

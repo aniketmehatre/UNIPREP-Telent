@@ -20,6 +20,7 @@ import { JwtModule } from "@auth0/angular-jwt"
 import { environment } from "@env/environment"
 import { authReducer } from "./Auth/store/reducer"
 import { DashboardComponent } from "./pages/dashboard/dashboard.component"
+import { provideStoreDevtools } from "@ngrx/store-devtools"
 
 // Assuming ngxLocalstorageConfiguration is properly defined elsewhere in your code
 const ngxLocalstorageConfiguration = NGX_LOCAL_STORAGE_CONFIG as unknown as { prefix: string, delimiter: string };
@@ -33,6 +34,16 @@ export function tokenGetter(): string {
 
 export const appConfig: ApplicationConfig = {
 	providers: [
+    provideStoreDevtools({
+      maxAge: 25,
+      logOnly: false,
+      autoPause: true,
+      features: {
+        pause: false,
+        lock: true,
+        persist: true
+      }
+    }),
 		provideRouter(
 			appRoutes,
 			withInMemoryScrolling({
