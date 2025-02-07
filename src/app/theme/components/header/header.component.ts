@@ -178,12 +178,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
             }
       }
       if(val instanceof NavigationEnd){
-        if(val.url.includes('learning-hub')||val.url.includes('k12')||val.url.includes('unilearn')||val.url.includes('startup')
-        ||val.url.includes('resource')||val.url.includes('events')||val.url.includes('success-stories')||val.url.includes('tutorials')){
-          this.isShowHeaderSearchForModule=true;
-        }else{
-          this.isShowHeaderSearchForModule=false;
-        }
+      this.conditionModuleOrQuestionComponent()
       }
   })
   }
@@ -209,7 +204,6 @@ export class HeaderComponent implements OnInit, OnDestroy {
       // });
     });
   }
-
   isMenuOpen = true;
   toggleMenu() {
     const sidenav: Element | null = document.getElementById("sidenav");
@@ -349,15 +343,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
   allSearchedResult:any[]=[];
   currentRoute: string = '';
   ngOnInit() {
-    // this headerserch  condition for modules and question (two component used) 
-  this.currentRoute = this.router.url;
-  if (this.currentRoute.includes('learning-hub')||this.currentRoute.includes('k12')||this.currentRoute.includes('startup')
-      ||this.currentRoute.includes('unilearn')||this.currentRoute.includes('resource')||this.currentRoute.includes('events')
-  ||this.currentRoute.includes('success-stories')||this.currentRoute.includes('tutorials')) {
-    this.isShowHeaderSearchForModule=true;
-  }else{
-    this.isShowHeaderSearchForModule=false;
-  }
+    this.conditionModuleOrQuestionComponent();
     this.locationService.getOrgName().subscribe(orgname => {
       this.orgnamewhitlabel = orgname;
     });
@@ -1202,5 +1188,17 @@ export class HeaderComponent implements OnInit, OnDestroy {
     this.isILearnLiveVisible = false;
     this.isILearnCompletedVisible = false;
     this.router.navigateByUrl('/pages/assessment/ilearn-challenge');
+  }
+  conditionModuleOrQuestionComponent(){
+    this.currentRoute = this.router.url;
+    // this headerserch  condition for modules and question (two component used) 
+    this.currentRoute = this.router.url;
+    if (this.currentRoute.includes('learning-hub')||this.currentRoute.includes('k12')||this.currentRoute.includes('startup')
+        ||this.currentRoute.includes('unilearn')||this.currentRoute.includes('resource')||this.currentRoute.includes('events')
+    ||this.currentRoute.includes('success-stories')||this.currentRoute.includes('tutorials')) {
+      this.isShowHeaderSearchForModule=true;
+    }else{
+      this.isShowHeaderSearchForModule=false;
+    }
   }
 }
