@@ -1,12 +1,14 @@
 import { Component, OnInit } from '@angular/core';
 import { TravelToolsService } from '../travel-tools.service';
 import { Router } from '@angular/router';
-
+import { CommonModule } from '@angular/common';
+import { CarouselModule } from 'primeng/carousel';
 @Component({
     selector: 'uni-global-travel-visa',
     templateUrl: './global-travel-visa.component.html',
     styleUrls: ['./global-travel-visa.component.scss'],
-    standalone: false
+    standalone: true,
+    imports: [CommonModule,CarouselModule]
 })
 export class GlobalTravelVisaComponent implements OnInit {
   recommendations: { id: number, question: string }[] = [

@@ -26,7 +26,7 @@ import {MarkdownComponent} from "ngx-markdown";
     TravelToolsComponent, 
     TravelCostEstimatorComponent, 
     TravelToolsListComponent, 
-    GlobalTravelVisaComponent, 
+    
     TravelPackingPlannerComponent, 
     TravelVisitPlannerComponent, 
     TripLengthFinderComponent, 
@@ -35,6 +35,7 @@ import {MarkdownComponent} from "ngx-markdown";
   imports: [
     CommonModule,
     TravelToolsRoutingModule,
+    GlobalTravelVisaComponent, 
     FormsModule,
     TooltipModule,
     CarouselModule,

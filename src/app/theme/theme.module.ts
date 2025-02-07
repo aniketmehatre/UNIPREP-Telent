@@ -21,9 +21,10 @@ import { NgxIntlTelInputModule } from 'ngx-intl-tel-input';
 import { TabViewModule } from 'primeng/tabview';
 
 @NgModule({
-  declarations: [HeaderComponent, SidenavComponent, SideMenuComponent],
+  declarations: [HeaderComponent, SidenavComponent, ],
   imports: [
     CommonModule,
+    SideMenuComponent,
     PipesModule,
     BreadcrumbModule,
     CardModule,

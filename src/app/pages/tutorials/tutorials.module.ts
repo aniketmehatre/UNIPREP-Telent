@@ -9,15 +9,12 @@ import { CardModule } from 'primeng/card';
 import { SafePipe } from '@pipes/safe.pipe';
 
 @NgModule({
-    declarations: [
-        TutorialsComponent,
-    ],
     imports: [
         CommonModule,
         TutorialsRoutingModule,
         AccordionModule,
         TooltipModule,
-        CardModule, 
+        CardModule,
     ]
 })
 export class TutorialsModule {

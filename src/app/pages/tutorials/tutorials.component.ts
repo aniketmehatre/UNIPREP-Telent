@@ -2,13 +2,15 @@ import { Component, ElementRef, HostListener, NgModule, OnInit, ViewChild } from
 import { TutorialsService } from './tutorials.service';
 import { DomSanitizer, SafeHtml, SafeResourceUrl, SafeScript, SafeStyle, SafeUrl } from '@angular/platform-browser';
 import { Pipe, PipeTransform } from '@angular/core';
+import { CommonModule } from '@angular/common';
 
 
 @Component({
     selector: 'uni-tutorials',
     templateUrl: './tutorials.component.html',
     styleUrls: ['./tutorials.component.scss'],
-    standalone: false
+    standalone: true,
+    imports: [CommonModule]
 })
 
 export class TutorialsComponent implements OnInit {

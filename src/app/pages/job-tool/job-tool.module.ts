@@ -41,11 +41,6 @@ import { CareerplannercountrywiseComponent } from './careerplannercountrywise/ca
   declarations: [
     JobToolComponent,
     CareerToolComponent,
-    
-    
-
-    
-    
     CareerCategoryListComponent,
       CarrerplannerlistComponent,
       CareerplannercountrywiseComponent,

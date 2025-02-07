@@ -3,7 +3,7 @@ import { SideMenu } from '../sidenav.component';
 import { animate, style, transition, trigger } from '@angular/animations';
 import { ActivatedRoute, NavigationEnd, Router } from '@angular/router';
 import { filter, map } from 'rxjs';
-
+import { CommonModule } from '@angular/common';
 @Component({
     selector: 'uni-side-menu',
     templateUrl: './side-menu.component.html',
@@ -20,7 +20,8 @@ import { filter, map } from 'rxjs';
             ])
         ]),
     ],
-    standalone: false
+    standalone: true,
+    imports: [CommonModule]
 })
 export class SideMenuComponent implements OnInit {
 
