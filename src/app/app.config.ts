@@ -5,6 +5,8 @@ import { RouterModule, Routes, provideRouter, withEnabledBlockingInitialNavigati
 import { providePrimeNG } from 'primeng/config';
 import Aura from '@primeng/themes/aura';
 import { appRoutes } from './app.routes';
+import { LandingComponent } from './pages/landing/landing.component';
+import { provideStore } from '@ngrx/store';
 
 export const appConfig: ApplicationConfig = {
     providers: [
@@ -16,6 +18,7 @@ export const appConfig: ApplicationConfig = {
             }),
             withEnabledBlockingInitialNavigation()
         ),
+        provideStore(),
         provideHttpClient(withFetch()),
         provideAnimationsAsync(),
         providePrimeNG({
@@ -25,6 +28,8 @@ export const appConfig: ApplicationConfig = {
                     darkModeSelector: '.app-dark'
                 }
             }
-        })
+        }),
+        // Declare LandingComponent to be loaded as the root component
+        LandingComponent
     ]
 };

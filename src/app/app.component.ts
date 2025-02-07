@@ -31,6 +31,7 @@ export class AppComponent {
 	@HostListener("window:beforeunload", ["$event"])
 	unloadHandler(event: BeforeUnloadEvent) {
 		return
+
 		if (window.location.href.includes("localhost")) {
 			return
 		}
@@ -110,6 +111,7 @@ export class AppComponent {
 		event.preventDefault()
 		event.returnValue = ""
 	}
+  
 	// @HostListener('window:beforeunload', ['$event'])
 	// beforeunloadHandler(event: any) {
 	//   event.preventDefault();
