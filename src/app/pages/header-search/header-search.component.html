@@ -6,7 +6,7 @@
 			<span (click)="clearText()" *ngIf="showCloseIcon" class="border-0 input-group-text passwordvisibility" role="button" style="background: transparent">
 				<i class="fa-solid fa-xmark text-danger" style="font-size: 1.25rem"></i>
 			</span>
-			<button (click)="searchKeyWord(searchInput)" class="btn-primary" label="SEARCH" pButton pRipple type="button"></button>
+			<button (click)="searchKeyWord(searchInput)" class="btn-primary" label="Questions" pButton pRipple type="button"></button>
 		</div>
         <div class="searchcard" *ngIf="isSearchResultFound">
             <div (scroll)="scrollHandler($event)" scrollTracker (scrollingFinished)="onScrollingFinished()" *ngFor="let c of searchResult"

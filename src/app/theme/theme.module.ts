@@ -19,9 +19,11 @@ import { CardModule } from "primeng/card";
 import { EditorModule } from "primeng/editor";
 import { NgxIntlTelInputModule } from "ngx-intl-tel-input";
 import { TabViewModule } from "primeng/tabview";
+import { HeaderSearchComponent } from "../pages/header-search/header-search.component";
+import { HeaderSearchModuleComponent } from "../pages/header-search-module/header-search-module.component";
 
 @NgModule({
-  declarations: [HeaderComponent, SidenavComponent, SideMenuComponent],
+  declarations: [HeaderComponent, SidenavComponent, SideMenuComponent,HeaderSearchComponent, HeaderSearchModuleComponent],
   imports: [
     CommonModule,
     PipesModule,
@@ -39,8 +41,8 @@ import { TabViewModule } from "primeng/tabview";
     ReactiveFormsModule,
     InputTextModule,
     NgxIntlTelInputModule,
-    TabViewModule
+    TabViewModule,
   ],
-  exports: [HeaderComponent, SidenavComponent, CountdownComponent],
+  exports: [HeaderComponent, SidenavComponent, CountdownComponent,HeaderSearchComponent,  HeaderSearchModuleComponent],
 })
 export class ThemeModule {}
