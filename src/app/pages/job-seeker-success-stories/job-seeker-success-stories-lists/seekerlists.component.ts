@@ -188,4 +188,9 @@ export class SeekerListsComponent implements OnInit {
     this.selectedQuestionData = selectedData;
     this.isQuestionAnswerVisible = true;
   }
+  getContentPreview(content: string): string {
+    const plainText = content.replace(/<[^>]*>/g, '');
+    return plainText.length > 75 ? plainText.slice(0, 75) + ' ...' : plainText;
+
+  }
 }

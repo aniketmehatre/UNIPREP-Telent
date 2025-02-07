@@ -50,7 +50,7 @@
 				<div class="flex-shrink-0 justify-content-center align-items-center d-flex"  *ngIf="currentModuleId != 8 && currentModuleId != 10 && currentModuleId != 11 && currentModuleId != 14 && currentModuleId != 7 && currentModuleId != 5">
 					<button pButton role="button" (click)="startQuiz()" class="m-0 btn btn-primary btn-rounded" [disabled]="quizpercentage >= 90">
 						<p class="mb-0">
-							<i class="fa-regular fa-lightbulb-on"></i> Start Quiz <span class="mb-0">{{ quizpercentage | number : "1.0-0" + "%" }}</span>
+							<i class="fa-regular fa-lightbulb-on"></i> Start Quiz <span class="mb-0">{{ quizpercentage | percent:'1.0-0' }}</span>
 						</p>
 	
 						<!-- <div class="row">
@@ -132,7 +132,7 @@
 						<div class="card-body d-flex flex-md-column flex-row justify-content-md-between align-items-center">
 							<div>
 								<div class="submoduleicon mt-2">
-									<img alt="{{ sub.category == null ? sub.submodule_name : sub.category }}" class="selectimage" src="{{ sub.icon }}" />
+									<img loading="lazy" alt="{{ sub.category == null ? sub.submodule_name : sub.category }}" class="selectimage" src="{{ sub.icon }}" />
 								</div>
 								<h5 class="text-center mt-3 fw-bold d-md-block d-none mb-0">{{ sub.category == null ? sub.submodule_name : sub.category }}</h5>
 							</div>
