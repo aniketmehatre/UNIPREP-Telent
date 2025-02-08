@@ -1,5 +1,5 @@
-import { HttpEvent, HttpHandlerFn, HttpInterceptorFn, HttpRequest } from "@angular/common/http";
-import { catchError, Observable, tap, throwError } from "rxjs";
+import { HttpEvent, HttpHandlerFn, HttpInterceptorFn, HttpRequest, HttpErrorResponse } from "@angular/common/http";
+import { catchError, Observable, tap, throwError, timeout, retry } from "rxjs";
 import { MessageService } from "primeng/api";
 import { NgxUiLoaderService } from "ngx-ui-loader";
 import { Router } from "@angular/router";
@@ -33,44 +33,55 @@ export const HttpErrorInterceptor: HttpInterceptorFn = (
   }
   
   return next(request).pipe(
+    timeout(30000), // 30 second timeout
+    retry(2), // Retry failed requests up to 2 times
     tap((res: any) => {
       if (res.status) {
         ngxService.stopBackground();
       }
     }),
-    catchError((err: any) => {
-      const msg =
-        err?.error?.message ||
-        err?.error?.error?.message ||
-        err?.message ||
-        "Something wrong please try again!";
+    catchError((error: HttpErrorResponse) => {
       ngxService.stopBackground();
       
-      if (err?.status === 401) {
-        window.sessionStorage.clear();
-        localStorage.clear();
-        if (!msg.includes("Unauthorized")) {
-          toastr.add({
-            severity: "error",
-            summary: "Error",
-            detail: msg,
-          });
-        }          
-        router.navigateByUrl("/login");
-      }
-      if (err?.status === 422) {
-        if (msg.includes("Unprocessable")) {
-          toastr.add({
-            severity: "error",
-            summary: "Error",
-            detail: 'No Data Found.',
-          });
+      let errorMessage = 'An error occurred';
+      
+      if (error.error instanceof ErrorEvent) {
+        // Client-side error
+        errorMessage = error.error.message;
+      } else {
+        // Server-side error
+        switch (error.status) {
+          case 401:
+            window.sessionStorage.clear();
+            localStorage.clear();
+            if (!error.error?.message?.includes("Unauthorized")) {
+              toastr.add({
+                severity: "error",
+                summary: "Error",
+                detail: error.error?.message || 'Unauthorized access'
+              });
+            }          
+            router.navigateByUrl("/login");
+            break;
+          case 408:
+            dataService.loggedInAnotherDevice("block");
+            errorMessage = 'Request timed out. Please try again.';
+            break;
+          case 422:
+            if (error.error?.message?.includes("Unprocessable")) {
+              toastr.add({
+                severity: "error",
+                summary: "Error",
+                detail: 'No Data Found.'
+              });
+            }
+            break;
+          default:
+            errorMessage = error.error?.message || error.message || errorMessage;
         }
       }
-      if (err?.status === 408) {
-        dataService.loggedInAnotherDevice("block");
-      }
-      return throwError(() => new Error(msg));
+      
+      return throwError(() => new Error(errorMessage));
     })
   );
 };

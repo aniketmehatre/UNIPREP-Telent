@@ -1,5 +1,5 @@
-import { provideHttpClient, withFetch, withInterceptors } from "@angular/common/http"
-import { ApplicationConfig } from "@angular/core"
+import { provideHttpClient, withFetch, withInterceptors, withInterceptorsFromDi } from "@angular/common/http"
+import { ApplicationConfig, importProvidersFrom } from "@angular/core"
 import { provideAnimationsAsync } from "@angular/platform-browser/animations/async"
 import { RouterModule, Routes, provideRouter, withEnabledBlockingInitialNavigation, withInMemoryScrolling } from "@angular/router"
 import { providePrimeNG } from "primeng/config"
@@ -16,7 +16,7 @@ import { NGX_LOCAL_STORAGE_CONFIG } from "ngx-localstorage"
 import { ModalService } from "./components/modal/modal.service"
 import { FacebookLoginProvider, GoogleLoginProvider, SocialAuthServiceConfig } from "angularx-social-login"
 import { pagesReducer } from "./pages/store/pages.reducer"
-import { JwtHelperService, JWT_OPTIONS } from "@auth0/angular-jwt"
+import { JwtModule } from "@auth0/angular-jwt"
 import { environment } from "@env/environment"
 import { authFeature } from "./Auth/store/reducer"
 import { DashboardComponent } from "./pages/dashboard/dashboard.component"
@@ -24,35 +24,29 @@ import { provideStoreDevtools } from "@ngrx/store-devtools"
 import { provideEffects } from '@ngrx/effects';
 import { AuthEffects } from './Auth/store/effects';
 import { MessageService } from 'primeng/api';
-import { HttpRequest, HttpHandlerFn } from "@angular/common/http"
 
 // Assuming ngxLocalstorageConfiguration is properly defined elsewhere in your code
 const ngxLocalstorageConfiguration = NGX_LOCAL_STORAGE_CONFIG as unknown as { prefix: string, delimiter: string };
 
 export function tokenGetter(): string {
+  // Try both possible token keys
   const tokenKey = `${ngxLocalstorageConfiguration.prefix}${ngxLocalstorageConfiguration.delimiter}${environment.tokenKey}`;
-  const token = localStorage.getItem(tokenKey);
-  return token ? token.replace(/"/g, '') : '';
-}
-
-export const jwtOptionsFactory = () => ({
-  tokenGetter,
-  allowedDomains: [environment.domain],
-  disallowedRoutes: []
-});
-
-// Add this JWT interceptor function
-export const jwtInterceptor = (req: HttpRequest<unknown>, next: HttpHandlerFn) => {
-  const token = tokenGetter();
-  if (token) {
-    req = req.clone({
-      setHeaders: {
-        Authorization: `Bearer ${token}`
-      }
-    });
+  const token = localStorage.getItem(tokenKey) || localStorage.getItem(environment.tokenKey);
+  
+  if (!token) {
+    console.debug('No token found in localStorage');
+    return '';
   }
-  return next(req);
-};
+  
+  try {
+    // Remove quotes and any whitespace
+    const cleanToken = token.replace(/['"]+/g, '').trim();
+    return cleanToken;
+  } catch (error) {
+    console.error('Error processing token:', error);
+    return '';
+  }
+}
 
 export const appConfig: ApplicationConfig = {
 	providers: [
@@ -79,12 +73,24 @@ export const appConfig: ApplicationConfig = {
 			}),
 			withEnabledBlockingInitialNavigation()
 		),
+		importProvidersFrom(
+			JwtModule.forRoot({
+				config: {
+					tokenGetter,
+					allowedDomains: ['api.uniprep.ai'],
+					disallowedRoutes: [],
+					headerName: 'Authorization',
+					authScheme: 'Bearer ',
+					throwNoTokenError: false,
+					skipWhenExpired: true
+				},
+			})
+		),
 		provideHttpClient(
 			withFetch(),
-			withInterceptors([jwtInterceptor, HttpErrorInterceptor])
+			withInterceptorsFromDi(),
+			withInterceptors([HttpErrorInterceptor])
 		),
-		{ provide: JWT_OPTIONS, useFactory: jwtOptionsFactory },
-		JwtHelperService,
 		MessageService,
 		provideAnimationsAsync(),
 		providePrimeNG({

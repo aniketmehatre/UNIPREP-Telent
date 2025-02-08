@@ -69,7 +69,10 @@ export class AuthService {
     return this.isAuthenticated(data).pipe(
       tap(response => {
         if (response.token) {
-          this.saveToken(response.token);
+          // Save token in both locations
+          const tokenKey = `${ngxLocalstorageConfiguration.prefix}${ngxLocalstorageConfiguration.delimiter}${environment.tokenKey}`;
+          localStorage.setItem(tokenKey, response.token);
+          localStorage.setItem(environment.tokenKey, response.token);
           this.store.dispatch(AuthActions.loginSuccess({ token: response.token }));
         }
       }),
@@ -281,8 +284,10 @@ export class AuthService {
 
   saveToken(token: string): void {
     if (!token) return;
+    // Save token in both locations
     const tokenKey = `${ngxLocalstorageConfiguration.prefix}${ngxLocalstorageConfiguration.delimiter}${environment.tokenKey}`;
     localStorage.setItem(tokenKey, token);
+    localStorage.setItem(environment.tokenKey, token);
   }
 
   getToken(): string | null {
