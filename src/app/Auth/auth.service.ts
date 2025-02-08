@@ -39,16 +39,30 @@ export class AuthService {
   ) {}
 
   getToken(): string | null {
-    // Try both possible token locations
-    const tokenKey = `${ngxLocalstorageConfiguration.prefix}${ngxLocalstorageConfiguration.delimiter}${environment.tokenKey}`;
-    const token = localStorage.getItem(tokenKey) || localStorage.getItem(environment.tokenKey);
-    
-    console.log('GetToken - Token key used:', tokenKey);
-    console.log('GetToken - Token exists:', !!token);
-    if (token) {
-      console.log('GetToken - Token value:', token.substring(0, 10) + '...');
+    try {
+      // Use a single consistent token key
+      const tokenKey = `${ngxLocalstorageConfiguration.prefix}${ngxLocalstorageConfiguration.delimiter}${environment.tokenKey}`;
+      const token = localStorage.getItem(tokenKey);
+      
+      if (!token) {
+        console.debug('GetToken - No token found');
+        return null;
+      }
+
+      // Clean the token - remove quotes and whitespace
+      const cleanToken = token.replace(/['"]+/g, '').trim();
+      
+      if (!this.isTokenValid(cleanToken)) {
+        console.debug('GetToken - Token invalid or expired');
+        this.clearToken();
+        return null;
+      }
+
+      return cleanToken;
+    } catch (error) {
+      console.error('GetToken - Error retrieving token:', error);
+      return null;
     }
-    return token;
   }
 
   private getAuthHeaders(): HttpHeaders {
@@ -191,9 +205,14 @@ export class AuthService {
         }
 
         const userDetails = response.userdetails[0];
-        this.user = userDetails;
-        this._userLoginCount = userDetails.login_status;
-        this._checkExistsSubscription = userDetails.subscription_exists;
+        if (userDetails) {
+          this.user = {
+            ...userDetails,
+            name: userDetails.name || ''  // Ensure name is never null
+          };
+          this._userLoginCount = userDetails.login_status || 0;
+          this._checkExistsSubscription = userDetails.subscription_exists || 0;
+        }
 
         // Store user data securely
         this.storeUserData(userDetails);
@@ -202,7 +221,7 @@ export class AuthService {
         console.error('GetMe - Error:', error);
         if (error.status === 401 || error.status === 0) {
           console.log('GetMe - Unauthorized or CORS error, checking token validity');
-          if (!this.isTokenValid()) {
+          if (!this.isTokenValid(token)) {
             console.log('GetMe - Token invalid, clearing token');
             this.clearToken();
           }
@@ -375,48 +394,27 @@ export class AuthService {
 
   saveToken(token: string): void {
     if (!token) {
-      console.warn('Attempted to save empty token');
+      console.warn('SaveToken - Attempted to save empty token');
       return;
     }
     
     try {
+      // Clean the token before saving
+      const cleanToken = token.replace(/['"]+/g, '').trim();
       const tokenKey = `${ngxLocalstorageConfiguration.prefix}${ngxLocalstorageConfiguration.delimiter}${environment.tokenKey}`;
-      console.log('SaveToken - Using token key:', tokenKey);
-      localStorage.setItem(tokenKey, token);
-      console.log('SaveToken - Token saved successfully');
       
-      // Verify token was saved
+      localStorage.setItem(tokenKey, cleanToken);
+      console.debug('SaveToken - Token saved successfully');
+      
+      // Verify token was saved correctly
       const savedToken = this.getToken();
-      if (savedToken !== token) {
-        console.error('SaveToken - Token verification failed after save');
-        console.log('SaveToken - Expected:', token.substring(0, 10) + '...');
-        console.log('SaveToken - Got:', savedToken?.substring(0, 10) + '...');
-      } else {
-        console.log('SaveToken - Token verification successful');
+      if (savedToken !== cleanToken) {
+        console.error('SaveToken - Token verification failed');
+        throw new Error('Token verification failed after save');
       }
     } catch (error) {
       console.error('SaveToken - Error saving token:', error);
-    }
-  }
-
-  isTokenValid(): boolean {
-    const token = this.getToken();
-    console.log('Checking token validity');
-
-    if (!token) {
-      console.log('No token found');
-      return false;
-    }
-
-    try {
-      const decoded: any = jwtDecode(token);
-      const currentTime = Math.floor(Date.now() / 1000);
-      const isValid = decoded.exp > currentTime;
-      console.log('Token validity:', isValid ? 'Valid' : 'Expired');
-      return isValid;
-    } catch (error) {
-      console.error('Token validation error:', error);
-      return false;
+      this.clearToken();
     }
   }
 
@@ -424,9 +422,31 @@ export class AuthService {
     try {
       const tokenKey = `${ngxLocalstorageConfiguration.prefix}${ngxLocalstorageConfiguration.delimiter}${environment.tokenKey}`;
       localStorage.removeItem(tokenKey);
-      console.log('Token cleared successfully');
+      console.debug('Token cleared successfully');
     } catch (error) {
       console.error('Error clearing token:', error);
+    }
+  }
+
+  public isTokenValid(token?: string): boolean {
+    try {
+      const tokenToCheck = token || this.getToken();
+      if (!tokenToCheck) return false;
+      
+      const decoded: any = jwtDecode(tokenToCheck);
+      const currentTime = Math.floor(Date.now() / 1000);
+      
+      if (!decoded.exp) {
+        console.warn('Token missing expiration');
+        return false;
+      }
+      
+      const isValid = decoded.exp > currentTime;
+      console.debug('Token validity check:', isValid ? 'Valid' : 'Expired');
+      return isValid;
+    } catch (error) {
+      console.error('Token validation error:', error);
+      return false;
     }
   }
 
@@ -495,15 +515,28 @@ export class AuthService {
 
   // Helper method to decrypt data
   private async decryptData(encryptedData: string): Promise<any> {
+    if (!encryptedData) {
+      console.warn('Empty encrypted data provided');
+      return null;
+    }
+
     try {
+      // First try to decode base64 to check for malformed data
+      let decodedArray;
+      try {
+        decodedArray = new Uint8Array(
+          atob(encryptedData).split('').map(char => char.charCodeAt(0))
+        );
+      } catch (decodeError) {
+        console.error('Error decoding base64 data:', decodeError);
+        return null;
+      }
+
       const key = await this.getKey(environment.secretKeySalt);
-      const encryptedArray = new Uint8Array(
-        atob(encryptedData).split('').map(char => char.charCodeAt(0))
-      );
 
       // Extract IV and encrypted data
-      const iv = encryptedArray.slice(0, 12);
-      const data = encryptedArray.slice(12);
+      const iv = decodedArray.slice(0, 12);
+      const data = decodedArray.slice(12);
 
       const decrypted = await crypto.subtle.decrypt(
         {
@@ -514,8 +547,22 @@ export class AuthService {
         data
       );
 
-      const decryptedStr = this.ab2str(decrypted);
-      return JSON.parse(decryptedStr);
+      // Check for valid UTF-8 data
+      let decryptedStr;
+      try {
+        decryptedStr = new TextDecoder('utf-8', { fatal: true }).decode(decrypted);
+      } catch (utf8Error) {
+        console.error('Invalid UTF-8 data:', utf8Error);
+        return null;
+      }
+
+      // Validate JSON structure
+      try {
+        return JSON.parse(decryptedStr);
+      } catch (jsonError) {
+        console.error('Invalid JSON data:', jsonError);
+        return null;
+      }
     } catch (error) {
       console.error('Error decrypting data:', error);
       return null;

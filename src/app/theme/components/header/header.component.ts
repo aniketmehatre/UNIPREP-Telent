@@ -5,12 +5,12 @@ import { SubSink } from "subsink";
 import { ActivatedRoute, Router } from "@angular/router";
 import { LocationService } from "../../../location.service";
 import { DataService } from "src/app/data.service";
-import { FormBuilder, FormGroup, Validators, FormsModule, ReactiveFormsModule } from "@angular/forms";
+import { FormBuilder, FormGroup, Validators, FormsModule, ReactiveFormsModule, AbstractControl } from "@angular/forms";
 import { matchValidator } from "../../../@Supports/matchvalidator";
 import { ThemeService } from "../../../theme.service";
 import { DashboardService } from "src/app/pages/dashboard/dashboard.service";
 import { count, Observable } from "rxjs";
-import { CountryISO, SearchCountryField } from "ngx-intl-tel-input";
+import { CountryISO, SearchCountryField, NgxIntlTelInputModule } from "ngx-intl-tel-input";
 import { SocialAuthService } from "@abacritt/angularx-social-login";
 import { environment } from "@env/environment";
 import CryptoJS from "crypto-js";
@@ -23,17 +23,42 @@ import { OverlayPanelModule } from "primeng/overlaypanel";
 import { DropdownModule } from "primeng/dropdown";
 import { InputTextModule } from "primeng/inputtext";
 import { AvatarModule } from "primeng/avatar";
+
 @Component({
   selector: "uni-header",
   templateUrl: "./header.component.html",
   styleUrls: ["./header.component.scss"],
   encapsulation: ViewEncapsulation.None,
   standalone: true,
-  imports: [CommonModule, DialogModule, TabPanel, TabViewModule, OverlayPanelModule, FormsModule, ReactiveFormsModule, DropdownModule, AvatarModule],
+  imports: [
+    CommonModule, 
+    DialogModule, 
+    TabPanel, 
+    TabViewModule, 
+    OverlayPanelModule, 
+    FormsModule, 
+    ReactiveFormsModule, 
+    DropdownModule, 
+    AvatarModule,
+    NgxIntlTelInputModule,
+    InputTextModule
+  ],
+  providers: [
+    MessageService,
+    AuthService,
+    LocationService,
+    ThemeService,
+    DashboardService,
+    AssessmentService
+  ]
 })
 export class HeaderComponent implements OnInit, OnDestroy {
   @ViewChild("op") op!: ElementRef<HTMLInputElement>;
-  public reportSubmitForm: any = FormGroup;
+  public reportSubmitForm!: FormGroup;
+  public mobileForm!: FormGroup;
+  public currentEducationForm!: FormGroup;
+  public phoneVerification!: FormGroup;
+  public setPasswordForm!: FormGroup;
   @Input() breadcrumb: MenuItem[] = [{ label: "Categories" }, { label: "Sports" }];
   @Input() expandicon = "";
 
@@ -89,7 +114,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
   reportType: number = 1;
   SearchCountryField = SearchCountryField;
   CountryISO = CountryISO;
-  preferredCountries: CountryISO[] = [CountryISO.India];
+  preferredCountries: CountryISO[] = [CountryISO.India, CountryISO.UnitedKingdom];
   timeLeftInfo: any;
   freeTrialErrorMsg: string = "";
   demoTrial: boolean = false;
@@ -102,8 +127,6 @@ export class HeaderComponent implements OnInit, OnDestroy {
   visibleExhastedUser!: boolean;
   programLevelList: any = [];
   currentEducation!: boolean;
-  currentEducationForm: any = FormGroup;
-  phoneVerification: any = FormGroup;
   whatsappVerification: boolean = false;
   ApiUrl: string = environment.domain;
   educationImage: string = "";
@@ -117,6 +140,21 @@ export class HeaderComponent implements OnInit, OnDestroy {
   isILearnLiveVisible: boolean = false;
   isILearnCompletedVisible: boolean = false;
   assParticipations: number = 0;
+  formvisbility = false;
+  preferredCountry: any;
+  imagewhitlabeldomainname: any;
+  orgnamewhitlabel: any;
+  isNotSuccess: boolean = true;
+  submitted: boolean = false;
+
+  // Add phone number configuration
+  phoneNumberConfig = {
+    preferredCountries: [CountryISO.India],
+    enablePlaceholder: true,
+    searchCountryFlag: true,
+    searchCountryField: [SearchCountryField.Iso2, SearchCountryField.Name],
+    selectedCountryISO: CountryISO.India
+  };
 
   constructor(
     private router: Router,
@@ -128,12 +166,41 @@ export class HeaderComponent implements OnInit, OnDestroy {
     route: ActivatedRoute,
     private authService: SocialAuthService,
     private dataService: DataService,
-    private dashboardService: DashboardService, // private authService: SocialAuthService
+    private dashboardService: DashboardService,
     private assessmentService: AssessmentService
   ) {
-    // this.subs.sink = this.dataService.countryId.subscribe((data) => {
-    //
-    // });
+    // Initialize forms in constructor
+    this.reportSubmitForm = this.formBuilder.group({
+      general: [1, [Validators.required]],
+      moduleId: ["", [Validators.required]],
+      submoduleId: ["", [Validators.required]],
+      questionId: ["", [Validators.required]],
+      reportOption: [""],
+      comment: ["", []]
+    });
+
+    this.mobileForm = this.formBuilder.group({
+      phone: [undefined, [Validators.required]],
+      home_country: [122, Validators.required],
+      study_level: ["", Validators.required],
+    });
+
+    this.currentEducationForm = this.formBuilder.group({
+      current_education: ["", Validators.required],
+    });
+
+    this.phoneVerification = this.formBuilder.group({
+      verification_phone: ["", Validators.required],
+      choice: [false, Validators.required],
+    });
+
+    this.setPasswordForm = this.formBuilder.group({
+      password: ['', [Validators.required, Validators.minLength(6)]],
+      confirmPassword: ['', Validators.required]
+    }, {
+      validator: this.passwordMatchValidator
+    });
+
     this.dataService.castValue.subscribe((data) => {
       if (data === true) {
         this.checkNewUSerLogin();
@@ -315,50 +382,114 @@ export class HeaderComponent implements OnInit, OnDestroy {
       }
     }
   }
-  formvisbility = false;
-  mobileForm: any = FormGroup;
-  preferredCountry: any;
-  imagewhitlabeldomainname: any;
-  orgnamewhitlabel: any;
   ngOnInit() {
-    this.locationService.getOrgName().subscribe((orgname) => {
-      this.orgnamewhitlabel = orgname;
-    });
-    this.imagewhitlabeldomainname = window.location.hostname;
-    if (this.imagewhitlabeldomainname === "dev-student.uniprep.ai" || this.imagewhitlabeldomainname === "uniprep.ai" || this.imagewhitlabeldomainname === "localhost") {
-      this.whiteLabelIsNotShow = true;
-    } else {
-      this.whiteLabelIsNotShow = false;
+    // Safely handle menu state
+    try {
+      const storedIsMenuOpen = localStorage.getItem("isMenuOpen");
+      this.isMenuOpen = storedIsMenuOpen ? JSON.parse(storedIsMenuOpen) : true;
+    } catch (error) {
+      console.error('Error parsing menu state:', error);
+      this.isMenuOpen = true;
     }
+    this.updateMenuClass();
+
+    // Subscribe to organization name
+    this.locationService.getOrgName().subscribe({
+      next: (orgname) => {
+        this.orgnamewhitlabel = orgname;
+      },
+      error: (error) => {
+        console.error('Error getting org name:', error);
+      }
+    });
+
+    // Handle domain-specific settings
+    this.imagewhitlabeldomainname = window.location.hostname;
+    this.whiteLabelIsNotShow = this.imagewhitlabeldomainname === "dev-student.uniprep.ai" || 
+                              this.imagewhitlabeldomainname === "uniprep.ai" || 
+                              this.imagewhitlabeldomainname === "localhost";
+
+    // Get preferred country
     fetch("https://ipapi.co/json/")
       .then((response) => response.json())
       .then((data) => {
-        this.preferredCountry = data.country_code.toLocaleLowerCase();
+        this.preferredCountry = data?.country_code?.toLocaleLowerCase();
+      })
+      .catch(error => {
+        console.error('Error fetching country data:', error);
+        this.preferredCountry = 'in'; // Default to India if fetch fails
       });
-    this.dataService.countryId.subscribe((data: any) => {
-      if (!data) {
-        this.selectedCountryId = Number(data);
-        this.getModuleList();
-        let cntId = localStorage.getItem("countryId");
-        this.dataService.changeCountryId(cntId!.toString());
-      }
+
+    // Handle country ID subscription
+    this.dataService.countryId.subscribe({
+      next: (data: any) => {
+        if (!data) {
+          this.selectedCountryId = Number(data) || null;
+          this.getModuleList();
+          const cntId = localStorage.getItem("countryId");
+          if (cntId) {
+            this.dataService.changeCountryId(cntId.toString());
+          }
+        }
+      },
+      error: (error) => console.error('Error in country ID subscription:', error)
     });
-    this.dataService.homeCountryFlagSource.subscribe((data) => {
-      this.headerHomeFlag = data;
+
+    // Subscribe to various data sources
+    this.dataService.homeCountryFlagSource.subscribe({
+      next: (data) => this.headerHomeFlag = data,
+      error: (error) => console.error('Error in home country flag subscription:', error)
     });
-    this.dataService.countryNameSource.subscribe((data: any) => {});
-    this.dataService.countryFlagSource.subscribe((data: any) => {
-      this.headerFlag = data;
+
+    this.dataService.countryNameSource.subscribe({
+      next: (data: any) => {},
+      error: (error) => console.error('Error in country name subscription:', error)
     });
-    this.dashboardService.data$.subscribe((data) => {
-      this.min$ = data?.minutes;
-      this.sec$ = data?.seconds;
-      this.hrs$ = data?.hours;
-      this.day$ = data?.days;
-      this.month$ = data?.months;
+
+    this.dataService.countryFlagSource.subscribe({
+      next: (data: any) => this.headerFlag = data,
+      error: (error) => console.error('Error in country flag subscription:', error)
     });
+
+    this.dashboardService.data$.subscribe({
+      next: (data) => {
+        if (data) {
+          this.min$ = data.minutes;
+          this.sec$ = data.seconds;
+          this.hrs$ = data.hours;
+          this.day$ = data.days;
+          this.month$ = data.months;
+        }
+      },
+      error: (error) => console.error('Error in dashboard data subscription:', error)
+    });
+
+    // Initialize forms
+    this.initializeForms();
+
+    // Handle phone verification
+    this.handlePhoneVerification();
+
+    // Check subscription status
+    if (this.service._checkExistsSubscription === 0) {
+      this.checkNewUser();
+    } else {
+      this.subScribedUserCount();
+      this.userLoginTimeLeftCount = true;
+      this.subs.sink = this.dataService.showTimeOutSource.subscribe({
+        next: (data) => this.visible = data,
+        error: (error) => console.error('Error in timeout subscription:', error)
+      });
+    }
+
+    // Initialize report form and other settings
+    this.initializeReportForm();
+    this.setupEventSubscriptions();
+  }
+
+  private initializeForms() {
     this.mobileForm = this.formBuilder.group({
-      phone: ["", Validators.required],
+      phone: [undefined, [Validators.required]],
       home_country: [122, Validators.required],
       study_level: ["", Validators.required],
     });
@@ -366,57 +497,117 @@ export class HeaderComponent implements OnInit, OnDestroy {
     this.currentEducationForm = this.formBuilder.group({
       current_education: ["", Validators.required],
     });
-    let phone;
-    const encPhone = localStorage.getItem("phone");
-    if (encPhone) {
-      const bytes = CryptoJS.AES.decrypt(encPhone, environment.secretKeySalt);
-      phone = JSON.parse(bytes.toString(CryptoJS.enc.Utf8));
-      if (phone == "" || phone == null || phone == "null") {
-        this.formvisbility = true;
-      }
-    }
 
-    this.phoneVerification = this.formBuilder.group({
-      verification_phone: [phone, Validators.required],
-      choice: [false, Validators.required],
-    });
-
-    if (this.service._checkExistsSubscription === 0) {
-      this.checkNewUser();
-    } else {
-      this.subScribedUserCount();
-      this.userLoginTimeLeftCount = true;
-      this.subs.sink = this.dataService.showTimeOutSource.subscribe((data) => {
-        this.visible = data;
-      });
-      // this.locationService.getCountry().subscribe((countryList) => {
-      //   this.countryLists = countryList;
-      //   this.countryLists.forEach((element: any) => {
-      //     if (element.id == this.selectedCountryId) {
-      //       this.selectedCountryId = element.id;
-      //       localStorage.setItem("countryId", element.id);
-      //       this.dataService.changeCountryId(element.id);
-      //       this.dataService.changeCountryFlag(element.flag)
-      //       this.dataService.changeCountryName(element.country);
-      //     }
-      //   });
-      // });
-    }
-    this.genMod = [
-      {
-        name: "General",
-        id: 1,
-      },
-    ];
     this.setPasswordForm = this.formBuilder.group({
-      password: ["", [Validators.required, Validators.minLength(8), matchValidator("confirmPassword", true)]],
-      confirmPassword: ["", [Validators.required, matchValidator("password")]],
+      password: ['', [Validators.required, Validators.minLength(6)]],
+      confirmPassword: ['', Validators.required]
+    }, {
+      validator: this.passwordMatchValidator
     });
-    const storedIsMenuOpen = localStorage.getItem("isMenuOpen");
-    if (storedIsMenuOpen) {
-      this.isMenuOpen = JSON.parse(storedIsMenuOpen);
+  }
+
+  private passwordMatchValidator(g: AbstractControl) {
+    return g.get('password')?.value === g.get('confirmPassword')?.value
+      ? null : {'mismatch': true};
+  }
+
+  private async handlePhoneVerification() {
+    try {
+      const encryptedPhone = localStorage.getItem("phone");
+      if (!encryptedPhone) {
+        console.log('No encrypted phone data found');
+        return;
+      }
+
+      // First try to decode base64 to check for malformed data
+      let decodedArray;
+      try {
+        decodedArray = new Uint8Array(
+          atob(encryptedPhone).split('').map(char => char.charCodeAt(0))
+        );
+      } catch (decodeError) {
+        console.error('Error decoding base64 data:', decodeError);
+        return;
+      }
+
+      const key = await this.getKey(environment.secretKeySalt);
+
+      // Extract IV and encrypted data
+      const iv = decodedArray.slice(0, 12);
+      const data = decodedArray.slice(12);
+
+      const decrypted = await crypto.subtle.decrypt(
+        {
+          name: 'AES-GCM',
+          iv: iv
+        },
+        key,
+        data
+      );
+
+      // Check for valid UTF-8 data
+      let decryptedStr;
+      try {
+        decryptedStr = new TextDecoder('utf-8', { fatal: true }).decode(decrypted);
+      } catch (utf8Error) {
+        console.error('Invalid UTF-8 data:', utf8Error);
+        return;
+      }
+
+      // Validate JSON structure
+      let phone;
+      try {
+        phone = JSON.parse(decryptedStr);
+        if (!phone || typeof phone !== 'string') {
+          console.error('Invalid phone data format');
+          return;
+        }
+      } catch (jsonError) {
+        console.error('Invalid JSON data:', jsonError);
+        return;
+      }
+
+      // Set form visibility based on phone value
+      this.formvisbility = !phone;
+      
+      if (phone) {
+        this.phoneVerification.patchValue({
+          verification_phone: phone
+        });
+      }
+    } catch (error) {
+      console.error('Error in handlePhoneVerification:', error);
+      this.formvisbility = true;
     }
-    this.updateMenuClass();
+  }
+
+  private async getKey(salt: string): Promise<CryptoKey> {
+    const encoder = new TextEncoder();
+    const keyMaterial = await crypto.subtle.importKey(
+      'raw',
+      encoder.encode(salt),
+      { name: 'PBKDF2' },
+      false,
+      ['deriveBits', 'deriveKey']
+    );
+
+    return crypto.subtle.deriveKey(
+      {
+        name: 'PBKDF2',
+        salt: encoder.encode('salt'),
+        iterations: 100000,
+        hash: 'SHA-256'
+      },
+      keyMaterial,
+      { name: 'AES-GCM', length: 256 },
+      false,
+      ['encrypt', 'decrypt']
+    );
+  }
+
+  private initializeReportForm() {
+    this.genMod = [{ name: "General", id: 1 }];
+    
     this.reportSubmitForm = this.formBuilder.group({
       general: [1, [Validators.required]],
       moduleId: ["", [Validators.required]],
@@ -425,116 +616,90 @@ export class HeaderComponent implements OnInit, OnDestroy {
       reportOption: [""],
       comment: ["", []],
     });
-    // this.getReportOption();
-    this.dataService.chatTriggerSource.subscribe((message) => {
-      if (message === "open chat window") {
-        this.openModal();
-      }
-    });
-    this.locationService.getCountry().subscribe((countryList) => {
-      this.countryLists = countryList;
-      this.countryLists.forEach((element: any) => {
-        if (element.id == localStorage.getItem("countryId")) {
-          this.headerFlag = element.flag;
+  }
+
+  private setupEventSubscriptions() {
+    this.dataService.chatTriggerSource.subscribe({
+      next: (message) => {
+        if (message === "open chat window") {
+          this.openModal();
         }
-      });
+      },
+      error: (error) => console.error('Error in chat trigger subscription:', error)
     });
-    // this.dashboardService.countryList().subscribe(countryList => {
-    //   this.countryLists = countryList;
-    //   this.countryLists.forEach((element: any) => {
-    //     if (element.id == this.selectedCountryId) {
-    //       // this.headerFlag = element.flag;
-    //       localStorage.setItem('countryId', element.id);
-    //       this.dataService.changeCountryId(element.id)
-    //       this.dataService.changeCountryName(element.country);
-    //       //this.dataService.changeCountryFlag(element.flag)
-    //     }
-    //   });
-    // });
-    // this.dataService.showTimeOutSourceData.subscribe((res) => {
-    //   this.checkNewUser();
-    //  this.subScribedUserCount();
-    // });
-    this.dataService.countryFlagSource.subscribe((data) => {
-      if (data != "") {
-        this.headerFlag = data;
-      }
+
+    this.locationService.getCountry().subscribe({
+      next: (countryList) => {
+        this.countryLists = countryList;
+        const countryId = localStorage.getItem("countryId");
+        if (countryId) {
+          const country = countryList.find((element: any) => element.id.toString() === countryId);
+          if (country) {
+            this.headerFlag = country.flag;
+          }
+        }
+      },
+      error: (error) => console.error('Error getting country list:', error)
     });
-    this.dataService.openReportWindowSource.subscribe((data) => {
-      // if(data.from == 'module'){
-      //   this.isQuestionVisible = false
-      // }
-      if (data.isVisible) {
-        this.moduleQuestionReport = data;
-        this.moduleList = [];
-        this.subModuleList = [];
-        this.questionList = [];
-        this.getModuleList();
-        this.onChangeModuleList(data.moduleId);
-        this.onChangeSubModuleList(data.subModuleId);
-        this.selectedGenMod = 2;
-        this.openReportModalFromMoudle(this.op, event);
-        this.reportType = 3;
-        //pass type_of_report  parameter for learning hub
-        if (data.reporttype == 8) {
-          this.reportlearnlanguagetype = 8;
+
+    this.dataService.countryFlagSource.subscribe({
+      next: (data) => {
+        if (data) {
+          this.headerFlag = data;
+        }
+      },
+      error: (error) => console.error('Error in country flag subscription:', error)
+    });
+
+    this.setupReportWindowSubscription();
+  }
+
+  private setupReportWindowSubscription() {
+    this.dataService.openReportWindowSource.subscribe({
+      next: (data) => {
+        if (data?.isVisible) {
+          this.handleReportWindowData(data);
         } else {
-          this.reportlearnlanguagetype = 0;
+          this.isQuestionVisible = false;
         }
-        if (data.report_mode && data.report_mode == "other_module") {
-          this.subs.sink = this.locationService.getModuleReportOptionLists(data).subscribe((response) => {
-            this.reportOptionList = [{ id: null, reportoption_name: "Select" }, ...response.reportOptions];
-            this.reportType = data.reporttype;
-          });
-        } else {
-          this.getReportOption();
-        }
-        this.isVisibleModulesMenu = true;
-        this.moduleNgModel = data.moduleId;
-        this.subModuleNgModel = data.subModuleId;
-        this.questionIdNgModel = data.questionId;
-      } else {
-        this.isQuestionVisible = false;
-      }
+      },
+      error: (error) => console.error('Error in report window subscription:', error)
     });
+  }
 
-    this.subs.sink = this.service.getMe().subscribe((data) => {
-      if (data) {
-        //localStorage.setItem('countryId', data.userdetails[0].interested_country_id);
-        this.userName = data.userdetails[0].name.toString();
-        this.firstChar = this.userName.charAt(0);
-        this.homeCountryId = Number(data.userdetails[0].home_country_id);
-        this.selectedHomeCountry = Number(data.userdetails[0].home_country_id);
-        this.getHomeCountryList();
-        const loginStatus = data.userdetails[0].login_status;
-        if (typeof loginStatus === "string" && loginStatus.includes("Demo") == true) {
-          this.demoTrial = true;
-          this.demoDays = data.userdetails[0].login_status.replace("Demo-", "");
-        }
-        /*if (data.userdetails[0].login_status == "Demo") {
-          this.demoTrial = true;
-        } */
-        let programLevelId = data.userdetails[0].programlevel_id;
-        if (programLevelId == null || programLevelId == "null" || programLevelId == "") {
-          this.currentEducation = true;
-          this.educationImage = `https://${this.ApiUrl}/uniprepapi/storage/app/public/uploads/education.svg`;
-        }
-      }
+  private handleReportWindowData(data: any) {
+    this.moduleQuestionReport = data;
+    this.moduleList = [];
+    this.subModuleList = [];
+    this.questionList = [];
+    this.getModuleList();
+    this.onChangeModuleList(data.moduleId);
+    this.onChangeSubModuleList(data.subModuleId);
+    this.selectedGenMod = 2;
+    this.openReportModalFromMoudle(this.op, event);
+    this.reportType = 3;
+    this.reportlearnlanguagetype = data.reporttype === 8 ? 8 : 0;
+
+    if (data.report_mode && data.report_mode === "other_module") {
+      this.handleOtherModuleReport(data);
+    } else {
+      this.getReportOption();
+    }
+
+    this.isVisibleModulesMenu = true;
+    this.moduleNgModel = data.moduleId;
+    this.subModuleNgModel = data.subModuleId;
+    this.questionIdNgModel = data.questionId;
+  }
+
+  private handleOtherModuleReport(data: any) {
+    this.subs.sink = this.locationService.getModuleReportOptionLists(data).subscribe({
+      next: (response) => {
+        this.reportOptionList = [{ id: null, reportoption_name: "Select" }, ...response.reportOptions];
+        this.reportType = data.reporttype;
+      },
+      error: (error) => console.error('Error getting module report options:', error)
     });
-
-    this.getProgramlevelList();
-
-    // this.darkModeSwitch = document.getElementById("darkmodeswitch") as HTMLInputElement;
-    // this.darkModeSwitch.checked = this.themeService.isDarkMode();
-    //
-    // this.darkModeSwitch.addEventListener("change", () => {
-    //   this.themeService.toggleTheme();
-    // });
-    // this.getCountryList();
-    // this.getHomeCountryList();
-    // if(this.service.user?.login_status == 1 && this.service.user.is_phn_or_whs_verified == 0) {
-    //   this.whatsappVerification = true;
-    // }
   }
 
   getProgramlevelList() {
@@ -872,12 +1037,8 @@ export class HeaderComponent implements OnInit, OnDestroy {
     this.getReportOption();
   }
 
-  public setPasswordForm: any = FormGroup;
-  isNotSuccess: boolean = true;
-  submitted: boolean = false;
-
   changePassword() {
-    this.isChangePasswordWindowVisible = true;
+    this.submitted = true;
   }
 
   get f() {

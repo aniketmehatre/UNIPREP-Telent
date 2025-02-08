@@ -13,14 +13,21 @@ import { DomSanitizer, Meta, Title } from "@angular/platform-browser";
 import { LocationService } from "../location.service";
 import { HeaderComponent } from "@theme/components/header/header.component";
 import { SidenavComponent } from "@theme/components/sidenav/sidenav.component";
+import { RouterModule } from "@angular/router";
+import { DialogModule } from 'primeng/dialog';
 
 @Component({
   selector: "uni-pages",
   templateUrl: "./pages.component.html",
   styleUrls: ["./pages.component.scss"],
   standalone: true,
-  imports: [CommonModule, HeaderComponent, SidenavComponent],        
-
+  imports: [
+    CommonModule, 
+    RouterModule,
+    DialogModule,
+    HeaderComponent, 
+    SidenavComponent
+  ],
 })
 export class PagesComponent implements OnInit, OnDestroy {
   @ViewChild("videoFrame") videoFrame: ElementRef | undefined;
@@ -243,28 +250,48 @@ export class PagesComponent implements OnInit, OnDestroy {
 
   // vedio pop-up code
   openVideoPopup(link: string): void {
-    const sanitizedLink = this.sanitizer.bypassSecurityTrustResourceUrl(link);
-    // Check if it's a YouTube video link
-    if (this.isYoutubeVideoLink(link)) {
-      // If it's a YouTube video link, extract the video ID and construct the embeddable URL
-      const videoId = this.extractYoutubeVideoId(link);
-      const embedUrl = `https://www.youtube.com/embed/${videoId}`;
-      this.howItWorksVideoLink = this.sanitizer.bypassSecurityTrustResourceUrl(embedUrl);
-    } else {
-      // If it's not a YouTube video link, use the URL directly
-      this.howItWorksVideoLink = sanitizedLink;
+    try {
+      // Check if it's a YouTube video link
+      if (this.isYoutubeVideoLink(link)) {
+        // Extract video ID and construct embeddable URL
+        const videoId = this.extractYoutubeVideoId(link);
+        if (!videoId) {
+          console.error('Invalid YouTube URL');
+          return;
+        }
+        const embedUrl = `https://www.youtube.com/embed/${videoId}`;
+        this.howItWorksVideoLink = this.sanitizer.bypassSecurityTrustResourceUrl(embedUrl);
+      } else {
+        // For non-YouTube URLs, validate and sanitize
+        const url = new URL(link);
+        if (!url.protocol.startsWith('http')) {
+          console.error('Invalid URL protocol');
+          return;
+        }
+        this.howItWorksVideoLink = this.sanitizer.bypassSecurityTrustResourceUrl(url.toString());
+      }
+      this.howItWorksVideoModal = true;
+    } catch (error) {
+      console.error('Error processing video URL:', error);
     }
-    this.howItWorksVideoModal = true;
   }
 
   private isYoutubeVideoLink(link: string): boolean {
-    // Check if the link is a YouTube video link based on a simple pattern
-    return link.includes("youtube.com") || link.includes("youtu.be");
+    try {
+      const url = new URL(link);
+      return url.hostname.includes('youtube.com') || url.hostname.includes('youtu.be');
+    } catch {
+      return false;
+    }
   }
 
-  private extractYoutubeVideoId(url: string): string {
-    const videoIdRegex = /(?:youtube\.com\/(?:[^\/\n\s]+\/\S+\/|(?:v|e(?:mbed)?)\/|\S*?[?&]v=)|youtu\.be\/)([^"'&?\n\s]+)/;
-    const match = url.match(videoIdRegex);
-    return match ? match[1] : "";
+  private extractYoutubeVideoId(url: string): string | null {
+    try {
+      const videoIdRegex = /(?:youtube\.com\/(?:[^\/\n\s]+\/\S+\/|(?:v|e(?:mbed)?)\/|\S*?[?&]v=)|youtu\.be\/)([^"'&?\n\s]+)/;
+      const match = url.match(videoIdRegex);
+      return match ? match[1] : null;
+    } catch {
+      return null;
+    }
   }
 }

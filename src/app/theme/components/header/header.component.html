@@ -383,15 +383,15 @@
           <div class="form-floating mb-3">
             <div class="p-inputgroup">
               <div class="p-inputgroup-addon"><i class="pi pi-lock"></i></div>
-              <input [type]="password" id="floatingInput" formControlName="password" pInputText [ngClass]="{ 'is-invalid': submitted && f.password.errors }" />
+              <input [type]="password" id="floatingInput" formControlName="password" pInputText [ngClass]="{ 'is-invalid': submitted && f['password'].errors }" />
               <span class="input-group-text passwordvisibility" (click)="showPassword()">
                 <img src="../../../uniprep-assets/images/viewpassword.svg" height="20" width="20px" *ngIf="show" />
                 <img src="../../../uniprep-assets/images/hidepassword.svg" height="20" width="20px" *ngIf="!show" />
               </span>
             </div>
-            <div *ngIf="submitted && f.password.errors" class="invalid-feedback">
-              <div *ngIf="f.password.errors.required">Password is required</div>
-              <div *ngIf="f.password.errors.minlength">Password must be at least 8 characters</div>
+            <div *ngIf="submitted && f['password'].errors" class="invalid-feedback">
+              <div *ngIf="f['password'].errors?.['required']">Password is required</div>
+              <div *ngIf="f['password'].errors?.['minlength']">Password must be at least 6 characters</div>
             </div>
           </div>
           <label for="confirmPassword">Confirm Password</label>
@@ -402,17 +402,15 @@
               pInputText
               id="confirmPassword"
               formControlName="confirmPassword"
-              [ngClass]="{
-                'is-invalid': submitted && f.confirmPassword.errors
-              }" />
+              [ngClass]="{ 'is-invalid': submitted && f['confirmPassword'].errors }" />
             <span class="input-group-text passwordvisibility" (click)="showPassword1()">
               <img src="../../../uniprep-assets/images/viewpassword.svg" height="20" width="20px" *ngIf="show1" />
               <img src="../../../uniprep-assets/images/hidepassword.svg" height="20" width="20px" *ngIf="!show1" />
             </span>
           </div>
-          <div *ngIf="submitted && f.confirmPassword.errors" class="invalid-feedback">
-            <div *ngIf="f.confirmPassword.hasError('matching')">Password and confirm password not match</div>
-            <div *ngIf="f.confirmPassword.errors.required">Confirm Password is required</div>
+          <div *ngIf="submitted && f['confirmPassword'].errors" class="invalid-feedback">
+            <div *ngIf="f['confirmPassword'].errors?.['required']">Confirm Password is required</div>
+            <div *ngIf="f['confirmPassword'].errors?.['mismatch']">Passwords must match</div>
           </div>
           <br />
           <div class="d-grid">
@@ -463,8 +461,8 @@
             <img src="../../../uniprep-assets/images/popup-clock.png" alt="clock" width="70" />
         </div>
     </div>
-    <div class="px-5 pb-5 pt-3"> -->
-<!-- <h4>Get More With our<span class="text-xl font-bold p-3 fw-bold" style="color: #3F4C83;"> Subscription.</span></h4> -->
+    <div class="px-5 pb-5 pt-3">
+        <h4>Get More With our<span class="text-xl font-bold p-3 fw-bold" style="color: #3F4C83;"> Subscription.</span></h4> -->
 <!-- <p class="list-data"><i class="pi pi-check mr-2"></i>Enjoy free access to the BETA version.</p>
         <p class="list-data"><i class="pi pi-check mr-2"></i>Our mobile application is set to launch by the 1st of February 2024</p>
         <p class="list-data"><i class="pi pi-check mr-2"></i><b>We welcome your input and recommendations to improvise the platform through our report option</b></p>
@@ -672,7 +670,21 @@
           <form [formGroup]="mobileForm">
             <div class="w-100 phonenumberblock" *ngIf="formvisbility">
               <p class="m-1">Enter your number to continue the experience</p>
-              <ngx-intl-tel-input class="intel-input w-100" [cssClass]="'custom'" [preferredCountries]="['in', 'gb']" [enableAutoCountrySelect]="true" [enablePlaceholder]="true" [searchCountryFlag]="true" [maxLength]="15" [searchCountryField]="[SearchCountryField.Iso2, SearchCountryField.Name]" [phoneValidation]="true" [selectedCountryISO]="preferredCountry" customPlaceholder="Enter Contact Number" formControlName="phone"> </ngx-intl-tel-input>
+              <ngx-intl-tel-input 
+                class="intel-input w-100" 
+                [cssClass]="'custom'"
+                [preferredCountries]="preferredCountries"
+                [enableAutoCountrySelect]="true"
+                [enablePlaceholder]="true"
+                [searchCountryFlag]="true"
+                [maxLength]="15"
+                [searchCountryField]="[SearchCountryField.Iso2, SearchCountryField.Name]"
+                [phoneValidation]="true"
+                [selectedCountryISO]="preferredCountry"
+                [config]="phoneNumberConfig"
+                customPlaceholder="Enter Contact Number"
+                formControlName="phone">
+              </ngx-intl-tel-input>
             </div>
             <div class="w-100 phonenumberblock mt-2" *ngIf="formvisbility">
               <p class="m-1">Select Your Home Country</p>

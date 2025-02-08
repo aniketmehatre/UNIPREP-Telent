@@ -1,44 +1,14 @@
-import {NgModule} from '@angular/core';
-
-import {DashboardRoutingModule} from './dashboard-routing.module';
-import {DashboardComponent} from "./dashboard.component";
-import {TableModule} from "primeng/table";
-import {FormsModule} from "@angular/forms";
-import {SharedDirectives} from "../../@shared/directives/common-d";
-import {EditorModule} from 'primeng/editor';
-import {InputTextModule} from "primeng/inputtext";
-import {ButtonModule} from "primeng/button";
-import {RippleModule} from "primeng/ripple";
-import {CardModule} from 'primeng/card';
-import {CarouselModule} from 'primeng/carousel';
-import {CommonModule} from '@angular/common'
-import { TooltipModule } from 'primeng/tooltip';
-import { DialogModule } from 'primeng/dialog';
-import { DropdownModule } from 'primeng/dropdown';
-import { OverlayPanelModule } from 'primeng/overlaypanel';
-import { SkeletonModule } from 'primeng/skeleton';
+import { NgModule } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { DashboardRoutingModule } from './dashboard-routing.module';
+import { DashboardComponent } from "./dashboard.component";
 
 @NgModule({
+    declarations: [],
     imports: [
         CommonModule,
         DashboardRoutingModule,
-        TableModule,
-        FormsModule,
-        SharedDirectives,
-        EditorModule,
-        InputTextModule,
-        ButtonModule,
-        RippleModule,
-        CardModule,
-        CarouselModule,
-        TooltipModule,
-        DialogModule,
-        DropdownModule,
-        OverlayPanelModule,
-        SkeletonModule,
         DashboardComponent
-    ],
-    exports: [DashboardComponent]
+    ]
 })
-export class DashboardModule {
-}
+export class DashboardModule { }

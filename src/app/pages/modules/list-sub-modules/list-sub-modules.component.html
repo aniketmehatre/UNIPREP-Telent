@@ -50,7 +50,7 @@
 				<div class="flex-shrink-0 justify-content-center align-items-center d-flex"  *ngIf="currentModuleId != 8 && currentModuleId != 10 && currentModuleId != 11 && currentModuleId != 14 && currentModuleId != 7 && currentModuleId != 5">
 					<button pButton role="button" (click)="startQuiz()" class="m-0 btn btn-primary btn-rounded" [disabled]="quizpercentage >= 90">
 						<p class="mb-0">
-							<i class="fa-regular fa-lightbulb-on"></i> Start Quiz <span class="mb-0">{{ quizpercentage | number : "1.0-0" + "%" }}</span>
+							<i class="fa-regular fa-lightbulb-on"></i> Start Quiz <span class="mb-0">{{ quizpercentage | number:'1.0-0' }}%</span>
 						</p>
 	
 						<!-- <div class="row">

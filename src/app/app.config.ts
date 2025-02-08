@@ -1,7 +1,7 @@
 import { provideHttpClient, withFetch, withInterceptors, withInterceptorsFromDi } from "@angular/common/http"
 import { ApplicationConfig, importProvidersFrom } from "@angular/core"
 import { provideAnimationsAsync } from "@angular/platform-browser/animations/async"
-import { RouterModule, Routes, provideRouter, withEnabledBlockingInitialNavigation, withInMemoryScrolling } from "@angular/router"
+import { RouterModule, Routes, provideRouter, withEnabledBlockingInitialNavigation, withInMemoryScrolling, withViewTransitions } from "@angular/router"
 import { providePrimeNG } from "primeng/config"
 import Aura from "@primeng/themes/aura"
 import { appRoutes } from "./app.routes"
@@ -27,6 +27,9 @@ import { MessageService } from 'primeng/api';
 import { provideAnimations } from '@angular/platform-browser/animations';
 import { StoreModule } from '@ngrx/store';
 import { EffectsModule } from '@ngrx/effects';
+import { NgxIntlTelInputModule } from 'ngx-intl-tel-input';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { provideClientHydration } from '@angular/platform-browser';
 
 // Assuming ngxLocalstorageConfiguration is properly defined elsewhere in your code
 const ngxLocalstorageConfiguration = NGX_LOCAL_STORAGE_CONFIG as unknown as { prefix: string, delimiter: string };
@@ -58,7 +61,9 @@ export const appConfig: ApplicationConfig = {
         auth: authFeature.reducer,
         pages: pagesReducer
       }),
-      EffectsModule.forRoot([AuthEffects])
+      EffectsModule.forRoot([AuthEffects]),
+      BrowserAnimationsModule,
+      NgxIntlTelInputModule
     ),
     provideStoreDevtools({
       maxAge: 25,
@@ -76,7 +81,8 @@ export const appConfig: ApplicationConfig = {
 				anchorScrolling: "enabled",
 				scrollPositionRestoration: "enabled",
 			}),
-			withEnabledBlockingInitialNavigation()
+			withEnabledBlockingInitialNavigation(),
+			withViewTransitions()
 		),
 		importProvidersFrom(
 			JwtModule.forRoot({
@@ -135,6 +141,9 @@ export const appConfig: ApplicationConfig = {
 				],
 			} as SocialAuthServiceConfig,
 		},
-		provideAnimations()  // Required for ngx-bootstrap
+		provideAnimations(),  // Required for ngx-bootstrap
+		provideClientHydration(),
+		provideStore(),
+		provideEffects()
 	],
 }
