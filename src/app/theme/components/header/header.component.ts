@@ -1,47 +1,42 @@
-import {
-  Component,
-  ElementRef,
-  EventEmitter,
-  Input,
-  OnDestroy,
-  OnInit,
-  Output,
-  ViewChild,
-  ViewEncapsulation,
-} from "@angular/core";
-import {MenuItem, MessageService} from "primeng/api";
-import {AuthService} from "../../../Auth/auth.service";
-import {SubSink} from "subsink";
-import {ActivatedRoute, Router} from "@angular/router";
-import {LocationService} from "../../../location.service";
-import {DataService} from "src/app/data.service";
-import {FormBuilder, FormGroup, Validators} from "@angular/forms";
-import {matchValidator} from "../../../@Supports/matchvalidator";
-import {ThemeService} from "../../../theme.service";
-import {DashboardService} from "src/app/pages/dashboard/dashboard.service";
-import {count, Observable} from "rxjs";
-import {CountryISO, SearchCountryField} from "ngx-intl-tel-input";
-import {SocialAuthService} from "@abacritt/angularx-social-login";
+import { Component, ElementRef, EventEmitter, Input, OnDestroy, OnInit, Output, ViewChild, ViewEncapsulation } from "@angular/core";
+import { MenuItem, MessageService } from "primeng/api";
+import { AuthService } from "../../../Auth/auth.service";
+import { SubSink } from "subsink";
+import { ActivatedRoute, Router } from "@angular/router";
+import { LocationService } from "../../../location.service";
+import { DataService } from "src/app/data.service";
+import { FormBuilder, FormGroup, Validators, FormsModule, ReactiveFormsModule } from "@angular/forms";
+import { matchValidator } from "../../../@Supports/matchvalidator";
+import { ThemeService } from "../../../theme.service";
+import { DashboardService } from "src/app/pages/dashboard/dashboard.service";
+import { count, Observable } from "rxjs";
+import { CountryISO, SearchCountryField } from "ngx-intl-tel-input";
+import { SocialAuthService } from "@abacritt/angularx-social-login";
 import { environment } from "@env/environment";
 import CryptoJS from "crypto-js";
 import { AssessmentService } from "src/app/pages/assessment/assessment.service";
 import { ILearnChallengeData } from "src/app/@Models/ilearn-challenge.model";
-
+import { CommonModule } from "@angular/common";
+import { DialogModule } from "primeng/dialog";
+import { TabPanel, TabViewModule } from "primeng/tabview";
+import { OverlayPanelModule } from "primeng/overlaypanel";
+import { DropdownModule } from "primeng/dropdown";
+import { InputTextModule } from "primeng/inputtext";
+import { AvatarModule } from "primeng/avatar";
 @Component({
-    selector: "uni-header",
-    templateUrl: "./header.component.html",
-    styleUrls: ["./header.component.scss"],
-    encapsulation: ViewEncapsulation.None,
-    standalone: false
+  selector: "uni-header",
+  templateUrl: "./header.component.html",
+  styleUrls: ["./header.component.scss"],
+  encapsulation: ViewEncapsulation.None,
+  standalone: true,
+  imports: [CommonModule, DialogModule, TabPanel, TabViewModule, OverlayPanelModule, FormsModule, ReactiveFormsModule, DropdownModule, AvatarModule],
 })
 export class HeaderComponent implements OnInit, OnDestroy {
   @ViewChild("op") op!: ElementRef<HTMLInputElement>;
   public reportSubmitForm: any = FormGroup;
-  @Input() breadcrumb: MenuItem[] = [
-    { label: "Categories" },
-    { label: "Sports" },
-  ];
+  @Input() breadcrumb: MenuItem[] = [{ label: "Categories" }, { label: "Sports" }];
   @Input() expandicon = "";
+
   @Output() togleSidebar = new EventEmitter();
   private subs = new SubSink();
   userName: any;
@@ -96,27 +91,27 @@ export class HeaderComponent implements OnInit, OnDestroy {
   CountryISO = CountryISO;
   preferredCountries: CountryISO[] = [CountryISO.India];
   timeLeftInfo: any;
-  freeTrialErrorMsg: string = '';
+  freeTrialErrorMsg: string = "";
   demoTrial: boolean = false;
   demoDays: any;
   reportlearnlanguagetype: number = 0;
   countryList: any; //this is the original home country list for time being am doing like this.
-  indiaHomeCountry: any = [{ country: "India", id: 122}];
+  indiaHomeCountry: any = [{ country: "India", id: 122 }];
   locationList: any;
   whiteLabelIsNotShow: boolean = true;
   visibleExhastedUser!: boolean;
-  programLevelList:any = [];
+  programLevelList: any = [];
   currentEducation!: boolean;
   currentEducationForm: any = FormGroup;
   phoneVerification: any = FormGroup;
-  whatsappVerification:boolean = false;
+  whatsappVerification: boolean = false;
   ApiUrl: string = environment.domain;
   educationImage: string = "";
-  otp: string[] = ['', '', '', '']; 
-  otpArray = Array(4).fill(0); 
+  otp: string[] = ["", "", "", ""];
+  otpArray = Array(4).fill(0);
 
-  currentUserSubscriptionPlan: string =  '';
-  iLearnChallengeData:ILearnChallengeData;
+  currentUserSubscriptionPlan: string = "";
+  iLearnChallengeData: ILearnChallengeData;
   isUpgradePlanVisible: boolean = false;
   isILeanrParticipantsVisible: boolean = false;
   isILearnLiveVisible: boolean = false;
@@ -130,7 +125,8 @@ export class HeaderComponent implements OnInit, OnDestroy {
     public service: AuthService,
     private toast: MessageService,
     private themeService: ThemeService,
-    route: ActivatedRoute, private authService: SocialAuthService,
+    route: ActivatedRoute,
+    private authService: SocialAuthService,
     private dataService: DataService,
     private dashboardService: DashboardService, // private authService: SocialAuthService
     private assessmentService: AssessmentService
@@ -152,13 +148,13 @@ export class HeaderComponent implements OnInit, OnDestroy {
       this.loadCountryList();
     });
     this.service.getTimeInfoForCard().subscribe((data) => {
-      localStorage.setItem('time_card_info', data.card_message);
+      localStorage.setItem("time_card_info", data.card_message);
     });
     this.assessmentService.iLearnChallengeData$.subscribe((data) => {
       this.iLearnChallengeData = data;
     });
     this.assessmentService.sideMenuiLearnChallengeData$.subscribe((data) => {
-      if(data) {
+      if (data) {
         this.navigateILearnChallenge();
       }
     });
@@ -233,7 +229,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
     const input = event.target as HTMLInputElement;
 
     // Move to the previous box if backspace is pressed and input is empty
-    if (event.key === 'Backspace' && !input.value && index > 0) {
+    if (event.key === "Backspace" && !input.value && index > 0) {
       const prevInput = document.getElementById(`otp-${index - 1}`) as HTMLInputElement;
       prevInput.focus();
     }
@@ -242,9 +238,9 @@ export class HeaderComponent implements OnInit, OnDestroy {
   isSendingOTP: boolean = false;
   isResendOTP: boolean = false;
 
-  sendOTP(){
+  sendOTP() {
     this.phoneVerification.disable();
-    let formData =  this.phoneVerification.value;
+    let formData = this.phoneVerification.value;
     let sendPhoneNumber = {
       country_code: formData.verification_phone.dialCode,
       phone: formData.verification_phone.number,
@@ -252,7 +248,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
       dial_code: formData.verification_phone.countryCode,
     };
     this.service.sendWhatsappOtp(sendPhoneNumber).subscribe({
-      next: response => {
+      next: (response) => {
         this.isSendingOTP = true;
         this.toast.add({
           severity: "success",
@@ -260,46 +256,46 @@ export class HeaderComponent implements OnInit, OnDestroy {
           detail: response.message,
         });
       },
-      error: error => {
+      error: (error) => {
         this.phoneVerification.enable();
         this.toast.add({
           severity: "error",
           summary: "Error",
           detail: error?.message,
         });
-      }
+      },
     });
   }
 
   submitPhoneVerification() {
-    let formData =  this.phoneVerification.value;
+    let formData = this.phoneVerification.value;
     let sendOTP = {
       country_code: formData.verification_phone.dialCode,
       phone: formData.verification_phone.number,
       dial_code: formData.verification_phone.countryCode,
-      otp: this.otp.join(''),
-      whatsapp_number_or_not: formData.choice == 'yes' ? 'no' : 'yes'
+      otp: this.otp.join(""),
+      whatsapp_number_or_not: formData.choice == "yes" ? "no" : "yes",
     };
     this.service.validateWhatsappOtp(sendOTP).subscribe({
-      next: response => {
+      next: (response) => {
         this.whatsappVerification = false;
         this.toast.add({
           severity: "success",
           summary: "Success",
-          detail: 'Phone number verified successfully',
+          detail: "Phone number verified successfully",
         });
       },
-      error: error => {
+      error: (error) => {
         this.isResendOTP = true;
-        this.otp = ['', '', '', ''];
+        this.otp = ["", "", "", ""];
         let otpList = document.querySelectorAll(".otp-box");
-        otpList.forEach((item:any) => item.value = '');
+        otpList.forEach((item: any) => (item.value = ""));
         this.toast.add({
           severity: "error",
           summary: "Error",
           detail: error?.message,
         });
-      }
+      },
     });
   }
 
@@ -325,7 +321,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
   imagewhitlabeldomainname: any;
   orgnamewhitlabel: any;
   ngOnInit() {
-    this.locationService.getOrgName().subscribe(orgname => {
+    this.locationService.getOrgName().subscribe((orgname) => {
       this.orgnamewhitlabel = orgname;
     });
     this.imagewhitlabeldomainname = window.location.hostname;
@@ -334,25 +330,26 @@ export class HeaderComponent implements OnInit, OnDestroy {
     } else {
       this.whiteLabelIsNotShow = false;
     }
-    fetch('https://ipapi.co/json/').then(response => response.json()).then(data => {
-      this.preferredCountry = data.country_code.toLocaleLowerCase()
-    });
+    fetch("https://ipapi.co/json/")
+      .then((response) => response.json())
+      .then((data) => {
+        this.preferredCountry = data.country_code.toLocaleLowerCase();
+      });
     this.dataService.countryId.subscribe((data: any) => {
       if (!data) {
         this.selectedCountryId = Number(data);
         this.getModuleList();
-        let cntId = localStorage.getItem('countryId');
+        let cntId = localStorage.getItem("countryId");
         this.dataService.changeCountryId(cntId!.toString());
       }
-    })
-    this.dataService.homeCountryFlagSource.subscribe(data => {
+    });
+    this.dataService.homeCountryFlagSource.subscribe((data) => {
       this.headerHomeFlag = data;
     });
-    this.dataService.countryNameSource.subscribe((data: any) => {
-    })
+    this.dataService.countryNameSource.subscribe((data: any) => {});
     this.dataService.countryFlagSource.subscribe((data: any) => {
-      this.headerFlag  = data
-    })
+      this.headerFlag = data;
+    });
     this.dashboardService.data$.subscribe((data) => {
       this.min$ = data?.minutes;
       this.sec$ = data?.seconds;
@@ -367,25 +364,21 @@ export class HeaderComponent implements OnInit, OnDestroy {
     });
 
     this.currentEducationForm = this.formBuilder.group({
-      current_education: ["", Validators.required]
+      current_education: ["", Validators.required],
     });
     let phone;
     const encPhone = localStorage.getItem("phone");
     if (encPhone) {
       const bytes = CryptoJS.AES.decrypt(encPhone, environment.secretKeySalt);
       phone = JSON.parse(bytes.toString(CryptoJS.enc.Utf8));
-      if (
-          phone == "" ||
-          phone == null ||
-          phone == "null"
-      ) {
+      if (phone == "" || phone == null || phone == "null") {
         this.formvisbility = true;
       }
     }
 
     this.phoneVerification = this.formBuilder.group({
       verification_phone: [phone, Validators.required],
-      choice:[false, Validators.required]
+      choice: [false, Validators.required],
     });
 
     if (this.service._checkExistsSubscription === 0) {
@@ -416,14 +409,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
       },
     ];
     this.setPasswordForm = this.formBuilder.group({
-      password: [
-        "",
-        [
-          Validators.required,
-          Validators.minLength(8),
-          matchValidator("confirmPassword", true),
-        ],
-      ],
+      password: ["", [Validators.required, Validators.minLength(8), matchValidator("confirmPassword", true)]],
       confirmPassword: ["", [Validators.required, matchValidator("password")]],
     });
     const storedIsMenuOpen = localStorage.getItem("isMenuOpen");
@@ -445,13 +431,13 @@ export class HeaderComponent implements OnInit, OnDestroy {
         this.openModal();
       }
     });
-    this.locationService.getCountry().subscribe(countryList => {
+    this.locationService.getCountry().subscribe((countryList) => {
       this.countryLists = countryList;
       this.countryLists.forEach((element: any) => {
-        if (element.id == localStorage.getItem('countryId')) {
+        if (element.id == localStorage.getItem("countryId")) {
           this.headerFlag = element.flag;
         }
-      })
+      });
     });
     // this.dashboardService.countryList().subscribe(countryList => {
     //   this.countryLists = countryList;
@@ -477,7 +463,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
     this.dataService.openReportWindowSource.subscribe((data) => {
       // if(data.from == 'module'){
       //   this.isQuestionVisible = false
-      // }      
+      // }
       if (data.isVisible) {
         this.moduleQuestionReport = data;
         this.moduleList = [];
@@ -489,7 +475,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
         this.selectedGenMod = 2;
         this.openReportModalFromMoudle(this.op, event);
         this.reportType = 3;
-        //pass type_of_report  parameter for learning hub 
+        //pass type_of_report  parameter for learning hub
         if (data.reporttype == 8) {
           this.reportlearnlanguagetype = 8;
         } else {
@@ -497,13 +483,9 @@ export class HeaderComponent implements OnInit, OnDestroy {
         }
         if (data.report_mode && data.report_mode == "other_module") {
           this.subs.sink = this.locationService.getModuleReportOptionLists(data).subscribe((response) => {
-
-            this.reportOptionList = [
-              { id: null, reportoption_name: "Select" },
-              ...response.reportOptions,
-            ];
+            this.reportOptionList = [{ id: null, reportoption_name: "Select" }, ...response.reportOptions];
             this.reportType = data.reporttype;
-          })
+          });
         } else {
           this.getReportOption();
         }
@@ -521,19 +503,19 @@ export class HeaderComponent implements OnInit, OnDestroy {
         //localStorage.setItem('countryId', data.userdetails[0].interested_country_id);
         this.userName = data.userdetails[0].name.toString();
         this.firstChar = this.userName.charAt(0);
-        this.homeCountryId = Number(data.userdetails[0].home_country_id)
-        this.selectedHomeCountry = Number(data.userdetails[0].home_country_id)
+        this.homeCountryId = Number(data.userdetails[0].home_country_id);
+        this.selectedHomeCountry = Number(data.userdetails[0].home_country_id);
         this.getHomeCountryList();
         const loginStatus = data.userdetails[0].login_status;
-        if(typeof loginStatus === 'string' && loginStatus.includes('Demo') == true) {
+        if (typeof loginStatus === "string" && loginStatus.includes("Demo") == true) {
           this.demoTrial = true;
-          this.demoDays = data.userdetails[0].login_status.replace('Demo-', '');
+          this.demoDays = data.userdetails[0].login_status.replace("Demo-", "");
         }
         /*if (data.userdetails[0].login_status == "Demo") {
           this.demoTrial = true;
         } */
         let programLevelId = data.userdetails[0].programlevel_id;
-        if(programLevelId == null || programLevelId == "null" || programLevelId == ""){
+        if (programLevelId == null || programLevelId == "null" || programLevelId == "") {
           this.currentEducation = true;
           this.educationImage = `https://${this.ApiUrl}/uniprepapi/storage/app/public/uploads/education.svg`;
         }
@@ -556,25 +538,25 @@ export class HeaderComponent implements OnInit, OnDestroy {
   }
 
   getProgramlevelList() {
-    this.locationService.getProgramLevel().subscribe(res => {
+    this.locationService.getProgramLevel().subscribe((res) => {
       this.programLevelList = res;
     });
   }
-  
-  UpdateEducationLevel(){
+
+  UpdateEducationLevel() {
     let eduLevel = this.currentEducationForm.value.current_education;
-    this.service.updateEducationLevel(eduLevel).subscribe(res =>{
-      this.currentEducation =  false;
+    this.service.updateEducationLevel(eduLevel).subscribe((res) => {
+      this.currentEducation = false;
       this.toast.add({
         severity: "success",
         summary: "success",
         detail: res.message,
       });
-    })
+    });
   }
 
   ngOnDestroy() {
-    console.log('destroy')
+    console.log("destroy");
     this.subs.unsubscribe();
   }
 
@@ -627,9 +609,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
 
   logout() {
     this.authService.signOut();
-    this.locationService.sessionEndApiCall().subscribe((data: any) => {
-
-    })
+    this.locationService.sessionEndApiCall().subscribe((data: any) => {});
     this.subs.sink = this.service.logout().subscribe((data) => {
       this.toast.add({
         severity: "info",
@@ -637,7 +617,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
         detail: "logged out successfully",
       });
       this.service.clearCache();
-      this.locationService.clearCache()
+      this.locationService.clearCache();
       window.sessionStorage.clear();
       localStorage.clear();
       this.router.navigateByUrl("/login");
@@ -645,27 +625,18 @@ export class HeaderComponent implements OnInit, OnDestroy {
   }
 
   getModuleList() {
-    this.subs.sink = this.locationService
-      .getUniPerpModuleList()
-      .subscribe((data) => {
-        this.moduleList = data.modules;
-        this.selectedModuleId = 1;
-      });
+    this.subs.sink = this.locationService.getUniPerpModuleList().subscribe((data) => {
+      this.moduleList = data.modules;
+      this.selectedModuleId = 1;
+    });
   }
 
   getReportOption() {
     this.reportOptionList = [];
-    this.subs.sink = this.locationService
-      .getReportOptionList()
-      .subscribe((data) => {
-        let reportTypeData = data.reportOptions.filter(
-          (value: any) => value.reporttype === this.reportType
-        );
-        this.reportOptionList = [
-          { id: null, reportoption_name: "Select" },
-          ...reportTypeData,
-        ];
-      });
+    this.subs.sink = this.locationService.getReportOptionList().subscribe((data) => {
+      let reportTypeData = data.reportOptions.filter((value: any) => value.reporttype === this.reportType);
+      this.reportOptionList = [{ id: null, reportoption_name: "Select" }, ...reportTypeData];
+    });
   }
   isCountryPopupOpen: any;
   openFlagModal(totalCountryList: any, event: any): void {
@@ -725,11 +696,11 @@ export class HeaderComponent implements OnInit, OnDestroy {
       });
     });
   }
-  enterpriseSubscriptionLink: any
+  enterpriseSubscriptionLink: any;
   onClickSubscribe() {
     this.visible = false;
-    if (this.enterpriseSubscriptionLink != '') {
-      window.open(this.enterpriseSubscriptionLink, '_target');
+    if (this.enterpriseSubscriptionLink != "") {
+      window.open(this.enterpriseSubscriptionLink, "_target");
       return;
     }
     this.router.navigate(["/pages/subscriptions"]);
@@ -737,19 +708,13 @@ export class HeaderComponent implements OnInit, OnDestroy {
 
   subScribedUserCount(): void {
     this.service.getNewUserTimeLeft().subscribe((res) => {
-      this.currentUserSubscriptionPlan =  res?.subscription_details?.subscription_plan;
+      this.currentUserSubscriptionPlan = res?.subscription_details?.subscription_plan;
       this.enterpriseSubscriptionLink = res.enterprise_subscription_link;
       let data = res.time_left;
       if (data.plan === "not_started") {
         this.visible = false;
       } else {
-        this.getTimer(
-          data.minutes,
-          data.seconds,
-          data.hours,
-          data.days,
-          data.months
-        );
+        this.getTimer(data.minutes, data.seconds, data.hours, data.days, data.months);
       }
     });
   }
@@ -765,10 +730,8 @@ export class HeaderComponent implements OnInit, OnDestroy {
       const minutesLeft: number = Math.floor((totalSeconds % 3600) / 60);
       const secondsLeft: number = totalSeconds % 60;
 
-      this.min$ =
-        minutesLeft < 10 && minutesLeft > 0 ? "0" + minutesLeft.toString() : minutesLeft.toString();
-      this.sec$ =
-        secondsLeft < 10 && secondsLeft > 0 ? "0" + secondsLeft.toString() : secondsLeft.toString();
+      this.min$ = minutesLeft < 10 && minutesLeft > 0 ? "0" + minutesLeft.toString() : minutesLeft.toString();
+      this.sec$ = secondsLeft < 10 && secondsLeft > 0 ? "0" + secondsLeft.toString() : secondsLeft.toString();
 
       this.hrs$ = hoursLeft;
       // this.min$ = textMin;
@@ -786,13 +749,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
       //   this.sec$ = textSec;
       // }
 
-      if (
-        minutesLeft <= 0 &&
-        this.hrs$ <= 0 &&
-        this.day$ <= 0 &&
-        secondsLeft <= 0 &&
-        this.month$ <= 0
-      ) {
+      if (minutesLeft <= 0 && this.hrs$ <= 0 && this.day$ <= 0 && secondsLeft <= 0 && this.month$ <= 0) {
         this.visibleExhasted = true;
         clearInterval(this.timerInterval);
       }
@@ -801,7 +758,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
 
   checkNewUser(): void {
     this.service.getNewUserTimeLeft().subscribe((res) => {
-      this.currentUserSubscriptionPlan =  res?.subscription_details?.subscription_plan;
+      this.currentUserSubscriptionPlan = res?.subscription_details?.subscription_plan;
       this.enterpriseSubscriptionLink = res.enterprise_subscription_link;
       this.dashboardService.updatedata(res.time_left);
       let data = res.time_left;
@@ -824,14 +781,12 @@ export class HeaderComponent implements OnInit, OnDestroy {
       const secondsLeft: number = totalSeconds % 60;
 
       this.timeHours = hoursLeft;
-      this.timeLeftMins =
-        minutesLeft < 10 && minutesLeft > 0 ? "0" + minutesLeft : minutesLeft.toString();
-      this.timeLeftSecs =
-        secondsLeft < 10 && secondsLeft > 0 ? "0" + secondsLeft : secondsLeft.toString();
-      if (this.timeLeftMins == '00') {
+      this.timeLeftMins = minutesLeft < 10 && minutesLeft > 0 ? "0" + minutesLeft : minutesLeft.toString();
+      this.timeLeftSecs = secondsLeft < 10 && secondsLeft > 0 ? "0" + secondsLeft : secondsLeft.toString();
+      if (this.timeLeftMins == "00") {
         this.timeLeftMins = 0;
       }
-      if (this.timeLeftSecs == '00') {
+      if (this.timeLeftSecs == "00") {
         this.timeLeftSecs = 0;
       }
       if (minute <= 0 && hours <= 0 && sec <= 0) {
@@ -844,20 +799,16 @@ export class HeaderComponent implements OnInit, OnDestroy {
       //   this.timeLeftMins = textMin;
       //   this.timeLeftSecs = textSec;
       // }
-      console.log(minutesLeft)
-      if (
-        minutesLeft <= 0 &&
-        this.timeHours <= 0 &&
-        secondsLeft <= 0
-      ) {
+      console.log(minutesLeft);
+      if (minutesLeft <= 0 && this.timeHours <= 0 && secondsLeft <= 0) {
         this.visible = true;
         this.locationService.trialEnds().subscribe((res) => {
-          console.log(res)
-        })
+          console.log(res);
+        });
         clearInterval(this.timerInterval);
       }
-      this.min$ = minutesLeft
-      this.sec$ = secondsLeft
+      this.min$ = minutesLeft;
+      this.sec$ = secondsLeft;
       this.hrs$ = this.timeHours;
     }, 1000);
   }
@@ -885,24 +836,18 @@ export class HeaderComponent implements OnInit, OnDestroy {
       return;
     }
     data = {
-      moduleId: this.moduleQuestionReport.moduleId
-        ? this.moduleQuestionReport.moduleId
-        : this.reportSubmitForm.value.moduleId,
-      submoduleId: this.moduleQuestionReport.subModuleId
-        ? this.moduleQuestionReport.subModuleId
-        : this.reportSubmitForm.value.submoduleId,
-      questionId: this.moduleQuestionReport.questionId
-        ? this.moduleQuestionReport.questionId
-        : this.reportSubmitForm.value.questionId,
+      moduleId: this.moduleQuestionReport.moduleId ? this.moduleQuestionReport.moduleId : this.reportSubmitForm.value.moduleId,
+      submoduleId: this.moduleQuestionReport.subModuleId ? this.moduleQuestionReport.subModuleId : this.reportSubmitForm.value.submoduleId,
+      questionId: this.moduleQuestionReport.questionId ? this.moduleQuestionReport.questionId : this.reportSubmitForm.value.questionId,
       reportOption: this.reportSubmitForm.value.reportOption,
       comment: this.reportSubmitForm.value.comment,
       countryId: this.selectedCountryId,
-      type_of_report: (this.reportType == 4 || this.reportType == 5 || this.reportType == 6 || this.reportType == 7) ? this.reportType : this.reportlearnlanguagetype == 8 ? this.reportlearnlanguagetype : undefined
+      type_of_report: this.reportType == 4 || this.reportType == 5 || this.reportType == 6 || this.reportType == 7 ? this.reportType : this.reportlearnlanguagetype == 8 ? this.reportlearnlanguagetype : undefined,
     };
     if (data.moduleId == 8) {
       data.countryId = 0;
     }
-    if (data.moduleId == 23||data.moduleId == 24||data.moduleId == 25||data.moduleId == 27||data.moduleId == 27) {
+    if (data.moduleId == 23 || data.moduleId == 24 || data.moduleId == 25 || data.moduleId == 27 || data.moduleId == 27) {
       data.countryId = this.moduleQuestionReport.countryId;
     }
 
@@ -922,9 +867,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
         op.hide();
         // this.showReportSuccess = false;
       }, 3000);
-      this.locationService
-        .reportFaqQuestionaftersubmit(maildata)
-        .subscribe((res) => { });
+      this.locationService.reportFaqQuestionaftersubmit(maildata).subscribe((res) => {});
     });
     this.getReportOption();
   }
@@ -952,27 +895,28 @@ export class HeaderComponent implements OnInit, OnDestroy {
     if (this.demoTrial == true) {
       data.demo_user = 1;
     }
-    this.dashboardService.getContineTrial(data).subscribe((res) => {
-      if (this.demoTrial == true) {
-        this.toast.add({
-          severity: "success",
-          summary: "Success",
-          detail: "Demo Trail Started",
-        });
-      }
+    this.dashboardService.getContineTrial(data).subscribe(
+      (res) => {
+        if (this.demoTrial == true) {
+          this.toast.add({
+            severity: "success",
+            summary: "Success",
+            detail: "Demo Trail Started",
+          });
+        }
 
-      this.service.contineStatus(false);
-      this.dataService.sendValue(false);
-      this.freeTrial = false;
-      this.demoTrial = false;
-      this.service._userContineTrial = false;
-      setTimeout(() => {
-        this.checkNewUser();
-        window.location.reload();
-      }, 2000);
-      return res;
-    },
-      error => {
+        this.service.contineStatus(false);
+        this.dataService.sendValue(false);
+        this.freeTrial = false;
+        this.demoTrial = false;
+        this.service._userContineTrial = false;
+        setTimeout(() => {
+          this.checkNewUser();
+          window.location.reload();
+        }, 2000);
+        return res;
+      },
+      (error) => {
         if (this.demoTrial == true) {
           this.toast.add({
             severity: "error",
@@ -981,8 +925,8 @@ export class HeaderComponent implements OnInit, OnDestroy {
           });
         }
         this.freeTrialErrorMsg = error?.message;
-      });
-
+      }
+    );
   }
   onClickSubscribedUser(): void {
     this.imagewhitlabeldomainname = window.location.hostname;
@@ -997,31 +941,32 @@ export class HeaderComponent implements OnInit, OnDestroy {
       if (this.demoTrial == true) {
         data.demo_user = 1;
       }
-      this.dashboardService.getContineTrial(data).subscribe((res) => {
-        if (this.demoTrial == true) {
-          this.toast.add({
-            severity: "success",
-            summary: "Success",
-            detail: "Demo Trail Started",
-          });
-        }
-        this.freeTrial = false;
-        this.demoTrial = false;
-        this.visibleExhasted = false;
-        this.service._userContineTrial = false;
-        this.service.contineStatus(false);
-        this.dataService.sendValue(false);
-        setTimeout(() => {
-          this.checkNewUser();
-          this.dashboardService.isinitialstart = true;
-          if (this.enterpriseSubscriptionLink != "") {
-            window.open(this.enterpriseSubscriptionLink, '_target');
-            return;
+      this.dashboardService.getContineTrial(data).subscribe(
+        (res) => {
+          if (this.demoTrial == true) {
+            this.toast.add({
+              severity: "success",
+              summary: "Success",
+              detail: "Demo Trail Started",
+            });
           }
-          this.router.navigate(["/pages/subscriptions"]);
-        }, 1000);
-      },
-        error => {
+          this.freeTrial = false;
+          this.demoTrial = false;
+          this.visibleExhasted = false;
+          this.service._userContineTrial = false;
+          this.service.contineStatus(false);
+          this.dataService.sendValue(false);
+          setTimeout(() => {
+            this.checkNewUser();
+            this.dashboardService.isinitialstart = true;
+            if (this.enterpriseSubscriptionLink != "") {
+              window.open(this.enterpriseSubscriptionLink, "_target");
+              return;
+            }
+            this.router.navigate(["/pages/subscriptions"]);
+          }, 1000);
+        },
+        (error) => {
           if (this.demoTrial == true) {
             this.toast.add({
               severity: "error",
@@ -1030,12 +975,12 @@ export class HeaderComponent implements OnInit, OnDestroy {
             });
           }
           this.freeTrialErrorMsg = error?.message;
-        });
+        }
+      );
     } else {
       this.visibleExhastedUser = true;
       this.demoTrial = false;
     }
-
   }
 
   checkNewUSerLogin(): void {
@@ -1046,10 +991,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
   }
 
   passwordChangeOnClick() {
-    if (
-      this.setPasswordForm.value.password !==
-      this.setPasswordForm.value.confirmPassword
-    ) {
+    if (this.setPasswordForm.value.password !== this.setPasswordForm.value.confirmPassword) {
       this.toast.add({
         severity: "info",
         summary: "Alert",
@@ -1058,31 +1000,29 @@ export class HeaderComponent implements OnInit, OnDestroy {
       return;
     }
 
-    this.locationService
-      .updatePassword(this.setPasswordForm.value.confirmPassword)
-      .subscribe((res) => {
-        if (res.status == 404) {
-        }
-        this.isChangePasswordWindowVisible = false;
-        window.sessionStorage.clear();
-        localStorage.clear();
-        this.router.navigateByUrl("/login");
-        this.toast.add({
-          severity: "success",
-          summary: "Success",
-          detail: "Password Updated Successfully.",
-        });
+    this.locationService.updatePassword(this.setPasswordForm.value.confirmPassword).subscribe((res) => {
+      if (res.status == 404) {
+      }
+      this.isChangePasswordWindowVisible = false;
+      window.sessionStorage.clear();
+      localStorage.clear();
+      this.router.navigateByUrl("/login");
+      this.toast.add({
+        severity: "success",
+        summary: "Success",
+        detail: "Password Updated Successfully.",
       });
+    });
   }
 
   changeLocation(event: any) {
-    this.GetLocationList()
+    this.GetLocationList();
   }
 
   GetLocationList() {
-    this.locationList = [{ id: 0, district: 'Others' }];
-    this.mobileForm?.get('location_id')?.setValue(0);
-    if (this.mobileForm.get('home_country')?.value == 122) {
+    this.locationList = [{ id: 0, district: "Others" }];
+    this.mobileForm?.get("location_id")?.setValue(0);
+    if (this.mobileForm.get("home_country")?.value == 122) {
       this.locationService.getLocation().subscribe(
         (res: any) => {
           this.locationList = res;
@@ -1095,10 +1035,9 @@ export class HeaderComponent implements OnInit, OnDestroy {
           });
         }
       );
-    }
-    else {
-      this.locationList = [{ id: 0, district: 'Others' }];
-      this.mobileForm?.get('location_id')?.setValue(0);
+    } else {
+      this.locationList = [{ id: 0, district: "Others" }];
+      this.mobileForm?.get("location_id")?.setValue(0);
     }
   }
 
@@ -1110,16 +1049,13 @@ export class HeaderComponent implements OnInit, OnDestroy {
         this.headerHomeFlag = selectedCountry.flag;
         this.selectedHomeCountry = selectedCountry;
         this.homeCountryName = selectedCountry.country;
-        this.dataService.changeHomeCountryFlag(this.headerHomeFlag)
+        this.dataService.changeHomeCountryFlag(this.headerHomeFlag);
       },
-      (error: any) => {
-      }
+      (error: any) => {}
     );
   }
 
-  onHomeCountryChange(event: any) {
-
-  }
+  onHomeCountryChange(event: any) {}
   closeQuiz(): void {
     this.visibleExhastedUser = false;
     this.demoTrial = true;
@@ -1128,30 +1064,31 @@ export class HeaderComponent implements OnInit, OnDestroy {
   protected readonly count = count;
 
   navigateILearnChallenge() {
-    // const targetUrl = this.currentUserSubscriptionPlan === 'Career' || this.currentUserSubscriptionPlan === 'Entrepreneur' 
+    // const targetUrl = this.currentUserSubscriptionPlan === 'Career' || this.currentUserSubscriptionPlan === 'Entrepreneur'
     //   ? item.url: this.authService?.user?.subscription ? '/pages/subscriptions/upgrade-subscription' : '/pages/subscriptions';
     // this.router.navigateByUrl(targetUrl);
-    if (this.currentUserSubscriptionPlan === 'Career' || this.currentUserSubscriptionPlan === 'Entrepreneur') {
+    if (this.currentUserSubscriptionPlan === "Career" || this.currentUserSubscriptionPlan === "Entrepreneur") {
       switch (this.service?._user?.ilearn_popup_status) {
-        case 0: case 1:
-          if(this.router.url !== '/pages/assessment/ilearn-challenge') {
+        case 0:
+        case 1:
+          if (this.router.url !== "/pages/assessment/ilearn-challenge") {
             this.assessmentService.getAssessmentParticipatingCount().subscribe({
-              next: res => {
+              next: (res) => {
                 this.assParticipations = res.cluster_count;
                 this.isILeanrParticipantsVisible = true;
-              }
+              },
             });
           }
           break;
         case 2:
-          if(this.router.url !== '/pages/assessment/ilearn-challenge') {
+          if (this.router.url !== "/pages/assessment/ilearn-challenge") {
             this.isILearnLiveVisible = true;
           }
           break;
         case 3:
           this.isILearnCompletedVisible = true;
           break;
-        default: 
+        default:
           console.log(this.service?._user?.ilearn_popup_status);
       }
       return;
@@ -1161,13 +1098,13 @@ export class HeaderComponent implements OnInit, OnDestroy {
 
   onSubscribe() {
     this.isUpgradePlanVisible = false;
-    const targetUrl = this.service?.user?.subscription ? '/pages/subscriptions/upgrade-subscription' : '/pages/subscriptions';
+    const targetUrl = this.service?.user?.subscription ? "/pages/subscriptions/upgrade-subscription" : "/pages/subscriptions";
     this.router.navigateByUrl(targetUrl);
   }
 
   onClickiLearnChallenge() {
     this.isILearnLiveVisible = false;
     this.isILearnCompletedVisible = false;
-    this.router.navigateByUrl('/pages/assessment/ilearn-challenge');
+    this.router.navigateByUrl("/pages/assessment/ilearn-challenge");
   }
 }

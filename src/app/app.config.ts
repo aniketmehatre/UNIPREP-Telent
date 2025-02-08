@@ -24,6 +24,9 @@ import { provideStoreDevtools } from "@ngrx/store-devtools"
 import { provideEffects } from '@ngrx/effects';
 import { AuthEffects } from './Auth/store/effects';
 import { MessageService } from 'primeng/api';
+import { provideAnimations } from '@angular/platform-browser/animations';
+import { StoreModule } from '@ngrx/store';
+import { EffectsModule } from '@ngrx/effects';
 
 // Assuming ngxLocalstorageConfiguration is properly defined elsewhere in your code
 const ngxLocalstorageConfiguration = NGX_LOCAL_STORAGE_CONFIG as unknown as { prefix: string, delimiter: string };
@@ -50,11 +53,13 @@ export function tokenGetter(): string {
 
 export const appConfig: ApplicationConfig = {
 	providers: [
-    provideStore({
-      auth: authFeature.reducer,
-      pages: pagesReducer
-    }),
-    provideEffects(AuthEffects),
+    importProvidersFrom(
+      StoreModule.forRoot({
+        auth: authFeature.reducer,
+        pages: pagesReducer
+      }),
+      EffectsModule.forRoot([AuthEffects])
+    ),
     provideStoreDevtools({
       maxAge: 25,
       logOnly: environment.production,
@@ -130,5 +135,6 @@ export const appConfig: ApplicationConfig = {
 				],
 			} as SocialAuthServiceConfig,
 		},
+		provideAnimations()  // Required for ngx-bootstrap
 	],
 }

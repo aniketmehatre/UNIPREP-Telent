@@ -14,7 +14,6 @@ import { DropdownModule } from "primeng/dropdown";
 import { OverlayPanelModule } from 'primeng/overlaypanel';
 import { ConfirmPopupModule } from "primeng/confirmpopup";
 import { ButtonModule } from "primeng/button";
-const CryptoJS: any = require("crypto-js");
 
 @Component({
   selector: "uni-chat",
@@ -128,13 +127,71 @@ export class ChatComponent implements OnInit {
     };
   }
   username: string = "";
-  ngOnInit(): void {
+
+  // Helper methods for encryption/decryption
+  private async getKey(salt: string): Promise<CryptoKey> {
+    const encoder = new TextEncoder();
+    const keyMaterial = await crypto.subtle.importKey(
+      'raw',
+      encoder.encode(salt),
+      { name: 'PBKDF2' },
+      false,
+      ['deriveBits', 'deriveKey']
+    );
+
+    return crypto.subtle.deriveKey(
+      {
+        name: 'PBKDF2',
+        salt: encoder.encode('salt'),
+        iterations: 100000,
+        hash: 'SHA-256'
+      },
+      keyMaterial,
+      { name: 'AES-GCM', length: 256 },
+      false,
+      ['encrypt', 'decrypt']
+    );
+  }
+
+  private async decryptData(encryptedData: string): Promise<any> {
+    try {
+      const key = await this.getKey(environment.secretKeySalt);
+      const encryptedArray = new Uint8Array(
+        atob(encryptedData).split('').map(char => char.charCodeAt(0))
+      );
+
+      // Extract IV and encrypted data
+      const iv = encryptedArray.slice(0, 12);
+      const data = encryptedArray.slice(12);
+
+      const decrypted = await crypto.subtle.decrypt(
+        {
+          name: 'AES-GCM',
+          iv: iv
+        },
+        key,
+        data
+      );
+
+      const decryptedStr = new TextDecoder().decode(decrypted);
+      return JSON.parse(decryptedStr);
+    } catch (error) {
+      console.error('Error decrypting data:', error);
+      return null;
+    }
+  }
+
+  async ngOnInit(): Promise<void> {
     this.getChatHistoryByUserId();
     this.getOptions();
     const encryptedData = localStorage.getItem("Name");
     if (encryptedData) {
-      const bytes = CryptoJS.AES.decrypt(encryptedData, environment.secretKeySalt);
-      this.username = JSON.parse(bytes.toString(CryptoJS.enc.Utf8));
+      try {
+        this.username = await this.decryptData(encryptedData);
+      } catch (error) {
+        console.error('Error decrypting username:', error);
+        this.username = '';
+      }
     }
 
     this.checkplanExpire();
@@ -169,20 +226,25 @@ export class ChatComponent implements OnInit {
   questionsleft = 0;
   totalcredits = 0;
   btnsendmessage = 3;
-  getChatHistoryByUserId() {
+  async getChatHistoryByUserId() {
     this.service.getChatHistoryByUser().subscribe((response) => {
       this.messages = response.messages;
       this.totalquestionsasked = response?.totalquestionsasked;
       this.totalquestionsanswered = response?.totalquestionsanswered;
       this.questionsleft = response?.questionsleft;
     });
-    this.authService.getMe().subscribe((response) => {
+    
+    this.authService.getMe().subscribe(async (response) => {
       const encryptedData = localStorage.getItem("questions_left");
       if (encryptedData) {
-        const bytes = CryptoJS.AES.decrypt(encryptedData, environment.secretKeySalt);
-        this.totalcredits = JSON.parse(bytes.toString(CryptoJS.enc.Utf8));
+        try {
+          this.totalcredits = await this.decryptData(encryptedData);
+        } catch (error) {
+          console.error('Error decrypting credits:', error);
+          this.totalcredits = 0;
+        }
       }
-      // this.totalcredits = Number(localStorage.getItem("questions_left"));
+
       if (this.totalcredits == 0) {
         this.btnsendmessage = 2;
       } else if (this.totalcredits > 0) {
@@ -190,6 +252,7 @@ export class ChatComponent implements OnInit {
       } else {
         this.btnsendmessage = 3;
       }
+
       if (this.subscriptioninfo.time_left.plan === "expired" || this.subscriptioninfo.time_left.plan === "subscription_expired") {
         if (this.subscriptioninfo.subscription_details.subscription_plan === "free_trail") {
           this.btnsendmessage = 2;

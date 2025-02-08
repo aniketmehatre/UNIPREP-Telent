@@ -21,7 +21,6 @@ import { SkeletonModule } from 'primeng/skeleton';
 @NgModule({
     imports: [
         CommonModule,
-        DashboardComponent,
         DashboardRoutingModule,
         TableModule,
         FormsModule,
@@ -37,7 +36,9 @@ import { SkeletonModule } from 'primeng/skeleton';
         DropdownModule,
         OverlayPanelModule,
         SkeletonModule,
+        DashboardComponent
     ],
+    exports: [DashboardComponent]
 })
 export class DashboardModule {
 }

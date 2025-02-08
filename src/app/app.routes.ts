@@ -19,7 +19,6 @@ export const appRoutes: Routes = [
 	{ path: "certificates", component: CertificatesComponent },
 	{ path: "login", component: LoginComponent },
 	{ path: "register", component: RegistrationComponent  },
-	{ path: "dashboard", component: DashboardComponent  },
 	{
 		path: "home",
 		component: LandingComponent,

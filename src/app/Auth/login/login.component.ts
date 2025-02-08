@@ -189,9 +189,10 @@ export class LoginComponent implements OnInit, OnDestroy {
 				if (response.token) {
 					this.service.saveToken(response.token);
 					this.storage.set(environment.tokenKey, response.token);
-					this.service.getMe().subscribe(() => {
+					this.service.getMe().subscribe((data) => {
+						this.loadCountryList(data);
 						this.toast.add({ severity: 'success', summary: 'Success', detail: 'Login Successful' });
-						this.route.navigate(['/pages/dashboard']);
+						this.route.navigate(['/pages/dashboard'], { replaceUrl: true });
 					});
 				}
 			},

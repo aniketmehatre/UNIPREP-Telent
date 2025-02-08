@@ -45,16 +45,17 @@ import { JoboffercomparisontoolComponent } from './job-tool/joboffercomparisonto
 
 const routes: Routes = [
     {
-        path: '', component: PagesComponent,
+        path: '', 
+        component: PagesComponent,
+        canActivate: [AuthGuard],
         children: [
             {
                 path: 'dashboard',
-
+                canActivate: [AuthGuard],
                 loadChildren: () => import('./dashboard/dashboard.module').then(m => m.DashboardModule)
             },
             {
                 path: 'userguide',
-
                 loadChildren: () => import('./user-guide/user-guide.module').then(m => m.UserGuideModule)
             },
             {
@@ -68,12 +69,10 @@ const routes: Routes = [
             },
             {
                 path: 'subscriptions',
-
                 loadChildren: () => import('./subscription/subscription.module').then(m => m.SubscriptionModule)
             },
             {
                 path: 'faq',
-
                 loadChildren: () => import('./faq/faq.module').then(m => m.FaqModule)
             },
             {
@@ -82,23 +81,18 @@ const routes: Routes = [
             },
             {
                 path: 'privacypolicy',
-
                 component: PrivacypolicyComponent
             },
-            
             {
                 path: 'refundpolicy',
-
                 component: RefundpolicyComponent
             },
             {
                 path: 'cancellationpolicy',
-
                 component: CancellationpolicyComponent
             },
             {
                 path: 'button',
-
                 component: ButtonComponent
             },
             {
@@ -115,7 +109,6 @@ const routes: Routes = [
             },
             {
                 path: 'cards',
-
                 component: CardsComponent
             },
             {
@@ -126,10 +119,8 @@ const routes: Routes = [
                 path: 'help',
                 loadChildren: () => import('./help-support/help-support.module').then(m => m.HelpSupportModule)
             },
-
             {
                 path: 'resource',
-
                 loadChildren: () => import('./resource/resource.module').then(m => m.ResourceModule)
             },
             {
@@ -206,7 +197,6 @@ const routes: Routes = [
                 path: 'course-list',
                 component: CourseListComponent
             },
-            
             {
                 path: 'job-portal',
                 loadChildren: () => import('./job-search/job-search.module').then(m => m.JobSearchModule)

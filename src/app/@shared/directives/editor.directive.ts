@@ -4,7 +4,7 @@ import { DialogService } from "primeng/dynamicdialog"
 import { EditorDialog } from "./editor-dialog/editor-dialog"
 import { SubSink } from "subsink"
 import { CommonModule } from "@angular/common"
-var worddiff = require("word-diff")
+import WordDiff from 'word-diff'
 
 @Directive({
 	selector: "[uniEditor]",
@@ -60,7 +60,10 @@ export class EditorDirective implements OnInit, OnDestroy {
 
 	ngOnInit() {
 		this.subs.sink = this.el.onTextChange.subscribe((tc) => {
-			// var diff = worddiff.diffString(this.text, tc.textValue);
+			if (tc?.textValue) {
+				const diff = WordDiff.diffString(this.text, tc.textValue);
+				this.text = tc.textValue;
+			}
 		})
 		this.subs.sink = this.el.onSelectionChange.subscribe((v) => {
 			if (!v.range || v?.range?.length > 0 || this.skipSelect) {

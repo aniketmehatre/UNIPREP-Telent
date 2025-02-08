@@ -1,8 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders, HttpParams } from "@angular/common/http";
 import { environment } from "@env/environment";
-const saveAs = require('file-saver');
-
 
 @Injectable({
   providedIn: 'root'
@@ -23,7 +21,7 @@ export class PitchDeskService {
       pitch_id:pitchId,
       user_id :user_id,
       updateFavourite:fav
-        }
+    }
     const headers = new HttpHeaders().set("Accept", "application/json");
     return this.http.post<any>(environment.ApiUrl + "/addpitchfavourite", params, {
       headers: headers,
@@ -32,9 +30,20 @@ export class PitchDeskService {
 
   downloadPdf(pdfUrl: string, fileName: string): void {
     this.http.get(pdfUrl, { responseType: 'blob' })
-        .subscribe((blob: Blob) => {
-          saveAs(blob, fileName);
-        });
+      .subscribe((blob: Blob) => {
+        // Create a URL for the blob
+        const url = window.URL.createObjectURL(blob);
+        // Create a temporary link element
+        const link = document.createElement('a');
+        link.href = url;
+        link.download = fileName;
+        // Append to body, click and remove
+        document.body.appendChild(link);
+        link.click();
+        document.body.removeChild(link);
+        // Clean up the URL
+        window.URL.revokeObjectURL(url);
+      });
   }
 
   getSelectBoxValues(){

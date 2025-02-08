@@ -1,13 +1,8 @@
-import {
-  Component,
-  ContentChild,
-  EventEmitter,
-  Input,
-  Output,
-  TemplateRef,
-} from "@angular/core";
+import { CommonModule } from "@angular/common";
+import { Component, ContentChild, EventEmitter, Input, Output, TemplateRef } from "@angular/core";
 import { ActivatedRoute, NavigationEnd, Router } from "@angular/router";
 import { error } from "console";
+import { TieredMenuModule } from "primeng/tieredmenu";
 import { filter } from "rxjs";
 import { map } from "rxjs/operators";
 import { AuthService } from "src/app/Auth/auth.service";
@@ -26,10 +21,11 @@ export interface SideMenu {
 }
 
 @Component({
-    selector: "uni-sidenav",
-    templateUrl: "./sidenav.component.html",
-    styleUrls: ["./sidenav.component.scss"],
-    standalone: false
+  selector: "uni-sidenav",
+  templateUrl: "./sidenav.component.html",
+  styleUrls: ["./sidenav.component.scss"],
+  standalone: true,
+  imports: [CommonModule, TieredMenuModule],
 })
 export class SidenavComponent {
   @ContentChild("appTitle") appTitle!: TemplateRef<any>;
@@ -54,7 +50,7 @@ export class SidenavComponent {
     {
       title: "Recommendations",
       url: "/pages/recommendations",
-      image: "fa fa-star"
+      image: "fa fa-star",
     },
     {
       title: "Academics",
@@ -103,9 +99,9 @@ export class SidenavComponent {
       image: "fa-solid fa-ballot",
     },
     {
-      title: 'UNISCHOLAR',
-      url: '/pages/scholarship-list',
-      image: 'fa-solid fa-diploma',
+      title: "UNISCHOLAR",
+      url: "/pages/scholarship-list",
+      image: "fa-solid fa-diploma",
     },
     {
       title: "UNIFINDER",
@@ -148,9 +144,9 @@ export class SidenavComponent {
       image: "fa-solid fa-compass",
     },
     {
-      title: 'Career',
-      url: '',
-      image: '',
+      title: "Career",
+      url: "",
+      image: "",
     },
     {
       title: "Career Hub",
@@ -218,9 +214,9 @@ export class SidenavComponent {
       image: "",
     },
     {
-      title: 'Assessment',
-      url: '/pages/assessment/ilearn-challenge',
-      image: 'fa-regular fa-badge-check',
+      title: "Assessment",
+      url: "/pages/assessment/ilearn-challenge",
+      image: "fa-regular fa-badge-check",
     },
     {
       title: "AI Global Advisor",
@@ -290,38 +286,26 @@ export class SidenavComponent {
     // }
   ];
   sampleMenus: SideMenu[] = [];
-  k10RestrictedMenus: string[] = [
-    'Career Tools','Recommendations', 'Career Hub', 'Job Portal', 'Learning Hub', 'Skill Mastery', 'Startup Kit', 'Founders Tool', 'Pitch Deck', 'Career', 'Entrepreneur'
-  ]
-  HigherEduRestritedMenus: string[] = [
-    'K12 Academy', 'K12 Academic Tools','Academics'
-  ]
-  studentMenus = ['null'];
-  careerMenus = ['null'];
-  whitlabelmenu = ['Subscription', 'About UNIPREP', '24x7 Support', 'Success Stories', 'Recommendations'];
-  whitlabelmenuFreeTrails = ['Subscription', 'About UNIPREP', '24x7 Support', 'Success Stories'];
-  collegeStudentMenus = ['null'];//'Subscription'
+  k10RestrictedMenus: string[] = ["Career Tools", "Recommendations", "Career Hub", "Job Portal", "Learning Hub", "Skill Mastery", "Startup Kit", "Founders Tool", "Pitch Deck", "Career", "Entrepreneur"];
+  HigherEduRestritedMenus: string[] = ["K12 Academy", "K12 Academic Tools", "Academics"];
+  studentMenus = ["null"];
+  careerMenus = ["null"];
+  whitlabelmenu = ["Subscription", "About UNIPREP", "24x7 Support", "Success Stories", "Recommendations"];
+  whitlabelmenuFreeTrails = ["Subscription", "About UNIPREP", "24x7 Support", "Success Stories"];
+  collegeStudentMenus = ["null"]; //'Subscription'
   conditionSubscribed!: boolean;
   currentTitle: any;
   visibleExhasted!: boolean;
-  imagewhitlabeldomainname: any
+  imagewhitlabeldomainname: any;
   ehitlabelIsShow: boolean = true;
   orgnamewhitlabel: any;
-  collegeStudentRestrictedMenus = ['Assessment'];
-  currentUserSubscriptionPlan: string =  '';
+  collegeStudentRestrictedMenus = ["Assessment"];
+  currentUserSubscriptionPlan: string = "";
 
-  constructor(
-    private router: Router,
-    private activatedRoute: ActivatedRoute,
-    private dataService: DataService,
-    private authService: AuthService,
-    private locationService: LocationService,
-    private assessmentService: AssessmentService
-  ) {
+  constructor(private router: Router, private activatedRoute: ActivatedRoute, private dataService: DataService, private authService: AuthService, private locationService: LocationService, private assessmentService: AssessmentService) {
     this.dataService.countryNameSource.subscribe((countryName) => {
       this.menus.filter((data) => {
-        if (data.title.includes("Life in"))
-          data.title = "Life in " + countryName;
+        if (data.title.includes("Life in")) data.title = "Life in " + countryName;
       });
     });
     router.events
@@ -341,30 +325,29 @@ export class SidenavComponent {
         },
       });
   }
-  enterpriseSubscriptionLink: any
+  enterpriseSubscriptionLink: any;
   ngOnInit(): void {
     //this.sampleMenus = this.menus;
-    this.authService.userData.subscribe(data => {
-      if(data?.student_type_id == 1) {
-        this.menus = this.menus.filter(menu => !(this.collegeStudentRestrictedMenus?.includes(menu?.title)));
+    this.authService.userData.subscribe((data) => {
+      if (data?.student_type_id == 1) {
+        this.menus = this.menus.filter((menu) => !this.collegeStudentRestrictedMenus?.includes(menu?.title));
       }
-      const educationLevel = data?.education_level?.replace(/[\s\u00A0]/g, '').trim() || 'HigherEducation';
-      if (educationLevel === 'K10') {
-        this.menus = this.menus.filter(menu => !(this.k10RestrictedMenus?.includes(menu?.title)));
-      }
-      else if (educationLevel === 'HigherEducation') {
-        this.menus = this.menus.filter(menu => !(this.HigherEduRestritedMenus?.includes(menu?.title)));
+      const educationLevel = data?.education_level?.replace(/[\s\u00A0]/g, "").trim() || "HigherEducation";
+      if (educationLevel === "K10") {
+        this.menus = this.menus.filter((menu) => !this.k10RestrictedMenus?.includes(menu?.title));
+      } else if (educationLevel === "HigherEducation") {
+        this.menus = this.menus.filter((menu) => !this.HigherEduRestritedMenus?.includes(menu?.title));
       } else {
         this.menus = this.menus;
       }
     });
-    this.locationService.getOrgName().subscribe(orgname => {
+    this.locationService.getOrgName().subscribe((orgname) => {
       this.orgnamewhitlabel = orgname;
     });
     this.markCurrentMenu();
     this.authService.getNewUserTimeLeft().subscribe((res) => {
       let data = res.time_left;
-      this.currentUserSubscriptionPlan =  res?.subscription_details?.subscription_plan;
+      this.currentUserSubscriptionPlan = res?.subscription_details?.subscription_plan;
       if (data.plan === "expired" || data.plan === "subscription_expired") {
         this.conditionSubscribed = false;
       } else {
@@ -374,45 +357,41 @@ export class SidenavComponent {
       if (this.imagewhitlabeldomainname === "dev-student.uniprep.ai" || this.imagewhitlabeldomainname === "uniprep.ai" || this.imagewhitlabeldomainname === "localhost") {
         this.ehitlabelIsShow = true;
       } else {
-        if (res.subscription_details.subscription_plan === 'free_trail' && res.time_left.plan === 'on_progress') {
-          this.menus = this.menus.filter(item => !this.whitlabelmenuFreeTrails.includes(item.title));
+        if (res.subscription_details.subscription_plan === "free_trail" && res.time_left.plan === "on_progress") {
+          this.menus = this.menus.filter((item) => !this.whitlabelmenuFreeTrails.includes(item.title));
           this.ehitlabelIsShow = false;
         } else {
-          this.menus = this.menus.filter(item => !this.whitlabelmenu.includes(item.title));
+          this.menus = this.menus.filter((item) => !this.whitlabelmenu.includes(item.title));
           this.ehitlabelIsShow = false;
         }
       }
-      if (res.subscription_details.subscription_plan == 'free_trail' && res.enterprise_subscription_link != "") {
+      if (res.subscription_details.subscription_plan == "free_trail" && res.enterprise_subscription_link != "") {
         this.enterpriseSubscriptionLink = res.enterprise_subscription_link;
-        if (res.enterprise_subscription_plan == 'Student') {
-          this.menus = this.menus.filter(item => !this.studentMenus.includes(item.title));
-        } else if (res.enterprise_subscription_plan == 'Career') {
-          this.menus = this.menus.filter(item => !this.careerMenus.includes(item.title));
+        if (res.enterprise_subscription_plan == "Student") {
+          this.menus = this.menus.filter((item) => !this.studentMenus.includes(item.title));
+        } else if (res.enterprise_subscription_plan == "Career") {
+          this.menus = this.menus.filter((item) => !this.careerMenus.includes(item.title));
         }
       }
     });
-    this.authService.getMe().subscribe(
-      res => {
-
-        if (res.userdetails[0].student_type_id == 2) {
-          if (res.userdetails[0].subscription_plan == 'Student') {
-            this.menus = this.menus.filter(item => !this.studentMenus.includes(item.title));
-          }
-          if (res.userdetails[0].subscription_plan == 'Career') {
-            this.menus = this.menus.filter(item => !this.careerMenus.includes(item.title));
-          }
-          this.menus = this.menus.filter(item => !this.collegeStudentMenus.includes(item.title));
+    this.authService.getMe().subscribe((res) => {
+      if (res.userdetails[0].student_type_id == 2) {
+        if (res.userdetails[0].subscription_plan == "Student") {
+          this.menus = this.menus.filter((item) => !this.studentMenus.includes(item.title));
         }
-      });
+        if (res.userdetails[0].subscription_plan == "Career") {
+          this.menus = this.menus.filter((item) => !this.careerMenus.includes(item.title));
+        }
+        this.menus = this.menus.filter((item) => !this.collegeStudentMenus.includes(item.title));
+      }
+    });
 
     //this.changeSubscriptionUrl();
   }
 
   changeSubscriptionUrl() {
     if (this.authService.user?.subscription) {
-      const subscriptionItem = this.menus.find(
-        (item) => item.title === "Subscription"
-      );
+      const subscriptionItem = this.menus.find((item) => item.title === "Subscription");
       if (subscriptionItem) {
         subscriptionItem.url = "subscriptions/subscription-history";
       }
@@ -421,12 +400,8 @@ export class SidenavComponent {
 
   markCurrentMenu() {
     const path = this.router.url.split("?")[0];
-    const paramtersLen = Object.keys(
-      this.activatedRoute.snapshot.params
-    ).length;
-    const pathArr = path
-      .split("/")
-      .slice(0, path.split("/").length - paramtersLen);
+    const paramtersLen = Object.keys(this.activatedRoute.snapshot.params).length;
+    const pathArr = path.split("/").slice(0, path.split("/").length - paramtersLen);
     const url = pathArr.join("/");
     this.menus.forEach((menu) => {
       if (url.includes(menu.url || "**") && menu.url != "/") {
@@ -457,13 +432,7 @@ export class SidenavComponent {
   listClick(event: any, newValue: any) {
     this.authService.getNewUserTimeLeft().subscribe((res) => {
       let data = res.time_left;
-      if (
-        data.plan === "expired" &&
-        newValue.title != "Dashboard" &&
-        newValue.title != "Tutorials" &&
-        newValue.title != "FAQ" &&
-        newValue.title != "24x7 Support"
-      ) {
+      if (data.plan === "expired" && newValue.title != "Dashboard" && newValue.title != "Tutorials" && newValue.title != "FAQ" && newValue.title != "24x7 Support") {
         this.visibleExhasted = false;
       } else {
         this.visibleExhasted = false;
@@ -473,8 +442,8 @@ export class SidenavComponent {
 
   onClickSubscribedUser(): void {
     this.visibleExhasted = false;
-    if (this.enterpriseSubscriptionLink !== '') {
-      window.open(this.enterpriseSubscriptionLink, '_target');
+    if (this.enterpriseSubscriptionLink !== "") {
+      window.open(this.enterpriseSubscriptionLink, "_target");
       return;
     }
     this.router.navigate(["/pages/subscriptions"]);
@@ -497,11 +466,11 @@ export class SidenavComponent {
     } else {
       if (item.title == "Subscription") {
         if (this.enterpriseSubscriptionLink != undefined) {
-          window.open(this.enterpriseSubscriptionLink, '_target');
+          window.open(this.enterpriseSubscriptionLink, "_target");
           return;
         }
       }
-      if(item.title == 'Assessment') {
+      if (item.title == "Assessment") {
         this.assessmentService.sideMenuiLearnChallenge.next(true);
         return;
       }

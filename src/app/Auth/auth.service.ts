@@ -1,12 +1,11 @@
-import CryptoJS from "crypto-js";
 import { environment } from "../../environments/environment";
-import { BehaviorSubject, Observable, of, shareReplay, tap, throwError } from "rxjs";
-import { catchError } from "rxjs/operators";
+import { BehaviorSubject, Observable, of, shareReplay, tap, throwError, switchMap, map, catchError, retry, timeout } from "rxjs";
+import { catchError as rxjsCatchError } from "rxjs/operators";
 import { User, UserData } from "../@Models/user.model";
 import { LoginRequest } from "../@Models/auth.model";
 import { Router } from "@angular/router";
 import { DataService } from "../data.service";
-import { jwtDecode } from "jwt-decode"; // Use named import
+import { jwtDecode } from "jwt-decode";
 import { Injectable } from "@angular/core";
 import { HttpClient, HttpHeaders } from "@angular/common/http";
 import { Store } from "@ngrx/store";
@@ -40,8 +39,33 @@ export class AuthService {
   ) {}
 
   getToken(): string | null {
+    // Try both possible token locations
     const tokenKey = `${ngxLocalstorageConfiguration.prefix}${ngxLocalstorageConfiguration.delimiter}${environment.tokenKey}`;
-    return localStorage.getItem(tokenKey) || localStorage.getItem(environment.tokenKey);
+    const token = localStorage.getItem(tokenKey) || localStorage.getItem(environment.tokenKey);
+    
+    console.log('GetToken - Token key used:', tokenKey);
+    console.log('GetToken - Token exists:', !!token);
+    if (token) {
+      console.log('GetToken - Token value:', token.substring(0, 10) + '...');
+    }
+    return token;
+  }
+
+  private getAuthHeaders(): HttpHeaders {
+    const token = this.getToken();
+    if (!token) {
+      console.warn('No token available for request');
+      return new HttpHeaders({
+        'Accept': 'application/json',
+        'Content-Type': 'application/json'
+      });
+    }
+    
+    return new HttpHeaders({
+      'Accept': 'application/json',
+      'Content-Type': 'application/json',
+      'Authorization': `Bearer ${token}`
+    });
   }
 
   set user(u: User | null) {
@@ -71,22 +95,53 @@ export class AuthService {
   }
 
   login(data: LoginRequest): Observable<UserData> {
+    console.log('Login attempt started:', data.email);
     this.store.dispatch(AuthActions.login({ request: data }));
+    
     return this.isAuthenticated(data).pipe(
       tap(response => {
-        if (response.token) {
-          console.log('Received token:', response.token);
-          // Save token in both locations
-          const tokenKey = `${ngxLocalstorageConfiguration.prefix}${ngxLocalstorageConfiguration.delimiter}${environment.tokenKey}`;
-          localStorage.setItem(tokenKey, response.token);
-          localStorage.setItem(environment.tokenKey, response.token);
-          console.log('Stored token in localStorage:', this.getToken()); // Verify stored token
-          this.store.dispatch(AuthActions.loginSuccess({ token: response.token }));
-        } else {
+        console.log('Authentication response received:', response);
+        if (!response?.token) {
           console.warn('No token received in login response');
+          throw new Error('No token received');
         }
+
+        // Save token in both storage locations for compatibility
+        const tokenKey = `${ngxLocalstorageConfiguration.prefix}${ngxLocalstorageConfiguration.delimiter}${environment.tokenKey}`;
+        localStorage.setItem(tokenKey, response.token);
+        localStorage.setItem(environment.tokenKey, response.token);
+        console.log('Token saved in both locations');
+        
+        // Dispatch login success after token is saved
+        this.store.dispatch(AuthActions.loginSuccess({ token: response.token }));
+      }),
+      switchMap(response => {
+        // After token is saved, get user details
+        return this.getMe().pipe(
+          tap(userData => {
+            console.log('User details retrieved successfully:', userData);
+            
+            // Ensure we're on the main thread for navigation
+            setTimeout(() => {
+              console.log('Attempting navigation to dashboard...');
+              this.router.navigate(['/pages/dashboard'], {
+                replaceUrl: true
+              }).then(
+                success => console.log('Navigation result:', success),
+                error => console.error('Navigation error:', error)
+              );
+            }, 0);
+          }),
+          // Return the original response
+          map(() => response)
+        );
       }),
       catchError(error => {
+        console.error('Login flow error:', error);
+        if (error.status === 401) {
+          console.log('Unauthorized error during login, clearing token');
+          this.clearToken();
+        }
         this.store.dispatch(AuthActions.loginFailure({ error: error.message }));
         return throwError(() => error);
       })
@@ -117,62 +172,63 @@ export class AuthService {
 
   getMe(): Observable<any> {
     const token = this.getToken();
-    console.log('Token being used for getMe:', token); // Log token
+    console.log('GetMe - Using token:', token ? 'Token exists' : 'No token');
 
     if (!token) {
-      console.error('No token available for getMe request');
+      console.error('GetMe - No token available');
       return throwError(() => new Error('No authentication token available'));
     }
 
-    const headers = new HttpHeaders()
-      .set('Accept', 'application/json')
-      .set('Authorization', `Bearer ${token}`);
-
-    console.log('Request headers:', headers.get('Authorization')); // Log headers
-
-    return this.http.get<any>(`${environment.ApiUrl}/getuserdetails`, { headers }).pipe(
-      tap((response) => {
-        console.log('GetMe response:', response); // Log successful response
-        localStorage.setItem("countryId", response.userdetails[0].selected_country);
-        this.user = response.userdetails[0];
-        this._userLoginCount = response.userdetails[0].login_status;
-        this._checkExistsSubscription = response.userdetails[0].subscription_exists;
-        const encUserID = CryptoJS.AES.encrypt(JSON.stringify(response.userdetails[0].id), environment.secretKeySalt).toString();
-        const encName = CryptoJS.AES.encrypt(JSON.stringify(response.userdetails[0].name), environment.secretKeySalt).toString();
-        const encPhone = CryptoJS.AES.encrypt(JSON.stringify(response.userdetails[0].phone), environment.secretKeySalt).toString();
-        const encCreditPlan = CryptoJS.AES.encrypt(JSON.stringify(response.userdetails[0].credit_plans), environment.secretKeySalt).toString();
-        const encQuestionLeft = CryptoJS.AES.encrypt(JSON.stringify(response.userdetails[0].questions_left), environment.secretKeySalt).toString();
-        const encGuideLine = CryptoJS.AES.encrypt(JSON.stringify(response.userdetails[0].guidelineaccept), environment.secretKeySalt).toString();
-        const encEmail = CryptoJS.AES.encrypt(JSON.stringify(response.userdetails[0].email), environment.secretKeySalt).toString();
-        const encHomeCountry = CryptoJS.AES.encrypt(JSON.stringify(response.userdetails[0].home_country_name), environment.secretKeySalt).toString();
-
-        localStorage.setItem("UserID", encUserID);
-        localStorage.setItem("Name", encName);
-        localStorage.setItem("phone", encPhone);
-        localStorage.setItem("questions_left", encQuestionLeft);
-        localStorage.setItem("email", encEmail);
-        localStorage.setItem("home_country_name", encHomeCountry);
-        setTimeout(() => {
-          this.canDisableSignIn.next(false);
-        }, 5000);
-      }),
-      catchError((error: any) => {
-        console.error('GetMe error:', error); // Log error details
-        if (error.status === 401) {
-          // Check if token is expired
-          const isValid = this.isTokenValid();
-          console.log('Token validity check:', isValid);
-          if (!isValid) {
-            console.log('Token is invalid or expired');
-            localStorage.removeItem(environment.tokenKey);
-            const tokenKey = `${ngxLocalstorageConfiguration.prefix}${ngxLocalstorageConfiguration.delimiter}${environment.tokenKey}`;
-            localStorage.removeItem(tokenKey);
-          }
+    return this.http.get<any>(`${environment.ApiUrl}/getuserdetails`, { 
+      headers: this.getAuthHeaders()
+    }).pipe(
+      retry(1),
+      timeout(30000), // 30 second timeout
+      tap(response => {
+        console.log('GetMe - Response received:', response);
+        if (!response?.userdetails?.[0]) {
+          throw new Error('Invalid user details response');
         }
-        this.router.navigateByUrl("/login");
+
+        const userDetails = response.userdetails[0];
+        this.user = userDetails;
+        this._userLoginCount = userDetails.login_status;
+        this._checkExistsSubscription = userDetails.subscription_exists;
+
+        // Store user data securely
+        this.storeUserData(userDetails);
+      }),
+      catchError(error => {
+        console.error('GetMe - Error:', error);
+        if (error.status === 401 || error.status === 0) {
+          console.log('GetMe - Unauthorized or CORS error, checking token validity');
+          if (!this.isTokenValid()) {
+            console.log('GetMe - Token invalid, clearing token');
+            this.clearToken();
+          }
+          return throwError(() => new Error('Unauthorized access or CORS error'));
+        }
         return throwError(() => error);
       })
     );
+  }
+
+  private storeUserData(userDetails: any): void {
+    if (userDetails.id) this.encryptAndStore("UserID", userDetails.id.toString());
+    if (userDetails.name) this.encryptAndStore("Name", userDetails.name);
+    if (userDetails.phone) this.encryptAndStore("phone", userDetails.phone);
+    if (userDetails.email) this.encryptAndStore("email", userDetails.email);
+    if (userDetails.home_country_name) this.encryptAndStore("home_country_name", userDetails.home_country_name);
+    if (userDetails.selected_country) this.encryptAndStore("countryId", userDetails.selected_country);
+  }
+
+  private async encryptAndStore(key: string, value: string): Promise<void> {
+    try {
+      const encryptedValue = await this.encryptData(value);
+      localStorage.setItem(key, encryptedValue);
+    } catch (error) {
+      console.error(`Error storing ${key}:`, error);
+    }
   }
 
   getCountry() {
@@ -187,9 +243,12 @@ export class AuthService {
   // }
 
   isAuthenticated(val: any): Observable<UserData> {
-    const headers = new HttpHeaders().set("Accept", "application/json");
+    const headers = new HttpHeaders()
+      .set('Accept', 'application/json')
+      .set('Content-Type', 'application/json');
+      
     return this.http.post<UserData>(environment.ApiUrl + "/login", val, {
-      headers: headers,
+      headers: headers
     });
   }
 
@@ -315,27 +374,151 @@ export class AuthService {
   }
 
   saveToken(token: string): void {
-    if (!token) return;
-    // Save token in both locations
-    const tokenKey = `${ngxLocalstorageConfiguration.prefix}${ngxLocalstorageConfiguration.delimiter}${environment.tokenKey}`;
-    localStorage.setItem(tokenKey, token);
-    localStorage.setItem(environment.tokenKey, token);
+    if (!token) {
+      console.warn('Attempted to save empty token');
+      return;
+    }
+    
+    try {
+      const tokenKey = `${ngxLocalstorageConfiguration.prefix}${ngxLocalstorageConfiguration.delimiter}${environment.tokenKey}`;
+      console.log('SaveToken - Using token key:', tokenKey);
+      localStorage.setItem(tokenKey, token);
+      console.log('SaveToken - Token saved successfully');
+      
+      // Verify token was saved
+      const savedToken = this.getToken();
+      if (savedToken !== token) {
+        console.error('SaveToken - Token verification failed after save');
+        console.log('SaveToken - Expected:', token.substring(0, 10) + '...');
+        console.log('SaveToken - Got:', savedToken?.substring(0, 10) + '...');
+      } else {
+        console.log('SaveToken - Token verification successful');
+      }
+    } catch (error) {
+      console.error('SaveToken - Error saving token:', error);
+    }
   }
 
-  // Validate token
   isTokenValid(): boolean {
     const token = this.getToken();
-    console.log("sss", token);
+    console.log('Checking token validity');
 
-    if (token) {
-      try {
-        const decoded: any = jwtDecode(token);
-        const currentTime = Math.floor(Date.now() / 1000);
-        return decoded.exp > currentTime; // Token is valid if current time is before expiration
-      } catch (error) {
-        return false; // Invalid token
-      }
+    if (!token) {
+      console.log('No token found');
+      return false;
     }
-    return false; // No token
+
+    try {
+      const decoded: any = jwtDecode(token);
+      const currentTime = Math.floor(Date.now() / 1000);
+      const isValid = decoded.exp > currentTime;
+      console.log('Token validity:', isValid ? 'Valid' : 'Expired');
+      return isValid;
+    } catch (error) {
+      console.error('Token validation error:', error);
+      return false;
+    }
+  }
+
+  private clearToken(): void {
+    try {
+      const tokenKey = `${ngxLocalstorageConfiguration.prefix}${ngxLocalstorageConfiguration.delimiter}${environment.tokenKey}`;
+      localStorage.removeItem(tokenKey);
+      console.log('Token cleared successfully');
+    } catch (error) {
+      console.error('Error clearing token:', error);
+    }
+  }
+
+  // Helper method to convert string to Uint8Array
+  private str2ab(str: string): Uint8Array {
+    const encoder = new TextEncoder();
+    return encoder.encode(str);
+  }
+
+  // Helper method to convert ArrayBuffer to string
+  private ab2str(buf: ArrayBuffer): string {
+    return new TextDecoder().decode(buf);
+  }
+
+  // Helper method to get encryption key
+  private async getKey(salt: string): Promise<CryptoKey> {
+    const keyMaterial = await crypto.subtle.importKey(
+      'raw',
+      this.str2ab(salt),
+      { name: 'PBKDF2' },
+      false,
+      ['deriveBits', 'deriveKey']
+    );
+
+    return crypto.subtle.deriveKey(
+      {
+        name: 'PBKDF2',
+        salt: this.str2ab('salt'),
+        iterations: 100000,
+        hash: 'SHA-256'
+      },
+      keyMaterial,
+      { name: 'AES-GCM', length: 256 },
+      false,
+      ['encrypt', 'decrypt']
+    );
+  }
+
+  // Helper method to encrypt data
+  private async encryptData(data: any): Promise<string> {
+    try {
+      const key = await this.getKey(environment.secretKeySalt);
+      const iv = crypto.getRandomValues(new Uint8Array(12));
+      const jsonStr = JSON.stringify(data);
+      
+      const encrypted = await crypto.subtle.encrypt(
+        {
+          name: 'AES-GCM',
+          iv: iv
+        },
+        key,
+        this.str2ab(jsonStr)
+      );
+
+      // Combine IV and encrypted data
+      const encryptedArray = new Uint8Array(iv.length + encrypted.byteLength);
+      encryptedArray.set(iv);
+      encryptedArray.set(new Uint8Array(encrypted), iv.length);
+      
+      return btoa(String.fromCharCode(...encryptedArray));
+    } catch (error) {
+      console.error('Error encrypting data:', error);
+      return '';
+    }
+  }
+
+  // Helper method to decrypt data
+  private async decryptData(encryptedData: string): Promise<any> {
+    try {
+      const key = await this.getKey(environment.secretKeySalt);
+      const encryptedArray = new Uint8Array(
+        atob(encryptedData).split('').map(char => char.charCodeAt(0))
+      );
+
+      // Extract IV and encrypted data
+      const iv = encryptedArray.slice(0, 12);
+      const data = encryptedArray.slice(12);
+
+      const decrypted = await crypto.subtle.decrypt(
+        {
+          name: 'AES-GCM',
+          iv: iv
+        },
+        key,
+        data
+      );
+
+      const decryptedStr = this.ab2str(decrypted);
+      return JSON.parse(decryptedStr);
+    } catch (error) {
+      console.error('Error decrypting data:', error);
+      return null;
+    }
   }
 }

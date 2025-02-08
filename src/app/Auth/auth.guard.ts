@@ -10,9 +10,6 @@ import { AuthService } from './auth.service';
   providedIn: 'root'
 })
 export class AuthGuard  {
-  min!: any;
-  userData: any;
-  sec: any;
   constructor(
     private storage: LocalStorageService,
     private router: Router,
@@ -20,43 +17,41 @@ export class AuthGuard  {
     private authService: AuthService
   ) {}
 
-  canLoad(route: Route, segments: UrlSegment[]): boolean | UrlTree | Observable<boolean | UrlTree> | Promise<boolean | UrlTree> {
-    throw new Error('Method not implemented.');
-  }
-
   canActivate(
     route: ActivatedRouteSnapshot,
     state: RouterStateSnapshot): Observable<boolean | UrlTree> | Promise<boolean | UrlTree> | boolean | UrlTree {
-    // return true;
-    let isExpired: boolean;
+    
+    console.log('AuthGuard - Checking route:', state.url);
+    
     try {
-      const token = this.storage.get<string>('token') || '123';
-      const helper = new JwtHelperService();
-      isExpired = helper.isTokenExpired(token);
-      this.dataService.showTimerSource.subscribe((data) => {
-        if (data == "EXPIRED") {
-          this.min = 0;
-          this.dataService.showTimeOut(true);
-          return;
-        }
-        if (data) {
-          data = data.split("-", 4);
-          this.min = data[2];
-          this.sec = data[3];
-          let count = this.authService._userLoginCount;
-          if ((this.min === "1" && count === 4) || (this.min === "0" && count === 4 && data === null) || (count === 4 && data === null)) {
-            this.dataService.showTimeOut(true);
-          }
-        }
-      });
+      // Use authService to get token instead of direct storage access
+      const token = this.authService.getToken();
+      console.log('AuthGuard - Token check result:', !!token);
+      
+      if (!token) {
+        console.log('AuthGuard - No token, redirecting to login');
+        return this.router.createUrlTree(['/login']);
+      }
 
-    } catch (e) { isExpired = true; }
-    if (!isExpired) {
+      const helper = new JwtHelperService();
+      const isExpired = helper.isTokenExpired(token);
+      console.log('AuthGuard - Token expiration check:', isExpired ? 'Expired' : 'Valid');
+
+      if (isExpired) {
+        console.log('AuthGuard - Token expired, redirecting to login');
+        return this.router.createUrlTree(['/login']);
+      }
+
+      // Token is valid
+      console.log('AuthGuard - Access granted to:', state.url);
       return true;
+    } catch (error) {
+      console.error('AuthGuard - Error during route guard:', error);
+      return this.router.createUrlTree(['/login']);
     }
-    localStorage.setItem('previousUrl', window.location.pathname);
-    this.router.navigateByUrl('/login');
-    return false;
   }
 
+  canLoad(route: Route, segments: UrlSegment[]): boolean | UrlTree | Observable<boolean | UrlTree> | Promise<boolean | UrlTree> {
+    throw new Error('Method not implemented.');
+  }
 }
