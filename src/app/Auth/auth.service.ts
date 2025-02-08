@@ -38,6 +38,12 @@ export class AuthService {
     private router: Router, 
     private dataService: DataService
   ) {}
+
+  getToken(): string | null {
+    const tokenKey = `${ngxLocalstorageConfiguration.prefix}${ngxLocalstorageConfiguration.delimiter}${environment.tokenKey}`;
+    return localStorage.getItem(tokenKey) || localStorage.getItem(environment.tokenKey);
+  }
+
   set user(u: User | null) {
     this._user = u;
     this.userData.next(u);
@@ -69,11 +75,15 @@ export class AuthService {
     return this.isAuthenticated(data).pipe(
       tap(response => {
         if (response.token) {
+          console.log('Received token:', response.token);
           // Save token in both locations
           const tokenKey = `${ngxLocalstorageConfiguration.prefix}${ngxLocalstorageConfiguration.delimiter}${environment.tokenKey}`;
           localStorage.setItem(tokenKey, response.token);
           localStorage.setItem(environment.tokenKey, response.token);
+          console.log('Stored token in localStorage:', this.getToken()); // Verify stored token
           this.store.dispatch(AuthActions.loginSuccess({ token: response.token }));
+        } else {
+          console.warn('No token received in login response');
         }
       }),
       catchError(error => {
@@ -107,12 +117,22 @@ export class AuthService {
 
   getMe(): Observable<any> {
     const token = this.getToken();
+    console.log('Token being used for getMe:', token); // Log token
+
+    if (!token) {
+      console.error('No token available for getMe request');
+      return throwError(() => new Error('No authentication token available'));
+    }
+
     const headers = new HttpHeaders()
       .set('Accept', 'application/json')
       .set('Authorization', `Bearer ${token}`);
 
+    console.log('Request headers:', headers.get('Authorization')); // Log headers
+
     return this.http.get<any>(`${environment.ApiUrl}/getuserdetails`, { headers }).pipe(
       tap((response) => {
+        console.log('GetMe response:', response); // Log successful response
         localStorage.setItem("countryId", response.userdetails[0].selected_country);
         this.user = response.userdetails[0];
         this._userLoginCount = response.userdetails[0].login_status;
@@ -137,6 +157,18 @@ export class AuthService {
         }, 5000);
       }),
       catchError((error: any) => {
+        console.error('GetMe error:', error); // Log error details
+        if (error.status === 401) {
+          // Check if token is expired
+          const isValid = this.isTokenValid();
+          console.log('Token validity check:', isValid);
+          if (!isValid) {
+            console.log('Token is invalid or expired');
+            localStorage.removeItem(environment.tokenKey);
+            const tokenKey = `${ngxLocalstorageConfiguration.prefix}${ngxLocalstorageConfiguration.delimiter}${environment.tokenKey}`;
+            localStorage.removeItem(tokenKey);
+          }
+        }
         this.router.navigateByUrl("/login");
         return throwError(() => error);
       })
@@ -288,12 +320,6 @@ export class AuthService {
     const tokenKey = `${ngxLocalstorageConfiguration.prefix}${ngxLocalstorageConfiguration.delimiter}${environment.tokenKey}`;
     localStorage.setItem(tokenKey, token);
     localStorage.setItem(environment.tokenKey, token);
-  }
-
-  getToken(): string | null {
-    const tokenKey = `${ngxLocalstorageConfiguration.prefix}${ngxLocalstorageConfiguration.delimiter}${environment.tokenKey}`;
-    const token = localStorage.getItem(tokenKey);
-    return token ? token.replace(/"/g, '') : null;
   }
 
   // Validate token

@@ -5,6 +5,10 @@ import { NgxUiLoaderService } from "ngx-ui-loader";
 import { Router } from "@angular/router";
 import { inject } from "@angular/core";
 import { DataService } from "../data.service";
+import { environment } from "../../environments/environment";
+import { NGX_LOCAL_STORAGE_CONFIG } from "ngx-localstorage";
+
+const ngxLocalstorageConfiguration = NGX_LOCAL_STORAGE_CONFIG as unknown as { prefix: string, delimiter: string };
 
 export const HttpErrorInterceptor: HttpInterceptorFn = (
   request: HttpRequest<unknown>,
@@ -16,6 +20,20 @@ export const HttpErrorInterceptor: HttpInterceptorFn = (
   const dataService = inject(DataService);
   
   let currentUrl = window.location.href;
+
+  // Add auth token to all API requests
+  if (request.url.includes(environment.ApiUrl)) {
+    const tokenKey = `${ngxLocalstorageConfiguration.prefix}${ngxLocalstorageConfiguration.delimiter}${environment.tokenKey}`;
+    const token = localStorage.getItem(tokenKey) || localStorage.getItem(environment.tokenKey);
+    
+    if (token) {
+      request = request.clone({
+        setHeaders: {
+          Authorization: `Bearer ${token}`
+        }
+      });
+    }
+  }
 
   if (
     !request.url.includes("country") &&
@@ -50,38 +68,29 @@ export const HttpErrorInterceptor: HttpInterceptorFn = (
         errorMessage = error.error.message;
       } else {
         // Server-side error
-        switch (error.status) {
-          case 401:
-            window.sessionStorage.clear();
-            localStorage.clear();
-            if (!error.error?.message?.includes("Unauthorized")) {
-              toastr.add({
-                severity: "error",
-                summary: "Error",
-                detail: error.error?.message || 'Unauthorized access'
-              });
-            }          
-            router.navigateByUrl("/login");
-            break;
-          case 408:
-            dataService.loggedInAnotherDevice("block");
-            errorMessage = 'Request timed out. Please try again.';
-            break;
-          case 422:
-            if (error.error?.message?.includes("Unprocessable")) {
-              toastr.add({
-                severity: "error",
-                summary: "Error",
-                detail: 'No Data Found.'
-              });
-            }
-            break;
-          default:
-            errorMessage = error.error?.message || error.message || errorMessage;
+        if (error.status === 401) {
+          // Clear tokens on 401
+          localStorage.removeItem(environment.tokenKey);
+          const tokenKey = `${ngxLocalstorageConfiguration.prefix}${ngxLocalstorageConfiguration.delimiter}${environment.tokenKey}`;
+          localStorage.removeItem(tokenKey);
+          
+          errorMessage = 'Authentication failed. Please login again.';
+          router.navigate(['/login']);
+        } else if (error.status === 408) {
+          errorMessage = 'Request timed out. Please try again.';
+        } else {
+          errorMessage = error.error?.message || 'Server error occurred';
         }
       }
-      
-      return throwError(() => new Error(errorMessage));
+
+      toastr.add({
+        severity: 'error',
+        summary: 'Error',
+        detail: errorMessage,
+        life: 3000
+      });
+
+      return throwError(() => error);
     })
   );
 };
