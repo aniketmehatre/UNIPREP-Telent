@@ -6,9 +6,9 @@
 			<span (click)="clearText()" *ngIf="showCloseIcon" class="border-0 input-group-text passwordvisibility" role="button" style="background: transparent">
 				<i class="fa-solid fa-xmark text-danger" style="font-size: 1.25rem"></i>
 			</span>
-			<!-- <button (click)="searchKeyWord(searchInput)" class="btn-primary"
+			<button *ngIf="isButtonShowOnlyModulesMenus" (click)="searchKeyWord(searchInput)" class="btn-primary"
 			style="background-color: #D9D9D9 !important; color:#394D83 !important ; border-color: #D9D9D9;border-radius: 8px 0px 0px 8px !important;"
-			 pButton pRipple >{{flobalsearchbuttonname}}</button> -->
+			 pButton pRipple >{{flobalsearchbuttonname}}</button>
 			<button (click)="searchKeyWord(searchInput)" class="btn-primary" style="border-radius: 0px 8px 8px 0px !important;"  label="Questions" pButton pRipple type="button"></button>
 		</div>
         <div class="searchcard" *ngIf="isSearchResultFound">
