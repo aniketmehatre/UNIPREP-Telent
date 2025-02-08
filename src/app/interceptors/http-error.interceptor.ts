@@ -24,19 +24,30 @@ export const HttpErrorInterceptor: HttpInterceptorFn = (
   // Add auth token to all API requests
   if (request.url.includes(environment.ApiUrl)) {
     const tokenKey = `${ngxLocalstorageConfiguration.prefix}${ngxLocalstorageConfiguration.delimiter}${environment.tokenKey}`;
-    const token = localStorage.getItem(tokenKey) || localStorage.getItem(environment.tokenKey);
+    const token = localStorage.getItem(tokenKey);
     
     console.debug('Interceptor - URL:', request.url);
     console.debug('Interceptor - Token exists:', !!token);
-    console.debug('Interceptor - Current headers:', request.headers.keys());
     
     if (token) {
-      request = request.clone({
-        setHeaders: {
-          Authorization: `Bearer ${token}`
-        }
-      });
-      console.debug('Interceptor - Added auth header');
+      // Clean the token
+      const cleanToken = token.replace(/['"]+/g, '').trim();
+      
+      // Only add token if it's not already in the headers
+      if (!request.headers.has('Authorization')) {
+        request = request.clone({
+          setHeaders: {
+            'Authorization': `Bearer ${cleanToken}`,
+            'Accept': 'application/json',
+            'Content-Type': 'application/json'
+          }
+        });
+        console.debug('Interceptor - Added auth header');
+      } else {
+        console.debug('Interceptor - Auth header already exists');
+      }
+    } else {
+      console.debug('Interceptor - No token available');
     }
   }
 
@@ -74,6 +85,7 @@ export const HttpErrorInterceptor: HttpInterceptorFn = (
       } else {
         // Server-side error
         if (error.status === 401) {
+          console.debug('Interceptor - 401 error, clearing token and redirecting to login');
           // Clear tokens on 401
           localStorage.removeItem(environment.tokenKey);
           const tokenKey = `${ngxLocalstorageConfiguration.prefix}${ngxLocalstorageConfiguration.delimiter}${environment.tokenKey}`;

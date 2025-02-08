@@ -32,6 +32,7 @@ export class AuthService {
   private tokenKey = "123";
   // Add cache for getMe
   private getMeCache$: Observable<any> | null = null;
+  private readonly CACHE_DURATION = 300000; // 5 minutes cache duration
 
   constructor(
     private http: HttpClient, 
@@ -141,7 +142,6 @@ export class AuthService {
           // Save token only if it's valid
           const tokenKey = `${ngxLocalstorageConfiguration.prefix}${ngxLocalstorageConfiguration.delimiter}${environment.tokenKey}`;
           localStorage.setItem(tokenKey, cleanToken);
-          localStorage.setItem(environment.tokenKey, cleanToken);
           console.log('Token validated and saved successfully');
           
           this.store.dispatch(AuthActions.loginSuccess({ token: cleanToken }));
@@ -201,32 +201,36 @@ export class AuthService {
 
   getMe(): Observable<any> {
     const token = this.getToken();
-    console.log('GetMe - Using token:', token ? 'Token exists' : 'No token');
+    console.debug('GetMe - Using token:', token ? 'Token exists' : 'No token');
 
     if (!token) {
       console.error('GetMe - No token available');
       return throwError(() => new Error('No authentication token available'));
     }
 
-    // Return cached response if available
+    // Return cached response if available and not expired
     if (this.getMeCache$) {
       console.debug('GetMe - Returning cached response');
       return this.getMeCache$;
     }
 
     // Create new request if no cache exists
+    console.debug('GetMe - Creating new request');
     this.getMeCache$ = this.http.get<any>(`${environment.ApiUrl}/getuserdetails`, { 
       headers: this.getAuthHeaders()
     }).pipe(
       retry(1),
       timeout(30000), // 30 second timeout
       tap(response => {
-        console.log('GetMe - Response received:', response);
         if (!response?.userdetails?.[0]) {
+          console.error('GetMe - Invalid response format:', response);
+          this.resetGetMeCache();
           throw new Error('Invalid user details response');
         }
 
         const userDetails = response.userdetails[0];
+        console.debug('GetMe - User details retrieved successfully');
+        
         if (userDetails) {
           this.user = {
             ...userDetails,
@@ -241,19 +245,25 @@ export class AuthService {
       }),
       catchError(error => {
         console.error('GetMe - Error:', error);
-        this.resetGetMeCache(); // Reset cache on error
+        this.resetGetMeCache();
+        
         if (error.status === 401 || error.status === 0) {
-          console.log('GetMe - Unauthorized or CORS error, checking token validity');
+          console.debug('GetMe - Unauthorized or CORS error, checking token validity');
           if (!this.isTokenValid(token)) {
-            console.log('GetMe - Token invalid, clearing token');
+            console.debug('GetMe - Token invalid, clearing token');
             this.clearToken();
+            this.router.navigate(['/login']);
           }
           return throwError(() => new Error('Unauthorized access or CORS error'));
         }
         return throwError(() => error);
       }),
-      // Cache the successful response for 1 minute
-      shareReplay({ bufferSize: 1, refCount: true, windowTime: 60000 })
+      // Cache the successful response
+      shareReplay({ 
+        bufferSize: 1, 
+        refCount: false,  // Keep cache even if all subscribers unsubscribe
+        windowTime: this.CACHE_DURATION 
+      })
     );
 
     return this.getMeCache$;
@@ -603,9 +613,11 @@ export class AuthService {
     }
   }
 
-  // Add cache reset method
-  private resetGetMeCache(): void {
-    this.getMeCache$ = null;
-    console.debug('GetMe cache reset');
+  // Add cache reset method with optional force parameter
+  resetGetMeCache(force: boolean = false): void {
+    if (force || !this.getMeCache$) {
+      this.getMeCache$ = null;
+      console.debug('GetMe cache reset');
+    }
   }
 }

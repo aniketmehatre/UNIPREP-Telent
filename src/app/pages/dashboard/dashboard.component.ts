@@ -111,59 +111,70 @@ export class DashboardComponent implements OnInit, OnChanges {
     this.locationService.getOrgName().subscribe((orgname) => {
       this.orgnamewhitlabel = orgname;
     });
+    
     this.imagewhitlabeldomainname = window.location.hostname;
-    if (this.imagewhitlabeldomainname === "dev-student.uniprep.ai" || this.imagewhitlabeldomainname === "uniprep.ai" || this.imagewhitlabeldomainname === "localhost") {
+    if (this.imagewhitlabeldomainname === "dev-student.uniprep.ai" || 
+        this.imagewhitlabeldomainname === "uniprep.ai" || 
+        this.imagewhitlabeldomainname === "localhost") {
       this.ehitlabelIsShow = true;
     } else {
       this.ehitlabelIsShow = false;
     }
+    
     this.checkplanExpire();
     this.selectedCountryId = Number(localStorage.getItem("countryId"));
     this.enableReadingData();
-    //localStorage.setItem('selectedcountryId', this.selectedCountryId);
-
+    
     localStorage.setItem("currentmodulenameforrecently", "");
-    this.dashboardService.getTrustedPartners().subscribe((partnerLogo) => {
+    
+    // Use combineLatest to handle multiple subscriptions efficiently
+    this.subs.sink = combineLatest([
+      this.dashboardService.getTrustedPartners(),
+      this.dataService.countryFlagSource,
+      this.service.getMe(),
+      this.dataService.countryId
+    ]).subscribe(([partnerLogo, flagData, userData, countryId]) => {
+      // Handle partner logo
       this.partnerTrusterLogo = partnerLogo;
-    });
-    this.dataService.countryFlagSource.subscribe((data) => {
-      if (data != "") {
-        this.headerFlag = data;
+      
+      // Handle flag data
+      if (flagData !== "") {
+        this.headerFlag = flagData;
       }
-    });
-    this.dataService.countryId.subscribe((data) => {
-      this.loadCountryList(data);
-    });
-
-    this.subs.sink = this.service.getMe().subscribe((data) => {
-      if (data) {
-        this.userName = data.userdetails[0].name.toString();
-        this.userData = data.userdetails[0];
-        // let nullCount = this.countNullValues(this.userData)
-        //  let calValue = Math.round((nullCount / 75) * 100)
-        //   this.progress = 100 - calValue
-        //
-        //
+      
+      // Handle user data
+      if (userData) {
+        this.userName = userData.userdetails[0].name.toString();
+        this.userData = userData.userdetails[0];
+        
         let filledCount = 0;
         const totalCount = this.fieldsToCheck.length;
+        
         this.fieldsToCheck.forEach((field) => {
-          if (this.userData[field] != null && this.userData[field] !== undefined && this.userData[field] !== "") {
+          if (this.userData[field] != null && 
+              this.userData[field] !== undefined && 
+              this.userData[field] !== "") {
             filledCount++;
           }
         });
+        
         this.progress = Math.round((filledCount / totalCount) * 100);
         this.setProgress(Math.round((filledCount / totalCount) * 100));
       }
+      
+      // Handle country ID
+      this.loadCountryList(countryId);
     });
 
-    let data = {
-      countryId: this.selectedCountryId,
-    };
-
-    this.isViewMoreOrgVisible = false;
+    // Load API data separately as it doesn't depend on the above data
     this.loadApiData();
     this.checkquizquestionmodule();
   }
+
+  ngOnDestroy(): void {
+    this.subs.unsubscribe();
+  }
+
   loadCountryList(data: any) {
     this.locationService.dashboardLocationList().subscribe((countryList) => {
       this.carousel.page = 0;
