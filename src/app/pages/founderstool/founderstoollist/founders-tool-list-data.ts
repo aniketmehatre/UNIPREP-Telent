@@ -109,21 +109,21 @@ export const FoundersToolsData = [
         description: "An assessment that evaluates an entrepreneur's in-depth knowledge and proficiency in specific industries.",
         image: "../../../uniprep-assets/images/founderstool/business-advisor.svg",
         url: "/pages/founderstool/ai-business-advisor",
-        launch_soon: true
+        launch_soon: false
     },
     {
         title: "Startup Risk Assessment",
         description: "An assessment that evaluates an entrepreneur's in-depth knowledge and proficiency in specific industries.",
         image: "../../../uniprep-assets/images/founderstool/startup-risk-assessment.svg",
         url: "/pages/founderstool/risk-assessment",
-        launch_soon: true
+        launch_soon: false
     },
     {
         title: "Startup Expense Estimate",
         description: "An assessment that evaluates an entrepreneur's in-depth knowledge and proficiency in specific industries.",
         image: "../../../uniprep-assets/images/founderstool/startup-expense-estimator.svg",
         url: "/pages/founderstool/startup-expense-estimate",
-        launch_soon: true
+        launch_soon: false
     },
     {
         title: "Business Forecasting Tool",
