@@ -119,6 +119,7 @@ export class HeaderSearchComponent implements OnInit, OnDestroy {
   }
   imagewhitlabeldomainname:any
   ngOnInit(): void {
+    this.moduleDatasWithurl();
     this.locationService.getOrgName().subscribe(orgname => {
       this.orgnamewhitlabel = orgname;
     });
