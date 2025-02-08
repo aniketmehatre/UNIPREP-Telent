@@ -26,12 +26,17 @@ export const HttpErrorInterceptor: HttpInterceptorFn = (
     const tokenKey = `${ngxLocalstorageConfiguration.prefix}${ngxLocalstorageConfiguration.delimiter}${environment.tokenKey}`;
     const token = localStorage.getItem(tokenKey) || localStorage.getItem(environment.tokenKey);
     
+    console.debug('Interceptor - URL:', request.url);
+    console.debug('Interceptor - Token exists:', !!token);
+    console.debug('Interceptor - Current headers:', request.headers.keys());
+    
     if (token) {
       request = request.clone({
         setHeaders: {
           Authorization: `Bearer ${token}`
         }
       });
+      console.debug('Interceptor - Added auth header');
     }
   }
 

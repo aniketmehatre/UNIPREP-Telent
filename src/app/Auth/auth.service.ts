@@ -1,5 +1,5 @@
 import { environment } from "../../environments/environment";
-import { BehaviorSubject, Observable, of, shareReplay, tap, throwError, switchMap, map, catchError, retry, timeout } from "rxjs";
+import { BehaviorSubject, Observable, of, shareReplay, tap, throwError, switchMap, map, catchError, retry, timeout, delay } from "rxjs";
 import { catchError as rxjsCatchError } from "rxjs/operators";
 import { User, UserData } from "../@Models/user.model";
 import { LoginRequest } from "../@Models/auth.model";
@@ -30,6 +30,8 @@ export class AuthService {
   canDisableSignIn = new BehaviorSubject<boolean>(true);
   public _checkExistsSubscription!: number;
   private tokenKey = "123";
+  // Add cache for getMe
+  private getMeCache$: Observable<any> | null = null;
 
   constructor(
     private http: HttpClient, 
@@ -112,50 +114,62 @@ export class AuthService {
     console.log('Login attempt started:', data.email);
     this.store.dispatch(AuthActions.login({ request: data }));
     
+    // Reset any existing cache before starting new login
+    this.resetGetMeCache();
+    
     return this.isAuthenticated(data).pipe(
-      tap(response => {
+      map(response => {
         console.log('Authentication response received:', response);
         if (!response?.token) {
-          console.warn('No token received in login response');
           throw new Error('No token received');
         }
-
-        // Save token in both storage locations for compatibility
-        const tokenKey = `${ngxLocalstorageConfiguration.prefix}${ngxLocalstorageConfiguration.delimiter}${environment.tokenKey}`;
-        localStorage.setItem(tokenKey, response.token);
-        localStorage.setItem(environment.tokenKey, response.token);
-        console.log('Token saved in both locations');
-        
-        // Dispatch login success after token is saved
-        this.store.dispatch(AuthActions.loginSuccess({ token: response.token }));
+        return response;
       }),
-      switchMap(response => {
-        // After token is saved, get user details
+      tap(response => {
+        // Clean and validate token before saving
+        const cleanToken = response.token.replace(/['"]+/g, '').trim();
+        
+        try {
+          // Validate token structure and expiration
+          const decoded: any = jwtDecode(cleanToken);
+          const currentTime = Math.floor(Date.now() / 1000);
+          
+          if (!decoded.exp || decoded.exp <= currentTime) {
+            throw new Error('Invalid or expired token received from server');
+          }
+          
+          // Save token only if it's valid
+          const tokenKey = `${ngxLocalstorageConfiguration.prefix}${ngxLocalstorageConfiguration.delimiter}${environment.tokenKey}`;
+          localStorage.setItem(tokenKey, cleanToken);
+          localStorage.setItem(environment.tokenKey, cleanToken);
+          console.log('Token validated and saved successfully');
+          
+          this.store.dispatch(AuthActions.loginSuccess({ token: cleanToken }));
+        } catch (error) {
+          console.error('Token validation failed:', error);
+          this.clearToken();
+          throw new Error('Invalid token received from server');
+        }
+      }),
+      // Add small delay to ensure token is saved
+      delay(100),
+      switchMap(() => {
         return this.getMe().pipe(
           tap(userData => {
-            console.log('User details retrieved successfully:', userData);
-            
-            // Ensure we're on the main thread for navigation
+            if (!userData?.userdetails?.[0]) {
+              throw new Error('Invalid user details response');
+            }
             setTimeout(() => {
-              console.log('Attempting navigation to dashboard...');
-              this.router.navigate(['/pages/dashboard'], {
-                replaceUrl: true
-              }).then(
-                success => console.log('Navigation result:', success),
-                error => console.error('Navigation error:', error)
-              );
+              this.router.navigate(['/pages/dashboard'], { replaceUrl: true })
+                .then(success => console.log('Navigation result:', success))
+                .catch(error => console.error('Navigation error:', error));
             }, 0);
-          }),
-          // Return the original response
-          map(() => response)
+          })
         );
       }),
       catchError(error => {
         console.error('Login flow error:', error);
-        if (error.status === 401) {
-          console.log('Unauthorized error during login, clearing token');
-          this.clearToken();
-        }
+        this.clearToken();
         this.store.dispatch(AuthActions.loginFailure({ error: error.message }));
         return throwError(() => error);
       })
@@ -180,6 +194,7 @@ export class AuthService {
 
   logout() {
     this.store.dispatch(AuthActions.loginFailure({ error: undefined }));
+    this.resetGetMeCache(); // Reset cache on logout
     const headers = new HttpHeaders().set("Accept", "application/json");
     return this.http.get<any>(environment.ApiUrl + "/logout", { headers });
   }
@@ -193,7 +208,14 @@ export class AuthService {
       return throwError(() => new Error('No authentication token available'));
     }
 
-    return this.http.get<any>(`${environment.ApiUrl}/getuserdetails`, { 
+    // Return cached response if available
+    if (this.getMeCache$) {
+      console.debug('GetMe - Returning cached response');
+      return this.getMeCache$;
+    }
+
+    // Create new request if no cache exists
+    this.getMeCache$ = this.http.get<any>(`${environment.ApiUrl}/getuserdetails`, { 
       headers: this.getAuthHeaders()
     }).pipe(
       retry(1),
@@ -219,6 +241,7 @@ export class AuthService {
       }),
       catchError(error => {
         console.error('GetMe - Error:', error);
+        this.resetGetMeCache(); // Reset cache on error
         if (error.status === 401 || error.status === 0) {
           console.log('GetMe - Unauthorized or CORS error, checking token validity');
           if (!this.isTokenValid(token)) {
@@ -228,8 +251,12 @@ export class AuthService {
           return throwError(() => new Error('Unauthorized access or CORS error'));
         }
         return throwError(() => error);
-      })
+      }),
+      // Cache the successful response for 1 minute
+      shareReplay({ bufferSize: 1, refCount: true, windowTime: 60000 })
     );
+
+    return this.getMeCache$;
   }
 
   private storeUserData(userDetails: any): void {
@@ -422,6 +449,7 @@ export class AuthService {
     try {
       const tokenKey = `${ngxLocalstorageConfiguration.prefix}${ngxLocalstorageConfiguration.delimiter}${environment.tokenKey}`;
       localStorage.removeItem(tokenKey);
+      this.resetGetMeCache(); // Reset cache when clearing token
       console.debug('Token cleared successfully');
     } catch (error) {
       console.error('Error clearing token:', error);
@@ -431,10 +459,16 @@ export class AuthService {
   public isTokenValid(token?: string): boolean {
     try {
       const tokenToCheck = token || this.getToken();
+      console.debug('isTokenValid - Token to check:', tokenToCheck ? 'Token exists' : 'No token');
+      
       if (!tokenToCheck) return false;
       
       const decoded: any = jwtDecode(tokenToCheck);
       const currentTime = Math.floor(Date.now() / 1000);
+      
+      console.debug('isTokenValid - Token expiration:', decoded.exp);
+      console.debug('isTokenValid - Current time:', currentTime);
+      console.debug('isTokenValid - Time until expiration:', decoded.exp - currentTime);
       
       if (!decoded.exp) {
         console.warn('Token missing expiration');
@@ -567,5 +601,11 @@ export class AuthService {
       console.error('Error decrypting data:', error);
       return null;
     }
+  }
+
+  // Add cache reset method
+  private resetGetMeCache(): void {
+    this.getMeCache$ = null;
+    console.debug('GetMe cache reset');
   }
 }

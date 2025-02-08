@@ -10,6 +10,10 @@ import { AuthService } from './auth.service';
   providedIn: 'root'
 })
 export class AuthGuard  {
+  private lastCheck: number = 0;
+  private lastResult: boolean | UrlTree | null = null;
+  private readonly CACHE_DURATION = 2000; // 2 seconds cache
+
   constructor(
     private storage: LocalStorageService,
     private router: Router,
@@ -21,16 +25,21 @@ export class AuthGuard  {
     route: ActivatedRouteSnapshot,
     state: RouterStateSnapshot): Observable<boolean | UrlTree> | Promise<boolean | UrlTree> | boolean | UrlTree {
     
+    const currentTime = Date.now();
+    if (currentTime - this.lastCheck < this.CACHE_DURATION && this.lastResult !== null) {
+      return this.lastResult;
+    }
+    
     console.log('AuthGuard - Checking route:', state.url);
     
     try {
-      // Use authService to get token instead of direct storage access
       const token = this.authService.getToken();
       console.log('AuthGuard - Token check result:', !!token);
       
       if (!token) {
-        console.log('AuthGuard - No token, redirecting to login');
-        return this.router.createUrlTree(['/login']);
+        this.lastCheck = currentTime;
+        this.lastResult = this.router.createUrlTree(['/login']);
+        return this.lastResult;
       }
 
       const helper = new JwtHelperService();
@@ -38,16 +47,19 @@ export class AuthGuard  {
       console.log('AuthGuard - Token expiration check:', isExpired ? 'Expired' : 'Valid');
 
       if (isExpired) {
-        console.log('AuthGuard - Token expired, redirecting to login');
-        return this.router.createUrlTree(['/login']);
+        this.lastCheck = currentTime;
+        this.lastResult = this.router.createUrlTree(['/login']);
+        return this.lastResult;
       }
 
-      // Token is valid
-      console.log('AuthGuard - Access granted to:', state.url);
+      this.lastCheck = currentTime;
+      this.lastResult = true;
       return true;
     } catch (error) {
       console.error('AuthGuard - Error during route guard:', error);
-      return this.router.createUrlTree(['/login']);
+      this.lastCheck = currentTime;
+      this.lastResult = this.router.createUrlTree(['/login']);
+      return this.lastResult;
     }
   }
 
