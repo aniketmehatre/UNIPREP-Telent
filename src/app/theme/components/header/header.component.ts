@@ -23,6 +23,8 @@ import { OverlayPanelModule } from "primeng/overlaypanel";
 import { DropdownModule } from "primeng/dropdown";
 import { InputTextModule } from "primeng/inputtext";
 import { AvatarModule } from "primeng/avatar";
+import { switchMap } from "rxjs/operators";
+import { take } from "rxjs/operators";
 
 @Component({
   selector: "uni-header",
@@ -789,19 +791,55 @@ export class HeaderComponent implements OnInit, OnDestroy {
   }
 
   logout() {
-    this.authService.signOut();
-    this.locationService.sessionEndApiCall().subscribe((data: any) => {});
-    this.subs.sink = this.service.logout().subscribe((data) => {
-      this.toast.add({
-        severity: "info",
-        summary: "Info",
-        detail: "logged out successfully",
-      });
-      this.service.clearCache();
-      this.locationService.clearCache();
-      window.sessionStorage.clear();
-      localStorage.clear();
-      this.router.navigateByUrl("/login");
+    // Only attempt social sign out if user is logged in through social auth
+    this.authService.authState.pipe(
+      take(1)
+    ).subscribe({
+      next: (socialUser) => {
+        if (socialUser) {
+          this.authService.signOut().catch(err => console.warn('Social sign out error:', err));
+        }
+      },
+      error: (err) => console.warn('Error checking social auth state:', err)
+    });
+
+    // Create a combined observable for both logout calls
+    const logoutCalls$ = this.service.logout().pipe(
+      switchMap(() => this.locationService.sessionEndApiCall())
+    );
+
+    this.subs.sink = logoutCalls$.subscribe({
+      next: () => {
+        this.toast.add({
+          severity: "info",
+          summary: "Info",
+          detail: "Logged out successfully"
+        });
+        
+        // Clear services cache
+        this.service.clearCache();
+        this.locationService.clearCache();
+        
+        // Clear storage after successful logout
+        window.sessionStorage.clear();
+        localStorage.clear();
+        
+        // Navigate to login page
+        this.router.navigateByUrl("/login");
+      },
+      error: (error) => {
+        console.error('Logout error:', error);
+        this.toast.add({
+          severity: "error",
+          summary: "Error",
+          detail: "Error during logout. Please try again."
+        });
+        
+        // Still clear storage and redirect on error
+        window.sessionStorage.clear();
+        localStorage.clear();
+        this.router.navigateByUrl("/login");
+      }
     });
   }
 
