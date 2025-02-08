@@ -64,8 +64,8 @@ export class HeaderComponent implements OnInit, OnDestroy {
 
   @Output() togleSidebar = new EventEmitter();
   private subs = new SubSink();
-  userName: any;
-  firstChar: any;
+  userName: string = '';
+  firstChar: string = '';
   genMod: any;
   moduleNgModel: number = 1;
   selectedGenMod: number = 1;
@@ -383,6 +383,26 @@ export class HeaderComponent implements OnInit, OnDestroy {
     }
   }
   ngOnInit() {
+    this.initializeForms();
+    this.setupEventSubscriptions();
+    this.setupReportWindowSubscription();
+    this.loadCountryList();
+    this.getProgramlevelList();
+    this.checkNewUser();
+
+    // Add subscription to get user data
+    this.subs.sink = this.service.getMe().subscribe({
+      next: (data) => {
+        if (data && data.userdetails && data.userdetails[0]) {
+          this.userName = data.userdetails[0].name;
+          this.firstChar = data.userdetails[0].name;
+        }
+      },
+      error: (error) => {
+        console.error('Error fetching user data:', error);
+      }
+    });
+
     // Safely handle menu state
     try {
       const storedIsMenuOpen = localStorage.getItem("isMenuOpen");
@@ -464,9 +484,6 @@ export class HeaderComponent implements OnInit, OnDestroy {
       error: (error) => console.error('Error in dashboard data subscription:', error)
     });
 
-    // Initialize forms
-    this.initializeForms();
-
     // Handle phone verification
     this.handlePhoneVerification();
 
@@ -484,7 +501,6 @@ export class HeaderComponent implements OnInit, OnDestroy {
 
     // Initialize report form and other settings
     this.initializeReportForm();
-    this.setupEventSubscriptions();
   }
 
   private initializeForms() {

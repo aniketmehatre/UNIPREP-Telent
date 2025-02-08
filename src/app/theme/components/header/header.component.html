@@ -127,8 +127,7 @@
             ></a>
             <div class="dropdown profile-dropdown">
               <button class="button" data-bs-toggle="dropdown" aria-expanded="false">
-                <span class="nme">{{ (firstChar || "")?.charAt(0) }}</span>
-                <!-- <span class="fw-medium">{{userName }}</span> -->
+                <span class="nme">{{ firstChar ? firstChar.charAt(0).toUpperCase() : '' }}</span>
               </button>
               <ul class="dropdown-menu">
                 <li>
@@ -136,8 +135,8 @@
                     <div class="d-flex justify-content-top">
                       <i class="fa-solid fa-user me-2 mt-1"></i>
                       <div>
-                        <p class="fw-semibold mb-1">{{ userName }}</p>
-                        <p class="mb-0">{{ userName }}</p>
+                        <p class="fw-semibold mb-1">{{ userName || 'User' }}</p>
+                        <p class="mb-0">{{ userName || 'User' }}</p>
                       </div>
                     </div>
                   </a>
@@ -216,8 +215,7 @@
             </a>
             <div class="dropdown profile-dropdown">
               <button class="button" data-bs-toggle="dropdown" aria-expanded="false" title="My Profile">
-                <span class="nme">{{ (firstChar || "")?.charAt(0) }}</span>
-                <!-- <span class="fw-medium">{{ userName }}</span> -->
+                <span class="nme">{{ firstChar ? firstChar.charAt(0).toUpperCase() : '' }}</span>
               </button>
               <ul class="dropdown-menu">
                 <li>
@@ -225,8 +223,8 @@
                     <div class="d-flex justify-content-top">
                       <i class="fa-solid fa-user me-2 mt-1"></i>
                       <div>
-                        <p class="fw-semibold mb-1">{{ userName }}</p>
-                        <p class="mb-0">{{ userName }}</p>
+                        <p class="fw-semibold mb-1">{{ userName || 'User' }}</p>
+                        <p class="mb-0">{{ userName || 'User' }}</p>
                       </div>
                     </div>
                   </a>
