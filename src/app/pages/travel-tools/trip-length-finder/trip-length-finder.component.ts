@@ -70,7 +70,7 @@ export class TripLengthFinderComponent implements OnInit {
         country: this.selectedData[1].city_name ?? this.selectedData[1].country_name,
         mode: "trip_length_finder"
       };
-      this.travelToolService.getChatgptRecommendations(data).subscribe(response => {
+      this.travelToolService.getChatgptRecommendations(data).subscribe((response:any) => {
         this.recommendationData = response.response;
         console.log(response);
         console.log(this.recommendationData);
