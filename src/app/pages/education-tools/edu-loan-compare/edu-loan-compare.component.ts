@@ -15,7 +15,7 @@ import { eduLoanOptions } from './edu-loan-compare.data';
   styleUrls: ['./edu-loan-compare.component.scss']
 })
 export class EduLoanCompareComponent implements OnInit, OnDestroy {
-  panelStyle: { width: string } = { width: '320px' };
+  panelStyle: { width: string } = { width: '370px' };
 
   bankNameList: any[] = eduLoanOptions?.banknames;
   interestedRateTypeList: string[] = eduLoanOptions['Interest Rate Type'];
@@ -129,7 +129,7 @@ export class EduLoanCompareComponent implements OnInit, OnDestroy {
   }
 
   updatePanelStyle = () => {
-    this.panelStyle = window.innerWidth > 982 ? { width: '320px' } : { width: '100%' };
+    this.panelStyle = window.innerWidth > 982 ? { width: '370px' } : { width: '100%' };
   };
 
   goBack() {
