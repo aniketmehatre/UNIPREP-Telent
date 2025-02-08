@@ -279,7 +279,6 @@ export class AuthService {
     }
 
     saveToken(token: string): void {
-        console.log('save', token);
         localStorage.setItem(this.tokenKey, token);
       }
     
@@ -291,7 +290,6 @@ export class AuthService {
       // Validate token
       isTokenValid(): boolean {
         const token = this.getToken();
-        console.log('sss', token);
         
         if (token) {
           try {
