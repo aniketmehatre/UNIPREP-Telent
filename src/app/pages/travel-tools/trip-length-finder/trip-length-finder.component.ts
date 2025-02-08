@@ -29,7 +29,7 @@ export class TripLengthFinderComponent implements OnInit {
   activePageIndex: number = 0;
   selectedData: { [key: string]: any } = {};
   invalidClass: boolean = false;
-  recommendationData: any = [];
+  recommendationData: any;
   savedResponse: any = [];
   destinationLocationList: City[] = [];
   cityList: City[] = [];
@@ -72,6 +72,9 @@ export class TripLengthFinderComponent implements OnInit {
       };
       this.travelToolService.getChatgptRecommendations(data).subscribe(response => {
         this.recommendationData = response.response;
+        console.log(response);
+        console.log(this.recommendationData);
+        
         this.isRecommendation = false;
         this.isResponsePage = true;
       })

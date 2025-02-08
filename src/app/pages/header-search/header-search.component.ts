@@ -11,7 +11,7 @@ import { DataService } from "../../data.service";
 import { MenuItem, MessageService } from "primeng/api";
 import { LocationService } from "../../location.service";
 import { SubSink } from "subsink";
-import {ActivatedRoute, Router} from "@angular/router";
+import {ActivatedRoute, NavigationEnd, Router} from "@angular/router";
 import { Observable } from "rxjs";
 import { ReadQuestion } from "../../@Models/read-question.model";
 import { ModuleServiceService } from "../module-store/module-service.service";
@@ -71,6 +71,8 @@ export class HeaderSearchComponent implements OnInit, OnDestroy {
   ehitlabelIsShow:boolean=true;
   orgnamewhitlabel:any;
   flobalsearchbuttonname="Module"
+  currentRoute: string = '';
+  isButtonShowOnlyModulesMenus:boolean=false;
   constructor(private dashboardService: DashboardService, private dataService: DataService, private moduleStoreService: ModuleStoreService,
     private toastr: MessageService, private moduleListService: ModuleServiceService,    private sanitizer: DomSanitizer,
     private locationService: LocationService, private route: Router, private elementRef: ElementRef,
@@ -87,6 +89,11 @@ export class HeaderSearchComponent implements OnInit, OnDestroy {
         this.isSearchResultFound = false;
       }
     });
+    route.events.subscribe((val) => {
+      if(val instanceof NavigationEnd){
+       this.moduleDatasWithurl();
+      }
+  })
   }
   page: number = 1;
 
@@ -140,7 +147,37 @@ export class HeaderSearchComponent implements OnInit, OnDestroy {
     ];
     this.enableReadingData();
   }
-
+  moduleDatasWithurl(){
+    this.currentRoute = this.route.url;
+    if (this.currentRoute.includes('learning-hub')) {
+      this.flobalsearchbuttonname="Module";
+      this.isButtonShowOnlyModulesMenus=true;
+    }else if(this.currentRoute.includes('k12')){
+      this.flobalsearchbuttonname="Subject";
+      this.isButtonShowOnlyModulesMenus=true;
+    }else if(this.currentRoute.includes('unilearn')){
+      this.flobalsearchbuttonname="Module";
+      this.isButtonShowOnlyModulesMenus=true;
+    }else if(this.currentRoute.includes('startup')){
+      this.flobalsearchbuttonname="Files";
+      this.isButtonShowOnlyModulesMenus=true;
+    }else if(this.currentRoute.includes('resource')){
+      this.flobalsearchbuttonname="Resources";
+      this.isButtonShowOnlyModulesMenus=true;
+    }else if(this.currentRoute.includes('events')){
+      this.flobalsearchbuttonname="Events";
+      this.isButtonShowOnlyModulesMenus=true;
+    }else if(this.currentRoute.includes('success-stories')){
+      this.flobalsearchbuttonname="Stories";
+      this.isButtonShowOnlyModulesMenus=true;
+    }
+    else if(this.currentRoute.includes('tutorials')){
+      this.flobalsearchbuttonname="Tutorials";
+      this.isButtonShowOnlyModulesMenus=true;
+    }else{
+      this.isButtonShowOnlyModulesMenus=false;
+    }
+  }
   onSearchChange(event: any) {
     this.searchKeyword = event;
     event == "" ? this.isSearchResultFound = false : '';

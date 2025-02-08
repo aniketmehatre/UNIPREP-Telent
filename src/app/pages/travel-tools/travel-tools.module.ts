@@ -48,7 +48,7 @@ import { DialogModule } from 'primeng/dialog';
     SharedModule,
     MarkdownComponent,
     CardModule,
-    DialogModule
-  ]
+    DialogModule,
+  ],
 })
 export class TravelToolsModule { }
