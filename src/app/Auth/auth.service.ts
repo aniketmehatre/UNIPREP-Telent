@@ -13,7 +13,11 @@ import { Store } from "@ngrx/store";
 import { AuthState } from "./store/reducer";
 import { AuthActions } from "./store/actions";
 import { selectLoading, selectLoggedIn, selectMessage, selectLoginData } from "./store/selectors";
-import { authFeature } from "./store/selectors";
+import { authFeature } from "./store/reducer";
+import { NGX_LOCAL_STORAGE_CONFIG } from "ngx-localstorage";
+
+const ngxLocalstorageConfiguration = NGX_LOCAL_STORAGE_CONFIG as unknown as { prefix: string, delimiter: string };
+
 @Injectable({
   providedIn: "root",
 })
@@ -60,13 +64,20 @@ export class AuthService {
     });
   }
 
-  login(data: LoginRequest) {
-    this.store.dispatch(AuthActions.login({ request: { 
-      email: 'user@example.com', 
-      password: 'password123', 
-      domain_type: 'your_domain'  // ✅ Add this field
-    } }));
-    
+  login(data: LoginRequest): Observable<UserData> {
+    this.store.dispatch(AuthActions.login({ request: data }));
+    return this.isAuthenticated(data).pipe(
+      tap(response => {
+        if (response.token) {
+          this.saveToken(response.token);
+          this.store.dispatch(AuthActions.loginSuccess({ token: response.token }));
+        }
+      }),
+      catchError(error => {
+        this.store.dispatch(AuthActions.loginFailure({ error: error.message }));
+        return throwError(() => error);
+      })
+    );
   }
 
   selectLoading$() {
@@ -92,8 +103,12 @@ export class AuthService {
   }
 
   getMe(): Observable<any> {
-    // return of(Object.create({}));
-    return this.http.get<any>(`${environment.ApiUrl}/getuserdetails`).pipe(
+    const token = this.getToken();
+    const headers = new HttpHeaders()
+      .set('Accept', 'application/json')
+      .set('Authorization', `Bearer ${token}`);
+
+    return this.http.get<any>(`${environment.ApiUrl}/getuserdetails`, { headers }).pipe(
       tap((response) => {
         localStorage.setItem("countryId", response.userdetails[0].selected_country);
         this.user = response.userdetails[0];
@@ -111,27 +126,16 @@ export class AuthService {
         localStorage.setItem("UserID", encUserID);
         localStorage.setItem("Name", encName);
         localStorage.setItem("phone", encPhone);
-        // localStorage.setItem("credit_plans",encCreditPlan)
         localStorage.setItem("questions_left", encQuestionLeft);
-        // localStorage.setItem("guidlineAccepted", encGuideLine)
         localStorage.setItem("email", encEmail);
         localStorage.setItem("home_country_name", encHomeCountry);
         setTimeout(() => {
           this.canDisableSignIn.next(false);
         }, 5000);
-
-        // this.getCountry().subscribe(data => {
-        //     data.filter((value: any) => {
-        //         if (2 == value.id) {
-        //             this.dataService.changeCountryName(value.country);
-        //         }
-        //     })
-        // })
       }),
       catchError((error: any) => {
-        // this.storage.clear();
         this.router.navigateByUrl("/login");
-        return throwError(new Error(error));
+        return throwError(() => error);
       })
     );
   }
@@ -276,13 +280,15 @@ export class AuthService {
   }
 
   saveToken(token: string): void {
-    console.log("save", token);
-    localStorage.setItem(this.tokenKey, token);
+    if (!token) return;
+    const tokenKey = `${ngxLocalstorageConfiguration.prefix}${ngxLocalstorageConfiguration.delimiter}${environment.tokenKey}`;
+    localStorage.setItem(tokenKey, token);
   }
 
-  // Retrieve token from localStorage
   getToken(): string | null {
-    return localStorage.getItem(this.tokenKey);
+    const tokenKey = `${ngxLocalstorageConfiguration.prefix}${ngxLocalstorageConfiguration.delimiter}${environment.tokenKey}`;
+    const token = localStorage.getItem(tokenKey);
+    return token ? token.replace(/"/g, '') : null;
   }
 
   // Validate token

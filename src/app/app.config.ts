@@ -1,4 +1,4 @@
-import { HTTP_INTERCEPTORS, provideHttpClient, withFetch } from "@angular/common/http"
+import { provideHttpClient, withFetch, withInterceptors } from "@angular/common/http"
 import { ApplicationConfig } from "@angular/core"
 import { provideAnimationsAsync } from "@angular/platform-browser/animations/async"
 import { RouterModule, Routes, provideRouter, withEnabledBlockingInitialNavigation, withInMemoryScrolling } from "@angular/router"
@@ -16,27 +16,54 @@ import { NGX_LOCAL_STORAGE_CONFIG } from "ngx-localstorage"
 import { ModalService } from "./components/modal/modal.service"
 import { FacebookLoginProvider, GoogleLoginProvider, SocialAuthServiceConfig } from "angularx-social-login"
 import { pagesReducer } from "./pages/store/pages.reducer"
-import { JwtModule } from "@auth0/angular-jwt"
+import { JwtHelperService, JWT_OPTIONS } from "@auth0/angular-jwt"
 import { environment } from "@env/environment"
-import { authReducer } from "./Auth/store/reducer"
+import { authFeature } from "./Auth/store/reducer"
 import { DashboardComponent } from "./pages/dashboard/dashboard.component"
 import { provideStoreDevtools } from "@ngrx/store-devtools"
+import { provideEffects } from '@ngrx/effects';
+import { AuthEffects } from './Auth/store/effects';
+import { MessageService } from 'primeng/api';
+import { HttpRequest, HttpHandlerFn } from "@angular/common/http"
 
 // Assuming ngxLocalstorageConfiguration is properly defined elsewhere in your code
 const ngxLocalstorageConfiguration = NGX_LOCAL_STORAGE_CONFIG as unknown as { prefix: string, delimiter: string };
 
 export function tokenGetter(): string {
-  // Ensure ngxLocalstorageConfiguration is defined and has the expected properties
   const tokenKey = `${ngxLocalstorageConfiguration.prefix}${ngxLocalstorageConfiguration.delimiter}${environment.tokenKey}`;
   const token = localStorage.getItem(tokenKey);
-  return token ? token.replace(/"/g, '') : '';  // Return empty string if no token is found
+  return token ? token.replace(/"/g, '') : '';
 }
+
+export const jwtOptionsFactory = () => ({
+  tokenGetter,
+  allowedDomains: [environment.domain],
+  disallowedRoutes: []
+});
+
+// Add this JWT interceptor function
+export const jwtInterceptor = (req: HttpRequest<unknown>, next: HttpHandlerFn) => {
+  const token = tokenGetter();
+  if (token) {
+    req = req.clone({
+      setHeaders: {
+        Authorization: `Bearer ${token}`
+      }
+    });
+  }
+  return next(req);
+};
 
 export const appConfig: ApplicationConfig = {
 	providers: [
+    provideStore({
+      auth: authFeature.reducer,
+      pages: pagesReducer
+    }),
+    provideEffects(AuthEffects),
     provideStoreDevtools({
       maxAge: 25,
-      logOnly: false,
+      logOnly: environment.production,
       autoPause: true,
       features: {
         pause: false,
@@ -52,10 +79,13 @@ export const appConfig: ApplicationConfig = {
 			}),
 			withEnabledBlockingInitialNavigation()
 		),
-		provideStore({
-      authFeatureKey: authReducer,  // Register the authReducer under 'authFeatureKey'
-    }),
-		provideHttpClient(withFetch()),
+		provideHttpClient(
+			withFetch(),
+			withInterceptors([jwtInterceptor, HttpErrorInterceptor])
+		),
+		{ provide: JWT_OPTIONS, useFactory: jwtOptionsFactory },
+		JwtHelperService,
+		MessageService,
 		provideAnimationsAsync(),
 		providePrimeNG({
 			theme: {
@@ -65,18 +95,12 @@ export const appConfig: ApplicationConfig = {
 				},
 			},
 		}),
-		// Declare LandingComponent to be loaded as the root component
 		LandingComponent,
-    DashboardComponent,
+		DashboardComponent,
 		DeviceDetectorService,
 		DatePipe,
 		AuthService,
 		EnterpriseSubscriptionService,
-		{
-			provide: HTTP_INTERCEPTORS,
-			useClass: HttpErrorInterceptor,
-			multi: true,
-		},
 		{
 			provide: NGX_LOCAL_STORAGE_CONFIG,
 			useValue: NGX_LOCAL_STORAGE_CONFIG,

@@ -1,12 +1,7 @@
-import { createFeature } from '@ngrx/store';
-import { authReducer } from './reducer';
-
-export const authFeature = createFeature({
-  name: 'auth',
-  reducer: authReducer,
-});
+import { authFeature } from './reducer';
 
 export const {
+  selectAuthState,
   selectLoading,
   selectLoggedIn,
   selectMessage,

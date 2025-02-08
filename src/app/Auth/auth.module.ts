@@ -9,20 +9,19 @@ import { RouterModule } from '@angular/router';
 import { AuthComponent } from './auth.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { SetpasswordComponent } from './setpassword/setpassword.component';
-import {InputTextModule} from "primeng/inputtext";
-import {DropdownModule} from "primeng/dropdown";
-import {PasswordModule} from "primeng/password";
-import {ToastModule} from "primeng/toast";
-import {MessageService} from "primeng/api";
-import {StoreModule} from "@ngrx/store";
-import { authFeature } from "./store/selectors";
-import {authReducer} from "./store/reducer";
-import {EffectsModule} from "@ngrx/effects";
-import {AuthEffects} from "./store/effects";
-import {CalendarModule} from "primeng/calendar";
+import { InputTextModule } from "primeng/inputtext";
+import { DropdownModule } from "primeng/dropdown";
+import { PasswordModule } from "primeng/password";
+import { ToastModule } from "primeng/toast";
+import { MessageService } from "primeng/api";
+import { provideState } from "@ngrx/store";
+import { authFeature } from "./store/reducer";
+import { provideEffects } from "@ngrx/effects";
+import { AuthEffects } from "./store/effects";
+import { CalendarModule } from "primeng/calendar";
 import { NgxIntlTelInputModule } from 'ngx-intl-tel-input';
-import {GoogleSigninButtonModule} from "@abacritt/angularx-social-login";
-import {MaintenanceComponent} from "./maintenance/maintenance.component";
+import { GoogleSigninButtonModule } from "@abacritt/angularx-social-login";
+import { MaintenanceComponent } from "./maintenance/maintenance.component";
 import { InputIconModule } from 'primeng/inputicon';
 import { InputGroupModule } from 'primeng/inputgroup';
 import { InputGroupAddonModule } from 'primeng/inputgroupaddon';
@@ -33,29 +32,32 @@ import { InputGroupAddonModule } from 'primeng/inputgroupaddon';
     ForgotPasswordComponent,
     VerificationComponent,
     SetpasswordComponent,
-      MaintenanceComponent
+    MaintenanceComponent
   ],
-    imports: [
-        FormsModule,LoginComponent,
-        InputGroupModule,
-        InputGroupAddonModule,
-        AuthComponent,
-        ReactiveFormsModule,
-        InputIconModule,
-        CommonModule,
-        RouterModule,
-        AuthRoutingModule,
-        InputTextModule,
-        DropdownModule,
-        PasswordModule,
-        ToastModule,
-        StoreModule.forFeature(authFeature),
-        EffectsModule.forFeature([AuthEffects]),
-        CalendarModule,
-        NgxIntlTelInputModule,
-        GoogleSigninButtonModule
-    ],
-    providers: [MessageService],
-    schemas: [CUSTOM_ELEMENTS_SCHEMA],
+  imports: [
+    FormsModule,
+    LoginComponent,
+    InputGroupModule,
+    InputGroupAddonModule,
+    AuthComponent,
+    ReactiveFormsModule,
+    InputIconModule,
+    CommonModule,
+    RouterModule,
+    AuthRoutingModule,
+    InputTextModule,
+    DropdownModule,
+    PasswordModule,
+    ToastModule,
+    CalendarModule,
+    NgxIntlTelInputModule,
+    GoogleSigninButtonModule
+  ],
+  providers: [
+    MessageService,
+    provideState(authFeature),
+    provideEffects(AuthEffects)
+  ],
+  schemas: [CUSTOM_ELEMENTS_SCHEMA],
 })
 export class AuthModule { }

@@ -182,11 +182,24 @@ export class LoginComponent implements OnInit, OnDestroy {
 		if (this.loginForm.invalid) {
 			return;
 		}
-		this.service.canDisableSignIn.next(true)
-		this.service.login(this.loginForm.value)
-		this.service.canDisableSignIn.subscribe((res) => {
-			this.isDisabled = res
-		})
+		this.service.canDisableSignIn.next(true);
+		
+		this.service.login(this.loginForm.value).subscribe({
+			next: (response) => {
+				if (response.token) {
+					this.service.saveToken(response.token);
+					this.storage.set(environment.tokenKey, response.token);
+					this.service.getMe().subscribe(() => {
+						this.toast.add({ severity: 'success', summary: 'Success', detail: 'Login Successful' });
+						this.route.navigate(['/pages/dashboard']);
+					});
+				}
+			},
+			error: (error) => {
+				this.service.canDisableSignIn.next(false);
+				this.toast.add({ severity: 'error', summary: 'Error', detail: error.message || 'Login failed' });
+			}
+		});
 	}
 
 	// loginWithFacebook(){

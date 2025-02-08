@@ -1,95 +1,76 @@
-import { Injectable } from "@angular/core";
-import { HttpRequest, HttpHandler, HttpEvent, HttpInterceptor } from "@angular/common/http";
+import { HttpEvent, HttpHandlerFn, HttpInterceptorFn, HttpRequest } from "@angular/common/http";
 import { catchError, Observable, tap, throwError } from "rxjs";
 import { MessageService } from "primeng/api";
 import { NgxUiLoaderService } from "ngx-ui-loader";
 import { Router } from "@angular/router";
-import { log } from "console";
+import { inject } from "@angular/core";
 import { DataService } from "../data.service";
 
-@Injectable()
-export class HttpErrorInterceptor implements HttpInterceptor {
-  constructor(
-    private toastr: MessageService,
-    private ngxService: NgxUiLoaderService,
-    private router: Router,
-    private dataService: DataService
-  ) {}
+export const HttpErrorInterceptor: HttpInterceptorFn = (
+  request: HttpRequest<unknown>,
+  next: HttpHandlerFn
+): Observable<HttpEvent<unknown>> => {
+  const toastr = inject(MessageService);
+  const ngxService = inject(NgxUiLoaderService);
+  const router = inject(Router);
+  const dataService = inject(DataService);
+  
+  let currentUrl = window.location.href;
 
-  intercept(
-    request: HttpRequest<unknown>,
-    next: HttpHandler
-  ): Observable<HttpEvent<unknown>> {
-    // !request.url.includes('StudentFullQuestionData') &&
-    // !request.url.includes('SubmoduleListForStudents')
-
-    let currentUrl = window.location.href;
-
-    if (
-      !request.url.includes("country") &&
-      !request.url.includes("getuserdetails") &&
-      !request.url.includes("SendMailGlobalReport") &&
-      !request.url.includes("SubmoduleListForStudents") &&
-      !request.url.includes("StudentsSubmoduleQuestions") &&
-      !request.url.includes("getlatestfaqquestions") &&
-        !request.url.includes("googleapis") &&
-        !request.url.includes("getsubscriptiontimeleft")
-    ) {
-      if(!currentUrl.includes('modules')){
-        this.ngxService.startBackground();
-      }
+  if (
+    !request.url.includes("country") &&
+    !request.url.includes("getuserdetails") &&
+    !request.url.includes("SendMailGlobalReport") &&
+    !request.url.includes("SubmoduleListForStudents") &&
+    !request.url.includes("StudentsSubmoduleQuestions") &&
+    !request.url.includes("getlatestfaqquestions") &&
+    !request.url.includes("googleapis") &&
+    !request.url.includes("getsubscriptiontimeleft")
+  ) {
+    if(!currentUrl.includes('modules')){
+      ngxService.startBackground();
     }
-    return next.handle(request).pipe(
-      tap((res: any) => {
-        if (res.status) {
-          this.ngxService.stopBackground();
-        }
-      }),
-      catchError((err: any) => {
-        // if(err.error.message.includes('Call to a member function tokens() on null')){
-        //   window.sessionStorage.clear();
-        //   localStorage.clear();
-        //   this.router.navigateByUrl("/login");
-        // }
-        const msg =
-          err?.error?.message ||
-          err?.error?.error?.message ||
-          err?.message ||
-          "Something wrong please try again!";
-        // this.toastr.add({severity: 'error', summary: 'Error', detail: msg});
-        this.ngxService.stopBackground();
-        if (err?.status === 401) {
-          window.sessionStorage.clear();
-          localStorage.clear();
-          if (!msg.includes("Unauthorized")) {
-            this.toastr.add({
-              severity: "error",
-              summary: "Error",
-              detail: msg,
-            });
-          }          
-          this.router.navigateByUrl("/login");
-        }
-        if (err?.status === 422) {
-          if (msg.includes("Unprocessable")) {
-            this.toastr.add({
-              severity: "error",
-              summary: "Error",
-              detail: 'No Data Found.',
-            });
-          }
-        }
-        if (err?.status === 408) {
-          // window.sessionStorage.clear();
-          // localStorage.clear();
-          this.dataService.loggedInAnotherDevice("block");
-          //this.router.navigateByUrl('/login');
-          //const msg = 'You have logged into the portal from another device , Please log back in from this device to use the portal again.'
-          //this.toastr.add({severity: 'error', summary: 'Error', detail: "You have logged into the portal from another device , Please log back in from this device to use the portal again."});
-          //  console.log("bla");
-        }
-        return throwError(() => new Error(msg));
-      })
-    );
   }
-}
+  
+  return next(request).pipe(
+    tap((res: any) => {
+      if (res.status) {
+        ngxService.stopBackground();
+      }
+    }),
+    catchError((err: any) => {
+      const msg =
+        err?.error?.message ||
+        err?.error?.error?.message ||
+        err?.message ||
+        "Something wrong please try again!";
+      ngxService.stopBackground();
+      
+      if (err?.status === 401) {
+        window.sessionStorage.clear();
+        localStorage.clear();
+        if (!msg.includes("Unauthorized")) {
+          toastr.add({
+            severity: "error",
+            summary: "Error",
+            detail: msg,
+          });
+        }          
+        router.navigateByUrl("/login");
+      }
+      if (err?.status === 422) {
+        if (msg.includes("Unprocessable")) {
+          toastr.add({
+            severity: "error",
+            summary: "Error",
+            detail: 'No Data Found.',
+          });
+        }
+      }
+      if (err?.status === 408) {
+        dataService.loggedInAnotherDevice("block");
+      }
+      return throwError(() => new Error(msg));
+    })
+  );
+};
