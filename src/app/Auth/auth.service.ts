@@ -70,19 +70,42 @@ export class AuthService {
 
   private getAuthHeaders(): HttpHeaders {
     const token = this.getToken();
+    console.debug('GetAuthHeaders - Token check:', {
+      exists: !!token,
+      length: token?.length,
+      preview: token ? `${token.substring(0, 20)}...` : 'none'
+    });
+    
     if (!token) {
-      console.warn('No token available for request');
+      console.warn('GetAuthHeaders - No token available for request');
       return new HttpHeaders({
         'Accept': 'application/json',
         'Content-Type': 'application/json'
       });
     }
+
+    // Ensure token is properly formatted
+    const bearerToken = token.startsWith('Bearer ') ? token : `Bearer ${token}`;
     
-    return new HttpHeaders({
-      'Accept': 'application/json',
-      'Content-Type': 'application/json',
-      'Authorization': `Bearer ${token}`
+    // Create headers with all required fields
+    const headers = new HttpHeaders()
+      .set('Accept', 'application/json')
+      .set('Content-Type', 'application/json')
+      .set('Authorization', bearerToken);
+    
+    // Verify headers were set correctly
+    const finalAuthHeader = headers.get('Authorization');
+    console.debug('GetAuthHeaders - Final headers:', {
+      auth: finalAuthHeader,
+      contentType: headers.get('Content-Type'),
+      accept: headers.get('Accept')
     });
+
+    if (!finalAuthHeader || !finalAuthHeader.startsWith('Bearer ')) {
+      console.error('GetAuthHeaders - Authorization header not set correctly:', finalAuthHeader);
+    }
+
+    return headers;
   }
 
   set user(u: User | null) {
@@ -117,6 +140,7 @@ export class AuthService {
     
     // Reset any existing cache before starting new login
     this.resetGetMeCache();
+    this.clearToken(); // Clear any existing token
     
     return this.isAuthenticated(data).pipe(
       map(response => {
@@ -142,7 +166,7 @@ export class AuthService {
           // Save token only if it's valid
           const tokenKey = `${ngxLocalstorageConfiguration.prefix}${ngxLocalstorageConfiguration.delimiter}${environment.tokenKey}`;
           localStorage.setItem(tokenKey, cleanToken);
-          console.log('Token validated and saved successfully');
+          console.log('Token validated and saved successfully:', cleanToken.substring(0, 10) + '...');
           
           this.store.dispatch(AuthActions.loginSuccess({ token: cleanToken }));
         } catch (error) {
@@ -151,19 +175,40 @@ export class AuthService {
           throw new Error('Invalid token received from server');
         }
       }),
-      // Add small delay to ensure token is saved
-      delay(100),
+      // Add longer delay to ensure token is saved and available
+      delay(500),
       switchMap(() => {
+        const token = this.getToken();
+        if (!token) {
+          console.error('Token not available after saving');
+          throw new Error('Token not available after saving');
+        }
+        console.log('Token retrieved for user details request:', token.substring(0, 10) + '...');
+        
+        // Verify headers before making the request
+        const headers = this.getAuthHeaders();
+        const authHeader = headers.get('Authorization');
+        if (!authHeader || !authHeader.startsWith('Bearer ')) {
+          console.error('Invalid Authorization header:', authHeader);
+          throw new Error('Invalid Authorization header');
+        }
+        
         return this.getMe().pipe(
           tap(userData => {
             if (!userData?.userdetails?.[0]) {
               throw new Error('Invalid user details response');
             }
+            console.log('User details retrieved successfully');
             setTimeout(() => {
               this.router.navigate(['/pages/dashboard'], { replaceUrl: true })
                 .then(success => console.log('Navigation result:', success))
                 .catch(error => console.error('Navigation error:', error));
             }, 0);
+          }),
+          catchError(error => {
+            console.error('Error getting user details:', error);
+            this.clearToken();
+            throw error;
           })
         );
       }),
@@ -200,9 +245,9 @@ export class AuthService {
   }
 
   getMe(): Observable<any> {
+    console.debug('GetMe - Starting request');
     const token = this.getToken();
-    console.debug('GetMe - Using token:', token ? 'Token exists' : 'No token');
-
+    
     if (!token) {
       console.error('GetMe - No token available');
       return throwError(() => new Error('No authentication token available'));
@@ -216,52 +261,75 @@ export class AuthService {
 
     // Create new request if no cache exists
     console.debug('GetMe - Creating new request');
+    const headers = this.getAuthHeaders();
+    const authHeader = headers.get('Authorization');
+    
+    // Detailed logging of request setup
+    console.debug('GetMe - Request configuration:', {
+      url: `${environment.ApiUrl}/getuserdetails`,
+      token: token.substring(0, 20) + '...',
+      authHeader: authHeader,
+      allHeaders: headers.keys().map((key: string) => `${key}: ${headers.get(key)}`)
+    });
+    
+    if (!authHeader || !authHeader.startsWith('Bearer ')) {
+      console.error('GetMe - Invalid Authorization header');
+      return throwError(() => new Error('Invalid Authorization header'));
+    }
+    
     this.getMeCache$ = this.http.get<any>(`${environment.ApiUrl}/getuserdetails`, { 
-      headers: this.getAuthHeaders()
+      headers: headers,
+      observe: 'response'
     }).pipe(
       retry(1),
-      timeout(30000), // 30 second timeout
+      timeout(30000),
       tap(response => {
-        if (!response?.userdetails?.[0]) {
-          console.error('GetMe - Invalid response format:', response);
+        console.debug('GetMe - Response received:', {
+          status: response.status,
+          headers: response.headers.keys().map((key: string) => `${key}: ${response.headers.get(key)}`),
+          hasBody: !!response.body
+        });
+
+        if (!response.body?.userdetails?.[0]) {
+          console.error('GetMe - Invalid response format:', response.body);
           this.resetGetMeCache();
           throw new Error('Invalid user details response');
         }
 
-        const userDetails = response.userdetails[0];
-        console.debug('GetMe - User details retrieved successfully');
-        
+        const userDetails = response.body.userdetails[0];
         if (userDetails) {
           this.user = {
             ...userDetails,
-            name: userDetails.name || ''  // Ensure name is never null
+            name: userDetails.name || ''
           };
           this._userLoginCount = userDetails.login_status || 0;
           this._checkExistsSubscription = userDetails.subscription_exists || 0;
+          this.storeUserData(userDetails);
         }
-
-        // Store user data securely
-        this.storeUserData(userDetails);
       }),
+      map(response => response.body),
       catchError(error => {
-        console.error('GetMe - Error:', error);
+        console.error('GetMe - Request failed:', {
+          status: error.status,
+          message: error.message,
+          headers: error.headers?.keys().map((key: string) => `${key}: ${error.headers.get(key)}`),
+          requestHeaders: headers.keys().map((key: string) => `${key}: ${headers.get(key)}`)
+        });
+        
         this.resetGetMeCache();
         
-        if (error.status === 401 || error.status === 0) {
-          console.debug('GetMe - Unauthorized or CORS error, checking token validity');
-          if (!this.isTokenValid(token)) {
-            console.debug('GetMe - Token invalid, clearing token');
-            this.clearToken();
-            this.router.navigate(['/login']);
-          }
-          return throwError(() => new Error('Unauthorized access or CORS error'));
+        if (error.status === 401) {
+          console.debug('GetMe - Unauthorized error, clearing token and cache');
+          this.clearToken();
+          this.router.navigate(['/login']);
+          return throwError(() => new Error('Session expired. Please login again.'));
         }
+        
         return throwError(() => error);
       }),
-      // Cache the successful response
       shareReplay({ 
         bufferSize: 1, 
-        refCount: false,  // Keep cache even if all subscribers unsubscribe
+        refCount: false,
         windowTime: this.CACHE_DURATION 
       })
     );
@@ -436,21 +504,29 @@ export class AuthService {
     }
     
     try {
-      // Clean the token before saving
+      // Clean and validate the token
       const cleanToken = token.replace(/['"]+/g, '').trim();
-      const tokenKey = `${ngxLocalstorageConfiguration.prefix}${ngxLocalstorageConfiguration.delimiter}${environment.tokenKey}`;
+      if (!cleanToken) {
+        throw new Error('Token is empty after cleaning');
+      }
       
+      // Verify token format
+      if (!this.isTokenValid(cleanToken)) {
+        throw new Error('Token validation failed');
+      }
+      
+      const tokenKey = `${ngxLocalstorageConfiguration.prefix}${ngxLocalstorageConfiguration.delimiter}${environment.tokenKey}`;
       localStorage.setItem(tokenKey, cleanToken);
-      console.debug('SaveToken - Token saved successfully');
       
       // Verify token was saved correctly
-      const savedToken = this.getToken();
+      const savedToken = localStorage.getItem(tokenKey);
       if (savedToken !== cleanToken) {
-        console.error('SaveToken - Token verification failed');
         throw new Error('Token verification failed after save');
       }
+      
+      console.debug('SaveToken - Token saved and verified successfully');
     } catch (error) {
-      console.error('SaveToken - Error saving token:', error);
+      console.error('SaveToken - Error:', error);
       this.clearToken();
     }
   }
@@ -459,7 +535,8 @@ export class AuthService {
     try {
       const tokenKey = `${ngxLocalstorageConfiguration.prefix}${ngxLocalstorageConfiguration.delimiter}${environment.tokenKey}`;
       localStorage.removeItem(tokenKey);
-      this.resetGetMeCache(); // Reset cache when clearing token
+      localStorage.removeItem(environment.tokenKey); // Clear both possible locations
+      this.resetGetMeCache(true); // Force cache reset
       console.debug('Token cleared successfully');
     } catch (error) {
       console.error('Error clearing token:', error);

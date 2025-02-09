@@ -14,9 +14,9 @@ import { DropdownModule } from "primeng/dropdown";
 import { PasswordModule } from "primeng/password";
 import { ToastModule } from "primeng/toast";
 import { MessageService } from "primeng/api";
-import { provideState } from "@ngrx/store";
+import { StoreModule } from "@ngrx/store";
 import { authFeature } from "./store/reducer";
-import { provideEffects } from "@ngrx/effects";
+import { EffectsModule } from "@ngrx/effects";
 import { AuthEffects } from "./store/effects";
 import { CalendarModule } from "primeng/calendar";
 import { NgxIntlTelInputModule } from 'ngx-intl-tel-input';
@@ -51,12 +51,12 @@ import { InputGroupAddonModule } from 'primeng/inputgroupaddon';
     ToastModule,
     CalendarModule,
     NgxIntlTelInputModule,
-    GoogleSigninButtonModule
+    GoogleSigninButtonModule,
+    StoreModule.forFeature(authFeature),
+    EffectsModule.forFeature([AuthEffects])
   ],
   providers: [
-    MessageService,
-    provideState(authFeature),
-    provideEffects(AuthEffects)
+    MessageService
   ],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
 })

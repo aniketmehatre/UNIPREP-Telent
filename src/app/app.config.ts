@@ -30,6 +30,7 @@ import { EffectsModule } from '@ngrx/effects';
 import { NgxIntlTelInputModule } from 'ngx-intl-tel-input';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { provideClientHydration } from '@angular/platform-browser';
+import MyPreset from "./mypreset"
 
 // Assuming ngxLocalstorageConfiguration is properly defined elsewhere in your code
 const ngxLocalstorageConfiguration = NGX_LOCAL_STORAGE_CONFIG as unknown as { prefix: string, delimiter: string };
@@ -106,7 +107,7 @@ export const appConfig: ApplicationConfig = {
 		provideAnimationsAsync(),
 		providePrimeNG({
 			theme: {
-				preset: Aura,
+				preset: MyPreset,
 				options: {
 					darkModeSelector: ".app-dark",
 				},
@@ -142,8 +143,6 @@ export const appConfig: ApplicationConfig = {
 			} as SocialAuthServiceConfig,
 		},
 		provideAnimations(),  // Required for ngx-bootstrap
-		provideClientHydration(),
-		provideStore(),
-		provideEffects()
+		provideClientHydration()
 	],
 }
