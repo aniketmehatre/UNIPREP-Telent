@@ -5,6 +5,7 @@ import {LocalStorageService} from 'ngx-localstorage';
 import { JwtHelperService } from "@auth0/angular-jwt";
 import { DataService } from '../data.service';
 import { AuthService } from './auth.service';
+import { AuthTokenService } from '../core/services/auth-token.service';
 
 @Injectable({
   providedIn: 'root'
@@ -12,13 +13,14 @@ import { AuthService } from './auth.service';
 export class AuthGuard  {
   private lastCheck: number = 0;
   private lastResult: boolean | UrlTree | null = null;
-  private readonly CACHE_DURATION = 2000; // 2 seconds cache
+  private readonly CACHE_DURATION = 5000; // 5 seconds cache
 
   constructor(
     private storage: LocalStorageService,
     private router: Router,
     private dataService: DataService,
-    private authService: AuthService
+    private authService: AuthService,
+    private authTokenService: AuthTokenService
   ) {}
 
   canActivate(
@@ -33,20 +35,8 @@ export class AuthGuard  {
     console.log('AuthGuard - Checking route:', state.url);
     
     try {
-      const token = this.authService.getToken();
-      console.log('AuthGuard - Token check result:', !!token);
-      
-      if (!token) {
-        this.lastCheck = currentTime;
-        this.lastResult = this.router.createUrlTree(['/login']);
-        return this.lastResult;
-      }
-
-      const helper = new JwtHelperService();
-      const isExpired = helper.isTokenExpired(token);
-      console.log('AuthGuard - Token expiration check:', isExpired ? 'Expired' : 'Valid');
-
-      if (isExpired) {
+      if (!this.authTokenService.isTokenValid()) {
+        console.log('AuthGuard - No valid token found');
         this.lastCheck = currentTime;
         this.lastResult = this.router.createUrlTree(['/login']);
         return this.lastResult;

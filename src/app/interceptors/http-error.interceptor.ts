@@ -6,52 +6,32 @@ import { Router } from "@angular/router";
 import { inject } from "@angular/core";
 import { DataService } from "../data.service";
 import { environment } from "../../environments/environment";
-import { NGX_LOCAL_STORAGE_CONFIG } from "ngx-localstorage";
-
-const ngxLocalstorageConfiguration = NGX_LOCAL_STORAGE_CONFIG as unknown as { prefix: string, delimiter: string };
+import { AuthTokenService } from "../core/services/auth-token.service";
 
 export const HttpErrorInterceptor: HttpInterceptorFn = (
   request: HttpRequest<unknown>,
   next: HttpHandlerFn
-) => {
+): Observable<HttpEvent<unknown>> => {
   const toastr = inject(MessageService);
   const ngxService = inject(NgxUiLoaderService);
   const router = inject(Router);
   const dataService = inject(DataService);
+  const authTokenService = inject(AuthTokenService);
   
   let currentUrl = window.location.href;
 
   // Add auth token to all API requests
   if (request.url.includes(environment.ApiUrl)) {
-    const tokenKey = `${ngxLocalstorageConfiguration.prefix}${ngxLocalstorageConfiguration.delimiter}${environment.tokenKey}`;
-    const token = localStorage.getItem(tokenKey);
-    
-    console.debug('Interceptor - URL:', request.url);
-    console.debug('Interceptor - Token exists:', !!token);
+    const token = authTokenService.getToken();
     
     if (token) {
-      try {
-        // Clean the token
-        const cleanToken = token.replace(/['"]+/g, '').trim();
-        
-        // Only add token if it's not already in the headers
-        if (!request.headers.has('Authorization')) {
-          request = request.clone({
-            setHeaders: {
-              'Authorization': `Bearer ${cleanToken}`,
-              'Accept': 'application/json',
-              'Content-Type': 'application/json'
-            }
-          });
-          console.debug('Interceptor - Added auth header');
-        } else {
-          console.debug('Interceptor - Auth header already exists');
+      request = request.clone({
+        setHeaders: {
+          'Authorization': `Bearer ${token}`,
+          'Accept': 'application/json',
+          'Content-Type': 'application/json'
         }
-      } catch (error) {
-        console.error('Interceptor - Error setting auth header:', error);
-      }
-    } else {
-      console.debug('Interceptor - No token available');
+      });
     }
   }
 
@@ -82,17 +62,9 @@ export const HttpErrorInterceptor: HttpInterceptorFn = (
     catchError((error: HttpErrorResponse) => {
       console.error('HTTP Error:', error);
       
-      // Handle 401 Unauthorized errors
+      // Handle authentication errors
       if (error.status === 401) {
-        console.debug('Interceptor - 401 error detected');
-        
-        // Clear token and redirect to login
-        const tokenKey = `${ngxLocalstorageConfiguration.prefix}${ngxLocalstorageConfiguration.delimiter}${environment.tokenKey}`;
-        localStorage.removeItem(tokenKey);
-        
-        if (!currentUrl.includes('login')) {
-          router.navigate(['/login']);
-        }
+        authTokenService.clearToken(); // This will also handle navigation
         
         toastr.add({
           severity: 'error',
