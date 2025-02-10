@@ -1,685 +1,639 @@
-import { Component, ElementRef, OnInit, ViewChild } from "@angular/core";
-import { FormBuilder, FormGroup, Validators } from "@angular/forms";
-import { Router } from "@angular/router";
-import { matchValidator } from "src/app/@Supports/matchvalidator";
-import { LocationService } from "src/app/location.service";
-import { AuthService } from "../auth.service";
-import { MessageService } from "primeng/api";
-import { CountryISO, SearchCountryField } from "ngx-intl-tel-input";
+import { Component, ElementRef, OnInit, ViewChild } from "@angular/core"
+import { FormBuilder, FormGroup, Validators } from "@angular/forms"
+import { Router } from "@angular/router"
+import { matchValidator } from "src/app/@Supports/matchvalidator"
+import { LocationService } from "src/app/location.service"
+import { AuthService } from "../auth.service"
+import { MessageService } from "primeng/api"
+import { CountryISO, SearchCountryField } from "ngx-intl-tel-input"
 // import { FacebookService } from "ngx-facebook";
-import { environment } from "@env/environment";
-import { SocialAuthService } from "@abacritt/angularx-social-login";
-import { LocalStorageService } from "ngx-localstorage";
-import { SubSink } from "subsink";
-import { FluidModule } from 'primeng/fluid';
-import { CommonModule } from "@angular/common";
-import { PasswordModule } from "primeng/password";
-import { InputTextModule } from "primeng/inputtext";
-import { InputIconModule } from "primeng/inputicon";
-import { InputGroupModule } from "primeng/inputgroup";
-import { InputGroupAddonModule } from "primeng/inputgroupaddon";
-import { SocialLoginModule } from "@abacritt/angularx-social-login";
-import { FormsModule, ReactiveFormsModule } from "@angular/forms";
-import { RouterModule } from "@angular/router";
-
+import { environment } from "@env/environment"
+import { SocialAuthService } from "@abacritt/angularx-social-login"
+import { LocalStorageService } from "ngx-localstorage"
+import { SubSink } from "subsink"
+import { FluidModule } from "primeng/fluid"
+import { CommonModule } from "@angular/common"
+import { PasswordModule } from "primeng/password"
+import { InputTextModule } from "primeng/inputtext"
+import { InputIconModule } from "primeng/inputicon"
+import { InputGroupModule } from "primeng/inputgroup"
+import { InputGroupAddonModule } from "primeng/inputgroupaddon"
+import { SocialLoginModule } from "@abacritt/angularx-social-login"
+import { FormsModule, ReactiveFormsModule } from "@angular/forms"
+import { RouterModule } from "@angular/router"
+import { InputOtpModule } from "primeng/inputotp"
 
 @Component({
-    selector: "app-registration",
-    templateUrl: "./registration.component.html",
-    styleUrls: ["./registration.component.scss"],
-    standalone: true,
-    imports: [CommonModule, FluidModule, PasswordModule, RouterModule, InputTextModule, InputIconModule, InputGroupModule, InputGroupAddonModule, SocialLoginModule, FormsModule, ReactiveFormsModule],
+	selector: "app-registration",
+	templateUrl: "./registration.component.html",
+	styleUrls: ["./registration.component.scss"],
+	standalone: true,
+	imports: [CommonModule, InputOtpModule, FluidModule, PasswordModule, RouterModule, InputTextModule, InputIconModule, InputGroupModule, InputGroupAddonModule, SocialLoginModule, FormsModule, ReactiveFormsModule],
 })
-
 export class RegistrationComponent implements OnInit {
-  @ViewChild("otp1") otp1!: ElementRef;
-  @ViewChild("otp2") otp2!: ElementRef;
-  @ViewChild("otp3") otp3!: ElementRef;
-  @ViewChild("otp4") otp4!: ElementRef;
+	@ViewChild("otp1") otp1!: ElementRef
+	@ViewChild("otp2") otp2!: ElementRef
+	@ViewChild("otp3") otp3!: ElementRef
+	@ViewChild("otp4") otp4!: ElementRef
 
-  @ViewChild("otp5") otp5!: ElementRef;
-  @ViewChild("otp6") otp6!: ElementRef;
-  @ViewChild("otp7") otp7!: ElementRef;
-  @ViewChild("otp8") otp8!: ElementRef;
-  public registrationForm: any = FormGroup;
-  genderList: any;
-  intakeYearLooking: any;
-  displayTerms = "none";
-  locationList: any;
-  countryList: any;
-  programLevelList: any;
-  intrestedCountryList: any;
-  countryCodes: any;
-  currentLocationCountry:string = "";
-  currentLocationCity:string = "";
-  currentLocationState:string = "";
+	@ViewChild("otp5") otp5!: ElementRef
+	@ViewChild("otp6") otp6!: ElementRef
+	@ViewChild("otp7") otp7!: ElementRef
+	@ViewChild("otp8") otp8!: ElementRef
+	public registrationForm: any = FormGroup
+	genderList: any
+	intakeYearLooking: any
+	displayTerms = "none"
+	locationList: any
+	countryList: any
+	programLevelList: any
+	intrestedCountryList: any
+	countryCodes: any
+	currentLocationCountry: string = ""
+	currentLocationCity: string = ""
+	currentLocationState: string = ""
 
-  public otpForm: any = FormGroup;
-  public emailOTPForm: any = FormGroup;
+	public otpForm: any = FormGroup
+	public emailOTPForm: any = FormGroup
 
-  isMobileOTPSend: boolean = false;
-  isMobileOTPValidated: boolean = false;
-  isEmailOTPSend: boolean = false;
-  isEmailOTPValidated: boolean = false;
-  isRemainingFieldVisible: boolean = false;
-  password: any;
-  preferredCountry: any;
-  show = false;
-  showConfirm = false;
-  confirmPassword: any;
+	isMobileOTPSend: boolean = false
+	isMobileOTPValidated: boolean = false
+	isEmailOTPSend: boolean = false
+	isEmailOTPValidated: boolean = false
+	isRemainingFieldVisible: boolean = false
+	password: any
+	preferredCountry: any
+	show = false
+	showConfirm = false
+	confirmPassword: any
 
-  // resent timer
-  resendTime = 1;
-  startTimer = 0;
-  interval: any;
-  showContactErrorIcon: boolean = false;
-  showEmailErrorIcon: boolean = false;
-  validNumberRequired: boolean = false;
-  registerFormInvalid: boolean = true;
+	// resent timer
+	resendTime = 1
+	startTimer = 0
+	interval: any
+	showContactErrorIcon: boolean = false
+	showEmailErrorIcon: boolean = false
+	validNumberRequired: boolean = false
+	registerFormInvalid: boolean = true
 
-  separateDialCode = false;
-  SearchCountryField = SearchCountryField;
-  CountryISO = CountryISO;
-  preferredCountries: CountryISO[] = [CountryISO.India];
-  isMobileOTPEdit: boolean = false;
-  imageUrlWhitelabel: string | null = null;
-  // domainnamecondition:any;
-  // domainname:any;
-  showHidePassword() {
-    if (this.password === "password") {
-      this.password = "text";
-      this.show = true;
-    } else {
-      this.password = "password";
-      this.show = false;
-    }
-  }
+	separateDialCode = false
+	SearchCountryField = SearchCountryField
+	CountryISO = CountryISO
+	preferredCountries: CountryISO[] = [CountryISO.India]
+	isMobileOTPEdit: boolean = false
+	imageUrlWhitelabel: string | null = null
+	// domainnamecondition:any;
+	// domainname:any;
+	showPassword: boolean = false
+	otpValue: string = ""
+	otpError: boolean = false
 
-  showHideConfirmPassword() {
-    if (this.confirmPassword === "password") {
-      this.confirmPassword = "text";
-      this.showConfirm = true;
-    } else {
-      this.confirmPassword = "password";
-      this.showConfirm = false;
-    }
-  }
+	homeCountryList: any = [
+		{
+			id: 15,
+			country: "India",
+			flag: "https://uniprep.ai/uniprepapi/storage/app/public/country-flags/1689510580Horse8b (2).svg",
+		},
+	]
 
-  homeCountryList: any = [
-    {
-      id: 15,
-      country: "India",
-      flag: "https://uniprep.ai/uniprepapi/storage/app/public/country-flags/1689510580Horse8b (2).svg",
-    },
-  ];
+	constructor(
+		private service: AuthService,
+		private router: Router,
+		private formBuilder: FormBuilder,
+		private locationService: LocationService,
+		private toastr: MessageService,
+		// private fb: FacebookService,
+		private authService: SocialAuthService,
+		private storage: LocalStorageService
+	) {}
 
-  constructor(
-    private service: AuthService,
-    private router: Router,
-    private formBuilder: FormBuilder,
-    private locationService: LocationService,
-    private toastr: MessageService,
-    // private fb: FacebookService,
-    private authService: SocialAuthService,
-    private storage: LocalStorageService
-  ) {}
+	dateTime = new Date()
+	private subs = new SubSink()
+	ngOnInit() {
+		// this.domainnamecondition=window.location.hostname
+		// if ( this.domainnamecondition === "dev-student.uniprep.ai" ||  this.domainnamecondition === "uniprep.ai" ||  this.domainnamecondition === "localhost") {
+		//   this.domainname="main"
+		// }
+		this.locationService.getImage().subscribe((imageUrl) => {
+			this.imageUrlWhitelabel = imageUrl
+		})
+		this.authService.authState.subscribe((user) => {
+			this.service.googlesignUp(user).subscribe(
+				(data) => {
+					if (data.token) {
+						this.storage.set(environment.tokenKey, data.token)
+					} else {
+						this.storage.set(environment.tokenKey, data?.authorisation?.token)
+					}
+					setTimeout(() => {
+						this.service.getMe().subscribe((data) => {
+							this.router.navigate(["/pages/dashboard"])
+						})
+					}, 2000)
+				},
+				(error: any) => {
+					this.toastr.add({
+						severity: "error",
+						summary: "Error",
+						detail: error,
+					})
+				}
+			)
+		})
+		//var socialUser = user;
+		//this.loggedIn = (user != null);
 
-  dateTime = new Date();
-  private subs = new SubSink();
-  ngOnInit() {
-    // this.domainnamecondition=window.location.hostname
-    // if ( this.domainnamecondition === "dev-student.uniprep.ai" ||  this.domainnamecondition === "uniprep.ai" ||  this.domainnamecondition === "localhost") {
-    //   this.domainname="main"
-    // }
-    this.locationService.getImage().subscribe(imageUrl => {
-      this.imageUrlWhitelabel = imageUrl;
-    });
-    this.authService.authState.subscribe((user) => {
-      this.service.googlesignUp(user).subscribe(
-        (data) => {
-          if (data.token) {
-            this.storage.set(environment.tokenKey, data.token);
-          } else {
-            this.storage.set(environment.tokenKey, data?.authorisation?.token);
-          }
-          setTimeout(() => {
-            this.service.getMe().subscribe((data) => {
-              this.router.navigate(["/pages/dashboard"]);
-            });
-          }, 2000);
-        },
-        (error: any) => {
-          this.toastr.add({
-            severity: "error",
-              summary: "Error",
-            detail: error,
-          });
-        }
-      );
-    });
-    //var socialUser = user;
-    //this.loggedIn = (user != null);
+		// this.isMobileOTPSend = true;
+		// this.isMobileOTPValidated = true;
+		// this.isEmailOTPSend = true;
+		// this.isEmailOTPValidated = true;
+		// this.isRemainingFieldVisible = true;
 
-    // this.isMobileOTPSend = true;
-    // this.isMobileOTPValidated = true;
-    // this.isEmailOTPSend = true;
-    // this.isEmailOTPValidated = true;
-    // this.isRemainingFieldVisible = true;
+		this.dateTime.setDate(this.dateTime.getDate())
 
-    this.dateTime.setDate(this.dateTime.getDate());
+		this.password = "password"
+		this.registrationForm = this.formBuilder.group({
+			fullName: ["", [Validators.required]],
+			// location: ["", [Validators.required]],
+			contactNumber: ["", [Validators.required]],
+			emailAddress: ["", [Validators.required, Validators.email]],
+			// country_code: ['+91', [Validators.required]],
+			// interestedCountry: [null, [Validators.required]],
+			home_country: ["", [Validators.required]],
+			// lastDegreePassingYear: ["", [Validators.required]],
+			// intakeYear: ["", [Validators.required]],
+			// intakeMonth: ["", [Validators.required]],
+			// programLevel: ["", [Validators.required]],
+			// gender: [""],
+			password: ["", [Validators.required, Validators.minLength(8), matchValidator("confirmPassword", true)]],
+			confirmPassword: ["", [Validators.required, matchValidator("password")]],
+			// terms: [false, [Validators.required]],
 
-    this.password = "password";
-    this.registrationForm = this.formBuilder.group({
-      fullName: ["", [Validators.required]],
-      // location: ["", [Validators.required]],
-      contactNumber: ["", [Validators.required]],
-      emailAddress: ["", [Validators.required, Validators.email]],
-      // country_code: ['+91', [Validators.required]],
-      // interestedCountry: [null, [Validators.required]],
-      home_country: ["", [Validators.required]],
-      // lastDegreePassingYear: ["", [Validators.required]],
-      // intakeYear: ["", [Validators.required]],
-      // intakeMonth: ["", [Validators.required]],
-      // programLevel: ["", [Validators.required]],
-      // gender: [""],
-      password: [
-        "",
-        [
-          Validators.required,
-          Validators.minLength(8),
-          matchValidator("confirmPassword", true),
-        ],
-      ],
-      confirmPassword: ["", [Validators.required, matchValidator("password")]],
-      // terms: [false, [Validators.required]],
+			country: [122, [Validators.required]],
+		})
 
-      country: [122, [Validators.required]],
-    });
+		this.otpForm = this.formBuilder.group({
+			otp1: ["", [Validators.required]],
+			otp2: ["", [Validators.required]],
+			otp3: ["", [Validators.required]],
+			otp4: ["", [Validators.required]],
+		})
+		this.emailOTPForm = this.formBuilder.group({
+			otp5: ["", [Validators.required]],
+			otp6: ["", [Validators.required]],
+			otp7: ["", [Validators.required]],
+			otp8: ["", [Validators.required]],
+		})
 
-    this.otpForm = this.formBuilder.group({
-      otp1: ["", [Validators.required]],
-      otp2: ["", [Validators.required]],
-      otp3: ["", [Validators.required]],
-      otp4: ["", [Validators.required]],
-    });
-    this.emailOTPForm = this.formBuilder.group({
-      otp5: ["", [Validators.required]],
-      otp6: ["", [Validators.required]],
-      otp7: ["", [Validators.required]],
-      otp8: ["", [Validators.required]],
-    });
+		this.GetLocationList()
+		this.gethomeCountryList()
+		this.getProgramLevelList()
+		this.getIntrestedCountryList()
+		this.genderList = [
+			{ label: "M", value: "Male" },
+			{ label: "F", value: "Female" },
+		]
+		this.intakeYearLooking = [
+			{ label: "2023", value: "2023" },
+			{ label: "2024", value: "2024" },
+			{ label: "2025", value: "2025" },
+			{ label: "2026", value: "2026" },
+			{ label: "2027", value: "2027" },
+		]
+		this.getUserLocation() //while registering the user needs to get the location based city, state, region, country.
+	}
 
-    this.GetLocationList();
-    this.gethomeCountryList();
-    this.getProgramLevelList();
-    this.getIntrestedCountryList();
-    this.genderList = [
-      { label: "M", value: "Male" },
-      { label: "F", value: "Female" },
-    ];
-    this.intakeYearLooking = [
-      { label: "2023", value: "2023" },
-      { label: "2024", value: "2024" },
-      { label: "2025", value: "2025" },
-      { label: "2026", value: "2026" },
-      { label: "2027", value: "2027" },
-    ];
-    this.getUserLocation(); //while registering the user needs to get the location based city, state, region, country.
-  }
+	yearChage(event: any) {
+		this.registrationForm?.get("intakeMonth")?.setValue(event)
+	}
 
-  yearChage(event: any) {
-    this.registrationForm?.get("intakeMonth")?.setValue(event);
-  }
+	GetLocationList() {
+		if (this.registrationForm.get("country").value == 122) {
+			this.locationService.getLocation().subscribe(
+				(res: any) => {
+					this.locationList = res
+				},
+				(error: any) => {
+					this.toastr.add({
+						severity: "warning",
+						summary: "Warning",
+						detail: error.error.message,
+					})
+				}
+			)
+		} else {
+			this.locationList = [{ id: 0, district: "Others" }]
+			this.registrationForm.get("location").setValue(0)
+		}
+	}
 
-  GetLocationList() {
-    if (this.registrationForm.get("country").value == 122) {
-      this.locationService.getLocation().subscribe(
-        (res: any) => {
-          this.locationList = res;
-        },
-        (error: any) => {
-          this.toastr.add({
-            severity: "warning",
-            summary: "Warning",
-            detail: error.error.message,
-          });
-        }
-      );
-    } else {
-      this.locationList = [{ id: 0, district: "Others" }];
-      this.registrationForm.get("location").setValue(0);
-    }
-  }
+	gethomeCountryList() {
+		this.locationService.getHomeCountryNew().subscribe(
+			(res: any) => {
+				this.countryList = res
+			},
+			(error: any) => {
+				this.toastr.add({
+					severity: "warning",
+					summary: "Warning",
+					detail: error.error.message,
+				})
+			}
+		)
+	}
+	getIntrestedCountryList() {
+		this.locationService.getCountry().subscribe(
+			(res: any) => {
+				this.intrestedCountryList = res
+			},
+			(error: any) => {
+				this.toastr.add({
+					severity: "warning",
+					summary: "Warning",
+					detail: error.error.message,
+				})
+			}
+		)
+	}
 
-  gethomeCountryList() {
-    this.locationService.getHomeCountryNew().subscribe(
-      (res: any) => {
-        this.countryList = res;
-      },
-      (error: any) => {
-        this.toastr.add({
-          severity: "warning",
-          summary: "Warning",
-          detail: error.error.message,
-        });
-      }
-    );
-  }
-  getIntrestedCountryList() {
-    this.locationService.getCountry().subscribe(
-      (res: any) => {
-        this.intrestedCountryList = res;
-      },
-      (error: any) => {
-        this.toastr.add({
-          severity: "warning",
-          summary: "Warning",
-          detail: error.error.message,
-        });
-      }
-    );
-  }
+	getProgramLevelList() {
+		this.locationService.getProgramLevel().subscribe(
+			(res: any) => {
+				this.programLevelList = res
+			},
+			(error: any) => {
+				this.toastr.add({
+					severity: "warning",
+					summary: "Warning",
+					detail: error.error.message,
+				})
+			}
+		)
+	}
 
-  getProgramLevelList() {
-    this.locationService.getProgramLevel().subscribe(
-      (res: any) => {
-        this.programLevelList = res;
-      },
-      (error: any) => {
-        this.toastr.add({
-          severity: "warning",
-          summary: "Warning",
-          detail: error.error.message,
-        });
-      }
-    );
-  }
+	submitted = false
 
-  submitted = false;
+	get f() {
+		return this.registrationForm.controls
+	}
 
-  get f() {
-    return this.registrationForm.controls;
-  }
+	onSubmit() {
+		this.submitted = true
+		// if (this.registrationForm.value.terms == false) {
+		//     this.toastr.add({
+		//         severity: 'error',
+		//         summary: 'Alert!!!',
+		//         detail: "Please agree Terms and Condition before Signup"
+		//     });
+		//     return;
+		// }
+		// if (this.registrationForm.invalid) {
+		//   this.toastr.add({
+		//     severity: "error",
+		//     summary: "Alert!!!",
+		//     detail: "Fill all the information",
+		//   });
+		//   return;
+		// }
+		var data = {
+			name: this.registrationForm.value.fullName,
+			// location_id: this.registrationForm.value.location,
+			phone: this.registrationForm.value.contactNumber.number,
+			email: this.registrationForm.value.emailAddress,
+			// interested_country_id: this.registrationForm.value.interestedCountry,
+			// last_degree_passing_year: this.registrationForm.value.lastDegreePassingYear.getFullYear(),
+			// intake_year_looking: this.registrationForm.value.intakeYear.getFullYear(),
+			// intake_month_looking: this.registrationForm.value.intakeMonth.getMonth() + 1,
+			// programlevel_id: this.registrationForm.value.programLevel.id,
+			// gender: this.registrationForm.value.gender.label,
+			password: this.registrationForm.value.password,
+			password_confirmation: this.registrationForm.value.confirmPassword,
+			platform_id: 1,
+			usertype_id: 1,
+			home_country: this.registrationForm.value.home_country,
+			// country_id: this.registrationForm.value.country,
+			country_code: this.registrationForm.value.contactNumber.dialCode,
+			current_country_location: this.currentLocationCountry,
+			current_city_location: this.currentLocationCity,
+			current_state_location: this.currentLocationState,
+		}
 
-  onSubmit() {
-    this.submitted = true;
-    // if (this.registrationForm.value.terms == false) {
-    //     this.toastr.add({
-    //         severity: 'error',
-    //         summary: 'Alert!!!',
-    //         detail: "Please agree Terms and Condition before Signup"
-    //     });
-    //     return;
-    // }
-    // if (this.registrationForm.invalid) {
-    //   this.toastr.add({
-    //     severity: "error",
-    //     summary: "Alert!!!",
-    //     detail: "Fill all the information",
-    //   });
-    //   return;
-    // }
-    var data = {
-      name: this.registrationForm.value.fullName,
-      // location_id: this.registrationForm.value.location,
-      phone: this.registrationForm.value.contactNumber.number,
-      email: this.registrationForm.value.emailAddress,
-      // interested_country_id: this.registrationForm.value.interestedCountry,
-      // last_degree_passing_year: this.registrationForm.value.lastDegreePassingYear.getFullYear(),
-      // intake_year_looking: this.registrationForm.value.intakeYear.getFullYear(),
-      // intake_month_looking: this.registrationForm.value.intakeMonth.getMonth() + 1,
-      // programlevel_id: this.registrationForm.value.programLevel.id,
-      // gender: this.registrationForm.value.gender.label,
-      password: this.registrationForm.value.password,
-      password_confirmation: this.registrationForm.value.confirmPassword,
-      platform_id: 1,
-      usertype_id: 1,
-      home_country: this.registrationForm.value.home_country,
-      // country_id: this.registrationForm.value.country,
-      country_code: this.registrationForm.value.contactNumber.dialCode,
-      current_country_location: this.currentLocationCountry,
-      current_city_location: this.currentLocationCity,
-      current_state_location: this.currentLocationState,
-    };
+		this.service.Registraion(data).subscribe(
+			(res: any) => {
+				this.toastr.add({
+					severity: "success",
+					summary: "Success",
+					detail: "User Registered",
+				})
+				if (res?.token) {
+					this.storage.set(environment.tokenKey, res.token)
+				} else {
+					this.storage.set(environment.tokenKey, res?.authorisation?.token)
+				}
+				this.router.navigate(["/pages/dashboard"])
+			},
+			(error) => {
+				const message = error.error?.message != undefined ? error.error?.message : error?.message
 
-    this.service.Registraion(data).subscribe(
-      (res:any) => {
-        this.toastr.add({
-          severity: "success",
-          summary: "Success",
-          detail: "User Registered",
-        });
-        if (res?.token) {
-          this.storage.set(environment.tokenKey, res.token);
-        } else {
-          this.storage.set(environment.tokenKey, res?.authorisation?.token);
-        }
-        this.router.navigate(["/pages/dashboard"]);
-      },
-      (error) => {
-        
-        const message = error.error?.message!=undefined?error.error?.message:error?.message;
-         
-        this.toastr.add({
-          severity: "error",
-          summary: "Failed",
-          detail: message,
-        });
-      }
-    );
-  }
+				this.toastr.add({
+					severity: "error",
+					summary: "Failed",
+					detail: message,
+				})
+			}
+		)
+	}
 
-  getUserLocation(){
-    fetch('https://ipapi.co/json/').then(response => response.json()).then(data => {
-      this.preferredCountry = data.country_code.toLocaleLowerCase()
-    });
-    if (navigator.geolocation) {
-      navigator.geolocation.getCurrentPosition(
-      (position) => {
-        const longitude = position.coords.longitude;
-        const latitude = position.coords.latitude;
-        fetch(`https://nominatim.openstreetmap.org/reverse?lat=${latitude}&lon=${longitude}&format=json`).then(response => response.json()).then(data => {
-          this.currentLocationCountry = data.address.country;
-          this.currentLocationCity = data.address.city;
-          this.currentLocationState = data.address.state;
-        })
-      },(error)=>{
-        //if you're not giving the location access get the current country name using IP address
-        fetch('https://ipapi.co/json/').then(response => response.json()).then(data => {
-          this.currentLocationCountry = data.country_name;
-          this.currentLocationCity = data.city;
-          this.currentLocationState = data.region;
-        });
-      });
-    } else {
-      console.log("No support for geolocation")
-    }
-  }
+	getUserLocation() {
+		fetch("https://ipapi.co/json/")
+			.then((response) => response.json())
+			.then((data) => {
+				this.preferredCountry = data.country_code.toLocaleLowerCase()
+			})
+		if (navigator.geolocation) {
+			navigator.geolocation.getCurrentPosition(
+				(position) => {
+					const longitude = position.coords.longitude
+					const latitude = position.coords.latitude
+					fetch(`https://nominatim.openstreetmap.org/reverse?lat=${latitude}&lon=${longitude}&format=json`)
+						.then((response) => response.json())
+						.then((data) => {
+							this.currentLocationCountry = data.address.country
+							this.currentLocationCity = data.address.city
+							this.currentLocationState = data.address.state
+						})
+				},
+				(error) => {
+					//if you're not giving the location access get the current country name using IP address
+					fetch("https://ipapi.co/json/")
+						.then((response) => response.json())
+						.then((data) => {
+							this.currentLocationCountry = data.country_name
+							this.currentLocationCity = data.city
+							this.currentLocationState = data.region
+						})
+				}
+			)
+		} else {
+			console.log("No support for geolocation")
+		}
+	}
 
-  openTermsPopup() {
-    this.displayTerms = "block";
-  }
+	openTermsPopup() {
+		this.displayTerms = "block"
+	}
 
-  closeTermsPopup() {
-    this.displayTerms = "none";
-  }
+	closeTermsPopup() {
+		this.displayTerms = "none"
+	}
 
-  sendMobileOTP() {
-    // if (this.otpForm.invalid) {
-    //   return;
-    // }
-    let val = {
-      phone: this.registrationForm.value.contactNumber.number,
-      country_code: this.registrationForm.value.contactNumber.dialCode,
-    };
-    if (
-      this.registrationForm.value.fullName != null &&
-      this.registrationForm.value.contactNumber.number
-    ) {
-      this.service.getSmsOTP(val).subscribe(
-        (res: any) => {
-          this.resendTime++;
-          this.startTimer = 60;
-          if (this.resendTime >= 3) {
-            this.startTimer = 30;
-          }
-          this.processTimer();
-          this.isMobileOTPSend = true;
-          this.isMobileOTPEdit = true;
-          this.toastr.add({
-            severity: "success",
-            summary: "Success",
-            detail: "OTP Generated and Sent to " + val.phone,
-          });
-        },
-        (error: any) => {
-          this.isMobileOTPSend = false;
-        }
-      );
-    } else {
-      this.toastr.add({
-        severity: "info",
-        summary: "Info",
-        detail: "Enter Above Filed",
-      });
-    }
-  }
+	sendMobileOTP() {
+		// if (this.otpForm.invalid) {
+		//   return;
+		// }
+		let val = {
+			phone: this.registrationForm.value.contactNumber.number,
+			country_code: this.registrationForm.value.contactNumber.dialCode,
+		}
+		if (this.registrationForm.value.fullName != null && this.registrationForm.value.contactNumber.number) {
+			this.service.getSmsOTP(val).subscribe(
+				(res: any) => {
+					this.resendTime++
+					this.startTimer = 60
+					if (this.resendTime >= 3) {
+						this.startTimer = 30
+					}
+					this.processTimer()
+					this.isMobileOTPSend = true
+					this.isMobileOTPEdit = true
+					this.toastr.add({
+						severity: "success",
+						summary: "Success",
+						detail: "OTP Generated and Sent to " + val.phone,
+					})
+				},
+				(error: any) => {
+					this.isMobileOTPSend = false
+				}
+			)
+		} else {
+			this.toastr.add({
+				severity: "info",
+				summary: "Info",
+				detail: "Enter Above Filed",
+			})
+		}
+	}
 
-  onValidateMobileOTP() {
-    if (this.otpForm.invalid) {
-      return;
-    }
-    let _otp =
-      this.otpForm.value.otp1 +
-      this.otpForm.value.otp2 +
-      this.otpForm.value.otp3 +
-      this.otpForm.value.otp4;
-    if (!this.isMobileOTPValidated) {
-      let val = {
-        phone: this.registrationForm.value.contactNumber.number,
-        country_code: this.registrationForm.value.contactNumber.dialCode,
-        otp: _otp,
-      };
-      this.service.verifySmsOTP(val).subscribe(
-        (res: any) => {
-          this.isMobileOTPValidated = true;
-          this.otpForm.reset();
-          this.toastr.add({
-            severity: "success",
-            summary: "Success",
-            detail: "OTP Verified Successfully",
-          });
-        },
-        (error: any) => {
-          this.isMobileOTPValidated = false;
-        }
-      );
-    }
-  }
+	onValidateMobileOTP() {
+		if (this.otpForm.invalid) {
+			return
+		}
+		let _otp = this.otpForm.value.otp1 + this.otpForm.value.otp2 + this.otpForm.value.otp3 + this.otpForm.value.otp4
+		if (!this.isMobileOTPValidated) {
+			let val = {
+				phone: this.registrationForm.value.contactNumber.number,
+				country_code: this.registrationForm.value.contactNumber.dialCode,
+				otp: _otp,
+			}
+			this.service.verifySmsOTP(val).subscribe(
+				(res: any) => {
+					this.isMobileOTPValidated = true
+					this.otpForm.reset()
+					this.toastr.add({
+						severity: "success",
+						summary: "Success",
+						detail: "OTP Verified Successfully",
+					})
+				},
+				(error: any) => {
+					this.isMobileOTPValidated = false
+				}
+			)
+		}
+	}
 
-  numericOnly(event: any): boolean {
-    let pattern = /^([0-9])$/;
-    return pattern.test(event.key);
-  }
+	numericOnly(event: any): boolean {
+		let pattern = /^([0-9])$/
+		return pattern.test(event.key)
+	}
 
-  sendEmailOTP() {
-    let data = {
-      name: this.registrationForm.value.fullName,
-      email: this.registrationForm.value.emailAddress,
-    };
+	sendEmailOTP() {
+		const data = {
+			name: this.registrationForm.value.fullName,
+			email: this.registrationForm.value.emailAddress,
+		}
 
-    this.service.sendEmailOTP(data).subscribe(
-      (res: any) => {
-        this.isEmailOTPSend = true;
-        this.registrationForm.controls["emailAddress"].readonly = true;
-      },
-      (error) => {
-        this.isEmailOTPSend = false;
-        // const message = error.error.message;
-        this.toastr.add({
-          severity: "error",
-          summary: "Failed",
-          detail: error.message,
-        });
-      }
-    );
-  }
+		this.service.sendOtp(data).subscribe(
+			(res) => {
+				this.isEmailOTPSend = true
+				this.registrationForm.controls["emailAddress"].readonly = true
+				this.toastr.add({ severity: "success", summary: "Success", detail: "OTP sent to your email." })
+			},
+			(error) => {
+				this.toastr.add({ severity: "error", summary: "Error", detail: error.message || "Failed to send OTP." })
+			}
+		)
+	}
 
-  onValidateEmailOTP() {
-    // this.isRemainingFieldVisible = true;
-    // this.isEmailOTPValidated = true;
-    //
-    // return;
-    if (this.emailOTPForm.invalid) {
-      this.toastr.add({
-        severity: "error",
-        summary: "Alert!!!",
-        detail: "Enter Valid OTP",
-      });
-      return;
-    }
+	onValidateEmailOTP() {
+		if (!this.otpValue) {
+			this.otpError = true
+			this.toastr.add({ severity: "error", summary: "Error", detail: "Please enter the OTP." })
+			return
+		}
 
-    const otp =
-      this.emailOTPForm.value.otp5 +
-      this.emailOTPForm.value.otp6 +
-      this.emailOTPForm.value.otp7 +
-      this.emailOTPForm.value.otp8;
-    var data = {
-      otp: otp,
-      email: this.registrationForm.value.emailAddress,
-    };
-    // this.isRemainingFieldVisible = true;
-    this.service.validateEmailOTP(data).subscribe(
-      (res) => {
-        this.isRemainingFieldVisible = true;
-        this.isEmailOTPValidated = true;
-      },
-      (error) => {
-        this.isEmailOTPValidated = false;
-        this.isRemainingFieldVisible = false;
-        const message = error.error.message;
-        this.toastr.add({
-          severity: "error",
-          summary: "Failed",
-          detail: "Invalid OTP",
-        });
-      }
-    );
-    // this.isMobileOTPValidated = true;
-    // this.isEmailOTPSend = true;
-  }
+		const data = {
+			otp: this.otpValue,
+			email: this.registrationForm.value.emailAddress,
+		}
 
-  focusNextInput(event: KeyboardEvent | TouchEvent, num: number) {
-    const isBackspace = (event instanceof KeyboardEvent && (event as KeyboardEvent).key.toLowerCase() === "backspace");
-  
-    if (isBackspace) {
-      switch (num) {
-        case 2:
-          this.otp1.nativeElement.focus();
-          break;
-        case 3:
-          this.otp2.nativeElement.focus();
-          break;
-        case 4:
-          this.otp3.nativeElement.focus();
-          break;
-      }
-      // Prevent the default backspace behavior
-      event.preventDefault();
-    } else if (/^\d$/.test((event as KeyboardEvent).key)) {
-      switch (num) {
-        case 1:
-          this.otp2.nativeElement.focus();
-          break;
-        case 2:
-          this.otp3.nativeElement.focus();
-          break;
-        case 3:
-          this.otp4.nativeElement.focus();
-          break;
-      }
-    }
-  
-    // Prevent the default behavior for touch events
-    if (event instanceof TouchEvent) {
-      event.preventDefault();
-    }
-  }
+		this.service.validateOtp(data).subscribe(
+			(res) => {
+				this.isEmailOTPSend = false
+				this.toastr.add({ severity: "success", summary: "Success", detail: "OTP verified successfully." })
+				// Proceed with registration or next steps
+			},
+			(error) => {
+				this.otpError = true
+				this.toastr.add({ severity: "error", summary: "Error", detail: error.message || "Invalid OTP." })
+			}
+		)
+	}
 
-  focusNextEmailInput(event: KeyboardEvent | TouchEvent, num: number) {
-    const isBackspace = (event instanceof KeyboardEvent && (event as KeyboardEvent).key.toLowerCase() === "backspace");
-  
-    if (isBackspace) {
-      switch (num) {
-        case 6:
-          this.otp5.nativeElement.focus();
-          break;
-        case 7:
-          this.otp6.nativeElement.focus();
-          break;
-        case 8:
-          this.otp7.nativeElement.focus();
-          break;
-      }
-      // Prevent the default backspace behavior
-      event.preventDefault();
-    } else if (/^\d$/.test((event as KeyboardEvent).key)) {
-      switch (num) {
-        case 5:
-          this.otp6.nativeElement.focus();
-          break;
-        case 6:
-          this.otp7.nativeElement.focus();
-          break;
-        case 7:
-          this.otp8.nativeElement.focus();
-          break;
-      }
-    }
-  
-    // Prevent the default behavior for touch events
-    if (event instanceof TouchEvent) {
-      event.preventDefault();
-    }
-  }
-  
+	focusNextInput(event: KeyboardEvent | TouchEvent, num: number) {
+		const isBackspace = event instanceof KeyboardEvent && (event as KeyboardEvent).key.toLowerCase() === "backspace"
 
-  processTimer() {
-    if (this.interval) {
-      clearInterval(this.interval);
-      this.interval = undefined;
-    }
-    this.interval = setInterval(() => {
-      this.startTimer -= 1;
+		if (isBackspace) {
+			switch (num) {
+				case 2:
+					this.otp1.nativeElement.focus()
+					break
+				case 3:
+					this.otp2.nativeElement.focus()
+					break
+				case 4:
+					this.otp3.nativeElement.focus()
+					break
+			}
+			// Prevent the default backspace behavior
+			event.preventDefault()
+		} else if (/^\d$/.test((event as KeyboardEvent).key)) {
+			switch (num) {
+				case 1:
+					this.otp2.nativeElement.focus()
+					break
+				case 2:
+					this.otp3.nativeElement.focus()
+					break
+				case 3:
+					this.otp4.nativeElement.focus()
+					break
+			}
+		}
 
-      if (this.startTimer <= 0) {
-        clearInterval(this.interval);
-      }
-    }, 1000);
-  }
+		// Prevent the default behavior for touch events
+		if (event instanceof TouchEvent) {
+			event.preventDefault()
+		}
+	}
 
-  editMobileNumberAgain() {
-    this.isMobileOTPSend = false;
-  }
+	focusNextEmailInput(event: KeyboardEvent | TouchEvent, num: number) {
+		const isBackspace = event instanceof KeyboardEvent && (event as KeyboardEvent).key.toLowerCase() === "backspace"
 
-  editEmailAgain() {
-    this.isEmailOTPSend = false;
-  }
+		if (isBackspace) {
+			switch (num) {
+				case 6:
+					this.otp5.nativeElement.focus()
+					break
+				case 7:
+					this.otp6.nativeElement.focus()
+					break
+				case 8:
+					this.otp7.nativeElement.focus()
+					break
+			}
+			// Prevent the default backspace behavior
+			event.preventDefault()
+		} else if (/^\d$/.test((event as KeyboardEvent).key)) {
+			switch (num) {
+				case 5:
+					this.otp6.nativeElement.focus()
+					break
+				case 6:
+					this.otp7.nativeElement.focus()
+					break
+				case 7:
+					this.otp8.nativeElement.focus()
+					break
+			}
+		}
 
-  onChangeContact(event: any) {
-    this.showContactErrorIcon = false;
-    if (event?.target?.value?.length != 0) {
-      this.showContactErrorIcon = true;
-      this.registerFormInvalid = true;
-    } else {
-      this.validNumberRequired = false;
-      this.registerFormInvalid = false;
-    }
-  }
+		// Prevent the default behavior for touch events
+		if (event instanceof TouchEvent) {
+			event.preventDefault()
+		}
+	}
 
-  onChangeEmail(event: any) {
-    this.showEmailErrorIcon = false;
-    if (this.registrationForm.controls["emailAddress"].valid) {
-      this.showEmailErrorIcon = true;
-    }
-  }
+	processTimer() {
+		if (this.interval) {
+			clearInterval(this.interval)
+			this.interval = undefined
+		}
+		this.interval = setInterval(() => {
+			this.startTimer -= 1
 
-  changeLocation(event: any) {
-    this.GetLocationList();
-  }
-  changeCountryCode(event: any) {
-    let changeHomeCountry = this.countryList.find(
-      (data: any) => data.country_code == event.value
-    );
-    this.registrationForm.get("country").setValue(changeHomeCountry.id);
-    this.GetLocationList();
-  }
+			if (this.startTimer <= 0) {
+				clearInterval(this.interval)
+			}
+		}, 1000)
+	}
 
-  loginWithFacebook() {
-    // this.fb.login().then(response => {
-    //     console.log('Facebook login response:', response);
-    // }).catch(error => {
-    //     console.error('Facebook login error:', error);
-    // });
-  }
+	editMobileNumberAgain() {
+		this.isMobileOTPSend = false
+	}
+
+	editEmailAgain() {
+		this.isEmailOTPSend = false
+	}
+
+	onChangeContact(event: any) {
+		this.showContactErrorIcon = false
+		if (event?.target?.value?.length != 0) {
+			this.showContactErrorIcon = true
+			this.registerFormInvalid = true
+		} else {
+			this.validNumberRequired = false
+			this.registerFormInvalid = false
+		}
+	}
+
+	onChangeEmail(event: any) {
+		this.showEmailErrorIcon = false
+		if (this.registrationForm.controls["emailAddress"].valid) {
+			this.showEmailErrorIcon = true
+		}
+	}
+
+	changeLocation(event: any) {
+		this.GetLocationList()
+	}
+	changeCountryCode(event: any) {
+		let changeHomeCountry = this.countryList.find((data: any) => data.country_code == event.value)
+		this.registrationForm.get("country").setValue(changeHomeCountry.id)
+		this.GetLocationList()
+	}
+
+	loginWithFacebook() {
+		// this.fb.login().then(response => {
+		//     console.log('Facebook login response:', response);
+		// }).catch(error => {
+		//     console.error('Facebook login error:', error);
+		// });
+	}
+
+	showHidePassword() {
+		this.showPassword = !this.showPassword
+		this.password = this.showPassword ? "text" : "password"
+	}
 }

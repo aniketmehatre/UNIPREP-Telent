@@ -83,38 +83,16 @@
 																</div>
 															</div>
 														</div>
-														<div class="col-md-12 mt-2" *ngIf="isEmailOTPSend && !isRemainingFieldVisible">
+														<div class="col-md-12 mt-2" *ngIf="isEmailOTPSend">
 															<form [formGroup]="emailOTPForm" class="formOTP" (ngSubmit)="onValidateEmailOTP()">
 																<h5 class="mt-3 text-center">Enter your OTP</h5>
-																<p class="text-center text-muted">We have sent you one time password to your email for verification</p>
-																<div class="row">
-																	<div class="col-lg-3 col-md-3 col-3">&nbsp;</div>
-																	<div class="col-lg-6 col-md-6 col-6">
-																		<div class="d-flex gap-3">
-																			<input class="text-center col form-control" inputmode="numeric" [ngClass]="{ 'is-invalid': submitted && f.otp5.errors }" formControlName="otp5" (keyup)="focusNextEmailInput($event, 5)" type="tel" #otp5 autofocus maxlength="1" />
-																			<input class="text-center col form-control" inputmode="numeric" formControlName="otp6" (keyup)="focusNextEmailInput($event, 6)" type="tel" maxlength="1" autofocus #otp6 [ngClass]="{ 'is-invalid': submitted && f.otp6.errors }" />
-																			<input class="text-center col form-control" inputmode="numeric" formControlName="otp7" (keyup)="focusNextEmailInput($event, 7)" type="tel" maxlength="1" #otp7 autofocus [ngClass]="{ 'is-invalid': submitted && f.otp7.errors }" />
-																			<input class="text-center col form-control" inputmode="numeric" formControlName="otp8" type="tel" (keyup)="focusNextEmailInput($event, 8)" #otp8 maxlength="1" autofocus [ngClass]="{ 'is-invalid': submitted && f.otp8.errors }" />
-																			<div *ngIf="submitted && f.otp5.errors && f.otp6.errors && f.otp7.errors && f.otp8.errors" class="invalid-feedback">
-																				<div *ngIf="f.otp5.errors.required && f.otp6.errors.required && f.otp7.errors.required && f.otp8.errors.required">OTP is required</div>
-																			</div>
-																		</div>
-																	</div>
-																	<div class="col-lg-3 col-md-3 col-3">&nbsp;</div>
+																<p class="text-center text-muted">We have sent you a one-time password to your email for verification</p>
+																<p-inputotp [(ngModel)]="otpValue" [integerOnly]="true" placeholder="Enter OTP" />
+																<div *ngIf="otpError" class="invalid-feedback">
+																	<div *ngIf="otpError">Invalid OTP</div>
 																</div>
 																<div class="text-center mt-3">
 																	<button class="pt-2 pb-2 btn btn-primary btn-login text-uppercase fw-bold m-0 w-50" type="submit">VERIFY OTP</button>
-																</div>
-																<p class="text-center mt-3">
-																	Didn't receive the Email OTP?<br /><span class="uniprep-primary fw-semibold"><a (click)="sendEmailOTP()" role="button">Click to resend.</a> </span>
-																</p>
-																<div class="row justify-content-center mt-4">
-																	<div class="col-12 text-center">
-																		<a href="login" class="btn btn-primary btn-rounded text-small"
-																			><span><i class="fa-solid fa-chevron-left"></i></span
-																		></a>
-																		<p>Back to Sign In</p>
-																	</div>
 																</div>
 															</form>
 														</div>

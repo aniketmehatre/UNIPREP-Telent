@@ -697,4 +697,16 @@ export class AuthService {
       console.debug('GetMe cache reset');
     }
   }
+
+  register(data: any): Observable<any> {
+    return this.http.post(`${environment.ApiUrl}/register`, data);
+  }
+
+  sendOtp(data: any): Observable<any> {
+    return this.http.post(`${environment.ApiUrl}/sendotp`, data);
+  }
+
+  validateOtp(data: any): Observable<any> {
+    return this.http.post(`${environment.ApiUrl}/validateotp`, data);
+  }
 }
