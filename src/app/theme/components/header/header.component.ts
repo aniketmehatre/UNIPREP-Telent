@@ -18,7 +18,7 @@ import { AssessmentService } from "src/app/pages/assessment/assessment.service";
 import { ILearnChallengeData } from "src/app/@Models/ilearn-challenge.model";
 import { CommonModule } from "@angular/common";
 import { DialogModule } from "primeng/dialog";
-import { TabPanel, TabViewModule } from "primeng/tabview";
+import { TabsModule } from 'primeng/tabs';
 import { OverlayPanelModule } from "primeng/overlaypanel";
 import { DropdownModule } from "primeng/dropdown";
 import { InputTextModule } from "primeng/inputtext";
@@ -35,8 +35,7 @@ import { take } from "rxjs/operators";
   imports: [
     CommonModule, 
     DialogModule, 
-    TabPanel, 
-    TabViewModule, 
+    TabsModule,
     OverlayPanelModule, 
     FormsModule, 
     ReactiveFormsModule, 

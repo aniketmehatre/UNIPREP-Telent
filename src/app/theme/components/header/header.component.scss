@@ -461,30 +461,6 @@ $background-color_4: #fff;
   background: var(--uniprep-basil) !important;
   color: white !important;
 }
-
-//notification
-.notification-container {
-  padding: 0 !important;
-  .p-tabview .p-tabview-nav li.p-highlight .p-tabview-nav-link {
-    background: #ffffff;
-    border-color: #3f4c83;
-    color: #3f4c83;
-  }
-  .p-tabview .p-tabview-nav li {
-    a {
-      padding: 0 1.5rem 0.4rem 1.5rem !important;
-    }
-  }
-  .p-tabview .p-tabview-nav li .p-tabview-nav-link:focus {
-    box-shadow: none !important;
-  }
-  .p-tabview .p-tabview-panels {
-    padding: 0 !important;    
-    height: 38vh;
-    overflow-y: auto;
-    scrollbar-width: thin;
-  }
-}
 .notifications-header {
   display: flex;
   justify-content: space-between;
