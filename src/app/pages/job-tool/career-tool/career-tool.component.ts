@@ -2,12 +2,16 @@ import {Component, OnInit} from '@angular/core';
 import {NavigationEnd, Router} from '@angular/router';
 import {environment} from '@env/environment';
 import {EmployerGlobalService} from "../employer-global.service";
+import { CommonModule } from '@angular/common';
 
 @Component({
     selector: 'uni-career-tool',
     templateUrl: './career-tool.component.html',
-    styleUrls: ['./career-tool.component.scss']
+    styleUrls: ['./career-tool.component.scss'],
+    standalone: true,
+    imports: [CommonModule]
 })
+
 export class CareerToolComponent implements OnInit {
   currentEndpoint: string = "";
   currentRoute: any

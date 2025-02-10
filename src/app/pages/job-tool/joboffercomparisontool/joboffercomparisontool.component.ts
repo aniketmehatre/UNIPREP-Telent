@@ -4,12 +4,15 @@ import { AveragesalaryestimatorService } from "../../averagesalaryestimator/aver
 import { PageFacadeService } from "../../page-facade.service";
 import { FormArray, FormBuilder, FormGroup, Validators } from "@angular/forms";
 import { JobOfferComparisionService } from "./joboffercomparison.service";
-
+import { CommonModule } from "@angular/common";
 @Component({
   selector: "uni-joboffercomparisontool",
   templateUrl: "./joboffercomparisontool.component.html",
   styleUrls: ["./joboffercomparisontool.component.scss"],
+  standalone: true,
+  imports: [CommonModule]
 })
+
 export class JoboffercomparisontoolComponent implements OnInit {
   basicInformationForm: FormGroup;
   salaryandemployeeBenefitsForm: FormGroup;

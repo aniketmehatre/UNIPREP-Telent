@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from "@angular/common/http";
 import { environment } from "@env/environment";
 import { BehaviorSubject } from 'rxjs';
-const saveAs = require('file-saver');
+import { saveAs } from 'file-saver';
 
 @Injectable({
   providedIn: 'root'
