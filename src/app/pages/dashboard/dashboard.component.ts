@@ -268,12 +268,15 @@ export class DashboardComponent implements OnInit, OnChanges {
     });
 
     localStorage.setItem("countryId", selectedId.id);
-    localStorage.setItem("selectedcountryId", selectedId.id);
+    localStorage.setItem("selectedCountryId", selectedId.id);
     this.loadApiData();
     this.selectedCountryId = selectedId.id;
     this.dataService.changeCountryId(selectedId.id);
     this.dataService.changeCountryFlag(selectedId.flag);
     this.dataService.changeCountryName(selectedId.country);
+    
+    // Update the selected country in the dashboard service
+    this.dashboardService.updateSelectedCountry(selectedId);
   }
 
   onClickReadProgression(data: any): void {

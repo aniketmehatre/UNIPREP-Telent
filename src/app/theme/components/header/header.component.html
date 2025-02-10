@@ -186,7 +186,7 @@
               <i class="fa-solid fa-circle-exclamation"></i>
             </button>
             <div label="" role="button" class="headercountry me-2" title="Selected Country">
-              <img #openCountryPopup src="{{ headerFlag }}" alt="flag" height="auto" width="auto" (click)="openFlagModal(totalCountryList, $event)" />
+              <img [src]="headerFlag" alt="flag" height="auto" width="auto" />
             </div>
           </div>
           <div class="d-none d-md-block">
@@ -204,7 +204,7 @@
             </button>
           </div>
           <div label="" role="button" class="headercountry me-2 d-none d-md-block" title="Selected Country">
-            <img src="../../../uniprep-assets/icons/india.png" alt="flag" height="auto" width="auto" />
+            <img [src]="headerFlag" alt="flag" height="auto" width="auto" />
           </div>
           <div label="" role="button" class="headercountry me-2 d-none d-md-block" title="Selected Country">
             <img #openCountryPopup src="{{ headerFlag }}" alt="flag" height="auto" width="auto" (click)="openFlagModal(totalCountryList, $event)" />

@@ -7,7 +7,26 @@ import { BehaviorSubject, Observable } from "rxjs";
   providedIn: "root",
 })
 export class DashboardService {
-  constructor(private http: HttpClient) {}
+  private selectedCountrySubject = new BehaviorSubject<any>(null);
+  selectedCountry$ = this.selectedCountrySubject.asObservable();
+
+  constructor(private http: HttpClient) {
+    // Initialize with stored country if available
+    const storedCountryId = localStorage.getItem('selectedCountryId');
+    if (storedCountryId) {
+      this.getCountries().subscribe(countries => {
+        const country = countries.find((c: any) => c.id.toString() === storedCountryId);
+        if (country) {
+          this.selectedCountrySubject.next(country);
+        }
+      });
+    }
+  }
+
+  updateSelectedCountry(country: any) {
+    this.selectedCountrySubject.next(country);
+  }
+
   isinitialstart=false;
   getDashboardCounts() {
     const headers = new HttpHeaders().set("Accept", "application/json");
