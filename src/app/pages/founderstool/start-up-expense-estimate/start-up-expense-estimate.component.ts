@@ -10,14 +10,14 @@ import { FounderstoolService } from '../founderstool.service';
 import { selectList } from '../marketing-analysis/marketing-analysis.component';
 import { CommonModule } from '@angular/common';
 import { DialogModule } from 'primeng/dialog';
-import { DropdownModule } from 'primeng/dropdown';
+
 
 @Component({
     selector: 'uni-start-up-expense-estimate',
     templateUrl: './start-up-expense-estimate.component.html',
     styleUrls: ['./start-up-expense-estimate.component.scss'],
     standalone: true,
-    imports: [CommonModule, DropdownModule, DialogModule]
+    imports: [CommonModule,  DialogModule]
 })
 export class StartUpExpenseEstimateComponent implements OnInit {
   locationList: any[] = [{ name: 'India' }];

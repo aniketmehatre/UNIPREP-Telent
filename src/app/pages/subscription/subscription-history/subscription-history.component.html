@@ -106,7 +106,7 @@
 								<div class="card-body p-4">
 									<h5 style="font-size: 18px; text-align: center">Select Your Base Country</h5>
 									<span class="p-float-label">
-										<p-dropdown [options]="subscription.filteredCountryList" styleClass="w-100"
+										<p-select [options]="subscription.filteredCountryList" styleClass="w-100"
 											[(ngModel)]="subscription.selectedCoutry" optionLabel="country">
 											<ng-template pTemplate="selectedItem">
 												<img [src]="subscription.selectedCoutry?.flag"
@@ -114,7 +114,7 @@
 													class="base-country-flag" />
 												{{ subscription.selectedCoutry?.country }}
 											</ng-template>
-										</p-dropdown>
+										</p-select>
 									</span>
 									<h5 style="font-size: 18px; text-align: center" class="pt-4">Personalized Question:
 										{{ subscription.chatlimit }} / day</h5>

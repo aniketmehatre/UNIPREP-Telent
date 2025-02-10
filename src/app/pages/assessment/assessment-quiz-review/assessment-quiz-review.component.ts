@@ -1,15 +1,26 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, CUSTOM_ELEMENTS_SCHEMA, OnInit } from '@angular/core';
 import { AssessmentService } from '../assessment.service';
-import { ActivatedRoute, Router } from '@angular/router';
+import { ActivatedRoute, Router, RouterModule } from '@angular/router';
 import { UserquizResponse } from 'src/app/@Models/assessment.model';
-
+import { CommonModule } from '@angular/common';
+import { TableModule } from 'primeng/table';
+import { ButtonModule } from 'primeng/button';
+import { SelectModule } from 'primeng/select';
+import { DialogModule } from 'primeng/dialog';
+import { SkeletonModule } from 'primeng/skeleton';
+import { TooltipModule } from 'primeng/tooltip';
+import { RadioButtonModule } from 'primeng/radiobutton';
 @Component({
     selector: 'uni-assessment-quiz-review',
     templateUrl: './assessment-quiz-review.component.html',
     styleUrls: ['./assessment-quiz-review.component.scss'],
-    standalone: false
+    standalone: true,
+    schemas: [CUSTOM_ELEMENTS_SCHEMA],
+    imports: [CommonModule, TableModule, ButtonModule, SelectModule, DialogModule, SkeletonModule, TooltipModule, RadioButtonModule, RouterModule]
+
 })
 export class AssessmentQuizReviewComponent implements OnInit {
+
 
   constructor(private assessmentService: AssessmentService, private route: ActivatedRoute, private router: Router) { }
 

@@ -138,9 +138,9 @@
 						</div>
 						<div class="d-flex justify-content-end gap-2">
 							<button class="btn btn-gray text-small btn-rounded" (click)="scholarGuidlines()" type="button">Scholarship Guidelines</button>
-							<button *ngIf="ehitlabelIsShow && PersonalInfo.usertype_id !== 14 && (PersonalInfo.trail_config_id >= 4 && PersonalInfo.trail_config_id <= 7) && PersonalInfo.trail_expired_flag == 2 " class="btn btn-secondary text-small btn-rounded" (click)="buyCredits()" type="button">Buy Credits</button>
+							<button *ngIf="ehitlabelIsShow && PersonalInfo?.usertype_id !== 14 && (PersonalInfo?.trail_config_id >= 4 && PersonalInfo?.trail_config_id <= 7) && PersonalInfo?.trail_expired_flag == 2" class="btn btn-secondary text-small btn-rounded" (click)="buyCredits()" type="button">Buy Credits</button>
 							<button class="btn btn-outline-primary text-small btn-rounded d-flex gap-2 align-items-center" (click)="exportData()" type="button">
-								Export <span *ngIf=" PersonalInfo.usertype_id !== 14 && (PersonalInfo.trail_config_id >= 4 && PersonalInfo.trail_config_id <= 7) && PersonalInfo.trail_expired_flag == 2 " class="btn-icon text-white">{{ exportCreditCount }}</span>
+								Export <span *ngIf="PersonalInfo?.usertype_id !== 14 && (PersonalInfo?.trail_config_id >= 4 && PersonalInfo?.trail_config_id <= 7) && PersonalInfo?.trail_expired_flag == 2" class="btn-icon text-white">{{ exportCreditCount }}</span>
 							</button>
 						</div>
 					</div>
@@ -313,7 +313,23 @@
 						<label class="form-label" style="font-size: medium; font-weight: 500">Filter by Study Level</label>
 						<div class="form-group">
 							<div class="mb-3">
-								<p-multiSelect [options]="studyLevelList" styleClass="w-100" formControlName="study_level" optionValue="id" placeholder="Select Study Level" optionLabel="level" #StudylevelSelect class="filterInput" [appendTo]="'body'"> </p-multiSelect>
+								<p-multiSelect 
+									[options]="studyLevelList" 
+									styleClass="w-100" 
+									formControlName="study_level" 
+									[optionValue]="'id'" 
+									[optionLabel]="'level'"
+									placeholder="Select Study Level" 
+									class="filterInput" 
+									[appendTo]="'body'"
+									[showToggleAll]="true"
+									[selectionLimit]="0"
+									[defaultLabel]="'Select Study Level'"
+									[displaySelectedLabel]="true"
+									[showHeader]="true"
+									[filter]="true"
+									[filterBy]="'level'">
+								</p-multiSelect>
 							</div>
 						</div>
 					</div>

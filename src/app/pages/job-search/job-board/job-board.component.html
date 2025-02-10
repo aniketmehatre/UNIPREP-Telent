@@ -21,8 +21,8 @@
                       </div>
                       <div class="row align-items-center">
                           <div class="col-md-6 text-start col-12 mb-2 mb-md-0">
-                              <p-dropdown [(ngModel)]="job.type" [options]="statuses" placeholder="Status" (onChange)="onStatusChange(job, $event)">
-                              </p-dropdown>
+                              <p-select [(ngModel)]="job.type" [options]="statuses" placeholder="Status" (onChange)="onStatusChange(job, $event)">
+                              </p-select>
                           </div>
                           <div class="col-md-4 col-6">
                               <button class="btn btn-primary btn-rounded w-100" (click)="onClickDetails(job)">Details</button>
@@ -101,7 +101,7 @@
           <label class="form-label" style="font-size: small; font-weight: 500">Status</label>
           <div class="form-group w-100">
             <div class="mb-3">
-              <p-dropdown [options]="statuses" class="w-100" filterBy="label" [showClear]="true" optionLabel="label" formControlName="status" placeholder="Status"></p-dropdown>
+              <p-select [options]="statuses" class="w-100" filterBy="label" [showClear]="true" optionLabel="label" formControlName="status" placeholder="Status"></p-select>
             </div>
           </div>
         </div>

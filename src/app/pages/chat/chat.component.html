@@ -116,18 +116,18 @@
     </div>
   </div>
 </div>
-<p-overlayPanel position="top" styleClass="overlaypanel" [style]="{ width: '245px' }" #content appendTo="body">
+<p-popover position="top" styleClass="overlaypanel" [style]="{ width: '245px' }" #content appendTo="body">
   <ng-template pTemplate="content">
     <span>{{ planmessage }}</span>
   </ng-template>
-</p-overlayPanel>
-<p-overlayPanel #op>
+</p-popover>
+<p-popover #op>
   <form [formGroup]="reportForm" (ngSubmit)="reportSubmit(op)" #reportFormElm>
     <div class="col-md-12 mt-1">
       <div class="form-group">
         <label>Report Issues<span style="color: red; font-weight: bold">*</span></label>
         <div>
-          <p-dropdown formControlName="reportOption" optionValue="id" optionLabel="reportoption_name" styleClass="w-100" [options]="reportOptions"></p-dropdown>
+          <p-select formControlName="reportOption" optionValue="id" optionLabel="reportoption_name" styleClass="w-100" [options]="reportOptions"></p-select>
         </div>
       </div>
     </div>
@@ -141,7 +141,7 @@
       <button class="ps-3 pe-3 pt-2 pb-2" pButton type="submit" style="background-color: var(--uniprep-primary); border-radius: 8px; border: aliceblue; color: #fff" label="SUBMIT"></button>
     </div>
   </form>
-</p-overlayPanel>
+</p-popover>
 <p-dialog [visible]="visibility" [closable]="false" [modal]="true">
   <div style="background: var(--uniprep-primary) !important; border-radius: 50% !important; height: 25px !important; width: 25px !important; position: absolute; right: -10px; top: -10px; text-align: center; cursor: pointer" (click)="visibility = !visibility">
     <i style="color: #fff" class="fa fa-close"></i>

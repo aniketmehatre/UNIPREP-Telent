@@ -31,7 +31,7 @@ import { AcademicToolsQuizComponent } from './academic-tools-quiz/academic-tools
 import { K12ClassComponent } from './k12-class/k12-class.component';
 import { K12QuizComponent } from './k12-quiz/k12-quiz.component';
 import { ReactiveFormsModule } from "@angular/forms";
-import { DropdownModule } from 'primeng/dropdown';
+
 import { K12BoardComponent } from './k12-board/k12-board.component';
 import { K12SubjectComponent } from './k12-subject/k12-subject.component';
 import { K12ChapterComponent } from './k12-chapter/k12-chapter.component';
@@ -81,7 +81,7 @@ Chart.register(BarElement, BarController, CategoryScale, LinearScale, Title, Too
         InputTextModule,
         ReactiveFormsModule,
         DialogModule,
-        DropdownModule,
+        
         MarkdownComponent,
         BaseChartDirective
     ],

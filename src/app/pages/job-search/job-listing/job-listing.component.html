@@ -9,7 +9,7 @@
           </span>
         </div>
         <div class="col-md-3 col-lg-4">
-          <p-dropdown [appendTo]="'body'" [filter]="true" [options]="cities" [showClear]="true" [style]="{ minWidth: '100%' }" class="w-100 text-start" filterBy="name" formControlName="countryCode" optionLabel="name" placeholder="Location">
+          <p-select [appendTo]="'body'" [filter]="true" [options]="cities" [showClear]="true" [style]="{ minWidth: '100%' }" class="w-100 text-start" filterBy="name" formControlName="countryCode" optionLabel="name" placeholder="Location">
             <!-- Template for Selected Item -->
             <ng-template let-selectedOption pTemplate="selectedItem">
               <div class="d-flex align-items-center gap-2">
@@ -23,7 +23,7 @@
                 <div>{{ country.name }}{{ country.city_name ? ", " + country.country_name : "" }}</div>
               </div>
             </ng-template>
-          </p-dropdown>
+          </p-select>
         </div>
         <div class="col-md-3 col-lg-4">
           <button class="btn btn-primary text-small btn-rounded" type="submit">
@@ -71,7 +71,7 @@
                       <ul *ngIf="filteredCity.length > 0" class="dropdown-list">
                         <li *ngFor="let city of filteredCity" (click)="setLocation(city)"><img [src]="city.flag" alt="" />{{ city.location_name }}</li>
                       </ul>
-                      <!-- <p-dropdown [appendTo]="'body'" [filter]="true" [options]="cities"
+                      <!-- <p-select [appendTo]="'body'" [filter]="true" [options]="cities"
                                             [showClear]="true" class=""
                                             filterBy="name" formControlName="countryCode"
                                             optionLabel="name" placeholder="Source Country"
@@ -89,7 +89,7 @@
                                             <div>{{ country.name }}{{ country.city_name ? ', ' + country.country_name : '' }}</div>
                                         </div>
                                     </ng-template>
-                                </p-dropdown> -->
+                                </p-select> -->
                     </div>
                   </div>
                 </div>
@@ -99,7 +99,7 @@
                     <div class="mb-3">
                       <span class="p-input-icon-left w-100">
                         <i class="pi pi-search"></i>
-                        <p-dropdown [filter]="true" [options]="categoryList" [showClear]="true" filterBy="label" formControlName="category" id="category" optionLabel="label" placeholder="Category" style="width: 100% !important" styleClass="w-100"></p-dropdown>
+                        <p-select [filter]="true" [options]="categoryList" [showClear]="true" filterBy="label" formControlName="category" id="category" optionLabel="label" placeholder="Category" style="width: 100% !important" styleClass="w-100"></p-select>
                       </span>
                     </div>
                   </div>
@@ -119,7 +119,7 @@
                     <div class="mb-3">
                       <span class="p-input-icon-left w-100">
                         <i class="pi pi-search"></i>
-                        <p-dropdown [filter]="true" [options]="jobTypeList" [showClear]="true" filterBy="name" formControlName="job_type" id="job_type" optionLabel="name" placeholder="Job Type" style="width: 100% !important" styleClass="w-100"></p-dropdown>
+                        <p-select [filter]="true" [options]="jobTypeList" [showClear]="true" filterBy="name" formControlName="job_type" id="job_type" optionLabel="name" placeholder="Job Type" style="width: 100% !important" styleClass="w-100"></p-select>
                       </span>
                     </div>
                   </div>
@@ -131,10 +131,10 @@
                 <!--                            <div class="mb-3">-->
                 <!--                                <span class="p-input-icon-left w-100">-->
                 <!--                                    <i class="pi pi-search"></i>-->
-                <!--                                    <p-dropdown id="distance" styleClass="w-100" style="width: 100% !important;"-->
+                <!--                                    <p-select id="distance" styleClass="w-100" style="width: 100% !important;"-->
                 <!--                                                formControlName="distance" [options]="distanceList" [filter]="true"-->
                 <!--                                                filterBy="name" [showClear]="true" optionLabel="name"-->
-                <!--                                                placeholder="Distance"></p-dropdown>-->
+                <!--                                                placeholder="Distance"></p-select>-->
                 <!--                                </span>-->
                 <!--                            </div>-->
                 <!--                        </div>-->

@@ -78,7 +78,7 @@
                     <div class="d-flex justify-content-between align-items-center mb-3">
                         <h5 class="uniprep-primary mb-0">Leaderboard</h5>
                         <div class="d-flex gap-3 align-items-center">
-                            <p-dropdown [options]="groupList" [(ngModel)]="selectedLBuser" optionValue="cluster_id" [appendTo]="'body'" 
+                            <p-select [options]="groupList" [(ngModel)]="selectedLBuser" optionValue="cluster_id" [appendTo]="'body'" 
                                 placeholder="View Groups" styleClass="w-100 grp-drpdwn" (onChange)="onChangegrp($event)">
                                 <ng-template let-data pTemplate="item">
                                     <div>Group {{data.cluster_id}}</div>
@@ -86,7 +86,7 @@
                                 <ng-template pTemplate="selectedItem" let-selectedOption>
                                     Group {{ selectedOption.cluster_id }}
                                 </ng-template>
-                            </p-dropdown>
+                            </p-select>
                             <div class="leaderboard-sec text-small" *ngIf="currentPosition">You are in {{currentPosition}} place
                             </div>
                         </div>

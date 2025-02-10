@@ -69,7 +69,7 @@
                       class="recommendationinput d-flex flex-column justify-content-center gap-3"
                     >
                       <ng-container *ngIf="recommendation.id == 1">
-                        <!-- <p-dropdown
+                        <!-- <p-select
                           styleClass="w-100"
                           placeholder="Job Role"
                           display="chip"
@@ -82,7 +82,7 @@
                           [virtualScrollItemSize]="10"
                           [filter]="true"
                           [filterBy]="'jobrole'"
-                        ></p-dropdown> -->
+                        ></p-select> -->
                         <div class="col-md-11 col-lg-11 mb-2 mb-md-0 position-relative">
                           <span class="p-input-icon-left w-100">
                             <i class="pi pi-search"></i>
@@ -143,7 +143,7 @@
                         </p>
                       </ng-container>
                       <ng-container *ngIf="recommendation.id == 4">
-                        <p-dropdown
+                        <p-select
                           styleClass="w-100"
                           placeholder="Select"
                           display="chip"
@@ -152,7 +152,7 @@
                           [options]="jobExperience"
                           [(ngModel)]="selectedData[recommendation.id]"
                           [appendTo]="'body'"
-                        ></p-dropdown>
+                        ></p-select>
                         <p
                           class="text-center"
                           [ngClass]="{ 'd-none': invalidClass === false }"
@@ -162,7 +162,7 @@
                         </p>
                       </ng-container>
                       <ng-container *ngIf="recommendation.id == 5">
-                        <p-dropdown
+                        <p-select
                           styleClass="w-100"
                           placeholder="Select"
                           display="chip"
@@ -171,7 +171,7 @@
                           [options]="joiningReasons"
                           [(ngModel)]="selectedData[recommendation.id]"
                           [appendTo]="'body'"
-                        ></p-dropdown>
+                        ></p-select>
                         <p
                           class="text-center"
                           [ngClass]="{ 'd-none': invalidClass === false }"
@@ -181,7 +181,7 @@
                         </p>
                       </ng-container>
                       <ng-container *ngIf="recommendation.id == 6">
-                        <p-dropdown
+                        <p-select
                           styleClass="w-100"
                           placeholder="Select"
                           display="chip"
@@ -190,7 +190,7 @@
                           [options]="industries"
                           [(ngModel)]="selectedData[recommendation.id]"
                           [appendTo]="'body'"
-                        ></p-dropdown>
+                        ></p-select>
                         <p
                           class="text-center"
                           [ngClass]="{ 'd-none': invalidClass === false }"

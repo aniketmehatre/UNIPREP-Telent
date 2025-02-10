@@ -37,18 +37,18 @@
                                 </div>
                                 </ng-container>
                                 <ng-container *ngIf="recommendation.id == 2">
-                                    <p-dropdown [(ngModel)]="selectedData[recommendation.id]" [options]="businessModelList"
+                                    <p-select [(ngModel)]="selectedData[recommendation.id]" [options]="businessModelList"
                                     styleClass="w-100" optionLabel="name" optionValue="name" [appendTo]="'body'"
                                     placeholder="Enter the business model">
-                                </p-dropdown>
+                                </p-select>
                                 <div class="text-center" [ngClass]="{ 'd-none': inValidClass === false }" style="color: red">Business model is required
                                 </div>
                                 </ng-container>
                                 <ng-container *ngIf="recommendation.id == 3">
-                                    <p-dropdown [(ngModel)]="selectedData[recommendation.id]" [options]="startupStageList"
+                                    <p-select [(ngModel)]="selectedData[recommendation.id]" [options]="startupStageList"
                                     styleClass="w-100" optionLabel="name" optionValue="name" [appendTo]="'body'"
                                     placeholder="Time">
-                                </p-dropdown>
+                                </p-select>
                                     <div class="text-center" [ngClass]="{ 'd-none': inValidClass === false }" style="color: red">Business strategy is required</div>
                                 </ng-container>
                                 <ng-container *ngIf="recommendation.id == 4">
@@ -58,19 +58,19 @@
                                    </div>
                                 </ng-container>
                                 <ng-container *ngIf="recommendation.id == 5">
-                                    <p-dropdown [(ngModel)]="selectedData[recommendation.id]" [options]="financialStatusList"
+                                    <p-select [(ngModel)]="selectedData[recommendation.id]" [options]="financialStatusList"
                                     styleClass="w-100" optionLabel="name" optionValue="name" [appendTo]="'body'"
                                     placeholder="Time">
-                                </p-dropdown>
+                                </p-select>
                                     <div [ngClass]="{ 'd-none': inValidClass === false }" style="color: red"
                                           class="text-danger">Ideal customers is required
                                    </div>
                                 </ng-container>
                                 <ng-container *ngIf="recommendation.id == 6">
-                                    <p-dropdown [(ngModel)]="selectedData[recommendation.id]" [options]="competitiveMarketList"
+                                    <p-select [(ngModel)]="selectedData[recommendation.id]" [options]="competitiveMarketList"
                                     styleClass="w-100" optionLabel="name" optionValue="name" [appendTo]="'body'"
                                     placeholder="competitive market">
-                                </p-dropdown>
+                                </p-select>
                                     <div class="text-center" [ngClass]="{ 'd-none': inValidClass === false }" style="color: red">Competitive market is required
                                    </div>
                                 </ng-container>

@@ -6,7 +6,7 @@
 		<div class="col-md-10">
 			<form [formGroup]="form" (ngSubmit)="compare()" class="row justify-content-center">
 				<div class="col-md-5 mb-3 mb-md-0">
-					<p-dropdown [options]="sourceCities" optionValue="city_id" formControlName="sourceCity"
+					<p-select [options]="sourceCities" optionValue="city_id" formControlName="sourceCity"
 						placeholder="Source Location or Country" [filter]="true" [virtualScroll]="true"
 						[virtualScrollItemSize]="50" [showClear]="true" [appendTo]="'body'"
 						styleClass="w-100 border-secondary">
@@ -39,10 +39,10 @@
 								</div>
 							</div>
 						</ng-template>
-					</p-dropdown>
+					</p-select>
 				</div>
 				<div class="col-md-5 mb-3 mb-md-0">
-					<p-dropdown [options]="targetCities" optionValue="city_id" formControlName="targetCity"
+					<p-select [options]="targetCities" optionValue="city_id" formControlName="targetCity"
 						placeholder="Target Location or Country" [filter]="true" [virtualScroll]="true"
 						[virtualScrollItemSize]="50" [showClear]="true" [appendTo]="'body'"
 						styleClass="w-100 border-primary">
@@ -75,7 +75,7 @@
 								</div>
 							</div>
 						</ng-template>
-					</p-dropdown>
+					</p-select>
 				</div>
 				<div class="col d-flex justify-content-center">
 					<button class="btn btn-primary btn-rounded d-flex gap-2 align-items-center" type="submit"

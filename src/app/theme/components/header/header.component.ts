@@ -18,14 +18,16 @@ import { AssessmentService } from "src/app/pages/assessment/assessment.service";
 import { ILearnChallengeData } from "src/app/@Models/ilearn-challenge.model";
 import { CommonModule } from "@angular/common";
 import { DialogModule } from "primeng/dialog";
-import { TabPanel, TabViewModule } from "primeng/tabview";
-import { OverlayPanelModule } from "primeng/overlaypanel";
-import { DropdownModule } from "primeng/dropdown";
+import { TabPanel, TabsModule } from 'primeng/tabs';
+import { PopoverModule  } from "primeng/popover";
+
 import { InputTextModule } from "primeng/inputtext";
 import { AvatarModule } from "primeng/avatar";
 import { switchMap } from "rxjs/operators";
 import { take } from "rxjs/operators";
-import { PopoverModule } from "primeng/popover";
+
+import { SelectModule } from "primeng/select";
+import { TabViewModule } from "primeng/tabview";
 
 @Component({
   selector: "uni-header",
@@ -39,13 +41,15 @@ import { PopoverModule } from "primeng/popover";
     TabPanel, 
     TabViewModule, 
     // OverlayPanelModule, 
+    TabsModule,
+    PopoverModule , 
     FormsModule, 
     ReactiveFormsModule, 
-    DropdownModule, 
     AvatarModule,
     NgxIntlTelInputModule,
     InputTextModule,
-    PopoverModule
+    PopoverModule,
+    SelectModule
   ],
   providers: [
     MessageService,

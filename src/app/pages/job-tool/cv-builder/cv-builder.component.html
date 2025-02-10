@@ -110,7 +110,7 @@
                 <i class="fa-solid fa-circle-question m-2 uniprep-primary" pTooltip="Please select your level of experience to proceed further" tooltipPosition="top"></i>
               </div>
               <!-- (onChange)="changeExperience()" -->
-              <p-dropdown [options]="experienceLevel" placeholder="Select Experience Level" styleClass="w-100" formControlName="selected_exp_level" optionLabel="level" optionValue="id"></p-dropdown>
+              <p-select [options]="experienceLevel" placeholder="Select Experience Level" styleClass="w-100" formControlName="selected_exp_level" optionLabel="level" optionValue="id"></p-select>
               <div *ngIf="submitted && f['selected_exp_level'].errors" class="text-danger text-xs">
                 <div *ngIf="f['selected_exp_level'].errors">Experience Level Required</div>
               </div>
@@ -184,7 +184,7 @@
                       </div>
                     </div>
                     <!-- <div class="mb-3">
-                                            <p-dropdown [options]="cities" optionValue="country_name" optionLabel="country_name" formControlName="user_location" placeholder="Location, State" [filter]="true" filterBy="country_name" [showClear]="true" [appendTo]="'body'" [style]="{'minWidth': '100%'}" class="w-100 text-start custom-dropdown">
+                                            <p-select [options]="cities" optionValue="country_name" optionLabel="country_name" formControlName="user_location" placeholder="Location, State" [filter]="true" filterBy="country_name" [showClear]="true" [appendTo]="'body'" [style]="{'minWidth': '100%'}" class="w-100 text-start custom-dropdown">
                                                 <ng-template pTemplate="selectedItem" let-selectedOption>
                                                     <div class="d-flex align-items-center gap-2 custom-selected-item dropdown-image">
                                                         <img [src]="selectedOption.flag" alt="Flag"/>
@@ -199,7 +199,7 @@
                                                         <div class="truncate-text">{{ country.country_name }}</div>
                                                     </div>
                                                 </ng-template>
-                                            </p-dropdown>
+                                            </p-select>
                                             <div *ngIf="submitted && f['user_location'].errors" class="text-danger text-xs">
                                                 <div style="margin-left:10px;" *ngIf="f['user_location'].errors">Current Location Required</div>
                                             </div>
@@ -213,7 +213,7 @@
                   </div>
                   <div class="form-group">
                     <div class="mb-3">
-                      <p-dropdown [options]="countryCodeList" styleClass="w-100" [filter]="true" [filterBy]="'name'" placeholder="Select Country Code" formControlName="country_code" optionLabel="name" optionValue="code"></p-dropdown>
+                      <p-select [options]="countryCodeList" styleClass="w-100" [filter]="true" [filterBy]="'name'" placeholder="Select Country Code" formControlName="country_code" optionLabel="name" optionValue="code"></p-select>
                     </div>
                   </div>
                 </div>
@@ -356,7 +356,7 @@
                               <div class="row">
                                 <div class="col-md-6">
                                   <div class="mb-3">
-                                    <p-dropdown styleClass="w-100" [options]="yearsList" optionValue="year" placeholder="Start Year" (onChange)="workYearChange(i)" filterBy="year" [filter]="true" formControlName="work_start_year" optionLabel="year"></p-dropdown>
+                                    <p-select styleClass="w-100" [options]="yearsList" optionValue="year" placeholder="Start Year" (onChange)="workYearChange(i)" filterBy="year" [filter]="true" formControlName="work_start_year" optionLabel="year"></p-select>
                                     <!-- <input class="w-100" type="number" placeholder="Start Year" formControlName="work_start_year" pInputText /> -->
                                     <div *ngIf="wrkExp.get('work_start_year')?.invalid && wrkExp.get('work_start_year')?.touched && submitted" class="text-danger text-xs">
                                       <div>Start Year required.</div>
@@ -365,7 +365,7 @@
                                 </div>
                                 <div class="col-md-6">
                                   <div class="mb-3">
-                                    <p-dropdown [options]="monthList" placeholder="Month" styleClass="w-100" (onChange)="workYearChange(i)" formControlName="work_start_month" optionLabel="name" optionValue="id"></p-dropdown>
+                                    <p-select [options]="monthList" placeholder="Month" styleClass="w-100" (onChange)="workYearChange(i)" formControlName="work_start_month" optionLabel="name" optionValue="id"></p-select>
                                     <div *ngIf="wrkExp.get('work_start_month')?.invalid && wrkExp.get('work_start_month')?.touched && submitted" class="text-danger text-xs">
                                       <div>Start Month required.</div>
                                     </div>
@@ -377,7 +377,7 @@
                               <div class="row">
                                 <div class="col-md-6">
                                   <div class="mb-3">
-                                    <p-dropdown styleClass="w-100" [options]="yearsList" (onChange)="workYearChange(i)" optionValue="year" placeholder="End Year" [disabled]="getWorkExpArray.controls[i]?.get('work_currently_working')?.value" formControlName="work_end_year" filterBy="year" [filter]="true" optionLabel="year"></p-dropdown>
+                                    <p-select styleClass="w-100" [options]="yearsList" (onChange)="workYearChange(i)" optionValue="year" placeholder="End Year" [disabled]="getWorkExpArray.controls[i]?.get('work_currently_working')?.value" formControlName="work_end_year" filterBy="year" [filter]="true" optionLabel="year"></p-select>
                                     <!-- <input class="w-100" type="number"
                                                                             placeholder="End Year"
                                                                             [attr.disabled]="getWorkExpArray.controls[i]?.get('work_currently_working')?.value ? true : null"
@@ -389,7 +389,7 @@
                                 </div>
                                 <div class="col-md-6">
                                   <div class="mb-3">
-                                    <p-dropdown [options]="monthList" (onChange)="workYearChange(i)" placeholder="Month" styleClass="w-100" [disabled]="getWorkExpArray.controls[i]?.get('work_currently_working')?.value" formControlName="work_end_month" optionLabel="name" optionValue="id"></p-dropdown>
+                                    <p-select [options]="monthList" (onChange)="workYearChange(i)" placeholder="Month" styleClass="w-100" [disabled]="getWorkExpArray.controls[i]?.get('work_currently_working')?.value" formControlName="work_end_month" optionLabel="name" optionValue="id"></p-select>
                                     <div *ngIf="wrkExp.get('work_end_month')?.invalid && wrkExp.get('work_end_month')?.touched && submitted" class="text-danger text-xs">
                                       <div>End Month required.</div>
                                     </div>
@@ -409,7 +409,7 @@
                           </div>
                           <div class="form-group">
                             <div class="mb-3">
-                              <p-dropdown [options]="workTypeValue" placeholder="Select Work Type" styleClass="w-100" formControlName="work_type" optionLabel="value" optionValue="id"></p-dropdown>
+                              <p-select [options]="workTypeValue" placeholder="Select Work Type" styleClass="w-100" formControlName="work_type" optionLabel="value" optionValue="id"></p-select>
                               <div *ngIf="wrkExp.get('work_type')?.invalid && wrkExp.get('work_type')?.touched && submitted" class="text-danger text-xs">
                                 <div>Work Type required.</div>
                               </div>
@@ -509,7 +509,7 @@
                             <div class="col-md-6">
                               <div class="form-group">
                                 <div class="mb-3">
-                                  <p-dropdown styleClass="w-100" [options]="yearsList" optionValue="year" placeholder="Start Year" (onChange)="eduYearChange(i)" filterBy="year" [filter]="true" formControlName="edu_start_year" optionLabel="year"></p-dropdown>
+                                  <p-select styleClass="w-100" [options]="yearsList" optionValue="year" placeholder="Start Year" (onChange)="eduYearChange(i)" filterBy="year" [filter]="true" formControlName="edu_start_year" optionLabel="year"></p-select>
                                   <!-- <input class="w-100" type="number"
                                                                            placeholder="Start Year"
                                                                            formControlName="edu_start_year" pInputText /> -->
@@ -522,7 +522,7 @@
                             <div class="col-md-6">
                               <div class="form-group">
                                 <div class="mb-3">
-                                  <p-dropdown styleClass="w-100" [options]="yearsList" (onChange)="eduYearChange(i)" optionValue="year" placeholder="End Year" filterBy="year" [filter]="true" formControlName="edu_end_year" optionLabel="year" [disabled]="getEduDetailsArray.controls[i]?.get('edu_still_pursuing')?.value"></p-dropdown>
+                                  <p-select styleClass="w-100" [options]="yearsList" (onChange)="eduYearChange(i)" optionValue="year" placeholder="End Year" filterBy="year" [filter]="true" formControlName="edu_end_year" optionLabel="year" [disabled]="getEduDetailsArray.controls[i]?.get('edu_still_pursuing')?.value"></p-select>
                                   <div *ngIf="eduDetail.get('edu_end_year')?.invalid && eduDetail.get('edu_end_year')?.touched && submitted" class="text-danger text-xs">
                                     <div>End Year required.</div>
                                   </div>
@@ -585,7 +585,7 @@
                           <label class="uniprep-primarydark fw-bold h6 mb-0">&nbsp;</label>
                           <div class="form-group">
                             <div class="mb-3">
-                              <p-dropdown [options]="cgpaPercentage" styleClass="w-100" formControlName="edu_cgpa_percentage" optionLabel="value" optionValue="id"></p-dropdown>
+                              <p-select [options]="cgpaPercentage" styleClass="w-100" formControlName="edu_cgpa_percentage" optionLabel="value" optionValue="id"></p-select>
                             </div>
                           </div>
                         </div>
@@ -626,7 +626,7 @@
                             <div class="col-md-6">
                               <div class="form-group">
                                 <div class="mb-3">
-                                  <p-dropdown styleClass="w-100" [options]="yearsList" optionValue="year" placeholder="Start Year" (onChange)="projectYearChange(i)" filterBy="year" [filter]="true" formControlName="project_start_name" optionLabel="year"></p-dropdown>
+                                  <p-select styleClass="w-100" [options]="yearsList" optionValue="year" placeholder="Start Year" (onChange)="projectYearChange(i)" filterBy="year" [filter]="true" formControlName="project_start_name" optionLabel="year"></p-select>
                                   <!-- <input class="w-100" type="text" placeholder="Start Year" formControlName="project_start_name" pInputText /> -->
                                   <div *ngIf="project.get('project_start_name')?.invalid && project.get('project_start_name')?.touched && submitted" class="text-danger text-xs">
                                     <div>Start date required.</div>
@@ -637,7 +637,7 @@
                             <div class="col-md-6">
                               <div class="form-group">
                                 <div class="mb-3">
-                                  <p-dropdown styleClass="w-100" [options]="yearsList" optionValue="year" placeholder="Start Year" (onChange)="projectYearChange(i)" filterBy="year" [filter]="true" formControlName="project_end_name" optionLabel="year"></p-dropdown>
+                                  <p-select styleClass="w-100" [options]="yearsList" optionValue="year" placeholder="Start Year" (onChange)="projectYearChange(i)" filterBy="year" [filter]="true" formControlName="project_end_name" optionLabel="year"></p-select>
                                   <!-- <input class="w-100" type="text" placeholder="End Year" formControlName="project_end_name" pInputText /> -->
                                   <div *ngIf="project.get('project_end_name')?.invalid && project.get('project_end_name')?.touched && submitted" class="text-danger text-xs">
                                     <div>End date required.</div>
@@ -791,7 +791,7 @@
                     <div class="col-md-6">
                       <div class="form-group">
                         <div class="mb-3">
-                          <p-dropdown [options]="skillsLists" placeholder="Select Skill" styleClass="w-100" [filter]="true" [appendTo]="'body'" [filterBy]="'skills'" formControlName="skills" optionLabel="skills" optionValue="skills" (onChange)="onSkillChange()"></p-dropdown>
+                          <p-select [options]="skillsLists" placeholder="Select Skill" styleClass="w-100" [filter]="true" [appendTo]="'body'" [filterBy]="'skills'" formControlName="skills" optionLabel="skills" optionValue="skills" (onChange)="onSkillChange()"></p-select>
 
                           <div *ngIf="skill.get('skills')?.touched" class="text-danger text-xs">
                             <div *ngIf="skill.get('skills')?.hasError('duplicate')" style="margin-left: 10px">This skill has already been selected.</div>
@@ -805,7 +805,7 @@
                         <div class="col">
                           <div class="form-group">
                             <div class="mb-3">
-                              <p-dropdown [options]="skillProficiency" styleClass="w-100" (onChange)="SortBasedOnProficiency('skills')" placeholder="Proficiency Level" formControlName="skills_proficiency" optionLabel="value" optionValue="id"></p-dropdown>
+                              <p-select [options]="skillProficiency" styleClass="w-100" (onChange)="SortBasedOnProficiency('skills')" placeholder="Proficiency Level" formControlName="skills_proficiency" optionLabel="value" optionValue="id"></p-select>
                               <div *ngIf="skill.get('skills_proficiency')?.invalid && skill.get('skills_proficiency')?.touched" class="text-danger text-xs">
                                 <div>Proficiency Level required.</div>
                               </div>
@@ -835,7 +835,7 @@
                     <div class="col-md-6">
                       <div class="form-group">
                         <div class="mb-3">
-                          <p-dropdown [options]="languageLists" placeholder="Select Language" styleClass="w-100" [filter]="true" [filterBy]="'value'" formControlName="language" optionLabel="value" optionValue="value" (onChange)="onLanguageChange()"></p-dropdown>
+                          <p-select [options]="languageLists" placeholder="Select Language" styleClass="w-100" [filter]="true" [filterBy]="'value'" formControlName="language" optionLabel="value" optionValue="value" (onChange)="onLanguageChange()"></p-select>
                           <div *ngIf="language.get('language')?.touched" class="text-danger text-xs">
                             <div *ngIf="language.get('language')?.hasError('duplicate')" style="margin-left: 10px">This language has already been selected.</div>
                             <div *ngIf="!language.get('language')?.hasError('duplicate') && language.get('language')?.hasError('required')" style="margin-left: 10px">Language Name required.</div>
@@ -848,7 +848,7 @@
                         <div class="col">
                           <div class="form-group">
                             <div class="mb-3">
-                              <p-dropdown [options]="languageProficiency" (onChange)="SortBasedOnProficiency('language')" placeholder="Proficiency Level" styleClass="w-100" formControlName="lang_proficiency" optionLabel="value" optionValue="id"></p-dropdown>
+                              <p-select [options]="languageProficiency" (onChange)="SortBasedOnProficiency('language')" placeholder="Proficiency Level" styleClass="w-100" formControlName="lang_proficiency" optionLabel="value" optionValue="id"></p-select>
                               <div *ngIf="language.get('lang_proficiency')?.invalid && language.get('lang_proficiency')?.touched && submitted" class="text-danger text-xs">
                                 <div>Language Proficiency required.</div>
                               </div>

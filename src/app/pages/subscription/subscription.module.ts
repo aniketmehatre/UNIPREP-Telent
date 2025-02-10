@@ -3,7 +3,7 @@ import {CommonModule} from '@angular/common';
 
 import {SubscriptionRoutingModule} from './subscription-routing.module';
 import {SubscriptionComponent} from './subscription.component';
-import {DropdownModule} from "primeng/dropdown";
+
 import {InputMaskModule} from "primeng/inputmask";
 import {InputTextModule} from "primeng/inputtext";
 import {CheckboxModule} from "primeng/checkbox";
@@ -49,7 +49,7 @@ import { environment } from '@env/environment';
     imports: [
         CommonModule,
         SubscriptionRoutingModule,
-        DropdownModule,
+        
         InputMaskModule,
         InputTextModule,
         CheckboxModule,

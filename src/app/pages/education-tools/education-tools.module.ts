@@ -7,7 +7,7 @@ import { EducationToolsListComponent } from './education-tools-list/education-to
 import { CourseNavigatorComponent } from './course-navigator/course-navigator.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { CarouselModule } from 'primeng/carousel';
-import { DropdownModule } from 'primeng/dropdown';
+
 import { ButtonModule } from 'primeng/button';
 import { PoliticianInsightsComponent } from './politician-insights/politician-insights.component';
 import { PaginatorModule } from 'primeng/paginator';
@@ -31,15 +31,15 @@ import { WealthleaderslistComponent } from '../founderstool/wealthleaderslist/we
     CountryInsightsComponent,
     CountryInsightsSubmoduleComponent,
     StudentBudgetPlannerComponent,
-    WealthleaderslistComponent,
     WealthleaderreadansComponent
   ],
   imports: [
     CommonModule,
     EducationToolsRoutingModule,
+    WealthleaderslistComponent,
     FormsModule,
     CarouselModule,
-    DropdownModule,
+    
     ButtonModule,
     PaginatorModule,
     CardModule,

@@ -32,7 +32,7 @@
                                 <h2 class="fw-bold mb-0">{{ recommendation.question }}</h2>
                             </div>
                             <div class="col-md-6">
-                                <p-dropdown [options]="destinationLocationList" [virtualScroll]="true"
+                                <p-select [options]="destinationLocationList" [virtualScroll]="true"
                                     [virtualScrollItemSize]="50" [(ngModel)]="selectedData[recommendation.id]"
                                     [appendTo]="'body'" [filter]="true" [showClear]="true" placeholder="Destination"
                                     styleClass="w-100" (onChange)="hideWarning(recommendation.id)">
@@ -72,7 +72,7 @@
                                             </div>
                                         </div>
                                     </ng-template>
-                                </p-dropdown>
+                                </p-select>
                                 <p class="text-center" [ngClass]="{ 'd-none': invalidClass === false }"
                                     style="color: red">Please Choose Any one option</p>
                             </div>

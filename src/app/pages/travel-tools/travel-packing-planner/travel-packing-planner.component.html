@@ -36,7 +36,7 @@
                             <div class="col-md-6">
                                 <div class="recommendationinput d-flex flex-column justify-content-center gap-3">
                                     <ng-container *ngIf="recommendation.id == 1">
-                                        <p-dropdown [options]="destinationLocationList"
+                                        <p-select [options]="destinationLocationList"
                                             [(ngModel)]="selectedData[recommendation.id]" [virtualScroll]="true"
                                             [virtualScrollItemSize]="50" [appendTo]="'body'" placeholder="Destination"
                                             [filter]="true" [showClear]="true" styleClass="w-100">
@@ -78,15 +78,15 @@
                                                     </div>
                                                 </div>
                                             </ng-template>
-                                        </p-dropdown>
+                                        </p-select>
                                         <p class="text-center" [ngClass]="{ 'd-none': invalidClass === false }"
                                             style="color: red">Please Choose Any one option</p>
                                     </ng-container>
                                     <ng-container *ngIf="recommendation.id == 2">
-                                        <p-dropdown [options]="travelTypeList" styleClass="w-100"
+                                        <p-select [options]="travelTypeList" styleClass="w-100"
                                             [(ngModel)]="selectedData[recommendation.id]" optionLabel="name"
                                             optionValue="name" [appendTo]="'body'" placeholder="Travel type">
-                                        </p-dropdown>
+                                        </p-select>
                                         <p class="text-center" [ngClass]="{ 'd-none': invalidClass === false }"
                                             style="color: red">Please Choose Any one option</p>
                                     </ng-container>
@@ -113,10 +113,10 @@
                                     </ng-container>
 
                                     <ng-container *ngIf="recommendation.id == 5">
-                                        <p-dropdown [options]="monthList" styleClass="w-100"
+                                        <p-select [options]="monthList" styleClass="w-100"
                                             [(ngModel)]="selectedData[recommendation.id]" optionLabel="name"
                                             optionValue="name" [appendTo]="'body'" placeholder="Seasons">
-                                        </p-dropdown>
+                                        </p-select>
                                         <p class="text-center" [ngClass]="{ 'd-none': invalidClass === false }"
                                             style="color: red">Please Choose Any one option</p>
                                     </ng-container>

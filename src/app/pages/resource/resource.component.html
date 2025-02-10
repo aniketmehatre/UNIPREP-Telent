@@ -147,8 +147,8 @@
 						<div class="col-12">
 							<div class="form-group">
 								<label class="text-small mb-1">Filter by Country</label>
-								<!-- <p-dropdown class="mt-2" placeholder="Select" formControlName="coutryname" [options]="countries"
-                  optionValue="id" optionLabel="country" styleClass="w-100" [filter]="true"></p-dropdown> -->
+								<!-- <p-select class="mt-2" placeholder="Select" formControlName="coutryname" [options]="countries"
+                  optionValue="id" optionLabel="country" styleClass="w-100" [filter]="true"></p-select> -->
 								<p-multiSelect class="custom-multiselect" placeholder="Select" formControlName="coutryname" optionValue="id" placeholder="Select" optionLabel="country" styleClass="w-100" [options]="countries" [filter]="true" (onChange)="onLocationSelect($event)"></p-multiSelect>
 							</div>
 						</div>

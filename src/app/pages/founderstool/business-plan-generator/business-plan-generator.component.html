@@ -77,10 +77,10 @@
                             <h2 class="fw-bold mb-4">{{recommendation.title}}</h2>
                             <div class="d-flex flex-column gap-2 mb-4">
                                 <label class="uniprep-primary fw-semibold fs-5">What is your Revenue Model?</label>
-                                <p-dropdown formControlName="revenue_model" [options]="revenueModelList"
+                                <p-select formControlName="revenue_model" [options]="revenueModelList"
                                     styleClass="w-100" optionLabel="name" optionValue="name" [appendTo]="'body'"
                                     placeholder="Revenue Model">
-                                </p-dropdown>
+                                </p-select>
                                 <div *ngIf="submitted && form.get('revenue_model')?.errors?.['required']"
                                     class="text-danger">Revenue Model is required
                                 </div>

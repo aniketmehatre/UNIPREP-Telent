@@ -1,5 +1,5 @@
 .subcountry {
-  .p-dropdown {
+  .p-select {
     border: 2px solid var(--uniprep-primary);
   }
 }
@@ -326,7 +326,7 @@
   border: 2px solid var(--uniprep-primary);
 }
 
-:host ::ng-deep .p-dropdown {
+:host ::ng-deep .p-select {
   border-radius: 50px !important;
   margin: 0px 55px;
   border: 2px solid var(--uniprep-primary);

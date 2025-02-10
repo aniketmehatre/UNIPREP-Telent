@@ -38,7 +38,7 @@
                         <ul *ngIf="filteredCity.length > 0"  class="dropdown-list">
                             <li *ngFor="let city of filteredCity" >{{ city.location_name }}</li>
                         </ul> -->
-          <!-- <p-dropdown [options]="cities"
+          <!-- <p-select [options]="cities"
                                     optionLabel="name"
                                     formControlName="countryCode"
                                     placeholder="Location"
@@ -62,7 +62,7 @@
                                     <div class="truncate-text">{{ country.name }}{{ country.city_name ? ', '+country.country_name : ''}}</div>
                                 </div>
                             </ng-template>
-                        </p-dropdown> -->
+                        </p-select> -->
           <!-- </div> -->
           <div class="col-md-3 col-lg-2 text-start mt-2 mt-lg-0 d-flex justify-content-center">
                 <button type="button" class="btn btn-primary btn-rounded d-flex p-1 align-items-center ps-3" type="submit">

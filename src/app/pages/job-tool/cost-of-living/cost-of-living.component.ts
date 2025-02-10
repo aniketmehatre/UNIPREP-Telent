@@ -8,13 +8,16 @@ import { MessageService } from 'primeng/api';
 import { LocationService } from 'src/app/location.service';
 import { CommonModule } from '@angular/common';
 import { DialogModule } from 'primeng/dialog';
-import { DropdownModule } from 'primeng/dropdown';
+
+import { SelectModule } from 'primeng/select';
 @Component({
     selector: 'uni-cost-of-living',
     templateUrl: './cost-of-living.component.html',
     styleUrls: ['./cost-of-living.component.scss'],
     standalone: true,
-    imports: [CommonModule, DialogModule, DropdownModule, FormsModule, ReactiveFormsModule],
+
+    imports: [CommonModule, DialogModule,  FormsModule, ReactiveFormsModule, SelectModule],
+
 })
 export class CostOfLivingComponent implements OnInit {
 

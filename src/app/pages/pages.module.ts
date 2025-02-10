@@ -18,7 +18,7 @@ import { ButtonModule } from "primeng/button"
 import { InputTextModule } from "primeng/inputtext"
 import { RippleModule } from "primeng/ripple"
 import { FormsModule, ReactiveFormsModule } from "@angular/forms"
-import { DropdownModule } from "primeng/dropdown"
+
 import { CalendarModule } from "primeng/calendar"
 import { TabViewModule } from "primeng/tabview"
 import { InputSwitchModule } from "primeng/inputswitch"
@@ -40,10 +40,11 @@ import { EditorModule } from "primeng/editor"
 import { ConfirmPopupModule } from "primeng/confirmpopup"
 import { AccordionModule } from "primeng/accordion"
 import { GuidelineComponent } from "./chat/guidelines/guidelines.component"
-import { OverlayPanelModule } from "primeng/overlaypanel"
+import { PopoverModule } from "primeng/popover"
 import { InputTextarea } from "primeng/inputtextarea"
 import { TooltipModule } from "primeng/tooltip"
 import { PrivacypolicyComponent } from "./footersection/privacypolicy/privacypolicy.component"
+
 import { PaginatorModule } from "primeng/paginator"
 import { ScrollTrackerDirective } from "./header-search/scroll-tracker.directive"
 import { RefundpolicyComponent } from "./footersection/refundpolicy/refundpolicy.component"
@@ -95,6 +96,7 @@ import { JobOfferPreparedListComponent } from "./job-tool/joboffercomparisontool
 	exports: [FooterStatusBoxComponent, HeaderSearchComponent],
 	imports: [
 		CommonModule,
+		PopoverModule,
     NationalExamReviewComponent,
     PagesComponent,
     HeaderSearchComponent,
@@ -134,7 +136,7 @@ import { JobOfferPreparedListComponent } from "./job-tool/joboffercomparisontool
 		InputTextModule,
 		RippleModule,
 		ReactiveFormsModule,
-		DropdownModule,
+		
 		CalendarModule,
 		TabViewModule,
 		MultiSelectModule,
@@ -151,7 +153,7 @@ import { JobOfferPreparedListComponent } from "./job-tool/joboffercomparisontool
 		ConfirmPopupModule,
 		ConfirmDialogModule,
 		AccordionModule,
-		OverlayPanelModule,
+		PopoverModule ,
 		InputTextarea,
 		TooltipModule,
 		DividerModule,

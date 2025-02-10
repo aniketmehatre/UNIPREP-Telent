@@ -4,14 +4,24 @@ import { ILearnChallengeModule, ILearnChallengeResponse, LeaderBoard } from 'src
 import { AuthService } from 'src/app/Auth/auth.service';
 import { Router } from '@angular/router';
 import { DomSanitizer } from '@angular/platform-browser';
+import { CommonModule } from '@angular/common';
+import { TableModule } from 'primeng/table';
+import { ButtonModule } from 'primeng/button';
+import { SelectModule } from 'primeng/select';
+import { DialogModule } from 'primeng/dialog';
+import { SkeletonModule } from 'primeng/skeleton';
+import { TooltipModule } from 'primeng/tooltip';
+
 
 @Component({
     selector: 'uni-ilearn-challenge',
     templateUrl: './ilearn-challenge.component.html',
     styleUrls: ['./ilearn-challenge.component.scss'],
-    standalone: false
+    standalone: true,
+    imports: [CommonModule, TableModule, ButtonModule, SelectModule, DialogModule, SkeletonModule, TooltipModule]
 })
 export class IlearnChallengeComponent implements OnInit, OnDestroy {
+
 
   iLearnChallengeModuleList: ILearnChallengeModule[] = [];
   leaderBoardList: LeaderBoard[] = [];

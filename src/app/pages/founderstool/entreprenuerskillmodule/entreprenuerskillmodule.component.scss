@@ -7,16 +7,16 @@
 		font-size: 12px;
 	}
 }
-:host ::ng-deep p-dropdown
+:host ::ng-deep p-select
 {
 	width:100%;
 }
-::ng-deep .p-dropdown .p-dropdown-label
+::ng-deep .p-select .p-select-label
 {
 	padding:0.5rem;
 	text-align: start;
 }
-::ng-deep .p-dropdown .p-dropdown-item
+::ng-deep .p-select .p-select-item
 {
 	text-align: start;
 }
@@ -70,7 +70,7 @@
 	padding: 10px;
 }
 
-.card-content p-dropdown,
+.card-content p-select,
 .card-content button {
 	width: 100%;
 }

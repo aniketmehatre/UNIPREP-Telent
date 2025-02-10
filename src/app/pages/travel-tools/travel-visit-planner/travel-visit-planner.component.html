@@ -33,7 +33,7 @@
                             </div>
                             <div class="col-md-6">
                                 <ng-container *ngIf="recommendation.id == 1">
-                                    <p-dropdown [options]="destinationLocationList" [virtualScroll]="true"
+                                    <p-select [options]="destinationLocationList" [virtualScroll]="true"
                                         [virtualScrollItemSize]="50" [(ngModel)]="selectedData[recommendation.id]"
                                         [appendTo]="'body'" [filter]="true" [showClear]="true" placeholder="Destination"
                                         styleClass="w-100" (onChange)="hideWarning(recommendation.id)">
@@ -74,7 +74,7 @@
                                                 </div>
                                             </div>
                                         </ng-template>
-                                    </p-dropdown>
+                                    </p-select>
                                     <p class="text-center" [ngClass]="{ 'd-none': invalidClass === false }"
                                         style="color: red">Please Choose Any one option</p>
                                 </ng-container>
@@ -91,10 +91,10 @@
                                         style="color: red">Please Choose Any one option</p>
                                 </ng-container>
                                 <ng-container *ngIf="recommendation.id == 3">
-                                    <p-dropdown [options]="seasons" (onChange)="hideWarning(recommendation.id)"
+                                    <p-select [options]="seasons" (onChange)="hideWarning(recommendation.id)"
                                         [(ngModel)]="selectedData[recommendation.id]" optionLabel="value"
                                         styleClass="w-100" optionValue="value" placeholder="Seasons"
-                                        [appendTo]="'body'"></p-dropdown>
+                                        [appendTo]="'body'"></p-select>
                                     <p class="text-center" [ngClass]="{ 'd-none': invalidClass === false }"
                                         style="color: red">Please Choose Any one option</p>
                                 </ng-container>

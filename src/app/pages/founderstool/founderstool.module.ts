@@ -5,7 +5,7 @@ import { InputTextModule } from 'primeng/inputtext';
 import { CarouselModule } from 'primeng/carousel';
 import { ButtonModule } from 'primeng/button';
 import { ReactiveFormsModule } from '@angular/forms';
-import { DropdownModule } from 'primeng/dropdown';
+
 import { PaginatorModule } from 'primeng/paginator';
 import { CardModule } from 'primeng/card';
 import { DialogModule } from 'primeng/dialog';
@@ -68,7 +68,7 @@ import {SharedModule} from "../../shared/shared.module";
         CarouselModule,
         ButtonModule,
         ReactiveFormsModule,
-        DropdownModule,
+        
         PaginatorModule,
         CardModule,
         DialogModule,

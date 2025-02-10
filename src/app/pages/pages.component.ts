@@ -9,12 +9,13 @@ import { DeviceDetectorService } from "ngx-device-detector";
 import { CommonModule } from "@angular/common";
 // @ts-ignore
 import Contlo from "contlo-web-sdk";
-import { DomSanitizer, Meta, Title } from "@angular/platform-browser";
+import { DomSanitizer, Meta, Title, SafeResourceUrl } from "@angular/platform-browser";
 import { LocationService } from "../location.service";
 import { HeaderComponent } from "@theme/components/header/header.component";
 import { SidenavComponent } from "@theme/components/sidenav/sidenav.component";
 import { RouterModule } from "@angular/router";
 import { DialogModule } from 'primeng/dialog';
+import { ButtonModule } from 'primeng/button';
 
 @Component({
   selector: "uni-pages",
@@ -25,6 +26,7 @@ import { DialogModule } from 'primeng/dialog';
     CommonModule, 
     RouterModule,
     DialogModule,
+    ButtonModule,
     HeaderComponent, 
     SidenavComponent
   ],
@@ -45,7 +47,7 @@ export class PagesComponent implements OnInit, OnDestroy {
   isLoggedInAnotherDevice: any = "none";
   deviceInfo: any;
   howItWorksVideoModal: boolean = false;
-  howItWorksVideoLink: any | null = null;
+  howItWorksVideoLink: SafeResourceUrl | null = null;
   imageUrlWhitelabel: string | null = null;
   footerIsShow: boolean = true;
   ogTitle = "";
@@ -230,19 +232,24 @@ export class PagesComponent implements OnInit, OnDestroy {
 
   // selectedLink:string = "https://www.youtube.com/watch?v=3-5YyylOgKw";
   openVideoInYoutube() {
-    // if (this.selectedLink) {
-    //     window.open(this.selectedLink);
-    // }
-    const embedUrl = this.howItWorksVideoLink.changingThisBreaksApplicationSecurity;
-    const videoId = embedUrl.split("/embed/")[1]; // Extract video ID
-    const youtubeUrl = `https://www.youtube.com/watch?v=${videoId}`;
-    window.open(youtubeUrl, "_blank");
+    if (!this.howItWorksVideoLink) return;
+    
+    // Get the raw URL string from SafeResourceUrl
+    const safeUrl = this.howItWorksVideoLink.toString();
+    const embedUrl = safeUrl.replace('unsafe:', ''); // Remove 'unsafe:' prefix if present
+    
+    // Extract video ID from embed URL
+    const videoId = embedUrl.split('/embed/')[1]?.split('?')[0];
+    if (videoId) {
+      const youtubeUrl = `https://www.youtube.com/watch?v=${videoId}`;
+      window.open(youtubeUrl, '_blank');
+    }
   }
 
   closeVideoPopup() {
     if (this.videoFrame && this.videoFrame.nativeElement) {
       const player = this.videoFrame.nativeElement as HTMLIFrameElement;
-      player.src = "";
+      player.src = '';
     }
     this.howItWorksVideoLink = null;
     this.howItWorksVideoModal = false;
@@ -250,48 +257,52 @@ export class PagesComponent implements OnInit, OnDestroy {
 
   // vedio pop-up code
   openVideoPopup(link: string): void {
+    if (!link) return;
+
+    this.howItWorksVideoModal = true;
     try {
-      // Check if it's a YouTube video link
       if (this.isYoutubeVideoLink(link)) {
-        // Extract video ID and construct embeddable URL
         const videoId = this.extractYoutubeVideoId(link);
-        if (!videoId) {
-          console.error('Invalid YouTube URL');
-          return;
+        if (videoId) {
+          // Create a safe embed URL
+          const embedUrl = `https://www.youtube.com/embed/${videoId}`;
+          this.howItWorksVideoLink = this.sanitizer.bypassSecurityTrustResourceUrl(embedUrl);
+        } else {
+          console.error('Invalid YouTube video ID');
+          this.howItWorksVideoModal = false;
         }
-        const embedUrl = `https://www.youtube.com/embed/${videoId}`;
-        this.howItWorksVideoLink = this.sanitizer.bypassSecurityTrustResourceUrl(embedUrl);
       } else {
-        // For non-YouTube URLs, validate and sanitize
-        const url = new URL(link);
-        if (!url.protocol.startsWith('http')) {
-          console.error('Invalid URL protocol');
-          return;
-        }
+        // For non-YouTube videos, ensure the URL is valid before sanitizing
+        const url = new URL(link); // This will throw if URL is invalid
         this.howItWorksVideoLink = this.sanitizer.bypassSecurityTrustResourceUrl(url.toString());
       }
-      this.howItWorksVideoModal = true;
     } catch (error) {
       console.error('Error processing video URL:', error);
+      this.howItWorksVideoModal = false;
     }
   }
 
   private isYoutubeVideoLink(link: string): boolean {
-    try {
-      const url = new URL(link);
-      return url.hostname.includes('youtube.com') || url.hostname.includes('youtu.be');
-    } catch {
-      return false;
-    }
+    if (!link) return false;
+    return link.toLowerCase().includes('youtube.com') || link.toLowerCase().includes('youtu.be');
   }
 
   private extractYoutubeVideoId(url: string): string | null {
-    try {
-      const videoIdRegex = /(?:youtube\.com\/(?:[^\/\n\s]+\/\S+\/|(?:v|e(?:mbed)?)\/|\S*?[?&]v=)|youtu\.be\/)([^"'&?\n\s]+)/;
-      const match = url.match(videoIdRegex);
-      return match ? match[1] : null;
-    } catch {
-      return null;
+    if (!url) return null;
+    
+    // Handle various YouTube URL formats
+    const patterns = [
+      /(?:youtube\.com\/watch\?v=|youtu\.be\/|youtube\.com\/embed\/)([^#\&\?]*).*/,
+      /^.*(youtu.be\/|v\/|u\/\w\/|embed\/|watch\?v=|\&v=)([^#\&\?]*).*/
+    ];
+
+    for (const pattern of patterns) {
+      const match = url.match(pattern);
+      if (match && match[1] && match[1].length === 11) {
+        return match[1];
+      }
     }
+
+    return null;
   }
 }

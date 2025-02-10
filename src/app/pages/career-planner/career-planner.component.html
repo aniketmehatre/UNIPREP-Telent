@@ -63,10 +63,10 @@
 									</ng-container>
 
 									<ng-container *ngIf="product.id == 2 || product.id == 5 || product.id == 8">
-										<p-dropdown [options]="arrayMap[product.arrayName]" [filter]="true"
+										<p-select [options]="arrayMap[product.arrayName]" [filter]="true"
 											[(ngModel)]="selectedData[product.id]" optionLabel="subject_name"
 											styleClass="w-100" optionValue="id" [showClear]="true"
-											[placeholder]="product.placeholder"></p-dropdown>
+											[placeholder]="product.placeholder"></p-select>
 									</ng-container>
 
 									<ng-container *ngIf="product.id == 3 || product.id == 6 || product.id == 9">

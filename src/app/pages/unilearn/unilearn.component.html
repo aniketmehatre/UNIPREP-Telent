@@ -1,14 +1,1 @@
-<ng-container [ngSwitch]="stage">
-  <ng-container *ngSwitchCase="1">
-    <uni-learnmodules [totalquestion]="totalquestion" [selected_module]="selected_module" [parentid]="parentid" [moduleid]="moduleid" (moduleChange)="moduleChange($event)"></uni-learnmodules>
-  </ng-container>
-  <ng-container *ngSwitchCase="2">
-    <uni-learnsubmodules [totalquestion]="totalquestion" [selected_module]="selected_module" [parentid]="parentid" [moduleid]="moduleid" (moduleChange)="moduleChange($event)"></uni-learnsubmodules>
-  </ng-container>
-  <ng-container *ngSwitchCase="3">
-    <uni-testmodule [_contentalignment]="_contentalignment" [totalquestion]="totalquestion" [selected_module]="selected_module" [parentid]="parentid" [moduleid]="moduleid" (moduleChange)="moduleChange($event)"></uni-testmodule>
-  </ng-container>
-  <ng-container *ngSwitchCase="4">
-    <uni-quizinfowindow [_contentalignment]="_contentalignment" [totalquestion]="totalquestion" [selected_module]="selected_module" [parentid]="parentid" [moduleid]="moduleid" (moduleChange)="moduleChange($event)"></uni-quizinfowindow>
-  </ng-container>
-</ng-container>
+<router-outlet></router-outlet>

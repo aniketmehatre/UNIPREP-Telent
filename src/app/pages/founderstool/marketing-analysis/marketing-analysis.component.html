@@ -48,10 +48,10 @@
                   <h5 class="uniprep-primary fw-semibold mt-3 mb-1">
                     {{ recommendation.question.branches[1] }}
                   </h5>
-                  <p-dropdown styleClass="w-100" appendTo="body" [options]="locationList" [filter]="true"
+                  <p-select styleClass="w-100" appendTo="body" [options]="locationList" [filter]="true"
                     formControlName="location" filterBy="country" optionLabel="country" optionValue="country"
                     [autoDisplayFirst]="false">
-                  </p-dropdown>
+                  </p-select>
                   <p class="text-center" *ngIf="marketingForm.get('location')?.errors?.required && submitted"
                     style="color: red">
                     Please Choose Any one option
@@ -72,10 +72,10 @@
                   <h5 class="uniprep-primary fw-semibold mt-3 mb-1">
                     {{ recommendation.question.branches[3] }}
                   </h5>
-                  <p-dropdown styleClass="w-100" formControlName="productService" appendTo="body"
+                  <p-select styleClass="w-100" formControlName="productService" appendTo="body"
                     [options]="productServiceList" [filter]="true" filterBy="name"
                     optionLabel="name" optionValue="name" [autoDisplayFirst]="false">
-                  </p-dropdown>
+                  </p-select>
                   <p class="text-center" *ngIf="
                         marketingForm.get('productService')?.errors?.required && submitted
                       " style="color: red">
@@ -136,10 +136,10 @@
                     {{ recommendation.question.branches[0] }}
                   </h5>
                   <div class="w-100 d-flex gap-2 flex-fill">
-                    <p-dropdown formControlName="currencycode" appendTo="body" [options]="locationList" [filter]="true"
+                    <p-select formControlName="currencycode" appendTo="body" [options]="locationList" [filter]="true"
                       filterBy="currency_code" placeholder=" Currency" optionLabel="currency_code" optionValue="currency_code"
                       [autoDisplayFirst]="false">
-                    </p-dropdown>
+                    </p-select>
                     <input class="w-100 border border-gray rounded-3" pInputText type="text" placeholder=" Budget"
                       formControlName="budget" />
                   </div>

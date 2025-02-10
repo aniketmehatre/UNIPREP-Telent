@@ -13,28 +13,30 @@ import { ProgressBarModule } from 'primeng/progressbar';
 import { DialogModule } from 'primeng/dialog';
 import { FormsModule } from '@angular/forms';
 import { AssessmentQuizReviewComponent } from './assessment-quiz-review/assessment-quiz-review.component';
-import { DropdownModule } from 'primeng/dropdown';
+
 
 
 @NgModule({
   declarations: [
     AssessmentComponent,
-    IlearnChallengeComponent,
+    
     AssessmentListComponent,
-    AssessmentQuizComponent,
-    AssessmentQuizReviewComponent,
+    
+    
   ],
   imports: [
     CommonModule,
     AssessmentRoutingModule,
+    AssessmentQuizComponent,
+    IlearnChallengeComponent,
     SkeletonModule,
     TooltipModule,
     TableModule,
     RadioButtonModule,
+    AssessmentQuizReviewComponent,
     ProgressBarModule,
     DialogModule,
     FormsModule,
-    DropdownModule
   ]
 })
 export class AssessmentModule { }
