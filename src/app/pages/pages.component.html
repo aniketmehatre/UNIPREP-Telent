@@ -1,4 +1,3 @@
-
 <div *ngIf="isDeviceStatusPopupView">
 	<section class="pe-md-3 pe-0">
 		<div id="sidenav">
@@ -293,19 +292,37 @@
 	</div>
 
 <!-- module how it works vedio pop up -->
-<div class="modal" tabindex="-1" role="dialog" [ngClass]="{ 'd-block': howItWorksVideoModal }">
-	<div class="modal-dialog modal-xl modal-dialog-centered" role="document">
-		<div class="modal-content">
-			<div class="modal-body position-relative pt-4">
-				<div class="modalbuttons">
-					<div class="d-flex gap-2">
-						<button title="New Window" type="button" class="btn btn-primary btn-rounded" (click)="openVideoInYoutube()"><i class="fa-solid fa-arrow-up-right-from-square"></i></button>
-						<button type="button" title="Close Popupssss" class="btn btn-primary btn-rounded" (click)="closeVideoPopup()"><i class="fa-solid fa-xmark"></i></button>
-					</div>
-				</div>
-				<div class="embed-responsive"><iframe #videoFrame [src]="howItWorksVideoLink" width="100%"
-                                                      frameborder="0" allowfullscreen></iframe></div>
-			</div>
-		</div>
-	</div>
-</div>
+<p-dialog 
+    [(visible)]="howItWorksVideoModal"
+    [modal]="true"
+    [draggable]="false"
+    [resizable]="false"
+    [style]="{width: '90vw'}"
+    [contentStyle]="{padding: '0'}"
+    header="Video"
+    class="video-dialog">
+    <div class="video-wrapper">
+        <div class="video-container">
+            <iframe 
+                #videoFrame
+                *ngIf="howItWorksVideoLink"
+                [src]="howItWorksVideoLink"
+                width="100%"
+                height="100%"
+                frameborder="0"
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                allowfullscreen>
+            </iframe>
+        </div>
+    </div>
+    <ng-template pTemplate="footer">
+        <div class="flex justify-content-end gap-2">
+            <button pButton (click)="closeVideoPopup()" label="Close" class="p-button-text"></button>
+            <button pButton *ngIf="isYoutubeVideoLink(howItWorksVideoLink?.toString() || '')" 
+                    (click)="openVideoInYoutube()" 
+                    label="Open in YouTube" 
+                    class="p-button-text">
+            </button>
+        </div>
+    </ng-template>
+</p-dialog>

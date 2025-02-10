@@ -190,16 +190,13 @@ export class DashboardComponent implements OnInit, OnChanges {
 		}
 
 		combineLatest(this.dashboardService.getReadProgression({ countryId: this.selectedCountryId })).subscribe(([readProgression]) => {
-			if (readProgression) {
-				if (!readProgression.success) {
-					return
-				}
-				//this.readProgressionPercentage = Math.round(readProgression.readpercentage);
-				this.setProgress1(Math.round(readProgression.readpercentage))
-				this.progressReading = Math.round(readProgression.readpercentage)
-				this.certificatecountstudent = readProgression.certificatecount
+			if (readProgression && readProgression.success) {
+				const percentage = Math.round(readProgression.readpercentage) || 0;
+				this.setProgress1(percentage);
+				this.progressReading = percentage;
+				this.certificatecountstudent = readProgression.certificatecount || 0;
 			}
-		})
+		});
 	}
 
 	closeReading(): void {
@@ -406,11 +403,23 @@ export class DashboardComponent implements OnInit, OnChanges {
 	}
 
 	setProgress1(progress: number) {
-		const circle = document.querySelector(".progress1-ring__circle") as SVGCircleElement
-		const radius = circle.r.baseVal.value
-		const circumference = 2 * Math.PI * radius
-		const offset = circumference - (progress / 100) * circumference
-		circle.style.strokeDasharray = `${circumference} ${circumference}`
-		circle.style.strokeDashoffset = `${offset}`
+		if (typeof progress !== 'number') {
+			progress = 0;
+		}
+		
+		const circle = document.querySelector('.progress1-ring__circle') as SVGCircleElement;
+		if (!circle) {
+			console.warn('Progress ring circle element not found');
+			return;
+		}
+
+		const radius = circle.r.baseVal.value;
+		const circumference = radius * 2 * Math.PI;
+		
+		circle.style.strokeDasharray = `${circumference} ${circumference}`;
+		circle.style.strokeDashoffset = `${circumference}`;
+
+		const offset = circumference - (progress / 100) * circumference;
+		circle.style.strokeDashoffset = offset.toString();
 	}
 }
