@@ -1,15 +1,16 @@
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ArrayHeaderService } from "./array-header.service";
-
+import { SkeletonModule } from "primeng/skeleton";
+import { TooltipModule } from "primeng/tooltip";
+import { RouterModule } from "@angular/router";
 @Component({
   selector: 'app-unilearn',
   templateUrl: './unilearn.component.html',
   standalone: true,
-  imports: [
-    CommonModule
-  ]
+  imports: [CommonModule, SkeletonModule, TooltipModule, RouterModule]
 })
+
 export class UniLearnComponent {
   constructor(private arrayHeaderService: ArrayHeaderService) {}
   stage = 1;

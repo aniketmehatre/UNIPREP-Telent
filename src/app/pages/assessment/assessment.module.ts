@@ -19,18 +19,21 @@ import { AssessmentQuizReviewComponent } from './assessment-quiz-review/assessme
 @NgModule({
   declarations: [
     AssessmentComponent,
-    IlearnChallengeComponent,
+    
     AssessmentListComponent,
-    AssessmentQuizComponent,
-    AssessmentQuizReviewComponent,
+    
+    
   ],
   imports: [
     CommonModule,
     AssessmentRoutingModule,
+    AssessmentQuizComponent,
+    IlearnChallengeComponent,
     SkeletonModule,
     TooltipModule,
     TableModule,
     RadioButtonModule,
+    AssessmentQuizReviewComponent,
     ProgressBarModule,
     DialogModule,
     FormsModule,

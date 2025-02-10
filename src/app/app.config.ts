@@ -63,24 +63,14 @@ export function tokenGetter(): string {
 
 export const appConfig: ApplicationConfig = {
   providers: [
-    provideStore(), // Initialize Store
-    provideState(authFeature), // Pass the feature slice to provideState
-    importProvidersFrom(EffectsModule.forRoot([AuthEffects])),
-    importProvidersFrom(StoreModule.forRoot({})), // Ensure StoreModule is correctly initialized
+    // Store configuration
     importProvidersFrom(
       StoreModule.forRoot({
         auth: authFeature.reducer,
         pages: pagesReducer
       }),
-      EffectsModule.forRoot([AuthEffects]),
-      BrowserAnimationsModule,
-      NgxIntlTelInputModule
+      EffectsModule.forRoot([AuthEffects])
     ),
-    // Commenting out service worker registration
-    // provideServiceWorker('ngsw-worker.js', {
-    //   enabled: !isDevMode(),
-    //   registrationStrategy: 'registerWhenStable:30000'
-    // }),
     provideStoreDevtools({
       maxAge: 25,
       logOnly: environment.production,
@@ -91,6 +81,11 @@ export const appConfig: ApplicationConfig = {
         persist: true,
       },
     }),
+    // Other providers
+    importProvidersFrom(
+      BrowserAnimationsModule,
+      NgxIntlTelInputModule
+    ),
     provideRouter(
       appRoutes,
       withInMemoryScrolling({

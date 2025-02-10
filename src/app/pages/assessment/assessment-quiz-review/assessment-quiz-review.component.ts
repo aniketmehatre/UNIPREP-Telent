@@ -1,6 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, CUSTOM_ELEMENTS_SCHEMA, OnInit } from '@angular/core';
 import { AssessmentService } from '../assessment.service';
-import { ActivatedRoute, Router } from '@angular/router';
+import { ActivatedRoute, Router, RouterModule } from '@angular/router';
 import { UserquizResponse } from 'src/app/@Models/assessment.model';
 import { CommonModule } from '@angular/common';
 import { TableModule } from 'primeng/table';
@@ -15,7 +15,9 @@ import { RadioButtonModule } from 'primeng/radiobutton';
     templateUrl: './assessment-quiz-review.component.html',
     styleUrls: ['./assessment-quiz-review.component.scss'],
     standalone: true,
-    imports: [CommonModule, TableModule, ButtonModule, SelectModule, DialogModule, SkeletonModule, TooltipModule, RadioButtonModule]
+    schemas: [CUSTOM_ELEMENTS_SCHEMA],
+    imports: [CommonModule, TableModule, ButtonModule, SelectModule, DialogModule, SkeletonModule, TooltipModule, RadioButtonModule, RouterModule]
+
 })
 export class AssessmentQuizReviewComponent implements OnInit {
 
