@@ -32,7 +32,8 @@
             "inlineStyleLanguage": "scss",
             "assets": [
               "src/favicon.ico",
-              "src/uniprep-assets"
+              "src/uniprep-assets",
+              "src/manifest.webmanifest"
             ],
             "stylePreprocessorOptions": {
               "includePaths": [
@@ -127,7 +128,8 @@
             "inlineStyleLanguage": "scss",
             "assets": [
               "src/favicon.ico",
-              "src/uniprep-assets"
+              "src/uniprep-assets",
+              "src/manifest.webmanifest"
             ],
             "styles": [
               "src/styles.scss"
