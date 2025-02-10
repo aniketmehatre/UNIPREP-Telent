@@ -11,12 +11,17 @@ import { PageFacadeService } from "../page-facade.service";
 import { CommonModule } from '@angular/common';
 import { DialogModule } from "primeng/dialog";
 import { MultiSelectModule } from "primeng/multiselect";
+import { ButtonModule } from "primeng/button";
+import { SkeletonModule } from "primeng/skeleton";
+import { TooltipModule } from "primeng/tooltip";
+import { CarouselModule } from "primeng/carousel";
 @Component({
     selector: "uni-scholarship-list",
     templateUrl: "./scholarship-list.component.html",
+
     styleUrls: ["./scholarship-list.component.scss"],
     standalone: true,
-    imports: [CommonModule, DialogModule, MultiSelectModule, FormsModule, ReactiveFormsModule],
+    imports: [CommonModule,CarouselModule, DialogModule, MultiSelectModule, FormsModule, ReactiveFormsModule, SkeletonModule, TooltipModule, ButtonModule],
 })
 export class ScholarshipListComponent implements OnInit {
   scholarshipData: any[] = [];
@@ -46,7 +51,12 @@ export class ScholarshipListComponent implements OnInit {
   anyCoverList: any[] = [];
   restrict: boolean = false;
   currentPlan: string = "";
-  PersonalInfo!: any;
+  PersonalInfo: any = {
+    usertype_id: null,
+    trail_config_id: null,
+    trail_expired_flag: null,
+    user_id: null
+  };
   viewFavouritesLabel: string = "View Favourites";
   allScholarshipList: any[] = [];
   allScholarshipCount: number = 0;
@@ -73,15 +83,15 @@ export class ScholarshipListComponent implements OnInit {
     private dataService: DataService,
     private pageFacade: PageFacadeService
   ) {
+    // Initialize form with empty arrays for MultiSelect controls
     this.filterForm = this.fb.group({
-      country: [null],
-      home_country: [null],
-      study_level: [null],
-      // region: [null],
-      university: [null],
-      valueRange: [null],
-      type: [null],
-      cover_id: [null],
+      country: [[]],
+      home_country: [[]],
+      study_level: [[]],
+      university: [[]],
+      valueRange: [[]],
+      type: [[]],
+      cover_id: [[]],
     });
   }
   enableModule: boolean = false;
@@ -105,7 +115,7 @@ export class ScholarshipListComponent implements OnInit {
     },
   ];
   invalidClass: boolean = false;
-  selectedData: { [key: string]: any } = {};
+  selectedData: { [key: string]: any[] } = {};
   studyLevelCubes: any = [{ id: "UG", label: 'Undergraduate' }, { id: "PG", label: 'Postgraduate' }, { id: null, label: 'Any' }];
 
   ngOnInit(): void {
@@ -161,17 +171,23 @@ export class ScholarshipListComponent implements OnInit {
   // }
   clearFilter() {
     this.regionList = [];
-    this.filterForm.reset();
-    // this.getRegionList();
+    // Reset form with empty arrays for MultiSelect controls
+    this.filterForm.patchValue({
+      country: [],
+      home_country: [],
+      study_level: [],
+      university: [],
+      valueRange: [],
+      type: [],
+      cover_id: [],
+    });
     this.getFilterUniversityList("");
-    //this.data = {}
     delete this.data.country;
     delete this.data.home_country;
     delete this.data.type;
     delete this.data.study_level;
     delete this.data.university;
     delete this.data.cover_id;
-
   }
   getScholarshipCountry() {
     this.scholarshipListService.getScholarCountry().subscribe(res => {
@@ -196,23 +212,114 @@ export class ScholarshipListComponent implements OnInit {
   }
 
   getStudyLevel() {
-    this.scholarshipListService.getStudyLevel().subscribe((response) => {
-      this.studyLevelList = response;
-      this.anyStudyLevelList = [...response,{ id: "any", level: "Select All" }];
-    });
+    this.scholarshipListService.getStudyLevel().subscribe(
+      (response: any) => {
+        console.log('Study Level Response:', response);
+        
+        if (Array.isArray(response)) {
+          // Map the response to the correct format
+          this.studyLevelList = response.map(item => ({
+            id: item.id,
+            level: item.level || item.name || ''
+          }));
+          
+          // Initialize the form control with an empty array if not already set
+          const currentValue = this.filterForm.get('study_level')?.value;
+          if (!Array.isArray(currentValue)) {
+            this.filterForm.patchValue({ study_level: [] });
+          }
+          
+          // Create anyStudyLevelList without the Select All option for now
+          this.anyStudyLevelList = [...this.studyLevelList];
+        } else {
+          console.warn('Study Level response is not an array:', response);
+          this.studyLevelList = [];
+          this.anyStudyLevelList = [];
+          this.filterForm.patchValue({ study_level: [] });
+        }
+      },
+      error => {
+        console.error('Error fetching study levels:', error);
+        this.toast.add({
+          severity: 'error',
+          summary: 'Error',
+          detail: 'Failed to load study levels'
+        });
+        this.studyLevelList = [];
+        this.anyStudyLevelList = [];
+        this.filterForm.patchValue({ study_level: [] });
+      }
+    );
   }
 
   getScholarshipType() {
-    this.scholarshipListService.getScholarshipType().subscribe((response) => {
-      this.scholarshipTypeList = response;
-      this.anyScholarshipTypeList = [...response, { id: "any", type: "Select All"}];  
-    });
+    this.scholarshipListService.getScholarshipType().subscribe(
+      (response: any) => {
+        console.log('Scholarship Type Response:', response); // Debug log
+        
+        // Ensure response is an array and has data
+        if (Array.isArray(response)) {
+          this.scholarshipTypeList = response.map(item => ({
+            id: item.id,
+            type: item.type || item.name || ''  // Fallback to name if type is not present
+          }));
+          console.log('Processed Scholarship Type List:', this.scholarshipTypeList); // Debug log
+          
+          // Create anyScholarshipTypeList with Select All option
+          this.anyScholarshipTypeList = [
+            { id: 'any', type: 'Select All' },
+            ...this.scholarshipTypeList
+          ];
+        } else {
+          console.warn('Scholarship Type response is not an array:', response);
+          this.scholarshipTypeList = [];
+          this.anyScholarshipTypeList = [];
+        }
+      },
+      error => {
+        console.error('Error fetching scholarship types:', error);
+        this.toast.add({
+          severity: 'error',
+          summary: 'Error',
+          detail: 'Failed to load scholarship types'
+        });
+      }
+    );
   }
+
   getCovers() {
-    this.scholarshipListService.getCoverList().subscribe((response) => {
-      this.coverList = [...response];
-      this.anyCoverList = [...response, {id: "any",cover_name: "Select All" }];
-    });
+    this.scholarshipListService.getCoverList().subscribe(
+      (response: any) => {
+        console.log('Covers Response:', response); // Debug log
+        
+        // Ensure response is an array and has data
+        if (Array.isArray(response)) {
+          this.coverList = response.map(item => ({
+            id: item.id,
+            cover_name: item.cover_name || item.name || ''  // Fallback to name if cover_name is not present
+          }));
+          console.log('Processed Cover List:', this.coverList); // Debug log
+          
+          // Create anyCoverList with Select All option
+          this.anyCoverList = [
+            { id: 'any', cover_name: 'Select All' },
+            ...this.coverList
+          ];
+        } else {
+          console.warn('Covers response is not an array:', response);
+          this.coverList = [];
+          this.anyCoverList = [];
+        }
+      },
+      error => {
+        console.error('Error fetching covers:', error);
+        this.toast.add({
+          severity: 'error',
+          summary: 'Error',
+          detail: 'Failed to load covers'
+        });
+      }
+    );
   }
 
   loadScholarShipData(isFavourite: number) {
@@ -613,61 +720,68 @@ export class ScholarshipListComponent implements OnInit {
     }
   }
 
-  // selectCube(key: number, id: number) {
-  //   if (key === 3) {
-  //     if (!Array.isArray(this.selectedData[key])) {
-  //       this.selectedData[key] = [];
-  //     }
-  //     const index = this.selectedData[key].indexOf(id);
-  //     if (index > -1) {
-  //       this.selectedData[key].splice(index, 1);
-  //     } else {
-  //       this.selectedData[key].push(id);
-  //     }
-  //   } else {
-  //     this.selectedData[key] = id;
-  //   }
-  // }  
-
   selectCube(key: number, id: number | string) {
+    // Ensure the key exists with an array value
+    if (!this.selectedData[key]) {
+      this.selectedData[key] = [];
+    }
+
     if (id === "any") {
-      if (this.selectedData[key]?.includes(id)) {
+      // Clear array if any is already selected
+      if (this.selectedData[key].includes("any")) {
         this.selectedData[key] = [];
-      } else {
-        if(key === 2){
-          this.selectedData[key] = this.anyStudyLevelList.map((cube: any) => cube.id);
-        }else if(key === 3){
-          this.selectedData[key] = this.anyScholarshipTypeList.map((cube: any) => cube.id);
-        }else if(key === 4){
-          this.selectedData[key] = this.anyCoverList.map((cube: any) => cube.id);
-        }
-       
-      }
-    }else {
-      // this.selectedData[key] = [id];
-      if (!Array.isArray(this.selectedData[key])) {
-        this.selectedData[key] = [];
+        return;
       }
 
-      const index = this.selectedData[key].indexOf(id);
-      if (index > -1) {
-        this.selectedData[key].splice(index, 1);
-      } else {
-        this.selectedData[key].push(id);
+      // Select all based on the key
+      switch (key) {
+        case 2:
+          this.selectedData[key] = [...this.anyStudyLevelList.map(cube => cube.id)];
+          break;
+        case 3:
+          this.selectedData[key] = [...this.anyScholarshipTypeList.map(cube => cube.id)];
+          break;
+        case 4:
+          this.selectedData[key] = [...this.anyCoverList.map(cube => cube.id)];
+          break;
       }
+      return;
     }
-    // console.log(this.selectedData, "selected cube");
+
+    // Handle individual selection
+    const index = this.selectedData[key].indexOf(id);
+    if (index > -1) {
+      // Remove if already selected
+      this.selectedData[key].splice(index, 1);
+    } else {
+      // Add if not selected
+      this.selectedData[key].push(id);
+    }
   }
 
-  resetRecommendation(){
+  resetRecommendation() {
     this.scholarshipListService.resetRecommendation().subscribe(res => {
       this.enableModule = false;
-      this.filterForm.reset();
-      this.selectedData = {};
+      // Reset form with empty arrays for MultiSelect controls
+      this.filterForm.patchValue({
+        country: [],
+        home_country: [],
+        study_level: [],
+        university: [],
+        valueRange: [],
+        type: [],
+        cover_id: [],
+      });
+      // Initialize selectedData with empty arrays for each key
+      this.selectedData = {
+        1: [],
+        2: [],
+        3: [],
+        4: []
+      };
       this.activePageIndex = 0;
       this.viewFavouritesLabel = "View Favourites";
       this.data.favourite = 0;
-      // this.addAnyValueToOptions();
     });
   }
 }
