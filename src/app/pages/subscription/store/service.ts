@@ -1,9 +1,12 @@
 import {Injectable} from "@angular/core";
 import { HttpClient, HttpHeaders } from "@angular/common/http";
 import {environment} from "@env/environment";
-import {Observable} from "rxjs";
+import {Observable, throwError} from "rxjs";
 import {PlaceOrderResponse, SubscriptionDetailResponse} from "../../../@Models/subscription";
+import { tap, catchError } from 'rxjs/operators';
+import { NGX_LOCAL_STORAGE_CONFIG } from "ngx-localstorage";
 
+const ngxLocalstorageConfiguration = NGX_LOCAL_STORAGE_CONFIG as unknown as { prefix: string, delimiter: string };
 
 @Injectable({providedIn: 'root'})
 export class SubStoreService {
@@ -17,8 +20,32 @@ export class SubStoreService {
             headers: headers,
         });
     }
-    getSubscriptionList(): Observable<any>{
-        return this.http.post<any>(environment.ApiUrl+'/getsubscriptions', {});
+    getSubscriptionList(): Observable<any> {
+        console.log('SubStoreService: Making API call to get subscription list');
+        const tokenKey = `${ngxLocalstorageConfiguration.prefix}${ngxLocalstorageConfiguration.delimiter}${environment.tokenKey}`;
+        const token = localStorage.getItem(tokenKey);
+        console.log('SubStoreService: Token exists:', !!token);
+        
+        if (!token) {
+            console.error('SubStoreService: No token found');
+            return throwError(() => new Error('No authentication token available'));
+        }
+        
+        const headers = new HttpHeaders()
+            .set('Accept', 'application/json')
+            .set('Authorization', 'Bearer ' + token);
+            
+        return this.http.post<any>(
+            environment.ApiUrl + '/getsubscriptions', 
+            {}, 
+            { headers: headers }
+        ).pipe(
+            tap(response => console.log('SubStoreService: Received response:', response)),
+            catchError(error => {
+                console.error('SubStoreService: Error fetching subscriptions:', error);
+                throw error;
+            })
+        );
     }
     completePayment(orderid: string, paymentid: string){
         return this.http.post<any>(environment.ApiUrl+'/completepayment', {orderid, paymentid});

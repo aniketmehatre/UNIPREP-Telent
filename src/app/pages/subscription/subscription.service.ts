@@ -11,12 +11,12 @@ import {
   loadSubDetails,
 } from "./store/actions";
 import {
-  selectBillingInfo$,
-  selectLoading$,
-  selectOrderHistory$,
-  selectOrderId$,
-  selectPlans$,
-  selectSubscriptionDetail$,
+  selectBillingInfo,
+  selectLoading,
+  selectOrderHistory,
+  selectOrderId,
+  selectPlans,
+  selectSubscriptionDetail
 } from "./store/selectors";
 import {
   PlaceOrderResponse,
@@ -107,7 +107,7 @@ export class SubscriptionService {
   }
 
   getSubscriptionList() {
-    return this.store.select(selectPlans$);
+    return this.store.select(selectPlans);
   }
 
   placeOrder(subscription: any) {
@@ -115,11 +115,11 @@ export class SubscriptionService {
   }
 
   getOrderID() {
-    return this.store.select(selectOrderId$);
+    return this.store.select(selectOrderId);
   }
 
   getLoading() {
-    return this.store.select(selectLoading$);
+    return this.store.select(selectLoading);
   }
 
   doneLoading() {
@@ -131,15 +131,15 @@ export class SubscriptionService {
   }
 
   getBillingInfo() {
-    return this.store.select(selectBillingInfo$);
+    return this.store.select(selectBillingInfo);
   }
 
   getSubscriptionDetail() {
-    return this.store.select(selectSubscriptionDetail$);
+    return this.store.select(selectSubscriptionDetail);
   }
 
   getOrderHistory() {
-    return this.store.select(selectOrderHistory$);
+    return this.store.select(selectOrderHistory);
   }
 
   GetOrderId(val: any) {

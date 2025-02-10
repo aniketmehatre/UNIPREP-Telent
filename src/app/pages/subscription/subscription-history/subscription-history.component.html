@@ -65,10 +65,10 @@
 					<td>{{ data.reference }}</td>
 					<td>{{ data.date }}</td>
 					<td>{{ data.amount }}</td>
-					<td><i class="pi pi-check" style="color: aquamarine"></i></td>
+					<td><i class="fa-solid fa-check" style="color: aquamarine"></i></td>
 					<td>
 						<button class="btn btn-primary" (click)="downloadInvoice(data.id)"
-							*ngIf="data.invoice != 'no' else noData"><i class="pi pi-download"></i></button>
+							*ngIf="data.invoice != 'no' else noData"><i class="fa-solid fa-download"></i></button>
 						<ng-template #noData>
 							<div class="ms-4">-</div>
 						</ng-template>

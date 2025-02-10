@@ -82,32 +82,65 @@ export class SubscriptionDataComponent implements OnInit {
   timeLeftInfoCard: any;
 
   ngOnInit(): void {
-    //this.getLocation();
-    let homeCountryName;
-    const encHomeCountryName = localStorage.getItem("home_country_name");
-    if (encHomeCountryName) {
-      const bytes = CryptoJS.AES.decrypt(encHomeCountryName, environment.secretKeySalt);
-      homeCountryName = JSON.parse(bytes.toString(CryptoJS.enc.Utf8));
-    }
-    console.log(homeCountryName)
-    this.timeLeftInfoCard = localStorage.getItem("time_card_info");
-    this.discountAmountEnable = false; 
-    this.currentCountry=String(homeCountryName);
-    this.user = this.authService.user;
-    this.education_level = this.user?.education_level?.replace(/[\s\u00A0]/g, '').trim() || 'HigherEducation';
-    this.studentType = this.user?.student_type_id || 0;
-    this.ngxService.startBackground();
-    this.authService.getCountry().subscribe(
-      (data) => {
-        this.ngxService.stopBackground();
-        this.countryList = data;
-        this.getSubscriptionList();
-        this.getSubscriptionTopupList();
-      },
-      (error) => {
-        this.ngxService.stopBackground();
+    try {
+      let homeCountryName = null;
+      const encHomeCountryName = localStorage.getItem("home_country_name");
+      
+      if (encHomeCountryName) {
+        try {
+          const bytes = CryptoJS.AES.decrypt(encHomeCountryName, environment.secretKeySalt);
+          const decryptedText = bytes.toString(CryptoJS.enc.Utf8);
+          
+          // Validate decrypted text before parsing
+          if (decryptedText && decryptedText.trim() !== '') {
+            try {
+              // Additional validation to ensure valid JSON structure
+              if (decryptedText.startsWith('{') || decryptedText.startsWith('[') || 
+                  decryptedText.startsWith('"') || /^-?\d+\.?\d*$/.test(decryptedText)) {
+                homeCountryName = JSON.parse(decryptedText);
+              } else {
+                console.warn('Decrypted text is not in valid JSON format');
+                localStorage.removeItem("home_country_name");
+              }
+            } catch (parseError) {
+              console.warn('Failed to parse decrypted home country data:', parseError);
+              localStorage.removeItem("home_country_name");
+            }
+          } else {
+            console.warn('Decrypted text is empty or invalid');
+            localStorage.removeItem("home_country_name");
+          }
+        } catch (decryptError) {
+          console.warn('Failed to decrypt home country data:', decryptError);
+          localStorage.removeItem("home_country_name");
+        }
       }
-    );
+      
+      this.timeLeftInfoCard = localStorage.getItem("time_card_info");
+      this.discountAmountEnable = false; 
+      this.currentCountry = homeCountryName ? String(homeCountryName) : '';
+      this.user = this.authService.user;
+      this.education_level = this.user?.education_level?.replace(/[\s\u00A0]/g, '').trim() || 'HigherEducation';
+      this.studentType = this.user?.student_type_id || 0;
+      
+      this.ngxService.startBackground();
+      this.authService.getCountry().subscribe(
+        (data) => {
+          this.ngxService.stopBackground();
+          this.countryList = data;
+          this.getSubscriptionList();
+          this.getSubscriptionTopupList();
+        },
+        (error) => {
+          this.ngxService.stopBackground();
+          console.error('Error fetching country data:', error);
+        }
+      );
+    } catch (error) {
+      console.error('Error in subscription-data initialization:', error);
+      this.currentCountry = '';
+      this.ngxService.stopBackground();
+    }
   }
   get URL() {
     return `${environment.ApiUrl}/downloadinvoice`;

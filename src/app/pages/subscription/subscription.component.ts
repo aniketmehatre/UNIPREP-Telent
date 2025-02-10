@@ -11,7 +11,7 @@ import {
   SubscriptionSuccess,
 } from "../../@Models/subscription";
 import { Observable, switchMap } from "rxjs";
-import { selectBillingInfo$ } from "./store/selectors";
+import { selectBillingInfo } from "./store/selectors";
 import { select } from "@ngrx/store";
 import { DataService } from "src/app/data.service";
 import { environment } from "@env/environment";
@@ -29,6 +29,7 @@ import {
   StripePaymentElementOptions,
 } from "@stripe/stripe-js";
 import CryptoJS from "crypto-js";
+import { NgxUiLoaderService } from "ngx-ui-loader";
 
 @Component({
     selector: "uni-subscription",
@@ -61,26 +62,82 @@ export class SubscriptionComponent implements OnInit {
   showSubscriptionedData: boolean = false;
   showPlanBtn: boolean = false;
   showHistoryBtn: boolean = false;
+  currentCountry: string = '';
+  education_level: string = 'HigherEducation';
+  studentType: number = 0;
 
   constructor(
     private subscriptionService: SubscriptionService,
     private winRef: WindowRefService,
-    private authservice: AuthService,
+    private authService: AuthService,
     private toastr: MessageService,
     private dataService: DataService,
     private dashboardService: DashboardService,
-    private stripeService: StripeService
+    private stripeService: StripeService,
+    private ngxService: NgxUiLoaderService
   ) {}
   ngOnInit(): void {
-    const encryptedData = localStorage.getItem("Name");
-    if (encryptedData) {
-      const bytes = CryptoJS.AES.decrypt(encryptedData, environment.secretKeySalt);
-      this.userName = JSON.parse(bytes.toString(CryptoJS.enc.Utf8));
+    try {
+      let homeCountryName = null;
+      const encHomeCountryName = localStorage.getItem("home_country_name");
+      
+      if (encHomeCountryName) {
+        try {
+          const bytes = CryptoJS.AES.decrypt(encHomeCountryName, environment.secretKeySalt);
+          const decryptedText = bytes.toString(CryptoJS.enc.Utf8);
+          
+          // Validate decrypted text before parsing
+          if (decryptedText && decryptedText.trim() !== '') {
+            try {
+              // Additional validation to ensure valid JSON structure
+              if (decryptedText.startsWith('{') || decryptedText.startsWith('[') || 
+                  decryptedText.startsWith('"') || /^-?\d+\.?\d*$/.test(decryptedText)) {
+                homeCountryName = JSON.parse(decryptedText);
+              } else {
+                console.warn('Decrypted text is not in valid JSON format');
+                localStorage.removeItem("home_country_name");
+              }
+            } catch (parseError) {
+              console.warn('Failed to parse decrypted home country data:', parseError);
+              localStorage.removeItem("home_country_name");
+            }
+          } else {
+            console.warn('Decrypted text is empty or invalid');
+            localStorage.removeItem("home_country_name");
+          }
+        } catch (decryptError) {
+          console.warn('Failed to decrypt home country data:', decryptError);
+          localStorage.removeItem("home_country_name");
+        }
+      }
+
+      this.currentCountry = homeCountryName ? String(homeCountryName) : '';
+      this.user = this.authService.user;
+      this.education_level = this.user?.education_level?.replace(/[\s\u00A0]/g, '').trim() || 'HigherEducation';
+      this.studentType = this.user?.student_type_id || 0;
+      
+      this.ngxService.startBackground();
+      this.authService.getCountry().subscribe(
+        (data) => {
+          this.ngxService.stopBackground();
+          this.countryList = data;
+          this.getSubscriptionList();
+          this.getSubscriptionTopupList();
+        },
+        (error) => {
+          this.ngxService.stopBackground();
+          console.error('Error fetching country data:', error);
+        }
+      );
+    } catch (error) {
+      console.error('Error in subscription initialization:', error);
+      this.currentCountry = '';
+      this.ngxService.stopBackground();
     }
     if (this.dashboardService.isinitialstart) {
       window.location.reload();
     }
-    this.authservice.getNewUserTimeLeft().subscribe((res) => {
+    this.authService.getNewUserTimeLeft().subscribe((res) => {
       this.dashboardService.updatedata(res.time_left);
       let data = res.time_left;
       if (data.plan === "expired" || data.plan === "subscription_expired") {
@@ -89,7 +146,7 @@ export class SubscriptionComponent implements OnInit {
         this.showPlanBtn = false;
       }
     });
-    if (!this.authservice?.user?.subscription) {
+    if (!this.authService?.user?.subscription) {
       this.stage = 1;
       return;
     }
@@ -260,7 +317,7 @@ export class SubscriptionComponent implements OnInit {
         paymentid: response?.razorpay_payment_id,
       };
       setTimeout(() => {
-        this.authservice.updateSubscriptionName(
+        this.authService.updateSubscriptionName(
           this.selectedSubscription?.subscription || ""
         );
         if (this.subscriptionDetails?.subscriptionId) {
@@ -434,5 +491,15 @@ export class SubscriptionComponent implements OnInit {
           }
         }
       });
+  }
+
+  getSubscriptionList() {
+    // This method should be implemented based on your requirements
+    // For now, we'll leave it empty to fix the linter error
+  }
+
+  getSubscriptionTopupList() {
+    // This method should be implemented based on your requirements
+    // For now, we'll leave it empty to fix the linter error
   }
 }

@@ -581,10 +581,22 @@
   background: var(--uniprep-primary);
 }
 
-.pi-check {
-  color: #9f9f9f;
-  padding-right: 5px;
-  font-size: 13px;
+.fa-check {
+  color: #9bc329 !important;
+  font-size: 14px;
+  
+  &.grey {
+    color: rgb(164, 163, 163) !important;
+  }
+}
+
+.fa-xmark {
+  color: #ff9113 !important;
+  font-size: 14px;
+  
+  &.grey {
+    color: rgb(164, 163, 163) !important;
+  }
 }
 
 .what-you-get {
@@ -661,13 +673,6 @@
   margin-top: 33px;
 }
 
-.pi-times {
-  color: #ff9113 !important;
-}
-
-.pi-check {
-  color: #9bc329;
-}
 .grey {
   color: rgb(164, 163, 163) !important;
 }

@@ -72,31 +72,31 @@
                 <h4 class="mb-0 fw-bold">Free</h4>
                 <h2 class="fw-bold amount">0 {{ currency }}</h2>
               </li>
-              <li class="mt-18"><i class="pi pi-check grey smallIcon"></i></li>
-              <li><i class="pi pi-check grey smallIcon"></i></li>
-              <li><i class="pi pi-check grey smallIcon"></i></li>
-              <li *ngIf="education_level==='K10'||education_level==='K12'"><i class="pi pi-check grey smallIcon"></i>
+              <li class="mt-18"><i class="fa-solid fa-check grey smallIcon"></i></li>
+              <li><i class="fa-solid fa-check grey smallIcon"></i></li>
+              <li><i class="fa-solid fa-check grey smallIcon"></i></li>
+              <li *ngIf="education_level==='K10'||education_level==='K12'"><i class="fa-solid fa-check grey smallIcon"></i>
               </li>
-              <li *ngIf="education_level==='K10'||education_level==='K12'"><i class="pi pi-check grey smallIcon"></i>
+              <li *ngIf="education_level==='K10'||education_level==='K12'"><i class="fa-solid fa-check grey smallIcon"></i>
               </li>
-              <li><i class="pi pi-check grey smallIcon"></i></li>
-              <li><i class="pi pi-check grey smallIcon"></i></li>
-              <li><i class="pi pi-check grey smallIcon"></i></li>
-              <li><i class="pi pi-check grey smallIcon"></i></li>
+              <li><i class="fa-solid fa-check grey smallIcon"></i></li>
+              <li><i class="fa-solid fa-check grey smallIcon"></i></li>
+              <li><i class="fa-solid fa-check grey smallIcon"></i></li>
+              <li><i class="fa-solid fa-check grey smallIcon"></i></li>
               <li *ngIf="education_level==='HigherEducation'||education_level==='K12'"><i
-                  class="pi pi-check grey smallIcon"></i></li>
+                  class="fa-solid fa-check grey smallIcon"></i></li>
               <li *ngIf="education_level==='HigherEducation'||education_level==='K12'"><i
-                  class="pi pi-check grey smallIcon"></i></li>
+                  class="fa-solid fa-check grey smallIcon"></i></li>
               <li *ngIf="education_level==='HigherEducation'||education_level==='K12'"><i
-                  class="pi pi-check grey smallIcon"></i></li>
+                  class="fa-solid fa-check grey smallIcon"></i></li>
               <li *ngIf="education_level==='HigherEducation'||education_level==='K12'"><i
-                  class="pi pi-check grey smallIcon"></i></li>
+                  class="fa-solid fa-check grey smallIcon"></i></li>
               <li *ngIf="education_level==='HigherEducation'||education_level==='K12'"><i
-                  class="pi pi-check grey smallIcon"></i></li>
+                  class="fa-solid fa-check grey smallIcon"></i></li>
               <li *ngIf="education_level==='HigherEducation'||education_level==='K12'"><i
-                  class="pi pi-check grey smallIcon"></i></li>
+                  class="fa-solid fa-check grey smallIcon"></i></li>
               <li *ngIf="education_level==='HigherEducation'||education_level==='K12'"><i
-                  class="pi pi-check grey smallIcon"></i></li>
+                  class="fa-solid fa-check grey smallIcon"></i></li>
               <li class="mt-0 pb-0">
                 <h5 class="fw-semibold freeValidity mb-0">{{ localStorage.getItem("time_card_info") }} Validity</h5>
               </li>
@@ -131,78 +131,78 @@
                     subscription.discountpercentage }}%</div>
                 </div>
               </li>
-              <li><i class="pi pi-check smallIcon" [ngClass]="{ grey: !subscription.available }"></i></li>
-              <li><i class="pi pi-check smallIcon" [ngClass]="{ grey: !subscription.available }"></i></li>
+              <li><i class="fa-solid fa-check" [ngClass]="{ grey: !subscription.available }"></i></li>
+              <li><i class="fa-solid fa-check" [ngClass]="{ grey: !subscription.available }"></i></li>
               <ng-container *ngIf="education_level==='K10'||education_level==='K12'">
-                <li><i class="pi pi-check smallIcon" [ngClass]="{ grey: !subscription.available }"></i></li>
+                <li><i class="fa-solid fa-check" [ngClass]="{ grey: !subscription.available }"></i></li>
               </ng-container>
               <ng-container *ngIf="education_level==='K10'||education_level==='K12'">
-                <li><i class="pi pi-check smallIcon" [ngClass]="{ grey: !subscription.available }"></i></li>
+                <li><i class="fa-solid fa-check" [ngClass]="{ grey: !subscription.available }"></i></li>
               </ng-container>
-              <li><i class="pi pi-check smallIcon" [ngClass]="{ grey: !subscription.available }"></i></li>
-              <li><i class="pi pi-check smallIcon" [ngClass]="{ grey: !subscription.available }"></i></li>
-              <li><i class="pi pi-check smallIcon" [ngClass]="{ grey: !subscription.available }"></i></li>
-              <li><i class="pi pi-check smallIcon" [ngClass]="{ grey: !subscription.available }"></i></li>
-              <li><i class="pi pi-check smallIcon" [ngClass]="{ grey: !subscription.available }"></i></li>
+              <li><i class="fa-solid fa-check" [ngClass]="{ grey: !subscription.available }"></i></li>
+              <li><i class="fa-solid fa-check" [ngClass]="{ grey: !subscription.available }"></i></li>
+              <li><i class="fa-solid fa-check" [ngClass]="{ grey: !subscription.available }"></i></li>
+              <li><i class="fa-solid fa-check" [ngClass]="{ grey: !subscription.available }"></i></li>
+              <li><i class="fa-solid fa-check" [ngClass]="{ grey: !subscription.available }"></i></li>
               <ng-container *ngIf="education_level==='HigherEducation'||education_level==='K12'">
                 <li>
-                  <i class="pi smallIcon" [ngClass]="{
-                      'pi-check': subscription.subscription_plan === 'Career' || subscription.subscription_plan === 'Entrepreneur',
-                      'pi-times': subscription.subscription_plan != 'Career' && subscription.subscription_plan != 'Entrepreneur',
+                  <i class="fa-solid" [ngClass]="{
+                      'fa-check': subscription.subscription_plan === 'Career' || subscription.subscription_plan === 'Entrepreneur',
+                      'fa-xmark': subscription.subscription_plan != 'Career' && subscription.subscription_plan != 'Entrepreneur',
                       'grey': !subscription.available 
                     }"></i>
                 </li>
               </ng-container>
               <ng-container *ngIf="education_level==='HigherEducation'||education_level==='K12'">
                 <li>
-                  <i class="pi smallIcon" [ngClass]="{
-                    'pi-check': subscription.subscription_plan === 'Career' || subscription.subscription_plan === 'Entrepreneur',
-                    'pi-times': subscription.subscription_plan != 'Career' && subscription.subscription_plan != 'Entrepreneur',
+                  <i class="fa-solid" [ngClass]="{
+                    'fa-check': subscription.subscription_plan === 'Career' || subscription.subscription_plan === 'Entrepreneur',
+                    'fa-xmark': subscription.subscription_plan != 'Career' && subscription.subscription_plan != 'Entrepreneur',
                     'grey': !subscription.available 
                   }"></i>
                 </li>
               </ng-container>
               <ng-container *ngIf="education_level==='HigherEducation'||education_level==='K12'">
                 <li>
-                  <i class="pi smallIcon" [ngClass]="{
-                    'pi-check': subscription.subscription_plan === 'Career' || subscription.subscription_plan === 'Entrepreneur',
-                    'pi-times': subscription.subscription_plan != 'Career' && subscription.subscription_plan != 'Entrepreneur',
+                  <i class="fa-solid" [ngClass]="{
+                    'fa-check': subscription.subscription_plan === 'Career' || subscription.subscription_plan === 'Entrepreneur',
+                    'fa-xmark': subscription.subscription_plan != 'Career' && subscription.subscription_plan != 'Entrepreneur',
                     'grey': !subscription.available 
                   }"></i>
                 </li>
               </ng-container>
               <ng-container *ngIf="education_level==='HigherEducation'||education_level==='K12'">
                 <li>
-                  <i class="pi smallIcon" [ngClass]="{
-                    'pi-check': subscription.subscription_plan === 'Career' || subscription.subscription_plan === 'Entrepreneur',
-                    'pi-times': subscription.subscription_plan != 'Career' && subscription.subscription_plan != 'Entrepreneur',
+                  <i class="fa-solid" [ngClass]="{
+                    'fa-check': subscription.subscription_plan === 'Career' || subscription.subscription_plan === 'Entrepreneur',
+                    'fa-xmark': subscription.subscription_plan != 'Career' && subscription.subscription_plan != 'Entrepreneur',
                     'grey': !subscription.available 
                   }"></i>
                 </li>
               </ng-container>
               <ng-container *ngIf="education_level==='HigherEducation'||education_level==='K12'">
                 <li>
-                  <i class="pi smallIcon" [ngClass]="{
-                    'pi-check': subscription.subscription_plan === 'Entrepreneur',
-                    'pi-times': subscription.subscription_plan != 'Entrepreneur',
+                  <i class="fa-solid" [ngClass]="{
+                    'fa-check': subscription.subscription_plan === 'Entrepreneur',
+                    'fa-xmark': subscription.subscription_plan != 'Entrepreneur',
                     'grey': !subscription.available 
                   }"></i>
                 </li>
               </ng-container>
               <ng-container *ngIf="education_level==='HigherEducation'||education_level==='K12'">
                 <li>
-                  <i class="pi smallIcon" [ngClass]="{
-                    'pi-check': subscription.subscription_plan === 'Entrepreneur',
-                    'pi-times': subscription.subscription_plan != 'Entrepreneur',
+                  <i class="fa-solid" [ngClass]="{
+                    'fa-check': subscription.subscription_plan === 'Entrepreneur',
+                    'fa-xmark': subscription.subscription_plan != 'Entrepreneur',
                     'grey': !subscription.available  
                   }"></i>
                 </li>
               </ng-container>
               <ng-container *ngIf="education_level==='HigherEducation'||education_level==='K12'">
                 <li>
-                  <i class="pi smallIcon" [ngClass]="{
-                    'pi-check': subscription.subscription_plan === 'Entrepreneur',
-                    'pi-times': subscription.subscription_plan != 'Entrepreneur',
+                  <i class="fa-solid" [ngClass]="{
+                    'fa-check': subscription.subscription_plan === 'Entrepreneur',
+                    'fa-xmark': subscription.subscription_plan != 'Entrepreneur',
                     'grey': !subscription.available 
                   }"></i>
                 </li>
@@ -247,31 +247,31 @@
                   <div class="card-body p-4">
                     <div class="permission-list">
                       <p class="what-you-get">What you get</p>
-                      <p class="mt-2"><i class="pi pi-check"></i>1 Million + Q&A - 28 Countries</p>
-                      <p><i class="pi pi-check"></i>UNILEARN</p>
-                      <p *ngIf="education_level==='K10'||education_level==='K12'"><i class="pi pi-check"></i>K12 Academy
+                      <p class="mt-2"><i class="fa-solid fa-check"></i>1 Million + Q&A - 28 Countries</p>
+                      <p><i class="fa-solid fa-check"></i>UNILEARN</p>
+                      <p *ngIf="education_level==='K10'||education_level==='K12'"><i class="fa-solid fa-check"></i>K12 Academy
                       </p>
-                      <p *ngIf="education_level==='K10'||education_level==='K12'"><i class="pi pi-check"></i>K12
+                      <p *ngIf="education_level==='K10'||education_level==='K12'"><i class="fa-solid fa-check"></i>K12
                         Academic Tools</p>
-                      <p><i class="pi pi-check"></i>AI Global Advisor</p>
-                      <p><i class="pi pi-check"></i>Quiz and Certification</p>
-                      <p><i class="pi pi-check"></i>UNIFINDER</p>
-                      <p><i class="pi pi-check"></i>UNISCHOLAR</p>
-                      <p><i class="pi pi-check"></i>Language Hub</p>
+                      <p><i class="fa-solid fa-check"></i>AI Global Advisor</p>
+                      <p><i class="fa-solid fa-check"></i>Quiz and Certification</p>
+                      <p><i class="fa-solid fa-check"></i>UNIFINDER</p>
+                      <p><i class="fa-solid fa-check"></i>UNISCHOLAR</p>
+                      <p><i class="fa-solid fa-check"></i>Language Hub</p>
                       <p *ngIf="education_level==='HigherEducation'||education_level==='K12'"><i
-                          class="pi pi-check"></i>Career Tools</p>
+                          class="fa-solid fa-check"></i>Career Tools</p>
                       <p *ngIf="education_level==='HigherEducation'||education_level==='K12'"><i
-                          class="pi pi-check"></i>Job Portal</p>
+                          class="fa-solid fa-check"></i>Job Portal</p>
                       <p *ngIf="education_level==='HigherEducation'||education_level==='K12'"><i
-                          class="pi pi-check"></i>Learning Hub</p>
+                          class="fa-solid fa-check"></i>Learning Hub</p>
                       <p *ngIf="education_level==='HigherEducation'||education_level==='K12'"><i
-                          class="pi pi-check"></i>Skill Mastery</p>
+                          class="fa-solid fa-check"></i>Skill Mastery</p>
                       <p *ngIf="education_level==='HigherEducation'||education_level==='K12'"><i
-                          class="pi pi-check"></i>Startup Kit</p>
+                          class="fa-solid fa-check"></i>Startup Kit</p>
                       <p *ngIf="education_level==='HigherEducation'||education_level==='K12'"><i
-                          class="pi pi-check"></i>Founders Tool</p>
+                          class="fa-solid fa-check"></i>Founders Tool</p>
                       <p *ngIf="education_level==='HigherEducation'||education_level==='K12'"><i
-                          class="pi pi-check"></i>1000+ Business Pitches</p>
+                          class="fa-solid fa-check"></i>1000+ Business Pitches</p>
                     </div>
                   </div>
                   <div class="card-footer py-2 px-4 mb-5">
@@ -320,45 +320,45 @@
                     <div class="card-body p-4">
                       <div class="permission-list">
                         <p class="what-you-get">What you get</p>
-                        <p class="mt-2"><i class="pi pi-check"></i>1 Million + Q&A - 28 Countries</p>
-                        <p><i class="pi pi-check"></i>UNILEARN</p>
-                        <p *ngIf="education_level==='K10'||education_level==='K12'"><i class="pi pi-check"></i>K12
+                        <p class="mt-2"><i class="fa-solid fa-check"></i>1 Million + Q&A - 28 Countries</p>
+                        <p><i class="fa-solid fa-check"></i>UNILEARN</p>
+                        <p *ngIf="education_level==='K10'||education_level==='K12'"><i class="fa-solid fa-check"></i>K12
                           Academy
                         </p>
-                        <p *ngIf="education_level==='K10'||education_level==='K12'"><i class="pi pi-check"></i>K12
+                        <p *ngIf="education_level==='K10'||education_level==='K12'"><i class="fa-solid fa-check"></i>K12
                           Academic Tools</p>
-                        <p><i class="pi pi-check"></i>AI Global Advisor</p>
-                        <p><i class="pi pi-check"></i>Quiz and Certification</p>
-                        <p><i class="pi pi-check"></i>UNIFINDER</p>
-                        <p><i class="pi pi-check"></i>UNISCHOLAR</p>
-                        <p><i class="pi pi-check"></i>Language Hub</p>
+                        <p><i class="fa-solid fa-check"></i>AI Global Advisor</p>
+                        <p><i class="fa-solid fa-check"></i>Quiz and Certification</p>
+                        <p><i class="fa-solid fa-check"></i>UNIFINDER</p>
+                        <p><i class="fa-solid fa-check"></i>UNISCHOLAR</p>
+                        <p><i class="fa-solid fa-check"></i>Language Hub</p>
                         <p
                           *ngIf="(education_level==='HigherEducation'||education_level==='K12')&&(subscription.subscription_plan === 'Career' || subscription.subscription_plan === 'Entrepreneur')">
-                          <i class="pi pi-check"></i>Career Tools
+                          <i class="fa-solid fa-check"></i>Career Tools
                         </p>
                         <p
                           *ngIf="(education_level==='HigherEducation'||education_level==='K12')&&(subscription.subscription_plan === 'Career' || subscription.subscription_plan === 'Entrepreneur')">
-                          <i class="pi pi-check"></i>Job Portal
+                          <i class="fa-solid fa-check"></i>Job Portal
                         </p>
                         <p
                           *ngIf="(education_level==='HigherEducation'||education_level==='K12')&&(subscription.subscription_plan === 'Career' || subscription.subscription_plan === 'Entrepreneur')">
-                          <i class="pi pi-check"></i>Learning Hub
+                          <i class="fa-solid fa-check"></i>Learning Hub
                         </p>
                         <p
                           *ngIf="(education_level==='HigherEducation'||education_level==='K12')&&(subscription.subscription_plan === 'Career' || subscription.subscription_plan === 'Entrepreneur')">
-                          <i class="pi pi-check"></i>Skill Mastery
+                          <i class="fa-solid fa-check"></i>Skill Mastery
                         </p>
                         <p
                           *ngIf="(education_level==='HigherEducation'||education_level==='K12')&& subscription.subscription_plan === 'Entrepreneur'">
-                          <i class="pi pi-check"></i>Startup Kit
+                          <i class="fa-solid fa-check"></i>Startup Kit
                         </p>
                         <p
                           *ngIf="(education_level==='HigherEducation'||education_level==='K12')&& subscription.subscription_plan === 'Entrepreneur'">
-                          <i class="pi pi-check"></i>Founders Tool
+                          <i class="fa-solid fa-check"></i>Founders Tool
                         </p>
                         <p
                           *ngIf="(education_level==='HigherEducation'||education_level==='K12')&& subscription.subscription_plan === 'Entrepreneur'">
-                          <i class="pi pi-check"></i>1000+ Business Pitches
+                          <i class="fa-solid fa-check"></i>1000+ Business Pitches
                         </p>
                       </div>
                     </div>
@@ -481,6 +481,6 @@
       </ngx-stripe-elements>
     </div>
     <button class="mt-5 pt-3 pb-3 btn btn-basic w-100 m-0 btn btn-primary" (click)="paywithstripe()"><i
-        class="pi pi-lock mx-2"></i>Pay {{ selectedcost | currency: currencyType }}</button>
+        class="fa-solid fa-lock mx-2"></i>Pay {{ selectedcost | currency: currencyType }}</button>
   </div>
 </p-dialog>

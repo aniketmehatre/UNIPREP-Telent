@@ -1,47 +1,37 @@
-import {
-  provideHttpClient,
-  withFetch,
-  withInterceptors,
-  withInterceptorsFromDi,
-} from "@angular/common/http";
-import { ApplicationConfig, importProvidersFrom } from "@angular/core";
-import { provideAnimationsAsync } from "@angular/platform-browser/animations/async";
-import {
-  provideRouter,
-  withEnabledBlockingInitialNavigation,
-  withInMemoryScrolling,
-  withViewTransitions
-} from "@angular/router";
-import { providePrimeNG } from "primeng/config";
-import { appRoutes } from "./app.routes";
-import { LandingComponent } from "./pages/landing/landing.component";
-import { DeviceDetectorService } from "ngx-device-detector";
-import { DatePipe } from "@angular/common";
-import { AuthService } from "./Auth/auth.service";
-import { EnterpriseSubscriptionService } from "./components/enterprise-subscription/enterprise-subscription.service";
-import { HttpErrorInterceptor } from "./interceptors/http-error.interceptor";
-import { NGX_LOCAL_STORAGE_CONFIG } from "ngx-localstorage";
-import { ModalService } from "./components/modal/modal.service";
-import {
-  FacebookLoginProvider,
-  GoogleLoginProvider,
-  SocialAuthServiceConfig,
-} from "angularx-social-login";
-import { JwtModule } from "@auth0/angular-jwt";
-import { environment } from "@env/environment";
-import { DashboardComponent } from "./pages/dashboard/dashboard.component";
-import { provideStoreDevtools } from "@ngrx/store-devtools";
-import { AuthEffects } from "./Auth/store/effects";
-import { MessageService } from "primeng/api";
-import { provideAnimations } from "@angular/platform-browser/animations";
-import { StoreModule } from "@ngrx/store";
-import { EffectsModule } from "@ngrx/effects";
-import { NgxIntlTelInputModule } from "ngx-intl-tel-input";
-import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
-import { provideClientHydration } from "@angular/platform-browser";
-import MyPreset from "./mypreset";
-import { provideStore, provideState } from "@ngrx/store";
-import { authFeature } from "./Auth/store/reducer";
+import { provideHttpClient, withFetch, withInterceptors, withInterceptorsFromDi } from "@angular/common/http"
+import { ApplicationConfig, importProvidersFrom, isDevMode } from "@angular/core"
+import { provideAnimationsAsync } from "@angular/platform-browser/animations/async"
+import { RouterModule, Routes, provideRouter, withEnabledBlockingInitialNavigation, withInMemoryScrolling, withViewTransitions } from "@angular/router"
+import { providePrimeNG } from "primeng/config"
+import Aura from "@primeng/themes/aura"
+import { appRoutes } from "./app.routes"
+import { LandingComponent } from "./pages/landing/landing.component"
+import { provideState, provideStore } from "@ngrx/store"
+import { DeviceDetectorService } from "ngx-device-detector"
+import { DatePipe } from "@angular/common"
+import { AuthService } from "./Auth/auth.service"
+import { EnterpriseSubscriptionService } from "./components/enterprise-subscription/enterprise-subscription.service"
+import { HttpErrorInterceptor } from "./interceptors/http-error.interceptor"
+import { NGX_LOCAL_STORAGE_CONFIG } from "ngx-localstorage"
+import { ModalService } from "./components/modal/modal.service"
+import { FacebookLoginProvider, GoogleLoginProvider, SocialAuthServiceConfig } from "angularx-social-login"
+import { pagesReducer } from "./pages/store/pages.reducer"
+import { JwtModule } from "@auth0/angular-jwt"
+import { environment } from "@env/environment"
+import { authFeature } from "./Auth/store/reducer"
+import { DashboardComponent } from "./pages/dashboard/dashboard.component"
+import { provideStoreDevtools } from "@ngrx/store-devtools"
+import { provideEffects } from '@ngrx/effects';
+import { AuthEffects } from './Auth/store/effects';
+import { MessageService } from 'primeng/api';
+import { provideAnimations } from '@angular/platform-browser/animations';
+import { StoreModule } from '@ngrx/store';
+import { EffectsModule } from '@ngrx/effects';
+import { NgxIntlTelInputModule } from 'ngx-intl-tel-input';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { provideClientHydration } from '@angular/platform-browser';
+import { provideServiceWorker } from '@angular/service-worker';
+import MyPreset from "./mypreset"
 
 // Assuming ngxLocalstorageConfiguration is properly defined elsewhere in your code
 const ngxLocalstorageConfiguration = NGX_LOCAL_STORAGE_CONFIG as unknown as {
@@ -78,14 +68,18 @@ export const appConfig: ApplicationConfig = {
     importProvidersFrom(EffectsModule.forRoot([AuthEffects])),
     importProvidersFrom(StoreModule.forRoot({})), // Ensure StoreModule is correctly initialized
     importProvidersFrom(
-      //   StoreModule.forRoot({
-      //     auth: authFeature.reducer,
-      //     pages: pagesReducer,
-      //   }),
-      //   EffectsModule.forRoot([AuthEffects]),
+      StoreModule.forRoot({
+        auth: authFeature.reducer,
+        pages: pagesReducer
+      }),
+      EffectsModule.forRoot([AuthEffects]),
       BrowserAnimationsModule,
       NgxIntlTelInputModule
     ),
+    provideServiceWorker('ngsw-worker.js', {
+      enabled: !isDevMode(),
+      registrationStrategy: 'registerWhenStable:30000'
+    }),
     provideStoreDevtools({
       maxAge: 25,
       logOnly: environment.production,

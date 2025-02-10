@@ -44,8 +44,8 @@
               "quill/dist/quill.snow.css",
               "intl-tel-input/build/css/intlTelInput.css",
               "src/styles.scss",
-              "slick-carousel/slick/slick.scss",
-              "slick-carousel/slick/slick-theme.scss"
+              "slick-carousel/slick/slick.css",
+              "slick-carousel/slick/slick-theme.css"
             ],
             "scripts": [
               "bootstrap/dist/js/bootstrap.bundle.min.js",
