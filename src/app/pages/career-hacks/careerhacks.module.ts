@@ -11,7 +11,7 @@ import { CarouselModule } from "primeng/carousel";
 import { ChipModule } from "primeng/chip";
 import { ConfirmPopupModule } from "primeng/confirmpopup";
 import { DialogModule } from "primeng/dialog";
-import { DropdownModule } from "primeng/dropdown";
+
 import { EditorModule } from "primeng/editor";
 import { InputTextModule } from "primeng/inputtext";
 import { PaginatorModule } from "primeng/paginator";
@@ -38,7 +38,7 @@ import { CareerhacksComponent } from "./careerhacks.component";
         CareerHacksRoutingModule,
         ChipModule,
         FormsModule,
-        DropdownModule,
+        
         EditorModule,
         SidebarModule,
         CardModule,

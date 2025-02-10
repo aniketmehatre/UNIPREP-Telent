@@ -18,7 +18,7 @@ import { ButtonModule } from "primeng/button"
 import { InputTextModule } from "primeng/inputtext"
 import { RippleModule } from "primeng/ripple"
 import { FormsModule, ReactiveFormsModule } from "@angular/forms"
-import { DropdownModule } from "primeng/dropdown"
+
 import { CalendarModule } from "primeng/calendar"
 import { TabViewModule } from "primeng/tabview"
 import { InputSwitchModule } from "primeng/inputswitch"
@@ -135,7 +135,7 @@ import { JobOfferPreparedListComponent } from "./job-tool/joboffercomparisontool
 		InputTextModule,
 		RippleModule,
 		ReactiveFormsModule,
-		DropdownModule,
+		
 		CalendarModule,
 		TabViewModule,
 		MultiSelectModule,

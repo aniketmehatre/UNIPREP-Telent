@@ -4,12 +4,12 @@ import { SupportDescriptionComponent } from "./support-description/support-descr
 import { SupportQueryComponent } from "./support-query/support-query.component";
 import { HelpSupportRoutingModule } from "./help-support-routing.module";
 import { SupportCardComponent } from "./support-card/support-card.component";
-import { DropdownModule } from "primeng/dropdown";
+
 import { InputTextModule } from "primeng/inputtext";
 import { ButtonModule } from "primeng/button";
 
 @NgModule({
   declarations: [SupportDescriptionComponent, SupportCardComponent],
-  imports: [CommonModule, HelpSupportRoutingModule, SupportQueryComponent, DropdownModule, InputTextModule, ButtonModule],
+  imports: [CommonModule, HelpSupportRoutingModule, SupportQueryComponent,  InputTextModule, ButtonModule],
 })
 export class HelpSupportModule {}

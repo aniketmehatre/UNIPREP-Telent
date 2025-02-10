@@ -7,7 +7,7 @@ import {ActivatedRoute, Params, Router} from "@angular/router";
 import {MessageService} from "primeng/api";
 import {City} from "../../../@Models/cost-of-living";
 import {filter} from "rxjs";
-import { DropdownModule } from 'primeng/dropdown';
+
 import { CommonModule } from "@angular/common";
 import { DialogModule } from "primeng/dialog";
 import { SelectModule } from "primeng/select";
@@ -16,7 +16,7 @@ import { SelectModule } from "primeng/select";
     templateUrl: './job-listing.component.html',
     styleUrls: ['./job-listing.component.scss'],
     standalone: true,
-    imports: [DropdownModule, FormsModule, ReactiveFormsModule, CommonModule, DialogModule, SelectModule],
+    imports: [ FormsModule, ReactiveFormsModule, CommonModule, DialogModule, SelectModule],
 })
 export class JobListingComponent implements OnInit {
     jobs: any[] = [];

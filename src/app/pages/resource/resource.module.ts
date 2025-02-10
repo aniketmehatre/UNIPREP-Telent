@@ -6,7 +6,7 @@ import { ResourceComponent } from './resource.component';
 import {AccordionModule} from "primeng/accordion";
 import { TooltipModule } from 'primeng/tooltip';
 import { ReactiveFormsModule } from '@angular/forms';
-import { DropdownModule } from 'primeng/dropdown';
+
 import { MultiSelectModule } from 'primeng/multiselect';
 import { DialogModule } from 'primeng/dialog';
 import { SkeletonModule } from 'primeng/skeleton';
@@ -22,7 +22,7 @@ import { SkeletonModule } from 'primeng/skeleton';
         AccordionModule,
         TooltipModule,
         ReactiveFormsModule,
-        DropdownModule,
+        
         TooltipModule,
         MultiSelectModule,
         DialogModule,

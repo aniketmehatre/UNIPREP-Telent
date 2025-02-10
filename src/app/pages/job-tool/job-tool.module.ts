@@ -11,7 +11,7 @@ import { CvBuilderComponent } from "./cv-builder/cv-builder.component"
 import { CoverLetterBuilderComponent } from "./cover-letter-builder/cover-letter-builder.component"
 import { ChipModule } from "primeng/chip"
 import { FormsModule } from "@angular/forms"
-import { DropdownModule } from "primeng/dropdown"
+
 import { EditorModule } from "primeng/editor"
 import { SidebarModule } from "primeng/sidebar"
 import { CostOfLivingComponent } from "./cost-of-living/cost-of-living.component"
@@ -58,7 +58,7 @@ import { RouterModule } from "@angular/router"
 		ReactiveFormsModule,
 		ChipModule,
 		FormsModule,
-		DropdownModule,
+		
 		EditorModule,
 		SidebarModule,
 		CardModule,

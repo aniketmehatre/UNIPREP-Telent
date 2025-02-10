@@ -5,7 +5,7 @@ import { FormControl, FormGroup, FormsModule, ReactiveFormsModule } from "@angul
 import { Location } from "@angular/common"
 import { CommonModule } from "@angular/common"
 import { DialogModule } from "primeng/dialog"
-import { DropdownModule } from "primeng/dropdown"
+
 import { SelectModule } from "primeng/select"
 interface Status {
 	label: string
@@ -18,7 +18,7 @@ interface Status {
 	templateUrl: "./job-board.component.html",
 	styleUrls: ["./job-board.component.scss"],
 	standalone: true,
-	imports: [CommonModule, DialogModule, DropdownModule, FormsModule, ReactiveFormsModule, SelectModule],
+	imports: [CommonModule, DialogModule,  FormsModule, ReactiveFormsModule, SelectModule],
 })
 export class JobBoardComponent implements OnInit {
 	addManual: FormGroup

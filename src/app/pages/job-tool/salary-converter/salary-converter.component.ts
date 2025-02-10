@@ -7,7 +7,7 @@ import { PlanService } from "../../../shared/plan.service"
 import { AuthService } from "../../../Auth/auth.service"
 import { CommonModule } from "@angular/common"
 import { DialogModule } from "primeng/dialog"
-import { DropdownModule } from "primeng/dropdown"
+
 import { FormsModule } from "@angular/forms"
 import { InputNumberModule } from "primeng/inputnumber"
 import { CarouselModule } from "primeng/carousel"
@@ -19,7 +19,7 @@ import { SelectModule } from "primeng/select"
 	templateUrl: "./salary-converter.component.html",
 	styleUrls: ["./salary-converter.component.scss"],
 	standalone: true,
-	imports: [CommonModule, ButtonModule, CarouselModule, DialogModule, DropdownModule, FormsModule, InputNumberModule, SelectModule],
+	imports: [CommonModule, ButtonModule, CarouselModule, DialogModule,  FormsModule, InputNumberModule, SelectModule],
 	encapsulation: ViewEncapsulation.None,
 })
 export class SalaryConverterComponent implements OnInit {

@@ -7,7 +7,7 @@ import { AuthService } from 'src/app/Auth/auth.service';
 import { PageFacadeService } from '../page-facade.service';
 import { DialogModule } from 'primeng/dialog';
 import { CommonModule } from '@angular/common';
-import { DropdownModule } from 'primeng/dropdown';
+
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { SelectModule } from 'primeng/select';
 @Component({
@@ -15,7 +15,7 @@ import { SelectModule } from 'primeng/select';
     templateUrl: './quizmenu.component.html',
     styleUrls: ['./quizmenu.component.scss'],
     standalone: true,
-    imports: [CommonModule, DialogModule, DropdownModule, FormsModule, ReactiveFormsModule, SelectModule],
+    imports: [CommonModule, DialogModule,  FormsModule, ReactiveFormsModule, SelectModule],
 
 })
 export class QuizmenuComponent implements OnInit {

@@ -9,7 +9,7 @@ import {CarouselModule} from 'primeng/carousel';
 import {ButtonModule} from 'primeng/button';
 import { ReactiveFormsModule } from '@angular/forms';
 import { JobListingComponent } from './job-listing/job-listing.component';
-import { DropdownModule } from 'primeng/dropdown';
+
 import { PaginatorModule } from 'primeng/paginator';
 import { TimeAgoPipe } from './time-ago.pipe';
 import {CardModule} from "primeng/card";
@@ -29,7 +29,7 @@ import { TooltipModule } from 'primeng/tooltip';
         CarouselModule,
         ButtonModule,
         ReactiveFormsModule,
-        DropdownModule,
+        
         PaginatorModule,
         CardModule,
         DialogModule,

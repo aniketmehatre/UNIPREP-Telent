@@ -7,7 +7,7 @@ import { CommonModule } from "@angular/common";
 import { InputTextModule } from "primeng/inputtext";
 import { TabViewModule } from "primeng/tabview";
 import { TableModule } from "primeng/table";
-import { DropdownModule } from "primeng/dropdown";
+
 import { MultiSelectModule } from "primeng/multiselect";
 import { Router } from "@angular/router";
 import { AuthService } from "src/app/Auth/auth.service";
@@ -21,7 +21,7 @@ import { FormsModule } from "@angular/forms";
 @Component({
   selector: "uni-infokit",
   standalone: true,
-  imports: [FormsModule,CommonModule, InputTextModule, TabViewModule, TableModule, AccordionModule, DropdownModule, ReactiveFormsModule, MultiSelectModule, PaginatorModule, TooltipModule, DialogModule, ButtonModule],
+  imports: [FormsModule,CommonModule, InputTextModule, TabViewModule, TableModule, AccordionModule,  ReactiveFormsModule, MultiSelectModule, PaginatorModule, TooltipModule, DialogModule, ButtonModule],
   templateUrl: "./infokit.component.html",
   styleUrls: ["./infokit.component.scss"],
 })

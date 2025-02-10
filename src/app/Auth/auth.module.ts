@@ -8,7 +8,7 @@ import { provideState, provideStore, StoreModule } from "@ngrx/store";
 import { NgxIntlTelInputModule } from 'ngx-intl-tel-input';
 import { MessageService } from "primeng/api";
 import { CalendarModule } from "primeng/calendar";
-import { DropdownModule } from "primeng/dropdown";
+
 import { InputGroupModule } from 'primeng/inputgroup';
 import { InputGroupAddonModule } from 'primeng/inputgroupaddon';
 import { InputIconModule } from 'primeng/inputicon';
@@ -46,7 +46,7 @@ import { VerificationComponent } from './verification/verification.component';
     RouterModule,
     AuthRoutingModule,
     InputTextModule,
-    DropdownModule,
+    
     PasswordModule,
     ToastModule,
     CalendarModule,

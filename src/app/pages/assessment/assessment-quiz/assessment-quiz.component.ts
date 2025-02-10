@@ -1,5 +1,5 @@
-import { Location } from '@angular/common';
-import { Component, OnInit } from '@angular/core';
+import { CommonModule, Location } from '@angular/common';
+import { Component, CUSTOM_ELEMENTS_SCHEMA, OnInit } from '@angular/core';
 import { AssessmentService } from '../assessment.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { firstValueFrom, interval, Subscription, takeWhile } from 'rxjs';
@@ -7,12 +7,20 @@ import { AssessmentQuiz } from 'src/app/@Models/assessment.model';
 import { CostOfLivingService } from '../../job-tool/cost-of-living/cost-of-living.service';
 import { SalaryConverterService } from '../../job-tool/salary-converter/salary-converter.service';
 import { MessageService } from 'primeng/api';
-
+import { SkeletonModule } from 'primeng/skeleton';
+import { SelectModule } from 'primeng/select';
+import { TableModule } from 'primeng/table';
+import { DialogModule } from 'primeng/dialog';
+import { TooltipModule } from 'primeng/tooltip';
+import { ButtonModule } from 'primeng/button';
+import { RadioButtonModule } from 'primeng/radiobutton';
 @Component({
     selector: 'uni-assessment-quiz',
     templateUrl: './assessment-quiz.component.html',
     styleUrls: ['./assessment-quiz.component.scss'],
-    standalone: false
+    standalone: true,
+    schemas: [CUSTOM_ELEMENTS_SCHEMA],
+    imports: [CommonModule, TableModule, ButtonModule, SelectModule, DialogModule, SkeletonModule, TooltipModule, RadioButtonModule]
 })
 export class AssessmentQuizComponent implements OnInit {
 

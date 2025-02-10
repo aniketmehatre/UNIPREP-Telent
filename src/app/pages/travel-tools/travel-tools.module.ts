@@ -6,7 +6,7 @@ import { TooltipModule } from 'primeng/tooltip';
 import { CarouselModule } from 'primeng/carousel';
 import { FormsModule } from '@angular/forms';
 import { ButtonModule } from 'primeng/button';
-import { DropdownModule } from 'primeng/dropdown';
+
 import { InputTextModule } from 'primeng/inputtext';
 import { TravelCostEstimatorComponent } from './travel-cost-estimator/travel-cost-estimator.component';
 import { TravelToolsListComponent } from './travel-tools-list/travel-tools-list.component';
@@ -40,7 +40,7 @@ import {MarkdownComponent} from "ngx-markdown";
     TooltipModule,
     CarouselModule,
     ButtonModule,
-    DropdownModule,
+    
     InputTextModule,
     InputNumberModule,
     MultiSelectModule,

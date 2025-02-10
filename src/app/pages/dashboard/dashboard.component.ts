@@ -10,7 +10,7 @@ import { LocationService } from "src/app/location.service"
 import { CommonModule } from "@angular/common"
 import { DialogModule } from "primeng/dialog"
 import { CarouselModule } from "primeng/carousel"
-import { DropdownModule } from "primeng/dropdown"
+
 import { FormsModule } from "@angular/forms"
 import { ButtonModule } from "primeng/button"
 import { TooltipModule } from "primeng/tooltip"
@@ -21,7 +21,7 @@ import { SelectModule } from "primeng/select"
 	templateUrl: "./dashboard.component.html",
 	styleUrls: ["./dashboard.component.scss"],
 	standalone: true,
-	imports: [CommonModule, DialogModule, CarouselModule, DropdownModule, FormsModule, ButtonModule, TooltipModule, RouterModule, SelectModule],
+	imports: [CommonModule, DialogModule, CarouselModule,  FormsModule, ButtonModule, TooltipModule, RouterModule, SelectModule],
 	providers: [DashboardService, AuthService, DataService, LocationService],
 })
 export class DashboardComponent implements OnInit, OnChanges {
