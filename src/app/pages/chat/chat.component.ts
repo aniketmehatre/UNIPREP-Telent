@@ -14,13 +14,13 @@ import { DropdownModule } from "primeng/dropdown";
 import { OverlayPanelModule } from 'primeng/overlaypanel';
 import { ConfirmPopupModule } from "primeng/confirmpopup";
 import { ButtonModule } from "primeng/button";
-
+import { SelectModule } from "primeng/select";
 @Component({
   selector: "uni-chat",
   templateUrl: "./chat.component.html",
   styleUrls: ["./chat.component.scss"],
   standalone: true,
-  imports: [CommonModule, DialogModule, DropdownModule, FormsModule, ReactiveFormsModule, OverlayPanelModule, ConfirmPopupModule, ButtonModule],
+  imports: [CommonModule, DialogModule, DropdownModule, FormsModule, ReactiveFormsModule, OverlayPanelModule, ConfirmPopupModule, ButtonModule, SelectModule],
   providers: [ConfirmationService],
 })
 export class ChatComponent implements OnInit {

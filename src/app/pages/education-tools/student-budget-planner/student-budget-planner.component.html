@@ -34,10 +34,10 @@
                                             <h5 class="mt-2">Country of Study</h5>
                                         </div>
                                         <div class="col-md-6">
-                                            <p-dropdown [options]="countriesList" [filter]="true" [filterBy]="'country'" styleClass="w-100" (onChange)="onChangeCountry()"
+                                            <p-select [options]="countriesList" [filter]="true" [filterBy]="'country'" styleClass="w-100" (onChange)="onChangeCountry()"
                                                 [(ngModel)]="selectedData['country']" optionLabel="country"
                                                 optionValue="id" [appendTo]="'body'" placeholder="Select Country">
-                                            </p-dropdown>
+                                            </p-select>
                                             <div *ngIf="notfilledArray.includes('country')" class="text-danger text-xs">
                                                 <div>Country Of Study Required</div>
                                             </div>
@@ -49,10 +49,10 @@
                                             <h5 class="mt-2">University</h5>
                                         </div>
                                         <div class="col-md-6">
-                                            <p-dropdown [options]="universityList" styleClass="w-100" [filter]="true" [filterBy]="'university_name'"
+                                            <p-select [options]="universityList" styleClass="w-100" [filter]="true" [filterBy]="'university_name'"
                                                 [(ngModel)]="selectedData['university']" optionLabel="university_name"
                                                 optionValue="id" [appendTo]="'body'" placeholder="Select University">
-                                            </p-dropdown>
+                                            </p-select>
                                             <div *ngIf="notfilledArray.includes('university')" class="text-danger text-xs">
                                                 <div>University Required</div>
                                             </div>
@@ -64,9 +64,9 @@
                                             <h5 class="mt-2">Course Duration</h5>
                                         </div>
                                         <div class="col-md-6">
-                                            <p-dropdown [options]="courseDurationList" styleClass="w-100" [(ngModel)]="selectedData['course_duration']" optionLabel="value"
+                                            <p-select [options]="courseDurationList" styleClass="w-100" [(ngModel)]="selectedData['course_duration']" optionLabel="value"
                                                 optionValue="id" [appendTo]="'body'" placeholder="Select Duration">
-                                            </p-dropdown>
+                                            </p-select>
                                             <div *ngIf="notfilledArray.includes('course_duration')" class="text-danger text-xs">
                                                 <div>Course Duration Required</div>
                                             </div>
@@ -91,9 +91,9 @@
                                             <h5 class="mt-2">preferred Currency</h5>
                                         </div>
                                         <div class="col-md-6">
-                                            <p-dropdown [options]="currencyList" [filter]="true" [filterBy]="'currency_code'" styleClass="w-100" placeholder="Select Currency"
+                                            <p-select [options]="currencyList" [filter]="true" [filterBy]="'currency_code'" styleClass="w-100" placeholder="Select Currency"
                                                 [(ngModel)]="selectedData['currency']" optionLabel="currency_code" optionValue="currency_code" [appendTo]="'body'" >
-                                            </p-dropdown>
+                                            </p-select>
                                             <div *ngIf="notfilledArray.includes('currency')" class="text-danger text-xs">
                                                 <div>Currency Required</div>
                                             </div>

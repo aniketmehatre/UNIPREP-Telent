@@ -83,7 +83,7 @@
 :host ::ng-deep .p-overlay {
   z-index: 4000 !important;
 }
-//:host ::ng-deep.p-dropdown {
+//:host ::ng-deep.p-select {
 //  width: 100% !important;
 //}
 :host ::ng-deep .p-dialog .p-dialog-content {
@@ -98,11 +98,11 @@
   height: 20px; /* Adjust the height as needed */
   object-fit: cover; /* Ensures the image fits within the circle */
 }
-:host ::ng-deep .p-dropdown {
+:host ::ng-deep .p-select {
   width: 100%;
 }
 
-:host ::ng-deep .p-dropdown-label {
+:host ::ng-deep .p-select-label {
   width: 200px; /* Set your desired fixed width */
   white-space: nowrap;
   overflow: hidden;

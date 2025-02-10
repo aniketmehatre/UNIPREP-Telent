@@ -251,25 +251,25 @@
 				<div class="row report">
 					<p *ngIf="false" class="report-label text-left mb-0">General / Modules</p>
 					<span *ngIf="false" class="report-modal">
-						<p-dropdown [options]="genMod" (onChange)="onChangeChooseMain($event.value)" [(ngModel)]="selectedGenMod" optionValue="id" formControlName="general" class="w-100" id="genMod" optionLabel="name"></p-dropdown>
+						<p-select [options]="genMod" (onChange)="onChangeChooseMain($event.value)" [(ngModel)]="selectedGenMod" optionValue="id" formControlName="general" class="w-100" id="genMod" optionLabel="name"></p-select>
 					</span>
 					<div *ngIf="isVisibleModulesMenu">
 						<p *ngIf="isQuestionVisible" class="report-label text-left mb-0">Modules</p>
 						<span *ngIf="isQuestionVisible" class="report-modal">
-							<p-dropdown [options]="moduleList" (onChange)="onChangeModuleList($event.value)" formControlName="moduleId" [(ngModel)]="moduleNgModel" optionValue="id" class="w-100" id="moduleId" optionLabel="module_name"></p-dropdown>
+							<p-select [options]="moduleList" (onChange)="onChangeModuleList($event.value)" formControlName="moduleId" [(ngModel)]="moduleNgModel" optionValue="id" class="w-100" id="moduleId" optionLabel="module_name"></p-select>
 						</span>
 						<p *ngIf="isQuestionVisible" class="report-label text-left mb-0">Categories</p>
 						<span *ngIf="isQuestionVisible" class="report-modal">
-							<p-dropdown [options]="subModuleList" [(ngModel)]="subModuleNgModel" formControlName="submoduleId" optionValue="id" (onChange)="onChangeSubModuleList($event.value)" class="w-100" id="submoduleId" optionLabel="submodule_name"></p-dropdown>
+							<p-select [options]="subModuleList" [(ngModel)]="subModuleNgModel" formControlName="submoduleId" optionValue="id" (onChange)="onChangeSubModuleList($event.value)" class="w-100" id="submoduleId" optionLabel="submodule_name"></p-select>
 						</span>
 						<p *ngIf="isQuestionVisible" class="report-label text-left mb-0">Question Number</p>
 						<span *ngIf="isQuestionVisible" class="report-modal">
-							<p-dropdown [options]="questionList" [(ngModel)]="questionIdNgModel" optionValue="id" formControlName="questionId" class="w-100" id="questionId" optionLabel="index"></p-dropdown>
+							<p-select [options]="questionList" [(ngModel)]="questionIdNgModel" optionValue="id" formControlName="questionId" class="w-100" id="questionId" optionLabel="index"></p-select>
 						</span>
 					</div>
 					<p class="report-label text-left mb-0">Issue Type</p>
 					<span class="report-modal">
-						<p-dropdown [options]="reportOptionList" [(ngModel)]="reportOptionNgModel" optionValue="id" formControlName="reportOption" class="w-100" id="reportOption" optionLabel="reportoption_name"></p-dropdown>
+						<p-select [options]="reportOptionList" [(ngModel)]="reportOptionNgModel" optionValue="id" formControlName="reportOption" class="w-100" id="reportOption" optionLabel="reportoption_name"></p-select>
 					</span>
 					<p class="report-label text-left mb-0">Comment</p>
 					<span class="report-modal">
@@ -311,11 +311,11 @@
 		<div *ngIf="isLondon" class="mega-menu">
 			<div class="row justify-content-center">
 				<h5 class="text-center mb-2">Home Country</h5>
-				<!--                <p-dropdown [options]="countryList" [(ngModel)]="homeCountryId"-->
+				<!--                <p-select [options]="countryList" [(ngModel)]="homeCountryId"-->
 				<!--                        [style]="{'width': '250px'}"-->
 				<!--                        optionValue="id"-->
-				<!--                        optionLabel="country"></p-dropdown>-->
-				<p-dropdown id="selectedHomeCountry" [styleClass]="'w-100'" style="width: 100% !important" [(ngModel)]="selectedHomeCountry" [options]="countryList" [filter]="true" filterBy="country" [showClear]="true" optionLabel="country" (onChange)="onHomeCountryChange($event)" placeholder="Source Country">
+				<!--                        optionLabel="country"></p-select>-->
+				<p-select id="selectedHomeCountry" [styleClass]="'w-100'" style="width: 100% !important" [(ngModel)]="selectedHomeCountry" [options]="countryList" [filter]="true" filterBy="country" [showClear]="true" optionLabel="country" (onChange)="onHomeCountryChange($event)" placeholder="Source Country">
 					<ng-template pTemplate="selectedItem">
 						<div class="flex align-items-center gap-2" *ngIf="selectedHomeCountry">
 							<img [src]="selectedHomeCountry.flag" [class]="'flag flag-' + selectedHomeCountry.code" style="width: 18px" />
@@ -328,7 +328,7 @@
 							<div>{{ country.country }}</div>
 						</div>
 					</ng-template>
-				</p-dropdown>
+				</p-select>
 			</div>
 		</div>
 	</ng-template>
@@ -535,7 +535,7 @@
                 <form [formGroup]="currentEducationForm">
                   <div class="w-100 phonenumberblock mt-2">
                     <p class="m-1">Select Your Current Study Level</p>
-                    <p-dropdown class="w-100" formControlName="current_education" appendTo="body" [options]="programLevelList" placeholder="Current Education" optionLabel="programlevel" optionValue="id" [autoDisplayFirst]="false" styleClass="custom-dropdown"></p-dropdown>
+                    <p-select class="w-100" formControlName="current_education" appendTo="body" [options]="programLevelList" placeholder="Current Education" optionLabel="programlevel" optionValue="id" [autoDisplayFirst]="false" styleClass="custom-dropdown"></p-select>
                   </div>
                   <div class="d-flex justify-content-center mt-4">
                     <button [disabled]="currentEducationForm.invalid" class="btn btn-primary btn-rounded me-2 ms-0 my-0" (click)="UpdateEducationLevel()" alt="chat with notification">
@@ -622,7 +622,7 @@
 					<form [formGroup]="currentEducationForm">
 						<div class="w-100 phonenumberblock mt-2">
 							<p class="m-1">Select Your Current Study Level</p>
-							<p-dropdown class="w-100" formControlName="current_education" appendTo="body" [options]="programLevelList" placeholder="Current Education" optionLabel="programlevel" optionValue="id" [autoDisplayFirst]="false" styleClass="custom-dropdown"></p-dropdown>
+							<p-select class="w-100" formControlName="current_education" appendTo="body" [options]="programLevelList" placeholder="Current Education" optionLabel="programlevel" optionValue="id" [autoDisplayFirst]="false" styleClass="custom-dropdown"></p-select>
 						</div>
 						<div class="d-flex justify-content-center mt-4">
 							<button [disabled]="currentEducationForm.invalid" class="btn btn-primary btn-rounded me-2 ms-0 my-0" (click)="UpdateEducationLevel()" alt="chat with notification">
@@ -667,11 +667,11 @@
 						</div>
 						<div class="w-100 phonenumberblock mt-2" *ngIf="formvisbility">
 							<p class="m-1">Select Your Home Country</p>
-							<p-dropdown class="w-100" formControlName="home_country" appendTo="body" [options]="indiaHomeCountry" [filter]="true" placeholder="Country" (onChange)="changeLocation($event)" filterBy="country" optionLabel="country" optionValue="id" [autoDisplayFirst]="false" styleClass="custom-dropdown"></p-dropdown>
+							<p-select class="w-100" formControlName="home_country" appendTo="body" [options]="indiaHomeCountry" [filter]="true" placeholder="Country" (onChange)="changeLocation($event)" filterBy="country" optionLabel="country" optionValue="id" [autoDisplayFirst]="false" styleClass="custom-dropdown"></p-select>
 						</div>
 						<div class="w-100 phonenumberblock mt-2" *ngIf="formvisbility">
 							<p class="m-1">Select Your Current Education</p>
-							<p-dropdown class="w-100" formControlName="study_level" appendTo="body" [options]="programLevelList" placeholder="Current Education" optionLabel="programlevel" optionValue="id" [autoDisplayFirst]="false" styleClass="custom-dropdown"></p-dropdown>
+							<p-select class="w-100" formControlName="study_level" appendTo="body" [options]="programLevelList" placeholder="Current Education" optionLabel="programlevel" optionValue="id" [autoDisplayFirst]="false" styleClass="custom-dropdown"></p-select>
 						</div>
 						<div *ngIf="freeTrialErrorMsg" class="text-danger text-center">
 							{{ freeTrialErrorMsg }}
@@ -729,11 +729,11 @@
                   </div>
                   <div class="w-100 phonenumberblock mt-2" *ngIf="formvisbility">
                     <p class="m-1">Select Your Home Country</p>
-                    <p-dropdown class="w-100" formControlName="home_country" appendTo="body" [options]="countryList" [filter]="true" placeholder="Country" (onChange)="changeLocation($event)" filterBy="country" optionLabel="country" optionValue="id" [autoDisplayFirst]="false" styleClass="custom-dropdown"></p-dropdown>
+                    <p-select class="w-100" formControlName="home_country" appendTo="body" [options]="countryList" [filter]="true" placeholder="Country" (onChange)="changeLocation($event)" filterBy="country" optionLabel="country" optionValue="id" [autoDisplayFirst]="false" styleClass="custom-dropdown"></p-select>
                   </div>
                   <div class="w-100 phonenumberblock mt-2" *ngIf="formvisbility">
                     <p class="m-1">Select Your Current Education</p>
-                    <p-dropdown class="w-100" formControlName="study_level" appendTo="body" [options]="programLevelList" placeholder="Current Education" optionLabel="programlevel" optionValue="id" [autoDisplayFirst]="false" styleClass="custom-dropdown"></p-dropdown>
+                    <p-select class="w-100" formControlName="study_level" appendTo="body" [options]="programLevelList" placeholder="Current Education" optionLabel="programlevel" optionValue="id" [autoDisplayFirst]="false" styleClass="custom-dropdown"></p-select>
                   </div>
                   <div *ngIf="freeTrialErrorMsg" class="text-danger text-center">
                     {{ freeTrialErrorMsg }}

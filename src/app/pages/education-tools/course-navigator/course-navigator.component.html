@@ -36,7 +36,7 @@
                             <div class="col-md-6">
                                 <div class="recommendationinput d-flex flex-column justify-content-center gap-3">
                                     <ng-container *ngIf="recommendation.id == 1">
-                                        <p-dropdown [options]="specializationList" styleClass="w-100" [filter]="true"
+                                        <p-select [options]="specializationList" styleClass="w-100" [filter]="true"
                                             [(ngModel)]="selectedData[recommendation.id]"
                                             optionLabel="specialization_name" optionValue="id" [appendTo]="'body'"
                                             placeholder="Specialization">
@@ -53,15 +53,15 @@
                                                         (click)="resetFunction()" severity="secondary"></button>
                                                 </div>
                                             </ng-template>
-                                        </p-dropdown>
+                                        </p-select>
                                         <p class="text-center" [ngClass]="{ 'd-none': invalidClass === false }"
                                             style="color: red">Please Choose Any one option</p>
                                     </ng-container>
                                     <ng-container *ngIf="recommendation.id == 2">
-                                        <p-dropdown [options]="educationList" styleClass="w-100"
+                                        <p-select [options]="educationList" styleClass="w-100"
                                             [(ngModel)]="selectedData[recommendation.id]" optionLabel="name"
                                             optionValue="id" [appendTo]="'body'" placeholder="Your Degree">
-                                        </p-dropdown>
+                                        </p-select>
                                         <p class="text-center" [ngClass]="{ 'd-none': invalidClass === false }"
                                             style="color: red">Please Choose Any one option</p>
                                     </ng-container>

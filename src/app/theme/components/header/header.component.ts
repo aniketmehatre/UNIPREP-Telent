@@ -25,6 +25,7 @@ import { InputTextModule } from "primeng/inputtext";
 import { AvatarModule } from "primeng/avatar";
 import { switchMap } from "rxjs/operators";
 import { take } from "rxjs/operators";
+import { SelectModule } from "primeng/select";
 
 @Component({
   selector: "uni-header",
@@ -42,7 +43,9 @@ import { take } from "rxjs/operators";
     DropdownModule, 
     AvatarModule,
     NgxIntlTelInputModule,
-    InputTextModule
+    InputTextModule,
+    SelectModule
+
   ],
   providers: [
     MessageService,

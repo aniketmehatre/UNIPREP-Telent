@@ -165,7 +165,7 @@
 	overflow-x: hidden;            
   }
   
-  ::ng-deep .p-dropdown-panel {
+  ::ng-deep .p-select-panel {
 	position: absolute !important;
 	top: 100% !important;        
 	left: 0 !important;
@@ -178,7 +178,7 @@
   }
   
   @media (max-width: 768px) {
-	::ng-deep .p-dropdown-panel {
+	::ng-deep .p-select-panel {
 	  max-height: 150px !important; 
 	}
   }

@@ -48,9 +48,9 @@
                     </div>
                   </ng-container>
                   <ng-container *ngIf="recommendation.id == 3">
-                    <p-dropdown [(ngModel)]="selectedData[recommendation.id]" [options]="strategyBusinessList"
+                    <p-select [(ngModel)]="selectedData[recommendation.id]" [options]="strategyBusinessList"
                       styleClass="w-100" optionLabel="name" optionValue="name" [appendTo]="'body'" placeholder="Time">
-                    </p-dropdown>
+                    </p-select>
                     <div class="text-center" [ngClass]="{ 'd-none': inValidClass === false }" style="color: red">
                       Business strategy is required
                     </div>

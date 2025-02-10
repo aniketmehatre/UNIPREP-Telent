@@ -143,7 +143,7 @@
 												<div class="p-inputgroup-addon">
 													<img class="bg-image text-center" src="../../../uniprep-assets/images/icons/Uniprep_Icons_select_country.png" />
 												</div>
-												<p-dropdown styleClass="w-100" formControlName="home_country" appendTo="body" [options]="countryList" [filter]="true" (onChange)="changeLocation($event)" filterBy="country" optionLabel="country" optionValue="id" [autoDisplayFirst]="false"></p-dropdown>
+												<p-select styleClass="w-100" formControlName="home_country" appendTo="body" [options]="countryList" [filter]="true" (onChange)="changeLocation($event)" filterBy="country" optionLabel="country" optionValue="id" [autoDisplayFirst]="false"></p-select>
 											</div>
 											<div *ngIf="submitted && f['home_country']['errors']" class="UserInfoValidation">
 												<div style="color: red" *ngIf="f['home_country']['errors']['required']">Country is required</div>
@@ -155,7 +155,7 @@
 												<div class="p-inputgroup-addon">
 													<img class="bg-image text-center" src="../../../uniprep-assets/images/icons/Uniprep_Icons_location.png" />
 												</div>
-												<p-dropdown styleClass="w-100" [filter]="true" appendTo="body" [options]="locationList" formControlName="location_id" optionLabel="district" optionValue="id" [autoDisplayFirst]="false" [readonly]="registrationForm.get('home_country')?.value == 122 ? false : true"> </p-dropdown>
+												<p-select styleClass="w-100" [filter]="true" appendTo="body" [options]="locationList" formControlName="location_id" optionLabel="district" optionValue="id" [autoDisplayFirst]="false" [readonly]="registrationForm.get('home_country')?.value == 122 ? false : true"> </p-select>
 											</div>
 											<div *ngIf="submitted && f['location_id']['errors']" class="UserInfoValidation">
 												<div style="color: red" *ngIf="f['location_id']['errors']['required']">Location is required</div>
@@ -167,7 +167,7 @@
 												<div class="p-inputgroup-addon">
 													<img class="bg-image text-center" src="../../../uniprep-assets/images/icons/Uniprep_Icons_select_country.png" />
 												</div>
-												<p-dropdown styleClass="w-100" formControlName="interested_country_id" appendTo="body" [options]="intrestedCountryList" optionValue="id" optionLabel="country" [autoDisplayFirst]="false"></p-dropdown>
+												<p-select styleClass="w-100" formControlName="interested_country_id" appendTo="body" [options]="intrestedCountryList" optionValue="id" optionLabel="country" [autoDisplayFirst]="false"></p-select>
 											</div>
 											<!-- <div *ngIf="submitted && f['interested_country_id']['errors']" class="UserInfoValidation">
                                                         <div *ngIf="f['interested_country_id']['errors']['required']">
@@ -224,7 +224,7 @@
 												<div class="p-inputgroup-addon">
 													<img class="bg-image text-center" src="../../../uniprep-assets/images/icons/Uniprep_Icons_Program_Level.png" />
 												</div>
-												<p-dropdown styleClass="w-100" [filter]="true" [options]="programlevelList" appendTo="body" filterBy="programlevel" formControlName="programlevel_id" optionLabel="programlevel" optionValue="id" [autoDisplayFirst]="false"></p-dropdown>
+												<p-select styleClass="w-100" [filter]="true" [options]="programlevelList" appendTo="body" filterBy="programlevel" formControlName="programlevel_id" optionLabel="programlevel" optionValue="id" [autoDisplayFirst]="false"></p-select>
 											</div>
 											<!-- <div *ngIf="submitted && f['programlevel_id']['errors']" class="UserInfoValidation">
                                                         <div *ngIf="f['programlevel_id']['errors']['required']">
@@ -253,9 +253,9 @@
                                                             <img class="bg-image text-center"
                                                                 src="../../../uniprep-assets/images/icons/Uniprep_Icons_gender.png"/>
                                                         </div>
-                                                        <p-dropdown [filter]="true" [options]="genderList" appendTo="body"
+                                                        <p-select [filter]="true" [options]="genderList" appendTo="body"
                                                                     filterBy="name" formControlName="gender" optionLabel="name"
-                                                                    optionValue="code" [autoDisplayFirst]="false"></p-dropdown>
+                                                                    optionValue="code" [autoDisplayFirst]="false"></p-select>
                                                     </div>
                                                     <div *ngIf="submitted && f['gender']['errors']" class="UserInfoValidation">
                                                         <div *ngIf="f['gender']['errors']['required']">
@@ -699,10 +699,10 @@
                                                 <img class="bg-image text-center"
                                                     src="../../../uniprep-assets/images/icons/Uniprep_Icons_location.png"/>
                                             </div>
-                                            <p-dropdown [filter]="true"  appendTo="body" [options]="locationList"
+                                            <p-select [filter]="true"  appendTo="body" [options]="locationList"
                                                         formControlName="location_id" optionLabel="district"
                                                         optionValue="id">
-                                            </p-dropdown>
+                                            </p-select>
                                         </div>
                                         <div *ngIf="submitted && f.location_id.errors" class="invalid-feedback">
                                             <div *ngIf="f.location_id.errors.required">
@@ -753,8 +753,8 @@
                                                 <img class="bg-image text-center"
                                                     src="../../../uniprep-assets/images/icons/Uniprep_Icons_select_country.png"/>
                                             </div>
-                                            <p-dropdown formControlName="interested_country_id"  appendTo="body" [options]="countryList"
-                                                        filterBy="name" optionLabel="country" optionValue="id"></p-dropdown>
+                                            <p-select formControlName="interested_country_id"  appendTo="body" [options]="countryList"
+                                                        filterBy="name" optionLabel="country" optionValue="id"></p-select>
                                         </div>
                                         <div *ngIf="submitted && f.interested_country_id.errors" class="invalid-feedback">
                                             <div *ngIf="f.interested_country_id.errors.required">
@@ -826,9 +826,9 @@
                                                 <img class="bg-image text-center"
                                                     src="../../../uniprep-assets/images/icons/Uniprep_Icons_Program_Level.png"/>
                                             </div>
-                                            <p-dropdown [filter]="true" [options]="programlevelList" appendTo="body" 
+                                            <p-select [filter]="true" [options]="programlevelList" appendTo="body" 
                                             filterBy="programlevel" formControlName="programlevel_id" optionLabel="programlevel"
-                                                        optionValue="id"></p-dropdown>
+                                                        optionValue="id"></p-select>
                                         </div>
                                         <div *ngIf="submitted && f.programlevel_id.errors" class="invalid-feedback">
                                             <div *ngIf="f.programlevel_id.errors.required">
@@ -843,9 +843,9 @@
                                                 <img class="bg-image text-center"
                                                     src="../../../uniprep-assets/images/icons/Uniprep_Icons_gender.png"/>
                                             </div>
-                                            <p-dropdown [filter]="true" [options]="genderList" appendTo="body"
+                                            <p-select [filter]="true" [options]="genderList" appendTo="body"
                                                         filterBy="name" formControlName="gender" optionLabel="name"
-                                                        optionValue="code"></p-dropdown>
+                                                        optionValue="code"></p-select>
                                         </div>
                                         <div *ngIf="submitted && f.gender.errors" class="invalid-feedback">
                                             <div *ngIf="f.gender.errors.required">

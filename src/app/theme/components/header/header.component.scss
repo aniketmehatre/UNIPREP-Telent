@@ -253,13 +253,13 @@ form {
 
   .report-modal {
     .p-element {
-      .p-dropdown {
+      .p-select {
         width: 100%;
         margin-bottom: 15px;
       }
     }
 
-    .p-dropdown-panel {
+    .p-select-panel {
       margin-top: 0;
     }
 
@@ -434,7 +434,7 @@ $background-color_4: #fff;
   height: 100%;
 }
 
-.custom-dropdown .p-dropdown-panel {
+.custom-dropdown .p-select-panel {
   max-height: 200px;
 }
 

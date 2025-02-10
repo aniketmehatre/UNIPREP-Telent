@@ -34,9 +34,9 @@
                   </div>
                   <div class="col-md-6 w-100">
                     <ng-container *ngIf="recommendation.id == 1">
-                      <p-dropdown [(ngModel)]="selectedData[recommendation.id]" [options]="countryList"
+                      <p-select [(ngModel)]="selectedData[recommendation.id]" [options]="countryList"
                       styleClass="w-100" optionLabel="country" optionValue="id" [appendTo]="'body'" placeholder="Select the country">
-                    </p-dropdown>
+                    </p-select>
                       <div class="text-center" [ngClass]="{ 'd-none': inValidClass === false }" style="color: red">
                         Choose any one option 
                       </div>

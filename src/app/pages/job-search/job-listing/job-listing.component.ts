@@ -10,12 +10,13 @@ import {filter} from "rxjs";
 import { DropdownModule } from 'primeng/dropdown';
 import { CommonModule } from "@angular/common";
 import { DialogModule } from "primeng/dialog";
+import { SelectModule } from "primeng/select";
 @Component({
     selector: 'uni-job-listing',
     templateUrl: './job-listing.component.html',
     styleUrls: ['./job-listing.component.scss'],
     standalone: true,
-    imports: [DropdownModule, FormsModule, ReactiveFormsModule, CommonModule, DialogModule],
+    imports: [DropdownModule, FormsModule, ReactiveFormsModule, CommonModule, DialogModule, SelectModule],
 })
 export class JobListingComponent implements OnInit {
     jobs: any[] = [];

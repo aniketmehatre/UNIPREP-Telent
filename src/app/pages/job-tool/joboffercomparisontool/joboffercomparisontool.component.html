@@ -78,7 +78,7 @@
 
                                                                         <!-- Position -->
                                                                         <div class="mb-2">
-                                                                            <p-dropdown [style]="{'width':'100%'}"
+                                                                            <p-select [style]="{'width':'100%'}"
                                                                                 [options]="positions"
                                                                                 formControlName="position_title"
                                                                                 placeholder="Select a position"
@@ -89,7 +89,7 @@
                                                                                 [virtualScroll]="true"
                                                                                 [virtualScrollItemSize]="30"
                                                                                 [filter]="true" filterBy="jobrole">
-                                                                            </p-dropdown>
+                                                                            </p-select>
                                                                             <div *ngIf="info.get('position_title')?.touched && info.get('position_title')?.invalid"
                                                                                 class="text-danger mt-1">
                                                                                 Position is required.
@@ -98,7 +98,7 @@
 
                                                                         <!-- Job Location -->
                                                                         <div class="mb-2">
-                                                                            <p-dropdown [style]="{'width':'100%'}"
+                                                                            <p-select [style]="{'width':'100%'}"
                                                                                 styleClass="w-100"
                                                                                 placeholder="Select Location"
                                                                                 display="chip" optionLabel="city_name"
@@ -110,7 +110,7 @@
                                                                                 [options]="locations"
                                                                                 formControlName="location"
                                                                                 placeholder="Select a location"
-                                                                                [showClear]="true"></p-dropdown>
+                                                                                [showClear]="true"></p-select>
                                                                             <div *ngIf="info.get('location')?.touched && info.get('location')?.invalid"
                                                                                 class="text-danger mt-1">
                                                                                 Job Location is required.
@@ -174,7 +174,7 @@
                                                                             </div><!-- Salary --><!-- Currency -->
                                                                             <div class="col-md-12 d-flex mb-2">
                                                                                 <div class="col-md-5">
-                                                                                    <p-dropdown
+                                                                                    <p-select
                                                                                         [style]="{'width':'100%'}"
                                                                                         [options]="currencies"
                                                                                         formControlName="currency"
@@ -192,7 +192,7 @@
                                                                                                 {{data.currency_code}}
                                                                                             </div>
                                                                                         </ng-template>
-                                                                                    </p-dropdown>
+                                                                                    </p-select>
                                                                                     <div *ngIf="benefitsinfo.get('currency')?.touched && benefitsinfo.get('currency')?.invalid"
                                                                                         class="text-danger mt-1">
                                                                                         Currency is required.
@@ -274,14 +274,14 @@
                                                                             </div>
                                                                             <!-- Working Hours -->
                                                                             <div class="mb-2">
-                                                                                <p-dropdown [style]="{'width':'100%'}"
+                                                                                <p-select [style]="{'width':'100%'}"
                                                                                     [appendTo]="'body'"
                                                                                     [showClear]="true" display="chip"
                                                                                     optionLabel="time" optionValue="id"
                                                                                     [options]="workhours"
                                                                                     formControlName="work_hours"
                                                                                     placeholder="Working Hours"
-                                                                                    [showClear]="true"></p-dropdown>
+                                                                                    [showClear]="true"></p-select>
                                                                                 <div *ngIf="info.get('work_hours')?.touched && info.get('work_hours')?.invalid"
                                                                                     class="text-danger mt-1">
                                                                                     Working Hours is required.
@@ -289,7 +289,7 @@
                                                                             </div>
                                                                             <!-- Working Days -->
                                                                             <div class="mb-2">
-                                                                                <p-dropdown [style]="{'width':'100%'}"
+                                                                                <p-select [style]="{'width':'100%'}"
                                                                                     [appendTo]="'body'"
                                                                                     [showClear]="true" display="chip"
                                                                                     optionLabel="day" 
@@ -297,7 +297,7 @@
                                                                                     [options]="workingdays"
                                                                                     formControlName="working_days"
                                                                                     placeholder="Working Days"
-                                                                                    [showClear]="true"></p-dropdown>
+                                                                                    [showClear]="true"></p-select>
                                                                                 <div *ngIf="info.get('working_days')?.touched && info.get('working_days')?.invalid"
                                                                                     class="text-danger mt-1">
                                                                                     Working Days is required.
@@ -305,7 +305,7 @@
                                                                             </div>
                                                                             <!-- Employement Type -->
                                                                             <div class="mb-2">
-                                                                                <p-dropdown [style]="{'width':'100%'}"
+                                                                                <p-select [style]="{'width':'100%'}"
                                                                                     [appendTo]="'body'"
                                                                                     [showClear]="true" display="chip"
                                                                                     optionLabel="jobpreferences"
@@ -313,7 +313,7 @@
                                                                                     [options]="jobPreferences"
                                                                                     formControlName="employment_type"
                                                                                     placeholder="Employment Type"
-                                                                                    [showClear]="true"></p-dropdown>
+                                                                                    [showClear]="true"></p-select>
                                                                                 <div *ngIf="info.get('employment_type')?.touched && info.get('employment_type')?.invalid"
                                                                                     class="text-danger mt-1">
                                                                                     Employment Type is required.

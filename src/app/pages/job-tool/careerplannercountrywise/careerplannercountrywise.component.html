@@ -27,9 +27,9 @@
                 <div class="col-12 p-2">
                     <div class="form-group">
                         <h2>Which country are you interested in?</h2>
-                        <p-dropdown [options]="countries" styleClass="w-100 border-primary" formControlName="country"
+                        <p-select [options]="countries" styleClass="w-100 border-primary" formControlName="country"
                             optionValue="country" optionLabel="country" placeholder="Select Country" [filter]="true"
-                            [showClear]="true"> </p-dropdown>
+                            [showClear]="true"> </p-select>
                         <div *ngIf="submitted && form.get('country')?.hasError('required')" style="color: red;">
                             Country is required.
                         </div>
@@ -38,13 +38,13 @@
                 <div class="col-12 mt-4 p-2">
                     <div class="form-group">
                         <h2>Select Your Preferred Currency</h2>
-                        <p-dropdown [options]="countries" styleClass="w-100 border-primary" formControlName="currency"
+                        <p-select [options]="countries" styleClass="w-100 border-primary" formControlName="currency"
                             optionValue="currency_code" optionLabel="currency_code" placeholder="Select Currency"
                             [filter]="true" [showClear]="true">
                             <ng-template let-data pTemplate="item">
                                 <div>{{data.country}} - {{data.currency_code}}</div>
                             </ng-template> 
-                        </p-dropdown>
+                        </p-select>
                         <div *ngIf="submitted && form.get('currency')?.hasError('required')" style="color: red;">
                             Currency is required.
                         </div>

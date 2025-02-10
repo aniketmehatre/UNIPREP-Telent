@@ -1,15 +1,17 @@
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
+import { Router, RouterModule } from '@angular/router';
 import { PageFacadeService } from '../../page-facade.service';
 import { DomSanitizer } from '@angular/platform-browser';
 import { FounderstoolService } from '../founderstool.service';
 import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
-
+import { SelectModule } from 'primeng/select';
+import { CommonModule } from '@angular/common';
 @Component({
     selector: 'uni-wealthleaderslist',
     templateUrl: './wealthleaderslist.component.html',
     styleUrls: ['./wealthleaderslist.component.scss'],
-    standalone: false
+    standalone: true,
+    imports: [SelectModule, CommonModule, RouterModule],
 })
 export class WealthleaderslistComponent implements OnInit {
   valueNearYouFilter: string = '';

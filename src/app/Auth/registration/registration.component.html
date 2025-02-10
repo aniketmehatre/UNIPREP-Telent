@@ -106,7 +106,7 @@
 																	<div class="p-inputgroup-addon">
 																		<img class="bg-image text-center" src="../../../uniprep-assets/images/icons/Uniprep_Icons_select_country.png" />
 																	</div>
-																	<p-dropdown styleClass="w-100" formControlName="home_country" appendTo="body" [options]="countryList" [filter]="true" (onChange)="changeLocation($event)" filterBy="country" optionLabel="country" optionValue="id" [autoDisplayFirst]="false"></p-dropdown>
+																	<p-select styleClass="w-100" formControlName="home_country" appendTo="body" [options]="countryList" [filter]="true" (onChange)="changeLocation($event)" filterBy="country" optionLabel="country" optionValue="id" [autoDisplayFirst]="false"></p-select>
 																</div>
 																<div *ngIf="submitted && f['home_country']['errors']" class="UserInfoValidation">
 																	<div style="color: red" *ngIf="f['home_country']['errors']['required']">Country is required</div>
