@@ -20,9 +20,12 @@ import { CommonModule } from "@angular/common"
 import { InputIconModule } from "primeng/inputicon"
 import { SocialLoginModule, SocialAuthServiceConfig } from "@abacritt/angularx-social-login"
 import { PasswordModule } from "primeng/password"
+import { FluidModule } from 'primeng/fluid';
+
 @Component({
 	selector: "app-login",
 	templateUrl: "./login.component.html",
+
 	styleUrls: ["./login.component.scss"],
 	schemas: [CUSTOM_ELEMENTS_SCHEMA],
 	standalone: true,
