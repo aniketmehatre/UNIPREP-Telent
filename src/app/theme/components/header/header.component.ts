@@ -38,7 +38,6 @@ import { TabViewModule } from "primeng/tabview";
   imports: [
     CommonModule, 
     DialogModule, 
-    TabPanel, 
     TabViewModule, 
     // OverlayPanelModule, 
     TabsModule,

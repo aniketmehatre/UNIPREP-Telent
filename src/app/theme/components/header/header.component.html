@@ -849,63 +849,56 @@
 			<i class="pi pi-cog"></i>
 		</div>
 		<div class="card-body">
-			<p-tabs value="0">
-				<p-tablist>
-					<p-tab value="0">Overall</p-tab>
-					<p-tab value="1">Archive</p-tab>
-					<p-tab value="2">Orders</p-tab>
-				</p-tablist>
-				<p-tabpanels>
-					<p-tabpanel value="0">
-						<div class="list-group">
-							<div class="list-group-item d-flex justify-content-between align-items-center">
-								<i class="pi pi-lock"></i>
-								<div>
-									<h5>Your Password has been successfully changed.</h5>
-									<small>June 21, 2023 at 03:13 PM</small>
-								</div>
-							</div>
-
-							<div class="list-group-item isread d-flex justify-content-between align-items-center">
-								<i class="fa-regular fa-crown"></i>
-								<div>
-									<h5>Your Subscription has been successfully renewed.</h5>
-									<small>June 21, 2023 at 03:13 PM</small>
-								</div>
-							</div>
-
-							<div class="list-group-item d-flex align-items-center">
-								<i class="deafult-icon fa-solid fa-check"></i>
-								<div>
-									<h5>You have 1 chat credit remaining</h5>
-									<div><button class="btn btn-primary btn-sm">Use Now</button></div>
-									<small>June 20, 2023 at 03:13 PM</small>
-								</div>
-							</div>
-
-							<div class="list-group-item d-flex align-items-center">
-								<i class="deafult-icon fa-solid fa-check"></i>
-								<div>
-									<h5>You have completed the Pre-Application Quiz Successfully.</h5>
-									<small>June 20, 2023 at 03:13 PM</small>
-								</div>
+			<p-tabView>
+				<p-tabPanel header="Overall">
+					<div class="list-group">
+						<div class="list-group-item d-flex justify-content-between align-items-center">
+							<i class="pi pi-lock"></i>
+							<div>
+								<h5>Your Password has been successfully changed.</h5>
+								<small>June 21, 2023 at 03:13 PM</small>
 							</div>
 						</div>
-					</p-tabpanel>
 
-					<p-tabpanel value="1">
-						<div class="text-center py-4">
-							<p>No archived notifications available.</p>
+						<div class="list-group-item isread d-flex justify-content-between align-items-center">
+							<i class="fa-regular fa-crown"></i>
+							<div>
+								<h5>Your Subscription has been successfully renewed.</h5>
+								<small>June 21, 2023 at 03:13 PM</small>
+							</div>
 						</div>
-					</p-tabpanel>
 
-					<p-tabpanel value="2">
-						<div class="text-center py-4">
-							<p>No order-related notifications available.</p>
+						<div class="list-group-item d-flex align-items-center">
+							<i class="deafult-icon fa-solid fa-check"></i>
+							<div>
+								<h5>You have 1 chat credit remaining</h5>
+								<div><button class="btn btn-primary btn-sm">Use Now</button></div>
+								<small>June 20, 2023 at 03:13 PM</small>
+							</div>
 						</div>
-					</p-tabpanel>
-				</p-tabpanels>
-			</p-tabs>
+
+						<div class="list-group-item d-flex align-items-center">
+							<i class="deafult-icon fa-solid fa-check"></i>
+							<div>
+								<h5>You have completed the Pre-Application Quiz Successfully.</h5>
+								<small>June 20, 2023 at 03:13 PM</small>
+							</div>
+						</div>
+					</div>
+				</p-tabPanel>
+
+				<p-tabPanel header="Archive">
+					<div class="text-center py-4">
+						<p>No archived notifications available.</p>
+					</div>
+				</p-tabPanel>
+
+				<p-tabPanel header="Orders">
+					<div class="text-center py-4">
+						<p>No order-related notifications available.</p>
+					</div>
+				</p-tabPanel>
+			</p-tabView>
 		</div>
 		<div class="card-footer">
 			<div class="view-all">
