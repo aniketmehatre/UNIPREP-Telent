@@ -25,6 +25,7 @@
     "@awesome.me/kit-e84fad3bc1": "^1.0.11",
     "@fortawesome/angular-fontawesome": "^1.0.0",
     "@ngrx/effects": "^19.0.1",
+    "@ngrx/entity": "^19.0.1",
     "@ngrx/store": "^19.0.1",
     "@ngrx/store-devtools": "^19.0.1",
     "@ngx-meta/core": "^9.0.0",
