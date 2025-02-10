@@ -1,5 +1,5 @@
 import { provideHttpClient, withFetch, withInterceptors, withInterceptorsFromDi } from "@angular/common/http"
-import { ApplicationConfig, importProvidersFrom } from "@angular/core"
+import { ApplicationConfig, importProvidersFrom, isDevMode } from "@angular/core"
 import { provideAnimationsAsync } from "@angular/platform-browser/animations/async"
 import { RouterModule, Routes, provideRouter, withEnabledBlockingInitialNavigation, withInMemoryScrolling, withViewTransitions } from "@angular/router"
 import { providePrimeNG } from "primeng/config"
@@ -30,6 +30,7 @@ import { EffectsModule } from '@ngrx/effects';
 import { NgxIntlTelInputModule } from 'ngx-intl-tel-input';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { provideClientHydration } from '@angular/platform-browser';
+import { provideServiceWorker } from '@angular/service-worker';
 import MyPreset from "./mypreset"
 
 // Assuming ngxLocalstorageConfiguration is properly defined elsewhere in your code
@@ -66,6 +67,10 @@ export const appConfig: ApplicationConfig = {
       BrowserAnimationsModule,
       NgxIntlTelInputModule
     ),
+    provideServiceWorker('ngsw-worker.js', {
+      enabled: !isDevMode(),
+      registrationStrategy: 'registerWhenStable:30000'
+    }),
     provideStoreDevtools({
       maxAge: 25,
       logOnly: environment.production,
