@@ -76,36 +76,43 @@ export class AuthService {
       preview: token ? `${token.substring(0, 20)}...` : 'none'
     });
     
+    // Base headers that should be present in all requests
+    let headers = new HttpHeaders()
+      .set('Accept', 'application/json')
+      .set('Content-Type', 'application/json');
+    
     if (!token) {
       console.warn('GetAuthHeaders - No token available for request');
-      return new HttpHeaders({
-        'Accept': 'application/json',
-        'Content-Type': 'application/json'
+      return headers;
+    }
+
+    try {
+      // Clean the token and ensure proper format
+      const cleanToken = token.replace(/['"]+/g, '').trim();
+      const bearerToken = cleanToken.startsWith('Bearer ') ? cleanToken : `Bearer ${cleanToken}`;
+      
+      // Add authorization header
+      headers = headers.set('Authorization', bearerToken);
+      
+      // Verify headers were set correctly
+      const finalAuthHeader = headers.get('Authorization');
+      console.debug('GetAuthHeaders - Final headers:', {
+        auth: finalAuthHeader,
+        contentType: headers.get('Content-Type'),
+        accept: headers.get('Accept')
       });
+
+      if (!finalAuthHeader || !finalAuthHeader.startsWith('Bearer ')) {
+        console.error('GetAuthHeaders - Authorization header not set correctly:', finalAuthHeader);
+        throw new Error('Failed to set Authorization header correctly');
+      }
+
+      return headers;
+    } catch (error) {
+      console.error('GetAuthHeaders - Error setting headers:', error);
+      // Return headers without authorization if there was an error
+      return headers;
     }
-
-    // Ensure token is properly formatted
-    const bearerToken = token.startsWith('Bearer ') ? token : `Bearer ${token}`;
-    
-    // Create headers with all required fields
-    const headers = new HttpHeaders()
-      .set('Accept', 'application/json')
-      .set('Content-Type', 'application/json')
-      .set('Authorization', bearerToken);
-    
-    // Verify headers were set correctly
-    const finalAuthHeader = headers.get('Authorization');
-    console.debug('GetAuthHeaders - Final headers:', {
-      auth: finalAuthHeader,
-      contentType: headers.get('Content-Type'),
-      accept: headers.get('Accept')
-    });
-
-    if (!finalAuthHeader || !finalAuthHeader.startsWith('Bearer ')) {
-      console.error('GetAuthHeaders - Authorization header not set correctly:', finalAuthHeader);
-    }
-
-    return headers;
   }
 
   set user(u: User | null) {

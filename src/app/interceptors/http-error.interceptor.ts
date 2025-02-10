@@ -1,5 +1,5 @@
 import { HttpEvent, HttpHandlerFn, HttpInterceptorFn, HttpRequest, HttpErrorResponse } from "@angular/common/http";
-import { catchError, Observable, tap, throwError, timeout, retry } from "rxjs";
+import { catchError, Observable, tap, throwError, timeout, retry, finalize } from "rxjs";
 import { MessageService } from "primeng/api";
 import { NgxUiLoaderService } from "ngx-ui-loader";
 import { Router } from "@angular/router";
@@ -13,7 +13,7 @@ const ngxLocalstorageConfiguration = NGX_LOCAL_STORAGE_CONFIG as unknown as { pr
 export const HttpErrorInterceptor: HttpInterceptorFn = (
   request: HttpRequest<unknown>,
   next: HttpHandlerFn
-): Observable<HttpEvent<unknown>> => {
+) => {
   const toastr = inject(MessageService);
   const ngxService = inject(NgxUiLoaderService);
   const router = inject(Router);
@@ -30,27 +30,32 @@ export const HttpErrorInterceptor: HttpInterceptorFn = (
     console.debug('Interceptor - Token exists:', !!token);
     
     if (token) {
-      // Clean the token
-      const cleanToken = token.replace(/['"]+/g, '').trim();
-      
-      // Only add token if it's not already in the headers
-      if (!request.headers.has('Authorization')) {
-        request = request.clone({
-          setHeaders: {
-            'Authorization': `Bearer ${cleanToken}`,
-            'Accept': 'application/json',
-            'Content-Type': 'application/json'
-          }
-        });
-        console.debug('Interceptor - Added auth header');
-      } else {
-        console.debug('Interceptor - Auth header already exists');
+      try {
+        // Clean the token
+        const cleanToken = token.replace(/['"]+/g, '').trim();
+        
+        // Only add token if it's not already in the headers
+        if (!request.headers.has('Authorization')) {
+          request = request.clone({
+            setHeaders: {
+              'Authorization': `Bearer ${cleanToken}`,
+              'Accept': 'application/json',
+              'Content-Type': 'application/json'
+            }
+          });
+          console.debug('Interceptor - Added auth header');
+        } else {
+          console.debug('Interceptor - Auth header already exists');
+        }
+      } catch (error) {
+        console.error('Interceptor - Error setting auth header:', error);
       }
     } else {
       console.debug('Interceptor - No token available');
     }
   }
 
+  // Start loader for non-background requests
   if (
     !request.url.includes("country") &&
     !request.url.includes("getuserdetails") &&
@@ -65,7 +70,7 @@ export const HttpErrorInterceptor: HttpInterceptorFn = (
       ngxService.startBackground();
     }
   }
-  
+
   return next(request).pipe(
     timeout(30000), // 30 second timeout
     retry(2), // Retry failed requests up to 2 times
@@ -75,39 +80,34 @@ export const HttpErrorInterceptor: HttpInterceptorFn = (
       }
     }),
     catchError((error: HttpErrorResponse) => {
+      console.error('HTTP Error:', error);
+      
+      // Handle 401 Unauthorized errors
+      if (error.status === 401) {
+        console.debug('Interceptor - 401 error detected');
+        
+        // Clear token and redirect to login
+        const tokenKey = `${ngxLocalstorageConfiguration.prefix}${ngxLocalstorageConfiguration.delimiter}${environment.tokenKey}`;
+        localStorage.removeItem(tokenKey);
+        
+        if (!currentUrl.includes('login')) {
+          router.navigate(['/login']);
+        }
+        
+        toastr.add({
+          severity: 'error',
+          summary: 'Session Expired',
+          detail: 'Please login again'
+        });
+      }
+      
+      // Stop loader
       ngxService.stopBackground();
       
-      let errorMessage = 'An error occurred';
-      
-      if (error.error instanceof ErrorEvent) {
-        // Client-side error
-        errorMessage = error.error.message;
-      } else {
-        // Server-side error
-        if (error.status === 401) {
-          console.debug('Interceptor - 401 error, clearing token and redirecting to login');
-          // Clear tokens on 401
-          localStorage.removeItem(environment.tokenKey);
-          const tokenKey = `${ngxLocalstorageConfiguration.prefix}${ngxLocalstorageConfiguration.delimiter}${environment.tokenKey}`;
-          localStorage.removeItem(tokenKey);
-          
-          errorMessage = 'Authentication failed. Please login again.';
-          router.navigate(['/login']);
-        } else if (error.status === 408) {
-          errorMessage = 'Request timed out. Please try again.';
-        } else {
-          errorMessage = error.error?.message || 'Server error occurred';
-        }
-      }
-
-      toastr.add({
-        severity: 'error',
-        summary: 'Error',
-        detail: errorMessage,
-        life: 3000
-      });
-
       return throwError(() => error);
+    }),
+    finalize(() => {
+      ngxService.stopBackground();
     })
   );
 };

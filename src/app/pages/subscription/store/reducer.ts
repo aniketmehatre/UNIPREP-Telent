@@ -13,10 +13,11 @@ export interface SubscriptionState {
     plans: SubscriptionPlan[];
     loading: boolean;
     orderid: string;
-    billinginfo:  Billinginfo | null;
+    billinginfo: Billinginfo | null;
     subscription: Subscription | null;
     orderHistory: OrderHistory[];
 }
+
 export const initialState: SubscriptionState = {
     plans: [],
     loading: false,
@@ -24,14 +25,38 @@ export const initialState: SubscriptionState = {
     billinginfo: null,
     subscription: null,
     orderHistory: []
-}
+};
+
 export const subscriptionReducer = createReducer(
     initialState,
-    on(loadSubscriptionPlans, (state) => ({...state, plans: []})),
-    on(loadSubscriptionPlansSuccess, (state, payload) => ({...state, plans: payload.subscriptions.subscriptions})),
-    on(placeorder, (state) => ({...state, loading: true, orderid: ''})),
-    on(placeorderSuccess, (state, payload) => ({...state, orderid: payload.data.orderid})),
-    on(placeorderFailure, (state, payload) => ({...state, loading: false, orderid: ''})),
-    on(doneLoading, (state, payload) => ({...state, loading: false, orderid: ''})),
-    on(loadSubDetailsSuccess, (state, payload) => ({...state, billinginfo: payload.data.billinginfo, subscription: payload.data.subscription, orderHistory: payload.data.orderHistory})),
+    on(loadSubscriptionPlans, (state): SubscriptionState => ({...state, plans: []})),
+    on(loadSubscriptionPlansSuccess, (state, {subscriptions}): SubscriptionState => ({
+        ...state, 
+        plans: subscriptions.subscriptions
+    })),
+    on(placeorder, (state): SubscriptionState => ({
+        ...state, 
+        loading: true, 
+        orderid: ''
+    })),
+    on(placeorderSuccess, (state, {data}): SubscriptionState => ({
+        ...state, 
+        orderid: data.orderid
+    })),
+    on(placeorderFailure, (state): SubscriptionState => ({
+        ...state, 
+        loading: false, 
+        orderid: ''
+    })),
+    on(doneLoading, (state): SubscriptionState => ({
+        ...state, 
+        loading: false, 
+        orderid: ''
+    })),
+    on(loadSubDetailsSuccess, (state, {data}): SubscriptionState => ({
+        ...state, 
+        billinginfo: data.billinginfo, 
+        subscription: data.subscription, 
+        orderHistory: data.orderHistory
+    }))
 );

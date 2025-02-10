@@ -3,11 +3,36 @@ import {SubscriptionState} from "./reducer";
 
 export const subscriptionFeatureKey = 'subscriptionFeatureKey';
 
-const featureSelect = createFeatureSelector<SubscriptionState>(subscriptionFeatureKey);
+export const selectSubscriptionState = createFeatureSelector<SubscriptionState>(
+    subscriptionFeatureKey
+);
 
-export const selectPlans$ = createSelector(featureSelect, (state) => state.plans);
-export const selectLoading$ = createSelector(featureSelect, (state) => state.loading);
-export const selectOrderId$ = createSelector(featureSelect, (state) => state.orderid);
-export const selectBillingInfo$ = createSelector(featureSelect, (state) => state.billinginfo);
-export const selectSubscriptionDetail$ = createSelector(featureSelect, (state) => state.subscription);
-export const selectOrderHistory$ = createSelector(featureSelect, (state) => state.orderHistory);
+export const selectPlans = createSelector(
+    selectSubscriptionState,
+    (state: SubscriptionState) => state.plans
+);
+
+export const selectLoading = createSelector(
+    selectSubscriptionState,
+    (state: SubscriptionState) => state.loading
+);
+
+export const selectOrderId = createSelector(
+    selectSubscriptionState,
+    (state: SubscriptionState) => state.orderid
+);
+
+export const selectBillingInfo = createSelector(
+    selectSubscriptionState,
+    (state: SubscriptionState) => state.billinginfo
+);
+
+export const selectSubscriptionDetail = createSelector(
+    selectSubscriptionState,
+    (state: SubscriptionState) => state.subscription
+);
+
+export const selectOrderHistory = createSelector(
+    selectSubscriptionState,
+    (state: SubscriptionState) => state.orderHistory
+);

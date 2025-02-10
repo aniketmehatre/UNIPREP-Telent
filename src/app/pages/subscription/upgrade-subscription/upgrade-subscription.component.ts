@@ -17,6 +17,9 @@ import { AuthService } from "src/app/Auth/auth.service";
 import { ConfirmationService, MenuItem, MessageService } from "primeng/api";
 import { SubscriptionService } from "../subscription.service";
 import { User } from "src/app/@Models/user.model";
+import { Store } from "@ngrx/store";
+import { SubscriptionState } from "../store/reducer";
+import { selectPlans, selectLoading } from "../store/selectors";
 
 import { LocalStorageService } from "ngx-localstorage";
 import { NgxUiLoaderService } from "ngx-ui-loader";
@@ -87,7 +90,7 @@ export class UpgradeSubscriptionComponent implements OnInit {
     private ngxService: NgxUiLoaderService,
     private router: Router,
     private winRef: WindowRefService,
-    private authservice: AuthService,
+    private store: Store<SubscriptionState>,
     private http: HttpClient,
     private confirmationService: ConfirmationService,
     private messageService: MessageService,
@@ -96,37 +99,110 @@ export class UpgradeSubscriptionComponent implements OnInit {
   timeLeftInfoCard: any;
   userName: any;
   ngOnInit(): void {
-    //this.getLocation();
-    const encryptedData = localStorage.getItem("Name");
-    if (encryptedData) {
-      const bytes = CryptoJS.AES.decrypt(encryptedData, environment.secretKeySalt);
-      this.userName = JSON.parse(bytes.toString(CryptoJS.enc.Utf8));
-    }
-    let homeCountryName;
-    const encHomeCountryName = localStorage.getItem("home_country_name");
-    if (encHomeCountryName) {
-      const bytes = CryptoJS.AES.decrypt(encHomeCountryName, environment.secretKeySalt);
-      homeCountryName = JSON.parse(bytes.toString(CryptoJS.enc.Utf8));
-    }
-    this.timeLeftInfoCard = localStorage.getItem("time_card_info");
-    this.currentCountry=String(homeCountryName);
-    this.loadExistingSubscription();
-    this.discountAmountEnable = false;
-    this.user = this.authService.user;
-    this.education_level = this.user?.education_level?.replace(/[\s\u00A0]/g, '').trim() || 'HigherEducation';
-    this.studentType = this.user?.student_type_id || 0;
-    this.ngxService.startBackground();
-    this.authService.getCountry().subscribe(
-      (data) => {
-        this.ngxService.stopBackground();
-        this.countryList = data;
-
-        // this.getSubscriptionTopupList();
-      },
-      (error) => {
-        this.ngxService.stopBackground();
+    try {
+      // Handle userName decryption with better error handling
+      let userName = '';
+      const encryptedName = localStorage.getItem("Name");
+      
+      if (encryptedName) {
+        try {
+          const bytes = CryptoJS.AES.decrypt(encryptedName, environment.secretKeySalt);
+          const decryptedText = bytes.toString(CryptoJS.enc.Utf8);
+          
+          if (decryptedText && decryptedText.trim() !== '') {
+            try {
+              // Only parse if it looks like JSON
+              if (decryptedText.startsWith('{') || decryptedText.startsWith('[') || 
+                  decryptedText.startsWith('"')) {
+                userName = JSON.parse(decryptedText);
+              } else {
+                // If not JSON, use the decrypted text directly
+                userName = decryptedText;
+              }
+            } catch (parseError) {
+              console.warn('Name data is not in JSON format, using as plain text');
+              userName = decryptedText;
+            }
+          }
+        } catch (decryptError) {
+          console.warn('Could not decrypt name, using fallback');
+          // Try to get name from user object as fallback
+          userName = this.authService.user?.name || '';
+        }
       }
-    );
+      this.userName = userName || 'User';
+
+      // Handle homeCountryName decryption with better error handling
+      let homeCountryName = 'India'; // Default fallback
+      const encHomeCountryName = localStorage.getItem("home_country_name");
+      
+      if (encHomeCountryName) {
+        try {
+          const bytes = CryptoJS.AES.decrypt(encHomeCountryName, environment.secretKeySalt);
+          const decryptedText = bytes.toString(CryptoJS.enc.Utf8);
+          
+          if (decryptedText && decryptedText.trim() !== '') {
+            try {
+              // Only parse if it looks like JSON
+              if (decryptedText.startsWith('{') || decryptedText.startsWith('[') || 
+                  decryptedText.startsWith('"')) {
+                homeCountryName = JSON.parse(decryptedText);
+              } else {
+                // If not JSON, use the decrypted text directly
+                homeCountryName = decryptedText;
+              }
+            } catch (parseError) {
+              console.warn('Home country data is not in JSON format, using as plain text');
+              homeCountryName = decryptedText;
+            }
+          }
+        } catch (decryptError) {
+          console.warn('Could not decrypt home country, using default');
+          // Try to get country from user object as fallback
+          homeCountryName = this.authService.user?.country || 'India';
+        }
+      }
+
+      this.timeLeftInfoCard = localStorage.getItem("time_card_info");
+      this.currentCountry = homeCountryName ? String(homeCountryName) : 'India';
+      this.discountAmountEnable = false;
+      this.user = this.authService.user;
+      this.education_level = this.user?.education_level?.replace(/[\s\u00A0]/g, '').trim() || 'HigherEducation';
+      this.studentType = this.user?.student_type_id || 0;
+      
+      // Load existing subscription which will then load the subscription plans
+      this.loadExistingSubscription();
+      
+      // Load country list
+      this.ngxService.startBackground();
+      this.authService.getCountry().subscribe({
+        next: (data) => {
+          this.countryList = data;
+          this.ngxService.stopBackground();
+        },
+        error: (error) => {
+          console.error('Error fetching country data:', error);
+          this.toast.add({
+            severity: 'error',
+            summary: 'Error',
+            detail: 'Failed to load country list'
+          });
+          this.ngxService.stopBackground();
+        }
+      });
+    } catch (error) {
+      console.error('Error in upgrade subscription initialization:', error);
+      // Set safe fallback values
+      this.currentCountry = 'India';
+      this.userName = 'User';
+      this.education_level = 'HigherEducation';
+      this.studentType = 0;
+      this.user = this.authService.user;
+      this.ngxService.stopBackground();
+      
+      // Still try to load essential data
+      this.loadExistingSubscription();
+    }
   }
   get URL() {
     return `${environment.ApiUrl}/downloadinvoice`;
@@ -140,68 +216,47 @@ export class UpgradeSubscriptionComponent implements OnInit {
   }
 
   getSubscriptionList(canChangeSubscription: string) {
-    let data: any = {
+    this.ngxService.startBackground();
+    const data = {
       page: 1,
       perpage: 1000,
       studenttype: this.studentType,
       country: this.currentCountry,
       continent: this.continent,
-      monthly_plan: this.studentType==2?12:this.monthlyPlan,
+      monthly_plan: this.monthlyPlan,
       study_level: this.user?.education_level
     };
 
-    this.subscriptionService.getSubscriptions(data).subscribe((response) => {
-      const mostPopularOnes = response.subscriptions.filter(
-        (item: any) => item.popular === 1
-      );
-      const filteredData = response.subscriptions.filter(
-        (item: any) => item.popular !== 1
-      );
-      filteredData.splice(1, 0, ...mostPopularOnes);
-      this.subscriptionList = filteredData;
-      this.subscriptionList.map((item: any) => (this.currency = item.currency));
-      if (!this.isPlanExpired) {
-        if (canChangeSubscription == "canSubscribeAll") {
-          this.subscriptionList.map((item: any) => {
-            item.available = true;
-            if (
-              this.existingSubscription[0]?.plan == "Entrepreneur" &&
-              item.subscription_plan != "Entrepreneur"
-            ) {
-              item.available = false;
-            }
-            if (
-              this.existingSubscription[0]?.plan == "Career" &&
-              item.subscription_plan == "Student"
-            ) {
-              item.available = false;
-            }
-          });
-        }
-        if (canChangeSubscription == "canSubscribeSome") {
-          this.subscriptionList.map((item: any) => {
-            item.available = false;
-            if (
-              this.existingSubscription[0]?.plan == "Student" &&
-              item.subscription_plan != "Student"
-            ) {
-              item.available = true;
-            }
-            if (
-              this.existingSubscription[0]?.plan == "Career" &&
-              item.subscription_plan == "Entrepreneur"
-            ) {
-              item.available = true;
-            }
-            if (this.existingSubscription[0].plan == "Entrepreneur") {
-              item.available = false;
-            }
-          });
-        }
-      } else {
-        this.subscriptionList.map((item: any) => (item.available = true));
+    this.subscriptionService.getSubscriptions(data).subscribe({
+      next: (response) => {
+        // Sort and organize subscription data
+        const mostPopularOnes = response.subscriptions.filter(
+          (item: any) => item.popular === 1
+        );
+        const filteredData = response.subscriptions.filter(
+          (item: any) => item.popular !== 1
+        );
+        filteredData.splice(1, 0, ...mostPopularOnes);
+        
+        this.subscriptionList = filteredData;
+        this.subscriptionList.map(
+          (item: any) => (this.currency = item.currency)
+        );
+        this.plansLoaded = true;
+        
+        // Get plan expiry status
+        this.getPlanexpire();
+        this.ngxService.stopBackground();
+      },
+      error: (error) => {
+        console.error('Error loading subscription plans:', error);
+        this.toast.add({
+          severity: 'error',
+          summary: 'Error',
+          detail: 'Failed to load subscription plans'
+        });
+        this.ngxService.stopBackground();
       }
-      this.plansLoaded = true;
     });
   }
 
@@ -268,62 +323,50 @@ export class UpgradeSubscriptionComponent implements OnInit {
   // }
 
   loadExistingSubscription() {
+    this.ngxService.startBackground();
     this.subscriptionService
       .getExistingSubscription()
-      .subscribe((response: any) => {
-        this.existingSubscription = response.subscription;
-        this.existingSubscription.map(
-          (plan) =>
-          (plan.subscriptionDays = plan.remainingdays
-            .split("-")[0]
-            .trim()
-            .replace(/\D/g, ""))
-        );
-        if (this.existingSubscription[0].subscriptionDays == 90) {
-          this.monthlyPlan = 3;
-          this.existingSubscription[0].monthlyPlan = 3;
-          //this.activeTabIndex = 0;
-        } else if (this.existingSubscription[0].subscriptionDays == 180) {
-          this.monthlyPlan = 6;
-          this.existingSubscription[0].monthlyPlan = 6;
-          //this.activeTabIndex = 1;
-          this.activeTabIndex = 0;
-        } else {
-          this.monthlyPlan = 12;
-          this.existingSubscription[0].monthlyPlan = 12;
-          //this.activeTabIndex = 2;
-          this.activeTabIndex = 1;
-        }
-        let data = {
-          page: 1,
-          perpage: 1000,
-          studenttype: this.studentType,
-          country: this.currentCountry,
-          continent: this.continent,
-          monthly_plan: this.monthlyPlan,
-          study_level: this.user?.education_level
-        };
-        this.subscriptionService
-          .getSubscriptions(data)
-          .subscribe((response) => {
-            const mostPopularOnes = response.subscriptions.filter(
-              (item: any) => item.popular === 1
-            );
-            const filteredData = response.subscriptions.filter(
-              (item: any) => item.popular !== 1
-            );
-            filteredData.splice(1, 0, ...mostPopularOnes);
-            this.subscriptionList = filteredData;
-            this.subscriptionList.map(
-              (item: any) => (this.currency = item.currency)
-            );
-            this.plansLoaded = true;
-            this.getPlanexpire();
+      .subscribe({
+        next: (response: any) => {
+          this.existingSubscription = response.subscription;
+          this.existingSubscription.map(
+            (plan) =>
+            (plan.subscriptionDays = plan.remainingdays
+              .split("-")[0]
+              .trim()
+              .replace(/\D/g, ""))
+          );
+          
+          // Set monthly plan based on subscription days
+          if (this.existingSubscription[0].subscriptionDays == 90) {
+            this.monthlyPlan = 3;
+            this.existingSubscription[0].monthlyPlan = 3;
+          } else if (this.existingSubscription[0].subscriptionDays == 180) {
+            this.monthlyPlan = 6;
+            this.existingSubscription[0].monthlyPlan = 6;
+            this.activeTabIndex = 0;
+          } else {
+            this.monthlyPlan = 12;
+            this.existingSubscription[0].monthlyPlan = 12;
+            this.activeTabIndex = 1;
+          }
+
+          // Get subscription list with proper parameters
+          this.getSubscriptionList('initial');
+        },
+        error: (error) => {
+          console.error('Error loading existing subscription:', error);
+          this.toast.add({
+            severity: 'error',
+            summary: 'Error',
+            detail: 'Failed to load existing subscription'
           });
+          this.ngxService.stopBackground();
+        }
       });
   }
   getPlanexpire() {
-    this.authservice.getNewUserTimeLeft().subscribe((res) => {
+    this.authService.getNewUserTimeLeft().subscribe((res) => {
       this.isPlanExpired =
         res.time_left.plan == "subscription_expired" ? true : false;
       if (this.isPlanExpired) {
@@ -620,7 +663,7 @@ export class UpgradeSubscriptionComponent implements OnInit {
         paymentid: response?.razorpay_payment_id,
       };
 
-      this.authservice.updateSubscriptionName(
+      this.authService.updateSubscriptionName(
         this.selectedSubscriptionDetails?.subscription || ""
       );
 
@@ -836,5 +879,53 @@ export class UpgradeSubscriptionComponent implements OnInit {
           }
         }
       });
+  }
+
+  loadSubscriptionPlans() {
+    console.log('UpgradeSubscription: Starting to load subscription plans');
+    this.ngxService.startBackground();
+    
+    // Dispatch the action to load plans
+    this.subscriptionService.loadSubscriptionList();
+    console.log('UpgradeSubscription: Dispatched loadSubscriptionList action');
+    
+    // Subscribe to the plans selector
+    this.store.select(selectPlans).subscribe({
+      next: (data) => {
+        console.log('UpgradeSubscription: Received plans data:', data);
+        if (data) {
+          this.subscriptionList = data;
+          this.plansLoaded = true;
+          console.log('UpgradeSubscription: Plans loaded successfully');
+        }
+        this.ngxService.stopBackground();
+      },
+      error: (error) => {
+        console.error('UpgradeSubscription: Error loading plans:', error);
+        this.ngxService.stopBackground();
+        // Show error toast
+        this.messageService.add({
+          severity: 'error',
+          summary: 'Error',
+          detail: 'Failed to load subscription plans. Please try again.'
+        });
+      }
+    });
+
+    // Subscribe to loading state to handle the loader
+    this.store.select(selectLoading).subscribe({
+      next: (loading) => {
+        console.log('UpgradeSubscription: Loading state changed:', loading);
+        if (loading) {
+          this.ngxService.startBackground();
+        } else {
+          this.ngxService.stopBackground();
+        }
+      },
+      error: (error) => {
+        console.error('UpgradeSubscription: Error in loading state:', error);
+        this.ngxService.stopBackground();
+      }
+    });
   }
 }
