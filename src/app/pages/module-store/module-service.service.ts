@@ -117,7 +117,6 @@ export class ModuleServiceService {
     return this.http.get(environment.ApiUrl + "/getSubmodulesAndSpecialization", { headers }) 
     .pipe(
       tap((response:any) => {
-        console.log("API Response: ", response);
         this.getSubmodulesSpecialization.next(response);
       })
     );

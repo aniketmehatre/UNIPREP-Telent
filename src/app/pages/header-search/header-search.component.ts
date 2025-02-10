@@ -1,8 +1,9 @@
 import {
   Component,
-  ElementRef, HostListener,
+  ElementRef, EventEmitter, HostListener,
   OnDestroy,
   OnInit,
+  Output,
   Renderer2,
   ViewChild
 } from '@angular/core';
@@ -73,6 +74,7 @@ export class HeaderSearchComponent implements OnInit, OnDestroy {
   flobalsearchbuttonname="Module"
   currentRoute: string = '';
   isButtonShowOnlyModulesMenus:boolean=false;
+  @Output() windowChange = new EventEmitter();
   constructor(private dashboardService: DashboardService, private dataService: DataService, private moduleStoreService: ModuleStoreService,
     private toastr: MessageService, private moduleListService: ModuleServiceService,    private sanitizer: DomSanitizer,
     private locationService: LocationService, private route: Router, private elementRef: ElementRef,
@@ -147,6 +149,9 @@ export class HeaderSearchComponent implements OnInit, OnDestroy {
       }
     ];
     this.enableReadingData();
+  }
+  showModuleSearchBare() {
+    this.windowChange.emit({ stage: "modulesearch" });
   }
   moduleDatasWithurl(){
     this.currentRoute = this.route.url;
