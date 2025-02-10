@@ -1,16 +1,13 @@
-import { Component, ElementRef, Input, OnDestroy, OnInit, ViewChild, CUSTOM_ELEMENTS_SCHEMA } from "@angular/core"
+import { Component, ElementRef, OnDestroy, OnInit, ViewChild, CUSTOM_ELEMENTS_SCHEMA } from "@angular/core"
 import { FormGroup, Validators, FormBuilder, FormsModule, ReactiveFormsModule } from "@angular/forms"
 import { Router, RouterModule } from "@angular/router"
 import { AuthService } from "../auth.service"
 import { MessageService } from "primeng/api"
 import { SubSink } from "subsink"
 import { DataService } from "src/app/data.service"
-import { DashboardService } from "../../pages/dashboard/dashboard.service"
-import { GoogleLoginProvider, GoogleSigninButtonModule, SocialAuthService } from "@abacritt/angularx-social-login"
+import { SocialAuthService } from "@abacritt/angularx-social-login"
 import { environment } from "@env/environment"
 import { LocalStorageService } from "ngx-localstorage"
-import { Observable } from "rxjs/internal/Observable"
-import { FacebookLoginProvider } from "angularx-social-login"
 // import {FacebookService} from "ngx-facebook";
 import { LocationService } from "../../location.service"
 import { InputGroupModule } from "primeng/inputgroup"
@@ -18,9 +15,9 @@ import { InputGroupAddonModule } from "primeng/inputgroupaddon"
 import { InputTextModule } from "primeng/inputtext"
 import { CommonModule } from "@angular/common"
 import { InputIconModule } from "primeng/inputicon"
-import { SocialLoginModule, SocialAuthServiceConfig } from "@abacritt/angularx-social-login"
+import { SocialLoginModule } from "@abacritt/angularx-social-login"
 import { PasswordModule } from "primeng/password"
-import { FluidModule } from 'primeng/fluid';
+import { FluidModule } from 'primeng/fluid'
 
 @Component({
 	selector: "app-login",

@@ -1,30 +1,30 @@
-import { CUSTOM_ELEMENTS_SCHEMA, NgModule } from '@angular/core';
-import { LoginComponent } from './login/login.component';
-import { RegistrationComponent } from './registration/registration.component';
-import { ForgotPasswordComponent } from './forgot-password/forgot-password.component';
-import { VerificationComponent } from './verification/verification.component';
-import { AuthRoutingModule } from './auth-routing.module';
-import { CommonModule } from '@angular/common';
-import { RouterModule } from '@angular/router';
-import { AuthComponent } from './auth.component';
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { SetpasswordComponent } from './setpassword/setpassword.component';
-import { InputTextModule } from "primeng/inputtext";
-import { DropdownModule } from "primeng/dropdown";
-import { PasswordModule } from "primeng/password";
-import { ToastModule } from "primeng/toast";
-import { MessageService } from "primeng/api";
-import { StoreModule } from "@ngrx/store";
-import { authFeature } from "./store/reducer";
-import { EffectsModule } from "@ngrx/effects";
-import { AuthEffects } from "./store/effects";
-import { CalendarModule } from "primeng/calendar";
-import { NgxIntlTelInputModule } from 'ngx-intl-tel-input';
 import { GoogleSigninButtonModule } from "@abacritt/angularx-social-login";
-import { MaintenanceComponent } from "./maintenance/maintenance.component";
-import { InputIconModule } from 'primeng/inputicon';
+import { CommonModule } from '@angular/common';
+import { CUSTOM_ELEMENTS_SCHEMA, importProvidersFrom, NgModule } from '@angular/core';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { RouterModule } from '@angular/router';
+import { EffectsModule } from "@ngrx/effects";
+import { provideState, provideStore, StoreModule } from "@ngrx/store";
+import { NgxIntlTelInputModule } from 'ngx-intl-tel-input';
+import { MessageService } from "primeng/api";
+import { CalendarModule } from "primeng/calendar";
+import { DropdownModule } from "primeng/dropdown";
 import { InputGroupModule } from 'primeng/inputgroup';
 import { InputGroupAddonModule } from 'primeng/inputgroupaddon';
+import { InputIconModule } from 'primeng/inputicon';
+import { InputTextModule } from "primeng/inputtext";
+import { PasswordModule } from "primeng/password";
+import { ToastModule } from "primeng/toast";
+import { AuthRoutingModule } from './auth-routing.module';
+import { AuthComponent } from './auth.component';
+import { ForgotPasswordComponent } from './forgot-password/forgot-password.component';
+import { LoginComponent } from './login/login.component';
+import { MaintenanceComponent } from "./maintenance/maintenance.component";
+import { RegistrationComponent } from './registration/registration.component';
+import { SetpasswordComponent } from './setpassword/setpassword.component';
+import { AuthEffects } from "./store/effects";
+import { authFeature } from "./store/reducer";
+import { VerificationComponent } from './verification/verification.component';
 
 @NgModule({
   declarations: [
@@ -52,10 +52,18 @@ import { InputGroupAddonModule } from 'primeng/inputgroupaddon';
     CalendarModule,
     NgxIntlTelInputModule,
     GoogleSigninButtonModule,
-    StoreModule.forFeature(authFeature),
-    EffectsModule.forFeature([AuthEffects])
+    // StoreModule.forFeature(authFeature),
+    // EffectsModule.forFeature([AuthEffects])
   ],
   providers: [
+    // provideStore(),  // Initialize Store
+    // provideState({ auth: authReducer }), // Register Auth Reducer
+    // importProvidersFrom(EffectsModule.forRoot([AuthEffects])) // Register Effects
+    provideStore(), // Initialize Store
+    provideState(authFeature), // Pass the feature slice to provideState
+    importProvidersFrom(EffectsModule.forRoot([AuthEffects])),
+    importProvidersFrom(StoreModule.forRoot({})), // Ensure StoreModule is correctly initialized
+    // provideEffects(AuthEffects),
     MessageService
   ],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
