@@ -66,7 +66,7 @@ export class EduLoanCompareComponent implements OnInit, OnDestroy {
       currency: ['', Validators.required],
       compare_currency: ['', Validators.required],
       loanamount: ['', Validators.required],
-      compare_loanamount: ['', Validators.required],
+      compare_loanamount: [''],
       location: ['', Validators.required],
       compare_location: ['', Validators.required],
       interestrate_type: ['', Validators.required],
@@ -219,7 +219,7 @@ export class EduLoanCompareComponent implements OnInit, OnDestroy {
     this.submitted = false;
     const formData = this.form.value;
     if (this.activePageIndex == 0) {
-      if (!formData.bankname || !formData.compare_bankname || !formData.loanamount || !formData.compare_loanamount || !formData.location || !formData.compare_location) {
+      if (!formData.bankname || !formData.compare_bankname || !formData.loanamount || !formData.location || !formData.compare_location) {
         this.submitted = true;
         return;
       }

@@ -39,7 +39,7 @@
                     {{ recommendation.question.branches[0] }}
                   </h5>
                   <p-dropdown styleClass="w-100" appendTo="body" [options]="industryList" [filter]="true"
-                    formControlName="industry" filterBy="Industry" optionLabel="Industry" optionValue="Industry"
+                    formControlName="industry" filterBy="Industry" optionLabel="Industry" optionValue="Industry" placeholder="Industry"
                     [autoDisplayFirst]="false">
                   </p-dropdown>                  
                   <p class="text-center" *ngIf="marketingForm.get('industry')?.errors?.required && submitted"
@@ -52,7 +52,7 @@
                     {{ recommendation.question.branches[1] }}
                   </h5>
                   <p-dropdown styleClass="w-100" appendTo="body" [options]="currencyandCountryList" [filter]="true"
-                    formControlName="location" filterBy="country" optionLabel="country" optionValue="country"
+                    formControlName="location" filterBy="country" optionLabel="country" optionValue="country" placeholder="Location"
                     [autoDisplayFirst]="false">
                   </p-dropdown>
                   <p class="text-center" *ngIf="marketingForm.get('location')?.errors?.required && submitted"
@@ -67,7 +67,7 @@
                   <p-dropdown [options]="targetMarketList" styleClass="w-100"
                   formControlName="targetMarket" optionLabel="Target Audience"
                   [filter]="true" filterBy="Target Audience"
-                  optionValue="Target Audience" [appendTo]="'body'" placeholder="Enter your Target Audience">
+                  optionValue="Target Audience" [appendTo]="'body'" placeholder="Target Audience">
               </p-dropdown>
               <p class="text-center" *ngIf="marketingForm.get('targetMarket')?.errors?.required && submitted"
                   style="color: red">Please Choose Any one option</p>
@@ -78,7 +78,7 @@
                   </h5>
                   <p-dropdown styleClass="w-100" formControlName="productService" appendTo="body"
                     [options]="productServiceList" [filter]="true" filterBy="Product/Service"
-                    optionLabel="Product/Service" optionValue="Product/Service" [autoDisplayFirst]="false">
+                    optionLabel="Product/Service" optionValue="Product/Service" placeholder="Product/Service" [autoDisplayFirst]="false">
                   </p-dropdown>
                   <p class="text-center" *ngIf="
                         marketingForm.get('productService')?.errors?.required && submitted

@@ -73,9 +73,9 @@
                                 </div>
                                 <div class="col-lg-4 mb-2 university-dropdown">
                                   <p-dropdown [options]="universityList"
-                                              optionLabel="submodule_name"
-                                              optionValue="submodule_name"
-                                              filterBy="submodule_name"
+                                              optionLabel="name"
+                                              optionValue="name"
+                                              filterBy="name"
                                               [filter]="true"
                                               formControlName="university"
                                               placeholder="Select University"
@@ -87,9 +87,9 @@
                               
                               <div class="col-lg-4 mb-2 university-dropdown">
                                   <p-dropdown [options]="compareUniversityList"
-                                              optionLabel="submodule_name"
-                                              optionValue="submodule_name"
-                                              filterBy="submodule_name"
+                                              optionLabel="name"
+                                              optionValue="name"
+                                              filterBy="name"
                                               [filter]="true"
                                               formControlName="compare_university"
                                               placeholder="Compare University"
@@ -143,6 +143,16 @@
                             <div class="card-body p-4">
                               <h2 class="text-center mb-4">Additional Details</h2>
                               <!-- Tuition Fees -->
+                              <div class="row mb-3 align-items-center">
+                                <div class="col-lg-4">
+                                </div>
+                                <div class="col-lg-4 mb-2 text-center">
+                                  <h5 style="color: var(--uniprep-secondary);">University 1</h5>
+                                  </div>
+                                  <div class="col-lg-4 mb-2 text-center">
+                                    <h5 style="color: var(--uniprep-secondary);">University 2</h5>
+                                  </div>
+                                </div>
                               <div class="row mb-3 align-items-center">
                                 <div class="col-lg-4">
                                   <label class="form-label uniprep-primary fw-bold">Tuition Fees</label>
