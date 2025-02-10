@@ -4,6 +4,7 @@ import { PageFacadeService } from '../../page-facade.service';
 import { FounderstoolService } from '../founderstool.service';
 import { Meta } from '@angular/platform-browser';
 import { MessageService } from 'primeng/api';
+import { DataService } from 'src/app/data.service';
 
 @Component({
   selector: 'uni-wealthleaderreadans',
@@ -20,7 +21,8 @@ export class WealthleaderreadansComponent implements OnInit {
   isQuestionAnswerVisible: boolean = false;
   wealthleaderanswer:any=[];
   constructor(private router:Router,private pageFacade: PageFacadeService,
-    private service: FounderstoolService,private route: ActivatedRoute,private meta: Meta, private toastr: MessageService
+    private service: FounderstoolService,private route: ActivatedRoute,private meta: Meta, private toastr: MessageService,
+    private dataService: DataService,
   ) { }
   ngOnInit(): void {
     this.wealthleadersname=localStorage.getItem("wealthleadersname")
@@ -137,5 +139,15 @@ export class WealthleaderreadansComponent implements OnInit {
     this.pageno = event.page + 1;
     this.perpage = event.rows;
     this.getWealthLeaders();
+  }
+  openReport() {
+    let data: any = {
+      isVisible: true,
+      moduleId: 24,
+      questionId:  this.answerid,
+      // countryId:this.countryId,
+    };
+
+    this.dataService.openReportWindow(data);
   }
 }
