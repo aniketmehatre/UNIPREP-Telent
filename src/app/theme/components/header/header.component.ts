@@ -19,12 +19,13 @@ import { ILearnChallengeData } from "src/app/@Models/ilearn-challenge.model";
 import { CommonModule } from "@angular/common";
 import { DialogModule } from "primeng/dialog";
 import { TabsModule } from 'primeng/tabs';
-import { OverlayPanelModule } from "primeng/overlaypanel";
+import { PopoverModule  } from "primeng/popover";
 
 import { InputTextModule } from "primeng/inputtext";
 import { AvatarModule } from "primeng/avatar";
 import { switchMap } from "rxjs/operators";
 import { take } from "rxjs/operators";
+
 import { SelectModule } from "primeng/select";
 
 @Component({
@@ -37,7 +38,7 @@ import { SelectModule } from "primeng/select";
     CommonModule, 
     DialogModule, 
     TabsModule,
-    OverlayPanelModule, 
+    PopoverModule , 
     FormsModule, 
     ReactiveFormsModule, 
      

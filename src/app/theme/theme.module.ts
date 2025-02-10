@@ -12,7 +12,7 @@ import { ButtonModule } from 'primeng/button';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 import { InputTextarea } from 'primeng/inputtextarea';
-import { OverlayPanelModule } from 'primeng/overlaypanel';
+import { PopoverModule } from 'primeng/popover';
 import { DialogModule } from 'primeng/dialog';
 import { InputTextModule } from 'primeng/inputtext';
 import { CardModule } from 'primeng/card';
@@ -36,7 +36,7 @@ import { TabViewModule } from 'primeng/tabview';
     FormsModule,
     
     InputTextarea,
-    OverlayPanelModule,
+    PopoverModule ,
     DialogModule,
     ReactiveFormsModule,
     InputTextModule,

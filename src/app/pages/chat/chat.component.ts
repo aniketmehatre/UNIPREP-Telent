@@ -11,7 +11,7 @@ import { environment } from "@env/environment";
 import { CommonModule } from "@angular/common";
 import { DialogModule } from "primeng/dialog";
 
-import { OverlayPanelModule } from 'primeng/overlaypanel';
+import { PopoverModule } from 'primeng/popover';
 import { ConfirmPopupModule } from "primeng/confirmpopup";
 import { ButtonModule } from "primeng/button";
 import { SelectModule } from "primeng/select";
@@ -20,7 +20,7 @@ import { SelectModule } from "primeng/select";
   templateUrl: "./chat.component.html",
   styleUrls: ["./chat.component.scss"],
   standalone: true,
-  imports: [CommonModule, DialogModule,  FormsModule, ReactiveFormsModule, OverlayPanelModule, ConfirmPopupModule, ButtonModule, SelectModule],
+  imports: [CommonModule, DialogModule,  FormsModule, ReactiveFormsModule, PopoverModule , ConfirmPopupModule, ButtonModule, SelectModule],
   providers: [ConfirmationService],
 })
 export class ChatComponent implements OnInit {
