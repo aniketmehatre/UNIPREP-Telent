@@ -34,22 +34,25 @@
               "src/favicon.ico",
               "src/uniprep-assets"
             ],
+            "stylePreprocessorOptions": {
+              "includePaths": [
+                "node_modules"
+              ]
+            },
             "styles": [
-              "node_modules/bootstrap/scss/bootstrap.scss",
-              "node_modules/@awesome.me/kit-e84fad3bc1/icons/css/all.css",
-              "node_modules/quill/dist/quill.core.css",
-              "node_modules/quill/dist/quill.snow.css",
-              "node_modules/intl-tel-input/build/css/intlTelInput.css",
+              "quill/dist/quill.core.css",
+              "quill/dist/quill.snow.css",
+              "intl-tel-input/build/css/intlTelInput.css",
               "src/styles.scss",
-              "node_modules/slick-carousel/slick/slick.scss",
-              "node_modules/slick-carousel/slick/slick-theme.scss"
+              "slick-carousel/slick/slick.scss",
+              "slick-carousel/slick/slick-theme.scss"
             ],
             "scripts": [
-              "node_modules/bootstrap/dist/js/bootstrap.bundle.min.js",
-              "node_modules/quill/dist/quill.js",
-              "node_modules/file-saver/dist/FileSaver.js",
-              "node_modules/jquery/dist/jquery.min.js",
-              "node_modules/slick-carousel/slick/slick.min.js"
+              "bootstrap/dist/js/bootstrap.bundle.min.js",
+              "quill/dist/quill.js",
+              "file-saver/dist/FileSaver.js",
+              "jquery/dist/jquery.min.js",
+              "slick-carousel/slick/slick.min.js"
             ],
             "browser": "src/main.ts"
           },
