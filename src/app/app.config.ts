@@ -76,10 +76,11 @@ export const appConfig: ApplicationConfig = {
       BrowserAnimationsModule,
       NgxIntlTelInputModule
     ),
-    provideServiceWorker('ngsw-worker.js', {
-      enabled: !isDevMode(),
-      registrationStrategy: 'registerWhenStable:30000'
-    }),
+    // Commenting out service worker registration
+    // provideServiceWorker('ngsw-worker.js', {
+    //   enabled: !isDevMode(),
+    //   registrationStrategy: 'registerWhenStable:30000'
+    // }),
     provideStoreDevtools({
       maxAge: 25,
       logOnly: environment.production,
