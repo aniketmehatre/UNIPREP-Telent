@@ -29,6 +29,7 @@ import { CourseListComponent } from './course-list/course-list.component';
 import { JobToolComponent } from './job-tool/job-tool.component';
 import {SalaryConverterComponent} from "./job-tool/salary-converter/salary-converter.component";
 import { FounderstoolComponent } from './founderstool/founderstool.component';
+import { CareerToolComponent } from './job-tool/career-tool/career-tool.component';
 import {AdvisorComponent} from "./advisor/advisor.component";
 import { NationalExamCategoriesComponent } from './national-exam-categories/national-exam-categories.component';
 import { NationalExamTestsComponent } from './national-exam-tests/national-exam-tests.component';
@@ -193,10 +194,7 @@ const routes: Routes = [
                 path: 'career-planner',
                 component: CareerPlannerComponent
             },
-            {
-                path: 'course-list',
-                component: CourseListComponent
-            },
+
             {
                 path: 'job-portal',
                 loadChildren: () => import('./job-search/job-search.module').then(m => m.JobSearchModule)

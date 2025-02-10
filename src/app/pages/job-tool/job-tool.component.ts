@@ -6,11 +6,11 @@ import { filter } from 'rxjs';
 import { Location } from '@angular/common';
 import { CourseListService } from '../course-list/course-list.service';
 import { CvBuilderService } from './cv-builder/cv-builder.service';
+
 @Component({
     selector: 'uni-job-tool',
     templateUrl: './job-tool.component.html',
-    styleUrls: ['./job-tool.component.scss'],
-    standalone: false
+    styleUrls: ['./job-tool.component.scss']
 })
 export class JobToolComponent implements OnInit {
   currentRoute: string = '';

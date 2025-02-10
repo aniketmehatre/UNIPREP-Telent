@@ -4,12 +4,14 @@ import { ActivatedRoute, Params, Router } from '@angular/router';
 import { CategoryResponse, GetCategoriesPayload } from 'src/app/@Models/career-tool-category.model';
 import { EmployerGlobalService } from '../employer-global.service';
 import { AuthService } from 'src/app/Auth/auth.service';
+import { CommonModule } from '@angular/common';
 
 @Component({
     selector: 'uni-career-category-list',
     templateUrl: './career-category-list.component.html',
     styleUrls: ['./career-category-list.component.scss'],
-    standalone: false
+    standalone: true,
+    imports: [CommonModule]
 })
 export class CareerCategoryListComponent implements OnInit {
   categories: any = [];

@@ -5,13 +5,15 @@ import { JobSearchService } from '../../job-search/job-search.service';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { TravelCostEstimator } from 'src/app/@Models/chat-gpt.model';
 import { PageFacadeService } from '../../page-facade.service';
-
+import { CommonModule } from '@angular/common';
 @Component({
     selector: 'uni-careerplannercountrywise',
     templateUrl: './careerplannercountrywise.component.html',
     styleUrls: ['./careerplannercountrywise.component.scss'],
-    standalone: false
+    standalone: true,
+    imports: [CommonModule]
 })
+
 export class CareerplannercountrywiseComponent implements OnInit {
   countries:any=[];
   form:FormGroup;

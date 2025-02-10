@@ -6,8 +6,7 @@ import {EmployerGlobalService} from "../employer-global.service";
 @Component({
     selector: 'uni-career-tool',
     templateUrl: './career-tool.component.html',
-    styleUrls: ['./career-tool.component.scss'],
-    standalone: false
+    styleUrls: ['./career-tool.component.scss']
 })
 export class CareerToolComponent implements OnInit {
   currentEndpoint: string = "";
@@ -191,57 +190,64 @@ export class CareerToolComponent implements OnInit {
   ngOnInit(): void {
   }
 
-
   chooseOneOption(mode: string, launch_soon: any) {
-    if(launch_soon){
-      return launch_soon;
+    if (launch_soon) {
+      return;
     }
+    
     this.currentEndpoint = mode;
-    if (mode == "cv-builder") {
-      this.router.navigate(['/pages/job-tool/cv-builder']);
-    } else if (mode == "coverletter-builder") {
-      this.router.navigate(['/pages/job-tool/coverletter-builder']);
-    } else if (mode == "career-planner") {
-      // this.router.navigate(['/pages/job-tool/career-planner']);
-      this.router.navigate(['/pages/job-tool/careerplannerlist']);
-    } else if (mode == "cost-of-living") {
-      this.router.navigate(['/pages/job-tool/cost-of-living']);
-    } else if (mode == "salary-converter") {
-      this.router.navigate(['/pages/job-tool/salary-converter']);
-    } else if (mode == "company-list") {
-      this.router.navigate(['/pages/job-tool/company-list']);
-    } else if (mode == "psychometric-test") {
-      this.router.navigate(['/pages/job-tool/list/psychometric-test/11']);
-    } else if (mode == "personality-test") {
-      this.router.navigate(['/pages/job-tool/list/personality-test/12']);
-    } else if (mode == "job-role") {
-      this.router.navigate(['/pages/interviewprep']);
-    } else if (mode == "career-growth-checker") {
-      this.router.navigate(['/pages/job-tool/career-growth-checker']);
-    }
-    else if(mode=="average-salary-estimator") {
-      this.router.navigate(['/pages/average-salary-estimator']);
-    }
-    else if(mode=="job-offer-comparison") {
-      this.router.navigate(['/pages/job-offer-comparison']);
-    }
-    else if (mode == "global-work-visa") {
-      this.router.navigate(['/pages/job-tool/global-work-visa']);
-    }
-    else if (mode == "career-hacks") {
-      this.router.navigate(['/pages/career-hacks']);
-    }
-    else if (mode == "salary-hacks") {
-      this.router.navigate(['/pages/salary-hacks']);
-    }
-    else if (mode == "job-seeker-success-stories") {
-      this.router.navigate(['/pages/job-seeker-success-stories']);
-    }
-    else {
-      this.router.navigate(['/pages/job-tool/list/employer-test/13']);
+    switch (mode) {
+      case "cv-builder":
+        this.router.navigate(['/pages/job-tool/cv-builder']);
+        break;
+      case "coverletter-builder":
+        this.router.navigate(['/pages/job-tool/coverletter-builder']);
+        break;
+      case "career-planner":
+        this.router.navigate(['/pages/job-tool/careerplannerlist']);
+        break;
+      case "cost-of-living":
+        this.router.navigate(['/pages/job-tool/cost-of-living']);
+        break;
+      case "salary-converter":
+        this.router.navigate(['/pages/job-tool/salary-converter']);
+        break;
+      case "company-list":
+        this.router.navigate(['/pages/job-tool/company-list']);
+        break;
+      case "psychometric-test":
+        this.router.navigate(['/pages/job-tool/list/psychometric-test/11']);
+        break;
+      case "personality-test":
+        this.router.navigate(['/pages/job-tool/list/personality-test/12']);
+        break;
+      case "job-role":
+        this.router.navigate(['/pages/interviewprep']);
+        break;
+      case "career-growth-checker":
+        this.router.navigate(['/pages/job-tool/career-growth-checker']);
+        break;
+      case "average-salary-estimator":
+        this.router.navigate(['/pages/average-salary-estimator']);
+        break;
+      case "job-offer-comparison":
+        this.router.navigate(['/pages/job-offer-comparison']);
+        break;
+      case "global-work-visa":
+        this.router.navigate(['/pages/job-tool/global-work-visa']);
+        break;
+      case "career-hacks":
+        this.router.navigate(['/pages/career-hacks']);
+        break;
+      case "salary-hacks":
+        this.router.navigate(['/pages/salary-hacks']);
+        break;
+      case "job-seeker-success-stories":
+        this.router.navigate(['/pages/job-seeker-success-stories']);
+        break;
+      default:
+        this.router.navigate(['/pages/job-tool/list/employer-test/13']);
+        break;
     }
   }
-  // openSalaryConverter(){
-  //   this.router.navigate(['/pages/job-tool/salary-converter']);
-  // }
 }
