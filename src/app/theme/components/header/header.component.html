@@ -241,7 +241,7 @@
   </div>
 </nav>
 
-<p-overlayPanel #op styleClass="reportwidthfix" appendTo="body">
+<p-popover #op styleClass="reportwidthfix" appendTo="body">
   <ng-template pTemplate="content">
     <div class="container px-0">
       <form [formGroup]="reportSubmitForm" (ngSubmit)="onSubmit(op)">
@@ -279,9 +279,7 @@
       </form>
     </div>
   </ng-template>
-</p-overlayPanel>
-
-<p-overlayPanel #totalCountryList [style]="{ width: '100%', 'max-width': 'fit-content' }">
+<p-popover #totalCountryList [style]="{ width: '100%', 'max-width': 'fit-content' }">
   <ng-template pTemplate="content">
     <div *ngIf="isLondon" class="mega-menu">
       <div class="row">
@@ -301,9 +299,9 @@
       </div>
     </div>
   </ng-template>
-</p-overlayPanel>
+</p-popover>
 
-<p-overlayPanel #totalHomeCountryList [style]="{ width: '300px' }">
+<p-popover #totalHomeCountryList [style]="{ width: '300px' }">
   <ng-template pTemplate="content">
     <div *ngIf="isLondon" class="mega-menu">
       <div class="row justify-content-center">
@@ -332,7 +330,7 @@
       </div>
     </div>
   </ng-template>
-</p-overlayPanel>
+</p-popover>
 
 <p-dialog [(visible)]="visible" [closable]="true" [style]="{ width: 'auto' }" class="p-0 m-0 bg-white" class="timerpopup" [modal]="true" [draggable]="false" [resizable]="false">
   <div class="px-5 pb-5 pt-3">
@@ -856,7 +854,7 @@
     </div>
   </div>
 </div>
-<p-overlayPanel #np [style]="{width: '350px'}">
+<p-popover #np [style]="{width: '350px'}">
   <div class="container notification-container mt-2">
     <div class="notifications-header">
         <h2 class="text-bold">Notifications (2)</h2>
@@ -930,7 +928,7 @@
       </div>
     </div>
 </div>
-</p-overlayPanel>
+</p-popover>
 
 <!-- Assessment Popups -->
 <p-dialog [(visible)]="isUpgradePlanVisible" [closable]="false" [modal]="true" [draggable]="false" [resizable]="false" styleClass="assessment-popup upgrade-plan position-relative">

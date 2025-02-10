@@ -1,4 +1,4 @@
-import { NgModule } from '@angular/core';
+import { CUSTOM_ELEMENTS_SCHEMA, NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { HeaderComponent } from './components/header/header.component';
 import { SidenavComponent } from './components/sidenav/sidenav.component';
@@ -19,6 +19,7 @@ import { CardModule } from 'primeng/card';
 import { EditorModule } from 'primeng/editor';
 import { NgxIntlTelInputModule } from 'ngx-intl-tel-input';
 import { TabViewModule } from 'primeng/tabview';
+import { PopoverModule } from 'primeng/popover';
 
 @NgModule({
   imports: [
@@ -36,12 +37,13 @@ import { TabViewModule } from 'primeng/tabview';
     FormsModule,
     DropdownModule,
     InputTextarea,
-    OverlayPanelModule,
+    // OverlayPanelModule,
     DialogModule,
     ReactiveFormsModule,
     InputTextModule,
     NgxIntlTelInputModule,
-    TabViewModule
+    TabViewModule,
+    PopoverModule
   ],
   exports: [
     CommonModule,
@@ -50,5 +52,6 @@ import { TabViewModule } from 'primeng/tabview';
     SidenavComponent, 
     CountdownComponent
   ],
+  schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })
 export class ThemeModule {}

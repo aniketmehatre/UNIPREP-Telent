@@ -25,6 +25,7 @@ import { InputTextModule } from "primeng/inputtext";
 import { AvatarModule } from "primeng/avatar";
 import { switchMap } from "rxjs/operators";
 import { take } from "rxjs/operators";
+import { PopoverModule } from "primeng/popover";
 
 @Component({
   selector: "uni-header",
@@ -37,13 +38,14 @@ import { take } from "rxjs/operators";
     DialogModule, 
     TabPanel, 
     TabViewModule, 
-    OverlayPanelModule, 
+    // OverlayPanelModule, 
     FormsModule, 
     ReactiveFormsModule, 
     DropdownModule, 
     AvatarModule,
     NgxIntlTelInputModule,
-    InputTextModule
+    InputTextModule,
+    PopoverModule
   ],
   providers: [
     MessageService,

@@ -116,7 +116,6 @@ import { JobOfferPreparedListComponent } from "./job-tool/joboffercomparisontool
 		GuidelineComponent,
     UserManagementComponent,
     ScholarshipListComponent,
-		ThemeModule,
     RecommendationsComponent,
 		JobOfferPreparedListComponent,
 		JoboffercomparisontoolComponent,
