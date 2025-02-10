@@ -573,7 +573,16 @@ export class HeaderComponent implements OnInit, OnDestroy {
     //   this.whatsappVerification = true;
     // }
   }
-
+  activeheadersearch:any;
+  showSearchComponent(type: string) {
+   console.log(type,"hi");
+   this.activeheadersearch=type;
+   if(this.activeheadersearch.stage=="questionsearch"){
+    this.isShowHeaderSearchForModule=false;
+   }else{
+    this.isShowHeaderSearchForModule=true;
+   }
+  }
   getProgramlevelList() {
     this.locationService.getProgramLevel().subscribe(res => {
       this.programLevelList = res;

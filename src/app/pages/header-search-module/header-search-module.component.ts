@@ -1,4 +1,4 @@
-import { Component, ElementRef, OnInit } from '@angular/core';
+import { Component, ElementRef, EventEmitter, OnInit, Output } from '@angular/core';
 import { DomSanitizer } from '@angular/platform-browser';
 import { ActivatedRoute, NavigationEnd, Router } from '@angular/router';
 import { MessageService } from 'primeng/api';
@@ -21,6 +21,7 @@ export class HeaderSearchModuleComponent implements OnInit {
   currentRoute: string = '';
   flobalsearchbuttonname:any;
   flobalsearchbuttonplaceholder:any;
+  @Output() windowChange = new EventEmitter();
   constructor(private dataService: DataService, private moduleStoreService: ModuleStoreService,
     private toastr: MessageService, private moduleListService: ModuleServiceService, private sanitizer: DomSanitizer,
     private locationService: LocationService, private router: Router, private elementRef: ElementRef, private activatedRoute: ActivatedRoute) {
@@ -77,6 +78,9 @@ export class HeaderSearchModuleComponent implements OnInit {
       this.flobalsearchbuttonname="Tutorials";
       this.flobalsearchbuttonplaceholder="Search for tutorials"
     }
+  }
+  showQuestionSearch(){
+    this.windowChange.emit({ stage: "questionsearch" });
   }
   // handleRouteChange() {
   //   const currentRoute = this.activatedRoute.snapshot.routeConfig?.path;

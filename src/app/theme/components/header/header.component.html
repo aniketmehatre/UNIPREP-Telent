@@ -29,10 +29,10 @@
                  
           </div>
           <div style="width: -webkit-fill-available !important;" *ngIf="!isShowHeaderSearchForModule">
-            <uni-header-search *ngIf="showSearch" (toggleSearch)="showSearchComponent('mode')"></uni-header-search>
+            <uni-header-search *ngIf="showSearch" (windowChange)="showSearchComponent($event)"></uni-header-search>
           </div>
           <div style="width: -webkit-fill-available !important;" *ngIf="isShowHeaderSearchForModule">
-            <uni-header-search-module *ngIf="showSearch"  (toggleSearch)="showSearchComponent('question')"></uni-header-search-module>
+            <uni-header-search-module *ngIf="showSearch"  (windowChange)="showSearchComponent($event)"></uni-header-search-module>
           </div>
           <div class="d-md-none gap-2 d-flex align-items-center">
             <div label="" role="button" class="headerHomeCountry p-0" [title]="homeCountryName">
