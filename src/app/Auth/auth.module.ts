@@ -28,7 +28,6 @@ import { InputGroupAddonModule } from 'primeng/inputgroupaddon';
 
 @NgModule({
   declarations: [
-    RegistrationComponent,
     ForgotPasswordComponent,
     VerificationComponent,
     SetpasswordComponent,
@@ -37,6 +36,7 @@ import { InputGroupAddonModule } from 'primeng/inputgroupaddon';
   imports: [
     FormsModule,
     LoginComponent,
+    RegistrationComponent,
     InputGroupModule,
     InputGroupAddonModule,
     AuthComponent,

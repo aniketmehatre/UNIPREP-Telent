@@ -29,7 +29,7 @@ import { FluidModule } from 'primeng/fluid';
 	styleUrls: ["./login.component.scss"],
 	schemas: [CUSTOM_ELEMENTS_SCHEMA],
 	standalone: true,
-	imports: [CommonModule,PasswordModule, RouterModule, InputTextModule, InputIconModule, InputGroupModule, InputGroupAddonModule, SocialLoginModule, FormsModule, ReactiveFormsModule],
+	imports: [CommonModule,FluidModule,PasswordModule, RouterModule, InputTextModule, InputIconModule, InputGroupModule, InputGroupAddonModule, SocialLoginModule, FormsModule, ReactiveFormsModule],
 })
 export class LoginComponent implements OnInit, OnDestroy {
 	@ViewChild("button2") button2!: ElementRef

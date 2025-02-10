@@ -20,10 +20,11 @@
 								<div class="login d-flex align-items-center">
 									<div class="container">
 										<div class="row">
-											<div class="col-md-12 col-lg-12  text-center">
-												<img [routerLink]="['/']" role="button" class="small-image text-left mb-2" src="{{imageUrlWhitelabel}}" />
+											<div class="col-md-12 col-lg-12 text-center">
+												<img [routerLink]="['/']" role="button" width="200" class="small-image text-left mb-2" src="{{ imageUrlWhitelabel }}" />
 												<h4 class="mt-3 mb-2 fw-semibold text-center">Welcome, Please Register to your account.</h4>
 												<hr class="w-50 m-auto" />
+
 												<p class="uniprep-lightgray mt-2 text-center">
 													Already have an account?<span><a class="uniprep-primary text-decoration-none" href="login">Login</a></span>
 												</p>
@@ -31,20 +32,19 @@
 													<div class="row registerForm">
 														<div class="col-md-12 mt-2">
 															<label class="text-muted text-small" for="fullName">Full Name<span class="required">*</span></label>
-															<div class="p-inputgroup">
-																<div class="p-inputgroup-addon">
+															<p-inputGroup>
+																<p-inputGroupAddon>
 																	<i class="fa-regular fa-user"></i>
-																</div>
-																<input type="text" class="border-0" pInputText id="fullName" placeholder="Enter Full Name" formControlName="fullName" [ngClass]="{ 'is-invalid': submitted && f.fullName.errors }" />
-															</div>
+																</p-inputGroupAddon>
+																<input type="text" pInputText id="fullName" placeholder="Enter Full Name" formControlName="fullName" [ngClass]="{ 'is-invalid': submitted && f.fullName.errors }" />
+															</p-inputGroup>
 															<div *ngIf="submitted && f.fullName.errors" class="invalid-feedback">
 																<div *ngIf="f.fullName.errors.required">Full Name is required</div>
 															</div>
 														</div>
 
 														<div class="col-md-12 mt-2">
-															<label class="text-muted text-small" for="emailAddress"
-																>Email Address
+															<label class="text-muted text-small" for="emailAddress">Email Address
 																<span *ngIf="!isEmailOTPValidated && showEmailErrorIcon">
 																	<i class="fa-solid fa-circle-exclamation text-danger"></i>
 																</span>
@@ -53,15 +53,13 @@
 																</span>
 																<span class="required">*</span>
 															</label>
-															<div style="position: relative">
-																<div class="p-inputgroup">
-																	<div class="p-inputgroup-addon">
-																		<i class="fa-regular fa-envelope"></i>
-																	</div>
-																	<input type="email" placeholder="Enter Email Address" pInputText class="border-0 w-100" id="emailAddress" [readonly]="isEmailOTPSend" formControlName="emailAddress" [ngClass]="{ 'is-invalid': submitted && f.emailAddress.errors }" (keyup)="onChangeEmail($event)" />
-																</div>
-																<div class="edit-button text-end" role="button" *ngIf="isEmailOTPSend && !isRemainingFieldVisible" (click)="editEmailAgain()">Edit</div>
-															</div>
+															<p-inputGroup>
+																<p-inputGroupAddon>
+																	<i class="fa-regular fa-envelope"></i>
+																</p-inputGroupAddon>
+																<input type="email" pInputText id="emailAddress" placeholder="Enter Email Address" [readonly]="isEmailOTPSend" formControlName="emailAddress" [ngClass]="{ 'is-invalid': submitted && f.emailAddress.errors }" (keyup)="onChangeEmail($event)" />
+															</p-inputGroup>
+															<div class="edit-button text-end" role="button" *ngIf="isEmailOTPSend && !isRemainingFieldVisible" (click)="editEmailAgain()">Edit</div>
 															<div *ngIf="submitted && f.emailAddress.errors" class="invalid-feedback">
 																<div *ngIf="f.emailAddress.errors.required">Email Address is required</div>
 															</div>
@@ -69,23 +67,7 @@
 														<div class="col-md-12 mt-2" *ngIf="isRemainingFieldVisible">
 															<label class="text-muted text-small" for="contactNumber">Contact Number<span class="required">*</span></label>
 															<div class="w-100 position-relative">
-																<ngx-intl-tel-input
-																	class="intel-input w-100"
-																	[cssClass]="'custom'"
-                                                                    [preferredCountries]="['in', 'gb']"
-																	[enableAutoCountrySelect]="true"
-																	[enablePlaceholder]="true"
-																	[searchCountryFlag]="true"
-																	[maxLength]="15"
-																	[searchCountryField]="[SearchCountryField.Iso2, SearchCountryField.Name]"
-																	[phoneValidation]="true"
-																	[selectedCountryISO]="preferredCountry"
-																	name="phone"
-																	formControlName="contactNumber"
-																	customPlaceholder="Enter Contact Number"
-																	(keyup)="onChangeContact($event)"
-																	[ngClass]="{ 'is-invalid': submitted && f.contactNumber.errors }">
-																</ngx-intl-tel-input>
+																<ngx-intl-tel-input class="intel-input w-100" [cssClass]="'custom'" [preferredCountries]="['in', 'gb']" [enableAutoCountrySelect]="true" [enablePlaceholder]="true" [searchCountryFlag]="true" [maxLength]="15" [searchCountryField]="[SearchCountryField.Iso2, SearchCountryField.Name]" [phoneValidation]="true" [selectedCountryISO]="preferredCountry" name="phone" formControlName="contactNumber" customPlaceholder="Enter Contact Number" (keyup)="onChangeContact($event)" [ngClass]="{ 'is-invalid': submitted && f.contactNumber.errors }"> </ngx-intl-tel-input>
 																<div class="text-end edit-button" role="button" *ngIf="isMobileOTPEdit && !isMobileOTPValidated" (click)="editMobileNumberAgain()">Edit</div>
 															</div>
 															<div *ngIf="submitted && f.contactNumber.errors" class="invalid-feedback">
@@ -116,7 +98,6 @@
 																			<div *ngIf="submitted && f.otp5.errors && f.otp6.errors && f.otp7.errors && f.otp8.errors" class="invalid-feedback">
 																				<div *ngIf="f.otp5.errors.required && f.otp6.errors.required && f.otp7.errors.required && f.otp8.errors.required">OTP is required</div>
 																			</div>
-																			<div *ngIf="submitted && f.otp5.errors && f.otp6.errors && f.otp7.errors && f.otp8.errors" class="invalid-feedback"><div *ngIf="f.otp5.errors.required && f.otp6.errors.required && f.otp7.errors.required && f.otp8.errors.required">OTP is required</div></div>
 																		</div>
 																	</div>
 																	<div class="col-lg-3 col-md-3 col-3">&nbsp;</div>
@@ -129,7 +110,9 @@
 																</p>
 																<div class="row justify-content-center mt-4">
 																	<div class="col-12 text-center">
-																		<a href="login" class="btn btn-primary btn-rounded text-small"><span><i class="fa-solid fa-chevron-left"></i></span></a>
+																		<a href="login" class="btn btn-primary btn-rounded text-small"
+																			><span><i class="fa-solid fa-chevron-left"></i></span
+																		></a>
 																		<p>Back to Sign In</p>
 																	</div>
 																</div>
@@ -222,7 +205,7 @@
 												<div class="d-flex justify-content-between">
 													<div class="w-100">&nbsp;</div>
 													<div class="w-100">
-														<asl-google-signin-button width="300" text="signup_with" logo_alignment="center" type="standard" size="large"></asl-google-signin-button>
+														<!-- <asl-google-signin-button width="300" text="signup_with" logo_alignment="center" type="standard" size="large"></asl-google-signin-button> -->
 													</div>
 													<div class="w-100">&nbsp;</div>
 												</div>

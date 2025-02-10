@@ -11,13 +11,26 @@ import { environment } from "@env/environment";
 import { SocialAuthService } from "@abacritt/angularx-social-login";
 import { LocalStorageService } from "ngx-localstorage";
 import { SubSink } from "subsink";
+import { FluidModule } from 'primeng/fluid';
+import { CommonModule } from "@angular/common";
+import { PasswordModule } from "primeng/password";
+import { InputTextModule } from "primeng/inputtext";
+import { InputIconModule } from "primeng/inputicon";
+import { InputGroupModule } from "primeng/inputgroup";
+import { InputGroupAddonModule } from "primeng/inputgroupaddon";
+import { SocialLoginModule } from "@abacritt/angularx-social-login";
+import { FormsModule, ReactiveFormsModule } from "@angular/forms";
+import { RouterModule } from "@angular/router";
+
 
 @Component({
     selector: "app-registration",
     templateUrl: "./registration.component.html",
     styleUrls: ["./registration.component.scss"],
-    standalone: false
+    standalone: true,
+    imports: [CommonModule, FluidModule, PasswordModule, RouterModule, InputTextModule, InputIconModule, InputGroupModule, InputGroupAddonModule, SocialLoginModule, FormsModule, ReactiveFormsModule],
 })
+
 export class RegistrationComponent implements OnInit {
   @ViewChild("otp1") otp1!: ElementRef;
   @ViewChild("otp2") otp2!: ElementRef;
