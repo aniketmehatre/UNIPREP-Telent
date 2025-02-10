@@ -4,6 +4,7 @@ import { TravelPackingPlannerQuestionList } from '../trvel-tool-questions';
 import { Router } from '@angular/router';
 import { CostOfLivingService } from '../../job-tool/cost-of-living/cost-of-living.service';
 import { City } from 'src/app/@Models/cost-of-living';
+import { MessageService } from 'primeng/api';
 
 @Component({
   selector: 'uni-travel-packing-planner',
@@ -26,7 +27,7 @@ export class TravelPackingPlannerComponent implements OnInit {
   transportationModeList: { id: number, name: string }[] = [
     { id: 1, name: 'Flight' },
     { id: 2, name: 'Train' },
-    { id: 3, name: 'Road Trip' }
+    { id: 3, name: 'By road' }
   ];
   monthList: { id: number, name: string }[] = [
     { id: 1, name: 'January' },
@@ -52,7 +53,8 @@ export class TravelPackingPlannerComponent implements OnInit {
   constructor(
     private travelToolsService: TravelToolsService,
     private router: Router,
-    private costOfLivingService: CostOfLivingService
+    private costOfLivingService: CostOfLivingService,
+    private toast: MessageService
   ) { }
 
   ngOnInit(): void {
@@ -161,6 +163,21 @@ export class TravelPackingPlannerComponent implements OnInit {
     this.isRecommendationSavedData = false;
     this.isFromSavedData = true;
     this.recommendationData = data;
+  }
+
+  onSaveRes() {
+    this.toast.add({ severity: "success", summary: "Success", detail: "Response saved successfully" });
+  }
+
+  downloadRecommadation() {
+    this.travelToolsService.downloadRecommendation({ data: this.recommendationData }).subscribe({
+      next: res => {
+        window.open(res.url, "_blank");
+      },
+      error: err => {
+        console.log(err?.error?.message);
+      }
+    });
   }
 
   goBack() {

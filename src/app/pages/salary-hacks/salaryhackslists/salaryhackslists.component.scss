@@ -1,195 +1,329 @@
-
 .saved-btn {
-    background-color: #EBEDF2;
-    color: #001631 !important;
-    border-radius: 20px !important;
-    border: none;
-  }
-  .universityicon {
-    color: var(--uniprep-secondary);
-  }
-  .primary-color {
-    color: var(--uniprep-primary);
-  }
-  .popup-header {
-    background-color: #2e2f89;
-    color: white;
-    font-size: 1.25rem;
-    font-weight: bold;
-    padding: 10px 15px;
-    text-align: center;
-    border-radius: 8px 8px 0 0;
-  }
-  
-  .popup-body {
-    padding: 20px;
-    background-color: #ffffff;
-  }
-  
-  .popup-sections {
-    display: flex;
-    gap: 20px;
-    flex-wrap: wrap;
-  }
-  
-  .popup-section {
-    flex: 1;
-    border: 1px solid #ddd;
-    border-radius: 5px;
-    padding: 15px;
-    background-color: #f9f9f9;
-    overflow-y: auto;
-  }
-  .estimatemainblock {
-    width: 100vh;
-    border-radius: 1rem;
-    font-weight: 700;
-    overflow-y: auto;
-  }
-  .mainblock {
-    height: 75vh;
-    .card-header {
-      font-size: large;
-      color: var(--uniprep-primary);
-      font-weight: 700;
-      text-align: center;
-      background: #ebedf2;
-    }
-    .card-body {
-      background: #ebedf2;
-      .readingarea {
-        font-size: medium;
-        font-weight: 600;
-      }
-    }
-  }
-  .popup-section h6 {
-    font-size: 1.1rem;
-    font-weight: bold;
-    margin-bottom: 10px;
-    text-align: center;
-  }
-  .quesHeading {
-    font-size: x-large;
-    color: var(--uniprep-primary);
-    font-weight: 700;
-  }.questionread {
-	filter: grayscale(1);
+  background-color: #ebedf2;
+  color: #001631 !important;
+  border-radius: 20px !important;
+  border: none;
+}
+.universityicon {
+  color: var(--uniprep-secondary);
+}
+.primary-color {
+  color: var(--uniprep-primary);
+}
+.popup-header {
+  background-color: #2e2f89;
+  color: white;
+  font-size: 1.25rem;
+  font-weight: bold;
+  padding: 10px 15px;
+  text-align: center;
+  border-radius: 8px 8px 0 0;
 }
 
-.questiontext
-{
-	font-size: 0.95rem;
+.popup-body {
+  padding: 20px;
+  background-color: #ffffff;
 }
 
+.popup-sections {
+  display: flex;
+  gap: 20px;
+  flex-wrap: wrap;
+}
+
+.popup-section {
+  flex: 1;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  padding: 15px;
+  background-color: #f9f9f9;
+  overflow-y: auto;
+}
+.estimatemainblock {
+  width: 100vh;
+  border-radius: 1rem;
+  font-weight: 700;
+  overflow-y: auto;
+}
+.mainblock {
+  height: 75vh;
+  .card-header {
+    font-size: large;
+    color: var(--uniprep-primary);
+    font-weight: 700;
+    text-align: center;
+    background: #ebedf2;
+  }
+  .card-body {
+    background: #ebedf2;
+    .readingarea {
+      font-size: medium;
+      font-weight: 600;
+    }
+  }
+}
+.popup-section h6 {
+  font-size: 1.1rem;
+  font-weight: bold;
+  margin-bottom: 10px;
+  text-align: center;
+}
+.quesHeading {
+  font-size: x-large;
+  color: var(--uniprep-primary);
+  font-weight: 700;
+}
+.questionread {
+  filter: grayscale(1);
+}
+
+.questiontext {
+  font-size: 0.95rem;
+}
+.questioncard:hover {
+  border: 1px solid var(--uniprep-secondary);
+}
+.questioncard::after {
+  content: "\2197"; /* Unicode for right arrow (→) */
+  font-size: 20px;
+  color: #ffffff;
+  position: absolute;
+  bottom: 10px;
+  right: 13px;
+  opacity: 0;
+  transition: opacity 0.3sease-in-out, transform 0.3sease-in-out;
+  background-color: var(--uniprep-secondary);
+  border-radius: 0.5rem;
+  width: 30px;
+}
+
+.questioncard:hover::after {
+  opacity: 1;
+  transform: translate(5px, -5px); /* Small movement effect */
+}
 .questioncard {
-	border: 1px solid var(--uniprep-secondary);
-	padding: 0;
-	.homecountry {
-		width: 25px;
-		height: 25px;
-		border-radius: 100px;
-		padding: 0;
-		img {
-			height: 100%;
-			width: 100%;
-			border-radius: 100%;
-			border: 1px solid transparent;
-			object-fit: cover;
-		}
-	}
+  border: 1px solid #ececec;
+  padding: 0;
+  .homecountry {
+    width: 25px;
+    height: 25px;
+    border-radius: 100px;
+    padding: 0;
+    img {
+      height: 100%;
+      width: 100%;
+      border-radius: 100%;
+      border: 1px solid transparent;
+      object-fit: cover;
+    }
+  }
 }
 
 .scrollable-container {
-	display: flex;
-	overflow-x: hidden;
-	align-items: center;
+  display: flex;
+  overflow-x: hidden;
+  align-items: center;
 }
 
 .answercard {
-	background-color: var(--uniprep-primaryop10);
-	border: 2px solid var(--uniprep-primary);
-	overflow-y: auto;
+  background-color: var(--uniprep-primaryop10);
+  border: 2px solid var(--uniprep-primary);
+  overflow-y: auto;
 }
 .socialShareBtn {
-	height: 40px;
-	width: 40px;
-	border-radius: 50px !important;
-	margin: 0;
-	display: flex;
-	justify-content: center;
-	align-items: center;
+  height: 40px;
+  width: 40px;
+  border-radius: 50px !important;
+  margin: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 #socialSharingList {
-	display: none;
-	position: absolute;
-	right: 0rem;
-	top: 3rem;
-	::ng-deep.p-card-body {
-		padding: 0px;
-		.p-card-content {
-			padding: 0px;
-		}
-	}
-	ul {
-		padding: 10px !important;
-		margin-bottom: 0;
-		li {
-			display: flex;
-			align-items: center;
-			margin-bottom: 5px;
-		}
-		i {
-			margin-right: 10px;
-		}
-	}
+  display: none;
+  position: absolute;
+  right: 0rem;
+  top: 3rem;
+  ::ng-deep.p-card-body {
+    padding: 0px;
+    .p-card-content {
+      padding: 0px;
+    }
+  }
+  ul {
+    padding: 10px !important;
+    margin-bottom: 0;
+    li {
+      display: flex;
+      align-items: center;
+      margin-bottom: 5px;
+    }
+    i {
+      margin-right: 10px;
+    }
+  }
 }
 .modal {
-	z-index: 9999;
-	.modalbuttons {
-		position: absolute;
-		top: -1rem;
-		right: -1rem;
-	}
+  z-index: 9999;
+  .modalbuttons {
+    position: absolute;
+    top: -1rem;
+    right: -1rem;
+  }
 }
 
 .embed-responsive {
-	position: relative;
-	display: block;
-	width: 100%;
-	padding: 0;
-	overflow: hidden;
+  position: relative;
+  display: block;
+  width: 100%;
+  padding: 0;
+  overflow: hidden;
 }
 
 .embed-responsive::before {
-	display: block;
-	content: "";
-	padding-top: 56.25%; /* 16:9 Aspect Ratio */
+  display: block;
+  content: "";
+  padding-top: 56.25%; /* 16:9 Aspect Ratio */
 }
 
 .embed-responsive iframe {
-	position: absolute;
-	top: 0;
-	left: 0;
-	bottom: 0;
-	right: 0;
-	width: 100%;
-	height: 100%;
-	border: 0;
+  position: absolute;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  width: 100%;
+  height: 100%;
+  border: 0;
 }
 .homecardbtnquiz {
-	background-color: black;
-	color: white;
+  background-color: black;
+  color: white;
 }
 .ellipse-button {
-	width: auto;
-	padding: 6px 25px;
-	height: auto;
-	background-color: #f0780e;
-	border-radius: 25px;
-	display: flex;
-	justify-content: center;
-	align-items: center;
-	cursor: not-allowed;
-	font-size: 10px;
+  width: auto;
+  padding: 6px 25px;
+  height: auto;
+  background-color: #f0780e;
+  border-radius: 25px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: not-allowed;
+  font-size: 10px;
+}
+.questioncard .content-preview {
+  opacity: 0;
+  max-height: 0;
+  overflow: hidden;
+  transition: opacity 0.3s ease-in-out, max-height 0.3s ease-in-out;
+}
+
+.questioncard:hover .content-preview {
+  opacity: 1;
+  max-height: 100px; /* Adjust as needed */
+}
+.careerreadingcardgrid {
+  flex: 0 0 25%;
+  max-width: 25%;
+}
+
+@media (max-width: 1499.98px) {
+  .careerreadingcardgrid {
+    flex: 0 0 25%;
+    max-width: 25%;
+  }
+}
+
+@media (max-width: 1399.98px) {
+  .careerreadingcardgrid {
+    flex: 0 0 25%;
+    max-width: 25%;
+  }
+}
+
+@media (max-width: 1299.98px) {
+  .careerreadingcardgrid {
+    flex: 0 0 25%;
+    max-width: 25%;
+  }
+}
+
+@media (max-width: 1199.98px) {
+  .careerreadingcardgrid {
+    flex: 0 0 33%;
+    max-width: 33%;
+  }
+}
+
+@media (max-width: 991.98px) {
+  .careerreadingcardgrid {
+    flex: 0 0 33%;
+    max-width: 33%;
+  }
+}
+
+@media (max-width: 767.98px) {
+  .careerreadingcardgrid {
+    flex: 0 0 50%;
+    max-width: 50%;
+  }
+}
+
+@media (max-width: 575.98px) {
+  .careerreadingcardgrid {
+    flex: 0 0 100%;
+    max-width: 100%;
+  }
+}
+@media screen and (max-width: 480px) {
+  .careerreadingcardgrid {
+    flex: 0 0 100%;
+    max-width: 100%;
+  }
+}
+
+.career-homeIcon {
+  height: 100%;
+  width: 80px;
+  min-height: 40px;
+  border-radius: 8px;
+  background-color: var(--uniprep-secondary);
+  color: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.career-reportIcon {
+  height: 100%;
+  width: 90px;
+  min-height: 40px;
+  border-radius: 8px;
+  background-color: var(--uniprep-primary);
+  color: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.career-closeIcon {
+  height: 100%;
+  width: 50px;
+  min-height: 40px;
+  border-radius: 8px;
+  background-color: #1c1b17;
+  color: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.career-shareIcon {
+  height: 100%;
+  width: 40px;
+  min-height: 40px;
+  border-radius: 8px !important;
+  background-color: #1c1b17;
+  color: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }

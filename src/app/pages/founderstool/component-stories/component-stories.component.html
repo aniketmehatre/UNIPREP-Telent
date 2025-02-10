@@ -1,42 +1,48 @@
 <div class="card readingcard">
-	<div class="card-header border-0 bg-transparent">
-		<div class="row justify-content-center">
-			<!-- <div class="col-md-8 text-center">
+  <div class="card-header border-0 bg-transparent">
+    <div class="row justify-content-center">
+      <!-- <div class="col-md-8 text-center">
 				<h5 class="select-title mb-1" tooltipPosition="top" pTooltip="Quiz">QUIZ<i class="questiontooltip fa-solid fa-circle-question"></i></h5>
 			</div> -->
-			<div class="col-md-12 d-flex gap-2 text-center">
-                <div class="backIcon d-md-flex d-none" (click)="goBack()" role="button">
-                    <span class="fa-solid fa-chevron-left"></span>
-                  </div>
-				<div class="select-title d-flex justify-content-between align-items-center">
-					<div>
-						<h5 class="w-100 mb-0" tooltipPosition="top" pTooltip="Access resources for starting your business, from ideation to execution.">{{headertooltipname}}<i class="questiontooltip fa-solid fa-circle-question"></i></h5>
-					</div>
-					<div>
-						<button class="how-it-works-button" (click)="openVideoPopup('https://www.youtube.com/embed/l00Z_Nk6GLI?si=j1IwWBZjrXEAYjxH')">How it works?<i class="fa-solid fa-play d-md-block d-none"></i></button>
-					</div>
-				</div>
-			</div>
-		</div>
-	</div>
-    <div class="card-body text-center flex-fill overflow-y-auto" *ngIf="isShowCountryData">
-        <div class="row mb-0">
-            <div *ngFor="let item of countrylist; let i=index;"
-                class="col-lg-3 col-md-3 col-sm-4 col-xs-12 col-12 mb-3">
-                <div class="row w-100 m-0 justify-content-center h-100">
-                    <div class="card subjectcard" role="button">
-                        <div class="card-body" (click)="showDatas(item)">
-                           <img src="{{item.country_flag}}" style="border-radius: 50px;" alt="" height="70" width="70">
-                           <p class="mt-2" style="font-size: small;"><b>{{item.country}}</b></p>
-                        </div>
-                    </div>
-                </div>
-            </div>
+      <div class="col-md-12 d-flex gap-2 text-center">
+        <div class="backIcon d-md-flex d-none" (click)="goBack()" role="button">
+          <span class="fa-solid fa-chevron-left"></span>
         </div>
+        <div class="select-title d-flex justify-content-between align-items-center">
+          <div>
+            <h5 class="w-100 mb-0" tooltipPosition="top"
+              pTooltip="Access resources for starting your business, from ideation to execution.">
+              {{headertooltipname}}<i class="questiontooltip fa-solid fa-circle-question"></i></h5>
+          </div>
+          <div>
+            <button class="how-it-works-button"
+              (click)="openVideoPopup('https://www.youtube.com/embed/l00Z_Nk6GLI?si=j1IwWBZjrXEAYjxH')">How it works?<i
+                class="fa-solid fa-play d-md-block d-none"></i></button>
+          </div>
+        </div>
+      </div>
     </div>
-    <div class="card-body text-center flex-fill overflow-y-auto" *ngIf="isShowCountryQuesAns">
-        <div class="row mb-0">
-            <div *ngFor="let item of questuionanswerlist; let i=index;"
+  </div>
+  <div class="card-body text-center flex-fill overflow-y-auto" *ngIf="isShowCountryData">
+    <div class="row mb-0">
+      <div *ngFor="let item of countrylist; let i=index;" class="col-lg-3 col-md-3 col-sm-4 col-xs-12 col-12 mb-3">
+        <div class="row w-100 m-0 justify-content-center h-100">
+          <div class="card subjectcard" role="button">
+            <div class="card-body" (click)="showDatas(item)">
+              <!-- <img src="{{item.country_flag}}" alt="" height="70" width="70"> -->
+              <div class="submoduleicon">
+                <img alt="" class="selectimage" src="{{item.country_flag}}" />
+              </div>
+              <p class="mt-2" style="font-size: small;"><b>{{item.country}}</b></p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="card-body text-center flex-fill overflow-y-auto" *ngIf="isShowCountryQuesAns">
+    <div class="row mb-0">
+      <!-- <div *ngFor="let item of questuionanswerlist; let i=index;"
                 class="col-lg-3 col-md-3 col-sm-4 col-xs-12 col-12 mb-3">
                 <div class="row w-100 m-0 justify-content-center h-100">
                     <div class="card subjectcard" role="button" (click)="showDataAnswer(item)">
@@ -45,13 +51,29 @@
                         </div>
                     </div>
                 </div>
+            </div> -->
+      <div *ngFor="let item of questuionanswerlist; let i = index;" class="readingcardgrid my-2">
+        <div class="row w-100 h-100 m-0 justify-content-center">
+          <div (click)="showDataAnswer(item)" role="button" class="card questioncard">
+            <div class="card-body d-flex flex-sm-column flex-row justify-content-sm-between align-items-center gap-2">
+              <div class="row justify-content-center w-100">
+                <div class="col">
+                  <p class="text-start fw-bold questiontext mb-0" title="{{item.quesions}}">{{
+                    item.quesions }}</p>
+                </div>
+              </div>
+
+
             </div>
+          </div>
         </div>
+      </div>
     </div>
+  </div>
 </div>
 
 <!-- question ans -->
-<p-dialog #dialogContent [(visible)]="isQuestionAnswerVisible" [draggable]="false" [modal]="true" class="questionmodal" header="Header" [maximizable]="true" (onShow)="onShowModal($event)">
+<!-- <p-dialog #dialogContent [(visible)]="isQuestionAnswerVisible" [draggable]="false" [modal]="true" class="questionmodal" header="Header" [maximizable]="true" (onShow)="onShowModal($event)">
     <ng-template pTemplate="header">
       <div class="d-flex w-100 flex-column px-4">
         <div class="d-flex flex-row justify-content-md-between justify-content-center">
@@ -93,12 +115,100 @@
               </ul>
             </p-card>
           </div>
-          <!-- <h3 class="unselectable d-md-block d-none">{{dataanswerquestion?.quesions}}</h3> -->
-          <!-- <h5 class="unselectable d-md-none d-block">hssksk</h5> -->
           <div class="fw-medium" style="white-space: inherit; max-height: 80%; min-height: 80%" [innerHTML]="dataanswerquestion?.blogs"></div>
-          <!-- <div class="fw-medium" style="white-space: inherit; max-height: 80%; min-height: 80%"> {{dataanswerquestion?.blogs}}</div> -->
 
         </div>
       </div>
     </div>
-  </p-dialog>
+  </p-dialog> -->
+<!-- new ui -->
+<p-dialog #dialogContent [(visible)]="isQuestionAnswerVisible" [draggable]="false" [modal]="true" header="Header"
+  (onShow)="onShowModal($event)">
+  <ng-template pTemplate="header">
+    <div class="d-flex w-100 flex-column px-4">
+      <div class="d-flex flex-row p-2">
+        <div class="d-md-block d-none">
+          <button (click)="goToHome($event)" class="btn btn-secondary homecardbtn px-3 mt-0 mb-3" style="border-radius: 5px; padding: 10px;">
+            <i class="fa-solid fa-house"></i>&nbsp;&nbsp;
+            <span>Home</span>
+          </button>
+        </div>&nbsp;
+        <div class="col-md-8 col-6">
+          <h5 class="select-title w-100 text-center mb-0" style="padding: 10px;">{{headertooltipname}}</h5>
+        </div>&nbsp;
+        <div class="d-md-block d-none">
+          <button (click)="openReport()" class="btn btn-primary px-3 homecardbtn mb-2 mx-2" style="border-radius: 5px;padding: 10px;">
+            <i class="fa-solid fa-file"></i>&nbsp;
+            <span>Report</span>
+          </button>
+
+        </div>
+      </div>
+      <!-- <div class="d-flex w-100 flex-column px-4">
+        <div class="d-flex flex-row"> -->
+          <div class="d-flex align-items-center position-relative" style="justify-content: end !important;">
+            <button class="btn btn-primary socialShareBtn" (click)="showSocialSharingList()"><i class="fa-solid fa-share"></i></button>
+            <p-card id="socialSharingList">
+              <ul style="list-style: none; cursor: pointer">
+                <li (click)="shareViaWhatsapp()"><i class="pi pi-whatsapp"></i>Whatsapp</li>
+                <li (click)="shareViaMail()"><i class="pi pi-envelope"></i>Email</li>
+                <li (click)="shareViaFacebook()"><i class="pi pi-facebook"></i>Facebook</li>
+                <li (click)="shareViaTwitter()"><i class="pi pi-twitter"></i>Twitter</li>
+                <li (click)="shareViaInstagram()"><i class="pi pi-instagram"></i>Instagram</li>
+                <li (click)="shareViaLinkedIn()"><i class="pi pi-linkedin"></i>LinkedIn</li>
+                <li (click)="copyLink()"><i class="pi pi-link"></i>Copy Link</li>
+              </ul>
+            </p-card>
+          <!-- </div>
+        </div> -->
+      </div>
+    </div>
+  </ng-template>
+  <div class=" px-4">
+    <div class="card flex-fill answercard" style="border: none;">
+      <div class="card-body text-start">
+        <div class="fw-medium" style="white-space: inherit; max-height: 80%; min-height: 80%"
+          [innerHTML]="dataanswerquestion?.blogs"></div>
+      </div>
+    </div>
+  </div>
+  <ng-template pTemplate="footer">
+    <div class="d-flex justify-content-between flex-nowrap flex-column flex-md-row px-4 mt-4 mb-2">
+    </div>
+  </ng-template>
+</p-dialog>
+<!-- <div class="modal" tabindex="-1" role="dialog" [ngStyle]="{ display: isQuestionAnswerVisible }">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content" style="margin-top: 20% !important; width: 60vw !important;margin-left: -10% !important;height: 80vh !important;
+    overflow-y: auto;">
+      <div class="modal-body">
+        <div class="d-flex w-100 flex-column px-4">
+          <div class="d-flex flex-row justify-content-md-between justify-content-center">
+            <div class="d-md-block d-none">
+              <button (click)="goToHome($event)" class="btn btn-secondary homecardbtn px-3 mt-4 mb-3">
+                <i class="fa-solid h5 fa-house"></i><br />
+                <span>Home</span>
+              </button>
+            </div>
+            <div class="col-md-8 col-6">
+              <h5 class="select-title w-100 text-center mb-0">{{headertooltipname}}</h5>
+            </div>
+            <div class="">
+              <button (click)="openReport()" class="btn btn-primary px-3 py-3 homecardbtn mt-2 mb-2 mx-2">
+                <i class="fa-solid h5 fa-file-contract"></i>
+                <br />
+                <span>Report</span>
+                <br />
+              </button>
+
+            </div>
+            <div> <span style="cursor: pointer"><i (click)="goToHome($event)"
+                  class="fa-solid fa-circle-xmark fa-2x"></i></span>
+            </div>
+          </div>
+        </div>
+        <div class="fw-medium" style="white-space: inherit; max-height: 80%; min-height: 80%" [innerHTML]="dataanswerquestion?.blogs"></div>
+      </div>
+    </div>
+  </div>
+</div> -->

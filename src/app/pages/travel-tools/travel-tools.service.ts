@@ -63,4 +63,10 @@ export class TravelToolsService {
       headers, params
     });
   }
+
+  downloadRecommendation(data: any) {
+    return this.http.post<{ url: string }>(environment.ApiUrl + "/downloadIntegratedRecom", data, {
+      headers: this.headers,
+    });
+  }
 }

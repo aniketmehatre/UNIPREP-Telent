@@ -797,7 +797,7 @@ uni-subscription {
 
 	&:hover {
 		color: #fff !important;
-		background: var(--uniprep-secondary);
+		background: var(--uniprep-secondary) !important;
 		border-color: var(--uniprep-secondary) !important;
 	}
 
@@ -2074,7 +2074,7 @@ p-dialog.restrictionDialog .p-dialog .p-dialog-header .p-dialog-header-icon {
 	}
 }
 
-uni-assessment, uni-travel-tools, uni-founderstool, uni-education-tools {
+uni-assessment, uni-travel-tools, uni-founderstool, uni-education-tools, uni-contributors {
 	display: flex;
 	flex: 1;
 	height: 100%;
@@ -2307,3 +2307,10 @@ uni-fortune-companies {
 	  max-height: 98%;
 	}
   }
+  .questionmodal.contributor-modal {
+
+    .p-dialog {
+		width: 50%;
+    }
+
+}

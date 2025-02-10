@@ -1,4 +1,4 @@
-import {Component, Input, OnChanges, OnInit, SimpleChanges, ViewChild } from '@angular/core';
+import {Component, Input, OnChanges, OnInit, SimpleChanges, ViewChild} from '@angular/core';
 import {DashboardService} from "./dashboard.service";
 import {AuthService} from "../../Auth/auth.service";
 import {SubSink} from "subsink";
@@ -31,10 +31,10 @@ export class DashboardComponent implements OnInit, OnChanges {
     restrict: boolean = false;
     showSkeleton: boolean = false;
     planExpired: boolean = false;
-    ehitlabelIsShow:boolean=true;
-    imagewhitlabeldomainname:any
-    orgnamewhitlabel:any;
-    orglogowhitelabel:any;
+    ehitlabelIsShow: boolean = true;
+    imagewhitlabeldomainname: any
+    orgnamewhitlabel: any;
+    orglogowhitelabel: any;
     @ViewChild('carousel') carousel!: Carousel;
     university: any[] = [
         {
@@ -57,8 +57,9 @@ export class DashboardComponent implements OnInit, OnChanges {
     headerFlag!: string;
     currentModuleSlug: any;
     userData: any
-    constructor(private dashboardService: DashboardService,private service: AuthService,
-        private router: Router, private dataService: DataService,private authService: AuthService,private locationService: LocationService,
+
+    constructor(private dashboardService: DashboardService, private service: AuthService,
+                private router: Router, private dataService: DataService, private authService: AuthService, private locationService: LocationService,
     ) {
         this.responsiveOptions = [
             {
@@ -87,21 +88,21 @@ export class DashboardComponent implements OnInit, OnChanges {
     ngOnInit(): void {
         this.locationService.getImage().subscribe(imageUrl => {
             this.orglogowhitelabel = imageUrl;
-          });
-          this.locationService.getOrgName().subscribe(orgname => {
+        });
+        this.locationService.getOrgName().subscribe(orgname => {
             this.orgnamewhitlabel = orgname;
-          });
-        this.imagewhitlabeldomainname=window.location.hostname;
+        });
+        this.imagewhitlabeldomainname = window.location.hostname;
         if (this.imagewhitlabeldomainname === "dev-student.uniprep.ai" || this.imagewhitlabeldomainname === "uniprep.ai" || this.imagewhitlabeldomainname === "localhost") {
-          this.ehitlabelIsShow=true;
-        }else{
-          this.ehitlabelIsShow=false;
+            this.ehitlabelIsShow = true;
+        } else {
+            this.ehitlabelIsShow = false;
         }
         this.checkplanExpire()
         this.selectedCountryId = Number(localStorage.getItem('countryId'));
         this.enableReadingData();
         //localStorage.setItem('selectedcountryId', this.selectedCountryId);
-        
+
         localStorage.setItem("currentmodulenameforrecently", '');
         this.dashboardService.getTrustedPartners().subscribe(partnerLogo => {
             this.partnerTrusterLogo = partnerLogo;
@@ -117,13 +118,13 @@ export class DashboardComponent implements OnInit, OnChanges {
 
         this.subs.sink = this.service.getMe().subscribe((data) => {
             if (data) {
-              this.userName = data.userdetails[0].name.toString()
-              this.userData = data.userdetails[0]
-              // let nullCount = this.countNullValues(this.userData)
-              //  let calValue = Math.round((nullCount / 75) * 100)
-              //   this.progress = 100 - calValue
-              //
-              //
+                this.userName = data.userdetails[0].name.toString()
+                this.userData = data.userdetails[0]
+                // let nullCount = this.countNullValues(this.userData)
+                //  let calValue = Math.round((nullCount / 75) * 100)
+                //   this.progress = 100 - calValue
+                //
+                //
                 let filledCount = 0;
                 const totalCount = this.fieldsToCheck.length;
                 this.fieldsToCheck.forEach(field => {
@@ -131,8 +132,8 @@ export class DashboardComponent implements OnInit, OnChanges {
                         filledCount++;
                     }
                 });
-                this.progress = Math.round((filledCount/ totalCount) * 100)
-                this.setProgress(Math.round((filledCount/ totalCount) * 100))
+                this.progress = Math.round((filledCount / totalCount) * 100)
+                this.setProgress(Math.round((filledCount / totalCount) * 100))
             }
         });
 
@@ -144,6 +145,7 @@ export class DashboardComponent implements OnInit, OnChanges {
         this.loadApiData();
         this.checkquizquestionmodule()
     }
+
     loadCountryList(data: any) {
         this.locationService.dashboardLocationList().subscribe(countryList => {
             this.carousel.page = 0;
@@ -156,7 +158,7 @@ export class DashboardComponent implements OnInit, OnChanges {
                 }
             });
             this.countryLists.forEach((item: any, i: any) => {
-                if(item.id === this.selectedCountryId){
+                if (item.id === this.selectedCountryId) {
                     this.countryLists.splice(i, 1);
                     this.countryLists.unshift(item);
                 }
@@ -169,22 +171,22 @@ export class DashboardComponent implements OnInit, OnChanges {
             let data = res.time_left;
             if (data.plan === 'expired' || data.plan === 'subscription_expired') {
                 this.enableReading = false;
-            }
-            else {
+            } else {
                 this.enableReading = true;
             }
         });
     }
 
-    certificatecountstudent:number=0;
+    certificatecountstudent: number = 0;
+
     loadApiData(): void {
         const data = {
             countryId: this.selectedCountryId,
         }
 
         combineLatest(
-            this.dashboardService.getReadProgression({ countryId: this.selectedCountryId }),
-            )
+            this.dashboardService.getReadProgression({countryId: this.selectedCountryId}),
+        )
             .subscribe(([readProgression]) => {
                 if (readProgression) {
                     if (!readProgression.success) {
@@ -193,7 +195,7 @@ export class DashboardComponent implements OnInit, OnChanges {
                     //this.readProgressionPercentage = Math.round(readProgression.readpercentage);
                     this.setProgress1(Math.round(readProgression.readpercentage))
                     this.progressReading = Math.round(readProgression.readpercentage)
-                    this.certificatecountstudent=readProgression.certificatecount
+                    this.certificatecountstudent = readProgression.certificatecount
                 }
             })
     }
@@ -211,7 +213,7 @@ export class DashboardComponent implements OnInit, OnChanges {
             this.readingProgressings = response.module;
             this.continueReading = "block";
         });
-       
+
     }
 
     closeQuiz(): void {
@@ -220,10 +222,10 @@ export class DashboardComponent implements OnInit, OnChanges {
 
     openQuiz(): void {
         // dont remove comments
-        if(this.planExpired){
-            this.restrict=true;
+        if (this.planExpired) {
+            this.restrict = true;
             return;
-          }
+        }
 
         this.router.navigate([`pages/modules/quizmodule`]);
     }
@@ -291,7 +293,7 @@ export class DashboardComponent implements OnInit, OnChanges {
     }
 
 
-    openCertificate(){
+    openCertificate() {
         this.router.navigate([`pages/mycertificate`]);
     }
 
@@ -335,49 +337,54 @@ export class DashboardComponent implements OnInit, OnChanges {
     openViewMoreOrg(): void {
         this.isViewMoreOrgVisible = true;
     }
-    quizpercentage:any=0;
-    checkquizquestionmodule(){
-      var data={
-        countryid: this.selectedCountryId
-      }
-      this.dashboardService.checkModuleQuizCompletion(data).subscribe((res) => {
-        this.quizpercentage=res.progress
-      })
+
+    quizpercentage: any = 0;
+
+    checkquizquestionmodule() {
+        var data = {
+            countryid: this.selectedCountryId
+        }
+        this.dashboardService.checkModuleQuizCompletion(data).subscribe((res) => {
+            this.quizpercentage = res.progress
+        })
     }
 
-    startQuiz(moduleid:any) {
-        if(moduleid==1){
-          this.currentModuleSlug="pre-admission"
-        }else if(moduleid==3){
-          this.currentModuleSlug="post-admission"
-        }else if(moduleid==4){
-          this.currentModuleSlug="career-hub"
-        }else if(moduleid==6){
-          this.currentModuleSlug="life-at-country"
-        }else if(moduleid==7){
-            this.currentModuleSlug="travel-and-tourism"
-          }
+    startQuiz(moduleid: any) {
+        if (moduleid == 1) {
+            this.currentModuleSlug = "pre-admission"
+        } else if (moduleid == 3) {
+            this.currentModuleSlug = "post-admission"
+        } else if (moduleid == 4) {
+            this.currentModuleSlug = "career-hub"
+        } else if (moduleid == 6) {
+            this.currentModuleSlug = "life-at-country"
+        } else if (moduleid == 7) {
+            this.currentModuleSlug = "travel-and-tourism"
+        }
         this.router.navigate([`/pages/modules/${this.currentModuleSlug}/quiz`]);
-      }
-      checkplanExpire(): void {
-        this.authService.getNewUserTimeLeft().subscribe((res) => {
-          let data = res.time_left;
-          let subscription_exists_status = res.subscription_details;
-          if (data.plan === "expired" || data.plan === 'subscription_expired') {
-            this.planExpired = true;   
-          } else {
-            this.planExpired = false;
-          }
-        })
-      }
-      upgradePlan(): void {
-        this.router.navigate(["/pages/subscriptions"]);
-      }
-      clearRestriction() {
-        this.restrict = false;
-      }
+    }
 
-    openMyProfile(){
+    checkplanExpire(): void {
+        this.authService.getNewUserTimeLeft().subscribe((res) => {
+            let data = res.time_left;
+            let subscription_exists_status = res.subscription_details;
+            if (data.plan === "expired" || data.plan === 'subscription_expired') {
+                this.planExpired = true;
+            } else {
+                this.planExpired = false;
+            }
+        })
+    }
+
+    upgradePlan(): void {
+        this.router.navigate(["/pages/subscriptions"]);
+    }
+
+    clearRestriction() {
+        this.restrict = false;
+    }
+
+    openMyProfile() {
         this.router.navigate(["/pages/usermanagement"]);
     }
 
@@ -409,5 +416,109 @@ export class DashboardComponent implements OnInit, OnChanges {
         const offset = circumference - (progress / 100) * circumference;
         circle.style.strokeDasharray = `${circumference} ${circumference}`;
         circle.style.strokeDashoffset = `${offset}`;
+    }
+
+    listFav: any[] = [
+        {
+            "id": 1,
+            "moduleName": "CV Builder",
+            "Description": "Craft a standout CV that highlights your skills and experience, ready for any job application.",
+            "tooltip": "Craft a standout CV that highlights your skills and experience, ready for any job application.",
+            "imageLink": "https://api.uniprep.ai/uniprepapi/storage/app/public/resources-coverimage/cv.svg",
+            "mode": "cv-builder"
+        },
+        {
+            "id": 2,
+            "moduleName": "Learning Hub",
+            "Description": "Craft a standout CV that highlights your skills and experience, ready for any job application.",
+            "tooltip": "Craft a standout CV that highlights your skills and experience, ready for any job application.",
+            "imageLink": "https://api.uniprep.ai/uniprepapi/storage/app/public/resources-coverimage/cv.svg",
+            "mode": "cv-builder"
+        },
+        {
+            "id": 3,
+            "moduleName": "Job Portal",
+            "Description": "Craft a standout CV that highlights your skills and experience, ready for any job application.",
+            "tooltip": "Craft a standout CV that highlights your skills and experience, ready for any job application.",
+            "imageLink": "https://api.uniprep.ai/uniprepapi/storage/app/public/resources-coverimage/cv.svg",
+            "mode": "cv-builder"
+        },
+        {
+            "id": 4,
+            "moduleName": "Career Planner",
+            "Description": "Craft a standout CV that highlights your skills and experience, ready for any job application.",
+            "tooltip": "Craft a standout CV that highlights your skills and experience, ready for any job application.",
+            "imageLink": "https://api.uniprep.ai/uniprepapi/storage/app/public/resources-coverimage/cv.svg",
+            "mode": "cv-builder"
+        },
+        {
+            "id": 5,
+            "moduleName": "Employer Test",
+            "Description": "Craft a standout CV that highlights your skills and experience, ready for any job application.",
+            "tooltip": "Craft a standout CV that highlights your skills and experience, ready for any job application.",
+            "imageLink": "https://api.uniprep.ai/uniprepapi/storage/app/public/resources-coverimage/cv.svg",
+            "mode": "cv-builder"
+        },
+        {
+            "id": 6,
+            "moduleName": "Pitch Deck",
+            "Description": "Craft a standout CV that highlights your skills and experience, ready for any job application.",
+            "tooltip": "Craft a standout CV that highlights your skills and experience, ready for any job application.",
+            "imageLink": "https://api.uniprep.ai/uniprepapi/storage/app/public/resources-coverimage/cv.svg",
+            "mode": "cv-builder"
+        },
+        {
+            "id": 7,
+            "moduleName": "UNILEARN",
+            "Description": "Craft a standout CV that highlights your skills and experience, ready for any job application.",
+            "tooltip": "Craft a standout CV that highlights your skills and experience, ready for any job application.",
+            "imageLink": "https://api.uniprep.ai/uniprepapi/storage/app/public/resources-coverimage/cv.svg",
+            "mode": "cv-builder"
+        },
+        {
+            "id": 8,
+            "moduleName": "UNIFINDER",
+            "Description": "Craft a standout CV that highlights your skills and experience, ready for any job application.",
+            "tooltip": "Craft a standout CV that highlights your skills and experience, ready for any job application.",
+            "imageLink": "https://api.uniprep.ai/uniprepapi/storage/app/public/resources-coverimage/cv.svg",
+            "mode": "cv-builder"
+        },
+        {
+            "id": 9,
+            "moduleName": "UNISCHOLAR",
+            "Description": "Craft a standout CV that highlights your skills and experience, ready for any job application.",
+            "tooltip": "Craft a standout CV that highlights your skills and experience, ready for any job application.",
+            "imageLink": "https://api.uniprep.ai/uniprepapi/storage/app/public/resources-coverimage/cv.svg",
+            "mode": "cv-builder"
+        },
+        {
+            "id": 10,
+            "moduleName": "Global Repository",
+            "Description": "Craft a standout CV that highlights your skills and experience, ready for any job application.",
+            "tooltip": "Craft a standout CV that highlights your skills and experience, ready for any job application.",
+            "imageLink": "https://api.uniprep.ai/uniprepapi/storage/app/public/resources-coverimage/cv.svg",
+            "mode": "cv-builder"
+        },
+        {
+            "id": 11,
+            "moduleName": "AI Global Advisor",
+            "Description": "Craft a standout CV that highlights your skills and experience, ready for any job application.",
+            "tooltip": "Craft a standout CV that highlights your skills and experience, ready for any job application.",
+            "imageLink": "https://api.uniprep.ai/uniprepapi/storage/app/public/resources-coverimage/cv.svg",
+            "mode": "cv-builder"
+        },
+        {
+            "id": 12,
+            "moduleName": "Language Hub",
+            "Description": "Craft a standout CV that highlights your skills and experience, ready for any job application.",
+            "tooltip": "Craft a standout CV that highlights your skills and experience, ready for any job application.",
+            "imageLink": "https://api.uniprep.ai/uniprepapi/storage/app/public/resources-coverimage/cv.svg",
+            "mode": "cv-builder"
+        }
+    ]
+
+    // navigate Favourites
+    selectFav(req: any) {
+
     }
 }
