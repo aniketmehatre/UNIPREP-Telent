@@ -31,12 +31,12 @@ import { WealthleaderslistComponent } from '../founderstool/wealthleaderslist/we
     CountryInsightsComponent,
     CountryInsightsSubmoduleComponent,
     StudentBudgetPlannerComponent,
-    WealthleaderslistComponent,
     WealthleaderreadansComponent
   ],
   imports: [
     CommonModule,
     EducationToolsRoutingModule,
+    WealthleaderslistComponent,
     FormsModule,
     CarouselModule,
     DropdownModule,

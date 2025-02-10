@@ -3,15 +3,17 @@ import { Router, RouterModule } from '@angular/router';
 import { PageFacadeService } from '../../page-facade.service';
 import { DomSanitizer } from '@angular/platform-browser';
 import { FounderstoolService } from '../founderstool.service';
-import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
+import { FormBuilder, FormControl, FormGroup, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { SelectModule } from 'primeng/select';
 import { CommonModule } from '@angular/common';
+import { DialogModule } from 'primeng/dialog';
+import { PaginatorModule } from 'primeng/paginator';
 @Component({
     selector: 'uni-wealthleaderslist',
     templateUrl: './wealthleaderslist.component.html',
     styleUrls: ['./wealthleaderslist.component.scss'],
     standalone: true,
-    imports: [SelectModule, CommonModule, RouterModule],
+    imports: [SelectModule, CommonModule, RouterModule, FormsModule, ReactiveFormsModule, DialogModule, PaginatorModule],
 })
 export class WealthleaderslistComponent implements OnInit {
   valueNearYouFilter: string = '';
