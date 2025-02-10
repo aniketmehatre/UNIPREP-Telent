@@ -147,7 +147,6 @@ export class WealthleaderreadansComponent implements OnInit {
       questionId:  this.answerid,
       // countryId:this.countryId,
     };
-
     this.dataService.openReportWindow(data);
   }
 }
