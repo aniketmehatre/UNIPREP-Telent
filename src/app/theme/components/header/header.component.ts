@@ -575,7 +575,6 @@ export class HeaderComponent implements OnInit, OnDestroy {
   }
   activeheadersearch:any;
   showSearchComponent(type: string) {
-   console.log(type,"hi");
    this.activeheadersearch=type;
    if(this.activeheadersearch.stage=="questionsearch"){
     this.isShowHeaderSearchForModule=false;
