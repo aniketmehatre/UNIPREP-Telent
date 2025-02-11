@@ -16,30 +16,37 @@ const Auhtroutes: Routes = [
       {
         path: 'login',
         component: LoginComponent,
+        data: { title: 'Login' } 
       },
       {
         path: 'register',
         component: RegistrationComponent,
+        data: { title: 'Register' } 
       },
       {
         path: 'login-new',
         component: LoginComponent,
+        data: { title: 'Login New' }
       },
       {
         path: 'register-new',
         component: RegistrationComponent,
+        data: { title: 'Register New' }
       },
       {
         path: 'forgot-password',
         component: ForgotPasswordComponent,
+        data: { title: 'Forgot Password' }
       },
       {
         path: 'setpassword/:otp/:email',
         component: SetpasswordComponent,
+        data: { title: 'Set Password' }
       },
       {
         path: 'verification/:email',
         component: VerificationComponent,
+        data: { title: 'Verification' }
       },
      { path: '', redirectTo: 'login', pathMatch: 'full' },
     ],

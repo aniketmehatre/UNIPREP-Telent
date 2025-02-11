@@ -1,30 +1,48 @@
-import { Component, ElementRef, EventEmitter, Input, OnDestroy, OnInit, Output, ViewChild, ViewEncapsulation } from "@angular/core";
-import { MenuItem, MessageService } from "primeng/api";
-import { AuthService } from "../../../Auth/auth.service";
-import { SubSink } from "subsink";
-import { ActivatedRoute, Router } from "@angular/router";
-import { LocationService } from "../../../location.service";
-import { DataService } from "src/app/data.service";
-import { FormBuilder, FormGroup, Validators, FormsModule, ReactiveFormsModule, AbstractControl } from "@angular/forms";
-import { matchValidator } from "../../../@Supports/matchvalidator";
-import { ThemeService } from "../../../theme.service";
-import { DashboardService } from "src/app/pages/dashboard/dashboard.service";
-import { count, Observable } from "rxjs";
-import { CountryISO, SearchCountryField, NgxIntlTelInputModule } from "ngx-intl-tel-input";
 import { SocialAuthService } from "@abacritt/angularx-social-login";
-import { environment } from "@env/environment";
-import CryptoJS from "crypto-js";
-import { AssessmentService } from "src/app/pages/assessment/assessment.service";
-import { ILearnChallengeData } from "src/app/@Models/ilearn-challenge.model";
 import { CommonModule } from "@angular/common";
+import {
+  Component,
+  ElementRef,
+  EventEmitter,
+  Input,
+  OnDestroy,
+  OnInit,
+  Output,
+  ViewChild,
+  ViewEncapsulation,
+} from "@angular/core";
+import {
+  AbstractControl,
+  FormBuilder,
+  FormGroup,
+  FormsModule,
+  ReactiveFormsModule,
+  Validators,
+} from "@angular/forms";
+import { ActivatedRoute, Router } from "@angular/router";
+import { environment } from "@env/environment";
+import {
+  CountryISO,
+  NgxIntlTelInputModule,
+  SearchCountryField,
+} from "ngx-intl-tel-input";
+import { MenuItem, MessageService } from "primeng/api";
 import { DialogModule } from "primeng/dialog";
-import { TabPanel, TabsModule } from 'primeng/tabs';
-import { PopoverModule  } from "primeng/popover";
+import { PopoverModule } from "primeng/popover";
+import { TabsModule } from "primeng/tabs";
+import { count, Observable, of } from "rxjs";
+import { ILearnChallengeData } from "src/app/@Models/ilearn-challenge.model";
+import { DataService } from "src/app/data.service";
+import { AssessmentService } from "src/app/pages/assessment/assessment.service";
+import { DashboardService } from "src/app/pages/dashboard/dashboard.service";
+import { SubSink } from "subsink";
+import { AuthService } from "../../../Auth/auth.service";
+import { LocationService } from "../../../location.service";
+import { ThemeService } from "../../../theme.service";
 
-import { InputTextModule } from "primeng/inputtext";
 import { AvatarModule } from "primeng/avatar";
-import { switchMap } from "rxjs/operators";
-import { take } from "rxjs/operators";
+import { InputTextModule } from "primeng/inputtext";
+import { catchError, switchMap, take } from "rxjs/operators";
 
 import { SelectModule } from "primeng/select";
 import { TabViewModule } from "primeng/tabview";
@@ -36,19 +54,19 @@ import { TabViewModule } from "primeng/tabview";
   encapsulation: ViewEncapsulation.None,
   standalone: true,
   imports: [
-    CommonModule, 
-    DialogModule, 
-    TabViewModule, 
-    // OverlayPanelModule, 
+    CommonModule,
+    DialogModule,
+    TabViewModule,
+    // OverlayPanelModule,
     TabsModule,
-    PopoverModule , 
-    FormsModule, 
-    ReactiveFormsModule, 
+    PopoverModule,
+    FormsModule,
+    ReactiveFormsModule,
     AvatarModule,
     NgxIntlTelInputModule,
     InputTextModule,
     PopoverModule,
-    SelectModule
+    SelectModule,
   ],
   providers: [
     MessageService,
@@ -56,8 +74,8 @@ import { TabViewModule } from "primeng/tabview";
     LocationService,
     ThemeService,
     DashboardService,
-    AssessmentService
-  ]
+    AssessmentService,
+  ],
 })
 export class HeaderComponent implements OnInit, OnDestroy {
   @ViewChild("op") op!: ElementRef<HTMLInputElement>;
@@ -66,13 +84,16 @@ export class HeaderComponent implements OnInit, OnDestroy {
   public currentEducationForm!: FormGroup;
   public phoneVerification!: FormGroup;
   public setPasswordForm!: FormGroup;
-  @Input() breadcrumb: MenuItem[] = [{ label: "Categories" }, { label: "Sports" }];
+  @Input() breadcrumb: MenuItem[] = [
+    { label: "Categories" },
+    { label: "Sports" },
+  ];
   @Input() expandicon = "";
 
   @Output() togleSidebar = new EventEmitter();
   private subs = new SubSink();
-  userName: string = '';
-  firstChar: string = '';
+  userName: string = "";
+  firstChar: string = "";
   genMod: any;
   moduleNgModel: number = 1;
   selectedGenMod: number = 1;
@@ -121,7 +142,10 @@ export class HeaderComponent implements OnInit, OnDestroy {
   reportType: number = 1;
   SearchCountryField = SearchCountryField;
   CountryISO = CountryISO;
-  preferredCountries: CountryISO[] = [CountryISO.India, CountryISO.UnitedKingdom];
+  preferredCountries: CountryISO[] = [
+    CountryISO.India,
+    CountryISO.UnitedKingdom,
+  ];
   timeLeftInfo: any;
   freeTrialErrorMsg: string = "";
   demoTrial: boolean = false;
@@ -160,7 +184,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
     enablePlaceholder: true,
     searchCountryFlag: true,
     searchCountryField: [SearchCountryField.Iso2, SearchCountryField.Name],
-    selectedCountryISO: CountryISO.India
+    selectedCountryISO: CountryISO.India,
   };
 
   constructor(
@@ -183,7 +207,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
       submoduleId: ["", [Validators.required]],
       questionId: ["", [Validators.required]],
       reportOption: [""],
-      comment: ["", []]
+      comment: ["", []],
     });
 
     this.mobileForm = this.formBuilder.group({
@@ -201,12 +225,15 @@ export class HeaderComponent implements OnInit, OnDestroy {
       choice: [false, Validators.required],
     });
 
-    this.setPasswordForm = this.formBuilder.group({
-      password: ['', [Validators.required, Validators.minLength(6)]],
-      confirmPassword: ['', Validators.required]
-    }, {
-      validator: this.passwordMatchValidator
-    });
+    this.setPasswordForm = this.formBuilder.group(
+      {
+        password: ["", [Validators.required, Validators.minLength(6)]],
+        confirmPassword: ["", Validators.required],
+      },
+      {
+        validator: this.passwordMatchValidator,
+      }
+    );
 
     this.dataService.castValue.subscribe((data) => {
       if (data === true) {
@@ -238,15 +265,17 @@ export class HeaderComponent implements OnInit, OnDestroy {
     this.subs.sink = this.locationService.getCountry().subscribe({
       next: (countryList) => {
         this.countryLists = countryList;
-        
+
         // Get the selected country ID from localStorage
-        const storedCountryId = localStorage.getItem('selectedCountryId');
-        
+        const storedCountryId = localStorage.getItem("selectedCountryId");
+
         if (storedCountryId) {
           // If we have a stored selection, use that
           this.selectedCountryId = Number(storedCountryId);
-          const selectedCountry = this.countryLists.find((element: any) => element.id === this.selectedCountryId);
-          
+          const selectedCountry = this.countryLists.find(
+            (element: any) => element.id === this.selectedCountryId
+          );
+
           if (selectedCountry) {
             this.headerFlag = selectedCountry.flag;
             this.dataService.changeCountryName(selectedCountry.country);
@@ -255,34 +284,41 @@ export class HeaderComponent implements OnInit, OnDestroy {
           }
         } else {
           // If no stored selection, try to use the home country
-          const homeCountryId = localStorage.getItem('homeCountryId');
+          const homeCountryId = localStorage.getItem("homeCountryId");
           if (homeCountryId) {
             this.selectedCountryId = Number(homeCountryId);
-            const homeCountry = this.countryLists.find((element: any) => element.id === this.selectedCountryId);
-            
+            const homeCountry = this.countryLists.find(
+              (element: any) => element.id === this.selectedCountryId
+            );
+
             if (homeCountry) {
               this.headerFlag = homeCountry.flag;
               this.dataService.changeCountryName(homeCountry.country);
               this.dataService.changeCountryFlag(homeCountry.flag);
               this.dataService.changeCountryId(homeCountry.id.toString());
-              localStorage.setItem('selectedCountryId', homeCountry.id.toString());
+              localStorage.setItem(
+                "selectedCountryId",
+                homeCountry.id.toString()
+              );
             }
           } else {
             // If no home country either, then default to India (122)
-            const defaultCountry = this.countryLists.find((element: any) => element.id === 122);
+            const defaultCountry = this.countryLists.find(
+              (element: any) => element.id === 122
+            );
             if (defaultCountry) {
               this.headerFlag = defaultCountry.flag;
               this.dataService.changeCountryName(defaultCountry.country);
               this.dataService.changeCountryFlag(defaultCountry.flag);
-              this.dataService.changeCountryId('122');
-              localStorage.setItem('selectedCountryId', '122');
+              this.dataService.changeCountryId("122");
+              localStorage.setItem("selectedCountryId", "122");
             }
           }
         }
       },
       error: (error) => {
-        console.error('Error loading country list:', error);
-      }
+        console.error("Error loading country list:", error);
+      },
     });
   }
   get isDialogVisible(): boolean {
@@ -324,7 +360,9 @@ export class HeaderComponent implements OnInit, OnDestroy {
     this.otp[index] = value;
     // Move to next box if a digit is entered
     if (value && value.length === 1 && index < 3) {
-      const nextInput = document.getElementById(`otp-${index + 1}`) as HTMLInputElement;
+      const nextInput = document.getElementById(
+        `otp-${index + 1}`
+      ) as HTMLInputElement;
       nextInput.focus();
     }
   }
@@ -334,7 +372,9 @@ export class HeaderComponent implements OnInit, OnDestroy {
 
     // Move to the previous box if backspace is pressed and input is empty
     if (event.key === "Backspace" && !input.value && index > 0) {
-      const prevInput = document.getElementById(`otp-${index - 1}`) as HTMLInputElement;
+      const prevInput = document.getElementById(
+        `otp-${index - 1}`
+      ) as HTMLInputElement;
       prevInput.focus();
     }
   }
@@ -423,9 +463,11 @@ export class HeaderComponent implements OnInit, OnDestroy {
     this.initializeForms();
     this.setupEventSubscriptions();
     this.setupReportWindowSubscription();
-    
+
     // Initialize country data
-    this.homeCountryId = localStorage.getItem('homeCountryId') ? Number(localStorage.getItem('homeCountryId')) : 122; // Default to India if not set
+    this.homeCountryId = localStorage.getItem("homeCountryId")
+      ? Number(localStorage.getItem("homeCountryId"))
+      : 122; // Default to India if not set
     this.getHomeCountryList();
     this.loadCountryList();
     this.getProgramlevelList();
@@ -445,8 +487,8 @@ export class HeaderComponent implements OnInit, OnDestroy {
         }
       },
       error: (error) => {
-        console.error('Error fetching user data:', error);
-      }
+        console.error("Error fetching user data:", error);
+      },
     });
 
     // Safely handle menu state
@@ -454,7 +496,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
       const storedIsMenuOpen = localStorage.getItem("isMenuOpen");
       this.isMenuOpen = storedIsMenuOpen ? JSON.parse(storedIsMenuOpen) : true;
     } catch (error) {
-      console.error('Error parsing menu state:', error);
+      console.error("Error parsing menu state:", error);
       this.isMenuOpen = true;
     }
     this.updateMenuClass();
@@ -465,15 +507,16 @@ export class HeaderComponent implements OnInit, OnDestroy {
         this.orgnamewhitlabel = orgname;
       },
       error: (error) => {
-        console.error('Error getting org name:', error);
-      }
+        console.error("Error getting org name:", error);
+      },
     });
 
     // Handle domain-specific settings
     this.imagewhitlabeldomainname = window.location.hostname;
-    this.whiteLabelIsNotShow = this.imagewhitlabeldomainname === "dev-student.uniprep.ai" || 
-                              this.imagewhitlabeldomainname === "uniprep.ai" || 
-                              this.imagewhitlabeldomainname === "localhost";
+    this.whiteLabelIsNotShow =
+      this.imagewhitlabeldomainname === "dev-student.uniprep.ai" ||
+      this.imagewhitlabeldomainname === "uniprep.ai" ||
+      this.imagewhitlabeldomainname === "localhost";
 
     // Get preferred country
     fetch("https://ipapi.co/json/")
@@ -481,9 +524,9 @@ export class HeaderComponent implements OnInit, OnDestroy {
       .then((data) => {
         this.preferredCountry = data?.country_code?.toLocaleLowerCase();
       })
-      .catch(error => {
-        console.error('Error fetching country data:', error);
-        this.preferredCountry = 'in'; // Default to India if fetch fails
+      .catch((error) => {
+        console.error("Error fetching country data:", error);
+        this.preferredCountry = "in"; // Default to India if fetch fails
       });
 
     // Handle country ID subscription
@@ -491,11 +534,12 @@ export class HeaderComponent implements OnInit, OnDestroy {
       next: (data: any) => {
         if (data) {
           this.selectedCountryId = Number(data);
-          localStorage.setItem('selectedCountryId', data.toString());
+          localStorage.setItem("selectedCountryId", data.toString());
           this.getModuleList();
         }
       },
-      error: (error) => console.error('Error in country ID subscription:', error)
+      error: (error) =>
+        console.error("Error in country ID subscription:", error),
     });
 
     // Subscribe to home country flag changes
@@ -505,7 +549,8 @@ export class HeaderComponent implements OnInit, OnDestroy {
           this.headerHomeFlag = data;
         }
       },
-      error: (error) => console.error('Error in home country flag subscription:', error)
+      error: (error) =>
+        console.error("Error in home country flag subscription:", error),
     });
 
     // Subscribe to country flag changes
@@ -515,7 +560,8 @@ export class HeaderComponent implements OnInit, OnDestroy {
           this.headerFlag = data;
         }
       },
-      error: (error) => console.error('Error in country flag subscription:', error)
+      error: (error) =>
+        console.error("Error in country flag subscription:", error),
     });
 
     // Subscribe to dashboard data
@@ -529,7 +575,8 @@ export class HeaderComponent implements OnInit, OnDestroy {
           this.month$ = data.months;
         }
       },
-      error: (error) => console.error('Error in dashboard data subscription:', error)
+      error: (error) =>
+        console.error("Error in dashboard data subscription:", error),
     });
 
     // Handle phone verification
@@ -542,8 +589,9 @@ export class HeaderComponent implements OnInit, OnDestroy {
       this.subScribedUserCount();
       this.userLoginTimeLeftCount = true;
       this.subs.sink = this.dataService.showTimeOutSource.subscribe({
-        next: (data) => this.visible = data,
-        error: (error) => console.error('Error in timeout subscription:', error)
+        next: (data) => (this.visible = data),
+        error: (error) =>
+          console.error("Error in timeout subscription:", error),
       });
     }
 
@@ -557,7 +605,8 @@ export class HeaderComponent implements OnInit, OnDestroy {
           this.selectCountryInHeader(countryData, null);
         }
       },
-      error: (error) => console.error('Error in dashboard country subscription:', error)
+      error: (error) =>
+        console.error("Error in dashboard country subscription:", error),
     });
   }
 
@@ -572,24 +621,28 @@ export class HeaderComponent implements OnInit, OnDestroy {
       current_education: ["", Validators.required],
     });
 
-    this.setPasswordForm = this.formBuilder.group({
-      password: ['', [Validators.required, Validators.minLength(6)]],
-      confirmPassword: ['', Validators.required]
-    }, {
-      validator: this.passwordMatchValidator
-    });
+    this.setPasswordForm = this.formBuilder.group(
+      {
+        password: ["", [Validators.required, Validators.minLength(6)]],
+        confirmPassword: ["", Validators.required],
+      },
+      {
+        validator: this.passwordMatchValidator,
+      }
+    );
   }
 
   private passwordMatchValidator(g: AbstractControl) {
-    return g.get('password')?.value === g.get('confirmPassword')?.value
-      ? null : {'mismatch': true};
+    return g.get("password")?.value === g.get("confirmPassword")?.value
+      ? null
+      : { mismatch: true };
   }
 
   private async handlePhoneVerification() {
     try {
       const encryptedPhone = localStorage.getItem("phone");
       if (!encryptedPhone) {
-        console.log('No encrypted phone data found');
+        console.log("No encrypted phone data found");
         return;
       }
 
@@ -597,10 +650,12 @@ export class HeaderComponent implements OnInit, OnDestroy {
       let decodedArray;
       try {
         decodedArray = new Uint8Array(
-          atob(encryptedPhone).split('').map(char => char.charCodeAt(0))
+          atob(encryptedPhone)
+            .split("")
+            .map((char) => char.charCodeAt(0))
         );
       } catch (decodeError) {
-        console.error('Error decoding base64 data:', decodeError);
+        console.error("Error decoding base64 data:", decodeError);
         return;
       }
 
@@ -612,8 +667,8 @@ export class HeaderComponent implements OnInit, OnDestroy {
 
       const decrypted = await crypto.subtle.decrypt(
         {
-          name: 'AES-GCM',
-          iv: iv
+          name: "AES-GCM",
+          iv: iv,
         },
         key,
         data
@@ -622,9 +677,11 @@ export class HeaderComponent implements OnInit, OnDestroy {
       // Check for valid UTF-8 data
       let decryptedStr;
       try {
-        decryptedStr = new TextDecoder('utf-8', { fatal: true }).decode(decrypted);
+        decryptedStr = new TextDecoder("utf-8", { fatal: true }).decode(
+          decrypted
+        );
       } catch (utf8Error) {
-        console.error('Invalid UTF-8 data:', utf8Error);
+        console.error("Invalid UTF-8 data:", utf8Error);
         return;
       }
 
@@ -632,25 +689,25 @@ export class HeaderComponent implements OnInit, OnDestroy {
       let phone;
       try {
         phone = JSON.parse(decryptedStr);
-        if (!phone || typeof phone !== 'string') {
-          console.error('Invalid phone data format');
+        if (!phone || typeof phone !== "string") {
+          console.error("Invalid phone data format");
           return;
         }
       } catch (jsonError) {
-        console.error('Invalid JSON data:', jsonError);
+        console.error("Invalid JSON data:", jsonError);
         return;
       }
 
       // Set form visibility based on phone value
       this.formvisbility = !phone;
-      
+
       if (phone) {
         this.phoneVerification.patchValue({
-          verification_phone: phone
+          verification_phone: phone,
         });
       }
     } catch (error) {
-      console.error('Error in handlePhoneVerification:', error);
+      console.error("Error in handlePhoneVerification:", error);
       this.formvisbility = true;
     }
   }
@@ -658,30 +715,30 @@ export class HeaderComponent implements OnInit, OnDestroy {
   private async getKey(salt: string): Promise<CryptoKey> {
     const encoder = new TextEncoder();
     const keyMaterial = await crypto.subtle.importKey(
-      'raw',
+      "raw",
       encoder.encode(salt),
-      { name: 'PBKDF2' },
+      { name: "PBKDF2" },
       false,
-      ['deriveBits', 'deriveKey']
+      ["deriveBits", "deriveKey"]
     );
 
     return crypto.subtle.deriveKey(
       {
-        name: 'PBKDF2',
-        salt: encoder.encode('salt'),
+        name: "PBKDF2",
+        salt: encoder.encode("salt"),
         iterations: 100000,
-        hash: 'SHA-256'
+        hash: "SHA-256",
       },
       keyMaterial,
-      { name: 'AES-GCM', length: 256 },
+      { name: "AES-GCM", length: 256 },
       false,
-      ['encrypt', 'decrypt']
+      ["encrypt", "decrypt"]
     );
   }
 
   private initializeReportForm() {
     this.genMod = [{ name: "General", id: 1 }];
-    
+
     this.reportSubmitForm = this.formBuilder.group({
       general: [1, [Validators.required]],
       moduleId: ["", [Validators.required]],
@@ -699,7 +756,8 @@ export class HeaderComponent implements OnInit, OnDestroy {
           this.openModal();
         }
       },
-      error: (error) => console.error('Error in chat trigger subscription:', error)
+      error: (error) =>
+        console.error("Error in chat trigger subscription:", error),
     });
 
     this.locationService.getCountry().subscribe({
@@ -707,13 +765,15 @@ export class HeaderComponent implements OnInit, OnDestroy {
         this.countryLists = countryList;
         const countryId = localStorage.getItem("countryId");
         if (countryId) {
-          const country = countryList.find((element: any) => element.id.toString() === countryId);
+          const country = countryList.find(
+            (element: any) => element.id.toString() === countryId
+          );
           if (country) {
             this.headerFlag = country.flag;
           }
         }
       },
-      error: (error) => console.error('Error getting country list:', error)
+      error: (error) => console.error("Error getting country list:", error),
     });
 
     this.dataService.countryFlagSource.subscribe({
@@ -722,7 +782,8 @@ export class HeaderComponent implements OnInit, OnDestroy {
           this.headerFlag = data;
         }
       },
-      error: (error) => console.error('Error in country flag subscription:', error)
+      error: (error) =>
+        console.error("Error in country flag subscription:", error),
     });
 
     this.setupReportWindowSubscription();
@@ -737,7 +798,8 @@ export class HeaderComponent implements OnInit, OnDestroy {
           this.isQuestionVisible = false;
         }
       },
-      error: (error) => console.error('Error in report window subscription:', error)
+      error: (error) =>
+        console.error("Error in report window subscription:", error),
     });
   }
 
@@ -767,13 +829,19 @@ export class HeaderComponent implements OnInit, OnDestroy {
   }
 
   private handleOtherModuleReport(data: any) {
-    this.subs.sink = this.locationService.getModuleReportOptionLists(data).subscribe({
-      next: (response) => {
-        this.reportOptionList = [{ id: null, reportoption_name: "Select" }, ...response.reportOptions];
-        this.reportType = data.reporttype;
-      },
-      error: (error) => console.error('Error getting module report options:', error)
-    });
+    this.subs.sink = this.locationService
+      .getModuleReportOptionLists(data)
+      .subscribe({
+        next: (response) => {
+          this.reportOptionList = [
+            { id: null, reportoption_name: "Select" },
+            ...response.reportOptions,
+          ];
+          this.reportType = data.reporttype;
+        },
+        error: (error) =>
+          console.error("Error getting module report options:", error),
+      });
   }
 
   getProgramlevelList() {
@@ -847,71 +915,68 @@ export class HeaderComponent implements OnInit, OnDestroy {
   }
 
   logout() {
-    // Only attempt social sign out if user is logged in through social auth
-    this.authService.authState.pipe(
-      take(1)
-    ).subscribe({
+    // Clear storage immediately
+    window.sessionStorage.clear();
+    localStorage.clear();
+  
+    // Attempt social sign out if applicable
+    this.authService.authState.pipe(take(1)).subscribe({
       next: (socialUser) => {
         if (socialUser) {
-          this.authService.signOut().catch(err => console.warn('Social sign out error:', err));
+          this.authService.signOut().catch(err => console.warn("Social sign out error:", err));
         }
       },
-      error: (err) => console.warn('Error checking social auth state:', err)
+      error: (err) => console.warn("Error checking social auth state:", err),
     });
-
-    // Create a combined observable for both logout calls
-    const logoutCalls$ = this.service.logout().pipe(
-      switchMap(() => this.locationService.sessionEndApiCall())
-    );
-
-    this.subs.sink = logoutCalls$.subscribe({
-      next: () => {
-        this.toast.add({
-          severity: "info",
-          summary: "Info",
-          detail: "Logged out successfully"
-        });
-        
-        // Clear services cache
-        this.service.clearCache();
-        this.locationService.clearCache();
-        
-        // Clear storage after successful logout
-        window.sessionStorage.clear();
-        localStorage.clear();
-        
-        // Navigate to login page
-        this.router.navigateByUrl("/login");
-      },
-      error: (error) => {
-        console.error('Logout error:', error);
-        this.toast.add({
-          severity: "error",
-          summary: "Error",
-          detail: "Error during logout. Please try again."
-        });
-        
-        // Still clear storage and redirect on error
-        window.sessionStorage.clear();
-        localStorage.clear();
-        this.router.navigateByUrl("/login");
-      }
-    });
+  
+    // Perform API logout calls
+    this.subs.sink = this.service.logout()
+      .pipe(
+        switchMap(() => this.locationService.sessionEndApiCall()),
+        catchError(error => {
+          console.error("Logout error:", error);
+          return of(null); // Prevents the observable from breaking
+        })
+      )
+      .subscribe({
+        next: () => {
+          this.toast.add({ severity: "info", summary: "Info", detail: "Logged out successfully" });
+  
+          // Clear caches AFTER API logout (ensures correct order)
+          this.service.clearCache();
+          this.locationService.clearCache();
+  
+          // Navigate to login page
+          setTimeout(() => {
+            this.router.navigateByUrl("/login");
+          }, 100); // Small delay to allow cache clearing
+        }
+      });
   }
+  
 
   getModuleList() {
-    this.subs.sink = this.locationService.getUniPerpModuleList().subscribe((data) => {
-      this.moduleList = data.modules;
-      this.selectedModuleId = 1;
-    });
+    this.subs.sink = this.locationService
+      .getUniPerpModuleList()
+      .subscribe((data) => {
+        this.moduleList = data.modules;
+        this.selectedModuleId = 1;
+      });
   }
 
   getReportOption() {
     this.reportOptionList = [];
-    this.subs.sink = this.locationService.getReportOptionList().subscribe((data) => {
-      let reportTypeData = data.reportOptions.filter((value: any) => value.reporttype === this.reportType);
-      this.reportOptionList = [{ id: null, reportoption_name: "Select" }, ...reportTypeData];
-    });
+    this.subs.sink = this.locationService
+      .getReportOptionList()
+      .subscribe((data) => {
+        let reportTypeData = data.reportOptions.filter(
+          (value: any) => value.reporttype === this.reportType
+        );
+        this.reportOptionList = [
+          { id: null, reportoption_name: "Select" },
+          ...reportTypeData,
+        ];
+      });
   }
   isCountryPopupOpen: any;
   openFlagModal(totalCountryList: any, event: any): void {
@@ -931,25 +996,25 @@ export class HeaderComponent implements OnInit, OnDestroy {
       // Update the header flag and country data for the selected country (not home country)
       this.headerFlag = countryData.flag;
       this.selectedCountryId = countryData.id;
-      
+
       // Update data service with selected country info
       this.dataService.changeCountryId(countryData.id.toString());
       this.dataService.changeCountryName(countryData.country);
       this.dataService.changeCountryFlag(countryData.flag);
-      
+
       // Save to localStorage as selected country
-      localStorage.setItem('selectedCountryId', countryData.id.toString());
-      
+      localStorage.setItem("selectedCountryId", countryData.id.toString());
+
       // Close the country list popup if it exists
       if (totalCountryList) {
         totalCountryList.toggle(false);
       }
-      
+
       // Notify dashboard service about country change if it came from header
       if (totalCountryList) {
         this.dashboardService.updateSelectedCountry(countryData);
       }
-      
+
       // Refresh module list with new selected country
       this.getModuleList();
     }
@@ -1004,13 +1069,20 @@ export class HeaderComponent implements OnInit, OnDestroy {
 
   subScribedUserCount(): void {
     this.service.getNewUserTimeLeft().subscribe((res) => {
-      this.currentUserSubscriptionPlan = res?.subscription_details?.subscription_plan;
+      this.currentUserSubscriptionPlan =
+        res?.subscription_details?.subscription_plan;
       this.enterpriseSubscriptionLink = res.enterprise_subscription_link;
       let data = res.time_left;
       if (data.plan === "not_started") {
         this.visible = false;
       } else {
-        this.getTimer(data.minutes, data.seconds, data.hours, data.days, data.months);
+        this.getTimer(
+          data.minutes,
+          data.seconds,
+          data.hours,
+          data.days,
+          data.months
+        );
       }
     });
   }
@@ -1026,8 +1098,14 @@ export class HeaderComponent implements OnInit, OnDestroy {
       const minutesLeft: number = Math.floor((totalSeconds % 3600) / 60);
       const secondsLeft: number = totalSeconds % 60;
 
-      this.min$ = minutesLeft < 10 && minutesLeft > 0 ? "0" + minutesLeft.toString() : minutesLeft.toString();
-      this.sec$ = secondsLeft < 10 && secondsLeft > 0 ? "0" + secondsLeft.toString() : secondsLeft.toString();
+      this.min$ =
+        minutesLeft < 10 && minutesLeft > 0
+          ? "0" + minutesLeft.toString()
+          : minutesLeft.toString();
+      this.sec$ =
+        secondsLeft < 10 && secondsLeft > 0
+          ? "0" + secondsLeft.toString()
+          : secondsLeft.toString();
 
       this.hrs$ = hoursLeft;
       // this.min$ = textMin;
@@ -1045,7 +1123,13 @@ export class HeaderComponent implements OnInit, OnDestroy {
       //   this.sec$ = textSec;
       // }
 
-      if (minutesLeft <= 0 && this.hrs$ <= 0 && this.day$ <= 0 && secondsLeft <= 0 && this.month$ <= 0) {
+      if (
+        minutesLeft <= 0 &&
+        this.hrs$ <= 0 &&
+        this.day$ <= 0 &&
+        secondsLeft <= 0 &&
+        this.month$ <= 0
+      ) {
         this.visibleExhasted = true;
         clearInterval(this.timerInterval);
       }
@@ -1054,7 +1138,8 @@ export class HeaderComponent implements OnInit, OnDestroy {
 
   checkNewUser(): void {
     this.service.getNewUserTimeLeft().subscribe((res) => {
-      this.currentUserSubscriptionPlan = res?.subscription_details?.subscription_plan;
+      this.currentUserSubscriptionPlan =
+        res?.subscription_details?.subscription_plan;
       this.enterpriseSubscriptionLink = res.enterprise_subscription_link;
       this.dashboardService.updatedata(res.time_left);
       let data = res.time_left;
@@ -1077,8 +1162,14 @@ export class HeaderComponent implements OnInit, OnDestroy {
       const secondsLeft: number = totalSeconds % 60;
 
       this.timeHours = hoursLeft;
-      this.timeLeftMins = minutesLeft < 10 && minutesLeft > 0 ? "0" + minutesLeft : minutesLeft.toString();
-      this.timeLeftSecs = secondsLeft < 10 && secondsLeft > 0 ? "0" + secondsLeft : secondsLeft.toString();
+      this.timeLeftMins =
+        minutesLeft < 10 && minutesLeft > 0
+          ? "0" + minutesLeft
+          : minutesLeft.toString();
+      this.timeLeftSecs =
+        secondsLeft < 10 && secondsLeft > 0
+          ? "0" + secondsLeft
+          : secondsLeft.toString();
       if (this.timeLeftMins == "00") {
         this.timeLeftMins = 0;
       }
@@ -1132,18 +1223,38 @@ export class HeaderComponent implements OnInit, OnDestroy {
       return;
     }
     data = {
-      moduleId: this.moduleQuestionReport.moduleId ? this.moduleQuestionReport.moduleId : this.reportSubmitForm.value.moduleId,
-      submoduleId: this.moduleQuestionReport.subModuleId ? this.moduleQuestionReport.subModuleId : this.reportSubmitForm.value.submoduleId,
-      questionId: this.moduleQuestionReport.questionId ? this.moduleQuestionReport.questionId : this.reportSubmitForm.value.questionId,
+      moduleId: this.moduleQuestionReport.moduleId
+        ? this.moduleQuestionReport.moduleId
+        : this.reportSubmitForm.value.moduleId,
+      submoduleId: this.moduleQuestionReport.subModuleId
+        ? this.moduleQuestionReport.subModuleId
+        : this.reportSubmitForm.value.submoduleId,
+      questionId: this.moduleQuestionReport.questionId
+        ? this.moduleQuestionReport.questionId
+        : this.reportSubmitForm.value.questionId,
       reportOption: this.reportSubmitForm.value.reportOption,
       comment: this.reportSubmitForm.value.comment,
       countryId: this.selectedCountryId,
-      type_of_report: this.reportType == 4 || this.reportType == 5 || this.reportType == 6 || this.reportType == 7 ? this.reportType : this.reportlearnlanguagetype == 8 ? this.reportlearnlanguagetype : undefined,
+      type_of_report:
+        this.reportType == 4 ||
+        this.reportType == 5 ||
+        this.reportType == 6 ||
+        this.reportType == 7
+          ? this.reportType
+          : this.reportlearnlanguagetype == 8
+          ? this.reportlearnlanguagetype
+          : undefined,
     };
     if (data.moduleId == 8) {
       data.countryId = 0;
     }
-    if (data.moduleId == 23 || data.moduleId == 24 || data.moduleId == 25 || data.moduleId == 27 || data.moduleId == 27) {
+    if (
+      data.moduleId == 23 ||
+      data.moduleId == 24 ||
+      data.moduleId == 25 ||
+      data.moduleId == 27 ||
+      data.moduleId == 27
+    ) {
       data.countryId = this.moduleQuestionReport.countryId;
     }
 
@@ -1163,7 +1274,9 @@ export class HeaderComponent implements OnInit, OnDestroy {
         op.hide();
         // this.showReportSuccess = false;
       }, 3000);
-      this.locationService.reportFaqQuestionaftersubmit(maildata).subscribe((res) => {});
+      this.locationService
+        .reportFaqQuestionaftersubmit(maildata)
+        .subscribe((res) => {});
     });
     this.getReportOption();
   }
@@ -1222,7 +1335,11 @@ export class HeaderComponent implements OnInit, OnDestroy {
   }
   onClickSubscribedUser(): void {
     this.imagewhitlabeldomainname = window.location.hostname;
-    if (this.imagewhitlabeldomainname === "dev-student.uniprep.ai" || this.imagewhitlabeldomainname === "uniprep.ai" || this.imagewhitlabeldomainname === "localhost") {
+    if (
+      this.imagewhitlabeldomainname === "dev-student.uniprep.ai" ||
+      this.imagewhitlabeldomainname === "uniprep.ai" ||
+      this.imagewhitlabeldomainname === "localhost"
+    ) {
       this.visibleExhastedUser = false;
       let data: any = {};
       if (this.mobileForm.valid) {
@@ -1283,7 +1400,10 @@ export class HeaderComponent implements OnInit, OnDestroy {
   }
 
   passwordChangeOnClick() {
-    if (this.setPasswordForm.value.password !== this.setPasswordForm.value.confirmPassword) {
+    if (
+      this.setPasswordForm.value.password !==
+      this.setPasswordForm.value.confirmPassword
+    ) {
       this.toast.add({
         severity: "info",
         summary: "Alert",
@@ -1292,19 +1412,21 @@ export class HeaderComponent implements OnInit, OnDestroy {
       return;
     }
 
-    this.locationService.updatePassword(this.setPasswordForm.value.confirmPassword).subscribe((res) => {
-      if (res.status == 404) {
-      }
-      this.isChangePasswordWindowVisible = false;
-      window.sessionStorage.clear();
-      localStorage.clear();
-      this.router.navigateByUrl("/login");
-      this.toast.add({
-        severity: "success",
-        summary: "Success",
-        detail: "Password Updated Successfully.",
+    this.locationService
+      .updatePassword(this.setPasswordForm.value.confirmPassword)
+      .subscribe((res) => {
+        if (res.status == 404) {
+        }
+        this.isChangePasswordWindowVisible = false;
+        window.sessionStorage.clear();
+        localStorage.clear();
+        this.router.navigateByUrl("/login");
+        this.toast.add({
+          severity: "success",
+          summary: "Success",
+          detail: "Password Updated Successfully.",
+        });
       });
-    });
   }
 
   changeLocation(event: any) {
@@ -1338,51 +1460,65 @@ export class HeaderComponent implements OnInit, OnDestroy {
       next: (res: any) => {
         this.countryList = res;
         // Find selected home country or default to India
-        const selectedHomeCountry = res.find((data: any) => data.id === this.homeCountryId) || 
-                                  res.find((data: any) => data.id === 122);
-        
+        const selectedHomeCountry =
+          res.find((data: any) => data.id === this.homeCountryId) ||
+          res.find((data: any) => data.id === 122);
+
         if (selectedHomeCountry) {
           this.headerHomeFlag = selectedHomeCountry.flag;
           this.selectedHomeCountry = selectedHomeCountry;
           this.homeCountryName = selectedHomeCountry.country;
           this.dataService.changeHomeCountryFlag(selectedHomeCountry.flag);
-          
+
           // Save to localStorage as home country
-          localStorage.setItem('homeCountryId', selectedHomeCountry.id.toString());
+          localStorage.setItem(
+            "homeCountryId",
+            selectedHomeCountry.id.toString()
+          );
         } else {
-          console.warn('No valid home country found in response');
+          console.warn("No valid home country found in response");
           // Set default values for home country
-          this.headerHomeFlag = '../../../uniprep-assets/icons/india.png';
-          this.homeCountryName = 'India';
-          this.selectedHomeCountry = { id: 122, country: 'India', flag: this.headerHomeFlag };
+          this.headerHomeFlag = "../../../uniprep-assets/icons/india.png";
+          this.homeCountryName = "India";
+          this.selectedHomeCountry = {
+            id: 122,
+            country: "India",
+            flag: this.headerHomeFlag,
+          };
           this.dataService.changeHomeCountryFlag(this.headerHomeFlag);
-          localStorage.setItem('homeCountryId', '122');
+          localStorage.setItem("homeCountryId", "122");
         }
       },
       error: (error) => {
-        console.error('Error fetching home country data:', error);
+        console.error("Error fetching home country data:", error);
         // Set default values for home country on error
-        this.headerHomeFlag = '../../../uniprep-assets/icons/india.png';
-        this.homeCountryName = 'India';
-        this.selectedHomeCountry = { id: 122, country: 'India', flag: this.headerHomeFlag };
+        this.headerHomeFlag = "../../../uniprep-assets/icons/india.png";
+        this.homeCountryName = "India";
+        this.selectedHomeCountry = {
+          id: 122,
+          country: "India",
+          flag: this.headerHomeFlag,
+        };
         this.dataService.changeHomeCountryFlag(this.headerHomeFlag);
-        localStorage.setItem('homeCountryId', '122');
-      }
+        localStorage.setItem("homeCountryId", "122");
+      },
     });
   }
 
   onHomeCountryChange(event: any) {
     if (event && event.value) {
-      const selectedCountry = this.countryList.find((country: any) => country.id === event.value.id);
+      const selectedCountry = this.countryList.find(
+        (country: any) => country.id === event.value.id
+      );
       if (selectedCountry) {
         this.homeCountryId = selectedCountry.id;
         this.headerHomeFlag = selectedCountry.flag;
         this.homeCountryName = selectedCountry.country;
         this.selectedHomeCountry = selectedCountry;
         this.dataService.changeHomeCountryFlag(selectedCountry.flag);
-        
+
         // Save to localStorage
-        localStorage.setItem('homeCountryId', selectedCountry.id.toString());
+        localStorage.setItem("homeCountryId", selectedCountry.id.toString());
       }
     }
   }
@@ -1397,7 +1533,10 @@ export class HeaderComponent implements OnInit, OnDestroy {
     // const targetUrl = this.currentUserSubscriptionPlan === 'Career' || this.currentUserSubscriptionPlan === 'Entrepreneur'
     //   ? item.url: this.authService?.user?.subscription ? '/pages/subscriptions/upgrade-subscription' : '/pages/subscriptions';
     // this.router.navigateByUrl(targetUrl);
-    if (this.currentUserSubscriptionPlan === "Career" || this.currentUserSubscriptionPlan === "Entrepreneur") {
+    if (
+      this.currentUserSubscriptionPlan === "Career" ||
+      this.currentUserSubscriptionPlan === "Entrepreneur"
+    ) {
       switch (this.service?._user?.ilearn_popup_status) {
         case 0:
         case 1:
@@ -1428,7 +1567,9 @@ export class HeaderComponent implements OnInit, OnDestroy {
 
   onSubscribe() {
     this.isUpgradePlanVisible = false;
-    const targetUrl = this.service?.user?.subscription ? "/pages/subscriptions/upgrade-subscription" : "/pages/subscriptions";
+    const targetUrl = this.service?.user?.subscription
+      ? "/pages/subscriptions/upgrade-subscription"
+      : "/pages/subscriptions";
     this.router.navigateByUrl(targetUrl);
   }
 

@@ -620,4 +620,10 @@ export class AuthService {
   validateOtp(data: any): Observable<any> {
     return this.http.post(`${environment.ApiUrl}/validateotp`, data);
   }
+
+  validateSignIn(req: any) {
+    const headers = new HttpHeaders().set("Accept", "application/json");
+    return this.http.post<any>(environment.ApiUrl + "/login", req, { headers: headers });
+  }
+
 }

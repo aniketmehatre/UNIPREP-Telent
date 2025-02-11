@@ -125,11 +125,11 @@ export class RegistrationComponent implements OnInit {
 					} else {
 						this.storage.set(environment.tokenKey, data?.authorisation?.token)
 					}
-					setTimeout(() => {
-						this.service.getMe().subscribe((data) => {
-							this.router.navigate(["/pages/dashboard"])
-						})
-					}, 2000)
+					// setTimeout(() => {
+					// 	this.service.getMe().subscribe((data) => {
+					// 		this.router.navigate(["/pages/dashboard"])
+					// 	})
+					// }, 2000)
 				},
 				(error: any) => {
 					this.toastr.add({
