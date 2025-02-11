@@ -125,4 +125,10 @@ export class JobSearchService {
           headers: headers,
         });
       }
+      downloadRecommendation(data: any) {
+        const headers = new HttpHeaders().set("Accept", "application/json");
+        return this.http.post<{ url: string }>(environment.ApiUrl + "/downloadIntegratedRecom", data, {
+          headers: headers,
+        });
+      }
 }
