@@ -103,7 +103,7 @@ const routes: Routes = [
         path: 'startup-failure-stories/:id/:question_id', component: ComponentStoriesComponent
       },
       {
-        path: 'ai-business-advisor', component: AiBusinessAdvisorComponent
+        path: 'business-advisor', component: AiBusinessAdvisorComponent
       },
       {
         path: 'risk-assessment', component: StartupRiskAssessmentComponent
