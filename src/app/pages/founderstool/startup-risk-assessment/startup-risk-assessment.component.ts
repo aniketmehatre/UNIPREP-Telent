@@ -21,10 +21,10 @@ export class StartupRiskAssessmentComponent implements OnInit {
     { id: 3, question: 'What stage is your startup currently at?' },
     { id: 4, question: 'What are the key risks your startup has identified?' },
     { id: 5, question: 'What is the current financial status of your startup?' },
-    { id: 6, question: 'Who are your main competitors in the market?' },
+    { id: 6, question: 'What is the competitor in the market?' },
     { id: 7, question: 'Who is your target audience?' },
-    // { id: 8, question: 'How have you allocated your budget across different areas of your business?' },
-    { id: 8, question: 'What is the geographical focus of your startup?' }
+    { id: 8, question: 'What is the budget of allocated across diffrent areas of your business?' },
+    { id: 9, question: 'What is the geographical focus of your startup?' }
   ];
   businessModelList: DropDown[] = riskAssessment.businessModel;
   startupStageList: DropDown[] = riskAssessment.startupStage;
@@ -47,6 +47,7 @@ export class StartupRiskAssessmentComponent implements OnInit {
   selectedData: { [key: string]: any } = {};
   enableModule: boolean = false;
   isFromSavedData: boolean = false;
+  currencyList: any = [];
   constructor(
     private fb: FormBuilder,
     private founderToolService: FounderstoolService,
@@ -56,7 +57,14 @@ export class StartupRiskAssessmentComponent implements OnInit {
 
   ngOnInit(): void {
     console.log(this.businessModelList);
+    this.getCurrenyandLocation();
     // this.getStartUpRiskAssesmentOptionsList();
+  }
+
+  getCurrenyandLocation() {
+    this.founderToolService.getCurrencyAndCountries().subscribe((res: any) => {
+      this.currencyList = res;
+    });
   }
 
   // getStartUpRiskAssesmentOptionsList() {
@@ -79,6 +87,12 @@ export class StartupRiskAssessmentComponent implements OnInit {
   next(productId: number): void {
     this.inValidClass = false;
     if (productId in this.selectedData) {
+      if (productId == 8) {
+        if (this.selectedData[8].toString()?.length > 5) {
+          this.inValidClass = true;
+          return;
+        }
+      }
       if (this.activePageIndex < this.recommendations.length - 1) {
         this.activePageIndex++;
       }
@@ -97,12 +111,13 @@ export class StartupRiskAssessmentComponent implements OnInit {
       type: this.selectedData[1],
       model: this.selectedData[2],
       stage: this.selectedData[3],
-      risks: this.selectedData[4],
+      risks: [this.selectedData[4]],
       financial_status: this.selectedData[5],
       competitive_market: this.selectedData[6],
-      customers: this.selectedData[7],
-      // budget: this.selectedData[8],
-      geographical_focus: this.selectedData[8],
+      customers: [this.selectedData[7]],
+      budget: this.selectedData[8],
+      geographical_focus: this.selectedData[9],
+      currency: this.selectedData[10],
       mode: 'startup_risk_assessment'
     }
     this.founderToolService.getChatgptRecommendations(data).subscribe({
@@ -158,14 +173,26 @@ export class StartupRiskAssessmentComponent implements OnInit {
     this.toast.add({ severity: "success", summary: "Success", detail: "Response saved successfully" });
   }
 
-  downloadRecommadation() {
-    this.founderToolService.downloadRecommendation({ data: this.recommendationData }).subscribe({
-      next: res => {
-        window.open(res.url, "_blank");
-      },
-      error: err => {
-        console.log(err?.error?.message);
-      }
-    });
+  downloadRecommendation() {
+    this.founderToolService.downloadRecommendation({ data: this.recommendationData })
+      .subscribe({
+        next: (response: any) => {
+          this.founderToolService.downloadFile(response.url).subscribe((blob) => {
+            const a = document.createElement("a");
+            const objectUrl = window.URL.createObjectURL(blob);
+
+            a.href = objectUrl;
+            a.download = "start-risk-assessment.pdf";
+            document.body.appendChild(a);
+
+            a.click();
+            window.URL.revokeObjectURL(objectUrl);
+            document.body.removeChild(a);
+          });
+        },
+        error: (err) => {
+          console.log(err?.error?.message);
+        }
+      });
   }
 }
