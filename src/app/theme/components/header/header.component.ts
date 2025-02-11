@@ -522,8 +522,9 @@ export class HeaderComponent implements OnInit, OnDestroy {
     let phone;
     const encPhone = localStorage.getItem("phone");
     if (encPhone) {
-      const bytes = CryptoJS.AES.decrypt(encPhone, environment.secretKeySalt);
-      phone = JSON.parse(bytes.toString(CryptoJS.enc.Utf8));
+      const bytes = this.service.decryptData(encPhone);
+      // const bytes = CryptoJS.AES.decrypt(encPhone, environment.secretKeySalt);
+      phone = JSON.parse(bytes.toString());
       if (
         phone == "" ||
         phone == null ||

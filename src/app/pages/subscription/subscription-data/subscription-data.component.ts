@@ -20,7 +20,7 @@ import { User } from "src/app/@Models/user.model";
 import { LocalStorageService } from "ngx-localstorage";
 import { NgxUiLoaderService } from "ngx-ui-loader";
 import { HttpClient } from "@angular/common/http";
-import CryptoJS from "crypto-js";
+// import CryptoJS from "crypto-js";
 @Component({
     selector: "uni-subscription-data",
     templateUrl: "./subscription-data.component.html",
@@ -88,8 +88,11 @@ export class SubscriptionDataComponent implements OnInit {
       
       if (encHomeCountryName) {
         try {
-          const bytes = CryptoJS.AES.decrypt(encHomeCountryName, environment.secretKeySalt);
-          const decryptedText = bytes.toString(CryptoJS.enc.Utf8);
+          // const bytes = CryptoJS.AES.decrypt(encHomeCountryName, environment.secretKeySalt);
+          const bytes = this.authService.decryptData(encHomeCountryName);
+          console.log(bytes);
+          
+          const decryptedText = bytes.toString();
           
           // Validate decrypted text before parsing
           if (decryptedText && decryptedText.trim() !== '') {
