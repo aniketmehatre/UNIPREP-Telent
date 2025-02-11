@@ -5,6 +5,12 @@
     border:1px solid var(--uniprep-primaryhighlight);
     background:var(--uniprep-primaryop10);
   }
+  
+  // Add styles for when card is selected
+  &.selected {
+    border: 1px solid var(--uniprep-primary);
+    background: var(--uniprep-primaryop10);
+  }
 }
 
 .fontsizesmall{
@@ -118,4 +124,10 @@
   border-radius: 20px !important;
   border: none;
   padding: 10px;
+}
+
+// Remove all custom checkbox styling and just keep a simple style for size
+input[type="checkbox"] {
+  transform: scale(1.2);
+  margin: 0 8px;
 }
