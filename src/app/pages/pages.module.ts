@@ -88,9 +88,13 @@ import { AverageSalaryComponent } from "./averagesalaryestimator/averagesalaryes
 import { AverageSalaryPreparedListComponent } from "./averagesalaryestimator/preparedlist/preparedlist.component"
 import { JoboffercomparisontoolComponent } from "./job-tool/joboffercomparisontool/joboffercomparisontool.component"
 import { JobOfferPreparedListComponent } from "./job-tool/joboffercomparisontool/preparedlist/preparedlist.component"
-import { DropdownModule } from "primeng/dropdown"
-import { OverlayPanelModule } from "primeng/overlaypanel"
-import { GlobalRepositoryComponent } from './global-repository/global-repository.component'
+import { DropdownModule } from "primeng/dropdown";
+
+import { OverlayPanelModule } from "primeng/overlaypanel";
+
+
+
+import { GlobalRepositoryComponent } from './global-repository/global-repository.component';
 
 @NgModule({
 	declarations: [
