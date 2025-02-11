@@ -94,9 +94,7 @@ import { DropdownModule } from "primeng/dropdown";
 
 import { OverlayPanelModule } from "primeng/overlaypanel";
 
-import { PdfViewerModule } from "ng2-pdf-viewer";
 
-import { AnimateModule } from "primeng/animate";
 
 import { GlobalRepositoryComponent } from './global-repository/global-repository.component';
 
@@ -169,7 +167,6 @@ import { GlobalRepositoryComponent } from './global-repository/global-repository
 		InputTextModule,
 		RippleModule,
 		ReactiveFormsModule,
-		
 		CalendarModule,
 		TabViewModule,
 		MultiSelectModule,
