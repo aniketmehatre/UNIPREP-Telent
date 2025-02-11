@@ -15,6 +15,7 @@ import { ButtonModule } from "primeng/button"
 import { TooltipModule } from "primeng/tooltip"
 import { RouterModule } from "@angular/router"
 import { SelectModule } from "primeng/select"
+
 @Component({
 	selector: "uni-dashboard",
 	templateUrl: "./dashboard.component.html",
@@ -34,6 +35,7 @@ export class DashboardComponent implements OnInit, OnChanges {
 	continueReading = "none"
 	continueQuiz = "none"
 	isVideoVisible: boolean = false
+	listFav: any[] = []
 	isShareWithSocialMedia: boolean = false
 	isViewMoreOrgVisible: boolean = false
 	partnerTrusterLogo: any

@@ -9,7 +9,7 @@ import { LocationService } from "../../location.service"
 import { CommonModule } from "@angular/common"
 import { MultiSelectModule } from "primeng/multiselect"
 import { DialogModule } from "primeng/dialog"
-
+import { SkeletonModule } from "primeng/skeleton"
 interface country {
 	id: number
 	country: string
@@ -24,7 +24,7 @@ interface country {
 	templateUrl: "./resource.component.html",
 	styleUrls: ["./resource.component.scss"],
 	standalone: true,
-	imports: [CommonModule, ReactiveFormsModule, MultiSelectModule, DialogModule],
+	imports: [CommonModule, ReactiveFormsModule, MultiSelectModule, DialogModule, SkeletonModule  ],
 })
 export class ResourceComponent implements OnInit {
 	filterform: FormGroup
