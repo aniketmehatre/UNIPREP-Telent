@@ -1,6 +1,6 @@
-import { Component, OnInit } from "@angular/core"
+import { Component, OnInit, OnDestroy } from "@angular/core"
 import { PitchDeskService } from "./pitch-desk.service"
-import { FormBuilder, FormGroup } from "@angular/forms"
+import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule } from "@angular/forms"
 import { AuthService } from "src/app/Auth/auth.service"
 import { Router } from "@angular/router"
 import { MessageService } from "primeng/api"
@@ -19,14 +19,29 @@ import { MultiSelectModule } from "primeng/multiselect"
 import { CarouselModule } from "primeng/carousel"
 import { InputGroupModule } from "primeng/inputgroup"
 import { InputGroupAddonModule } from "primeng/inputgroupaddon"
+
 @Component({
 	selector: "uni-pitch-desk",
 	templateUrl: "./pitch-desk.component.html",
 	styleUrls: ["./pitch-desk.component.scss"],
 	standalone: true,
-	imports: [NgxExtendedPdfViewerModule, CommonModule, InputGroupModule, InputGroupAddonModule, DialogModule, InputTextModule, SkeletonModule, TooltipModule, ButtonModule, MultiSelectModule, CarouselModule],
+	imports: [
+		NgxExtendedPdfViewerModule, 
+		CommonModule, 
+		InputGroupModule, 
+		InputGroupAddonModule, 
+		DialogModule, 
+		InputTextModule, 
+		SkeletonModule, 
+		TooltipModule, 
+		ButtonModule, 
+		MultiSelectModule, 
+		CarouselModule,
+		FormsModule,
+		ReactiveFormsModule
+	],
 })
-export class PitchDeskComponent implements OnInit {
+export class PitchDeskComponent implements OnInit, OnDestroy {
 	pitchDeskList: any[] = []
 	page = 1
 	pageSize = 50
@@ -54,6 +69,8 @@ export class PitchDeskComponent implements OnInit {
 	orgnamewhitlabel: any
 	orglogowhitelabel: any
 	pdname: any
+	private allPitchDeskData: any[] = [];
+
 	constructor(private pitchDesk: PitchDeskService, private userManagementService: UserManagementService, private fb: FormBuilder, private router: Router, private authService: AuthService, private toast: MessageService, private dataService: DataService, private pageFacade: PageFacadeService, private locationService: LocationService) {
 		this.filterForm = this.fb.group({
 			pitchdeck_name: [""],
@@ -79,6 +96,9 @@ export class PitchDeskComponent implements OnInit {
 		this.checkplanExpire()
 		this.selectBoxValues()
 		this.GetPersonalProfileData()
+	}
+
+	ngOnDestroy(): void {
 	}
 
 	GetPersonalProfileData() {
@@ -120,7 +140,6 @@ export class PitchDeskComponent implements OnInit {
 			}
 		} else {
 			data = {
-				search: this.valueNearYouFilter || "",
 				country: this.filterForm.value.country ? this.filterForm.value.country : "",
 				funding_type: this.filterForm.value.funding_type ? this.filterForm.value.funding_type : "",
 				sector: this.filterForm.value.sector ? this.filterForm.value.sector : "",
@@ -134,6 +153,9 @@ export class PitchDeskComponent implements OnInit {
 				this.totalPitchDeckCount = 50
 			} else this.totalPitchDeckCount = responce.total_count
 
+			// Store the complete data for client-side filtering
+			this.allPitchDeskData = responce.data;
+			
 			this.pitchDeskList = responce.data.map((item: any) => ({
 				...item,
 				isChecked: this.selectAllCheckboxes ? 1 : 0
@@ -141,6 +163,11 @@ export class PitchDeskComponent implements OnInit {
 			this.selectedCheckboxCount = this.selectAllCheckboxes ? this.pitchDeskList.length : 0;
 			this.exportCreditCount = responce.credit_count ? responce.credit_count : 0
 			this.favCount = responce.fav_count
+
+			// If there's a search term, filter the results
+			if (this.valueNearYouFilter) {
+				this.performSearch();
+			}
 		})
 		this.isFilterVisible = "none"
 	}
@@ -179,31 +206,30 @@ export class PitchDeskComponent implements OnInit {
 	}
 
 	performSearch() {
-		// Only search if input is empty (reset) or has 3+ characters
-		if (!this.valueNearYouFilter || this.valueNearYouFilter.length >= 3) {
-			this.page = 1;
-			let data: any = {
-				page: this.page,
-				perpage: this.pageSize,
-				search: this.valueNearYouFilter || "",
-				country: this.filterForm.value.country ? this.filterForm.value.country : "",
-				funding_type: this.filterForm.value.funding_type ? this.filterForm.value.funding_type : "",
-				sector: this.filterForm.value.sector ? this.filterForm.value.sector : "",
-				planname: this.currentPlan ? this.currentPlan : "",
-			};
-
-			this.pitchDesk.getPitchDeskData(data).subscribe((response) => {
-				if (this.planExpired) {
-					this.totalPitchDeckCount = 50;
-				} else {
-					this.totalPitchDeckCount = response.total_count;
-				}
-
-				this.pitchDeskList = response.data;
-				this.exportCreditCount = response.credit_count ? response.credit_count : 0;
-				this.favCount = response.fav_count;
-			});
+		const searchValue = this.valueNearYouFilter.trim().toLowerCase();
+		
+		if (!searchValue) {
+			// If search is empty, show all data from our stored complete list
+			this.pitchDeskList = this.allPitchDeskData.map(item => ({
+				...item,
+				isChecked: this.selectAllCheckboxes ? 1 : 0
+			}));
+			return;
 		}
+
+		// Filter the stored data client-side
+		this.pitchDeskList = this.allPitchDeskData.filter(item => 
+			item.pitchdeck_name.toLowerCase().includes(searchValue) ||
+			item.funding_type_name?.toLowerCase().includes(searchValue) ||
+			item.sector_name?.toLowerCase().includes(searchValue) ||
+			item.country_name?.toLowerCase().includes(searchValue)
+		).map(item => ({
+			...item,
+			isChecked: this.selectAllCheckboxes ? 1 : 0
+		}));
+
+		// Update the total count for pagination
+		this.totalPitchDeckCount = this.pitchDeskList.length;
 	}
 
 	closeGuidelines() {
@@ -304,27 +330,42 @@ export class PitchDeskComponent implements OnInit {
 
 	onCheckboxChange(event: any, item: any) {
 		if (this.planExpired) {
-			this.restrict = true
-			return
+			this.restrict = true;
+			return;
 		}
 		
 		const isChecked = event.target.checked;
 		item.isChecked = isChecked ? 1 : 0;
+		
+		// Update selected count and check if all items are selected
 		this.selectedCheckboxCount = this.pitchDeskList.filter(item => item.isChecked === 1).length;
-		this.selectAllCheckboxes = this.selectedCheckboxCount === this.pitchDeskList.length;
+		this.selectAllCheckboxes = this.pitchDeskList.length > 0 && 
+			this.pitchDeskList.every(item => item.isChecked === 1);
+		
+		// Update export data IDs
+		if (isChecked) {
+			if (!this.exportDataIds.includes(item.id)) {
+				this.exportDataIds.push(item.id);
+			}
+		} else {
+			this.exportDataIds = this.exportDataIds.filter((id: number) => id !== item.id);
+		}
 	}
 
 	selectAllCheckbox() {
 		if (this.planExpired) {
-			this.restrict = true
-			return
+			this.restrict = true;
+			return;
 		}
 		
-		this.selectAllCheckboxes = !this.selectAllCheckboxes;
+		// Update all items in the list immediately
 		this.pitchDeskList.forEach(item => {
 			item.isChecked = this.selectAllCheckboxes ? 1 : 0;
 		});
+		
+		// Update counts and IDs
 		this.selectedCheckboxCount = this.selectAllCheckboxes ? this.pitchDeskList.length : 0;
+		this.exportDataIds = this.selectAllCheckboxes ? this.pitchDeskList.map(item => item.id) : [];
 	}
 
 	exportData() {
