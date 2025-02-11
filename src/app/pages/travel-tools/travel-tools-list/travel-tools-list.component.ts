@@ -11,14 +11,29 @@ import { InputGroupModule } from 'primeng/inputgroup';
 import { InputGroupAddonModule } from 'primeng/inputgroupaddon';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { SelectModule } from 'primeng/select';
-
+import { RouterModule } from '@angular/router';
 
 @Component({
     selector: 'uni-travel-tools-list',
     templateUrl: './travel-tools-list.component.html',
     styleUrls: ['./travel-tools-list.component.scss'],
     standalone: true,
-    imports: [CommonModule,SkeletonModule,FluidModule,InputTextModule,TooltipModule,ButtonModule,MultiSelectModule,CarouselModule,InputGroupModule,InputGroupAddonModule,FormsModule,ReactiveFormsModule,InputTextModule,SelectModule]
+    imports: [
+        CommonModule,
+        SkeletonModule,
+        FluidModule,
+        InputTextModule,
+        TooltipModule,
+        ButtonModule,
+        MultiSelectModule,
+        CarouselModule,
+        InputGroupModule,
+        InputGroupAddonModule,
+        FormsModule,
+        ReactiveFormsModule,
+        SelectModule,
+        RouterModule
+    ]
 })
 export class TravelToolsListComponent implements OnInit {
     isLaunchingSoon = false;

@@ -7,7 +7,7 @@ import { TravelToolsComponent } from "./travel-tools.component"
 	imports: [
 		CommonModule,
 		TravelToolsRoutingModule,
-		TravelToolsComponent
+		TravelToolsComponent // Only need the main component since others are lazy loaded
 	]
 })
 export class TravelToolsModule {}
