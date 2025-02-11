@@ -36,10 +36,12 @@
 				</div>
 			</div>
 			<div class="col-12 mt-2">
-				<div class="p-input-icon-left d-md-none d-block">
-					<i class="pi pi-search"></i>
-					<input class="w-100" type="text" placeholder="Search in Pitch Deck List" pInputText [(ngModel)]="valueNearYouFilter" (input)="performSearch()" />
-				</div>
+				<p-inputgroup fluid class="d-md-none d-block">
+					<p-inputgroup-addon>
+						<i class="fa fa-search"></i>
+					</p-inputgroup-addon>
+					<input pInputText type="text" placeholder="Search in Pitch Deck List" [(ngModel)]="valueNearYouFilter" (input)="performSearch()" />
+				</p-inputgroup>
 			</div>
 		</div>
 		<div class="row justify-content-center d-md-flex d-none">
@@ -58,9 +60,11 @@
 					</div>
 				</div>
 				<span class="d-flex justify-content-end align-items-center gap-2">
-					<div class="p-input-icon-left d-md-none d-block">
-						<i class="pi pi-search"></i>
-						<input class="w-100" type="text" placeholder="Search in Pitch Deck List" pInputText [(ngModel)]="valueNearYouFilter" (input)="performSearch()" />
+					<div class="p-inputgroup d-md-none d-block">
+						<p-inputgroup-addon>
+							<i class="fa fa-search"></i>
+						</p-inputgroup-addon>
+						<input pInputText type="text" placeholder="Search in Pitch Deck List" [(ngModel)]="valueNearYouFilter" (input)="performSearch()" />
 					</div>
 					<button class="btn btn-primary text-small pitchdeck-guidlines" (click)="closeGuidelines()" type="button"><span class="d-md-block d-none">Pitch Deck Guidelines</span><i class="fa-solid fa-book d-md-none d-block"></i></button>
 					<button *ngIf="ehitlabelIsShow" class="btn btn-primary text-small" (click)="buyCredits()" type="button"><span class="d-md-block d-none">Buy Credits</span><i class="fa-solid fa-dollar d-md-none d-block"></i></button>
@@ -72,9 +76,13 @@
 			<div class="col-md-12 mt-2">
 				<div class="d-flex flex-md-row flex-column w-100 align-items-center justify-content-between">
 					<div class="d-flex gap-2 align-items-center">
-						<div class="p-input-icon-left d-md-block d-none">
-							<i class="pi pi-search"></i>
-							<input class="px-5 py-2" type="text" placeholder="Search in Pitch Deck List" pInputText [(ngModel)]="valueNearYouFilter" (input)="performSearch()" />
+						<div class="p-inputgroup d-md-block d-none">
+							<p-inputgroup fluid>
+								<p-inputgroup-addon>
+									<i class="fa fa-search"></i>
+								</p-inputgroup-addon>
+								<input pInputText type="text" placeholder="Search in Pitch Deck List" [(ngModel)]="valueNearYouFilter" (input)="performSearch()" />
+							</p-inputgroup>
 						</div>
 						<span class="d-flex justify-content-start p-2">
 							<input type="checkbox" class="me-0" style="zoom: 1.5; cursor: pointer" [(ngModel)]="selectAllCheckboxes" (click)="selectAllCheckbox()" id="selectAllcheckbox" />
