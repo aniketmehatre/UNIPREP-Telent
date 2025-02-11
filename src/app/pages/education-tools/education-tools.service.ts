@@ -119,7 +119,7 @@ export class EducationToolsService {
   }
 
   getUniverstityByCountry(country_id: string) {
-    return this.http.post<any>(`${environment.ApiUrl}/getuniversitybycountry`, {
+    return this.http.post<any>(`${environment.ApiUrl}/getunviersity`, {
       country_id: country_id
     });
   }

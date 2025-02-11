@@ -1,4 +1,4 @@
-<div class="card readingcard" style="border-radius: 15px 15px 0px 0px !important;">
+<div class="card readingcard" style="border-radius: 15px 15px 0px 0px !important; background-color: white !important;">
     <div class="card-header border-0 bg-transparent">
       <div class="row justify-content-center">
         <div class="col-md-12 d-flex gap-4 text-center">
@@ -25,36 +25,44 @@
     </div>
     <div class="card-body">
         <div class="row">
-            <div class="col-4 mt-2" *ngFor="let data of wealthleaderlist">
-                <div class="card p-2" style="height: 100%;">
-                    <div class="card-date"><span class="p-1" style="background-color: #9BC329; border-radius: 5px;">Billionaire</span></div>
+          <div class="col-12 col-md-4 col-lg-3 mt-2" *ngFor="let data of wealthleaderlist">
+            <div class="card p-2 custom-card" (click)="viewReadAns(data.id, data.name)">
                 <div class="card1">
+                    <!-- Left Side: Image with label -->
                     <div class="card-left">
-                      <img src="{{data.leader_image}}" alt="Profile Image" />
+                        <img [src]="data.leader_image" alt="Profile Image" class="leader-img"/>
+                        <div class="image-label">Billionaire</div>
                     </div>
+        
+                    <!-- Right Side: Content -->
                     <div class="card-right">
-                      <div class="card-content">
-                        <h4>{{data.name}}</h4>
-                        <h6><b>Net Worth :</b> {{data.networth}}</h6>
-                        <h6>
-                          <img src="{{data.flag}}" width="10" height="10" alt="" />
-                          {{data.country}}
-                        </h6>
-                      </div>
+                        <div class="card-content">
+                            <h6><b>{{data.name}}</b></h6>
+                            <h7 style="font-size: smaller;">
+                              <img [src]="data.flag" width="10" height="10" alt="" />
+                              {{data.country}}
+                          </h7>
+                          <div class="d-flex justify-content-start mt-2">
+                            <span class="mt-1" style="color: #00C083;"><i class="fa-solid fa-clock"></i> </span>&nbsp;
+                            <h6 class="mt-1" style="font-size: xx-small;"><span style="color: #CBCED5;">Age :</span> <br> <span style="font-size: x-small;"><b>{{data.age}} Years old</b></span></h6>
+                          </div>
+                          <div class="d-flex justify-content-start mt-2">
+                            <span style="color: #00C083;"><i class="fa-solid fa-dollar-sign fa-2x"></i> </span>&nbsp;
+                            <h6 class="mt-1" style="font-size: xx-small;"><span style="color: #CBCED5;">Net Worth :</span>  <br> <span  style="font-size: larger;"><b>{{data.networth}}</b></span></h6>
+                          </div>
+                        </div>
                     </div>
-                  </div>
-                  <div class="card-bottom">
-                    <button (click)="viewReadAns(data.id,data.name)" class="mb-2">View</button>
-                  </div>
                 </div>
             </div>
+        </div>
+        
         </div>
     </div>
     <!-- <div class="card-footer py-0 border-0 bg-transparent">
         <p-paginator [rows]="10" [totalRecords]="totalcount" (onPageChange)="paginate($event)" [rowsPerPageOptions]="[10, 50, 100, 200]" dropdownAppendTo="body"></p-paginator>
     </div>     -->
   </div>
-  <div class="card" style="border-radius: 0px 0px 15px 15px !important;">
+  <div class="card" style="border-radius: 0px 0px 15px 15px !important; background-color: white !important;">
     <p-paginator [rows]="10" [totalRecords]="totalcount" (onPageChange)="paginate($event)" [rowsPerPageOptions]="[ 50, 100, 200,500,1000]" dropdownAppendTo="body"></p-paginator>
   </div>
   <!-- filter pop-up -->

@@ -36,7 +36,7 @@
                       {{ recommendation.question.branches[0] }}
                     </h5>
                     <p-dropdown styleClass="w-100" appendTo="body" [options]="industryList" [filter]="true"
-                      formControlName="industry" filterBy="Industry" optionLabel="Industry" optionValue="Industry"
+                      formControlName="industry" filterBy="Industry" optionLabel="Industry" placeholder="Industry" optionValue="Industry"
                       [autoDisplayFirst]="false">
                     </p-dropdown>
                     <p class="text-center" *ngIf="marketingForm.get('industry')?.errors?.required && submitted"
@@ -49,7 +49,7 @@
                       {{ recommendation.question.branches[1] }}
                     </h5>
                     <p-dropdown styleClass="w-100" appendTo="body" [options]="startupStageList" [filter]="true"
-                      formControlName="startup_stage" filterBy="name" optionLabel="name" optionValue="name"
+                      formControlName="startup_stage" filterBy="name" optionLabel="name" optionValue="name" placeholder="Startup Stage"
                       [autoDisplayFirst]="false">
                     </p-dropdown>
                     <p class="text-center" *ngIf="marketingForm.get('startup_stage')?.errors?.required && submitted"
@@ -62,7 +62,7 @@
                       {{ recommendation.question.branches[2] }}
                     </h5>
                     <p-dropdown styleClass="w-100" appendTo="body" [options]="currencyandCountryList" [filter]="true"
-                      formControlName="location" filterBy="country" optionLabel="country" optionValue="country"
+                      formControlName="location" filterBy="country" optionLabel="country" optionValue="country" placeholder="Location"
                       [autoDisplayFirst]="false">
                     </p-dropdown>
                     <p class="text-center" *ngIf="marketingForm.get('location')?.errors?.required && submitted"
@@ -75,7 +75,7 @@
                       {{ recommendation.question.branches[3] }}
                     </h5>
                     <p-dropdown styleClass="w-100" appendTo="body" [options]="teamSizeList" [filter]="true"
-                      formControlName="team_size" filterBy="name" optionLabel="name" optionValue="name"
+                      formControlName="team_size" filterBy="name" optionLabel="name" optionValue="name" placeholder="Team Size"
                       [autoDisplayFirst]="false">
                     </p-dropdown>
                     <p class="text-center" *ngIf="marketingForm.get('team_size')?.errors?.required && submitted"
@@ -94,7 +94,7 @@
                       {{ recommendation.question.branches[0] }}
                     </h5>
                     <p-multiSelect styleClass="w-100" placeholder="Expense" [options]="primaryExpenseList"
-                     optionLabel="name" optionValue="name" appendTo="body" formControlName="primary_expense">
+                     optionLabel="name" optionValue="name" appendTo="body" formControlName="primary_expense">  
                     </p-multiSelect>
                     <p class="text-center" *ngIf="
                           marketingForm.get('primary_expense')?.errors?.required && submitted
@@ -107,7 +107,7 @@
                       {{ recommendation.question.branches[2] }}
                     </h5>
                     <p-multiSelect styleClass="w-100" placeholder="Revenue Model" [options]="revenueModelsList"
-                      optionLabel="name" optionValue="name" appendTo="body" formControlName="revenue_model">
+                      optionLabel="name" optionValue="name" appendTo="body" formControlName="revenue_model" >
                     </p-multiSelect>  
                     <p class="text-center" *ngIf="
                           marketingForm.get('revenue_model')?.errors?.required && submitted
@@ -141,7 +141,7 @@
                         filterBy="currency_code" placeholder="Currency" optionLabel="currency_code" optionValue="currency_code"
                         [autoDisplayFirst]="false">
                       </p-dropdown>
-                      <input class="w-100 pl-4 border border-gray rounded-3" type="number" pInputText placeholder=" Budget"
+                      <input class="w-100 pl-4 border border-gray rounded-3" type="number" pInputText placeholder="Operating Expense"
                         formControlName="operating_expense" />
                     </div>
                     <p class="text-center" *ngIf="marketingForm.get('operating_expense')?.errors?.required && submitted"
@@ -176,7 +176,7 @@
                       {{ recommendation.question.branches[1] }}
                     </h5>
                     <p-dropdown styleClass="w-100" formControlName="expense_estimation" appendTo="body" [options]="expenseEstimation" [filter]="true"
-                    filterBy="name" placeholder=" Currency" optionLabel="name" optionValue="name"
+                    filterBy="name" placeholder="Expense Estimation" optionLabel="name" optionValue="name"
                     [autoDisplayFirst]="false">
                   </p-dropdown>
                     <p class="text-center" *ngIf="
