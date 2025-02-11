@@ -5,6 +5,7 @@ import { JobSearchService } from '../../job-search/job-search.service';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { TravelCostEstimator } from 'src/app/@Models/chat-gpt.model';
 import { PageFacadeService } from '../../page-facade.service';
+import { MessageService } from 'primeng/api';
 
 @Component({
   selector: 'uni-careerplannercountrywise',
@@ -20,7 +21,9 @@ export class CareerplannercountrywiseComponent implements OnInit {
   isFormChatgptresponse:boolean=false;
   isSavedResponse:boolean=false;
   recommadationSavedQuestionList: any[] = [];
-  constructor(private router: Router,private service: JobSearchService,private fb:FormBuilder,private pageFacade: PageFacadeService,) { 
+  constructor(private router: Router,private service: JobSearchService,private fb:FormBuilder,private pageFacade: PageFacadeService,
+    private toast: MessageService
+  ) { 
     this.form = this.fb.group({
       country: ['',[Validators.required]],
       currency: ['',[Validators.required]],
@@ -86,5 +89,18 @@ export class CareerplannercountrywiseComponent implements OnInit {
   }
   openVideoPopup(videoLink: string) {
     this.pageFacade.openHowitWorksVideoPopup(videoLink);
+  }
+  onSaveRes() {
+    this.toast.add({ severity: "success", summary: "Success", detail: "Response saved successfully" });
+  }
+  downloadRecommadation() {
+    this.service.downloadRecommendation({ data: this.customizedResponse }).subscribe({
+      next: res => {
+        window.open(res.url, "_blank");
+      },
+      error: err => {
+        console.log(err?.error?.message);
+      }
+    });
   }
 }

@@ -104,7 +104,7 @@
                                             <h5 class="mt-2">preferred Currency</h5>
                                         </div>
                                         <div class="col-md-6">
-                                            <p-dropdown [options]="currencyList" [filter]="true" [filterBy]="'currency_code'" styleClass="w-100" placeholder="Select Currency"
+                                            <p-dropdown [options]="currencyList" [filter]="true" filterBy="currency_code" styleClass="w-100" placeholder="Select Currency"
                                                 [(ngModel)]="selectedData['currency']" optionLabel="currency_code" optionValue="currency_code" [appendTo]="'body'" >
                                             </p-dropdown>
                                             <div *ngIf="!selectedData['currency'] && isSubmitted" class="text-danger text-xs">
@@ -208,7 +208,7 @@
                                             <h5 class="mt-2">Part Time Income</h5>
                                         </div>
                                         <div class="col-md-6">
-                                            <input type="text" pInputText [placeholder]="'Cost/Month' + (selectedData['currency'] ? ' in '+ selectedData['currency'] : '')" class="w-100"  [(ngModel)]="selectedData['part_time_income']" />
+                                            <input type="text" pInputText [placeholder]="'Income/Month' + (selectedData['currency'] ? ' in '+ selectedData['currency'] : '')" class="w-100"  [(ngModel)]="selectedData['part_time_income']" />
                                         </div>
                                     </div>
                                     <div class="d-flex justify-content-center mb-3">
@@ -216,7 +216,7 @@
                                             <h5 class="mt-2">Full Time Income</h5>
                                         </div>
                                         <div class="col-md-6">
-                                            <input type="text" pInputText [placeholder]="'Cost/Month' + (selectedData['currency'] ? ' in '+ selectedData['currency'] : '')" class="w-100"  [(ngModel)]="selectedData['full_time_income']" />
+                                            <input type="text" pInputText [placeholder]="'Income/Month' + (selectedData['currency'] ? ' in '+ selectedData['currency'] : '')" class="w-100"  [(ngModel)]="selectedData['full_time_income']" />
                                         </div>
                                     </div>
                                     <div class="d-flex justify-content-center mb-3">
@@ -224,7 +224,7 @@
                                             <h5 class="mt-2">Other Income</h5>
                                         </div>
                                         <div class="col-md-6">
-                                            <input type="text" pInputText [placeholder]="'Cost/Month' + (selectedData['currency'] ? ' in '+ selectedData['currency'] : '')" class="w-100"  [(ngModel)]="selectedData['other_income']" />
+                                            <input type="text" pInputText [placeholder]="'Income/Month' + (selectedData['currency'] ? ' in '+ selectedData['currency'] : '')" class="w-100"  [(ngModel)]="selectedData['other_income']" />
                                         </div>
                                     </div>
                                 </ng-container>

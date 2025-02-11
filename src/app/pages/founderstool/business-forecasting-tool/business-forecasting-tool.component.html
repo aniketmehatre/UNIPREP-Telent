@@ -35,13 +35,17 @@
                                         {{ recommendation.question.branches[0] }}
                                     </h5>
                                     <p-dropdown styleClass="w-100" class="w-100" formControlName="industry" appendTo="body" [options]="industryList"
-                                    [filter]="true" filterBy="Industry" placeholder="Forecast" optionLabel="Industry" optionValue="Industry"
+                                    [filter]="true" filterBy="Industry" placeholder="Industry" optionLabel="Industry" optionValue="Industry"
                                      [autoDisplayFirst]="false">
                                 </p-dropdown>
                                     <p class="text-center" *ngIf="form.get('industry')?.errors?.required && submitted" style="color: red">
                                         Please enter the industry type
                                     </p>
                                 </div>
+                                <div class="d-flex flex-column gap-2 mb-2">
+                                    <h5 class="uniprep-primary fw-semibold mt-3 mb-1">
+                                        Does your business have seasonal functionalities
+                                    </h5>
                                 <div class="d-flex justify-content-center align-items-center gap-4 mb-2">
                                     <button type="button" (click)="onEnableDisableSeason(true);" [ngClass]="{
                                         'active-btn': isSessonEnable}"
@@ -54,6 +58,7 @@
                                         class="btn rounded-1 p-4 btn-primary-border" style="padding-inline: 6rem !important">
                                         No
                                     </button>
+                                </div>
                                 </div>
                                 <div class="d-flex flex-column gap-2 mb-1" *ngIf="isSessonEnable">
                                     <h5 class="uniprep-primary fw-semibold mt-3 mb-1">

@@ -105,11 +105,11 @@ export const FoundersToolsData = [
         launch_soon: true
     },
     {
-        title: "AI Business Advisor",
+        title: "Business Advisor",
         description: "An assessment that evaluates an entrepreneur's in-depth knowledge and proficiency in specific industries.",
         image: "../../../uniprep-assets/images/founderstool/business-advisor.svg",
-        url: "/pages/founderstool/ai-business-advisor",
-        launch_soon: false
+        url: "/pages/founderstool/business-advisor",
+        launch_soon: true
     },
     {
         title: "Startup Risk Assessment",
