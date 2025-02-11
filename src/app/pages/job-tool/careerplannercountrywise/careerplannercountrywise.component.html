@@ -26,7 +26,7 @@
             <div class="row">
                 <div class="col-12 p-2">
                     <div class="form-group">
-                        <h2>Which country are you interested in?</h2>
+                        <h3>Which country are you interested in?</h3>
                         <p-dropdown [options]="countries" styleClass="w-100 border-primary" formControlName="country"
                             optionValue="country" optionLabel="country" placeholder="Select Country" [filter]="true"
                             [showClear]="true"> </p-dropdown>
@@ -37,7 +37,7 @@
                 </div>
                 <div class="col-12 mt-4 p-2">
                     <div class="form-group">
-                        <h2>Select Your Preferred Currency</h2>
+                        <h3>Select Your Preferred Currency</h3>
                         <p-dropdown [options]="countries" styleClass="w-100 border-primary" formControlName="currency"
                             optionValue="currency_code" optionLabel="currency_code" placeholder="Select Currency"
                             [filter]="true" [showClear]="true">
@@ -61,60 +61,64 @@
     </div>
 </div>
 <!-- get chatgpt response -->
+<!-- new design -->
 <div class="card readingcard" *ngIf="isFormChatgptresponse">
-	<div class="card-header border-0 bg-transparent">
-		<div class="row justify-content-center">
-			<div class="col-md-12 d-flex gap-3 text-center">
-				<div class="backIcon d-md-flex d-none" role="button" (click)="BackReset()">
-					<span class="fa-solid fa-chevron-left"></span>
-				</div>
-				<div class="select-title d-flex justify-content-between align-items-center">
-					<div>
-						<h5 class="w-100 mb-0" tooltipPosition="top"
-							pTooltip="Plan your career path by exploring job opportunities worldwide">Career Planner<i
-								class="questiontooltip fa-solid fa-circle-question"></i></h5>
-					</div>
-					<div>
-						<button class="how-it-works-button"
-							(click)="openVideoPopup('https://www.youtube.com/embed/jG3wFxF8zZI?si=2I3dijKIH-aEisoS')">How
-							it works? <i class="fa-solid fa-play d-md-block d-none"></i></button>
-					</div>
-				</div>
+    <div class="card-header border-0 bg-transparent">
+        <div class="row justify-content-center align-items-center">
+            <div class="col-md-12 d-flex gap-4">
+                <div class="backIcon d-md-flex d-none" role="button" (click)="BackReset()" style="height: auto;">
+                    <span class="fa-solid fa-chevron-left"></span>
+                </div>
+                <div class="select-title d-flex justify-content-between align-items-center">
+                    <div>
+                        <h5 class="w-100 mb-0" tooltipPosition="top"
+                        pTooltip="Plan your career path by exploring job opportunities worldwide">Career Planner<i
+                            class="questiontooltip fa-solid fa-circle-question"></i></h5>
+                    </div>
+                    <div>
+                        <button class="how-it-works-button">How it works?
+                            <i class="fa-solid fa-play d-md-block d-none"></i></button>
+                    </div>
+                </div>
                 <div class="d-flex align-items-center">
                     <button pButton type="button" (click)="saveRecommadation()"
                         class="btn btn-primary btn-rounded py-2 px-4">
-                        <span>Save</span>
+                        <span>Saved</span>
                     </button>
                 </div>
-			</div>
-		</div>
-	</div>
-    <div >
-        <div class="row mt-3">
-            <div class="col-3"></div>
-            <div class="col-6">
-                <div class="card" style="background-color: white !important;">
-                    <div class="card-body overflow-x-auto">
-                        <div class="readingarea" [innerHTML]="customizedResponse"></div>
-                    </div>
+            </div>
+        </div>
+    </div>
+    <div class="card-body worksans flex-fill overflow-y-auto">
+        <div class="row">
+            <div class="col-md-2"></div>
+            <div class="col-md-8">
+                <div class="d-flex justify-content-end gap-3 mb-3">
+                    <!-- <button pButton type="button" (click)="downloadRecommadation()"
+                        class="btn btn-secondary btn-rounded p-1 ps-4">
+                        <span class="me-2">Download</span><span class="btn-icon px-2 py-2">
+                            <i class="fa-regular fa-download"></i></span>
+                    </button> -->
+                    <button pButton type="button" (click)="onSaveRes()"
+                        class="btn btn-primary btn-rounded p-1 ps-4">
+                        <span class="me-2">Save Response</span><span class="btn-icon px-2 py-2">
+                            <i class="fa-regular fa-floppy-disk"></i></span>
+                    </button>
                 </div>
+                <markdown emoji>
+                    <div class="card p-3" [innerHtml]="customizedResponse"></div>
+                </markdown>
             </div>
-            <div class="col-3"></div>
+            <div class="col-md-2"></div>
         </div>
-        <div class="card-footer bg-transparent border-0">
-            <div class="text-end">
-                <button pButton type="button" class="btn ps-3 btn-quit btn-rounded" (click)="BackReset()">
-                    Reset Recommendations<span class="btn-icon"><i class="fa-solid fa-arrow-rotate-right"></i>
-                    </span>
-                </button>
-            </div>
+    </div>
+    <div class="card-footer bg-transparent border-0">
+        <div class="text-end">
+            <button pButton type="button" class="btn ps-3 btn-quit btn-rounded" (click)="BackReset()">
+                Reset Recommendations<span class="btn-icon"><i class="fa-solid fa-arrow-rotate-right"></i>
+                </span>
+            </button>
         </div>
-        <!-- <button pButton (click)="BackReset()" class="btn btn-rounded footer-btn" type="submit" [ngClass]="{ 'btn-red': true }">
-            <span class="me-2">Reset Recommendations</span>
-            <span class="btn-icon px-2 py-2">
-                <i class="fa-solid fa-rotate-right"></i>
-            </span>
-        </button> -->
     </div>
 </div>
 <!-- saved response -->

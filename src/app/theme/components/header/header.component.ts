@@ -9,23 +9,24 @@ import {
   ViewChild,
   ViewEncapsulation,
 } from "@angular/core";
-import {MenuItem, MessageService} from "primeng/api";
-import {AuthService} from "../../../Auth/auth.service";
-import {SubSink} from "subsink";
-import {ActivatedRoute, Router} from "@angular/router";
-import {LocationService} from "../../../location.service";
-import {DataService} from "src/app/data.service";
-import {FormBuilder, FormGroup, Validators} from "@angular/forms";
-import {matchValidator} from "../../../@Supports/matchvalidator";
-import {ThemeService} from "../../../theme.service";
-import {DashboardService} from "src/app/pages/dashboard/dashboard.service";
-import {count, Observable} from "rxjs";
-import {CountryISO, SearchCountryField} from "ngx-intl-tel-input";
-import {SocialAuthService} from "@abacritt/angularx-social-login";
+import { MenuItem, MessageService } from "primeng/api";
+import { AuthService } from "../../../Auth/auth.service";
+import { SubSink } from "subsink";
+import { ActivatedRoute, NavigationEnd, Router } from "@angular/router";
+import { LocationService } from "../../../location.service";
+import { DataService } from "src/app/data.service";
+import { FormBuilder, FormGroup, Validators } from "@angular/forms";
+import { matchValidator } from "../../../@Supports/matchvalidator";
+import { ThemeService } from "../../../theme.service";
+import { DashboardService } from "src/app/pages/dashboard/dashboard.service";
+import { count, Observable } from "rxjs";
+import { CountryISO, SearchCountryField } from "ngx-intl-tel-input";
+import { SocialAuthService } from "@abacritt/angularx-social-login";
 import { environment } from "@env/environment";
 import CryptoJS from "crypto-js";
 import { AssessmentService } from "src/app/pages/assessment/assessment.service";
 import { ILearnChallengeData } from "src/app/@Models/ilearn-challenge.model";
+import { ModuleServiceService } from "src/app/pages/module-store/module-service.service";
 
 // import { SocialAuthService } from "@abacritt/angularx-social-login";
 
@@ -102,28 +103,29 @@ export class HeaderComponent implements OnInit, OnDestroy {
   demoDays: any;
   reportlearnlanguagetype: number = 0;
   countryList: any; //this is the original home country list for time being am doing like this.
-  indiaHomeCountry: any = [{ country: "India", id: 122}];
+  indiaHomeCountry: any = [{ country: "India", id: 122 }];
   locationList: any;
   whiteLabelIsNotShow: boolean = true;
   visibleExhastedUser!: boolean;
-  programLevelList:any = [];
+  programLevelList: any = [];
   currentEducation!: boolean;
   currentEducationForm: any = FormGroup;
   phoneVerification: any = FormGroup;
-  whatsappVerification:boolean = false;
+  whatsappVerification: boolean = false;
   ApiUrl: string = environment.domain;
   educationImage: string = "";
-  otp: string[] = ['', '', '', '']; 
-  otpArray = Array(4).fill(0); 
+  otp: string[] = ['', '', '', ''];
+  otpArray = Array(4).fill(0);
 
-  currentUserSubscriptionPlan: string =  '';
-  iLearnChallengeData:ILearnChallengeData;
+  currentUserSubscriptionPlan: string = '';
+  iLearnChallengeData: ILearnChallengeData;
   isUpgradePlanVisible: boolean = false;
   isILeanrParticipantsVisible: boolean = false;
   isILearnLiveVisible: boolean = false;
   isILearnCompletedVisible: boolean = false;
   assParticipations: number = 0;
-
+  showSearch: boolean = true;
+  isShowHeaderSearchForModule: boolean = false;
   constructor(
     private router: Router,
     private locationService: LocationService,
@@ -134,7 +136,8 @@ export class HeaderComponent implements OnInit, OnDestroy {
     route: ActivatedRoute, private authService: SocialAuthService,
     private dataService: DataService,
     private dashboardService: DashboardService, // private authService: SocialAuthService
-    private assessmentService: AssessmentService
+    private assessmentService: AssessmentService,
+    private moduleListService: ModuleServiceService,
   ) {
     // this.subs.sink = this.dataService.countryId.subscribe((data) => {
     //
@@ -159,10 +162,15 @@ export class HeaderComponent implements OnInit, OnDestroy {
       this.iLearnChallengeData = data;
     });
     this.assessmentService.sideMenuiLearnChallengeData$.subscribe((data) => {
-      if(data) {
+      if (data) {
         this.navigateILearnChallenge();
       }
     });
+    router.events.subscribe((val) => {
+      if (val instanceof NavigationEnd) {
+        this.conditionModuleOrQuestionComponent()
+      }
+    })
   }
 
   loadCountryList() {
@@ -186,7 +194,6 @@ export class HeaderComponent implements OnInit, OnDestroy {
       // });
     });
   }
-
   isMenuOpen = true;
   toggleMenu() {
     const sidenav: Element | null = document.getElementById("sidenav");
@@ -241,9 +248,9 @@ export class HeaderComponent implements OnInit, OnDestroy {
   isSendingOTP: boolean = false;
   isResendOTP: boolean = false;
 
-  sendOTP(){
+  sendOTP() {
     this.phoneVerification.disable();
-    let formData =  this.phoneVerification.value;
+    let formData = this.phoneVerification.value;
     let sendPhoneNumber = {
       country_code: formData.verification_phone.dialCode,
       phone: formData.verification_phone.number,
@@ -271,7 +278,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
   }
 
   submitPhoneVerification() {
-    let formData =  this.phoneVerification.value;
+    let formData = this.phoneVerification.value;
     let sendOTP = {
       country_code: formData.verification_phone.dialCode,
       phone: formData.verification_phone.number,
@@ -292,7 +299,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
         this.isResendOTP = true;
         this.otp = ['', '', '', ''];
         let otpList = document.querySelectorAll(".otp-box");
-        otpList.forEach((item:any) => item.value = '');
+        otpList.forEach((item: any) => item.value = '');
         this.toast.add({
           severity: "error",
           summary: "Error",
@@ -323,16 +330,19 @@ export class HeaderComponent implements OnInit, OnDestroy {
   preferredCountry: any;
   imagewhitlabeldomainname: any;
   orgnamewhitlabel: any;
+  allSearchedResult: any[] = [];
+  currentRoute: string = '';
   ngOnInit() {
+    this.conditionModuleOrQuestionComponent();
     this.locationService.getOrgName().subscribe(orgname => {
       this.orgnamewhitlabel = orgname;
     });
-    this.imagewhitlabeldomainname = window.location.hostname;
-    if (this.imagewhitlabeldomainname === "dev-student.uniprep.ai" || this.imagewhitlabeldomainname === "uniprep.ai" || this.imagewhitlabeldomainname === "localhost") {
-      this.whiteLabelIsNotShow = true;
-    } else {
-      this.whiteLabelIsNotShow = false;
-    }
+    // this.imagewhitlabeldomainname = window.location.hostname;
+    // if (this.imagewhitlabeldomainname === "dev-student.uniprep.ai" || this.imagewhitlabeldomainname === "uniprep.ai" || this.imagewhitlabeldomainname === "localhost") {
+    //   this.whiteLabelIsNotShow = true;
+    // } else {
+    //   this.whiteLabelIsNotShow = false;
+    // }
     fetch('https://ipapi.co/json/').then(response => response.json()).then(data => {
       this.preferredCountry = data.country_code.toLocaleLowerCase()
     });
@@ -350,7 +360,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
     this.dataService.countryNameSource.subscribe((data: any) => {
     })
     this.dataService.countryFlagSource.subscribe((data: any) => {
-      this.headerFlag  = data
+      this.headerFlag = data
     })
     this.dashboardService.data$.subscribe((data) => {
       this.min$ = data?.minutes;
@@ -374,9 +384,9 @@ export class HeaderComponent implements OnInit, OnDestroy {
       const bytes = CryptoJS.AES.decrypt(encPhone, environment.secretKeySalt);
       phone = JSON.parse(bytes.toString(CryptoJS.enc.Utf8));
       if (
-          phone == "" ||
-          phone == null ||
-          phone == "null"
+        phone == "" ||
+        phone == null ||
+        phone == "null"
       ) {
         this.formvisbility = true;
       }
@@ -384,7 +394,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
 
     this.phoneVerification = this.formBuilder.group({
       verification_phone: [phone, Validators.required],
-      choice:[false, Validators.required]
+      choice: [false, Validators.required]
     });
 
     if (this.service._checkExistsSubscription === 0) {
@@ -524,7 +534,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
         this.selectedHomeCountry = Number(data.userdetails[0].home_country_id)
         this.getHomeCountryList();
         const loginStatus = data.userdetails[0].login_status;
-        if(typeof loginStatus === 'string' && loginStatus.includes('Demo') == true) {
+        if (typeof loginStatus === 'string' && loginStatus.includes('Demo') == true) {
           this.demoTrial = true;
           this.demoDays = data.userdetails[0].login_status.replace('Demo-', '');
         }
@@ -532,7 +542,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
           this.demoTrial = true;
         } */
         let programLevelId = data.userdetails[0].programlevel_id;
-        if(programLevelId == null || programLevelId == "null" || programLevelId == ""){
+        if (programLevelId == null || programLevelId == "null" || programLevelId == "") {
           this.currentEducation = true;
           this.educationImage = `https://${this.ApiUrl}/uniprepapi/storage/app/public/uploads/education.svg`;
         }
@@ -553,17 +563,25 @@ export class HeaderComponent implements OnInit, OnDestroy {
     //   this.whatsappVerification = true;
     // }
   }
-
+  activeheadersearch: any;
+  showSearchComponent(type: string) {
+    this.activeheadersearch = type;
+    if (this.activeheadersearch.stage == "questionsearch") {
+      this.isShowHeaderSearchForModule = false;
+    } else {
+      this.isShowHeaderSearchForModule = true;
+    }
+  }
   getProgramlevelList() {
     this.locationService.getProgramLevel().subscribe(res => {
       this.programLevelList = res;
     });
   }
-  
-  UpdateEducationLevel(){
+
+  UpdateEducationLevel() {
     let eduLevel = this.currentEducationForm.value.current_education;
-    this.service.updateEducationLevel(eduLevel).subscribe(res =>{
-      this.currentEducation =  false;
+    this.service.updateEducationLevel(eduLevel).subscribe(res => {
+      this.currentEducation = false;
       this.toast.add({
         severity: "success",
         summary: "success",
@@ -736,7 +754,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
 
   subScribedUserCount(): void {
     this.service.getNewUserTimeLeft().subscribe((res) => {
-      this.currentUserSubscriptionPlan =  res?.subscription_details?.subscription_plan;
+      this.currentUserSubscriptionPlan = res?.subscription_details?.subscription_plan;
       this.enterpriseSubscriptionLink = res.enterprise_subscription_link;
       let data = res.time_left;
       if (data.plan === "not_started") {
@@ -800,7 +818,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
 
   checkNewUser(): void {
     this.service.getNewUserTimeLeft().subscribe((res) => {
-      this.currentUserSubscriptionPlan =  res?.subscription_details?.subscription_plan;
+      this.currentUserSubscriptionPlan = res?.subscription_details?.subscription_plan;
       this.enterpriseSubscriptionLink = res.enterprise_subscription_link;
       this.dashboardService.updatedata(res.time_left);
       let data = res.time_left;
@@ -901,7 +919,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
     if (data.moduleId == 8) {
       data.countryId = 0;
     }
-    if (data.moduleId == 23||data.moduleId == 24||data.moduleId == 25||data.moduleId == 27||data.moduleId == 27) {
+    if (data.moduleId == 23 || data.moduleId == 24 || data.moduleId == 25 || data.moduleId == 27 || data.moduleId == 27) {
       data.countryId = this.moduleQuestionReport.countryId;
     }
 
@@ -1133,7 +1151,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
     if (this.currentUserSubscriptionPlan === 'Career' || this.currentUserSubscriptionPlan === 'Entrepreneur') {
       switch (this.service?._user?.ilearn_popup_status) {
         case 0: case 1:
-          if(this.router.url !== '/pages/assessment/ilearn-challenge') {
+          if (this.router.url !== '/pages/assessment/ilearn-challenge') {
             this.assessmentService.getAssessmentParticipatingCount().subscribe({
               next: res => {
                 this.assParticipations = res.cluster_count;
@@ -1143,14 +1161,14 @@ export class HeaderComponent implements OnInit, OnDestroy {
           }
           break;
         case 2:
-          if(this.router.url !== '/pages/assessment/ilearn-challenge') {
+          if (this.router.url !== '/pages/assessment/ilearn-challenge') {
             this.isILearnLiveVisible = true;
           }
           break;
         case 3:
           this.isILearnCompletedVisible = true;
           break;
-        default: 
+        default:
           console.log(this.service?._user?.ilearn_popup_status);
       }
       return;
@@ -1168,5 +1186,26 @@ export class HeaderComponent implements OnInit, OnDestroy {
     this.isILearnLiveVisible = false;
     this.isILearnCompletedVisible = false;
     this.router.navigateByUrl('/pages/assessment/ilearn-challenge');
+  }
+  conditionModuleOrQuestionComponent() {
+    // this menu no need to header global search
+    this.currentRoute = this.router.url;
+    if (this.currentRoute.includes('subscriptions') || this.currentRoute.includes('support-help')
+      || this.currentRoute.includes('usermanagement') || this.currentRoute.includes('chat') || this.currentRoute.includes('guideline')
+      || this.currentRoute.includes('termsandcondition') || this.currentRoute.includes('privacypolicy') || this.currentRoute.includes('refundpolicy')
+      || this.currentRoute.includes('cancellationpolicy') || this.currentRoute.includes('export-credit') || this.currentRoute.includes('cv-builder') || this.currentRoute.includes('coverletter-builder')) {
+      this.showSearch = false;
+    } else {
+      this.showSearch = true;
+    }
+    // this headerserch  condition for modules and question (two component used) 
+    this.currentRoute = this.router.url;
+    if (this.currentRoute.includes('learning-hub') || this.currentRoute.includes('k12') || this.currentRoute.includes('startup')
+      || this.currentRoute.includes('unilearn') || this.currentRoute.includes('resource') || this.currentRoute.includes('events')
+      || this.currentRoute.includes('success-stories') || this.currentRoute.includes('tutorials')) {
+      this.isShowHeaderSearchForModule = true;
+    } else {
+      this.isShowHeaderSearchForModule = false;
+    }
   }
 }

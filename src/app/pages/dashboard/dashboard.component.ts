@@ -424,101 +424,113 @@ export class DashboardComponent implements OnInit, OnChanges {
             "moduleName": "CV Builder",
             "Description": "Craft a standout CV that highlights your skills and experience, ready for any job application.",
             "tooltip": "Craft a standout CV that highlights your skills and experience, ready for any job application.",
-            "imageLink": "https://api.uniprep.ai/uniprepapi/storage/app/public/resources-coverimage/cv.svg",
-            "mode": "cv-builder"
+            "imageLink": "https://api.uniprep.ai/uniprepapi/storage/app/public/resources-coverimage/CV.png",
+            "mode": "cv-builder",
+            "url": "/pages/job-tool/cv-builder"
         },
         {
             "id": 2,
             "moduleName": "Learning Hub",
             "Description": "Craft a standout CV that highlights your skills and experience, ready for any job application.",
             "tooltip": "Craft a standout CV that highlights your skills and experience, ready for any job application.",
-            "imageLink": "https://api.uniprep.ai/uniprepapi/storage/app/public/resources-coverimage/cv.svg",
-            "mode": "cv-builder"
+            "imageLink": "https://api.uniprep.ai/uniprepapi/storage/app/public/resources-coverimage/LearningHub.svg",
+            "mode": "cv-builder",
+             "url": "/pages/modules/learning-hub"
         },
         {
             "id": 3,
             "moduleName": "Job Portal",
             "Description": "Craft a standout CV that highlights your skills and experience, ready for any job application.",
             "tooltip": "Craft a standout CV that highlights your skills and experience, ready for any job application.",
-            "imageLink": "https://api.uniprep.ai/uniprepapi/storage/app/public/resources-coverimage/cv.svg",
-            "mode": "cv-builder"
+            "imageLink": "https://api.uniprep.ai/uniprepapi/storage/app/public/resources-coverimage/JobPortal.svg",
+            "mode": "cv-builder",
+            "url": "/pages/job-portal/job-search"
         },
         {
             "id": 4,
             "moduleName": "Career Planner",
             "Description": "Craft a standout CV that highlights your skills and experience, ready for any job application.",
             "tooltip": "Craft a standout CV that highlights your skills and experience, ready for any job application.",
-            "imageLink": "https://api.uniprep.ai/uniprepapi/storage/app/public/resources-coverimage/cv.svg",
-            "mode": "cv-builder"
+            "imageLink": "https://api.uniprep.ai/uniprepapi/storage/app/public/resources-coverimage/CareerPlanner.svg",
+            "mode": "cv-builder",
+            "url": "/pages/job-tool/careerplannerlist"
         },
         {
             "id": 5,
             "moduleName": "Employer Test",
             "Description": "Craft a standout CV that highlights your skills and experience, ready for any job application.",
             "tooltip": "Craft a standout CV that highlights your skills and experience, ready for any job application.",
-            "imageLink": "https://api.uniprep.ai/uniprepapi/storage/app/public/resources-coverimage/cv.svg",
-            "mode": "cv-builder"
+            "imageLink": "https://api.uniprep.ai/uniprepapi/storage/app/public/resources-coverimage/EmployerTest.svg",
+            "mode": "cv-builder",
+            "url": "/pages/job-tool/list/employer-test/13"
         },
         {
             "id": 6,
             "moduleName": "Pitch Deck",
             "Description": "Craft a standout CV that highlights your skills and experience, ready for any job application.",
             "tooltip": "Craft a standout CV that highlights your skills and experience, ready for any job application.",
-            "imageLink": "https://api.uniprep.ai/uniprepapi/storage/app/public/resources-coverimage/cv.svg",
-            "mode": "cv-builder"
+            "imageLink": "https://api.uniprep.ai/uniprepapi/storage/app/public/resources-coverimage/Pitchdeck.svg",
+            "mode": "cv-builder",
+            "url": "/pages/pitch-deck"
         },
         {
             "id": 7,
             "moduleName": "UNILEARN",
             "Description": "Craft a standout CV that highlights your skills and experience, ready for any job application.",
             "tooltip": "Craft a standout CV that highlights your skills and experience, ready for any job application.",
-            "imageLink": "https://api.uniprep.ai/uniprepapi/storage/app/public/resources-coverimage/cv.svg",
-            "mode": "cv-builder"
+            "imageLink": "https://api.uniprep.ai/uniprepapi/storage/app/public/resources-coverimage/UNILEARN.svg",
+            "mode": "cv-builder",
+            "url": "/pages/unilearn/modules"
         },
         {
             "id": 8,
             "moduleName": "UNIFINDER",
             "Description": "Craft a standout CV that highlights your skills and experience, ready for any job application.",
             "tooltip": "Craft a standout CV that highlights your skills and experience, ready for any job application.",
-            "imageLink": "https://api.uniprep.ai/uniprepapi/storage/app/public/resources-coverimage/cv.svg",
-            "mode": "cv-builder"
+            "imageLink": "https://api.uniprep.ai/uniprepapi/storage/app/public/resources-coverimage/UNIFINDER.svg",
+            "mode": "cv-builder",
+            "url": "/pages/course-list"
         },
         {
             "id": 9,
             "moduleName": "UNISCHOLAR",
             "Description": "Craft a standout CV that highlights your skills and experience, ready for any job application.",
             "tooltip": "Craft a standout CV that highlights your skills and experience, ready for any job application.",
-            "imageLink": "https://api.uniprep.ai/uniprepapi/storage/app/public/resources-coverimage/cv.svg",
-            "mode": "cv-builder"
+            "imageLink": "https://api.uniprep.ai/uniprepapi/storage/app/public/resources-coverimage/UNISCHOLAR.svg",
+            "mode": "cv-builder",
+            "url": "/pages/scholarship-list"
         },
         {
             "id": 10,
             "moduleName": "Global Repository",
             "Description": "Craft a standout CV that highlights your skills and experience, ready for any job application.",
             "tooltip": "Craft a standout CV that highlights your skills and experience, ready for any job application.",
-            "imageLink": "https://api.uniprep.ai/uniprepapi/storage/app/public/resources-coverimage/cv.svg",
-            "mode": "cv-builder"
+            "imageLink": "https://api.uniprep.ai/uniprepapi/storage/app/public/resources-coverimage/GlobalRepository.svg",
+            "mode": "cv-builder",
+            "url": "/pages/job-tool/cv-builder"
         },
         {
             "id": 11,
             "moduleName": "AI Global Advisor",
             "Description": "Craft a standout CV that highlights your skills and experience, ready for any job application.",
             "tooltip": "Craft a standout CV that highlights your skills and experience, ready for any job application.",
-            "imageLink": "https://api.uniprep.ai/uniprepapi/storage/app/public/resources-coverimage/cv.svg",
-            "mode": "cv-builder"
+            "imageLink": "https://api.uniprep.ai/uniprepapi/storage/app/public/resources-coverimage/AI Business Advisor.svg",
+            "mode": "cv-builder",
+            "url": "/pages/advisor"
         },
         {
             "id": 12,
             "moduleName": "Language Hub",
             "Description": "Craft a standout CV that highlights your skills and experience, ready for any job application.",
             "tooltip": "Craft a standout CV that highlights your skills and experience, ready for any job application.",
-            "imageLink": "https://api.uniprep.ai/uniprepapi/storage/app/public/resources-coverimage/cv.svg",
-            "mode": "cv-builder"
+            "imageLink": "https://api.uniprep.ai/uniprepapi/storage/app/public/resources-coverimage/LanguageHub.svg",
+            "mode": "cv-builder",
+            "url": "/pages/language-hub/languages"
         }
     ]
 
     // navigate Favourites
     selectFav(req: any) {
-
+        this.router.navigateByUrl(req.url);
     }
 }

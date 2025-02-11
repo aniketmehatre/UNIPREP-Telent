@@ -23,7 +23,7 @@ export class TravelToolsService {
   }
 
   getChatgptRecommendations(data: any) {
-    return this.http.post<{ response: string }>(environment.ApiUrl + "/getIntegratedRecom", data, {
+    return this.http.post<{ response: any }>(environment.ApiUrl + "/getIntegratedRecom", data, {
       headers: this.headers,
     });
   }

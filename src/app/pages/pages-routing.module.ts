@@ -42,6 +42,7 @@ import { AverageSalaryPreparedListComponent } from './averagesalaryestimator/pre
 import { AverageSalaryComponent } from './averagesalaryestimator/averagesalaryestimator.component';
 import { FundListGuidlinesComponent } from './fund-list-guidelines/fund-list-guidlines.component';
 import { JoboffercomparisontoolComponent } from './job-tool/joboffercomparisontool/joboffercomparisontool.component';
+import { GlobalRepositoryComponent } from './global-repository/global-repository.component';
 
 const routes: Routes = [
     {
@@ -297,7 +298,11 @@ const routes: Routes = [
             {
                 path: 'contributors',
                 loadChildren: () => import('./contributors/contributors.module').then(m => m.ContributorsModule)
-            }
+            },
+            {
+                path: 'global-repo',
+                component: GlobalRepositoryComponent
+            },
         ]
     }
 ];

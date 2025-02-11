@@ -13,7 +13,6 @@ import { HelpSupportComponent } from "./help-support/help-support.component";
 import { UserManagementComponent } from "./user-management/user-management.component";
 import { EditprofileComponent } from "./user-management/editprofile/editprofile.component";
 import { FooterStatusBoxComponent } from "./footer-status-box/footer-status-box.component";
-import { HeaderSearchComponent } from "./header-search/header-search.component";
 import { ButtonModule } from "primeng/button";
 import { InputTextModule } from "primeng/inputtext";
 import { RippleModule } from "primeng/ripple";
@@ -91,7 +90,7 @@ import { AverageSalaryComponent } from "./averagesalaryestimator/averagesalaryes
 import { AverageSalaryPreparedListComponent } from "./averagesalaryestimator/preparedlist/preparedlist.component";
 import { JoboffercomparisontoolComponent } from "./job-tool/joboffercomparisontool/joboffercomparisontool.component";
 import { JobOfferPreparedListComponent } from "./job-tool/joboffercomparisontool/preparedlist/preparedlist.component";
-
+import { GlobalRepositoryComponent } from './global-repository/global-repository.component';
 
 // import { JobToolComponent } from './job-tool/job-tool.component';
 @NgModule({
@@ -103,7 +102,6 @@ import { JobOfferPreparedListComponent } from "./job-tool/joboffercomparisontool
     UserManagementComponent,
     EditprofileComponent,
     FooterStatusBoxComponent,
-    HeaderSearchComponent,
     QuestionCreditComponent,
     ChatComponent,
     GuidelineComponent,
@@ -140,9 +138,10 @@ import { JobOfferPreparedListComponent } from "./job-tool/joboffercomparisontool
     AverageSalaryComponent,
     AverageSalaryPreparedListComponent,
     JoboffercomparisontoolComponent,
-    JobOfferPreparedListComponent
+    JobOfferPreparedListComponent,
+    GlobalRepositoryComponent
   ],
-  exports: [FooterStatusBoxComponent, HeaderSearchComponent],
+  exports: [FooterStatusBoxComponent],
   imports: [
     CommonModule,
     PagesRoutingModule,
