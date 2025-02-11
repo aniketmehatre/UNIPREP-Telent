@@ -2,7 +2,7 @@ import { Component, Input, OnInit, ViewChild, ElementRef } from "@angular/core";
 import { Router } from "@angular/router";
 import { PageFacadeService } from "../page-facade.service";
 import { AveragesalaryestimatorService } from "./averagesalaryestimator.service";
-import value from "crypto-js";
+// import value from "crypto-js";
 
 @Component({
   selector: "uni-averagesalaryestimator",

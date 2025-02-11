@@ -1,6 +1,5 @@
 import { environment } from "../../environments/environment";
 import { BehaviorSubject, Observable, of, shareReplay, tap, throwError, switchMap, map, catchError, retry, timeout, delay } from "rxjs";
-import { catchError as rxjsCatchError } from "rxjs/operators";
 import { User, UserData } from "../@Models/user.model";
 import { LoginRequest } from "../@Models/auth.model";
 import { Router } from "@angular/router";
@@ -11,11 +10,12 @@ import { HttpClient, HttpHeaders } from "@angular/common/http";
 import { Store } from "@ngrx/store";
 import { AuthState } from "./store/reducer";
 import { AuthActions } from "./store/actions";
-import { selectLoading, selectLoggedIn, selectMessage, selectLoginData } from "./store/selectors";
 import { authFeature } from "./store/reducer";
 import { NGX_LOCAL_STORAGE_CONFIG } from "ngx-localstorage";
 import { AuthTokenService } from "../core/services/auth-token.service";
-
+import * as CryptoJS from 'crypto-js';
+import AES from 'crypto-js/aes';
+import Utf8 from 'crypto-js/enc-utf8';
 const ngxLocalstorageConfiguration = NGX_LOCAL_STORAGE_CONFIG as unknown as { prefix: string, delimiter: string };
 
 @Injectable({
@@ -530,7 +530,7 @@ export class AuthService {
   }
 
   // Helper method to encrypt data
-  private async encryptData(data: any): Promise<string> {
+  async encryptData(data: any): Promise<string> {
     try {
       const key = await this.getKey(environment.secretKeySalt);
       const iv = crypto.getRandomValues(new Uint8Array(12));
@@ -557,61 +557,83 @@ export class AuthService {
     }
   }
 
-  // Helper method to decrypt data
-  private async decryptData(encryptedData: string): Promise<any> {
-    if (!encryptedData) {
-      console.warn('Empty encrypted data provided');
-      return null;
-    }
-
+  decryptData(encryptedData: string): string {
     try {
-      // First try to decode base64 to check for malformed data
-      let decodedArray;
-      try {
-        decodedArray = new Uint8Array(
-          atob(encryptedData).split('').map(char => char.charCodeAt(0))
-        );
-      } catch (decodeError) {
-        console.error('Error decoding base64 data:', decodeError);
-        return null;
+      if (!encryptedData) {
+        console.error("Decryption error: Encrypted data is empty!");
+        return "";
       }
-
-      const key = await this.getKey(environment.secretKeySalt);
-
-      // Extract IV and encrypted data
-      const iv = decodedArray.slice(0, 12);
-      const data = decodedArray.slice(12);
-
-      const decrypted = await crypto.subtle.decrypt(
-        {
-          name: 'AES-GCM',
-          iv: iv
-        },
-        key,
-        data
-      );
-
-      // Check for valid UTF-8 data
-      let decryptedStr;
-      try {
-        decryptedStr = new TextDecoder('utf-8', { fatal: true }).decode(decrypted);
-      } catch (utf8Error) {
-        console.error('Invalid UTF-8 data:', utf8Error);
-        return null;
+  
+      const bytes = AES.decrypt(encryptedData, environment.secretKeySalt);
+      const decryptedText = bytes.toString(Utf8);
+  
+      if (!decryptedText) {
+        console.error("Decryption error: Invalid decryption key or corrupted data.");
+        return "";
       }
-
-      // Validate JSON structure
-      try {
-        return JSON.parse(decryptedStr);
-      } catch (jsonError) {
-        console.error('Invalid JSON data:', jsonError);
-        return null;
-      }
+  
+      return decryptedText;
     } catch (error) {
-      console.error('Error decrypting data:', error);
-      return null;
+      console.error("Decryption error:", error);
+      return "";
     }
   }
+
+  // Helper method to decrypt data
+  // async decryptData(encryptedData: string): Promise<any> {
+  //   if (!encryptedData) {
+  //     console.warn('Empty encrypted data provided');
+  //     return null;
+  //   }
+
+  //   try {
+  //     // First try to decode base64 to check for malformed data
+  //     let decodedArray;
+  //     try {
+  //       decodedArray = new Uint8Array(
+  //         atob(encryptedData).split('').map(char => char.charCodeAt(0))
+  //       );
+  //     } catch (decodeError) {
+  //       console.error('Error decoding base64 data:', decodeError);
+  //       return null;
+  //     }
+
+  //     const key = await this.getKey(environment.secretKeySalt);
+
+  //     // Extract IV and encrypted data
+  //     const iv = decodedArray.slice(0, 12);
+  //     const data = decodedArray.slice(12);
+
+  //     const decrypted = await crypto.subtle.decrypt(
+  //       {
+  //         name: 'AES-GCM',
+  //         iv: iv
+  //       },
+  //       key,
+  //       data
+  //     );
+
+  //     // Check for valid UTF-8 data
+  //     let decryptedStr;
+  //     try {
+  //       decryptedStr = new TextDecoder('utf-8', { fatal: true }).decode(decrypted);
+  //     } catch (utf8Error) {
+  //       console.error('Invalid UTF-8 data:', utf8Error);
+  //       return null;
+  //     }
+
+  //     // Validate JSON structure
+  //     try {
+  //       return JSON.parse(decryptedStr);
+  //     } catch (jsonError) {
+  //       console.error('Invalid JSON data:', jsonError);
+  //       return null;
+  //     }
+  //   } catch (error) {
+  //     console.error('Error decrypting data:', error);
+  //     return null;
+  //   }
+  // }
 
   // Add cache reset method with optional force parameter
   resetGetMeCache(force: boolean = false): void {

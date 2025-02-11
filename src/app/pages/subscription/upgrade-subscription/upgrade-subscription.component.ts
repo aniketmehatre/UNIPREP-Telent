@@ -31,15 +31,20 @@ import {
   StripeElementsOptions,
   StripePaymentElementOptions,
 } from "@stripe/stripe-js";
-import { injectStripe, StripeCardComponent, StripePaymentElementComponent, StripeService } from "ngx-stripe";
+import {
+  injectStripe,
+  StripeCardComponent,
+  StripePaymentElementComponent,
+  StripeService,
+} from "ngx-stripe";
 import { switchMap } from "rxjs";
-import CryptoJS from "crypto-js";
+// import CryptoJS from "crypto-js";
 
 @Component({
-    selector: "uni-upgrade-subscription",
-    templateUrl: "./upgrade-subscription.component.html",
-    styleUrls: ["./upgrade-subscription.component.scss"],
-    standalone: false
+  selector: "uni-upgrade-subscription",
+  templateUrl: "./upgrade-subscription.component.html",
+  styleUrls: ["./upgrade-subscription.component.scss"],
+  standalone: false,
 })
 export class UpgradeSubscriptionComponent implements OnInit {
   selectedButton: any;
@@ -80,7 +85,7 @@ export class UpgradeSubscriptionComponent implements OnInit {
   currency: string = "";
   monthlyPlan: number = 3;
   activeTabIndex: number = 0;
-  education_level: string = '';
+  education_level: string = "";
 
   constructor(
     private authService: AuthService,
@@ -95,84 +100,102 @@ export class UpgradeSubscriptionComponent implements OnInit {
     private confirmationService: ConfirmationService,
     private messageService: MessageService,
     private stripeService: StripeService
-  ) { }
+  ) {}
   timeLeftInfoCard: any;
   userName: any;
   ngOnInit(): void {
     try {
       // Handle userName decryption with better error handling
-      let userName = '';
+      let userName = "";
       const encryptedName = localStorage.getItem("Name");
-      
+
       if (encryptedName) {
         try {
-          const bytes = CryptoJS.AES.decrypt(encryptedName, environment.secretKeySalt);
-          const decryptedText = bytes.toString(CryptoJS.enc.Utf8);
-          
-          if (decryptedText && decryptedText.trim() !== '') {
+          const bytes = this.authService.decryptData(
+            encryptedName
+          );
+          // const bytes = CryptoJS.AES.decrypt(
+          //   encryptedName,
+          //   environment.secretKeySalt
+          // );
+          const decryptedText = bytes.toString();
+
+          if (decryptedText && decryptedText.trim() !== "") {
             try {
               // Only parse if it looks like JSON
-              if (decryptedText.startsWith('{') || decryptedText.startsWith('[') || 
-                  decryptedText.startsWith('"')) {
+              if (
+                decryptedText.startsWith("{") ||
+                decryptedText.startsWith("[") ||
+                decryptedText.startsWith('"')
+              ) {
                 userName = JSON.parse(decryptedText);
               } else {
                 // If not JSON, use the decrypted text directly
                 userName = decryptedText;
               }
             } catch (parseError) {
-              console.warn('Name data is not in JSON format, using as plain text');
+              console.warn(
+                "Name data is not in JSON format, using as plain text"
+              );
               userName = decryptedText;
             }
           }
         } catch (decryptError) {
-          console.warn('Could not decrypt name, using fallback');
+          console.warn("Could not decrypt name, using fallback");
           // Try to get name from user object as fallback
-          userName = this.authService.user?.name || '';
+          userName = this.authService.user?.name || "";
         }
       }
-      this.userName = userName || 'User';
+      this.userName = userName || "User";
 
       // Handle homeCountryName decryption with better error handling
-      let homeCountryName = 'India'; // Default fallback
+      let homeCountryName = "India"; // Default fallback
       const encHomeCountryName = localStorage.getItem("home_country_name");
-      
+
       if (encHomeCountryName) {
         try {
-          const bytes = CryptoJS.AES.decrypt(encHomeCountryName, environment.secretKeySalt);
-          const decryptedText = bytes.toString(CryptoJS.enc.Utf8);
-          
-          if (decryptedText && decryptedText.trim() !== '') {
+          const bytes = this.authService.decryptData(encHomeCountryName);
+          const decryptedText = bytes.toString();
+
+          if (decryptedText && decryptedText.trim() !== "") {
             try {
               // Only parse if it looks like JSON
-              if (decryptedText.startsWith('{') || decryptedText.startsWith('[') || 
-                  decryptedText.startsWith('"')) {
+              if (
+                decryptedText.startsWith("{") ||
+                decryptedText.startsWith("[") ||
+                decryptedText.startsWith('"')
+              ) {
                 homeCountryName = JSON.parse(decryptedText);
               } else {
                 // If not JSON, use the decrypted text directly
                 homeCountryName = decryptedText;
               }
             } catch (parseError) {
-              console.warn('Home country data is not in JSON format, using as plain text');
+              console.warn(
+                "Home country data is not in JSON format, using as plain text"
+              );
               homeCountryName = decryptedText;
             }
           }
         } catch (decryptError) {
-          console.warn('Could not decrypt home country, using default');
+          console.warn("Could not decrypt home country, using default");
           // Try to get country from user object as fallback
-          homeCountryName = this.authService.user?.country || 'India';
+          homeCountryName = this.authService.user?.country || "India";
         }
       }
 
       this.timeLeftInfoCard = localStorage.getItem("time_card_info");
-      this.currentCountry = homeCountryName ? String(homeCountryName) : 'India';
+      this.currentCountry = homeCountryName ? String(homeCountryName) : "India";
       this.discountAmountEnable = false;
       this.user = this.authService.user;
-      this.education_level = this.user?.education_level?.replace(/[\s\u00A0]/g, '').trim() || 'HigherEducation';
+      this.education_level =
+        this.user?.education_level?.replace(/[\s\u00A0]/g, "").trim() ||
+        "HigherEducation";
       this.studentType = this.user?.student_type_id || 0;
-      
+
       // Load existing subscription which will then load the subscription plans
       this.loadExistingSubscription();
-      
+
       // Load country list
       this.ngxService.startBackground();
       this.authService.getCountry().subscribe({
@@ -181,25 +204,25 @@ export class UpgradeSubscriptionComponent implements OnInit {
           this.ngxService.stopBackground();
         },
         error: (error) => {
-          console.error('Error fetching country data:', error);
+          console.error("Error fetching country data:", error);
           this.toast.add({
-            severity: 'error',
-            summary: 'Error',
-            detail: 'Failed to load country list'
+            severity: "error",
+            summary: "Error",
+            detail: "Failed to load country list",
           });
           this.ngxService.stopBackground();
-        }
+        },
       });
     } catch (error) {
-      console.error('Error in upgrade subscription initialization:', error);
+      console.error("Error in upgrade subscription initialization:", error);
       // Set safe fallback values
-      this.currentCountry = 'India';
-      this.userName = 'User';
-      this.education_level = 'HigherEducation';
+      this.currentCountry = "India";
+      this.userName = "User";
+      this.education_level = "HigherEducation";
       this.studentType = 0;
       this.user = this.authService.user;
       this.ngxService.stopBackground();
-      
+
       // Still try to load essential data
       this.loadExistingSubscription();
     }
@@ -224,7 +247,7 @@ export class UpgradeSubscriptionComponent implements OnInit {
       country: this.currentCountry,
       continent: this.continent,
       monthly_plan: this.monthlyPlan,
-      study_level: this.user?.education_level
+      study_level: this.user?.education_level,
     };
 
     this.subscriptionService.getSubscriptions(data).subscribe({
@@ -237,26 +260,26 @@ export class UpgradeSubscriptionComponent implements OnInit {
           (item: any) => item.popular !== 1
         );
         filteredData.splice(1, 0, ...mostPopularOnes);
-        
+
         this.subscriptionList = filteredData;
         this.subscriptionList.map(
           (item: any) => (this.currency = item.currency)
         );
         this.plansLoaded = true;
-        
+
         // Get plan expiry status
         this.getPlanexpire();
         this.ngxService.stopBackground();
       },
       error: (error) => {
-        console.error('Error loading subscription plans:', error);
+        console.error("Error loading subscription plans:", error);
         this.toast.add({
-          severity: 'error',
-          summary: 'Error',
-          detail: 'Failed to load subscription plans'
+          severity: "error",
+          summary: "Error",
+          detail: "Failed to load subscription plans",
         });
         this.ngxService.stopBackground();
-      }
+      },
     });
   }
 
@@ -324,46 +347,44 @@ export class UpgradeSubscriptionComponent implements OnInit {
 
   loadExistingSubscription() {
     this.ngxService.startBackground();
-    this.subscriptionService
-      .getExistingSubscription()
-      .subscribe({
-        next: (response: any) => {
-          this.existingSubscription = response.subscription;
-          this.existingSubscription.map(
-            (plan) =>
+    this.subscriptionService.getExistingSubscription().subscribe({
+      next: (response: any) => {
+        this.existingSubscription = response.subscription;
+        this.existingSubscription.map(
+          (plan) =>
             (plan.subscriptionDays = plan.remainingdays
               .split("-")[0]
               .trim()
               .replace(/\D/g, ""))
-          );
-          
-          // Set monthly plan based on subscription days
-          if (this.existingSubscription[0].subscriptionDays == 90) {
-            this.monthlyPlan = 3;
-            this.existingSubscription[0].monthlyPlan = 3;
-          } else if (this.existingSubscription[0].subscriptionDays == 180) {
-            this.monthlyPlan = 6;
-            this.existingSubscription[0].monthlyPlan = 6;
-            this.activeTabIndex = 0;
-          } else {
-            this.monthlyPlan = 12;
-            this.existingSubscription[0].monthlyPlan = 12;
-            this.activeTabIndex = 1;
-          }
+        );
 
-          // Get subscription list with proper parameters
-          this.getSubscriptionList('initial');
-        },
-        error: (error) => {
-          console.error('Error loading existing subscription:', error);
-          this.toast.add({
-            severity: 'error',
-            summary: 'Error',
-            detail: 'Failed to load existing subscription'
-          });
-          this.ngxService.stopBackground();
+        // Set monthly plan based on subscription days
+        if (this.existingSubscription[0].subscriptionDays == 90) {
+          this.monthlyPlan = 3;
+          this.existingSubscription[0].monthlyPlan = 3;
+        } else if (this.existingSubscription[0].subscriptionDays == 180) {
+          this.monthlyPlan = 6;
+          this.existingSubscription[0].monthlyPlan = 6;
+          this.activeTabIndex = 0;
+        } else {
+          this.monthlyPlan = 12;
+          this.existingSubscription[0].monthlyPlan = 12;
+          this.activeTabIndex = 1;
         }
-      });
+
+        // Get subscription list with proper parameters
+        this.getSubscriptionList("initial");
+      },
+      error: (error) => {
+        console.error("Error loading existing subscription:", error);
+        this.toast.add({
+          severity: "error",
+          summary: "Error",
+          detail: "Failed to load existing subscription",
+        });
+        this.ngxService.stopBackground();
+      },
+    });
   }
   getPlanexpire() {
     this.authService.getNewUserTimeLeft().subscribe((res) => {
@@ -461,14 +482,14 @@ export class UpgradeSubscriptionComponent implements OnInit {
       this.confirmSubscription(
         event,
         "Are you sure you want to upgrade to the new " +
-        this.monthlyPlan +
-        " month " +
-        this.selectedSubscriptionDetails.subscription_plan +
-        " plan? Please note that your current " +
-        this.existingSubscription[0].monthlyPlan +
-        " month " +
-        this.existingSubscription[0].plan +
-        " plan will expire upon upgrading"
+          this.monthlyPlan +
+          " month " +
+          this.selectedSubscriptionDetails.subscription_plan +
+          " plan? Please note that your current " +
+          this.existingSubscription[0].monthlyPlan +
+          " month " +
+          this.existingSubscription[0].plan +
+          " plan will expire upon upgrading"
       );
     } else {
       this.subscribe(type);
@@ -568,43 +589,42 @@ export class UpgradeSubscriptionComponent implements OnInit {
     });
   }
   payusingstripe() {
-
     // this.showPayLoading = true;
-    this.stripdata = this.subscriptionDetails ;
+    this.stripdata = this.subscriptionDetails;
     this.selectedcost = this.stripdata.finalPrice;
     this.subscriptionService
       .createPaymentIntent(this.stripdata)
       .subscribe((pi) => {
         this.elementsOptions.clientSecret = pi.client_secret as string;
         this.stripdata.clientSecret = pi.client_secret as string;
-        this.currencyType=pi.currency;
+        this.currencyType = pi.currency;
         this.cardvisibility = true;
       });
     return;
   }
-  currencyType:any;
+  currencyType: any;
   pay(value: any, type: any) {
     if (value.subscriptionId) {
       if (type == "razorpay") {
         this.subscriptionService
-        .placeSubscriptionOrder(value)
-        .subscribe((data) => {
-          this.currencyType=data.currency;
-          if (data.success == false) {
-            this.toast.add({
-              severity: "error",
-              summary: "Error",
-              detail: data.message,
-            });
-            return;
-          }
-          this.subscriptionDetails = value;          
-          this.payWithRazor(data.orderid);
-        });
-        } else {
-          this.subscriptionDetails = value;
-          this.payusingstripe();
-        }
+          .placeSubscriptionOrder(value)
+          .subscribe((data) => {
+            this.currencyType = data.currency;
+            if (data.success == false) {
+              this.toast.add({
+                severity: "error",
+                summary: "Error",
+                detail: data.message,
+              });
+              return;
+            }
+            this.subscriptionDetails = value;
+            this.payWithRazor(data.orderid);
+          });
+      } else {
+        this.subscriptionDetails = value;
+        this.payusingstripe();
+      }
     }
     // else {
     //     this.subscriptionService.placeTopupSubscriptionOrder(value).subscribe((data) => {
@@ -620,14 +640,16 @@ export class UpgradeSubscriptionComponent implements OnInit {
     let phone;
     const encPhone = localStorage.getItem("phone");
     if (encPhone) {
-      const bytes = CryptoJS.AES.decrypt(encPhone, environment.secretKeySalt);
-      phone = JSON.parse(bytes.toString(CryptoJS.enc.Utf8));
+      const bytes = this.authService.decryptData(encPhone);
+      //const bytes = CryptoJS.AES.decrypt(encPhone, environment.secretKeySalt);
+      phone = JSON.parse(bytes.toString());
     }
     let email;
     const encEmail = localStorage.getItem("email");
     if (encEmail) {
-      const bytes = CryptoJS.AES.decrypt(encEmail, environment.secretKeySalt);
-      email = JSON.parse(bytes.toString(CryptoJS.enc.Utf8));
+      const bytes = this.authService.decryptData(encEmail);
+      // const bytes = CryptoJS.AES.decrypt(encEmail, environment.secretKeySalt);
+      email = JSON.parse(bytes.toString());
     }
     const options: any = {
       key: razorKey,
@@ -641,8 +663,8 @@ export class UpgradeSubscriptionComponent implements OnInit {
       prefill: {
         name: this.selectedSubscriptionDetails?.subscription,
         email: email,
-       // contact: localStorage.getItem("phone"),
-        contact: (phone === null || phone === '') ? '9876543210' : phone,
+        // contact: localStorage.getItem("phone"),
+        contact: phone === null || phone === "" ? "9876543210" : phone,
       },
       notes: {
         address:
@@ -655,7 +677,7 @@ export class UpgradeSubscriptionComponent implements OnInit {
         color: "#3f4c83",
       },
     };
-    
+
     options.handler = (response: any, error: any) => {
       options.response = response;
       var paymentdata = {
@@ -700,7 +722,6 @@ export class UpgradeSubscriptionComponent implements OnInit {
       //         }
       //     );
       // }
-
     };
     options.modal.ondismiss = () => {
       this.toast.add({
@@ -856,7 +877,7 @@ export class UpgradeSubscriptionComponent implements OnInit {
             },
           },
         },
-        redirect: 'if_required',
+        redirect: "if_required",
       })
       .subscribe((result: any) => {
         if (result.error) {
@@ -882,40 +903,40 @@ export class UpgradeSubscriptionComponent implements OnInit {
   }
 
   loadSubscriptionPlans() {
-    console.log('UpgradeSubscription: Starting to load subscription plans');
+    console.log("UpgradeSubscription: Starting to load subscription plans");
     this.ngxService.startBackground();
-    
+
     // Dispatch the action to load plans
     this.subscriptionService.loadSubscriptionList();
-    console.log('UpgradeSubscription: Dispatched loadSubscriptionList action');
-    
+    console.log("UpgradeSubscription: Dispatched loadSubscriptionList action");
+
     // Subscribe to the plans selector
     this.store.select(selectPlans).subscribe({
       next: (data) => {
-        console.log('UpgradeSubscription: Received plans data:', data);
+        console.log("UpgradeSubscription: Received plans data:", data);
         if (data) {
           this.subscriptionList = data;
           this.plansLoaded = true;
-          console.log('UpgradeSubscription: Plans loaded successfully');
+          console.log("UpgradeSubscription: Plans loaded successfully");
         }
         this.ngxService.stopBackground();
       },
       error: (error) => {
-        console.error('UpgradeSubscription: Error loading plans:', error);
+        console.error("UpgradeSubscription: Error loading plans:", error);
         this.ngxService.stopBackground();
         // Show error toast
         this.messageService.add({
-          severity: 'error',
-          summary: 'Error',
-          detail: 'Failed to load subscription plans. Please try again.'
+          severity: "error",
+          summary: "Error",
+          detail: "Failed to load subscription plans. Please try again.",
         });
-      }
+      },
     });
 
     // Subscribe to loading state to handle the loader
     this.store.select(selectLoading).subscribe({
       next: (loading) => {
-        console.log('UpgradeSubscription: Loading state changed:', loading);
+        console.log("UpgradeSubscription: Loading state changed:", loading);
         if (loading) {
           this.ngxService.startBackground();
         } else {
@@ -923,9 +944,9 @@ export class UpgradeSubscriptionComponent implements OnInit {
         }
       },
       error: (error) => {
-        console.error('UpgradeSubscription: Error in loading state:', error);
+        console.error("UpgradeSubscription: Error in loading state:", error);
         this.ngxService.stopBackground();
-      }
+      },
     });
   }
 }

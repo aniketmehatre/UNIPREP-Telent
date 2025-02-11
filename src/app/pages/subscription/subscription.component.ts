@@ -12,7 +12,7 @@ import { environment } from "@env/environment"
 import { DashboardService } from "../dashboard/dashboard.service"
 import { StripeCardComponent, StripePaymentElementComponent, StripeService } from "ngx-stripe"
 import { PaymentIntent, Stripe, StripeCardElementOptions, StripeElementsOptions, StripePaymentElementOptions } from "@stripe/stripe-js"
-import CryptoJS from "crypto-js"
+// import CryptoJS from "crypto-js"
 import { NgxUiLoaderService } from "ngx-ui-loader"
 import { CommonModule } from "@angular/common"
 import { FormsModule, ReactiveFormsModule } from "@angular/forms"
@@ -61,8 +61,9 @@ export class SubscriptionComponent implements OnInit {
 
 			if (encHomeCountryName) {
 				try {
-					const bytes = CryptoJS.AES.decrypt(encHomeCountryName, environment.secretKeySalt)
-					const decryptedText = bytes.toString(CryptoJS.enc.Utf8)
+					// const bytes = CryptoJS.AES.decrypt(encHomeCountryName, environment.secretKeySalt)
+					const bytes = this.authService.decryptData(encHomeCountryName)
+					const decryptedText = bytes.toString()
 
 					// Validate decrypted text before parsing
 					if (decryptedText && decryptedText.trim() !== "") {
@@ -240,15 +241,17 @@ export class SubscriptionComponent implements OnInit {
 		let phone
 		const encPhone = localStorage.getItem("phone")
 		if (encPhone) {
-			const bytes = CryptoJS.AES.decrypt(encPhone, environment.secretKeySalt)
-			phone = JSON.parse(bytes.toString(CryptoJS.enc.Utf8))
+			// const bytes = CryptoJS.AES.decrypt(encPhone, environment.secretKeySalt)
+			const bytes = this.authService.decryptData(encPhone)
+			phone = JSON.parse(bytes.toString())
 		}
 
 		let email
 		const encEmail = localStorage.getItem("email")
 		if (encEmail) {
-			const bytes = CryptoJS.AES.decrypt(encEmail, environment.secretKeySalt)
-			email = JSON.parse(bytes.toString(CryptoJS.enc.Utf8))
+			// const bytes = CryptoJS.AES.decrypt(encEmail, environment.secretKeySalt)
+			const bytes = this.authService.decryptData(encEmail)
+			email = JSON.parse(bytes.toString())
 		}
 		const options: any = {
 			key: razorKey,
