@@ -16,6 +16,7 @@ import { SidenavComponent } from "@theme/components/sidenav/sidenav.component";
 import { RouterModule } from "@angular/router";
 import { DialogModule } from 'primeng/dialog';
 import { ButtonModule } from 'primeng/button';
+import { FooterStatusBoxComponent } from "./footer-status-box/footer-status-box.component";
 
 @Component({
   selector: "uni-pages",
@@ -28,7 +29,8 @@ import { ButtonModule } from 'primeng/button';
     DialogModule,
     ButtonModule,
     HeaderComponent, 
-    SidenavComponent
+    SidenavComponent,
+    FooterStatusBoxComponent
   ],
 })
 export class PagesComponent implements OnInit, OnDestroy {

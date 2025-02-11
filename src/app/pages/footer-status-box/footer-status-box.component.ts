@@ -5,13 +5,14 @@ import {ActivatedRoute, Router} from "@angular/router";
 import { AuthService } from 'src/app/Auth/auth.service';
 import { CommonModule } from '@angular/common';
 import { DialogModule } from 'primeng/dialog';
+import { AccordionModule } from 'primeng/accordion';
 
 @Component({
     selector: 'uni-footer-status-box',
     templateUrl: './footer-status-box.component.html',
     styleUrls: ['./footer-status-box.component.scss'],
     standalone: true,
-    imports: [CommonModule, DialogModule]
+    imports: [CommonModule, DialogModule, AccordionModule]
 })
 export class FooterStatusBoxComponent implements OnInit {
     dashboardCount: any = [];

@@ -165,7 +165,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
   educationImage: string = "";
   otp: string[] = ["", "", "", ""];
   otpArray = Array(4).fill(0);
-
+  dialogVisible: boolean = false;
 
   currentUserSubscriptionPlan: string = '';
   iLearnChallengeData: ILearnChallengeData;
@@ -931,11 +931,31 @@ export class HeaderComponent implements OnInit, OnDestroy {
   }
 
   logout() {
-    // Clear storage immediately
+    // Clear storage & update UI immediately
     window.sessionStorage.clear();
     localStorage.clear();
   
-    // Attempt social sign out if applicable
+    // Navigate immediately to prevent delay
+    this.router.navigateByUrl("/login");
+  
+    // Perform API logout calls in the background
+    this.subs.sink = this.service.logout().pipe(
+      switchMap(() => this.locationService.sessionEndApiCall()),
+      catchError(error => {
+        console.error("Logout error:", error);
+        return of(null); // Prevents the observable from breaking
+      })
+    ).subscribe({
+      next: () => {
+        console.log("Logged out successfully.");
+        
+        // Clear caches AFTER API logout in the background
+        this.service.clearCache();
+        this.locationService.clearCache();
+      }
+    });
+  
+    // Attempt social sign out (runs asynchronously, doesn't block UI)
     this.authService.authState.pipe(take(1)).subscribe({
       next: (socialUser) => {
         if (socialUser) {
@@ -945,30 +965,10 @@ export class HeaderComponent implements OnInit, OnDestroy {
       error: (err) => console.warn("Error checking social auth state:", err),
     });
   
-    // Perform API logout calls
-    this.subs.sink = this.service.logout()
-      .pipe(
-        switchMap(() => this.locationService.sessionEndApiCall()),
-        catchError(error => {
-          console.error("Logout error:", error);
-          return of(null); // Prevents the observable from breaking
-        })
-      )
-      .subscribe({
-        next: () => {
-          this.toast.add({ severity: "info", summary: "Info", detail: "Logged out successfully" });
-  
-          // Clear caches AFTER API logout (ensures correct order)
-          this.service.clearCache();
-          this.locationService.clearCache();
-  
-          // Navigate to login page
-          setTimeout(() => {
-            this.router.navigateByUrl("/login");
-          }, 100); // Small delay to allow cache clearing
-        }
-      });
+    // Show logout success message (optional, but fast)
+    this.toast.add({ severity: "info", summary: "Info", detail: "Logged out successfully" });
   }
+  
   
 
   getModuleList() {
