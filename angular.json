@@ -101,6 +101,9 @@
         },
         "serve": {
           "builder": "@angular-devkit/build-angular:dev-server",
+          "options": {
+            "browserTarget": "UNIABROAD-ADMIN:build"
+          },
           "configurations": {
             "production": {
               "browserTarget": "UNIABROAD-ADMIN:build:production"
