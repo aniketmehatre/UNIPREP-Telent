@@ -6,6 +6,7 @@ import { TravelCostEstimator } from 'src/app/@Models/chat-gpt.model';
 import { Router } from '@angular/router';
 import { CostOfLivingService } from '../../job-tool/cost-of-living/cost-of-living.service';
 import { City } from 'src/app/@Models/cost-of-living';
+import { MessageService } from 'primeng/api';
 
 @Component({
     selector: 'uni-travel-cost-estimator',
@@ -42,7 +43,8 @@ export class TravelCostEstimatorComponent implements OnInit {
   constructor(
     private travelToolsService: TravelToolsService,
     private router: Router,
-    private costOfLivingService: CostOfLivingService
+    private costOfLivingService: CostOfLivingService,
+    private toast: MessageService,
   ) { }
 
   ngOnInit(): void {
@@ -196,8 +198,23 @@ export class TravelCostEstimatorComponent implements OnInit {
     this.recommendationData = data;
   }
 
+  onSaveRes() {
+    this.toast.add({ severity: "success", summary: "Success", detail: "Response saved successfully" });
+  }
+
+  downloadRecommadation() {
+    this.travelToolsService.downloadRecommendation({ data: this.recommendationData }).subscribe({
+      next: res => {
+        window.open(res.url, "_blank");
+      },
+      error: err => {
+        console.log(err?.error?.message);
+      }
+    });
+  }
+
   goBack() {
     this.router.navigateByUrl('/pages/travel-tools');
   }
-  
+
 }

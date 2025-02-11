@@ -94,6 +94,7 @@ export class AuthService {
     }
   }
 
+ 
   set user(u: User | null) {
     this._user = u;
     this.userData.next(u);
@@ -144,26 +145,36 @@ export class AuthService {
         const token = this.getToken();
         if (!token) {
           console.error('Token not available after saving');
-          throw new Error('Token not available after saving');
+          return throwError(() => new Error('Token not available after saving'));
         }
-        
-        return this.getMe().pipe(
-          tap(userData => {
-            if (!userData?.userdetails?.[0]) {
-              throw new Error('Invalid user details response');
-            }
-            console.log('User details retrieved successfully');
-            setTimeout(() => {
-              this.router.navigate(['/pages/dashboard'], { replaceUrl: true });
-            }, 0);
-          }),
-          catchError(error => {
-            console.error('Error getting user details:', error);
-            this.authTokenService.clearToken();
-            throw error;
-          })
-        );
+        try {
+          const decoded: any = jwtDecode(token);
+          const currentTime = Math.floor(Date.now() / 1000);
+          if (decoded.exp > currentTime) {
+            return of(true); // Token is valid if current time is before expiration
+          } else {
+            return throwError(() => new Error('Token expired'));
+          }
+        } catch (error) {
+          return throwError(() => new Error('Invalid token'));
+        }
       }),
+      switchMap(() => this.getMe().pipe(
+        tap(userData => {
+          if (!userData?.userdetails?.[0]) {
+            throw new Error('Invalid user details response');
+          }
+          console.log('User details retrieved successfully');
+          setTimeout(() => {
+            this.router.navigate(['/pages/dashboard'], { replaceUrl: true });
+          }, 0);
+        }),
+        catchError(error => {
+          console.error('Error getting user details:', error);
+          this.authTokenService.clearToken();
+          throw error;
+        })
+      )),
       catchError(error => {
         console.error('Login flow error:', error);
         this.authTokenService.clearToken();

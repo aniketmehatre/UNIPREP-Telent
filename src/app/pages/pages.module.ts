@@ -90,6 +90,15 @@ import { AverageSalaryComponent } from "./averagesalaryestimator/averagesalaryes
 import { AverageSalaryPreparedListComponent } from "./averagesalaryestimator/preparedlist/preparedlist.component"
 import { JoboffercomparisontoolComponent } from "./job-tool/joboffercomparisontool/joboffercomparisontool.component"
 import { JobOfferPreparedListComponent } from "./job-tool/joboffercomparisontool/preparedlist/preparedlist.component"
+import { DropdownModule } from "primeng/dropdown";
+
+import { OverlayPanelModule } from "primeng/overlaypanel";
+
+import { PdfViewerModule } from "ng2-pdf-viewer";
+
+import { AnimateModule } from "primeng/animate";
+
+import { GlobalRepositoryComponent } from './global-repository/global-repository.component';
 
 @NgModule({
 	declarations: [ButtonComponent, CardsComponent, EditprofileComponent, QuestionCreditComponent, PrivacypolicyComponent, RefundpolicyComponent, CancellationpolicyComponent, UserGuideComponent, CompanyListGuidlinesComponent, ScholarshipListGuidlinesComponent, InvestorListGuidlinesComponent, ExportCreditComponent, NationalExamCategoriesComponent, NationalExamStartComponent, NationalExamResultComponent, ],
@@ -102,6 +111,30 @@ import { JobOfferPreparedListComponent } from "./job-tool/joboffercomparisontool
     HeaderSearchComponent,
     FooterStatusBoxComponent,
     HelpSupportComponent,
+    ButtonComponent,
+    CardsComponent,
+    HelpSupportComponent,
+    UserManagementComponent,
+    EditprofileComponent,
+    FooterStatusBoxComponent,
+    QuestionCreditComponent,
+    ChatComponent,
+    GuidelineComponent,
+    PrivacypolicyComponent,
+    ScrollTrackerDirective,
+    RefundpolicyComponent,
+    SupportComponent,
+    CancellationpolicyComponent,
+    InvestorListComponent,
+    CompanyListComponent,
+    ScholarshipListComponent,
+    UserGuideComponent,
+    CompanyListGuidlinesComponent,
+    ScholarshipListGuidlinesComponent,
+    InvestorListGuidlinesComponent,
+    RecommendationsComponent,
+    PitchDeskComponent,
+    ExportCreditComponent,
     MycertificateComponent,
     CareerPlannerComponent,
     InvestorListComponent,

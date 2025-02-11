@@ -10,6 +10,9 @@ import { CountryInsightsSubmoduleComponent } from './country-insights/country-in
 import { StudentBudgetPlannerComponent } from './student-budget-planner/student-budget-planner.component';
 import { WealthleaderreadansComponent } from '../founderstool/wealthleaderreadans/wealthleaderreadans.component';
 import { WealthleaderslistComponent } from '../founderstool/wealthleaderslist/wealthleaderslist.component';
+import { UniCompareComponent } from './uni-compare/uni-compare.component';
+import { GlobalEdufitComponent } from './global-edufit/global-edufit.component';
+import { EduLoanCompareComponent } from './edu-loan-compare/edu-loan-compare.component';
 
 const routes: Routes = [
   {
@@ -46,6 +49,15 @@ const routes: Routes = [
       },
       {
         path: 'wealthleaderreadanswer/:id', component: WealthleaderreadansComponent
+      },
+      {
+        path: 'uni-compare', component: UniCompareComponent
+      },
+      {
+        path: 'global-edufit', component: GlobalEdufitComponent
+      },
+      {
+        path: 'edu-loan-compare', component: EduLoanCompareComponent
       },
     ]
   }

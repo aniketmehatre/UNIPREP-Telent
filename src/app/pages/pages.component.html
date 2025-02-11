@@ -13,7 +13,7 @@
 		<div (scroll)="onWindowScroll($event)" id="page">
 			<uni-header (togleSidebar)="togleSidebar()" [expandicon]="expandicon" [ngClass]="{ sticky: stickHeader }"> </uni-header>
 			<div id="page-container">
-				<uni-header-search *ngIf="showSearch"></uni-header-search>
+				<!-- <uni-header-search *ngIf="showSearch"></uni-header-search> -->
 				<router-outlet></router-outlet>
 				<uni-footer-status-box *ngIf="isFooterBoxVisible"></uni-footer-status-box>
 			</div>
@@ -326,3 +326,19 @@
         </div>
     </ng-template>
 </p-dialog>
+<!-- <div class="modal" tabindex="-1" role="dialog" [ngClass]="{ 'd-block': howItWorksVideoModal }">
+	<div class="modal-dialog modal-xl modal-dialog-centered" role="document">
+		<div class="modal-content">
+			<div class="modal-body position-relative pt-4">
+				<div class="modalbuttons">
+					<div class="d-flex gap-2">
+						<button title="New Window" type="button" class="btn btn-primary btn-rounded" (click)="openVideoInYoutube()"><i class="fa-solid fa-arrow-up-right-from-square"></i></button>
+						<button type="button" title="Close Popupssss" class="btn btn-primary btn-rounded" (click)="closeVideoPopup()"><i class="fa-solid fa-xmark"></i></button>
+					</div>
+				</div>
+				<div class="embed-responsive" *ngIf="howItWorksVideoLink"><iframe #videoFrame [src]="howItWorksVideoLink" width="100%"
+                                                      frameborder="0" allowfullscreen></iframe></div>
+			</div>
+		</div>
+	</div>
+</div> -->

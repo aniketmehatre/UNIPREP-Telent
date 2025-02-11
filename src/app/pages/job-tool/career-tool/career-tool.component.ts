@@ -158,7 +158,7 @@ export class CareerToolComponent implements OnInit {
     },
     {
       id: 15,
-      moduleName: "Salary Hacks",  
+      moduleName: "Salary Negotiation Hacks",  
       Description: "Unlock the secrets to negotiating better pay, maximizing your earnings, and achieving financial growth in your career.",  
       tooltip: "Master the art of salary negotiation and take control of your financial future.",
       imageLink: environment.production === false ? "https://api.uniprep.ai/uniprepapi/storage/app//public/icon/modules/snh.png" : "https://uniprep.ai/uniprepapi/storage/app/public/icon/modules/snh.png",
@@ -175,7 +175,67 @@ export class CareerToolComponent implements OnInit {
       refLink: "",
       mode: "job-seeker-success-stories",
       launch_soon: false
-    }
+    },
+    {
+      id: 17,
+      moduleName: "Fortune Companies",
+      Description: "Explore insights, trends, and success strategies from top Fortune companies across industries.",
+      tooltip: "Gain valuable knowledge about Fortune companies to enhance your career and business decisions.",
+      imageLink: environment.production === false ? "https://api.uniprep.ai/uniprepapi/storage/app//public/icon/modules/fc.png" : "https://uniprep.ai/uniprepapi/storage/app/public/icon/modules/fc.png",
+      refLink: "",
+      mode: "fortune-companies",
+      launch_soon: false
+    },
+    {
+      id: 18,
+      moduleName: "Career Hacks",  
+      Description: "Access actionable tips and strategies to accelerate your career growth and achieve your goals.",  
+      tooltip: "Unleash your potential with proven career hacks designed to fast-track your success.",
+      imageLink: environment.production === false ? "https://api.uniprep.ai/uniprepapi/storage/app//public/icon/modules/chacks.png" : "https://uniprep.ai/uniprepapi/storage/app/public/icon/modules/chacks.png",
+      refLink: "",
+      mode: "career-hacks",
+      launch_soon: false
+    },
+    {
+      id: 19,
+      moduleName: "Global Employment Insights",  
+      Description: "Access actionable tips and strategies to accelerate your career growth and achieve your goals.",  
+      tooltip: "Unleash your potential with proven career hacks designed to fast-track your success.",
+      imageLink: environment.production === false ? "https://api.uniprep.ai/uniprepapi/storage/app//public/icon/modules/Global-Employement-Insights.svg" : "https://uniprep.ai/uniprepapi/storage/app/public/icon/modules/Global-Employement-Insights.svg",
+      refLink: "",
+      mode: "global-employment-insights",
+      launch_soon: true
+    },
+    // {
+    //   id: 20,
+    //   moduleName: "Modules-enterprenuer tools",
+    //   Description: "Access actionable tips and strategies to accelerate your career growth and achieve your goals.",
+    //   tooltip: "Unleash your potential with proven career hacks designed to fast-track your success.",
+    //   imageLink: environment.production === false ? "https://api.uniprep.ai/uniprepapi/storage/app//public/icon/modules/chacks.png" : "https://uniprep.ai/uniprepapi/storage/app/public/icon/modules/chacks.png",
+    //   refLink: "",
+    //   mode: "modules-enterprenuer-tools",
+    //   launch_soon: true
+    // },
+    // {
+    //   id: 21,
+    //   moduleName: "Virtual Incubation Center",
+    //   Description: "Access actionable tips and strategies to accelerate your career growth and achieve your goals.",
+    //   tooltip: "Unleash your potential with proven career hacks designed to fast-track your success.",
+    //   imageLink: environment.production === false ? "https://api.uniprep.ai/uniprepapi/storage/app//public/icon/modules/chacks.png" : "https://uniprep.ai/uniprepapi/storage/app/public/icon/modules/chacks.png",
+    //   refLink: "",
+    //   mode: "virtual-incubation-center",
+    //   launch_soon: true
+    // },
+    // {
+    //   id: 22,
+    //   moduleName: "Market Analysis",
+    //   Description: "Access actionable tips and strategies to accelerate your career growth and achieve your goals.",
+    //   tooltip: "Unleash your potential with proven career hacks designed to fast-track your success.",
+    //   imageLink: environment.production === false ? "https://api.uniprep.ai/uniprepapi/storage/app//public/icon/modules/chacks.png" : "https://uniprep.ai/uniprepapi/storage/app/public/icon/modules/chacks.png",
+    //   refLink: "",
+    //   mode: "market-analysis",
+    //   launch_soon: true
+    // }
   ]
 
   constructor(private router: Router, private employerGlobalService: EmployerGlobalService) {

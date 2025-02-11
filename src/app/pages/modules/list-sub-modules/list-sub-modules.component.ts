@@ -127,8 +127,12 @@ export class ListSubModulesComponent implements OnInit {
     allSearchedResult: any[] = []
     loopRange = Array.from({length: 24}).fill(0).map((_, index) => index);
     originalSubModuleList: any[] = [];
-
+    countryLists: any [] = []
+    selectedCountryName: any
     ngOnInit() {
+        this.locationService.dashboardLocationList().subscribe((countryList: any) => {
+            this.countryLists = countryList
+        });
         this.router.events.pipe(
             filter(event => event instanceof NavigationEnd)
         ).subscribe(() => {
@@ -158,6 +162,28 @@ export class ListSubModulesComponent implements OnInit {
         this.originalSubModuleList = [...this.subModuleList]; 
     }
     description: any
+    selectedCountryId: any
+    selectCountry(selectedId: any): void {
+        this.countryLists.forEach((element: any) => {
+            if (element.id === selectedId.id) {
+                this.selectedCountryName = element.country;
+            }
+        });
+        this.countryLists.forEach((item: any, i: any) => {
+            if (item.id === selectedId.id) {
+                this.countryLists.splice(i, 1);
+                this.countryLists.unshift(item);
+            }
+        });
+    
+        localStorage.setItem('countryId', selectedId.id);
+        localStorage.setItem('selectedcountryId', selectedId.id);
+        this.selectedCountryId = selectedId.id;
+        this.dataService.changeCountryId(selectedId.id);
+        this.dataService.changeCountryFlag(selectedId.flag)
+        this.dataService.changeCountryName(selectedId.country)
+    
+    }
 
     init() {
         localStorage.setItem('QuizModuleName', '')

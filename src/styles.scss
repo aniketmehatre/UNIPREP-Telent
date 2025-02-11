@@ -513,7 +513,9 @@ uni-careercountries,
 uni-salaryhackscountries,
 uni-salaryhackslists,
 uni-seekercountries,
-uni-seekerlists {
+uni-seekerlists,
+uni-fortune-companies-lists,
+uni-fortune-companies-data-list {
 	display: flex;
 	flex: 1;
 	height: 100%;
@@ -795,7 +797,7 @@ uni-subscription {
 
 	&:hover {
 		color: #fff !important;
-		background: var(--uniprep-secondary);
+		background: var(--uniprep-secondary) !important;
 		border-color: var(--uniprep-secondary) !important;
 	}
 
@@ -2072,7 +2074,7 @@ p-dialog.restrictionDialog .p-dialog .p-dialog-header .p-dialog-header-icon {
 	}
 }
 
-uni-assessment, uni-travel-tools, uni-founderstool, uni-education-tools {
+uni-assessment, uni-travel-tools, uni-founderstool, uni-education-tools, uni-contributors {
 	display: flex;
 	flex: 1;
 	height: 100%;
@@ -2082,7 +2084,7 @@ uni-assessment, uni-travel-tools, uni-founderstool, uni-education-tools {
 	uni-assessment-list, uni-ilearn-challenge, uni-assessment-quiz, uni-assessment-quiz-review,
 	uni-global-travel-visa, uni-travel-cost-estimator, uni-travel-packing-planner, uni-travel-visit-planner, 
 	uni-trip-length-finder, uni-travel-glossary, uni-business-plan-generator, uni-education-tools-list, 
-	uni-course-navigator, uni-startup-risk-assessment,  uni-marketing-analysis, uni-goverment-funding-opportunity, uni-ai-business-advisor, uni-politician-insights,uni-start-up-expense-estimate, uni-business-forecasting-tool, uni-country-insights, uni-country-insights-submodule, uni-student-budget-planner {
+	uni-course-navigator, uni-startup-risk-assessment,  uni-marketing-analysis, uni-goverment-funding-opportunity, uni-ai-business-advisor, uni-politician-insights,uni-start-up-expense-estimate, uni-business-forecasting-tool, uni-country-insights, uni-country-insights-submodule, uni-student-budget-planner, uni-uni-compare, uni-global-edufit, uni-edu-loan-compare {
 		flex: 1;
 		overflow-y: auto;
 		display: flex;
@@ -2283,4 +2285,32 @@ uni-job-seeker-success-stories {
         border: 2px solid var(--uniprep-primaryop10);
         object-fit: cover;
     }
+}
+uni-fortune-companies {
+	display: flex;
+	flex: 1;
+	height: 100%;
+	flex-direction: column;
+	overflow: hidden;
+	uni-fortune-companies-data-list {
+		flex: 1;
+		overflow-y: auto;
+		display: flex;
+		flex-direction: column;
+	}
+
+}
+.fortunequestionmodal {
+	.p-dialog {
+	  width: 50%;
+	  height: max-content;
+	  max-height: 98%;
+	}
+  }
+  .questionmodal.contributor-modal {
+
+    .p-dialog {
+		width: 50%;
+    }
+
 }

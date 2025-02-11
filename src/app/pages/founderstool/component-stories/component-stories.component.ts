@@ -218,4 +218,12 @@ export class ComponentStoriesComponent implements OnInit {
     textarea.remove();
     this.toast.add({ severity: 'success', summary: 'Success', detail: 'Question Copied' });
   }
+  getContentPreview(content: string): string {
+    // const plainText = content.replace(/<[^>]*>/g, '');
+    // return plainText.length > 75 ? plainText.slice(0, 75) + ' ...' : plainText;
+    const parser = new DOMParser();
+    const doc = parser.parseFromString(content, "text/html");    
+    const paragraph = doc.querySelector("p")?.textContent || '';
+    return paragraph.length > 75 ? paragraph.slice(0, 75) + ' ...' : paragraph;
+  }
 }

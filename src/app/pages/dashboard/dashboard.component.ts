@@ -10,7 +10,6 @@ import { LocationService } from "src/app/location.service"
 import { CommonModule } from "@angular/common"
 import { DialogModule } from "primeng/dialog"
 import { CarouselModule } from "primeng/carousel"
-
 import { FormsModule } from "@angular/forms"
 import { ButtonModule } from "primeng/button"
 import { TooltipModule } from "primeng/tooltip"

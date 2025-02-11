@@ -38,7 +38,10 @@
                   <h5 class="uniprep-primary fw-semibold mt-3 mb-1">
                     {{ recommendation.question.branches[0] }}
                   </h5>
-                  <input class="w-100" type="text" pInputText placeholder="Industry Type" formControlName="industry" />
+                  <p-dropdown styleClass="w-100" appendTo="body" [options]="industryList" [filter]="true"
+                    formControlName="industry" filterBy="Industry" optionLabel="Industry" optionValue="Industry" placeholder="Industry"
+                    [autoDisplayFirst]="false">
+                  </p-dropdown>                  
                   <p class="text-center" *ngIf="marketingForm.get('industry')?.errors?.required && submitted"
                     style="color: red">
                     Please enter the industry type
@@ -61,10 +64,11 @@
                   <h5 class="uniprep-primary fw-semibold mt-3 mb-1">
                     {{ recommendation.question.branches[2] }}
                   </h5>
-                  <p-multiSelect [options]="targetMarketList" styleClass="w-100"
-                  formControlName="targetMarket" optionLabel="name"
-                  optionValue="name" [appendTo]="'body'" placeholder="Enter your TargetMarket">
-              </p-multiSelect>
+                  <p-dropdown [options]="targetMarketList" styleClass="w-100"
+                  formControlName="targetMarket" optionLabel="Target Audience"
+                  [filter]="true" filterBy="Target Audience"
+                  optionValue="Target Audience" [appendTo]="'body'" placeholder="Target Audience">
+              </p-dropdown>
               <p class="text-center" *ngIf="marketingForm.get('targetMarket')?.errors?.required && submitted"
                   style="color: red">Please Choose Any one option</p>
                 </div>
@@ -92,9 +96,9 @@
                   <h5 class="uniprep-primary fw-semibold mt-3 mb-1">
                     {{ recommendation.question.branches[0] }}
                   </h5>
-                  <p-multiSelect styleClass="w-100" placeholder="Business Model" [options]="businessModelList"
-                    display="chip" optionLabel="name" optionValue="name" formControlName="businessModel">
-                  </p-multiSelect>
+                  <p-dropdown styleClass="w-100" placeholder="Business Model" [options]="businessModelList"
+                    display="chip" optionLabel="Model" appendTo="body" optionValue="Model"  formControlName="businessModel">
+                  </p-dropdown>
                   <p class="text-center" *ngIf="
                         marketingForm.get('businessModel')?.errors?.required && submitted
                       " style="color: red">
@@ -105,9 +109,9 @@
                   <h5 class="uniprep-primary fw-semibold mt-3 mb-1">
                     {{ recommendation.question.branches[1] }}
                   </h5>
-                  <p-multiSelect styleClass="w-100" placeholder="Sales Channels" [options]="salesChannelsList"
-                    display="chip" optionLabel="name" optionValue="name" formControlName="salesChannel">
-                  </p-multiSelect>
+                  <p-dropdown styleClass="w-100" appendTo="body" placeholder="Sales Channels" [options]="salesChannelsList" [filter]="true" filterBy="Sales Channel"
+                    display="chip" optionLabel="Sales Channel" optionValue="Sales Channel" formControlName="salesChannel">
+                  </p-dropdown>
                   <p class="text-center" *ngIf="
                         marketingForm.get('salesChannel')?.errors?.required && submitted
                       " style="color: red">
@@ -118,9 +122,9 @@
                   <h5 class="uniprep-primary fw-semibold mt-3 mb-1">
                     {{ recommendation.question.branches[2] }}
                   </h5>
-                  <p-multiSelect styleClass="w-100 h-100" placeholder="Time Frame" [options]="timeFramesList" 
-                    optionLabel="name" optionValue="name" formControlName="timeFrame">
-                  </p-multiSelect>
+                  <p-dropdown styleClass="w-100 h-100" appendTo="body" placeholder="Time Frame" [filter]="true" filterBy="Analysis Duration" [options]="timeFramesList" 
+                    optionLabel="Analysis Duration" optionValue="Analysis Duration" formControlName="timeFrame">
+                  </p-dropdown>
                   <p class="text-center" *ngIf="marketingForm.get('timeFrame')?.errors?.required && submitted"
                     style="color: red">
                     Please Choose Any one option
@@ -145,16 +149,20 @@
                   </div>
                   <p class="text-center" *ngIf="marketingForm.get('budget')?.errors?.required && submitted"
                     style="color: red">
-                    Please Choose Any one option
+                    Please choose any one option
                   </p>
+                  <p class="text-center" *ngIf="marketingForm.get('budget')?.errors?.min && !marketingForm.get('budget')?.errors?.required && submitted"
+                  style="color: red">
+                  Please give above 6 digit number
+                </p>
                 </div>
                 <div>
                   <h5 class="uniprep-primary fw-semibold mt-3 mb-1">
                     {{ recommendation.question.branches[1] }}
                   </h5>
-                  <p-multiSelect styleClass="w-100" placeholder="Revenue Streams" [options]="revenueStreamsList"
-                    display="chip" optionLabel="name" optionValue="name" formControlName="revenueStreams">
-                  </p-multiSelect>
+                  <p-dropdown styleClass="w-100" placeholder="Revenue Streams" appendTo="body" [options]="revenueStreamsList" [filter]="true" filterBy="Revenue Streams"
+                    display="chip" optionLabel="Revenue Stream" optionValue="Revenue Stream" formControlName="revenueStreams">
+                  </p-dropdown>
                   <p class="text-center" *ngIf="
                         marketingForm.get('revenueStreams')?.errors?.required && submitted
                       " style="color: red">
@@ -165,11 +173,26 @@
                   <h5 class="uniprep-primary fw-semibold mt-3 mb-2">
                     {{ recommendation.question.branches[2] }}
                   </h5>
-                  <p-multiSelect styleClass="w-100 h-100" placeholder="Competitor Analysis Focus" [options]="competitorList"
-                    optionLabel="name" optionValue="name" formControlName="competitorAnalysis">
-                  </p-multiSelect>
+                  <p-dropdown styleClass="w-100 h-100" placeholder="Competitor Analysis Focus" appendTo="body" [options]="competitorList" [filter]="true" filterBy="Focus"
+                    optionLabel="Focus" optionValue="Focus" formControlName="competitorAnalysis">
+                  </p-dropdown>
                   <p class="text-center" *ngIf="
                         marketingForm.get('competitorAnalysis')?.errors?.required &&
+                          submitted;
+                        submitted
+                      " style="color: red">
+                    Please Choose Any one option
+                  </p>
+                </div>
+                <div>
+                  <h5 class="uniprep-primary fw-semibold mt-3 mb-2">
+                    {{ recommendation.question.branches[3] }}
+                  </h5>
+                  <p-dropdown styleClass="w-100 h-100" placeholder="Forecating" appendTo="body" [options]="forecastingList" [filter]="true" filterBy="Forecast"
+                    optionLabel="Forecast" optionValue="Forecast" formControlName="forecast">
+                  </p-dropdown>
+                  <p class="text-center" *ngIf="
+                        marketingForm.get('forecast')?.errors?.required &&
                           submitted;
                         submitted
                       " style="color: red">
@@ -229,13 +252,25 @@
     </div>
     <div class="card-body worksans flex-fill overflow-y-auto">
       <div class="row">
-        <div class="col-md-3"></div>
-        <div class="col-md-6">
-          <div class="card p-3" [innerHtml]="recommendationData"></div>
-        </div>
-        <div class="col-md-3"></div>
+          <div class="col-md-2"></div>
+          <div class="col-md-8">
+              <div class="d-flex justify-content-end gap-3 mb-3">
+                  <button pButton type="button" (click)="downloadRecommadation()"
+                      class="btn btn-secondary btn-rounded p-1 ps-4">
+                      <span class="me-2">Download</span><span class="btn-icon px-2 py-2">
+                          <i class="fa-regular fa-download"></i></span>
+                  </button>
+                  <button pButton type="button" (click)="onSaveRes()"
+                      class="btn btn-primary btn-rounded p-1 ps-4">
+                      <span class="me-2">Save Response</span><span class="btn-icon px-2 py-2">
+                          <i class="fa-regular fa-floppy-disk"></i></span>
+                  </button>
+              </div>
+              <div class="card p-3" [innerHtml]="recommendationData"></div>
+          </div>
+          <div class="col-md-2"></div>
       </div>
-    </div>
+  </div>
     <div class="card-footer bg-transparent border-0">
       <div class="text-end">
         <button pButton type="button" class="btn ps-3 btn-quit btn-rounded" (click)="resetRecommendation()">
@@ -277,7 +312,7 @@
                 <h5 class="fw-bold mb-0">Market Analysis {{i+1}}</h5>
                 <p class="text-small"><b>Industry : </b>{{item.industry}}</p>
                 <p class="text-small"><b>Location : </b>{{item.location}}</p>
-                <p class="text-small"><b>Target Market : </b>{{item.targetMarket}}</p>
+                <p class="text-small"><b>Target Market : </b>{{item.targetaudience}}</p>
             </div>
             </div>
           </div>

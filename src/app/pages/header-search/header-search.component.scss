@@ -14,8 +14,8 @@
     overflow-y: auto;
   }
 	.p-inputgroup {
-		padding: 0px;
-		background: #fff;
+		padding: 3px;
+		background: #F1F1F1;
 		border-radius: 10px;
 		.p-button {
 			border-radius: 0px 8px 8px 0 !important;
@@ -24,6 +24,7 @@
 	.searchheight {
 		input {
 			border: none;
+			background-color: #F1F1F1;
 		}
 	}
 	.search-icon {
@@ -33,7 +34,7 @@
 		display: flex;
 		font-size: 1.5rem;
 		color: var(--uniprep-primary);
-		border-right: 1px solid var(--uniprep-primary);
+		// border-right: 1px solid var(--uniprep-primary);
 		padding: 10px;
 	}
 }

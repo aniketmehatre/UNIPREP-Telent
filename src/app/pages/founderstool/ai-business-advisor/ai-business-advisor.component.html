@@ -34,15 +34,17 @@
                 </div>
                 <div class="col-md-6">
                   <ng-container *ngIf="recommendation.id == 1">
-                    <input type="text" [(ngModel)]="selectedData[recommendation.id]" pInputText class="w-100"
-                      placeholder="Business Type" />
+                    <p-dropdown [(ngModel)]="selectedData[recommendation.id]" [options]="industryList" [filter]="true" filterBy="Industry"
+                      styleClass="w-100" optionLabel="Industry" optionValue="Industry" [appendTo]="'body'" placeholder="Industry">
+                    </p-dropdown>
                     <div class="text-center" [ngClass]="{ 'd-none': inValidClass === false }" style="color: red">
                       Business Type is required
                     </div>
                   </ng-container>
                   <ng-container *ngIf="recommendation.id == 2">
-                    <textarea [(ngModel)]="selectedData[recommendation.id]" pInputTextarea class="w-100"
-                      placeholder="Enter your primary goals" [rows]="5"></textarea>
+                    <p-multiSelect [(ngModel)]="selectedData[recommendation.id]" [options]="businessGoalsList" [filter]="true" filterBy="goal"
+                      styleClass="w-100" optionLabel="goal" optionValue="goal" [appendTo]="'body'" placeholder="Goal">
+                    </p-multiSelect>
                     <div class="text-center" [ngClass]="{ 'd-none': inValidClass === false }" style="color: red">
                       Business Primary Goals is required
                     </div>
@@ -56,29 +58,33 @@
                     </div>
                   </ng-container>
                   <ng-container *ngIf="recommendation.id == 4">
-                    <textarea [(ngModel)]="selectedData[recommendation.id]" pInputTextarea class="w-100"
-                      placeholder="Enter your challenges" [rows]="5"></textarea>
+                    <p-dropdown [(ngModel)]="selectedData[recommendation.id]" [options]="challengeList"  [filter]="true" filterBy="challenge" 
+                      styleClass="w-100" optionLabel="challenge" optionValue="challenge" [appendTo]="'body'" placeholder="Challenge">
+                    </p-dropdown>
                     <div class="text-center" [ngClass]="{ 'd-none': inValidClass === false }" style="color: red">
-                      Business challenges is required
+                      Challenges are required
                     </div>
                   </ng-container>
                   <ng-container *ngIf="recommendation.id == 5">
-                    <textarea [(ngModel)]="selectedData[recommendation.id]" pInputTextarea class="w-100"
-                      placeholder="Enter your challenges" [rows]="5"></textarea>
+                    <p-dropdown [(ngModel)]="selectedData[recommendation.id]" [options]="targetAudienceList"  [filter]="true" filterBy="audience" 
+                      styleClass="w-100" optionLabel="audience" optionValue="audience" [appendTo]="'body'" placeholder="Audience">
+                    </p-dropdown>
                     <div [ngClass]="{ 'd-none': inValidClass === false }" style="color: red" class="text-danger">
                       Ideal customers is required
                     </div>
                   </ng-container>
                   <ng-container *ngIf="recommendation.id == 6">
-                    <textarea [(ngModel)]="selectedData[recommendation.id]" pInputTextarea class="w-100"
-                      placeholder="Enter your budget" [rows]="5"></textarea>
+                    <p-dropdown [(ngModel)]="selectedData[recommendation.id]" [options]="budgetList"  [filter]="true" filterBy="goal" 
+                      styleClass="w-100" optionLabel="goal" optionValue="goal" [appendTo]="'body'" placeholder="Goal">
+                    </p-dropdown>
                     <div class="text-center" [ngClass]="{ 'd-none': inValidClass === false }" style="color: red">
-                      Business challenges is required
+                      Budget is required
                     </div>
                   </ng-container>
                   <ng-container *ngIf="recommendation.id == 7">
-                    <input type="text" [(ngModel)]="selectedData[recommendation.id]" pInputText class="w-100"
-                      placeholder="Strategy" />
+                    <p-dropdown [(ngModel)]="selectedData[recommendation.id]" [filter]="true" filterBy="strategy" [options]="strategyBusinessList"
+                      styleClass="w-100" optionLabel="strategy" optionValue="strategy" [appendTo]="'body'" placeholder="Strategy">
+                    </p-dropdown>
                     <div class="text-center" [ngClass]="{ 'd-none': inValidClass === false }" style="color: red">
                        Strategy is required
                     </div>
@@ -97,7 +103,7 @@
                   <span class="me-2">Next</span><span class="btn-icon px-2 py-2"><i
                       class="fa fa-arrow-right"></i></span>
                 </button>
-                <button pButton type="button" (click)="getRecommendation()" *ngIf="recommendation.id  == 7"
+                <button pButton type="button" (click)="getRecommendation(activePageIndex + 1)" *ngIf="recommendation.id  == 7"
                   class="btn btn-success btn-rounded p-1 ps-4">
                   <span class="me-2">Get Recommendations</span><span class="btn-icon px-2 py-2">
                     <i class="fa fa-check-circle"></i></span>
@@ -136,14 +142,26 @@
         </div>
     </div>
     <div class="card-body worksans flex-fill overflow-y-auto">
-        <div class="row">
-            <div class="col-md-3"></div>
-            <div class="col-md-6">
-                <div class="card p-3" [innerHtml]="recommendationData"></div>
-            </div>
-            <div class="col-md-3"></div>
-        </div>
-    </div>
+      <div class="row">
+          <div class="col-md-2"></div>
+          <div class="col-md-8">
+              <div class="d-flex justify-content-end gap-3 mb-3">
+                  <button pButton type="button" (click)="downloadRecommadation()"
+                      class="btn btn-secondary btn-rounded p-1 ps-4">
+                      <span class="me-2">Download</span><span class="btn-icon px-2 py-2">
+                          <i class="fa-regular fa-download"></i></span>
+                  </button>
+                  <button pButton type="button" (click)="onSaveRes()"
+                      class="btn btn-primary btn-rounded p-1 ps-4">
+                      <span class="me-2">Save Response</span><span class="btn-icon px-2 py-2">
+                          <i class="fa-regular fa-floppy-disk"></i></span>
+                  </button>
+              </div>
+              <div class="card p-3" [innerHtml]="recommendationData"></div>
+          </div>
+          <div class="col-md-2"></div>
+      </div>
+  </div>
     <div class="card-footer bg-transparent border-0">
         <div class="text-end">
             <button pButton type="button" class="btn ps-3 btn-quit btn-rounded" (click)="resetRecommendation()">
@@ -183,7 +201,7 @@
                     <div class="card subjectcard" role="button" (click)="showRecommandationData(item.response)">
                         <div class="card-body text-start">
                             <h5 class="fw-bold mb-0">Business Advise {{i+1}}</h5>
-                            <p class="text-small"><b>Type of Business : </b>{{item.type}}</p>
+                            <p class="text-small"><b>Type of Business : </b>{{item.industry}}</p>
                             <p class="text-small"><b>Focus : </b>{{item.goals}}</p>
                             <p class="text-small"><b>Ideal Customers : </b>{{item.customers}}</p>
                             <p class="text-small"><b>Budget : </b>{{item.budget}}</p>

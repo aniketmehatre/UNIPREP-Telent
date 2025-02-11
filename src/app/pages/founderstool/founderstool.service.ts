@@ -189,6 +189,12 @@ export class FounderstoolService {
     });
   }
 
+  getLocationList() {
+    return this.http.get<any>(environment.ApiUrl + "/location", {
+      headers: this.headers,
+    });
+  }
+
   getStartUpRiskAssesmentOptionsList() {
     return this.http.get<any>(environment.ApiUrl + "/getstartupriskslists", {
       headers: this.headers,
@@ -204,6 +210,12 @@ export class FounderstoolService {
     const headers = new HttpHeaders().set("Accept", "application/json");
     return this.http.post<any>(environment.ApiUrl + "/EntrepreneurtoolsList", data, {
         headers: headers,
+    });
+  }
+
+  downloadRecommendation(data: any) {
+    return this.http.post<{ url: string }>(environment.ApiUrl + "/downloadIntegratedRecom", data, {
+      headers: this.headers,
     });
   }
 }

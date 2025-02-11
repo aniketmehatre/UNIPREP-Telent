@@ -12,6 +12,10 @@ import { CommonModule } from '@angular/common';
 import { DialogModule } from 'primeng/dialog';
 
 
+import { startupDropdownData } from './startup-expense.data';
+// interface selectList {
+//   name: string;
+// }
 @Component({
     selector: 'uni-start-up-expense-estimate',
     templateUrl: './start-up-expense-estimate.component.html',
@@ -20,12 +24,15 @@ import { DialogModule } from 'primeng/dialog';
     imports: [CommonModule,  DialogModule]
 })
 export class StartUpExpenseEstimateComponent implements OnInit {
-  locationList: any[] = [{ name: 'India' }];
-  startupStageList: selectList[] = [{ name: 'Early Stage' }];
-  teamSizeList: selectList[] = [{ name: 'Big' }];
-  primaryExpenseList: selectList[] = [{ name: 'intial' }];
-  revenueStreamsList: selectList[] = [{ name: 'streams' }];
-  durationList: selectList[] = [{ name: 'streams' }];
+  locationList: any[];
+  industryList: { Industry: string }[] = startupDropdownData.Industry;
+  startupStageList: selectList[] = startupDropdownData['Startup Stage'];
+  teamSizeList: selectList[] = startupDropdownData['Team Size'];
+  primaryExpenseList: selectList[] = startupDropdownData['Key expenses'];
+  revenueModelsList: selectList[] = startupDropdownData['Revenue Model'];
+  captialInvestedList: selectList[] = startupDropdownData['Capital Investment'];
+  expenseEstimation: selectList[] = startupDropdownData['Expense Estimation'];
+
   isFromSavedData: boolean = false;
   recommadationSavedQuestionList: any = [];
   page = 1;
@@ -46,6 +53,7 @@ export class StartUpExpenseEstimateComponent implements OnInit {
     page: this.page,
     perpage: this.pageSize,
   };
+  currencyandCountryList: any;
   isRecommendationQuestion: boolean = true;
   isRecommendationData: boolean = false;
   isRecommendationSavedData: boolean = false;
@@ -70,7 +78,7 @@ export class StartUpExpenseEstimateComponent implements OnInit {
       revenue_model: ['', Validators.required],
       operating_expense: ['', Validators.required],
       budget: ['', Validators.required],
-      duration: ['', Validators.required],
+      expense_estimation: ['', Validators.required],
       investment_currency_code: [],
       expense_currency_code: [],
       sales_currency_code: []
@@ -85,7 +93,7 @@ export class StartUpExpenseEstimateComponent implements OnInit {
       id: 1,
       question: {
         heading: 'Basic Information',
-        branches: ["What industry is your startup in?", "At what phase is your startup currently?", "Where is your startup located?", "What is the current size of your team?"]
+        branches: ["What is the industry of your business?", "At what phase is your startup currently?", "Where is your startup located?", "What is the current size of your team?"]
       },
     },
     {
@@ -120,7 +128,7 @@ export class StartUpExpenseEstimateComponent implements OnInit {
       this.ehitlabelIsShow = false;
     }
     // this.getMarketAnalysisLists();
-    this.getCurrenyandCountry();
+    this.getCurrenyandLocation();
   }
 
   goBack() {
@@ -140,10 +148,10 @@ export class StartUpExpenseEstimateComponent implements OnInit {
     // });
   }
 
-  getCurrenyandCountry() {
+  getCurrenyandLocation() {
     this.foundersToolsService.getCurrencyAndCountries().subscribe((res: any) => {
       console.log(res);
-      this.locationList = res;
+      this.currencyandCountryList = res;
     });
   }
 
@@ -193,6 +201,14 @@ export class StartUpExpenseEstimateComponent implements OnInit {
   }
 
   getRecommendation() {
+    this.submitted = false;
+    const formData = this.marketingForm.value;
+    if (this.activePageIndex == 2) {
+      if (!formData.budget || !formData.expense_estimation) {
+        this.submitted = true;
+        return;
+      }
+    }
     if (this.recommendRestrict) {
       this.restrict = true;
       return;
@@ -224,7 +240,6 @@ export class StartUpExpenseEstimateComponent implements OnInit {
   next() {
     this.submitted = false;
     const formData = this.marketingForm.value;
-    console.log(formData)
     if (this.activePageIndex == 0) {
       if (!formData.industry || !formData.location || !formData.startup_stage || !formData.team_size) {
         this.submitted = true;
@@ -232,13 +247,13 @@ export class StartUpExpenseEstimateComponent implements OnInit {
       }
     }
     if (this.activePageIndex == 1) {
-      if (!formData.current_investment || !formData.revenue_model || !formData.primary_expense || !formData.operating_expense) {
+      if (!formData.current_investment || (!formData.revenue_model || formData.revenue_model?.length == 0) || (!formData.primary_expense || formData.primary_expense?.length == 0) || !formData.operating_expense) {
         this.submitted = true;
         return;
       }
     }
     if (this.activePageIndex == 2) {
-      if (!formData.budget || !formData.duration) {
+      if (!formData.budget || !formData.expense_estimation) {
         this.submitted = true;
         return;
       }
@@ -259,6 +274,21 @@ export class StartUpExpenseEstimateComponent implements OnInit {
         }
       });
     }
+  }
+
+  onSaveRes() {
+    this.toast.add({ severity: "success", summary: "Success", detail: "Response saved successfully" });
+  }
+
+  downloadRecommadation() {
+    this.foundersToolsService.downloadRecommendation({ data: this.recommendationData }).subscribe({
+      next: res => {
+        window.open(res.url, "_blank");
+      },
+      error: err => {
+        console.log(err?.error?.message);
+      }
+    });
   }
 
   showRecommandationData(data: string) {

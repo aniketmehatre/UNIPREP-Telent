@@ -3,6 +3,7 @@ import { TravelToolsService } from '../travel-tools.service';
 import { Router } from '@angular/router';
 import { CostOfLivingService } from '../../job-tool/cost-of-living/cost-of-living.service';
 import { City } from 'src/app/@Models/cost-of-living';
+import { MessageService } from 'primeng/api';
 
 @Component({
     selector: 'uni-trip-length-finder',
@@ -15,15 +16,13 @@ export class TripLengthFinderComponent implements OnInit {
   constructor(
     private travelToolService: TravelToolsService,
     private router: Router,
-    private costOfLivingService: CostOfLivingService
+    private costOfLivingService: CostOfLivingService,
+    private toast: MessageService
 
   ) { }
 
   recommendations: { id: number, question: string }[] = [
-    {
-      id: 1,
-      question: "What is your travel destination?",
-    }
+    { id: 1, question: "Which Destination are you planning to visit?" }
   ];
   isRecommendation: boolean = true;
   isResponsePage: boolean = false;
@@ -31,7 +30,7 @@ export class TripLengthFinderComponent implements OnInit {
   activePageIndex: number = 0;
   selectedData: { [key: string]: any } = {};
   invalidClass: boolean = false;
-  recommendationData: any = [];
+  recommendationData: any;
   savedResponse: any = [];
   destinationLocationList: City[] = [];
   cityList: City[] = [];
@@ -72,8 +71,11 @@ export class TripLengthFinderComponent implements OnInit {
         country: this.selectedData[1].city_name ?? this.selectedData[1].country_name,
         mode: "trip_length_finder"
       };
-      this.travelToolService.getChatgptRecommendations(data).subscribe(response => {
+      this.travelToolService.getChatgptRecommendations(data).subscribe((response:any) => {
         this.recommendationData = response.response;
+        console.log(response);
+        console.log(this.recommendationData);
+        
         this.isRecommendation = false;
         this.isResponsePage = true;
       })
@@ -112,6 +114,21 @@ export class TripLengthFinderComponent implements OnInit {
     this.isResponsePage = true;
     this.isSavedPage = false;
     this.recommendationData = response;
+  }
+
+  onSaveRes() {
+    this.toast.add({ severity: "success", summary: "Success", detail: "Response saved successfully" });
+  }
+
+  downloadRecommadation() {
+    this.travelToolService.downloadRecommendation({ data: this.recommendationData }).subscribe({
+      next: res => {
+        window.open(res.url, "_blank");
+      },
+      error: err => {
+        console.log(err?.error?.message);
+      }
+    });
   }
 
   goBack() {

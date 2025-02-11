@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { FounderstoolService } from '../founderstool.service';
 import { Router } from '@angular/router';
+import { businessAdvisor } from './business-advisor.data';
+import { MessageService } from 'primeng/api';
 
 @Component({
     selector: 'uni-ai-business-advisor',
@@ -10,9 +12,14 @@ import { Router } from '@angular/router';
     standalone: false
 })
 export class AiBusinessAdvisorComponent implements OnInit {
-  strategyBusinessList: any = [{
-    id: 1, name: 'option'
-  }];
+  strategyBusinessList: any = businessAdvisor.strategies;
+  industryList: { Industry: string }[] = businessAdvisor.Industry;
+  businessGoalsList: { goal: string }[] = businessAdvisor.businessGoals;
+  challengeList: { challenge: string }[] = businessAdvisor.challenges;
+  targetAudienceList: { audience: string }[] = businessAdvisor.targetAudience;
+  budgetList: { goal: string }[] = businessAdvisor.budgetGoals;
+  durationList: { duration: number }[] = businessAdvisor.timeDuration;
+
   recommadationSavedQuestionList: any = [];
   recommendations: { id: number, question: string }[] = [
     { id: 1, question: 'What industry are you operating in?' },
@@ -36,7 +43,8 @@ export class AiBusinessAdvisorComponent implements OnInit {
   constructor(
     private fb: FormBuilder,
     private foundersToolService: FounderstoolService,
-    private router: Router
+    private router: Router,
+    private toast: MessageService
   ) { }
 
   ngOnInit(): void {
@@ -60,11 +68,16 @@ export class AiBusinessAdvisorComponent implements OnInit {
     }
   }
 
-  getRecommendation() {
+  getRecommendation(productId: number) {
+    this.inValidClass = false;
+    if (!(productId in this.selectedData)) {
+      this.inValidClass = true;
+      return;
+    } 
     let data: any = {
       type: this.selectedData[1],
       goals: this.selectedData[2],
-      duration: [this.selectedData[3]],
+      duration: this.selectedData[3],
       challenges: this.selectedData[4],
       customers: this.selectedData[5],
       budget: this.selectedData[6],
@@ -118,6 +131,21 @@ export class AiBusinessAdvisorComponent implements OnInit {
 
   goBack() {
     this.router.navigateByUrl('/pages/founderstool');
+  }
+
+  onSaveRes() {
+    this.toast.add({ severity: "success", summary: "Success", detail: "Response saved successfully" });
+  }
+
+  downloadRecommadation() {
+    this.foundersToolService.downloadRecommendation({ data: this.recommendationData }).subscribe({
+      next: res => {
+        window.open(res.url, "_blank");
+      },
+      error: err => {
+        console.log(err?.error?.message);
+      }
+    });
   }
 
 

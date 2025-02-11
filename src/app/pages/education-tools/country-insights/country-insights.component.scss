@@ -1,4 +1,5 @@
 .country-card {
+    max-width: 200px;
     max-height: 185px;
     border-radius: 16px;
     cursor: pointer;
@@ -14,12 +15,4 @@
     border-radius: 50%;
     margin: 20px auto;
     overflow: hidden;
-}
-.russia-flag {
-    background: linear-gradient(180deg, #FFFFFF 33.33%, #0039A6 33.33%, #0039A6 66.66%, #D52B1E 66.66%);
-}
-.usa-flag {
-    background: 
-        linear-gradient(180deg, #B31942 0%, #B31942 7.69%, #FFFFFF 7.69%, #FFFFFF 15.38%, #B31942 15.38%, #B31942 23.07%, #FFFFFF 23.07%, #FFFFFF 30.76%, #B31942 30.76%, #B31942 38.45%, #FFFFFF 38.45%, #FFFFFF 46.14%, #B31942 46.14%, #B31942 53.83%, #FFFFFF 53.83%),
-        linear-gradient(90deg, #002868 0%, #002868 40%, transparent 40%);
 }
