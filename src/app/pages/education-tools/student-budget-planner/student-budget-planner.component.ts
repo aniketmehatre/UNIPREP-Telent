@@ -4,11 +4,24 @@ import { TravelToolsService } from '../../travel-tools/travel-tools.service';
 import { AllCountryRes,UniversityRes,CurrencyList,SaveResponse,SavedReponseArray } from 'src/app/@Models/education-tools.model';
 import { Router } from '@angular/router';
 import { MessageService } from 'primeng/api';
+import { InputTextModule } from 'primeng/inputtext';
+import { InputGroupModule } from 'primeng/inputgroup';
+import { InputGroupAddonModule } from 'primeng/inputgroupaddon';
+import { SelectModule } from 'primeng/select';
+import { CommonModule } from '@angular/common';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { ButtonModule } from 'primeng/button';
+import { SkeletonModule } from 'primeng/skeleton';
+import { CarouselModule } from 'primeng/carousel';
+import { PaginatorModule } from 'primeng/paginator';
+import { FluidModule } from 'primeng/fluid';
+
 @Component({
     selector: 'uni-student-budget-planner',
     templateUrl: './student-budget-planner.component.html',
     styleUrls: ['./student-budget-planner.component.scss'],
-    standalone: false
+    standalone: true,
+    imports: [CommonModule,InputTextModule, InputGroupModule, InputGroupAddonModule, SelectModule, FormsModule, ReactiveFormsModule, ButtonModule, SkeletonModule, CarouselModule, PaginatorModule, FluidModule]
 })
 export class StudentBudgetPlannerComponent implements OnInit {
 

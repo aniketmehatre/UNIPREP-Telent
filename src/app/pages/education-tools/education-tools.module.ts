@@ -26,16 +26,17 @@ import { GlobalEdufitComponent } from './global-edufit/global-edufit.component';
 import { MultiSelectModule } from 'primeng/multiselect';
 import { EduLoanCompareComponent } from './edu-loan-compare/edu-loan-compare.component';
 import { SkeletonModule } from 'primeng/skeleton';
+import { RouterModule } from '@angular/router';
 
 @NgModule({
   declarations: [
-    EducationToolsComponent,
-    EducationToolsListComponent,
+    
+    
     CourseNavigatorComponent,
     PoliticianInsightsComponent,
     CountryInsightsComponent,
     CountryInsightsSubmoduleComponent,
-    StudentBudgetPlannerComponent,
+    
     
     WealthleaderreadansComponent,
     
@@ -43,7 +44,11 @@ import { SkeletonModule } from 'primeng/skeleton';
   ],
   imports: [
     CommonModule,
+    EducationToolsComponent,
+    EducationToolsListComponent,
+    RouterModule,
     EducationToolsRoutingModule,
+    StudentBudgetPlannerComponent,
     WealthleaderslistComponent,
     FormsModule,
     CarouselModule,
