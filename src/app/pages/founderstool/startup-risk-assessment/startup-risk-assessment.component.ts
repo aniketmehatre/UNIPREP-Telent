@@ -23,8 +23,8 @@ export class StartupRiskAssessmentComponent implements OnInit {
     { id: 5, question: 'What is the current financial status of your startup?' },
     { id: 6, question: 'Who are your main competitors in the market?' },
     { id: 7, question: 'Who is your target audience?' },
-    { id: 8, question: 'How have you allocated your budget across different areas of your business?' },
-    { id: 9, question: 'What is the geographical focus of your startup?' }
+    // { id: 8, question: 'How have you allocated your budget across different areas of your business?' },
+    { id: 8, question: 'What is the geographical focus of your startup?' }
   ];
   businessModelList: DropDown[] = riskAssessment.businessModel;
   startupStageList: DropDown[] = riskAssessment.startupStage;
@@ -101,8 +101,8 @@ export class StartupRiskAssessmentComponent implements OnInit {
       financial_status: this.selectedData[5],
       competitive_market: this.selectedData[6],
       customers: this.selectedData[7],
-      budget: this.selectedData[8],
-      geographical_focus: this.selectedData[9],
+      // budget: this.selectedData[8],
+      geographical_focus: this.selectedData[8],
       mode: 'startup_risk_assessment'
     }
     this.founderToolService.getChatgptRecommendations(data).subscribe({
