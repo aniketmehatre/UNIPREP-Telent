@@ -14,9 +14,9 @@
                                 <i class="fa-solid" [ngClass]="isMenuOpen ? 'fa-arrow-left-to-line' : 'fa-arrow-right-to-line'"></i>
                             </button>
                         </div> -->
-						<div class="btn btn-secondary m-0 px-2 py-1" style="cursor: default; pointer-events: none">
+						<!-- <div class="btn btn-secondary m-0 px-2 py-1" style="cursor: default; pointer-events: none">
 							<span class="small fw-regular">V 1.0</span>
-						</div>
+						</div> -->
 						<!-- <label class="me-2">
                             <i class="fa-solid fa-sun"></i>
                         </label>
@@ -27,6 +27,12 @@
                             <i class="fa-solid fa-moon"></i>
                         </label> -->
 					</div>
+					<div style="width: -webkit-fill-available !important;" *ngIf="!isShowHeaderSearchForModule">
+						<uni-header-search *ngIf="showSearch" (windowChange)="showSearchComponent($event)"></uni-header-search>
+					  </div>
+					  <div style="width: -webkit-fill-available !important;" *ngIf="isShowHeaderSearchForModule">
+						<uni-header-search-module *ngIf="showSearch"  (windowChange)="showSearchComponent($event)"></uni-header-search-module>
+					  </div>
 					<div class="d-md-none gap-2 d-flex align-items-center">
 						<div label="" role="button" class="headerHomeCountry p-0" [title]="homeCountryName">
 							<img #openCountryPopup src="{{ headerHomeFlag }}" alt="flag" height="auto" width="auto" />

@@ -39,7 +39,7 @@ import { TabViewModule } from 'primeng/tabview';
     ReactiveFormsModule,
     InputTextModule,
     NgxIntlTelInputModule,
-    TabViewModule
+    TabViewModule,
   ],
   exports: [
     CommonModule,

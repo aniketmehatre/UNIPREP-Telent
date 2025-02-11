@@ -1,10 +1,10 @@
-import {NgModule} from '@angular/core';
-import {RouterModule, Routes} from '@angular/router';
-import {ButtonComponent} from './button/button.component';
-import {CardsComponent} from './cards/cards.component';
-import {PagesComponent} from './pages.component';
-import {UserManagementComponent} from './user-management/user-management.component';
-import {AuthGuard} from "../Auth/auth.guard";
+import { NgModule } from '@angular/core';
+import { RouterModule, Routes } from '@angular/router';
+import { ButtonComponent } from './button/button.component';
+import { CardsComponent } from './cards/cards.component';
+import { PagesComponent } from './pages.component';
+import { UserManagementComponent } from './user-management/user-management.component';
+import { AuthGuard } from "../Auth/auth.guard";
 import { ChatComponent } from './chat/chat.component';
 import { GuidelineComponent } from './chat/guidelines/guidelines.component';
 import { RecentlyaddedquestionsComponent } from './recentlyaddedquestions/recentlyaddedquestions.component';
@@ -12,9 +12,9 @@ import { PrivacypolicyComponent } from './footersection/privacypolicy/privacypol
 import { RefundpolicyComponent } from './footersection/refundpolicy/refundpolicy.component';
 import { CancellationpolicyComponent } from './footersection/cancellationpolicy/cancellationpolicy.component';
 import { SupportComponent } from './support/support.component';
-import {InvestorListComponent} from "./investor-list/investor-list.component";
+import { InvestorListComponent } from "./investor-list/investor-list.component";
 import { InfoKitComponent } from './infokit/infokit.component';
-import {CompanyListComponent} from "./company-list/company-list.component";
+import { CompanyListComponent } from "./company-list/company-list.component";
 import { ScholarshipListComponent } from './scholarship-list/scholarship-list.component';
 import { CompanyListGuidlinesComponent } from './company-list-guidlines/company-list-guidlines.component';
 import { InvestorListGuidlinesComponent } from './investor-list-guidlines/investor-list-guidlines.component';
@@ -27,10 +27,10 @@ import { CareerPlannerComponent } from './career-planner/career-planner.componen
 import { CareerGrowthCheckerComponent } from './career-growth-checker/career-growth-checker.component';
 import { CourseListComponent } from './course-list/course-list.component';
 import { JobToolComponent } from './job-tool/job-tool.component';
-import {SalaryConverterComponent} from "./job-tool/salary-converter/salary-converter.component";
+import { SalaryConverterComponent } from "./job-tool/salary-converter/salary-converter.component";
 import { FounderstoolComponent } from './founderstool/founderstool.component';
 import { CareerToolComponent } from './job-tool/career-tool/career-tool.component';
-import {AdvisorComponent} from "./advisor/advisor.component";
+import { AdvisorComponent } from "./advisor/advisor.component";
 import { NationalExamCategoriesComponent } from './national-exam-categories/national-exam-categories.component';
 import { NationalExamTestsComponent } from './national-exam-tests/national-exam-tests.component';
 import { NationalExamStartComponent } from './national-exam-start/national-exam-start.component';
@@ -43,6 +43,7 @@ import { AverageSalaryPreparedListComponent } from './averagesalaryestimator/pre
 import { AverageSalaryComponent } from './averagesalaryestimator/averagesalaryestimator.component';
 import { FundListGuidlinesComponent } from './fund-list-guidelines/fund-list-guidlines.component';
 import { JoboffercomparisontoolComponent } from './job-tool/joboffercomparisontool/joboffercomparisontool.component';
+import { GlobalRepositoryComponent } from './global-repository/global-repository.component';
 
 const routes: Routes = [
     {
@@ -89,6 +90,7 @@ const routes: Routes = [
                 path: 'privacypolicy',
                 component: PrivacypolicyComponent
             },
+
             {
                 path: 'refundpolicy',
                 component: RefundpolicyComponent
@@ -151,14 +153,14 @@ const routes: Routes = [
             },
             {
                 path: 'pitch-deck',
-                component: PitchDeskComponent  
+                component: PitchDeskComponent
             },
-            {path: 'usermanagement', canActivate: [AuthGuard], component: UserManagementComponent},
+            { path: 'usermanagement', canActivate: [AuthGuard], component: UserManagementComponent },
             {
                 path: 'interviewprep',
                 component: JobPreparationComponent,
             },
-            {path: '', redirectTo: 'dashboard', pathMatch: 'full'},
+            { path: '', redirectTo: 'dashboard', pathMatch: 'full' },
             {
                 path: 'guideline',
                 component: GuidelineComponent
@@ -200,6 +202,10 @@ const routes: Routes = [
                 component: CareerPlannerComponent
             },
 
+            {
+                path: 'course-list',
+                component: CourseListComponent
+            },
             {
                 path: 'job-portal',
                 loadChildren: () => import('./job-search/job-search.module').then(m => m.JobSearchModule)
@@ -266,11 +272,11 @@ const routes: Routes = [
             },
             {
                 path: 'average-salary-estimator',
-                component: AverageSalaryComponent  
+                component: AverageSalaryComponent
             },
             {
-                path:'job-offer-comparison',
-                component: JoboffercomparisontoolComponent  
+                path: 'job-offer-comparison',
+                component: JoboffercomparisontoolComponent
             },
             {
                 path: 'career-hacks',
@@ -283,7 +289,19 @@ const routes: Routes = [
             {
                 path: 'job-seeker-success-stories',
                 loadChildren: () => import('./job-seeker-success-stories/job-seeker-success-stories.module').then(m => m.JobSeekerSuccessStoriesModule)
-            }
+            },
+            {
+                path: 'fortune-companies',
+                loadChildren: () => import('./fortune-companies/fortune-companies.module').then(m => m.FortuneCompaniesModule)
+            },
+            {
+                path: 'contributors',
+                loadChildren: () => import('./contributors/contributors.module').then(m => m.ContributorsModule)
+            },
+            {
+                path: 'global-repo',
+                component: GlobalRepositoryComponent
+            },
         ]
     }
 ];

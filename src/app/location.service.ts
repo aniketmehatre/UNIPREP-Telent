@@ -15,7 +15,6 @@ export class LocationService {
     public image$: Observable<string | null> = this.imageSubject.asObservable();
     private organizationname = new BehaviorSubject<string | null>(null);
     public orgname$: Observable<string | null> = this.organizationname.asObservable();
-
     constructor(private http: HttpClient,
                 private deviceService: DeviceDetectorService, private storage: LocalStorageService) {
     }

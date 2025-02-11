@@ -25,7 +25,7 @@
         </div>
         <button pButton role="button" (click)="startQuiz()" class="m-0 btn btn-primary flex-shrink-0  btn-rounded" [disabled]="quizpercentage >= 90" *ngIf="currentModuleId == 8 || currentModuleId == 10 || currentModuleId != 14 && currentModuleId != 7 && currentModuleId != 1 && currentModuleId != 3 && currentModuleId != 6 && currentModuleId != 4">
           <p class="mb-0">
-            <i class="fa-regular fa-lightbulb-on"></i> Start Quiz <span class="mb-0">{{ quizpercentage | number : "1.0-0" + "%" }}</span>
+            <i class="fa-regular fa-lightbulb-on"></i> Start Quiz <span class="mb-0">{{ quizpercentage | percent:'1.0-0' }}</span>
           </p>
 
           <!-- <div class="row">
@@ -40,7 +40,7 @@
         <!-- <button role="button" style="background-color: black; cursor: pointer" *ngIf="currentModuleId == 8 || currentModuleId == 10 || currentModuleId != 14" (click)="startQuiz()" class="btn w-75 mt-2 m-0 px-2 py-2 homecardbtn homecardbtnquiz" [disabled]="quizpercentage >= 90">
 					<i class="fa-regular h3 fa-lightbulb-on mb-1"></i>
 					<p class="mb-1">Start Quiz</p>
-					<p class="mb-1">{{ quizpercentage | number : "1.0-0" + "%" }}</p>
+					<p class="mb-1">{{ quizpercentage | percent:'1.0-0' }}</p>
 					<div class="row">
 						<div style="cursor: pointer" class="col-12">
 							<span style="cursor: pointer" class="ellipse-button fw-regular container-fluid">{{ quizpercentage >= 90 ? "Completed" : "Start" }}</span>

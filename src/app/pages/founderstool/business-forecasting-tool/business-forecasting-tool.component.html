@@ -34,8 +34,10 @@
                                     <h5 class="uniprep-primary fw-semibold mt-3 mb-1">
                                         {{ recommendation.question.branches[0] }}
                                     </h5>
-                                    <input class="w-100" type="text" pInputText placeholder="Industry Type"
-                                        formControlName="industry" />
+                                    <p-dropdown styleClass="w-100" class="w-100" formControlName="industry" appendTo="body" [options]="industryList"
+                                    [filter]="true" filterBy="Industry" placeholder="Industry" optionLabel="Industry" optionValue="Industry"
+                                     [autoDisplayFirst]="false">
+                                </p-dropdown>
                                     <p class="text-center" *ngIf="form.get('industry')?.errors?.required && submitted" style="color: red">
                                         Please enter the industry type
                                     </p>
@@ -86,7 +88,7 @@
                                     <h5 class="uniprep-primary fw-semibold mt-3 mb-1">
                                         {{ recommendation.question.branches[0] }}
                                     </h5>
-                                    <p-multiSelect styleClass="w-100" placeholder="Target Audience"
+                                    <p-multiSelect styleClass="w-100" [appendTo]="'body'" placeholder="Target Audience"
                                         [options]="targetAudienceList" optionLabel="name"
                                         optionValue="name" formControlName="target_audience">
                                     </p-multiSelect>
@@ -98,22 +100,12 @@
                                     <h5 class="uniprep-primary fw-semibold mt-3 mb-1">
                                         {{ recommendation.question.branches[1] }}
                                     </h5>
-                                    <p-multiSelect styleClass="w-100" placeholder="Growth Assumptions"
+                                    <p-multiSelect styleClass="w-100" [appendTo]="'body'" placeholder="Growth Assumptions"
                                         [options]="assumptionsList" optionLabel="name" optionValue="name"
                                         formControlName="assumptions">
                                     </p-multiSelect>
                                     <p class="text-center" *ngIf="form.get('assumptions')?.errors?.required && submitted" style="color: red">
                                         Please Choose Any one option
-                                    </p>
-                                </div>
-                                <div>
-                                    <h5 class="uniprep-primary fw-semibold mt-3 mb-1">
-                                        {{ recommendation.question.branches[2] }}
-                                    </h5>
-                                    <input class="w-100" type="text" pInputText placeholder="Input Feilds"
-                                        formControlName="upcoming_market" />
-                                    <p class="text-center" *ngIf="form.get('upcoming_market')?.errors?.required && submitted" style="color: red">
-                                        Please enter this feild
                                     </p>
                                 </div>
                             </div>
@@ -131,7 +123,7 @@
                                             optionValue="name" [autoDisplayFirst]="false">
                                         </p-select>
                                     </div>
-                                    <p class="text-center" *ngIf="form.get('duration')?.errors?.required && submitted" style="color: red">
+                                    <p class="text-center" *ngIf="form.get('forecast_peroid')?.errors?.required && submitted" style="color: red">
                                         Please Choose Any one option
                                     </p>
                                 </div>
@@ -194,7 +186,7 @@
         <div class="card-header border-0 bg-transparent">
             <div class="row justify-content-center align-items-center">
                 <div class="col-md-12 d-flex gap-4">
-                    <div class="backIcon d-md-flex d-none" role="button" (click)="goBack()" style="height: auto">
+                    <div class="backIcon d-md-flex d-none" role="button" (click)="isGoBackNavigation();" style="height: auto">
                         <span class="fa-solid fa-chevron-left"></span>
                     </div>
                     <div class="select-title d-flex justify-content-between align-items-center">
@@ -220,11 +212,23 @@
         </div>
         <div class="card-body worksans flex-fill overflow-y-auto">
             <div class="row">
-                <div class="col-md-3"></div>
-                <div class="col-md-6">
+                <div class="col-md-2"></div>
+                <div class="col-md-8">
+                    <div class="d-flex justify-content-end gap-3 mb-3">
+                        <button pButton type="button" (click)="downloadRecommadation()"
+                            class="btn btn-secondary btn-rounded p-1 ps-4">
+                            <span class="me-2">Download</span><span class="btn-icon px-2 py-2">
+                                <i class="fa-regular fa-download"></i></span>
+                        </button>
+                        <button pButton type="button" (click)="onSaveRes()"
+                            class="btn btn-primary btn-rounded p-1 ps-4">
+                            <span class="me-2">Save Response</span><span class="btn-icon px-2 py-2">
+                                <i class="fa-regular fa-floppy-disk"></i></span>
+                        </button>
+                    </div>
                     <div class="card p-3" [innerHtml]="recommendationData"></div>
                 </div>
-                <div class="col-md-3"></div>
+                <div class="col-md-2"></div>
             </div>
         </div>
         <div class="card-footer bg-transparent border-0">
@@ -242,7 +246,7 @@
         <div class="card-header border-0 bg-transparent">
             <div class="row justify-content-center align-items-center">
                 <div class="col-md-12 d-flex gap-4">
-                    <div class="backIcon d-md-flex d-none" role="button" (click)="goBack()" style="height: auto">
+                    <div class="backIcon d-md-flex d-none" role="button" (click)="isGoBackNavigation();" style="height: auto">
                         <span class="fa-solid fa-chevron-left"></span>
                     </div>
                     <div class="select-title d-flex justify-content-between align-items-center">
@@ -268,7 +272,7 @@
                         <div class="card subjectcard" role="button" (click)="showRecommandationData(item.response)">
                             <div class="card-body text-start">
                                 <h5 class="fw-bold mb-0">Business Forecast {{ i + 1 }}</h5>
-                                <p class="text-small"><b>Industry : </b>{{ item.type }}</p>
+                                <p class="text-small"><b>Industry : </b>{{ item.industry }}</p>
                             </div>
                         </div>
                     </div>

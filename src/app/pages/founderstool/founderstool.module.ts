@@ -30,6 +30,7 @@ import { StartupRiskAssessmentComponent } from './startup-risk-assessment/startu
 import { StartUpExpenseEstimateComponent } from './start-up-expense-estimate/start-up-expense-estimate.component';
 import { BusinessForecastingToolComponent } from './business-forecasting-tool/business-forecasting-tool.component';
 import {SharedModule} from "../../shared/shared.module";
+import { RouterLink, RouterModule } from '@angular/router';
 
 
 @NgModule({
@@ -75,7 +76,10 @@ import {SharedModule} from "../../shared/shared.module";
         foundersToolRountingModule,
         TooltipModule,
         MultiSelectModule,
-        SharedModule
+        SharedModule,
+      SharedModule,
+      RouterModule,
+      RouterLink
     ],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
   providers: [ConfirmationService, 

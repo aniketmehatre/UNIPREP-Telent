@@ -2,6 +2,12 @@ import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder } from '@angular/forms';
 import { FounderstoolService } from '../founderstool.service';
 import { Router } from '@angular/router';
+import { riskAssessment } from './risk-assessment.data';
+import { MessageService } from 'primeng/api';
+
+interface DropDown {
+  [key: string]: string;
+}
 
 @Component({
     selector: 'uni-startup-risk-assessment',
@@ -11,27 +17,26 @@ import { Router } from '@angular/router';
 })
 export class StartupRiskAssessmentComponent implements OnInit {
   recommendations: { id: number, question: string }[] = [
-    { id: 1, question: 'What type of business are you running or planning to run?' },
-    { id: 2, question: 'What is your business model' },
-    { id: 3, question: 'What is stage in your startup' },
-    { id: 4, question: 'What specfic risk are you concerned about' },
-    { id: 5, question: 'Who is your current financial status' },
-    { id: 6, question: 'How competitive is the your market?' },
-    { id: 7, question: 'Who are your ideal customers?' },
-    { id: 8, question: 'What is your budget for addressing risks?' }
+    { id: 1, question: 'What industry is your startup in?' },
+    { id: 2, question: 'Can you describe your business model?' },
+    { id: 3, question: 'What stage is your startup currently at?' },
+    { id: 4, question: 'What are the key risks your startup has identified?' },
+    { id: 5, question: 'What is the current financial status of your startup?' },
+    { id: 6, question: 'Who are your main competitors in the market?' },
+    { id: 7, question: 'Who is your target audience?' },
+    { id: 8, question: 'How have you allocated your budget across different areas of your business?' },
+    { id: 9, question: 'What is the geographical focus of your startup?' }
   ];
-  businessModelList = [{
-    id: 1, name: 'option'
-  }];
-  startupStageList = [{
-    id: 1, name: 'option'
-  }];
-  financialStatusList = [{
-    id: 1, name: 'option'
-  }];
-  competitiveMarketList = [{
-    id: 1, name: 'option'
-  }];
+  businessModelList: DropDown[] = riskAssessment.businessModel;
+  startupStageList: DropDown[] = riskAssessment.startupStage;
+  financialStatusList: DropDown[] = riskAssessment.financialSituation;
+  competitiveMarketList: DropDown[] = riskAssessment.marketCompetition;
+  targetAudienceList: DropDown[] = riskAssessment.targetAudience;
+  keyRisksList: DropDown[] = riskAssessment.keyRisks;
+  budgetAllocationList: DropDown[] = riskAssessment.budgetAllocation;
+  geographicalList: DropDown[] = riskAssessment.geographicalFocus;
+  industryList: DropDown[] = riskAssessment.Industry;
+
   isRecommendationQuestion: boolean = true;
   isRecommendationData: boolean = false;
   isRecommendationSavedData: boolean = false;
@@ -46,22 +51,24 @@ export class StartupRiskAssessmentComponent implements OnInit {
   constructor(
     private fb: FormBuilder,
     private founderToolService: FounderstoolService,
-    private router: Router
+    private router: Router,
+    private toast: MessageService
   ) { }
 
   ngOnInit(): void {
-    this.getStartUpRiskAssesmentOptionsList();
+    console.log(this.businessModelList);
+    // this.getStartUpRiskAssesmentOptionsList();
   }
 
-  getStartUpRiskAssesmentOptionsList() {
-    this.founderToolService.getStartUpRiskAssesmentOptionsList().subscribe((res: any) => {
-      console.log(res);
-      this.competitiveMarketList = res?.competitive;
-      this.financialStatusList = res?.financialstatus;
-      this.businessModelList = res?.models;
-      this.startupStageList = res?.stages;
-    });
-  }
+  // getStartUpRiskAssesmentOptionsList() {
+  //   this.founderToolService.getStartUpRiskAssesmentOptionsList().subscribe((res: any) => {
+  //     console.log(res);
+  //     this.competitiveMarketList = res?.competitive;
+  //     this.financialStatusList = res?.financialstatus;
+  //     this.businessModelList = res?.models;
+  //     this.startupStageList = res?.stages;
+  //   });
+  // }
 
   previous(): void {
     this.inValidClass = false;
@@ -81,7 +88,12 @@ export class StartupRiskAssessmentComponent implements OnInit {
     }
   }
 
-  getRecommendation() {
+  getRecommendation(productId: number) {
+    this.inValidClass = false;
+    if (!(productId in this.selectedData)) {
+      this.inValidClass = true;
+      return;
+    }
     let data: any = {
       type: this.selectedData[1],
       model: this.selectedData[2],
@@ -91,6 +103,7 @@ export class StartupRiskAssessmentComponent implements OnInit {
       competitive_market: this.selectedData[6],
       customers: this.selectedData[7],
       budget: this.selectedData[8],
+      geographical_focus: this.selectedData[9],
       mode: 'startup_risk_assessment'
     }
     this.founderToolService.getChatgptRecommendations(data).subscribe({
@@ -140,5 +153,20 @@ export class StartupRiskAssessmentComponent implements OnInit {
 
   goBack() {
     this.router.navigateByUrl('/pages/founderstool/founderstoollist');
+  }
+
+  onSaveRes() {
+    this.toast.add({ severity: "success", summary: "Success", detail: "Response saved successfully" });
+  }
+
+  downloadRecommadation() {
+    this.founderToolService.downloadRecommendation({ data: this.recommendationData }).subscribe({
+      next: res => {
+        window.open(res.url, "_blank");
+      },
+      error: err => {
+        console.log(err?.error?.message);
+      }
+    });
   }
 }

@@ -15,6 +15,7 @@ export class CountryInsightsComponent implements OnInit {
   pageSize = 25;
   countryInsightsList: CountryInsight[] = [];
   countryInsightsCount: number = 0;
+  isSkeletonVisible: boolean = false;
   data: any = {
     page: this.page,
     perpage: this.pageSize,
@@ -25,8 +26,10 @@ export class CountryInsightsComponent implements OnInit {
     this.getList();
   }
 
-  getList() {
+  getList() { 
+    this.isSkeletonVisible = true;
     this.educationtoolService.getCountryInsightsList(this.data).subscribe((response) => {
+      this.isSkeletonVisible = false;
       this.countryInsightsList = response.data;
       this.countryInsightsCount = response.count;
     });

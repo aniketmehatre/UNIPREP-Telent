@@ -31,8 +31,10 @@
                             </div>
                             <div class="col-md-6">
                                 <ng-container *ngIf="recommendation.id == 1">
-                                    <input type="text" [(ngModel)]="selectedData[recommendation.id]" pInputText class="w-100"
-                                    placeholder="Business Type" />
+                                  <p-dropdown [(ngModel)]="selectedData[recommendation.id]"  [filter]="true" filterBy="Industry" [options]="industryList"
+                                  styleClass="w-100" optionLabel="Industry" optionValue="Industry" [appendTo]="'body'" 
+                                  placeholder="Industry">
+                              </p-dropdown>
                                 <div class="text-center" [ngClass]="{ 'd-none': inValidClass === false }" style="color: red">Business Type is required
                                 </div>
                                 </ng-container>
@@ -52,8 +54,9 @@
                                     <div class="text-center" [ngClass]="{ 'd-none': inValidClass === false }" style="color: red">Business strategy is required</div>
                                 </ng-container>
                                 <ng-container *ngIf="recommendation.id == 4">
-                                    <textarea [(ngModel)]="selectedData[recommendation.id]" pInputTextarea class="w-100"
-                                    placeholder="Enter your challenges" [rows]="5"></textarea>
+                                  <p-dropdown [(ngModel)]="selectedData[recommendation.id]" [options]="keyRisksList"
+                                  styleClass="w-100" optionLabel="keyRisks" optionValue="keyRisks" [appendTo]="'body'"
+                                  placeholder="Risks"></p-dropdown>
                                     <div class="text-center" [ngClass]="{ 'd-none': inValidClass === false }" style="color: red">Business challenges is required
                                    </div>
                                 </ng-container>
@@ -63,7 +66,7 @@
                                     placeholder="Time">
                                 </p-select>
                                     <div [ngClass]="{ 'd-none': inValidClass === false }" style="color: red"
-                                          class="text-danger">Ideal customers is required
+                                          class="text-danger">Financial Situation is required
                                    </div>
                                 </ng-container>
                                 <ng-container *ngIf="recommendation.id == 6">
@@ -75,15 +78,27 @@
                                    </div>
                                 </ng-container>
                                 <ng-container *ngIf="recommendation.id == 7">
-                                    <input type="text" [(ngModel)]="selectedData[recommendation.id]" pInputText class="w-100"
-                                    placeholder="Customers" />
-                                <div class="text-center" [ngClass]="{ 'd-none': inValidClass === false }" style="color: red">Ideal Customers is required
+                                  <p-dropdown [(ngModel)]="selectedData[recommendation.id]" [options]="targetAudienceList" [filter]="true" filterBy="targetAudience" 
+                                  styleClass="w-100" optionLabel="targetAudience" optionValue="targetAudience" [appendTo]="'body'"
+                                  placeholder="Audience">
+                                  </p-dropdown>
+                                <div class="text-center" [ngClass]="{ 'd-none': inValidClass === false }" style="color: red">Target Audience is required
                                 </div>
                                 </ng-container>
                                 <ng-container *ngIf="recommendation.id == 8">
-                                    <input type="text" [(ngModel)]="selectedData[recommendation.id]" pInputText class="w-100"
-                                    placeholder="addressing tasks" />
+                                  <p-dropdown [(ngModel)]="selectedData[recommendation.id]" [options]="budgetAllocationList"
+                                  styleClass="w-100" optionLabel="budgetAllocation" optionValue="budgetAllocation" [appendTo]="'body'"
+                                  placeholder="Budget Allocation">
+                                  </p-dropdown>
                                 <div class="text-center" [ngClass]="{ 'd-none': inValidClass === false }" style="color: red">Addressing task is required
+                                </div>
+                                </ng-container>
+                                <ng-container *ngIf="recommendation.id == 9">
+                                  <p-dropdown [(ngModel)]="selectedData[recommendation.id]" [options]="geographicalList"
+                                  styleClass="w-100" optionLabel="geographicalFocus" optionValue="geographicalFocus" [appendTo]="'body'"
+                                  placeholder="Geographical">
+                                  </p-dropdown>
+                                <div class="text-center" [ngClass]="{ 'd-none': inValidClass === false }" style="color: red">Geographical is required
                                 </div>
                                 </ng-container>
                             </div>
@@ -94,11 +109,11 @@
                                 <span class="btn-icon px-2 py-2"><i class="fa fa-arrow-left"></i></span> <span
                                     class="ms-2">Previous</span>
                             </button>
-                            <button pButton type="button" (click)="next(activePageIndex+1)" *ngIf="activePageIndex <= 6"
+                            <button pButton type="button" (click)="next(activePageIndex+1)" *ngIf="activePageIndex <= 7"
                                 class="btn btn-primary btn-rounded p-1 ps-4">
                                 <span class="me-2">Next</span><span class="btn-icon px-2 py-2"><i class="fa fa-arrow-right"></i></span>
                             </button>
-                            <button pButton type="button" (click)="getRecommendation()" *ngIf="activePageIndex == 7"
+                            <button pButton type="button" (click)="getRecommendation(activePageIndex+1)" *ngIf="activePageIndex == 8"
                                 class="btn btn-success btn-rounded p-1 ps-4">
                                 <span class="me-2">Get Recommendations</span><span class="btn-icon px-2 py-2">
                                     <i class="fa fa-check-circle"></i></span>
@@ -137,13 +152,25 @@
       </div>
       <div class="card-body worksans flex-fill overflow-y-auto">
         <div class="row">
-          <div class="col-md-3"></div>
-          <div class="col-md-6">
-            <div class="card p-3" [innerHtml]="recommendationData"></div>
-          </div>
-          <div class="col-md-3"></div>
+            <div class="col-md-2"></div>
+            <div class="col-md-8">
+                <div class="d-flex justify-content-end gap-3 mb-3">
+                    <button pButton type="button" (click)="downloadRecommadation()"
+                        class="btn btn-secondary btn-rounded p-1 ps-4">
+                        <span class="me-2">Download</span><span class="btn-icon px-2 py-2">
+                            <i class="fa-regular fa-download"></i></span>
+                    </button>
+                    <button pButton type="button" (click)="onSaveRes()"
+                        class="btn btn-primary btn-rounded p-1 ps-4">
+                        <span class="me-2">Save Response</span><span class="btn-icon px-2 py-2">
+                            <i class="fa-regular fa-floppy-disk"></i></span>
+                    </button>
+                </div>
+                <div class="card p-3" [innerHtml]="recommendationData"></div>
+            </div>
+            <div class="col-md-2"></div>
         </div>
-      </div>
+    </div>
       <div class="card-footer bg-transparent border-0">
         <div class="text-end">
           <button pButton type="button" class="btn ps-3 btn-quit btn-rounded" (click)="resetRecommendation()">
@@ -184,7 +211,7 @@
               <div class="card subjectcard" role="button" (click)="showRecommandationData(item.response)">
                 <div class="card-body text-start">
                   <h5 class="fw-bold mb-0">Start-up Risk Assessment {{i+1}}</h5>
-                  <p class="text-small"><b>Types of Business : </b>{{item.type}}</p>
+                  <p class="text-small"><b>Types of Business : </b>{{item.industry}}</p>
                   <p class="text-small"><b>Business Model : </b>{{item.model}}</p>
                   <p class="text-small"><b>Stage : </b>{{item.stage}}</p>
                   <p class="text-small"><b>Financial Status : </b>{{item.financial_status }}</p>

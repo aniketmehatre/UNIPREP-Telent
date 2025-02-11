@@ -60,76 +60,76 @@ export const FoundersToolsData = [
         description: "An assessment that evaluates an entrepreneur's in-depth knowledge and proficiency in specific industries.",
         image: "../../../uniprep-assets/images/founderstool/startupfunding.svg",
         url: "/pages/founderstool/startup-funding-hacks",
-        launch_soon: true
+        launch_soon: false
     },
     {
         title: "Founder Success Stories",
         description: "An assessment that evaluates an entrepreneur's in-depth knowledge and proficiency in specific industries.",
         image: "../../../uniprep-assets/images/founderstool/foundersuccess.svg",
         url: "/pages/founderstool/founder-success-stories",
-        launch_soon: true
+        launch_soon: false
     },
     {
         title: "Founder Failure Stories",
         description: "An assessment that evaluates an entrepreneur's in-depth knowledge and proficiency in specific industries.",
         image: "../../../uniprep-assets/images/founderstool/founderfailure.svg",
         url: "/pages/founderstool/founder-failure-stories",
-        launch_soon: true
+        launch_soon: false
     },
     {
         title: "Startup Success Stories",
         description: "An assessment that evaluates an entrepreneur's in-depth knowledge and proficiency in specific industries.",
         image: "../../../uniprep-assets/images/founderstool/startupsuccess.svg",
         url: "/pages/founderstool/startup-success-stories",
-        launch_soon: true
+        launch_soon: false
     },
     {
         title: "Startup Failure Stories",
         description: "An assessment that evaluates an entrepreneur's in-depth knowledge and proficiency in specific industries.",
         image: "../../../uniprep-assets/images/founderstool/startupfailure.svg",
         url: "/pages/founderstool/startup-failure-stories",
-        launch_soon: true
+        launch_soon: false
     },
     {
         title: "Government Funds Opportunity",
         description: "This tool lets you build a cover letter with the help of a few easy steps.",
-        image: "../../../uniprep-assets/images/founderstool/investorlist.svg",
+        image: "../../../uniprep-assets/images/founderstool/government-funding-list.svg",
         url: "/pages/founderstool/governmentfunds",
         launch_soon: true
     },
     {
         title: "Marketing Analysis",
         description: "An assessment that evaluates an entrepreneur's in-depth knowledge and proficiency in specific industries.",
-        image: "../../../uniprep-assets/images/founderstool/investorpitch.svg",
+        image: "../../../uniprep-assets/images/founderstool/marketing-analysis.svg",
         url: "/pages/founderstool/marketing-anaylsis",
         launch_soon: true
     },
     {
         title: "AI Business Advisor",
         description: "An assessment that evaluates an entrepreneur's in-depth knowledge and proficiency in specific industries.",
-        image: "../../../uniprep-assets/images/founderstool/foundersacademy.svg",
+        image: "../../../uniprep-assets/images/founderstool/business-advisor.svg",
         url: "/pages/founderstool/ai-business-advisor",
-        launch_soon: true
+        launch_soon: false
     },
     {
         title: "Startup Risk Assessment",
         description: "An assessment that evaluates an entrepreneur's in-depth knowledge and proficiency in specific industries.",
-        image: "../../../uniprep-assets/images/founderstool/foundersacademy.svg",
+        image: "../../../uniprep-assets/images/founderstool/startup-risk-assessment.svg",
         url: "/pages/founderstool/risk-assessment",
-        launch_soon: true
+        launch_soon: false
     },
     {
         title: "Startup Expense Estimate",
         description: "An assessment that evaluates an entrepreneur's in-depth knowledge and proficiency in specific industries.",
-        image: "../../../uniprep-assets/images/founderstool/startupfunding.svg",
+        image: "../../../uniprep-assets/images/founderstool/startup-expense-estimator.svg",
         url: "/pages/founderstool/startup-expense-estimate",
-        launch_soon: true
+        launch_soon: false
     },
     {
         title: "Business Forecasting Tool",
         description: "An assessment that evaluates an entrepreneur's in-depth knowledge and proficiency in specific industries.",
-        image: "../../../uniprep-assets/images/founderstool/startupfunding.svg",
-        url: "/pages/founderstool/business-forecasting-tool",
+        image: "../../../uniprep-assets/images/founderstool/revenue-forecating-tool.svg",
+        url: "/pages/founderstool/business-forecating-tool",
         launch_soon: true
     }
 ];

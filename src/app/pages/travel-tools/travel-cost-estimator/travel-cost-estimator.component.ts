@@ -1,30 +1,19 @@
-import { Component, OnInit } from "@angular/core"
-import { TravelToolsService } from "../travel-tools.service"
-import { CountryandCurrency } from "src/app/@Models/currency.model"
-import { TravelCostEstimatorQuestionList } from "../trvel-tool-questions"
-import { TravelCostEstimator } from "src/app/@Models/chat-gpt.model"
-import { Router } from "@angular/router"
-import { CostOfLivingService } from "../../job-tool/cost-of-living/cost-of-living.service"
-import { City } from "src/app/@Models/cost-of-living"
-import { CommonModule } from "@angular/common"
-import { SkeletonModule } from "primeng/skeleton"
-import { TooltipModule } from "primeng/tooltip"
-import { ButtonModule } from "primeng/button"
-import { MultiSelectModule } from "primeng/multiselect"
-import { CarouselModule } from "primeng/carousel"
-import { InputGroupModule } from "primeng/inputgroup"
-import { InputGroupAddonModule } from "primeng/inputgroupaddon"
-import { FormsModule, ReactiveFormsModule } from "@angular/forms"
-import { InputTextModule } from "primeng/inputtext"
-import { SelectModule } from "primeng/select"
-import { InputNumberModule } from "primeng/inputnumber"
-import { FluidModule } from "primeng/fluid"
+import { Component, OnInit } from '@angular/core';
+import { TravelToolsService } from '../travel-tools.service';
+import { CountryandCurrency } from 'src/app/@Models/currency.model';
+import { TravelCostEstimatorQuestionList } from '../trvel-tool-questions';
+import { TravelCostEstimator } from 'src/app/@Models/chat-gpt.model';
+import { Router } from '@angular/router';
+import { CostOfLivingService } from '../../job-tool/cost-of-living/cost-of-living.service';
+import { City } from 'src/app/@Models/cost-of-living';
+import { MessageService } from 'primeng/api';
+
 @Component({
 	selector: "uni-travel-cost-estimator",
 	templateUrl: "./travel-cost-estimator.component.html",
 	styleUrls: ["./travel-cost-estimator.component.scss"],
 	standalone: true,
-	imports: [CommonModule, SkeletonModule, FluidModule, InputNumberModule, TooltipModule, ButtonModule, MultiSelectModule, CarouselModule, InputGroupModule, InputGroupAddonModule, FormsModule, ReactiveFormsModule, InputTextModule, SelectModule],
+	imports: [],
 })
 export class TravelCostEstimatorComponent implements OnInit {
 	recommendations: { id: number; question: string }[] = TravelCostEstimatorQuestionList
@@ -52,11 +41,8 @@ export class TravelCostEstimatorComponent implements OnInit {
 	cityList: City[] = []
 
 	constructor(private travelToolsService: TravelToolsService, private router: Router, private costOfLivingService: CostOfLivingService) {}
-
 	ngOnInit(): void {
-		this.selectedData = { 3: 1 }
-		this.getCurrencyList()
-		this.getCityList()
+		throw new Error('Method not implemented.');
 	}
 
 	getCityList() {
@@ -184,15 +170,31 @@ export class TravelCostEstimatorComponent implements OnInit {
 		}
 	}
 
-	showRecommandationData(data: string) {
-		this.isRecommendationQuestion = false
-		this.isRecommendationData = true
-		this.isRecommendationSavedData = false
-		this.isFromSavedData = true
-		this.recommendationData = data
-	}
+  showRecommandationData(data: string) {
+    this.isRecommendationQuestion = false;
+    this.isRecommendationData = true;
+    this.isRecommendationSavedData = false;
+    this.isFromSavedData = true;
+    this.recommendationData = data;
+  }
 
-	goBack() {
-		this.router.navigateByUrl("/pages/travel-tools")
-	}
+  onSaveRes() {
+    this.toast.add({ severity: "success", summary: "Success", detail: "Response saved successfully" });
+  }
+
+  downloadRecommadation() {
+    this.travelToolsService.downloadRecommendation({ data: this.recommendationData }).subscribe({
+      next: res => {
+        window.open(res.url, "_blank");
+      },
+      error: err => {
+        console.log(err?.error?.message);
+      }
+    });
+  }
+
+  goBack() {
+    this.router.navigateByUrl('/pages/travel-tools');
+  }
+
 }

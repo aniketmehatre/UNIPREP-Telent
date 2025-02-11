@@ -21,6 +21,11 @@ import { SelectButtonModule } from 'primeng/selectbutton';
 import { StudentBudgetPlannerComponent } from './student-budget-planner/student-budget-planner.component';
 import { WealthleaderreadansComponent } from '../founderstool/wealthleaderreadans/wealthleaderreadans.component';
 import { WealthleaderslistComponent } from '../founderstool/wealthleaderslist/wealthleaderslist.component';
+import { UniCompareComponent } from './uni-compare/uni-compare.component';
+import { GlobalEdufitComponent } from './global-edufit/global-edufit.component';
+import { MultiSelectModule } from 'primeng/multiselect';
+import { EduLoanCompareComponent } from './edu-loan-compare/edu-loan-compare.component';
+import { SkeletonModule } from 'primeng/skeleton';
 
 @NgModule({
   declarations: [
@@ -31,12 +36,15 @@ import { WealthleaderslistComponent } from '../founderstool/wealthleaderslist/we
     CountryInsightsComponent,
     CountryInsightsSubmoduleComponent,
     StudentBudgetPlannerComponent,
-    WealthleaderreadansComponent
+    WealthleaderslistComponent,
+    WealthleaderreadansComponent,
+    UniCompareComponent,
+    GlobalEdufitComponent,
+    EduLoanCompareComponent
   ],
   imports: [
     CommonModule,
     EducationToolsRoutingModule,
-    WealthleaderslistComponent,
     FormsModule,
     CarouselModule,
     
@@ -47,7 +55,9 @@ import { WealthleaderslistComponent } from '../founderstool/wealthleaderslist/we
     SharedModule,
     InputTextModule,
     SelectButtonModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    MultiSelectModule,
+    SkeletonModule
   ]
 })
 export class EducationToolsModule { }

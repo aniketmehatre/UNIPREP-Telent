@@ -1,0 +1,59 @@
+:host ::ng-deep .p-dropdown {
+    width: 100%;
+    border-radius: 0.375rem;
+  }
+  
+  :host ::ng-deep .p-dropdown-panel {
+    border-radius: 0.375rem;
+  }
+  
+  :host ::ng-deep .p-dropdown .p-dropdown-trigger {
+    background: transparent;
+  }
+  
+  .card-border-none {
+    border: none;
+  }
+  
+  .form-label {
+    font-size: 1.3rem;
+  }
+
+  .mb-7 {
+    margin-bottom: 2.5rem;
+  }
+
+  .currency_dropdown {
+    width: 42%;
+  }
+
+  .btn-download {
+    background-color: #ed9350 !important;
+    border-color: #ed9350 !important;
+    color: white !important;
+    padding: 0.5rem 1rem !important;
+    
+    &:hover {
+      background-color: #e68541 !important;
+      border-color: #e68541 !important;
+    }
+  }
+
+
+  ::ng-deep .university-dropdown .p-dropdown {
+    width: 100% !important;
+  }
+  ::ng-deep .university-dropdown .p-dropdown-panel {
+    @media (max-width: 850px) {
+      width: 100% !important;
+      min-width: 100% !important;
+      max-width: 100% !important;
+    }
+    
+    @media (min-width: 851px) {
+      width: 73% !important;
+      min-width: 73% !important;
+      max-width: 73% !important;
+    }
+   }
+  

@@ -63,7 +63,9 @@ export class LoginComponent implements OnInit, OnDestroy {
   locationData: any;
   imageUrlWhitelabel: string | null = null;
   domainname: any;
-  domainnamecondition: any;
+  // domainnamecondition: any;
+  domainNameCondition: any;
+  ipURL: string = "https://api.ipify.org?format=json";
   constructor(
     private service: AuthService,
     private formBuilder: FormBuilder,
@@ -107,18 +109,18 @@ export class LoginComponent implements OnInit, OnDestroy {
     this.locationService.getImage().subscribe((imageUrl) => {
       this.imageUrlWhitelabel = imageUrl;
     });
-    this.domainnamecondition = window.location.hostname;
+    this.domainNameCondition = window.location.hostname;
     if (
-      this.domainnamecondition === "dev-student.uniprep.ai" ||
-      this.domainnamecondition === "uniprep.ai" ||
-      this.domainnamecondition === "localhost"
+      this.domainNameCondition === "dev-student.uniprep.ai" ||
+      this.domainNameCondition === "uniprep.ai" ||
+      this.domainNameCondition === "localhost"
     ) {
       this.domainname = "main";
     } else {
       this.domainname = "sub";
     }
     this.dataService.loggedInAnotherDevice("none");
-    fetch("https://ipapi.co/json/")
+    fetch(this.ipURL)
       .then((response) => response.json())
       .then((data) => {
         this.locationData = data;
@@ -167,8 +169,6 @@ export class LoginComponent implements OnInit, OnDestroy {
           });
         }
       });
-      //var socialUser = user;
-      //this.loggedIn = (user != null);
     });
     this.loginForm = this.formBuilder.group({
       email: ["", [Validators.required, Validators.email]],
