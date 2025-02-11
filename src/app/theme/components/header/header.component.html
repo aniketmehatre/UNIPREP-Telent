@@ -38,9 +38,9 @@
             <div label="" role="button" class="headerHomeCountry p-0" [title]="homeCountryName">
               <img #openCountryPopup src="{{ headerHomeFlag }}" alt="flag" height="auto" width="auto" />
             </div>
-            <div label="" role="button" class="headercountry p-0">
+            <!-- <div label="" role="button" class="headercountry p-0">
               <img #openCountryPopup src="{{ headerFlag }}" alt="flag" height="auto" width="auto" (click)="openFlagModal(totalCountryList, $event)" />
-            </div>
+            </div> -->
             <a (click)="openchat()"
               ><p-avatar class=" p-0" label="" role="button"> <i class="fa-solid fa-comments"></i> </p-avatar
             ></a>
@@ -100,9 +100,9 @@
               <div label="" role="button" class="headerHomeCountry" [title]="homeCountryName">
                 <img #openCountryPopup src="{{ headerHomeFlag }}" alt="flag" height="auto" width="auto" />
               </div>
-              <div label="" role="button" class="headercountry">
+              <!-- <div label="" role="button" class="headercountry">
                 <img #openCountryPopup src="{{ headerFlag }}" alt="flag" height="auto" width="auto" (click)="openFlagModal(totalCountryList, $event)" />
-              </div>
+              </div> -->
             <!--            <button-->
             <!--              class="btn btn-primary btn-rounded me-2 ms-0 my-0"-->
             <!--              alt="chat with notification"-->
@@ -192,9 +192,9 @@
             <button class="btn btn-secondary p-3 m-0" (click)="openReportModal(op, $event)" alt="reports">
               <i class="fa-solid fa-circle-exclamation"></i>
             </button>
-            <div label="" role="button" class="headercountry me-2" title="Selected Country">
+            <!-- <div label="" role="button" class="headercountry me-2" title="Selected Country">
               <img #openCountryPopup src="{{ headerFlag }}" alt="flag" height="auto" width="auto" (click)="openFlagModal(totalCountryList, $event)" />
-            </div>
+            </div> -->
           </div>
           <div class="d-none d-md-block">
             <button *ngIf="service._user?.student_type_id == 2" class="btn btn-ilearn me-2" (click)="navigateILearnChallenge()">
@@ -213,9 +213,9 @@
           <div label="" role="button" class="headercountry me-2 d-none d-md-block" title="Selected Country">
             <img src="../../../uniprep-assets/icons/india.png" alt="flag" height="auto" width="auto" />
           </div>
-          <div label="" role="button" class="headercountry me-2 d-none d-md-block" title="Selected Country">
+          <!-- <div label="" role="button" class="headercountry me-2 d-none d-md-block" title="Selected Country">
             <img #openCountryPopup src="{{ headerFlag }}" alt="flag" height="auto" width="auto" (click)="openFlagModal(totalCountryList, $event)" />
-          </div>
+          </div> -->
           <div class="d-none d-md-block">
             <a (click)="openchat()" title="Chat">
               <p-avatar class="" label="" role="button"><i class="fa-solid fa-comments"></i></p-avatar>
