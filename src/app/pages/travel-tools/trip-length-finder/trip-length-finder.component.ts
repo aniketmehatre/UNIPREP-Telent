@@ -4,12 +4,26 @@ import { Router } from '@angular/router';
 import { CostOfLivingService } from '../../job-tool/cost-of-living/cost-of-living.service';
 import { City } from 'src/app/@Models/cost-of-living';
 import { MessageService } from 'primeng/api';
+import { CommonModule } from '@angular/common';
+import { SkeletonModule } from 'primeng/skeleton';
+import { FluidModule } from 'primeng/fluid';
+import { InputTextModule } from 'primeng/inputtext';
+import { TooltipModule } from 'primeng/tooltip';
+import { ButtonModule } from 'primeng/button';
+import { MultiSelectModule } from 'primeng/multiselect';
+import { CarouselModule } from 'primeng/carousel';
+import { InputGroupModule } from 'primeng/inputgroup';
+import { InputGroupAddonModule } from 'primeng/inputgroupaddon';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { SelectModule } from 'primeng/select';
+
 
 @Component({
     selector: 'uni-trip-length-finder',
     templateUrl: './trip-length-finder.component.html',
     styleUrls: ['./trip-length-finder.component.scss'],
-    standalone: false
+    standalone: true,
+    imports: [CommonModule,SkeletonModule,FluidModule,InputTextModule,TooltipModule,ButtonModule,MultiSelectModule,CarouselModule,InputGroupModule,InputGroupAddonModule,FormsModule,ReactiveFormsModule,InputTextModule,SelectModule]
 })
 export class TripLengthFinderComponent implements OnInit {
 

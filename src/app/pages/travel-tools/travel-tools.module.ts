@@ -1,59 +1,53 @@
-import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import { NgModule } from "@angular/core"
+import { CommonModule } from "@angular/common"
 
-import { TravelToolsRoutingModule } from './travel-tools-routing.module';
-import { TooltipModule } from 'primeng/tooltip';
-import { CarouselModule } from 'primeng/carousel';
-import { FormsModule } from '@angular/forms';
-import { ButtonModule } from 'primeng/button';
+import { TravelToolsRoutingModule } from "./travel-tools-routing.module"
+import { TooltipModule } from "primeng/tooltip"
+import { CarouselModule } from "primeng/carousel"
+import { FormsModule } from "@angular/forms"
+import { ButtonModule } from "primeng/button"
 
-import { InputTextModule } from 'primeng/inputtext';
-import { TravelCostEstimatorComponent } from './travel-cost-estimator/travel-cost-estimator.component';
-import { TravelToolsListComponent } from './travel-tools-list/travel-tools-list.component';
-import { TravelToolsComponent } from './travel-tools.component';
-import { InputNumberModule } from 'primeng/inputnumber';
-import { GlobalTravelVisaComponent } from './global-travel-visa/global-travel-visa.component';
-import { TravelPackingPlannerComponent } from './travel-packing-planner/travel-packing-planner.component';
-import { TravelVisitPlannerComponent } from './travel-visit-planner/travel-visit-planner.component';
-import { MultiSelectModule } from 'primeng/multiselect';
-import { TripLengthFinderComponent } from './trip-length-finder/trip-length-finder.component';
-import { TravelGlossaryComponent } from './travel-glossary/travel-glossary.component';
-import {SharedModule} from "../../shared/shared.module";
-import {MarkdownComponent, MarkdownModule} from "ngx-markdown";
-import { CardModule } from 'primeng/card';
-import { DialogModule } from 'primeng/dialog';
-import { ConfirmationService } from 'primeng/api';
+import { InputTextModule } from "primeng/inputtext"
+import { TravelCostEstimatorComponent } from "./travel-cost-estimator/travel-cost-estimator.component"
+import { TravelToolsListComponent } from "./travel-tools-list/travel-tools-list.component"
+import { TravelToolsComponent } from "./travel-tools.component"
+import { InputNumberModule } from "primeng/inputnumber"
+import { GlobalTravelVisaComponent } from "./global-travel-visa/global-travel-visa.component"
+import { TravelPackingPlannerComponent } from "./travel-packing-planner/travel-packing-planner.component"
+import { TravelVisitPlannerComponent } from "./travel-visit-planner/travel-visit-planner.component"
+import { MultiSelectModule } from "primeng/multiselect"
+import { TripLengthFinderComponent } from "./trip-length-finder/trip-length-finder.component"
+import { TravelGlossaryComponent } from "./travel-glossary/travel-glossary.component"
+import { SharedModule } from "../../shared/shared.module"
+import { MarkdownModule } from "ngx-markdown"
+import { CardModule } from "primeng/card"
+import { DialogModule } from "primeng/dialog"
+import { ConfirmationService } from "primeng/api"
 
 @NgModule({
-  declarations: [
-    TravelToolsComponent, 
-    
-    TravelToolsListComponent, 
-    
-    TravelPackingPlannerComponent, 
-    TravelVisitPlannerComponent, 
-    TripLengthFinderComponent, 
-    TravelGlossaryComponent
-  ],
-  imports: [
-    CommonModule,
-    TravelCostEstimatorComponent, 
-    TravelToolsRoutingModule,
-    GlobalTravelVisaComponent, 
-    FormsModule,
-    TooltipModule,
-    CarouselModule,
-    ButtonModule,
-    
-    InputTextModule,
-    InputNumberModule,
-    MultiSelectModule,
-    SharedModule,
-    MarkdownComponent,
-    CardModule,
-    DialogModule,
-    MarkdownModule.forRoot(),
-  ],
-  providers: [ConfirmationService],
+	imports: [
+		CommonModule,
+    TravelCostEstimatorComponent,
+		TravelToolsComponent,
+		TravelToolsListComponent,
+		TravelPackingPlannerComponent,
+		TravelVisitPlannerComponent,
+		TripLengthFinderComponent,
+		TravelGlossaryComponent,
+		GlobalTravelVisaComponent,
+		TravelToolsRoutingModule,
+		FormsModule,
+		TooltipModule,
+		CarouselModule,
+		ButtonModule,
+		InputTextModule,
+		InputNumberModule,
+		MultiSelectModule,
+		SharedModule,
+		CardModule,
+		DialogModule,
+		MarkdownModule.forRoot()
+	],
+	providers: [ConfirmationService],
 })
-export class TravelToolsModule { }
+export class TravelToolsModule {}

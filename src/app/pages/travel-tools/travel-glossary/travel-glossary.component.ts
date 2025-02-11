@@ -3,12 +3,27 @@ import { TravelToolsService } from '../travel-tools.service';
 import { PageFacadeService } from '../../page-facade.service';
 import { DomSanitizer } from '@angular/platform-browser';
 import { Router } from '@angular/router';
+import { CommonModule } from '@angular/common';
+import { SkeletonModule } from 'primeng/skeleton';
+import { FluidModule } from 'primeng/fluid';
+import { InputTextModule } from 'primeng/inputtext';
+import { TooltipModule } from 'primeng/tooltip';
+import { ButtonModule } from 'primeng/button';
+import { MultiSelectModule } from 'primeng/multiselect';
+import { CarouselModule } from 'primeng/carousel';
+import { InputGroupModule } from 'primeng/inputgroup';
+import { InputGroupAddonModule } from 'primeng/inputgroupaddon';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { SelectModule } from 'primeng/select';
+
+
 
 @Component({
     selector: 'uni-travel-glossary',
     templateUrl: './travel-glossary.component.html',
     styleUrls: ['./travel-glossary.component.scss'],
-    standalone: false
+    standalone: true,
+    imports: [CommonModule,SkeletonModule,FluidModule,InputTextModule,TooltipModule,ButtonModule,MultiSelectModule,CarouselModule,InputGroupModule,InputGroupAddonModule,FormsModule,ReactiveFormsModule,InputTextModule,SelectModule]
 })
 export class TravelGlossaryComponent implements OnInit {
   category_dropdown: { id: any, name: string }[] = [];
