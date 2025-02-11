@@ -1,10 +1,18 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
+import { CommonModule } from '@angular/common';
+import { RouterModule } from '@angular/router';
+import { DialogModule } from 'primeng/dialog';
+import { CardModule } from 'primeng/card';
+import { PaginatorModule } from 'primeng/paginator';
+import { DropdownModule } from 'primeng/dropdown';
 
 @Component({
   selector: 'uni-contributors',
   templateUrl: './contributors.component.html',
-  styleUrls: ['./contributors.component.scss']
+  styleUrls: ['./contributors.component.scss'],
+  standalone: true,
+  imports: [CommonModule, RouterModule, DialogModule, CardModule, PaginatorModule, DropdownModule, ReactiveFormsModule]
 })
 export class ContributorsComponent implements OnInit {
 

@@ -1,11 +1,13 @@
 import { Component, Input, OnInit } from "@angular/core";
 import { CommonModule } from '@angular/common';
+import { RouterModule } from "@angular/router";
+import { DialogModule } from "primeng/dialog";
 
 @Component({
   selector: "uni-fortune-companies",
   templateUrl: "./fortune-companies.component.html",
   standalone: true,
-  imports: [CommonModule]
+  imports: [CommonModule, RouterModule, DialogModule]
 })
 export class FortuneCompaniesComponent implements OnInit {
   @Input() prepData: any;

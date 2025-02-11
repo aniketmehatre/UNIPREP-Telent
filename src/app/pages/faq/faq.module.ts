@@ -8,13 +8,11 @@ import { FaqService } from './faq.service';
 
 
 @NgModule({
-    declarations: [
-        FaqComponent
-    ],
     imports: [
         CommonModule,
         FaqRoutingModule,
-        AccordionModule
+        AccordionModule,
+        FaqComponent
     ],
     providers:[
         FaqService

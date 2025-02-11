@@ -13,16 +13,13 @@ import { SkeletonModule } from 'primeng/skeleton';
 
 
 @NgModule({
-    declarations: [
-        ResourceComponent
-    ],
     imports: [
         CommonModule,
         ResourceRoutingModule,
         AccordionModule,
         TooltipModule,
         ReactiveFormsModule,
-        
+        ResourceComponent,
         TooltipModule,
         MultiSelectModule,
         DialogModule,

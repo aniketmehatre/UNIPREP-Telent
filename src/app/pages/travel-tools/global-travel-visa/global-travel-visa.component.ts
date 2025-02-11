@@ -7,13 +7,15 @@ import { Countries } from 'src/app/@Models/country.model';
 import { BasicType } from 'src/app/@Models/recommandation-question.model';
 import { Meta } from '@angular/platform-browser';
 import { MessageService } from 'primeng/api';
+import { CardModule } from 'primeng/card';
+import { DialogModule } from 'primeng/dialog';
 
 @Component({
     selector: 'uni-global-travel-visa',
     templateUrl: './global-travel-visa.component.html',
     styleUrls: ['./global-travel-visa.component.scss'],
     standalone: true,
-    imports: [CommonModule,CarouselModule]
+    imports: [CommonModule,CarouselModule, CardModule, DialogModule]
 })
 export class GlobalTravelVisaComponent implements OnInit {
   recommendations: { id: number, question: string }[] = [

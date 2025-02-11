@@ -36,18 +36,20 @@ import { SkeletonModule } from 'primeng/skeleton';
     CountryInsightsComponent,
     CountryInsightsSubmoduleComponent,
     StudentBudgetPlannerComponent,
-    WealthleaderslistComponent,
+    
     WealthleaderreadansComponent,
-    UniCompareComponent,
-    GlobalEdufitComponent,
-    EduLoanCompareComponent
+    
+    
   ],
   imports: [
     CommonModule,
     EducationToolsRoutingModule,
+    WealthleaderslistComponent,
     FormsModule,
     CarouselModule,
-    
+    GlobalEdufitComponent,
+    UniCompareComponent,
+    EduLoanCompareComponent,
     ButtonModule,
     PaginatorModule,
     CardModule,

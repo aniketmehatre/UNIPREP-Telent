@@ -9,11 +9,18 @@ import { FounderstoolService } from '../../founderstool/founderstool.service';
 import { startupDropdownData } from '../../founderstool/start-up-expense-estimate/startup-expense.data';
 import { PageFacadeService } from '../../page-facade.service';
 import { EducationToolsService } from '../education-tools.service';
+import { CommonModule } from '@angular/common';
+import { RouterModule } from '@angular/router';
+import { DialogModule } from 'primeng/dialog';
+import { CardModule } from 'primeng/card';
+import { PaginatorModule } from 'primeng/paginator';
 
 @Component({
   selector: 'uni-uni-compare',
   templateUrl: './uni-compare.component.html',
-  styleUrls: ['./uni-compare.component.scss']
+  styleUrls: ['./uni-compare.component.scss'],
+  standalone: true,
+  imports: [CommonModule, RouterModule, DialogModule, CardModule, PaginatorModule]
 })
 export class UniCompareComponent implements OnInit, OnDestroy {
   panelStyle: { width: string } = { width: '360px' };

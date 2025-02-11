@@ -18,7 +18,7 @@ import { AssessmentQuizReviewComponent } from './assessment-quiz-review/assessme
 
 @NgModule({
   declarations: [
-    AssessmentComponent,
+    
     
     AssessmentListComponent,
     
@@ -26,6 +26,7 @@ import { AssessmentQuizReviewComponent } from './assessment-quiz-review/assessme
   ],
   imports: [
     CommonModule,
+    AssessmentComponent,
     AssessmentRoutingModule,
     AssessmentQuizComponent,
     IlearnChallengeComponent,

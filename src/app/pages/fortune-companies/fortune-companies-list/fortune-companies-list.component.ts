@@ -4,11 +4,17 @@ import { FortuneCompaniesService } from "../fortune-companies.service";
 import { PageFacadeService } from "../../page-facade.service";
 import { Router } from "@angular/router";
 import { count } from "console";
+import { CommonModule } from "@angular/common";
+import { RouterModule } from "@angular/router";
+import { DialogModule } from "primeng/dialog";
+import { PaginatorModule } from "primeng/paginator";
 
 @Component({
   selector: "uni-fortune-companies-lists",
   templateUrl: "./fortune-companies-list.component.html",
   styleUrls: ["./fortune-companies-list.component.scss"],
+  standalone: true,
+  imports: [CommonModule, RouterModule, DialogModule, PaginatorModule]
 })
 export class FortuneCompaniesListsComponent implements OnInit {
   constructor(

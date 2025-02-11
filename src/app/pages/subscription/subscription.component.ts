@@ -1,508 +1,454 @@
-import { Component, OnInit, ViewChild } from "@angular/core";
-import { AuthService } from "src/app/Auth/auth.service";
-import { SubscriptionService } from "./subscription.service";
-import { WindowRefService } from "./window-ref.service";
-import { MessageService } from "primeng/api";
-import {
-  Billinginfo,
-  OrderHistory,
-  Subscription,
-  SubscriptionPlan,
-  SubscriptionSuccess,
-} from "../../@Models/subscription";
-import { Observable, switchMap } from "rxjs";
-import { selectBillingInfo } from "./store/selectors";
-import { select } from "@ngrx/store";
-import { DataService } from "src/app/data.service";
-import { environment } from "@env/environment";
-import { DashboardService } from "../dashboard/dashboard.service";
-import {
-  StripeCardComponent,
-  StripePaymentElementComponent,
-  StripeService,
-} from "ngx-stripe";
-import {
-  PaymentIntent,
-  Stripe,
-  StripeCardElementOptions,
-  StripeElementsOptions,
-  StripePaymentElementOptions,
-} from "@stripe/stripe-js";
-import CryptoJS from "crypto-js";
-import { NgxUiLoaderService } from "ngx-ui-loader";
-import { CommonModule } from '@angular/common';
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-
+import { Component, OnInit, ViewChild } from "@angular/core"
+import { AuthService } from "src/app/Auth/auth.service"
+import { SubscriptionService } from "./subscription.service"
+import { WindowRefService } from "./window-ref.service"
+import { MessageService } from "primeng/api"
+import { Billinginfo, OrderHistory, Subscription, SubscriptionPlan, SubscriptionSuccess } from "../../@Models/subscription"
+import { Observable, switchMap } from "rxjs"
+import { selectBillingInfo } from "./store/selectors"
+import { select } from "@ngrx/store"
+import { DataService } from "src/app/data.service"
+import { environment } from "@env/environment"
+import { DashboardService } from "../dashboard/dashboard.service"
+import { StripeCardComponent, StripePaymentElementComponent, StripeService } from "ngx-stripe"
+import { PaymentIntent, Stripe, StripeCardElementOptions, StripeElementsOptions, StripePaymentElementOptions } from "@stripe/stripe-js"
+import CryptoJS from "crypto-js"
+import { NgxUiLoaderService } from "ngx-ui-loader"
+import { CommonModule } from "@angular/common"
+import { FormsModule, ReactiveFormsModule } from "@angular/forms"
+import { DialogModule } from "primeng/dialog"
 @Component({
-    selector: "uni-subscription",
-    templateUrl: "./subscription.component.html",
-    styleUrls: ["./subscription.component.scss"],
-    standalone: true,
-    imports: [CommonModule, FormsModule, ReactiveFormsModule]
+	selector: "uni-subscription",
+	templateUrl: "./subscription.component.html",
+	styleUrls: ["./subscription.component.scss"],
+	standalone: true,
+	imports: [CommonModule, FormsModule, ReactiveFormsModule, DialogModule],
 })
 export class SubscriptionComponent implements OnInit {
-  stage = 1;
-  subscriptions$!: Observable<SubscriptionPlan[]>;
-  orderLoading$!: Observable<boolean>;
-  selectedSubscription!: SubscriptionPlan | null;
-  selectedQuestionCredit!: any | null;
-  showPayLoading = false;
-  orderHistory$!: Observable<OrderHistory[]>;
-  subscriptionDetail$!: Observable<Subscription | null>;
-  billingInfo$!: Observable<Billinginfo | null>;
-  success!: SubscriptionSuccess;
-  user: any;
-  countryList: any;
-  userName: any;
-  isSubOrQuestion: number = 1;
-  subscribedCountryList: any[] = [];
-  subscribedHistoryData: any[] = [];
-  userSubscription: any = [];
-  subscriptionDetails: any;
-  accountBillingData: any[] = [];
-  loadingSubscriptionHistory: boolean = false;
-  loadingExistingSubscription: boolean = false;
-  showSubscriptionedData: boolean = false;
-  showPlanBtn: boolean = false;
-  showHistoryBtn: boolean = false;
-  currentCountry: string = '';
-  education_level: string = 'HigherEducation';
-  studentType: number = 0;
+	stage = 1
+	subscriptions$!: Observable<SubscriptionPlan[]>
+	orderLoading$!: Observable<boolean>
+	selectedSubscription!: SubscriptionPlan | null
+	selectedQuestionCredit!: any | null
+	showPayLoading = false
+	orderHistory$!: Observable<OrderHistory[]>
+	subscriptionDetail$!: Observable<Subscription | null>
+	billingInfo$!: Observable<Billinginfo | null>
+	success!: SubscriptionSuccess
+	user: any
+	countryList: any
+	userName: any
+	isSubOrQuestion: number = 1
+	subscribedCountryList: any[] = []
+	subscribedHistoryData: any[] = []
+	userSubscription: any = []
+	subscriptionDetails: any
+	accountBillingData: any[] = []
+	loadingSubscriptionHistory: boolean = false
+	loadingExistingSubscription: boolean = false
+	showSubscriptionedData: boolean = false
+	showPlanBtn: boolean = false
+	showHistoryBtn: boolean = false
+	currentCountry: string = ""
+	education_level: string = "HigherEducation"
+	studentType: number = 0
 
-  constructor(
-    private subscriptionService: SubscriptionService,
-    private winRef: WindowRefService,
-    private authService: AuthService,
-    private toastr: MessageService,
-    private dataService: DataService,
-    private dashboardService: DashboardService,
-    private stripeService: StripeService,
-    private ngxService: NgxUiLoaderService
-  ) {}
-  ngOnInit(): void {
-    try {
-      let homeCountryName = null;
-      const encHomeCountryName = localStorage.getItem("home_country_name");
-      
-      if (encHomeCountryName) {
-        try {
-          const bytes = CryptoJS.AES.decrypt(encHomeCountryName, environment.secretKeySalt);
-          const decryptedText = bytes.toString(CryptoJS.enc.Utf8);
-          
-          // Validate decrypted text before parsing
-          if (decryptedText && decryptedText.trim() !== '') {
-            try {
-              // Additional validation to ensure valid JSON structure
-              if (decryptedText.startsWith('{') || decryptedText.startsWith('[') || 
-                  decryptedText.startsWith('"') || /^-?\d+\.?\d*$/.test(decryptedText)) {
-                homeCountryName = JSON.parse(decryptedText);
-              } else {
-                console.warn('Decrypted text is not in valid JSON format');
-                localStorage.removeItem("home_country_name");
-              }
-            } catch (parseError) {
-              console.warn('Failed to parse decrypted home country data:', parseError);
-              localStorage.removeItem("home_country_name");
-            }
-          } else {
-            console.warn('Decrypted text is empty or invalid');
-            localStorage.removeItem("home_country_name");
-          }
-        } catch (decryptError) {
-          console.warn('Failed to decrypt home country data:', decryptError);
-          localStorage.removeItem("home_country_name");
-        }
-      }
+	constructor(private subscriptionService: SubscriptionService, private winRef: WindowRefService, private authService: AuthService, private toastr: MessageService, private dataService: DataService, private dashboardService: DashboardService, private stripeService: StripeService, private ngxService: NgxUiLoaderService) {}
+	ngOnInit(): void {
+		try {
+			let homeCountryName = null
+			const encHomeCountryName = localStorage.getItem("home_country_name")
 
-      this.currentCountry = homeCountryName ? String(homeCountryName) : '';
-      this.user = this.authService.user;
-      this.education_level = this.user?.education_level?.replace(/[\s\u00A0]/g, '').trim() || 'HigherEducation';
-      this.studentType = this.user?.student_type_id || 0;
-      
-      this.ngxService.startBackground();
-      this.authService.getCountry().subscribe(
-        (data) => {
-          this.ngxService.stopBackground();
-          this.countryList = data;
-          this.getSubscriptionList();
-          this.getSubscriptionTopupList();
-        },
-        (error) => {
-          this.ngxService.stopBackground();
-          console.error('Error fetching country data:', error);
-        }
-      );
-    } catch (error) {
-      console.error('Error in subscription initialization:', error);
-      this.currentCountry = '';
-      this.ngxService.stopBackground();
-    }
-    if (this.dashboardService.isinitialstart) {
-      window.location.reload();
-    }
-    this.authService.getNewUserTimeLeft().subscribe((res) => {
-      this.dashboardService.updatedata(res.time_left);
-      let data = res.time_left;
-      if (data.plan === "expired" || data.plan === "subscription_expired") {
-        this.showPlanBtn = true;
-      } else {
-        this.showPlanBtn = false;
-      }
-    });
-    if (!this.authService?.user?.subscription) {
-      this.stage = 1;
-      return;
-    }
-    this.loadSubData();
-  }
-  start() {
-    this.showPayLoading = false;
-    this.stage = 1;
-    // this.loadSubscriptions();
-  }
+			if (encHomeCountryName) {
+				try {
+					const bytes = CryptoJS.AES.decrypt(encHomeCountryName, environment.secretKeySalt)
+					const decryptedText = bytes.toString(CryptoJS.enc.Utf8)
 
-  loadSubData() {
-    this.loadSubscriptionHistory();
-    this.loadExistingSubscription();
-  }
+					// Validate decrypted text before parsing
+					if (decryptedText && decryptedText.trim() !== "") {
+						try {
+							// Additional validation to ensure valid JSON structure
+							if (decryptedText.startsWith("{") || decryptedText.startsWith("[") || decryptedText.startsWith('"') || /^-?\d+\.?\d*$/.test(decryptedText)) {
+								homeCountryName = JSON.parse(decryptedText)
+							} else {
+								console.warn("Decrypted text is not in valid JSON format")
+								localStorage.removeItem("home_country_name")
+							}
+						} catch (parseError) {
+							console.warn("Failed to parse decrypted home country data:", parseError)
+							localStorage.removeItem("home_country_name")
+						}
+					} else {
+						console.warn("Decrypted text is empty or invalid")
+						localStorage.removeItem("home_country_name")
+					}
+				} catch (decryptError) {
+					console.warn("Failed to decrypt home country data:", decryptError)
+					localStorage.removeItem("home_country_name")
+				}
+			}
 
-  loadSubDetails() {
-    this.orderHistory$ = this.subscriptionService.getOrderHistory();
-    this.subscriptionDetail$ = this.subscriptionService.getSubscriptionDetail();
-    this.subscriptionDetail$.subscribe((data) => {});
+			this.currentCountry = homeCountryName ? String(homeCountryName) : ""
+			this.user = this.authService.user
+			this.education_level = this.user?.education_level?.replace(/[\s\u00A0]/g, "").trim() || "HigherEducation"
+			this.studentType = this.user?.student_type_id || 0
 
-    this.billingInfo$ = this.subscriptionService.getBillingInfo();
-    //this.subscriptionService.loadSubDetails();
-  }
-  loadSubscriptions() {
-    this.subscriptions$ = this.subscriptionService.getSubscriptionList();
-    this.subscriptions$.subscribe((data) => {});
-    this.orderLoading$ = this.subscriptionService.getLoading();
-    this.subscriptionService.loadSubscriptionList();
-    this.subscriptionService.getOrderID().subscribe((order) => {
-      if (!order) {
-        return;
-      }
-      this.payWithRazor(order);
-    });
-  }
-  onSelectSubscription(event: any) {
-    let selectedPlanData = { ...event.event };
-    selectedPlanData.country = event.selectedCountryList;
-    selectedPlanData.price =
-      Number(selectedPlanData.price) +
-      (event.selectedCountryList.length - 1) * 699;
+			this.ngxService.startBackground()
+			this.authService.getCountry().subscribe(
+				(data) => {
+					this.ngxService.stopBackground()
+					this.countryList = data
+					this.getSubscriptionList()
+					this.getSubscriptionTopupList()
+				},
+				(error) => {
+					this.ngxService.stopBackground()
+					console.error("Error fetching country data:", error)
+				}
+			)
+		} catch (error) {
+			console.error("Error in subscription initialization:", error)
+			this.currentCountry = ""
+			this.ngxService.stopBackground()
+		}
+		if (this.dashboardService.isinitialstart) {
+			window.location.reload()
+		}
+		this.authService.getNewUserTimeLeft().subscribe((res) => {
+			this.dashboardService.updatedata(res.time_left)
+			let data = res.time_left
+			if (data.plan === "expired" || data.plan === "subscription_expired") {
+				this.showPlanBtn = true
+			} else {
+				this.showPlanBtn = false
+			}
+		})
+		if (!this.authService?.user?.subscription) {
+			this.stage = 1
+			return
+		}
+		this.loadSubData()
+	}
+	start() {
+		this.showPayLoading = false
+		this.stage = 1
+		// this.loadSubscriptions();
+	}
 
-    this.selectedSubscription = selectedPlanData;
-    this.stage = 3;
-  }
-  onSelectQuestionCredit(event: any) {
-    this.selectedQuestionCredit = event;
-    this.stage = 3;
-  }
-  changePlan() {
-    this.selectedSubscription = null;
-    this.isSubOrQuestion = 1;
-    this.stage = 2;
-  }
+	loadSubData() {
+		this.loadSubscriptionHistory()
+		this.loadExistingSubscription()
+	}
 
-  changeQuestionCreditPlan() {
-    this.selectedQuestionCredit = null;
-    this.isSubOrQuestion = 2;
-    this.stage = 2;
-  }
-  payusingstripe(value: any) {
-    this.stripdata = value;
-    this.selectedcost = this.stripdata.finalPrice;
-    this.subscriptionService
-      .createPaymentIntent(this.stripdata)
-      .subscribe((pi) => {
-        this.currencyType = pi.currency;
-        this.elementsOptions.clientSecret = pi.client_secret as string;
-        this.stripdata.clientSecret = pi.client_secret as string;
-        this.cardvisibility = true;
-      });
-  }
-  currencyType: any;
-  pay(value: any) {
-    this.subscriptionDetails = value;
-    this.showPayLoading = true;
-    if (value.subscriptionId) {
-      if (value.type == "razorpay") {
-        this.subscriptionService
-          .placeSubscriptionOrder(value)
-          .subscribe((data) => {
-            this.payWithRazor(data.orderid);
-            this.currencyType = data.currency;
-            if (data.success == false) {
-              this.toastr.add({
-                severity: "error",
-                summary: "Error",
-                detail: data.message,
-              });
-              return;
-            }
-          });
-      } else {
-        this.payusingstripe(value);
-      }
-    } else {
-      this.subscriptionService
-        .placeTopupSubscriptionOrder(value)
-        .subscribe((data) => {
-          this.payWithRazor(data.orderid);
-        });
-    }
-  }
+	loadSubDetails() {
+		this.orderHistory$ = this.subscriptionService.getOrderHistory()
+		this.subscriptionDetail$ = this.subscriptionService.getSubscriptionDetail()
+		this.subscriptionDetail$.subscribe((data) => {})
 
-  payQuestionCredit() {
-    this.showPayLoading = true;
-    let data = {
-      user_id: 2,
-      questioncredits_id: this.selectedQuestionCredit?.id,
-    };
+		this.billingInfo$ = this.subscriptionService.getBillingInfo()
+		//this.subscriptionService.loadSubDetails();
+	}
+	loadSubscriptions() {
+		this.subscriptions$ = this.subscriptionService.getSubscriptionList()
+		this.subscriptions$.subscribe((data) => {})
+		this.orderLoading$ = this.subscriptionService.getLoading()
+		this.subscriptionService.loadSubscriptionList()
+		this.subscriptionService.getOrderID().subscribe((order) => {
+			if (!order) {
+				return
+			}
+			this.payWithRazor(order)
+		})
+	}
+	onSelectSubscription(event: any) {
+		let selectedPlanData = { ...event.event }
+		selectedPlanData.country = event.selectedCountryList
+		selectedPlanData.price = Number(selectedPlanData.price) + (event.selectedCountryList.length - 1) * 699
 
-    this.subscriptionService
-      .placeQuestionCreditOrder(data)
-      .subscribe((data) => {
-        this.payWithRazor(data.orderid);
-      });
-  }
-  payWithRazor(orderid: any) {
-    let razorKey = "rzp_live_YErYQVqDIrZn1D";
-    if (environment.domain == "api.uniprep.ai") {
-      razorKey = "rzp_test_Crpr7YkjPaCLEr";
-    }
-    let phone;
-    const encPhone = localStorage.getItem("phone");
-    if (encPhone) {
-      const bytes = CryptoJS.AES.decrypt(encPhone, environment.secretKeySalt);
-      phone = JSON.parse(bytes.toString(CryptoJS.enc.Utf8));
-    }
+		this.selectedSubscription = selectedPlanData
+		this.stage = 3
+	}
+	onSelectQuestionCredit(event: any) {
+		this.selectedQuestionCredit = event
+		this.stage = 3
+	}
+	changePlan() {
+		this.selectedSubscription = null
+		this.isSubOrQuestion = 1
+		this.stage = 2
+	}
 
-    let email;
-    const encEmail = localStorage.getItem("email");
-    if (encEmail) {
-      const bytes = CryptoJS.AES.decrypt(encEmail, environment.secretKeySalt);
-      email = JSON.parse(bytes.toString(CryptoJS.enc.Utf8));
-    }
-      const options: any = {
-      key: razorKey,
-      amount: this.subscriptionDetails?.finalPrice * 100, // amount should be in paise format to display Rs 1255 without decimal point
-      currency: "INR",
-      name: "UNIPREP", // company name or product name
-      description: "UNIPREP Subscription", // product description
-      image: "https://uniprep.ai/uniprep-assets/images/icon-light.svg", // company logo or product image
-      order_id: orderid, // order_id created by you in backend
+	changeQuestionCreditPlan() {
+		this.selectedQuestionCredit = null
+		this.isSubOrQuestion = 2
+		this.stage = 2
+	}
+	payusingstripe(value: any) {
+		this.stripdata = value
+		this.selectedcost = this.stripdata.finalPrice
+		this.subscriptionService.createPaymentIntent(this.stripdata).subscribe((pi) => {
+			this.currencyType = pi.currency
+			this.elementsOptions.clientSecret = pi.client_secret as string
+			this.stripdata.clientSecret = pi.client_secret as string
+			this.cardvisibility = true
+		})
+	}
+	currencyType: any
+	pay(value: any) {
+		this.subscriptionDetails = value
+		this.showPayLoading = true
+		if (value.subscriptionId) {
+			if (value.type == "razorpay") {
+				this.subscriptionService.placeSubscriptionOrder(value).subscribe((data) => {
+					this.payWithRazor(data.orderid)
+					this.currencyType = data.currency
+					if (data.success == false) {
+						this.toastr.add({
+							severity: "error",
+							summary: "Error",
+							detail: data.message,
+						})
+						return
+					}
+				})
+			} else {
+				this.payusingstripe(value)
+			}
+		} else {
+			this.subscriptionService.placeTopupSubscriptionOrder(value).subscribe((data) => {
+				this.payWithRazor(data.orderid)
+			})
+		}
+	}
 
-      prefill: {
-        name: this.selectedSubscription?.subscription,
-        email: email,
-        contact: (phone === null || phone === '') ? '9876543210' : phone,
-      },
-      notes: {
-        address:
-          " 165/1,Opp Brahmasthana Kalyana Mantapa Sahukar Chenniah Road, TK Layout, Mysuru - 570023",
-      },
-      modal: {
-        // We should prevent closing of the form when esc key is pressed.
-        escape: false,
-      },
-      theme: {
-        color: "#3f4c83",
-      },
-    };
+	payQuestionCredit() {
+		this.showPayLoading = true
+		let data = {
+			user_id: 2,
+			questioncredits_id: this.selectedQuestionCredit?.id,
+		}
 
-    options.handler = (response: any, error: any) => {
-      options.response = response;
-      var paymentdata = {
-        orderid: response?.razorpay_order_id,
-        paymentid: response?.razorpay_payment_id,
-      };
-      setTimeout(() => {
-        this.authService.updateSubscriptionName(
-          this.selectedSubscription?.subscription || ""
-        );
-        if (this.subscriptionDetails?.subscriptionId) {
-          this.subscriptionService.PaymentComplete(paymentdata).subscribe(
-            (res: any) => {
-              this.success = res;
-              this.subscriptionService.doneLoading();
-              this.loadSubData();
-              window.location.reload();
-            },
-            (error: any) => {
-              // this.toastr.warning(error.error.message);
-              this.subscriptionService.doneLoading();
-              this.loadSubData();
-              window.location.reload();
-            }
-          );
-        } else {
-          let data = {
-            order_id: response?.razorpay_order_id,
-            payment_reference_id: response?.razorpay_payment_id,
-          };
-          this.subscriptionService.topupPaymentComplete(data).subscribe(
-            (res: any) => {
-              this.success = res;
-              this.subscriptionService.doneLoading();
-              this.loadSubData();
-              window.location.reload();
-            },
-            (error: any) => {
-              // this.toastr.warning(error.error.message);
-              this.subscriptionService.doneLoading();
-              this.loadSubData();
-              window.location.reload();
-            }
-          );
-        }
-      }, 0);
-    };
-    options.modal.ondismiss = () => {
-      this.toastr.add({
-        severity: "error",
-        summary: "Error",
-        detail: "Transaction cancelled",
-      });
-    };
-    const rzp = new this.winRef.nativeWindow.Razorpay(options);
-    rzp.open();
-  }
+		this.subscriptionService.placeQuestionCreditOrder(data).subscribe((data) => {
+			this.payWithRazor(data.orderid)
+		})
+	}
+	payWithRazor(orderid: any) {
+		let razorKey = "rzp_live_YErYQVqDIrZn1D"
+		if (environment.domain == "api.uniprep.ai") {
+			razorKey = "rzp_test_Crpr7YkjPaCLEr"
+		}
+		let phone
+		const encPhone = localStorage.getItem("phone")
+		if (encPhone) {
+			const bytes = CryptoJS.AES.decrypt(encPhone, environment.secretKeySalt)
+			phone = JSON.parse(bytes.toString(CryptoJS.enc.Utf8))
+		}
 
-  loadSubscriptionHistory() {
-    this.subscriptionService
-      .getSubscriptionHistory()
-      .subscribe((response: any) => {
-        this.subscribedHistoryData = response.subscriptionhistory;
-        this.accountBillingData = response.accountbillings;
+		let email
+		const encEmail = localStorage.getItem("email")
+		if (encEmail) {
+			const bytes = CryptoJS.AES.decrypt(encEmail, environment.secretKeySalt)
+			email = JSON.parse(bytes.toString(CryptoJS.enc.Utf8))
+		}
+		const options: any = {
+			key: razorKey,
+			amount: this.subscriptionDetails?.finalPrice * 100, // amount should be in paise format to display Rs 1255 without decimal point
+			currency: "INR",
+			name: "UNIPREP", // company name or product name
+			description: "UNIPREP Subscription", // product description
+			image: "https://uniprep.ai/uniprep-assets/images/icon-light.svg", // company logo or product image
+			order_id: orderid, // order_id created by you in backend
 
-        this.accountBillingData.map(function (currentelement, index, arrayobj) {
-          let noofFreeAddOn = arrayobj.filter(
-            (item) => item.product == "Free Add On"
-          );
-          if (
-            currentelement.product == "Free Add On" &&
-            noofFreeAddOn.length > 1
-          ) {
-            arrayobj.splice(index, 1);
-          }
-        });
+			prefill: {
+				name: this.selectedSubscription?.subscription,
+				email: email,
+				contact: phone === null || phone === "" ? "9876543210" : phone,
+			},
+			notes: {
+				address: " 165/1,Opp Brahmasthana Kalyana Mantapa Sahukar Chenniah Road, TK Layout, Mysuru - 570023",
+			},
+			modal: {
+				// We should prevent closing of the form when esc key is pressed.
+				escape: false,
+			},
+			theme: {
+				color: "#3f4c83",
+			},
+		}
 
-        if (
-          this.subscribedHistoryData.length > 0 &&
-          this.accountBillingData.length > 0
-        ) {
-          this.loadingSubscriptionHistory = true;
-          this.loadSubscriptionedData();
-        }
-      });
-    this.dataService.showPopup(true);
-  }
+		options.handler = (response: any, error: any) => {
+			options.response = response
+			var paymentdata = {
+				orderid: response?.razorpay_order_id,
+				paymentid: response?.razorpay_payment_id,
+			}
+			setTimeout(() => {
+				this.authService.updateSubscriptionName(this.selectedSubscription?.subscription || "")
+				if (this.subscriptionDetails?.subscriptionId) {
+					this.subscriptionService.PaymentComplete(paymentdata).subscribe(
+						(res: any) => {
+							this.success = res
+							this.subscriptionService.doneLoading()
+							this.loadSubData()
+							window.location.reload()
+						},
+						(error: any) => {
+							// this.toastr.warning(error.error.message);
+							this.subscriptionService.doneLoading()
+							this.loadSubData()
+							window.location.reload()
+						}
+					)
+				} else {
+					let data = {
+						order_id: response?.razorpay_order_id,
+						payment_reference_id: response?.razorpay_payment_id,
+					}
+					this.subscriptionService.topupPaymentComplete(data).subscribe(
+						(res: any) => {
+							this.success = res
+							this.subscriptionService.doneLoading()
+							this.loadSubData()
+							window.location.reload()
+						},
+						(error: any) => {
+							// this.toastr.warning(error.error.message);
+							this.subscriptionService.doneLoading()
+							this.loadSubData()
+							window.location.reload()
+						}
+					)
+				}
+			}, 0)
+		}
+		options.modal.ondismiss = () => {
+			this.toastr.add({
+				severity: "error",
+				summary: "Error",
+				detail: "Transaction cancelled",
+			})
+		}
+		const rzp = new this.winRef.nativeWindow.Razorpay(options)
+		rzp.open()
+	}
 
-  loadExistingSubscription() {
-    this.subscriptionService
-      .getExistingSubscription()
-      .subscribe((response: any) => {
-        this.userSubscription = response.subscription;
-        if (
-          typeof this.userSubscription == "object" &&
-          this.userSubscription.countryName != null
-        ) {
-          this.loadingExistingSubscription = true;
-          this.loadSubscriptionedData();
-          return;
-        }
-        // if(this.userSubscription.length > 0) {
-        this.loadingExistingSubscription = true;
-        this.loadSubscriptionedData();
-        // }
-      });
-  }
+	loadSubscriptionHistory() {
+		this.subscriptionService.getSubscriptionHistory().subscribe((response: any) => {
+			this.subscribedHistoryData = response.subscriptionhistory
+			this.accountBillingData = response.accountbillings
 
-  loadSubscriptionedData() {
-    if (this.loadingSubscriptionHistory && this.loadingExistingSubscription) {
-      this.showHistoryBtn = true;
-      this.stage = 5;
-    } else {
-      this.stage = 1;
-    }
-  }
+			this.accountBillingData.map(function (currentelement, index, arrayobj) {
+				let noofFreeAddOn = arrayobj.filter((item) => item.product == "Free Add On")
+				if (currentelement.product == "Free Add On" && noofFreeAddOn.length > 1) {
+					arrayobj.splice(index, 1)
+				}
+			})
 
-  showPlan($event: any) {
-    this.stage = 1;
-  }
+			if (this.subscribedHistoryData.length > 0 && this.accountBillingData.length > 0) {
+				this.loadingSubscriptionHistory = true
+				this.loadSubscriptionedData()
+			}
+		})
+		this.dataService.showPopup(true)
+	}
 
-  showHistory($event: any) {
-    this.stage = 5;
-  }
-  @ViewChild(StripePaymentElementComponent) card: StripePaymentElementComponent;
+	loadExistingSubscription() {
+		this.subscriptionService.getExistingSubscription().subscribe((response: any) => {
+			this.userSubscription = response.subscription
+			if (typeof this.userSubscription == "object" && this.userSubscription.countryName != null) {
+				this.loadingExistingSubscription = true
+				this.loadSubscriptionedData()
+				return
+			}
+			// if(this.userSubscription.length > 0) {
+			this.loadingExistingSubscription = true
+			this.loadSubscriptionedData()
+			// }
+		})
+	}
 
-  cardOptions: StripeCardElementOptions = {
-    iconStyle: "solid",
-    style: {
-      base: {
-        color: "#000000",
-      },
-      invalid: {
-        color: "red",
-      },
-    },
-  };
+	loadSubscriptionedData() {
+		if (this.loadingSubscriptionHistory && this.loadingExistingSubscription) {
+			this.showHistoryBtn = true
+			this.stage = 5
+		} else {
+			this.stage = 1
+		}
+	}
 
-  elementsOptions: StripeElementsOptions = {
-    locale: "en",
-  };
-  cardvisibility = false;
-  stripdata: any;
-  selectedcost = 0;
-  paywithstripe() {
-    if (!this.stripdata) {
-      return;
-    }
-    this.stripeService
-      .confirmPayment({
-        elements: this.card.elements,
-        confirmParams: {
-          payment_method_data: {
-            billing_details: {
-              name: this.userName,
-            },
-          },
-        },
-        redirect: "if_required",
-      })
-      .subscribe((result: any) => {
-        if (result.error) {
-          console.log(result.error.message);
-          this.toastr.add({
-            severity: "error",
-            summary: "Error",
-            detail: "Transaction cancelled",
-          });
-        } else {
-          if (result.paymentIntent.status === "succeeded") {
-            this.subscriptionService.doneLoading();
-            this.cardvisibility = false;
-            this.toastr.add({
-              severity: "success",
-              summary: "Success",
-              detail: "Purchase Completed",
-            });
-            window.location.reload();
-          }
-        }
-      });
-  }
+	showPlan($event: any) {
+		this.stage = 1
+	}
 
-  getSubscriptionList() {
-    // This method should be implemented based on your requirements
-    // For now, we'll leave it empty to fix the linter error
-  }
+	showHistory($event: any) {
+		this.stage = 5
+	}
+	@ViewChild(StripePaymentElementComponent) card: StripePaymentElementComponent
 
-  getSubscriptionTopupList() {
-    // This method should be implemented based on your requirements
-    // For now, we'll leave it empty to fix the linter error
-  }
+	cardOptions: StripeCardElementOptions = {
+		iconStyle: "solid",
+		style: {
+			base: {
+				color: "#000000",
+			},
+			invalid: {
+				color: "red",
+			},
+		},
+	}
+
+	elementsOptions: StripeElementsOptions = {
+		locale: "en",
+	}
+	cardvisibility = false
+	stripdata: any
+	selectedcost = 0
+	paywithstripe() {
+		if (!this.stripdata) {
+			return
+		}
+		this.stripeService
+			.confirmPayment({
+				elements: this.card.elements,
+				confirmParams: {
+					payment_method_data: {
+						billing_details: {
+							name: this.userName,
+						},
+					},
+				},
+				redirect: "if_required",
+			})
+			.subscribe((result: any) => {
+				if (result.error) {
+					console.log(result.error.message)
+					this.toastr.add({
+						severity: "error",
+						summary: "Error",
+						detail: "Transaction cancelled",
+					})
+				} else {
+					if (result.paymentIntent.status === "succeeded") {
+						this.subscriptionService.doneLoading()
+						this.cardvisibility = false
+						this.toastr.add({
+							severity: "success",
+							summary: "Success",
+							detail: "Purchase Completed",
+						})
+						window.location.reload()
+					}
+				}
+			})
+	}
+
+	getSubscriptionList() {
+		// This method should be implemented based on your requirements
+		// For now, we'll leave it empty to fix the linter error
+	}
+
+	getSubscriptionTopupList() {
+		// This method should be implemented based on your requirements
+		// For now, we'll leave it empty to fix the linter error
+	}
 }

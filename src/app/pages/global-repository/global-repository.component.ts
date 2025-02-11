@@ -1,12 +1,18 @@
+import { CommonModule } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
-import { Router } from "@angular/router";
+import { Router, RouterModule } from "@angular/router";
+import { DialogModule } from 'primeng/dialog';
 import { DataService } from 'src/app/data.service';
 import { LocationService } from 'src/app/location.service';
-
+import { DropdownModule } from 'primeng/dropdown';
+import { SkeletonModule } from 'primeng/skeleton';
+import { TooltipModule } from 'primeng/tooltip';
 @Component({
   selector: 'uni-global-repository',
   templateUrl: './global-repository.component.html',
-  styleUrls: ['./global-repository.component.scss']
+  styleUrls: ['./global-repository.component.scss'],
+  standalone: true,
+  imports: [CommonModule, RouterModule, DialogModule, DropdownModule, SkeletonModule, TooltipModule] 
 })
 export class GlobalRepositoryComponent implements OnInit {
   isSkeletonVisible: boolean = false

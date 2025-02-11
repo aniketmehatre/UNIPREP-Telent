@@ -7,13 +7,15 @@ import { Router } from '@angular/router';
 import { CostOfLivingService } from '../../job-tool/cost-of-living/cost-of-living.service';
 import { City } from 'src/app/@Models/cost-of-living';
 import { MessageService } from 'primeng/api';
+import { ToastModule } from 'primeng/toast';
+import { CommonModule } from '@angular/common';
 
 @Component({
 	selector: "uni-travel-cost-estimator",
 	templateUrl: "./travel-cost-estimator.component.html",
 	styleUrls: ["./travel-cost-estimator.component.scss"],
 	standalone: true,
-	imports: [],
+	imports: [ToastModule, CommonModule],
 })
 export class TravelCostEstimatorComponent implements OnInit {
 	recommendations: { id: number; question: string }[] = TravelCostEstimatorQuestionList
@@ -39,6 +41,7 @@ export class TravelCostEstimatorComponent implements OnInit {
 	recommadationSavedQuestionList: TravelCostEstimator[] = []
 	isFromSavedData: boolean = false
 	cityList: City[] = []
+	toast: any;
 
 	constructor(private travelToolsService: TravelToolsService, private router: Router, private costOfLivingService: CostOfLivingService) {}
 	ngOnInit(): void {

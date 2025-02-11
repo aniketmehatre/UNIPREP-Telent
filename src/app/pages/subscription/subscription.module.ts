@@ -37,7 +37,7 @@ import { NgxStripeModule } from 'ngx-stripe';
 import { environment } from '@env/environment';
 @NgModule({
     declarations: [
-        SubscriptionComponent,
+        
         BuyCreditsComponent,
         SubscriptionBillingComponent,
         SubscriptionDataComponent,
@@ -49,7 +49,7 @@ import { environment } from '@env/environment';
     imports: [
         CommonModule,
         SubscriptionRoutingModule,
-        
+        SubscriptionComponent,
         InputMaskModule,
         InputTextModule,
         CheckboxModule,

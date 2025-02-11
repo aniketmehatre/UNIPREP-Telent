@@ -9,15 +9,13 @@ import { CardModule } from 'primeng/card';
 
 
 @NgModule({
-    declarations: [
-        SuccessStoriesComponent,
-    ],
     imports: [
         CommonModule,
         SuccessStoryRoutingModule,
         AccordionModule,
         TooltipModule,
         CardModule,
+        SuccessStoriesComponent
     ]
 })
 export class SuccessStoriesModule {

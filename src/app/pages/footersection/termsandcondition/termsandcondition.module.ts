@@ -8,14 +8,11 @@ import { TermsAndConditionRoutingModule } from './termsandcondition-routing.modu
 
 
 @NgModule({
-    declarations: [
-        TermsandconditionComponent,
-    ],
     imports: [
         CommonModule,
         AccordionModule,
         TermsAndConditionRoutingModule,
-     
+        TermsandconditionComponent,
     ],
 
 })

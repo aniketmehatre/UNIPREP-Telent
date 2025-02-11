@@ -14,9 +14,6 @@ const routes: Routes = [
 ];
 
 @NgModule({
-  declarations: [
-    ContributorsComponent,
-  ],
   imports: [
     CommonModule,
     ButtonModule,
@@ -24,7 +21,8 @@ const routes: Routes = [
     DialogModule,
     InputTextModule,
     DropdownModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    ContributorsComponent,
   ]
 })
 export class ContributorsModule { }

@@ -9,7 +9,6 @@ import { InputTextModule } from "primeng/inputtext";
 import { ButtonModule } from "primeng/button";
 
 @NgModule({
-  declarations: [SupportDescriptionComponent, SupportCardComponent],
-  imports: [CommonModule, HelpSupportRoutingModule, SupportQueryComponent,  InputTextModule, ButtonModule],
+  imports: [CommonModule,SupportDescriptionComponent,SupportCardComponent, HelpSupportRoutingModule, SupportQueryComponent,  InputTextModule, ButtonModule],
 })
 export class HelpSupportModule {}

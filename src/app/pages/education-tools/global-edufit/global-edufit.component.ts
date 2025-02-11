@@ -12,11 +12,17 @@ import { EducationToolsService } from '../education-tools.service';
 import { University } from 'src/app/@Models/sop-response.model';
 import { options } from 'marked';
 import { optionsGlobal } from './global-edufit.data';
-
+import { CommonModule } from '@angular/common';
+import { RouterModule } from '@angular/router';
+import { DialogModule } from 'primeng/dialog';
+import { CardModule } from 'primeng/card';
+import { PaginatorModule } from 'primeng/paginator';
 @Component({
   selector: 'uni-global-edufit',
   templateUrl: './global-edufit.component.html',
-  styleUrls: ['./global-edufit.component.scss']
+  styleUrls: ['./global-edufit.component.scss'],
+  standalone: true,
+  imports: [CommonModule, RouterModule, DialogModule, CardModule, PaginatorModule]
 })
 export class GlobalEdufitComponent implements OnInit {
   universityList: any = [];

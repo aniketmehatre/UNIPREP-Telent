@@ -1,13 +1,13 @@
 import {Component, OnInit} from '@angular/core';
 import { FaqService } from './faq.service';
 import { CommonModule } from '@angular/common';
-
+import { AccordionModule } from 'primeng/accordion';
 @Component({
     selector: 'uni-faq',
     templateUrl: './faq.component.html',
     styleUrls: ['./faq.component.scss'],
     standalone: true,
-    imports: [CommonModule]
+    imports: [CommonModule, AccordionModule]
 })
 export class FaqComponent implements OnInit {
     faqcatlist: any[] = [];

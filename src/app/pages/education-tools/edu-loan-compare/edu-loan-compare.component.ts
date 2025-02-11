@@ -8,11 +8,18 @@ import { LocationService } from 'src/app/location.service';
 import { PageFacadeService } from '../../page-facade.service';
 import { EducationToolsService } from '../education-tools.service';
 import { eduLoanOptions } from './edu-loan-compare.data';
+import { CommonModule } from '@angular/common';
+import { RouterModule } from '@angular/router';
+import { DialogModule } from 'primeng/dialog';
+import { CardModule } from 'primeng/card';
+import { PaginatorModule } from 'primeng/paginator';
 
 @Component({
   selector: 'uni-edu-loan-compare',
   templateUrl: './edu-loan-compare.component.html',
-  styleUrls: ['./edu-loan-compare.component.scss']
+  styleUrls: ['./edu-loan-compare.component.scss'],
+  standalone: true,
+  imports: [CommonModule, RouterModule, DialogModule, CardModule, PaginatorModule]
 })
 export class EduLoanCompareComponent implements OnInit, OnDestroy {
   panelStyle: { width: string } = { width: '370px' };
