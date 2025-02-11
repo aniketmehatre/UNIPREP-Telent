@@ -12,6 +12,13 @@ export class JobOfferComparisionService {
       headers: headers,
     });
   }
+  
+  getemploymentType() {
+    const headers = new HttpHeaders().set("Accept", "application/json");
+    return this.http.get<any>(environment.ApiUrl + "/getemploymenttypes", {
+      headers: headers,
+    });
+  }
   gettravelOppertunities() {
     const headers = new HttpHeaders().set("Accept", "application/json");
     return this.http.get<any>(environment.ApiUrl + "/gettraveloppurtunities", {
