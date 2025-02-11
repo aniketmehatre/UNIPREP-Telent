@@ -24,7 +24,7 @@ import {MarkdownComponent} from "ngx-markdown";
 @NgModule({
   declarations: [
     TravelToolsComponent, 
-    TravelCostEstimatorComponent, 
+    
     TravelToolsListComponent, 
     
     TravelPackingPlannerComponent, 
@@ -34,6 +34,7 @@ import {MarkdownComponent} from "ngx-markdown";
   ],
   imports: [
     CommonModule,
+    TravelCostEstimatorComponent, 
     TravelToolsRoutingModule,
     GlobalTravelVisaComponent, 
     FormsModule,

@@ -11,12 +11,19 @@ import { LocationService } from "src/app/location.service";
 import { CommonModule } from "@angular/common";
 import { DialogModule } from "primeng/dialog";
 import { PaginatorModule } from "primeng/paginator";
+import { SkeletonModule } from "primeng/skeleton";
+import { TooltipModule } from "primeng/tooltip";
+import { ButtonModule } from "primeng/button";
+import { MultiSelectModule } from "primeng/multiselect";
+import { CarouselModule } from "primeng/carousel";
+import { InputGroupModule } from "primeng/inputgroup";
+import { InputGroupAddonModule } from "primeng/inputgroupaddon";
 @Component({
   selector: "uni-category-list",
   templateUrl: "./category-list.component.html",
   styleUrls: ["./category-list.component.scss"],
   standalone: true,
-  imports: [CommonModule, DialogModule, PaginatorModule],
+  imports: [CommonModule, DialogModule, PaginatorModule, SkeletonModule, TooltipModule, ButtonModule, MultiSelectModule, CarouselModule, InputGroupModule, InputGroupAddonModule],
 })
 export class CategoryListComponent implements OnInit {
   isSkeletonVisible: boolean = true;

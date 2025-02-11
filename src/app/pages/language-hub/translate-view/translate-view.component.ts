@@ -8,12 +8,19 @@ import { ActivatedRoute } from "@angular/router";
 import { LanguageHubService } from "../language-hub.service";
 import { MessageService } from "primeng/api";
 import { FormsModule } from "@angular/forms";
+import { SkeletonModule } from "primeng/skeleton";
+import { TooltipModule } from "primeng/tooltip";
+import { ButtonModule } from "primeng/button";
+import { MultiSelectModule } from "primeng/multiselect";
+import { CarouselModule } from "primeng/carousel";
+import { InputGroupModule } from "primeng/inputgroup";
+import { InputGroupAddonModule } from "primeng/inputgroupaddon";
 @Component({
   selector: "uni-translate-view",
   templateUrl: "./translate-view.component.html",
   styleUrls: ["./translate-view.component.scss"],
   standalone: true,
-  imports: [CommonModule, FormsModule],
+  imports: [CommonModule, FormsModule, SkeletonModule, TooltipModule, ButtonModule, MultiSelectModule, CarouselModule, InputGroupModule, InputGroupAddonModule],
 })
 export class TranslateViewComponent implements OnInit {
   translatedText = "";

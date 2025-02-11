@@ -8,12 +8,19 @@ import { PageFacadeService } from '../../page-facade.service';
 import {LanguageArrayGlobalService} from "../language-array-global.service";
 import { AuthService } from 'src/app/Auth/auth.service';
 import { CommonModule } from '@angular/common';
+import { SkeletonModule } from 'primeng/skeleton';
+import { TooltipModule } from 'primeng/tooltip';
+import { ButtonModule } from 'primeng/button';
+import { MultiSelectModule } from 'primeng/multiselect';
+import { CarouselModule } from 'primeng/carousel';
+import { InputGroupModule } from 'primeng/inputgroup';
+import { InputGroupAddonModule } from 'primeng/inputgroupaddon';
 @Component({
     selector: 'uni-levels',
     templateUrl: './levels.component.html',
     styleUrls: ['./levels.component.scss'],
     standalone: true,
-    imports: [CommonModule]
+    imports: [CommonModule, SkeletonModule, TooltipModule, ButtonModule, MultiSelectModule, CarouselModule, InputGroupModule, InputGroupAddonModule]
 })
 export class LevelsComponent implements OnInit {
 

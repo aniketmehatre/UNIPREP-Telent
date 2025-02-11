@@ -16,12 +16,19 @@ import { ReadQuestion } from "../../../@Models/read-question.model";
 import { LanguageArrayGlobalService } from "../language-array-global.service";
 import { DialogModule } from "primeng/dialog";
 import { PaginatorModule } from "primeng/paginator";
+import { SkeletonModule } from "primeng/skeleton";  
+import { TooltipModule } from "primeng/tooltip";
+import { ButtonModule } from "primeng/button";
+import { MultiSelectModule } from "primeng/multiselect";
+import { CarouselModule } from "primeng/carousel";
+import { InputGroupModule } from "primeng/inputgroup";
+import { InputGroupAddonModule } from "primeng/inputgroupaddon";
 @Component({
   selector: "uni-question-list",
   templateUrl: "./question-list.component.html",
   styleUrls: ["./question-list.component.scss"],
   standalone: true,
-  imports: [CommonModule, DialogModule, PaginatorModule],
+  imports: [CommonModule, DialogModule, PaginatorModule, SkeletonModule, TooltipModule, ButtonModule, MultiSelectModule, CarouselModule, InputGroupModule, InputGroupAddonModule],
 })
 export class QuestionListComponent implements OnInit {
   jsonData: any = [

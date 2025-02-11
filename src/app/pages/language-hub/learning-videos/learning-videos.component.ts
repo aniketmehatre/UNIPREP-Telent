@@ -9,13 +9,20 @@ import { DomSanitizer } from "@angular/platform-browser";
 import { LanguageHubService } from "../language-hub.service";
 import { CommonModule } from "@angular/common";
 import { PaginatorModule } from "primeng/paginator";
+import { SkeletonModule } from "primeng/skeleton";
+import { TooltipModule } from "primeng/tooltip";
+import { ButtonModule } from "primeng/button";
+import { MultiSelectModule } from "primeng/multiselect";
+import { CarouselModule } from "primeng/carousel";
+import { InputGroupModule } from "primeng/inputgroup";
+import { InputGroupAddonModule } from "primeng/inputgroupaddon";
 
 @Component({
   selector: "uni-learning-videos",
   templateUrl: "./learning-videos.component.html",
   styleUrls: ["./learning-videos.component.scss"],
   standalone: true,
-  imports: [CommonModule, PaginatorModule],
+  imports: [CommonModule, PaginatorModule, SkeletonModule, TooltipModule, ButtonModule, MultiSelectModule, CarouselModule, InputGroupModule, InputGroupAddonModule],
 })
 export class LearningVideosComponent implements OnInit {
   @ViewChild("videoFrame") videoFrame: ElementRef | undefined;

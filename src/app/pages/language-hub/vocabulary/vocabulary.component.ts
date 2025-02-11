@@ -5,13 +5,20 @@ import { PageFacadeService } from '../../page-facade.service';
 import {Location} from "@angular/common";
 import { LanguageHubService } from '../language-hub.service';
 import { FormsModule } from "@angular/forms";
+import { SkeletonModule } from "primeng/skeleton";
+import { TooltipModule } from "primeng/tooltip";
+import { ButtonModule } from "primeng/button";
+import { MultiSelectModule } from "primeng/multiselect";
+import { CarouselModule } from "primeng/carousel";
+import { InputGroupModule } from "primeng/inputgroup";
+import { InputGroupAddonModule } from "primeng/inputgroupaddon";
 
 @Component({
     selector: 'app-vocabulary',
     templateUrl: './vocabulary.component.html',
     styleUrls: ['./vocabulary.component.scss'],
     standalone: true,
-    imports: [CommonModule,FormsModule]
+    imports: [CommonModule,FormsModule, SkeletonModule, TooltipModule, ButtonModule, MultiSelectModule, CarouselModule, InputGroupModule, InputGroupAddonModule]
 })
 export class VocabularyComponent implements OnInit {
   alphabet: string[] = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'.split('');

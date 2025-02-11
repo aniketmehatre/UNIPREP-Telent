@@ -7,12 +7,19 @@ import { PageFacadeService } from "../../page-facade.service";
 import { LanguageArrayGlobalService } from "../language-array-global.service";
 import { AuthService } from "src/app/Auth/auth.service";
 import { PaginatorModule } from "primeng/paginator";
+import { SkeletonModule } from "primeng/skeleton";
+import { TooltipModule } from "primeng/tooltip";
+import { ButtonModule } from "primeng/button";
+import { MultiSelectModule } from "primeng/multiselect";
+import { CarouselModule } from "primeng/carousel";
+import { InputGroupModule } from "primeng/inputgroup";
+import { InputGroupAddonModule } from "primeng/inputgroupaddon";
 @Component({
   selector: "uni-language-list",
   templateUrl: "./language-list.component.html",
   styleUrls: ["./language-list.component.scss"],
   standalone: true,
-  imports: [CommonModule, PaginatorModule],
+  imports: [CommonModule, PaginatorModule, SkeletonModule, TooltipModule, ButtonModule, MultiSelectModule, CarouselModule, InputGroupModule, InputGroupAddonModule],
 })
 export class LanguageListComponent implements OnInit {
   isSkeletonVisible: boolean = true;

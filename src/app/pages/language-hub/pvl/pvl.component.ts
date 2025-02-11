@@ -7,13 +7,20 @@ import { PageFacadeService } from "../../page-facade.service";
 import { AuthService } from "src/app/Auth/auth.service";
 import { LanguageArrayGlobalService } from "../language-array-global.service";
 import {Location} from "@angular/common";
+import { SkeletonModule } from "primeng/skeleton";
+import { TooltipModule } from "primeng/tooltip";
+import { ButtonModule } from "primeng/button";
+import { MultiSelectModule } from "primeng/multiselect";
+import { CarouselModule } from "primeng/carousel";
+import { InputGroupModule } from "primeng/inputgroup";
+import { InputGroupAddonModule } from "primeng/inputgroupaddon";
 
 @Component({
     selector: "app-pvl",
     templateUrl: "./pvl.component.html",
     styleUrls: ["./pvl.component.scss"],
     standalone: true,
-    imports: [CommonModule]
+    imports: [CommonModule, SkeletonModule, TooltipModule, ButtonModule, MultiSelectModule, CarouselModule, InputGroupModule, InputGroupAddonModule]
 })
 export class PvlComponent implements OnInit {
   isSkeletonVisible: boolean = true;

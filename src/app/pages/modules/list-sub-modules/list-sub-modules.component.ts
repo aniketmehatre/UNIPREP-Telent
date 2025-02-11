@@ -14,13 +14,18 @@ import { CommonModule } from '@angular/common';
 import { DialogModule } from 'primeng/dialog';
 import { CarouselModule } from 'primeng/carousel';
 import { TooltipModule } from 'primeng/tooltip';
+import { SkeletonModule } from 'primeng/skeleton';
+import { ButtonModule } from 'primeng/button';
+import { MultiSelectModule } from 'primeng/multiselect';
+import { InputGroupModule } from 'primeng/inputgroup';
+import { InputGroupAddonModule } from 'primeng/inputgroupaddon';
 @Component({
     selector: 'uni-list-sub-modules',
     templateUrl: './list-sub-modules.component.html',
     styleUrls: ['./list-sub-modules.component.scss'],
     providers: [ConfirmationService],
     standalone: true,
-    imports: [CommonModule, DialogModule, CarouselModule,TooltipModule]
+    imports: [CommonModule, DialogModule, CarouselModule,TooltipModule, SkeletonModule, ButtonModule, MultiSelectModule, InputGroupModule, InputGroupAddonModule]
 })
 export class ListSubModulesComponent implements OnInit {
     subModules$!: Observable<ModuleListSub[]>;

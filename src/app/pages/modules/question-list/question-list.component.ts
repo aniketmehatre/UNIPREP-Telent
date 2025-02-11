@@ -1,874 +1,842 @@
-import {
-  ChangeDetectorRef,
-  Component,
-  OnInit,
-  ViewChild,
-  ElementRef,
-  HostListener, PipeTransform, Pipe,
-} from "@angular/core";
-import { Observable } from "rxjs";
-import { ReadQuestion } from "../../../@Models/read-question.model";
-import { MenuItem, MessageService } from "primeng/api";
-import { ModuleServiceService } from "../../module-store/module-service.service";
-import { ModuleStoreService } from "../../module-store/module-store.service";
-import { DataService } from "../../../data.service";
-import {ActivatedRoute, NavigationEnd, Router} from "@angular/router";
-import { Location } from "@angular/common";
-import { DomSanitizer, SafeResourceUrl, Meta, Title } from "@angular/platform-browser";
-import { Carousel } from "primeng/carousel";
-import { AuthService } from "src/app/Auth/auth.service";
-import { NgxUiLoaderService } from "ngx-ui-loader";
-import { PageFacadeService } from "../../page-facade.service";
-import { LocationService } from "src/app/location.service";
-import {MarkdownService} from "ngx-markdown";
-import { CommonModule } from '@angular/common';
-import { DialogModule } from 'primeng/dialog';
-import { CardModule } from "primeng/card";
-import { PaginatorModule } from "primeng/paginator";
+import { ChangeDetectorRef, Component, OnInit, ViewChild, ElementRef, HostListener, PipeTransform, Pipe } from "@angular/core"
+import { Observable } from "rxjs"
+import { ReadQuestion } from "../../../@Models/read-question.model"
+import { MenuItem, MessageService } from "primeng/api"
+import { ModuleServiceService } from "../../module-store/module-service.service"
+import { ModuleStoreService } from "../../module-store/module-store.service"
+import { DataService } from "../../../data.service"
+import { ActivatedRoute, NavigationEnd, Router } from "@angular/router"
+import { Location } from "@angular/common"
+import { DomSanitizer, SafeResourceUrl, Meta, Title } from "@angular/platform-browser"
+import { Carousel } from "primeng/carousel"
+import { AuthService } from "src/app/Auth/auth.service"
+import { NgxUiLoaderService } from "ngx-ui-loader"
+import { PageFacadeService } from "../../page-facade.service"
+import { LocationService } from "src/app/location.service"
+import { MarkdownService } from "ngx-markdown"
+import { CommonModule } from "@angular/common"
+import { DialogModule } from "primeng/dialog"
+import { CardModule } from "primeng/card"
+import { PaginatorModule } from "primeng/paginator"
+import { SkeletonModule } from "primeng/skeleton"
+import { TooltipModule } from "primeng/tooltip"
+import { ButtonModule } from "primeng/button"
+import { MultiSelectModule } from "primeng/multiselect"
+import { CarouselModule } from "primeng/carousel"
+import { InputGroupModule } from "primeng/inputgroup"
+import { InputGroupAddonModule } from "primeng/inputgroupaddon"
 
 @Component({
-    selector: "uni-question-list",
-    templateUrl: "./question-list.component.html",
-    styleUrls: ["./question-list.component.scss"],
-    providers: [MarkdownService],
-    standalone: true,
-    imports: [CommonModule, DialogModule, CardModule, PaginatorModule]
+	selector: "uni-question-list",
+	templateUrl: "./question-list.component.html",
+	styleUrls: ["./question-list.component.scss"],
+	providers: [MarkdownService],
+	standalone: true,
+	imports: [CommonModule, DialogModule, CardModule, PaginatorModule, SkeletonModule, TooltipModule, ButtonModule, MultiSelectModule, CarouselModule, InputGroupModule, InputGroupAddonModule],
 })
 export class QuestionListComponent implements OnInit {
-  @ViewChild("carouselVideoElm") carouselVideoElm: any;
-  @ViewChild("carouselRefElm") carouselRefElm: any;
-  @ViewChild("carouselPopupVideoElm") carouselPopupVideoElm: any;
-  @ViewChild("carouselPopupRefElm") carouselPopupRefElm: any;
-  @ViewChild("videoLinksContainer") videoLinksContainer!: ElementRef;
-  @ViewChild("refLinksContainer") refLinksContainer!: ElementRef;
-  @ViewChild('videoFrame') videoFrame: ElementRef | undefined;
-  readQue$!: Observable<ReadQuestion[]>;
-  selectedQuestion: number = 0;
-  selectedQuestionId: number = 0;
-  selectedModule: number = 0;
-  selectedSubModule: number = 0;
-  positionNumber: number = 0;
-  data: any;
-  breadCrumb: MenuItem[] = [];
-  isQuestionAnswerVisible: boolean = false;
-  isRecommendedLinksVisible: boolean = false;
-  isRecommendedVideoVisible: boolean = false;
-  isReviewedByVisible: boolean = false;
-  isAnswerDialogVisiblePrev: boolean = false;
-  isAnswerDialogVisibleNext: boolean = false;
-  responsiveOptions: any[] = [];
-  message: string = "";
-  moduleName: any;
-  subModuleId: any;
-  videoLinks: any[] = [];
-  refLink: any[] = [];
-  countryId: any;
-  selectedQuestionData: any;
-  popUpItemVideoLink: any;
-  reviewedByOrgList: any;
-  currentSubModuleSlug: any;
-  currentModuleName: any;
-  currentModuleId: any;
-  currentApiSlug: any;
-  tooltip: any;
-  questionListData: any[] = [];
-  pageno: number = 1;
-  perpage: number = 25;
-  totalQuestionCount: any;
-  oneQuestionContent: any;
-  restrict: boolean = false;
-  planExpired: boolean = false;
-  isSkeletonVisible: boolean = true;
-  showVideoPopup: boolean = false;
-  selectedVideoLink: any | null = null;
-  allDataSet: any[] = [];
-  countryFlag: any
-  sharedCountry: number = 0;
-  currentModuleSlug: any;
-  quizpercentage: any = 0;
-  howItWorksVideoLink: string = "";
-  quizmoduleselectcountryidsetzero:any=0;
-  @ViewChild('op', { static: false, read: ElementRef }) elRef: any;
-  ehitlabelIsShow:boolean=true;
-  imagewhitlabeldomainname:any
-  orgnamewhitlabel:any;
-  orglogowhitelabel:any;
-  homeCountryLogo: any
-  learningHubMainModuleName: any
-  learningHubQuizBreadCrumb: any
-  constructor(
-    private moduleListService: ModuleServiceService,
-    private mService: ModuleServiceService,
-    private moduleStoreService: ModuleStoreService,
-    private dataService: DataService,
-    private route: ActivatedRoute,
-    private _location: Location,
-    private _sanitizer: DomSanitizer,
-    private router: Router, private ngxService: NgxUiLoaderService,
-    private authService: AuthService,
-    private sanitizer: DomSanitizer,
-    private meta: Meta,
-    private toast: MessageService,
-    private pageFacade: PageFacadeService,
-    private locationService: LocationService,
-    private title: Title,
-  ) {
-    Carousel.prototype.changePageOnTouch = (e, diff) => { }
-    Carousel.prototype.onTouchMove = () => { };
+	@ViewChild("carouselVideoElm") carouselVideoElm: any
+	@ViewChild("carouselRefElm") carouselRefElm: any
+	@ViewChild("carouselPopupVideoElm") carouselPopupVideoElm: any
+	@ViewChild("carouselPopupRefElm") carouselPopupRefElm: any
+	@ViewChild("videoLinksContainer") videoLinksContainer!: ElementRef
+	@ViewChild("refLinksContainer") refLinksContainer!: ElementRef
+	@ViewChild("videoFrame") videoFrame: ElementRef | undefined
+	readQue$!: Observable<ReadQuestion[]>
+	selectedQuestion: number = 0
+	selectedQuestionId: number = 0
+	selectedModule: number = 0
+	selectedSubModule: number = 0
+	positionNumber: number = 0
+	data: any
+	breadCrumb: MenuItem[] = []
+	isQuestionAnswerVisible: boolean = false
+	isRecommendedLinksVisible: boolean = false
+	isRecommendedVideoVisible: boolean = false
+	isReviewedByVisible: boolean = false
+	isAnswerDialogVisiblePrev: boolean = false
+	isAnswerDialogVisibleNext: boolean = false
+	responsiveOptions: any[] = []
+	message: string = ""
+	moduleName: any
+	subModuleId: any
+	videoLinks: any[] = []
+	refLink: any[] = []
+	countryId: any
+	selectedQuestionData: any
+	popUpItemVideoLink: any
+	reviewedByOrgList: any
+	currentSubModuleSlug: any
+	currentModuleName: any
+	currentModuleId: any
+	currentApiSlug: any
+	tooltip: any
+	questionListData: any[] = []
+	pageno: number = 1
+	perpage: number = 25
+	totalQuestionCount: any
+	oneQuestionContent: any
+	restrict: boolean = false
+	planExpired: boolean = false
+	isSkeletonVisible: boolean = true
+	showVideoPopup: boolean = false
+	selectedVideoLink: any | null = null
+	allDataSet: any[] = []
+	countryFlag: any
+	sharedCountry: number = 0
+	currentModuleSlug: any
+	quizpercentage: any = 0
+	howItWorksVideoLink: string = ""
+	quizmoduleselectcountryidsetzero: any = 0
+	@ViewChild("op", { static: false, read: ElementRef }) elRef: any
+	ehitlabelIsShow: boolean = true
+	imagewhitlabeldomainname: any
+	orgnamewhitlabel: any
+	orglogowhitelabel: any
+	homeCountryLogo: any
+	learningHubMainModuleName: any
+	learningHubQuizBreadCrumb: any
+	constructor(private moduleListService: ModuleServiceService, private mService: ModuleServiceService, private moduleStoreService: ModuleStoreService, private dataService: DataService, private route: ActivatedRoute, private _location: Location, private _sanitizer: DomSanitizer, private router: Router, private ngxService: NgxUiLoaderService, private authService: AuthService, private sanitizer: DomSanitizer, private meta: Meta, private toast: MessageService, private pageFacade: PageFacadeService, private locationService: LocationService, private title: Title) {
+		Carousel.prototype.changePageOnTouch = (e, diff) => {}
+		Carousel.prototype.onTouchMove = () => {}
+	}
 
-  }
+	loopRange = Array.from({ length: 24 })
+		.fill(0)
+		.map((_, index) => index)
+	ngOnInit(): void {
+		this.locationService.getImage().subscribe((imageUrl) => {
+			this.orglogowhitelabel = imageUrl
+		})
+		this.locationService.getOrgName().subscribe((orgname) => {
+			this.orgnamewhitlabel = orgname
+		})
+		this.imagewhitlabeldomainname = window.location.hostname
+		if (this.imagewhitlabeldomainname === "dev-student.uniprep.ai" || this.imagewhitlabeldomainname === "uniprep.ai" || this.imagewhitlabeldomainname === "localhost") {
+			this.ehitlabelIsShow = true
+		} else {
+			this.ehitlabelIsShow = false
+		}
 
-  loopRange = Array.from({ length: 24 }).fill(0).map((_, index) => index);
-  ngOnInit(): void {
-    this.locationService.getImage().subscribe(imageUrl => {
-      this.orglogowhitelabel = imageUrl;
-    });
-    this.locationService.getOrgName().subscribe(orgname => {
-      this.orgnamewhitlabel = orgname;
-    });
-  this.imagewhitlabeldomainname=window.location.hostname;
-  if (this.imagewhitlabeldomainname === "dev-student.uniprep.ai" || this.imagewhitlabeldomainname === "uniprep.ai" || this.imagewhitlabeldomainname === "localhost") {
-    this.ehitlabelIsShow=true;
-  }else{
-    this.ehitlabelIsShow=false;
-  }
- 
-    localStorage.setItem("modalcountryid",this.quizmoduleselectcountryidsetzero);
-    this.countryId = Number(localStorage.getItem('countryId'));
-    this.sharedCountry = Number(localStorage.getItem('countryId'));
-    this.route.params.subscribe((params) => {
-      let socialShare: any = document.getElementById("socialSharingList");
-      if (socialShare) {
-        socialShare.style.display = "none";
-      }
-      this.loadInit();
-      //this.getSubmoduleName(this.countryId);
-    });
-    this.dataService.homeCountryFlagSource.subscribe(data => {
-      this.homeCountryLogo = data; console.log( this.homeCountryLogo,"data" );
-      
-           
-    });
-    this.dataService.countryFlagSource.subscribe(data => {
-      this.countryFlag = data;
-    });
+		localStorage.setItem("modalcountryid", this.quizmoduleselectcountryidsetzero)
+		this.countryId = Number(localStorage.getItem("countryId"))
+		this.sharedCountry = Number(localStorage.getItem("countryId"))
+		this.route.params.subscribe((params) => {
+			let socialShare: any = document.getElementById("socialSharingList")
+			if (socialShare) {
+				socialShare.style.display = "none"
+			}
+			this.loadInit()
+			//this.getSubmoduleName(this.countryId);
+		})
+		this.dataService.homeCountryFlagSource.subscribe((data) => {
+			this.homeCountryLogo = data
+			console.log(this.homeCountryLogo, "data")
+		})
+		this.dataService.countryFlagSource.subscribe((data) => {
+			this.countryFlag = data
+		})
 
-    this.dataService.countryId.subscribe((data) => {
-      if (this.countryId != data) {
-        let countryName: any
-        this.currentSubModuleSlug = this.route.snapshot.paramMap.get("module_name");
-        this.dataService.countryName.subscribe((data) => {
-          countryName = data;
-        });
-        switch (this.currentSubModuleSlug) {
-          case "pre-admission":
-            this.currentModuleId = 1;
-            this.currentModuleName = "Pre-Admission";
-            this.currentApiSlug = "getpreapplicationsubmoduleqcount";
-            this.howItWorksVideoLink = "https://www.youtube.com/embed/Kae2KQnmWko?si=vjUQ7eyurP2Mbg-n";
-            break;
-          case "travel-and-tourism":
-            this.currentModuleId = 7;
-            this.currentModuleName = "Travel-and-Tourism";
-            this.currentApiSlug = "getpostapplicationsubmoduleqcount";
-            this.howItWorksVideoLink = "https://www.youtube.com/embed/s35R5o7cOOU?si=DvR3LyQ1C8uRaAN3";
-            break;
-          case "post-admission":
-            this.currentModuleId = 3;
-            this.currentModuleName = "Post-Admission";
-            this.currentApiSlug = "getpostadmissionsubmoduleqcount";
-            this.howItWorksVideoLink = "https://www.youtube.com/embed/Q9-cUbwFNZI?si=LIdazrVO_qAQKiFk";
-            break;
-          case "career-hub":
-            this.currentModuleId = 4;
-            this.currentModuleName = "Career Hub";
-            this.currentApiSlug = "getcareerhubsubmoduleqcount";
-            this.howItWorksVideoLink = "https://www.youtube.com/embed/7ogHhrekZjE?si=NADxga9qB4_RkCtw";
-            break;
-          case "university":
-            this.currentModuleId = 5;
-            this.currentModuleName = "University";
-            this.currentApiSlug = "getuniversitysubmoduleqcount";
-            this.howItWorksVideoLink = "https://www.youtube.com/embed/Bsg1CTnVmYc?si=cWYQIexHAoeXvsyR";
-            this.tooltip = "";
-            break;
-          case "skill-mastery":
-            this.currentModuleId = 10;
-            this.currentModuleName = "Skill Mastery";
-            this.currentApiSlug = "";
-            this.howItWorksVideoLink = "https://www.youtube.com/embed/dHhq2xrBn5s?si=2dMsQcwwOY17dDHi";
-            this.tooltip = "";
-            break;
-          case 'k12-category':
-            this.currentModuleId = 14;
-            this.currentModuleName = 'K12';
-            this.currentApiSlug = 'StudentsSubmoduleQuestions';
-            this.tooltip = "";
-            break;
-          default:
-            this.currentModuleId = 6;
-            this.currentModuleName = "Life In " + countryName;
-            this.currentApiSlug = "getlifeincountrysubmoduleqcount";
-            this.howItWorksVideoLink = "https://www.youtube.com/embed/O35ypi2WJVI?si=CSxuFC1Zma9gk8SG";
-            this.tooltip = "";
-            break;
-        }
-        this.subModuleId = this.route.snapshot.paramMap.get("id");
-        if(!this.subModuleId.contains('&')){
-          const currentUrl = this.router.url; // Get the current URL
-          if (currentUrl.includes('pages/module')) {
-            this.router.navigateByUrl(`/pages/modules/${this.currentSubModuleSlug}`);
-          }
-        }
-        //this.loadInit();
-      }
-      localStorage.setItem('countryId', data);
-     // this.questionListData = [];
-      //this.isSkeletonVisible = true
-      //this.loadInit();
-    });
-    this.tooltip = "Questions related to the application process are answered";
-    this.checkplanExpire();
-  }
+		this.dataService.countryId.subscribe((data) => {
+			if (this.countryId != data) {
+				let countryName: any
+				this.currentSubModuleSlug = this.route.snapshot.paramMap.get("module_name")
+				this.dataService.countryName.subscribe((data) => {
+					countryName = data
+				})
+				switch (this.currentSubModuleSlug) {
+					case "pre-admission":
+						this.currentModuleId = 1
+						this.currentModuleName = "Pre-Admission"
+						this.currentApiSlug = "getpreapplicationsubmoduleqcount"
+						this.howItWorksVideoLink = "https://www.youtube.com/embed/Kae2KQnmWko?si=vjUQ7eyurP2Mbg-n"
+						break
+					case "travel-and-tourism":
+						this.currentModuleId = 7
+						this.currentModuleName = "Travel-and-Tourism"
+						this.currentApiSlug = "getpostapplicationsubmoduleqcount"
+						this.howItWorksVideoLink = "https://www.youtube.com/embed/s35R5o7cOOU?si=DvR3LyQ1C8uRaAN3"
+						break
+					case "post-admission":
+						this.currentModuleId = 3
+						this.currentModuleName = "Post-Admission"
+						this.currentApiSlug = "getpostadmissionsubmoduleqcount"
+						this.howItWorksVideoLink = "https://www.youtube.com/embed/Q9-cUbwFNZI?si=LIdazrVO_qAQKiFk"
+						break
+					case "career-hub":
+						this.currentModuleId = 4
+						this.currentModuleName = "Career Hub"
+						this.currentApiSlug = "getcareerhubsubmoduleqcount"
+						this.howItWorksVideoLink = "https://www.youtube.com/embed/7ogHhrekZjE?si=NADxga9qB4_RkCtw"
+						break
+					case "university":
+						this.currentModuleId = 5
+						this.currentModuleName = "University"
+						this.currentApiSlug = "getuniversitysubmoduleqcount"
+						this.howItWorksVideoLink = "https://www.youtube.com/embed/Bsg1CTnVmYc?si=cWYQIexHAoeXvsyR"
+						this.tooltip = ""
+						break
+					case "skill-mastery":
+						this.currentModuleId = 10
+						this.currentModuleName = "Skill Mastery"
+						this.currentApiSlug = ""
+						this.howItWorksVideoLink = "https://www.youtube.com/embed/dHhq2xrBn5s?si=2dMsQcwwOY17dDHi"
+						this.tooltip = ""
+						break
+					case "k12-category":
+						this.currentModuleId = 14
+						this.currentModuleName = "K12"
+						this.currentApiSlug = "StudentsSubmoduleQuestions"
+						this.tooltip = ""
+						break
+					default:
+						this.currentModuleId = 6
+						this.currentModuleName = "Life In " + countryName
+						this.currentApiSlug = "getlifeincountrysubmoduleqcount"
+						this.howItWorksVideoLink = "https://www.youtube.com/embed/O35ypi2WJVI?si=CSxuFC1Zma9gk8SG"
+						this.tooltip = ""
+						break
+				}
+				this.subModuleId = this.route.snapshot.paramMap.get("id")
+				if (!this.subModuleId.contains("&")) {
+					const currentUrl = this.router.url // Get the current URL
+					if (currentUrl.includes("pages/module")) {
+						this.router.navigateByUrl(`/pages/modules/${this.currentSubModuleSlug}`)
+					}
+				}
+				//this.loadInit();
+			}
+			localStorage.setItem("countryId", data)
+			// this.questionListData = [];
+			//this.isSkeletonVisible = true
+			//this.loadInit();
+		})
+		this.tooltip = "Questions related to the application process are answered"
+		this.checkplanExpire()
+	}
 
-  loadInit() {
-    this.questionListData = [];
-    this.countryId = Number(localStorage.getItem("countryId"));
-    let countryName: any;
-    this.subModuleId = this.route.snapshot.paramMap.get("id");
-    let question_id = this.route.snapshot.paramMap.get("question_id");
-    if (question_id) {
-      //this.updateMetaTags();
-      // let url = this.subModuleId.split("$");
-      localStorage.setItem('questionId', question_id);
-      this.subModuleId = this.subModuleId;
-    }
-    this.currentSubModuleSlug = this.route.snapshot.paramMap.get("module_name");
-    this.dataService.countryName.subscribe((data) => {
-      countryName = data;
-    });
-    //this.checkplanExpire();
-    switch (this.currentSubModuleSlug) {
-      case "pre-admission":
-        this.currentModuleId = 1;
-        this.currentModuleName = "Pre-Admission";
-        this.currentApiSlug = "getpreapplicationsubmoduleqcount";
-        this.howItWorksVideoLink = "https://www.youtube.com/embed/aR06d8kMeio?si=-5Ivte_5ZgdcndS-";
-        this.currentModuleSlug = "pre-admission"
-        break;
-      case "travel-and-tourism":
-        this.currentModuleId = 7;
-        this.currentModuleName = "Travel-and-Tourism";
-        this.currentApiSlug = "getpostapplicationsubmoduleqcount";
-        this.howItWorksVideoLink = "https://www.youtube.com/embed/PZERtrH1zh8?si=zKQ80B27zz6V9-mk";
-        this.currentModuleSlug = "travel-and-tourism"
-        break;
-      case "post-admission":
-        this.currentModuleId = 3;
-        this.currentModuleName = "Post-Admission";
-        this.currentApiSlug = "getpostadmissionsubmoduleqcount";
-        this.howItWorksVideoLink = "https://www.youtube.com/embed/g_KWlnmOEtc?si=KFpkpjdYMwkCIOV1";
-        this.currentModuleSlug = "post-admission"
-        break;
-      case "career-hub":
-        this.currentModuleId = 4;
-        this.currentModuleName = "Career Hub";
-        this.currentApiSlug = "getcareerhubsubmoduleqcount";
-        this.howItWorksVideoLink = "https://www.youtube.com/embed/dBNASRavBk0?si=M2WtoOTl3ahORz8V";
-        this.currentModuleSlug = "career-hub"
-        break;
-      case "university":
-        this.currentModuleId = 5;
-        this.currentModuleName = "University";
-        this.currentApiSlug = "getuniversitysubmoduleqcount";
-        this.howItWorksVideoLink = "https://www.youtube.com/embed/6mukBsCTgtw?si=aFBa9JMWI2k2QuzP";
-        this.currentModuleSlug = "university"
-        this.tooltip = "";
-        break;
-      case "learning-hub":
-        this.currentModuleId = 8;
-        this.learningHubMainModuleName = localStorage.getItem('learningHubMainModuleName')
-        this.learningHubQuizBreadCrumb = this.learningHubMainModuleName +' -> '+this.moduleName
-        localStorage.setItem('learningHubQuizBreadCrumb', this.learningHubQuizBreadCrumb)
-        this.currentModuleName = "Learning Hub";
-        this.currentApiSlug = "getlearninghubsubmoduleqcount";
-        this.howItWorksVideoLink = "https://www.youtube.com/embed/prvvJsgnya8?si=QSAeOB9qPMF-ya-D";
-        this.currentModuleSlug = "learning-hub"
-        break;
-      case "skill-mastery":
-        this.currentModuleId = 10;
-        this.currentModuleName = "Skill Mastery";
-        this.currentApiSlug = "getskillmasterysubmoduleqcount";
-        this.howItWorksVideoLink = "https://www.youtube.com/embed/mzyfeeL1b4Y?si=SYUFI6bW4xU-QZbT";
-        this.currentModuleSlug = "skill-mastery"
-        break;
-      case 'k12-category':
-        this.currentModuleId = 14;
-        this.currentModuleName = 'K12 Academy';
-        this.currentApiSlug = 'StudentsSubmoduleQuestions';
-        this.howItWorksVideoLink = "https://www.youtube.com/embed/Zh4pPEZ160c?si=i8vkRTgh70TuoqDn";
-        this.currentModuleSlug = "k12-category"
-        this.tooltip = "";
-        break;
-      default:
-        this.currentModuleId = 6;
-        this.currentModuleName = "Life In " + countryName;
-        this.currentApiSlug = "getlifeincountrysubmoduleqcount";
-        this.howItWorksVideoLink = "https://www.youtube.com/embed/7VFZp47tfLU?si=GPLVjR5vKlNno-cZ";
-        this.currentModuleSlug = "life-at-country"
-        this.tooltip = "";
-        break;
-    }
-    // this.getSubmoduleName(this.countryId);
+	loadInit() {
+		this.questionListData = []
+		this.countryId = Number(localStorage.getItem("countryId"))
+		let countryName: any
+		this.subModuleId = this.route.snapshot.paramMap.get("id")
+		let question_id = this.route.snapshot.paramMap.get("question_id")
+		if (question_id) {
+			//this.updateMetaTags();
+			// let url = this.subModuleId.split("$");
+			localStorage.setItem("questionId", question_id)
+			this.subModuleId = this.subModuleId
+		}
+		this.currentSubModuleSlug = this.route.snapshot.paramMap.get("module_name")
+		this.dataService.countryName.subscribe((data) => {
+			countryName = data
+		})
+		//this.checkplanExpire();
+		switch (this.currentSubModuleSlug) {
+			case "pre-admission":
+				this.currentModuleId = 1
+				this.currentModuleName = "Pre-Admission"
+				this.currentApiSlug = "getpreapplicationsubmoduleqcount"
+				this.howItWorksVideoLink = "https://www.youtube.com/embed/aR06d8kMeio?si=-5Ivte_5ZgdcndS-"
+				this.currentModuleSlug = "pre-admission"
+				break
+			case "travel-and-tourism":
+				this.currentModuleId = 7
+				this.currentModuleName = "Travel-and-Tourism"
+				this.currentApiSlug = "getpostapplicationsubmoduleqcount"
+				this.howItWorksVideoLink = "https://www.youtube.com/embed/PZERtrH1zh8?si=zKQ80B27zz6V9-mk"
+				this.currentModuleSlug = "travel-and-tourism"
+				break
+			case "post-admission":
+				this.currentModuleId = 3
+				this.currentModuleName = "Post-Admission"
+				this.currentApiSlug = "getpostadmissionsubmoduleqcount"
+				this.howItWorksVideoLink = "https://www.youtube.com/embed/g_KWlnmOEtc?si=KFpkpjdYMwkCIOV1"
+				this.currentModuleSlug = "post-admission"
+				break
+			case "career-hub":
+				this.currentModuleId = 4
+				this.currentModuleName = "Career Hub"
+				this.currentApiSlug = "getcareerhubsubmoduleqcount"
+				this.howItWorksVideoLink = "https://www.youtube.com/embed/dBNASRavBk0?si=M2WtoOTl3ahORz8V"
+				this.currentModuleSlug = "career-hub"
+				break
+			case "university":
+				this.currentModuleId = 5
+				this.currentModuleName = "University"
+				this.currentApiSlug = "getuniversitysubmoduleqcount"
+				this.howItWorksVideoLink = "https://www.youtube.com/embed/6mukBsCTgtw?si=aFBa9JMWI2k2QuzP"
+				this.currentModuleSlug = "university"
+				this.tooltip = ""
+				break
+			case "learning-hub":
+				this.currentModuleId = 8
+				this.learningHubMainModuleName = localStorage.getItem("learningHubMainModuleName")
+				this.learningHubQuizBreadCrumb = this.learningHubMainModuleName + " -> " + this.moduleName
+				localStorage.setItem("learningHubQuizBreadCrumb", this.learningHubQuizBreadCrumb)
+				this.currentModuleName = "Learning Hub"
+				this.currentApiSlug = "getlearninghubsubmoduleqcount"
+				this.howItWorksVideoLink = "https://www.youtube.com/embed/prvvJsgnya8?si=QSAeOB9qPMF-ya-D"
+				this.currentModuleSlug = "learning-hub"
+				break
+			case "skill-mastery":
+				this.currentModuleId = 10
+				this.currentModuleName = "Skill Mastery"
+				this.currentApiSlug = "getskillmasterysubmoduleqcount"
+				this.howItWorksVideoLink = "https://www.youtube.com/embed/mzyfeeL1b4Y?si=SYUFI6bW4xU-QZbT"
+				this.currentModuleSlug = "skill-mastery"
+				break
+			case "k12-category":
+				this.currentModuleId = 14
+				this.currentModuleName = "K12 Academy"
+				this.currentApiSlug = "StudentsSubmoduleQuestions"
+				this.howItWorksVideoLink = "https://www.youtube.com/embed/Zh4pPEZ160c?si=i8vkRTgh70TuoqDn"
+				this.currentModuleSlug = "k12-category"
+				this.tooltip = ""
+				break
+			default:
+				this.currentModuleId = 6
+				this.currentModuleName = "Life In " + countryName
+				this.currentApiSlug = "getlifeincountrysubmoduleqcount"
+				this.howItWorksVideoLink = "https://www.youtube.com/embed/7VFZp47tfLU?si=GPLVjR5vKlNno-cZ"
+				this.currentModuleSlug = "life-at-country"
+				this.tooltip = ""
+				break
+		}
+		// this.getSubmoduleName(this.countryId);
 
-    this.dataService.currentMessage.subscribe(
-      (message) => (this.message = message)
-    );
-    this.breadCrumb = [
-      {
-        label: this.currentModuleName,
-        command: (event) => this.gotomodulebreadcrump(),
-      },
-      { label: this.moduleName, command: (event) => this.goToHomebreadcrump() },
-      { label: "Question" },
-    ];
+		this.dataService.currentMessage.subscribe((message) => (this.message = message))
+		this.breadCrumb = [
+			{
+				label: this.currentModuleName,
+				command: (event) => this.gotomodulebreadcrump(),
+			},
+			{ label: this.moduleName, command: (event) => this.goToHomebreadcrump() },
+			{ label: "Question" },
+		]
 
-    this.responsiveOptions = [
-      {
-        breakpoint: '1024px',
-        numVisible: 3,
-        numScroll: 3,
-      },
-      {
-        breakpoint: '768px',
-        numVisible: 2,
-        numScroll: 2,
-      },
-      {
-        breakpoint: '560px',
-        numVisible: 1,
-        numScroll: 1,
-      },
-    ];
+		this.responsiveOptions = [
+			{
+				breakpoint: "1024px",
+				numVisible: 3,
+				numScroll: 3,
+			},
+			{
+				breakpoint: "768px",
+				numVisible: 2,
+				numScroll: 2,
+			},
+			{
+				breakpoint: "560px",
+				numVisible: 1,
+				numScroll: 1,
+			},
+		]
 
-    //this.listQuestion$ = this.moduleListService.questionList$();
-    let data = {
-      countryId: this.sharedCountry != 0 ? this.sharedCountry : this.countryId,
-      moduleId: this.currentModuleId,
-      submoduleId: Number(this.subModuleId),
-      page: this.pageno,
-      perpage: this.perpage,
-    };
+		//this.listQuestion$ = this.moduleListService.questionList$();
+		let data = {
+			countryId: this.sharedCountry != 0 ? this.sharedCountry : this.countryId,
+			moduleId: this.currentModuleId,
+			submoduleId: Number(this.subModuleId),
+			page: this.pageno,
+			perpage: this.perpage,
+		}
 
-    if (this.currentModuleId == 8 || this.currentModuleId == 10  || this.currentModuleId == 14) {
-      data.countryId = 0;
-    }
-    this.loadQuestionList(data);
+		if (this.currentModuleId == 8 || this.currentModuleId == 10 || this.currentModuleId == 14) {
+			data.countryId = 0
+		}
+		this.loadQuestionList(data)
 
-    var data1 = {
-      moduleid: this.currentModuleId,
-      countryid: this.currentModuleId == 8 || this.currentModuleId == 10 ? 0 : this.countryId,
-      submoduleid: this.subModuleId,
-    }
-    this.moduleListService.checkModuleQuizCompletion(data1).subscribe((res) => {
-      this.quizpercentage = res.progress
-    })
-  }
+		var data1 = {
+			moduleid: this.currentModuleId,
+			countryid: this.currentModuleId == 8 || this.currentModuleId == 10 ? 0 : this.countryId,
+			submoduleid: this.subModuleId,
+		}
+		this.moduleListService.checkModuleQuizCompletion(data1).subscribe((res) => {
+			this.quizpercentage = res.progress
+		})
+	}
 
-  updateMetaTags(): void {
-    this.title.setTitle('Test question title testing');
-    // Updating an existing meta tag or creating if not present
-    this.meta.updateTag({ name: 'description', content: 'This is a dynamic meta description.' });
-  
-    // Adding a new meta tag
-    this.meta.addTag({ name: 'author', content: 'Angular Developer' });
-  
-    // Updating or adding an Open Graph meta tag
-    this.meta.updateTag({ property: 'og:title', content: 'Dynamic Meta Tag Example' });
-    this.meta.updateTag({ property: 'og:description', content: 'Learn how to dynamically update meta tags in Angular.' });
-  }
-  
+	updateMetaTags(): void {
+		this.title.setTitle("Test question title testing")
+		// Updating an existing meta tag or creating if not present
+		this.meta.updateTag({ name: "description", content: "This is a dynamic meta description." })
 
+		// Adding a new meta tag
+		this.meta.addTag({ name: "author", content: "Angular Developer" })
 
-  loadQuestionList(data: any) {
-    let questionData = { id: localStorage.getItem('questionId') || '' };
-    if (questionData?.id) {
-      data.share_link_question_id = questionData?.id;
-    }
+		// Updating or adding an Open Graph meta tag
+		this.meta.updateTag({ property: "og:title", content: "Dynamic Meta Tag Example" })
+		this.meta.updateTag({ property: "og:description", content: "Learn how to dynamically update meta tags in Angular." })
+	}
 
-      this.mService.studentsSubmoduleQuestions(data).subscribe((data: any) => {
-        this.questionListData = data?.questions;
-        this.isSkeletonVisible = false;
-        this.totalQuestionCount = data?.questioncount;
-        this.allDataSet = data;
-        this.moduleName = data.submodule_name;
-        if (questionData.id) {
-          this.viewOneQuestion(data.questions[0]);
-          localStorage.removeItem('questionId');
-        }
-      });
-  }
-  checkplanExpire(): void {
-      this.authService.getNewUserTimeLeft().subscribe((res) => {
-      let data = res.time_left;
-      let subscription_exists_status = res.subscription_details;
-      if (this.currentModuleId == 8 || this.currentModuleId == 10 ) {   //learning hub restriction
-        if (data.plan === "expired" || data.plan === 'subscription_expired' ||   subscription_exists_status.subscription_plan=="Student") {
-          this.planExpired = true;
-        } else {
-          this.planExpired = false;
-        }
-      }
-      else{
-         if (data.plan === "expired" || data.plan === 'subscription_expired') {
-            this.planExpired = true;
-          } else {
-            this.planExpired = false;
-          }
-        }
-    })
-  }
-  goBack() {
-    if(this.route.snapshot.paramMap.get("id")){
-      this.router.navigateByUrl(`/pages/modules/${this.currentSubModuleSlug}`);
-    }else{
-      this._location.back();
-    }
-  }
+	loadQuestionList(data: any) {
+		let questionData = { id: localStorage.getItem("questionId") || "" }
+		if (questionData?.id) {
+			data.share_link_question_id = questionData?.id
+		}
 
-  readQuestion(data: any) {
-    this.moduleListService.readQuestion(data);
-    this.readQue$ = this.moduleListService.readQuestionMessage$();
-    this.questionListData = this.questionListData.map((item) => {
-      if (item.id === data.questionId) {
-        return { ...item, read: 1 };
-      }
-      return item;
-    });
-  }
+		this.mService.studentsSubmoduleQuestions(data).subscribe((data: any) => {
+			this.questionListData = data?.questions
+			this.isSkeletonVisible = false
+			this.totalQuestionCount = data?.questioncount
+			this.allDataSet = data
+			this.moduleName = data.submodule_name
+			if (questionData.id) {
+				this.viewOneQuestion(data.questions[0])
+				localStorage.removeItem("questionId")
+			}
+		})
+	}
+	checkplanExpire(): void {
+		this.authService.getNewUserTimeLeft().subscribe((res) => {
+			let data = res.time_left
+			let subscription_exists_status = res.subscription_details
+			if (this.currentModuleId == 8 || this.currentModuleId == 10) {
+				//learning hub restriction
+				if (data.plan === "expired" || data.plan === "subscription_expired" || subscription_exists_status.subscription_plan == "Student") {
+					this.planExpired = true
+				} else {
+					this.planExpired = false
+				}
+			} else {
+				if (data.plan === "expired" || data.plan === "subscription_expired") {
+					this.planExpired = true
+				} else {
+					this.planExpired = false
+				}
+			}
+		})
+	}
+	goBack() {
+		if (this.route.snapshot.paramMap.get("id")) {
+			this.router.navigateByUrl(`/pages/modules/${this.currentSubModuleSlug}`)
+		} else {
+			this._location.back()
+		}
+	}
 
-  setPage(page: any) {
-    let pageNum: number = 0;
-    if (page.page < 0) {
-      pageNum = this.data.length;
-    } else {
-      pageNum = page.page;
-    }
-    this.data.filter((res: any) => {
-      if (res.id == pageNum + 1) {
-        this.refLink = res.reflink;
-        this.videoLinks = res.videolink;
-      }
-    });
-    this.positionNumber = pageNum + 1;
-    this.breadCrumb = [
-      {
-        label: this.currentModuleName,
-        command: (event) => this.gotomodulebreadcrump(),
-      },
-      { label: this.moduleName, command: (event) => this.goToHomebreadcrump() },
-      { label: `Question ${pageNum + 1}` },
-    ];
-  }
+	readQuestion(data: any) {
+		this.moduleListService.readQuestion(data)
+		this.readQue$ = this.moduleListService.readQuestionMessage$()
+		this.questionListData = this.questionListData.map((item) => {
+			if (item.id === data.questionId) {
+				return { ...item, read: 1 }
+			}
+			return item
+		})
+	}
 
-  clickPrevious(carousel: any, event: any) {
-    this.isAnswerDialogVisiblePrev = true;
-    this.isAnswerDialogVisibleNext = true;
-    if (this.selectedQuestion <= 1) {
-      this.isAnswerDialogVisiblePrev = false;
-    }
-    if (this.selectedQuestion <= 0) {
-      return;
-    }
-    let selectedData = this.data[this.selectedQuestion - 1];
-    let selectedDataReadAnswer = this.data[this.selectedQuestion];
-    this.selectedQuestionData = selectedData;
-    this.selectedModule = selectedData.module_id;
-    this.selectedSubModule = selectedData.submodule_id;
-    this.selectedQuestionId = selectedData.id;
-    this.selectedQuestion = this.selectedQuestion - 1;
-    this.data.filter((res: any) => {
-      if (res.id == selectedData.id) {
-        this.refLink = res.reflink;
-        this.videoLinks = res.videolink;
-      }
-    });
-    carousel.navBackward(event, this.selectedQuestion);
-    let data = {
-      questionId: selectedData.id,
-      countryId: this.countryId,
-      moduleId: this.currentModuleId,
-      submoduleId: Number(this.subModuleId),
-    };
+	setPage(page: any) {
+		let pageNum: number = 0
+		if (page.page < 0) {
+			pageNum = this.data.length
+		} else {
+			pageNum = page.page
+		}
+		this.data.filter((res: any) => {
+			if (res.id == pageNum + 1) {
+				this.refLink = res.reflink
+				this.videoLinks = res.videolink
+			}
+		})
+		this.positionNumber = pageNum + 1
+		this.breadCrumb = [
+			{
+				label: this.currentModuleName,
+				command: (event) => this.gotomodulebreadcrump(),
+			},
+			{ label: this.moduleName, command: (event) => this.goToHomebreadcrump() },
+			{ label: `Question ${pageNum + 1}` },
+		]
+	}
 
-    this.readQuestion(data);
-  }
+	clickPrevious(carousel: any, event: any) {
+		this.isAnswerDialogVisiblePrev = true
+		this.isAnswerDialogVisibleNext = true
+		if (this.selectedQuestion <= 1) {
+			this.isAnswerDialogVisiblePrev = false
+		}
+		if (this.selectedQuestion <= 0) {
+			return
+		}
+		let selectedData = this.data[this.selectedQuestion - 1]
+		let selectedDataReadAnswer = this.data[this.selectedQuestion]
+		this.selectedQuestionData = selectedData
+		this.selectedModule = selectedData.module_id
+		this.selectedSubModule = selectedData.submodule_id
+		this.selectedQuestionId = selectedData.id
+		this.selectedQuestion = this.selectedQuestion - 1
+		this.data.filter((res: any) => {
+			if (res.id == selectedData.id) {
+				this.refLink = res.reflink
+				this.videoLinks = res.videolink
+			}
+		})
+		carousel.navBackward(event, this.selectedQuestion)
+		let data = {
+			questionId: selectedData.id,
+			countryId: this.countryId,
+			moduleId: this.currentModuleId,
+			submoduleId: Number(this.subModuleId),
+		}
 
-  clickNext(carousel: any, event: any) {
-    this.isAnswerDialogVisiblePrev = true;
-    this.isAnswerDialogVisibleNext = true;
-    if (this.selectedQuestion >= this.data.length - 2) {
-      this.isAnswerDialogVisibleNext = false;
-    }
-    if (this.selectedQuestion >= this.data.length - 1) {
-      return;
-    }
-    let selectedData = this.data[this.selectedQuestion + 1];
-    this.selectedQuestionData = selectedData;
-    this.selectedModule = selectedData.module_id;
-    this.selectedSubModule = selectedData.submodule_id;
-    this.selectedQuestionId = selectedData.id;
-    this.selectedQuestion = this.selectedQuestion + 1;
-    this.data.filter((res: any) => {
-      if (res.id == selectedData.id) {
-        this.refLink = res.reflink;
-        this.videoLinks = res.videolink;
-      }
-    });
-    carousel.navForward(event, this.selectedQuestion);
-    let data = {
-      questionId: selectedData.id,
-      countryId: this.countryId,
-      moduleId: this.currentModuleId,
-      submoduleId: Number(this.subModuleId),
-    };
-    this.readQuestion(data);
-  }
+		this.readQuestion(data)
+	}
 
-  onClickRecommendedVideo(data: any) {
-    this.isRecommendedVideoVisible = true;
-    let url = encodeURIComponent(data[0].link);
-    this.popUpItemVideoLink =
-      this._sanitizer.bypassSecurityTrustResourceUrl(url);
-  }
+	clickNext(carousel: any, event: any) {
+		this.isAnswerDialogVisiblePrev = true
+		this.isAnswerDialogVisibleNext = true
+		if (this.selectedQuestion >= this.data.length - 2) {
+			this.isAnswerDialogVisibleNext = false
+		}
+		if (this.selectedQuestion >= this.data.length - 1) {
+			return
+		}
+		let selectedData = this.data[this.selectedQuestion + 1]
+		this.selectedQuestionData = selectedData
+		this.selectedModule = selectedData.module_id
+		this.selectedSubModule = selectedData.submodule_id
+		this.selectedQuestionId = selectedData.id
+		this.selectedQuestion = this.selectedQuestion + 1
+		this.data.filter((res: any) => {
+			if (res.id == selectedData.id) {
+				this.refLink = res.reflink
+				this.videoLinks = res.videolink
+			}
+		})
+		carousel.navForward(event, this.selectedQuestion)
+		let data = {
+			questionId: selectedData.id,
+			countryId: this.countryId,
+			moduleId: this.currentModuleId,
+			submoduleId: Number(this.subModuleId),
+		}
+		this.readQuestion(data)
+	}
 
-  onClickRecommendedLinks(data: any) {
-    this.isRecommendedLinksVisible = true;
-  }
+	onClickRecommendedVideo(data: any) {
+		this.isRecommendedVideoVisible = true
+		let url = encodeURIComponent(data[0].link)
+		this.popUpItemVideoLink = this._sanitizer.bypassSecurityTrustResourceUrl(url)
+	}
 
-  onClickAsk(question:any) {
-    this.router.navigateByUrl(`/pages/advisor/`+question);
-    //this.dataService.changeChatOpenStatus("open chat window");
-  }
+	onClickRecommendedLinks(data: any) {
+		this.isRecommendedLinksVisible = true
+	}
 
-  openReport() {
-    let data: any = {
-      isVisible: true,
-      moduleId: this.selectedQuestionData.module_id,
-      subModuleId: this.selectedQuestionData.submodule_id,
-      questionId: this.selectedQuestionData.id,
-      from: "module",
-    };
-    if (this.currentModuleId == 8) {
-      data.reporttype = 8;
-    }
-    this.dataService.openReportWindow(data);
-  }
+	onClickAsk(question: any) {
+		this.router.navigateByUrl(`/pages/advisor/` + question)
+		//this.dataService.changeChatOpenStatus("open chat window");
+	}
 
-  goToHome(event: any) {
-    this.isQuestionAnswerVisible = false;
-  }
-  goToHomebreadcrump() {
-    this.isQuestionAnswerVisible = false;
-  }
-  gotomodulebreadcrump() {
-    if (this.currentModuleId == 1) {
-      this.router.navigate(["/pages/modules/pre-admission"]);
-    } else if (this.currentModuleId == 7) {
-      this.router.navigate(["/pages/modules/travel-and-tourism"]);
-    } else if (this.currentModuleId == 3) {
-      this.router.navigate(["/pages/modules/post-admission"]);
-    } else if (this.currentModuleId == 4) {
-      this.router.navigate(["/pages/modules/career-hub"]);
-    } else if (this.currentModuleId == 5) {
-      this.router.navigate(["/pages/modules/university"]);
-    }
-    else if (this.currentModuleId == 8) {
-      this.router.navigate(["/pages/modules/learning-hub"]);
-    } 
-    else if (this.currentModuleId == 10) {
-      this.router.navigate(["/pages/modules/skill-mastery"]);
-    }
-    else if (this.currentModuleId == 14) {
-      this.router.navigate(["/pages/modules/k12"]);
-    }
-    else {
-      this.router.navigate(["/pages/modules/life-at-country"]);
-    }
-  }
+	openReport() {
+		let data: any = {
+			isVisible: true,
+			moduleId: this.selectedQuestionData.module_id,
+			subModuleId: this.selectedQuestionData.submodule_id,
+			questionId: this.selectedQuestionData.id,
+			from: "module",
+		}
+		if (this.currentModuleId == 8) {
+			data.reporttype = 8
+		}
+		this.dataService.openReportWindow(data)
+	}
 
-  reviewBy() {
-    this.reviewedByOrgList = [];
-    this.isReviewedByVisible = true;
-    let request = {
-      question_id: this.selectedQuestionId,
-    };
-    this.moduleStoreService
-      .GetReviewedByOrgLogo(request)
-      .subscribe((response) => {
-        this.reviewedByOrgList = response;
-      });
-  }
+	goToHome(event: any) {
+		this.isQuestionAnswerVisible = false
+	}
+	goToHomebreadcrump() {
+		this.isQuestionAnswerVisible = false
+	}
+	gotomodulebreadcrump() {
+		if (this.currentModuleId == 1) {
+			this.router.navigate(["/pages/modules/pre-admission"])
+		} else if (this.currentModuleId == 7) {
+			this.router.navigate(["/pages/modules/travel-and-tourism"])
+		} else if (this.currentModuleId == 3) {
+			this.router.navigate(["/pages/modules/post-admission"])
+		} else if (this.currentModuleId == 4) {
+			this.router.navigate(["/pages/modules/career-hub"])
+		} else if (this.currentModuleId == 5) {
+			this.router.navigate(["/pages/modules/university"])
+		} else if (this.currentModuleId == 8) {
+			this.router.navigate(["/pages/modules/learning-hub"])
+		} else if (this.currentModuleId == 10) {
+			this.router.navigate(["/pages/modules/skill-mastery"])
+		} else if (this.currentModuleId == 14) {
+			this.router.navigate(["/pages/modules/k12"])
+		} else {
+			this.router.navigate(["/pages/modules/life-at-country"])
+		}
+	}
 
-  paginatepost(event: any) {
-    if (this.planExpired) {
-      this.restrict = true;
-      return;
-    }
-    this.pageno = event.page + 1;
-    this.perpage = event.rows;
-    let data = {
-      countryId: this.currentModuleId == 8 || this.currentModuleId == 10 || this.currentModuleId == 14 ? 0 : Number(localStorage.getItem("countryId")),
-      moduleId: this.currentModuleId,
-      submoduleId: Number(this.subModuleId),
-      page: this.pageno,
-      perpage: this.perpage,
-    };
-    // this.moduleListService.loadQuestionList(data);
-    // this.moduleListService.questionList$().subscribe((data: any) => {
-    //   this.questionListData = data?.questions;
-    //   this.totalQuestionCount = data?.questioncount;
-    // });
-    this.loadQuestionList(data);
-  }
+	reviewBy() {
+		this.reviewedByOrgList = []
+		this.isReviewedByVisible = true
+		let request = {
+			question_id: this.selectedQuestionId,
+		}
+		this.moduleStoreService.GetReviewedByOrgLogo(request).subscribe((response) => {
+			this.reviewedByOrgList = response
+		})
+	}
 
-  selectedQuestionName: any;
-  viewOneQuestion(question: any) {
+	paginatepost(event: any) {
+		if (this.planExpired) {
+			this.restrict = true
+			return
+		}
+		this.pageno = event.page + 1
+		this.perpage = event.rows
+		let data = {
+			countryId: this.currentModuleId == 8 || this.currentModuleId == 10 || this.currentModuleId == 14 ? 0 : Number(localStorage.getItem("countryId")),
+			moduleId: this.currentModuleId,
+			submoduleId: Number(this.subModuleId),
+			page: this.pageno,
+			perpage: this.perpage,
+		}
+		// this.moduleListService.loadQuestionList(data);
+		// this.moduleListService.questionList$().subscribe((data: any) => {
+		//   this.questionListData = data?.questions;
+		//   this.totalQuestionCount = data?.questioncount;
+		// });
+		this.loadQuestionList(data)
+	}
 
-    if (this.planExpired) {
-      this.restrict = true;
-      return;
-    }
+	selectedQuestionName: any
+	viewOneQuestion(question: any) {
+		if (this.planExpired) {
+			this.restrict = true
+			return
+		}
 
-  
-  
-    // this.oneQuestionContent.answer = question.answer;
-    let questionData = question;
-    // let questionData = this.allDataSet[question.id];
-    // this.selectedQuestionName = question
-    if (questionData == undefined) {
-      questionData = [];
-    }
-    // if (question && question?.question) {
-    //   questionData = question;
-    // }
-    // else {
-    //   let ques = this.questionListData.find((data: any) => data.id == question.id)
-    //   questionData['question'] = ques?.question;
-    // }
+		// this.oneQuestionContent.answer = question.answer;
+		let questionData = question
+		// let questionData = this.allDataSet[question.id];
+		// this.selectedQuestionName = question
+		if (questionData == undefined) {
+			questionData = []
+		}
+		// if (question && question?.question) {
+		//   questionData = question;
+		// }
+		// else {
+		//   let ques = this.questionListData.find((data: any) => data.id == question.id)
+		//   questionData['question'] = ques?.question;
+		// }
 
-    // this.meta.updateTag({ name: 'og:title', content: questionData.question });
-    // this.meta.updateTag({ property: 'og:url', content: 'https://dev-student.uniprep.ai/pages/modules/pre-admission/question-list/2' });
-    // this.meta.updateTag({ property: 'og:type', content: 'summary' });
-    // this.meta.updateTag({ property: 'og:description', content: 'summary summary summary summary summary summary' });
-    // this.meta.updateTag({ name: 'image', property: 'og:image', content: 'https://api.uniprep.ai/uniprepapi/storage/app/public/country-flags/united-kingdom.svg' });
-    // this.cdRef.markForCheck();
-    //
-    //
-    // this.meta.updateTag({ name: 'twitter:card', content: 'summary' });
-    // this.meta.updateTag({ name: 'twitter:site', content: '@YourTwitterHandle' });
-    // this.meta.updateTag({ property: 'twitter:domain', content: 'dev-student.uniprep.ai' });
-    // this.meta.updateTag({ property: 'twitter:url', content: 'https://dev-student.uniprep.ai/pages/modules/pre-admission/question-list/2' });
-    // this.meta.updateTag({ name: 'twitter:title', content: 'Your Page Title' });
-    // this.meta.updateTag({ name: 'twitter:description', content: 'Your Page Description' });
-    // this.meta.updateTag({ name: 'twitter:image', content: 'https://api.uniprep.ai/uniprepapi/storage/app/public/country-flags/united-kingdom.svg' });
-    //this.titleService.setTitle(questionData.question);
-    // this.meta.addTag(
-    //   { property: 'og:title', content:  questionData.question},
-    // );
-    // this.meta.addTag(
-    //   { name: 'title', content:  questionData.question},
-    // );
+		// this.meta.updateTag({ name: 'og:title', content: questionData.question });
+		// this.meta.updateTag({ property: 'og:url', content: 'https://dev-student.uniprep.ai/pages/modules/pre-admission/question-list/2' });
+		// this.meta.updateTag({ property: 'og:type', content: 'summary' });
+		// this.meta.updateTag({ property: 'og:description', content: 'summary summary summary summary summary summary' });
+		// this.meta.updateTag({ name: 'image', property: 'og:image', content: 'https://api.uniprep.ai/uniprepapi/storage/app/public/country-flags/united-kingdom.svg' });
+		// this.cdRef.markForCheck();
+		//
+		//
+		// this.meta.updateTag({ name: 'twitter:card', content: 'summary' });
+		// this.meta.updateTag({ name: 'twitter:site', content: '@YourTwitterHandle' });
+		// this.meta.updateTag({ property: 'twitter:domain', content: 'dev-student.uniprep.ai' });
+		// this.meta.updateTag({ property: 'twitter:url', content: 'https://dev-student.uniprep.ai/pages/modules/pre-admission/question-list/2' });
+		// this.meta.updateTag({ name: 'twitter:title', content: 'Your Page Title' });
+		// this.meta.updateTag({ name: 'twitter:description', content: 'Your Page Description' });
+		// this.meta.updateTag({ name: 'twitter:image', content: 'https://api.uniprep.ai/uniprepapi/storage/app/public/country-flags/united-kingdom.svg' });
+		//this.titleService.setTitle(questionData.question);
+		// this.meta.addTag(
+		//   { property: 'og:title', content:  questionData.question},
+		// );
+		// this.meta.addTag(
+		//   { name: 'title', content:  questionData.question},
+		// );
 
-    // this.titleService.setTitle(questionData.question);
-    // this.cdRef.markForCheck();
-    this.oneQuestionContent = questionData;
-    this.isQuestionAnswerVisible = true
-   // this.getSubmoduleName(questionData.country_id)
-    this.breadCrumb = [
-      {
-        label: this.currentModuleName,
-        command: (event) => this.gotomodulebreadcrump(),
-      },
-      { label: this.moduleName, command: (event) => this.goToHomebreadcrump() },
-      { label: 'Question' },
-    ];
-    let data = {
-      questionId: this.oneQuestionContent.id,
-      countryId: this.oneQuestionContent.country_id,
-      moduleId: this.currentModuleId,
-      submoduleId: Number(this.subModuleId),
-    };
-    this.readQuestion(data);
-    this.selectedQuestionData = questionData;
-  }
-  clearRestriction() {
-    this.restrict = false;
-  }
-  upgradePlan(): void {
-    this.router.navigate(["/pages/subscriptions"]);
-  }
-  showSocialSharingList() {
-    let socialShare: any = document.getElementById("socialSharingList");
-    if (socialShare.style.display == "") {
-      socialShare.style.display = "block";
-    }
-    else {
-      socialShare.style.display = socialShare.style.display == "none" ? "block" : "none";
-    }
-  }
-  shareViaWhatsapp() {
-    let url = window.location.href + '/' + this.selectedQuestionData?.id
-    console.log(this.selectedQuestionData);
-    console.log(url);
-    this.meta.updateTag({ property: 'og:url', content: url });
-    const shareUrl = `whatsapp://send?text=${encodeURIComponent(url)}`;
-    window.open(shareUrl, '_blank');
-  }
-  shareViaInstagram() {
-    let url = window.location.href + '/' + this.selectedQuestionData?.id
-    console.log(url);
-    this.meta.updateTag({ property: 'og:url', content: url });
-    const shareUrl = `https://www.instagram.com?url=${encodeURIComponent(url)}`;
-    window.open(shareUrl, '_blank');
-  }
-  shareViaFacebook() {
-    let url = window.location.href + '/' + this.selectedQuestionData?.id
-    console.log(url);
-    this.meta.updateTag({ property: 'og:url', content: url });
-    const shareUrl = `https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(url)}`;
-    window.open(shareUrl, '_blank');
-  }
-  shareViaLinkedIn() {
-    let url = window.location.href + '/' + this.selectedQuestionData?.id
-    console.log(url);
-    this.meta.updateTag({ property: 'og:url', content: url });
-    const shareUrl = `https://www.linkedin.com/shareArticle?url=${encodeURIComponent(url)}`;
-    window.open(shareUrl, '_blank');
-  }
-  shareViaTwitter() {
-    let url = window.location.href + '/' + this.selectedQuestionData?.id
-    console.log(url);
-    this.meta.updateTag({ property: 'og:url', content: url });
-    const shareUrl = `https://twitter.com/intent/tweet?url=${encodeURIComponent(url)}`;
-    window.open(shareUrl, '_blank');
-  }
-  shareViaMail() {
-    let url = window.location.href + '/' + this.selectedQuestionData?.id
-    console.log(url);
-    this.meta.updateTag({ property: 'og:url', content: url });
-    const shareUrl = `mailto:?body=${encodeURIComponent(url)}`;
-    window.open(shareUrl, '_blank');
-  }
-  copyLink() {
-    const textarea = document.createElement('textarea');
+		// this.titleService.setTitle(questionData.question);
+		// this.cdRef.markForCheck();
+		this.oneQuestionContent = questionData
+		this.isQuestionAnswerVisible = true
+		// this.getSubmoduleName(questionData.country_id)
+		this.breadCrumb = [
+			{
+				label: this.currentModuleName,
+				command: (event) => this.gotomodulebreadcrump(),
+			},
+			{ label: this.moduleName, command: (event) => this.goToHomebreadcrump() },
+			{ label: "Question" },
+		]
+		let data = {
+			questionId: this.oneQuestionContent.id,
+			countryId: this.oneQuestionContent.country_id,
+			moduleId: this.currentModuleId,
+			submoduleId: Number(this.subModuleId),
+		}
+		this.readQuestion(data)
+		this.selectedQuestionData = questionData
+	}
+	clearRestriction() {
+		this.restrict = false
+	}
+	upgradePlan(): void {
+		this.router.navigate(["/pages/subscriptions"])
+	}
+	showSocialSharingList() {
+		let socialShare: any = document.getElementById("socialSharingList")
+		if (socialShare.style.display == "") {
+			socialShare.style.display = "block"
+		} else {
+			socialShare.style.display = socialShare.style.display == "none" ? "block" : "none"
+		}
+	}
+	shareViaWhatsapp() {
+		let url = window.location.href + "/" + this.selectedQuestionData?.id
+		console.log(this.selectedQuestionData)
+		console.log(url)
+		this.meta.updateTag({ property: "og:url", content: url })
+		const shareUrl = `whatsapp://send?text=${encodeURIComponent(url)}`
+		window.open(shareUrl, "_blank")
+	}
+	shareViaInstagram() {
+		let url = window.location.href + "/" + this.selectedQuestionData?.id
+		console.log(url)
+		this.meta.updateTag({ property: "og:url", content: url })
+		const shareUrl = `https://www.instagram.com?url=${encodeURIComponent(url)}`
+		window.open(shareUrl, "_blank")
+	}
+	shareViaFacebook() {
+		let url = window.location.href + "/" + this.selectedQuestionData?.id
+		console.log(url)
+		this.meta.updateTag({ property: "og:url", content: url })
+		const shareUrl = `https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(url)}`
+		window.open(shareUrl, "_blank")
+	}
+	shareViaLinkedIn() {
+		let url = window.location.href + "/" + this.selectedQuestionData?.id
+		console.log(url)
+		this.meta.updateTag({ property: "og:url", content: url })
+		const shareUrl = `https://www.linkedin.com/shareArticle?url=${encodeURIComponent(url)}`
+		window.open(shareUrl, "_blank")
+	}
+	shareViaTwitter() {
+		let url = window.location.href + "/" + this.selectedQuestionData?.id
+		console.log(url)
+		this.meta.updateTag({ property: "og:url", content: url })
+		const shareUrl = `https://twitter.com/intent/tweet?url=${encodeURIComponent(url)}`
+		window.open(shareUrl, "_blank")
+	}
+	shareViaMail() {
+		let url = window.location.href + "/" + this.selectedQuestionData?.id
+		console.log(url)
+		this.meta.updateTag({ property: "og:url", content: url })
+		const shareUrl = `mailto:?body=${encodeURIComponent(url)}`
+		window.open(shareUrl, "_blank")
+	}
+	copyLink() {
+		const textarea = document.createElement("textarea")
 
-    // this.meta.updateTag(
-    //   { property: 'og:title', content:  this.selectedQuestionName.question},
-    // );
-    // this.meta.updateTag(
-    //   { name: 'title', content:  this.selectedQuestionName.question},
-    // );
-    const safeUrl = encodeURI(window.location.href);
-    const selectedQuestionId = this.selectedQuestionData?.id || '';
-    const safeCountryId = this.countryId || '';
+		// this.meta.updateTag(
+		//   { property: 'og:title', content:  this.selectedQuestionName.question},
+		// );
+		// this.meta.updateTag(
+		//   { name: 'title', content:  this.selectedQuestionName.question},
+		// );
+		const safeUrl = encodeURI(window.location.href)
+		const selectedQuestionId = this.selectedQuestionData?.id || ""
+		const safeCountryId = this.countryId || ""
 
-    // Combine data with a safe format
-    textarea.textContent = `${safeUrl}/${selectedQuestionId}`;
-    
-    // Append the textarea safely
-    document.body.append(textarea);
-    textarea.select();
-    document.execCommand('copy');
-    textarea.remove();
-    this.toast.add({ severity: 'success', summary: 'Success', detail: 'Question Copied' });
-  }
-  // vedio pop-up code
-  openNextPageLink: any;
-  openVideoPopup(link: any): void {
-    const sanitizedLink = this.sanitizer.bypassSecurityTrustResourceUrl(link);
-    this.openNextPageLink = link
-    // Check if it's a YouTube video link
-    if (this.isYoutubeVideoLink(link)) {
-      // If it's a YouTube video link, extract the video ID and construct the embeddable URL
-      const videoId = this.extractYoutubeVideoId(link);
-      const embedUrl = `https://www.youtube.com/embed/${videoId}`;
-      this.selectedVideoLink = this.sanitizer.bypassSecurityTrustResourceUrl(embedUrl);
-    } else {
-      // If it's not a YouTube video link, use the URL directly
-      this.selectedVideoLink = sanitizedLink;
-    }
+		// Combine data with a safe format
+		textarea.textContent = `${safeUrl}/${selectedQuestionId}`
 
-    this.showVideoPopup = true;
-  }
+		// Append the textarea safely
+		document.body.append(textarea)
+		textarea.select()
+		document.execCommand("copy")
+		textarea.remove()
+		this.toast.add({ severity: "success", summary: "Success", detail: "Question Copied" })
+	}
+	// vedio pop-up code
+	openNextPageLink: any
+	openVideoPopup(link: any): void {
+		const sanitizedLink = this.sanitizer.bypassSecurityTrustResourceUrl(link)
+		this.openNextPageLink = link
+		// Check if it's a YouTube video link
+		if (this.isYoutubeVideoLink(link)) {
+			// If it's a YouTube video link, extract the video ID and construct the embeddable URL
+			const videoId = this.extractYoutubeVideoId(link)
+			const embedUrl = `https://www.youtube.com/embed/${videoId}`
+			this.selectedVideoLink = this.sanitizer.bypassSecurityTrustResourceUrl(embedUrl)
+		} else {
+			// If it's not a YouTube video link, use the URL directly
+			this.selectedVideoLink = sanitizedLink
+		}
 
-  private isYoutubeVideoLink(link: string): boolean {
-    // Check if the link is a YouTube video link based on a simple pattern
-    return link.includes('youtube.com') || link.includes('youtu.be');
-  }
+		this.showVideoPopup = true
+	}
 
-  private extractYoutubeVideoId(url: string): string {
-    const videoIdRegex = /(?:youtube\.com\/(?:[^\/\n\s]+\/\S+\/|(?:v|e(?:mbed)?)\/|\S*?[?&]v=)|youtu\.be\/)([^"'&?\n\s]+)/;
-    const match = url.match(videoIdRegex);
-    return match ? match[1] : '';
-  }
+	private isYoutubeVideoLink(link: string): boolean {
+		// Check if the link is a YouTube video link based on a simple pattern
+		return link.includes("youtube.com") || link.includes("youtu.be")
+	}
 
-  @HostListener('document:keydown', ['$event'])
-  onKeyDown(event: KeyboardEvent): void {
-    // Check if the pressed key is the Escape key (code 27)
-    if (event.code === 'Escape') {
-      this.closeVideoPopup();
-    }
-  }
-  closeVideoPopup(): void {
-    if (this.videoFrame && this.videoFrame.nativeElement) {
-      const player = this.videoFrame.nativeElement as HTMLIFrameElement;
-      player.src = '';
-    }
-    this.selectedVideoLink = null;
-    this.showVideoPopup = false;
-  }
-  openNextVideo(): void {
-    console.log('Opening next video:', this.openNextPageLink);
-    if (this.openNextPageLink) {
-      window.open(this.openNextPageLink);
-    }
-  }
-  onShowModal(value: any) {
-    let socialShare: any = document.getElementById("socialSharingList");
-    socialShare.style.display = "none";
-  }
-  startQuiz() {
-    if(this.planExpired){
-      this.restrict=true;
-      return;
-    }
-    localStorage.setItem("learninghubsubmoduleid", this.subModuleId);
-    localStorage.setItem("skillmasteryquizsubmoduleid",this.subModuleId);
-    localStorage.setItem('universityidforquiz',this.subModuleId)
-    if(this.currentModuleId==14){
-      this.router.navigate([`/pages/modules/k12-category/k12-quiz`]);
-      return;
-    }
-    if(this.currentModuleId==8){
-      this.router.navigate([`/pages/modules/${this.currentModuleSlug}/learninghubquiz`]);
-    }else{
-      this.router.navigate([`/pages/modules/${this.currentModuleSlug}/quiz`]);
-    }
-  }
-  openHowItWorksVideoPopup(videoLink: string) {
-    this.pageFacade.openHowitWorksVideoPopup(videoLink);
-  }
+	private extractYoutubeVideoId(url: string): string {
+		const videoIdRegex = /(?:youtube\.com\/(?:[^\/\n\s]+\/\S+\/|(?:v|e(?:mbed)?)\/|\S*?[?&]v=)|youtu\.be\/)([^"'&?\n\s]+)/
+		const match = url.match(videoIdRegex)
+		return match ? match[1] : ""
+	}
 
+	@HostListener("document:keydown", ["$event"])
+	onKeyDown(event: KeyboardEvent): void {
+		// Check if the pressed key is the Escape key (code 27)
+		if (event.code === "Escape") {
+			this.closeVideoPopup()
+		}
+	}
+	closeVideoPopup(): void {
+		if (this.videoFrame && this.videoFrame.nativeElement) {
+			const player = this.videoFrame.nativeElement as HTMLIFrameElement
+			player.src = ""
+		}
+		this.selectedVideoLink = null
+		this.showVideoPopup = false
+	}
+	openNextVideo(): void {
+		console.log("Opening next video:", this.openNextPageLink)
+		if (this.openNextPageLink) {
+			window.open(this.openNextPageLink)
+		}
+	}
+	onShowModal(value: any) {
+		let socialShare: any = document.getElementById("socialSharingList")
+		socialShare.style.display = "none"
+	}
+	startQuiz() {
+		if (this.planExpired) {
+			this.restrict = true
+			return
+		}
+		localStorage.setItem("learninghubsubmoduleid", this.subModuleId)
+		localStorage.setItem("skillmasteryquizsubmoduleid", this.subModuleId)
+		localStorage.setItem("universityidforquiz", this.subModuleId)
+		if (this.currentModuleId == 14) {
+			this.router.navigate([`/pages/modules/k12-category/k12-quiz`])
+			return
+		}
+		if (this.currentModuleId == 8) {
+			this.router.navigate([`/pages/modules/${this.currentModuleSlug}/learninghubquiz`])
+		} else {
+			this.router.navigate([`/pages/modules/${this.currentModuleSlug}/quiz`])
+		}
+	}
+	openHowItWorksVideoPopup(videoLink: string) {
+		this.pageFacade.openHowitWorksVideoPopup(videoLink)
+	}
 }
 @Pipe({
-    name: 'safe',
-    standalone: false
+	name: "safe",
+	standalone: false,
 })
 export class SafePipe implements PipeTransform {
-  constructor(private sanitizer: DomSanitizer) { }
+	constructor(private sanitizer: DomSanitizer) {}
 
-  transform(url: string): SafeResourceUrl {
-    return this.sanitizer.bypassSecurityTrustResourceUrl(url);
-  }
+	transform(url: string): SafeResourceUrl {
+		return this.sanitizer.bypassSecurityTrustResourceUrl(url)
+	}
 }
