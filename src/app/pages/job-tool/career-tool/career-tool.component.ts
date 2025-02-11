@@ -129,7 +129,7 @@ export class CareerToolComponent implements OnInit {
       imageLink: environment.production === false ? "https://api.uniprep.ai/uniprepapi/storage/app//public/icon/modules/avgsest.png" : "https://uniprep.ai/uniprepapi/storage/app/public/icon/modules/avgsest.png",
       refLink: "",
       mode: "average-salary-estimator",
-      launch_soon: true
+      launch_soon: false
     },
     {
       id: 12,
@@ -150,7 +150,7 @@ export class CareerToolComponent implements OnInit {
       imageLink: environment.production === false ? "https://api.uniprep.ai/uniprepapi/storage/app//public/icon/modules/joc.png" : "https://uniprep.ai/uniprepapi/storage/app/public/icon/modules/joc.png",
       refLink: "",
       mode: "job-offer-comparison",
-      launch_soon: true
+      launch_soon: false
     },
     {
       id: 15,

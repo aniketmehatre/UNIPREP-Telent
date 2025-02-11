@@ -95,6 +95,7 @@ export class JoboffercomparisontoolComponent implements OnInit {
   //create addtionalperks Information
   createadditionalPerksGroup(): FormGroup {
     return this.fb.group({
+      workplacetypes:[null, Validators.required],
       perks: ["", Validators.required], // Dropdown for benefits
       travel_opportunities: [null, Validators.required], // Dropdown for opportunities
     });
@@ -198,6 +199,13 @@ export class JoboffercomparisontoolComponent implements OnInit {
       this.jobPreferences = response;
     });
   }
+   //workplace type
+   workplaceTypes: any = [];
+   getworkplaceType() {
+     this.service.getemploymentType().subscribe((response) => {
+       this.workplaceTypes = response;
+     });
+   }
   ngOnInit() {
     this.activePageIndex = 0;
     this.getJobRoles();
@@ -209,7 +217,8 @@ export class JoboffercomparisontoolComponent implements OnInit {
     this.getworkHours();
     this.getworkingDays();
     this.getJobPreferences();
-  }
+    this.getworkplaceType();
+}
   previous(): void {
     if (this.activePageIndex > 0) {
       this.activePageIndex--;
@@ -284,6 +293,7 @@ export class JoboffercomparisontoolComponent implements OnInit {
         benefits: benefitsInfo.benefits[0],
         salary: benefitsInfo.salary,
         perks: additionalPerksInfo.perks,
+        workplacetypes:additionalPerksInfo.workplacetypes,
         working_days: workTimingInfo.working_days,
         work_hours: workTimingInfo.work_hours,
         employment_type: workTimingInfo.employment_type,
