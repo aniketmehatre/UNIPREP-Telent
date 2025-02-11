@@ -19,6 +19,7 @@ import { MultiSelectModule } from "primeng/multiselect"
 import { CarouselModule } from "primeng/carousel"
 import { InputGroupModule } from "primeng/inputgroup"
 import { InputGroupAddonModule } from "primeng/inputgroupaddon"
+import { PaginatorModule } from "primeng/paginator"
 
 @Component({
 	selector: "uni-pitch-desk",
@@ -38,7 +39,8 @@ import { InputGroupAddonModule } from "primeng/inputgroupaddon"
 		MultiSelectModule, 
 		CarouselModule,
 		FormsModule,
-		ReactiveFormsModule
+		ReactiveFormsModule,
+		PaginatorModule
 	],
 })
 export class PitchDeskComponent implements OnInit, OnDestroy {
