@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
 import { MessageService } from 'primeng/api';
 import { AuthService } from 'src/app/Auth/auth.service';
@@ -17,12 +17,15 @@ import { RouterModule } from '@angular/router';
 import { DialogModule } from 'primeng/dialog';
 import { CardModule } from 'primeng/card';
 import { PaginatorModule } from 'primeng/paginator';
+import { CarouselModule } from 'primeng/carousel';
+import { ButtonModule } from 'primeng/button';
+import { SelectModule } from 'primeng/select';
 @Component({
   selector: 'uni-global-edufit',
   templateUrl: './global-edufit.component.html',
   styleUrls: ['./global-edufit.component.scss'],
   standalone: true,
-  imports: [CommonModule, RouterModule, DialogModule, CardModule, PaginatorModule]
+  imports: [CommonModule, SelectModule,RouterModule, DialogModule, CardModule, PaginatorModule,CarouselModule, ButtonModule, FormsModule, ReactiveFormsModule]
 })
 export class GlobalEdufitComponent implements OnInit {
   universityList: any = [];

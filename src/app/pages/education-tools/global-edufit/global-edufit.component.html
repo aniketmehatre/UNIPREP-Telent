@@ -35,10 +35,10 @@
                     <h5 class="uniprep-primary fw-semibold mt-3 mb-1">
                       {{ recommendation.question.branches[0] }}
                     </h5>
-                    <p-dropdown styleClass="w-100" appendTo="body" [options]="countryList" [filter]="true"
+                    <p-select styleClass="w-100" appendTo="body" [options]="countryList" [filter]="true"
                       formControlName="home_country" filterBy="country" optionLabel="country" optionValue="country"
                       [autoDisplayFirst]="false" placeholder="Select the country">
-                    </p-dropdown>
+                    </p-select>
                     <p class="text-center" *ngIf="form.get('home_country')?.errors?.required && submitted"
                       style="color: red">
                       Please Choose Any one option
@@ -48,10 +48,10 @@
                     <h5 class="uniprep-primary fw-semibold mt-3 mb-1">
                       {{ recommendation.question.branches[1] }}
                     </h5>
-                    <p-dropdown styleClass="w-100" appendTo="body" [options]="countryList" [filter]="true"
+                    <p-select styleClass="w-100" appendTo="body" [options]="countryList" [filter]="true"
                       formControlName="interested_country" filterBy="country" optionLabel="country" optionValue="id" (ngModelChange)="setUniversityList($event);"
                       [autoDisplayFirst]="false" placeholder="Select the interested country">
-                    </p-dropdown>
+                    </p-select>
                     <p class="text-center" *ngIf="form.get('interested_country')?.errors?.required && submitted"
                       style="color: red">
                       Please Choose Any one option
@@ -61,10 +61,10 @@
                     <h5 class="uniprep-primary fw-semibold mt-3 mb-1">
                       {{ recommendation.question.branches[2] }}
                     </h5>
-                    <p-dropdown styleClass="w-100" appendTo="body" [options]="universityList" [filter]="true"
+                    <p-select styleClass="w-100" appendTo="body" [options]="universityList" [filter]="true"
                       formControlName="university" filterBy="name" optionLabel="name" optionValue="name"
                       [autoDisplayFirst]="false" placeholder="Select the univesity">
-                    </p-dropdown>
+                    </p-select>
                     <p class="text-center" *ngIf="form.get('university')?.errors?.required && submitted"
                       style="color: red">
                       Please Choose Any one option
@@ -74,10 +74,10 @@
                     <h5 class="uniprep-primary fw-semibold mt-3 mb-1">
                       {{ recommendation.question.branches[3] }}
                     </h5>
-                    <p-dropdown styleClass="w-100" appendTo="body" [options]="specializationList" [filter]="true"
+                    <p-select styleClass="w-100" appendTo="body" [options]="specializationList" [filter]="true"
                       formControlName="specialization" filterBy="specialization_name" optionLabel="specialization_name" optionValue="specialization_name"
                       [autoDisplayFirst]="false" placeholder="Select the specialization">
-                    </p-dropdown>
+                    </p-select>
                     <p class="text-center" *ngIf="form.get('specialization')?.errors?.required && submitted"
                       style="color: red">
                       Please Choose Any one option
@@ -93,9 +93,9 @@
                     <h5 class="uniprep-primary fw-semibold mt-3 mb-1">
                       {{ recommendation.question.branches[0] }}
                     </h5>
-                    <p-dropdown styleClass="w-100" placeholder="Degree"  appendTo="body" [options]="degreeList"
+                    <p-select styleClass="w-100" placeholder="Degree"  appendTo="body" [options]="degreeList"
                      optionLabel="name" optionValue="name" formControlName="degree" placeholder="Select the degree">
-                    </p-dropdown>
+                    </p-select>
                     <p class="text-center" *ngIf="
                           form.get('degree')?.errors?.required && submitted
                         " style="color: red">
@@ -106,9 +106,9 @@
                     <h5 class="uniprep-primary fw-semibold mt-3 mb-1">
                       {{ recommendation.question.branches[1] }}
                     </h5>
-                    <p-dropdown styleClass="w-100" placeholder="Months"  appendTo="body" [options]="durationList"
+                    <p-select styleClass="w-100" placeholder="Months"  appendTo="body" [options]="durationList"
                       optionLabel="name" optionValue="name" formControlName="duration" placeholder="select the duration">
-                    </p-dropdown>  
+                    </p-select>  
                     <p class="text-center" *ngIf="
                           form.get('duration')?.errors?.required && submitted
                         " style="color: red">
@@ -125,10 +125,10 @@
                       {{ recommendation.question.branches[0] }}
                     </h5>
                     <div class="w-100 d-flex gap-2 flex-fill">
-                      <p-dropdown formControlName="currency_code" appendTo="body" [options]="currencyandCountryList" [filter]="true"
+                      <p-select formControlName="currency_code" appendTo="body" [options]="currencyandCountryList" [filter]="true"
                         filterBy="currency_code" placeholder="Currency" optionLabel="currency_code" optionValue="currency_code"
                         [autoDisplayFirst]="false">
-                      </p-dropdown>
+                      </p-select>
                       <input class="w-100 pl-4 border border-gray rounded-3" type="number" pInputText placeholder="Fees"
                         formControlName="fees" />
                     </div>
@@ -153,10 +153,10 @@
                     <h5 class="uniprep-primary fw-semibold mt-3 mb-1">
                       {{ recommendation.question.branches[2] }}
                     </h5>
-                    <p-dropdown styleClass="w-100" formControlName="period" appendTo="body" [options]="periodsList" [filter]="true"
+                    <p-select styleClass="w-100" formControlName="period" appendTo="body" [options]="periodsList" [filter]="true"
                     filterBy="name" placeholder=" Period" optionLabel="name" optionValue="name"
                     [autoDisplayFirst]="false">
-                  </p-dropdown>
+                  </p-select>
                     <p class="text-center" *ngIf="
                           form.get('period')?.errors?.required && submitted
                         " style="color: red">
