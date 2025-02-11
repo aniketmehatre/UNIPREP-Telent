@@ -120,7 +120,6 @@ export class StartUpExpenseEstimateComponent implements OnInit {
     } else {
       this.ehitlabelIsShow = false;
     }
-    // this.getMarketAnalysisLists();
     this.getCurrenyandLocation();
   }
 
@@ -128,18 +127,6 @@ export class StartUpExpenseEstimateComponent implements OnInit {
     this.router.navigateByUrl('/pages/founderstool/founderstoollist');
   }
 
-  getMarketAnalysisLists() {
-    // this.foundersToolsService.getmarketingAnaylsisOptionsList().subscribe((res: any) => {
-    //   console.log(res);
-    //   this.competitorList = res?.competitor;
-    //   this.timeFramesList = res?.duration;
-    //   this.targetMarketList = res?.market;
-    //   this.businessModelList = res?.models;
-    //   this.productServiceList = res?.productservice;
-    //   this.revenueStreamsList = res?.revenuestreams;
-    //   this.salesChannelsList = res?.saleschannel;
-    // });
-  }
 
   getCurrenyandLocation() {
     this.foundersToolsService.getCurrencyAndCountries().subscribe((res: any) => {

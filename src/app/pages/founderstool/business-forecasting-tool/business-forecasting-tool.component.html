@@ -42,6 +42,10 @@
                                         Please enter the industry type
                                     </p>
                                 </div>
+                                <div class="d-flex flex-column gap-2 mb-2">
+                                    <h5 class="uniprep-primary fw-semibold mt-3 mb-1">
+                                        Does your business have seasonal functionalities
+                                    </h5>
                                 <div class="d-flex justify-content-center align-items-center gap-4 mb-2">
                                     <button type="button" (click)="onEnableDisableSeason(true);" [ngClass]="{
                                         'active-btn': isSessonEnable}"
@@ -54,6 +58,7 @@
                                         class="btn rounded-1 p-4 btn-primary-border" style="padding-inline: 6rem !important">
                                         No
                                     </button>
+                                </div>
                                 </div>
                                 <div class="d-flex flex-column gap-2 mb-1" *ngIf="isSessonEnable">
                                     <h5 class="uniprep-primary fw-semibold mt-3 mb-1">
