@@ -120,7 +120,7 @@ export class PitchDeskComponent implements OnInit {
 			}
 		} else {
 			data = {
-				pitchdeck_name: this.filterForm.value.pitchdeck_name ? this.filterForm.value.pitchdeck_name : "",
+				search: this.valueNearYouFilter || "",
 				country: this.filterForm.value.country ? this.filterForm.value.country : "",
 				funding_type: this.filterForm.value.funding_type ? this.filterForm.value.funding_type : "",
 				sector: this.filterForm.value.sector ? this.filterForm.value.sector : "",
@@ -131,11 +131,14 @@ export class PitchDeskComponent implements OnInit {
 		}
 		this.pitchDesk.getPitchDeskData(data).subscribe((responce) => {
 			if (this.planExpired) {
-				//default 50 data, so, it won't show 2,3 ... in the ui
 				this.totalPitchDeckCount = 50
 			} else this.totalPitchDeckCount = responce.total_count
 
-			this.pitchDeskList = responce.data
+			this.pitchDeskList = responce.data.map((item: any) => ({
+				...item,
+				isChecked: this.selectAllCheckboxes ? 1 : 0
+			}));
+			this.selectedCheckboxCount = this.selectAllCheckboxes ? this.pitchDeskList.length : 0;
 			this.exportCreditCount = responce.credit_count ? responce.credit_count : 0
 			this.favCount = responce.fav_count
 		})
@@ -176,33 +179,30 @@ export class PitchDeskComponent implements OnInit {
 	}
 
 	performSearch() {
-		if (this.valueNearYouFilter === "") {
-			this.getPitchDeskList()
-			return
-		} else {
-			var investorSearchData: any = []
-			this.pitchDeskList.filter((item) => {
-				if (item.pitchdeck_name?.toLowerCase().includes(this.valueNearYouFilter.toLowerCase())) {
-					investorSearchData.push(item)
+		// Only search if input is empty (reset) or has 3+ characters
+		if (!this.valueNearYouFilter || this.valueNearYouFilter.length >= 3) {
+			this.page = 1;
+			let data: any = {
+				page: this.page,
+				perpage: this.pageSize,
+				search: this.valueNearYouFilter || "",
+				country: this.filterForm.value.country ? this.filterForm.value.country : "",
+				funding_type: this.filterForm.value.funding_type ? this.filterForm.value.funding_type : "",
+				sector: this.filterForm.value.sector ? this.filterForm.value.sector : "",
+				planname: this.currentPlan ? this.currentPlan : "",
+			};
+
+			this.pitchDesk.getPitchDeskData(data).subscribe((response) => {
+				if (this.planExpired) {
+					this.totalPitchDeckCount = 50;
+				} else {
+					this.totalPitchDeckCount = response.total_count;
 				}
-			})
-			this.pitchDeskList = [...investorSearchData]
-			const filteredData = this.pitchDeskList.filter((item: any) => {
-				return item.pitchdeck_name.toLowerCase().includes(this.valueNearYouFilter.toLowerCase()) || item.country.toLowerCase().includes(this.valueNearYouFilter.toLowerCase())
-			})
 
-			this.pitchDeskList = filteredData
-
-			this.totalPitchDeckCount = filteredData.length
-
-			if (this.totalPitchDeckCount <= this.pageSize) {
-				this.page = 1 // Reset page to 1
-			}
-
-			const totalPages = Math.ceil(this.totalPitchDeckCount / this.pageSize)
-			if (this.page > totalPages) {
-				this.page = totalPages
-			}
+				this.pitchDeskList = response.data;
+				this.exportCreditCount = response.credit_count ? response.credit_count : 0;
+				this.favCount = response.fav_count;
+			});
 		}
 	}
 
@@ -302,38 +302,29 @@ export class PitchDeskComponent implements OnInit {
 		this.router.navigate(["/pages/export-credit"])
 	}
 
-	onCheckboxChange(event: any) {
+	onCheckboxChange(event: any, item: any) {
 		if (this.planExpired) {
 			this.restrict = true
 			return
 		}
-		const isChecked = (event.target as HTMLInputElement).checked
-		this.selectedCheckboxCount = isChecked ? this.selectedCheckboxCount + 1 : this.selectedCheckboxCount - 1
-
-		if (isChecked == false) {
-			if (this.selectedCheckboxCount) {
-				this.selectAllCheckboxes = false
-			}
-		} else {
-			if (this.pitchDeskList.length == this.selectedCheckboxCount) {
-				this.selectAllCheckboxes = true
-			}
-		}
+		
+		const isChecked = event.target.checked;
+		item.isChecked = isChecked ? 1 : 0;
+		this.selectedCheckboxCount = this.pitchDeskList.filter(item => item.isChecked === 1).length;
+		this.selectAllCheckboxes = this.selectedCheckboxCount === this.pitchDeskList.length;
 	}
 
 	selectAllCheckbox() {
-		this.selectedCheckboxCount = 0
-		this.selectAllCheckboxes = !this.selectAllCheckboxes
-		if (this.selectAllCheckboxes) {
-			this.pitchDeskList.forEach((item) => {
-				item.isChecked = 1
-				this.selectedCheckboxCount += 1
-			})
-		} else {
-			this.pitchDeskList.forEach((item) => {
-				item.isChecked = 0
-			})
+		if (this.planExpired) {
+			this.restrict = true
+			return
 		}
+		
+		this.selectAllCheckboxes = !this.selectAllCheckboxes;
+		this.pitchDeskList.forEach(item => {
+			item.isChecked = this.selectAllCheckboxes ? 1 : 0;
+		});
+		this.selectedCheckboxCount = this.selectAllCheckboxes ? this.pitchDeskList.length : 0;
 	}
 
 	exportData() {

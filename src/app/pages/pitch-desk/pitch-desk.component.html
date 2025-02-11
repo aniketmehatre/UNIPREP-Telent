@@ -40,7 +40,7 @@
 					<p-inputgroup-addon>
 						<i class="fa fa-search"></i>
 					</p-inputgroup-addon>
-					<input pInputText type="text" placeholder="Search in Pitch Deck List" [(ngModel)]="valueNearYouFilter" (input)="performSearch()" />
+					<input pInputText type="text" placeholder="Search in Pitch Deck List" [(ngModel)]="valueNearYouFilter" (keyup)="performSearch()" />
 				</p-inputgroup>
 			</div>
 		</div>
@@ -81,7 +81,7 @@
 								<p-inputgroup-addon>
 									<i class="fa fa-search"></i>
 								</p-inputgroup-addon>
-								<input pInputText type="text" placeholder="Search in Pitch Deck List" [(ngModel)]="valueNearYouFilter" (input)="performSearch()" />
+								<input pInputText type="text" placeholder="Search in Pitch Deck List" [(ngModel)]="valueNearYouFilter" (keyup)="performSearch()" />
 							</p-inputgroup>
 						</div>
 						<span class="d-flex justify-content-start p-2">
@@ -175,7 +175,7 @@
 									<label class="form-label" style="font-size: medium; font-weight: 500">Filter by Country</label>
 									<div class="form-group">
 										<div class="mb-3">
-											<p-multiSelect [options]="countrySelectBox" styleClass="w-100" formControlName="country" optionValue="id" defaultLabel="Select Countries" optionLabel="country" #multiSelect [appendTo]="'body'">
+											<p-multiSelect [options]="countrySelectBox" styleClass="w-100" formControlName="country" optionValue="id" placeholder="Select Countries" optionLabel="country" #multiSelect [appendTo]="'body'">
 												<ng-template pTemplate="selectedItems">
 													{{ multiSelect.defaultLabel }}
 												</ng-template>
@@ -193,7 +193,7 @@
 									<label class="form-label" style="font-size: medium; font-weight: 500">Filter by Fund Type</label>
 									<div class="form-group">
 										<div class="mb-3">
-											<p-multiSelect [options]="fundingTypeSelectBox" styleClass="w-100" formControlName="funding_type" optionValue="id" defaultLabel="Select Fund Type" optionLabel="funding_type_name" #FundType [appendTo]="'body'">
+											<p-multiSelect [options]="fundingTypeSelectBox" styleClass="w-100" formControlName="funding_type" optionValue="id" placeholder="Select Fund Type" optionLabel="funding_type_name" #FundType [appendTo]="'body'">
 												<ng-template pTemplate="selectedItems">
 													{{ FundType.defaultLabel }}
 												</ng-template>
@@ -205,7 +205,7 @@
 									<label class="form-label" style="font-size: medium; font-weight: 500">Filter by Sector</label>
 									<div class="form-group">
 										<div class="mb-3">
-											<p-multiSelect [options]="sectorSelectBox" styleClass="w-100" formControlName="sector" optionValue="id" defaultLabel="Select Sector" optionLabel="sector_name" #Sector [appendTo]="'body'">
+											<p-multiSelect [options]="sectorSelectBox" styleClass="w-100" formControlName="sector" optionValue="id" placeholder="Select Sector" optionLabel="sector_name" #Sector [appendTo]="'body'">
 												<ng-template pTemplate="selectedItems">
 													{{ Sector.defaultLabel }}
 												</ng-template>
