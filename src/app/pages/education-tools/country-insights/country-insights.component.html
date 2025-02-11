@@ -35,7 +35,7 @@
             <!-- Actual Country Cards -->
             <ng-template #showCountryCards>
                 <div class="col-6 col-md-4 col-lg-2 mb-3" *ngFor="let data of countryInsightsList; let i = index" 
-                    (click)="onClickSubModule(data.country_id, data.id);">
+                    (click)="onClickSubModule(data.country_id, data.id, data.country);">
                     <div class="country-card bg-white text-center shadow-sm border p-3">
                         <div class="flag-circle">
                             <img [src]="data.flag" alt="" style="height: 60px; width: 60px;">

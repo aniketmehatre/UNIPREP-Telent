@@ -36,31 +36,31 @@
                 <div class="col-md-6">
                   <ng-container *ngIf="recommendation.id == 1">
                     <p-dropdown [(ngModel)]="selectedData[recommendation.id]" [options]="industryList" [filter]="true" filterBy="Industry"
-                      styleClass="w-100" optionLabel="Industry" optionValue="Industry" [appendTo]="'body'" placeholder="Industry">
+                      styleClass="w-100" optionLabel="Industry" optionValue="Industry" [appendTo]="'body'" placeholder="Select Industry">
                     </p-dropdown>
                     <div class="text-center" [ngClass]="{ 'd-none': inValidClass === false }" style="color: red">
                       Business Type is required
                     </div>
                   </ng-container>
                   <ng-container *ngIf="recommendation.id == 2">
-                    <p-multiSelect [(ngModel)]="selectedData[recommendation.id]" [options]="businessGoalsList" [filter]="true" filterBy="goal"
-                      styleClass="w-100" optionLabel="goal" optionValue="goal" [appendTo]="'body'" placeholder="Goal">
-                    </p-multiSelect>
+                    <p-dropdown [(ngModel)]="selectedData[recommendation.id]" [options]="businessGoalsList" [filter]="true" filterBy="goal"
+                    styleClass="w-100" optionLabel="goal" optionValue="goal" [appendTo]="'body'" placeholder="Select Goal">
+                  </p-dropdown>
                     <div class="text-center" [ngClass]="{ 'd-none': inValidClass === false }" style="color: red">
-                      Business Primary Goals is required
+                      Business Primary Goal is required
                     </div>
                   </ng-container>
                   <ng-container *ngIf="recommendation.id == 3">
                     <p-dropdown [(ngModel)]="selectedData[recommendation.id]" [options]="durationList"
-                      styleClass="w-100" optionLabel="duration" optionValue="duration" [appendTo]="'body'" placeholder="Time">
+                      styleClass="w-100" optionLabel="duration" optionValue="duration" [appendTo]="'body'" placeholder="Months">
                     </p-dropdown>
                     <div class="text-center" [ngClass]="{ 'd-none': inValidClass === false }" style="color: red">
-                      Business strategy is required
+                      Business Duration is required
                     </div>
                   </ng-container>
                   <ng-container *ngIf="recommendation.id == 4">
                     <p-dropdown [(ngModel)]="selectedData[recommendation.id]" [options]="challengeList"  [filter]="true" filterBy="challenge" 
-                      styleClass="w-100" optionLabel="challenge" optionValue="challenge" [appendTo]="'body'" placeholder="Challenge">
+                      styleClass="w-100" optionLabel="challenge" optionValue="challenge" [appendTo]="'body'" placeholder="Select Challenge">
                     </p-dropdown>
                     <div class="text-center" [ngClass]="{ 'd-none': inValidClass === false }" style="color: red">
                       Challenges are required
@@ -68,16 +68,21 @@
                   </ng-container>
                   <ng-container *ngIf="recommendation.id == 5">
                     <p-dropdown [(ngModel)]="selectedData[recommendation.id]" [options]="targetAudienceList"  [filter]="true" filterBy="audience" 
-                      styleClass="w-100" optionLabel="audience" optionValue="audience" [appendTo]="'body'" placeholder="Audience">
+                      styleClass="w-100" optionLabel="audience" optionValue="audience" [appendTo]="'body'" placeholder="Select target audience">
                     </p-dropdown>
                     <div [ngClass]="{ 'd-none': inValidClass === false }" style="color: red" class="text-danger">
                       Ideal customers is required
                     </div>
                   </ng-container>
                   <ng-container *ngIf="recommendation.id == 6">
-                    <p-dropdown [(ngModel)]="selectedData[recommendation.id]" [options]="budgetList"  [filter]="true" filterBy="goal" 
-                      styleClass="w-100" optionLabel="goal" optionValue="goal" [appendTo]="'body'" placeholder="Goal">
-                    </p-dropdown>
+                    <div class="w-100 d-flex gap-2 flex-fill">
+                      <p-dropdown  [(ngModel)]="selectedData[8]" [options]="currencyandCountryList" [filter]="true"
+                        filterBy="currency_code" placeholder=" Currency" appendTo="body" optionLabel="currency_code" optionValue="currency_code"
+                        [autoDisplayFirst]="false">
+                      </p-dropdown>
+                      <input  [(ngModel)]="selectedData[recommendation.id]" class="w-100 pl-4 border border-gray rounded-3" type="number" [min]="100000" pInputText [placeholder]="selectedData[8] ? 'Amount in'+' '+selectedData[8] : 'Budget' "
+                        />
+                    </div>  
                     <div class="text-center" [ngClass]="{ 'd-none': inValidClass === false }" style="color: red">
                       Budget is required
                     </div>
@@ -158,7 +163,7 @@
                           <i class="fa-regular fa-floppy-disk"></i></span>
                   </button>
               </div>
-              <div class="card p-3" [innerHtml]="recommendationData"></div>
+              <div class="card p-3 fs-5" [innerHtml]="recommendationData"></div>
           </div>
           <div class="col-md-2"></div>
       </div>

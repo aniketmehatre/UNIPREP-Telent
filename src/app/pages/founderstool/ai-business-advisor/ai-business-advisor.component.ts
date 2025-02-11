@@ -81,6 +81,7 @@ export class AiBusinessAdvisorComponent implements OnInit {
       customers: this.selectedData[5],
       budget: this.selectedData[6],
       strategy: this.selectedData[7],
+      currency_code: this.selectedData[8],
       mode: 'business_advisor'
     }
     this.foundersToolService.getChatgptRecommendations(data).subscribe({
@@ -139,7 +140,13 @@ export class AiBusinessAdvisorComponent implements OnInit {
   downloadRecommadation() {
     this.foundersToolService.downloadRecommendation({ data: this.recommendationData }).subscribe({
       next: res => {
-        window.open(res.url, "_blank");
+        const a = document.createElement('a');
+        a.href = res.url;
+        a.download = 'recommendation.pdf'; // Set the desired file name
+        document.body.appendChild(a);
+        a.click();
+        document.body.removeChild(a);
+        window.URL.revokeObjectURL(res.url);
       },
       error: err => {
         console.log(err?.error?.message);
