@@ -19,13 +19,12 @@ import { MultiSelectModule } from "primeng/multiselect"
 import { CarouselModule } from "primeng/carousel"
 import { InputGroupModule } from "primeng/inputgroup"
 import { InputGroupAddonModule } from "primeng/inputgroupaddon"
-import { FluidModule } from "primeng/fluid"
 @Component({
 	selector: "uni-pitch-desk",
 	templateUrl: "./pitch-desk.component.html",
 	styleUrls: ["./pitch-desk.component.scss"],
 	standalone: true,
-	imports: [NgxExtendedPdfViewerModule, CommonModule, InputGroupModule, FluidModule, InputGroupAddonModule, DialogModule, InputTextModule, SkeletonModule, TooltipModule, ButtonModule, MultiSelectModule, CarouselModule],
+	imports: [NgxExtendedPdfViewerModule, CommonModule, InputGroupModule, InputGroupAddonModule, DialogModule, InputTextModule, SkeletonModule, TooltipModule, ButtonModule, MultiSelectModule, CarouselModule],
 })
 export class PitchDeskComponent implements OnInit {
 	pitchDeskList: any[] = []
