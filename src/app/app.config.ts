@@ -3,10 +3,8 @@ import { ApplicationConfig, importProvidersFrom, isDevMode } from "@angular/core
 import { provideAnimationsAsync } from "@angular/platform-browser/animations/async"
 import { RouterModule, Routes, provideRouter, withEnabledBlockingInitialNavigation, withInMemoryScrolling, withViewTransitions } from "@angular/router"
 import { providePrimeNG } from "primeng/config"
-import Aura from "@primeng/themes/aura"
 import { appRoutes } from "./app.routes"
 import { LandingComponent } from "./pages/landing/landing.component"
-import { provideState, provideStore } from "@ngrx/store"
 import { DeviceDetectorService } from "ngx-device-detector"
 import { DatePipe } from "@angular/common"
 import { AuthService } from "./Auth/auth.service"
@@ -21,7 +19,6 @@ import { environment } from "@env/environment"
 import { authFeature } from "./Auth/store/reducer"
 import { DashboardComponent } from "./pages/dashboard/dashboard.component"
 import { provideStoreDevtools } from "@ngrx/store-devtools"
-import { provideEffects } from '@ngrx/effects';
 import { AuthEffects } from './Auth/store/effects';
 import { MessageService } from 'primeng/api';
 import { provideAnimations } from '@angular/platform-browser/animations';

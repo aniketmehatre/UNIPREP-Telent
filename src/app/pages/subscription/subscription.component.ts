@@ -30,12 +30,15 @@ import {
 } from "@stripe/stripe-js";
 import CryptoJS from "crypto-js";
 import { NgxUiLoaderService } from "ngx-ui-loader";
+import { CommonModule } from '@angular/common';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 @Component({
     selector: "uni-subscription",
     templateUrl: "./subscription.component.html",
     styleUrls: ["./subscription.component.scss"],
-    standalone: false
+    standalone: true,
+    imports: [CommonModule, FormsModule, ReactiveFormsModule]
 })
 export class SubscriptionComponent implements OnInit {
   stage = 1;

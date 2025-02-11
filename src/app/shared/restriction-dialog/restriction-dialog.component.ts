@@ -1,12 +1,15 @@
 import {Component, Input, OnInit} from '@angular/core';
 import {PlanService} from "../plan.service";
-import {Router} from "@angular/router";
+import {Router, RouterModule} from "@angular/router";
+import { CommonModule } from '@angular/common';
+
 
 @Component({
     selector: 'uni-restriction-dialog',
     templateUrl: './restriction-dialog.component.html',
     styleUrls: ['./restriction-dialog.component.scss'],
-    standalone: false
+    standalone: true,
+    imports: [CommonModule, RouterModule]
 })
 export class RestrictionDialogComponent implements OnInit {
   @Input() isWhiteLabelVisible: boolean = false

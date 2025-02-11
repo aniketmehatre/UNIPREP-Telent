@@ -1,14 +1,14 @@
-import { Component, ElementRef, HostListener, NgModule, OnInit, ViewChild } from '@angular/core';
+import { Component, ElementRef, HostListener, OnInit, ViewChild } from '@angular/core';
 import { SuccessStoriesService } from './success-stories.service';
-import { DomSanitizer, SafeHtml, SafeResourceUrl, SafeScript, SafeStyle, SafeUrl } from '@angular/platform-browser';
-import { Pipe, PipeTransform } from '@angular/core';
-
+import { DomSanitizer } from '@angular/platform-browser';
+import { CommonModule } from '@angular/common';
 
 @Component({
     selector: 'uni-success-stories',
     templateUrl: './success-stories.component.html',
     styleUrls: ['./success-stories.component.scss'],
-    standalone: false
+    standalone: true,
+    imports: [CommonModule]
 })
 export class SuccessStoriesComponent implements OnInit {
   @ViewChild('videoFrame') videoFrame: ElementRef | undefined;
@@ -83,5 +83,4 @@ export class SuccessStoriesComponent implements OnInit {
   openNextVideo(){
     window.open(this.openNextPageLink)
   }
-
 }

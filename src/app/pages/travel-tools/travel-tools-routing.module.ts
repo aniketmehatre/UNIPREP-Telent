@@ -1,39 +1,40 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { TravelToolsListComponent } from './travel-tools-list/travel-tools-list.component';
-import { TravelCostEstimatorComponent } from './travel-cost-estimator/travel-cost-estimator.component';
 import { TravelToolsComponent } from './travel-tools.component';
-import { GlobalTravelVisaComponent } from './global-travel-visa/global-travel-visa.component';
-import { TravelPackingPlannerComponent } from './travel-packing-planner/travel-packing-planner.component';
-import { TravelVisitPlannerComponent } from './travel-visit-planner/travel-visit-planner.component';
-import { TripLengthFinderComponent } from './trip-length-finder/trip-length-finder.component';
-import { TravelGlossaryComponent } from './travel-glossary/travel-glossary.component';
 
 const routes: Routes = [
   {
-    path: '', component: TravelToolsComponent,
+    path: '',
+    component: TravelToolsComponent,
     children: [
       {
-        path: '', component: TravelToolsListComponent
+        path: '',
+        loadComponent: () => import('./travel-tools-list/travel-tools-list.component').then(m => m.TravelToolsListComponent)
       },
       {
-        path: 'travel-cost-estimator', component: TravelCostEstimatorComponent
+        path: 'travel-cost-estimator',
+        loadComponent: () => import('./travel-cost-estimator/travel-cost-estimator.component').then(m => m.TravelCostEstimatorComponent)
       },
       {
-        path: 'travel-visa', component: GlobalTravelVisaComponent
+        path: 'travel-visa',
+        loadComponent: () => import('./global-travel-visa/global-travel-visa.component').then(m => m.GlobalTravelVisaComponent)
       },
       {
-        path: 'travel-visit-planner', component: TravelVisitPlannerComponent
+        path: 'travel-visit-planner',
+        loadComponent: () => import('./travel-visit-planner/travel-visit-planner.component').then(m => m.TravelVisitPlannerComponent)
       },
       {
-        path: 'travel-packing-planner', component: TravelPackingPlannerComponent
+        path: 'travel-packing-planner',
+        loadComponent: () => import('./travel-packing-planner/travel-packing-planner.component').then(m => m.TravelPackingPlannerComponent)
       },
       {
-        path: 'trip-length-finder', component: TripLengthFinderComponent
-      }, 
+        path: 'trip-length-finder',
+        loadComponent: () => import('./trip-length-finder/trip-length-finder.component').then(m => m.TripLengthFinderComponent)
+      },
       {
-        path: 'travel-glossary', component: TravelGlossaryComponent
-      }, 
+        path: 'travel-glossary',
+        loadComponent: () => import('./travel-glossary/travel-glossary.component').then(m => m.TravelGlossaryComponent)
+      }
     ]
   }
 ];

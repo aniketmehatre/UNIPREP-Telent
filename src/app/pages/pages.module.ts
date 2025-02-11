@@ -18,7 +18,6 @@ import { ButtonModule } from "primeng/button"
 import { InputTextModule } from "primeng/inputtext"
 import { RippleModule } from "primeng/ripple"
 import { FormsModule, ReactiveFormsModule } from "@angular/forms"
-
 import { CalendarModule } from "primeng/calendar"
 import { TabViewModule } from "primeng/tabview"
 import { InputSwitchModule } from "primeng/inputswitch"
@@ -44,7 +43,6 @@ import { PopoverModule } from "primeng/popover"
 import { InputTextarea } from "primeng/inputtextarea"
 import { TooltipModule } from "primeng/tooltip"
 import { PrivacypolicyComponent } from "./footersection/privacypolicy/privacypolicy.component"
-
 import { PaginatorModule } from "primeng/paginator"
 import { ScrollTrackerDirective } from "./header-search/scroll-tracker.directive"
 import { RefundpolicyComponent } from "./footersection/refundpolicy/refundpolicy.component"
@@ -90,76 +88,61 @@ import { AverageSalaryComponent } from "./averagesalaryestimator/averagesalaryes
 import { AverageSalaryPreparedListComponent } from "./averagesalaryestimator/preparedlist/preparedlist.component"
 import { JoboffercomparisontoolComponent } from "./job-tool/joboffercomparisontool/joboffercomparisontool.component"
 import { JobOfferPreparedListComponent } from "./job-tool/joboffercomparisontool/preparedlist/preparedlist.component"
-import { DropdownModule } from "primeng/dropdown";
-
-import { OverlayPanelModule } from "primeng/overlaypanel";
-
-import { PdfViewerModule } from "ng2-pdf-viewer";
-
-import { AnimateModule } from "primeng/animate";
-
-import { GlobalRepositoryComponent } from './global-repository/global-repository.component';
+import { DropdownModule } from "primeng/dropdown"
+import { OverlayPanelModule } from "primeng/overlaypanel"
+import { GlobalRepositoryComponent } from './global-repository/global-repository.component'
 
 @NgModule({
-	declarations: [ButtonComponent, CardsComponent, EditprofileComponent, QuestionCreditComponent, PrivacypolicyComponent, RefundpolicyComponent, CancellationpolicyComponent, UserGuideComponent, CompanyListGuidlinesComponent, ScholarshipListGuidlinesComponent, InvestorListGuidlinesComponent, ExportCreditComponent, NationalExamCategoriesComponent, NationalExamStartComponent, NationalExamResultComponent, ],
+	declarations: [
+		ButtonComponent,
+		CardsComponent,
+		QuestionCreditComponent,
+		PrivacypolicyComponent,
+		RefundpolicyComponent,
+		CancellationpolicyComponent,
+		CompanyListGuidlinesComponent,
+		ScholarshipListGuidlinesComponent,
+		InvestorListGuidlinesComponent,
+		ExportCreditComponent,
+		NationalExamCategoriesComponent,
+		NationalExamStartComponent,
+		NationalExamResultComponent
+	],
 	exports: [FooterStatusBoxComponent, HeaderSearchComponent],
 	imports: [
 		CommonModule,
 		PopoverModule,
-    NationalExamReviewComponent,
-    PagesComponent,
-    HeaderSearchComponent,
-    FooterStatusBoxComponent,
-    HelpSupportComponent,
-    ButtonComponent,
-    CardsComponent,
-    HelpSupportComponent,
-    UserManagementComponent,
-    EditprofileComponent,
-    FooterStatusBoxComponent,
-    QuestionCreditComponent,
-    ChatComponent,
-    GuidelineComponent,
-    PrivacypolicyComponent,
-    ScrollTrackerDirective,
-    RefundpolicyComponent,
-    SupportComponent,
-    CancellationpolicyComponent,
-    InvestorListComponent,
-    CompanyListComponent,
-    ScholarshipListComponent,
-    UserGuideComponent,
-    CompanyListGuidlinesComponent,
-    ScholarshipListGuidlinesComponent,
-    InvestorListGuidlinesComponent,
-    RecommendationsComponent,
-    PitchDeskComponent,
-    ExportCreditComponent,
-    MycertificateComponent,
-    CareerPlannerComponent,
-    InvestorListComponent,
-    HeaderSearchComponent,
-    NationalExamQuestionsComponent,
-    CertificatesComponent,
-    CourseListComponent,
-    CompanyListComponent,
-    CareerGrowthCheckerComponent,
-    AdvisorComponent,
-		PitchDeskComponent,
-		PagesRoutingModule,
-    NationalExamTestsComponent,
+		PagesComponent,
+		HeaderSearchComponent,
+		FooterStatusBoxComponent,
+		HelpSupportComponent,
+		UserManagementComponent,
+		EditprofileComponent,
+		ChatComponent,
 		GuidelineComponent,
-    UserManagementComponent,
-    ScholarshipListComponent,
-    RecommendationsComponent,
+		ScrollTrackerDirective,
+		SupportComponent,
+		InvestorListComponent,
+		CompanyListComponent,
+		ScholarshipListComponent,
+		UserGuideComponent,
+		RecommendationsComponent,
+		PitchDeskComponent,
+		MycertificateComponent,
+		CareerPlannerComponent,
+		NationalExamQuestionsComponent,
+		CertificatesComponent,
+		CourseListComponent,
+		CareerGrowthCheckerComponent,
+		AdvisorComponent,
+		PagesRoutingModule,
+		NationalExamTestsComponent,
+		NationalExamReviewComponent,
 		JobOfferPreparedListComponent,
 		JoboffercomparisontoolComponent,
-		ScrollTrackerDirective,
 		AverageSalaryComponent,
-		ChatComponent,
 		JobPreparationComponent,
 		JobPreparedListComponent,
-		SupportComponent,
 		AverageSalaryPreparedListComponent,
 		StoreModule.forFeature(pagesFeatureKey, pagesReducer),
 		StoreModule.forFeature(appFeatureKey, ModuleStoreReducer),
@@ -169,7 +152,6 @@ import { GlobalRepositoryComponent } from './global-repository/global-repository
 		InputTextModule,
 		RippleModule,
 		ReactiveFormsModule,
-		
 		CalendarModule,
 		TabViewModule,
 		MultiSelectModule,
@@ -186,7 +168,7 @@ import { GlobalRepositoryComponent } from './global-repository/global-repository
 		ConfirmPopupModule,
 		ConfirmDialogModule,
 		AccordionModule,
-		PopoverModule ,
+		PopoverModule,
 		InputTextarea,
 		TooltipModule,
 		DividerModule,
@@ -194,7 +176,7 @@ import { GlobalRepositoryComponent } from './global-repository/global-repository
 		StepsModule,
 		RadioButtonModule,
 		NgxExtendedPdfViewerModule,
-		SkeletonModule,
+		SkeletonModule
 	],
 	schemas: [CUSTOM_ELEMENTS_SCHEMA],
 })

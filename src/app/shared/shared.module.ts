@@ -5,13 +5,11 @@ import { DialogModule } from 'primeng/dialog';
 import { LaunchSoonTagComponent } from './launch-soon-tag/launch-soon-tag.component';
 
 @NgModule({
-  declarations: [
-    RestrictionDialogComponent,  // Declare only the non-standalone component
-  ],
   imports: [
     CommonModule,
     DialogModule,
-    LaunchSoonTagComponent,  // Import the standalone component here
+    LaunchSoonTagComponent,
+    RestrictionDialogComponent  // Import the standalone component here
   ],
   exports: [
     RestrictionDialogComponent,

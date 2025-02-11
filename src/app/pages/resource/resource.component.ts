@@ -1,11 +1,12 @@
 import { Component, OnInit } from '@angular/core';
 import { ResourceService } from './resource.service';
-import { FormBuilder, FormGroup } from '@angular/forms';
+import { FormBuilder, FormGroup, ReactiveFormsModule } from '@angular/forms';
 import { MessageService } from 'primeng/api';
 import { AuthService } from 'src/app/Auth/auth.service';
 import { Router } from '@angular/router';
 import { PageFacadeService } from '../page-facade.service';
-import {LocationService} from "../../location.service";
+import { LocationService } from "../../location.service";
+import { CommonModule } from '@angular/common';
 
 interface country {
   id: number,
@@ -15,11 +16,13 @@ interface country {
   created_at: string,
   updated_at: string,
 };
+
 @Component({
     selector: 'uni-resource',
     templateUrl: './resource.component.html',
     styleUrls: ['./resource.component.scss'],
-    standalone: false
+    standalone: true,
+    imports: [CommonModule, ReactiveFormsModule]
 })
 export class ResourceComponent implements OnInit {
   filterform: FormGroup;
@@ -69,20 +72,6 @@ export class ResourceComponent implements OnInit {
   }
   getResources(data: any) {
     this.resourceService.getResources(data).subscribe((response: any) => {
-      var resources = response.resources;
-      // resources.forEach((element:any) => {
-      //    var resource = {
-      //     title: element.title,
-      //     link: element.link,
-      //     resourcedescription:element.resourcedescription,
-      //     coverimage:element.coverimage,
-      //     countryFlag:element.countryFlag,
-      //     country:element.countryName
-      //    }
-      //    this.resourceslist.push(resource); 
-      //    console.log(this.resourceslist);
-
-      // });
       this.resourceslist = []
       this.resourceslist = response.resources
       this.showSkeleton= false;
@@ -114,7 +103,6 @@ export class ResourceComponent implements OnInit {
   }
   // filterpop-up
   filterPopUp() {
-
     if (this.planExpired) {
       this.restrict = true;
       return;

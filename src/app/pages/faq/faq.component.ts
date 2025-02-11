@@ -1,11 +1,13 @@
 import {Component, OnInit} from '@angular/core';
 import { FaqService } from './faq.service';
+import { CommonModule } from '@angular/common';
 
 @Component({
     selector: 'uni-faq',
     templateUrl: './faq.component.html',
     styleUrls: ['./faq.component.scss'],
-    standalone: false
+    standalone: true,
+    imports: [CommonModule]
 })
 export class FaqComponent implements OnInit {
     faqcatlist: any[] = [];
@@ -26,12 +28,11 @@ export class FaqComponent implements OnInit {
         }
         this.service.Getfaqlist(data).subscribe((res) => {
           this.faqcatlist = res.data;      
-       this.onFaqcatClick(res.data[0].id)
-       
+          this.onFaqcatClick(res.data[0].id)
         }) 
-      }
+    }
     
-      onFaqcatClick(id: any) {
+    onFaqcatClick(id: any) {
         this.faqanswelist = []; // Clear the faqanswelist array when a category is clicked
         var data = {
           category: id
@@ -40,5 +41,5 @@ export class FaqComponent implements OnInit {
         this.service.Getfaqlistwithcate(data).subscribe((res) => {
           this.faqanswelist = res.data; // Update faqanswelist with the retrieved data
         });
-      }
+    }
 }
