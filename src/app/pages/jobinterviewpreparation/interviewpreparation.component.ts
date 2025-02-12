@@ -2,11 +2,26 @@ import { Component, Input, OnInit, ViewChild, ElementRef } from "@angular/core";
 import { Router } from "@angular/router";
 import { PageFacadeService } from "../page-facade.service";
 import { InterviewPreparationService } from "./interviewpreparation.service";
-
+import { CommonModule } from '@angular/common';
+import { RouterModule } from '@angular/router';
+import { TooltipModule } from 'primeng/tooltip';
+import { DialogModule } from 'primeng/dialog';
+import { CardModule } from 'primeng/card';
+import { PaginatorModule } from 'primeng/paginator';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { CarouselModule } from 'primeng/carousel';
+import { ButtonModule } from 'primeng/button';
+import { MultiSelectModule } from 'primeng/multiselect';
+import { SelectModule } from 'primeng/select';
+import { InputGroupModule } from 'primeng/inputgroup';
+import { InputTextModule } from 'primeng/inputtext';
+import { InputGroupAddonModule } from 'primeng/inputgroupaddon';
 @Component({
   selector: "uni-job-prep",
   templateUrl: "./interviewpreparation.component.html",
   styleUrls: ["./interviewpreparation.component.scss"],
+  standalone: true,
+  imports: [CommonModule, RouterModule, TooltipModule, DialogModule, CardModule, PaginatorModule, FormsModule, ReactiveFormsModule, CarouselModule, ButtonModule, MultiSelectModule, SelectModule, InputGroupModule, InputTextModule, InputGroupAddonModule]
 })
 export class JobPreparationComponent implements OnInit {
   @ViewChild('jobRoleInput') JobRoleInput: ElementRef;

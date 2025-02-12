@@ -15,12 +15,24 @@ import { CommonModule } from "@angular/common";
 import { DialogModule } from "primeng/dialog";
 import { SidebarModule } from "primeng/sidebar";
 import { NgxExtendedPdfViewerModule } from 'ngx-extended-pdf-viewer';
+import { RouterModule } from '@angular/router';
+import { CardModule } from 'primeng/card';
+import { PaginatorModule } from 'primeng/paginator';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { CarouselModule } from 'primeng/carousel';
+import { ButtonModule } from 'primeng/button';
+import { MultiSelectModule } from 'primeng/multiselect';
+import { SelectModule } from 'primeng/select';
+import { InputGroupModule } from 'primeng/inputgroup';
+import { InputTextModule } from 'primeng/inputtext';
+import { InputGroupAddonModule } from 'primeng/inputgroupaddon';
+
 @Component({
   selector: "uni-cv-builder",
   templateUrl: "./cv-builder.component.html",
   styleUrls: ["./cv-builder.component.scss"],
   standalone: true,
-  imports: [CommonModule, DialogModule, SidebarModule, NgxExtendedPdfViewerModule],
+  imports: [CommonModule, DialogModule, SidebarModule, NgxExtendedPdfViewerModule, RouterModule, CardModule, PaginatorModule, FormsModule, ReactiveFormsModule, CarouselModule, ButtonModule, MultiSelectModule, SelectModule, InputGroupModule, InputTextModule, InputGroupAddonModule],
 })
 export class CvBuilderComponent implements OnInit {
   selectedResumeLevel: string = "";

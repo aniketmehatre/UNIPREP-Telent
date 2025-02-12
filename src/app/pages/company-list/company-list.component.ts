@@ -12,12 +12,21 @@ import { LocationService } from 'src/app/location.service';
 import { CommonModule } from '@angular/common';
 import { DialogModule } from 'primeng/dialog';
 import { MultiSelectModule } from 'primeng/multiselect';
+import { RouterModule } from '@angular/router';
+import { CardModule } from 'primeng/card';
+import { PaginatorModule } from 'primeng/paginator';
+import { CarouselModule } from 'primeng/carousel';
+import { ButtonModule } from 'primeng/button';
+import { SelectModule } from 'primeng/select';
+import { InputGroupModule } from 'primeng/inputgroup';
+import { InputTextModule } from 'primeng/inputtext';
+import { InputGroupAddonModule } from 'primeng/inputgroupaddon';
 @Component({
     selector: 'uni-company-list',
     templateUrl: './company-list.component.html',
     styleUrls: ['./company-list.component.scss'],
     standalone: true,
-    imports: [CommonModule, DialogModule, MultiSelectModule, FormsModule, ReactiveFormsModule],
+    imports: [CommonModule, DialogModule, MultiSelectModule, FormsModule, ReactiveFormsModule, CarouselModule, ButtonModule, CommonModule, RouterModule, DialogModule, MultiSelectModule, CardModule, InputGroupModule, InputTextModule, InputGroupAddonModule],
 })
 export class CompanyListComponent implements OnInit {
   companyListData: any[] = []

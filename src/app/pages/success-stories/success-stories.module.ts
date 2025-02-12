@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-
+import { RouterModule } from '@angular/router';
 import { AccordionModule } from "primeng/accordion";
 import { SuccessStoriesComponent } from './success-stories.component';
 import { SuccessStoryRoutingModule } from './succes-stories-routing.module';
@@ -15,7 +15,8 @@ import { CardModule } from 'primeng/card';
         AccordionModule,
         TooltipModule,
         CardModule,
-        SuccessStoriesComponent
+        SuccessStoriesComponent,
+        RouterModule
     ]
 })
 export class SuccessStoriesModule {

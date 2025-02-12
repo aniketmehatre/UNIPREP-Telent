@@ -8,7 +8,17 @@ import { AuthService } from "src/app/Auth/auth.service"
 import { LocationService } from "src/app/location.service"
 import { CommonModule } from '@angular/common';
 import { DialogModule } from 'primeng/dialog';
-
+import { RouterModule } from '@angular/router';
+import { CardModule } from 'primeng/card';
+import { PaginatorModule } from 'primeng/paginator';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { CarouselModule } from 'primeng/carousel';
+import { ButtonModule } from 'primeng/button';
+import { MultiSelectModule } from 'primeng/multiselect';
+import { SelectModule } from 'primeng/select';
+import { InputGroupModule } from 'primeng/inputgroup';
+import { InputTextModule } from 'primeng/inputtext';
+import { InputGroupAddonModule } from 'primeng/inputgroupaddon';
 interface JobRole {
 	id: number
 	jobrole: string
@@ -51,7 +61,7 @@ interface Country {
 	templateUrl: "./career-growth-checker.component.html",
 	styleUrls: ["./career-growth-checker.component.scss"],
 	standalone: true,
-  imports: [CommonModule, DialogModule]
+  imports: [CommonModule, DialogModule, RouterModule, CardModule, PaginatorModule, FormsModule, ReactiveFormsModule, CarouselModule, ButtonModule, MultiSelectModule, SelectModule, InputGroupModule, InputTextModule, InputGroupAddonModule]
 })
 export class CareerGrowthCheckerComponent implements OnInit {
 	constructor(private careerGrowthService: CareerGrowthService, private router: Router, private fb: FormBuilder, private authService: AuthService, private locationService: LocationService) {}
