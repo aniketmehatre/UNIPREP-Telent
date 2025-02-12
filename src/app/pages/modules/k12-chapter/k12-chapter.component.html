@@ -10,7 +10,7 @@
 						<h5 class="mb-0" tooltipPosition="top" pTooltip="Questions related to the application process are answered">{{ boardName | uppercase }} {{stateName ? ' - '+ stateName : ''}} {{className ? ' - '+ className : ''}} {{ subName ? " - " + subName : "" }}<i class="questiontooltip fa-solid fa-circle-question"></i></h5>
 					</div>
 					<!-- <div>
-						<button pButton  class="how-it-works-button" severity="warn" > (click)="openVideoPopup(howItWorksVideoLink)">How it works?<i class="fa-solid fa-play d-md-block d-none"></i></button>
+						<button pButton  class="how-it-works-button" severity="warn" (click)="openVideoPopup(howItWorksVideoLink)">How it works?<i class="fa-solid fa-play d-md-block d-none"></i></button>
 					</div> -->
 				</div>
 			</div>

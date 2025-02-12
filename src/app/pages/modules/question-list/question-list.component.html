@@ -20,7 +20,7 @@
               </h5>
           </div>
           <div *ngIf="currentModuleName != 'K12' && currentModuleName != 'K12 Academy'">
-            <button pButton  class="how-it-works-button" severity="warn" > (click)="openHowItWorksVideoPopup(howItWorksVideoLink)">How it works?<i class="fa-solid fa-play d-md-block d-none"></i></button>
+            <button pButton  class="how-it-works-button" severity="warn" (click)="openHowItWorksVideoPopup(howItWorksVideoLink)">How it works?<i class="fa-solid fa-play d-md-block d-none"></i></button>
           </div>
         </div>
         <button pButton  pButton role="button" (click)="startQuiz()" class="m-0 btn btn-primary flex-shrink-0  btn-rounded" [disabled]="quizpercentage >= 90" *ngIf="currentModuleId == 8 || currentModuleId == 10 || currentModuleId != 14 && currentModuleId != 7 && currentModuleId != 1 && currentModuleId != 3 && currentModuleId != 6 && currentModuleId != 4">
