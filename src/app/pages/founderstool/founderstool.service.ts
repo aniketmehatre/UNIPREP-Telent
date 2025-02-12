@@ -1,6 +1,7 @@
 import { HttpClient, HttpParams, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { environment } from '@env/environment';
+import { Observable } from 'rxjs';
 import { ChatGPTResponse } from 'src/app/@Models/chat-gpt.model';
 
 @Injectable({
@@ -195,6 +196,12 @@ export class FounderstoolService {
     });
   }
 
+  getAllLocationList() {
+    return this.http.get<any>(environment.ApiUrl + "/getallLocations", {
+      headers: this.headers,
+    });
+  }
+
   getStartUpRiskAssesmentOptionsList() {
     return this.http.get<any>(environment.ApiUrl + "/getstartupriskslists", {
       headers: this.headers,
@@ -217,5 +224,10 @@ export class FounderstoolService {
     return this.http.post<{ url: string }>(environment.ApiUrl + "/downloadIntegratedRecom", data, {
       headers: this.headers,
     });
+  }
+
+  downloadFile(url: string): Observable<Blob> {
+    const headers = new HttpHeaders();
+    return this.http.get(url, { responseType: 'blob', headers: headers });
   }
 }

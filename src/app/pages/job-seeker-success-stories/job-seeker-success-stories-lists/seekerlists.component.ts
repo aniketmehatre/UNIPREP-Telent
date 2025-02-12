@@ -10,6 +10,8 @@ import { CommonModule } from "@angular/common";
 import { CardModule } from "primeng/card";
 import { DialogModule } from "primeng/dialog";
 import { PaginatorModule } from "primeng/paginator";
+import { DataService } from "src/app/data.service";
+
 @Component({
   selector: "uni-seekerlists",
   templateUrl: "./seekerlists.component.html",
@@ -36,9 +38,19 @@ export class SeekerListsComponent implements OnInit {
   loopRange = Array.from({ length: 30 })
     .fill(0)
     .map((_, index) => index);
-  constructor(private location: Location, private route: ActivatedRoute, private toast: MessageService, private router: Router, private pageFacade: PageFacadeService, private authService: AuthService, private meta: Meta, private service: JobseekerSuccessStoriesService) {}
+  constructor(
+    private location: Location,
+    private route: ActivatedRoute,
+    private toast: MessageService,
+    private router: Router,
+    private pageFacade: PageFacadeService,
+    private authService: AuthService,
+    private meta: Meta,
+    private service: JobseekerSuccessStoriesService,
+    private dataService: DataService
+  ) {}
   ngOnInit(): void {
-    this.gethackList();
+    this.getList();
     this.checkPlanExpiry();
     this.imagewhitlabeldomainname = window.location.hostname;
     this.ehitlabelIsShow = ["dev-student.uniprep.ai", "uniprep.ai", "localhost"].includes(this.imagewhitlabeldomainname);
@@ -47,7 +59,8 @@ export class SeekerListsComponent implements OnInit {
     let socialShare: any = document.getElementById("socialSharingList");
     socialShare.style.display = "none";
   }
-  gethackList() {
+  module_id: any;
+  getList() {
     this.service
       .getjobseekerstoriesLists({
         country_id: this.prepData.country_id,
@@ -56,6 +69,7 @@ export class SeekerListsComponent implements OnInit {
       })
       .subscribe((response: any) => {
         this.ListData = response.data;
+        this.module_id = response.module_id;
         this.totalDataCount = response.totalcount;
         this.isSkeletonVisible = false;
       });
@@ -69,7 +83,7 @@ export class SeekerListsComponent implements OnInit {
   paginate(event: any) {
     this.page = event.page + 1;
     this.perpage = event.rows;
-    this.gethackList();
+    this.getList();
   }
 
   checkPlanExpiry(): void {
@@ -174,8 +188,16 @@ export class SeekerListsComponent implements OnInit {
     this.isQuestionAnswerVisible = true;
   }
   getContentPreview(content: string): string {
-    const plainText = content.replace(/<[^>]*>/g, '');
-    return plainText.length > 75 ? plainText.slice(0, 75) + ' ...' : plainText;
-
+    const plainText = content.replace(/<[^>]*>/g, "");
+    return plainText.length > 75 ? plainText.slice(0, 75) + " ..." : plainText;
+  }
+  openReport() {
+    let data: any = {
+      isVisible: true,
+      moduleId: this.module_id,
+      questionId: this.selectedQuestionData?.id,
+      countryId: this.selectedQuestionData.country_id,
+    };
+    this.dataService.openReportWindow(data);
   }
 }

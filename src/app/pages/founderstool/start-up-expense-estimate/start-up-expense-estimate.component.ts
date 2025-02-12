@@ -68,6 +68,7 @@ export class StartUpExpenseEstimateComponent implements OnInit {
   isRecommendationData: boolean = false;
   isRecommendationSavedData: boolean = false;
   recommendationData: string = '';
+  locationsList: any = [];
   constructor(
     private fb: FormBuilder,
     private foundersToolsService: FounderstoolService,
@@ -103,7 +104,7 @@ export class StartUpExpenseEstimateComponent implements OnInit {
       id: 1,
       question: {
         heading: 'Basic Information',
-        branches: ["What is the industry of your business?", "At what phase is your startup currently?", "Where is your startup located?", "What is the current size of your team?"]
+        branches: ["What is the industry of your business?", "Where is your startup located?", "At what phase is your startup currently?", "What is the current size of your team?"]
       },
     },
     {
@@ -137,7 +138,6 @@ export class StartUpExpenseEstimateComponent implements OnInit {
     } else {
       this.ehitlabelIsShow = false;
     }
-    // this.getMarketAnalysisLists();
     this.getCurrenyandLocation();
   }
 
@@ -145,23 +145,15 @@ export class StartUpExpenseEstimateComponent implements OnInit {
     this.router.navigateByUrl('/pages/founderstool/founderstoollist');
   }
 
-  getMarketAnalysisLists() {
-    // this.foundersToolsService.getmarketingAnaylsisOptionsList().subscribe((res: any) => {
-    //   console.log(res);
-    //   this.competitorList = res?.competitor;
-    //   this.timeFramesList = res?.duration;
-    //   this.targetMarketList = res?.market;
-    //   this.businessModelList = res?.models;
-    //   this.productServiceList = res?.productservice;
-    //   this.revenueStreamsList = res?.revenuestreams;
-    //   this.salesChannelsList = res?.saleschannel;
-    // });
-  }
 
   getCurrenyandLocation() {
     this.foundersToolsService.getCurrencyAndCountries().subscribe((res: any) => {
       console.log(res);
       this.currencyandCountryList = res;
+    });
+    this.foundersToolsService.getLocationList().subscribe((res: any) => {
+      console.log(res);
+      this.locationsList = res;
     });
   }
 
@@ -293,7 +285,13 @@ export class StartUpExpenseEstimateComponent implements OnInit {
   downloadRecommadation() {
     this.foundersToolsService.downloadRecommendation({ data: this.recommendationData }).subscribe({
       next: res => {
-        window.open(res.url, "_blank");
+        const a = document.createElement('a');
+        a.href = res.url;
+        a.download = 'recommendation.pdf'; // Set the desired file name
+        document.body.appendChild(a);
+        a.click();
+        document.body.removeChild(a);
+        window.URL.revokeObjectURL(res.url);
       },
       error: err => {
         console.log(err?.error?.message);

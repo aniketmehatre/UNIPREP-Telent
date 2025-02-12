@@ -32,7 +32,7 @@
                         (click)="openVideoPopupNew(tutorial.link)">
                         <div class="card my-2 position-relative tutcard">
                             <div class="tutgradient"></div>
-                            <img src="https://api.uniprep.ai/uniprepapi/storage/app/public/tutorial-coverimage/unischolar.webp" />
+                            <img [src]="tutorial.coverimage"  [alt]="tutorial.title" class="img-fluid"/>
                             <div class="tutorialcontent">
                                 <h5 class="mb-0 text-white">{{ tutorial.title }}</h5>
                             </div>

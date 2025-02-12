@@ -29,7 +29,7 @@ export class LocationService {
 
     getLocation() {
         const headers = new HttpHeaders().set("Accept", "application/json");
-        return this.http.get<LocationData>(environment.ApiUrl + "/location", {
+        return this.http.get<LocationData[]>(environment.ApiUrl + "/location", {
             headers: headers,
         });
     }

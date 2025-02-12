@@ -2,21 +2,22 @@
   <ng-container *ngIf="isRecommendationQuestion">
     <div class="card-header border-0 bg-transparent">
       <div class="row justify-content-center align-items-center">
-        <div class="col-md-12 text-center">
-          <div class="select-title d-flex justify-content-between align-items-center">
-            <div>
-              <h5 class="w-100 mb-0" tooltipPosition="top" pTooltip="">
-                AI BUSINESS ADVISOR
-              </h5>
+        <div class="col-md-12 d-flex gap-2">
+            <div class="backIcon d-md-flex d-none" role="button" (click)="goBack()" style="height: auto;">
+                <span class="fa-solid fa-chevron-left"></span>
             </div>
-            <div>
-              <button pButton  class="how-it-works-button" severity="warn" >
-                How it works? <i class="fa-solid fa-play d-md-block d-none"></i>
-              </button>
+            <div class="select-title d-flex justify-content-between align-items-center">
+                <div>
+                    <h5 class="w-100 mb-0" tooltipPosition="top" pTooltip="">
+                      AI BUSINESS ADVISOR<i class="questiontooltip fa-solid fa-circle-question"></i></h5>
+                </div>
+                <div>
+                    <button pButton class="how-it-works-button">How it works?
+                        <i class="fa-solid fa-play d-md-block d-none"></i></button>
+                </div>
             </div>
-          </div>
         </div>
-      </div>
+    </div>
     </div>
     <div class="card-body text-center flex-fill overflow-y-auto">
       <div class="container-fluid h-100">
@@ -28,38 +29,38 @@
               <div class="row justify-content-center text-start">
                 <div class="col-md-12 mb-4">
                   <h5 class="uniprep-primary fw-semibold mb-0">
-                    Question Number {{ recommendation.id }}
+                    <!-- Question Number {{ recommendation.id }} -->
                   </h5>
                   <h2 class="fw-bold mb-0 text-center">{{ recommendation.question }}</h2>
                 </div>
                 <div class="col-md-6">
                   <ng-container *ngIf="recommendation.id == 1">
                     <p-select [(ngModel)]="selectedData[recommendation.id]" [options]="industryList" [filter]="true" filterBy="Industry"
-                      styleClass="w-100" optionLabel="Industry" optionValue="Industry" [appendTo]="'body'" placeholder="Industry">
+                      styleClass="w-100" optionLabel="Industry" optionValue="Industry" [appendTo]="'body'" placeholder="Select Industry">
                     </p-select>
                     <div class="text-center" [ngClass]="{ 'd-none': inValidClass === false }" style="color: red">
                       Business Type is required
                     </div>
                   </ng-container>
                   <ng-container *ngIf="recommendation.id == 2">
-                    <p-multiSelect [(ngModel)]="selectedData[recommendation.id]" [options]="businessGoalsList" [filter]="true" filterBy="goal"
-                      styleClass="w-100" optionLabel="goal" optionValue="goal" [appendTo]="'body'" placeholder="Goal">
-                    </p-multiSelect>
+                    <p-dropdown [(ngModel)]="selectedData[recommendation.id]" [options]="businessGoalsList" [filter]="true" filterBy="goal"
+                    styleClass="w-100" optionLabel="goal" optionValue="goal" [appendTo]="'body'" placeholder="Select Goal">
+                  </p-dropdown>
                     <div class="text-center" [ngClass]="{ 'd-none': inValidClass === false }" style="color: red">
-                      Business Primary Goals is required
+                      Business Primary Goal is required
                     </div>
                   </ng-container>
                   <ng-container *ngIf="recommendation.id == 3">
-                    <p-select [(ngModel)]="selectedData[recommendation.id]" [options]="strategyBusinessList"
-                      styleClass="w-100" optionLabel="name" optionValue="name" [appendTo]="'body'" placeholder="Time">
+                    <p-select [(ngModel)]="selectedData[recommendation.id]" [options]="durationList"
+                      styleClass="w-100" optionLabel="name" optionValue="name" [appendTo]="'body'" placeholder="Months">
                     </p-select>
                     <div class="text-center" [ngClass]="{ 'd-none': inValidClass === false }" style="color: red">
-                      Business strategy is required
+                      Business Duration is required
                     </div>
                   </ng-container>
                   <ng-container *ngIf="recommendation.id == 4">
                     <p-select [(ngModel)]="selectedData[recommendation.id]" [options]="challengeList"  [filter]="true" filterBy="challenge" 
-                      styleClass="w-100" optionLabel="challenge" optionValue="challenge" [appendTo]="'body'" placeholder="Challenge">
+                      styleClass="w-100" optionLabel="challenge" optionValue="challenge" [appendTo]="'body'" placeholder="Select Challenge">
                     </p-select>
                     <div class="text-center" [ngClass]="{ 'd-none': inValidClass === false }" style="color: red">
                       Challenges are required
@@ -67,18 +68,23 @@
                   </ng-container>
                   <ng-container *ngIf="recommendation.id == 5">
                     <p-select [(ngModel)]="selectedData[recommendation.id]" [options]="targetAudienceList"  [filter]="true" filterBy="audience" 
-                      styleClass="w-100" optionLabel="audience" optionValue="audience" [appendTo]="'body'" placeholder="Audience">
+                      styleClass="w-100" optionLabel="audience" optionValue="audience" [appendTo]="'body'" placeholder="Select Target Audience">
                     </p-select>
                     <div [ngClass]="{ 'd-none': inValidClass === false }" style="color: red" class="text-danger">
                       Ideal customers is required
                     </div>
                   </ng-container>
                   <ng-container *ngIf="recommendation.id == 6">
-                    <p-select [(ngModel)]="selectedData[recommendation.id]" [options]="budgetList"  [filter]="true" filterBy="goal" 
-                      styleClass="w-100" optionLabel="goal" optionValue="goal" [appendTo]="'body'" placeholder="Goal">
-                    </p-select>
+                    <div class="w-100 d-flex gap-2 flex-fill">
+                      <p-select  [(ngModel)]="selectedData[8]" [options]="currencyList" [filter]="true"
+                        filterBy="currency_code" placeholder=" Currency" appendTo="body" optionLabel="currency_code" optionValue="currency_code"
+                        [autoDisplayFirst]="false">
+                      </p-select>
+                      <input  [(ngModel)]="selectedData[recommendation.id]" class="w-100 pl-4 border border-gray rounded-3" type="number" [min]="100000" pInputText [placeholder]="selectedData[8] ? 'Amount in'+' '+selectedData[8] : 'Budget' "
+                        />
+                    </div>  
                     <div class="text-center" [ngClass]="{ 'd-none': inValidClass === false }" style="color: red">
-                      Budget is required
+                      Budget is required or maximum 5 digit allowed 
                     </div>
                   </ng-container>
                   <ng-container *ngIf="recommendation.id == 7">
@@ -118,7 +124,7 @@
   <ng-container *ngIf="isRecommendationData">
     <div class="card-header border-0 bg-transparent">
         <div class="row justify-content-center align-items-center">
-            <div class="col-md-12 d-flex gap-4">
+            <div class="col-md-12 d-flex gap-2">
                 <div class="backIcon d-md-flex d-none" role="button" (click)="goBack()" style="height: auto;">
                     <span class="fa-solid fa-chevron-left"></span>
                 </div>
@@ -135,7 +141,7 @@
                 <div class="d-flex align-items-center">
                     <button pButton  pButton type="button" (click)="saveRecommadation()"
                         class="btn btn-primary btn-rounded py-2 px-4">
-                        <span>Save</span>
+                        <span>History</span>
                     </button>
                 </div>
             </div>
@@ -146,18 +152,13 @@
           <div class="col-md-2"></div>
           <div class="col-md-8">
               <div class="d-flex justify-content-end gap-3 mb-3">
-                  <button pButton  pButton type="button" (click)="downloadRecommadation()"
+                  <button pButton type="button" (click)="downloadRecommendation()"
                       class="btn btn-secondary btn-rounded p-1 ps-4">
                       <span class="me-2">Download</span><span class="btn-icon px-2 py-2">
                           <i class="fa-regular fa-download"></i></span>
                   </button>
-                  <button pButton  pButton type="button" (click)="onSaveRes()"
-                      class="btn btn-primary btn-rounded p-1 ps-4">
-                      <span class="me-2">Save Response</span><span class="btn-icon px-2 py-2">
-                          <i class="fa-regular fa-floppy-disk"></i></span>
-                  </button>
               </div>
-              <div class="card p-3" [innerHtml]="recommendationData"></div>
+              <div class="card p-3 fs-5" [innerHtml]="recommendationData"></div>
           </div>
           <div class="col-md-2"></div>
       </div>

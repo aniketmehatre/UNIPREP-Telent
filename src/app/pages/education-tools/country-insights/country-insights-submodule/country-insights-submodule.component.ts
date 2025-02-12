@@ -32,6 +32,7 @@ export class CountryInsightsSubmoduleComponent implements OnInit {
   questionDetail: any;
   totalQuizCount: number = 0;
   selectedIndex: number = 0;
+  countryname: string = '';
   constructor(private educationToolService: EducationToolsService, private route: ActivatedRoute, private meta: Meta) {
 
   }
@@ -39,6 +40,7 @@ export class CountryInsightsSubmoduleComponent implements OnInit {
   ngOnInit(): void {
     this.moduleId = this.route.snapshot.params?.['id'];
     this.countryId = localStorage.getItem('country_insights_country') || '';
+    this.countryname = localStorage.getItem('country_name') || '';
     this.getQuizQuestionData();
   }
 

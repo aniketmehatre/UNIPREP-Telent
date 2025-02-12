@@ -30,30 +30,35 @@
                 <div class="row w-100 h-100 m-0 justify-content-center">
                     <div class="card questioncard">
                         <div class="card-body">
-                            <ng-container [ngSwitch]="item.status">
-                                <div *ngSwitchCase="'Diamond'" style="background-color: #808ec1;"
+                            <ng-container [ngSwitch]="item.contributiontier">
+                                <div *ngSwitchCase="'Diamond Contributor'" style="background-color: #808ec1;"
                                     class="contributor-tag">Diamond</div>
-                                <div *ngSwitchCase="'Premium'" style="background-color: #404040;"
-                                    class="contributor-tag">Premium</div>
-                                <div *ngSwitchCase="'Gold'" style="background-color: #ec9d32;" class="contributor-tag">
-                                    Gold</div>
-                                <div *ngSwitchCase="'Silver'" style="background-color: #a1abb1;"
+                                <div *ngSwitchCase="'Platinum Contributor'" style="background-color: #404040;"
+                                    class="contributor-tag">Platinum</div>
+                                <div *ngSwitchCase="'Gold Contributor'" style="background-color: #ec9d32;"
+                                    class="contributor-tag">Gold</div>
+                                <div *ngSwitchCase="'Silver Contributor'" style="background-color: #a1abb1;"
                                     class="contributor-tag">Silver</div>
-                                <div *ngSwitchCase="'Bronze'" style="background-color: #cc6637;"
+                                <div *ngSwitchCase="'Bronze Contributor'" style="background-color: #cc6637;"
                                     class="contributor-tag">Bronze</div>
                             </ng-container>
                             <div class="d-flex gap-3 my-4">
-                                <div class="contributor-img-sec">
-                                    <img [src]="item.img" alt="Sponsors Image">
+                                <div *ngIf="item.image; else noImage" class="contributor-img-sec">
+                                    <img [src]="item.image" alt="Sponsors Image">
                                 </div>
+                                <ng-template #noImage>
+                                    <div class="no-image">
+                                        <i class="fa fa-solid fa-image-slash"></i>
+                                    </div>
+                                </ng-template>
                                 <div class="text-start">
-                                    <h5>{{item.title}}</h5>
+                                    <h5>{{item.name}}</h5>
                                     <div class="text-small">{{item.company}}</div>
                                     <div class="text-small">{{item.location}}</div>
                                 </div>
                             </div>
-                            <button pButton  pButton type="button" (click)="viewSponsor(item)"
-                                class="btn btn-secondary btn-rounded p-1 w-100 justify-content-center">
+                            <button pButton type="button" (click)="viewSponsor(item)"
+                                class="btn btn-secondary  p-1 w-100 justify-content-center">
                                 View
                             </button>
                         </div>
@@ -97,44 +102,45 @@
     </ng-template>
 </div>
 
-<p-dialog #dialogContent [(visible)]="isQuestionAnswerVisible" [draggable]="false" [modal]="true"
-    class="questionmodal contributor-modal" (onShow)="onShowModal($event)">
-    <ng-template pTemplate="header">
-        <div class="d-flex w-100 flex-column px-4">
-            <div class="d-flex flex-row justify-content-md-between justify-content-center">
-                <div class="d-md-block d-none">
-                </div>
-                <div class="col-md-8 col-auto-2 col-6">
-                    <h5 class="select-title w-100 text-center mb-0">Contributors Filter</h5>
-                </div>
-                <div class="d-md-block d-none">
-                </div>
-            </div>
-        </div>
-    </ng-template>
+<p-dialog header="Filter Contributors"  [(visible)]="isQuestionAnswerVisible" [draggable]="false" [modal]="true"
+[style]="{ width: '50vw' }">
     <div class="container p-4">
-        <form [formGroup]="filterFrom" class="d-flex flex-column gap-3">
-            <div>
-                <p class="mt-2">Contributor or Company name</p>
-                <input type="text" formControlName="name" class="w-100" placeholder="Contributor or Company name" pInputText />
-            </div>
-            <div>
-                <p class="mt-2">Select Contribution Tier</p>
-                <p-dropdown [options]="contibutionTierList" [filter]="true" formControlName="contribution_tier"
-                    optionLabel="value" styleClass="w-100" optionValue="id" [showClear]="true"
-                    placeholder="Contibution Tier" [appendTo]="'body'"></p-dropdown>
+        <form [formGroup]="filterForm" (ngSubmit)="submitFilterForm()" class="d-flex flex-column gap-3">
+            <div class="row">
+                <div class="col-12">
+                    <div class="form-group mb-2">
+                        <label>Contribution Tier</label>
+                        <p-dropdown [options]="contibutionTierList" [filter]="true" formControlName="contributiontier"
+                        optionLabel="contributiontier" styleClass="w-100" optionValue="id" [showClear]="true"
+                        placeholder="Select" [appendTo]="'body'"></p-dropdown>
+                    </div>
+                </div>
+                <div class="col-12">
+                    <div class="form-group mb-2">
+                        <label>Location</label>
+                        <p-dropdown formControlName="location" optionValue="id" optionLabel="state" styleClass="w-100" [showClear]="true"
+                            [options]="locationList" placeholder="Select" [filter]="true" filterBy="state,district" [appendTo]="'body'">
+                            <ng-template let-data pTemplate="item">
+                                <div>{{data.state}} - {{data.district}}</div>
+                            </ng-template>
+                            <ng-template pTemplate="selectedItem" let-selectedOption>
+                                {{ selectedOption.state }} - {{ selectedOption.district }}
+                            </ng-template>
+                        </p-dropdown>
+                    </div>
+                </div>
             </div>
             <div class="d-flex justify-content-end">
                 <div class="d-flex gap-3">
-                    <button pButton  pButton type="button" (click)="onFilter()"
+                    <button pButton type="button" (click)="resetFilter()"
                         class="btn btn-primary btn-rounded px-4 py-2 justify-content-center">
                         Reset Filter
                     </button>
-                    <button pButton  pButton type="button" (click)="resetFilter()"
-                        class="btn btn-secondary btn-rounded px-4 py-2 justify-content-center">
+                    <button pButton type="submit"
+                        class="btn btn-secondary px-4 py-2 justify-content-center">
                         Filter Data
                     </button>
-                    
+
                 </div>
             </div>
         </form>

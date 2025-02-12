@@ -53,6 +53,7 @@ export class AiBusinessAdvisorComponent implements OnInit {
   selectedData: { [key: string]: any } = {};
   enableModule: boolean = false;
   isFromSavedData: boolean = false;
+  currencyList: any = [];
   constructor(
     private fb: FormBuilder,
     private foundersToolService: FounderstoolService,
@@ -61,6 +62,13 @@ export class AiBusinessAdvisorComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
+    this.getCurrenyandLocation();
+  }
+
+  getCurrenyandLocation() {
+    this.foundersToolService.getCurrencyAndCountries().subscribe((res: any) => {
+      this.currencyList = res;
+    });
   }
 
   previous(): void {
@@ -73,6 +81,12 @@ export class AiBusinessAdvisorComponent implements OnInit {
   next(productId: number): void {
     this.inValidClass = false;
     if (productId in this.selectedData) {
+      if (productId == 6) {
+        if (this.selectedData[6].toString()?.length > 5) {
+          this.inValidClass = true;
+          return;
+        }
+      }
       if (this.activePageIndex < this.recommendations.length - 1) {
         this.activePageIndex++;
       }
@@ -95,6 +109,7 @@ export class AiBusinessAdvisorComponent implements OnInit {
       customers: this.selectedData[5],
       budget: this.selectedData[6],
       strategy: this.selectedData[7],
+      currency: this.selectedData[8],
       mode: 'business_advisor'
     }
     this.foundersToolService.getChatgptRecommendations(data).subscribe({
@@ -150,15 +165,27 @@ export class AiBusinessAdvisorComponent implements OnInit {
     this.toast.add({ severity: "success", summary: "Success", detail: "Response saved successfully" });
   }
 
-  downloadRecommadation() {
-    this.foundersToolService.downloadRecommendation({ data: this.recommendationData }).subscribe({
-      next: res => {
-        window.open(res.url, "_blank");
-      },
-      error: err => {
-        console.log(err?.error?.message);
-      }
-    });
+  downloadRecommendation() {
+    this.foundersToolService.downloadRecommendation({ data: this.recommendationData })
+      .subscribe({
+        next: (response: any) => {
+          this.foundersToolService.downloadFile(response.url).subscribe((blob) => {
+            const a = document.createElement("a");
+            const objectUrl = window.URL.createObjectURL(blob);
+
+            a.href = objectUrl;
+            a.download = "business-advisor.pdf";
+            document.body.appendChild(a);
+
+            a.click();
+            window.URL.revokeObjectURL(objectUrl);
+            document.body.removeChild(a);
+          });
+        },
+        error: (err) => {
+          console.log(err?.error?.message);
+        }
+      });
   }
 
 

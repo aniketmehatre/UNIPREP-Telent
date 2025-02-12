@@ -337,6 +337,9 @@
                                                         <div class="p-3 fw-bold text-end">
                                                         </div>
                                                         <div class="p-3 fw-bold text-end">
+                                                            <h5 class="fw-bold mb-0">Employment Type</h5>
+                                                        </div>
+                                                        <div class="p-3 fw-bold text-end">
                                                             <h5 class="fw-bold mb-0">Other Benefits</h5>
                                                         </div>
                                                         <div class="p-3 fw-bold text-end">
@@ -359,6 +362,25 @@
                                                                                 <h6 class="fw-bold">
                                                                                     {{basicInformationForm.controls.basicInformation.controls[i].get('companyName').value}}
                                                                                 </h6>
+                                                                            </div>
+                                                                            <!-- Workplace Type -->
+                                                                            <div class="mb-2">
+                                                                                <p-dropdown [style]="{'width':'100%'}"
+                                                                                    formControlName="workplacetypes"
+                                                                                    placeholder="Select Employment Type"
+                                                                                    display="chip" 
+                                                                                    optionLabel="employment_type"
+                                                                                    optionValue="id"
+                                                                                    [options]="workplaceTypes"
+                                                                                    [appendTo]="'body'" [showClear]="true"
+                                                                                    [virtualScroll]="true"
+                                                                                    [virtualScrollItemSize]="30"
+                                                                                    [filter]="true" filterBy="employment_type">
+                                                                                </p-dropdown>
+                                                                                <div *ngIf="info.get('employment_type')?.touched && info.get('employment_type')?.invalid"
+                                                                                    class="text-danger mt-1">
+                                                                                    Employment Type is required.
+                                                                                </div>
                                                                             </div>
                                                                             <!-- Other Benefits -->
                                                                             <div class="mb-2">

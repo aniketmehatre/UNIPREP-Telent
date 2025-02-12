@@ -19,12 +19,15 @@ import { SelectModule } from 'primeng/select';
 import { InputGroupModule } from 'primeng/inputgroup';
 import { InputTextModule } from 'primeng/inputtext';
 import { InputGroupAddonModule } from 'primeng/inputgroupaddon';
+import { DataService } from "src/app/data.service";
+
 @Component({
   selector: "uni-careerhackslists",
   templateUrl: "./careerlists.component.html",
   styleUrls: ["./careerlists.component.scss"],
   standalone: true,
   imports: [CommonModule, DialogModule, RouterModule, CardModule, PaginatorModule, FormsModule, ReactiveFormsModule, CarouselModule, ButtonModule, MultiSelectModule, SelectModule, InputGroupModule, InputTextModule, InputGroupAddonModule],
+  providers: [DataService]
 })
 export class CareerListsComponent implements OnInit {
   isSkeletonVisible: boolean = true;
@@ -53,7 +56,8 @@ export class CareerListsComponent implements OnInit {
     private pageFacade: PageFacadeService,
     private authService: AuthService,
     private meta: Meta,
-    private service: CareerJobHacksService
+    private service: CareerJobHacksService,
+        private dataService: DataService,
   ) {}
   ngOnInit(): void {
     this.gethackList();
@@ -69,6 +73,7 @@ export class CareerListsComponent implements OnInit {
     let socialShare: any = document.getElementById("socialSharingList");
     socialShare.style.display = "none";
   }
+  module_id:any;
   gethackList() {
     this.service
       .getcareerjobhacks({
@@ -78,6 +83,7 @@ export class CareerListsComponent implements OnInit {
       })
       .subscribe((response: any) => {
         this.ListData = response.data;
+        this.module_id=response.module_id;
         this.totalDataCount = response.totalcount;
         this.isSkeletonVisible = false;
       });
@@ -205,6 +211,14 @@ export class CareerListsComponent implements OnInit {
   getContentPreview(content: string): string {
     const plainText = content.replace(/<[^>]*>/g, '');
     return plainText.length > 75 ? plainText.slice(0, 75) + ' ...' : plainText;
-
+  }
+  openReport() {
+    let data: any = {
+      isVisible: true,
+      moduleId: this.module_id,
+      questionId: this.selectedQuestionData?.id,
+      countryId:this.selectedQuestionData.country_id,
+    };
+    this.dataService.openReportWindow(data);
   }
 }

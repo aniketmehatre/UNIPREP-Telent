@@ -92,21 +92,21 @@ export class GlobalEdufitComponent implements OnInit {
       id: 1,
       question: {
         heading: 'Basic Information',
-        branches: ["What is the Country?", "Interested Country to study in?", "Which University are you considering", "Interested Specialiazation"]
+        branches: ["Select your home country", "Which country are you planning to study in?", "Which university are you considering?", "What specialization are you interested in?"]
       },
     },
     {
       id: 2,
       question: {
         heading: 'Course Details',
-        branches: ["What type of degree are you planning to apply for?", "What is the expected Course Duration?"]
+        branches: ["What type of degree are you planning to apply for?", "What is the expected duration of your studies?"]
       },
     },
     {
       id: 3,
       question: {
         heading: 'Finance',
-        branches: ["What is the tution fee for the program", "What is estimated cost of living/year", "Stay period in the country"]
+        branches: ["What is the tuition fee for the program?", "What is the estimated cost of living per year?", "What is the post-study work visa or stayback period in the country?"]
       },
     },
   ];

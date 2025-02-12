@@ -15,9 +15,9 @@
               {{headertooltipname}}<i class="questiontooltip fa-solid fa-circle-question"></i></h5>
           </div>
           <div>
-            <button pButton  class="how-it-works-button" severity="warn"
+            <button pButton class="how-it-works-button" severity="warn"
               (click)="openVideoPopup('https://www.youtube.com/embed/l00Z_Nk6GLI?si=j1IwWBZjrXEAYjxH')">How it works?<i
-                class="fa-solid fa-play d-md-block d-none"></i></button>
+                class="fa-solid fa-play d-md-block d-none"></i></button> -->
           </div>
         </div>
       </div>
@@ -25,7 +25,7 @@
   </div>
   <div class="card-body text-center flex-fill overflow-y-auto" *ngIf="isShowCountryData">
     <div class="row mb-0">
-      <div *ngFor="let item of countrylist; let i=index;" class="col-lg-3 col-md-3 col-sm-4 col-xs-12 col-12 mb-3">
+      <div *ngFor="let item of countrylist; let i=index;" class="col-lg-2 col-md-3 col-sm-4 col-xs-12 col-12 mb-3">
         <div class="row w-100 m-0 justify-content-center h-100">
           <div class="card subjectcard" role="button">
             <div class="card-body" (click)="showDatas(item)">
@@ -136,7 +136,7 @@
   <div class=" px-4">
     <div class="card flex-fill answercard" style="border: none;">
       <div class="card-body text-start">
-        <div class="fw-medium" style="white-space: inherit; max-height: 80%; min-height: 80%"
+        <div class="fw-medium blog-content" style="white-space: inherit; max-height: 80%; min-height: 80%;"
           [innerHTML]="dataanswerquestion?.blogs"></div>
       </div>
     </div>

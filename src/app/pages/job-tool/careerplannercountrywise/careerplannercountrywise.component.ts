@@ -97,4 +97,14 @@ export class CareerplannercountrywiseComponent implements OnInit {
   onSaveRes() {
     this.toast.add({ severity: "success", summary: "Success", detail: "Response saved successfully" });
   }
+  downloadRecommadation() {
+    this.service.downloadRecommendation({ data: this.customizedResponse }).subscribe({
+      next: res => {
+        window.open(res.url, "_blank");
+      },
+      error: err => {
+        console.log(err?.error?.message);
+      }
+    });
+  }
 }

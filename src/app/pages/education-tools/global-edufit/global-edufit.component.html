@@ -207,8 +207,8 @@
               </div>
             </div>
             <div class="d-flex align-items-center">
-              <button pButton  pButton type="button" (click)="saveRecommadation()" class="btn btn-primary btn-rounded py-2 px-4">
-                <span>Save</span>
+              <button pButton type="button" (click)="saveRecommadation()" class="btn btn-primary btn-rounded py-2 px-4">
+                <span>History</span>
               </button>
             </div>
           </div>
@@ -224,13 +224,8 @@
                         <span class="me-2">Download</span><span class="btn-icon px-2 py-2">
                             <i class="fa-regular fa-download"></i></span>
                     </button>
-                    <button pButton  pButton type="button" (click)="onSaveRes()"
-                        class="btn btn-primary btn-rounded p-1 ps-4">
-                        <span class="me-2">Save Response</span><span class="btn-icon px-2 py-2">
-                            <i class="fa-regular fa-floppy-disk"></i></span>
-                    </button>
                 </div>
-                <div class="card p-3" [innerHtml]="recommendationData"></div>
+                <div class="card p-3 fs-5" [innerHtml]="recommendationData"></div>
             </div>
             <div class="col-md-2"></div>
         </div>

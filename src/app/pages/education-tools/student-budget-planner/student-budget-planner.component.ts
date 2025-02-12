@@ -68,7 +68,7 @@ export class StudentBudgetPlannerComponent implements OnInit {
     university: null,
     course_duration: null,
     stay_back: null,
-    currency: null,
+    currency: '',
     tution: null,
     accommodation: null,
     travel_expense: null,

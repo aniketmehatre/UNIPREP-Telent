@@ -11,12 +11,15 @@ import { RouterModule } from "@angular/router";
 import { DialogModule } from "primeng/dialog";
 import { CardModule } from "primeng/card";
 import { PaginatorModule } from "primeng/paginator";
+import { DataService } from "src/app/data.service";
+
 @Component({
   selector: "uni-fortune-companies-data-list",
   templateUrl: "./data-list.component.html",
   styleUrls: ["./data-list.component.scss"],
   standalone: true,
-  imports: [CommonModule, RouterModule, DialogModule, CardModule, PaginatorModule]
+  imports: [CommonModule, RouterModule, DialogModule, CardModule, PaginatorModule],
+  providers: [MessageService]
 })
 export class FortuneCompaniesdataListsComponent implements OnInit {
   isSkeletonVisible: boolean = true;
@@ -45,7 +48,8 @@ export class FortuneCompaniesdataListsComponent implements OnInit {
     private pageFacade: PageFacadeService,
     private authService: AuthService,
     private meta: Meta,
-    private service: FortuneCompaniesService
+    private service: FortuneCompaniesService,
+        private dataService: DataService,
   ) {}
   SelectedCompany: any;
   ngOnInit(): void {
@@ -63,6 +67,7 @@ export class FortuneCompaniesdataListsComponent implements OnInit {
     let socialShare: any = document.getElementById("socialSharingList");
     socialShare.style.display = "none";
   }
+  module_id:any;
   getList() {
     this.service
       .getfortunecompanyquestions({
@@ -72,6 +77,7 @@ export class FortuneCompaniesdataListsComponent implements OnInit {
       })
       .subscribe((response: any) => {
         this.ListData = response.data;
+        this.module_id=response.module_id;
         this.totalDataCount = response.total_count;
         this.isSkeletonVisible = false;
       });
@@ -206,5 +212,14 @@ export class FortuneCompaniesdataListsComponent implements OnInit {
     const plainText = content.replace(/<[^>]*>/g, '');
     return plainText.length > 75 ? plainText.slice(0, 75) + ' ...' : plainText;
 
+  }
+  openReport() {
+    let data: any = {
+      isVisible: true,
+      moduleId: this.module_id,
+      questionId: this.selectedQuestionData?.id,
+      countryId:this.selectedQuestionData.country_id,
+    };
+    this.dataService.openReportWindow(data);
   }
 }
