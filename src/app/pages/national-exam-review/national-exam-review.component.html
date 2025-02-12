@@ -3,7 +3,7 @@
     <div class="card-header d-flex justify-content-between mt-4"
       style="background-color: #fafafa; border-bottom: 0px solid #fafafa">
       <h5>{{10 - this.page}}/10 Question Left</h5>
-      <button [routerLink]="['/pages/national-exams', categoryId]" class="btn btn-quit btn-rounded mt-2 px-2 py-2">
+      <button pButton  [routerLink]="['/pages/national-exams', categoryId]" class="btn btn-quit btn-rounded mt-2 px-2 py-2">
         <div class="d-flex align-items-center">
           <span class="fw-normal h6 mb-0 ps-3 pe-2">Quit</span>
           <div class="btn-icon"><i class="fa-solid fa-power-off"></i></div>
@@ -44,7 +44,7 @@
     <div class="card-footer bg-transparent">
       <div class="row justify-content-center">
         <div class="col-md-6 text-start">
-          <button (click)="goToResult()" class="btn btn-back btn-rounded px-2 py-2">
+          <button pButton  (click)="goToResult()" class="btn btn-back btn-rounded px-2 py-2">
             <div class="d-flex align-items-center">
               <span class="fw-normal h6 mb-0 ps-3 pe-2">Result</span>
               <div class="btn-icon"><i class="fa-solid fa-arrow-left"></i></div>
@@ -52,13 +52,13 @@
           </button>&nbsp;
         </div>
         <div class="col-md-6 text-end">
-          <button *ngIf="this.page !== 0" (click)="prevQues()" class="btn btn-back btn-rounded px-2 py-2">
+          <button pButton  *ngIf="this.page !== 0" (click)="prevQues()" class="btn btn-back btn-rounded px-2 py-2">
             <div class="d-flex align-items-center">
               <span class="fw-normal h6 mb-0 ps-3 pe-2">Previous</span>
               <div class="btn-icon"><i class="fa-solid fa-arrow-left"></i></div>
             </div>
           </button>&nbsp;
-          <button *ngIf="this.page !== 9" (click)="nextQues()" class="btn btn-start btn-rounded m-0 px-2 py-2">
+          <button pButton  *ngIf="this.page !== 9" (click)="nextQues()" class="btn btn-start btn-rounded m-0 px-2 py-2">
             <div class="d-flex align-items-center">
               <span class="fw-normal h6 mb-0 ps-3 pe-2">Next</span>
               <div class="btn-icon"><i class="fa-solid fa-arrow-right"></i></div>

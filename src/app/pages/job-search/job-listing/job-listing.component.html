@@ -26,10 +26,10 @@
           </p-select>
         </div>
         <div class="col-md-3 col-lg-4">
-          <button class="btn btn-primary text-small btn-rounded" type="submit">
+          <button pButton  class="btn btn-primary text-small btn-rounded" type="submit">
             Search <span class="searchIcon"><i class="fa-regular fa-magnifying-glass"></i></span>
           </button>
-          <button (click)="resetSearch()" class="btn btn-danger text-small btn-rounded text-white ms-2" type="button">Reset</button>
+          <button pButton  (click)="resetSearch()" class="btn btn-danger text-small btn-rounded text-white ms-2" type="button">Reset</button>
         </div>
       </div>
     </div>
@@ -176,7 +176,7 @@
                 <!--                        </div>-->
                 <!--                    </div>-->
                 <div class="text-center">
-                  <button class="btn btn-primary btn-rounded px-5 py-2" type="submit">Search</button>
+                  <button pButton  class="btn btn-primary btn-rounded px-5 py-2" type="submit">Search</button>
                 </div>
               </div>
             </div>
@@ -212,9 +212,9 @@
                   </div>
                 </div>
                 <div class="button-container mt-auto justify-content-start gap-3">
-                  <button (click)="onClickDetails(job)" class="btn btn-primary btn-rounded px-3">Details</button>
-                  <button (click)="onClickApply(job, 'shortlist')" class="btn btn-dark btn-rounded px-3">Shortlist</button>
-                  <button (click)="onClickApply(job, 'apply')" class="btn btn-secondary btn-rounded px-3">Apply</button>
+                  <button pButton  (click)="onClickDetails(job)" class="btn btn-primary btn-rounded px-3">Details</button>
+                  <button pButton  (click)="onClickApply(job, 'shortlist')" class="btn btn-dark btn-rounded px-3">Shortlist</button>
+                  <button pButton  (click)="onClickApply(job, 'apply')" class="btn btn-secondary btn-rounded px-3">Apply</button>
                 </div>
               </div>
             </div>
@@ -244,8 +244,8 @@
                 </div>
               </div>
               <div class="d-flex justify-content-end gap-2">
-                <button (click)="onClickApply(singleData, 'shortlist')" class="btn btn-dark btn-rounded px-4">Shortlist</button>
-                <button (click)="onClickApply(singleData, 'apply')" class="btn btn-danger btn-rounded px-4">Apply</button>
+                <button pButton  (click)="onClickApply(singleData, 'shortlist')" class="btn btn-dark btn-rounded px-4">Shortlist</button>
+                <button pButton  (click)="onClickApply(singleData, 'apply')" class="btn btn-danger btn-rounded px-4">Apply</button>
               </div>
             </div>
           </div>

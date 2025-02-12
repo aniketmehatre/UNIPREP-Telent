@@ -13,7 +13,7 @@
 						<h5 class="w-100 mb-0" tooltipPosition="top" pTooltip="Questions related to the application process are answered"> Academic Tools - Nationalized Tests - {{nCategory}}<i class="questiontooltip fa-solid fa-circle-question"></i></h5>
 					</div>
 					<!-- <div>
-						<button class="how-it-works-button">How it works?<i class="fa-solid fa-play d-md-block d-none"></i></button>
+						<button pButton  class="how-it-works-button" severity="warn" >>How it works?<i class="fa-solid fa-play d-md-block d-none"></i></button>
 					</div> -->
 				</div>
 			</div>
@@ -25,14 +25,14 @@
 				<div class="card h-100 subjectcard">
 					<div class="card-body d-flex flex-md-column flex-row justify-content-md-between align-items-center">
 						<h5 class="text-center mt-3 fw-bold mb-3">{{ test.test_name }}</h5>
-                        <button *ngIf="!test.result_id" class="how-it-works-button" (click)="goToTest(test.id)">
+                        <button pButton  *ngIf="!test.result_id" class="how-it-works-button" (click)="goToTest(test.id)">
 							&nbsp;&nbsp;&nbsp;&nbsp;Start Quiz &nbsp;&nbsp;<span><i class="fa-solid fa-stopwatch"></i></span>&nbsp;&nbsp;&nbsp;&nbsp;
 						</button>
-						<button *ngIf="test.result_id && test.result_value < 8" class="how-it-works-button retry-btn" (click)="goToTest(test.id)">
+						<button pButton  *ngIf="test.result_id && test.result_value < 8" class="how-it-works-button retry-btn" (click)="goToTest(test.id)">
 							&nbsp;&nbsp;&nbsp;&nbsp;Retry &nbsp;&nbsp;<span><i class="fa-solid fa-stopwatch"></i></span>&nbsp;&nbsp;&nbsp;&nbsp;
 						</button>
-                        <button *ngIf="test.result_id && test.result_value >= 8" class="completed">&nbsp;&nbsp;&nbsp;&nbsp;Completed&nbsp;&nbsp;&nbsp;&nbsp;</button>
-						<button *ngIf="test.result_id && test.result_value >= 8" class="how-it-works-button"  [routerLink]="['/pages/national-exams', category_id, 'review', test.result_id]">
+                        <button pButton  *ngIf="test.result_id && test.result_value >= 8" class="completed">&nbsp;&nbsp;&nbsp;&nbsp;Completed&nbsp;&nbsp;&nbsp;&nbsp;</button>
+						<button pButton  *ngIf="test.result_id && test.result_value >= 8" class="how-it-works-button"  [routerLink]="['/pages/national-exams', category_id, 'review', test.result_id]">
 							&nbsp;&nbsp;&nbsp;&nbsp;Review &nbsp;&nbsp;<span><i class="fa-solid fa-list-check"></i></span>&nbsp;&nbsp;&nbsp;&nbsp;
 						</button>
 					</div>
@@ -46,7 +46,7 @@
 		<img src="../../../uniprep-assets/images/smartloack.png" class="image" width="60" />
 		<h3 class="offer">Upgrade Required</h3>
 		<p>To access this exclusive module,please upgrade your plan now</p>
-		<button pButton type="button" class="text-white p-ripple p-button-rounded p-button-warning p-button p-component p-2" (click)="upgradePlan()">Upgrade Plan<i class="fa fa-arrow-right exhausted-plan-icon"></i></button>
+		<button pButton  pButton type="button" class="text-white p-ripple p-button-rounded p-button-warning p-button p-component p-2" (click)="upgradePlan()">Upgrade Plan<i class="fa fa-arrow-right exhausted-plan-icon"></i></button>
 	</div>
 	<div *ngIf="!ehitlabelIsShow" class="text-center mt-5 mb-4">
 		<img src="../../../uniprep-assets/images/smartloack.png" class="image" width="60" />

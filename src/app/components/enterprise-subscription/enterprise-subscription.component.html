@@ -38,7 +38,7 @@
                                                 <!--<h5>College : {{collegeName}} <br> 
                                                 Name : {{name}} <br> 
                                                  Price : {{price}}</h5><br>  -->
-                                                <button (click)="pay()"
+                                                <button pButton  (click)="pay()"
                                                     class="pt-3 pb-3 btn btn-primary btn-login text-uppercase fw-semibold m-0 text-dark" [disabled]="collegeName == ''">Pay
                                                     Now</button>
                                                     <br>  <p *ngIf="isPaymentProgress" style="color:red;  "><br>Please don’t close this tab until the payment is completed.</p>

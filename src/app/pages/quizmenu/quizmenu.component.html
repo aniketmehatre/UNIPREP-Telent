@@ -7,7 +7,7 @@
             <h5 class="w-100 mb-0" tooltipPosition="top" pTooltip="Test your knowledge across various subjects with quizzes to enhance learning and retention.">QUIZ<i class="questiontooltip fa-solid fa-circle-question"></i></h5>
           </div>
           <div>
-            <button class="how-it-works-button" (click)="openVideoPopup('https://www.youtube.com/embed/FSmFmyWhW4w?si=kb0k86wIKU0dBOYd')">How it works?<i class="fa-solid fa-play d-md-block d-none"></i></button>
+            <button pButton  class="how-it-works-button" severity="warn" > (click)="openVideoPopup('https://www.youtube.com/embed/FSmFmyWhW4w?si=kb0k86wIKU0dBOYd')">How it works?<i class="fa-solid fa-play d-md-block d-none"></i></button>
           </div>
         </div>
       </div>
@@ -44,7 +44,7 @@
               </div>
             </div>
             <div class="mt-2" style="text-align: center">
-              <button style="padding: 8px; font-size: small" [disabled]="preadmissionpercentage >= 90" (click)="startModulule(1)" type="button" class="quizbtn">
+              <button pButton  style="padding: 8px; font-size: small" [disabled]="preadmissionpercentage >= 90" (click)="startModulule(1)" type="button" class="quizbtn">
                 <span>{{ preadmissionpercentage >= 90 ? "Completed" : "Start Quiz" }}</span>
                 <span *ngIf="preadmissionpercentage <= 89">
                   <i class="fas fa-arrow-right"></i>
@@ -78,7 +78,7 @@
               </div>
             </div>
             <div class="mt-2" style="text-align: center">
-              <button style="padding: 8px; font-size: small" [disabled]="postadmissionpercentage >= 90" (click)="startModulule(3)" type="button" class="quizbtn">
+              <button pButton  style="padding: 8px; font-size: small" [disabled]="postadmissionpercentage >= 90" (click)="startModulule(3)" type="button" class="quizbtn">
                 <span>{{ postadmissionpercentage >= 90 ? "Completed" : "Start Quiz" }}</span>
                 <span *ngIf="postadmissionpercentage <= 89">
                   <i class="fas fa-arrow-right"></i>
@@ -111,7 +111,7 @@
               </div>
             </div>
             <div class="mt-2" style="text-align: center">
-              <button style="padding: 8px; font-size: small" [disabled]="lifeatcountrypercentage >= 90" (click)="startModulule(6)" type="button" class="quizbtn">
+              <button pButton  style="padding: 8px; font-size: small" [disabled]="lifeatcountrypercentage >= 90" (click)="startModulule(6)" type="button" class="quizbtn">
                 <span>{{ lifeatcountrypercentage >= 90 ? "Completed" : "Start Quiz" }}</span>
                 <span *ngIf="lifeatcountrypercentage <= 89">
                   <i class="fas fa-arrow-right"></i>
@@ -145,7 +145,7 @@
               </div>
             </div>
             <div class="mt-2" style="text-align: center">
-              <button style="padding: 8px; font-size: small" [disabled]="careerhubpercentage >= 90" (click)="startModulule(4)" type="button" class="quizbtn">
+              <button pButton  style="padding: 8px; font-size: small" [disabled]="careerhubpercentage >= 90" (click)="startModulule(4)" type="button" class="quizbtn">
                 <span>{{ careerhubpercentage >= 90 ? "Completed" : "Start Quiz" }}</span>
                 <span *ngIf="careerhubpercentage <= 89">
                   <i class="fas fa-arrow-right"></i>
@@ -166,7 +166,7 @@
               </div>
             </div>
             <div class="mt-2" style="text-align: center">
-              <button style="padding: 8px; font-size: small" [disabled]="skillunivertybutton" (click)="startModululeSkillmastery()" type="button" class="quizbtn">
+              <button pButton  style="padding: 8px; font-size: small" [disabled]="skillunivertybutton" (click)="startModululeSkillmastery()" type="button" class="quizbtn">
                 <span>{{ skillmasteryquizpercentage >= 90 ? "Completed" : "Start Quiz" }}</span>
                 <span *ngIf="skillmasteryquizpercentage <= 89">
                   <i class="fas fa-arrow-right"></i>
@@ -205,7 +205,7 @@
               </div>
             </div>
             <div class="mt-2" style="text-align: center">
-              <button style="padding: 8px; font-size: small" [disabled]="universityquizbutton" (click)="startQuizUniversity()" type="button" class="w-100 h-100 btn btn-primary btn-rounded text-white">
+              <button pButton  style="padding: 8px; font-size: small" [disabled]="universityquizbutton" (click)="startQuizUniversity()" type="button" class="w-100 h-100 btn btn-primary btn-rounded text-white">
                 <span class="me-1">{{ universityquizpercentagecompletion >= 90 ? "Completed" : "Start Quiz" }}</span>
                 <span *ngIf="universityquizpercentagecompletion <= 89">
                   <i class="fas fa-arrow-right"></i>
@@ -229,7 +229,7 @@
               </div>
             </div>
             <div class="mt-2" style="text-align: center">
-              <button style="padding: 8px; font-size: small" [disabled]="quizpercentage >= 90"  (click)="StartLearningHubQuiz()" type="button" class="w-100 h-100 btn btn-primary btn-rounded text-white">
+              <button pButton  style="padding: 8px; font-size: small" [disabled]="quizpercentage >= 90"  (click)="StartLearningHubQuiz()" type="button" class="w-100 h-100 btn btn-primary btn-rounded text-white">
                 <span class="me-1">{{ quizpercentage >= 90 ? "Completed" : "Start Quiz" }}</span>
                 <span *ngIf="quizpercentage <= 89">
                   <i class="fas fa-arrow-right"></i>
@@ -253,7 +253,7 @@
               </div>
             </div>
             <div class="mt-2" style="text-align: center">
-              <button style="padding: 8px; font-size: small" [disabled]="languageHubQuiz" (click)="StartLanguageHubQuiz()" type="button" class="w-100 h-100 btn btn-primary btn-rounded text-white">
+              <button pButton  style="padding: 8px; font-size: small" [disabled]="languageHubQuiz" (click)="StartLanguageHubQuiz()" type="button" class="w-100 h-100 btn btn-primary btn-rounded text-white">
                 <span class="me-1">{{ quizlanguguageprogress >= 90 ? "Completed" : "Start Quiz" }}</span>
                 <span *ngIf="quizlanguguageprogress <= 89">
                   <i class="fas fa-arrow-right"></i>
@@ -273,7 +273,7 @@
     <img src="../../../uniprep-assets/images/smartloack.png" class="image" width="60" />
     <h3 class="offer">Upgrade Required</h3>
     <p>To access this exclusive module,please upgrade your plan now</p>
-    <button pButton type="button" class="text-white p-ripple p-button-rounded p-button-warning p-button p-component p-2" (click)="upgradePlan()">Upgrade Plan<i class="fa fa-arrow-right exhausted-plan-icon"></i></button>
+    <button pButton  pButton type="button" class="text-white p-ripple p-button-rounded p-button-warning p-button p-component p-2" (click)="upgradePlan()">Upgrade Plan<i class="fa fa-arrow-right exhausted-plan-icon"></i></button>
   </div>
   <div *ngIf="!ehitlabelIsShow" class="text-center mt-5 mb-4">
     <img src="{{ orglogowhitelabel }}" class="image" width="60" />

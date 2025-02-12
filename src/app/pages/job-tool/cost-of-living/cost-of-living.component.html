@@ -17,7 +17,7 @@
 									<input type="text" pInputText placeholder="Filter" formControlName="sourceFilter"
 										(keyup)="customFilterFunction('source')" />
 								</div>
-								<button pButton icon="pi pi-times" class="btn btn-primary"
+								<button pButton  pButton icon="pi pi-times" class="btn btn-primary"
 									(click)="resetFunction('source')" severity="secondary"></button>
 							</div>
 						</ng-template>
@@ -53,7 +53,7 @@
 									<input type="text" pInputText placeholder="Filter" formControlName="targetFilter"
 										(keyup)="customFilterFunction('target')" />
 								</div>
-								<button pButton icon="pi pi-times" class="btn btn-primary"
+								<button pButton  pButton icon="pi pi-times" class="btn btn-primary"
 									(click)="resetFunction('target')" severity="secondary"></button>
 							</div>
 						</ng-template>
@@ -78,7 +78,7 @@
 					</p-select>
 				</div>
 				<div class="col d-flex justify-content-center">
-					<button class="btn btn-primary btn-rounded d-flex gap-2 align-items-center" type="submit"
+					<button pButton  class="btn btn-primary btn-rounded d-flex gap-2 align-items-center" type="submit"
 						[disabled]="form.value.sourceCity === null || form.value.targetCity === null"><span>Compare</span>
 						<span class="btn-icon"><i class="pi pi-sync"></i></span></button>
 				</div>
@@ -113,7 +113,7 @@
 		<img src="../../../uniprep-assets/images/smartloack.png" class="image" width="60" />
 		<h3 class="offer">Upgrade Required</h3>
 		<p>To access this exclusive module,please upgrade your plan now</p>
-		<button pButton type="button"
+		<button pButton  pButton type="button"
 			class="text-white p-ripple p-button-rounded p-button-warning p-button p-component p-2"
 			(click)="upgradePlan()">Upgrade Plan<i class="fa fa-arrow-right exhausted-plan-icon"></i></button>
 	</div>

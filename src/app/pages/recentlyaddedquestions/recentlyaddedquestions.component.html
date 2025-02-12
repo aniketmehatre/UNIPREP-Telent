@@ -51,7 +51,7 @@
 										tooltipPosition="right" style="font-size: 1.5rem"></i>
 								</div>
 							</div>
-							<button class="btn btn-rounded w-100 btn-primary m-0 primary-btn
+							<button pButton  class="btn btn-rounded w-100 btn-primary m-0 primary-btn
                                         {{ sub.read == 1 ? 'readButton' : '' }}" pButton type="button">
 								Read&nbsp;Answer
 							</button>
@@ -77,7 +77,7 @@
 			</div>
 			<div class="d-flex justify-content-between align-items-center">
 				<div>
-					<button (click)="goToHome($event)" class="btn btn-warning homecardbtn px-3">
+					<button pButton  (click)="goToHome($event)" class="btn btn-warning homecardbtn px-3">
 						<i class="fa-solid h5 fa-house"></i><br />
 						Home
 					</button>
@@ -89,12 +89,12 @@
 					<p-breadcrumb [model]="breadCrumb" class="max-w-100"></p-breadcrumb>
 				</div>
 				<div>
-					<button (click)="openReport()" class="btn btn-primary px-3 homecardbtn">
+					<button pButton  (click)="openReport()" class="btn btn-primary px-3 homecardbtn">
 						<i class="fa-solid h5 fa-file-contract"></i>
 						<br />
 						Report
 					</button>
-					<button style="display: none" (click)="reviewBy()"
+					<button pButton  style="display: none" (click)="reviewBy()"
 						class="btn btn-primary homecardbtn my-0 px-4 py-2">
 						<i class="fa-regular h5 fa-user"></i><br />
 						Reviewed By
@@ -127,7 +127,7 @@
 			<div class="flex-full" *ngIf="videoLinks">
 				<h5 class="text-start">Recommended Videos</h5>
 				<div class="d-flex align-items-center gap-2 pb-2">
-					<button class="scroll-button btn-rounded"  *ngIf="leftScrollButtonVisible" (click)="scrollLeftVideo()">
+					<button pButton  class="scroll-button btn-rounded"  *ngIf="leftScrollButtonVisible" (click)="scrollLeftVideo()">
 						<i class="fa-solid fa-chevron-left"></i>
 					</button>
 					<div class="scrollable-container" id="video-links-container" #videoLinksContainer>
@@ -137,7 +137,7 @@
 									class="fa-solid fa-video"></i></span>
 						</div>
 					</div>
-					<button class="scroll-button btn-rounded" *ngIf="rightScrollButtonVisible" (click)="scrollRightVideo()">
+					<button pButton  class="scroll-button btn-rounded" *ngIf="rightScrollButtonVisible" (click)="scrollRightVideo()">
 						<i class="fa-solid fa-chevron-right"></i>
 					</button>
 				</div>
@@ -145,7 +145,7 @@
 			<div class="flex-full" *ngIf="refLink">
 				<h5 class="text-start">Recommended Links</h5>
 				<div class="d-flex align-items-center gap-2 pb-2">
-					<button class="scroll-button-warning btn-secondary btn-rounded"  *ngIf="leftScrollButtonVisibleRef" (click)="scrollLeftRef()">
+					<button pButton  class="scroll-button-warning btn-secondary btn-rounded"  *ngIf="leftScrollButtonVisibleRef" (click)="scrollLeftRef()">
 						<i class="fa-solid fa-chevron-left"></i>
 					</button>
 					<div class="scrollable-container" id="ref-links-container" #refLinksContainer>
@@ -156,20 +156,20 @@
 							   *ngFor="let refL of refLink; let ind = index">Link {{ ind + 1 }} &nbsp;<i class="fa-solid fa-link"></i></a>
 						</div>
 					</div>
-					<button class="scroll-button-warning btn-secondary btn-rounded" *ngIf="rightScrollButtonVisibleRef" (click)="scrollRightRef()">
+					<button pButton  class="scroll-button-warning btn-secondary btn-rounded" *ngIf="rightScrollButtonVisibleRef" (click)="scrollRightRef()">
 						<i class="fa-solid fa-chevron-right"></i>
 					</button>
 				</div>
 			</div>
 			<div class="flex-shrink-0 align-items-center d-flex desktop">
-				<button class="btn w-100 btn-primary theme-dark-blue mx-0 px-5 py-2" (click)="onClickAsk()">
+				<button pButton  class="btn w-100 btn-primary theme-dark-blue mx-0 px-5 py-2" (click)="onClickAsk()">
 					<i class="h5 fas fa-comment"></i>
 					<br />
 					Click here to ask<br />Personalised Questions
 				</button>
 			</div>
 			<div class="mobile mt-4">
-				<button class="btn w-100 btn-primary theme-dark-blue d-flex" (click)="onClickAsk()"><i
+				<button pButton  class="btn w-100 btn-primary theme-dark-blue d-flex" (click)="onClickAsk()"><i
 						class="fa-solid fa-comment f-20"></i><span class="comment">Click here to ask personalised
 						questions</span></button>
 			</div>
@@ -270,8 +270,8 @@
 			<div class="modal-body position-relative pt-4">
 				<div class="modalbuttons">
 					<div class="d-flex gap-2">
-						<button title="New Window" type="button" class="btn btn-primary btn-rounded" (click)="openNextVideo()"><i class="fa-solid fa-arrow-up-right-from-square"></i></button>
-						<button type="button" title="Close Popup" class="btn btn-primary btn-rounded" (click)="closeVideoPopup()"><i class="fa-solid fa-xmark"></i></button>
+						<button pButton  title="New Window" type="button" class="btn btn-primary btn-rounded" (click)="openNextVideo()"><i class="fa-solid fa-arrow-up-right-from-square"></i></button>
+						<button pButton  type="button" title="Close Popup" class="btn btn-primary btn-rounded" (click)="closeVideoPopup()"><i class="fa-solid fa-xmark"></i></button>
 					</div>
 				</div>
 				<div class="embed-responsive"><iframe #videoFrame [src]="selectedVideoLink" width="100%" frameborder="0" allowfullscreen></iframe></div>

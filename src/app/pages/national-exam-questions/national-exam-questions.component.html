@@ -11,7 +11,7 @@
 				<h5 class="select-title mb-1">Nationalised Exam Quiz</h5>
 			</div>
 			<div class="col-md-2 col-2 text-end">
-				<button *ngIf="!isInstruction" class="btn btn-quit btn-rounded px-2 py-2" (click)="closeQuiz()">
+				<button pButton  *ngIf="!isInstruction" class="btn btn-quit btn-rounded px-2 py-2" (click)="closeQuiz()">
 					<div class="d-flex align-items-center">
 						<span class="fw-normal h6 mb-0 ps-3 pe-2">Quit</span>
 						<div class="btn-icon"><i class="fa-solid fa-power-off"></i></div>
@@ -65,7 +65,7 @@
 					<h4 class="uniprep-primary">ALL THE BEST!</h4>
 				</div>
 				<div class="col-md-6 col-6 text-end">
-					<button class="btn btn-start btn-rounded m-0 px-2 py-2" (click)="startQuiz()">
+					<button pButton  class="btn btn-start btn-rounded m-0 px-2 py-2" (click)="startQuiz()">
 						<div class="d-flex align-items-center">
 							<span class="fw-normal h6 mb-0 ps-3 pe-2">Start</span>
 							<div class="btn-icon"><i class="fa-solid fa-arrow-right"></i></div>
@@ -108,13 +108,13 @@
 				</div>
 				<div class="col-md-4 text-end">
 					<!-- [ngStyle]="selectedValue && {'opacity': '0.5'}" -->
-					<button *ngIf="page != 0" (click)="prevQues()" class="btn btn-back btn-rounded me-3 px-2 py-2">
+					<button pButton  *ngIf="page != 0" (click)="prevQues()" class="btn btn-back btn-rounded me-3 px-2 py-2">
 						<div class="d-flex align-items-center">
 							<span class="fw-normal h6 mb-0 ps-3 pe-2">Previous</span>
 							<div class="btn-icon"><i class="fa-solid fa-arrow-left"></i></div>
 						</div>
 					</button>
-					<button (click)="nextQues()" [disabled]="!selectedValue"
+					<button pButton  (click)="nextQues()" [disabled]="!selectedValue"
 						class="btn btn-start btn-rounded m-0 px-2 py-2">
 						<div class="d-flex align-items-center">
 							<span class="fw-normal h6 mb-0 ps-3 pe-2">{{ page <= 8 ? 'Next' : 'Submit' }}</span>
@@ -136,7 +136,7 @@
 		<p class="mb-2">You have run out of time for this quiz. Unfortunately,this means the quiz is marked as failed.
 			Try
 			the quiz again."</p>
-		<button pButton type="button" class="btn btn-secondary btn-rounded text-center" (click)="closeQuiz()"><i
+		<button pButton  pButton type="button" class="btn btn-secondary btn-rounded text-center" (click)="closeQuiz()"><i
 				class="fa fa-arrow-right"></i></button>
 	</div>
 </p-dialog>

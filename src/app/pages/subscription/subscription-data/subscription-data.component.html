@@ -18,7 +18,7 @@
 
       <div *ngIf="showHistoryBtn">
         <div class="text-md-end text-center pt-3">
-          <button class="btn historyBtn" (click)="gotoHistory()">Subscription History</button>
+          <button pButton  class="btn historyBtn" (click)="gotoHistory()">Subscription History</button>
         </div>
       </div>
     </div>
@@ -92,7 +92,7 @@
               </li>
               <li class="mt-0">
                 <div class="getstartedbtn pb-0">
-                  <button class="pt-3 pb-3 btn btn-basic w-100 m-0">Current</button>
+                  <button pButton  class="pt-3 pb-3 btn btn-basic w-100 m-0">Current</button>
                 </div>
               </li>
             </ul>
@@ -194,9 +194,9 @@
               </li>
               <li class="mt-0">
                 <div class="getstartedbtn pb-0">
-                  <button class="pt-3 pb-3 btn btn-primary w-100 m-0 text-white" *ngIf="subscription.selected"
+                  <button pButton  class="pt-3 pb-3 btn btn-primary w-100 m-0 text-white" *ngIf="subscription.selected"
                     (click)="selectedSubscriptionPlan(subscription)">Selected</button>
-                  <button class="pt-3 pb-3 btn btn-basic w-100 m-0" *ngIf="!subscription.selected"
+                  <button pButton  class="pt-3 pb-3 btn btn-basic w-100 m-0" *ngIf="!subscription.selected"
                     (click)="selectedSubscriptionPlan(subscription)">Select Plan</button>
                 </div>
               </li>
@@ -254,7 +254,7 @@
                   <div class="card-footer py-2 px-4 mb-5">
                     <h5 class="fw-semibold">{{ timeLeftInfoCard }} Validity</h5>
                     <div class="getstartedbtn pb-2">
-                      <button class="pt-3 pb-3 btn btn-basic w-100 m-0 btn-basic">Current</button>
+                      <button pButton  class="pt-3 pb-3 btn btn-basic w-100 m-0 btn-basic">Current</button>
                     </div>
                   </div>
                 </div>
@@ -343,9 +343,9 @@
                       <div class="card-footer py-2 px-4" [ngClass]="subscription.popular != 1 ? 'mb-5' : ''">
                         <h5 class="fw-semibold">{{ subscription.validity }} Month Validity</h5>
                         <div class="getstartedbtn pb-2">
-                          <button class="pt-3 pb-3 btn btn-primary w-100 m-0 text-white" *ngIf="subscription.selected"
+                          <button pButton  class="pt-3 pb-3 btn btn-primary w-100 m-0 text-white" *ngIf="subscription.selected"
                             (click)="selectedSubscriptionPlan(subscription)">Selected</button>
-                          <button class="pt-3 pb-3 btn btn-grey w-100 m-0 text-white" *ngIf="!subscription.selected"
+                          <button pButton  class="pt-3 pb-3 btn btn-grey w-100 m-0 text-white" *ngIf="!subscription.selected"
                             (click)="selectedSubscriptionPlan(subscription)">Select Plan</button>
                         </div>
                       </div>
@@ -404,9 +404,9 @@
                   <h2 class="font-primarycolor fw-bold">INR {{ subscription.finalamount | number : ".2-2" }}</h2>
                   <p class="fw-semibold">{{ subscription.validity }} Month Validity</p>
                   <div class="getstartedbtn">
-                    <button *ngIf="!subscription.selected" class="btn btn-primary"
+                    <button pButton  *ngIf="!subscription.selected" class="btn btn-primary"
                       (click)="selectedTopupCountryPlan(subscription)">Select Plan</button>
-                    <button *ngIf="subscription.selected" class="btn dark-btn"
+                    <button pButton  *ngIf="subscription.selected" class="btn dark-btn"
                       (click)="selectedTopupCountryPlan(subscription)">You have selected {{ subscription.name }}
                       Plan</button>
                   </div>
@@ -449,7 +449,7 @@
               <div class="card-footer p-4 pt-5" style="text-align: center">
                 <h4 class="font-primarycolor fw-bold">INR 699.00</h4>
                 <div class="">
-                  <button style="width: -webkit-fill-available" class="btn btn-primary">
+                  <button pButton  style="width: -webkit-fill-available" class="btn btn-primary">
                     <span style="color: #fff !important" class="ps-5 pe-5">Top Up</span>
                   </button>
                 </div>
@@ -476,7 +476,7 @@
               <div class="card-footer p-4 pt-5" style="text-align: center">
                 <h4 class="font-primarycolor fw-bold">INR 699.00</h4>
                 <div class="">
-                  <button style="width: -webkit-fill-available" class="btn btn-primary">
+                  <button pButton  style="width: -webkit-fill-available" class="btn btn-primary">
                     <span style="color: #fff !important" class="ps-5 pe-5">Top Up</span>
                   </button>
                 </div>
@@ -504,7 +504,7 @@
               <div class="card-footer p-4 pt-5" style="text-align: center">
                 <h4 class="font-primarycolor fw-bold">INR 699.00</h4>
                 <div class="">
-                  <button style="width: -webkit-fill-available" class="btn btn-primary">
+                  <button pButton  style="width: -webkit-fill-available" class="btn btn-primary">
                     <span style="color: #fff !important" class="ps-5 pe-5">Top Up</span>
                   </button>
                 </div>
@@ -530,7 +530,7 @@
               <div class="card-footer p-4 pt-5" style="text-align: center">
                 <h4 class="font-primarycolor fw-bold">INR 699.00</h4>
                 <div class="">
-                  <button style="width: -webkit-fill-available" class="btn btn-primary">
+                  <button pButton  style="width: -webkit-fill-available" class="btn btn-primary">
                     <span style="color: #fff !important" class="ps-5 pe-5">Top Up</span>
                   </button>
                 </div>
@@ -556,7 +556,7 @@
               <div class="card-footer p-4 pt-5" style="text-align: center">
                 <h4 class="font-primarycolor fw-bold">INR 699.00</h4>
                 <div class="">
-                  <button style="width: -webkit-fill-available" class="btn btn-primary">
+                  <button pButton  style="width: -webkit-fill-available" class="btn btn-primary">
                     <span style="color: #fff !important" class="ps-5 pe-5">Top Up</span>
                   </button>
                 </div>
@@ -577,7 +577,7 @@
 						<h5 class="mb-0">Checkout What You<br />Get With Our Subscriptions</h5>
 					</div>
 					<div class="col-lg-6">
-						<button (click)="moreabout()" class="btn btn-primary w-100 py-3 h6 m-0">Know More About Our
+						<button pButton  (click)="moreabout()" class="btn btn-primary w-100 py-3 h6 m-0">Know More About Our
 							Features</button>
 					</div>
 				</div>
@@ -595,7 +595,7 @@
           <input [(ngModel)]="couponInput" (keyup)="onInput($event)" pInputText
             placeholder="Enter Your coupon code Here" type="text" [readonly]="iscouponReadonly" />
           <i class="fa-solid fa-xmark-large" *ngIf="showCross" (click)="clearCoupon()"></i>
-          <button (click)="applyCoupon()" class="btn-primary" label="Apply" pButton pRipple type="button"></button>
+          <button pButton  (click)="applyCoupon()" class="btn-primary" label="Apply" pButton pRipple type="button"></button>
         </div>
         <p class="mb-0 small"><span class="uniprep-lightgray" *ngIf="!invalidCoupon">Please enter a discount code to
             avail further discounts</span><span class="text-danger" *ngIf="invalidCoupon">You entered an invalid
@@ -635,17 +635,17 @@
               <p class="text-small fw-semibold mb-0">Checkout</p>
             </div> -->
             <div class="d-flex gap-2">
-              <!-- <button *ngIf="currentCountry!='India'" [disabled]="showCheckout" class="btn btn-basic stripeborder px-4" (click)="checkout('stripe')">
+              <!-- <button pButton  *ngIf="currentCountry!='India'" [disabled]="showCheckout" class="btn btn-basic stripeborder px-4" (click)="checkout('stripe')">
                 <img class="img-fluid" src="../../../../uniprep-assets/stripe.png" width="40px" />
               </button>
-              <button *ngIf="currentCountry=='India'" [disabled]="showCheckout" class="btn btn-basic razorpayborder" (click)="checkout('razorpay')">
+              <button pButton  *ngIf="currentCountry=='India'" [disabled]="showCheckout" class="btn btn-basic razorpayborder" (click)="checkout('razorpay')">
                 <img class="img-fluid" src="../../../../uniprep-assets/razorpay.png" width="40px" />
               </button> -->
-              <button [disabled]="showCheckout" *ngIf="currentCountry!='India'" class="pt-3 pb-3 btn btn-basic w-100 btn btn-primary"
+              <button pButton  [disabled]="showCheckout" *ngIf="currentCountry!='India'" class="pt-3 pb-3 btn btn-basic w-100 btn btn-primary"
                 (click)="checkout('stripe')">
                 Checkout
               </button>
-              <button [disabled]="showCheckout" *ngIf="currentCountry=='India'" class="pt-3 pb-3 btn btn-basic w-100 btn btn-primary"
+              <button pButton  [disabled]="showCheckout" *ngIf="currentCountry=='India'" class="pt-3 pb-3 btn btn-basic w-100 btn btn-primary"
                 (click)="checkout('razorpay')">
                 Checkout
               </button>
@@ -742,7 +742,7 @@
 					<h4 class="mb-0 uniprep-primary" *ngIf="subscriptionTotal != '0.00' && checkoutTotal != ''">
 						INR {{ checkoutTotal | number : ".2-2" }}</h4>
 				</div>
-				<button class="btn btn-primary py-3 px-5 h6 m-0" (click)="checkout()">Confirm</button>
+				<button pButton  class="btn btn-primary py-3 px-5 h6 m-0" (click)="checkout()">Confirm</button>
 			</div>
 
 
@@ -755,7 +755,7 @@
     <div class="modal-content">
       <div class="modal-header">
         <h1 class="modal-title fs-5" id="exampleModalLabel">Available Offers</h1>
-        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        <button pButton  type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body d-flex flex-column justify-content-center">
         <p class="btn btn-rounded mx-auto" style="background: #9bc32935; border: 1px dashed #9bc329; width: 100px"

@@ -12,7 +12,7 @@
                             Course Navigator</h5>
                     </div>
                     <div>
-                        <button class="how-it-works-button">How it works?
+                        <button pButton  class="how-it-works-button" severity="warn" >>How it works?
                             <i class="fa-solid fa-play d-md-block d-none"></i></button>
                     </div>
                 </div>
@@ -49,7 +49,7 @@
                                                             [(ngModel)]="specializationFilter"
                                                             (keyup)="customFilterFunction()" />
                                                     </div>
-                                                    <button pButton icon="pi pi-times" class="btn btn-primary"
+                                                    <button pButton  pButton icon="pi pi-times" class="btn btn-primary"
                                                         (click)="resetFunction()" severity="secondary"></button>
                                                 </div>
                                             </ng-template>
@@ -69,17 +69,17 @@
                             </div>
                         </div>
                         <div class="d-flex justify-content-between mt-2">
-                            <button pButton type="button" class="btn btn-primary btn-rounded p-1 pe-4"
+                            <button pButton  pButton type="button" class="btn btn-primary btn-rounded p-1 pe-4"
                                 [style.visibility]="recommendation.id == 1 ? 'hidden' : 'visible'" (click)="previous()">
                                 <span class="btn-icon px-2 py-2"><i class="fa fa-arrow-left"></i></span> <span
                                     class="ms-2">Previous</span>
                             </button>
-                            <button pButton type="button" (click)="next(recommendation.id)"
+                            <button pButton  pButton type="button" (click)="next(recommendation.id)"
                                 *ngIf="recommendation.id != 2" class="btn btn-primary btn-rounded p-1 ps-4">
                                 <span class="me-2">Next</span><span class="btn-icon px-2 py-2"><i
                                         class="fa fa-arrow-right"></i></span>
                             </button>
-                            <button pButton type="button" (click)="next(recommendation.id)"
+                            <button pButton  pButton type="button" (click)="next(recommendation.id)"
                                 *ngIf="recommendation.id == 2" class="btn btn-success btn-rounded p-1 ps-4">
                                 <span class="me-2">Get Recommendations</span><span class="btn-icon px-2 py-2"><i
                                         class="fa fa-check-circle"></i></span>
@@ -106,7 +106,7 @@
                             Course Navigator</h5>
                     </div>
                     <div>
-                        <button class="how-it-works-button">How it works?
+                        <button pButton  class="how-it-works-button" severity="warn" >>How it works?
                             <i class="fa-solid fa-play d-md-block d-none"></i></button>
                     </div>
                 </div>
@@ -139,7 +139,7 @@
     </div>
     <div class="card-footer bg-transparent border-0">
         <div class="text-end">
-            <button pButton type="button" class="btn ps-3 btn-quit btn-rounded" (click)="resetRecommendation()">
+            <button pButton  pButton type="button" class="btn ps-3 btn-quit btn-rounded" (click)="resetRecommendation()">
                 Reset Recommendations<span class="btn-icon"><i class="fa-solid fa-arrow-rotate-right"></i>
                 </span>
             </button>
@@ -161,7 +161,7 @@
                             Course Navigator</h5>
                     </div>
                     <div>
-                        <button class="how-it-works-button">How it works?
+                        <button pButton  class="how-it-works-button" severity="warn" >>How it works?
                             <i class="fa-solid fa-play d-md-block d-none"></i></button>
                     </div>
                 </div>
@@ -187,11 +187,11 @@
                                 </div>
                             </div>
 
-                            <button
+                            <button pButton 
                                 class="btn d-md-block d-none w-100 flex-shrink-0 btn-primary btn-rounded m-0 primary-btn {{ sub.read == 1 ? 'questionread' : '' }}"
                                 pButton type="button">Read Answer</button>
 
-                            <button
+                            <button pButton 
                                 class="btn d-md-none d-flex flex-shrink-0 btn-primary btn-rounded m-0 primary-btn {{ sub.read == 1 ? 'questionread' : '' }}"
                                 pButton type="button">Read Answer</button>
                         </div>
@@ -222,7 +222,7 @@
                     <h5 class="uniprep-primary unselectable d-md-none d-block">{{ selectedQuestionData?.question }}</h5>
                 </div>
                 <div>
-                    <button pButton type="button" (click)="addCNUserQuestions(selectedQuestionData)"
+                    <button pButton  pButton type="button" (click)="addCNUserQuestions(selectedQuestionData)"
                         class="btn btn-primary btn-rounded p-1 ps-4">
                         <span class="me-2">Save Response</span><span class="btn-icon px-2 py-2">
                             <i class="fa-regular fa-floppy-disk"></i></span>
@@ -236,7 +236,7 @@
             <div class="card-body text-start">
                 <div class="d-flex align-items-center justify-content-between position-relative">
                     <span></span>
-                    <button class="btn btn-primary socialShareBtn" (click)="showSocialSharingList()"><i
+                    <button pButton  class="btn btn-primary socialShareBtn" (click)="showSocialSharingList()"><i
                             class="fa-light fa-xl fa-share-nodes"></i></button>
                     <p-card id="socialSharingList">
                         <ul style="list-style: none; cursor: pointer">

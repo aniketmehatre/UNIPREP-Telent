@@ -14,7 +14,7 @@
 <!--                            <h5 class="w-100 mb-0" tooltipPosition="top" pTooltip="Global Salary converter">Salary Converter<i class="questiontooltip fa-solid fa-circle-question"></i></h5>-->
 <!--                        </div>-->
 <!--                        <div>-->
-<!--                            <button class="how-it-works-button">How it works?<i-->
+<!--                            <button pButton  class="how-it-works-button" severity="warn" >>How it works?<i-->
 <!--                                    class="fa-solid fa-play"></i></button>-->
 <!--                        </div>-->
 <!--                    </div>-->
@@ -83,7 +83,7 @@
           </div>
         </div>
         <div class="d-flex justify-content-center">
-          <button pButton type="button" class="btn btn-rounded btn-primary" (click)="convert()">
+          <button pButton  pButton type="button" class="btn btn-rounded btn-primary" (click)="convert()">
             Compare <span class="btn-icon ms-2"><i class="fa-solid fa-refresh"></i></span>
           </button>
         </div>
@@ -135,7 +135,7 @@
         </div>
         <div class="col-md-6 col-12 my-2">
           <div class="card border-secondary w-100 h-100" style="position: relative">
-            <!--                            <button type="button" class="btn-close text-white" aria-label="Close"-->
+            <!--                            <button pButton  type="button" class="btn-close text-white" aria-label="Close"-->
             <!--                                    style="color:white !important; position: absolute; top: 10px; right: 10px;"-->
             <!--                                    (click)="closeCard()"></button>-->
             <div class="card-body pt-0 h-50">
@@ -225,7 +225,7 @@
     <img src="../../../uniprep-assets/images/smartloack.png" class="image" width="60" />
     <h3 class="offer">Upgrade Required</h3>
     <p>To access this exclusive module,please upgrade your plan now</p>
-    <button pButton type="button" class="text-white p-ripple p-button-rounded p-button-warning p-button p-component p-2" (click)="upgradePlan()">Upgrade Plan<i class="fa fa-arrow-right exhausted-plan-icon"></i></button>
+    <button pButton  pButton type="button" class="text-white p-ripple p-button-rounded p-button-warning p-button p-component p-2" (click)="upgradePlan()">Upgrade Plan<i class="fa fa-arrow-right exhausted-plan-icon"></i></button>
   </div>
   <div *ngIf="!ehitlabelIsShow" class="text-center mt-5 mb-4">
     <img src="../../../uniprep-assets/images/smartloack.png" class="image" width="60" />

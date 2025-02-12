@@ -12,7 +12,7 @@
 						</h5>
 					</div>
 					<!-- <div>
-						<button class="how-it-works-button">How it works?<i class="fa-solid fa-play d-md-block d-none"></i></button>
+						<button pButton  class="how-it-works-button" severity="warn" >>How it works?<i class="fa-solid fa-play d-md-block d-none"></i></button>
 					</div> -->
 				</div>
 			</div>
@@ -71,7 +71,7 @@
 										</span>
 									</div>
 								</div>
-								<button class="d-flex justify-content-center btn btn-rounded w-100" [ngClass]="modules?.retry === 0 ? 'btn-secondary' : (modules?.retry > 0 && modules?.retry < 3) || (modules?.academic_category_type_id === 3 && modules?.retry > 3) ? 'btn-primary' : 'btn-danger'">
+								<button pButton  class="d-flex justify-content-center btn btn-rounded w-100" [ngClass]="modules?.retry === 0 ? 'btn-secondary' : (modules?.retry > 0 && modules?.retry < 3) || (modules?.academic_category_type_id === 3 && modules?.retry > 3) ? 'btn-primary' : 'btn-danger'">
 									{{ modules?.retry === 0 ? "Start Test" : (modules?.retry > 0 && modules?.retry < 3) || (modules?.academic_category_type_id === 3 && modules?.retry > 3) ? "Retake Test" : "Retake exceeded" }}
 								</button>
 							</div>
@@ -88,7 +88,7 @@
 		<img src="../../../uniprep-assets/images/smartloack.png" class="image" width="60" />
 		<h3 class="offer">Upgrade Required</h3>
 		<p>To access this exclusive module,please upgrade your plan now</p>
-		<button pButton type="button" class="text-white p-ripple p-button-rounded p-button-warning p-button p-component p-2" (click)="upgradePlan()">Upgrade Plan<i class="fa fa-arrow-right exhausted-plan-icon"></i></button>
+		<button pButton  pButton type="button" class="text-white p-ripple p-button-rounded p-button-warning p-button p-component p-2" (click)="upgradePlan()">Upgrade Plan<i class="fa fa-arrow-right exhausted-plan-icon"></i></button>
 	</div>
 	<div *ngIf="!ehitlabelIsShow" class="text-center mt-5 mb-4">
 		<img src="../../../uniprep-assets/images/smartloack.png" class="image" width="60" />

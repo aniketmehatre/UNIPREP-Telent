@@ -9,7 +9,7 @@
 							Global Advisor<i class="questiontooltip fa-solid fa-circle-question"></i></h5>
 					</div>
 					<div>
-						<button class="how-it-works-button"
+						<button pButton  class="how-it-works-button" severity="warn" >
 							(click)="openVideoPopup('https://www.youtube.com/embed/dcojCJtwck0?si=Dq6ONzGdpyzGwnhp')">How
 							it works?<i class="fa-solid fa-play d-md-block d-none"></i></button>
 					</div>
@@ -42,7 +42,7 @@
 					</p-carousel>
 				</div>
 				<div class="d-flex justify-content-center">
-					<button class="btn btn-primary btn-rounded px-5 mt-4" (click)="getChatHistory()">Chat
+					<button pButton  class="btn btn-primary btn-rounded px-5 mt-4" (click)="getChatHistory()">Chat
 						History</button>
 				</div>
 			</div>
@@ -51,7 +51,7 @@
 			<div class="p-inputgroup">
 				<div class="p-inputgroup">
 					<input type="text" [(ngModel)]="userQuestion" pInputText placeholder="" />
-					<button type="button" (click)="getAns()" class="btn btn-primary" pButton pRipple label="Search"></button>
+					<button pButton  type="button" (click)="getAns()" class="btn btn-primary" pButton pRipple label="Search"></button>
 				</div>
 			</div>
 		</div> -->
@@ -190,7 +190,7 @@
 		<div class="row justify-content-center mt-5">
 			<div class="col-md-4 d-flex align-items-center flex-column">
 				<p class="text-danger mb-2">Not happy with the answer ?</p>
-				<button class="btn btn-primary btn-rounded px-5" (click)="askExpert()">{{ this.requestButton }}</button>
+				<button pButton  class="btn btn-primary btn-rounded px-5" (click)="askExpert()">{{ this.requestButton }}</button>
 			</div>
 		</div>
 	</div>
@@ -200,7 +200,7 @@
 				<div class="p-inputgroup advisorinput">
 					<input type="text" [(ngModel)]="userQuestion" (keyup)="lengthCheck()" pInputText (keydown.enter)="getAns()" 
 						placeholder="Ask any questions you have about traveling abroad, studying abroad, career or entrepreneurship!" />
-					<button type="button" (click)="getAns()" class="btn btn-success btn-rounded" pButton pRipple
+					<button pButton  type="button" (click)="getAns()" class="btn btn-success btn-rounded" pButton pRipple
 						[disabled]="smallquestion"><i class="fa-solid fa-stars"></i> {{responseType}}</button>
 				</div>
 				<!-- <small class="fw-semibold"	*ngIf="isQuestionEmpty" style="color:red">Please enter the question</small> -->
@@ -215,7 +215,7 @@
 		<img src="../../../uniprep-assets/images/smartloack.png" class="image" width="60" />
 		<h3 class="offer">Upgrade Required</h3>
 		<p>To access this exclusive module,please upgrade your plan now</p>
-		<button pButton type="button"
+		<button pButton  pButton type="button"
 			class="text-white p-ripple p-button-rounded p-button-warning p-button p-component p-2"
 			(click)="upgradePlan()">Upgrade Plan<i class="fa fa-arrow-right exhausted-plan-icon"></i></button>
 	</div>

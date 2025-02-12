@@ -16,7 +16,7 @@
                                 class="questiontooltip fa-solid fa-circle-question"></i></h5>
                     </div>
                     <div>
-                        <button class="how-it-works-button"
+                        <button pButton  class="how-it-works-button" severity="warn" >
                             (click)="openVideoPopup('https://www.youtube.com/embed/01xivveciUI?si=Cdi3e7ycApMa8sWO')">How
                             it works?<i class="fa-solid fa-play d-md-block d-none"></i></button>
                     </div>
@@ -50,8 +50,8 @@
         <div class="modal-body position-relative pt-4">
           <div class="modalbuttons">
             <div class="d-flex gap-2">
-              <button title="New Window" type="button" class="btn btn-primary btn-rounded" (click)="openNextVideo()"><i class="fa-solid fa-arrow-up-right-from-square"></i></button>
-              <button type="button" title="Close Popup" class="btn btn-primary btn-rounded" (click)="closeVideoPopup()"><i class="fa-solid fa-xmark"></i></button>
+              <button pButton  title="New Window" type="button" class="btn btn-primary btn-rounded" (click)="openNextVideo()"><i class="fa-solid fa-arrow-up-right-from-square"></i></button>
+              <button pButton  type="button" title="Close Popup" class="btn btn-primary btn-rounded" (click)="closeVideoPopup()"><i class="fa-solid fa-xmark"></i></button>
             </div>
           </div>
           <div class="embed-responsive"><iframe #videoFrame [src]="selectedVideoLink" width="100%" frameborder="0" allowfullscreen></iframe></div>

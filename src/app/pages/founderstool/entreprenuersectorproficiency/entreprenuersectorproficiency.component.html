@@ -10,7 +10,7 @@
             <h5 class="w-100 mb-0" tooltipPosition="top" pTooltip="Founders Tool">Founders Tool - Entreprenuer Sector Proficiency Test<i class="questiontooltip fa-solid fa-circle-question"></i></h5>
           </div>
           <div>
-            <button (click)="openVideoPopup('https://www.youtube.com/embed/CAqaLD71cKI?si=_ewEbXNabE9wh65-')" class="how-it-works-button">How it works?<i class="fa-solid fa-play d-md-block d-none"></i></button>
+            <button pButton  (click)="openVideoPopup('https://www.youtube.com/embed/CAqaLD71cKI?si=_ewEbXNabE9wh65-')" class="how-it-works-button">How it works?<i class="fa-solid fa-play d-md-block d-none"></i></button>
           </div>
         </div>
       </div>
@@ -30,7 +30,7 @@
               <h6 class="fw-bold mb-3">{{ list.submodule_name }}</h6>
               <div>
                 <div *ngIf="list.progress < 90" class="d-flex justify-content-center">
-                  <button style="font-size: small;" 
+                  <button pButton  style="font-size: small;" 
                     class="btn btn-secondary btn-rounded px-4 w-100 w-md-auto"
                     [ngClass]="{ 'retry-button': list.progress > 0 }"
                     (click)="openQuiz(list?.id, list?.submodule_name)">
@@ -39,8 +39,8 @@
                   </button>
                 </div>
                 <div *ngIf="list.progress >= 90" class="d-flex flex-column flex-md-row justify-content-center gap-2">
-                  <button style="font-size: small;" class="btn btn-success btn-rounded w-100 w-md-auto">Completed</button>
-                  <button  style="font-size: small;"
+                  <button pButton  style="font-size: small;" class="btn btn-success btn-rounded w-100 w-md-auto">Completed</button>
+                  <button pButton   style="font-size: small;"
                     class="btn btn-secondary btn-rounded w-100 w-md-auto"
                     (click)="review(list.id)">
                     Review &nbsp; <i class="fa-solid fa-list-check"></i>
@@ -60,7 +60,7 @@
     <img src="../../../uniprep-assets/images/smartloack.png" class="image" width="60" />
     <h3 class="offer">Upgrade Required</h3>
     <p>To access this exclusive module,please upgrade your plan now</p>
-    <button pButton type="button" class="text-white p-ripple p-button-rounded p-button-warning p-button p-component p-2" (click)="upgradePlan()">Upgrade Plan<i class="fa fa-arrow-right exhausted-plan-icon"></i></button>
+    <button pButton  pButton type="button" class="text-white p-ripple p-button-rounded p-button-warning p-button p-component p-2" (click)="upgradePlan()">Upgrade Plan<i class="fa fa-arrow-right exhausted-plan-icon"></i></button>
   </div>
   <div *ngIf="!ehitlabelIsShow" class="text-center mt-5 mb-4">
     <img src="{{ orglogowhitelabel }}" class="image" width="60" />

@@ -15,7 +15,7 @@
               {{headertooltipname}}<i class="questiontooltip fa-solid fa-circle-question"></i></h5>
           </div>
           <div>
-            <button class="how-it-works-button"
+            <button pButton  class="how-it-works-button" severity="warn" >
               (click)="openVideoPopup('https://www.youtube.com/embed/l00Z_Nk6GLI?si=j1IwWBZjrXEAYjxH')">How it works?<i
                 class="fa-solid fa-play d-md-block d-none"></i></button>
           </div>
@@ -118,7 +118,7 @@
           </div>
       </div>
       <div class="d-flex align-items-center position-relative mt-1" style="justify-content: end !important;">
-        <button class="btn btn-primary socialShareBtn" (click)="showSocialSharingList()"><i class="fa-solid fa-share"></i></button>
+        <button pButton  class="btn btn-primary socialShareBtn" (click)="showSocialSharingList()"><i class="fa-solid fa-share"></i></button>
         <p-card id="socialSharingList">
           <ul style="list-style: none; cursor: pointer">
             <li (click)="shareViaWhatsapp()"><i class="pi pi-whatsapp"></i>Whatsapp</li>

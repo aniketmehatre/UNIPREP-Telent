@@ -37,14 +37,14 @@
 									<div class="d-flex flex-row justify-content-center gap-3 align-items-center text-nowrap ">
 										<h5 *ngIf="currentCountry !='India'" class="mb-0 uniprep-primary">{{ modules.price_per_credit * perRupeePrice | number:'1.2-2' }} {{ currentCurrencySymbol }}/Credit</h5>                
 										<h5 *ngIf="currentCountry =='India'" class="mb-0 uniprep-primary">{{ modules.price_per_credit }} {{ currentCurrencySymbol }}/Credit</h5>                
-										<!-- <button type="button" (click)="updateCredits()" class="btn btn-primary">Update Credits</button> -->
+										<!-- <button pButton  type="button" (click)="updateCredits()" class="btn btn-primary">Update Credits</button> -->
 									</div>
 								</div>
 								<!-- <ng-template #upgradeRequired> -->
 									<div class="col-md-4 col-4 d-flex flex-column align-items-center " *ngIf="modules?.planValidation == 0">
 										<h6 class="card-title mt-2" style="color: #f0780e;">Upgrade Required</h6>
 										<small>To access this exclusive module, please upgrade your subscription plan now.</small>
-										<button pButton (click)="naviagateSubscriptionPage()" type="button" class="text-white p-ripple p-button-rounded p-button-warning p-button p-component p-2 mb-2">Upgrade Plan<i class="fa fa-arrow-right exhausted-plan-icon"></i></button>
+										<button pButton  pButton (click)="naviagateSubscriptionPage()" type="button" class="text-white p-ripple p-button-rounded p-button-warning p-button p-component p-2 mb-2">Upgrade Plan<i class="fa fa-arrow-right exhausted-plan-icon"></i></button>
 									</div>
 								<!-- </ng-template> -->
 							</div>
@@ -83,7 +83,7 @@
 
 				<div class="p-inputgroup inputheight mt-1">
 					<input  pInputText placeholder="Enter Your coupon code Here" type="text"  />
-					<button class="btn-primary" label="Apply" pButton pRipple type="button"></button>
+					<button pButton  class="btn-primary" label="Apply" pButton pRipple type="button"></button>
 				</div>
 				<span class="text-danger">You entered an invalid discount code. Please check the code and try again</span>&nbsp;
 			</div>
@@ -102,7 +102,7 @@
 						</div>
 					</div>
 					<div class="flex-full">
-						<button (click)="checkOut()" class="btn btn-primary w-100 py-3 px-5 h6 m-0">Checkout</button>
+						<button pButton  (click)="checkOut()" class="btn btn-primary w-100 py-3 px-5 h6 m-0">Checkout</button>
 						<!-- <p>Discount Amount: 10</p> -->
 					</div>
 				</div>
@@ -117,7 +117,7 @@
 			<div class="modal-content">
 				<div class="modal-header">
 					<h1 class="modal-title fs-5" id="exampleModalLabel">Available Offers</h1>
-					<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+					<button pButton  type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
 				</div>
 				<div class="modal-body d-flex flex-column justify-content-center">
 					<p class="btn btn-rounded mx-auto" style="background: #9bc32935; border: 1px dashed #9bc329; width: 100px">UNI25</p>

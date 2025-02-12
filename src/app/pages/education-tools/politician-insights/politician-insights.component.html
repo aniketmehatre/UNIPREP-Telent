@@ -13,7 +13,7 @@
                 </h5>
               </div>
               <div>
-                <button class="how-it-works-button">
+                <button pButton  class="how-it-works-button" severity="warn" >>
                   How it works? <i class="fa-solid fa-play d-md-block d-none"></i>
                 </button>
               </div>
@@ -46,7 +46,7 @@
                 <div class="d-flex justify-content-between mt-2 w-100" style="text-align: end">
                   <div>&nbsp;</div>
                   <div></div>
-                  <button pButton type="button" (click)="getRecommendation()" *ngIf="activePageIndex == 0"
+                  <button pButton  pButton type="button" (click)="getRecommendation()" *ngIf="activePageIndex == 0"
                     class="btn btn-success btn-rounded p-1 ps-4">
                     <span class="me-2">Get Politicians List</span><span class="btn-icon px-2 py-2">
                       <i class="fa fa-check-circle"></i></span>
@@ -74,7 +74,7 @@
                   </h6>
                 </div>
                 <div>
-                  <button class="how-it-works-button" (click)="
+                  <button pButton  class="how-it-works-button" severity="warn" > (click)="
                       openHowItWorksVideoPopup('https://www.youtube.com/embed/4evbW8B-z_M?si=alycFSacGOFGuZ9F')">
                        How it works?<i class="fa-solid fa-play d-md-block d-none"></i>
                   </button>

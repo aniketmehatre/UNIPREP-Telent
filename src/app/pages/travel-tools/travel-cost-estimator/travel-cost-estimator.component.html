@@ -11,7 +11,7 @@
 						<h5 class="w-100 mb-0" tooltipPosition="top" pTooltip="">Travel Cost Estimator<i class="questiontooltip fa-solid fa-circle-question"></i></h5>
 					</div>
 					<div>
-						<button class="how-it-works-button">How it works? <i class="fa-solid fa-play d-md-block d-none"></i></button>
+						<button pButton  class="how-it-works-button" severity="warn" >>How it works? <i class="fa-solid fa-play d-md-block d-none"></i></button>
 					</div>
 				</div>
 			</div>
@@ -39,7 +39,7 @@
 														<p-inputgroup-addon> <i class="pi pi-search"></i></p-inputgroup-addon>
 														<input type="text" pInputText placeholder="Filter" [(ngModel)]="departureFilter" name="departureFilter" (keyup)="customFilterFunction('departure')" />
 													</p-inputgroup>
-													<button pButton icon="pi pi-times" class="btn btn-primary" (click)="resetFunction('departure')" severity="secondary"></button>
+													<button pButton  pButton icon="pi pi-times" class="btn btn-primary" (click)="resetFunction('departure')" severity="secondary"></button>
 												</div>
 											</ng-template>
 											<ng-template let-country pTemplate="item">
@@ -73,7 +73,7 @@
 														<span class="p-inputgroup-addon"> <i class="pi pi-search"></i></span>
 														<input type="text" pInputText placeholder="Filter" [(ngModel)]="destinationFilter" name="destinationFilter" (keyup)="customFilterFunction('destination')" />
 													</div>
-													<button pButton icon="pi pi-times" class="btn btn-primary" (click)="resetFunction('destination')" severity="secondary"></button>
+													<button pButton  pButton icon="pi pi-times" class="btn btn-primary" (click)="resetFunction('destination')" severity="secondary"></button>
 												</div>
 											</ng-template>
 											<ng-template let-country pTemplate="item">
@@ -119,7 +119,7 @@
 														<span class="p-inputgroup-addon"> <i class="pi pi-search"></i></span>
 														<input type="text" pInputText placeholder="Filter" [(ngModel)]="currencyFilter" name="currencyFilter" (keyup)="customFilterFunction('currency')" />
 													</div>
-													<button pButton icon="pi pi-times" class="btn btn-primary" (click)="resetFunction('currency')" severity="secondary"></button>
+													<button pButton  pButton icon="pi pi-times" class="btn btn-primary" (click)="resetFunction('currency')" severity="secondary"></button>
 												</div>
 											</ng-template>
 										</p-select>
@@ -129,13 +129,13 @@
 							</div>
 						</div>
 						<div class="d-flex justify-content-between mt-2">
-							<button pButton type="button" class="btn btn-primary btn-rounded p-1 pe-4" [style.visibility]="recommendation.id == 1 ? 'hidden' : 'visible'" (click)="previous()">
+							<button pButton  pButton type="button" class="btn btn-primary btn-rounded p-1 pe-4" [style.visibility]="recommendation.id == 1 ? 'hidden' : 'visible'" (click)="previous()">
 								<span class="btn-icon px-2 py-2"><i class="fa fa-arrow-left"></i></span> <span class="ms-2">Previous</span>
 							</button>
-							<button pButton type="button" (click)="next(recommendation.id)" *ngIf="recommendation.id != 5" class="btn btn-primary btn-rounded p-1 ps-4">
+							<button pButton  pButton type="button" (click)="next(recommendation.id)" *ngIf="recommendation.id != 5" class="btn btn-primary btn-rounded p-1 ps-4">
 								<span class="me-2">Next</span><span class="btn-icon px-2 py-2"><i class="fa fa-arrow-right"></i></span>
 							</button>
-							<button pButton type="button" (click)="getRecommendation()" *ngIf="recommendation.id == 5" class="btn btn-success btn-rounded p-1 ps-4">
+							<button pButton  pButton type="button" (click)="getRecommendation()" *ngIf="recommendation.id == 5" class="btn btn-success btn-rounded p-1 ps-4">
 								<span class="me-2">Get Recommendations</span><span class="btn-icon px-2 py-2"><i class="fa fa-check-circle"></i></span>
 							</button>
 						</div>
@@ -160,12 +160,12 @@
                             Travel Cost Estimator<i class="questiontooltip fa-solid fa-circle-question"></i></h5>
                     </div>
                     <div>
-                        <button class="how-it-works-button">How it works?
+                        <button pButton  class="how-it-works-button" severity="warn" >>How it works?
                             <i class="fa-solid fa-play d-md-block d-none"></i></button>
                     </div>
                 </div>
                 <div class="d-flex align-items-center">
-                    <button pButton type="button" (click)="saveRecommadation()"
+                    <button pButton  pButton type="button" (click)="saveRecommadation()"
                         class="btn btn-primary btn-rounded py-2 px-4">
                         <span>Saved</span>
                     </button>
@@ -178,12 +178,12 @@
             <div class="col-md-2"></div>
             <div class="col-md-8">
                 <div class="d-flex justify-content-end gap-3 mb-3">
-                    <button pButton type="button" (click)="downloadRecommadation()"
+                    <button pButton  pButton type="button" (click)="downloadRecommadation()"
                         class="btn btn-secondary btn-rounded p-1 ps-4">
                         <span class="me-2">Download</span><span class="btn-icon px-2 py-2">
                             <i class="fa-regular fa-download"></i></span>
                     </button>
-                    <button pButton type="button" (click)="onSaveRes()"
+                    <button pButton  pButton type="button" (click)="onSaveRes()"
                         class="btn btn-primary btn-rounded p-1 ps-4">
                         <span class="me-2">Save Response</span><span class="btn-icon px-2 py-2">
                             <i class="fa-regular fa-floppy-disk"></i></span>
@@ -196,7 +196,7 @@
     </div>
     <div class="card-footer bg-transparent border-0">
         <div class="text-end">
-            <button pButton type="button" class="btn ps-3 btn-quit btn-rounded" (click)="resetRecommendation()">
+            <button pButton  pButton type="button" class="btn ps-3 btn-quit btn-rounded" (click)="resetRecommendation()">
                 Reset Recommendations<span class="btn-icon"><i class="fa-solid fa-arrow-rotate-right"></i>
                 </span>
             </button>
@@ -217,7 +217,7 @@
 						<h5 class="w-100 mb-0" tooltipPosition="top" pTooltip="">Travel Cost Estimator<i class="questiontooltip fa-solid fa-circle-question"></i></h5>
 					</div>
 					<div>
-						<button class="how-it-works-button">How it works? <i class="fa-solid fa-play d-md-block d-none"></i></button>
+						<button pButton  class="how-it-works-button" severity="warn" >>How it works? <i class="fa-solid fa-play d-md-block d-none"></i></button>
 					</div>
 				</div>
 			</div>
@@ -243,7 +243,7 @@
 	</div>
 	<div class="card-footer bg-transparent border-0">
 		<div class="text-end">
-			<button pButton type="button" class="btn ps-3 btn-quit btn-rounded" (click)="resetRecommendation()">
+			<button pButton  pButton type="button" class="btn ps-3 btn-quit btn-rounded" (click)="resetRecommendation()">
 				Reset Recommendations<span class="btn-icon"><i class="fa-solid fa-arrow-rotate-right"></i> </span>
 			</button>
 		</div>

@@ -12,7 +12,7 @@
             <h5 class="mb-0 text-uppercase" tooltipPosition="top" pTooltip="Sharpen your interview readiness with essential question practice and strategic answer guidance.">{{ this.modulename }}<i class="questiontooltip fa-solid fa-circle-question"></i></h5>
           </div>
           <div>
-            <!-- <button class="how-it-works-button">How it works?<i class="fa-solid fa-play d-md-block d-none"></i></button> -->
+            <!-- <button pButton  class="how-it-works-button" severity="warn" >>How it works?<i class="fa-solid fa-play d-md-block d-none"></i></button> -->
           </div>
         </div>
       </div>
@@ -26,7 +26,7 @@
           <div class="card-body d-flex justify-content-between flex-column">
             <p class="text-start fw-medium mb-2">{{ item.ques }}</p>
             <div class="d-flex justify-content-center align-items-center">
-              <button class="btn btn-primary btn-rounded w-100" (click)="seeAnswer(item.ques, item.ans)">Read Answer</button>
+              <button pButton  class="btn btn-primary btn-rounded w-100" (click)="seeAnswer(item.ques, item.ans)">Read Answer</button>
             </div>
           </div>
         </div>
@@ -71,7 +71,7 @@
 		<img src="../../../uniprep-assets/images/smartloack.png" class="image" width="60" />
 		<h3 class="offer">Upgrade Required</h3>
 		<p>To access this exclusive module,please upgrade your plan now</p>
-		<button pButton type="button" class="text-white p-ripple p-button-rounded p-button-warning p-button p-component p-2" (click)="upgradePlan()">Upgrade Plan<i class="fa fa-arrow-right exhausted-plan-icon"></i></button>
+		<button pButton  pButton type="button" class="text-white p-ripple p-button-rounded p-button-warning p-button p-component p-2" (click)="upgradePlan()">Upgrade Plan<i class="fa fa-arrow-right exhausted-plan-icon"></i></button>
 	</div>
 	<div *ngIf="!ehitlabelIsShow" class="text-center mt-5 mb-4">
 		<img src="../../../uniprep-assets/images/smartloack.png" class="image" width="60" />

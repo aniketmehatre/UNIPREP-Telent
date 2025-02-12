@@ -10,7 +10,7 @@
 					<h5 class="mb-0" pTooltip="Questions related to the application process are answered" tooltipPosition="top">{{ "Language Hub" | uppercase }} - {{ selectedSubmoduleName }}<i class="questiontooltip fa-solid fa-circle-question"></i></h5>
 				  </div>
 				  <div>
-					<button class="how-it-works-button">How it works?<i class="fa-solid fa-play d-md-block d-none"></i></button>
+					<button pButton  class="how-it-works-button" severity="warn" >>How it works?<i class="fa-solid fa-play d-md-block d-none"></i></button>
 				  </div>
 				</div>
 			  </div>
@@ -42,10 +42,10 @@
 				<p class="text-small fw-semibold mb-2">Enter the text to be translated</p>
 				<div class="textarea-container position-relative">
 					<textarea [(ngModel)]="text1" rows="8" class="text-large w-100 border-primary rounded-3 px-5 py-3 fw-semibold" placeholder="Type here..."></textarea>
-					<button (click)="togglePlayPause(1, text1)" class="topbutton btn p-0">
+					<button pButton  (click)="togglePlayPause(1, text1)" class="topbutton btn p-0">
 						<i [ngClass]="{ fa: true, 'fa-volume-up': isPlaying1, 'fa-play': !isPlaying1 }"></i>
 					</button>
-					<button (click)="translate(text1, '')" class="btn btn-primary bottombutton px-3 py-3">Translate <i class="fa-solid fa-language"></i></button>
+					<button pButton  (click)="translate(text1, '')" class="btn btn-primary bottombutton px-3 py-3">Translate <i class="fa-solid fa-language"></i></button>
 				</div>
 			</div>
 			<div class="col-md-6 mt-4 text-start">
@@ -53,10 +53,10 @@
 				<div class="textarea-container position-relative">
 					<textarea [innerHTML]="text2" rows="8" class="text-large w-100 border-primary rounded-3 px-5 py-3 fw-semibold h5" placeholder="" [disabled]="true"></textarea>
 					<label class="bottomtext fw-semibold" [innerHTML]="transliterate2"></label>
-					<button (click)="togglePlayPause(2, text2)" class="topbutton btn p-0">
+					<button pButton  (click)="togglePlayPause(2, text2)" class="topbutton btn p-0">
 						<i [ngClass]="{ fa: true, 'fa-volume-up': isPlaying2, 'fa-play': !isPlaying2 }"></i>
 					</button>
-					<button (click)="togglePlayPause(5, text2)" class="leftbottombutton btn p-0">
+					<button pButton  (click)="togglePlayPause(5, text2)" class="leftbottombutton btn p-0">
 						<i [ngClass]="{ fa: true, 'fa-volume-up': isPlaying5, 'fa-play': !isPlaying5 }"></i>
 					</button>
 				</div>
@@ -65,10 +65,10 @@
 				<p class="text-small fw-semibold mb-2">Enter the text to be translated</p>
 				<div class="textarea-container position-relative">
 					<textarea [(ngModel)]="text3" rows="8" class="text-large w-100 border-primary rounded-3 px-5 py-3 fw-semibold" placeholder="Type here..."></textarea>
-					<button (click)="togglePlayPause(3, text3)" class="topbutton btn p-0">
+					<button pButton  (click)="togglePlayPause(3, text3)" class="topbutton btn p-0">
 						<i [ngClass]="{ fa: true, 'fa-volume-up': isPlaying3, 'fa-play': !isPlaying3 }"></i>
 					</button>
-					<button (click)="translate('', text3)" class="btn btn-primary bottombutton px-3 py-3">Translate <i class="fa-solid fa-language"></i></button>
+					<button pButton  (click)="translate('', text3)" class="btn btn-primary bottombutton px-3 py-3">Translate <i class="fa-solid fa-language"></i></button>
 				</div>
 			</div>
 			<div class="col-md-6 mt-4 text-start">
@@ -76,10 +76,10 @@
 				<div class="textarea-container position-relative">
 					<textarea [innerHTML]="text4" rows="8" class="text-large w-100 border-primary rounded-3 px-5 py-3 fw-semibold h5" placeholder="" [disabled]="true"></textarea>
 					<label class="bottomtext fw-semibold" [innerHTML]="transliterate4"></label>
-					<button (click)="togglePlayPause(4, text4)" class="topbutton btn p-0">
+					<button pButton  (click)="togglePlayPause(4, text4)" class="topbutton btn p-0">
 						<i [ngClass]="{ fa: true, 'fa-volume-up': isPlaying4, 'fa-play': !isPlaying4 }"></i>
 					</button>
-					<button (click)="togglePlayPause(6, text4)" class="leftbottombutton btn p-0">
+					<button pButton  (click)="togglePlayPause(6, text4)" class="leftbottombutton btn p-0">
 						<i [ngClass]="{ fa: true, 'fa-volume-up': isPlaying6, 'fa-play': !isPlaying6 }"></i>
 					</button>
 				</div>

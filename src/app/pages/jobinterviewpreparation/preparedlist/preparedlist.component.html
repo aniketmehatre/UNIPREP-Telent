@@ -10,7 +10,7 @@
 						<h5 class="mb-0" pTooltip="Questions related to the application process are answered" tooltipPosition="top">{{ selectedJobRole | uppercase }}<i class="questiontooltip fa-solid fa-circle-question"></i></h5>
 					</div>
 					<div>
-						<button (click)="openVideoPopup('https://www.youtube.com/embed/cbny1-f4rXI?si=E3WEU6LuiMLWA1Uq')" class="how-it-works-button">How it works?<i class="fa-solid fa-play d-md-block d-none"></i></button>
+						<button pButton  (click)="openVideoPopup('https://www.youtube.com/embed/cbny1-f4rXI?si=E3WEU6LuiMLWA1Uq')" class="how-it-works-button">How it works?<i class="fa-solid fa-play d-md-block d-none"></i></button>
 					</div>
 				</div>
 				<div class="question-tab">
@@ -55,8 +55,8 @@
 									</p>
 								</div>
 							</div>
-							<button class="btn d-md-block d-none w-100 flex-shrink-0 btn-primary btn-rounded m-0 primary-btn" pButton type="button" (click)="readAnswer(sub)">Read &nbsp;<span class="desktop-enable">Answer</span></button>
-							<button class="btn d-md-none d-flex flex-shrink-0 btn-primary m-0 btn-rounded primary-btn" pButton type="button" (click)="readAnswer(sub)">Read &nbsp;<span class="desktop-enable">Answer</span></button>
+							<button pButton  class="btn d-md-block d-none w-100 flex-shrink-0 btn-primary btn-rounded m-0 primary-btn" pButton type="button" (click)="readAnswer(sub)">Read &nbsp;<span class="desktop-enable">Answer</span></button>
+							<button pButton  class="btn d-md-none d-flex flex-shrink-0 btn-primary m-0 btn-rounded primary-btn" pButton type="button" (click)="readAnswer(sub)">Read &nbsp;<span class="desktop-enable">Answer</span></button>
 						</div>
 					</div>
 				</div>
@@ -78,7 +78,7 @@
 				<p-paginator *ngIf="totalDataCount != 0" [rows]="perpage" [totalRecords]="totalDataCount" (onPageChange)="paginate($event)" [rowsPerPageOptions]="[50, 100, 300, 500, 1000]"></p-paginator>
 			</div>
 			<div class="col-md-3 text-end">
-				<button pButton type="button" class="btn btn-quit ps-3 btn-rounded" (click)="backtoMain()">
+				<button pButton  pButton type="button" class="btn btn-quit ps-3 btn-rounded" (click)="backtoMain()">
 					Reset Recommendations<span class="btn-icon"><i class="fa-solid fa-arrow-rotate-right"></i> </span>
 				</button>
 			</div>
@@ -90,7 +90,7 @@
 		<img src="../../../uniprep-assets/images/smartloack.png" class="image" width="60" />
 		<h3 class="offer">Upgrade Required</h3>
 		<p>To access this exclusive module,please upgrade your plan now</p>
-		<button pButton type="button" class="text-white p-ripple p-button-rounded p-button-warning p-button p-component p-2" (click)="upgradePlan()">Upgrade Plan<i class="fa fa-arrow-right exhausted-plan-icon"></i></button>
+		<button pButton  pButton type="button" class="text-white p-ripple p-button-rounded p-button-warning p-button p-component p-2" (click)="upgradePlan()">Upgrade Plan<i class="fa fa-arrow-right exhausted-plan-icon"></i></button>
 	</div>
 	<div *ngIf="!ehitlabelIsShow" class="text-center mt-5 mb-4">
 		<img src="{{ orglogowhitelabel }}" class="image" width="60" />
@@ -131,7 +131,7 @@
 					<div class="col"></div>
 					<div class="col">{{ "Customized" | uppercase }}</div>
 					<div class="col text-right">
-						<button (click)="saveInterviewQuestion()" class="btn btn-back btn-rounded me-3" style="padding: 0 !important">
+						<button pButton  (click)="saveInterviewQuestion()" class="btn btn-back btn-rounded me-3" style="padding: 0 !important">
 							<div class="d-flex align-items-center">
 								<span class="fw-normal h6 mb-0 ps-3 pe-2">Save Response</span>
 								<div class="btn-icon">

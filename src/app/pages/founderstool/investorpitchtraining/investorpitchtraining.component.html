@@ -10,7 +10,7 @@
 						<h5 class="w-100 mb-0" tooltipPosition="top" pTooltip="Access resources for starting your business, from ideation to execution.">Founders Tool - Investor Pitch Training<i class="questiontooltip fa-solid fa-circle-question"></i></h5>
 					</div>
 					<div>
-						<button (click)="openVideoPopup('https://www.youtube.com/embed/zcCrD75FHJo?si=1Q3p4wI2uV4xOYF6')" class="how-it-works-button">How it works?<i class="fa-solid fa-play d-md-block d-none"></i></button>
+						<button pButton  (click)="openVideoPopup('https://www.youtube.com/embed/zcCrD75FHJo?si=1Q3p4wI2uV4xOYF6')" class="how-it-works-button">How it works?<i class="fa-solid fa-play d-md-block d-none"></i></button>
 					</div>
 				</div>
 			</div>
@@ -24,7 +24,7 @@
 						<div class="card-body">
 							<h3 class="uniprep-primary">{{ investorlists[currentIndex].question }}</h3>
 							<h6 class="mt-2 uniprep-primary">{{ investorlists[currentIndex].answer }}</h6>
-							<div class="mt-4"><button type="button" style="width: -webkit-fill-available" class="btn btn-primary btn-rounded p-3 ps-5 pe-5" (click)="nextQuestion()">Please ask me another question</button></div>
+							<div class="mt-4"><button pButton  type="button" style="width: -webkit-fill-available" class="btn btn-primary btn-rounded p-3 ps-5 pe-5" (click)="nextQuestion()">Please ask me another question</button></div>
 						</div>
 					</div>
 				</div>

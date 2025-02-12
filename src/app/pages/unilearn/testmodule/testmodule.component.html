@@ -13,7 +13,7 @@
 						</h5>
 					</div>
 					<div>
-						<button class="how-it-works-button" (click)="openVideoPopup('https://www.youtube.com/embed/4evbW8B-z_M?si=alycFSacGOFGuZ9F')">How it works?<i class="fa-solid fa-play d-md-block d-none"></i></button>
+						<button pButton  class="how-it-works-button" severity="warn" > (click)="openVideoPopup('https://www.youtube.com/embed/4evbW8B-z_M?si=alycFSacGOFGuZ9F')">How it works?<i class="fa-solid fa-play d-md-block d-none"></i></button>
 					</div>
 				</div>
 			</div>
@@ -125,10 +125,10 @@
 										<h6 class="d-md-none d-block pt-2">Score: {{ module?.userAnsweredQuestions }}/{{ module?.totalQuestions }}</h6>
 									</div>
 									<div class="col text-center" *ngIf="module?.answered == 1">
-										<button class="btn btn-primary text-smaller btn-rounded btn-sm p-2 pe-4 ps-4 w-100" type="button">Retry <i class="ps-2 fa-regular fa-arrow-rotate-right" (click)="onModuleClick(module)"></i></button>
+										<button pButton  class="btn btn-primary text-smaller btn-rounded btn-sm p-2 pe-4 ps-4 w-100" type="button">Retry <i class="ps-2 fa-regular fa-arrow-rotate-right" (click)="onModuleClick(module)"></i></button>
 									</div>
 									<div class="col text-center" *ngIf="module?.answered == 0">
-										<button class="btn btn-secondary text-smaller btn-rounded p-2 pe-4 ps-4 btn-sm w-100" type="button">Start Test <i class="ps-2 fa-sharp fa-solid fa-stopwatch" (click)="onModuleClick(module)"></i></button>
+										<button pButton  class="btn btn-secondary text-smaller btn-rounded p-2 pe-4 ps-4 btn-sm w-100" type="button">Start Test <i class="ps-2 fa-sharp fa-solid fa-stopwatch" (click)="onModuleClick(module)"></i></button>
 									</div>
 								</div>
 							</div>

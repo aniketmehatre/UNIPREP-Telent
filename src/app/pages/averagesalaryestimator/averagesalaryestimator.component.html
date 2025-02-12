@@ -22,7 +22,7 @@
                 </h5>
               </div>
               <div>
-                <button
+                <button pButton 
                   class="how-it-works-button"
                   (click)="
                     openVideoPopup(
@@ -202,7 +202,7 @@
                   </div>
                 </div>
                 <div class="d-flex justify-content-between mt-2">
-                  <button
+                  <button pButton 
                     (click)="previous()"
                     [style.visibility]="
                       recommendation.id == 1 ? 'hidden' : 'visible'
@@ -217,7 +217,7 @@
                     </div>
                   </button>
 
-                  <button
+                  <button pButton 
                     (click)="next(recommendation.id)"
                     *ngIf="recommendation.id != 6"
                     class="btn btn-start btn-rounded m-0 px-2 py-2"
@@ -229,7 +229,7 @@
                       </div>
                     </div>
                   </button>
-                  <button
+                  <button pButton 
                     pButton
                     type="button"
                     (click)="getRecommendation()"

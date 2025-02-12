@@ -14,7 +14,7 @@
                         </h5>
                     </div>
                     <div>
-                        <button (click)="
+                        <button pButton  (click)="
                   openVideoPopup(
                     'https://www.youtube.com/embed/cbny1-f4rXI?si=E3WEU6LuiMLWA1Uq'
                   )
@@ -88,7 +88,7 @@
         <img src="../../../uniprep-assets/images/smartloack.png" class="image" width="60" />
         <h3 class="offer">Upgrade Required</h3>
         <p>To access this exclusive module,please upgrade your plan now</p>
-        <button pButton type="button"
+        <button pButton  pButton type="button"
             class="text-white p-ripple p-button-rounded p-button-warning p-button p-component p-2"
             (click)="upgradePlan()">
             Upgrade Plan<i class="fa fa-arrow-right exhausted-plan-icon"></i>
@@ -134,7 +134,7 @@
             <div class="d-flex align-items-center text-end justify-content-between position-relative">
                 <span class="text-small blockquote text-start mb-0">
                 </span>
-                <button class="btn career-shareIcon" (click)="showSocialSharingList()"><i
+                <button pButton  class="btn career-shareIcon" (click)="showSocialSharingList()"><i
                         class="fa-solid fa-share"></i></button>
                 <p-card id="socialSharingList">
                     <ul style="list-style: none; cursor: pointer">

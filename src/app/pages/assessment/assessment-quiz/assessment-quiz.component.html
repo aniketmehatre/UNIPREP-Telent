@@ -45,7 +45,7 @@
         <h4 class="uniprep-primary">ALL THE BEST!</h4>
       </div>
       <div class="col-md-6 col-6 text-end">
-        <button class="btn btn-start btn-rounded m-0 px-2 py-2" (click)="startQuiz()">
+        <button pButton  class="btn btn-start btn-rounded m-0 px-2 py-2" (click)="startQuiz()">
           <div class="d-flex align-items-center">
             <span class="fw-normal h6 mb-0 ps-3 pe-2">Start</span>
             <div class="btn-icon"><i class="fa-solid fa-arrow-right"></i></div>
@@ -70,7 +70,7 @@
         <h5 class="select-title mb-1">{{title}} Quiz</h5>
       </div>
       <div class="col-md-2 col-2 text-end">
-        <button class="btn btn-quit btn-rounded px-2 py-2" (click)="closeQuiz()">
+        <button pButton  class="btn btn-quit btn-rounded px-2 py-2" (click)="closeQuiz()">
           <div class="d-flex align-items-center">
             <span class="fw-normal h6 mb-0 ps-3 pe-2">Quit</span>
             <div class="btn-icon"><i class="fa-solid fa-power-off"></i></div>
@@ -125,13 +125,13 @@
         </div>
       </div>
       <div class="col-md-4 text-end">
-        <button *ngIf="page != 0" (click)="prevQues()" class="btn btn-back btn-rounded me-3 px-2 py-2">
+        <button pButton  *ngIf="page != 0" (click)="prevQues()" class="btn btn-back btn-rounded me-3 px-2 py-2">
           <div class="d-flex align-items-center">
             <span class="fw-normal h6 mb-0 ps-3 pe-2">Previous</span>
             <div class="btn-icon"><i class="fa-solid fa-arrow-left"></i></div>
           </div>
         </button>
-        <button (click)="nextQues()" [disabled]="!selectedValue" class="btn btn-start btn-rounded m-0 px-2 py-2">
+        <button pButton  (click)="nextQues()" [disabled]="!selectedValue" class="btn btn-start btn-rounded m-0 px-2 py-2">
           <div class="d-flex align-items-center">
             <span class="fw-normal h6 mb-0 ps-3 pe-2">{{ page <= 3 ? 'Next' : 'Submit' }}</span>
                 <div class="btn-icon"><i [class]="page <= 3 ? 'fa-solid fa-arrow-right' : 'fa-solid fa-check'"></i>
@@ -154,7 +154,7 @@
         <h5 class="select-title">{{ title }} Quiz</h5>
       </div>
       <div class="col-md-2 col-2 text-end">
-        <!-- <button [disabled]="quizpercentage >= 90" (click)="retryQuiz()" class="btn btn-quit btn-rounded mt-2 px-2 py-2">
+        <!-- <button pButton  [disabled]="quizpercentage >= 90" (click)="retryQuiz()" class="btn btn-quit btn-rounded mt-2 px-2 py-2">
           <div class="d-flex align-items-center">
             <span class="fw-normal h6 mb-0">Retry</span>
             <div class="btn-icon"><i class="fa-solid fa-arrow-rotate-right"></i></div>
@@ -180,13 +180,13 @@
         <img class="pb-2" src="/uniprep-assets/images/icons/quizcomplete.webp" alt="success_img" />
         <h3 class="text-center mb-2">You completed this quiz<br />{{ totalanswercorret }}/{{
           totalanswerquistionaftersubmited }}</h3>
-        <button (click)="takeAnotherquiz()" class="btn btn-back btn-rounded px-2 py-2">
+        <button pButton  (click)="takeAnotherquiz()" class="btn btn-back btn-rounded px-2 py-2">
           <div class="d-flex align-items-center">
             <span class="fw-normal h6 mb-0">Take Another Quiz</span>
             <div class="btn-icon"><i class="fa fa-home" aria-hidden="true"></i></div>
           </div>
         </button>&nbsp;
-        <button (click)="gotoReview()" class="btn btn-back btn-rounded px-2 py-2">
+        <button pButton  (click)="gotoReview()" class="btn btn-back btn-rounded px-2 py-2">
           <div class="d-flex align-items-center">
             <span class="fw-normal h6 mb-0">Review</span>
             <div class="btn-icon"><i class="fa-solid fa-list-check"></i></div>
@@ -214,7 +214,7 @@
     <h3 class="uniprep-secondary">Time's Up!</h3>
     <p class="mb-2">You have run out of time for this quiz. Unfortunately,this means the quiz is marked as failed. Try
       the quiz again."</p>
-    <button pButton type="button" class="btn btn-secondary btn-rounded text-center" (click)="closeQuiz()"><i
+    <button pButton  pButton type="button" class="btn btn-secondary btn-rounded text-center" (click)="closeQuiz()"><i
         class="fa fa-arrow-right"></i></button>
   </div>
 </p-dialog>

@@ -8,7 +8,7 @@
         <h5 class="select-title mb-1">{{ selected_module | uppercase }} sdf</h5>
       </div>
       <div class="col-md-2 col-2 text-end">
-        <button class="btn btn-quit btn-rounded mt-2 px-2 py-2" (click)="btn_previousclick()">
+        <button pButton  class="btn btn-quit btn-rounded mt-2 px-2 py-2" (click)="btn_previousclick()">
           <div class="d-flex align-items-center">
             <span class="fw-normal h6 mb-0 ps-3 pe-2">Quit</span>
             <div class="btn-icon"><i class="fa-solid fa-power-off"></i></div>
@@ -114,7 +114,7 @@
             let questionnumber of QuestionSequence(totalquestion);
             let i = index
           "
-          ><button
+          ><button pButton 
             class="btn btn-outline-primary outline-primary me-1"
             [ngClass]="{ customactive: activeQuestion === i }"
             (click)="activeQuestion = i"
@@ -127,13 +127,13 @@
       <div class="col-md-8 text-end"></div>
 
       <div class="col-md-4 text-end">
-        <button (click)="btn_previousclick()" class="btn btn-back btn-rounded me-3 px-2 py-2">
+        <button pButton  (click)="btn_previousclick()" class="btn btn-back btn-rounded me-3 px-2 py-2">
           <div class="d-flex align-items-center">
             <span class="fw-normal h6 mb-0 ps-3 pe-2">Previous</span>
             <div class="btn-icon"><i class="fa-solid fa-arrow-left"></i></div>
           </div>
         </button>
-        <button (click)="submitTest()" class="btn btn-start btn-rounded m-0 px-2 py-2">
+        <button pButton  (click)="submitTest()" class="btn btn-start btn-rounded m-0 px-2 py-2">
           <div class="d-flex align-items-center">
             <span class="fw-normal h6 mb-0 ps-3 pe-2">Submit</span>
             <div class="btn-icon"><i class="fa-solid fa-check"></i></div>

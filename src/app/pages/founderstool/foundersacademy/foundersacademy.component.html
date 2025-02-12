@@ -10,7 +10,7 @@
 						<h5 class="mb-0" tooltipPosition="top" pTooltip="This section provides a comprehensive walkthrough on the UNIPREP platform.">Founders Tool - Founders Academy<i class="questiontooltip fa-solid fa-circle-question"></i></h5>
 					</div>
 					<div>
-						<button (click)="openVideoPopup('https://www.youtube.com/embed/KO9kxe3KSFw?si=x3hkz-VoddLXQ4Oq')" class="how-it-works-button">How it works?<i class="fa-solid fa-play d-md-block d-none"></i></button>
+						<button pButton  (click)="openVideoPopup('https://www.youtube.com/embed/KO9kxe3KSFw?si=x3hkz-VoddLXQ4Oq')" class="how-it-works-button">How it works?<i class="fa-solid fa-play d-md-block d-none"></i></button>
 					</div>
 				</div>
 			</div>
@@ -53,8 +53,8 @@
 			<div class="modal-body position-relative pt-4">
 				<div class="modalbuttons">
 					<div class="d-flex gap-2">
-						<button title="New Window" type="button" class="btn btn-primary btn-rounded" (click)="openNextVideo()"><i class="fa-solid fa-arrow-up-right-from-square"></i></button>
-						<button type="button" title="Close Popup" class="btn btn-primary btn-rounded" (click)="closeVideoPopup()"><i class="fa-solid fa-xmark"></i></button>
+						<button pButton  title="New Window" type="button" class="btn btn-primary btn-rounded" (click)="openNextVideo()"><i class="fa-solid fa-arrow-up-right-from-square"></i></button>
+						<button pButton  type="button" title="Close Popup" class="btn btn-primary btn-rounded" (click)="closeVideoPopup()"><i class="fa-solid fa-xmark"></i></button>
 					</div>
 				</div>
 				<div class="embed-responsive"><iframe #videoFrame [src]="selectedVideoLink" width="100%" frameborder="0" allowfullscreen></iframe></div>

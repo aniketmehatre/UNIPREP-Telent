@@ -10,7 +10,7 @@
               </a>
             </div>
             <!-- <div class="menutoggle d-md-block d-none my-2">
-                            <button class="btn m-0 align-items-center d-flex" (click)="toggleMenu()">
+                            <button pButton  class="btn m-0 align-items-center d-flex" (click)="toggleMenu()">
                                 <i class="fa-solid" [ngClass]="isMenuOpen ? 'fa-arrow-left-to-line' : 'fa-arrow-right-to-line'"></i>
                             </button>
                         </div> -->
@@ -91,7 +91,7 @@
             </div>
           </div>
           <div class="d-none d-md-flex gap-2">
-              <button *ngIf="service._user?.student_type_id == 2" class="btn btn-ilearn" (click)="navigateILearnChallenge()">
+              <button pButton  *ngIf="service._user?.student_type_id == 2" class="btn btn-ilearn" (click)="navigateILearnChallenge()">
                 <span *ngIf="!iLearnChallengeData.isILearn; else showRank" class="text-small fw-normal">iLearn Challenge</span>
                 <ng-template #showRank>
                   <span class="text-small fw-normal ilearn-sec"><span class="rank">{{iLearnChallengeData.overAllParticipants}} out of 100 </span> <span class="participants">Participants</span></span>
@@ -103,24 +103,24 @@
               <!-- <div label="" role="button" class="headercountry">
                 <img #openCountryPopup src="{{ headerFlag }}" alt="flag" height="auto" width="auto" (click)="openFlagModal(totalCountryList, $event)" />
               </div> -->
-            <!--            <button-->
+            <!--            <button pButton -->
             <!--              class="btn btn-primary btn-rounded me-2 ms-0 my-0"-->
             <!--              alt="chat with notification"-->
             <!--              (click)="onClickSubscribe()"-->
             <!--            >-->
             <!--              <span class="text-small fw-normal px-3">Subscribe Now</span>-->
             <!--            </button>-->
-            <button class="btn btn-secondary btn-rounded" (click)="openReportModal(op, $event)" alt="reports">
+            <button pButton  class="btn btn-secondary btn-rounded" (click)="openReportModal(op, $event)" alt="reports">
               <span class="text-small fw-normal px-4"><i class="fa-solid fa-bug"></i> Report</span>
             </button>
           </div>
           
           <div class="d-flex gap-2 d-md-none align-items-center">
             
-            <button class="btn btn-primary p-3 m-0" alt="chat with notification" (click)="onClickSubscribe()">
+            <button pButton  class="btn btn-primary p-3 m-0" alt="chat with notification" (click)="onClickSubscribe()">
               <i class="fa-solid fa-crown"></i>
             </button>
-            <button class="btn btn-secondary p-3 m-0" (click)="openReportModal(op, $event)" alt="reports">
+            <button pButton  class="btn btn-secondary p-3 m-0" (click)="openReportModal(op, $event)" alt="reports">
               <i class="fa-solid fa-circle-exclamation"></i>
             </button>
           </div>
@@ -132,7 +132,7 @@
             ><p-avatar class="" label="" role="button"> <i class="fa-solid fa-bell"></i> </p-avatar
             ></a>
             <div class="dropdown profile-dropdown">
-              <button class="button" data-bs-toggle="dropdown" aria-expanded="false">
+              <button pButton  class="button" data-bs-toggle="dropdown" aria-expanded="false">
                 <span class="nme">{{ (firstChar || "")?.charAt(0) }}</span>
                 <!-- <span class="fw-medium">{{userName }}</span> -->
               </button>
@@ -186,10 +186,10 @@
           </div>
           <!-- <div label="" role="button" class="headercountry me-2 d-none d-md-block" (click)="openFlagModal(totalCountryList, $event)"> -->
             <div class="d-flex gap-2 d-md-none">
-            <button class="btn btn-primary p-3 m-0" alt="chat with notification" (click)="onClickSubscribe()">
+            <button pButton  class="btn btn-primary p-3 m-0" alt="chat with notification" (click)="onClickSubscribe()">
               <i class="fa-solid fa-crown"></i>
             </button>
-            <button class="btn btn-secondary p-3 m-0" (click)="openReportModal(op, $event)" alt="reports">
+            <button pButton  class="btn btn-secondary p-3 m-0" (click)="openReportModal(op, $event)" alt="reports">
               <i class="fa-solid fa-circle-exclamation"></i>
             </button>
             <!-- <div label="" role="button" class="headercountry me-2" title="Selected Country">
@@ -197,16 +197,16 @@
             </div> -->
           </div>
           <div class="d-none d-md-block">
-            <button *ngIf="service._user?.student_type_id == 2" class="btn btn-ilearn me-2" (click)="navigateILearnChallenge()">
+            <button pButton  *ngIf="service._user?.student_type_id == 2" class="btn btn-ilearn me-2" (click)="navigateILearnChallenge()">
               <span *ngIf="!iLearnChallengeData.isILearn; else showRank" class="text-small fw-normal">iLearn Challenge</span>
               <ng-template #showRank>
                 <span class="text-small fw-normal ilearn-sec"><span class="rank">{{iLearnChallengeData.overAllParticipants}} out of 100 </span> <span class="participants">Participants</span></span>
               </ng-template>
             </button>
-            <button *ngIf="whiteLabelIsNotShow" class="btn btn-primary btn-rounded me-2 ms-0 my-0" alt="chat with notification" (click)="onClickSubscribe()">
+            <button pButton  *ngIf="whiteLabelIsNotShow" class="btn btn-primary btn-rounded me-2 ms-0 my-0" alt="chat with notification" (click)="onClickSubscribe()">
               <span class="text-small fw-normal px-3">Subscribe Now</span>
             </button>
-            <button class="btn btn-secondary btn-rounded me-2 ms-0 my-0" (click)="openReportModal(op, $event)" alt="reports">
+            <button pButton  class="btn btn-secondary btn-rounded me-2 ms-0 my-0" (click)="openReportModal(op, $event)" alt="reports">
               <span class="text-small fw-normal px-4"><i class="fa-solid fa-bug"></i> Report</span>
             </button>
           </div>
@@ -221,7 +221,7 @@
               <p-avatar class="" label="" role="button"><i class="fa-solid fa-comments"></i></p-avatar>
             </a>
             <div class="dropdown profile-dropdown">
-              <button class="button" data-bs-toggle="dropdown" aria-expanded="false" title="My Profile">
+              <button pButton  class="button" data-bs-toggle="dropdown" aria-expanded="false" title="My Profile">
                 <span class="nme">{{ (firstChar || "")?.charAt(0) }}</span>
                 <!-- <span class="fw-medium">{{ userName }}</span> -->
               </button>
@@ -281,7 +281,7 @@
             <textarea formControlName="comment" pInputTextarea id="comment"></textarea>
           </span>
           <span>
-            <button class="btn btn-primary w-100 m-0">Submit</button>
+            <button pButton  class="btn btn-primary w-100 m-0">Submit</button>
           </span>
         </div>
       </form>
@@ -349,7 +349,7 @@
       <div>
         <img src="../../../uniprep-assets/images/icons/timerstart.png" width="auto" />
       </div>
-      <button class="btn btn-primary text-white">Subscribe Now</button>
+      <button pButton  class="btn btn-primary text-white">Subscribe Now</button>
     </div>
   </div>
 </p-dialog>
@@ -375,7 +375,7 @@
         <img src="../../../uniprep-assets/images/icons/timerstart.png" width="auto" />
       </div>
       <p class="text-center text-small mb-2 mt-2">Explore all modules on UNIPERP<br />and get a certificate.</p>
-      <button class="btn btn-primary btn-rounded btn-lg text-white" (click)="exploreNow()">Continue</button>
+      <button pButton  class="btn btn-primary btn-rounded btn-lg text-white" (click)="exploreNow()">Continue</button>
     </div>
   </div>
 </p-dialog>
@@ -422,7 +422,7 @@
           </div>
           <br />
           <div class="d-grid">
-            <button class="p-2 btn btn-primary btn-login text-uppercase fw-bold" type="submit">Change Password</button>
+            <button pButton  class="p-2 btn btn-primary btn-login text-uppercase fw-bold" type="submit">Change Password</button>
           </div>
         </ng-container>
       </form>
@@ -451,7 +451,7 @@
     <p class="list-data"><i class="pi pi-check mr-2"></i>Answers to your questions reviewed by Educational Bodies</p>
     <p class="list-data"><i class="pi pi-check mr-2"></i>Navigate using Keyword Search</p>
     <div class="d-flex justify-content-center">
-      <button class="btn btn-primary btn-rounded me-2 ms-0 my-0" (click)="onClickSubscribe()" alt="chat with notification">
+      <button pButton  class="btn btn-primary btn-rounded me-2 ms-0 my-0" (click)="onClickSubscribe()" alt="chat with notification">
         <span class="text-small fw-normal px-3">Subscribe Now</span>
       </button>
     </div>
@@ -481,8 +481,8 @@
         <p class="list-data"><i class="pi pi-check mr-2"></i>Resources to build a solid portfolio</p>
         <p class="list-data"><i class="pi pi-check mr-2"></i>Access to exclusive events</p>
         <div class="d-flex justify-content-center">
-            <button class="btn btn-primary btn-rounded me-2 ms-0 my-0" (click)="onClickSubscribeData()" alt="chat with notification"><span class="text-small fw-normal px-2">Subscribe Now</span></button>
-            <button class="btn btn-secondary btn-rounded me-2 ms-0 my-0" alt="reports"><span class="text-small fw-normal px-2" (click)="continueTrial()">Continue Trial</span></button>
+            <button pButton  class="btn btn-primary btn-rounded me-2 ms-0 my-0" (click)="onClickSubscribeData()" alt="chat with notification"><span class="text-small fw-normal px-2">Subscribe Now</span></button>
+            <button pButton  class="btn btn-secondary btn-rounded me-2 ms-0 my-0" alt="reports"><span class="text-small fw-normal px-2" (click)="continueTrial()">Continue Trial</span></button>
         </div>
     </div>
 </p-dialog> -->
@@ -515,7 +515,7 @@
         </p>
         <p class="list-data"><i class="pi pi-check mr-2"></i>Navigate using Keyword Search</p>
         <div class="d-flex justify-content-center">
-            <button class="btn btn-primary btn-rounded me-2 ms-0 my-0" (click)="onClickSubscribedUser()"
+            <button pButton  class="btn btn-primary btn-rounded me-2 ms-0 my-0" (click)="onClickSubscribedUser()"
                     alt="chat with notification"><span class="text-small fw-normal px-3">Subscribe Now</span></button>
         </div>
     </div>
@@ -553,7 +553,7 @@
                     <p-select class="w-100" formControlName="current_education" appendTo="body" [options]="programLevelList" placeholder="Current Education" optionLabel="programlevel" optionValue="id" [autoDisplayFirst]="false" styleClass="custom-dropdown"></p-select>
                   </div>
                   <div class="d-flex justify-content-center mt-4">
-                    <button [disabled]="currentEducationForm.invalid" class="btn btn-primary btn-rounded me-2 ms-0 my-0" (click)="UpdateEducationLevel()" alt="chat with notification">
+                    <button pButton  [disabled]="currentEducationForm.invalid" class="btn btn-primary btn-rounded me-2 ms-0 my-0" (click)="UpdateEducationLevel()" alt="chat with notification">
                       <span class="text-small fw-normal px-3">Update Details</span>
                     </button>
                   </div>
@@ -595,7 +595,7 @@
                 </div>
             </div>
             <div class="d-flex justify-content-center m-3" *ngIf="!isSendingOTP">
-              <button [disabled]="phoneVerification.invalid" style="padding: 8px 20px;" class="btn btn-primary" (click)="sendOTP()" alt="chat with notification">
+              <button pButton  [disabled]="phoneVerification.invalid" style="padding: 8px 20px;" class="btn btn-primary" (click)="sendOTP()" alt="chat with notification">
                 <span class="fw-medium px-3">Send OTP</span>
               </button>
             </div>
@@ -605,10 +605,10 @@
                 <input *ngFor="let digit of otpArray; let i = index" type="text" maxlength="1" class="otp-box" [id]="'otp-' + i" [(ngModel)]="otp[i]" (input)="onInputOTP($event, i)" (keydown)="onKeydownOPT($event, i)"/>
               </div>
               <div class="d-flex justify-content-center m-3 gap-3">
-                <button *ngIf="isResendOTP" [disabled]="phoneVerification.invalid" style="padding: 8px 20px;" class="btn btn-primary" (click)="sendOTP()" alt="chat with notification">
+                <button pButton  *ngIf="isResendOTP" [disabled]="phoneVerification.invalid" style="padding: 8px 20px;" class="btn btn-primary" (click)="sendOTP()" alt="chat with notification">
                   <span class="fw-medium px-3">Resend OTP</span>
                 </button>
-                <button [disabled]="phoneVerification.invalid" style="padding: 8px 20px;" class="btn btn-primary" (click)="submitPhoneVerification()" alt="chat with notification">
+                <button pButton  [disabled]="phoneVerification.invalid" style="padding: 8px 20px;" class="btn btn-primary" (click)="submitPhoneVerification()" alt="chat with notification">
                   <span class="fw-medium px-3">Submit</span>
                 </button>
               </div>
@@ -640,7 +640,7 @@
               <p-select class="w-100" formControlName="current_education" appendTo="body" [options]="programLevelList" placeholder="Current Education" optionLabel="programlevel" optionValue="id" [autoDisplayFirst]="false" styleClass="custom-dropdown"></p-select>
             </div>
             <div class="d-flex justify-content-center mt-4">
-              <button [disabled]="currentEducationForm.invalid" class="btn btn-primary btn-rounded me-2 ms-0 my-0" (click)="UpdateEducationLevel()" alt="chat with notification">
+              <button pButton  [disabled]="currentEducationForm.invalid" class="btn btn-primary btn-rounded me-2 ms-0 my-0" (click)="UpdateEducationLevel()" alt="chat with notification">
                 <span class="text-small fw-normal px-3">Update Details</span>
               </button>
             </div>
@@ -695,10 +695,10 @@
               <h6 style="color: rgb(63 76 131)">Enjoy access to <strong>UNIPREP</strong> V 1.0</h6>
             </div>
             <div class="d-flex justify-content-center">
-              <button [disabled]="formvisbility && mobileForm.invalid" class="btn btn-primary btn-rounded me-2 ms-0 my-0" (click)="onClickSubscribedUser()" alt="chat with notification">
+              <button pButton  [disabled]="formvisbility && mobileForm.invalid" class="btn btn-primary btn-rounded me-2 ms-0 my-0" (click)="onClickSubscribedUser()" alt="chat with notification">
                 <span class="text-small fw-normal px-3">Subscribe Now</span>
               </button>
-              <button [disabled]="formvisbility && mobileForm.invalid" class="btn btn-secondary btn-rounded me-2 ms-0 my-0" alt="reports">
+              <button pButton  [disabled]="formvisbility && mobileForm.invalid" class="btn btn-secondary btn-rounded me-2 ms-0 my-0" alt="reports">
                 <span class="text-small fw-normal px-2" (click)="continueTrial()">Continue Trial</span>
               </button>
             </div>
@@ -757,10 +757,10 @@
                     <h6 style="color: rgb(63 76 131)">Enjoy access to <strong>UNIPREP</strong> V 2.0</h6>
                   </div>
                   <div class="d-flex justify-content-center">
-                    <button [disabled]="formvisbility && mobileForm.invalid" class="btn btn-primary btn-rounded me-2 ms-0 my-0" (click)="onClickSubscribedUser()" alt="chat with notification">
+                    <button pButton  [disabled]="formvisbility && mobileForm.invalid" class="btn btn-primary btn-rounded me-2 ms-0 my-0" (click)="onClickSubscribedUser()" alt="chat with notification">
                       <span class="text-small fw-normal px-3">Subscribe Now</span>
                     </button>
-                    <button [disabled]="formvisbility && mobileForm.invalid" class="btn btn-secondary btn-rounded me-2 ms-0 my-0" alt="reports">
+                    <button pButton  [disabled]="formvisbility && mobileForm.invalid" class="btn btn-secondary btn-rounded me-2 ms-0 my-0" alt="reports">
                       <span class="text-small fw-normal px-2" (click)="continueTrial()">Continue Trial</span>
                     </button>
                   </div>
@@ -802,10 +802,10 @@
                   </span>
                 </div>
                 <div class="d-flex justify-content-center">
-                  <button [disabled]="formvisbility && mobileForm.invalid" class="btn btn-primary btn-rounded me-2 ms-0 my-0" (click)="onClickSubscribedUser()" alt="chat with notification">
+                  <button pButton  [disabled]="formvisbility && mobileForm.invalid" class="btn btn-primary btn-rounded me-2 ms-0 my-0" (click)="onClickSubscribedUser()" alt="chat with notification">
                     <span class="text-small fw-normal px-3">Subscribe Now</span>
                   </button>
-                  <button [disabled]="formvisbility && mobileForm.invalid" class="btn btn-secondary btn-rounded me-2 ms-0 my-0" alt="reports">
+                  <button pButton  [disabled]="formvisbility && mobileForm.invalid" class="btn btn-secondary btn-rounded me-2 ms-0 my-0" alt="reports">
                     <span class="text-small fw-normal px-2" (click)="continueTrial()">Continue Demo Trial</span>
                   </button>
                 </div>
@@ -889,7 +889,7 @@
                   <i class="deafult-icon fa-solid fa-check"></i>
                     <div>
                         <h5>You have 1 chat credit remaining</h5>
-                        <div ><button class="btn btn-primary btn-sm">Use Now</button></div>
+                        <div ><button pButton  class="btn btn-primary btn-sm">Use Now</button></div>
                         <small>June 20, 2023 at 03:13 PM</small>
                     </div>
                 </div>                
@@ -939,7 +939,7 @@
     </div>
     <h3 class="mb-0 fw-600">Upgrade Required!</h3>
     <div>Switch to the Career or Enterpreneur plan <br> to start the challenge.</div>
-    <button class="btn btn-secondary btn-rounded" (click)="onSubscribe()">
+    <button pButton  class="btn btn-secondary btn-rounded" (click)="onSubscribe()">
       <span class="text-small fw-normal px-3">Subscribe</span>
     </button>
   </div>
@@ -958,7 +958,7 @@
       <p>Awaiting participants...</p>
       <p>Your challenge being soon.</p>
     </div>
-    <button class="btn btn-outline-secondary btn-rounded" (click)="isILeanrParticipantsVisible = !isILeanrParticipantsVisible">
+    <button pButton  class="btn btn-outline-secondary btn-rounded" (click)="isILeanrParticipantsVisible = !isILeanrParticipantsVisible">
       <span class="text-small fw-normal px-3">{{assParticipations}}/100 Participants</span>
     </button>
   </div>
@@ -974,7 +974,7 @@
     </div>
     <h3 class="mb-0 fw-600">The iLearn Challenge is Live!</h3>
     <div>Complete the challenge fisrt and claim your iPad.</div>
-    <button class="btn btn-secondary btn-rounded d-flex" (click)="onClickiLearnChallenge()">
+    <button pButton  class="btn btn-secondary btn-rounded d-flex" (click)="onClickiLearnChallenge()">
       <span class="text-small fw-normal px-3">iLearn Challenge</span>
     </button>
   </div>
@@ -990,7 +990,7 @@
     </div>
     <h3 class="mb-0 fw-600">iLearn Challenge Completed!</h3>
     <div>Congratulations to the winner. ABC Person!</div>
-    <button class="btn btn-secondary btn-rounded d-flex" (click)="onClickiLearnChallenge()">
+    <button pButton  class="btn btn-secondary btn-rounded d-flex" (click)="onClickiLearnChallenge()">
       <span class="text-small fw-normal px-3">iLearn Challenge</span>
     </button>
   </div>

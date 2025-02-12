@@ -9,9 +9,9 @@
                 role="button" style="background: transparent">
                 <i class="fa-solid fa-xmark text-danger" style="font-size: 1.25rem"></i>
             </span>
-            <button (click)="searchKeyWord(searchInput)" style="border-radius: 8px 0px 0px 8px !important;" class="btn-primary"
+            <button pButton  (click)="searchKeyWord(searchInput)" style="border-radius: 8px 0px 0px 8px !important;" class="btn-primary"
                  pButton pRipple type="button">{{flobalsearchbuttonname}}</button>
-            <button (click)="showQuestionSearch()" class="btn-primary"
+            <button pButton  (click)="showQuestionSearch()" class="btn-primary"
                 style="background-color: #D9D9D9 !important; color:#394D83 !important ; border-color: #D9D9D9;border-radius: 0px 8px 8px 0px !important;"
                 label="Questions" pButton pRipple type="button"></button>
                 <div *ngIf="filteredData.length" class="dropdown-container text-start">

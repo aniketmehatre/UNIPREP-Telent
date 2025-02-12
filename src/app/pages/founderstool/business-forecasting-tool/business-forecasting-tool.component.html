@@ -11,7 +11,7 @@
                             </h5>
                         </div>
                         <div>
-                            <button class="how-it-works-button" (click)=" openHowItWorksVideoPopup('https://www.youtube.com/embed/5B7AeCCKCKw?si=uUXSoWHIsi3fxJH2')">
+                            <button pButton  class="how-it-works-button" severity="warn" > (click)=" openHowItWorksVideoPopup('https://www.youtube.com/embed/5B7AeCCKCKw?si=uUXSoWHIsi3fxJH2')">
                                 How it works?<i class="fa-solid fa-play d-md-block d-none"></i>
                             </button>
                         </div>
@@ -43,12 +43,12 @@
                                     </p>
                                 </div>
                                 <div class="d-flex justify-content-center align-items-center gap-4 mb-2">
-                                    <button type="button" (click)="onEnableDisableSeason(true);" [ngClass]="{
+                                    <button pButton  type="button" (click)="onEnableDisableSeason(true);" [ngClass]="{
                                         'active-btn': isSessonEnable}"
                                         class="btn p-4 btn-primary-border" style="padding-inline: 6rem !important">
                                         Yes
                                     </button>
-                                    <button type="button" (click)="onEnableDisableSeason(false);" 
+                                    <button pButton  type="button" (click)="onEnableDisableSeason(false);" 
                                     [ngClass]="{
                                         'active-btn': !isSessonEnable}"
                                         class="btn rounded-1 p-4 btn-primary-border" style="padding-inline: 6rem !important">
@@ -163,17 +163,17 @@
         </div>
         <div class="card-footer bg-transparent border-0">
             <div class="d-flex justify-content-between mt-2">
-                <button pButton type="button" class="btn btn-primary btn-rounded p-1 pe-4"
+                <button pButton  pButton type="button" class="btn btn-primary btn-rounded p-1 pe-4"
                     [style.visibility]="activePageIndex == 0 ? 'hidden' : 'visible'" (click)="previous()">
                     <span class="btn-icon px-2 py-2"><i class="fa fa-arrow-left"></i></span>
                     <span class="ms-2">Previous</span>
                 </button>
-                <button pButton type="button" (click)="next()" *ngIf="activePageIndex <= 1"
+                <button pButton  pButton type="button" (click)="next()" *ngIf="activePageIndex <= 1"
                     class="btn btn-primary btn-rounded p-1 ps-4">
                     <span class="me-2">Next</span><span class="btn-icon px-2 py-2"><i
                             class="fa fa-arrow-right"></i></span>
                 </button>
-                <button pButton type="button" (click)="getRecommendation()" *ngIf="activePageIndex == 2"
+                <button pButton  pButton type="button" (click)="getRecommendation()" *ngIf="activePageIndex == 2"
                     class="btn btn-success btn-rounded p-1 ps-4">
                     <span class="me-2">Get Recommendations</span><span class="btn-icon px-2 py-2">
                         <i class="fa fa-check-circle"></i></span>
@@ -196,13 +196,13 @@
                             </h5>
                         </div>
                         <div>
-                            <button class="how-it-works-button">
+                            <button pButton  class="how-it-works-button" severity="warn" >>
                                 How it works? <i class="fa-solid fa-play d-md-block d-none"></i>
                             </button>
                         </div>
                     </div>
                     <div class="d-flex align-items-center">
-                        <button pButton type="button" (click)="saveRecommadation()"
+                        <button pButton  pButton type="button" (click)="saveRecommadation()"
                             class="btn btn-primary btn-rounded py-2 px-4">
                             <span>Save</span>
                         </button>
@@ -215,12 +215,12 @@
                 <div class="col-md-2"></div>
                 <div class="col-md-8">
                     <div class="d-flex justify-content-end gap-3 mb-3">
-                        <button pButton type="button" (click)="downloadRecommadation()"
+                        <button pButton  pButton type="button" (click)="downloadRecommadation()"
                             class="btn btn-secondary btn-rounded p-1 ps-4">
                             <span class="me-2">Download</span><span class="btn-icon px-2 py-2">
                                 <i class="fa-regular fa-download"></i></span>
                         </button>
-                        <button pButton type="button" (click)="onSaveRes()"
+                        <button pButton  pButton type="button" (click)="onSaveRes()"
                             class="btn btn-primary btn-rounded p-1 ps-4">
                             <span class="me-2">Save Response</span><span class="btn-icon px-2 py-2">
                                 <i class="fa-regular fa-floppy-disk"></i></span>
@@ -233,7 +233,7 @@
         </div>
         <div class="card-footer bg-transparent border-0">
             <div class="text-end">
-                <button pButton type="button" class="btn ps-3 btn-quit btn-rounded" (click)="resetRecommendation()">
+                <button pButton  pButton type="button" class="btn ps-3 btn-quit btn-rounded" (click)="resetRecommendation()">
                     Reset Recommendations<span class="btn-icon"><i class="fa-solid fa-arrow-rotate-right"></i>
                     </span>
                 </button>
@@ -256,7 +256,7 @@
                             </h5>
                         </div>
                         <div>
-                            <button class="how-it-works-button">
+                            <button pButton  class="how-it-works-button" severity="warn" >>
                                 How it works? <i class="fa-solid fa-play d-md-block d-none"></i>
                             </button>
                         </div>
@@ -281,7 +281,7 @@
         </div>
         <div class="card-footer bg-transparent border-0">
             <div class="text-end">
-                <button pButton type="button" class="btn ps-3 btn-quit btn-rounded" (click)="resetRecommendation()">
+                <button pButton  pButton type="button" class="btn ps-3 btn-quit btn-rounded" (click)="resetRecommendation()">
                     Reset Recommendations<span class="btn-icon"><i class="fa-solid fa-arrow-rotate-right"></i>
                     </span>
                 </button>
@@ -297,7 +297,7 @@
         <img src="../../../uniprep-assets/images/smartloack.png" class="image" width="60" />
         <h3 class="offer">Upgrade Required</h3>
         <p>To access this exclusive module,please upgrade your plan now</p>
-        <button pButton type="button"
+        <button pButton  pButton type="button"
             class="text-white p-ripple p-button-rounded p-button-warning p-button p-component p-2"
             (click)="upgradePlan()">
             Upgrade Plan<i class="fa fa-arrow-right exhausted-plan-icon"></i>
@@ -317,7 +317,7 @@
         <img src="../../../uniprep-assets/images/smartloack.png" class="image" width="60" />
         <h3 class="offer">Upgrade Required</h3>
         <p>To access this exclusive module,please upgrade your plan now</p>
-        <button pButton type="button"
+        <button pButton  pButton type="button"
             class="text-white p-ripple p-button-rounded p-button-warning p-button p-component p-2"
             (click)="upgradePlan()">
             Upgrade Plan<i class="fa fa-arrow-right exhausted-plan-icon"></i>

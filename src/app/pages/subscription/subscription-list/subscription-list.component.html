@@ -4,7 +4,7 @@
             <h3 class="sop-border sop-header">Our Pricing Plans</h3>
         </div>
         <div class="col-md-6 text-end">
-            <button pButton class="btn-primary text-dark fw-bold" (click)="buyCreditClicked()">{{buttonText}}</button>
+            <button pButton  pButton class="btn-primary text-dark fw-bold" (click)="buyCreditClicked()">{{buttonText}}</button>
         </div>
     </div>
 </div>
@@ -37,7 +37,7 @@
                         <h2 class="font-primarycolor fw-bold">INR {{p.price - p.discount}}</h2>
                         <p class="fw-semibold">Add other Countries at 699 INR</p>
                         <div class="getstartedbtn">
-                            <button class="btn btn-primary" (click)="selected.emit({event: p, selectedCountryList: selectedCountryList})">Get Started</button>
+                            <button pButton  class="btn btn-primary" (click)="selected.emit({event: p, selectedCountryList: selectedCountryList})">Get Started</button>
                         </div>
                     </div>
                 </div>
@@ -74,7 +74,7 @@
                     <div class="card-footer  p-4">
                         <h2 class="font-primarycolor fw-bold">INR {{q.price - q.discount}}</h2>
                         <div class="getstartedbtn">
-                            <button class="btn btn-primary" (click)="selectedCredit.emit(q)">Get Started</button>
+                            <button pButton  class="btn btn-primary" (click)="selectedCredit.emit(q)">Get Started</button>
                         </div>
                     </div>
                 </div>

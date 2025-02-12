@@ -18,7 +18,7 @@
 						<input type="text" formControlName="certificateid" class="w-100" placeholder="Certificate ID" pInputText />
 					</div>
 					<div class="col-md-3 col-12 mt-md-0 mt-3">
-						<button class="btn btn-secondary w-100 h-100" type="submit">Submit</button>
+						<button pButton  class="btn btn-secondary w-100 h-100" type="submit">Submit</button>
 					</div>
 				</form>
 			</div>
@@ -39,7 +39,7 @@
 						<span *ngIf="certificateStatus != 'active'" class="badge text-bg-danger px-3 py-2">Expired</span>
 					</div>
 					<div>
-						<button *ngIf="certificateStatus == 'active'" (click)="showSocialSharingList(1)" class="btn btn-primary btn-rounded sharebtn"><i class="fa-light fa-share-nodes"></i></button>
+						<button pButton  *ngIf="certificateStatus == 'active'" (click)="showSocialSharingList(1)" class="btn btn-primary btn-rounded sharebtn"><i class="fa-light fa-share-nodes"></i></button>
 						<p-card id="socialSharingList" class="socialSharingList" [ngClass]="{ show: selectedIndex === 1 }">
 							<ul style="list-style: none; cursor: pointer">
 								<li (click)="shareViaWhatsapp(certificateValidOrInvalid)"><i class="pi pi-whatsapp"></i>Whatsapp</li>

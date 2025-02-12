@@ -17,7 +17,7 @@
       </div>
       <div>
         <div class="text-md-end text-center pt-3">
-          <button class="btn historyBtn" (click)="gotoHistory()">Subscription History</button>
+          <button pButton  class="btn historyBtn" (click)="gotoHistory()">Subscription History</button>
         </div>
       </div>
     </div>
@@ -102,7 +102,7 @@
               </li>
               <li class="mt-0">
                 <div class="getstartedbtn pb-0">
-                  <button class="pt-3 pb-3 btn btn-basic w-100 m-0 greyButton" [disabled]="true">Unavailable</button>
+                  <button pButton  class="pt-3 pb-3 btn btn-basic w-100 m-0 greyButton" [disabled]="true">Unavailable</button>
                 </div>
               </li>
             </ul>
@@ -212,12 +212,12 @@
               </li>
               <li class="mt-0">
                 <div class="getstartedbtn pb-0">
-                  <button class="pt-3 pb-3 btn btn-primary w-100 m-0 text-white" *ngIf="subscription.selected"
+                  <button pButton  class="pt-3 pb-3 btn btn-primary w-100 m-0 text-white" *ngIf="subscription.selected"
                     (click)="selectedSubscriptionPlan(subscription)">Selected</button>
-                  <button class="pt-3 pb-3 btn btn-basic w-100 m-0 btn btn-primary"
+                  <button pButton  class="pt-3 pb-3 btn btn-basic w-100 m-0 btn btn-primary"
                     *ngIf="existingSubscription[0]?.plan == subscription.subscription_plan && !isPlanExpired && existingSubscription[0]?.monthlyPlan == monthlyPlan">Current
                     Plan</button>
-                  <button class="pt-3 pb-3 btn btn-basic w-100 m-0"
+                  <button pButton  class="pt-3 pb-3 btn btn-basic w-100 m-0"
                     *ngIf="!subscription.selected && (existingSubscription[0]?.plan != subscription.subscription_plan || (existingSubscription[0]?.plan == subscription.subscription_plan && isPlanExpired) || (existingSubscription[0]?.monthlyPlan != monthlyPlan && subscription.available) || (existingSubscription[0]?.plan == subscription.subscription_plan && existingSubscription[0]?.monthlyPlan != monthlyPlan))"
                     [ngClass]="{ greyButton: !subscription.available }" [disabled]="!subscription.available"
                     (click)="selectedSubscriptionPlan(subscription)">
@@ -277,7 +277,7 @@
                   <div class="card-footer py-2 px-4 mb-5">
                     <h5 class="fw-semibold freeValidity">{{ timeLeftInfoCard }} Validity</h5>
                     <div class="getstartedbtn pb-2">
-                      <button class="pt-3 pb-3 btn btn-basic w-100 m-0 greyButton"
+                      <button pButton  class="pt-3 pb-3 btn btn-basic w-100 m-0 greyButton"
                         [disabled]="true">Unavailable</button>
                     </div>
                   </div>
@@ -365,12 +365,12 @@
                     <div class="card-footer py-2 px-4" [ngClass]="subscription.popular != 1 ? 'mb-5' : ''">
                       <h5 class="fw-semibold">{{ subscription.validity }} Month Validity</h5>
                       <div class="getstartedbtn pb-2">
-                        <button class="pt-3 pb-3 btn btn-primary w-100 m-0 text-white" *ngIf="subscription.selected"
+                        <button pButton  class="pt-3 pb-3 btn btn-primary w-100 m-0 text-white" *ngIf="subscription.selected"
                           (click)="selectedSubscriptionPlan(subscription)">Selected</button>
-                        <button class="pt-3 pb-3 btn btn-basic w-100 m-0 btn btn-primary"
+                        <button pButton  class="pt-3 pb-3 btn btn-basic w-100 m-0 btn btn-primary"
                           *ngIf="existingSubscription[0]?.plan == subscription.subscription_plan && !isPlanExpired && existingSubscription[0]?.monthlyPlan == monthlyPlan">Current
                           Plan</button>
-                        <button class="pt-3 pb-3 btn btn-basic w-100 m-0"
+                        <button pButton  class="pt-3 pb-3 btn btn-basic w-100 m-0"
                           *ngIf="!subscription.selected && (existingSubscription[0]?.plan != subscription.subscription_plan || (existingSubscription[0]?.plan == subscription.subscription_plan && isPlanExpired))"
                           [ngClass]="{ greyButton: !subscription.available }" [disabled]="!subscription.available"
                           (click)="selectedSubscriptionPlan(subscription)">
@@ -405,7 +405,7 @@
           <input [(ngModel)]="couponInput" (keyup)="onInput($event)" pInputText
             placeholder="Enter Your coupon code Here" type="text" [readonly]="iscouponReadonly" />
           <i class="fa-solid fa-xmark-large" *ngIf="showCross" (click)="clearCoupon()"></i>
-          <button (click)="applyCoupon()" class="btn-primary" label="Apply" pButton pRipple type="button"></button>
+          <button pButton  (click)="applyCoupon()" class="btn-primary" label="Apply" pButton pRipple type="button"></button>
         </div>
         <p class="mb-0 small"><span class="uniprep-lightgray" *ngIf="!invalidCoupon">Please enter a discount code to
             avail further discounts</span><span class="text-danger" *ngIf="invalidCoupon">You entered an invalid
@@ -432,19 +432,19 @@
               <p class="text-small fw-semibold mb-0">Checkout</p>
             </div> -->
             <div class="d-flex gap-2">
-              <!-- <button *ngIf="currentCountry!='India'" [disabled]="showCheckout" class="btn btn-basic stripeborder px-4"
+              <!-- <button pButton  *ngIf="currentCountry!='India'" [disabled]="showCheckout" class="btn btn-basic stripeborder px-4"
                 (click)="checkout($event, 'stripe')">
                 <img class="img-fluid" src="../../../../uniprep-assets/stripe.png" width="40px" />
               </button>
-              <button *ngIf="currentCountry=='India'" [disabled]="showCheckout" class="btn btn-basic razorpayborder"
+              <button pButton  *ngIf="currentCountry=='India'" [disabled]="showCheckout" class="btn btn-basic razorpayborder"
                 (click)="checkout($event, 'razorpay')">
                 <img class="img-fluid" src="../../../../uniprep-assets/razorpay.png" width="60px" />
               </button> -->
-              <button [disabled]="showCheckout" *ngIf="currentCountry!='India'" class="pt-3 pb-3 btn btn-basic w-100 btn btn-primary"
+              <button pButton  [disabled]="showCheckout" *ngIf="currentCountry!='India'" class="pt-3 pb-3 btn btn-basic w-100 btn btn-primary"
                 (click)="checkout($event, 'stripe')">
                 Checkout
               </button>
-              <button [disabled]="showCheckout" *ngIf="currentCountry=='India'" class="pt-3 pb-3 btn btn-basic w-100 btn btn-primary"
+              <button pButton  [disabled]="showCheckout" *ngIf="currentCountry=='India'" class="pt-3 pb-3 btn btn-basic w-100 btn btn-primary"
                 (click)="checkout($event, 'razorpay')">
                 Checkout
               </button>
@@ -460,7 +460,7 @@
       <div class="modal-content">
         <div class="modal-header">
           <h1 class="modal-title fs-5" id="exampleModalLabel">Available Offers</h1>
-          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          <button pButton  type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
         <div class="modal-body d-flex flex-column justify-content-center">
           <p class="btn btn-rounded mx-auto" style="background: #9bc32935; border: 1px dashed #9bc329; width: 100px">
@@ -480,7 +480,7 @@
         <ngx-stripe-payment></ngx-stripe-payment>
       </ngx-stripe-elements>
     </div>
-    <button class="mt-5 pt-3 pb-3 btn btn-basic w-100 m-0 btn btn-primary" (click)="paywithstripe()"><i
+    <button pButton  class="mt-5 pt-3 pb-3 btn btn-basic w-100 m-0 btn btn-primary" (click)="paywithstripe()"><i
         class="fa-solid fa-lock mx-2"></i>Pay {{ selectedcost | currency: currencyType }}</button>
   </div>
 </p-dialog>

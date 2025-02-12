@@ -10,7 +10,7 @@
 						<h5 class="mb-0" pTooltip="Questions related to the application process are answered" tooltipPosition="top">{{ "Language Hub" | uppercase }} -> {{getFormattedValues()}}<i class="questiontooltip fa-solid fa-circle-question"></i></h5>
 					</div>
 					<div>
-						<button (click)="openVideoPopup('https://www.youtube.com/embed/01xivveciUI?si=Cdi3e7ycApMa8sWO')" class="how-it-works-button">How it works?<i class="fa-solid fa-play d-md-block d-none"></i></button>
+						<button pButton  (click)="openVideoPopup('https://www.youtube.com/embed/01xivveciUI?si=Cdi3e7ycApMa8sWO')" class="how-it-works-button">How it works?<i class="fa-solid fa-play d-md-block d-none"></i></button>
 					</div>
 				</div>
 			</div>
@@ -53,14 +53,14 @@
 									<i class="pi pi-star-fill text-danger" pTooltip="Most Popular Question" style="font-size: 1.5rem" tooltipPosition="right"></i>
 								</div>
 							</div>
-							<button
+							<button pButton 
 								class="btn d-md-block d-none w-100 flex-shrink-0 btn-primary btn-rounded m-0 primary-btn
                                         {{ sub.read == 1 ? 'readButton' : '' }}"
 								pButton
 								type="button">
 								Read &nbsp;<span class="desktop-enable">Answer</span>
 							</button>
-							<button
+							<button pButton 
 								class="btn d-md-none d-flex flex-shrink-0 btn-primary m-0 btn-rounded primary-btn
                                         {{ sub.read == 1 ? 'readButton' : '' }}"
 								pButton
@@ -82,7 +82,7 @@
 		<img src="../../../uniprep-assets/images/smartloack.png" class="image" width="60" />
 		<h3 class="offer">Upgrade Required</h3>
 		<p>To access this exclusive module,please upgrade your plan now</p>
-		<button pButton type="button" class="text-white p-ripple p-button-rounded p-button-warning p-button p-component p-2" (click)="upgradePlan()">Upgrade Plan<i class="fa fa-arrow-right exhausted-plan-icon"></i></button>
+		<button pButton  pButton type="button" class="text-white p-ripple p-button-rounded p-button-warning p-button p-component p-2" (click)="upgradePlan()">Upgrade Plan<i class="fa fa-arrow-right exhausted-plan-icon"></i></button>
 	</div>
 	<div *ngIf="!ehitlabelIsShow" class="text-center mt-5 mb-4">
 		<img src="{{ orglogowhitelabel }}" class="image" width="60" />

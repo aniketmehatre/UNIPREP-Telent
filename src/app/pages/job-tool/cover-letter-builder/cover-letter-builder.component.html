@@ -20,7 +20,7 @@
         </div>
       </div>
       <div class="row justify-content-center">
-        <button class="createResumeButton" (click)="next()">Create your Cover Letter &nbsp;&nbsp;&nbsp;<i class="fa-solid fa-arrow-right tickIcon"></i></button>
+        <button pButton  class="createResumeButton" (click)="next()">Create your Cover Letter &nbsp;&nbsp;&nbsp;<i class="fa-solid fa-arrow-right tickIcon"></i></button>
       </div>
     </div>
   </div>
@@ -34,7 +34,7 @@
       <div class="swiper-wrapper-custom">
         <div class="d-flex">
           <div class="d-flex align-items-center justify-content-center">
-            <button type="button" class="swiper-prev" aria-label="Previous-Slide"><i class="fa-solid fa-angle-left"></i></button>
+            <button pButton  type="button" class="swiper-prev" aria-label="Previous-Slide"><i class="fa-solid fa-angle-left"></i></button>
           </div>
           <div class="overflow-hidden py-5">
             <div class="swiper">
@@ -43,14 +43,14 @@
                   <div class="cvBuilderSampleImg position-relative" [ngClass]="{ selectedResumeLevel: selectedResumeLevel == slide.templateName }">
                     <h5 class="text-center uniprep-primary">{{ slide.templateName }}</h5>
                     <img [src]="slide.imageLink" alt="{{ slide.templateName }}" />
-                    <button class="center-button btn btn-primary" (click)="selectResumeTemplate(slide.templateName)">Select</button>
+                    <button pButton  class="center-button btn btn-primary" (click)="selectResumeTemplate(slide.templateName)">Select</button>
                   </div>
                 </div>
               </div>
             </div>
           </div>
           <div class="d-flex align-items-center justify-content-center">
-            <button type="button" class="swiper-next" aria-label="Next-Slide"><i class="fa-solid fa-angle-right"></i></button>
+            <button pButton  type="button" class="swiper-next" aria-label="Next-Slide"><i class="fa-solid fa-angle-right"></i></button>
           </div>
         </div>
       </div>
@@ -74,14 +74,14 @@
 					</span>
 				</div>
 				<div class="d-flex justify-content-center align-items-center">
-					<button class="downloadButton" (click)="downloadResume()">Download &nbsp;&nbsp;&nbsp;<i
+					<button pButton  class="downloadButton" (click)="downloadResume()">Download &nbsp;&nbsp;&nbsp;<i
 							class="fa-solid fa-download tickIcon"></i></button>
 				</div>
 				<div class="d-flex justify-content-between">
-					<button pButton type="button" (click)="previous()"
+					<button pButton  pButton type="button" (click)="previous()"
 						class="text-white p-ripple p-button-rounded p-button-info-prev p-button p-component p-2"><i
 							class="fa fa-arrow-left exhausted-plan-icon-prev"></i> Previous</button> -->
-<!-- <button class="downloadButton" style="margin: 0px;" (click)="next()">Coverletter Builder
+<!-- <button pButton  class="downloadButton" style="margin: 0px;" (click)="next()">Coverletter Builder
 						&nbsp;&nbsp;&nbsp;<i class="fa-sharp fa-regular fa-house tickIcon"></i></button> -->
 <!-- </div>
 			</div>
@@ -95,7 +95,7 @@
         <h3 class="text-center uniprep-primary">Your Cover Letter</h3>
         <h5 class="text-center uniprep-primary">{{ selectedResumeLevel }}</h5>
         <div class="d-flex justify-content-center align-items-center">
-          <button class="downloadButton" (click)="downloadResume()">Download &nbsp;&nbsp;&nbsp;<i class="fa-solid fa-download tickIcon"></i></button>
+          <button pButton  class="downloadButton" (click)="downloadResume()">Download &nbsp;&nbsp;&nbsp;<i class="fa-solid fa-download tickIcon"></i></button>
         </div>
       </div>
       <div class="col-md-12 d-flex justify-content-center" style="height: 80%">
@@ -109,8 +109,8 @@
       </div>
       <!-- style="visibility:hidden;" -->
       <div class="d-flex justify-content-between" style="height: 5%">
-        <button pButton type="button" (click)="previous()" class="text-white p-ripple p-button-rounded p-button-info-prev p-button p-component p-2"><i class="fa fa-arrow-left exhausted-plan-icon-prev"></i> Previous</button>
-        <!-- <button class="downloadButton" style="margin: 0px" (click)="next()">CV Builder &nbsp;&nbsp;&nbsp;<i class="fa-sharp fa-regular fa-house tickIcon"></i></button> -->
+        <button pButton  pButton type="button" (click)="previous()" class="text-white p-ripple p-button-rounded p-button-info-prev p-button p-component p-2"><i class="fa fa-arrow-left exhausted-plan-icon-prev"></i> Previous</button>
+        <!-- <button pButton  class="downloadButton" style="margin: 0px" (click)="next()">CV Builder &nbsp;&nbsp;&nbsp;<i class="fa-sharp fa-regular fa-house tickIcon"></i></button> -->
       </div>
     </div>
   </div>
@@ -322,11 +322,11 @@
                 <div class="col-md-12">
                   <div class="d-flex justify-content-between align-items-center">
                     <label class="uniprep-primarydark fw-bold h6 mb-0">Cover Letter Section</label>
-                    <button pButton type="button" class="deleteDivButton mb-2" [disabled]="isButtonDisabled" (click)="chatGPTIntegration()" style="background-color: #9bc329">Generate &nbsp;<i class="fa-solid fa-line-columns trashIcon" style="background-color: #9bc329"></i></button>
+                    <button pButton  pButton type="button" class="deleteDivButton mb-2" [disabled]="isButtonDisabled" (click)="chatGPTIntegration()" style="background-color: #9bc329">Generate &nbsp;<i class="fa-solid fa-line-columns trashIcon" style="background-color: #9bc329"></i></button>
                   </div>
                   <div class="form-group">
                     <div class="mb-3">
-                      <!-- <button pButton type="button" (click)="chatGPTIntegration()"
+                      <!-- <button pButton  pButton type="button" (click)="chatGPTIntegration()"
 											class="text-white p-ripple p-button-rounded p-button-info-prev p-button p-component p-2"><i
 												class="fa fa-arrow-left exhausted-plan-icon-prev"></i> Generate</button> -->
                       <p-editor [style]="{ height: '50vh' }" class="mt-2" formControlName="user_summary" placeholder="Generate Your Content" [modules]="editorModules"></p-editor>
@@ -342,13 +342,13 @@
         </form>
       </div>
       <div class="d-flex justify-content-between">
-        <button pButton type="button" (click)="prevStage()" class="btn btn-primary btn-rounded p-1 pe-4">
+        <button pButton  pButton type="button" (click)="prevStage()" class="btn btn-primary btn-rounded p-1 pe-4">
           <span class="btn-icon px-2 py-2"><i class="fa-solid fa-arrow-left"></i></span> <span class="ms-2">Previous</span>
         </button>
-        <button pButton type="button" (click)="resumeFormSubmit()" *ngIf="moduleActiveIndex != 2" class="btn btn-primary btn-rounded p-1 ps-4">
+        <button pButton  pButton type="button" (click)="resumeFormSubmit()" *ngIf="moduleActiveIndex != 2" class="btn btn-primary btn-rounded p-1 ps-4">
           <span class="me-2">Next</span><span class="btn-icon px-2 py-2"><i class="fa-solid fa-arrow-right"></i></span>
         </button>
-        <button pButton type="button" (click)="resumeFormSubmit()" *ngIf="moduleActiveIndex == 2" class="btn btn-success btn-rounded p-1 ps-4">
+        <button pButton  pButton type="button" (click)="resumeFormSubmit()" *ngIf="moduleActiveIndex == 2" class="btn btn-success btn-rounded p-1 ps-4">
           <span class="me-2">Create</span><span class="btn-icon px-2 py-2"><i class="fa-solid fa-check"></i></span>
         </button>
       </div>
@@ -654,7 +654,7 @@
     <img src="../../../uniprep-assets/images/smartloack.png" class="image" width="60" />
     <h3 class="offer">Upgrade Required</h3>
     <p>To access this exclusive module,please upgrade your plan now</p>
-    <button pButton type="button" class="text-white p-ripple p-button-rounded p-button-warning p-button p-component p-2" (click)="upgradePlan()">Upgrade Plan<i class="fa fa-arrow-right exhausted-plan-icon"></i></button>
+    <button pButton  pButton type="button" class="text-white p-ripple p-button-rounded p-button-warning p-button p-component p-2" (click)="upgradePlan()">Upgrade Plan<i class="fa fa-arrow-right exhausted-plan-icon"></i></button>
   </div>
   <div *ngIf="!ehitlabelIsShow" class="text-center mt-5 mb-4">
     <img src="../../../uniprep-assets/images/smartloack.png" class="image" width="60" />

@@ -8,13 +8,13 @@
                 <h5 class="select-title" style="text-align: center;">{{results.categore_name}}</h5>
             </div>
             <div class="col-md-3 col-3 text-end">
-                <!-- <button class="btn btn-quit btn-rounded mt-2 px-2 py-2" (click)="goToTest(results.test_id)"> 
+                <!-- <button pButton  class="btn btn-quit btn-rounded mt-2 px-2 py-2" (click)="goToTest(results.test_id)"> 
                     <div class="d-flex align-items-center">
                     <span class="fw-normal h6 mb-0">Retry</span>
                     <div class="btn-icon"><i class="fa-solid fa-arrow-rotate-right"></i></div>
                     </div>
                 </button> &nbsp;
-                <button  class="btn btn-quit btn-rounded mt-2 px-2 py-2" (click)="goToCats()"> 
+                <button pButton   class="btn btn-quit btn-rounded mt-2 px-2 py-2" (click)="goToCats()"> 
                   <div class="d-flex align-items-center">
                   <span class="fw-normal h6 mb-0">Quit</span>
                   <div class="btn-icon"><i class="fa-solid fa-power-off"></i></div>
@@ -33,13 +33,13 @@
             <h3 class="text-center mb-2"><br />{{results.score}}</h3>
             <p class="text-center mb-2 fw-medium">You have completed the quiz on <br />{{results.categore_name}}</p>
             <!-- <p class="text-center mb-2 fw-medium">Completion of this module requires<br />a minimum score of 90%</p> -->
-            <button class="btn btn-back btn-rounded px-2 py-2" (click)="goToCats()">
+            <button pButton  class="btn btn-back btn-rounded px-2 py-2" (click)="goToCats()">
               <div class="d-flex align-items-center">
                 <span class="fw-normal h6 mb-0">Take Another Quiz</span>
                 <div class="btn-icon"><i class="fa fa-home" aria-hidden="true"></i></div>
               </div>
             </button>&nbsp;
-            <button class="btn btn-back btn-rounded px-2 py-2">
+            <button pButton  class="btn btn-back btn-rounded px-2 py-2">
               <div class="d-flex align-items-center" (click)="goToReview()">
                 <span class="fw-normal h6 mb-0">Review</span>
                 <div class="btn-icon"><i class="fa-solid fa-list-check"></i></div>

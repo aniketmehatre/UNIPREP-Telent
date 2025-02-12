@@ -33,7 +33,7 @@
 			<h4 class="font-primarycolor">ALL THE BEST!</h4>
 		</div>
 		<div class="col-md-6 text-end">
-			<button (click)="runQuiz()" class="btn btn-start btn-rounded m-0 px-2 py-2" [disabled]="quizData?.length == 0">
+			<button pButton  (click)="runQuiz()" class="btn btn-start btn-rounded m-0 px-2 py-2" [disabled]="quizData?.length == 0">
 				<div class="d-flex align-items-center">
 					<span class="fw-normal h6 mb-0 ps-3 pe-2">Start</span>
 					<div class="btn-icon"><i class="fa-solid fa-arrow-right"></i></div>
@@ -59,7 +59,7 @@
 					</h5>
 				</div>
 				<div class="col-md-2 col-2 text-end mt-2">
-					<button (click)="closeQuiz()" class="btn btn-quit btn-rounded m-0 px-2 py-2">
+					<button pButton  (click)="closeQuiz()" class="btn btn-quit btn-rounded m-0 px-2 py-2">
 						<div class="d-flex align-items-center">
 							<span class="fw-normal h6 mb-0 ps-3 pe-2">Quit</span>
 							<div class="btn-icon"><i class="fa-solid fa-power-off"></i></div>
@@ -160,19 +160,19 @@
 				</div>
 			</div>
 			<div class="col-md-4 text-end">
-				<button (click)="clickPreviousQuiz(carouselQuiz, $event)" *ngIf="selectedQuiz != 1" class="btn btn-back btn-rounded me-3 px-2 py-2">
+				<button pButton  (click)="clickPreviousQuiz(carouselQuiz, $event)" *ngIf="selectedQuiz != 1" class="btn btn-back btn-rounded me-3 px-2 py-2">
 					<div class="d-flex align-items-center">
 						<span class="fw-normal h6 mb-0 ps-3 pe-2">Previous</span>
 						<div class="btn-icon"><i class="fa-solid fa-arrow-left"></i></div>
 					</div>
 				</button>
-				<button *ngIf="(this.quizData?.length || 0) > this.selectedQuiz" (click)="clickNextQuiz(carouselQuiz, $event)" [disabled]="answerOptionClicked" class="btn btn-start btn-rounded m-0 px-2 py-2">
+				<button pButton  *ngIf="(this.quizData?.length || 0) > this.selectedQuiz" (click)="clickNextQuiz(carouselQuiz, $event)" [disabled]="answerOptionClicked" class="btn btn-start btn-rounded m-0 px-2 py-2">
 					<div class="d-flex align-items-center">
 						<span class="fw-normal h6 mb-0 ps-3 pe-2">Next</span>
 						<div class="btn-icon"><i class="fa-solid fa-arrow-right"></i></div>
 					</div></button
 				>&nbsp;
-				<button [disabled]="answerOptionClicked" *ngIf="(this.quizData?.length || 0) <= this.selectedQuiz" (click)="clickSubmitQuiz()" class="btn btn-start btn-rounded m-0 px-2 py-2">
+				<button pButton  [disabled]="answerOptionClicked" *ngIf="(this.quizData?.length || 0) <= this.selectedQuiz" (click)="clickSubmitQuiz()" class="btn btn-start btn-rounded m-0 px-2 py-2">
 					<div class="d-flex align-items-center">
 						<span class="fw-normal h6 mb-0 ps-3 pe-2">Submit</span>
 						<div class="btn-icon"><i class="fa-solid fa-check"></i></div>
@@ -200,7 +200,7 @@
 
 				<div class="col-md-2 col-2 text-end">
 					<ng-container *ngIf="canShowRetry">
-						<button [disabled]="totalPercentage >= 90" (click)="retryQuiz()" class="btn btn-quit btn-rounded me-2 px-2 py-2">
+						<button pButton  [disabled]="totalPercentage >= 90" (click)="retryQuiz()" class="btn btn-quit btn-rounded me-2 px-2 py-2">
 							<div class="d-flex align-items-center">
 								<span class="fw-normal h6 mb-0">Retry</span>
 								<div class="btn-icon"><i class="fa-solid fa-arrow-rotate-right"></i></div>
@@ -219,7 +219,7 @@
 					<h3 class="text-center mb-2" *ngIf="totalPercentage <= 89">Better Luck Next Time<br />{{ totalanswercorret }}/{{ totalanswerquistionaftersubmited }}</h3>
 					<p *ngIf="totalPercentage >= 90" class="text-center mb-2 fw-medium">You have completed the quiz on <br />{{ titleModule[categoryId - 1] }} module</p>
 					<p *ngIf="totalPercentage <= 89" class="text-center mb-2 fw-medium">Completion of this module requires<br />a minimum score of 90%</p>
-					<button (click)="openReviewPopup()" class="btn btn-back btn-rounded px-2 py-2">
+					<button pButton  (click)="openReviewPopup()" class="btn btn-back btn-rounded px-2 py-2">
 						<div class="d-flex align-items-center">
 							<span class="fw-normal h6 mb-0">Preview</span>
 							<div class="btn-icon"><i class="fa-solid fa-list-check"></i></div>
@@ -246,7 +246,7 @@
 					</div>
 					<br />
 					<div class="footer text-center" style="position: relative">
-						<button class="btn btn-lg" *ngFor="let _ of [].constructor(submitRecommendationResponse?.retry_count); let i = index" style="background-color: #ff6600; color: white; margin-right: 10px" (click)="openReviewPopup(i + 1)">Review {{ i + 1 }} &nbsp;</button>
+						<button pButton  class="btn btn-lg" *ngFor="let _ of [].constructor(submitRecommendationResponse?.retry_count); let i = index" style="background-color: #ff6600; color: white; margin-right: 10px" (click)="openReviewPopup(i + 1)">Review {{ i + 1 }} &nbsp;</button>
 					</div>
 					<br />
 				</div>
@@ -264,14 +264,14 @@
 				</div>
 			</div>
 			<div class="footer text-center" style="position: relative">
-				<button class="btn btn-lg" *ngFor="let report of streamReportData?.report_names; index as i" style="background-color: #ff6600; color: white; margin-right: 10px" (click)="downloadReport(i)">
+				<button pButton  class="btn btn-lg" *ngFor="let report of streamReportData?.report_names; index as i" style="background-color: #ff6600; color: white; margin-right: 10px" (click)="downloadReport(i)">
 					Download Report {{ i + 1 }}&nbsp;
 					<i class="fa-solid fa-download"></i>
 				</button>
 			</div>
 			<br />
 			<div class="footer text-center" style="position: relative">
-				<button class="btn btn-lg" *ngFor="let _ of [].constructor(streamReportData?.retry_count); index as i" style="background-color: #ff6600; color: white; margin-right: 10px" (click)="openReviewPopup(i + 1)">Review {{ i + 1 }} &nbsp;</button>
+				<button pButton  class="btn btn-lg" *ngFor="let _ of [].constructor(streamReportData?.retry_count); index as i" style="background-color: #ff6600; color: white; margin-right: 10px" (click)="openReviewPopup(i + 1)">Review {{ i + 1 }} &nbsp;</button>
 			</div>
 			<br />
 		</ng-container>
@@ -296,7 +296,7 @@
 				<h5 class="select-title">Your Quiz Review</h5>
 			</div>
 			<div class="col-md-2 col-2 text-end" *ngIf="canShowRetry">
-				<button [disabled]="totalPercentage >= 90" (click)="retryQuiz()" class="btn btn-quit btn-rounded me-2 px-2 py-2">
+				<button pButton  [disabled]="totalPercentage >= 90" (click)="retryQuiz()" class="btn btn-quit btn-rounded me-2 px-2 py-2">
 					<div class="d-flex align-items-center">
 						<span class="fw-normal h6 mb-0 ps-3 pe-2">Retry</span>
 						<div class="btn-icon"><i class="fa-solid fa-arrow-rotate-right"></i></div>
@@ -380,7 +380,7 @@
 	<div class="card-footer p-2 mt-2" style="background-color: #fff">
 		<div class="row justify-content-center">
 			<div class="col-md-6 text-start">
-				<button (click)="result()" class="btn btn-back btn-rounded px-2 py-2">
+				<button pButton  (click)="result()" class="btn btn-back btn-rounded px-2 py-2">
 					<div class="d-flex align-items-center">
 						<span class="fw-normal h6 mb-0 ps-3 pe-2">Result</span>
 						<div class="btn-icon"><i class="fa-solid fa-arrow-left"></i></div>
@@ -388,13 +388,13 @@
 				>&nbsp;
 			</div>
 			<div class="col-md-6 text-end">
-				<button *ngIf="selectedQuiz != 1" (click)="clickPreviousQuiz(carouselQuiz, $event)" class="btn btn-back btn-rounded px-2 py-2">
+				<button pButton  *ngIf="selectedQuiz != 1" (click)="clickPreviousQuiz(carouselQuiz, $event)" class="btn btn-back btn-rounded px-2 py-2">
 					<div class="d-flex align-items-center">
 						<span class="fw-normal h6 mb-0 ps-3 pe-2">Previous</span>
 						<div class="btn-icon"><i class="fa-solid fa-arrow-left"></i></div>
 					</div></button
 				>&nbsp;
-				<button *ngIf="this.quizData.length > this.selectedQuiz" (click)="clickNextQuiz(carouselQuiz, $event)" class="btn btn-start btn-rounded m-0 px-2 py-2">
+				<button pButton  *ngIf="this.quizData.length > this.selectedQuiz" (click)="clickNextQuiz(carouselQuiz, $event)" class="btn btn-start btn-rounded m-0 px-2 py-2">
 					<div class="d-flex align-items-center">
 						<span class="fw-normal h6 mb-0 ps-3 pe-2">Next</span>
 						<div class="btn-icon"><i class="fa-solid fa-arrow-right"></i></div>
@@ -408,7 +408,7 @@
 	<div class="text-center mt-5 mb-4">
 		<h3 class="offer">Time's Up!</h3>
 		<p>You have run out of time for this quiz. Unfortunately,this means the quiz is marked as failed.try the quiz again."</p>
-		<button pButton type="button" class="text-white p-ripple p-button-rounded p-button-warning p-button p-component p-2 mt-2" (click)="timeIsOver()"><i class="fa fa-arrow-right exhausted-plan-icon"></i></button>
+		<button pButton  pButton type="button" class="text-white p-ripple p-button-rounded p-button-warning p-button p-component p-2 mt-2" (click)="timeIsOver()"><i class="fa fa-arrow-right exhausted-plan-icon"></i></button>
 	</div>
 </p-dialog>
 <p-dialog [(visible)]="restrict1" [modal]="true" [style]="{ width: '30vw' }" [draggable]="false" [resizable]="false" class="restrictionDialog" [breakpoints]="{ '960px': '30vw', '959px': '60vw', '425px': '90vw' }" (onHide)="clearRestriction()">
@@ -416,7 +416,7 @@
 		<img src="../../../uniprep-assets/images/smartloack.png" class="image" width="60" />
 		<h3 class="offer">Upgrade Required</h3>
 		<p>To access this exclusive module,please upgrade your plan now</p>
-		<button pButton type="button" class="text-white p-ripple p-button-rounded p-button-warning p-button p-component p-2" (click)="upgradePlan()">Upgrade Plan<i class="fa fa-arrow-right exhausted-plan-icon"></i></button>
+		<button pButton  pButton type="button" class="text-white p-ripple p-button-rounded p-button-warning p-button p-component p-2" (click)="upgradePlan()">Upgrade Plan<i class="fa fa-arrow-right exhausted-plan-icon"></i></button>
 	</div>
 	<div *ngIf="!ehitlabelIsShow" class="text-center mt-5 mb-4">
 		<img src="../../../uniprep-assets/images/smartloack.png" class="image" width="60" />

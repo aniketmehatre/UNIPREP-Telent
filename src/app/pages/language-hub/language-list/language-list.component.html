@@ -7,7 +7,7 @@
 						<h5 class="mb-0" tooltipPosition="top" pTooltip="Questions related to the application process are answered">{{ "Language Hub" | uppercase }} <i class="questiontooltip fa-solid fa-circle-question"></i></h5>
 					</div>
 					<div>
-						<button class="how-it-works-button" (click)="openVideoPopup('https://www.youtube.com/embed/01xivveciUI?si=Cdi3e7ycApMa8sWO')">How it works?<i class="fa-solid fa-play d-md-block d-none"></i></button>
+						<button pButton  class="how-it-works-button" severity="warn" > (click)="openVideoPopup('https://www.youtube.com/embed/01xivveciUI?si=Cdi3e7ycApMa8sWO')">How it works?<i class="fa-solid fa-play d-md-block d-none"></i></button>
 					</div>
 				</div>
 			</div>
@@ -72,7 +72,7 @@
 <!--                        <p-progressBar [value]="(selectedQuiz / quizData.length) * 100 | number : '1.0-0'"></p-progressBar>-->
 <!--                    </div>-->
 <!--                    <div>-->
-<!--                        <button (click)="closeQuiz()" class="btn btn-quit btn-rounded m-0 px-2 py-2">-->
+<!--                        <button pButton  (click)="closeQuiz()" class="btn btn-quit btn-rounded m-0 px-2 py-2">-->
 <!--                            <div class="d-flex align-items-center">-->
 <!--                                <span class="fw-normal h6 mb-0 ps-3 pe-2">Quit</span>-->
 <!--                                <div class="btn-icon"><i class="fa-solid fa-power-off"></i></div>-->
@@ -153,19 +153,19 @@
 <!--                    <p-breadcrumb [model]="breadCrumb" class="max-w-100 quizreference"></p-breadcrumb>-->
 <!--                </div>-->
 <!--                <div class="col-md-6 text-end">-->
-<!--                    <button (click)="clickPreviousQuiz(carouselQuiz, $event)" *ngIf="selectedQuiz != 1" class="btn btn-back btn-rounded me-3 px-2 py-2">-->
+<!--                    <button pButton  (click)="clickPreviousQuiz(carouselQuiz, $event)" *ngIf="selectedQuiz != 1" class="btn btn-back btn-rounded me-3 px-2 py-2">-->
 <!--                        <div class="d-flex align-items-center">-->
 <!--                            <span class="fw-normal h6 mb-0 ps-3 pe-2">Previous</span>-->
 <!--                            <div class="btn-icon"><i class="fa-solid fa-arrow-left"></i></div>-->
 <!--                        </div>-->
 <!--                    </button>-->
-<!--                    <button *ngIf="this.quizData.length > this.selectedQuiz" [disabled]="answerOptionClicked" (click)="clickNextQuiz(carouselQuiz, $event)" class="btn btn-start btn-rounded m-0 px-2 py-2">-->
+<!--                    <button pButton  *ngIf="this.quizData.length > this.selectedQuiz" [disabled]="answerOptionClicked" (click)="clickNextQuiz(carouselQuiz, $event)" class="btn btn-start btn-rounded m-0 px-2 py-2">-->
 <!--                        <div class="d-flex align-items-center">-->
 <!--                            <span class="fw-normal h6 mb-0 ps-3 pe-2">Next</span>-->
 <!--                            <div class="btn-icon"><i class="fa-solid fa-arrow-right"></i></div>-->
 <!--                        </div>-->
 <!--                    </button>-->
-<!--                    <button *ngIf="this.quizData.length <= this.selectedQuiz" (click)="clickSubmitQuiz()" class="btn btn-start btn-rounded m-0 px-2 py-2">-->
+<!--                    <button pButton  *ngIf="this.quizData.length <= this.selectedQuiz" (click)="clickSubmitQuiz()" class="btn btn-start btn-rounded m-0 px-2 py-2">-->
 <!--                        <div class="d-flex align-items-center">-->
 <!--                            <span class="fw-normal h6 mb-0 ps-3 pe-2">Submit</span>-->
 <!--                            <div class="btn-icon"><i class="fa-solid fa-check"></i></div>-->
@@ -189,7 +189,7 @@
 <!--                        <p-progressBar [value]="100"></p-progressBar>-->
 <!--                    </div>-->
 <!--                    <div>-->
-<!--                        <button (click)="closeAllHome()" class="btn btn-start btn-rounded m-0 px-2 py-2">-->
+<!--                        <button pButton  (click)="closeAllHome()" class="btn btn-start btn-rounded m-0 px-2 py-2">-->
 <!--                            <div class="d-flex align-items-center">-->
 <!--                                <span class="fw-normal h6 mb-0 ps-3 pe-2">Home</span>-->
 <!--                                <div class="btn-icon"><i class="fa-solid fa-home"></i></div>-->
@@ -208,13 +208,13 @@
 <!--                <h4 class="text-center mb-3 fw-semibold">{{ answeredCorrect }} /{{ quizData.length != 0 ? quizData.length : 0 }} = {{ percentageValue }}</h4>-->
 <!--            </div>-->
 <!--            <div class="text-center">-->
-<!--                <button (click)="retryQuiz()" class="btn btn-quit btn-rounded me-2 px-2 py-2">-->
+<!--                <button pButton  (click)="retryQuiz()" class="btn btn-quit btn-rounded me-2 px-2 py-2">-->
 <!--                    <div class="d-flex align-items-center">-->
 <!--                        <span class="fw-normal h6 mb-0 ps-3 pe-2">Retry</span>-->
 <!--                        <div class="btn-icon"><i class="fa-solid fa-arrow-rotate-right"></i></div>-->
 <!--                    </div>-->
 <!--                </button>-->
-<!--                <button (click)="openReviewPopup()" class="btn btn-back btn-rounded m-0 px-2 py-2">-->
+<!--                <button pButton  (click)="openReviewPopup()" class="btn btn-back btn-rounded m-0 px-2 py-2">-->
 <!--                    <div class="d-flex align-items-center">-->
 <!--                        <span class="fw-normal h6 mb-0 ps-3 pe-2">Review</span>-->
 <!--                        <div class="btn-icon"><i class="fa-solid fa-list-check"></i></div>-->
@@ -227,7 +227,7 @@
 <!--        <div class="container py-3 mt-2 cb-top">-->
 <!--            <div class="row justify-content-center">-->
 <!--                <div class="col-md-12 text-center">-->
-<!--                    <button (click)="nextModule()" class="btn btn-start btn-rounded m-0 px-2 py-2">-->
+<!--                    <button pButton  (click)="nextModule()" class="btn btn-start btn-rounded m-0 px-2 py-2">-->
 <!--                        <div class="d-flex align-items-center">-->
 <!--                            <span class="fw-normal h6 mb-0 ps-3 pe-2">Next Module</span>-->
 <!--                            <div class="btn-icon"><i class="fa-solid fa-arrow-right"></i></div>-->
@@ -247,7 +247,7 @@
 <!--                    <h4 class="text-left font-secondarycolor mb-0">Quiz Instruction</h4>-->
 <!--                </div>-->
 <!--                <div class="col-md-6 text-end">-->
-<!--                    <button (click)="closeAllHome()" class="btn btn-quit btn-rounded m-0 px-2 py-2">-->
+<!--                    <button pButton  (click)="closeAllHome()" class="btn btn-quit btn-rounded m-0 px-2 py-2">-->
 <!--                        <div class="d-flex align-items-center">-->
 <!--                            <span class="fw-normal h6 mb-0 ps-3 pe-2">Quit</span>-->
 <!--                            <div class="btn-icon"><i class="fa-solid fa-power-off"></i></div>-->
@@ -283,7 +283,7 @@
 <!--                    <h4 class="font-primarycolor">ALL THE BEST!</h4>-->
 <!--                </div>-->
 <!--                <div class="col-md-6 text-end">-->
-<!--                    <button (click)="runQuiz()" class="btn btn-start btn-rounded m-0 px-2 py-2" [disabled]="!this.quizData">-->
+<!--                    <button pButton  (click)="runQuiz()" class="btn btn-start btn-rounded m-0 px-2 py-2" [disabled]="!this.quizData">-->
 <!--                        <div class="d-flex align-items-center">-->
 <!--                            <span class="fw-normal h6 mb-0 ps-3 pe-2">Start</span>-->
 <!--                            <div class="btn-icon"><i class="fa-solid fa-arrow-right"></i></div>-->
@@ -354,15 +354,15 @@
 <!--    <ng-template pTemplate="footer">-->
 <!--        <div class="container-fluid">-->
 <!--            <div class="row gap-2 justify-content-end mb-4">-->
-<!--                &lt;!&ndash;                    <button (click)="clickPreviousQuiz(carouselQuiz, $event)"&ndash;&gt;-->
+<!--                &lt;!&ndash;                    <button pButton  (click)="clickPreviousQuiz(carouselQuiz, $event)"&ndash;&gt;-->
 <!--                &lt;!&ndash;                            class="btn btn-lg rounded-pill btn-tertiary m-0 px-2 py-2">&ndash;&gt;-->
 <!--                &lt;!&ndash;                        <p class="mb-0 px-2">Previous <i class="fa-solid fa-circle-arrow-left"></i></p>&ndash;&gt;-->
 <!--                &lt;!&ndash;                    </button>&ndash;&gt;-->
-<!--                &lt;!&ndash;                    <button *ngIf="this.quizData.length > this.selectedQuiz" (click)="clickNextQuiz(carouselQuiz, $event)"&ndash;&gt;-->
+<!--                &lt;!&ndash;                    <button pButton  *ngIf="this.quizData.length > this.selectedQuiz" (click)="clickNextQuiz(carouselQuiz, $event)"&ndash;&gt;-->
 <!--                &lt;!&ndash;                            class="btn btn-lg rounded-pill btn-secondary m-0 px-2 py-2">&ndash;&gt;-->
 <!--                &lt;!&ndash;                        <p class="mb-0 px-2"> Next <i class="fa-solid fa-circle-arrow-right"></i></p>&ndash;&gt;-->
 <!--                &lt;!&ndash;                    </button>&ndash;&gt;-->
-<!--                <button (click)="retryQuiz()" class="btn btn-quit btn-rounded me-2 px-2 py-2">-->
+<!--                <button pButton  (click)="retryQuiz()" class="btn btn-quit btn-rounded me-2 px-2 py-2">-->
 <!--                    <div class="d-flex align-items-center">-->
 <!--                        <span class="fw-normal h6 mb-0 ps-3 pe-2">Retry</span>-->
 <!--                        <div class="btn-icon"><i class="fa-solid fa-arrow-rotate-right"></i></div>-->
@@ -383,11 +383,11 @@
     <ng-template pTemplate="footer">
         <div class="container py-3">
             <div class="row justify-content-center">
-                <button (click)="cd.reject()" class="btn btn-primary btn-rounded me-2 px-2 py-2">
+                <button pButton  (click)="cd.reject()" class="btn btn-primary btn-rounded me-2 px-2 py-2">
                     <div class="d-flex align-items-center"><span class="fw-normal h6 mb-0 px-3 py-1">No</span>
                     </div>
                 </button>
-                <button (click)="quitQuiz(cd)" class="btn btn-quit btn-rounded me-2 px-2 py-2">
+                <button pButton  (click)="quitQuiz(cd)" class="btn btn-quit btn-rounded me-2 px-2 py-2">
                     <div class="d-flex align-items-center"><span class="fw-normal h6 mb-0 px-3 py-1">Yes</span>
                     </div>
                 </button>
@@ -400,6 +400,6 @@
 <!--        <img src="../../../uniprep-assets/images/smartloack.png" class="image" width="60" />-->
 <!--        <h3 class="offer">Upgrade Required</h3>-->
 <!--        <p>To access this exclusive module,please upgrade your plan now</p>-->
-<!--        <button pButton type="button" class="text-white p-ripple p-button-rounded p-button-warning p-button p-component p-2" (click)="upgradePlan()">Upgrade Plan<i class="fa fa-arrow-right exhausted-plan-icon"></i></button>-->
+<!--        <button pButton  pButton type="button" class="text-white p-ripple p-button-rounded p-button-warning p-button p-component p-2" (click)="upgradePlan()">Upgrade Plan<i class="fa fa-arrow-right exhausted-plan-icon"></i></button>-->
 <!--    </div>-->
 <!--</p-dialog>-->

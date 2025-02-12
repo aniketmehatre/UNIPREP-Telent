@@ -4,7 +4,7 @@ import {ButtonComponent} from './button.component';
 
 describe('ButtonComponent', () => {
     let component: ButtonComponent;
-    let fixture: ComponentFixture<ButtonComponent>;
+    let fixture: ComponentFixture<button pButton Component>;
 
     beforeEach(async () => {
         await TestBed.configureTestingModule({

@@ -14,10 +14,10 @@
           <div class="text-center">
               <h5 class="fw-bold mb-3">{{ quiz.submodule_name }}</h5>
               <div class="d-flex justify-content-center flex-wrap">
-                  <button class="quiz-button" [ngClass]="quiz.progress === 0 ? 'how-it-works-button' : quiz.progress > 0 && quiz.progress < 90 ? 'retry' : 'completed'" [disabled]="quiz.progress > 89" (click)="showQuizQuestions(quiz.id, currentModule, 'careertoolquiz', false)">
+                  <button pButton  class="quiz-button" [ngClass]="quiz.progress === 0 ? 'how-it-works-button' : quiz.progress > 0 && quiz.progress < 90 ? 'retry' : 'completed'" [disabled]="quiz.progress > 89" (click)="showQuizQuestions(quiz.id, currentModule, 'careertoolquiz', false)">
                       {{ quiz.progress === 0 ? 'Start Quiz' : quiz.progress > 0 && quiz.progress < 90 ? 'Retry' : 'Completed' }} <span *ngIf="quiz.progress == 0"><i class="fa-solid fa-alarm-clock"></i></span>
                   </button>
-                  <button class="quiz-button how-it-works-button" *ngIf="quiz.progress > 89" (click)="showQuizQuestions(quiz.id, currentModule, 'careertoolquiz', true)">
+                  <button pButton  class="quiz-button how-it-works-button" *ngIf="quiz.progress > 89" (click)="showQuizQuestions(quiz.id, currentModule, 'careertoolquiz', true)">
                       Review <span><i class="fa-solid fa-list-check"></i></span>
                   </button>
               </div>
@@ -34,7 +34,7 @@
 		<img src="../../../uniprep-assets/images/smartloack.png" class="image" width="60" />
 		<h3 class="offer">Upgrade Required</h3>
 		<p>To access this exclusive module,please upgrade your plan now</p>
-		<button pButton type="button" class="text-white p-ripple p-button-rounded p-button-warning p-button p-component p-2" (click)="upgradePlan()">Upgrade Plan<i class="fa fa-arrow-right exhausted-plan-icon"></i></button>
+		<button pButton  pButton type="button" class="text-white p-ripple p-button-rounded p-button-warning p-button p-component p-2" (click)="upgradePlan()">Upgrade Plan<i class="fa fa-arrow-right exhausted-plan-icon"></i></button>
 	</div>
 	<div *ngIf="!ehitlabelIsShow" class="text-center mt-5 mb-4">
 		<img src="../../../uniprep-assets/images/smartloack.png" class="image" width="60" />

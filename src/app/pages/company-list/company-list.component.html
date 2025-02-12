@@ -11,7 +11,7 @@
               <h5 class="w-100 mb-0" tooltipPosition="top" pTooltip="Access a curated list of companies by industry and location to target your job search effectively.">Career Tools -> Company List<i class="questiontooltip fa-solid fa-circle-question"></i></h5>
             </div>
             <div>
-              <button class="how-it-works-button" (click)="openVideoPopup('https://www.youtube.com/embed/uihpCF4rvB4?si=bBNT7iH_WigFZzoN')">How it works?<i class="fa-solid fa-play d-md-block d-none"></i></button>
+              <button pButton  class="how-it-works-button" severity="warn" > (click)="openVideoPopup('https://www.youtube.com/embed/uihpCF4rvB4?si=bBNT7iH_WigFZzoN')">How it works?<i class="fa-solid fa-play d-md-block d-none"></i></button>
             </div>
           </div>
         </div>
@@ -46,13 +46,13 @@
                 </div>
               </div>
               <div class="d-flex justify-content-between mt-2">
-                <button pButton type="button" class="btn btn-primary btn-rounded p-1 pe-4" [style.visibility]="recommendation.id == 1 ? 'hidden' : 'visible'" (click)="previous()">
+                <button pButton  pButton type="button" class="btn btn-primary btn-rounded p-1 pe-4" [style.visibility]="recommendation.id == 1 ? 'hidden' : 'visible'" (click)="previous()">
                   <span class="btn-icon px-2 py-2"><i class="fa fa-arrow-left"></i></span> <span class="ms-2">Previous</span>
                 </button>
-                <button pButton type="button" (click)="next(recommendation.id)" *ngIf="recommendation.id != 3" class="btn btn-primary btn-rounded p-1 ps-4">
+                <button pButton  pButton type="button" (click)="next(recommendation.id)" *ngIf="recommendation.id != 3" class="btn btn-primary btn-rounded p-1 ps-4">
                   <span class="me-2">Next</span><span class="btn-icon px-2 py-2"><i class="fa fa-arrow-right"></i></span>
                 </button>
-                <button pButton type="button" (click)="getRecommendation()" *ngIf="recommendation.id == 3" class="btn btn-success btn-rounded p-1 ps-4">
+                <button pButton  pButton type="button" (click)="getRecommendation()" *ngIf="recommendation.id == 3" class="btn btn-success btn-rounded p-1 ps-4">
                   <span class="me-2">Get Recommendations</span><span class="btn-icon px-2 py-2"><i class="fa fa-check-circle"></i></span>
                 </button>
               </div>
@@ -71,21 +71,21 @@
               <h6 class="w-100 mb-0" tooltipPosition="top" pTooltip="Company List">Career Tools -> Company List<i class="questiontooltip fa-solid fa-circle-question"></i></h6>
             </div>
             <div>
-              <button class="how-it-works-button" (click)="openVideoPopup('https://www.youtube.com/embed/uihpCF4rvB4?si=bBNT7iH_WigFZzoN')">How it works?<i class="fa-solid fa-play d-md-block d-none"></i></button>
+              <button pButton  class="how-it-works-button" severity="warn" > (click)="openVideoPopup('https://www.youtube.com/embed/uihpCF4rvB4?si=bBNT7iH_WigFZzoN')">How it works?<i class="fa-solid fa-play d-md-block d-none"></i></button>
             </div>
           </div>
         </div>
         <div class="col-12">
           <div class="d-flex justify-content-between mt-2 gap-1">
-            <button *ngIf="ehitlabelIsShow" class="btn btn-secondary text-small btn-rounded flex-fill" (click)="buyCredits()" type="button">Buy Credits</button>
-            <button class="btn btn-outline-primary text-small btn-rounded d-flex gap-2 align-items-center flex-fill" (click)="exportData()" type="button">
+            <button pButton  *ngIf="ehitlabelIsShow" class="btn btn-secondary text-small btn-rounded flex-fill" (click)="buyCredits()" type="button">Buy Credits</button>
+            <button pButton  class="btn btn-outline-primary text-small btn-rounded d-flex gap-2 align-items-center flex-fill" (click)="exportData()" type="button">
               Export <span class="btn-icon text-white">{{ exportCreditCount }}</span>
             </button>
-            <button class="btn btn-secondary text-small flex-fill" (click)="openReport()" type="button"><i class="fa-solid fa-circle-exclamation"></i></button>
-            <button class="btn btn-gray text-small flex-fill" (click)="companyGuidlines()" type="button"><i class="fa-solid fa-graduation-cap"></i></button>
-            <button class="btn btn-primary text-small flex-fill" (click)="viewFavourites()" type="button"><i class="fa-solid fa-bookmark"></i><span class="ms-2">({{ favCount }})</span>
+            <button pButton  class="btn btn-secondary text-small flex-fill" (click)="openReport()" type="button"><i class="fa-solid fa-circle-exclamation"></i></button>
+            <button pButton  class="btn btn-gray text-small flex-fill" (click)="companyGuidlines()" type="button"><i class="fa-solid fa-graduation-cap"></i></button>
+            <button pButton  class="btn btn-primary text-small flex-fill" (click)="viewFavourites()" type="button"><i class="fa-solid fa-bookmark"></i><span class="ms-2">({{ favCount }})</span>
             </button>
-            <button class="btn btn-primary text-small flex-fill" (click)="filterBy()" type="button"><i class="fa-solid fa-bars-filter"></i></button>
+            <button pButton  class="btn btn-primary text-small flex-fill" (click)="filterBy()" type="button"><i class="fa-solid fa-bars-filter"></i></button>
           </div>
         </div>
         <div class="col-12 mt-2">
@@ -120,13 +120,13 @@
               <h5 class="w-100 mb-0" tooltipPosition="top" pTooltip="Company List">Career Tools -> Company List<i class="questiontooltip fa-solid fa-circle-question"></i></h5>
             </div>
             <div>
-              <button class="how-it-works-button" (click)="openVideoPopup('https://www.youtube.com/embed/uihpCF4rvB4?si=bBNT7iH_WigFZzoN')">How it works?<i class="fa-solid fa-play d-md-block d-none"></i></button>
+              <button pButton  class="how-it-works-button" severity="warn" > (click)="openVideoPopup('https://www.youtube.com/embed/uihpCF4rvB4?si=bBNT7iH_WigFZzoN')">How it works?<i class="fa-solid fa-play d-md-block d-none"></i></button>
             </div>
           </div>
           <span class="d-flex justify-content-end gap-2">
-            <button class="btn btn-primary text-small company-guidlines" (click)="companyGuidlines()" type="button">Company Guidlines</button>
-            <button *ngIf="ehitlabelIsShow" class="btn btn-primary text-small company-guidlines" (click)="buyCredits()" type="button">Buy Credits</button>
-            <button class="btn btn-primary text-small exportButton" (click)="exportData()" type="button">
+            <button pButton  class="btn btn-primary text-small company-guidlines" (click)="companyGuidlines()" type="button">Company Guidlines</button>
+            <button pButton  *ngIf="ehitlabelIsShow" class="btn btn-primary text-small company-guidlines" (click)="buyCredits()" type="button">Buy Credits</button>
+            <button pButton  class="btn btn-primary text-small exportButton" (click)="exportData()" type="button">
               Export <span class="exportCount">{{ exportCreditCount }}</span>
             </button>
           </span>
@@ -138,14 +138,14 @@
                 <input type="checkbox" class="me-0" style="zoom:1.5; cursor: pointer" [(ngModel)]="selectAllCheckboxes" (click)="selectAllCheckbox()" id="selectAllcheckbox" />
                 <label class="p-2" for="selectAllcheckbox" style="cursor: pointer">Select All</label>
                 <span class="p-2">Selected : {{ selectedCompanies }}</span>
-                <button class="btn btn-primary text-small" (click)="viewFavourites()" type="button">
+                <button pButton  class="btn btn-primary text-small" (click)="viewFavourites()" type="button">
                   {{ viewFavouritesLabel }}<span class="favCount" *ngIf="viewFavouritesLabel != 'View All'">{{ favCount }}</span>
                 </button>
               </span>
             </div>
             <div class="d-flex align-items-center justify-content-end gap-2 mt-3">
-              <button class="btn btn-primary text-small ps-3 pe-3 pt-2 pb-2 br-8 p-1" style="background-color: #ff9113 !important" (click)="openReport()" type="button">Report</button>
-              <button class="btn btn-primary text-small ps-3 pe-3 pt-2 pb-2 br-8" (click)="filterBy()" type="button">Filter by</button>
+              <button pButton  class="btn btn-primary text-small ps-3 pe-3 pt-2 pb-2 br-8 p-1" style="background-color: #ff9113 !important" (click)="openReport()" type="button">Report</button>
+              <button pButton  class="btn btn-primary text-small ps-3 pe-3 pt-2 pb-2 br-8" (click)="filterBy()" type="button">Filter by</button>
               <div class="pe-2">
                 <span class="text-muted text-small"
                   ><strong>Total Companies : {{ totalCompanyCount }}</strong></span
@@ -215,7 +215,7 @@
       </div>
     </div>
     <div class="card-footer border-0 bg-transparent">
-      <button pButton type="button" style="bottom:5rem;right:1rem" class="btn btn-quit btn-rounded p-1 ps-3 text-small position-absolute d-flex d-md-none " (click)="resetRecommendation()">
+      <button pButton  pButton type="button" style="bottom:5rem;right:1rem" class="btn btn-quit btn-rounded p-1 ps-3 text-small position-absolute d-flex d-md-none " (click)="resetRecommendation()">
         <span>Reset</span><span class="btn-icon"><i class="fa-solid fa-arrow-rotate-right"></i> </span>
       </button>
       <div class="row">
@@ -224,7 +224,7 @@
           <p-paginator *ngIf="totalCompanyCount != 0" [rows]="pageSize" [totalRecords]="totalCompanyCount" (onPageChange)="pageChange($event)" [rowsPerPageOptions]="[50, 100, 300, 500, 1000]"></p-paginator>
         </div>
         <div class="col-md-2 d-md-block d-none text-end">
-          <button pButton type="button" class="btn btn-quit ps-3 btn-rounded" (click)="resetRecommendation()">
+          <button pButton  pButton type="button" class="btn btn-quit ps-3 btn-rounded" (click)="resetRecommendation()">
             Reset Recommendations<span class="btn-icon"><i class="fa-solid fa-arrow-rotate-right"></i> </span>
           </button>
         </div>
@@ -251,7 +251,7 @@
 			  Access to over 1 million global companies database including company
 			  name, headquarters, industry, contact details and more!
 			</p>
-			<button pButton type="button" class="text-white p-ripple p-button-rounded p-button-warning p-button p-component"
+			<button pButton  pButton type="button" class="text-white p-ripple p-button-rounded p-button-warning p-button p-component"
 			  (click)="upgradePlan()">
 			  Upgrade Plan<i class="fa fa-arrow-right exhausted-plan-icon"></i>
 			</button>
@@ -313,8 +313,8 @@
         </div>
       </div>
       <div>
-        <button type="submit" class="btn btn-dark w-100" style="background-color: var(--uniprep-primary); border: none">Apply Filter</button>
-        <button class="btn btn-dark w-100" (click)="clearFilter()" style="background-color: white; border-radius: 8px; color: var(--uniprep-primary); border: none" type="button">Reset Filter</button>
+        <button pButton  type="submit" class="btn btn-dark w-100" style="background-color: var(--uniprep-primary); border: none">Apply Filter</button>
+        <button pButton  class="btn btn-dark w-100" (click)="clearFilter()" style="background-color: white; border-radius: 8px; color: var(--uniprep-primary); border: none" type="button">Reset Filter</button>
       </div>
     </form>
   </div>
@@ -324,7 +324,7 @@
     <img src="../../../uniprep-assets/images/smartloack.png" class="image" width="60" />
     <h3 class="offer">Upgrade Required</h3>
     <p>To access this exclusive module,please upgrade your plan now</p>
-    <button pButton type="button" class="text-white p-ripple p-button-rounded p-button-warning p-button p-component p-2" (click)="upgradePlan()">Upgrade Plan<i class="fa fa-arrow-right exhausted-plan-icon"></i></button>
+    <button pButton  pButton type="button" class="text-white p-ripple p-button-rounded p-button-warning p-button p-component p-2" (click)="upgradePlan()">Upgrade Plan<i class="fa fa-arrow-right exhausted-plan-icon"></i></button>
   </div>
   <div *ngIf="!ehitlabelIsShow" class="text-center mt-5 mb-4">
     <img src="../../../uniprep-assets/images/smartloack.png" class="image" width="60" />

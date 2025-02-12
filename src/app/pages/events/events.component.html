@@ -10,7 +10,7 @@
             <h5 class="mb-0" tooltipPosition="top" pTooltip="Within this section, you'll find information about future events hosted by international organisations.">EVENTS<i class="questiontooltip fa-solid fa-circle-question"></i></h5>
           </div>
           <div>
-            <button class="how-it-works-button" (click)="openVideoPopup('https://www.youtube.com/embed/2cL3Av-rnKY?si=Ci76Usb2Hyq_BMlJ')">How it works?<i class="fa-solid fa-play d-md-block d-none"></i></button>
+            <button pButton  class="how-it-works-button" severity="warn" > (click)="openVideoPopup('https://www.youtube.com/embed/2cL3Av-rnKY?si=Ci76Usb2Hyq_BMlJ')">How it works?<i class="fa-solid fa-play d-md-block d-none"></i></button>
           </div>
         </div>
       </div>
@@ -18,15 +18,15 @@
     <div class="row justify-content-center align-items-center mt-2">
       <div class="col-md-3 col-5 text-md-start">
         <div class="d-flex gap-2 align-items-center">
-          <span (click)="filterPopUp()"><button class="btn btn-primary text-small px-3 py-2" type="button">Filter by</button></span>
+          <span (click)="filterPopUp()"><button pButton  class="btn btn-primary text-small px-3 py-2" type="button">Filter by</button></span>
           <p class="fw-seminold">Total Events - {{ activeButton == 1 ? totalcount : totalcountpost }}</p>
         </div>
         
       </div>
       <div class="col-md-6 col-7 text-md-center text-end">
         <div class="d-flex gap-2 justify-content-center">
-          <button class="btn btn-outline-light theme-blue px-3 py-3" (click)="setActiveButton(1)" [ngStyle]="button1Style">Upcoming Events</button>
-          <button class="btn btn-outline-light theme-blue px-3 py-3" (click)="setActiveButton(2)" [ngStyle]="button2Style">Past Events</button>
+          <button pButton  class="btn btn-outline-light theme-blue px-3 py-3" (click)="setActiveButton(1)" [ngStyle]="button1Style">Upcoming Events</button>
+          <button pButton  class="btn btn-outline-light theme-blue px-3 py-3" (click)="setActiveButton(2)" [ngStyle]="button2Style">Past Events</button>
         </div>
       </div>
       <div class="col-md-3 col-12">
@@ -69,7 +69,7 @@
               <div class="col-6 mb-md-0 mb-2" *ngIf="event.registered === 0 ? false : true">
                 <a target="_blank">
                   <div (click)="goingEventLink(event.eventlink)">
-                    <button class="btn btn-primary text-small rounded-2 w-100" type="button"><i class="fa-regular fa-clock"></i>&nbsp;Event Link</button>
+                    <button pButton  class="btn btn-primary text-small rounded-2 w-100" type="button"><i class="fa-regular fa-clock"></i>&nbsp;Event Link</button>
                   </div>
                 </a>
               </div>
@@ -83,7 +83,7 @@
             </div>
             <div class="row">
               <div class="col-md-12">
-                <button (click)="registerButton(event)"  [ngClass]="event.registered === 0 ? 'btn-primary' : 'btn-dark'" class="btn py-2 w-100 m-0" type="button"><i class="fa-solid fa-link me-2"></i>{{ event.registered === 0 ? "Register Now" : "Registered" }}</button>
+                <button pButton  (click)="registerButton(event)"  [ngClass]="event.registered === 0 ? 'btn-primary' : 'btn-dark'" class="btn py-2 w-100 m-0" type="button"><i class="fa-solid fa-link me-2"></i>{{ event.registered === 0 ? "Register Now" : "Registered" }}</button>
               </div>
             </div>
               <!-- befor registration -->
@@ -157,7 +157,7 @@
       <img src="../../../uniprep-assets/images/smartloack.png" class="image" width="60" />
       <h3 class="offer">Upgrade Required</h3>
       <p>To access this exclusive module,please upgrade your plan now</p>
-      <button pButton type="button" class="text-white p-ripple p-button-rounded p-button-warning p-button p-component p-2" (click)="upgradePlan()">Upgrade Plan<i class="fa fa-arrow-right exhausted-plan-icon"></i></button>
+      <button pButton  pButton type="button" class="text-white p-ripple p-button-rounded p-button-warning p-button p-component p-2" (click)="upgradePlan()">Upgrade Plan<i class="fa fa-arrow-right exhausted-plan-icon"></i></button>
     </div>
     <div *ngIf="!ehitlabelIsShow" class="text-center mt-5 mb-4">
       <img src="{{ orglogowhitelabel }}" class="image" width="60" />
@@ -181,7 +181,7 @@
 			<h3>Upgrade now to access invaluable tools</h3>
 			<p><br> Upgrade your plan now to gain instant access.</p>
 			<p class="offer">Find events about: <br>Career growth, International universities, Immigration, Life in your destination and many more!</p>
-			<button pButton type="button"
+			<button pButton  pButton type="button"
 				class=" text-white p-ripple p-button-rounded p-button-warning p-button p-component p-2"
 				(click)="upgradePlan()">Upgrade Plan<i class="fa fa-arrow-right exhausted-plan-icon"></i></button>
 		</div>
@@ -236,8 +236,8 @@
             </div>
           </div>
           <div class="d-flex justify-content-center gap-2 mt-3">
-            <button type="submit" class="btn btn-primary btn-rounded">Apply Filter</button>
-            <button type="button" (click)="resetFilter()" class="btn btn-danger btn-rounded">Reset Filter</button>
+            <button pButton  type="submit" class="btn btn-primary btn-rounded">Apply Filter</button>
+            <button pButton  type="button" (click)="resetFilter()" class="btn btn-danger btn-rounded">Reset Filter</button>
           </div>
         </div>
       </div>

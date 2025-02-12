@@ -15,13 +15,13 @@
 							</h6>
 						</div>
 						<div>
-							<button class="how-it-works-button" (click)="openVideoPopup('https://www.youtube.com/embed/4evbW8B-z_M?si=alycFSacGOFGuZ9F')">How it works?<i class="fa-solid fa-play d-md-block d-none"></i></button>
+							<button pButton  class="how-it-works-button" severity="warn" > (click)="openVideoPopup('https://www.youtube.com/embed/4evbW8B-z_M?si=alycFSacGOFGuZ9F')">How it works?<i class="fa-solid fa-play d-md-block d-none"></i></button>
 						</div>
 					</div>
 				</div>
 
 				<div *ngIf="pdfvisibility">
-					<button class="text-white p-ripple p-button-warning p-button p-component p-2" (click)="download()">
+					<button pButton  class="text-white p-ripple p-button-warning p-button p-component p-2" (click)="download()">
 						Download
 						<i class="fa-solid fa-download ms-2 p-2" style="background-color: #d26400"></i>
 					</button>
@@ -87,7 +87,7 @@
 		<img src="../../../uniprep-assets/images/smartloack.png" class="image" width="60" />
 		<h3 class="offer">Upgrade Required</h3>
 		<p>To access this exclusive module,please upgrade your plan now</p>
-		<button pButton type="button" class="text-white p-ripple p-button-rounded p-button-warning p-button p-component p-2" (click)="upgradePlan()">Upgrade Plan<i class="fa fa-arrow-right exhausted-plan-icon"></i></button>
+		<button pButton  pButton type="button" class="text-white p-ripple p-button-rounded p-button-warning p-button p-component p-2" (click)="upgradePlan()">Upgrade Plan<i class="fa fa-arrow-right exhausted-plan-icon"></i></button>
 	</div>
 	<div *ngIf="!ehitlabelIsShow" class="text-center mt-5 mb-4">
 		<img src="../../../uniprep-assets/images/smartloack.png" class="image" width="60" />

@@ -8,7 +8,7 @@
         <h5 class="select-title mb-1">{{title}} Quiz</h5>
       </div>
       <div class="col-md-2 col-2 text-end">
-        <button [routerLink]="['/pages/assessment/ilearn-challenge']" class="btn btn-quit btn-rounded mt-2 px-2 py-2">
+        <button pButton  [routerLink]="['/pages/assessment/ilearn-challenge']" class="btn btn-quit btn-rounded mt-2 px-2 py-2">
           <div class="d-flex align-items-center">
             <span class="fw-normal h6 mb-0 ps-3 pe-2">Quit</span>
             <div class="btn-icon"><i class="fa-solid fa-power-off"></i></div>
@@ -48,13 +48,13 @@
   <div class="card-footer bg-transparent">
     <div class="row justify-content-center">
       <div class="col-md-12 col-12 text-end">
-        <button *ngIf="this.page !== 0" (click)="prevQues()" class="btn btn-back btn-rounded px-2 py-2">
+        <button pButton  *ngIf="this.page !== 0" (click)="prevQues()" class="btn btn-back btn-rounded px-2 py-2">
           <div class="d-flex align-items-center">
             <span class="fw-normal h6 mb-0 ps-3 pe-2">Previous</span>
             <div class="btn-icon"><i class="fa-solid fa-arrow-left"></i></div>
           </div>
         </button>&nbsp;
-        <button *ngIf="this.page !== 4" (click)="nextQues()" class="btn btn-start btn-rounded m-0 px-2 py-2">
+        <button pButton  *ngIf="this.page !== 4" (click)="nextQues()" class="btn btn-start btn-rounded m-0 px-2 py-2">
           <div class="d-flex align-items-center">
             <span class="fw-normal h6 mb-0 ps-3 pe-2">Next</span>
             <div class="btn-icon"><i class="fa-solid fa-arrow-right"></i></div>
