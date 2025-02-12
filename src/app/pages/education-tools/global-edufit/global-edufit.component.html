@@ -49,8 +49,8 @@
                       {{ recommendation.question.branches[1] }}
                     </h5>
                     <p-dropdown styleClass="w-100" appendTo="body" [options]="countryList" [filter]="true"
-                      formControlName="interested_country" filterBy="country" optionLabel="country" optionValue="id" (ngModelChange)="setCompareUniversityList('122');"
-                      [autoDisplayFirst]="false" placeholder="Select the interested country">
+                      formControlName="interested_country" filterBy="country" optionLabel="country" optionValue="id"
+                      [autoDisplayFirst]="false" placeholder="Select the interested country" (ngModelChange)="setCompareUniversityList($event);">
                     </p-dropdown>
                     <p class="text-center" *ngIf="form.get('interested_country')?.errors?.required && submitted"
                       style="color: red">
@@ -63,7 +63,7 @@
                     </h5>
                     <p-dropdown styleClass="w-100" appendTo="body" [options]="universityList" [filter]="true"
                       formControlName="university" filterBy="name" optionLabel="name" optionValue="name"
-                      [autoDisplayFirst]="false" placeholder="Select the univesity">
+                      [autoDisplayFirst]="false" placeholder="Select the univesity" >
                     </p-dropdown>
                     <p class="text-center" *ngIf="form.get('university')?.errors?.required && submitted"
                       style="color: red">
