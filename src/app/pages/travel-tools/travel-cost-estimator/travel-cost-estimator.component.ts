@@ -9,7 +9,7 @@ import { City } from 'src/app/@Models/cost-of-living';
 import { MessageService } from 'primeng/api';
 import { ToastModule } from 'primeng/toast';
 import { CommonModule } from '@angular/common';
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { CarouselModule } from 'primeng/carousel';
 import { ButtonModule } from 'primeng/button';
 import { DialogModule } from 'primeng/dialog';
@@ -19,42 +19,68 @@ import { CardModule } from 'primeng/card';
 import { InputGroupModule } from 'primeng/inputgroup';
 import { InputTextModule } from 'primeng/inputtext';
 import { InputGroupAddonModule } from 'primeng/inputgroupaddon';
+import { InputNumberModule } from 'primeng/inputnumber';
+
 @Component({
 	selector: "uni-travel-cost-estimator",
 	templateUrl: "./travel-cost-estimator.component.html",
 	styleUrls: ["./travel-cost-estimator.component.scss"],
 	standalone: true,
-	imports: [ToastModule, CommonModule, FormsModule, ReactiveFormsModule, CarouselModule, ButtonModule, CommonModule, RouterModule, DialogModule, MultiSelectModule, SelectModule, CardModule, InputGroupModule, InputTextModule, InputGroupAddonModule]
+	imports: [
+		ToastModule, 
+		CommonModule, 
+		FormsModule, 
+		ReactiveFormsModule, 
+		CarouselModule, 
+		ButtonModule, 
+		RouterModule, 
+		DialogModule, 
+		MultiSelectModule, 
+		SelectModule, 
+		CardModule, 
+		InputGroupModule, 
+		InputTextModule, 
+		InputGroupAddonModule,
+		InputNumberModule
+	],
+	providers: [MessageService]
 })
 export class TravelCostEstimatorComponent implements OnInit {
-	recommendations: { id: number; question: string }[] = TravelCostEstimatorQuestionList
+	recommendations: { id: number; question: string }[] = TravelCostEstimatorQuestionList;
 	trvelExperienceList: { id: number; name: string }[] = [
 		{ id: 1, name: "Basic" },
 		{ id: 2, name: "Standard" },
 		{ id: 3, name: "Luxury" },
-	]
-	activePageIndex: number = 0
-	selectedData: { [key: string]: any } = {}
-	invalidClass: boolean = false
-	currencyList: CountryandCurrency[] = []
-	departureLocationList: City[] = []
-	destinationLocationList: City[] = []
-	countryandCurrencyList: CountryandCurrency[] = []
-	isRecommendationQuestion: boolean = true
-	isRecommendationData: boolean = false
-	isRecommendationSavedData: boolean = false
-	departureFilter: string = ""
-	destinationFilter: string = ""
-	currencyFilter: string = ""
-	recommendationData: string = ""
-	recommadationSavedQuestionList: TravelCostEstimator[] = []
-	isFromSavedData: boolean = false
-	cityList: City[] = []
+	];
+	activePageIndex: number = 0;
+	selectedData: { [key: string]: any } = { 3: 1 }; // Initialize with default value for days
+	invalidClass: boolean = false;
+	currencyList: CountryandCurrency[] = [];
+	departureLocationList: City[] = [];
+	destinationLocationList: City[] = [];
+	countryandCurrencyList: CountryandCurrency[] = [];
+	isRecommendationQuestion: boolean = true;
+	isRecommendationData: boolean = false;
+	isRecommendationSavedData: boolean = false;
+	departureFilter: string = "";
+	destinationFilter: string = "";
+	currencyFilter: string = "";
+	recommendationData: string = "";
+	recommadationSavedQuestionList: TravelCostEstimator[] = [];
+	isFromSavedData: boolean = false;
+	cityList: City[] = [];
 	toast: any;
 
-	constructor(private travelToolsService: TravelToolsService, private router: Router, private costOfLivingService: CostOfLivingService) {}
+	constructor(
+		private travelToolsService: TravelToolsService, 
+		private router: Router, 
+		private costOfLivingService: CostOfLivingService,
+		private messageService: MessageService
+	) {}
+
 	ngOnInit(): void {
-		throw new Error('Method not implemented.');
+		this.getCityList();
+		this.getCurrencyList();
 	}
 
 	getCityList() {

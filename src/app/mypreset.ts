@@ -5,17 +5,30 @@ import Aura from '@primeng/themes/aura';
 const MyPreset = definePreset(Aura, {
     semantic: {
         primary: {
-            50: '{orange.50}',
-            100: '{orange.100}',
-            200: '{orange.200}',
-            300: '{orange.300}',
-            400: '{orange.400}',
-            500: '{orange.500}',
-            600: '{orange.600}',
-            700: '{orange.700}',
-            800: '{orange.800}',
-            900: '{orange.900}',
-            950: '{orange.950}'
+            50: "#f5f6f9",
+            100: "#d1d4e1",
+            200: "#acb2ca",
+            300: "#8890b2",
+            400: "#636e9b",
+            500: "#3f4c83",
+            600: "#36416f",
+            700: "#2c355c",
+            800: "#232a48",
+            900: "#191e34",
+            950: "#101321"
+        },
+        secondary: {
+            50: "#fef8f3",
+            100: "#fbdfc5",
+            200: "#f9c597",
+            300: "#f6ab6a",
+            400: "#f3923c",
+            500: "#f0780e",
+            600: "#cc660c",
+            700: "#a8540a",
+            800: "#844208",
+            900: "#603006",
+            950: "#3c1e04"
         },
         colorScheme: {
             light: {
