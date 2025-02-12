@@ -274,17 +274,28 @@ export class GlobalEdufitComponent implements OnInit {
 
   downloadRecommadation() {
     this.educationToolService.downloadRecommendation({ data: this.recommendationData }).subscribe({
-      next: res => {
-        window.open(res.url, "_blank");
+      next: (response: any) => {
+        this.educationToolService.downloadFile(response.url).subscribe((blob) => {
+          const a = document.createElement("a");
+          const objectUrl = window.URL.createObjectURL(blob);
+
+          a.href = objectUrl;
+          a.download = "business-forecating-tool.pdf";
+          document.body.appendChild(a);
+
+          a.click();
+          window.URL.revokeObjectURL(objectUrl);
+          document.body.removeChild(a);
+        });
       },
-      error: err => {
+      error: (err) => {
         console.log(err?.error?.message);
       }
     });
   }
 
-  setUniversityList(event: any) {
-    this.educationToolService.getUniverstityByCountry(event).subscribe(data => {
+  setCompareUniversityList(id: string) {
+    this.educationToolService.getUniverstityByCountry(id).subscribe(data => {
       this.universityList = data;
     })
   }

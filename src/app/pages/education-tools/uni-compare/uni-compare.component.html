@@ -172,11 +172,9 @@
                                               [autoDisplayFirst]="false">
                                     </p-dropdown>
                                     <input type="number" 
-                                           class="form-control w-100 m-0" 
-                                           [min]="100"
-                                           
+                                           class="form-control w-100 m-0"                                            
                                            formControlName="fees" 
-                                           [placeholder]="form.get('currency_code').value ? 'Fees/Year in'+' '+marketingForm.get('currency_code').value : 'Fees/Year' ">
+                                           [placeholder]="form.get('currency_code').value ? 'Fees/Year in'+' '+form.get('currency_code').value : 'Fees/Year' ">
                                   </div>
                                 </div>
                                 <div class="col-lg-4 mb-2">
@@ -193,9 +191,8 @@
                                     </p-dropdown>
                                     <input type="number" 
                                            class="form-control w-100 m-0" 
-                                           [min]="100" 
                                            formControlName="compare_fees" 
-                                           [placeholder]="form.get('compare_currency_code').value ? 'Fees/Year in'+' '+marketingForm.get('compare_currency_code').value : 'Fees/Year' ">
+                                           [placeholder]="form.get('compare_currency_code').value ? 'Fees/Year in'+' '+form.get('compare_currency_code').value : 'Fees/Year' ">
                                   </div>
                                 </div>
                               </div>

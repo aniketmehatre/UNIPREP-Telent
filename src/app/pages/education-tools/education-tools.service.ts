@@ -154,5 +154,9 @@ export class EducationToolsService {
     });
   }
 
+  downloadFile(url: string): Observable<Blob> {
+    const headers = new HttpHeaders();
+    return this.http.get(url, { responseType: 'blob', headers: headers });
+  }
 
 }
