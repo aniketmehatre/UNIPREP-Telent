@@ -11,7 +11,6 @@ import { CarouselModule } from "primeng/carousel";
 import { ChipModule } from "primeng/chip";
 import { ConfirmPopupModule } from "primeng/confirmpopup";
 import { DialogModule } from "primeng/dialog";
-
 import { EditorModule } from "primeng/editor";
 import { InputTextModule } from "primeng/inputtext";
 import { PaginatorModule } from "primeng/paginator";
@@ -20,42 +19,34 @@ import { SkeletonModule } from "primeng/skeleton";
 import { SplitButtonModule } from "primeng/splitbutton";
 import { StepsModule } from "primeng/steps";
 import { TooltipModule } from "primeng/tooltip";
-import { SeekerListsComponent } from "./job-seeker-success-stories-lists/seekerlists.component";
-import { SeekercountriesComponent } from "./job-seeker-success-stories-countries/seekercountries.component";
-import { JobSeekersComponent } from "./job-seeker-success-stories.component";
 import { JobSeekerRoutingModule } from "./job-seeker-success-stories-routing.module";
 
 @NgModule({
     imports: [
         CommonModule,
-        InputTextModule,
-        JobSeekersComponent,
-        SeekerListsComponent,
-        SeekercountriesComponent,
-        CarouselModule,
-        ButtonModule,
-        ReactiveFormsModule,
         JobSeekerRoutingModule,
-        ChipModule,
-        FormsModule,
-        
-        EditorModule,
-        SidebarModule,
-        CardModule,
-        SplitButtonModule,
         ReactiveFormsModule,
+        FormsModule,
         PipesModule,
-        PaginatorModule,
         SlickCarouselModule,
-        StepsModule,
+        SharedModule,
+        AutoCompleteModule,
+        ButtonModule,
+        CardModule,
+        CarouselModule,
+        ChipModule,
         ConfirmPopupModule,
         DialogModule,
-        SharedModule,
-        TooltipModule,
+        EditorModule,
+        InputTextModule,
+        PaginatorModule,
+        SidebarModule,
         SkeletonModule,
-        AutoCompleteModule,
+        SplitButtonModule,
+        StepsModule,
+        TooltipModule
     ],
-  schemas: [CUSTOM_ELEMENTS_SCHEMA],
-  providers: [ConfirmationService]
+    schemas: [CUSTOM_ELEMENTS_SCHEMA],
+    providers: [ConfirmationService]
 })
-export class JobSeekerSuccessStoriesModule{ }
+export class JobSeekerSuccessStoriesModule { }
