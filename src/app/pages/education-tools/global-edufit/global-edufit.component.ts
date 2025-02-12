@@ -280,7 +280,7 @@ export class GlobalEdufitComponent implements OnInit {
           const objectUrl = window.URL.createObjectURL(blob);
 
           a.href = objectUrl;
-          a.download = "business-forecating-tool.pdf";
+          a.download = "global-edufit.pdf";
           document.body.appendChild(a);
 
           a.click();

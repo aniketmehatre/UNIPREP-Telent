@@ -295,7 +295,7 @@ export class MarketingAnalysisComponent implements OnInit {
           const objectUrl = window.URL.createObjectURL(blob);
 
           a.href = objectUrl;
-          a.download = "business-forecating-tool.pdf";
+          a.download = "marketing-analysis.pdf";
           document.body.appendChild(a);
 
           a.click();

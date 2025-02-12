@@ -273,7 +273,7 @@ export class StartUpExpenseEstimateComponent implements OnInit {
           const objectUrl = window.URL.createObjectURL(blob);
 
           a.href = objectUrl;
-          a.download = "business-forecating-tool.pdf";
+          a.download = "startup-expenses-estimate.pdf";
           document.body.appendChild(a);
 
           a.click();

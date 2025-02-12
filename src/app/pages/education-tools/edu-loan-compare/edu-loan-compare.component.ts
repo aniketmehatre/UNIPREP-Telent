@@ -283,7 +283,7 @@ export class EduLoanCompareComponent implements OnInit, OnDestroy {
           const objectUrl = window.URL.createObjectURL(blob);
 
           a.href = objectUrl;
-          a.download = "business-forecating-tool.pdf";
+          a.download = "edu-loan-comapre-tool.pdf";
           document.body.appendChild(a);
 
           a.click();
