@@ -353,3 +353,10 @@
 	max-height: 100px;
 	/* Adjust as needed */
 }
+
+.blog-content {
+	font-family: "Poppins", sans-serif;
+}
+::ng-deep .blog-content ,p {
+	font-size: 14px ;
+}
