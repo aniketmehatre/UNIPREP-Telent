@@ -25,7 +25,7 @@ export class AuthTokenService {
     if (token && this.isTokenValid(token)) {
       this.tokenSubject.next(token);
     } else {
-      this.clearToken();
+      this.clearToken(false); // Don't force redirect on initialization
     }
   }
 
@@ -53,14 +53,37 @@ export class AuthTokenService {
       }
     } catch (error) {
       console.error('Error saving token:', error);
-      this.clearToken();
+      this.clearToken(false);
     }
   }
 
-  clearToken(): void {
+  clearToken(shouldRedirect: boolean = true): void {
     this.storage.remove(environment.tokenKey);
     this.tokenSubject.next(null);
-    this.router.navigate(['/login']);
+    
+    // Only redirect to login if explicitly requested and current route is not public
+    if (shouldRedirect) {
+      const currentUrl = this.router.url;
+      const publicRoutes = [
+        '', 
+        '/', 
+        '/landing', 
+        '/login', 
+        '/register', 
+        '/privacy', 
+        '/blogs', 
+        '/certificates', 
+        '/enterprisepayment',
+        '/forgot-password',
+        '/setpassword',
+        '/verification'
+      ];
+      const isPublicRoute = publicRoutes.some(route => currentUrl.startsWith(route));
+      
+      if (!isPublicRoute) {
+        this.router.navigate(['/login']);
+      }
+    }
   }
 
   isTokenValid(token?: string): boolean {

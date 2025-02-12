@@ -14,6 +14,20 @@ export class AuthGuard  {
   private lastCheck: number = 0;
   private lastResult: boolean | UrlTree | null = null;
   private readonly CACHE_DURATION = 5000; // 5 seconds cache
+  private readonly publicRoutes = [
+    '', 
+    '/', 
+    '/landing', 
+    '/login', 
+    '/register', 
+    '/privacy', 
+    '/blogs', 
+    '/certificates', 
+    '/enterprisepayment',
+    '/forgot-password',
+    '/setpassword',
+    '/verification'
+  ];
 
   constructor(
     private storage: LocalStorageService,
@@ -27,6 +41,11 @@ export class AuthGuard  {
     route: ActivatedRouteSnapshot,
     state: RouterStateSnapshot): Observable<boolean | UrlTree> | Promise<boolean | UrlTree> | boolean | UrlTree {
     
+    // Check if the route is public
+    if (this.publicRoutes.some(route => state.url.startsWith(route))) {
+      return true;
+    }
+
     const currentTime = Date.now();
     if (currentTime - this.lastCheck < this.CACHE_DURATION && this.lastResult !== null) {
       return this.lastResult;
@@ -54,6 +73,6 @@ export class AuthGuard  {
   }
 
   canLoad(route: Route, segments: UrlSegment[]): boolean | UrlTree | Observable<boolean | UrlTree> | Promise<boolean | UrlTree> {
-    throw new Error('Method not implemented.');
+    return true; // Allow lazy loading of modules
   }
 }

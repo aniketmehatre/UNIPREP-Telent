@@ -11,40 +11,26 @@ import { BlogdetailComponent } from "./pages/blogdetail/blogdetail.component"
 import { BloglistComponent } from "./pages/bloglist/bloglist.component"
 import { PrivacyComponent } from "./pages/privacy/privacy.component"
 import { DashboardComponent } from "./pages/dashboard/dashboard.component"
-
+import { ForgotPasswordComponent } from "./Auth/forgot-password/forgot-password.component"
+import { VerificationComponent } from "./Auth/verification/verification.component"
+import { SetpasswordComponent } from "./Auth/setpassword/setpassword.component"
 export const appRoutes: Routes = [
-	// Public routes
-	{ path: "", redirectTo: "/landing", pathMatch: "full" }, // Default route
-	{ path: "landing", component: LandingComponent }, // Landing outside of auth
-	{ path: "certificates", component: CertificatesComponent },
+	// Public routes that don't require authentication
+	{ path: "", component: LandingComponent, pathMatch: "full" }, // Default route is now landing page
+	{ path: "landing", component: LandingComponent },
 	{ path: "login", component: LoginComponent },
-	{ path: "register", component: RegistrationComponent  },
-	{
-		path: "home",
-		component: LandingComponent,
-		canActivate: [DomainwhitlabelGuard],
-	},
-	{
-		path: "enterprisepayment/:id",
-		component: EnterpriseSubscriptionComponent,
-	},
-	{
-		path: "blogs/:slug",
-		component: BlogdetailComponent,
-	},
-	{
-		path: "blogs",
-		component: BloglistComponent,
-	},
-	{
-		path: "privacy",
-		component: PrivacyComponent,
-	},
-	{
-		path: "certificates",
-		component: CertificatesComponent,
-	},
+	{ path: "register", component: RegistrationComponent },
+	{ path: "privacy", component: PrivacyComponent },
+	{ path: "blogs", component: BloglistComponent },
+	{ path: "blogs/:slug", component: BlogdetailComponent },
+	{ path: "certificates", component: CertificatesComponent },
+	{ path: "enterprisepayment/:id", component: EnterpriseSubscriptionComponent },
+	{ path: "forgot-password", component: ForgotPasswordComponent }	,
+	{ path: "verification", component: VerificationComponent },
+	{ path: "setpassword", component: SetpasswordComponent },
 
+
+	// Protected routes that require authentication
 	{
 		path: "pages",
 		loadChildren: () => import("./pages/pages.module").then((m) => m.PagesModule),
@@ -53,10 +39,13 @@ export const appRoutes: Routes = [
 			user: UserResolver,
 		},
 	},
+	
+	// Auth module routes
 	{
-		path: "",
+		path: "auth",
 		loadChildren: () => import("./Auth/auth.module").then((m) => m.AuthModule),
 	},
-	// Fallback route (if none match)
-	{ path: "**", redirectTo: "/landing", pathMatch: "full" },
+
+	// Fallback route
+	{ path: "**", redirectTo: "", pathMatch: "full" },
 ]

@@ -20,8 +20,25 @@ export const HttpErrorInterceptor: HttpInterceptorFn = (
   
   let currentUrl = window.location.href;
 
-  // Add auth token to all API requests
-  if (request.url.includes(environment.ApiUrl)) {
+  // Public routes that don't need authentication
+  const publicRoutes = [
+    '/landing',
+    '/login',
+    '/register',
+    '/privacy',
+    '/blogs',
+    '/certificates',
+    '/enterprisepayment',
+    '/forgot-password',
+    '/setpassword',
+    '/verification'
+  ];
+
+  // Check if current route is public
+  const isPublicRoute = publicRoutes.some(route => currentUrl.includes(route));
+
+  // Add auth token only for protected API requests
+  if (request.url.includes(environment.ApiUrl) && !isPublicRoute) {
     const token = authTokenService.getToken();
     
     if (token) {
@@ -62,8 +79,8 @@ export const HttpErrorInterceptor: HttpInterceptorFn = (
     catchError((error: HttpErrorResponse) => {
       console.error('HTTP Error:', error);
       
-      // Handle authentication errors
-      if (error.status === 401) {
+      // Handle authentication errors only for protected routes
+      if (error.status === 401 && !isPublicRoute) {
         authTokenService.clearToken(); // This will also handle navigation
         
         toastr.add({
