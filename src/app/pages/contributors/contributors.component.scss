@@ -25,10 +25,17 @@
     right: 7px;
 }
 
-.contributor-modal {
+.no-image {
+    height: 80px;
+    width: 80px;
+    border-radius: 50%;
+    background: lightgrey;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 
-    .p-dialog {
-        width: 500px;
+     i {
+        font-size: 30px;
+        color: #fff;
     }
-
 }

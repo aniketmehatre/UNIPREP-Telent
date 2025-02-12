@@ -102,7 +102,7 @@ export const FoundersToolsData = [
         description: "An assessment that evaluates an entrepreneur's in-depth knowledge and proficiency in specific industries.",
         image: "../../../uniprep-assets/images/founderstool/marketing-analysis.svg",
         url: "/pages/founderstool/marketing-anaylsis",
-        launch_soon: true
+        launch_soon: false
     },
     {
         title: "Business Advisor",

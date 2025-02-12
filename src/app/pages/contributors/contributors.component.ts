@@ -1,5 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { ContributorsService } from './contributors.service';
+import { Contributiontier, Contributor, QuestionAnswer } from 'src/app/@Models/contributor.model';
+import { LocationService } from 'src/app/location.service';
+import { LocationData } from 'src/app/@Models/location.model';
+import { MessageService } from 'primeng/api';
 
 @Component({
   selector: 'uni-contributors',
@@ -10,52 +15,65 @@ export class ContributorsComponent implements OnInit {
 
   title: string = "";
   isViewContributor: boolean = false;
-
-  contributorList: any[] = [
-    { status: "Diamond", img: 'https://api.uniprep.ai/uniprepapi/storage/app//public/icon/modules/job-interview.svg', title: "Infosys", company: "LT Consulty Services", location: "Mysuru" },
-    { status: "Premium", img: 'https://api.uniprep.ai/uniprepapi/storage/app//public/icon/modules/job-interview.svg', title: "GT Devegowda", company: "LT Consulty Services", location: "Mysuru" },
-    { status: "Gold", img: 'https://api.uniprep.ai/uniprepapi/storage/app//public/icon/modules/job-interview.svg', title: "Joseph Vijay", company: "LT Consulty Services", location: "Mysuru" },
-    { status: "Silver", img: 'https://api.uniprep.ai/uniprepapi/storage/app//public/icon/modules/job-interview.svg', title: "TCS", company: "LT Consulty Services", location: "Mysuru" },
-    { status: "Bronze", img: 'https://api.uniprep.ai/uniprepapi/storage/app//public/icon/modules/job-interview.svg', title: "Tony Stark", company: "LT Consulty Services", location: "Mysuru" },
-  ];
-  contributorQandAList: any[] = [
-    {
-      question: "What are the prominent wotks by G T Devegowda?",
-      answer: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Rerum consequuntur nemo beatae est, laboriosam laudantium quisquam minima libero inventore vero! Totam blanditiis, iure non quibusdam ad cumque vel quae est nesciunt, minima magnam rerum iusto commodi consectetur fugit? Voluptate ducimus pariatur possimus eius esse unde architecto, asperiores quibusdam sequi magnam, nesciunt doloribus omnis repudiandae nostrum? Dignissimos error laborum voluptates? Fugiat dicta dolorem placeat magni, vitae eos. A adipisci nostrum perferendis dolore molestiae ab. Nesciunt officiis dolorem inventore ipsa! Aliquam delectus tempora molestiae, totam placeat sapiente asperiores consequuntur enim harum soluta iste nisi mollitia, voluptates ad veritatis quidem."
-    },
-    {
-      question: "When was his first election?",
-      answer: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Rerum consequuntur nemo beatae est, laboriosam laudantium quisquam minima libero inventore vero! Totam blanditiis, iure non quibusdam ad cumque vel quae est nesciunt, minima magnam rerum iusto commodi consectetur fugit? Voluptate ducimus pariatur possimus eius esse unde architecto, asperiores quibusdam sequi magnam, nesciunt doloribus omnis repudiandae nostrum? Dignissimos error laborum voluptates? Fugiat dicta dolorem placeat magni, vitae eos. A adipisci nostrum perferendis dolore molestiae ab. Nesciunt officiis dolorem inventore ipsa! Aliquam delectus tempora molestiae, totam placeat sapiente asperiores consequuntur enim harum soluta iste nisi mollitia, voluptates ad veritatis quidem."
-    },
-    {
-      question: "What are the other?",
-      answer: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Rerum consequuntur nemo beatae est, laboriosam laudantium quisquam minima libero inventore vero! Totam blanditiis, iure non quibusdam ad cumque vel quae est nesciunt, minima magnam rerum iusto commodi consectetur fugit? Voluptate ducimus pariatur possimus eius esse unde architecto, asperiores quibusdam sequi magnam, nesciunt doloribus omnis repudiandae nostrum? Dignissimos error laborum voluptates? Fugiat dicta dolorem placeat magni, vitae eos. A adipisci nostrum perferendis dolore molestiae ab. Nesciunt officiis dolorem inventore ipsa! Aliquam delectus tempora molestiae, totam placeat sapiente asperiores consequuntur enim harum soluta iste nisi mollitia, voluptates ad veritatis quidem."
-    }
-  ];
-  contibutionTierList: any[] = [
-    { id: 1, value: "Diamond" },
-    { id: 1, value: "Premium" },
-    { id: 1, value: "Gold" },
-    { id: 1, value: "Silver" },
-    { id: 1, value: "Bronze" },
-  ];
+  contributorList: Contributor[] = [];
+  contributorQandAList: QuestionAnswer[] = [];
+  contibutionTierList: Contributiontier[] = [];
+  locationList: LocationData[] = [];
   isQuestionAnswerVisible: boolean = false;
-  filterFrom: FormGroup;
+  filterForm: FormGroup;
 
   constructor(
-    private fb: FormBuilder
+    private fb: FormBuilder,
+    private contributorsService: ContributorsService,
+    private locationService: LocationService,
+    private toast: MessageService,
   ) { }
 
   ngOnInit(): void {
-    this.filterFrom = this.fb.group({
-      name: [''],
-      contribution_tier: [''],
-    })
+    this.filterForm = this.fb.group({
+      contributiontier: [''],
+      location: [''],
+    });
+    this.getContributorList({});
+    this.getDropdownValues();
   }
 
-  viewSponsor(data: any) {
+  getContributorList(value: any) {
+    this.contributorsService.getContributors(value).subscribe({
+      next: res => {
+        this.contributorList = res.data;
+      },
+      error: err=>{
+        console.log(err?.error?.message);
+      }
+    });
+  }
+
+  getDropdownValues(){
+    this.contributorsService.getContributorDropDownList().subscribe({
+      next: res => {
+        this.contibutionTierList = res.contributiontier;
+      },
+      error: err=>{
+        console.log(err?.error?.message);
+      }
+    });
+
+    this.locationService.getLocation().subscribe({
+      next: res => {
+        this.locationList = res;
+      },
+      error: err=>{
+        console.log(err?.error?.message);
+      }
+    });
+  }
+
+  
+  viewSponsor(data: Contributor) {
     this.isViewContributor = true;
-    this.title = data.title;
+    this.title = data.name;
+    this.contributorQandAList = data.question_answer;
   }
 
   viewOneQuestion() {
@@ -66,11 +84,19 @@ export class ContributorsComponent implements OnInit {
     this.isQuestionAnswerVisible = true;
   }
 
-  onFilter() {
+
+  submitFilterForm() {
+    const formData = this.filterForm.value;
+    if (!formData.name && !formData.location && !formData.contributiontier && !formData.totalstudent) {
+      this.toast.add({ severity: 'error', summary: 'Error', detail: 'Please make sure you have some filter!' });
+      return;
+    }
+    this.getContributorList(formData);
     this.isQuestionAnswerVisible = false;
   }
 
   resetFilter() {
+    this.filterForm.reset();
     this.isQuestionAnswerVisible = false;
   }
 

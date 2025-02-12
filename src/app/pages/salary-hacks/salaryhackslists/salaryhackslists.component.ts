@@ -6,6 +6,7 @@ import { PageFacadeService } from "../../page-facade.service";
 import { AuthService } from "src/app/Auth/auth.service";
 import { Meta } from "@angular/platform-browser";
 import { SalaryHacksService } from "../salaryhacks.service";
+import { DataService } from "src/app/data.service";
 
 @Component({
   selector: "uni-salaryhackslists",
@@ -39,7 +40,8 @@ export class SalaryhacksListsComponent implements OnInit {
     private pageFacade: PageFacadeService,
     private authService: AuthService,
     private meta: Meta,
-    private service: SalaryHacksService
+    private service: SalaryHacksService,
+        private dataService: DataService,
   ) {}
   ngOnInit(): void {
     this.gethackList();
@@ -55,6 +57,7 @@ export class SalaryhacksListsComponent implements OnInit {
     let socialShare: any = document.getElementById("socialSharingList");
     socialShare.style.display = "none";
   }
+  module_id:any;
   gethackList() {
     this.service
       .getSalaryegotitationhacks({
@@ -64,6 +67,7 @@ export class SalaryhacksListsComponent implements OnInit {
       })
       .subscribe((response: any) => {
         this.ListData = response.data;
+        this.module_id=response.module_id;
         this.totalDataCount = response.totalcount;
         this.isSkeletonVisible = false;
       });
@@ -192,5 +196,14 @@ export class SalaryhacksListsComponent implements OnInit {
     const plainText = content.replace(/<[^>]*>/g, '');
     return plainText.length > 75 ? plainText.slice(0, 75) + ' ...' : plainText;
 
+  }
+  openReport() {
+    let data: any = {
+      isVisible: true,
+      moduleId: this.module_id,
+      questionId: this.selectedQuestionData?.id,
+      countryId:this.selectedQuestionData.country_id,
+    };
+    this.dataService.openReportWindow(data);
   }
 }
