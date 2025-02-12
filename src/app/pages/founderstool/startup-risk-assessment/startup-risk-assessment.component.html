@@ -1,21 +1,23 @@
 <div class="card readingcard">
     <ng-container *ngIf="isRecommendationQuestion">
     <div class="card-header border-0 bg-transparent">
-        <div class="row justify-content-center align-items-center">
-            <div class="col-md-12 text-center">
-                <div class="select-title d-flex justify-content-between align-items-center">
-                    <div>
-                        <h5 class="w-100 mb-0" tooltipPosition="top" pTooltip="">
-                            STARTUP RISK ASSESSMENT
-                        </h5>
-                    </div>
-                    <div>
-                        <button class="how-it-works-button">How it works?
-                            <i class="fa-solid fa-play d-md-block d-none"></i></button>
-                    </div>
+      <div class="row justify-content-center align-items-center">
+        <div class="col-md-12 d-flex gap-4">
+            <div class="backIcon d-md-flex d-none" role="button" (click)="goBack()" style="height: auto;">
+                <span class="fa-solid fa-chevron-left"></span>
+            </div>
+            <div class="select-title d-flex justify-content-between align-items-center">
+                <div>
+                    <h5 class="w-100 mb-0" tooltipPosition="top" pTooltip="">
+                      STARTUP RISK ASSESSMENT<i class="questiontooltip fa-solid fa-circle-question"></i></h5>
+                </div>
+                <div>
+                    <button class="how-it-works-button">How it works?
+                        <i class="fa-solid fa-play d-md-block d-none"></i></button>
                 </div>
             </div>
         </div>
+    </div>
     </div>
     <div class="card-body text-center flex-fill overflow-y-auto">
         <div class="container-fluid h-100" >
@@ -84,15 +86,15 @@
                                 <div class="text-center" [ngClass]="{ 'd-none': inValidClass === false }" style="color: red">Target Audience is required
                                 </div>
                                 </ng-container>
-                                <ng-container *ngIf="recommendation.id == 8">
+                                <!-- <ng-container *ngIf="recommendation.id == 8">
                                   <p-dropdown [(ngModel)]="selectedData[recommendation.id]" [options]="budgetAllocationList"
                                   styleClass="w-100" optionLabel="budgetAllocation" optionValue="budgetAllocation" [appendTo]="'body'"
                                   placeholder="Budget Allocation">
                                   </p-dropdown>
                                 <div class="text-center" [ngClass]="{ 'd-none': inValidClass === false }" style="color: red">Addressing task is required
                                 </div>
-                                </ng-container>
-                                <ng-container *ngIf="recommendation.id == 9">
+                                </ng-container> -->
+                                <ng-container *ngIf="recommendation.id == 8">
                                   <p-dropdown [(ngModel)]="selectedData[recommendation.id]" [options]="geographicalList"
                                   styleClass="w-100" optionLabel="geographicalFocus" optionValue="geographicalFocus" [appendTo]="'body'"
                                   placeholder="Geographical">
@@ -108,11 +110,11 @@
                                 <span class="btn-icon px-2 py-2"><i class="fa fa-arrow-left"></i></span> <span
                                     class="ms-2">Previous</span>
                             </button>
-                            <button pButton type="button" (click)="next(activePageIndex+1)" *ngIf="activePageIndex <= 7"
+                            <button pButton type="button" (click)="next(activePageIndex+1)" *ngIf="activePageIndex <= 6"
                                 class="btn btn-primary btn-rounded p-1 ps-4">
                                 <span class="me-2">Next</span><span class="btn-icon px-2 py-2"><i class="fa fa-arrow-right"></i></span>
                             </button>
-                            <button pButton type="button" (click)="getRecommendation(activePageIndex+1)" *ngIf="activePageIndex == 8"
+                            <button pButton type="button" (click)="getRecommendation(activePageIndex+1)" *ngIf="activePageIndex == 7"
                                 class="btn btn-success btn-rounded p-1 ps-4">
                                 <span class="me-2">Get Recommendations</span><span class="btn-icon px-2 py-2">
                                     <i class="fa fa-check-circle"></i></span>
@@ -143,7 +145,7 @@
             </div>
             <div class="d-flex align-items-center">
               <button pButton type="button" (click)="saveRecommadation()" class="btn btn-primary btn-rounded py-2 px-4">
-                <span>Save</span>
+                <span>History</span>
               </button>
             </div>
           </div>
@@ -165,7 +167,7 @@
                             <i class="fa-regular fa-floppy-disk"></i></span>
                     </button>
                 </div>
-                <div class="card p-3" [innerHtml]="recommendationData"></div>
+                <div class="card p-3 fs-5" [innerHtml]="recommendationData"></div>
             </div>
             <div class="col-md-2"></div>
         </div>
