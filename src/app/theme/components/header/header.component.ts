@@ -434,6 +434,8 @@ export class HeaderComponent implements OnInit, OnDestroy {
 	allSearchedResult: any[] = []
 	currentRoute: string = ""
 	ngOnInit() {
+		this.initializeUserProfile();
+		this.loadUserData();
 		this.conditionModuleOrQuestionComponent()
 		this.locationService.getOrgName().subscribe((orgname) => {
 			this.orgnamewhitlabel = orgname
@@ -793,6 +795,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
 			this.isShowHeaderSearchForModule = true
 		}
 	}
+
 	getProgramlevelList() {
 		this.locationService.getProgramLevel().subscribe((res) => {
 			this.programLevelList = res
@@ -1342,60 +1345,71 @@ export class HeaderComponent implements OnInit, OnDestroy {
 	getHomeCountryList() {
 		this.subs.sink = this.locationService.getHomeCountry(2).subscribe({
 			next: (res: any) => {
-				this.countryList = res
-				// Find selected home country or default to India
-				const selectedHomeCountry = res.find((data: any) => data.id === this.homeCountryId) || res.find((data: any) => data.id === 122)
+				this.countryList = res;
+				
+				// First try to get country from localStorage
+				const storedHomeCountryId = localStorage.getItem('homeCountryId');
+				
+				// Find selected home country with fallbacks
+				const selectedHomeCountry = storedHomeCountryId ? 
+					res.find((data: any) => data.id === Number(storedHomeCountryId)) :
+					res.find((data: any) => data.id === this.homeCountryId) || 
+					res.find((data: any) => data.id === 122);
 
 				if (selectedHomeCountry) {
-					this.headerHomeFlag = selectedHomeCountry.flag
-					this.selectedHomeCountry = selectedHomeCountry
-					this.homeCountryName = selectedHomeCountry.country
-					this.dataService.changeHomeCountryFlag(selectedHomeCountry.flag)
-
-					// Save to localStorage as home country
-					localStorage.setItem("homeCountryId", selectedHomeCountry.id.toString())
+					this.headerHomeFlag = selectedHomeCountry.flag;
+					this.selectedHomeCountry = selectedHomeCountry;
+					this.homeCountryName = selectedHomeCountry.country;
+					this.dataService.changeHomeCountryFlag(selectedHomeCountry.flag);
+					localStorage.setItem('homeCountryId', selectedHomeCountry.id.toString());
 				} else {
-					console.warn("No valid home country found in response")
-					// Set default values for home country
-					this.headerHomeFlag = "../../../uniprep-assets/icons/india.png"
-					this.homeCountryName = "India"
-					this.selectedHomeCountry = {
+					// Set default values for India
+					const defaultCountry = {
 						id: 122,
-						country: "India",
-						flag: this.headerHomeFlag,
-					}
-					this.dataService.changeHomeCountryFlag(this.headerHomeFlag)
-					localStorage.setItem("homeCountryId", "122")
+						country: 'India',
+						flag: `https://${this.ApiUrl}/uniprepapi/storage/app/public/uploads/flags/in.svg`
+					};
+					this.headerHomeFlag = defaultCountry.flag;
+					this.homeCountryName = defaultCountry.country;
+					this.selectedHomeCountry = defaultCountry;
+					this.dataService.changeHomeCountryFlag(defaultCountry.flag);
+					localStorage.setItem('homeCountryId', defaultCountry.id.toString());
 				}
 			},
 			error: (error) => {
-				console.error("Error fetching home country data:", error)
-				// Set default values for home country on error
-				this.headerHomeFlag = "../../../uniprep-assets/icons/india.png"
-				this.homeCountryName = "India"
-				this.selectedHomeCountry = {
+				console.error('Error fetching home country data:', error);
+				// Set default values for India on error
+				const defaultCountry = {
 					id: 122,
-					country: "India",
-					flag: this.headerHomeFlag,
-				}
-				this.dataService.changeHomeCountryFlag(this.headerHomeFlag)
-				localStorage.setItem("homeCountryId", "122")
-			},
-		})
+					country: 'India',
+					flag: `https://${this.ApiUrl}/uniprepapi/storage/app/public/uploads/flags/in.svg`
+				};
+				this.headerHomeFlag = defaultCountry.flag;
+				this.homeCountryName = defaultCountry.country;
+				this.selectedHomeCountry = defaultCountry;
+				this.dataService.changeHomeCountryFlag(defaultCountry.flag);
+				localStorage.setItem('homeCountryId', defaultCountry.id.toString());
+			}
+		});
 	}
 
 	onHomeCountryChange(event: any) {
-		if (event && event.value) {
-			const selectedCountry = this.countryList.find((country: any) => country.id === event.value.id)
+		if (event?.value) {
+			const selectedCountry = this.countryList.find((country: any) => country.id === event.value.id);
 			if (selectedCountry) {
-				this.homeCountryId = selectedCountry.id
-				this.headerHomeFlag = selectedCountry.flag
-				this.homeCountryName = selectedCountry.country
-				this.selectedHomeCountry = selectedCountry
-				this.dataService.changeHomeCountryFlag(selectedCountry.flag)
-
-				// Save to localStorage
-				localStorage.setItem("homeCountryId", selectedCountry.id.toString())
+				this.homeCountryId = selectedCountry.id;
+				this.headerHomeFlag = selectedCountry.flag;
+				this.homeCountryName = selectedCountry.country;
+				this.selectedHomeCountry = selectedCountry;
+				this.dataService.changeHomeCountryFlag(selectedCountry.flag);
+				localStorage.setItem('homeCountryId', selectedCountry.id.toString());
+				
+				// Update the form if it exists
+				if (this.mobileForm) {
+					this.mobileForm.patchValue({
+						home_country: selectedCountry.id
+					});
+				}
 			}
 		}
 	}
@@ -1465,6 +1479,80 @@ export class HeaderComponent implements OnInit, OnDestroy {
 			this.isShowHeaderSearchForModule = true
 		} else {
 			this.isShowHeaderSearchForModule = false
+		}
+	}
+
+	private initializeUserProfile() {
+		// Implementation of initializeUserProfile method
+	}
+
+	private loadUserData() {
+		this.subs.sink = this.service.getMe().subscribe({
+			next: (data) => {
+				if (data?.userdetails?.[0]) {
+					const userDetails = data.userdetails[0];
+					
+					// Set user name and first character
+					this.userName = userDetails.name?.toString() || '';
+					this.firstChar = this.userName ? this.userName.charAt(0).toUpperCase() : '';
+					
+					// Store user details in localStorage for persistence
+					localStorage.setItem('user_details', JSON.stringify({
+						name: this.userName,
+						firstChar: this.firstChar,
+						homeCountryId: userDetails.home_country_id,
+						programLevelId: userDetails.programlevel_id
+					}));
+					
+					// Handle program level
+					if (!userDetails.programlevel_id) {
+						this.currentEducation = true;
+						this.educationImage = `https://${this.ApiUrl}/uniprepapi/storage/app/public/uploads/education.svg`;
+					}
+					
+					// Handle demo trial status
+					const loginStatus = userDetails.login_status;
+					if (typeof loginStatus === 'string' && loginStatus.includes('Demo')) {
+						this.demoTrial = true;
+						this.demoDays = loginStatus.replace('Demo-', '');
+					}
+					
+					// Update home country
+					this.homeCountryId = Number(userDetails.home_country_id);
+					this.selectedHomeCountry = Number(userDetails.home_country_id);
+					this.getHomeCountryList();
+				}
+			},
+			error: (error) => {
+				console.error('Error fetching user profile:', error);
+				// Try to load from localStorage if API fails
+				const storedUserDetails = localStorage.getItem('user_details');
+				if (storedUserDetails) {
+					const details = JSON.parse(storedUserDetails);
+					this.userName = details.name;
+					this.firstChar = details.firstChar;
+				}
+			}
+		});
+	}
+
+	toggleProfileDropdown(event: Event) {
+		event.preventDefault();
+		event.stopPropagation();
+		
+		const dropdown = document.querySelector('.profile-dropdown');
+		if (dropdown) {
+			dropdown.classList.toggle('show');
+			
+			// Close dropdown when clicking outside
+			const closeDropdown = (e: MouseEvent) => {
+				if (!dropdown.contains(e.target as Node)) {
+					dropdown.classList.remove('show');
+					document.removeEventListener('click', closeDropdown);
+				}
+			};
+			
+			document.addEventListener('click', closeDropdown);
 		}
 	}
 }
