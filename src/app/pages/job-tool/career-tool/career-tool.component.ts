@@ -200,7 +200,7 @@ export class CareerToolComponent implements OnInit {
       imageLink: environment.production === false ? "https://api.uniprep.ai/uniprepapi/storage/app//public/icon/modules/Global-Employement-Insights.svg" : "https://uniprep.ai/uniprepapi/storage/app/public/icon/modules/Global-Employement-Insights.svg",
       refLink: "",
       mode: "global-employment-insights",
-      launch_soon: true
+      launch_soon: false
     },
     // {
     //   id: 20,

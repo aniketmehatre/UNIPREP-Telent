@@ -25,7 +25,7 @@ export const EducationToolsData = [
       //  description: "This tool lets you get a global travel visa with the help of few easy steps",
         image: "../../../uniprep-assets/images/founderstool/country-insights.svg",
         url: "/pages/education-tools/country-insights",
-        launch_soon: true,
+        launch_soon: false,
     },
     {
         title: "Wealth Leaders",
