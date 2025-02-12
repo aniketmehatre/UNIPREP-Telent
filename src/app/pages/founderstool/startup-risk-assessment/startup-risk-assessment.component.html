@@ -88,11 +88,11 @@
                                 </ng-container>
                                 <ng-container *ngIf="recommendation.id == 8">
                                   <div class="w-100 d-flex gap-2 flex-fill">
-                                    <p-dropdown  [(ngModel)]="selectedData[8]" [options]="currencyList" [filter]="true"
+                                    <p-dropdown  [(ngModel)]="selectedData[10]" [options]="currencyList" [filter]="true"
                                       filterBy="currency_code" placeholder=" Currency" appendTo="body" optionLabel="currency_code" optionValue="currency_code"
                                       [autoDisplayFirst]="false">
                                     </p-dropdown>
-                                    <input  [(ngModel)]="selectedData[recommendation.id]"  [(ngModel)]="selectedData[10]" class="w-100 pl-4 border border-gray rounded-3" type="number" [min]="100000" pInputText [placeholder]="selectedData[8] ? 'Amount in'+' '+selectedData[8] : 'Budget' "
+                                    <input  [(ngModel)]="selectedData[recommendation.id]" class="w-100 pl-4 border border-gray rounded-3" type="number" [min]="100000" pInputText [placeholder]="selectedData[8] ? 'Amount in'+' '+selectedData[8] : 'Budget' "
                                       />
                                   </div>  
                                   <div class="text-center" [ngClass]="{ 'd-none': inValidClass === false }" style="color: red">

@@ -115,9 +115,9 @@ export class StartupRiskAssessmentComponent implements OnInit {
       financial_status: this.selectedData[5],
       competitive_market: this.selectedData[6],
       customers: [this.selectedData[7]],
-      budget: this.selectedData[9],
-      geographical_focus: this.selectedData[10],
-      currency: this.selectedData[8],
+      budget: this.selectedData[8],
+      geographical_focus: this.selectedData[9],
+      currency: this.selectedData[10],
       mode: 'startup_risk_assessment'
     }
     this.founderToolService.getChatgptRecommendations(data).subscribe({
