@@ -84,7 +84,7 @@
                         />
                     </div>  
                     <div class="text-center" [ngClass]="{ 'd-none': inValidClass === false }" style="color: red">
-                      Budget is required or maximum 6 digit allowed 
+                      Budget is required or maximum 5 digit allowed 
                     </div>
                   </ng-container>
                   <ng-container *ngIf="recommendation.id == 7">
@@ -124,7 +124,7 @@
   <ng-container *ngIf="isRecommendationData">
     <div class="card-header border-0 bg-transparent">
         <div class="row justify-content-center align-items-center">
-            <div class="col-md-12 d-flex gap-4">
+            <div class="col-md-12 d-flex gap-2">
                 <div class="backIcon d-md-flex d-none" role="button" (click)="goBack()" style="height: auto;">
                     <span class="fa-solid fa-chevron-left"></span>
                 </div>
