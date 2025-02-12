@@ -1,8 +1,8 @@
 <ng-container [ngSwitch]="componentswitch">
-	<ng-container *ngSwitchCase=1>
+	<ng-container *ngSwitchCase="1">
 		<uni-salaryhackscountries [prepData]="prepData" (windowChange)="windowChange($event)"></uni-salaryhackscountries>
 	</ng-container>
-	<ng-container *ngSwitchCase=2>
+	<ng-container *ngSwitchCase="2">
 		<uni-salaryhackslists [prepData]="prepData" (windowChange)="windowChange($event)"></uni-salaryhackslists>
 	</ng-container>
 </ng-container>

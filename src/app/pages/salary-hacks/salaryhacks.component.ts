@@ -12,18 +12,57 @@ import { SelectModule } from 'primeng/select';
 import { InputGroupModule } from 'primeng/inputgroup';
 import { InputTextModule } from 'primeng/inputtext';
 import { InputGroupAddonModule } from 'primeng/inputgroupaddon';
+import { SalaryhacksCountryListsComponent } from "./salary-hack-countries/salaryhackcountries.component";
+import { SalaryhacksListsComponent } from "./salaryhackslists/salaryhackslists.component";
+import { MessageService } from 'primeng/api';
+import { AuthService } from "src/app/Auth/auth.service";
+import { PageFacadeService } from "../page-facade.service";
+import { SalaryHacksService } from "./salaryhacks.service";
+
 @Component({
   selector: "uni-salary-hacks",
   templateUrl: "./salaryhacks.component.html",
   standalone: true,
-  imports: [CommonModule, RouterModule, DialogModule, CardModule, PaginatorModule, FormsModule, ReactiveFormsModule, CarouselModule, ButtonModule, MultiSelectModule, SelectModule, InputGroupModule, InputTextModule, InputGroupAddonModule],
+  imports: [
+    CommonModule, 
+    RouterModule, 
+    DialogModule, 
+    CardModule, 
+    PaginatorModule, 
+    FormsModule, 
+    ReactiveFormsModule, 
+    CarouselModule, 
+    ButtonModule, 
+    MultiSelectModule, 
+    SelectModule, 
+    InputGroupModule, 
+    InputTextModule, 
+    InputGroupAddonModule,
+    SalaryhacksCountryListsComponent,
+    SalaryhacksListsComponent
+  ],
+  providers: [
+    MessageService,
+    AuthService,
+    PageFacadeService,
+    SalaryHacksService
+  ]
 })
 export class SalaryhacksComponent implements OnInit {
-  @Input() prepData: any;
-  ngOnInit(): void {}
-  componentswitch = 1;
+  @Input() prepData: any = {};
+  componentswitch: number = 1;
+
+  ngOnInit(): void {
+    // Initialize with default value if not set
+    if (!this.componentswitch) {
+      this.componentswitch = 1;
+    }
+  }
+
   windowChange(data: any) {
-    this.prepData = data;
-    this.componentswitch = data.stage;
+    if (data && typeof data.stage === 'number') {
+      this.prepData = { ...this.prepData, ...data };
+      this.componentswitch = data.stage;
+    }
   }
 }
