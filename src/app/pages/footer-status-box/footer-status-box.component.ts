@@ -12,7 +12,8 @@ import { AccordionModule } from 'primeng/accordion';
     templateUrl: './footer-status-box.component.html',
     styleUrls: ['./footer-status-box.component.scss'],
     standalone: true,
-    imports: [CommonModule, DialogModule, AccordionModule]
+    imports: [CommonModule, DialogModule, AccordionModule],
+    providers: [DashboardService, MessageService, AuthService]
 })
 export class FooterStatusBoxComponent implements OnInit {
     dashboardCount: any = [];
@@ -28,12 +29,16 @@ export class FooterStatusBoxComponent implements OnInit {
     }
 
     loadDashboardData() {
+        console.log('Loading dashboard data...');
         this.dashboardService.getDashboardCounts().subscribe((res: any) => {
+            console.log('Dashboard data response:', res);
             if (res.status === 404) {
+                console.error('404 status received');
                 return;
             }
             this.dashboardCount = res;
         }, err => {
+            console.error('Error loading dashboard data:', err);
             this.toast.add({severity: 'Alert', summary: 'Alert', detail: err});
         });
     }
