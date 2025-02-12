@@ -1013,110 +1013,130 @@ export class HeaderComponent implements OnInit, OnDestroy {
 
 	subScribedUserCount(): void {
 		this.service.getNewUserTimeLeft().subscribe((res) => {
-			this.currentUserSubscriptionPlan = res?.subscription_details?.subscription_plan
-			this.enterpriseSubscriptionLink = res.enterprise_subscription_link
-			let data = res.time_left
-			if (data.plan === "not_started") {
-				this.visible = false
-			} else {
-				this.getTimer(data.minutes, data.seconds, data.hours, data.days, data.months)
-			}
-		})
-	}
-
-	getTimer(minute: any, sec: any, hours: any, days: any, months: any): void {
-		let totalSeconds: number = hours * 3600 + minute * 60 + sec
-		let textSec: string | number = "0"
-
+		  this.currentUserSubscriptionPlan = res?.subscription_details?.subscription_plan;
+		  this.enterpriseSubscriptionLink = res.enterprise_subscription_link;
+		  let data = res.time_left;
+		  if (data.plan === "not_started") {
+			this.visible = false;
+		  } else {
+			this.getTimer(
+			  data.minutes,
+			  data.seconds,
+			  data.hours,
+			  data.days,
+			  data.months
+			);
+		  }
+		});
+	  }
+	
+	  getTimer(minute: any, sec: any, hours: any, days: any, months: any): void {
+		let totalSeconds: number = hours * 3600 + minute * 60 + sec;
+		let textSec: string | number = "0";
+	
 		this.timerInterval = setInterval(() => {
-			totalSeconds--
-
-			const hoursLeft: number = Math.floor(totalSeconds / 3600)
-			const minutesLeft: number = Math.floor((totalSeconds % 3600) / 60)
-			const secondsLeft: number = totalSeconds % 60
-
-			this.min$ = minutesLeft < 10 && minutesLeft > 0 ? "0" + minutesLeft.toString() : minutesLeft.toString()
-			this.sec$ = secondsLeft < 10 && secondsLeft > 0 ? "0" + secondsLeft.toString() : secondsLeft.toString()
-
-			this.hrs$ = hoursLeft
-			// this.min$ = textMin;
-			// this.sec$ = textSec;
-			this.month$ = months
-			this.day$ = days
-			if (minute <= 0 && hours <= 0 && sec <= 0) {
-				this.hrs$ = 0
-				this.min$ = 0
-				this.sec$ = 0
-			}
-			//else {
-			//   this.hrs$ = hoursLeft;
-			//   this.min$ = textMin;
-			//   this.sec$ = textSec;
-			// }
-
-			if (minutesLeft <= 0 && this.hrs$ <= 0 && this.day$ <= 0 && secondsLeft <= 0 && this.month$ <= 0) {
-				this.visibleExhasted = true
-				clearInterval(this.timerInterval)
-			}
-		}, 1000)
-	}
-
-	checkNewUser(): void {
+		  totalSeconds--;
+	
+		  const hoursLeft: number = Math.floor(totalSeconds / 3600);
+		  const minutesLeft: number = Math.floor((totalSeconds % 3600) / 60);
+		  const secondsLeft: number = totalSeconds % 60;
+	
+		  this.min$ =
+			minutesLeft < 10 && minutesLeft > 0 ? "0" + minutesLeft.toString() : minutesLeft.toString();
+		  this.sec$ =
+			secondsLeft < 10 && secondsLeft > 0 ? "0" + secondsLeft.toString() : secondsLeft.toString();
+	
+		  this.hrs$ = hoursLeft;
+		  // this.min$ = textMin;
+		  // this.sec$ = textSec;
+		  this.month$ = months;
+		  this.day$ = days;
+		  if (minute <= 0 && hours <= 0 && sec <= 0) {
+			this.hrs$ = 0;
+			this.min$ = 0;
+			this.sec$ = 0;
+		  }
+		  //else {
+		  //   this.hrs$ = hoursLeft;
+		  //   this.min$ = textMin;
+		  //   this.sec$ = textSec;
+		  // }
+	
+		  if (
+			minutesLeft <= 0 &&
+			this.hrs$ <= 0 &&
+			this.day$ <= 0 &&
+			secondsLeft <= 0 &&
+			this.month$ <= 0
+		  ) {
+			this.visibleExhasted = true;
+			clearInterval(this.timerInterval);
+		  }
+		}, 1000);
+	  }
+	
+	  checkNewUser(): void {
 		this.service.getNewUserTimeLeft().subscribe((res) => {
-			this.currentUserSubscriptionPlan = res?.subscription_details?.subscription_plan
-			this.enterpriseSubscriptionLink = res.enterprise_subscription_link
-			this.dashboardService.updatedata(res.time_left)
-			let data = res.time_left
-			if (data.plan === "on_progress") {
-				this.userLoginTimeLeftCount = false
-				this.timer(data.minutes, data.seconds, data.hours)
-			}
-		})
-	}
-
-	timer(minute: any, sec: any, hours: any): void {
-		let totalSeconds: number = hours * 3600 + minute * 60 + sec
-		let textSec: string | number = "0"
-
+		  this.currentUserSubscriptionPlan = res?.subscription_details?.subscription_plan;
+		  this.enterpriseSubscriptionLink = res.enterprise_subscription_link;
+		  this.dashboardService.updatedata(res.time_left);
+		  let data = res.time_left;
+		  if (data.plan === "on_progress") {
+			this.userLoginTimeLeftCount = false;
+			this.timer(data.minutes, data.seconds, data.hours);
+		  }
+		});
+	  }
+	
+	  timer(minute: any, sec: any, hours: any): void {
+		let totalSeconds: number = hours * 3600 + minute * 60 + sec;
+		let textSec: string | number = "0";
+	
 		this.timerInterval = setInterval(() => {
-			totalSeconds--
-
-			const hoursLeft: number = Math.floor(totalSeconds / 3600)
-			const minutesLeft: number = Math.floor((totalSeconds % 3600) / 60)
-			const secondsLeft: number = totalSeconds % 60
-
-			this.timeHours = hoursLeft
-			this.timeLeftMins = minutesLeft < 10 && minutesLeft > 0 ? "0" + minutesLeft : minutesLeft.toString()
-			this.timeLeftSecs = secondsLeft < 10 && secondsLeft > 0 ? "0" + secondsLeft : secondsLeft.toString()
-			if (this.timeLeftMins == "00") {
-				this.timeLeftMins = 0
-			}
-			if (this.timeLeftSecs == "00") {
-				this.timeLeftSecs = 0
-			}
-			if (minute <= 0 && hours <= 0 && sec <= 0) {
-				this.timeHours = 0
-				this.timeLeftMins = 0
-				this.timeLeftSecs = 0
-			}
-			// else {
-			//   this.timeHours = hoursLeft;
-			//   this.timeLeftMins = textMin;
-			//   this.timeLeftSecs = textSec;
-			// }
-			console.log(minutesLeft)
-			if (minutesLeft <= 0 && this.timeHours <= 0 && secondsLeft <= 0) {
-				this.visible = true
-				this.locationService.trialEnds().subscribe((res) => {
-					console.log(res)
-				})
-				clearInterval(this.timerInterval)
-			}
-			this.min$ = minutesLeft
-			this.sec$ = secondsLeft
-			this.hrs$ = this.timeHours
-		}, 1000)
-	}
+		  totalSeconds--;
+	
+		  const hoursLeft: number = Math.floor(totalSeconds / 3600);
+		  const minutesLeft: number = Math.floor((totalSeconds % 3600) / 60);
+		  const secondsLeft: number = totalSeconds % 60;
+	
+		  this.timeHours = hoursLeft;
+		  this.timeLeftMins =
+			minutesLeft < 10 && minutesLeft > 0 ? "0" + minutesLeft : minutesLeft.toString();
+		  this.timeLeftSecs =
+			secondsLeft < 10 && secondsLeft > 0 ? "0" + secondsLeft : secondsLeft.toString();
+		  if (this.timeLeftMins == '00') {
+			this.timeLeftMins = 0;
+		  }
+		  if (this.timeLeftSecs == '00') {
+			this.timeLeftSecs = 0;
+		  }
+		  if (minute <= 0 && hours <= 0 && sec <= 0) {
+			this.timeHours = 0;
+			this.timeLeftMins = 0;
+			this.timeLeftSecs = 0;
+		  }
+		  // else {
+		  //   this.timeHours = hoursLeft;
+		  //   this.timeLeftMins = textMin;
+		  //   this.timeLeftSecs = textSec;
+		  // }
+		  console.log(minutesLeft)
+		  if (
+			minutesLeft <= 0 &&
+			this.timeHours <= 0 &&
+			secondsLeft <= 0
+		  ) {
+			this.visible = true;
+			this.locationService.trialEnds().subscribe((res) => {
+			  console.log(res)
+			})
+			clearInterval(this.timerInterval);
+		  }
+		  this.min$ = minutesLeft
+		  this.sec$ = secondsLeft
+		  this.hrs$ = this.timeHours;
+		}, 1000);
+	  }
 
 	onSubmit(op: any) {
 		let data
