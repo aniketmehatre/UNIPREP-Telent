@@ -12,10 +12,12 @@ import { ButtonModule } from 'primeng/button';
 import { MultiSelectModule } from 'primeng/multiselect';
 import { CarouselModule } from 'primeng/carousel';
 import { InputGroupModule } from 'primeng/inputgroup';
+import { InputIconModule } from 'primeng/inputicon';
 import { InputGroupAddonModule } from 'primeng/inputgroupaddon';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { SelectModule } from 'primeng/select';
-
+import { DialogModule } from 'primeng/dialog';
+import { CardModule } from 'primeng/card';
 
 
 @Component({
@@ -23,7 +25,7 @@ import { SelectModule } from 'primeng/select';
     templateUrl: './travel-glossary.component.html',
     styleUrls: ['./travel-glossary.component.scss'],
     standalone: true,
-    imports: [CommonModule,SkeletonModule,FluidModule,InputTextModule,TooltipModule,ButtonModule,MultiSelectModule,CarouselModule,InputGroupModule,InputGroupAddonModule,FormsModule,ReactiveFormsModule,InputTextModule,SelectModule]
+    imports: [CommonModule,SkeletonModule,FluidModule,InputTextModule,TooltipModule,ButtonModule,MultiSelectModule,CarouselModule,InputGroupModule,InputGroupAddonModule,FormsModule,ReactiveFormsModule,InputTextModule,SelectModule,DialogModule,CardModule,InputIconModule]
 })
 export class TravelGlossaryComponent implements OnInit {
   category_dropdown: { id: any, name: string }[] = [];

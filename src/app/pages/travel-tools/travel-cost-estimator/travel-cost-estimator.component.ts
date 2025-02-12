@@ -3,19 +3,28 @@ import { TravelToolsService } from '../travel-tools.service';
 import { CountryandCurrency } from 'src/app/@Models/currency.model';
 import { TravelCostEstimatorQuestionList } from '../trvel-tool-questions';
 import { TravelCostEstimator } from 'src/app/@Models/chat-gpt.model';
-import { Router } from '@angular/router';
+import { Router, RouterModule } from '@angular/router';
 import { CostOfLivingService } from '../../job-tool/cost-of-living/cost-of-living.service';
 import { City } from 'src/app/@Models/cost-of-living';
 import { MessageService } from 'primeng/api';
 import { ToastModule } from 'primeng/toast';
 import { CommonModule } from '@angular/common';
-
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { CarouselModule } from 'primeng/carousel';
+import { ButtonModule } from 'primeng/button';
+import { DialogModule } from 'primeng/dialog';
+import { MultiSelectModule } from 'primeng/multiselect';
+import { SelectModule } from 'primeng/select';
+import { CardModule } from 'primeng/card';
+import { InputGroupModule } from 'primeng/inputgroup';
+import { InputTextModule } from 'primeng/inputtext';
+import { InputGroupAddonModule } from 'primeng/inputgroupaddon';
 @Component({
 	selector: "uni-travel-cost-estimator",
 	templateUrl: "./travel-cost-estimator.component.html",
 	styleUrls: ["./travel-cost-estimator.component.scss"],
 	standalone: true,
-	imports: [ToastModule, CommonModule],
+	imports: [ToastModule, CommonModule, FormsModule, ReactiveFormsModule, CarouselModule, ButtonModule, CommonModule, RouterModule, DialogModule, MultiSelectModule, SelectModule, CardModule, InputGroupModule, InputTextModule, InputGroupAddonModule]
 })
 export class TravelCostEstimatorComponent implements OnInit {
 	recommendations: { id: number; question: string }[] = TravelCostEstimatorQuestionList
