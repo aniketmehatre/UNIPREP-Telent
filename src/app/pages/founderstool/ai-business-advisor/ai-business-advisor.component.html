@@ -76,7 +76,7 @@
                   </ng-container>
                   <ng-container *ngIf="recommendation.id == 6">
                     <div class="w-100 d-flex gap-2 flex-fill">
-                      <p-dropdown  [(ngModel)]="selectedData[8]" [options]="currencyandCountryList" [filter]="true"
+                      <p-dropdown  [(ngModel)]="selectedData[8]" [options]="currencyList" [filter]="true"
                         filterBy="currency_code" placeholder=" Currency" appendTo="body" optionLabel="currency_code" optionValue="currency_code"
                         [autoDisplayFirst]="false">
                       </p-dropdown>
@@ -84,7 +84,7 @@
                         />
                     </div>  
                     <div class="text-center" [ngClass]="{ 'd-none': inValidClass === false }" style="color: red">
-                      Budget is required
+                      Budget is required or maximum 5 digit allowed 
                     </div>
                   </ng-container>
                   <ng-container *ngIf="recommendation.id == 7">
@@ -124,7 +124,7 @@
   <ng-container *ngIf="isRecommendationData">
     <div class="card-header border-0 bg-transparent">
         <div class="row justify-content-center align-items-center">
-            <div class="col-md-12 d-flex gap-4">
+            <div class="col-md-12 d-flex gap-2">
                 <div class="backIcon d-md-flex d-none" role="button" (click)="goBack()" style="height: auto;">
                     <span class="fa-solid fa-chevron-left"></span>
                 </div>
@@ -152,15 +152,10 @@
           <div class="col-md-2"></div>
           <div class="col-md-8">
               <div class="d-flex justify-content-end gap-3 mb-3">
-                  <button pButton type="button" (click)="downloadRecommadation()"
+                  <button pButton type="button" (click)="downloadRecommendation()"
                       class="btn btn-secondary btn-rounded p-1 ps-4">
                       <span class="me-2">Download</span><span class="btn-icon px-2 py-2">
                           <i class="fa-regular fa-download"></i></span>
-                  </button>
-                  <button pButton type="button" (click)="onSaveRes()"
-                      class="btn btn-primary btn-rounded p-1 ps-4">
-                      <span class="me-2">Save Response</span><span class="btn-icon px-2 py-2">
-                          <i class="fa-regular fa-floppy-disk"></i></span>
                   </button>
               </div>
               <div class="card p-3 fs-5" [innerHtml]="recommendationData"></div>
