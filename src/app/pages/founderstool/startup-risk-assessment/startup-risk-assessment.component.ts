@@ -4,6 +4,19 @@ import { FounderstoolService } from '../founderstool.service';
 import { Router } from '@angular/router';
 import { riskAssessment } from './risk-assessment.data';
 import { MessageService } from 'primeng/api';
+import { CommonModule } from '@angular/common';
+import { RouterModule } from '@angular/router';
+import { DialogModule } from 'primeng/dialog';
+import { CardModule } from 'primeng/card';
+import { PaginatorModule } from 'primeng/paginator';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { CarouselModule } from 'primeng/carousel';
+import { ButtonModule } from 'primeng/button';
+import { MultiSelectModule } from 'primeng/multiselect';
+import { SelectModule } from 'primeng/select';
+import { InputGroupModule } from 'primeng/inputgroup';
+import { InputTextModule } from 'primeng/inputtext';
+import { InputGroupAddonModule } from 'primeng/inputgroupaddon';
 
 interface DropDown {
   [key: string]: string;
@@ -13,7 +26,8 @@ interface DropDown {
     selector: 'uni-startup-risk-assessment',
     templateUrl: './startup-risk-assessment.component.html',
     styleUrls: ['./startup-risk-assessment.component.scss'],
-    standalone: false
+    standalone: true,
+    imports: [CommonModule, RouterModule, DialogModule, CardModule, PaginatorModule, FormsModule, ReactiveFormsModule, CarouselModule, ButtonModule, MultiSelectModule, SelectModule, InputGroupModule, InputTextModule, InputGroupAddonModule]
 })
 export class StartupRiskAssessmentComponent implements OnInit {
   recommendations: { id: number, question: string }[] = [

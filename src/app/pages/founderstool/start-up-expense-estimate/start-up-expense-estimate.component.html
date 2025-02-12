@@ -35,10 +35,10 @@
                     <h5 class="uniprep-primary fw-semibold mt-3 mb-1">
                       {{ recommendation.question.branches[0] }}
                     </h5>
-                    <p-dropdown styleClass="w-100" appendTo="body" [options]="industryList" [filter]="true"
+                    <p-select styleClass="w-100" appendTo="body" [options]="industryList" [filter]="true"
                       formControlName="industry" filterBy="Industry" optionLabel="Industry" placeholder="Industry" optionValue="Industry"
                       [autoDisplayFirst]="false">
-                    </p-dropdown>
+                    </p-select>
                     <p class="text-center" *ngIf="marketingForm.get('industry')?.errors?.required && submitted"
                       style="color: red">
                       Please enter the industry type
@@ -74,10 +74,10 @@
                     <h5 class="uniprep-primary fw-semibold mt-3 mb-1">
                       {{ recommendation.question.branches[2] }}
                     </h5>
-                    <p-dropdown styleClass="w-100" appendTo="body" [options]="currencyandCountryList" [filter]="true"
+                    <p-select styleClass="w-100" appendTo="body" [options]="currencyandCountryList" [filter]="true"
                       formControlName="location" filterBy="country" optionLabel="country" optionValue="country" placeholder="Location"
                       [autoDisplayFirst]="false">
-                    </p-dropdown>
+                    </p-select>
                     <p class="text-center" *ngIf="marketingForm.get('location')?.errors?.required && submitted"
                       style="color: red">
                       Please Choose Any one option
@@ -150,10 +150,10 @@
                       {{ recommendation.question.branches[1] }}
                     </h5>
                     <div class="w-100 d-flex gap-2 flex-fill">
-                      <p-dropdown formControlName="investment_currency_code" [options]="currencyandCountryList" [filter]="true"
+                      <p-select formControlName="investment_currency_code" [options]="currencyandCountryList" [filter]="true"
                         filterBy="currency_code" placeholder=" Currency" optionLabel="currency_code" optionValue="currency_code"
                         [autoDisplayFirst]="false">
-                      </p-dropdown>
+                      </p-select>
                       <input class="w-100 pl-4 border border-gray rounded-3" type="number" [min]="100" pInputText placeholder="Investment Amount"
                         formControlName="current_investment" />
                     </div>  
