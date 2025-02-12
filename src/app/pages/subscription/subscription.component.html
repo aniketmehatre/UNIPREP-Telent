@@ -1,67 +1,70 @@
 <ng-container [ngSwitch]="stage">
-  <ng-container *ngSwitchCase="1">
-    <uni-subscription-data
-      (upgrade)="start()"
-      [history]="(orderHistory$ | async) || []"
-      [billing]="user"
-      [subscriptions]="subscriptionDetail$ | async"
-      (subscriptionPlan)="pay($event)"
-      [showHistoryBtn]="showHistoryBtn"
-      (showHistory)="showHistory($event)"
-    ></uni-subscription-data>
-  </ng-container>
-  <ng-container *ngSwitchCase="2">
-    <uni-subscription-list
-      [whichOneVisible]="isSubOrQuestion"
-      (selected)="onSelectSubscription($event)"
-      (selectedCredit)="onSelectQuestionCredit($event)"
-      [country]="countryList"
-      [plans]="(subscriptions$ | async) || []"
-    ></uni-subscription-list>
-  </ng-container>
-  <ng-container *ngSwitchCase="3">
-    <uni-subscription-billing
-      (pay)="pay($event)"
-      (payQuestionCredit)="payQuestionCredit()"
-      (change)="changePlan()"
-      (changeQuestionCreditPlan)="changeQuestionCreditPlan()"
-      [loading]="(orderLoading$ | async) || false"
-      [plan]="selectedSubscription"
-      [planQuestionCredit]="selectedQuestionCredit"
-    ></uni-subscription-billing>
-  </ng-container>
-  <ng-container *ngSwitchCase="4">
-    <uni-subscription-success [plan]="success"></uni-subscription-success>
-  </ng-container>
-  <ng-container *ngSwitchCase="5">
-    <uni-subscription-history
-      [userSubscription]="userSubscription"
-      [subscribedHistoryList]="subscribedHistoryData"
-      (showPlan)="showPlan($event)"
-      [showPlanBtn]="showPlanBtn"
-      [subscribedCountryList]="subscribedCountryList"
-      [accountBillingList]="accountBillingData"
-    ></uni-subscription-history>
-  </ng-container>
-<p-dialog
-  [modal]="true"
-  [(visible)]="cardvisibility"
-  [style]="{ width: '40rem', height: 'auto' }"
->
-  <div style="padding: 2rem !important">
-    <div *ngIf="elementsOptions.clientSecret">
-      <ngx-stripe-elements
-        [elementsOptions]="elementsOptions"
-      >
-        <ngx-stripe-payment></ngx-stripe-payment>
-      </ngx-stripe-elements>
-    </div>
-    <button
-      class="mt-5 pt-3 pb-3 btn btn-basic w-100 m-0 btn btn-primary"
-      (click)="paywithstripe()"
-    >
-     <i class="fa-solid fa-lock mx-2"></i> Pay {{ selectedcost | currency: currencyType }}
-    </button>
-  </div>
-</p-dialog>
+	<ng-container *ngSwitchCase="1">
+		<uni-subscription-data
+			(upgrade)="start()"
+			[history]="(orderHistory$ | async) || []"
+			[billing]="user"
+			[subscriptions]="subscriptionDetail$ | async"
+			(subscriptionPlan)="pay($event)"
+			[showHistoryBtn]="showHistoryBtn"
+			(showHistory)="showHistory($event)">
+		</uni-subscription-data>
+	</ng-container>
+
+	<ng-container *ngSwitchCase="2">
+		<uni-subscription-list
+			[whichOneVisible]="isSubOrQuestion"
+			(selected)="onSelectSubscription($event)"
+			(selectedCredit)="onSelectQuestionCredit($event)"
+			[country]="countryList"
+			[plans]="(subscriptions$ | async) || []">
+		</uni-subscription-list>
+	</ng-container>
+
+	<ng-container *ngSwitchCase="3">
+		<uni-subscription-billing
+			(pay)="pay($event)"
+			(payQuestionCredit)="payQuestionCredit()"
+			(change)="changePlan()"
+			(changeQuestionCreditPlan)="changeQuestionCreditPlan()"
+			[loading]="(orderLoading$ | async) || false"
+			[plan]="selectedSubscription"
+			[planQuestionCredit]="selectedQuestionCredit">
+		</uni-subscription-billing>
+	</ng-container>
+
+	<ng-container *ngSwitchCase="4">
+		<uni-subscription-success [plan]="success">
+		</uni-subscription-success>
+	</ng-container>
+
+	<ng-container *ngSwitchCase="5">
+		<uni-subscription-history
+			[userSubscription]="userSubscription"
+			[subscribedHistoryList]="subscribedHistoryData"
+			(showPlan)="showPlan($event)"
+			[showPlanBtn]="showPlanBtn"
+			[subscribedCountryList]="subscribedCountryList"
+			[accountBillingList]="accountBillingData">
+		</uni-subscription-history>
+	</ng-container>
+
+	<p-dialog
+		[modal]="true"
+		[(visible)]="cardvisibility"
+		[style]="{ width: '40rem', height: 'auto' }">
+		<div style="padding: 2rem !important">
+			<div *ngIf="elementsOptions.clientSecret">
+				<ngx-stripe-elements [elementsOptions]="elementsOptions">
+					<ngx-stripe-payment></ngx-stripe-payment>
+				</ngx-stripe-elements>
+			</div>
+			<button
+				class="mt-5 pt-3 pb-3 btn btn-basic w-100 m-0 btn btn-primary"
+				(click)="paywithstripe()">
+				<i class="fa-solid fa-lock mx-2"></i>
+				Pay {{ selectedcost | currency : currencyType }}
+			</button>
+		</div>
+	</p-dialog>
 </ng-container>

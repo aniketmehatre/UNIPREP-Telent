@@ -2,12 +2,25 @@ import {Component, EventEmitter, Input, OnInit, Output} from "@angular/core";
 import {customsopSubscriptionplans} from "../../../@Models/subscription";
 import {AuthService} from "../../../Auth/auth.service";
 import {SubscriptionService} from "../subscription.service";
-
+import { CommonModule } from "@angular/common";
+import { DialogModule } from "primeng/dialog";
+import { RouterModule } from '@angular/router';
+import { CardModule } from 'primeng/card';
+import { PaginatorModule } from 'primeng/paginator';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { CarouselModule } from 'primeng/carousel';
+import { ButtonModule } from 'primeng/button';
+import { MultiSelectModule } from 'primeng/multiselect';
+import { SelectModule } from 'primeng/select';
+import { InputGroupModule } from 'primeng/inputgroup';
+import { InputTextModule } from 'primeng/inputtext';
+import { InputGroupAddonModule } from 'primeng/inputgroupaddon';
 @Component({
     selector: "uni-subscription-list",
     templateUrl: "./subscription-list.component.html",
     styleUrls: ["./subscription-list.component.scss"],
-    standalone: false
+    standalone: true,
+    imports: [CommonModule, DialogModule, RouterModule, CardModule, PaginatorModule, FormsModule, ReactiveFormsModule, CarouselModule, ButtonModule, MultiSelectModule, SelectModule, InputGroupModule, InputTextModule, InputGroupAddonModule],
 })
 export class SubscriptionListComponent implements OnInit {
     @Input() plans: customsopSubscriptionplans[] = [];

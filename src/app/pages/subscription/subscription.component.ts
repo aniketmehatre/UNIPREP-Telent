@@ -17,12 +17,27 @@ import { NgxUiLoaderService } from "ngx-ui-loader"
 import { CommonModule } from "@angular/common"
 import { FormsModule, ReactiveFormsModule } from "@angular/forms"
 import { DialogModule } from "primeng/dialog"
+import { SubscriptionHistoryComponent } from "./subscription-history/subscription-history.component"
+import { SubscriptionDataComponent } from "./subscription-data/subscription-data.component"
+import { SubscriptionListComponent } from "./subscription-list/subscription-list.component"
+import { SubscriptionBillingComponent } from "./subscription-billing/subscription-billing.component"
+import { SubscriptionSuccessComponent } from "./subscription-success/subscription-success.component"
 @Component({
 	selector: "uni-subscription",
 	templateUrl: "./subscription.component.html",
 	styleUrls: ["./subscription.component.scss"],
 	standalone: true,
-	imports: [CommonModule, FormsModule, ReactiveFormsModule, DialogModule],
+	imports: [
+		CommonModule, 
+		FormsModule, 
+		ReactiveFormsModule, 
+		DialogModule,
+		SubscriptionHistoryComponent,
+		SubscriptionDataComponent,
+		SubscriptionListComponent,
+		SubscriptionBillingComponent,
+		SubscriptionSuccessComponent
+	],
 })
 export class SubscriptionComponent implements OnInit {
 	stage = 1

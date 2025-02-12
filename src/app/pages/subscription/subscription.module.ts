@@ -35,20 +35,19 @@ import { ConfirmDialogModule } from 'primeng/confirmdialog';
 import { ConfirmationService, MessageService } from 'primeng/api';
 import { NgxStripeModule } from 'ngx-stripe';
 import { environment } from '@env/environment';
+import { RouterModule } from '@angular/router';
 @NgModule({
-    declarations: [
-        
+    imports: [
+        CommonModule,
+        RouterModule,
+        SubscriptionRoutingModule,
         BuyCreditsComponent,
         SubscriptionBillingComponent,
         SubscriptionDataComponent,
         SubscriptionListComponent,
         SubscriptionSuccessComponent,
         SubscriptionHistoryComponent,
-        UpgradeSubscriptionComponent
-    ],
-    imports: [
-        CommonModule,
-        SubscriptionRoutingModule,
+        UpgradeSubscriptionComponent,
         SubscriptionComponent,
         InputMaskModule,
         InputTextModule,
