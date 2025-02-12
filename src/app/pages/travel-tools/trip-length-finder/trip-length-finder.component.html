@@ -38,12 +38,12 @@
                                     styleClass="w-100" (onChange)="hideWarning(recommendation.id)">
                                     <ng-template pTemplate="filter" let-options="options">
                                         <div class="d-flex gap-2">
-                                            <div class="p-inputgroup" (click)="$event.stopPropagation()">
-                                                <span class="p-inputgroup-addon">
-                                                    <i class="pi pi-search"></i></span>
+                                            <p-inputgroup (click)="$event.stopPropagation()">
+                                                <p-inputgroup-addon>
+                                                    <i class="fa-solid fa-search"></i></p-inputgroup-addon>
                                                 <input type="text" pInputText placeholder="Filter"
                                                     [(ngModel)]="destinationFilter" (keyup)="customFilterFunction()" />
-                                            </div>
+                                            </p-inputgroup>
                                             <button pButton  pButton icon="pi pi-times" class="btn btn-primary"
                                                 (click)="resetFunction()" severity="secondary"></button>
                                         </div>

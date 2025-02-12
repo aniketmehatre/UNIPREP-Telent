@@ -36,7 +36,7 @@
 											<ng-template pTemplate="filter" let-options="options">
 												<div class="d-flex gap-2">
 													<p-inputgroup (click)="$event.stopPropagation()">
-														<p-inputgroup-addon> <i class="pi pi-search"></i></p-inputgroup-addon>
+														<p-inputgroup-addon> <i class="fa-solid fa-search"></i></p-inputgroup-addon>
 														<input type="text" pInputText placeholder="Filter" [(ngModel)]="departureFilter" name="departureFilter" (keyup)="customFilterFunction('departure')" />
 													</p-inputgroup>
 													<button pButton  pButton icon="pi pi-times" class="btn btn-primary" (click)="resetFunction('departure')" severity="secondary"></button>
@@ -69,10 +69,10 @@
 										<p-select [options]="destinationLocationList" [virtualScroll]="true" [virtualScrollItemSize]="50" [(ngModel)]="selectedData[recommendation.id]" name="destination" [appendTo]="'body'" placeholder="Destination Country" [filter]="true" [showClear]="true" styleClass="w-100">
 											<ng-template pTemplate="filter" let-options="options">
 												<div class="d-flex gap-2">
-													<div class="p-inputgroup" (click)="$event.stopPropagation()">
-														<span class="p-inputgroup-addon"> <i class="pi pi-search"></i></span>
+													<p-inputgroup (click)="$event.stopPropagation()">
+														<p-inputgroup-addon> <i class="fa-solid fa-search"></i></p-inputgroup-addon>
 														<input type="text" pInputText placeholder="Filter" [(ngModel)]="destinationFilter" name="destinationFilter" (keyup)="customFilterFunction('destination')" />
-													</div>
+													</p-inputgroup>
 													<button pButton  pButton icon="pi pi-times" class="btn btn-primary" (click)="resetFunction('destination')" severity="secondary"></button>
 												</div>
 											</ng-template>
@@ -115,10 +115,10 @@
 											<ng-template pTemplate="selectedItem" let-selectedOption> {{ selectedOption.country }} - {{ selectedOption.currency_code }} </ng-template>
 											<ng-template pTemplate="filter" let-options="options">
 												<div class="d-flex gap-2">
-													<div class="p-inputgroup" (click)="$event.stopPropagation()">
-														<span class="p-inputgroup-addon"> <i class="pi pi-search"></i></span>
+													<p-inputgroup (click)="$event.stopPropagation()">
+														<p-inputgroup-addon> <i class="fa-solid fa-search"></i></p-inputgroup-addon>
 														<input type="text" pInputText placeholder="Filter" [(ngModel)]="currencyFilter" name="currencyFilter" (keyup)="customFilterFunction('currency')" />
-													</div>
+													</p-inputgroup>
 													<button pButton  pButton icon="pi pi-times" class="btn btn-primary" (click)="resetFunction('currency')" severity="secondary"></button>
 												</div>
 											</ng-template>

@@ -401,12 +401,12 @@
           <a class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">View Offers</a>
         </div>
 
-        <div class="p-inputgroup inputheight mt-1">
+        <p-inputgroup class=" inputheight mt-1">
           <input [(ngModel)]="couponInput" (keyup)="onInput($event)" pInputText
             placeholder="Enter Your coupon code Here" type="text" [readonly]="iscouponReadonly" />
           <i class="fa-solid fa-xmark-large" *ngIf="showCross" (click)="clearCoupon()"></i>
           <button pButton  (click)="applyCoupon()" class="btn-primary" label="Apply" pButton pRipple type="button"></button>
-        </div>
+        </p-inputgroup>
         <p class="mb-0 small"><span class="uniprep-lightgray" *ngIf="!invalidCoupon">Please enter a discount code to
             avail further discounts</span><span class="text-danger" *ngIf="invalidCoupon">You entered an invalid
             discount code. Please check the code and try again</span>&nbsp;</p>

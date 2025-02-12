@@ -4,7 +4,7 @@
       <div class="row justify-content-center align-items-center mt-2">
         <div class="col-md-6 col-lg-4">
           <span class="p-input-icon-left w-100">
-            <i class="pi pi-search"></i>
+            <i class="fa-solid fa-search"></i>
             <input class="form-control w-100 rounded-input" formControlName="what_and" pInputText placeholder="  Search by Job Title, Skill, Company" style="width: 100% !important" type="text" />
           </span>
         </div>
@@ -53,7 +53,7 @@
                 <div class="col-md-12">
                   <label class="form-label" style="font-size: small; font-weight: 500">Search by Job Title</label>
                   <span class="p-input-icon-left w-100">
-                    <i class="pi pi-search"></i>
+                    <i class="fa-solid fa-search"></i>
                     <input class="form-control w-100" formControlName="what_and" (input)="searchJob($event)" pInputText placeholder="Job Title" style="width: 100% !important" type="text" />
                   </span>
                   <ul *ngIf="filterJobTitle.length > 0" class="dropdown-list">
@@ -65,7 +65,7 @@
                   <div class="form-group">
                     <div class="mb-3">
                       <span class="p-input-icon-left w-100">
-                        <i class="pi pi-search"></i>
+                        <i class="fa-solid fa-search"></i>
                         <input type="text" formControlName="countryCode" (input)="searchLocation($event)" class="form-control w-100" pInputText placeholder="Location" />
                       </span>
                       <ul *ngIf="filteredCity.length > 0" class="dropdown-list">
@@ -98,7 +98,7 @@
                   <div class="form-group">
                     <div class="mb-3">
                       <span class="p-input-icon-left w-100">
-                        <i class="pi pi-search"></i>
+                        <i class="fa-solid fa-search"></i>
                         <p-select [filter]="true" [options]="categoryList" [showClear]="true" filterBy="label" formControlName="category" id="category" optionLabel="label" placeholder="Category" style="width: 100% !important" styleClass="w-100"></p-select>
                       </span>
                     </div>
@@ -118,7 +118,7 @@
                   <div class="form-group">
                     <div class="mb-3">
                       <span class="p-input-icon-left w-100">
-                        <i class="pi pi-search"></i>
+                        <i class="fa-solid fa-search"></i>
                         <p-select [filter]="true" [options]="jobTypeList" [showClear]="true" filterBy="name" formControlName="job_type" id="job_type" optionLabel="name" placeholder="Job Type" style="width: 100% !important" styleClass="w-100"></p-select>
                       </span>
                     </div>
@@ -130,7 +130,7 @@
                 <!--                        <div class="form-group">-->
                 <!--                            <div class="mb-3">-->
                 <!--                                <span class="p-input-icon-left w-100">-->
-                <!--                                    <i class="pi pi-search"></i>-->
+                <!--                                    <i class="fa-solid fa-search"></i>-->
                 <!--                                    <p-select id="distance" styleClass="w-100" style="width: 100% !important;"-->
                 <!--                                                formControlName="distance" [options]="distanceList" [filter]="true"-->
                 <!--                                                filterBy="name" [showClear]="true" optionLabel="name"-->

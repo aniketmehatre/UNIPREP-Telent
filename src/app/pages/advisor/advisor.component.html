@@ -9,8 +9,7 @@
 							Global Advisor<i class="questiontooltip fa-solid fa-circle-question"></i></h5>
 					</div>
 					<div>
-						<button pButton  class="how-it-works-button" severity="warn" >
-							(click)="openVideoPopup('https://www.youtube.com/embed/dcojCJtwck0?si=Dq6ONzGdpyzGwnhp')">How
+						<button pButton  class="how-it-works-button" severity="warn"  (click)="openVideoPopup('https://www.youtube.com/embed/dcojCJtwck0?si=Dq6ONzGdpyzGwnhp')">How
 							it works?<i class="fa-solid fa-play d-md-block d-none"></i></button>
 					</div>
 				</div>
@@ -197,12 +196,12 @@
 	<div class="card-footer border-0 bg-transparent">
 		<div class="row justify-content-center">
 			<div class="col-md-12">
-				<div class="p-inputgroup advisorinput">
+				<p-inputgroup class="advisorinput">
 					<input type="text" [(ngModel)]="userQuestion" (keyup)="lengthCheck()" pInputText (keydown.enter)="getAns()" 
 						placeholder="Ask any questions you have about traveling abroad, studying abroad, career or entrepreneurship!" />
 					<button pButton  type="button" (click)="getAns()" class="btn btn-success btn-rounded" pButton pRipple
 						[disabled]="smallquestion"><i class="fa-solid fa-stars"></i> {{responseType}}</button>
-				</div>
+				</p-inputgroup>
 				<!-- <small class="fw-semibold"	*ngIf="isQuestionEmpty" style="color:red">Please enter the question</small> -->
 			</div>
 		</div>

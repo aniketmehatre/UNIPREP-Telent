@@ -20,9 +20,9 @@
 						</div>
 					</span>
 					<div class="p-input-icon-left search-container mt-2" *ngIf="currentModuleId != 8">
-						<!--					<i class="pi pi-search alignment" *ngIf="currentModuleId != 5 && currentModuleId != 10"></i>-->
-						<!--					<i class="pi pi-search noalignment" *ngIf="currentModuleId == 5 || currentModuleId == 10"></i>-->
-						<!-- <i class="pi pi-search noalignment"  *ngIf="currentModuleId == 5 "></i> -->
+						<!--					<i class="fa-solid fa-search alignment" *ngIf="currentModuleId != 5 && currentModuleId != 10"></i>-->
+						<!--					<i class="fa-solid fa-search noalignment" *ngIf="currentModuleId == 5 || currentModuleId == 10"></i>-->
+						<!-- <i class="fa-solid fa-search noalignment"  *ngIf="currentModuleId == 5 "></i> -->
 						<!--					<input *ngIf="currentModuleId == 5 || 1 || 7 || 3 || 4" class="w-100 px-5 py-2" type="text" placeholder="Search Files" pInputText [(ngModel)]="searchUniversity" (input)="performSearch()" />-->
 						<!--                      
 							<input *ngIf="  currentModuleId ==  5   " class="w-100 px-5 py-2" type="text"
@@ -91,7 +91,7 @@
 				</div>
 				<div class="flex-shrink-0 align-items-center d-flex"  *ngIf="currentModuleId == 8">
 					<div class="p-input-icon-left h-100 w-100 search-container border-primary rounded-3">
-						<i class="pi pi-search"></i>
+						<i class="fa-solid fa-search"></i>
 						<input *ngIf="currentModuleId == 8" class="w-100 px-5 border-0 py-2 h-100 bg-transparent" type="text" placeholder="Look for you specialization" pInputText [(ngModel)]="searchLearning" (input)="performSearch()" />
 	
 						<div *ngIf="filteredData.length" class="dropdown-container text-start">
@@ -112,7 +112,7 @@
                 *ngIf="  currentModuleId ==  5 || 1 || 7 || 3 || 4  ">
 
                 <div class="p-input-icon-left w-100 mt-2 search-container" *ngIf=" currentModuleId != 8">
-                    <i class="pi pi-search"></i>
+                    <i class="fa-solid fa-search"></i>
                     <input *ngIf="  currentModuleId ==  5 || 1 || 7 || 3 || 4  " class="w-100 px-5 py-2" type="text"
                         placeholder="Search Files" pInputText [(ngModel)]="searchUniversity"
                         (input)="performSearch()" />

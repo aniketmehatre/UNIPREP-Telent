@@ -9,13 +9,18 @@ import {MessageService} from 'primeng/api';
 import { CommonModule } from '@angular/common';
 import { DialogModule } from 'primeng/dialog';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { InputTextModule } from 'primeng/inputtext';
+import { InputGroupModule } from 'primeng/inputgroup';
+import { InputGroupAddonModule } from 'primeng/inputgroupaddon';
+import { TextareaModule } from 'primeng/textarea';
+import { ButtonModule } from 'primeng/button';
 @Component({
     selector: 'uni-advisor',
     templateUrl: './advisor.component.html',
     styleUrls: ['./advisor.component.scss'],
     encapsulation: ViewEncapsulation.None,
     standalone: true,
-    imports: [CommonModule, DialogModule, FormsModule, ReactiveFormsModule],
+    imports: [CommonModule, DialogModule, FormsModule, ReactiveFormsModule, InputTextModule, InputGroupModule, InputGroupAddonModule, TextareaModule, ButtonModule],
 })
 export class AdvisorComponent implements OnInit {
   @ViewChild('chatContainer') private chatContainer: ElementRef;

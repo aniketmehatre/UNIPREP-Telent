@@ -102,22 +102,22 @@
 														<div class="row">
 															<div class="col-md-12 col-12">
 																<label class="text-muted text-small" for="home_country">Home Country<span class="required">*</span></label>
-																<div class="p-inputgroup">
-																	<div class="p-inputgroup-addon">
+																<p-inputgroup>
+																	<p-inputgroup-addon>
 																		<img class="bg-image text-center" src="../../../uniprep-assets/images/icons/Uniprep_Icons_select_country.png" />
-																	</div>
+																	</p-inputgroup-addon>
 																	<p-select styleClass="w-100" formControlName="home_country" appendTo="body" [options]="countryList" [filter]="true" (onChange)="changeLocation($event)" filterBy="country" optionLabel="country" optionValue="id" [autoDisplayFirst]="false"></p-select>
-																</div>
+																</p-inputgroup>
 																<div *ngIf="submitted && f['home_country']['errors']" class="UserInfoValidation">
 																	<div style="color: red" *ngIf="f['home_country']['errors']['required']">Country is required</div>
 																</div>
 															</div>
 															<div class="col-md-6 col-12 mt-2">
 																<label class="text-muted text-small" for="floatingPassword">Password<span class="required">*</span></label>
-																<div class="p-inputgroup">
-																	<div class="p-inputgroup-addon">
+																<p-inputgroup>
+																	<p-inputgroup-addon>
 																		<i class="fa-regular fa-lock"></i>
-																	</div>
+																	</p-inputgroup-addon>
 																	<input
 																		[type]="password"
 																		pInputText
@@ -133,7 +133,7 @@
 																			<i class="fa-regular fa-eye-slash" aria-hidden="true" *ngIf="show"></i>
 																		</span>
 																	</div>
-																</div>
+																</p-inputgroup>
 																<div *ngIf="submitted && f.password.errors" class="invalid-feedback">
 																	<div *ngIf="f.password.errors.required">Password is required</div>
 																	<div *ngIf="f.password.errors.minlength">Password must be at least 8 characters</div>
@@ -141,10 +141,10 @@
 															</div>
 															<div class="col-md-6 col-12">
 																<label class="text-muted text-small" for="confirmPassword">Confirm Password<span class="required">*</span></label>
-																<div class="p-inputgroup">
-																	<div class="p-inputgroup-addon">
+																<p-inputgroup>
+																	<p-inputgroup-addon>
 																		<i class="fa-regular fa-lock-hashtag"></i>
-																	</div>
+																	</p-inputgroup-addon>
 																	<input
 																		[type]="confirmPassword"
 																		pInputText
@@ -161,7 +161,7 @@
 																			<i class="fa-regular fa-eye-slash" aria-hidden="true" *ngIf="showConfirm"></i>
 																		</span>
 																	</div>
-																</div>
+																</p-inputgroup>
 																<div *ngIf="submitted && f.confirmPassword.errors" class="invalid-feedback">
 																	<div style="width: 120%" *ngIf="f.confirmPassword.hasError('matching')">Password and confirm password not match</div>
 																	<div *ngIf="f.confirmPassword.errors.required">Confirm Password is required</div>

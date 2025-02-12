@@ -29,7 +29,9 @@ import { catchError, switchMap, take } from "rxjs/operators"
 
 import { SelectModule } from "primeng/select"
 import { TabViewModule } from "primeng/tabview"
-
+import { InputGroupModule } from "primeng/inputgroup"
+import { InputGroupAddonModule } from "primeng/inputgroupaddon"
+import { TextareaModule } from 'primeng/textarea';
 @Component({
 	selector: "uni-header",
 	templateUrl: "./header.component.html",
@@ -50,6 +52,9 @@ import { TabViewModule } from "primeng/tabview"
 		InputTextModule,
 		PopoverModule,
 		SelectModule,
+		InputGroupModule,
+		InputGroupAddonModule,
+		TextareaModule,
 	],
 	providers: [MessageService, AuthService, LocationService, ThemeService, DashboardService, AssessmentService],
 })

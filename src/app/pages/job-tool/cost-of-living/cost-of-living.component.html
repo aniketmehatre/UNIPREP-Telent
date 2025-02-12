@@ -12,11 +12,11 @@
 						styleClass="w-100 border-secondary">
 						<ng-template pTemplate="filter" let-options="options">
 							<div class="d-flex gap-2">
-								<div class="p-inputgroup" (click)="$event.stopPropagation()">
-									<span class="p-inputgroup-addon"><i class="pi pi-search"></i></span>
+								<p-inputgroup (click)="$event.stopPropagation()">
+									<p-inputgroup-addon><i class="fa-solid fa-search"></i></p-inputgroup-addon>
 									<input type="text" pInputText placeholder="Filter" formControlName="sourceFilter"
 										(keyup)="customFilterFunction('source')" />
-								</div>
+								</p-inputgroup>
 								<button pButton  pButton icon="pi pi-times" class="btn btn-primary"
 									(click)="resetFunction('source')" severity="secondary"></button>
 							</div>
@@ -48,11 +48,11 @@
 						styleClass="w-100 border-primary">
 						<ng-template pTemplate="filter" let-options="options">
 							<div class="d-flex gap-2">
-								<div class="p-inputgroup" (click)="$event.stopPropagation()">
-									<span class="p-inputgroup-addon"><i class="pi pi-search"></i></span>
+								<p-inputgroup (click)="$event.stopPropagation()">
+									<p-inputgroup-addon><i class="fa-solid fa-search"></i></p-inputgroup-addon>
 									<input type="text" pInputText placeholder="Filter" formControlName="targetFilter"
 										(keyup)="customFilterFunction('target')" />
-								</div>
+								</p-inputgroup>
 								<button pButton  pButton icon="pi pi-times" class="btn btn-primary"
 									(click)="resetFunction('target')" severity="secondary"></button>
 							</div>

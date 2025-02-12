@@ -73,14 +73,14 @@
 
 	<ng-template pTemplate="footer">
 		<form action="" class="bg-light">
-			<div class="p-inputgroup d-flex align-items-center bg-light">
+			<p-inputgroup class=" d-flex align-items-center bg-light">
 				<input class="border-0 w-100 bg-light" pInputText name="message" id="message" [(ngModel)]="message" placeholder="Type your message" type="text" />
 				<div class="" role="button">
 					<span>
 						<img (click)="sendMsg()" alt="uni_send_icon" class="bg-image text-center" src="../../../uniprep-assets/images/icons/send_icon.svg" />
 					</span>
 				</div>
-			</div>
+			</p-inputgroup>
 		</form>
 	</ng-template>
 </p-dialog>

@@ -6,7 +6,7 @@
         <div class="row justify-content-center align-items-center text-center mt-2">
           <div class="col-md-5 col-lg-5 mb-2 mb-md-0 position-relative">
             <span class="p-input-icon-left w-100">
-              <i class="pi pi-search"></i>
+              <i class="fa-solid fa-search"></i>
               <input type="text" formControlName="what_and" (input)="searchJob($event)" class="form-control w-100 rounded-5 border-secondary" pInputText placeholder=" Search by Job Title" />
             </span>
             <ul *ngIf="filterJobTitle.length > 0" class="dropdown-list">
@@ -15,7 +15,7 @@
           </div>
           <div class="col-md-4 col-lg-3 mb-2 mb-md-0 position-relative">
             <span class="p-input-icon-left w-100">
-              <i class="pi pi-search"></i>
+              <i class="fa-solid fa-search"></i>
               <input type="text" formControlName="countryCode" (input)="searchLocation($event)" class="form-control w-100 rounded-5 border-gray" pInputText placeholder="Location" />
             </span>
             <ul *ngIf="filteredCity.length > 0" class="dropdown-listc">
@@ -31,7 +31,7 @@
           </div>
           <!-- <div class="col-md-4 col-lg-3 mb-2 mb-md-0">
                         <span class="p-input-icon-left w-100">
-                            <i class="pi pi-search"></i>
+                            <i class="fa-solid fa-search"></i>
                             <input type="text" formControlName="countryCode" (input)="searchLocation($event)" class="form-control w-100"
                                    pInputText placeholder="Location"/>
                         </span>
