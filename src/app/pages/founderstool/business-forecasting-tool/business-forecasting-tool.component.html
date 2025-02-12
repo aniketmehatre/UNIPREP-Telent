@@ -34,10 +34,10 @@
                                     <h5 class="uniprep-primary fw-semibold mt-3 mb-1">
                                         {{ recommendation.question.branches[0] }}
                                     </h5>
-                                    <p-dropdown styleClass="w-100" class="w-100" formControlName="industry" appendTo="body" [options]="industryList"
+                                    <p-select styleClass="w-100" class="w-100" formControlName="industry" appendTo="body" [options]="industryList"
                                     [filter]="true" filterBy="Industry" placeholder="Industry" optionLabel="Industry" optionValue="Industry"
                                      [autoDisplayFirst]="false">
-                                </p-dropdown>
+                                </p-select>
                                     <p class="text-center" *ngIf="form.get('industry')?.errors?.required && submitted" style="color: red">
                                         Please enter the industry type
                                     </p>

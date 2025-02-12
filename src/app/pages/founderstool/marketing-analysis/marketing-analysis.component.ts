@@ -11,6 +11,17 @@ import { UserManagementService } from '../../user-management/user-management.ser
 import { FounderstoolService } from '../founderstool.service';
 import { CommonModule } from '@angular/common';
 import { DialogModule } from 'primeng/dialog';
+import { RouterModule } from '@angular/router';
+import { CardModule } from 'primeng/card';
+import { PaginatorModule } from 'primeng/paginator';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { CarouselModule } from 'primeng/carousel';
+import { ButtonModule } from 'primeng/button';
+import { MultiSelectModule } from 'primeng/multiselect';
+import { SelectModule } from 'primeng/select';
+import { InputGroupModule } from 'primeng/inputgroup';
+import { InputTextModule } from 'primeng/inputtext';
+import { InputGroupAddonModule } from 'primeng/inputgroupaddon';
 export interface selectList {
   name: string;
 }
@@ -21,7 +32,7 @@ import { marketingAnalysisData } from './marketing-analysis.data';
     templateUrl: './marketing-analysis.component.html',
     styleUrls: ['./marketing-analysis.component.scss'],
     standalone: true,
-    imports: [CommonModule, DialogModule]
+    imports: [CommonModule, DialogModule, CardModule,RouterModule, PaginatorModule, FormsModule, ReactiveFormsModule, CarouselModule, ButtonModule, MultiSelectModule, SelectModule, InputGroupModule, InputTextModule, InputGroupAddonModule]
 })
 export class MarketingAnalysisComponent implements OnInit {
   locationList: any[] = [];
