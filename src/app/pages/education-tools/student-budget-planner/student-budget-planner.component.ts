@@ -2,26 +2,31 @@ import { Component, OnInit } from '@angular/core';
 import { EducationToolsService } from '../education-tools.service';
 import { TravelToolsService } from '../../travel-tools/travel-tools.service';
 import { AllCountryRes,UniversityRes,CurrencyList,SaveResponse,SavedReponseArray } from 'src/app/@Models/education-tools.model';
-import { Router } from '@angular/router';
+import { Router, RouterModule } from '@angular/router';
 import { MessageService } from 'primeng/api';
-import { InputTextModule } from 'primeng/inputtext';
-import { InputGroupModule } from 'primeng/inputgroup';
-import { InputGroupAddonModule } from 'primeng/inputgroupaddon';
-import { SelectModule } from 'primeng/select';
-import { CommonModule } from '@angular/common';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { ButtonModule } from 'primeng/button';
-import { SkeletonModule } from 'primeng/skeleton';
 import { CarouselModule } from 'primeng/carousel';
+import { CommonModule } from '@angular/common';
+import { ButtonModule } from 'primeng/button';
+import { DialogModule } from 'primeng/dialog';
+import { MultiSelectModule } from 'primeng/multiselect';
+import { SelectModule } from 'primeng/select';
+import { CardModule } from 'primeng/card';
+import { InputGroupModule } from 'primeng/inputgroup';
+import { InputIconModule } from 'primeng/inputicon';
+import { InputTextModule } from 'primeng/inputtext';
+import { InputGroupAddonModule } from 'primeng/inputgroupaddon';
+import { SkeletonModule } from 'primeng/skeleton';
 import { PaginatorModule } from 'primeng/paginator';
 import { FluidModule } from 'primeng/fluid';
+import { TooltipModule } from 'primeng/tooltip';
 
 @Component({
     selector: 'uni-student-budget-planner',
     templateUrl: './student-budget-planner.component.html',
     styleUrls: ['./student-budget-planner.component.scss'],
     standalone: true,
-    imports: [CommonModule,InputTextModule, InputGroupModule, InputGroupAddonModule, SelectModule, FormsModule, ReactiveFormsModule, ButtonModule, SkeletonModule, CarouselModule, PaginatorModule, FluidModule]
+    imports: [CommonModule,InputTextModule, InputGroupModule, InputGroupAddonModule, SelectModule, FormsModule, ReactiveFormsModule, ButtonModule, SkeletonModule, CarouselModule, PaginatorModule, FluidModule, DialogModule, MultiSelectModule, CardModule, RouterModule, TooltipModule, InputIconModule]
 })
 export class StudentBudgetPlannerComponent implements OnInit {
 
@@ -105,6 +110,8 @@ export class StudentBudgetPlannerComponent implements OnInit {
     { value: 'Upto 54 Months'},
     { value: 'Upto 60 Months'},
   ]
+  notfilledArray: string[] = [];
+
   ngOnInit(): void {
     this.dropdownValues();
   }
@@ -133,20 +140,26 @@ export class StudentBudgetPlannerComponent implements OnInit {
   next(productId: number): void {
     this.isSubmitted = true;
     let fillables: any = [];
+    this.notfilledArray = [];
     let isAllFieldsFields: boolean = true;
+    
     if(productId === 1){
       fillables = ['country','university','course_duration','stay_back'];
     }else if(productId === 2){
       fillables = ['currency','tution','accommodation','travel_expense','food_and_grocery','miscellaneous'];
     }
+    
     fillables.forEach((element:any) => {
-      if(!this.selectedData[element]){
+      if(!this.selectedData[element] || this.selectedData[element] === ''){
         isAllFieldsFields = false;
+        this.notfilledArray.push(element);
       }
     });
+    
     if(isAllFieldsFields){
       this.activePageIndex++;
       this.isSubmitted = false;
+      this.notfilledArray = [];
     }
   }
 
@@ -232,6 +245,7 @@ export class StudentBudgetPlannerComponent implements OnInit {
     this.isResponsePage = false;
     this.isOldResponse = false;
     this.activePageIndex = 0;
+    this.notfilledArray = [];
     this.selectedData = {...this.selectedDataArray}
   }
 }

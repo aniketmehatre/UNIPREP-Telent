@@ -15,11 +15,13 @@ import { QuizResponse } from "src/app/@Models/career-tool-category.model";
 import { NgxExtendedPdfViewerModule } from "ngx-extended-pdf-viewer";
 import { CommonModule } from "@angular/common";
 import { DialogModule } from "primeng/dialog";
+import { CarouselModule } from "primeng/carousel";
+import { ButtonModule } from "primeng/button";
 @Component({
   selector: "uni-academic-tools-quiz",
   templateUrl: "./academic-tools-quiz.component.html",
   styleUrls: ["./academic-tools-quiz.component.scss"],
-  imports: [NgxExtendedPdfViewerModule, DialogModule, CommonModule],
+  imports: [NgxExtendedPdfViewerModule, DialogModule, CommonModule, CarouselModule, ButtonModule],
   standalone: true,
 })
 export class AcademicToolsQuizComponent implements OnInit {

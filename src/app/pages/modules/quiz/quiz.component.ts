@@ -11,13 +11,15 @@ import { NgxUiLoaderService } from "ngx-ui-loader";
 import { Location } from '@angular/common';
 import { CommonModule } from '@angular/common';
 import { DialogModule } from 'primeng/dialog';
-
+import { CarouselModule } from 'primeng/carousel';
+import { ButtonModule } from 'primeng/button';  
+import { SkeletonModule } from 'primeng/skeleton';
 @Component({
     selector: 'uni-quiz',
     templateUrl: './quiz.component.html',
     styleUrls: ['./quiz.component.scss'],
     standalone: true,
-    imports: [CommonModule, DialogModule],
+    imports: [CommonModule, DialogModule, CarouselModule, ButtonModule],
 })
 export class QuizComponent implements OnInit {
   quizData: any[] = [];

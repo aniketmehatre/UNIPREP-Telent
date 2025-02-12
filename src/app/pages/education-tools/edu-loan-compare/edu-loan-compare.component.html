@@ -40,24 +40,24 @@
                                                             Name</label>
                                                     </div>
                                                     <div class="col-lg-4 mb-2">
-                                                        <p-dropdown [options]="bankNameList"
+                                                        <p-select [options]="bankNameList"
                                                             [filter]="true"
                                                             filterBy="name"
                                                             optionLabel="name"
                                                             optionValue="name"
                                                             formControlName="bankname"
                                                             placeholder="Select Bank" [panelStyle]="panelStyle" appendTo="body" styleClass="bank-dropdown">
-                                                        </p-dropdown>
+                                                        </p-select>
                                                     </div>
                                                     <div class="col-lg-4 mb-2">
-                                                        <p-dropdown [options]="bankNameList"
+                                                        <p-select [options]="bankNameList"
                                                              [filter]="true"
                                                              filterBy="name"
                                                              optionLabel="name"
                                                              optionValue="name"
                                                              formControlName="compare_bankname"
                                                             placeholder="Select Bank" [panelStyle]="panelStyle" appendTo="body" styleClass="w-100  bank-dropdown">
-                                                        </p-dropdown>
+                                                        </p-select>
                                                     </div>
                                                 </div>
                                                 <div class="text-danger text-center small"
@@ -72,26 +72,26 @@
                                                     </div>
                                                     <div class="col-lg-4 mb-2">
                                                         <div class="d-flex gap-2">
-                                                            <p-dropdown class="currency-dropdown"
+                                                            <p-select class="currency-dropdown"
                                                                 formControlName="currency"
                                                                 [options]="currencyandCountryList" [filter]="true"
                                                                 filterBy="currency_code" placeholder="Currency"
                                                                 optionLabel="currency_code" optionValue="currency_code"
                                                                 [autoDisplayFirst]="false">
-                                                            </p-dropdown>
+                                                            </p-select>
                                                             <input type="number" class="form-control w-100" [min]="100"
                                                                 formControlName="loanamount" placeholder="Amount">
                                                         </div>
                                                     </div>
                                                     <div class="col-lg-4 mb-2">
                                                         <div class="d-flex gap-2">
-                                                            <p-dropdown class="currency-dropdown"
+                                                            <p-select class="currency-dropdown"
                                                                 formControlName="compare_currency"
                                                                 [options]="currencyandCountryList" [filter]="true"
                                                                 filterBy="currency_code" placeholder="Currency"
                                                                 optionLabel="currency_code" optionValue="currency_code"
                                                                 [autoDisplayFirst]="false">
-                                                            </p-dropdown> 
+                                                            </p-select> 
                                                             <input type="number" class="form-control w-100 m-0" [min]="100"
                                                                 formControlName="compare_loanamount" placeholder="Amount">
                                                         </div>
@@ -107,18 +107,18 @@
                                                             </label>
                                                     </div>
                                                     <div class="col-lg-4 mb-2">
-                                                        <p-dropdown [options]="currencyandCountryList"
+                                                        <p-select [options]="currencyandCountryList"
                                                             optionLabel="country" optionValue="country" [filter]="true"
                                                             filterBy="country" formControlName="location"  appendTo="body"
                                                             placeholder="Select Location" styleClass="w-100">
-                                                        </p-dropdown>
+                                                        </p-select>
                                                     </div>
                                                     <div class="col-lg-4 mb-2">
-                                                        <p-dropdown [options]="currencyandCountryList"
+                                                        <p-select [options]="currencyandCountryList"
                                                             optionLabel="country" optionValue="country" [filter]="true"
                                                             filterBy="country" formControlName="compare_location"  appendTo="body"
                                                             placeholder="Select Location" styleClass="w-100">
-                                                        </p-dropdown>
+                                                        </p-select>
                                                     </div>
                                                 </div>
                                                 <div class="text-danger text-center small"
@@ -147,16 +147,16 @@
                                                         <label class="form-label uniprep-primary fw-bold">Interest Rate Type</label>
                                                     </div>
                                                     <div class="col-lg-4 mb-2">
-                                                        <p-dropdown [options]="interestedRateTypeList"
+                                                        <p-select [options]="interestedRateTypeList"
                                                            formControlName="interestrate_type"
                                                             placeholder="Fixed/Floating" styleClass="w-100" appendTo="body">
-                                                        </p-dropdown>
+                                                        </p-select>
                                                     </div>
                                                     <div class="col-lg-4 mb-2">
-                                                        <p-dropdown [options]="interestedRateTypeList"
+                                                        <p-select [options]="interestedRateTypeList"
                                                             formControlName="compare_interestrate_type"
                                                             placeholder="Fixed/Floating" styleClass="w-100"  appendTo="body">
-                                                        </p-dropdown>
+                                                        </p-select>
                                                     </div>
                                                 </div>
                                                 <div class="text-danger text-center small"
@@ -171,18 +171,18 @@
                                                             class="form-label uniprep-primary fw-bold">Interest Rate</label>
                                                     </div>
                                                     <div class="col-lg-4 mb-2">
-                                                        <p-dropdown [options]="intersetedRateList"
+                                                        <p-select [options]="intersetedRateList"
                                                             appendTo="body"
                                                             formControlName="interestrate" placeholder="Rate"
                                                             styleClass="w-100">
-                                                        </p-dropdown>
+                                                        </p-select>
                                                     </div>
                                                     <div class="col-lg-4 mb-2">
-                                                        <p-dropdown [options]="intersetedRateList"
+                                                        <p-select [options]="intersetedRateList"
                                                             appendTo="body"
                                                             formControlName="compare_interestrate"
                                                             placeholder="Rate" styleClass="w-100">
-                                                        </p-dropdown>
+                                                        </p-select>
                                                     </div>
                                                 </div>
                                                 <div class="text-danger text-center small"
@@ -197,16 +197,16 @@
                                                             class="form-label uniprep-primary fw-bold">Interest Term</label>
                                                     </div>
                                                     <div class="col-lg-4 mb-2">
-                                                        <p-dropdown [options]="intersetedTermList"
+                                                        <p-select [options]="intersetedTermList"
                                                             formControlName="interestterm"  appendTo="body"
                                                             placeholder="Term" styleClass="w-100">
-                                                        </p-dropdown>
+                                                        </p-select>
                                                     </div>
                                                     <div class="col-lg-4 mb-2">
-                                                        <p-dropdown [options]="intersetedTermList"
+                                                        <p-select [options]="intersetedTermList"
                                                             formControlName="compare_interestterm"  appendTo="body"
                                                             placeholder="Term" styleClass="w-100">
-                                                        </p-dropdown>
+                                                        </p-select>
                                                     </div>
                                                 </div>
                                                 <div class="text-danger text-center small"
@@ -234,16 +234,16 @@
                                                         <label class="form-label uniprep-primary fw-bold">Study Duration</label>
                                                     </div>
                                                     <div class="col-lg-4 mb-2">
-                                                        <p-dropdown [options]="studyDurationList"
+                                                        <p-select [options]="studyDurationList"
                                                             formControlName="studyduration"
                                                             placeholder="Months" styleClass="w-100"  appendTo="body">
-                                                        </p-dropdown>
+                                                        </p-select>
                                                     </div>
                                                     <div class="col-lg-4 mb-2">
-                                                        <p-dropdown [options]="studyDurationList"
+                                                        <p-select [options]="studyDurationList"
                                                             formControlName="compare_studyduration"
                                                             placeholder="Months" styleClass="w-100"  appendTo="body">
-                                                        </p-dropdown>
+                                                        </p-select>
                                                     </div>
                                                 </div>
                                                 <div class="text-danger text-center small"
@@ -258,18 +258,18 @@
                                                             class="form-label uniprep-primary fw-bold">Moratorium Period</label>
                                                     </div>
                                                     <div class="col-lg-4 mb-2">
-                                                        <p-dropdown [options]="moratoriumPeriodList"
+                                                        <p-select [options]="moratoriumPeriodList"
                                                            appendTo="body"
                                                             formControlName="moratoriumperiod" placeholder="Period"
                                                             styleClass="w-100">
-                                                        </p-dropdown>
+                                                        </p-select>
                                                     </div>
                                                     <div class="col-lg-4 mb-2">
-                                                        <p-dropdown [options]="moratoriumPeriodList"
+                                                        <p-select [options]="moratoriumPeriodList"
                                                            appendTo="body"
                                                             formControlName="compare_moratoriumperiod"
                                                             placeholder="period" styleClass="w-100">
-                                                        </p-dropdown>
+                                                        </p-select>
                                                     </div>
                                                 </div>
                                                 <div class="text-danger text-center small"
@@ -284,18 +284,18 @@
                                                             class="form-label uniprep-primary fw-bold">Loan Repayment Start</label>
                                                     </div>
                                                     <div class="col-lg-4 mb-2">
-                                                        <p-dropdown [options]="repaymentLoanList"
+                                                        <p-select [options]="repaymentLoanList"
                                                             appendTo="body"
                                                             formControlName="loanrepaymentperiod"
                                                             placeholder="Period" styleClass="w-100">
-                                                        </p-dropdown>
+                                                        </p-select>
                                                     </div>
                                                     <div class="col-lg-4 mb-2">
-                                                        <p-dropdown [options]="repaymentLoanList"
+                                                        <p-select [options]="repaymentLoanList"
                                                             appendTo="body"
                                                             formControlName="compare_loanrepaymentperiod"
                                                             placeholder="Period" styleClass="w-100">
-                                                        </p-dropdown>
+                                                        </p-select>
                                                     </div>
                                                 </div>
                                                 <div class="text-danger text-center small"

@@ -29,21 +29,13 @@ import { SkeletonModule } from 'primeng/skeleton';
 import { RouterModule } from '@angular/router';
 
 @NgModule({
-  declarations: [
-    
-    
-    CourseNavigatorComponent,
-    PoliticianInsightsComponent,
-    CountryInsightsComponent,
-    CountryInsightsSubmoduleComponent,
-    
-    
-    WealthleaderreadansComponent,
-    
-    
-  ],
   imports: [
     CommonModule,
+    CountryInsightsSubmoduleComponent,
+    WealthleaderreadansComponent,
+    PoliticianInsightsComponent,
+    CountryInsightsComponent,
+    CourseNavigatorComponent,
     EducationToolsComponent,
     EducationToolsListComponent,
     RouterModule,

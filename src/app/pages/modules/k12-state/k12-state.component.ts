@@ -12,14 +12,14 @@ import {Location} from "@angular/common";
 import {filter} from "rxjs";
 import { CommonModule } from '@angular/common';
 import { DialogModule } from 'primeng/dialog';
-
+import { SkeletonModule } from 'primeng/skeleton';
 @Component({
     selector: 'uni-k12-state',
     templateUrl: './k12-state.component.html',
     styleUrls: ['./k12-state.component.scss'],
     providers: [ConfirmationService],
     standalone: true,
-    imports: [CommonModule, DialogModule]
+    imports: [CommonModule, DialogModule, SkeletonModule]
 })
 export class K12StateComponent implements OnInit {
 

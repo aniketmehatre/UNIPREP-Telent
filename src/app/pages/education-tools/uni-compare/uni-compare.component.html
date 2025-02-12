@@ -40,7 +40,7 @@
                                   <label class="form-label uniprep-primary fw-bold">Which country are you planning to study in</label>
                                 </div>
                                 <div class="col-lg-4 mb-2">
-                                  <p-dropdown [options]="universityCountryList"
+                                  <p-select [options]="universityCountryList"
                                              optionLabel="country"
                                              optionValue="id"
                                              [filter]="true"
@@ -48,10 +48,10 @@
                                              formControlName="country"
                                              placeholder="Country"
                                              styleClass="w-100" appendTo="body" (ngModelChange)="setUniversityList($event);">
-                                  </p-dropdown>
+                                  </p-select>
                                 </div>
                                 <div class="col-lg-4 mb-2">
-                                  <p-dropdown [options]="universityCountryList"
+                                  <p-select [options]="universityCountryList"
                                              optionLabel="country"
                                              optionValue="id"
                                              [filter]="true"
@@ -59,7 +59,7 @@
                                              formControlName="compare_country"
                                              placeholder="Compare Country"
                                              styleClass="w-100" appendTo="body" (ngModelChange)="setCompareUniversityList($event);">
-                                  </p-dropdown>
+                                  </p-select>
                                 </div>
                               </div>
                               <div class="text-danger text-center small" *ngIf="(form.get('country')?.errors?.required || form.get('compare_country')?.errors?.required) && submitted">
@@ -72,7 +72,7 @@
                                   <label class="form-label uniprep-primary fw-bold">University</label>
                                 </div>
                                 <div class="col-lg-4 mb-2 university-dropdown">
-                                  <p-dropdown [options]="universityList"
+                                  <p-select [options]="universityList"
                                               optionLabel="name"
                                               optionValue="name"
                                               filterBy="name"
@@ -82,11 +82,11 @@
                                               styleClass="w-100"
                                               appendTo="body"
                                               [panelStyle]="panelStyle"> <!-- Adjust width as needed -->
-                                  </p-dropdown>
+                                  </p-select>
                               </div>
                               
                               <div class="col-lg-4 mb-2 university-dropdown">
-                                  <p-dropdown [options]="compareUniversityList"
+                                  <p-select [options]="compareUniversityList"
                                               optionLabel="name"
                                               optionValue="name"
                                               filterBy="name"
@@ -96,7 +96,7 @@
                                               styleClass="w-100"
                                               appendTo="body"
                                               [panelStyle]="panelStyle"> <!-- Adjust width as needed -->
-                                  </p-dropdown>
+                                  </p-select>
                               </div>
                               
                               </div>
@@ -110,7 +110,7 @@
                                   <label class="form-label uniprep-primary fw-bold">Specialization</label>
                                 </div>
                                 <div class="col-lg-4 mb-2">
-                                  <p-dropdown [options]="specializationList"
+                                  <p-select [options]="specializationList"
                                              optionLabel="specialization_name"
                                              optionValue="specialization_name"
                                              [filter]="true"
@@ -118,10 +118,10 @@
                                              formControlName="specialization"
                                              placeholder="Select Field of Study"
                                              styleClass="w-100" appendTo="body">
-                                  </p-dropdown>
+                                  </p-select>
                                 </div>
                                 <div class="col-lg-4 mb-2">
-                                  <p-dropdown [options]="specializationList"
+                                  <p-select [options]="specializationList"
                                             optionLabel="specialization_name"
                                             optionValue="specialization_name"
                                             [filter]="true"
@@ -129,7 +129,7 @@
                                              formControlName="compare_specialization"
                                              placeholder="Compare Field of Study"
                                              styleClass="w-100" appendTo="body" >
-                                  </p-dropdown>
+                                  </p-select>
                                 </div>
                               </div>
                               <div class="text-danger text-center small" *ngIf="(form.get('specialization')?.errors?.required || form.get('compare_specialization')?.errors?.required) && submitted">
@@ -159,7 +159,7 @@
                                 </div>
                                 <div class="col-lg-4 mb-2">
                                   <div class="d-flex gap-2">
-                                    <p-dropdown class="currency-dropdown" 
+                                    <p-select class="currency-dropdown" 
                                               formControlName="currency_code" 
                                               [options]="currencyandCountryList" 
                                               [filter]="true"
@@ -168,7 +168,7 @@
                                               optionLabel="currency_code" 
                                               optionValue="currency_code"
                                               [autoDisplayFirst]="false">
-                                    </p-dropdown>
+                                    </p-select>
                                     <input type="number" 
                                            class="form-control w-100 m-0" 
                                            [min]="100"
@@ -179,7 +179,7 @@
                                 </div>
                                 <div class="col-lg-4 mb-2">
                                   <div class="d-flex gap-2">
-                                    <p-dropdown class="currency-dropdown" 
+                                    <p-select class="currency-dropdown" 
                                               formControlName="compare_currency_code" 
                                               [options]="currencyandCountryList" 
                                               [filter]="true"
@@ -188,7 +188,7 @@
                                               optionLabel="currency_code" 
                                               optionValue="currency_code"
                                               [autoDisplayFirst]="false">
-                                    </p-dropdown>
+                                    </p-select>
                                     <input type="number" 
                                            class="form-control w-100 m-0" 
                                            [min]="100" 
@@ -233,7 +233,7 @@
                                   <label class="form-label uniprep-primary fw-bold">Stay Back after Graduation</label>
                                 </div>
                                 <div class="col-lg-4 mb-2">
-                                  <p-dropdown [options]="stayBackAfterGraduations"
+                                  <p-select [options]="stayBackAfterGraduations"
                                              optionLabel="name"
                                              optionValue="name"
                                              [filter]="true"
@@ -241,10 +241,10 @@
                                              formControlName="period"
                                              placeholder="Select Period"
                                              styleClass="w-100" appendTo="body">
-                                  </p-dropdown>
+                                  </p-select>
                                 </div>
                                 <div class="col-lg-4 mb-2">
-                                  <p-dropdown [options]="stayBackAfterGraduations"
+                                  <p-select [options]="stayBackAfterGraduations"
                                              optionLabel="name"
                                              optionValue="name"
                                              [filter]="true"
@@ -252,7 +252,7 @@
                                              formControlName="compare_period"
                                              placeholder="Select Period"
                                              styleClass="w-100"  appendTo="body">
-                                  </p-dropdown>
+                                  </p-select>
                                 </div>
                               </div>
                               <div class="text-danger text-center small" *ngIf="(form.get('period')?.errors?.required || form.get('compare_period')?.errors?.required) && submitted">

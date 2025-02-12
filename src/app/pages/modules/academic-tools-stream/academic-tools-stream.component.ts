@@ -8,12 +8,13 @@ import { AuthService } from "src/app/Auth/auth.service"
 import { CommonModule } from "@angular/common"
 import { DialogModule } from "primeng/dialog"
 import { TooltipModule } from "primeng/tooltip"
+import { SkeletonModule } from "primeng/skeleton";
 @Component({
 	selector: "uni-academic-tools-stream",
 	templateUrl: "./academic-tools-stream.component.html",
 	styleUrls: ["./academic-tools-stream.component.scss"],
 	standalone: true,
-	imports: [CommonModule, DialogModule, TooltipModule],
+	imports: [CommonModule, DialogModule, TooltipModule, SkeletonModule],
 })
 export class AcademicToolsStreamComponent implements OnInit {
 	modulesList: any[] = []

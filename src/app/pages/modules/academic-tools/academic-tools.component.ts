@@ -4,14 +4,14 @@ import { AcademicToolCategory } from 'src/app/@Models/academic-tools.model';
 import { CategoryResponse } from 'src/app/@Models/career-tool-category.model';
 import { Router } from '@angular/router';
 import { CommonModule } from '@angular/common';
-
+import { SkeletonModule } from 'primeng/skeleton';
 
 @Component({
     selector: 'uni-academic-tools',
     templateUrl: './academic-tools.component.html',
     styleUrls: ['./academic-tools.component.scss'],
     standalone: true,
-    imports: [ CommonModule]
+    imports: [ CommonModule, SkeletonModule]
 })
 export class AcademicToolsComponent implements OnInit {
   moduleId = '15';

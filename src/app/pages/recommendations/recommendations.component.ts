@@ -4,6 +4,10 @@ import { Router, RouterOutlet } from "@angular/router";
 import { SubscriptionService } from '../subscription/subscription.service';
 import { PageFacadeService } from '../page-facade.service';
 import { CommonModule } from '@angular/common';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { CarouselModule } from 'primeng/carousel';
+import { ButtonModule } from 'primeng/button';
+import { RadioButtonModule } from 'primeng/radiobutton';
 
 interface Provider {
   modules: [],
@@ -17,7 +21,7 @@ interface Provider {
     templateUrl: './recommendations.component.html',
     styleUrls: ['./recommendations.component.scss'],
     standalone: true,
-    imports: [CommonModule, RouterOutlet]
+    imports: [CommonModule, RouterOutlet, FormsModule, ReactiveFormsModule, CarouselModule, ButtonModule, RadioButtonModule]
 })
 export class RecommendationsComponent implements OnInit {
   selectedData: { [key: string]: boolean } = {};

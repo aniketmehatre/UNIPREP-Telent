@@ -12,13 +12,14 @@ import {Meta, Title} from "@angular/platform-browser";
 import { Location } from "@angular/common";
 import { CommonModule } from '@angular/common';
 import { DialogModule } from 'primeng/dialog';
+import { SkeletonModule } from 'primeng/skeleton';
 @Component({
     selector: 'uni-k12-board',
     templateUrl: './k12-board.component.html',
     styleUrls: ['./k12-board.component.scss'],
     providers: [ConfirmationService],
     standalone: true,
-    imports: [CommonModule, DialogModule]
+    imports: [CommonModule, DialogModule, SkeletonModule] 
 })
 export class K12BoardComponent implements OnInit {
     answeredCorrect: number = 0;

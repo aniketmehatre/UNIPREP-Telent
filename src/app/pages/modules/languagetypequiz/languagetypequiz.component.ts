@@ -12,13 +12,14 @@ import { NgxUiLoaderService } from "ngx-ui-loader";
 import { Location } from '@angular/common';
 import { CommonModule } from '@angular/common';
 import { DialogModule } from 'primeng/dialog';
-
+import { CarouselModule } from 'primeng/carousel';
+import { ButtonModule } from 'primeng/button';
 @Component({
     selector: 'uni-languagetypequiz',
     templateUrl: './languagetypequiz.component.html',
     styleUrls: ['./languagetypequiz.component.scss'],
     standalone: true,
-    imports: [CommonModule, DialogModule],
+    imports: [CommonModule, DialogModule, CarouselModule, ButtonModule],
 })
 export class LanguagetypequizComponent implements OnInit {
 

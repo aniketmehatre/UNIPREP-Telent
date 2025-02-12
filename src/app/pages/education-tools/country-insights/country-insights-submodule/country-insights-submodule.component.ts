@@ -1,14 +1,25 @@
 import { Component, OnInit } from '@angular/core';
 import { EducationToolsService } from '../../education-tools.service';
 import { QuestionsList } from 'src/app/@Models/country-insights.model';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, RouterModule } from '@angular/router';
 import { Meta } from '@angular/platform-browser';
-
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { CarouselModule } from 'primeng/carousel';
+import { CommonModule } from '@angular/common';
+import { ButtonModule } from 'primeng/button';
+import { DialogModule } from 'primeng/dialog';
+import { MultiSelectModule } from 'primeng/multiselect';
+import { SelectModule } from 'primeng/select';
+import { CardModule } from 'primeng/card';
+import { InputGroupModule } from 'primeng/inputgroup';
+import { InputTextModule } from 'primeng/inputtext';
+import { InputGroupAddonModule } from 'primeng/inputgroupaddon';
 @Component({
     selector: 'uni-country-insights-submodule',
     templateUrl: './country-insights-submodule.component.html',
     styleUrls: ['./country-insights-submodule.component.scss'],
-    standalone: false
+    standalone: true,
+    imports: [FormsModule, ReactiveFormsModule, CarouselModule, ButtonModule, CommonModule, RouterModule, DialogModule, MultiSelectModule, SelectModule, CardModule, InputGroupModule, InputTextModule, InputGroupAddonModule]
 })
 export class CountryInsightsSubmoduleComponent implements OnInit {
   questionsList: QuestionsList[] = [];

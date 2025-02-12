@@ -12,13 +12,14 @@ import {Meta, Title} from "@angular/platform-browser";
 import { Location } from "@angular/common";
 import { CommonModule } from '@angular/common';
 import { DialogModule } from 'primeng/dialog';
+import { SkeletonModule } from 'primeng/skeleton';
 @Component({
     selector: 'uni-k12-class',
     templateUrl: './k12-class.component.html',
     styleUrls: ['./k12-class.component.scss'],
     providers: [ConfirmationService],
     standalone: true,
-    imports: [CommonModule, DialogModule]
+    imports: [CommonModule, DialogModule, SkeletonModule]
 })
 export class K12ClassComponent implements OnInit {
     subModuleList: any[] = [];

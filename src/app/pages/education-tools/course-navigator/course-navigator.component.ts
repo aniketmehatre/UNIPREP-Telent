@@ -1,16 +1,27 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
+import { ActivatedRoute, Router, RouterModule } from '@angular/router';
 import { EducationToolsService } from '../education-tools.service';
 import { Meta } from '@angular/platform-browser';
 import { MessageService } from 'primeng/api';
 import { CourseNavigator, EducatiionsRec } from 'src/app/@Models/course-navigator.model';
 import { CurrentSpecialization, BasicType, RecommandationQuestion } from 'src/app/@Models/recommandation-question.model';
-
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { CarouselModule } from 'primeng/carousel';
+import { CommonModule } from '@angular/common';
+import { ButtonModule } from 'primeng/button';
+import { DialogModule } from 'primeng/dialog';
+import { MultiSelectModule } from 'primeng/multiselect';
+import { SelectModule } from 'primeng/select';
+import { CardModule } from 'primeng/card';
+import { InputGroupModule } from 'primeng/inputgroup';
+import { InputTextModule } from 'primeng/inputtext';
+import { InputGroupAddonModule } from 'primeng/inputgroupaddon';
 @Component({
     selector: 'uni-course-navigator',
     templateUrl: './course-navigator.component.html',
     styleUrls: ['./course-navigator.component.scss'],
-    standalone: false
+    standalone: true,
+    imports: [FormsModule, ReactiveFormsModule, CarouselModule, ButtonModule, CommonModule, RouterModule, DialogModule, MultiSelectModule, SelectModule, CardModule, InputGroupModule, InputTextModule, InputGroupAddonModule]
 })
 export class CourseNavigatorComponent implements OnInit {
 

@@ -10,13 +10,14 @@ import {LocationService} from "../../../location.service";
 import {NgxUiLoaderService} from "ngx-ui-loader";
 import { CommonModule } from '@angular/common';
 import { DialogModule } from 'primeng/dialog';
-
+import { CarouselModule } from 'primeng/carousel';
+import { ButtonModule } from 'primeng/button';
 @Component({
     selector: 'uni-k12-quiz',
     templateUrl: './k12-quiz.component.html',
     styleUrls: ['./k12-quiz.component.scss'],
     standalone: true,
-    imports: [CommonModule, DialogModule]
+    imports: [CommonModule, DialogModule, CarouselModule, ButtonModule]
 })
 export class K12QuizComponent implements OnInit {
   quizData: any[] = [];

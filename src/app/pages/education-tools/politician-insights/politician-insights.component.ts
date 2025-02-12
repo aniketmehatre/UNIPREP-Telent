@@ -3,8 +3,18 @@ import { Subscription } from 'rxjs/internal/Subscription';
 import { EducationToolsService } from '../education-tools.service';
 import { AuthService } from 'src/app/Auth/auth.service';
 import { MessageService } from 'primeng/api';
-import { Router } from '@angular/router';
-
+import { Router, RouterModule } from '@angular/router';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { CarouselModule } from 'primeng/carousel';
+import { CommonModule } from '@angular/common';
+import { ButtonModule } from 'primeng/button';
+import { DialogModule } from 'primeng/dialog';
+import { MultiSelectModule } from 'primeng/multiselect';
+import { SelectModule } from 'primeng/select';
+import { CardModule } from 'primeng/card';
+import { InputGroupModule } from 'primeng/inputgroup';
+import { InputTextModule } from 'primeng/inputtext';
+import { InputGroupAddonModule } from 'primeng/inputgroupaddon';
 export interface Politician {
   name: string;
   country: string;
@@ -18,7 +28,8 @@ export interface Politician {
     selector: 'uni-politician-insights',
     templateUrl: './politician-insights.component.html',
     styleUrls: ['./politician-insights.component.scss'],
-    standalone: false
+    standalone: true,
+    imports: [FormsModule, ReactiveFormsModule, CarouselModule, ButtonModule, CommonModule, RouterModule, DialogModule, MultiSelectModule, SelectModule, CardModule, InputGroupModule, InputTextModule, InputGroupAddonModule]
 })
 export class PoliticianInsightsComponent implements OnInit, OnDestroy {
   recommendations: { id: number, question: string }[] = [

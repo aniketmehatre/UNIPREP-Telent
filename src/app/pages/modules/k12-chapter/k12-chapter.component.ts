@@ -12,13 +12,14 @@ import {filter} from "rxjs";
 import { Location } from "@angular/common";
 import { CommonModule } from '@angular/common';
 import { DialogModule } from 'primeng/dialog';
+import { SkeletonModule } from 'primeng/skeleton';
 @Component({
     selector: 'uni-k12-chapter',
     templateUrl: './k12-chapter.component.html',
     styleUrls: ['./k12-chapter.component.scss'],
     providers: [ConfirmationService],
     standalone: true,
-    imports: [CommonModule, DialogModule]
+    imports: [CommonModule, DialogModule, SkeletonModule]
 })
 export class K12ChapterComponent implements OnInit {
     answeredCorrect: number = 0;

@@ -74,8 +74,12 @@
                                             <h5 class="mt-2">Course Duration</h5>
                                         </div>
                                         <div class="col-md-6">
-                                            <p-select [options]="courseDurationList" styleClass="w-100" [(ngModel)]="selectedData['course_duration']" optionLabel="value"
-                                                optionValue="id" [appendTo]="'body'" placeholder="Select Duration">
+                                            <p-select [options]="courseDurationList" styleClass="w-100" 
+                                                [(ngModel)]="selectedData['course_duration']" 
+                                                optionLabel="value"
+                                                optionValue="value" 
+                                                [appendTo]="'body'" 
+                                                placeholder="Select Duration">
                                             </p-select>
                                             <div *ngIf="notfilledArray.includes('course_duration')" class="text-danger text-xs">
                                                 <div>Course Duration Required</div>
@@ -88,9 +92,9 @@
                                             <h5 class="mt-2">Stay Back Period</h5>
                                         </div>
                                         <div class="col-md-6">
-                                            <p-dropdown [options]="stayBackList" styleClass="w-100" [(ngModel)]="selectedData['stay_back']" optionLabel="value"
+                                            <p-select [options]="stayBackList" styleClass="w-100" [(ngModel)]="selectedData['stay_back']" optionLabel="value"
                                                 optionValue="value" [appendTo]="'body'" placeholder="Select Stay Back Months">
-                                            </p-dropdown>
+                                            </p-select>
                                             <!-- <input type="text" pInputText placeholder="Stay Back Months" class="w-100" disabled="true" [(ngModel)]="selectedData['stay_back']" /> -->
                                             <div *ngIf="!selectedData['stay_back'] && isSubmitted" class="text-danger text-xs">
                                                 <div>Stay Back Required</div>
