@@ -141,7 +141,7 @@
                         </div>
                     </div>
                     <p class="mb-0 text-center">Complete your profile for personalised content.</p>
-                    <button pButton  (click)="openMyProfile()"
+                    <button pButton  severity="contrast"  (click)="openMyProfile()"
                             class="btn btn-dark btn-rounded mt-3">{{ progress != 100 ? "Complete my profile" : "My Profile" }}
                     </button>
                 </div>
@@ -179,7 +179,7 @@
                         </div>
                     </div>
                     <p class="mb-0 text-center">Expand your horizons through reading.</p>
-                    <button pButton  (click)="openReading()"
+                    <button pButton (click)="openReading()"
                             class="btn btn-primary btn-rounded mt-3">{{ quizpercentage >= 90 ? "Completed" : "Start Reading" }}
                     </button>
                 </div>
@@ -194,7 +194,7 @@
                         <h5 class="mb-1 mt-2 uppercase">Quiz</h5>
                         <p class="mb-0">Get certified for completing the quiz with an extraordinary score.</p>
                     </div>
-                    <button pButton  (click)="openQuiz()" class="btn btn-secondary btn-rounded text-white font-weight-bold mt-3">
+                    <button pButton severity="warn" (click)="openQuiz()" class="btn btn-secondary btn-rounded text-white font-weight-bold mt-3">
                         Start Quiz
                     </button>
                 </div>

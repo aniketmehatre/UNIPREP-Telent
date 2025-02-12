@@ -45,7 +45,8 @@ const MyPreset = definePreset(Aura, {
                     800: '{ gray.800}',
                     900: '{ gray.900}',
                     950: '{ gray.950}'
-                }
+                },
+                accent: '{secondary.500}',
             },
             dark: {
                 surface: {
@@ -61,7 +62,8 @@ const MyPreset = definePreset(Aura, {
                     800: '{slate.800}',
                     900: '{slate.900}',
                     950: '{slate.950}'
-                }
+                },
+                accent: '{secondary.500}',
             }
         }
     }

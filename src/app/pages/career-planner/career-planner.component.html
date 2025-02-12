@@ -39,7 +39,7 @@
 						<div>&nbsp;</div>
 						<div class="row justify-content-center text-start">
 							<div class="col-md-12 mb-4">
-								<h5 class="uniprep-primary fw-semibold mb-0">Question Number {{ product.id }}</h5>
+								<h5 class="text-center uniprep-primary fw-semibold mb-0">Question Number {{ product.id }}</h5>
 								<h2 class="fw-bold mb-0 text-center">{{ product.question }}</h2>
 							</div>
 							<div class="col-md-4">
@@ -93,7 +93,7 @@
 										class="fa fa-arrow-right"></i></span>
 							</button>
 							<button pButton  pButton type="button" *ngIf="product.id == 9 || nxtOrRecommendBtn"
-								class="btn btn-success btn-rounded p-1 ps-4" (click)="getRecommendation(product.id)">
+								class="btn btn-success btn-rounded p-1 ps-4" (click)="getRecommendation(product.id)" severity="success">
 								<span class="me-2">Get Recommendations</span><span class="btn-icon px-2 py-2"><i
 										class="fa fa-check-circle"></i></span>
 							</button>

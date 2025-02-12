@@ -95,7 +95,7 @@
       <p-skeleton height="3.5rem" styleClass="mb-2"></p-skeleton>
     </ng-container>
     <ng-template #showQuiz>
-      <p class="text-start mb-0 fw-semibold uniprep-primary">Question Number {{ page + 1 }}</p>
+      <p class="text-center mb-0 fw-semibold uniprep-primary">Question Number {{ page + 1 }}</p>
       <h4 class="uniprep-primarydark fw-bold text-start pt-2 pb-2 text-capitalize">{{ activeQuestion }}</h4>
       <div class="d-flex p-3 my-1" style="border: 1px solid #e3e3e3; border-radius: 10px">
         <p-radioButton name="groupname" [value]="1" [(ngModel)]="selectedValue" inputId="opt1"></p-radioButton>

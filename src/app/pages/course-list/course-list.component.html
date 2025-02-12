@@ -23,7 +23,7 @@
               <div>&nbsp;</div>
               <div class="row justify-content-center text-start">
                 <div class="col-md-12 mb-4">
-                  <h5 class="uniprep-primary fw-semibold mb-0">Question Number {{ recommendation.id }}</h5>
+                  <h5 class="text-center uniprep-primary fw-semibold mb-0">Question Number {{ recommendation.id }}</h5>
                   <h2 class="fw-bold mb-0 text-center">{{ recommendation.question }}</h2>
                 </div>
                 <div class="col-md-6">
@@ -72,7 +72,7 @@
                 <button pButton  pButton type="button" (click)="next(recommendation.id)" *ngIf="recommendation.id != 6" class="btn btn-primary btn-rounded p-1 ps-4">
                   <span class="me-2">Next</span><span class="btn-icon px-2 py-2"><i class="fa fa-arrow-right"></i></span>
                 </button>
-                <button pButton  pButton type="button" (click)="getRecommendation()" *ngIf="recommendation.id == 6" class="btn btn-success btn-rounded p-1 ps-4">
+                <button pButton  pButton type="button" (click)="getRecommendation()" severity="success" *ngIf="recommendation.id == 6" class="btn btn-success btn-rounded p-1 ps-4">
                   <span class="me-2">Get Recommendations</span><span class="btn-icon px-2 py-2"><i class="fa fa-check-circle"></i></span>
                 </button>
               </div>

@@ -56,8 +56,7 @@
                 <div>&nbsp;</div>
                 <div class="row justify-content-center text-start">
                   <div class="col-md-12 mb-4">
-                    <h5 class="uniprep-primary fw-semibold mb-0">
-                      Question Number {{ recommendation.id }}
+                    <h5 class="text-center uniprep-primary fw-semibold mb-0">Question Number {{ recommendation.id }}
                     </h5>
 
                     <h2 class="fw-bold mb-0 text-center">{{ recommendation.question }}</h2>
@@ -232,7 +231,7 @@
                   <button pButton 
                     pButton
                     type="button"
-                    (click)="getRecommendation()"
+                    (click)="getRecommendation()" severity="success"
                     *ngIf="recommendation.id == 6"
                     class="btn btn-success btn-rounded p-1 ps-4"
                   >

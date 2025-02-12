@@ -127,7 +127,7 @@
             <ng-template [ngForOf]="quizData" let-i="index" let-val ngFor pTemplate="item">
               <div class="row text-center">
                 <div class="col-12 mb-4">
-                  <p class="text-start mb-0 fw-semibold uniprep-primary">Question Number {{ selectedQuiz }}</p>
+                  <p class="text-center mb-0 fw-semibold uniprep-primary">Question Number {{ selectedQuiz }}</p>
                   <h4 class="uniprep-primarydark fw-bold text-start pt-2 pb-2 text-capitalize">{{ val.question }}</h4>
                   <div class="py-1" role="button">
                     <input type="radio" value="{{ val.option1 }}" id="{{ val.otp1 }}" class="btn-check" name="options"
@@ -317,7 +317,7 @@
           <ng-template [ngForOf]="quizData" let-i="index" let-val ngFor pTemplate="item">
             <div class="row text-center">
               <div class="col-12 mt-3 mb-4">
-                <p class="text-start mb-0 fw-semibold uniprep-primary">Question Number {{ selectedQuiz }}</p>
+                <p class="text-center mb-0 fw-semibold uniprep-primary">Question Number {{ selectedQuiz }}</p>
                 <h4 class="uniprep-primarydark fw-bold text-start pt-2 pb-2 text-capitalize">{{ val.question }}</h4>
                 <div class="py-1">
                   <input type="radio" value="{{ val.option1 }}" id="{{ val.otp1 }}" class="btn-check" name="options"
