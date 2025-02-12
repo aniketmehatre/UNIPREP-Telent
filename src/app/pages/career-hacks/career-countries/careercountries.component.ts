@@ -6,13 +6,23 @@ import { Router } from "@angular/router";
 import { count } from "console";
 import { CommonModule } from "@angular/common";
 import { DialogModule } from "primeng/dialog";
-
+import { RouterModule } from '@angular/router';
+import { CardModule } from 'primeng/card';
+import { PaginatorModule } from 'primeng/paginator';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { CarouselModule } from 'primeng/carousel';
+import { ButtonModule } from 'primeng/button';
+import { MultiSelectModule } from 'primeng/multiselect';
+import { SelectModule } from 'primeng/select';
+import { InputGroupModule } from 'primeng/inputgroup';
+import { InputTextModule } from 'primeng/inputtext';
+import { InputGroupAddonModule } from 'primeng/inputgroupaddon';
 @Component({
   selector: "uni-careercountries",
   templateUrl: "./careercountries.component.html",
   styleUrls: ["./careercountries.component.scss"],
   standalone: true,
-  imports: [CommonModule, DialogModule],
+  imports: [CommonModule, DialogModule, RouterModule, CardModule, PaginatorModule, FormsModule, ReactiveFormsModule, CarouselModule, ButtonModule, MultiSelectModule, SelectModule, InputGroupModule, InputTextModule, InputGroupAddonModule],
 })
 export class CHCountryListsComponent implements OnInit {
   constructor(
