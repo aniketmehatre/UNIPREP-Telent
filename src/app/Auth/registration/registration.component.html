@@ -87,7 +87,7 @@
 															<form [formGroup]="emailOTPForm" class="formOTP" (ngSubmit)="onValidateEmailOTP()">
 																<h5 class="mt-3 text-center">Enter your OTP</h5>
 																<p class="text-center text-muted">We have sent you a one-time password to your email for verification</p>
-																<p-inputotp [(ngModel)]="otpValue" [integerOnly]="true" placeholder="Enter OTP" />
+																<p-inputotp formControlName="otp" [integerOnly]="true" [numberOfDigits]="4" placeholder="Enter OTP" />
 																<div *ngIf="otpError" class="invalid-feedback">
 																	<div *ngIf="otpError">Invalid OTP</div>
 																</div>

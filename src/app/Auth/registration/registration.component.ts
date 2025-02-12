@@ -22,13 +22,16 @@ import { SocialLoginModule } from "@abacritt/angularx-social-login"
 import { FormsModule, ReactiveFormsModule } from "@angular/forms"
 import { RouterModule } from "@angular/router"
 import { InputOtpModule } from "primeng/inputotp"
+import { ToastModule } from "primeng/toast"
+import { SelectModule } from "primeng/select"
+import { NgxIntlTelInputModule } from "ngx-intl-tel-input"
 
 @Component({
 	selector: "app-registration",
 	templateUrl: "./registration.component.html",
 	styleUrls: ["./registration.component.scss"],
 	standalone: true,
-	imports: [CommonModule, InputOtpModule, FluidModule, PasswordModule, RouterModule, InputTextModule, InputIconModule, InputGroupModule, InputGroupAddonModule, SocialLoginModule, FormsModule, ReactiveFormsModule],
+	imports: [CommonModule, InputOtpModule, FluidModule, PasswordModule, RouterModule, InputTextModule, InputIconModule, InputGroupModule, InputGroupAddonModule, SocialLoginModule, FormsModule, ReactiveFormsModule, ToastModule, SelectModule, NgxIntlTelInputModule],
 })
 export class RegistrationComponent implements OnInit {
 	@ViewChild("otp1") otp1!: ElementRef
@@ -179,10 +182,7 @@ export class RegistrationComponent implements OnInit {
 			otp4: ["", [Validators.required]],
 		})
 		this.emailOTPForm = this.formBuilder.group({
-			otp5: ["", [Validators.required]],
-			otp6: ["", [Validators.required]],
-			otp7: ["", [Validators.required]],
-			otp8: ["", [Validators.required]],
+			otp: ['', [Validators.required, Validators.minLength(4), Validators.maxLength(4)]]
 		})
 
 		this.GetLocationList()
@@ -477,26 +477,29 @@ export class RegistrationComponent implements OnInit {
 	}
 
 	onValidateEmailOTP() {
-		if (!this.otpValue) {
-			this.otpError = true
-			this.toastr.add({ severity: "error", summary: "Error", detail: "Please enter the OTP." })
-			return
+		const otpControl = this.emailOTPForm.get('otp');
+		const otpValue = otpControl?.value;
+
+		if (!otpValue || otpValue.length !== 4) {
+			this.toastr.add({ severity: "error", summary: "Error", detail: "Please enter a valid 4-digit OTP." });
+			return;
 		}
 
 		const data = {
-			otp: this.otpValue,
+			otp: otpValue,
 			email: this.registrationForm.value.emailAddress,
 		}
 
-		this.service.validateOtp(data).subscribe(
+		this.service.validateEmailOTP(data).subscribe(
 			(res) => {
-				this.isEmailOTPSend = false
-				this.toastr.add({ severity: "success", summary: "Success", detail: "OTP verified successfully." })
-				// Proceed with registration or next steps
+				this.isEmailOTPSend = false;
+				this.isEmailOTPValidated = true;
+				this.isRemainingFieldVisible = true;
+				this.toastr.add({ severity: "success", summary: "Success", detail: "OTP verified successfully." });
 			},
 			(error) => {
-				this.otpError = true
-				this.toastr.add({ severity: "error", summary: "Error", detail: error.message || "Invalid OTP." })
+				this.otpError = true;
+				this.toastr.add({ severity: "error", summary: "Error", detail: error.message || "Invalid OTP." });
 			}
 		)
 	}
