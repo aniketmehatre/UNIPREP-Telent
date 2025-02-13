@@ -600,92 +600,53 @@ export class HeaderComponent implements OnInit, OnDestroy {
 
 	private async handlePhoneVerification() {
 		try {
-			const encryptedPhone = localStorage.getItem("phone")
+			// Get phone from localStorage
+			const encryptedPhone = localStorage.getItem("phone");
 			if (!encryptedPhone) {
-				console.log("No encrypted phone data found")
-				return
+				this.formvisbility = true;
+				return;
 			}
 
-			// First try to decode base64 to check for malformed data
-			let decodedArray
-			try {
-				decodedArray = new Uint8Array(
-					atob(encryptedPhone)
-						.split("")
-						.map((char) => char.charCodeAt(0))
-				)
-			} catch (decodeError) {
-				console.error("Error decoding base64 data:", decodeError)
-				return
-			}
-
-			const key = await this.getKey(environment.secretKeySalt)
-
-			// Extract IV and encrypted data
-			const iv = decodedArray.slice(0, 12)
-			const data = decodedArray.slice(12)
-
-			const decrypted = await crypto.subtle.decrypt(
-				{
-					name: "AES-GCM",
-					iv: iv,
-				},
-				key,
-				data
-			)
-
-			// Check for valid UTF-8 data
-			let decryptedStr
-			try {
-				decryptedStr = new TextDecoder("utf-8", { fatal: true }).decode(decrypted)
-			} catch (utf8Error) {
-				console.error("Invalid UTF-8 data:", utf8Error)
-				return
-			}
-
-			// Validate JSON structure
-			let phone
-			try {
-				phone = JSON.parse(decryptedStr)
-				if (!phone || typeof phone !== "string") {
-					console.error("Invalid phone data format")
-					return
+			// Get decrypted phone using auth service
+			const decryptedPhone = await this.service.decryptData(encryptedPhone);
+			
+			// Handle the decrypted phone data
+			if (decryptedPhone && typeof decryptedPhone === 'string') {
+				let phoneValue;
+				try {
+					// Try to parse if it's JSON
+					phoneValue = decryptedPhone.startsWith('{') || decryptedPhone.startsWith('[') || decryptedPhone.startsWith('"') 
+						? JSON.parse(decryptedPhone)
+						: decryptedPhone;
+				} catch (parseError) {
+					console.warn('Failed to parse phone data:', parseError);
+					phoneValue = decryptedPhone;
 				}
-			} catch (jsonError) {
-				console.error("Invalid JSON data:", jsonError)
-				return
-			}
 
-			// Set form visibility based on phone value
-			this.formvisbility = !phone
+				// Set form visibility based on phone value
+				this.formvisbility = !phoneValue || phoneValue === "" || phoneValue === "null";
 
-			if (phone) {
-				this.phoneVerification.patchValue({
-					verification_phone: phone,
-				})
+				// Initialize phone verification form
+				this.phoneVerification = this.formBuilder.group({
+					verification_phone: [phoneValue || '', Validators.required],
+					choice: [false, Validators.required]
+				});
+			} else {
+				this.formvisbility = true;
+				this.phoneVerification = this.formBuilder.group({
+					verification_phone: ['', Validators.required],
+					choice: [false, Validators.required]
+				});
 			}
 		} catch (error) {
-			console.error("Error in handlePhoneVerification:", error)
-			this.formvisbility = true
+			console.error('Error in handlePhoneVerification:', error);
+			// Set safe defaults on error
+			this.formvisbility = true;
+			this.phoneVerification = this.formBuilder.group({
+				verification_phone: ['', Validators.required],
+				choice: [false, Validators.required]
+			});
 		}
-	}
-
-	private async getKey(salt: string): Promise<CryptoKey> {
-		const encoder = new TextEncoder()
-		const keyMaterial = await crypto.subtle.importKey("raw", encoder.encode(salt), { name: "PBKDF2" }, false, ["deriveBits", "deriveKey"])
-
-		return crypto.subtle.deriveKey(
-			{
-				name: "PBKDF2",
-				salt: encoder.encode("salt"),
-				iterations: 100000,
-				hash: "SHA-256",
-			},
-			keyMaterial,
-			{ name: "AES-GCM", length: 256 },
-			false,
-			["encrypt", "decrypt"]
-		)
 	}
 
 	private initializeReportForm() {
