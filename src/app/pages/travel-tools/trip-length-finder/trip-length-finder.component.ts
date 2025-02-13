@@ -4,7 +4,6 @@ import { Router } from '@angular/router';
 import { CostOfLivingService } from '../../job-tool/cost-of-living/cost-of-living.service';
 import { City } from 'src/app/@Models/cost-of-living';
 import { MessageService } from 'primeng/api';
-
 @Component({
   selector: 'uni-trip-length-finder',
   templateUrl: './trip-length-finder.component.html',
@@ -120,14 +119,27 @@ export class TripLengthFinderComponent implements OnInit {
   }
 
   downloadRecommadation() {
-    this.travelToolService.downloadRecommendation({ data: this.recommendationData }).subscribe({
-      next: res => {
-        window.open(res.url, "_blank");
-      },
-      error: err => {
-        console.log(err?.error?.message);
-      }
+    // this.travelToolService.downloadRecommendation({ data: this.recommendationData }).subscribe({
+    //   next: res => {
+    //     window.open(res.url, "_blank");
+    //   },
+    //   error: err => {
+    //     console.log(err?.error?.message);
+    //   }
+    // });
+
+    // let downloadString:string = "This is a paragraph with some text and emojis 😊🎉. Markdown processing with emojis works!";
+    let paramData: any = {
+      response: this.recommendationData,
+      module_name: "Trip Length Finder",
+      file_name: "trip_length_finder"
+    };
+    this.travelToolService.convertHTMLtoPDF(paramData).then(() => {
+      console.log("PDF successfully generated.");
+    }).catch(error => {
+      console.error("Error generating PDF:", error);
     });
+    
   }
 
   goBack() {
