@@ -1,10 +1,11 @@
-import { Component, Input, OnChanges, OnInit, SimpleChanges, ViewChild } from "@angular/core"
+import { Component, Input, OnChanges, OnInit, SimpleChanges, ViewChild, ChangeDetectionStrategy, ChangeDetectorRef } from "@angular/core"
 import { DashboardService } from "./dashboard.service"
 import { AuthService } from "../../Auth/auth.service"
 import { SubSink } from "subsink"
 import { Router } from "@angular/router"
 import { DataService } from "src/app/data.service"
-import { combineLatest } from "rxjs"
+import { combineLatest, forkJoin, of } from "rxjs"
+import { catchError, map, tap } from "rxjs/operators"
 import { Carousel } from "primeng/carousel"
 import { LocationService } from "src/app/location.service"
 import { CommonModule } from "@angular/common"
@@ -23,6 +24,7 @@ import { SelectModule } from "primeng/select"
 	standalone: true,
 	imports: [CommonModule, DialogModule, CarouselModule,  FormsModule, ButtonModule, TooltipModule, RouterModule, SelectModule],
 	providers: [DashboardService, AuthService, DataService, LocationService],
+	changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class DashboardComponent implements OnInit, OnChanges {
 	private subs = new SubSink()
@@ -68,7 +70,7 @@ export class DashboardComponent implements OnInit, OnChanges {
 	headerFlag!: string
 	currentModuleSlug: any
 	userData: any
-	constructor(private dashboardService: DashboardService, private service: AuthService, private router: Router, private dataService: DataService, private authService: AuthService, private locationService: LocationService) {
+	constructor(private dashboardService: DashboardService, private service: AuthService, private router: Router, private dataService: DataService, private authService: AuthService, private locationService: LocationService, private cdr: ChangeDetectorRef) {
 		this.responsiveOptions = [
 			{
 				breakpoint: "1024px",
@@ -91,96 +93,135 @@ export class DashboardComponent implements OnInit, OnChanges {
 	fieldsToCheck = ["name", "email", "phone", "home_country_id", "selected_country", "location_id", "last_degree_passing_year", "intake_year_looking", "intake_month_looking", "programlevel_id"]
 
 	ngOnInit(): void {
-		this.locationService.getImage().subscribe((imageUrl) => {
-			this.orglogowhitelabel = imageUrl
-		})
-		this.locationService.getOrgName().subscribe((orgname) => {
-			this.orgnamewhitlabel = orgname
-		})
+		// Initialize essential data first
+		this.initializeEssentialData();
+		
+		// Load other data in parallel
+		this.loadParallelData();
+	}
 
-		this.imagewhitlabeldomainname = window.location.hostname
-		if (this.imagewhitlabeldomainname === "dev-student.uniprep.ai" || this.imagewhitlabeldomainname === "uniprep.ai" || this.imagewhitlabeldomainname === "localhost") {
-			this.ehitlabelIsShow = true
-		} else {
-			this.ehitlabelIsShow = false
-		}
+	private initializeEssentialData(): void {
+		this.selectedCountryId = Number(localStorage.getItem("countryId"));
+		localStorage.setItem("currentmodulenameforrecently", "");
 
-		this.checkplanExpire()
-		this.selectedCountryId = Number(localStorage.getItem("countryId"))
-		this.enableReadingData()
+		// Load white label data
+		this.imagewhitlabeldomainname = window.location.hostname;
+		this.ehitlabelIsShow = this.imagewhitlabeldomainname === "dev-student.uniprep.ai" || 
+							  this.imagewhitlabeldomainname === "uniprep.ai" || 
+							  this.imagewhitlabeldomainname === "localhost";
+	}
 
-		localStorage.setItem("currentmodulenameforrecently", "")
+	private loadParallelData(): void {
+		const whitelabelData$ = forkJoin({
+			logo: this.locationService.getImage(),
+			orgName: this.locationService.getOrgName()
+		}).pipe(
+			catchError(() => of({ logo: null, orgName: null }))
+		);
 
-		// Use combineLatest to handle multiple subscriptions efficiently
-		this.subs.sink = combineLatest([this.dashboardService.getTrustedPartners(), this.dataService.countryFlagSource, this.service.getMe(), this.dataService.countryId]).subscribe(([partnerLogo, flagData, userData, countryId]) => {
+		const mainData$ = forkJoin({
+			partnerLogo: this.dashboardService.getTrustedPartners().pipe(catchError(() => of(null))),
+			userData: this.service.getMe().pipe(catchError(() => of(null))),
+			countryList: this.locationService.dashboardLocationList().pipe(catchError(() => of([]))),
+			planStatus: this.service.getNewUserTimeLeft().pipe(catchError(() => of(null))),
+			readProgression: this.dashboardService.getReadProgression({ countryId: this.selectedCountryId }).pipe(catchError(() => of(null))),
+			quizCompletion: this.dashboardService.checkModuleQuizCompletion({ countryid: this.selectedCountryId }).pipe(catchError(() => of(null)))
+		});
+
+		// Subscribe to whitelabel data
+		this.subs.sink = whitelabelData$.subscribe(({ logo, orgName }) => {
+			this.orglogowhitelabel = logo;
+			this.orgnamewhitlabel = orgName;
+			this.cdr.markForCheck();
+		});
+
+		// Subscribe to main data
+		this.subs.sink = mainData$.subscribe(({
+			partnerLogo,
+			userData,
+			countryList,
+			planStatus,
+			readProgression,
+			quizCompletion
+		}) => {
 			// Handle partner logo
-			this.partnerTrusterLogo = partnerLogo
-
-			// Handle flag data
-			if (flagData !== "") {
-				this.headerFlag = flagData
-			}
+			this.partnerTrusterLogo = partnerLogo;
 
 			// Handle user data
 			if (userData) {
-				this.userName = userData.userdetails[0].name.toString()
-				this.userData = userData.userdetails[0]
-
-				let filledCount = 0
-				const totalCount = this.fieldsToCheck.length
-
-				this.fieldsToCheck.forEach((field) => {
-					if (this.userData[field] != null && this.userData[field] !== undefined && this.userData[field] !== "") {
-						filledCount++
-					}
-				})
-
-				this.progress = Math.round((filledCount / totalCount) * 100)
-				this.setProgress(Math.round((filledCount / totalCount) * 100))
+				this.handleUserData(userData);
 			}
 
-			// Handle country ID
-			this.loadCountryList(countryId)
-		})
+			// Handle country list
+			if (countryList) {
+				this.handleCountryList(countryList);
+			}
 
-		// Load API data separately as it doesn't depend on the above data
-		this.loadApiData()
-		this.checkquizquestionmodule()
+			// Handle plan status
+			if (planStatus) {
+				this.handlePlanStatus(planStatus);
+			}
+
+			// Handle read progression
+			if (readProgression && readProgression.success) {
+				const percentage = Math.round(readProgression.readpercentage) || 0;
+				this.setProgress1(percentage);
+				this.progressReading = percentage;
+				this.certificatecountstudent = readProgression.certificatecount || 0;
+			}
+
+			// Handle quiz completion
+			if (quizCompletion) {
+				this.quizpercentage = quizCompletion.progress;
+			}
+
+			this.cdr.markForCheck();
+		});
+	}
+
+	private handleUserData(userData: any): void {
+		this.userName = userData.userdetails[0].name.toString();
+		this.userData = userData.userdetails[0];
+
+		let filledCount = 0;
+		const totalCount = this.fieldsToCheck.length;
+
+		this.fieldsToCheck.forEach((field) => {
+			if (this.userData[field] != null && this.userData[field] !== undefined && this.userData[field] !== "") {
+				filledCount++;
+			}
+		});
+
+		this.progress = Math.round((filledCount / totalCount) * 100);
+		this.setProgress(Math.round((filledCount / totalCount) * 100));
+	}
+
+	private handleCountryList(countryList: any[]): void {
+		this.carousel.page = 0;
+		this.countryLists = countryList;
+		
+		// Find selected country
+		const selectedCountry = this.countryLists.find((element: any) => element.id == this.selectedCountryId);
+		if (selectedCountry) {
+			this.selectedCountryName = selectedCountry.country;
+			this.headerFlag = selectedCountry.flag;
+			
+			// Move selected country to start of list
+			this.countryLists = [
+				selectedCountry,
+				...this.countryLists.filter((item: any) => item.id !== this.selectedCountryId)
+			];
+		}
+	}
+
+	private handlePlanStatus(response: any): void {
+		const data = response.time_left;
+		this.planExpired = data.plan === "expired" || data.plan === "subscription_expired";
+		this.enableReading = !this.planExpired;
 	}
 
 	ngOnDestroy(): void {
 		this.subs.unsubscribe()
-	}
-
-	loadCountryList(data: any) {
-		this.locationService.dashboardLocationList().subscribe((countryList) => {
-			this.carousel.page = 0
-			this.countryLists = countryList
-			this.countryLists.forEach((element: any) => {
-				if (element.id == data) {
-					this.selectedCountryName = element.country
-					this.selectedCountryId = element.id
-					this.headerFlag = element.flag
-				}
-			})
-			this.countryLists.forEach((item: any, i: any) => {
-				if (item.id === this.selectedCountryId) {
-					this.countryLists.splice(i, 1)
-					this.countryLists.unshift(item)
-				}
-			})
-		})
-	}
-
-	enableReadingData(): void {
-		this.service.getNewUserTimeLeft().subscribe((res) => {
-			let data = res.time_left
-			if (data.plan === "expired" || data.plan === "subscription_expired") {
-				this.enableReading = false
-			} else {
-				this.enableReading = true
-			}
-		})
 	}
 
 	certificatecountstudent: number = 0
