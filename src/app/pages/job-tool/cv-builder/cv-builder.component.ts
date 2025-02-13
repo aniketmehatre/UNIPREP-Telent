@@ -8,7 +8,6 @@ import { MenuItem } from "primeng/api";
 import Swiper from "swiper";
 import { AuthService } from "../../../Auth/auth.service";
 import { LocationService } from "../../../location.service";
-import { CvBuilderService } from "./cv-builder.service";
 import { JobSearchService } from "../../job-search/job-search.service";
 import { City } from "src/app/@Models/cost-of-living";
 import { CommonModule } from "@angular/common";
@@ -26,13 +25,15 @@ import { SelectModule } from 'primeng/select';
 import { InputGroupModule } from 'primeng/inputgroup';
 import { InputTextModule } from 'primeng/inputtext';
 import { InputGroupAddonModule } from 'primeng/inputgroupaddon';
-
+import { CvBuilderService } from "./cv-builder.service";
+import { TextareaModule } from 'primeng/textarea';
 @Component({
   selector: "uni-cv-builder",
   templateUrl: "./cv-builder.component.html",
   styleUrls: ["./cv-builder.component.scss"],
   standalone: true,
-  imports: [CommonModule, DialogModule, SidebarModule, NgxExtendedPdfViewerModule, RouterModule, CardModule, PaginatorModule, FormsModule, ReactiveFormsModule, CarouselModule, ButtonModule, MultiSelectModule, SelectModule, InputGroupModule, InputTextModule, InputGroupAddonModule],
+  imports: [CommonModule, DialogModule,TextareaModule, SidebarModule, NgxExtendedPdfViewerModule, RouterModule, CardModule, PaginatorModule, FormsModule, ReactiveFormsModule, CarouselModule, ButtonModule, MultiSelectModule, SelectModule, InputGroupModule, InputTextModule, InputGroupAddonModule],
+  providers: [CvBuilderService,ConfirmationService,MessageService]
 })
 export class CvBuilderComponent implements OnInit {
   selectedResumeLevel: string = "";

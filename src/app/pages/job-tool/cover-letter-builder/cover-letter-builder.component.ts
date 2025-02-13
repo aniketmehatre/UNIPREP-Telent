@@ -11,12 +11,26 @@ import { CommonModule } from '@angular/common';
 import { DialogModule } from 'primeng/dialog';
 import { SidebarModule } from 'primeng/sidebar';
 import { NgxExtendedPdfViewerModule } from 'ngx-extended-pdf-viewer';
+import { RouterModule } from '@angular/router';
+import { CardModule } from 'primeng/card';
+import { PaginatorModule } from 'primeng/paginator';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { CarouselModule } from 'primeng/carousel';
+import { ButtonModule } from 'primeng/button';
+import { MultiSelectModule } from 'primeng/multiselect';
+import { SelectModule } from 'primeng/select';
+import { InputGroupModule } from 'primeng/inputgroup';
+import { InputTextModule } from 'primeng/inputtext';
+import { InputGroupAddonModule } from 'primeng/inputgroupaddon';
+import { TextareaModule } from 'primeng/textarea';
+import { EditorModule } from 'primeng/editor';
 @Component({
     selector: 'uni-cover-letter-builder',
     templateUrl: './cover-letter-builder.component.html',
     styleUrls: ['./cover-letter-builder.component.scss'],
     standalone: true,
-    imports: [CommonModule, DialogModule, SidebarModule,NgxExtendedPdfViewerModule],
+    imports: [CommonModule,EditorModule, DialogModule, SidebarModule,NgxExtendedPdfViewerModule, RouterModule, CardModule, PaginatorModule, FormsModule, ReactiveFormsModule, CarouselModule, ButtonModule, MultiSelectModule, SelectModule, InputGroupModule, InputTextModule, InputGroupAddonModule, TextareaModule],
+    providers: [CvBuilderService,ConfirmationService,MessageService]
 })
 export class CoverLetterBuilderComponent implements OnInit {
   items!: MenuItem[];

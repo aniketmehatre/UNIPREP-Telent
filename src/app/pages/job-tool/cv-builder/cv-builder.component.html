@@ -278,7 +278,7 @@
                   </div>
                   <div class="form-group">
                     <div class="mb-3">
-                      <textarea pInputTextarea formControlName="user_summary" class="mt-2 w-100" placeholder="About yourself" [rows]="3"></textarea>
+                      <textarea pTextarea formControlName="user_summary" class="mt-2 w-100" placeholder="About yourself" [rows]="3"></textarea>
                       <!-- (ngModelChange)="onTextModelChange($event)"  -->
                       <div *ngIf="submitted && f['user_summary'].errors?.['required']" class="text-danger text-xs">
                         <div>User Summary Required</div>
