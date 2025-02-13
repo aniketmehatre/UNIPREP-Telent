@@ -61,7 +61,7 @@ import { StepsModule } from "primeng/steps"
 import { CheckboxModule } from "primeng/checkbox"
 import { RadioButtonModule } from "primeng/radiobutton"
 import { PitchDeskComponent } from "./pitch-desk/pitch-desk.component"
-import { NgxExtendedPdfViewerModule } from "ngx-extended-pdf-viewer"
+import { PdfJsViewerModule } from "ng2-pdfjs-viewer"
 import { ExportCreditComponent } from "./export-credit/export-credit.component"
 import { MycertificateComponent } from "./mycertificate/mycertificate.component"
 import { CareerPlannerComponent } from "./career-planner/career-planner.component"
@@ -179,7 +179,7 @@ import { GlobalRepositoryComponent } from './global-repository/global-repository
 		CheckboxModule,
 		StepsModule,
 		RadioButtonModule,
-		NgxExtendedPdfViewerModule,
+		PdfJsViewerModule,
 		SkeletonModule
 	],
 	schemas: [CUSTOM_ELEMENTS_SCHEMA],

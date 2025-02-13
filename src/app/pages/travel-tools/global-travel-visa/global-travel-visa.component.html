@@ -37,26 +37,26 @@
                                 </div>
                                 <div class="col-md-6">
                                     <ng-container *ngIf="recommendation.id == 1">
-                                        <p-dropdown [options]="allCountries" [filter]="true"
+                                        <p-select [options]="allCountries" [filter]="true"
                                             [(ngModel)]="selectedData[recommendation.id]" optionLabel="country"
                                             styleClass="w-100" optionValue="id" [showClear]="true" placeholder="Country"
-                                            [appendTo]="'body'"></p-dropdown>
+                                            [appendTo]="'body'"></p-select>
                                         <p class="text-center" [ngClass]="{ 'd-none': invalidClass === false }"
                                             style="color: red">Please Choose Any one option</p>
                                     </ng-container>
                                     <ng-container *ngIf="recommendation.id == 2">
-                                        <p-dropdown [options]="allCountries" [filter]="true"
+                                        <p-select [options]="allCountries" [filter]="true"
                                             [(ngModel)]="selectedData[recommendation.id]" optionLabel="country"
                                             styleClass="w-100" optionValue="id" [showClear]="true" placeholder="Country"
-                                            [appendTo]="'body'"></p-dropdown>
+                                            [appendTo]="'body'"></p-select>
                                         <p class="text-center" [ngClass]="{ 'd-none': invalidClass === false }"
                                             style="color: red">Please Choose Any one option</p>
                                     </ng-container>
                                     <ng-container *ngIf="recommendation.id == 3">
-                                        <p-dropdown [options]="residentStatus"
+                                        <p-select [options]="residentStatus"
                                             [(ngModel)]="selectedData[recommendation.id]" optionLabel="label"
                                             styleClass="w-100" optionValue="value" placeholder="Residential Details"
-                                            [appendTo]="'body'"></p-dropdown>
+                                            [appendTo]="'body'"></p-select>
                                         <p class="text-center" [ngClass]="{ 'd-none': invalidClass === false }"
                                             style="color: red">Please Choose Any one option</p>
                                     </ng-container>

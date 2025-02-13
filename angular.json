@@ -33,7 +33,12 @@
             "assets": [
               "src/favicon.ico",
               "src/uniprep-assets",
-              "src/manifest.webmanifest"
+              "src/manifest.webmanifest",
+              {
+                "glob": "**/*",
+                "input": "node_modules/ng2-pdfjs-viewer/pdfjs",
+                "output": "/assets/pdfjs"
+              }
             ],
             "stylePreprocessorOptions": {
               "includePaths": [
@@ -109,7 +114,12 @@
         "serve": {
           "builder": "@angular-devkit/build-angular:dev-server",
           "options": {
-            "browserTarget": "UNIABROAD-ADMIN:build"
+            "port": 4200,
+            "host": "localhost",
+            "liveReload": true,
+            "hmr": true,
+            "watch": true,
+            "poll": 2000
           },
           "configurations": {
             "production": {
@@ -120,15 +130,7 @@
               "hmr": true
             }
           },
-          "defaultConfiguration": "development",
-          "options": {
-            "port": 4200,
-            "host": "localhost",
-            "liveReload": true,
-            "hmr": true,
-            "watch": true,
-            "poll": 2000
-          }
+          "defaultConfiguration": "development"
         },
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n",

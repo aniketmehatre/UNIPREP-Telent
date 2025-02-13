@@ -76,8 +76,26 @@
 		</div>
 		<div class="row justify-content-center h-100" *ngIf="pdfvisibility">
 			<div class="col-md-8 col-12">
-				<!-- <pdf-viewer class="w-100 h-100" [src]="pdfURL" [rotation]="0" [original-size]="false" [show-all]="true" [fit-to-page]="true" [zoom]="1" [zoom-scale]="'page-width'" [stick-to-page]="true" [render-text]="false" [external-link-target]="'blank'" [autoresize]="false" [show-borders]="false"></pdf-viewer> -->
-				<ngx-extended-pdf-viewer class="w-100 h-100" [src]="pdfURL" [rotation]="0" [show-all]="true" [fit-to-page]="true" [zoom]="1" [zoomScale]="2" [stick-to-page]="true" [render-text]="false" [external-link-target]="'_blank'" [auto-rotate]="false" [show-border]="false"> </ngx-extended-pdf-viewer>
+				<div *ngIf="!pdfLoadError">
+					<ng2-pdfjs-viewer #pdfViewer
+						[pdfSrc]="pdfURL"
+						[viewerId]="'pdf-viewer'"
+						[downloadFileName]="'document.pdf'"
+						[externalWindow]="false"
+						[openFile]="false"
+						[viewBookmark]="false"
+						[download]="false"
+						[fullScreen]="true"
+						[find]="true"
+						[zoom]="'page-width'"
+						[print]="true"
+						[startPage]="1"
+						style="width: 100%; height: 80vh;"
+					></ng2-pdfjs-viewer>
+				</div>
+				<div *ngIf="pdfLoadError" class="alert alert-danger text-center mt-3">
+					<p>Error loading PDF. Please try downloading the file instead.</p>
+				</div>
 			</div>
 		</div>
 	</div>

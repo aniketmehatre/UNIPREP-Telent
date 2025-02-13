@@ -25,6 +25,7 @@ import { InputGroupAddonModule } from 'primeng/inputgroupaddon';
   styleUrls: ["./preparedlist.component.scss"],
   standalone: true,
   imports: [CommonModule, PaginatorModule, DialogModule, TabViewModule, RouterModule, CardModule, FormsModule, ReactiveFormsModule, CarouselModule, ButtonModule, MultiSelectModule, SelectModule, InputGroupModule, InputTextModule, InputGroupAddonModule],
+  providers: [MessageService,InterviewPreparationService]
 })
 export class JobPreparedListComponent implements OnInit {
   isSkeletonVisible: boolean = true;

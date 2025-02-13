@@ -2,7 +2,7 @@ import { SocialAuthService } from "@abacritt/angularx-social-login"
 import { CommonModule } from "@angular/common"
 import { Component, ElementRef, EventEmitter, Input, OnDestroy, OnInit, Output, ViewChild, ViewEncapsulation } from "@angular/core"
 import { AbstractControl, FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators } from "@angular/forms"
-import { ActivatedRoute, Router } from "@angular/router"
+import { ActivatedRoute, Router, RouterModule } from "@angular/router"
 import { MenuItem, MessageService } from "primeng/api"
 import { AuthService } from "../../../Auth/auth.service"
 import { SubSink } from "subsink"
@@ -42,7 +42,7 @@ import { TextareaModule } from 'primeng/textarea';
 		CommonModule,
 		DialogModule,
 		TabViewModule,
-		// OverlayPanelModule,
+		RouterModule,
 		TabsModule,
 		PopoverModule,
 		FormsModule,

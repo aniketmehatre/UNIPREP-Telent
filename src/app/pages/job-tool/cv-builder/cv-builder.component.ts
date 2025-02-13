@@ -1,4 +1,4 @@
-import { Component, OnInit, Renderer2, ElementRef, HostListener, AfterViewInit } from "@angular/core";
+import { Component, OnInit, Renderer2, ElementRef, HostListener, AfterViewInit, ViewChild } from "@angular/core";
 import { MessageService, ConfirmationService } from "primeng/api";
 import { FormBuilder, FormGroup, FormArray, Validators, AbstractControl } from "@angular/forms";
 // import { CourseListService } from '../../course-list/course-list.service';
@@ -13,7 +13,7 @@ import { City } from "src/app/@Models/cost-of-living";
 import { CommonModule } from "@angular/common";
 import { DialogModule } from "primeng/dialog";
 import { SidebarModule } from "primeng/sidebar";
-import { NgxExtendedPdfViewerModule } from 'ngx-extended-pdf-viewer';
+import { PdfJsViewerModule } from "ng2-pdfjs-viewer"
 import { RouterModule } from '@angular/router';
 import { CardModule } from 'primeng/card';
 import { PaginatorModule } from 'primeng/paginator';
@@ -32,10 +32,11 @@ import { TextareaModule } from 'primeng/textarea';
   templateUrl: "./cv-builder.component.html",
   styleUrls: ["./cv-builder.component.scss"],
   standalone: true,
-  imports: [CommonModule, DialogModule,TextareaModule, SidebarModule, NgxExtendedPdfViewerModule, RouterModule, CardModule, PaginatorModule, FormsModule, ReactiveFormsModule, CarouselModule, ButtonModule, MultiSelectModule, SelectModule, InputGroupModule, InputTextModule, InputGroupAddonModule],
+  imports: [CommonModule, DialogModule,TextareaModule, SidebarModule, PdfJsViewerModule, RouterModule, CardModule, PaginatorModule, FormsModule, ReactiveFormsModule, CarouselModule, ButtonModule, MultiSelectModule, SelectModule, InputGroupModule, InputTextModule, InputGroupAddonModule],
   providers: [CvBuilderService,ConfirmationService,MessageService]
 })
-export class CvBuilderComponent implements OnInit {
+export class CvBuilderComponent implements OnInit, AfterViewInit {
+  @ViewChild('pdfViewer') pdfViewer: any;
   selectedResumeLevel: string = "";
   experienceLevel: any = [
     { id: 1, level: "Fresher" },
@@ -203,7 +204,8 @@ export class CvBuilderComponent implements OnInit {
   orglogowhitelabel: any;
   hidingHeaders: string[] = ["project_details"];
   swiper!: Swiper;
-  loadingResumes: boolean = true;
+  pdfLoadError: boolean = false;
+  pdfUrl: string = '';
   filledFields: string[] = [];
   cities: City[] = [];
   occupationList: any = [];
@@ -298,11 +300,31 @@ export class CvBuilderComponent implements OnInit {
         });
       }
     }, 200);
+    if (this.pdfViewer) {
+      this.pdfViewer.refresh();
+    }
   }
+
+  onError(error: any) {
+    console.error('PDF loading error:', error);
+    this.pdfLoadError = true;
+  }
+
   pdfViewLoader() {
-    setTimeout(() => {
-      this.loadingResumes = false;
-    }, 3500);
+    try {
+      if (!this.pdfUrl) {
+        throw new Error('No PDF URL provided');
+      }
+
+      const encodedUrl = encodeURI(this.pdfUrl);
+      if (this.pdfViewer) {
+        this.pdfViewer.pdfSrc = encodedUrl;
+        this.pdfViewer.refresh();
+      }
+    } catch (error) {
+      console.error('Error loading PDF:', error);
+      this.pdfLoadError = true;
+    }
   }
 
   ngOnInit(): void {
@@ -1292,7 +1314,13 @@ export class CvBuilderComponent implements OnInit {
   }
 
   downloadOldResume(resumeLink: string) {
-    window.open(resumeLink, "_blank");
+    try {
+      const encodedUrl = encodeURI(resumeLink);
+      window.open(encodedUrl, '_blank');
+    } catch (error) {
+      console.error('Error downloading PDF:', error);
+      this.toaster.add({ severity: 'error', summary: 'Error', detail: 'Error downloading PDF file.' });
+    }
   }
 
   // onTextModelChange(value: string) {
