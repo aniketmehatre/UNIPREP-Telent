@@ -7,7 +7,7 @@
               <div>
                 <h5 class="w-100 mb-0" tooltipPosition="top"
                   pTooltip="Access fully and partially funded opportunities for education.">
-                 Global Edufit<i class="questiontooltip fa-solid fa-circle-question"></i>
+                GLOBAL EDUFIT<i class="questiontooltip fa-solid fa-circle-question"></i>
                 </h5>
               </div>
               <div>
@@ -107,7 +107,7 @@
                       {{ recommendation.question.branches[1] }}
                     </h5>
                     <p-dropdown styleClass="w-100" placeholder="Months"  appendTo="body" [options]="durationList"
-                      optionLabel="name" optionValue="name" formControlName="duration" placeholder="select the duration">
+                      optionLabel="name" optionValue="name" formControlName="duration" placeholder="Select the duration">
                     </p-dropdown>  
                     <p class="text-center" *ngIf="
                           form.get('duration')?.errors?.required && submitted
@@ -129,24 +129,24 @@
                         filterBy="currency_code" placeholder="Currency" optionLabel="currency_code" optionValue="currency_code"
                         [autoDisplayFirst]="false">
                       </p-dropdown>
-                      <input class="w-100 pl-4 border border-gray rounded-3" type="number" pInputText placeholder="Fees"
-                        formControlName="fees" />
+                      <input class="w-100 pl-4 border border-gray rounded-3" type="number" pInputText [placeholder]="form.get('currency_code').value ? 'Enter tuition fee in'+' '+form.get('currency_code').value+' '+'/year' : 'Enter tuition fee/year'"
+                        formControlName="fees" [max]="999999"/>
                     </div>
-                    <p class="text-center" *ngIf="form.get('fees')?.errors?.required && submitted"
+                    <p class="text-center" *ngIf="(form.get('fees')?.errors?.required || form.get('fees')?.errors?.max )&& submitted"
                       style="color: red">
-                      Please Choose Any one option
+                      Please Enter this amount and max 6 digit only allowed
                     </p>
                   </div>
                   <div>
                     <h5 class="uniprep-primary fw-semibold mt-3 mb-1">
                       {{ recommendation.question.branches[1] }}
                     </h5>
-                    <input class="w-100 border border-gray rounded-3" type="number" pInputText placeholder="Fees"
-                    formControlName="cost_estimation" />
+                    <input class="w-100 border border-gray rounded-3" type="number" pInputText placeholder="Enter Amount"
+                    formControlName="cost_estimation" [max]="999999" />
                     <p class="text-center" *ngIf="
-                          form.get('cost_estimation')?.errors?.required && submitted
+                          (form.get('cost_estimation')?.errors?.required || form.get('cost_estimation')?.errors?.max) && submitted
                         " style="color: red">
-                      Please Choose Any one option
+                      Please Enter this amount and max 6 digit only allowed
                     </p>
                   </div>
                   <div>
@@ -154,7 +154,7 @@
                       {{ recommendation.question.branches[2] }}
                     </h5>
                     <p-dropdown styleClass="w-100" formControlName="period" appendTo="body" [options]="periodsList" [filter]="true"
-                    filterBy="name" placeholder=" Period" optionLabel="name" optionValue="name"
+                    filterBy="name" placeholder="Select the Months" optionLabel="name" optionValue="name"
                     [autoDisplayFirst]="false">
                   </p-dropdown>
                     <p class="text-center" *ngIf="
@@ -199,7 +199,7 @@
             <div class="select-title d-flex justify-content-between align-items-center">
               <div>
                 <h5 class="w-100 mb-0" tooltipPosition="top" pTooltip="">
-                 Global Edufit<i class="questiontooltip fa-solid fa-circle-question"></i></h5>
+                GLOBAL EDUFIT<i class="questiontooltip fa-solid fa-circle-question"></i></h5>
               </div>
               <div>
                 <button class="how-it-works-button">How it works?
@@ -251,7 +251,7 @@
             <div class="select-title d-flex justify-content-between align-items-center">
               <div>
                 <h5 class="w-100 mb-0" tooltipPosition="top" pTooltip="">
-                 Global Edufit<i class="questiontooltip fa-solid fa-circle-question"></i></h5>
+                GLOBAL EDUFIT<i class="questiontooltip fa-solid fa-circle-question"></i></h5>
               </div>
               <div>
                 <button class="how-it-works-button">How it works?

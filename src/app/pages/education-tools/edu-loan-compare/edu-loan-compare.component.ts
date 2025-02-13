@@ -82,7 +82,7 @@ export class EduLoanCompareComponent implements OnInit, OnDestroy {
       loanrepaymentperiod: ['', Validators.required],
       compare_loanrepaymentperiod: ['', Validators.required],
     });
-
+    this.form.get('compare_currency')?.disable();
   }
 
   enableModule: boolean = true;

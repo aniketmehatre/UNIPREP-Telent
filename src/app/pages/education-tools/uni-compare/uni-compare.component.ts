@@ -9,6 +9,7 @@ import { FounderstoolService } from '../../founderstool/founderstool.service';
 import { startupDropdownData } from '../../founderstool/start-up-expense-estimate/startup-expense.data';
 import { PageFacadeService } from '../../page-facade.service';
 import { EducationToolsService } from '../education-tools.service';
+import { uniCompareOptions } from './uni-compare.data';
 
 @Component({
   selector: 'uni-uni-compare',
@@ -22,7 +23,7 @@ export class UniCompareComponent implements OnInit, OnDestroy {
   compareUniversityList: any[];
   universityList: any = [];
   specializationList: any = [];
-  stayBackAfterGraduations: { name: string }[] = [{ name: 'Months' }, { name: 'Years' }];
+  stayBackAfterGraduations: { name: string }[] = uniCompareOptions.stayBack;
 
   isFromSavedData: boolean = false;
   recommadationSavedQuestionList: any = [];
@@ -172,6 +173,16 @@ export class UniCompareComponent implements OnInit, OnDestroy {
     const formData = this.form.value;
     if (this.activePageIndex == 1) {
       if (!formData.fees || !formData.compare_fees || !formData.expense || !formData.compare_expenses || !formData.compare_period || !formData.period) {
+        this.submitted = true;
+        return;
+      }
+      const isValidAmount = (value: any) => /^[0-9]{1,6}$/.test(value);
+      if (
+        !isValidAmount(formData.fees) ||
+        !isValidAmount(formData.compare_fees) ||
+        !isValidAmount(formData.expense) ||
+        !isValidAmount(formData.compare_expenses)
+      ) {
         this.submitted = true;
         return;
       }
