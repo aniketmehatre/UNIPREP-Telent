@@ -35,7 +35,7 @@
                                         {{ recommendation.question.branches[0] }}
                                     </h5>
                                     <p-dropdown styleClass="w-100" class="w-100" formControlName="industry" appendTo="body" [options]="industryList"
-                                    [filter]="true" filterBy="Industry" placeholder="Industry" optionLabel="Industry" optionValue="Industry"
+                                    [filter]="true" filterBy="Industry" placeholder="Select Industry" optionLabel="Industry" optionValue="Industry"
                                      [autoDisplayFirst]="false">
                                 </p-dropdown>
                                     <p class="text-center" *ngIf="form.get('industry')?.errors?.required && submitted" style="color: red">
@@ -66,7 +66,7 @@
                                     </h5>
                                     <p-multiSelect [options]="seasonsList" styleClass="w-100"
                                         formControlName="seasons" optionLabel="name" optionValue="name"
-                                        [appendTo]="'body'" placeholder="Seasons (multi-select)">
+                                        [appendTo]="'body'" placeholder="Select Seasons (multi-select)">
                                     </p-multiSelect>
                                     <p class="text-center" *ngIf="form.get('seasons')?.errors?.required && submitted" style="color: red">
                                         Please Choose Any one option
@@ -78,7 +78,7 @@
                                     </h5>
                                     <p-multiSelect [options]="factorsList" styleClass="w-100"
                                         formControlName="factors" optionLabel="name" optionValue="name"
-                                        [appendTo]="'body'" placeholder="Factors">
+                                        [appendTo]="'body'" placeholder="Select Factors">
                                     </p-multiSelect>
                                     <p class="text-center" *ngIf="form.get('factors')?.errors?.required && submitted" style="color: red">
                                         Please Choose Any one option
@@ -93,7 +93,7 @@
                                     <h5 class="uniprep-primary fw-semibold mt-3 mb-1">
                                         {{ recommendation.question.branches[0] }}
                                     </h5>
-                                    <p-multiSelect styleClass="w-100" [appendTo]="'body'" placeholder="Target Audience"
+                                    <p-multiSelect styleClass="w-100" [appendTo]="'body'" placeholder="Select Target Audience"
                                         [options]="targetAudienceList" optionLabel="name"
                                         optionValue="name" formControlName="target_audience">
                                     </p-multiSelect>
@@ -105,7 +105,7 @@
                                     <h5 class="uniprep-primary fw-semibold mt-3 mb-1">
                                         {{ recommendation.question.branches[1] }}
                                     </h5>
-                                    <p-multiSelect styleClass="w-100" [appendTo]="'body'" placeholder="Growth Assumptions"
+                                    <p-multiSelect styleClass="w-100" [appendTo]="'body'" placeholder="Select Growth Assumptions"
                                         [options]="assumptionsList" optionLabel="name" optionValue="name"
                                         formControlName="assumptions">
                                     </p-multiSelect>
@@ -124,7 +124,7 @@
                                     </h5>
                                     <div class="w-100 d-flex gap-2 flex-fill">
                                         <p-dropdown styleClass="w-100" class="w-100" formControlName="forecast_peroid" appendTo="body" [options]="durationList"
-                                            [filter]="true" filterBy="name" placeholder="Forecast" optionLabel="name"
+                                            [filter]="true" filterBy="name" placeholder="Select Forecast Period" optionLabel="name"
                                             optionValue="name" [autoDisplayFirst]="false">
                                         </p-dropdown>
                                     </div>
@@ -138,7 +138,7 @@
                                     </h5>
                                         <p-dropdown styleClass="w-100" formControlName="goals" appendTo="body"
                                             [options]="goalsList" [filter]="true" filterBy="name"
-                                            placeholder="Goals" optionLabel="name"
+                                            placeholder="Select Goal" optionLabel="name"
                                             optionValue="name" [autoDisplayFirst]="false" tyleClass="w-100">
                                         </p-dropdown>
                                     <p class="text-center" *ngIf="form.get('goals')?.errors?.required && submitted" style="color: red">
