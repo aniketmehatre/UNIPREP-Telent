@@ -1,4 +1,4 @@
-import { Component, OnInit, Renderer2, ElementRef, HostListener, AfterViewInit } from "@angular/core";
+import { Component, OnInit, Renderer2, ElementRef, HostListener, AfterViewInit, ViewChild } from "@angular/core";
 import { MessageService, ConfirmationService } from "primeng/api";
 import { FormBuilder, FormGroup, FormArray, Validators, AbstractControl } from "@angular/forms";
 // import { CourseListService } from '../../course-list/course-list.service';
@@ -35,7 +35,8 @@ import { TextareaModule } from 'primeng/textarea';
   imports: [CommonModule, DialogModule,TextareaModule, SidebarModule, PdfJsViewerModule, RouterModule, CardModule, PaginatorModule, FormsModule, ReactiveFormsModule, CarouselModule, ButtonModule, MultiSelectModule, SelectModule, InputGroupModule, InputTextModule, InputGroupAddonModule],
   providers: [CvBuilderService,ConfirmationService,MessageService]
 })
-export class CvBuilderComponent implements OnInit {
+export class CvBuilderComponent implements OnInit, AfterViewInit {
+  @ViewChild('pdfViewer') pdfViewer: any;
   selectedResumeLevel: string = "";
   experienceLevel: any = [
     { id: 1, level: "Fresher" },
@@ -211,6 +212,8 @@ export class CvBuilderComponent implements OnInit {
   filteredDesignations: { [key: number]: any[] } = {};
   filteredLocations: any = [];
   filteredExpeAndEduLocations: { [key: number]: any[] } = {};
+  pdfLoadError: boolean = false;
+  pdfUrl: string = '';
 
   constructor(private toaster: MessageService, private fb: FormBuilder, private resumeService: CvBuilderService, private http: HttpClient, private router: Router, private confirmService: ConfirmationService, private renderer: Renderer2, private el: ElementRef, private authService: AuthService, private locationService: LocationService, private cityService: JobSearchService) {
     this.resumeFormInfoData = this.fb.group({
@@ -298,11 +301,38 @@ export class CvBuilderComponent implements OnInit {
         });
       }
     }, 200);
+    if (this.pdfViewer) {
+      this.pdfViewer.refresh();
+    }
   }
+
+  onError(error: any) {
+    console.error('PDF loading error:', error);
+    this.pdfLoadError = true;
+    this.loadingResumes = false;
+  }
+
   pdfViewLoader() {
-    setTimeout(() => {
+    try {
+      if (!this.pdfUrl) {
+        throw new Error('No PDF URL provided');
+      }
+
+      const encodedUrl = encodeURI(this.pdfUrl);
+      if (this.pdfViewer) {
+        this.pdfViewer.pdfSrc = encodedUrl;
+        this.pdfViewer.refresh();
+        
+        // Add a delay before setting loadingResumes to false
+        setTimeout(() => {
+          this.loadingResumes = false;
+        }, 1000); // 1 second delay
+      }
+    } catch (error) {
+      console.error('Error loading PDF:', error);
+      this.pdfLoadError = true;
       this.loadingResumes = false;
-    }, 3500);
+    }
   }
 
   ngOnInit(): void {
@@ -1292,7 +1322,13 @@ export class CvBuilderComponent implements OnInit {
   }
 
   downloadOldResume(resumeLink: string) {
-    window.open(resumeLink, "_blank");
+    try {
+      const encodedUrl = encodeURI(resumeLink);
+      window.open(encodedUrl, '_blank');
+    } catch (error) {
+      console.error('Error downloading PDF:', error);
+      this.toaster.add({ severity: 'error', summary: 'Error', detail: 'Error downloading PDF file.' });
+    }
   }
 
   // onTextModelChange(value: string) {

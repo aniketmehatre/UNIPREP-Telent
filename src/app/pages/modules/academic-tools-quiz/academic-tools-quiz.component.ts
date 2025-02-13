@@ -1,4 +1,4 @@
-import { Component, OnInit } from "@angular/core";
+import { Component, OnInit, AfterViewInit, ViewChild } from "@angular/core";
 import { ActivatedRoute, Params, Router } from "@angular/router";
 import { Observable, Subscription, interval, takeWhile } from "rxjs";
 import { MenuItem, MessageService } from "primeng/api";
@@ -24,7 +24,8 @@ import { ButtonModule } from "primeng/button";
   imports: [PdfJsViewerModule, DialogModule, CommonModule, CarouselModule, ButtonModule],
   standalone: true,
 })
-export class AcademicToolsQuizComponent implements OnInit {
+export class AcademicToolsQuizComponent implements OnInit, AfterViewInit {
+  @ViewChild('pdfViewer') pdfViewer: any;
   quizData: any[] = [];
   currentCountryId: any;
   currentModuleId: string = "15";
@@ -96,6 +97,7 @@ export class AcademicToolsQuizComponent implements OnInit {
   showLoading: boolean = false;
   canShowRetry: boolean = false;
   submoduleId: string = "";
+  pdfLoadError: boolean = false;
 
   constructor(private moduleListService: ModuleServiceService, private authService: AuthService, private router: Router, private dataService: DataService, private location: Location, private locationService: LocationService, private ngxService: NgxUiLoaderService, private toast: MessageService, private activatedRoute: ActivatedRoute, private sanitizer: DomSanitizer, private academicService: AcademicService) {}
 
@@ -627,6 +629,42 @@ export class AcademicToolsQuizComponent implements OnInit {
       this.location.back();
     } else {
       this.router.navigate(["/pages/modules/academic-tools"]);
+    }
+  }
+
+  ngAfterViewInit() {
+    if (this.pdfViewer) {
+      this.pdfViewer.refresh();
+    }
+  }
+
+  loadPdf(url: string) {
+    try {
+      this.pdfUrl = url;
+      if (this.pdfViewer) {
+        const encodedUrl = encodeURI(url);
+        this.pdfViewer.pdfSrc = encodedUrl;
+        this.pdfViewer.refresh();
+      }
+      this.pdfLoadError = false;
+    } catch (error) {
+      console.error('Error loading PDF:', error);
+      this.pdfLoadError = true;
+    }
+  }
+
+  onError(error: any) {
+    console.error('PDF loading error:', error);
+    this.pdfLoadError = true;
+  }
+
+  downloadPdf(url: string) {
+    try {
+      const encodedUrl = encodeURI(url);
+      window.open(encodedUrl, '_blank');
+    } catch (error) {
+      console.error('Error downloading PDF:', error);
+      this.toast.add({ severity: 'error', summary: 'Error', detail: 'Error downloading PDF file.' });
     }
   }
 }
