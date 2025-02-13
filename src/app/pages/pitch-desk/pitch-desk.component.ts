@@ -8,7 +8,7 @@ import { DataService } from "src/app/data.service"
 import { PageFacadeService } from "../page-facade.service"
 import { UserManagementService } from "../user-management/user-management.service"
 import { LocationService } from "src/app/location.service"
-import { NgxExtendedPdfViewerModule } from "ngx-extended-pdf-viewer"
+import { PdfJsViewerModule } from "ng2-pdfjs-viewer"
 import { CommonModule } from "@angular/common"
 import { DialogModule } from "primeng/dialog"
 import { InputTextModule } from "primeng/inputtext"
@@ -27,7 +27,7 @@ import { PaginatorModule } from "primeng/paginator"
 	styleUrls: ["./pitch-desk.component.scss"],
 	standalone: true,
 	imports: [
-		NgxExtendedPdfViewerModule, 
+		PdfJsViewerModule, 
 		CommonModule, 
 		InputGroupModule, 
 		InputGroupAddonModule, 

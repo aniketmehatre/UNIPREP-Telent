@@ -9,7 +9,7 @@ import { CommonModule } from "@angular/common";
 import { DialogModule } from "primeng/dialog";
 import { TabViewModule } from "primeng/tabview";
 import { SidebarModule } from "primeng/sidebar"
-import { NgxExtendedPdfViewerModule } from "ngx-extended-pdf-viewer"
+import { PdfJsViewerModule } from "ng2-pdfjs-viewer"
 import { CardModule } from "primeng/card"
 import { PaginatorModule } from "primeng/paginator"
 import { FormsModule, ReactiveFormsModule } from "@angular/forms"

@@ -1,5 +1,5 @@
 import { CommonModule } from "@angular/common"
-import { Component, OnInit } from "@angular/core"
+import { Component, OnInit, ViewChild, AfterViewInit } from "@angular/core"
 import { PageFacadeService } from "../../page-facade.service"
 import { learnModules, learnsubModules, submoduledata } from "../unilearn.model"
 import { UniLearnService } from "../unilearn.service"
@@ -8,17 +8,17 @@ import { ArrayHeaderService } from "../array-header.service"
 import { Location } from "@angular/common"
 import { AuthService } from "src/app/Auth/auth.service"
 import { DialogModule } from "primeng/dialog"
-import { PdfViewerModule } from "ng2-pdf-viewer"
-import { NgxExtendedPdfViewerModule } from "ngx-extended-pdf-viewer"
+import { PdfJsViewerModule } from "ng2-pdfjs-viewer"
 
 @Component({
 	selector: "uni-learnsubmodules",
 	templateUrl: "./learnsubmodules.component.html",
 	styleUrls: ["./learnsubmodules.component.scss"],
-	imports: [DialogModule, CommonModule, PdfViewerModule, NgxExtendedPdfViewerModule],
+	imports: [DialogModule, CommonModule, PdfJsViewerModule],
 	standalone: true,
 })
-export class LearnsubModulesComponent implements OnInit {
+export class LearnsubModulesComponent implements OnInit, AfterViewInit {
+	@ViewChild('pdfViewer') pdfViewer: any;
 	isSkeletonVisible: boolean = true
 	submoduleList: any
 	paramData: any
@@ -52,6 +52,13 @@ export class LearnsubModulesComponent implements OnInit {
 			this.ehitlabelIsShow = true
 		} else {
 			this.ehitlabelIsShow = false
+		}
+	}
+
+	ngAfterViewInit() {
+		if (this.pdfViewer) {
+			this.pdfViewer.pdfSrc = this.pdfURL;
+			this.pdfViewer.refresh();
 		}
 	}
 
@@ -102,6 +109,14 @@ export class LearnsubModulesComponent implements OnInit {
 				} else {
 					this.pdfURL = moduledata.attachment_filename
 				}
+				
+				// Configure PDF viewer after URL is set
+				setTimeout(() => {
+					if (this.pdfViewer) {
+						this.pdfViewer.pdfSrc = this.pdfURL;
+						this.pdfViewer.refresh();
+					}
+				}, 100);
 				break
 			case 3:
 				this.pageFacade.openHowitWorksVideoPopup(moduledata.attachment_filename)

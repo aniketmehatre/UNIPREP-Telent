@@ -10,7 +10,7 @@ import { CvBuilderService } from '../cv-builder/cv-builder.service';
 import { CommonModule } from '@angular/common';
 import { DialogModule } from 'primeng/dialog';
 import { SidebarModule } from 'primeng/sidebar';
-import { NgxExtendedPdfViewerModule } from 'ngx-extended-pdf-viewer';
+import { PdfJsViewerModule } from "ng2-pdfjs-viewer"
 import { RouterModule } from '@angular/router';
 import { CardModule } from 'primeng/card';
 import { PaginatorModule } from 'primeng/paginator';
@@ -29,7 +29,7 @@ import { EditorModule } from 'primeng/editor';
     templateUrl: './cover-letter-builder.component.html',
     styleUrls: ['./cover-letter-builder.component.scss'],
     standalone: true,
-    imports: [CommonModule,EditorModule, DialogModule, SidebarModule,NgxExtendedPdfViewerModule, RouterModule, CardModule, PaginatorModule, FormsModule, ReactiveFormsModule, CarouselModule, ButtonModule, MultiSelectModule, SelectModule, InputGroupModule, InputTextModule, InputGroupAddonModule, TextareaModule],
+    imports: [CommonModule,EditorModule, DialogModule, SidebarModule,PdfJsViewerModule, RouterModule, CardModule, PaginatorModule, FormsModule, ReactiveFormsModule, CarouselModule, ButtonModule, MultiSelectModule, SelectModule, InputGroupModule, InputTextModule, InputGroupAddonModule, TextareaModule],
     providers: [CvBuilderService,ConfirmationService,MessageService]
 })
 export class CoverLetterBuilderComponent implements OnInit {

@@ -7,7 +7,7 @@ import { JobOfferComparisionService } from "./joboffercomparison.service";
 import { CommonModule } from "@angular/common";
 import { DialogModule } from "primeng/dialog"
 import { SidebarModule } from "primeng/sidebar"
-import { NgxExtendedPdfViewerModule } from "ngx-extended-pdf-viewer"
+import { PdfJsViewerModule } from "ng2-pdfjs-viewer"
 import { CardModule } from "primeng/card"
 import { PaginatorModule } from "primeng/paginator"
 import { FormsModule, ReactiveFormsModule } from "@angular/forms"
@@ -24,7 +24,7 @@ import { RadioButtonModule } from "primeng/radiobutton"
   templateUrl: "./joboffercomparisontool.component.html",
   styleUrls: ["./joboffercomparisontool.component.scss"],
   standalone: true,
-  imports: [CommonModule, DialogModule, SidebarModule, NgxExtendedPdfViewerModule, CardModule, PaginatorModule, FormsModule, ReactiveFormsModule, CarouselModule, ButtonModule, MultiSelectModule, SelectModule, InputGroupModule, InputTextModule, InputGroupAddonModule, RadioButtonModule]
+  imports: [CommonModule, DialogModule, SidebarModule, PdfJsViewerModule, CardModule, PaginatorModule, FormsModule, ReactiveFormsModule, CarouselModule, ButtonModule, MultiSelectModule, SelectModule, InputGroupModule, InputTextModule, InputGroupAddonModule, RadioButtonModule]
 })
 
 export class JoboffercomparisontoolComponent implements OnInit {
