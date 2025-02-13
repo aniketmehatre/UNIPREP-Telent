@@ -17,6 +17,7 @@ import { RouterModule } from "@angular/router";
 import { DialogModule } from 'primeng/dialog';
 import { ButtonModule } from 'primeng/button';
 import { FooterStatusBoxComponent } from "./footer-status-box/footer-status-box.component";
+import { HeaderSearchComponent } from "./header-search/header-search.component"
 
 @Component({
   selector: "uni-pages",
@@ -30,7 +31,8 @@ import { FooterStatusBoxComponent } from "./footer-status-box/footer-status-box.
     ButtonModule,
     HeaderComponent, 
     SidenavComponent,
-    FooterStatusBoxComponent
+    FooterStatusBoxComponent,
+    HeaderSearchComponent
   ],
 })
 export class PagesComponent implements OnInit, OnDestroy {
@@ -80,7 +82,7 @@ export class PagesComponent implements OnInit, OnDestroy {
     this.deviceCheck();
     router.events.subscribe((val) => {
       if (val instanceof NavigationEnd) {
-        if (val.url.includes("subscriptions") || val.url.includes("support-help") || val.url.includes("usermanagement") || val.url.includes("chat") || val.url.includes("guideline") || val.url.includes("termsandcondition") || val.url.includes("privacypolicy") || val.url.includes("refundpolicy") || val.url.includes("cancellationpolicy") || val.url.includes("export-credit") || val.url.includes("cv-builder") || val.url.includes("coverletter-builder")) {
+        if (val.url.includes("subscriptions") || val.url.includes("dashboard") || val.url.includes("userguide") || val.url.includes("support-help") || val.url.includes("usermanagement") || val.url.includes("chat") || val.url.includes("guideline") || val.url.includes("termsandcondition") || val.url.includes("privacypolicy") || val.url.includes("refundpolicy") || val.url.includes("cancellationpolicy") || val.url.includes("export-credit") || val.url.includes("cv-builder") || val.url.includes("coverletter-builder")) {
           this.showSearch = false;
           //this.isFooterBoxVisible = false;
         } else {

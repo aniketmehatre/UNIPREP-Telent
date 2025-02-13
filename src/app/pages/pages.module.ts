@@ -110,7 +110,7 @@ import { GlobalRepositoryComponent } from './global-repository/global-repository
 		ExportCreditComponent,
 		NationalExamCategoriesComponent,
 		NationalExamStartComponent,
-		NationalExamResultComponent
+		NationalExamResultComponent,
 	],
 	exports: [FooterStatusBoxComponent, HeaderSearchComponent],
 	imports: [

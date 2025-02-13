@@ -23,7 +23,8 @@ import { InputGroupAddonModule } from "primeng/inputgroupaddon"
 	templateUrl: "./header-search.component.html",
 	styleUrls: ["./header-search.component.scss"],
 	standalone: true,
-	imports: [CommonModule, DialogModule, FormsModule, ReactiveFormsModule, InputTextModule, InputGroupModule, ButtonModule, InputGroupAddonModule],
+	imports: [CommonModule, DialogModule, FormsModule, ReactiveFormsModule, InputTextModule,
+		 InputGroupModule, ButtonModule, InputGroupAddonModule],
 })
 export class HeaderSearchComponent implements OnInit, OnDestroy {
 	@ViewChild("searchInput", { static: false, read: ElementRef }) elRef: any
