@@ -7,13 +7,26 @@ import { TravelCostEstimator } from 'src/app/@Models/chat-gpt.model';
 import { PageFacadeService } from '../../page-facade.service';
 import { CommonModule } from '@angular/common';
 import { MessageService } from 'primeng/api';
-
+import { DialogModule } from 'primeng/dialog';
+import { SidebarModule } from 'primeng/sidebar';
+import { NgxExtendedPdfViewerModule } from 'ngx-extended-pdf-viewer';
+import { RouterModule } from '@angular/router';
+import { CardModule } from 'primeng/card';
+import { PaginatorModule } from 'primeng/paginator';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { CarouselModule } from 'primeng/carousel';
+import { ButtonModule } from 'primeng/button';
+import { MultiSelectModule } from 'primeng/multiselect';
+import { SelectModule } from 'primeng/select';
+import { InputGroupModule } from 'primeng/inputgroup';
+import { InputTextModule } from 'primeng/inputtext';
+import { InputGroupAddonModule } from 'primeng/inputgroupaddon';
 @Component({
     selector: 'uni-careerplannercountrywise',
     templateUrl: './careerplannercountrywise.component.html',
     styleUrls: ['./careerplannercountrywise.component.scss'],
     standalone: true,
-    imports: [CommonModule]
+    imports: [CommonModule,DialogModule, SidebarModule,NgxExtendedPdfViewerModule, RouterModule, CardModule, PaginatorModule, FormsModule, ReactiveFormsModule, CarouselModule, ButtonModule, MultiSelectModule, SelectModule, InputGroupModule, InputTextModule, InputGroupAddonModule]
 })
 
 export class CareerplannercountrywiseComponent implements OnInit {
