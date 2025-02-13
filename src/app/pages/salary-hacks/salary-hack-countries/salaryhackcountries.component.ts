@@ -17,12 +17,13 @@ import { SelectModule } from "primeng/select"
 import { InputGroupModule } from "primeng/inputgroup"
 import { InputTextModule } from "primeng/inputtext"
 import { InputGroupAddonModule } from "primeng/inputgroupaddon"
+import { SkeletonModule } from "primeng/skeleton";
 @Component({
 	selector: "uni-salaryhackscountries",
 	templateUrl: "./salaryhackcountries.component.html",
 	styleUrls: ["./salaryhackcountries.component.scss"],
 	standalone: true,
-	imports: [CommonModule, RouterModule, DialogModule, CardModule, PaginatorModule, FormsModule, ReactiveFormsModule, CarouselModule, ButtonModule, MultiSelectModule, SelectModule, InputGroupModule, InputTextModule, InputGroupAddonModule],
+	imports: [CommonModule, RouterModule, DialogModule, CardModule, PaginatorModule, FormsModule, ReactiveFormsModule, CarouselModule, ButtonModule, MultiSelectModule, SelectModule, InputGroupModule, InputTextModule, InputGroupAddonModule, SkeletonModule],
 })
 export class SalaryhacksCountryListsComponent implements OnInit {
 	constructor(private router: Router, private arrayHeaderService: ArrayHeaderService, private service: SalaryHacksService, private pageFacade: PageFacadeService) {}

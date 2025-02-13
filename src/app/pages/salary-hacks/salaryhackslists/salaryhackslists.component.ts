@@ -20,13 +20,13 @@ import { InputGroupModule } from "primeng/inputgroup"
 import { InputTextModule } from "primeng/inputtext"
 import { InputGroupAddonModule } from "primeng/inputgroupaddon"
 import { DataService } from "src/app/data.service";
-
+import { SkeletonModule } from "primeng/skeleton";
 @Component({
 	selector: "uni-salaryhackslists",
 	templateUrl: "./salaryhackslists.component.html",
 	styleUrls: ["./salaryhackslists.component.scss"],
 	standalone: true,
-	imports: [CommonModule, DialogModule, RouterModule, CardModule, PaginatorModule, FormsModule, ReactiveFormsModule, CarouselModule, ButtonModule, MultiSelectModule, SelectModule, InputGroupModule, InputTextModule, InputGroupAddonModule],
+	imports: [CommonModule, DialogModule, RouterModule, CardModule, PaginatorModule, FormsModule, ReactiveFormsModule, CarouselModule, ButtonModule, MultiSelectModule, SelectModule, InputGroupModule, InputTextModule, InputGroupAddonModule, SkeletonModule],
 	providers: [MessageService]
 })
 export class SalaryhacksListsComponent {
