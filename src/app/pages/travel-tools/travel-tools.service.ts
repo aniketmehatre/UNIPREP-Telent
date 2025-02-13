@@ -4,6 +4,7 @@ import { environment } from '@env/environment';
 import { ChatGPTResponse } from 'src/app/@Models/chat-gpt.model';
 import { Countries } from 'src/app/@Models/country.model';
 import { CountryandCurrency } from 'src/app/@Models/currency.model';
+import html2pdf from 'html2pdf.js';
 
 @Injectable({
   providedIn: 'root'
@@ -69,4 +70,31 @@ export class TravelToolsService {
       headers: this.headers,
     });
   }
+
+  convertHTMLtoPDF(data: any): Promise<void> {
+    return new Promise((resolve, reject) => {
+      const now = new Date();
+      const timestamp = now.toISOString().slice(0, 19).replace("T", "_").replace(/:/g, "");
+      const dynamicFileName = `${data.file_name}_${timestamp}.pdf`; 
+      html2pdf()
+        .from(data.response)
+        .set({
+          margin: 15,
+          filename: dynamicFileName,
+          image: { type: 'jpeg', quality: 1.0 },
+          html2canvas: { scale: 3, useCORS: true }, // Remove 'dpi' & 'letterRendering' (deprecated)
+          jsPDF: { unit: 'mm', format: 'a4', orientation: 'portrait' }
+        })
+        .toPdf()
+        .get('pdf')
+        .then((pdf: any) => {
+          pdf.internal.scaleFactor = 1;
+          pdf.setProperties({ title: data.module_name });
+          resolve(); // Mark promise as completed
+        })
+        .save()
+        .catch((error: any) => reject(error)); // Catch and handle errors
+    });
+  }
+  
 }

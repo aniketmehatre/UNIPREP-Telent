@@ -290,6 +290,7 @@
             </div>
             <div class="col-md-2">
                 <button pButton type="button" [disabled]="responseBtnDisable" *ngIf="!isOldResponse" (click)="saveResponse()" class="btn btn-primary btn-rounded py-2 px-4">Save Response&nbsp;<i class="fa-solid fa-floppy-disk"></i></button>
+                <button pButton type="button" (click)="downloadResponse()" class="btn btn-primary btn-rounded py-2 px-4">Download Response&nbsp;<i class="fa-solid fa-floppy-disk"></i></button>
             </div>
         </div>
     </div>

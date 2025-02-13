@@ -4,6 +4,7 @@ import { TravelToolsService } from '../../travel-tools/travel-tools.service';
 import { AllCountryRes,UniversityRes,CurrencyList,SaveResponse,SavedReponseArray } from 'src/app/@Models/education-tools.model';
 import { Router } from '@angular/router';
 import { MessageService } from 'primeng/api';
+import html2pdf from 'html2pdf.js';
 @Component({
   selector: 'uni-student-budget-planner',
   templateUrl: './student-budget-planner.component.html',
@@ -219,5 +220,26 @@ export class StudentBudgetPlannerComponent implements OnInit {
     this.isOldResponse = false;
     this.activePageIndex = 0;
     this.selectedData = {...this.selectedDataArray}
+  }
+
+  downloadResponse(){
+    let downloadString:string = "This is a paragraph with some text and emojis 😊🎉. Markdown processing with emojis works!";
+    html2pdf()
+    .from(downloadString)
+    .set({
+      margin: 10,
+      filename: 'document.pdf',
+      image: { type: 'jpeg', quality: 0.98 },
+      html2canvas: { scale: 2, useCORS: true },
+      jsPDF: { unit: 'mm', format: 'a4', orientation: 'portrait' }
+    })
+    .toPdf()
+    .get('pdf')
+    .then((pdf: any) => {
+      pdf.internal.scaleFactor = 1; // Ensure scaling is correct
+      pdf.setProperties({ title: 'Generated PDF' }); // Optional: Set PDF properties
+    })
+    .save();
+
   }
 }
