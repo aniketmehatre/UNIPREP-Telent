@@ -34,14 +34,14 @@
                             <div class="col-md-6">
                                 <p-dropdown [options]="destinationLocationList" [virtualScroll]="true"
                                     [virtualScrollItemSize]="50" [(ngModel)]="selectedData[recommendation.id]"
-                                    [appendTo]="'body'" [filter]="true" [showClear]="true" placeholder="Destination"
+                                    [appendTo]="'body'" [filter]="true" [showClear]="true" placeholder="Select Destination"
                                     styleClass="w-100" (onChange)="hideWarning(recommendation.id)">
                                     <ng-template pTemplate="filter" let-options="options">
                                         <div class="d-flex gap-2">
                                             <div class="p-inputgroup" (click)="$event.stopPropagation()">
                                                 <span class="p-inputgroup-addon">
                                                     <i class="pi pi-search"></i></span>
-                                                <input type="text" pInputText placeholder="Filter"
+                                                <input type="text" pInputText placeholder="Search"
                                                     [(ngModel)]="destinationFilter" (keyup)="customFilterFunction()" />
                                             </div>
                                             <button pButton icon="pi pi-times" class="btn btn-primary"
@@ -126,14 +126,14 @@
                         <span class="me-2">Download</span><span class="btn-icon px-2 py-2">
                             <i class="fa-regular fa-download"></i></span>
                     </button>
-                    <button pButton type="button" (click)="onSaveRes()"
+                    <!-- <button pButton type="button" (click)="onSaveRes()"
                         class="btn btn-primary btn-rounded p-1 ps-4">
                         <span class="me-2">Save Response</span><span class="btn-icon px-2 py-2">
                             <i class="fa-regular fa-floppy-disk"></i></span>
-                    </button>
+                    </button> -->
                 </div>
                 <markdown emoji>
-                    <div class="card p-3" [innerHtml]="recommendationData"></div>
+                    <div class="card p-3 poppins-content" [innerHtml]="recommendationData"></div>
                 </markdown>
             </div>
             <div class="col-md-2"></div>
