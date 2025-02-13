@@ -2,13 +2,14 @@ import { Component, OnInit } from "@angular/core";
 import { UserGuideService } from "./user-guide.service";
 import { DomSanitizer, SafeHtml, SafeUrl } from "@angular/platform-browser";
 import { CommonModule } from '@angular/common';
+import { PdfJsViewerModule } from "ng2-pdfjs-viewer"
 
 @Component({
     selector: "uni-user-guide",
     templateUrl: "./user-guide.component.html",
     styleUrls: ["./user-guide.component.scss"],
     standalone: true,
-    imports: [CommonModule]
+    imports: [CommonModule, PdfJsViewerModule]
 })
 export class UserGuideComponent implements OnInit {
   pdfUrl: SafeUrl | undefined;

@@ -1,4 +1,4 @@
-import { Component, OnInit, OnDestroy } from "@angular/core"
+import { Component, OnInit, OnDestroy, ViewChild, AfterViewInit } from "@angular/core"
 import { PitchDeskService } from "./pitch-desk.service"
 import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule } from "@angular/forms"
 import { AuthService } from "src/app/Auth/auth.service"
@@ -43,7 +43,8 @@ import { PaginatorModule } from "primeng/paginator"
 		PaginatorModule
 	],
 })
-export class PitchDeskComponent implements OnInit, OnDestroy {
+export class PitchDeskComponent implements OnInit, OnDestroy, AfterViewInit {
+	@ViewChild('pdfViewer') pdfViewer: any;
 	pitchDeskList: any[] = []
 	page = 1
 	pageSize = 50
@@ -56,7 +57,7 @@ export class PitchDeskComponent implements OnInit, OnDestroy {
 	valueNearYouFilter: string = ""
 	showDiv: boolean = true
 	restrict: boolean = false
-	planExpired!: boolean
+	planExpired: boolean = false
 	currentPlan: string = ""
 	selectAllCheckboxes: boolean = false
 	selectedCheckboxCount: number = 0
@@ -72,6 +73,9 @@ export class PitchDeskComponent implements OnInit, OnDestroy {
 	orglogowhitelabel: any
 	pdname: any
 	private allPitchDeskData: any[] = [];
+	pdfURL: any
+	isPdfDownloadOption: any
+	pdfLoadError: boolean = false;
 
 	constructor(private pitchDesk: PitchDeskService, private userManagementService: UserManagementService, private fb: FormBuilder, private router: Router, private authService: AuthService, private toast: MessageService, private dataService: DataService, private pageFacade: PageFacadeService, private locationService: LocationService) {
 		this.filterForm = this.fb.group({
@@ -101,6 +105,17 @@ export class PitchDeskComponent implements OnInit, OnDestroy {
 	}
 
 	ngOnDestroy(): void {
+		// Clean up blob URL if it exists
+		if (this.pdfURL && this.pdfURL.startsWith('blob:')) {
+			URL.revokeObjectURL(this.pdfURL);
+		}
+	}
+
+	ngAfterViewInit() {
+		if (this.pdfViewer && this.pdfURL) {
+			this.pdfViewer.pdfSrc = this.pdfURL;
+			this.pdfViewer.refresh();
+		}
 	}
 
 	GetPersonalProfileData() {
@@ -237,23 +252,51 @@ export class PitchDeskComponent implements OnInit, OnDestroy {
 	closeGuidelines() {
 		this.showDiv = !this.showDiv
 	}
-	pdfURL: any
-	isPdfDownloadOption: any
+
 	showPdf(url: any, pdname: string) {
 		if (this.planExpired) {
-			this.restrict = true
-			return
+			this.restrict = true;
+			return;
 		}
-		this.pdfURL = url
-		this.isPdfLoaded = true
-		this.pdname = pdname
+		
+		this.pdfLoadError = false;
+		this.isPdfLoaded = true;
+		this.pdname = pdname;
+		
 		if (!this.planExpired && this.exportCreditCount != 0) {
-			this.isPdfDownloadOption = true
+			this.isPdfDownloadOption = true;
 		} else {
-			this.isPdfDownloadOption = false
+			this.isPdfDownloadOption = false;
 		}
 
-		//window.open(url, "_blank");
+		// Get the PDF file as a blob
+		this.pitchDesk.getPdfFile(url).subscribe(
+			(pdfBlob: Blob) => {
+				try {
+					// Create a blob URL from the PDF blob
+					this.pdfURL = URL.createObjectURL(pdfBlob);
+					
+					setTimeout(() => {
+						if (this.pdfViewer) {
+							this.pdfViewer.pdfSrc = this.pdfURL;
+							this.pdfViewer.refresh();
+						}
+					}, 100);
+				} catch (error) {
+					console.error('Error creating blob URL:', error);
+					this.pdfLoadError = true;
+				}
+			},
+			(error) => {
+				console.error('Error fetching PDF:', error);
+				this.pdfLoadError = true;
+			}
+		);
+	}
+
+	onError(error: any) {
+		console.error('PDF loading error:', error);
+		this.pdfLoadError = true;
 	}
 
 	download(): void {

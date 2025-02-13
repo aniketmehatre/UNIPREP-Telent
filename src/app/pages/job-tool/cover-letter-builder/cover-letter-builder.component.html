@@ -7,7 +7,7 @@
           <div class="flex-column overflow-hidden" *ngFor="let resumes of coverHistories; let i = index">
             <div [ngClass]="{ 'skeleton-loader': loadingResumes }">
               <!-- <pdf-viewer [ngStyle]="{ visibility: loadingResumes ? 'hidden' : 'visible' }" [src]="resumes.pdf_name" [render-text]="false" [autoresize]="false" [show-all]="false" [original-size]="false" (after-load-complete)="pdfViewLoader()" ></pdf-viewer> -->
-              <ng2-pdfjs-viewer [ngStyle]="{ visibility: loadingResumes ? 'hidden' : 'visible' }" [src]="resumes.pdf_name" [useBrowserLocale]="true" [showToolbar]="false" [textLayer]="false" [spreadMode]="'none'" [height]="'500px'" (pdfLoaded)="pdfViewLoader()"></ng2-pdfjs-viewer>
+              <ng2-pdfjs-viewer [ngStyle]="{ visibility: loadingResumes ? 'hidden' : 'visible' }" [pdfSrc]="resumes.pdf_name" [useBrowserLocale]="true" [showToolbar]="false" [textLayer]="false" [spreadMode]="'none'" [height]="'500px'" (pdfLoaded)="pdfViewLoader()"></ng2-pdfjs-viewer>
               <i class="fa-solid fa-trash HistoryDeleteIcon" [ngStyle]="{ visibility: loadingResumes ? 'hidden' : 'visible' }" (click)="confirm($event, resumes.pdf_name, resumes.id)"></i>
               <p-confirmPopup></p-confirmPopup>
               <i class="fa-solid fa-download HistoryDownloadIcon" [ngStyle]="{ visibility: loadingResumes ? 'hidden' : 'visible' }" (click)="downloadOldResume(resumes.pdf_name)"></i>
