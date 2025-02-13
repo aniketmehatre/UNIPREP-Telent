@@ -289,3 +289,12 @@ input[type="text"] {
 .dropdown-item:last-child {
 	border-bottom: none;
 }
+.dropdown-container1 {
+	display: flex;
+	flex-direction: column; /* Stack elements vertically */
+  }
+  
+  /* Optional: Add some spacing between the label and dropdown */
+  .dropdown-container1 label {
+	margin-bottom: 5px; /* Adjust as needed */
+  }

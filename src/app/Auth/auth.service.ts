@@ -72,11 +72,6 @@ export class AuthService {
       
       // Verify headers were set correctly
       const finalAuthHeader = headers.get('Authorization');
-      console.debug('GetAuthHeaders - Final headers:', {
-        auth: finalAuthHeader,
-        contentType: headers.get('Content-Type'),
-        accept: headers.get('Accept')
-      });
 
       if (!finalAuthHeader || !finalAuthHeader.startsWith('Bearer ')) {
         console.error('GetAuthHeaders - Authorization header not set correctly:', finalAuthHeader);
@@ -271,6 +266,7 @@ export class AuthService {
       if (userDetails.email) await this.encryptAndStore("email", userDetails.email);
       if (userDetails.home_country_name) await this.encryptAndStore("home_country_name", userDetails.home_country_name);
       if (userDetails.selected_country) await this.encryptAndStore("countryId", userDetails.selected_country);
+      localStorage.setItem("countryId", userDetails.interested_country_id);
     } catch (error) {
       console.error('Error storing user data:', error);
       throw error;

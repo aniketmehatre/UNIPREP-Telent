@@ -215,57 +215,6 @@ input[type="text"] {
 	color: #999;
 }
 
-.dropdown-container {
-	position: absolute;
-    width: 100%;
-    top: 100%;
-    margin-top: 10px;
-    z-index: 9;
-    background: white;
-    border: 1px solid var(--uniprep-secondary);
-    border-radius: 10px;
-	scrollbar-width: none; /* For Firefox */
-	-ms-overflow-style: none;  /* For Internet Explorer and Edge */
-	max-height: 35vh;
-    overflow-y: auto;
-}
-
-.dropdown-container::-webkit-scrollbar {
-	display: none; /* For Chrome, Safari, and Opera */
-}
-
-.dropdown-item {
-	padding: 10px;
-	border-bottom: 1px solid #ddd;
-}
-
-.dropdown-item h3 {
-	margin: 0;
-	font-size: 16px;
-}
-
-.dropdown-item p {
-	margin: 5px 0 0;
-	color: #666;
-}
-
-.dropdown-item:last-child {
-	border-bottom: none;
-}
-
-.dropdown-item h3 {
-	margin: 0;
-	font-size: 16px;
-}
-
-.dropdown-item p {
-	margin: 5px 0 0;
-	color: #666;
-}
-
-.dropdown-item:last-child {
-	border-bottom: none;
-}
 .fixed-width-dropdown {
     width: 200px !important;  /* Set your desired fixed width */
 }

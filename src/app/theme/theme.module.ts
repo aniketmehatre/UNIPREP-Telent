@@ -23,7 +23,6 @@ import { TabViewModule } from 'primeng/tabview';
   imports: [
     CommonModule,
     SideMenuComponent,
-    HeaderComponent,
     SidenavComponent,
     PipesModule,
     BreadcrumbModule,
@@ -44,7 +43,6 @@ import { TabViewModule } from 'primeng/tabview';
   exports: [
     CommonModule,
     PipesModule,
-    HeaderComponent, 
     SidenavComponent, 
     CountdownComponent
   ],

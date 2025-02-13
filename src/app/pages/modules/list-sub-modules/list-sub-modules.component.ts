@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import {ChangeDetectorRef, Component, OnInit} from '@angular/core';
 import {ActivatedRoute, NavigationEnd, Router} from "@angular/router";
 import {filter, Observable} from "rxjs";
 import {ModuleListSub} from "../../../@Models/module.model";
@@ -19,13 +19,15 @@ import { ButtonModule } from 'primeng/button';
 import { MultiSelectModule } from 'primeng/multiselect';
 import { InputGroupModule } from 'primeng/inputgroup';
 import { InputGroupAddonModule } from 'primeng/inputgroupaddon';
+import { SelectModule } from 'primeng/select';
 @Component({
     selector: 'uni-list-sub-modules',
     templateUrl: './list-sub-modules.component.html',
     styleUrls: ['./list-sub-modules.component.scss'],
     providers: [ConfirmationService],
     standalone: true,
-    imports: [CommonModule, DialogModule, CarouselModule,TooltipModule, SkeletonModule, ButtonModule, MultiSelectModule, InputGroupModule, InputGroupAddonModule]
+    imports: [CommonModule, DialogModule, CarouselModule,TooltipModule, SkeletonModule, ButtonModule, MultiSelectModule, InputGroupModule,
+         InputGroupAddonModule, SelectModule]
 })
 export class ListSubModulesComponent implements OnInit {
     subModules$!: Observable<ModuleListSub[]>;
@@ -64,7 +66,7 @@ export class ListSubModulesComponent implements OnInit {
     planExpired!: boolean;
     countryName!: string;
     isSkeletonVisible: boolean = true;
-    countryId: any;
+    countryId: any = 4;
     canShowQuestionList: boolean = false;
     howItWorksVideoLink: string = "";
     quizmoduleselectcountryidsetzero: any = 0;
@@ -74,14 +76,22 @@ export class ListSubModulesComponent implements OnInit {
     orgnamewhitlabel: any;
     orglogowhitelabel: any;
     learningModuleHeading: string = "";
+    description: any
+    allSearchedResult: any[] = []
+    loopRange = Array.from({length: 24}).fill(0).map((_, index) => index);
+    originalSubModuleList: any[] = [];
+    countryLists: any[] = [];
+    selectedCountryId: any = 4;
+    selectedCountryName: any
+
 
     constructor(private moduleListService: ModuleServiceService, private router: Router, private dataService: DataService, public authService: AuthService,
                 private locationService: LocationService, private route: ActivatedRoute, private ngxService: NgxUiLoaderService,
                 private confirmationService: ConfirmationService, private pageFacade: PageFacadeService,
-                private meta: Meta,
-                private titleService: Title,
-                private activatedRoute: ActivatedRoute,) {
+                private meta: Meta, private cdRef: ChangeDetectorRef,
+                private titleService: Title) {
         this.countryId = Number(localStorage.getItem('countryId'));
+
         this.dataService.countryIdSource.subscribe((data) => {
             if (this.countryId != data) {
                 this.ngOnInit();
@@ -129,14 +139,19 @@ export class ListSubModulesComponent implements OnInit {
     }
 
 
-    allSearchedResult: any[] = []
-    loopRange = Array.from({length: 24}).fill(0).map((_, index) => index);
-    originalSubModuleList: any[] = [];
-    countryLists: any [] = []
-    selectedCountryName: any
+
     ngOnInit() {
-        this.locationService.dashboardLocationList().subscribe((countryList: any) => {
-            this.countryLists = countryList
+        this.locationService
+        .dashboardLocationList()
+        .subscribe((countryList: any) => {
+          this.countryLists = countryList;
+          const storedCountryId = Number(localStorage.getItem("countryId")) || 0;
+  
+          // Set the selectedCountryId after the API call
+          this.selectedCountryId = storedCountryId;
+  
+          // To make sure the dropdown updates, you might need to manually trigger change detection
+          this.cdRef.detectChanges();
         });
         this.router.events.pipe(
             filter(event => event instanceof NavigationEnd)
@@ -166,28 +181,25 @@ export class ListSubModulesComponent implements OnInit {
         });
         this.originalSubModuleList = [...this.subModuleList]; 
     }
-    description: any
-    selectedCountryId: any
-    selectCountry(selectedId: any): void {
+
+   selectCountry(selectedId: any): void {
         this.countryLists.forEach((element: any) => {
-            if (element.id === selectedId.id) {
-                this.selectedCountryName = element.country;
-            }
+        if (element.id === selectedId) {
+            this.selectedCountryName = element.country;
+            localStorage.setItem("countryId", element.id);
+            localStorage.setItem("selectedcountryId", element.id);
+            this.selectedCountryId = element.id;
+            this.dataService.changeCountryId(element.id);
+            this.dataService.changeCountryFlag(element.flag);
+            this.dataService.changeCountryName(element.country);
+        }
         });
         this.countryLists.forEach((item: any, i: any) => {
-            if (item.id === selectedId.id) {
-                this.countryLists.splice(i, 1);
-                this.countryLists.unshift(item);
-            }
+        if (item.id === selectedId) {
+            this.countryLists.splice(i, 1);
+            this.countryLists.unshift(item);
+        }
         });
-    
-        localStorage.setItem('countryId', selectedId.id);
-        localStorage.setItem('selectedcountryId', selectedId.id);
-        this.selectedCountryId = selectedId.id;
-        this.dataService.changeCountryId(selectedId.id);
-        this.dataService.changeCountryFlag(selectedId.flag)
-        this.dataService.changeCountryName(selectedId.country)
-    
     }
 
     init() {
