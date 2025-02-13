@@ -204,7 +204,8 @@ export class CvBuilderComponent implements OnInit, AfterViewInit {
   orglogowhitelabel: any;
   hidingHeaders: string[] = ["project_details"];
   swiper!: Swiper;
-  loadingResumes: boolean = true;
+  pdfLoadError: boolean = false;
+  pdfUrl: string = '';
   filledFields: string[] = [];
   cities: City[] = [];
   occupationList: any = [];
@@ -212,8 +213,6 @@ export class CvBuilderComponent implements OnInit, AfterViewInit {
   filteredDesignations: { [key: number]: any[] } = {};
   filteredLocations: any = [];
   filteredExpeAndEduLocations: { [key: number]: any[] } = {};
-  pdfLoadError: boolean = false;
-  pdfUrl: string = '';
 
   constructor(private toaster: MessageService, private fb: FormBuilder, private resumeService: CvBuilderService, private http: HttpClient, private router: Router, private confirmService: ConfirmationService, private renderer: Renderer2, private el: ElementRef, private authService: AuthService, private locationService: LocationService, private cityService: JobSearchService) {
     this.resumeFormInfoData = this.fb.group({
@@ -309,7 +308,6 @@ export class CvBuilderComponent implements OnInit, AfterViewInit {
   onError(error: any) {
     console.error('PDF loading error:', error);
     this.pdfLoadError = true;
-    this.loadingResumes = false;
   }
 
   pdfViewLoader() {
@@ -322,16 +320,10 @@ export class CvBuilderComponent implements OnInit, AfterViewInit {
       if (this.pdfViewer) {
         this.pdfViewer.pdfSrc = encodedUrl;
         this.pdfViewer.refresh();
-        
-        // Add a delay before setting loadingResumes to false
-        setTimeout(() => {
-          this.loadingResumes = false;
-        }, 1000); // 1 second delay
       }
     } catch (error) {
       console.error('Error loading PDF:', error);
       this.pdfLoadError = true;
-      this.loadingResumes = false;
     }
   }
 

@@ -53,7 +53,6 @@ export class CoverLetterBuilderComponent implements OnInit, AfterViewInit {
 	orglogowhitelabel: any
 	previewImage: string = ""
 	coverHistories: any = []
-	loadingResumes: boolean = true
 	currentDate: Date = new Date()
 	isButtonDisabled: boolean = false
 	resumeSlider: any = [
@@ -304,7 +303,6 @@ export class CoverLetterBuilderComponent implements OnInit, AfterViewInit {
 	onError(error: any) {
 		console.error("PDF loading error:", error)
 		this.pdfLoadError = true
-		this.loadingResumes = false
 	}
 
 	pdfViewLoader() {
@@ -317,16 +315,10 @@ export class CoverLetterBuilderComponent implements OnInit, AfterViewInit {
 			if (this.pdfViewer) {
 				this.pdfViewer.pdfSrc = encodedUrl
 				this.pdfViewer.refresh()
-
-				// Add a delay before setting loadingResumes to false
-				setTimeout(() => {
-					this.loadingResumes = false
-				}, 1000) // 1 second delay
 			}
 		} catch (error) {
 			console.error("Error loading PDF:", error)
 			this.pdfLoadError = true
-			this.loadingResumes = false
 		}
 	}
 
@@ -363,7 +355,6 @@ export class CoverLetterBuilderComponent implements OnInit, AfterViewInit {
 			if (res != "") {
 				this.coverHistories = res
 				if (this.coverHistories.length > 0) {
-					this.loadingResumes = true
 					this.pdfLoadError = false
 					this.pdfUrl = this.coverHistories[0].pdf_name
 					this.pdfViewLoader()
