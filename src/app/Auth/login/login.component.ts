@@ -37,6 +37,7 @@ export class LoginComponent implements OnInit, OnDestroy {
 	show: boolean = true
 	password: string = "password"
 	isLoading: boolean = false
+	isDisabled: boolean = false
 	locationData: any
 	imageUrlWhitelabel: string | null = null
 	domainname: string = 'main'
