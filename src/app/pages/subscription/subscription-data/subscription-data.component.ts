@@ -77,67 +77,60 @@ export class SubscriptionDataComponent implements OnInit {
 	constructor(private authService: AuthService, private subscriptionService: SubscriptionService, private storage: LocalStorageService, private toast: MessageService, private ngxService: NgxUiLoaderService, private http: HttpClient) {}
 	timeLeftInfoCard: any
 
-	ngOnInit(): void {
+	async ngOnInit(): Promise<void> {
 		try {
-			let homeCountryName = null
-			const encHomeCountryName = localStorage.getItem("home_country_name")
+			let homeCountryName = null;
+			const encHomeCountryName = localStorage.getItem("home_country_name");
 
 			if (encHomeCountryName) {
 				try {
-					// const bytes = CryptoJS.AES.decrypt(encHomeCountryName, environment.secretKeySalt);
-					const bytes = this.authService.decryptData(encHomeCountryName)
-					console.log(bytes)
-
-					const decryptedText = bytes.toString()
-
-					// Validate decrypted text before parsing
-					if (decryptedText && decryptedText.trim() !== "") {
-						try {
-							// Additional validation to ensure valid JSON structure
-							if (decryptedText.startsWith("{") || decryptedText.startsWith("[") || decryptedText.startsWith('"') || /^-?\d+\.?\d*$/.test(decryptedText)) {
-								homeCountryName = JSON.parse(decryptedText)
-							} else {
-								console.warn("Decrypted text is not in valid JSON format")
-								localStorage.removeItem("home_country_name")
+					const decryptedText = await this.authService.decryptData(encHomeCountryName);
+					
+					if (decryptedText && typeof decryptedText === 'string') {
+						// If it looks like JSON, try to parse it
+						if (decryptedText.trim().startsWith('{') || decryptedText.trim().startsWith('[')) {
+							try {
+								homeCountryName = JSON.parse(decryptedText);
+							} catch (parseError) {
+								// If JSON parsing fails, use the string as-is
+								homeCountryName = decryptedText;
 							}
-						} catch (parseError) {
-							console.warn("Failed to parse decrypted home country data:", parseError)
-							localStorage.removeItem("home_country_name")
+						} else {
+							// Use the decrypted text directly if it's not JSON formatted
+							homeCountryName = decryptedText;
 						}
 					} else {
-						console.warn("Decrypted text is empty or invalid")
-						localStorage.removeItem("home_country_name")
+						console.warn("Decrypted text is empty or invalid");
 					}
 				} catch (decryptError) {
-					console.warn("Failed to decrypt home country data:", decryptError)
-					localStorage.removeItem("home_country_name")
+					console.warn("Failed to decrypt home country data:", decryptError);
 				}
 			}
 
-			this.timeLeftInfoCard = localStorage.getItem("time_card_info")
-			this.discountAmountEnable = false
-			this.currentCountry = homeCountryName ? String(homeCountryName) : ""
-			this.user = this.authService.user
-			this.education_level = this.user?.education_level?.replace(/[\s\u00A0]/g, "").trim() || "HigherEducation"
-			this.studentType = this.user?.student_type_id || 0
+			this.timeLeftInfoCard = localStorage.getItem("time_card_info");
+			this.discountAmountEnable = false;
+			this.currentCountry = homeCountryName ? String(homeCountryName).trim() : "";
+			this.user = this.authService.user;
+			this.education_level = this.user?.education_level?.replace(/[\s\u00A0]/g, "").trim() || "HigherEducation";
+			this.studentType = this.user?.student_type_id || 0;
 
-			this.ngxService.startBackground()
+			this.ngxService.startBackground();
 			this.authService.getCountry().subscribe(
 				(data) => {
-					this.ngxService.stopBackground()
-					this.countryList = data
-					this.getSubscriptionList()
-					this.getSubscriptionTopupList()
+					this.ngxService.stopBackground();
+					this.countryList = data;
+					this.getSubscriptionList();
+					this.getSubscriptionTopupList();
 				},
 				(error) => {
-					this.ngxService.stopBackground()
-					console.error("Error fetching country data:", error)
+					this.ngxService.stopBackground();
+					console.error("Error fetching country data:", error);
 				}
-			)
+			);
 		} catch (error) {
-			console.error("Error in subscription-data initialization:", error)
-			this.currentCountry = ""
-			this.ngxService.stopBackground()
+			console.error("Error in subscription-data initialization:", error);
+			this.currentCountry = "";
+			this.ngxService.stopBackground();
 		}
 	}
 	get URL() {

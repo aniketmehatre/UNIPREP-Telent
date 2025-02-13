@@ -74,90 +74,104 @@ export class SubscriptionComponent implements OnInit {
 	constructor(private subscriptionService: SubscriptionService, private winRef: WindowRefService, private authService: AuthService, private toastr: MessageService, private dataService: DataService, private dashboardService: DashboardService, private stripeService: StripeService, private ngxService: NgxUiLoaderService) {}
 	async ngOnInit(): Promise<void> {
 		try {
+			let homeCountryName = null;
 			const encHomeCountryName = localStorage.getItem("home_country_name");
+
 			if (encHomeCountryName) {
 				try {
 					const decryptedText = await this.authService.decryptData(encHomeCountryName);
-					if (decryptedText && decryptedText.trim() !== "") {
-						try {
-							if (decryptedText.startsWith("{") || decryptedText.startsWith("[") || decryptedText.startsWith('"') || /^-?\d+\.?\d*$/.test(decryptedText)) {
-								this.homeCountryName = JSON.parse(decryptedText);
-							} else {
-								console.warn("Decrypted text is not in valid JSON format");
-								this.homeCountryName = decryptedText;
+					
+					if (decryptedText && typeof decryptedText === 'string') {
+						// If it looks like JSON, try to parse it
+						if (decryptedText.trim().startsWith('{') || decryptedText.trim().startsWith('[')) {
+							try {
+								homeCountryName = JSON.parse(decryptedText);
+							} catch (parseError) {
+								// If JSON parsing fails, use the string as-is
+								homeCountryName = decryptedText;
 							}
-						} catch (parseError) {
-							console.warn("Failed to parse decrypted home country data:", parseError);
-							this.homeCountryName = decryptedText;
+						} else {
+							// Use the decrypted text directly if it's not JSON formatted
+							homeCountryName = decryptedText;
 						}
-					} else {
-						console.warn("Decrypted text is empty or invalid");
 					}
 				} catch (decryptError) {
 					console.warn("Failed to decrypt home country data:", decryptError);
 				}
 			}
 
+			let phone = null;
 			const encPhone = localStorage.getItem("phone");
 			if (encPhone) {
 				try {
 					const decryptedPhone = await this.authService.decryptData(encPhone);
-					this.phone = decryptedPhone;
+					if (decryptedPhone && typeof decryptedPhone === 'string') {
+						phone = decryptedPhone;
+					}
 				} catch (error) {
 					console.warn("Failed to decrypt phone data:", error);
 				}
 			}
 
+			let email = null;
 			const encEmail = localStorage.getItem("email");
 			if (encEmail) {
 				try {
 					const decryptedEmail = await this.authService.decryptData(encEmail);
-					this.email = decryptedEmail;
+					if (decryptedEmail && typeof decryptedEmail === 'string') {
+						email = decryptedEmail;
+					}
 				} catch (error) {
 					console.warn("Failed to decrypt email data:", error);
 				}
 			}
 
-			this.currentCountry = this.homeCountryName ? String(this.homeCountryName) : ""
-			this.user = this.authService.user
-			this.education_level = this.user?.education_level?.replace(/[\s\u00A0]/g, "").trim() || "HigherEducation"
-			this.studentType = this.user?.student_type_id || 0
+			this.currentCountry = homeCountryName ? String(homeCountryName).trim() : "";
+			this.phone = phone || '';
+			this.email = email || '';
+			
+			this.user = this.authService.user;
+			this.education_level = this.user?.education_level?.replace(/[\s\u00A0]/g, "").trim() || "HigherEducation";
+			this.studentType = this.user?.student_type_id || 0;
 
-			this.ngxService.startBackground()
+			this.ngxService.startBackground();
 			this.authService.getCountry().subscribe(
 				(data) => {
-					this.ngxService.stopBackground()
-					this.countryList = data
-					this.getSubscriptionList()
-					this.getSubscriptionTopupList()
+					this.ngxService.stopBackground();
+					this.countryList = data;
+					this.getSubscriptionList();
+					this.getSubscriptionTopupList();
 				},
 				(error) => {
-					this.ngxService.stopBackground()
-					console.error("Error fetching country data:", error)
+					this.ngxService.stopBackground();
+					console.error("Error fetching country data:", error);
 				}
-			)
+			);
 		} catch (error) {
-			console.error("Error in subscription initialization:", error)
-			this.currentCountry = ""
-			this.ngxService.stopBackground()
+			console.error("Error in subscription initialization:", error);
+			this.currentCountry = "";
+			this.ngxService.stopBackground();
 		}
+
 		if (this.dashboardService.isinitialstart) {
-			window.location.reload()
+			window.location.reload();
 		}
+
 		this.authService.getNewUserTimeLeft().subscribe((res) => {
-			this.dashboardService.updatedata(res.time_left)
-			let data = res.time_left
+			this.dashboardService.updatedata(res.time_left);
+			let data = res.time_left;
 			if (data.plan === "expired" || data.plan === "subscription_expired") {
-				this.showPlanBtn = true
+				this.showPlanBtn = true;
 			} else {
-				this.showPlanBtn = false
+				this.showPlanBtn = false;
 			}
-		})
+		});
+
 		if (!this.authService?.user?.subscription) {
-			this.stage = 1
-			return
+			this.stage = 1;
+			return;
 		}
-		this.loadSubData()
+		this.loadSubData();
 	}
 	start() {
 		this.showPayLoading = false
