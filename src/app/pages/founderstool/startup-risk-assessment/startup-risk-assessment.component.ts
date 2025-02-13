@@ -88,7 +88,7 @@ export class StartupRiskAssessmentComponent implements OnInit {
     this.inValidClass = false;
     if (productId in this.selectedData) {
       if (productId == 8) {
-        if (this.selectedData[8].toString()?.length > 5) {
+        if (this.selectedData[8].toString()?.length > 6) {
           this.inValidClass = true;
           return;
         }

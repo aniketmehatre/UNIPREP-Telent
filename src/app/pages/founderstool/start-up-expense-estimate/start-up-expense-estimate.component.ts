@@ -267,16 +267,21 @@ export class StartUpExpenseEstimateComponent implements OnInit {
 
   downloadRecommadation() {
     this.foundersToolsService.downloadRecommendation({ data: this.recommendationData }).subscribe({
-      next: res => {
-        const a = document.createElement('a');
-        a.href = res.url;
-        a.download = 'recommendation.pdf'; // Set the desired file name
-        document.body.appendChild(a);
-        a.click();
-        document.body.removeChild(a);
-        window.URL.revokeObjectURL(res.url);
+      next: (response: any) => {
+        this.foundersToolsService.downloadFile(response.url).subscribe((blob) => {
+          const a = document.createElement("a");
+          const objectUrl = window.URL.createObjectURL(blob);
+
+          a.href = objectUrl;
+          a.download = "startup-expenses-estimate.pdf";
+          document.body.appendChild(a);
+
+          a.click();
+          window.URL.revokeObjectURL(objectUrl);
+          document.body.removeChild(a);
+        });
       },
-      error: err => {
+      error: (err) => {
         console.log(err?.error?.message);
       }
     });

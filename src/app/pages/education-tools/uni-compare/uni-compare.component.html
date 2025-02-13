@@ -1,24 +1,23 @@
 <div class="card readingcard">
     <ng-container *ngIf="isRecommendationQuestion">
       <div class="card-header border-0 bg-transparent">
-        <div class="row justify-content-center">
-          <div class="col-md-12 text-center">
-            <div class="select-title d-flex justify-content-between align-items-center">
-              <div>
-                <h5 class="w-100 mb-0" tooltipPosition="top"
-                  pTooltip="Access fully and partially funded opportunities for education.">
-                  Uni Compare<i class="questiontooltip fa-solid fa-circle-question"></i>
-                </h5>
+        <div class="row justify-content-center align-items-center">
+          <div class="col-md-12 d-flex gap-2">
+              <div class="backIcon d-md-flex d-none" role="button" routerLink="/pages/education-tools" style="height: auto;">
+                  <span class="fa-solid fa-chevron-left"></span>
               </div>
-              <div>
-                <button class="how-it-works-button" (click)="
-                      openHowItWorksVideoPopup('https://www.youtube.com/embed/5B7AeCCKCKw?si=uUXSoWHIsi3fxJH2')">
-                  How it works?<i class="fa-solid fa-play d-md-block d-none"></i>
-                </button>
+              <div class="select-title d-flex justify-content-between align-items-center">
+                  <div>
+                      <h5 class="w-100 mb-0" tooltipPosition="top" pTooltip="">
+                        UNICOMPARE<i class="questiontooltip fa-solid fa-circle-question"></i></h5>
+                  </div>
+                  <div>
+                      <button class="how-it-works-button">How it works?
+                          <i class="fa-solid fa-play d-md-block d-none"></i></button>
+                  </div>
               </div>
-            </div>
           </div>
-        </div>
+      </div>
       </div>
       <div class="card-body text-center flex-fill overflow-y-auto">
         <form [formGroup]="form" class="mt-4">
@@ -46,7 +45,7 @@
                                              [filter]="true"
                                              filterBy="country"
                                              formControlName="country"
-                                             placeholder="Country"
+                                             placeholder="Select Country"
                                              styleClass="w-100" appendTo="body" (ngModelChange)="setUniversityList($event);">
                                   </p-dropdown>
                                 </div>
@@ -57,7 +56,7 @@
                                              [filter]="true"
                                              filterBy="country"
                                              formControlName="compare_country"
-                                             placeholder="Compare Country"
+                                             placeholder="Select Country"
                                              styleClass="w-100" appendTo="body" (ngModelChange)="setCompareUniversityList($event);">
                                   </p-dropdown>
                                 </div>
@@ -93,7 +92,7 @@
                                               filterBy="name"
                                               [filter]="true"
                                               formControlName="compare_university"
-                                              placeholder="Compare University"
+                                              placeholder="Select University"
                                               styleClass="w-100"
                                               appendTo="body"
                                               [panelStyle]="panelStyle"> <!-- Adjust width as needed -->
@@ -129,7 +128,7 @@
                                             [filter]="true"
                                              filterBy="name"
                                              formControlName="compare_specialization"
-                                             placeholder="Compare Field of Study"
+                                             placeholder="Select Field of Study"
                                              styleClass="w-100" appendTo="body" >
                                   </p-dropdown>
                                 </div>
@@ -172,11 +171,10 @@
                                               [autoDisplayFirst]="false">
                                     </p-dropdown>
                                     <input type="number" 
-                                           class="form-control w-100 m-0" 
-                                           [min]="100"
-                                           
+                                           class="form-control w-100 m-0"                                            
                                            formControlName="fees" 
-                                           [placeholder]="form.get('currency_code').value ? 'Fees/Year in'+' '+marketingForm.get('currency_code').value : 'Fees/Year' ">
+                                           [max]="999999"
+                                           [placeholder]="form.get('currency_code').value ? 'Enter tuition fee in'+' '+form.get('currency_code').value+' '+'/year' : 'Enter tuition fee/year' ">
                                   </div>
                                 </div>
                                 <div class="col-lg-4 mb-2">
@@ -193,14 +191,14 @@
                                     </p-dropdown>
                                     <input type="number" 
                                            class="form-control w-100 m-0" 
-                                           [min]="100" 
                                            formControlName="compare_fees" 
-                                           [placeholder]="form.get('compare_currency_code').value ? 'Fees/Year in'+' '+marketingForm.get('compare_currency_code').value : 'Fees/Year' ">
+                                           [max]="999999"
+                                           [placeholder]="form.get('compare_currency_code').value ? 'Enter tuition fee in'+' '+form.get('compare_currency_code').value+' '+'/year' : 'Enter tuition fee/year' ">
                                   </div>
                                 </div>
                               </div>
-                              <div class="text-danger text-center small" *ngIf="(form.get('fees')?.errors?.required || form.get('compare_fees')?.errors?.required) && submitted">
-                                Please enter both tuition fees
+                              <div class="text-danger text-center small" *ngIf="(form.get('fees')?.errors?.required || form.get('compare_fees')?.errors?.required ||  form.get('fees')?.errors?.max || form.get('compare_fees')?.errors?.max) && submitted">
+                                Please enter both tuition fees and both are maximum 6 digit only allowed
                               </div>
                   
                               <!-- Annual Living Expense -->
@@ -214,7 +212,8 @@
                                          class="form-control w-100 m-0" 
                                          [min]="100" 
                                          formControlName="expense" 
-                                         placeholder="Enter Amount">
+                                         placeholder="Enter Expense Amount"
+                                         [max]="999999">
                                 </div>
                                 <div class="col-lg-4 mb-2">
                                   <input type="number" 
@@ -222,11 +221,12 @@
                                          class="form-control w-100 m-0" 
                                          [min]="100" 
                                          formControlName="compare_expenses" 
-                                         placeholder="Enter Amount">
+                                         placeholder="Enter Expense Amount" 
+                                         [max]="999999">
                                 </div>
                               </div>
-                              <div class="text-danger text-center small" *ngIf="(form.get('expense')?.errors?.required || form.get('compare_expenses')?.errors?.required) && submitted">
-                                Please enter both living expenses
+                              <div class="text-danger text-center small" *ngIf="(form.get('expense')?.errors?.required || form.get('compare_expenses')?.errors?.required || form.get('expense')?.errors?.max || form.get('compare_expenses')?.errors?.max) && submitted" >
+                                Please enter both living expenses and both are maximum 6 digit only allowed
                               </div>
                   
                               <!-- Stay Back Period -->
@@ -242,7 +242,7 @@
                                              [filter]="true"
                                              filterBy="name"
                                              formControlName="period"
-                                             placeholder="Months/Year"
+                                             placeholder="Select Months"
                                              styleClass="w-100" appendTo="body">
                                   </p-dropdown>
                                 </div>
@@ -253,7 +253,7 @@
                                              [filter]="true"
                                              filterBy="name"
                                              formControlName="compare_period"
-                                             placeholder="Months/Year"
+                                             placeholder="Select Months"
                                              styleClass="w-100"  appendTo="body">
                                   </p-dropdown>
                                 </div>
@@ -301,7 +301,7 @@
             <div class="select-title d-flex justify-content-between align-items-center">
               <div>
                 <h5 class="w-100 mb-0" tooltipPosition="top" pTooltip="">
-                  Uni Compare<i class="questiontooltip fa-solid fa-circle-question"></i></h5>
+                  UNICOMPARE <i class="questiontooltip fa-solid fa-circle-question"></i></h5>
               </div>
               <div>
                 <button class="how-it-works-button">How it works?
@@ -353,7 +353,7 @@
             <div class="select-title d-flex justify-content-between align-items-center">
               <div>
                 <h5 class="w-100 mb-0" tooltipPosition="top" pTooltip="">
-                  Uni Compare<i class="questiontooltip fa-solid fa-circle-question"></i></h5>
+                  UNICOMPARE <i class="questiontooltip fa-solid fa-circle-question"></i></h5>
               </div>
               <div>
                 <button class="how-it-works-button">How it works?

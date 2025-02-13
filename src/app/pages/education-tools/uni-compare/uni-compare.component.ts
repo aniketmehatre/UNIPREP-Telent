@@ -9,6 +9,7 @@ import { FounderstoolService } from '../../founderstool/founderstool.service';
 import { startupDropdownData } from '../../founderstool/start-up-expense-estimate/startup-expense.data';
 import { PageFacadeService } from '../../page-facade.service';
 import { EducationToolsService } from '../education-tools.service';
+import { uniCompareOptions } from './uni-compare.data';
 
 @Component({
   selector: 'uni-uni-compare',
@@ -22,7 +23,7 @@ export class UniCompareComponent implements OnInit, OnDestroy {
   compareUniversityList: any[];
   universityList: any = [];
   specializationList: any = [];
-  stayBackAfterGraduations: { name: string }[] = [{ name: 'Months' }, { name: 'Years' }];
+  stayBackAfterGraduations: { name: string }[] = uniCompareOptions.stayBack;
 
   isFromSavedData: boolean = false;
   recommadationSavedQuestionList: any = [];
@@ -175,6 +176,16 @@ export class UniCompareComponent implements OnInit, OnDestroy {
         this.submitted = true;
         return;
       }
+      const isValidAmount = (value: any) => /^[0-9]{1,6}$/.test(value);
+      if (
+        !isValidAmount(formData.fees) ||
+        !isValidAmount(formData.compare_fees) ||
+        !isValidAmount(formData.expense) ||
+        !isValidAmount(formData.compare_expenses)
+      ) {
+        this.submitted = true;
+        return;
+      }
     }
     if (this.recommendRestrict) {
       this.restrict = true;
@@ -279,10 +290,21 @@ export class UniCompareComponent implements OnInit, OnDestroy {
 
   downloadRecommadation() {
     this.educationToolService.downloadRecommendation({ data: this.recommendationData }).subscribe({
-      next: res => {
-        window.open(res.url, "_blank");
+      next: (response: any) => {
+        this.educationToolService.downloadFile(response.url).subscribe((blob) => {
+          const a = document.createElement("a");
+          const objectUrl = window.URL.createObjectURL(blob);
+
+          a.href = objectUrl;
+          a.download = "uni-compare.pdf";
+          document.body.appendChild(a);
+
+          a.click();
+          window.URL.revokeObjectURL(objectUrl);
+          document.body.removeChild(a);
+        });
       },
-      error: err => {
+      error: (err) => {
         console.log(err?.error?.message);
       }
     });
