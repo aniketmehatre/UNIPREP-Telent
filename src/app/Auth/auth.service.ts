@@ -226,14 +226,9 @@ export class AuthService {
         this._checkExistsSubscription = userDetails.subscription_exists || 0;
         this.storeUserData(userDetails);
         return response;
-      })
-    );
-
-    const timeout$ = timer(this.API_TIMEOUT).pipe(
-      map(() => { throw new Error('API timeout'); })
-    );
-
-    this.getMeCache$ = race(request$, timeout$).pipe(
+      }),
+      shareReplay({ bufferSize: 1, refCount: false }),
+      timeout(30000),
       catchError(error => {
         this.resetGetMeCache();
         if (error.status === 401) {
@@ -241,10 +236,10 @@ export class AuthService {
           return throwError(() => new Error('Session expired'));
         }
         return throwError(() => error);
-      }),
-      shareReplay(1)
+      })
     );
 
+    this.getMeCache$ = request$;
     return this.getMeCache$;
   }
 

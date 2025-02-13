@@ -1,8 +1,8 @@
 import { Injectable } from "@angular/core";
 import { HttpClient, HttpHeaders } from "@angular/common/http";
 import { environment } from "@env/environment";
-import { BehaviorSubject, Observable, of, throwError } from "rxjs";
-import { catchError } from "rxjs/operators";
+import { BehaviorSubject, Observable, of, throwError, timer } from "rxjs";
+import { catchError, timeout, tap, map, shareReplay, retryWhen, delay, take, finalize } from "rxjs/operators";
 
 @Injectable({
   providedIn: "root",
@@ -10,6 +10,11 @@ import { catchError } from "rxjs/operators";
 export class DashboardService {
   private selectedCountrySubject = new BehaviorSubject<any>(null);
   selectedCountry$ = this.selectedCountrySubject.asObservable();
+
+  private dashboardCountCache: { [key: string]: any } = {};
+  private readonly CACHE_DURATION = 5 * 60 * 1000; // 5 minutes cache
+  private readonly API_TIMEOUT = 10000; // 10 seconds timeout
+  private activeRequest$: Observable<any> | null = null;
 
   constructor(private http: HttpClient) {
     // Initialize with stored country if available
@@ -28,21 +33,80 @@ export class DashboardService {
     this.selectedCountrySubject.next(country);
   }
 
-  isinitialstart=false;
-  getDashboardCounts() {
+  isinitialstart = false;
+
+  getDashboardCounts(): Observable<any> {
     const countryId = localStorage.getItem('countryId') || '0';
-    const headers = new HttpHeaders().set('Content-Type', 'application/json');
+    const cacheKey = `dashboard_count_${countryId}`;
+    
+    // Check cache first
+    const cachedData = this.dashboardCountCache[cacheKey];
+    if (cachedData && (Date.now() - cachedData.timestamp) < this.CACHE_DURATION) {
+      return of(cachedData.data);
+    }
+
+    // Return active request if it exists
+    if (this.activeRequest$) {
+      return this.activeRequest$;
+    }
+
+    const headers = new HttpHeaders()
+      .set('Content-Type', 'application/json')
+      .set('Accept', 'application/json')
+      .set('Cache-Control', 'no-cache')
+      .set('Pragma', 'no-cache');
+
     const url = `${environment.ApiUrl}/getdashboardcount?country_id=${countryId}`;
     
-    return this.http.get(url, { headers }).pipe(
-        catchError(error => {
-            console.error('Dashboard count API error:', error);
-            if (error.status === 404) {
-                return of({ status: 404, message: 'Resource not found' });
+    this.activeRequest$ = this.http.get(url, { headers }).pipe(
+      timeout(this.API_TIMEOUT),
+      retryWhen(errors => 
+        errors.pipe(
+          tap(error => {
+            if (error.name === 'TimeoutError') {
+              console.warn('Request timed out, retrying...');
             }
-            return throwError(() => error);
-        })
+          }),
+          delay(1000),
+          take(3)
+        )
+      ),
+      map(response => {
+        if (!response) {
+          throw new Error('Empty response received');
+        }
+        return response;
+      }),
+      tap(response => {
+        // Cache successful responses
+        this.dashboardCountCache[cacheKey] = {
+          data: response,
+          timestamp: Date.now()
+        };
+      }),
+      catchError(error => {
+        console.error('Dashboard count API error:', error);
+        
+        // Return cached data if available
+        if (cachedData) {
+          console.log('Returning cached data due to error');
+          return of(cachedData.data);
+        }
+        
+        if (error.name === 'TimeoutError') {
+          return throwError(() => new Error('Request timed out after multiple retries'));
+        }
+        
+        return throwError(() => error);
+      }),
+      // Share the same response with multiple subscribers
+      shareReplay({ bufferSize: 1, refCount: true }),
+      finalize(() => {
+        this.activeRequest$ = null;
+      })
     );
+
+    return this.activeRequest$;
   }
 
   getReadProgression(val: any): Observable<any> {

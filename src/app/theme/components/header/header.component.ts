@@ -466,6 +466,33 @@ export class HeaderComponent implements OnInit, OnDestroy {
 			this.phone = '';
 		}
 
+		// Add user details subscription
+		this.subs.sink = this.service.getMe().pipe(
+			take(1),
+			catchError(error => {
+				console.error('Error loading user details:', error);
+				return of(null);
+			})
+		).subscribe(response => {
+			if (response?.userdetails?.[0]) {
+				const userDetails = response.userdetails[0];
+				this.userName = userDetails.name || '';
+				this.firstChar = this.userName ? this.userName.charAt(0).toUpperCase() : '';
+				
+				// Set home country icon if available
+				if (userDetails.home_country_id) {
+					this.homeCountryId = userDetails.home_country_id;
+					localStorage.setItem('homeCountryId', this.homeCountryId.toString());
+					this.loadCountryList(); // This will now use the home country ID
+				}
+			}
+		});
+
+		// Load country list if not already loading from user details
+		if (!this.homeCountryId) {
+			this.loadCountryList();
+		}
+
 		// Initialize other component data
 		this.initializeUserProfile();
 		this.loadUserData();
