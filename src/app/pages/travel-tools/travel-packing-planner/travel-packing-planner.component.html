@@ -38,14 +38,14 @@
                                     <ng-container *ngIf="recommendation.id == 1">
                                         <p-dropdown [options]="destinationLocationList"
                                             [(ngModel)]="selectedData[recommendation.id]" [virtualScroll]="true"
-                                            [virtualScrollItemSize]="50" [appendTo]="'body'" placeholder="Destination"
+                                            [virtualScrollItemSize]="50" [appendTo]="'body'" placeholder="Select Destination"
                                             [filter]="true" [showClear]="true" styleClass="w-100">
                                             <ng-template pTemplate="filter" let-options="options">
                                                 <div class="d-flex gap-2">
                                                     <div class="p-inputgroup" (click)="$event.stopPropagation()">
                                                         <span class="p-inputgroup-addon">
                                                             <i class="pi pi-search"></i></span>
-                                                        <input type="text" pInputText placeholder="Filter"
+                                                        <input type="text" pInputText placeholder="Search"
                                                             [(ngModel)]="destinationFilter"
                                                             (keyup)="customFilterFunction('destination')" />
                                                     </div>
@@ -85,7 +85,7 @@
                                     <ng-container *ngIf="recommendation.id == 2">
                                         <p-dropdown [options]="travelTypeList" styleClass="w-100"
                                             [(ngModel)]="selectedData[recommendation.id]" optionLabel="name"
-                                            optionValue="name" [appendTo]="'body'" placeholder="Travel type">
+                                            optionValue="name" [appendTo]="'body'" placeholder="Select Travel type">
                                         </p-dropdown>
                                         <p class="text-center" [ngClass]="{ 'd-none': invalidClass === false }"
                                             style="color: red">Please Choose Any one option</p>
@@ -93,7 +93,7 @@
                                     <ng-container *ngIf="recommendation.id == 3">
                                         <p-multiSelect [options]="transportationModeList" styleClass="w-100"
                                             [(ngModel)]="selectedData[recommendation.id]" optionLabel="name"
-                                            optionValue="name" [appendTo]="'body'" placeholder="Mode of transportation">
+                                            optionValue="name" [appendTo]="'body'" placeholder="Select Mode of transportation">
                                         </p-multiSelect>
                                         <p class="text-center" [ngClass]="{ 'd-none': invalidClass === false }"
                                             style="color: red">Please Choose Any one option</p>
@@ -115,7 +115,7 @@
                                     <ng-container *ngIf="recommendation.id == 5">
                                         <p-dropdown [options]="monthList" styleClass="w-100"
                                             [(ngModel)]="selectedData[recommendation.id]" optionLabel="name"
-                                            optionValue="name" [appendTo]="'body'" placeholder="Seasons">
+                                            optionValue="name" [appendTo]="'body'" placeholder="Select Seasons">
                                         </p-dropdown>
                                         <p class="text-center" [ngClass]="{ 'd-none': invalidClass === false }"
                                             style="color: red">Please Choose Any one option</p>
@@ -168,7 +168,7 @@
                 <div class="d-flex align-items-center">
                     <button pButton type="button" (click)="saveRecommadation()"
                         class="btn btn-primary btn-rounded py-2 px-4">
-                        <span>Saved</span>
+                        <span>History</span>
                     </button>
                 </div>
             </div>
@@ -184,13 +184,13 @@
                         <span class="me-2">Download</span><span class="btn-icon px-2 py-2">
                             <i class="fa-regular fa-download"></i></span>
                     </button>
-                    <button pButton type="button" (click)="onSaveRes()"
+                    <!-- <button pButton type="button" (click)="onSaveRes()"
                         class="btn btn-primary btn-rounded p-1 ps-4">
                         <span class="me-2">Save Response</span><span class="btn-icon px-2 py-2">
                             <i class="fa-regular fa-floppy-disk"></i></span>
-                    </button>
+                    </button> -->
                 </div>
-                <div class="card p-3" [innerHtml]="recommendationData"></div>
+                <div class="card p-3 poppins-content" [innerHtml]="recommendationData"></div>
             </div>
             <div class="col-md-2"></div>
         </div>

@@ -39,13 +39,13 @@
                                         <p-dropdown [options]="departureLocationList" [virtualScroll]="true"
                                             [virtualScrollItemSize]="50" [(ngModel)]="selectedData[recommendation.id]"
                                             [appendTo]="'body'" [filter]="true" [showClear]="true"
-                                            placeholder="Departure Country" styleClass="w-100">
+                                            placeholder="Select Departure Country" styleClass="w-100">
                                             <ng-template pTemplate="filter" let-options="options">
                                                 <div class="d-flex gap-2">
                                                     <div class="p-inputgroup" (click)="$event.stopPropagation()">
                                                         <span class="p-inputgroup-addon">
                                                             <i class="pi pi-search"></i></span>
-                                                        <input type="text" pInputText placeholder="Filter"
+                                                        <input type="text" pInputText placeholder="Search"
                                                             [(ngModel)]="departureFilter"
                                                             (keyup)="customFilterFunction('departure')" />
                                                     </div>
@@ -85,14 +85,14 @@
                                     <ng-container *ngIf="recommendation.id == 2">
                                         <p-dropdown [options]="destinationLocationList" [virtualScroll]="true"
                                             [virtualScrollItemSize]="50" [(ngModel)]="selectedData[recommendation.id]"
-                                            [appendTo]="'body'" placeholder="Destination Country" [filter]="true"
+                                            [appendTo]="'body'" placeholder="Select Destination Country" [filter]="true"
                                             [showClear]="true" styleClass="w-100">
                                             <ng-template pTemplate="filter" let-options="options">
                                                 <div class="d-flex gap-2">
                                                     <div class="p-inputgroup" (click)="$event.stopPropagation()">
                                                         <span class="p-inputgroup-addon">
                                                             <i class="pi pi-search"></i></span>
-                                                        <input type="text" pInputText placeholder="Filter"
+                                                        <input type="text" pInputText placeholder="Search"
                                                             [(ngModel)]="destinationFilter"
                                                             (keyup)="customFilterFunction('destination')" />
                                                     </div>
@@ -145,7 +145,7 @@
                                     <ng-container *ngIf="recommendation.id == 4">
                                         <p-dropdown [options]="trvelExperienceList" styleClass="w-100"
                                             [(ngModel)]="selectedData[recommendation.id]" optionLabel="name"
-                                            optionValue="name" [appendTo]="'body'" placeholder="Travel Experience">
+                                            optionValue="name" [appendTo]="'body'" placeholder="Select Travel Experience">
                                         </p-dropdown>
                                         <p class="text-center" [ngClass]="{ 'd-none': invalidClass === false }"
                                             style="color: red">Please Choose Any one option</p>
@@ -154,7 +154,7 @@
                                         <p-dropdown [options]="currencyList"
                                             [(ngModel)]="selectedData[recommendation.id]" optionLabel="currency_code"
                                             optionValue="currency_code" [appendTo]="'body'"
-                                            placeholder="Preferred Currency" [filter]="true" [showClear]="true"
+                                            placeholder="Select Preferred Currency" [filter]="true" [showClear]="true"
                                             styleClass="w-100">
                                             <ng-template let-data pTemplate="item">
                                                 <div>{{data.country}} - {{data.currency_code}}</div>
@@ -167,7 +167,7 @@
                                                     <div class="p-inputgroup" (click)="$event.stopPropagation()">
                                                         <span class="p-inputgroup-addon">
                                                             <i class="pi pi-search"></i></span>
-                                                        <input type="text" pInputText placeholder="Filter"
+                                                        <input type="text" pInputText placeholder="Search"
                                                             [(ngModel)]="currencyFilter"
                                                             (keyup)="customFilterFunction('currency')" />
                                                     </div>
@@ -228,7 +228,7 @@
                 <div class="d-flex align-items-center">
                     <button pButton type="button" (click)="saveRecommadation()"
                         class="btn btn-primary btn-rounded py-2 px-4">
-                        <span>Saved</span>
+                        <span>History</span>
                     </button>
                 </div>
             </div>
@@ -244,13 +244,13 @@
                         <span class="me-2">Download</span><span class="btn-icon px-2 py-2">
                             <i class="fa-regular fa-download"></i></span>
                     </button>
-                    <button pButton type="button" (click)="onSaveRes()"
+                    <!-- <button pButton type="button" (click)="onSaveRes()"
                         class="btn btn-primary btn-rounded p-1 ps-4">
                         <span class="me-2">Save Response</span><span class="btn-icon px-2 py-2">
                             <i class="fa-regular fa-floppy-disk"></i></span>
-                    </button>
+                    </button> -->
                 </div>
-                <div class="card p-3" [innerHtml]="recommendationData"></div>
+                <div class="card p-3 poppins-content" [innerHtml]="recommendationData"></div>
             </div>
             <div class="col-md-2"></div>
         </div>
