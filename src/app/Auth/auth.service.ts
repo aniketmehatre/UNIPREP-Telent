@@ -1,5 +1,5 @@
 import { environment } from "../../environments/environment";
-import { BehaviorSubject, Observable, of, shareReplay, tap, throwError, switchMap, map, catchError, retry, timeout, delay } from "rxjs";
+import { BehaviorSubject, Observable, of, shareReplay, tap, throwError, switchMap, map, catchError, retry, timeout, delay, timer, race } from "rxjs";
 import { User, UserData } from "../@Models/user.model";
 import { LoginRequest } from "../@Models/auth.model";
 import { Router } from "@angular/router";
@@ -19,6 +19,9 @@ const ngxLocalstorageConfiguration = NGX_LOCAL_STORAGE_CONFIG as unknown as { pr
   providedIn: "root",
 })
 export class AuthService {
+  private readonly LOGIN_TIMEOUT = 8000; // 8 seconds timeout for login
+  private readonly API_TIMEOUT = 5000;  // 5 seconds for other API calls
+  
   _logindata: any;
   // user!: User;
   _user!: User | null;
@@ -114,64 +117,60 @@ export class AuthService {
   }
 
   login(data: LoginRequest): Observable<UserData> {
-    console.log('Login attempt started:', data.email);
     this.store.dispatch(AuthActions.login({ request: data }));
     
-    // Reset any existing cache before starting new login
+    // Reset cache and tokens
     this.resetGetMeCache();
     this.authTokenService.clearToken();
     
-    return this.isAuthenticated(data).pipe(
-      map(response => {
-        console.log('Authentication response received:', response);
+    const loginRequest$ = this.http.post<UserData>(environment.ApiUrl + "/login", data, {
+      headers: new HttpHeaders().set('Accept', 'application/json')
+    }).pipe(
+      tap(response => {
         if (!response?.token) {
           throw new Error('No token received');
         }
-        return response;
-      }),
-      tap(response => {
         this.authTokenService.setToken(response.token);
-      }),
-      delay(500),
-      switchMap(() => {
-        const token = this.getToken();
-        if (!token) {
-          console.error('Token not available after saving');
-          return throwError(() => new Error('Token not available after saving'));
-        }
-        try {
-          const decoded: any = jwtDecode(token);
-          const currentTime = Math.floor(Date.now() / 1000);
-          if (decoded.exp > currentTime) {
-            return of(true); // Token is valid if current time is before expiration
-          } else {
-            return throwError(() => new Error('Token expired'));
-          }
-        } catch (error) {
-          return throwError(() => new Error('Invalid token'));
-        }
-      }),
-      switchMap(() => this.getMe().pipe(
-        tap(userData => {
-          if (!userData?.userdetails?.[0]) {
-            throw new Error('Invalid user details response');
-          }
-          console.log('User details retrieved successfully');
-          setTimeout(() => {
-            this.router.navigate(['/pages/dashboard'], { replaceUrl: true });
-          }, 0);
-        }),
-        catchError(error => {
-          console.error('Error getting user details:', error);
-          this.authTokenService.clearToken();
-          throw error;
-        })
-      )),
+      })
+    );
+
+    const timeout$ = timer(this.LOGIN_TIMEOUT).pipe(
+      map(() => { throw new Error('Login timeout'); })
+    );
+
+    return race(loginRequest$, timeout$).pipe(
+      switchMap(() => this.validateAndGetUserData()),
       catchError(error => {
-        console.error('Login flow error:', error);
+        console.error('Login error:', error);
         this.authTokenService.clearToken();
         this.store.dispatch(AuthActions.loginFailure({ error: error.message }));
         return throwError(() => error);
+      })
+    );
+  }
+
+  private validateAndGetUserData(): Observable<any> {
+    const token = this.getToken();
+    if (!token) {
+      return throwError(() => new Error('No token available'));
+    }
+
+    try {
+      const decoded: any = jwtDecode(token);
+      const currentTime = Math.floor(Date.now() / 1000);
+      if (decoded.exp <= currentTime) {
+        return throwError(() => new Error('Token expired'));
+      }
+    } catch (error) {
+      return throwError(() => new Error('Invalid token'));
+    }
+
+    return this.getMe().pipe(
+      tap(userData => {
+        if (!userData?.userdetails?.[0]) {
+          throw new Error('Invalid user details');
+        }
+        this.router.navigate(['/pages/dashboard'], { replaceUrl: true });
       })
     );
   }
@@ -200,56 +199,47 @@ export class AuthService {
   }
 
   getMe(): Observable<any> {
-    console.debug('GetMe - Starting request');
     const token = this.getToken();
-    
     if (!token) {
-      console.error('GetMe - No token available');
-      return throwError(() => new Error('No authentication token available'));
+      return throwError(() => new Error('No authentication token'));
     }
 
-    // Return cached response if available
     if (this.getMeCache$) {
-      console.debug('GetMe - Returning cached response');
       return this.getMeCache$;
     }
 
-    // Create new request if no cache exists
-    console.debug('GetMe - Creating new request');
-    
-    this.getMeCache$ = this.http.get<any>(`${environment.ApiUrl}/getuserdetails`, { 
-      observe: 'response'
+    const request$ = this.http.get<any>(`${environment.ApiUrl}/getuserdetails`, {
+      headers: new HttpHeaders()
+        .set('Accept', 'application/json')
+        .set('Authorization', `Bearer ${token}`)
     }).pipe(
-      retry(1),
-      timeout(30000),
-      tap(response => {
-        if (!response.body?.userdetails?.[0]) {
-          console.error('GetMe - Invalid response format:', response.body);
-          this.resetGetMeCache();
-          throw new Error('Invalid user details response');
+      map(response => {
+        if (!response?.userdetails?.[0]) {
+          throw new Error('Invalid response format');
         }
+        const userDetails = response.userdetails[0];
+        this.user = {
+          ...userDetails,
+          name: userDetails.name || ''
+        };
+        this._userLoginCount = userDetails.login_status || 0;
+        this._checkExistsSubscription = userDetails.subscription_exists || 0;
+        this.storeUserData(userDetails);
+        return response;
+      })
+    );
 
-        const userDetails = response.body.userdetails[0];
-        if (userDetails) {
-          this.user = {
-            ...userDetails,
-            name: userDetails.name || ''
-          };
-          this._userLoginCount = userDetails.login_status || 0;
-          this._checkExistsSubscription = userDetails.subscription_exists || 0;
-          this.storeUserData(userDetails);
-        }
-      }),
-      map(response => response.body),
+    const timeout$ = timer(this.API_TIMEOUT).pipe(
+      map(() => { throw new Error('API timeout'); })
+    );
+
+    this.getMeCache$ = race(request$, timeout$).pipe(
       catchError(error => {
-        console.error('GetMe - Request failed:', error);
         this.resetGetMeCache();
-        
         if (error.status === 401) {
           this.authTokenService.clearToken();
-          return throwError(() => new Error('Session expired. Please login again.'));
+          return throwError(() => new Error('Session expired'));
         }
-        
         return throwError(() => error);
       }),
       shareReplay(1)
