@@ -8,13 +8,14 @@ import { ArrayHeaderService } from "../array-header.service"
 import { Location } from "@angular/common"
 import { AuthService } from "src/app/Auth/auth.service"
 import { DialogModule } from "primeng/dialog"
+import { PdfViewerModule } from "ng2-pdf-viewer"
 import { NgxExtendedPdfViewerModule } from "ngx-extended-pdf-viewer"
 
 @Component({
 	selector: "uni-learnsubmodules",
 	templateUrl: "./learnsubmodules.component.html",
 	styleUrls: ["./learnsubmodules.component.scss"],
-	imports: [DialogModule, CommonModule, NgxExtendedPdfViewerModule],
+	imports: [DialogModule, CommonModule, PdfViewerModule, NgxExtendedPdfViewerModule],
 	standalone: true,
 })
 export class LearnsubModulesComponent implements OnInit {
@@ -24,27 +25,20 @@ export class LearnsubModulesComponent implements OnInit {
 	planExpired: boolean = false
 	restrict: boolean = false
 	ehitlabelIsShow: boolean = true
-	pdfURL: any
+	pdfURL: string = ""
 	pdfvisibility = false
 	moduleId: number
 	moduleName: string
 	imagewhitlabeldomainname: any
+	pdfLoadError: boolean = false
 
-	constructor(
-		private pageFacade: PageFacadeService,
-		private authService: AuthService,
-		private router: Router,
-		private arrayHeaderService: ArrayHeaderService,
-		private learnService: UniLearnService,
-		private route: ActivatedRoute,
-		private location: Location
-	) {}
+	constructor(private pageFacade: PageFacadeService, private authService: AuthService, private router: Router, private arrayHeaderService: ArrayHeaderService, private learnService: UniLearnService, private route: ActivatedRoute, private location: Location) {}
 
 	ngOnInit(): void {
 		// Get query parameters
-		this.route.queryParams.subscribe(params => {
-			this.moduleId = params['moduleId']
-			this.moduleName = params['moduleName']
+		this.route.queryParams.subscribe((params) => {
+			this.moduleId = params["moduleId"]
+			this.moduleName = params["moduleName"]
 			if (this.moduleId) {
 				this.paramData = { parent_id: 0, module_id: this.moduleId }
 				this.arrayHeaderService.addItem(this.moduleName)
@@ -81,12 +75,12 @@ export class LearnsubModulesComponent implements OnInit {
 		if (moduledata.isTestmodule == 1) {
 			this.arrayHeaderService.addItem(moduledata.submodule_name)
 			// Navigate to test module using absolute path
-			this.router.navigate(['/pages/unilearn/test'], {
+			this.router.navigate(["/pages/unilearn/test"], {
 				queryParams: {
 					parentId: moduledata.id,
 					moduleId: moduledata.module_id,
-					moduleName: moduledata.submodule_name
-				}
+					moduleName: moduledata.submodule_name,
+				},
 			})
 			return
 		}
@@ -100,8 +94,14 @@ export class LearnsubModulesComponent implements OnInit {
 				this.getModules()
 				break
 			case 2:
+				this.pdfLoadError = false
 				this.pdfvisibility = true
-				this.pdfURL = moduledata.attachment_filename
+				// Check if URL starts with http/https, if not add it
+				if (moduledata.attachment_filename && !moduledata.attachment_filename.startsWith("http")) {
+					this.pdfURL = "https://" + moduledata.attachment_filename
+				} else {
+					this.pdfURL = moduledata.attachment_filename
+				}
 				break
 			case 3:
 				this.pageFacade.openHowitWorksVideoPopup(moduledata.attachment_filename)
@@ -114,6 +114,11 @@ export class LearnsubModulesComponent implements OnInit {
 		}
 	}
 
+	onError(error: any) {
+		console.error("PDF loading error:", error)
+		this.pdfLoadError = true
+	}
+
 	backtoMain() {
 		this.arrayHeaderService.removeItem(this.arrayHeaderService.getItems().length - 1)
 		this.getFormattedValues()
@@ -124,7 +129,7 @@ export class LearnsubModulesComponent implements OnInit {
 		}
 
 		if (this.submoduleList.length == 0 || this.submoduleList[0]?.parent_folder_id == 0) {
-			this.router.navigate(['/pages/unilearn/modules'])
+			this.router.navigate(["/pages/unilearn/modules"])
 			return
 		}
 
