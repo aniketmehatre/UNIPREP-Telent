@@ -1,7 +1,8 @@
 import { Injectable } from "@angular/core";
 import { HttpClient, HttpHeaders } from "@angular/common/http";
 import { environment } from "@env/environment";
-import { BehaviorSubject, Observable } from "rxjs";
+import { BehaviorSubject, Observable, of, throwError } from "rxjs";
+import { catchError } from "rxjs/operators";
 
 @Injectable({
   providedIn: "root",
@@ -29,15 +30,18 @@ export class DashboardService {
 
   isinitialstart=false;
   getDashboardCounts() {
-    const headers = new HttpHeaders().set("Accept", "application/json");
-    return this.http.get<any>(
-      environment.ApiUrl +
-        "/getdashboardcount?" +
-        "getcountry_id=" +
-        Number(localStorage.getItem("countryId")),
-      {
-        headers: headers,
-      }
+    const countryId = localStorage.getItem('countryId') || '0';
+    const headers = new HttpHeaders().set('Content-Type', 'application/json');
+    const url = `${environment.ApiUrl}/getdashboardcount?country_id=${countryId}`;
+    
+    return this.http.get(url, { headers }).pipe(
+        catchError(error => {
+            console.error('Dashboard count API error:', error);
+            if (error.status === 404) {
+                return of({ status: 404, message: 'Resource not found' });
+            }
+            return throwError(() => error);
+        })
     );
   }
 

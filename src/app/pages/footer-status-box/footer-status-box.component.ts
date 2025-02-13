@@ -30,16 +30,36 @@ export class FooterStatusBoxComponent implements OnInit {
 
     loadDashboardData() {
         console.log('Loading dashboard data...');
-        this.dashboardService.getDashboardCounts().subscribe((res: any) => {
-            console.log('Dashboard data response:', res);
-            if (res.status === 404) {
-                console.error('404 status received');
-                return;
+        this.dashboardService.getDashboardCounts().subscribe({
+            next: (res: any) => {
+                console.log('Dashboard data response:', res);
+                if (res.status === 404) {
+                    console.warn('Dashboard data not found');
+                    this.toast.add({
+                        severity: 'warn',
+                        summary: 'Warning',
+                        detail: 'Dashboard data not available'
+                    });
+                    return;
+                }
+                this.dashboardCount = res;
+            },
+            error: (err) => {
+                console.error('Error loading dashboard data:', err);
+                let errorMessage = 'Failed to load dashboard data';
+                if (err.status === 0) {
+                    errorMessage = 'Unable to connect to the server. Please check your internet connection.';
+                } else if (err.status === 401) {
+                    errorMessage = 'Please log in to view dashboard data';
+                } else if (err.status === 403) {
+                    errorMessage = 'You do not have permission to view this data';
+                }
+                this.toast.add({
+                    severity: 'error',
+                    summary: 'Error',
+                    detail: errorMessage
+                });
             }
-            this.dashboardCount = res;
-        }, err => {
-            console.error('Error loading dashboard data:', err);
-            this.toast.add({severity: 'Alert', summary: 'Alert', detail: err});
         });
     }
 

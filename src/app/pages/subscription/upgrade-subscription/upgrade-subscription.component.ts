@@ -85,75 +85,54 @@ export class UpgradeSubscriptionComponent implements OnInit {
 	constructor(private authService: AuthService, private subscriptionService: SubscriptionService, private storage: LocalStorageService, private toast: MessageService, private ngxService: NgxUiLoaderService, private router: Router, private winRef: WindowRefService, private store: Store<SubscriptionState>, private http: HttpClient, private confirmationService: ConfirmationService, private messageService: MessageService, private stripeService: StripeService) {}
 	timeLeftInfoCard: any
 	userName: any
-	ngOnInit(): void {
+	phone: any
+	email: any
+	async ngOnInit(): Promise<void> {
 		try {
 			// Handle userName decryption with better error handling
-			let userName = ""
-			const encryptedName = localStorage.getItem("Name")
-
+			const encryptedName = localStorage.getItem("Name");
 			if (encryptedName) {
 				try {
-					const bytes = this.authService.decryptData(encryptedName)
-					// const bytes = CryptoJS.AES.decrypt(
-					//   encryptedName,
-					//   environment.secretKeySalt
-					// );
-					const decryptedText = bytes.toString()
-
+					const decryptedText = await this.authService.decryptData(encryptedName);
 					if (decryptedText && decryptedText.trim() !== "") {
 						try {
-							// Only parse if it looks like JSON
 							if (decryptedText.startsWith("{") || decryptedText.startsWith("[") || decryptedText.startsWith('"')) {
-								userName = JSON.parse(decryptedText)
+								this.userName = JSON.parse(decryptedText);
 							} else {
-								// If not JSON, use the decrypted text directly
-								userName = decryptedText
+								this.userName = decryptedText;
 							}
 						} catch (parseError) {
-							console.warn("Name data is not in JSON format, using as plain text")
-							userName = decryptedText
+							console.warn("Failed to parse decrypted name:", parseError);
+							this.userName = decryptedText;
 						}
 					}
-				} catch (decryptError) {
-					console.warn("Could not decrypt name, using fallback")
-					// Try to get name from user object as fallback
-					userName = this.authService.user?.name || ""
+				} catch (error) {
+					console.warn("Failed to decrypt name:", error);
 				}
 			}
-			this.userName = userName || "User"
 
-			// Handle homeCountryName decryption with better error handling
-			let homeCountryName = "India" // Default fallback
-			const encHomeCountryName = localStorage.getItem("home_country_name")
-
-			if (encHomeCountryName) {
+			const encPhone = localStorage.getItem("phone");
+			if (encPhone) {
 				try {
-					const bytes = this.authService.decryptData(encHomeCountryName)
-					const decryptedText = bytes.toString()
+					const decryptedPhone = await this.authService.decryptData(encPhone);
+					this.phone = decryptedPhone;
+				} catch (error) {
+					console.warn("Failed to decrypt phone:", error);
+				}
+			}
 
-					if (decryptedText && decryptedText.trim() !== "") {
-						try {
-							// Only parse if it looks like JSON
-							if (decryptedText.startsWith("{") || decryptedText.startsWith("[") || decryptedText.startsWith('"')) {
-								homeCountryName = JSON.parse(decryptedText)
-							} else {
-								// If not JSON, use the decrypted text directly
-								homeCountryName = decryptedText
-							}
-						} catch (parseError) {
-							console.warn("Home country data is not in JSON format, using as plain text")
-							homeCountryName = decryptedText
-						}
-					}
-				} catch (decryptError) {
-					console.warn("Could not decrypt home country, using default")
-					// Try to get country from user object as fallback
-					homeCountryName = this.authService.user?.country || "India"
+			const encEmail = localStorage.getItem("email");
+			if (encEmail) {
+				try {
+					const decryptedEmail = await this.authService.decryptData(encEmail);
+					this.email = decryptedEmail;
+				} catch (error) {
+					console.warn("Failed to decrypt email:", error);
 				}
 			}
 
 			this.timeLeftInfoCard = localStorage.getItem("time_card_info")
-			this.currentCountry = homeCountryName ? String(homeCountryName) : "India"
+			this.currentCountry = localStorage.getItem("home_country_name") || "India"
 			this.discountAmountEnable = false
 			this.user = this.authService.user
 			this.education_level = this.user?.education_level?.replace(/[\s\u00A0]/g, "").trim() || "HigherEducation"

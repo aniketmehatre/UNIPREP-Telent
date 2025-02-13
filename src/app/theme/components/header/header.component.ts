@@ -165,6 +165,8 @@ export class HeaderComponent implements OnInit, OnDestroy {
 
 	showSearch: boolean = true
 	isShowHeaderSearchForModule: boolean = false
+	phone: string = ''
+
 	constructor(
 		private router: Router,
 		private locationService: LocationService,
@@ -433,122 +435,141 @@ export class HeaderComponent implements OnInit, OnDestroy {
 
 	allSearchedResult: any[] = []
 	currentRoute: string = ""
-	ngOnInit() {
-		this.initializeUserProfile();
-		this.loadUserData();
-		this.conditionModuleOrQuestionComponent()
-		this.locationService.getOrgName().subscribe((orgname) => {
-			this.orgnamewhitlabel = orgname
-		})
-		// this.imagewhitlabeldomainname = window.location.hostname;
-		// if (this.imagewhitlabeldomainname === "dev-student.uniprep.ai" || this.imagewhitlabeldomainname === "uniprep.ai" || this.imagewhitlabeldomainname === "localhost") {
-		//   this.whiteLabelIsNotShow = true;
-		// } else {
-		//   this.whiteLabelIsNotShow = false;
-		// }
-		fetch("https://ipapi.co/json/")
-			.then((response) => response.json())
-			.then((data) => {
-				this.preferredCountry = data.country_code.toLocaleLowerCase()
-			})
-		this.dataService.countryId.subscribe((data: any) => {
-			if (!data) {
-				this.selectedCountryId = Number(data)
-				this.getModuleList()
-				let cntId = localStorage.getItem("countryId")
-				this.dataService.changeCountryId(cntId!.toString())
+	async ngOnInit() {
+		try {
+			const encPhone = localStorage.getItem("phone");
+			if (encPhone) {
+				try {
+					const decryptedPhone = await this.service.decryptData(encPhone);
+					if (decryptedPhone && typeof decryptedPhone === 'string') {
+						try {
+							if (decryptedPhone.startsWith('{') || decryptedPhone.startsWith('[') || decryptedPhone.startsWith('"')) {
+								this.phone = JSON.parse(decryptedPhone);
+							} else {
+								this.phone = decryptedPhone;
+							}
+						} catch (parseError) {
+							console.warn('Failed to parse decrypted phone:', parseError);
+							this.phone = decryptedPhone;
+						}
+					} else {
+						console.warn('Decrypted phone is null or not a string');
+						this.phone = '';
+					}
+				} catch (error) {
+					console.warn('Failed to decrypt phone:', error);
+					this.phone = '';
+				}
 			}
-		})
-		this.dataService.homeCountryFlagSource.subscribe((data) => {
-			this.headerHomeFlag = data
-		})
-		this.dataService.countryNameSource.subscribe((data: any) => {})
-		this.dataService.countryFlagSource.subscribe((data: any) => {
-			this.headerFlag = data
-		})
-		this.dashboardService.data$.subscribe((data) => {
-			this.min$ = data?.minutes
-			this.sec$ = data?.seconds
-			this.hrs$ = data?.hours
-			this.day$ = data?.days
-			this.month$ = data?.months
-		})
-		this.mobileForm = this.formBuilder.group({
-			phone: ["", Validators.required],
-			home_country: [122, Validators.required],
-			study_level: ["", Validators.required],
-		})
-
-		this.currentEducationForm = this.formBuilder.group({
-			current_education: ["", Validators.required],
-		})
-		let phone
-		const encPhone = localStorage.getItem("phone")
-		if (encPhone) {
-			const bytes = this.service.decryptData(encPhone)
-			// const bytes = CryptoJS.AES.decrypt(encPhone, environment.secretKeySalt);
-			phone = JSON.parse(bytes.toString())
-			if (phone == "" || phone == null || phone == "null") {
-				this.formvisbility = true
-			}
+		} catch (error) {
+			console.error('Error in ngOnInit:', error);
+			this.phone = '';
 		}
 
-		this.phoneVerification = this.formBuilder.group({
-			verification_phone: [phone, Validators.required],
-			choice: [false, Validators.required],
-		})
+		// Initialize other component data
+		this.initializeUserProfile();
+		this.loadUserData();
+		this.conditionModuleOrQuestionComponent();
 
-		// Subscribe to country flag changes
-		this.subs.sink = this.dataService.countryFlagSource.subscribe({
+		// Load organization name
+		this.locationService.getOrgName().subscribe({
+			next: (orgname) => {
+				this.orgnamewhitlabel = orgname;
+			},
+			error: (error) => {
+				console.error('Error loading org name:', error);
+			}
+		});
+
+		// Handle preferred country
+		try {
+			const response = await fetch('https://ipapi.co/json/');
+			const data = await response.json();
+			this.preferredCountry = data.country_code?.toLowerCase();
+		} catch (error) {
+			console.warn('Error fetching location data:', error);
+			this.preferredCountry = 'in'; // Default to India
+		}
+
+		// Subscribe to country data changes
+		this.dataService.countryId.subscribe({
 			next: (data: any) => {
-				if (data) {
-					this.headerFlag = data
+				if (!data) {
+					this.selectedCountryId = Number(data);
+					this.getModuleList();
+					const cntId = localStorage.getItem("countryId");
+					if (cntId) {
+						this.dataService.changeCountryId(cntId.toString());
+					}
 				}
 			},
-			error: (error) => console.error("Error in country flag subscription:", error),
-		})
+			error: (error) => {
+				console.error('Error in country data subscription:', error);
+			}
+		});
 
-		// Subscribe to dashboard data
-		this.subs.sink = this.dashboardService.data$.subscribe({
+		// Set up other subscriptions
+		this.dataService.homeCountryFlagSource.subscribe({
 			next: (data) => {
-				if (data) {
-					this.min$ = data.minutes
-					this.sec$ = data.seconds
-					this.hrs$ = data.hours
-					this.day$ = data.days
-					this.month$ = data.months
-				}
+				this.headerHomeFlag = data;
 			},
-			error: (error) => console.error("Error in dashboard data subscription:", error),
-		})
+			error: (error) => {
+				console.error('Error in home country flag subscription:', error);
+			}
+		});
+
+		this.dataService.countryFlagSource.subscribe({
+			next: (data: any) => {
+				this.headerFlag = data;
+			},
+			error: (error) => {
+				console.error('Error in country flag subscription:', error);
+			}
+		});
+
+		this.dashboardService.data$.subscribe({
+			next: (data) => {
+				this.min$ = data?.minutes;
+				this.sec$ = data?.seconds;
+				this.hrs$ = data?.hours;
+				this.day$ = data?.days;
+				this.month$ = data?.months;
+			},
+			error: (error) => {
+				console.error('Error in dashboard data subscription:', error);
+			}
+		});
+
+		// Initialize forms
+		this.initializeForms();
 
 		// Handle phone verification
-		this.handlePhoneVerification()
+		await this.handlePhoneVerification();
 
 		// Check subscription status
 		if (this.service._checkExistsSubscription === 0) {
-			this.checkNewUser()
+			this.checkNewUser();
 		} else {
-			this.subScribedUserCount()
-			this.userLoginTimeLeftCount = true
-			this.subs.sink = this.dataService.showTimeOutSource.subscribe({
-				next: (data) => (this.visible = data),
-				error: (error) => console.error("Error in timeout subscription:", error),
-			})
+			this.subScribedUserCount();
+			this.userLoginTimeLeftCount = true;
+			this.dataService.showTimeOutSource.subscribe({
+				next: (data) => this.visible = data,
+				error: (error) => console.error('Error in timeout subscription:', error)
+			});
 		}
 
-		// Initialize report form and other settings
-		this.initializeReportForm()
+		// Initialize report form
+		this.initializeReportForm();
 
 		// Subscribe to dashboard country changes
-		this.subs.sink = this.dashboardService.selectedCountry$.subscribe({
+		this.dashboardService.selectedCountry$.subscribe({
 			next: (countryData: any) => {
 				if (countryData) {
-					this.selectCountryInHeader(countryData, null)
+					this.selectCountryInHeader(countryData, null);
 				}
 			},
-			error: (error) => console.error("Error in dashboard country subscription:", error),
-		})
+			error: (error) => console.error('Error in dashboard country subscription:', error)
+		});
 	}
 
 	private initializeForms() {

@@ -67,44 +67,58 @@ export class SubscriptionComponent implements OnInit {
 	currentCountry: string = ""
 	education_level: string = "HigherEducation"
 	studentType: number = 0
+	homeCountryName: any
+	phone: string = ''
+	email: string = ''
 
 	constructor(private subscriptionService: SubscriptionService, private winRef: WindowRefService, private authService: AuthService, private toastr: MessageService, private dataService: DataService, private dashboardService: DashboardService, private stripeService: StripeService, private ngxService: NgxUiLoaderService) {}
-	ngOnInit(): void {
+	async ngOnInit(): Promise<void> {
 		try {
-			let homeCountryName = null
-			const encHomeCountryName = localStorage.getItem("home_country_name")
-
+			const encHomeCountryName = localStorage.getItem("home_country_name");
 			if (encHomeCountryName) {
 				try {
-					// const bytes = CryptoJS.AES.decrypt(encHomeCountryName, environment.secretKeySalt)
-					const bytes = this.authService.decryptData(encHomeCountryName)
-					const decryptedText = bytes.toString()
-
-					// Validate decrypted text before parsing
+					const decryptedText = await this.authService.decryptData(encHomeCountryName);
 					if (decryptedText && decryptedText.trim() !== "") {
 						try {
-							// Additional validation to ensure valid JSON structure
 							if (decryptedText.startsWith("{") || decryptedText.startsWith("[") || decryptedText.startsWith('"') || /^-?\d+\.?\d*$/.test(decryptedText)) {
-								homeCountryName = JSON.parse(decryptedText)
+								this.homeCountryName = JSON.parse(decryptedText);
 							} else {
-								console.warn("Decrypted text is not in valid JSON format")
-								localStorage.removeItem("home_country_name")
+								console.warn("Decrypted text is not in valid JSON format");
+								this.homeCountryName = decryptedText;
 							}
 						} catch (parseError) {
-							console.warn("Failed to parse decrypted home country data:", parseError)
-							localStorage.removeItem("home_country_name")
+							console.warn("Failed to parse decrypted home country data:", parseError);
+							this.homeCountryName = decryptedText;
 						}
 					} else {
-						console.warn("Decrypted text is empty or invalid")
-						localStorage.removeItem("home_country_name")
+						console.warn("Decrypted text is empty or invalid");
 					}
 				} catch (decryptError) {
-					console.warn("Failed to decrypt home country data:", decryptError)
-					localStorage.removeItem("home_country_name")
+					console.warn("Failed to decrypt home country data:", decryptError);
 				}
 			}
 
-			this.currentCountry = homeCountryName ? String(homeCountryName) : ""
+			const encPhone = localStorage.getItem("phone");
+			if (encPhone) {
+				try {
+					const decryptedPhone = await this.authService.decryptData(encPhone);
+					this.phone = decryptedPhone;
+				} catch (error) {
+					console.warn("Failed to decrypt phone data:", error);
+				}
+			}
+
+			const encEmail = localStorage.getItem("email");
+			if (encEmail) {
+				try {
+					const decryptedEmail = await this.authService.decryptData(encEmail);
+					this.email = decryptedEmail;
+				} catch (error) {
+					console.warn("Failed to decrypt email data:", error);
+				}
+			}
+
+			this.currentCountry = this.homeCountryName ? String(this.homeCountryName) : ""
 			this.user = this.authService.user
 			this.education_level = this.user?.education_level?.replace(/[\s\u00A0]/g, "").trim() || "HigherEducation"
 			this.studentType = this.user?.student_type_id || 0
