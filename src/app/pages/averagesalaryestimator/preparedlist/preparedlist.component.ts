@@ -26,7 +26,7 @@ import { RadioButtonModule } from "primeng/radiobutton"
   templateUrl: "./preparedlist.component.html",
   styleUrls: ["./preparedlist.component.scss"],
   standalone: true,
-  imports: [CommonModule, DialogModule, TabViewModule, RouterModule, CardModule, FormsModule, ReactiveFormsModule, CarouselModule, ButtonModule, MultiSelectModule, SelectModule, InputGroupModule, InputTextModule, InputGroupAddonModule],
+  imports: [CommonModule, DialogModule,PdfJsViewerModule, TabViewModule, RouterModule, CardModule, FormsModule, ReactiveFormsModule, CarouselModule, ButtonModule, MultiSelectModule, SelectModule, InputGroupModule, InputTextModule, InputGroupAddonModule],
   providers: [MessageService,AveragesalaryestimatorService]
 })
 export class AverageSalaryPreparedListComponent implements OnInit {
