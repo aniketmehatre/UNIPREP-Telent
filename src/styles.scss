@@ -351,6 +351,14 @@ small {
 	overflow-y: auto;
 	background: white !important;
 }
+
+.p-carousel-content-container {
+	height: 100% !important;
+	.p-carousel-item-list {
+		height: 100% !important;
+	}
+}
+
 uni-pages
 {
 	height:100dvh;
