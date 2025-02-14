@@ -4,28 +4,30 @@
       <div>
         <h3 class="text-center uniprep-primary">Your Cover Letters</h3>
         <div class="cvSampleImg d-flex flex-wrap">
-          <div class="flex-column overflow-hidden" *ngFor="let resumes of coverHistories; let i = index">
+          <div class="flex-column overflow-hidden" *ngFor="let resume of resumeHistory; let i = index">
             <div>
-              <ng2-pdfjs-viewer #pdfViewer
-                [pdfSrc]="resumes.pdf_name"
-                [viewerId]="'pdf-viewer-' + i"
-                [viewBookmark]="false"
-                [openFile]="false"
-                [fullScreen]="false"
-                [print]="false"
-                pagemode="none"
-                style="width: 100%; height: 500px; background: none; border: none;"
-                (error)="onError($event)">
-              </ng2-pdfjs-viewer>
+              <!-- Replace PDF viewer with image -->
+              <div class="pdf-preview" *ngIf="resume?.pdf_name">
+                  <img *ngIf="pdfThumbnails[resume.pdf_name]" 
+                       [src]="pdfThumbnails[resume.pdf_name]" 
+                       alt="PDF Preview" 
+                       class="pdf-thumbnail"
+                       style="width: 100%; max-height: 500px; object-fit: contain; background: none; border: none;" />
+                  <div *ngIf="!pdfThumbnails[resume.pdf_name]" class="loading-placeholder">
+                      Loading preview...
+                  </div>
+              </div>
               <div *ngIf="pdfLoadError" class="alert alert-danger mt-3">
                 <p>Error loading PDF. Please try downloading the file instead.</p>
               </div>
-              <i class="fa-solid fa-trash HistoryDeleteIcon" (click)="confirm($event, resumes.pdf_name, resumes.id)"></i>
-              <i class="fa-solid fa-download HistoryDownloadIcon" (click)="downloadOldResume(resumes.pdf_name)"></i>
+
+              <i class="fa-solid fa-trash HistoryDeleteIcon" (click)="confirm($event, resume.pdf_name, resume.id)"></i>
+              <p-confirmPopup></p-confirmPopup>
+              <i class="fa-solid fa-download HistoryDownloadIcon" (click)="downloadOldResume(resume.pdf_name)"></i>
             </div>
             <div>
               <p>Version {{ i + 1 }}</p>
-              <small>{{ resumes.created_time }}</small>
+              <small>{{ resume.created_time }}</small>
             </div>
           </div>
         </div>
