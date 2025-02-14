@@ -66,7 +66,7 @@
                                     </h5>
                                     <p-multiSelect [options]="seasonsList" styleClass="w-100"
                                         formControlName="seasons" optionLabel="name" optionValue="name"
-                                        [appendTo]="'body'" placeholder="Seasons (multi-select)">
+                                        [appendTo]="'body'" placeholder="Select Seasons (multi-select)">
                                     </p-multiSelect>
                                     <p class="text-center" *ngIf="form.get('seasons')?.errors?.required && submitted" style="color: red">
                                         Please Choose Any one option
@@ -78,7 +78,7 @@
                                     </h5>
                                     <p-multiSelect [options]="factorsList" styleClass="w-100"
                                         formControlName="factors" optionLabel="name" optionValue="name"
-                                        [appendTo]="'body'" placeholder="Factors">
+                                        [appendTo]="'body'" placeholder="Select Factors">
                                     </p-multiSelect>
                                     <p class="text-center" *ngIf="form.get('factors')?.errors?.required && submitted" style="color: red">
                                         Please Choose Any one option
@@ -93,7 +93,7 @@
                                     <h5 class="uniprep-primary fw-semibold mt-3 mb-1">
                                         {{ recommendation.question.branches[0] }}
                                     </h5>
-                                    <p-multiSelect styleClass="w-100" [appendTo]="'body'" placeholder="Target Audience"
+                                    <p-multiSelect styleClass="w-100" [appendTo]="'body'" placeholder="Select Target Audience"
                                         [options]="targetAudienceList" optionLabel="name"
                                         optionValue="name" formControlName="target_audience">
                                     </p-multiSelect>
@@ -105,7 +105,7 @@
                                     <h5 class="uniprep-primary fw-semibold mt-3 mb-1">
                                         {{ recommendation.question.branches[1] }}
                                     </h5>
-                                    <p-multiSelect styleClass="w-100" [appendTo]="'body'" placeholder="Growth Assumptions"
+                                    <p-multiSelect styleClass="w-100" [appendTo]="'body'" placeholder="Select Growth Assumptions"
                                         [options]="assumptionsList" optionLabel="name" optionValue="name"
                                         formControlName="assumptions">
                                     </p-multiSelect>

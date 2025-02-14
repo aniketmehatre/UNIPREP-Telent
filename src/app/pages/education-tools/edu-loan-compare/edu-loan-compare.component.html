@@ -80,7 +80,7 @@
                                                                 [autoDisplayFirst]="false">
                                                             </p-select>
                                                             <input type="number" class="form-control w-100" [min]="100"
-                                                                formControlName="loanamount" placeholder="Amount">
+                                                                formControlName="loanamount"  [placeholder]="form.get('currency').value ? 'Enter Amount in'+' '+form.get('currency').value : 'Enter Amount'">
                                                         </div>
                                                     </div>
                                                     <div class="col-lg-4 mb-2">
@@ -93,7 +93,7 @@
                                                                 [autoDisplayFirst]="false">
                                                             </p-select> 
                                                             <input type="number" class="form-control w-100 m-0" [min]="100"
-                                                                formControlName="compare_loanamount" placeholder="Amount">
+                                                                formControlName="compare_loanamount"  [placeholder]="form.get('compare_currency').value ? 'Enter Amount in'+' '+form.get('compare_currency').value: 'Enter Amount'">
                                                         </div>
                                                     </div>
                                                 </div>
@@ -173,7 +173,7 @@
                                                     <div class="col-lg-4 mb-2">
                                                         <p-select [options]="intersetedRateList"
                                                             appendTo="body"
-                                                            formControlName="interestrate" placeholder="Rate"
+                                                            formControlName="interestrate" placeholder="Select Interest Rate"
                                                             styleClass="w-100">
                                                         </p-select>
                                                     </div>
@@ -261,7 +261,7 @@
                                                     <div class="col-lg-4 mb-2">
                                                         <p-select [options]="moratoriumPeriodList"
                                                            appendTo="body"
-                                                            formControlName="moratoriumperiod" placeholder="Period"
+                                                            formControlName="moratoriumperiod" placeholder="Select Moratorium Period"
                                                             styleClass="w-100">
                                                         </p-select>
                                                     </div>

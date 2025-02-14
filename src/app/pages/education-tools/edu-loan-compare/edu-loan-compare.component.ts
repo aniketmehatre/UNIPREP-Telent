@@ -96,7 +96,7 @@ export class EduLoanCompareComponent implements OnInit, OnDestroy {
       loanrepaymentperiod: ['', Validators.required],
       compare_loanrepaymentperiod: ['', Validators.required],
     });
-
+    this.form.get('compare_currency')?.disable();
   }
 
   enableModule: boolean = true;
@@ -291,10 +291,21 @@ export class EduLoanCompareComponent implements OnInit, OnDestroy {
 
   downloadRecommadation() {
     this.educationToolService.downloadRecommendation({ data: this.recommendationData }).subscribe({
-      next: res => {
-        window.open(res.url, "_blank");
+      next: (response: any) => {
+        this.educationToolService.downloadFile(response.url).subscribe((blob) => {
+          const a = document.createElement("a");
+          const objectUrl = window.URL.createObjectURL(blob);
+
+          a.href = objectUrl;
+          a.download = "edu-loan-comapre-tool.pdf";
+          document.body.appendChild(a);
+
+          a.click();
+          window.URL.revokeObjectURL(objectUrl);
+          document.body.removeChild(a);
+        });
       },
-      error: err => {
+      error: (err) => {
         console.log(err?.error?.message);
       }
     });

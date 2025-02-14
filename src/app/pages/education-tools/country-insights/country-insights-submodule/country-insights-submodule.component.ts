@@ -33,6 +33,7 @@ export class CountryInsightsSubmoduleComponent implements OnInit {
   totalQuizCount: number = 0;
   selectedIndex: number = 0;
   countryname: string = '';
+  isSkeletonVisible: boolean = false;
   constructor(private educationToolService: EducationToolsService, private route: ActivatedRoute, private meta: Meta) {
 
   }
@@ -45,6 +46,7 @@ export class CountryInsightsSubmoduleComponent implements OnInit {
   }
 
   getQuizQuestionData() {
+    this.isSkeletonVisible = true;
     this.questionsList = [];
     let req = {
       module_id: this.moduleId,
@@ -56,6 +58,7 @@ export class CountryInsightsSubmoduleComponent implements OnInit {
     this.educationToolService.getQuizQuestion(req).subscribe(data => {
       this.questionsList = data?.questions;
       this.totalQuizCount = data.count;
+      this.isSkeletonVisible = false;
     })
 
   }

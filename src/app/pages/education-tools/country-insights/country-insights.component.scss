@@ -15,4 +15,15 @@
     border-radius: 50%;
     margin: 20px auto;
     overflow: hidden;
-}
+    position: relative; /* Add this */
+    display: flex; /* Add this */
+    align-items: center; /* Add this */
+    justify-content: center; /* Add this */
+  }
+  
+  .flag-circle img {
+    width: 100%; /* Change this */
+    height: 100%; /* Add this */
+    object-fit: cover; /* Keep this */
+    object-position: center; /* Add this */
+  }

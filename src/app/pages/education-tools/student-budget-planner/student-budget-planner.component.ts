@@ -21,6 +21,7 @@ import { PaginatorModule } from 'primeng/paginator';
 import { FluidModule } from 'primeng/fluid';
 import { TooltipModule } from 'primeng/tooltip';
 
+import html2pdf from 'html2pdf.js';
 @Component({
     selector: 'uni-student-budget-planner',
     templateUrl: './student-budget-planner.component.html',
@@ -247,5 +248,26 @@ export class StudentBudgetPlannerComponent implements OnInit {
     this.activePageIndex = 0;
     this.notfilledArray = [];
     this.selectedData = {...this.selectedDataArray}
+  }
+
+  downloadResponse(){
+    let downloadString:string = "This is a paragraph with some text and emojis 😊🎉. Markdown processing with emojis works!";
+    html2pdf()
+    .from(downloadString)
+    .set({
+      margin: 10,
+      filename: 'document.pdf',
+      image: { type: 'jpeg', quality: 0.98 },
+      html2canvas: { scale: 2, useCORS: true },
+      jsPDF: { unit: 'mm', format: 'a4', orientation: 'portrait' }
+    })
+    .toPdf()
+    .get('pdf')
+    .then((pdf: any) => {
+      pdf.internal.scaleFactor = 1; // Ensure scaling is correct
+      pdf.setProperties({ title: 'Generated PDF' }); // Optional: Set PDF properties
+    })
+    .save();
+
   }
 }

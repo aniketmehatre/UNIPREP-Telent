@@ -50,6 +50,7 @@
     "google-libphonenumber": "^3.2.33",
     "html2canvas": "^1.4.1",
     "intl-tel-input": "^25.3.0",
+    "html2pdf.js": "^0.10.2",
     "jquery": "^3.7.1",
     "jw-angular-social-buttons": "^1.0.0",
     "jwt-decode": "^4.0.0",

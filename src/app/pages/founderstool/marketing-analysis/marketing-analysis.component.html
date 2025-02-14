@@ -151,7 +151,7 @@
                     style="color: red">
                     Please choose any one option
                   </p>
-                  <p class="text-center" *ngIf="marketingForm.get('budget')?.errors?.min && !marketingForm.get('budget')?.errors?.required && submitted"
+                  <p class="text-center" *ngIf="marketingForm.get('budget')?.errors?.max && !marketingForm.get('budget')?.errors?.required && submitted"
                   style="color: red">
                   Please give above 6 digit number
                 </p>

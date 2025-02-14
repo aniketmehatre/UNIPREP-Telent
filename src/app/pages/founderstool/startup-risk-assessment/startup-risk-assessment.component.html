@@ -96,7 +96,7 @@
                                       />
                                   </div>  
                                   <div class="text-center" [ngClass]="{ 'd-none': inValidClass === false }" style="color: red">
-                                    Budget is required or maximum 5 digit allowed 
+                                    Budget is required or maximum 6 digit allowed 
                                   </div>
                                 </ng-container>
                                 <ng-container *ngIf="recommendation.id == 9">
@@ -213,10 +213,10 @@
                 <div class="card-body text-start">
                   <h5 class="fw-bold mb-0">Start-up Risk Assessment {{i+1}}</h5>
                   <p class="text-small"><b>Types of Business : </b>{{item.industry}}</p>
-                  <p class="text-small"><b>Business Model : </b>{{item.model}}</p>
-                  <p class="text-small"><b>Stage : </b>{{item.stage}}</p>
-                  <p class="text-small"><b>Financial Status : </b>{{item.financial_status }}</p>
-                  <p class="text-small"><b>Market Competitiveness: </b>{{item.competitive_market}}p>
+                  <p class="text-small"><b>Business Model : </b>{{item.businessmodel}}</p>
+                  <p class="text-small"><b>Stage : </b>{{item.startupstage}}</p>
+                  <p class="text-small"><b>Financial Status : </b>{{item.financialsituation }}</p>
+                  <p class="text-small"><b>Market Competitiveness: </b>{{item.marketcompetition}}p>
                 </div>
               </div>
             </div>
