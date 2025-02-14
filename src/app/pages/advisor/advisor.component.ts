@@ -14,13 +14,14 @@ import { InputGroupModule } from 'primeng/inputgroup';
 import { InputGroupAddonModule } from 'primeng/inputgroupaddon';
 import { TextareaModule } from 'primeng/textarea';
 import { ButtonModule } from 'primeng/button';
+import { SkeletonModule } from 'primeng/skeleton';
 @Component({
     selector: 'uni-advisor',
     templateUrl: './advisor.component.html',
     styleUrls: ['./advisor.component.scss'],
     encapsulation: ViewEncapsulation.None,
     standalone: true,
-    imports: [CommonModule, DialogModule, FormsModule, ReactiveFormsModule, InputTextModule, InputGroupModule, InputGroupAddonModule, TextareaModule, ButtonModule],
+    imports: [CommonModule, DialogModule, FormsModule, ReactiveFormsModule, InputTextModule, InputGroupModule, InputGroupAddonModule, TextareaModule, ButtonModule, SkeletonModule],
 })
 export class AdvisorComponent implements OnInit {
   @ViewChild('chatContainer') private chatContainer: ElementRef;
@@ -102,7 +103,7 @@ export class AdvisorComponent implements OnInit {
   pquestion: any | null;
 
   lengthCheck(){
-    if (this.userQuestion.length < 20 || this.userQuestion.length == 0) {
+    if (!this.userQuestion || this.userQuestion.trim().length < 3) {
       this.smallquestion = true;
     } else {
       this.smallquestion = false;
