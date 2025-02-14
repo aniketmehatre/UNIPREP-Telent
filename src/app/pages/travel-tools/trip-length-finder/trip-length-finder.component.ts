@@ -4,6 +4,7 @@ import { Router } from '@angular/router';
 import { CostOfLivingService } from '../../job-tool/cost-of-living/cost-of-living.service';
 import { City } from 'src/app/@Models/cost-of-living';
 import { MessageService } from 'primeng/api';
+import { DownloadRespose } from 'src/app/@Models/travel-tools.model';
 @Component({
   selector: 'uni-trip-length-finder',
   templateUrl: './trip-length-finder.component.html',
@@ -129,7 +130,7 @@ export class TripLengthFinderComponent implements OnInit {
     // });
 
     // let downloadString:string = "This is a paragraph with some text and emojis 😊🎉. Markdown processing with emojis works!";
-    let paramData: any = {
+    let paramData: DownloadRespose = {
       response: this.recommendationData,
       module_name: "Trip Length Finder",
       file_name: "trip_length_finder"
