@@ -5,7 +5,8 @@ import { Router } from '@angular/router';
 import { CostOfLivingService } from '../../job-tool/cost-of-living/cost-of-living.service';
 import { City } from 'src/app/@Models/cost-of-living';
 import { MessageService } from 'primeng/api';
-
+import { DownloadRespose } from 'src/app/@Models/travel-tools.model';
+import { error } from 'console';
 @Component({
   selector: 'uni-travel-packing-planner',
   templateUrl: './travel-packing-planner.component.html',
@@ -170,14 +171,24 @@ export class TravelPackingPlannerComponent implements OnInit {
   }
 
   downloadRecommadation() {
-    this.travelToolsService.downloadRecommendation({ data: this.recommendationData }).subscribe({
-      next: res => {
-        window.open(res.url, "_blank");
-      },
-      error: err => {
-        console.log(err?.error?.message);
-      }
-    });
+    // this.travelToolsService.downloadRecommendation({ data: this.recommendationData }).subscribe({
+    //   next: res => {
+    //     window.open(res.url, "_blank");
+    //   },
+    //   error: err => {
+    //     console.log(err?.error?.message);
+    //   }
+    // });
+    let paramData: DownloadRespose = {
+        response: this.recommendationData,
+        module_name: "Travel Packing Planner",
+        file_name: "travel_packing_planner"
+      };
+    this.travelToolsService.convertHTMLtoPDF(paramData).then(() =>{
+      console.log("PDF Download Successfully");
+    }).catch(error =>{
+      console.error("Error generating PDF:", error)
+    })
   }
 
   goBack() {

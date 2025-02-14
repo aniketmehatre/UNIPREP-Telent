@@ -4,6 +4,7 @@ import { Router } from '@angular/router';
 import { City } from 'src/app/@Models/cost-of-living';
 import { CostOfLivingService } from '../../job-tool/cost-of-living/cost-of-living.service';
 import { MessageService } from 'primeng/api';
+import { DownloadRespose } from 'src/app/@Models/travel-tools.model';
 
 @Component({
   selector: 'uni-travel-visit-planner',
@@ -146,14 +147,25 @@ export class TravelVisitPlannerComponent implements OnInit {
   }
 
   downloadRecommadation() {
-    this.travelToolService.downloadRecommendation({ data: this.recommendationData }).subscribe({
-      next: res => {
-        window.open(res.url, "_blank");
-      },
-      error: err => {
-        console.log(err?.error?.message);
-      }
-    });
+    // this.travelToolService.downloadRecommendation({ data: this.recommendationData }).subscribe({
+    //   next: res => {
+    //     window.open(res.url, "_blank");
+    //   },
+    //   error: err => {
+    //     console.log(err?.error?.message);
+    //   }
+    // });
+    let paramData: DownloadRespose = {
+      response: this.recommendationData,
+      module_name: "Travel Visit Planner",
+      file_name: "travel_visit_planner"
+    };
+
+    this.travelToolService.convertHTMLtoPDF(paramData).then(() =>{
+      console.log("PDF genrated Successfully.");
+    }).catch(error => {
+      console.error("Error generating PDF:", error);
+    })
   }
 
   goBack() {
