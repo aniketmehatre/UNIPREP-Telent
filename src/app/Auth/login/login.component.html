@@ -36,24 +36,24 @@
 																<p-inputGroupAddon>
 																	<i class="fa-regular fa-envelope"></i>
 																</p-inputGroupAddon>
-																<input type="email" pInputText id="floatingInput" placeholder="name@example.com" formControlName="email" [ngClass]="{ 'is-invalid': submitted && f.email.errors }" />
+																<input type="email" pInputText id="floatingInput" placeholder="name@example.com" formControlName="email" [ngClass]="{ 'is-invalid': submitted && f['email'].errors }" />
 															</p-inputGroup>
 
-															<div *ngIf="submitted && f.email.errors" class="text-danger">
-																<div *ngIf="f.email.errors.required">Email is required</div>
-																<div *ngIf="f.email.errors.email">Email must be a valid email address</div>
+															<div *ngIf="submitted && f['email'].errors" class="text-danger">
+																<div *ngIf="f['email'].errors?.['required']">Email is required</div>
+																<div *ngIf="f['email'].errors?.['email']">Email must be a valid email address</div>
 															</div>
 														</div>
 														<div class="col-md-12 mt-3">
 															<label class="text-muted text-small" for="floatingPassword">Password</label>
-															<p-password fluid [toggleMask]="true" class="border-0" id="floatingPassword" placeholder="Password" formControlName="password" autocomplete="off" [ngClass]="{ 'is-invalid': submitted && f.password.errors }" [mask]="show ? false : true" [feedback]="false">
+															<p-password fluid [toggleMask]="true" class="border-0" id="floatingPassword" placeholder="Password" formControlName="password" autocomplete="off" [ngClass]="{ 'is-invalid': submitted && f['password'].errors }" [mask]="show ? false : true" [feedback]="false">
 																<ng-template pTemplate="icon">
 																	<i class="fa-solid" [ngClass]="show ? 'fa-eye' : 'fa-eye-slash'"></i>
 																</ng-template>
 															</p-password>
 
-															<div *ngIf="submitted && f.password.errors" class="text-danger">
-																<div *ngIf="f.password.errors.required">Password is required</div>
+															<div *ngIf="submitted && f['password'].errors" class="text-danger">
+																<div *ngIf="f['password'].errors?.['required']">Password is required</div>
 															</div>
 															<div class="text-end mt-2">
 																<a class="small text-decoration-none uniprep-lightgray forgot-password" href="forgot-password">Forgot my password?</a>

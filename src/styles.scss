@@ -351,6 +351,14 @@ small {
 	overflow-y: auto;
 	background: white !important;
 }
+
+.p-carousel-content-container {
+	height: 100% !important;
+	.p-carousel-item-list {
+		height: 100% !important;
+	}
+}
+
 uni-pages
 {
 	height:100dvh;
@@ -475,6 +483,9 @@ uni-job-tool,
 uni-k12-class,
 uni-founderstoollist,
 uni-foundersacademy,
+uni-global-repository,
+uni-travel-tools,
+uni-travel-tools-list,
 uni-entreprenuerskillmodule,
 uni-entreprenuersectorproficiency,
 uni-startupglossary,

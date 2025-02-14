@@ -199,7 +199,7 @@
 				<p-inputgroup class="advisorinput">
 					<input type="text" [(ngModel)]="userQuestion" (keyup)="lengthCheck()" pInputText (keydown.enter)="getAns()" 
 						placeholder="Ask any questions you have about traveling abroad, studying abroad, career or entrepreneurship!" />
-					<button pButton  type="button" (click)="getAns()" class="btn btn-success btn-rounded" pButton pRipple
+					<button pButton  type="button" (click)="getAns()" class="btn btn-success btn-rounded"
 						[disabled]="smallquestion"><i class="fa-solid fa-stars"></i> {{responseType}}</button>
 				</p-inputgroup>
 				<!-- <small class="fw-semibold"	*ngIf="isQuestionEmpty" style="color:red">Please enter the question</small> -->

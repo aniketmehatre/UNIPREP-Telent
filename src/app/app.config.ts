@@ -97,16 +97,19 @@ export const appConfig: ApplicationConfig = {
         config: {
           tokenGetter,
           allowedDomains: ["api.uniprep.ai"],
-          disallowedRoutes: [],
+          disallowedRoutes: [
+            '/api/auth/login',
+            '/api/auth/register',
+            '/api/auth/forgot-password'
+          ],
           headerName: "Authorization",
           authScheme: "Bearer ",
           throwNoTokenError: false,
-          skipWhenExpired: true,
+          skipWhenExpired: true
         },
       })
     ),
     provideHttpClient(
-      withFetch(),
       withInterceptorsFromDi(),
       withInterceptors([HttpErrorInterceptor])
     ),

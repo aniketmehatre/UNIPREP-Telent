@@ -12,7 +12,7 @@ import { DataService } from "src/app/data.service"
 import { matchValidator } from "../../../@Supports/matchvalidator"
 import { ThemeService } from "../../../theme.service"
 import { DashboardService } from "src/app/pages/dashboard/dashboard.service"
-import { count, Observable, of } from "rxjs"
+import { count, Observable, of, EMPTY, forkJoin, timeout, finalize, catchError } from "rxjs"
 import { CountryISO, SearchCountryField } from "ngx-intl-tel-input"
 import { environment } from "@env/environment"
 import { NgxIntlTelInputModule } from "ngx-intl-tel-input"
@@ -22,16 +22,16 @@ import { TabsModule } from "primeng/tabs"
 import { ILearnChallengeData } from "src/app/@Models/ilearn-challenge.model"
 import { AssessmentService } from "src/app/pages/assessment/assessment.service"
 import { ModuleServiceService } from "src/app/pages/module-store/module-service.service"
-
 import { AvatarModule } from "primeng/avatar"
 import { InputTextModule } from "primeng/inputtext"
-import { catchError, switchMap, take } from "rxjs/operators"
-
+import { switchMap, take } from "rxjs/operators"
 import { SelectModule } from "primeng/select"
 import { TabViewModule } from "primeng/tabview"
 import { InputGroupModule } from "primeng/inputgroup"
 import { InputGroupAddonModule } from "primeng/inputgroupaddon"
-import { TextareaModule } from 'primeng/textarea';
+import { TextareaModule } from 'primeng/textarea'
+import { AuthTokenService } from 'src/app/core/services/auth-token.service'
+
 @Component({
 	selector: "uni-header",
 	templateUrl: "./header.component.html",
@@ -56,7 +56,7 @@ import { TextareaModule } from 'primeng/textarea';
 		InputGroupAddonModule,
 		TextareaModule,
 	],
-	providers: [MessageService, AuthService, LocationService, ThemeService, DashboardService, AssessmentService],
+	providers: [MessageService, AuthService, LocationService, ThemeService, DashboardService, AssessmentService, AuthTokenService],
 })
 export class HeaderComponent implements OnInit, OnDestroy {
 	@ViewChild("op") op!: ElementRef<HTMLInputElement>
@@ -167,6 +167,8 @@ export class HeaderComponent implements OnInit, OnDestroy {
 	isShowHeaderSearchForModule: boolean = false
 	phone: string = ''
 
+	isLoading: boolean = false
+
 	constructor(
 		private router: Router,
 		private locationService: LocationService,
@@ -177,9 +179,10 @@ export class HeaderComponent implements OnInit, OnDestroy {
 		route: ActivatedRoute,
 		private authService: SocialAuthService,
 		private dataService: DataService,
-		private dashboardService: DashboardService, // private authService: SocialAuthService
+		private dashboardService: DashboardService,
 		private assessmentService: AssessmentService,
-		private moduleListService: ModuleServiceService
+		private moduleListService: ModuleServiceService,
+		private authTokenService: AuthTokenService
 	) {
 		// Initialize forms in constructor
 		this.reportSubmitForm = this.formBuilder.group({
@@ -464,6 +467,33 @@ export class HeaderComponent implements OnInit, OnDestroy {
 		} catch (error) {
 			console.error('Error in ngOnInit:', error);
 			this.phone = '';
+		}
+
+		// Add user details subscription
+		this.subs.sink = this.service.getMe().pipe(
+			take(1),
+			catchError(error => {
+				console.error('Error loading user details:', error);
+				return of(null);
+			})
+		).subscribe(response => {
+			if (response?.userdetails?.[0]) {
+				const userDetails = response.userdetails[0];
+				this.userName = userDetails.name || '';
+				this.firstChar = this.userName ? this.userName.charAt(0).toUpperCase() : '';
+				
+				// Set home country icon if available
+				if (userDetails.home_country_id) {
+					this.homeCountryId = userDetails.home_country_id;
+					localStorage.setItem('homeCountryId', this.homeCountryId.toString());
+					this.loadCountryList(); // This will now use the home country ID
+				}
+			}
+		});
+
+		// Load country list if not already loading from user details
+		if (!this.homeCountryId) {
+			this.loadCountryList();
 		}
 
 		// Initialize other component data
@@ -849,45 +879,83 @@ export class HeaderComponent implements OnInit, OnDestroy {
 	}
 
 	logout() {
-		// Clear storage & update UI immediately
-		window.sessionStorage.clear()
-		localStorage.clear()
+		// Clear UI state immediately to improve perceived performance
+		this.isLoading = true;
 
-		// Navigate immediately to prevent delay
-		this.router.navigateByUrl("/login")
+		// Create a cleanup function to handle all synchronous operations
+		const cleanupLocalState = () => {
+			window.sessionStorage.clear();
+			localStorage.clear();
+			this.service.clearCache();
+			this.locationService.clearCache();
+			this.authTokenService.clearToken();
+			this.isLoading = false;
+		};
 
-		// Perform API logout calls in the background
-		this.subs.sink = this.service
-			.logout()
-			.pipe(
-				switchMap(() => this.locationService.sessionEndApiCall()),
-				catchError((error) => {
-					console.error("Logout error:", error)
-					return of(null) // Prevents the observable from breaking
+		// Prepare all API calls that need to be made
+		const logoutRequests = [
+			this.service.logout().pipe(
+				catchError(error => {
+					console.warn('Logout API error:', error);
+					return EMPTY;
+				})
+			),
+			this.locationService.sessionEndApiCall().pipe(
+				catchError(error => {
+					console.warn('Session end API error:', error);
+					return EMPTY;
 				})
 			)
-			.subscribe({
-				next: () => {
-					console.log("Logged out successfully.")
+		];
 
-					// Clear caches AFTER API logout in the background
-					this.service.clearCache()
-					this.locationService.clearCache()
-				},
+		// Handle social logout if needed
+		this.authService.authState.pipe(
+			take(1),
+			catchError(error => {
+				console.warn('Error checking social auth state:', error);
+				return EMPTY;
 			})
+		).subscribe(socialUser => {
+			if (socialUser) {
+				this.authService.signOut().catch(error => 
+					console.warn('Social logout error:', error)
+				);
+			}
+		});
 
-		// Attempt social sign out (runs asynchronously, doesn't block UI)
-		this.authService.authState.pipe(take(1)).subscribe({
-			next: (socialUser) => {
-				if (socialUser) {
-					this.authService.signOut().catch((err) => console.warn("Social sign out error:", err))
-				}
+		// Execute all logout operations in parallel
+		forkJoin(logoutRequests).pipe(
+			timeout(5000), // 5 second timeout for all requests
+			finalize(() => {
+				// Always clean up local state, even if requests fail
+				cleanupLocalState();
+				// Navigate to login page
+				this.router.navigate(['/login'], { replaceUrl: true });
+			}),
+			catchError(error => {
+				console.warn('Logout process error:', error);
+				// Still clean up and redirect on error
+				cleanupLocalState();
+				this.router.navigate(['/login'], { replaceUrl: true });
+				return EMPTY;
+			})
+		).subscribe({
+			next: () => {
+				this.toast.add({
+					severity: 'success',
+					summary: 'Success',
+					detail: 'Logged out successfully'
+				});
 			},
-			error: (err) => console.warn("Error checking social auth state:", err),
-		})
-
-		// Show logout success message (optional, but fast)
-		this.toast.add({ severity: "info", summary: "Info", detail: "Logged out successfully" })
+			error: (error) => {
+				console.error('Logout error:', error);
+				this.toast.add({
+					severity: 'info',
+					summary: 'Info',
+					detail: 'Logged out with some pending requests'
+				});
+			}
+		});
 	}
 
 	getModuleList() {

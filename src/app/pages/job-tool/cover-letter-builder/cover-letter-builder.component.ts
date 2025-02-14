@@ -25,6 +25,15 @@ import { InputGroupAddonModule } from "primeng/inputgroupaddon"
 import { TextareaModule } from "primeng/textarea"
 import { EditorModule } from "primeng/editor"
 import { SkeletonModule } from "primeng/skeleton"
+
+declare const pdfjsLib: any;
+
+interface ResumeHistory {
+    id: number;
+    pdf_name: string;
+    created_time: string;
+}
+
 @Component({
 	selector: "uni-cover-letter-builder",
 	templateUrl: "./cover-letter-builder.component.html",
@@ -55,6 +64,8 @@ export class CoverLetterBuilderComponent implements OnInit, AfterViewInit {
 	coverHistories: any = []
 	currentDate: Date = new Date()
 	isButtonDisabled: boolean = false
+	resumeHistory: any = [];
+	pdfThumbnails: { [key: string]: string } = {};
 	resumeSlider: any = [
 		{
 			id: 1,
@@ -323,13 +334,28 @@ export class CoverLetterBuilderComponent implements OnInit, AfterViewInit {
 	}
 
 	ngOnInit(): void {
-		this.coverLetterHistories()
-		this.ngAfterViewInit()
+		// Load PDF.js library dynamically
+		if (!document.getElementById('pdfjs-script')) {
+			const script = document.createElement('script');
+			script.id = 'pdfjs-script';
+			script.src = 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js';
+			script.onload = () => {
+				// Set worker source
+				pdfjsLib.GlobalWorkerOptions.workerSrc = 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js';
+				// Load resumes after PDF.js is ready
+				this.previousResumes();
+			};
+			document.body.appendChild(script);
+		} else {
+			this.previousResumes();
+		}
+
+		this.ngAfterViewInit();
 		this.editorModules = {
 			toolbar: [
 				["bold", "italic", "underline"],
 				[{ list: "ordered" }, { list: "bullet" }],
-				["clean"], // Clear formatting button
+				["clean"],
 			],
 		}
 		this.items = [{ label: "Personal Information" }, { label: "Organisation Details" }, { label: "Letter Area" }]
@@ -350,20 +376,55 @@ export class CoverLetterBuilderComponent implements OnInit, AfterViewInit {
 		}
 	}
 
-	coverLetterHistories(): void {
-		this.resumeService.getCoverLetterHistories().subscribe((res) => {
-			if (res != "") {
-				this.coverHistories = res
-				if (this.coverHistories.length > 0) {
-					this.pdfLoadError = false
-					this.pdfUrl = this.coverHistories[0].pdf_name
-					this.pdfViewLoader()
+	loadPdfThumbnail(pdfUrl: string): void {
+		if (this.pdfThumbnails[pdfUrl]) {
+			return; // Already loaded
+		}
+
+		// Create canvas and load PDF
+		const canvas = document.createElement('canvas');
+		const context = canvas.getContext('2d');
+		if (!context) {
+			console.error('Could not get canvas context');
+			return;
+		}
+
+		// Load the PDF document
+		pdfjsLib.getDocument(pdfUrl).promise.then((pdf: any) => {
+			pdf.getPage(1).then((page: any) => {
+				const viewport = page.getViewport({ scale: 0.5 });
+				canvas.height = viewport.height;
+				canvas.width = viewport.width;
+
+				page.render({
+					canvasContext: context,
+					viewport: viewport
+				}).promise.then(() => {
+					this.pdfThumbnails[pdfUrl] = canvas.toDataURL('image/jpeg');
+				}).catch((error: Error) => {
+					console.error('Error rendering PDF page:', error);
+					this.pdfLoadError = true;
+				});
+			}).catch((error: Error) => {
+				console.error('Error getting PDF page:', error);
+				this.pdfLoadError = true;
+			});
+		}).catch((error: Error) => {
+			console.error('Error loading PDF:', error);
+			this.pdfLoadError = true;
+		});
+	}
+
+	previousResumes() {
+		this.resumeService.getCoverLetterHistories().subscribe((res: ResumeHistory[]) => {
+			this.resumeHistory = res;
+			// Load thumbnails for all PDFs immediately
+			this.resumeHistory.forEach((resume: ResumeHistory) => {
+				if (resume.pdf_name) {
+					this.loadPdfThumbnail(resume.pdf_name);
 				}
-			} else {
-				this.activePageIndex = 1
-				this.ngAfterViewInit()
-			}
-		})
+			});
+		});
 	}
 
 	downloadOldResume(resumeLink: string) {
@@ -387,7 +448,7 @@ export class CoverLetterBuilderComponent implements OnInit, AfterViewInit {
 					resumeId: resumeId,
 				}
 				this.resumeService.deleteCoverLetter(data).subscribe((res) => {
-					this.coverLetterHistories()
+					this.previousResumes()
 					this.toaster.add({ severity: res.status, summary: res.status, detail: res.message })
 				})
 			},
@@ -492,7 +553,7 @@ export class CoverLetterBuilderComponent implements OnInit, AfterViewInit {
 			selectedThemeColor: this.selectedThemeColor,
 		}
 		this.resumeService.downloadCoverletter(data).subscribe((res) => {
-			this.coverLetterHistories()
+			this.previousResumes()
 			const parts = res.split("/")
 			const lastPart = parts[parts.length - 1]
 			this.cvBuilderService.downloadPdf(res, lastPart)
