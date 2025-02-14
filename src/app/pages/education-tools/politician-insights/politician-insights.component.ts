@@ -3,7 +3,12 @@ import { Subscription } from 'rxjs/internal/Subscription';
 import { EducationToolsService } from '../education-tools.service';
 import { AuthService } from 'src/app/Auth/auth.service';
 import { MessageService } from 'primeng/api';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
+import { Meta } from '@angular/platform-browser';
+import { DataService } from 'src/app/data.service';
+import { LocationService } from 'src/app/location.service';
+import { FounderstoolService } from '../../founderstool/founderstool.service';
+import { PageFacadeService } from '../../page-facade.service';
 
 export interface Politician {
   name: string;
@@ -20,132 +25,213 @@ export interface Politician {
   styleUrls: ['./politician-insights.component.scss']
 })
 export class PoliticianInsightsComponent implements OnInit, OnDestroy {
-  recommendations: { id: number, question: string }[] = [
-    { id: 1, question: 'Select your preferred country?' },
-  ];
-  activePageIndex: number = 0;
-  first = 0;
-  page = 1;
-  pageSize = 25;
-  data: any = {
-    page: this.page,
-    perpage: this.pageSize,
-  };
-  inValidClass: boolean = false;
-  selectedData: { [key: string]: any } = {};
-  enableModule: boolean = false;
-  subscription: Subscription;
-  recommendRestrict: boolean = false;
-  restrict: boolean = false;
-  planExpired: boolean = false;
-  currentPlan: any;
-  countryList: any;
-  totalPoliticianList = 2;
+  countrylist: any[] = [];
+  headertooltipname: string = "Politician Insights";
+  isShowCountryData: boolean = false;
+  isShowCountryQuesAns: boolean = false;
+  questuionanswerlist: any[] = [];
+  isQuestionAnswerVisible: boolean = false;
+  dataanswerquestion: any;
+  countryId: any;
+  politicians: Politician[] = [];
+  totalPoliticianList: number = 3;
   isSkeletonVisible: boolean = false;
-  politicians: Politician[] = [
-  ];
+  isShowPoliticians: boolean = false;
+  readonly modeName: string = "politician_insights";
+
   constructor(
+    private pageFacade: PageFacadeService,
+    private dataService: DataService,
+    private activatedRoute: ActivatedRoute,
+    private meta: Meta,
     private toast: MessageService,
-    private educationToolsService: EducationToolsService,
-    private authService: AuthService,
-    private router: Router
+    private router: Router,
+    private educationToolService: EducationToolsService,
+    private locationService: LocationService
   ) { }
 
   ngOnInit(): void {
-    this.checkplanExpire();
-    this.getCountryList();
-  }
+    this.locationService.getAllCountryList().subscribe((res: any) => {
+      this.countrylist = res.data;
+    });
 
-  pageChange(event: any) {
-    if (this.planExpired) {
-      this.restrict = true;
-      return;
-    }
-    this.page = event.first / this.pageSize + 1;
-    this.pageSize = event.rows;
-    this.first = event.first;
-    this.data.page = this.page;
-    this.data.perpage = this.pageSize;
-    this.getPoliticiansList(this.data);
-  }
-
-  backtoMain() {
-    this.router.navigateByUrl('/pages/education-tools');
-  }
-
-  getRecommendation() {
-    if (this.recommendRestrict) {
-      this.restrict = true;
-      return;
-    }
-
-    this.getPoliticiansList({ ...this.data });
-  }
-
-  getPoliticiansList(data: any) {
-    this.isSkeletonVisible = true;
-    let keyMapping: any = { "1": "country" };
-    let newData = Object.fromEntries(Object.entries(this.selectedData).map(([key, value]) => {
-      let mappedKey = keyMapping[key] || key;
-      if (Array.isArray(value)) {
-        value = value.filter(item => item !== null);
+    this.activatedRoute.params.subscribe(params => {
+      if (params['id'] && params['question_id']) {
+        this.isShowCountryQuesAns = true;
+        this.isShowCountryData = false;
+        this.isShowPoliticians = false;
+        this.getQuestionList(params['id'], params['question_id']);
       }
-      return [mappedKey, value];
-    }));
-    this.educationToolsService.getPoliticiansListByCountry({ ...newData, ...data }).subscribe({
-      next: response => {
-        this.isSkeletonVisible = false;
-        this.enableModule = true;
-        this.politicians = response?.politicians;
-      },
-      error: error => {
-        this.isSkeletonVisible = false;
-        this.toast.add({
-          severity: "warning",
-          summary: "Warning",
-          detail: error.error.message,
-        });
+      else if (params['id']) {
+        this.isShowPoliticians = true;
+        this.isShowCountryData = false;
+        this.countryId = params['id'];
+        this.getPoliticianList(params['id']);
+      } else {
+        this.isShowCountryQuesAns = false;
+        this.isShowCountryData = true;
       }
     });
   }
 
-  checkplanExpire(): void {
-    this.authService.getNewUserTimeLeft().subscribe((res) => {
-      let data = res.time_left;
-      let subscription_exists_status = res.subscription_details;
-      this.currentPlan = subscription_exists_status?.subscription_plan;
-      if (
-        data.plan === "expired" || data.plan === 'subscription_expired' ||
-        subscription_exists_status?.subscription_plan === "free_trail"
-      ) {
-        this.planExpired = true;
-      } else {
-        this.planExpired = false;
-      }
-      if (
-        data.plan === "expired" || data.plan === 'subscription_expired'
-      ) {
-        this.recommendRestrict = true;
-      } else {
-        this.recommendRestrict = false;
-      }
-    });
-  }
-
-  getCountryList() {
-    this.educationToolsService.getCountry().subscribe(res => {
-      let allCountries = res;
-      this.countryList = allCountries;
-    })
+  openVideoPopup(videoLink: string) {
+    this.pageFacade.openHowitWorksVideoPopup(videoLink);
   }
 
   goBack() {
-    this.router.navigateByUrl('/pages/education-tools');
+    if (this.isShowCountryData) {
+      this.router.navigate(["/pages/education-tools"]);
+    } else {
+      this.isShowCountryData = true;
+      this.isShowCountryQuesAns = false;
+    }
   }
 
-  ngOnDestroy() {
-    // this.subscription.unsubscribe();
+  showDatas(data: any) {
+    this.politicians = [];
+    this.router.navigate(['/pages/education-tools/politician-insights', data.id]);
   }
 
+  showQuestionDatas(data: any) {
+    this.questuionanswerlist = [];
+    this.router.navigate(['/pages/education-tools/politician-insights', this.countryId, data.id]);
+  }
+
+  getQuestionList(id: any, questions_id: any) {
+    this.isSkeletonVisible = true;
+    const datas: any = {
+      politicianid: questions_id
+    };
+    this.educationToolService.getQuestionsListByPolitician(datas).subscribe(
+      (res: any) => {
+        this.isShowCountryData = false;
+        this.isShowPoliticians = false;
+        this.isShowCountryQuesAns = true;
+        this.politicians = res.politicians;
+        this.isSkeletonVisible = false;
+        if (id) {
+          this.showDataAnswer(res?.data?.[0]);
+        }
+      },
+      (error) => {
+        console.error("Error fetching question data:", error);
+        this.isShowCountryData = true;
+      }
+    );
+  }
+
+  getPoliticianList(id: any) {
+    this.isSkeletonVisible = true;
+    const datas: any = {
+      country: id
+    };
+    this.educationToolService.getPoliticiansListByCountry(datas).subscribe(
+      (res: any) => {
+        this.isShowCountryData = false;
+        this.isShowPoliticians = true;
+        this.isShowCountryQuesAns = false;
+        this.politicians = res.politicians;
+        this.isSkeletonVisible = false;
+      },
+      (error) => {
+        console.error("Error fetching question data:", error);
+        this.isShowCountryData = true;
+      }
+    );
+  }
+
+  showDataAnswer(data: any) {
+    this.dataanswerquestion = data;
+    this.isQuestionAnswerVisible = true;
+  }
+
+  goToHome(data: any) {
+    this.isQuestionAnswerVisible = false;
+  }
+
+  openReport() {
+    const data = {
+      isVisible: true,
+      questionId: this.dataanswerquestion?.id,
+      countryId: this.countryId,
+    };
+    this.dataService.openReportWindow(data);
+  }
+
+  onShowModal(value: any) {
+    let socialShare: any = document.getElementById("socialSharingList");
+    socialShare.style.display = "none";
+  }
+
+  showSocialSharingList() {
+    let socialShare: any = document.getElementById("socialSharingList");
+    if (socialShare.style.display == "") {
+      socialShare.style.display = "block";
+    }
+    else {
+      socialShare.style.display = socialShare.style.display == "none" ? "block" : "none";
+    }
+  }
+
+  private getShareUrl(): string {
+    const url = window.location.href + '/' + this.dataanswerquestion?.id;
+    this.meta.updateTag({ property: 'og:url', content: url });
+    return url;
+  }
+
+  shareViaWhatsapp() {
+    const shareUrl = `whatsapp://send?text=${encodeURIComponent(this.getShareUrl())}`;
+    window.open(shareUrl, '_blank');
+  }
+
+  shareViaInstagram() {
+    const shareUrl = `https://www.instagram.com?url=${encodeURIComponent(this.getShareUrl())}`;
+    window.open(shareUrl, '_blank');
+  }
+
+  shareViaFacebook() {
+    const shareUrl = `https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(this.getShareUrl())}`;
+    window.open(shareUrl, '_blank');
+  }
+
+  shareViaLinkedIn() {
+    const shareUrl = `https://www.linkedin.com/shareArticle?url=${encodeURIComponent(this.getShareUrl())}`;
+    window.open(shareUrl, '_blank');
+  }
+
+  shareViaTwitter() {
+    const shareUrl = `https://twitter.com/intent/tweet?url=${encodeURIComponent(this.getShareUrl())}`;
+    window.open(shareUrl, '_blank');
+  }
+
+  shareViaMail() {
+    const shareUrl = `mailto:?body=${encodeURIComponent(this.getShareUrl())}`;
+    window.open(shareUrl, '_blank');
+  }
+
+  copyLink() {
+    const textarea = document.createElement('textarea');
+    const safeUrl = encodeURI(window.location.href);
+    const selectedQuestionId = this.dataanswerquestion?.id || '';
+
+    textarea.textContent = `${safeUrl}/${selectedQuestionId}`;
+
+    document.body.append(textarea);
+    textarea.select();
+    document.execCommand('copy');
+    textarea.remove();
+    this.toast.add({ severity: 'success', summary: 'Success', detail: 'Question Copied' });
+  }
+
+  getContentPreview(content: string): string {
+    const parser = new DOMParser();
+    const doc = parser.parseFromString(content, "text/html");
+    const paragraph = doc.querySelector("p")?.textContent || '';
+    return paragraph.length > 75 ? paragraph.slice(0, 75) + ' ...' : paragraph;
+  }
+
+  ngOnDestroy(): void {
+
+  }
 
 }

@@ -49,6 +49,13 @@ export class EducationToolsService {
     });
   }
 
+  getQuestionsListByPolitician(data: any) {
+    const headers = new HttpHeaders().set("Accept", "application/json");
+    return this.http.post<any>(environment.ApiUrl + "/getpoliticianquestionlists", data, {
+      headers: headers,
+    });
+  }
+
   getCountryInsightsList(req: CountryInsightPayload): Observable<CountryInsightsResponse> {
     let params = {
       page: req.page,
