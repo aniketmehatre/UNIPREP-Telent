@@ -27,6 +27,15 @@ import { InputTextModule } from 'primeng/inputtext';
 import { InputGroupAddonModule } from 'primeng/inputgroupaddon';
 import { CvBuilderService } from "./cv-builder.service";
 import { TextareaModule } from 'primeng/textarea';
+import { DomSanitizer, SafeUrl } from '@angular/platform-browser';
+declare const pdfjsLib: any;
+
+interface ResumeHistory {
+    id: number;
+    pdf_name: string;
+    created_time: string;
+}
+
 @Component({
   selector: "uni-cv-builder",
   templateUrl: "./cv-builder.component.html",
@@ -213,8 +222,9 @@ export class CvBuilderComponent implements OnInit, AfterViewInit {
   filteredDesignations: { [key: number]: any[] } = {};
   filteredLocations: any = [];
   filteredExpeAndEduLocations: { [key: number]: any[] } = {};
+  pdfThumbnails: { [key: string]: string } = {};
 
-  constructor(private toaster: MessageService, private fb: FormBuilder, private resumeService: CvBuilderService, private http: HttpClient, private router: Router, private confirmService: ConfirmationService, private renderer: Renderer2, private el: ElementRef, private authService: AuthService, private locationService: LocationService, private cityService: JobSearchService) {
+  constructor(private toaster: MessageService, private fb: FormBuilder, private resumeService: CvBuilderService, private http: HttpClient, private router: Router, private confirmService: ConfirmationService, private renderer: Renderer2, private el: ElementRef, private authService: AuthService, private locationService: LocationService, private cityService: JobSearchService, private sanitizer: DomSanitizer) {
     this.resumeFormInfoData = this.fb.group({
       selected_exp_level: ["", Validators.required],
       user_name: ["Your Full Name", Validators.required],
@@ -378,6 +388,18 @@ export class CvBuilderComponent implements OnInit, AfterViewInit {
       this.ehitlabelIsShow = true;
     } else {
       this.ehitlabelIsShow = false;
+    }
+
+    // Load PDF.js library
+    if (!document.getElementById('pdfjs-script')) {
+      const script = document.createElement('script');
+      script.id = 'pdfjs-script';
+      script.src = 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js';
+      script.onload = () => {
+        // Set worker source
+        pdfjsLib.GlobalWorkerOptions.workerSrc = 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js';
+      };
+      document.body.appendChild(script);
     }
   }
 
@@ -944,12 +966,14 @@ export class CvBuilderComponent implements OnInit, AfterViewInit {
   }
 
   previousResumes() {
-    this.resumeService.getAlreadyCreatedResumes().subscribe((res) => {
-      this.resumeHistory = res;
-      if (res.length == 0) {
-        this.activePageIndex = 1;
-        this.ngAfterViewInit();
-      }
+    this.resumeService.getAlreadyCreatedResumes().subscribe((res: ResumeHistory[]) => {
+        this.resumeHistory = res;
+        // Load thumbnails for all PDFs immediately
+        this.resumeHistory.forEach((resume: ResumeHistory) => {
+            if (resume.pdf_name) {
+                this.loadPdfThumbnail(resume.pdf_name);
+            }
+        });
     });
   }
 
@@ -1469,5 +1493,44 @@ export class CvBuilderComponent implements OnInit, AfterViewInit {
   getMonthNumber(monthId: string): number {
     let month = this.monthList.find((m: any) => m.id === monthId);
     return this.monthList.indexOf(month) + 1; // January should be 1, February 2, etc.
+  }
+
+  loadPdfThumbnail(pdfUrl: string): void {
+    if (this.pdfThumbnails[pdfUrl]) {
+        return; // Already loaded
+    }
+
+    // Create canvas and load PDF
+    const canvas = document.createElement('canvas');
+    const context = canvas.getContext('2d');
+    if (!context) {
+        console.error('Could not get canvas context');
+        return;
+    }
+
+    // Load the PDF document
+    pdfjsLib.getDocument(pdfUrl).promise.then((pdf: any) => {
+        pdf.getPage(1).then((page: any) => {
+            const viewport = page.getViewport({ scale: 0.5 });
+            canvas.height = viewport.height;
+            canvas.width = viewport.width;
+
+            page.render({
+                canvasContext: context,
+                viewport: viewport
+            }).promise.then(() => {
+                this.pdfThumbnails[pdfUrl] = canvas.toDataURL('image/jpeg');
+            }).catch((error: Error) => {
+                console.error('Error rendering PDF page:', error);
+                this.pdfLoadError = true;
+            });
+        }).catch((error: Error) => {
+            console.error('Error getting PDF page:', error);
+            this.pdfLoadError = true;
+        });
+    }).catch((error: Error) => {
+        console.error('Error loading PDF:', error);
+        this.pdfLoadError = true;
+    });
   }
 }
