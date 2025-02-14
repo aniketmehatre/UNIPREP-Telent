@@ -66,6 +66,7 @@ export class AverageSalaryPreparedListComponent implements OnInit {
     this.checkPlanExpiry();
     this.imagewhitlabeldomainname = window.location.hostname;
     this.ehitlabelIsShow = [
+      "*.uniprep.ai",
       "dev-student.uniprep.ai",
       "uniprep.ai",
       "localhost",

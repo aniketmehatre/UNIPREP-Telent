@@ -153,7 +153,7 @@ export class CourseListComponent implements OnInit {
 			this.orgnamewhitlabel = orgname
 		})
 		this.imagewhitlabeldomainname = window.location.hostname
-		if (this.imagewhitlabeldomainname === "dev-student.uniprep.ai" || this.imagewhitlabeldomainname === "uniprep.ai" || this.imagewhitlabeldomainname === "localhost") {
+		if (this.imagewhitlabeldomainname === "*.uniprep.ai" || this.imagewhitlabeldomainname === "dev-student.uniprep.ai" || this.imagewhitlabeldomainname === "uniprep.ai" || this.imagewhitlabeldomainname === "localhost") {
 			this.ehitlabelIsShow = true
 		} else {
 			this.ehitlabelIsShow = false
@@ -320,7 +320,7 @@ export class CourseListComponent implements OnInit {
 		}
 
 		if (this.buyCreditsCount == 0) {
-			if (this.imagewhitlabeldomainname === "dev-student.uniprep.ai" || this.imagewhitlabeldomainname === "uniprep.ai" || this.imagewhitlabeldomainname === "localhost") {
+			if (this.imagewhitlabeldomainname === "*.uniprep.ai" || this.imagewhitlabeldomainname === "dev-student.uniprep.ai" || this.imagewhitlabeldomainname === "uniprep.ai" || this.imagewhitlabeldomainname === "localhost") {
 				this.toastr.add({ severity: "error", summary: "error", detail: "Please Buy Some Credits." })
 				setTimeout(() => {
 					this.router.navigate(["/pages/export-credit"])
@@ -340,7 +340,7 @@ export class CourseListComponent implements OnInit {
 				return
 			}
 
-			if (this.imagewhitlabeldomainname === "dev-student.uniprep.ai" || this.imagewhitlabeldomainname === "uniprep.ai" || this.imagewhitlabeldomainname === "localhost") {
+			if (this.imagewhitlabeldomainname === "*.uniprep.ai" || this.imagewhitlabeldomainname === "dev-student.uniprep.ai" || this.imagewhitlabeldomainname === "uniprep.ai" || this.imagewhitlabeldomainname === "localhost") {
 				if (this.buyCreditsCount < this.exportDataIds.length) {
 					this.toastr.add({ severity: "error", summary: "error", detail: "insufficient credits.Please Buy Some Credits." })
 					setTimeout(() => {

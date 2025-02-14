@@ -6,7 +6,7 @@ import { Observable, of } from 'rxjs';
   providedIn: 'root'
 })
 export class DomainwhitlabelGuard  {
-  private allowedDomains = ["dev-student.uniprep.ai", "uniprep.ai", "localhost"];
+  private allowedDomains = ["*.uniprep.ai","dev-student.uniprep.ai", "uniprep.ai", "localhost"];
   private homePath = '/home';
   private loginPath = '/login';
 

@@ -214,7 +214,7 @@ export class LocationService {
     }
     // getwhitlabel website image
     getWhitlabelData(data: any): Observable<any> {
-        if (data.domainname === "dev-student.uniprep.ai" || data.domainname === "uniprep.ai" || data.domainname === "localhost") {
+        if (data.domainname === "*.uniprep.ai" || data.domainname === "dev-student.uniprep.ai" || data.domainname === "uniprep.ai" || data.domainname === "localhost") {
           // Emit a default image URL and return an observable of `null` or an empty observable
           this.imageSubject.next("../../../uniprep-assets/images/uniprep-light.svg");
           return of(null); // Returning an empty observable or `null`

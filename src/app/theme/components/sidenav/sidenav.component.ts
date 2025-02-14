@@ -363,7 +363,7 @@ export class SidenavComponent {
         this.conditionSubscribed = true;
       }
       this.imagewhitlabeldomainname = window.location.hostname;
-      if (this.imagewhitlabeldomainname === "dev-student.uniprep.ai" || this.imagewhitlabeldomainname === "uniprep.ai" || this.imagewhitlabeldomainname === "localhost") {
+      if (this.imagewhitlabeldomainname === "*.uniprep.ai" || this.imagewhitlabeldomainname === "dev-student.uniprep.ai" || this.imagewhitlabeldomainname === "uniprep.ai" || this.imagewhitlabeldomainname === "localhost") {
         this.ehitlabelIsShow = true;
       } else {
         if (res.subscription_details.subscription_plan === "free_trail" && res.time_left.plan === "on_progress") {

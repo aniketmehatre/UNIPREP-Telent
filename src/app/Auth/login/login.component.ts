@@ -91,6 +91,7 @@ export class LoginComponent implements OnInit, OnDestroy {
 
 	private isDomainMain(): boolean {
 		return this.domainNameCondition === "dev-student.uniprep.ai" || 
+			   this.domainNameCondition === "*.uniprep.ai" || 
 			   this.domainNameCondition === "uniprep.ai" || 
 			   this.domainNameCondition === "localhost"
 	}

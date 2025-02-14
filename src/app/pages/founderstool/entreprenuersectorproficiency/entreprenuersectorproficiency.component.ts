@@ -35,7 +35,7 @@ export class EntreprenuersectorproficiencyComponent implements OnInit {
       this.orgnamewhitlabel = orgname;
     });
   this.imagewhitlabeldomainname=window.location.hostname;
-  if (this.imagewhitlabeldomainname === "dev-student.uniprep.ai" || this.imagewhitlabeldomainname === "uniprep.ai" || this.imagewhitlabeldomainname === "localhost") {
+  if (this.imagewhitlabeldomainname === "*.uniprep.ai" || this.imagewhitlabeldomainname === "dev-student.uniprep.ai" || this.imagewhitlabeldomainname === "uniprep.ai" || this.imagewhitlabeldomainname === "localhost") {
     this.ehitlabelIsShow=true;
   }else{
     this.ehitlabelIsShow=false;

@@ -53,7 +53,7 @@ export class SeekerListsComponent implements OnInit {
     this.getList();
     this.checkPlanExpiry();
     this.imagewhitlabeldomainname = window.location.hostname;
-    this.ehitlabelIsShow = ["dev-student.uniprep.ai", "uniprep.ai", "localhost"].includes(this.imagewhitlabeldomainname);
+    this.ehitlabelIsShow = ["*.uniprep.ai","dev-student.uniprep.ai", "uniprep.ai", "localhost"].includes(this.imagewhitlabeldomainname);
   }
   onShowModal(value: any) {
     let socialShare: any = document.getElementById("socialSharingList");

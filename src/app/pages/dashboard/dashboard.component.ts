@@ -106,7 +106,8 @@ export class DashboardComponent implements OnInit, OnChanges {
 
 		// Load white label data
 		this.imagewhitlabeldomainname = window.location.hostname;
-		this.ehitlabelIsShow = this.imagewhitlabeldomainname === "dev-student.uniprep.ai" || 
+		this.ehitlabelIsShow = this.imagewhitlabeldomainname === "*.uniprep.ai" ||
+								this.imagewhitlabeldomainname === "dev-student.uniprep.ai" || 
 							  this.imagewhitlabeldomainname === "uniprep.ai" || 
 							  this.imagewhitlabeldomainname === "localhost";
 	}
