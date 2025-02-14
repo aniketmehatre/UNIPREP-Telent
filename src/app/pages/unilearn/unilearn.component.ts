@@ -5,7 +5,7 @@ import { SkeletonModule } from "primeng/skeleton";
 import { TooltipModule } from "primeng/tooltip";
 import { RouterModule } from "@angular/router";
 @Component({
-  selector: 'app-unilearn',
+  selector: 'uni-learn',
   templateUrl: './unilearn.component.html',
   standalone: true,
   imports: [CommonModule, SkeletonModule, TooltipModule, RouterModule]

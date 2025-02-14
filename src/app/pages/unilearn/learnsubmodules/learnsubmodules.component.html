@@ -76,7 +76,7 @@
 		</div>
 		<div class="row justify-content-center h-100" *ngIf="pdfvisibility">
 			<div class="col-md-8 col-12">
-				<div *ngIf="!pdfLoadError">
+				<div class="h-100" *ngIf="!pdfLoadError">
 					<ng2-pdfjs-viewer #pdfViewer
 						[pdfSrc]="pdfURL"
 						[viewerId]="'pdf-viewer'"
