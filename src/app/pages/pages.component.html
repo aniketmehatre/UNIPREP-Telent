@@ -13,7 +13,7 @@
 		<div (scroll)="onWindowScroll($event)" id="page">
 			<uni-header (togleSidebar)="togleSidebar()" [expandicon]="expandicon" [ngClass]="{ sticky: stickHeader }"> </uni-header>
 			<div id="page-container">
-				<!-- <uni-header-search *ngIf="showSearch"></uni-header-search> -->
+				<uni-header-search *ngIf="showSearch"></uni-header-search>
 				<router-outlet></router-outlet>
 				<uni-footer-status-box *ngIf="isFooterBoxVisible"></uni-footer-status-box>
 			</div>
