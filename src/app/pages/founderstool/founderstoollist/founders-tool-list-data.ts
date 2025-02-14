@@ -126,7 +126,7 @@ export const FoundersToolsData = [
         launch_soon: false
     },
     {
-        title: "Revenue Forecasting Tool",
+        title: "Business Forecasting Tool",
         description: "An assessment that evaluates an entrepreneur's in-depth knowledge and proficiency in specific industries.",
         image: "../../../uniprep-assets/images/founderstool/revenue-forecating-tool.svg",
         url: "/pages/founderstool/business-forecasting-tool",
