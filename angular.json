@@ -3,7 +3,7 @@
   "version": 1,
   "newProjectRoot": "projects",
   "projects": {
-    "UNIABROAD-ADMIN": {
+    "UNI-PREP": {
       "projectType": "application",
       "schematics": {
         "@schematics/angular:component": {
@@ -22,7 +22,7 @@
           "builder": "@angular-devkit/build-angular:application",
           "options": {
             "outputPath": {
-              "base": "dist/UNIPREP"
+              "base": "dist/UNI-PREP"
             },
             "index": "src/index.html",
             "polyfills": [
@@ -60,7 +60,12 @@
               "jquery/dist/jquery.min.js",
               "slick-carousel/slick/slick.min.js"
             ],
-            "browser": "src/main.ts"
+            "browser": "src/main.ts",
+            "server": "src/main.server.ts",
+            "prerender": true,
+            "ssr": {
+              "entry": "src/server.ts"
+            }
           },
           "configurations": {
             "production": {
@@ -123,10 +128,10 @@
           },
           "configurations": {
             "production": {
-              "buildTarget": "UNIABROAD-ADMIN:build:production"
+              "buildTarget": "UNI-PREP:build:production"
             },
             "development": {
-              "buildTarget": "UNIABROAD-ADMIN:build:development",
+              "buildTarget": "UNI-PREP:build:development",
               "hmr": true
             }
           },
@@ -135,7 +140,7 @@
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n",
           "options": {
-            "buildTarget": "UNIABROAD-ADMIN:build"
+            "buildTarget": "UNI-PREP:build"
           }
         },
         "test": {
@@ -158,6 +163,16 @@
               "node_modules/file-saver/dist/FileSaver.js"
             ]
           }
+        }
+      },
+      "prerender": {
+        "builder": "@angular-devkit/build-angular:prerender",
+        "options": {
+          "browserTarget": "UNI-PREP:build:production",
+          "serverTarget": "UNI-PREP:server:production"
+        },
+        "configurations": {
+          "production": {}
         }
       }
     }

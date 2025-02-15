@@ -26,7 +26,7 @@ import { StoreModule } from '@ngrx/store';
 import { EffectsModule } from '@ngrx/effects';
 import { NgxIntlTelInputModule } from 'ngx-intl-tel-input';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { provideClientHydration } from '@angular/platform-browser';
+import { provideClientHydration, withEventReplay } from '@angular/platform-browser';
 import { provideServiceWorker } from '@angular/service-worker';
 import MyPreset from "./mypreset"
 
@@ -156,6 +156,6 @@ export const appConfig: ApplicationConfig = {
       } as SocialAuthServiceConfig,
     },
     provideAnimations(), // Required for ngx-bootstrap
-    provideClientHydration(),
+    provideClientHydration(), provideClientHydration(withEventReplay()),
   ],
 };
