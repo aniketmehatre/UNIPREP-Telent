@@ -34,6 +34,9 @@ const routes: Routes = [
         path: 'politician-insights/:id', component: PoliticianInsightsComponent
       },
       {
+        path: 'politician-insights/:id/:question_id', component: PoliticianInsightsComponent
+      },
+      {
         path: 'startup-failure-stories/:id/:question_id', component: PoliticianInsightsComponent
       },
       {
