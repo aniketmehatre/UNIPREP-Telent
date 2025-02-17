@@ -127,7 +127,7 @@
           </div>
           <div class="d-none d-md-flex align-items-center">
             <a (click)="openchat()" class="me-3">
-                <p-avatar class="" label="" role="button">
+                <p-avatar class="" label="" role="button" style="padding: 19px;">
                 <i class="fa-solid fa-comments text-dark"></i> </p-avatar>
             </a>
             <a *ngIf="false" (click)="np.toggle($event)" class="me-3">
@@ -229,11 +229,10 @@
             <div class="d-none d-md-flex align-items-center gap-3">
                 <!-- Chat Icon -->
                 <a (click)="openchat()" title="Chat">
-                    <p-avatar class="" label="" role="button">
+                    <p-avatar class="" label="" role="button" style="padding: 19px;">
                         <i class="fa-solid fa-comments"></i>
                     </p-avatar>
                 </a>
-
                 <!-- Profile Dropdown -->
                 <div class="dropdown profile-dropdown">
                     <button class="button d-flex align-items-center" data-bs-toggle="dropdown" aria-expanded="false" title="My Profile">

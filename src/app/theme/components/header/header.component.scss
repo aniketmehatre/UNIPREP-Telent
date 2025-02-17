@@ -142,9 +142,18 @@ form {
 }
 .profile-dropdown {
   button {
-    background: transparent;
+    //background: transparent;
     border: none;
-    padding: 0;
+    padding: 20px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: var(--p-avatar-width);
+    height: var(--p-avatar-height);
+    font-size: var(--p-avatar-font-size);
+    color: var(--p-avatar-color);
+    background: var(--p-avatar-background);
+    border-radius: var(--p-avatar-border-radius);
   }
 }
 .nme {
