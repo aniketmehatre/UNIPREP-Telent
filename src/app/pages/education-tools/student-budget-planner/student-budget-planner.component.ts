@@ -4,6 +4,9 @@ import { TravelToolsService } from '../../travel-tools/travel-tools.service';
 import { AllCountryRes,UniversityRes,CurrencyList,SaveResponse,SavedReponseArray } from 'src/app/@Models/education-tools.model';
 import { Router } from '@angular/router';
 import { MessageService } from 'primeng/api';
+import html2pdf from 'html2pdf.js';
+import { DownloadRespose } from 'src/app/@Models/travel-tools.model';
+import { error } from 'console';
 @Component({
   selector: 'uni-student-budget-planner',
   templateUrl: './student-budget-planner.component.html',
@@ -219,5 +222,19 @@ export class StudentBudgetPlannerComponent implements OnInit {
     this.isOldResponse = false;
     this.activePageIndex = 0;
     this.selectedData = {...this.selectedDataArray}
+  }
+
+  downloadResponse(){
+    
+    let paramsData: DownloadRespose = {
+      response: this.recommendationData,
+      module_name: "Student Budget Planner",
+      file_name: "student_budget_planner"
+    }
+    this.travelService.convertHTMLtoPDF(paramsData).then(() =>{
+      console.log('PDF Download Successfully.');
+    }).catch(error => {
+      console.error("PDF having some issue",error);
+    });
   }
 }

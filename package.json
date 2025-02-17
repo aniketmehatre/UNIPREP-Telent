@@ -45,6 +45,7 @@
     "file-saver": "^2.0.5",
     "google-libphonenumber": "^3.2.33",
     "html2canvas": "^1.4.1",
+    "html2pdf.js": "^0.10.2",
     "intl-tel-input": "^18.2.1",
     "jquery": "^3.7.1",
     "jw-angular-social-buttons": "^1.0.0",
