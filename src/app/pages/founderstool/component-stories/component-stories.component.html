@@ -12,7 +12,7 @@
           <div>
             <h5 class="w-100 mb-0" tooltipPosition="top"
               pTooltip="Access resources for starting your business, from ideation to execution.">
-              {{headertooltipname}}<i class="questiontooltip fa-solid fa-circle-question"></i></h5>
+              Founders Tool - {{headertooltipname}} <span *ngIf="isShowCountryQuesAns"> - {{countryname}}</span><i class="questiontooltip fa-solid fa-circle-question"></i></h5>
           </div>
           <div>
             <!-- <button class="how-it-works-button"
@@ -104,7 +104,7 @@
               <div class="select-title d-flex flex-fill justify-content-between align-items-center w-100">
                   <div>
                       <h5 class="mb-0">
-                        {{headertooltipname}}
+                        {{headertooltipname}} <span *ngIf="isShowCountryQuesAns"> - {{countryname}}</span>
                       </h5>
                   </div>
               </div>
