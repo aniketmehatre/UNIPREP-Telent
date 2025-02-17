@@ -27,6 +27,7 @@ import CryptoJS from "crypto-js";
 import { AssessmentService } from "src/app/pages/assessment/assessment.service";
 import { ILearnChallengeData } from "src/app/@Models/ilearn-challenge.model";
 import { ModuleServiceService } from "src/app/pages/module-store/module-service.service";
+import {AvatarModule} from "primeng/avatar";
 
 // import { SocialAuthService } from "@abacritt/angularx-social-login";
 

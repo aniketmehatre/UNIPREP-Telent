@@ -109,7 +109,7 @@ export const FoundersToolsData = [
         description: "An assessment that evaluates an entrepreneur's in-depth knowledge and proficiency in specific industries.",
         image: "../../../uniprep-assets/images/founderstool/business-advisor.svg",
         url: "/pages/founderstool/business-advisor",
-        launch_soon: true
+        launch_soon: false
     },
     {
         title: "Startup Risk Assessment",
