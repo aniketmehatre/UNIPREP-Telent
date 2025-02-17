@@ -125,6 +125,13 @@ export class EducationToolsService {
     });
   }
 
+  getPoliticianCountryList() {
+    const headers = new HttpHeaders().set("Accept", "application/json");
+    return this.http.get<any>(`${environment.ApiUrl}/politiciandropdownlist`, {
+      headers: headers
+    });
+  }
+
   getUniverstityByCountry(country_id: string) {
     return this.http.post<any>(`${environment.ApiUrl}/getunviersity`, {
       country_id: country_id

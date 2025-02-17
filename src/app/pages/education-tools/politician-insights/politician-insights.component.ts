@@ -33,6 +33,7 @@ export class PoliticianInsightsComponent implements OnInit, OnDestroy {
   isQuestionAnswerVisible: boolean = false;
   dataanswerquestion: any;
   countryId: any;
+  politicianId: any;
   politicians: Politician[] = [];
   totalPoliticianList: number = 3;
   isSkeletonVisible: boolean = false;
@@ -51,8 +52,8 @@ export class PoliticianInsightsComponent implements OnInit, OnDestroy {
   ) { }
 
   ngOnInit(): void {
-    this.locationService.getAllCountryList().subscribe((res: any) => {
-      this.countrylist = res.data;
+    this.educationToolService.getPoliticianCountryList().subscribe((res: any) => {
+      this.countrylist = res.countries;
     });
 
     this.activatedRoute.params.subscribe(params => {
@@ -60,6 +61,8 @@ export class PoliticianInsightsComponent implements OnInit, OnDestroy {
         this.isShowCountryQuesAns = true;
         this.isShowCountryData = false;
         this.isShowPoliticians = false;
+        this.countryId = params['id'];
+        this.politicianId = params['question_id'];
         this.getQuestionList(params['id'], params['question_id']);
       }
       else if (params['id']) {
@@ -81,9 +84,11 @@ export class PoliticianInsightsComponent implements OnInit, OnDestroy {
   goBack() {
     if (this.isShowCountryData) {
       this.router.navigate(["/pages/education-tools"]);
-    } else {
-      this.isShowCountryData = true;
-      this.isShowCountryQuesAns = false;
+    } else if (this.isShowPoliticians) {
+      this.router.navigate(["/pages/education-tools/politician-insights", this.countryId]);
+    }
+    else if (this.isShowCountryQuesAns) {
+      this.router.navigate(["/pages/education-tools/politician-insights", this.countryId, this.politicianId]);
     }
   }
 
@@ -94,23 +99,23 @@ export class PoliticianInsightsComponent implements OnInit, OnDestroy {
 
   showQuestionDatas(data: any) {
     this.questuionanswerlist = [];
-    this.router.navigate(['/pages/education-tools/politician-insights', this.countryId, data.id]);
+    this.router.navigate(['/pages/education-tools/politician-insights', this.countryId, data]);
   }
 
   getQuestionList(id: any, questions_id: any) {
     this.isSkeletonVisible = true;
     const datas: any = {
-      politicianid: questions_id
+      politician_id: questions_id
     };
     this.educationToolService.getQuestionsListByPolitician(datas).subscribe(
       (res: any) => {
         this.isShowCountryData = false;
         this.isShowPoliticians = false;
         this.isShowCountryQuesAns = true;
-        this.politicians = res.politicians;
+        this.questuionanswerlist = res.politicianquestions;
         this.isSkeletonVisible = false;
         if (id) {
-          this.showDataAnswer(res?.data?.[0]);
+          this.showDataAnswer(res?.politicianquestions?.[0]);
         }
       },
       (error) => {
