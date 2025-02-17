@@ -18,6 +18,7 @@ export interface Contributor {
     location: string
     image: string
     contributorID: string
+    designation: string
   }
   
   export interface QuestionAnswer {

@@ -24,56 +24,63 @@
             </div>
         </div>
     </div>
-    <div *ngIf="!isViewContributor; else showViewSponsor" class="card-body text-center flex-fill overflow-y-auto">
-        <div class="row">
-            <div *ngFor="let item of contributorList" class="col-md-3 col-sm-6 my-2">
-                <div class="row w-100 h-100 m-0 justify-content-center">
-                    <div class="card questioncard">
-                        <div class="card-body">
-                            <ng-container [ngSwitch]="item.contributiontier">
-                                <div *ngSwitchCase="'Diamond Contributor'" style="background-color: #808ec1;"
-                                    class="contributor-tag">Diamond</div>
-                                <div *ngSwitchCase="'Platinum Contributor'" style="background-color: #404040;"
-                                    class="contributor-tag">Platinum</div>
-                                <div *ngSwitchCase="'Gold Contributor'" style="background-color: #ec9d32;"
-                                    class="contributor-tag">Gold</div>
-                                <div *ngSwitchCase="'Silver Contributor'" style="background-color: #a1abb1;"
-                                    class="contributor-tag">Silver</div>
-                                <div *ngSwitchCase="'Bronze Contributor'" style="background-color: #cc6637;"
-                                    class="contributor-tag">Bronze</div>
-                            </ng-container>
-                            <div class="d-flex gap-3 my-4">
-                                <div *ngIf="item.image; else noImage" class="contributor-img-sec">
-                                    <img [src]="item.image" alt="Sponsors Image">
-                                </div>
-                                <ng-template #noImage>
-                                    <div class="no-image">
-                                        <i class="fa fa-solid fa-image-slash"></i>
+    <div *ngIf="!isViewContributor; else showviewContributor" class="card-body text-center flex-fill overflow-y-auto">
+        <div class="row" *ngIf="isSkeletonVisible; else showContributor">
+            <div *ngFor="let item of loopRange" class="col-md-3 col-sm-6 my-2">
+                <p-skeleton height="13rem" styleClass="mb-3"></p-skeleton>
+            </div>
+        </div>
+        <ng-template #showContributor>
+            <div class="row">
+                <div *ngFor="let item of contributorList" class="col-md-3 col-sm-6 my-2">
+                    <div class="row w-100 h-100 m-0 justify-content-center">
+                        <div class="card questioncard">
+                            <div class="card-body">
+                                <ng-container [ngSwitch]="item.contributiontier">
+                                    <div *ngSwitchCase="'Diamond Contributor'" style="background-color: #808ec1;"
+                                        class="contributor-tag">Diamond</div>
+                                    <div *ngSwitchCase="'Platinum Contributor'" style="background-color: #404040;"
+                                        class="contributor-tag">Platinum</div>
+                                    <div *ngSwitchCase="'Gold Contributor'" style="background-color: #ec9d32;"
+                                        class="contributor-tag">Gold</div>
+                                    <div *ngSwitchCase="'Silver Contributor'" style="background-color: #a1abb1;"
+                                        class="contributor-tag">Silver</div>
+                                    <div *ngSwitchCase="'Bronze Contributor'" style="background-color: #cc6637;"
+                                        class="contributor-tag">Bronze</div>
+                                </ng-container>
+                                <div class="d-flex gap-3 my-4">
+                                    <div *ngIf="item.image; else noImage" class="contributor-img-sec">
+                                        <img [src]="item.image" alt="Sponsors Image">
                                     </div>
-                                </ng-template>
-                                <div class="text-start">
-                                    <h5>{{item.name}}</h5>
-                                    <div class="text-small">{{item.company}}</div>
-                                    <div class="text-small">{{item.location}}</div>
+                                    <ng-template #noImage>
+                                        <div class="no-image">
+                                            <i class="fa fa-solid fa-image-slash"></i>
+                                        </div>
+                                    </ng-template>
+                                    <div class="text-start">
+                                        <h5>{{item.name}}</h5>
+                                        <div class="text-small">{{item.designation}}</div>
+                                        <div class="text-small">{{item.location}}</div>
+                                    </div>
                                 </div>
+                                <button pButton type="button" (click)="viewContributor(item)"
+                                    class="btn btn-secondary  p-1 w-100 justify-content-center">
+                                    View
+                                </button>
                             </div>
-                            <button pButton type="button" (click)="viewSponsor(item)"
-                                class="btn btn-secondary  p-1 w-100 justify-content-center">
-                                View
-                            </button>
                         </div>
                     </div>
                 </div>
             </div>
-        </div>
+        </ng-template>
     </div>
     <!-- Contributor View Page -->
-    <ng-template #showViewSponsor>
+    <ng-template #showviewContributor>
         <div class="card-body text-center flex-fill overflow-y-auto">
             <div class="row">
-                <div *ngFor="let sub of contributorQandAList; let i = index" class="readingcardgrid my-2">
+                <div *ngFor="let sub of selectedContributor?.question_answer; let i = index" class="readingcardgrid my-2">
                     <div class="row w-100 h-100 m-0 justify-content-center">
-                        <div (click)="viewOneQuestion(sub)" role="button" class="card questioncard">
+                        <div (click)="viewOneQuestion(sub, i)" role="button" class="card questioncard">
                             <div
                                 class="card-body d-flex flex-sm-column flex-row justify-content-sm-between align-items-center gap-2">
                                 <div class="row justify-content-center w-100">
@@ -82,7 +89,7 @@
                                             {{ sub.question }}</p>
                                     </div>
                                     <div class="col-2 align-items-center justify-content-center text-center">
-                                        <i class="fa-solid fa-star uniprep-secondary fa-xl"
+                                        <i class="fa-regular fa-star uniprep-secondary fa-xl"
                                             pTooltip="Most Popular Question" tooltipPosition="right"></i>
                                     </div>
                                 </div>
@@ -102,8 +109,8 @@
     </ng-template>
 </div>
 
-<p-dialog header="Filter Contributors"  [(visible)]="isQuestionAnswerVisible" [draggable]="false" [modal]="true"
-[style]="{ width: '50vw' }">
+<p-dialog header="Filter Contributors" [(visible)]="isQuestionAnswerVisible" [draggable]="false" [modal]="true"
+    [style]="{ width: '50vw' }" [resizable]="false" styleClass="custom-dialog">
     <div class="container p-4">
         <form [formGroup]="filterForm" (ngSubmit)="submitFilterForm()" class="d-flex flex-column gap-3">
             <div class="row">
@@ -111,15 +118,16 @@
                     <div class="form-group mb-2">
                         <label>Contribution Tier</label>
                         <p-dropdown [options]="contibutionTierList" [filter]="true" formControlName="contributiontier"
-                        optionLabel="contributiontier" styleClass="w-100" optionValue="id" [showClear]="true"
-                        placeholder="Select" [appendTo]="'body'"></p-dropdown>
+                            optionLabel="contributiontier" styleClass="w-100" optionValue="id" [showClear]="true"
+                            placeholder="Select" [appendTo]="'body'"></p-dropdown>
                     </div>
                 </div>
                 <div class="col-12">
                     <div class="form-group mb-2">
                         <label>Location</label>
-                        <p-dropdown formControlName="location" optionValue="id" optionLabel="state" styleClass="w-100" [showClear]="true"
-                            [options]="locationList" placeholder="Select" [filter]="true" filterBy="state,district" [appendTo]="'body'">
+                        <p-dropdown formControlName="location" optionValue="id" optionLabel="state" styleClass="w-100"
+                            [showClear]="true" [options]="locationList" placeholder="Select" [filter]="true"
+                            filterBy="state,district" [appendTo]="'body'">
                             <ng-template let-data pTemplate="item">
                                 <div>{{data.state}} - {{data.district}}</div>
                             </ng-template>
@@ -133,16 +141,56 @@
             <div class="d-flex justify-content-end">
                 <div class="d-flex gap-3">
                     <button pButton type="button" (click)="resetFilter()"
-                        class="btn btn-primary btn-rounded px-4 py-2 justify-content-center">
+                        class="btn btn-quit px-4 py-2 justify-content-center">
                         Reset Filter
                     </button>
-                    <button pButton type="submit"
-                        class="btn btn-secondary px-4 py-2 justify-content-center">
+                    <button pButton type="submit" class="btn btn-primary px-4 py-2 justify-content-center">
                         Filter Data
                     </button>
-
                 </div>
             </div>
         </form>
+    </div>
+</p-dialog>
+
+<p-dialog #dialogContent [(visible)]="isQandAModal" [draggable]="false" [modal]="true"
+    class="questionmodal" header="Header" [maximizable]="true" (onShow)="onShowModal($event)">
+    <ng-template pTemplate="header">
+        <div class="d-flex w-100 flex-column px-4">
+            <div class="d-flex flex-row justify-content-md-between justify-content-center">
+                <div class="d-md-block d-none">
+                </div>
+                <div class="col-md-8 col-auto-2 col-6">
+                    <h5 class="select-title w-100 text-center mb-0">Contributor</h5>
+                </div>
+                <div class="d-md-block d-none">
+                </div>
+            </div>
+        </div>
+    </ng-template>
+    <div class="carousel-container px-4 pb-3">
+        <div class="card flex-fill answercard">
+            <div class="card-body text-start" style="min-height: 25rem;">
+                <div class="d-flex align-items-center justify-content-between position-relative">
+                    <h3 class="uniprep-primary unselectable d-md-block d-none">{{ selectedQuestionData?.question }}</h3>
+                    <h5 class="uniprep-primary unselectable d-md-none d-block">{{ selectedQuestionData?.question }}</h5>
+                    <button class="btn btn-primary socialShareBtn" (click)="showSocialSharingList()"><i
+                            class="fa-light fa-xl fa-share-nodes"></i></button>
+                    <p-card id="socialSharingList">
+                        <ul style="list-style: none; cursor: pointer">
+                            <li (click)="shareQuestion('Whatsapp')"><i class="pi pi-whatsapp"></i>Whatsapp</li>
+                            <li (click)="shareQuestion('Mail')"><i class="pi pi-envelope"></i>Email</li>
+                            <li (click)="shareQuestion('Facebook')"><i class="pi pi-facebook"></i>Facebook</li>
+                            <li (click)="shareQuestion('Twitter')"><i class="pi pi-twitter"></i>Twitter</li>
+                            <li (click)="shareQuestion('Instagram')"><i class="pi pi-instagram"></i>Instagram</li>
+                            <li (click)="shareQuestion('LinkedIn')"><i class="pi pi-linkedin"></i>LinkedIn</li>
+                            <li (click)="copyLink()"><i class="pi pi-link"></i>Copy Link</li>
+                        </ul>
+                    </p-card>
+                </div>
+                <div class="fw-medium" style="white-space: inherit; max-height: 80%; min-height: 80%"
+                    [innerHTML]="selectedQuestionData?.answer"></div>
+            </div>
+        </div>
     </div>
 </p-dialog>
