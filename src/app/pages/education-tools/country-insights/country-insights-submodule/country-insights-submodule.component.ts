@@ -29,7 +29,7 @@ export class CountryInsightsSubmoduleComponent implements OnInit {
   ngOnInit(): void {
     this.moduleId = this.route.snapshot.params?.['id'];
     this.countryId = localStorage.getItem('country_insights_country') || '';
-    this.countryname = localStorage.getItem('country_name') || '';
+    this.countryname = localStorage.getItem('country_insights_country_name') || '';
     this.getQuizQuestionData();
   }
 

@@ -36,7 +36,7 @@ export class CountryInsightsComponent implements OnInit {
 
   onClickSubModule(countryId: string, id: string, countryname: string) {
     console.log(id);
-    localStorage.setItem('country_name', countryname);
+    localStorage.setItem('country_insights_country_name', countryname);
     localStorage.setItem('country_insights_country', countryId);
     this.router.navigate(['/pages/education-tools/country-insights', id]);
   }

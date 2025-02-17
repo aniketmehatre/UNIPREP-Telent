@@ -2,7 +2,7 @@
     <ng-container *ngIf="isRecommendationQuestion">
     <div class="card-header border-0 bg-transparent">
       <div class="row justify-content-center align-items-center">
-        <div class="col-md-12 d-flex gap-4">
+        <div class="col-md-12 d-flex gap-2">
             <div class="backIcon d-md-flex d-none" role="button" (click)="goBack()" style="height: auto;">
                 <span class="fa-solid fa-chevron-left"></span>
             </div>
@@ -10,10 +10,6 @@
                 <div>
                     <h5 class="w-100 mb-0" tooltipPosition="top" pTooltip="">
                       STARTUP RISK ASSESSMENT<i class="questiontooltip fa-solid fa-circle-question"></i></h5>
-                </div>
-                <div>
-                    <button class="how-it-works-button">How it works?
-                        <i class="fa-solid fa-play d-md-block d-none"></i></button>
                 </div>
             </div>
         </div>
@@ -161,7 +157,7 @@
             <div class="col-md-2"></div>
             <div class="col-md-8">
                 <div class="d-flex justify-content-end gap-3 mb-3">
-                    <button pButton type="button" (click)="downloadRecommendation()"
+                    <button pButton type="button" (click)="downloadRecommadation()"
                         class="btn btn-secondary btn-rounded p-1 ps-4">
                         <span class="me-2">Download</span><span class="btn-icon px-2 py-2">
                             <i class="fa-regular fa-download"></i></span>
@@ -195,10 +191,6 @@
                 <h5 class="w-100 mb-0" tooltipPosition="top" pTooltip="">
                   STARTUP RISK ASSESSMENT
                   <i class="questiontooltip fa-solid fa-circle-question"></i></h5>
-              </div>
-              <div>
-                <button class="how-it-works-button">How it works?
-                  <i class="fa-solid fa-play d-md-block d-none"></i></button>
               </div>
             </div>
           </div>

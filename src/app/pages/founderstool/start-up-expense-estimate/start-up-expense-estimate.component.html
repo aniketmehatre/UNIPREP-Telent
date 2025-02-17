@@ -2,19 +2,16 @@
     <ng-container *ngIf="isRecommendationQuestion">
       <div class="card-header border-0 bg-transparent">
         <div class="row justify-content-center">
-          <div class="col-md-12 text-center">
+          <div class="col-md-12 d-flex gap-2">
+            <div class="backIcon d-md-flex d-none" role="button" (click)="goBack()" style="height: auto;">
+              <span class="fa-solid fa-chevron-left"></span>
+            </div>
             <div class="select-title d-flex justify-content-between align-items-center">
               <div>
                 <h5 class="w-100 mb-0" tooltipPosition="top"
                   pTooltip="Access fully and partially funded opportunities for education.">
-                  Start Expense Estimator<i class="questiontooltip fa-solid fa-circle-question"></i>
+                  STARTUP EXPENSE ESTIMATOR<i class="questiontooltip fa-solid fa-circle-question"></i>
                 </h5>
-              </div>
-              <div>
-                <button class="how-it-works-button" (click)="
-                      openHowItWorksVideoPopup('https://www.youtube.com/embed/5B7AeCCKCKw?si=uUXSoWHIsi3fxJH2')">
-                  How it works?<i class="fa-solid fa-play d-md-block d-none"></i>
-                </button>
               </div>
             </div>
           </div>
@@ -36,7 +33,7 @@
                       {{ recommendation.question.branches[0] }}
                     </h5>
                     <p-dropdown styleClass="w-100" appendTo="body" [options]="industryList" [filter]="true"
-                      formControlName="industry" filterBy="Industry" optionLabel="Industry" placeholder="Industry" optionValue="Industry"
+                      formControlName="industry" filterBy="Industry" optionLabel="Industry" placeholder="Select Industry" optionValue="Industry"
                       [autoDisplayFirst]="false">
                     </p-dropdown>
                     <p class="text-center" *ngIf="marketingForm.get('industry')?.errors?.required && submitted"
@@ -49,7 +46,7 @@
                       {{ recommendation.question.branches[1] }}
                     </h5>
                     <p-dropdown styleClass="w-100" appendTo="body" [options]="locationsList" [filter]="true"
-                      formControlName="location" filterBy="district" optionLabel="district" optionValue="district" placeholder="Location"
+                      formControlName="location" filterBy="district" optionLabel="district" optionValue="district" placeholder="Select Location"
                       [autoDisplayFirst]="false">
                     </p-dropdown>
                     <p class="text-center" *ngIf="marketingForm.get('location')?.errors?.required && submitted"
@@ -62,7 +59,7 @@
                       {{ recommendation.question.branches[2] }}
                     </h5>
                     <p-dropdown styleClass="w-100" appendTo="body" [options]="startupStageList" [filter]="true"
-                      formControlName="startup_stage" filterBy="name" optionLabel="name" optionValue="name" placeholder="Startup Stage"
+                      formControlName="startup_stage" filterBy="name" optionLabel="name" optionValue="name" placeholder="Select Startup Stage"
                       [autoDisplayFirst]="false">
                     </p-dropdown>
                     <p class="text-center" *ngIf="marketingForm.get('startup_stage')?.errors?.required && submitted"
@@ -75,7 +72,7 @@
                       {{ recommendation.question.branches[3] }}
                     </h5>
                     <p-dropdown styleClass="w-100" appendTo="body" [options]="teamSizeList" [filter]="true"
-                      formControlName="team_size" filterBy="name" optionLabel="name" optionValue="name" placeholder="Team Size"
+                      formControlName="team_size" filterBy="name" optionLabel="name" optionValue="name" placeholder="Select Team Size"
                       [autoDisplayFirst]="false">
                     </p-dropdown>
                     <p class="text-center" *ngIf="marketingForm.get('team_size')?.errors?.required && submitted"
@@ -93,7 +90,7 @@
                     <h5 class="uniprep-primary fw-semibold mt-3 mb-1">
                       {{ recommendation.question.branches[0] }}
                     </h5>
-                    <p-multiSelect styleClass="w-100" placeholder="Expense" [options]="primaryExpenseList"
+                    <p-multiSelect styleClass="w-100" placeholder="Select Expense" [options]="primaryExpenseList"
                      optionLabel="name" optionValue="name" appendTo="body" formControlName="primary_expense">  
                     </p-multiSelect>
                     <p class="text-center" *ngIf="
@@ -123,7 +120,7 @@
                     <h5 class="uniprep-primary fw-semibold mt-3 mb-1">
                       {{ recommendation.question.branches[2] }}
                     </h5>
-                    <p-multiSelect styleClass="w-100" placeholder="Revenue Model" [options]="revenueModelsList"
+                    <p-multiSelect styleClass="w-100" placeholder="Select Revenue Model" [options]="revenueModelsList"
                       optionLabel="name" optionValue="name" appendTo="body" formControlName="revenue_model" >
                     </p-multiSelect>  
                     <p class="text-center" *ngIf="
@@ -177,7 +174,7 @@
                       {{ recommendation.question.branches[1] }}
                     </h5>
                     <p-dropdown styleClass="w-100" formControlName="expense_estimation" appendTo="body" [options]="expenseEstimation" [filter]="true"
-                    filterBy="name" placeholder="Time Frame" optionLabel="name" optionValue="name"
+                    filterBy="name" placeholder="Select Expense Estimation" optionLabel="name" optionValue="name"
                     [autoDisplayFirst]="false">
                   </p-dropdown>
                     <p class="text-center" *ngIf="
@@ -222,11 +219,7 @@
             <div class="select-title d-flex justify-content-between align-items-center">
               <div>
                 <h5 class="w-100 mb-0" tooltipPosition="top" pTooltip="">
-                  Start Expense Estimator<i class="questiontooltip fa-solid fa-circle-question"></i></h5>
-              </div>
-              <div>
-                <button class="how-it-works-button">How it works?
-                  <i class="fa-solid fa-play d-md-block d-none"></i></button>
+                  STARTUP EXPENSE ESTIMATOR<i class="questiontooltip fa-solid fa-circle-question"></i></h5>
               </div>
             </div>
             <div class="d-flex align-items-center">
@@ -274,11 +267,7 @@
             <div class="select-title d-flex justify-content-between align-items-center">
               <div>
                 <h5 class="w-100 mb-0" tooltipPosition="top" pTooltip="">
-                  Start Expense Estimator<i class="questiontooltip fa-solid fa-circle-question"></i></h5>
-              </div>
-              <div>
-                <button class="how-it-works-button">How it works?
-                  <i class="fa-solid fa-play d-md-block d-none"></i></button>
+                  STARTUP EXPENSE ESTIMATOR<i class="questiontooltip fa-solid fa-circle-question"></i></h5>
               </div>
             </div>
           </div>
@@ -294,7 +283,7 @@
                   <h5 class="fw-bold mb-0">Startup Expense Estimate {{i+1}}</h5>
                   <p class="text-small"><b>Industry : </b>{{item.industry}}</p>
                   <p class="text-small"><b>Location : </b>{{item.location}}</p>
-                  <p class="text-small"><b>Startup Stage : </b>{{item.stage}}</p>
+                  <p class="text-small"><b>Startup Stage : </b>{{item.startupstage}}</p>
                   <p class="text-small"><b>Team Size : </b>{{item.teamsize}}</p>
               </div>
               </div>

@@ -12,6 +12,8 @@ import { EducationToolsService } from '../education-tools.service';
 import { University } from 'src/app/@Models/sop-response.model';
 import { options } from 'marked';
 import { optionsGlobal } from './global-edufit.data';
+import { DownloadRespose } from 'src/app/@Models/travel-tools.model';
+import { TravelToolsService } from '../../travel-tools/travel-tools.service';
 
 @Component({
   selector: 'uni-global-edufit',
@@ -59,7 +61,8 @@ export class GlobalEdufitComponent implements OnInit {
     private authService: AuthService,
     private router: Router,
     private dataService: DataService,
-    private pageFacade: PageFacadeService
+    private pageFacade: PageFacadeService,
+    private travelToolService: TravelToolsService
   ) {
     this.form = this.fb.group({
       home_country: ['', Validators.required],
@@ -281,24 +284,15 @@ export class GlobalEdufitComponent implements OnInit {
   }
 
   downloadRecommadation() {
-    this.educationToolService.downloadRecommendation({ data: this.recommendationData }).subscribe({
-      next: (response: any) => {
-        this.educationToolService.downloadFile(response.url).subscribe((blob) => {
-          const a = document.createElement("a");
-          const objectUrl = window.URL.createObjectURL(blob);
-
-          a.href = objectUrl;
-          a.download = "global-edufit.pdf";
-          document.body.appendChild(a);
-
-          a.click();
-          window.URL.revokeObjectURL(objectUrl);
-          document.body.removeChild(a);
-        });
-      },
-      error: (err) => {
-        console.log(err?.error?.message);
-      }
+    let paramData: DownloadRespose = {
+      response: this.recommendationData,
+      module_name: "Global Edufit",
+      file_name: "global_edufit"
+    };
+    this.travelToolService.convertHTMLtoPDF(paramData).then(() => {
+      console.log("PDF successfully generated.");
+    }).catch(error => {
+      console.error("Error generating PDF:", error);
     });
   }
 
