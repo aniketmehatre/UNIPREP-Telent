@@ -49,6 +49,13 @@ export class EducationToolsService {
     });
   }
 
+  getQuestionsListByPolitician(data: any) {
+    const headers = new HttpHeaders().set("Accept", "application/json");
+    return this.http.post<any>(environment.ApiUrl + "/getpoliticianquestionlists", data, {
+      headers: headers,
+    });
+  }
+
   getCountryInsightsList(req: CountryInsightPayload): Observable<CountryInsightsResponse> {
     let params = {
       page: req.page,
@@ -114,6 +121,13 @@ export class EducationToolsService {
   getCountryList() {
     const headers = new HttpHeaders().set("Accept", "application/json");
     return this.http.get<any>(`${environment.ApiUrl}/countrydropdown`, {
+      headers: headers
+    });
+  }
+
+  getPoliticianCountryList() {
+    const headers = new HttpHeaders().set("Accept", "application/json");
+    return this.http.get<any>(`${environment.ApiUrl}/politiciandropdownlist`, {
       headers: headers
     });
   }

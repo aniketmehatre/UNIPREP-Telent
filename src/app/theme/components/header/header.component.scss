@@ -562,3 +562,9 @@ $background-color_4: #fff;
   align-items: center;
   cursor: pointer;
 }
+.btn i {
+  font-size: 20px;  /* Adjust size of the icon */
+}
+.btn span {
+  font-size: 14px;  /* Adjust size of the text */
+}

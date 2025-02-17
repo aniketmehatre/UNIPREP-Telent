@@ -31,6 +31,9 @@ import { InputGroupModule } from "primeng/inputgroup"
 import { InputGroupAddonModule } from "primeng/inputgroupaddon"
 import { TextareaModule } from 'primeng/textarea'
 import { AuthTokenService } from 'src/app/core/services/auth-token.service'
+import CryptoJS from "crypto-js";
+
+// import { SocialAuthService } from "@abacritt/angularx-social-login";
 
 @Component({
 	selector: "uni-header",

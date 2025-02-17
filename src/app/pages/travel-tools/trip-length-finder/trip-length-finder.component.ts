@@ -18,6 +18,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { SelectModule } from 'primeng/select';
 
 
+import { DownloadRespose } from 'src/app/@Models/travel-tools.model';
 @Component({
     selector: 'uni-trip-length-finder',
     templateUrl: './trip-length-finder.component.html',
@@ -145,7 +146,7 @@ export class TripLengthFinderComponent implements OnInit {
     // });
 
     // let downloadString:string = "This is a paragraph with some text and emojis 😊🎉. Markdown processing with emojis works!";
-    let paramData: any = {
+    let paramData: DownloadRespose = {
       response: this.recommendationData,
       module_name: "Trip Length Finder",
       file_name: "trip_length_finder"

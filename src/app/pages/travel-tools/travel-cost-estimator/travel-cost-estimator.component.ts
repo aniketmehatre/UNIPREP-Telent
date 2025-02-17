@@ -20,6 +20,7 @@ import { InputGroupModule } from 'primeng/inputgroup';
 import { InputTextModule } from 'primeng/inputtext';
 import { InputGroupAddonModule } from 'primeng/inputgroupaddon';
 import { InputNumberModule } from 'primeng/inputnumber';
+import { DownloadRespose } from 'src/app/@Models/travel-tools.model';
 
 @Component({
 	selector: "uni-travel-cost-estimator",
@@ -221,14 +222,24 @@ export class TravelCostEstimatorComponent implements OnInit {
   }
 
   downloadRecommadation() {
-    this.travelToolsService.downloadRecommendation({ data: this.recommendationData }).subscribe({
-      next: res => {
-        window.open(res.url, "_blank");
-      },
-      error: err => {
-        console.log(err?.error?.message);
-      }
-    });
+    let paramData: DownloadRespose = {
+      response: this.recommendationData,
+      module_name: "Travel Cost Estimator",
+      file_name: "travel_cost_estimator"
+    };
+    this.travelToolsService.convertHTMLtoPDF(paramData).then(() => {
+      console.log("PDF successfully generated.");
+    }).catch(error =>{
+      console.error("Error generating PDF:", error);
+    })
+    // this.travelToolsService.downloadRecommendation({ data: this.recommendationData }).subscribe({
+    //   next: res => {
+    //     window.open(res.url, "_blank");
+    //   },
+    //   error: err => {
+    //     console.log(err?.error?.message);
+    //   }
+    // });
   }
 
   goBack() {

@@ -48,13 +48,13 @@ export const FoundersToolsData = [
         url: "/pages/founderstool/enterpreneur-visa",
         launch_soon: true
     },
-    {
-        title: "AI Business Plan Generator",
-        description: "An assessment that evaluates an entrepreneur's in-depth knowledge and proficiency in specific industries.",
-        image: "../../../uniprep-assets/images/icons/wealthy.svg",
-        url: "/pages/founderstool/business-plan-generator",
-        launch_soon: true
-    },
+    // {
+    //     title: "AI Business Plan Generator",
+    //     description: "An assessment that evaluates an entrepreneur's in-depth knowledge and proficiency in specific industries.",
+    //     image: "../../../uniprep-assets/images/icons/wealthy.svg",
+    //     url: "/pages/founderstool/business-plan-generator",
+    //     launch_soon: true
+    // },
     {
         title: "Startup Funding Hacks",
         description: "An assessment that evaluates an entrepreneur's in-depth knowledge and proficiency in specific industries.",
@@ -109,7 +109,7 @@ export const FoundersToolsData = [
         description: "An assessment that evaluates an entrepreneur's in-depth knowledge and proficiency in specific industries.",
         image: "../../../uniprep-assets/images/founderstool/business-advisor.svg",
         url: "/pages/founderstool/business-advisor",
-        launch_soon: true
+        launch_soon: false
     },
     {
         title: "Startup Risk Assessment",
