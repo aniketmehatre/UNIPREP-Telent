@@ -18,7 +18,7 @@ export class CareerToolComponent implements OnInit {
       moduleName: "CV Builder",
     //  Description: "Craft a standout CV that highlights your skills and experience, ready for any job application.",
       tooltip: "Craft a standout CV that highlights your skills and experience, ready for any job application.",
-      imageLink: "https://api.uniprep.ai/uniprepapi/storage/app/public/resources-coverimage/cv.svg",
+      imageLink: `https://${environment.domain}/uniprepapi/storage/app/public/resources-coverimage/cv.svg`,
       refLink: "https://novoresume.com/",
       mode: "cv-builder",
       launch_soon: false
@@ -28,7 +28,7 @@ export class CareerToolComponent implements OnInit {
       moduleName: "Cover Letter Builder",
      // Description: "Generate a cover letter that strengthens your job application.",
       tooltip: "Generate a cover letter that strengthens your job application.",
-      imageLink: "https://api.uniprep.ai/uniprepapi/storage/app/public/resources-coverimage/CoverLetter.svg",
+      imageLink: `https://${environment.domain}/uniprepapi/storage/app/public/resources-coverimage/CoverLetter.svg`,
       refLink: "https://resumaker.ai/cover-letter/",
       mode: "coverletter-builder",
       launch_soon: false
@@ -38,7 +38,7 @@ export class CareerToolComponent implements OnInit {
       moduleName: "Career Planner",
      // Description: "Plan your career path by exploring job opportunities worldwide",
       tooltip: "Plan your career path by exploring job opportunities worldwide.",
-      imageLink: "https://api.uniprep.ai/uniprepapi/storage/app/public/resume_icons/careerplanner.svg",
+      imageLink: `https://${environment.domain}/uniprepapi/storage/app/public/resume_icons/careerplanner.svg`,
       refLink: "",
       mode: "career-planner",
       launch_soon: false
@@ -48,7 +48,7 @@ export class CareerToolComponent implements OnInit {
     //   moduleName: "Cost Of Living Comparision",
     //   Description: "Compare living expenses across countries to make informed decisions.",
     //   tooltip: "Compare the cost of living across different cities and countries to plan your financial needs.",
-    //   imageLink: "https://api.uniprep.ai/uniprepapi/storage/app/public/resume_icons/cost-of-living.svg",
+    //   imageLink: `https://${environment.domain}/uniprepapi/storage/app/public/resume_icons/cost-of-living.svg",
     //   refLink: "",
     //   mode: "cost-of-living"
     // },
@@ -57,7 +57,7 @@ export class CareerToolComponent implements OnInit {
       moduleName: "Global Salary Converter",
       //Description: "Calculate your salary across different countries.",
       tooltip: "Convert and compare salaries globally to understand the value of potential job offers.",
-      imageLink: "https://api.uniprep.ai/uniprepapi/storage/app/public/resume_icons/salaryconverter.svg",
+      imageLink: `https://${environment.domain}/uniprepapi/storage/app/public/resume_icons/salaryconverter.svg`,
       refLink: "",
       mode: "salary-converter",
       launch_soon: false
@@ -67,7 +67,7 @@ export class CareerToolComponent implements OnInit {
       moduleName: "Company List",
       //Description: "Access a comprehensive database with detailed information of over 100,000 companies.",
       tooltip: "Access a curated list of companies by industry and location to target your job search effectively.",
-      imageLink: "https://api.uniprep.ai/uniprepapi/storage/app/public/resume_icons/companylist.svg",
+      imageLink: `https://${environment.domain}/uniprepapi/storage/app/public/resume_icons/companylist.svg`,
       refLink: "",
       mode: "company-list",
       launch_soon: false
