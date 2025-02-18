@@ -9,6 +9,7 @@ import { DataService } from 'src/app/data.service';
 import { LocationService } from 'src/app/location.service';
 import { FounderstoolService } from '../../founderstool/founderstool.service';
 import { PageFacadeService } from '../../page-facade.service';
+import { Location } from '@angular/common';
 
 export interface Politician {
   name: string;
@@ -39,7 +40,11 @@ export class PoliticianInsightsComponent implements OnInit, OnDestroy {
   isSkeletonVisible: boolean = false;
   isShowPoliticians: boolean = false;
   readonly modeName: string = "politician_insights";
-
+  politicianName: string = '';
+  countryName: string = '';
+  page: number = 1;
+  pageSize: number = 10;
+  first: number = 0;
   constructor(
     private pageFacade: PageFacadeService,
     private dataService: DataService,
@@ -48,7 +53,8 @@ export class PoliticianInsightsComponent implements OnInit, OnDestroy {
     private toast: MessageService,
     private router: Router,
     private educationToolService: EducationToolsService,
-    private locationService: LocationService
+    private locationService: LocationService,
+    private location: Location
   ) { }
 
   ngOnInit(): void {
@@ -84,15 +90,19 @@ export class PoliticianInsightsComponent implements OnInit, OnDestroy {
   goBack() {
     if (this.isShowCountryData) {
       this.router.navigate(["/pages/education-tools"]);
-    } else if (this.isShowPoliticians) {
-      this.router.navigate(["/pages/education-tools/politician-insights", this.countryId]);
+    } else {
+      this.location.back();
     }
-    else if (this.isShowCountryQuesAns) {
-      this.router.navigate(["/pages/education-tools/politician-insights", this.countryId, this.politicianId]);
-    }
+    // else if (this.isShowPoliticians) {
+    //   this.router.navigate(["/pages/education-tools/politician-insights", this.countryId]);
+    // }
+    // else if (this.isShowCountryQuesAns) {
+    //   this.router.navigate(["/pages/education-tools/politician-insights", this.countryId, this.politicianId]);
+    // }
   }
 
   showDatas(data: any) {
+    this.countryName = data?.country;
     this.politicians = [];
     this.router.navigate(['/pages/education-tools/politician-insights', data.id]);
   }
@@ -114,9 +124,9 @@ export class PoliticianInsightsComponent implements OnInit, OnDestroy {
         this.isShowCountryQuesAns = true;
         this.questuionanswerlist = res.politicianquestions;
         this.isSkeletonVisible = false;
-        if (id) {
-          this.showDataAnswer(res?.politicianquestions?.[0]);
-        }
+        // if (id) {
+        //   this.showDataAnswer(res?.politicianquestions?.[0]);
+        // }
       },
       (error) => {
         console.error("Error fetching question data:", error);
@@ -128,7 +138,9 @@ export class PoliticianInsightsComponent implements OnInit, OnDestroy {
   getPoliticianList(id: any) {
     this.isSkeletonVisible = true;
     const datas: any = {
-      country: id
+      country: id,
+      page: this.page,
+      perpage: this.pageSize
     };
     this.educationToolService.getPoliticiansListByCountry(datas).subscribe(
       (res: any) => {
@@ -233,6 +245,13 @@ export class PoliticianInsightsComponent implements OnInit, OnDestroy {
     const doc = parser.parseFromString(content, "text/html");
     const paragraph = doc.querySelector("p")?.textContent || '';
     return paragraph.length > 75 ? paragraph.slice(0, 75) + ' ...' : paragraph;
+  }
+
+  pageChange(event: any) {
+    this.page = event.first / this.pageSize + 1;
+    this.pageSize = event.rows;
+    this.first = event.first;
+    this.isShowPoliticians ? this.getPoliticianList(this.countryId) : this.getQuestionList(this.countryId, this.politicianId);
   }
 
   ngOnDestroy(): void {

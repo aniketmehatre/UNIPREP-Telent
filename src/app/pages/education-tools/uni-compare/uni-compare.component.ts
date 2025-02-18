@@ -10,6 +10,8 @@ import { startupDropdownData } from '../../founderstool/start-up-expense-estimat
 import { PageFacadeService } from '../../page-facade.service';
 import { EducationToolsService } from '../education-tools.service';
 import { uniCompareOptions } from './uni-compare.data';
+import { DownloadRespose } from 'src/app/@Models/travel-tools.model';
+import { TravelToolsService } from '../../travel-tools/travel-tools.service';
 
 @Component({
   selector: 'uni-uni-compare',
@@ -58,7 +60,9 @@ export class UniCompareComponent implements OnInit, OnDestroy {
     private authService: AuthService,
     private router: Router,
     private dataService: DataService,
-    private pageFacade: PageFacadeService
+    private pageFacade: PageFacadeService,
+    private travelToolService: TravelToolsService
+
   ) {
     this.form = this.fb.group({
       country: ['', Validators.required],
@@ -289,26 +293,17 @@ export class UniCompareComponent implements OnInit, OnDestroy {
   }
 
   downloadRecommadation() {
-    this.educationToolService.downloadRecommendation({ data: this.recommendationData }).subscribe({
-      next: (response: any) => {
-        this.educationToolService.downloadFile(response.url).subscribe((blob) => {
-          const a = document.createElement("a");
-          const objectUrl = window.URL.createObjectURL(blob);
-
-          a.href = objectUrl;
-          a.download = "uni-compare.pdf";
-          document.body.appendChild(a);
-
-          a.click();
-          window.URL.revokeObjectURL(objectUrl);
-          document.body.removeChild(a);
-        });
-      },
-      error: (err) => {
-        console.log(err?.error?.message);
-      }
+    let paramData: DownloadRespose = {
+      response: this.recommendationData,
+      module_name: "Uni Compare",
+      file_name: "uni_compare"
+    };
+    this.travelToolService.convertHTMLtoPDF(paramData).then(() => {
+      console.log("PDF successfully generated.");
+    }).catch(error => {
+      console.error("Error generating PDF:", error);
     });
-  }
+  } 
 
   updatePanelStyle = () => {
     this.panelStyle = window.innerWidth > 990 ? { width: '370px' } : { width: '100%' };
