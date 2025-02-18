@@ -31,6 +31,10 @@ import { InputGroupModule } from "primeng/inputgroup"
 import { InputGroupAddonModule } from "primeng/inputgroupaddon"
 import { TextareaModule } from 'primeng/textarea'
 import { AuthTokenService } from 'src/app/core/services/auth-token.service'
+import CryptoJS from "crypto-js";
+import { AvatarGroupModule } from 'primeng/avatargroup';
+
+// import { SocialAuthService } from "@abacritt/angularx-social-login";
 
 @Component({
 	selector: "uni-header",
@@ -55,6 +59,7 @@ import { AuthTokenService } from 'src/app/core/services/auth-token.service'
 		InputGroupModule,
 		InputGroupAddonModule,
 		TextareaModule,
+		AvatarGroupModule
 	],
 	providers: [MessageService, AuthService, LocationService, ThemeService, DashboardService, AssessmentService, AuthTokenService],
 })
@@ -71,7 +76,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
 	@Output() togleSidebar = new EventEmitter()
 	private subs = new SubSink()
 	userName: string = ""
-	firstChar: string = ""
+	firstChar: string = "U"
 	genMod: any
 	moduleNgModel: number = 1
 	selectedGenMod: number = 1

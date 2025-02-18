@@ -1172,4 +1172,20 @@ body {
         font-size: 14px;
     }
 }
+@media (max-width: 768px) { 
+	.createResumeButton {
+	  width: 60%; 
+	  padding: 12px 40px; 
+	  font-size: 14px; 
+	}
+  }
+  
+  @media (max-width: 480px) { 
+	.createResumeButton {
+	  width: 90%; 
+	  padding: 10px 20px;
+	  font-size: 13px; 
+	  margin: 15px auto;
+	}
+  } 
   
