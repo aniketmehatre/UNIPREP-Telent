@@ -8,9 +8,12 @@ import { DialogModule } from 'primeng/dialog';
 import { InputTextModule } from 'primeng/inputtext';
 import { DropdownModule } from 'primeng/dropdown';
 import { ReactiveFormsModule } from '@angular/forms';
+import { SkeletonModule } from 'primeng/skeleton';
+import { CardModule } from 'primeng/card';
 
 const routes: Routes = [
-    {path: '', component: ContributorsComponent}
+  { path: '', component: ContributorsComponent },
+  { path: ':id/:questionId', component: ContributorsComponent }, // Question Share
 ];
 
 @NgModule({
@@ -24,7 +27,9 @@ const routes: Routes = [
     DialogModule,
     InputTextModule,
     DropdownModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    SkeletonModule,
+    CardModule
   ]
 })
 export class ContributorsModule { }
