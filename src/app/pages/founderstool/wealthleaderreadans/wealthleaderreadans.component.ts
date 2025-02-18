@@ -19,6 +19,7 @@ import { InputTextModule } from 'primeng/inputtext';
 import { InputGroupAddonModule } from 'primeng/inputgroupaddon';
 import { PaginatorModule } from 'primeng/paginator';
 import { TooltipModule } from 'primeng/tooltip';
+import {StorageService} from "../../../storage.service";
 @Component({
     selector: 'uni-wealthleaderreadans',
     templateUrl: './wealthleaderreadans.component.html',
@@ -37,10 +38,10 @@ export class WealthleaderreadansComponent implements OnInit {
   wealthleaderanswer:any=[];
   constructor(private router:Router,private pageFacade: PageFacadeService,
     private service: FounderstoolService,private route: ActivatedRoute,private meta: Meta, private toastr: MessageService,
-    private dataService: DataService,
+    private dataService: DataService, private storage: StorageService
   ) { }
   ngOnInit(): void {
-    this.wealthleadersname=localStorage.getItem("wealthleadersname")
+    this.wealthleadersname=this.storage.get("wealthleadersname")
     this.idleader = this.route.snapshot.paramMap.get('id');
     this.getWealthLeaders();
   }

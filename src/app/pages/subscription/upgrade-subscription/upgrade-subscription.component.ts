@@ -90,49 +90,49 @@ export class UpgradeSubscriptionComponent implements OnInit {
 	async ngOnInit(): Promise<void> {
 		try {
 			// Handle userName decryption with better error handling
-			const encryptedName = localStorage.getItem("Name");
-			if (encryptedName) {
-				try {
-					const decryptedText = await this.authService.decryptData(encryptedName);
-					if (decryptedText && decryptedText.trim() !== "") {
-						try {
-							if (decryptedText.startsWith("{") || decryptedText.startsWith("[") || decryptedText.startsWith('"')) {
-								this.userName = JSON.parse(decryptedText);
-							} else {
-								this.userName = decryptedText;
-							}
-						} catch (parseError) {
-							console.warn("Failed to parse decrypted name:", parseError);
-							this.userName = decryptedText;
-						}
-					}
-				} catch (error) {
-					console.warn("Failed to decrypt name:", error);
-				}
-			}
+			this.userName = this.storage.get("Name");
+			// if (encryptedName) {
+			// 	try {
+			// 		const decryptedText = await this.authService.decryptData(encryptedName);
+			// 		if (decryptedText && decryptedText.trim() !== "") {
+			// 			try {
+			// 				if (decryptedText.startsWith("{") || decryptedText.startsWith("[") || decryptedText.startsWith('"')) {
+			// 					this.userName = JSON.parse(decryptedText);
+			// 				} else {
+			// 					this.userName = decryptedText;
+			// 				}
+			// 			} catch (parseError) {
+			// 				console.warn("Failed to parse decrypted name:", parseError);
+			// 				this.userName = decryptedText;
+			// 			}
+			// 		}
+			// 	} catch (error) {
+			// 		console.warn("Failed to decrypt name:", error);
+			// 	}
+			// }
 
-			const encPhone = localStorage.getItem("phone");
-			if (encPhone) {
-				try {
-					const decryptedPhone = await this.authService.decryptData(encPhone);
-					this.phone = decryptedPhone;
-				} catch (error) {
-					console.warn("Failed to decrypt phone:", error);
-				}
-			}
+			this.phone = this.storage.get("phone");
+			// if (encPhone) {
+			// 	try {
+			// 		const decryptedPhone = await this.authService.decryptData(encPhone);
+			// 		this.phone = decryptedPhone;
+			// 	} catch (error) {
+			// 		console.warn("Failed to decrypt phone:", error);
+			// 	}
+			// }
 
-			const encEmail = localStorage.getItem("email");
-			if (encEmail) {
-				try {
-					const decryptedEmail = await this.authService.decryptData(encEmail);
-					this.email = decryptedEmail;
-				} catch (error) {
-					console.warn("Failed to decrypt email:", error);
-				}
-			}
+			this.email = this.storage.get("email");
+			// if (encEmail) {
+			// 	try {
+			// 		const decryptedEmail = await this.authService.decryptData(encEmail);
+			// 		this.email = decryptedEmail;
+			// 	} catch (error) {
+			// 		console.warn("Failed to decrypt email:", error);
+			// 	}
+			// }
 
-			this.timeLeftInfoCard = localStorage.getItem("time_card_info")
-			this.currentCountry = localStorage.getItem("home_country_name") || "India"
+			this.timeLeftInfoCard = this.storage.get("time_card_info")
+			this.currentCountry = this.storage.get("home_country_name") || "India"
 			this.discountAmountEnable = false
 			this.user = this.authService.user
 			this.education_level = this.user?.education_level?.replace(/[\s\u00A0]/g, "").trim() || "HigherEducation"
@@ -544,20 +544,19 @@ export class UpgradeSubscriptionComponent implements OnInit {
 		if (environment.domain == "api.uniprep.ai") {
 			razorKey = "rzp_test_Crpr7YkjPaCLEr"
 		}
-		let phone
-		const encPhone = localStorage.getItem("phone")
-		if (encPhone) {
-			const bytes = this.authService.decryptData(encPhone)
-			//const bytes = CryptoJS.AES.decrypt(encPhone, environment.secretKeySalt);
-			phone = JSON.parse(bytes.toString())
-		}
-		let email
-		const encEmail = localStorage.getItem("email")
-		if (encEmail) {
-			const bytes = this.authService.decryptData(encEmail)
-			// const bytes = CryptoJS.AES.decrypt(encEmail, environment.secretKeySalt);
-			email = JSON.parse(bytes.toString())
-		}
+		// let phone
+		let phone = this.storage.get("phone")
+		// if (encPhone) {
+		// 	const bytes = this.authService.decryptData(encPhone)
+		// 	//const bytes = CryptoJS.AES.decrypt(encPhone, environment.secretKeySalt);
+		// 	phone = JSON.parse(bytes.toString())
+		// }
+		let email = this.storage.get("email")
+		// if (encEmail) {
+		// 	const bytes = this.authService.decryptData(encEmail)
+		// 	// const bytes = CryptoJS.AES.decrypt(encEmail, environment.secretKeySalt);
+		// 	email = JSON.parse(bytes.toString())
+		// }
 		const options: any = {
 			key: razorKey,
 			amount: this.subscriptionDetails?.finalPrice * 100,
@@ -570,7 +569,7 @@ export class UpgradeSubscriptionComponent implements OnInit {
 			prefill: {
 				name: this.selectedSubscriptionDetails?.subscription,
 				email: email,
-				// contact: localStorage.getItem("phone"),
+				// contact: this.storage.get("phone"),
 				contact: phone === null || phone === "" ? "9876543210" : phone,
 			},
 			notes: {

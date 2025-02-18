@@ -9,6 +9,7 @@ import { PageFacadeService } from '../page-facade.service';
 import { LocationService } from 'src/app/location.service';
 import {CommonModule} from '@angular/common';
 import {DialogModule} from 'primeng/dialog';
+import {StorageService} from "../../storage.service";
 @Component({
     selector: 'uni-mycertificate',
     templateUrl: './mycertificate.component.html',
@@ -32,7 +33,7 @@ orgnamewhitlabel: any;
 orglogowhitelabel: any;
   constructor(private service:MycertificateserviceService,private router: Router,private authService: AuthService,private dataService: DataService,
     private meta: Meta,private toast: MessageService,private route: ActivatedRoute,private pageFacade: PageFacadeService,
-    private locationService: LocationService,) { }
+    private locationService: LocationService, private storage: StorageService)  { }
 
   ngOnInit(): void {
     this.locationService.getImage().subscribe(imageUrl => {
@@ -65,7 +66,7 @@ orglogowhitelabel: any;
   getCertificateoOtherCountry(){
     this.othercirtificatecountrylist="";
     var data={
-      countryid:Number(localStorage.getItem('countryId'))
+      countryid:Number(this.storage.get('countryId'))
       // countryid:null
     }
     this.service.getCertificateInOtherCountry(data).subscribe((res)=>{

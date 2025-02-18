@@ -7,6 +7,7 @@ import { LocationService } from 'src/app/location.service';
 import { PageFacadeService } from '../../page-facade.service';
 import { CommonModule } from "@angular/common";
 import { DialogModule } from "primeng/dialog";
+import {StorageService} from "../../../storage.service";
 @Component({
     selector: 'uni-entreprenuersectorproficiency',
     templateUrl: './entreprenuersectorproficiency.component.html',
@@ -25,7 +26,7 @@ export class EntreprenuersectorproficiencyComponent implements OnInit {
   ehitlabelIsShow:boolean=true;
   currentModuleSlug:any;
   constructor(private service: FounderstoolService,private sanitizer: DomSanitizer,private router:Router, private authService: AuthService,
-    private locationService: LocationService,private pageFacade: PageFacadeService
+    private locationService: LocationService,private pageFacade: PageFacadeService, private storage: StorageService
   ) { }
   ngOnInit(): void {
     this.locationService.getImage().subscribe(imageUrl => {
@@ -61,9 +62,9 @@ export class EntreprenuersectorproficiencyComponent implements OnInit {
       this.restrict=true;
       return;
     }
-    localStorage.setItem('conditionrevieworquiz','0');
-    localStorage.setItem('entrpreneursubid',id);
-    localStorage.setItem('submodulename',name);
+    this.storage.set('conditionrevieworquiz','0');
+    this.storage.set('entrpreneursubid',id);
+    this.storage.set('submodulename',name);
     this.currentModuleSlug = "entreprenuersectorproficiencytest"
     this.router.navigate([`/pages/founderstool/${this.currentModuleSlug}/entrpreneurquiz`]);
   }
@@ -88,8 +89,8 @@ export class EntreprenuersectorproficiencyComponent implements OnInit {
     this.restrict = false;
   }
   review(id:any){
-    localStorage.setItem('conditionrevieworquiz','1')
-    localStorage.setItem('entrpreneursubid',id)
+    this.storage.set('conditionrevieworquiz','1')
+    this.storage.set('entrpreneursubid',id)
     this.currentModuleSlug = "entreprenuersectorproficiencytest"
     this.router.navigate([`/pages/founderstool/${this.currentModuleSlug}/entrpreneurquiz`]);  
   }

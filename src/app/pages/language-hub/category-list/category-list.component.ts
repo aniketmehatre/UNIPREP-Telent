@@ -18,6 +18,7 @@ import { MultiSelectModule } from "primeng/multiselect";
 import { CarouselModule } from "primeng/carousel";
 import { InputGroupModule } from "primeng/inputgroup";
 import { InputGroupAddonModule } from "primeng/inputgroupaddon";
+import {StorageService} from "../../../storage.service";
 @Component({
   selector: "uni-category-list",
   templateUrl: "./category-list.component.html",
@@ -42,7 +43,10 @@ export class CategoryListComponent implements OnInit {
   imagewhitlabeldomainname: any;
   orgnamewhitlabel: any;
   orglogowhitelabel: any;
-  constructor(private languageHubService: LanguageHubService, private lhs: LanguageHubDataService, private router: Router, private toast: MessageService, private languageArrayGlobalService: LanguageArrayGlobalService, private location: Location, private pageFacade: PageFacadeService, private authService: AuthService, private locationService: LocationService) {
+  constructor(private languageHubService: LanguageHubService, private lhs: LanguageHubDataService, private router: Router,
+              private toast: MessageService, private languageArrayGlobalService: LanguageArrayGlobalService,
+              private location: Location, private pageFacade: PageFacadeService, private authService: AuthService,
+              private locationService: LocationService, private storage: StorageService) {
     this.lhs.data$.subscribe((data) => {
       this.selectedLanguageId = data;
     });
@@ -113,7 +117,7 @@ export class CategoryListComponent implements OnInit {
 
   onCategoryClick(categoryId: any, submoduleName: any) {
     this.languageArrayGlobalService.addItem(submoduleName);
-    localStorage.setItem("selectedSubmoduleName", submoduleName);
+    this.storage.set("selectedSubmoduleName", submoduleName);
     this.router.navigate([`/pages/language-hub/question-list/${categoryId}`]);
   }
 
@@ -133,8 +137,8 @@ export class CategoryListComponent implements OnInit {
       this.restrict = true;
       return;
     }
-    localStorage.setItem("languagetypeidforquiz", this.selectedLanguageType);
-    localStorage.setItem("languageidforquiz", this.selectedLanguageId);
+    this.storage.set("languagetypeidforquiz", this.selectedLanguageType);
+    this.storage.set("languageidforquiz", this.selectedLanguageId);
     this.currentModuleSlug = "language-hub";
     this.router.navigate([`/pages/modules/${this.currentModuleSlug}/languagehubquiz`]);
   }

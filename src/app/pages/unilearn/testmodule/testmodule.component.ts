@@ -8,6 +8,7 @@ import { CommonModule } from "@angular/common"
 import { SkeletonModule } from "primeng/skeleton"
 import { TooltipModule } from "primeng/tooltip"
 import { RouterModule } from "@angular/router"
+import {StorageService} from "../../../storage.service";
 @Component({
 	selector: "uni-testmodule",
 	templateUrl: "./testmodule.component.html",
@@ -26,7 +27,11 @@ export class TestModulesComponent implements OnInit {
 	@Input() _contentalignment: boolean
 	isSkeletonVisible: boolean = true
 	submoduleList: any
-	constructor(private pageFacade: PageFacadeService, private router: Router, private arrayHeaderService: ArrayHeaderService, private learnService: UniLearnService, private route: ActivatedRoute) {}
+	constructor(private pageFacade: PageFacadeService, private router: Router,
+				private arrayHeaderService: ArrayHeaderService,
+				private learnService: UniLearnService,
+				private route: ActivatedRoute,
+				private storage: StorageService) {}
 	loopRange = Array.from({ length: 30 })
 		.fill(0)
 		.map((_, index) => index)
@@ -51,7 +56,7 @@ export class TestModulesComponent implements OnInit {
 			this.submoduleList = res.data
 			this.avgtotalQuestions = res.totalQuestions
 			this.avgtotalAnswers = res.userAnsweredQuestions
-			localStorage.setItem("parent_id", String(res.previous_id))
+			this.storage.set("parent_id", String(res.previous_id))
 		})
 	}
 	openVideoPopup(videoLink: string) {
@@ -72,7 +77,7 @@ export class TestModulesComponent implements OnInit {
 				this.getModules()
 				break
 			case 5:
-				localStorage.setItem("parent_folderid", String(moduledata.parent_folder_id))
+				this.storage.set("parent_folderid", String(moduledata.parent_folder_id))
 				this.moduleChange.emit({
 					parent_id: moduledata.id,
 					module_id: moduledata.module_id,
@@ -117,8 +122,8 @@ export class TestModulesComponent implements OnInit {
 			})
 			return
 		} else {
-			this.paramData.parent_id = Number(localStorage.getItem("parent_id"))
-			this.paramData.module_id = Number(localStorage.getItem("module_id"))
+			this.paramData.parent_id = Number(this.storage.get("parent_id"))
+			this.paramData.module_id = Number(this.storage.get("module_id"))
 			this.isSkeletonVisible = true
 			this.getModules()
 		}

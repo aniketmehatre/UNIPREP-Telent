@@ -23,6 +23,7 @@ import { MultiSelectModule } from "primeng/multiselect";
 import { CarouselModule } from "primeng/carousel";
 import { InputGroupModule } from "primeng/inputgroup";
 import { InputGroupAddonModule } from "primeng/inputgroupaddon";
+import {StorageService} from "../../../storage.service";
 @Component({
   selector: "uni-question-list",
   templateUrl: "./question-list.component.html",
@@ -593,7 +594,11 @@ export class QuestionListComponent implements OnInit {
   imagewhitlabeldomainname: any;
   orgnamewhitlabel: any;
   orglogowhitelabel: any;
-  constructor(private languageHubService: LanguageHubService, private lhs: LanguageHubDataService, private location: Location, private route: ActivatedRoute, private toast: MessageService, private deviceService: DeviceDetectorService, private authService: AuthService, private router: Router, private pageFacade: PageFacadeService, private languageArrayGlobalService: LanguageArrayGlobalService, private moduleListService: ModuleServiceService) {
+  constructor(private languageHubService: LanguageHubService, private lhs: LanguageHubDataService,
+              private location: Location, private route: ActivatedRoute, private toast: MessageService,
+              private deviceService: DeviceDetectorService, private authService: AuthService, private router: Router,
+              private pageFacade: PageFacadeService, private languageArrayGlobalService: LanguageArrayGlobalService,
+              private moduleListService: ModuleServiceService, private storage: StorageService) {
     this.lhs.data$.subscribe((data) => {
       this.selectedLanguageId = data;
     });
@@ -719,7 +724,7 @@ export class QuestionListComponent implements OnInit {
       this.restrict = true;
       return;
     }
-    localStorage.setItem("languageHubData", JSON.stringify(data));
+    this.storage.set("languageHubData", JSON.stringify(data));
     this.router.navigateByUrl(`/pages/language-hub/translate-view`);
     return;
 

@@ -6,6 +6,7 @@ import { PageFacadeService } from '../page-facade.service';
 import { AuthService } from "src/app/Auth/auth.service";
 import { DialogModule } from 'primeng/dialog';
 import { RouterModule } from '@angular/router';
+import {StorageService} from "../../storage.service";
 @Component({
     selector: 'uni-job-search',
     templateUrl: './job-search.component.html',
@@ -18,8 +19,9 @@ export class JobSearchComponent implements OnInit {
 
     currentEndpoint: string = 'Job-listing';
 
-    constructor(private router: Router, private _location: Location,
-                private route: ActivatedRoute,     private authService: AuthService, private dataService: DataService,private pageFacade: PageFacadeService,) {
+    constructor(private router: Router, private _location: Location, private storage: StorageService,
+                private route: ActivatedRoute,     private authService: AuthService, private dataService: DataService,
+                private pageFacade: PageFacadeService,) {
         this.route.params.subscribe(params => {
             const url = this.router.url;
             const urlSegments = url.split('/');
@@ -82,7 +84,7 @@ export class JobSearchComponent implements OnInit {
     }
 
     getFilterData(): any {
-        const storedData = localStorage.getItem('filterFormData');
+        const storedData = this.storage.get('filterFormData');
         if (storedData) {
             return JSON.parse(storedData);
         }

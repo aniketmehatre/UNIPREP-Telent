@@ -13,26 +13,26 @@ export class SessionService {
 
   startSession() {
     const startTime = new Date().toISOString();
-    localStorage.setItem(this.sessionStartKey, startTime);
+    this.storage.set(this.sessionStartKey, startTime);
   }
 
   endSession() {
     const endTime = new Date().toISOString();
-    localStorage.setItem(this.sessionEndKey, endTime);
+    this.storage.set(this.sessionEndKey, endTime);
   }
 
   getSessionStartTime(): Date | null {
-    const startTime = localStorage.getItem(this.sessionStartKey);
+    const startTime = this.storage.get(this.sessionStartKey);
     return startTime ? new Date(startTime) : null;
   }
 
   getSessionEndTime(): Date | null {
-    const endTime = localStorage.getItem(this.sessionEndKey);
+    const endTime = this.storage.get(this.sessionEndKey);
     return endTime ? new Date(endTime) : null;
   }
 
   clearSession() {
-    localStorage.removeItem(this.sessionStartKey);
-    localStorage.removeItem(this.sessionEndKey);
+    this.storage.remove(this.sessionStartKey);
+    this.storage.remove(this.sessionEndKey);
   }
 }

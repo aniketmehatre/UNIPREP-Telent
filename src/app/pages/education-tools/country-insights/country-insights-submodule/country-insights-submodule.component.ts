@@ -14,6 +14,7 @@ import { CardModule } from 'primeng/card';
 import { InputGroupModule } from 'primeng/inputgroup';
 import { InputTextModule } from 'primeng/inputtext';
 import { InputGroupAddonModule } from 'primeng/inputgroupaddon';
+import {StorageService} from "../../../../storage.service";
 @Component({
     selector: 'uni-country-insights-submodule',
     templateUrl: './country-insights-submodule.component.html',
@@ -34,14 +35,15 @@ export class CountryInsightsSubmoduleComponent implements OnInit {
   selectedIndex: number = 0;
   countryname: string = '';
   isSkeletonVisible: boolean = false;
-  constructor(private educationToolService: EducationToolsService, private route: ActivatedRoute, private meta: Meta) {
+  constructor(private educationToolService: EducationToolsService, private route: ActivatedRoute, private meta: Meta,
+              private storage: StorageService) {
 
   }
 
   ngOnInit(): void {
     this.moduleId = this.route.snapshot.params?.['id'];
-    this.countryId = localStorage.getItem('country_insights_country') || '';
-    this.countryname = localStorage.getItem('country_name') || '';
+    this.countryId = this.storage.get('country_insights_country') || '';
+    this.countryname = this.storage.get('country_name') || '';
     this.getQuizQuestionData();
   }
 

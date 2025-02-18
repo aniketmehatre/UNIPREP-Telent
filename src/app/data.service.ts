@@ -3,6 +3,7 @@ import { environment } from "@env/environment";
 import {BehaviorSubject, Observable} from "rxjs";
 import { AuthService } from "./Auth/auth.service";
 import { LocationService } from "./location.service";
+import {StorageService} from "./storage.service";
 
 @Injectable({
     providedIn: "root",
@@ -16,7 +17,7 @@ export class DataService {
     public countryNameSource = new BehaviorSubject('');
     countryName = this.countryNameSource.asObservable();
 
-    public countryIdSource = new BehaviorSubject(Number(localStorage.getItem('countryId')) ? '' : '');
+    public countryIdSource = new BehaviorSubject(Number(this.storage.get('countryId')) ? '' : '');
     countryId = this.countryIdSource.asObservable();
 
     public countryFlagSource = new BehaviorSubject('');
@@ -59,7 +60,7 @@ export class DataService {
     manualJobAdd = this.triggerManualJobAdd.asObservable();
 
 
-    constructor(private locationService: LocationService) {
+    constructor(private locationService: LocationService, private storage: StorageService,) {
     }
 
 
@@ -145,7 +146,7 @@ export class DataService {
 
             // Find the distance between now an the count down date
             let distance = countDownDate - now;
-            // localStorage.setItem('remaining_time', String(5183989985));
+            // this.storage.set('remaining_time', String(5183989985));
             // Time calculations for days, hours, minutes and seconds
             let days = Math.floor(distance / (1000 * 60 * 60 * 24));
             let hours = Math.floor(

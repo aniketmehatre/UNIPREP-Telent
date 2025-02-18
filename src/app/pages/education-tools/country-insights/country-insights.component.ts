@@ -13,6 +13,7 @@ import { CardModule } from 'primeng/card';
 import { InputGroupModule } from 'primeng/inputgroup';
 import { InputTextModule } from 'primeng/inputtext';
 import { InputGroupAddonModule } from 'primeng/inputgroupaddon';
+import {StorageService} from "../../../storage.service";
 @Component({
     selector: 'uni-country-insights',
     templateUrl: './country-insights.component.html',
@@ -31,7 +32,8 @@ export class CountryInsightsComponent implements OnInit {
     page: this.page,
     perpage: this.pageSize,
   };
-  constructor(private educationtoolService: EducationToolsService, private router: Router) { }
+  constructor(private educationtoolService: EducationToolsService, private router: Router,
+              private storage: StorageService) { }
 
   ngOnInit(): void {
     this.getList();
@@ -48,8 +50,8 @@ export class CountryInsightsComponent implements OnInit {
 
   onClickSubModule(countryId: string, id: string, countryname: string) {
     console.log(id);
-    localStorage.setItem('country_name', countryname);
-    localStorage.setItem('country_insights_country', countryId);
+    this.storage.set('country_name', countryname);
+    this.storage.set('country_insights_country', countryId);
     this.router.navigate(['/pages/education-tools/country-insights', id]);
   }
 

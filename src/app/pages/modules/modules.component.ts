@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router, RouterModule } from '@angular/router';
 import { CommonModule } from '@angular/common';
+import {StorageService} from "../../storage.service";
 @Component({
     selector: 'uni-modules',
     templateUrl: './modules.component.html',
@@ -10,13 +11,13 @@ import { CommonModule } from '@angular/common';
 })
 export class ModulesComponent implements OnInit {
 
-  constructor( private router: Router) { }
+  constructor( private router: Router, private storage: StorageService) { }
 
   ngOnInit(): void {
     if(window.location.pathname.includes("&&")) {
       let url = window.location.pathname.split("&&");
-      localStorage.setItem('questionId', url[1]);
-      localStorage.setItem('countryId',url[2]);
+      this.storage.set('questionId', url[1]);
+      this.storage.set('countryId',url[2]);
       this.router.navigateByUrl(url[0]);
       
     }

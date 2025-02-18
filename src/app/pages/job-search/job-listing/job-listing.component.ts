@@ -11,6 +11,7 @@ import {filter} from "rxjs";
 import { CommonModule } from "@angular/common";
 import { DialogModule } from "primeng/dialog";
 import { SelectModule } from "primeng/select";
+import {StorageService} from "../../../storage.service";
 @Component({
     selector: 'uni-job-listing',
     templateUrl: './job-listing.component.html',
@@ -63,7 +64,7 @@ export class JobListingComponent implements OnInit {
 
     constructor(private jobService: JobSearchService, private sConvert: SalaryConverterService,
                 private dataService: DataService, private router: Router, private toastr: MessageService,
-                private activatedRoute: ActivatedRoute
+                private activatedRoute: ActivatedRoute, private storage: StorageService
     ) {
         this.countryCodes = [
             {"name": "Austria", "code": "at", "flag": "https://flagcdn.com/at.svg"},
@@ -417,7 +418,7 @@ export class JobListingComponent implements OnInit {
     }
 
     getFilterData(): any {
-        const storedData = localStorage.getItem('filterFormData');
+        const storedData = this.storage.get('filterFormData');
         if (storedData) {
             return JSON.parse(storedData);
         }
@@ -426,12 +427,12 @@ export class JobListingComponent implements OnInit {
 
     saveFilterData(formData: any): void {
         const filterData = JSON.stringify(formData);
-        localStorage.setItem('filterFormData', filterData);
+        this.storage.set('filterFormData', filterData);
     }
 
 
     resetFilterData(): void {
-        localStorage.setItem('filterFormData', '');
+        this.storage.set('filterFormData', '');
     }
 
 }

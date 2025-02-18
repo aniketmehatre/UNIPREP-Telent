@@ -98,7 +98,7 @@
               <li *ngIf="education_level==='HigherEducation'||education_level==='K12'"><i
                   class="fa-solid fa-check grey smallIcon"></i></li>
               <li class="mt-0 pb-0">
-                <h5 class="fw-semibold freeValidity mb-0">{{ localStorage.getItem("time_card_info") }} Validity</h5>
+                <h5 class="fw-semibold freeValidity mb-0">{{ this.storage.get("time_card_info") }} Validity</h5>
               </li>
               <li class="mt-0">
                 <div class="getstartedbtn pb-0">

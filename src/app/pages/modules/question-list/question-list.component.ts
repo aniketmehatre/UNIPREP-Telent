@@ -25,6 +25,7 @@ import { MultiSelectModule } from "primeng/multiselect"
 import { CarouselModule } from "primeng/carousel"
 import { InputGroupModule } from "primeng/inputgroup"
 import { InputGroupAddonModule } from "primeng/inputgroupaddon"
+import {StorageService} from "../../../storage.service";
 
 @Component({
 	selector: "uni-question-list",
@@ -96,7 +97,13 @@ export class QuestionListComponent implements OnInit {
 	homeCountryLogo: any
 	learningHubMainModuleName: any
 	learningHubQuizBreadCrumb: any
-	constructor(private moduleListService: ModuleServiceService, private mService: ModuleServiceService, private moduleStoreService: ModuleStoreService, private dataService: DataService, private route: ActivatedRoute, private _location: Location, private _sanitizer: DomSanitizer, private router: Router, private ngxService: NgxUiLoaderService, private authService: AuthService, private sanitizer: DomSanitizer, private meta: Meta, private toast: MessageService, private pageFacade: PageFacadeService, private locationService: LocationService, private title: Title) {
+	constructor(private moduleListService: ModuleServiceService, private mService: ModuleServiceService,
+				private moduleStoreService: ModuleStoreService, private dataService: DataService,
+				private route: ActivatedRoute, private _location: Location, private _sanitizer: DomSanitizer,
+				private router: Router, private ngxService: NgxUiLoaderService, private authService: AuthService,
+				private sanitizer: DomSanitizer, private meta: Meta, private toast: MessageService,
+				private pageFacade: PageFacadeService, private locationService: LocationService,
+				private title: Title, private storage: StorageService) {
 		Carousel.prototype.changePageOnTouch = (e, diff) => {}
 		Carousel.prototype.onTouchMove = () => {}
 	}
@@ -118,9 +125,9 @@ export class QuestionListComponent implements OnInit {
 			this.ehitlabelIsShow = false
 		}
 
-		localStorage.setItem("modalcountryid", this.quizmoduleselectcountryidsetzero)
-		this.countryId = Number(localStorage.getItem("countryId"))
-		this.sharedCountry = Number(localStorage.getItem("countryId"))
+		this.storage.set("modalcountryid", this.quizmoduleselectcountryidsetzero)
+		this.countryId = Number(this.storage.get("countryId"))
+		this.sharedCountry = Number(this.storage.get("countryId"))
 		this.route.params.subscribe((params) => {
 			let socialShare: any = document.getElementById("socialSharingList")
 			if (socialShare) {
@@ -206,7 +213,7 @@ export class QuestionListComponent implements OnInit {
 				}
 				//this.loadInit();
 			}
-			localStorage.setItem("countryId", data)
+			this.storage.set("countryId", data)
 			// this.questionListData = [];
 			//this.isSkeletonVisible = true
 			//this.loadInit();
@@ -217,14 +224,14 @@ export class QuestionListComponent implements OnInit {
 
 	loadInit() {
 		this.questionListData = []
-		this.countryId = Number(localStorage.getItem("countryId"))
+		this.countryId = Number(this.storage.get("countryId"))
 		let countryName: any
 		this.subModuleId = this.route.snapshot.paramMap.get("id")
 		let question_id = this.route.snapshot.paramMap.get("question_id")
 		if (question_id) {
 			//this.updateMetaTags();
 			// let url = this.subModuleId.split("$");
-			localStorage.setItem("questionId", question_id)
+			this.storage.set("questionId", question_id)
 			this.subModuleId = this.subModuleId
 		}
 		this.currentSubModuleSlug = this.route.snapshot.paramMap.get("module_name")
@@ -271,9 +278,9 @@ export class QuestionListComponent implements OnInit {
 				break
 			case "learning-hub":
 				this.currentModuleId = 8
-				this.learningHubMainModuleName = localStorage.getItem("learningHubMainModuleName")
+				this.learningHubMainModuleName = this.storage.get("learningHubMainModuleName")
 				this.learningHubQuizBreadCrumb = this.learningHubMainModuleName + " -> " + this.moduleName
-				localStorage.setItem("learningHubQuizBreadCrumb", this.learningHubQuizBreadCrumb)
+				this.storage.set("learningHubQuizBreadCrumb", this.learningHubQuizBreadCrumb)
 				this.currentModuleName = "Learning Hub"
 				this.currentApiSlug = "getlearninghubsubmoduleqcount"
 				this.howItWorksVideoLink = "https://www.youtube.com/embed/prvvJsgnya8?si=QSAeOB9qPMF-ya-D"
@@ -371,7 +378,7 @@ export class QuestionListComponent implements OnInit {
 	}
 
 	loadQuestionList(data: any) {
-		let questionData = { id: localStorage.getItem("questionId") || "" }
+		let questionData = { id: this.storage.get("questionId") || "" }
 		if (questionData?.id) {
 			data.share_link_question_id = questionData?.id
 		}
@@ -384,7 +391,7 @@ export class QuestionListComponent implements OnInit {
 			this.moduleName = data.submodule_name
 			if (questionData.id) {
 				this.viewOneQuestion(data.questions[0])
-				localStorage.removeItem("questionId")
+				this.storage.remove("questionId")
 			}
 		})
 	}
@@ -591,7 +598,7 @@ export class QuestionListComponent implements OnInit {
 		this.pageno = event.page + 1
 		this.perpage = event.rows
 		let data = {
-			countryId: this.currentModuleId == 8 || this.currentModuleId == 10 || this.currentModuleId == 14 ? 0 : Number(localStorage.getItem("countryId")),
+			countryId: this.currentModuleId == 8 || this.currentModuleId == 10 || this.currentModuleId == 14 ? 0 : Number(this.storage.get("countryId")),
 			moduleId: this.currentModuleId,
 			submoduleId: Number(this.subModuleId),
 			page: this.pageno,
@@ -812,9 +819,9 @@ export class QuestionListComponent implements OnInit {
 			this.restrict = true
 			return
 		}
-		localStorage.setItem("learninghubsubmoduleid", this.subModuleId)
-		localStorage.setItem("skillmasteryquizsubmoduleid", this.subModuleId)
-		localStorage.setItem("universityidforquiz", this.subModuleId)
+		this.storage.set("learninghubsubmoduleid", this.subModuleId)
+		this.storage.set("skillmasteryquizsubmoduleid", this.subModuleId)
+		this.storage.set("universityidforquiz", this.subModuleId)
 		if (this.currentModuleId == 14) {
 			this.router.navigate([`/pages/modules/k12-category/k12-quiz`])
 			return

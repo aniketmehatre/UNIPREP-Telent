@@ -22,6 +22,7 @@ import { SubscriptionDataComponent } from "./subscription-data/subscription-data
 import { SubscriptionListComponent } from "./subscription-list/subscription-list.component"
 import { SubscriptionBillingComponent } from "./subscription-billing/subscription-billing.component"
 import { SubscriptionSuccessComponent } from "./subscription-success/subscription-success.component"
+import {StorageService} from "../../storage.service";
 @Component({
 	selector: "uni-subscription",
 	templateUrl: "./subscription.component.html",
@@ -71,60 +72,62 @@ export class SubscriptionComponent implements OnInit {
 	phone: string = ''
 	email: string = ''
 
-	constructor(private subscriptionService: SubscriptionService, private winRef: WindowRefService, private authService: AuthService, private toastr: MessageService, private dataService: DataService, private dashboardService: DashboardService, private stripeService: StripeService, private ngxService: NgxUiLoaderService) {}
+	constructor(private subscriptionService: SubscriptionService, private winRef: WindowRefService,
+				private authService: AuthService, private toastr: MessageService,
+				private dataService: DataService, private dashboardService: DashboardService,
+				private stripeService: StripeService, private ngxService: NgxUiLoaderService,
+				private storage: StorageService) {}
 	async ngOnInit(): Promise<void> {
 		try {
-			let homeCountryName = null;
-			const encHomeCountryName = localStorage.getItem("home_country_name");
+			let homeCountryName  = this.storage.get("home_country_name");
 
-			if (encHomeCountryName) {
-				try {
-					const decryptedText = await this.authService.decryptData(encHomeCountryName);
-					
-					if (decryptedText && typeof decryptedText === 'string') {
-						// If it looks like JSON, try to parse it
-						if (decryptedText.trim().startsWith('{') || decryptedText.trim().startsWith('[')) {
-							try {
-								homeCountryName = JSON.parse(decryptedText);
-							} catch (parseError) {
-								// If JSON parsing fails, use the string as-is
-								homeCountryName = decryptedText;
-							}
-						} else {
-							// Use the decrypted text directly if it's not JSON formatted
-							homeCountryName = decryptedText;
-						}
-					}
-				} catch (decryptError) {
-					console.warn("Failed to decrypt home country data:", decryptError);
-				}
-			}
+			// if (encHomeCountryName) {
+			// 	try {
+			// 		const decryptedText = await this.authService.decryptData(encHomeCountryName);
+			//
+			// 		if (decryptedText && typeof decryptedText === 'string') {
+			// 			// If it looks like JSON, try to parse it
+			// 			if (decryptedText.trim().startsWith('{') || decryptedText.trim().startsWith('[')) {
+			// 				try {
+			// 					homeCountryName = JSON.parse(decryptedText);
+			// 				} catch (parseError) {
+			// 					// If JSON parsing fails, use the string as-is
+			// 					homeCountryName = decryptedText;
+			// 				}
+			// 			} else {
+			// 				// Use the decrypted text directly if it's not JSON formatted
+			// 				homeCountryName = decryptedText;
+			// 			}
+			// 		}
+			// 	} catch (decryptError) {
+			// 		console.warn("Failed to decrypt home country data:", decryptError);
+			// 	}
+			// }
 
-			let phone = null;
-			const encPhone = localStorage.getItem("phone");
-			if (encPhone) {
-				try {
-					const decryptedPhone = await this.authService.decryptData(encPhone);
-					if (decryptedPhone && typeof decryptedPhone === 'string') {
-						phone = decryptedPhone;
-					}
-				} catch (error) {
-					console.warn("Failed to decrypt phone data:", error);
-				}
-			}
+			// let phone = null;
+			let phone = this.storage.get("phone");
+			// if (encPhone) {
+			// 	try {
+			// 		const decryptedPhone = await this.authService.decryptData(encPhone);
+			// 		if (decryptedPhone && typeof decryptedPhone === 'string') {
+			// 			phone = decryptedPhone;
+			// 		}
+			// 	} catch (error) {
+			// 		console.warn("Failed to decrypt phone data:", error);
+			// 	}
+			// }
 
-			let email = null;
-			const encEmail = localStorage.getItem("email");
-			if (encEmail) {
-				try {
-					const decryptedEmail = await this.authService.decryptData(encEmail);
-					if (decryptedEmail && typeof decryptedEmail === 'string') {
-						email = decryptedEmail;
-					}
-				} catch (error) {
-					console.warn("Failed to decrypt email data:", error);
-				}
-			}
+			let email = this.storage.get("email");
+			// if (encEmail) {
+			// 	try {
+			// 		const decryptedEmail = await this.authService.decryptData(encEmail);
+			// 		if (decryptedEmail && typeof decryptedEmail === 'string') {
+			// 			email = decryptedEmail;
+			// 		}
+			// 	} catch (error) {
+			// 		console.warn("Failed to decrypt email data:", error);
+			// 	}
+			// }
 
 			this.currentCountry = homeCountryName ? String(homeCountryName).trim() : "";
 			this.phone = phone || '';
@@ -281,21 +284,19 @@ export class SubscriptionComponent implements OnInit {
 		if (environment.domain == "api.uniprep.ai") {
 			razorKey = "rzp_test_Crpr7YkjPaCLEr"
 		}
-		let phone
-		const encPhone = localStorage.getItem("phone")
-		if (encPhone) {
-			// const bytes = CryptoJS.AES.decrypt(encPhone, environment.secretKeySalt)
-			const bytes = this.authService.decryptData(encPhone)
-			phone = JSON.parse(bytes.toString())
-		}
+		let phone = this.storage.get("phone")
+		// if (encPhone) {
+		// 	// const bytes = CryptoJS.AES.decrypt(encPhone, environment.secretKeySalt)
+		// 	const bytes = this.authService.decryptData(encPhone)
+		// 	phone = JSON.parse(bytes.toString())
+		// }
 
-		let email
-		const encEmail = localStorage.getItem("email")
-		if (encEmail) {
-			// const bytes = CryptoJS.AES.decrypt(encEmail, environment.secretKeySalt)
-			const bytes = this.authService.decryptData(encEmail)
-			email = JSON.parse(bytes.toString())
-		}
+		let email = this.storage.get("email")
+		// if (encEmail) {
+		// 	// const bytes = CryptoJS.AES.decrypt(encEmail, environment.secretKeySalt)
+		// 	const bytes = this.authService.decryptData(encEmail)
+		// 	email = JSON.parse(bytes.toString())
+		// }
 		const options: any = {
 			key: razorKey,
 			amount: this.subscriptionDetails?.finalPrice * 100, // amount should be in paise format to display Rs 1255 without decimal point

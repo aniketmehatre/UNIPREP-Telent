@@ -5,6 +5,7 @@ import { Location } from "@angular/common"
 import { AuthService } from "src/app/Auth/auth.service";
 import { CommonModule } from "@angular/common";
 import { DialogModule } from "primeng/dialog";
+import {StorageService} from "../../storage.service";
 @Component({
     selector: "uni-national-exam-tests",
     templateUrl: "./national-exam-tests.component.html",
@@ -24,11 +25,12 @@ export class NationalExamTestsComponent implements OnInit {
 	imagewhitlabeldomainname: any;
 	nCategory: string = '';
 
-	constructor(private service: NationalExamService, private authService: AuthService, private route: ActivatedRoute, private location: Location ,private router: Router) {}
+	constructor(private service: NationalExamService, private authService: AuthService, private route: ActivatedRoute,
+				private location: Location ,private router: Router, private storage: StorageService) {}
 
 	ngOnInit() {
 		this.category_id = this.route.snapshot.paramMap.get("slug");
-		this.nCategory = localStorage.getItem('nc-name') ?? '';
+		this.nCategory = this.storage.get('nc-name') ?? '';
 		var data = {
 			category_id: this.category_id,
 		}

@@ -9,6 +9,7 @@ import { SkeletonModule } from "primeng/skeleton";
 import { TooltipModule } from "primeng/tooltip";
 import { SelectModule } from "primeng/select";
 import { FormControl, FormGroup, FormsModule } from "@angular/forms";
+import {StorageService} from "../../storage.service";
 @Component({
   selector: "uni-global-repository",
   templateUrl: "./global-repository.component.html",
@@ -41,7 +42,7 @@ export class GlobalRepositoryComponent implements OnInit {
     private router: Router,
     private dataService: DataService,
     private locationService: LocationService,
-    private cdRef: ChangeDetectorRef
+    private cdRef: ChangeDetectorRef, private storage: StorageService
   ) {
     this.dataService.countryNameSource.subscribe((countryName) => {
       this.updatedMenuNameLifeAt = countryName;
@@ -91,7 +92,7 @@ export class GlobalRepositoryComponent implements OnInit {
       .dashboardLocationList()
       .subscribe((countryList: any) => {
         this.countryLists = countryList;
-        const storedCountryId = Number(localStorage.getItem("countryId")) || 0;
+        const storedCountryId = Number(this.storage.get("countryId")) || 0;
 
         // Set the selectedCountryId after the API call
         this.selectedCountryId = storedCountryId;
@@ -105,8 +106,8 @@ export class GlobalRepositoryComponent implements OnInit {
     this.countryLists.forEach((element: any) => {
       if (element.id === selectedId) {
         this.selectedCountryName = element.country;
-        localStorage.setItem("countryId", element.id);
-        localStorage.setItem("selectedcountryId", element.id);
+        this.storage.set("countryId", element.id);
+        this.storage.set("selectedcountryId", element.id);
         this.selectedCountryId = element.id;
         this.dataService.changeCountryId(element.id);
         this.dataService.changeCountryFlag(element.flag);

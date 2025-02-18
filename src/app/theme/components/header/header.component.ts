@@ -33,6 +33,7 @@ import { TextareaModule } from 'primeng/textarea'
 import { AuthTokenService } from 'src/app/core/services/auth-token.service'
 import CryptoJS from "crypto-js";
 import { AvatarGroupModule } from 'primeng/avatargroup';
+import {StorageService} from "../../../storage.service";
 
 // import { SocialAuthService } from "@abacritt/angularx-social-login";
 
@@ -187,7 +188,8 @@ export class HeaderComponent implements OnInit, OnDestroy {
 		private dashboardService: DashboardService,
 		private assessmentService: AssessmentService,
 		private moduleListService: ModuleServiceService,
-		private authTokenService: AuthTokenService
+		private authTokenService: AuthTokenService,
+		private storage: StorageService,
 	) {
 		// Initialize forms in constructor
 		this.reportSubmitForm = this.formBuilder.group({
@@ -238,7 +240,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
 			this.loadCountryList()
 		})
 		this.service.getTimeInfoForCard().subscribe((data) => {
-			localStorage.setItem("time_card_info", data.card_message)
+			this.storage.set("time_card_info", data.card_message)
 		})
 		this.assessmentService.iLearnChallengeData$.subscribe((data) => {
 			this.iLearnChallengeData = data
@@ -261,7 +263,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
 				this.countryLists = countryList
 
 				// Get the selected country ID from localStorage
-				const storedCountryId = localStorage.getItem("selectedCountryId")
+				const storedCountryId = this.storage.get("selectedCountryId")
 
 				if (storedCountryId) {
 					// If we have a stored selection, use that
@@ -276,7 +278,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
 					}
 				} else {
 					// If no stored selection, try to use the home country
-					const homeCountryId = localStorage.getItem("homeCountryId")
+					const homeCountryId = this.storage.get("homeCountryId")
 					if (homeCountryId) {
 						this.selectedCountryId = Number(homeCountryId)
 						const homeCountry = this.countryLists.find((element: any) => element.id === this.selectedCountryId)
@@ -286,7 +288,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
 							this.dataService.changeCountryName(homeCountry.country)
 							this.dataService.changeCountryFlag(homeCountry.flag)
 							this.dataService.changeCountryId(homeCountry.id.toString())
-							localStorage.setItem("selectedCountryId", homeCountry.id.toString())
+							this.storage.set("selectedCountryId", homeCountry.id.toString())
 						}
 					} else {
 						// If no home country either, then default to India (122)
@@ -296,7 +298,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
 							this.dataService.changeCountryName(defaultCountry.country)
 							this.dataService.changeCountryFlag(defaultCountry.flag)
 							this.dataService.changeCountryId("122")
-							localStorage.setItem("selectedCountryId", "122")
+							this.storage.set("selectedCountryId", "122")
 						}
 					}
 				}
@@ -314,7 +316,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
 		const sidenav: Element | null = document.getElementById("sidenav")
 		if (sidenav) {
 			this.isMenuOpen = !this.isMenuOpen
-			localStorage.setItem("isMenuOpen", JSON.stringify(this.isMenuOpen))
+			this.storage.set("isMenuOpen", JSON.stringify(this.isMenuOpen))
 			this.updateMenuClass()
 		}
 	}
@@ -445,30 +447,30 @@ export class HeaderComponent implements OnInit, OnDestroy {
 	currentRoute: string = ""
 	async ngOnInit() {
 		try {
-			const encPhone = localStorage.getItem("phone");
-			if (encPhone) {
-				try {
-					const decryptedPhone = await this.service.decryptData(encPhone);
-					if (decryptedPhone && typeof decryptedPhone === 'string') {
-						try {
-							if (decryptedPhone.startsWith('{') || decryptedPhone.startsWith('[') || decryptedPhone.startsWith('"')) {
-								this.phone = JSON.parse(decryptedPhone);
-							} else {
-								this.phone = decryptedPhone;
-							}
-						} catch (parseError) {
-							console.warn('Failed to parse decrypted phone:', parseError);
-							this.phone = decryptedPhone;
-						}
-					} else {
-						console.warn('Decrypted phone is null or not a string');
-						this.phone = '';
-					}
-				} catch (error) {
-					console.warn('Failed to decrypt phone:', error);
-					this.phone = '';
-				}
-			}
+			this.phone = this.storage.get("phone");
+			// if (encPhone) {
+			// 	try {
+			// 		const decryptedPhone = await this.service.decryptData(encPhone);
+			// 		if (decryptedPhone && typeof decryptedPhone === 'string') {
+			// 			try {
+			// 				if (decryptedPhone.startsWith('{') || decryptedPhone.startsWith('[') || decryptedPhone.startsWith('"')) {
+			// 					this.phone = JSON.parse(decryptedPhone);
+			// 				} else {
+			// 					this.phone = decryptedPhone;
+			// 				}
+			// 			} catch (parseError) {
+			// 				console.warn('Failed to parse decrypted phone:', parseError);
+			// 				this.phone = decryptedPhone;
+			// 			}
+			// 		} else {
+			// 			console.warn('Decrypted phone is null or not a string');
+			// 			this.phone = '';
+			// 		}
+			// 	} catch (error) {
+			// 		console.warn('Failed to decrypt phone:', error);
+			// 		this.phone = '';
+			// 	}
+			// }
 		} catch (error) {
 			console.error('Error in ngOnInit:', error);
 			this.phone = '';
@@ -490,7 +492,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
 				// Set home country icon if available
 				if (userDetails.home_country_id) {
 					this.homeCountryId = userDetails.home_country_id;
-					localStorage.setItem('homeCountryId', this.homeCountryId.toString());
+					this.storage.set('homeCountryId', this.homeCountryId.toString());
 					this.loadCountryList(); // This will now use the home country ID
 				}
 			}
@@ -532,7 +534,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
 				if (!data) {
 					this.selectedCountryId = Number(data);
 					this.getModuleList();
-					const cntId = localStorage.getItem("countryId");
+					const cntId = this.storage.get("countryId");
 					if (cntId) {
 						this.dataService.changeCountryId(cntId.toString());
 					}
@@ -636,27 +638,27 @@ export class HeaderComponent implements OnInit, OnDestroy {
 	private async handlePhoneVerification() {
 		try {
 			// Get phone from localStorage
-			const encryptedPhone = localStorage.getItem("phone");
-			if (!encryptedPhone) {
-				this.formvisbility = true;
-				return;
-			}
+			let phoneValue = this.storage.get("phone");
+			// if (!encryptedPhone) {
+			// 	this.formvisbility = true;
+			// 	return;
+			// }
 
 			// Get decrypted phone using auth service
-			const decryptedPhone = await this.service.decryptData(encryptedPhone);
+			// let phoneValue = await this.service.decryptData(encryptedPhone);
 			
 			// Handle the decrypted phone data
-			if (decryptedPhone && typeof decryptedPhone === 'string') {
-				let phoneValue;
-				try {
-					// Try to parse if it's JSON
-					phoneValue = decryptedPhone.startsWith('{') || decryptedPhone.startsWith('[') || decryptedPhone.startsWith('"') 
-						? JSON.parse(decryptedPhone)
-						: decryptedPhone;
-				} catch (parseError) {
-					console.warn('Failed to parse phone data:', parseError);
-					phoneValue = decryptedPhone;
-				}
+			if (phoneValue) {
+				// let phoneValue;
+				// try {
+				// 	// Try to parse if it's JSON
+				// 	phoneValue = decryptedPhone.startsWith('{') || decryptedPhone.startsWith('[') || decryptedPhone.startsWith('"')
+				// 		? JSON.parse(decryptedPhone)
+				// 		: decryptedPhone;
+				// } catch (parseError) {
+				// 	console.warn('Failed to parse phone data:', parseError);
+				// 	phoneValue = decryptedPhone;
+				// }
 
 				// Set form visibility based on phone value
 				this.formvisbility = !phoneValue || phoneValue === "" || phoneValue === "null";
@@ -710,7 +712,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
 		this.locationService.getCountry().subscribe({
 			next: (countryList) => {
 				this.countryLists = countryList
-				const countryId = localStorage.getItem("countryId")
+				const countryId = this.storage.get("countryId")
 				if (countryId) {
 					const country = countryList.find((element: any) => element.id.toString() === countryId)
 					if (country) {
@@ -760,7 +762,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
 		this.reportlearnlanguagetype = data.reporttype === 8 ? 8 : 0
 		this.subs.sink = this.service.getMe().subscribe((data) => {
 			if (data) {
-				//localStorage.setItem('countryId', data.userdetails[0].interested_country_id);
+				//this.storage.set('countryId', data.userdetails[0].interested_country_id);
 				this.userName = data.userdetails[0].name.toString()
 				this.firstChar = this.userName.charAt(0)
 				this.homeCountryId = Number(data.userdetails[0].home_country_id)
@@ -1002,7 +1004,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
 			this.dataService.changeCountryFlag(countryData.flag)
 
 			// Save to localStorage as selected country
-			localStorage.setItem("selectedCountryId", countryData.id.toString())
+			this.storage.set("selectedCountryId", countryData.id.toString())
 
 			// Close the country list popup if it exists
 			if (totalCountryList) {
@@ -1423,7 +1425,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
 				this.countryList = res;
 				
 				// First try to get country from localStorage
-				const storedHomeCountryId = localStorage.getItem('homeCountryId');
+				const storedHomeCountryId = this.storage.get('homeCountryId');
 				
 				// Find selected home country with fallbacks
 				const selectedHomeCountry = storedHomeCountryId ? 
@@ -1436,7 +1438,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
 					this.selectedHomeCountry = selectedHomeCountry;
 					this.homeCountryName = selectedHomeCountry.country;
 					this.dataService.changeHomeCountryFlag(selectedHomeCountry.flag);
-					localStorage.setItem('homeCountryId', selectedHomeCountry.id.toString());
+					this.storage.set('homeCountryId', selectedHomeCountry.id.toString());
 				} else {
 					// Set default values for India
 					const defaultCountry = {
@@ -1448,7 +1450,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
 					this.homeCountryName = defaultCountry.country;
 					this.selectedHomeCountry = defaultCountry;
 					this.dataService.changeHomeCountryFlag(defaultCountry.flag);
-					localStorage.setItem('homeCountryId', defaultCountry.id.toString());
+					this.storage.set('homeCountryId', defaultCountry.id.toString());
 				}
 			},
 			error: (error) => {
@@ -1463,7 +1465,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
 				this.homeCountryName = defaultCountry.country;
 				this.selectedHomeCountry = defaultCountry;
 				this.dataService.changeHomeCountryFlag(defaultCountry.flag);
-				localStorage.setItem('homeCountryId', defaultCountry.id.toString());
+				this.storage.set('homeCountryId', defaultCountry.id.toString());
 			}
 		});
 	}
@@ -1477,7 +1479,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
 				this.homeCountryName = selectedCountry.country;
 				this.selectedHomeCountry = selectedCountry;
 				this.dataService.changeHomeCountryFlag(selectedCountry.flag);
-				localStorage.setItem('homeCountryId', selectedCountry.id.toString());
+				this.storage.set('homeCountryId', selectedCountry.id.toString());
 				
 				// Update the form if it exists
 				if (this.mobileForm) {
@@ -1572,7 +1574,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
 					this.firstChar = this.userName ? this.userName.charAt(0).toUpperCase() : '';
 					
 					// Store user details in localStorage for persistence
-					localStorage.setItem('user_details', JSON.stringify({
+					this.storage.set('user_details', JSON.stringify({
 						name: this.userName,
 						firstChar: this.firstChar,
 						homeCountryId: userDetails.home_country_id,
@@ -1601,7 +1603,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
 			error: (error) => {
 				console.error('Error fetching user profile:', error);
 				// Try to load from localStorage if API fails
-				const storedUserDetails = localStorage.getItem('user_details');
+				const storedUserDetails = this.storage.get('user_details');
 				if (storedUserDetails) {
 					const details = JSON.parse(storedUserDetails);
 					this.userName = details.name;

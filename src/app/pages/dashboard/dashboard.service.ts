@@ -3,6 +3,7 @@ import { HttpClient, HttpHeaders } from "@angular/common/http";
 import { environment } from "@env/environment";
 import { BehaviorSubject, Observable, of, throwError, timer } from "rxjs";
 import { catchError, timeout, tap, map, shareReplay, retryWhen, delay, take, finalize } from "rxjs/operators";
+import {StorageService} from "../../storage.service";
 
 @Injectable({
   providedIn: "root",
@@ -16,9 +17,9 @@ export class DashboardService {
   private readonly API_TIMEOUT = 10000; // 10 seconds timeout
   private activeRequest$: Observable<any> | null = null;
 
-  constructor(private http: HttpClient) {
+  constructor(private http: HttpClient, private storage: StorageService) {
     // Initialize with stored country if available
-    const storedCountryId = localStorage.getItem('selectedCountryId');
+    const storedCountryId = this.storage.get('selectedCountryId');
     if (storedCountryId) {
       this.getCountries().subscribe(countries => {
         const country = countries.find((c: any) => c.id.toString() === storedCountryId);
@@ -36,7 +37,7 @@ export class DashboardService {
   isinitialstart = false;
 
   getDashboardCounts(): Observable<any> {
-    const countryId = localStorage.getItem('countryId') || '0';
+    const countryId = this.storage.get('countryId') || '0';
     const cacheKey = `dashboard_count_${countryId}`;
     
     // Check cache first

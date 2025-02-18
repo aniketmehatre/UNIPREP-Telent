@@ -24,6 +24,7 @@ import { SelectModule } from "primeng/select"
 import { DialogModule } from "primeng/dialog"
 import { CardModule } from "primeng/card"
 import { InputNumberModule } from "primeng/inputnumber"
+import {StorageService} from "../../storage.service";
 @Component({
 	selector: "uni-user-management",
 	templateUrl: "./user-management.component.html",
@@ -68,7 +69,11 @@ export class UserManagementComponent implements OnInit {
 	hideToolTip: boolean = true
 
 	private subs = new SubSink()
-	constructor(private authService: AuthService, private formBuilder: FormBuilder, private locationService: LocationService, private toast: MessageService, private dataService: DataService, private dashboardService: DashboardService, private userManagementService: UserManagementService, private router: Router, private _location: Location) {
+	constructor(private authService: AuthService, private formBuilder: FormBuilder,
+				private locationService: LocationService, private toast: MessageService,
+				private dataService: DataService, private dashboardService: DashboardService,
+				private userManagementService: UserManagementService, private router: Router,
+				private _location: Location, private storage: StorageService,) {
 		this.registrationForm = this.formBuilder.group({
 			name: ["", [Validators.required]],
 			location_id: ["", [Validators.required]],
@@ -279,7 +284,7 @@ export class UserManagementComponent implements OnInit {
 
 		this.intrestedCountryList.forEach((element: any) => {
 			if (element.id == this.registrationForm.value?.interested_country_id) {
-				localStorage.setItem("countryId", element.id)
+				this.storage.set("countryId", element.id)
 				this.dataService.changeCountryId(element.id)
 				this.dataService.changeCountryName(element.country)
 				this.dataService.changeCountryFlag(element.flag)

@@ -16,6 +16,7 @@ import { ButtonModule } from "primeng/button"
 import { TooltipModule } from "primeng/tooltip"
 import { RouterModule } from "@angular/router"
 import { SelectModule } from "primeng/select"
+import {StorageService} from "../../storage.service";
 
 @Component({
 	selector: "uni-dashboard",
@@ -70,7 +71,9 @@ export class DashboardComponent implements OnInit, OnChanges {
 	headerFlag!: string
 	currentModuleSlug: any
 	userData: any
-	constructor(private dashboardService: DashboardService, private service: AuthService, private router: Router, private dataService: DataService, private authService: AuthService, private locationService: LocationService, private cdr: ChangeDetectorRef) {
+	constructor(private dashboardService: DashboardService, private service: AuthService, private router: Router,
+				private dataService: DataService, private authService: AuthService, private locationService: LocationService,
+				private cdr: ChangeDetectorRef, private storage: StorageService) {
 		this.responsiveOptions = [
 			{
 				breakpoint: "1024px",
@@ -101,8 +104,8 @@ export class DashboardComponent implements OnInit, OnChanges {
 	}
 
 	private initializeEssentialData(): void {
-		this.selectedCountryId = Number(localStorage.getItem("countryId"));
-		localStorage.setItem("currentmodulenameforrecently", "");
+		this.selectedCountryId = Number(this.storage.get("countryId"));
+		this.storage.set("currentmodulenameforrecently", "");
 
 		// Load white label data
 		this.imagewhitlabeldomainname = window.location.hostname;
@@ -283,8 +286,8 @@ export class DashboardComponent implements OnInit, OnChanges {
 			}
 		})
 
-		localStorage.setItem("countryId", selectedId.id)
-		localStorage.setItem("selectedCountryId", selectedId.id)
+		this.storage.set("countryId", selectedId.id)
+		this.storage.set("selectedCountryId", selectedId.id)
 		this.loadApiData()
 		this.selectedCountryId = selectedId.id
 		this.dataService.changeCountryId(selectedId.id)

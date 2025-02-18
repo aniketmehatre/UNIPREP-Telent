@@ -14,6 +14,7 @@ import { CommonModule } from '@angular/common';
 import { DialogModule } from 'primeng/dialog';
 import { CarouselModule } from 'primeng/carousel';
 import { ButtonModule } from 'primeng/button';
+import {StorageService} from "../../../storage.service";
 @Component({
     selector: 'uni-languagetypequiz',
     templateUrl: './languagetypequiz.component.html',
@@ -74,14 +75,14 @@ export class LanguagetypequizComponent implements OnInit {
   constructor(private moduleListService: ModuleServiceService, private authService: AuthService,
      private router: Router, private dataService: DataService,private location: Location,
     private locationService: LocationService, private ngxService: NgxUiLoaderService,
-     private toast: MessageService, private lAGS: LanguageArrayGlobalService) { }
+     private toast: MessageService, private lAGS: LanguageArrayGlobalService, private storage: StorageService) { }
 
      getFormattedValues(): string {
       return this.lAGS.getItems().join(' -> ');
   }
 
   ngOnInit(): void {
-    this.menuView = localStorage.getItem('QuizModuleName');
+    this.menuView = this.storage.get('QuizModuleName');
     this.locationService.getImage().subscribe(imageUrl => {
       this.orglogowhitelabel = imageUrl;
     });
@@ -145,7 +146,7 @@ export class LanguagetypequizComponent implements OnInit {
     // if (this.currentModuleId == 5) {
     //   return;
     // } */
-    localStorage.setItem("currentmodulenameforrecently", this.currentModuleName);
+    this.storage.set("currentmodulenameforrecently", this.currentModuleName);
     this.loadModuleAndSubModule();
     this.checkquizquestioncount()
   }
@@ -318,9 +319,9 @@ export class LanguagetypequizComponent implements OnInit {
     });
     this.stopTimer();
     var data = {
-      languagetype: localStorage.getItem("languagetypeidforquiz"),
+      languagetype: this.storage.get("languagetypeidforquiz"),
       module_id: this.currentModuleId,
-      language_id: localStorage.getItem("languageidforquiz"),
+      language_id: this.storage.get("languageidforquiz"),
       quizquestion: this.quizData
     }
     this.moduleListService.submitLanguageghubquiz(data).subscribe((res) => {
@@ -367,9 +368,9 @@ export class LanguagetypequizComponent implements OnInit {
     this.isQuizSubmit = false;
     this.isReviewVisible = true;
     var data = {
-      languageId: localStorage.getItem("languageidforquiz"),
+      languageId: this.storage.get("languageidforquiz"),
       module_id: this.currentModuleId,
-      languagetype: localStorage.getItem("languagetypeidforquiz")
+      languagetype: this.storage.get("languagetypeidforquiz")
     }
     this.moduleListService.ReviewQuizLanguageHub(data).subscribe((res) => {
       this.quizData = res.userquiz.map((val: any) => {
@@ -387,9 +388,9 @@ export class LanguagetypequizComponent implements OnInit {
   checkquizquestioncount() {
     this.quizData = [];
     var data = {
-      languageId: localStorage.getItem("languageidforquiz"),
+      languageId: this.storage.get("languageidforquiz"),
       moduleId: this.currentModuleId,
-      languagetype: localStorage.getItem("languagetypeidforquiz")
+      languagetype: this.storage.get("languagetypeidforquiz")
     }
     this.moduleListService.languageghubquiz(data).subscribe((res) => {
       this.quizcount = res.count > 0 ? res.count : 0;
@@ -408,8 +409,8 @@ export class LanguagetypequizComponent implements OnInit {
   checkquizquestionmodule() {
     var data = {
       moduleid: this.currentModuleId,
-      languageId: localStorage.getItem("languageidforquiz"),
-      languagetype: localStorage.getItem("languagetypeidforquiz"),
+      languageId: this.storage.get("languageidforquiz"),
+      languagetype: this.storage.get("languagetypeidforquiz"),
     }
     this.moduleListService.checklanguageQuizCompletion(data).subscribe((res) => {
       this.quizpercentage = res.progress

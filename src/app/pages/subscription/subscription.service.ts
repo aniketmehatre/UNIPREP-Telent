@@ -25,6 +25,7 @@ import {
 } from "../../@Models/subscription";
 import { Observable } from "rxjs";
 import { PaymentIntent } from "@stripe/stripe-js";
+import {StorageService} from "../../storage.service";
 
 @Injectable({
   providedIn: "root",
@@ -32,26 +33,27 @@ import { PaymentIntent } from "@stripe/stripe-js";
 export class SubscriptionService {
   constructor(
     private http: HttpClient,
-    private store: Store<SubscriptionState>
+    private store: Store<SubscriptionState>,
+    private storage: StorageService
   ) { }
 
   // getSubscriptionList() {
-  //     localStorage.getItem("loginToken")
+  //     this.storage.get("loginToken")
   //     const headers = new HttpHeaders()
   //         .set('Accept', "application/json")
-  //         .set('Authorization', "Bearer" + " " + localStorage.getItem("loginToken"));
+  //         .set('Authorization', "Bearer" + " " + this.storage.get("loginToken"));
   //     return this.http.post<any>(environment.ApiUrl + '/getsubscriptions', {}, {'headers': headers});
   //
   // }
  
   usedCoupon = new BehaviorSubject('');
   getQuestionCredit() {
-    localStorage.getItem("loginToken");
+    this.storage.get("loginToken");
     const headers = new HttpHeaders()
       .set("Accept", "application/json")
       .set(
         "Authorization",
-        "Bearer" + " " + localStorage.getItem("loginToken")
+        "Bearer" + " " + this.storage.get("loginToken")
       );
     return this.http.post<any>(
       environment.ApiUrl + "/getquestioncredits",
@@ -72,7 +74,7 @@ export class SubscriptionService {
   // }
 
   // PaymentComplete(data: any) {
-  //     localStorage.getItem("loginToken")
+  //     this.storage.get("loginToken")
   //     const headers = new HttpHeaders()
   //         .set('Accept', "application/json")
   //     var bindingdata = {
@@ -157,7 +159,7 @@ export class SubscriptionService {
   }
 
   PaymentComplete(data: any) {
-    localStorage.getItem("loginToken");
+    this.storage.get("loginToken");
     const headers = new HttpHeaders().set("Accept", "application/json");
     var bindingdata = {
       order_id: data?.orderid,
@@ -171,7 +173,7 @@ export class SubscriptionService {
   }
 
   topupPaymentComplete(data: any) {
-    localStorage.getItem("loginToken");
+    this.storage.get("loginToken");
     const headers = new HttpHeaders().set("Accept", "application/json");
     return this.http.post<SubscriptionSuccess>(
       environment.ApiUrl + "/topupcompletepayment",
@@ -181,7 +183,7 @@ export class SubscriptionService {
   }
 
   getSubscriptions(data: any) {
-    localStorage.getItem("loginToken");
+    this.storage.get("loginToken");
     const headers = new HttpHeaders().set("Accept", "application/json");
     return this.http.post<any>(
       environment.ApiUrl + "/getsubscriptionlist",
@@ -192,7 +194,7 @@ export class SubscriptionService {
 
 
   getSubscriptionDetails(data: any) {
-    localStorage.getItem("loginToken");
+    this.storage.get("loginToken");
     let body = new FormData();
     body.append('country_id', data.country_id);
     const headers = new HttpHeaders().set("Accept", "application/json");
@@ -204,7 +206,7 @@ export class SubscriptionService {
   }
 
   getSubscriptionTopups() {
-    localStorage.getItem("loginToken");
+    this.storage.get("loginToken");
     const headers = new HttpHeaders().set("Accept", "application/json");
     return this.http.post<SubscriptionTopup>(
       environment.ApiUrl + "/gettopuplist",
@@ -214,7 +216,7 @@ export class SubscriptionService {
   }
 
   applyCoupon(data: any) {
-    localStorage.getItem("loginToken");
+    this.storage.get("loginToken");
     const headers = new HttpHeaders().set("Accept", "application/json");
     return this.http.post<any>(
       environment.ApiUrl + "/applycoupondiscount",
@@ -224,7 +226,7 @@ export class SubscriptionService {
   }
 
   getSubscriptionHistory() {
-    localStorage.getItem("loginToken");
+    this.storage.get("loginToken");
     const headers = new HttpHeaders().set("Accept", "application/json");
     return this.http.get<any>(
       environment.ApiUrl + "/getsubscriptionhistory",
@@ -233,7 +235,7 @@ export class SubscriptionService {
   }
 
   getExistingSubscription() {
-    localStorage.getItem("loginToken");
+    this.storage.get("loginToken");
     const headers = new HttpHeaders().set("Accept", "application/json");
     return this.http.get<SubscriptionTopup>(
       environment.ApiUrl + "/getexistingsubscription",
@@ -242,7 +244,7 @@ export class SubscriptionService {
   }
 
   downloadInvoice(data: any) {
-    localStorage.getItem("loginToken");
+    this.storage.get("loginToken");
     const headers = new HttpHeaders().set("Accept", "application/json");
     return this.http.post<any>(
       environment.ApiUrl + "/downloadinvoiceforstudent",

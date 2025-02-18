@@ -6,6 +6,7 @@ import { AuthService } from "src/app/Auth/auth.service";
 import { LocationService } from "src/app/location.service";
 import { CommonModule } from "@angular/common";
 import { DialogModule } from "primeng/dialog";
+import {StorageService} from "../../../storage.service";
 @Component({
   selector: "uni-quiz-test-list",
   templateUrl: "./quiz-test-list.component.html",
@@ -19,11 +20,13 @@ export class QuizTestListComponent implements OnInit {
   subModuleId: string = "";
   moduleId: string = "";
   count: number = 0;
-  constructor(private testQuizService: TestQuizService, private activatedRoute: ActivatedRoute, private authService: AuthService, private router: Router, private locationService: LocationService) {}
+  constructor(private testQuizService: TestQuizService, private activatedRoute: ActivatedRoute,
+              private authService: AuthService, private router: Router, private locationService: LocationService,
+              private storage: StorageService) {}
 
   ngOnInit(): void {
     this.activatedRoute.params.subscribe((params: Params) => {
-      localStorage.setItem("employerName", "");
+      this.storage.set("employerName", "");
       this.currentModule = params["name"];
       this.subModuleId = params["id"];
       this.quizlistData();
@@ -56,7 +59,7 @@ export class QuizTestListComponent implements OnInit {
       this.restrict = true;
       return;
     }
-    localStorage.setItem("learninghubsubmoduleid", subModuleId.toString());
+    this.storage.set("learninghubsubmoduleid", subModuleId.toString());
     havequeryParam
       ? this.router.navigate(["/pages/modules", currentModule, careertoolquiz], {
           queryParams: { showReview: "true" },
