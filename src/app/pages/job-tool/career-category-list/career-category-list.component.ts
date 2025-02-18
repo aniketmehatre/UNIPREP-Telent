@@ -5,6 +5,7 @@ import { CategoryResponse, GetCategoriesPayload } from 'src/app/@Models/career-t
 import { EmployerGlobalService } from '../employer-global.service';
 import { AuthService } from 'src/app/Auth/auth.service';
 import { CommonModule } from '@angular/common';
+import {StorageService} from "../../../storage.service";
 
 @Component({
     selector: 'uni-career-category-list',
@@ -25,15 +26,15 @@ export class CareerCategoryListComponent implements OnInit {
     private testQuizService: TestQuizService,
     private router: Router, private employerGlobalService: EmployerGlobalService,
     private activatedRoute: ActivatedRoute,
-    public authService: AuthService
+    public authService: AuthService, private storage: StorageService
   ) {
-    localStorage.setItem('MainTitleCareerTool', "");
+    this.storage.set('MainTitleCareerTool', "");
   }
 
   ngOnInit(): void {
     this.employerGlobalService.clearAll();
     this.activatedRoute.params.subscribe((params: Params) => {
-        localStorage.setItem('MainTitleCareerTool', "");
+        this.storage.set('MainTitleCareerTool', "");
       this.module_id = params['id'];
       this.getCategoryList();
     });
@@ -67,7 +68,7 @@ export class CareerCategoryListComponent implements OnInit {
     }
 
     this.employerGlobalService.addItem(category.category);
-    localStorage.setItem('MainTitleCareerTool', category.category)
+    this.storage.set('MainTitleCareerTool', category.category)
     if (this.module_id != '13') {
       this.router.navigate([`/pages/job-tool/quiz/${moduleUrl}/list`, category_id]);
     } else {

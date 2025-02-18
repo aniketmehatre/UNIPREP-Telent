@@ -7,6 +7,7 @@ import { AuthService } from 'src/app/Auth/auth.service';
 import { LocationService } from 'src/app/location.service';
 import { CommonModule } from '@angular/common';
 import { DialogModule } from 'primeng/dialog';
+import {StorageService} from "../../../storage.service";
 @Component({
     selector: 'uni-employer-subcategory',
     templateUrl: './employer-subcategory.component.html',
@@ -26,12 +27,12 @@ export class EmployerSubcategoryComponent implements OnInit {
     private activatedRoute: ActivatedRoute,
     private router: Router, private employerGlobalService: EmployerGlobalService,
     private authService: AuthService,
-    private locationService: LocationService,
+    private locationService: LocationService, private storage: StorageService
   ) { }
 
   ngOnInit(): void {
     this.activatedRoute.params.subscribe((params: Params) => {
-      localStorage.setItem("employerName", "");
+      this.storage.set("employerName", "");
       this.category_id = params['id'];
       this.getSubCategoryList();
     });
@@ -66,8 +67,8 @@ export class EmployerSubcategoryComponent implements OnInit {
       return;
     }
     this.employerGlobalService.addItem(category.category)
-    localStorage.setItem('employerName', category.category);
-    localStorage.setItem('learningHubMainModuleName', category);
+    this.storage.set('employerName', category.category);
+    this.storage.set('learningHubMainModuleName', category);
     this.router.navigate(['/pages/job-tool/quiz/employer/list', categoryId]);
   }
   planExpired: boolean = false;

@@ -7,6 +7,7 @@ import { Router, RouterModule } from "@angular/router"
 import { ButtonModule } from "primeng/button"
 import { SkeletonModule } from "primeng/skeleton"
 import { TooltipModule } from "primeng/tooltip"
+import {StorageService} from "../../../storage.service";
 @Component({
 	selector: "uni-quizinfowindow",
 	templateUrl: "./quizinfowindow.component.html",
@@ -27,10 +28,11 @@ export class QuizinfowindowComponent implements OnInit {
 	normalquizinstruction: boolean = false
 	quizinstruction: [] = []
 	quizinstructionname: any
-	constructor(private pageFacade: PageFacadeService, private router: Router, private learnService: UniLearnService, private location: Location) {}
+	constructor(private pageFacade: PageFacadeService, private router: Router, private learnService: UniLearnService,
+				private location: Location, private storage: StorageService) {}
 	paramData: any
 	ngOnInit(): void {
-		this.parantfolderId = Number(localStorage.getItem("parent_folderid"))
+		this.parantfolderId = Number(this.storage.get("parent_folderid"))
 		this.getunilearnquizdetails()
 		var data = {
 			id: this.parentid,
@@ -42,8 +44,8 @@ export class QuizinfowindowComponent implements OnInit {
 		// console.log(this.moduleid);
 		// console.log(this.parentid);
 		// console.log(this.selected_module);
-		// console.log(Number(localStorage.getItem("parent_id")));
-		// console.log(Number(localStorage.getItem("parent_folderid")));
+		// console.log(Number(this.storage.get("parent_id")));
+		// console.log(Number(this.storage.get("parent_folderid")));
 	}
 	openVideoPopup(videoLink: string) {
 		this.pageFacade.openHowitWorksVideoPopup(videoLink)
@@ -54,7 +56,7 @@ export class QuizinfowindowComponent implements OnInit {
 	visibilityChange(data: any) {
 		this.quizwindowvisibility = data
 		this.moduleChange.emit({
-			parent_id: Number(localStorage.getItem("parent_id")),
+			parent_id: Number(this.storage.get("parent_id")),
 			module_id: this.moduleid,
 			selected_module: this.selected_module,
 			stage: 3,
@@ -62,7 +64,7 @@ export class QuizinfowindowComponent implements OnInit {
 	}
 	goBack() {
 		this.moduleChange.emit({
-			parent_id: Number(localStorage.getItem("parent_folderid")),
+			parent_id: Number(this.storage.get("parent_folderid")),
 			module_id: this.moduleid,
 			selected_module: this.selected_module,
 			stage: 3,

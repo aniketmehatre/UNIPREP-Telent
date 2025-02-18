@@ -14,6 +14,7 @@ import { CommonModule } from '@angular/common';
 import { DialogModule } from 'primeng/dialog';
 import { CarouselModule } from 'primeng/carousel';
 import { ButtonModule } from 'primeng/button';
+import {StorageService} from "../../../storage.service";
 @Component({
     selector: 'uni-learninghubquiz',
     templateUrl: './learninghubquiz.component.html',
@@ -73,7 +74,8 @@ export class LearninghubquizComponent implements OnInit {
   mainTitle: any
   constructor(private moduleListService: ModuleServiceService, private authService: AuthService, private router: Router, private dataService: DataService,
     private location: Location, private locationService: LocationService, private ngxService: NgxUiLoaderService,
-     private toast: MessageService, private activatedRoute: ActivatedRoute, private employerGlobalService: EmployerGlobalService) { }
+     private toast: MessageService, private activatedRoute: ActivatedRoute, private employerGlobalService: EmployerGlobalService,
+              private storage: StorageService) { }
 
   ngOnInit(): void {
     this.locationService.getImage().subscribe(imageUrl => {
@@ -121,7 +123,7 @@ export class LearninghubquizComponent implements OnInit {
         this.currentModuleName = 'Personality Test';
         this.currentApiSlug = 'SubmoduleListForStudents';
         this.selectedModule = 'personality-test'
-        this.mainTitle = localStorage.getItem('MainTitleCareerTool');
+        this.mainTitle = this.storage.get('MainTitleCareerTool');
         break;
       case 'employer':
         this.universityidforquiz = null;
@@ -132,12 +134,12 @@ export class LearninghubquizComponent implements OnInit {
         this.mainTitle = this.getFormattedValues();
         break;
       case 'skill-mastery':
-        this.universityidforquiz = localStorage.getItem('skillmasteryquizsubmoduleid');
+        this.universityidforquiz = this.storage.get('skillmasteryquizsubmoduleid');
         this.currentModuleId = 10;
         this.currentModuleName = 'Skill Mastery';
         this.currentApiSlug = 'SubmoduleListForStudents';
         this.selectedModule = 'skill-mastery'
-        this.mainTitle = localStorage.getItem('MainTitleCareerTool');
+        this.mainTitle = this.storage.get('MainTitleCareerTool');
         break;
       default:
         this.currentModuleId = 8;
@@ -148,8 +150,8 @@ export class LearninghubquizComponent implements OnInit {
           this.upgradePlanMsg = 'Upgrade your plan now to gain instant access.';
         this.aboutModule = 'Explore a vast database of Q&A about:',
           this.moduleDetails = ' Arrival, student discounts, banking, full time jobs, post study work and many more!'
-          this.mainTitle = localStorage.getItem('QuizModuleName') ?
-              localStorage.getItem('QuizModuleName') : localStorage.getItem('learningHubQuizBreadCrumb')
+          this.mainTitle = this.storage.get('QuizModuleName') ?
+              this.storage.get('QuizModuleName') : this.storage.get('learningHubQuizBreadCrumb')
         break;
     }
     this.responsiveOptions = [
@@ -173,7 +175,7 @@ export class LearninghubquizComponent implements OnInit {
     // if (this.currentModuleId == 5) {
     //   return;
     // } */
-    localStorage.setItem("currentmodulenameforrecently", this.currentModuleName);
+    this.storage.set("currentmodulenameforrecently", this.currentModuleName);
     this.loadModuleAndSubModule();
     this.checkquizquestioncount();
     this.activatedRoute.queryParams.subscribe((params: Params) => {
@@ -365,8 +367,8 @@ export class LearninghubquizComponent implements OnInit {
     var data = {
       country_id: this.currentCountryId,
       module_id: this.currentModuleId,
-      submodule_id: localStorage.getItem("learninghubsubmoduleid"),
-      category_id: localStorage.getItem("learningsubjectidforquiz"),
+      submodule_id: this.storage.get("learninghubsubmoduleid"),
+      category_id: this.storage.get("learningsubjectidforquiz"),
       quizquestion: this.quizData
     }
     this.moduleListService.submitQuizLearningHubQuiz(data).subscribe((res) => {
@@ -415,7 +417,7 @@ export class LearninghubquizComponent implements OnInit {
     var data = {
       countryId: this.currentCountryId,
       moduleId: this.currentModuleId,
-      submoduleId: localStorage.getItem("learninghubsubmoduleid")
+      submoduleId: this.storage.get("learninghubsubmoduleid")
     }
     this.moduleListService.ReviewQuizLearningHub(data).subscribe((res) => {
       this.quizData = res.userquiz.map((val: any) => {
@@ -435,7 +437,7 @@ export class LearninghubquizComponent implements OnInit {
     var data = {
       // countryId: this.currentCountryId,
       moduleId: this.currentModuleId,
-      submoduleId: localStorage.getItem("learninghubsubmoduleid")
+      submoduleId: this.storage.get("learninghubsubmoduleid")
     }
     this.moduleListService.learninghubquiz(data).subscribe((res) => {
       this.quizcount = res.count > 0 ? res.count : 0;
@@ -455,7 +457,7 @@ export class LearninghubquizComponent implements OnInit {
     var data = {
       moduleid: this.currentModuleId,
       countryid: this.currentCountryId,
-      submoduleid: localStorage.getItem("learninghubsubmoduleid")
+      submoduleid: this.storage.get("learninghubsubmoduleid")
     }
     this.moduleListService.checkModuleQuizCompletion(data).subscribe((res) => {
       this.quizpercentage = res.progress

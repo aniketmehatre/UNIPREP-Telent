@@ -20,6 +20,7 @@ import { MultiSelectModule } from 'primeng/multiselect';
 import { InputGroupModule } from 'primeng/inputgroup';
 import { InputGroupAddonModule } from 'primeng/inputgroupaddon';
 import { SelectModule } from 'primeng/select';
+import {StorageService} from "../../../storage.service";
 @Component({
     selector: 'uni-list-sub-modules',
     templateUrl: './list-sub-modules.component.html',
@@ -89,14 +90,14 @@ export class ListSubModulesComponent implements OnInit {
                 private locationService: LocationService, private route: ActivatedRoute, private ngxService: NgxUiLoaderService,
                 private confirmationService: ConfirmationService, private pageFacade: PageFacadeService,
                 private meta: Meta, private cdRef: ChangeDetectorRef,
-                private titleService: Title) {
-        this.countryId = Number(localStorage.getItem('countryId'));
+                private titleService: Title, private storage: StorageService) {
+        this.countryId = Number(this.storage.get('countryId'));
 
         this.dataService.countryIdSource.subscribe((data) => {
             if (this.countryId != data) {
                 this.ngOnInit();
             }
-            //localStorage.setItem('countryId', data);
+            //this.storage.set('countryId', data);
             //this.isSkeletonVisible = true
             this.dataService.countryNameSource.subscribe((data) => {
                 this.countryName = data;
@@ -145,7 +146,7 @@ export class ListSubModulesComponent implements OnInit {
         .dashboardLocationList()
         .subscribe((countryList: any) => {
           this.countryLists = countryList;
-          const storedCountryId = Number(localStorage.getItem("countryId")) || 0;
+          const storedCountryId = Number(this.storage.get("countryId")) || 0;
   
           // Set the selectedCountryId after the API call
           this.selectedCountryId = storedCountryId;
@@ -173,7 +174,7 @@ export class ListSubModulesComponent implements OnInit {
         } else {
             this.ehitlabelIsShow = false;
         }
-        localStorage.setItem("modalcountryid", this.quizmoduleselectcountryidsetzero);
+        this.storage.set("modalcountryid", this.quizmoduleselectcountryidsetzero);
         this.init();
         this.moduleListService.getSubmodulesAndSpecialization().subscribe((res: any) => {
             this.allSearchedResult = res
@@ -186,8 +187,8 @@ export class ListSubModulesComponent implements OnInit {
         this.countryLists.forEach((element: any) => {
         if (element.id === selectedId) {
             this.selectedCountryName = element.country;
-            localStorage.setItem("countryId", element.id);
-            localStorage.setItem("selectedcountryId", element.id);
+            this.storage.set("countryId", element.id);
+            this.storage.set("selectedcountryId", element.id);
             this.selectedCountryId = element.id;
             this.dataService.changeCountryId(element.id);
             this.dataService.changeCountryFlag(element.flag);
@@ -203,8 +204,8 @@ export class ListSubModulesComponent implements OnInit {
     }
 
     init() {
-        localStorage.setItem('QuizModuleName', '')
-        this.currentCountryId = Number(localStorage.getItem('countryId'));
+        this.storage.set('QuizModuleName', '')
+        this.currentCountryId = Number(this.storage.get('countryId'));
         this.currentModuleSlug = this.router.url.split('/').pop();
 
         switch (this.currentModuleSlug) {
@@ -319,7 +320,7 @@ export class ListSubModulesComponent implements OnInit {
         // if (this.currentModuleId == 5) {
         //   return; 
         // } */
-        localStorage.setItem("currentmodulenameforrecently", this.currentModuleName);
+        this.storage.set("currentmodulenameforrecently", this.currentModuleName);
         this.loadModuleAndSubModule();
         if (this.route.snapshot.paramMap.get('id') == '2') {
             this.startQuiz();
@@ -331,8 +332,8 @@ export class ListSubModulesComponent implements OnInit {
 
 
     loadModuleAndSubModule() {
-        this.selectedClassId = Number(localStorage.getItem('selectedClass'))
-        this.currentCountryId = Number(localStorage.getItem('countryId'));
+        this.selectedClassId = Number(this.storage.get('selectedClass'))
+        this.currentCountryId = Number(this.storage.get('countryId'));
         //this.isSkeletonVisible = true;
         //this.subModules$ = this.moduleListService.subModuleList$();
         let data: any = {
@@ -345,7 +346,7 @@ export class ListSubModulesComponent implements OnInit {
         } else if (this.currentModuleId == 14) {
             data.category_flag = 1
             data.country_id = 0
-            data.parent_category_id = Number(localStorage.getItem('selectedClass'))
+            data.parent_category_id = Number(this.storage.get('selectedClass'))
         } else {
             data.country_id = this.currentCountryId;
             data.api_module_name = this.currentApiSlug;
@@ -564,7 +565,7 @@ export class ListSubModulesComponent implements OnInit {
         //   return;
         // }
         if(this.currentModuleId == 5){
-            localStorage.setItem('QuizModuleName', submodule.submodule_name)
+            this.storage.set('QuizModuleName', submodule.submodule_name)
         }
         if (this.currentModuleId == 14) {
             if (submodule.submodule_name) {
@@ -590,7 +591,7 @@ export class ListSubModulesComponent implements OnInit {
                 moduleId: this.currentModuleId,
                 category_id: this.subModuleList.find(list => list.submodule_id == id)?.category_id
             }
-            localStorage.setItem('learningHubMainModuleName', submodule.category)
+            this.storage.set('learningHubMainModuleName', submodule.category)
             this.isSkeletonVisible = true;
             this.locationService.GetQuestionsCount(data).subscribe(data => {
                 this.isSkeletonVisible = false;
@@ -605,7 +606,7 @@ export class ListSubModulesComponent implements OnInit {
                 this.selectedSubModule = element.country;
             }
         });
-        localStorage.setItem('QuizModuleName', submodule.submodule_name)
+        this.storage.set('QuizModuleName', submodule.submodule_name)
         this.selectedSubModule = id;
         this.router.navigate([`/pages/modules/${this.currentModuleSlug}/question-list/${this.selectedSubModule}`]);
     }
@@ -743,12 +744,12 @@ export class ListSubModulesComponent implements OnInit {
     }
 
     // onStatusChange(event: any){
-    //     localStorage.setItem('selectedClass', event.value)
+    //     this.storage.set('selectedClass', event.value)
     //     let data = {
     //         moduleId: this.currentModuleId,
     //         category_flag: 1,
     //         country_id: 0,
-    //         parent_category_id: Number(localStorage.getItem('selectedClass'))
+    //         parent_category_id: Number(this.storage.get('selectedClass'))
     //     }
     //     this.locationService.GetQuestionsCount(data).subscribe(data => {
     //         this.isSkeletonVisible = false;

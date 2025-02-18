@@ -7,6 +7,7 @@ import { Location, CommonModule } from '@angular/common';
 import { CourseListService } from '../course-list/course-list.service';
 import { CvBuilderService } from './cv-builder/cv-builder.service';
 import { TooltipModule } from 'primeng/tooltip';
+import {StorageService} from "../../storage.service";
 
 @Component({
     selector: 'uni-job-tool',
@@ -29,19 +30,19 @@ export class JobToolComponent implements OnInit {
     private location: Location,
     private resumeService: CourseListService,
     private cvBuilderService: CvBuilderService,
-    private pageFacade: PageFacadeService,
+    private pageFacade: PageFacadeService, private storage: StorageService
   ) {
     this.currentRoute = this.router.url;
     this.router.events.subscribe(event => {
-      this.mainTitle = localStorage.getItem('MainTitleCareerTool');
-      this.employerName = localStorage.getItem("employerName");
+      this.mainTitle = this.storage.get('MainTitleCareerTool');
+      this.employerName = this.storage.get("employerName");
       if (event instanceof NavigationEnd) {
         this.currentRoute = event.url;
         if (this.currentRoute.includes('career-tool')){
           this.mainTitle = "";
           this.employerName = "";
-          localStorage.setItem('MainTitleCareerTool', '');
-          localStorage.setItem("employerName", '');
+          this.storage.set('MainTitleCareerTool', '');
+          this.storage.set("employerName", '');
           this.employerGlobalService.clearAll()
         }
         this.changeTitle()

@@ -15,6 +15,7 @@ import { PopoverModule } from 'primeng/popover';
 import { ConfirmPopupModule } from "primeng/confirmpopup";
 import { ButtonModule } from "primeng/button";
 import { SelectModule } from "primeng/select";
+import {StorageService} from "../../storage.service";
 @Component({
   selector: "uni-chat",
   templateUrl: "./chat.component.html",
@@ -43,7 +44,9 @@ export class ChatComponent implements OnInit {
   planExpired: boolean = false;
   restrict: boolean = false;
   subtext: string = "";
-  constructor(private service: ChathistoryService, private authService: AuthService, private toast: MessageService, private fb: FormBuilder, private pageService: PageFacadeService, private confirmationService: ConfirmationService, private route: Router, private location: Location) {
+  constructor(private service: ChathistoryService, private authService: AuthService, private toast: MessageService,
+              private fb: FormBuilder, private pageService: PageFacadeService, private confirmationService: ConfirmationService,
+              private route: Router, private location: Location, private storage: StorageService) {
     this.reportForm = fb.group({
       reportOption: ["", Validators.required],
       comment: ["", Validators.required],
@@ -184,7 +187,7 @@ export class ChatComponent implements OnInit {
   async ngOnInit(): Promise<void> {
     this.getChatHistoryByUserId();
     this.getOptions();
-    const encryptedData = localStorage.getItem("Name");
+    const encryptedData = this.storage.get("Name");
     if (encryptedData) {
       try {
         this.username = await this.decryptData(encryptedData);
@@ -235,7 +238,7 @@ export class ChatComponent implements OnInit {
     });
     
     this.authService.getMe().subscribe(async (response) => {
-      const encryptedData = localStorage.getItem("questions_left");
+      const encryptedData = this.storage.get("questions_left");
       if (encryptedData) {
         try {
           this.totalcredits = await this.decryptData(encryptedData);
@@ -281,7 +284,7 @@ export class ChatComponent implements OnInit {
     }
     let data = {
       message: this.textMessage,
-      country: localStorage.getItem("countryId"),
+      country: this.storage.get("countryId"),
     };
     this.service.sendChatMessage(data).subscribe(
       (response) => {

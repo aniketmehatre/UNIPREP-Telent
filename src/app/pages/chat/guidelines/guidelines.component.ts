@@ -14,8 +14,8 @@ export class GuidelineComponent implements OnInit {
   accepted=false;
   constructor(private service: ChathistoryService,private route:Router) {}
   ngOnInit(): void {
-    // if(localStorage.getItem("guidlineAccepted")){
-    //     if(Number(localStorage.getItem("guidlineAccepted"))==1){
+    // if(this.storage.get("guidlineAccepted")){
+    //     if(Number(this.storage.get("guidlineAccepted"))==1){
     //       this.accepted=true;
     //     }
     //   }

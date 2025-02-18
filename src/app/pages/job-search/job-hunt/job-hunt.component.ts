@@ -8,6 +8,7 @@ import {JobSearchService} from "../job-search.service";
 import { AuthService } from "src/app/Auth/auth.service";
 import { CommonModule } from '@angular/common';
 import { DialogModule } from 'primeng/dialog';
+import {StorageService} from "../../../storage.service";
 @Component({
     selector: 'uni-job-hunt',
     templateUrl: './job-hunt.component.html',
@@ -25,7 +26,7 @@ export class JobHuntComponent implements OnInit {
   formFields: any = [];
 
   constructor(private router: Router, private authService: AuthService, private dataService: DataService, private toastr: MessageService,
-              private jobService: JobSearchService) {
+              private jobService: JobSearchService, private storage: StorageService) {
     this.countryCodes = [
       { "name": "Austria", "code": "at", "flag": "https://flagcdn.com/at.svg" },
       { "name": "Australia", "code": "au", "flag": "https://flagcdn.com/au.svg" },
@@ -136,11 +137,11 @@ export class JobHuntComponent implements OnInit {
 
   saveFilterData(formData: any): void {
     const filterData = JSON.stringify(formData);
-    localStorage.setItem('filterFormData', filterData);
+    this.storage.set('filterFormData', filterData);
   }
 
   resetFilterData(): void {
-    localStorage.setItem('filterFormData', '');
+    this.storage.set('filterFormData', '');
   }
 
   searchLocation(event: Event) :void{

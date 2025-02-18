@@ -15,6 +15,7 @@ import { MultiSelectModule } from "primeng/multiselect";
 import { CarouselModule } from "primeng/carousel";
 import { InputGroupModule } from "primeng/inputgroup";
 import { InputGroupAddonModule } from "primeng/inputgroupaddon";
+import {StorageService} from "../../../storage.service";
 @Component({
   selector: "uni-translate-view",
   templateUrl: "./translate-view.component.html",
@@ -29,7 +30,9 @@ export class TranslateViewComponent implements OnInit {
   selectedLanguageName: any = "";
   questionId: string | null = "";
 
-  constructor(private translateViewService: TranslateViewService, private lhs: LanguageHubDataService, private _location: Location, private route: ActivatedRoute, private languageHubService: LanguageHubService, private toast: MessageService) {
+  constructor(private translateViewService: TranslateViewService, private lhs: LanguageHubDataService,
+              private _location: Location, private route: ActivatedRoute, private languageHubService: LanguageHubService,
+              private toast: MessageService, private storage: StorageService) {
     this.lhs.dataLanguageCode$.subscribe((data) => {
       this.selectedLanguage = data;
     });
@@ -46,7 +49,7 @@ export class TranslateViewComponent implements OnInit {
     if (this.questionId) {
       this.getQuestionsList(this.questionId);
     } else {
-      const value = localStorage.getItem("languageHubData");
+      const value = this.storage.get("languageHubData");
       if (value !== null) {
         try {
           this.text1 = JSON.parse(value).english;

@@ -18,6 +18,7 @@ import { DialogModule } from 'primeng/dialog';
 import { ButtonModule } from 'primeng/button';
 import { FooterStatusBoxComponent } from "./footer-status-box/footer-status-box.component";
 import { HeaderSearchComponent } from "./header-search/header-search.component"
+import {StorageService} from "../storage.service";
 
 @Component({
   selector: "uni-pages",
@@ -64,7 +65,11 @@ export class PagesComponent implements OnInit, OnDestroy {
   @Output() expandicon = !this.sidebarClass ? "pi-align-right" : "pi-align-justify";
   private subs = new SubSink();
   visibleExhastedUser!: boolean;
-  constructor(private pageFacade: PageFacadeService, private router: Router, private dataService: DataService, public meta: Meta, private titleService: Title, private route: ActivatedRoute, private locationService: LocationService, private dashboardService: DashboardService, private service: AuthService, private deviceService: DeviceDetectorService, private sanitizer: DomSanitizer) {
+  constructor(private pageFacade: PageFacadeService, private router: Router, private dataService: DataService,
+              public meta: Meta, private titleService: Title, private route: ActivatedRoute,
+              private locationService: LocationService, private dashboardService: DashboardService,
+              private service: AuthService, private deviceService: DeviceDetectorService,
+              private sanitizer: DomSanitizer, private storage: StorageService) {
     // dev
     //  Contlo.init('d7a84b3a1d83fa9f7e33f7396d57ac88', 'https://dev-student.uniprep.ai');
 
@@ -108,7 +113,7 @@ export class PagesComponent implements OnInit, OnDestroy {
     const isMobile = this.deviceService.isMobile();
     const isTablet = this.deviceService.isTablet();
     const isDesktopDevice = this.deviceService.isDesktop();
-    var allowmobile = localStorage.getItem("allowmobile");
+    var allowmobile = this.storage.get("allowmobile");
     if ((isMobile || isTablet) && !allowmobile) {
       this.isDeviceStatus = "block";
       this.isDeviceStatusPopupView = false;
@@ -121,7 +126,7 @@ export class PagesComponent implements OnInit, OnDestroy {
   moveToDesktop() {
     this.isDeviceStatus = "none";
     this.isDeviceStatusPopupView = true;
-    localStorage.setItem("allowmobile", "1");
+    this.storage.set("allowmobile", "1");
   }
   enterpriseSubscriptionLink: any;
   imagewhitlabeldomainname: any;
@@ -145,7 +150,7 @@ export class PagesComponent implements OnInit, OnDestroy {
       this.imageUrlWhitelabel = imageUrl;
     });
     this.service.getTimeInfoForCard().subscribe((data) => {
-      localStorage.setItem("time_card_info", data.card_message);
+      this.storage.set("time_card_info", data.card_message);
     });
     this.subScribedUserCount();
     // this.videoPopupTrigger('refresh');

@@ -22,6 +22,7 @@ import { SelectModule } from 'primeng/select';
 import { InputGroupModule } from 'primeng/inputgroup';
 import { InputTextModule } from 'primeng/inputtext';
 import { InputGroupAddonModule } from 'primeng/inputgroupaddon';
+import {StorageService} from "../../../storage.service";
 @Component({
     selector: 'uni-entreprenuerquiz',
     templateUrl: './entreprenuerquiz.component.html',
@@ -82,7 +83,7 @@ export class EntreprenuerquizComponent implements OnInit {
   subModuleName:string='';
   constructor(private moduleListService: ModuleServiceService, private authService: AuthService, private router: Router, private dataService: DataService,
     private locationService: LocationService, private ngxService: NgxUiLoaderService, private toast: MessageService,
-    private service: FounderstoolService,private location:Location) { }
+    private service: FounderstoolService,private location:Location, private storage: StorageService) { }
 
   ngOnInit(): void {
     this.locationService.getImage().subscribe(imageUrl => {
@@ -91,11 +92,11 @@ export class EntreprenuerquizComponent implements OnInit {
     this.locationService.getOrgName().subscribe(orgname => {
       this.orgnamewhitlabel = orgname;
     });
-    if(localStorage.getItem('conditionrevieworquiz')=='1'){
+    if(this.storage.get('conditionrevieworquiz')=='1'){
       this.forDirectReviewOpen();
       this.openReviewPopup();
     }else{
-    // this.quizmoduleredirectcountryid = Number(localStorage.getItem('modalcountryid'));
+    // this.quizmoduleredirectcountryid = Number(this.storage.get('modalcountryid'));
     this.init();
     this.checkplanExpire();
     }
@@ -105,7 +106,7 @@ export class EntreprenuerquizComponent implements OnInit {
     } else {
       this.ehitlabelIsShow = false;
     }
-    // this.quizmoduleredirectcountryid = Number(localStorage.getItem('modalcountryid'));
+    // this.quizmoduleredirectcountryid = Number(this.storage.get('modalcountryid'));
     // this.init();
     // this.checkplanExpire();
   }
@@ -114,7 +115,7 @@ export class EntreprenuerquizComponent implements OnInit {
     switch (this.currentModuleSlug) {
       case 'entreprenuersectorproficiencytest':
         this.currentModuleId = 18;
-        this.submoduleidquiz= localStorage.getItem("entrpreneursubid")
+        this.submoduleidquiz= this.storage.get("entrpreneursubid")
         this.universityidforquiz = null;
         this.currentModuleName = 'Entrepreneur Sector Proficiency Test';
         this.currentApiSlug = 'SubmoduleListForStudents';
@@ -127,7 +128,7 @@ export class EntreprenuerquizComponent implements OnInit {
       default:
         this.currentModuleId = 17;
         this.universityidforquiz = null;
-        this.submoduleidquiz= localStorage.getItem("entrpreneursubid")
+        this.submoduleidquiz= this.storage.get("entrpreneursubid")
         this.currentModuleName = 'Entreprenuer Skill Test';
         this.currentApiSlug = 'SubmoduleListForStudents';
         this.infoMessage = 'Upgrade to access information about life in your chosen destination',
@@ -154,11 +155,11 @@ export class EntreprenuerquizComponent implements OnInit {
     this.dataService.countryNameSource.subscribe((data) => {
       this.countryName = data;
     });
-    this.subModuleName= localStorage.getItem("submodulename") as string;
+    this.subModuleName= this.storage.get("submodulename") as string;
     switch (this.currentModuleSlug) {
       case 'entreprenuersectorproficiencytest':
         this.currentModuleId = 18;
-        this.submoduleidquiz= localStorage.getItem("entrpreneursubid")
+        this.submoduleidquiz= this.storage.get("entrpreneursubid")
         this.universityidforquiz = null;
         this.currentModuleName = 'Entrepreneur Sector Proficiency Test';
         this.currentApiSlug = 'SubmoduleListForStudents';
@@ -171,7 +172,7 @@ export class EntreprenuerquizComponent implements OnInit {
       default:
         this.currentModuleId = 17;
         this.universityidforquiz = null;
-        this.submoduleidquiz= localStorage.getItem("entrpreneursubid")
+        this.submoduleidquiz= this.storage.get("entrpreneursubid")
         this.currentModuleName = 'Entreprenuer Skill Test';
         this.currentApiSlug = 'SubmoduleListForStudents';
         this.infoMessage = 'Upgrade to access information about life in your chosen destination',
@@ -204,7 +205,7 @@ export class EntreprenuerquizComponent implements OnInit {
     // if (this.currentModuleId == 5) {
     //   return;
     // } */
-    localStorage.setItem("currentmodulenameforrecently", this.currentModuleName);
+    this.storage.set("currentmodulenameforrecently", this.currentModuleName);
     this.loadModuleAndSubModule();
     this.checkquizquestioncount()
   }

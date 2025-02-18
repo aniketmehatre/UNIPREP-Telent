@@ -14,6 +14,7 @@ import { DialogModule } from 'primeng/dialog';
 import { CarouselModule } from 'primeng/carousel';
 import { ButtonModule } from 'primeng/button';  
 import { SkeletonModule } from 'primeng/skeleton';
+import {StorageService} from "../../../storage.service";
 @Component({
     selector: 'uni-quiz',
     templateUrl: './quiz.component.html',
@@ -73,7 +74,8 @@ export class QuizComponent implements OnInit {
   timeover:number=0;
   quizModuleName: any
   constructor(private moduleListService: ModuleServiceService, private authService: AuthService, private router: Router, private dataService: DataService,
-    private locationService: LocationService, private ngxService: NgxUiLoaderService, private toast: MessageService,private location: Location) { }
+    private locationService: LocationService, private ngxService: NgxUiLoaderService, private toast: MessageService,private location: Location,
+              private storage: StorageService) { }
 
   ngOnInit(): void {
 
@@ -89,7 +91,7 @@ export class QuizComponent implements OnInit {
     } else {
       this.ehitlabelIsShow = false;
     }
-    this.quizmoduleredirectcountryid = Number(localStorage.getItem('modalcountryid'));
+    this.quizmoduleredirectcountryid = Number(this.storage.get('modalcountryid'));
     this.init();
     this.checkplanExpire();
   }
@@ -103,7 +105,7 @@ export class QuizComponent implements OnInit {
     this.positionNumber = 1;
     this.isInstructionVisible = true;
     this.currentModuleSlug = this.router.url.split('/').slice(-2, -1).pop();
-    this.currentCountryId = this.quizmoduleredirectcountryid == 0 ? Number(localStorage.getItem('countryId')) : Number(localStorage.getItem('modalcountryid'));
+    this.currentCountryId = this.quizmoduleredirectcountryid == 0 ? Number(this.storage.get('countryId')) : Number(this.storage.get('modalcountryid'));
     this.dataService.countryNameSource.subscribe((data) => {
       this.countryName = data;
     });
@@ -119,7 +121,7 @@ export class QuizComponent implements OnInit {
         this.upgradePlanMsg = 'Upgrade your plan now to gain instant access.';
         this.aboutModule = 'Explore a vast database of Q&A about:',
         this.moduleDetails = 'Scholarships, document checklist, Education loan, letter of Recommendation and many more!'
-        localStorage.setItem('QuizModuleName', '')
+        this.storage.set('QuizModuleName', '')
         break;
       case 'travel-and-tourism':
         this.currentModuleId = 7;
@@ -131,7 +133,7 @@ export class QuizComponent implements OnInit {
         this.upgradePlanMsg = 'Upgrade your plan now to gain instant access.';
         this.aboutModule = 'Explore a vast database of Q&A about:',
         this.moduleDetails = 'Visa, departure, healthcare, tuition fees and many more!'
-        localStorage.setItem('QuizModuleName', '')
+        this.storage.set('QuizModuleName', '')
         break;
       case 'post-admission':
         this.currentModuleId = 3;
@@ -143,7 +145,7 @@ export class QuizComponent implements OnInit {
         this.upgradePlanMsg = 'Upgrade your plan now to gain instant access.';
         this.aboutModule = 'Post-admission offers information about:',
         this.moduleDetails = ' Arrival, student discounts, banking, full time jobs, post study work and many more!'
-        localStorage.setItem('QuizModuleName', '')
+        this.storage.set('QuizModuleName', '')
         break;
       case 'career-hub':
         this.currentModuleId = 4;
@@ -155,17 +157,17 @@ export class QuizComponent implements OnInit {
         this.upgradePlanMsg = 'Upgrade your plan now to gain instant access.';
         this.aboutModule = 'Explore a vast database of Q&A about:',
         this.moduleDetails = ' Arrival, student discounts, banking, full time jobs, post study work and many more!'
-        localStorage.setItem('QuizModuleName', '')
+        this.storage.set('QuizModuleName', '')
         break;
       case 'university':
-        this.universityidforquiz = localStorage.getItem('universityidforquiz')
+        this.universityidforquiz = this.storage.get('universityidforquiz')
         this.currentModuleId = 5;
         this.currentModuleName = 'University';
         this.currentApiSlug = 'SubmoduleListForStudents';
         this.selectedModule = 'university'
         break;
       case 'skill-mastery':
-        this.universityidforquiz = localStorage.getItem('skillmasteryquizsubmoduleid');
+        this.universityidforquiz = this.storage.get('skillmasteryquizsubmoduleid');
         this.currentModuleId = 10;
         this.currentModuleName = 'Skill Mastery';
         this.currentApiSlug = 'SubmoduleListForStudents';
@@ -182,7 +184,7 @@ export class QuizComponent implements OnInit {
         this.aboutModule = 'Explore a vast database of Q&A about:',
         this.moduleDetails = 'Festivals, events, currency, budget, housing and many more!',
         this.selectedModule = 'life-at-country'
-        localStorage.setItem('QuizModuleName', '')
+        this.storage.set('QuizModuleName', '')
         break;
 
     }
@@ -207,7 +209,7 @@ export class QuizComponent implements OnInit {
     // if (this.currentModuleId == 5) {
     //   return;
     // } */
-    localStorage.setItem("currentmodulenameforrecently", this.currentModuleName);
+    this.storage.set("currentmodulenameforrecently", this.currentModuleName);
     this.loadModuleAndSubModule();
     this.checkquizquestioncount()
   }
@@ -232,7 +234,7 @@ export class QuizComponent implements OnInit {
   }
 
   loadModuleAndSubModule() {
-    this.currentCountryId = this.quizmoduleredirectcountryid == 0 ? Number(localStorage.getItem('countryId')) : Number(localStorage.getItem('modalcountryid'))
+    this.currentCountryId = this.quizmoduleredirectcountryid == 0 ? Number(this.storage.get('countryId')) : Number(this.storage.get('modalcountryid'))
     //this.isSkeletonVisible = true;
     //this.subModules$ = this.moduleListService.subModuleList$();
     let data = {
@@ -255,7 +257,7 @@ export class QuizComponent implements OnInit {
   }
 
   runQuiz() {
-    this.quizModuleName = localStorage.getItem('QuizModuleName')
+    this.quizModuleName = this.storage.get('QuizModuleName')
     this.isInstructionVisible = false;
     this.isStartQuiz = true;
     let cName = "";

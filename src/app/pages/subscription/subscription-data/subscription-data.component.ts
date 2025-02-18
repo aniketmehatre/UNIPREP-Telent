@@ -79,35 +79,35 @@ export class SubscriptionDataComponent implements OnInit {
 
 	async ngOnInit(): Promise<void> {
 		try {
-			let homeCountryName = null;
-			const encHomeCountryName = localStorage.getItem("home_country_name");
+			// let homeCountryName = null;
+			let homeCountryName = this.storage.get("home_country_name");
 
-			if (encHomeCountryName) {
-				try {
-					const decryptedText = await this.authService.decryptData(encHomeCountryName);
-					
-					if (decryptedText && typeof decryptedText === 'string') {
-						// If it looks like JSON, try to parse it
-						if (decryptedText.trim().startsWith('{') || decryptedText.trim().startsWith('[')) {
-							try {
-								homeCountryName = JSON.parse(decryptedText);
-							} catch (parseError) {
-								// If JSON parsing fails, use the string as-is
-								homeCountryName = decryptedText;
-							}
-						} else {
-							// Use the decrypted text directly if it's not JSON formatted
-							homeCountryName = decryptedText;
-						}
-					} else {
-						console.warn("Decrypted text is empty or invalid");
-					}
-				} catch (decryptError) {
-					console.warn("Failed to decrypt home country data:", decryptError);
-				}
-			}
+			// if (encHomeCountryName) {
+			// 	try {
+			// 		const decryptedText = await this.authService.decryptData(encHomeCountryName);
+			//
+			// 		if (decryptedText && typeof decryptedText === 'string') {
+			// 			// If it looks like JSON, try to parse it
+			// 			if (decryptedText.trim().startsWith('{') || decryptedText.trim().startsWith('[')) {
+			// 				try {
+			// 					homeCountryName = JSON.parse(decryptedText);
+			// 				} catch (parseError) {
+			// 					// If JSON parsing fails, use the string as-is
+			// 					homeCountryName = decryptedText;
+			// 				}
+			// 			} else {
+			// 				// Use the decrypted text directly if it's not JSON formatted
+			// 				homeCountryName = decryptedText;
+			// 			}
+			// 		} else {
+			// 			console.warn("Decrypted text is empty or invalid");
+			// 		}
+			// 	} catch (decryptError) {
+			// 		console.warn("Failed to decrypt home country data:", decryptError);
+			// 	}
+			// }
 
-			this.timeLeftInfoCard = localStorage.getItem("time_card_info");
+			this.timeLeftInfoCard = this.storage.get("time_card_info");
 			this.discountAmountEnable = false;
 			this.currentCountry = homeCountryName ? String(homeCountryName).trim() : "";
 			this.user = this.authService.user;

@@ -9,6 +9,7 @@ import { Location } from "@angular/common"
 import { AuthService } from "src/app/Auth/auth.service"
 import { DialogModule } from "primeng/dialog"
 import { PdfJsViewerModule } from "ng2-pdfjs-viewer"
+import {StorageService} from "../../../storage.service";
 
 @Component({
 	selector: "uni-learnsubmodules",
@@ -32,7 +33,10 @@ export class LearnsubModulesComponent implements OnInit, AfterViewInit {
 	imagewhitlabeldomainname: any
 	pdfLoadError: boolean = false
 
-	constructor(private pageFacade: PageFacadeService, private authService: AuthService, private router: Router, private arrayHeaderService: ArrayHeaderService, private learnService: UniLearnService, private route: ActivatedRoute, private location: Location) {}
+	constructor(private pageFacade: PageFacadeService, private authService: AuthService,
+				private router: Router, private arrayHeaderService: ArrayHeaderService,
+				private learnService: UniLearnService, private route: ActivatedRoute,
+				private location: Location, private storage: StorageService) {}
 
 	ngOnInit(): void {
 		// Get query parameters
@@ -70,7 +74,7 @@ export class LearnsubModulesComponent implements OnInit, AfterViewInit {
 		this.learnService.getUniLearnsubModules(this.paramData).subscribe((res: learnsubModules) => {
 			this.isSkeletonVisible = false
 			this.submoduleList = res.data
-			localStorage.setItem("parent_id", String(res.previous_id))
+			this.storage.set("parent_id", String(res.previous_id))
 		})
 	}
 
@@ -148,8 +152,8 @@ export class LearnsubModulesComponent implements OnInit, AfterViewInit {
 			return
 		}
 
-		this.paramData.parent_id = Number(localStorage.getItem("parent_id"))
-		this.paramData.module_id = Number(localStorage.getItem("module_id"))
+		this.paramData.parent_id = Number(this.storage.get("parent_id"))
+		this.paramData.module_id = Number(this.storage.get("module_id"))
 		this.getModules()
 	}
 

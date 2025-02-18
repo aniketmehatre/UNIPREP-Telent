@@ -11,6 +11,7 @@ import { SelectModule } from 'primeng/select';
 import { DialogModule } from 'primeng/dialog';
 import { SkeletonModule } from 'primeng/skeleton';
 import { TooltipModule } from 'primeng/tooltip';
+import {StorageService} from "../../../storage.service";
 
 
 @Component({
@@ -43,7 +44,7 @@ export class IlearnChallengeComponent implements OnInit, OnDestroy {
     private assessmentService: AssessmentService,
     private authService: AuthService,
     private router: Router,
-    private sanitizer: DomSanitizer
+    private sanitizer: DomSanitizer, private storage: StorageService
   ) { }
 
   ngOnInit(): void {
@@ -87,14 +88,14 @@ export class IlearnChallengeComponent implements OnInit, OnDestroy {
   navigateAssignedmodule(data: ILearnChallengeModule) {
     switch (data.module_name) {
       case 'Learning Hub':
-        localStorage.setItem('learningHubMainModuleName', data.category_name);
+        this.storage.set('learningHubMainModuleName', data.category_name);
         this.router.navigate(['/pages/modules/learning-hub/question-list', data.submodule_id]);
         break;
       case 'Skill Mastery':
         this.router.navigate(['/pages/modules/skill-mastery/question-list', data.submodule_id]);
         break;
       case 'Pshychometric Test':
-        localStorage.setItem('MainTitleCareerTool', data.category_name)
+        this.storage.set('MainTitleCareerTool', data.category_name)
         this.router.navigate(['/pages/job-tool/quiz/psychometric/list', data.category_id]);
         break;
       case 'CV Builder':

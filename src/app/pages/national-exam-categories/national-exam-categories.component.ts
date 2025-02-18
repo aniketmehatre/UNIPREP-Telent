@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { NationalExamService } from './national-exam.service';
 import { Router } from '@angular/router';
 import { Location } from "@angular/common"
+import {StorageService} from "../../storage.service";
 
 @Component({
     selector: 'uni-national-exam-categories',
@@ -12,7 +13,8 @@ import { Location } from "@angular/common"
 export class NationalExamCategoriesComponent implements OnInit {
   categories: any;
 
-  constructor(private service: NationalExamService , private router: Router, private location: Location) { }
+  constructor(private service: NationalExamService , private router: Router, private location: Location,
+              private storage: StorageService) { }
 
   ngOnInit(){
 
@@ -28,7 +30,7 @@ export class NationalExamCategoriesComponent implements OnInit {
 
   openTest(category:any){
     // alert(id);
-    localStorage.setItem('nc-name', category.name);
+    this.storage.set('nc-name', category.name);
     this.router.navigate(['/pages/national-exams/'+category.id]);
   }
 }

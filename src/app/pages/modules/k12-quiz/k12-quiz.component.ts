@@ -12,6 +12,7 @@ import { CommonModule } from '@angular/common';
 import { DialogModule } from 'primeng/dialog';
 import { CarouselModule } from 'primeng/carousel';
 import { ButtonModule } from 'primeng/button';
+import {StorageService} from "../../../storage.service";
 @Component({
     selector: 'uni-k12-quiz',
     templateUrl: './k12-quiz.component.html',
@@ -68,7 +69,8 @@ export class K12QuizComponent implements OnInit {
   orgnamewhitlabel: any;
   orglogowhitelabel: any;
   constructor(private moduleListService: ModuleServiceService, private authService: AuthService, private router: Router, private dataService: DataService,
-              private location: Location, private locationService: LocationService, private ngxService: NgxUiLoaderService, private toast: MessageService, private activatedRoute: ActivatedRoute) { }
+              private location: Location, private locationService: LocationService, private ngxService: NgxUiLoaderService,
+              private toast: MessageService, private activatedRoute: ActivatedRoute, private storage: StorageService) { }
 
   ngOnInit(): void {
     this.locationService.getImage().subscribe(imageUrl => {
@@ -128,7 +130,7 @@ export class K12QuizComponent implements OnInit {
     // if (this.currentModuleId == 5) {
     //   return;
     // } */
-    localStorage.setItem("currentmodulenameforrecently", this.currentModuleName);
+    this.storage.set("currentmodulenameforrecently", this.currentModuleName);
     this.loadModuleAndSubModule();
     this.checkquizquestioncount();
     this.activatedRoute.queryParams.subscribe((params: Params) => {
@@ -316,8 +318,8 @@ export class K12QuizComponent implements OnInit {
     var data = {
       country_id: this.currentCountryId,
       module_id: this.currentModuleId,
-      submodule_id: localStorage.getItem("learninghubsubmoduleid"),
-      category_id: localStorage.getItem("learningsubjectidforquiz"),
+      submodule_id: this.storage.get("learninghubsubmoduleid"),
+      category_id: this.storage.get("learningsubjectidforquiz"),
       quizquestion: this.quizData
     }
     this.moduleListService.submitQuizLearningHubQuiz(data).subscribe((res) => {
@@ -366,7 +368,7 @@ export class K12QuizComponent implements OnInit {
     var data = {
       countryId: this.currentCountryId,
       moduleId: this.currentModuleId,
-      submoduleId: localStorage.getItem("learninghubsubmoduleid")
+      submoduleId: this.storage.get("learninghubsubmoduleid")
     }
     this.moduleListService.ReviewQuizLearningHub(data).subscribe((res) => {
       this.quizData = res.userquiz.map((val: any) => {
@@ -386,7 +388,7 @@ export class K12QuizComponent implements OnInit {
     var data = {
       // countryId: this.currentCountryId,
       moduleId: this.currentModuleId,
-      submoduleId: localStorage.getItem("learninghubsubmoduleid")
+      submoduleId: this.storage.get("learninghubsubmoduleid")
     }
     this.moduleListService.learninghubquiz(data).subscribe((res) => {
       this.quizcount = res.count > 0 ? res.count : 0;
@@ -406,7 +408,7 @@ export class K12QuizComponent implements OnInit {
     var data = {
       moduleid: this.currentModuleId,
       countryid: this.currentCountryId,
-      submoduleid: localStorage.getItem("learninghubsubmoduleid")
+      submoduleid: this.storage.get("learninghubsubmoduleid")
     }
     this.moduleListService.checkModuleQuizCompletion(data).subscribe((res) => {
       this.quizpercentage = res.progress

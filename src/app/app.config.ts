@@ -41,7 +41,7 @@ export function tokenGetter(): string {
   const tokenKey = `${ngxLocalstorageConfiguration.prefix}${ngxLocalstorageConfiguration.delimiter}${environment.tokenKey}`;
   const token =
     localStorage.getItem(tokenKey) ||
-    localStorage.getItem(environment.tokenKey);
+      localStorage.getItem(environment.tokenKey);
 
   if (!token) {
     console.debug("No token found in localStorage");

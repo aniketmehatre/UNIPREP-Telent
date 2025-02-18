@@ -5,12 +5,13 @@ import {Observable, throwError} from "rxjs";
 import {PlaceOrderResponse, SubscriptionDetailResponse} from "../../../@Models/subscription";
 import { tap, catchError } from 'rxjs/operators';
 import { NGX_LOCAL_STORAGE_CONFIG } from "ngx-localstorage";
+import {StorageService} from "../../../storage.service";
 
 const ngxLocalstorageConfiguration = NGX_LOCAL_STORAGE_CONFIG as unknown as { prefix: string, delimiter: string };
 
 @Injectable({providedIn: 'root'})
 export class SubStoreService {
-    constructor(private http: HttpClient) { }
+    constructor(private http: HttpClient, private storage: StorageService) { }
     // getSubscriptionList(){
     //     return this.http.get<any>(environment.ApiUrl+'/getsubscriptions');
     // }
@@ -23,7 +24,7 @@ export class SubStoreService {
     getSubscriptionList(): Observable<any> {
         console.log('SubStoreService: Making API call to get subscription list');
         const tokenKey = `${ngxLocalstorageConfiguration.prefix}${ngxLocalstorageConfiguration.delimiter}${environment.tokenKey}`;
-        const token = localStorage.getItem(tokenKey);
+        const token = this.storage.get(tokenKey);
         console.log('SubStoreService: Token exists:', !!token);
         
         if (!token) {

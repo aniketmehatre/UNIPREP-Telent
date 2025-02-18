@@ -17,6 +17,7 @@ import { CommonModule } from "@angular/common";
 import { DialogModule } from "primeng/dialog";
 import { CarouselModule } from "primeng/carousel";
 import { PaginatorModule } from "primeng/paginator";
+import {StorageService} from "../../storage.service";
 @Component({
   selector: "uni-recentlyaddedquestions",
   templateUrl: "./recentlyaddedquestions.component.html",
@@ -79,10 +80,13 @@ export class RecentlyaddedquestionsComponent implements OnInit {
     .fill(0)
     .map((_, index) => index);
 
-  constructor(private route: ActivatedRoute, private dataService: DataService, private moduleListService: ModuleServiceService, private service: RecentlyaddedquestionService, private _location: Location, private locationService: LocationService, private _sanitizer: DomSanitizer, private router: Router) {}
+  constructor(private route: ActivatedRoute, private dataService: DataService,
+              private moduleListService: ModuleServiceService, private service: RecentlyaddedquestionService,
+              private _location: Location, private locationService: LocationService,
+              private _sanitizer: DomSanitizer, private router: Router, private storage: StorageService) {}
 
   ngOnInit(): void {
-    this.countryId = Number(localStorage.getItem("countryId"));
+    this.countryId = Number(this.storage.get("countryId"));
     this.route.params.subscribe((params) => {
       this.perpage = 50;
       this.pageno = 1;
@@ -126,7 +130,7 @@ export class RecentlyaddedquestionsComponent implements OnInit {
     ];
     // this.listQuestion$ = this.moduleListService.questionList$();
     // let data = {
-    //   countryId: Number(localStorage.getItem('countryId')),
+    //   countryId: Number(this.storage.get('countryId')),
     //   moduleId: this.currentModuleId,
     //   submoduleId: Number(this.subModuleId)
     // }

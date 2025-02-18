@@ -13,6 +13,7 @@ import { Location } from "@angular/common";
 import { CommonModule } from '@angular/common';
 import { DialogModule } from 'primeng/dialog';
 import { SkeletonModule } from 'primeng/skeleton';
+import {StorageService} from "../../../storage.service";
 @Component({
     selector: 'uni-k12-board',
     templateUrl: './k12-board.component.html',
@@ -69,11 +70,11 @@ export class K12BoardComponent implements OnInit {
     constructor(private moduleListService: ModuleServiceService, private router: Router, private dataService: DataService,
                 private authService: AuthService, private _location: Location,
                 private locationService: LocationService, private route: ActivatedRoute,
-                private ngxService: NgxUiLoaderService,
+                private ngxService: NgxUiLoaderService, private storage: StorageService,
                 private confirmationService: ConfirmationService, private pageFacade: PageFacadeService,
                 private meta: Meta,
                 private titleService: Title,) {
-        this.countryId = Number(localStorage.getItem('countryId'));
+        this.countryId = Number(this.storage.get('countryId'));
         this.dataService.countryIdSource.subscribe((data) => {
             if (this.countryId != data) {
                 this.ngOnInit();
@@ -117,7 +118,7 @@ export class K12BoardComponent implements OnInit {
         } else {
             this.ehitlabelIsShow = false;
         }
-        localStorage.setItem("modalcountryid", this.quizmoduleselectcountryidsetzero);
+        this.storage.set("modalcountryid", this.quizmoduleselectcountryidsetzero);
         this.init();
         this.moduleListService.getSubmodulesAndSpecialization().subscribe((res: any) => {
             this.allSearchedResult = res
@@ -125,7 +126,7 @@ export class K12BoardComponent implements OnInit {
     }
 
     init() {
-        this.currentCountryId = Number(localStorage.getItem('countryId'));
+        this.currentCountryId = Number(this.storage.get('countryId'));
         this.currentModuleSlug = this.router.url.split('/').pop();
         this.dataService.countryNameSource.subscribe((data) => {
             this.countryName = data;
@@ -140,14 +141,14 @@ export class K12BoardComponent implements OnInit {
         this.aboutModule = 'Explore a vast database of Q&A about:',
             this.moduleDetails = 'Scholarships, document checklist, Education loan, letter of Recommendation and many more!'
         this.howItWorksVideoLink = "https://www.youtube.com/embed/n9ECpsB6IoI?si=4coiypva6WZfr3NL";
-        localStorage.setItem("currentmodulenameforrecently", this.currentModuleName);
+        this.storage.set("currentmodulenameforrecently", this.currentModuleName);
         this.loadModuleAndSubModule();
         this.checkplanExpire();
         this.checkquizquestionmodule();
     }
 
     loadModuleAndSubModule() {
-        this.currentCountryId = Number(localStorage.getItem('countryId'));
+        this.currentCountryId = Number(this.storage.get('countryId'));
         let data: any = {
             moduleId: this.currentModuleId,
         }
@@ -165,12 +166,12 @@ export class K12BoardComponent implements OnInit {
 
 
     onSubModuleClick(id: any, submodule: any) {
-        localStorage.setItem('board-name', submodule.category);
+        this.storage.set('board-name', submodule.category);
         if (submodule.category == 'State' || submodule.category == 'state' || submodule.category == 'STATE'){
             this.router.navigate([`/pages/modules/k12-state/${id}`]);
         }else{
-            localStorage.setItem('selectedClass', id)
-            localStorage.setItem('state-name', '')
+            this.storage.set('selectedClass', id)
+            this.storage.set('state-name', '')
             this.router.navigate([`/pages/modules/k12-class/${id}`]);
         }
     }

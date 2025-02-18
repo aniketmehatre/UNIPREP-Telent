@@ -8,6 +8,7 @@ import { SelectModule } from 'primeng/select';
 import { CommonModule } from '@angular/common';
 import { DialogModule } from 'primeng/dialog';
 import { PaginatorModule } from 'primeng/paginator';
+import {StorageService} from "../../../storage.service";
 @Component({
     selector: 'uni-wealthleaderslist',
     templateUrl: './wealthleaderslist.component.html',
@@ -24,7 +25,8 @@ export class WealthleaderslistComponent implements OnInit {
   perpage: number = 50;
   pageno: number = 1;
   totalcount: number = 0;
-  constructor(private router:Router,private pageFacade: PageFacadeService,private service: FounderstoolService, private sanitizer: DomSanitizer,
+  constructor(private router:Router,private pageFacade: PageFacadeService,private service: FounderstoolService,
+              private storage: StorageService, private sanitizer: DomSanitizer,
     private fb: FormBuilder,
   ) {
     this.filterForm = this.fb.group({
@@ -79,7 +81,7 @@ export class WealthleaderslistComponent implements OnInit {
     this.getWealthLeaders();
   }
   viewReadAns(id:any,name:any){
-    localStorage.setItem("wealthleadersname",name)
+    this.storage.set("wealthleadersname",name)
     this.router.navigate(['/pages/education-tools/wealthleaderreadanswer',id]);
   }
 }

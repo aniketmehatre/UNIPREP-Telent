@@ -4,6 +4,7 @@ import {environment} from '@env/environment';
 import {EmployerGlobalService} from "../employer-global.service";
 import { CommonModule } from '@angular/common';
 import { TooltipModule } from 'primeng/tooltip';
+import {StorageService} from "../../../storage.service";
 @Component({
     selector: 'uni-career-tool',
     templateUrl: './career-tool.component.html',
@@ -238,13 +239,14 @@ export class CareerToolComponent implements OnInit {
     // }
   ]
 
-  constructor(private router: Router, private employerGlobalService: EmployerGlobalService) {
+  constructor(private router: Router, private employerGlobalService: EmployerGlobalService,
+              private storage: StorageService) {
     this.router.events.subscribe(event => {
       if (event instanceof NavigationEnd) {
         this.currentRoute = event.url;
         if (this.currentRoute.includes('career-tool')) {
-          localStorage.setItem('MainTitleCareerTool', '');
-          localStorage.setItem("employerName", '');
+          this.storage.set('MainTitleCareerTool', '');
+          this.storage.set("employerName", '');
           this.employerGlobalService.clearAll()
         }
       }

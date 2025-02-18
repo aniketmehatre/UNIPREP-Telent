@@ -13,6 +13,7 @@ import { AuthActions } from "./store/actions";
 import { authFeature } from "./store/reducer";
 import { NGX_LOCAL_STORAGE_CONFIG } from "ngx-localstorage";
 import { AuthTokenService } from "../core/services/auth-token.service";
+import {StorageService} from "../storage.service";
 const ngxLocalstorageConfiguration = NGX_LOCAL_STORAGE_CONFIG as unknown as { prefix: string, delimiter: string };
 
 @Injectable({
@@ -40,7 +41,8 @@ export class AuthService {
     private store: Store<AuthState>, 
     private router: Router, 
     private dataService: DataService,
-    private authTokenService: AuthTokenService
+    private authTokenService: AuthTokenService,
+    private storage: StorageService,
   ) {}
 
   getToken(): string | null {
@@ -245,28 +247,28 @@ export class AuthService {
 
   private async storeUserData(userDetails: any): Promise<void> {
     try {
-      if (userDetails.id) await this.encryptAndStore("UserID", userDetails.id.toString());
-      if (userDetails.name) await this.encryptAndStore("Name", userDetails.name);
-      if (userDetails.phone) await this.encryptAndStore("phone", userDetails.phone);
-      if (userDetails.email) await this.encryptAndStore("email", userDetails.email);
-      if (userDetails.home_country_name) await this.encryptAndStore("home_country_name", userDetails.home_country_name);
-      if (userDetails.selected_country) await this.encryptAndStore("countryId", userDetails.selected_country);
-      localStorage.setItem("countryId", userDetails.interested_country_id);
+      if (userDetails.id) this.storage.set("UserID", userDetails.id.toString());
+      if (userDetails.name) this.storage.set("Name", userDetails.name);
+      if (userDetails.phone) this.storage.set("phone", userDetails.phone);
+      if (userDetails.email) this.storage.set("email", userDetails.email);
+      if (userDetails.home_country_name) this.storage.set("home_country_name", userDetails.home_country_name);
+      if (userDetails.selected_country) this.storage.set("countryId", userDetails.selected_country);
+      this.storage.set("countryId", userDetails.interested_country_id);
     } catch (error) {
       console.error('Error storing user data:', error);
       throw error;
     }
   }
 
-  private async encryptAndStore(key: string, value: string): Promise<void> {
-    try {
-      const encryptedValue = await this.encryptData(value);
-      localStorage.setItem(key, encryptedValue);
-    } catch (error) {
-      console.error(`Error encrypting and storing ${key}:`, error);
-      throw error;
-    }
-  }
+  // private async encryptAndStore(key: string, value: string): Promise<void> {
+  //   try {
+  //     const encryptedValue = await this.encryptData(value);
+  //     this.storage.set(key, encryptedValue);
+  //   } catch (error) {
+  //     console.error(`Error encrypting and storing ${key}:`, error);
+  //     throw error;
+  //   }
+  // }
 
   private str2ab(str: string): Uint8Array {
     const buf = new ArrayBuffer(str.length);
@@ -305,71 +307,71 @@ export class AuthService {
     );
   }
 
-  async encryptData(data: any): Promise<string> {
-    try {
-      const salt = crypto.getRandomValues(new Uint8Array(16));
-      const iv = crypto.getRandomValues(new Uint8Array(12));
-      const key = await this.getKey(this.ab2str(salt));
-      
-      const encoder = new TextEncoder();
-      const dataStr = typeof data === 'string' ? data : JSON.stringify(data);
-      const encrypted = await crypto.subtle.encrypt(
-        {
-          name: 'AES-GCM',
-          iv: iv
-        },
-        key,
-        encoder.encode(dataStr)
-      );
+  // async encryptData(data: any): Promise<string> {
+  //   try {
+  //     const salt = crypto.getRandomValues(new Uint8Array(16));
+  //     const iv = crypto.getRandomValues(new Uint8Array(12));
+  //     const key = await this.getKey(this.ab2str(salt));
+  //
+  //     const encoder = new TextEncoder();
+  //     const dataStr = typeof data === 'string' ? data : JSON.stringify(data);
+  //     const encrypted = await crypto.subtle.encrypt(
+  //       {
+  //         name: 'AES-GCM',
+  //         iv: iv
+  //       },
+  //       key,
+  //       encoder.encode(dataStr)
+  //     );
+  //
+  //     // Combine salt + iv + encrypted data
+  //     const encryptedArray = new Uint8Array(salt.length + iv.length + encrypted.byteLength);
+  //     encryptedArray.set(salt, 0);
+  //     encryptedArray.set(iv, salt.length);
+  //     encryptedArray.set(new Uint8Array(encrypted), salt.length + iv.length);
+  //
+  //     return btoa(String.fromCharCode(...encryptedArray));
+  //   } catch (error) {
+  //     console.error('Error encrypting data:', error);
+  //     throw error;
+  //   }
+  // }
 
-      // Combine salt + iv + encrypted data
-      const encryptedArray = new Uint8Array(salt.length + iv.length + encrypted.byteLength);
-      encryptedArray.set(salt, 0);
-      encryptedArray.set(iv, salt.length);
-      encryptedArray.set(new Uint8Array(encrypted), salt.length + iv.length);
-
-      return btoa(String.fromCharCode(...encryptedArray));
-    } catch (error) {
-      console.error('Error encrypting data:', error);
-      throw error;
-    }
-  }
-
-  async decryptData(encryptedData: string): Promise<string> {
-    try {
-      if (!encryptedData) {
-        throw new Error("Encrypted data is empty!");
-      }
-
-      const encryptedArray = new Uint8Array(
-        atob(encryptedData).split('').map(char => char.charCodeAt(0))
-      );
-
-      // Extract salt, iv and encrypted data
-      const salt = encryptedArray.slice(0, 16);
-      const iv = encryptedArray.slice(16, 28);
-      const data = encryptedArray.slice(28);
-
-      const key = await this.getKey(this.ab2str(salt));
-
-      const decrypted = await crypto.subtle.decrypt(
-        {
-          name: 'AES-GCM',
-          iv: iv
-        },
-        key,
-        data
-      );
-
-      const decoder = new TextDecoder();
-      const decryptedText = decoder.decode(decrypted);
-
-      return decryptedText;
-    } catch (error) {
-      console.error('Error decrypting data:', error);
-      throw error;
-    }
-  }
+  // async decryptData(encryptedData: string): Promise<string> {
+  //   try {
+  //     if (!encryptedData) {
+  //       throw new Error("Encrypted data is empty!");
+  //     }
+  //
+  //     const encryptedArray = new Uint8Array(
+  //       atob(encryptedData).split('').map(char => char.charCodeAt(0))
+  //     );
+  //
+  //     // Extract salt, iv and encrypted data
+  //     const salt = encryptedArray.slice(0, 16);
+  //     const iv = encryptedArray.slice(16, 28);
+  //     const data = encryptedArray.slice(28);
+  //
+  //     const key = await this.getKey(this.ab2str(salt));
+  //
+  //     const decrypted = await crypto.subtle.decrypt(
+  //       {
+  //         name: 'AES-GCM',
+  //         iv: iv
+  //       },
+  //       key,
+  //       data
+  //     );
+  //
+  //     const decoder = new TextDecoder();
+  //     const decryptedText = decoder.decode(decrypted);
+  //
+  //     return decryptedText;
+  //   } catch (error) {
+  //     console.error('Error decrypting data:', error);
+  //     throw error;
+  //   }
+  // }
 
   getCountry() {
     const headers = new HttpHeaders().set("Accept", "application/json");
@@ -526,10 +528,10 @@ export class AuthService {
       }
       
       const tokenKey = `${ngxLocalstorageConfiguration.prefix}${ngxLocalstorageConfiguration.delimiter}${environment.tokenKey}`;
-      localStorage.setItem(tokenKey, cleanToken);
+      this.storage.set(tokenKey, cleanToken);
       
       // Verify token was saved correctly
-      const savedToken = localStorage.getItem(tokenKey);
+      const savedToken = this.storage.get(tokenKey);
       if (savedToken !== cleanToken) {
         throw new Error('Token verification failed after save');
       }
@@ -544,8 +546,8 @@ export class AuthService {
   private clearToken(): void {
     try {
       const tokenKey = `${ngxLocalstorageConfiguration.prefix}${ngxLocalstorageConfiguration.delimiter}${environment.tokenKey}`;
-      localStorage.removeItem(tokenKey);
-      localStorage.removeItem(environment.tokenKey); // Clear both possible locations
+      this.storage.remove(tokenKey);
+      this.storage.remove(environment.tokenKey); // Clear both possible locations
       this.resetGetMeCache(true); // Force cache reset
       console.debug('Token cleared successfully');
     } catch (error) {

@@ -18,6 +18,7 @@ import { InputTextModule } from "primeng/inputtext"
 import { InputGroupModule } from "primeng/inputgroup"
 import { ButtonModule } from "primeng/button"
 import { InputGroupAddonModule } from "primeng/inputgroupaddon"
+import {StorageService} from "../../storage.service";
 @Component({
 	selector: "uni-header-search",
 	templateUrl: "./header-search.component.html",
@@ -76,7 +77,8 @@ export class HeaderSearchComponent implements OnInit, OnDestroy {
 	currentRoute: string = ""
 	isButtonShowOnlyModulesMenus: boolean = false
 	@Output() windowChange = new EventEmitter()
-	constructor(private dashboardService: DashboardService, private dataService: DataService, private moduleStoreService: ModuleStoreService, private toastr: MessageService, private moduleListService: ModuleServiceService, private sanitizer: DomSanitizer, private locationService: LocationService, private route: Router, private elementRef: ElementRef, private service: AuthService, private renderer: Renderer2) {
+	constructor(private dashboardService: DashboardService, private dataService: DataService,
+				private storage: StorageService, private moduleStoreService: ModuleStoreService, private toastr: MessageService, private moduleListService: ModuleServiceService, private sanitizer: DomSanitizer, private locationService: LocationService, private route: Router, private elementRef: ElementRef, private service: AuthService, private renderer: Renderer2) {
 		this.dataService.chatTriggerSource.subscribe((message) => {
 			this.message = message
 		})
@@ -201,7 +203,7 @@ export class HeaderSearchComponent implements OnInit, OnDestroy {
 		}
 		this.searchInputValue = searchInput.value
 		const data = {
-			countryId: Number(localStorage.getItem("countryId")),
+			countryId: Number(this.storage.get("countryId")),
 			searchtag: searchInput.value,
 		}
 		this.dashboardService.searchKeyword(data).subscribe(

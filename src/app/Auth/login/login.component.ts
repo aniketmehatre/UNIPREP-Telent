@@ -195,7 +195,7 @@ export class LoginComponent implements OnInit, OnDestroy {
 			)
 
 			if (selectedCountry) {
-				localStorage.setItem("countryId", selectedCountry.id.toString())
+				this.storage.set("countryId", selectedCountry.id.toString())
 				this.dataService.changeCountryName(selectedCountry.country)
 				this.dataService.changeCountryFlag(selectedCountry.flag)
 				this.dataService.changeCountryId(selectedCountry.id)

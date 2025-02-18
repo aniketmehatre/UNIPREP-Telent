@@ -7,6 +7,7 @@ import { CommonModule } from "@angular/common"
 import { SkeletonModule } from "primeng/skeleton"
 import { TooltipModule } from "primeng/tooltip"
 import { RouterModule, Router } from "@angular/router"
+import {StorageService} from "../../../storage.service";
 
 @Component({
 	selector: "uni-learnmodules",
@@ -21,7 +22,7 @@ export class LearnModulesComponent implements OnInit {
 		private pageFacade: PageFacadeService,
 		private learnService: UniLearnService,
 		private arrayHeaderService: ArrayHeaderService,
-		private router: Router
+		private router: Router, private storage: StorageService
 	) {}
 
 	isSkeletonVisible: boolean = true
@@ -48,7 +49,7 @@ export class LearnModulesComponent implements OnInit {
 
 	onModuleClick(moduledata: learnModules) {
 		this.arrayHeaderService.addItem(moduledata.module_name)
-		localStorage.setItem("module_id", String(moduledata.id))
+		this.storage.set("module_id", String(moduledata.id))
 		// Navigate to submodules with query parameters using absolute path
 		this.router.navigate(['/pages/unilearn/submodules'], {
 			queryParams: {
