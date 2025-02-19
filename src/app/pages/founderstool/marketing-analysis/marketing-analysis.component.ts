@@ -102,7 +102,7 @@ export class MarketingAnalysisComponent implements OnInit {
       id: 3,
       question: {
         heading: 'Finance',
-        branches: ["What budget have you allocated for conducting this market research?", "What budget have you allocated for conducting this market research?", "What specific aspects do you want to focus on in the competitor analysis?", "What time frame do you have in mind for the market forecast?"]
+        branches: ["What budget have you allocated for conducting this market research?", " What are your primary revenue streams?", "What specific aspects do you want to focus on in the competitor analysis?", "What time frame do you have in mind for the market forecast?"]
       },
     },
   ];
