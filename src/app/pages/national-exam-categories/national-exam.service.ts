@@ -1,6 +1,7 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { environment } from '@env/environment';
+import { NationalExamResult } from 'src/app/@Models/nationl-exams.model';
 
 @Injectable({
   providedIn: 'root'
@@ -39,7 +40,7 @@ export class NationalExamService {
   
   GetResult(data:any){
     const headers = new HttpHeaders().set("Accept", "application/json");
-    return this.http.post<any>(environment.ApiUrl + "/showresult", data, {
+    return this.http.post<NationalExamResult>(environment.ApiUrl + "/showresult", data, {
       headers: headers,
     });
   }
