@@ -41,7 +41,7 @@ import { HeaderSearchModuleComponent } from "../pages/header-search-module/heade
     ReactiveFormsModule,
     InputTextModule,
     NgxIntlTelInputModule,
-    TabViewModule,
+    TabViewModule
   ],
   exports: [HeaderComponent, SidenavComponent, CountdownComponent,HeaderSearchComponent,  HeaderSearchModuleComponent],
 })
