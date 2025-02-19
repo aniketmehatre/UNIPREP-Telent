@@ -127,7 +127,7 @@
                         [autoDisplayFirst]="false">
                       </p-dropdown>
                       <input class="w-100 pl-4 border border-gray rounded-3" type="number" pInputText [placeholder]="form.get('currency_code').value ? 'Enter tuition fee in'+' '+form.get('currency_code').value+' '+'/year' : 'Enter tuition fee/year'"
-                        formControlName="fees" [max]="999999"/>
+                        formControlName="fees" [max]="99999999"/>
                     </div>
                     <p class="text-center" *ngIf="(form.get('fees')?.errors?.required || form.get('fees')?.errors?.max )&& submitted"
                       style="color: red">
