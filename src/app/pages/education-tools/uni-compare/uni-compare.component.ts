@@ -75,12 +75,16 @@ export class UniCompareComponent implements OnInit, OnDestroy {
       currency_code: [''],
       compare_currency_code: [''],
       compare_fees: ['', Validators.required],
+      expense_currency_code: [''],
+      compare_expense_currency_code: [''],
       expense: ['', Validators.required],
       compare_expenses: ['', Validators.required],
       period: ['', Validators.required],
       compare_period: ['', Validators.required],
     });
-
+    this.form.get('compare_currency_code')?.disable();
+    this.form.get('expense_currency_code')?.disable();
+    this.form.get('compare_expense_currency_code')?.disable();  
   }
 
   enableModule: boolean = true;
@@ -133,6 +137,14 @@ export class UniCompareComponent implements OnInit, OnDestroy {
     });
     this.educationToolService.getCurrencyAndCountries().subscribe(data => {
       this.currencyandCountryList = data;
+    });
+  }
+
+  changeCurrencyInTution(value: string) {
+    this.form.patchValue({
+      compare_currency_code: value,
+      expense_currency_code: value,
+      compare_expense_currency_code: value
     });
   }
 
@@ -197,7 +209,10 @@ export class UniCompareComponent implements OnInit, OnDestroy {
     }
     let data: any = {
       ...this.form.value,
-      mode: 'uni_compare'
+      mode: 'uni_compare',
+      compare_currency_code: this.form.get('compare_currency_code')?.value,
+      expense_currency_code: this.form.get('expense_currency_code')?.value,
+      compare_expense_currency_code: this.form.get('compare_expense_currency_code')?.value
     }
     this.educationToolService.getChatgptRecommendations(data).subscribe({
       next: response => {

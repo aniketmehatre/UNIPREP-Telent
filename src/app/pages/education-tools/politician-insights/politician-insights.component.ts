@@ -27,7 +27,7 @@ export interface Politician {
 })
 export class PoliticianInsightsComponent implements OnInit, OnDestroy {
   countrylist: any[] = [];
-  headertooltipname: string = "Politician Insights";
+  headertooltipname: string = "Education Tools - Politician Insights";
   isShowCountryData: boolean = false;
   isShowCountryQuesAns: boolean = false;
   questuionanswerlist: any[] = [];
