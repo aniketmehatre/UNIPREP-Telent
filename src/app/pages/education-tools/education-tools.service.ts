@@ -72,9 +72,9 @@ export class EducationToolsService {
   }
   
   // getCourseQandA(degree_id: number) {
-  getCourseQandA(degreeId: number, questionId?: number) {
+  getCourseQandA(degreeId: number,courseId: number, questionId?: number) {
     const headers = new HttpHeaders().set("Accept", "application/json");
-    let params = new HttpParams().set('degree_id', degreeId);
+    let params = new HttpParams().set('degree_id', degreeId).set('course_id', courseId);
     if (questionId) {
       params = params.set('question_id', questionId);
     }
