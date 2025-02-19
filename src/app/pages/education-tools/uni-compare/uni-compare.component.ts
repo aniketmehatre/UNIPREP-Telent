@@ -82,7 +82,7 @@ export class UniCompareComponent implements OnInit, OnDestroy {
       period: ['', Validators.required],
       compare_period: ['', Validators.required],
     });
-    this.form.get('compare_currency_code')?.disable();
+    // this.form.get('compare_currency_code')?.disable();
     this.form.get('expense_currency_code')?.disable();
     this.form.get('compare_expense_currency_code')?.disable();  
   }
