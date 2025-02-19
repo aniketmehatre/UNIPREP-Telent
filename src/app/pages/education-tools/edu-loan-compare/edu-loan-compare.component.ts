@@ -25,7 +25,7 @@ export class EduLoanCompareComponent implements OnInit, OnDestroy {
   studyDurationList: string[] = eduLoanOptions['Study Duration in months'];
   moratoriumPeriodList: string[] = eduLoanOptions['Moratorium Period: Repayment Start'];
   repaymentLoanList: string[] = eduLoanOptions['Repayment Start'];
-  intersetedTermList = ['Months', 'Years'];
+  intersetedTermList = eduLoanOptions['Study Duration in months'];
 
   isFromSavedData: boolean = false;
   recommadationSavedQuestionList: any = [];
