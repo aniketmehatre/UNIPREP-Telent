@@ -91,6 +91,7 @@ import { AverageSalaryPreparedListComponent } from "./averagesalaryestimator/pre
 import { JoboffercomparisontoolComponent } from "./job-tool/joboffercomparisontool/joboffercomparisontool.component";
 import { JobOfferPreparedListComponent } from "./job-tool/joboffercomparisontool/preparedlist/preparedlist.component";
 import { GlobalRepositoryComponent } from './global-repository/global-repository.component';
+import { GlobalEmploymentComponent } from "./global-employment-insights/global-employment-insights.component";
 
 // import { JobToolComponent } from './job-tool/job-tool.component';
 @NgModule({

@@ -300,6 +300,9 @@ export class CareerToolComponent implements OnInit {
     else if (mode == "fortune-companies") {
       this.router.navigate(['/pages/fortune-companies']);
     }
+    else if (mode == "global-employment-insights") {
+      this.router.navigate(['/pages/global-employment-insights']);
+    }
     else {
       this.router.navigate(['/pages/job-tool/list/employer-test/13']);
     }
