@@ -37,8 +37,12 @@
                         <div class="card questioncard">
                             <div class="card-body">
                                 <ng-container [ngSwitch]="item.contributiontier">
+                                    <div *ngSwitchCase="'Titan Contributor'" style="background-color: #1d4ed8;"
+                                        class="contributor-tag">Titan</div>
                                     <div *ngSwitchCase="'Diamond Contributor'" style="background-color: #808ec1;"
                                         class="contributor-tag">Diamond</div>
+                                    <div *ngSwitchCase="'Ruby Contributor'" style="background-color: #c8063b;"
+                                        class="contributor-tag">Ruby</div>
                                     <div *ngSwitchCase="'Platinum Contributor'" style="background-color: #404040;"
                                         class="contributor-tag">Platinum</div>
                                     <div *ngSwitchCase="'Gold Contributor'" style="background-color: #ec9d32;"
@@ -153,8 +157,8 @@
     </div>
 </p-dialog>
 
-<p-dialog #dialogContent [(visible)]="isQandAModal" [draggable]="false" [modal]="true"
-    class="questionmodal" header="Header" [maximizable]="true" (onShow)="onShowModal($event)">
+<p-dialog #dialogContent [(visible)]="isQandAModal" [draggable]="false" [modal]="true" class="questionmodal"
+    header="Header" [maximizable]="true" (onShow)="onShowModal($event)">
     <ng-template pTemplate="header">
         <div class="d-flex w-100 flex-column px-4">
             <div class="d-flex flex-row justify-content-md-between justify-content-center">
