@@ -60,8 +60,8 @@ export class BusinessForecastingToolComponent implements OnInit {
         heading: 'Basic Information',
         branches: ["What is your business type or industry?",
           "Does your business have seasonal functionalities?",
-          "What are the key revenue drivers for your business?",
-          "Does your business experience seasonality? If yes, please specify the peak seasons"]
+          "Does your business experience seasonality? If yes, please specify the peak seasons",
+          "What are the key revenue drivers for your business?"]
       },
     },
     {
@@ -69,8 +69,7 @@ export class BusinessForecastingToolComponent implements OnInit {
       question: {
         heading: 'Marketing & Sales',
         branches: ["Who is your target audience?",
-          "What are your growth assumptions?",
-          "What are the current market trends affecting your industry?"]
+          "What are your growth assumptions?"]
       },
     },
     {
