@@ -16,3 +16,9 @@ export interface CourseNavigator {
   created_at: string;
   updated_at: string;
 }
+
+export interface CourseSubmodulesList{
+  id: number;
+  icon: string;
+  submodule_name: string;
+}
