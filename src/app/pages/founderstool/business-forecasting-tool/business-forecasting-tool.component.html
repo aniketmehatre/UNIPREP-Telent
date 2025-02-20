@@ -42,25 +42,25 @@
                                 </div>
                                 <div class="d-flex flex-column gap-2 mb-2">
                                     <h5 class="uniprep-primary fw-semibold mt-3 mb-1">
-                                        Does your business have seasonal functionalities
+                                        {{ recommendation.question.branches[1] }}
                                     </h5>
                                 <div class="d-flex justify-content-center align-items-center gap-4 mb-2">
                                     <button type="button" (click)="onEnableDisableSeason(true);" [ngClass]="{
-                                        'active-btn': isSessonEnable}"
-                                        class="btn p-4 btn-primary-border" style="padding-inline: 6rem !important">
+                                        'active-btn': this.form.get('seasonalfunctionality')?.value}"
+                                        class="btn p-4 btn-primary-border"  style="padding-inline: 6rem !important">
                                         Yes
                                     </button>
                                     <button type="button" (click)="onEnableDisableSeason(false);" 
                                     [ngClass]="{
-                                        'active-btn': !isSessonEnable}"
+                                        'active-btn': !this.form.get('seasonalfunctionality')?.value}"
                                         class="btn rounded-1 p-4 btn-primary-border" style="padding-inline: 6rem !important">
                                         No
                                     </button>
                                 </div>
                                 </div>
-                                <div class="d-flex flex-column gap-2 mb-1" *ngIf="isSessonEnable">
+                                <div class="d-flex flex-column gap-2 mb-1" *ngIf="this.form.get('seasonalfunctionality')?.value">
                                     <h5 class="uniprep-primary fw-semibold mt-3 mb-1">
-                                        {{ recommendation.question.branches[1] }}
+                                        {{ recommendation.question.branches[2] }}
                                     </h5>
                                     <p-multiSelect [options]="seasonsList" styleClass="w-100"
                                         formControlName="seasons" optionLabel="name" optionValue="name"

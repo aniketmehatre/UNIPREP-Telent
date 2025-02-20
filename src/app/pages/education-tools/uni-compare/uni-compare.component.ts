@@ -94,12 +94,14 @@ export class UniCompareComponent implements OnInit, OnDestroy {
       id: 1,
       question: {
         heading: 'University Details',
+        branches: ['Which country are you planning to study in', 'Which university are you applying to?', 'What is your chosen specialization or field of study?']
       },
     },
     {
       id: 2,
       question: {
         heading: 'Addtional Details',
+        branches: ['What is the Overall tuition fee per year for your program?', 'What is your expected annual living expense?', 'How many months of stayback are allowed after graduation?']
       },
     },
   ];
@@ -308,8 +310,50 @@ export class UniCompareComponent implements OnInit, OnDestroy {
   }
 
   downloadRecommadation() {
+    const formValue = ['country', 'university', 'specialization', 'fees', 'expense', 'period'];
+    const formData = this.form.value;
+    let addingInput = `<p><strong>Input:<br></strong></p>`;
+
+    // Keep track of which formValue index we're currently using
+    let formValueIndex = 0;
+
+    this.recommendations.forEach((category: any) => {
+      addingInput += `<p><strong>${category.question.heading}</strong></p>`;
+
+      category.question.branches.forEach((branchQuestion: any) => {
+        addingInput += `<p>${branchQuestion}</p>`;
+
+        let currentAnswer = "";
+        const currentFormField = formValue[formValueIndex];
+
+        if (formData && formData[currentFormField]) {
+          switch (currentFormField) {
+            case 'fees':
+              currentAnswer = `1. ${formData['currency_code']} ${formData[currentFormField]}   2. ${formData['compare_currency_code']} ${formData['compare_' + currentFormField]}`;
+              break;
+            case 'expense':
+              currentAnswer = `1. ${formData['currency_code']} ${formData[currentFormField]}   2. ${formData['currency_code']} ${formData['compare_expenses']}`;
+              break;
+            default:
+              currentAnswer = `1. ${formData[currentFormField]}   2. ${formData['compare_' + currentFormField]} `;
+              break;
+          }
+        } else {
+          currentAnswer = "No answer provided";
+        }
+
+        addingInput += `<p><strong>${currentAnswer}</strong></p>`;
+
+        formValueIndex++;
+      });
+
+      // Add spacing between categories
+      addingInput += `<br>`;
+    });
+
+    let finalRecommendation = addingInput + '<p><strong>Response:<br></strong></p>' + this.recommendationData;
     let paramData: DownloadRespose = {
-      response: this.recommendationData,
+      response: finalRecommendation,
       module_name: "Uni Compare",
       file_name: "uni_compare"
     };
