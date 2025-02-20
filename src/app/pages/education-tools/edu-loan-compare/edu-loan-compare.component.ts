@@ -21,6 +21,9 @@ import { SelectModule } from 'primeng/select';
 import { InputGroupModule } from 'primeng/inputgroup';
 import { InputTextModule } from 'primeng/inputtext';
 import { InputGroupAddonModule } from 'primeng/inputgroupaddon';
+import { DownloadRespose } from 'src/app/@Models/travel-tools.model';
+import { TravelToolsService } from '../../travel-tools/travel-tools.service';
+
 @Component({
   selector: 'uni-edu-loan-compare',
   templateUrl: './edu-loan-compare.component.html',
@@ -37,7 +40,7 @@ export class EduLoanCompareComponent implements OnInit, OnDestroy {
   studyDurationList: string[] = eduLoanOptions['Study Duration in months'];
   moratoriumPeriodList: string[] = eduLoanOptions['Moratorium Period: Repayment Start'];
   repaymentLoanList: string[] = eduLoanOptions['Repayment Start'];
-  intersetedTermList = ['Months', 'Years'];
+  intersetedTermList = eduLoanOptions['Study Duration in months'];
 
   isFromSavedData: boolean = false;
   recommadationSavedQuestionList: any = [];
@@ -72,7 +75,8 @@ export class EduLoanCompareComponent implements OnInit, OnDestroy {
     private authService: AuthService,
     private router: Router,
     private dataService: DataService,
-    private pageFacade: PageFacadeService
+    private pageFacade: PageFacadeService,
+    private travelToolService: TravelToolsService
   ) {
     this.form = this.fb.group({
       bankname: ['', Validators.required],
@@ -195,6 +199,7 @@ export class EduLoanCompareComponent implements OnInit, OnDestroy {
   getRecommendation() {
     this.submitted = false;
     const formData = this.form.value;
+    console.log(formData);
     if (this.activePageIndex == 2) {
       if (!formData.studyduration || !formData.compare_studyduration || !formData.moratoriumperiod || !formData.compare_moratoriumperiod || !formData.loanrepaymentperiod || !formData.compare_loanrepaymentperiod) {
         this.submitted = true;
@@ -207,6 +212,7 @@ export class EduLoanCompareComponent implements OnInit, OnDestroy {
     }
     let data: any = {
       ...this.form.value,
+      compare_currency: this.form?.value?.currency,
       mode: 'loan_comparison_tool'
     }
     this.educationToolService.getChatgptRecommendations(data).subscribe({
@@ -290,24 +296,15 @@ export class EduLoanCompareComponent implements OnInit, OnDestroy {
   }
 
   downloadRecommadation() {
-    this.educationToolService.downloadRecommendation({ data: this.recommendationData }).subscribe({
-      next: (response: any) => {
-        this.educationToolService.downloadFile(response.url).subscribe((blob) => {
-          const a = document.createElement("a");
-          const objectUrl = window.URL.createObjectURL(blob);
-
-          a.href = objectUrl;
-          a.download = "edu-loan-comapre-tool.pdf";
-          document.body.appendChild(a);
-
-          a.click();
-          window.URL.revokeObjectURL(objectUrl);
-          document.body.removeChild(a);
-        });
-      },
-      error: (err) => {
-        console.log(err?.error?.message);
-      }
+    let paramData: DownloadRespose = {
+      response: this.recommendationData,
+      module_name: "Edu Loan Comparison",
+      file_name: "edu_loan_comparison"
+    };
+    this.travelToolService.convertHTMLtoPDF(paramData).then(() => {
+      console.log("PDF successfully generated.");
+    }).catch(error => {
+      console.error("Error generating PDF:", error);
     });
   }
 

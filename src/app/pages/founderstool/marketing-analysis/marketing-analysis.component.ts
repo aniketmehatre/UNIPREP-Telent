@@ -26,6 +26,8 @@ export interface selectList {
   name: string;
 }
 import { marketingAnalysisData } from './marketing-analysis.data';
+import { TravelToolsService } from '../../travel-tools/travel-tools.service';
+import { DownloadRespose } from 'src/app/@Models/travel-tools.model';
 
 @Component({
     selector: 'uni-marketing-analysis',
@@ -77,7 +79,7 @@ export class MarketingAnalysisComponent implements OnInit {
     private toast: MessageService,
     private authService: AuthService,
     private router: Router,
-    private dataService: DataService,
+    private travelToolService: TravelToolsService,
     private pageFacade: PageFacadeService
   ) {
     this.marketingForm = this.fb.group({
@@ -118,7 +120,7 @@ export class MarketingAnalysisComponent implements OnInit {
       id: 3,
       question: {
         heading: 'Finance',
-        branches: ["What budget have you allocated for conducting this market research?", "What budget have you allocated for conducting this market research?", "What specific aspects do you want to focus on in the competitor analysis?", "What time frame do you have in mind for the market forecast?"]
+        branches: ["What budget have you allocated for conducting this market research?", " What are your primary revenue streams?", "What specific aspects do you want to focus on in the competitor analysis?", "What time frame do you have in mind for the market forecast?"]
       },
     },
   ];
@@ -306,24 +308,15 @@ export class MarketingAnalysisComponent implements OnInit {
   }
 
   downloadRecommadation() {
-    this.foundersToolsService.downloadRecommendation({ data: this.recommendationData }).subscribe({
-      next: (response: any) => {
-        this.foundersToolsService.downloadFile(response.url).subscribe((blob) => {
-          const a = document.createElement("a");
-          const objectUrl = window.URL.createObjectURL(blob);
-
-          a.href = objectUrl;
-          a.download = "marketing-analysis.pdf";
-          document.body.appendChild(a);
-
-          a.click();
-          window.URL.revokeObjectURL(objectUrl);
-          document.body.removeChild(a);
-        });
-      },
-      error: (err) => {
-        console.log(err?.error?.message);
-      }
+    let paramData: DownloadRespose = {
+      response: this.recommendationData,
+      module_name: "Marketing Analysis",
+      file_name: "marketing_analysis"
+    };
+    this.travelToolService.convertHTMLtoPDF(paramData).then(() => {
+      console.log("PDF successfully generated.");
+    }).catch(error => {
+      console.error("Error generating PDF:", error);
     });
   }
 

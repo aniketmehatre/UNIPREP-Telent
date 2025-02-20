@@ -527,7 +527,9 @@ uni-salaryhackslists,
 uni-seekercountries,
 uni-seekerlists,
 uni-fortune-companies-lists,
-uni-fortune-companies-data-list {
+uni-fortune-companies-data-list,
+uni-global-employment-country-lists,
+uni-global-employment-data-list  {
 	display: flex;
 	flex: 1;
 	height: 100%;
@@ -2282,7 +2284,6 @@ uni-job-seeker-success-stories {
 	}
 
 }
-
 .dropdownimg {
     width: 24px;
     height: 24px;
@@ -2330,4 +2331,28 @@ uni-fortune-companies {
 .poppins-content {
 	font-family: "Poppins", sans-serif !important;
 	font-size: 14px !important;
+}
+
+.custom-dialog .p-dialog-header {
+	padding: 1rem 1.5rem 0 !important;
+}
+
+uni-global-employment-insights {
+	display: flex;
+	flex: 1;
+	height: 100%;
+	flex-direction: column;
+	overflow: hidden;
+	uni-global-employment-country-lists {
+		flex: 1;
+		overflow-y: auto;
+		display: flex;
+		flex-direction: column;
+	}
+	uni-global-employment-data-list {
+		flex: 1;
+		overflow-y: auto;
+		display: flex;
+		flex-direction: column;
+	}
 }

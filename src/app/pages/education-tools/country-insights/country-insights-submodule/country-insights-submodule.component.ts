@@ -42,8 +42,10 @@ export class CountryInsightsSubmoduleComponent implements OnInit {
 
   ngOnInit(): void {
     this.moduleId = this.route.snapshot.params?.['id'];
+    // this.countryId = this.storage.get('country_insights_country') || '';
+    // this.countryname = this.storage.get('country_name') || '';
     this.countryId = this.storage.get('country_insights_country') || '';
-    this.countryname = this.storage.get('country_name') || '';
+    this.countryname = this.storage.get('country_insights_country_name') || '';
     this.getQuizQuestionData();
   }
 

@@ -17,6 +17,9 @@ import { SelectModule } from 'primeng/select';
 import { InputGroupModule } from 'primeng/inputgroup';
 import { InputTextModule } from 'primeng/inputtext';
 import { InputGroupAddonModule } from 'primeng/inputgroupaddon';
+import { DownloadRespose } from 'src/app/@Models/travel-tools.model';
+import { TravelToolsService } from '../../travel-tools/travel-tools.service';
+
 @Component({
     selector: 'uni-ai-business-advisor',
     templateUrl: './ai-business-advisor.component.html',
@@ -58,7 +61,8 @@ export class AiBusinessAdvisorComponent implements OnInit {
     private fb: FormBuilder,
     private foundersToolService: FounderstoolService,
     private router: Router,
-    private toast: MessageService
+    private toast: MessageService,
+    private travelToolService: TravelToolsService
   ) { }
 
   ngOnInit(): void {
@@ -165,27 +169,17 @@ export class AiBusinessAdvisorComponent implements OnInit {
     this.toast.add({ severity: "success", summary: "Success", detail: "Response saved successfully" });
   }
 
-  downloadRecommendation() {
-    this.foundersToolService.downloadRecommendation({ data: this.recommendationData })
-      .subscribe({
-        next: (response: any) => {
-          this.foundersToolService.downloadFile(response.url).subscribe((blob) => {
-            const a = document.createElement("a");
-            const objectUrl = window.URL.createObjectURL(blob);
-
-            a.href = objectUrl;
-            a.download = "business-advisor.pdf";
-            document.body.appendChild(a);
-
-            a.click();
-            window.URL.revokeObjectURL(objectUrl);
-            document.body.removeChild(a);
-          });
-        },
-        error: (err) => {
-          console.log(err?.error?.message);
-        }
-      });
+  downloadRecommadation() {
+    let paramData: DownloadRespose = {
+      response: this.recommendationData,
+      module_name: "Business Advisor",
+      file_name: "business_advisor"
+    };
+    this.travelToolService.convertHTMLtoPDF(paramData).then(() => {
+      console.log("PDF successfully generated.");
+    }).catch(error => {
+      console.error("Error generating PDF:", error);
+    });
   }
 
 

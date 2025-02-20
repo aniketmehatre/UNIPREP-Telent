@@ -95,6 +95,7 @@ import { OverlayPanelModule } from "primeng/overlaypanel";
 
 
 import { GlobalRepositoryComponent } from './global-repository/global-repository.component';
+import { GlobalEmploymentComponent } from "./global-employment-insights/global-employment-insights.component";
 
 @NgModule({
 	declarations: [

@@ -23,6 +23,8 @@ import { InputTextModule } from 'primeng/inputtext';
 import { InputGroupAddonModule } from 'primeng/inputgroupaddon';
 
 import { startupDropdownData } from './startup-expense.data';
+import { TravelToolsService } from '../../travel-tools/travel-tools.service';
+import { DownloadRespose } from 'src/app/@Models/travel-tools.model';
 // interface selectList {
 //   name: string;
 // }
@@ -76,7 +78,7 @@ export class StartUpExpenseEstimateComponent implements OnInit {
     private toast: MessageService,
     private authService: AuthService,
     private router: Router,
-    private dataService: DataService,
+    private travelToolService: TravelToolsService,
     private pageFacade: PageFacadeService
   ) {
     this.marketingForm = this.fb.group({
@@ -283,24 +285,15 @@ export class StartUpExpenseEstimateComponent implements OnInit {
   }
 
   downloadRecommadation() {
-    this.foundersToolsService.downloadRecommendation({ data: this.recommendationData }).subscribe({
-      next: (response: any) => {
-        this.foundersToolsService.downloadFile(response.url).subscribe((blob) => {
-          const a = document.createElement("a");
-          const objectUrl = window.URL.createObjectURL(blob);
-
-          a.href = objectUrl;
-          a.download = "startup-expenses-estimate.pdf";
-          document.body.appendChild(a);
-
-          a.click();
-          window.URL.revokeObjectURL(objectUrl);
-          document.body.removeChild(a);
-        });
-      },
-      error: (err) => {
-        console.log(err?.error?.message);
-      }
+    let paramData: DownloadRespose = {
+      response: this.recommendationData,
+      module_name: "Startup Expenses Estimate",
+      file_name: "startup_expense_estimate"
+    };
+    this.travelToolService.convertHTMLtoPDF(paramData).then(() => {
+      console.log("PDF successfully generated.");
+    }).catch(error => {
+      console.error("Error generating PDF:", error);
     });
   }
 

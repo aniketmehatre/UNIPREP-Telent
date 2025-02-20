@@ -17,6 +17,8 @@ import { SelectModule } from 'primeng/select';
 import { InputGroupModule } from 'primeng/inputgroup';
 import { InputTextModule } from 'primeng/inputtext';
 import { InputGroupAddonModule } from 'primeng/inputgroupaddon';
+import { DownloadRespose } from 'src/app/@Models/travel-tools.model';
+import { TravelToolsService } from '../../travel-tools/travel-tools.service';
 
 interface DropDown {
   [key: string]: string;
@@ -67,7 +69,8 @@ export class StartupRiskAssessmentComponent implements OnInit {
     private fb: FormBuilder,
     private founderToolService: FounderstoolService,
     private router: Router,
-    private toast: MessageService
+    private toast: MessageService,
+    private travelToolService: TravelToolsService
   ) { }
 
   ngOnInit(): void {
@@ -188,26 +191,16 @@ export class StartupRiskAssessmentComponent implements OnInit {
     this.toast.add({ severity: "success", summary: "Success", detail: "Response saved successfully" });
   }
 
-  downloadRecommendation() {
-    this.founderToolService.downloadRecommendation({ data: this.recommendationData })
-      .subscribe({
-        next: (response: any) => {
-          this.founderToolService.downloadFile(response.url).subscribe((blob) => {
-            const a = document.createElement("a");
-            const objectUrl = window.URL.createObjectURL(blob);
-
-            a.href = objectUrl;
-            a.download = "start-risk-assessment.pdf";
-            document.body.appendChild(a);
-
-            a.click();
-            window.URL.revokeObjectURL(objectUrl);
-            document.body.removeChild(a);
-          });
-        },
-        error: (err) => {
-          console.log(err?.error?.message);
-        }
-      });
+  downloadRecommadation() {
+    let paramData: DownloadRespose = {
+      response: this.recommendationData,
+      module_name: "Startup Risk Assessment",
+      file_name: "startup_risk_assessment"
+    };
+    this.travelToolService.convertHTMLtoPDF(paramData).then(() => {
+      console.log("PDF successfully generated.");
+    }).catch(error => {
+      console.error("Error generating PDF:", error);
+    });
   }
 }

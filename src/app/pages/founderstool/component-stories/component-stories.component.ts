@@ -31,6 +31,7 @@ export class ComponentStoriesComponent implements OnInit {
   dataanswerquestion: any;
   countryId:any;
   moduleid:any;
+  countryname:any;
   ngOnInit(): void {
     this.locationService.getAllCountryList().subscribe((res: any) => {
       this.countrylist = res.data
@@ -41,12 +42,12 @@ export class ComponentStoriesComponent implements OnInit {
       this.modename = "startup_funding_hacks";
       this.moduleid=23;
     } else if (this.currentRoute.includes('founder-success-stories')) {
-      this.headertooltipname = "Founder-Success-Stories"
+      this.headertooltipname = "Founder Success Stories"
       this.modename = "founder_success_stories";
       this.moduleid=24;
     } else if (this.currentRoute.includes('founder-failure-stories')) {
       this.modename = "founder_failure_stories";
-      this.headertooltipname = "Founder-Failure-Stories"
+      this.headertooltipname = "Founder Failure Stories"
       this.moduleid=25;
     } else if (this.currentRoute.includes('startup-success-stories')) {
       this.modename = "startup_success_stories";
@@ -74,6 +75,7 @@ export class ComponentStoriesComponent implements OnInit {
         this.isShowCountryData=true;
       }
     });
+    this.countryname=localStorage.getItem("countrynameforcomponentstorie")
   }
   openVideoPopup(videoLink: string) {
     this.pageFacade.openHowitWorksVideoPopup(videoLink);
@@ -88,6 +90,7 @@ export class ComponentStoriesComponent implements OnInit {
   }
   showDatas(data: any) {
     // get all country ,question, answer api
+    localStorage.setItem("countrynameforcomponentstorie",data.country)
     this.questuionanswerlist=[]; 
     if (this.currentRoute.includes('startup-funding-hacks')) {
       this.router.navigate(['/pages/founderstool/startup-funding-hacks', data.id]); 

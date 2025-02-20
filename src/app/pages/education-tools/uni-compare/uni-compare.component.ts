@@ -23,6 +23,8 @@ import { InputGroupModule } from 'primeng/inputgroup';
 import { InputTextModule } from 'primeng/inputtext';
 import { InputGroupAddonModule } from 'primeng/inputgroupaddon';
 import { uniCompareOptions } from './uni-compare.data';
+import { DownloadRespose } from 'src/app/@Models/travel-tools.model';
+import { TravelToolsService } from '../../travel-tools/travel-tools.service';
 
 @Component({
   selector: 'uni-uni-compare',
@@ -73,7 +75,9 @@ export class UniCompareComponent implements OnInit, OnDestroy {
     private authService: AuthService,
     private router: Router,
     private dataService: DataService,
-    private pageFacade: PageFacadeService
+    private pageFacade: PageFacadeService,
+    private travelToolService: TravelToolsService
+
   ) {
     this.form = this.fb.group({
       country: ['', Validators.required],
@@ -86,12 +90,16 @@ export class UniCompareComponent implements OnInit, OnDestroy {
       currency_code: [''],
       compare_currency_code: [''],
       compare_fees: ['', Validators.required],
+      expense_currency_code: [''],
+      compare_expense_currency_code: [''],
       expense: ['', Validators.required],
       compare_expenses: ['', Validators.required],
       period: ['', Validators.required],
       compare_period: ['', Validators.required],
     });
-
+    // this.form.get('compare_currency_code')?.disable();
+    this.form.get('expense_currency_code')?.disable();
+    this.form.get('compare_expense_currency_code')?.disable();  
   }
 
   enableModule: boolean = true;
@@ -144,6 +152,14 @@ export class UniCompareComponent implements OnInit, OnDestroy {
     });
     this.educationToolService.getCurrencyAndCountries().subscribe(data => {
       this.currencyandCountryList = data;
+    });
+  }
+
+  changeCurrencyInTution(value: string) {
+    this.form.patchValue({
+      compare_currency_code: value,
+      expense_currency_code: value,
+      compare_expense_currency_code: value
     });
   }
 
@@ -208,7 +224,10 @@ export class UniCompareComponent implements OnInit, OnDestroy {
     }
     let data: any = {
       ...this.form.value,
-      mode: 'uni_compare'
+      mode: 'uni_compare',
+      compare_currency_code: this.form.get('compare_currency_code')?.value,
+      expense_currency_code: this.form.get('expense_currency_code')?.value,
+      compare_expense_currency_code: this.form.get('compare_expense_currency_code')?.value
     }
     this.educationToolService.getChatgptRecommendations(data).subscribe({
       next: response => {
@@ -304,26 +323,17 @@ export class UniCompareComponent implements OnInit, OnDestroy {
   }
 
   downloadRecommadation() {
-    this.educationToolService.downloadRecommendation({ data: this.recommendationData }).subscribe({
-      next: (response: any) => {
-        this.educationToolService.downloadFile(response.url).subscribe((blob) => {
-          const a = document.createElement("a");
-          const objectUrl = window.URL.createObjectURL(blob);
-
-          a.href = objectUrl;
-          a.download = "uni-compare.pdf";
-          document.body.appendChild(a);
-
-          a.click();
-          window.URL.revokeObjectURL(objectUrl);
-          document.body.removeChild(a);
-        });
-      },
-      error: (err) => {
-        console.log(err?.error?.message);
-      }
+    let paramData: DownloadRespose = {
+      response: this.recommendationData,
+      module_name: "Uni Compare",
+      file_name: "uni_compare"
+    };
+    this.travelToolService.convertHTMLtoPDF(paramData).then(() => {
+      console.log("PDF successfully generated.");
+    }).catch(error => {
+      console.error("Error generating PDF:", error);
     });
-  }
+  } 
 
   updatePanelStyle = () => {
     this.panelStyle = window.innerWidth > 990 ? { width: '370px' } : { width: '100%' };

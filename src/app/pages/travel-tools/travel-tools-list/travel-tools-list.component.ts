@@ -12,6 +12,7 @@ import { InputGroupAddonModule } from 'primeng/inputgroupaddon';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { SelectModule } from 'primeng/select';
 import { RouterModule } from '@angular/router';
+import { environment } from "@env/environment";
 
 @Component({
     selector: 'uni-travel-tools-list',
@@ -37,52 +38,53 @@ import { RouterModule } from '@angular/router';
 })
 export class TravelToolsListComponent implements OnInit {
     isLaunchingSoon = false;
+    domainUrl:string = `https://${environment.domain}/uniprepapi/storage/app/public/ToolIcons/travel-tools/`;  
     travelToolsList: any[] = [
       {
         title: "Global Travel Visa",
        
-        image: "https://api.uniprep.ai/uniprepapi/storage/app//public/icon/modules/job-interview.svg",
+        image: this.domainUrl+"GlobalTravelVisa.svg",
         url: "/pages/travel-tools/travel-visa",
         launch_soon: true
       },
       {
         title: "Travel Cost Estimator",
        
-        image: "https://api.uniprep.ai/uniprepapi/storage/app//public/icon/modules/job-interview.svg",
+        image: this.domainUrl+"TravelCostEstimator.svg",
         url: "/pages/travel-tools/travel-cost-estimator",
         launch_soon: false
       },
       {
         title: "Travel Visit Planner",
        
-        image: "https://api.uniprep.ai/uniprepapi/storage/app//public/icon/modules/job-interview.svg",
+        image: this.domainUrl+"TravelVisitPlanner.svg",
         url: "/pages/travel-tools/travel-visit-planner",
         launch_soon: false
       },
       {
         title: "Travel Packing Planner",
        
-        image: "https://api.uniprep.ai/uniprepapi/storage/app//public/icon/modules/job-interview.svg",
+        image: this.domainUrl+"TravelPackingPlanner.svg",
         url: "/pages/travel-tools/travel-packing-planner",
         launch_soon: false
       },
       {
         title: "Trip Length Finder",
-        image: "https://api.uniprep.ai/uniprepapi/storage/app//public/icon/modules/job-interview.svg",
+        image: this.domainUrl+"TripLengthFinder.svg",
         url: "/pages/travel-tools/trip-length-finder",
         launch_soon: false
       },
       {
         title: "Travel Glossary",
        
-        image: "https://api.uniprep.ai/uniprepapi/storage/app//public/icon/modules/job-interview.svg",
+        image: this.domainUrl+"TravelGlossary.svg",
         url: "/pages/travel-tools/travel-glossary",
         launch_soon: false
       },
       {
         title: "Cost of Living Comparision",
        
-        image: "https://api.uniprep.ai/uniprepapi/storage/app//public/icon/modules/job-interview.svg",
+        image: this.domainUrl+"CostOfLiving.svg",
         url: "/pages/job-tool/cost-of-living",
         launch_soon: false
       },

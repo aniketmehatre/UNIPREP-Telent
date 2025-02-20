@@ -302,6 +302,10 @@ const routes: Routes = [
                 path: 'global-repo',
                 component: GlobalRepositoryComponent
             },
+            {
+                path: 'global-employment-insights',
+                loadChildren: () => import('./global-employment-insights/global-employment-insights.module').then(m => m.GlobalEmploymentModule)
+            },
         ]
     }
 ];

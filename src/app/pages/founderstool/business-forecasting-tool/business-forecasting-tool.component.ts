@@ -22,6 +22,9 @@ import { SelectModule } from 'primeng/select';
 import { InputGroupModule } from 'primeng/inputgroup';
 import { InputTextModule } from 'primeng/inputtext';
 import { InputGroupAddonModule } from 'primeng/inputgroupaddon';
+import { DownloadRespose } from 'src/app/@Models/travel-tools.model';
+import { TravelToolsService } from '../../travel-tools/travel-tools.service';
+
 @Component({
     selector: 'uni-business-forecasting-tool',
     templateUrl: './business-forecasting-tool.component.html',
@@ -103,7 +106,8 @@ export class BusinessForecastingToolComponent implements OnInit {
     private authService: AuthService,
     private router: Router,
     private pageFacade: PageFacadeService,
-    private toast: MessageService
+    private toast: MessageService,
+    private travelToolService: TravelToolsService
   ) {
     this.form = this.fb.group({
       industry: ['', Validators.required],
@@ -322,27 +326,17 @@ export class BusinessForecastingToolComponent implements OnInit {
     this.toast.add({ severity: "success", summary: "Success", detail: "Response saved successfully" });
   }
 
-  downloadRecommendation() {
-    this.foundersToolsService.downloadRecommendation({ data: this.recommendationData })
-      .subscribe({
-        next: (response: any) => {
-          this.foundersToolsService.downloadFile(response.url).subscribe((blob) => {
-            const a = document.createElement("a");
-            const objectUrl = window.URL.createObjectURL(blob);
-
-            a.href = objectUrl;
-            a.download = "business-forecating-tool.pdf";
-            document.body.appendChild(a);
-
-            a.click();
-            window.URL.revokeObjectURL(objectUrl);
-            document.body.removeChild(a);
-          });
-        },
-        error: (err) => {
-          console.log(err?.error?.message);
-        }
-      });
+  downloadRecommadation() {
+    let paramData: DownloadRespose = {
+      response: this.recommendationData,
+      module_name: "Revenue Forecasting Tool",
+      file_name: "revenue_forecasting_tool"
+    };
+    this.travelToolService.convertHTMLtoPDF(paramData).then(() => {
+      console.log("PDF successfully generated.");
+    }).catch(error => {
+      console.error("Error generating PDF:", error);
+    });
   }
 
   isGoBackNavigation() {

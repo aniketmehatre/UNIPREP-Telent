@@ -15,14 +15,15 @@ import {StorageService} from "../../../storage.service";
 
 export class CareerToolComponent implements OnInit {
   currentEndpoint: string = "";
-  currentRoute: any
+  currentRoute: any;
+  domainUrl:string = `https://${environment.domain}/uniprepapi/storage/app/public/ToolIcons/career-tools/`; 
   modulesList: any = [
     {
       id: 1,
       moduleName: "CV Builder",
     //  Description: "Craft a standout CV that highlights your skills and experience, ready for any job application.",
       tooltip: "Craft a standout CV that highlights your skills and experience, ready for any job application.",
-      imageLink: "https://api.uniprep.ai/uniprepapi/storage/app/public/resources-coverimage/cv.svg",
+      imageLink: `https://${environment.domain}/uniprepapi/storage/app/public/resources-coverimage/cv.svg`,
       refLink: "https://novoresume.com/",
       mode: "cv-builder",
       launch_soon: false
@@ -32,7 +33,7 @@ export class CareerToolComponent implements OnInit {
       moduleName: "Cover Letter Builder",
      // Description: "Generate a cover letter that strengthens your job application.",
       tooltip: "Generate a cover letter that strengthens your job application.",
-      imageLink: "https://api.uniprep.ai/uniprepapi/storage/app/public/resources-coverimage/CoverLetter.svg",
+      imageLink: `https://${environment.domain}/uniprepapi/storage/app/public/resources-coverimage/CoverLetter.svg`,
       refLink: "https://resumaker.ai/cover-letter/",
       mode: "coverletter-builder",
       launch_soon: false
@@ -42,7 +43,7 @@ export class CareerToolComponent implements OnInit {
       moduleName: "Career Planner",
      // Description: "Plan your career path by exploring job opportunities worldwide",
       tooltip: "Plan your career path by exploring job opportunities worldwide.",
-      imageLink: "https://api.uniprep.ai/uniprepapi/storage/app/public/resume_icons/careerplanner.svg",
+      imageLink: `https://${environment.domain}/uniprepapi/storage/app/public/resume_icons/careerplanner.svg`,
       refLink: "",
       mode: "career-planner",
       launch_soon: false
@@ -52,7 +53,7 @@ export class CareerToolComponent implements OnInit {
     //   moduleName: "Cost Of Living Comparision",
     //   Description: "Compare living expenses across countries to make informed decisions.",
     //   tooltip: "Compare the cost of living across different cities and countries to plan your financial needs.",
-    //   imageLink: "https://api.uniprep.ai/uniprepapi/storage/app/public/resume_icons/cost-of-living.svg",
+    //   imageLink: `https://${environment.domain}/uniprepapi/storage/app/public/resume_icons/cost-of-living.svg",
     //   refLink: "",
     //   mode: "cost-of-living"
     // },
@@ -61,7 +62,7 @@ export class CareerToolComponent implements OnInit {
       moduleName: "Global Salary Converter",
       //Description: "Calculate your salary across different countries.",
       tooltip: "Convert and compare salaries globally to understand the value of potential job offers.",
-      imageLink: "https://api.uniprep.ai/uniprepapi/storage/app/public/resume_icons/salaryconverter.svg",
+      imageLink: `https://${environment.domain}/uniprepapi/storage/app/public/resume_icons/salaryconverter.svg`,
       refLink: "",
       mode: "salary-converter",
       launch_soon: false
@@ -71,7 +72,7 @@ export class CareerToolComponent implements OnInit {
       moduleName: "Company List",
       //Description: "Access a comprehensive database with detailed information of over 100,000 companies.",
       tooltip: "Access a curated list of companies by industry and location to target your job search effectively.",
-      imageLink: "https://api.uniprep.ai/uniprepapi/storage/app/public/resume_icons/companylist.svg",
+      imageLink: `https://${environment.domain}/uniprepapi/storage/app/public/resume_icons/companylist.svg`,
       refLink: "",
       mode: "company-list",
       launch_soon: false
@@ -81,7 +82,7 @@ export class CareerToolComponent implements OnInit {
       moduleName: "Psychometric Test",
      // Description: "Measure cognitive abilities and personality traits using standardized psychometric testing.",
       tooltip: "Evaluate your aptitudes and personality traits with tests to find careers that best suit your profile.",
-      imageLink: environment.production === false ? "https://api.uniprep.ai/uniprepapi/storage/app//public/icon/modules/psychometrictest.svg" : "https://uniprep.ai/uniprepapi/storage/app/public/icon/modules/psychometrictest.svg",
+      imageLink: `https://${environment.domain}/uniprepapi/storage/app//public/icon/modules/psychometrictest.svg`,
       refLink: "",
       mode: "psychometric-test",
       launch_soon: false
@@ -91,7 +92,7 @@ export class CareerToolComponent implements OnInit {
       moduleName: "Personality Test",
     //  Description: "Utilize personality assessments to analyze and understand individual traits and behaviors.",
       tooltip: "Discover more about your personality and how it aligns with various career paths.",
-      imageLink: environment.production === false ? "https://api.uniprep.ai/uniprepapi/storage/app//public/icon/modules/personalitytest.svg" : "https://uniprep.ai/uniprepapi/storage/app/public/icon/modules/personalitytest.svg",
+      imageLink: `https://${environment.domain}/uniprepapi/storage/app//public/icon/modules/personalitytest.svg`,
       refLink: "",
       mode: "personality-test",
       launch_soon: false
@@ -101,7 +102,7 @@ export class CareerToolComponent implements OnInit {
       moduleName: "Employer Test",
      // Description: "Prepare for employment with specific company-focused tests designed to assess job readiness and fit.",
       tooltip: "Prepare for potential employer assessments with practice tests and study guides.",
-      imageLink: environment.production === false ? "https://api.uniprep.ai/uniprepapi/storage/app//public/icon/modules/employertest.svg" : "https://uniprep.ai/uniprepapi/storage/app/public/icon/modules/employertest.svg",
+      imageLink: `https://${environment.domain}/uniprepapi/storage/app//public/icon/modules/employertest.svg`,
       refLink: "",
       mode: "employer-test",
       launch_soon: false
@@ -111,7 +112,7 @@ export class CareerToolComponent implements OnInit {
       moduleName: "Job Interview Preparation",
     //  Description: "Prepare effectively with role-focused guidance and company-centric tips",
       tooltip: "Prepare effectively with role-focused guidance and company-centric tips",
-      imageLink: environment.production === false ? "https://api.uniprep.ai/uniprepapi/storage/app//public/icon/modules/job-interview.svg" : "https://uniprep.ai/uniprepapi/storage/app/public/icon/modules/job-interview.svg",
+      imageLink: `https://${environment.domain}/uniprepapi/storage/app//public/icon/modules/job-interview.svg`,
       refLink: "",
       mode: "job-role",
       launch_soon: false
@@ -121,7 +122,7 @@ export class CareerToolComponent implements OnInit {
       moduleName: "Career Growth Checker",
     //  Description: "Get insight into your next 5 career growth oppurtunity.",
       tooltip: "Track your professional development and set goals with our career progression tool.",
-      imageLink: environment.production === false ? "https://api.uniprep.ai/uniprepapi/storage/app//public/icon/modules/growth.svg" : "https://uniprep.ai/uniprepapi/storage/app/public/icon/modules/growth.svg",
+      imageLink: `https://${environment.domain}/uniprepapi/storage/app//public/icon/modules/growth.svg`,
       refLink: "",
       mode: "career-growth-checker",
       launch_soon: false
@@ -131,7 +132,7 @@ export class CareerToolComponent implements OnInit {
       moduleName: "Average Salary Estimator",
     //  Description: "Estimate the average salary for your role based on industry and location trends.",
       tooltip: "Discover salary benchmarks and plan your career with our reliable salary estimation tool.",
-      imageLink: environment.production === false ? "https://api.uniprep.ai/uniprepapi/storage/app//public/icon/modules/avgsest.png" : "https://uniprep.ai/uniprepapi/storage/app/public/icon/modules/avgsest.png",
+      imageLink: this.domainUrl+"AverageSalaryEstimator.svg",
       refLink: "",
       mode: "average-salary-estimator",
       launch_soon: false
@@ -141,7 +142,7 @@ export class CareerToolComponent implements OnInit {
       moduleName: "Global Work Visas",
     //  Description: "Get insight into your next 5 career growth oppurtunity.",
       tooltip: "Track your professional development and set goals with our career progression tool.",
-      imageLink: environment.production === false ? "https://api.uniprep.ai/uniprepapi/storage/app//public/icon/modules/growth.svg" : "https://uniprep.ai/uniprepapi/storage/app/public/icon/modules/growth.svg",
+      imageLink: this.domainUrl+"GlobalWorkVisa.svg",
       refLink: "",
       mode: "global-work-visa",
       launch_soon: true
@@ -152,7 +153,7 @@ export class CareerToolComponent implements OnInit {
       moduleName: "Job Offer Comparison Tool",
     //  Description: "Compare multiple job offers to make informed career decisions.",
       tooltip: "Evaluate and weigh job offers based on salary, benefits, and growth opportunities.",
-      imageLink: environment.production === false ? "https://api.uniprep.ai/uniprepapi/storage/app//public/icon/modules/joc.png" : "https://uniprep.ai/uniprepapi/storage/app/public/icon/modules/joc.png",
+      imageLink: this.domainUrl+"JobOfferComparisonTool.svg",
       refLink: "",
       mode: "job-offer-comparison",
       launch_soon: false
@@ -162,7 +163,7 @@ export class CareerToolComponent implements OnInit {
       moduleName: "Salary Negotiation Hacks",  
     //  Description: "Unlock the secrets to negotiating better pay, maximizing your earnings, and achieving financial growth in your career.",  
       tooltip: "Master the art of salary negotiation and take control of your financial future.",
-      imageLink: environment.production === false ? "https://api.uniprep.ai/uniprepapi/storage/app//public/icon/modules/snh.png" : "https://uniprep.ai/uniprepapi/storage/app/public/icon/modules/snh.png",
+      imageLink: `https://${environment.domain}/uniprepapi/storage/app//public/icon/modules/snh.png`,
       refLink: "",
       mode: "salary-hacks",
       launch_soon: false
@@ -172,7 +173,7 @@ export class CareerToolComponent implements OnInit {
       moduleName: "Job Seeker Success Stories",  
     //  Description: "Get inspired by real-life stories of job seekers who overcame challenges to achieve their dream roles.",  
       tooltip: "Learn from the experiences of successful job seekers and gain insights to land your ideal job.",
-      imageLink: environment.production === false ? "https://api.uniprep.ai/uniprepapi/storage/app//public/icon/modules/jsss.png" : "https://uniprep.ai/uniprepapi/storage/app/public/icon/modules/jsss.png",
+      imageLink: `https://${environment.domain}/uniprepapi/storage/app//public/icon/modules/jsss.png`,
       refLink: "",
       mode: "job-seeker-success-stories",
       launch_soon: false
@@ -182,7 +183,7 @@ export class CareerToolComponent implements OnInit {
       moduleName: "Fortune Companies",
     //  Description: "Explore insights, trends, and success strategies from top Fortune companies across industries.",
       tooltip: "Gain valuable knowledge about Fortune companies to enhance your career and business decisions.",
-      imageLink: environment.production === false ? "https://api.uniprep.ai/uniprepapi/storage/app//public/icon/modules/fc.png" : "https://uniprep.ai/uniprepapi/storage/app/public/icon/modules/fc.png",
+      imageLink: this.domainUrl+"FortuneCompanies.svg",
       refLink: "",
       mode: "fortune-companies",
       launch_soon: false
@@ -192,7 +193,7 @@ export class CareerToolComponent implements OnInit {
       moduleName: "Career Hacks",  
     //  Description: "Access actionable tips and strategies to accelerate your career growth and achieve your goals.",  
       tooltip: "Unleash your potential with proven career hacks designed to fast-track your success.",
-      imageLink: environment.production === false ? "https://api.uniprep.ai/uniprepapi/storage/app//public/icon/modules/chacks.png" : "https://uniprep.ai/uniprepapi/storage/app/public/icon/modules/chacks.png",
+      imageLink: `https://${environment.domain}/uniprepapi/storage/app//public/icon/modules/chacks.png`,
       refLink: "",
       mode: "career-hacks",
       launch_soon: false
@@ -202,7 +203,7 @@ export class CareerToolComponent implements OnInit {
       moduleName: "Global Employment Insights",  
     //  Description: "Access actionable tips and strategies to accelerate your career growth and achieve your goals.",  
       tooltip: "Unleash your potential with proven career hacks designed to fast-track your success.",
-      imageLink: environment.production === false ? "https://api.uniprep.ai/uniprepapi/storage/app//public/icon/modules/Global-Employement-Insights.svg" : "https://uniprep.ai/uniprepapi/storage/app/public/icon/modules/Global-Employement-Insights.svg",
+      imageLink: this.domainUrl+"GlobalEmployementInsights.svg",
       refLink: "",
       mode: "global-employment-insights",
       launch_soon: false
@@ -262,58 +263,54 @@ export class CareerToolComponent implements OnInit {
     }
     
     this.currentEndpoint = mode;
-    switch (mode) {
-      case "cv-builder":
-        this.router.navigate(['/pages/job-tool/cv-builder']);
-        break;
-      case "coverletter-builder":
-        this.router.navigate(['/pages/job-tool/coverletter-builder']);
-        break;
-      case "career-planner":
-        this.router.navigate(['/pages/job-tool/careerplannerlist']);
-        break;
-      case "cost-of-living":
-        this.router.navigate(['/pages/job-tool/cost-of-living']);
-        break;
-      case "salary-converter":
-        this.router.navigate(['/pages/job-tool/salary-converter']);
-        break;
-      case "company-list":
-        this.router.navigate(['/pages/job-tool/company-list']);
-        break;
-      case "psychometric-test":
-        this.router.navigate(['/pages/job-tool/list/psychometric-test/11']);
-        break;
-      case "personality-test":
-        this.router.navigate(['/pages/job-tool/list/personality-test/12']);
-        break;
-      case "job-role":
-        this.router.navigate(['/pages/interviewprep']);
-        break;
-      case "career-growth-checker":
-        this.router.navigate(['/pages/job-tool/career-growth-checker']);
-        break;
-      case "average-salary-estimator":
-        this.router.navigate(['/pages/average-salary-estimator']);
-        break;
-      case "job-offer-comparison":
-        this.router.navigate(['/pages/job-offer-comparison']);
-        break;
-      case "global-work-visa":
-        this.router.navigate(['/pages/job-tool/global-work-visa']);
-        break;
-      case "career-hacks":
-        this.router.navigate(['/pages/career-hacks']);
-        break;
-      case "salary-hacks":
-        this.router.navigate(['/pages/salary-hacks']);
-        break;
-      case "job-seeker-success-stories":
-        this.router.navigate(['/pages/job-seeker-success-stories']);
-        break;
-      default:
-        this.router.navigate(['/pages/job-tool/list/employer-test/13']);
-        break;
+    if (mode == "cv-builder") {
+      this.router.navigate(['/pages/job-tool/cv-builder']);
+    } else if (mode == "coverletter-builder") {
+      this.router.navigate(['/pages/job-tool/coverletter-builder']);
+    } else if (mode == "career-planner") {
+      // this.router.navigate(['/pages/job-tool/career-planner']);
+      this.router.navigate(['/pages/job-tool/careerplannerlist']);
+    } else if (mode == "cost-of-living") {
+      this.router.navigate(['/pages/job-tool/cost-of-living']);
+    } else if (mode == "salary-converter") {
+      this.router.navigate(['/pages/job-tool/salary-converter']);
+    } else if (mode == "company-list") {
+      this.router.navigate(['/pages/job-tool/company-list']);
+    } else if (mode == "psychometric-test") {
+      this.router.navigate(['/pages/job-tool/list/psychometric-test/11']);
+    } else if (mode == "personality-test") {
+      this.router.navigate(['/pages/job-tool/list/personality-test/12']);
+    } else if (mode == "job-role") {
+      this.router.navigate(['/pages/interviewprep']);
+    } else if (mode == "career-growth-checker") {
+      this.router.navigate(['/pages/job-tool/career-growth-checker']);
+    }
+    else if(mode=="average-salary-estimator") {
+      this.router.navigate(['/pages/average-salary-estimator']);
+    }
+    else if(mode=="job-offer-comparison") {
+      this.router.navigate(['/pages/job-offer-comparison']);
+    }
+    else if (mode == "global-work-visa") {
+      this.router.navigate(['/pages/job-tool/global-work-visa']);
+    }
+    else if (mode == "career-hacks") {
+      this.router.navigate(['/pages/career-hacks']);
+    }
+    else if (mode == "salary-hacks") {
+      this.router.navigate(['/pages/salary-hacks']);
+    }
+    else if (mode == "job-seeker-success-stories") {
+      this.router.navigate(['/pages/job-seeker-success-stories']);
+    }
+    else if (mode == "fortune-companies") {
+      this.router.navigate(['/pages/fortune-companies']);
+    }
+    else if (mode == "global-employment-insights") {
+      this.router.navigate(['/pages/global-employment-insights']);
+    }
+    else {
+      this.router.navigate(['/pages/job-tool/list/employer-test/13']);
     }
   }
 }
