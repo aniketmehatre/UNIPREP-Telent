@@ -72,8 +72,8 @@ export class TripLengthFinderComponent implements OnInit {
       };
       this.travelToolService.getChatgptRecommendations(data).subscribe((response:any) => {
         this.recommendationData = response.response;
-        console.log(response);
-        console.log(this.recommendationData);
+        // console.log(response);
+        // console.log(this.recommendationData);
         
         this.isRecommendation = false;
         this.isResponsePage = true;
@@ -130,8 +130,17 @@ export class TripLengthFinderComponent implements OnInit {
     // });
 
     // let downloadString:string = "This is a paragraph with some text and emojis 😊🎉. Markdown processing with emojis works!";
+    let selectedCityAndCountry = this.selectedData[1].city_name+', '+this.selectedData[1].country_name;
+    let addingInput = `
+      <p><strong>Input:<br></strong></p>
+      <p><strong>Which Destination are you planning to visit?</strong></p>
+      <p><strong>${selectedCityAndCountry}</strong></p>
+      <br>
+      <p><strong>Response:<br></strong></p>
+      ${this.recommendationData}
+    `;
     let paramData: DownloadRespose = {
-      response: this.recommendationData,
+      response: addingInput,
       module_name: "Trip Length Finder",
       file_name: "trip_length_finder"
     };
