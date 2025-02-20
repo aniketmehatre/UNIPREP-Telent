@@ -127,19 +127,22 @@
                         [autoDisplayFirst]="false">
                       </p-dropdown>
                       <input class="w-100 pl-4 border border-gray rounded-3" type="number" pInputText [placeholder]="form.get('currency_code').value ? 'Enter tuition fee in'+' '+form.get('currency_code').value+' '+'/year' : 'Enter tuition fee/year'"
-                        formControlName="fees" [max]="999999"/>
+                        formControlName="fees" [max]="99999999"/>
                     </div>
                     <p class="text-center" *ngIf="(form.get('fees')?.errors?.required || form.get('fees')?.errors?.max )&& submitted"
                       style="color: red">
-                      Please Enter this amount and max 6 digit only allowed
+                      Please Enter this amount and max 8 digit only allowed
                     </p>
                   </div>
                   <div>
                     <h5 class="uniprep-primary fw-semibold mt-3 mb-1">
                       {{ recommendation.question.branches[1] }}
                     </h5>
+                    <div class="w-100 d-flex gap-2 flex-fill">
+                    <div class="border border-gray rounded-3 d-flex align-items-center justify-content-center bg-white" style="width: 50px">{{form.get('currency_code').value || ''}}</div>
                     <input class="w-100 border border-gray rounded-3" type="number" pInputText placeholder="Enter Amount"
                     formControlName="cost_estimation" [max]="999999" />
+                    </div>
                     <p class="text-center" *ngIf="
                           (form.get('cost_estimation')?.errors?.required || form.get('cost_estimation')?.errors?.max) && submitted
                         " style="color: red">

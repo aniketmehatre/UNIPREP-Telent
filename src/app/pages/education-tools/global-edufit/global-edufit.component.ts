@@ -181,10 +181,11 @@ export class GlobalEdufitComponent implements OnInit {
       this.submitted = true;
       return;
     }
-    const isValidAmount = (value: any) => /^[0-9]{1,6}$/.test(value);
+    const isValidSixAmount = (value: any) => /^[0-9]{1,6}$/.test(value);
+    const isValidEightAmount = (value: any) => /^[0-9]{1,8}$/.test(value);
     if (
-      !isValidAmount(formData.fees) ||
-      !isValidAmount(formData.cost_estimation)
+      !isValidEightAmount(formData.fees) ||
+      !isValidSixAmount(formData.cost_estimation)
     ) {
       this.submitted = true;
       return;
