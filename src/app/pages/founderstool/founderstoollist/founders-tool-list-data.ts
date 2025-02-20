@@ -1,5 +1,4 @@
 import { environment } from "@env/environment";
-import { domain } from "process";
 let domainUrl = `https://${environment.domain}/uniprepapi/storage/app/public/ToolIcons/founders-tools/`;
 export const FoundersToolsData = [
     {
