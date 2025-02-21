@@ -47,7 +47,8 @@ export class UniCompareComponent implements OnInit, OnDestroy {
     page: this.page,
     perpage: this.pageSize,
   };
-  currencyandCountryList: any;
+  countriesList: any;
+  currenciesList: any;
   isRecommendationQuestion: boolean = true;
   isRecommendationData: boolean = false;
   isRecommendationSavedData: boolean = false;
@@ -137,8 +138,8 @@ export class UniCompareComponent implements OnInit, OnDestroy {
     this.educationToolService.getCurrentSpecializations().subscribe(data => {
       this.specializationList = data;
     });
-    this.educationToolService.getCurrencyAndCountries().subscribe(data => {
-      this.currencyandCountryList = data;
+    this.educationToolService.getCurrencies().subscribe(data => {
+      this.currenciesList = data;
     });
   }
 
@@ -293,16 +294,22 @@ export class UniCompareComponent implements OnInit, OnDestroy {
     });
   }
 
-  setUniversityList(id: string) {
-    this.educationToolService.getUniverstityByCountry(id).subscribe(data => {
+  setUniversityList(name: string) {
+    const selected = this.universityCountryList.find((c: any) => c.country === name);
+    if (selected) {
+      this.educationToolService.getUniverstityByCountry(selected?.id).subscribe(data => {
       this.universityList = data;
-    })
+      });
+    }
   }
 
-  setCompareUniversityList(id: string) {
-    this.educationToolService.getUniverstityByCountry(id).subscribe(data => {
-      this.compareUniversityList = data;
-    })
+  setCompareUniversityList(name: string) {
+    const selected = this.universityCountryList.find((c: any) => c.country === name);
+    if (selected) {
+      this.educationToolService.getUniverstityByCountry(selected.id).subscribe(data => {
+        this.compareUniversityList = data;
+      })
+    }
   }
 
   onSaveRes() {

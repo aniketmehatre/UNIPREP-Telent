@@ -134,7 +134,7 @@ export class GlobalEdufitComponent implements OnInit {
     this.educationToolService.getCurrentSpecializations().subscribe(data => {
       this.specializationList = data;
     });
-    this.educationToolService.getCurrencyAndCountries().subscribe(data => {
+    this.educationToolService.getCurrencies().subscribe(data => {
       this.currencyandCountryList = data;
     });
   }

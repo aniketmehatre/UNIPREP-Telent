@@ -123,7 +123,7 @@
                     </h5>
                     <div class="w-100 d-flex gap-2 flex-fill">
                       <p-dropdown formControlName="currency_code" appendTo="body" [options]="currencyandCountryList" [filter]="true"
-                        filterBy="currency_code" placeholder="Currency" optionLabel="currency_code" optionValue="currency_code"
+                        filterBy="currency_symbol" placeholder="Currency" optionLabel="currency_symbol" optionValue="currency_symbol"
                         [autoDisplayFirst]="false">
                       </p-dropdown>
                       <input class="w-100 pl-4 border border-gray rounded-3" type="number" pInputText [placeholder]="form.get('currency_code').value ? 'Enter tuition fee in'+' '+form.get('currency_code').value+' '+'/year' : 'Enter tuition fee/year'"

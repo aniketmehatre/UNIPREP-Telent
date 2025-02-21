@@ -143,7 +143,7 @@ export class EduLoanCompareComponent implements OnInit, OnDestroy {
   }
 
   getCountryList() {
-    this.educationToolService.getCurrencyAndCountries().subscribe(data => {
+    this.educationToolService.getCurrencies().subscribe(data => {
       this.currencyandCountryList = data;
     });
   }

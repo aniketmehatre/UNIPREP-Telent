@@ -37,13 +37,13 @@
                               in</label>
                           </div>
                           <div class="col-lg-4 mb-2">
-                            <p-dropdown [options]="universityCountryList" optionLabel="country" optionValue="id"
+                            <p-dropdown [options]="universityCountryList" optionLabel="country" optionValue="country"
                               [filter]="true" filterBy="country" formControlName="country" placeholder="Select Country"
                               styleClass="w-100" appendTo="body" (ngModelChange)="setUniversityList($event);">
                             </p-dropdown>
                           </div>
                           <div class="col-lg-4 mb-2">
-                            <p-dropdown [options]="universityCountryList" optionLabel="country" optionValue="id"
+                            <p-dropdown [options]="universityCountryList" optionLabel="country" optionValue="country"
                               [filter]="true" filterBy="country" formControlName="compare_country"
                               placeholder="Select Country" styleClass="w-100" appendTo="body"
                               (ngModelChange)="setCompareUniversityList($event);">
@@ -135,8 +135,8 @@
                           <div class="col-lg-4 mb-2">
                             <div class="d-flex gap-2">
                               <p-dropdown class="currency-dropdown" formControlName="currency_code"
-                                [options]="currencyandCountryList" [filter]="true" filterBy="currency_code"
-                                placeholder="Currency" optionLabel="currency_code" optionValue="currency_code"
+                                [options]="currenciesList" [filter]="true" filterBy="currency_symbol"
+                                placeholder="Currency" optionLabel="currency_symbol" optionValue="currency_symbol"
                                 [autoDisplayFirst]="false"
                                 (ngModelChange)="changeCurrencyInTution($event);">
                               </p-dropdown>
@@ -147,8 +147,8 @@
                           <div class="col-lg-4 mb-2">
                             <div class="d-flex gap-2">
                               <p-dropdown class="currency-dropdown" formControlName="compare_currency_code"
-                                [options]="currencyandCountryList" [filter]="true" filterBy="currency_code"
-                                placeholder="Currency" optionLabel="currency_code" optionValue="currency_code"
+                                [options]="currenciesList" [filter]="true" filterBy="currency_symbol"
+                                placeholder="Currency" optionLabel="currency_symbol" optionValue="currency_symbol"
                                 [autoDisplayFirst]="false">
                               </p-dropdown>
                               <input type="number" class="form-control w-100 m-0" formControlName="compare_fees"
@@ -171,8 +171,8 @@
                           <div class="col-lg-4 mb-2">
                             <div class="d-flex gap-2">
                               <p-dropdown class="currency-dropdown" formControlName="expense_currency_code"
-                                [options]="currencyandCountryList" [filter]="true" filterBy="currency_code"
-                                placeholder="Currency" optionLabel="currency_code" optionValue="currency_code"
+                                [options]="currenciesList" [filter]="true" filterBy="currency_symbol"
+                                placeholder="Currency" optionLabel="currency_symbol" optionValue="currency_symbol"
                                 [autoDisplayFirst]="false">
                               </p-dropdown>
                               <input type="number" styleClass="w-100" class="form-control w-100 m-0" [min]="100"
@@ -182,8 +182,8 @@
                           <div class="col-lg-4 mb-2">
                             <div class="d-flex gap-2">
                               <p-dropdown class="currency-dropdown" formControlName="compare_expense_currency_code"
-                                [options]="currencyandCountryList" [filter]="true" filterBy="currency_code"
-                                placeholder="Currency" optionLabel="currency_code" optionValue="currency_code"
+                                [options]="currenciesList" [filter]="true" filterBy="currency_symbol"
+                                placeholder="Currency" optionLabel="currency_symbol" optionValue="currency_symbol"
                                 [autoDisplayFirst]="false">
                               </p-dropdown>
                             <input type="number" styleClass="w-100" class="form-control w-100 m-0" [min]="100"

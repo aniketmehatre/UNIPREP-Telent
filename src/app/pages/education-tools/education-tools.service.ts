@@ -138,8 +138,14 @@ export class EducationToolsService {
     });
   }
 
-  getCurrencyAndCountries() {
+  getCountries() {
     return this.http.post<any>(environment.ApiUrl + "/getcountryandcurrency", {
+      headers: this.headers
+    });
+  }
+
+  getCurrencies() {
+    return this.http.get<any>(environment.ApiUrl + "/currenciesList", {
       headers: this.headers
     });
   }

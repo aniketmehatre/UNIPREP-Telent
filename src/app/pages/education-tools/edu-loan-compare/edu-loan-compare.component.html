@@ -69,8 +69,8 @@
                                                             <p-dropdown class="currency-dropdown"
                                                                 formControlName="currency"
                                                                 [options]="currencyandCountryList" [filter]="true"
-                                                                filterBy="currency_code" placeholder="Currency"
-                                                                optionLabel="currency_code" optionValue="currency_code"
+                                                                filterBy="currency_symbol" placeholder="Currency"
+                                                                optionLabel="currency_symbol" optionValue="currency_symbol"
                                                                 [autoDisplayFirst]="false" (ngModelChange)="form.get('compare_currency')?.patchValue(form.get('currency')?.value)">
                                                             </p-dropdown>
                                                             <input type="number" class="form-control w-100" [min]="100"
@@ -82,8 +82,8 @@
                                                             <p-dropdown class="currency-dropdown"
                                                                 formControlName="compare_currency"
                                                                 [options]="currencyandCountryList" [filter]="true"
-                                                                filterBy="currency_code" placeholder="Currency"
-                                                                optionLabel="currency_code" optionValue="currency_code"
+                                                                filterBy="currency_symbol" placeholder="Currency"
+                                                                optionLabel="currency_symbol" optionValue="currency_symbol"
                                                                 [autoDisplayFirst]="false">
                                                             </p-dropdown> 
                                                             <input type="number" class="form-control w-100 m-0" [min]="100"
