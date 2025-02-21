@@ -268,8 +268,52 @@ export class StartUpExpenseEstimateComponent implements OnInit {
   }
 
   downloadRecommadation() {
+    const formValue = ['industry', 'location', 'startup_stage', 'team_size', 'current_investment', 'revenue_model', 'primary_expense', 'operating_expense', 'budget', 'expense_estimation'];
+    const formData = this.marketingForm.value;
+    let addingInput = `<p><strong>Input:<br></strong></p>`;
+
+    // Keep track of which formValue index we're currently using
+    let formValueIndex = 0;
+
+    this.recommendations.forEach((category: any) => {
+      addingInput += `<p><strong>${category.question.heading}</strong></p>`;
+
+      category.question.branches.forEach((branchQuestion: any) => {
+        addingInput += `<p>${branchQuestion}</p>`;
+
+        let currentAnswer = "";
+        const currentFormField = formValue[formValueIndex];
+
+        if (formData && formData[currentFormField]) {
+          switch (currentFormField) {
+            case 'current_investment':
+              currentAnswer = formData['investment_currency_code'] + ' ' + formData[currentFormField];
+              break;
+            case 'operating_expense':
+              currentAnswer = formData['expense_currency_code'] + ' ' + formData[currentFormField];
+              break;
+            case 'budget':
+              currentAnswer = formData['sales_currency_code'] + ' ' + formData[currentFormField];
+              break;
+            default:
+              currentAnswer = formData[currentFormField];
+              break;
+          }
+        } else {
+          currentAnswer = "No answer provided";
+        }
+
+        addingInput += `<p><strong>${currentAnswer}</strong></p>`;
+
+        formValueIndex++;
+      });
+
+      addingInput += `<br>`;
+    });
+
+    let finalRecommendation = addingInput + '<p><strong>Response:<br></strong></p>' + this.recommendationData;
     let paramData: DownloadRespose = {
-      response: this.recommendationData,
+      response: finalRecommendation,
       module_name: "Startup Expenses Estimate",
       file_name: "startup_expense_estimate"
     };
@@ -287,9 +331,6 @@ export class StartUpExpenseEstimateComponent implements OnInit {
     this.isFromSavedData = true;
     this.recommendationData = data;
   }
-
-
-
 
   resetRecommendation() {
     this.foundersToolsService.resetRecommendation().subscribe(res => {

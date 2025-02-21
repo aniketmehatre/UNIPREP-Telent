@@ -108,6 +108,7 @@ export class TravelPackingPlannerComponent implements OnInit {
   }
 
   getRecommendation() {
+    console.log(this.selectedData,"selected data");
     let data: any = {
       destination: this.selectedData[1].city_name ?? this.selectedData[1].country_name,
       travel_type: this.selectedData[2],
@@ -171,16 +172,28 @@ export class TravelPackingPlannerComponent implements OnInit {
   }
 
   downloadRecommadation() {
-    // this.travelToolsService.downloadRecommendation({ data: this.recommendationData }).subscribe({
-    //   next: res => {
-    //     window.open(res.url, "_blank");
-    //   },
-    //   error: err => {
-    //     console.log(err?.error?.message);
-    //   }
-    // });
+    let selectedCityAndCountry = this.selectedData[1].city_name+', '+this.selectedData[1].country_name;
+    let addingInput = `<p><strong>Input:<br></strong></p>`;
+    this.recommendations.forEach(values =>{
+      addingInput += `<p><strong>${values.question}</strong></p>`;
+      let currentAnswer = "";
+      if(values.id == 1){
+        currentAnswer = selectedCityAndCountry;
+      }else if(values.id == 2){
+        currentAnswer = this.selectedData[2];
+      }else if(values.id == 3){
+        currentAnswer = this.selectedData[3].join(", ");
+      }else if(values.id == 4){
+        currentAnswer = `${ this.selectedData[4] } Days`;
+      }else if(values.id == 5){
+        currentAnswer = `${ this.selectedData[5] } Month`;
+      }
+      addingInput += `<p><strong>${ currentAnswer }</strong></p><br>`;
+    });
+    let finalRecommendation = addingInput+ '<p><strong>Response:<br></strong></p>' + this.recommendationData;
+    
     let paramData: DownloadRespose = {
-        response: this.recommendationData,
+        response: finalRecommendation,
         module_name: "Travel Packing Planner",
         file_name: "travel_packing_planner"
       };
