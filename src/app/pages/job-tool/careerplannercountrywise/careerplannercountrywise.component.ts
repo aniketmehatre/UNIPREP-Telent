@@ -24,7 +24,7 @@ export class CareerplannercountrywiseComponent implements OnInit {
   isSavedResponse: boolean = false;
   recommadationSavedQuestionList: any[] = [];
   constructor(private router: Router, private service: JobSearchService, private fb: FormBuilder, private pageFacade: PageFacadeService,
-    private toast: MessageService,  private travelToolService: TravelToolsService,
+    private toast: MessageService, private travelToolService: TravelToolsService,
   ) {
     this.form = this.fb.group({
       country: ['', [Validators.required]],
@@ -104,8 +104,21 @@ export class CareerplannercountrywiseComponent implements OnInit {
     //     console.log(err?.error?.message);
     //   }
     // });
+    // let downloadString:string = "This is a paragraph with some text and emojis 😊🎉. Markdown processing with emojis works!";
+    let selectedCityAndCountry = this.form.value.country;
+    let currency=this.form.value.currency;
+    let addingInput = `
+          <p><strong>Input:<br></strong></p>
+          <p><strong>Which country are you interested in?</strong></p>
+          <p><strong>${selectedCityAndCountry}</strong></p>
+          <p><strong>Select Your Preferred Currency?</strong></p>
+          <p><strong>${currency}</strong></p>
+          <br>
+          <p><strong>Response:<br></strong></p>
+          ${this.customizedResponse}
+        `;
     let paramData: DownloadRespose = {
-      response: this.customizedResponse,
+      response: addingInput,
       module_name: "Career Planner",
       file_name: "career_planner"
     };
