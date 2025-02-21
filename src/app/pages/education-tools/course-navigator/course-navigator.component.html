@@ -120,7 +120,7 @@
                 <div *ngFor="let item of recommendationDataList"
                     class="col-lg-2 col-md-3 col-sm-4 col-xs-12 col-12 mb-3">
                     <div class="row w-100 m-0 justify-content-center h-100">
-                        <div class="card subjectcard" role="button" (click)="getCourseQandAList(item.id)">
+                        <div class="card subjectcard" role="button" (click)="getCourseSubmodules(item.id)">  
                             <div
                                 class="card-body d-flex flex-md-column flex-row justify-content-md-between align-items-center">
                                 <div>
@@ -140,6 +140,61 @@
     <div class="card-footer bg-transparent border-0">
         <div class="text-end">
             <button pButton  pButton type="button" class="btn ps-3 btn-quit btn-rounded" (click)="resetRecommendation()">
+                Reset Recommendations<span class="btn-icon"><i class="fa-solid fa-arrow-rotate-right"></i>
+                </span>
+            </button>
+        </div>
+    </div>
+</div>
+
+<!-- ----------------- Recommandation Response View ----------------- -->
+<div class="card readingcard" *ngIf="isCourseSubmodule">
+    <div class="card-header border-0 bg-transparent">
+        <div class="row justify-content-center align-items-center">
+            <div class="col-md-12 d-flex gap-4">
+                <div class="backIcon d-md-flex d-none" role="button" (click)="goBack()" style="height: auto;">
+                    <span class="fa-solid fa-chevron-left"></span>
+                </div>
+                <div class="select-title d-flex justify-content-between align-items-center">
+                    <div>
+                        <h5 class="w-100 mb-0" tooltipPosition="top" pTooltip="">
+                            Education Tools -> Course Navigator</h5>
+                    </div>
+                    <div>
+                        <button class="how-it-works-button">How it works?
+                            <i class="fa-solid fa-play d-md-block d-none"></i></button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="card-body text-center flex-fill overflow-y-auto">
+        <div class="h-100 d-flex flex-column justify-content-between">
+            <div></div>
+            <div class="row" [ngClass]="{'justify-content-center': courseSubmodules.length <=6 }">
+                <div *ngFor="let item of courseSubmodules"
+                    class="col-lg-2 col-md-3 col-sm-4 col-xs-12 col-12 mb-3">
+                    <div class="row w-100 m-0 justify-content-center h-100">
+                        <div class="card subjectcard" role="button" (click)="getCourseQandAList(item.id)">
+                            <div
+                                class="card-body d-flex flex-md-column flex-row justify-content-md-between align-items-center">
+                                <div>
+                                    <div class="submoduleicon">
+                                        <img class="selectimage" [src]="item.icon" />
+                                    </div>
+                                    <h5 class="text-center mt-3 fw-bold mb-0">{{item.submodule_name}}</h5>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div></div>
+        </div>
+    </div>
+    <div class="card-footer bg-transparent border-0">
+        <div class="text-end">
+            <button pButton type="button" class="btn ps-3 btn-quit btn-rounded" (click)="resetRecommendation()">
                 Reset Recommendations<span class="btn-icon"><i class="fa-solid fa-arrow-rotate-right"></i>
                 </span>
             </button>

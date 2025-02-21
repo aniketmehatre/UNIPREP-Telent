@@ -207,7 +207,6 @@ export class StudentBudgetPlannerComponent implements OnInit {
       university_name: this.selectedData['university'],
       response: this.recommendationData
     };
-    
     this.educationService.saveResponse(params).subscribe({
       next: response => {
         if(response.status && response.status == true){
@@ -252,10 +251,46 @@ export class StudentBudgetPlannerComponent implements OnInit {
     this.selectedData = {...this.selectedDataArray}
   }
 
-  downloadResponse(){
+  downloadResponse(){ 
+    let addingInput = `<p><strong>Input:<br></strong></p>
+    <p><strong>Country of Study</strong></p>
+    <p><strong>${this.selectedData.country}</strong></p><br>
+    <p><strong>University</strong></p>
+    <p><strong>${this.selectedData.university}</strong></p><br>
+    <p><strong>Course Duration</strong></p>
+    <p><strong>${this.selectedData.course_duration}</strong></p><br>
+    <p><strong>StayBack</strong></p>
+    <p><strong>${this.selectedData.stay_back} Period</strong></p><br>
+    <p><strong>Preferred Currency</strong></p>
+    <p><strong>${this.selectedData.currency}</strong></p><br>
+    <p><strong>Overall Net Tution</strong></p>
+    <p><strong>${this.selectedData.tution} in ${this.selectedData.currency}</strong></p><br>
+    <p><strong>Accommodation</strong></p>
+    <p><strong>${this.selectedData.accommodation} / Month in ${this.selectedData.currency}</strong></p><br>
+    <p><strong>Travel Expenses</strong></p>
+    <p><strong>${this.selectedData.travel_expense} / Month in ${this.selectedData.currency}</strong></p><br>
+    <p><strong>Food & Grocerries</strong></p>
+    <p><strong>${this.selectedData.food_and_grocery} / Month in ${this.selectedData.currency}</strong></p><br>
+    <p><strong>Miscellaneous</strong></p>
+    <p><strong>${this.selectedData.miscellaneous} / Month in ${this.selectedData.currency}</strong></p><br>
+    <p><strong>Education Loan</strong></p>
+    <p><strong>${this.selectedData.education_loan} / Month in ${this.selectedData.currency}</strong></p><br>
+    <p><strong>Friends & Family Loan</strong></p>
+    <p><strong>${this.selectedData.family_loan} / Month in ${this.selectedData.currency}</strong></p><br>
+    <p><strong>Monthly Payment</strong></p>
+    <p><strong>${this.selectedData.monthly_payment}/ Month in ${this.selectedData.currency} </strong></p><br>
+    <p><strong>Repayment Period</strong></p>
+    <p><strong>${this.selectedData.repayment_period}</strong></p><br>
+    <p><strong>Part Time income</strong></p>
+    <p><strong>${this.selectedData.part_time_income}/ Month in ${this.selectedData.currency} </strong></p><br>
+    <p><strong>full Time income</strong></p>
+    <p><strong>${this.selectedData.full_time_income} / Month in ${this.selectedData.currency}</strong></p><br>
+    <p><strong>Other income</strong></p>
+    <p><strong>${this.selectedData.other_income} / Month in ${this.selectedData.currency} </strong></p><br>
+    <p><strong>Response</strong></p><br> ${this.recommendationData}`;
     
     let paramsData: DownloadRespose = {
-      response: this.recommendationData,
+      response: addingInput,
       module_name: "Student Budget Planner",
       file_name: "student_budget_planner"
     }

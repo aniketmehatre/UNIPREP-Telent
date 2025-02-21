@@ -110,18 +110,21 @@ export class EduLoanCompareComponent implements OnInit, OnDestroy {
       id: 1,
       question: {
         heading: 'Bank Information',
+        branches: ['What is the name of the loan provider?', 'What is the total loan amount you are considering from this provider?', 'In which country will you be studying?']
       },
     },
     {
       id: 2,
       question: {
         heading: 'Loan Details',
+        branches: ['What type of interest rate does this loan have?', 'What is the interest rate for this loan?', 'What is the duration of your study period for which the loan will cover expenses?']
       },
     },
     {
       id: 3,
       question: {
         heading: 'Addtional Details',
+        branches: ['Study Duration', 'What is the moratorium period ?', 'When does the repayment start?']
       },
     },
   ];
@@ -296,8 +299,53 @@ export class EduLoanCompareComponent implements OnInit, OnDestroy {
   }
 
   downloadRecommadation() {
+    const formValue = ['bankname', 'loanamount', 'location', 'interestrate_type', 'interestrate', 'interestterm', 'studyduration', 'moratoriumperiod', 'loanrepaymentperiod'];
+    const formData = this.form.value;
+    let addingInput = `<p><strong>Input:<br></strong></p>`;
+
+    // Keep track of which formValue index we're currently using
+    let formValueIndex = 0;
+
+    this.recommendations.forEach((category: any) => {
+      addingInput += `<p><strong>${category.question.heading}</strong></p>`;
+
+      category.question.branches.forEach((branchQuestion: any) => {
+        addingInput += `<p>${branchQuestion}</p>`;
+
+        let currentAnswer = "";
+        const currentFormField = formValue[formValueIndex];
+
+        if (formData && formData[currentFormField]) {
+          switch (currentFormField) {
+            case 'loanamount':
+              currentAnswer = `1. ${formData['currency']} ${formData[currentFormField]}   2. ${formData['currency']} ${formData['compare_' + currentFormField]}`;
+              break;
+            case 'interestterm':
+              currentAnswer = `1. ${formData[currentFormField]} Months   2. ${formData['compare_' + currentFormField]} Months `;
+              break;
+            case 'studyduration':
+              currentAnswer = `1. ${formData[currentFormField]} Months   2. ${formData['compare_' + currentFormField]} Months `;
+              break;
+            default:
+              currentAnswer = `1. ${formData[currentFormField]}   2. ${formData['compare_' + currentFormField]} `;
+              break;
+          }
+        } else {
+          currentAnswer = "No answer provided";
+        }
+
+        addingInput += `<p><strong>${currentAnswer}</strong></p>`;
+
+        formValueIndex++;
+      });
+
+      // Add spacing between categories
+      addingInput += `<br>`;
+    });
+
+    let finalRecommendation = addingInput + '<p><strong>Response:<br></strong></p>' + this.recommendationData;
     let paramData: DownloadRespose = {
-      response: this.recommendationData,
+      response: finalRecommendation,
       module_name: "Edu Loan Comparison",
       file_name: "edu_loan_comparison"
     };

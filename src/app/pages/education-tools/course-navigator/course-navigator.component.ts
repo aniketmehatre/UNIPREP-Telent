@@ -3,7 +3,7 @@ import { ActivatedRoute, Router, RouterModule } from '@angular/router';
 import { EducationToolsService } from '../education-tools.service';
 import { Meta } from '@angular/platform-browser';
 import { MessageService } from 'primeng/api';
-import { CourseNavigator, EducatiionsRec } from 'src/app/@Models/course-navigator.model';
+import { CourseNavigator, EducatiionsRec, CourseSubmodulesList } from 'src/app/@Models/course-navigator.model';
 import { CurrentSpecialization, BasicType, RecommandationQuestion } from 'src/app/@Models/recommandation-question.model';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { CarouselModule } from 'primeng/carousel';
@@ -16,6 +16,8 @@ import { CardModule } from 'primeng/card';
 import { InputGroupModule } from 'primeng/inputgroup';
 import { InputTextModule } from 'primeng/inputtext';
 import { InputGroupAddonModule } from 'primeng/inputgroupaddon';
+import { environment } from '@env/environment';
+
 @Component({
     selector: 'uni-course-navigator',
     templateUrl: './course-navigator.component.html',
@@ -42,6 +44,7 @@ export class CourseNavigatorComponent implements OnInit {
   isRecommendationQuestion: boolean = true;
   isRecommendationData: boolean = false;
   isRecommendationSavedData: boolean = false;
+  isCourseSubmodule: boolean = false;
   recommadationSavedQuestionList: CourseNavigator[] = [];
   recommadationQuestionList: CourseNavigator[] = [];
   isQuestionAnswerVisible: boolean = false;
@@ -50,7 +53,34 @@ export class CourseNavigatorComponent implements OnInit {
   selectedQuestionData: CourseNavigator;
   specializationFilter: string = '';
   recommandedQandAList: CourseNavigator[] = [];
-
+  courseSubmodules: CourseSubmodulesList[] = [
+    {
+      id: 1,
+      icon: `https://${environment.domain}/uniprepapi/storage/app/public/ToolIcons/education-tools/career-choice.svg`,
+      submodule_name: "Career Opportunities & Job Roles"
+    },
+    {
+      id: 2,
+      icon: `https://${environment.domain}/uniprepapi/storage/app/public/ToolIcons/education-tools/job-description.svg`,
+      submodule_name: "Industry Relevance & Practical Exposure"
+    },
+    {
+      id: 3,
+      icon: `https://${environment.domain}/uniprepapi/storage/app/public/ToolIcons/education-tools/skills.svg`,
+      submodule_name: "Skills & Compentency Developement"
+    },
+    {
+      id: 4,
+      icon: `https://${environment.domain}/uniprepapi/storage/app/public/ToolIcons/education-tools/worldwide.svg`,
+      submodule_name: "Global & Regional Career Scope"
+    },
+    {
+      id: 5,
+      icon: `https://${environment.domain}/uniprepapi/storage/app/public/ToolIcons/education-tools/return-of-investment.svg`,
+      submodule_name: "ROI (Return on Investment) & Financial Aspects" 
+    },
+  ];
+  selectedDegreeId: number;
   constructor(
     private educationToolsService: EducationToolsService,
     private router: Router,
@@ -132,14 +162,23 @@ export class CourseNavigatorComponent implements OnInit {
     this.specializationList = this.specializations;
   }
 
-  getCourseQandAList(degreeId: number, questionId?: number) {
-    this.educationToolsService.getCourseQandA(degreeId, questionId).subscribe({
+  getCourseSubmodules(degreeId: number){
+    this.selectedDegreeId = degreeId;
+    this.isRecommendationQuestion = false;
+    this.isRecommendationData = false;
+    this.isRecommendationSavedData = false;
+    this.isCourseSubmodule = true;
+  }
+
+  getCourseQandAList(courseId: number, questionId?: number) {
+    this.educationToolsService.getCourseQandA( this.selectedDegreeId, courseId, questionId).subscribe({
       next: response => {
         this.isRecommendationQuestion = false;
         this.isRecommendationData = false;
         this.isRecommendationSavedData = true;
         this.recommadationQuestionList = response;
         this.recommandedQandAList = response;
+        this.isCourseSubmodule = false;
         if (questionId) {
           this.viewOneQuestion(this.recommandedQandAList[0]);
         }

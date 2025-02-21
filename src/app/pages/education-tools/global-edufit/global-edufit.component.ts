@@ -191,10 +191,11 @@ export class GlobalEdufitComponent implements OnInit {
       this.submitted = true;
       return;
     }
-    const isValidAmount = (value: any) => /^[0-9]{1,6}$/.test(value);
+    const isValidSixAmount = (value: any) => /^[0-9]{1,6}$/.test(value);
+    const isValidEightAmount = (value: any) => /^[0-9]{1,8}$/.test(value);
     if (
-      !isValidAmount(formData.fees) ||
-      !isValidAmount(formData.cost_estimation)
+      !isValidEightAmount(formData.fees) ||
+      !isValidSixAmount(formData.cost_estimation)
     ) {
       this.submitted = true;
       return;
@@ -294,8 +295,49 @@ export class GlobalEdufitComponent implements OnInit {
   }
 
   downloadRecommadation() {
+    const formValue = ['home_country', 'interested_country', 'university', 'specialization', 'degree', 'duration', 'fees', 'cost_estimation', 'period'];
+    const formData = this.form.value;
+    let addingInput = `<p><strong>Input:<br></strong></p>`;
+
+    // Keep track of which formValue index we're currently using
+    let formValueIndex = 0;
+
+    this.recommendations.forEach((category: any) => {
+      addingInput += `<p><strong>${category.question.heading}</strong></p>`;
+
+      category.question.branches.forEach((branchQuestion: any) => {
+        addingInput += `<p>${branchQuestion}</p>`;
+
+        let currentAnswer = "";
+        const currentFormField = formValue[formValueIndex];
+
+        if (formData && formData[currentFormField]) {
+          if (currentFormField == 'fees' || currentFormField == 'cost_estimation') {
+            currentAnswer = formData['currency_code'] + ' ' + formData[currentFormField];
+          }
+          else if (currentFormField == 'interested_country') {
+            const selected = this.countryList.find((c: any) => c.id === formData[currentFormField]);
+            currentAnswer = selected.country;
+          }
+          else {
+            currentAnswer = formData[currentFormField];
+          }
+        } else {
+          currentAnswer = "No answer provided";
+        }
+
+        addingInput += `<p><strong>${currentAnswer}</strong></p>`;
+
+        formValueIndex++;
+      });
+
+      // Add spacing between categories
+      addingInput += `<br>`;
+    });
+
+    let finalRecommendation = addingInput + '<p><strong>Response:<br></strong></p>' + this.recommendationData;
     let paramData: DownloadRespose = {
-      response: this.recommendationData,
+      response: finalRecommendation,
       module_name: "Global Edufit",
       file_name: "global_edufit"
     };

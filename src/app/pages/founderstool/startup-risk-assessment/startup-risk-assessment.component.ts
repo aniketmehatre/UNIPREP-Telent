@@ -192,8 +192,27 @@ export class StartupRiskAssessmentComponent implements OnInit {
   }
 
   downloadRecommadation() {
+    let addingInput = `<p><strong>Input:<br></strong></p>`;
+
+    this.recommendations.forEach(item => {
+      addingInput += `<p><strong>${item.question}</strong></p>`;
+      let currentAnswer = "";
+      if (this.selectedData && this.selectedData[item.id]) {
+        if (item.id == 8) {
+          currentAnswer = this.selectedData[10] + ' ' + this.selectedData[item.id]
+        } else {
+          currentAnswer = this.selectedData[item.id];
+        }
+      } else {
+        currentAnswer = "No answer provided";
+      }
+
+      addingInput += `<p>${currentAnswer}</p><br>`;
+    });
+
+    let finalRecommendation = addingInput + '<p><strong>Response:<br></strong></p>' + this.recommendationData;
     let paramData: DownloadRespose = {
-      response: this.recommendationData,
+      response: finalRecommendation,
       module_name: "Startup Risk Assessment",
       file_name: "startup_risk_assessment"
     };

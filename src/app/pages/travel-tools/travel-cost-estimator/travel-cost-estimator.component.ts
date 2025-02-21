@@ -222,8 +222,30 @@ export class TravelCostEstimatorComponent implements OnInit {
   }
 
   downloadRecommadation() {
+
+    let departureLocation = this.selectedData[1].city_name+', '+this.selectedData[1].country_name;
+    let destinationLocation = this.selectedData[2].city_name+', '+this.selectedData[2].country_name;
+    let addingInput = `<p><strong>Input:<br></strong></p>`;
+    this.recommendations.forEach(values =>{
+      addingInput += `<p><strong>${values.question}</strong></p>`;
+      let currentAnswer = "";
+      if(values.id == 1){
+        currentAnswer = departureLocation;
+      }else if(values.id == 2){
+        currentAnswer = destinationLocation;
+      }else if(values.id == 3){
+        currentAnswer = `${ this.selectedData[3] } Days`;
+      }else if(values.id == 4){
+        currentAnswer = this.selectedData[4];
+      }else if(values.id == 5){
+        currentAnswer = `${ this.selectedData[5] } Currency`;
+      }
+      addingInput += `<p><strong>${ currentAnswer }</strong></p><br>`;
+    });
+    let finalRecommendation = addingInput+ '<p><strong>Response:<br></strong></p>' + this.recommendationData;
+
     let paramData: DownloadRespose = {
-      response: this.recommendationData,
+      response: finalRecommendation,
       module_name: "Travel Cost Estimator",
       file_name: "travel_cost_estimator"
     };
@@ -232,14 +254,6 @@ export class TravelCostEstimatorComponent implements OnInit {
     }).catch(error =>{
       console.error("Error generating PDF:", error);
     })
-    // this.travelToolsService.downloadRecommendation({ data: this.recommendationData }).subscribe({
-    //   next: res => {
-    //     window.open(res.url, "_blank");
-    //   },
-    //   error: err => {
-    //     console.log(err?.error?.message);
-    //   }
-    // });
   }
 
   goBack() {
