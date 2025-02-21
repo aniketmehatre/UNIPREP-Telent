@@ -37,13 +37,13 @@
                               in</label>
                           </div>
                           <div class="col-lg-4 mb-2">
-                            <p-dropdown [options]="universityCountryList" optionLabel="country" optionValue="id"
+                            <p-dropdown [options]="universityCountryList" optionLabel="country" optionValue="country"
                               [filter]="true" filterBy="country" formControlName="country" placeholder="Select Country"
                               styleClass="w-100" appendTo="body" (ngModelChange)="setUniversityList($event);">
                             </p-dropdown>
                           </div>
                           <div class="col-lg-4 mb-2">
-                            <p-dropdown [options]="universityCountryList" optionLabel="country" optionValue="id"
+                            <p-dropdown [options]="universityCountryList" optionLabel="country" optionValue="country"
                               [filter]="true" filterBy="country" formControlName="compare_country"
                               placeholder="Select Country" styleClass="w-100" appendTo="body"
                               (ngModelChange)="setCompareUniversityList($event);">

@@ -294,16 +294,22 @@ export class UniCompareComponent implements OnInit, OnDestroy {
     });
   }
 
-  setUniversityList(id: string) {
-    this.educationToolService.getUniverstityByCountry(id).subscribe(data => {
+  setUniversityList(name: string) {
+    const selected = this.universityCountryList.find((c: any) => c.country === name);
+    if (selected) {
+      this.educationToolService.getUniverstityByCountry(selected?.id).subscribe(data => {
       this.universityList = data;
-    })
+      });
+    }
   }
 
-  setCompareUniversityList(id: string) {
-    this.educationToolService.getUniverstityByCountry(id).subscribe(data => {
-      this.compareUniversityList = data;
-    })
+  setCompareUniversityList(name: string) {
+    const selected = this.universityCountryList.find((c: any) => c.country === name);
+    if (selected) {
+      this.educationToolService.getUniverstityByCountry(selected.id).subscribe(data => {
+        this.compareUniversityList = data;
+      })
+    }
   }
 
   onSaveRes() {
