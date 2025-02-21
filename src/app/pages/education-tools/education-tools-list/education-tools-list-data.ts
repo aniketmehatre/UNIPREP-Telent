@@ -6,14 +6,14 @@ export const EducationToolsData = [
       //  description: "This tool lets you get a global travel visa with the help of few easy steps",
         image: domainUrl+"CourseNavigator.svg",
         url: "/pages/education-tools/course-navigator",
-        launch_soon: false,
+        launch_soon: true,
     },
     {
         title: "Politician Insights",
       //  description: "This tool lets you get a polician insights with the help of few easy steps",
       image: domainUrl+"PoliticalInsights.svg",
         url: "/pages/education-tools/politician-insights",
-        launch_soon: false,
+        launch_soon: true,
     },
     {
         title: "Global Study Visa",
@@ -27,7 +27,7 @@ export const EducationToolsData = [
       //  description: "This tool lets you get a global travel visa with the help of few easy steps",
       image: domainUrl+"CountryInsights.svg",
         url: "/pages/education-tools/country-insights",
-        launch_soon: false,
+        launch_soon: true,
     },
     {
         title: "Wealth Leaders",
@@ -41,28 +41,28 @@ export const EducationToolsData = [
        // description: "This tool lets you get a global travel visa with the help of few easy steps",
        image: domainUrl+"StudentBudgetPlanner.svg",
         url: "/pages/education-tools/student-budget-planner",
-        launch_soon: false,
+        launch_soon: true,
     },
     {
         title: "UniCompare",
       //  description: "This tool lets you get a global travel visa with the help of few easy steps",
       image: domainUrl+"Unicompare.svg",
         url: "/pages/education-tools/uni-compare",
-        launch_soon: false,
+        launch_soon: true,
     },
     {
         title: "Global Edufit",
        // description: "This tool lets you get a global travel visa with the help of few easy steps",
        image: domainUrl+"GlobalEdufit.svg",
         url: "/pages/education-tools/global-edufit",
-        launch_soon: false,
+        launch_soon: true,
     },
     {
         title: "Loan Comparison Tool",
       //  description: "This tool lets you get a global travel visa with the help of few easy steps",
       image: domainUrl+"LoanComparisonTool.svg",
         url: "/pages/education-tools/edu-loan-compare",
-        launch_soon: false,
+        launch_soon: true,
     },
     
 ]

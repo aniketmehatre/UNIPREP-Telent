@@ -130,7 +130,7 @@ export class CareerToolComponent implements OnInit {
       imageLink: this.domainUrl+"AverageSalaryEstimator.svg",
       refLink: "",
       mode: "average-salary-estimator",
-      launch_soon: false
+      launch_soon: true
     },
     {
       id: 12,
@@ -151,7 +151,7 @@ export class CareerToolComponent implements OnInit {
       imageLink: this.domainUrl+"JobOfferComparisonTool.svg",
       refLink: "",
       mode: "job-offer-comparison",
-      launch_soon: false
+      launch_soon: true
     },
     {
       id: 15,
@@ -181,7 +181,7 @@ export class CareerToolComponent implements OnInit {
       imageLink: this.domainUrl+"FortuneCompanies.svg",
       refLink: "",
       mode: "fortune-companies",
-      launch_soon: false
+      launch_soon: true
     },
     {
       id: 18,
@@ -191,7 +191,7 @@ export class CareerToolComponent implements OnInit {
       imageLink: `https://${environment.domain}/uniprepapi/storage/app//public/icon/modules/chacks.png`,
       refLink: "",
       mode: "career-hacks",
-      launch_soon: false
+      launch_soon: true
     },
     {
       id: 19,
@@ -201,7 +201,7 @@ export class CareerToolComponent implements OnInit {
       imageLink: this.domainUrl+"GlobalEmployementInsights.svg",
       refLink: "",
       mode: "global-employment-insights",
-      launch_soon: false
+      launch_soon: true
     },
     // {
     //   id: 20,

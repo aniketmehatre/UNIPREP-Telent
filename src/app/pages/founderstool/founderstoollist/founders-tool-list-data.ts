@@ -104,34 +104,34 @@ export const FoundersToolsData = [
         description: "An assessment that evaluates an entrepreneur's in-depth knowledge and proficiency in specific industries.",
         image: domainUrl+"MarketAnalysis.svg",
         url: "/pages/founderstool/marketing-anaylsis",
-        launch_soon: false
+        launch_soon: true
     },
     {
         title: "Business Advisor",
         description: "An assessment that evaluates an entrepreneur's in-depth knowledge and proficiency in specific industries.",
         image: domainUrl+"AIBusinessAdvisor.svg",
         url: "/pages/founderstool/business-advisor",
-        launch_soon: false
+        launch_soon: true
     },
     {
         title: "Startup Risk Assessment",
         description: "An assessment that evaluates an entrepreneur's in-depth knowledge and proficiency in specific industries.",
         image: domainUrl+"StartupRiskAssessment.svg",
         url: "/pages/founderstool/risk-assessment",
-        launch_soon: false
+        launch_soon: true
     },
     {
         title: "Startup Expense Estimate",
         description: "An assessment that evaluates an entrepreneur's in-depth knowledge and proficiency in specific industries.",
         image: domainUrl+"StartupExpenseEstimator.svg",
         url: "/pages/founderstool/startup-expense-estimate",
-        launch_soon: false
+        launch_soon: true
     },
     {
         title: "Business Forecasting Tool",
         description: "An assessment that evaluates an entrepreneur's in-depth knowledge and proficiency in specific industries.",
         image: "../../../uniprep-assets/images/founderstool/revenue-forecating-tool.svg",
         url: "/pages/founderstool/business-forecasting-tool",
-        launch_soon: false
+        launch_soon: true
     }
 ];
