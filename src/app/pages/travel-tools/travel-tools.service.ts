@@ -72,6 +72,8 @@ export class TravelToolsService {
   }
 
   convertHTMLtoPDF(data: any): Promise<void> {
+    console.log(data);
+    
     return new Promise((resolve, reject) => {
       const now = new Date();
       const timestamp = now.toISOString().slice(0, 19).replace("T", "_").replace(/:/g, "");

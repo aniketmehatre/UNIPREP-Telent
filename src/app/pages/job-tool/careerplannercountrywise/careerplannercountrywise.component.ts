@@ -106,8 +106,8 @@ export class CareerplannercountrywiseComponent implements OnInit {
     // });
     let paramData: DownloadRespose = {
       response: this.customizedResponse,
-      module_name: "Trip Length Finder",
-      file_name: "trip_length_finder"
+      module_name: "Career Planner",
+      file_name: "career_planner"
     };
     this.travelToolService.convertHTMLtoPDF(paramData).then(() => {
       console.log("PDF successfully generated.");
