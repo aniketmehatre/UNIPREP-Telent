@@ -47,7 +47,8 @@ export class UniCompareComponent implements OnInit, OnDestroy {
     page: this.page,
     perpage: this.pageSize,
   };
-  currencyandCountryList: any;
+  countriesList: any;
+  currenciesList: any;
   isRecommendationQuestion: boolean = true;
   isRecommendationData: boolean = false;
   isRecommendationSavedData: boolean = false;
@@ -137,8 +138,8 @@ export class UniCompareComponent implements OnInit, OnDestroy {
     this.educationToolService.getCurrentSpecializations().subscribe(data => {
       this.specializationList = data;
     });
-    this.educationToolService.getCurrencyAndCountries().subscribe(data => {
-      this.currencyandCountryList = data;
+    this.educationToolService.getCurrencies().subscribe(data => {
+      this.currenciesList = data;
     });
   }
 
