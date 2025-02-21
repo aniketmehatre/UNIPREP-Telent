@@ -50,6 +50,7 @@ export class MarketingAnalysisComponent implements OnInit {
     perpage: this.pageSize,
   };
   currencyandCountryList: any;
+  currenciesList: any;
   isRecommendationQuestion: boolean = true;
   isRecommendationData: boolean = false;
   isRecommendationSavedData: boolean = false;
@@ -134,10 +135,10 @@ export class MarketingAnalysisComponent implements OnInit {
       console.log(res);
       this.currencyandCountryList = res;
     });
-    // this.foundersToolsService.getLocationList().subscribe((res: any) => {
-    //   console.log(res);
-    //   this.locationList = res;
-    // });
+    this.foundersToolsService.getCurrenciesList().subscribe((res: any) => {
+      console.log(res);
+      this.currenciesList = res;
+    });
   }
 
   checkplanExpire(): void {

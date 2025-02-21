@@ -104,8 +104,8 @@
                       {{ recommendation.question.branches[1] }}
                     </h5>
                     <div class="w-100 d-flex gap-2 flex-fill">
-                      <p-dropdown formControlName="investment_currency_code" [options]="currencyandCountryList" [filter]="true"
-                        filterBy="currency_code" placeholder=" Currency" appendTo="body" optionLabel="currency_code" optionValue="currency_code"
+                      <p-dropdown formControlName="investment_currency_code" [options]="currenciesList" [filter]="true"
+                        filterBy="currency_symbol" placeholder=" Currency" appendTo="body" optionLabel="currency_symbol" optionValue="currency_symbol"
                         [autoDisplayFirst]="false">
                       </p-dropdown>
                       <input class="w-100 pl-4 border border-gray rounded-3" type="number" [min]="100" pInputText [placeholder]="marketingForm.get('investment_currency_code').value ? 'Amount in'+' '+marketingForm.get('investment_currency_code').value : 'Investment Amount' "
@@ -135,8 +135,8 @@
                       {{ recommendation.question.branches[3] }}
                     </h5>
                     <div class="w-100 d-flex gap-2 flex-fill">
-                      <p-dropdown formControlName="expense_currency_code" [options]="currencyandCountryList" [filter]="true"
-                        filterBy="currency_code" placeholder="Currency" optionLabel="currency_code" optionValue="currency_code"
+                      <p-dropdown formControlName="expense_currency_code" [options]="currenciesList" [filter]="true"
+                        filterBy="currency_symbol" placeholder="Currency" optionLabel="currency_symbol" optionValue="currency_symbol"
                         [autoDisplayFirst]="false" appendTo="body">
                       </p-dropdown>
                       <input class="w-100 pl-4 border border-gray rounded-3" type="number" pInputText [placeholder]="marketingForm.get('expense_currency_code').value ? 'Amount in'+' '+marketingForm.get('expense_currency_code').value : 'Operating Expense' "
@@ -157,8 +157,8 @@
                       {{ recommendation.question.branches[0] }}
                     </h5>
                     <div class="w-100 d-flex gap-2 flex-fill">
-                      <p-dropdown formControlName="sales_currency_code"  [options]="currencyandCountryList" [filter]="true"
-                        filterBy="currency_code" placeholder=" Currency" optionLabel="currency_code" optionValue="currency_code"
+                      <p-dropdown formControlName="sales_currency_code"  [options]="currenciesList" [filter]="true"
+                        filterBy="currency_symbol" placeholder=" Currency" optionLabel="currency_symbol" optionValue="currency_symbol"
                         [autoDisplayFirst]="false">
                       </p-dropdown>
                       <input class="w-100 pl-4 border border-gray rounded-3" type="text" pInputText [placeholder]="marketingForm.get('sales_currency_code').value ? 'Amount in'+' '+marketingForm.get('sales_currency_code').value : 'Marketing and SalesBuget Amount' "
