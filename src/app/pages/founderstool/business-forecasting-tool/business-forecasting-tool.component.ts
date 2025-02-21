@@ -234,9 +234,8 @@ export class BusinessForecastingToolComponent implements OnInit {
   next() {
     this.submitted = false;
     const formData = this.form.value;
-    console.log(formData)
     if (this.activePageIndex == 0) {
-      if (!formData.industry || (this.isSessonEnable && (!formData.seasons || formData.seasons.length == 0)) || (!formData.factors || formData.factors?.length == 0)) {
+      if (!formData.industry || (formData.seasonalfunctionality && (!formData.seasons || formData.seasons.length == 0)) || (!formData.factors || formData.factors?.length == 0)) {
         this.submitted = true;
         return;
       }

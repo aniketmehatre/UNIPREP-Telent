@@ -68,7 +68,7 @@
                                                         <div class="d-flex gap-2">
                                                             <p-dropdown class="currency-dropdown"
                                                                 formControlName="currency"
-                                                                [options]="currencyandCountryList" [filter]="true"
+                                                                [options]="currenciesList" [filter]="true"
                                                                 filterBy="currency_symbol" placeholder="Currency"
                                                                 optionLabel="currency_symbol" optionValue="currency_symbol"
                                                                 [autoDisplayFirst]="false" (ngModelChange)="form.get('compare_currency')?.patchValue(form.get('currency')?.value)">
@@ -81,7 +81,7 @@
                                                         <div class="d-flex gap-2">
                                                             <p-dropdown class="currency-dropdown"
                                                                 formControlName="compare_currency"
-                                                                [options]="currencyandCountryList" [filter]="true"
+                                                                [options]="currenciesList" [filter]="true"
                                                                 filterBy="currency_symbol" placeholder="Currency"
                                                                 optionLabel="currency_symbol" optionValue="currency_symbol"
                                                                 [autoDisplayFirst]="false">

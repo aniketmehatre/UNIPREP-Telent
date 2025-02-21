@@ -154,6 +154,12 @@ export class FounderstoolService {
     });
   }
 
+  getCurrenciesList() {
+    return this.http.get<any>(environment.ApiUrl + "/currenciesList", {
+      headers: this.headers
+    });
+  }
+
   storeRecommendation(data: any) {
     return this.http.post<any>(environment.ApiUrl + "/storeFundRec", data, {
       headers: this.headers,

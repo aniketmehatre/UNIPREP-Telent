@@ -55,7 +55,7 @@ export class AiBusinessAdvisorComponent implements OnInit {
   }
 
   getCurrenyandLocation() {
-    this.foundersToolService.getCurrencyAndCountries().subscribe((res: any) => {
+    this.foundersToolService.getCurrenciesList().subscribe((res: any) => {
       this.currencyList = res;
     });
   }

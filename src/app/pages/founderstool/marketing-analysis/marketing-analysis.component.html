@@ -132,8 +132,8 @@
                     {{ recommendation.question.branches[0] }}
                   </h5>
                   <div class="w-100 d-flex gap-2 flex-fill">
-                    <p-dropdown formControlName="currencycode" [options]="currencyandCountryList" [filter]="true"
-                      filterBy="currency_code" placeholder=" Currency" optionLabel="currency_code" optionValue="currency_code"
+                    <p-dropdown formControlName="currencycode" [options]="currenciesList" [filter]="true"
+                      filterBy="currency_symbol" placeholder=" Currency" optionLabel="currency_symbol" optionValue="currency_symbol"
                       [autoDisplayFirst]="false">
                     </p-dropdown>
                     <input class="w-100 border border-gray rounded-3" pInputText type="number" [max]="999999" [placeholder]="marketingForm.get('currency_code')?.value ? 'Amount in'+' '+marketingForm.get('currency_code')?.value  : 'Enter Amount'"

@@ -65,7 +65,7 @@ export class StartupRiskAssessmentComponent implements OnInit {
   }
 
   getCurrenyandLocation() {
-    this.founderToolService.getCurrencyAndCountries().subscribe((res: any) => {
+    this.founderToolService.getCurrenciesList().subscribe((res: any) => {
       this.currencyList = res;
     });
   }
