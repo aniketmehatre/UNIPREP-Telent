@@ -11,7 +11,15 @@ const indexHtml = join(serverDistFolder, 'index.server.html');
 
 const app = express();
 const commonEngine = new CommonEngine();
-
+if (typeof self === 'undefined') {
+    (global as any).self = global;
+}
+if (typeof document === 'undefined') {
+    (global as any).document = {
+        createElement: () => ({})
+        // You can extend this stub if the library needs more document APIs.
+    };
+}
 /**
  * Example Express Rest API endpoints can be defined here.
  * Uncomment and define endpoints as necessary.

@@ -60,12 +60,7 @@
               "jquery/dist/jquery.min.js",
               "slick-carousel/slick/slick.min.js"
             ],
-            "browser": "src/main.ts",
-            "server": "src/main.server.ts",
-            "prerender": true,
-            "ssr": {
-              "entry": "src/server.ts"
-            }
+            "browser": "src/main.ts"
           },
           "configurations": {
             "production": {
@@ -163,16 +158,6 @@
               "node_modules/file-saver/dist/FileSaver.js"
             ]
           }
-        }
-      },
-      "prerender": {
-        "builder": "@angular-devkit/build-angular:prerender",
-        "options": {
-          "browserTarget": "UNIPREP:build:production",
-          "serverTarget": "UNIPREP:server:production"
-        },
-        "configurations": {
-          "production": {}
         }
       }
     }

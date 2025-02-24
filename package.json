@@ -6,10 +6,7 @@
     "start": "ng serve",
     "build": "ng build",
     "watch": "ng build --watch --configuration development",
-    "test": "ng test",
-    "build:ssr": "ng build --configuration production --output-hashing=none && ng run UNIPREP:server:production",
-    "serve:ssr": "node dist/server/main.js",
-    "prerender": "ng run UNIPREP:prerender"
+    "test": "ng test"
   },
   "private": true,
   "dependencies": {
