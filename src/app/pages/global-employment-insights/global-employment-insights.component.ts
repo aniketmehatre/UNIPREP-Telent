@@ -1,7 +1,8 @@
 import { Component, Input, OnInit } from "@angular/core";
 @Component({
-  selector: "uni-global-employment-insights",
-  templateUrl: "./global-employment-insights.component.html",
+    selector: "uni-global-employment-insights",
+    templateUrl: "./global-employment-insights.component.html",
+    standalone: false
 })
 export class GlobalEmploymentComponent implements OnInit {
   @Input() prepData: any;

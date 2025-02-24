@@ -9,6 +9,7 @@ import { count } from "console";
   selector: "uni-global-employment-country-lists",
   templateUrl: "./global-employment-insights-countrylist.component.html",
   styleUrls: ["./global-employment-insights-countrylist.component.scss"],
+  standalone: false
 })
 export class GlobalEmploymentCountryListsComponent implements OnInit {
   constructor(

@@ -9,13 +9,11 @@ import { AutoCompleteModule } from "primeng/autocomplete";
 import { ButtonModule } from "primeng/button";
 import { CardModule } from "primeng/card";
 import { CarouselModule } from "primeng/carousel";
-import { ChipsModule } from "primeng/chips";
 import { ConfirmPopupModule } from "primeng/confirmpopup";
 import { DialogModule } from "primeng/dialog";
 import { DropdownModule } from "primeng/dropdown";
 import { EditorModule } from "primeng/editor";
 import { InputTextModule } from "primeng/inputtext";
-import { InputTextareaModule } from "primeng/inputtextarea";
 import { PaginatorModule } from "primeng/paginator";
 import { SidebarModule } from "primeng/sidebar";
 import { SkeletonModule } from "primeng/skeleton";
@@ -38,9 +36,7 @@ import { GlobalEmploymentRoutingModule } from "./global-employment-insights-rout
         CarouselModule,
         ButtonModule,
         ReactiveFormsModule,
-        InputTextareaModule,
         GlobalEmploymentRoutingModule,
-        ChipsModule,
         FormsModule,
         DropdownModule,
         EditorModule,

@@ -1,149 +1,210 @@
 <!-- ----------------- Recommandation Question View ----------------- -->
 <div class="card readingcard" *ngIf="isRecommendationQuestion">
-	<div class="card-header border-0 bg-transparent">
-		<div class="row justify-content-center align-items-center">
-			<div class="col-md-12 d-flex gap-4">
-				<div class="backIcon d-md-flex d-none" role="button" (click)="goBack()" style="height: auto">
-					<span class="fa-solid fa-chevron-left"></span>
-				</div>
-				<div class="select-title d-flex justify-content-between align-items-center">
-					<div>
-						<h5 class="w-100 mb-0" tooltipPosition="top" pTooltip="">Travel Cost Estimator<i class="questiontooltip fa-solid fa-circle-question"></i></h5>
-					</div>
-					<div>
-						<button pButton  class="how-it-works-button" severity="warn" >How it works? <i class="fa-solid fa-play d-md-block d-none"></i></button>
-					</div>
-				</div>
-			</div>
-		</div>
-	</div>
-	<div class="card-body text-center flex-fill overflow-y-auto">
-		<div class="container-fluid h-100">
-			<p-carousel [value]="recommendations" [numVisible]="1" [numScroll]="1" [circular]="false" [showNavigators]="false" [showIndicators]="false" [page]="activePageIndex" styleClass="h-100 carousal-container-sec">
-				<ng-template let-recommendation let-i="index" pTemplate="item">
-					<div class="h-100 d-flex flex-column justify-content-between">
-						<div>&nbsp;</div>
-						<div class="row justify-content-center text-start">
-							<div class="col-md-12 mb-4">
-								<!-- <h5 class="text-center uniprep-primary fw-semibold mb-0">Question Number {{ recommendation.id }}
+    <div class="card-header border-0 bg-transparent">
+        <div class="row justify-content-center align-items-center">
+            <div class="col-md-12 d-flex gap-4">
+                <div class="backIcon d-md-flex d-none" role="button" (click)="goBack()" style="height: auto;">
+                    <span class="fa-solid fa-chevron-left"></span>
+                </div>
+                <div class="select-title d-flex justify-content-between align-items-center">
+                    <div>
+                        <h5 class="w-100 mb-0" tooltipPosition="top" pTooltip="">
+                            Travel Tools -> Travel Cost Estimator<i class="questiontooltip fa-solid fa-circle-question"></i></h5>
+                    </div>
+                    <div>
+                        <button class="how-it-works-button">How it works?
+                            <i class="fa-solid fa-play d-md-block d-none"></i></button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="card-body text-center flex-fill overflow-y-auto">
+        <div class="container-fluid h-100">
+            <p-carousel [value]="recommendations" [numVisible]="1" [numScroll]="1" [circular]="false"
+                        [showNavigators]="false" [showIndicators]="false" [page]="activePageIndex"
+                        styleClass="h-100 carousal-container-sec">
+                <ng-template let-recommendation let-i="index" pTemplate="item">
+                    <div class="h-100 d-flex flex-column justify-content-between">
+                        <div>&nbsp;</div>
+                        <div class="row justify-content-center text-center">
+                            <div class="col-md-12 mb-4">
+                                <!-- <h5 class="uniprep-primary fw-semibold mb-0">Question Number {{ recommendation.id }}
                                 </h5> -->
-								<h2 class="fw-bold mb-0 text-center">{{ recommendation.question }}</h2>
-							</div>
-							<div class="col-md-6">
-								<div class="recommendationinput d-flex flex-column justify-content-center gap-3">
-									<ng-container *ngIf="recommendation.id == 1">
-										<p-select [options]="departureLocationList" [virtualScroll]="true" [virtualScrollItemSize]="50" [(ngModel)]="selectedData[recommendation.id]" name="departure" [appendTo]="'body'" [filter]="true" [showClear]="true" placeholder="Departure Country" styleClass="w-100">
-											<ng-template pTemplate="filter" let-options="options">
-												<div class="d-flex gap-2">
-													<p-inputgroup (click)="$event.stopPropagation()">
-														<p-inputgroup-addon> <i class="fa-solid fa-search"></i></p-inputgroup-addon>
-														<input type="text" pInputText placeholder="Filter" [(ngModel)]="departureFilter" name="departureFilter" (keyup)="customFilterFunction('departure')" />
-													</p-inputgroup>
-													<button pButton  pButton icon="pi pi-times" class="btn btn-primary" (click)="resetFunction('departure')" severity="secondary"></button>
-												</div>
-											</ng-template>
-											<ng-template let-country pTemplate="item">
-												<div class="d-flex align-items-center gap-2">
-													<div class="dropdownimg">
-														<img [src]="country.flag" class="img-fluid" />
-													</div>
-													<div>
-														<span *ngIf="country.city_name !== null"> {{ country.city_name }}, </span>{{ country.country_name }}
-													</div>
-												</div>
-											</ng-template>
-											<ng-template pTemplate="selectedItem" let-selectedOption>
-												<div class="d-flex align-items-center gap-2">
-													<div class="dropdownimg">
-														<img [src]="selectedOption.flag" class="img-fluid" />
-													</div>
-													<div>
-														<span *ngIf="selectedOption.city_name !== null"> {{ selectedOption.city_name }}, </span>{{ selectedOption.country_name }}
-													</div>
-												</div>
-											</ng-template>
-										</p-select>
-										<p class="text-center" [ngClass]="{ 'd-none': invalidClass === false }" style="color: red">Please Choose Any one option</p>
-									</ng-container>
-									<ng-container *ngIf="recommendation.id == 2">
-										<p-select [options]="destinationLocationList" [virtualScroll]="true" [virtualScrollItemSize]="50" [(ngModel)]="selectedData[recommendation.id]" name="destination" [appendTo]="'body'" placeholder="Destination Country" [filter]="true" [showClear]="true" styleClass="w-100">
-											<ng-template pTemplate="filter" let-options="options">
-												<div class="d-flex gap-2">
-													<p-inputgroup (click)="$event.stopPropagation()">
-														<p-inputgroup-addon> <i class="fa-solid fa-search"></i></p-inputgroup-addon>
-														<input type="text" pInputText placeholder="Filter" [(ngModel)]="destinationFilter" name="destinationFilter" (keyup)="customFilterFunction('destination')" />
-													</p-inputgroup>
-													<button pButton  pButton icon="pi pi-times" class="btn btn-primary" (click)="resetFunction('destination')" severity="secondary"></button>
-												</div>
-											</ng-template>
-											<ng-template let-country pTemplate="item">
-												<div class="d-flex align-items-center gap-2">
-													<div class="dropdownimg">
-														<img [src]="country.flag" class="img-fluid" />
-													</div>
-													<div>
-														<span *ngIf="country.city_name !== null"> {{ country.city_name }}, </span>{{ country.country_name }}
-													</div>
-												</div>
-											</ng-template>
-											<ng-template pTemplate="selectedItem" let-selectedOption>
-												<div class="d-flex align-items-center gap-2">
-													<div class="dropdownimg">
-														<img [src]="selectedOption.flag" class="img-fluid" />
-													</div>
-													<div>
-														<span *ngIf="selectedOption.city_name !== null"> {{ selectedOption.city_name }}, </span>{{ selectedOption.country_name }}
-													</div>
-												</div>
-											</ng-template>
-										</p-select>
-										<p class="text-center" [ngClass]="{ 'd-none': invalidClass === false }" style="color: red">Please Choose Any one option</p>
-									</ng-container>
-									<ng-container *ngIf="recommendation.id == 3">
-										<p-inputNumber [showButtons]="true" buttonLayout="horizontal" [(ngModel)]="selectedData[recommendation.id]" name="duration" spinnerMode="horizontal" incrementButtonIcon="pi pi-plus" incrementButtonClass="plus-icon" decrementButtonClass="minus-icon" decrementButtonIcon="pi pi-minus" inputStyleClass="number-input" [min]="1" [max]="7" [step]="1" [suffix]="selectedData[recommendation.id] == 1 ? ' day' : ' days'" [inputStyle]="{ 'pointer-events': 'none', 'caret-color': 'transparent' }" styleClass="w-100 custom-number-input"> </p-inputNumber>
-										<p class="text-center" [ngClass]="{ 'd-none': invalidClass === false }" style="color: red">Please Choose Any one option</p>
-									</ng-container>
-									<ng-container *ngIf="recommendation.id == 4">
-										<p-select [options]="trvelExperienceList" styleClass="w-100" [(ngModel)]="selectedData[recommendation.id]" name="experience" optionLabel="name" optionValue="name" [appendTo]="'body'" placeholder="Travel Experience"> </p-select>
-										<p class="text-center" [ngClass]="{ 'd-none': invalidClass === false }" style="color: red">Please Choose Any one option</p>
-									</ng-container>
-									<ng-container *ngIf="recommendation.id == 5">
-										<p-select [options]="currencyList" [(ngModel)]="selectedData[recommendation.id]" name="currency" optionLabel="currency_code" optionValue="currency_code" [appendTo]="'body'" placeholder="Preferred Currency" [filter]="true" [showClear]="true" styleClass="w-100">
-											<ng-template let-data pTemplate="item">
-												<div>{{ data.country }} - {{ data.currency_code }}</div>
-											</ng-template>
-											<ng-template pTemplate="selectedItem" let-selectedOption> {{ selectedOption.country }} - {{ selectedOption.currency_code }} </ng-template>
-											<ng-template pTemplate="filter" let-options="options">
-												<div class="d-flex gap-2">
-													<p-inputgroup (click)="$event.stopPropagation()">
-														<p-inputgroup-addon> <i class="fa-solid fa-search"></i></p-inputgroup-addon>
-														<input type="text" pInputText placeholder="Filter" [(ngModel)]="currencyFilter" name="currencyFilter" (keyup)="customFilterFunction('currency')" />
-													</p-inputgroup>
-													<button pButton  pButton icon="pi pi-times" class="btn btn-primary" (click)="resetFunction('currency')" severity="secondary"></button>
-												</div>
-											</ng-template>
-										</p-select>
-										<p class="text-center" [ngClass]="{ 'd-none': invalidClass === false }" style="color: red">Please Choose Any one option</p>
-									</ng-container>
-								</div>
-							</div>
-						</div>
-						<div class="d-flex justify-content-between mt-2">
-							<button pButton  pButton type="button" class="btn btn-primary btn-rounded p-1 pe-4" [style.visibility]="recommendation.id == 1 ? 'hidden' : 'visible'" (click)="previous()">
-								<span class="btn-icon px-2 py-2"><i class="fa fa-arrow-left"></i></span> <span class="ms-2">Previous</span>
-							</button>
-							<button pButton  pButton type="button" (click)="next(recommendation.id)" *ngIf="recommendation.id != 5" class="btn btn-primary btn-rounded p-1 ps-4">
-								<span class="me-2">Next</span><span class="btn-icon px-2 py-2"><i class="fa fa-arrow-right"></i></span>
-							</button>
-							<button pButton  pButton type="button" (click)="getRecommendation()" severity="success" *ngIf="recommendation.id == 5" class="btn btn-success btn-rounded p-1 ps-4">
-								<span class="me-2">Get Recommendations</span><span class="btn-icon px-2 py-2"><i class="fa fa-check-circle"></i></span>
-							</button>
-						</div>
-					</div>
-				</ng-template>
-			</p-carousel>
-		</div>
-	</div>
+                                <h2 class="fw-bold mb-0">{{ recommendation.question }}</h2>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="recommendationinput d-flex flex-column justify-content-center gap-3">
+                                    <ng-container *ngIf="recommendation.id == 1">
+                                        <p-dropdown [options]="departureLocationList" [virtualScroll]="true"
+                                                    [virtualScrollItemSize]="50" [(ngModel)]="selectedData[recommendation.id]"
+                                                    [appendTo]="'body'" [filter]="true" [showClear]="true"
+                                                    placeholder="Select Departure Country" styleClass="w-100">
+                                            <ng-template pTemplate="filter" let-options="options">
+                                                <div class="d-flex gap-2">
+                                                    <div class="p-inputgroup" (click)="$event.stopPropagation()">
+                                                        <span class="p-inputgroup-addon">
+                                                            <i class="pi pi-search"></i></span>
+                                                        <input type="text" pInputText placeholder="Search"
+                                                               [(ngModel)]="departureFilter"
+                                                               (keyup)="customFilterFunction('departure')" />
+                                                    </div>
+                                                    <button pButton icon="pi pi-times" class="btn btn-primary"
+                                                            (click)="resetFunction('departure')"
+                                                            severity="secondary"></button>
+                                                </div>
+                                            </ng-template>
+                                            <ng-template let-country pTemplate="item">
+                                                <div class="d-flex align-items-center gap-2">
+                                                    <div class="dropdownimg">
+                                                        <img [src]="country.flag" class="img-fluid" />
+                                                    </div>
+                                                    <div>
+                                                        <span *ngIf="country.city_name !== null">
+                                                            {{ country.city_name }},
+                                                        </span>{{ country.country_name }}
+                                                    </div>
+                                                </div>
+                                            </ng-template>
+                                            <ng-template pTemplate="selectedItem" let-selectedOption>
+                                                <div class="d-flex align-items-center gap-2">
+                                                    <div class="dropdownimg">
+                                                        <img [src]="selectedOption.flag" class="img-fluid" />
+                                                    </div>
+                                                    <div>
+                                                        <span *ngIf="selectedOption.city_name !== null">
+                                                            {{ selectedOption.city_name }},
+                                                        </span>{{ selectedOption.country_name }}
+                                                    </div>
+                                                </div>
+                                            </ng-template>
+                                        </p-dropdown>
+                                        <p class="text-center" [ngClass]="{ 'd-none': invalidClass === false }"
+                                           style="color: red">Please Choose Any one option</p>
+                                    </ng-container>
+                                    <ng-container *ngIf="recommendation.id == 2">
+                                        <p-dropdown [options]="destinationLocationList" [virtualScroll]="true"
+                                                    [virtualScrollItemSize]="50" [(ngModel)]="selectedData[recommendation.id]"
+                                                    [appendTo]="'body'" placeholder="Select Destination Country" [filter]="true"
+                                                    [showClear]="true" styleClass="w-100">
+                                            <ng-template pTemplate="filter" let-options="options">
+                                                <div class="d-flex gap-2">
+                                                    <div class="p-inputgroup" (click)="$event.stopPropagation()">
+                                                        <span class="p-inputgroup-addon">
+                                                            <i class="pi pi-search"></i></span>
+                                                        <input type="text" pInputText placeholder="Search"
+                                                               [(ngModel)]="destinationFilter"
+                                                               (keyup)="customFilterFunction('destination')" />
+                                                    </div>
+                                                    <button pButton icon="pi pi-times" class="btn btn-primary"
+                                                            (click)="resetFunction('destination')" severity="secondary">
+                                                    </button>
+                                                </div>
+                                            </ng-template>
+                                            <ng-template let-country pTemplate="item">
+                                                <div class="d-flex align-items-center gap-2">
+                                                    <div class="dropdownimg">
+                                                        <img [src]="country.flag" class="img-fluid" />
+                                                    </div>
+                                                    <div>
+                                                        <span *ngIf="country.city_name !== null">
+                                                            {{ country.city_name }},
+                                                        </span>{{ country.country_name }}
+                                                    </div>
+                                                </div>
+                                            </ng-template>
+                                            <ng-template pTemplate="selectedItem" let-selectedOption>
+                                                <div class="d-flex align-items-center gap-2">
+                                                    <div class="dropdownimg">
+                                                        <img [src]="selectedOption.flag" class="img-fluid" />
+                                                    </div>
+                                                    <div>
+                                                        <span *ngIf="selectedOption.city_name !== null">
+                                                            {{ selectedOption.city_name }},
+                                                        </span>{{ selectedOption.country_name }}
+                                                    </div>
+                                                </div>
+                                            </ng-template>
+                                        </p-dropdown>
+                                        <p class="text-center" [ngClass]="{ 'd-none': invalidClass === false }"
+                                           style="color: red">Please Choose Any one option</p>
+                                    </ng-container>
+                                    <ng-container *ngIf="recommendation.id == 3">
+                                        <p-inputNumber [showButtons]="true" buttonLayout="horizontal"
+                                                       [(ngModel)]="selectedData[recommendation.id]" spinnerMode="horizontal"
+                                                       incrementButtonIcon="pi pi-plus" incrementButtonClass="plus-icon"
+                                                       decrementButtonClass="minus-icon" decrementButtonIcon="pi pi-minus"
+                                                       inputStyleClass="number-input" [min]="1" [max]="7" [step]="1"
+                                                       [suffix]="selectedData[recommendation.id] == 1 ? ' day' :  ' days'"
+                                                       [inputStyle]="{'pointer-events': 'none', 'caret-color': 'transparent'}"
+                                                       styleClass="w-100 custom-number-input">
+                                        </p-inputNumber>
+                                        <p class="text-center" [ngClass]="{ 'd-none': invalidClass === false }"
+                                           style="color: red">Please Choose Any one option</p>
+                                    </ng-container>
+                                    <ng-container *ngIf="recommendation.id == 4">
+                                        <p-dropdown [options]="trvelExperienceList" styleClass="w-100"
+                                                    [(ngModel)]="selectedData[recommendation.id]" optionLabel="name"
+                                                    optionValue="name" [appendTo]="'body'" placeholder="Select Travel Experience">
+                                        </p-dropdown>
+                                        <p class="text-center" [ngClass]="{ 'd-none': invalidClass === false }"
+                                           style="color: red">Please Choose Any one option</p>
+                                    </ng-container>
+                                    <ng-container *ngIf="recommendation.id == 5">
+                                        <p-dropdown [options]="currencyList"
+                                                    [(ngModel)]="selectedData[recommendation.id]" optionLabel="currency_code"
+                                                    optionValue="currency_code" [appendTo]="'body'"
+                                                    placeholder="Select Preferred Currency" [filter]="true" [showClear]="true"
+                                                    styleClass="w-100">
+                                            <ng-template let-data pTemplate="item">
+                                                <div>{{data.country}} - {{data.currency_code}}</div>
+                                            </ng-template>
+                                            <ng-template pTemplate="selectedItem" let-selectedOption>
+                                                {{ selectedOption.country }} - {{ selectedOption.currency_code }}
+                                            </ng-template>
+                                            <ng-template pTemplate="filter" let-options="options">
+                                                <div class="d-flex gap-2">
+                                                    <div class="p-inputgroup" (click)="$event.stopPropagation()">
+                                                        <span class="p-inputgroup-addon">
+                                                            <i class="pi pi-search"></i></span>
+                                                        <input type="text" pInputText placeholder="Search"
+                                                               [(ngModel)]="currencyFilter"
+                                                               (keyup)="customFilterFunction('currency')" />
+                                                    </div>
+                                                    <button pButton icon="pi pi-times" class="btn btn-primary"
+                                                            (click)="resetFunction('currency')"
+                                                            severity="secondary"></button>
+                                                </div>
+                                            </ng-template>
+                                        </p-dropdown>
+                                        <p class="text-center" [ngClass]="{ 'd-none': invalidClass === false }"
+                                           style="color: red">Please Choose Any one option</p>
+                                    </ng-container>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="d-flex justify-content-between mt-2">
+                            <button pButton type="button" class="btn btn-primary btn-rounded p-1 pe-4"
+                                    [style.visibility]="recommendation.id == 1 ? 'hidden' : 'visible'" (click)="previous()">
+                                <span class="btn-icon px-2 py-2"><i class="fa fa-arrow-left"></i></span> <span
+                                    class="ms-2">Previous</span>
+                            </button>
+                            <button pButton type="button" (click)="next(recommendation.id)"
+                                    *ngIf="recommendation.id != 5" class="btn btn-primary btn-rounded p-1 ps-4">
+                                <span class="me-2">Next</span><span class="btn-icon px-2 py-2"><i
+                                    class="fa fa-arrow-right"></i></span>
+                            </button>
+                            <button pButton type="button" (click)="getRecommendation()" *ngIf="recommendation.id == 5"
+                                    class="btn btn-success btn-rounded p-1 ps-4">
+                                <span class="me-2">Get Recommendations</span><span class="btn-icon px-2 py-2"><i
+                                    class="fa fa-check-circle"></i></span>
+                            </button>
+                        </div>
+                    </div>
+                </ng-template>
+            </p-carousel>
+        </div>
+    </div>
 </div>
 
 <!-- ----------------- Recommandation Response View ----------------- -->
@@ -160,13 +221,13 @@
                             Travel Tools -> Travel Cost Estimator<i class="questiontooltip fa-solid fa-circle-question"></i></h5>
                     </div>
                     <div>
-                        <button pButton  class="how-it-works-button" severity="warn" >How it works?
+                        <button class="how-it-works-button">How it works?
                             <i class="fa-solid fa-play d-md-block d-none"></i></button>
                     </div>
                 </div>
                 <div class="d-flex align-items-center">
-                    <button pButton  pButton type="button" (click)="saveRecommadation()"
-                        class="btn btn-primary btn-rounded py-2 px-4">
+                    <button pButton type="button" (click)="saveRecommadation()"
+                            class="btn btn-primary btn-rounded py-2 px-4">
                         <span>History</span>
                     </button>
                 </div>
@@ -178,16 +239,16 @@
             <div class="col-md-2"></div>
             <div class="col-md-8">
                 <div class="d-flex justify-content-end gap-3 mb-3">
-                    <button pButton  pButton type="button" (click)="downloadRecommadation()"
-                        class="btn btn-secondary btn-rounded p-1 ps-4">
+                    <button pButton type="button" (click)="downloadRecommadation()"
+                            class="btn btn-secondary btn-rounded p-1 ps-4">
                         <span class="me-2">Download</span><span class="btn-icon px-2 py-2">
                             <i class="fa-regular fa-download"></i></span>
                     </button>
-                    <button pButton  pButton type="button" (click)="onSaveRes()"
+                    <!-- <button pButton type="button" (click)="onSaveRes()"
                         class="btn btn-primary btn-rounded p-1 ps-4">
                         <span class="me-2">Save Response</span><span class="btn-icon px-2 py-2">
                             <i class="fa-regular fa-floppy-disk"></i></span>
-                    </button> 
+                    </button> -->
                 </div>
                 <div class="card p-3 poppins-content" [innerHtml]="recommendationData"></div>
             </div>
@@ -196,7 +257,7 @@
     </div>
     <div class="card-footer bg-transparent border-0">
         <div class="text-end">
-            <button pButton  pButton type="button" class="btn ps-3 btn-quit btn-rounded" (click)="resetRecommendation()">
+            <button pButton type="button" class="btn ps-3 btn-quit btn-rounded" (click)="resetRecommendation()">
                 Reset Recommendations<span class="btn-icon"><i class="fa-solid fa-arrow-rotate-right"></i>
                 </span>
             </button>
@@ -206,38 +267,39 @@
 
 <!-- ----------------- Recommandation Saved Response View ----------------- -->
 <div class="card readingcard" *ngIf="isRecommendationSavedData">
-	<div class="card-header border-0 bg-transparent">
-		<div class="row justify-content-center align-items-center">
-			<div class="col-md-12 d-flex gap-4">
-				<div class="backIcon d-md-flex d-none" role="button" (click)="goBack()" style="height: auto">
-					<span class="fa-solid fa-chevron-left"></span>
-				</div>
-				<div class="select-title d-flex justify-content-between align-items-center">
-					<div>
-						<h5 class="w-100 mb-0" tooltipPosition="top" pTooltip="">Travel Cost Estimator<i class="questiontooltip fa-solid fa-circle-question"></i></h5>
-					</div>
-					<div>
-						<button pButton  class="how-it-works-button" severity="warn" >How it works? <i class="fa-solid fa-play d-md-block d-none"></i></button>
-					</div>
-				</div>
-			</div>
-		</div>
-	</div>
-	<div class="card-body text-center flex-fill overflow-y-auto">
-		<div class="row mb-0">
-			<div *ngFor="let item of recommadationSavedQuestionList; let i = index" class="col-lg-3 col-md-3 col-sm-4 col-xs-12 col-12 mb-3">
-				<div class="row w-100 m-0 justify-content-center h-100">
-					<div class="card subjectcard" role="button" (click)="showRecommandationData(item.response)">
-						<div class="card-body text-start">
-							<h5 class="fw-bold mb-0">Trip {{ i + 1 }}</h5>
-							<p class="text-small"><b>Departure : </b>{{ item.country }}</p>
-							<p class="text-small"><b>Destination : </b>{{ item.destination }}</p>
-							<p class="text-small"><b>Duration : </b>{{ item.duration }} {{ item.duration == "1" ? "day" : "days" }}</p>
-							<p class="text-small"><b>Travel Experience : </b>{{ item.experience }}</p>
-							<p class="text-small"><b>Prefferred Currency : </b>{{ item.currency }}</p>
-						</div>
-					</div>
-				</div>
+    <div class="card-header border-0 bg-transparent">
+        <div class="row justify-content-center align-items-center">
+            <div class="col-md-12 d-flex gap-4">
+                <div class="backIcon d-md-flex d-none" role="button" (click)="goBack()" style="height: auto;">
+                    <span class="fa-solid fa-chevron-left"></span>
+                </div>
+                <div class="select-title d-flex justify-content-between align-items-center">
+                    <div>
+                        <h5 class="w-100 mb-0" tooltipPosition="top" pTooltip="">
+                            Travel Tools -> Travel Cost Estimator<i class="questiontooltip fa-solid fa-circle-question"></i></h5>
+                    </div>
+                    <div>
+                        <button class="how-it-works-button">How it works?
+                            <i class="fa-solid fa-play d-md-block d-none"></i></button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="card-body text-center flex-fill overflow-y-auto">
+        <div class="row mb-0">
+            <div *ngFor="let item of recommadationSavedQuestionList; let i=index;"
+                 class="col-lg-3 col-md-3 col-sm-4 col-xs-12 col-12 mb-3">
+                <div class="row w-100 m-0 justify-content-center h-100">
+                    <div class="card subjectcard" role="button" (click)="showRecommandationData(item.response)">
+                        <div class="card-body text-start">
+                            <h5 class="fw-bold mb-0">Trip {{i+1}}</h5>
+                            <p class="text-small"><b>Departure : </b>{{item.country}}</p>
+                            <p class="text-small"><b>Destination : </b>{{item.destination}}</p>
+                            <p class="text-small"><b>Duration : </b>{{item.duration}} {{item.duration == '1' ? 'day' :
+                                'days'}}</p>
+                            <p class="text-small"><b>Travel Experience : </b>{{item.experience}}</p>
+                            <p class="text-small"><b>Prefferred Currency : </b>{{item.currency}}</p>
                         </div>
                     </div>
                 </div>

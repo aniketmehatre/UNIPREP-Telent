@@ -3,7 +3,7 @@
   "version": 1,
   "newProjectRoot": "projects",
   "projects": {
-    "UNI-PREP": {
+    "UNIPREP": {
       "projectType": "application",
       "schematics": {
         "@schematics/angular:component": {
@@ -22,7 +22,7 @@
           "builder": "@angular-devkit/build-angular:application",
           "options": {
             "outputPath": {
-              "base": "dist/UNI-PREP"
+              "base": "dist/UNIPREP"
             },
             "index": "src/index.html",
             "polyfills": [
@@ -128,10 +128,10 @@
           },
           "configurations": {
             "production": {
-              "buildTarget": "UNI-PREP:build:production"
+              "buildTarget": "UNIPREP:build:production"
             },
             "development": {
-              "buildTarget": "UNI-PREP:build:development",
+              "buildTarget": "UNIPREP:build:development",
               "hmr": true
             }
           },
@@ -140,7 +140,7 @@
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n",
           "options": {
-            "buildTarget": "UNI-PREP:build"
+            "buildTarget": "UNIPREP:build"
           }
         },
         "test": {
@@ -168,8 +168,8 @@
       "prerender": {
         "builder": "@angular-devkit/build-angular:prerender",
         "options": {
-          "browserTarget": "UNI-PREP:build:production",
-          "serverTarget": "UNI-PREP:server:production"
+          "browserTarget": "UNIPREP:build:production",
+          "serverTarget": "UNIPREP:server:production"
         },
         "configurations": {
           "production": {}

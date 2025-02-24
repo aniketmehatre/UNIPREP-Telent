@@ -12,6 +12,7 @@ import { DataService } from "src/app/data.service";
   selector: "uni-global-employment-data-list",
   templateUrl: "./data-list.component.html",
   styleUrls: ["./data-list.component.scss"],
+  standalone: false
 })
 export class GLobalEmploymentdataListsComponent implements OnInit {
   isSkeletonVisible: boolean = true;
