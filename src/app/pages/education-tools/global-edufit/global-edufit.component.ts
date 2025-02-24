@@ -23,6 +23,7 @@ import { TravelToolsService } from '../../travel-tools/travel-tools.service';
 export class GlobalEdufitComponent implements OnInit {
   universityList: any = [];
   countryList: any = [];
+  interestedCountryList: any = [];
   specializationList: any = [];
   degreeList: any = optionsGlobal.Degree;
   durationList: { name: string }[] = optionsGlobal.CourseDuration;
@@ -86,14 +87,14 @@ export class GlobalEdufitComponent implements OnInit {
       id: 1,
       question: {
         heading: 'Basic Information',
-        branches: ["Select your home country", "Which country are you planning to study in?", "Which university are you considering?", "What specialization are you interested in?"]
+        branches: ["Select your home country", "Which country are you planning to study in?", "Which university are you considering?", "What type of degree are you planning to apply for?"]
       },
     },
     {
       id: 2,
       question: {
         heading: 'Course Details',
-        branches: ["What type of degree are you planning to apply for?", "What is the expected duration of your studies?"]
+        branches: ["What Course are you interested in?", "What is the expected duration of your studies?"]
       },
     },
     {
@@ -128,12 +129,22 @@ export class GlobalEdufitComponent implements OnInit {
   }
 
   getCurrenyandLocation() {
-    this.educationToolService.getCountryList().subscribe(data => {
-      this.countryList = data;
+    // this.educationToolService.getCountryList().subscribe(data => {
+    //   this.countryList = data;
+    // });
+    this.locationService.getHomeCountry(2).subscribe({
+      next: response => {
+        this.countryList = response;
+      }
     });
-    this.educationToolService.getCurrentSpecializations().subscribe(data => {
-      this.specializationList = data;
+    this.educationToolService.unifinderCountries().subscribe({
+      next: response =>{
+        this.interestedCountryList = response;
+      }
     });
+    // this.educationToolService.getCurrentSpecializations().subscribe(data => {
+    //   this.specializationList = data;
+    // });
     this.educationToolService.getCurrencies().subscribe(data => {
       this.currencyandCountryList = data;
     });
@@ -223,13 +234,13 @@ export class GlobalEdufitComponent implements OnInit {
     const formData = this.form.value;
     console.log(formData)
     if (this.activePageIndex == 0) {
-      if (!formData.home_country || !formData.interested_country || !formData.university || !formData.specialization) {
+      if (!formData.home_country || !formData.interested_country || !formData.university || !formData.degree) {
         this.submitted = true;
         return;
       }
     }
     if (this.activePageIndex == 1) {
-      if (!formData.degree || !formData.duration) {
+      if (!formData.specialization || !formData.duration) {
         this.submitted = true;
         return;
       }
@@ -344,4 +355,12 @@ export class GlobalEdufitComponent implements OnInit {
     })
   }
 
+  getCourseNameList(){
+    this.educationToolService.courseNameList(115).subscribe({
+      next: response =>{
+        console.log(response);
+      }
+    })
+    // this.specializationList
+  }
 }
