@@ -45,8 +45,8 @@
                     <h5 class="uniprep-primary fw-semibold mt-3 mb-1">
                       {{ recommendation.question.branches[1] }}
                     </h5>
-                    <p-dropdown styleClass="w-100" appendTo="body" [options]="countryList" [filter]="true"
-                      formControlName="interested_country" filterBy="country" optionLabel="country" optionValue="country"
+                    <p-dropdown styleClass="w-100" appendTo="body" [options]="interestedCountryList" [filter]="true"
+                      formControlName="interested_country" filterBy="country" optionLabel="country" optionValue="id"
                       [autoDisplayFirst]="false" placeholder="Select the interested country" (ngModelChange)="setCompareUniversityList($event);">
                     </p-dropdown>
                     <p class="text-center" *ngIf="form.get('interested_country')?.errors?.required && submitted"
@@ -71,14 +71,14 @@
                     <h5 class="uniprep-primary fw-semibold mt-3 mb-1">
                       {{ recommendation.question.branches[3] }}
                     </h5>
-                    <p-dropdown styleClass="w-100" appendTo="body" [options]="specializationList" [filter]="true"
-                      formControlName="specialization" filterBy="category_name" optionLabel="category_name" optionValue="category_name"
-                      [autoDisplayFirst]="false" placeholder="Select the specialization">
-                    </p-dropdown>
-                    <p class="text-center" *ngIf="form.get('specialization')?.errors?.required && submitted"
-                      style="color: red">
-                      Please Choose Any one option
-                    </p>
+                    <p-dropdown styleClass="w-100" placeholder="Degree"  appendTo="body" [options]="degreeList"
+                    optionLabel="name" optionValue="name" formControlName="degree" placeholder="Select the degree">
+                   </p-dropdown>
+                   <p class="text-center" *ngIf="
+                       form.get('degree')?.errors?.required && submitted
+                       " style="color: red">
+                     Please Choose Any one option
+                   </p>
                   </div>
                 </div>
   
@@ -90,12 +90,12 @@
                     <h5 class="uniprep-primary fw-semibold mt-3 mb-1">
                       {{ recommendation.question.branches[0] }}
                     </h5>
-                    <p-dropdown styleClass="w-100" placeholder="Degree"  appendTo="body" [options]="degreeList"
-                     optionLabel="name" optionValue="name" formControlName="degree" placeholder="Select the degree">
+                    <p-dropdown styleClass="w-100" appendTo="body" [options]="specializationList" [filter]="true"
+                      formControlName="specialization" filterBy="specialization_name" optionLabel="specialization_name" optionValue="specialization_name"
+                      [autoDisplayFirst]="false" placeholder="Select the specialization">
                     </p-dropdown>
-                    <p class="text-center" *ngIf="
-                          form.get('degree')?.errors?.required && submitted
-                        " style="color: red">
+                    <p class="text-center" *ngIf="form.get('specialization')?.errors?.required && submitted"
+                      style="color: red">
                       Please Choose Any one option
                     </p>
                   </div>

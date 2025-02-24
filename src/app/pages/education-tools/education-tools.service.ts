@@ -186,4 +186,16 @@ export class EducationToolsService {
     return this.http.get(url, { responseType: 'blob', headers: headers });
   }
 
+  unifinderCountries(){
+    return this.http.get<any>(environment.ApiUrl + `/courseCountries`, {
+      headers: this.headers,
+    });
+  }
+
+  courseNameList(universityId: number){
+    const headers = new HttpHeaders().set("Accept", "application/json");
+    return this.http.get<any>(environment.ApiUrl + `/getCourseNameList?universityId=${universityId}`, {
+        headers: headers,
+    });
+  }
 }
