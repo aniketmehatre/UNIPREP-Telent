@@ -46,7 +46,7 @@
                       {{ recommendation.question.branches[1] }}
                     </h5>
                     <p-dropdown styleClass="w-100" appendTo="body" [options]="countryList" [filter]="true"
-                      formControlName="interested_country" filterBy="country" optionLabel="country" optionValue="id"
+                      formControlName="interested_country" filterBy="country" optionLabel="country" optionValue="country"
                       [autoDisplayFirst]="false" placeholder="Select the interested country" (ngModelChange)="setCompareUniversityList($event);">
                     </p-dropdown>
                     <p class="text-center" *ngIf="form.get('interested_country')?.errors?.required && submitted"
@@ -59,7 +59,7 @@
                       {{ recommendation.question.branches[2] }}
                     </h5>
                     <p-dropdown styleClass="w-100" appendTo="body" [options]="universityList" [filter]="true"
-                      formControlName="university" filterBy="name" optionLabel="name" optionValue="name"
+                      formControlName="university" filterBy="university_name" optionLabel="university_name" optionValue="university_name"
                       [autoDisplayFirst]="false" placeholder="Select the univesity" >
                     </p-dropdown>
                     <p class="text-center" *ngIf="form.get('university')?.errors?.required && submitted"
@@ -72,7 +72,7 @@
                       {{ recommendation.question.branches[3] }}
                     </h5>
                     <p-dropdown styleClass="w-100" appendTo="body" [options]="specializationList" [filter]="true"
-                      formControlName="specialization" filterBy="specialization_name" optionLabel="specialization_name" optionValue="specialization_name"
+                      formControlName="specialization" filterBy="category_name" optionLabel="category_name" optionValue="category_name"
                       [autoDisplayFirst]="false" placeholder="Select the specialization">
                     </p-dropdown>
                     <p class="text-center" *ngIf="form.get('specialization')?.errors?.required && submitted"
@@ -141,12 +141,12 @@
                     <div class="w-100 d-flex gap-2 flex-fill">
                     <div class="border border-gray rounded-3 d-flex align-items-center justify-content-center bg-white" style="width: 50px">{{form.get('currency_code').value || ''}}</div>
                     <input class="w-100 border border-gray rounded-3" type="number" pInputText placeholder="Enter Amount"
-                    formControlName="cost_estimation" [max]="999999" />
+                    formControlName="cost_estimation" [max]="99999999" />
                     </div>
                     <p class="text-center" *ngIf="
                           (form.get('cost_estimation')?.errors?.required || form.get('cost_estimation')?.errors?.max) && submitted
                         " style="color: red">
-                      Please Enter this amount and max 6 digit only allowed
+                      Please Enter this amount and max 8 digit only allowed
                     </p>
                   </div>
                   <div>
