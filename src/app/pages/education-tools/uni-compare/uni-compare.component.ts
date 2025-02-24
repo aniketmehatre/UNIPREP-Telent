@@ -26,7 +26,7 @@ export class UniCompareComponent implements OnInit, OnDestroy {
   universityList: any = [];
   specializationList: any = [];
   stayBackAfterGraduations: { name: string }[] = uniCompareOptions.stayBack;
-
+  allUniversityList: any[] = [];
   isFromSavedData: boolean = false;
   recommadationSavedQuestionList: any = [];
   page = 1;
@@ -132,12 +132,14 @@ export class UniCompareComponent implements OnInit, OnDestroy {
   }
 
   getCountryandSpecilizationList() {
-    this.educationToolService.getCountryList().subscribe(data => {
-      this.universityCountryList = data;
+    this.educationToolService.getCourseListBoxDropdown().subscribe(data => {
+      this.universityCountryList = data?.country;
+      this.allUniversityList = data?.university_name;
+      this.specializationList = data?.subject;
     });
-    this.educationToolService.getCurrentSpecializations().subscribe(data => {
-      this.specializationList = data;
-    });
+    // this.educationToolService.getCurrentSpecializations().subscribe(data => {
+    //   this.specializationList = data;
+    // });
     this.educationToolService.getCurrencies().subscribe(data => {
       this.currenciesList = data;
     });
@@ -195,7 +197,7 @@ export class UniCompareComponent implements OnInit, OnDestroy {
         this.submitted = true;
         return;
       }
-      const isValidAmount = (value: any) => /^[0-9]{1,6}$/.test(value);
+      const isValidAmount = (value: any) => /^[0-9]{1,8}$/.test(value);
       if (
         !isValidAmount(formData.fees) ||
         !isValidAmount(formData.compare_fees) ||
@@ -297,20 +299,26 @@ export class UniCompareComponent implements OnInit, OnDestroy {
   setUniversityList(name: string) {
     const selected = this.universityCountryList.find((c: any) => c.country === name);
     if (selected) {
-      this.educationToolService.getUniverstityByCountry(selected?.id).subscribe(data => {
-      this.universityList = data;
-      });
+      this.universityList = this.allUniversityList.filter((item: any) =>
+        selected.id === item.country_id
+      );
+    } else {
+      this.universityList = this.allUniversityList;
     }
   }
 
   setCompareUniversityList(name: string) {
     const selected = this.universityCountryList.find((c: any) => c.country === name);
     if (selected) {
-      this.educationToolService.getUniverstityByCountry(selected.id).subscribe(data => {
-        this.compareUniversityList = data;
-      })
+      this.compareUniversityList = this.allUniversityList.filter((item: any) =>
+        selected.id === item.country_id
+      );
+    } else {
+      this.compareUniversityList = this.allUniversityList;
     }
   }
+
+
 
   onSaveRes() {
     this.toast.add({ severity: "success", summary: "Success", detail: "Response saved successfully" });
