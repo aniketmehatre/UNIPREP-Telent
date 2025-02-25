@@ -25,6 +25,7 @@ export class UniCompareComponent implements OnInit, OnDestroy {
   compareUniversityList: any[];
   universityList: any = [];
   specializationList: any = [];
+  compareSpecializationList: any = [];
   stayBackAfterGraduations: { name: string }[] = uniCompareOptions.stayBack;
   allUniversityList: any[] = [];
   isFromSavedData: boolean = false;
@@ -85,7 +86,29 @@ export class UniCompareComponent implements OnInit, OnDestroy {
     });
     // this.form.get('compare_currency_code')?.disable();
     this.form.get('expense_currency_code')?.disable();
-    this.form.get('compare_expense_currency_code')?.disable();  
+    this.form.get('compare_expense_currency_code')?.disable(); 
+
+    this.form.controls['country'].valueChanges.subscribe(value =>{
+      if(value){
+        this.getAndSetUniversity(value.id, "country");
+      }
+    })
+    this.form.controls['compare_country'].valueChanges.subscribe(value =>{
+      if(value){
+        this.getAndSetUniversity(value.id, "compare_country");
+      }
+    })
+
+    this.form.controls['university'].valueChanges.subscribe(value =>{
+      if(value){
+        this.getAndSetCourseNameList(value.id, "university");
+      }
+    })
+    this.form.controls['compare_university'].valueChanges.subscribe(value =>{
+      if(value){
+        this.getAndSetCourseNameList(value.id, "compare_university");
+      }
+    })
   }
 
   enableModule: boolean = true;
@@ -127,19 +150,48 @@ export class UniCompareComponent implements OnInit, OnDestroy {
     this.getCountryandSpecilizationList();
   }
 
+  getAndSetCourseNameList(universityId: number, mode: string){
+    this.educationToolService.courseNameList(universityId).subscribe({
+      next: response =>{
+        if(mode == "university"){
+          this.specializationList = response;
+        }else if(mode == "compare_university"){
+          this.compareSpecializationList = response;
+        }
+        
+      }
+    })
+  }
+
+  getAndSetUniversity(id: string, mode: string) {
+    this.educationToolService.getUniverstityByCountry(id).subscribe(data => {
+      if(mode == "country"){
+        this.universityList = data;
+      }else if(mode == "compare_country"){
+        this.compareUniversityList = data;
+      }      
+    })
+  }
+
   goBack() {
     this.router.navigateByUrl('/pages/education-tools');
   }
 
   getCountryandSpecilizationList() {
-    this.educationToolService.getCourseListBoxDropdown().subscribe(data => {
-      this.universityCountryList = data?.country;
-      this.allUniversityList = data?.university_name;
-      this.specializationList = data?.subject;
-    });
+    // this.educationToolService.getCourseListBoxDropdown().subscribe(data => {
+    //   this.universityCountryList = data?.country;
+    //   this.allUniversityList = data?.university_name;
+    //   this.specializationList = data?.subject;
+    // });
     // this.educationToolService.getCurrentSpecializations().subscribe(data => {
     //   this.specializationList = data;
     // });
+    this.educationToolService.unifinderCountries().subscribe({
+      next: response =>{
+        this.universityCountryList = response;
+      }
+    });
+    
     this.educationToolService.getCurrencies().subscribe(data => {
       this.currenciesList = data;
     });
@@ -217,7 +269,11 @@ export class UniCompareComponent implements OnInit, OnDestroy {
       mode: 'uni_compare',
       compare_currency_code: this.form.get('compare_currency_code')?.value,
       expense_currency_code: this.form.get('expense_currency_code')?.value,
-      compare_expense_currency_code: this.form.get('compare_expense_currency_code')?.value
+      compare_expense_currency_code: this.form.get('compare_expense_currency_code')?.value,
+      country: formData.country.country,
+      compare_country: formData.compare_country.country,
+      university: formData.university.university_name,
+      compare_university: formData.compare_university.university_name,
     }
     this.educationToolService.getChatgptRecommendations(data).subscribe({
       next: response => {
@@ -245,7 +301,6 @@ export class UniCompareComponent implements OnInit, OnDestroy {
     if (this.activePageIndex == 0) {
       if (!formData.country || !formData.compare_country || !formData.university || !formData.compare_university || !formData.specialization || !formData.compare_specialization) {
         this.submitted = true;
-        console.log(this.activePageIndex)
         return;
       }
     }
@@ -293,30 +348,34 @@ export class UniCompareComponent implements OnInit, OnDestroy {
       this.form.reset();
       this.activePageIndex = 0;
       this.isFromSavedData = false;
+      this.specializationList = [];
+      this.compareSpecializationList = [];
+      this.universityList = [];
+      this.compareUniversityList = [];
     });
   }
 
-  setUniversityList(name: string) {
-    const selected = this.universityCountryList.find((c: any) => c.country === name);
-    if (selected) {
-      this.universityList = this.allUniversityList.filter((item: any) =>
-        selected.id === item.country_id
-      );
-    } else {
-      this.universityList = this.allUniversityList;
-    }
-  }
+  // setUniversityList(name: string) {
+  //   const selected = this.universityCountryList.find((c: any) => c.country === name);
+  //   if (selected) {
+  //     this.universityList = this.allUniversityList.filter((item: any) =>
+  //       selected.id === item.country_id
+  //     );
+  //   } else {
+  //     this.universityList = this.allUniversityList;
+  //   }
+  // }
 
-  setCompareUniversityList(name: string) {
-    const selected = this.universityCountryList.find((c: any) => c.country === name);
-    if (selected) {
-      this.compareUniversityList = this.allUniversityList.filter((item: any) =>
-        selected.id === item.country_id
-      );
-    } else {
-      this.compareUniversityList = this.allUniversityList;
-    }
-  }
+  // setCompareUniversityList(name: string) {
+  //   const selected = this.universityCountryList.find((c: any) => c.country === name);
+  //   if (selected) {
+  //     this.compareUniversityList = this.allUniversityList.filter((item: any) =>
+  //       selected.id === item.country_id
+  //     );
+  //   } else {
+  //     this.compareUniversityList = this.allUniversityList;
+  //   }
+  // }
 
 
 
@@ -327,6 +386,10 @@ export class UniCompareComponent implements OnInit, OnDestroy {
   downloadRecommadation() {
     const formValue = ['country', 'university', 'specialization', 'fees', 'expense', 'period'];
     const formData = this.form.value;
+    formData['country'] = formData['country'].country;
+    formData['compare_country'] = formData['compare_country'].country;
+    formData['university'] = formData['university'].university_name;
+    formData['compare_university'] = formData['compare_university'].university_name;
     let addingInput = `<p><strong>Input:<br></strong></p>`;
 
     // Keep track of which formValue index we're currently using
@@ -370,7 +433,7 @@ export class UniCompareComponent implements OnInit, OnDestroy {
     let paramData: DownloadRespose = {
       response: finalRecommendation,
       module_name: "Uni Compare",
-      file_name: "uni_compare"
+      file_name: formData['university']+'_vs_'+formData['compare_university'],
     };
     this.travelToolService.convertHTMLtoPDF(paramData).then(() => {
       console.log("PDF successfully generated.");

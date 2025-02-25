@@ -37,16 +37,15 @@
                               in</label>
                           </div>
                           <div class="col-lg-4 mb-2">
-                            <p-dropdown [options]="universityCountryList" optionLabel="country" optionValue="country"
+                            <p-dropdown [options]="universityCountryList" optionLabel="country"
                               [filter]="true" filterBy="country" formControlName="country" placeholder="Select Country"
-                              styleClass="w-100" appendTo="body" (ngModelChange)="setUniversityList($event);">
+                              styleClass="w-100" appendTo="body">
                             </p-dropdown>
                           </div>
                           <div class="col-lg-4 mb-2">
-                            <p-dropdown [options]="universityCountryList" optionLabel="country" optionValue="country"
+                            <p-dropdown [options]="universityCountryList" optionLabel="country"
                               [filter]="true" filterBy="country" formControlName="compare_country"
-                              placeholder="Select Country" styleClass="w-100" appendTo="body"
-                              (ngModelChange)="setCompareUniversityList($event);">
+                              placeholder="Select Country" styleClass="w-100" appendTo="body">
                             </p-dropdown>
                           </div>
                         </div>
@@ -62,7 +61,7 @@
                             </label>
                           </div>
                           <div class="col-lg-4 mb-2 university-dropdown">
-                            <p-dropdown [options]="universityList" optionLabel="university_name" optionValue="university_name" filterBy="university_name"
+                            <p-dropdown [options]="universityList" optionLabel="university_name" filterBy="university_name"
                               [filter]="true" formControlName="university" placeholder="Select University"
                               styleClass="w-100" appendTo="body" [panelStyle]="panelStyle">
                               <!-- Adjust width as needed -->
@@ -70,7 +69,7 @@
                           </div>
 
                           <div class="col-lg-4 mb-2 university-dropdown">
-                            <p-dropdown [options]="compareUniversityList" optionLabel="university_name" optionValue="university_name"
+                            <p-dropdown [options]="compareUniversityList" optionLabel="university_name"
                               filterBy="university_name" [filter]="true" formControlName="compare_university"
                               placeholder="Select University" styleClass="w-100" appendTo="body"
                               [panelStyle]="panelStyle"> <!-- Adjust width as needed -->
@@ -86,20 +85,20 @@
                         <!-- Specialization Selection -->
                         <div class="row mb-3 align-items-center">
                           <div class="col-lg-4">
-                            <label class="form-label uniprep-primary fw-bold">What is your chosen specialization or
+                            <label class="form-label uniprep-primary fw-bold">What is your chosen Course or
                               field of study?
                             </label>
                           </div>
                           <div class="col-lg-4 mb-2">
-                            <p-dropdown [options]="specializationList" optionLabel="category_name"
-                              optionValue="category_name" [filter]="true" filterBy="category_name"
+                            <p-dropdown [options]="specializationList" optionLabel="course_name"
+                              optionValue="course_name" [filter]="true" filterBy="course_name"
                               formControlName="specialization" placeholder="Select Field of Study" styleClass="w-100"
                               appendTo="body">
                             </p-dropdown>
                           </div>
                           <div class="col-lg-4 mb-2">
-                            <p-dropdown [options]="specializationList" optionLabel="category_name"
-                              optionValue="category_name" [filter]="true" filterBy="category_name"
+                            <p-dropdown [options]="compareSpecializationList" optionLabel="course_name"
+                              optionValue="course_name" [filter]="true" filterBy="course_name"
                               formControlName="compare_specialization" placeholder="Select Field of Study"
                               styleClass="w-100" appendTo="body">
                             </p-dropdown>
@@ -121,10 +120,10 @@
                           <div class="col-lg-4">
                           </div>
                           <div class="col-lg-4 mb-2 text-center">
-                            <h5 style="color: var(--uniprep-secondary);">University 1</h5>
+                            <h5 style="color: var(--uniprep-secondary);">{{ form.get('university')?.value?.university_name }}</h5>
                           </div>
                           <div class="col-lg-4 mb-2 text-center">
-                            <h5 style="color: var(--uniprep-secondary);">University 2</h5>
+                            <h5 style="color: var(--uniprep-secondary);">{{ form.get('compare_university')?.value?.university_name }}</h5>
                           </div>
                         </div>
                         <div class="row mb-3 align-items-center">

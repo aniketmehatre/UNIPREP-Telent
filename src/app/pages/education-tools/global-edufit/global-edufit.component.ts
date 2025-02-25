@@ -77,9 +77,18 @@ export class GlobalEdufitComponent implements OnInit {
       cost_estimation: ['', Validators.required],
       period: ['', Validators.required],
     });
-
+    this.form.controls['university'].valueChanges.subscribe(value =>{
+      if(value){
+        this.getCourseNameList(value.id);
+      }
+    })
+    this.form.controls['interested_country'].valueChanges.subscribe(value =>{
+      if(value){
+        this.setCompareUniversityList(value.id);
+      }
+    })
   }
-  allUniversityList: any;
+
   enableModule: boolean = true;
   activePageIndex: number = 0;
   recommendations: any = [
@@ -129,13 +138,9 @@ export class GlobalEdufitComponent implements OnInit {
   }
 
   getCurrenyandLocation() {
-    this.educationToolService.getCourseListBoxDropdown().subscribe(data => {
-      this.countryList = data?.country;
-      this.allUniversityList = data?.university_name;
-      this.specializationList = data?.subject;
     // this.educationToolService.getCountryList().subscribe(data => {
     //   this.countryList = data;
-     });
+    // });
     this.locationService.getHomeCountry(2).subscribe({
       next: response => {
         this.countryList = response;
@@ -196,6 +201,8 @@ export class GlobalEdufitComponent implements OnInit {
       this.submitted = true;
       return;
     }
+    // const isValidSixAmount = (value: any) => /^[0-9]{1,6}$/.test(value);
+    // const isValidEightAmount = (value: any) => /^[0-9]{1,8}$/.test(value);
     const isValidEightAmount = (value: any) => {
       return typeof value === "number" && Number.isInteger(value) && value >= 0 && value <= 99999999;
     };
@@ -209,6 +216,8 @@ export class GlobalEdufitComponent implements OnInit {
     }
     let data: any = {
       ...this.form.value,
+      university: formData.university.university_name,
+      interested_country: formData.interested_country.country,
       mode: 'global_edufit'
     }
     this.educationToolService.getChatgptRecommendations(data).subscribe({
@@ -234,7 +243,6 @@ export class GlobalEdufitComponent implements OnInit {
   next() {
     this.submitted = false;
     const formData = this.form.value;
-    console.log(formData)
     if (this.activePageIndex == 0) {
       if (!formData.home_country || !formData.interested_country || !formData.university || !formData.degree) {
         this.submitted = true;
@@ -279,9 +287,6 @@ export class GlobalEdufitComponent implements OnInit {
     this.recommendationData = data;
   }
 
-
-
-
   resetRecommendation() {
     this.educationToolService.resetRecommendation().subscribe(res => {
       this.isRecommendationQuestion = true;
@@ -290,6 +295,8 @@ export class GlobalEdufitComponent implements OnInit {
       this.form.reset();
       this.activePageIndex = 0;
       this.isFromSavedData = false;
+      this.specializationList = [];
+      this.universityList = [];
     });
   }
 
@@ -318,13 +325,22 @@ export class GlobalEdufitComponent implements OnInit {
           if (currentFormField == 'fees' || currentFormField == 'cost_estimation') {
             currentAnswer = formData['currency_code'] + ' ' + formData[currentFormField];
           }
+          else if (currentFormField == 'interested_country') {
+            // const selected = this.countryList.find((c: any) => c.id === formData[currentFormField]);
+            // currentAnswer = selected.country;
+            currentAnswer = formData['interested_country'].country
+          }
+          else if (currentFormField == 'university') {
+            // const selected = this.countryList.find((c: any) => c.id === formData[currentFormField]);
+            // currentAnswer = selected.country;
+            currentAnswer = formData['university'].university_name
+          }
           else {
             currentAnswer = formData[currentFormField];
           }
         } else {
           currentAnswer = "No answer provided";
         }
-
         addingInput += `<p><strong>${currentAnswer}</strong></p>`;
 
         formValueIndex++;
@@ -347,23 +363,17 @@ export class GlobalEdufitComponent implements OnInit {
     });
   }
 
-  setCompareUniversityList(name: string) {
-    const selected = this.countryList.find((c: any) => c.country === name);
-    if (selected) {
-      this.universityList = this.allUniversityList.filter((item: any) =>
-        selected.id === item.country_id
-      );
-    } else {
-      this.universityList = this.allUniversityList;
-    }
+  setCompareUniversityList(id: string) {
+    this.educationToolService.getUniverstityByCountry(id).subscribe(data => {
+      this.universityList = data
+    })
   }
 
-  getCourseNameList(){
-    this.educationToolService.courseNameList(115).subscribe({
+  getCourseNameList(universityId: number){
+    this.educationToolService.courseNameList(universityId).subscribe({
       next: response =>{
-        console.log(response);
+        this.specializationList = response;
       }
     })
-    // this.specializationList
   }
 }
