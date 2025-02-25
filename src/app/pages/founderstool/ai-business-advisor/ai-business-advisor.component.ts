@@ -19,7 +19,7 @@ export class AiBusinessAdvisorComponent implements OnInit {
   challengeList: { challenge: string }[] = businessAdvisor.challenges;
   targetAudienceList: { audience: string }[] = businessAdvisor.targetAudience;
   budgetList: { goal: string }[] = businessAdvisor.budgetGoals;
-  durationList: { duration: number }[] = businessAdvisor.timeDuration;
+  durationList: { duration: string }[] = businessAdvisor.timeDuration;
 
   recommadationSavedQuestionList: any = [];
   recommendations: { id: number, question: string }[] = [
