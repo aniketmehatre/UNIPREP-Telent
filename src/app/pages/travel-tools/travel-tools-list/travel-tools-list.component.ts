@@ -22,7 +22,7 @@ export class TravelToolsListComponent implements OnInit {
        
         image: this.domainUrl+"TravelCostEstimator.svg",
         url: "/pages/travel-tools/travel-cost-estimator",
-        launch_soon: true
+        launch_soon: false
       },
       {
         title: "Travel Visit Planner",
@@ -36,7 +36,7 @@ export class TravelToolsListComponent implements OnInit {
        
         image: this.domainUrl+"TravelPackingPlanner.svg",
         url: "/pages/travel-tools/travel-packing-planner",
-        launch_soon: true
+        launch_soon: false
       },
       {
         title: "Trip Length Finder",

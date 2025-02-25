@@ -191,7 +191,7 @@ export class CareerToolComponent implements OnInit {
       imageLink: `https://${environment.domain}/uniprepapi/storage/app//public/icon/modules/chacks.png`,
       refLink: "",
       mode: "career-hacks",
-      launch_soon: true
+      launch_soon: false
     },
     {
       id: 19,
