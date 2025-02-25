@@ -76,11 +76,11 @@
                         filterBy="currency_symbol" placeholder=" Currency" appendTo="body" optionLabel="currency_symbol" optionValue="currency_symbol"
                         [autoDisplayFirst]="false">
                       </p-dropdown>
-                      <input  [(ngModel)]="selectedData[recommendation.id]" class="w-100 pl-4 border border-gray rounded-3" type="number" [max]="999999" pInputText [placeholder]="selectedData[8] ? 'Amount in'+' '+selectedData[8] : 'Enter Amount' "
+                      <input  [(ngModel)]="selectedData[recommendation.id]" class="w-100 pl-4 border border-gray rounded-3" type="number" [max]="99999999" pInputText [placeholder]="selectedData[8] ? 'Amount in'+' '+selectedData[8] : 'Enter Amount' "
                         />
                     </div>  
                     <div class="text-center" [ngClass]="{ 'd-none': inValidClass === false }" style="color: red">
-                      Budget is required or maximum 6 digit allowed 
+                      Budget is required or maximum 8 digit allowed 
                     </div>
                   </ng-container>
                   <ng-container *ngIf="recommendation.id == 7">

@@ -46,9 +46,10 @@
                       {{ recommendation.question.branches[1] }}
                     </h5>
                     <p-dropdown styleClass="w-100" appendTo="body" [options]="interestedCountryList" [filter]="true"
-                      formControlName="interested_country" filterBy="country" optionLabel="country" optionValue="id"
-                      [autoDisplayFirst]="false" placeholder="Select the interested country" (ngModelChange)="setCompareUniversityList($event);">
+                      formControlName="interested_country" filterBy="country" optionLabel="country"
+                      [autoDisplayFirst]="false" placeholder="Select the interested country">
                     </p-dropdown>
+                    <!-- (ngModelChange)="setCompareUniversityList($event);" -->
                     <p class="text-center" *ngIf="form.get('interested_country')?.errors?.required && submitted"
                       style="color: red">
                       Please Choose Any one option
@@ -59,8 +60,8 @@
                       {{ recommendation.question.branches[2] }}
                     </h5>
                     <p-dropdown styleClass="w-100" appendTo="body" [options]="universityList" [filter]="true"
-                      formControlName="university" filterBy="university_name" optionLabel="university_name" optionValue="university_name"
-                      [autoDisplayFirst]="false" placeholder="Select the univesity" >
+                      formControlName="university" filterBy="university_name" optionLabel="university_name"
+                      [autoDisplayFirst]="false" placeholder="Select the univesity">
                     </p-dropdown>
                     <p class="text-center" *ngIf="form.get('university')?.errors?.required && submitted"
                       style="color: red">
@@ -91,8 +92,8 @@
                       {{ recommendation.question.branches[0] }}
                     </h5>
                     <p-dropdown styleClass="w-100" appendTo="body" [options]="specializationList" [filter]="true"
-                      formControlName="specialization" filterBy="specialization_name" optionLabel="specialization_name" optionValue="specialization_name"
-                      [autoDisplayFirst]="false" placeholder="Select the specialization">
+                      formControlName="specialization" filterBy="course_name" optionLabel="course_name" optionValue="course_name"
+                      [autoDisplayFirst]="false" placeholder="Select the Course">
                     </p-dropdown>
                     <p class="text-center" *ngIf="form.get('specialization')?.errors?.required && submitted"
                       style="color: red">
