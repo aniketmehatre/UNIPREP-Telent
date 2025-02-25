@@ -3,6 +3,7 @@ import { Router } from "@angular/router";
 import { PageFacadeService } from "../page-facade.service";
 import { AveragesalaryestimatorService } from "./averagesalaryestimator.service";
 import value from "crypto-js";
+import { City } from "src/app/@Models/cost-of-living";
 
 @Component({
   selector: "uni-averagesalaryestimator",
@@ -58,7 +59,7 @@ export class AverageSalaryComponent implements OnInit {
     this.selectedCardIndex = null;
     this.getJobPreferences();
     this.getworkMode();
-    this.getCities();
+    this.getCityList();
     this.getyearsofExperience();
     this.getcurrencies();
   }
@@ -67,10 +68,37 @@ export class AverageSalaryComponent implements OnInit {
   selectCard(index: number): void {
     this.selectedCardIndex = index;
   }
-  cities: any = [];
-  getCities() {
-    this.service.getCities().subscribe((response) => {
-      this.cities = response;
+  customFilterFunction(type: string) {
+    if (this.departureFilter === "") {
+      this.departureLocationList = this.cityList;
+      return;
+    }
+    this.departureLocationList = this.cityList.filter(
+      (city) =>
+        city?.city_name
+          ?.toLowerCase()
+          .includes(this.departureFilter.toLowerCase()) ||
+        city?.country_name
+          ?.toLowerCase()
+          .includes(this.departureFilter.toLowerCase())
+    );
+  }
+
+  resetFunction(type: string) {
+    this.departureFilter = "";
+    this.departureLocationList = this.cityList;
+  }
+  cityList: City[] = [];
+  departureLocationList: City[] = [];
+  destinationLocationList: City[] = [];
+  departureFilter: string = "";
+  getCityList() {
+    this.service.getCitieswithflag().subscribe({
+      next: (response) => {
+        this.cityList = response;
+        this.departureLocationList = response;
+        this.destinationLocationList = response;
+      },
     });
   }
   jobPreferences: any = [];
@@ -91,15 +119,18 @@ export class AverageSalaryComponent implements OnInit {
       this.workMode = response;
     });
   }
-  currencies:any = [];
+  currencies: any = [];
   getcurrencies() {
     this.service.getCurrencies().subscribe((response) => {
-      this.currencies = [{country:"Select",currency_code:null},...response];
+      this.currencies = [
+        { country: "Select", currency_code: null },
+        ...response,
+      ];
     });
   }
-  yearsOfExperience:any = [];
+  yearsOfExperience: any = [];
   getyearsofExperience() {
-    this.yearsOfExperience=[];
+    this.yearsOfExperience = [];
     this.service.getExperiences().subscribe((response) => {
       this.yearsOfExperience = [...response];
     });
@@ -128,7 +159,7 @@ export class AverageSalaryComponent implements OnInit {
   preparedvisibility = false;
   getRecommendation() {
     this.invalidClass = false;
-    if (this.selectedData[6]==null) {
+    if (this.selectedData[6] == null) {
       this.invalidClass = true;
       return;
     }
@@ -141,7 +172,7 @@ export class AverageSalaryComponent implements OnInit {
       jobrole: selectedJob.id,
       worktype: this.selectedData[3],
       workplace_type: this.selectedData[5],
-      locationid: this.selectedData[4],
+      locationid: this.selectedData[4]?.city_id,
       experience: this.selectedData[2],
       currency: this.selectedData[6],
     };
