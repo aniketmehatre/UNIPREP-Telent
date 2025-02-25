@@ -33,11 +33,33 @@ export class FortuneCompaniesListsComponent implements OnInit {
   perpage: number = 50;
   totalDataCount: any = 0;
   init() {
-    this.service.getfortunecompanieslists({perpage:this.perpage,page:this.page}).subscribe((res: any) => {
-      this.isSkeletonVisible = false;
-      this.totalDataCount = res.total_count;
-      this.moduleList = res.data;
-    });
+    this.service
+      .getfortunecompanieslists({ perpage: this.perpage, page: this.page })
+      .subscribe((res: any) => {
+        this.isSkeletonVisible = false;
+        this.totalDataCount = res.total_count;
+        this.moduleList = res.data;
+      });
+  }
+  valueNearYouFilter = "";
+  performSearch() {
+    const searchValue = this.valueNearYouFilter.toLowerCase();
+    if (searchValue == "") {
+      this.init();
+    }
+    if (searchValue.length >= 4) {
+      this.service
+        .getfortunecompanieslists({
+          perpage: this.perpage,
+          page: this.page,
+          search: searchValue,
+        })
+        .subscribe((res: any) => {
+          this.isSkeletonVisible = false;
+          this.totalDataCount = res.total_count;
+          this.moduleList = res.data;
+        });
+    }
   }
   paginate(event: any) {
     this.page = event.page + 1;
@@ -51,11 +73,11 @@ export class FortuneCompaniesListsComponent implements OnInit {
     this.pageFacade.openHowitWorksVideoPopup(videoLink);
   }
   onModuleClick(moduledata: any) {
-    this.prepData={
+    this.prepData = {
       fortune_company_id: moduledata.id,
       companyName: moduledata.company_name,
       stage: 2,
-    }
+    };
     this.windowChange.emit({
       fortune_company_id: moduledata.id,
       companyName: moduledata.company_name,
