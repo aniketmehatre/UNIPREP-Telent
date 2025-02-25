@@ -13,7 +13,7 @@ import { DataService } from "src/app/data.service";
   templateUrl: "./data-list.component.html",
   styleUrls: ["./data-list.component.scss"],
 })
-export class GLobalEmploymentdataListsComponent implements OnInit {
+export class GlobalEmploymentDataListComponent implements OnInit {
   isSkeletonVisible: boolean = true;
   isQuestionAnswerVisible: boolean = false;
   planExpired: boolean = false;
@@ -41,7 +41,7 @@ export class GLobalEmploymentdataListsComponent implements OnInit {
     private authService: AuthService,
     private meta: Meta,
     private service: GlobalEmploymentService,
-        private dataService: DataService,
+    private dataService: DataService,
   ) {}
   SelectedCompany: any;
   ngOnInit(): void {

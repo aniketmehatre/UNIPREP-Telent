@@ -41,6 +41,12 @@ export class AveragesalaryestimatorService {
       headers: headers,
     });
   }
+  getCitieswithflag() {
+    const headers = new HttpHeaders().set("Accept", "application/json");
+    return this.http.post<any[]>(environment.ApiUrl + "/getcitywithflag", {
+      headers: headers,
+    });
+  }
   getCurrencies() {
     const headers = new HttpHeaders().set("Accept", "application/json");
     return this.http.post<any>(environment.ApiUrl + "/getcountryandcurrency", {
