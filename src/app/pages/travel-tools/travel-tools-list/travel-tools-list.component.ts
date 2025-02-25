@@ -49,7 +49,7 @@ export class TravelToolsListComponent implements OnInit {
        
         image: this.domainUrl+"TravelGlossary.svg",
         url: "/pages/travel-tools/travel-glossary",
-        launch_soon: true
+        launch_soon: false
       },
       {
         title: "Cost of Living Comparision",
