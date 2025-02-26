@@ -96,18 +96,11 @@ export class GlobalEdufitComponent implements OnInit {
       id: 1,
       question: {
         heading: 'Basic Information',
-        branches: ["Select your home country", "Which country are you planning to study in?", "Which university are you considering?", "What type of degree are you planning to apply for?"]
+        branches: ["Which country are you planning to study in?", "Which university are you considering?","What Course are you interested in?"]
       },
     },
     {
       id: 2,
-      question: {
-        heading: 'Course Details',
-        branches: ["What Course are you interested in?", "What is the expected duration of your studies?"]
-      },
-    },
-    {
-      id: 3,
       question: {
         heading: 'Finance',
         branches: ["What is the tuition fee for the program?", "What is the estimated cost of living per year?", "What is the post-study work visa or stayback period in the country?"]
@@ -244,18 +237,18 @@ export class GlobalEdufitComponent implements OnInit {
     this.submitted = false;
     const formData = this.form.value;
     if (this.activePageIndex == 0) {
-      if (!formData.home_country || !formData.interested_country || !formData.university || !formData.degree) {
+      if (!formData.interested_country || !formData.university || !formData.specialization) {
         this.submitted = true;
         return;
       }
     }
+    // if (this.activePageIndex == 1) {
+    //   if (!formData.specialization || !formData.duration) {
+    //     this.submitted = true;
+    //     return;
+    //   }
+    // }
     if (this.activePageIndex == 1) {
-      if (!formData.specialization || !formData.duration) {
-        this.submitted = true;
-        return;
-      }
-    }
-    if (this.activePageIndex == 2) {
       if (!formData.fees || !formData.period || !formData.cost_estimation) {
         this.submitted = true;
         return;
@@ -305,7 +298,7 @@ export class GlobalEdufitComponent implements OnInit {
   }
 
   downloadRecommadation() {
-    const formValue = ['home_country', 'interested_country', 'university', 'specialization', 'degree', 'duration', 'fees', 'cost_estimation', 'period'];
+    const formValue = ['interested_country', 'university', 'specialization', 'fees', 'cost_estimation', 'period'];
     const formData = this.form.value;
     let addingInput = `<p><strong>Input:<br></strong></p>`;
 
