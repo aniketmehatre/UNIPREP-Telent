@@ -1,0 +1,26 @@
+
+.icon-container {
+    background-color: #f0f4f8;
+    border-radius: 50%;
+    width: 80px;
+    height: 80px;
+    margin: 0 auto 15px;
+    margin-top: 10px;
+  }
+
+  .card-title {
+    min-height: 45px;
+    max-height: 45px;
+  }
+
+  .card-tag {
+    border-radius: 20px;
+    width: fit-content;
+    padding: 2px;
+    padding-inline: 5px;
+    background-color: orange !important;
+    color: white;
+    font-weight: bold;
+    text-align: center;
+  }
+  
