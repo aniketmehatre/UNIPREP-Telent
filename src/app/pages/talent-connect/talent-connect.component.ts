@@ -9,4 +9,8 @@ export class TalentConnectComponent {
   isSkeletonVisible: boolean = false;
   ehitlabelIsShow: boolean = false;
   restrict: boolean = false;
+  howItWorksVideoLink: string = '';
+  openVideoPopup(link: string) {
+
+  }
 }

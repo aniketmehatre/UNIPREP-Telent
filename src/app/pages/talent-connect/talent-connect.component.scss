@@ -13,14 +13,24 @@
     max-height: 45px;
   }
 
+  .inside-card {
+    background-color: white;
+    box-shadow: none;
+    border: 1px solid var(--uniprep-gray);
+    &:hover {
+     border:  1px solid  var(--uniprep-secondary);
+    }
+  }
+
   .card-tag {
     border-radius: 20px;
     width: fit-content;
     padding: 2px;
     padding-inline: 5px;
-    background-color: orange !important;
+    background-color: var(--uniprep-secondary);
     color: white;
     font-weight: bold;
+    font-size: smaller;
     text-align: center;
   }
   

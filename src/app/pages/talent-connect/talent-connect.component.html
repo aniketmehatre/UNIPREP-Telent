@@ -2,16 +2,13 @@
 	<div class="card-header border-0 bg-transparent">
 		<div class="row">
 			<div class="col-md-12 d-flex gap-2 text-center">
-				<!-- <div class="backIcon d-md-flex d-none" (click)="goBack()" role="button">
-					<span class="fa-solid fa-chevron-left"></span>
-				</div> -->
 				<div class="select-title d-flex justify-content-between align-items-center">
 					<div>
 						<h5 class="mb-0" tooltipPosition="top" pTooltip="Questions related to the application process are answered">Employer Connect<i class="questiontooltip fa-solid fa-circle-question"></i></h5>
 					</div>
-					<!-- <div>
+					<div>
 						<button class="how-it-works-button" (click)="openVideoPopup(howItWorksVideoLink)">How it works?<i class="fa-solid fa-play d-md-block d-none"></i></button>
-					</div> -->
+					</div>
 				</div>
 			</div>
 			<!-- <div class="col-md-3 mt-2 text-end desktop justify-content-end d-none d-md-flex"></div> -->
@@ -110,7 +107,7 @@
                   
                       <!-- Job Tracker Card -->
                       <div class="col-lg-2 col-md-4 col-sm-6 col-12 mb-2">
-                        <p-card styleClass="h-100">
+                        <p-card styleClass="h-100 inside-card">
                           <div class="d-flex flex-column">
                             <div class="pt-2">
                                 <div class="icon-container d-flex align-items-center justify-content-center mx-auto">
@@ -124,7 +121,7 @@
                           </div>
                           <ng-template pTemplate="footer">
                             <div class="button-container">
-                              <button class="btn btn-primary btn-rounded px-3 py-1" [routerLink]="'/pages/tutorials'">Track</button>
+                              <button class="btn btn-primary btn-rounded px-3 py-1" [routerLink]="'/pages/talent-connect/job-tracker'">Track</button>
                             </div>
                           </ng-template>
                         </p-card>
