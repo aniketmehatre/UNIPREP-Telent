@@ -274,12 +274,12 @@ export const businessAdvisor = {
     { "goal": "₹9,00,000 - ₹10,00,000" }
   ],
   "timeDuration": [
-    { "duration": 6 },
-    { "duration": 12 },
-    { "duration": 18 },
-    { "duration": 24 },
-    { "duration": 30 },
-    { "duration": 36 },
-    { "duration": 48 }
+    { "duration": "6 Months" },
+    { "duration": "12 Months" },
+    { "duration": "18 Months" },
+    { "duration": "24 Months" },
+    { "duration": "30 Months" },
+    { "duration": "36 Months" },
+    { "duration": "48 Months" }
   ]
 }

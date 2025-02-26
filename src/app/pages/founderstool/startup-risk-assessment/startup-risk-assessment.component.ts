@@ -80,7 +80,7 @@ export class StartupRiskAssessmentComponent implements OnInit {
   }
 
   getCurrenyandLocation() {
-    this.founderToolService.getCurrencyAndCountries().subscribe((res: any) => {
+    this.founderToolService.getCurrenciesList().subscribe((res: any) => {
       this.currencyList = res;
     });
   }
@@ -106,7 +106,7 @@ export class StartupRiskAssessmentComponent implements OnInit {
     this.inValidClass = false;
     if (productId in this.selectedData) {
       if (productId == 8) {
-        if (this.selectedData[8].toString()?.length > 6) {
+        if (this.selectedData[8].toString()?.length > 8) {
           this.inValidClass = true;
           return;
         }

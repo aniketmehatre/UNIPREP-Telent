@@ -150,7 +150,7 @@ export class TripLengthFinderComponent implements OnInit {
     let addingInput = `
       <p><strong>Input:<br></strong></p>
       <p><strong>Which Destination are you planning to visit?</strong></p>
-      <p><strong>${selectedCityAndCountry}</strong></p>
+      <p>${selectedCityAndCountry}</p>
       <br>
       <p><strong>Response:<br></strong></p>
       ${this.recommendationData}

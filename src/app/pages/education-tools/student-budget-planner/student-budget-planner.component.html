@@ -40,8 +40,8 @@
                                 <ng-container *ngIf="recommendation.id == 1">
                                     <!-- Country of Study -->
                                     <div class="d-flex justify-content-center mb-3">
-                                        <div class="col-md-3">
-                                            <h5 class="mt-2">Country of Study</h5>
+                                        <div class="col-md-2">
+                                            <h5 class="m-2 text-start ">Country of Study</h5>
                                         </div>
                                         <div class="col-md-6">
                                             <p-select [options]="countriesList" [filter]="true" [filterBy]="'country'" styleClass="w-100" (onChange)="onChangeCountry()"
@@ -55,8 +55,8 @@
                                     </div>
                                     <!-- University -->
                                     <div class="d-flex justify-content-center mb-3">
-                                        <div class="col-md-3">
-                                            <h5 class="mt-2">University</h5>
+                                        <div class="col-md-2">
+                                            <h5 class="m-2 text-start">University</h5>
                                         </div>
                                         <div class="col-md-6">
                                             <p-select [options]="universityList" styleClass="w-100" [filter]="true" [filterBy]="'university_name'"
@@ -70,8 +70,8 @@
                                     </div>
                                     <!-- Course Duration -->
                                     <div class="d-flex justify-content-center mb-3">
-                                        <div class="col-md-3">
-                                            <h5 class="mt-2">Course Duration</h5>
+                                        <div class="col-md-2">
+                                            <h5 class="m-2 text-start">Course Duration</h5>
                                         </div>
                                         <div class="col-md-6">
                                             <p-select [options]="courseDurationList" styleClass="w-100" 
@@ -88,8 +88,8 @@
                                     </div>
                                     <!-- Stay Back Period -->
                                     <div class="d-flex justify-content-center mb-3">
-                                        <div class="col-md-3">
-                                            <h5 class="mt-2">Stay Back Period</h5>
+                                        <div class="col-md-2">
+                                            <h5 class="m-2 text-start">Stay Back Period</h5>
                                         </div>
                                         <div class="col-md-6">
                                             <p-select [options]="stayBackList" styleClass="w-100" [(ngModel)]="selectedData['stay_back']" optionLabel="value"
@@ -104,8 +104,8 @@
                                 </ng-container>
                                 <ng-container *ngIf="recommendation.id == 2">
                                     <div class="d-flex justify-content-center mb-3">
-                                        <div class="col-md-3">
-                                            <h5 class="mt-2">preferred Currency</h5>
+                                        <div class="col-md-2">
+                                            <h5 class="m-2 text-start">preferred Currency</h5>
                                         </div>
                                         <div class="col-md-6">
                                             <p-select [options]="currencyList" [filter]="true" [filterBy]="'currency_code'" styleClass="w-100" placeholder="Select Currency"
@@ -117,8 +117,8 @@
                                         </div>
                                     </div>
                                     <div class="d-flex justify-content-center mb-3">
-                                        <div class="col-md-3">
-                                            <h5 class="mt-2">Overall Net Tution</h5>
+                                        <div class="col-md-2">
+                                            <h5 class="m-2 text-start">Overall Net Tution</h5>
                                         </div>
                                         <div class="col-md-6">
                                             <input type="text" pInputText [placeholder]="'Overall Net Tution' +  (selectedData['currency'] ? ' in '+ selectedData['currency'] : '')" class="w-100"  [(ngModel)]="selectedData['tution']" />
@@ -128,8 +128,8 @@
                                         </div>
                                     </div>
                                     <div class="d-flex justify-content-center mb-3">
-                                        <div class="col-md-3">
-                                            <h5 class="mt-2">Accommodation</h5>
+                                        <div class="col-md-2">
+                                            <h5 class="m-2 text-start">Accommodation</h5>
                                         </div>
                                         <div class="col-md-6">
                                             <input type="text" pInputText [placeholder]="'Cost/Month' + (selectedData['currency'] ? ' in '+ selectedData['currency'] : '')" class="w-100"  [(ngModel)]="selectedData['accommodation']" />
@@ -139,8 +139,8 @@
                                         </div>
                                     </div>
                                     <div class="d-flex justify-content-center mb-3">
-                                        <div class="col-md-3">
-                                            <h5 class="mt-2">Travel Expenses</h5>
+                                        <div class="col-md-2">
+                                            <h5 class="m-2 text-start">Travel Expenses</h5>
                                         </div>
                                         <div class="col-md-6">
                                             <input type="text" pInputText [placeholder]="'Cost/Month' + (selectedData['currency'] ? ' in '+ selectedData['currency'] : '')" class="w-100"  [(ngModel)]="selectedData['travel_expense']" />
@@ -150,8 +150,8 @@
                                         </div>
                                     </div>
                                     <div class="d-flex justify-content-center mb-3">
-                                        <div class="col-md-3">
-                                            <h5 class="mt-2">Food & Groceries</h5>
+                                        <div class="col-md-2">
+                                            <h5 class="m-2 text-start">Food & Groceries</h5>
                                         </div>
                                         <div class="col-md-6">
                                             <input type="text" pInputText [placeholder]="'Cost/Month' + (selectedData['currency'] ? ' in '+ selectedData['currency'] : '')" class="w-100"  [(ngModel)]="selectedData['food_and_grocery']" />
@@ -161,8 +161,8 @@
                                         </div>
                                     </div>
                                     <div class="d-flex justify-content-center mb-3">
-                                        <div class="col-md-3">
-                                            <h5 class="mt-2">Miscellaneous</h5>
+                                        <div class="col-md-2">
+                                            <h5 class="m-2 text-start">Miscellaneous</h5>
                                         </div>
                                         <div class="col-md-6">
                                             <input type="text" pInputText [placeholder]="'Cost/Month' + (selectedData['currency'] ? ' in '+ selectedData['currency'] : '')" class="w-100"  [(ngModel)]="selectedData['miscellaneous']" />
@@ -174,32 +174,32 @@
                                 </ng-container>
                                 <ng-container *ngIf="recommendation.id == 3">
                                     <div class="d-flex justify-content-center mb-3">
-                                        <div class="col-md-3">
-                                            <h5 class="mt-2">Education Loan</h5>
+                                        <div class="col-md-2">
+                                            <h5 class="m-2 text-start">Education Loan</h5>
                                         </div>
                                         <div class="col-md-6">
                                             <input type="text" pInputText [placeholder]="'Cost/Month' + (selectedData['currency'] ? ' in '+ selectedData['currency'] : '')" class="w-100"  [(ngModel)]="selectedData['education_loan']" />
                                         </div>
                                     </div>
                                     <div class="d-flex justify-content-center mb-3">
-                                        <div class="col-md-3">
-                                            <h5 class="mt-2">Friends & Family Loan</h5>
+                                        <div class="col-md-2">
+                                            <h5 class="m-2 text-start">Friends & Family Loan</h5>
                                         </div>
                                         <div class="col-md-6">
                                             <input type="text" pInputText [placeholder]="'Cost/Month' + (selectedData['currency'] ? ' in '+ selectedData['currency'] : '')" class="w-100"  [(ngModel)]="selectedData['family_loan']" />
                                         </div>
                                     </div>
                                     <div class="d-flex justify-content-center mb-3">
-                                        <div class="col-md-3">
-                                            <h5 class="mt-2">Monthly Payment</h5>
+                                        <div class="col-md-2">
+                                            <h5 class="m-2 text-start">Monthly Payment</h5>
                                         </div>
                                         <div class="col-md-6">
                                             <input type="text" pInputText [placeholder]="'Cost/Month' + (selectedData['currency'] ? ' in '+ selectedData['currency'] : '')" class="w-100"  [(ngModel)]="selectedData['monthly_payment']" />
                                         </div>
                                     </div>
                                     <div class="d-flex justify-content-center mb-3">
-                                        <div class="col-md-3">
-                                            <h5 class="mt-2">Repayment Period</h5>
+                                        <div class="col-md-2">
+                                            <h5 class="m-2 text-start">Repayment Period</h5>
                                         </div>
                                         <div class="col-md-6">
                                             <input type="text" pInputText placeholder="Months" class="w-100"  [(ngModel)]="selectedData['repayment_period']" />
@@ -208,24 +208,24 @@
                                 </ng-container>
                                 <ng-container *ngIf="recommendation.id == 4">
                                     <div class="d-flex justify-content-center mb-3">
-                                        <div class="col-md-3">
-                                            <h5 class="mt-2">Part Time Income</h5>
+                                        <div class="col-md-2">
+                                            <h5 class="m-2 text-start">Part Time Income</h5>
                                         </div>
                                         <div class="col-md-6">
                                             <input type="text" pInputText [placeholder]="'Income/Month' + (selectedData['currency'] ? ' in '+ selectedData['currency'] : '')" class="w-100"  [(ngModel)]="selectedData['part_time_income']" />
                                         </div>
                                     </div>
                                     <div class="d-flex justify-content-center mb-3">
-                                        <div class="col-md-3">
-                                            <h5 class="mt-2">Full Time Income</h5>
+                                        <div class="col-md-2">
+                                            <h5 class="m-2 text-start">Full Time Income</h5>
                                         </div>
                                         <div class="col-md-6">
                                             <input type="text" pInputText [placeholder]="'Income/Month' + (selectedData['currency'] ? ' in '+ selectedData['currency'] : '')" class="w-100"  [(ngModel)]="selectedData['full_time_income']" />
                                         </div>
                                     </div>
                                     <div class="d-flex justify-content-center mb-3">
-                                        <div class="col-md-3">
-                                            <h5 class="mt-2">Other Income</h5>
+                                        <div class="col-md-2">
+                                            <h5 class="m-2 text-start">Other Income</h5>
                                         </div>
                                         <div class="col-md-6">
                                             <input type="text" pInputText [placeholder]="'Income/Month' + (selectedData['currency'] ? ' in '+ selectedData['currency'] : '')" class="w-100"  [(ngModel)]="selectedData['other_income']" />
@@ -288,17 +288,19 @@
         <div class="row">
             <div class="col-md-2"></div>
             <div class="col-md-8">
+                <div class="d-flex justify-content-end gap-3 m-3">
+                    <button pButton type="button" [disabled]="responseBtnDisable" *ngIf="!isOldResponse" (click)="saveResponse()" class="btn btn-primary btn-rounded py-2 px-4">Save Response&nbsp;<i class="fa-solid fa-floppy-disk"></i></button>
+                    <button pButton type="button" (click)="downloadResponse()"
+                            class="btn btn-secondary btn-rounded p-1 ps-4">
+                            <span class="me-2">Download</span><span class="btn-icon px-2 py-2">
+                                <i class="fa-regular fa-download"></i></span>
+                    </button>
+                </div>
                 <markdown emoji>
                     <div class="card p-3" [innerHtml]="recommendationData"></div>
                 </markdown>
             </div>
             <div class="col-md-2">
-                <button pButton type="button" [disabled]="responseBtnDisable" *ngIf="!isOldResponse" (click)="saveResponse()" class="btn btn-primary btn-rounded py-2 px-4">Save Response&nbsp;<i class="fa-solid fa-floppy-disk"></i></button>
-                <button pButton type="button" (click)="downloadResponse()"
-                        class="btn btn-secondary btn-rounded p-1 ps-4">
-                        <span class="me-2">Download</span><span class="btn-icon px-2 py-2">
-                            <i class="fa-regular fa-download"></i></span>
-                    </button>
             </div>
         </div>
     </div>

@@ -65,7 +65,7 @@ export class StartUpExpenseEstimateComponent implements OnInit {
     page: this.page,
     perpage: this.pageSize,
   };
-  currencyandCountryList: any;
+  currenciesList: any;
   isRecommendationQuestion: boolean = true;
   isRecommendationData: boolean = false;
   isRecommendationSavedData: boolean = false;
@@ -149,9 +149,9 @@ export class StartUpExpenseEstimateComponent implements OnInit {
 
 
   getCurrenyandLocation() {
-    this.foundersToolsService.getCurrencyAndCountries().subscribe((res: any) => {
+    this.foundersToolsService.getCurrenciesList().subscribe((res: any) => {
       console.log(res);
-      this.currencyandCountryList = res;
+      this.currenciesList = res;
     });
     this.foundersToolsService.getLocationList().subscribe((res: any) => {
       console.log(res);

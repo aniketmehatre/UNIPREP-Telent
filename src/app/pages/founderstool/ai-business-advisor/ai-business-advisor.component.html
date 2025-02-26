@@ -73,14 +73,14 @@
                   <ng-container *ngIf="recommendation.id == 6">
                     <div class="w-100 d-flex gap-2 flex-fill">
                       <p-select  [(ngModel)]="selectedData[8]" [options]="currencyList" [filter]="true"
-                        filterBy="currency_code" placeholder=" Currency" appendTo="body" optionLabel="currency_code" optionValue="currency_code"
+                        filterBy="currency_symbol" placeholder=" Currency" appendTo="body" optionLabel="currency_symbol" optionValue="currency_symbol"
                         [autoDisplayFirst]="false">
                       </p-select>
-                      <input  [(ngModel)]="selectedData[recommendation.id]" class="w-100 pl-4 border border-gray rounded-3" type="number" [min]="100000" pInputText [placeholder]="selectedData[8] ? 'Amount in'+' '+selectedData[8] : 'Budget' "
+                      <input  [(ngModel)]="selectedData[recommendation.id]" class="w-100 pl-4 border border-gray rounded-3" type="number" [max]="99999999" pInputText [placeholder]="selectedData[8] ? 'Amount in'+' '+selectedData[8] : 'Enter Amount' "
                         />
                     </div>  
                     <div class="text-center" [ngClass]="{ 'd-none': inValidClass === false }" style="color: red">
-                      Budget is required or maximum 6 digit allowed 
+                      Budget is required or maximum 8 digit allowed 
                     </div>
                   </ng-container>
                   <ng-container *ngIf="recommendation.id == 7">

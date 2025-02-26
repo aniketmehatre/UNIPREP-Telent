@@ -21,13 +21,13 @@ import { SplitButtonModule } from "primeng/splitbutton";
 import { StepsModule } from "primeng/steps";
 import { TooltipModule } from "primeng/tooltip";
 import { GlobalEmploymentComponent } from "./global-employment-insights.component";
-import { GLobalEmploymentdataListsComponent } from "./data-list/data-list.component";
+import { GlobalEmploymentDataListComponent } from "./data-list/data-list.component";
 import { GlobalEmploymentCountryListsComponent } from "./global-employment-insights-countries/global-employment-insights-countrylist.component";
 import { GlobalEmploymentRoutingModule } from "./global-employment-insights-routing.module";
 @NgModule({
   declarations: [
     GlobalEmploymentComponent,
-    GLobalEmploymentdataListsComponent,
+    GlobalEmploymentDataListComponent,
     GlobalEmploymentCountryListsComponent
     ],
     imports: [

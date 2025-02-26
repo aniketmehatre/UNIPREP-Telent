@@ -68,10 +68,10 @@
                                                         <div class="d-flex gap-2">
                                                             <p-select class="currency-dropdown"
                                                                 formControlName="currency"
-                                                                [options]="currencyandCountryList" [filter]="true"
-                                                                filterBy="currency_code" placeholder="Currency"
-                                                                optionLabel="currency_code" optionValue="currency_code"
-                                                                [autoDisplayFirst]="false">
+                                                                [options]="currenciesList" [filter]="true"
+                                                                filterBy="currency_symbol" placeholder="Currency"
+                                                                optionLabel="currency_symbol" optionValue="currency_symbol"
+                                                                [autoDisplayFirst]="false" (ngModelChange)="form.get('compare_currency')?.patchValue(form.get('currency')?.value)">
                                                             </p-select>
                                                             <input type="number" class="form-control w-100" [min]="100"
                                                                 formControlName="loanamount"  [placeholder]="form.get('currency').value ? 'Enter Amount in'+' '+form.get('currency').value : 'Enter Amount'">
@@ -81,9 +81,9 @@
                                                         <div class="d-flex gap-2">
                                                             <p-select class="currency-dropdown"
                                                                 formControlName="compare_currency"
-                                                                [options]="currencyandCountryList" [filter]="true"
-                                                                filterBy="currency_code" placeholder="Currency"
-                                                                optionLabel="currency_code" optionValue="currency_code"
+                                                                [options]="currenciesList" [filter]="true"
+                                                                filterBy="currency_symbol" placeholder="Currency"
+                                                                optionLabel="currency_symbol" optionValue="currency_symbol"
                                                                 [autoDisplayFirst]="false">
                                                             </p-select> 
                                                             <input type="number" class="form-control w-100 m-0" [min]="100"

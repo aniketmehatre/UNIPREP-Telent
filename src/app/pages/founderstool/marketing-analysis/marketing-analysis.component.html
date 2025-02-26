@@ -132,8 +132,8 @@
                     {{ recommendation.question.branches[0] }}
                   </h5>
                   <div class="w-100 d-flex gap-2 flex-fill">
-                    <p-select formControlName="currencycode" appendTo="body" [options]="locationList" [filter]="true"
-                      filterBy="currency_code" placeholder=" Currency" optionLabel="currency_code" optionValue="currency_code"
+                    <p-select formControlName="currencycode" [options]="currenciesList" [filter]="true"
+                      filterBy="currency_symbol" placeholder=" Currency" optionLabel="currency_symbol" optionValue="currency_symbol"
                       [autoDisplayFirst]="false">
                     </p-select>
                     <input class="w-100 border border-gray rounded-3" pInputText type="text" placeholder=" Budget"

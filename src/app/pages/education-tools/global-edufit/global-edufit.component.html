@@ -45,10 +45,11 @@
                     <h5 class="uniprep-primary fw-semibold mt-3 mb-1">
                       {{ recommendation.question.branches[1] }}
                     </h5>
-                    <p-select styleClass="w-100" appendTo="body" [options]="countryList" [filter]="true"
-                      formControlName="interested_country" filterBy="country" optionLabel="country" optionValue="id" (ngModelChange)="setUniversityList($event);"
+                    <p-select styleClass="w-100" appendTo="body" [options]="interestedCountryList" [filter]="true"
+                      formControlName="interested_country" filterBy="country" optionLabel="country"
                       [autoDisplayFirst]="false" placeholder="Select the interested country">
                     </p-select>
+                    <!-- (ngModelChange)="setCompareUniversityList($event);" -->
                     <p class="text-center" *ngIf="form.get('interested_country')?.errors?.required && submitted"
                       style="color: red">
                       Please Choose Any one option
@@ -59,7 +60,7 @@
                       {{ recommendation.question.branches[2] }}
                     </h5>
                     <p-select styleClass="w-100" appendTo="body" [options]="universityList" [filter]="true"
-                      formControlName="university" filterBy="name" optionLabel="name" optionValue="name"
+                      formControlName="university" filterBy="university_name" optionLabel="university_name"
                       [autoDisplayFirst]="false" placeholder="Select the univesity">
                     </p-select>
                     <p class="text-center" *ngIf="form.get('university')?.errors?.required && submitted"
@@ -71,14 +72,14 @@
                     <h5 class="uniprep-primary fw-semibold mt-3 mb-1">
                       {{ recommendation.question.branches[3] }}
                     </h5>
-                    <p-select styleClass="w-100" appendTo="body" [options]="specializationList" [filter]="true"
-                      formControlName="specialization" filterBy="specialization_name" optionLabel="specialization_name" optionValue="specialization_name"
-                      [autoDisplayFirst]="false" placeholder="Select the specialization">
-                    </p-select>
-                    <p class="text-center" *ngIf="form.get('specialization')?.errors?.required && submitted"
-                      style="color: red">
-                      Please Choose Any one option
-                    </p>
+                    <p-select styleClass="w-100" placeholder="Degree"  appendTo="body" [options]="degreeList"
+                    optionLabel="name" optionValue="name" formControlName="degree" placeholder="Select the degree">
+                   </p-select>
+                   <p class="text-center" *ngIf="
+                       form.get('degree')?.errors?.required && submitted
+                       " style="color: red">
+                     Please Choose Any one option
+                   </p>
                   </div>
                 </div>
   
@@ -90,12 +91,12 @@
                     <h5 class="uniprep-primary fw-semibold mt-3 mb-1">
                       {{ recommendation.question.branches[0] }}
                     </h5>
-                    <p-select styleClass="w-100" placeholder="Degree"  appendTo="body" [options]="degreeList"
-                     optionLabel="name" optionValue="name" formControlName="degree" placeholder="Select the degree">
+                    <p-select styleClass="w-100" appendTo="body" [options]="specializationList" [filter]="true"
+                      formControlName="specialization" filterBy="course_name" optionLabel="course_name" optionValue="course_name"
+                      [autoDisplayFirst]="false" placeholder="Select the Course">
                     </p-select>
-                    <p class="text-center" *ngIf="
-                          form.get('degree')?.errors?.required && submitted
-                        " style="color: red">
+                    <p class="text-center" *ngIf="form.get('specialization')?.errors?.required && submitted"
+                      style="color: red">
                       Please Choose Any one option
                     </p>
                   </div>
@@ -123,7 +124,7 @@
                     </h5>
                     <div class="w-100 d-flex gap-2 flex-fill">
                       <p-select formControlName="currency_code" appendTo="body" [options]="currencyandCountryList" [filter]="true"
-                        filterBy="currency_code" placeholder="Currency" optionLabel="currency_code" optionValue="currency_code"
+                        filterBy="currency_symbol" placeholder="Currency" optionLabel="currency_symbol" optionValue="currency_symbol"
                         [autoDisplayFirst]="false">
                       </p-select>
                       <input class="w-100 pl-4 border border-gray rounded-3" type="number" pInputText placeholder="Fees"
@@ -141,12 +142,12 @@
                     <div class="w-100 d-flex gap-2 flex-fill">
                     <div class="border border-gray rounded-3 d-flex align-items-center justify-content-center bg-white" style="width: 50px">{{form.get('currency_code').value || ''}}</div>
                     <input class="w-100 border border-gray rounded-3" type="number" pInputText placeholder="Enter Amount"
-                    formControlName="cost_estimation" [max]="999999" />
+                    formControlName="cost_estimation" [max]="99999999" />
                     </div>
                     <p class="text-center" *ngIf="
                           (form.get('cost_estimation')?.errors?.required || form.get('cost_estimation')?.errors?.max) && submitted
                         " style="color: red">
-                      Please Enter this amount and max 6 digit only allowed
+                      Please Enter this amount and max 8 digit only allowed
                     </p>
                   </div>
                   <div>

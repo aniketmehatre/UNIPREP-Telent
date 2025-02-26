@@ -63,6 +63,7 @@ export class EduLoanCompareComponent implements OnInit, OnDestroy {
     perpage: this.pageSize,
   };
   currencyandCountryList: any;
+  currenciesList: any;
   isRecommendationQuestion: boolean = true;
   isRecommendationData: boolean = false;
   isRecommendationSavedData: boolean = false;
@@ -158,7 +159,10 @@ export class EduLoanCompareComponent implements OnInit, OnDestroy {
   }
 
   getCountryList() {
-    this.educationToolService.getCurrencyAndCountries().subscribe(data => {
+    this.educationToolService.getCurrencies().subscribe(data => {
+      this.currenciesList = data;
+    });
+    this.educationToolService.getCountries().subscribe(data => {
       this.currencyandCountryList = data;
     });
   }

@@ -21,6 +21,9 @@ import { SelectModule } from 'primeng/select';
 import { InputGroupModule } from 'primeng/inputgroup';
 import { InputTextModule } from 'primeng/inputtext';
 import { InputGroupAddonModule } from 'primeng/inputgroupaddon';
+import { DownloadRespose } from 'src/app/@Models/travel-tools.model';
+import { TravelToolsService } from '../../travel-tools/travel-tools.service';
+
 @Component({
     selector: 'uni-careerplannercountrywise',
     templateUrl: './careerplannercountrywise.component.html',
@@ -30,78 +33,78 @@ import { InputGroupAddonModule } from 'primeng/inputgroupaddon';
 })
 
 export class CareerplannercountrywiseComponent implements OnInit {
-  countries:any=[];
-  form:FormGroup;
+  countries: any = [];
+  form: FormGroup;
   submitted: boolean = false;
-  isFormVisible:boolean=true;
+  isFormVisible: boolean = true;
   customizedResponse: any;
-  isFormChatgptresponse:boolean=false;
-  isSavedResponse:boolean=false;
+  isFormChatgptresponse: boolean = false;
+  isSavedResponse: boolean = false;
   recommadationSavedQuestionList: any[] = [];
-  constructor(private router: Router,private service: JobSearchService,private fb:FormBuilder,private pageFacade: PageFacadeService,
-    private toast: MessageService
-  ) { 
+  constructor(private router: Router, private service: JobSearchService, private fb: FormBuilder, private pageFacade: PageFacadeService,
+    private toast: MessageService, private travelToolService: TravelToolsService,
+  ) {
     this.form = this.fb.group({
-      country: ['',[Validators.required]],
-      currency: ['',[Validators.required]],
+      country: ['', [Validators.required]],
+      currency: ['', [Validators.required]],
     });
   }
 
   ngOnInit(): void {
-    this.service.getCountryCurrency().subscribe((res:any)=>{
-      this.countries=res
+    this.service.getCountryCurrency().subscribe((res: any) => {
+      this.countries = res
     })
   }
   get f() {
     return this.form.controls;
   }
-  formSubmit(){
-    this.submitted=true;
-    if(this.form.valid){
-      var data={
-        mode:"careerplanner",
-        currency_code:this.form.value.currency,
-        country :this.form.value.country
+  formSubmit() {
+    this.submitted = true;
+    if (this.form.valid) {
+      var data = {
+        mode: "careerplanner",
+        currency_code: this.form.value.currency,
+        country: this.form.value.country
       }
-      this.service.getCountryCurrencyChatGptOutput(data).subscribe((res:any)=>{
-        this.customizedResponse=res.response
-        this.submitted=false
-        this.isFormVisible=false;
-        this.isFormChatgptresponse=true;
-        this.isSavedResponse=false;
+      this.service.getCountryCurrencyChatGptOutput(data).subscribe((res: any) => {
+        this.customizedResponse = res.response
+        this.submitted = false
+        this.isFormVisible = false;
+        this.isFormChatgptresponse = true;
+        this.isSavedResponse = false;
       })
     }
   }
-  BackReset(){
-    this.isFormVisible=true;
-    this.isFormChatgptresponse=false;
-    this.isSavedResponse=false;
+  BackReset() {
+    this.isFormVisible = true;
+    this.isFormChatgptresponse = false;
+    this.isSavedResponse = false;
     this.form.reset();
   }
-  saveRecommadation(){
+  saveRecommadation() {
     this.service.getTripList('careerplanner').subscribe({
       next: response => {
-        this.isFormVisible=false;
-        this.isFormChatgptresponse=false;
-        this.isSavedResponse=true;
+        this.isFormVisible = false;
+        this.isFormChatgptresponse = false;
+        this.isSavedResponse = true;
         this.recommadationSavedQuestionList = response.data;
       },
       error: error => {
       }
     });
   }
-  goBackChatGptResp(){
-    this.isFormVisible=false;
-    this.isFormChatgptresponse=true;
-    this.isSavedResponse=false;
+  goBackChatGptResp() {
+    this.isFormVisible = false;
+    this.isFormChatgptresponse = true;
+    this.isSavedResponse = false;
   }
-  showRecommandationData(data:any){
-    this.customizedResponse=data
-    this.isFormVisible=false;
-    this.isFormChatgptresponse=true;
-    this.isSavedResponse=false;
+  showRecommandationData(data: any) {
+    this.customizedResponse = data
+    this.isFormVisible = false;
+    this.isFormChatgptresponse = true;
+    this.isSavedResponse = false;
   }
-  goBackcareerPlanList(){
+  goBackcareerPlanList() {
     this.router.navigate(['/pages/job-tool/careerplannerlist']);
   }
   openVideoPopup(videoLink: string) {
@@ -111,13 +114,36 @@ export class CareerplannercountrywiseComponent implements OnInit {
     this.toast.add({ severity: "success", summary: "Success", detail: "Response saved successfully" });
   }
   downloadRecommadation() {
-    this.service.downloadRecommendation({ data: this.customizedResponse }).subscribe({
-      next: res => {
-        window.open(res.url, "_blank");
-      },
-      error: err => {
-        console.log(err?.error?.message);
-      }
+    // this.service.downloadRecommendation({ data: this.customizedResponse }).subscribe({
+    //   next: res => {
+    //     window.open(res.url, "_blank");
+    //   },
+    //   error: err => {
+    //     console.log(err?.error?.message);
+    //   }
+    // });
+    // let downloadString:string = "This is a paragraph with some text and emojis 😊🎉. Markdown processing with emojis works!";
+    let selectedCityAndCountry = this.form.value.country;
+    let currency=this.form.value.currency;
+    let addingInput = `
+          <p><strong>Input:<br></strong></p>
+          <p><strong>Which country are you interested in?</strong></p>
+          <p><strong>${selectedCityAndCountry}</strong></p>
+          <p><strong>Select Your Preferred Currency?</strong></p>
+          <p><strong>${currency}</strong></p>
+          <br>
+          <p><strong>Response:<br></strong></p>
+          ${this.customizedResponse}
+        `;
+    let paramData: DownloadRespose = {
+      response: addingInput,
+      module_name: "Career Planner",
+      file_name: "career_planner"
+    };
+    this.travelToolService.convertHTMLtoPDF(paramData).then(() => {
+      console.log("PDF successfully generated.");
+    }).catch(error => {
+      console.error("Error generating PDF:", error);
     });
   }
 }
