@@ -1,0 +1,48 @@
+<div class="card readingcard">
+    <div class="card-header border-0 bg-transparent">
+        <div class="row justify-content-center align-items-center">
+            <div class="col-md-12 text-center">
+                <div class="select-title d-flex justify-content-between align-items-center">
+                    <div>
+                        <h5 class="w-100 mb-0" tooltipPosition="top" pTooltip="">
+                            Employer Connect<i class="questiontooltip fa-solid fa-circle-question"></i></h5>
+                    </div>
+                    <div>
+                        <button class="how-it-works-button">How it works?
+                            <i class="fa-solid fa-play d-md-block d-none"></i></button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="card-body text-center flex-fill overflow-y-auto d-flex justify-content-center align-items-center">
+        <h1>Create your profile, explore jobs that match your skills, and get hired faster with seamless
+            employer connections!</h1>
+        <div class="row mb-0 w-100 justify-content-center">
+            <div *ngFor="let item of talentConnectMainList"
+                 class="col-custom-lg-2 col-md-3 col-sm-4 col-xs-12 col-12 mb-3 d-flex justify-content-center">
+                <div class="card subjectcard position-relative d-flex flex-column align-items-center justify-content-center text-center"
+                     [class.disabled]="item.launch_soon"
+                     [routerLink]="item.launch_soon ? null : item.navigate_url"
+                     role="button">
+                    <!-- Launch Soon Tag -->
+                    <uni-launch-soon-tag *ngIf="item.launch_soon"
+                                         message="Launching soon"></uni-launch-soon-tag>
+                    <!-- Card Body -->
+                    <div class="card-body d-flex flex-md-column flex-row justify-content-md-between align-items-center">
+                        <div>
+                            <div class="submoduleicon">
+                                <img [src]="item.image" class="selectimage"/>
+                            </div>
+                            <h5 class="text-center mt-3 fw-bold mb-0">{{ item.title }}</h5>
+                        </div>
+                        <button class="how-it-works-button text-small pe-2 ps-2">{{ item.value }}</button>
+                        <button type="button" title="Close Popup"
+                                class="btn btn-primary btn-rounded mt-2">{{ item.navigate_title }}
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

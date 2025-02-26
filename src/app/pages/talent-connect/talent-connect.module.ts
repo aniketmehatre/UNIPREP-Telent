@@ -19,9 +19,9 @@ import { FormsModule } from '@angular/forms';
 import { JobChatUiComponent } from './job-tracker/job-chat-ui/job-chat-ui.component';
 import { JobListComponent } from './job-tracker/job-list/job-list.component';
 import { JobDetailsComponent } from './job-tracker/job-details/job-details.component';
-
-
-
+import { MainListComponent } from './main-list/main-list.component';
+import {SharedModule} from "../../shared/shared.module";
+import { ProfileViewComponent } from './my-profile/profile-view/profile-view.component';
 
 @NgModule({
   declarations: [
@@ -29,27 +29,30 @@ import { JobDetailsComponent } from './job-tracker/job-details/job-details.compo
     JobTrackerComponent,
     JobChatUiComponent,
     JobListComponent,
-    JobDetailsComponent
+    JobDetailsComponent,
+    MainListComponent,
+    ProfileViewComponent
   ],
-  imports: [
-    CommonModule,
-    DialogModule,
-    TalentConnectRoutingModule,
-    CardModule,
-    ButtonModule,
-    TagModule,
-    TableModule,
-    ButtonModule,
-    CardModule,
-    TabViewModule,
-    InputTextModule,
-    AvatarModule,
-    ChipModule,
-    TooltipModule,
-    StepsModule,
-    DialogModule,
-    DividerModule,
-    FormsModule,
-  ]
+    imports: [
+        CommonModule,
+        DialogModule,
+        TalentConnectRoutingModule,
+        CardModule,
+        ButtonModule,
+        TagModule,
+        TableModule,
+        ButtonModule,
+        CardModule,
+        TabViewModule,
+        InputTextModule,
+        AvatarModule,
+        ChipModule,
+        TooltipModule,
+        StepsModule,
+        DialogModule,
+        DividerModule,
+        FormsModule,
+        SharedModule,
+    ]
 })
 export class TalentConnectModule { }
