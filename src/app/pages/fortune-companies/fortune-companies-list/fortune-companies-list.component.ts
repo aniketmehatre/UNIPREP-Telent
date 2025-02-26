@@ -8,13 +8,15 @@ import { CommonModule } from "@angular/common";
 import { RouterModule } from "@angular/router";
 import { DialogModule } from "primeng/dialog";
 import { PaginatorModule } from "primeng/paginator";
+import {FormsModule} from "@angular/forms";
+import {Skeleton} from "primeng/skeleton";
 
 @Component({
   selector: "uni-fortune-companies-lists",
   templateUrl: "./fortune-companies-list.component.html",
   styleUrls: ["./fortune-companies-list.component.scss"],
   standalone: true,
-  imports: [CommonModule, RouterModule, DialogModule, PaginatorModule]
+  imports: [CommonModule, RouterModule, DialogModule, PaginatorModule, FormsModule, Skeleton]
 })
 export class FortuneCompaniesListsComponent implements OnInit {
   constructor(
