@@ -42,32 +42,6 @@ import { ProfileViewComponent } from './my-profile/profile-view/profile-view.com
     CompanyListComponent,
     CompanyDetailComponent
   ],
-  imports: [
-    CommonModule,
-    DialogModule,
-    TalentConnectRoutingModule,
-    CardModule,
-    ButtonModule,
-    TagModule,
-    TableModule,
-    ButtonModule,
-    CardModule,
-    TabViewModule,
-    InputTextModule,
-    AvatarModule,
-    ChipModule,
-    TooltipModule,
-    StepsModule,
-    DialogModule,
-    DividerModule,
-    FormsModule,
-    TabViewModule,
-    TabMenuModule,
-    ProgressBarModule
-  ]
-    MainListComponent,
-    ProfileViewComponent
-  ],
     imports: [
         CommonModule,
         DialogModule,
