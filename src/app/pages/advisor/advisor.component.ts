@@ -15,13 +15,14 @@ import { InputGroupAddonModule } from 'primeng/inputgroupaddon';
 import { TextareaModule } from 'primeng/textarea';
 import { ButtonModule } from 'primeng/button';
 import { SkeletonModule } from 'primeng/skeleton';
+import { CarouselModule } from 'primeng/carousel';
 @Component({
     selector: 'uni-advisor',
     templateUrl: './advisor.component.html',
     styleUrls: ['./advisor.component.scss'],
     encapsulation: ViewEncapsulation.None,
     standalone: true,
-    imports: [CommonModule, DialogModule, FormsModule, ReactiveFormsModule, InputTextModule, InputGroupModule, InputGroupAddonModule, TextareaModule, ButtonModule, SkeletonModule],
+    imports: [CommonModule, DialogModule, FormsModule, ReactiveFormsModule, InputTextModule, InputGroupModule, InputGroupAddonModule, TextareaModule, ButtonModule, SkeletonModule, CarouselModule],
 })
 export class AdvisorComponent implements OnInit {
   @ViewChild('chatContainer') private chatContainer: ElementRef;
