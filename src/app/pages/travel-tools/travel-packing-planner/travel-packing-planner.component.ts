@@ -26,9 +26,9 @@ export class TravelPackingPlannerComponent implements OnInit {
     { id: 3, name: 'Adventure' }
   ];
   transportationModeList: { id: number, name: string }[] = [
-    { id: 1, name: 'Flight' },
+    { id: 1, name: 'Metro' },
     { id: 2, name: 'Train' },
-    { id: 3, name: 'By road' }
+    { id: 3, name: 'Bus' }
   ];
   monthList: { id: number, name: string }[] = [
     { id: 1, name: 'January' },

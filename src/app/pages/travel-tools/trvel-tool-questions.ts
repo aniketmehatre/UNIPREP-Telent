@@ -32,7 +32,7 @@ export const TravelPackingPlannerQuestionList = [
   },
   {
     id: 3,
-    question: "What mode of transportation will you be using for this trip?"
+    question: "What mode of transportation will you be using at your destination?"
   },
   {
     id: 4,

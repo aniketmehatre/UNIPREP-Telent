@@ -25,7 +25,7 @@ export class AveragesalaryestimatorService {
     });
   }getJobRoles() {
     const headers = new HttpHeaders().set("Accept", "application/json");
-    return this.http.post<any>(environment.ApiUrl + "/serachJobrole", {
+    return this.http.post<any>(environment.ApiUrl + "/onlyJobRoles", {
       headers: headers,
     });
   }
