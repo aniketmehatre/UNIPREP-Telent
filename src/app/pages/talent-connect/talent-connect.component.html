@@ -34,14 +34,14 @@
 			</div>
             <ng-template #showModules>
                 <div class="main-content text-center p-4">
-                    <h3 class="main-heading mb-5">
+                    <h3 class="main-heading mb-5 text-primary">
                       Create your profile, explore jobs that match your skills, and get hired faster with seamless employer connections!
                     </h3>
                   
                     <div class="row features-row justify-content-center ">
                       <!-- Profile Card -->
                       <div class="col-lg-2 col-md-4 col-sm-6 col-12 mb-2">
-                        <p-card styleClass="h-100">
+                        <p-card styleClass="h-100" class="card-div">
                           <div class="d-flex flex-column">
                             <div class="pt-2">
                                 <div class="icon-container d-flex align-items-center justify-content-center mx-auto">
@@ -63,7 +63,7 @@
                   
                       <!-- Easy Apply Card -->
                       <div class="col-lg-2 col-md-4 col-sm-6 col-12 mb-2">
-                        <p-card styleClass="h-100">
+                        <p-card styleClass="h-100" class="card-div">
                           <div class="d-flex flex-column">
                             <div class="pt-2">
                                 <div class="icon-container d-flex align-items-center justify-content-center mx-auto">
@@ -85,7 +85,7 @@
                   
                       <!-- Company Connect Card -->
                       <div class="col-lg-2 col-md-4 col-sm-6 col-12 mb-2">
-                        <p-card styleClass="h-100">
+                        <p-card styleClass="h-100" class="card-div">
                           <div class="d-flex flex-column">
                             <div class="pt-2">
                                 <div class="icon-container d-flex align-items-center justify-content-center mx-auto">
@@ -107,7 +107,7 @@
                   
                       <!-- Job Tracker Card -->
                       <div class="col-lg-2 col-md-4 col-sm-6 col-12 mb-2">
-                        <p-card styleClass="h-100 inside-card">
+                        <p-card styleClass="h-100 inside-card" class="card-div">
                           <div class="d-flex flex-column">
                             <div class="pt-2">
                                 <div class="icon-container d-flex align-items-center justify-content-center mx-auto">
@@ -121,7 +121,7 @@
                           </div>
                           <ng-template pTemplate="footer">
                             <div class="button-container">
-                              <button class="btn btn-primary btn-rounded px-3 py-1" [routerLink]="'/pages/talent-connect/job-tracker'">Track</button>
+                              <button class="btn btn-primary btn-rounded px-3 py-1" (click)="navigateJobTracker();">Track</button>
                             </div>
                           </ng-template>
                         </p-card>
@@ -129,7 +129,7 @@
                   
                       <!-- Company Tracker Card -->
                       <div class="col-lg-2 col-md-4 col-sm-6 col-12 mb-2">
-                        <p-card styleClass="h-100 p-1">
+                        <p-card styleClass="h-100 p-1" class="card-div">
                           <div class="d-flex flex-column">
                             <div class="pt-2">
                                 <div class="icon-container d-flex align-items-center justify-content-center mx-auto">
