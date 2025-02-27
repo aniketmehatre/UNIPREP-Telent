@@ -201,14 +201,18 @@ export class GlobalTravelVisaComponent implements OnInit {
   }
 
   goBack() {
-    const urls: { [key: string]: string } = {
-      "Global Travel Visa": "/pages/travel-tools",
-      "Global Work Visa": "/pages/job-tool",
-      "Global Entrepreneur Visa": "/pages/founderstool",
-      "Global Study Visa": "/pages/education-tools"
-    };
-    const targetUrl = urls[this.title] || "";
-    this.router.navigateByUrl(targetUrl);
+    if (this.activePageIndex > 0) {
+      this.activePageIndex--;
+    }else{
+      const urls: { [key: string]: string } = {
+        "Global Travel Visa": "/pages/travel-tools",
+        "Global Work Visa": "/pages/job-tool",
+        "Global Entrepreneur Visa": "/pages/founderstool",
+        "Global Study Visa": "/pages/education-tools"
+      };
+      const targetUrl = urls[this.title] || "";
+      this.router.navigateByUrl(targetUrl);
+    }
   }
   viewQuestions(category:any){
     this.isRecommendationQuestion = false; 
