@@ -1,3 +1,13 @@
+::ng-deep .card-div {
+  .p-card {
+    box-shadow: none;
+    border: 1px solid var(--uniprep-gray);
+    &:hover {
+      background-color: var(--uniprep-gray);
+      border-color: var(--uniprep-secondary);
+    }
+  }
+}
 
 .icon-container {
     background-color: #f0f4f8;
@@ -32,5 +42,9 @@
     font-weight: bold;
     font-size: smaller;
     text-align: center;
+  }
+
+  .text-primary {
+    color: var(--uniprep-primary) !important;
   }
   

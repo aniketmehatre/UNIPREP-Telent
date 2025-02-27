@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 
 interface ChatMessage {
   sender: string;
@@ -16,6 +16,9 @@ interface ChatMessage {
 export class JobChatUiComponent {
   organizationName: string = 'UNIABROAD';
   organizationStatus: string = 'Active';
+  @Output() openInfo: EventEmitter<boolean> = new EventEmitter<boolean>(true);
+  @Output() closeChat: EventEmitter<boolean> = new EventEmitter<boolean>(true);
+  @Input() showInfo: boolean = true;
   currentStage: number = 2;
   stages: Array<{number: number, name: string, completed: boolean}> = [
     { number: 1, name: 'Initial Round', completed: true },
@@ -30,7 +33,6 @@ export class JobChatUiComponent {
   constructor() { }
   
   ngOnInit(): void {
-    // Initialize with sample messages
     this.loadSampleMessages();
   }
   
