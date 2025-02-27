@@ -27,6 +27,9 @@ import { CompanyDetailComponent } from './company-tracker/company-detail/company
 
 
 
+import { MainListComponent } from './main-list/main-list.component';
+import {SharedModule} from "../../shared/shared.module";
+import { ProfileViewComponent } from './my-profile/profile-view/profile-view.component';
 
 @NgModule({
   declarations: [
@@ -62,5 +65,29 @@ import { CompanyDetailComponent } from './company-tracker/company-detail/company
     TabMenuModule,
     ProgressBarModule
   ]
+    MainListComponent,
+    ProfileViewComponent
+  ],
+    imports: [
+        CommonModule,
+        DialogModule,
+        TalentConnectRoutingModule,
+        CardModule,
+        ButtonModule,
+        TagModule,
+        TableModule,
+        ButtonModule,
+        CardModule,
+        TabViewModule,
+        InputTextModule,
+        AvatarModule,
+        ChipModule,
+        TooltipModule,
+        StepsModule,
+        DialogModule,
+        DividerModule,
+        FormsModule,
+        SharedModule,
+    ]
 })
 export class TalentConnectModule { }
