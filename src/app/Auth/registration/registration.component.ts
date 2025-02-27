@@ -639,4 +639,8 @@ export class RegistrationComponent implements OnInit {
 		this.showPassword = !this.showPassword
 		this.password = this.showPassword ? "text" : "password"
 	}
+	showHideConfirmPassword() {
+		this.showConfirm = !this.showConfirm
+		this.confirmPassword = this.showConfirm ? "text" : "password"
+	}
 }
