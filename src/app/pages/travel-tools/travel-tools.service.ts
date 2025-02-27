@@ -34,8 +34,8 @@ export class TravelToolsService {
       headers: this.headers,
     });
   }
-  getVisaCountriesList() {
-    return this.http.get<Countries[]>(environment.ApiUrl + "/getvisacountrylist", {
+  getVisaCountriesList(data:any) {
+    return this.http.post<Countries[]>(environment.ApiUrl + "/getvisacountrylist",data, {
       headers: this.headers,
     });
   }

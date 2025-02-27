@@ -83,7 +83,10 @@ export class GlobalTravelVisaComponent implements OnInit {
     });
   }
   getVisaCountriesList() {
-    this.travelToolService.getVisaCountriesList().subscribe((response:any) => {
+    var data={
+      mode:this.modeName
+    }
+    this.travelToolService.getVisaCountriesList(data).subscribe((response:any) => {
       this.visaCountries = response.data;
     });
   }
