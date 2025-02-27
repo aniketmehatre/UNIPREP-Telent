@@ -9,12 +9,15 @@ import { CommonModule } from '@angular/common';
 import { DialogModule } from 'primeng/dialog';
 import { PaginatorModule } from 'primeng/paginator';
 import {StorageService} from "../../../storage.service";
+import { InputGroupModule } from 'primeng/inputgroup';
+import { InputGroupAddonModule } from 'primeng/inputgroupaddon';
+import { InputTextModule } from 'primeng/inputtext';
 @Component({
     selector: 'uni-wealthleaderslist',
     templateUrl: './wealthleaderslist.component.html',
     styleUrls: ['./wealthleaderslist.component.scss'],
     standalone: true,
-    imports: [SelectModule, CommonModule, RouterModule, FormsModule, ReactiveFormsModule, DialogModule, PaginatorModule],
+    imports: [SelectModule, CommonModule, RouterModule, FormsModule, ReactiveFormsModule, DialogModule, PaginatorModule, InputGroupModule, InputGroupAddonModule, InputTextModule],
 })
 export class WealthleaderslistComponent implements OnInit {
   valueNearYouFilter: string = '';

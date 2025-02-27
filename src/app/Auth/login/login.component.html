@@ -28,7 +28,7 @@
 												<p class="uniprep-lightgray mt-2 text-center">
 													Don't have an account?<span><a class="uniprep-primary text-decoration-none" href="register"> Register Now</a></span>
 												</p>
-												<form [formGroup]="loginForm" (ngSubmit)="onSubmit()" class="loginForm">
+												<form [formGroup]="loginForm" (ngSubmit)="onSubmit()" class="loginForm authsystem">
 													<div class="row">
 														<div class="col-md-12 mt-2">
 															<label class="text-muted text-small" for="floatingInput">Email Address</label>
@@ -46,11 +46,13 @@
 														</div>
 														<div class="col-md-12 mt-3">
 															<label class="text-muted text-small" for="floatingPassword">Password</label>
-															<p-password fluid [toggleMask]="true" class="border-0" id="floatingPassword" placeholder="Password" formControlName="password" autocomplete="off" [ngClass]="{ 'is-invalid': submitted && f['password'].errors }" [mask]="show ? false : true" [feedback]="false">
-																<ng-template pTemplate="icon">
-																	<i class="fa-solid" [ngClass]="show ? 'fa-eye' : 'fa-eye-slash'"></i>
-																</ng-template>
-															</p-password>
+															<p-inputGroup fluid>
+																<p-inputGroupAddon>
+																	<i class="fa-regular fa-lock"></i>
+																</p-inputGroupAddon>
+																<p-password styleClass="w-100" fluid [toggleMask]="true" class="borderclass w-100" id="floatingPassword" placeholder="Password" formControlName="password" autocomplete="off" [ngClass]="{ 'is-invalid': submitted && f['password'].errors }" [mask]="show ? false : true" [feedback]="false">
+																</p-password>
+															</p-inputGroup>
 
 															<div *ngIf="submitted && f['password'].errors" class="text-danger">
 																<div *ngIf="f['password'].errors?.['required']">Password is required</div>
@@ -61,7 +63,7 @@
 														</div>
 														<div class="col-md-12 mt-4">
 															<div class="d-grid">
-																<button pButton  class="pt-3 pb-3 btn btn-primary btn-login text-uppercase fw-semibold m-0 text-dark" type="submit" [disabled]="isDisabled">Sign in</button>
+																<button pButton class="pt-3 pb-3 btn btn-primary btn-login text-uppercase fw-semibold m-0 text-dark" type="submit" [disabled]="isDisabled">Sign in</button>
 															</div>
 														</div>
 													</div>
