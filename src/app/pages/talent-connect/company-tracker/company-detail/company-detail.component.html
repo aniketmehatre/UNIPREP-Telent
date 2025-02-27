@@ -1,0 +1,154 @@
+<div class="container-fluid bg-white">
+  <!-- Main card container -->
+  <div class="card main-card mb-3">
+    <!-- Company header section -->
+    <div class="company-header p-3">
+      <div class="row">
+        <div class="col-3 col-md-2">
+          <img src="assets/uniabroad-logo.png" alt="UNIABROAD Logo" class="company-logo">
+        </div>
+        <div class="col-7 col-md-8 text-left">
+          <h1 class="company-name">{{companyData.name}}</h1>
+          <p class="founded-text">Founded : {{companyData.foundedYear}}</p>
+          <div class="text-left">
+              <button pButton class="p-button-outlined py-1">
+                Follow&nbsp;<i class="pi pi-plus"></i> 
+              </button>
+          </div>
+        </div>
+        <div class="col-2 text-end">
+          <button pButton class="p-button-success chat-btn" *ngIf="!showInfo" (click)="openChat.emit(true)">
+            <i class="pi pi-comments"></i> Chat
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Quick info section -->
+    <div class="quick-info-section">
+      <div class="row">
+        <div class="col-md-4 info-item">
+          <div class="d-flex align-items-center gap-2">
+            <div>
+                <i class="fa-solid fa-location-dot text-success fs-6"></i>
+            </div>
+            <div>
+              <p class="info-label">Headquarters Location</p>
+              <p class="info-value">{{companyData.quickInfo.headquarters}}</p>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-4 info-item">
+          <div class="d-flex align-items-center gap-2">
+            <div>
+                <i class="fa-solid fa-briefcase text-primary"></i>
+            </div>        
+            <div>
+              <p class="info-label">Company Type</p>
+              <p class="info-value text-left">{{companyData.quickInfo.companyType}}</p>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-4 info-item">
+          <div class="d-flex align-items-center gap-2">
+            <div>
+                <i class="fa-solid fa-users text-secondary"></i>
+            </div>
+            <div>
+              <p class="info-label">Company Size</p>
+              <p class="info-value text-left">{{companyData.quickInfo.companySize}}</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- About Organization Section -->
+  <div class="card about-card mb-3">
+    <div class="card-body p-4 text-left">
+      <h2 class="section-title mb-4">About Organization</h2>
+      <div class="row">
+        <div class="col-md-6">
+          <div class="info-group">
+            <p class="detail-label">Industry Type</p>
+            <p class="detail-value">{{companyData.aboutOrganization.industryType}}</p>
+          </div>
+          
+          <div class="info-group">
+            <p class="detail-label">Headquarters Location</p>
+            <p class="detail-value">{{companyData.aboutOrganization.headquarters}}</p>
+          </div>
+          
+          <div class="info-group">
+            <p class="detail-label">Year Founded</p>
+            <p class="detail-value">{{companyData.aboutOrganization.yearFounded}}</p>
+          </div>
+          
+          <div class="info-group">
+            <p class="detail-label">LinkedIn Profile</p>
+            <p class="detail-value linkedin-link">{{companyData.aboutOrganization.linkedInProfile}}</p>
+          </div>
+        </div>
+        
+        <div class="col-md-6">
+          <div class="info-group">
+            <p class="detail-label">Company Size</p>
+            <p class="detail-value">{{companyData.aboutOrganization.companySize}} <span class="size-note">{{companyData.aboutOrganization.sizeNote}}</span></p>
+          </div>
+          
+          <div class="info-group">
+            <p class="detail-label">Global Presence</p>
+            <p class="detail-value">{{companyData.aboutOrganization.globalPresence}}</p>
+          </div>
+          
+          <div class="info-group">
+            <p class="detail-label">Official Website</p>
+            <p class="detail-value website-link">{{companyData.aboutOrganization.officialWebsite}}</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+  <!-- Company Insights Section -->
+  <div class="card insights-card mb-3">
+    <div class="card-body p-4 text-left">
+      <h2 class="section-title mb-2">Company Insights</h2>
+      
+      <div class="insight-section">
+        <h3 class="insight-heading">About Company</h3>
+        <div class="about-company-text">
+          <p *ngFor="let paragraph of companyData.companyInsights.aboutCompany">
+            {{paragraph}}
+          </p>
+        </div>
+      </div>
+      
+      <div class="row mt-4">
+        <div class="col-md-6">
+          <h3 class="insight-heading">Work Life Balance Policies</h3>
+          <div class="policy-tags">
+            <span class="policy-tag" *ngFor="let policy of companyData.companyInsights.workLifeBalancePolicies">
+              {{policy}}
+            </span>
+          </div>
+        </div>
+        
+        <div class="col-md-6">
+          <h3 class="insight-heading">Employee Benefits & Perks</h3>
+          <div class="benefit-tags">
+            <span class="benefit-tag" *ngFor="let benefit of companyData.companyInsights.employeeBenefits">
+              {{benefit}}
+            </span>
+          </div>
+        </div>
+      </div>
+      
+      <div class="work-location mt-4">
+        <h3 class="insight-heading">Work Location & Mode</h3>
+        <p class="location-value">{{companyData.companyInsights.workLocation}}</p>
+      </div>
+    </div>
+  </div>
+</div>

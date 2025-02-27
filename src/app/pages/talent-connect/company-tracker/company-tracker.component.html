@@ -7,7 +7,7 @@
 				</div>
 				<div class="select-title d-flex justify-content-between align-items-center">
 					<div>
-						<h5 class="mb-0" tooltipPosition="top" pTooltip="Questions related to the application process are answered">Job Tracker<i class="questiontooltip fa-solid fa-circle-question"></i></h5>
+						<h5 class="mb-0" tooltipPosition="top" pTooltip="Questions related to the application process are answered">Company Tracker<i class="questiontooltip fa-solid fa-circle-question"></i></h5>
 					</div>
 					<div>
 						<button class="how-it-works-button" (click)="openVideoPopup(howItWorksVideoLink)">How it works?<i class="fa-solid fa-play d-md-block d-none"></i></button>
@@ -23,19 +23,19 @@
 		<div class="row gx-3">
 		  <!-- Sidebar with job list -->
 		  <div class="col-lg-3 col-md-5 col-12 border-end mb-3 mb-md-0">
-			<uni-job-list (emitId)="onClickJobId($event)"></uni-job-list>
+			<uni-company-list (emitId)="onClickJobId($event)"></uni-company-list>
 		  </div>
   
 		  <!-- Main content with job details and chat -->
 		  <div class="col-lg-9 col-md-7 col-12">
 			<div class="row g-3" *ngIf="selectedJobId else showEmptyConainter">
-				<div class="col-lg-8 col-md-7 col-12 position-relative overflow-hidden" [hidden]="!showInfo">
+				<div class="col-lg-8 col-md-7 col-12 position-relative overflow-hidden" [ngClass]="{'col-lg-12': !showChat}">
 					<div class="job-details-container h-100 overflow-auto">
-					  <uni-job-details (closeInfo)="toggleInfo();" [showInfo]="showInfo"></uni-job-details>
+					  <uni-company-detail (openChat)="toggleInfo();" [showInfo]="showChat"></uni-company-detail>
 					</div>
 				  </div>
-			  <div class="col-lg-4 col-md-5 col-12" [ngClass]="{'col-lg-12': !showInfo}">
-				<uni-job-chat-ui (openInfo)="toggleInfo();" [showInfo]="showInfo"></uni-job-chat-ui>
+			  <div class="col-lg-4 col-md-5 col-12" [hidden]="!showChat">
+				<uni-job-chat-ui (closeChat)="toggleInfo();" [showInfo]="showChat"></uni-job-chat-ui>
 			  </div>
 			</div>
 			<ng-template #showEmptyConainter>

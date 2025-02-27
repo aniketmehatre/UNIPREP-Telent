@@ -15,10 +15,15 @@ import { StepsModule } from 'primeng/steps';
 import { TableModule } from 'primeng/table';
 import { TabViewModule } from 'primeng/tabview';
 import { TooltipModule } from 'primeng/tooltip';
+import { TabMenuModule } from 'primeng/tabmenu';
 import { FormsModule } from '@angular/forms';
 import { JobChatUiComponent } from './job-tracker/job-chat-ui/job-chat-ui.component';
 import { JobListComponent } from './job-tracker/job-list/job-list.component';
 import { JobDetailsComponent } from './job-tracker/job-details/job-details.component';
+import { ProgressBarModule } from 'primeng/progressbar';
+import { CompanyTrackerComponent } from './company-tracker/company-tracker.component';
+import { CompanyListComponent } from './company-tracker/company-list/company-list.component';
+import { CompanyDetailComponent } from './company-tracker/company-detail/company-detail.component';
 
 
 
@@ -29,7 +34,10 @@ import { JobDetailsComponent } from './job-tracker/job-details/job-details.compo
     JobTrackerComponent,
     JobChatUiComponent,
     JobListComponent,
-    JobDetailsComponent
+    JobDetailsComponent,
+    CompanyTrackerComponent,
+    CompanyListComponent,
+    CompanyDetailComponent
   ],
   imports: [
     CommonModule,
@@ -50,6 +58,9 @@ import { JobDetailsComponent } from './job-tracker/job-details/job-details.compo
     DialogModule,
     DividerModule,
     FormsModule,
+    TabViewModule,
+    TabMenuModule,
+    ProgressBarModule
   ]
 })
 export class TalentConnectModule { }
