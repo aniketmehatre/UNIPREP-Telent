@@ -347,12 +347,12 @@
 	display: flex;  /* Use flexbox to allow for flexible layout */
 	flex-direction: column; /* Stack items vertically */
 }
-::ng-deep .p-carousel-content {
-	display: flex;
-	flex-direction: column;
-	align-items: stretch;
-	height: auto !important; /* Ensure the carousel container can grow based on its content */
-}
+// ::ng-deep .p-carousel-content {
+// 	display: flex;
+// 	flex-direction: column;
+// 	align-items: stretch;
+// 	height: auto !important; /* Ensure the carousel container can grow based on its content */
+// }
 
 ::ng-deep .p-carousel-item {
 	height: auto !important; /* Ensure each carousel item has auto height */
