@@ -122,7 +122,7 @@
     <div class="container-fluid">
       <div class="row justify-content-center">
         <div class="col-md-12">
-          <p-carousel #carouselQuiz (onPage)="setPage($event)" [circular]="true" [numScroll]="1" [numVisible]="1"
+          <p-carousel #carouselQuiz (onPage)="setPage($event)" [showIndicators]="false" [showNavigators]="false" [circular]="true" [numScroll]="1" [numVisible]="1"
             [page]="selectedQuiz - 1" [responsiveOptions]="responsiveOptions" [value]="quizData" class="text-center">
             <ng-template [ngForOf]="quizData" let-i="index" let-val ngFor pTemplate="item">
               <div class="row text-center">
@@ -312,7 +312,7 @@
   <div class="card-body flex-fill overflow-y-auto">
     <div class="row justify-content-center">
       <div class="col-md-12">
-        <p-carousel #carouselQuiz (onPage)="setPage($event)" [circular]="true" [numScroll]="1" [numVisible]="1"
+        <p-carousel  [showIndicators]="false" [showNavigators]="false" #carouselQuiz (onPage)="setPage($event)" [circular]="true" [numScroll]="1" [numVisible]="1"
           [page]="selectedQuiz - 1" [responsiveOptions]="responsiveOptions" [value]="quizData" class="text-center">
           <ng-template [ngForOf]="quizData" let-i="index" let-val ngFor pTemplate="item">
             <div class="row text-center">

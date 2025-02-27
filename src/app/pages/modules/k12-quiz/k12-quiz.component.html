@@ -77,7 +77,7 @@
                 <div class="col-md-12">
                     <p-carousel #carouselQuiz (onPage)="setPage($event)" [circular]="true" [numScroll]="1"
                                 [numVisible]="1" [page]="selectedQuiz - 1" [responsiveOptions]="responsiveOptions"
-                                [value]="quizData" class="text-center">
+                                [value]="quizData" class="text-center"  [showIndicators]="false" [showNavigators]="false">
                         <ng-template [ngForOf]="quizData" let-i="index" let-val ngFor pTemplate="item">
                             <div class="row text-center">
                                 <div class="col-12 mt-3 mb-4">
@@ -292,7 +292,7 @@
             <div class="col-md-12">
                 <p-carousel #carouselQuiz (onPage)="setPage($event)" [circular]="true" [numScroll]="1" [numVisible]="1"
                             [page]="selectedQuiz - 1" [responsiveOptions]="responsiveOptions" [value]="quizData"
-                            class="text-center">
+                            class="text-center"  [showIndicators]="false" [showNavigators]="false">
                     <ng-template [ngForOf]="quizData" let-i="index" let-val ngFor pTemplate="item">
                         <div class="row text-center">
                             <div class="col-12 mt-3 mb-4">

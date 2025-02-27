@@ -79,7 +79,7 @@
 			</div>
 			<div class="row justify-content-center">
 				<div class="col-md-12">
-					<p-carousel #carouselQuiz (onPage)="setPage($event)" [circular]="true" [numScroll]="1" [numVisible]="1" [page]="selectedQuiz - 1" [responsiveOptions]="responsiveOptions" [value]="quizData" class="text-center">
+					<p-carousel #carouselQuiz  [showIndicators]="false" [showNavigators]="false" (onPage)="setPage($event)" [circular]="true" [numScroll]="1" [numVisible]="1" [page]="selectedQuiz - 1" [responsiveOptions]="responsiveOptions" [value]="quizData" class="text-center">
 						<ng-template [ngForOf]="quizData" let-i="index" let-val ngFor pTemplate="item">
 							<div class="row text-center">
 								<div class="col-12 mt-3 mb-4">
@@ -321,7 +321,7 @@
 		</div>
 		<div class="row justify-content-center">
 			<div class="col-md-12">
-				<p-carousel #carouselQuiz (onPage)="setPage($event)" [circular]="true" [numScroll]="1" [numVisible]="1" [page]="selectedQuiz - 1" [responsiveOptions]="responsiveOptions" [value]="quizData" class="text-center">
+				<p-carousel  [showIndicators]="false" [showNavigators]="false" #carouselQuiz (onPage)="setPage($event)" [circular]="true" [numScroll]="1" [numVisible]="1" [page]="selectedQuiz - 1" [responsiveOptions]="responsiveOptions" [value]="quizData" class="text-center">
 					<ng-template [ngForOf]="quizData" let-i="index" let-val ngFor pTemplate="item">
 						<div class="row text-center">
 							<div class="col-12 mt-3 mb-4">
