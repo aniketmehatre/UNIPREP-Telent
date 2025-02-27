@@ -32,19 +32,6 @@
                     <h5 class="uniprep-primary fw-semibold mt-3 mb-1">
                       {{ recommendation.question.branches[0] }}
                     </h5>
-                    <p-dropdown styleClass="w-100" appendTo="body" [options]="countryList" [filter]="true"
-                      formControlName="home_country" filterBy="country" optionLabel="country" optionValue="country"
-                      [autoDisplayFirst]="false" placeholder="Select the country">
-                    </p-dropdown>
-                    <p class="text-center" *ngIf="form.get('home_country')?.errors?.required && submitted"
-                      style="color: red">
-                      Please Choose Any one option
-                    </p>
-                  </div>
-                  <div class="d-flex flex-column gap-2 mb-1">
-                    <h5 class="uniprep-primary fw-semibold mt-3 mb-1">
-                      {{ recommendation.question.branches[1] }}
-                    </h5>
                     <p-dropdown styleClass="w-100" appendTo="body" [options]="interestedCountryList" [filter]="true"
                       formControlName="interested_country" filterBy="country" optionLabel="country"
                       [autoDisplayFirst]="false" placeholder="Select the interested country">
@@ -57,7 +44,7 @@
                   </div>
                   <div class="d-flex flex-column gap-2 mb-1">
                     <h5 class="uniprep-primary fw-semibold mt-3 mb-1">
-                      {{ recommendation.question.branches[2] }}
+                      {{ recommendation.question.branches[1] }}
                     </h5>
                     <p-dropdown styleClass="w-100" appendTo="body" [options]="universityList" [filter]="true"
                       formControlName="university" filterBy="university_name" optionLabel="university_name"
@@ -67,6 +54,24 @@
                       style="color: red">
                       Please Choose Any one option
                     </p>
+                  </div>
+                  <div class="d-flex flex-column gap-2 mb-1">
+                    <h5 class="uniprep-primary fw-semibold mt-3 mb-1">
+                      {{ recommendation.question.branches[0] }}
+                    </h5>
+                    <p-dropdown styleClass="w-100" appendTo="body" [options]="specializationList" [filter]="true"
+                      formControlName="specialization" filterBy="course_name" optionLabel="course_name" optionValue="course_name"
+                      [autoDisplayFirst]="false" placeholder="Select the Course">
+                    </p-dropdown>
+                    <p class="text-center" *ngIf="form.get('specialization')?.errors?.required && submitted"
+                      style="color: red">
+                      Please Choose Any one option
+                    </p>
+                  </div>
+                  <!-- <div class="d-flex flex-column gap-2 mb-1">
+                    <h5 class="uniprep-primary fw-semibold mt-3 mb-1">
+                      {{ recommendation.question.branches[2] }}
+                    </h5>
                   </div>
                   <div class="d-flex flex-column gap-2 mb-1">
                     <h5 class="uniprep-primary fw-semibold mt-3 mb-1">
@@ -80,10 +85,10 @@
                        " style="color: red">
                      Please Choose Any one option
                    </p>
-                  </div>
+                  </div> -->
                 </div>
   
-                <div *ngIf="recommendation.id == 2" class="col-md-6 offset-md-3">
+                <!-- <div *ngIf="recommendation.id == 2" class="col-md-6 offset-md-3">
                   <h2 class="fw-bold mb-2">
                     {{ recommendation.question.heading }}
                   </h2>
@@ -113,8 +118,8 @@
                       Please Choose Any one option
                     </p>
                   </div>
-                </div>
-                <div *ngIf="recommendation.id == 3" class="col-md-6 offset-md-3">
+                </div> -->
+                <div *ngIf="recommendation.id == 2" class="col-md-6 offset-md-3">
                   <h2 class="fw-bold mb-2">
                     {{ recommendation.question.heading }}
                   </h2>
@@ -177,11 +182,11 @@
             <span class="btn-icon px-2 py-2"><i class="fa fa-arrow-left"></i></span>
             <span class="ms-2">Previous</span>
           </button>
-          <button pButton type="button" (click)="next()" *ngIf="activePageIndex <= 1"
+          <button pButton type="button" (click)="next()" *ngIf="activePageIndex == 0"
             class="btn btn-primary btn-rounded p-1 ps-4">
             <span class="me-2">Next</span><span class="btn-icon px-2 py-2"><i class="fa fa-arrow-right"></i></span>
           </button>
-          <button pButton type="button" (click)="getRecommendation()" *ngIf="activePageIndex == 2"
+          <button pButton type="button" (click)="getRecommendation()" *ngIf="activePageIndex == 1"
             class="btn btn-success btn-rounded p-1 ps-4">
             <span class="me-2">Get Recommendations</span><span class="btn-icon px-2 py-2">
               <i class="fa fa-check-circle"></i></span>

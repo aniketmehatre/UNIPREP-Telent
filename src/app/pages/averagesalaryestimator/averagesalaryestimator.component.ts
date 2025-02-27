@@ -4,6 +4,7 @@ import { PageFacadeService } from "../page-facade.service";
 import { AveragesalaryestimatorService } from "./averagesalaryestimator.service";
 import value from "crypto-js";
 import { City } from "src/app/@Models/cost-of-living";
+import { EducationToolsService } from "../education-tools/education-tools.service";
 
 @Component({
   selector: "uni-averagesalaryestimator",
@@ -16,7 +17,8 @@ export class AverageSalaryComponent implements OnInit {
   constructor(
     private router: Router,
     private pageFacade: PageFacadeService,
-    private service: AveragesalaryestimatorService
+    private service: AveragesalaryestimatorService,
+    private educationService: EducationToolsService
   ) {
     this.getJobRoles();
   }
@@ -27,7 +29,7 @@ export class AverageSalaryComponent implements OnInit {
   selectedData: { [key: string]: any } = {};
   filterJobRole: any[] = [];
 
-  recommendations: any = [
+  recommendations: { id: number , question: string}[] = [
     {
       id: 1,
       question: "What is your Job Role",
@@ -38,7 +40,7 @@ export class AverageSalaryComponent implements OnInit {
     },
     {
       id: 3,
-      question: "What is the type of your work place",
+      question: "What is the type Employement type?",
     },
     {
       id: 4,
@@ -121,12 +123,17 @@ export class AverageSalaryComponent implements OnInit {
   }
   currencies: any = [];
   getcurrencies() {
-    this.service.getCurrencies().subscribe((response) => {
-      this.currencies = [
-        { country: "Select", currency_code: null },
-        ...response,
-      ];
+    this.educationService.getCurrencies().subscribe({
+      next: response => {
+        this.currencies = response;
+      }
     });
+    // this.service.getCurrencies().subscribe((response) => {
+    //   this.currencies = [
+    //     { country: "Select", currency_code: null },
+    //     ...response,
+    //   ];
+    // });
   }
   yearsOfExperience: any = [];
   getyearsofExperience() {
@@ -167,12 +174,17 @@ export class AverageSalaryComponent implements OnInit {
     const selectedJob: any = this.jobRoles.find(
       (data: any) => data.id === this.selectedData[1]
     );
+    const findWrkType: any = this.jobPreferences.find((data: any) => data.id === this.selectedData[3]);
+    const findWrkModeType: any = this.workMode.find((data: any) => data.id === this.selectedData[5]);
     let processedData = {
       role: selectedJob.jobrole,
       jobrole: selectedJob.id,
       worktype: this.selectedData[3],
+      worktype_name: findWrkType.jobpreferences,
       workplace_type: this.selectedData[5],
+      workplace_type_name: findWrkModeType.name,
       locationid: this.selectedData[4]?.city_id,
+      location_name: this.selectedData[4]?.city_name+', '+this.selectedData[4]?.country_name,
       experience: this.selectedData[2],
       currency: this.selectedData[6],
     };
