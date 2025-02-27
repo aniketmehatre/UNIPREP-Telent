@@ -1,0 +1,156 @@
+  <div class="job-detail-container">
+    <div class="card mb-4">
+      <div class="card-body">
+        <div class="row align-items-center">
+          <div class="col-md-2 col-sm-3">
+            <div class="bg-light p-3 d-flex justify-content-center align-items-center" style="height: 80px; width: 80px;">
+              <img src="assets/company-logo.png" alt="Company Logo" class="img-fluid" />
+            </div>
+          </div>
+          <div class="col-md-6 col-sm-6">
+            <h3 class="mb-0">{{ jobDetails.title }}</h3>
+            <div class="d-flex align-items-center">
+              <span>{{ jobDetails.company }}</span>
+              <p-badge *ngIf="jobDetails.verified" severity="info" [value]="'✓'"></p-badge>
+            </div>
+          </div>
+          <div class="col-md-4 col-sm-3 text-end">
+            <button pButton label="Close Info" class="btn btn-primary" (click)="closeInfo.emit(false)"></button>
+            <div class="mt-2">
+              <small>Applied On: {{ jobDetails.appliedOn }}</small>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  
+    <!-- Application Progress -->
+    <div class="card mb-4">
+      <div class="card-body">
+        <p-steps [model]="steps" [activeIndex]="activeIndex" [readonly]="true"></p-steps>
+      </div>
+    </div>
+  
+    <!-- Job Details -->
+    <div class="card mb-4">
+      <div class="card-body">
+        <div class="row">
+          <div class="mb-3 col-lg-3 col-md-3 col-3">
+            <div class="d-flex text-left">
+              <i class="fa-solid fa-location-dot text-success me-2 mt-1"></i>
+              <div>
+                <p class="text-muted mb-1">Work Location</p>
+                <p class="fw-bold mb-0">{{ jobDetails.workLocation }}</p>
+              </div>
+            </div>
+          </div>
+          <div class="col-3 mb-3">
+            <div class="d-flex text-left">
+              <i class="fa-solid fa-briefcase text-primary me-2 mt-1"></i>
+              <div>
+                <p class="text-muted mb-1">Position</p>
+                <p class="fw-bold mb-0">{{ jobDetails.position }}</p>
+              </div>
+            </div>
+          </div>
+          <div class="col-3 mb-3">
+            <div class="d-flex text-left">
+              <i class="fa-solid fa-calendar text-primary me-2 mt-1"></i>
+              <div>
+                <p class="text-muted mb-1">Start Date</p>
+                <p class="fw-bold mb-0">{{ jobDetails.startDate }}</p>
+              </div>
+            </div>
+          </div>
+          <div class="col-3 mb-3">
+            <div class="d-flex text-left">
+              <i class="fa-solid fa-users text-primary me-2 mt-1"></i>
+              <div>
+                <p class="text-muted mb-1">Company Size</p>
+                <p class="fw-bold mb-0">{{ jobDetails.companySize }}</p>
+              </div>
+            </div>
+          </div>
+          <div class="col-3 mb-3">
+            <div class="d-flex text-left">
+              <i class="fa-solid fa-building text-primary me-2 mt-1"></i>
+              <div>
+                <p class="text-muted mb-1">Work Mode</p>
+                <p class="fw-bold mb-0">{{ jobDetails.workMode }}</p>
+              </div>
+            </div>
+          </div>
+          <div class="col-3 mb-3">
+            <div class="d-flex text-left">
+              <i class="fa-solid fa-clock text-primary me-2 mt-1"></i>
+              <div>
+                <p class="text-muted mb-1">Employment Type</p>
+                <p class="fw-bold mb-0">{{ jobDetails.employmentType }}</p>
+              </div>
+            </div>
+          </div>
+          <div class="col-3 mb-3">
+            <div class="d-flex text-left">
+              <i class="fa-solid fa-dollar text-primary me-2 mt-1"></i>
+              <div>
+                <p class="text-muted mb-1">Salary Range</p>
+                <p class="fw-bold mb-0">{{ jobDetails.salaryRange }}</p>
+              </div>
+            </div>
+          </div>
+          <div class="col-3 mb-3">
+            <div class="d-flex text-left">
+              <i class="fa fa-id-card text-primary me-2 mt-1"></i>
+              <div>
+                <p class="text-muted mb-1">Available Vacancies</p>
+                <p class="fw-bold mb-0">{{ jobDetails.availableVacancies }}</p>
+              </div>
+            </div>
+          </div>
+          <div class="col-3 mb-3">
+            <div class="d-flex">
+              <i class="pi pi-users text-primary me-2 mt-1"></i>
+              <div>
+                <p class="text-muted mb-1">Total Applied</p>
+                <p class="fw-bold mb-0">{{ jobDetails.totalApplied }}</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  
+    <!-- Job Overview -->
+    <div class="card mb-4">
+      <div class="card-body text-left">
+        <h4 class="text-primary mb-3">Job Overview</h4>
+        <p [innerHTML]="jobDetails.overview"></p>
+  
+        <h4 class="text-primary mb-3">Key Responsibilities</h4>
+        <ul>
+          <li *ngFor="let responsibility of jobDetails.keyResponsibilities">{{ responsibility }}</li>
+        </ul>
+  
+        <h4 class="text-primary mb-3">Required Skills & Qualifications</h4>
+        <ul>
+          <li *ngFor="let skill of jobDetails.requiredSkills">{{ skill }}</li>
+        </ul>
+  
+        <h4 class="text-primary mb-3">Key Skills</h4>
+        <div class="d-flex flex-wrap">
+          <p-chip *ngFor="let skill of jobDetails.keySkills" [label]="skill" class="me-2 mb-2"></p-chip>
+        </div>
+  
+        <h4 class="text-primary mb-3">About Company</h4>
+        <p>{{ jobDetails.aboutCompany }}</p>
+  
+        <h4 class="text-primary mb-3">How to Apply?</h4>
+        <p [innerHTML]="jobDetails.howToApply"></p>
+  
+        <h4 class="text-primary mb-3">What we offer</h4>
+        <ul>
+          <li *ngFor="let benefit of jobDetails.benefits">{{ benefit }}</li>
+        </ul>
+      </div>
+    </div>
+  </div>

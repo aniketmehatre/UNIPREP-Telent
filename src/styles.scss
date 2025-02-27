@@ -2244,6 +2244,20 @@ uni-career-hacks {
 	}
 
 }
+
+uni-talent-connect {
+	display: flex;
+	flex: 1;
+	height: 100%;
+	flex-direction: column;
+	overflow: hidden;
+	uni-job-tracker {
+		flex: 1;
+		overflow-y: auto;
+		display: flex;
+		flex-direction: column;
+	}
+}
 uni-salary-hacks {
 	display: flex;
 	flex: 1;

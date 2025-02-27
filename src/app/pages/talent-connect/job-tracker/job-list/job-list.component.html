@@ -1,0 +1,91 @@
+<div class="job-tracker-panel">
+    <div class="d-flex justify-content-between align-items-center mb-3 p-2 border-bottom">
+      <h4 class="m-0">All</h4>
+      <span class="text-muted">Total Jobs : 100</span>
+    </div>
+
+    <p-tabView [(activeIndex)]="activeIndex" [scrollable]="true" styleClass="p-0">
+      <p-tabPanel *ngFor="let tab of tabs" [header]="tab.label" class="p-0">
+        <div class="job-cards">
+          <!-- Job 1 -->
+          <div class="job-card mb-3" (click)="onClickJobCard(1)">
+            <div class="d-flex">
+              <div class="company-logo me-3">
+                <img src="assets/images/uniabroad-logo.png" alt="UNIABROAD">
+              </div>
+              <div class="job-details text-left">
+                <h5 class="job-title mb-1 text-left">Senior UI/UX Designer</h5>
+                <p class="company-name mb-1 text-left">UNIABROAD Pvt. Ltd.</p>
+                <p class="job-status mb-1 text-left">Status : HR Round</p>
+                <div class="d-flex align-items-center location mb-2">
+                  <i class="pi pi-map-marker me-1 text-primary"></i>
+                  <span>Bangalore, India</span>
+                </div>
+                <span class="status-badge" [ngClass]="getStatusClass('Job Applied')">Job Applied</span>
+              </div>
+            </div>
+          </div>
+          <div class="job-card mb-3" (click)="onClickJobCard(1)">
+            <div class="d-flex">
+              <div class="company-logo me-3">
+                <img src="assets/images/uniabroad-logo.png" alt="UNIABROAD">
+              </div>
+              <div class="job-details text-left">
+                <h5 class="job-title mb-1 text-left">Senior UI/UX Designer</h5>
+                <p class="company-name mb-1 text-left">UNIABROAD Pvt. Ltd.</p>
+                <p class="job-status mb-1 text-left">Status : HR Round</p>
+                <div class="d-flex align-items-center location mb-2">
+                  <i class="pi pi-map-marker me-1 text-primary"></i>
+                  <span>Bangalore, India</span>
+                </div>
+                <span class="status-badge" [ngClass]="getStatusClass('Job Applied')">Job Applied</span>
+              </div>
+            </div>
+          </div>
+          <div class="job-card mb-3" (click)="onClickJobCard(1)">
+            <div class="d-flex">
+              <div class="company-logo me-3">
+                <img src="assets/images/uniabroad-logo.png" alt="UNIABROAD">
+              </div>
+              <div class="job-details text-left">
+                <h5 class="job-title mb-1 text-left">Senior UI/UX Designer</h5>
+                <p class="company-name mb-1 text-left">UNIABROAD Pvt. Ltd.</p>
+                <p class="job-status mb-1 text-left">Status : HR Round</p>
+                <div class="d-flex align-items-center location mb-2">
+                  <i class="pi pi-map-marker me-1 text-primary"></i>
+                  <span>Bangalore, India</span>
+                </div>
+                <span class="status-badge" [ngClass]="getStatusClass('Job Applied')">Job Applied</span>
+              </div>
+            </div>
+          </div>
+          <div class="job-card mb-3" (click)="onClickJobCard(1)">
+            <div class="d-flex">
+              <div class="company-logo me-3">
+                <img src="assets/images/uniabroad-logo.png" alt="UNIABROAD">
+              </div>
+              <div class="job-details text-left">
+                <h5 class="job-title mb-1 text-left">Senior UI/UX Designer</h5>
+                <p class="company-name mb-1 text-left">UNIABROAD Pvt. Ltd.</p>
+                <p class="job-status mb-1 text-left">Status : HR Round</p>
+                <div class="d-flex align-items-center location mb-2">
+                  <i class="pi pi-map-marker me-1 text-primary"></i>
+                  <span>Bangalore, India</span>
+                </div>
+                <span class="status-badge" [ngClass]="getStatusClass('Job Applied')">Job Applied</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </p-tabPanel>
+  </p-tabView>
+    <div class="pagination-container d-flex justify-content-between align-items-center mt-4">
+      <button class="btn btn-light">
+        <i class="pi pi-chevron-left me-1 fs-6"></i> Back
+      </button>
+      <span>Page 1 / 10</span>
+      <button class="btn btn-light">
+        Next <i class="pi pi-chevron-right ms-1 fs-6"></i>
+      </button>
+    </div>
+  </div>

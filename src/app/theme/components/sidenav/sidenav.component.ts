@@ -165,6 +165,11 @@ export class SidenavComponent {
       url: "/pages/job-portal/job-search",
       image: "fa-solid fa-briefcase",
     },
+    // {
+    //   title: "Empl",
+    //   url: "/pages/job-portal/job-search",
+    //   image: "fa-solid fa-briefcase",
+    // },
     {
       title: "Learning Hub",
       url: "/pages/modules/learning-hub",
