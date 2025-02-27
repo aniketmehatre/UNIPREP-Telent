@@ -36,8 +36,6 @@ export class CareerplannercountrywiseComponent implements OnInit {
 
   ngOnInit(): void {
     this.service.getCountryCurrency().subscribe((res: any) => {
-      console.log(res,"currency and country");
-      
       this.countries = res
     })
 
@@ -54,8 +52,6 @@ export class CareerplannercountrywiseComponent implements OnInit {
   }
   formSubmit() {
     this.submitted = true;
-    console.log(this.form.value, "form values");
-    
     if (this.form.valid) {
       var data = {
         mode: "careerplanner",

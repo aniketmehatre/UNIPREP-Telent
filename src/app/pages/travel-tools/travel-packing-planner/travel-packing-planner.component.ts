@@ -108,7 +108,6 @@ export class TravelPackingPlannerComponent implements OnInit {
   }
 
   getRecommendation() {
-    console.log(this.selectedData,"selected data");
     let data: any = {
       destination: this.selectedData[1].city_name ?? this.selectedData[1].country_name,
       travel_type: this.selectedData[2],
