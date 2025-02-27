@@ -34,6 +34,7 @@ export class GlobalTravelVisaComponent implements OnInit {
   isRecommendationEachVisaNameData: boolean = false;
   recommendationDataList: any[] = [];
   recomendationData:any[]=[];
+  modeName:any;
   visaCategoryList: any[] = [
     {
       id: 1,
@@ -68,6 +69,10 @@ export class GlobalTravelVisaComponent implements OnInit {
       "study-visa": "Global Study Visa"
     };
     this.title = titles[currentEndpoint] || "";
+    const modeName:{[key: string]: string}={
+      "travel-visa": "global_travel_visa",
+    }
+    this.modeName=modeName[currentEndpoint] || "";
   }
 
   getCountriesList() {
@@ -111,7 +116,8 @@ export class GlobalTravelVisaComponent implements OnInit {
     this.isRecommendationEachVisaNameData=false;
     let data = {
       // source_id: this.selectedData[1],
-      country: this.selectedData[2]
+      country: this.selectedData[2],
+      mode: this.modeName
       // resident_id: this.selectedData[3]
     }
     this.travelToolService.getVisaRecommendationsAllList(data).subscribe({
