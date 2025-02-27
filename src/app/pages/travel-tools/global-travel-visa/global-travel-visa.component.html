@@ -45,21 +45,21 @@
                                             style="color: red">Please Choose Any one option</p>
                                     </ng-container>
                                     <ng-container *ngIf="recommendation.id == 2">
-                                        <p-dropdown [options]="allCountries" [filter]="true"
+                                        <p-dropdown [options]="visaCountries" [filter]="true"
                                             [(ngModel)]="selectedData[recommendation.id]" optionLabel="country"
                                             styleClass="w-100" optionValue="id" [showClear]="true" placeholder="Country"
                                             [appendTo]="'body'"></p-dropdown>
                                         <p class="text-center" [ngClass]="{ 'd-none': invalidClass === false }"
                                             style="color: red">Please Choose Any one option</p>
                                     </ng-container>
-                                    <ng-container *ngIf="recommendation.id == 3">
+                                    <!-- <ng-container *ngIf="recommendation.id == 3">
                                         <p-dropdown [options]="residentStatus"
                                             [(ngModel)]="selectedData[recommendation.id]" optionLabel="label"
                                             styleClass="w-100" optionValue="value" placeholder="Residential Details"
                                             [appendTo]="'body'"></p-dropdown>
                                         <p class="text-center" [ngClass]="{ 'd-none': invalidClass === false }"
                                             style="color: red">Please Choose Any one option</p>
-                                    </ng-container>
+                                    </ng-container> -->
                                 </div>
                             </div>
                             <div class="d-flex justify-content-between mt-2">
@@ -70,12 +70,12 @@
                                         class="ms-2">Previous</span>
                                 </button>
                                 <button pButton type="button" (click)="next(recommendation.id)"
-                                    *ngIf="recommendation.id != 3" class="btn btn-primary btn-rounded p-1 ps-4">
+                                    *ngIf="recommendation.id != 2" class="btn btn-primary btn-rounded p-1 ps-4">
                                     <span class="me-2">Next</span><span class="btn-icon px-2 py-2"><i
                                             class="fa fa-arrow-right"></i></span>
                                 </button>
                                 <button pButton type="button" (click)="next(recommendation.id)"
-                                    *ngIf="recommendation.id == 3" class="btn btn-success btn-rounded p-1 ps-4">
+                                    *ngIf="recommendation.id == 2" class="btn btn-success btn-rounded p-1 ps-4">
                                     <span class="me-2">Get Recommendations</span><span class="btn-icon px-2 py-2"><i
                                             class="fa fa-check-circle"></i></span>
                                 </button>
@@ -95,11 +95,11 @@
                 <div class="row" [ngClass]="{'justify-content-center': recommendationDataList.length <=6 }">
                     <div *ngFor="let item of recommendationDataList" class="col-md-3 col-sm-4 col-xs-12 col-12 mb-3">
                         <div class="row w-100 m-0 justify-content-center h-100">
-                            <div class="card subjectcard" role="button" (click)="getVisaCategoryList(item.id)">
+                            <div class="card subjectcard" role="button" (click)="getVisaCategoryList(item.visa_name)">
                                 <div
                                     class="card-body d-flex flex-md-column flex-row justify-content-md-between align-items-center">
                                     <div>
-                                        <h5 class="text-center mt-3 fw-bold mb-0">{{item.name}}</h5>
+                                        <h5 class="text-center mt-3 fw-bold mb-0">{{item.visa_name}}</h5>
                                     </div>
                                 </div>
                             </div>
@@ -118,12 +118,32 @@
             </div>
         </div>
     </ng-container>
+        <!-- ----------------- Recommandation each visa name Response View ----------------- -->
+        <ng-container *ngIf="isRecommendationEachVisaNameData">
+            <div class="card-body text-center flex-fill overflow-y-auto">
+                <div class="row">
+                    <div *ngFor="let item of eachVisaNameCategory" class="col-md-3 col-sm-4 col-xs-12 col-12 mb-3">
+                        <div class="row w-100 m-0 justify-content-center h-100">
+                            <div class="card subjectcard" role="button" (click)="viewQuestions(item.question_category)">
+                                <div
+                                    class="card-body d-flex justify-content-center align-items-center">
+                                    <div class="py-3">
+                                        <p class="text-start fw-bold questiontext mb-0" title="{{ item.question }}">
+                                            {{ item.question_category }}</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </ng-container>
 
     <!-- ----------------- Recommandation Saved Response View ----------------- -->
     <ng-container *ngIf="isRecommendationSavedData">
         <div class="card-body text-center flex-fill overflow-y-auto">
             <div class="row">
-                <div *ngFor="let item of visaCategoryList" class="col-md-3 col-sm-4 col-xs-12 col-12 mb-3">
+                <div *ngFor="let item of visaCategoryQuestionList" class="col-md-3 col-sm-4 col-xs-12 col-12 mb-3">
                     <div class="row w-100 m-0 justify-content-center h-100">
                         <div class="card subjectcard" role="button" (click)="viewOneQuestion(item)">
                             <div
@@ -141,7 +161,7 @@
     </ng-container>
 </div>
 
-<p-dialog #dialogContent [(visible)]="isQuestionAnswerVisible" [draggable]="false" [modal]="true"
+<!-- <p-dialog #dialogContent [(visible)]="isQuestionAnswerVisible" [draggable]="false" [modal]="true"
     class="questionmodal" header="Header" [maximizable]="true" (onShow)="onShowModal($event)">
     <ng-template pTemplate="header">
         <div class="d-flex w-100 flex-column px-4">
@@ -181,4 +201,60 @@
             </div>
         </div>
     </div>
+</p-dialog> -->
+<p-dialog #dialogContent [(visible)]="isQuestionAnswerVisible" [draggable]="false" [modal]="true" header="Header" [closable]="false"
+  (onShow)="onShowModal($event)">
+  <ng-template pTemplate="header">
+    <div class="card-header border-0 bg-transparent px-4 pt-4 pb-0 w-100">
+      <div class="row justify-content-center">
+          <div class="col-md-12 d-flex gap-2 text-center">
+              <div class="career-homeIcon px-3" role="button"  (click)="goToHome($event)">
+                  <span class="fa-solid fa-home me-2"></span>Home
+              </div>
+              <div class="select-title d-flex flex-fill justify-content-between align-items-center w-100">
+                  <div>
+                      <h5 class="mb-0">
+                        Travel Tools -> {{ title }}
+                      </h5>
+                  </div>
+              </div>
+              <div class="career-reportIcon px-3" role="button" (click)="openReport()">
+                  <span class="fa-solid fa-file me-2"></span>Report
+              </div>
+              <div class="career-closeIcon" role="button"
+              (click)="goToHome($event)">
+                  <span class="fa-solid fa-close"></span>
+              </div>
+          </div>
+      </div>
+      <div class="d-flex align-items-center position-relative mt-1" style="justify-content: end !important;">
+        <button class="btn btn-primary socialShareBtn" (click)="showSocialSharingList()"><i class="fa-solid fa-share"></i></button>
+        <p-card id="socialSharingList">
+          <ul style="list-style: none; cursor: pointer">
+            <li (click)="shareQuestion('Whatsapp')"><i class="pi pi-whatsapp"></i>Whatsapp</li>
+            <li (click)="shareQuestion('Mail')"><i class="pi pi-envelope"></i>Email</li>
+            <li (click)="shareQuestion('Facebook')"><i class="pi pi-facebook"></i>Facebook</li>
+            <li (click)="shareQuestion('Twitter')"><i class="pi pi-twitter"></i>Twitter</li>
+            <li (click)="shareQuestion('Instagram')"><i class="pi pi-instagram"></i>Instagram</li>
+            <li (click)="shareQuestion('LinkedIn')"><i class="pi pi-linkedin"></i>LinkedIn</li>
+            <li (click)="copyLink()"><i class="pi pi-link"></i>Copy Link</li>
+          </ul>
+        </p-card>
+  </div>
+  </div>
+  </ng-template>
+  <div class=" px-4">
+    <div class="card flex-fill answercard" style="border: none;">
+      <div class="card-body text-start">
+        <h2 class="d-md-block d-none">{{ selectedQuestionData?.question }}</h2>
+        <div class="fw-medium blog-content"
+             style="white-space: inherit; max-height: 80%; min-height: 80%;"
+          [innerHTML]="selectedQuestionData?.answer"></div>
+      </div>
+    </div>
+  </div>
+  <ng-template pTemplate="footer">
+    <div class="d-flex justify-content-between flex-nowrap flex-column flex-md-row px-4 mt-4 mb-2">
+    </div>
+  </ng-template>
 </p-dialog>
