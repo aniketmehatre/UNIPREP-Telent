@@ -132,6 +132,6 @@ export const FoundersToolsData = [
         description: "An assessment that evaluates an entrepreneur's in-depth knowledge and proficiency in specific industries.",
         image: "../../../uniprep-assets/images/founderstool/revenue-forecating-tool.svg",
         url: "/pages/founderstool/business-forecasting-tool",
-        launch_soon: true
+        launch_soon: false
     }
 ];

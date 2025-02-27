@@ -130,7 +130,7 @@ export class CareerToolComponent implements OnInit {
       imageLink: this.domainUrl+"AverageSalaryEstimator.svg",
       refLink: "",
       mode: "average-salary-estimator",
-      launch_soon: true
+      launch_soon: false
     },
     {
       id: 12,
