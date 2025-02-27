@@ -201,8 +201,16 @@ export class GlobalTravelVisaComponent implements OnInit {
   }
 
   goBack() {
-    if (this.activePageIndex > 0) {
-      this.activePageIndex--;
+    if (this.isRecommendationData) {
+      this.isRecommendationData=false;
+      this.isRecommendationQuestion=true;
+      this.activePageIndex=0;
+    }else if(this.isRecommendationEachVisaNameData){
+      this.isRecommendationEachVisaNameData=false;
+      this.isRecommendationData=true;
+    }else if(this.isRecommendationSavedData){
+      this.isRecommendationSavedData=false;
+      this.isRecommendationEachVisaNameData=true;
     }else{
       const urls: { [key: string]: string } = {
         "Global Travel Visa": "/pages/travel-tools",
