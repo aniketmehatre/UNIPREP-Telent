@@ -1,0 +1,165 @@
+<div *ngIf="selectedJob" class="job-detail-container p-3">
+  <!-- Company header -->
+  <div class="d-flex justify-content-between align-items-start mb-4">
+    <div class="d-flex align-items-center">
+      <img
+        [src]="selectedJob?.companyLogo || 'assets/default-logo.png'"
+        width="50"
+        height="50"
+        class="border rounded me-3"
+        alt="Company logo"
+      />
+
+      <div>
+        <h4 class="mb-0">{{ selectedJob?.title }}</h4>
+        <div class="d-flex align-items-center">
+          <span>{{ selectedJob?.company }}</span>
+          <i class="pi pi-check-circle text-primary ms-2"></i>
+        </div>
+        <p *ngIf="selectedJob?.appliedDate" class="text-muted mt-2">
+          Applied On: {{ selectedJob?.appliedDate }}
+        </p>
+      </div>
+    </div>
+
+    <button
+      *ngIf="showInfo"
+      pButton
+      label="Close Info"
+      (click)="toggleInfo()"
+      class="p-button-secondary"
+    ></button>
+    <button
+      *ngIf="!showInfo"
+      pButton
+      label="Open Info"
+      (click)="toggleInfo()"
+      class="p-button-secondary"
+    ></button>
+  </div>
+
+  <!-- Progress steps -->
+  <p-steps
+    [model]="steps"
+    [activeIndex]="activeStepIndex"
+    [readonly]="true"
+  ></p-steps>
+
+  <!-- Job details -->
+  <div *ngIf="showInfo && selectedJob" class="job-details-grid mt-4">
+    <!-- First row -->
+    <div class="row g-4">
+      <div class="col-md-3 col-sm-6">
+        <div class="d-flex align-items-start">
+          <i class="pi pi-map-marker text-primary me-2 mt-1"></i>
+          <div>
+            <div class="text-muted small">Work Location</div>
+            <div>{{ selectedJob.workLocation }}</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-md-3 col-sm-6">
+        <div class="d-flex align-items-start">
+          <i class="pi pi-briefcase text-primary me-2 mt-1"></i>
+          <div>
+            <div class="text-muted small">Position</div>
+            <div>{{ selectedJob.position }}</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-md-3 col-sm-6">
+        <div class="d-flex align-items-start">
+          <i class="pi pi-calendar text-primary me-2 mt-1"></i>
+          <div>
+            <div class="text-muted small">Start Date</div>
+            <div>{{ selectedJob.startDate }}</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-md-3 col-sm-6">
+        <div class="d-flex align-items-start">
+          <i class="pi pi-users text-primary me-2 mt-1"></i>
+          <div>
+            <div class="text-muted small">Company Size</div>
+            <div>{{ selectedJob.companySize }}</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Second row -->
+    <div class="row g-4 mt-3">
+      <div class="col-md-3 col-sm-6">
+        <div class="d-flex align-items-start">
+          <i class="pi pi-building text-primary me-2 mt-1"></i>
+          <div>
+            <div class="text-muted small">Work Mode</div>
+            <div>{{ selectedJob.workMode }}</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-md-3 col-sm-6">
+        <div class="d-flex align-items-start">
+          <i class="pi pi-clock text-primary me-2 mt-1"></i>
+          <div>
+            <div class="text-muted small">Employment Type</div>
+            <div>{{ selectedJob.employmentType }}</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-md-3 col-sm-6">
+        <div class="d-flex align-items-start">
+          <i class="pi pi-dollar text-primary me-2 mt-1"></i>
+          <div>
+            <div class="text-muted small">Salary Range</div>
+            <div>{{ selectedJob.salaryRange }}</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-md-3 col-sm-6">
+        <div class="d-flex align-items-start">
+          <i class="pi pi-users text-primary me-2 mt-1"></i>
+          <div>
+            <div class="text-muted small">Available Vacancies</div>
+            <div>{{ selectedJob.availableVacancies }}</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Third row -->
+    <div class="row mt-3">
+      <div class="col-md-6">
+        <div class="d-flex align-items-start">
+          <i class="pi pi-user text-primary me-2 mt-1"></i>
+          <div>
+            <div class="text-muted small">Total Applied</div>
+            <div>{{ selectedJob.totalApplied }}</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Job Overview -->
+    <div class="mt-4">
+      <h5>Job Overview</h5>
+      <p>{{ selectedJob.overview }}</p>
+    </div>
+
+    <!-- Key Responsibilities -->
+    <div class="mt-4">
+      <h5>Key Responsibilities</h5>
+      <ul>
+        <li *ngFor="let responsibility of selectedJob.responsibilities">
+          {{ responsibility }}
+        </li>
+      </ul>
+    </div>
+  </div>
+</div>
