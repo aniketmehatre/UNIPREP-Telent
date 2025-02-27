@@ -30,10 +30,13 @@
         </div>
       </div>
       <div class="col-md-3 col-12">
-        <div class="p-input-icon-left w-100">
-          <i class="fa-solid fa-search"></i>
-          <input class="w-100 px-5 py-2" type="text" placeholder="Search Events Near You..." pInputText [(ngModel)]="valueNearYouFilter" (input)="performSearch($event)" (click)="searchClick()" id="searchInput" />
-        </div>
+        <p-inputGroup>
+          <p-inputGroupAddon>
+            <i class="fa-regular fa-search"></i>
+          </p-inputGroupAddon>
+          <input type="text" placeholder="Search Events Near You..." pInputText [(ngModel)]="valueNearYouFilter" (input)="performSearch($event)" (click)="searchClick()" id="searchInput" />
+        </p-inputGroup>
+
       </div>
     </div>
   </div>

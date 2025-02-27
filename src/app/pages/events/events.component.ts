@@ -9,7 +9,9 @@ import { PageFacadeService } from "../page-facade.service"
 import { LocationService } from "src/app/location.service"
 import { CommonModule } from "@angular/common"
 import { DialogModule } from "primeng/dialog"
-
+import { InputGroupModule } from "primeng/inputgroup"
+import { InputGroupAddonModule } from "primeng/inputgroupaddon"
+import { InputTextModule } from "primeng/inputtext"
 import { SelectModule } from "primeng/select"
 interface country {
 	id: number
@@ -36,7 +38,7 @@ const dateRangeValidator: any = (control: FormGroup): ValidationErrors | null =>
 	templateUrl: "./events.component.html",
 	styleUrls: ["./events.component.scss"],
 	standalone: true,
-	imports: [CommonModule, DialogModule,  FormsModule, ReactiveFormsModule, SelectModule],
+	imports: [CommonModule, DialogModule,  FormsModule, ReactiveFormsModule, SelectModule, InputGroupModule, InputGroupAddonModule, InputTextModule],
 })
 export class EventsComponent implements OnInit {
 	activeButton: number = 1
