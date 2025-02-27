@@ -1,23 +1,22 @@
-import { Component, HostListener, OnDestroy, OnInit, Output, ViewChild, ElementRef } from "@angular/core";
-import { PageFacadeService } from "./page-facade.service";
-import { SubSink } from "subsink";
-import { ActivatedRoute, NavigationEnd, Router } from "@angular/router";
-import { DataService } from "../data.service";
-import { DashboardService } from "./dashboard/dashboard.service";
-import { AuthService } from "../Auth/auth.service";
-import { DeviceDetectorService } from "ngx-device-detector";
-import { CommonModule } from "@angular/common";
+import {Component, ElementRef, HostListener, OnDestroy, OnInit, Output, ViewChild} from "@angular/core";
+import {PageFacadeService} from "./page-facade.service";
+import {SubSink} from "subsink";
+import {ActivatedRoute, NavigationEnd, Router, RouterModule} from "@angular/router";
+import {DataService} from "../data.service";
+import {DashboardService} from "./dashboard/dashboard.service";
+import {AuthService} from "../Auth/auth.service";
+import {DeviceDetectorService} from "ngx-device-detector";
+import {CommonModule} from "@angular/common";
 // @ts-ignore
 import Contlo from "contlo-web-sdk";
-import { DomSanitizer, Meta, Title, SafeResourceUrl } from "@angular/platform-browser";
-import { LocationService } from "../location.service";
-import { HeaderComponent } from "@theme/components/header/header.component";
-import { SidenavComponent } from "@theme/components/sidenav/sidenav.component";
-import { RouterModule } from "@angular/router";
-import { DialogModule } from 'primeng/dialog';
-import { ButtonModule } from 'primeng/button';
-import { FooterStatusBoxComponent } from "./footer-status-box/footer-status-box.component";
-import { HeaderSearchComponent } from "./header-search/header-search.component"
+import {DomSanitizer, Meta, SafeResourceUrl, Title} from "@angular/platform-browser";
+import {LocationService} from "../location.service";
+import {HeaderComponent} from "@theme/components/header/header.component";
+import {SidenavComponent} from "@theme/components/sidenav/sidenav.component";
+import {DialogModule} from 'primeng/dialog';
+import {ButtonModule} from 'primeng/button';
+import {FooterStatusBoxComponent} from "./footer-status-box/footer-status-box.component";
+import {HeaderSearchComponent} from "./header-search/header-search.component"
 import {StorageService} from "../storage.service";
 
 @Component({
@@ -135,17 +134,16 @@ export class PagesComponent implements OnInit, OnDestroy {
       this.orgnamewhitlabel = orgname;
     });
     this.imagewhitlabeldomainname = window.location.hostname;
-    if (this.imagewhitlabeldomainname === "*.uniprep.ai" || this.imagewhitlabeldomainname === "dev-student.uniprep.ai" || this.imagewhitlabeldomainname === "uniprep.ai" || this.imagewhitlabeldomainname === "localhost") {
-      this.ehitlabelIsShow = true;
-    } else {
-      this.ehitlabelIsShow = false;
-    }
+    this.ehitlabelIsShow = this.imagewhitlabeldomainname === "*.uniprep.ai" ||
+        this.imagewhitlabeldomainname === "dev-student.uniprep.ai" ||
+        this.imagewhitlabeldomainname === "uniprep.ai" || this.imagewhitlabeldomainname === "localhost"
+        || this.imagewhitlabeldomainname === "meta.uniprep.ai";
     this.imagewhitlabeldomainname = window.location.hostname;
-    if (this.imagewhitlabeldomainname === "*.uniprep.ai" || this.imagewhitlabeldomainname === "dev-student.uniprep.ai" || this.imagewhitlabeldomainname === "uniprep.ai" || this.imagewhitlabeldomainname === "localhost") {
-      this.footerIsShow = true;
-    } else {
-      this.footerIsShow = false;
-    }
+    this.footerIsShow = this.imagewhitlabeldomainname === "*.uniprep.ai" ||
+        this.imagewhitlabeldomainname === "dev-student.uniprep.ai" ||
+        this.imagewhitlabeldomainname === "uniprep.ai" ||
+        this.imagewhitlabeldomainname === "localhost" ||
+        this.imagewhitlabeldomainname === "meta.uniprep.ai";
     this.locationService.getImage().subscribe((imageUrl) => {
       this.imageUrlWhitelabel = imageUrl;
     });
