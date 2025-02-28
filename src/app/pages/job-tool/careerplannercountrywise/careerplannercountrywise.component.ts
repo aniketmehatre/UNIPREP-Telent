@@ -8,7 +8,7 @@ import { PageFacadeService } from '../../page-facade.service';
 import { MessageService } from 'primeng/api';
 import { DownloadRespose } from 'src/app/@Models/travel-tools.model';
 import { TravelToolsService } from '../../travel-tools/travel-tools.service';
-
+import { EducationToolsService } from '../../education-tools/education-tools.service';
 @Component({
   selector: 'uni-careerplannercountrywise',
   templateUrl: './careerplannercountrywise.component.html',
@@ -23,18 +23,28 @@ export class CareerplannercountrywiseComponent implements OnInit {
   isFormChatgptresponse: boolean = false;
   isSavedResponse: boolean = false;
   recommadationSavedQuestionList: any[] = [];
+  specializationList: any = [];
   constructor(private router: Router, private service: JobSearchService, private fb: FormBuilder, private pageFacade: PageFacadeService,
-    private toast: MessageService, private travelToolService: TravelToolsService,
+    private toast: MessageService, private travelToolService: TravelToolsService,private educationService: EducationToolsService
   ) {
     this.form = this.fb.group({
       country: ['', [Validators.required]],
-      currency: ['', [Validators.required]],
+      specialization_name:['',[Validators.required]],
+      // currency: ['', [Validators.required]],
     });
   }
 
   ngOnInit(): void {
     this.service.getCountryCurrency().subscribe((res: any) => {
       this.countries = res
+    })
+
+    this.educationService.getCurrentSpecializations().subscribe({
+      next: response =>{
+        console.log(response);
+        this.specializationList = response;
+        
+      }
     })
   }
   get f() {
@@ -45,8 +55,9 @@ export class CareerplannercountrywiseComponent implements OnInit {
     if (this.form.valid) {
       var data = {
         mode: "careerplanner",
-        currency_code: this.form.value.currency,
-        country: this.form.value.country
+        // currency_code: this.form.value.currency,
+        country: this.form.value.country,
+        specialization_name: this.form.value.specialization_name
       }
       this.service.getCountryCurrencyChatGptOutput(data).subscribe((res: any) => {
         this.customizedResponse = res.response
@@ -106,13 +117,13 @@ export class CareerplannercountrywiseComponent implements OnInit {
     // });
     // let downloadString:string = "This is a paragraph with some text and emojis 😊🎉. Markdown processing with emojis works!";
     let selectedCityAndCountry = this.form.value.country;
-    let currency=this.form.value.currency;
+    let specialization_name = this.form.value.specialization_name;
     let addingInput = `
           <p><strong>Input:<br></strong></p>
-          <p><strong>Which country are you interested in?</strong></p>
+          <p><strong>Which country are you interested in pursuing your career?</strong></p>
           <p><strong>${selectedCityAndCountry}</strong></p>
-          <p><strong>Select Your Preferred Currency?</strong></p>
-          <p><strong>${currency}</strong></p>
+          <p><strong>Select Your Specialization</strong></p>
+          <p><strong>${specialization_name}</strong></p>
           <br>
           <p><strong>Response:<br></strong></p>
           ${this.customizedResponse}

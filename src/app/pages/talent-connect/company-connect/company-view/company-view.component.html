@@ -1,0 +1,235 @@
+<div class="card readingcard h-100">
+  <div class="card-header border-0 bg-transparent">
+    <div class="row">
+      <div class="col-md-12 d-flex gap-2 text-center">
+        <div
+          class="backIcon d-md-flex d-none"
+          role="button"
+          routerLink="/pages/talent-connect"
+        >
+          <span class="fa-solid fa-chevron-left"></span>
+        </div>
+        <div
+          class="select-title d-flex justify-content-between align-items-center"
+        >
+          <div>
+            <h5
+              class="mb-0"
+              tooltipPosition="top"
+              pTooltip="Questions related to the application process are answered"
+            >
+              Employeer Connect<i
+                class="questiontooltip fa-solid fa-circle-question"
+              ></i>
+            </h5>
+          </div>
+          <div>
+            <button class="how-it-works-button" (click)="openVideoPopup('')">
+              How it works?<i class="fa-solid fa-play d-md-block d-none"></i>
+            </button>
+          </div>
+        </div>
+      </div>
+      <!-- <div class="col-md-3 mt-2 text-end desktop justify-content-end d-none d-md-flex"></div> -->
+    </div>
+  </div>
+  <div class="card-body text-center flex-fill overflow-y-auto">
+    <!-- company-profile.component.html -->
+    <div class="row">
+      <div class="col-md-9" [ngClass]="{'col-md-12': !showChat}">
+        <div class="container-fluid bg-light text-start overflow-y-auto">
+          <div class="card mb-4 mt-3">
+            <div class="card-body">
+              <div class="row align-items-center">
+                <div class="col-md-2">
+                  <div class="logo-container border rounded p-2">
+                    <img
+                      [src]="companyInfo.logo"
+                      alt="Company Logo"
+                      class="img-fluid"
+                      onerror="this.src"
+                    />
+                  </div>
+                </div>
+                <div class="col-md-7">
+                  <h1 class="fw-bold">{{ companyInfo.name }}</h1>
+                  <p class="text-muted">Founded : {{ companyInfo.founded }}</p>
+                  <button class="btn btn-outline-primary">
+                    Follow <i class="pi pi-plus fs-6"></i>
+                  </button>
+                </div>
+                <div class="col-md-3 text-end">
+                  <button class="btn btn-success me-2">Shortlist</button>
+                  <button class="btn btn-primary" (click)="showChat = true">
+                    Chat <i class="pi pi-comments"></i>
+                  </button>
+                </div>
+              </div>
+
+              <div class="row mt-4">
+                <div class="col-md-4">
+                  <div class="d-flex align-items-center">
+                    <i class="pi pi-map-marker text-success me-2"></i>
+                    <div>
+                      <small class="text-muted d-block"
+                        >Headquarters Location</small>
+                      <span>{{ companyInfo.headquartersLocation }}</span>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-md-4">
+                  <div class="d-flex align-items-center">
+                    <i class="pi pi-briefcase text-primary me-2"></i>
+                    <div>
+                      <small class="text-muted d-block">Company Type</small>
+                      <span>{{ companyInfo.companyType }}</span>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-md-4">
+                  <div class="d-flex align-items-center">
+                    <i class="pi pi-users text-info me-2"></i>
+                    <div>
+                      <small class="text-muted d-block">Company Size</small>
+                      <span>0-50</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- About Organization Section -->
+          <div class="card mb-4">
+            <div class="card-body">
+              <div class="row">
+                <div class="col-md-3 h-100">
+                  <h2 class="fw-bold mb-4">About Organization</h2>
+                </div>
+                <div class="col-md-9">
+                  <div class="row">
+                    <div class="col-md-3">
+                      <h6 class="text-muted">Industry Type</h6>
+                      <p>{{ companyInfo.industryType }}</p>
+                    </div>
+                    <div class="col-md-3">
+                      <h6 class="text-muted">Company Size</h6>
+                      <p>
+                        {{ companyInfo.companySize }}<br />
+                        <small class="text-muted"
+                          >({{ companyInfo.sizeCategory }})</small
+                        >
+                      </p>
+                    </div>
+                    <div class="col-md-3">
+                      <h6 class="text-muted">Headquarters Location</h6>
+                      <p>India, Mysore</p>
+                    </div>
+                    <div class="col-md-3">
+                      <h6 class="text-muted">Global Presence</h6>
+                      <p>{{ companyInfo.globalPresence.join(", ") }}</p>
+                    </div>
+                  </div>
+                  <div class="row mt-4">
+                    <div class="col-md-3">
+                      <h6 class="text-muted">Year Founded</h6>
+                      <p>{{ companyInfo.founded }}</p>
+                    </div>
+                    <div class="col-md-3">
+                      <h6 class="text-muted">Official Website</h6>
+                      <p>{{ companyInfo.websiteUrl }}</p>
+                    </div>
+                    <div class="col-md-6">
+                      <h6 class="text-muted">LinkedIn Profile</h6>
+                      <p>{{ companyInfo.linkedInProfile }}</p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Company Insights Section -->
+          <div class="card mb-4">
+            <div class="card-body">
+              <div class="row">
+                <div class="col-md-3 h-100">
+                  <h2 class="fw-bold mb-4">Company Insights</h2>
+                </div>
+                <div class="col-md-9">
+                  <h5 class="text-primary">About Company</h5>
+                  <p style="white-space: pre-line">{{ companyInfo.about }}</p>
+
+                  <div class="row mt-4">
+                    <div class="col-md-6">
+                      <h5 class="text-primary">Work Life Balance Policies</h5>
+                      <div class="mt-2">
+                        <p-chip
+                          *ngFor="let policy of workLifeBalancePolicies"
+                          label="{{ policy }}"
+                          styleClass="m-1 bg-warning bg-opacity-25 text-dark"
+                        ></p-chip>
+                      </div>
+                    </div>
+                    <div class="col-md-6">
+                      <h5 class="text-primary">Employee Benefits & Perks</h5>
+                      <div class="mt-2">
+                        <p-chip
+                          *ngFor="let benefit of employeeBenefits"
+                          label="{{ benefit }}"
+                          styleClass="m-1 bg-info bg-opacity-25 text-dark"
+                        ></p-chip>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="mt-4">
+                    <h5 class="text-primary">Work Location & Mode</h5>
+                    <p>{{ workLocation }}</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Hiring & Recruitment Section -->
+            <div class="card mb-4">
+              <div class="card-body">
+                <div class="row">
+                  <div class="col-md-3 h-100">
+                    <h2 class="fw-bold mb-4">Hiring & Recruitment</h2>
+                  </div>
+                  <div class="col-md-9">
+                    <h5 class="text-primary">Hiring Process Stages</h5>
+                    <div class="mt-2">
+                      <p-chip
+                        *ngFor="let stage of hiringStages"
+                        label="{{ stage }}"
+                        styleClass="m-1 bg-warning bg-opacity-25 text-dark"
+                      ></p-chip>
+                    </div>
+
+                    <div class="mt-4">
+                      <h5 class="text-primary">
+                        Estimated Hiring Decision Timeframe
+                      </h5>
+                      <p>{{ hiringTimeframe }}</p>
+                    </div>
+
+                    <div class="mt-4">
+                      <h5 class="text-primary">Interview Format</h5>
+                      <p>{{ interviewFormat }}</p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-3" *ngIf="showChat">
+        <uni-job-chat-ui (closeChat)="showChat = false"></uni-job-chat-ui>
+      </div>
+    </div>
+  </div>
+</div>
+

@@ -1,6 +1,5 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { TalentConnectComponent } from './talent-connect.component';
 import { DialogModule } from 'primeng/dialog';
 import { TalentConnectRoutingModule } from './talent-connect-routing.module';
 import { CardModule } from 'primeng/card';
@@ -20,48 +19,55 @@ import { FormsModule } from '@angular/forms';
 import { JobChatUiComponent } from './job-tracker/job-chat-ui/job-chat-ui.component';
 import { JobListComponent } from './job-tracker/job-list/job-list.component';
 import { JobDetailsComponent } from './job-tracker/job-details/job-details.component';
-import { ProgressBarModule } from 'primeng/progressbar';
-import { CompanyTrackerComponent } from './company-tracker/company-tracker.component';
-import { CompanyListComponent } from './company-tracker/company-list/company-list.component';
-import { CompanyDetailComponent } from './company-tracker/company-detail/company-detail.component';
-
-
-
 import { MainListComponent } from './main-list/main-list.component';
 import {SharedModule} from "../../shared/shared.module";
 import { ProfileViewComponent } from './my-profile/profile-view/profile-view.component';
+import { CompanyTrackerComponent } from './company-tracker/company-tracker.component';
+import { CompanyListsComponent } from './company-tracker/company-list/company-list.component';
+import { CompanyDetailComponent } from './company-tracker/company-detail/company-detail.component';
+import { DropdownModule } from 'primeng/dropdown';
+import { CompanyConnectComponent } from './company-connect/company-connect.component';
+import { PaginatorModule } from 'primeng/paginator';
 
 @NgModule({
   declarations: [
-    TalentConnectComponent,
     JobTrackerComponent,
     JobChatUiComponent,
     JobListComponent,
     JobDetailsComponent,
+    MainListComponent,
+    ProfileViewComponent,
     CompanyTrackerComponent,
-    CompanyListComponent,
-    CompanyDetailComponent
+    CompanyListsComponent,
+    CompanyDetailComponent,
+    CompanyConnectComponent
   ],
-    imports: [
-        CommonModule,
-        DialogModule,
-        TalentConnectRoutingModule,
-        CardModule,
-        ButtonModule,
-        TagModule,
-        TableModule,
-        ButtonModule,
-        CardModule,
-        TabViewModule,
-        InputTextModule,
-        AvatarModule,
-        ChipModule,
-        TooltipModule,
-        StepsModule,
-        DialogModule,
-        DividerModule,
-        FormsModule,
-        SharedModule,
-    ]
+  imports: [
+    CommonModule,
+    DialogModule,
+    TalentConnectRoutingModule,
+    CardModule,
+    ButtonModule,
+    TagModule,
+    TableModule,
+    ButtonModule,
+    CardModule,
+    TabViewModule,
+    InputTextModule,
+    AvatarModule,
+    ChipModule,
+    TooltipModule,
+    StepsModule,
+    DialogModule,
+    DividerModule,
+    FormsModule,
+    SharedModule,
+    DialogModule,
+    DropdownModule,
+    PaginatorModule
+  ],
+  exports: [
+    JobChatUiComponent
+  ]
 })
 export class TalentConnectModule { }

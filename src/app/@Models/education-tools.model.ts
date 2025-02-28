@@ -1,7 +1,7 @@
 export interface AllCountryRes{
     id: number
     country: string
-    stay_back: string
+    currency: string
 }
 
 export interface UniversityRes{
