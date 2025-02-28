@@ -13,6 +13,9 @@
 						<button class="how-it-works-button" (click)="openVideoPopup(howItWorksVideoLink)">How it works?<i class="fa-solid fa-play d-md-block d-none"></i></button>
 					</div>
 				</div>
+				<button type="button" title="Close Popup"
+				class="btn btn-primary btn-rounded mt-2" (click)="displayModal = true;"><i class="fa-solid fa-caret-down"></i>&nbsp;&nbsp;Report
+		       </button>
 			</div>
 			<!-- <div class="col-md-3 mt-2 text-end desktop justify-content-end d-none d-md-flex"></div> -->
 		</div>
@@ -88,4 +91,74 @@
 	  </div>
 	</p-dialog>
   </div>
-  
+
+
+<div class="p-4">
+<p-dialog 
+header="Filter" 
+[(visible)]="displayModal" 
+[modal]="true" 
+[style]="{width: '70%'}" 
+[closeOnEscape]="true"
+styleClass="filter-modal">
+
+<div class="container-fluid p-3">
+ <form (ngSubmit)="applyFilter()">
+	 <div class="mb-4">
+	   <label class="form-label fw-bold">Company Name</label>
+	   <input pInputText class="form-control p-2" placeholder="Search by company name" />
+	 </div>
+	 
+	 <div class="row mb-4">
+	   <div class="col-md-4">
+		 <label class="form-label fw-bold">Industry Type</label>
+		 <p-dropdown [options]="industryTypes" placeholder="Select your preferred industry" 
+		   styleClass="w-100" [showClear]="true"></p-dropdown>
+	   </div>
+	   
+	   <div class="col-md-4">
+		 <label class="form-label fw-bold">Company Size</label>
+		 <p-dropdown [options]="companySizes" placeholder="Select Company Size" 
+		   styleClass="w-100" [showClear]="true"></p-dropdown>
+	   </div>
+	   
+	   <div class="col-md-4">
+		 <label class="form-label fw-bold">Headquarters Location</label>
+		 <p-dropdown [options]="locations" placeholder="Select Headquarters Location" 
+		   styleClass="w-100" [showClear]="true"></p-dropdown>
+	   </div>
+	 </div>
+	 
+	 <div class="row mb-4">
+	   <div class="col-md-4">
+		 <label class="form-label fw-bold">Global Presence</label>
+		 <p-dropdown [options]="globalPresence" placeholder="Select global presence" 
+		   styleClass="w-100" [showClear]="true"></p-dropdown>
+	   </div>
+	   
+	   <div class="col-md-4">
+		 <label class="form-label fw-bold">Year Founded</label>
+		 <p-dropdown [options]="foundedYears" placeholder="Select founded year" 
+		   styleClass="w-100" [showClear]="true"></p-dropdown>
+	   </div>
+	   
+	   <div class="col-md-4">
+		 <label class="form-label fw-bold">Company Type</label>
+		 <p-dropdown [options]="companyTypes" placeholder="Select company type" 
+		   styleClass="w-100" [showClear]="true"></p-dropdown>
+	   </div>
+	 </div>
+ </form>
+</div>
+
+<ng-template pTemplate="footer">
+	<div>
+		<button type="submit" class="btn btn-dark w-100" style="background-color: var(--uniprep-primary); border: none">Apply Filter</button>
+		<button class="btn btn-dark w-100" (click)="clearFilter()" style="background-color: white; border-radius: 8px; color: var(--uniprep-primary); border: none" type="button">Reset Filter</button>
+	</div>
+</ng-template>
+</p-dialog>
+
+<!-- Button to open the modal -->
+<button pButton label="Open Filter" icon="pi pi-filter" (click)="showFilterModal()"></button>
+</div>

@@ -1,0 +1,42 @@
+// company-profile.component.scss
+.logo-container {
+    width: 120px;
+    height: 120px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    background-color: #f8f9fa;
+  }
+  
+  h1 {
+    font-size: 1.8rem;
+    color: #212529;
+  }
+  
+  h2 {
+    font-size: 1.5rem;
+    color: #212529;
+  }
+  
+  h5.text-primary {
+    color: #5057b9 !important;
+    font-weight: 500;
+  }
+  
+  .card {
+    border: none;
+    border-radius: 8px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+  }
+  
+  // Override PrimeNG chip styles
+  :host ::ng-deep .p-chip {
+    background-color: transparent;
+    border-radius: 4px;
+    padding: 8px 12px;
+    margin: 4px;
+    font-size: 0.9rem;
+  }
+
+  

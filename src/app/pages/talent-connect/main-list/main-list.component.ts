@@ -36,8 +36,8 @@ export class MainListComponent implements OnInit {
                 image: this.domainUrl + "TripLengthFinder.svg",
                 value: '1 M+ JOBS',
                 navigate_title: 'Connect',
-                navigate_url: '',
-                launch_soon: true,
+                navigate_url: '/pages/talent-connect/company-connect',
+                launch_soon: false,
             },
             {
                 id: 4,
