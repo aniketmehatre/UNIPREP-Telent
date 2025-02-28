@@ -34,7 +34,11 @@ export class TravelToolsService {
       headers: this.headers,
     });
   }
-
+  getVisaCountriesList(data:any) {
+    return this.http.post<Countries[]>(environment.ApiUrl + "/getvisacountrylist",data, {
+      headers: this.headers,
+    });
+  }
   getTripList(type: string) {
     return this.http.get<ChatGPTResponse>(environment.ApiUrl + `/userSavedResponse?mode=${type}`, {
       headers: this.headers,
@@ -53,6 +57,12 @@ export class TravelToolsService {
       headers: this.headers,
     });
   }
+  getVisaRecommendationsAllList(data: any) {
+    return this.http.post<any>(environment.ApiUrl + "/gettravelvisalist", data, {
+      headers: this.headers,
+    });
+  }
+
 
   getVisaCategoryList(visaId: number, questionId?: number) {
     const headers = new HttpHeaders().set("Accept", "application/json");

@@ -247,15 +247,15 @@
                           styleClass="w-100"
                           placeholder="Select"
                           display="chip"
-                          optionLabel="country"
-                          optionValue="currency_code"
+                          optionLabel="currency_symbol"
+                          optionValue="currency_symbol"
                           [options]="currencies"
                           [(ngModel)]="selectedData[recommendation.id]"
                           [virtualScroll]="true"
                           [virtualScrollItemSize]="30"
                           [appendTo]="'body'"
                           [filter]="true"
-                          filterBy="country"
+                          filterBy="currency_symbol"
                         ></p-dropdown>
                         <p
                           class="text-center"
@@ -321,6 +321,7 @@
 <ng-container *ngIf="preparedvisibility">
   <uni-aspreparedlist
     [prepData]="prepData"
+    [recommendationsData]="recommendations"
     (windowChange)="windowChange($event)"
   ></uni-aspreparedlist>
 </ng-container>
