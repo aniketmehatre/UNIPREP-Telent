@@ -8,7 +8,7 @@ import { PageFacadeService } from '../../page-facade.service';
 import { MessageService } from 'primeng/api';
 import { DownloadRespose } from 'src/app/@Models/travel-tools.model';
 import { TravelToolsService } from '../../travel-tools/travel-tools.service';
-
+import { EducationToolsService } from '../../education-tools/education-tools.service';
 @Component({
   selector: 'uni-careerplannercountrywise',
   templateUrl: './careerplannercountrywise.component.html',
@@ -23,11 +23,13 @@ export class CareerplannercountrywiseComponent implements OnInit {
   isFormChatgptresponse: boolean = false;
   isSavedResponse: boolean = false;
   recommadationSavedQuestionList: any[] = [];
+  specializationList: any = [];
   constructor(private router: Router, private service: JobSearchService, private fb: FormBuilder, private pageFacade: PageFacadeService,
-    private toast: MessageService, private travelToolService: TravelToolsService,
+    private toast: MessageService, private travelToolService: TravelToolsService,private educationService: EducationToolsService
   ) {
     this.form = this.fb.group({
       country: ['', [Validators.required]],
+      specialization_name:['',[Validators.required]],
       currency: ['', [Validators.required]],
     });
   }
@@ -35,6 +37,14 @@ export class CareerplannercountrywiseComponent implements OnInit {
   ngOnInit(): void {
     this.service.getCountryCurrency().subscribe((res: any) => {
       this.countries = res
+    })
+
+    this.educationService.getCurrentSpecializations().subscribe({
+      next: response =>{
+        console.log(response);
+        this.specializationList = response;
+        
+      }
     })
   }
   get f() {
@@ -46,7 +56,8 @@ export class CareerplannercountrywiseComponent implements OnInit {
       var data = {
         mode: "careerplanner",
         currency_code: this.form.value.currency,
-        country: this.form.value.country
+        country: this.form.value.country,
+        specialization_name: this.form.value.specialization_name
       }
       this.service.getCountryCurrencyChatGptOutput(data).subscribe((res: any) => {
         this.customizedResponse = res.response

@@ -26,9 +26,9 @@ export class TravelPackingPlannerComponent implements OnInit {
     { id: 3, name: 'Adventure' }
   ];
   transportationModeList: { id: number, name: string }[] = [
-    { id: 1, name: 'Flight' },
+    { id: 1, name: 'Metro' },
     { id: 2, name: 'Train' },
-    { id: 3, name: 'By road' }
+    { id: 3, name: 'Bus' }
   ];
   monthList: { id: number, name: string }[] = [
     { id: 1, name: 'January' },
@@ -108,7 +108,6 @@ export class TravelPackingPlannerComponent implements OnInit {
   }
 
   getRecommendation() {
-    console.log(this.selectedData,"selected data");
     let data: any = {
       destination: this.selectedData[1].city_name ?? this.selectedData[1].country_name,
       travel_type: this.selectedData[2],
