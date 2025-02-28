@@ -72,6 +72,7 @@ export class GlobalTravelVisaComponent implements OnInit {
     const modeName:{[key: string]: string}={
       "travel-visa": "global_travel_visa",
       "enterpreneur-visa": "global_entrepreneur_visa",
+      "study-visa": "global_study_visa"
     }
     this.modeName=modeName[currentEndpoint] || "";
   }
