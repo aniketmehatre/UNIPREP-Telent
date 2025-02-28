@@ -39,24 +39,24 @@ export class MainListComponent implements OnInit {
                 navigate_url: '/pages/talent-connect/company-connect',
                 launch_soon: false,
             },
-            {
-                id: 4,
-                title: "Job Tracker",
-                image: this.domainUrl + "TripLengthFinder.svg",
-                value: '1 M+ JOBS',
-                navigate_title: 'Track',
-                navigate_url: '/pages/talent-connect/job-tracker',
-                launch_soon: false,
-            },
-            {
-                id: 5,
-                title: "Company Tracker",
-                image: this.domainUrl + "TripLengthFinder.svg",
-                value: '1 M+ JOBS',
-                navigate_title: 'Track',
-                navigate_url: '/pages/talent-connect/company-tracker',
-                launch_soon: false,
-            }
+            // {
+            //     id: 4,
+            //     title: "Job Tracker",
+            //     image: this.domainUrl + "TripLengthFinder.svg",
+            //     value: '1 M+ JOBS',
+            //     navigate_title: 'Track',
+            //     navigate_url: '/pages/talent-connect/job-tracker',
+            //     launch_soon: false,
+            // },
+            // {
+            //     id: 5,
+            //     title: "Company Tracker",
+            //     image: this.domainUrl + "TripLengthFinder.svg",
+            //     value: '1 M+ JOBS',
+            //     navigate_title: 'Track',
+            //     navigate_url: '/pages/talent-connect/company-tracker',
+            //     launch_soon: false,
+            // }
         ]
     }
 
