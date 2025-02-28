@@ -29,7 +29,7 @@ export class CompanyConnectComponent {
       yearFounded: '2019',
       companyType: 'MNC',
       companySize: '11-50',
-      logo: 'assets/company-logo.png'
+      logo: '/uniprep-assets/image-available.png'
     }
   ]
 

@@ -9,16 +9,21 @@ import { TalentConnectModule } from '../talent-connect.module';
 import { DialogModule } from 'primeng/dialog';
 import { DropdownModule } from 'primeng/dropdown';
 
-const routes: Routes = [ 
-      {
-        path: '', 
-        component: CompanyConnectComponent,
-      },
-      {
-        path: ':id',
-        component: CompanyViewComponent
-      }
-  ]
+const routes: Routes = [
+  {
+    path: '',
+    redirectTo: 'company', // Redirect to a default route
+    pathMatch: 'full'
+  },
+  {
+    path: 'company',
+    component: CompanyConnectComponent,
+  },
+  {
+    path: 'company/:id',
+    component: CompanyViewComponent
+  }
+]
 
 @NgModule({
   declarations: [CompanyConnectComponent, CompanyViewComponent],
