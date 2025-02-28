@@ -7,11 +7,7 @@ import {MainListComponent} from "./main-list/main-list.component";
 import { CompanyConnectComponent } from './company-connect/company-connect.component';
 
 const routes: Routes = [
-  {
-    path: '',
-    redirectTo: 'list', // Redirect to a default route
-    pathMatch: 'full'
-  },
+
   {
     path: 'list',
     component: MainListComponent,
@@ -26,8 +22,13 @@ const routes: Routes = [
   },
   {
     path: 'company-connect',
-    loadChildren: () => import('./company-connect/company-connect.module').then(m => m.CompanyConnectModule)
-  }
+    component: CompanyConnectComponent
+  },
+  {
+    path: '',
+    redirectTo: 'list', // Redirect to a default route
+    pathMatch: 'full'
+  },
 ];
 
 @NgModule({

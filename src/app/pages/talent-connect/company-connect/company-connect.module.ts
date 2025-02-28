@@ -17,6 +17,11 @@ const routes: Routes = [
       {
         path: ':id',
         component: CompanyViewComponent
+  },
+  {
+    path: '',
+    redirectTo: '',
+    pathMatch: 'full'
       }
   ]
 
