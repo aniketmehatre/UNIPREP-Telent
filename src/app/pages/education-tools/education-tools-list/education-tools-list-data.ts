@@ -44,7 +44,7 @@ export const EducationToolsData = [
         launch_soon: false,
     },
     {
-        title: "UniCompare",
+        title: "UNICOMPARE",
       //  description: "This tool lets you get a global travel visa with the help of few easy steps",
       image: domainUrl+"Unicompare.svg",
         url: "/pages/education-tools/uni-compare",
