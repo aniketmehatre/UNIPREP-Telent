@@ -8,8 +8,16 @@ interface DropdownOption {
 @Component({
   selector: 'uni-company-connect',
   templateUrl: './company-connect.component.html',
-  styleUrls: ['./company-connect.component.scss']
-})
+  styleUrls: ['./company-connect.component.scss'],
+  standalone: true,
+    import: [
+      CommonModule,
+      ChipModule,
+      TalentConnectModule,
+      DialogModule,
+      DropdownModule,
+      PaginatorModule]
+  })
 export class CompanyConnectComponent {
   displayModal: boolean = false;
   totalCount: number = 90;

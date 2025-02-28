@@ -28,14 +28,6 @@ const routes: Routes = [
 
 @NgModule({
   declarations: [CompanyViewComponent],
-  imports: [
-    CommonModule,
-    RouterModule.forChild(routes),
-    ChipModule,
-    TalentConnectModule,
-    DialogModule,
-    DropdownModule,
-    PaginatorModule
-  ]
+  imports: [RouterModule.forChild(routes)]
 })
 export class CompanyConnectModule { }
