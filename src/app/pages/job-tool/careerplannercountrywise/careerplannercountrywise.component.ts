@@ -30,7 +30,7 @@ export class CareerplannercountrywiseComponent implements OnInit {
     this.form = this.fb.group({
       country: ['', [Validators.required]],
       specialization_name:['',[Validators.required]],
-      currency: ['', [Validators.required]],
+      // currency: ['', [Validators.required]],
     });
   }
 
@@ -55,7 +55,7 @@ export class CareerplannercountrywiseComponent implements OnInit {
     if (this.form.valid) {
       var data = {
         mode: "careerplanner",
-        currency_code: this.form.value.currency,
+        // currency_code: this.form.value.currency,
         country: this.form.value.country,
         specialization_name: this.form.value.specialization_name
       }
@@ -117,13 +117,13 @@ export class CareerplannercountrywiseComponent implements OnInit {
     // });
     // let downloadString:string = "This is a paragraph with some text and emojis 😊🎉. Markdown processing with emojis works!";
     let selectedCityAndCountry = this.form.value.country;
-    let currency=this.form.value.currency;
+    let specialization_name = this.form.value.specialization_name;
     let addingInput = `
           <p><strong>Input:<br></strong></p>
-          <p><strong>Which country are you interested in?</strong></p>
+          <p><strong>Which country are you interested in pursuing your career?</strong></p>
           <p><strong>${selectedCityAndCountry}</strong></p>
-          <p><strong>Select Your Preferred Currency?</strong></p>
-          <p><strong>${currency}</strong></p>
+          <p><strong>Select Your Specialization</strong></p>
+          <p><strong>${specialization_name}</strong></p>
           <br>
           <p><strong>Response:<br></strong></p>
           ${this.customizedResponse}

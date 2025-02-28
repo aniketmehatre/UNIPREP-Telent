@@ -82,13 +82,13 @@
                                                                                 [options]="positions"
                                                                                 formControlName="position_title"
                                                                                 placeholder="Select a position"
-                                                                                display="chip" optionLabel="jobrole"
+                                                                                display="chip" optionLabel="jobpreferences"
                                                                                 optionValue="id"
                                                                                 [options]="jobPreferences"
                                                                                 [appendTo]="'body'" [showClear]="true"
                                                                                 [virtualScroll]="true"
                                                                                 [virtualScrollItemSize]="30"
-                                                                                [filter]="true" filterBy="jobrole">
+                                                                                [filter]="true" filterBy="jobpreferences">
                                                                             </p-dropdown>
                                                                             <div *ngIf="info.get('position_title')?.touched && info.get('position_title')?.invalid"
                                                                                 class="text-danger mt-1">
