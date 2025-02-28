@@ -14,7 +14,7 @@ export class MainListComponent implements OnInit {
         this.talentConnectMainList = [
             {
                 id: 1,
-                title: 'Your Profile',
+                title: 'YOUR PROFILE',
                 image: this.domainUrl + "TripLengthFinder.svg",
                 value: '1 M+ Profiles',
                 navigate_title: 'Create Profile',
@@ -23,7 +23,7 @@ export class MainListComponent implements OnInit {
             },
             {
                 id: 2,
-                title: "Easy Apply",
+                title: "EASY APPLY",
                 image: this.domainUrl + "TripLengthFinder.svg",
                 value: '1 M+ JOBS',
                 navigate_title: 'Apply',
@@ -32,7 +32,7 @@ export class MainListComponent implements OnInit {
             },
             {
                 id: 3,
-                title: "Company Connect",
+                title: "COMPANY CONNECT",
                 image: this.domainUrl + "TripLengthFinder.svg",
                 value: '1 M+ JOBS',
                 navigate_title: 'Connect',
