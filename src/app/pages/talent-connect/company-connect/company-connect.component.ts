@@ -13,6 +13,9 @@ interface DropdownOption {
 export class CompanyConnectComponent {
   displayModal: boolean = false;
   totalCount: number = 90;
+  first: number = 0;
+  page: number = 1;
+  perPage: number = 10;
   industryTypes: DropdownOption[] = [];
   companySizes: DropdownOption[] = [];
   locations: DropdownOption[] = [];
@@ -40,6 +43,6 @@ export class CompanyConnectComponent {
   }
 
   applyFilter() {
-    
+
   }
 }
