@@ -299,6 +299,14 @@ const routes: Routes = [
                 loadChildren: () => import('./contributors/contributors.module').then(m => m.ContributorsModule)
             },
             {
+                path: 'talent-connect',
+                loadChildren: () => import('./talent-connect/talent-connect.module').then(m => m.TalentConnectModule)
+            },
+            {
+                path: 'company-connect',
+                loadChildren: () => import('./talent-connect/company-connect/company-connect.module').then(m => m.CompanyConnectModule)
+            },
+            {
                 path: 'global-repo',
                 component: GlobalRepositoryComponent
             },

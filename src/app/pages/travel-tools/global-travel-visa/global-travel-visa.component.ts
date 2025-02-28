@@ -9,6 +9,7 @@ import { Meta } from '@angular/platform-browser';
 import { MessageService } from 'primeng/api';
 import { CardModule } from 'primeng/card';
 import { DialogModule } from 'primeng/dialog';
+import { DataService } from 'src/app/data.service';
 
 @Component({
     selector: 'uni-global-travel-visa',
@@ -21,7 +22,7 @@ export class GlobalTravelVisaComponent implements OnInit {
   recommendations: { id: number, question: string }[] = [
     { id: 1, question: "Select Your Nationality?" },
     { id: 2, question: "Select the country you are looking for?" },
-    { id: 3, question: "Select your residential status of Country?" }
+    // { id: 3, question: "Select your residential status of Country?" }
   ];
   residentStatus: { value: string, label: string }[] = [
     { value: "Resident", label: "Resident" },
@@ -30,16 +31,16 @@ export class GlobalTravelVisaComponent implements OnInit {
   activePageIndex: number = 0;
   selectedData: { [key: string]: any } = {};
   allCountries: Countries[] = [];
+  visaCountries:Countries[]=[];
   invalidClass: boolean = false;
   title: string = "";
   isRecommendationQuestion: boolean = true;
   isRecommendationData: boolean = false;
   isRecommendationSavedData: boolean = false;
-  recommendationDataList: BasicType[] = [
-    { id: 1, name: "Temporary Skill Shortage (TSS) Visa" },
-    { id: 2, name: "Employer Nomination Scheme (ENS) Visa" },
-    { id: 3, name: "Skilled Independent Visa" },
-  ];
+  isRecommendationEachVisaNameData: boolean = false;
+  recommendationDataList: any[] = [];
+  recomendationData:any[]=[];
+  modeName:any;
   visaCategoryList: any[] = [
     {
       id: 1,
@@ -47,19 +48,22 @@ export class GlobalTravelVisaComponent implements OnInit {
       answer: `Lorem ipsum dolor sit amet consectetur adipisicing elit.Consequatur harum neque deserunt reiciendis minus repellat tempora deleniti mollitia, in natus sint laudantium repellendus earum beatae nostrum dolorum illo dolorem culpa a. Eveniet perferendis aut quisquam? Ipsa illo minima inventore assumenda quibusdam voluptas eum iure, magnam consectetur omnis officiis, similique accusantium nobis natus vero nulla nostrum distinctio. Officiis porro dolore veniam ad a sint quia vel ipsam, aliquam repellendus repudiandae commodi odit, hic praesentium eius rem quo nobis animi doloremque dignissimos impedit! Nobis ratione quidem dolor tenetur quod, quae at? Vel amet esse suscipit quas iure, libero dolor adipisci eos exercitationem reiciendis earum? Veniam, at. Nesciunt eaque quas dolorem itaque beatae ratione sunt sapiente, placeat sint impedit et nostrum doloremque. Maiores, eveniet sed tempora quia accusantium qui maxime vero aperiam? Quo consectetur quod quidem. Aspernatur, sit officia! Vitae molestiae atque distinctio harum fugit, eaque minus, placeat ab excepturi voluptas impedit inventore dolore dolorem unde ipsum, corporis molestias laboriosam ipsam. Nulla rerum deserunt asperiores provident, distinctio ad nemo laborum, eveniet doloribus quis veniam itaque fugit autem quae alias minus magnam. Magni, pariatur error. Voluptatem, pariatur quis ipsa, corrupti praesentium animi maiores odit iure esse hic aliquam cum, perspiciatis ipsum architecto sunt repellat.`
     },
   ];
+  visaCategoryQuestionList:any[]=[];
+  eachVisaNameCategory:any[]=[];
   isQuestionAnswerVisible: boolean = false;
   selectedQuestionData: any;
-
   constructor(
     private travelToolService: TravelToolsService,
     private router: Router,
     private meta: Meta,
     private toast: MessageService,
+    private dataService: DataService
   ) { }
 
   ngOnInit(): void {
     this.getCurrentModule();
     this.getCountriesList();
+    this.getVisaCountriesList();
   }
 
   getCurrentModule() {
@@ -71,14 +75,27 @@ export class GlobalTravelVisaComponent implements OnInit {
       "study-visa": "Global Study Visa"
     };
     this.title = titles[currentEndpoint] || "";
+    const modeName:{[key: string]: string}={
+      "travel-visa": "global_travel_visa",
+      "enterpreneur-visa": "global_entrepreneur_visa",
+    }
+    this.modeName=modeName[currentEndpoint] || "";
   }
 
   getCountriesList() {
     this.travelToolService.getCountriesList().subscribe(response => {
-      this.allCountries = response;
+      const country=response.find((item:any) => item.id === 122);
+      this.allCountries = country ? [country] : []; 
     });
   }
-
+  getVisaCountriesList() {
+    var data={
+      mode:this.modeName
+    }
+    this.travelToolService.getVisaCountriesList(data).subscribe((response:any) => {
+      this.visaCountries = response.data;
+    });
+  }
   previous() {
     this.invalidClass = false;
     if (this.activePageIndex > 0) {
@@ -98,6 +115,7 @@ export class GlobalTravelVisaComponent implements OnInit {
     this.isRecommendationQuestion = true;
     this.isRecommendationData = false;
     this.isRecommendationSavedData = false;
+    this.isRecommendationEachVisaNameData=false;
     this.selectedData = {};
   }
 
@@ -105,43 +123,41 @@ export class GlobalTravelVisaComponent implements OnInit {
     this.isRecommendationQuestion = false; // if api is done, then have to remove
     this.isRecommendationData = true;
     this.isRecommendationSavedData = false;
-
-    // let data = {
-    //   source_id: this.selectedData[1],
-    //   destination_id: this.selectedData[2]
-    //   resident_id: this.selectedData[3]
-    // }
-    // this.travelToolService.getVisaRecommendations(data).subscribe({
-    //   next: response => {
-    //     this.isRecommendationQuestion = false;
-    //     this.isRecommendationData = true;
-    //     this.isRecommendationSavedData = false;
-    //     this.recommendationDataList = response;
-    //   },
-    //   error: error => {
-    //     this.isRecommendationData = false;
-    //   }
-    // });
+    this.isRecommendationEachVisaNameData=false;
+    let data = {
+      // source_id: this.selectedData[1],
+      country: this.selectedData[2],
+      mode: this.modeName
+      // resident_id: this.selectedData[3]
+    }
+    this.travelToolService.getVisaRecommendationsAllList(data).subscribe({
+      next: response => {
+        this.isRecommendationQuestion = false;
+        this.isRecommendationData = true;
+        this.isRecommendationSavedData = false;
+        this.isRecommendationEachVisaNameData=false;
+        this.recomendationData= response.Data;
+        const uniqueVisaData = Array.from(
+          new Set(this.recomendationData.map(item => item.visa_name)) // Extract unique visa names
+        ).map(visa_name => ({ visa_name }));
+        this.recommendationDataList = uniqueVisaData;
+      },
+      error: error => {
+        this.isRecommendationData = false;
+      }
+    });
   }
 
-  getVisaCategoryList(visaId: number, questionId?: number) {
-    this.isRecommendationQuestion = false; // if api is done, then have to remove
+  getVisaCategoryList(name:any) {
+    this.isRecommendationQuestion = false; 
     this.isRecommendationData = false;
-    this.isRecommendationSavedData = true;
-
-    // this.travelToolService.getVisaCategoryList(visaId, questionId).subscribe({
-    //   next: response => {
-    //     this.isRecommendationQuestion = false;
-    //     this.isRecommendationData = false;
-    //     this.isRecommendationSavedData = true;
-    //     this.visaCategoryList = response;
-    //     if (questionId) {
-    //       this.viewOneQuestion(this.visaCategoryList[0]);
-    //     }
-    //   },
-    //   error: error => {
-    //   }
-    // });
+    this.isRecommendationSavedData = false;
+    this.isRecommendationEachVisaNameData=true;
+    const bridgingVisaData = this.recomendationData.filter(item => item.visa_name === name);
+    const uniqueVisaCategory = Array.from(
+      new Set(bridgingVisaData.map(item => item.question_category)) // Extract unique visa category names
+    ).map(question_category => ({ question_category }));
+    this.eachVisaNameCategory=uniqueVisaCategory
   }
 
   viewOneQuestion(data: any) {
@@ -201,13 +217,48 @@ export class GlobalTravelVisaComponent implements OnInit {
   }
 
   goBack() {
-    const urls: { [key: string]: string } = {
-      "Global Travel Visa": "/pages/travel-tools",
-      "Global Work Visa": "/pages/job-tool",
-      "Global Entrepreneur Visa": "/pages/founderstool",
-      "Global Study Visa": "/pages/education-tools"
+    if (this.isRecommendationData) {
+      this.isRecommendationData=false;
+      this.isRecommendationQuestion=true;
+      this.activePageIndex=0;
+    }else if(this.isRecommendationEachVisaNameData){
+      this.isRecommendationEachVisaNameData=false;
+      this.isRecommendationData=true;
+    }else if(this.isRecommendationSavedData){
+      this.isRecommendationSavedData=false;
+      this.isRecommendationEachVisaNameData=true;
+    }else{
+      const urls: { [key: string]: string } = {
+        "Global Travel Visa": "/pages/travel-tools",
+        "Global Work Visa": "/pages/job-tool",
+        "Global Entrepreneur Visa": "/pages/founderstool",
+        "Global Study Visa": "/pages/education-tools"
+      };
+      const targetUrl = urls[this.title] || "";
+      this.router.navigateByUrl(targetUrl);
+    }
+  }
+  viewQuestions(category:any){
+    this.isRecommendationQuestion = false; 
+    this.isRecommendationData = false;
+    this.isRecommendationSavedData = true;
+    this.isRecommendationEachVisaNameData=false;
+    const bridgingVisaData = this.recomendationData.filter(item => item.question_category === category);
+    this.visaCategoryQuestionList=bridgingVisaData
+  }
+  openReport() {
+    let data: any = {
+      // isVisible: true,
+      // moduleId: this.moduleid,
+      // questionId: this.selectedQuestionData?.id,
+      // countryId:this.countryId,
     };
-    const targetUrl = urls[this.title] || "";
-    this.router.navigateByUrl(targetUrl);
+    // if (this.currentModuleId == 8) {
+    //   data.reporttype = 8;
+    // }
+    this.dataService.openReportWindow(data);
+  }
+  goToHome(data: any) {
+    this.isQuestionAnswerVisible = false;
   }
 }

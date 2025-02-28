@@ -1,0 +1,164 @@
+<div class="card readingcard h-100">
+	<div class="card-header border-0 bg-transparent">
+		<div class="row">
+			<div class="col-md-12 d-flex gap-2 text-center">
+				<div class="backIcon d-md-flex d-none" role="button" routerLink="/pages/talent-connect">
+					<span class="fa-solid fa-chevron-left"></span>
+				</div>
+				<div class="select-title d-flex justify-content-between align-items-center">
+					<div>
+						<h5 class="mb-0" tooltipPosition="top" pTooltip="Questions related to the application process are answered">Job Tracker<i class="questiontooltip fa-solid fa-circle-question"></i></h5>
+					</div>
+					<div>
+						<button class="how-it-works-button" (click)="openVideoPopup(howItWorksVideoLink)">How it works?<i class="fa-solid fa-play d-md-block d-none"></i></button>
+					</div>
+				</div>
+				<button type="button" title="Close Popup"
+				class="btn btn-primary btn-rounded mt-2" (click)="displayModal = true;"><i class="fa-solid fa-caret-down"></i>&nbsp;&nbsp;Report
+		       </button>
+			</div>
+			<!-- <div class="col-md-3 mt-2 text-end desktop justify-content-end d-none d-md-flex"></div> -->
+		</div>
+	</div>
+  
+	<div class="card-body text-center flex-fill overflow-y-auto">
+	  <div class="container-fluid px-3 py-3">
+		<div class="row gx-3">
+		  <!-- Sidebar with job list -->
+		  <div class="col-lg-3 col-md-5 col-12 border-end mb-3 mb-md-0">
+			<uni-job-list (emitId)="onClickJobId($event)"></uni-job-list>
+		  </div>
+  
+		  <!-- Main content with job details and chat -->
+		  <div class="col-lg-9 col-md-7 col-12">
+			<div class="row g-3" *ngIf="selectedJobId else showEmptyConainter">
+				<div class="col-lg-8 col-md-7 col-12 position-relative overflow-hidden" [hidden]="!showInfo">
+					<div class="job-details-container h-100 overflow-auto">
+					  <uni-job-details (closeInfo)="toggleInfo();" [showInfo]="showInfo"></uni-job-details>
+					</div>
+				  </div>
+			  <div class="col-lg-4 col-md-5 col-12" [ngClass]="{'col-lg-12': !showInfo}">
+				<uni-job-chat-ui (openInfo)="toggleInfo();" [showInfo]="showInfo"></uni-job-chat-ui>
+			  </div>
+			</div>
+			<ng-template #showEmptyConainter>
+				<div class="detail-panel d-flex flex-column align-items-center justify-content-center">
+					<div class="no-selection text-center">
+					  <div class="building-icon mb-4">
+						<img src="uniprep-assets/images/building-icon.png" alt="Building" class="img-fluid">
+					  </div>
+					  <h4 class="mb-3">No Application Selected</h4>
+					  <p class="text-muted">
+						Select a application to move check your information<br>
+						and move forward with your interview
+					  </p>
+					</div>
+				  </div>
+			</ng-template>
+		  </div>
+		</div>
+	  </div>
+	</div>
+  
+	<!-- Responsive Upgrade Dialog -->
+	<p-dialog
+	  [(visible)]="restrict"
+	  [modal]="true"
+	  [style]="{ width: '30vw' }"
+	  [draggable]="false"
+	  [resizable]="false"
+	  class="restrictionDialog"
+	  [breakpoints]="{ '960px': '50vw', '768px': '70vw', '480px': '90vw' }"
+	  (onHide)="restrict = false"
+	>
+	  <div *ngIf="ehitlabelIsShow" class="text-center my-4">
+		<img src="../../../uniprep-assets/images/smartloack.png" class="image" width="60" />
+		<h3 class="offer">Upgrade Required</h3>
+		<p>To access this exclusive module, please upgrade your plan now.</p>
+		<button 
+		  pButton type="button" 
+		  class="btn btn-warning text-white p-ripple p-button-rounded p-2" 
+		  (click)="upgradePlan()"
+		>
+		  Upgrade Plan <i class="fa fa-arrow-right exhausted-plan-icon"></i>
+		</button>
+	  </div>
+  
+	  <div *ngIf="!ehitlabelIsShow" class="text-center my-4">
+		<img src="../../../uniprep-assets/images/smartloack.png" class="image" width="60" />
+		<h3 class="offer">Upgrade Required</h3>
+		<p>Please contact {{ orgnamewhitlabel }} Company for access.</p>
+	  </div>
+	</p-dialog>
+  </div>
+
+
+<div class="p-4">
+<p-dialog 
+header="Filter" 
+[(visible)]="displayModal" 
+[modal]="true" 
+[style]="{width: '70%'}" 
+[closeOnEscape]="true"
+styleClass="filter-modal">
+
+<div class="container-fluid p-3">
+ <form (ngSubmit)="applyFilter()">
+	 <div class="mb-4">
+	   <label class="form-label fw-bold">Company Name</label>
+	   <input pInputText class="form-control p-2" placeholder="Search by company name" />
+	 </div>
+	 
+	 <div class="row mb-4">
+	   <div class="col-md-4">
+		 <label class="form-label fw-bold">Industry Type</label>
+		 <p-dropdown [options]="industryTypes" placeholder="Select your preferred industry" 
+		   styleClass="w-100" [showClear]="true"></p-dropdown>
+	   </div>
+	   
+	   <div class="col-md-4">
+		 <label class="form-label fw-bold">Company Size</label>
+		 <p-dropdown [options]="companySizes" placeholder="Select Company Size" 
+		   styleClass="w-100" [showClear]="true"></p-dropdown>
+	   </div>
+	   
+	   <div class="col-md-4">
+		 <label class="form-label fw-bold">Headquarters Location</label>
+		 <p-dropdown [options]="locations" placeholder="Select Headquarters Location" 
+		   styleClass="w-100" [showClear]="true"></p-dropdown>
+	   </div>
+	 </div>
+	 
+	 <div class="row mb-4">
+	   <div class="col-md-4">
+		 <label class="form-label fw-bold">Global Presence</label>
+		 <p-dropdown [options]="globalPresence" placeholder="Select global presence" 
+		   styleClass="w-100" [showClear]="true"></p-dropdown>
+	   </div>
+	   
+	   <div class="col-md-4">
+		 <label class="form-label fw-bold">Year Founded</label>
+		 <p-dropdown [options]="foundedYears" placeholder="Select founded year" 
+		   styleClass="w-100" [showClear]="true"></p-dropdown>
+	   </div>
+	   
+	   <div class="col-md-4">
+		 <label class="form-label fw-bold">Company Type</label>
+		 <p-dropdown [options]="companyTypes" placeholder="Select company type" 
+		   styleClass="w-100" [showClear]="true"></p-dropdown>
+	   </div>
+	 </div>
+ </form>
+</div>
+
+<ng-template pTemplate="footer">
+	<div>
+		<button type="submit" class="btn btn-dark w-100" style="background-color: var(--uniprep-primary); border: none">Apply Filter</button>
+		<button class="btn btn-dark w-100" (click)="clearFilter()" style="background-color: white; border-radius: 8px; color: var(--uniprep-primary); border: none" type="button">Reset Filter</button>
+	</div>
+</ng-template>
+</p-dialog>
+
+<!-- Button to open the modal -->
+<button pButton label="Open Filter" icon="pi pi-filter" (click)="showFilterModal()"></button>
+</div>

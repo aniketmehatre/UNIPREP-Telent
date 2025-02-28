@@ -527,6 +527,7 @@ uni-seekercountries,
 uni-seekerlists,
 uni-fortune-companies-lists,
 uni-fortune-companies-data-list,
+uni-company-connect,
 uni-global-employment-country-lists,
 uni-global-employment-data-list  {
 	display: flex;
@@ -2087,7 +2088,7 @@ p-dialog.restrictionDialog .p-dialog .p-dialog-header .p-dialog-header-icon {
 	}
 }
 
-uni-assessment, uni-travel-tools, uni-founderstool, uni-education-tools, uni-contributors {
+uni-assessment, uni-travel-tools, uni-founderstool, uni-education-tools, uni-contributors, uni-talent-connect {
 	display: flex;
 	flex: 1;
 	height: 100%;
@@ -2097,7 +2098,9 @@ uni-assessment, uni-travel-tools, uni-founderstool, uni-education-tools, uni-con
 	uni-assessment-list, uni-ilearn-challenge, uni-assessment-quiz, uni-assessment-quiz-review,
 	uni-global-travel-visa, uni-travel-cost-estimator, uni-travel-packing-planner, uni-travel-visit-planner, 
 	uni-trip-length-finder, uni-travel-glossary, uni-business-plan-generator, uni-education-tools-list, 
-	uni-course-navigator, uni-startup-risk-assessment,  uni-marketing-analysis, uni-goverment-funding-opportunity, uni-ai-business-advisor, uni-politician-insights,uni-start-up-expense-estimate, uni-business-forecasting-tool, uni-country-insights, uni-country-insights-submodule, uni-student-budget-planner, uni-uni-compare, uni-global-edufit, uni-edu-loan-compare {
+	uni-course-navigator, uni-startup-risk-assessment,  uni-marketing-analysis, uni-goverment-funding-opportunity, uni-ai-business-advisor,
+    uni-politician-insights,uni-start-up-expense-estimate, uni-business-forecasting-tool, uni-country-insights, uni-country-insights-submodule, 
+	uni-student-budget-planner, uni-uni-compare, uni-global-edufit, uni-edu-loan-compare, uni-company-connect {
 		flex: 1;
 		overflow-y: auto;
 		display: flex;
@@ -2254,6 +2257,20 @@ uni-career-hacks {
 		flex-direction: column;
 	}
 
+}
+
+uni-talent-connect {
+	display: flex;
+	flex: 1;
+	height: 100%;
+	flex-direction: column;
+	overflow: hidden;
+	uni-job-tracker {
+		flex: 1;
+		overflow-y: auto;
+		display: flex;
+		flex-direction: column;
+	}
 }
 uni-salary-hacks {
 	display: flex;

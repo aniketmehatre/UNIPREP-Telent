@@ -86,7 +86,7 @@ export class AiBusinessAdvisorComponent implements OnInit {
     this.inValidClass = false;
     if (productId in this.selectedData) {
       if (productId == 6) {
-        if (this.selectedData[6].toString()?.length > 6) {
+        if (this.selectedData[6].toString()?.length > 8) {
           this.inValidClass = true;
           return;
         }
