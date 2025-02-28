@@ -45,8 +45,8 @@ export class MainListComponent implements OnInit {
                 image: this.domainUrl + "TripLengthFinder.svg",
                 value: '1 M+ JOBS',
                 navigate_title: 'Track',
-                navigate_url: '',
-                launch_soon: true,
+                navigate_url: '/pages/talent-connect/job-tracker',
+                launch_soon: false,
             },
             {
                 id: 5,
@@ -54,8 +54,8 @@ export class MainListComponent implements OnInit {
                 image: this.domainUrl + "TripLengthFinder.svg",
                 value: '1 M+ JOBS',
                 navigate_title: 'Track',
-                navigate_url: '',
-                launch_soon: true,
+                navigate_url: '/pages/talent-connect/company-tracker',
+                launch_soon: false,
             }
         ]
     }

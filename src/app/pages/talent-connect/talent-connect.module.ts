@@ -20,16 +20,12 @@ import { FormsModule } from '@angular/forms';
 import { JobChatUiComponent } from './job-tracker/job-chat-ui/job-chat-ui.component';
 import { JobListComponent } from './job-tracker/job-list/job-list.component';
 import { JobDetailsComponent } from './job-tracker/job-details/job-details.component';
-import { ProgressBarModule } from 'primeng/progressbar';
-import { CompanyTrackerComponent } from './company-tracker/company-tracker.component';
-import { CompanyListComponent } from './company-tracker/company-list/company-list.component';
-import { CompanyDetailComponent } from './company-tracker/company-detail/company-detail.component';
-
-
-
 import { MainListComponent } from './main-list/main-list.component';
 import {SharedModule} from "../../shared/shared.module";
 import { ProfileViewComponent } from './my-profile/profile-view/profile-view.component';
+import { CompanyTrackerComponent } from './company-tracker/company-tracker.component';
+import { CompanyListsComponent } from './company-tracker/company-list/company-list.component';
+import { CompanyDetailComponent } from './company-tracker/company-detail/company-detail.component';
 
 @NgModule({
   declarations: [
@@ -38,8 +34,10 @@ import { ProfileViewComponent } from './my-profile/profile-view/profile-view.com
     JobChatUiComponent,
     JobListComponent,
     JobDetailsComponent,
+    MainListComponent,
+    ProfileViewComponent,
     CompanyTrackerComponent,
-    CompanyListComponent,
+    CompanyListsComponent,
     CompanyDetailComponent
   ],
   imports: [
@@ -61,33 +59,8 @@ import { ProfileViewComponent } from './my-profile/profile-view/profile-view.com
     DialogModule,
     DividerModule,
     FormsModule,
-    TabViewModule,
-    TabMenuModule,
-    ProgressBarModule
+    SharedModule,
+    DialogModule,
   ]
-    MainListComponent,
-    ProfileViewComponent
-  ],
-    imports: [
-        CommonModule,
-        DialogModule,
-        TalentConnectRoutingModule,
-        CardModule,
-        ButtonModule,
-        TagModule,
-        TableModule,
-        ButtonModule,
-        CardModule,
-        TabViewModule,
-        InputTextModule,
-        AvatarModule,
-        ChipModule,
-        TooltipModule,
-        StepsModule,
-        DialogModule,
-        DividerModule,
-        FormsModule,
-        SharedModule,
-    ]
 })
 export class TalentConnectModule { }

@@ -5,7 +5,7 @@ import { Component, EventEmitter, Output } from '@angular/core';
   templateUrl: './company-list.component.html',
   styleUrls: ['./company-list.component.scss']
 })
-export class CompanyListComponent {
+export class CompanyListsComponent {
   @Output() emitId: EventEmitter<number> = new EventEmitter();
   activeIndex: number = 1;
   tabs = [
