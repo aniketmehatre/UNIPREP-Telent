@@ -27,6 +27,8 @@ import { CompanyTrackerComponent } from './company-tracker/company-tracker.compo
 import { CompanyListsComponent } from './company-tracker/company-list/company-list.component';
 import { CompanyDetailComponent } from './company-tracker/company-detail/company-detail.component';
 import { DropdownModule } from 'primeng/dropdown';
+import { CompanyConnectComponent } from './company-connect/company-connect.component';
+import { PaginatorModule } from 'primeng/paginator';
 
 @NgModule({
   declarations: [
@@ -40,6 +42,7 @@ import { DropdownModule } from 'primeng/dropdown';
     CompanyTrackerComponent,
     CompanyListsComponent,
     CompanyDetailComponent,
+    CompanyConnectComponent
   ],
   imports: [
     CommonModule,
@@ -63,6 +66,7 @@ import { DropdownModule } from 'primeng/dropdown';
     SharedModule,
     DialogModule,
     DropdownModule,
+    PaginatorModule
   ],
   exports: [
     JobChatUiComponent

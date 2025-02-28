@@ -8,6 +8,7 @@ import { JobChatUiComponent } from '../job-tracker/job-chat-ui/job-chat-ui.compo
 import { TalentConnectModule } from '../talent-connect.module';
 import { DialogModule } from 'primeng/dialog';
 import { DropdownModule } from 'primeng/dropdown';
+import { PaginatorModule } from 'primeng/paginator';
 
 const routes: Routes = [
   {
@@ -26,7 +27,7 @@ const routes: Routes = [
 ]
 
 @NgModule({
-  declarations: [CompanyConnectComponent, CompanyViewComponent],
+  declarations: [CompanyViewComponent],
   imports: [
     CommonModule,
     RouterModule.forChild(routes),
@@ -34,6 +35,7 @@ const routes: Routes = [
     TalentConnectModule,
     DialogModule,
     DropdownModule,
+    PaginatorModule
   ]
 })
 export class CompanyConnectModule { }
