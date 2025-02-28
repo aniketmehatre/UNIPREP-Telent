@@ -39,7 +39,7 @@
                                         <p-dropdown [options]="departureLocationList" [virtualScroll]="true"
                                             [virtualScrollItemSize]="50" [(ngModel)]="selectedData[recommendation.id]"
                                             [appendTo]="'body'" [filter]="true" [showClear]="true"
-                                            placeholder="Select Departure Country" styleClass="w-100">
+                                            placeholder="Select Departure location" styleClass="w-100">
                                             <ng-template pTemplate="filter" let-options="options">
                                                 <div class="d-flex gap-2">
                                                     <div class="p-inputgroup" (click)="$event.stopPropagation()">
@@ -85,7 +85,7 @@
                                     <ng-container *ngIf="recommendation.id == 2">
                                         <p-dropdown [options]="destinationLocationList" [virtualScroll]="true"
                                             [virtualScrollItemSize]="50" [(ngModel)]="selectedData[recommendation.id]"
-                                            [appendTo]="'body'" placeholder="Select Destination Country" [filter]="true"
+                                            [appendTo]="'body'" placeholder="Select Destination location" [filter]="true"
                                             [showClear]="true" styleClass="w-100">
                                             <ng-template pTemplate="filter" let-options="options">
                                                 <div class="d-flex gap-2">
