@@ -27,7 +27,7 @@
     </div>
     <div class="card-body text-center flex-fill overflow-y-auto">
         <div class="row">
-            <div class="col-12 col-md-4 col-lg-3 mt-2" *ngFor="let company of companyDataList" [routerLink]="['/pages/talent-connect/company-connect',1]">
+            <div class="col-12 col-md-4 col-lg-3 mt-2" *ngFor="let company of companyDataList" [routerLink]="['/pages/company-connect',1]">
                 <div class="card-inside" style="border-radius: 10px; margin-bottom: 20px; transition: transform 0.3s; border: 1px solid #e9ecef;" [style.border]=" company.verified ? '1px solid #FDA172' : '1px solid #e9ecef'">
                     <div class="card-body">
                         <div class="row mb-3">

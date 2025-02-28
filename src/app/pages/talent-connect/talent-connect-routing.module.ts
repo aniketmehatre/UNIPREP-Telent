@@ -6,33 +6,29 @@ import { CompanyTrackerComponent } from './company-tracker/company-tracker.compo
 import {MainListComponent} from "./main-list/main-list.component";
 import { CompanyConnectComponent } from './company-connect/company-connect.component';
 
-const routes: Routes = [ 
-      {
-        path: '', 
-        component: MainListComponent,
-      },
-      {
-        path: 'list',
-        component: MainListComponent,
-      },
-      {
-        path: 'job-tracker',
-        component: JobTrackerComponent
-      },
-      {
-        path: 'company-tracker',
-        component: CompanyTrackerComponent
-      },
-      {
-    path: 'company-connect',
-    loadChildren: () => import('./company-connect/company-connect.module').then(m => m.CompanyConnectModule)
+const routes: Routes = [
+  {
+    path: '',
+    redirectTo: 'list', // Redirect to a default route
+    pathMatch: 'full'
   },
   {
-        path: '',
-    redirectTo: 'company-connect',
-        pathMatch: 'full' // Ensures full match before redirecting
-      },
-  ];
+    path: 'list',
+    component: MainListComponent,
+  },
+  {
+    path: 'job-tracker',
+    component: JobTrackerComponent
+  },
+  {
+    path: 'company-tracker',
+    component: CompanyTrackerComponent
+  },
+  {
+    path: 'company-connect',
+    loadChildren: () => import('./company-connect/company-connect.module').then(m => m.CompanyConnectModule)
+  }
+];
 
 @NgModule({
   imports: [RouterModule.forChild(routes)],

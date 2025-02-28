@@ -27,9 +27,6 @@ import { CompanyTrackerComponent } from './company-tracker/company-tracker.compo
 import { CompanyListsComponent } from './company-tracker/company-list/company-list.component';
 import { CompanyDetailComponent } from './company-tracker/company-detail/company-detail.component';
 import { DropdownModule } from 'primeng/dropdown';
-import { CompanyConnectComponent } from './company-connect/company-connect.component';
-import { CompanyViewComponent } from './company-connect/company-view/company-view.component';
-import { CompanyConnectModule } from './company-connect/company-connect.module';
 
 @NgModule({
   declarations: [
