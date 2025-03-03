@@ -40,7 +40,6 @@ import { PaginatorModule } from 'primeng/paginator';
     CompanyTrackerComponent,
     CompanyListsComponent,
     CompanyDetailComponent,
-    CompanyConnectComponent
   ],
   imports: [
     CommonModule,
