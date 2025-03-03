@@ -28,6 +28,7 @@ import { CompanyDetailComponent } from './company-tracker/company-detail/company
 import { DropdownModule } from 'primeng/dropdown';
 import { CompanyConnectComponent } from './company-connect/company-connect.component';
 import { PaginatorModule } from 'primeng/paginator';
+import { EasyApplyComponent } from './easy-apply/easy-apply.component';
 
 @NgModule({
   declarations: [
