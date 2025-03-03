@@ -28,7 +28,7 @@ export class MainListComponent implements OnInit {
                 value: '1 M+ JOBS',
                 navigate_title: 'Apply',
                 navigate_url: '',
-                launch_soon: true,
+                launch_soon: false,
             },
             {
                 id: 3,
