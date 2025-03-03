@@ -144,7 +144,7 @@ export class FounderstoolService {
   }
 
   getFundCountries() {
-    return this.http.get<any>(environment.ApiUrl + "/getCountriesList", {
+    return this.http.get<any>(environment.ApiUrl + "/govtfundingCountry", {
       headers: this.headers
     });
   }
