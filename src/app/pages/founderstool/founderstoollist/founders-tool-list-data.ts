@@ -97,7 +97,7 @@ export const FoundersToolsData = [
         description: "This tool lets you build a cover letter with the help of a few easy steps.",
         image: domainUrl+"GovernmentFundingOpportunity.svg",
         url: "/pages/founderstool/governmentfunds",
-        launch_soon: true
+        launch_soon: false
     },
     {
         title: "Marketing Analysis",

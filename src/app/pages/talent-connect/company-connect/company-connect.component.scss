@@ -39,3 +39,14 @@
     color: #3f51b5;
     border-color: #3f51b5;
   }
+
+  .module-button {
+    border-radius: 10px;
+    font-weight: bold;
+    background-color: white;
+    color: var(--uniprep-primary);
+    &:hover, &:active, &:focus {
+      color: white;
+      background-color: var(--uniprep-primary);
+    }
+  }
