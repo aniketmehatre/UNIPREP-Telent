@@ -8,8 +8,6 @@ import { LocationService } from 'src/app/location.service';
 import { PageFacadeService } from '../../page-facade.service';
 import { UserManagementService } from '../../user-management/user-management.service';
 import { FounderstoolService } from '../founderstool.service';
-import { HttpHeaders, HttpParams } from '@angular/common/http';
-import { environment } from '@env/environment';
 import { Country } from 'ngx-intl-tel-input/lib/model/country.model';
 
 @Component({
@@ -116,7 +114,6 @@ export class GovermentFundingOppurtunityComponent implements OnInit {
     }
     this.checkUserRecommendation();
     this.getFundCountry();
-    this.getStateListByCountry();
     this.checkplanExpire();
     this.getFundType();
     this.GetPersonalProfileData();
@@ -150,8 +147,8 @@ export class GovermentFundingOppurtunityComponent implements OnInit {
     });
   }
 
-  getStateListByCountry() {
-    this.fundListService.getFundStateByCountry().subscribe(
+  getStateListByCountry(countryId: number) {
+    this.fundListService.getFundStateByCountry(countryId).subscribe(
       (res: any) => {
         this.stateList = res;
       },
@@ -173,9 +170,12 @@ export class GovermentFundingOppurtunityComponent implements OnInit {
     });
   }
 
+  changeCountryId(event: number) {
+    this.getStateListByCountry(event);
+  }
+
 
   loadFundData(isFavourite: number) {
-    debugger;
     if (isFavourite == 1) {
       this.data = {}
       this.data['favourite'] = 1;

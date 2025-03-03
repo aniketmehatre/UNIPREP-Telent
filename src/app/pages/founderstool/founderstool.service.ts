@@ -135,15 +135,16 @@ export class FounderstoolService {
     });
   }
 
-  getFundStateByCountry() {
+  getFundStateByCountry(countryId: number) {
     let params = new HttpParams();
-    return this.http.get<any>(environment.ApiUrl + "/govtfundingRegions", {
-      headers: this.headers
+    return this.http.post<any>(environment.ApiUrl + "/govtfundingRegions", {
+      headers: this.headers,
+      country_id: countryId
     });
   }
 
   getFundCountries() {
-    return this.http.get<any>(environment.ApiUrl + "/govtfundingCountry", {
+    return this.http.get<any>(environment.ApiUrl + "/getCountriesList", {
       headers: this.headers
     });
   }

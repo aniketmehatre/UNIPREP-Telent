@@ -27,11 +27,11 @@
 								</div>
 								<div class="col-md-6">
 									<ng-container *ngIf="recommendation.id == 1">
-										<p-multiSelect styleClass="w-100" placeholder="Select Your Country" [options]="countryList" display="chip" optionLabel="country" optionValue="id" [(ngModel)]="selectedData[recommendation.id]" [appendTo]="'body'"></p-multiSelect>
+										<p-dropdown styleClass="w-100" placeholder="Select Your Country" [options]="countryList" display="chip" optionLabel="country" optionValue="id" [(ngModel)]="selectedData[recommendation.id]" [appendTo]="'body'" (ngModelChange)="changeCountryId($event)"></p-dropdown>
 										<p class="text-center" [ngClass]="{ 'd-none': invalidClass === false }" style="color: red">Please Choose Any one option</p>
 									</ng-container>
 									<ng-container *ngIf="recommendation.id == 2">
-											<p-multiSelect styleClass="w-100" placeholder="Select Your State" [options]="stateList" display="chip" optionLabel="state" optionValue="id" [(ngModel)]="selectedData[recommendation.id]" [appendTo]="'body'"></p-multiSelect>
+											<p-multiSelect styleClass="w-100" placeholder="Select Your State" [options]="stateList" display="chip" optionLabel="state_name" optionValue="id" [(ngModel)]="selectedData[recommendation.id]"  [appendTo]="'body'"></p-multiSelect>
 											<p class="text-center" [ngClass]="{ 'd-none': invalidClass === false }" style="color: red">Please Choose Any one option</p>
 									</ng-container>
 									<ng-container *ngIf="recommendation.id == 3">
@@ -183,7 +183,7 @@
 									<div class="d-flex mt-2 gap-3 align-items-center font-bold">
 										<div class="d-flex gap-2 align-items-center" title="Scholarship Country">
 											<i class="fa-solid fa-link countryicon" aria-hidden="true"></i>
-											<p class="text-small mb-0">{{ fundData.website }}</p>
+											<p class="text-small mb-0 truncate w-[30px]">{{ fundData.website }}</p>
 										</div>
 										<div class="d-flex gap-2 align-items-center" title="Scholarship Home Country">
 											<i class="fa-solid fa-coins homecountryicon" aria-hidden="true"></i>
