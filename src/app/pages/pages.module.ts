@@ -92,6 +92,7 @@ import { JoboffercomparisontoolComponent } from "./job-tool/joboffercomparisonto
 import { JobOfferPreparedListComponent } from "./job-tool/joboffercomparisontool/preparedlist/preparedlist.component";
 import { GlobalRepositoryComponent } from './global-repository/global-repository.component';
 import { GlobalEmploymentComponent } from "./global-employment-insights/global-employment-insights.component";
+import { GlobalWorkVisaComponent } from "./global-work-visa/global-work-visa.component";
 
 // import { JobToolComponent } from './job-tool/job-tool.component';
 @NgModule({
@@ -140,7 +141,8 @@ import { GlobalEmploymentComponent } from "./global-employment-insights/global-e
     AverageSalaryPreparedListComponent,
     JoboffercomparisontoolComponent,
     JobOfferPreparedListComponent,
-    GlobalRepositoryComponent
+    GlobalRepositoryComponent,
+    GlobalWorkVisaComponent
   ],
   exports: [FooterStatusBoxComponent],
   imports: [

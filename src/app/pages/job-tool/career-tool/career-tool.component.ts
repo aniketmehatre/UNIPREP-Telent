@@ -140,7 +140,7 @@ export class CareerToolComponent implements OnInit {
       imageLink: this.domainUrl+"GlobalWorkVisa.svg",
       refLink: "",
       mode: "global-work-visa",
-      launch_soon: true
+      launch_soon: false
 
     },
     {
@@ -286,7 +286,7 @@ export class CareerToolComponent implements OnInit {
       this.router.navigate(['/pages/job-offer-comparison']);
     }
     else if (mode == "global-work-visa") {
-      this.router.navigate(['/pages/job-tool/global-work-visa']);
+      this.router.navigate(['/pages/global-work-visa']);
     }
     else if (mode == "career-hacks") {
       this.router.navigate(['/pages/career-hacks']);
