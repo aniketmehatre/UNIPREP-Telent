@@ -22,6 +22,10 @@ const routes: Routes = [
     path: 'company-connect',
     loadChildren: () => import('./company-connect/company-connect.module').then(m => m.CompanyConnectModule)
   },
+  {
+    path: 'easy-apply',
+    loadChildren: () => import('./easy-apply/easy-apply.module').then(m => m.EasyApplyModule)
+  },
 ];
 
 @NgModule({

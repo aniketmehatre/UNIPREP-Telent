@@ -1,0 +1,58 @@
+/* job-listing.component.scss */
+.card-inside {
+    border: 1px solid gray;
+    border-radius: 10px;
+    margin: 0; /* Remove extra margin */
+    padding: 10px; /* Keep padding inside */
+    text-align: left
+  }
+  
+  .card-header-inside {
+    padding-top: 1.25rem;
+    padding-bottom: 0.75rem;
+  }
+  
+  .share-button {
+    position: absolute;
+    top: 15px;
+    right: 15px;
+  }
+  
+  .btn-primary {
+    background-color: #3f51b5;
+    border-color: #3f51b5;
+  }
+  
+  .btn-outline-primary {
+    color: #3f51b5;
+    border-color: #3f51b5;
+    
+    &:hover {
+      background-color: #3f51b5;
+      color: white;
+    }
+  }
+  
+  .text-warning {
+    color: #ff9800 !important;
+  }
+  
+  .text-primary {
+    color: #3f51b5 !important;
+  }
+  
+  .text-success {
+    color: #4caf50 !important;
+  }
+  
+  .text-danger {
+    color: #f44336 !important;
+  }
+  
+  .text-secondary {
+    color: #9e9e9e !important;
+  }
+  
+  .fw-medium {
+    font-weight: 500;
+  }
