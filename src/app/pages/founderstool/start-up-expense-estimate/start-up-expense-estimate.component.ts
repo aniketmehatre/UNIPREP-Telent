@@ -10,6 +10,8 @@ import { FounderstoolService } from '../founderstool.service';
 import { startupDropdownData } from './startup-expense.data';
 import { TravelToolsService } from '../../travel-tools/travel-tools.service';
 import { DownloadRespose } from 'src/app/@Models/travel-tools.model';
+import { CostOfLivingService } from '../../job-tool/cost-of-living/cost-of-living.service';
+
 interface selectList {
   name: string;
 }
@@ -53,7 +55,9 @@ export class StartUpExpenseEstimateComponent implements OnInit {
   isRecommendationData: boolean = false;
   isRecommendationSavedData: boolean = false;
   recommendationData: string = '';
+  departureFilter: string = '';
   locationsList: any = [];
+  departureLocationList: any = [];
   constructor(
     private fb: FormBuilder,
     private foundersToolsService: FounderstoolService,
@@ -62,11 +66,13 @@ export class StartUpExpenseEstimateComponent implements OnInit {
     private authService: AuthService,
     private router: Router,
     private travelToolService: TravelToolsService,
-    private pageFacade: PageFacadeService
+    private pageFacade: PageFacadeService,
+    private costOfLiving: CostOfLivingService
   ) {
     this.marketingForm = this.fb.group({
       industry: ['', Validators.required],
       location: ['', Validators.required],
+      locationFilterString: [''],
       startup_stage: ['', Validators.required],
       team_size: ['', Validators.required],
       primary_expense: ['', Validators.required],
@@ -133,13 +139,27 @@ export class StartUpExpenseEstimateComponent implements OnInit {
 
   getCurrenyandLocation() {
     this.foundersToolsService.getCurrenciesList().subscribe((res: any) => {
-      console.log(res);
       this.currenciesList = res;
     });
-    this.foundersToolsService.getLocationList().subscribe((res: any) => {
-      console.log(res);
-      this.locationsList = res;
-    });
+    this.costOfLiving.getCities().subscribe({
+      next: response => {
+        this.locationsList = response;
+        this.departureLocationList = response;
+      }
+    })
+  }
+
+  customFilterFunction(type: string) {
+    if (type === 'departure') {
+      let locationFilterString = this.marketingForm.value.locationFilterString;
+      if (locationFilterString === "") {
+        this.departureLocationList = this.locationsList;
+        return;
+      }
+      this.departureLocationList = this.locationsList.filter((city: any) =>
+        city?.city_name?.toLowerCase().includes(locationFilterString.toLowerCase()) || city?.country_name?.toLowerCase().includes(locationFilterString.toLowerCase())
+      );
+    }
   }
 
   checkplanExpire(): void {
