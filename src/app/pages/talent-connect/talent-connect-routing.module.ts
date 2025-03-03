@@ -3,7 +3,6 @@ import { RouterModule, Routes } from '@angular/router';
 import { JobTrackerComponent } from './job-tracker/job-tracker.component';
 import { CompanyTrackerComponent } from './company-tracker/company-tracker.component';
 import {MainListComponent} from "./main-list/main-list.component";
-import { CompanyConnectComponent } from './company-connect/company-connect.component';
 
 const routes: Routes = [
   {
