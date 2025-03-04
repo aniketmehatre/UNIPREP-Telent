@@ -40,3 +40,45 @@
 input[type="checkbox"] {
   zoom: 1.0;
 }
+
+.card-inside {
+  border-radius: 12px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  margin-bottom: 20px;
+  border: 1px solid var(--uniprep-secondary);
+}
+
+.card:hover {
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+}
+
+.card-title {
+  font-size: 16px;
+  font-weight: 600;
+  color: #333;
+}
+
+.form-check-input {
+  width: 20px;
+  height: 20px;
+}
+
+.text-muted {
+  font-size: 12px;
+}
+
+/* Custom color for the selected card border */
+.border-primary {
+  border: 1px solid var(--uniprep-secondary) !important;
+  border-radius: 10px;
+  &:hover {
+    background-color: lightcyan;
+    border-color: var(--uniprep-primary);
+  }
+}
+
+/* India emblem image container */
+.col-3 img {
+  max-width: 100%;
+  height: auto;
+}

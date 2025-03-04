@@ -56,3 +56,51 @@
   .fw-medium {
     font-weight: 500;
   }
+
+  :host ::ng-deep .p-dropdown {
+    width: 100%;
+  }
+  
+  :host ::ng-deep .p-inputtext {
+    width: 100%;
+  }
+  
+  :host ::ng-deep .filter-modal .p-dialog-header {
+    border-bottom: 1px solid #e9ecef;
+    padding: 1rem !important;
+  }
+  
+  :host ::ng-deep .filter-modal .p-dialog-content {
+    padding: 1.5rem;
+  }
+  
+  :host ::ng-deep .filter-modal .p-dialog-footer {
+    border-top: 1px solid #e9ecef;
+    padding: 1.5rem;
+  }
+  
+  .form-label {
+    margin-bottom: 5px;
+    font-weight: 300;
+    font-size: 12px;
+  }
+  
+  button.p-button-primary {
+    background-color: var(--uniprep-primary);  
+  color: white;}
+  
+  button.p-button-secondary {
+    color: #3f51b5;
+    border-color:var(--uniprep-primary);;
+  }
+
+  .module-button {
+    border-radius: 10px;
+    font-weight: bold;
+    background-color: white;
+    color: var(--uniprep-primary);
+    &:hover, &:active, &:focus {
+      color: white;
+      background-color: var(--uniprep-primary);
+    }
+  }
