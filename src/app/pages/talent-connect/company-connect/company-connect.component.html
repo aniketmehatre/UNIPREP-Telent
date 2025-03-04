@@ -2,14 +2,14 @@
     <div class="card-header border-0 bg-transparent">
         <div class="row">
             <div class="col-md-12 d-flex gap-2 text-center">
-                <div class="backIcon d-md-flex d-none" role="button" routerLink="/pages/talent-connect">
+                <div class="backIcon d-md-flex d-none" role="button" routerLink="/pages/talent-connect/list">
                     <span class="fa-solid fa-chevron-left"></span>
                 </div>
                 <div class="select-title d-flex justify-content-between align-items-center">
                     <div>
                         <h5 class="mb-0" tooltipPosition="top"
                             pTooltip="Questions related to the application process are answered">
-                            Company Tracker<i class="questiontooltip fa-solid fa-circle-question"></i>
+                            Company Connect<i class="questiontooltip fa-solid fa-circle-question"></i>
                         </h5>
                     </div>
                     <div>
@@ -27,7 +27,17 @@
     </div>
     <div class="card-body text-center flex-fill overflow-y-auto">
         <div class="row">
-            <div class="col-12 col-md-4 col-lg-3 mt-2" *ngFor="let company of companyDataList" [routerLink]="['/pages/company-connect/company',1]">
+            <div class="d-flex gap-2 justify-content-center">
+                <button type="button"
+                class="p-2 px-4 mb-4 mt-3 module-button" style='background-color: var(--uniprep-primary); color: white' routerLink="/pages/talent-connect/company-connect">Company Search
+               </button>
+               <button type="button" 
+               class="p-2 px-4 mb-4 mt-3 module-button"  routerLink="/pages/talent-connect/company-tracker">Company Tracker
+              </button>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-12 col-md-4 col-lg-3 mt-2" *ngFor="let company of companyDataList" [routerLink]="['/pages/talent-connect/company-connect',1]">
                 <div class="card-inside" style="border-radius: 10px; margin-bottom: 20px; transition: transform 0.3s; border: 1px solid #e9ecef;" [style.border]=" company.verified ? '1px solid #FDA172' : '1px solid #e9ecef'">
                     <div class="card-body">
                         <div class="row mb-3">
@@ -114,12 +124,12 @@
                 </div>
             </div>
         </div>
+  </div>
+<div class="card-footer border-0 bg-transparent">
+    <div class="row d-flex align-items-center justify-content-between">
+        <p-paginator *ngIf="totalCount != 0" [rows]="pageSize" [totalRecords]="totalPitchDeckCount" [first]="(page - 1) * pageSize" (onPageChange)="pageChange($event)" [rowsPerPageOptions]="[50, 100, 300, 500, 1000]" [disabled]="totalPitchDeckCount <= pageSize"> </p-paginator>
     </div>
-    <div class="card-footer border-0 bg-transparent">
-		<div class="row d-flex align-items-center justify-content-between">
-			<p-paginator *ngIf="totalCount != 0" [rows]="pageSize" [totalRecords]="totalPitchDeckCount" [first]="(page - 1) * pageSize" (onPageChange)="pageChange($event)" [rowsPerPageOptions]="[50, 100, 300, 500, 1000]" [disabled]="totalPitchDeckCount <= pageSize"> </p-paginator>
-		</div>
-	</div>
+</div>
 </div>
 <div class="p-4">
     <p-dialog 

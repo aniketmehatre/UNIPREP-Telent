@@ -1,6 +1,5 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { TalentConnectComponent } from './talent-connect.component';
 import { DialogModule } from 'primeng/dialog';
 import { TalentConnectRoutingModule } from './talent-connect-routing.module';
 import { CardModule } from 'primeng/card';
@@ -29,10 +28,10 @@ import { CompanyDetailComponent } from './company-tracker/company-detail/company
 import { DropdownModule } from 'primeng/dropdown';
 import { CompanyConnectComponent } from './company-connect/company-connect.component';
 import { PaginatorModule } from 'primeng/paginator';
+import { EasyApplyComponent } from './easy-apply/easy-apply.component';
 
 @NgModule({
   declarations: [
-    TalentConnectComponent,
     JobTrackerComponent,
     JobChatUiComponent,
     JobListComponent,
@@ -42,7 +41,6 @@ import { PaginatorModule } from 'primeng/paginator';
     CompanyTrackerComponent,
     CompanyListsComponent,
     CompanyDetailComponent,
-    CompanyConnectComponent
   ],
   imports: [
     CommonModule,

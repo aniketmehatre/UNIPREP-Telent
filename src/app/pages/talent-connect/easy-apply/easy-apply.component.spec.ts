@@ -1,18 +1,18 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { TalentConnectComponent } from './talent-connect.component';
+import { EasyApplyComponent } from './easy-apply.component';
 
-describe('TalentConnectComponent', () => {
-  let component: TalentConnectComponent;
-  let fixture: ComponentFixture<TalentConnectComponent>;
+describe('EasyApplyComponent', () => {
+  let component: EasyApplyComponent;
+  let fixture: ComponentFixture<EasyApplyComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ TalentConnectComponent ]
+      declarations: [ EasyApplyComponent ]
     })
     .compileComponents();
 
-    fixture = TestBed.createComponent(TalentConnectComponent);
+    fixture = TestBed.createComponent(EasyApplyComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

@@ -97,7 +97,11 @@ export class AverageSalaryPreparedListComponent implements OnInit {
       if(values.id == 1){
         currentAnswer = this.prepData.role;
       }else if(values.id == 2){
-        currentAnswer = this.prepData.experience+ " Years";
+        if(this.prepData.experience === 1){
+          currentAnswer = " Fresher";
+        }else{
+          currentAnswer = this.prepData.experience+ this.prepData.experience == 2 ? " Year" : " Years";
+        }
       }else if(values.id == 3){
         currentAnswer = this.prepData.worktype_name;
       }else if(values.id == 4){

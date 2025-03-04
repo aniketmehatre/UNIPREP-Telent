@@ -46,7 +46,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="col-12 mt-4 p-2">
+                <!-- <div class="col-12 mt-4 p-2">
                     <div class="form-group">
                         <h3>Select Your Preferred Currency</h3>
                         <p-select [options]="countries" styleClass="w-100 border-primary" formControlName="currency"
@@ -60,7 +60,7 @@
                             Currency is required.
                         </div>
                     </div>
-                </div>
+                </div> -->
             </div>
             <button pButton  pButton class="btn btn-success btn-rounded footer-btn" type="submit">
                 <span class="me-2">Get Recommendations</span>
@@ -117,7 +117,7 @@
                     </button>
                 </div>
                 <markdown emoji>
-                    <div class="card p-3" [innerHtml]="customizedResponse"></div>
+                    <div class="card p-3 poppins-content" [innerHtml]="customizedResponse"></div>
                 </markdown>
             </div>
             <div class="col-md-2"></div>

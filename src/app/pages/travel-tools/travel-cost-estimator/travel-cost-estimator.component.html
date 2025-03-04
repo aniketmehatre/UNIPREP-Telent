@@ -150,12 +150,12 @@
                                         <p class="text-center" [ngClass]="{ 'd-none': invalidClass === false }"
                                            style="color: red">Please Choose Any one option</p>
                                     </ng-container>
-                                    <ng-container *ngIf="recommendation.id == 5">
-                                        <p-select [options]="currencyList"
-                                                    [(ngModel)]="selectedData[recommendation.id]" optionLabel="currency_code"
-                                                    optionValue="currency_code" [appendTo]="'body'"
-                                                    placeholder="Select Preferred Currency" [filter]="true" [showClear]="true"
-                                                    styleClass="w-100">
+                                    <!-- <ng-container *ngIf="recommendation.id == 5">
+                                        <p-dropdown [options]="currencyList"
+                                            [(ngModel)]="selectedData[recommendation.id]" optionLabel="currency_code"
+                                            optionValue="currency_code" [appendTo]="'body'"
+                                            placeholder="Select Preferred Currency" [filter]="true" [showClear]="true"
+                                            styleClass="w-100">
                                             <ng-template let-data pTemplate="item">
                                                 <div>{{data.country}} - {{data.currency_code}}</div>
                                             </ng-template>
@@ -180,6 +180,8 @@
                                         <p class="text-center" [ngClass]="{ 'd-none': invalidClass === false }"
                                            style="color: red">Please Choose Any one option</p>
                                     </ng-container>
+                                            style="color: red">Please Choose Any one option</p>
+                                    </ng-container> -->
                                 </div>
                             </div>
                         </div>
@@ -190,12 +192,12 @@
                                     class="ms-2">Previous</span>
                             </button>
                             <button pButton type="button" (click)="next(recommendation.id)"
-                                    *ngIf="recommendation.id != 5" class="btn btn-primary btn-rounded p-1 ps-4">
+                                *ngIf="recommendation.id != 4" class="btn btn-primary btn-rounded p-1 ps-4">
                                 <span class="me-2">Next</span><span class="btn-icon px-2 py-2"><i
                                     class="fa fa-arrow-right"></i></span>
                             </button>
-                            <button pButton type="button" (click)="getRecommendation()" *ngIf="recommendation.id == 5"
-                                    class="btn btn-success btn-rounded p-1 ps-4">
+                            <button pButton type="button" (click)="getRecommendation()" *ngIf="recommendation.id == 4"
+                                class="btn btn-success btn-rounded p-1 ps-4">
                                 <span class="me-2">Get Recommendations</span><span class="btn-icon px-2 py-2"><i
                                     class="fa fa-check-circle"></i></span>
                             </button>

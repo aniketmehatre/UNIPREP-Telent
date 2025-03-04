@@ -14,7 +14,7 @@ export class MainListComponent implements OnInit {
         this.talentConnectMainList = [
             {
                 id: 1,
-                title: 'Your Profile',
+                title: 'YOUR PROFILE',
                 image: this.domainUrl + "TripLengthFinder.svg",
                 value: '1 M+ Profiles',
                 navigate_title: 'Create Profile',
@@ -23,40 +23,40 @@ export class MainListComponent implements OnInit {
             },
             {
                 id: 2,
-                title: "Easy Apply",
+                title: "EASY APPLY",
                 image: this.domainUrl + "TripLengthFinder.svg",
                 value: '1 M+ JOBS',
                 navigate_title: 'Apply',
-                navigate_url: '',
-                launch_soon: true,
+                navigate_url: '/pages/talent-connect/easy-apply',
+                launch_soon: false,
             },
             {
                 id: 3,
-                title: "Company Connect",
+                title: "COMPANY CONNECT",
                 image: this.domainUrl + "TripLengthFinder.svg",
                 value: '1 M+ JOBS',
                 navigate_title: 'Connect',
-                navigate_url: '/pages/talent-connect/company-connect/company',
+                navigate_url: '/pages/talent-connect/company-connect',
                 launch_soon: false,
             },
-            {
-                id: 4,
-                title: "Job Tracker",
-                image: this.domainUrl + "TripLengthFinder.svg",
-                value: '1 M+ JOBS',
-                navigate_title: 'Track',
-                navigate_url: '/pages/talent-connect/job-tracker',
-                launch_soon: false,
-            },
-            {
-                id: 5,
-                title: "Company Tracker",
-                image: this.domainUrl + "TripLengthFinder.svg",
-                value: '1 M+ JOBS',
-                navigate_title: 'Track',
-                navigate_url: '/pages/talent-connect/company-tracker',
-                launch_soon: false,
-            }
+            // {
+            //     id: 4,
+            //     title: "Job Tracker",
+            //     image: this.domainUrl + "TripLengthFinder.svg",
+            //     value: '1 M+ JOBS',
+            //     navigate_title: 'Track',
+            //     navigate_url: '/pages/talent-connect/job-tracker',
+            //     launch_soon: false,
+            // },
+            // {
+            //     id: 5,
+            //     title: "Company Tracker",
+            //     image: this.domainUrl + "TripLengthFinder.svg",
+            //     value: '1 M+ JOBS',
+            //     navigate_title: 'Track',
+            //     navigate_url: '/pages/talent-connect/company-tracker',
+            //     launch_soon: false,
+            // }
         ]
     }
 

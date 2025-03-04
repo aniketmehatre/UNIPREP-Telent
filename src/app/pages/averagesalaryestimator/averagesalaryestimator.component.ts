@@ -68,10 +68,10 @@ export class AverageSalaryComponent implements OnInit {
       id: 5,
       question: "What is your work type",
     },
-    {
-      id: 6,
-      question: "Select your Preferred Currency",
-    },
+    // {
+    //   id: 6,
+    //   question: "Select your Preferred Currency",
+    // },
   ];
   ngOnInit() {
     this.selectedData = {};
@@ -184,7 +184,7 @@ export class AverageSalaryComponent implements OnInit {
   preparedvisibility = false;
   getRecommendation() {
     this.invalidClass = false;
-    if (this.selectedData[6] == null) {
+    if (this.selectedData[5] == null) {
       this.invalidClass = true;
       return;
     }
@@ -204,7 +204,7 @@ export class AverageSalaryComponent implements OnInit {
       locationid: this.selectedData[4]?.city_id,
       location_name: this.selectedData[4]?.city_name+', '+this.selectedData[4]?.country_name,
       experience: this.selectedData[2],
-      currency: this.selectedData[6],
+      // currency: this.selectedData[6],
     };
     this.prepData = processedData;
   }

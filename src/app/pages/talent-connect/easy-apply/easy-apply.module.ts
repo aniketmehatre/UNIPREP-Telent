@@ -1,37 +1,39 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { CompanyConnectComponent } from './company-connect.component';
-import { CompanyViewComponent } from './company-view/company-view.component';
+import { EasyApplyComponent } from './easy-apply.component';
 import { RouterModule, Routes } from '@angular/router';
+import { CompanyViewComponent } from '../company-connect/company-view/company-view.component';
 import { ChipModule } from 'primeng/chip';
-import { TalentConnectModule } from '../talent-connect.module';
 import { DialogModule } from 'primeng/dialog';
 import { DropdownModule } from 'primeng/dropdown';
 import { PaginatorModule } from 'primeng/paginator';
+import { TalentConnectModule } from '../talent-connect.module';
+import { JobViewComponent } from './job-view/job-view.component';
+import { ButtonModule } from 'primeng/button';
 
 const routes: Routes = [
   {
     path: '',
-    component: CompanyConnectComponent,
+    component: EasyApplyComponent,
   },
   {
     path: ':id',
-    component: CompanyViewComponent
+    component: JobViewComponent
   }
 ]
 
+
+
 @NgModule({
-  // declarations: [CompanyViewComponent],
-  // imports: [RouterModule.forChild(routes)]
-  declarations: [CompanyViewComponent, CompanyConnectComponent],
+  declarations: [EasyApplyComponent, JobViewComponent],
   imports: [
     CommonModule,
     RouterModule.forChild(routes),
     ChipModule,
-    TalentConnectModule,
     DialogModule,
     DropdownModule,
-    PaginatorModule
+    PaginatorModule,
+    ButtonModule
   ]
 })
-export class CompanyConnectModule { }
+export class EasyApplyModule { }

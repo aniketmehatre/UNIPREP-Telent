@@ -78,6 +78,7 @@ export class GlobalTravelVisaComponent implements OnInit {
     const modeName:{[key: string]: string}={
       "travel-visa": "global_travel_visa",
       "enterpreneur-visa": "global_entrepreneur_visa",
+      "study-visa": "global_study_visa"
     }
     this.modeName=modeName[currentEndpoint] || "";
   }
@@ -124,6 +125,7 @@ export class GlobalTravelVisaComponent implements OnInit {
     this.isRecommendationData = true;
     this.isRecommendationSavedData = false;
     this.isRecommendationEachVisaNameData=false;
+    this.recommendationDataList=[];
     let data = {
       // source_id: this.selectedData[1],
       country: this.selectedData[2],
@@ -153,6 +155,7 @@ export class GlobalTravelVisaComponent implements OnInit {
     this.isRecommendationData = false;
     this.isRecommendationSavedData = false;
     this.isRecommendationEachVisaNameData=true;
+    this.eachVisaNameCategory=[];
     const bridgingVisaData = this.recomendationData.filter(item => item.visa_name === name);
     const uniqueVisaCategory = Array.from(
       new Set(bridgingVisaData.map(item => item.question_category)) // Extract unique visa category names
@@ -239,6 +242,7 @@ export class GlobalTravelVisaComponent implements OnInit {
     }
   }
   viewQuestions(category:any){
+    this.visaCategoryQuestionList=[];
     this.isRecommendationQuestion = false; 
     this.isRecommendationData = false;
     this.isRecommendationSavedData = true;

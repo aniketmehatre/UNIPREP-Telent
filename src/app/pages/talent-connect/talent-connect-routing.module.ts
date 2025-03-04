@@ -1,13 +1,10 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { TalentConnectComponent } from './talent-connect.component';
 import { JobTrackerComponent } from './job-tracker/job-tracker.component';
 import { CompanyTrackerComponent } from './company-tracker/company-tracker.component';
 import {MainListComponent} from "./main-list/main-list.component";
-import { CompanyConnectComponent } from './company-connect/company-connect.component';
 
 const routes: Routes = [
-
   {
     path: 'list',
     component: MainListComponent,
@@ -22,12 +19,11 @@ const routes: Routes = [
   },
   {
     path: 'company-connect',
-    component: CompanyConnectComponent
+    loadChildren: () => import('./company-connect/company-connect.module').then(m => m.CompanyConnectModule)
   },
   {
-    path: '',
-    redirectTo: 'list', // Redirect to a default route
-    pathMatch: 'full'
+    path: 'easy-apply',
+    loadChildren: () => import('./easy-apply/easy-apply.module').then(m => m.EasyApplyModule)
   },
 ];
 

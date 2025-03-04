@@ -45,7 +45,7 @@ export class TravelToolsListComponent implements OnInit {
        
         image: this.domainUrl+"GlobalTravelVisa.svg",
         url: "/pages/travel-tools/travel-visa",
-        launch_soon: false
+        launch_soon: true
       },
       {
         title: "Travel Cost Estimator",
