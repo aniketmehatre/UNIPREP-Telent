@@ -9,6 +9,7 @@ export interface EducatiionsRec {
 
 export interface CourseNavigator {
   id: number;
+  course_id: number
   degree_id: number;
   question: string;
   answer: string;
