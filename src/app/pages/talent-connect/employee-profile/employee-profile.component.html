@@ -1,0 +1,899 @@
+<div class="card readingcard h-100">
+    <div class="card-header border-0 bg-transparent">
+        <div class="row">
+            <div class="col-md-12 d-flex gap-2 text-center">
+                <div class="backIcon d-md-flex d-none" role="button" routerLink="/pages/talent-connect/list">
+                    <span class="fa-solid fa-chevron-left"></span>
+                </div>
+                <div class="select-title d-flex justify-content-between align-items-center">
+                    <div>
+                        <h5 class="mb-0" tooltipPosition="top"
+                            pTooltip="Questions related to the application process are answered">
+                            Employee Profile<i class="questiontooltip fa-solid fa-circle-question"></i>
+                        </h5>
+                    </div>
+                    <div>
+                        <button class="how-it-works-button" (click)="openVideoPopup('')">
+                            How it works?<i class="fa-solid fa-play d-md-block d-none"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+            <!-- <div class="col-md-3 mt-2 text-end desktop justify-content-end d-none d-md-flex"></div> -->
+        </div>
+    </div>
+    <div class="card-body text-center flex-fill overflow-y-auto">
+        <div class="row">
+            <div class="col-md-9 col-lg-8">
+                <div class="container mt-4">
+                    <div
+                        class="w-100 bg-primary rounded-top-4 text-start d-flex justify-content-between align-items-center">
+                        <h5 class="text-white py-2 px-2 fw-medium">Edit your Profile</h5>
+                        <div class="d-flex gap-2 mx-2 px-2">
+                            <button class="button-profile-top rounded-pill px-3 py-1">
+                                Profile Sample
+                            </button>
+                            <button class="button-profile-top rounded-pill px-3 py-1">
+                                Profile Preview
+                            </button>
+                        </div>
+                    </div>
+                    <div class="mt-2">
+                        <form [formGroup]="personalInfoForm" (ngSubmit)="onSubmit()">
+                            <div class="card p-4">
+                                <div class="card-body">
+                                    <h2 class="card-title mb-4">Personal Information</h2>
+
+                                    <div class="row">
+                                        <!-- Photo Upload Section -->
+                                        <div class="col-md-3">
+                                            <div class="text-center mb-3 p-3 bg-light rounded">
+                                                <div class="position-relative mx-auto mb-3"
+                                                    style="width: 120px; height: 120px">
+                                                    <div class="bg-secondary bg-opacity-25 d-flex justify-content-center align-items-center rounded-circle"
+                                                        style="width: 120px; height: 120px">
+                                                        <i class="pi pi-user"
+                                                            style="font-size: 3rem; color: #6c757d"></i>
+                                                    </div>
+                                                </div>
+
+                                                <div class="d-flex justify-content-center gap-2 mb-3">
+                                                    <p-button label="Upload Photo" icon="pi pi-upload"
+                                                        (onClick)="onUploadPhoto()" styleClass="p-button-sm"></p-button>
+                                                    <p-button label="Remove Photo" icon="pi pi-times"
+                                                        (onClick)="onRemovePhoto()"
+                                                        styleClass="p-button-sm p-button-outlined"></p-button>
+                                                </div>
+
+                                                <small class="text-muted d-block">
+                                                    You have to upload a close, straight faced photo with
+                                                    plain background.
+                                                </small>
+
+                                                <div class="d-flex justify-content-center mt-3">
+                                                    <!-- <div class="row g-1">
+                            <div
+                              class="col-4"
+                              *ngFor="let i of [1, 2, 3, 4, 5, 6]"
+                            >
+                              <div class="position-relative">
+                                <img
+                                  src="assets/sample-photo-{{ i }}.jpg"
+                                  class="img-fluid border"
+                                  alt="Sample photo"
+                                  style="
+                                    width: 60px;
+                                    height: 60px;
+                                    object-fit: cover;
+                                  "
+                                />
+                                <div
+                                  class="position-absolute top-0 end-0"
+                                  *ngIf="i <= 3"
+                                >
+                                  <i
+                                    class="pi pi-times-circle"
+                                    style="color: red; font-size: 1.2rem"
+                                  ></i>
+                                </div>
+                              </div>
+                            </div>
+                          </div> -->
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-9">
+                                            <div class="row mb-3">
+                                                <!-- Full Name -->
+                                                <div class="col-md-6">
+                                                    <label for="fullName" class="form-label">Full Name <span
+                                                            class="text-danger">*</span></label>
+                                                    <div class="p-inputgroup">
+                                                        <input pInputText id="fullName" formControlName="fullName"
+                                                            placeholder="Alexanne Stant" class="form-control" />
+                                                    </div>
+                                                    <small class="text-danger" *ngIf="personalInfoForm.get('fullName')?.invalid &&personalInfoForm.get('fullName')?.touched">
+                                                        This field is mandatory
+                                                    </small>
+                                                </div>
+
+                                                <!-- Date of Birth -->
+                                                <div class="col-md-6">
+                                                    <label for="dateOfBirth" class="form-label">Date of Birth</label>
+                                                    <p-calendar id="dateOfBirth" formControlName="dateOfBirth"
+                                                        [showIcon]="false" dateFormat="dd/mm/yy"
+                                                        placeholder="DD/MM/YYYY" styleClass="w-100"></p-calendar>
+                                                </div>
+                                            </div>
+
+                                            <div class="row mb-3">
+                                                <!-- Gender -->
+                                                <div class="col-md-6">
+                                                    <label for="gender" class="form-label">Gender</label>
+                                                    <p-dropdown id="gender" formControlName="gender"
+                                                        [options]="genderOptions" placeholder="Select your gender"
+                                                        styleClass="w-100" optionLabel="label"
+                                                        optionValue="value"></p-dropdown>
+                                                </div>
+
+                                                <!-- Nationality -->
+                                                <div class="col-md-6">
+                                                    <label for="nationality" class="form-label">Nationality</label>
+                                                    <p-dropdown id="nationality" formControlName="nationality"
+                                                        [options]="nationalityOptions"
+                                                        placeholder="Select your nationality" styleClass="w-100"
+                                                        optionLabel="label" optionValue="value" [filter]="true"
+                                                        filterBy="label"></p-dropdown>
+                                                </div>
+                                            </div>
+
+                                            <!-- Current Location -->
+                                            <div class="row mb-3">
+                                                <div class="col-12">
+                                                    <label for="location" class="form-label">Current Location (City,
+                                                        Country)</label>
+                                                    <p-dropdown id="location" formControlName="location"
+                                                        [options]="locationOptions"
+                                                        placeholder="Select your current location" styleClass="w-100"
+                                                        optionLabel="label" optionValue="value" [filter]="true"
+                                                        filterBy="label"></p-dropdown>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <hr />
+                                <div class="card-body">
+                                    <h2 class="card-title mb-4">Education Details</h2>
+                                    <ng-container class="education" formArrayName="educationDetails">
+                                        <ng-container *ngFor="let education of educationDetails.controls; let i = index" [formGroupName]="i">
+                                            <div class="row mb-3">
+                                                <!-- Highest Qualification -->
+                                                <div class="col-md-6">
+                                                    <label for="highestQualification" class="form-label">Highest
+                                                        Qualification</label>
+                                                    <p-dropdown id="highestQualification"
+                                                        formControlName="highestQualification"
+                                                        [options]="qualificationOptions"
+                                                        placeholder="Select your highest qualification" styleClass="w-100"
+                                                        optionLabel="label" optionValue="value"></p-dropdown>
+                                                </div>
+    
+                                                <!-- University/Institution Name -->
+                                                <div class="col-md-6">
+                                                    <label for="university" class="form-label">University / Institution
+                                                        Name</label>
+                                                    <div class="p-inputgroup">
+                                                        <input pInputText id="university" formControlName="university"
+                                                            placeholder="Enter your university / institution Name"
+                                                            class="form-control" />
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="row mb-3">
+                                                <!-- Field of Study / Major -->
+                                                <div class="col-md-6">
+                                                    <label for="fieldOfStudy" class="form-label">Field of Study /
+                                                        Major</label>
+                                                    <div class="p-inputgroup">
+                                                        <input pInputText id="fieldOfStudy" formControlName="fieldOfStudy"
+                                                            placeholder="Enter your field of study" class="form-control" />
+                                                    </div>
+                                                </div>
+    
+                                                <!-- Course Name -->
+                                                <div class="col-md-6">
+                                                    <label for="courseName" class="form-label">Course Name</label>
+                                                    <div class="p-inputgroup">
+                                                        <input pInputText id="courseName" formControlName="courseName"
+                                                            placeholder="Enter your course name" class="form-control" />
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="row mb-3">
+                                                <!-- Field of Study / Major -->
+                                                <div class="col-md-6">
+                                                    <label for="fieldOfStudy" class="form-label">Gradusation Year</label>
+                                                    <div class="p-inputgroup">
+                                                        <input pInputText id="fieldOfStudy" formControlName="graduationYear"
+                                                            placeholder="Enter your field of study" class="form-control" />
+                                                    </div>
+                                                </div>
+    
+                                                <!-- Course Name -->
+                                                <div class="col-md-6">
+                                                    <label for="courseName" class="form-label">GPA Percentage</label>
+                                                    <div class="p-inputgroup">
+                                                        <input pInputText id="courseName" formControlName="percentage"
+                                                            placeholder="Enter your course name" class="form-control" />
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </ng-container>
+                                    </ng-container>
+                                    <div class="row mb-3">
+                                        <button class="w-full p-3 rounded-3">
+                                            Add More &nbsp;<i class="fa fa-plus" (click)="addEducation();"></i>
+                                        </button>
+                                    </div>
+                                </div>
+                                <hr />
+                                <div class="card-body">
+                                    <h2 class="card-title mb-4">Work Experience</h2>
+                                    <ng-container class="work-experience"  formArrayName="workExperience">
+                                        <ng-container *ngFor="let experience of workExperience.controls; let i = index" 
+                                        [formGroupName]="i">
+                                            <div class="row mb-3">
+                                                <div class="col-md-6">
+                                                    <label for="highestQualification" class="form-label">Total Years of
+                                                        Experience</label>
+                                                    <p-dropdown id="highestQualification"
+                                                        formControlName="totalExperience"
+                                                        [options]="qualificationOptions"
+                                                        placeholder="Select total experience" styleClass="w-100"
+                                                        optionLabel="label" optionValue="value"></p-dropdown>
+                                                </div>
+                                            </div>
+                                            <h5 class="card-title mb-4">Work Experience Details</h5>
+                                            <div class="row mb-3">
+                                                <div class="col-md-6">
+                                                    <label for="highestQualification" class="form-label">Years of
+                                                        Experience</label>
+                                                    <p-dropdown id="highestQualification"
+                                                        formControlName="totalExperience"
+                                                        [options]="qualificationOptions"
+                                                        placeholder="Enter total years of experience" styleClass="w-100"
+                                                        optionLabel="label" optionValue="value"></p-dropdown>
+                                                </div>
+    
+                                                <!-- University/Institution Name -->
+                                                <div class="col-md-6">
+                                                    <label for="university" class="form-label">Company Name</label>
+                                                    <div class="p-inputgroup">
+                                                        <input pInputText id="university" formControlName="companyName"
+                                                            placeholder="Enter your company" class="form-control" />
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="row mb-3">
+                                                <!-- Field of Study / Major -->
+                                                <div class="col-md-6">
+                                                    <label for="fieldOfStudy" class="form-label">Job Title</label>
+                                                    <div class="p-inputgroup">
+                                                        <input pInputText id="fieldOfStudy" formControlName="jobTitle"
+                                                            placeholder="Enter job title" class="form-control" />
+                                                    </div>
+                                                </div>
+    
+                                                <!-- Course Name -->
+                                                <div class="col-md-6">
+                                                    <label for="courseName" class="form-label">Employment Type</label>
+                                                    <div class="p-inputgroup">
+                                                        <p-dropdown id="highestQualification"
+                                                            formControlName="employmentType"
+                                                            [options]="qualificationOptions"
+                                                            placeholder="Select employement type" styleClass="w-100"
+                                                            optionLabel="label" optionValue="value"></p-dropdown>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="row mb-4">
+                                                <!-- Duration Field -->
+                                                <div class="col-md-6 mb-3">
+                                                    <label for="duration" class="form-label">Duration</label>
+                                                    <p-calendar id="duration" selectionMode="range" dateFormat="dd/mm/yy"
+                                                        placeholder="DD/MM/YYYY To DD/MM/YYYY" formControlName="duration"
+                                                        styleClass="p-inputtext w-100" [showIcon]="false"></p-calendar>
+                                                </div>
+    
+                                                <!-- Salary Field -->
+                                                <div class="col-md-6 mb-3">
+                                                    <label for="salary" class="form-label">Salary / Month</label>
+                                                    <div class="d-flex w-100">
+                                                        <div class="flex-grow-1 me-2">
+                                                            <p-inputNumber id="salary" placeholder="Enter your salary/month"
+                                                                styleClass="p-inputtext w-100" [showButtons]="false"
+                                                                class="w-100" formControlName="salary"></p-inputNumber>
+                                                        </div>
+                                                        <p-dropdown [options]="[{ label: 'INR', value: 'INR' }]"
+                                                            styleClass="p-dropdown p-component" placeholder="INR" formControlName="salaryCurrency"
+                                                            [style]="{ width: '80px' }">
+                                                        </p-dropdown>
+                                                    </div>
+                                                </div>
+                                            </div>
+    
+                                            <div class="row mb-4">
+                                                <!-- Job Responsibilities Field -->
+                                                <div class="col-md-6 mb-3">
+                                                    <label for="responsibilities" class="form-label">Job
+                                                        Responsibilities</label>
+                                                    <textarea pTextarea id="responsibilities" class="form-control w-100"
+                                                        placeholder="Enter your Job Responsibilities & Key Achievements"
+                                                        rows="5" maxlength="200" formControlName="jobResponsibilities"></textarea>
+                                                </div>
+    
+                                                <!-- Experience Letter Upload -->
+                                                <div class="col-md-6 mb-3">
+                                                    <label class="form-label fw-medium">Experience Letter
+                                                        <span class="text-muted">(Optional)</span></label>
+                                                    <div class="upload-box" (click)="fileUpload.click()">
+                                                        <div
+                                                            class="d-flex align-items-center justify-center-center flex-column mt-3">
+                                                            <i
+                                                                class="pi pi-cloud-upload !border-2 !rounded-full !p-8 !text-4xl !text-muted-color fw-bold"></i>
+                                                            <div class="fw-bold">
+                                                                Upload your Experience Letter
+                                                            </div>
+                                                        </div>
+                                                        <p-fileUpload mode="basic" [hidden]="true" [auto]="true"
+                                                            accept="image/*,application/pdf" [maxFileSize]="1000000"
+                                                            #fileUpload formControlName="experienceLetter"></p-fileUpload>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </ng-container>
+                                     </ng-container>
+                                    <div class="row mb-3">
+                                        <button class="w-full p-3 rounded-3" (click)="addWorkExperience();">
+                                            Add More &nbsp;<i class="fa fa-plus"></i>
+                                        </button>
+                                    </div>
+                                </div>
+                                <hr />
+                                <div class="card-body">
+                                    <h2 class="card-title mb-1">
+                                        Career Prefrenences & Aspirations
+                                    </h2>
+                                    <div class="mb-2">
+                                        <span class="text-danger fw-bold">Confused about your career?</span>
+                                        Click here to plan it!
+                                    </div>
+                                    <ng-container class="career-experience">
+                                        <div class="row mb-3">
+                                            <div class="col-md-6">
+                                                <label for="highestQualification" class="form-label">Career
+                                                    Status</label>
+                                                <p-dropdown id="highestQualification"
+                                                    formControlName="highestQualification"
+                                                    [options]="qualificationOptions"
+                                                    placeholder="Select total experience" styleClass="w-100"
+                                                    optionLabel="label" optionValue="value"></p-dropdown>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <label for="highestQualification" class="form-label">Job Title</label>
+                                                <p-dropdown id="highestQualification"
+                                                    formControlName="highestQualification"
+                                                    [options]="qualificationOptions"
+                                                    placeholder="Select total experience" styleClass="w-100"
+                                                    optionLabel="label" optionValue="value"></p-dropdown>
+                                            </div>
+                                        </div>
+                                        <div class="row mb-3">
+                                            <div class="col-md-6">
+                                                <label for="highestQualification" class="form-label">Career Interest /
+                                                    Industry</label>
+                                                <p-dropdown id="highestQualification"
+                                                    formControlName="highestQualification"
+                                                    [options]="qualificationOptions"
+                                                    placeholder="Enter total years of experience" styleClass="w-100"
+                                                    optionLabel="label" optionValue="value"></p-dropdown>
+                                            </div>
+
+                                            <!-- University/Institution Name -->
+                                            <div class="col-md-6">
+                                                <label for="university" class="form-label">Preferred Work
+                                                    Location</label>
+                                                <div class="p-inputgroup">
+                                                    <input pInputText id="university" formControlName="university"
+                                                        placeholder="Enter your company" class="form-control" />
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="row mb-3">
+                                            <div class="col-md-6">
+                                                <label for="highestQualification" class="form-label">Preferred
+                                                    Employement Type</label>
+                                                <p-dropdown id="highestQualification"
+                                                    formControlName="highestQualification"
+                                                    [options]="qualificationOptions"
+                                                    placeholder="Enter total years of experience" styleClass="w-100"
+                                                    optionLabel="label" optionValue="value"></p-dropdown>
+                                            </div>
+
+                                            <!-- University/Institution Name -->
+                                            <div class="col-md-6">
+                                                <label for="university" class="form-label">Preferred Workplace
+                                                    Type</label>
+                                                <div class="p-inputgroup">
+                                                    <input pInputText id="university" formControlName="university"
+                                                        placeholder="Enter your company" class="form-control" />
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="row mb-3">
+                                            <div class="col-md-6">
+                                                <label for="highestQualification" class="form-label">Willingness to
+                                                    Relocate?</label>
+                                                <p-dropdown id="highestQualification"
+                                                    formControlName="highestQualification"
+                                                    [options]="qualificationOptions"
+                                                    placeholder="Enter total years of experience" styleClass="w-100"
+                                                    optionLabel="label" optionValue="value"></p-dropdown>
+                                            </div>
+
+                                            <!-- University/Institution Name -->
+                                            <div class="col-md-6">
+                                                <label for="university" class="form-label">Preferred Work
+                                                    Location</label>
+                                                <div class="p-inputgroup">
+                                                    <p-dropdown id="highestQualification"
+                                                        formControlName="highestQualification"
+                                                        [options]="qualificationOptions"
+                                                        placeholder="Enter total years of experience" styleClass="w-100"
+                                                        optionLabel="label" optionValue="value"></p-dropdown>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </ng-container>
+                                </div>
+                                <hr />
+                                <div class="card-body">
+                                    <h2 class="card-title mb-1">Addtional Details</h2>
+                                    <div class="mb-2">
+                                        <span class="text-danger fw-bold">Want to learn a new language?</span>
+                                        Click here to plan it!
+                                    </div>
+                                    <ng-container class="work-experience">
+                                        <div class="row mb-3">
+                                            <div class="col-md-6">
+                                                <label for="highestQualification" class="form-label">Language
+                                                    known</label>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <label for="highestQualification" class="form-label">Language
+                                                    Proficiency</label>
+                                            </div>
+                                        </div>
+                                        <div class="row mb-3">
+                                            <div class="col-md-6">
+                                                <p-dropdown id="highestQualification"
+                                                    formControlName="highestQualification"
+                                                    [options]="qualificationOptions" placeholder="Enter know language"
+                                                    styleClass="w-100" optionLabel="label"
+                                                    optionValue="value"></p-dropdown>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <input pInputText id="university" formControlName="university"
+                                                    placeholder="Enter language proficiency"
+                                                    class="form-control w-100" />
+                                            </div>
+                                        </div>
+                                        <div class="row mb-3">
+                                            <div class="col-md-6">
+                                                <p-dropdown id="highestQualification"
+                                                    formControlName="highestQualification"
+                                                    [options]="qualificationOptions" placeholder="Enter know language"
+                                                    styleClass="w-100" optionLabel="label"
+                                                    optionValue="value"></p-dropdown>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <input pInputText id="university" formControlName="university"
+                                                    placeholder="Enter language proficiency"
+                                                    class="form-control w-100" />
+                                            </div>
+                                        </div>
+                                        <div class="row mb-3">
+                                            <div class="col-md-6">
+                                                <p-dropdown id="highestQualification"
+                                                    formControlName="highestQualification"
+                                                    [options]="qualificationOptions" placeholder="Enter know language"
+                                                    styleClass="w-100" optionLabel="label"
+                                                    optionValue="value"></p-dropdown>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <div class="row">
+                                                    <div class="col-md-10">
+                                                        <input pInputText id="university" formControlName="university"
+                                                            placeholder="Enter language proficiency"
+                                                            class="form-control w-100" />
+                                                    </div>
+                                                    <div class="col-md-2">
+                                                        <button style="border: 1px solid rgb(255, 37, 37)"
+                                                            class="px-3 py-2 rounded-lg">
+                                                            <i class="fa fa-trash text-danger"></i>
+                                                        </button>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="row mb-3">
+                                            <button class="w-full p-3 rounded-3">
+                                                Add More Language&nbsp;<i class="fa fa-plus"></i>
+                                            </button>
+                                        </div>
+                                        <div class="row mb-3">
+                                            <div class="col-md-6">
+                                                <label for="highestQualification" class="form-label">Hobbies &
+                                                    Interests</label>
+                                                <p-dropdown id="highestQualification"
+                                                    formControlName="highestQualification"
+                                                    [options]="qualificationOptions"
+                                                    placeholder="Enter if any hobbies and interests" styleClass="w-100"
+                                                    optionLabel="label" optionValue="value"></p-dropdown>
+                                            </div>
+                                        </div>
+                                    </ng-container>
+                                </div>
+                                <hr>
+                                <div class="card-body">
+                                    <h2 class="card-title mb-1">Key Strengths & Professional Traits</h2>
+                                    <div class="mb-2">
+                                        <span class="text-danger fw-bold">Showcase your skills and strengths</span>
+                                        Click here to plan it!
+                                    </div>
+                                    <ng-container class="work-experience">
+                                        <div class="row mb-3">
+                                            <div class="col-md-12">
+                                                <label for="highestQualification" class="form-label">What sets you apart
+                                                    in your industry?</label>
+                                                <textarea pTextarea id="responsibilities" class="form-control w-100"
+                                                    placeholder="Enter your Job Responsibilities & Key Achievements"
+                                                    rows="4" maxlength="200"></textarea>
+                                            </div>
+                                        </div>
+                                        <div class="row mb-3">
+                                            <div class="col-md-6">
+                                                <label for="highestQualification" class="form-label">Soft skills</label>
+                                                <p-dropdown id="highestQualification"
+                                                    formControlName="highestQualification"
+                                                    [options]="qualificationOptions" placeholder="Enter know language"
+                                                    styleClass="w-100" optionLabel="label"
+                                                    optionValue="value"></p-dropdown>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <label for="highestQualification" class="form-label">Your top
+                                                    professional strength</label>
+                                                <p-dropdown id="highestQualification"
+                                                    formControlName="highestQualification"
+                                                    [options]="qualificationOptions" placeholder="Enter know language"
+                                                    styleClass="w-100" optionLabel="label"
+                                                    optionValue="value"></p-dropdown>
+                                            </div>
+                                        </div>
+                                        <div class="row mb-3">
+                                            <div class="col-md-6">
+                                                <label for="highestQualification" class="form-label">Have a you solved a
+                                                    real-world challenge in your feilds?</label>
+                                                <input pInputText id="university" formControlName="university"
+                                                    placeholder="Have a you solved a real-world challenge?"
+                                                    class="form-control w-100" />
+                                            </div>
+                                            <div class="col-md-6">
+                                                <label for="highestQualification" class="form-label">Have you taken on
+                                                    leadership roles?</label>
+                                                <input pInputText id="university" formControlName="university"
+                                                    placeholder="Have you taken on leadership roles?"
+                                                    class="form-control w-100" />
+                                            </div>
+                                        </div>
+                                        <div class="row mb-3">
+                                            <div class="col-md-12">
+                                                <label for="highestQualification" class="form-label">One quality others
+                                                    admire most about you?</label>
+                                                <textarea pTextarea id="responsibilities" class="form-control w-100"
+                                                    placeholder="Enter one quality others admire most about you"
+                                                    rows="4" maxlength="200"></textarea>
+                                            </div>
+                                        </div>
+                                    </ng-container>
+                                </div>
+                                <hr>
+                                <div class="card-body">
+                                    <h2 class="card-title mb-3">Professional Networking & Online Presence</h2>
+                                    <ng-container class="work-experience">
+                                        <div class="row mb-3">
+                                            <div class="col-md-12">
+                                                <label for="highestQualification" class="form-label">LinkedIn
+                                                    Profile</label>
+                                                <input pInputText id="university" formControlName="university"
+                                                    placeholder="Linkedin Profile Link" class="form-control w-100" />
+                                            </div>
+                                        </div>
+                                        <div class="row mb-3">
+                                            <div class="col-md-6">
+                                                <label for="highestQualification" class="form-label">Social
+                                                    Media</label>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <label for="highestQualification" class="form-label">Provide the
+                                                    link</label>
+                                            </div>
+                                        </div>
+                                        <div class="row mb-3">
+                                            <div class="col-md-6">
+                                                <p-dropdown id="highestQualification"
+                                                    formControlName="highestQualification"
+                                                    [options]="qualificationOptions"
+                                                    placeholder="Select any social media platform" styleClass="w-100"
+                                                    optionLabel="label" optionValue="value"></p-dropdown>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <div class="row">
+                                                    <div class="col-md-10">
+                                                        <input pInputText id="university" formControlName="university"
+                                                            placeholder="Social media link"
+                                                            class="form-control w-100" />
+                                                    </div>
+                                                    <div class="col-md-2">
+                                                        <button style="border: 1px solid rgb(255, 37, 37)"
+                                                            class="px-3 py-2 rounded-lg">
+                                                            <i class="fa fa-trash text-danger"></i>
+                                                        </button>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="row mb-3">
+                                            <button class="w-full p-3 rounded-3">
+                                                Add more Social media&nbsp;<i class="fa fa-plus"></i>
+                                            </button>
+                                        </div>
+                                        <div class="row mb-3">
+                                            <div class="col-md-6">
+                                                <label for="highestQualification" class="form-label">Personal
+                                                    Website</label>
+                                                <p-dropdown id="highestQualification"
+                                                    formControlName="highestQualification"
+                                                    [options]="qualificationOptions"
+                                                    placeholder="Enter if any hobbies and interests" styleClass="w-100"
+                                                    optionLabel="label" optionValue="value"></p-dropdown>
+                                            </div>
+                                        </div>
+                                    </ng-container>
+                                </div>
+                                <hr>
+                               <div class="card-body">
+                                <h2 class="card-title mb-3">Achievements & Media</h2>
+                                <div class="mb-2">
+                                    <span class="text-danger fw-bold">Don't have a resume </span>
+                                    Click here to create one!
+                                </div>
+                                <div class="row  justify-content-center mt-3">
+                                <div class="upload-section text-center mb-4 py-2" style="border: 1px dashed lightgray">
+                                    <h4>Upload CV / Resume</h4>
+                                    <button pButton label="UPLOAD"
+                                        class="p-button-primary rounded-pill px-5 py-2"></button>
+                                    <div class="text-muted mt-2">
+                                        Supported Formats: doc, docx, pdf upto 2 MB
+                                    </div>
+                                </div>
+                                </div>
+                                <div class="row w-100 justify-content-center">
+                                    <div class="col-md-6 mb-3">
+                                      <div class="border rounded p-3">
+                                        <h4 class="mb-3">Introduction Video Upload</h4>
+                                        <small class="text-muted">(90-120 seconds)</small>
+                                        <input 
+                                          pInputText 
+                                          placeholder="Provide the video link" 
+                                          class="form-control mt-2"
+                                        >
+                                      </div>
+                                    </div>
+                                  
+                                    <div class="col-md-6 mb-3">
+                                      <div class="border rounded p-3">
+                                        <h4 class="mb-3">Portfolio Upload</h4>
+                                        <small class="text-muted">(For Designers, Writers, Developers)</small>
+                                        <div class="input-group mt-2">
+                                          <input 
+                                            pInputText 
+                                            placeholder="Provide the portfolio link" 
+                                            class="form-control"
+                                          >
+                                          <button 
+                                            pButton 
+                                            label="UPLOAD" 
+                                            class="p-button-secondary ms-2"
+                                          ></button>
+                                        </div>
+                                      </div>
+                                    </div>
+                                  </div>
+                              </div>
+                              <hr>
+                              <div class="card-body">
+                                <h2 class="card-title mb-3">Reference & Endorsement</h2>
+                                <ng-container class="work-experience">
+                                    <h5 class="card-title mb-1">Academic Reference</h5>
+                                    <div class="row mb-3">
+                                        <div class="col-md-4">
+                                            <label for="highestQualification" class="form-label">College Name</label>
+                                            <input pInputText id="university" formControlName="university" placeholder="Enter the reference college name"
+                                                class="form-control w-100" />
+                                        </div>
+                                        <div class="col-md-4">
+                                            <label for="highestQualification" class="form-label">Name</label>
+                                            <input pInputText id="university" formControlName="university" placeholder="Enter the reference name"
+                                                class="form-control w-100" />
+                                        </div>
+                                        <div class="col-md-4">
+                                            <label for="highestQualification" class="form-label">Desigination</label>
+                                            <input pInputText id="university" formControlName="university" placeholder="Enter the reference desigination"
+                                                class="form-control w-100" />
+                                        </div>
+                                    </div>
+                                    <div class="row mb-3">
+                                        <div class="col-md-6">
+                                            <label for="highestQualification" class="form-label">Phone Number</label>
+                                            <input pInputText id="university" formControlName="university" placeholder="Enter the reference phone number"
+                                                class="form-control w-100" />
+                                        </div>
+                                        <div class="col-md-6">
+                                            <label for="highestQualification" class="form-label">Email</label>
+                                            <input pInputText id="university" formControlName="university" placeholder="Enter the reference email"
+                                                class="form-control w-100" />
+                                        </div>
+                                    </div>
+                                    <div class="row mb-3">
+                                        <button class="w-full p-3 rounded-3">
+                                            Add more&nbsp;<i class="fa fa-plus"></i>
+                                        </button>
+                                    </div>
+                                    <h5 class="card-title my-3">Professional Reference</h5>
+                                    <div class="row mb-3">
+                                        <div class="col-md-4">
+                                            <label for="highestQualification" class="form-label">College Name</label>
+                                            <input pInputText id="university" formControlName="university" placeholder="Enter the reference college name"
+                                                class="form-control w-100" />
+                                        </div>
+                                        <div class="col-md-4">
+                                            <label for="highestQualification" class="form-label">Name</label>
+                                            <input pInputText id="university" formControlName="university" placeholder="Enter the reference name"
+                                                class="form-control w-100" />
+                                        </div>
+                                        <div class="col-md-4">
+                                            <label for="highestQualification" class="form-label">Desigination</label>
+                                            <input pInputText id="university" formControlName="university" placeholder="Enter the reference desigination"
+                                                class="form-control w-100" />
+                                        </div>
+                                    </div>
+                                    <div class="row mb-3">
+                                        <div class="col-md-6">
+                                            <label for="highestQualification" class="form-label">Phone Number</label>
+                                            <input pInputText id="university" formControlName="university" placeholder="Enter the reference phone number"
+                                                class="form-control w-100" />
+                                        </div>
+                                        <div class="col-md-6">
+                                            <label for="highestQualification" class="form-label">Email</label>
+                                            <input pInputText id="university" formControlName="university" placeholder="Enter the reference email"
+                                                class="form-control w-100" />
+                                        </div>
+                                    </div>
+                                    <div class="row mb-3">
+                                        <button class="w-full p-3 rounded-3">
+                                            Add more&nbsp;<i class="fa fa-plus"></i>
+                                        </button>
+                                    </div>
+                                    <h5 class="card-title my-3">Add Note</h5>
+                                    <div class="row mb-3">
+                                        <textarea pTextarea id="responsibilities" class="form-control w-100"
+                                        placeholder="Addtional Information if any"
+                                        rows="5" maxlength="200"></textarea>
+                                    </div>
+                                </ng-container>
+                            </div>
+                            </div>
+                            <!-- Profile Completion Progress -->
+                            <div class="mt-4">
+                                <small>Profile Completion: {{ profileCompletion }}%</small>
+                                <p-progressBar [value]="profileCompletion"></p-progressBar>
+                            </div>
+
+                            <!-- Save Button -->
+                            <div class="d-flex justify-content-end mt-3">
+                                <button pButton label="Save Changes" icon="pi pi-check"
+                                    class="p-button-primary"></button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="">
+                    <div class="profile-container h-full d-flex flex-column justify-content-between">
+                        <div class="message-box d-flex text-start">
+                            <img src="https://cdn-icons-png.flaticon.com/512/147/147144.png" width="40" alt="icon" />
+                            <p class="mb-0 text-muted">
+                                Enter your full legal name, including first, middle (if
+                                applicable), and last name, ensuring accuracy for
+                                identification, records, and applications.
+                            </p>
+                        </div>
+
+                        <div class="profile-card bg-white p-3 rounded">
+                            <div class="row">
+                                <div class="col-md-2 h-100">
+                                    <img src="https://randomuser.me/api/portraits/men/10.jpg" alt="Profile"
+                                        class="profile-image me-3" />
+                                </div>
+                                <div class="col-md-10 text-start">
+                                    <h5 class="fw-bold mb-1">
+                                        John Doe
+                                        <i class="fa-solid fa-circle-check text-warning"></i>
+                                    </h5>
+                                    <p class="text-muted mb-1" style="font-size: 13px">
+                                        Profile Updated On 18-02-2025
+                                    </p>
+                                    <div class="d-flex align-items-center justify-content-between">
+                                        <small>Profile Completion: {{ profileCompletion }}%</small>
+                                        <p-progressBar [value]="100"></p-progressBar>
+                                        <span class="status-badge shortlisted">Shortlisted</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- Profile Details -->
+                            <div class="row text-start">
+                                <div class="info-item col">
+                                    <i class="fa-solid fa-location-dot"></i>
+                                    <span>Current Location <br /><b>Mysore, India</b></span>
+                                </div>
+                                <div class="info-item col">
+                                    <i class="fa-solid fa-briefcase"></i>
+                                    <span>Desired Job Title<br />
+                                        <b>UI/UX Designer</b></span>
+                                </div>
+                            </div>
+                            <div class="row text-start">
+                                <div class="info-item col">
+                                    <i class="fa-solid fa-user-tie"></i>
+                                    <span>Employment Type<br /><b>Full Time</b></span>
+                                </div>
+                                <div class="info-item col">
+                                    <i class="fa-solid fa-building"></i>
+                                    <span>Work Arrangement<br />
+                                        <b>Onsite</b></span>
+                                </div>
+                            </div>
+                            <div class="row text-start">
+                                <div class="info-item col">
+                                    <i class="fa-solid fa-money-bill-wave"></i>
+                                    <span>Expected Salary<br />
+                                        <b>₹30,000/Month</b></span>
+                                </div>
+                                <div class="info-item col">
+                                    <i class="fa-solid fa-user-graduate"></i>
+                                    <span>Current Career Status<br /><b>Active Students</b></span>
+                                </div>
+                            </div>
+                            <p class="text-center text-muted mt-3" style="font-size: 12px">
+                                Your profile card as viewed by a company
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
