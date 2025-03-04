@@ -17,7 +17,7 @@
                 </div>
             </div>
         </div>
-        <div class="card-body text-center flex-fill overflow-y-auto">
+        <div class="card-body text-center flex-fill overflow-y-auto d-flex justify-content-center align-items-center">
             <form [formGroup]="form" class="mt-4">
                 <p-carousel [value]="recommendations" [numVisible]="1" [numScroll]="1" [circular]="false"
                     [showNavigators]="false" [showIndicators]="false" [page]="activePageIndex" styleClass="h-100">
@@ -204,7 +204,7 @@
                                 <i class="fa-regular fa-download"></i></span>
                         </button>
                     </div>
-                    <div class="card p-3" [innerHtml]="recommendationData"></div>
+                    <div class="card p-3 poppins-content" [innerHtml]="recommendationData"></div>
                 </div>
                 <div class="col-md-2"></div>
             </div>

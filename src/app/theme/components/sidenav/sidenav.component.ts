@@ -167,7 +167,7 @@ export class SidenavComponent {
     },
     {
       title: "Employer Connect",
-      url: "/pages/talent-connect",
+      url: "/pages/talent-connect/list",
       image: "fa-solid fa-briefcase",
     },
     {

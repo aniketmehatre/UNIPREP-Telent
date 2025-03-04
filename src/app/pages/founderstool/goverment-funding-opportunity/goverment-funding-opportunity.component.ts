@@ -7,10 +7,8 @@ import { DataService } from 'src/app/data.service';
 import { LocationService } from 'src/app/location.service';
 import { PageFacadeService } from '../../page-facade.service';
 import { UserManagementService } from '../../user-management/user-management.service';
-import { FounderstoolService } from '../founderstool.service';
-import { HttpHeaders, HttpParams } from '@angular/common/http';
-import { environment } from '@env/environment';
 import { Country } from 'ngx-intl-tel-input/lib/model/country.model';
+import { FounderstoolService } from '../founderstool.service';
 
 @Component({
   selector: 'uni-goverment-funding-opportunity',
@@ -116,7 +114,6 @@ export class GovermentFundingOppurtunityComponent implements OnInit {
     }
     this.checkUserRecommendation();
     this.getFundCountry();
-    this.getStateListByCountry();
     this.checkplanExpire();
     this.getFundType();
     this.GetPersonalProfileData();
@@ -144,14 +141,14 @@ export class GovermentFundingOppurtunityComponent implements OnInit {
   }
 
   getFundCountry() {
-    this.fundListService.getFundCountries().subscribe(res => {
+    this.fundListService.getFundCountries().subscribe((res: any) => {
       let allCountries = res;
       this.countryList = allCountries;
     });
   }
 
-  getStateListByCountry() {
-    this.fundListService.getFundStateByCountry().subscribe(
+  getStateListByCountry(countryId: number) {
+    this.fundListService.getFundStateByCountry(countryId).subscribe(
       (res: any) => {
         this.stateList = res;
       },
@@ -167,15 +164,18 @@ export class GovermentFundingOppurtunityComponent implements OnInit {
 
 
   getFundType() {
-    this.fundListService.getFundType().subscribe((response) => {
+    this.fundListService.getFundType().subscribe((response: any[]) => {
       this.fundTypeList = response;
       this.anyFundTypeList = [...response, { id: "any", type: "Select All" }];
     });
   }
 
+  changeCountryId(event: number) {
+    this.getStateListByCountry(event);
+  }
+
 
   loadFundData(isFavourite: number) {
-    debugger;
     if (isFavourite == 1) {
       this.data = {}
       this.data['favourite'] = 1;
@@ -186,7 +186,7 @@ export class GovermentFundingOppurtunityComponent implements OnInit {
 
     this.fundListService
       .getFundList(this.data)
-      .subscribe((response) => {
+      .subscribe((response: { governmentfundings: any[]; favourite_count: number; count: number; credit_count: number; }) => {
         this.fundData = response.governmentfundings;
         this.favCount = response.favourite_count;
         if (isFavourite != 1) {
@@ -225,7 +225,7 @@ export class GovermentFundingOppurtunityComponent implements OnInit {
     this.first = 0;
     this.fundListService
       .getFundList(this.data)
-      .subscribe((response) => {
+      .subscribe((response: { governmentfundings: any[]; count: any; }) => {
         this.fundData = response.governmentfundings;
         this.totalFundCount = response.count;
       });
@@ -306,7 +306,7 @@ export class GovermentFundingOppurtunityComponent implements OnInit {
   bookmarkQuestion(FundId: any, isFav: any) {
     console.log(isFav);
     isFav = isFav != '1' ? true : false;
-    this.fundListService.addFavFundData(FundId, this.PersonalInfo.user_id, isFav).subscribe((response) => {
+    this.fundListService.addFavFundData(FundId, this.PersonalInfo.user_id, isFav).subscribe((response: { message: any; }) => {
       let fundListData = this.fundData.find(item => item.id == FundId);
       isFav == true ? fundListData.favourite = 1 : fundListData.favourite = null;
       this.favCount = isFav == true ? this.favCount + 1 : this.favCount - 1;
@@ -403,7 +403,7 @@ export class GovermentFundingOppurtunityComponent implements OnInit {
         module_id: 3,
         export_id: this.exportDataIds
       };
-      this.fundListService.exportSelectedData(data).subscribe((response) => {
+      this.fundListService.exportSelectedData(data).subscribe((response: { link: string | URL | undefined; }) => {
         window.open(response.link, '_blank');
         this.selectAllCheckboxes = false;
         // this.selectedCheckboxCount = 0;
@@ -440,7 +440,7 @@ export class GovermentFundingOppurtunityComponent implements OnInit {
   }
 
   checkUserRecommendation() {
-    this.fundListService.getRecommendations().subscribe(res => {
+    this.fundListService.getRecommendations().subscribe((res: { status: any; data: any; }) => {
       if (res.status) {
         this.enableModule = true;
         this.setRecommendationToForm(res.data);
@@ -493,7 +493,7 @@ export class GovermentFundingOppurtunityComponent implements OnInit {
   }
 
   resetRecommendation() {
-    this.fundListService.resetRecommendation().subscribe(res => {
+    this.fundListService.resetRecommendation().subscribe((res: any) => {
       this.enableModule = false;
       this.filterForm.reset();
       this.selectedData = {};
