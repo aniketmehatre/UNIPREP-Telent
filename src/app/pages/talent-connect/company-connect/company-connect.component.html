@@ -19,8 +19,8 @@
                     </div>
                 </div>
                 <button type="button" title="Close Popup"
-				class="btn btn-primary btn-rounded mt-2" (click)="displayModal = true;"><i class="fa-solid fa-caret-down"></i>&nbsp;&nbsp;Report
-		       </button>
+                        class="btn btn-primary btn-rounded mt-2" (click)="displayModal = true;"><i class="fa-solid fa-caret-down"></i>&nbsp;&nbsp;Report
+                </button>
             </div>
             <!-- <div class="col-md-3 mt-2 text-end desktop justify-content-end d-none d-md-flex"></div> -->
         </div>
@@ -29,11 +29,11 @@
         <div class="row">
             <div class="d-flex gap-2 justify-content-center">
                 <button type="button"
-                class="p-2 px-4 mb-4 mt-3 module-button" style='background-color: var(--uniprep-primary); color: white' routerLink="/pages/talent-connect/company-connect">Company Search
-               </button>
-               <button type="button" 
-               class="p-2 px-4 mb-4 mt-3 module-button"  routerLink="/pages/talent-connect/company-tracker">Company Tracker
-              </button>
+                        class="p-2 px-4 mb-4 mt-3 module-button" style='background-color: var(--uniprep-primary); color: white' routerLink="/pages/talent-connect/company-connect">Company Search
+                </button>
+                <button type="button"
+                        class="p-2 px-4 mb-4 mt-3 module-button"  routerLink="/pages/talent-connect/company-tracker">Company Tracker
+                </button>
             </div>
         </div>
         <div class="row">
@@ -52,7 +52,7 @@
                                     <div>
                                         <span class="fw-bold">{{ company.name }}</span>
                                         <i *ngIf="company.verified" class="fas fa-check-circle ms-1"
-                                            style="color: #4285f4"></i>
+                                           style="color: #4285f4"></i>
                                     </div>
                                     <a href="#" style="color: #fda172">
                                         <i class="fas fa-share-alt"></i>
@@ -124,76 +124,76 @@
                 </div>
             </div>
         </div>
-  </div>
-<div class="card-footer border-0 bg-transparent">
-    <div class="row d-flex align-items-center justify-content-between">
-        <p-paginator *ngIf="totalCount != 0" [rows]="pageSize" [totalRecords]="totalPitchDeckCount" [first]="(page - 1) * pageSize" (onPageChange)="pageChange($event)" [rowsPerPageOptions]="[50, 100, 300, 500, 1000]"> </p-paginator>
     </div>
-</div>
+    <div class="card-footer border-0 bg-transparent">
+        <div class="row d-flex align-items-center justify-content-between">
+            <p-paginator *ngIf="totalCount != 0" [rows]="pageSize" [totalRecords]="totalPitchDeckCount" [first]="(page - 1) * pageSize" (onPageChange)="pageChange($event)" [rowsPerPageOptions]="[50, 100, 300, 500, 1000]" [disabled]="totalPitchDeckCount <= pageSize"> </p-paginator>
+        </div>
+    </div>
 </div>
 <div class="p-4">
-    <p-dialog 
-    header="Filter" 
-    [(visible)]="displayModal" 
-    [modal]="true" 
-    [style]="{width: '70%'}" 
-    [closeOnEscape]="true"
-    styleClass="filter-modal">
-    
-    <div class="container-fluid p-3">
-     <form (ngSubmit)="applyFilter()">
-         <div class="mb-4">
-           <label class="form-label fw-bold">Company Name</label>
-           <input pInputText class="form-control p-2" placeholder="Search by company name" />
-         </div>
-         
-         <div class="row mb-4">
-           <div class="col-md-4">
-             <label class="form-label fw-bold">Industry Type</label>
-             <p-select [options]="industryTypes" placeholder="Select your preferred industry" 
-               styleClass="w-100" [showClear]="true"></p-select>
-           </div>
-           
-           <div class="col-md-4">
-             <label class="form-label fw-bold">Company Size</label>
-             <p-select [options]="companySizes" placeholder="Select Company Size" 
-               styleClass="w-100" [showClear]="true"></p-select>
-           </div>
-           
-           <div class="col-md-4">
-             <label class="form-label fw-bold">Headquarters Location</label>
-             <p-select [options]="locations" placeholder="Select Headquarters Location" 
-               styleClass="w-100" [showClear]="true"></p-select>
-           </div>
-         </div>
-         
-         <div class="row mb-4">
-           <div class="col-md-4">
-             <label class="form-label fw-bold">Global Presence</label>
-             <p-select [options]="globalPresence" placeholder="Select global presence" 
-               styleClass="w-100" [showClear]="true"></p-select>
-           </div>
-           
-           <div class="col-md-4">
-             <label class="form-label fw-bold">Year Founded</label>
-             <p-select [options]="foundedYears" placeholder="Select founded year" 
-               styleClass="w-100" [showClear]="true"></p-select>
-           </div>
-           
-           <div class="col-md-4">
-             <label class="form-label fw-bold">Company Type</label>
-             <p-select [options]="companyTypes" placeholder="Select company type" 
-               styleClass="w-100" [showClear]="true"></p-select>
-           </div>
-         </div>
-     </form>
-    </div>
-    
-    <ng-template pTemplate="footer">
-        <div>
-            <button type="submit" class="btn btn-dark w-100" style="background-color: var(--uniprep-primary); border: none">Apply Filter</button>
-            <button class="btn btn-dark w-100" (click)="clearFilter()" style="background-color: white; border-radius: 8px; color: var(--uniprep-primary); border: none" type="button">Reset Filter</button>
+    <p-dialog
+            header="Filter"
+            [(visible)]="displayModal"
+            [modal]="true"
+            [style]="{width: '70%'}"
+            [closeOnEscape]="true"
+            styleClass="filter-modal">
+
+        <div class="container-fluid p-3">
+            <form (ngSubmit)="applyFilter()">
+                <div class="mb-4">
+                    <label class="form-label fw-bold">Company Name</label>
+                    <input pInputText class="form-control p-2" placeholder="Search by company name" />
+                </div>
+
+                <div class="row mb-4">
+                    <div class="col-md-4">
+                        <label class="form-label fw-bold">Industry Type</label>
+                        <p-select [options]="industryTypes" placeholder="Select your preferred industry"
+                                    styleClass="w-100" [showClear]="true"></p-select>
+                    </div>
+
+                    <div class="col-md-4">
+                        <label class="form-label fw-bold">Company Size</label>
+                        <p-select [options]="companySizes" placeholder="Select Company Size"
+                                    styleClass="w-100" [showClear]="true"></p-select>
+                    </div>
+
+                    <div class="col-md-4">
+                        <label class="form-label fw-bold">Headquarters Location</label>
+                        <p-select [options]="locations" placeholder="Select Headquarters Location"
+                                    styleClass="w-100" [showClear]="true"></p-select>
+                    </div>
+                </div>
+
+                <div class="row mb-4">
+                    <div class="col-md-4">
+                        <label class="form-label fw-bold">Global Presence</label>
+                        <p-select [options]="globalPresence" placeholder="Select global presence"
+                                    styleClass="w-100" [showClear]="true"></p-select>
+                    </div>
+
+                    <div class="col-md-4">
+                        <label class="form-label fw-bold">Year Founded</label>
+                        <p-select [options]="foundedYears" placeholder="Select founded year"
+                                    styleClass="w-100" [showClear]="true"></p-select>
+                    </div>
+
+                    <div class="col-md-4">
+                        <label class="form-label fw-bold">Company Type</label>
+                        <p-select [options]="companyTypes" placeholder="Select company type"
+                                    styleClass="w-100" [showClear]="true"></p-select>
+                    </div>
+                </div>
+            </form>
         </div>
-    </ng-template>
+
+        <ng-template pTemplate="footer">
+            <div>
+                <button type="submit" class="btn btn-dark w-100" style="background-color: var(--uniprep-primary); border: none">Apply Filter</button>
+                <button class="btn btn-dark w-100" (click)="clearFilter()" style="background-color: white; border-radius: 8px; color: var(--uniprep-primary); border: none" type="button">Reset Filter</button>
+            </div>
+        </ng-template>
     </p-dialog>
-    </div>
+</div>
