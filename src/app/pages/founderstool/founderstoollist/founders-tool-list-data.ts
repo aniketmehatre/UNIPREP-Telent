@@ -48,7 +48,7 @@ export const FoundersToolsData = [
         description: "An assessment that evaluates an entrepreneur's in-depth knowledge and proficiency in specific industries.",
         image: domainUrl+"GlobalEntrepreneurVisa.svg",
         url: "/pages/founderstool/enterpreneur-visa",
-        launch_soon: false
+        launch_soon: true
     },
     // {
     //     title: "AI Business Plan Generator",
@@ -121,7 +121,7 @@ export const FoundersToolsData = [
         launch_soon: false
     },
     {
-        title: "Startup Expense Estimate",
+        title: "Startup Expense Estimator",
         description: "An assessment that evaluates an entrepreneur's in-depth knowledge and proficiency in specific industries.",
         image: domainUrl+"StartupExpenseEstimator.svg",
         url: "/pages/founderstool/startup-expense-estimate",
