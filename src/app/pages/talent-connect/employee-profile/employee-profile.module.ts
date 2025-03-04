@@ -11,6 +11,8 @@ import { ProgressBarModule } from 'primeng/progressbar';
 import { Routes, RouterOutlet, RouterModule } from '@angular/router';
 import { FileUploadModule } from 'primeng/fileupload';
 import { InputNumberModule } from 'primeng/inputnumber';
+import { DialogModule } from 'primeng/dialog';
+import { DialogService } from 'primeng/dynamicdialog';
 
 const routes: Routes = [
   {
@@ -22,6 +24,7 @@ const routes: Routes = [
 
 @NgModule({
   declarations: [EmployeeProfileComponent],
+  providers: [DialogService],
   imports: [
     CommonModule,
     RouterModule.forChild(routes),
@@ -34,7 +37,8 @@ const routes: Routes = [
     CardModule, 
     ProgressBarModule,
     FileUploadModule ,
-    InputNumberModule
+    InputNumberModule,
+    DialogModule
   ]
 })
 export class EmployeeProfileModule { }

@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators, FormArray } from '@angular/forms';
+import { ViewProfileComponent } from './view-profile/view-profile.component';
+import { DialogService } from 'primeng/dynamicdialog';
 
 @Component({
   selector: 'uni-employee-profile',
@@ -35,7 +37,7 @@ export class EmployeeProfileComponent implements OnInit{
     { label: 'PhD', value: 'phd' }
   ];
 
-  constructor(private fb: FormBuilder) {}
+  constructor(private fb: FormBuilder, private dialogService: DialogService) { }
 
   ngOnInit() {
     this.initializeForm();
@@ -64,7 +66,7 @@ export class EmployeeProfileComponent implements OnInit{
       preferredEmploymentType: [null],
       preferredWorkplaceType: [''],
       willingnessToRelocate: [null],
-
+      expectedSalary: [null],
       // Additional Details
       languages: this.fb.array([this.createLanguageGroup()]),
       hobbies: [null],
@@ -227,5 +229,16 @@ export class EmployeeProfileComponent implements OnInit{
 
   openVideoPopup(id: string) {
 
+  }
+
+  openProfileDialog(employee: any) {
+    this.dialogService.open(ViewProfileComponent, {
+      width: '80%',
+      height: '80%',
+      data: {
+        profileData: employee
+      },
+      styleClass: 'employee-profile-dialog'
+    });
   }
 }

@@ -9,13 +9,6 @@
     font-weight: bold;
   }
 
-  .profile-container {
-    border: 2px solid #f08c40;
-    padding: 20px;
-    border-radius: 10px;
-    margin: 20px auto;
-    min-height: 550px;
-}
 .message-box {
     background-color: #fdeedb;
     border-radius: 10px;
@@ -83,4 +76,13 @@ label {
     height: 70px;
     border: 1px dashed var(--uniprep-primary);
     background-color: var(--uniprep-gray);
+}
+
+.scroll-hidden {
+    scrollbar-width: none; /* Firefox */
+    -ms-overflow-style: none; /* Internet Explorer 10+ */
+}
+
+.scroll-hidden::-webkit-scrollbar {
+    width: 4px; /* Chrome, Safari, Edge */
 }
