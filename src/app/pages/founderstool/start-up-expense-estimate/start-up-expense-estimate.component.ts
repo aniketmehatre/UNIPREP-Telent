@@ -7,7 +7,6 @@ import { DataService } from 'src/app/data.service';
 import { LocationService } from 'src/app/location.service';
 import { PageFacadeService } from '../../page-facade.service';
 import { FounderstoolService } from '../founderstool.service';
-import { selectList } from '../marketing-analysis/marketing-analysis.component';
 import { CommonModule } from '@angular/common';
 import { DialogModule } from 'primeng/dialog';
 import { RouterModule } from '@angular/router';
@@ -35,7 +34,9 @@ interface selectList {
     templateUrl: './start-up-expense-estimate.component.html',
     styleUrls: ['./start-up-expense-estimate.component.scss'],
     standalone: true,
-    imports: [CommonModule,  DialogModule, RouterModule, CardModule, PaginatorModule, FormsModule, ReactiveFormsModule, CarouselModule, ButtonModule, MultiSelectModule, SelectModule, InputGroupModule, InputTextModule, InputGroupAddonModule]
+    imports: [CommonModule,  DialogModule, RouterModule, CardModule, PaginatorModule, FormsModule, ReactiveFormsModule,
+      CarouselModule, ButtonModule, MultiSelectModule, InputGroupModule, InputTextModule,
+      InputGroupAddonModule, SelectModule]
 })
 export class StartUpExpenseEstimateComponent implements OnInit {
   locationList: any[];
@@ -380,4 +381,7 @@ export class StartUpExpenseEstimateComponent implements OnInit {
     });
   }
 
+  resetFunction(departure: string) {
+    
+  }
 }

@@ -1,9 +1,18 @@
 import { Component } from '@angular/core';
+import {NgClass} from "@angular/common";
+import {Chip} from "primeng/chip";
+import {JobChatUiComponent} from "../../job-tracker/job-chat-ui/job-chat-ui.component";
 
 @Component({
   selector: 'uni-company-view',
   templateUrl: './company-view.component.html',
-  styleUrls: ['./company-view.component.scss']
+  styleUrls: ['./company-view.component.scss'],
+  standalone: true,
+  imports: [
+    NgClass,
+    Chip,
+    JobChatUiComponent
+  ]
 })
 export class CompanyViewComponent {
 

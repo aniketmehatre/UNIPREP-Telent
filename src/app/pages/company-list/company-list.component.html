@@ -46,13 +46,13 @@
                 </div>
               </div>
               <div class="d-flex justify-content-between mt-2">
-                <button pButton  pButton type="button" class="btn btn-primary btn-rounded p-1 pe-4" [style.visibility]="recommendation.id == 1 ? 'hidden' : 'visible'" (click)="previous()">
+                <button pButton type="button" class="btn btn-primary btn-rounded p-1 pe-4" [style.visibility]="recommendation.id == 1 ? 'hidden' : 'visible'" (click)="previous()">
                   <span class="btn-icon px-2 py-2"><i class="fa fa-arrow-left"></i></span> <span class="ms-2">Previous</span>
                 </button>
-                <button pButton  pButton type="button" (click)="next(recommendation.id)" *ngIf="recommendation.id != 3" class="btn btn-primary btn-rounded p-1 ps-4">
+                <button pButton type="button" (click)="next(recommendation.id)" *ngIf="recommendation.id != 3" class="btn btn-primary btn-rounded p-1 ps-4">
                   <span class="me-2">Next</span><span class="btn-icon px-2 py-2"><i class="fa fa-arrow-right"></i></span>
                 </button>
-                <button pButton  pButton type="button" (click)="getRecommendation()" severity="success" *ngIf="recommendation.id == 3" class="btn btn-success btn-rounded p-1 ps-4">
+                <button pButton type="button" (click)="getRecommendation()" severity="success" *ngIf="recommendation.id == 3" class="btn btn-success btn-rounded p-1 ps-4">
                   <span class="me-2">Get Recommendations</span><span class="btn-icon px-2 py-2"><i class="fa fa-check-circle"></i></span>
                 </button>
               </div>
@@ -215,7 +215,7 @@
       </div>
     </div>
     <div class="card-footer border-0 bg-transparent">
-      <button pButton  pButton type="button" style="bottom:5rem;right:1rem" class="btn btn-quit btn-rounded p-1 ps-3 text-small position-absolute d-flex d-md-none " (click)="resetRecommendation()">
+      <button pButton type="button" style="bottom:5rem;right:1rem" class="btn btn-quit btn-rounded p-1 ps-3 text-small position-absolute d-flex d-md-none " (click)="resetRecommendation()">
         <span>Reset</span><span class="btn-icon"><i class="fa-solid fa-arrow-rotate-right"></i> </span>
       </button>
       <div class="row">
@@ -224,7 +224,7 @@
           <p-paginator *ngIf="totalCompanyCount != 0" [rows]="pageSize" [totalRecords]="totalCompanyCount" (onPageChange)="pageChange($event)" [rowsPerPageOptions]="[50, 100, 300, 500, 1000]"></p-paginator>
         </div>
         <div class="col-md-2 d-md-block d-none text-end">
-          <button pButton  pButton type="button" class="btn btn-quit ps-3 btn-rounded" (click)="resetRecommendation()">
+          <button pButton type="button" class="btn btn-quit ps-3 btn-rounded" (click)="resetRecommendation()">
             Reset Recommendations<span class="btn-icon"><i class="fa-solid fa-arrow-rotate-right"></i> </span>
           </button>
         </div>
@@ -251,7 +251,7 @@
 			  Access to over 1 million global companies database including company
 			  name, headquarters, industry, contact details and more!
 			</p>
-			<button pButton  pButton type="button" class="text-white p-ripple p-button-rounded p-button-warning p-button p-component"
+			<button pButton type="button" class="text-white p-ripple p-button-rounded p-button-warning p-button p-component"
 			  (click)="upgradePlan()">
 			  Upgrade Plan<i class="fa fa-arrow-right exhausted-plan-icon"></i>
 			</button>
@@ -324,7 +324,7 @@
     <img src="../../../uniprep-assets/images/smartloack.png" class="image" width="60" />
     <h3 class="offer">Upgrade Required</h3>
     <p>To access this exclusive module,please upgrade your plan now</p>
-    <button pButton  pButton type="button" class="text-white p-ripple p-button-rounded p-button-warning p-button p-component p-2" (click)="upgradePlan()">Upgrade Plan<i class="fa fa-arrow-right exhausted-plan-icon"></i></button>
+    <button pButton type="button" class="text-white p-ripple p-button-rounded p-button-warning p-button p-component p-2" (click)="upgradePlan()">Upgrade Plan<i class="fa fa-arrow-right exhausted-plan-icon"></i></button>
   </div>
   <div *ngIf="!ehitlabelIsShow" class="text-center mt-5 mb-4">
     <img src="../../../uniprep-assets/images/smartloack.png" class="image" width="60" />

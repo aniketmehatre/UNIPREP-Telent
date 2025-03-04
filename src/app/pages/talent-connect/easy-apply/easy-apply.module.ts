@@ -25,7 +25,7 @@ const routes: Routes = [
 
 
 @NgModule({
-  declarations: [EasyApplyComponent, JobViewComponent],
+  declarations: [],
   imports: [
     CommonModule,
     RouterModule.forChild(routes),

@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import {NgClass} from "@angular/common";
 
 interface Message {
   sender: string;
@@ -10,7 +11,11 @@ interface Message {
 @Component({
   selector: 'uni-job-view',
   templateUrl: './job-view.component.html',
-  styleUrls: ['./job-view.component.scss']
+  styleUrls: ['./job-view.component.scss'],
+  standalone: true,
+  imports: [
+    NgClass
+  ]
 })
 export class JobViewComponent {
   jobDetails = {
@@ -84,6 +89,7 @@ export class JobViewComponent {
       type: 'button'
     }
   ];
+  showMessages: boolean = false;
 
   constructor() { }
 

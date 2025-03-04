@@ -1,9 +1,18 @@
 import { Component, ElementRef, Output, EventEmitter } from '@angular/core';
+import {TabPanel, TabView} from "primeng/tabview";
+import {NgClass} from "@angular/common";
 
 @Component({
   selector: 'uni-job-list',
   templateUrl: './job-list.component.html',
-  styleUrls: ['./job-list.component.scss']
+  styleUrls: ['./job-list.component.scss'],
+  standalone: true,
+  imports: [
+    TabView,
+    TabPanel,
+    NgClass
+
+  ]
 })
 export class JobListComponent {
   @Output() emitId: EventEmitter<number> = new EventEmitter();

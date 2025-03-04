@@ -1,4 +1,8 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
+import {FormsModule} from "@angular/forms";
+import {Avatar} from "primeng/avatar";
+import {NgClass} from "@angular/common";
+import {ProgressBar} from "primeng/progressbar";
 
 interface ChatMessage {
   sender: string;
@@ -11,7 +15,14 @@ interface ChatMessage {
 @Component({
   selector: 'uni-job-chat-ui',
   templateUrl: './job-chat-ui.component.html',
-  styleUrls: ['./job-chat-ui.component.scss']
+  styleUrls: ['./job-chat-ui.component.scss'],
+  standalone: true,
+  imports: [
+    FormsModule,
+    Avatar,
+    NgClass,
+    ProgressBar
+  ]
 })
 export class JobChatUiComponent {
   organizationName: string = 'UNIABROAD';

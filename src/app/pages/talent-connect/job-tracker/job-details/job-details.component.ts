@@ -26,7 +26,8 @@ interface Job {
 @Component({
   selector: 'uni-job-details',
   templateUrl: './job-details.component.html',
-  styleUrls: ['./job-details.component.scss']
+  styleUrls: ['./job-details.component.scss'],
+  standalone: true,
 })
 export class JobDetailsComponent  implements OnInit{
 

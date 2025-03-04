@@ -1,4 +1,24 @@
 import { Component } from '@angular/core';
+import {Dialog, DialogModule} from "primeng/dialog";
+import {Select} from "primeng/select";
+import {FormsModule} from "@angular/forms";
+import {JobListComponent} from "./job-list/job-list.component";
+import {CommonModule} from "@angular/common";
+import {TalentConnectRoutingModule} from "../talent-connect-routing.module";
+import {CardModule} from "primeng/card";
+import {ButtonModule} from "primeng/button";
+import {TagModule} from "primeng/tag";
+import {TableModule} from "primeng/table";
+import {TabViewModule} from "primeng/tabview";
+import {InputTextModule} from "primeng/inputtext";
+import {AvatarModule} from "primeng/avatar";
+import {ChipModule} from "primeng/chip";
+import {TooltipModule} from "primeng/tooltip";
+import {StepsModule} from "primeng/steps";
+import {DividerModule} from "primeng/divider";
+import {SharedModule} from "../../../shared/shared.module";
+import {DropdownModule} from "primeng/dropdown";
+import {PaginatorModule} from "primeng/paginator";
 
 interface DropdownOption {
   label: string;
@@ -16,11 +36,40 @@ interface ChatMessage {
 @Component({
   selector: 'uni-job-tracker',
   templateUrl: './job-tracker.component.html',
-  styleUrls: ['./job-tracker.component.scss']
+  styleUrls: ['./job-tracker.component.scss'],
+  standalone: true,
+  imports: [
+    Dialog,
+    Select,
+    FormsModule,
+    CommonModule,
+    DialogModule,
+    TalentConnectRoutingModule,
+    CardModule,
+    ButtonModule,
+    TagModule,
+    TableModule,
+    ButtonModule,
+    CardModule,
+    TabViewModule,
+    InputTextModule,
+    AvatarModule,
+    ChipModule,
+    TooltipModule,
+    StepsModule,
+    DialogModule,
+    DividerModule,
+    FormsModule,
+    SharedModule,
+    DialogModule,
+    DropdownModule,
+    PaginatorModule,
+    JobListComponent,
+  ]
 })
 export class JobTrackerComponent {
   displayModal: boolean = false;
-
+  orgnamewhitlabel: any
   industryTypes: DropdownOption[] = [];
   companySizes: DropdownOption[] = [];
   locations: DropdownOption[] = [];
@@ -128,5 +177,9 @@ export class JobTrackerComponent {
 
   resetFilter() {
     console.log('Resetting filters');
+  }
+
+  upgradePlan(){
+
   }
 }

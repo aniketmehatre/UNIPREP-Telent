@@ -23,7 +23,7 @@ const routes: Routes = [
 @NgModule({
   // declarations: [CompanyViewComponent],
   // imports: [RouterModule.forChild(routes)]
-  declarations: [CompanyViewComponent, CompanyConnectComponent],
+  declarations: [],
   imports: [
     CommonModule,
     RouterModule.forChild(routes),

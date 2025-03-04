@@ -1,4 +1,13 @@
 import { Component } from '@angular/core';
+import {CommonModule} from "@angular/common";
+import {ChipModule} from "primeng/chip";
+import {TalentConnectModule} from "../talent-connect.module";
+import {DropdownModule} from "primeng/dropdown";
+import {DialogModule} from "primeng/dialog";
+import {PaginatorModule, PaginatorState} from "primeng/paginator";
+import {Select} from "primeng/select";
+import {FormsModule} from "@angular/forms";
+import {RouterLink} from "@angular/router";
 
 interface DropdownOption {
   label: string;
@@ -6,18 +15,22 @@ interface DropdownOption {
 }
 
 @Component({
-  selector: 'uni-company-connect',
-  templateUrl: './company-connect.component.html',
-  styleUrls: ['./company-connect.component.scss'],
-  standalone: true,
-    import: [
-      CommonModule,
-      ChipModule,
-      TalentConnectModule,
-      DialogModule,
-      DropdownModule,
-      PaginatorModule]
-  })
+    imports: [
+        CommonModule,
+        ChipModule,
+        TalentConnectModule,
+        DialogModule,
+        DropdownModule,
+        PaginatorModule,
+        Select,
+        FormsModule,
+        RouterLink
+    ],
+    selector: 'uni-company-connect',
+    standalone: true,
+    styleUrls: ['./company-connect.component.scss'],
+    templateUrl: './company-connect.component.html'
+})
 export class CompanyConnectComponent {
   displayModal: boolean = false;
   totalCount: number = 90;
@@ -43,6 +56,8 @@ export class CompanyConnectComponent {
       logo: '/uniprep-assets/image-available.png'
     }
   ]
+    pageSize: unknown;
+    totalPitchDeckCount: unknown;
 
   constructor() {}
 
@@ -53,4 +68,12 @@ export class CompanyConnectComponent {
   applyFilter() {
 
   }
+
+    clearFilter() {
+
+    }
+
+    pageChange($event: PaginatorState) {
+
+    }
 }

@@ -3,7 +3,8 @@ import { Component, EventEmitter, Input, Output } from '@angular/core';
 @Component({
   selector: 'uni-company-detail',
   templateUrl: './company-detail.component.html',
-  styleUrls: ['./company-detail.component.scss']
+  styleUrls: ['./company-detail.component.scss'],
+  standalone: true,
 })
 export class CompanyDetailComponent {
   @Output() openChat: EventEmitter<boolean> = new EventEmitter<boolean>(true);

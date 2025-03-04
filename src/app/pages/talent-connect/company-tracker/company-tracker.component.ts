@@ -1,9 +1,16 @@
 import { Component } from '@angular/core';
+import {Dialog} from "primeng/dialog";
+import {CompanyListComponent} from "../../company-list/company-list.component";
 
 @Component({
   selector: 'uni-company-tracker',
   templateUrl: './company-tracker.component.html',
-  styleUrls: ['./company-tracker.component.scss']
+  styleUrls: ['./company-tracker.component.scss'],
+  standalone: true,
+  imports: [
+    Dialog,
+    CompanyListComponent
+  ]
 })
 export class CompanyTrackerComponent {
   isSkeletonVisible: boolean = false;
@@ -25,6 +32,7 @@ export class CompanyTrackerComponent {
   ];
 
   showChat: boolean = false;
+  orgnamewhitlabel: string = '';
 
   constructor() { }
 
@@ -38,5 +46,9 @@ export class CompanyTrackerComponent {
   onClickJobId(event: number) {
     this.showChat = false;
     this.selectedJobId = event;
+  }
+
+  upgradePlan() {
+
   }
 }

@@ -32,10 +32,10 @@
                     <h5 class="uniprep-primary fw-semibold mt-3 mb-1">
                       {{ recommendation.question.branches[0] }}
                     </h5>
-                    <p-dropdown styleClass="w-100" appendTo="body" [options]="industryList" [filter]="true"
+                    <p-select styleClass="w-100" appendTo="body" [options]="industryList" [filter]="true"
                       formControlName="industry" filterBy="Industry" optionLabel="Industry" placeholder="Select Industry" optionValue="Industry"
                       [autoDisplayFirst]="false">
-                    </p-dropdown>
+                    </p-select>
                     <p class="text-center" *ngIf="marketingForm.get('industry')?.errors?.required && submitted"
                       style="color: red">
                       Please enter the industry type
@@ -45,12 +45,12 @@
                     <h5 class="uniprep-primary fw-semibold mt-3 mb-1">
                       {{ recommendation.question.branches[1] }}
                     </h5>
-                    <!-- <p-dropdown styleClass="w-100" appendTo="body" [options]="locationsList" [filter]="true"
+                    <!-- <p-select styleClass="w-100" appendTo="body" [options]="locationsList" [filter]="true"
                       formControlName="location" filterBy="district" optionLabel="district" optionValue="district" placeholder="Select Location"
                       [autoDisplayFirst]="false">
-                    </p-dropdown> -->
+                    </p-select> -->
 
-                    <p-dropdown [options]="departureLocationList" [virtualScroll]="true"
+                    <p-select [options]="departureLocationList" [virtualScroll]="true"
                       [virtualScrollItemSize]="50" formControlName="location"
                       [appendTo]="'body'" [filter]="true" [showClear]="true"
                       placeholder="Select Departure location" styleClass="w-100">
@@ -92,7 +92,7 @@
                               </div>
                           </div>
                       </ng-template>
-                    </p-dropdown>
+                    </p-select>
                     <p class="text-center" *ngIf="marketingForm.get('location')?.errors?.required && submitted"
                       style="color: red">
                       Please Choose Any one option
@@ -102,10 +102,10 @@
                     <h5 class="uniprep-primary fw-semibold mt-3 mb-1">
                       {{ recommendation.question.branches[2] }}
                     </h5>
-                    <p-dropdown styleClass="w-100" appendTo="body" [options]="startupStageList" [filter]="true"
+                    <p-select styleClass="w-100" appendTo="body" [options]="startupStageList" [filter]="true"
                       formControlName="startup_stage" filterBy="name" optionLabel="name" optionValue="name" placeholder="Select Startup Stage"
                       [autoDisplayFirst]="false">
-                    </p-dropdown>
+                    </p-select>
                     <p class="text-center" *ngIf="marketingForm.get('startup_stage')?.errors?.required && submitted"
                       style="color: red">
                       Please Choose Any one option
@@ -115,10 +115,10 @@
                     <h5 class="uniprep-primary fw-semibold mt-3 mb-1">
                       {{ recommendation.question.branches[3] }}
                     </h5>
-                    <p-dropdown styleClass="w-100" appendTo="body" [options]="teamSizeList" [filter]="true"
+                    <p-select styleClass="w-100" appendTo="body" [options]="teamSizeList" [filter]="true"
                       formControlName="team_size" filterBy="name" optionLabel="name" optionValue="name" placeholder="Select Team Size"
                       [autoDisplayFirst]="false">
-                    </p-dropdown>
+                    </p-select>
                     <p class="text-center" *ngIf="marketingForm.get('team_size')?.errors?.required && submitted"
                       style="color: red">
                       Please Choose Any one option
@@ -126,6 +126,7 @@
                   </div>
                 </div>
             </div>
+
         </div>
         <div class="card-body text-center flex-fill overflow-y-auto">
             <form [formGroup]="marketingForm" class="mt-4">

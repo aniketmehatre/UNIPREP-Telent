@@ -127,7 +127,7 @@
   </div>
 <div class="card-footer border-0 bg-transparent">
     <div class="row d-flex align-items-center justify-content-between">
-        <p-paginator *ngIf="totalCount != 0" [rows]="pageSize" [totalRecords]="totalPitchDeckCount" [first]="(page - 1) * pageSize" (onPageChange)="pageChange($event)" [rowsPerPageOptions]="[50, 100, 300, 500, 1000]" [disabled]="totalPitchDeckCount <= pageSize"> </p-paginator>
+        <p-paginator *ngIf="totalCount != 0" [rows]="pageSize" [totalRecords]="totalPitchDeckCount" [first]="(page - 1) * pageSize" (onPageChange)="pageChange($event)" [rowsPerPageOptions]="[50, 100, 300, 500, 1000]"> </p-paginator>
     </div>
 </div>
 </div>
@@ -151,19 +151,19 @@
            <div class="col-md-4">
              <label class="form-label fw-bold">Industry Type</label>
              <p-select [options]="industryTypes" placeholder="Select your preferred industry" 
-               styleClass="w-100" [showClear]="true"></p-dropdown>
+               styleClass="w-100" [showClear]="true"></p-select>
            </div>
            
            <div class="col-md-4">
              <label class="form-label fw-bold">Company Size</label>
              <p-select [options]="companySizes" placeholder="Select Company Size" 
-               styleClass="w-100" [showClear]="true"></p-dropdown>
+               styleClass="w-100" [showClear]="true"></p-select>
            </div>
            
            <div class="col-md-4">
              <label class="form-label fw-bold">Headquarters Location</label>
              <p-select [options]="locations" placeholder="Select Headquarters Location" 
-               styleClass="w-100" [showClear]="true"></p-dropdown>
+               styleClass="w-100" [showClear]="true"></p-select>
            </div>
          </div>
          
@@ -171,19 +171,19 @@
            <div class="col-md-4">
              <label class="form-label fw-bold">Global Presence</label>
              <p-select [options]="globalPresence" placeholder="Select global presence" 
-               styleClass="w-100" [showClear]="true"></p-dropdown>
+               styleClass="w-100" [showClear]="true"></p-select>
            </div>
            
            <div class="col-md-4">
              <label class="form-label fw-bold">Year Founded</label>
              <p-select [options]="foundedYears" placeholder="Select founded year" 
-               styleClass="w-100" [showClear]="true"></p-dropdown>
+               styleClass="w-100" [showClear]="true"></p-select>
            </div>
            
            <div class="col-md-4">
              <label class="form-label fw-bold">Company Type</label>
              <p-select [options]="companyTypes" placeholder="Select company type" 
-               styleClass="w-100" [showClear]="true"></p-dropdown>
+               styleClass="w-100" [showClear]="true"></p-select>
            </div>
          </div>
      </form>
