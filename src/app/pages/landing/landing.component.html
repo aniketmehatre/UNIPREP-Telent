@@ -359,7 +359,21 @@
 					<div class="col-md-6 col-12">
 						<h2 class="text-white fw-semibold text-md-start text-center mb-3 d-none d-md-block">Key Features</h2>
 						<div class="accordion accordion-flush" id="accordionFeatures">
-							<div class="accordion-item featurecard">
+							<div class="accordion" id="accordionFeatures">
+								<div class="accordion-item featurecard" *ngFor="let item of accordionItems; let i = index">
+									<h2 class="accordion-header">
+										<button class="accordion-button text-white" type="button" data-bs-toggle="collapse" [attr.data-bs-target]="'#' + item.id" aria-expanded="true" [attr.aria-controls]="item.id" (click)="changeImage(item.image)">
+											{{ item.title }}
+										</button>
+									</h2>
+									<div [id]="item.id" class="accordion-collapse collapse" data-bs-parent="#accordionFeatures" [ngClass]="{ show: i === 0 }">
+										<div class="accordion-body">
+											<p class="mb-0 text-white fw-extralight">{{ item.content }}</p>
+										</div>
+									</div>
+								</div>
+							</div>
+							<!-- <div class="accordion-item featurecard">
 								<h2 class="accordion-header">
 									<button class="accordion-button text-white" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne" (click)="changeImage('uf1.webp')">Global Repository of Information</button>
 								</h2>
@@ -368,8 +382,9 @@
 										<p class="mb-0 text-white fw-extralight">Gain access to expert answers for over a million questions on international education, career, life, and travel in over 25 countries.</p>
 									</div>
 								</div>
-							</div>
+							</div> -->
 
+							<!-- 
 							<div class="accordion-item featurecard">
 								<h2 class="accordion-header">
 									<button class="accordion-button text-white collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#CollapseTwo" aria-expanded="true" aria-controls="CollapseTwo" (click)="changeImage('uf2.webp')">Academic Support</button>
@@ -481,7 +496,7 @@
 										<p class="mb-0 text-white fw-extralight">UNIPREP also offers Founder's tool having key resources for entrepreneurs, including a fundraising checklist, investor pitch training, and a list of potential investors.</p>
 									</div>
 								</div>
-							</div>
+							</div> -->
 						</div>
 					</div>
 				</div>
@@ -560,7 +575,7 @@
 	</div>
 </section>
 
-<section class="darksection pt-5 pb-5 comparisionchart" id="comparision">
+<!-- <section class="darksection pt-5 pb-5 comparisionchart" id="comparision">
 	<div class="container-fluid">
 		<div class="row justify-content-center">
 			<div class="col-md-8">
@@ -584,9 +599,9 @@
 												<li class="text-grey">Career tools (CV builder, Interview prep, career growth checker and more)</li>
 												<li class="text-grey">Job portal featuring 1M+ active jobs</li>
 												<li class="text-grey">Start-up incubation</li>
-												<li class="text-grey">AI global advisor</li>
+												<li class="text-grey">AI global advisor</li> -->
 
-												<!-- <li class="text-grey">Global Personal Advisor</li>
+<!-- <li class="text-grey">Global Personal Advisor</li>
 												<li class="text-grey">Global Q&A Database</li>
 												<li class="text-grey">International Events Access</li>
 												<li class="text-grey">International Scholarship Data</li>
@@ -594,7 +609,7 @@
 												<li class="text-grey">Startup Kit</li>
 												<li class="text-grey">Company Data</li>
 												<li class="text-grey">Investor Data</li> -->
-											</ul>
+<!-- </ul>
 										</div>
 									</div>
 									<div class="card flex-shrink-0">
@@ -628,9 +643,9 @@
 												<li class="uniprep-secondary"><i class="fa-regular fa-check fa-xl"></i></li>
 											</ul>
 										</div>
-									</div>
+									</div> -->
 
-									<!-- <div class="card flex-shrink-0">
+<!-- <div class="card flex-shrink-0">
 										<div class="card-body">
 											<h5 class="uniprep-secondary fw-bold mb-4 px-3">UNIPREP</h5>
 											<ul class="text-center">
@@ -690,7 +705,7 @@
 											</ul>
 										</div>
 									</div> -->
-								</div>
+<!-- </div>
 							</div>
 						</div>
 					</div>
@@ -698,7 +713,7 @@
 			</div>
 		</div>
 	</div>
-</section>
+</section> -->
 <!-- <section class="pt-4 pb-4 darksection" id="testimonials">
 	<div class="container-fluid">
 		<div class="row">
@@ -792,102 +807,24 @@
 			</div>
 			<div class="col-md-8">
 				<div class="accordion pb-3" id="accordionFAQ">
-					<div class="accordion-item faqcard">
+					<div class="accordion-item faqcard" *ngFor="let faq of faqItems; let i = index">
+						<h2 class="accordion-header">
+							<button class="accordion-button text-white collapsed" type="button" data-bs-toggle="collapse" [attr.data-bs-target]="'#' + faq.id" aria-expanded="false" [attr.aria-controls]="faq.id">
+								{{ faq.question }}
+							</button>
+						</h2>
+						<div [id]="faq.id" class="accordion-collapse collapse" data-bs-parent="#accordionFAQ">
+							<div class="accordion-body">{{ faq.answer }}</div>
+						</div>
+					</div>
+					<!-- <div class="accordion-item faqcard">
 						<h2 class="accordion-header">
 							<button class="accordion-button text-white collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#faqcollapseOne" aria-expanded="false" aria-controls="faqcollapseOne">What is UNIPREP?</button>
 						</h2>
 						<div id="faqcollapseOne" class="accordion-collapse collapse" data-bs-parent="#accordionFAQ">
 							<div class="accordion-body">UNIPREP is the world's only all-in-one SaaS platform designed to help students, professionals, and founders achieve success in today's competitive world.</div>
 						</div>
-					</div>
-					<div class="accordion-item faqcard">
-						<h2 class="accordion-header">
-							<button class="accordion-button text-white collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#faqcollapseTwo" aria-expanded="false" aria-controls="faqcollapseTwo">Does UNIPREP offer any free version for users?</button>
-						</h2>
-						<div id="faqcollapseTwo" class="accordion-collapse collapse" data-bs-parent="#accordionFAQ">
-							<div class="accordion-body">UNIPREP provides its users with a free 60-minute trial period.</div>
-						</div>
-					</div>
-					<div class="accordion-item faqcard">
-						<h2 class="accordion-header">
-							<button class="accordion-button text-white collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#faqcollapseFive" aria-expanded="false" aria-controls="faqcollapseFive">What if the question I want to ask is not on the UNIPREP platform?</button>
-						</h2>
-						<div id="faqcollapseFive" class="accordion-collapse collapse" data-bs-parent="#accordionFAQ">
-							<div class="accordion-body">If your question isn't already addressed on the UNIPREP platform, you can utilize our personalized advisory services. We offer tailored responses from global experts to specific user inquiries on a credit-based system.</div>
-						</div>
-					</div>
-					<div class="accordion-item faqcard">
-						<h2 class="accordion-header">
-							<button class="accordion-button text-white collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#faqcollapseSeven" aria-expanded="false" aria-controls="faqcollapseSeven">Can I apply for jobs through the UNIPREP platform?</button>
-						</h2>
-						<div id="faqcollapseSeven" class="accordion-collapse collapse" data-bs-parent="#accordionFAQ">
-							<div class="accordion-body">Yes, the UNIPREP platform has a job portal feature with over 1 million active jobs, granting users access to global job opportunities. This feature enables you to explore and apply for positions worldwide, aligning with your career aspirations</div>
-						</div>
-					</div>
-					<div class="accordion-item faqcard">
-						<h2 class="accordion-header">
-							<button class="accordion-button text-white collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#faqcollapseNine" aria-expanded="false" aria-controls="faqcollapseNine">Is UNIPREP updated?</button>
-						</h2>
-						<div id="faqcollapseNine" class="accordion-collapse collapse" data-bs-parent="#accordionFAQ">
-							<div class="accordion-body">Yes the information on the platform undergoes quarterly updates to ensure its accuracy.</div>
-						</div>
-					</div>
-					<div class="accordion-item faqcard">
-						<h2 class="accordion-header">
-							<button class="accordion-button text-white collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#faqcollapseTen" aria-expanded="false" aria-controls="faqcollapseTen">How does UNIPREP ensure the credibility of its certificates?</button>
-						</h2>
-						<div id="faqcollapseTen" class="accordion-collapse collapse" data-bs-parent="#accordionFAQ">
-							<div class="accordion-body">Certificates from UNIPREP are accredited by the Global Education Accreditation Council (GEAC), ensuring they meet international educational standards. This accreditation adds credibility and recognition to UNIPREP certifications, making them valuable in academic and professional settings worldwide.</div>
-						</div>
-					</div>
-					<div class="accordion-item faqcard">
-						<h2 class="accordion-header">
-							<button class="accordion-button text-white collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#faqcollapseEleven" aria-expanded="false" aria-controls="faqcollapseEleven">What is Learning Hub?</button>
-						</h2>
-						<div id="faqcollapseEleven" class="accordion-collapse collapse" data-bs-parent="#accordionFAQ">
-							<div class="accordion-body">The Learning Hub is a comprehensive platform that provides users with access to over 1000 skill-based learning programs each of which is accompanied by certificates.</div>
-						</div>
-					</div>
-					<div class="accordion-item faqcard">
-						<h2 class="accordion-header">
-							<button class="accordion-button text-white collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#faqcollapseTwelve" aria-expanded="false" aria-controls="faqcollapseTwelve">What is Language hub?</button>
-						</h2>
-						<div id="faqcollapseTwelve" class="accordion-collapse collapse" data-bs-parent="#accordionFAQ">
-							<div class="accordion-body">The Language Hub offers access to over 25 languages, including regional and international dialects, providing users with diverse opportunities for language learning.</div>
-						</div>
-					</div>
-					<div class="accordion-item faqcard">
-						<h2 class="accordion-header">
-							<button class="accordion-button text-white collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#faqcollapseThirteen" aria-expanded="false" aria-controls="faqcollapseThirteen">How will this certificate benefit me</button>
-						</h2>
-						<div id="faqcollapseThirteen" class="accordion-collapse collapse" data-bs-parent="#accordionFAQ">
-							<div class="accordion-body">The certificates accredited by a prominent body will demonstrate your knowledge which can serve as a valuable addition to your CV and job applications.</div>
-						</div>
-					</div>
-					<div class="accordion-item faqcard">
-						<h2 class="accordion-header">
-							<button class="accordion-button text-white collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#faqcollapseFourteen" aria-expanded="false" aria-controls="faqcollapseFourteen">What is global repository of information?</button>
-						</h2>
-						<div id="faqcollapseFourteen" class="accordion-collapse collapse" data-bs-parent="#accordionFAQ">
-							<div class="accordion-body">Our global repository of information addresses 1million+ questions about 25+ countries covering student, job seeker, entrepreneur and global traveller perspectives.</div>
-						</div>
-					</div>
-					<!-- <div class="accordion-item faqcard">
-            <h2 class="accordion-header">
-              <button class="accordion-button text-white collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#faqcollapseFifteen" aria-expanded="false" aria-controls="faqcollapseFifteen">How will this certificate benefit me?</button>
-            </h2>
-            <div id="faqcollapseFifteen" class="accordion-collapse collapse" data-bs-parent="#accordionFAQ">
-              <div class="accordion-body">The certificates will demonstrate your knowledge which can serve as a valuable addition to your CV and job applications.</div>
-            </div>
-          </div>
-          <div class="accordion-item faqcard">
-            <h2 class="accordion-header">
-              <button class="accordion-button text-white collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#faqcollapseSixteen" aria-expanded="false" aria-controls="faqcollapseSixteen">Do I have to pay extra for certificates?</button>
-            </h2>
-            <div id="faqcollapseSixteen" class="accordion-collapse collapse" data-bs-parent="#accordionFAQ">
-              <div class="accordion-body">No you need not pay extra for certificates. It is all included in your subscription cost.</div>
-            </div>
-          </div> -->
+					</div> -->
 				</div>
 			</div>
 			<div class="col-md-10 text-center">
