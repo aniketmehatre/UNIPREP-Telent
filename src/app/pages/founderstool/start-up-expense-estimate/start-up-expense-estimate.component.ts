@@ -85,7 +85,17 @@ export class StartUpExpenseEstimateComponent implements OnInit {
       expense_currency_code: [],
       sales_currency_code: []
     });
-
+    const marketingForm = this.marketingForm;
+    marketingForm.get('expense_currency_code')?.disable();
+    marketingForm.get('sales_currency_code')?.disable();
+    marketingForm.controls['investment_currency_code'].valueChanges.subscribe(value =>{
+      if(value){
+        marketingForm.patchValue({
+          expense_currency_code: value,
+          sales_currency_code: value,
+        })
+      }
+    });
   }
 
   enableModule: boolean = true;

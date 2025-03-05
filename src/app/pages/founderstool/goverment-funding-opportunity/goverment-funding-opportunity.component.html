@@ -209,9 +209,14 @@
 						*ngFor="let fundData of fundData; let index = index"
 						class="col-xxl-3 col-xl-3 col-lg-4 col-md-4 col-sm-6 col-xs-12 col-12 mb-3 text-start">
 						<div class="card-body border-primary h-100">
-							<div class="flex gap-2 align-items-start" (click)="check.click();">
-								<input type="checkbox" id="card1" class="mt-1" (change)="onCheckboxChange($event)" [(ngModel)]="fundData.isChecked" #check>
-								<h5 class="card-title mb-4">{{fundData?.name}}</h5>
+							<div class="d-flex justify-content-between align-items-start">
+								<div class="flex gap-2 align-items-start" (click)="check.click();">
+									<input type="checkbox" id="card1" class="mt-1" (change)="onCheckboxChange($event)" [(ngModel)]="fundData.isChecked" #check>
+									<h5 class="card-title mb-4">{{fundData?.name}}</h5>
+								</div>
+								<div>
+									<i class="fa-star cursor-pointer fs-5 text-danger" [ngClass]="fundData?.favourite ? 'fa-solid': 'fa-regular'" (click)="bookmarkQuestion(fundData?.id, fundData?.favourite);" ></i>
+								</div>
 							</div>
 
 							<div class="row">
@@ -222,7 +227,7 @@
 								<div class="col-9">
 									<div class="row">
 										<div class="col-6 mb-3">
-											<div class="d-flex align-items-center">
+											<div class="d-flex align-items-start">
 												<div class="me-2">
 													<i class="fa fa-globe text-success"></i>
 												</div>
@@ -234,9 +239,9 @@
 										</div>
 
 										<div class="col-6 mb-3">
-											<div class="d-flex align-items-center">
+											<div class="d-flex align-items-start">
 												<div class="me-2">
-													<i class="fa fa-geo-alt-fill text-primary"></i>
+													<i class="fa-solid fa-location-dot text-primary"></i>
 												</div>
 												<div>
 													<small class="text-muted d-block">State</small>
@@ -246,9 +251,9 @@
 										</div>
 
 										<div class="col-6">
-											<div class="d-flex align-items-center">
+											<div class="d-flex align-items-start">
 												<div class="me-2">
-													<i class="fa fa-currency-rupee text-warning"></i>
+													<i class="fa-solid fa-dollar-sign text-warning"></i>
 												</div>
 												<div>
 													<small class="text-muted d-block">Value</small>
@@ -258,7 +263,7 @@
 										</div>
 
 										<div class="col-6">
-											<div class="d-flex align-items-center">
+											<div class="d-flex align-items-start">
 												<div class="me-2">
 													<i class="fa fa-coin text-warning"></i>
 												</div>
