@@ -50,6 +50,8 @@ export class DashboardComponent implements OnInit, OnChanges {
 	orgnamewhitlabel: any
 	orglogowhitelabel: any
 	@ViewChild("carousel") carousel!: Carousel
+	groupedListFav:any= [];
+	groupedListFav2:any=[];
 	university: any[] = [
 		{
 			image: "../../../uniprep-assets/images/icons/university1.svg",
@@ -76,20 +78,20 @@ export class DashboardComponent implements OnInit, OnChanges {
 				private cdr: ChangeDetectorRef, private storage: StorageService) {
 		this.responsiveOptions = [
 			{
-				breakpoint: "1024px",
-				numVisible: 5,
-				numScroll: 5,
-			},
-			{
-				breakpoint: "768px",
-				numVisible: 4,
-				numScroll: 4,
-			},
-			{
-				breakpoint: "560px",
-				numVisible: 2,
-				numScroll: 2,
-			},
+				breakpoint: '1024px', 
+				numVisible: 3,        
+				numScroll: 1
+			  },
+			  {
+				breakpoint: '768px',  
+				numVisible: 2,      
+				numScroll: 1
+			  },
+			  {
+				breakpoint: '560px', 
+				numVisible: 1,        
+				numScroll: 1
+			  }
 		]
 	}
 
@@ -101,8 +103,17 @@ export class DashboardComponent implements OnInit, OnChanges {
 		
 		// Load other data in parallel
 		this.loadParallelData();
+		this.groupedListFav = this.chunkArray(this.listFav, 4);
+		this.groupedListFav2 = this.chunkArray(this.listFav, 2);
 	}
-
+	chunkArray(array: any[], size: number): any[] {
+		const result = [];
+		for (let i = 0; i < array.length; i += size) {
+		  result.push(array.slice(i, i + size));
+		}
+		return result;
+	  }
+	  
 	private initializeEssentialData(): void {
 		this.selectedCountryId = Number(this.storage.get("countryId"));
 		this.storage.set("currentmodulenameforrecently", "");
