@@ -30,10 +30,10 @@
                         class="w-100 bg-primary rounded-top-4 text-start d-flex justify-content-between align-items-center">
                         <h5 class="text-white py-2 px-2 fw-medium">Edit your Profile</h5>
                         <div class="d-flex gap-2 mx-2 px-2">
-                            <button class="button-profile-top rounded-pill px-3 py-1" (click)="openProfileDialog({});">
+                            <button class="button-profile-top rounded-pill px-3 py-1" (click)="openProfileDialog(true);">
                                 Profile Sample
                             </button>
-                            <button class="button-profile-top rounded-pill px-3 py-1">
+                            <button class="button-profile-top rounded-pill px-3 py-1" (click)="openProfileDialog(false);">
                                 Profile Preview
                             </button>
                         </div>
@@ -50,16 +50,24 @@
                                             <div class="text-center mb-3 p-3 bg-light rounded">
                                                 <div class="position-relative mx-auto mb-3"
                                                     style="width: 120px; height: 120px">
-                                                    <div class="bg-secondary bg-opacity-25 d-flex justify-content-center align-items-center rounded-circle"
+                                                    <ng-container *ngIf="logo else showSample">
+                                                        <img 
+                                                        [src]="logo"
+                                                        styleClass="shadow-lg object-fit"  style="width: 120px; height: 120px;" class="rounded-circle ">
+                                                    </ng-container>
+                                                    <ng-template #showSample>
+                                                        <div class="bg-secondary bg-opacity-25 d-flex justify-content-center align-items-center rounded-circle"
                                                         style="width: 120px; height: 120px">
                                                         <i class="pi pi-user"
                                                             style="font-size: 3rem; color: #6c757d"></i>
                                                     </div>
+                                                    </ng-template>
                                                 </div>
 
                                                 <div class="d-flex justify-content-center gap-2 mb-3">
+                                                    <input name="image"  type="file" (change)="onUploadPhoto($event);" accept="image/*" #fileUploadImage style="display: none;"/>
                                                     <p-button label="Upload Photo" icon="pi pi-upload"
-                                                        (onClick)="onUploadPhoto()" styleClass="p-button-sm"></p-button>
+                                                         styleClass="p-button-sm" (click)="fileUploadImage.click();"></p-button>
                                                     <p-button label="Remove Photo" icon="pi pi-times"
                                                         (onClick)="onRemovePhoto()"
                                                         styleClass="p-button-sm p-button-outlined"></p-button>
@@ -867,34 +875,35 @@
                             <div class="row text-start">
                                 <div class="info-item col">
                                     <i class="fa-solid fa-location-dot"></i>
-                                    <span>Current Location <br /><b>Mysore, India</b></span>
+                                    <span>Current Location <br /><b>{{personalInfoForm?.get('location')?.value ? personalInfoForm?.get('location')?.value : 'Mysore, India'}}</b></span>
                                 </div>
                                 <div class="info-item col">
                                     <i class="fa-solid fa-briefcase"></i>
                                     <span>Desired Job Title<br />
-                                        <b>UI/UX Designer</b></span>
+                                        <b>{{personalInfoForm?.get('jobTitle')?.value ? personalInfoForm?.get('jobTitle')?.value : 'UI/UX Desginer'}}</b></span>
                                 </div>
                             </div>
                             <div class="row text-start">
                                 <div class="info-item col">
                                     <i class="fa-solid fa-user-tie"></i>
-                                    <span>Employment Type<br /><b>Full Time</b></span>
+                                    <span>Employment Type<br /><b>{{personalInfoForm?.get('preferredEmploymentType')?.value ? personalInfoForm?.get('preferredEmploymentType')?.value : 'Full Time'}}</b></span>
                                 </div>
                                 <div class="info-item col">
                                     <i class="fa-solid fa-building"></i>
                                     <span>Work Arrangement<br />
-                                        <b>Onsite</b></span>
+                                        <b>{{personalInfoForm?.get('preferredWorkLocation')?.value ? personalInfoForm?.get('preferredWorkLocation')?.value : 'On Site'}}</b></span>
                                 </div>
                             </div>
                             <div class="row text-start">
                                 <div class="info-item col">
                                     <i class="fa-solid fa-money-bill-wave"></i>
                                     <span>Expected Salary<br />
-                                        <b>₹30,000/Month</b></span>
+                                        <b>{{personalInfoForm?.get('expectedSalary')?.value ? personalInfoForm?.get('expectedSalary')?.value : '₹30,000/Month'}}</b></span>
                                 </div>
                                 <div class="info-item col">
                                     <i class="fa-solid fa-user-graduate"></i>
-                                    <span>Current Career Status<br /><b>Active Students</b></span>
+                                    <span>Current Career Status<br/>
+                                        <b>{{personalInfoForm?.get('careerStatus')?.value ? personalInfoForm?.get('careerStatus')?.value : 'Active Students'}}</b></span>
                                 </div>
                             </div>
                             <p class="text-center text-muted mt-3" style="font-size: 12px">

@@ -38,7 +38,7 @@ interface Reference {
 })
 export class ViewProfileComponent implements OnInit{
   @Input() display: boolean = false;
-  profileData: any = '';
+  public isSample: boolean = true;
   personalInfo = {
     fullName: 'Alexanne Stant',
     dateOfBirth: '16/01/1999',
@@ -48,16 +48,16 @@ export class ViewProfileComponent implements OnInit{
     logo: null
   };
 
-  educationDetails = {
+  educationDetails = [{
     highestQualification: 'Msc in UI/UX Designing',
     university: 'Jain University',
     fieldOfStudy: 'UI Designing',
     courseName: 'UI/UX Designing',
     graduationYear: 2022,
     gpa: '8.9 GPA'
-  };
+  }];
 
-  workExperience = {
+  workExperience = [{
     totalExperience: '2 Years 2 Months',
     companyName: 'UNIABROAD Technology Pvt Ltd',
     jobTitle: 'Senior UI/UX Designer',
@@ -68,7 +68,7 @@ export class ViewProfileComponent implements OnInit{
       'Designed intuitive and visually appealing user interfaces for web and mobile applications',
       'Created wireframes, prototypes, and design systems to enhance user experience'
     ]
-  };
+  }];
 
   careerPreferences = {
     careerStatus: 'Full Time',
@@ -117,31 +117,47 @@ export class ViewProfileComponent implements OnInit{
     { name: 'Introduction Video.mp4', type: 'video' }
   ];
 
-  academicReference: Reference = {
+  academicReference: Reference[] = [{
     collegeName: 'Christ University',
     name: 'John G',
     designation: 'Head of the Department',
     phoneNumber: '+91 - 7660987651',
     email: 'johng@gmail.com'
-  };
+  }];
 
-  professionalReference: Reference = {
+  professionalReference: Reference[] = [{
     companyName: 'UNIABROAD Technology',
     name: 'Michael',
     designation: 'Human Resource',
     phoneNumber: '+91 - 7660987651',
     email: 'michael@uniabroad.co.in'
-  };
+  }];
 
 
-  constructor(
+  constructor(private ref: DynamicDialogRef,
+    private config: DynamicDialogConfig
   ) { }
 
   ngOnInit(): void { 
-  // const employeeData = this.config.data.profileData;
-  // console.log(employeeData);
-  
-  // this.profileData = employeeData;
+    const employeeData = this.config.data.profileData;
+    const isSample = this.config.data.isSample;
+    this.isSample = isSample;
+    if (!isSample) {
+      const previewData = this.transformFormData(employeeData);
+      this.personalInfo = previewData?.personalInfo;
+      this.educationDetails = previewData?.educationDetails;
+      this.workExperience = previewData?.workExperience;
+      this.careerPreferences = previewData?.careerPreferences;
+      this.additionalDetails = previewData?.additionalDetails;
+      this.keyStrengths = previewData?.keyStrengths;
+      this.networking = previewData?.networking;
+      this.professionalReference = previewData?.professionalReference;
+      this.academicReference = previewData?.academicReference
+    }
+    document.documentElement.style.setProperty(
+      '--dynamic-heading-color',
+      this.isSample ? 'var(--uniprep-secondary)' : 'var(--uniprep-primary)'
+    );
 }
 
   downloadFile(filename: string): void {
@@ -149,7 +165,84 @@ export class ViewProfileComponent implements OnInit{
     // Implement actual file download logic
   }
 
+  transformFormData(formData: any) {
+    return {
+      personalInfo: {
+        fullName: formData.fullName || '',
+        dateOfBirth: formData.dateOfBirth ? new Date(formData.dateOfBirth).toLocaleDateString('en-GB') : '',
+        gender: formData.gender || '',
+        nationality: formData.nationality || '',
+        location: formData.location || '',
+        logo: null
+      },
+      educationDetails: formData.educationDetails.map((edu: any) => ({
+        highestQualification: edu.highestQualification || '',
+        university: edu.university || '',
+        fieldOfStudy: edu.fieldOfStudy || '',
+        courseName: edu.courseName || '',
+        graduationYear: edu.graduationYear || '',
+        gpa: edu.percentage ? `${edu.percentage} %` : ''
+      })),
+      workExperience: formData.workExperience.map((exp: any) => ({
+        totalExperience: exp.totalExperience || '',
+        companyName: exp.companyName || '',
+        jobTitle: exp.jobTitle || '',
+        duration: exp.duration?.map((date: string) => new Date(date).toLocaleDateString('en-GB')).join(' - ') || '',
+        salary: exp.salary ? exp.salary.toLocaleString('en-IN') + ` ${exp.salaryCurrency || 'INR'}` : '',
+        employmentType: exp.employmentType || '',
+        responsibilities: exp.jobResponsibilities ? exp.jobResponsibilities.split('\n') : []
+      })),
+      careerPreferences: {
+        careerStatus: formData.careerStatus || '',
+        careerInterest: formData.careerInterest || '',
+        jobTitle: formData.jobTitle || '',
+        preferredWorkLocation: formData.preferredWorkLocation || '',
+        preferredEmploymentType: formData.preferredEmploymentType || '',
+        preferredWorkplaceType: formData.preferredWorkplaceType || '',
+        willingToRelocate: formData.willingnessToRelocate || '',
+        salaryRange: formData.expectedSalary || ''
+      },
+      certifications: formData.certifications || [],
+      additionalDetails: {
+        languagesKnown: formData.languages?.map((lang: any) => `${lang.language} (${lang.proficiency})`) || [],
+        hobbiesAndInterests: formData.hobbies ? formData.hobbies.split(',') : []
+      },
+      keyStrengths: {
+        industryDifferentiators: formData.industryDifferentiator ? formData.industryDifferentiator.split(',') : [],
+        topProfessionalStrength: formData.professionalStrength || '',
+        solvedRealWorldChallenge: formData.realWorldChallenge || '',
+        leadershipRoles: formData.leadershipRoles || '',
+        mostAdmiredQuality: formData.admirableQuality || ''
+      },
+      networking: {
+        linkedinProfile: formData.linkedinProfile || '',
+        socialMedia: formData.socialMedia?.map((sm: any) => `${sm.platform}: ${sm.link}`) || [],
+        personalWebsite: formData.personalWebsite || ''
+      },
+      attachments: [
+        { name: 'Resume', type: 'document', file: formData.resume },
+        { name: 'Portfolio', type: 'document', file: formData.portfolioLink },
+        { name: 'Introduction Video', type: 'video', file: formData.introductionVideoLink }
+      ].filter(att => att.file),
+      academicReference: formData.academicReferences?.map((ref: any) => ({
+        collegeName: ref.collegeName,
+        name: ref.name,
+        designation: ref.designation,
+        phoneNumber: ref.phoneNumber,
+        email: ref.email
+      })) || [],
+      professionalReference: formData.professionalReferences?.map((ref: any) => ({
+        companyName: ref.companyName,
+        name: ref.name,
+        designation: ref.designation,
+        phoneNumber: ref.phoneNumber,
+        email: ref.email
+      })) || []
+    };
+  }
+
   closeDialog() {
+    this.ref.close();
     this.display = false;
   }
 }

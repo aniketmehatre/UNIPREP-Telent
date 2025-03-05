@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators, FormArray } from '@angular/forms';
 import { ViewProfileComponent } from './view-profile/view-profile.component';
-import { DialogService } from 'primeng/dynamicdialog';
+import { DialogService, DynamicDialogRef } from 'primeng/dynamicdialog';
 
 @Component({
   selector: 'uni-employee-profile',
@@ -12,7 +12,8 @@ import { DialogService } from 'primeng/dynamicdialog';
 export class EmployeeProfileComponent implements OnInit{
   personalInfoForm: FormGroup;
   profileCompletion: number = 60; // Example completion percentage
-
+  ref: DynamicDialogRef | undefined;
+  logo: any;
   // Dropdown options
   genderOptions = [
     { label: 'Male', value: 'male' },
@@ -41,6 +42,9 @@ export class EmployeeProfileComponent implements OnInit{
 
   ngOnInit() {
     this.initializeForm();
+    this.personalInfoForm.valueChanges.subscribe(data => {
+      this.calculateProfileCompletion();
+    });
   }
 
   initializeForm() {
@@ -219,26 +223,76 @@ export class EmployeeProfileComponent implements OnInit{
   }
 
   // Photo upload methods
-  onUploadPhoto() {
-    // Implement photo upload logic
+  onUploadPhoto(event: any) {
+    const file = event.target.files[0]; // Correct way to access the file
+    if (!file) return; // Handle case when no file is selected
+
+    const reader = new FileReader();
+
+    reader.onload = () => {
+      let base64URL = reader.result as string;
+
+      // If needed, modify base64 (e.g., remove prefix)
+      base64URL = base64URL.replace(/^data:image\/[a-z]+;base64,/, '');
+
+      this.logo = `data:image/png;base64,${base64URL}`; // Ensure proper format
+      console.log(this.logo);
+    };
+
+    reader.readAsDataURL(file); // Convert file to base64 URL
+
+    const formData = new FormData();
+    formData.append('image', file);
   }
 
+
   onRemovePhoto() {
-    // Implement photo removal logic
+    this.logo = null;
   }
 
   openVideoPopup(id: string) {
 
   }
 
-  openProfileDialog(employee: any) {
+  openProfileDialog(isSample: boolean) {
     this.dialogService.open(ViewProfileComponent, {
       width: '80%',
       height: '80%',
       data: {
-        profileData: employee
+        profileData: this.personalInfoForm.value,
+        isSample: isSample
       },
       styleClass: 'employee-profile-dialog'
     });
+    this.ref?.onClose.subscribe((product: any) => {
+    });
   }
+
+  calculateProfileCompletion(): any {
+    let totalFields = 0;
+    let filledFields = 0;
+
+    function countFields(formGroup: FormGroup | FormArray) {
+      if (formGroup instanceof FormGroup) {
+        Object.keys(formGroup.controls).forEach((key) => {
+          const control = formGroup.get(key);
+          if (control instanceof FormGroup || control instanceof FormArray) {
+            countFields(control);
+          } else {
+            totalFields++;
+            if (control?.value !== null && control?.value !== '') {
+              filledFields++;
+            }
+          }
+        });
+      } else if (formGroup instanceof FormArray) {
+        formGroup.controls.forEach((group) => countFields(group as FormGroup));
+      }
+    }
+
+    countFields(this.personalInfoForm);
+
+    this.profileCompletion = totalFields === 0 ? 0 : Math.round((filledFields / totalFields) * 100);
+  }
+
 }

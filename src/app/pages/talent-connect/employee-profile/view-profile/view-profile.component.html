@@ -1,7 +1,7 @@
 <div
 class="w-100 bg-primary rounded-top-4 text-start d-flex justify-content-between align-items-center py-3 px-4 ">
-<h5 class="text-white fw-medium fs-4">Sample Profile</h5>
-<i class="fa-solid fa-circle-xmark fs-2 cursor-pointer" style="color: white;"></i>
+<h5 class="text-white fw-medium fs-4">{{isSample ? 'Sample Profile' : personalInfo?.fullName+'\'s profile'}}</h5>
+<i class="fa-solid fa-circle-xmark fs-2 cursor-pointer" style="color: white;" (click)="closeDialog();"></i>
 </div>
 <div class="profile-dialog-content">
     <div class="container-fluid profile-container">
@@ -57,7 +57,7 @@ class="w-100 bg-primary rounded-top-4 text-start d-flex justify-content-between 
             <h4>Education Details</h4>
           </div>
           <div class="card-body">
-            <div class="row">
+            <div class="row"  *ngFor="let educationDetails of educationDetails;">
               <div class="col-md-6">
                 <h5>Highest Qualification</h5>
                 <p>{{ educationDetails.highestQualification }}</p>
@@ -92,7 +92,7 @@ class="w-100 bg-primary rounded-top-4 text-start d-flex justify-content-between 
             <h4>Work Experience & Internships</h4>
           </div>
           <div class="card-body">
-            <div class="row">
+            <div class="row" *ngFor="let workExperience of workExperience;">
               <div class="col-md-6">
                 <h5>Total Years of Experience</h5>
                 <p>{{ workExperience.totalExperience }}</p>
@@ -294,7 +294,7 @@ class="w-100 bg-primary rounded-top-4 text-start d-flex justify-content-between 
             </div>
             <div class="card-body">
                  <h4 class="fw-bold mb-3">Acadamic Refrence</h4>
-                  <div class="row g-3">
+                  <div class="row g-3" *ngFor="let academicReference of academicReference;">
                     <div class="col-md-4">
                       <h5>College Name</h5>
                       <p>{{academicReference.collegeName}}</p>
@@ -317,7 +317,7 @@ class="w-100 bg-primary rounded-top-4 text-start d-flex justify-content-between 
                     </div>
                   </div>
                   <h4 class="fw-bold my-3">Professional Refrence</h4>
-                  <div class="row g-3">
+                  <div class="row g-3" *ngFor="let professionalReference of professionalReference">
                     <div class="col-md-4">
                       <h5>Company Name</h5>
                       <p>{{professionalReference.companyName}}</p>
