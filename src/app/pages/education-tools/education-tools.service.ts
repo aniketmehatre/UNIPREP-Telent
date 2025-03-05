@@ -19,7 +19,7 @@ export class EducationToolsService {
   ) { }
 
   getCurrentSpecializations() {
-    return this.http.get<{ id: number, specialization_name: string }[]>(environment.ApiUrl + "/getcurrentspecialization", {
+    return this.http.get<{ id: number, specialization_name: string }[]>(environment.ApiUrl + "/getCareerSpecialization", {
       headers: this.headers,
     });
   }

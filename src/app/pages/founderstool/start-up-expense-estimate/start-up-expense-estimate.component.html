@@ -179,7 +179,7 @@
                       {{ recommendation.question.branches[3] }}
                     </h5>
                     <div class="w-100 d-flex gap-2 flex-fill">
-                      <p-dropdown formControlName="expense_currency_code" [options]="currenciesList" [filter]="true"
+                      <p-dropdown formControlName="expense_currency_code" [options]="currenciesList" [filter]="true" [disabled] ="true"
                         filterBy="currency_symbol" placeholder="Currency" optionLabel="currency_symbol" optionValue="currency_symbol"
                         [autoDisplayFirst]="false" appendTo="body">
                       </p-dropdown>
@@ -201,7 +201,7 @@
                       {{ recommendation.question.branches[0] }}
                     </h5>
                     <div class="w-100 d-flex gap-2 flex-fill">
-                      <p-dropdown formControlName="sales_currency_code"  [options]="currenciesList" [filter]="true"
+                      <p-dropdown formControlName="sales_currency_code"  [options]="currenciesList" [filter]="true" [disabled] ="true"
                         filterBy="currency_symbol" placeholder=" Currency" optionLabel="currency_symbol" optionValue="currency_symbol"
                         [autoDisplayFirst]="false">
                       </p-dropdown>
@@ -268,7 +268,7 @@
             </div>
             <div class="d-flex align-items-center">
               <button pButton type="button" (click)="saveRecommadation()" class="btn btn-primary btn-rounded py-2 px-4">
-                <span>Save</span>
+                <span>History</span>
               </button>
             </div>
           </div>
