@@ -206,69 +206,13 @@
 			</div>
 			<div class="col-md-10">
 				<div class="row justify-content-center">
-					<div class="col-md-4 col-12 text-center isforyou">
-						<div class="card darkcardh-100">
-							<div class="card-body d-flex py-5 px-4">
-								<div class="d-flex flex-md-row flex-column gap-2 align-items-center card-title">
-									<i class="fa-thin fa-square-check fa-2xl cardicon mb-4 mb-md-0"></i>
-									<h5 class="text-md-start text-center mb-0">You want to connect with potential employers.</h5>
-								</div>
-								<!-- <p class="text-md-start text-center text-grey small mb-0">Our Q&A Library, with over 500000 answers, covers a wide range of global opportunities including over 2 million company database.</p> -->
-							</div>
-						</div>
-					</div>
-					<div class="col-md-4 col-12 text-center isforyou">
+					<div class="col-md-4 col-12 text-center isforyou" *ngFor="let card of cardItems">
 						<div class="card darkcard h-100">
 							<div class="card-body d-flex py-5 px-4">
 								<div class="d-flex flex-md-row flex-column gap-2 align-items-center card-title">
 									<i class="fa-thin fa-square-check fa-2xl cardicon mb-4 mb-md-0"></i>
-									<h5 class="text-md-start text-center mb-0">You're unsure about career preparation and want to upskill.</h5>
+									<h5 class="text-md-start text-center mb-0">{{ card.text }}</h5>
 								</div>
-								<!-- <p class="text-md-start text-center text-grey small mb-0">Our database of 5000+ scholarships, helps you select the best one to fund your education abroad.</p> -->
-							</div>
-						</div>
-					</div>
-					<div class="col-md-4 col-12 text-center isforyou">
-						<div class="card darkcard h-100">
-							<div class="card-body d-flex py-5 px-4">
-								<div class="d-flex flex-md-row flex-column gap-2 align-items-center card-title">
-									<i class="fa-thin fa-square-check fa-2xl cardicon mb-4 mb-md-0"></i>
-									<h5 class="text-md-start text-center mb-0">You're interested in learning new languages.</h5>
-								</div>
-								<!-- <p class="text-md-start text-center text-grey small mb-0">Our global experts will provide you 1-1 advice to satisfy all your queries and doubts on career, life, and education abroad.</p> -->
-							</div>
-						</div>
-					</div>
-					<div class="col-md-4 col-12 text-center isforyou">
-						<div class="card darkcard h-100">
-							<div class="card-body d-flex py-5 px-4">
-								<div class="d-flex flex-md-row flex-column gap-2 align-items-center card-title">
-									<i class="fa-thin fa-square-check fa-2xl cardicon mb-4 mb-md-0"></i>
-									<h5 class="text-md-start text-center mb-0">You're seeking education abroad.</h5>
-								</div>
-								<!-- <p class="text-md-start text-center text-grey small mb-0">Our start-up kit consisting of over 1000 documents and samples, that are vital for launching a successful startup.</p> -->
-							</div>
-						</div>
-					</div>
-					<div class="col-md-4 col-12 text-center isforyou">
-						<div class="card darkcard h-100">
-							<div class="card-body d-flex py-5 px-4">
-								<div class="d-flex flex-md-row flex-column gap-2 align-items-center card-title">
-									<i class="fa-thin fa-square-check fa-2xl cardicon mb-4 mb-md-0"></i>
-									<h5 class="text-md-start text-center mb-0">You're planning to start your own business.</h5>
-								</div>
-								<!-- <p class="text-md-start text-center text-grey small mb-0">Our database of 100,000+ potential investors will address your funding needs.</p> -->
-							</div>
-						</div>
-					</div>
-					<div class="col-md-4 col-12 text-center isforyou">
-						<div class="card darkcard h-100">
-							<div class="card-body d-flex py-5 px-4">
-								<div class="d-flex flex-md-row flex-column gap-2 align-items-center card-title">
-									<i class="fa-thin fa-square-check fa-2xl cardicon mb-4 mb-md-0"></i>
-									<h5 class="text-md-start text-center mb-0">You're eager to travel the world.</h5>
-								</div>
-								<!-- <p class="text-md-start text-center text-grey small mb-0">Discover over 20,000 Q&As about 13 countries. Learn about top travel destinations, tourist spots and so much more.</p> -->
 							</div>
 						</div>
 					</div>
@@ -352,9 +296,6 @@
 						<div class="featureimage mb-md-0 mb-3 p-3">
 							<img [src]="currentImage" class="w-100 rounded-2" alt="Image" />
 						</div>
-
-						<!-- <img [src]="currentImage" id="changingImage" alt="Image" class="w-100 mb-md-0 mb-3" /> -->
-						<!-- <img src="/uniprep-assets/images/content.webp" id="changingImage" alt="Image" class="w-100" /> -->
 					</div>
 					<div class="col-md-6 col-12">
 						<h2 class="text-white fw-semibold text-md-start text-center mb-3 d-none d-md-block">Key Features</h2>
@@ -373,130 +314,6 @@
 									</div>
 								</div>
 							</div>
-							<!-- <div class="accordion-item featurecard">
-								<h2 class="accordion-header">
-									<button class="accordion-button text-white" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne" (click)="changeImage('uf1.webp')">Global Repository of Information</button>
-								</h2>
-								<div id="collapseOne" class="accordion-collapse collapse show" data-bs-parent="#accordionFeatures">
-									<div class="accordion-body">
-										<p class="mb-0 text-white fw-extralight">Gain access to expert answers for over a million questions on international education, career, life, and travel in over 25 countries.</p>
-									</div>
-								</div>
-							</div> -->
-
-							<!-- 
-							<div class="accordion-item featurecard">
-								<h2 class="accordion-header">
-									<button class="accordion-button text-white collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#CollapseTwo" aria-expanded="true" aria-controls="CollapseTwo" (click)="changeImage('uf2.webp')">Academic Support</button>
-								</h2>
-								<div id="CollapseTwo" class="accordion-collapse collapse" data-bs-parent="#accordionFeatures">
-									<div class="accordion-body">
-										<p class="mb-0 text-white fw-extralight">Tailored curriculum resources for K-12, ensuring readiness for a global world.</p>
-									</div>
-								</div>
-							</div>
-							<div class="accordion-item featurecard">
-								<h2 class="accordion-header">
-									<button class="accordion-button text-white collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#CollapseThree" aria-expanded="true" aria-controls="CollapseThree" (click)="changeImage('uf11.webp')">Nationalised tests</button>
-								</h2>
-								<div id="CollapseThree" class="accordion-collapse collapse" data-bs-parent="#accordionFeatures">
-									<div class="accordion-body">
-										<p class="mb-0 text-white fw-extralight">Resources to clear nationalised tests like JEE, NDA, KCET and more.</p>
-									</div>
-								</div>
-							</div>
-							<div class="accordion-item featurecard">
-								<h2 class="accordion-header">
-									<button class="accordion-button text-white collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#CollapseFour" aria-expanded="false" aria-controls="CollapseFour" (click)="changeImage('uf3.webp')">International Courses & Scholarships</button>
-								</h2>
-								<div id="CollapseFour" class="accordion-collapse collapse" data-bs-parent="#accordionFeatures">
-									<div class="accordion-body">
-										<p class="mb-0 text-white fw-extralight">A curated selection of courses and scholarships from top institutions worldwide, tailored for diverse academic needs.</p>
-									</div>
-								</div>
-							</div>
-							<div class="accordion-item featurecard">
-								<h2 class="accordion-header">
-									<button class="accordion-button text-white collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseFive" aria-expanded="false" aria-controls="collapseFive" (click)="changeImage('uf4.webp')">UNILEARN</button>
-								</h2>
-								<div id="collapseFive" class="accordion-collapse collapse" data-bs-parent="#accordionFeatures">
-									<div class="accordion-body">
-										<p class="mb-0 text-white fw-extralight">Tailored resource for students preparing for prerequisite exams like IELTS, PTE, GRE, GMAT etc</p>
-									</div>
-								</div>
-							</div>
-							<div class="accordion-item featurecard">
-								<h2 class="accordion-header">
-									<button class="accordion-button text-white collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSix" aria-expanded="false" aria-controls="collapseSix" (click)="changeImage('uf5.webp')">Language Hub</button>
-								</h2>
-								<div id="collapseSix" class="accordion-collapse collapse" data-bs-parent="#accordionFeatures">
-									<div class="accordion-body">
-										<p class="mb-0 text-white fw-extralight">Offers the opportunity to learn over 25 different languages in an interactive format.</p>
-									</div>
-								</div>
-							</div>
-							<div class="accordion-item featurecard">
-								<h2 class="accordion-header">
-									<button class="accordion-button text-white collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSeven" aria-expanded="false" aria-controls="collapseSeven" (click)="changeImage('uf6.webp')">Learning Hub</button>
-								</h2>
-								<div id="collapseSeven" class="accordion-collapse collapse" data-bs-parent="#accordionFeatures">
-									<div class="accordion-body">
-										<p class="mb-0 text-white fw-extralight">Provides over 1,000 specialisations to help understand specific industry needs.</p>
-									</div>
-								</div>
-							</div>
-							<div class="accordion-item featurecard">
-								<h2 class="accordion-header">
-									<button class="accordion-button text-white collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseEight" aria-expanded="false" aria-controls="collapseEight" (click)="changeImage('uf7.webp')">Job Portal</button>
-								</h2>
-								<div id="collapseEight" class="accordion-collapse collapse" data-bs-parent="#accordionFeatures">
-									<div class="accordion-body">
-										<p class="mb-0 text-white fw-extralight">Provides access to apply for millions of active job opportunities globally.</p>
-									</div>
-								</div>
-							</div>
-							<div class="accordion-item featurecard">
-								<h2 class="accordion-header">
-									<button class="accordion-button text-white collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseNine" aria-expanded="false" aria-controls="collapseNine" (click)="changeImage('uf8.webp')">Career Tools</button>
-								</h2>
-								<div id="collapseNine" class="accordion-collapse collapse" data-bs-parent="#accordionFeatures">
-									<div class="accordion-body">
-										<p class="mb-0 text-white fw-extralight">Advanced resources for career planning and development, including CV Builder, Global salary converter, aptitude test preparation and more</p>
-									</div>
-								</div>
-							</div>
-
-							<div class="accordion-item featurecard">
-								<h2 class="accordion-header">
-									<button class="accordion-button text-white collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTen" aria-expanded="false" aria-controls="collapseTen" (click)="changeImage('uf9.webp')">Start-up Kit</button>
-								</h2>
-								<div id="collapseTen" class="accordion-collapse collapse" data-bs-parent="#accordionFeatures">
-									<div class="accordion-body">
-										<p class="mb-0 text-white fw-extralight">Essential resource to help budding entrepreneurs successfully launch and grow their businesses.</p>
-									</div>
-								</div>
-							</div>
-
-							<div class="accordion-item featurecard">
-								<h2 class="accordion-header">
-									<button class="accordion-button text-white collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseEleven" aria-expanded="false" aria-controls="collapseEleven" (click)="changeImage('uf12.webp')">Pitch Decks</button>
-								</h2>
-								<div id="collapseEleven" class="accordion-collapse collapse" data-bs-parent="#accordionFeatures">
-									<div class="accordion-body">
-										<p class="mb-0 text-white fw-extralight">1000+ Business Pitches from successful businesses like Google, Snapchat and more.</p>
-									</div>
-								</div>
-							</div>
-							<div class="accordion-item featurecard">
-								<h2 class="accordion-header">
-									<button class="accordion-button text-white collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTwelve" aria-expanded="false" aria-controls="collapseTwelve" (click)="changeImage('uf10.webp')">Founders Tool</button>
-								</h2>
-								<div id="collapseTwelve" class="accordion-collapse collapse" data-bs-parent="#accordionFeatures">
-									<div class="accordion-body">
-										<p class="mb-0 text-white fw-extralight">UNIPREP also offers Founder's tool having key resources for entrepreneurs, including a fundraising checklist, investor pitch training, and a list of potential investors.</p>
-									</div>
-								</div>
-							</div> -->
 						</div>
 					</div>
 				</div>
@@ -817,14 +634,6 @@
 							<div class="accordion-body">{{ faq.answer }}</div>
 						</div>
 					</div>
-					<!-- <div class="accordion-item faqcard">
-						<h2 class="accordion-header">
-							<button class="accordion-button text-white collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#faqcollapseOne" aria-expanded="false" aria-controls="faqcollapseOne">What is UNIPREP?</button>
-						</h2>
-						<div id="faqcollapseOne" class="accordion-collapse collapse" data-bs-parent="#accordionFAQ">
-							<div class="accordion-body">UNIPREP is the world's only all-in-one SaaS platform designed to help students, professionals, and founders achieve success in today's competitive world.</div>
-						</div>
-					</div> -->
 				</div>
 			</div>
 			<div class="col-md-10 text-center">

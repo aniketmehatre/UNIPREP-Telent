@@ -47,6 +47,27 @@ export class LandingComponent implements OnInit {
 		this.isDarkMode = this.themeService.getInitialSwitchState()
 	}
 
+  cardItems = [
+    {
+      text: 'You want to connect with potential employers.',
+    },
+    {
+      text: "You're unsure about career preparation and want to upskill.",
+    },
+    {
+      text: "You're interested in learning new languages.",
+    },
+    {
+      text: "You're seeking education abroad.",
+    },
+    {
+      text: "You're planning to start your own business.",
+    },
+    {
+      text: "You're eager to travel the world.",
+    },
+  ];
+
 	accordionItems = [
 		{
 			id: "collapseOne",
