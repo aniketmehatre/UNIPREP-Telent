@@ -13,6 +13,7 @@ import { FileUploadModule } from 'primeng/fileupload';
 import { InputNumberModule } from 'primeng/inputnumber';
 import { DialogModule } from 'primeng/dialog';
 import { DialogService } from 'primeng/dynamicdialog';
+import { BadgeModule } from 'primeng/badge';
 
 const routes: Routes = [
   {
@@ -38,7 +39,8 @@ const routes: Routes = [
     ProgressBarModule,
     FileUploadModule ,
     InputNumberModule,
-    DialogModule
+    DialogModule,
+    BadgeModule
   ]
 })
 export class EmployeeProfileModule { }
