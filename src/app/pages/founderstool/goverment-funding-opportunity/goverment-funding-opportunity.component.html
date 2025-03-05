@@ -215,7 +215,7 @@
 									<h5 class="card-title mb-4">{{fundData?.name}}</h5>
 								</div>
 								<div>
-									<i class="fa-star" [ngClass]="fundData?.isChecked ? 'fa-solid': 'fa-regular'"></i>
+									<i class="fa-star cursor-pointer" [ngClass]="fundData?.favourite ? 'fa-solid': 'fa-regular'" (click)="bookmarkQuestion(fundData?.id, fundData?.favourite);" ></i>
 								</div>
 							</div>
 
