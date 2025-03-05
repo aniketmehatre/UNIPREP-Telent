@@ -7,7 +7,7 @@
                         styleClass="p-button-rounded p-button-text text-dark"></p-button>
                 </span>
             </div> -->
-			
+
 			<!-- <div class="col-md-8 text-center">
                 <h5 class="select-title mb-3" tooltipPosition="top" pTooltip="Questions related to the application process are answered">{{ currentModuleName | uppercase }} <i class="questiontooltip fa-solid fa-circle-question"></i></h5>
             </div> -->
@@ -24,8 +24,7 @@
 						<!--					<i class="fa-solid fa-search noalignment" *ngIf="currentModuleId == 5 || currentModuleId == 10"></i>-->
 						<!-- <i class="fa-solid fa-search noalignment"  *ngIf="currentModuleId == 5 "></i> -->
 						<!--					<input *ngIf="currentModuleId == 5 || 1 || 7 || 3 || 4" class="w-100 px-5 py-2" type="text" placeholder="Search Files" pInputText [(ngModel)]="searchUniversity" (input)="performSearch()" />-->
-						<!--                      
-							<input *ngIf="  currentModuleId ==  5   " class="w-100 px-5 py-2" type="text"
+						<!--<input *ngIf="  currentModuleId ==  5   " class="w-100 px-5 py-2" type="text"
 								placeholder="Search Files" pInputText [(ngModel)]="searchUniversity"
 								(input)="performSearch()" /> -->
 						<div *ngIf="filteredData.length" class="dropdown-container">
@@ -44,41 +43,37 @@
 						</h5>
 					</div>
 					<div>
-						<button pButton  class="how-it-works-button" severity="warn" (click)="openVideoPopup(howItWorksVideoLink)">How it works?<i class="fa-solid fa-play d-md-block d-none"></i></button>
+						<button pButton class="how-it-works-button" severity="warn" (click)="openVideoPopup(howItWorksVideoLink)">How it works?<i class="fa-solid fa-play d-md-block d-none"></i></button>
 					</div>
 				</div>
-				<div class="flex-shrink-0 justify-content-center align-items-center d-flex"  *ngIf="currentModuleId != 8 && currentModuleId != 10 && currentModuleId != 11 && currentModuleId != 14 && currentModuleId != 7 && currentModuleId != 5">
-			
+				<div class="flex-shrink-0 gap-2 justify-content-center align-items-center d-flex" *ngIf="currentModuleId != 8 && currentModuleId != 10 && currentModuleId != 11 && currentModuleId != 14 && currentModuleId != 7 && currentModuleId != 5">
 					<div class="d-flex justify-content-start align-items-start">
 						<div class="d-flex flex-column align-items-start">
-								<div class="dropdown-container1">
-									<span class="select-label">Country Selection</span>
-									<p-select [options]="countryLists" [(ngModel)]="selectedCountryId"
-										optionLabel="country" optionValue="id"
-										(onChange)="selectCountry($event.value)"
-										[filter]="true" filterBy="country" [showClear]="true" 
-										placeholder="Select a Country" class="w-full md:w-56">
-											<ng-template #selectedItem let-selectedOption>
-												<div class="flex items-center gap-2">
-													<img [src]="selectedOption.flag" style="width: 18px" />
-													<div>{{ selectedOption.country }}</div>
-												</div>
-											</ng-template>
-											<ng-template let-country #item>
-												<div class="flex items-center gap-2">
-													<img [src]="country.flag" style="width: 18px" />
-													<div>{{ country.country }}</div>
-												</div>
-											</ng-template>
-										</p-select>
+							<div class="dropdown-container1">
+								<span class="select-label">Country Selection</span>
+								<p-select [options]="countryLists" [(ngModel)]="selectedCountryId" optionLabel="country" optionValue="id" (onChange)="selectCountry($event.value)" [filter]="true" filterBy="country" [showClear]="true" placeholder="Select a Country" class="w-full md:w-56">
+									<ng-template #selectedItem let-selectedOption>
+										<div class="flex items-center gap-2">
+											<img [src]="selectedOption.flag" style="width: 18px" />
+											<div>{{ selectedOption.country }}</div>
+										</div>
+									</ng-template>
+									<ng-template let-country #item>
+										<div class="flex items-center gap-2">
+											<img [src]="country.flag" style="width: 18px" />
+											<div>{{ country.country }}</div>
+										</div>
+									</ng-template>
+								</p-select>
 							</div>
 						</div>
 					</div>
-					<button pButton  pButton role="button" (click)="startQuiz()" class="m-0 btn btn-primary btn-rounded" [disabled]="quizpercentage >= 90">
+					<button pButton pButton role="button" (click)="startQuiz()" class="m-0 btn btn-primary btn-rounded" [disabled]="quizpercentage >= 90">
 						<p class="mb-0">
-							<i class="fa-regular fa-lightbulb-on"></i> Start Quiz <span class="mb-0">{{ quizpercentage | number:'1.0-0' }}%</span>
+							<i class="fa-regular fa-lightbulb-on"></i> Start Quiz
+							<!-- <span class="mb-0">{{ quizpercentage | number:'1.0-0' }}%</span> -->
 						</p>
-	
+
 						<!-- <div class="row">
 							<div style="cursor: pointer" class="col-12">
 								<span style="cursor: pointer" class="ellipse-button fw-regular container-fluid">{{ quizpercentage >= 90 ? "Completed" : "Start" }}</span>
@@ -86,11 +81,11 @@
 						</div> -->
 					</button>
 				</div>
-				<div class="flex-shrink-0 align-items-center d-flex"  *ngIf="currentModuleId == 8">
+				<div class="flex-shrink-0 align-items-center d-flex" *ngIf="currentModuleId == 8">
 					<div class="p-input-icon-left h-100 w-100 search-container border-primary rounded-3">
 						<i class="fa-solid fa-search"></i>
 						<input *ngIf="currentModuleId == 8" class="w-100 px-5 border-0 py-2 h-100 bg-transparent" type="text" placeholder="Look for you specialization" pInputText [(ngModel)]="searchLearning" (input)="performSearch()" />
-	
+
 						<div *ngIf="filteredData.length" class="dropdown-container text-start">
 							<div *ngFor="let result of filteredData" class="dropdown-item">
 								<div (click)="takeMeToQuestion(result)" role="button">
@@ -102,8 +97,6 @@
 					</div>
 				</div>
 			</div>
-			
-			
 
 			<!-- <div class="col-md-3 mt-0 text-start  justify-content-start d-none d-md-flex"
                 *ngIf="  currentModuleId ==  5 || 1 || 7 || 3 || 4  ">
@@ -154,7 +147,7 @@
 			<div *ngFor="let sub of subModuleList" class="col-lg-2 col-md-3 col-sm-4 col-xs-12 col-12 mb-3">
 				<div class="row w-100 m-0 justify-content-center h-100">
 					<div (click)="onSubModuleClick(sub.submodule_id, sub)" class="card subjectcard position-relative" role="button">
-						<div *ngIf="sub.is_assessment && authService._user?.student_type_id == 2" class="assessment-tag" style="background-color: var(--uniprep-skyblue);">Assessment</div>
+						<div *ngIf="sub.is_assessment && authService._user?.student_type_id == 2" class="assessment-tag" style="background-color: var(--uniprep-skyblue)">Assessment</div>
 						<div class="card-body d-flex flex-md-column flex-row justify-content-md-between align-items-center">
 							<div>
 								<div class="submoduleicon mt-2">
@@ -190,7 +183,7 @@
 						<p-progressBar [value]="(selectedQuiz / quizData.length) * 100 | number : '1.0-0'"></p-progressBar>
 					</div>
 					<div>
-						<button pButton  (click)="closeQuiz()" class="btn btn-quit btn-rounded m-0 px-2 py-2">
+						<button pButton (click)="closeQuiz()" class="btn btn-quit btn-rounded m-0 px-2 py-2">
 							<div class="d-flex align-items-center">
 								<span class="fw-normal h6 mb-0 ps-3 pe-2">Quit</span>
 								<div class="btn-icon"><i class="fa-solid fa-power-off"></i></div>
@@ -271,19 +264,19 @@
 					<p-breadcrumb [model]="breadCrumb" class="max-w-100 quizreference"></p-breadcrumb>
 				</div>
 				<div class="col-md-6 text-end">
-					<button pButton  (click)="clickPreviousQuiz(carouselQuiz, $event)" *ngIf="selectedQuiz != 1" class="btn btn-back btn-rounded me-3 px-2 py-2">
+					<button pButton (click)="clickPreviousQuiz(carouselQuiz, $event)" *ngIf="selectedQuiz != 1" class="btn btn-back btn-rounded me-3 px-2 py-2">
 						<div class="d-flex align-items-center">
 							<span class="fw-normal h6 mb-0 ps-3 pe-2">Previous</span>
 							<div class="btn-icon"><i class="fa-solid fa-arrow-left"></i></div>
 						</div>
 					</button>
-					<button pButton  *ngIf="this.quizData.length > this.selectedQuiz" [disabled]="answerOptionClicked" (click)="clickNextQuiz(carouselQuiz, $event)" class="btn btn-start btn-rounded m-0 px-2 py-2">
+					<button pButton *ngIf="this.quizData.length > this.selectedQuiz" [disabled]="answerOptionClicked" (click)="clickNextQuiz(carouselQuiz, $event)" class="btn btn-start btn-rounded m-0 px-2 py-2">
 						<div class="d-flex align-items-center">
 							<span class="fw-normal h6 mb-0 ps-3 pe-2">Next</span>
 							<div class="btn-icon"><i class="fa-solid fa-arrow-right"></i></div>
 						</div>
 					</button>
-					<button pButton  *ngIf="this.quizData.length <= this.selectedQuiz" (click)="clickSubmitQuiz()" class="btn btn-start btn-rounded m-0 px-2 py-2">
+					<button pButton *ngIf="this.quizData.length <= this.selectedQuiz" (click)="clickSubmitQuiz()" class="btn btn-start btn-rounded m-0 px-2 py-2">
 						<div class="d-flex align-items-center">
 							<span class="fw-normal h6 mb-0 ps-3 pe-2">Submit</span>
 							<div class="btn-icon"><i class="fa-solid fa-check"></i></div>
@@ -307,7 +300,7 @@
 						<p-progressBar [value]="100"></p-progressBar>
 					</div>
 					<div>
-						<button pButton  (click)="closeAllHome()" class="btn btn-start btn-rounded m-0 px-2 py-2">
+						<button pButton (click)="closeAllHome()" class="btn btn-start btn-rounded m-0 px-2 py-2">
 							<div class="d-flex align-items-center">
 								<span class="fw-normal h6 mb-0 ps-3 pe-2">Home</span>
 								<div class="btn-icon"><i class="fa-solid fa-home"></i></div>
@@ -326,13 +319,13 @@
 				<h4 class="text-center mb-3 fw-semibold">{{ answeredCorrect }} /{{ quizData.length != 0 ? quizData.length : 0 }} = {{ percentageValue }}</h4>
 			</div>
 			<div class="text-center">
-				<button pButton  (click)="retryQuiz()" class="btn btn-quit btn-rounded me-2 px-2 py-2">
+				<button pButton (click)="retryQuiz()" class="btn btn-quit btn-rounded me-2 px-2 py-2">
 					<div class="d-flex align-items-center">
 						<span class="fw-normal h6 mb-0 ps-3 pe-2">Retry</span>
 						<div class="btn-icon"><i class="fa-solid fa-arrow-rotate-right"></i></div>
 					</div>
 				</button>
-				<button pButton  (click)="openReviewPopup()" class="btn btn-back btn-rounded m-0 px-2 py-2">
+				<button pButton (click)="openReviewPopup()" class="btn btn-back btn-rounded m-0 px-2 py-2">
 					<div class="d-flex align-items-center">
 						<span class="fw-normal h6 mb-0 ps-3 pe-2">Review</span>
 						<div class="btn-icon"><i class="fa-solid fa-list-check"></i></div>
@@ -345,7 +338,7 @@
 		<div class="container py-3 mt-2 cb-top">
 			<div class="row justify-content-center">
 				<div class="col-md-12 text-center">
-					<button pButton  (click)="nextModule()" class="btn btn-start btn-rounded m-0 px-2 py-2">
+					<button pButton (click)="nextModule()" class="btn btn-start btn-rounded m-0 px-2 py-2">
 						<div class="d-flex align-items-center">
 							<span class="fw-normal h6 mb-0 ps-3 pe-2">Next Module</span>
 							<div class="btn-icon"><i class="fa-solid fa-arrow-right"></i></div>
@@ -365,7 +358,7 @@
 					<h4 class="text-left font-secondarycolor mb-0">Quiz Instruction</h4>
 				</div>
 				<div class="col-md-6 text-end">
-					<button pButton  (click)="closeAllHome()" class="btn btn-quit btn-rounded m-0 px-2 py-2">
+					<button pButton (click)="closeAllHome()" class="btn btn-quit btn-rounded m-0 px-2 py-2">
 						<div class="d-flex align-items-center">
 							<span class="fw-normal h6 mb-0 ps-3 pe-2">Quit</span>
 							<div class="btn-icon"><i class="fa-solid fa-power-off"></i></div>
@@ -401,7 +394,7 @@
 					<h4 class="font-primarycolor">ALL THE BEST!</h4>
 				</div>
 				<div class="col-md-6 text-end">
-					<button pButton  (click)="runQuiz()" class="btn btn-start btn-rounded m-0 px-2 py-2" [disabled]="!this.quizData">
+					<button pButton (click)="runQuiz()" class="btn btn-start btn-rounded m-0 px-2 py-2" [disabled]="!this.quizData">
 						<div class="d-flex align-items-center">
 							<span class="fw-normal h6 mb-0 ps-3 pe-2">Start</span>
 							<div class="btn-icon"><i class="fa-solid fa-arrow-right"></i></div>
@@ -480,7 +473,7 @@
 				<!--                            class="btn btn-lg rounded-pill btn-secondary m-0 px-2 py-2">-->
 				<!--                        <p class="mb-0 px-2"> Next <i class="fa-solid fa-circle-arrow-right"></i></p>-->
 				<!--                    </button>-->
-				<button pButton  (click)="retryQuiz()" class="btn btn-quit btn-rounded me-2 px-2 py-2">
+				<button pButton (click)="retryQuiz()" class="btn btn-quit btn-rounded me-2 px-2 py-2">
 					<div class="d-flex align-items-center">
 						<span class="fw-normal h6 mb-0 ps-3 pe-2">Retry</span>
 						<div class="btn-icon"><i class="fa-solid fa-arrow-rotate-right"></i></div>
@@ -518,7 +511,7 @@
 		<img src="../../../uniprep-assets/images/smartloack.png" class="image" width="60" />
 		<h3 class="offer">Upgrade Required</h3>
 		<p>To access this exclusive module,please upgrade your plan now</p>
-		<button pButton  pButton type="button" class="text-white p-ripple p-button-rounded p-button-warning p-button p-component p-2" (click)="upgradePlan()">Upgrade Plan<i class="fa fa-arrow-right exhausted-plan-icon"></i></button>
+		<button pButton pButton type="button" class="text-white p-ripple p-button-rounded p-button-warning p-button p-component p-2" (click)="upgradePlan()">Upgrade Plan<i class="fa fa-arrow-right exhausted-plan-icon"></i></button>
 	</div>
 	<div *ngIf="!ehitlabelIsShow" class="text-center mt-5 mb-4">
 		<img src="../../../uniprep-assets/images/smartloack.png" class="image" width="60" />
