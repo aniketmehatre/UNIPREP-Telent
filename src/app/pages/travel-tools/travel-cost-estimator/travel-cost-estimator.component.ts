@@ -222,7 +222,7 @@ export class TravelCostEstimatorComponent implements OnInit {
       // else if(values.id == 5){
       //   currentAnswer = `${ this.selectedData[5] } Currency`;
       // }
-      addingInput += `<p><strong>${ currentAnswer }</strong></p><br>`;
+      addingInput += `<p>${ currentAnswer }</p><br>`;
     });
     let finalRecommendation = addingInput+ '<p><strong>Response:<br></strong></p>' + this.recommendationData;
 
