@@ -35,7 +35,7 @@ export class CourseNavigatorComponent implements OnInit {
   recommadationSavedQuestionList: CourseNavigator[] = [];
   recommadationQuestionList: CourseNavigator[] = [];
   isQuestionAnswerVisible: boolean = false;
-  stateOptions = [{ label: 'Default', value: 'default' }, { label: 'Saved', value: 'saved' }];
+  // stateOptions = [{ label: 'Default', value: 'default' }, { label: 'Saved', value: 'saved' }];
   selectedState: string = 'default';
   selectedQuestionData: CourseNavigator;
   specializationFilter: string = '';

@@ -39,11 +39,10 @@ export class CareerplannercountrywiseComponent implements OnInit {
       this.countries = res
     })
 
-    this.educationService.getCurrentSpecializations().subscribe({
+    this.educationService.getcareerPlannerSpec().subscribe({
       next: response =>{
-        console.log(response);
+        // console.log(response);
         this.specializationList = response;
-        
       }
     })
   }
