@@ -152,14 +152,14 @@
 </div>
 <!-- second line -->
 <div class="row mt-2">
+    <!-- Recent Job Applications Card -->
     <div class="col-lg-6 col-md-12 col-sm-12">
-        <div class="card fav-card mt-2" style="background-color: white;">
-            <div class="card-body text-center pb-4">
+        <div class="card fav-card mt-2 bg-white">
+            <div class="card-body d-flex flex-column justify-content-between">
                 <div class="flex justify-content-between">
                     <h5 class="mb-0 p-2 text-start ms-4">Recent Job Applications</h5>
-                    <button class="btn  btn-rounded text-small px-4 py-2 m-0 mb-2 bg-white"
-                        style="border: 1px solid rgb(161, 154, 154);">View All
-                    </button>
+                    <button class="btn btn-rounded text-small px-4 py-2 m-0 mb-2 bg-white"
+                        style="border: 1px solid rgb(161, 154, 154);">View All</button>
                 </div>
 
                 <p-carousel #carousel [circular]="false" [numScroll]="1" [numVisible]="1"
@@ -173,19 +173,16 @@
                                         <div>
                                             <img alt="country" class="countryicon mb-2"
                                             src="{{ v.imageLink != '' ? v.imageLink : '../../uniprep-assets/images/mstile-150x150.png' }}" />
-    
                                         </div>
                                         <div>
-                                            <p class="mb-0 text-sm text-capitalize">
-                                                {{ v.moduleName | uppercase }}
-                                            </p>
-                                            <p>UNIABROAD Pvt.ltd</p>
-                                            <p>status: HR Round</p>
+                                            <h5 class="mb-0 text-sm text-capitalize">{{ v.title }}</h5>
+                                            <p>{{v.company.display_name}}</p>
+                                            <p>Status: HR Round</p>
                                             <p class="mb-0 text-sm text-capitalize ms-3 mt-2">
                                                 <i class="fa-solid fa-location-dot" style="color: #79AE28;"></i>
-                                                Bangalore,India
+                                                {{v.location.display_name}}
                                             </p>
-                                            <button class="btn  btn-rounded text-small m-0 mb-2"
+                                            <button class="btn btn-rounded text-small m-0 mb-2"
                                                 style="border: 1px solid #0054B4;
                                              background-color: #0054B4; color: white; font-size: 10px; border-radius: 5px;">Job Applied
                                             </button>
@@ -198,10 +195,11 @@
                 </p-carousel>
             </div>
         </div>
-
     </div>
-    <div class="col-lg-3 col-md-6 col-sm-12 ">
-        <div class="row">
+
+    <!-- Quiz and Certification Cards -->
+    <div class="col-lg-3 col-md-6 col-sm-12">
+        <div class="row h-100">
             <div class="col-12">
                 <div class="card h-100 bg-white">
                     <div class="card-body d-flex flex-column justify-content-between">
@@ -210,8 +208,8 @@
                             <p class="mb-0">Get certified for completing the quiz with an extraordinary score.</p>
                         </div>
                         <button pButton severity="warn" (click)="openQuiz()"
-                            class="btn btn-rounded font-weight-bold mt-3" style="color: #FF9138; border-color: #FF9138;
-                            background-color: #FFF1E7;">
+                            class="btn btn-rounded font-weight-bold mt-3"
+                            style="color: #FF9138; border-color: #FF9138; background-color: #FFF1E7;">
                             Start Quiz
                         </button>
                     </div>
@@ -224,17 +222,20 @@
                             <h5 class="mb-1 mt-2 uppercase fw-bold">Certification</h5>
                             <p class="mb-0">Get all your certificates in one place to share them on social media.</p>
                         </div>
-                        <button pButton (click)="openCertificate()" class="btn btn-rounded mt-3" style="color: #455C9E;
-                        background-color: #ECEDF3; border-color: #455C9E;">My Certificates</button>
+                        <button pButton (click)="openCertificate()" class="btn btn-rounded mt-3"
+                            style="color: #455C9E; background-color: #ECEDF3; border-color: #455C9E;">
+                            My Certificates
+                        </button>
                     </div>
                 </div>
             </div>
         </div>
     </div>
-    <div class="col-lg-3 col-md-6 col-sm-12 ">
 
-    </div>
+    <!-- Empty Column -->
+    <div class="col-lg-3 col-md-6 col-sm-12"></div>
 </div>
+
 <!-- 3rd line -->
 <div class="row mt-2">
     <div class="col-lg-9 col-md-12 col-sm-12">

@@ -620,3 +620,30 @@ Due to the split circle of progress-left and progress right, we must use the ani
     height: auto; /* Allow auto height on very small screens */
   }
 }
+.row {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.card {
+  display: flex;
+  flex-direction: column;
+  height: 100%; /* Makes all cards equal in height */
+}
+
+.card-body {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  flex-grow: 1; /* Ensures content stretches evenly */
+}
+
+@media (max-width: 768px) {
+  .row {
+    flex-direction: column; /* Stack items on smaller screens */
+  }
+
+  .card {
+    height: auto; /* Let cards adjust height for smaller screens */
+  }
+}
