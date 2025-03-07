@@ -622,4 +622,7 @@ export class DashboardComponent implements OnInit, OnChanges {
     selectFav(req: any) {
         this.router.navigateByUrl(req.url);
     }
+	redirectToCvBuilder(){
+		this.router.navigate(['/pages/job-tool/cv-builder']);
+	}
 }
