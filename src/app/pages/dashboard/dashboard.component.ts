@@ -41,6 +41,7 @@ export class DashboardComponent implements OnInit, OnChanges {
 	isVideoVisible: boolean = false
 	isShareWithSocialMedia: boolean = false
 	isViewMoreOrgVisible: boolean = false
+	isViewMoreJobApplication:boolean=false;
 	partnerTrusterLogo: any
 	enableReading!: boolean
 	restrict: boolean = false
@@ -413,7 +414,10 @@ export class DashboardComponent implements OnInit, OnChanges {
 	}
 
 	openViewMoreOrg(): void {
-		this.isViewMoreOrgVisible = true
+		this.isViewMoreOrgVisible = true;
+	}
+	viewMoreOpenJobApplication(){
+		this.isViewMoreJobApplication=true;
 	}
 	quizpercentage: any = 0
 	checkquizquestionmodule() {
