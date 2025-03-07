@@ -48,7 +48,7 @@ export const FoundersToolsData = [
         description: "An assessment that evaluates an entrepreneur's in-depth knowledge and proficiency in specific industries.",
         image: domainUrl+"GlobalEntrepreneurVisa.svg",
         url: "/pages/founderstool/enterpreneur-visa",
-        launch_soon: true
+        launch_soon: false
     },
     // {
     //     title: "AI Business Plan Generator",

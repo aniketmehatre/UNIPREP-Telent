@@ -43,7 +43,7 @@
                             [filter]="true" [showClear]="true">
                         </p-dropdown>
                         <div *ngIf="submitted && form.get('currency')?.hasError('required')" style="color: red;">
-                            Currency is required.
+                            Specialization is required.
                         </div>
                     </div>
                 </div>
@@ -111,11 +111,11 @@
                         <span class="me-2">Download</span><span class="btn-icon px-2 py-2">
                             <i class="fa-regular fa-download"></i></span>
                     </button>
-                    <button pButton type="button" (click)="onSaveRes()"
+                    <!-- <button pButton type="button" (click)="onSaveRes()"
                         class="btn btn-primary btn-rounded p-1 ps-4">
                         <span class="me-2">Save Response</span><span class="btn-icon px-2 py-2">
                             <i class="fa-regular fa-floppy-disk"></i></span>
-                    </button>
+                    </button> -->
                 </div>
                 <markdown emoji>
                     <div class="card p-3 poppins-content" [innerHtml]="customizedResponse"></div>
@@ -169,8 +169,8 @@
                 <div class="row w-100 m-0 justify-content-center h-100">
                     <div class="card subjectcard" role="button" (click)="showRecommandationData(item.response)">
                         <div class="card-body text-start">
-                            <p class="text-small"><b>Counntry : </b>{{item.country}}</p>
-                            <p class="text-small"><b>Currency : </b>{{item.currency_code}}</p>
+                            <p class="text-medium"><b>Country : </b>{{item.country}}</p>
+                            <p class="text-medium"><b>Specialization : </b>{{item.specialization_name}}</p>
                         </div>
                     </div>
                 </div>

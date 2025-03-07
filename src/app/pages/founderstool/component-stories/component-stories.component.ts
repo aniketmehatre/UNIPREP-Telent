@@ -140,9 +140,6 @@ export class ComponentStoriesComponent implements OnInit {
       questionId: this.dataanswerquestion?.id,
       countryId:this.countryId,
     };
-    // if (this.currentModuleId == 8) {
-    //   data.reporttype = 8;
-    // }
     this.dataService.openReportWindow(data);
   }
   onShowModal(value: any) {
