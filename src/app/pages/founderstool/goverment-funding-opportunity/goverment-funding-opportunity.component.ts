@@ -508,7 +508,7 @@ export class GovermentFundingOppurtunityComponent implements OnInit {
   }
 
   resetRecommendation() {
-    this.fundListService.resetRecommendation().subscribe((res: any) => {
+    this.fundListService.resetFundRecommendation().subscribe((res: any) => {
       this.enableModule = false;
       this.filterForm.reset();
       this.selectedData = {};

@@ -179,6 +179,12 @@ export class FounderstoolService {
     });
   }
 
+  resetFundRecommendation() {
+    return this.http.post<any>(environment.ApiUrl + "/resetFundRec", {
+      headers: this.headers,
+    });
+  }
+
   getChatgptRecommendations(data: any) {
     return this.http.post<{ response: string }>(environment.ApiUrl + "/getIntegratedRecom", data, {
       headers: this.headers,
