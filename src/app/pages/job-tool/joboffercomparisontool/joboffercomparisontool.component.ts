@@ -315,7 +315,11 @@ export class JoboffercomparisontoolComponent implements OnInit {
     this.pageFacade.openHowitWorksVideoPopup(videoLink);
   }
   goBack() {
-    this.router.navigate(["/pages/job-offer-comparison"]);
+    if(this.preparedvisibility){
+      this.router.navigate(["/pages/job-offer-comparison"]);
+    }else{
+      this.router.navigate(["/pages/job-tool/career-tool"]);
+    }
   }
   windowChange(data: any) {
     this.preparedvisibility = data;
