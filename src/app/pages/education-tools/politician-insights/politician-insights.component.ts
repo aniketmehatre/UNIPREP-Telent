@@ -58,8 +58,8 @@ export class PoliticianInsightsComponent implements OnInit, OnDestroy {
   ) { }
 
   ngOnInit(): void {
-    this.educationToolService.getCountryInsightsList({ page: 1, perpage: 100 }).subscribe((res: any) => {
-      this.countrylist = res.data;
+    this.educationToolService.getPoliticianCountryList().subscribe((res: any) => {
+      this.countrylist = res.countries;
     });
 
     this.activatedRoute.params.subscribe(params => {

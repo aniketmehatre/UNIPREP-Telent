@@ -180,7 +180,7 @@
 									(click)="selectAllCheckbox()" id="selectAllcheckbox" />
 								<label class="p-2 fw-semibold" for="selectAllcheckbox" style="cursor: pointer">Select
 									All</label>
-								<span class="p-2 fw-semibold">Selected : {{ selectedScholarship }}</span>
+								<span class="p-2 fw-semibold">Selected : {{ selectedFund }}</span>
 								<button class="btn btn-primary text-small btn-rounded" (click)="viewFavourites()"
 									type="button">
 									{{ viewFavouritesLabel }}<span class="ms-2"
@@ -210,9 +210,12 @@
 						class="col-xxl-3 col-xl-3 col-lg-4 col-md-4 col-sm-6 col-xs-12 col-12 mb-3 text-start">
 						<div class="card-body border-primary h-100">
 							<div class="d-flex justify-content-between align-items-start">
-								<div class="flex gap-2 align-items-start" (click)="check.click();">
-									<input type="checkbox" id="card1" class="mt-1" (change)="onCheckboxChange($event)" [(ngModel)]="fundData.isChecked" #check>
-									<h5 class="card-title mb-4">{{fundData?.name}}</h5>
+								<div class="flex gap-2 align-items-start" >
+									<a [href]="fundData?.website" target="_blank" #link></a>
+									<input type="checkbox" id="card1" class="mt-1" (change)="onCheckboxChange($event)" [(ngModel)]="fundData.isChecked">
+									<h5 class="card-title mb-4 pe-auto" (click)="link.click();">
+										{{fundData?.name}}
+									</h5>
 								</div>
 								<div>
 									<i class="fa-star cursor-pointer fs-5 text-danger" [ngClass]="fundData?.favourite ? 'fa-solid': 'fa-regular'" (click)="bookmarkQuestion(fundData?.id, fundData?.favourite);" ></i>
@@ -221,7 +224,7 @@
 
 							<div class="row">
 								<div class="col-3 mb-3">
-									<img src="assets/india-emblem.png" alt="India Emblem" class="img-fluid">
+									<img src="uniprep-assets/images/emblemofindia.svg" alt="India Emblem" class="img-fluid">
 								</div>
 
 								<div class="col-9">
@@ -330,62 +333,64 @@
 		<p>Please contact {{ orgnamewhitlabel }} Company for access</p>
 	</div>
 </p-dialog>
-<p-dialog header="Filter Scholarship" [(visible)]="isFilterVisible"
-	[breakpoints]="{ '2560px': '80vw', '1030px': '90vw', '850px': '85vw', '450px': '90vw' }" [draggable]="false"
-	[resizable]="false" class="filterDialog">
-	<form role="form" [formGroup]="filterForm" (ngSubmit)="applyFilter()" [style]="{ padding: '20px' }">
-		<div class="row">
-			<div class="col-md-12">
-				<div class="row align-items-center">
-					<div class="col-md-4">
-						<label class="form-label" style="font-size: medium; font-weight: 500">Filter by Country</label>
-						<div class="form-group">
-							<div class="mb-3">
-								<p-multiSelect [options]="countryList" styleClass="w-100" formControlName="country"
-									optionValue="id" placeholder="Select  Country" optionLabel="country"
-									class="filterInput" [appendTo]="'body'"> </p-multiSelect>
+<div class="p-3">
+	<p-dialog header="Filter Fund" [(visible)]="isFilterVisible"
+		[breakpoints]="{ '2560px': '80vw', '1030px': '90vw', '850px': '85vw', '450px': '90vw' }" [draggable]="false"
+		[resizable]="false" class="filterDialog">
+		<form role="form" [formGroup]="filterForm" (ngSubmit)="applyFilter()" [style]="{ padding: '20px' }">
+			<div class="row">
+				<div class="col-md-12">
+					<div class="row align-items-center">
+						<div class="col-md-4">
+							<label class="form-label" style="font-size: medium; font-weight: 500">Filter by Country</label>
+							<div class="form-group">
+								<div class="mb-3">
+									<p-dropdown [options]="countryList" styleClass="w-100" formControlName="country" (ngModelChange)="changeCountryId($event)"
+										optionValue="id" placeholder="Select  Country" optionLabel="country"
+										class="filterInput" [appendTo]="'body'"> </p-dropdown>
+								</div>
 							</div>
 						</div>
-					</div>
-					<div class="col-md-4">
-						<label class="form-label" style="font-size: medium; font-weight: 500">Filter by State</label>
-						<div class="form-group">
-							<div class="mb-3">
-								<p-multiSelect [options]="stateList" styleClass="w-100" formControlName="region"
-									optionValue="id" placeholder="Select  State" optionLabel="state" class="filterInput"
-									[appendTo]="'body'"> </p-multiSelect>
+						<div class="col-md-4">
+							<label class="form-label" style="font-size: medium; font-weight: 500">Filter by State</label>
+							<div class="form-group">
+								<div class="mb-3">
+									<p-multiSelect [options]="stateList" styleClass="w-100" formControlName="region" 
+										optionValue="id" placeholder="Select  State" optionLabel="state_name" class="filterInput"
+										[appendTo]="'body'"></p-multiSelect>
+								</div>
 							</div>
 						</div>
-					</div>
-					<div class="col-md-4">
-						<label class="form-label" style="font-size: medium; font-weight: 500">Filter by Fund
-							Type</label>
-						<div class="form-group">
-							<div class="mb-3">
-								<p-multiSelect [options]="fundTypeList" styleClass="w-100" formControlName="type"
-									optionValue="id" placeholder="Select Fund Type" optionLabel="funding_type_name"
-									class="filterInput" [appendTo]="'body'"> </p-multiSelect>
+						<div class="col-md-4">
+							<label class="form-label" style="font-size: medium; font-weight: 500">Filter by Fund
+								Type</label>
+							<div class="form-group">
+								<div class="mb-3">
+									<p-multiSelect [options]="fundTypeList" styleClass="w-100" formControlName="type"
+										optionValue="id" placeholder="Select Fund Type" optionLabel="funding_type_name"
+										class="filterInput" [appendTo]="'body'"> </p-multiSelect>
+								</div>
 							</div>
 						</div>
+						<br />
 					</div>
-					<br />
 				</div>
 			</div>
-		</div>
-		<br />
-		<div class="row gap-3">
-			<div class="col-12"><button type="submit" class="btn btn-dark w-100"
-					style="background-color: var(--uniprep-primary) !important">Apply Filter</button></div>
-			<div class="col-12">
-				<button class="btn btn-danger ps-3 pe-3 pt-2 pb-2 w-100" (click)="clearFilter()"
-					style="border-radius: 8px; color: #fff" type="button">Reset Filter</button>
+			<br />
+			<div class="row gap-3">
+				<div class="col-12"><button type="submit" class="btn btn-dark w-100"
+						style="background-color: var(--uniprep-primary) !important">Apply Filter</button></div>
+				<div class="col-12">
+					<button class="btn btn-danger ps-3 pe-3 pt-2 pb-2 w-100" (click)="clearFilter()"
+						style="border-radius: 8px; color: #fff" type="button">Reset Filter</button>
+				</div>
+				<!-- <div class="col-12">
+					<button class="btn btn-danger ps-3 pe-3 pt-2 pb-2 w-100" (click)="resetFilter()" style="border-radius: 8px; color: #fff" type="button">Clear & Close Filter</button>
+				</div> -->
 			</div>
-			<!-- <div class="col-12">
-				<button class="btn btn-danger ps-3 pe-3 pt-2 pb-2 w-100" (click)="resetFilter()" style="border-radius: 8px; color: #fff" type="button">Clear & Close Filter</button>
-			</div> -->
-		</div>
-	</form>
-</p-dialog>
+		</form>
+	</p-dialog>
+</div>
 
 <p-dialog [(visible)]="restrict" [style]="{ width: '30vw' }" [draggable]="false" [resizable]="false"
 	class="restrictionDialog" [breakpoints]="{ '960px': '30vw', '959px': '60vw', '425px': '90vw' }"
