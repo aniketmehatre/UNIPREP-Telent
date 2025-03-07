@@ -48,7 +48,7 @@ export class CourseNavigatorComponent implements OnInit {
   recommadationSavedQuestionList: CourseNavigator[] = [];
   recommadationQuestionList: CourseNavigator[] = [];
   isQuestionAnswerVisible: boolean = false;
-  stateOptions = [{ label: 'Default', value: 'default' }, { label: 'Saved', value: 'saved' }];
+  // stateOptions = [{ label: 'Default', value: 'default' }, { label: 'Saved', value: 'saved' }];
   selectedState: string = 'default';
   selectedQuestionData: CourseNavigator;
   specializationFilter: string = '';
@@ -77,7 +77,7 @@ export class CourseNavigatorComponent implements OnInit {
     {
       id: 5,
       icon: `https://${environment.domain}/uniprepapi/storage/app/public/ToolIcons/education-tools/return-of-investment.svg`,
-      submodule_name: "ROI (Return on Investment) & Financial Aspects" 
+      submodule_name: "ROI (Return on Investment) & Financial Aspects"
     },
   ];
   selectedDegreeId: number;
@@ -93,9 +93,11 @@ export class CourseNavigatorComponent implements OnInit {
   ngOnInit(): void {
     this.getCurrentSpecializations();
     const degreeId = Number(this.route.snapshot.paramMap.get("degreeId"));
+    const courseId = Number(this.route.snapshot.paramMap.get("courseId"));
     const questionId = Number(this.route.snapshot.paramMap.get("questionId"));
-    if (degreeId && questionId) {
-      this.getCourseQandAList(degreeId, questionId);
+    if (degreeId && courseId && questionId) {
+      this.selectedDegreeId = degreeId;
+      this.getCourseQandAList(courseId, questionId);
     }
   }
 
@@ -162,7 +164,7 @@ export class CourseNavigatorComponent implements OnInit {
     this.specializationList = this.specializations;
   }
 
-  getCourseSubmodules(degreeId: number){
+  getCourseSubmodules(degreeId: number) {
     this.selectedDegreeId = degreeId;
     this.isRecommendationQuestion = false;
     this.isRecommendationData = false;
@@ -171,7 +173,7 @@ export class CourseNavigatorComponent implements OnInit {
   }
 
   getCourseQandAList(courseId: number, questionId?: number) {
-    this.educationToolsService.getCourseQandA( this.selectedDegreeId, courseId, questionId).subscribe({
+    this.educationToolsService.getCourseQandA(this.selectedDegreeId, courseId, questionId).subscribe({
       next: response => {
         this.isRecommendationQuestion = false;
         this.isRecommendationData = false;
@@ -239,42 +241,42 @@ export class CourseNavigatorComponent implements OnInit {
   }
 
   shareViaWhatsapp() {
-    let url = window.location.href + '/' + this.selectedQuestionData?.degree_id + '/' + this.selectedQuestionData?.id
+    let url = window.location.href + '/' + this.selectedQuestionData?.degree_id + '/' + this.selectedQuestionData?.course_id + '/' + this.selectedQuestionData?.id
     this.meta.updateTag({ property: 'og:url', content: url });
     const shareUrl = `whatsapp://send?text=${encodeURIComponent(url)}`;
     window.open(shareUrl, '_blank');
   }
 
   shareViaInstagram() {
-    let url = window.location.href + '/' + this.selectedQuestionData?.degree_id + '/' + this.selectedQuestionData?.id
+    let url = window.location.href + '/' + this.selectedQuestionData?.degree_id + '/' + this.selectedQuestionData?.course_id + '/' + this.selectedQuestionData?.id
     this.meta.updateTag({ property: 'og:url', content: url });
     const shareUrl = `https://www.instagram.com?url=${encodeURIComponent(url)}`;
     window.open(shareUrl, '_blank');
   }
 
   shareViaFacebook() {
-    let url = window.location.href + '/' + this.selectedQuestionData?.degree_id + '/' + this.selectedQuestionData?.id
+    let url = window.location.href + '/' + this.selectedQuestionData?.degree_id + '/' + this.selectedQuestionData?.course_id + '/' + this.selectedQuestionData?.id
     this.meta.updateTag({ property: 'og:url', content: url });
     const shareUrl = `https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(url)}`;
     window.open(shareUrl, '_blank');
   }
 
   shareViaLinkedIn() {
-    let url = window.location.href + '/' + this.selectedQuestionData?.degree_id + '/' + this.selectedQuestionData?.id
+    let url = window.location.href + '/' + this.selectedQuestionData?.degree_id + '/' + this.selectedQuestionData?.course_id + '/' + this.selectedQuestionData?.id
     this.meta.updateTag({ property: 'og:url', content: url });
     const shareUrl = `https://www.linkedin.com/shareArticle?url=${encodeURIComponent(url)}`;
     window.open(shareUrl, '_blank');
   }
 
   shareViaTwitter() {
-    let url = window.location.href + '/' + this.selectedQuestionData?.degree_id + '/' + this.selectedQuestionData?.id
+    let url = window.location.href + '/' + this.selectedQuestionData?.degree_id + '/' + this.selectedQuestionData?.course_id + '/' + this.selectedQuestionData?.id
     this.meta.updateTag({ property: 'og:url', content: url });
     const shareUrl = `https://twitter.com/intent/tweet?url=${encodeURIComponent(url)}`;
     window.open(shareUrl, '_blank');
   }
 
   shareViaMail() {
-    let url = window.location.href + '/' + this.selectedQuestionData?.degree_id + '/' + this.selectedQuestionData?.id
+    let url = window.location.href + '/' + this.selectedQuestionData?.degree_id + '/' + this.selectedQuestionData?.course_id + '/' + this.selectedQuestionData?.id
     this.meta.updateTag({ property: 'og:url', content: url });
     const shareUrl = `mailto:?body=${encodeURIComponent(url)}`;
     window.open(shareUrl, '_blank');
@@ -289,8 +291,9 @@ export class CourseNavigatorComponent implements OnInit {
     // );
     const safeUrl = encodeURI(window.location.href);
     const selectedDegreeId = this.selectedQuestionData?.degree_id || '';
+    const selectedCourseId = this.selectedQuestionData?.course_id || '';
     const selectedQuestionId = this.selectedQuestionData?.id || '';
-    const textToCopy = `${safeUrl}/${selectedDegreeId}/${selectedQuestionId}`;
+    const textToCopy = `${safeUrl}/${selectedDegreeId}/${selectedCourseId}/${selectedQuestionId}`;
     navigator.clipboard.writeText(textToCopy)
       .then(() => {
         this.toast.add({ severity: 'success', summary: 'Success', detail: 'Question Copied' });
@@ -301,7 +304,17 @@ export class CourseNavigatorComponent implements OnInit {
       });
   }
 
-  goBack() {
-    this.router.navigateByUrl('/pages/education-tools');
+  goBack(type?: string) {
+    if (type == 'questions') {
+      this.isRecommendationSavedData = false;
+      this.isCourseSubmodule = true;
+    }
+    if (type == 'submodule') {
+      this.isCourseSubmodule = false;
+      this.isRecommendationData = true;
+    }
+    if(!type) {
+      this.router.navigateByUrl('/pages/education-tools');
+    }
   }
 }

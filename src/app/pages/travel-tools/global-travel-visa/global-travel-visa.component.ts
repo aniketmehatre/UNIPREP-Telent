@@ -41,6 +41,8 @@ export class GlobalTravelVisaComponent implements OnInit {
   recommendationDataList: any[] = [];
   recomendationData:any[]=[];
   modeName:any;
+  moduleId:any;
+  moduleTitile:string="";
   visaCategoryList: any[] = [
     {
       id: 1,
@@ -81,6 +83,20 @@ export class GlobalTravelVisaComponent implements OnInit {
       "study-visa": "global_study_visa"
     }
     this.modeName=modeName[currentEndpoint] || "";
+    const modeid:{[key: string]: number}={
+      "travel-visa": 36,
+      "enterpreneur-visa": 35,
+      "study-visa": 37
+    }
+    this.moduleId=modeid[currentEndpoint] || "";
+    
+    const moduleTitile:{[key: string]: string}={
+      "travel-visa": "Travel Tools",
+      "enterpreneur-visa": "Founders Tools",
+      "study-visa": "Education Tools"
+    }
+    this.moduleTitile=moduleTitile[currentEndpoint] || "";
+    
   }
 
   getCountriesList() {
@@ -252,10 +268,10 @@ export class GlobalTravelVisaComponent implements OnInit {
   }
   openReport() {
     let data: any = {
-      // isVisible: true,
-      // moduleId: this.moduleid,
-      // questionId: this.selectedQuestionData?.id,
-      // countryId:this.countryId,
+      isVisible: true,
+      moduleId: this.moduleId,
+      questionId: this.selectedQuestionData?.id,
+      countryId:0,
     };
     // if (this.currentModuleId == 8) {
     //   data.reporttype = 8;

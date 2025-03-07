@@ -34,7 +34,7 @@
         <div class="question-tab">
           <p-tabView (onChange)="changeType($event)">
             <p-tabPanel header="Default"> </p-tabPanel>
-            <p-tabPanel header="Saved"> </p-tabPanel>
+            <p-tabPanel header="History"></p-tabPanel>
           </p-tabView>
         </div>
       </div>
@@ -83,11 +83,11 @@
                   <span class="me-2">Download</span><span class="btn-icon px-2 py-2">
                       <i class="fa-regular fa-download"></i></span>
               </button>
-              <button pButton type="button" (click)="saveRoleResponse()"
+              <!-- <button pButton type="button" (click)="saveRoleResponse()"
                   class="btn btn-primary btn-rounded p-1 ps-4">
                   <span class="me-2">Save Response</span><span class="btn-icon px-2 py-2">
                       <i class="fa-regular fa-floppy-disk"></i></span>
-              </button>
+              </button> -->
             </div>
             <h3 class="primary-color mb-4">
               {{ selectedJobRole }}

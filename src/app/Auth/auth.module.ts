@@ -25,6 +25,9 @@ import { AuthEffects } from "./store/effects";
 import { authFeature } from "./store/reducer";
 import { VerificationComponent } from './verification/verification.component';
 
+import {GoogleSigninButtonModule} from "@abacritt/angularx-social-login";
+import {MaintenanceComponent} from "./maintenance/maintenance.component";
+import { ScrollTopModule } from "primeng/scrolltop";
 @NgModule({
   declarations: [
     ForgotPasswordComponent,
@@ -32,30 +35,48 @@ import { VerificationComponent } from './verification/verification.component';
     SetpasswordComponent,
     MaintenanceComponent
   ],
-  imports: [
-    FormsModule,
-    LoginComponent,
-    RegistrationComponent,
-    InputGroupModule,
-    InputGroupAddonModule,
-    AuthComponent,
-    ReactiveFormsModule,
-    InputIconModule,
-    CommonModule,
-    RouterModule,
-    AuthRoutingModule,
-    InputTextModule,
-    PasswordModule,
-    ToastModule,
-    CalendarModule,
-    NgxIntlTelInputModule,
-    GoogleSigninButtonModule,
-    StoreModule.forFeature(authFeature),
-    EffectsModule.forFeature([AuthEffects])
-  ],
-  providers: [
-    MessageService
-  ],
-  schemas: [CUSTOM_ELEMENTS_SCHEMA],
+  // imports: [
+  //   FormsModule,
+  //   LoginComponent,
+  //   RegistrationComponent,
+  //   InputGroupModule,
+  //   InputGroupAddonModule,
+  //   AuthComponent,
+  //   ReactiveFormsModule,
+  //   InputIconModule,
+  //   CommonModule,
+  //   RouterModule,
+  //   AuthRoutingModule,
+  //   InputTextModule,
+  //   PasswordModule,
+  //   ToastModule,
+  //   CalendarModule,
+  //   NgxIntlTelInputModule,
+  //   GoogleSigninButtonModule,
+  //   StoreModule.forFeature(authFeature),
+  //   EffectsModule.forFeature([AuthEffects])
+  // ],
+  // providers: [
+  //   MessageService
+  // ],
+  // schemas: [CUSTOM_ELEMENTS_SCHEMA],
+    imports: [
+        FormsModule,
+        ReactiveFormsModule,
+        CommonModule,
+        RouterModule,
+        AuthRoutingModule,
+        InputTextModule,
+        ScrollTopModule,
+        PasswordModule,
+        ToastModule,
+        StoreModule.forFeature(authFeature),
+        EffectsModule.forFeature([AuthEffects]),
+        CalendarModule,
+        NgxIntlTelInputModule,
+        GoogleSigninButtonModule
+    ],
+    providers: [MessageService],
+    schemas: [CUSTOM_ELEMENTS_SCHEMA],
 })
 export class AuthModule { }

@@ -17,7 +17,7 @@
               tooltipPosition="top"
               pTooltip="Questions related to the application process are answered"
             >
-              Company Connect<i
+              Easy Apply<i
                 class="questiontooltip fa-solid fa-circle-question"
               ></i>
             </h5>
@@ -31,10 +31,10 @@
         <button
           type="button"
           title="Close Popup"
-          class="btn btn-primary btn-rounded mt-2"
+          class="btn p-button-primary btn-rounded mt-2"
           (click)="displayModal = true"
         >
-          <i class="fa-solid fa-caret-down"></i>&nbsp;&nbsp;Report
+          <i class="fa-solid fa-caret-down"></i>&nbsp;&nbsp;Filter
         </button>
       </div>
       <!-- <div class="col-md-3 mt-2 text-end desktop justify-content-end d-none d-md-flex"></div> -->
@@ -97,7 +97,7 @@
 
                 <!-- Share Button Column -->
                 <div class="col-auto">
-                  <button class="btn btn-link text-warning p-0 share-button">
+                  <button class="btn btn-link text-warning p-0">
                     <i class="fas fa-share-alt"></i>
                   </button>
                 </div>
@@ -189,69 +189,114 @@
     </div>
   </div>
 </div>
-<!-- <div class="p-4">
-    <p-dialog 
-    header="Filter" 
-    [(visible)]="displayModal" 
-    [modal]="true" 
-    [style]="{width: '70%'}" 
+<div [class]="displayModal ? 'p-4': ''">
+  <p-dialog
+    header="Filter"
+    [(visible)]="displayModal"
+    [modal]="true"
+    [style]="{width: '70vw'}"
+    [baseZIndex]="10000"
+    [draggable]="false"
+    [resizable]="false"
     [closeOnEscape]="true"
     styleClass="filter-modal">
     
     <div class="container-fluid p-3">
-     <form (ngSubmit)="applyFilter()">
-         <div class="mb-4">
-           <label class="form-label fw-bold">Company Name</label>
-           <input pInputText class="form-control p-2" placeholder="Search by company name" />
-         </div>
-         
-         <div class="row mb-4">
-           <div class="col-md-4">
-             <label class="form-label fw-bold">Industry Type</label>
-             <p-dropdown [options]="industryTypes" placeholder="Select your preferred industry" 
-               styleClass="w-100" [showClear]="true"></p-dropdown>
-           </div>
-           
-           <div class="col-md-4">
-             <label class="form-label fw-bold">Company Size</label>
-             <p-dropdown [options]="companySizes" placeholder="Select Company Size" 
-               styleClass="w-100" [showClear]="true"></p-dropdown>
-           </div>
-           
-           <div class="col-md-4">
-             <label class="form-label fw-bold">Headquarters Location</label>
-             <p-dropdown [options]="locations" placeholder="Select Headquarters Location" 
-               styleClass="w-100" [showClear]="true"></p-dropdown>
-           </div>
-         </div>
-         
-         <div class="row mb-4">
-           <div class="col-md-4">
-             <label class="form-label fw-bold">Global Presence</label>
-             <p-dropdown [options]="globalPresence" placeholder="Select global presence" 
-               styleClass="w-100" [showClear]="true"></p-dropdown>
-           </div>
-           
-           <div class="col-md-4">
-             <label class="form-label fw-bold">Year Founded</label>
-             <p-dropdown [options]="foundedYears" placeholder="Select founded year" 
-               styleClass="w-100" [showClear]="true"></p-dropdown>
-           </div>
-           
-           <div class="col-md-4">
-             <label class="form-label fw-bold">Company Type</label>
-             <p-dropdown [options]="companyTypes" placeholder="Select company type" 
-               styleClass="w-100" [showClear]="true"></p-dropdown>
-           </div>
-         </div>
-     </form>
+      <form (ngSubmit)="applyFilter()">
+        <!-- Search Section -->
+        <div class="mb-4">
+          <div class="form-div fw-bold">Search</div>
+          <input type="text" class="form-control w-100" placeholder="Search by Keyword">
+        </div>
+        
+        <!-- First Row -->
+        <div class="row mb-4">
+          <div class="col-md-4">
+            <div class="form-div fw-bold">Position Title</div>
+            <p-dropdown 
+              [options]="positionTitles" 
+              placeholder="Enter position title"
+              styleClass="w-100" 
+              [showClear]="true">
+            </p-dropdown>
+          </div>
+          
+          <div class="col-md-4">
+            <div class="form-div fw-bold">Industry</div>
+            <p-dropdown 
+              [options]="industries" 
+              placeholder="Select industry"
+              styleClass="w-100" 
+              [showClear]="true">
+            </p-dropdown>
+          </div>
+          
+          <div class="col-md-4">
+            <div class="form-div fw-bold">Work Location</div>
+            <p-dropdown 
+              [options]="workLocations" 
+              placeholder="Select work location"
+              styleClass="w-100" 
+              [showClear]="true">
+            </p-dropdown>
+          </div>
+        </div>
+        
+        <!-- Second Row -->
+        <div class="row mb-4">
+          <div class="col-md-4">
+            <div class="form-div fw-bold">Work Type</div>
+            <p-dropdown 
+              [options]="workTypes" 
+              placeholder="Select work type"
+              styleClass="w-100" 
+              [showClear]="true">
+            </p-dropdown>
+          </div>
+          
+          <div class="col-md-4">
+            <div class="form-div fw-bold">Employment Type</div>
+            <p-dropdown 
+              [options]="employmentTypes" 
+              placeholder="Select employment type"
+              styleClass="w-100" 
+              [showClear]="true">
+            </p-dropdown>
+          </div>
+          
+          <div class="col-md-4">
+            <div class="form-div fw-bold">Salary Range</div>
+            <p-dropdown 
+              [options]="salaryRanges" 
+              placeholder="Select salary range"
+              styleClass="w-100" 
+              [showClear]="true">
+            </p-dropdown>
+          </div>
+        </div>
+        
+        <!-- Third Row -->
+        <div class="row mb-4">
+          <div class="col-md-6">
+            <div class="form-div fw-bold">Experience Level</div>
+            <p-dropdown 
+              [options]="experienceLevels" 
+              placeholder="Select experience level"
+              styleClass="w-100" 
+              [showClear]="true">
+            </p-dropdown>
+          </div>
+        </div>
+      </form>
     </div>
     
     <ng-template pTemplate="footer">
-        <div>
-            <button type="submit" class="btn btn-dark w-100" style="background-color: var(--uniprep-primary); border: none">Apply Filter</button>
-            <button class="btn btn-dark w-100" (click)="clearFilter()" style="background-color: white; border-radius: 8px; color: var(--uniprep-primary); border: none" type="button">Reset Filter</button>
-        </div>
+      <div class="d-flex flex-column gap-2">
+        <button type="submit" class="btn btn-dark w-100" style="background-color: var(--uniprep-primary); border: none">Apply Filter</button>
+        <button type="button" class="btn btn-link reset-filter-btn" (click)="resetFilter()">
+          Reset Filter
+        </button>
+      </div>
     </ng-template>
-    </p-dialog>
-</div> -->
+  </p-dialog>
+</div>

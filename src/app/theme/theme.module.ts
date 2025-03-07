@@ -19,6 +19,11 @@ import { EditorModule } from 'primeng/editor';
 import { NgxIntlTelInputModule } from 'ngx-intl-tel-input';
 import { TabViewModule } from 'primeng/tabview';
 
+import { DropdownModule } from "primeng/dropdown";
+import { OverlayPanelModule } from "primeng/overlaypanel";
+import { HeaderSearchComponent } from "../pages/header-search/header-search.component";
+import { HeaderSearchModuleComponent } from "../pages/header-search-module/header-search-module.component";
+
 @NgModule({
   imports: [
     CommonModule,

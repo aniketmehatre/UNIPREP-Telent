@@ -56,8 +56,8 @@
                 <div class="swiper-slide text-center d-flex justify-content-center" *ngFor="let slide of resumeSlider">
                   <div class="cvBuilderSampleImg position-relative" [ngClass]="{ selectedResumeLevel: selectedResumeLevel == slide.templateName }">
                     <h5 class="text-center uniprep-primary">{{ slide.templateName }}</h5>
-                    <img [src]="slide.imageLink" alt="{{ slide.templateName }}" />
-                    <button pButton  class="center-button btn btn-primary" (click)="selectResumeTemplate(slide.templateName)">Select</button>
+                    <img [src]="slide.imageLink" alt="{{ slide.templateName }}" (click)="resumeClick.click();"/>
+                    <button pButton  class="center-button btn btn-primary" (click)="selectResumeTemplate(slide.templateName)" style="display: none;" #resumeClick>Select</button>
                   </div>
                 </div>
               </div>

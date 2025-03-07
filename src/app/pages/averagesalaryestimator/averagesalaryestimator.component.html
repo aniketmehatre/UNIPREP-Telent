@@ -81,86 +81,86 @@
                                     placeholder=" Search by Job Role"
                             />
                           </span>
-                                                    <ul
-                                                            *ngIf="filterJobRole.length > 0"
-                                                            class="dropdown-list"
-                                                    >
-                                                        <li
-                                                                *ngFor="let job of filterJobRole"
-                                                                (click)="setJobtitle(job.id, job.jobrole)"
-                                                        >
-                                                            {{ job.jobrole }}
-                                                        </li>
-                                                    </ul>
-                                                </div>
-                                                <p
-                                                        class="text-center"
-                                                        [ngClass]="{ 'd-none': invalidClass === false }"
-                                                        style="color: red"
-                                                >
-                                                    Please Choose Any one option
-                                                </p>
-                                            </ng-container>
-                                            <ng-container *ngIf="recommendation.id == 2">
-                                                <p-select
-                                                        styleClass="w-100"
-                                                        placeholder="Select"
-                                                        display="chip"
-                                                        optionLabel="experience"
-                                                        optionValue="id"
-                                                        [options]="yearsOfExperience"
-                                                        [(ngModel)]="selectedData[recommendation.id]"
-                                                        [appendTo]="'body'"
-                                                        [filter]="true"
-                                                        filterBy="value"
-                                                ></p-select>
-                                                <p
-                                                        class="text-center"
-                                                        [ngClass]="{ 'd-none': invalidClass === false }"
-                                                        style="color: red"
-                                                >
-                                                    Please Choose Any one option
-                                                </p>
-                                            </ng-container>
-                                            <ng-container *ngIf="recommendation.id == 3">
-                                                <p-select
-                                                        styleClass="w-100"
-                                                        placeholder="Select"
-                                                        display="chip"
-                                                        optionLabel="jobpreferences"
-                                                        optionValue="id"
-                                                        [options]="jobPreferences"
-                                                        [(ngModel)]="selectedData[recommendation.id]"
-                                                        [appendTo]="'body'"
-                                                        [filter]="true"
-                                                        filterBy="jobpreferences"
-                                                ></p-select>
-                                                <p
-                                                        class="text-center"
-                                                        [ngClass]="{ 'd-none': invalidClass === false }"
-                                                        style="color: red"
-                                                >
-                                                    Please Choose Any One options
-                                                </p>
-                                            </ng-container>
-                                            <ng-container *ngIf="recommendation.id == 4">
-                                                <p-select
-                                                        [options]="departureLocationList"
-                                                        [virtualScroll]="true"
-                                                        [virtualScrollItemSize]="50"
-                                                        [(ngModel)]="selectedData[recommendation.id]"
-                                                        [appendTo]="'body'"
-                                                        [filter]="true"
-                                                        [showClear]="true"
-                                                        placeholder="Select Departure Location"
-                                                        styleClass="w-100"
-                                                >
-                                                    <ng-template pTemplate="filter" let-options="options">
-                                                        <div class="d-flex gap-2">
-                                                            <div
-                                                                    class="p-inputgroup"
-                                                                    (click)="$event.stopPropagation()"
-                                                            >
+                          <ul
+                            *ngIf="filterJobRole.length > 0"
+                            class="dropdown-list"
+                          >
+                            <li
+                              *ngFor="let job of filterJobRole"
+                              (click)="setJobtitle(job.id, job.jobrole)"
+                            >
+                              {{ job.jobrole }}
+                            </li>
+                          </ul>
+                        </div>
+                        <p
+                          class="text-center"
+                          [ngClass]="{ 'd-none': invalidClass === false }"
+                          style="color: red"
+                        >
+                          Please Choose Any one option
+                        </p>
+                      </ng-container>
+                      <ng-container *ngIf="recommendation.id == 2">
+                        <p-dropdown
+                          styleClass="w-100"
+                          placeholder="Select"
+                          display="chip"
+                          optionLabel="experience"
+                          optionValue="id"
+                          [options]="yearsOfExperience"
+                          [(ngModel)]="selectedData[recommendation.id]"
+                          [appendTo]="'body'"
+                          [filter]="true"
+                          filterBy="value"
+                        ></p-dropdown>
+                        <p
+                          class="text-center"
+                          [ngClass]="{ 'd-none': invalidClass === false }"
+                          style="color: red"
+                        >
+                          Please Choose Any one option
+                        </p>
+                      </ng-container>
+                      <ng-container *ngIf="recommendation.id == 3">
+                        <p-dropdown
+                          styleClass="w-100"
+                          placeholder="Select"
+                          display="chip"
+                          optionLabel="jobpreferences"
+                          optionValue="id"
+                          [options]="jobPreferences"
+                          [(ngModel)]="selectedData[recommendation.id]"
+                          [appendTo]="'body'"
+                          [filter]="true"
+                          filterBy="jobpreferences"
+                        ></p-dropdown>
+                        <p
+                          class="text-center"
+                          [ngClass]="{ 'd-none': invalidClass === false }"
+                          style="color: red"
+                        >
+                          Please Choose Any One options
+                        </p>
+                      </ng-container>
+                      <ng-container *ngIf="recommendation.id == 4">
+                        <p-dropdown
+                          [options]="departureLocationList"
+                          [virtualScroll]="true"
+                          [virtualScrollItemSize]="50"
+                          [(ngModel)]="selectedData[recommendation.id]"
+                          [appendTo]="'body'"
+                          [filter]="true"
+                          [showClear]="true"
+                          placeholder="Select Your Job Location"
+                          styleClass="w-100"
+                        >
+                          <ng-template pTemplate="filter" let-options="options">
+                            <div class="d-flex gap-2">
+                              <div
+                                class="p-inputgroup"
+                                (click)="$event.stopPropagation()"
+                              >
                                 <span class="p-inputgroup-addon">
                                   <i class="pi pi-search"></i
                                   ></span>

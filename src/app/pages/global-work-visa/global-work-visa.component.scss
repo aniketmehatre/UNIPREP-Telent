@@ -1,3 +1,32 @@
+.questioncard {
+	border: 1px solid var(--uniprep-primary);
+	padding: 0;
+}
+
+
+#socialSharingList {
+	display: none;
+	position: absolute;
+	right: 0rem;
+	top: 3rem;
+}
+
+#socialSharingList ul {
+	padding: 10px !important;
+	margin-bottom: 0;
+
+	li {
+		display: flex;
+		align-items: center;
+		margin-bottom: 5px;
+	}
+
+	i {
+		margin-right: 10px;
+	}
+}
+
+// new code
 .saved-btn {
 	background-color: #EBEDF2;
 	color: #001631 !important;
@@ -356,26 +385,8 @@
 
 .blog-content {
 	font-family: "Poppins", sans-serif;
+	line-height: 2rem;
 }
 ::ng-deep .blog-content ,p {
-	font-size: 14px ;
+	font-size: 16px ;
 }
-
-.flag-circle {
-    width: 60px;
-    height: 60px;
-    border-radius: 50%;
-    margin: 20px auto;
-    overflow: hidden;
-    position: relative; /* Add this */
-    display: flex; /* Add this */
-    align-items: center; /* Add this */
-    justify-content: center; /* Add this */
-  }
-  
-  .flag-circle img {
-    width: 100%; /* Change this */
-    height: 100%; /* Add this */
-    object-fit: cover; /* Keep this */
-    object-position: center; /* Add this */
-  }
