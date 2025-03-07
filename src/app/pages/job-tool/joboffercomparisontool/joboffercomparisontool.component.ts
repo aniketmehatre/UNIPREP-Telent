@@ -21,7 +21,7 @@ export class JoboffercomparisontoolComponent implements OnInit {
     private router: Router,
     private pageFacade: PageFacadeService,
     private avgestservice: AveragesalaryestimatorService,
-    private service:JobOfferComparisionService,
+    private service: JobOfferComparisionService,
     private fb: FormBuilder
   ) {
     this.basicInformationForm = this.fb.group({
@@ -95,14 +95,16 @@ export class JoboffercomparisontoolComponent implements OnInit {
   //create addtionalperks Information
   createadditionalPerksGroup(): FormGroup {
     return this.fb.group({
-      workplacetypes:[null, Validators.required],
+      workplacetypes: [null, Validators.required],
       perks: ["", Validators.required], // Dropdown for benefits
       travel_opportunities: [null, Validators.required], // Dropdown for opportunities
     });
   }
   //get additionalPerks controls
   get additionalPerksInformation(): FormArray {
-    return this.additionalPerksForm.get("additionalPerksInformation") as FormArray;
+    return this.additionalPerksForm.get(
+      "additionalPerksInformation"
+    ) as FormArray;
   }
   @Input() prepData: any;
   enableModule: boolean = false;
@@ -130,13 +132,13 @@ export class JoboffercomparisontoolComponent implements OnInit {
     },
   ];
   positions = [];
-  currencies=[];
+  currencies = [];
   locations = [];
-  employeebenefits=[];
-  traveloppurtunities=[];
-  workbenefits=[];
-  workhours=[];
-  workingdays=[];
+  employeebenefits = [];
+  traveloppurtunities = [];
+  workbenefits = [];
+  workhours = [];
+  workingdays = [];
   //position dropdown
   getJobRoles() {
     this.avgestservice.getJobRoles().subscribe((response) => {
@@ -152,9 +154,9 @@ export class JoboffercomparisontoolComponent implements OnInit {
   //currency dropdown
   getCurrencyList() {
     this.avgestservice.getCurrencies().subscribe({
-      next: response => {
+      next: (response) => {
         this.currencies = response;
-      }
+      },
     });
   }
   //employeeBenefits dropdown
@@ -172,24 +174,24 @@ export class JoboffercomparisontoolComponent implements OnInit {
   //workBenefits dropdown
   getworkBenefits() {
     this.service.getworkBenefits().subscribe({
-      next: response => {
+      next: (response) => {
         this.workbenefits = response;
-      }
+      },
     });
   }
   //workHours dropdown
   getworkHours() {
     this.service.getworkHours().subscribe({
-      next: response => {
+      next: (response) => {
         this.workhours = response;
-      }
+      },
     });
-  }//workingDays dropdown
+  } //workingDays dropdown
   getworkingDays() {
     this.service.getworkingDays().subscribe({
-      next: response => {
+      next: (response) => {
         this.workingdays = response;
-      }
+      },
     });
   }
   //employement type
@@ -199,26 +201,26 @@ export class JoboffercomparisontoolComponent implements OnInit {
       this.jobPreferences = response;
     });
   }
-   //workplace type
-   workplaceTypes: any = [];
-   getworkplaceType() {
-     this.service.getemploymentType().subscribe((response) => {
-       this.workplaceTypes = response;
-     });
-   }
+  //workplace type
+  workplaceTypes: any = [];
+  getworkplaceType() {
+    this.service.getemploymentType().subscribe((response) => {
+      this.workplaceTypes = response;
+    });
+  }
   ngOnInit() {
     this.activePageIndex = 0;
     this.getJobRoles();
     this.getCities();
     this.getCurrencyList();
-    this.getemployeeBenefits()
+    this.getemployeeBenefits();
     this.gettravelOppertunities();
     this.getworkBenefits();
     this.getworkHours();
     this.getworkingDays();
     this.getJobPreferences();
     this.getworkplaceType();
-}
+  }
   previous(): void {
     if (this.activePageIndex > 0) {
       this.activePageIndex--;
@@ -241,7 +243,9 @@ export class JoboffercomparisontoolComponent implements OnInit {
         });
         this.additionalPerksInformation.clear();
         this.basicInformation.value.forEach((infodetail: any) => {
-          this.additionalPerksInformation.push(this.createadditionalPerksGroup());
+          this.additionalPerksInformation.push(
+            this.createadditionalPerksGroup()
+          );
         });
         this.activePageIndex++;
       }
@@ -268,11 +272,11 @@ export class JoboffercomparisontoolComponent implements OnInit {
         return;
       } else {
         //get recommendation
-        let processData={
+        let processData = {
           jobs: this.constructJobsArray(),
-        }
-        this.prepData=processData;
-        this.preparedvisibility=true;
+        };
+        this.prepData = processData;
+        this.preparedvisibility = true;
       }
     }
   }
@@ -282,8 +286,9 @@ export class JoboffercomparisontoolComponent implements OnInit {
       const basicInfo = this.basicInformation.at(i).value;
       const benefitsInfo = this.benefitsInformation.at(i)?.value || {};
       const workTimingInfo = this.worktimingsInformation.at(i)?.value || {};
-      const additionalPerksInfo = this.additionalPerksInformation.at(i)?.value || {};
-  
+      const additionalPerksInfo =
+        this.additionalPerksInformation.at(i)?.value || {};
+
       // Construct the job object
       const job = {
         company: basicInfo.companyName,
@@ -293,19 +298,19 @@ export class JoboffercomparisontoolComponent implements OnInit {
         benefits: benefitsInfo.benefits[0],
         salary: benefitsInfo.salary,
         perks: additionalPerksInfo.perks,
-        workplacetypes:additionalPerksInfo.workplacetypes,
+        workplacetypes: additionalPerksInfo.workplacetypes,
         working_days: workTimingInfo.working_days,
         work_hours: workTimingInfo.work_hours,
         employment_type: workTimingInfo.employment_type,
         travel_opportunities: additionalPerksInfo.travel_opportunities,
       };
-  
+
       jobs.push(job);
     }
-  
+
     return jobs;
   }
-  
+
   openVideoPopup(videoLink: string) {
     this.pageFacade.openHowitWorksVideoPopup(videoLink);
   }
@@ -314,6 +319,10 @@ export class JoboffercomparisontoolComponent implements OnInit {
   }
   windowChange(data: any) {
     this.preparedvisibility = data;
-    this.ngOnInit();
+    this.activePageIndex = 0;
+    this.basicInformationForm.reset();
+    this.salaryandemployeeBenefitsForm.reset();
+    this.worktimingsForm.reset();
+    this.additionalPerksForm.reset();
   }
 }
