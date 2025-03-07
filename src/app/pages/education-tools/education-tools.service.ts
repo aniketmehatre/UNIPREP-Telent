@@ -18,11 +18,18 @@ export class EducationToolsService {
     private http: HttpClient
   ) { }
 
-  getCurrentSpecializations() {
+  getCurrentSpecializations() { // course navigator module service
+    return this.http.get<{ id: number, specialization_name: string }[]>(environment.ApiUrl + "/getcurrentspecialization", {
+      headers: this.headers,
+    });
+  }
+
+  getcareerPlannerSpec(){
     return this.http.get<{ id: number, specialization_name: string }[]>(environment.ApiUrl + "/getCareerSpecialization", {
       headers: this.headers,
     });
   }
+
   getDegreeRecommadations(data: any) {
     return this.http.get<EducatiionsRec[]>(`${environment.ApiUrl}/getDegrees?spec_id=${data.spec_id}&edu_id=${data.edu_id}`, {
       headers: this.headers,

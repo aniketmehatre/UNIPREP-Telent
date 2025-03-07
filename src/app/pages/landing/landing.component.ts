@@ -6,6 +6,7 @@ import { LocationService } from "../../location.service"
 import { environment } from "@env/environment"
 import { LocalStorageService } from "ngx-localstorage"
 import { Router } from "@angular/router"
+import { ScrollTopModule } from 'primeng/scrolltop';
 
 @Component({
 	selector: "uni-landing",
@@ -24,6 +25,7 @@ export class LandingComponent implements OnInit {
 	currentImage: string = "/uniprep-assets/images/feature1.webp"
 	contactForm: any
 	blogs: any
+	contactSuccess: boolean = false;
 	welcomevideoLink: string = `https://${environment.domain}/uniprepapi/storage/app/public/Landing/welcome.mp4`
 
 	showTandC() {
@@ -249,8 +251,12 @@ export class LandingComponent implements OnInit {
 			// this.toastr.add({severity: 'success', summary: 'Success', detail: "Organization Added"});
 			// this.getOrgList();
 			// this.reviewOrg.reset()
-			alert("Thank You , we will get back to you .")
-			this.displaycontactform = false
-		})
+			// alert("Thank You, we will get back to you at the earliest.")
+			this.contactSuccess = true;
+			setTimeout(() => {
+				this.contactSuccess = false;
+				this.displaycontactform = false;
+			}, 2000);
+		});
 	}
 }
