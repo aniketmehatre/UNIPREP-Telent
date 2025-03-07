@@ -10,13 +10,23 @@
     border-color: var(--uniprep-primary) !important;
 }
 .flag-circle {
-    width: 60px;
-    height: 60px;
-    border-radius: 50%;
-    margin: 20px auto;
-    overflow: hidden;
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  margin: 20px auto;
+  overflow: hidden;
+  position: relative; /* Add this */
+  display: flex; /* Add this */
+  align-items: center; /* Add this */
+  justify-content: center; /* Add this */
 }
 
+.flag-circle img {
+  width: 100%; /* Change this */
+  height: 100%; /* Add this */
+  object-fit: cover; /* Keep this */
+  object-position: center; /* Add this */
+}
 .modalbuttons
 {
   position: absolute;

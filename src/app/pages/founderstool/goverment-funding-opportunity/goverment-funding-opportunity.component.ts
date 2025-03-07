@@ -315,8 +315,10 @@ export class GovermentFundingOppurtunityComponent implements OnInit {
     isFav = isFav != '1' ? true : false;
     this.fundListService.addFavFundData(FundId, this.PersonalInfo.user_id, isFav).subscribe((response: { message: any; }) => {
       let fundListData = this.fundData.find(item => item.id == FundId);
-      isFav == true ? fundListData.favourite = 1 : fundListData.favourite = null;
-      this.favCount = isFav == true ? this.favCount + 1 : this.favCount - 1;
+      if (fundListData) {
+        isFav == true ? fundListData.favourite = 1 : fundListData.favourite = null;
+        this.favCount = isFav == true ? this.favCount + 1 : this.favCount - 1;
+      }
       this.toast.add({
         severity: "success",
         summary: "Success",
@@ -330,18 +332,18 @@ export class GovermentFundingOppurtunityComponent implements OnInit {
       this.loadFundData(1, this.selectedData);
     }
     else {
-      // let fundList = this.allfundList.map(fund => {
-      //   let foundFund = this.fundData.find(s => s.id == fund.id);
-      //   if (foundFund) {
-      //     fund.favourite = foundFund.favourite;
-      //   }
-      //   return fund;
-      // });
-      // let favouriteFunds = fundList.filter(fund => fund.favourite === 1);
-      // let nonFavouriteFunds = fundList.filter(fund => fund.favourite !== 1);
-      // this.fundData = favouriteFunds.concat(nonFavouriteFunds);
-      // this.totalFundCount = this.allFundCount;
-      this.loadFundData(0, this.selectedData);
+      let fundList = this.allfundList.map(fund => {
+        let foundFund = this.fundData.find(s => s.id == fund.id);
+        if (foundFund) {
+          fund.favourite = foundFund.favourite;
+        }
+        return fund;
+      });
+      let favouriteFunds = fundList.filter(fund => fund.favourite === 1);
+      let nonFavouriteFunds = fundList.filter(fund => fund.favourite !== 1);
+      this.fundData = favouriteFunds.concat(nonFavouriteFunds);
+      this.totalFundCount = this.allFundCount;
+      // this.loadFundData(0, this.selectedData);
     }
   }
 
@@ -460,9 +462,9 @@ export class GovermentFundingOppurtunityComponent implements OnInit {
   }
 
   setRecommendationToForm(data: any) {
-    this.selectedData[0] = data?.country;
-    this.selectedData[1] = data?.region;
-    this.selectedData[2] = data?.type;
+    // this.selectedData[0] = data?.country;
+    // this.selectedData[1] = data?.region;
+    // this.selectedData[2] = data?.type;
     this.filterForm.patchValue({
       country: Array.isArray(data?.country) ? data?.country[0] : data?.country,
       region: data?.region,
