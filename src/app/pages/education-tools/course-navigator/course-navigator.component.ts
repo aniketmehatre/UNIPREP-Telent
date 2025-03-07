@@ -291,7 +291,17 @@ export class CourseNavigatorComponent implements OnInit {
       });
   }
 
-  goBack() {
-    this.router.navigateByUrl('/pages/education-tools');
+  goBack(type?: string) {
+    if (type == 'questions') {
+      this.isRecommendationSavedData = false;
+      this.isCourseSubmodule = true;
+    }
+    if (type == 'submodule') {
+      this.isCourseSubmodule = false;
+      this.isRecommendationData = true;
+    }
+    if(!type) {
+      this.router.navigateByUrl('/pages/education-tools');
+    }
   }
 }
