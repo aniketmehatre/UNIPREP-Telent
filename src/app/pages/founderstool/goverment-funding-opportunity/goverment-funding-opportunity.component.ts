@@ -121,7 +121,7 @@ export class GovermentFundingOppurtunityComponent implements OnInit {
 
   performSearch() {
     if (this.searchScholarshpName == "") {
-      this.loadFundData(0);
+      this.loadFundData(0, this.selectedData);
       return;
     }
     var searchedFund: any = [];
@@ -175,7 +175,7 @@ export class GovermentFundingOppurtunityComponent implements OnInit {
   }
 
 
-  loadFundData(isFavourite: number) {
+  loadFundData(isFavourite: number, data: any) {
     if (isFavourite == 1) {
       this.data = {}
       this.data['favourite'] = 1;
@@ -183,9 +183,16 @@ export class GovermentFundingOppurtunityComponent implements OnInit {
       this.data['favourite'] = 0;
     }
     this.data.planname = this.currentPlan ? this.currentPlan : "";
-
+    let keyMapping: any = { "1": "country", "2": "region", "3": "type" };
+    let newData = Object.fromEntries(Object.entries(data).map(([key, value]) => {
+      let mappedKey = keyMapping[key] || key;
+      if (Array.isArray(value)) {
+        value = value.filter(item => item !== null);
+      }
+      return [mappedKey, value];
+    }));
     this.fundListService
-      .getFundList(this.data)
+      .getFundList({ ...newData, ...this.data })
       .subscribe((response: { governmentfundings: any[]; favourite_count: number; count: number; credit_count: number; }) => {
         this.fundData = response.governmentfundings;
         this.favCount = response.favourite_count;
@@ -198,23 +205,23 @@ export class GovermentFundingOppurtunityComponent implements OnInit {
       });
     this.isFilterVisible = false;
   }
+
   applyFilter() {
     const formData = this.filterForm.value;
-    console.log(this.data);
     if (!formData.country && !formData.region && !formData.type) {
       this.filterForm.reset();
       this.data = {
         page: this.page,
         perpage: this.pageSize,
       }
-      this.loadFundData(0);
+      this.loadFundData(0, this.selectedData);
       this.isFilterVisible = false;
       return;
     }
     this.data.page = 1;
     this.data.perpage = 100;
     if (this.filterForm.value.country) {
-      this.data.country = this.filterForm.value.country;
+      this.data.country = Array.isArray(this.filterForm.value.country) ? this.filterForm.value.country : [this.filterForm.value.country];
     }
     if (this.filterForm.value.region) {
       this.data.region = this.filterForm.value.region;
@@ -245,7 +252,7 @@ export class GovermentFundingOppurtunityComponent implements OnInit {
     this.first = event.first;
     this.data.page = this.page;
     this.data.perpage = this.pageSize;
-    this.loadFundData(0);
+    this.loadFundData(0, this.selectedData);
   }
 
   closePopup() {
@@ -282,7 +289,7 @@ export class GovermentFundingOppurtunityComponent implements OnInit {
       } else {
         this.recommendRestrict = false;
       }
-      this.loadFundData(0);
+      this.loadFundData(0, this.selectedData);
     });
   }
 
@@ -320,20 +327,21 @@ export class GovermentFundingOppurtunityComponent implements OnInit {
   viewFavourites() {
     this.viewFavouritesLabel = this.viewFavouritesLabel == 'View Favourites' ? 'View All' : 'View Favourites';
     if (this.viewFavouritesLabel == "View All") {
-      this.loadFundData(1);
+      this.loadFundData(1, this.selectedData);
     }
     else {
-      let fundList = this.allfundList.map(fund => {
-        let foundFund = this.fundData.find(s => s.id == fund.id);
-        if (foundFund) {
-          fund.favourite = foundFund.favourite;
-        }
-        return fund;
-      });
-      let favouriteFunds = fundList.filter(fund => fund.favourite === 1);
-      let nonFavouriteFunds = fundList.filter(fund => fund.favourite !== 1);
-      this.fundData = favouriteFunds.concat(nonFavouriteFunds);
-      this.totalFundCount = this.allFundCount;
+      // let fundList = this.allfundList.map(fund => {
+      //   let foundFund = this.fundData.find(s => s.id == fund.id);
+      //   if (foundFund) {
+      //     fund.favourite = foundFund.favourite;
+      //   }
+      //   return fund;
+      // });
+      // let favouriteFunds = fundList.filter(fund => fund.favourite === 1);
+      // let nonFavouriteFunds = fundList.filter(fund => fund.favourite !== 1);
+      // this.fundData = favouriteFunds.concat(nonFavouriteFunds);
+      // this.totalFundCount = this.allFundCount;
+      this.loadFundData(0, this.selectedData);
     }
   }
 
@@ -408,7 +416,7 @@ export class GovermentFundingOppurtunityComponent implements OnInit {
         this.selectAllCheckboxes = false;
         // this.selectedCheckboxCount = 0;
         this.selectedFund = 0;
-        this.loadFundData(0);
+        this.loadFundData(0, this.selectedData);
       })
     } else if (this.exportCreditCount == 0) {
       if (this.imagewhitlabeldomainname === "dev-student.uniprep.ai" || this.imagewhitlabeldomainname === "uniprep.ai" || this.imagewhitlabeldomainname === "localhost") {
@@ -452,7 +460,14 @@ export class GovermentFundingOppurtunityComponent implements OnInit {
   }
 
   setRecommendationToForm(data: any) {
-    this.filterForm.patchValue(data);
+    this.selectedData[0] = data?.country;
+    this.selectedData[1] = data?.region;
+    this.selectedData[2] = data?.type;
+    this.filterForm.patchValue({
+      country: Array.isArray(data?.country) ? data?.country[0] : data?.country,
+      region: data?.region,
+      type: data?.type
+    });
     this.applyFilter();
   }
 

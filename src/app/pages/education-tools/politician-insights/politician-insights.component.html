@@ -74,7 +74,7 @@
             <div class="card-body d-flex flex-column justify-content-start align-items-start">
               <div class="d-flex align-items-center">
                 <img [src]="politician.imageUrl" class="rounded-circle me-3" [alt]="politician.name" width="80" height="80" />
-                <div class="text-left">
+                <div class="text-start">
                   <h5 class="card-title mb-1">{{ politician.name }}</h5>
                   <div class="d-flex align-items-center mb-2">
                     <img [src]="politician.flag" class="me-2 rounded-circle" [alt]="politician.country + ' flag'" width="20" height="20" />
@@ -82,7 +82,7 @@
                   </div>
                 </div>
               </div>
-              <p class="mt-3">
+              <p class="mt-3 text-start">
                 <span class="fw-bold">Occupation:</span> {{ politician.occupation }}<br />
                 {{ politician.description }}
               </p>
