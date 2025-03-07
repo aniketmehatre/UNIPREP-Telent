@@ -9,15 +9,12 @@ import { AuthService } from "src/app/Auth/auth.service";
 import { CommonModule } from '@angular/common';
 import { DialogModule } from 'primeng/dialog';
 import {StorageService} from "../../../storage.service";
-import { InputGroupAddonModule } from 'primeng/inputgroupaddon';
-import { InputGroupModule } from 'primeng/inputgroup';
-import { DropdownModule } from 'primeng/dropdown';
 @Component({
     selector: 'uni-job-hunt',
     templateUrl: './job-hunt.component.html',
     styleUrls: ['./job-hunt.component.scss'],
     standalone: true,
-  imports: [CommonModule, DialogModule, FormsModule, DropdownModule, ReactiveFormsModule, InputGroupAddonModule, InputGroupModule],
+    imports: [CommonModule, DialogModule, FormsModule, ReactiveFormsModule],
 })
 export class JobHuntComponent implements OnInit {
   fG: FormGroup;
