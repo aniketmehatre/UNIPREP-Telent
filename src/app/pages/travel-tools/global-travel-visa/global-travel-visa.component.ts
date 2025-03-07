@@ -36,6 +36,7 @@ export class GlobalTravelVisaComponent implements OnInit {
   recomendationData:any[]=[];
   modeName:any;
   moduleId:any;
+  moduleTitile:string="";
   visaCategoryList: any[] = [
     {
       id: 1,
@@ -82,9 +83,13 @@ export class GlobalTravelVisaComponent implements OnInit {
       "study-visa": 37
     }
     this.moduleId=modeid[currentEndpoint] || "";
-    console.log(modeid[currentEndpoint]);
-    console.log( this.moduleId);
     
+    const moduleTitile:{[key: string]: string}={
+      "travel-visa": "Travel Tools",
+      "enterpreneur-visa": "Founders Tools",
+      "study-visa": "Education Tools"
+    }
+    this.moduleTitile=moduleTitile[currentEndpoint] || "";
     
   }
 
