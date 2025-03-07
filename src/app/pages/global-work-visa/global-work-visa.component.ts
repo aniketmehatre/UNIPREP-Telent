@@ -25,7 +25,7 @@ export class GlobalWorkVisaComponent implements OnInit {
   allCountries: any[] = [];
   visaCountries: any[] = [];
   invalidClass: boolean = false;
-  title: string = "Global Work Permit Regulations";
+  title: string = "Global Work Visa";
   isRecommendationQuestion: boolean = true;
   isRecommendationData: boolean = false;
   isRecommendationSavedData: boolean = false;
