@@ -56,45 +56,42 @@ export class CertificatesComponent implements OnInit {
 	showSocialSharingList(index: any): void {
 		this.selectedIndex = this.selectedIndex === index ? null : index
 	}
+	shareViaWhatsapp(link: any) {
+		let url = this.certificateforcopy
+		this.meta.updateTag({ property: "og:url", content: url })
+		const shareUrl = `whatsapp://send?text=${encodeURIComponent(url)}`
+		window.open(shareUrl, "_blank")
+	}
 	shareViaInstagram(link: any) {
-		let url = this.certificateforcopy;
-		this.meta.updateTag({ property: "og:url", content: url });
-		// Instagram doesn't have a direct sharing API like other platforms
-		// Redirecting to Instagram with the URL copied to clipboard might be better
-		// For mobile, you can use the instagram:// URL scheme
-		navigator.clipboard.writeText(url).then(() => {
-			window.open('https://www.instagram.com/', '_blank');
-			// Alternative for mobile: window.open('instagram://', '_blank');
-		});
+		let url = this.certificateforcopy
+		this.meta.updateTag({ property: "og:url", content: url })
+		const shareUrl = `https://www.instagram.com?url=${encodeURIComponent(url)}`
+		window.open(shareUrl, "_blank")
 	}
-
 	shareViaFacebook(link: any) {
-		let url = this.certificateforcopy;
-		const shareUrl = `https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(url)}&amp;src=sdkpreparse"`;
-		window.location.href = shareUrl;
+		let url = this.certificateforcopy
+		this.meta.updateTag({ property: "og:url", content: url })
+		const shareUrl = `https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(url)}`
+		window.open(shareUrl, "_blank")
 	}
-
 	shareViaLinkedIn(link: any) {
-		let url = this.certificateforcopy;
-		const shareUrl = `https://www.linkedin.com/sharing/share-offsite/?url=${encodeURIComponent(url)}`;
-		window.location.href = shareUrl;
+		let url = this.certificateforcopy
+		this.meta.updateTag({ property: "og:url", content: url })
+		const shareUrl = `https://www.linkedin.com/shareArticle?url=${encodeURIComponent(url)}`
+		window.open(shareUrl, "_blank")
 	}
-
 	shareViaTwitter(link: any) {
-		let url = this.certificateforcopy;
-		const text = "Check out this certificate"; // Optional text to accompany the URL
-		const shareUrl = `https://twitter.com/intent/tweet?text=${encodeURIComponent(text)}&url=${encodeURIComponent(url)}`;
-		window.location.href = shareUrl;
+		let url = this.certificateforcopy
+		this.meta.updateTag({ property: "og:url", content: url })
+		const shareUrl = `https://twitter.com/intent/tweet?url=${encodeURIComponent(url)}`
+		window.open(shareUrl, "_blank")
 	}
-
 	shareViaMail(link: any) {
-		let url = this.certificateforcopy;
-		const subject = "My Certificate"; // Optional subject line
-		const body = `Check out my certificate: ${url}`;
-		const shareUrl = `mailto:?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
-		window.location.href = shareUrl;
+		let url = this.certificateforcopy
+		this.meta.updateTag({ property: "og:url", content: url })
+		const shareUrl = `mailto:?body=${encodeURIComponent(url)}`
+		window.open(shareUrl, "_blank")
 	}
-
 	copyLink(link: any) {
 		const sanitizedCertificate = this.certificateforcopy || ""
 		const textarea = document.createElement("textarea")

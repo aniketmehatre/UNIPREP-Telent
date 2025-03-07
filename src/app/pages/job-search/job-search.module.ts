@@ -15,7 +15,6 @@ import { TimeAgoPipe } from './time-ago.pipe';
 import {CardModule} from "primeng/card";
 import {DialogModule} from "primeng/dialog";
 import { TooltipModule } from 'primeng/tooltip';
-import { DropdownModule } from 'primeng/dropdown';
 
 @NgModule({
     imports: [
@@ -35,7 +34,6 @@ import { DropdownModule } from 'primeng/dropdown';
         CardModule,
         DialogModule,
         TooltipModule,
-        DropdownModule
     ]
 })
 export class JobSearchModule { }
