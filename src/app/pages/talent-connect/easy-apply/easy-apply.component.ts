@@ -1,4 +1,9 @@
 import { Component } from '@angular/core';
+import {Paginator} from "primeng/paginator";
+import {Dialog} from "primeng/dialog";
+import {Select} from "primeng/select";
+import {FormsModule} from "@angular/forms";
+import {RouterLink} from "@angular/router";
 
 interface JobListing {
   id: number;
@@ -19,7 +24,15 @@ interface JobListing {
 @Component({
   selector: 'uni-easy-apply',
   templateUrl: './easy-apply.component.html',
-  styleUrls: ['./easy-apply.component.scss']
+  styleUrls: ['./easy-apply.component.scss'],
+  standalone: true,
+  imports: [
+    Dialog,
+    Select,
+    FormsModule,
+    RouterLink
+
+  ]
 })
 export class EasyApplyComponent {
   jobListings: JobListing[] = [];

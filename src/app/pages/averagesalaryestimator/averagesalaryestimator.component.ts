@@ -21,13 +21,14 @@ import { RadioButtonModule } from "primeng/radiobutton"
 import value from "crypto-js";
 import { City } from "src/app/@Models/cost-of-living";
 import { EducationToolsService } from "../education-tools/education-tools.service";
+import {AverageSalaryPreparedListComponent} from "./preparedlist/preparedlist.component";
 
 @Component({
   selector: "uni-averagesalaryestimator",
   templateUrl: "./averagesalaryestimator.component.html",
   styleUrls: ["./averagesalaryestimator.component.scss"],
   standalone: true,
-  imports: [CommonModule, DialogModule, RadioButtonModule, SidebarModule, PdfJsViewerModule, RouterModule, CardModule, PaginatorModule, FormsModule, ReactiveFormsModule, CarouselModule, ButtonModule, MultiSelectModule, SelectModule, InputGroupModule, InputTextModule, InputGroupAddonModule],
+    imports: [CommonModule, DialogModule, RadioButtonModule, SidebarModule, PdfJsViewerModule, RouterModule, CardModule, PaginatorModule, FormsModule, ReactiveFormsModule, CarouselModule, ButtonModule, MultiSelectModule, SelectModule, InputGroupModule, InputTextModule, InputGroupAddonModule, AverageSalaryPreparedListComponent],
 })
 export class AverageSalaryComponent implements OnInit {
   @ViewChild("jobRoleInput") JobRoleInput: ElementRef;

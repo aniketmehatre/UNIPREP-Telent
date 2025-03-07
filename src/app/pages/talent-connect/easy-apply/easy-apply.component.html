@@ -176,16 +176,16 @@
   </div>
   <div class="card-footer border-0 bg-transparent">
     <div class="row d-flex align-items-center justify-content-between">
-      <p-paginator
-        *ngIf="totalJobs != 0"
-        [rows]="pageSize"
-        [totalRecords]="totalPitchDeckCount"
-        [first]="(page - 1) * pageSize"
-        (onPageChange)="pageChange($event)"
-        [rowsPerPageOptions]="[50, 100, 300, 500, 1000]"
-        [disabled]="totalPitchDeckCount <= pageSize"
-      >
-      </p-paginator>
+<!--      <p-paginator-->
+<!--        *ngIf="totalJobs != 0"-->
+<!--        [rows]="pageSize"-->
+<!--        [totalRecords]="totalPitchDeckCount"-->
+<!--        [first]="(page - 1) * pageSize"-->
+<!--        (onPageChange)="pageChange($event)"-->
+<!--        [rowsPerPageOptions]="[50, 100, 300, 500, 1000]"-->
+<!--        [disabled]="totalPitchDeckCount <= pageSize"-->
+<!--      >-->
+<!--      </p-paginator>-->
     </div>
   </div>
 </div>
@@ -213,32 +213,32 @@
         <div class="row mb-4">
           <div class="col-md-4">
             <div class="form-div fw-bold">Position Title</div>
-            <p-dropdown 
+            <p-select 
               [options]="positionTitles" 
               placeholder="Enter position title"
               styleClass="w-100" 
               [showClear]="true">
-            </p-dropdown>
+            </p-select>
           </div>
           
           <div class="col-md-4">
             <div class="form-div fw-bold">Industry</div>
-            <p-dropdown 
+            <p-select 
               [options]="industries" 
               placeholder="Select industry"
               styleClass="w-100" 
               [showClear]="true">
-            </p-dropdown>
+            </p-select>
           </div>
           
           <div class="col-md-4">
             <div class="form-div fw-bold">Work Location</div>
-            <p-dropdown 
+            <p-select 
               [options]="workLocations" 
               placeholder="Select work location"
               styleClass="w-100" 
               [showClear]="true">
-            </p-dropdown>
+            </p-select>
           </div>
         </div>
         
@@ -246,32 +246,32 @@
         <div class="row mb-4">
           <div class="col-md-4">
             <div class="form-div fw-bold">Work Type</div>
-            <p-dropdown 
+            <p-select 
               [options]="workTypes" 
               placeholder="Select work type"
               styleClass="w-100" 
               [showClear]="true">
-            </p-dropdown>
+            </p-select>
           </div>
           
           <div class="col-md-4">
             <div class="form-div fw-bold">Employment Type</div>
-            <p-dropdown 
+            <p-select 
               [options]="employmentTypes" 
               placeholder="Select employment type"
               styleClass="w-100" 
               [showClear]="true">
-            </p-dropdown>
+            </p-select>
           </div>
           
           <div class="col-md-4">
             <div class="form-div fw-bold">Salary Range</div>
-            <p-dropdown 
+            <p-select 
               [options]="salaryRanges" 
               placeholder="Select salary range"
               styleClass="w-100" 
               [showClear]="true">
-            </p-dropdown>
+            </p-select>
           </div>
         </div>
         
@@ -279,12 +279,12 @@
         <div class="row mb-4">
           <div class="col-md-6">
             <div class="form-div fw-bold">Experience Level</div>
-            <p-dropdown 
+            <p-select 
               [options]="experienceLevels" 
               placeholder="Select experience level"
               styleClass="w-100" 
               [showClear]="true">
-            </p-dropdown>
+            </p-select>
           </div>
         </div>
       </form>

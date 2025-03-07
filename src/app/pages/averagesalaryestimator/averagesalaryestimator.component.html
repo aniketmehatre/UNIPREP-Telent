@@ -102,7 +102,7 @@
                         </p>
                       </ng-container>
                       <ng-container *ngIf="recommendation.id == 2">
-                        <p-dropdown
+                        <p-select
                           styleClass="w-100"
                           placeholder="Select"
                           display="chip"
@@ -113,7 +113,7 @@
                           [appendTo]="'body'"
                           [filter]="true"
                           filterBy="value"
-                        ></p-dropdown>
+                        ></p-select>
                         <p
                           class="text-center"
                           [ngClass]="{ 'd-none': invalidClass === false }"
@@ -123,7 +123,7 @@
                         </p>
                       </ng-container>
                       <ng-container *ngIf="recommendation.id == 3">
-                        <p-dropdown
+                        <p-select
                           styleClass="w-100"
                           placeholder="Select"
                           display="chip"
@@ -134,7 +134,7 @@
                           [appendTo]="'body'"
                           [filter]="true"
                           filterBy="jobpreferences"
-                        ></p-dropdown>
+                        ></p-select>
                         <p
                           class="text-center"
                           [ngClass]="{ 'd-none': invalidClass === false }"
@@ -144,7 +144,7 @@
                         </p>
                       </ng-container>
                       <ng-container *ngIf="recommendation.id == 4">
-                        <p-dropdown
+                        <p-select
                           [options]="departureLocationList"
                           [virtualScroll]="true"
                           [virtualScrollItemSize]="50"

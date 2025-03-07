@@ -4,11 +4,27 @@ import { Router } from "@angular/router";
 import { Meta } from "@angular/platform-browser";
 import { MessageService } from "primeng/api";
 import { DataService } from "src/app/data.service";
+import {Carousel} from "primeng/carousel";
+import {Select} from "primeng/select";
+import {NgClass} from "@angular/common";
+import {Dialog} from "primeng/dialog";
+import {Card} from "primeng/card";
+import {FormsModule} from "@angular/forms";
 
 @Component({
   selector: "uni-global-work-visa",
   templateUrl: "./global-work-visa.component.html",
   styleUrls: ["./global-work-visa.component.scss"],
+  standalone: true,
+  imports: [
+    Carousel,
+    Select,
+    NgClass,
+    Dialog,
+    Card,
+    FormsModule
+
+  ]
 })
 export class GlobalWorkVisaComponent implements OnInit {
   recommendations: { id: number; question: string }[] = [

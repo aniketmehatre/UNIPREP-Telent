@@ -5,8 +5,11 @@ import { AuthService } from "../../Auth/auth.service"
 import { LocationService } from "../../location.service"
 import { environment } from "@env/environment"
 import { LocalStorageService } from "ngx-localstorage"
-import { Router } from "@angular/router"
-import { ScrollTopModule } from 'primeng/scrolltop';
+import {Router, RouterModule} from "@angular/router"
+import {ScrollTop, ScrollTopModule} from 'primeng/scrolltop';
+import {CommonModule} from "@angular/common";
+import {DialogModule} from "primeng/dialog";
+import {MessageService} from "primeng/api";
 
 @Component({
 	selector: "uni-landing",
@@ -14,11 +17,13 @@ import { ScrollTopModule } from 'primeng/scrolltop';
 	styleUrls: ["./landing.component.scss"],
 	standalone: true,
 	imports: [
-	  CommonModule, 
-	  FormsModule, 
-	  ReactiveFormsModule, 
-	  DialogModule, 
-	  RouterModule, // Empty reducer configuration or actual reducers here
+		CommonModule,
+		FormsModule,
+		ReactiveFormsModule,
+		DialogModule,
+		RouterModule,
+		ScrollTop,
+		// Empty reducer configuration or actual reducers here
 	],
 	providers: [MessageService, AuthService],
 })

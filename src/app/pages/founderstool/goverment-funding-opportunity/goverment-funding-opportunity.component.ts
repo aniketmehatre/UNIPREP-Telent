@@ -14,20 +14,19 @@ import { DialogModule } from "primeng/dialog";
 import { SelectModule } from "primeng/select";
 import { MultiSelectModule } from "primeng/multiselect";
 import { FormsModule, ReactiveFormsModule } from "@angular/forms";
+import {Carousel} from "primeng/carousel";
 
 @Component({
   selector: "uni-goverment-funding-opportunity",
   templateUrl: "./goverment-funding-opportunity.component.html",
   styleUrls: ["./goverment-funding-opportunity.component.scss"],
   standalone: true,
-  imports: [CommonModule, DialogModule, SelectModule, MultiSelectModule, FormsModule, ReactiveFormsModule],
+    imports: [CommonModule, DialogModule, SelectModule, MultiSelectModule, FormsModule, ReactiveFormsModule, Carousel],
 })
 export class GovermentFundingOppurtunityComponent implements OnInit {
   fundData: any[] = [];
   countryList: Country[] = [];
   stateList: unknown = [];
-  tempCountryList: unknown;
-  headQuartersList: any;
   page = 1;
   pageSize = 25;
   first: number = 0;
@@ -35,8 +34,6 @@ export class GovermentFundingOppurtunityComponent implements OnInit {
   totalFundCount: any;
   isFilterVisible: boolean = false;
   filterForm: FormGroup;
-  homeCountryList: any[] = [];
-  filterUniversityList: any[] = [];
   planExpired!: boolean;
   recommendRestrict!: boolean;
   fundTypeList: any[] = [
@@ -48,8 +45,6 @@ export class GovermentFundingOppurtunityComponent implements OnInit {
     },
   ];
   anyFundTypeList: any[] = [];
-  coverList: any[] = [];
-  anyCoverList: any[] = [];
   restrict: boolean = false;
   currentPlan: string = "";
   PersonalInfo!: any;

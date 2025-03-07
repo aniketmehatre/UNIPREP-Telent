@@ -6,11 +6,17 @@ import { DataService } from 'src/app/data.service';
 import { LocationService } from 'src/app/location.service';
 import { ModuleServiceService } from '../module-store/module-service.service';
 import { ModuleStoreService } from '../module-store/module-store.service';
+import {FormsModule} from "@angular/forms";
 
 @Component({
   selector: 'uni-header-search-module',
   templateUrl: './header-search-module.component.html',
-  styleUrls: ['./header-search-module.component.scss']
+  styleUrls: ['./header-search-module.component.scss'],
+  standalone: true,
+  imports: [
+    FormsModule
+
+  ]
 })
 export class HeaderSearchModuleComponent implements OnInit {
   showCloseIcon: boolean = false;

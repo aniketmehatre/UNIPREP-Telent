@@ -179,10 +179,10 @@
                       {{ recommendation.question.branches[3] }}
                     </h5>
                     <div class="w-100 d-flex gap-2 flex-fill">
-                      <p-dropdown formControlName="expense_currency_code" [options]="currenciesList" [filter]="true" [disabled] ="true"
+                      <p-select formControlName="expense_currency_code" [options]="currenciesList" [filter]="true" [disabled] ="true"
                         filterBy="currency_symbol" placeholder="Currency" optionLabel="currency_symbol" optionValue="currency_symbol"
                         [autoDisplayFirst]="false" appendTo="body">
-                      </p-dropdown>
+                      </p-select>
                       <input class="w-100 pl-4 border border-gray rounded-3" type="number" pInputText [placeholder]="marketingForm.get('expense_currency_code').value ? 'Amount in'+' '+marketingForm.get('expense_currency_code').value : 'Operating Expense' "
                         formControlName="operating_expense" />
                     </div>
@@ -201,10 +201,10 @@
                       {{ recommendation.question.branches[0] }}
                     </h5>
                     <div class="w-100 d-flex gap-2 flex-fill">
-                      <p-dropdown formControlName="sales_currency_code"  [options]="currenciesList" [filter]="true" [disabled] ="true"
+                      <p-select formControlName="sales_currency_code"  [options]="currenciesList" [filter]="true" [disabled] ="true"
                         filterBy="currency_symbol" placeholder=" Currency" optionLabel="currency_symbol" optionValue="currency_symbol"
                         [autoDisplayFirst]="false">
-                      </p-dropdown>
+                      </p-select>
                       <input class="w-100 pl-4 border border-gray rounded-3" type="text" pInputText [placeholder]="marketingForm.get('sales_currency_code').value ? 'Amount in'+' '+marketingForm.get('sales_currency_code').value : 'Marketing and SalesBuget Amount' "
                         formControlName="budget" />
                     </div>
@@ -217,10 +217,10 @@
                     <h5 class="uniprep-primary fw-semibold mt-3 mb-1">
                       {{ recommendation.question.branches[1] }}
                     </h5>
-                    <p-dropdown styleClass="w-100" formControlName="expense_estimation" appendTo="body" [options]="expenseEstimation" [filter]="true"
+                    <p-select styleClass="w-100" formControlName="expense_estimation" appendTo="body" [options]="expenseEstimation" [filter]="true"
                     filterBy="name" placeholder="Select Expense Estimation" optionLabel="name" optionValue="name"
                     [autoDisplayFirst]="false">
-                  </p-dropdown>
+                  </p-select>
                     <p class="text-center" *ngIf="
                           marketingForm.get('expense_estimation')?.errors?.required && submitted
                         " style="color: red">
@@ -311,6 +311,7 @@
                 </button>
             </div>
         </div>
+      </div>
     </ng-container>
 
     <!-- ----------------- Recommandation Saved Response View ----------------- -->

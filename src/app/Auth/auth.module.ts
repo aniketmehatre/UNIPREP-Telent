@@ -18,14 +18,12 @@ import { AuthRoutingModule } from './auth-routing.module';
 import { AuthComponent } from './auth.component';
 import { ForgotPasswordComponent } from './forgot-password/forgot-password.component';
 import { LoginComponent } from './login/login.component';
-import { MaintenanceComponent } from "./maintenance/maintenance.component";
 import { RegistrationComponent } from './registration/registration.component';
 import { SetpasswordComponent } from './setpassword/setpassword.component';
 import { AuthEffects } from "./store/effects";
 import { authFeature } from "./store/reducer";
 import { VerificationComponent } from './verification/verification.component';
 
-import {GoogleSigninButtonModule} from "@abacritt/angularx-social-login";
 import {MaintenanceComponent} from "./maintenance/maintenance.component";
 import { ScrollTopModule } from "primeng/scrolltop";
 @NgModule({

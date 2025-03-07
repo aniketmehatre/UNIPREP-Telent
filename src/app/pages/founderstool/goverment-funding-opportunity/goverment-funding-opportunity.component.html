@@ -34,11 +34,11 @@
 								</div>
 								<div class="col-md-6">
 									<ng-container *ngIf="recommendation.id == 1">
-										<p-dropdown styleClass="w-100" placeholder="Select Your Country" [filter]="true"
+										<p-select styleClass="w-100" placeholder="Select Your Country" [filter]="true"
 											fiterBy="country" [options]="countryList" display="chip"
 											optionLabel="country" optionValue="id"
 											[(ngModel)]="selectedData[recommendation.id]" [appendTo]="'body'"
-											(ngModelChange)="changeCountryId($event)"></p-dropdown>
+											(ngModelChange)="changeCountryId($event)"></p-select>
 										<p class="text-center" [ngClass]="{ 'd-none': invalidClass === false }"
 											style="color: red">Please Choose Any one option</p>
 									</ng-container>
@@ -345,9 +345,9 @@
 							<label class="form-label" style="font-size: medium; font-weight: 500">Filter by Country</label>
 							<div class="form-group">
 								<div class="mb-3">
-									<p-dropdown [options]="countryList" styleClass="w-100" formControlName="country" (ngModelChange)="changeCountryId($event)"
+									<p-select [options]="countryList" styleClass="w-100" formControlName="country" (ngModelChange)="changeCountryId($event)"
 										optionValue="id" placeholder="Select  Country" optionLabel="country"
-										class="filterInput" [appendTo]="'body'"> </p-dropdown>
+										class="filterInput" [appendTo]="'body'"> </p-select>
 								</div>
 							</div>
 						</div>
