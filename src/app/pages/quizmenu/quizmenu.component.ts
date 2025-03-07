@@ -438,6 +438,11 @@ export class QuizmenuComponent implements OnInit {
       }
     })
   }
+
+  onChangeCountry(event: any) {
+
+  }
+
   openVideoPopup(videoLink: string) {
     this.pageFacade.openHowitWorksVideoPopup(videoLink);
   }
