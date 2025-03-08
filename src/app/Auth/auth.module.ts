@@ -23,7 +23,7 @@ import {CalendarModule} from "primeng/calendar";
 import { NgxIntlTelInputModule } from 'ngx-intl-tel-input';
 import {GoogleSigninButtonModule} from "@abacritt/angularx-social-login";
 import {MaintenanceComponent} from "./maintenance/maintenance.component";
-
+import { ScrollTopModule } from "primeng/scrolltop";
 @NgModule({
   declarations: [
     AuthComponent,
@@ -41,6 +41,7 @@ import {MaintenanceComponent} from "./maintenance/maintenance.component";
         RouterModule,
         AuthRoutingModule,
         InputTextModule,
+        ScrollTopModule,
         DropdownModule,
         PasswordModule,
         ToastModule,

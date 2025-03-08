@@ -5,7 +5,7 @@ import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { StoreModule } from '@ngrx/store';
 import { RouterModule } from '@angular/router';
-
+import { ScrollTopModule } from 'primeng/scrolltop';
 import { pagesReducer } from './pages/store/pages.reducer';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 import { environment } from '@env/environment';
@@ -49,7 +49,8 @@ import { PaginatorModule } from 'primeng/paginator';
 import { SharedModule } from "./shared/shared.module";
 import { ChartsModule } from 'ng2-charts'; // Ensure compatibility with Angular 16
 import { AuthModule } from './Auth/auth.module';
-
+import {MessagesModule} from 'primeng/messages';
+import {MessageModule} from 'primeng/message';
 const ngxLocalstorageConfiguration: NgxLocalstorageConfiguration = {
   delimiter: '@',
   prefix: 'sop@'
@@ -73,6 +74,9 @@ export function tokenGetter() {
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
   imports: [
     BrowserModule,
+    ScrollTopModule,
+    MessageModule,
+    MessagesModule,
     BrowserAnimationsModule,
     AppRoutingModule,
     StoreModule.forRoot({ pages: pagesReducer }),

@@ -4,6 +4,8 @@ import { FounderstoolService } from '../founderstool.service';
 import { Router } from '@angular/router';
 import { businessAdvisor } from './business-advisor.data';
 import { MessageService } from 'primeng/api';
+import { DownloadRespose } from 'src/app/@Models/travel-tools.model';
+import { TravelToolsService } from '../../travel-tools/travel-tools.service';
 
 @Component({
   selector: 'uni-ai-business-advisor',
@@ -17,7 +19,7 @@ export class AiBusinessAdvisorComponent implements OnInit {
   challengeList: { challenge: string }[] = businessAdvisor.challenges;
   targetAudienceList: { audience: string }[] = businessAdvisor.targetAudience;
   budgetList: { goal: string }[] = businessAdvisor.budgetGoals;
-  durationList: { duration: number }[] = businessAdvisor.timeDuration;
+  durationList: { duration: string }[] = businessAdvisor.timeDuration;
 
   recommadationSavedQuestionList: any = [];
   recommendations: { id: number, question: string }[] = [
@@ -44,7 +46,8 @@ export class AiBusinessAdvisorComponent implements OnInit {
     private fb: FormBuilder,
     private foundersToolService: FounderstoolService,
     private router: Router,
-    private toast: MessageService
+    private toast: MessageService,
+    private travelToolService: TravelToolsService
   ) { }
 
   ngOnInit(): void {
@@ -52,7 +55,7 @@ export class AiBusinessAdvisorComponent implements OnInit {
   }
 
   getCurrenyandLocation() {
-    this.foundersToolService.getCurrencyAndCountries().subscribe((res: any) => {
+    this.foundersToolService.getCurrenciesList().subscribe((res: any) => {
       this.currencyList = res;
     });
   }
@@ -68,7 +71,7 @@ export class AiBusinessAdvisorComponent implements OnInit {
     this.inValidClass = false;
     if (productId in this.selectedData) {
       if (productId == 6) {
-        if (this.selectedData[6].toString()?.length > 5) {
+        if (this.selectedData[6].toString()?.length > 8) {
           this.inValidClass = true;
           return;
         }
@@ -151,27 +154,41 @@ export class AiBusinessAdvisorComponent implements OnInit {
     this.toast.add({ severity: "success", summary: "Success", detail: "Response saved successfully" });
   }
 
-  downloadRecommendation() {
-    this.foundersToolService.downloadRecommendation({ data: this.recommendationData })
-      .subscribe({
-        next: (response: any) => {
-          this.foundersToolService.downloadFile(response.url).subscribe((blob) => {
-            const a = document.createElement("a");
-            const objectUrl = window.URL.createObjectURL(blob);
+  downloadRecommadation() {
+    let addingInput = `<p><strong>Input:<br></strong></p>`;
 
-            a.href = objectUrl;
-            a.download = "business-advisor.pdf";
-            document.body.appendChild(a);
-
-            a.click();
-            window.URL.revokeObjectURL(objectUrl);
-            document.body.removeChild(a);
-          });
-        },
-        error: (err) => {
-          console.log(err?.error?.message);
+    this.recommendations.forEach(item => {
+      addingInput += `<p><strong>${item.question}</strong></p>`;
+      let currentAnswer = "";
+      if (this.selectedData && this.selectedData[item.id]) {
+        if (item.id == 6) {
+          currentAnswer = this.selectedData[8] + ' ' + this.selectedData[item.id]
         }
-      });
+        else if (item.id == 3) {
+          currentAnswer = `${this.selectedData[item.id]} Months`;
+        }
+        else {
+          currentAnswer = this.selectedData[item.id];
+        }
+      } else {
+        currentAnswer = "No answer provided";
+      }
+
+      addingInput += `<p>${currentAnswer}</p><br>`;
+    });
+
+    let finalRecommendation = addingInput + '<p><strong>Response:<br></strong></p>' + this.recommendationData;
+
+    let paramData: DownloadRespose = {
+      response: finalRecommendation,
+      module_name: "Business Advisor",
+      file_name: "business_advisor"
+    };
+    this.travelToolService.convertHTMLtoPDF(paramData).then(() => {
+      console.log("PDF successfully generated.");
+    }).catch(error => {
+      console.error("Error generating PDF:", error);
+    });
   }
 
 

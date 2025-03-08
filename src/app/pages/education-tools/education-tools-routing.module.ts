@@ -25,10 +25,19 @@ const routes: Routes = [
         path: 'course-navigator', component: CourseNavigatorComponent
       },
       {
-        path: 'course-navigator/:degreeId/:questionId', component: CourseNavigatorComponent // Question Share
+        path: 'course-navigator/:degreeId/:courseId/:questionId', component: CourseNavigatorComponent // Question Share
       },
       {
         path: 'politician-insights', component: PoliticianInsightsComponent
+      },
+      {
+        path: 'politician-insights/:id', component: PoliticianInsightsComponent
+      },
+      {
+        path: 'politician-insights/:id/:question_id', component: PoliticianInsightsComponent
+      },
+      {
+        path: 'startup-failure-stories/:id/:question_id', component: PoliticianInsightsComponent
       },
       {
         path: 'country-insights',

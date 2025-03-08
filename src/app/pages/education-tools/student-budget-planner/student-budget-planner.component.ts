@@ -4,6 +4,7 @@ import { TravelToolsService } from '../../travel-tools/travel-tools.service';
 import { AllCountryRes,UniversityRes,CurrencyList,SaveResponse,SavedReponseArray } from 'src/app/@Models/education-tools.model';
 import { Router } from '@angular/router';
 import { MessageService } from 'primeng/api';
+import { DownloadRespose } from 'src/app/@Models/travel-tools.model';
 @Component({
   selector: 'uni-student-budget-planner',
   templateUrl: './student-budget-planner.component.html',
@@ -43,13 +44,13 @@ export class StudentBudgetPlannerComponent implements OnInit {
   isOldResponse:boolean = false;
   isSubmitted: boolean = false;
   responseBtnDisable: boolean = false;
+  selectedCurrency: string = "";
   recommadationSavedQuestionList:SavedReponseArray[] = []; 
   selectedDataArray: any = {
     country: null,
     university: null,
     course_duration: null,
     stay_back: null,
-    currency: '',
     tution: null,
     accommodation: null,
     travel_expense: null,
@@ -101,12 +102,6 @@ export class StudentBudgetPlannerComponent implements OnInit {
         this.allUniversityList = response.university;
       }
     });
-
-    this.travelService.getCurrencies().subscribe({
-      next: response =>{
-        this.currencyList = response;
-      }
-    })
   }
 
   onChangeCountry(){
@@ -114,6 +109,8 @@ export class StudentBudgetPlannerComponent implements OnInit {
     this.universityList = this.allUniversityList.filter(item =>{
       return countryId === item.country_id
     })
+    let getCurrencyName = this.countriesList.find(u => u.id === this.selectedData['country']);
+    this.selectedCurrency = getCurrencyName?.currency || '';  // Default to empty string
   }
 
   next(productId: number): void {
@@ -123,7 +120,7 @@ export class StudentBudgetPlannerComponent implements OnInit {
     if(productId === 1){
       fillables = ['country','university','course_duration','stay_back'];
     }else if(productId === 2){
-      fillables = ['currency','tution','accommodation','travel_expense','food_and_grocery','miscellaneous'];
+      fillables = ['tution','accommodation','travel_expense','food_and_grocery','miscellaneous'];
     }
     fillables.forEach((element:any) => {
       if(!this.selectedData[element]){
@@ -177,7 +174,6 @@ export class StudentBudgetPlannerComponent implements OnInit {
       university_name: this.selectedData['university'],
       response: this.recommendationData
     };
-    
     this.educationService.saveResponse(params).subscribe({
       next: response => {
         if(response.status && response.status == true){
@@ -219,5 +215,53 @@ export class StudentBudgetPlannerComponent implements OnInit {
     this.isOldResponse = false;
     this.activePageIndex = 0;
     this.selectedData = {...this.selectedDataArray}
+  }
+
+  downloadResponse(){ 
+    let addingInput = `<p><strong>Input:<br></strong></p>
+    <p><strong>Country of Study</strong></p>
+    <p>${this.selectedData.country}</strong></p><br>
+    <p><strong>University</strong></p>
+    <p>${this.selectedData.university}</strong></p><br>
+    <p><strong>Course Duration</strong></p>
+    <p>${this.selectedData.course_duration}</strong></p><br>
+    <p><strong>StayBack</strong></p>
+    <p>${this.selectedData.stay_back} Period</strong></p><br>
+    <p><strong>Overall Net Tution</strong></p>
+    <p>${this.selectedData.tution} in ${this.selectedCurrency}</p><br>
+    <p><strong>Accommodation</strong></p>
+    <p>${this.selectedData.accommodation} / Month in ${this.selectedCurrency}</p><br>
+    <p><strong>Travel Expenses</strong></p>
+    <p>${this.selectedData.travel_expense} / Month in ${this.selectedCurrency}</p><br>
+    <p><strong>Food & Grocerries</strong></p>
+    <p>${this.selectedData.food_and_grocery} / Month in ${this.selectedCurrency}</p><br>
+    <p><strong>Miscellaneous</strong></p>
+    <p>${this.selectedData.miscellaneous} / Month in ${this.selectedCurrency}</p><br>
+    <p><strong>Education Loan</strong></p>
+    <p>${this.selectedData.education_loan} / Month in ${this.selectedCurrency}</p><br>
+    <p><strong>Friends & Family Loan</strong></p>
+    <p>${this.selectedData.family_loan} / Month in ${this.selectedCurrency}</p><br>
+    <p><strong>Monthly Payment</strong></p>
+    <p>${this.selectedData.monthly_payment}/ Month in ${this.selectedCurrency}</p><br>
+    <p><strong>Repayment Period</strong></p>
+    <p>${this.selectedData.repayment_period}</p><br>
+    <p><strong>Part Time income</strong></p>
+    <p>${this.selectedData.part_time_income}/ Month in ${this.selectedCurrency}</p><br>
+    <p><strong>full Time income</strong></p>
+    <p>${this.selectedData.full_time_income} / Month in ${this.selectedCurrency}</p><br>
+    <p><strong>Other income</strong></p>
+    <p>${this.selectedData.other_income} / Month in ${this.selectedCurrency}</p><br>
+    <p><strong>Response</strong></p><br> ${this.recommendationData}`;
+    
+    let paramsData: DownloadRespose = {
+      response: addingInput,
+      module_name: "Student Budget Planner",
+      file_name: "student_budget_planner"
+    }
+    this.travelService.convertHTMLtoPDF(paramsData).then(() =>{
+      console.log('PDF Download Successfully.');
+    }).catch(error => {
+      console.error("PDF having some issue",error);
+    });
   }
 }

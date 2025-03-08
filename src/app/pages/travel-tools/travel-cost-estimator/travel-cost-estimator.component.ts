@@ -1,12 +1,13 @@
 import { Component, OnInit } from '@angular/core';
 import { TravelToolsService } from '../travel-tools.service';
-import { CountryandCurrency } from 'src/app/@Models/currency.model';
+// import { CountryandCurrency } from 'src/app/@Models/currency.model';
 import { TravelCostEstimatorQuestionList } from '../trvel-tool-questions';
 import { TravelCostEstimator } from 'src/app/@Models/chat-gpt.model';
 import { Router } from '@angular/router';
 import { CostOfLivingService } from '../../job-tool/cost-of-living/cost-of-living.service';
 import { City } from 'src/app/@Models/cost-of-living';
 import { MessageService } from 'primeng/api';
+import { DownloadRespose } from 'src/app/@Models/travel-tools.model';
 
 @Component({
   selector: 'uni-travel-cost-estimator',
@@ -24,16 +25,16 @@ export class TravelCostEstimatorComponent implements OnInit {
   activePageIndex: number = 0;
   selectedData: { [key: string]: any } = {};
   invalidClass: boolean = false;
-  currencyList: CountryandCurrency[] = [];
+  // currencyList: CountryandCurrency[] = [];
   departureLocationList: City[] = [];
   destinationLocationList: City[] = [];
-  countryandCurrencyList: CountryandCurrency[] = [];
+  // countryandCurrencyList: CountryandCurrency[] = [];
   isRecommendationQuestion: boolean = true;
   isRecommendationData: boolean = false;
   isRecommendationSavedData: boolean = false;
   departureFilter: string = '';
   destinationFilter: string = '';
-  currencyFilter: string = '';
+  // currencyFilter: string = '';
   recommendationData: string = '';
   recommadationSavedQuestionList: TravelCostEstimator[] = [];
   isFromSavedData: boolean = false;
@@ -48,7 +49,7 @@ export class TravelCostEstimatorComponent implements OnInit {
 
   ngOnInit(): void {
     this.selectedData = { 3: 1 };
-    this.getCurrencyList();
+    // this.getCurrencyList();
     this.getCityList();
   }
 
@@ -62,14 +63,14 @@ export class TravelCostEstimatorComponent implements OnInit {
     });
   }
 
-  getCurrencyList() {
-    this.travelToolsService.getCurrencies().subscribe({
-      next: response => {
-        this.countryandCurrencyList = response;
-        this.currencyList = response;
-      }
-    });
-  }
+  // getCurrencyList() {
+  //   this.travelToolsService.getCurrencies().subscribe({
+  //     next: response => {
+  //       this.countryandCurrencyList = response;
+  //       this.currencyList = response;
+  //     }
+  //   });
+  // }
 
   customFilterFunction(type: string) {
     if (type === 'departure') {
@@ -90,15 +91,15 @@ export class TravelCostEstimatorComponent implements OnInit {
         city?.city_name?.toLowerCase().includes(this.destinationFilter.toLowerCase()) || city?.country_name?.toLowerCase().includes(this.destinationFilter.toLowerCase())
       );
     }
-    else {
-      if (this.currencyFilter === "") {
-        this.currencyList = this.countryandCurrencyList;
-        return;
-      }
-      this.currencyList = this.countryandCurrencyList.filter(item =>
-        item?.currency_code?.toLowerCase().includes(this.currencyFilter.toLowerCase()) || item?.country?.toLowerCase().includes(this.currencyFilter.toLowerCase())
-      );
-    }
+    // else {
+    //   if (this.currencyFilter === "") {
+    //     this.currencyList = this.countryandCurrencyList;
+    //     return;
+    //   }
+    //   this.currencyList = this.countryandCurrencyList.filter(item =>
+    //     item?.currency_code?.toLowerCase().includes(this.currencyFilter.toLowerCase()) || item?.country?.toLowerCase().includes(this.currencyFilter.toLowerCase())
+    //   );
+    // }
   }
 
   resetFunction(type: string) {
@@ -110,10 +111,10 @@ export class TravelCostEstimatorComponent implements OnInit {
       this.destinationFilter = '';
       this.destinationLocationList = this.cityList;
     }
-    else {
-      this.currencyFilter = '';
-      this.currencyList = this.countryandCurrencyList;
-    }
+    // else {
+    //   this.currencyFilter = '';
+    //   this.currencyList = this.countryandCurrencyList;
+    // }
   }
 
   previous() {
@@ -144,7 +145,7 @@ export class TravelCostEstimatorComponent implements OnInit {
       destination: this.selectedData[2].city_name ?? this.selectedData[2].country_name,
       duration: this.selectedData[3],
       experience: this.selectedData[4],
-      currency: this.selectedData[5],
+      // currency: this.selectedData[5],
       mode: 'travelcostestimator'
     }
     this.travelToolsService.getChatgptRecommendations(data).subscribe({
@@ -202,14 +203,39 @@ export class TravelCostEstimatorComponent implements OnInit {
   }
 
   downloadRecommadation() {
-    this.travelToolsService.downloadRecommendation({ data: this.recommendationData }).subscribe({
-      next: res => {
-        window.open(res.url, "_blank");
-      },
-      error: err => {
-        console.log(err?.error?.message);
+
+    let departureLocation = this.selectedData[1].city_name+', '+this.selectedData[1].country_name;
+    let destinationLocation = this.selectedData[2].city_name+', '+this.selectedData[2].country_name;
+    let addingInput = `<p><strong>Input:<br></strong></p>`;
+    this.recommendations.forEach(values =>{
+      addingInput += `<p><strong>${values.question}</strong></p>`;
+      let currentAnswer = "";
+      if(values.id == 1){
+        currentAnswer = departureLocation;
+      }else if(values.id == 2){
+        currentAnswer = destinationLocation;
+      }else if(values.id == 3){
+        currentAnswer = `${ this.selectedData[3] } Days`;
+      }else if(values.id == 4){
+        currentAnswer = this.selectedData[4];
       }
+      // else if(values.id == 5){
+      //   currentAnswer = `${ this.selectedData[5] } Currency`;
+      // }
+      addingInput += `<p>${ currentAnswer }</p><br>`;
     });
+    let finalRecommendation = addingInput+ '<p><strong>Response:<br></strong></p>' + this.recommendationData;
+
+    let paramData: DownloadRespose = {
+      response: finalRecommendation,
+      module_name: "Travel Cost Estimator",
+      file_name: "travel_cost_estimator"
+    };
+    this.travelToolsService.convertHTMLtoPDF(paramData).then(() => {
+      console.log("PDF successfully generated.");
+    }).catch(error =>{
+      console.error("Error generating PDF:", error);
+    })
   }
 
   goBack() {

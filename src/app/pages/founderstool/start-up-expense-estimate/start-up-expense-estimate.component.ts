@@ -8,6 +8,10 @@ import { LocationService } from 'src/app/location.service';
 import { PageFacadeService } from '../../page-facade.service';
 import { FounderstoolService } from '../founderstool.service';
 import { startupDropdownData } from './startup-expense.data';
+import { TravelToolsService } from '../../travel-tools/travel-tools.service';
+import { DownloadRespose } from 'src/app/@Models/travel-tools.model';
+import { CostOfLivingService } from '../../job-tool/cost-of-living/cost-of-living.service';
+
 interface selectList {
   name: string;
 }
@@ -46,12 +50,14 @@ export class StartUpExpenseEstimateComponent implements OnInit {
     page: this.page,
     perpage: this.pageSize,
   };
-  currencyandCountryList: any;
+  currenciesList: any;
   isRecommendationQuestion: boolean = true;
   isRecommendationData: boolean = false;
   isRecommendationSavedData: boolean = false;
   recommendationData: string = '';
+  departureFilter: string = '';
   locationsList: any = [];
+  departureLocationList: any = [];
   constructor(
     private fb: FormBuilder,
     private foundersToolsService: FounderstoolService,
@@ -59,12 +65,14 @@ export class StartUpExpenseEstimateComponent implements OnInit {
     private toast: MessageService,
     private authService: AuthService,
     private router: Router,
-    private dataService: DataService,
-    private pageFacade: PageFacadeService
+    private travelToolService: TravelToolsService,
+    private pageFacade: PageFacadeService,
+    private costOfLiving: CostOfLivingService
   ) {
     this.marketingForm = this.fb.group({
       industry: ['', Validators.required],
       location: ['', Validators.required],
+      locationFilterString: [''],
       startup_stage: ['', Validators.required],
       team_size: ['', Validators.required],
       primary_expense: ['', Validators.required],
@@ -77,7 +85,17 @@ export class StartUpExpenseEstimateComponent implements OnInit {
       expense_currency_code: [],
       sales_currency_code: []
     });
-
+    const marketingForm = this.marketingForm;
+    marketingForm.get('expense_currency_code')?.disable();
+    marketingForm.get('sales_currency_code')?.disable();
+    marketingForm.controls['investment_currency_code'].valueChanges.subscribe(value =>{
+      if(value){
+        marketingForm.patchValue({
+          expense_currency_code: value,
+          sales_currency_code: value,
+        })
+      }
+    });
   }
 
   enableModule: boolean = true;
@@ -130,14 +148,28 @@ export class StartUpExpenseEstimateComponent implements OnInit {
 
 
   getCurrenyandLocation() {
-    this.foundersToolsService.getCurrencyAndCountries().subscribe((res: any) => {
-      console.log(res);
-      this.currencyandCountryList = res;
+    this.foundersToolsService.getCurrenciesList().subscribe((res: any) => {
+      this.currenciesList = res;
     });
-    this.foundersToolsService.getLocationList().subscribe((res: any) => {
-      console.log(res);
-      this.locationsList = res;
-    });
+    this.costOfLiving.getCities().subscribe({
+      next: response => {
+        this.locationsList = response;
+        this.departureLocationList = response;
+      }
+    })
+  }
+
+  customFilterFunction(type: string) {
+    if (type === 'departure') {
+      let locationFilterString = this.marketingForm.value.locationFilterString;
+      if (locationFilterString === "") {
+        this.departureLocationList = this.locationsList;
+        return;
+      }
+      this.departureLocationList = this.locationsList.filter((city: any) =>
+        city?.city_name?.toLowerCase().includes(locationFilterString.toLowerCase()) || city?.country_name?.toLowerCase().includes(locationFilterString.toLowerCase())
+      );
+    }
   }
 
   checkplanExpire(): void {
@@ -266,19 +298,59 @@ export class StartUpExpenseEstimateComponent implements OnInit {
   }
 
   downloadRecommadation() {
-    this.foundersToolsService.downloadRecommendation({ data: this.recommendationData }).subscribe({
-      next: res => {
-        const a = document.createElement('a');
-        a.href = res.url;
-        a.download = 'recommendation.pdf'; // Set the desired file name
-        document.body.appendChild(a);
-        a.click();
-        document.body.removeChild(a);
-        window.URL.revokeObjectURL(res.url);
-      },
-      error: err => {
-        console.log(err?.error?.message);
-      }
+    const formValue = ['industry', 'location', 'startup_stage', 'team_size', 'current_investment', 'revenue_model', 'primary_expense', 'operating_expense', 'budget', 'expense_estimation'];
+    const formData = this.marketingForm.value;
+    let addingInput = `<p><strong>Input:<br></strong></p>`;
+
+    // Keep track of which formValue index we're currently using
+    let formValueIndex = 0;
+
+    this.recommendations.forEach((category: any) => {
+      addingInput += `<p><strong>${category.question.heading}</strong></p>`;
+
+      category.question.branches.forEach((branchQuestion: any) => {
+        addingInput += `<p>${branchQuestion}</p>`;
+
+        let currentAnswer = "";
+        const currentFormField = formValue[formValueIndex];
+
+        if (formData && formData[currentFormField]) {
+          switch (currentFormField) {
+            case 'current_investment':
+              currentAnswer = formData['investment_currency_code'] + ' ' + formData[currentFormField];
+              break;
+            case 'operating_expense':
+              currentAnswer = formData['expense_currency_code'] + ' ' + formData[currentFormField];
+              break;
+            case 'budget':
+              currentAnswer = formData['sales_currency_code'] + ' ' + formData[currentFormField];
+              break;
+            default:
+              currentAnswer = formData[currentFormField];
+              break;
+          }
+        } else {
+          currentAnswer = "No answer provided";
+        }
+
+        addingInput += `<p><strong>${currentAnswer}</strong></p>`;
+
+        formValueIndex++;
+      });
+
+      addingInput += `<br>`;
+    });
+
+    let finalRecommendation = addingInput + '<p><strong>Response:<br></strong></p>' + this.recommendationData;
+    let paramData: DownloadRespose = {
+      response: finalRecommendation,
+      module_name: "Startup Expenses Estimate",
+      file_name: "startup_expense_estimate"
+    };
+    this.travelToolService.convertHTMLtoPDF(paramData).then(() => {
+      console.log("PDF successfully generated.");
+    }).catch(error => {
+      console.error("Error generating PDF:", error);
     });
   }
 
@@ -289,9 +361,6 @@ export class StartUpExpenseEstimateComponent implements OnInit {
     this.isFromSavedData = true;
     this.recommendationData = data;
   }
-
-
-
 
   resetRecommendation() {
     this.foundersToolsService.resetRecommendation().subscribe(res => {

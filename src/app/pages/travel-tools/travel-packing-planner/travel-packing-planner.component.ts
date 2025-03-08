@@ -5,7 +5,8 @@ import { Router } from '@angular/router';
 import { CostOfLivingService } from '../../job-tool/cost-of-living/cost-of-living.service';
 import { City } from 'src/app/@Models/cost-of-living';
 import { MessageService } from 'primeng/api';
-
+import { DownloadRespose } from 'src/app/@Models/travel-tools.model';
+import { error } from 'console';
 @Component({
   selector: 'uni-travel-packing-planner',
   templateUrl: './travel-packing-planner.component.html',
@@ -25,9 +26,9 @@ export class TravelPackingPlannerComponent implements OnInit {
     { id: 3, name: 'Adventure' }
   ];
   transportationModeList: { id: number, name: string }[] = [
-    { id: 1, name: 'Flight' },
+    { id: 1, name: 'Metro' },
     { id: 2, name: 'Train' },
-    { id: 3, name: 'By road' }
+    { id: 3, name: 'Bus' }
   ];
   monthList: { id: number, name: string }[] = [
     { id: 1, name: 'January' },
@@ -170,14 +171,36 @@ export class TravelPackingPlannerComponent implements OnInit {
   }
 
   downloadRecommadation() {
-    this.travelToolsService.downloadRecommendation({ data: this.recommendationData }).subscribe({
-      next: res => {
-        window.open(res.url, "_blank");
-      },
-      error: err => {
-        console.log(err?.error?.message);
+    let selectedCityAndCountry = this.selectedData[1].city_name+', '+this.selectedData[1].country_name;
+    let addingInput = `<p><strong>Input:<br></strong></p>`;
+    this.recommendations.forEach(values =>{
+      addingInput += `<p><strong>${values.question}</strong></p>`;
+      let currentAnswer = "";
+      if(values.id == 1){
+        currentAnswer = selectedCityAndCountry;
+      }else if(values.id == 2){
+        currentAnswer = this.selectedData[2];
+      }else if(values.id == 3){
+        currentAnswer = this.selectedData[3].join(", ");
+      }else if(values.id == 4){
+        currentAnswer = `${ this.selectedData[4] } Days`;
+      }else if(values.id == 5){
+        currentAnswer = `${ this.selectedData[5] } Month`;
       }
+      addingInput += `<p><strong>${ currentAnswer }</strong></p><br>`;
     });
+    let finalRecommendation = addingInput+ '<p><strong>Response:<br></strong></p>' + this.recommendationData;
+    
+    let paramData: DownloadRespose = {
+        response: finalRecommendation,
+        module_name: "Travel Packing Planner",
+        file_name: "travel_packing_planner"
+      };
+    this.travelToolsService.convertHTMLtoPDF(paramData).then(() =>{
+      console.log("PDF Download Successfully");
+    }).catch(error =>{
+      console.error("Error generating PDF:", error)
+    })
   }
 
   goBack() {

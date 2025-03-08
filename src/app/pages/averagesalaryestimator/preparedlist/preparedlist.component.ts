@@ -5,6 +5,8 @@ import { ActivatedRoute, Router } from "@angular/router";
 import { AuthService } from "../../../Auth/auth.service";
 import { PageFacadeService } from "../../page-facade.service";
 import { AveragesalaryestimatorService } from "../averagesalaryestimator.service";
+import { TravelToolsService } from "../../travel-tools/travel-tools.service";
+import { DownloadRespose } from 'src/app/@Models/travel-tools.model';
 
 @Component({
   selector: "uni-aspreparedlist",
@@ -27,6 +29,7 @@ export class AverageSalaryPreparedListComponent implements OnInit {
   EstimateResponseVisibility = true;
   selectedJobRole: any;
   @Input() prepData: any;
+  @Input() recommendationsData: {id: number, question: string}[];
   @Output() windowChange = new EventEmitter();
   loopRange = Array.from({ length: 30 })
     .fill(0)
@@ -39,7 +42,8 @@ export class AverageSalaryPreparedListComponent implements OnInit {
     private authService: AuthService,
     private service: AveragesalaryestimatorService,
     private router: Router,
-    private pageFacade: PageFacadeService
+    private pageFacade: PageFacadeService,
+    private travelService: TravelToolsService
   ) {}
   ngOnInit(): void {
     this.selectedJobRole = this?.prepData?.role;
@@ -64,6 +68,43 @@ export class AverageSalaryPreparedListComponent implements OnInit {
         this.ListData = response;
         this.totalDataCount = this.ListData.length;
       });
+  }
+  downloadRecommendation(){
+    let addingInput = `<p><strong>Input:<br></strong></p>`;
+    this.recommendationsData.forEach(values =>{
+      addingInput += `<p><strong>${values.question}</strong></p>`;
+      let currentAnswer = "";
+      if(values.id == 1){
+        currentAnswer = this.prepData.role;
+      }else if(values.id == 2){
+        if(this.prepData.experience === 1){
+          currentAnswer = " Fresher";
+        }else{
+          currentAnswer = this.prepData.experience+ this.prepData.experience == 2 ? " Year" : " Years";
+        }
+      }else if(values.id == 3){
+        currentAnswer = this.prepData.worktype_name;
+      }else if(values.id == 4){
+        currentAnswer = this.prepData.location_name;
+      }else if(values.id == 5){
+        currentAnswer = this.prepData.workplace_type_name;
+      }else if(values.id == 6){
+        currentAnswer = this.prepData.currency;
+      }
+      addingInput += `<p>${currentAnswer}</p><br>`;
+    });
+    let finalRecommendation = addingInput+ '<p><strong>Response:<br></strong></p>' + this.EstimateResponse;
+    let paramData: DownloadRespose = {
+      response: finalRecommendation,
+      module_name: "Average Salary Estimator",
+      file_name: "average_salary_estimator"
+    };
+
+    this.travelService.convertHTMLtoPDF(paramData).then(() =>{
+      console.log("PDF genrated Successfully.");
+    }).catch(error => {
+      console.error("Error generating PDF:", error);
+    })
   }
   getEstimateResponse() {
     this.service.getestimates(this.prepData).subscribe((response: any) => {

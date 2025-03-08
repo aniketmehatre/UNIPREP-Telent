@@ -44,16 +44,6 @@ export class LoginComponent implements OnInit, OnDestroy {
     private storage: LocalStorageService
   ) {}
 
-  linkedInCredentials = {
-    clientId: environment.linkedinId,
-    redirectUrl: "http://localhost:4200/pages/dashboard",
-    scope: "r_liteprofile%20r_emailaddress%20w_member_social", // To read basic user profile data and email
-  };
-
-  button1Clicked() {
-    this.button2.nativeElement.click();
-  }
-
   ngOnDestroy() {
     this.subs.unsubscribe();
   }
@@ -137,8 +127,8 @@ export class LoginComponent implements OnInit, OnDestroy {
       });
     });
     this.loginForm = this.formBuilder.group({
-      email: ["", [Validators.required, Validators.email]],
-      password: ["", [Validators.required]],
+      email: ['', [Validators.required, Validators.email]],
+      password: ['', [Validators.required]],
       domain_type: [this.domainname],
     });
     this.subs.sink = this.service.selectloggedIn$().subscribe((loggedIn) => {

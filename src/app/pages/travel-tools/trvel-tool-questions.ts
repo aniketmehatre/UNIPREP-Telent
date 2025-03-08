@@ -15,10 +15,6 @@ export const TravelCostEstimatorQuestionList = [
     id: 4,
     question: "What type of travel experience are you looking for?"
   },
-  {
-    id: 5,
-    question: "In which currency would you like the cost estimate to be provided?"
-  },
 ];
 
 export const TravelPackingPlannerQuestionList = [
@@ -32,7 +28,7 @@ export const TravelPackingPlannerQuestionList = [
   },
   {
     id: 3,
-    question: "What mode of transportation will you be using for this trip?"
+    question: "What mode of transportation will you be using at your destination?"
   },
   {
     id: 4,

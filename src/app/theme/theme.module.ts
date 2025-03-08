@@ -11,7 +11,6 @@ import { CountdownModule } from "ngx-countdown";
 import { ButtonModule } from "primeng/button";
 import { FormsModule, ReactiveFormsModule } from "@angular/forms";
 import { DropdownModule } from "primeng/dropdown";
-import { InputTextareaModule } from "primeng/inputtextarea";
 import { OverlayPanelModule } from "primeng/overlaypanel";
 import { DialogModule } from "primeng/dialog";
 import { InputTextModule } from "primeng/inputtext";
@@ -35,13 +34,12 @@ import { HeaderSearchModuleComponent } from "../pages/header-search-module/heade
     ButtonModule,
     FormsModule,
     DropdownModule,
-    InputTextareaModule,
     OverlayPanelModule,
     DialogModule,
     ReactiveFormsModule,
     InputTextModule,
     NgxIntlTelInputModule,
-    TabViewModule,
+    TabViewModule
   ],
   exports: [HeaderComponent, SidenavComponent, CountdownComponent,HeaderSearchComponent,  HeaderSearchModuleComponent],
 })

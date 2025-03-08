@@ -9,6 +9,9 @@ import { FounderstoolService } from '../../founderstool/founderstool.service';
 import { startupDropdownData } from '../../founderstool/start-up-expense-estimate/startup-expense.data';
 import { PageFacadeService } from '../../page-facade.service';
 import { EducationToolsService } from '../education-tools.service';
+import { uniCompareOptions } from './uni-compare.data';
+import { DownloadRespose } from 'src/app/@Models/travel-tools.model';
+import { TravelToolsService } from '../../travel-tools/travel-tools.service';
 
 @Component({
   selector: 'uni-uni-compare',
@@ -22,8 +25,9 @@ export class UniCompareComponent implements OnInit, OnDestroy {
   compareUniversityList: any[];
   universityList: any = [];
   specializationList: any = [];
-  stayBackAfterGraduations: { name: string }[] = [{ name: 'Months' }, { name: 'Years' }];
-
+  compareSpecializationList: any = [];
+  stayBackAfterGraduations: { name: string }[] = uniCompareOptions.stayBack;
+  allUniversityList: any[] = [];
   isFromSavedData: boolean = false;
   recommadationSavedQuestionList: any = [];
   page = 1;
@@ -44,7 +48,8 @@ export class UniCompareComponent implements OnInit, OnDestroy {
     page: this.page,
     perpage: this.pageSize,
   };
-  currencyandCountryList: any;
+  countriesList: any;
+  currenciesList: any;
   isRecommendationQuestion: boolean = true;
   isRecommendationData: boolean = false;
   isRecommendationSavedData: boolean = false;
@@ -57,7 +62,9 @@ export class UniCompareComponent implements OnInit, OnDestroy {
     private authService: AuthService,
     private router: Router,
     private dataService: DataService,
-    private pageFacade: PageFacadeService
+    private pageFacade: PageFacadeService,
+    private travelToolService: TravelToolsService
+
   ) {
     this.form = this.fb.group({
       country: ['', Validators.required],
@@ -70,12 +77,38 @@ export class UniCompareComponent implements OnInit, OnDestroy {
       currency_code: [''],
       compare_currency_code: [''],
       compare_fees: ['', Validators.required],
+      expense_currency_code: [''],
+      compare_expense_currency_code: [''],
       expense: ['', Validators.required],
       compare_expenses: ['', Validators.required],
       period: ['', Validators.required],
       compare_period: ['', Validators.required],
     });
+    // this.form.get('compare_currency_code')?.disable();
+    this.form.get('expense_currency_code')?.disable();
+    this.form.get('compare_expense_currency_code')?.disable(); 
 
+    this.form.controls['country'].valueChanges.subscribe(value =>{
+      if(value){
+        this.getAndSetUniversity(value.id, "country");
+      }
+    })
+    this.form.controls['compare_country'].valueChanges.subscribe(value =>{
+      if(value){
+        this.getAndSetUniversity(value.id, "compare_country");
+      }
+    })
+
+    this.form.controls['university'].valueChanges.subscribe(value =>{
+      if(value){
+        this.getAndSetCourseNameList(value.id, "university");
+      }
+    })
+    this.form.controls['compare_university'].valueChanges.subscribe(value =>{
+      if(value){
+        this.getAndSetCourseNameList(value.id, "compare_university");
+      }
+    })
   }
 
   enableModule: boolean = true;
@@ -85,12 +118,14 @@ export class UniCompareComponent implements OnInit, OnDestroy {
       id: 1,
       question: {
         heading: 'University Details',
+        branches: ['Which country are you planning to study in', 'Which university are you applying to?', 'What is your chosen specialization or field of study?']
       },
     },
     {
       id: 2,
       question: {
         heading: 'Addtional Details',
+        branches: ['What is the Overall tuition fee per year for your program?', 'What is your expected annual living expense?', 'How many months of stayback are allowed after graduation?']
       },
     },
   ];
@@ -115,19 +150,58 @@ export class UniCompareComponent implements OnInit, OnDestroy {
     this.getCountryandSpecilizationList();
   }
 
+  getAndSetCourseNameList(universityId: number, mode: string){
+    this.educationToolService.courseNameList(universityId).subscribe({
+      next: response =>{
+        if(mode == "university"){
+          this.specializationList = response;
+        }else if(mode == "compare_university"){
+          this.compareSpecializationList = response;
+        }
+        
+      }
+    })
+  }
+
+  getAndSetUniversity(id: string, mode: string) {
+    this.educationToolService.getUniverstityByCountry(id).subscribe(data => {
+      if(mode == "country"){
+        this.universityList = data;
+      }else if(mode == "compare_country"){
+        this.compareUniversityList = data;
+      }      
+    })
+  }
+
   goBack() {
     this.router.navigateByUrl('/pages/education-tools');
   }
 
   getCountryandSpecilizationList() {
-    this.educationToolService.getCountryList().subscribe(data => {
-      this.universityCountryList = data;
+    // this.educationToolService.getCourseListBoxDropdown().subscribe(data => {
+    //   this.universityCountryList = data?.country;
+    //   this.allUniversityList = data?.university_name;
+    //   this.specializationList = data?.subject;
+    // });
+    // this.educationToolService.getCurrentSpecializations().subscribe(data => {
+    //   this.specializationList = data;
+    // });
+    this.educationToolService.unifinderCountries().subscribe({
+      next: response =>{
+        this.universityCountryList = response;
+      }
     });
-    this.educationToolService.getCurrentSpecializations().subscribe(data => {
-      this.specializationList = data;
+    
+    this.educationToolService.getCurrencies().subscribe(data => {
+      this.currenciesList = data;
     });
-    this.educationToolService.getCurrencyAndCountries().subscribe(data => {
-      this.currencyandCountryList = data;
+  }
+
+  changeCurrencyInTution(value: string) {
+    this.form.patchValue({
+      compare_currency_code: value,
+      expense_currency_code: value,
+      compare_expense_currency_code: value
     });
   }
 
@@ -175,6 +249,16 @@ export class UniCompareComponent implements OnInit, OnDestroy {
         this.submitted = true;
         return;
       }
+      const isValidAmount = (value: any) => /^[0-9]{1,8}$/.test(value);
+      if (
+        !isValidAmount(formData.fees) ||
+        !isValidAmount(formData.compare_fees) ||
+        !isValidAmount(formData.expense) ||
+        !isValidAmount(formData.compare_expenses)
+      ) {
+        this.submitted = true;
+        return;
+      }
     }
     if (this.recommendRestrict) {
       this.restrict = true;
@@ -182,7 +266,14 @@ export class UniCompareComponent implements OnInit, OnDestroy {
     }
     let data: any = {
       ...this.form.value,
-      mode: 'uni_compare'
+      mode: 'uni_compare',
+      compare_currency_code: this.form.get('compare_currency_code')?.value,
+      expense_currency_code: this.form.get('expense_currency_code')?.value,
+      compare_expense_currency_code: this.form.get('compare_expense_currency_code')?.value,
+      country: formData.country.country,
+      compare_country: formData.compare_country.country,
+      university: formData.university.university_name,
+      compare_university: formData.compare_university.university_name,
     }
     this.educationToolService.getChatgptRecommendations(data).subscribe({
       next: response => {
@@ -210,7 +301,6 @@ export class UniCompareComponent implements OnInit, OnDestroy {
     if (this.activePageIndex == 0) {
       if (!formData.country || !formData.compare_country || !formData.university || !formData.compare_university || !formData.specialization || !formData.compare_specialization) {
         this.submitted = true;
-        console.log(this.activePageIndex)
         return;
       }
     }
@@ -258,35 +348,99 @@ export class UniCompareComponent implements OnInit, OnDestroy {
       this.form.reset();
       this.activePageIndex = 0;
       this.isFromSavedData = false;
+      this.specializationList = [];
+      this.compareSpecializationList = [];
+      this.universityList = [];
+      this.compareUniversityList = [];
     });
   }
 
-  setUniversityList(id: string) {
-    this.educationToolService.getUniverstityByCountry(id).subscribe(data => {
-      this.universityList = data;
-    })
-  }
+  // setUniversityList(name: string) {
+  //   const selected = this.universityCountryList.find((c: any) => c.country === name);
+  //   if (selected) {
+  //     this.universityList = this.allUniversityList.filter((item: any) =>
+  //       selected.id === item.country_id
+  //     );
+  //   } else {
+  //     this.universityList = this.allUniversityList;
+  //   }
+  // }
 
-  setCompareUniversityList(id: string) {
-    this.educationToolService.getUniverstityByCountry(id).subscribe(data => {
-      this.compareUniversityList = data;
-    })
-  }
+  // setCompareUniversityList(name: string) {
+  //   const selected = this.universityCountryList.find((c: any) => c.country === name);
+  //   if (selected) {
+  //     this.compareUniversityList = this.allUniversityList.filter((item: any) =>
+  //       selected.id === item.country_id
+  //     );
+  //   } else {
+  //     this.compareUniversityList = this.allUniversityList;
+  //   }
+  // }
+
+
 
   onSaveRes() {
     this.toast.add({ severity: "success", summary: "Success", detail: "Response saved successfully" });
   }
 
   downloadRecommadation() {
-    this.educationToolService.downloadRecommendation({ data: this.recommendationData }).subscribe({
-      next: res => {
-        window.open(res.url, "_blank");
-      },
-      error: err => {
-        console.log(err?.error?.message);
-      }
+    const formValue = ['country', 'university', 'specialization', 'fees', 'expense', 'period'];
+    const formData = this.form.value;
+    formData['country'] = formData['country'].country;
+    formData['compare_country'] = formData['compare_country'].country;
+    formData['university'] = formData['university'].university_name;
+    formData['compare_university'] = formData['compare_university'].university_name;
+    let addingInput = `<p><strong>Input:<br></strong></p>`;
+
+    // Keep track of which formValue index we're currently using
+    let formValueIndex = 0;
+
+    this.recommendations.forEach((category: any) => {
+      addingInput += `<p><strong>${category.question.heading}</strong></p>`;
+
+      category.question.branches.forEach((branchQuestion: any) => {
+        addingInput += `<p>${branchQuestion}</p>`;
+
+        let currentAnswer = "";
+        const currentFormField = formValue[formValueIndex];
+
+        if (formData && formData[currentFormField]) {
+          switch (currentFormField) {
+            case 'fees':
+              currentAnswer = `1. ${formData['currency_code']} ${formData[currentFormField]}   2. ${formData['compare_currency_code']} ${formData['compare_' + currentFormField]}`;
+              break;
+            case 'expense':
+              currentAnswer = `1. ${formData['currency_code']} ${formData[currentFormField]}   2. ${formData['currency_code']} ${formData['compare_expenses']}`;
+              break;
+            default:
+              currentAnswer = `1. ${formData[currentFormField]}   2. ${formData['compare_' + currentFormField]} `;
+              break;
+          }
+        } else {
+          currentAnswer = "No answer provided";
+        }
+
+        addingInput += `<p><strong>${currentAnswer}</strong></p>`;
+
+        formValueIndex++;
+      });
+
+      // Add spacing between categories
+      addingInput += `<br>`;
     });
-  }
+
+    let finalRecommendation = addingInput + '<p><strong>Response:<br></strong></p>' + this.recommendationData;
+    let paramData: DownloadRespose = {
+      response: finalRecommendation,
+      module_name: "Uni Compare",
+      file_name: formData['university']+'_vs_'+formData['compare_university'],
+    };
+    this.travelToolService.convertHTMLtoPDF(paramData).then(() => {
+      console.log("PDF successfully generated.");
+    }).catch(error => {
+      console.error("Error generating PDF:", error);
+    });
+  } 
 
   updatePanelStyle = () => {
     this.panelStyle = window.innerWidth > 990 ? { width: '370px' } : { width: '100%' };

@@ -4,7 +4,7 @@ import { Router } from '@angular/router';
 import { CostOfLivingService } from '../../job-tool/cost-of-living/cost-of-living.service';
 import { City } from 'src/app/@Models/cost-of-living';
 import { MessageService } from 'primeng/api';
-
+import { DownloadRespose } from 'src/app/@Models/travel-tools.model';
 @Component({
   selector: 'uni-trip-length-finder',
   templateUrl: './trip-length-finder.component.html',
@@ -72,8 +72,8 @@ export class TripLengthFinderComponent implements OnInit {
       };
       this.travelToolService.getChatgptRecommendations(data).subscribe((response:any) => {
         this.recommendationData = response.response;
-        console.log(response);
-        console.log(this.recommendationData);
+        // console.log(response);
+        // console.log(this.recommendationData);
         
         this.isRecommendation = false;
         this.isResponsePage = true;
@@ -120,14 +120,36 @@ export class TripLengthFinderComponent implements OnInit {
   }
 
   downloadRecommadation() {
-    this.travelToolService.downloadRecommendation({ data: this.recommendationData }).subscribe({
-      next: res => {
-        window.open(res.url, "_blank");
-      },
-      error: err => {
-        console.log(err?.error?.message);
-      }
+    // this.travelToolService.downloadRecommendation({ data: this.recommendationData }).subscribe({
+    //   next: res => {
+    //     window.open(res.url, "_blank");
+    //   },
+    //   error: err => {
+    //     console.log(err?.error?.message);
+    //   }
+    // });
+
+    // let downloadString:string = "This is a paragraph with some text and emojis 😊🎉. Markdown processing with emojis works!";
+    let selectedCityAndCountry = this.selectedData[1].city_name+', '+this.selectedData[1].country_name;
+    let addingInput = `
+      <p><strong>Input:<br></strong></p>
+      <p><strong>Which Destination are you planning to visit?</strong></p>
+      <p>${selectedCityAndCountry}</p>
+      <br>
+      <p><strong>Response:<br></strong></p>
+      ${this.recommendationData}
+    `;
+    let paramData: DownloadRespose = {
+      response: addingInput,
+      module_name: "Trip Length Finder",
+      file_name: "trip_length_finder"
+    };
+    this.travelToolService.convertHTMLtoPDF(paramData).then(() => {
+      console.log("PDF successfully generated.");
+    }).catch(error => {
+      console.error("Error generating PDF:", error);
     });
+    
   }
 
   goBack() {

@@ -9,11 +9,7 @@
             <div class="select-title d-flex justify-content-between align-items-center">
                 <div>
                     <h5 class="w-100 mb-0" tooltipPosition="top" pTooltip="">
-                      AI BUSINESS ADVISOR<i class="questiontooltip fa-solid fa-circle-question"></i></h5>
-                </div>
-                <div>
-                    <button class="how-it-works-button">How it works?
-                        <i class="fa-solid fa-play d-md-block d-none"></i></button>
+                      Founders Tools -> AI BUSINESS ADVISOR<i class="questiontooltip fa-solid fa-circle-question"></i></h5>
                 </div>
             </div>
         </div>
@@ -77,19 +73,19 @@
                   <ng-container *ngIf="recommendation.id == 6">
                     <div class="w-100 d-flex gap-2 flex-fill">
                       <p-dropdown  [(ngModel)]="selectedData[8]" [options]="currencyList" [filter]="true"
-                        filterBy="currency_code" placeholder=" Currency" appendTo="body" optionLabel="currency_code" optionValue="currency_code"
+                        filterBy="currency_symbol" placeholder=" Currency" appendTo="body" optionLabel="currency_symbol" optionValue="currency_symbol"
                         [autoDisplayFirst]="false">
                       </p-dropdown>
-                      <input  [(ngModel)]="selectedData[recommendation.id]" class="w-100 pl-4 border border-gray rounded-3" type="number" [min]="100000" pInputText [placeholder]="selectedData[8] ? 'Amount in'+' '+selectedData[8] : 'Budget' "
+                      <input  [(ngModel)]="selectedData[recommendation.id]" class="w-100 pl-4 border border-gray rounded-3" type="number" [max]="99999999" pInputText [placeholder]="selectedData[8] ? 'Amount in'+' '+selectedData[8] : 'Enter Amount' "
                         />
                     </div>  
                     <div class="text-center" [ngClass]="{ 'd-none': inValidClass === false }" style="color: red">
-                      Budget is required or maximum 5 digit allowed 
+                      Budget is required or maximum 8 digit allowed 
                     </div>
                   </ng-container>
                   <ng-container *ngIf="recommendation.id == 7">
                     <p-dropdown [(ngModel)]="selectedData[recommendation.id]" [filter]="true" filterBy="strategy" [options]="strategyBusinessList"
-                      styleClass="w-100" optionLabel="strategy" optionValue="strategy" [appendTo]="'body'" placeholder="Strategy">
+                      styleClass="w-100" optionLabel="strategy" optionValue="strategy" [appendTo]="'body'" placeholder="Select Strategy">
                     </p-dropdown>
                     <div class="text-center" [ngClass]="{ 'd-none': inValidClass === false }" style="color: red">
                        Strategy is required
@@ -131,11 +127,7 @@
                 <div class="select-title d-flex justify-content-between align-items-center">
                     <div>
                         <h5 class="w-100 mb-0" tooltipPosition="top" pTooltip="">
-                          AI BUSINESS ADVISOR<i class="questiontooltip fa-solid fa-circle-question"></i></h5>
-                    </div>
-                    <div>
-                        <button class="how-it-works-button">How it works?
-                            <i class="fa-solid fa-play d-md-block d-none"></i></button>
+                          FOUNDERS TOOL -  BUSINESS ADVISOR<i class="questiontooltip fa-solid fa-circle-question"></i></h5>
                     </div>
                 </div>
                 <div class="d-flex align-items-center">
@@ -152,13 +144,13 @@
           <div class="col-md-2"></div>
           <div class="col-md-8">
               <div class="d-flex justify-content-end gap-3 mb-3">
-                  <button pButton type="button" (click)="downloadRecommendation()"
+                  <button pButton type="button" (click)="downloadRecommadation()"
                       class="btn btn-secondary btn-rounded p-1 ps-4">
                       <span class="me-2">Download</span><span class="btn-icon px-2 py-2">
                           <i class="fa-regular fa-download"></i></span>
                   </button>
               </div>
-              <div class="card p-3 fs-5" [innerHtml]="recommendationData"></div>
+              <div class="card p-3 poppins-content" [innerHtml]="recommendationData"></div>
           </div>
           <div class="col-md-2"></div>
       </div>
@@ -184,11 +176,7 @@
                 <div class="select-title d-flex justify-content-between align-items-center">
                     <div>
                         <h5 class="w-100 mb-0" tooltipPosition="top" pTooltip="">
-                          AI BUSINESS ADVISOR<i class="questiontooltip fa-solid fa-circle-question"></i></h5>
-                    </div>
-                    <div>
-                        <button class="how-it-works-button">How it works?
-                            <i class="fa-solid fa-play d-md-block d-none"></i></button>
+                          FOUNDERS TOOL - BUSINESS ADVISOR<i class="questiontooltip fa-solid fa-circle-question"></i></h5>
                     </div>
                 </div>
             </div>

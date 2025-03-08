@@ -210,7 +210,7 @@ export class SubscriptionComponent implements OnInit {
   payWithRazor(orderid: any) {
     let razorKey = "rzp_live_YErYQVqDIrZn1D";
     if (environment.domain == "api.uniprep.ai") {
-      razorKey = "rzp_test_Crpr7YkjPaCLEr";
+      razorKey = "rzp_test_Bq7pCLvPOLDbgp";
     }
     let phone;
     const encPhone = localStorage.getItem("phone");

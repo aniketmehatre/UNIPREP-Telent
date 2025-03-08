@@ -26,7 +26,7 @@
             <div class="row">
                 <div class="col-12 p-2">
                     <div class="form-group">
-                        <h3>Which country are you interested in?</h3>
+                        <h3>Which country are you interested in pursuing your career?</h3>
                         <p-dropdown [options]="countries" styleClass="w-100 border-primary" formControlName="country"
                             optionValue="country" optionLabel="country" placeholder="Select Country" [filter]="true"
                             [showClear]="true"> </p-dropdown>
@@ -37,10 +37,22 @@
                 </div>
                 <div class="col-12 mt-4 p-2">
                     <div class="form-group">
+                        <h3>Select Your Specialization</h3>
+                        <p-dropdown [options]="specializationList" styleClass="w-100 border-primary" formControlName="specialization_name"
+                            optionValue="specialization_name" optionLabel="specialization_name" placeholder="Select Specialization"
+                            [filter]="true" [showClear]="true">
+                        </p-dropdown>
+                        <div *ngIf="submitted && form.get('currency')?.hasError('required')" style="color: red;">
+                            Specialization is required.
+                        </div>
+                    </div>
+                </div>
+                <!-- <div class="col-12 mt-4 p-2">
+                    <div class="form-group">
                         <h3>Select Your Preferred Currency</h3>
                         <p-dropdown [options]="countries" styleClass="w-100 border-primary" formControlName="currency"
                             optionValue="currency_code" optionLabel="currency_code" placeholder="Select Currency"
-                            [filter]="true" [showClear]="true">
+                            [filter]="true" [showClear]="true" [appendTo]="'body'">
                             <ng-template let-data pTemplate="item">
                                 <div>{{data.country}} - {{data.currency_code}}</div>
                             </ng-template> 
@@ -49,7 +61,7 @@
                             Currency is required.
                         </div>
                     </div>
-                </div>
+                </div> -->
             </div>
             <button pButton class="btn btn-success btn-rounded footer-btn" type="submit">
                 <span class="me-2">Get Recommendations</span>
@@ -99,14 +111,14 @@
                         <span class="me-2">Download</span><span class="btn-icon px-2 py-2">
                             <i class="fa-regular fa-download"></i></span>
                     </button>
-                    <button pButton type="button" (click)="onSaveRes()"
+                    <!-- <button pButton type="button" (click)="onSaveRes()"
                         class="btn btn-primary btn-rounded p-1 ps-4">
                         <span class="me-2">Save Response</span><span class="btn-icon px-2 py-2">
                             <i class="fa-regular fa-floppy-disk"></i></span>
-                    </button>
+                    </button> -->
                 </div>
                 <markdown emoji>
-                    <div class="card p-3" [innerHtml]="customizedResponse"></div>
+                    <div class="card p-3 poppins-content" [innerHtml]="customizedResponse"></div>
                 </markdown>
             </div>
             <div class="col-md-2"></div>
@@ -157,8 +169,8 @@
                 <div class="row w-100 m-0 justify-content-center h-100">
                     <div class="card subjectcard" role="button" (click)="showRecommandationData(item.response)">
                         <div class="card-body text-start">
-                            <p class="text-small"><b>Counntry : </b>{{item.country}}</p>
-                            <p class="text-small"><b>Currency : </b>{{item.currency_code}}</p>
+                            <p class="text-medium"><b>Country : </b>{{item.country}}</p>
+                            <p class="text-medium"><b>Specialization : </b>{{item.specialization_name}}</p>
                         </div>
                     </div>
                 </div>

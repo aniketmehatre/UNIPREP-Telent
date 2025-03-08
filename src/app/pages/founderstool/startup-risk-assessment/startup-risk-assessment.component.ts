@@ -4,6 +4,8 @@ import { FounderstoolService } from '../founderstool.service';
 import { Router } from '@angular/router';
 import { riskAssessment } from './risk-assessment.data';
 import { MessageService } from 'primeng/api';
+import { DownloadRespose } from 'src/app/@Models/travel-tools.model';
+import { TravelToolsService } from '../../travel-tools/travel-tools.service';
 
 interface DropDown {
   [key: string]: string;
@@ -52,7 +54,8 @@ export class StartupRiskAssessmentComponent implements OnInit {
     private fb: FormBuilder,
     private founderToolService: FounderstoolService,
     private router: Router,
-    private toast: MessageService
+    private toast: MessageService,
+    private travelToolService: TravelToolsService
   ) { }
 
   ngOnInit(): void {
@@ -62,7 +65,7 @@ export class StartupRiskAssessmentComponent implements OnInit {
   }
 
   getCurrenyandLocation() {
-    this.founderToolService.getCurrencyAndCountries().subscribe((res: any) => {
+    this.founderToolService.getCurrenciesList().subscribe((res: any) => {
       this.currencyList = res;
     });
   }
@@ -88,7 +91,7 @@ export class StartupRiskAssessmentComponent implements OnInit {
     this.inValidClass = false;
     if (productId in this.selectedData) {
       if (productId == 8) {
-        if (this.selectedData[8].toString()?.length > 5) {
+        if (this.selectedData[8].toString()?.length > 8) {
           this.inValidClass = true;
           return;
         }
@@ -173,26 +176,35 @@ export class StartupRiskAssessmentComponent implements OnInit {
     this.toast.add({ severity: "success", summary: "Success", detail: "Response saved successfully" });
   }
 
-  downloadRecommendation() {
-    this.founderToolService.downloadRecommendation({ data: this.recommendationData })
-      .subscribe({
-        next: (response: any) => {
-          this.founderToolService.downloadFile(response.url).subscribe((blob) => {
-            const a = document.createElement("a");
-            const objectUrl = window.URL.createObjectURL(blob);
+  downloadRecommadation() {
+    let addingInput = `<p><strong>Input:<br></strong></p>`;
 
-            a.href = objectUrl;
-            a.download = "start-risk-assessment.pdf";
-            document.body.appendChild(a);
-
-            a.click();
-            window.URL.revokeObjectURL(objectUrl);
-            document.body.removeChild(a);
-          });
-        },
-        error: (err) => {
-          console.log(err?.error?.message);
+    this.recommendations.forEach(item => {
+      addingInput += `<p><strong>${item.question}</strong></p>`;
+      let currentAnswer = "";
+      if (this.selectedData && this.selectedData[item.id]) {
+        if (item.id == 8) {
+          currentAnswer = this.selectedData[10] + ' ' + this.selectedData[item.id]
+        } else {
+          currentAnswer = this.selectedData[item.id];
         }
-      });
+      } else {
+        currentAnswer = "No answer provided";
+      }
+
+      addingInput += `<p>${currentAnswer}</p><br>`;
+    });
+
+    let finalRecommendation = addingInput + '<p><strong>Response:<br></strong></p>' + this.recommendationData;
+    let paramData: DownloadRespose = {
+      response: finalRecommendation,
+      module_name: "Startup Risk Assessment",
+      file_name: "startup_risk_assessment"
+    };
+    this.travelToolService.convertHTMLtoPDF(paramData).then(() => {
+      console.log("PDF successfully generated.");
+    }).catch(error => {
+      console.error("Error generating PDF:", error);
+    });
   }
 }

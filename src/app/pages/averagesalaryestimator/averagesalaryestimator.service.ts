@@ -25,7 +25,7 @@ export class AveragesalaryestimatorService {
     });
   }getJobRoles() {
     const headers = new HttpHeaders().set("Accept", "application/json");
-    return this.http.post<any>(environment.ApiUrl + "/serachJobrole", {
+    return this.http.post<any>(environment.ApiUrl + "/onlyJobRoles", {
       headers: headers,
     });
   }
@@ -38,6 +38,12 @@ export class AveragesalaryestimatorService {
   getCities() {
     const headers = new HttpHeaders().set("Accept", "application/json");
     return this.http.get<any>(environment.ApiUrl + "/getcities", {
+      headers: headers,
+    });
+  }
+  getCitieswithflag() {
+    const headers = new HttpHeaders().set("Accept", "application/json");
+    return this.http.post<any[]>(environment.ApiUrl + "/getcitywithflag", {
       headers: headers,
     });
   }

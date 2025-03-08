@@ -9,18 +9,18 @@
                     <div>
                         <h5 class="mb-0" pTooltip="Questions related to the application process are answered"
                             tooltipPosition="top">
-                            {{ "Job Seekers Success Stories" | uppercase
+                            Career Tools - {{ "Job Seekers Success Stories" | uppercase
                             }}<i class="questiontooltip fa-solid fa-circle-question"></i>
                         </h5>
                     </div>
                     <div>
-                        <button (click)="
+                        <!-- <button (click)="
                   openVideoPopup(
                     'https://www.youtube.com/embed/cbny1-f4rXI?si=E3WEU6LuiMLWA1Uq'
                   )
                 " class="how-it-works-button">
                             How it works?<i class="fa-solid fa-play d-md-block d-none"></i>
-                        </button>
+                        </button> -->
                     </div>
                 </div>
             </div>
@@ -147,8 +147,8 @@
                     </ul>
                 </p-card>
             </div>
-            <div class="fw-medium" style="white-space: inherit; max-height: 80%; min-height: 80%"
-                    [innerHTML]="selectedQuestionData?.content"></div>
+            <div class="fw-medium blog-content" style="white-space: inherit; max-height: 80%; min-height: 80%;"
+                    [innerHTML]="selectedQuestionData?.org_ans"></div>
         </div>
     </div>
 </p-dialog>

@@ -8,6 +8,8 @@ import { LocationService } from 'src/app/location.service';
 import { PageFacadeService } from '../../page-facade.service';
 import { FounderstoolService } from '../founderstool.service';
 import { businessForeCastData } from './business-forcasting.data';
+import { DownloadRespose } from 'src/app/@Models/travel-tools.model';
+import { TravelToolsService } from '../../travel-tools/travel-tools.service';
 
 @Component({
   selector: 'uni-business-forecasting-tool',
@@ -57,8 +59,9 @@ export class BusinessForecastingToolComponent implements OnInit {
       question: {
         heading: 'Basic Information',
         branches: ["What is your business type or industry?",
-          "What are the key revenue drivers for your business?",
-          "Does your business experience seasonality? If yes, please specify the peak seasons"]
+          "Does your business have seasonal functionalities?",
+          "Does your business experience seasonality? If yes, please specify the peak seasons",
+          "What are the key revenue drivers for your business?"]
       },
     },
     {
@@ -66,8 +69,7 @@ export class BusinessForecastingToolComponent implements OnInit {
       question: {
         heading: 'Marketing & Sales',
         branches: ["Who is your target audience?",
-          "What are your growth assumptions?",
-          "What are the current market trends affecting your industry?"]
+          "What are your growth assumptions?"]
       },
     },
     {
@@ -88,7 +90,8 @@ export class BusinessForecastingToolComponent implements OnInit {
     private authService: AuthService,
     private router: Router,
     private pageFacade: PageFacadeService,
-    private toast: MessageService
+    private toast: MessageService,
+    private travelToolService: TravelToolsService
   ) {
     this.form = this.fb.group({
       industry: ['', Validators.required],
@@ -98,6 +101,7 @@ export class BusinessForecastingToolComponent implements OnInit {
       assumptions: [[], Validators.required],
       forecast_peroid: ['', Validators.required],
       goals: [[], Validators.required],
+      seasonalfunctionality: [false]
     });
 
   }
@@ -205,8 +209,7 @@ export class BusinessForecastingToolComponent implements OnInit {
     }
     let data: any = {
       ...this.form.value,
-      mode: 'revenue_forescasting_tool',
-      seasonalfunctionality: this.isSessonEnable
+      mode: 'revenue_forescasting_tool'
     }
     this.foundersToolsService.getChatgptRecommendations(data).subscribe({
       next: response => {
@@ -231,9 +234,8 @@ export class BusinessForecastingToolComponent implements OnInit {
   next() {
     this.submitted = false;
     const formData = this.form.value;
-    console.log(formData)
     if (this.activePageIndex == 0) {
-      if (!formData.industry || (this.isSessonEnable && (!formData.seasons || formData.seasons.length == 0)) || (!formData.factors || formData.factors?.length == 0)) {
+      if (!formData.industry || (formData.seasonalfunctionality && (!formData.seasons || formData.seasons.length == 0)) || (!formData.factors || formData.factors?.length == 0)) {
         this.submitted = true;
         return;
       }
@@ -279,7 +281,7 @@ export class BusinessForecastingToolComponent implements OnInit {
 
   onEnableDisableSeason(isSeasonEnable: boolean) {
     console.log(this.form.controls?.['factors']); // Debugging line, ensure this is intentional
-    this.isSessonEnable = isSeasonEnable;
+    this.form.get('seasonalfunctionality')?.setValue(isSeasonEnable);
 
     if (this.isSessonEnable) {
       this.form.controls?.['seasons'].addValidators(Validators.required);
@@ -308,13 +310,51 @@ export class BusinessForecastingToolComponent implements OnInit {
   }
 
   downloadRecommadation() {
-    this.foundersToolsService.downloadRecommendation({ data: this.recommendationData }).subscribe({
-      next: res => {
-        window.open(res.url, "_blank");
-      },
-      error: err => {
-        console.log(err?.error?.message);
-      }
+    const formValue = ['industry', 'seasonalfunctionality', 'seasons', 'factors', 'target_audience', 'assumptions', 'forecast_peroid', 'goals'];
+    const formData = this.form.value;
+    let addingInput = `<p><strong>Input:<br></strong></p>`;
+
+    // Keep track of which formValue index we're currently using
+    let formValueIndex = 0;
+
+    this.recommendations.forEach((category: any, categoryIndex: number) => {
+      addingInput += `<p><strong>${category.question.heading}</strong></p>`;
+
+      category.question.branches.forEach((branchQuestion: any, index: number) => {
+        addingInput += `<p>${branchQuestion}</p>`;
+
+        let currentAnswer = "";
+        const currentFormField = formValue[formValueIndex];
+
+        if (formData && formData[currentFormField]) {
+          if (currentFormField == 'seasonalfunctionality') {
+            currentAnswer = formData[currentFormField] ? 'Yes' : 'No';
+          } else {
+            currentAnswer = formData[currentFormField];
+          }
+        } else {
+          currentAnswer = "No answer provided";
+        }
+
+        addingInput += `<p><strong>${currentAnswer}</strong></p>`;
+
+        formValueIndex++;
+      });
+
+      // Add spacing between categories
+      addingInput += `<br>`;
+    });
+
+    let finalRecommendation = addingInput + '<p><strong>Response:<br></strong></p>' + this.recommendationData;
+    let paramData: DownloadRespose = {
+      response: finalRecommendation,
+      module_name: "Revenue Forecasting Tool",
+      file_name: "revenue_forecasting_tool"
+    };
+    this.travelToolService.convertHTMLtoPDF(paramData).then(() => {
+      console.log("PDF successfully generated.");
+    }).catch(error => {
+      console.error("Error generating PDF:", error);
     });
   }
 

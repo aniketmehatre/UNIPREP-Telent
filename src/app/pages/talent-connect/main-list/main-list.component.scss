@@ -1,0 +1,35 @@
+.readingcard {
+  height: 86vh;
+}
+.launch-soon-tag {
+  border-top-right-radius: 10px;
+}
+.card.disabled {
+  opacity: 0.6; /* Makes the card appear grayed out */
+  cursor: not-allowed; /* Shows a disabled cursor */
+}
+
+.icon-container {
+  background-color: #f0f4f8;
+  border-radius: 50%;
+  width: 100px;
+  height: 100px;
+  margin: 0 auto 15px;
+  margin-top: 10px;
+}
+
+.feature-icon {
+  width: 80px;
+  height: 80px;
+}
+
+.module-button {
+  border-radius: 10px;
+  font-weight: bold;
+  background-color: white;
+  color: var(--uniprep-primary);
+  &:hover, &:active, &:focus {
+    color: white;
+    background-color: var(--uniprep-primary);
+  }
+}

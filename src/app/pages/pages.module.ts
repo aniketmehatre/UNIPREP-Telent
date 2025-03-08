@@ -91,7 +91,9 @@ import { AverageSalaryPreparedListComponent } from "./averagesalaryestimator/pre
 import { JoboffercomparisontoolComponent } from "./job-tool/joboffercomparisontool/joboffercomparisontool.component";
 import { JobOfferPreparedListComponent } from "./job-tool/joboffercomparisontool/preparedlist/preparedlist.component";
 import { GlobalRepositoryComponent } from './global-repository/global-repository.component';
-
+import { GlobalEmploymentComponent } from "./global-employment-insights/global-employment-insights.component";
+import { GlobalWorkVisaComponent } from "./global-work-visa/global-work-visa.component";
+import { ScrollTopModule } from "primeng/scrolltop";
 // import { JobToolComponent } from './job-tool/job-tool.component';
 @NgModule({
   declarations: [
@@ -139,7 +141,8 @@ import { GlobalRepositoryComponent } from './global-repository/global-repository
     AverageSalaryPreparedListComponent,
     JoboffercomparisontoolComponent,
     JobOfferPreparedListComponent,
-    GlobalRepositoryComponent
+    GlobalRepositoryComponent,
+    GlobalWorkVisaComponent
   ],
   exports: [FooterStatusBoxComponent],
   imports: [
@@ -161,6 +164,7 @@ import { GlobalRepositoryComponent } from './global-repository/global-repository
     CarouselModule,
     DialogModule,
     PaginatorModule,
+    ScrollTopModule,
     BreadcrumbModule,
     FormsModule,
     InputSwitchModule,

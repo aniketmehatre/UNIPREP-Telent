@@ -10,6 +10,8 @@ import { PageFacadeService } from '../../page-facade.service';
 import { UserManagementService } from '../../user-management/user-management.service';
 import { FounderstoolService } from '../founderstool.service';
 import { marketingAnalysisData } from './marketing-analysis.data';
+import { TravelToolsService } from '../../travel-tools/travel-tools.service';
+import { DownloadRespose } from 'src/app/@Models/travel-tools.model';
 
 @Component({
   selector: 'uni-marketing-analysis',
@@ -48,6 +50,7 @@ export class MarketingAnalysisComponent implements OnInit {
     perpage: this.pageSize,
   };
   currencyandCountryList: any;
+  currenciesList: any;
   isRecommendationQuestion: boolean = true;
   isRecommendationData: boolean = false;
   isRecommendationSavedData: boolean = false;
@@ -59,7 +62,7 @@ export class MarketingAnalysisComponent implements OnInit {
     private toast: MessageService,
     private authService: AuthService,
     private router: Router,
-    private dataService: DataService,
+    private travelToolService: TravelToolsService,
     private pageFacade: PageFacadeService
   ) {
     this.marketingForm = this.fb.group({
@@ -78,7 +81,6 @@ export class MarketingAnalysisComponent implements OnInit {
     });
 
   }
-
   enableModule: boolean = true;
   activePageIndex: number = 0;
   recommendations: any = [
@@ -100,7 +102,7 @@ export class MarketingAnalysisComponent implements OnInit {
       id: 3,
       question: {
         heading: 'Finance',
-        branches: ["What budget have you allocated for conducting this market research?", "What budget have you allocated for conducting this market research?", "What specific aspects do you want to focus on in the competitor analysis?", "What time frame do you have in mind for the market forecast?"]
+        branches: ["What budget have you allocated for conducting this market research?", " What are your primary revenue streams?", "What specific aspects do you want to focus on in the competitor analysis?", "What time frame do you have in mind for the market forecast?"]
       },
     },
   ];
@@ -133,10 +135,10 @@ export class MarketingAnalysisComponent implements OnInit {
       console.log(res);
       this.currencyandCountryList = res;
     });
-    // this.foundersToolsService.getLocationList().subscribe((res: any) => {
-    //   console.log(res);
-    //   this.locationList = res;
-    // });
+    this.foundersToolsService.getCurrenciesList().subscribe((res: any) => {
+      console.log(res);
+      this.currenciesList = res;
+    });
   }
 
   checkplanExpire(): void {
@@ -288,13 +290,51 @@ export class MarketingAnalysisComponent implements OnInit {
   }
 
   downloadRecommadation() {
-    this.foundersToolsService.downloadRecommendation({ data: this.recommendationData }).subscribe({
-      next: res => {
-        window.open(res.url, "_blank");
-      },
-      error: err => {
-        console.log(err?.error?.message);
-      }
+    const formValue = ['industry', 'location', 'targetMarket', 'productService', 'businessModel', 'salesChannel', 'timeFrame', 'budget', 'revenueStreams', 'competitorAnalysis', 'forecast'];
+    const formData = this.marketingForm.value;
+    let addingInput = `<p><strong>Input:<br></strong></p>`;
+
+    // Keep track of which formValue index we're currently using
+    let formValueIndex = 0;
+
+    this.recommendations.forEach((category: any) => {
+      addingInput += `<p><strong>${category.question.heading}</strong></p>`;
+
+      category.question.branches.forEach((branchQuestion: any) => {
+        addingInput += `<p>${branchQuestion}</p>`;
+
+        let currentAnswer = "";
+        const currentFormField = formValue[formValueIndex];
+
+        if (formData && formData[currentFormField]) {
+          if (currentFormField == 'budget') {
+            currentAnswer = formData['currencycode'] + ' ' + formData[currentFormField];
+          } else {
+            currentAnswer = formData[currentFormField];
+          }
+        } else {
+          currentAnswer = "No answer provided";
+        }
+
+        addingInput += `<p><strong>${currentAnswer}</strong></p>`;
+
+        formValueIndex++;
+      });
+
+      // Add spacing between categories
+      addingInput += `<br>`;
+    });
+
+    let finalRecommendation = addingInput + '<p><strong>Response:<br></strong></p>' + this.recommendationData;
+    let paramData: DownloadRespose = {
+      response: finalRecommendation,
+      module_name: "Marketing Analysis",
+      file_name: "marketing_analysis"
+    };
+    this.travelToolService.convertHTMLtoPDF(paramData).then(() => {
+      console.log("PDF successfully generated.");
+    }).catch(error => {
+      console.error("Error generating PDF:", error);
     });
   }
 

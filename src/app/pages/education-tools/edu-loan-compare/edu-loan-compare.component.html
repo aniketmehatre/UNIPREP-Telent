@@ -7,14 +7,8 @@
                         <div>
                             <h5 class="w-100 mb-0" tooltipPosition="top"
                                 pTooltip="Access fully and partially funded opportunities for education.">
-                                Loan Comparison Tool<i class="questiontooltip fa-solid fa-circle-question"></i>
+                                Education Tools -> Loan Comparison Tool<i class="questiontooltip fa-solid fa-circle-question"></i>
                             </h5>
-                        </div>
-                        <div>
-                            <button class="how-it-works-button" (click)="
-                      openHowItWorksVideoPopup('https://www.youtube.com/embed/5B7AeCCKCKw?si=uUXSoWHIsi3fxJH2')">
-                                How it works?<i class="fa-solid fa-play d-md-block d-none"></i>
-                            </button>
                         </div>
                     </div>
                 </div>
@@ -74,26 +68,26 @@
                                                         <div class="d-flex gap-2">
                                                             <p-dropdown class="currency-dropdown"
                                                                 formControlName="currency"
-                                                                [options]="currencyandCountryList" [filter]="true"
-                                                                filterBy="currency_code" placeholder="Currency"
-                                                                optionLabel="currency_code" optionValue="currency_code"
-                                                                [autoDisplayFirst]="false">
+                                                                [options]="currenciesList" [filter]="true"
+                                                                filterBy="currency_symbol" placeholder="Currency"
+                                                                optionLabel="currency_symbol" optionValue="currency_symbol"
+                                                                [autoDisplayFirst]="false" (ngModelChange)="form.get('compare_currency')?.patchValue(form.get('currency')?.value)">
                                                             </p-dropdown>
                                                             <input type="number" class="form-control w-100" [min]="100"
-                                                                formControlName="loanamount" placeholder="Amount">
+                                                                formControlName="loanamount"  [placeholder]="form.get('currency').value ? 'Enter Amount in'+' '+form.get('currency').value : 'Enter Amount'">
                                                         </div>
                                                     </div>
                                                     <div class="col-lg-4 mb-2">
                                                         <div class="d-flex gap-2">
                                                             <p-dropdown class="currency-dropdown"
                                                                 formControlName="compare_currency"
-                                                                [options]="currencyandCountryList" [filter]="true"
-                                                                filterBy="currency_code" placeholder="Currency"
-                                                                optionLabel="currency_code" optionValue="currency_code"
+                                                                [options]="currenciesList" [filter]="true"
+                                                                filterBy="currency_symbol" placeholder="Currency"
+                                                                optionLabel="currency_symbol" optionValue="currency_symbol"
                                                                 [autoDisplayFirst]="false">
                                                             </p-dropdown> 
                                                             <input type="number" class="form-control w-100 m-0" [min]="100"
-                                                                formControlName="compare_loanamount" placeholder="Amount">
+                                                                formControlName="compare_loanamount"  [placeholder]="form.get('compare_currency').value ? 'Enter Amount in'+' '+form.get('compare_currency').value: 'Enter Amount'">
                                                         </div>
                                                     </div>
                                                 </div>
@@ -149,13 +143,13 @@
                                                     <div class="col-lg-4 mb-2">
                                                         <p-dropdown [options]="interestedRateTypeList"
                                                            formControlName="interestrate_type"
-                                                            placeholder="Fixed/Floating" styleClass="w-100" appendTo="body">
+                                                            placeholder="Select Interest Rate Type" styleClass="w-100" appendTo="body">
                                                         </p-dropdown>
                                                     </div>
                                                     <div class="col-lg-4 mb-2">
                                                         <p-dropdown [options]="interestedRateTypeList"
                                                             formControlName="compare_interestrate_type"
-                                                            placeholder="Fixed/Floating" styleClass="w-100"  appendTo="body">
+                                                            placeholder="Select Interest Rate Type" styleClass="w-100"  appendTo="body">
                                                         </p-dropdown>
                                                     </div>
                                                 </div>
@@ -173,7 +167,7 @@
                                                     <div class="col-lg-4 mb-2">
                                                         <p-dropdown [options]="intersetedRateList"
                                                             appendTo="body"
-                                                            formControlName="interestrate" placeholder="Rate"
+                                                            formControlName="interestrate" placeholder="Select Interest Rate"
                                                             styleClass="w-100">
                                                         </p-dropdown>
                                                     </div>
@@ -181,7 +175,7 @@
                                                         <p-dropdown [options]="intersetedRateList"
                                                             appendTo="body"
                                                             formControlName="compare_interestrate"
-                                                            placeholder="Rate" styleClass="w-100">
+                                                            placeholder="Select Interest Rate" styleClass="w-100">
                                                         </p-dropdown>
                                                     </div>
                                                 </div>
@@ -200,13 +194,13 @@
                                                     <div class="col-lg-4 mb-2">
                                                         <p-dropdown [options]="intersetedTermList"
                                                             formControlName="interestterm"  appendTo="body"
-                                                            placeholder="Term" styleClass="w-100">
+                                                            placeholder="Select Period in Months" styleClass="w-100">
                                                         </p-dropdown>
                                                     </div>
                                                     <div class="col-lg-4 mb-2">
                                                         <p-dropdown [options]="intersetedTermList"
                                                             formControlName="compare_interestterm"  appendTo="body"
-                                                            placeholder="Term" styleClass="w-100">
+                                                            placeholder="Select Period in Months" styleClass="w-100">
                                                         </p-dropdown>
                                                     </div>
                                                 </div>
@@ -237,13 +231,13 @@
                                                     <div class="col-lg-4 mb-2">
                                                         <p-dropdown [options]="studyDurationList"
                                                             formControlName="studyduration"
-                                                            placeholder="Months" styleClass="w-100"  appendTo="body">
+                                                            placeholder="Select Months" styleClass="w-100"  appendTo="body">
                                                         </p-dropdown>
                                                     </div>
                                                     <div class="col-lg-4 mb-2">
                                                         <p-dropdown [options]="studyDurationList"
                                                             formControlName="compare_studyduration"
-                                                            placeholder="Months" styleClass="w-100"  appendTo="body">
+                                                            placeholder="Select Months" styleClass="w-100"  appendTo="body">
                                                         </p-dropdown>
                                                     </div>
                                                 </div>
@@ -261,7 +255,7 @@
                                                     <div class="col-lg-4 mb-2">
                                                         <p-dropdown [options]="moratoriumPeriodList"
                                                            appendTo="body"
-                                                            formControlName="moratoriumperiod" placeholder="Period"
+                                                            formControlName="moratoriumperiod" placeholder="Select Moratorium Period"
                                                             styleClass="w-100">
                                                         </p-dropdown>
                                                     </div>
@@ -269,7 +263,7 @@
                                                         <p-dropdown [options]="moratoriumPeriodList"
                                                            appendTo="body"
                                                             formControlName="compare_moratoriumperiod"
-                                                            placeholder="period" styleClass="w-100">
+                                                            placeholder="Select Moratorium Period" styleClass="w-100">
                                                         </p-dropdown>
                                                     </div>
                                                 </div>
@@ -288,14 +282,14 @@
                                                         <p-dropdown [options]="repaymentLoanList"
                                                             appendTo="body"
                                                             formControlName="loanrepaymentperiod"
-                                                            placeholder="Period" styleClass="w-100">
+                                                            placeholder="Select Loan Repayment Start" styleClass="w-100">
                                                         </p-dropdown>
                                                     </div>
                                                     <div class="col-lg-4 mb-2">
                                                         <p-dropdown [options]="repaymentLoanList"
                                                             appendTo="body"
                                                             formControlName="compare_loanrepaymentperiod"
-                                                            placeholder="Period" styleClass="w-100">
+                                                            placeholder="Select Loan Repayment Start" styleClass="w-100">
                                                         </p-dropdown>
                                                     </div>
                                                 </div>
@@ -344,11 +338,7 @@
                     <div class="select-title d-flex justify-content-between align-items-center">
                         <div>
                             <h5 class="w-100 mb-0" tooltipPosition="top" pTooltip="">
-                                Loan Comparison Tool<i class="questiontooltip fa-solid fa-circle-question"></i></h5>
-                        </div>
-                        <div>
-                            <button class="how-it-works-button">How it works?
-                                <i class="fa-solid fa-play d-md-block d-none"></i></button>
+                                Education Tools -> Loan Comparison Tool<i class="questiontooltip fa-solid fa-circle-question"></i></h5>
                         </div>
                     </div>
                     <div class="d-flex align-items-center">
@@ -397,11 +387,7 @@
                     <div class="select-title d-flex justify-content-between align-items-center">
                         <div>
                             <h5 class="w-100 mb-0" tooltipPosition="top" pTooltip="">
-                                Loan Comparison Tool<i class="questiontooltip fa-solid fa-circle-question"></i></h5>
-                        </div>
-                        <div>
-                            <button class="how-it-works-button">How it works?
-                                <i class="fa-solid fa-play d-md-block d-none"></i></button>
+                                Education Tools -> Loan Comparison Tool<i class="questiontooltip fa-solid fa-circle-question"></i></h5>
                         </div>
                     </div>
                 </div>

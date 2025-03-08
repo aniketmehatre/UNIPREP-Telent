@@ -1,0 +1,586 @@
+<div class="card readingcard h-100">
+    <div class="card-header border-0 bg-transparent">
+      <div class="row">
+        <div class="col-md-12 d-flex gap-2 text-center">
+          <div
+            class="backIcon d-md-flex d-none"
+            role="button"
+            routerLink="/pages/talent-connect/list">
+            <span class="fa-solid fa-chevron-left"></span>
+          </div>
+          <div
+            class="select-title d-flex justify-content-between align-items-center">
+            <div>
+                <h5
+                  class="mb-0"
+                  tooltipPosition="top"
+                  pTooltip="Questions related to the application process are answered">
+                  Job Description<i
+                    class="questiontooltip fa-solid fa-circle-question"
+                  ></i>
+                </h5>
+              </div>
+          </div>
+        </div>
+        <!-- <div class="col-md-3 mt-2 text-end desktop justify-content-end d-none d-md-flex"></div> -->
+      </div>
+    </div>
+    <div class="card-body text-start flex-fill overflow-y-auto">
+        <div class="row">
+            <div class="col-md-8">
+                <div class="row">
+                    <div class="col-md-2 ">
+                        <div class="logo-container border p-3 mb-3">
+                          <img src="" alt="UNIABROAD" class="img-fluid">
+                        </div>
+                      </div>
+                      <div class="col-md-8">
+                        <h1 class="fw-bold">{{ jobDetails.title }}</h1>
+                        <div class="d-flex align-items-center mb-2">
+                          <span class="me-2">{{ jobDetails.company }}</span>
+                          <span class="ms-1 text-primary" *ngIf="jobDetails">
+                              <i class="fas fa-check-circle"></i>
+                            </span>
+                        </div>
+                        <div class="mb-3">
+                          <span class="text-muted">You match {{ jobDetails.skillMatch.matched }} out of {{ jobDetails.skillMatch.total }} skill requirements for this job</span>
+                        </div>
+                        <div class="d-flex flex-wrap gap-2 mb-3">
+                          <span *ngFor="let skill of jobDetails.skillMatch.skills" class="badge" [ngClass]="{'bg-warning text-dark': skill === 'UI Design' || skill === 'Graphic Design' || skill === 'UX Design', 'bg-secondary': skill === 'Motion Design'}">
+                            {{ skill }}
+                          </span>
+                        </div>
+                      </div>
+                      <div class="col-md-2 text-end">
+                        <button pButton label="Apply" icon="fa fa-arrow-pointer" iconPos="right" class="p-button-primary mb-3" (click)="isShowApplyChat = true"></button>
+                        <div class="posted-date">Posted On : {{ jobDetails.postedDate }}</div>
+                      </div>
+                    </div>
+                <div class="row mb-4">
+                  <div class="col-md-8" [ngClass]="{'col-md-12': !isShowApplyChat}">
+                    <div class="card shadow-sm">
+                      <div class="card-body p-4">
+                        <div class="row row-cols-2 row-cols-md-6 g-4">
+                          <!-- Company Size -->
+                          <div class="col">
+                            <div class="d-flex flex-column">
+                              <div class="d-flex align-items-center mb-2">
+                                <i class="pi pi-users me-2 text-secondary"></i>
+                                <span class="text-muted">Company Size</span>
+                              </div>
+                              <div class="fw-bold">{{ jobDetails.companySize }}</div>
+                            </div>
+                          </div>
+              
+                          <!-- Position -->
+                          <div class="col">
+                            <div class="d-flex flex-column">
+                              <div class="d-flex align-items-center mb-2">
+                                <i class="pi pi-briefcase me-2 text-secondary"></i>
+                                <span class="text-muted">Position</span>
+                              </div>
+                              <div class="fw-bold">{{ jobDetails.position }}</div>
+                            </div>
+                          </div>
+              
+                          <!-- Start Date -->
+                          <div class="col">
+                            <div class="d-flex flex-column">
+                              <div class="d-flex align-items-center mb-2">
+                                <i class="pi pi-calendar me-2 text-secondary"></i>
+                                <span class="text-muted">Start Date</span>
+                              </div>
+                              <div class="fw-bold">{{ jobDetails.startDate }}</div>
+                            </div>
+                          </div>
+              
+                          <!-- Work Location -->
+                          <div class="col">
+                            <div class="d-flex flex-column">
+                              <div class="d-flex align-items-center mb-2">
+                                <i class="pi pi-map-marker me-2 text-secondary"></i>
+                                <span class="text-muted">Work Location</span>
+                              </div>
+                              <div class="fw-bold">{{ jobDetails.workLocation }}</div>
+                            </div>
+                          </div>
+              
+                          <!-- Work Mode -->
+                          <div class="col">
+                            <div class="d-flex flex-column">
+                              <div class="d-flex align-items-center mb-2">
+                                <i class="pi pi-desktop me-2 text-secondary"></i>
+                                <span class="text-muted">Work Mode</span>
+                              </div>
+                              <div class="fw-bold">{{ jobDetails.workMode }}</div>
+                            </div>
+                          </div>
+              
+                          <!-- Employment Type -->
+                          <div class="col">
+                            <div class="d-flex flex-column">
+                              <div class="d-flex align-items-center mb-2">
+                                <i class="pi pi-clock me-2 text-secondary"></i>
+                                <span class="text-muted">Employment Type</span>
+                              </div>
+                              <div class="fw-bold">{{ jobDetails.employmentType }}</div>
+                            </div>
+                          </div>
+              
+                          <!-- Salary Range -->
+                          <div class="col">
+                            <div class="d-flex flex-column">
+                              <div class="d-flex align-items-center mb-2">
+                                <i class="pi pi-dollar me-2 text-secondary"></i>
+                                <span class="text-muted">Salary Range</span>
+                              </div>
+                              <div class="fw-bold">{{ jobDetails.salaryRange }}</div>
+                            </div>
+                          </div>
+              
+                          <!-- Due Date -->
+                          <div class="col">
+                            <div class="d-flex flex-column">
+                              <div class="d-flex align-items-center mb-2">
+                                <i class="pi pi-calendar-times me-2 text-secondary"></i>
+                                <span class="text-muted">Due Date</span>
+                              </div>
+                              <div class="fw-bold">{{ jobDetails.dueDate }}</div>
+                            </div>
+                          </div>
+              
+                          <!-- Total Applied -->
+                          <div class="col">
+                            <div class="d-flex flex-column">
+                              <div class="d-flex align-items-center mb-2">
+                                <i class="pi pi-user-plus me-2 text-secondary"></i>
+                                <span class="text-muted">Total Applied</span>
+                              </div>
+                              <div class="fw-bold">{{ jobDetails.totalApplied }}</div>
+                            </div>
+                          </div>
+              
+                          <!-- Available Vacancies -->
+                          <div class="col">
+                            <div class="d-flex flex-column">
+                              <div class="d-flex align-items-center mb-2">
+                                <i class="pi pi-users me-2 text-secondary"></i>
+                                <span class="text-muted">Available Vacancies</span>
+                              </div>
+                              <div class="fw-bold">{{ jobDetails.availableVacancies }}</div>
+                            </div>
+                          </div>
+              
+                          <!-- Experience Level -->
+                          <div class="col">
+                            <div class="d-flex flex-column">
+                              <div class="d-flex align-items-center mb-2">
+                                <i class="pi pi-chart-line me-2 text-secondary"></i>
+                                <span class="text-muted">Experience Level</span>
+                              </div>
+                              <div class="fw-bold">{{ jobDetails.experienceLevel }}</div>
+                            </div>
+                          </div>
+              
+                          <!-- Educational Degree -->
+                          <div class="col">
+                            <div class="d-flex flex-column">
+                              <div class="d-flex align-items-center mb-2">
+                                <i class="pi pi-book me-2 text-secondary"></i>
+                                <span class="text-muted">Educational Degree</span>
+                              </div>
+                              <div class="fw-bold">{{ jobDetails.educationalDegree }}</div>
+                            </div>
+                          </div>
+              
+                          <!-- Industry -->
+                          <div class="col">
+                            <div class="d-flex flex-column">
+                              <div class="d-flex align-items-center mb-2">
+                                <i class="pi pi-building me-2 text-secondary"></i>
+                                <span class="text-muted">Industry</span>
+                              </div>
+                              <div class="fw-bold">{{ jobDetails.industry }}</div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <ng-container *ngIf="isShowApplyChat">
+                      <div class="col-md-4">
+                          <div class="modal-container">
+                              <div class="modal-content">
+                                <!-- Header -->
+                                <div class="header">
+                                  <div class="logo-section">
+                                    <div class="logo">
+                                      <div class="logo-square"></div>
+                                      <span>UNIABROAD</span>
+                                    </div>
+                                    <span class="status">Active</span>
+                                  </div>
+                                  <button class="close-btn">×</button>
+                                </div>
+                            
+                                <!-- First View - Profile Setup -->
+                                <div *ngIf="!showMessages" class="profile-setup">
+                                  <div class="description-section">
+                                    <h2>Write a description about yourself</h2>
+                                    <div class="upload-section">
+                                      <div class="upload-label">Upload Cover Letter</div>
+                                      <div class="upload-formats">Supported Formats: doc, docx, pdf, upto 2 MB</div>
+                                    </div>
+                                  </div>
+                            
+                                  <div class="cover-letter-cta">
+                                    <div>Need a cover letter?</div>
+                                    <button class="text-button">Click here to write one!</button>
+                                  </div>
+                            
+                                  <div class="message-input">
+                                    <input type="text" placeholder="Text with UNIABROAD...">
+                                    <div class="input-actions">
+                                      <button class="attachment-btn">📎</button>
+                                      <button class="send-btn" (click)="toggleView()">📤</button>
+                                    </div>
+                                  </div>
+                                </div>
+                            
+                                <ng-container *ngFor="let message of messages; let i = index">
+                                  <!-- Sender ID -->
+                                  <div class="sender-id mb-1" *ngIf="message.sender === 'johndoe'">
+                                    {{'@'+message.sender}}
+                                  </div>
+                          
+                                  <!-- Message Content -->
+                                  <div class="d-flex mb-3" [ngClass]="{'justify-content-end': message.sender === 'johndoe', 'justify-content-start': message.sender === 'uniabroad'}">
+                                    <div *ngIf="message.sender === 'johndoe'" class="avatar me-2">
+                                      <img src="assets/user-avatar.jpg" class="rounded-circle" width="32" height="32" alt="User">
+                                    </div>
+                                    
+                                    <!-- Text Message -->
+                                    <div *ngIf="message.type === 'text'" class="message-content" 
+                                         [ngClass]="{'bg-light': message.sender === 'johndoe', 'bg-primary text-white': message.sender === 'uniabroad'}">
+                                      <p class="mb-0">{{message.content}}</p>
+                                      <small class="message-time" 
+                                            [ngClass]="{'text-muted': message.sender === 'johndoe', 'text-white-50': message.sender === 'uniabroad'}">
+                                        {{message.time}}
+                                      </small>
+                                    </div>
+                                    
+                                    <!-- File Attachment -->
+                                    <div *ngIf="message.type === 'file'" class="message-content file-message">
+                                      <p class="mb-0">{{message.content}}</p>
+                                      <small class="message-time text-muted">{{message.time}}</small>
+                                    </div>
+                                    
+                                    <!-- Button Message -->
+                                    <div *ngIf="message.type === 'button'" class="w-100">
+                                      <div class="sender-id mb-1 text-end">
+                                        {{'@'+message.sender}}
+                                      </div>
+                                      <button pButton 
+                                             class="p-button-warning w-100 d-flex justify-content-between align-items-center">
+                                        <span>{{message.content}}</span>
+                                        <div class="d-flex align-items-center">
+                                          <small class="me-2">{{message.time}}</small>
+                                          <i class="pi pi-check"></i>
+                                          <img src="assets/uniabroad-icon.png" alt="UNIABROAD" width="18" height="18" class="ms-2">
+                                        </div>
+                                      </button>
+                                    </div>
+                                    
+                                    <div *ngIf="message.sender === 'uniabroad' && message.type !== 'button'" class="avatar ms-2">
+                                      <img src="assets/uniabroad-icon.png" class="rounded-circle" width="32" height="32" alt="UNIABROAD">
+                                    </div>
+                                  </div>
+                                </ng-container>
+                              </div>
+                            </div>
+                      </div>
+                  </ng-container>
+                </div>
+              
+                <div class="row mb-4">
+                  <div class="col-md-12">
+                    <div class="card shadow-sm">
+                      <div class="card-body p-4">
+                        <div class="row">
+                          <div class="col-md-3">
+                            <h2 class="fs-3 fw-bold">Job Overview</h2>
+                          </div>
+                          <div class="col-md-9 font-bold">
+                            <p class="mb-0" [innerHTML]="jobDetails.overview"></p>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              
+                <div class="row mb-4">
+                  <div class="col-md-12">
+                    <div class="card shadow-sm">
+                      <div class="card-body p-4">
+                        <div class="row">
+                          <div class="col-md-3">
+                            <h2 class="fs-3 fw-bold">Key<br>Responsibilities</h2>
+                          </div>
+                          <div class="col-md-9 font-bold">
+                            <ul class="list-unstyled">
+                              <li *ngFor="let resp of jobDetails.responsibilities" class="mb-3">
+                                <div class="d-flex">
+                                  <i class="pi pi-circle-fill me-2 mt-1" style="font-size: 8px;"></i>
+                                  <span>{{ resp }}</span>
+                                </div>
+                              </li>
+                            </ul>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              
+                <!-- Technical Proficiency -->
+                <div class="row mb-4">
+                  <div class="col-md-12">
+                    <div class="card shadow-sm">
+                      <div class="card-body p-4">
+                        <div class="row">
+                          <div class="col-md-3">
+                            <h2 class="fs-3 fw-bold">Technical<br>Proficiency</h2>
+                          </div>
+                          <div class="col-md-9 font-bold">
+                            <p>{{ jobDetails.technicalProficiency }}</p>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              
+                <!-- Language Proficiency -->
+                <div class="row mb-4">
+                  <div class="col-md-12">
+                    <div class="card shadow-sm">
+                      <div class="card-body p-4">
+                        <div class="row">
+                          <div class="col-md-3">
+                            <h2 class="fs-3 fw-bold">Language<br>Proficiency</h2>
+                          </div>
+                          <div class="col-md-9">
+                            <ul class="list-unstyled font-bold">
+                              <li *ngFor="let lang of jobDetails.languageProficiency" class="mb-3">
+                                <div class="d-flex">
+                                  <i class="pi pi-circle-fill me-2 mt-1" style="font-size: 8px;"></i>
+                                  <span>{{ lang.language }} - {{ lang.level }}</span>
+                                </div>
+                              </li>
+                            </ul>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              
+                <!-- Compensation Structure -->
+                <div class="row mb-4">
+                  <div class="col-md-12">
+                    <div class="card shadow-sm">
+                      <div class="card-body p-4">
+                        <div class="row">
+                          <div class="col-md-3">
+                            <h2 class="fs-3 fw-bold">Compensation<br>Structure</h2>
+                          </div>
+                          <div class="col-md-9 font-bold">
+                            <div class="d-flex flex-wrap gap-2">
+                              <span *ngFor="let comp of jobDetails.compensationStructure" class="badge bg-warning text-dark p-2 rounded">{{ comp }}</span>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              
+                <!-- Additional Benefits & Perks -->
+                <div class="row mb-4">
+                  <div class="col-md-12">
+                    <div class="card shadow-sm">
+                      <div class="card-body p-4">
+                        <div class="row">
+                          <div class="col-md-3">
+                            <h2 class="fs-3 fw-bold">Additional Benefits<br>& Perks</h2>
+                          </div>
+                          <div class="col-md-9 font-bold">
+                            <div class="d-flex flex-wrap gap-2">
+                              <span *ngFor="let benefit of jobDetails.benefits" class="badge bg-warning text-dark p-2 rounded">{{ benefit }}</span>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              
+                <!-- Essential Soft Skills -->
+                <div class="row mb-4">
+                  <div class="col-md-12">
+                    <div class="card shadow-sm">
+                      <div class="card-body p-4">
+                        <div class="row">
+                          <div class="col-md-3">
+                            <h2 class="fs-3 fw-bold">Essential Soft Skills</h2>
+                          </div>
+                          <div class="col-md-9 font-bold">
+                            <div class="d-flex flex-wrap gap-2">
+                              <span *ngFor="let skill of jobDetails.softSkills" class="badge bg-warning text-dark p-2 rounded">{{ skill }}</span>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              
+                <!-- Hiring & Recruitment -->
+                <div class="row mb-4">
+                  <div class="col-md-12">
+                    <div class="card shadow-sm">
+                      <div class="card-body p-4">
+                        <div class="row">
+                          <div class="col-md-3">
+                            <h2 class="fs-3 fw-bold">Hiring & Recruitment</h2>
+                          </div>
+                          <div class="col-md-9 font-bold">
+                            <h6 class="mb-2">Hiring Process Stages</h6>
+                            <div class="d-flex flex-wrap gap-2 mb-4">
+                              <span *ngFor="let stage of jobDetails.hiringProcess.stages" class="badge bg-warning text-dark p-2 rounded">{{ stage }}</span>
+                            </div>
+              
+                            <h6 class="mb-2">Estimated Hiring Decision Timeframe</h6>
+                            <p class="mb-4">{{ jobDetails.hiringProcess.timeframe }}</p>
+              
+                            <h6 class="mb-2">Interview Format</h6>
+                            <p>{{ jobDetails.hiringProcess.format }}</p>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="chat-container">
+                    <div class="card">
+                      <!-- Header -->
+                      <div class="card-header d-flex justify-content-between align-items-center p-3">
+                        <div class="d-flex align-items-center">
+                          <div class="uniabroad-icon me-2">
+                            <img src="assets/uniabroad-icon.png" alt="UNIABROAD" width="24" height="24">
+                          </div>
+                          <div>
+                            <h5 class="mb-0 fw-bold">UNIABROAD</h5>
+                            <p class="small text-muted mb-0">Active</p>
+                          </div>
+                        </div>
+                        <button type="button" class="btn-close" aria-label="Close"></button>
+                      </div>
+              
+                      <!-- Initial View (Empty State) -->
+                      <div class="card-body chat-body" *ngIf="currentView === 'initial'">
+                        <div class="description-box mt-3">
+                          <h5 class="text-center mb-3">Write a description about yourself</h5>
+                          
+                          <div class="upload-section text-center">
+                            <p class="mb-1">Upload Cover Letter</p>
+                            <p class="small text-muted">Supported Formats: doc, docx, pdf, upto 2 MB</p>
+                          </div>
+              
+                          <div class="cover-letter-box mt-4">
+                            <p class="text-center mb-0 fw-medium">Need a cover letter?</p>
+                            <button pButton 
+                                   class="p-button-text p-button-plain w-100" 
+                                   label="Click here to write one!"
+                                   (click)="switchToConversationView()"></button>
+                          </div>
+                        </div>
+                      </div>
+              
+                      <!-- Conversation View -->
+                      <div class="chat-body" *ngIf="currentView === 'conversation'">
+                        <ng-container *ngFor="let message of messages">
+                          <!-- Sender ID -->
+                          <div class="sender-id mb-1" *ngIf="message.sender === 'johndoe'">
+                            {{'@'+message.sender}}
+                          </div>
+              
+                          <div class="d-flex mb-3" [ngClass]="{'justify-content-start': message.sender === 'johndoe', 'justify-content-end': message.sender === 'uniabroad'}">
+                            <div *ngIf="message.sender === 'johndoe'" class="avatar me-2">
+                              <img src="assets/user-avatar.jpg" class="rounded-circle" width="32" height="32" alt="User">
+                            </div>
+                            
+                            <!-- Text Message -->
+                            <div *ngIf="message.type === 'text'" class="message-content" 
+                                [ngClass]="{'bg-light': message.sender === 'johndoe', 'bg-primary text-white': message.sender === 'uniabroad'}">
+                              <p class="mb-2">{{message.content}}</p>
+                              <small class="message-time" 
+                                    [ngClass]="{'text-muted': message.sender === 'johndoe', 'text-white-50': message.sender === 'uniabroad'}">
+                                {{message.time}}
+                              </small>
+                            </div>
+                            
+                            <!-- File Attachment -->
+                            <div *ngIf="message.type === 'file'" class="message-content file-message w-75">
+                              <p class="mb-0">{{message.content}}</p>
+                              <small class="message-time text-muted">{{message.time}}</small>
+                            </div>
+                            
+                            <!-- Button Message -->
+                            <div *ngIf="message.type === 'button'" class="w-75">
+                              <div class="sender-id mb-1 text-end">
+                                {{'@'+message.sender}}
+                              </div>
+                              <button pButton 
+                                    class="p-button-warning w-100 d-flex justify-content-between align-items-center">
+                                <span>{{message.content}}</span>
+                                <div class="d-flex align-items-center">
+                                  <small class="me-2">{{message.time}}</small>
+                                  <i class="pi pi-check"></i>
+                                  <img src="assets/uniabroad-icon.png" alt="UNIABROAD" width="18" height="18" class="ms-2">
+                                </div>
+                              </button>
+                            </div>
+                            
+                            <div *ngIf="message.sender === 'uniabroad' && message.type !== 'button'" class="avatar ms-2">
+                              <img src="assets/uniabroad-icon.png" class="rounded-circle" width="32" height="32" alt="UNIABROAD">
+                            </div>
+                          </div>
+                        </ng-container>
+                      </div>
+              
+                      <!-- Input Area -->
+                      <div class="card-footer bg-white position-sticky bottom-0">
+                        <div class="input-group">
+                          <span class="input-group-text border-0 bg-white">
+                            <i class="pi pi-paperclip"></i>
+                          </span>
+                          <input type="text" class="form-control border-0" placeholder="Text with UNIABROAD..." #messageInput
+                                (keyup.enter)="sendMessage(messageInput.value); messageInput.value = ''">
+                          <span class="input-group-text border-0 bg-white">
+                            <i class="pi pi-send"></i>
+                          </span>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+            </div>
+        </div>
+  </div>
+</div>    
+
+  
+  

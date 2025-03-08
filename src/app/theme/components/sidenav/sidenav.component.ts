@@ -166,6 +166,11 @@ export class SidenavComponent {
       image: "fa-solid fa-briefcase",
     },
     {
+      title: "Employer Connect",
+      url: "/pages/talent-connect/list",
+      image: "fa-solid fa-briefcase",
+    },
+    {
       title: "Learning Hub",
       url: "/pages/modules/learning-hub",
       image: "fa-solid fa-road-circle-check",

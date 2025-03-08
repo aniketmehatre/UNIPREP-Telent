@@ -3,6 +3,8 @@ import { Router } from "@angular/router";
 import { PageFacadeService } from "../page-facade.service";
 import { AveragesalaryestimatorService } from "./averagesalaryestimator.service";
 import value from "crypto-js";
+import { City } from "src/app/@Models/cost-of-living";
+import { EducationToolsService } from "../education-tools/education-tools.service";
 
 @Component({
   selector: "uni-averagesalaryestimator",
@@ -15,7 +17,8 @@ export class AverageSalaryComponent implements OnInit {
   constructor(
     private router: Router,
     private pageFacade: PageFacadeService,
-    private service: AveragesalaryestimatorService
+    private service: AveragesalaryestimatorService,
+    private educationService: EducationToolsService
   ) {
     this.getJobRoles();
   }
@@ -26,7 +29,7 @@ export class AverageSalaryComponent implements OnInit {
   selectedData: { [key: string]: any } = {};
   filterJobRole: any[] = [];
 
-  recommendations: any = [
+  recommendations: { id: number , question: string}[] = [
     {
       id: 1,
       question: "What is your Job Role",
@@ -37,7 +40,7 @@ export class AverageSalaryComponent implements OnInit {
     },
     {
       id: 3,
-      question: "What is the type of your work place",
+      question: "What is the type Employement type?",
     },
     {
       id: 4,
@@ -47,10 +50,10 @@ export class AverageSalaryComponent implements OnInit {
       id: 5,
       question: "What is your work type",
     },
-    {
-      id: 6,
-      question: "Select your Preferred Currency",
-    },
+    // {
+    //   id: 6,
+    //   question: "Select your Preferred Currency",
+    // },
   ];
   ngOnInit() {
     this.selectedData = {};
@@ -58,7 +61,7 @@ export class AverageSalaryComponent implements OnInit {
     this.selectedCardIndex = null;
     this.getJobPreferences();
     this.getworkMode();
-    this.getCities();
+    this.getCityList();
     this.getyearsofExperience();
     this.getcurrencies();
   }
@@ -67,10 +70,37 @@ export class AverageSalaryComponent implements OnInit {
   selectCard(index: number): void {
     this.selectedCardIndex = index;
   }
-  cities: any = [];
-  getCities() {
-    this.service.getCities().subscribe((response) => {
-      this.cities = response;
+  customFilterFunction(type: string) {
+    if (this.departureFilter === "") {
+      this.departureLocationList = this.cityList;
+      return;
+    }
+    this.departureLocationList = this.cityList.filter(
+      (city) =>
+        city?.city_name
+          ?.toLowerCase()
+          .includes(this.departureFilter.toLowerCase()) ||
+        city?.country_name
+          ?.toLowerCase()
+          .includes(this.departureFilter.toLowerCase())
+    );
+  }
+
+  resetFunction(type: string) {
+    this.departureFilter = "";
+    this.departureLocationList = this.cityList;
+  }
+  cityList: City[] = [];
+  departureLocationList: City[] = [];
+  destinationLocationList: City[] = [];
+  departureFilter: string = "";
+  getCityList() {
+    this.service.getCitieswithflag().subscribe({
+      next: (response) => {
+        this.cityList = response;
+        this.departureLocationList = response;
+        this.destinationLocationList = response;
+      },
     });
   }
   jobPreferences: any = [];
@@ -91,15 +121,23 @@ export class AverageSalaryComponent implements OnInit {
       this.workMode = response;
     });
   }
-  currencies:any = [];
+  currencies: any = [];
   getcurrencies() {
-    this.service.getCurrencies().subscribe((response) => {
-      this.currencies = [{country:"Select",currency_code:null},...response];
+    this.educationService.getCurrencies().subscribe({
+      next: response => {
+        this.currencies = response;
+      }
     });
+    // this.service.getCurrencies().subscribe((response) => {
+    //   this.currencies = [
+    //     { country: "Select", currency_code: null },
+    //     ...response,
+    //   ];
+    // });
   }
-  yearsOfExperience:any = [];
+  yearsOfExperience: any = [];
   getyearsofExperience() {
-    this.yearsOfExperience=[];
+    this.yearsOfExperience = [];
     this.service.getExperiences().subscribe((response) => {
       this.yearsOfExperience = [...response];
     });
@@ -128,7 +166,7 @@ export class AverageSalaryComponent implements OnInit {
   preparedvisibility = false;
   getRecommendation() {
     this.invalidClass = false;
-    if (this.selectedData[6]==null) {
+    if (this.selectedData[5] == null) {
       this.invalidClass = true;
       return;
     }
@@ -136,14 +174,19 @@ export class AverageSalaryComponent implements OnInit {
     const selectedJob: any = this.jobRoles.find(
       (data: any) => data.id === this.selectedData[1]
     );
+    const findWrkType: any = this.jobPreferences.find((data: any) => data.id === this.selectedData[3]);
+    const findWrkModeType: any = this.workMode.find((data: any) => data.id === this.selectedData[5]);
     let processedData = {
       role: selectedJob.jobrole,
       jobrole: selectedJob.id,
       worktype: this.selectedData[3],
+      worktype_name: findWrkType.jobpreferences,
       workplace_type: this.selectedData[5],
-      locationid: this.selectedData[4],
+      workplace_type_name: findWrkModeType.name,
+      locationid: this.selectedData[4]?.city_id,
+      location_name: this.selectedData[4]?.city_name+', '+this.selectedData[4]?.country_name,
       experience: this.selectedData[2],
-      currency: this.selectedData[6],
+      // currency: this.selectedData[6],
     };
     this.prepData = processedData;
   }
@@ -155,7 +198,11 @@ export class AverageSalaryComponent implements OnInit {
     this.pageFacade.openHowitWorksVideoPopup(videoLink);
   }
   goBack() {
-    this.router.navigate(["/pages/average-salary-estimator"]);
+    if(this.preparedvisibility){
+      this.router.navigate(["/pages/average-salary-estimator"]);
+    }else{
+      this.router.navigate(["/pages/job-tool/career-tool"]);
+    }
   }
   searchJob(event: Event): void {
     const input = event.target as HTMLInputElement;

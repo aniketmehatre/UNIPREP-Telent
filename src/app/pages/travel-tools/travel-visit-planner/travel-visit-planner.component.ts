@@ -4,6 +4,7 @@ import { Router } from '@angular/router';
 import { City } from 'src/app/@Models/cost-of-living';
 import { CostOfLivingService } from '../../job-tool/cost-of-living/cost-of-living.service';
 import { MessageService } from 'primeng/api';
+import { DownloadRespose } from 'src/app/@Models/travel-tools.model';
 
 @Component({
   selector: 'uni-travel-visit-planner',
@@ -146,14 +147,32 @@ export class TravelVisitPlannerComponent implements OnInit {
   }
 
   downloadRecommadation() {
-    this.travelToolService.downloadRecommendation({ data: this.recommendationData }).subscribe({
-      next: res => {
-        window.open(res.url, "_blank");
-      },
-      error: err => {
-        console.log(err?.error?.message);
+    let selectedCityAndCountry = this.selectedData[1].city_name+', '+this.selectedData[1].country_name;
+    let addingInput = `<p><strong>Input:<br></strong></p>`;
+    this.recommendations.forEach(values =>{
+      addingInput += `<p><strong>${values.question}</strong></p>`;
+      let currentAnswer = "";
+      if(values.id == 1){
+        currentAnswer = selectedCityAndCountry;
+      }else if(values.id == 2){
+        currentAnswer = `${this.selectedData[2]} Days`;
+      }else if(values.id == 3){
+        currentAnswer = `${this.selectedData[3]} Season`;
       }
+      addingInput += `<p>${currentAnswer}</p><br>`;
     });
+    let finalRecommendation = addingInput+ '<p><strong>Response:<br></strong></p>' + this.recommendationData;
+    let paramData: DownloadRespose = {
+      response: finalRecommendation,
+      module_name: "Travel Visit Planner",
+      file_name: "travel_visit_planner"
+    };
+
+    this.travelToolService.convertHTMLtoPDF(paramData).then(() =>{
+      console.log("PDF genrated Successfully.");
+    }).catch(error => {
+      console.error("Error generating PDF:", error);
+    })
   }
 
   goBack() {

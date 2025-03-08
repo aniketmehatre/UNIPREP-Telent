@@ -514,8 +514,14 @@ uni-salaryhackscountries,
 uni-salaryhackslists,
 uni-seekercountries,
 uni-seekerlists,
+uni-easy-apply,
+uni-company-connect,
 uni-fortune-companies-lists,
-uni-fortune-companies-data-list {
+uni-fortune-companies-data-list,
+uni-company-connect,
+uni-global-employment-country-lists,
+uni-global-employment-data-list,
+uni-global-work-visa  {
 	display: flex;
 	flex: 1;
 	height: 100%;
@@ -2074,17 +2080,19 @@ p-dialog.restrictionDialog .p-dialog .p-dialog-header .p-dialog-header-icon {
 	}
 }
 
-uni-assessment, uni-travel-tools, uni-founderstool, uni-education-tools, uni-contributors {
+uni-assessment, uni-travel-tools, uni-founderstool, uni-education-tools, uni-contributors, uni-talent-connect {
 	display: flex;
 	flex: 1;
 	height: 100%;
 	flex-direction: column;
 	overflow: hidden;
 	
-	uni-assessment-list, uni-ilearn-challenge, uni-assessment-quiz, uni-assessment-quiz-review,
+	uni-assessment-list, uni-ilearn-challenge, uni-assessment-quiz, uni-assessment-quiz-review, uni-easy-apply,
 	uni-global-travel-visa, uni-travel-cost-estimator, uni-travel-packing-planner, uni-travel-visit-planner, 
 	uni-trip-length-finder, uni-travel-glossary, uni-business-plan-generator, uni-education-tools-list, 
-	uni-course-navigator, uni-startup-risk-assessment,  uni-marketing-analysis, uni-goverment-funding-opportunity, uni-ai-business-advisor, uni-politician-insights,uni-start-up-expense-estimate, uni-business-forecasting-tool, uni-country-insights, uni-country-insights-submodule, uni-student-budget-planner, uni-uni-compare, uni-global-edufit, uni-edu-loan-compare {
+	uni-course-navigator, uni-startup-risk-assessment,  uni-marketing-analysis, uni-goverment-funding-opportunity, uni-ai-business-advisor,
+    uni-politician-insights,uni-start-up-expense-estimate, uni-business-forecasting-tool, uni-country-insights, uni-country-insights-submodule, 
+	uni-student-budget-planner, uni-uni-compare, uni-global-edufit, uni-edu-loan-compare, uni-company-connect {
 		flex: 1;
 		overflow-y: auto;
 		display: flex;
@@ -2242,6 +2250,20 @@ uni-career-hacks {
 	}
 
 }
+
+uni-talent-connect {
+	display: flex;
+	flex: 1;
+	height: 100%;
+	flex-direction: column;
+	overflow: hidden;
+	uni-job-tracker {
+		flex: 1;
+		overflow-y: auto;
+		display: flex;
+		flex-direction: column;
+	}
+}
 uni-salary-hacks {
 	display: flex;
 	flex: 1;
@@ -2270,7 +2292,6 @@ uni-job-seeker-success-stories {
 	}
 
 }
-
 .dropdownimg {
     width: 24px;
     height: 24px;
@@ -2313,4 +2334,38 @@ uni-fortune-companies {
 		width: 50%;
     }
 
+}
+
+.poppins-content {
+	font-family: "Poppins", sans-serif !important;
+	font-size: 16px !important;
+}
+
+.custom-dialog .p-dialog-header {
+	padding: 1rem 1.5rem 0 !important;
+}
+
+uni-global-employment-insights {
+	display: flex;
+	flex: 1;
+	height: 100%;
+	flex-direction: column;
+	overflow: hidden;
+	uni-global-employment-country-lists {
+		flex: 1;
+		overflow-y: auto;
+		display: flex;
+		flex-direction: column;
+	}
+	uni-global-employment-data-list {
+		flex: 1;
+		overflow-y: auto;
+		display: flex;
+		flex-direction: column;
+	}
+}
+.blog-content {
+	font-size: 16px;
+    font-family: "Poppins", sans-serif;
+    line-height: 2rem;
 }

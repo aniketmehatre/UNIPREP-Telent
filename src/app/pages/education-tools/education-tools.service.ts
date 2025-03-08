@@ -18,11 +18,18 @@ export class EducationToolsService {
     private http: HttpClient
   ) { }
 
-  getCurrentSpecializations() {
+  getCurrentSpecializations() { // course navigator module service
     return this.http.get<{ id: number, specialization_name: string }[]>(environment.ApiUrl + "/getcurrentspecialization", {
       headers: this.headers,
     });
   }
+
+  getcareerPlannerSpec(){
+    return this.http.get<{ id: number, specialization_name: string }[]>(environment.ApiUrl + "/getCareerSpecialization", {
+      headers: this.headers,
+    });
+  }
+
   getDegreeRecommadations(data: any) {
     return this.http.get<EducatiionsRec[]>(`${environment.ApiUrl}/getDegrees?spec_id=${data.spec_id}&edu_id=${data.edu_id}`, {
       headers: this.headers,
@@ -49,6 +56,13 @@ export class EducationToolsService {
     });
   }
 
+  getQuestionsListByPolitician(data: any) {
+    const headers = new HttpHeaders().set("Accept", "application/json");
+    return this.http.post<any>(environment.ApiUrl + "/getpoliticianquestionlists", data, {
+      headers: headers,
+    });
+  }
+
   getCountryInsightsList(req: CountryInsightPayload): Observable<CountryInsightsResponse> {
     let params = {
       page: req.page,
@@ -65,9 +79,9 @@ export class EducationToolsService {
   }
   
   // getCourseQandA(degree_id: number) {
-  getCourseQandA(degreeId: number, questionId?: number) {
+  getCourseQandA(degreeId: number,courseId: number, questionId?: number) {
     const headers = new HttpHeaders().set("Accept", "application/json");
-    let params = new HttpParams().set('degree_id', degreeId);
+    let params = new HttpParams().set('degree_id', degreeId).set('course_id', courseId);
     if (questionId) {
       params = params.set('question_id', questionId);
     }
@@ -118,14 +132,34 @@ export class EducationToolsService {
     });
   }
 
+  getPoliticianCountryList() {
+    const headers = new HttpHeaders().set("Accept", "application/json");
+    return this.http.get<any>(`${environment.ApiUrl}/politiciandropdownlist`, {
+      headers: headers
+    });
+  }
+
   getUniverstityByCountry(country_id: string) {
     return this.http.post<any>(`${environment.ApiUrl}/getunviersity`, {
       country_id: country_id
     });
   }
 
-  getCurrencyAndCountries() {
+  // getCourseListBoxDropdown() {
+  //   return this.http.post<any>(environment.ApiUrl + "/CourseListSelectBox", {
+  //     headers: this.headers,
+  //   });
+  // }
+
+
+  getCountries() {
     return this.http.post<any>(environment.ApiUrl + "/getcountryandcurrency", {
+      headers: this.headers
+    });
+  }
+
+  getCurrencies() {
+    return this.http.get<any>(environment.ApiUrl + "/currenciesList", {
       headers: this.headers
     });
   }
@@ -154,5 +188,21 @@ export class EducationToolsService {
     });
   }
 
+  downloadFile(url: string): Observable<Blob> {
+    const headers = new HttpHeaders();
+    return this.http.get(url, { responseType: 'blob', headers: headers });
+  }
 
+  unifinderCountries(){
+    return this.http.get<any>(environment.ApiUrl + `/courseCountries`, {
+      headers: this.headers,
+    });
+  }
+
+  courseNameList(universityId: number){
+    const headers = new HttpHeaders().set("Accept", "application/json");
+    return this.http.get<any>(environment.ApiUrl + `/getCourseNameList?universityId=${universityId}`, {
+        headers: headers,
+    });
+  }
 }
