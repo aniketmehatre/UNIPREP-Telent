@@ -54,7 +54,7 @@
           <button
             type="button"
             class="p-2 px-4 mb-4 mt-3 module-button" style="border-radius: 8px;"
-            routerLink="/pages/talent-connect/company-tracker">
+            routerLink="/pages/talent-connect/job-tracker">
             Job Tracker
           </button>
         </div>
@@ -72,10 +72,10 @@
                 <!-- Logo Column -->
                 <div class="col-auto">
                   <img
-                    src="assets/company-logo.png"
+                    src="uniprep-assets/images/uniaboard-logo.png"
                     alt="Company Logo"
-                    width="40"
-                    height="40"
+                    width="100"
+                    height="80"
                     class="rounded"
                   />
                 </div>
@@ -104,47 +104,74 @@
               </div>
             </div>
             <div class="m-2 border border-bottom-100"></div>
+              <div class="d-flex justify-content-between align-items-center">
+                <div>
+                  <p class="text-muted mb-0 small">Total Vacancies</p>
+                  <p class="mb-0 fw-bold fs-4">{{ job.vacancies }}</p>
+                </div>
+                <button class="btn-success px-3"><i class="fa fa-check"></i>&nbsp;Actively Hiring</button>
+              </div>
+            <div class="m-2 border border-bottom-100"></div>
             <div class="card-body pt-0">
-              <!-- Location -->
-              <div class="d-flex mb-3">
-                <div class="me-2 text-success">
-                  <i class="fas fa-map-marker-alt"></i>
-                </div>
-                <div>
-                  <p class="text-muted mb-0 small">Work Location</p>
-                  <p class="mb-0 fw-medium">{{ job.location }}</p>
-                </div>
-              </div>
-
-              <!-- Start Date and Company Size -->
-              <div class="d-flex mb-3">
-                <div class="me-2 text-primary">
-                  <i class="fas fa-calendar-alt"></i>
-                </div>
-                <div class="me-4">
-                  <p class="text-muted mb-0 small">Start Date</p>
-                  <p class="mb-0 fw-medium">{{ job.startDate }}</p>
-                </div>
-
-                <div class="me-2 text-secondary">
-                  <i class="fas fa-users"></i>
-                </div>
-                <div>
-                  <p class="text-muted mb-0 small">Company Size</p>
-                  <p class="mb-0 fw-medium">{{ job.companySize }}</p>
+              <div class="row">
+                <div class="col-md-6">
+                  <div class="d-flex mb-3 align-items-center">
+                    <div class="me-2 text-success">
+                      <i class="fas fa-map-marker-alt"></i>
+                    </div>
+                    <div>
+                      <p class="text-muted mb-0 small">Work Location</p>
+                      <p class="mb-0 fw-medium">{{ job.location }}</p>
+                    </div>
+                  </div>
+                  </div>
+                  <div class="col-md-6">
+                  <!-- Start Date and Company Size -->                  
+                   <div class="d-flex mb-3 align-items-center">
+                    <div class="me-2 text-primary">
+                      <i class="fas fa-calendar-alt"></i>
+                    </div>
+                    <div class="me-4">
+                      <p class="text-muted mb-0 small">Total Applied</p>
+                      <p class="mb-0 fw-medium">{{ job.total_applied }}</p>
+                    </div>
                 </div>
               </div>
-
-              <!-- Work Arrangement and Employment Type -->
-              <div class="d-flex mb-3">
-                <div class="me-2 text-warning">
-                  <i class="fas fa-building"></i>
+              <div class="col-md-6">
+                <div class="d-flex mb-3 align-items-center">
+                  <div class="me-2 text-primary">
+                    <i class="fas fa-calendar-alt"></i>
+                  </div>
+                  <div class="me-4">
+                    <p class="text-muted mb-0 small">Start Date</p>
+                    <p class="mb-0 fw-medium">{{ job.startDate }}</p>
+                  </div>
+              </div>
+              </div>
+              <div class="col-md-6">
+                <div class="d-flex mb-3 align-items-center">
+                  <div class="me-2 text-primary">
+                    <i class="fas fa-calendar-alt"></i>
+                  </div>
+                  <div class="me-4">
+                    <p class="text-muted mb-0 small">Due Date</p>
+                    <p class="mb-0 fw-medium">{{ job.dueDate }}</p>
+                  </div>
+              </div>
+              </div>
+              <div class="col-md-6">
+                <div class="d-flex mb-3 align-items-center">
+                  <div class="me-2 text-warning">
+                    <i class="fas fa-building"></i>
+                  </div>
+                  <div class="me-4">
+                    <p class="text-muted mb-0 small">Work Mode</p>
+                    <p class="mb-0 fw-medium">{{ job.workArrangement }}</p>
+                  </div>
                 </div>
-                <div class="me-4">
-                  <p class="text-muted mb-0 small">Work Arrangement</p>
-                  <p class="mb-0 fw-medium">{{ job.workArrangement }}</p>
-                </div>
-
+              </div>
+              <div class="col-md-6">
+                <div class="d-flex mb-3 align-items-center">
                 <div class="me-2 text-danger">
                   <i class="fas fa-briefcase"></i>
                 </div>
@@ -152,10 +179,11 @@
                   <p class="text-muted mb-0 small">Employment Type</p>
                   <p class="mb-0 fw-medium">{{ job.employmentType }}</p>
                 </div>
+                </div>
               </div>
 
-              <!-- Salary Range -->
-              <div class="d-flex">
+              <div class="col-md-6">
+                <div class="d-flex mb-3 align-items-center">
                 <div class="me-2 text-success">
                   <i class="fas fa-dollar-sign"></i>
                 </div>
@@ -164,7 +192,19 @@
                   <p class="mb-0 fw-medium">{{ job.salaryRange }}</p>
                 </div>
               </div>
+             </div>
+
+             <div class="col-md-6">
+              <div class="d-flex mb-3 align-items-center">
+              <div class="me-2 text-success">
+                <i class="fas fa-users"></i>
+              </div>
+              <div>
+                <p class="text-muted mb-0 small">Company Size</p>
+                <p class="mb-0 fw-medium">{{ job.companySize }}</p>
+              </div>
             </div>
+           </div>
 
             <!-- Posted Date -->
             <div class="card-footer bg-white text-end border-top-0">
@@ -189,114 +229,161 @@
     </div>
   </div>
 </div>
-<div [class]="displayModal ? 'p-4': ''">
-  <p-dialog
-    header="Filter"
-    [(visible)]="displayModal"
-    [modal]="true"
-    [style]="{width: '70vw'}"
+<div>
+  <p-dialog 
+    header="Filter" 
+    [(visible)]="displayModal" 
+    [modal]="true" 
+    [style]="{width: '80%'}" 
     [baseZIndex]="10000"
-    [draggable]="false"
+    [draggable]="false" 
     [resizable]="false"
-    [closeOnEscape]="true"
-    styleClass="filter-modal">
+    styleClass="container">
     
-    <div class="container-fluid p-3">
-      <form (ngSubmit)="applyFilter()">
-        <!-- Search Section -->
-        <div class="mb-4">
-          <div class="form-div fw-bold">Search</div>
-          <input type="text" class="form-control w-100" placeholder="Search by Keyword">
+    <form [formGroup]="filterForm" class="p-3">
+      <div class="mb-4">
+        <label class="form-label fw-bold">Search</label>
+        <div class="p-inputgroup">
+          <input 
+            type="text" 
+            pInputText 
+            formControlName="keyword" 
+            placeholder="Search by Keyword" 
+            class="form-control">
         </div>
-        
-        <!-- First Row -->
-        <div class="row mb-4">
-          <div class="col-md-4">
-            <div class="form-div fw-bold">Position Title</div>
-            <p-dropdown 
-              [options]="positionTitles" 
-              placeholder="Enter position title"
-              styleClass="w-100" 
-              [showClear]="true">
-            </p-dropdown>
-          </div>
-          
-          <div class="col-md-4">
-            <div class="form-div fw-bold">Industry</div>
-            <p-dropdown 
-              [options]="industries" 
-              placeholder="Select industry"
-              styleClass="w-100" 
-              [showClear]="true">
-            </p-dropdown>
-          </div>
-          
-          <div class="col-md-4">
-            <div class="form-div fw-bold">Work Location</div>
-            <p-dropdown 
-              [options]="workLocations" 
-              placeholder="Select work location"
-              styleClass="w-100" 
-              [showClear]="true">
-            </p-dropdown>
-          </div>
-        </div>
-        
-        <!-- Second Row -->
-        <div class="row mb-4">
-          <div class="col-md-4">
-            <div class="form-div fw-bold">Work Type</div>
-            <p-dropdown 
-              [options]="workTypes" 
-              placeholder="Select work type"
-              styleClass="w-100" 
-              [showClear]="true">
-            </p-dropdown>
-          </div>
-          
-          <div class="col-md-4">
-            <div class="form-div fw-bold">Employment Type</div>
-            <p-dropdown 
-              [options]="employmentTypes" 
-              placeholder="Select employment type"
-              styleClass="w-100" 
-              [showClear]="true">
-            </p-dropdown>
-          </div>
-          
-          <div class="col-md-4">
-            <div class="form-div fw-bold">Salary Range</div>
-            <p-dropdown 
-              [options]="salaryRanges" 
-              placeholder="Select salary range"
-              styleClass="w-100" 
-              [showClear]="true">
-            </p-dropdown>
-          </div>
-        </div>
-        
-        <!-- Third Row -->
-        <div class="row mb-4">
-          <div class="col-md-6">
-            <div class="form-div fw-bold">Experience Level</div>
-            <p-dropdown 
-              [options]="experienceLevels" 
-              placeholder="Select experience level"
-              styleClass="w-100" 
-              [showClear]="true">
-            </p-dropdown>
-          </div>
-        </div>
-      </form>
-    </div>
-    
-    <ng-template pTemplate="footer">
-      <div class="d-flex flex-column gap-2">
-        <button type="submit" class="btn btn-dark w-100" style="background-color: var(--uniprep-primary); border: none">Apply Filter</button>
-        <button type="button" class="btn btn-link reset-filter-btn" (click)="resetFilter()">
-          Reset Filter
-        </button>
       </div>
-    </ng-template>
+      
+      <div class="row mb-4">
+        <div class="col-md-4">
+          <label class="form-label fw-bold">Position Title</label>
+          <div class="p-inputgroup">
+            <input 
+              type="text" 
+              pInputText 
+              formControlName="positionTitle" 
+              placeholder="Enter position title" 
+              class="form-control">
+          </div>
+        </div>
+        
+        <div class="col-md-4">
+          <label class="form-label fw-bold">Industry <span class="text-danger">(Multi select)</span></label>
+          <p-multiSelect 
+            [options]="industries" 
+            formControlName="industry" 
+            defaultLabel="Select industry" 
+            optionLabel="label" 
+            display="chip"
+            class="w-100">
+          </p-multiSelect>
+        </div>
+        
+        <div class="col-md-4">
+          <label class="form-label fw-bold">Work Location <span class="text-danger">(Multi select)</span></label>
+          <p-multiSelect 
+            [options]="locations" 
+            formControlName="workLocation" 
+            defaultLabel="Select work location" 
+            optionLabel="label" 
+            display="chip"
+            class="w-100">
+          </p-multiSelect>
+        </div>
+      </div>
+      
+      <div class="row mb-4">
+        <div class="col-md-4">
+          <label class="form-label fw-bold">Work mode <span class="text-danger">(Multi select)</span></label>
+          <p-multiSelect 
+            [options]="workModes" 
+            formControlName="workMode" 
+            defaultLabel="Select work type" 
+            optionLabel="label" 
+            display="chip"
+            class="w-100">
+          </p-multiSelect>
+        </div>
+        
+        <div class="col-md-4">
+          <label class="form-label fw-bold">Employment Type <span class="text-danger">(Multi select)</span></label>
+          <p-multiSelect 
+            [options]="employmentTypes" 
+            formControlName="employmentType" 
+            defaultLabel="Select employment type" 
+            optionLabel="label" 
+            display="chip"
+            class="w-100">
+          </p-multiSelect>
+        </div>
+        
+        <div class="col-md-4">
+          <label class="form-label fw-bold">Currency display for salaries</label>
+          <p-dropdown 
+            [options]="currencies" 
+            formControlName="currency" 
+            optionLabel="label" 
+            [filter]="true" 
+            filterBy="label" 
+            class="w-100">
+          </p-dropdown>
+        </div>
+      </div>
+      
+      <div class="row mb-4">
+        <div class="col-md-4">
+          <label class="form-label fw-bold">Salary offered</label>
+          <div class="input-group">
+            <div class="input-group-prepend">
+              <span class="input-group-text">
+                <p-dropdown 
+                  [options]="currencies" 
+                  formControlName="currency" 
+                  optionLabel="label" 
+                  [showClear]="false" 
+                  styleClass="border-0 p-dropdown-sm">
+                </p-dropdown>
+              </span>
+            </div>
+            <input 
+              type="text" 
+              pInputText 
+              formControlName="salary" 
+              placeholder="Input salary offered per month" 
+              class="form-control pl-2">
+          </div>
+        </div>
+        
+        <div class="col-md-4">
+          <label class="form-label fw-bold">Experience Level <span class="text-danger">(Multi select)</span></label>
+          <p-multiSelect 
+            [options]="experienceLevels" 
+            formControlName="experienceLevel" 
+            defaultLabel="Select experience level" 
+            optionLabel="label" 
+            display="chip"
+            class="w-100">
+          </p-multiSelect>
+        </div>
+        <div class="col-md-4 mt-4">
+          <button 
+          pButton 
+          label="Apply Filter" 
+          (click)="applyFilter()" 
+          class="btn-primary w-100">
+        </button>
+        </div>
+      </div>
+    </form>
+    
+    <div class="dialog-footer p-3 d-flex justify-content-center">
+      <button 
+        pButton 
+        label="Reset Filter" 
+        (click)="resetFilter()" 
+        class="p-button-text text-primary">
+      </button>
+      
+
+    </div>
   </p-dialog>
 </div>
