@@ -10,6 +10,9 @@ import { PaginatorModule } from 'primeng/paginator';
 import { TalentConnectModule } from '../talent-connect.module';
 import { JobViewComponent } from './job-view/job-view.component';
 import { ButtonModule } from 'primeng/button';
+import { MultiSelectModule } from 'primeng/multiselect';
+import { ReactiveFormsModule } from '@angular/forms';
+import { InputTextModule } from 'primeng/inputtext';
 
 const routes: Routes = [
   {
@@ -33,7 +36,12 @@ const routes: Routes = [
     DialogModule,
     DropdownModule,
     PaginatorModule,
-    ButtonModule
+    DialogModule,
+    InputTextModule,
+    DropdownModule,
+    MultiSelectModule,
+    ButtonModule,
+    ReactiveFormsModule
   ]
 })
 export class EasyApplyModule { }

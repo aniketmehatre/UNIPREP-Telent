@@ -156,7 +156,7 @@ export class CareerToolComponent implements OnInit {
       imageLink: this.domainUrl+"JobOfferComparisonTool.svg",
       refLink: "",
       mode: "job-offer-comparison",
-      launch_soon: false
+      launch_soon: true
     },
     {
       id: 15,
@@ -186,7 +186,7 @@ export class CareerToolComponent implements OnInit {
       imageLink: this.domainUrl+"FortuneCompanies.svg",
       refLink: "",
       mode: "fortune-companies",
-      launch_soon: false
+      launch_soon: true
     },
     {
       id: 18,
@@ -206,7 +206,7 @@ export class CareerToolComponent implements OnInit {
       imageLink: this.domainUrl+"GlobalEmployementInsights.svg",
       refLink: "",
       mode: "global-employment-insights",
-      launch_soon: false
+      launch_soon: true
     },
     // {
     //   id: 20,

@@ -159,6 +159,7 @@ export class CourseNavigatorComponent implements OnInit {
     this.isRecommendationQuestion = true;
     this.isRecommendationData = false;
     this.isRecommendationSavedData = false;
+    this.isCourseSubmodule = false;
     this.selectedData = {};
     this.specializationFilter = "";
     this.specializationList = this.specializations;

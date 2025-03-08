@@ -4,6 +4,7 @@ import {Dialog} from "primeng/dialog";
 import {Select} from "primeng/select";
 import {FormsModule} from "@angular/forms";
 import {RouterLink} from "@angular/router";
+import { Form, FormBuilder, FormGroup } from '@angular/forms';
 
 interface JobListing {
   id: number;
@@ -12,6 +13,7 @@ interface JobListing {
   isVerified: boolean;
   matchedSkills: number;
   totalSkills: number;
+  vacancies: number;
   location: string;
   startDate: string;
   companySize: string;
@@ -19,6 +21,8 @@ interface JobListing {
   employmentType: string;
   salaryRange: string;
   postedDate: string;
+  total_applied: number;
+  dueDate: string;
 }
 
 @Component({
@@ -35,17 +39,21 @@ interface JobListing {
   ]
 })
 export class EasyApplyComponent {
-  jobListings: JobListing[] = [];
-  totalJobs: number = 100;
-  positionTitles: any[] = [];
+  jobListings: any;
   industries: any[] = [];
-  workLocations: any[] = [];
-  workTypes: any[] = [];
+  locations: any[] = [];
+  workModes: any[] = [];
   employmentTypes: any[] = [];
-  salaryRanges: any[] = [];
   experienceLevels: any[] = [];
-
+  totalJobs: number = 4;
+  currencies: any[] = [
+    { label: 'INR', value: 'INR' },
+    { label: 'USD', value: 'USD' },
+    { label: 'EUR', value: 'EUR' }
+  ];
   displayModal: boolean = false;
+  filterForm: FormGroup = new FormGroup({});
+  constructor(private fb: FormBuilder) { }
   ngOnInit(): void {
     // Mock data - in a real app, this would come from a service
     this.jobListings = [
@@ -62,7 +70,10 @@ export class EasyApplyComponent {
         workArrangement: 'Onsite',
         employmentType: 'Full Time',
         salaryRange: '50,000 - 1,00,000',
-        postedDate: '19-02-2025'
+        postedDate: '19-02-2025',
+        vacancies: 50,
+        total_applied: 100,
+        dueDate: '07-2-2025' 
       },
       {
         id: 2,
@@ -77,7 +88,10 @@ export class EasyApplyComponent {
         workArrangement: 'Onsite',
         employmentType: 'Full Time',
         salaryRange: '50,000 - 1,00,000',
-        postedDate: '19-02-2025'
+        postedDate: '19-02-2025',
+        vacancies: 50,
+        total_applied: 100,
+        dueDate: '07-2-2025' 
       },
       {
         id: 3,
@@ -92,7 +106,10 @@ export class EasyApplyComponent {
         workArrangement: 'Onsite',
         employmentType: 'Full Time',
         salaryRange: '50,000 - 1,00,000',
-        postedDate: '19-02-2025'
+        postedDate: '19-02-2025',
+        vacancies: 50,
+        total_applied: 100,
+        dueDate: '07-2-2025' 
       },
       {
         id: 4,
@@ -107,9 +124,26 @@ export class EasyApplyComponent {
         workArrangement: 'Onsite',
         employmentType: 'Full Time',
         salaryRange: '50,000 - 1,00,000',
-        postedDate: '19-02-2025'
+        postedDate: '19-02-2025',
+        vacancies: 50,
+        total_applied: 100,
+        dueDate: '07-2-2025' 
       }
     ];
+  }
+
+  initializeForm() {
+    this.filterForm = this.fb.group({
+      keyword: [''],
+      positionTitle: [''],
+      industry: [null],
+      workLocation: [null],
+      workMode: [null],
+      employmentType: [null],
+      currency: ['INR'],
+      salary: [''],
+      experienceLevel: [null]
+    });
   }
 
   show(): void {

@@ -37,21 +37,21 @@ export class SidenavComponent {
       url: "/pages/dashboard",
       image: "fa-solid fa-objects-column",
     },
-    {
-      title: "User Guide",
-      url: "/pages/userguide",
-      image: "fa-solid fa-book",
-    },
+    // {
+    //   title: "User Guide",
+    //   url: "/pages/userguide",
+    //   image: "fa-solid fa-book",
+    // },
     {
       title: "Subscription",
       url: "/pages/subscriptions",
       image: "fa-solid fa-crown",
     },
-    {
-      title: "Recommendations",
-      url: "/pages/recommendations",
-      image: "fa fa-star",
-    },
+    // {
+    //   title: "Recommendations",
+    //   url: "/pages/recommendations",
+    //   image: "fa fa-star"
+    // },
     {
       title: "Academics",
       url: "",
@@ -162,11 +162,11 @@ export class SidenavComponent {
       url: "/pages/job-portal/job-search",
       image: "fa-solid fa-briefcase",
     },
-    {
-      title: "Employer Connect",
-      url: "/pages/talent-connect/list",
-      image: "fa-solid fa-briefcase",
-    },
+    // {
+    //   title: "Employer Connect",
+    //   url: "/pages/talent-connect/list",
+    //   image: "fa-solid fa-briefcase",
+    // },
     {
       title: "Learning Hub",
       url: "/pages/modules/learning-hub",
@@ -232,11 +232,11 @@ export class SidenavComponent {
       url: "/pages/advisor",
       image: "fa-solid fa-file-user",
     },
-    {
-      title: "Resources",
-      url: "/pages/resource",
-      image: "fa-solid fa-link",
-    },
+    // {
+    //   title: "Resources",
+    //   url: "/pages/resource",
+    //   image: "fa-solid fa-link",
+    // },
     {
       title: "Events",
       url: "/pages/events",
@@ -252,11 +252,11 @@ export class SidenavComponent {
       url: "/pages/mycertificate",
       image: "fa-solid fa-file-certificate",
     },
-    {
-      title: "Success Stories",
-      url: "/pages/success-stories",
-      image: "fa-solid fa-thumbs-up",
-    },
+    // {
+    //   title: "Success Stories",
+    //   url: "/pages/success-stories",
+    //   image: "fa-solid fa-thumbs-up",
+    // },
     {
       title: "Support",
       url: "",

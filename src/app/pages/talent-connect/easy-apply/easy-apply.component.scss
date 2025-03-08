@@ -57,43 +57,64 @@
     font-weight: 500;
   }
 
-  :host ::ng-deep .p-dropdown {
-    width: 100%;
-  }
-  
-  :host ::ng-deep .p-inputtext {
-    width: 100%;
-  }
-  
-  :host ::ng-deep .filter-modal .p-dialog-header {
-    border-bottom: 1px solid #e9ecef;
-    padding: 1rem !important;
-  }
-  
-  :host ::ng-deep .filter-modal .p-dialog-content {
-    padding: 1.5rem;
-  }
-  
-  :host ::ng-deep .filter-modal .p-dialog-footer {
-    border-top: 1px solid #e9ecef;
-    padding: 1.5rem;
+  :host ::ng-deep {
+    .p-dialog-header {
+      padding: 1rem 1.5rem !important;
+      border-bottom: 1px solid #dee2e6;
+    }
+    
+    .p-dialog-content {
+      padding: 0 !important;
+    }
+    
+    .p-dialog .p-dialog-header .p-dialog-title {
+      font-weight: 600;
+    }
+    
+    .p-dialog-footer {
+      border-top: 1px solid #dee2e6;
+      padding: 1rem 1.5rem;
+    }
+    
+    .p-multiselect, .p-dropdown {
+      width: 100%;
+    }
+    
+    .dialog-footer {
+      border-top: 1px solid #dee2e6;
+    }
+    
+    .input-group-prepend .p-dropdown {
+      border-top-right-radius: 0;
+      border-bottom-right-radius: 0;
+    }
+
+    .input-group-text {
+      padding: 0px;
+    }
+
+    
+    
+    .input-group .form-control {
+      border-top-left-radius: 0;
+      border-bottom-left-radius: 0;
+    }
+    
+    // Styling for the multiselect fields
+    .p-multiselect-label-container {
+      height: 38px;
+    }
   }
   
   .form-label {
-    margin-bottom: 5px;
-    font-weight: 300;
-    font-size: 12px;
-  }
-  
-  button.p-button-primary {
-    background-color: var(--uniprep-primary);  
-  color: white;}
-  
-  button.p-button-secondary {
-    color: #3f51b5;
-    border-color:var(--uniprep-primary);;
+    margin-bottom: 0.5rem;
+    display: block;
   }
 
+  label {
+    font-family: "Poppins", sans-serif;
+    font-size: 14px;
+  }
   .module-button {
     border-radius: 10px;
     font-weight: bold;
