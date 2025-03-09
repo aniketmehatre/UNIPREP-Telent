@@ -72,7 +72,7 @@
   }
 
   .countryicon {
-    width: 60px;
+    width: 51px;
   }
 
   .bottom-text {
@@ -98,7 +98,7 @@
   .country-border {
     border: 1px solid var(--uniprep-primarylight);
     border-radius: 10px;
-    background: var(--uniprep-primaryop10);
+    display: flex;
   }
 }
 // small progress
@@ -348,4 +348,302 @@ Due to the split circle of progress-left and progress right, we must use the ani
   transform: translate(-50%, -50%);
   font-size: 20px;
   color: var(--uniprep-primary);
+}
+
+
+
+// new ui
+.notification-badge {
+  background-color: #FF913B;
+  color: white;
+  width: 20px;
+  height: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+}
+.grid-container {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr); /* 2 columns */
+  grid-template-rows: repeat(2, auto);  /* 2 rows */
+  gap: 10px; /* Space between items */
+  padding: 10px;
+}
+.fav-item {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+// button
+.progress-bar-container {
+  width: 100%; /* Full width */
+  height: 8px; /* Progress bar height */
+  background-color: #f3f3f3; /* Background color of the bar */
+  border-radius: 5px; /* Rounded corners */
+  margin-top: 20px; /* Space from content */
+}
+
+.progress-bar {
+  height: 100%;
+  background-color: #FF7000; /* Green color for progress */
+  border-radius: 5px;
+  transition: width 0.3s ease-in-out;
+}
+.progress-bar2 {
+  height: 100%;
+  background-color: #394D83; /* Green color for progress */
+  border-radius: 5px;
+  transition: width 0.3s ease-in-out;
+}
+.progress-bar3 {
+  height: 100%;
+  background-color: #C8CFE5; /* Green color for progress */
+  border-radius: 5px;
+  transition: width 0.3s ease-in-out;
+}
+.input-container {
+  position: relative;
+  display: flex;
+  align-items: center;
+  width: 100%;
+  max-width: 300px; /* Adjust as needed */
+}
+
+.input-container i {
+  position: absolute;
+  left: 10px;  /* Adjust icon position */
+  color: #555; /* Icon color */
+}
+
+.input-container input {
+  width: 100%;
+  padding: 5px 5px 5px 35px; 
+  border: 1px solid #C8CFE5;
+  border-radius: 5px;
+  outline: none;
+}
+.input-container input::-webkit-input-placeholder { 
+  font-size: 10px;
+}
+@media (max-width: 600px) {
+  .input-container {
+    max-width: 100%; 
+  }
+
+  .input-container i {
+    left: 8px; 
+  }
+
+  .input-container input {
+    padding: 5px 5px 5px 30px; 
+  }
+}
+
+/* For screens smaller than 400px */
+@media (max-width: 400px) {
+  .input-container i {
+    left: 6px; 
+  }
+
+  .input-container input {
+    padding: 5px 5px 5px 25px; 
+  }
+}
+// responsive code
+/* Container for the whole section */
+.header-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  flex-wrap: wrap; /* Allows wrapping on small screens */
+  padding: 10px;
+}
+
+/* Left-side text */
+.text-container {
+  max-width: 60%; /* Prevents text from taking too much space */
+}
+
+/* Highlighted text */
+.highlight-text {
+  color: #FF913B;
+}
+
+/* Right-side buttons */
+.button-container {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+}
+
+/* Buttons */
+.action-button {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 16px;
+  background-color: white;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  cursor: pointer;
+  font-size: 14px;
+  position: relative;
+}
+
+/* Notification Badge */
+.notification-badge {
+  background-color: orange;
+  color: white;
+  border-radius: 50%;
+  font-size: 12px;
+  width: 18px;
+  height: 18px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: absolute;
+  top: -5px;
+  right: -5px;
+}
+
+/* Media Queries for Responsiveness */
+@media (max-width: 768px) {
+  .header-container {
+      flex-direction: column;
+      text-align: center;
+  }
+
+  .text-container {
+      max-width: 100%;
+      margin-bottom: 10px;
+  }
+
+  .button-container {
+      flex-direction: row;
+      justify-content: center;
+      width: 100%;
+  }
+
+  .action-button {
+      font-size: 12px;
+      padding: 6px 12px;
+  }
+
+  .notification-badge {
+      width: 15px;
+      height: 15px;
+      font-size: 10px;
+  }
+}
+
+@media (max-width: 480px) {
+  .button-container {
+      flex-direction: column;
+      gap: 5px;
+  }
+
+  .action-button {
+      width: 100%;
+      justify-content: center;
+  }
+}
+@media (max-width: 1024px) {
+  .fav-card .p-carousel .p-carousel-item {
+    display: flex;
+    justify-content: center;
+  }
+
+  .fav-card .p-carousel .p-carousel-item img {
+    max-width: 100%;  /* Ensure images scale on smaller screens */
+  }
+}
+
+@media (max-width: 768px) {
+  .fav-card .p-carousel .p-carousel-item img {
+    max-width: 100%;
+  }
+}
+
+@media (max-width: 560px) {
+  .fav-card .p-carousel .p-carousel-item {
+    padding: 10px;
+  }
+}
+.trustedcard {
+  display: flex;
+  flex-direction: column;
+  height: 100%; /* Ensures that the card fills the container */
+}
+
+.card-body {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  height: 100%; /* Makes the content inside the card fill the height */
+}
+
+.flex {
+  display: flex;
+  justify-content: space-between;
+  align-items: center; /* Center the content vertically */
+}
+
+.trustedbylogo {
+  max-height: 60px; /* Ensure logos are consistent in size */
+  max-width: 100%;
+  margin: 0 auto;
+}
+
+@media (max-width: 1200px) {
+  .trustedcard {
+    height: auto; /* Allow auto height on large screens */
+  }
+  .bodyclass {
+    padding-bottom: 20px;
+  }
+}
+
+@media (max-width: 768px) {
+  .trustedcard {
+    height: auto; /* Allow auto height on smaller screens */
+  }
+  .bodyclass{
+    padding-bottom: 20px;
+  }
+}
+
+@media (max-width: 576px) {
+  .trustedcard {
+    height: auto; /* Allow auto height on very small screens */
+  }
+}
+.row {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.card {
+  display: flex;
+  flex-direction: column;
+  height: 100%; /* Makes all cards equal in height */
+}
+
+.card-body {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  flex-grow: 1; /* Ensures content stretches evenly */
+}
+
+@media (max-width: 768px) {
+  .row {
+    flex-direction: column; /* Stack items on smaller screens */
+  }
+
+  .card {
+    height: auto; /* Let cards adjust height for smaller screens */
+  }
 }
