@@ -6,21 +6,21 @@ export const EducationToolsData = [
       //  description: "This tool lets you get a global travel visa with the help of few easy steps",
         image: domainUrl+"CourseNavigator.svg",
         url: "/pages/education-tools/course-navigator",
-        launch_soon: false,
+        launch_soon: true,
     },
     {
         title: "Politician Insights",
       //  description: "This tool lets you get a polician insights with the help of few easy steps",
       image: domainUrl+"PoliticalInsights.svg",
         url: "/pages/education-tools/politician-insights",
-        launch_soon: false,
+        launch_soon: true,
     },
     {
         title: "Global Study Visa",
       //  description: "This tool lets you get a global travel visa with the help of few easy steps",
       image: domainUrl+"GlobalStudyVisa.svg",
         url: "/pages/education-tools/study-visa",
-        launch_soon: true,
+        launch_soon: false,
     },
     {
         title: "Country Insights",
@@ -41,7 +41,7 @@ export const EducationToolsData = [
        // description: "This tool lets you get a global travel visa with the help of few easy steps",
        image: domainUrl+"StudentBudgetPlanner.svg",
         url: "/pages/education-tools/student-budget-planner",
-        launch_soon: false,
+        launch_soon: true,
     },
     {
         title: "UNICOMPARE",
@@ -62,7 +62,7 @@ export const EducationToolsData = [
       //  description: "This tool lets you get a global travel visa with the help of few easy steps",
       image: domainUrl+"LoanComparisonTool.svg",
         url: "/pages/education-tools/edu-loan-compare",
-        launch_soon: false,
+        launch_soon: true,
     },
     
 ]

@@ -50,3 +50,80 @@
       background-color: var(--uniprep-primary);
     }
   }
+  button.p-button-primary {
+    background-color: var(--uniprep-primary);  
+  }
+
+  .inActive-shortlist {
+    background-color: #3f51b5;
+    color: white;
+  }
+
+  .active-shortlist {
+    background-color: lightgreen;
+    color: white;
+  }
+
+  /* CSS for Company Information Card */
+.company-info-card {
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  border: none;
+  background-color: #fcfcfc;
+}
+
+.icon-container {
+  width: 40px;
+  height: 40px;
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  font-size: 18px;
+}
+
+.info-label {
+  color: #6c757d;
+  font-size: 14px;
+  font-weight: 400;
+}
+
+.info-value {
+  color: #212529;
+  font-size: 16px;
+  font-weight: 600;
+}
+
+/* Custom icon background colors */
+.job-icon {
+  color: #FFA500;
+}
+
+.vacancies-icon {
+  color: #E74C3C;
+}
+
+.company-icon {
+  color: #FF9800;
+}
+
+.size-icon {
+  color: #E74C3C;
+}
+
+.industry-icon {
+  color: #404040;
+}
+
+.location-icon {
+  color: #4CAF50;
+}
+
+.department-icon {
+  color: #4CAF50;
+}
+
+.work-mode-icon {
+  color: #4CAF50;
+}

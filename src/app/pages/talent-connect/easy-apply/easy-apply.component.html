@@ -17,7 +17,7 @@
               tooltipPosition="top"
               pTooltip="Questions related to the application process are answered"
             >
-              Company Connect<i
+              Easy Apply<i
                 class="questiontooltip fa-solid fa-circle-question"
               ></i>
             </h5>
@@ -31,10 +31,10 @@
         <button
           type="button"
           title="Close Popup"
-          class="btn btn-primary btn-rounded mt-2"
+          class="btn p-button-primary btn-rounded mt-2"
           (click)="displayModal = true"
         >
-          <i class="fa-solid fa-caret-down"></i>&nbsp;&nbsp;Report
+          <i class="fa-solid fa-caret-down"></i>&nbsp;&nbsp;Filter
         </button>
       </div>
       <!-- <div class="col-md-3 mt-2 text-end desktop justify-content-end d-none d-md-flex"></div> -->
@@ -54,7 +54,7 @@
           <button
             type="button"
             class="p-2 px-4 mb-4 mt-3 module-button" style="border-radius: 8px;"
-            routerLink="/pages/talent-connect/company-tracker">
+            routerLink="/pages/talent-connect/job-tracker">
             Job Tracker
           </button>
         </div>
@@ -72,10 +72,10 @@
                 <!-- Logo Column -->
                 <div class="col-auto">
                   <img
-                    src="assets/company-logo.png"
+                    src="uniprep-assets/images/uniaboard-logo.png"
                     alt="Company Logo"
-                    width="40"
-                    height="40"
+                    width="100"
+                    height="80"
                     class="rounded"
                   />
                 </div>
@@ -97,54 +97,81 @@
 
                 <!-- Share Button Column -->
                 <div class="col-auto">
-                  <button class="btn btn-link text-warning p-0 share-button">
+                  <button class="btn btn-link text-warning p-0">
                     <i class="fas fa-share-alt"></i>
                   </button>
                 </div>
               </div>
             </div>
             <div class="m-2 border border-bottom-100"></div>
+              <div class="d-flex justify-content-between align-items-center">
+                <div>
+                  <p class="text-muted mb-0 small">Total Vacancies</p>
+                  <p class="mb-0 fw-bold fs-4">{{ job.vacancies }}</p>
+                </div>
+                <button class="btn-success px-3"><i class="fa fa-check"></i>&nbsp;Actively Hiring</button>
+              </div>
+            <div class="m-2 border border-bottom-100"></div>
             <div class="card-body pt-0">
-              <!-- Location -->
-              <div class="d-flex mb-3">
-                <div class="me-2 text-success">
-                  <i class="fas fa-map-marker-alt"></i>
-                </div>
-                <div>
-                  <p class="text-muted mb-0 small">Work Location</p>
-                  <p class="mb-0 fw-medium">{{ job.location }}</p>
-                </div>
-              </div>
-
-              <!-- Start Date and Company Size -->
-              <div class="d-flex mb-3">
-                <div class="me-2 text-primary">
-                  <i class="fas fa-calendar-alt"></i>
-                </div>
-                <div class="me-4">
-                  <p class="text-muted mb-0 small">Start Date</p>
-                  <p class="mb-0 fw-medium">{{ job.startDate }}</p>
-                </div>
-
-                <div class="me-2 text-secondary">
-                  <i class="fas fa-users"></i>
-                </div>
-                <div>
-                  <p class="text-muted mb-0 small">Company Size</p>
-                  <p class="mb-0 fw-medium">{{ job.companySize }}</p>
+              <div class="row">
+                <div class="col-md-6">
+                  <div class="d-flex mb-3 align-items-center">
+                    <div class="me-2 text-success">
+                      <i class="fas fa-map-marker-alt"></i>
+                    </div>
+                    <div>
+                      <p class="text-muted mb-0 small">Work Location</p>
+                      <p class="mb-0 fw-medium">{{ job.location }}</p>
+                    </div>
+                  </div>
+                  </div>
+                  <div class="col-md-6">
+                  <!-- Start Date and Company Size -->                  
+                   <div class="d-flex mb-3 align-items-center">
+                    <div class="me-2 text-primary">
+                      <i class="fas fa-calendar-alt"></i>
+                    </div>
+                    <div class="me-4">
+                      <p class="text-muted mb-0 small">Total Applied</p>
+                      <p class="mb-0 fw-medium">{{ job.total_applied }}</p>
+                    </div>
                 </div>
               </div>
-
-              <!-- Work Arrangement and Employment Type -->
-              <div class="d-flex mb-3">
-                <div class="me-2 text-warning">
-                  <i class="fas fa-building"></i>
+              <div class="col-md-6">
+                <div class="d-flex mb-3 align-items-center">
+                  <div class="me-2 text-primary">
+                    <i class="fas fa-calendar-alt"></i>
+                  </div>
+                  <div class="me-4">
+                    <p class="text-muted mb-0 small">Start Date</p>
+                    <p class="mb-0 fw-medium">{{ job.startDate }}</p>
+                  </div>
+              </div>
+              </div>
+              <div class="col-md-6">
+                <div class="d-flex mb-3 align-items-center">
+                  <div class="me-2 text-primary">
+                    <i class="fas fa-calendar-alt"></i>
+                  </div>
+                  <div class="me-4">
+                    <p class="text-muted mb-0 small">Due Date</p>
+                    <p class="mb-0 fw-medium">{{ job.dueDate }}</p>
+                  </div>
+              </div>
+              </div>
+              <div class="col-md-6">
+                <div class="d-flex mb-3 align-items-center">
+                  <div class="me-2 text-warning">
+                    <i class="fas fa-building"></i>
+                  </div>
+                  <div class="me-4">
+                    <p class="text-muted mb-0 small">Work Mode</p>
+                    <p class="mb-0 fw-medium">{{ job.workArrangement }}</p>
+                  </div>
                 </div>
-                <div class="me-4">
-                  <p class="text-muted mb-0 small">Work Arrangement</p>
-                  <p class="mb-0 fw-medium">{{ job.workArrangement }}</p>
-                </div>
-
+              </div>
+              <div class="col-md-6">
+                <div class="d-flex mb-3 align-items-center">
                 <div class="me-2 text-danger">
                   <i class="fas fa-briefcase"></i>
                 </div>
@@ -152,10 +179,11 @@
                   <p class="text-muted mb-0 small">Employment Type</p>
                   <p class="mb-0 fw-medium">{{ job.employmentType }}</p>
                 </div>
+                </div>
               </div>
 
-              <!-- Salary Range -->
-              <div class="d-flex">
+              <div class="col-md-6">
+                <div class="d-flex mb-3 align-items-center">
                 <div class="me-2 text-success">
                   <i class="fas fa-dollar-sign"></i>
                 </div>
@@ -164,7 +192,19 @@
                   <p class="mb-0 fw-medium">{{ job.salaryRange }}</p>
                 </div>
               </div>
+             </div>
+
+             <div class="col-md-6">
+              <div class="d-flex mb-3 align-items-center">
+              <div class="me-2 text-success">
+                <i class="fas fa-users"></i>
+              </div>
+              <div>
+                <p class="text-muted mb-0 small">Company Size</p>
+                <p class="mb-0 fw-medium">{{ job.companySize }}</p>
+              </div>
             </div>
+           </div>
 
             <!-- Posted Date -->
             <div class="card-footer bg-white text-end border-top-0">
@@ -176,82 +216,174 @@
   </div>
   <div class="card-footer border-0 bg-transparent">
     <div class="row d-flex align-items-center justify-content-between">
-      <p-paginator
-        *ngIf="totalJobs != 0"
-        [rows]="pageSize"
-        [totalRecords]="totalPitchDeckCount"
-        [first]="(page - 1) * pageSize"
-        (onPageChange)="pageChange($event)"
-        [rowsPerPageOptions]="[50, 100, 300, 500, 1000]"
-        [disabled]="totalPitchDeckCount <= pageSize"
-      >
-      </p-paginator>
+<!--      <p-paginator-->
+<!--        *ngIf="totalJobs != 0"-->
+<!--        [rows]="pageSize"-->
+<!--        [totalRecords]="totalPitchDeckCount"-->
+<!--        [first]="(page - 1) * pageSize"-->
+<!--        (onPageChange)="pageChange($event)"-->
+<!--        [rowsPerPageOptions]="[50, 100, 300, 500, 1000]"-->
+<!--        [disabled]="totalPitchDeckCount <= pageSize"-->
+<!--      >-->
+<!--      </p-paginator>-->
     </div>
   </div>
 </div>
-<!-- <div class="p-4">
-    <p-dialog 
+<div>
+  <p-dialog 
     header="Filter" 
     [(visible)]="displayModal" 
     [modal]="true" 
-    [style]="{width: '70%'}" 
-    [closeOnEscape]="true"
-    styleClass="filter-modal">
+    [style]="{width: '80%'}" 
+    [baseZIndex]="10000"
+    [draggable]="false" 
+    [resizable]="false"
+    styleClass="container">
     
-    <div class="container-fluid p-3">
-     <form (ngSubmit)="applyFilter()">
-         <div class="mb-4">
-           <label class="form-label fw-bold">Company Name</label>
-           <input pInputText class="form-control p-2" placeholder="Search by company name" />
-         </div>
-         
-         <div class="row mb-4">
-           <div class="col-md-4">
-             <label class="form-label fw-bold">Industry Type</label>
-             <p-dropdown [options]="industryTypes" placeholder="Select your preferred industry" 
-               styleClass="w-100" [showClear]="true"></p-dropdown>
-           </div>
-           
-           <div class="col-md-4">
-             <label class="form-label fw-bold">Company Size</label>
-             <p-dropdown [options]="companySizes" placeholder="Select Company Size" 
-               styleClass="w-100" [showClear]="true"></p-dropdown>
-           </div>
-           
-           <div class="col-md-4">
-             <label class="form-label fw-bold">Headquarters Location</label>
-             <p-dropdown [options]="locations" placeholder="Select Headquarters Location" 
-               styleClass="w-100" [showClear]="true"></p-dropdown>
-           </div>
-         </div>
-         
-         <div class="row mb-4">
-           <div class="col-md-4">
-             <label class="form-label fw-bold">Global Presence</label>
-             <p-dropdown [options]="globalPresence" placeholder="Select global presence" 
-               styleClass="w-100" [showClear]="true"></p-dropdown>
-           </div>
-           
-           <div class="col-md-4">
-             <label class="form-label fw-bold">Year Founded</label>
-             <p-dropdown [options]="foundedYears" placeholder="Select founded year" 
-               styleClass="w-100" [showClear]="true"></p-dropdown>
-           </div>
-           
-           <div class="col-md-4">
-             <label class="form-label fw-bold">Company Type</label>
-             <p-dropdown [options]="companyTypes" placeholder="Select company type" 
-               styleClass="w-100" [showClear]="true"></p-dropdown>
-           </div>
-         </div>
-     </form>
-    </div>
-    
-    <ng-template pTemplate="footer">
-        <div>
-            <button type="submit" class="btn btn-dark w-100" style="background-color: var(--uniprep-primary); border: none">Apply Filter</button>
-            <button class="btn btn-dark w-100" (click)="clearFilter()" style="background-color: white; border-radius: 8px; color: var(--uniprep-primary); border: none" type="button">Reset Filter</button>
+    <form [formGroup]="filterForm" class="p-3">
+      <div class="mb-4">
+        <label class="form-label fw-bold">Search</label>
+        <div class="p-inputgroup">
+          <input 
+            type="text" 
+            pInputText 
+            formControlName="keyword" 
+            placeholder="Search by Keyword" 
+            class="form-control">
         </div>
-    </ng-template>
-    </p-dialog>
-</div> -->
+      </div>
+      
+      <div class="row mb-4">
+        <div class="col-md-4">
+          <label class="form-label fw-bold">Position Title</label>
+          <div class="p-inputgroup">
+            <input 
+              type="text" 
+              pInputText 
+              formControlName="positionTitle" 
+              placeholder="Enter position title" 
+              class="form-control">
+          </div>
+        </div>
+        
+        <div class="col-md-4">
+          <label class="form-label fw-bold">Industry <span class="text-danger">(Multi select)</span></label>
+          <p-multiSelect 
+            [options]="industries" 
+            formControlName="industry" 
+            defaultLabel="Select industry" 
+            optionLabel="label" 
+            display="chip"
+            class="w-100">
+          </p-multiSelect>
+        </div>
+        
+        <div class="col-md-4">
+          <label class="form-label fw-bold">Work Location <span class="text-danger">(Multi select)</span></label>
+          <p-multiSelect 
+            [options]="locations" 
+            formControlName="workLocation" 
+            defaultLabel="Select work location" 
+            optionLabel="label" 
+            display="chip"
+            class="w-100">
+          </p-multiSelect>
+        </div>
+      </div>
+      
+      <div class="row mb-4">
+        <div class="col-md-4">
+          <label class="form-label fw-bold">Work mode <span class="text-danger">(Multi select)</span></label>
+          <p-multiSelect 
+            [options]="workModes" 
+            formControlName="workMode" 
+            defaultLabel="Select work type" 
+            optionLabel="label" 
+            display="chip"
+            class="w-100">
+          </p-multiSelect>
+        </div>
+        
+        <div class="col-md-4">
+          <label class="form-label fw-bold">Employment Type <span class="text-danger">(Multi select)</span></label>
+          <p-multiSelect 
+            [options]="employmentTypes" 
+            formControlName="employmentType" 
+            defaultLabel="Select employment type" 
+            optionLabel="label" 
+            display="chip"
+            class="w-100">
+          </p-multiSelect>
+        </div>
+        
+        <div class="col-md-4">
+          <label class="form-label fw-bold">Currency display for salaries</label>
+          <p-select
+            [options]="currencies" 
+            formControlName="currency" 
+            optionLabel="label" 
+            [filter]="true" 
+            filterBy="label" 
+            class="w-100">
+          </p-select>
+        </div>
+      </div>
+      
+      <div class="row mb-4">
+        <div class="col-md-4">
+          <label class="form-label fw-bold">Salary offered</label>
+          <div class="input-group">
+            <div class="input-group-prepend">
+              <span class="input-group-text">
+                <p-select
+                  [options]="currencies" 
+                  formControlName="currency" 
+                  optionLabel="label" 
+                  [showClear]="false" 
+                  styleClass="border-0 p-dropdown-sm">
+                </p-select>
+              </span>
+            </div>
+            <input 
+              type="text" 
+              pInputText 
+              formControlName="salary" 
+              placeholder="Input salary offered per month" 
+              class="form-control pl-2">
+          </div>
+        </div>
+        
+        <div class="col-md-4">
+          <label class="form-label fw-bold">Experience Level <span class="text-danger">(Multi select)</span></label>
+          <p-multiSelect 
+            [options]="experienceLevels" 
+            formControlName="experienceLevel" 
+            defaultLabel="Select experience level" 
+            optionLabel="label" 
+            display="chip"
+            class="w-100">
+          </p-multiSelect>
+        </div>
+        <div class="col-md-4 mt-4">
+          <button 
+          pButton 
+          label="Apply Filter" 
+          (click)="applyFilter()" 
+          class="btn-primary w-100">
+        </button>
+        </div>
+      </div>
+    </form>
+    
+    <div class="dialog-footer p-3 d-flex justify-content-center">
+      <button 
+        pButton 
+        label="Reset Filter" 
+        (click)="resetFilter()" 
+        class="p-button-text text-primary">
+      </button>
+      
+
+    </div>
+  </p-dialog>
+</div>

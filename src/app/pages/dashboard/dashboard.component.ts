@@ -17,6 +17,7 @@ import { TooltipModule } from "primeng/tooltip"
 import { RouterModule } from "@angular/router"
 import { SelectModule } from "primeng/select"
 import {StorageService} from "../../storage.service";
+import { JobSearchService } from "../job-search/job-search.service"
 
 @Component({
 	selector: "uni-dashboard",
@@ -40,6 +41,7 @@ export class DashboardComponent implements OnInit, OnChanges {
 	isVideoVisible: boolean = false
 	isShareWithSocialMedia: boolean = false
 	isViewMoreOrgVisible: boolean = false
+	isViewMoreJobApplication:boolean=false;
 	partnerTrusterLogo: any
 	enableReading!: boolean
 	restrict: boolean = false
@@ -50,6 +52,8 @@ export class DashboardComponent implements OnInit, OnChanges {
 	orgnamewhitlabel: any
 	orglogowhitelabel: any
 	@ViewChild("carousel") carousel!: Carousel
+	groupedListFav:any= [];
+	groupedListFav2:any=[];
 	university: any[] = [
 		{
 			image: "../../../uniprep-assets/images/icons/university1.svg",
@@ -71,25 +75,26 @@ export class DashboardComponent implements OnInit, OnChanges {
 	headerFlag!: string
 	currentModuleSlug: any
 	userData: any
+	recentJobApplication:any[]=[];
 	constructor(private dashboardService: DashboardService, private service: AuthService, private router: Router,
 				private dataService: DataService, private authService: AuthService, private locationService: LocationService,
-				private cdr: ChangeDetectorRef, private storage: StorageService) {
+				private cdr: ChangeDetectorRef, private storage: StorageService, private jobSearchService: JobSearchService) {
 		this.responsiveOptions = [
 			{
-				breakpoint: "1024px",
-				numVisible: 5,
-				numScroll: 5,
-			},
-			{
-				breakpoint: "768px",
-				numVisible: 4,
-				numScroll: 4,
-			},
-			{
-				breakpoint: "560px",
-				numVisible: 2,
-				numScroll: 2,
-			},
+				breakpoint: '1024px', 
+				numVisible: 3,        
+				numScroll: 1
+			  },
+			  {
+				breakpoint: '768px',  
+				numVisible: 2,      
+				numScroll: 1
+			  },
+			  {
+				breakpoint: '560px', 
+				numVisible: 1,        
+				numScroll: 1
+			  }
 		]
 	}
 
@@ -98,11 +103,42 @@ export class DashboardComponent implements OnInit, OnChanges {
 	ngOnInit(): void {
 		// Initialize essential data first
 		this.initializeEssentialData();
+		this.recentJobs();
 		
 		// Load other data in parallel
 		this.loadParallelData();
+		this.groupedListFav = this.chunkArray(this.listFav, 4);
+		this.groupedListFav2 = this.chunkArray(this.recentJobApplication, 2);
 	}
-
+	recentJobs() {
+		let req = {
+		  location: 'in', // India
+		  page: 1,
+		  result_per_page: 10,
+		  what_and: 'Software Development Engineer', // Role
+		  where: 'Bengaluru', // City
+		}
+		this.jobSearchService.searchJobs(req).subscribe({
+		  next:(data: any) => {
+			this.recentJobApplication=data.results
+			console.log('recent jobs', this.recentJobApplication
+			)
+			this.groupedListFav2 = this.chunkArray(this.recentJobApplication, 2);
+			console.log(this.groupedListFav2);
+		  },
+		  error:(error) => {
+			  console.error('Error fetching job listings:', error);
+		  }
+		});
+	}
+	chunkArray(array: any[], size: number): any[] {
+		const result = [];
+		for (let i = 0; i < array.length; i += size) {
+		  result.push(array.slice(i, i + size));
+		}
+		return result;
+	  }
+	  
 	private initializeEssentialData(): void {
 		this.selectedCountryId = Number(this.storage.get("countryId"));
 		this.storage.set("currentmodulenameforrecently", "");
@@ -378,7 +414,10 @@ export class DashboardComponent implements OnInit, OnChanges {
 	}
 
 	openViewMoreOrg(): void {
-		this.isViewMoreOrgVisible = true
+		this.isViewMoreOrgVisible = true;
+	}
+	viewMoreOpenJobApplication(){
+		this.isViewMoreJobApplication=true;
 	}
 	quizpercentage: any = 0
 	checkquizquestionmodule() {
@@ -583,4 +622,7 @@ export class DashboardComponent implements OnInit, OnChanges {
     selectFav(req: any) {
         this.router.navigateByUrl(req.url);
     }
+	redirectToCvBuilder(){
+		this.router.navigate(['/pages/job-tool/cv-builder']);
+	}
 }

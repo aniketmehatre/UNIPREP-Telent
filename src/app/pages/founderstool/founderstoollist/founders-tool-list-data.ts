@@ -44,11 +44,11 @@ export const FoundersToolsData = [
         launch_soon: false
     },
     {
-        title: "Global Enterpreneur Visa",
+        title: "Global Entrepreneur Visa",
         description: "An assessment that evaluates an entrepreneur's in-depth knowledge and proficiency in specific industries.",
         image: domainUrl+"GlobalEntrepreneurVisa.svg",
         url: "/pages/founderstool/enterpreneur-visa",
-        launch_soon: true
+        launch_soon: false
     },
     // {
     //     title: "AI Business Plan Generator",
@@ -104,7 +104,7 @@ export const FoundersToolsData = [
         description: "An assessment that evaluates an entrepreneur's in-depth knowledge and proficiency in specific industries.",
         image: domainUrl+"MarketAnalysis.svg",
         url: "/pages/founderstool/marketing-anaylsis",
-        launch_soon: false
+        launch_soon: true
     },
     {
         title: "Business Advisor",

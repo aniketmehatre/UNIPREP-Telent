@@ -207,29 +207,34 @@ export class ModuleServiceService {
       headers: headers,
     });
   }
+
   submitLanguageghubquiz(data: any) {
     const headers = new HttpHeaders().set("Accept", "application/json");
     return this.http.post<any>(environment.ApiUrl + "/submitlanguagequiz", data, {
       headers: headers,
     });
   }
+
   ReviewQuizLanguageHub(data: any) {
     const headers = new HttpHeaders().set("Accept", "application/json");
     return this.http.post<any>(environment.ApiUrl + "/reviewlanguagehubquiz", data, {
       headers: headers,
     });
   }
+
   checklanguageQuizCompletion(data: any) {
     const headers = new HttpHeaders().set("Accept", "application/json");
     return this.http.post<any>(environment.ApiUrl + "/languagehubquizcompletion", data, {
       headers: headers,
     });
   }
+
   getSkillMasteryLists(data: any) {
     let params = new HttpParams();
     const headers = new HttpHeaders().set("Accept", "application/json");
     return this.http.post<any>(environment.ApiUrl + "/getuniversitybycountry", data, { headers: headers });
   }
+
   getQuizQuestionList(data: any) {
     const headers = new HttpHeaders().set("Accept", "application/json");
     return this.http.post<any>(environment.ApiUrl + "/getacademicquiz", data, {

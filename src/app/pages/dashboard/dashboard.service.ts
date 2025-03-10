@@ -212,4 +212,5 @@ checkModuleQuizProgressbar(data: any) {
       headers: headers,
   });
 }
+
 }

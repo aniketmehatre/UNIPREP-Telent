@@ -1,199 +1,254 @@
 <div class="card readingcard h-100">
-    <div class="card-header border-0 bg-transparent">
-        <div class="row">
-            <div class="col-md-12 d-flex gap-2 text-center">
-                <div class="backIcon d-md-flex d-none" role="button" routerLink="/pages/talent-connect/list">
-                    <span class="fa-solid fa-chevron-left"></span>
-                </div>
-                <div class="select-title d-flex justify-content-between align-items-center">
-                    <div>
-                        <h5 class="mb-0" tooltipPosition="top"
-                            pTooltip="Questions related to the application process are answered">
-                            Company Connect<i class="questiontooltip fa-solid fa-circle-question"></i>
-                        </h5>
-                    </div>
-                    <div>
-                        <button class="how-it-works-button" (click)="openVideoPopup('')">
-                            How it works?<i class="fa-solid fa-play d-md-block d-none"></i>
-                        </button>
-                    </div>
-                </div>
-                <button type="button" title="Close Popup"
-                        class="btn btn-primary btn-rounded mt-2" (click)="displayModal = true;"><i class="fa-solid fa-caret-down"></i>&nbsp;&nbsp;Report
-                </button>
-            </div>
-            <!-- <div class="col-md-3 mt-2 text-end desktop justify-content-end d-none d-md-flex"></div> -->
+  <div class="card-header border-0 bg-transparent">
+    <div class="row">
+      <div class="col-md-12 d-flex gap-2 text-center">
+        <div class="backIcon d-md-flex d-none" role="button" routerLink="/pages/talent-connect/list">
+          <span class="fa-solid fa-chevron-left"></span>
         </div>
+        <div class="select-title d-flex justify-content-between align-items-center">
+          <div>
+            <h5 class="mb-0" tooltipPosition="top" pTooltip="Questions related to the application process are answered">
+              Company Connect<i class="questiontooltip fa-solid fa-circle-question"></i>
+            </h5>
+          </div>
+          <div>
+            <button class="how-it-works-button" (click)="openVideoPopup('')">
+              How it works?<i class="fa-solid fa-play d-md-block d-none"></i>
+            </button>
+          </div>
+        </div>
+        <button type="button" title="Close Popup" class="btn btn-rounded mt-2 p-button-primary"
+          (click)="displayModal = true;"><i class="fa-solid fa-caret-down"></i>&nbsp;&nbsp;Filter
+        </button>
+      </div>
+      <!-- <div class="col-md-3 mt-2 text-end desktop justify-content-end d-none d-md-flex"></div> -->
     </div>
-    <div class="card-body text-center flex-fill overflow-y-auto">
-        <div class="row">
-            <div class="d-flex gap-2 justify-content-center">
-                <button type="button"
-                        class="p-2 px-4 mb-4 mt-3 module-button" style='background-color: var(--uniprep-primary); color: white' routerLink="/pages/talent-connect/company-connect">Company Search
-                </button>
-                <button type="button"
-                        class="p-2 px-4 mb-4 mt-3 module-button"  routerLink="/pages/talent-connect/company-tracker">Company Tracker
-                </button>
-            </div>
-        </div>
-        <div class="row">
-            <div class="col-12 col-md-4 col-lg-3 mt-2" *ngFor="let company of companyDataList" [routerLink]="['/pages/talent-connect/company-connect',1]">
-                <div class="card-inside" style="border-radius: 10px; margin-bottom: 20px; transition: transform 0.3s; border: 1px solid #e9ecef;" [style.border]=" company.verified ? '1px solid #FDA172' : '1px solid #e9ecef'">
-                    <div class="card-body">
-                        <div class="row mb-3">
-                            <div class="col-3">
-                                <div style="width: 60px; height: 60px; background-color: #f8f9fa; display: flex;
+  </div>
+  <div class="card-body text-center flex-fill overflow-y-auto">
+    <div class="row">
+      <div class="d-flex gap-2 justify-content-center">
+        <button type="button" class="p-2 px-4 mb-4 mt-3 module-button"
+          style='background-color: var(--uniprep-primary); color: white'
+          routerLink="/pages/talent-connect/company-connect">Company Search
+        </button>
+        <button type="button" class="p-2 px-4 mb-4 mt-3 module-button"
+          routerLink="/pages/talent-connect/company-tracker">Company Tracker
+        </button>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-12 col-md-4 col-lg-4 mt-2" *ngFor="let company of companyDataList"
+        [routerLink]="['/pages/talent-connect/company-connect',1]">
+        <div class="card-inside"
+          style="border-radius: 10px; margin-bottom: 20px; transition: transform 0.3s; border: 1px solid #e9ecef;"
+          [style.border]=" company.verified ? '1px solid #FDA172' : '1px solid #e9ecef'">
+          <div class="card-body">
+            <div class="row mb-3">
+              <div class="col-3">
+                <div
+                  style="width: 100%; height: 100%; background-color: #f8f9fa; display: flex;
                                            align-items: center; justify-content: center; border-radius: 5px; border: 1px solid #e9ecef;">
-                                    <img [src]="company.logo" alt="Company Logo" style="max-width: 50px" />
-                                </div>
-                            </div>
-                            <div class="col-9">
-                                <div class="d-flex justify-content-between">
-                                    <div>
-                                        <span class="fw-bold">{{ company.name }}</span>
-                                        <i *ngIf="company.verified" class="fas fa-check-circle ms-1"
-                                           style="color: #4285f4"></i>
-                                    </div>
-                                    <a href="#" style="color: #fda172">
-                                        <i class="fas fa-share-alt"></i>
-                                    </a>
-                                </div>
-                                <div class="mt-2 text-start">
-                                    <button class="btn btn-sm " style="background-color: #94c973; color: white; font-size: 0.8rem; border-radius: 20px;">
-                                        {{ company.shortlisted ? "Shortlisted" : "Shortlist" }}
-                                    </button>
-                                </div>
-                            </div>
-                        </div>
-
-                        <!-- Open Positions -->
-                        <div class="row mb-3 text-start">
-                            <div class="col-12">
-                                <div class="d-flex align-items-center mb-2">
-                                    <i class="fas fa-briefcase me-2" style="color: #fda172"></i>
-                                    <span class="text-muted">Open Positions</span>
-                                </div>
-                                <p class="fw-bold ms-4">{{ company.openPositions }}</p>
-                            </div>
-                        </div>
-
-                        <!-- Location and Year -->
-                        <div class="row mb-3 text-start">
-                            <div class="col-7">
-                                <div class="d-flex align-items-start">
-                                    <i class="fas fa-map-marker-alt me-2" style="color: #94c973"></i>
-                                    <div>
-                                        <div class="text-muted small">Headquarters Location</div>
-                                        <div class="fw-bold">{{ company.headquarters }}</div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-5">
-                                <div class="d-flex align-items-start">
-                                    <i class="far fa-calendar-alt me-2" style="color: #6c757d"></i>
-                                    <div>
-                                        <div class="text-muted small">Year Founded</div>
-                                        <div class="fw-bold">{{ company.yearFounded }}</div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
-                        <!-- Company Type and Size -->
-                        <div class="row text-start">
-                            <div class="col-7">
-                                <div class="d-flex align-items-start">
-                                    <i class="fas fa-building me-2" style="color: #fda172"></i>
-                                    <div>
-                                        <div class="text-muted small">Company Type</div>
-                                        <div class="fw-bold">{{ company.companyType }}</div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-5">
-                                <div class="d-flex align-items-start">
-                                    <i class="fas fa-users me-2" style="color: #dc3545"></i>
-                                    <div>
-                                        <div class="text-muted small">Company Size</div>
-                                        <div class="fw-bold">{{ company.companySize }}</div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+                  <img [src]="company.logo" alt="Company Logo" style="max-width: 50px" />
                 </div>
+              </div>
+              <div class="col-9 text-start">
+                <div class="d-flex justify-content-between text-start">
+                  <div class="d-block">
+                    <div class="fw-bold">{{ company.name }}</div>
+                    <p class="text-muted">Founded: {{company.year || '2019'}}</p>
+                  </div>
+                  <a href="#" style="color: #fda172">
+                    <i class="fas fa-share-alt"></i>
+                  </a>
+                </div>
+                <div class="text-start">
+                  <button class="p-2 rounded-2"
+                    [ngClass]="company.shortlisted ? 'active-shortlist' : 'inActive-shortlist' ">
+                    {{ company.shortlisted ? "Shortlisted" : "Shortlist" }}
+                  </button>
+                </div>
+              </div>
             </div>
+            <div class="row text-start">
+              <!-- First Row -->
+              <div class="col-6 mb-3">
+                <div class="d-flex align-items-center">
+                  <div class="icon-container me-2 job-icon">
+                    <i class="fas fa-briefcase"></i>
+                  </div>
+                  <div class="info-container">
+                    <div class="info-label">Open Jobs</div>
+                    <div class="info-value">05</div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="col-6 mb-3">
+                <div class="d-flex align-items-center">
+                  <div class="icon-container me-2 vacancies-icon">
+                    <i class="fas fa-users"></i>
+                  </div>
+                  <div class="info-container">
+                    <div class="info-label">Open Vacancies</div>
+                    <div class="info-value">05</div>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Second Row -->
+              <div class="col-6 mb-3">
+                <div class="d-flex align-items-center">
+                  <div class="icon-container me-2 company-icon">
+                    <i class="fas fa-building"></i>
+                  </div>
+                  <div class="info-container">
+                    <div class="info-label">Company Type</div>
+                    <div class="info-value">MNC</div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="col-6 mb-3">
+                <div class="d-flex align-items-center">
+                  <div class="icon-container me-2 size-icon">
+                    <i class="fas fa-users-cog"></i>
+                  </div>
+                  <div class="info-container">
+                    <div class="info-label">Company Size</div>
+                    <div class="info-value">11-50</div>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Third Row -->
+              <div class="col-6 mb-3">
+                <div class="d-flex align-items-center">
+                  <div class="icon-container me-2 industry-icon">
+                    <i class="fas fa-industry"></i>
+                  </div>
+                  <div class="info-container">
+                    <div class="info-label">Industry</div>
+                    <div class="info-value">EdTech</div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="col-6 mb-3">
+                <div class="d-flex align-items-center">
+                  <div class="icon-container me-2 location-icon">
+                    <i class="fas fa-map-marker-alt"></i>
+                  </div>
+                  <div class="info-container">
+                    <div class="info-label">Headquarters Location</div>
+                    <div class="info-value">London, UK</div>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Fourth Row -->
+              <div class="col-6 mb-3">
+                <div class="d-flex align-items-center">
+                  <div class="icon-container me-2 department-icon">
+                    <i class="fas fa-laptop-code"></i>
+                  </div>
+                  <div class="info-container">
+                    <div class="info-label">Department</div>
+                    <div class="info-value">IT</div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="col-6 mb-3">
+                <div class="d-flex align-items-center">
+                  <div class="icon-container me-2 work-mode-icon">
+                    <i class="fas fa-map-pin"></i>
+                  </div>
+                  <div class="info-container">
+                    <div class="info-label">Work mode</div>
+                    <div class="info-value">On site</div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
+      </div>
     </div>
-    <div class="card-footer border-0 bg-transparent">
-        <div class="row d-flex align-items-center justify-content-between">
-            <p-paginator *ngIf="totalCount != 0" [rows]="pageSize" [totalRecords]="totalPitchDeckCount" [first]="(page - 1) * pageSize" (onPageChange)="pageChange($event)" [rowsPerPageOptions]="[50, 100, 300, 500, 1000]" [disabled]="totalPitchDeckCount <= pageSize"> </p-paginator>
-        </div>
+  </div>
+</div>
+<div class="card-footer border-0 bg-transparent">
+  <!-- <div class="row d-flex align-items-center justify-content-between">
+        <p-paginator *ngIf="totalCount != 0" [rows]="pageSize" [totalRecords]="totalPitchDeckCount" [first]="(page - 1) * pageSize" (onPageChange)="pageChange($event)" [rowsPerPageOptions]="[50, 100, 300, 500, 1000]" [disabled]="totalPitchDeckCount <= pageSize"> </p-paginator>
+    </div> -->
+  <div class="card-footer border-0 bg-transparent">
+    <div class="row d-flex align-items-center justify-content-between">
+      <p-paginator *ngIf="totalCount != 0" [rows]="pageSize" [totalRecords]="totalPitchDeckCount"
+        [first]="(page - 1) * pageSize" (onPageChange)="pageChange($event)"
+        [rowsPerPageOptions]="[50, 100, 300, 500, 1000]" [disabled]="totalPitchDeckCount <= pageSize"> </p-paginator>
     </div>
+  </div>
 </div>
 <div class="p-4">
-    <p-dialog
-            header="Filter"
-            [(visible)]="displayModal"
-            [modal]="true"
-            [style]="{width: '70%'}"
-            [closeOnEscape]="true"
-            styleClass="filter-modal">
+  <p-dialog header="Filter" [(visible)]="displayModal" [modal]="true" [style]="{width: '70%'}" [closeOnEscape]="true"
+    styleClass="filter-modal">
 
-        <div class="container-fluid p-3">
-            <form (ngSubmit)="applyFilter()">
-                <div class="mb-4">
-                    <label class="form-label fw-bold">Company Name</label>
-                    <input pInputText class="form-control p-2" placeholder="Search by company name" />
-                </div>
-
-                <div class="row mb-4">
-                    <div class="col-md-4">
-                        <label class="form-label fw-bold">Industry Type</label>
-                        <p-select [options]="industryTypes" placeholder="Select your preferred industry"
-                                    styleClass="w-100" [showClear]="true"></p-select>
-                    </div>
-
-                    <div class="col-md-4">
-                        <label class="form-label fw-bold">Company Size</label>
-                        <p-select [options]="companySizes" placeholder="Select Company Size"
-                                    styleClass="w-100" [showClear]="true"></p-select>
-                    </div>
-
-                    <div class="col-md-4">
-                        <label class="form-label fw-bold">Headquarters Location</label>
-                        <p-select [options]="locations" placeholder="Select Headquarters Location"
-                                    styleClass="w-100" [showClear]="true"></p-select>
-                    </div>
-                </div>
-
-                <div class="row mb-4">
-                    <div class="col-md-4">
-                        <label class="form-label fw-bold">Global Presence</label>
-                        <p-select [options]="globalPresence" placeholder="Select global presence"
-                                    styleClass="w-100" [showClear]="true"></p-select>
-                    </div>
-
-                    <div class="col-md-4">
-                        <label class="form-label fw-bold">Year Founded</label>
-                        <p-select [options]="foundedYears" placeholder="Select founded year"
-                                    styleClass="w-100" [showClear]="true"></p-select>
-                    </div>
-
-                    <div class="col-md-4">
-                        <label class="form-label fw-bold">Company Type</label>
-                        <p-select [options]="companyTypes" placeholder="Select company type"
-                                    styleClass="w-100" [showClear]="true"></p-select>
-                    </div>
-                </div>
-            </form>
+    <div class="container-fluid p-3">
+      <form (ngSubmit)="applyFilter()">
+        <div class="mb-4">
+          <label class="form-label fw-bold">Company Name</label>
+          <input pInputText class="form-control p-2" placeholder="Search by company name" />
         </div>
 
-        <ng-template pTemplate="footer">
-            <div>
-                <button type="submit" class="btn btn-dark w-100" style="background-color: var(--uniprep-primary); border: none">Apply Filter</button>
-                <button class="btn btn-dark w-100" (click)="clearFilter()" style="background-color: white; border-radius: 8px; color: var(--uniprep-primary); border: none" type="button">Reset Filter</button>
-            </div>
-        </ng-template>
-    </p-dialog>
+        <div class="row mb-4">
+          <div class="col-md-4">
+            <label class="form-label fw-bold">Industry Type</label>
+            <p-select [options]="industryTypes" placeholder="Select your preferred industry" styleClass="w-100"
+              [showClear]="true"></p-select>
+          </div>
+
+          <div class="col-md-4">
+            <label class="form-label fw-bold">Company Size</label>
+            <p-select [options]="companySizes" placeholder="Select Company Size" styleClass="w-100"
+              [showClear]="true"></p-select>
+          </div>
+
+          <div class="col-md-4">
+            <label class="form-label fw-bold">Headquarters Location</label>
+            <p-select [options]="locations" placeholder="Select Headquarters Location" styleClass="w-100"
+              [showClear]="true"></p-select>
+          </div>
+        </div>
+
+        <div class="row mb-4">
+          <div class="col-md-4">
+            <label class="form-label fw-bold">Global Presence</label>
+            <p-select [options]="globalPresence" placeholder="Select global presence" styleClass="w-100"
+              [showClear]="true"></p-select>
+          </div>
+
+          <div class="col-md-4">
+            <label class="form-label fw-bold">Year Founded</label>
+            <p-select [options]="foundedYears" placeholder="Select founded year" styleClass="w-100"
+              [showClear]="true"></p-select>
+          </div>
+
+          <div class="col-md-4">
+            <label class="form-label fw-bold">Company Type</label>
+            <p-select [options]="companyTypes" placeholder="Select company type" styleClass="w-100"
+              [showClear]="true"></p-select>
+          </div>
+        </div>
+      </form>
+    </div>
+
+    <ng-template pTemplate="footer">
+      <div>
+        <button type="submit" class="btn btn-dark w-100"
+          style="background-color: var(--uniprep-primary); border: none">Apply Filter</button>
+        <button class="btn btn-dark w-100" (click)="clearFilter()"
+          style="background-color: white; border-radius: 8px; color: var(--uniprep-primary); border: none"
+          type="button">Reset Filter</button>
+      </div>
+    </ng-template>
+  </p-dialog>
 </div>

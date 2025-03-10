@@ -33,68 +33,58 @@ export class JobDetailsComponent  implements OnInit{
 
   @Output() closeInfo: EventEmitter<boolean> = new EventEmitter<boolean>(true);
   @Input() showInfo: boolean = true;
-
-  jobDetails: any | undefined;
-  jobs: Job[] = [
-    {
-      id: 1,
+  jobDetails: any = {
       title: 'Senior UI/UX Designer',
       company: 'UNIABROAD Pvt. Ltd.',
-      companyLogo: 'assets/uniabroad-logo.png',
-      location: 'Bangalore, India',
-      status: 'Job Applied',
-      stage: 'HR Round',
-      workLocation: 'Mysore',
+    verified: true,
+    skillMatch: {
+      matched: 3,
+      total: 4,
+      skills: ['UI Design', 'Graphic Design', 'UX Design', 'Motion Design']
+    },
+    postedDate: '19-02-2025',
+    companySize: '0-50',
       position: 'UI Designer',
       startDate: '19-02-2025',
-      companySize: '0-50',
+    workLocation: 'Mysore',
       workMode: 'Onsite',
       employmentType: 'Full Time',
       salaryRange: '50,000 - 1,00,000',
+    dueDate: '25-02-2025',
+    totalApplied: 10,
       availableVacancies: 50,
-      totalApplied: 10,
-      overview: 'We are looking for a "creative and detail-oriented UI/UX Designer" to join our team at UNIABROAD. The ideal candidate will be responsible for designing user-friendly, engaging, and visually appealing interfaces for our digital platforms, ensuring a seamless user experience for students and stakeholders.',
+    experienceLevel: 'Mid Level',
+    educationalDegree: 'Bachelor\'s Degree',
+    industry: 'Tech Industry',
+    overview: 'We are looking for a *creative and detail-oriented UI/UX Designer* to join our team at UNIABROAD. The ideal candidate will be responsible for designing user-friendly, engaging, and visually appealing interfaces for our digital platforms, ensuring a seamless user experience for students and stakeholders.',
       responsibilities: [
         'Design and implement intuitive, user-centered interfaces for web and mobile applications.',
         'Conduct user research and usability testing to understand pain points and improve UI/UX designs.',
-        'Develop wireframes, prototypes, and mockups that effectively communicate design concepts.'
+        'Develop wireframes, prototypes, and mockups that effectively communicate design ideas.',
+        'Collaborate with developers, product managers, and marketing teams to ensure seamless design integration'
       ],
-      appliedDate: '19-02-2025'
-    },
-    {
-      id: 2,
-      title: 'Senior UI/UX Designer',
-      company: 'UNIABROAD Pvt. Ltd.',
-      companyLogo: 'assets/uniabroad-logo.png',
-      location: 'Bangalore, India',
-      status: 'Application Received',
-      stage: 'HR Round'
-    },
-    {
-      id: 3,
-      title: 'Senior UI/UX Designer',
-      company: 'UNIABROAD Pvt. Ltd.',
-      companyLogo: 'assets/uniabroad-logo.png',
-      location: 'Bangalore, India',
-      status: 'Shortlisted',
-      stage: 'HR Round'
-    },
-    {
-      id: 4,
-      title: 'Senior UI/UX Designer',
-      company: 'UNIABROAD Pvt. Ltd.',
-      companyLogo: 'assets/uniabroad-logo.png',
-      location: 'Bangalore, India',
-      status: 'Position Closed',
-      stage: 'HR Round'
+    technicalProficiency: 'We are looking for a creative and detail-oriented UI/UX Designer to join our team. The ideal candidate will be responsible for designing user-centered digital experiences, creating',
+    languageProficiency: [
+      { language: 'Kannada', level: 'Native' },
+      { language: 'Hindi', level: 'Beginner' },
+      { language: 'English', level: 'Advanced' }
+    ],
+    compensationStructure: ['Performance-Based Bonuses', 'Profit-Sharing', 'Freelance/Contract-Based Pay'],
+    benefits: ['Training & Certifications', 'Flexible Hours', 'Health Insurance'],
+    softSkills: ['Creativity & Problem-Solving', 'Communication Skills', 'Attention to Detail'],
+    hiringProcess: {
+      stages: ['Onboarding & Orientation', 'Interview Process', 'Initial Screening & Phone Interview', 'Resume Screening & Shortlisting'],
+      timeframe: '2-4 Weeks',
+      format: 'Traditional Interview Format'
     }
-  ];
+  };
+  jobs!: any;
   activeIndex: number = 0;
   steps: MenuItem[] = [];
   activeStepIndex: number = 1;
 
   ngOnInit(): void {
-    this.jobDetails = {
+    this.jobs = {
       title: 'Senior UI/UX Designer',
       company: 'UNIABROAD Pvt. Ltd.',
       verified: true,
@@ -138,13 +128,13 @@ export class JobDetailsComponent  implements OnInit{
     };
     this.steps = [
       {
-        label: this.jobDetails.applicationStage.initialRound.label
+        label: this.jobs.applicationStage.initialRound.label
       },
       {
-        label: this.jobDetails.applicationStage.hrRound.label
+        label: this.jobs.applicationStage.hrRound.label
       },
       {
-        label: this.jobDetails.applicationStage.selected.label
+        label: this.jobs.applicationStage.selected.label
       }
     ];
 
