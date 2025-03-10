@@ -212,5 +212,11 @@ checkModuleQuizProgressbar(data: any) {
       headers: headers,
   });
 }
+getUserTracking(){
+  const headers = new HttpHeaders().set("Accept", "application/json");
+  return this.http.post<any>(environment.ApiUrl + "/getdashboardmonthlyusage", {
+      headers: headers,
+  });
+}
 
 }
