@@ -10,12 +10,12 @@ import {ButtonModule} from 'primeng/button';
 import { ReactiveFormsModule } from '@angular/forms';
 import {InputTextareaModule} from 'primeng/inputtextarea';
 import { JobListingComponent } from './job-listing/job-listing.component';
-import { DropdownModule } from 'primeng/dropdown';
 import { PaginatorModule } from 'primeng/paginator';
 import { TimeAgoPipe } from './time-ago.pipe';
 import {CardModule} from "primeng/card";
 import {DialogModule} from "primeng/dialog";
 import { TooltipModule } from 'primeng/tooltip';
+import {DropdownModule} from "primeng/dropdown";
 
 @NgModule({
   declarations: [
@@ -38,7 +38,6 @@ import { TooltipModule } from 'primeng/tooltip';
         CardModule,
         DialogModule,
         TooltipModule,
-        DropdownModule
     ]
 })
 export class JobSearchModule { }

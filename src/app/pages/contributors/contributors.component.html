@@ -109,6 +109,9 @@
                     </div>
                 </div>
             </div>
+            <div *ngIf="!selectedContributor?.question_answer || selectedContributor?.question_answer.length == 0" class="d-flex justify-content-center">
+                <h3 class="uniprep-lightgray">No details found</h3>
+            </div>
         </div>
     </ng-template>
 </div>

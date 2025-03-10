@@ -198,7 +198,11 @@ export class AverageSalaryComponent implements OnInit {
     this.pageFacade.openHowitWorksVideoPopup(videoLink);
   }
   goBack() {
-    this.router.navigate(["/pages/average-salary-estimator"]);
+    if(this.preparedvisibility){
+      this.router.navigate(["/pages/average-salary-estimator"]);
+    }else{
+      this.router.navigate(["/pages/job-tool/career-tool"]);
+    }
   }
   searchJob(event: Event): void {
     const input = event.target as HTMLInputElement;

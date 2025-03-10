@@ -146,6 +146,7 @@ export class CourseNavigatorComponent implements OnInit {
     this.isRecommendationQuestion = true;
     this.isRecommendationData = false;
     this.isRecommendationSavedData = false;
+    this.isCourseSubmodule = false;
     this.selectedData = {};
     this.specializationFilter = "";
     this.specializationList = this.specializations;
@@ -291,7 +292,17 @@ export class CourseNavigatorComponent implements OnInit {
       });
   }
 
-  goBack() {
-    this.router.navigateByUrl('/pages/education-tools');
+  goBack(type?: string) {
+    if (type == 'questions') {
+      this.isRecommendationSavedData = false;
+      this.isCourseSubmodule = true;
+    }
+    if (type == 'submodule') {
+      this.isCourseSubmodule = false;
+      this.isRecommendationData = true;
+    }
+    if(!type) {
+      this.router.navigateByUrl('/pages/education-tools');
+    }
   }
 }
