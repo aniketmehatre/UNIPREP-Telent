@@ -108,6 +108,10 @@ export class DashboardComponent implements OnInit, OnChanges {
 				numScroll: 1
 			  }
 		]
+		const today = new Date();
+		this.currentMonth = today.getMonth();
+		this.currentYear = today.getFullYear();
+		this.monthName = today.toLocaleString('default', { month: 'long' }); 	
 	}
 
 	fieldsToCheck = ["name", "email", "phone", "home_country_id", "selected_country", "location_id", "last_degree_passing_year", "intake_year_looking", "intake_month_looking", "programlevel_id"]
@@ -121,11 +125,7 @@ export class DashboardComponent implements OnInit, OnChanges {
 		this.loadParallelData();
 		this.groupedListFav = this.chunkArray(this.listFav, 4);
 		this.groupedListFav2 = this.chunkArray(this.recentJobApplication, 2);
-		this.generateDays();	
-		const today = new Date();
-		this.currentMonth = today.getMonth();
-		this.currentYear = today.getFullYear();
-		this.monthName = today.toLocaleString('default', { month: 'long' }); 	
+		
 	}
 	recentJobs() {
 		let req = {
@@ -667,12 +667,13 @@ export class DashboardComponent implements OnInit, OnChanges {
 		  next:(data: any) => {
 			data.forEach(((ele:any)=>{
 				var bindingdata={
-					day: parseInt(ele.date.split("-")[2], 10).toString(),
+					day: parseInt(ele.date.split("-")[2], 10),
 					status:ele.status,
 					timeUsage:ele.usage_time
 				}
 				this.usageData.push(bindingdata)
 			}))
+			this.generateDays();	
 			console.log(this.usageData);
 		  },
 		  error:(error) => {
