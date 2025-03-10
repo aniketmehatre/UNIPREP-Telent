@@ -54,6 +54,7 @@ export class DashboardComponent implements OnInit, OnChanges {
 	@ViewChild("carousel") carousel!: Carousel
 	groupedListFav:any= [];
 	groupedListFav2:any=[];
+	date: Date = new Date();
 	university: any[] = [
 		{
 			image: "../../../uniprep-assets/images/icons/university1.svg",
