@@ -82,3 +82,13 @@ input[type="checkbox"] {
   max-width: 100%;
   height: auto;
 }
+
+
+:host ::ng-deep .filter-modal .p-dialog-header {
+  border-bottom: 1px solid #e9ecef;
+  padding: 1rem !important;
+}
+
+:host ::ng-deep .filter-modal .p-dialog-content {
+  padding: 1.5rem;
+}

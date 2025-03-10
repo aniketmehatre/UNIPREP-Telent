@@ -336,7 +336,7 @@
 <div class="p-0">
 	<p-dialog header="Filter Fund" [(visible)]="isFilterVisible"
 		[breakpoints]="{ '2560px': '80vw', '1030px': '90vw', '850px': '85vw', '450px': '90vw' }" [draggable]="false"
-		[resizable]="false" class="filterDialog">
+		[resizable]="false" class="filter-modal">
 		<form role="form" [formGroup]="filterForm" (ngSubmit)="applyFilter()" [style]="{ padding: '20px' }">
 			<div class="row">
 				<div class="col-md-12">
@@ -345,7 +345,7 @@
 							<label class="form-label" style="font-size: medium; font-weight: 500">Filter by Country</label>
 							<div class="form-group">
 								<div class="mb-3">
-									<p-dropdown [options]="countryList" styleClass="w-100" formControlName="country" (ngModelChange)="changeCountryId($event)"
+									<p-dropdown [options]="countryList" [filter]="true" filterBy="country" styleClass="w-100" formControlName="country" (ngModelChange)="changeCountryId($event)"
 										optionValue="id" placeholder="Select  Country" optionLabel="country"
 										class="filterInput" [appendTo]="'body'"> </p-dropdown>
 								</div>
