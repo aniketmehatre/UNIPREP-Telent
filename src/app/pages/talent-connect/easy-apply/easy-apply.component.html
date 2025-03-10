@@ -318,14 +318,14 @@
         
         <div class="col-md-4">
           <label class="form-label fw-bold">Currency display for salaries</label>
-          <p-dropdown 
+          <p-select
             [options]="currencies" 
             formControlName="currency" 
             optionLabel="label" 
             [filter]="true" 
             filterBy="label" 
             class="w-100">
-          </p-dropdown>
+          </p-select>
         </div>
       </div>
       
@@ -335,13 +335,13 @@
           <div class="input-group">
             <div class="input-group-prepend">
               <span class="input-group-text">
-                <p-dropdown 
+                <p-select
                   [options]="currencies" 
                   formControlName="currency" 
                   optionLabel="label" 
                   [showClear]="false" 
                   styleClass="border-0 p-dropdown-sm">
-                </p-dropdown>
+                </p-select>
               </span>
             </div>
             <input 

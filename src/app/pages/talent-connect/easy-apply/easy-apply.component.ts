@@ -2,9 +2,10 @@ import { Component } from '@angular/core';
 import {Paginator} from "primeng/paginator";
 import {Dialog} from "primeng/dialog";
 import {Select} from "primeng/select";
-import {FormsModule} from "@angular/forms";
+import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 import {RouterLink} from "@angular/router";
 import { Form, FormBuilder, FormGroup } from '@angular/forms';
+import {MultiSelect} from "primeng/multiselect";
 
 interface JobListing {
   id: number;
@@ -34,7 +35,9 @@ interface JobListing {
     Dialog,
     Select,
     FormsModule,
-    RouterLink
+    RouterLink,
+    MultiSelect,
+    ReactiveFormsModule
 
   ]
 })
@@ -159,7 +162,6 @@ export class EasyApplyComponent {
   resetFilter(): void {
     // Reset all filters
     console.log('Resetting filters');
-    // Logic to clear all selections
   }
 
   openVideoPopup(id: string) {}

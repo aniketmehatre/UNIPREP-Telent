@@ -1,4 +1,3 @@
-import { GoogleSigninButtonModule } from "@abacritt/angularx-social-login";
 import { CommonModule } from '@angular/common';
 import { CUSTOM_ELEMENTS_SCHEMA, NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
@@ -26,6 +25,12 @@ import { VerificationComponent } from './verification/verification.component';
 
 import {MaintenanceComponent} from "./maintenance/maintenance.component";
 import { ScrollTopModule } from "primeng/scrolltop";
+
+import { SocialLoginModule, SocialAuthServiceConfig } from '@abacritt/angularx-social-login';
+import {
+    GoogleLoginProvider,
+    FacebookLoginProvider
+} from '@abacritt/angularx-social-login';
 @NgModule({
   declarations: [
     ForgotPasswordComponent,
@@ -72,9 +77,27 @@ import { ScrollTopModule } from "primeng/scrolltop";
         EffectsModule.forFeature([AuthEffects]),
         CalendarModule,
         NgxIntlTelInputModule,
-        GoogleSigninButtonModule
+        SocialLoginModule,
+
     ],
-    providers: [MessageService],
+    providers: [MessageService,
+        {
+            provide: 'SocialAuthServiceConfig',
+            useValue: {
+                autoLogin: false,
+                lang: 'en',
+                providers: [
+                    {
+                        id: GoogleLoginProvider.PROVIDER_ID,
+                        provider: new GoogleLoginProvider('AIzaSyCxrgn6ZZL3IsY_3xrSqQJi_3yT_OKr-n0') // Replace with actual Client ID
+                    }
+                ],
+                onError: (err) => {
+                    console.error(err);
+                }
+            } as SocialAuthServiceConfig
+        }
+        ],
     schemas: [CUSTOM_ELEMENTS_SCHEMA],
 })
 export class AuthModule { }

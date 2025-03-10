@@ -1,33 +1,67 @@
-import { SocialAuthService, SocialLoginModule } from "@abacritt/angularx-social-login"
-import { CommonModule } from "@angular/common"
-import { Component, CUSTOM_ELEMENTS_SCHEMA, ElementRef, OnDestroy, OnInit, ViewChild, ChangeDetectionStrategy, ChangeDetectorRef } from "@angular/core"
-import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators } from "@angular/forms"
-import { Router, RouterModule } from "@angular/router"
-import { environment } from "@env/environment"
-import { LocalStorageService } from "ngx-localstorage"
-import { MessageService } from "primeng/api"
-import { FluidModule } from "primeng/fluid"
-import { InputGroupModule } from "primeng/inputgroup"
-import { InputGroupAddonModule } from "primeng/inputgroupaddon"
-import { InputIconModule } from "primeng/inputicon"
-import { InputTextModule } from "primeng/inputtext"
-import { PasswordModule } from "primeng/password"
-import { AuthTokenService } from "src/app/core/services/auth-token.service"
-import { DataService } from "src/app/data.service"
-import { SubSink } from "subsink"
-import { LocationService } from "../../location.service"
-import { AuthService } from "../auth.service"
-import { finalize, catchError } from 'rxjs/operators';
-import { of } from 'rxjs';
+import {CommonModule} from "@angular/common"
+import {
+	ChangeDetectionStrategy,
+	ChangeDetectorRef,
+	Component,
+	CUSTOM_ELEMENTS_SCHEMA,
+	ElementRef,
+	OnDestroy,
+	OnInit, Renderer2,
+	ViewChild
+} from "@angular/core"
+import {FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators} from "@angular/forms"
+import {Router, RouterModule} from "@angular/router"
+import {environment} from "@env/environment"
+import {LocalStorageService} from "ngx-localstorage"
+import {MessageService} from "primeng/api"
+import {FluidModule} from "primeng/fluid"
+import {InputGroupModule} from "primeng/inputgroup"
+import {InputGroupAddonModule} from "primeng/inputgroupaddon"
+import {InputIconModule} from "primeng/inputicon"
+import {InputTextModule} from "primeng/inputtext"
+import {PasswordModule} from "primeng/password"
+import {AuthTokenService} from "src/app/core/services/auth-token.service"
+import {DataService} from "src/app/data.service"
+import {SubSink} from "subsink"
+import {LocationService} from "../../location.service"
+import {AuthService} from "../auth.service"
+import {finalize} from 'rxjs/operators';
+import {
+	GoogleLoginProvider,
+	GoogleSigninButtonModule,
+	SocialAuthService,
+	SocialAuthServiceConfig, SocialLoginModule
+} from "@abacritt/angularx-social-login";
 
+declare var google: any;
 @Component({
 	selector: "app-login",
 	templateUrl: "./login.component.html",
 	styleUrls: ["./login.component.scss"],
 	schemas: [CUSTOM_ELEMENTS_SCHEMA],
 	standalone: true,
-	imports: [CommonModule, FluidModule, PasswordModule, RouterModule, InputTextModule, InputIconModule, InputGroupModule, InputGroupAddonModule, SocialLoginModule, FormsModule, ReactiveFormsModule],
-	changeDetection: ChangeDetectionStrategy.OnPush
+	imports: [CommonModule, FluidModule, PasswordModule, RouterModule, InputTextModule, InputIconModule,
+		InputGroupModule, InputGroupAddonModule, SocialLoginModule, FormsModule, ReactiveFormsModule,
+		GoogleSigninButtonModule],
+	providers: [MessageService,
+		{
+			provide: 'SocialAuthServiceConfig',
+			useValue: {
+				autoLogin: false,
+				lang: 'en',
+				providers: [
+					{
+						id: GoogleLoginProvider.PROVIDER_ID,
+						provider: new GoogleLoginProvider('AIzaSyCxrgn6ZZL3IsY_3xrSqQJi_3yT_OKr-n0') // Replace with actual Client ID
+					}
+				],
+				onError: (err) => {
+					console.error(err);
+				}
+			} as SocialAuthServiceConfig
+		}
+	],
+	changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class LoginComponent implements OnInit, OnDestroy {
 	@ViewChild("button2") button2!: ElementRef
@@ -43,7 +77,11 @@ export class LoginComponent implements OnInit, OnDestroy {
 	domainname: string = 'main'
 	domainNameCondition: string
 	ipURL: string = "https://api.ipify.org?format=json"
-	constructor(private service: AuthService, private formBuilder: FormBuilder, private route: Router, private toast: MessageService, private dataService: DataService, private locationService: LocationService, private authService: SocialAuthService, private storage: LocalStorageService, private authTokenService: AuthTokenService, private cdr: ChangeDetectorRef) {}
+	constructor(private service: AuthService, private formBuilder: FormBuilder, private route: Router,
+				private toast: MessageService, private dataService: DataService,
+				private locationService: LocationService, private authService: SocialAuthService,
+				private storage: LocalStorageService, private authTokenService: AuthTokenService,
+				private cdr: ChangeDetectorRef, private el: ElementRef, private renderer: Renderer2) {}
 
 	button1Clicked() {
 		this.button2.nativeElement.click()
