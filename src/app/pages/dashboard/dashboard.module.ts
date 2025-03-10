@@ -5,6 +5,7 @@ import { DashboardComponent } from "./dashboard.component";
 import { CalendarModule } from 'primeng/calendar';
 import { BrowserModule } from '@angular/platform-browser';
 import { FormsModule } from '@angular/forms';
+import { DatePickerModule } from 'primeng/datepicker';
 
 @NgModule({
     declarations: [],
@@ -13,8 +14,7 @@ import { FormsModule } from '@angular/forms';
         DashboardRoutingModule,
         DashboardComponent,
         CalendarModule,
-        BrowserModule,
-        FormsModule
+        DatePickerModule 
     ]
 })
 export class DashboardModule { }
