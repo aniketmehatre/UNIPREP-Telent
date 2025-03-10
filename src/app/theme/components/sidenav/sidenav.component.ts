@@ -245,11 +245,11 @@ export class SidenavComponent {
       url: "/pages/events",
       image: "fa-solid fa-calendar-days",
     },
-    {
-      title: "Quiz",
-      url: "/pages/modules/quizmodule",
-      image: "fa-solid fa-clock-desk",
-    },
+    // {
+    //   title: "Quiz",
+    //   url: "/pages/modules/quizmodule",
+    //   image: "fa-solid fa-clock-desk",
+    // },
     {
       title: "Certificates",
       url: "/pages/mycertificate",
@@ -270,11 +270,11 @@ export class SidenavComponent {
       url: "/pages/tutorials",
       image: "fa-solid fa-video",
     },
-    {
-      title: "Contributors",
-      url: "/pages/contributors",
-      image: "fa-solid fa-hands-holding-dollar",
-    },
+    // {
+    //   title: "Contributors",
+    //   url: "/pages/contributors",
+    //   image: "fa-solid fa-hands-holding-dollar",
+    // },
     {
       title: "FAQ",
       url: "/pages/faq",
