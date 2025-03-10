@@ -8,11 +8,28 @@ import { CostOfLivingService } from '../../job-tool/cost-of-living/cost-of-livin
 import { City } from 'src/app/@Models/cost-of-living';
 import { MessageService } from 'primeng/api';
 import { DownloadRespose } from 'src/app/@Models/travel-tools.model';
+import { CommonModule } from '@angular/common';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { ButtonModule } from 'primeng/button';
+import { CardModule } from 'primeng/card';
+import { CarouselModule } from 'primeng/carousel';
+import { DialogModule } from 'primeng/dialog';
+import { FluidModule } from 'primeng/fluid';
+import { InputGroupModule } from 'primeng/inputgroup';
+import { InputGroupAddonModule } from 'primeng/inputgroupaddon';
+import { InputNumberModule } from 'primeng/inputnumber';
+import { InputTextModule } from 'primeng/inputtext';
+import { MultiSelectModule } from 'primeng/multiselect';
+import { SelectModule } from 'primeng/select';
+import { SkeletonModule } from 'primeng/skeleton';
+import { TooltipModule } from 'primeng/tooltip';
 
 @Component({
 	selector: 'uni-travel-cost-estimator',
 	templateUrl: './travel-cost-estimator.component.html',
-	styleUrls: ['./travel-cost-estimator.component.scss']
+	styleUrls: ['./travel-cost-estimator.component.scss'],
+	standalone: true,
+	imports: [CommonModule, SkeletonModule, FluidModule, InputTextModule, TooltipModule, ButtonModule, MultiSelectModule, CarouselModule, InputGroupModule, InputGroupAddonModule, FormsModule, ReactiveFormsModule, InputTextModule, SelectModule, DialogModule, CardModule, InputNumberModule]
 })
 export class TravelCostEstimatorComponent implements OnInit {
 
@@ -204,27 +221,27 @@ export class TravelCostEstimatorComponent implements OnInit {
 
 	downloadRecommadation() {
 
-		let departureLocation = this.selectedData[1].city_name+', '+this.selectedData[1].country_name;
-		let destinationLocation = this.selectedData[2].city_name+', '+this.selectedData[2].country_name;
+		let departureLocation = this.selectedData[1].city_name + ', ' + this.selectedData[1].country_name;
+		let destinationLocation = this.selectedData[2].city_name + ', ' + this.selectedData[2].country_name;
 		let addingInput = `<p><strong>Input:<br></strong></p>`;
-		this.recommendations.forEach(values =>{
+		this.recommendations.forEach(values => {
 			addingInput += `<p><strong>${values.question}</strong></p>`;
 			let currentAnswer = "";
-			if(values.id == 1){
+			if (values.id == 1) {
 				currentAnswer = departureLocation;
-			}else if(values.id == 2){
+			} else if (values.id == 2) {
 				currentAnswer = destinationLocation;
-			}else if(values.id == 3){
-				currentAnswer = `${ this.selectedData[3] } Days`;
-			}else if(values.id == 4){
+			} else if (values.id == 3) {
+				currentAnswer = `${this.selectedData[3]} Days`;
+			} else if (values.id == 4) {
 				currentAnswer = this.selectedData[4];
 			}
 			// else if(values.id == 5){
 			//   currentAnswer = `${ this.selectedData[5] } Currency`;
 			// }
-			addingInput += `<p><strong>${ currentAnswer }</strong></p><br>`;
+			addingInput += `<p><strong>${currentAnswer}</strong></p><br>`;
 		});
-		let finalRecommendation = addingInput+ '<p><strong>Response:<br></strong></p>' + this.recommendationData;
+		let finalRecommendation = addingInput + '<p><strong>Response:<br></strong></p>' + this.recommendationData;
 
 		let paramData: DownloadRespose = {
 			response: finalRecommendation,
@@ -233,7 +250,7 @@ export class TravelCostEstimatorComponent implements OnInit {
 		};
 		this.travelToolsService.convertHTMLtoPDF(paramData).then(() => {
 			console.log("PDF successfully generated.");
-		}).catch(error =>{
+		}).catch(error => {
 			console.error("Error generating PDF:", error);
 		})
 	}

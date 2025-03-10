@@ -2183,9 +2183,9 @@ uni-assessment, uni-travel-tools, uni-founderstool, uni-education-tools, uni-con
 
 .custom-number-input .minus-icon {
     order: 2 !important;
-    border-top-left-radius: 0;
-    border-bottom-left-radius: 0;
-    border-left: 0;
+    border-top-left-radius: 0 !important;
+    border-bottom-left-radius: 0 !important;
+    border-left: 0 !important;
     border-right: 0;
 }
 
