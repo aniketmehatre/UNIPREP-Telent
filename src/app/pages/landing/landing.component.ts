@@ -65,32 +65,32 @@ export class LandingComponent implements OnInit {
 
 	stats = [
 		{
-			icon: "fa-briefcase",
+			icon: "fa-globe",
 			number: "28+",
 			text: "Countries Covered",
 		},
 		{
-			icon: "fa-graduation-cap",
+			icon: "fa-gears",
 			number: "70+",
 			text: "Exclusive Features",
 		},
 		{
-			icon: "fa-hand-holding-circle-dollar",
+			icon: "fa-earth-americas",
 			number: "100+",
 			text: "Countries Open for Access",
 		},
 		{
-			icon: "fa-comments-question",
+			icon: "fa-hand-holding-circle-dollar",
 			number: "1000+",
 			text: "Courses for Upskilling",
 		},
 		{
-			icon: "fa-buildings",
+			icon: "fa-language",
 			number: "25+",
 			text: "Languages to Learn",
 		},
 		{
-			icon: "fa-buildings",
+			icon: "fa-briefcase",
 			number: "1000+",
 			text: "Business Pitches",
 		},
