@@ -89,7 +89,10 @@ import {
                 providers: [
                     {
                         id: GoogleLoginProvider.PROVIDER_ID,
-                        provider: new GoogleLoginProvider('AIzaSyCxrgn6ZZL3IsY_3xrSqQJi_3yT_OKr-n0') // Replace with actual Client ID
+                        provider: new GoogleLoginProvider('750560403636-pd8q2gts7v35t7opukgohhtkspf9ftgo.apps.googleusercontent.com',{
+                            scopes: ['email', 'profile', 'openid'], // 🔹 Use "scopes" (not "scope")
+                            oneTapEnabled: true
+                        }) // Replace with actual Client ID
                     }
                 ],
                 onError: (err) => {
