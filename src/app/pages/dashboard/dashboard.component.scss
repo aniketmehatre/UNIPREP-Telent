@@ -662,7 +662,6 @@ Due to the split circle of progress-left and progress right, we must use the ani
   display: grid;
   grid-template-columns: repeat(7, 1fr);
   gap: 5px;
-  margin: 10px 0;
 }
 
 .day-box {

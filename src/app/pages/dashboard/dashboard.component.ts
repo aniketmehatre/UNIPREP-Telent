@@ -84,12 +84,7 @@ export class DashboardComponent implements OnInit, OnChanges {
 	currentMonth: number;
 	currentYear: number;
 	daysInMonth: number[] = [];
-	usageData: any[] = [
-		{ day: 1, status: 'high', timeUsage: '1hr' },
-		{ day: 3, status: 'high', timeUsage: '1hr 20min' },
-		{ day: 7, status: 'medium', timeUsage: '30min' },
-		{ day: 9, status: 'low', timeUsage: '1min' }
-	  ];
+	usageData: any[] = [];
 	monthName: string = '';
 	weekdays: string[] = ['S', 'M', 'T', 'W', 'T', 'F', 'S']; 
 	firstDayIndex: number = 0;
@@ -113,11 +108,6 @@ export class DashboardComponent implements OnInit, OnChanges {
 				numScroll: 1
 			  }
 		]
-		const today = new Date();
-		this.currentMonth = today.getMonth();
-		this.currentYear = today.getFullYear();
-		this.monthName = today.toLocaleString('default', { month: 'long' }); 
-	    this.firstDayIndex = new Date(this.currentYear, this.currentMonth, 1).getDay();
 	}
 
 	fieldsToCheck = ["name", "email", "phone", "home_country_id", "selected_country", "location_id", "last_degree_passing_year", "intake_year_looking", "intake_month_looking", "programlevel_id"]
@@ -126,13 +116,16 @@ export class DashboardComponent implements OnInit, OnChanges {
 		// Initialize essential data first
 		this.initializeEssentialData();
 		this.recentJobs();
-		
+		this.getUserTrackin();
 		// Load other data in parallel
 		this.loadParallelData();
 		this.groupedListFav = this.chunkArray(this.listFav, 4);
 		this.groupedListFav2 = this.chunkArray(this.recentJobApplication, 2);
-		this.generateDays();
-		
+		this.generateDays();	
+		const today = new Date();
+		this.currentMonth = today.getMonth();
+		this.currentYear = today.getFullYear();
+		this.monthName = today.toLocaleString('default', { month: 'long' }); 	
 	}
 	recentJobs() {
 		let req = {
@@ -441,7 +434,7 @@ export class DashboardComponent implements OnInit, OnChanges {
 		this.isViewMoreOrgVisible = true;
 	}
 	viewMoreOpenJobApplication(){
-		this.isViewMoreJobApplication=true;
+		// this.isViewMoreJobApplication=true;
 	}
 	quizpercentage: any = 0
 	checkquizquestionmodule() {
@@ -650,6 +643,7 @@ export class DashboardComponent implements OnInit, OnChanges {
 		this.router.navigate(['/pages/job-tool/cv-builder']);
 	}
 	generateDays(): void {
+	    this.firstDayIndex = new Date(this.currentYear, this.currentMonth, 1).getDay();
 		const totalDays = new Date(this.currentYear, this.currentMonth + 1, 0).getDate();
 		this.daysInMonth = Array.from({ length: totalDays }, (_, i) => i + 1);
 	  }
@@ -668,4 +662,23 @@ export class DashboardComponent implements OnInit, OnChanges {
 		if (usageEntries.some((entry:any) => entry.status === 'low')) return 'low';
 		return 'nostatus';
 	  }
+	  getUserTrackin() {
+		this.dashboardService.getUserTracking().subscribe({
+		  next:(data: any) => {
+			data.forEach(((ele:any)=>{
+				var bindingdata={
+					day: parseInt(ele.date.split("-")[2], 10).toString(),
+					status:ele.status,
+					timeUsage:ele.usage_time
+				}
+				this.usageData.push(bindingdata)
+			}))
+			console.log(this.usageData);
+		  },
+		  error:(error) => {
+			  console.error('Error fetching job listings:', error);
+		  }
+		});
+	}
+	
 }
