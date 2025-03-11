@@ -23,7 +23,7 @@ import { MultiSelectModule } from 'primeng/multiselect';
 import { SelectModule } from 'primeng/select';
 import { SkeletonModule } from 'primeng/skeleton';
 import { TooltipModule } from 'primeng/tooltip';
-
+import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
 @Component({
 	selector: 'uni-travel-cost-estimator',
 	templateUrl: './travel-cost-estimator.component.html',
@@ -45,23 +45,19 @@ export class TravelCostEstimatorComponent implements OnInit {
 	// currencyList: CountryandCurrency[] = [];
 	departureLocationList: City[] = [];
 	destinationLocationList: City[] = [];
-	// countryandCurrencyList: CountryandCurrency[] = [];
 	isRecommendationQuestion: boolean = true;
 	isRecommendationData: boolean = false;
 	isRecommendationSavedData: boolean = false;
-	departureFilter: string = '';
-	destinationFilter: string = '';
-	// currencyFilter: string = '';
-	recommendationData: string = '';
+	recommendationData: SafeHtml = '';
 	recommadationSavedQuestionList: TravelCostEstimator[] = [];
 	isFromSavedData: boolean = false;
-	cityList: City[] = [];
 
 	constructor(
 		private travelToolsService: TravelToolsService,
 		private router: Router,
 		private costOfLivingService: CostOfLivingService,
 		private toast: MessageService,
+		private sanitizer: DomSanitizer
 	) { }
 
 	ngOnInit(): void {
@@ -73,7 +69,7 @@ export class TravelCostEstimatorComponent implements OnInit {
 	getCityList() {
 		this.costOfLivingService.getCities().subscribe({
 			next: response => {
-				this.cityList = response;
+				console.log(this.departureLocationList, "location");
 				this.departureLocationList = response;
 				this.destinationLocationList = response;
 			}
@@ -83,56 +79,10 @@ export class TravelCostEstimatorComponent implements OnInit {
 	// getCurrencyList() {
 	//   this.travelToolsService.getCurrencies().subscribe({
 	//     next: response => {
-	//       this.countryandCurrencyList = response;
 	//       this.currencyList = response;
 	//     }
 	//   });
 	// }
-
-	customFilterFunction(type: string) {
-		if (type === 'departure') {
-			if (this.departureFilter === "") {
-				this.departureLocationList = this.cityList;
-				return;
-			}
-			this.departureLocationList = this.cityList.filter(city =>
-				city?.city_name?.toLowerCase().includes(this.departureFilter.toLowerCase()) || city?.country_name?.toLowerCase().includes(this.departureFilter.toLowerCase())
-			);
-		}
-		else if (type === 'destination') {
-			if (this.destinationFilter === "") {
-				this.destinationLocationList = this.cityList;
-				return;
-			}
-			this.destinationLocationList = this.cityList.filter(city =>
-				city?.city_name?.toLowerCase().includes(this.destinationFilter.toLowerCase()) || city?.country_name?.toLowerCase().includes(this.destinationFilter.toLowerCase())
-			);
-		}
-		// else {
-		//   if (this.currencyFilter === "") {
-		//     this.currencyList = this.countryandCurrencyList;
-		//     return;
-		//   }
-		//   this.currencyList = this.countryandCurrencyList.filter(item =>
-		//     item?.currency_code?.toLowerCase().includes(this.currencyFilter.toLowerCase()) || item?.country?.toLowerCase().includes(this.currencyFilter.toLowerCase())
-		//   );
-		// }
-	}
-
-	resetFunction(type: string) {
-		if (type === 'departure') {
-			this.departureFilter = '';
-			this.departureLocationList = this.cityList;
-		}
-		else if (type === 'destination') {
-			this.destinationFilter = '';
-			this.destinationLocationList = this.cityList;
-		}
-		// else {
-		//   this.currencyFilter = '';
-		//   this.currencyList = this.countryandCurrencyList;
-		// }
-	}
 
 	previous() {
 		this.invalidClass = false;
@@ -142,10 +92,6 @@ export class TravelCostEstimatorComponent implements OnInit {
 	}
 
 	next(itemId: number) {
-		this.departureFilter = "";
-		this.destinationFilter = "";
-		this.departureLocationList = this.cityList;
-		this.destinationLocationList = this.cityList;
 		this.invalidClass = false;
 		if (itemId in this.selectedData) {
 			if (this.activePageIndex < this.recommendations.length - 1) {
@@ -158,11 +104,11 @@ export class TravelCostEstimatorComponent implements OnInit {
 
 	getRecommendation() {
 		let data: any = {
-			country: this.selectedData[1].city_name ?? this.selectedData[1].country_name,
-			destination: this.selectedData[2].city_name ?? this.selectedData[2].country_name,
+			country: this.selectedData[1].city_name + ', ' + this.selectedData[1].country_name,
+			destination: this.selectedData[2].city_name + ', ' + this.selectedData[2].country_name,
 			duration: this.selectedData[3],
 			experience: this.selectedData[4],
-			// currency: this.selectedData[5],
+			currency: this.selectedData[1].currencycode,
 			mode: 'travelcostestimator'
 		}
 		this.travelToolsService.getChatgptRecommendations(data).subscribe({
@@ -170,9 +116,14 @@ export class TravelCostEstimatorComponent implements OnInit {
 				this.isRecommendationQuestion = false;
 				this.isRecommendationData = true;
 				this.isRecommendationSavedData = false;
-				this.recommendationData = response.response;
+				// this.recommendationData = response.response;
+				let chatGptResponse = response.response;
+				chatGptResponse = chatGptResponse
+					.replace(/```html|```/g, '');
+				this.recommendationData = this.sanitizer.bypassSecurityTrustHtml(chatGptResponse);
 			},
 			error: error => {
+				console.error(error);
 				this.isRecommendationData = false;
 			}
 		});
@@ -223,7 +174,7 @@ export class TravelCostEstimatorComponent implements OnInit {
 
 		let departureLocation = this.selectedData[1].city_name + ', ' + this.selectedData[1].country_name;
 		let destinationLocation = this.selectedData[2].city_name + ', ' + this.selectedData[2].country_name;
-		let addingInput = `<p><strong>Input:<br></strong></p>`;
+		let addingInput = `<div style="font-family: 'Poppins', sans-serif;"><p><strong>Input:<br></strong></p>`;
 		this.recommendations.forEach(values => {
 			addingInput += `<p><strong>${values.question}</strong></p>`;
 			let currentAnswer = "";
@@ -239,10 +190,14 @@ export class TravelCostEstimatorComponent implements OnInit {
 			// else if(values.id == 5){
 			//   currentAnswer = `${ this.selectedData[5] } Currency`;
 			// }
-			addingInput += `<p><strong>${currentAnswer}</strong></p><br>`;
+			addingInput += `<p>${currentAnswer}</p><br>`;
 		});
-		let finalRecommendation = addingInput + '<p><strong>Response:<br></strong></p>' + this.recommendationData;
-
+		let finalRecommendation = addingInput + '<p><strong>Response:<br></strong></p>' + this.recommendationData + '</div>';
+		finalRecommendation = finalRecommendation
+			.replace(/```html|```/g, '')
+			.replace(/\(see https:\/\/g\.co\/ng\/security#xss\)/g, '')
+			.replace(/SafeValue must use \[property\]=binding:/g, '');
+		console.log(finalRecommendation);
 		let paramData: DownloadRespose = {
 			response: finalRecommendation,
 			module_name: "Travel Cost Estimator",
