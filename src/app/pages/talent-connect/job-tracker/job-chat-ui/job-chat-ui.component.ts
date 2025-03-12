@@ -1,6 +1,6 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
 import {FormsModule} from "@angular/forms";
-import {Avatar} from "primeng/avatar";
+import { Avatar, AvatarModule } from "primeng/avatar";
 import { CommonModule, NgClass } from "@angular/common";
 import {ProgressBar} from "primeng/progressbar";
 import { Chip, ChipModule } from 'primeng/chip';
@@ -21,8 +21,7 @@ interface ChatMessage {
   standalone: true,
   imports: [
     FormsModule,
-    Avatar,
-    NgClass,
+    AvatarModule,
     ProgressBar,
     CommonModule,
     ChipModule,

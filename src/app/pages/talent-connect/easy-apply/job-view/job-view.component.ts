@@ -3,6 +3,35 @@ import {NgClass} from "@angular/common";
 import { ActivatedRoute } from '@angular/router';
 import { TalentConnectService } from '../../talent-connect.service';
 
+export interface Job {
+  isChecked: number
+  id: number
+  experience_level: string
+  job_overview: string
+  key_responsibilities: string
+  technical_proficiency: any
+  language_proficiency: any
+  start_date: string
+  due_date: string
+  available_vacancies: number
+  hiring_timeframe: string
+  created_at: string
+  interview_format: string
+  position: string
+  work_location: string
+  comapany_name: string
+  industry_name: string
+  company_size: number
+  compensation_structure: string
+  work_mode: string
+  employment_type: string
+  benefits_perks: string
+  soft_skills: string
+  hiring_stages: string
+  total_applied: number
+  company_logo_url: string
+}
+
 interface Message {
   sender: string;
   content: string;

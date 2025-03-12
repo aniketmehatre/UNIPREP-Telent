@@ -1,5 +1,8 @@
+import { CommonModule } from '@angular/common';
 import { Component, EventEmitter, OnInit, Output, Input } from '@angular/core';
 import { MenuItem } from 'primeng/api';
+import { ButtonModule } from 'primeng/button';
+import { ChipModule } from 'primeng/chip';
 
 interface Job {
   id: number;
@@ -27,6 +30,7 @@ interface Job {
   selector: 'uni-job-details',
   templateUrl: './job-details.component.html',
   styleUrls: ['./job-details.component.scss'],
+  imports: [ChipModule, ButtonModule, CommonModule],
   standalone: true,
 })
 export class JobDetailsComponent  implements OnInit{
@@ -137,12 +141,6 @@ export class JobDetailsComponent  implements OnInit{
         label: this.jobs.applicationStage.selected.label
       }
     ];
-
-
-    // // Select the first job by default
-    // this.selectedJob = this.jobs[0];
-
-    // this.setActiveStep(this.selectedJob?.stage);
   }
 
 
