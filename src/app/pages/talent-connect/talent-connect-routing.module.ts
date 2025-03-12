@@ -11,7 +11,7 @@ const routes: Routes = [
   },
   {
     path: 'job-tracker',
-    component: JobTrackerComponent
+    loadChildren: () => import('./job-tracker/job-tracker.module').then(m => m.JobTrackerModule)
   },
   {
     path: 'company-tracker',

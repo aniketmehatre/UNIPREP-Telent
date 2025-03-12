@@ -31,7 +31,7 @@
         <button
           type="button"
           title="Close Popup"
-          class="btn p-button-primary btn-rounded mt-2"
+          class="border-primary bg-primary text-white rounded-3 px-2 mt-2"
           (click)="displayModal = true"
         >
           <i class="fa-solid fa-caret-down"></i>&nbsp;&nbsp;Filter
@@ -64,7 +64,7 @@
       </div>
     </div>
     <div class="row">
-      <div class="col-md-6 col-lg-4 mb-4" *ngFor="let job of jobListings" [routerLink]="['/pages/talent-connect/easy-apply', 1]">
+      <div class="col-md-6 col-lg-4 mb-4" *ngFor="let job of jobListings" [routerLink]="['/pages/talent-connect/easy-apply', job.id]">
           <div class="card-inside" style="border-radius: 10px; margin-bottom: 20px; transition: transform 0.3s; border: 1px solid gray;">
             <!-- Job Header -->
             <div class="card-body bg-white card-header-inside">
@@ -72,7 +72,7 @@
                 <!-- Logo Column -->
                 <div class="col-auto">
                   <img
-                    src="uniprep-assets/images/uniaboard-logo.png"
+                    [src]="job.company_logo"
                     alt="Company Logo"
                     width="100"
                     height="80"
@@ -84,7 +84,7 @@
                 <div class="col">
                   <h5 class="mb-1">{{ job.position }}</h5>
                   <p class="mb-0 text-orange">
-                    {{ job.company }}
+                    {{ job.company_name }}
                     <span class="ms-1 text-primary" *ngIf="job.isVerified">
                       <i class="fas fa-check-circle"></i>
                     </span>
@@ -107,7 +107,7 @@
               <div class="d-flex justify-content-between align-items-center">
                 <div>
                   <p class="text-muted mb-0 small">Total Vacancies</p>
-                  <p class="mb-0 fw-bold fs-4">{{ job.vacancies }}</p>
+                  <p class="mb-0 fw-bold fs-4">{{ job.available_vacancies }}</p>
                 </div>
                 <button class="btn-success px-3"><i class="fa fa-check"></i>&nbsp;Actively Hiring</button>
               </div>
@@ -121,7 +121,7 @@
                     </div>
                     <div>
                       <p class="text-muted mb-0 small">Work Location</p>
-                      <p class="mb-0 fw-medium">{{ job.location }}</p>
+                      <p class="mb-0 fw-medium">{{ job.worklocation }}</p>
                     </div>
                   </div>
                   </div>
@@ -144,7 +144,7 @@
                   </div>
                   <div class="me-4">
                     <p class="text-muted mb-0 small">Start Date</p>
-                    <p class="mb-0 fw-medium">{{ job.startDate }}</p>
+                    <p class="mb-0 fw-medium">{{ job.start_date }}</p>
                   </div>
               </div>
               </div>
@@ -155,7 +155,7 @@
                   </div>
                   <div class="me-4">
                     <p class="text-muted mb-0 small">Due Date</p>
-                    <p class="mb-0 fw-medium">{{ job.dueDate }}</p>
+                    <p class="mb-0 fw-medium">{{ job.due_date }}</p>
                   </div>
               </div>
               </div>
@@ -166,7 +166,7 @@
                   </div>
                   <div class="me-4">
                     <p class="text-muted mb-0 small">Work Mode</p>
-                    <p class="mb-0 fw-medium">{{ job.workArrangement }}</p>
+                    <p class="mb-0 fw-medium">{{ job.work_mode }}</p>
                   </div>
                 </div>
               </div>
@@ -177,7 +177,7 @@
                 </div>
                 <div>
                   <p class="text-muted mb-0 small">Employment Type</p>
-                  <p class="mb-0 fw-medium">{{ job.employmentType }}</p>
+                  <p class="mb-0 fw-medium">{{ job.employment_type }}</p>
                 </div>
                 </div>
               </div>
@@ -189,7 +189,7 @@
                 </div>
                 <div>
                   <p class="text-muted mb-0 small">Salary Range</p>
-                  <p class="mb-0 fw-medium">{{ job.salaryRange }}</p>
+                  <p class="mb-0 fw-medium">{{ job.salary_offer }}</p>
                 </div>
               </div>
              </div>
@@ -216,16 +216,16 @@
   </div>
   <div class="card-footer border-0 bg-transparent">
     <div class="row d-flex align-items-center justify-content-between">
-<!--      <p-paginator-->
-<!--        *ngIf="totalJobs != 0"-->
-<!--        [rows]="pageSize"-->
-<!--        [totalRecords]="totalPitchDeckCount"-->
-<!--        [first]="(page - 1) * pageSize"-->
-<!--        (onPageChange)="pageChange($event)"-->
-<!--        [rowsPerPageOptions]="[50, 100, 300, 500, 1000]"-->
-<!--        [disabled]="totalPitchDeckCount <= pageSize"-->
-<!--      >-->
-<!--      </p-paginator>-->
+     <p-paginator
+       *ngIf="totalJobs != 0"
+       [rows]="pageSize"
+       [totalRecords]="totalJobs"
+       [first]="(page - 1) * pageSize"
+       (onPageChange)="pageChange($event)"
+       [rowsPerPageOptions]="[50, 100, 300, 500, 1000]"
+       [disabled]="totalJobs <= pageSize"
+     >
+     </p-paginator>
     </div>
   </div>
 </div>
@@ -247,7 +247,6 @@
           <input 
             type="text" 
             pInputText 
-            formControlName="keyword" 
             placeholder="Search by Keyword" 
             class="form-control">
         </div>
@@ -272,7 +271,8 @@
             [options]="industries" 
             formControlName="industry" 
             defaultLabel="Select industry" 
-            optionLabel="label" 
+            optionLabel="industry_name" 
+            optionValue="id"
             display="chip"
             class="w-100">
           </p-multiSelect>
@@ -284,7 +284,8 @@
             [options]="locations" 
             formControlName="workLocation" 
             defaultLabel="Select work location" 
-            optionLabel="label" 
+            optionLabel="work_location" 
+            optionValue="id"
             display="chip"
             class="w-100">
           </p-multiSelect>
@@ -340,7 +341,7 @@
                   formControlName="currency" 
                   optionLabel="label" 
                   [showClear]="false" 
-                  styleClass="border-0 p-dropdown-sm">
+                  styleClass="border-0 p-dropdown-sm h-100">
                 </p-select>
               </span>
             </div>
@@ -364,7 +365,7 @@
             class="w-100">
           </p-multiSelect>
         </div>
-        <div class="col-md-4 mt-4">
+        <div class="col-md-4 h-full mt-auto">
           <button 
           pButton 
           label="Apply Filter" 
@@ -382,8 +383,6 @@
         (click)="resetFilter()" 
         class="p-button-text text-primary">
       </button>
-      
-
     </div>
   </p-dialog>
 </div>

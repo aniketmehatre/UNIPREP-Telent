@@ -1,6 +1,8 @@
-import { Component, ElementRef, Output, EventEmitter } from '@angular/core';
+import { Component, ElementRef, Output, EventEmitter, OnInit } from '@angular/core';
 import {TabPanel, TabView} from "primeng/tabview";
-import {NgClass} from "@angular/common";
+import { CommonModule, NgClass } from "@angular/common";
+import { TalentConnectService } from '../../talent-connect.service';
+import { Paginator } from 'primeng/paginator';
 
 @Component({
   selector: 'uni-job-list',
@@ -10,19 +12,32 @@ import {NgClass} from "@angular/common";
   imports: [
     TabView,
     TabPanel,
-    NgClass
-
+    NgClass,
+    Paginator,
+    CommonModule
   ]
 })
-export class JobListComponent {
+export class JobListComponent implements OnInit {
   @Output() emitId: EventEmitter<number> = new EventEmitter();
   activeIndex: number = 1;
+  first: number = 0;
+  page: number = 1;
+  appliedJobList!: any;
+  totalAppliedJobs: number = 0;
+  pageSize: number = 10;
   tabs = [
     { label: 'All Jobs', active: true },
     { label: 'Job Applied', active: false },
     { label: 'Application Received', active: false },
     { label: 'Shortlisted', active: false }
   ];
+
+  constructor(private talentConnectService: TalentConnectService) { }
+
+
+  ngOnInit(): void {
+    this.getAppliedJobList();
+  }
 
   getStatusClass(status: string): string {
     switch (status) {
@@ -34,6 +49,7 @@ export class JobListComponent {
     }
   }
 
+
   onClickJobCard(id: number) {
     this.emitId.emit(id);
   }
@@ -42,5 +58,29 @@ export class JobListComponent {
     this.tabs.forEach(t => (t.active = false));
     tab.active = true;
   }
+
+  getAppliedJobList() {
+    const data = {
+      page: this.page,
+      perPage: this.pageSize,
+    }
+    this.talentConnectService.getAppliedJobList(data).subscribe({
+      next: response => {
+        this.appliedJobList = response.jobs;
+        this.totalAppliedJobs = response.totaljobs;
+      },
+      error: error => {
+        console.log(error);
+      }
+    });
+  }
+
+  onPageChange(event: any) {
+    this.page = event.first / this.pageSize + 1;
+    this.pageSize = event.rows;
+    this.first = event.first;
+    this.getAppliedJobList();
+  }
+
   
 }

@@ -3,6 +3,7 @@ import {environment} from "@env/environment";
 
 @Component({
     selector: 'uni-main-list',
+    standalone: false,
     templateUrl: './main-list.component.html',
     styleUrls: ['./main-list.component.scss']
 })
