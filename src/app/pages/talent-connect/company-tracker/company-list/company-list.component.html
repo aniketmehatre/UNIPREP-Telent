@@ -6,39 +6,22 @@
 
     <p-tabView [(activeIndex)]="activeIndex" [scrollable]="true" styleClass="p-0">
       <p-tabPanel *ngFor="let tab of tabs" [header]="tab.label" class="p-0">
-        <div class="job-cards">
+        <div class="job-cards" style="height: calc(100vh - 400px);">
           <!-- Job 1 -->
-          <div class="job-card mb-3" (click)="onClickJobCard(1)">
+          <div class="job-card mb-3" (click)="onClickJobCard(1)" *ngFor="let company of companyList">
             <div class="d-flex">
               <div class="company-logo me-3">
                 <img src="assets/images/uniabroad-logo.png" alt="UNIABROAD">
               </div>
               <div class="job-details text-left">
-                <h5 class="job-title mb-1 text-left">UNIABROAD Pvt. Ltd</h5>
-                <p class="company-name mb-1 text-left">Applied For: Project Manager</p>
-                <p class="job-status mb-1 text-left">Job ID : 001</p>
+                <h5 class="job-title mb-1 text-left">{{company.name}}</h5>
+                <p class="company-name mb-1 text-left">Applied For: {{company.position}}</p>
+                <p class="job-status mb-1 text-left">Job ID : {{company.code}}</p>
                 <div class="d-flex align-items-center location mb-2">
                   <i class="pi pi-map-marker me-1 text-success"></i>
-                  <span>Bangalore, India</span>
+                  <span>{{company.location}}</span>
                 </div>
-                <span class="status-badge" [ngClass]="getStatusClass('Sent')">Sent</span>
-              </div>
-            </div>
-          </div>
-          <div class="job-card mb-3" (click)="onClickJobCard(1)">
-            <div class="d-flex">
-              <div class="company-logo me-3">
-                <img src="assets/images/uniabroad-logo.png" alt="UNIABROAD">
-              </div>
-              <div class="job-details text-left">
-                <h5 class="job-title mb-1 text-left">UNIABROAD Pvt. Ltd</h5>
-                <p class="company-name mb-1 text-left">Applied For: Project Manager</p>
-                <p class="job-status mb-1 text-left">Job ID : 001</p>
-                <div class="d-flex align-items-center location mb-2">
-                  <i class="pi pi-map-marker me-1 text-primary"></i>
-                  <span>Bangalore, India</span>
-                </div>
-                <span class="status-badge" [ngClass]="getStatusClass('Recieved')">Recieved</span>
+                <span class="status-badge" [ngClass]="getStatusClass('Sent')">{{company.status}}</span>
               </div>
             </div>
           </div>

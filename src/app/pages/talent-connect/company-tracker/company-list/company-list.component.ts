@@ -1,7 +1,18 @@
+import { CommonModule } from '@angular/common';
 import { Component, EventEmitter, Output } from '@angular/core';
+import { Dialog } from 'primeng/dialog';
+import { PaginatorModule } from 'primeng/paginator';
+import { TabsModule } from 'primeng/tabs';
+import { TabView, TabViewModule } from 'primeng/tabview';
 
 @Component({
   selector: 'uni-company-list',
+  standalone: true,
+  imports: [
+    TabsModule,
+    TabViewModule,
+    PaginatorModule,
+    CommonModule],
   templateUrl: './company-list.component.html',
   styleUrls: ['./company-list.component.scss']
 })
@@ -14,6 +25,37 @@ export class CompanyListsComponent {
     { label: 'Sent', active: false },
     { label: 'Recieved', active: false }
   ];
+
+  companyList: any = [
+    {
+      name: 'UNIABROAD Pvt. Ltd',
+      location: 'Bangalore, India',
+      code: '001',
+      status: 'Sent',
+      position:'Project Manager'
+    },
+    {
+      name: 'UNIABROAD Pvt. Ltd',
+      location: 'Bangalore, India',
+      code: '001',
+      status: 'Sent',
+      position:'Project Manager'
+    },
+    {
+      name: 'UNIABROAD Pvt. Ltd',
+      location: 'Bangalore, India',
+      code: '001',
+      status: 'Sent',
+      position:'Project Manager'
+    },
+    {
+      name: 'UNIABROAD Pvt. Ltd',
+      location: 'Bangalore, India',
+      code: '001',
+      status: 'Sent',
+      position:'Project Manager'
+    }
+  ]
 
   getStatusClass(status: string): string {
     switch (status) {

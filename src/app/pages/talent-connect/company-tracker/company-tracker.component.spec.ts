@@ -1,18 +1,18 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { CompanyTrackerComponent } from './company-tracker.component';
+import { CompanyTracker1Component } from './company-tracker.component';
 
-describe('CompanyTrackerComponent', () => {
-  let component: CompanyTrackerComponent;
-  let fixture: ComponentFixture<CompanyTrackerComponent>;
+describe('CompanyTracker1Component', () => {
+  let component: CompanyTracker1Component;
+  let fixture: ComponentFixture<CompanyTracker1Component>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ CompanyTrackerComponent ]
+      declarations: [CompanyTracker1Component]
     })
     .compileComponents();
 
-    fixture = TestBed.createComponent(CompanyTrackerComponent);
+    fixture = TestBed.createComponent(CompanyTracker1Component);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });
