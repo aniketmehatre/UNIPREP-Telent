@@ -53,7 +53,12 @@ export class CompanyConnectComponent {
       yearFounded: '2019',
       companyType: 'MNC',
       companySize: '11-50',
-      logo: '/uniprep-assets/image-available.png'
+      logo: '/uniprep-assets/image-available.png',
+      vacancies: '20',
+      industry: 'Ed tech',
+      location: 'Chennai',
+      workMode: 'Hybrid',
+      department: 'IT'
     }
   ]
     pageSize: unknown;
