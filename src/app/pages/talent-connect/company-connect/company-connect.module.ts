@@ -28,8 +28,8 @@ const routes: Routes = [
     component: CompanyConnect1Component,
   },
   {
-    path: 'id',
-    component: CompanyViewComponent
+    path: ':id',
+    loadComponent: () => import('./company-view/company-view.component').then(m => m.CompanyViewComponent)
   }
 ]
 
