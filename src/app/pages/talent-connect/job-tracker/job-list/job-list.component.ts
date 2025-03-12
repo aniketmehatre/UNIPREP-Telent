@@ -1,8 +1,9 @@
 import { Component, ElementRef, Output, EventEmitter, OnInit } from '@angular/core';
-import {TabPanel, TabView} from "primeng/tabview";
+import { TabPanel, TabView, TabViewModule } from "primeng/tabview";
 import { CommonModule, NgClass } from "@angular/common";
 import { TalentConnectService } from '../../talent-connect.service';
-import { Paginator } from 'primeng/paginator';
+import { Paginator, PaginatorModule } from 'primeng/paginator';
+import { TabsModule } from 'primeng/tabs';
 
 @Component({
   selector: 'uni-job-list',
@@ -10,10 +11,9 @@ import { Paginator } from 'primeng/paginator';
   styleUrls: ['./job-list.component.scss'],
   standalone: true,
   imports: [
-    TabView,
-    TabPanel,
-    NgClass,
-    Paginator,
+    TabsModule,
+    TabViewModule,
+    PaginatorModule,
     CommonModule
   ]
 })

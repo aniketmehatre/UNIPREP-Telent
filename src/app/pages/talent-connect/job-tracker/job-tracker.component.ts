@@ -1,4 +1,7 @@
 import { Component } from '@angular/core';
+import { Dialog } from 'primeng/dialog';
+import { Select } from 'primeng/select';
+import { JobListComponent } from './job-list/job-list.component';
 interface DropdownOption {
   label: string;
   value: string;
@@ -16,7 +19,8 @@ interface ChatMessage {
   selector: 'uni-job-tracker',
   templateUrl: './job-tracker.component.html',
   styleUrls: ['./job-tracker.component.scss'],
-  standalone: false,
+  standalone: true,
+  imports: [Select, Dialog, JobListComponent]
 })
 export class JobTrackerComponent {
   displayModal: boolean = false;

@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { CompanyTrackerComponent } from './company-tracker/company-tracker.component';
+import { CompanyTracker1Component } from './company-tracker/company-tracker.component';
 import {MainListComponent} from "./main-list/main-list.component";
 import {JobTrackerComponent} from "./job-tracker/job-tracker.component";
 
@@ -11,11 +11,11 @@ const routes: Routes = [
   },
   {
     path: 'job-tracker',
-    loadChildren: () => import('./job-tracker/job-tracker.module').then(m => m.JobTrackerModule)
+    loadComponent: () => import('./job-tracker/job-tracker.component').then(m => m.JobTrackerComponent)
   },
   {
     path: 'company-tracker',
-    component: CompanyTrackerComponent
+    loadComponent: () => import('./company-tracker/company-tracker.component').then(m => m.CompanyTracker1Component)
   },
   {
     path: 'company-connect',
