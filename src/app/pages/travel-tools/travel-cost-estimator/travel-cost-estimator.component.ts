@@ -69,7 +69,6 @@ export class TravelCostEstimatorComponent implements OnInit {
 	getCityList() {
 		this.costOfLivingService.getCities().subscribe({
 			next: response => {
-				console.log(this.departureLocationList, "location");
 				this.departureLocationList = response;
 				this.destinationLocationList = response;
 			}
@@ -174,7 +173,17 @@ export class TravelCostEstimatorComponent implements OnInit {
 
 		let departureLocation = this.selectedData[1].city_name + ', ' + this.selectedData[1].country_name;
 		let destinationLocation = this.selectedData[2].city_name + ', ' + this.selectedData[2].country_name;
-		let addingInput = `<div style="font-family: 'Poppins', sans-serif;"><p><strong>Input:<br></strong></p>`;
+		let logoUrl = "https://api.uniprep.ai/uniprepapi/storage/app/public/unipreplogo/travel_cost_estimator.svg";
+		let moduleName = "Travel Cost Estimator";
+
+		let addingInput = `
+			<div style="font-family: 'Poppins', sans-serif; display: flex; align-items: center; justify-content: space-between; border-bottom: 2px solid #d32f2f; padding-bottom: 10px; margin-bottom: 20px;">
+				<div style="text-align: center;">
+					<h2 style="margin: 0; color: #1a237e;">${moduleName}</h2>
+				</div>
+			</div>
+			<p><strong>Input:<br></strong></p>`;
+
 		this.recommendations.forEach(values => {
 			addingInput += `<p><strong>${values.question}</strong></p>`;
 			let currentAnswer = "";
@@ -194,10 +203,11 @@ export class TravelCostEstimatorComponent implements OnInit {
 		});
 		let finalRecommendation = addingInput + '<p><strong>Response:<br></strong></p>' + this.recommendationData + '</div>';
 		finalRecommendation = finalRecommendation
-			.replace(/```html|```/g, '')
-			.replace(/\(see https:\/\/g\.co\/ng\/security#xss\)/g, '')
-			.replace(/SafeValue must use \[property\]=binding:/g, '');
-		console.log(finalRecommendation);
+			.replace(/```html|```/g, '') 
+			.replace(/\(see https:\/\/g\.co\/ng\/security#xss\)/g, '') 
+			.replace(/SafeValue must use \[property\]=binding:/g, '')
+			.replace(/class="container"/g, ''); //because if i add container the margin will increase so i removed the container now the spacing is proper.
+		
 		let paramData: DownloadRespose = {
 			response: finalRecommendation,
 			module_name: "Travel Cost Estimator",

@@ -170,7 +170,7 @@
                                         </div>
                                     </div>
                                 </ng-container>
-                                <ng-container *ngIf="recommendation.id == 3">
+                                <!-- <ng-container *ngIf="recommendation.id == 3">
                                     <div class="d-flex flex-column mb-3 align-items-center">
                                         <div class="col-md-9">
                                             <h5 class="m-2">What is the total amount of your education loan? (Optional)</h5>
@@ -229,7 +229,7 @@
                                             <input type="text" pInputText [placeholder]="'Income/Month' + (selectedCurrency ? ' in '+ selectedCurrency : '')" class="w-100"  [(ngModel)]="selectedData['other_income']" />
                                         </div>
                                     </div>
-                                </ng-container>
+                                </ng-container> -->
                             </div>
                         </div>
                         <!-- Navigation Buttons -->
@@ -240,12 +240,12 @@
                                 <span class="ms-2">Previous</span>
                             </button>
                             <button pButton  pButton type="button" class="btn btn-primary btn-rounded p-1 ps-4"
-                                (click)="next(recommendation.id)" *ngIf="recommendation.id != 4">
-                                <span class="me-2">Next</span>
+                                (click)="next(recommendation.id)" *ngIf="recommendation.id != 2">
+                                <span class="me-2">Next</span>  
                                 <span class="btn-icon px-2 py-2"><i class="fa fa-arrow-right"></i></span>
                             </button>
                             <button pButton  pButton type="button" class="btn btn-success btn-rounded p-1 ps-4"
-                                (click)="submit()" *ngIf="recommendation.id == 4">
+                                (click)="submit()" *ngIf="recommendation.id == 2">
                                 <span class="me-2">Compare</span>
                                 <span class="btn-icon px-2 py-2"><i class="fa fa-check-circle"></i></span>
                             </button>
