@@ -3,7 +3,8 @@
     <div class="text-container">
         <h4 class="fw-semibold mb-0">Hello, {{ userName }}</h4>
         <h6 class="fw-normal lh-base mb-4 mb-md-0">
-            Welcome to <span class="highlight-text"><b>UNIPREP</b></span>! Let's get started on your journey to a brighter
+            Welcome to <span class="highlight-text"><b>UNIPREP</b></span>! Let's get started on your journey to a
+            brighter
             future!
         </h6>
     </div>
@@ -84,26 +85,25 @@
                     <div class="col-12 mt-4">
                         <p class="mb-0 text-start" style="font-size: 11px;">Complete your profile today:</p>
                     </div>
-                </div>
-                <div class="row">
-                <div class="d-flex flex-row gap-2 flex-nowrap overflow-y-auto ">
+                    <div class="col-lg-4 col-md-12 col-sm-12 mt-2">
                         <button class=" px-4 py-2 border rounded-lg shadow-md  bg-white" style="border-radius: 15px; font-size: 9px;width: -webkit-fill-available;
-                            ">
-                            <span (click)="openMyProfile()" style="color: #394D83;">My Profile <i
-                                    class="fa-solid fa-user" style="color: #FF913B;"></i></span>
+                                            ">
+                            <span (click)="openMyProfile()" style="color: #394D83;">My Profile <i class="fa-solid fa-user"
+                                    style="color: #FF913B;"></i></span>
                         </button>
-                        <button (click)="redirectToCvBuilder()" class=" px-4 py-2 border rounded-lg shadow-md  bg-white"
-                            style="border-radius: 15px; font-size: 9px;width: -webkit-fill-available;
-                            ">
-                            <span style="color: #394D83;">CV Builder <i class="fa-solid fa-file-lines"
-                                    style="color: #394D83;"></i></span>
+                    </div>
+                    <div class="col-lg-4 col-md-12 col-sm-12 mt-2">
+                        <button (click)="redirectToCvBuilder()" class=" px-4 py-2 border rounded-lg shadow-md  bg-white" style="border-radius: 15px; font-size: 9px;width: -webkit-fill-available;">
+                            <span style="color: #394D83;">CV Builder <i class="fa-solid fa-file-lines" style="color: #394D83;"></i></span>
                         </button>
+                    </div>
+                    <div class="col-lg-4 col-md-12 col-sm-12 mt-2">
                         <button class=" px-4 py-2 border rounded-lg shadow-md  bg-white" style="border-radius: 15px; font-size: 9px;width: -webkit-fill-available;
-                            ">
+                                        ">
                             <span style="color: #394D83;">Talent Connect</span>
                         </button>
+                    </div>
                 </div>
-            </div>
                 <!-- <button pButton severity="contrast" (click)="openMyProfile()"
                     class="btn btn-dark btn-rounded mt-3">{{ progress != 100 ? "Complete my profile" : "My Profile"
                     }}
@@ -199,7 +199,7 @@
                     <h4>
                         No Recent Job Applications Yet
                     </h4>
-                   </div>
+                </div>
             </div>
         </div>
     </div>
@@ -243,7 +243,8 @@
     <div class="col-lg-3 col-md-6 col-sm-12 mt-2">
         <div class="card bg-white  h-100 p-3">
             <div class="calendar-container">
-                <h5 style="text-align: start;"><span style="color: #0054B4;">🕒</span>&nbsp; {{ monthName}} {{ currentYear }}</h5>
+                <h5 style="text-align: start;"><span style="color: #0054B4;">🕒</span>&nbsp; {{ monthName}} {{
+                    currentYear }}</h5>
 
                 <div class="weekdays">
                     <div *ngFor="let day of weekdays" class="weekday">{{ day }}</div>
@@ -257,7 +258,8 @@
                     <!-- Calendar Days -->
                     <div *ngFor="let day of daysInMonth" class="day-box" [ngClass]="getStatusClass(day)">
                         <!-- Display Usage Data (if available) -->
-                        <div *ngFor="let entry of getUsageDataForDay(day)" class="usage-info" pTooltip="{{ entry.timeUsage }} " tooltipPosition="top">
+                        <div *ngFor="let entry of getUsageDataForDay(day)" class="usage-info"
+                            pTooltip="{{ entry.timeUsage }} " tooltipPosition="top">
                             <span style="color: white;">.</span>
                         </div>
                     </div>
@@ -302,7 +304,8 @@
         <div class="card bg=white h-100">
             <div class="card-body d-flex flex-column justify-content-between">
                 <div class="text-start">
-                    <h5 class="mb-1 mt-2 uppercase">💌&nbsp;Invite People to Try <span style="color: #FF9138;">UNIPREP</span>
+                    <h5 class="mb-1 mt-2 uppercase">💌&nbsp;Invite People to Try <span
+                            style="color: #FF9138;">UNIPREP</span>
                     </h5>
                     <p class="mb-0">We'll email them instructions and a link to create an account</p>
                 </div>
@@ -310,7 +313,8 @@
                     <i class="fa-regular fa-envelope"></i>
                     <input [(ngModel)]="sendInvite" type="email" placeholder="Enter Email Address" />
                 </div>
-                <button pButton (click)="sendInviteMail()" severity="warn" class="btn btn-rounded font-weight-bold mt-3" style="color: #666666; border-color: #666666;
+                <button pButton (click)="sendInviteMail()" severity="warn" class="btn btn-rounded font-weight-bold mt-3"
+                    style="color: #666666; border-color: #666666;
                     background-color: #FFFFFF; font-size: 10px;">
                     Send Invite
                 </button>
