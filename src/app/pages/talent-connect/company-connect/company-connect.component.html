@@ -17,39 +17,65 @@
             </button>
           </div>
         </div>
-        <button type="button" title="Close Popup" class="btn btn-rounded mt-2 p-button-primary"
-          (click)="displayModal = true;"><i class="fa-solid fa-caret-down"></i>&nbsp;&nbsp;Filter
-        </button>
+          <button type="button" title="Close Popup"
+                  class="btn btn-primary btn-lg rounded-3 shadow-sm px-4 mt-2 text-normal"
+                  (click)="displayModal = true;">
+              Filter&nbsp;&nbsp;<i class="fa-solid fa-caret-down"></i>
+          </button>
       </div>
       <!-- <div class="col-md-3 mt-2 text-end desktop justify-content-end d-none d-md-flex"></div> -->
     </div>
     <div class="card-body text-center flex-fill overflow-y-auto">
         <div class="row">
             <div class="d-flex gap-2 justify-content-center">
+                <!-- Company Search Button -->
                 <button type="button"
-                class="p-2 px-4 mb-4 mt-3 module-button" style='background-color: var(--uniprep-primary); color: white' routerLink="/pages/talent-connect/company-connect">Company Search
-               </button>
-               <button type="button" 
-               class="p-2 px-4 mb-4 mt-3 module-button"  routerLink="/pages/talent-connect/company-tracker">Company Tracker
-              </button>
+                        class="p-2 px-4 mb-4 mt-3 module-button primary-btn"
+                        routerLink="/pages/talent-connect/company-connect">
+                    Company Search
+                </button>
+
+                <!-- Company Tracker Button -->
+                <button type="button"
+                        class="p-2 px-4 mb-4 mt-3 module-button outlined-btn"
+                        routerLink="/pages/talent-connect/company-tracker">
+                    Company Tracker
+                </button>
+            </div>
+
+            <!-- Chips / Badges Section -->
+            <div class="d-flex gap-2 justify-content-center">
+                <p-tag [style]="{ border: '2px solid var(--border-color)',  color: 'var(--text-color)'}"
+                       severity="danger">Total Companies : {{ this.totalCount }}
+                </p-tag>
+                <p-tag [style]="{ border: '2px solid var(--border-color)',  color: 'var(--text-color)'}"
+                       severity="info">Total Jobs : {{ this.totalJob }}
+                </p-tag>
+                <p-tag [style]="{ border: '2px solid var(--border-color)', color: 'var(--text-color)'}"
+                       severity="success">Total Vacancies
+                    : {{ this.totalVacancies }}
+                </p-tag>
             </div>
         </div>
-        <div class="row">
-            <div class="col-12 col-md-4 col-lg-4 mt-2" *ngFor="let company of companyDataList" [routerLink]="['/pages/talent-connect/company-connect',1]">
-                <div class="card-inside" style="border-radius: 10px; margin-bottom: 20px; transition: transform 0.3s; border: 1px solid #e9ecef;" [style.border]=" company.verified ? '1px solid #FDA172' : '1px solid #e9ecef'">
+
+        <div class="row mt-2">
+            <div class="col-12 col-md-4 col-lg-4 mt-2" *ngFor="let company of companyDataList" >
+                <div class="card-inside" (click)="onClickCompany(company.id)"
+                     style="border-radius: 10px; margin-bottom: 20px; transition: transform 0.3s; border: 1px solid #dddddd;"
+                     [style.border]=" company.verified ? '1px solid #FFA500' : '1px solid #dddddd'">
                     <div class="card-body">
                         <div class="row mb-3">
                             <div class="col-3">
                                 <div style="width: 100%; height: 100%; background-color: #f8f9fa; display: flex;
                                            align-items: center; justify-content: center; border-radius: 5px; border: 1px solid #e9ecef;">
-                                    <img [src]="company.logo" alt="Company Logo" style="max-width: 50px" />
+                                    <img src="{{company.company_logo}}" alt="Company Logo" style="max-width: 50px"/>
                                 </div>
                             </div>
                             <div class="col-9 text-start">
                                 <div class="d-flex justify-content-between text-start">
                                     <div class="d-block">
-                                        <div class="fw-bold">{{ company.name }}</div>
-                                        <p class="text-muted">Founded: {{company.year || '2019'}}</p>
+                                        <div class="fw-bold">{{ company.company_name }}</div>
+                                        <p class="text-muted">Founded: {{ company.founded_year || '2019' }}</p>
                                     </div>
                                     <a href="#" style="color: #fda172">
                                         <i class="fas fa-share-alt"></i>
@@ -72,7 +98,7 @@
                                 </div>
                                 <div class="info-container">
                                   <div class="info-label">Open Jobs</div>
-                                  <div class="info-value">{{company.openPositions}}</div>
+                                    <div class="info-value" style="font-size: 0.9rem">{{ company.openPositions }}</div>
                                 </div>
                               </div>
                             </div>
@@ -84,7 +110,7 @@
                                 </div>
                                 <div class="info-container">
                                   <div class="info-label">Open Vacancies</div>
-                                  <div class="info-value">{{company.vacancies}}</div>
+                                    <div class="info-value" style="font-size: 0.9rem">{{ company.vacancies }}</div>
                                 </div>
                               </div>
                             </div>
@@ -98,7 +124,7 @@
                                 </div>
                                 <div class="info-container">
                                   <div class="info-label">Company Type</div>
-                                  <div class="info-value">{{company.companyType}}</div>
+                                    <div class="info-value" style="font-size: 0.9rem">{{ company.type }}</div>
                                 </div>
                               </div>
                             </div>
@@ -110,7 +136,7 @@
                                 </div>
                                 <div class="info-container">
                                   <div class="info-label">Company Size</div>
-                                  <div class="info-value">{{company.companySize}}</div>
+                                    <div class="info-value" style="font-size: 0.9rem">{{ company.size }}</div>
                                 </div>
                               </div>
                             </div>
@@ -123,7 +149,7 @@
                                 </div>
                                 <div class="info-container">
                                   <div class="info-label">Industry</div>
-                                  <div class="info-value">{{company.industry}}</div>
+                                    <div class="info-value" style="font-size: 0.9rem">{{ company.industry_type }}</div>
                                 </div>
                               </div>
                             </div>
@@ -135,7 +161,9 @@
                                 </div>
                                 <div class="info-container">
                                   <div class="info-label">Headquarters Location</div>
-                                  <div class="info-value">{{company.location}}</div>
+                                    <div class="info-value" style="font-size: 0.9rem">{{ company.HQ_city }}
+                                        , {{ company.HQ_country }}
+                                    </div>
                                 </div>
                               </div>
                             </div>
@@ -148,7 +176,7 @@
                                 </div>
                                 <div class="info-container">
                                   <div class="info-label">Department</div>
-                                  <div class="info-value">{{company.department}}</div>
+                                    <div class="info-value" style="font-size: 0.9rem">{{ company.departments }}</div>
                                 </div>
                               </div>
                             </div>
@@ -160,7 +188,7 @@
                                 </div>
                                 <div class="info-container">
                                   <div class="info-label">Work mode</div>
-                                  <div class="info-value">{{company.workMode}}</div>
+                                    <div class="info-value" style="font-size: 0.9rem">{{ company.work_mode }}</div>
                                 </div>
                               </div>
                             </div>
@@ -174,39 +202,43 @@
 <div class="card-footer border-0 bg-transparent">
   <div class="card-footer border-0 bg-transparent">
     <div class="row d-flex align-items-center justify-content-between">
-      <p-paginator *ngIf="totalCount != 0" [rows]="pageSize" [totalRecords]="totalPitchDeckCount"
-        [first]="(page - 1) * pageSize" (onPageChange)="pageChange($event)"
-        [rowsPerPageOptions]="[50, 100, 300, 500, 1000]" [disabled]="totalPitchDeckCount <= pageSize"> </p-paginator>
+      <p-paginator *ngIf="totalCount != 0" [rows]="perPage" [totalRecords]="totalPitchDeckCount"
+        [first]="(page - 1) * perPage" (onPageChange)="pageChange($event)"
+                   [rowsPerPageOptions]="[50, 100, 300, 500, 1000]"></p-paginator>
     </div>
   </div>
 </div>
-<div class="p-0">
+</div>
   <p-dialog header="Filter" [(visible)]="displayModal" [modal]="true" [style]="{width: '70%'}" [closeOnEscape]="true"
     styleClass="filter-modal">
 
     <div class="container-fluid p-3">
-      <form (ngSubmit)="applyFilter()">
+        <form (ngSubmit)="applyFilter()" [formGroup]="companyForm">
         <div class="mb-4">
           <label class="form-label fw-bold">Company Name</label>
-          <input pInputText class="form-control p-2" placeholder="Search by company name" />
+            <input class="form-control p-2" formControlName="companyname" pInputText
+                   placeholder="Search by company name"/>
         </div>
 
         <div class="row mb-4">
           <div class="col-md-4">
             <label class="form-label fw-bold">Industry Type</label>
-            <p-select [options]="industryTypes" placeholder="Select your preferred industry" styleClass="w-100"
+              <p-select [options]="industryTypes" formControlName="industrytype"
+                        placeholder="Select your preferred industry" styleClass="w-100"
               [showClear]="true"></p-select>
           </div>
 
           <div class="col-md-4">
             <label class="form-label fw-bold">Company Size</label>
-            <p-select [options]="companySizes" placeholder="Select Company Size" styleClass="w-100"
+              <p-select [options]="companySizes" formControlName="companysize" placeholder="Select Company Size"
+                        styleClass="w-100"
               [showClear]="true"></p-select>
           </div>
 
           <div class="col-md-4">
             <label class="form-label fw-bold">Headquarters Location</label>
-            <p-select [options]="locations" placeholder="Select Headquarters Location" styleClass="w-100"
+              <p-select [options]="locations" formControlName="hq" placeholder="Select Headquarters Location"
+                        styleClass="w-100"
               [showClear]="true"></p-select>
           </div>
         </div>
@@ -214,19 +246,22 @@
         <div class="row mb-4">
           <div class="col-md-4">
             <label class="form-label fw-bold">Global Presence</label>
-            <p-select [options]="globalPresence" placeholder="Select global presence" styleClass="w-100"
+              <p-select [options]="globalPresence" formControlName="globalpresence" placeholder="Select global presence"
+                        styleClass="w-100"
               [showClear]="true"></p-select>
           </div>
 
           <div class="col-md-4">
             <label class="form-label fw-bold">Year Founded</label>
-            <p-select [options]="foundedYears" placeholder="Select founded year" styleClass="w-100"
+              <p-select [options]="foundedYears" formControlName="foundedyear" placeholder="Select founded year"
+                        styleClass="w-100"
               [showClear]="true"></p-select>
           </div>
 
           <div class="col-md-4">
             <label class="form-label fw-bold">Company Type</label>
-            <p-select [options]="companyTypes" placeholder="Select company type" styleClass="w-100"
+              <p-select [options]="companyTypes" formControlName="companytype" placeholder="Select company type"
+                        styleClass="w-100"
               [showClear]="true"></p-select>
           </div>
         </div>
@@ -234,13 +269,12 @@
     </div>
 
     <ng-template pTemplate="footer">
-      <div>
-        <button type="submit" class="btn btn-dark w-100"
+        <div class="d-grid gap-2 col-12 mx-auto">
+            <button type="submit" class="btn btn-dark w-100 block"
           style="background-color: var(--uniprep-primary); border: none">Apply Filter</button>
-        <button class="btn btn-dark w-100" (click)="clearFilter()"
+            <button class="btn btn-outline-dark w-100" (click)="clearFilter()"
           style="background-color: white; border-radius: 8px; color: var(--uniprep-primary); border: none"
           type="button">Reset Filter</button>
       </div>
     </ng-template>
   </p-dialog>
-</div>

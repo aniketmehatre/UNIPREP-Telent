@@ -60,4 +60,42 @@ export class TalentConnectService {
             { headers: headers });
     }
 
+
+    // company connect
+
+    getTalentConnectCompanies(formValues: any) {
+        const formData = new FormData();
+        formData.append("perpage", "100");
+        formData.append("page", "1");
+        formData.append("companyname", "Test");
+        formData.append("industrytype", "2,1");
+        formData.append("companysize", "1");
+        formData.append("hq", "2");
+        formData.append("globalpresence", "1,2,3");
+        formData.append("foundedyear", "2002");
+        formData.append("companytype", "1");
+        const headers = new HttpHeaders().set("Accept", "application/json");
+        return this.http.post<any>(
+            environment.ApiUrl + "/gettalentconnectcompanies", formData,
+            { headers: headers });
+    }
+
+
+    getCompanyDetails(formValues: any) {
+        const formData = new FormData();
+        formData.append("perpage", "100");
+        formData.append("page", "1");
+        formData.append("companyname", "Test");
+        formData.append("industrytype", "2,1");
+        formData.append("companysize", "1");
+        formData.append("hq", "2");
+        formData.append("globalpresence", "1,2,3");
+        formData.append("foundedyear", "2002");
+        formData.append("companytype", "1");
+        const headers = new HttpHeaders().set("Accept", "application/json");
+        return this.http.post<any>(
+            environment.ApiUrl + "/getcompaenydetails", formData,
+            { headers: headers });
+    }
+
 }
