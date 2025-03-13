@@ -22,6 +22,7 @@ export class JobListComponent implements OnInit {
   activeIndex: number = 1;
   first: number = 0;
   page: number = 1;
+  jobDetails: any;
   appliedJobList!: any;
   totalAppliedJobs: number = 0;
   pageSize: number = 10;
@@ -74,6 +75,18 @@ export class JobListComponent implements OnInit {
       }
     });
   }
+
+  getJobTrackDetails(id: number) {
+    this.talentConnectService.getJobDetails(id).subscribe({
+      next: response => {
+        this.jobDetails = response.job[0];
+      },
+      error: error => {
+        console.log(error);
+      }
+    });
+  }
+
 
   onPageChange(event: any) {
     this.page = event.first / this.pageSize + 1;

@@ -30,6 +30,9 @@ export interface Job {
   hiring_stages: string
   total_applied: number
   company_logo_url: string
+  educational_degree: string
+  salary_range: number;
+  stage: string | null;
 }
 
 interface Message {
@@ -47,50 +50,36 @@ interface Message {
 })
 export class JobViewComponent {
   id!: number;
-  jobDetails = {
-    title: 'Senior UI/UX Designer',
-    company: 'UNIABROAD Pvt. Ltd.',
-    verified: true,
-    skillMatch: {
-      matched: 3,
-      total: 4,
-      skills: ['UI Design', 'Graphic Design', 'UX Design', 'Motion Design']
-    },
-    postedDate: '19-02-2025',
-    companySize: '0-50',
-    position: 'UI Designer',
-    startDate: '19-02-2025',
-    workLocation: 'Mysore',
-    workMode: 'Onsite',
-    employmentType: 'Full Time',
-    salaryRange: '50,000 - 1,00,000',
-    dueDate: '25-02-2025',
-    total_applied: 10,
-    available_vacancies: 50,
-    experienceLevel: 'Mid Level',
-    educationalDegree: 'Bachelor\'s Degree',
-    industry: 'Tech Industry',
-    overview: 'We are looking for a *creative and detail-oriented UI/UX Designer* to join our team at UNIABROAD. The ideal candidate will be responsible for designing user-friendly, engaging, and visually appealing interfaces for our digital platforms, ensuring a seamless user experience for students and stakeholders.',
-    responsibilities: [
-      'Design and implement intuitive, user-centered interfaces for web and mobile applications.',
-      'Conduct user research and usability testing to understand pain points and improve UI/UX designs.',
-      'Develop wireframes, prototypes, and mockups that effectively communicate design ideas.',
-      'Collaborate with developers, product managers, and marketing teams to ensure seamless design integration'
-    ],
-    technicalProficiency: 'We are looking for a creative and detail-oriented UI/UX Designer to join our team. The ideal candidate will be responsible for designing user-centered digital experiences, creating',
-    languageProficiency: [
-      { language: 'Kannada', level: 'Native' },
-      { language: 'Hindi', level: 'Beginner' },
-      { language: 'English', level: 'Advanced' }
-    ],
-    compensationStructure: ['Performance-Based Bonuses', 'Profit-Sharing', 'Freelance/Contract-Based Pay'],
-    benefits: ['Training & Certifications', 'Flexible Hours', 'Health Insurance'],
-    softSkills: ['Creativity & Problem-Solving', 'Communication Skills', 'Attention to Detail'],
-    hiringProcess: {
-      stages: ['Onboarding & Orientation', 'Interview Process', 'Initial Screening & Phone Interview', 'Resume Screening & Shortlisting'],
-      timeframe: '2-4 Weeks',
-      format: 'Traditional Interview Format'
-    }
+  jobDetails: Job = {
+    isChecked: 0,
+    id: 1,
+    experience_level: "Mid-Level",
+    job_overview: "We are looking for a skilled Software Developer to join our team.",
+    key_responsibilities: "Develop, test, and maintain web applications.",
+    technical_proficiency: ["JavaScript", "Angular", "Node.js"],
+    language_proficiency: ["English", "Spanish"],
+    start_date: "2025-04-01",
+    due_date: "2025-06-30",
+    available_vacancies: 3,
+    hiring_timeframe: "2 months",
+    created_at: "2025-03-10",
+    interview_format: "Virtual",
+    position: "Software Developer",
+    work_location: "Remote",
+    comapany_name: "Tech Solutions Inc.",
+    industry_name: "IT & Software",
+    company_size: 500,
+    compensation_structure: "Annual Salary",
+    work_mode: "Hybrid",
+    employment_type: "Full-Time",
+    benefits_perks: "Health insurance, Flexible hours",
+    soft_skills: "Teamwork, Communication",
+    hiring_stages: "Resume screening, Technical interview, HR interview",
+    total_applied: 25,
+    company_logo_url: "https://example.com/logo1.png",
+    educational_degree: 'B.sc',
+    salary_range: 100000,
+    stage: null
   };
 
   isShowApplyChat: boolean = false;
@@ -137,8 +126,7 @@ export class JobViewComponent {
   getJobDetails(id: number) {
     this.talentConnectService.getJobDetails(id).subscribe({
       next: response => {
-        console.log(response);
-        // this.jobDetails = response;
+        this.jobDetails = response.job[0];
       },
       error: error => {
         console.log(error);
@@ -149,8 +137,10 @@ export class JobViewComponent {
   applyJob(id: number) {
     this.talentConnectService.applyJob(id).subscribe({
       next: response => {
-        console.log(response);
-        // this.jobDetails = response;
+        if (response.success) {
+
+        }
+        this.jobDetails = response.job;
       },
       error: error => {
         console.log(error);

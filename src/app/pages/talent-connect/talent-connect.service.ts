@@ -40,7 +40,7 @@ export class TalentConnectService {
 
     applyJob(id: number) {
         return this.http.post<any>(
-            environment.ApiUrl + "/appliedjobs", { job_id: id },
+            environment.ApiUrl + "/saveeasyapplyjob", { job_id: id },
             { headers: this.headers });
     }
 
@@ -52,7 +52,7 @@ export class TalentConnectService {
 
     getJobTrackerDetail(id: number) {
         return this.http.post<any>(
-            environment.ApiUrl + "/showuserTrack", { apply_id: id },
+            environment.ApiUrl + "/showuserTrack", { id: id },
             { headers: this.headers });
     }
 
@@ -63,7 +63,13 @@ export class TalentConnectService {
             { headers: this.headers });
     }
 
-    submitProfile(formData: FormData): Observable<any> {
+    getMyProfileData() {
+        return this.http.get<any>(
+            environment.ApiUrl + "/getstudentprofiles",
+            { headers: this.headers });
+    }
+
+    submitProfile(formData: any): Observable<any> {
         return this.http.post(`${environment.ApiUrl}/createstudentprofile `, formData);
     }
 

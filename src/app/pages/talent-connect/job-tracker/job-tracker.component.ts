@@ -2,6 +2,10 @@ import { Component } from '@angular/core';
 import { Dialog } from 'primeng/dialog';
 import { Select } from 'primeng/select';
 import { JobListComponent } from './job-list/job-list.component';
+import { CommonModule } from '@angular/common';
+import { TalentConnectService } from '../talent-connect.service';
+import { Job } from '../easy-apply/job-view/job-view.component';
+import { RouterModule } from '@angular/router';
 interface DropdownOption {
   label: string;
   value: string;
@@ -20,7 +24,7 @@ interface ChatMessage {
   templateUrl: './job-tracker.component.html',
   styleUrls: ['./job-tracker.component.scss'],
   standalone: true,
-  imports: [Select, Dialog, JobListComponent]
+  imports: [Select, Dialog, JobListComponent, CommonModule, RouterModule]
 })
 export class JobTrackerComponent {
   displayModal: boolean = false;
@@ -32,7 +36,7 @@ export class JobTrackerComponent {
   foundedYears: DropdownOption[] = [];
   companyTypes: DropdownOption[] = [];
 
-  constructor() { }
+  constructor(private talentConnectService: TalentConnectService) { }
 
   ngOnInit() {
     // Populate dropdown options
@@ -100,6 +104,7 @@ export class JobTrackerComponent {
   showInfo: boolean = true;
   messages: ChatMessage[] = [];
   newMessage: string = '';
+  jobDetails: Job;
 
   toggleInfo(): void {
     this.showInfo = !this.showInfo;
@@ -108,7 +113,20 @@ export class JobTrackerComponent {
   onClickJobId(event: number) {
     this.showInfo = true;
     this.selectedJobId = event;
+    this.getJobTrackDetails(this.selectedJobId);
   }
+
+  getJobTrackDetails(id: number) {
+    this.talentConnectService.getJobTrackerDetail(id).subscribe({
+      next: response => {
+        this.jobDetails = response.job[0];
+      },
+      error: error => {
+        console.log(error);
+      }
+    });
+  }
+
 
   private generateYears(): DropdownOption[] {
     const currentYear = new Date().getFullYear();
