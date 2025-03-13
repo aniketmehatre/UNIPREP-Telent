@@ -6,7 +6,7 @@ export const EducationToolsData = [
       //  description: "This tool lets you get a global travel visa with the help of few easy steps",
         image: domainUrl+"CourseNavigator.svg",
         url: "/pages/education-tools/course-navigator",
-        launch_soon: true,
+        launch_soon: false,
     },
     {
         title: "Politician Insights",
@@ -41,7 +41,7 @@ export const EducationToolsData = [
        // description: "This tool lets you get a global travel visa with the help of few easy steps",
        image: domainUrl+"StudentBudgetPlanner.svg",
         url: "/pages/education-tools/student-budget-planner",
-        launch_soon: true,
+        launch_soon: false,
     },
     {
         title: "UNICOMPARE",

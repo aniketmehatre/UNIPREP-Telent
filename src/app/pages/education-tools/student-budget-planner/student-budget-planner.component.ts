@@ -20,8 +20,6 @@ import { SkeletonModule } from 'primeng/skeleton';
 import { PaginatorModule } from 'primeng/paginator';
 import { FluidModule } from 'primeng/fluid';
 import { TooltipModule } from 'primeng/tooltip';
-
-import html2pdf from 'html2pdf.js';
 import { DownloadRespose } from 'src/app/@Models/travel-tools.model';
 @Component({
     selector: 'uni-student-budget-planner',
@@ -45,12 +43,12 @@ export class StudentBudgetPlannerComponent implements OnInit {
     {
       id: 2, question: 'Student Expenses'
     },
-    {
-      id: 3, question: 'Financials'
-    },
-    {
-      id: 4, question: 'Project Income'
-    }
+    // {
+    //   id: 3, question: 'Financials'
+    // },
+    // {
+    //   id: 4, question: 'Project Income'
+    // }
   ];
   activePageIndex: number = 0;
   countriesList: AllCountryRes[] = [];
@@ -76,13 +74,13 @@ export class StudentBudgetPlannerComponent implements OnInit {
     travel_expense: null,
     food_and_grocery: null,
     miscellaneous: null,
-    education_loan: null,
-    family_loan: null,
-    monthly_payment: null,
-    repayment_period: null,
-    part_time_income: null,
-    full_time_income: null,
-    other_income: null,
+    // education_loan: null,
+    // family_loan: null,
+    // monthly_payment: null,
+    // repayment_period: null,
+    // part_time_income: null,
+    // full_time_income: null,
+    // other_income: null,
     mode: 'student_budget_planner',
   }
   selectedData: any = {...this.selectedDataArray}
@@ -172,9 +170,9 @@ export class StudentBudgetPlannerComponent implements OnInit {
         let countryName = this.getCountryName();
         this.selectedData['country'] = countryName;
       }
-      if(value === null){
-        this.selectedData[key] = "none";
-      }
+      // if(value === null){
+      //   this.selectedData[key] = "none";
+      // }
     });
     this.travelService.getChatgptRecommendations(this.selectedData).subscribe({
       next: response =>{
@@ -266,22 +264,22 @@ export class StudentBudgetPlannerComponent implements OnInit {
     <p>${this.selectedData.food_and_grocery} / Month in ${this.selectedCurrency}</p><br>
     <p><strong>Miscellaneous</strong></p>
     <p>${this.selectedData.miscellaneous} / Month in ${this.selectedCurrency}</p><br>
-    <p><strong>Education Loan</strong></p>
-    <p>${this.selectedData.education_loan} / Month in ${this.selectedCurrency}</p><br>
-    <p><strong>Friends & Family Loan</strong></p>
-    <p>${this.selectedData.family_loan} / Month in ${this.selectedCurrency}</p><br>
-    <p><strong>Monthly Payment</strong></p>
-    <p>${this.selectedData.monthly_payment}/ Month in ${this.selectedCurrency}</p><br>
-    <p><strong>Repayment Period</strong></p>
-    <p>${this.selectedData.repayment_period}</p><br>
-    <p><strong>Part Time income</strong></p>
-    <p>${this.selectedData.part_time_income}/ Month in ${this.selectedCurrency}</p><br>
-    <p><strong>full Time income</strong></p>
-    <p>${this.selectedData.full_time_income} / Month in ${this.selectedCurrency}</p><br>
-    <p><strong>Other income</strong></p>
-    <p>${this.selectedData.other_income} / Month in ${this.selectedCurrency}</p><br>
     <p><strong>Response</strong></p><br> ${this.recommendationData}`;
-    
+    // <p><strong>Education Loan</strong></p>
+    // <p>${this.selectedData.education_loan} / Month in ${this.selectedCurrency}</p><br>
+    // <p><strong>Friends & Family Loan</strong></p>
+    // <p>${this.selectedData.family_loan} / Month in ${this.selectedCurrency}</p><br>
+    // <p><strong>Monthly Payment</strong></p>
+    // <p>${this.selectedData.monthly_payment}/ Month in ${this.selectedCurrency}</p><br>
+    // <p><strong>Repayment Period</strong></p>
+    // <p>${this.selectedData.repayment_period}</p><br>
+    // <p><strong>Part Time income</strong></p>
+    // <p>${this.selectedData.part_time_income}/ Month in ${this.selectedCurrency}</p><br>
+    // <p><strong>full Time income</strong></p>
+    // <p>${this.selectedData.full_time_income} / Month in ${this.selectedCurrency}</p><br>
+    // <p><strong>Other income</strong></p>
+    // <p>${this.selectedData.other_income} / Month in ${this.selectedCurrency}</p><br>
+
     let paramsData: DownloadRespose = {
       response: addingInput,
       module_name: "Student Budget Planner",

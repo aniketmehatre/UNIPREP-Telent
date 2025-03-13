@@ -93,7 +93,7 @@ export const FoundersToolsData = [
         launch_soon: false
     },
     {
-        title: "Government Funds Opportunity",
+        title: "Government Funding List",
         description: "This tool lets you build a cover letter with the help of a few easy steps.",
         image: domainUrl+"GovernmentFundingOpportunity.svg",
         url: "/pages/founderstool/governmentfunds",
