@@ -92,6 +92,7 @@ export class DashboardComponent implements OnInit, OnChanges {
 	monthName: string = '';
 	weekdays: string[] = ['S', 'M', 'T', 'W', 'T', 'F', 'S'];
 	firstDayIndex: number = 0;
+	isNoApplicationsData:boolean=true;
 	constructor(private dashboardService: DashboardService, private service: AuthService, private router: Router,
 		private dataService: DataService, private authService: AuthService, private locationService: LocationService,
 		private cdr: ChangeDetectorRef, private storage: StorageService, private jobSearchService: JobSearchService,

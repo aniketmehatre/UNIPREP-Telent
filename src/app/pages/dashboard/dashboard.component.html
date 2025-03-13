@@ -3,12 +3,12 @@
     <div class="text-container">
         <h4 class="fw-semibold mb-0">Hello, {{ userName }}</h4>
         <h6 class="fw-normal lh-base mb-4 mb-md-0">
-            Welcome to <span class="highlight-text">UNIPREP</span>! Let's get started on your journey to a brighter
+            Welcome to <span class="highlight-text"><b>UNIPREP</b></span>! Let's get started on your journey to a brighter
             future!
         </h6>
     </div>
 
-    <div class="button-container">
+    <!-- <div class="button-container">
         <button class="action-button">
             <i class="fa-regular fa-bell"></i>
             <span>Notifications</span>
@@ -20,7 +20,7 @@
             <span>Messages</span>
             <span class="notification-badge">3</span>
         </button>
-    </div>
+    </div> -->
 </div>
 <div class="row">
     <div class="col-lg-3 col-md-6 col-sm-12">
@@ -162,7 +162,7 @@
                         All</button>
                 </div>
 
-                <p-carousel #carousel [circular]="false" [numScroll]="1" [numVisible]="1"
+                <p-carousel #carousel [circular]="false" [numScroll]="1" [numVisible]="1" *ngIf="!isNoApplicationsData"
                     [responsiveOptions]="responsiveOptions" [value]="groupedListFav2" [showIndicators]="true"
                     [indicatorStyle]="{ width: '10px', height: '10px', borderRadius: '50%' }">
                     <ng-template let-group pTemplate="item">
@@ -194,6 +194,11 @@
                         </div>
                     </ng-template>
                 </p-carousel>
+                <div *ngIf="isNoApplicationsData" style="margin: auto;">
+                    <h4>
+                        No Recent Job Applications Yet
+                    </h4>
+                   </div>
             </div>
         </div>
     </div>
