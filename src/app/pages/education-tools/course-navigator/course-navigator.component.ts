@@ -141,6 +141,7 @@ export class CourseNavigatorComponent implements OnInit {
       spec_id: this.selectedData[1],
       edu_id: this.selectedData[2]
     }
+    console.log(data, "selected data");
     this.educationToolsService.getDegreeRecommadations(data).subscribe({
       next: response => {
         this.isRecommendationQuestion = false;
