@@ -39,7 +39,6 @@ export class CourseNavigatorComponent implements OnInit {
   selectedData: { [key: string]: any } = {};
   invalidClass: boolean = false;
   specializationList: CurrentSpecialization[] = [];
-  specializations: CurrentSpecialization[] = [];
   recommendationDataList: EducatiionsRec[] = [];
   isRecommendationQuestion: boolean = true;
   isRecommendationData: boolean = false;
@@ -51,7 +50,6 @@ export class CourseNavigatorComponent implements OnInit {
   // stateOptions = [{ label: 'Default', value: 'default' }, { label: 'Saved', value: 'saved' }];
   selectedState: string = 'default';
   selectedQuestionData: CourseNavigator;
-  specializationFilter: string = '';
   recommandedQandAList: CourseNavigator[] = [];
   courseSubmodules: CourseSubmodulesList[] = [
     {
@@ -105,21 +103,10 @@ export class CourseNavigatorComponent implements OnInit {
     this.educationToolsService.getCurrentSpecializations().subscribe({
       next: response => {
         this.specializationList = response;
-        this.specializations = response;
       },
       error: error => {
       }
     });
-  }
-
-  customFilterFunction() {
-    if (this.specializationFilter === "") {
-      this.specializationList = this.specializations;
-      return;
-    }
-    this.specializationList = this.specializations.filter(item =>
-      item?.specialization_name?.toLowerCase().includes(this.specializationFilter.toLowerCase())
-    );
   }
 
   previous() {
@@ -161,8 +148,6 @@ export class CourseNavigatorComponent implements OnInit {
     this.isRecommendationSavedData = false;
     this.isCourseSubmodule = false;
     this.selectedData = {};
-    this.specializationFilter = "";
-    this.specializationList = this.specializations;
   }
 
   getCourseSubmodules(degreeId: number) {
