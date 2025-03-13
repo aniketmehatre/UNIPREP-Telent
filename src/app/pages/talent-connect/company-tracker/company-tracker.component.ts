@@ -1,18 +1,19 @@
+import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
-import {Dialog} from "primeng/dialog";
-import {CompanyListComponent} from "../../company-list/company-list.component";
+import { Dialog } from 'primeng/dialog';
+import { CompanyDetailComponent } from './company-detail/company-detail.component';
+import { JobChatUiComponent } from '../job-tracker/job-chat-ui/job-chat-ui.component';
+import { CompanyListsComponent } from './company-list/company-list.component';
+import { RouterLink } from '@angular/router';
 
 @Component({
   selector: 'uni-company-tracker',
   templateUrl: './company-tracker.component.html',
   styleUrls: ['./company-tracker.component.scss'],
   standalone: true,
-  imports: [
-    Dialog,
-    CompanyListComponent
-  ]
+  imports: [CommonModule, Dialog, CompanyListsComponent, CompanyDetailComponent, JobChatUiComponent, RouterLink]
 })
-export class CompanyTrackerComponent {
+export class CompanyTracker1Component {
   isSkeletonVisible: boolean = false;
   ehitlabelIsShow: boolean = false;
   restrict: boolean = false;

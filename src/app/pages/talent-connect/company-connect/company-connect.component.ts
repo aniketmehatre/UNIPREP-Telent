@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import {CommonModule} from "@angular/common";
 import {ChipModule} from "primeng/chip";
 import {TalentConnectModule} from "../talent-connect.module";
@@ -15,23 +15,12 @@ interface DropdownOption {
 }
 
 @Component({
-    imports: [
-        CommonModule,
-        ChipModule,
-        TalentConnectModule,
-        DialogModule,
-        DropdownModule,
-        PaginatorModule,
-        Select,
-        FormsModule,
-        RouterLink
-    ],
     selector: 'uni-company-connect',
-    standalone: true,
+  standalone: false,
     styleUrls: ['./company-connect.component.scss'],
     templateUrl: './company-connect.component.html'
 })
-export class CompanyConnectComponent {
+export class CompanyConnect1Component {
   displayModal: boolean = false;
   totalCount: number = 90;
   first: number = 0;
@@ -53,7 +42,12 @@ export class CompanyConnectComponent {
       yearFounded: '2019',
       companyType: 'MNC',
       companySize: '11-50',
-      logo: '/uniprep-assets/image-available.png'
+      logo: '/uniprep-assets/image-available.png',
+      vacancies: '20',
+      industry: 'Ed tech',
+      location: 'Chennai',
+      workMode: 'Hybrid',
+      department: 'IT'
     }
   ]
     pageSize: unknown;

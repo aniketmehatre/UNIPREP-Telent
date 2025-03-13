@@ -31,19 +31,19 @@
                 <div class="row">
                     <div class="col-md-2 ">
                         <div class="logo-container border p-3 mb-3">
-                          <img src="" alt="UNIABROAD" class="img-fluid">
+                          <img [src]="jobDetails.company_logo_url" alt="UNIABROAD" class="img-fluid">
                         </div>
                       </div>
                       <div class="col-md-8">
-                        <h1 class="fw-bold">{{ jobDetails.title }}</h1>
+                        <h1 class="fw-bold">{{ jobDetails.position }}</h1>
                         <div class="d-flex align-items-center mb-2">
-                          <span class="me-2">{{ jobDetails.company }}</span>
+                          <span class="me-2">{{ jobDetails.comapany_name }}</span>
                           <span class="ms-1 text-primary" *ngIf="jobDetails">
                               <i class="fas fa-check-circle"></i>
                             </span>
                         </div>
                         <div class="mb-3">
-                          <span class="text-muted">You match {{ jobDetails.skillMatch?.matched }} out of {{ jobDetails.skillMatch.total }} skill requirements for this job</span>
+                          <span class="text-muted">You match {{ 0 }} out of {{ 0 }} skill requirements for this job</span>
                         </div>
                         <div class="d-flex flex-wrap gap-2 mb-3">
                           <div>
@@ -55,15 +55,15 @@
                             <p class="mb-0 fw-bold fs-4">{{ jobDetails.total_applied }}</p>
                           </div>
                           <div>
-                            <span *ngFor="let skill of jobDetails.skillMatch.skills" class="badge me-1" [ngClass]="{'bg-warning text-dark': skill === 'UI Design' || skill === 'Graphic Design' || skill === 'UX Design', 'bg-secondary': skill === 'Motion Design'}">
+                            <span *ngFor="let skill of jobDetails.soft_skills" class="badge me-1" [ngClass]="{'bg-warning text-dark': skill === 'UI Design' || skill === 'Graphic Design' || skill === 'UX Design', 'bg-secondary': skill === 'Motion Design'}">
                               {{ skill }}
                             </span>
                           </div>
                         </div>
                       </div>
                       <div class="col-md-2 text-end">
-                        <button pButton label="Apply" icon="fa fa-arrow-pointer" iconPos="right" class="p-button-primary mb-3" (click)="applyJob(id)"></button>
-                        <div class="posted-date">Posted On : {{ jobDetails.postedDate }}</div>
+                        <button pButton [label]="jobDetails.stage ? 'Applied': 'Apply'" icon="fa fa-arrow-pointer" iconPos="right" [ngClass]="jobDetails?.stage ? 'bg-success' : 'bg-priamry'" class="p-button-primary mb-3" (click)="applyJob(id)"></button>
+                        <div class="posted-date">Posted On : {{ jobDetails.created_at }}</div>
                       </div>
                     </div>
                 <div class="row mb-4">
@@ -78,7 +78,7 @@
                                 <i class="pi pi-users me-2 text-secondary"></i>
                                 <span class="text-muted">Company Size</span>
                               </div>
-                              <div class="fw-bold">{{ jobDetails.companySize }}</div>
+                              <div class="fw-bold">{{ jobDetails.company_size }}</div>
                             </div>
                           </div>
               
@@ -100,7 +100,7 @@
                                 <i class="pi pi-calendar me-2 text-secondary"></i>
                                 <span class="text-muted">Start Date</span>
                               </div>
-                              <div class="fw-bold">{{ jobDetails.startDate }}</div>
+                              <div class="fw-bold">{{ jobDetails.start_date }}</div>
                             </div>
                           </div>
               
@@ -111,7 +111,7 @@
                                 <i class="pi pi-map-marker me-2 text-secondary"></i>
                                 <span class="text-muted">Work Location</span>
                               </div>
-                              <div class="fw-bold">{{ jobDetails.workLocation }}</div>
+                              <div class="fw-bold">{{ jobDetails.work_location }}</div>
                             </div>
                           </div>
               
@@ -122,7 +122,7 @@
                                 <i class="pi pi-desktop me-2 text-secondary"></i>
                                 <span class="text-muted">Work Mode</span>
                               </div>
-                              <div class="fw-bold">{{ jobDetails.workMode }}</div>
+                              <div class="fw-bold">{{ jobDetails.work_mode }}</div>
                             </div>
                           </div>
               
@@ -133,7 +133,7 @@
                                 <i class="pi pi-clock me-2 text-secondary"></i>
                                 <span class="text-muted">Employment Type</span>
                               </div>
-                              <div class="fw-bold">{{ jobDetails.employmentType }}</div>
+                              <div class="fw-bold">{{ jobDetails.employment_type }}</div>
                             </div>
                           </div>
               
@@ -144,7 +144,7 @@
                                 <i class="pi pi-dollar me-2 text-secondary"></i>
                                 <span class="text-muted">Salary Range</span>
                               </div>
-                              <div class="fw-bold">{{ jobDetails.salaryRange }}</div>
+                              <div class="fw-bold">{{ jobDetails.salary_range }}</div>
                             </div>
                           </div>
               
@@ -155,7 +155,7 @@
                                 <i class="pi pi-calendar-times me-2 text-secondary"></i>
                                 <span class="text-muted">Due Date</span>
                               </div>
-                              <div class="fw-bold">{{ jobDetails.dueDate }}</div>
+                              <div class="fw-bold">{{ jobDetails.due_date }}</div>
                             </div>
                           </div>
               
@@ -188,7 +188,7 @@
                                 <i class="pi pi-chart-line me-2 text-secondary"></i>
                                 <span class="text-muted">Experience Level</span>
                               </div>
-                              <div class="fw-bold">{{ jobDetails.experienceLevel }}</div>
+                              <div class="fw-bold">{{ jobDetails.experience_level }}</div>
                             </div>
                           </div>
               
@@ -199,7 +199,7 @@
                                 <i class="pi pi-book me-2 text-secondary"></i>
                                 <span class="text-muted">Educational Degree</span>
                               </div>
-                              <div class="fw-bold">{{ jobDetails.educationalDegree }}</div>
+                              <div class="fw-bold">{{ jobDetails.educational_degree }}</div>
                             </div>
                           </div>
               
@@ -210,7 +210,7 @@
                                 <i class="pi pi-building me-2 text-secondary"></i>
                                 <span class="text-muted">Industry</span>
                               </div>
-                              <div class="fw-bold">{{ jobDetails.industry }}</div>
+                              <div class="fw-bold">{{ jobDetails.industry_name }}</div>
                             </div>
                           </div>
                         </div>
@@ -228,7 +228,7 @@
                             <h2 class="fs-3 fw-bold">Job Overview</h2>
                           </div>
                           <div class="col-md-9 font-bold">
-                            <p class="mb-0" [innerHTML]="jobDetails.overview"></p>
+                            <p class="mb-0" [innerHTML]="jobDetails.job_overview"></p>
                           </div>
                         </div>
                       </div>
@@ -246,7 +246,7 @@
                           </div>
                           <div class="col-md-9 font-bold">
                             <ul class="list-unstyled">
-                              <li *ngFor="let resp of jobDetails.responsibilities" class="mb-3">
+                              <li *ngFor="let resp of jobDetails.key_responsibilities" class="mb-3">
                                 <div class="d-flex">
                                   <i class="pi pi-circle-fill me-2 mt-1" style="font-size: 8px;"></i>
                                   <span>{{ resp }}</span>
@@ -270,7 +270,7 @@
                             <h2 class="fs-3 fw-bold">Technical<br>Proficiency</h2>
                           </div>
                           <div class="col-md-9 font-bold">
-                            <p>{{ jobDetails.technicalProficiency }}</p>
+                            <p>{{ jobDetails.technical_proficiency }}</p>
                           </div>
                         </div>
                       </div>
@@ -289,7 +289,7 @@
                           </div>
                           <div class="col-md-9">
                             <ul class="list-unstyled font-bold">
-                              <li *ngFor="let lang of jobDetails.languageProficiency" class="mb-3">
+                              <li *ngFor="let lang of jobDetails.language_proficiency" class="mb-3">
                                 <div class="d-flex">
                                   <i class="pi pi-circle-fill me-2 mt-1" style="font-size: 8px;"></i>
                                   <span>{{ lang.language }} - {{ lang.level }}</span>
@@ -314,7 +314,7 @@
                           </div>
                           <div class="col-md-9 font-bold">
                             <div class="d-flex flex-wrap gap-2">
-                              <span *ngFor="let comp of jobDetails.compensationStructure" class="badge bg-warning text-dark p-2 rounded">{{ comp }}</span>
+                              <span *ngFor="let comp of jobDetails.compensation_structure" class="badge bg-warning text-dark p-2 rounded">{{ comp }}</span>
                             </div>
                           </div>
                         </div>
@@ -334,7 +334,7 @@
                           </div>
                           <div class="col-md-9 font-bold">
                             <div class="d-flex flex-wrap gap-2">
-                              <span *ngFor="let benefit of jobDetails.benefits" class="badge bg-warning text-dark p-2 rounded">{{ benefit }}</span>
+                              <span *ngFor="let benefit of jobDetails.benefits_perks" class="badge bg-warning text-dark p-2 rounded">{{ benefit }}</span>
                             </div>
                           </div>
                         </div>
@@ -354,7 +354,7 @@
                           </div>
                           <div class="col-md-9 font-bold">
                             <div class="d-flex flex-wrap gap-2">
-                              <span *ngFor="let skill of jobDetails.softSkills" class="badge bg-warning text-dark p-2 rounded">{{ skill }}</span>
+                              <span *ngFor="let skill of jobDetails.soft_skills" class="badge bg-warning text-dark p-2 rounded">{{ skill }}</span>
                             </div>
                           </div>
                         </div>
@@ -375,14 +375,14 @@
                           <div class="col-md-9 font-bold">
                             <h6 class="mb-2">Hiring Process Stages</h6>
                             <div class="d-flex flex-wrap gap-2 mb-4">
-                              <span *ngFor="let stage of jobDetails.hiringProcess.stages" class="badge bg-warning text-dark p-2 rounded">{{ stage }}</span>
+                              <span *ngFor="let stage of jobDetails.hiring_stages" class="badge bg-warning text-dark p-2 rounded">{{ stage }}</span>
                             </div>
               
                             <h6 class="mb-2">Estimated Hiring Decision Timeframe</h6>
-                            <p class="mb-4">{{ jobDetails.hiringProcess.timeframe }}</p>
+                            <p class="mb-4">{{ jobDetails.hiring_timeframe }}</p>
               
                             <h6 class="mb-2">Interview Format</h6>
-                            <p>{{ jobDetails.hiringProcess.format }}</p>
+                            <p>{{ jobDetails.interview_format }}</p>
                           </div>
                         </div>
                       </div>
