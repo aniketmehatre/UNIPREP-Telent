@@ -3,6 +3,7 @@ import {environment} from "@env/environment";
 
 @Component({
     selector: 'uni-main-list',
+    standalone: false,
     templateUrl: './main-list.component.html',
     styleUrls: ['./main-list.component.scss']
 })
@@ -18,7 +19,7 @@ export class MainListComponent implements OnInit {
                 image: this.domainUrl + "TripLengthFinder.svg",
                 value: '1 M+ Profiles',
                 navigate_title: 'Create Profile',
-                navigate_url: '',
+                navigate_url: '/pages/talent-connect/my-profile',
                 launch_soon: false,
             },
             {

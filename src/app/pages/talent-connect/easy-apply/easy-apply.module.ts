@@ -13,6 +13,7 @@ import { ButtonModule } from 'primeng/button';
 import { MultiSelectModule } from 'primeng/multiselect';
 import { ReactiveFormsModule } from '@angular/forms';
 import { InputTextModule } from 'primeng/inputtext';
+import { SelectModule } from 'primeng/select';
 
 const routes: Routes = [
   {
@@ -28,7 +29,7 @@ const routes: Routes = [
 
 
 @NgModule({
-  declarations: [],
+  declarations: [EasyApplyComponent, JobViewComponent],
   imports: [
     CommonModule,
     RouterModule.forChild(routes),
@@ -41,7 +42,8 @@ const routes: Routes = [
     DropdownModule,
     MultiSelectModule,
     ButtonModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    SelectModule,
   ]
 })
 export class EasyApplyModule { }

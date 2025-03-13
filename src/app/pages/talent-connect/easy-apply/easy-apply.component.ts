@@ -1,48 +1,38 @@
 import { Component } from '@angular/core';
-import {Paginator} from "primeng/paginator";
-import {Dialog} from "primeng/dialog";
-import {Select} from "primeng/select";
-import {FormsModule, ReactiveFormsModule} from "@angular/forms";
-import {RouterLink} from "@angular/router";
 import { Form, FormBuilder, FormGroup } from '@angular/forms';
-import {MultiSelect} from "primeng/multiselect";
+import { TalentConnectService } from '../talent-connect.service';
 
 interface JobListing {
   id: number;
-  company: string;
+  company_logo: string;
+  company_name: string;
   position: string;
   isVerified: boolean;
   matchedSkills: number;
   totalSkills: number;
-  vacancies: number;
-  location: string;
-  startDate: string;
+  available_vacancies: number;
+  worklocation: string;
+  start_date: string;
   companySize: string;
-  workArrangement: string;
-  employmentType: string;
-  salaryRange: string;
+  work_mode: string;
+  employment_type: string;
+  salary_offer: string;
   postedDate: string;
   total_applied: number;
-  dueDate: string;
+  due_date: string;
+  currency_code: string;
+  isChecked: boolean;
 }
+
 
 @Component({
   selector: 'uni-easy-apply',
   templateUrl: './easy-apply.component.html',
   styleUrls: ['./easy-apply.component.scss'],
-  standalone: true,
-  imports: [
-    Dialog,
-    Select,
-    FormsModule,
-    RouterLink,
-    MultiSelect,
-    ReactiveFormsModule
-
-  ]
+  standalone: false,
 })
 export class EasyApplyComponent {
-  jobListings: any;
+  jobListings: JobListing[] = [];
   industries: any[] = [];
   locations: any[] = [];
   workModes: any[] = [];
@@ -54,85 +44,15 @@ export class EasyApplyComponent {
     { label: 'USD', value: 'USD' },
     { label: 'EUR', value: 'EUR' }
   ];
+  page: number = 0;
+  pageSize: number = 8;
   displayModal: boolean = false;
   filterForm: FormGroup = new FormGroup({});
-  constructor(private fb: FormBuilder) { }
+  constructor(private fb: FormBuilder, private talentConnectService: TalentConnectService) { }
   ngOnInit(): void {
-    // Mock data - in a real app, this would come from a service
-    this.jobListings = [
-      {
-        id: 1,
-        company: 'UNIABROAD Pvt. Ltd.',
-        position: 'Senior UI / UX Designer',
-        isVerified: true,
-        matchedSkills: 3,
-        totalSkills: 4,
-        location: 'Mysore, Karnataka',
-        startDate: '19-02-2025',
-        companySize: '0-50',
-        workArrangement: 'Onsite',
-        employmentType: 'Full Time',
-        salaryRange: '50,000 - 1,00,000',
-        postedDate: '19-02-2025',
-        vacancies: 50,
-        total_applied: 100,
-        dueDate: '07-2-2025' 
-      },
-      {
-        id: 2,
-        company: 'UNIABROAD Pvt. Ltd.',
-        position: 'Senior UI / UX Designer',
-        isVerified: true,
-        matchedSkills: 3,
-        totalSkills: 4,
-        location: 'Mysore, Karnataka',
-        startDate: '19-02-2025',
-        companySize: '0-50',
-        workArrangement: 'Onsite',
-        employmentType: 'Full Time',
-        salaryRange: '50,000 - 1,00,000',
-        postedDate: '19-02-2025',
-        vacancies: 50,
-        total_applied: 100,
-        dueDate: '07-2-2025' 
-      },
-      {
-        id: 3,
-        company: 'UNIABROAD Pvt. Ltd.',
-        position: 'Senior UI / UX Designer',
-        isVerified: true,
-        matchedSkills: 3,
-        totalSkills: 4,
-        location: 'Mysore, Karnataka',
-        startDate: '19-02-2025',
-        companySize: '0-50',
-        workArrangement: 'Onsite',
-        employmentType: 'Full Time',
-        salaryRange: '50,000 - 1,00,000',
-        postedDate: '19-02-2025',
-        vacancies: 50,
-        total_applied: 100,
-        dueDate: '07-2-2025' 
-      },
-      {
-        id: 4,
-        company: 'UNIABROAD Pvt. Ltd.',
-        position: 'Senior UI / UX Designer',
-        isVerified: true,
-        matchedSkills: 3,
-        totalSkills: 4,
-        location: 'Mysore, Karnataka',
-        startDate: '19-02-2025',
-        companySize: '0-50',
-        workArrangement: 'Onsite',
-        employmentType: 'Full Time',
-        salaryRange: '50,000 - 1,00,000',
-        postedDate: '19-02-2025',
-        vacancies: 50,
-        total_applied: 100,
-        dueDate: '07-2-2025' 
-      }
-    ];
+    this.getList();
+    this.initializeForm();
+    this.getOptionsList();
   }
 
   initializeForm() {
@@ -149,18 +69,41 @@ export class EasyApplyComponent {
     });
   }
 
+  getList(params?: any) {
+    let data = {
+      page: this.page,
+      perPage: this.pageSize,
+    }
+    if (params) {
+      data = { ...data, ...params }
+    }
+    this.talentConnectService.getJobList(data).subscribe({
+      next: response => {
+        this.jobListings = response.jobs;
+        this.totalJobs = response.totaljobs;
+      },
+      error: error => {
+        console.log(error);
+      }
+    });
+  }
+
+  getOptionsList() {
+    this.talentConnectService.getJobListDropdown().subscribe(data => {
+      this.industries = data?.industrytypes;
+    });
+  }
+
   show(): void {
     this.displayModal = true;
   }
 
   applyFilter(): void {
-    // Implement filter logic
-    console.log('Applying filters');
+    this.getList(this.filterForm.value);
     this.displayModal = false;
   }
 
   resetFilter(): void {
-    // Reset all filters
     console.log('Resetting filters');
   }
 
