@@ -14,6 +14,8 @@ import { InputNumberModule } from 'primeng/inputnumber';
 import { DialogModule } from 'primeng/dialog';
 import { DialogService } from 'primeng/dynamicdialog';
 import { BadgeModule } from 'primeng/badge';
+import { SelectModule } from 'primeng/select';
+import { DatePickerModule } from 'primeng/datepicker';
 
 const routes: Routes = [
   {
@@ -33,14 +35,15 @@ const routes: Routes = [
     ReactiveFormsModule,
     InputTextModule,
     DropdownModule, 
-    CalendarModule,
     ButtonModule, 
     CardModule, 
     ProgressBarModule,
     FileUploadModule ,
     InputNumberModule,
     DialogModule,
-    BadgeModule
+    BadgeModule,
+    SelectModule,
+    DatePickerModule
   ]
 })
 export class EmployeeProfileModule { }

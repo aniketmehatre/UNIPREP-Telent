@@ -19,6 +19,16 @@ export enum FileType {
   styleUrl: './employee-profile.component.scss'
 })
 export class EmployeeProfileComponent implements OnInit {
+  currentMessage: string = "Enter your full name as per your official documents. This is the name that will appear on your offer letter and in the employer's database, so ensure it is accurate for a smooth hiring process. Numbers and special characters are not allowed.";
+  hoverMessages: any = {
+    fullName: "Enter your full name as per your official documents. This is the name that will appear on your offer letter and in the employer's database, so ensure it is accurate for a smooth hiring process. Numbers and special characters are not allowed.",
+    location: "Select your current location, including the city and country you reside in. This will help employers match you with nearby opportunities.",
+    jobTitle: "Enter your job title clearly. Employers look for specific roles to match your experience with their needs. A well-defined job title can boost your chances of landing the right job.",
+    employmentType: "Select the type of employment for this position. This helps employers understand your work schedule and availability.",
+    workArrangement: "Choose your ideal workplace type. The more specific you are, the better employers can match you with opportunities, increasing your chances of getting hired for the role that suits you best.",
+    careerStatus: "Select your current career status. Employers need to know your availability to determine if you're the right fit for the role. An updated career status helps match you with opportunities that align with your current situation.",
+    expectedSalary: "Enter your expected salary range in numbers upto 6 digits. This helps employers assess if your compensation expectations align with their budget."
+  };
   fileType = FileType;
   personalInfoForm: FormGroup;
   profileCompletion: number = 0; 
@@ -26,11 +36,16 @@ export class EmployeeProfileComponent implements OnInit {
   logo: any;
   uploadedFiles: { [key: string]: File } = {};
   profileId: string = '';
-  // Dropdown options
+  preferredEmploymentType: any;
+  preferredWorkplaceType: any;
+  careerStatus: any;
+  totalYearExperienceList: any;
   genderOptions = [
-    { label: 'Male', value: 'male' },
-    { label: 'Female', value: 'female' },
-    { label: 'Other', value: 'other' }
+    { label: 'Male', value: 'Male' },
+    { label: 'Female', value: 'Female' },
+    { label: 'Non-Binary', value: 'Non-Binary' },
+    { label: 'Prefer Not to Say', value: 'Prefer Not to Say' }
+
   ];
   currencies = [{ id: 1, currency_code: "AFN", currency_name: null }];
   careerInterests = [
@@ -77,11 +92,6 @@ export class EmployeeProfileComponent implements OnInit {
     { id: 63, soft_skill: "Accepting Feedback Positively" },
     { id: 29, soft_skill: "Accountability" }
   ];
-
-  qualificationOptions = [
-    { label: 'Bachelor\'s', value: 'bachelors' },
-    { label: 'Master\'s', value: 'masters' },
-    { label: 'PhD', value: 'phd' }];
 
   socialMedias = [
     { id: 63, social_media: "Linked IN" },
@@ -183,7 +193,7 @@ export class EmployeeProfileComponent implements OnInit {
       work_experience_salary_per_month: [null],
       work_experience_currency_id: [null],
       work_experience_job_responsibilities: [null],
-      work_experience_experience_letter: ['']
+      work_experience_experience_letter: [null]
     });
   }
 
@@ -221,7 +231,7 @@ export class EmployeeProfileComponent implements OnInit {
       references_reference_name: [null, Validators.required],
       references_designation: [null, Validators.required],
       references_phone_number: [null, Validators.required],
-      references_email: [null, Validators.required]
+      references_email: [null, [Validators.required, Validators.email]]
     });
   }
 
@@ -307,7 +317,6 @@ export class EmployeeProfileComponent implements OnInit {
   }
 
   removeWorkExperience(index: number) {
-    // Remove associated file if exists
     const fileId = `${FileType.EXPERIENCE_LETTER}_${index}`;
     if (this.uploadedFiles[fileId]) {
       delete this.uploadedFiles[fileId];
@@ -350,6 +359,7 @@ export class EmployeeProfileComponent implements OnInit {
   }
 
   uploadFile(type: FileType, event: any, index: number) {
+    console.log('calling', type);
     const file: File = event.target.files[0];
     if (!file) return;
 
@@ -381,7 +391,7 @@ export class EmployeeProfileComponent implements OnInit {
     const reader = new FileReader();
     reader.onload = () => {
       this.logo = reader.result;
-      this.personalInfoForm.get('profile_image')?.setValue(file);
+      this.personalInfoForm.get('profile_image')?.setValue(file.name);
     };
     reader.readAsDataURL(file);
   }
@@ -398,11 +408,12 @@ export class EmployeeProfileComponent implements OnInit {
   }
 
   onSubmit() {
+    console.log(this.personalInfoForm);
     if (this.personalInfoForm.valid) {
       const formData = new FormData();
 
       formData.append('full_name', this.personalInfoForm.get('full_name')?.value || '');
-      formData.append('date_of_birth', this.personalInfoForm.get('date_of_birth')?.value || '');
+      formData.append('date_of_birth', new Date(this.personalInfoForm.get('date_of_birth')?.value).toISOString() || '');
       formData.append('nationality_id', this.personalInfoForm.get('nationality_id')?.value || '');
       formData.append('gender', this.personalInfoForm.get('gender')?.value || '');
       formData.append('location_id', this.personalInfoForm.get('location_id')?.value || '');
@@ -434,6 +445,8 @@ export class EmployeeProfileComponent implements OnInit {
         const fileKey = `${FileType.EXPERIENCE_LETTER}_${index}`;
         if (this.uploadedFiles[fileKey]) {
           formData.append(`work_experience[${index}][work_experience_experience_letter]`, this.uploadedFiles[fileKey]);
+        } else {
+          formData.append(`work_experience[${index}][work_experience_experience_letter]`, '');
         }
       });
 
@@ -456,6 +469,8 @@ export class EmployeeProfileComponent implements OnInit {
       // Add CV file if exists
       if (this.uploadedFiles['CV_0']) {
         formData.append('career_preference_cv_filename', this.uploadedFiles['CV_0']);
+      } else {
+        formData.append('career_preference_cv_filename', '');
       }
       formData.append('career_preference_video_link', this.personalInfoForm.get('career_preference_video_link')?.value || '');
       formData.append('career_preference_portfolio_upload_link', this.personalInfoForm.get('career_preference_portfolio_upload_link')?.value || '');
@@ -502,6 +517,8 @@ export class EmployeeProfileComponent implements OnInit {
         const fileKey = `${FileType.CERTIFICATIONS}_${index}`;
         if (this.uploadedFiles[fileKey]) {
           formData.append(`certifications[${index}][certifications_certificate_file]`, this.uploadedFiles[fileKey]);
+        } else {
+          formData.append(`certifications[${index}][certifications_certificate_file]`, '');
         }
       });
 
@@ -514,6 +531,8 @@ export class EmployeeProfileComponent implements OnInit {
         const fileKey = `${FileType.ACHIEVEMENTS}_${index}`;
         if (this.uploadedFiles[fileKey]) {
           formData.append(`acheivements[${index}][certifications_achievement_file]`, this.uploadedFiles[fileKey]);
+        } else {
+          formData.append(`acheivements[${index}][certifications_achievement_file]`, '');
         }
       });
 
@@ -529,6 +548,8 @@ export class EmployeeProfileComponent implements OnInit {
       // Profile Image
       if (this.uploadedFiles['profile_image']) {
         formData.append('profile_image', this.uploadedFiles['profile_image']);
+      } else {
+        formData.append('profile_image', '');
       }
 
       formData.append('additional_notes', this.personalInfoForm.get('additional_notes')?.value || '');
@@ -616,6 +637,11 @@ export class EmployeeProfileComponent implements OnInit {
         this.professionalStrengths = response.professional_strengths;
         this.qualifications = response.qualifications;
         this.softSkills = response.soft_skills;
+        this.preferredWorkplaceType = response.preferred_workplace_type;
+        this.preferredEmploymentType = response.preferred_employment_type;
+        this.genderOptions = response.gender;
+        this.careerStatus = response.career_status;
+        this.totalYearExperienceList = response.total_year_experience;
       },
       error: error => {
         console.log(error);
@@ -628,7 +654,7 @@ export class EmployeeProfileComponent implements OnInit {
       next: response => {
         if (response.status) {
           this.profileId = response.id;
-          console.log(response);
+          this.patchForm(response.data);
         }
       },
       error: error => {
@@ -636,4 +662,47 @@ export class EmployeeProfileComponent implements OnInit {
       }
     })
   }
+
+  patchForm(responseData: any) {
+    if (!responseData) return;
+
+    // Patch simple form controls
+    this.personalInfoForm.patchValue(responseData);
+
+    // Handle FormArrays separately
+    this.patchFormArray('educationDetails', responseData.educationDetails, this.createEducationGroup.bind(this));
+    this.patchFormArray('work_experience', responseData.work_experience, this.createWorkExperienceGroup.bind(this));
+    this.patchFormArray('networking_social_media', responseData.networking_social_media, this.createSocialMediaGroup.bind(this));
+    this.patchFormArray('academicReferences', responseData.academicReferences, this.createAcademicReferenceGroup.bind(this));
+    this.patchFormArray('professional_references', responseData.professional_references, this.createProfessionalReferenceGroup.bind(this));
+    this.patchFormArray('certifications', responseData.certifications, this.createCertificateGroup.bind(this));
+    this.patchFormArray('acheivements', responseData.acheivements, this.createAcheivementGroup.bind(this));
+    this.patchFormArray('languages', responseData.languages, this.createLanguageGroup.bind(this));
+  }
+
+  /**
+   * Helper method to patch FormArray dynamically
+   */
+  private patchFormArray(key: string, data: any[], createGroupFn: () => FormGroup) {
+    const formArray = this.personalInfoForm.get(key) as FormArray;
+
+    if (!data || !Array.isArray(data)) return;
+
+    formArray.clear(); // Clear existing values
+
+    data.forEach(item => {
+      const group = createGroupFn();
+      group.patchValue(item);
+      formArray.push(group);
+    });
+  }
+
+  updateMessageBox(fieldKey: string): void {
+    this.currentMessage = this.hoverMessages[fieldKey];
+  }
+
+  resetMessageBox(): void {
+    this.currentMessage = this.hoverMessages.fullName; // Default message
+  }
+
 }

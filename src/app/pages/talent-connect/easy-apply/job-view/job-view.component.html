@@ -27,11 +27,11 @@
     </div>
     <div class="card-body text-start flex-fill overflow-y-auto">
         <div class="row">
-            <div class="col-md-8" [ngClass]="{'col-md-12': !isShowApplyChat}">
+            <div class="col-md-8 overflow-auto" [ngClass]="{'col-md-12': !isShowApplyChat}" style="height: calc(100vh - 250px);">
                 <div class="row">
                     <div class="col-md-2 ">
                         <div class="logo-container border p-3 mb-3">
-                          <img [src]="jobDetails.company_logo_url" alt="UNIABROAD" class="img-fluid">
+                          <img [src]="jobDetails?.company_logo_url" alt="UNIABROAD" class="img-fluid">
                         </div>
                       </div>
                       <div class="col-md-8">
@@ -390,7 +390,7 @@
                   </div>
                 </div>
             </div>
-            <div class="col-md-4" *ngIf="isShowApplyChat">
+            <div class="col-md-4 overflow-auto" style="height: calc(100vh - 250px);">
                 <div class="chat-container">
                     <div class="card">
                       <!-- Header -->

@@ -1,345 +1,360 @@
-<div
-class="w-100 bg-primary rounded-top-4 text-start d-flex justify-content-between align-items-center py-3 px-4 ">
-<h5 class="text-white fw-medium fs-4">{{isSample ? 'Sample Profile' : personalInfo?.fullName+'\'s profile'}}</h5>
-<i class="fa-solid fa-circle-xmark fs-2 cursor-pointer" style="color: white;" (click)="closeDialog();"></i>
+<div class="w-100 bg-primary rounded-top-4 text-start d-flex justify-content-between align-items-center py-3 px-4">
+  <h5 class="text-white fw-medium fs-4">{{isSample ? 'Sample Profile' : profileData.personalInfo.fullName + '\'s profile'}}</h5>
+  <i class="fa-solid fa-circle-xmark fs-2 cursor-pointer" style="color: white;" (click)="closeDialog()"></i>
 </div>
+
 <div class="profile-dialog-content">
-    <div class="container-fluid profile-container">
-        <!-- Personal Information Section -->
-        <div class="card-inside mb-4">
-          <div class="card-body">
-            <div class="row">
-              <div class="col-md-3 text-center">
-                <div class="d-flex justify-content-center align-items-center border border-black h-100 p-4 rounded-3">
-                    <div class="bg-secondary-subtle h-100 w-100 d-flex justify-content-center align-items-center rounded-3" style="border: 1px dashed">
-                        <div class="text-center">
-                          <img 
-                            [src]="personalInfo?.logo ? personalInfo?.logo : 'https://randomuser.me/api/portraits/men/7.jpg'" 
-                            styleClass="shadow-lg w-100 h-100" class="rounded-circle">
-                        </div>
-                    </div>
-                  </div>              
-                </div>
-              <div class="col-md-8">
-                <div class="card-header">
-                    <h4>Personal Information</h4>
-                  </div>
-                <div class="row">
-                  <div class="col-md-6">
-                    <h5>Full Name</h5>
-                    <p>{{ personalInfo.fullName }}</p>
-                  </div>
-                  <div class="col-md-6">
-                    <h5>Date of Birth</h5>
-                    <p>{{ personalInfo.dateOfBirth }}</p>
-                  </div>
-                  <div class="col-md-6">
-                    <h5>Gender</h5>
-                    <p>{{ personalInfo.gender }}</p>
-                  </div>
-                  <div class="col-md-6">
-                    <h5>Nationality</h5>
-                    <p>{{ personalInfo.nationality }}</p>
-                  </div>
-                  <div class="col-md-12">
-                    <h5>Current Location</h5>
-                    <p>{{ personalInfo.location }}</p>
-                  </div>
-                </div>
+  <div class="container-fluid profile-container">
+    <!-- Personal Information Section -->
+    <section class="card-inside mb-4">
+      <div class="card-body">
+        <div class="row">
+          <div class="col-md-3 text-center">
+            <div class="d-flex justify-content-center align-items-center border border-black h-100 p-4 rounded-3">
+              <div class="bg-secondary-subtle h-100 w-100 d-flex justify-content-center align-items-center rounded-3" style="border: 1px dashed">
+                <img [src]="profileData.personalInfo.logo ? profileData.personalInfo.logo : 'https://randomuser.me/api/portraits/men/7.jpg'"class="rounded-circle" alt="Profile Photo">
               </div>
             </div>
           </div>
-        </div>
-        <hr>
-        <!-- Education Details Section -->
-        <div class="card-inside mb-4">
-          <div class="card-header">
-            <h4>Education Details</h4>
-          </div>
-          <div class="card-body">
-            <div class="row"  *ngFor="let educationDetails of educationDetails;">
-              <div class="col-md-6">
-                <h5>Highest Qualification</h5>
-                <p>{{ educationDetails.highestQualification }}</p>
-              </div>
-              <div class="col-md-6">
-                <h5>University</h5>
-                <p>{{ educationDetails.university }}</p>
-              </div>
-              <div class="col-md-6">
-                <h5>Field of Study</h5>
-                <p>{{ educationDetails.fieldOfStudy }}</p>
-              </div>
-              <div class="col-md-6">
-                <h5>Course Name</h5>
-                <p>{{ educationDetails.courseName }}</p>
-              </div>
-              <div class="col-md-6">
-                <h5>Graduation Year</h5>
-                <p>{{ educationDetails.graduationYear }}</p>
-              </div>
-              <div class="col-md-6">
-                <h5>GPA</h5>
-                <p>{{ educationDetails.gpa }}</p>
-              </div>
-            </div>
-          </div>
-        </div>
-        <hr>
-        <!-- Work Experience Section -->
-        <div class="card-inside mb-4">
-          <div class="card-header">
-            <h4>Work Experience & Internships</h4>
-          </div>
-          <div class="card-body">
-            <div class="row" *ngFor="let workExperience of workExperience;">
-              <div class="col-md-6">
-                <h5>Total Years of Experience</h5>
-                <p>{{ workExperience.totalExperience }}</p>
-              </div>
-              <div class="col-md-6">
-                <h5>Company Name</h5>
-                <p>{{ workExperience.companyName }}</p>
-              </div>
-              <div class="col-md-6">
-                <h5>Job Title</h5>
-                <p>{{ workExperience.jobTitle }}</p>
-              </div>
-              <div class="col-md-6">
-                <h5>Duration</h5>
-                <p>{{ workExperience.duration }}</p>
-              </div>
-              <div class="col-md-6">
-                <h5>Employment Type</h5>
-                <p>{{ workExperience.employmentType }}</p>
-              </div>
-              <div class="col-md-6">
-                <h5>Salary</h5>
-                <p>{{ workExperience.salary }}</p>
-              </div>
-              <div class="col-md-12">
-                <h5>Job Responsibilities</h5>
-                <ul>
-                  <li *ngFor="let responsibility of workExperience.responsibilities">
-                    {{ responsibility }}
-                  </li>
-                </ul>
-              </div>
-            </div>
-          </div>
-        </div>
-        <hr>
-        <!-- Career Preferences Section -->
-        <div class="card-inside mb-4">
-          <div class="card-header">
-            <h4>Career Preferences & Aspirations</h4>
-          </div>
-          <div class="card-body">
-            <div class="row">
-              <div class="col-md-6">
-                <h5>Career Status</h5>
-                <p>{{ careerPreferences.careerStatus }}</p>
-              </div>
-              <div class="col-md-6">
-                <h5>Job Title</h5>
-                <p>{{ careerPreferences.jobTitle }}</p>
-              </div>
-              <div class="col-md-6">
-                <h5>Career Interest/Industry</h5>
-                <p>{{ careerPreferences.careerInterest }}</p>
-              </div>
-              <div class="col-md-6">
-                <h5>Preferred Work Location</h5>
-                <p>{{ careerPreferences.preferredWorkLocation }}</p>
-              </div>
-              <div class="col-md-6">
-                <h5>Preferred Employment Type</h5>
-                <p>{{ careerPreferences.preferredEmploymentType }}</p>
-              </div>
-              <div class="col-md-6">
-                <h5>Preferred Workplace Type</h5>
-                <p>{{ careerPreferences.preferredWorkplaceType }}</p>
-              </div>
-              <div class="col-md-6">
-                <h5>Willingness to Relocate</h5>
-                <p>{{ careerPreferences.willingToRelocate }}</p>
-              </div>
-              <div class="col-md-6">
-                <h5>Salary Range</h5>
-                <p>{{ careerPreferences.salaryRange }}</p>
-              </div>
-            </div>
-          </div>
-        </div>
-        <hr>
-        <!-- Certifications Section -->
-        <div class="card-inside mb-4">
-          <div class="card-header">
-            <h4>Certifications & Achievements</h4>
-          </div>
-          <div class="card-body">
-            <div class="row">
-              <div class="col-md-6" *ngFor="let cert of certifications">
-                <div class="d-flex justify-content-between align-items-center mb-3">
-                  <span>{{ cert.name }}</span>
-                  <button class="btn btn-primary btn-sm" (click)="downloadFile(cert.file)">
-                    Download
-                  </button>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-        <hr>
-        <!-- Additional Details Section -->
-        <div class="card-inside mb-4">
-          <div class="card-header">
-            <h4>Additional Details</h4>
-          </div>
-          <div class="card-body">
-            <div class="row">
-              <div class="col-md-6">
-                <h5>Languages Known</h5>
-                <p>{{ additionalDetails.languagesKnown.join(', ') }}</p>
-              </div>
-              <div class="col-md-6">
-                <h5>Hobbies & Interests</h5>
-                <p>{{ additionalDetails.hobbiesAndInterests.join(', ') }}</p>
-              </div>
-            </div>
-          </div>
-        </div>
-        <hr>
-        <!-- Key Strengths Section -->
-        <div class="card-inside mb-4">
-          <div class="card-header">
-            <h4>Key Strengths & Professional Traits</h4>
-          </div>
-          <div class="card-body">
-            <div class="row">
-              <div class="col-md-12">
-                <h5>What Sets You Apart in Your Industry?</h5>
-                <p>{{ keyStrengths.industryDifferentiators.join(', ') }}</p>
-              </div>
-              <div class="col-md-6">
-                <h5>Top Professional Strength</h5>
-                <p>{{ keyStrengths.topProfessionalStrength }}</p>
-              </div>
-              <div class="col-md-6">
-                <h5>Solved a Real-World Challenge?</h5>
-                <p>{{ keyStrengths.solvedRealWorldChallenge }}</p>
-              </div>
-              <div class="col-md-6">
-                <h5>Taken Leadership Roles?</h5>
-                <p>{{ keyStrengths.leadershipRoles }}</p>
-              </div>
-              <div class="col-md-12">
-                <h5>One Quality Others Admire Most About You</h5>
-                <p>{{ keyStrengths.mostAdmiredQuality }}</p>
-              </div>
-            </div>
-          </div>
-        </div>
-        <hr>
-        <!-- Professional Networking Section -->
-        <div class="card-inside mb-4">
-          <div class="card-header">
-            <h4>Professional Networking & Online Presence</h4>
-          </div>
-          <div class="card-body">
-            <div class="row">
-              <div class="col-md-6">
-                <h5>LinkedIn Profile</h5>
-                <a [href]="networking.linkedinProfile" target="_blank">
-                  {{ networking.linkedinProfile }}
-                </a>
-              </div>
-              <div class="col-md-6">
-                <h5>Social Media</h5>
-                <a [href]="networking.socialMedia" target="_blank">
-                  {{ networking.socialMedia }}
-                </a>
-              </div>
-              <div class="col-md-6">
-                <h5>Personal Website</h5>
-                <a [href]="networking.personalWebsite" target="_blank">
-                  {{ networking.personalWebsite }}
-                </a>
-              </div>
-            </div>
-          </div>
-        </div>
-        <hr>
-        <div class="card-inside mb-4">
+          <div class="col-md-9">
             <div class="card-header">
-              <h4 class="mb-0">Attachments & Media</h4>
+              <h4>Personal Information</h4>
             </div>
-            <div class="card-body">
-              <div class="row g-3">
-                <div *ngFor="let attachment of attachments" class="col-12">
-                  <div class="d-flex justify-content-between align-items-center border p-2 rounded">
-                    <span>{{attachment.name}}</span>
-                    <button class="btn btn-outline-primary btn-sm">
-                      <i class="pi pi-download"></i>
-                    </button>
-                  </div>
-                </div>
+            <div class="row">
+              <div class="col-md-6">
+                <h5>Full Name</h5>
+                <p>{{ profileData.personalInfo.fullName }}</p>
+              </div>
+              <div class="col-md-6">
+                <h5>Date of Birth</h5>
+                <p>{{ profileData.personalInfo.dateOfBirth }}</p>
+              </div>
+              <div class="col-md-6">
+                <h5>Gender</h5>
+                <p>{{ profileData.personalInfo.gender }}</p>
+              </div>
+              <div class="col-md-6">
+                <h5>Nationality</h5>
+                <p>{{ profileData.personalInfo.nationality }}</p>
+              </div>
+              <div class="col-md-12">
+                <h5>Current Location</h5>
+                <p>{{ profileData.personalInfo.location }}</p>
               </div>
             </div>
           </div>
-    
-          <div class="card-inside">
-            <div class="card-header">
-              <h4 class="mb-0">References & Endorsements</h4>
-            </div>
-            <div class="card-body">
-                 <h4 class="fw-bold mb-3">Acadamic Refrence</h4>
-                  <div class="row g-3" *ngFor="let academicReference of academicReference;">
-                    <div class="col-md-4">
-                      <h5>College Name</h5>
-                      <p>{{academicReference.collegeName}}</p>
-                    </div>
-                    <div class="col-md-4">
-                      <h5>Name</h5>
-                      <p>{{academicReference.name}}</p>
-                    </div>
-                    <div class="col-md-4">
-                      <h5>Phone Number</h5>
-                      <p>{{academicReference.phoneNumber}}</p>
-                    </div>
-                    <div class="col-md-4">
-                      <h5>Email</h5>
-                      <p>{{academicReference.email}}</p>
-                    </div>
-                    <div class="col-md-4">
-                      <h5>Designation</h5>
-                      <p>{{academicReference.designation}}</p>
-                    </div>
-                  </div>
-                  <h4 class="fw-bold my-3">Professional Refrence</h4>
-                  <div class="row g-3" *ngFor="let professionalReference of professionalReference">
-                    <div class="col-md-4">
-                      <h5>Company Name</h5>
-                      <p>{{professionalReference.companyName}}</p>
-                    </div>
-                    <div class="col-md-4">
-                      <h5>Name</h5>
-                      <p>{{professionalReference.name}}</p>
-                    </div>
-                    <div class="col-md-4">
-                      <h5>Phone Number</h5>
-                      <p>{{professionalReference.phoneNumber}}</p>
-                    </div>
-                    <div class="col-md-4">
-                      <h5>Email</h5>
-                      <p>{{professionalReference.email}}</p>
-                    </div>
-                    <div class="col-md-4">
-                      <h5>Designation</h5>
-                      <p>{{professionalReference.designation}}</p>
-                    </div>
-                  </div>
-            </div>
-          </div>
+        </div>
       </div>
+    </section>
+
+    <hr>
+
+    <!-- Education Details Section -->
+    <section class="card-inside mb-4">
+      <div class="card-header">
+        <h4>Education Details</h4>
+      </div>
+      <div class="card-body">
+        <div class="row" *ngFor="let education of profileData.educationDetails">
+          <div class="col-md-6">
+            <h5>Highest Qualification</h5>
+            <p>{{ education.highestQualification }}</p>
+          </div>
+          <div class="col-md-6">
+            <h5>University</h5>
+            <p>{{ education.university }}</p>
+          </div>
+          <div class="col-md-6">
+            <h5>Field of Study</h5>
+            <p>{{ education.fieldOfStudy }}</p>
+          </div>
+          <div class="col-md-6">
+            <h5>Course Name</h5>
+            <p>{{ education.courseName }}</p>
+          </div>
+          <div class="col-md-6">
+            <h5>Graduation Year</h5>
+            <p>{{ education.graduationYear }}</p>
+          </div>
+          <div class="col-md-6">
+            <h5>GPA</h5>
+            <p>{{ education.gpa }}</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <hr>
+
+    <!-- Work Experience Section -->
+    <section class="card-inside mb-4">
+      <div class="card-header">
+        <h4>Work Experience & Internships</h4>
+      </div>
+      <div class="card-body">
+        <div class="row" *ngFor="let experience of profileData.workExperience">
+          <div class="col-md-6">
+            <h5>Total Years of Experience</h5>
+            <p>{{ experience.totalExperience }}</p>
+          </div>
+          <div class="col-md-6">
+            <h5>Company Name</h5>
+            <p>{{ experience.companyName }}</p>
+          </div>
+          <div class="col-md-6">
+            <h5>Job Title</h5>
+            <p>{{ experience.jobTitle }}</p>
+          </div>
+          <div class="col-md-6">
+            <h5>Duration</h5>
+            <p>{{ experience.duration }}</p>
+          </div>
+          <div class="col-md-6">
+            <h5>Employment Type</h5>
+            <p>{{ experience.employmentType }}</p>
+          </div>
+          <div class="col-md-6">
+            <h5>Salary</h5>
+            <p>{{ experience.salary }}</p>
+          </div>
+          <div class="col-md-12">
+            <h5>Job Responsibilities</h5>
+            <ul>
+              <li *ngFor="let responsibility of experience.responsibilities">
+                {{ responsibility }}
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <hr>
+
+    <!-- Career Preferences Section -->
+    <section class="card-inside mb-4">
+      <div class="card-header">
+        <h4>Career Preferences & Aspirations</h4>
+      </div>
+      <div class="card-body">
+        <div class="row">
+          <div class="col-md-6">
+            <h5>Career Status</h5>
+            <p>{{ profileData.careerPreferences.careerStatus }}</p>
+          </div>
+          <div class="col-md-6">
+            <h5>Job Title</h5>
+            <p>{{ profileData.careerPreferences.jobTitle }}</p>
+          </div>
+          <div class="col-md-6">
+            <h5>Career Interest/Industry</h5>
+            <p>{{ profileData.careerPreferences.careerInterest }}</p>
+          </div>
+          <div class="col-md-6">
+            <h5>Preferred Work Location</h5>
+            <p>{{ profileData.careerPreferences.preferredWorkLocation }}</p>
+          </div>
+          <div class="col-md-6">
+            <h5>Preferred Employment Type</h5>
+            <p>{{ profileData.careerPreferences.preferredEmploymentType }}</p>
+          </div>
+          <div class="col-md-6">
+            <h5>Preferred Workplace Type</h5>
+            <p>{{ profileData.careerPreferences.preferredWorkplaceType }}</p>
+          </div>
+          <div class="col-md-6">
+            <h5>Willingness to Relocate</h5>
+            <p>{{ profileData.careerPreferences.willingToRelocate }}</p>
+          </div>
+          <div class="col-md-6">
+            <h5>Salary Range</h5>
+            <p>{{ profileData.careerPreferences.salaryRange }}</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <hr>
+
+    <!-- Certifications Section -->
+    <section class="card-inside mb-4">
+      <div class="card-header">
+        <h4>Certifications & Achievements</h4>
+      </div>
+      <div class="card-body">
+        <div class="row">
+          <div class="col-md-6" *ngFor="let cert of profileData.certifications">
+            <div class="d-flex justify-content-between align-items-center mb-3">
+              <span>{{ cert.name }}</span>
+              <button class="btn btn-primary btn-sm" (click)="downloadFile(cert.file)">
+                Download
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <hr>
+
+    <!-- Additional Details Section -->
+    <section class="card-inside mb-4">
+      <div class="card-header">
+        <h4>Additional Details</h4>
+      </div>
+      <div class="card-body">
+        <div class="row">
+          <div class="col-md-6">
+            <h5>Languages Known</h5>
+            <p>{{ profileData.additionalDetails.languagesKnown.join(', ') }}</p>
+          </div>
+          <div class="col-md-6">
+            <h5>Hobbies & Interests</h5>
+            <p>{{ profileData.additionalDetails.hobbiesAndInterests.join(', ') }}</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <hr>
+
+    <!-- Key Strengths Section -->
+    <section class="card-inside mb-4">
+      <div class="card-header">
+        <h4>Key Strengths & Professional Traits</h4>
+      </div>
+      <div class="card-body">
+        <div class="row">
+          <div class="col-md-12">
+            <h5>What Sets You Apart in Your Industry?</h5>
+            <p>{{ profileData.keyStrengths.industryDifferentiators.join(', ') }}</p>
+          </div>
+          <div class="col-md-6">
+            <h5>Top Professional Strength</h5>
+            <p>{{ profileData.keyStrengths.topProfessionalStrength }}</p>
+          </div>
+          <div class="col-md-6">
+            <h5>Solved a Real-World Challenge?</h5>
+            <p>{{ profileData.keyStrengths.solvedRealWorldChallenge }}</p>
+          </div>
+          <div class="col-md-6">
+            <h5>Taken Leadership Roles?</h5>
+            <p>{{ profileData.keyStrengths.leadershipRoles }}</p>
+          </div>
+          <div class="col-md-12">
+            <h5>One Quality Others Admire Most About You</h5>
+            <p>{{ profileData.keyStrengths.mostAdmiredQuality }}</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <hr>
+
+    <!-- Professional Networking Section -->
+    <section class="card-inside mb-4">
+      <div class="card-header">
+        <h4>Professional Networking & Online Presence</h4>
+      </div>
+      <div class="card-body">
+        <div class="row">
+          <div class="col-md-6">
+            <h5>LinkedIn Profile</h5>
+            <a [href]="profileData.networking.linkedinProfile" target="_blank">
+              {{ profileData.networking.linkedinProfile }}
+            </a>
+          </div>
+          <div class="col-md-6">
+            <h5>Social Media</h5>
+            <a [href]="profileData.networking.socialMedia" target="_blank">
+              {{ profileData.networking.socialMedia }}
+            </a>
+          </div>
+          <div class="col-md-6">
+            <h5>Personal Website</h5>
+            <a [href]="profileData.networking.personalWebsite" target="_blank">
+              {{ profileData.networking.personalWebsite }}
+            </a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <hr>
+
+    <!-- Attachments Section -->
+    <section class="card-inside mb-4">
+      <div class="card-header">
+        <h4>Attachments & Media</h4>
+      </div>
+      <div class="card-body">
+        <div class="row g-3">
+          <div *ngFor="let attachment of profileData.attachments" class="col-12">
+            <div class="d-flex justify-content-between align-items-center border p-2 rounded">
+              <span>{{attachment.name}}</span>
+              <button class="btn btn-outline-primary btn-sm">
+                <i class="pi pi-download"></i>
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- References Section -->
+    <section class="card-inside">
+      <div class="card-header">
+        <h4>References & Endorsements</h4>
+      </div>
+      <div class="card-body">
+        <h4 class="fw-bold mb-3">Academic Reference</h4>
+        <div class="row g-3" *ngFor="let reference of profileData.academicReference">
+          <div class="col-md-4">
+            <h5>College Name</h5>
+            <p>{{reference.collegeName}}</p>
+          </div>
+          <div class="col-md-4">
+            <h5>Name</h5>
+            <p>{{reference.name}}</p>
+          </div>
+          <div class="col-md-4">
+            <h5>Phone Number</h5>
+            <p>{{reference.phoneNumber}}</p>
+          </div>
+          <div class="col-md-4">
+            <h5>Email</h5>
+            <p>{{reference.email}}</p>
+          </div>
+          <div class="col-md-4">
+            <h5>Designation</h5>
+            <p>{{reference.designation}}</p>
+          </div>
+        </div>
+        
+        <h4 class="fw-bold my-3">Professional Reference</h4>
+        <div class="row g-3" *ngFor="let reference of profileData.professionalReference">
+          <div class="col-md-4">
+            <h5>Company Name</h5>
+            <p>{{reference.companyName}}</p>
+          </div>
+          <div class="col-md-4">
+            <h5>Name</h5>
+            <p>{{reference.name}}</p>
+          </div>
+          <div class="col-md-4">
+            <h5>Phone Number</h5>
+            <p>{{reference.phoneNumber}}</p>
+          </div>
+          <div class="col-md-4">
+            <h5>Email</h5>
+            <p>{{reference.email}}</p>
+          </div>
+          <div class="col-md-4">
+            <h5>Designation</h5>
+            <p>{{reference.designation}}</p>
+          </div>
+        </div>
+      </div>
+    </section>
+  </div>
 </div>
