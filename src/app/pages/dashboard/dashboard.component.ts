@@ -18,13 +18,17 @@ import { RouterModule } from "@angular/router"
 import { SelectModule } from "primeng/select"
 import {StorageService} from "../../storage.service";
 import { JobSearchService } from "../job-search/job-search.service"
+import { CalendarModule } from "primeng/calendar"
+import { DatePickerModule } from "primeng/datepicker"
 
 @Component({
 	selector: "uni-dashboard",
 	templateUrl: "./dashboard.component.html",
 	styleUrls: ["./dashboard.component.scss"],
 	standalone: true,
-	imports: [CommonModule, DialogModule, CarouselModule,  FormsModule, ButtonModule, TooltipModule, RouterModule, SelectModule],
+	imports: [CommonModule, DialogModule, CarouselModule,  FormsModule, ButtonModule, TooltipModule, RouterModule, SelectModule,
+		CalendarModule,DatePickerModule,
+	],
 	providers: [DashboardService, AuthService, DataService, LocationService],
 	changeDetection: ChangeDetectionStrategy.OnPush
 })
@@ -54,6 +58,7 @@ export class DashboardComponent implements OnInit, OnChanges {
 	@ViewChild("carousel") carousel!: Carousel
 	groupedListFav:any= [];
 	groupedListFav2:any=[];
+	date: Date = new Date();
 	university: any[] = [
 		{
 			image: "../../../uniprep-assets/images/icons/university1.svg",
@@ -76,6 +81,13 @@ export class DashboardComponent implements OnInit, OnChanges {
 	currentModuleSlug: any
 	userData: any
 	recentJobApplication:any[]=[];
+	currentMonth: number;
+	currentYear: number;
+	daysInMonth: number[] = [];
+	usageData: any[] = [];
+	monthName: string = '';
+	weekdays: string[] = ['S', 'M', 'T', 'W', 'T', 'F', 'S']; 
+	firstDayIndex: number = 0;
 	constructor(private dashboardService: DashboardService, private service: AuthService, private router: Router,
 				private dataService: DataService, private authService: AuthService, private locationService: LocationService,
 				private cdr: ChangeDetectorRef, private storage: StorageService, private jobSearchService: JobSearchService) {
@@ -96,6 +108,10 @@ export class DashboardComponent implements OnInit, OnChanges {
 				numScroll: 1
 			  }
 		]
+		const today = new Date();
+		this.currentMonth = today.getMonth();
+		this.currentYear = today.getFullYear();
+		this.monthName = today.toLocaleString('default', { month: 'long' }); 	
 	}
 
 	fieldsToCheck = ["name", "email", "phone", "home_country_id", "selected_country", "location_id", "last_degree_passing_year", "intake_year_looking", "intake_month_looking", "programlevel_id"]
@@ -104,11 +120,12 @@ export class DashboardComponent implements OnInit, OnChanges {
 		// Initialize essential data first
 		this.initializeEssentialData();
 		this.recentJobs();
-		
+		this.getUserTrackin();
 		// Load other data in parallel
 		this.loadParallelData();
 		this.groupedListFav = this.chunkArray(this.listFav, 4);
 		this.groupedListFav2 = this.chunkArray(this.recentJobApplication, 2);
+		
 	}
 	recentJobs() {
 		let req = {
@@ -417,7 +434,7 @@ export class DashboardComponent implements OnInit, OnChanges {
 		this.isViewMoreOrgVisible = true;
 	}
 	viewMoreOpenJobApplication(){
-		this.isViewMoreJobApplication=true;
+		// this.isViewMoreJobApplication=true;
 	}
 	quizpercentage: any = 0
 	checkquizquestionmodule() {
@@ -625,4 +642,44 @@ export class DashboardComponent implements OnInit, OnChanges {
 	redirectToCvBuilder(){
 		this.router.navigate(['/pages/job-tool/cv-builder']);
 	}
+	generateDays(): void {
+	    this.firstDayIndex = new Date(this.currentYear, this.currentMonth, 1).getDay();
+		const totalDays = new Date(this.currentYear, this.currentMonth + 1, 0).getDate();
+		this.daysInMonth = Array.from({ length: totalDays }, (_, i) => i + 1);
+	  }
+	
+	  setUsageData(): void {
+		// Example usage data (should come from an API)
+	  }
+	  getUsageDataForDay(day: number): any {
+		return this.usageData.filter(entry => entry.day === day);
+	  }
+	
+	  getStatusClass(day: number): string {
+		const usageEntries = this.getUsageDataForDay(day);
+		if (usageEntries.some((entry:any) => entry.status === 'high')) return 'high';
+		if (usageEntries.some((entry:any) => entry.status === 'medium')) return 'medium';
+		if (usageEntries.some((entry:any) => entry.status === 'low')) return 'low';
+		return 'nostatus';
+	  }
+	  getUserTrackin() {
+		this.dashboardService.getUserTracking().subscribe({
+		  next:(data: any) => {
+			data.forEach(((ele:any)=>{
+				var bindingdata={
+					day: parseInt(ele.date.split("-")[2], 10),
+					status:ele.status,
+					timeUsage:ele.usage_time
+				}
+				this.usageData.push(bindingdata)
+			}))
+			this.generateDays();	
+			console.log(this.usageData);
+		  },
+		  error:(error) => {
+			  console.error('Error fetching job listings:', error);
+		  }
+		});
+	}
+	
 }

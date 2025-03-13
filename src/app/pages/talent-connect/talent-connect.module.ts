@@ -17,9 +17,11 @@ import {FormsModule} from '@angular/forms';
 import {SharedModule} from "../../shared/shared.module";
 import {DropdownModule} from 'primeng/dropdown';
 import {PaginatorModule} from 'primeng/paginator';
+import { MainListComponent } from './main-list/main-list.component';
 
 @NgModule({
   declarations: [
+    MainListComponent,
   ],
   imports: [
     CommonModule,

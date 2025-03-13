@@ -1,5 +1,7 @@
 import { Component } from '@angular/core';
 import {NgClass} from "@angular/common";
+import { ActivatedRoute } from '@angular/router';
+import { TalentConnectService } from '../../talent-connect.service';
 
 interface Message {
   sender: string;
@@ -12,12 +14,10 @@ interface Message {
   selector: 'uni-job-view',
   templateUrl: './job-view.component.html',
   styleUrls: ['./job-view.component.scss'],
-  standalone: true,
-  imports: [
-    NgClass
-  ]
+  standalone: false,
 })
 export class JobViewComponent {
+  id!: number;
   jobDetails = {
     title: 'Senior UI/UX Designer',
     company: 'UNIABROAD Pvt. Ltd.',
@@ -36,8 +36,8 @@ export class JobViewComponent {
     employmentType: 'Full Time',
     salaryRange: '50,000 - 1,00,000',
     dueDate: '25-02-2025',
-    totalApplied: 10,
-    availableVacancies: 50,
+    total_applied: 10,
+    available_vacancies: 50,
     experienceLevel: 'Mid Level',
     educationalDegree: 'Bachelor\'s Degree',
     industry: 'Tech Industry',
@@ -91,14 +91,42 @@ export class JobViewComponent {
   ];
   showMessages: boolean = false;
 
-  constructor() { }
+  constructor(private activatedRoute: ActivatedRoute, private talentConnectService: TalentConnectService) { }
 
   ngOnInit(): void {
+    this.id = this.activatedRoute?.snapshot?.params?.['id'] as number;
+    if (this.id) {
+      this.getJobDetails(Number(this.id));
+    }
     // Initialize or fetch messages if needed
   }
 
   switchToConversationView(): void {
     this.currentView = 'conversation';
+  }
+
+  getJobDetails(id: number) {
+    this.talentConnectService.getJobDetails(id).subscribe({
+      next: response => {
+        console.log(response);
+        // this.jobDetails = response;
+      },
+      error: error => {
+        console.log(error);
+      }
+    });
+  }
+
+  applyJob(id: number) {
+    this.talentConnectService.applyJob(id).subscribe({
+      next: response => {
+        console.log(response);
+        // this.jobDetails = response;
+      },
+      error: error => {
+        console.log(error);
+      }
+    });
   }
 
   sendMessage(message: string): void {

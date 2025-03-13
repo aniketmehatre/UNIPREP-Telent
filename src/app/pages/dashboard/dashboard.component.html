@@ -171,7 +171,7 @@
                                     <div class="d-flex justify-content-evenly">
                                         <div>
                                             <img alt="country" class="countryicon mb-2"
-                                                src="{{ v.imageLink != '' ? v.imageLink : '../../uniprep-assets/images/mstile-150x150.png' }}" />
+                                                src="https://api.uniprep.ai/uniprepapi/storage/app/public/resources-coverimage/LearningHub.svg" />
                                         </div>
                                         <div class="ms-2">
                                             <h6 class="mb-0 text-sm text-capitalize"><b>{{ v.title }}</b></h6>
@@ -232,7 +232,40 @@
     </div>
 
     <!-- Empty Column -->
-    <div class="col-lg-3 col-md-6 col-sm-12"></div>
+    <div class="col-lg-3 col-md-6 col-sm-12">
+        <div class="calendar-container h-100">
+            <h5 style="text-align: start;">📅 {{ monthName}} {{ currentYear }}</h5>
+            
+            <div class="weekdays">
+                <div *ngFor="let day of weekdays" class="weekday">{{ day }}</div>
+              </div>
+            
+              <!-- Calendar Days -->
+              <div class="calendar-grid">
+                <!-- Empty spaces for first week alignment -->
+                <div *ngFor="let _ of [].constructor(firstDayIndex)" class="empty"></div>
+            
+                <!-- Calendar Days -->
+                <div *ngFor="let day of daysInMonth" class="day-box" [ngClass]="getStatusClass(day)">
+            
+                  <!-- Display Usage Data (if available) -->
+                  <div *ngFor="let entry of getUsageDataForDay(day)" class="usage-info"
+                  pTooltip="{{ entry.timeUsage }} "
+                  tooltipPosition="top">
+                    <span></span>
+                  </div>
+                </div>
+              </div>
+          
+            <div class="legend">
+                <span class="mt-2"><b>Platform Usage:</b></span>
+              <span class="high" style="background-color: #FF881E;border-radius: 5px;"> High</span>
+              <span class="medium" style="background-color: #455C9E;border-radius: 5px;"> Medium</span>
+              <span class="low" style="background-color: #C8CFE5;border-radius: 5px;">Low</span>
+            </div>
+          </div>
+          
+    </div>
 </div>
 
 <!-- 3rd line -->

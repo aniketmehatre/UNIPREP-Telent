@@ -106,7 +106,7 @@
                                             inputStyleClass="number-input" [min]="1" [max]="7" [step]="1"
                                             [suffix]="selectedData[recommendation.id] == 1 ? ' day' :  ' days'"
                                             [inputStyle]="{'pointer-events': 'none', 'caret-color': 'transparent'}"
-                                            styleClass="w-100 custom-number-input">
+                                            styleClass="w-100 custom-number-input" class="custom-number-input">
                                         </p-inputNumber>
                                         <p class="text-center" [ngClass]="{ 'd-none': invalidClass === false }"
                                             style="color: red">Please Choose Any one option</p>

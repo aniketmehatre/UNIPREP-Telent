@@ -2098,7 +2098,7 @@ uni-assessment, uni-travel-tools, uni-founderstool, uni-education-tools, uni-con
 	flex-direction: column;
 	overflow: hidden;
 	
-	uni-assessment-list, uni-ilearn-challenge, uni-assessment-quiz, uni-assessment-quiz-review, uni-easy-apply,
+	uni-assessment-list, uni-ilearn-challenge, uni-assessment-quiz, uni-assessment-quiz-review,  uni-easy-apply,uni-employee-profile,
 	uni-global-travel-visa, uni-travel-cost-estimator, uni-travel-packing-planner, uni-travel-visit-planner, 
 	uni-trip-length-finder, uni-travel-glossary, uni-business-plan-generator, uni-education-tools-list, 
 	uni-course-navigator, uni-startup-risk-assessment,  uni-marketing-analysis, uni-goverment-funding-opportunity, uni-ai-business-advisor,
@@ -2183,9 +2183,9 @@ uni-assessment, uni-travel-tools, uni-founderstool, uni-education-tools, uni-con
 
 .custom-number-input .minus-icon {
     order: 2 !important;
-    border-top-left-radius: 0;
-    border-bottom-left-radius: 0;
-    border-left: 0;
+    border-top-left-radius: 0 !important;
+    border-bottom-left-radius: 0 !important;
+    border-left: 0 !important;
     border-right: 0;
 }
 

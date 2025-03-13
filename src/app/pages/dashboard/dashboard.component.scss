@@ -647,3 +647,62 @@ Due to the split circle of progress-left and progress right, we must use the ani
     height: auto; /* Let cards adjust height for smaller screens */
   }
 }
+// active picker
+.calendar-container {
+  text-align: center;
+  padding: 10px;
+  border: 1px solid #ddd;
+  border-radius: 10px;
+  max-width: 300px;
+  margin: auto;
+  background: #fff;
+}
+
+.calendar-grid {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  gap: 5px;
+}
+
+.day-box {
+  width: 30px;
+  height: 30px;
+  line-height: 30px;
+  text-align: center;
+  border-radius: 50%;
+  cursor: pointer;
+  font-weight: bold;
+}
+
+.high {  color: white; border: 6px solid #FF881E;}
+.medium { color: white; border: 6px solid #455C9E; }
+.low {  color: black; border: 6px solid #C8CFE5; }
+.nostatus{background-color:#C8CFE5;}
+
+.legend {
+  display: flex;
+  gap: 10px;
+  font-size: 14px;
+  margin-top: 10px;
+  font-size: x-small;
+}
+// n
+/* Weekday Row */
+.weekdays {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  font-weight: bold;
+  margin-bottom: 5px;
+}
+
+.weekday {
+  text-align: center;
+  padding: 5px;
+}
+
+/* Empty cells for first week alignment */
+.empty {
+  width: 30px;
+  height: 30px;
+}
+

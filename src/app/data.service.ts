@@ -1,7 +1,5 @@
 import { Injectable } from "@angular/core";
-import { environment } from "@env/environment";
-import {BehaviorSubject, Observable} from "rxjs";
-import { AuthService } from "./Auth/auth.service";
+import { BehaviorSubject, Observable } from "rxjs";
 import { LocationService } from "./location.service";
 import {StorageService} from "./storage.service";
 

@@ -43,16 +43,26 @@
                             </span>
                         </div>
                         <div class="mb-3">
-                          <span class="text-muted">You match {{ jobDetails.skillMatch.matched }} out of {{ jobDetails.skillMatch.total }} skill requirements for this job</span>
+                          <span class="text-muted">You match {{ jobDetails.skillMatch?.matched }} out of {{ jobDetails.skillMatch.total }} skill requirements for this job</span>
                         </div>
                         <div class="d-flex flex-wrap gap-2 mb-3">
-                          <span *ngFor="let skill of jobDetails.skillMatch.skills" class="badge" [ngClass]="{'bg-warning text-dark': skill === 'UI Design' || skill === 'Graphic Design' || skill === 'UX Design', 'bg-secondary': skill === 'Motion Design'}">
-                            {{ skill }}
-                          </span>
+                          <div>
+                            <p class="text-muted mb-0 small">Total Vacancies</p>
+                            <p class="mb-0 fw-bold fs-4">{{ jobDetails.available_vacancies }}</p>
+                          </div>
+                          <div>
+                            <p class="text-muted mb-0 small">Total Applied</p>
+                            <p class="mb-0 fw-bold fs-4">{{ jobDetails.total_applied }}</p>
+                          </div>
+                          <div>
+                            <span *ngFor="let skill of jobDetails.skillMatch.skills" class="badge me-1" [ngClass]="{'bg-warning text-dark': skill === 'UI Design' || skill === 'Graphic Design' || skill === 'UX Design', 'bg-secondary': skill === 'Motion Design'}">
+                              {{ skill }}
+                            </span>
+                          </div>
                         </div>
                       </div>
                       <div class="col-md-2 text-end">
-                        <button pButton label="Apply" icon="fa fa-arrow-pointer" iconPos="right" class="p-button-primary mb-3" (click)="isShowApplyChat = true"></button>
+                        <button pButton label="Apply" icon="fa fa-arrow-pointer" iconPos="right" class="p-button-primary mb-3" (click)="applyJob(id)"></button>
                         <div class="posted-date">Posted On : {{ jobDetails.postedDate }}</div>
                       </div>
                     </div>
@@ -156,7 +166,7 @@
                                 <i class="pi pi-user-plus me-2 text-secondary"></i>
                                 <span class="text-muted">Total Applied</span>
                               </div>
-                              <div class="fw-bold">{{ jobDetails.totalApplied }}</div>
+                              <div class="fw-bold">{{ jobDetails.total_applied }}</div>
                             </div>
                           </div>
               
@@ -167,7 +177,7 @@
                                 <i class="pi pi-users me-2 text-secondary"></i>
                                 <span class="text-muted">Available Vacancies</span>
                               </div>
-                              <div class="fw-bold">{{ jobDetails.availableVacancies }}</div>
+                              <div class="fw-bold">{{ jobDetails.available_vacancies }}</div>
                             </div>
                           </div>
               

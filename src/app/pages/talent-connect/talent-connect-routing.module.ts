@@ -11,7 +11,7 @@ const routes: Routes = [
   },
   {
     path: 'job-tracker',
-    component: JobTrackerComponent
+    loadChildren: () => import('./job-tracker/job-tracker.module').then(m => m.JobTrackerModule)
   },
   {
     path: 'company-tracker',
@@ -24,6 +24,10 @@ const routes: Routes = [
   {
     path: 'easy-apply',
     loadChildren: () => import('./easy-apply/easy-apply.module').then(m => m.EasyApplyModule)
+  },
+  {
+    path: 'my-profile',
+    loadChildren: () => import('./employee-profile/employee-profile.module').then(m => m.EmployeeProfileModule)
   },
 ];
 

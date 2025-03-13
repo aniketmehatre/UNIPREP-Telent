@@ -27,11 +27,10 @@ import {LocationService} from "../../location.service"
 import {AuthService} from "../auth.service"
 import {finalize} from 'rxjs/operators';
 import {
-	GoogleLoginProvider,
-	GoogleSigninButtonModule,
-	SocialAuthService,
-	SocialAuthServiceConfig, SocialLoginModule
-} from "@abacritt/angularx-social-login";
+	SocialLoginModule,
+	SocialAuthServiceConfig, SocialAuthService, GoogleSigninButtonModule,
+} from '@abacritt/angularx-social-login';
+import { GoogleLoginProvider } from '@abacritt/angularx-social-login';
 
 declare var google: any;
 @Component({
@@ -41,26 +40,8 @@ declare var google: any;
 	schemas: [CUSTOM_ELEMENTS_SCHEMA],
 	standalone: true,
 	imports: [CommonModule, FluidModule, PasswordModule, RouterModule, InputTextModule, InputIconModule,
-		InputGroupModule, InputGroupAddonModule, SocialLoginModule, FormsModule, ReactiveFormsModule,
-		GoogleSigninButtonModule],
-	providers: [MessageService,
-		{
-			provide: 'SocialAuthServiceConfig',
-			useValue: {
-				autoLogin: false,
-				lang: 'en',
-				providers: [
-					{
-						id: GoogleLoginProvider.PROVIDER_ID,
-						provider: new GoogleLoginProvider('AIzaSyCxrgn6ZZL3IsY_3xrSqQJi_3yT_OKr-n0') // Replace with actual Client ID
-					}
-				],
-				onError: (err) => {
-					console.error(err);
-				}
-			} as SocialAuthServiceConfig
-		}
-	],
+		InputGroupModule, InputGroupAddonModule, FormsModule, ReactiveFormsModule,
+		SocialLoginModule, GoogleSigninButtonModule],
 	changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class LoginComponent implements OnInit, OnDestroy {
@@ -90,6 +71,22 @@ export class LoginComponent implements OnInit, OnDestroy {
 	ngOnDestroy() {
 		this.subs.unsubscribe()
 	}
+
+	signInWithGoogle(): void {
+		setTimeout(() => {
+			if (!this.authService) {
+				console.error('Google Auth Service is not initialized!');
+				return;
+			}
+
+			this.authService.signIn(GoogleLoginProvider.PROVIDER_ID)
+				.then(user => {
+					console.log('User Logged In:', user);
+				})
+				.catch(error => console.error('Login failed:', error));
+		}, 500); // 🔹 Small delay to let authService initialize
+	}
+
 
 	showPassword(): void {
 		if (this.password === "password") {
