@@ -60,8 +60,6 @@ export class TravelVisitPlannerComponent implements OnInit {
   recommendationData: any = [];
   savedResponse: any = [];
   destinationLocationList: City[] = [];
-  cityList: City[] = [];
-  destinationFilter: string = '';
 
   ngOnInit(): void {
     this.selectedData[2] = 1; //second page i need to show the days count so manually i enter the day.
@@ -71,25 +69,9 @@ export class TravelVisitPlannerComponent implements OnInit {
   getCityList() {
     this.costOfLivingService.getCities().subscribe({
       next: response => {
-        this.cityList = response;
         this.destinationLocationList = response;
       }
     });
-  }
-
-  customFilterFunction() {
-    if (this.destinationFilter === "") {
-      this.destinationLocationList = this.cityList;
-      return;
-    }
-    this.destinationLocationList = this.cityList.filter(city =>
-      city?.city_name?.toLowerCase().includes(this.destinationFilter.toLowerCase()) || city?.country_name?.toLowerCase().includes(this.destinationFilter.toLowerCase())
-    );
-  }
-
-  resetFunction() {
-    this.destinationFilter = '';
-    this.destinationLocationList = this.cityList;
   }
 
   previous() {
@@ -147,7 +129,6 @@ export class TravelVisitPlannerComponent implements OnInit {
     this.isRecommendation = false;
     this.isResponsePage = false;
     this.isSavedPage = true;
-
     this.travelToolService.getTripList('travel_visit_planner').subscribe(response => {
       this.savedResponse = response.data;
     })
