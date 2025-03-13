@@ -15,6 +15,9 @@ import { InputGroupAddonModule } from 'primeng/inputgroupaddon';
 import { InputTextModule } from 'primeng/inputtext';
 import { MultiSelectModule } from 'primeng/multiselect';
 import { ButtonModule } from 'primeng/button';
+import {FormsModule, ReactiveFormsModule} from "@angular/forms";
+import {InputGroupModule} from "primeng/inputgroup";
+import {SelectModule} from "primeng/select";
 
 @Component({
     selector: 'uni-global-travel-visa',
