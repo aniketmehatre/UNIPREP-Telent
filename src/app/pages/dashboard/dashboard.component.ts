@@ -539,7 +539,8 @@ export class DashboardComponent implements OnInit, OnChanges {
 			"tooltip": "Craft a standout CV that highlights your skills and experience, ready for any job application.",
 			"imageLink": "https://api.uniprep.ai/uniprepapi/storage/app/public/resources-coverimage/CV.png",
 			"mode": "cv-builder",
-			"url": "/pages/job-tool/cv-builder"
+			"url": "/pages/job-tool/cv-builder",
+			"module":"Career Tools"
 		},
 		{
 			"id": 2,
@@ -548,7 +549,8 @@ export class DashboardComponent implements OnInit, OnChanges {
 			"tooltip": "Craft a standout CV that highlights your skills and experience, ready for any job application.",
 			"imageLink": "https://api.uniprep.ai/uniprepapi/storage/app/public/resources-coverimage/LearningHub.svg",
 			"mode": "cv-builder",
-			"url": "/pages/modules/learning-hub"
+			"url": "/pages/modules/learning-hub",
+			"module":""
 		},
 		{
 			"id": 3,
@@ -557,7 +559,8 @@ export class DashboardComponent implements OnInit, OnChanges {
 			"tooltip": "Craft a standout CV that highlights your skills and experience, ready for any job application.",
 			"imageLink": "https://api.uniprep.ai/uniprepapi/storage/app/public/resources-coverimage/JobPortal.svg",
 			"mode": "cv-builder",
-			"url": "/pages/job-portal/job-search"
+			"url": "/pages/job-portal/job-search",
+			"module":""
 		},
 		{
 			"id": 4,
@@ -566,7 +569,8 @@ export class DashboardComponent implements OnInit, OnChanges {
 			"tooltip": "Craft a standout CV that highlights your skills and experience, ready for any job application.",
 			"imageLink": "https://api.uniprep.ai/uniprepapi/storage/app/public/resources-coverimage/CareerPlanner.svg",
 			"mode": "cv-builder",
-			"url": "/pages/job-tool/careerplannerlist"
+			"url": "/pages/job-tool/careerplannerlist",
+			"module":"Career Tools"
 		},
 		{
 			"id": 5,
@@ -575,7 +579,8 @@ export class DashboardComponent implements OnInit, OnChanges {
 			"tooltip": "Craft a standout CV that highlights your skills and experience, ready for any job application.",
 			"imageLink": "https://api.uniprep.ai/uniprepapi/storage/app/public/resources-coverimage/EmployerTest.svg",
 			"mode": "cv-builder",
-			"url": "/pages/job-tool/list/employer-test/13"
+			"url": "/pages/job-tool/list/employer-test/13",
+			"module":""
 		},
 		{
 			"id": 6,
@@ -584,7 +589,8 @@ export class DashboardComponent implements OnInit, OnChanges {
 			"tooltip": "Craft a standout CV that highlights your skills and experience, ready for any job application.",
 			"imageLink": "https://api.uniprep.ai/uniprepapi/storage/app/public/resources-coverimage/Pitchdeck.svg",
 			"mode": "cv-builder",
-			"url": "/pages/pitch-deck"
+			"url": "/pages/pitch-deck",
+			"module":""
 		},
 		{
 			"id": 7,
@@ -593,7 +599,8 @@ export class DashboardComponent implements OnInit, OnChanges {
 			"tooltip": "Craft a standout CV that highlights your skills and experience, ready for any job application.",
 			"imageLink": "https://api.uniprep.ai/uniprepapi/storage/app/public/resources-coverimage/UNILEARN.svg",
 			"mode": "cv-builder",
-			"url": "/pages/unilearn/modules"
+			"url": "/pages/unilearn/modules",
+			"module":""
 		},
 		{
 			"id": 8,
@@ -602,7 +609,8 @@ export class DashboardComponent implements OnInit, OnChanges {
 			"tooltip": "Craft a standout CV that highlights your skills and experience, ready for any job application.",
 			"imageLink": "https://api.uniprep.ai/uniprepapi/storage/app/public/resources-coverimage/UNIFINDER.svg",
 			"mode": "cv-builder",
-			"url": "/pages/course-list"
+			"url": "/pages/course-list",
+			"module":""
 		},
 		{
 			"id": 9,
@@ -611,7 +619,8 @@ export class DashboardComponent implements OnInit, OnChanges {
 			"tooltip": "Craft a standout CV that highlights your skills and experience, ready for any job application.",
 			"imageLink": "https://api.uniprep.ai/uniprepapi/storage/app/public/resources-coverimage/UNISCHOLAR.svg",
 			"mode": "cv-builder",
-			"url": "/pages/scholarship-list"
+			"url": "/pages/scholarship-list",
+			"module":""
 		},
 		{
 			"id": 10,
@@ -620,7 +629,8 @@ export class DashboardComponent implements OnInit, OnChanges {
 			"tooltip": "Craft a standout CV that highlights your skills and experience, ready for any job application.",
 			"imageLink": "https://api.uniprep.ai/uniprepapi/storage/app/public/resources-coverimage/GlobalRepository.svg",
 			"mode": "cv-builder",
-			"url": "/pages/job-tool/cv-builder"
+			"url": "/pages/job-tool/cv-builder",
+			"module":""
 		},
 		{
 			"id": 11,
@@ -629,7 +639,8 @@ export class DashboardComponent implements OnInit, OnChanges {
 			"tooltip": "Craft a standout CV that highlights your skills and experience, ready for any job application.",
 			"imageLink": "https://api.uniprep.ai/uniprepapi/storage/app/public/resources-coverimage/AI Business Advisor.svg",
 			"mode": "cv-builder",
-			"url": "/pages/advisor"
+			"url": "/pages/advisor",
+			"module":""
 		},
 		{
 			"id": 12,
@@ -638,7 +649,8 @@ export class DashboardComponent implements OnInit, OnChanges {
 			"tooltip": "Craft a standout CV that highlights your skills and experience, ready for any job application.",
 			"imageLink": "https://api.uniprep.ai/uniprepapi/storage/app/public/resources-coverimage/LanguageHub.svg",
 			"mode": "cv-builder",
-			"url": "/pages/language-hub/languages"
+			"url": "/pages/language-hub/languages",
+			"module":""
 		}
 	]
 
