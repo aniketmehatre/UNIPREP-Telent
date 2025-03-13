@@ -56,7 +56,7 @@
                     </div>
                     <div class="col-6">
                         <div class="progress-bar-container">
-                            <div class="progress-bar" style="width: 60%"></div>
+                            <div class="progress-bar" [style.width.%]="progress"></div>
                             <!-- Adjust the width to indicate progress -->
                             <span class="text-gray-700" style="font-size: 9px;">Basic Details</span>
                         </div>
@@ -92,7 +92,8 @@
                         </button>
                     </div>
                     <div class="col-lg-4 col-md-12 col-sm-12 mt-2">
-                        <button (click)="redirectToCvBuilder()" class=" px-4 py-2 border rounded-lg shadow-md  bg-white" style="border-radius: 15px; font-size: 9px;width: -webkit-fill-available;
+                        <button (click)="redirectToCvBuilder()" class=" px-4 py-2 border rounded-lg shadow-md  bg-white"
+                            style="border-radius: 15px; font-size: 9px;width: -webkit-fill-available;
                             ">
                             <span style="color: #394D83;">CV Builder <i class="fa-solid fa-file-lines"
                                     style="color: #394D83;"></i></span>
@@ -179,7 +180,8 @@
                                             <p class="text-muted text-small">Status: HR Round</p>
                                             <p class="mb-0 text-small text-capitalize mt-2">
                                                 <i class="fa-solid fa-location-dot" style="color: #79AE28;"></i>&nbsp;
-                                                <span style="font-weight: 500px; color: black;">{{v.location.display_name}}</span>
+                                                <span
+                                                    style="font-weight: 500px; color: black;">{{v.location.display_name}}</span>
                                             </p>
                                             <button class="btn btn-rounded text-small m-0 mb-2"
                                                 style="border: 1px solid #0054B4;
@@ -233,38 +235,39 @@
 
     <!-- Empty Column -->
     <div class="col-lg-3 col-md-6 col-sm-12">
-        <div class="calendar-container h-100">
-            <h5 style="text-align: start;">📅 {{ monthName}} {{ currentYear }}</h5>
-            
-            <div class="weekdays">
-                <div *ngFor="let day of weekdays" class="weekday">{{ day }}</div>
-              </div>
-            
-              <!-- Calendar Days -->
-              <div class="calendar-grid">
-                <!-- Empty spaces for first week alignment -->
-                <div *ngFor="let _ of [].constructor(firstDayIndex)" class="empty"></div>
-            
-                <!-- Calendar Days -->
-                <div *ngFor="let day of daysInMonth" class="day-box" [ngClass]="getStatusClass(day)">
-            
-                  <!-- Display Usage Data (if available) -->
-                  <div *ngFor="let entry of getUsageDataForDay(day)" class="usage-info"
-                  pTooltip="{{ entry.timeUsage }} "
-                  tooltipPosition="top">
-                    <span></span>
-                  </div>
+        <div class="card bg-white  h-100 p-3">
+            <div class="calendar-container">
+                <h5 style="text-align: start;">📅 {{ monthName}} {{ currentYear }}</h5>
+
+                <div class="weekdays">
+                    <div *ngFor="let day of weekdays" class="weekday">{{ day }}</div>
                 </div>
-              </div>
-          
-            <div class="legend">
-                <span class="mt-2"><b>Platform Usage:</b></span>
-              <span class="high" style="background-color: #FF881E;border-radius: 5px;"> High</span>
-              <span class="medium" style="background-color: #455C9E;border-radius: 5px;"> Medium</span>
-              <span class="low" style="background-color: #C8CFE5;border-radius: 5px;">Low</span>
+
+                <!-- Calendar Days -->
+                <div class="calendar-grid">
+                    <!-- Empty spaces for first week alignment -->
+                    <div *ngFor="let _ of [].constructor(firstDayIndex)" class="empty"></div>
+
+                    <!-- Calendar Days -->
+                    <div *ngFor="let day of daysInMonth" class="day-box" [ngClass]="getStatusClass(day)">
+                        <!-- Display Usage Data (if available) -->
+                        <div *ngFor="let entry of getUsageDataForDay(day)" class="usage-info" pTooltip="{{ entry.timeUsage }} " tooltipPosition="top">
+                            <span style="color: white;">.</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="legend">
+                    <span class="mt-2"><b>Platform Usage:</b></span>
+                    <span class="high" style="background-color: #FF881E;border-radius: 5px;min-width: 20%;
+                  text-align: center;"> High</span>
+                    <span class="medium" style="background-color: #455C9E;border-radius: 5px;min-width: 20%;
+                  text-align: center;"> Medium</span>
+                    <span class="low" style="background-color: #C8CFE5;border-radius: 5px;min-width: 20%;
+                  text-align: center;">Low</span>
+                </div>
             </div>
-          </div>
-          
+        </div>
     </div>
 </div>
 
@@ -293,7 +296,7 @@
         <div class="card h-100">
             <div class="card-body d-flex flex-column justify-content-between">
                 <div class="text-start">
-                    <h5 class="mb-1 mt-2 uppercase">Invite Peaple to Try <span style="color: #FF9138;">UNIPREP</span>
+                    <h5 class="mb-1 mt-2 uppercase">Invite People to Try <span style="color: #FF9138;">UNIPREP</span>
                     </h5>
                     <p class="mb-0">We'll email them instructions and a link to create an account</p>
                 </div>
@@ -397,7 +400,7 @@
 </div> -->
 <!-- <div class="container-fluid px-0 mt-3 mb-3">
     <div class="row g-3 justify-content-center"> -->
-        <!-- <div class="col-12 col-lg-5">
+<!-- <div class="col-12 col-lg-5">
             <div class="card h-100">
                 <div class="card-body">
                     <iframe width="100%" target="_blank" height="100%"
@@ -408,7 +411,7 @@
                 </div>
             </div>
         </div> -->
-        <!-- 
+<!-- 
         <div class="col-12 col-lg-5">
             <div class="card h-100">
                 <div class="card-body d-flex flex-column justify-content-between">
@@ -451,7 +454,7 @@
             </div>
         </div> -->
 
-        <!-- <div class="col-12 col-lg-5">
+<!-- <div class="col-12 col-lg-5">
             <div class="card h-100">
                 <div class="card-body d-flex flex-column justify-content-between">
                     <div class="row">
@@ -489,7 +492,7 @@
             </div>
         </div> -->
 
-        <!-- <div class="col-12 col-lg-5">
+<!-- <div class="col-12 col-lg-5">
             <div class="card h-100">
                 <div class="card-body d-flex flex-column justify-content-between">
                     <div class="text-center">
@@ -506,7 +509,7 @@
             </div>
         </div> -->
 
-        <!-- <div class="col-12 col-lg-5">
+<!-- <div class="col-12 col-lg-5">
             <div class="card h-100">
                 <div class="card-body d-flex flex-column justify-content-between">
                     <div class="text-center">
@@ -521,243 +524,241 @@
             </div>
         </div>
     </div> -->
-    <!-- </div> -->
-    <!--<div class="container-fluid px-0 mt-3 mb-3">-->
-    <!--    <div class="row">-->
-    <!--        <div class="col-12 col-lg-5 my-md-0 my-2">-->
-    <!--            <div class="card h-100">-->
-    <!--                <div class="card-body">-->
-    <!--                    <iframe width="100%" target="_blank" height="100%" src="https://www.youtube.com/embed/4boPpgZs1Lg?si=MWqoVbZ5FoybGI7Y" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>-->
-    <!--                </div>-->
-    <!--            </div>-->
-    <!--        </div>-->
-    <!--        <div class="col-12 col-lg-5 my-md-0 my-2" [ngClass]="{ 'readingData-enable': enableReading, 'readingData-disable': !enableReading }">-->
-    <!--            <div class="card h-100">-->
-    <!--                <div class="card-body d-flex justify-content-evenly flex-column">-->
-    <!--                    <div class="row mb-3">-->
-    <!--                        <div class="row">-->
-    <!--                            <div class="col">-->
-    <!--                                <div class="row">-->
-    <!--                                    <div class="col-md-12 col-lg-12 d-flex">-->
-    <!--                                        <img src="/uniprep-assets/images/dashboard/Myprofile.png" alt="uniprep My Profile" height="80" width="80" />-->
-    <!--                                    </div>-->
-    <!--                                    <div class="row mt-2">-->
-    <!--                                        <h5 class="mb-1 uppercase">My Profile</h5>-->
-    <!--                                    </div>-->
-    <!--                                </div>-->
-    <!--                            </div>-->
-    <!--                            <div class="col">-->
-    <!--                                &lt;!&ndash;                                <div [attr.data-percentage]="readProgressionPercentage" class="progress1">&ndash;&gt;-->
-    <!--                                &lt;!&ndash;								<span class="progress1-left">&ndash;&gt;-->
-    <!--                                &lt;!&ndash;									<span class="progress1-bar"></span>&ndash;&gt;-->
-    <!--                                &lt;!&ndash;								</span>&ndash;&gt;-->
-    <!--                                &lt;!&ndash;                                    <span class="progress1-right">&ndash;&gt;-->
-    <!--                                &lt;!&ndash;									<span class="progress1-bar"></span>&ndash;&gt;-->
-    <!--                                &lt;!&ndash;								</span>&ndash;&gt;-->
-    <!--                                &lt;!&ndash;                                    <div class="progress1-value">&ndash;&gt;-->
-    <!--                                &lt;!&ndash;                                        <div>{{ readProgressionPercentage }}%<br/></div>&ndash;&gt;-->
-    <!--                                &lt;!&ndash;                                    </div>&ndash;&gt;-->
-    <!--                                &lt;!&ndash;                                </div>&ndash;&gt;-->
-    <!--                                <div class="progress-circle" [attr.data-value]="progress" [style.&#45;&#45;value]="progress">-->
-    <!--                                    <svg class="progress-ring" width="100" height="100">-->
-    <!--                                        <circle class="progress-ring__background" stroke="#EEEEEE" stroke-width="10" fill="transparent" r="45" cx="50" cy="50" />-->
-    <!--                                        <circle class="progress-ring__circle" stroke="black" stroke-width="10" fill="transparent" r="45" cx="50" cy="50" />-->
-    <!--                                    </svg>-->
-    <!--                                    <div class="progress-text">{{ progress }}%</div>-->
-    <!--                                </div>-->
-    <!--                            </div>-->
-    <!--                        </div>-->
-    <!--                        <div class="col-12">-->
-    <!--                            <p class="mb-0">Complete your profile for personalised content.</p>-->
-    <!--                        </div>-->
-    <!--                        <div class="col-md-12 col-lg-12 d-flex mt-2">-->
-    <!--                            <button pButton  (click)="openMyProfile()" class="btn w-100 m-0 p-0">-->
-    <!--                                <div class="row">-->
-    <!--                                    <div class="col-12">-->
-    <!--										<span style="cursor: pointer; color: white" class="ellipse-button fw-normal container-fluid">-->
-    <!--                                           <strong>{{ progress != 100 ? "Complete my profile" : "My Profile" }}</strong></span>-->
-    <!--                                    </div>-->
-    <!--                                </div>-->
-    <!--                            </button>-->
-    <!--                        </div>-->
-    <!--                    </div>-->
-    <!--                </div>-->
-    <!--            </div>-->
-    <!--        </div>-->
-    <!--        <div class="col-12 col-lg-5 my-md-0 my-2" [ngClass]="{ 'readingData-enable': enableReading, 'readingData-disable': !enableReading }">-->
-    <!--            <div class="card h-100">-->
-    <!--                <div class="card-body d-flex justify-content-evenly flex-column">-->
-    <!--                    <div class="row mb-3">-->
-    <!--                        <div class="row">-->
-    <!--                            <div class="col">-->
-    <!--                                <div class="row">-->
-    <!--                                    <div class="col-md-12 col-lg-12 d-flex">-->
-    <!--                                        <img src="/uniprep-assets/images/dashboard/Reading.png" alt="uniprep Quiz" height="80" width="80" />-->
-    <!--                                    </div>-->
-    <!--                                    <div class="row mt-2">-->
-    <!--                                        <h5 class="mb-1 uppercase">Reading</h5>-->
-    <!--                                    </div>-->
-    <!--                                </div>-->
-    <!--                            </div>-->
-    <!--                            <div class="col">-->
-    <!--                                &lt;!&ndash;                                <div [attr.data-percentage]="readProgressionPercentage" class="progress1">&ndash;&gt;-->
-    <!--                                &lt;!&ndash;								<span class="progress1-left">&ndash;&gt;-->
-    <!--                                &lt;!&ndash;									<span class="progress1-bar"></span>&ndash;&gt;-->
-    <!--                                &lt;!&ndash;								</span>&ndash;&gt;-->
-    <!--                                &lt;!&ndash;                                    <span class="progress1-right">&ndash;&gt;-->
-    <!--                                &lt;!&ndash;									<span class="progress1-bar"></span>&ndash;&gt;-->
-    <!--                                &lt;!&ndash;								</span>&ndash;&gt;-->
-    <!--                                &lt;!&ndash;                                    <div class="progress1-value">&ndash;&gt;-->
-    <!--                                &lt;!&ndash;                                        <div>{{ readProgressionPercentage }}%<br/></div>&ndash;&gt;-->
-    <!--                                &lt;!&ndash;                                    </div>&ndash;&gt;-->
-    <!--                                &lt;!&ndash;                                </div>&ndash;&gt;-->
-    <!--                                <div class="progress1-circle" [attr.data-value]="progressReading" [style.&#45;&#45;value]="progressReading">-->
-    <!--                                    <svg class="progress1-ring" width="100" height="100">-->
-    <!--                                        <circle class="progress1-ring__background" stroke="#EEEEEE" stroke-width="10" fill="transparent" r="45" cx="50" cy="50" />-->
-    <!--                                        <circle class="progress1-ring__circle" stroke="rgb(63, 76, 131)" stroke-width="10" fill="transparent" r="45" cx="50" cy="50" />-->
-    <!--                                    </svg>-->
-    <!--                                    <div class="progress1-text">{{ progressReading }}%</div>-->
-    <!--                                </div>-->
-    <!--                            </div>-->
-    <!--                        </div>-->
-    <!--                        <div class="col-12">-->
-    <!--                            <p class="mb-0">Expand your horizons through reading.</p>-->
-    <!--                            <br />-->
-    <!--                        </div>-->
-    <!--                        <div class="col-md-12 col-lg-12 d-flex mt-2">-->
-    <!--                            <button pButton  (click)="openReading()" class="btn w-100 m-0 p-0">-->
-    <!--                                <div class="row">-->
-    <!--                                    <div class="col-12">-->
-    <!--										<span style="cursor: pointer; background: rgb(63, 76, 131);-->
-    <!--color: white;" class="ellipse-button fw-normal container-fluid">-->
-    <!--                                            <strong>{{ quizpercentage >= 90 ? "Completed" : "Start Reading" }}</strong></span>-->
-    <!--                                    </div>-->
-    <!--                                </div>-->
-    <!--                            </button>-->
-    <!--                        </div>-->
-    <!--                    </div>-->
-    <!--                </div>-->
-    <!--            </div>-->
-    <!--        </div>-->
-    <!--        <div class="col-12 col-lg-5 my-md-0 my-2">-->
-    <!--            <div class="card h-100">-->
-    <!--                <div class="card-body d-flex justify-content-evenly flex-column">-->
-    <!--                    <div class="row mb-3 text-center">-->
-    <!--                        <div class="col-md-12 col-lg-12 text-center">-->
-    <!--                            <img src="/uniprep-assets/images/dashboard/Quiz.png" alt="uniprep Quiz" height="80" width="80" />-->
-    <!--                        </div>-->
-    <!--                        <div class="row mt-2">-->
-    <!--                            <h5 class="mb-1 uppercase">Quiz</h5>-->
-    <!--                            <p class="mb-0">Get certified for completing the quiz with an extraordinary score.</p>-->
-    <!--                        </div>-->
-    <!--                        <div class="col-md-12 col-lg-12 d-flex mt-2">-->
-    <!--                            <button pButton  (click)="openQuiz()" class="btn w-100 m-0 p-0">-->
-    <!--                                <div class="row">-->
-    <!--                                    <div class="col-12">-->
-    <!--										<span style="cursor: pointer; background: #f0780e; color: white; font-weight: bold"-->
-    <!--                                              class="ellipse-button fw-normal container-fluid"><strong>Start Quiz</strong></span>-->
-    <!--                                    </div>-->
-    <!--                                </div>-->
-    <!--                            </button>-->
-    <!--                        </div>-->
-    <!--                    </div>-->
-    <!--                </div>-->
-    <!--            </div>-->
-    <!--        </div>-->
-    <!--        <div class="col-12 col-lg-5 my-md-0 my-2">-->
-    <!--            <div class="card h-100">-->
-    <!--                <div class="card h-100">-->
-    <!--                    <div class="card-body d-flex justify-content-evenly flex-column">-->
-    <!--                        <div class="row mb-3 text-center">-->
-    <!--                            <div class="col-md-12 col-lg-12 text-center">-->
-    <!--                                <div class="row mb-3 text-center">-->
-    <!--                                    <div class="col-md-12 col-lg-12 text-center">-->
-    <!--                                        <img src="/uniprep-assets/images/dashboard/Certification.png" alt="uniprep my certificate" height="80" width="80" />-->
-    <!--                                    </div>-->
-    <!--                                    &lt;!&ndash;<div class="col-6 mt-5">-->
-    <!--                                        <div style="text-align: center; font-size: x-large;">-->
-    <!--                                            <span style="background-color: black; color: white; border-radius: 50px; padding: 10px;"><b>{{certificatecountstudent}}</b></span>-->
-    <!--                                        </div>-->
-    <!--                                    </div> &ndash;&gt;-->
-    <!--                                </div>-->
-    <!--                            </div>-->
-    <!--                            <div class="row mt-2">-->
-    <!--                                <h5 class="mb-1 uppercase fw-bold">Certification</h5>-->
-    <!--                                <p class="mb-0">Get all your certificates in one place to share them on social media.</p>-->
-    <!--                            </div>-->
-    <!--                            <div class="col-md-12 col-lg-12 d-flex mt-2">-->
-    <!--                                <button pButton  (click)="openCertificate()" class="btn w-100 m-0 p-0">-->
-    <!--                                    <div class="row">-->
-    <!--                                        <div class="col-12">-->
-    <!--										<span style="cursor: pointer; color: white" class="ellipse-button fw-normal container-fluid">-->
-    <!--                                            <strong>My Certificates</strong>-->
-    <!--                                        </span>-->
-    <!--                                        </div>-->
-    <!--                                    </div>-->
-    <!--                                </button>-->
-    <!--                            </div>-->
-    <!--                        </div>-->
-    <!--                    </div>-->
-    <!--                </div>-->
-    <!--            </div>-->
-    <!--        </div>-->
-    <!--    </div>-->
-    <!--</div>-->
-    <div [ngStyle]="{ display: continueReading }" class="modal modal-bg" role="dialog" tabindex="-1">
-        <div class="modal-dialog modal-lg modal-dialog-centered modal-dialog-scrollable" role="document">
-            <div class="modal-content card bg-light">
-                <div class="modal-header justify-content-between">
-                    <h3 class="mb-0 continue-reading-header" tooltipZIndex="auto" tooltipPosition="top"
-                        pTooltip="Complete the reading for all modules to get the certificate.">Continue Reading</h3>
-                    <div class="popupclose">
-                        <a (click)="closeReading()" class="close" role="button">
-                            <span aria-hidden="true"><i class="fa-solid fa-circle-x fa-2xl uniprep-primary"></i></span>
-                        </a>
-                    </div>
+<!-- </div> -->
+<!--<div class="container-fluid px-0 mt-3 mb-3">-->
+<!--    <div class="row">-->
+<!--        <div class="col-12 col-lg-5 my-md-0 my-2">-->
+<!--            <div class="card h-100">-->
+<!--                <div class="card-body">-->
+<!--                    <iframe width="100%" target="_blank" height="100%" src="https://www.youtube.com/embed/4boPpgZs1Lg?si=MWqoVbZ5FoybGI7Y" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>-->
+<!--                </div>-->
+<!--            </div>-->
+<!--        </div>-->
+<!--        <div class="col-12 col-lg-5 my-md-0 my-2" [ngClass]="{ 'readingData-enable': enableReading, 'readingData-disable': !enableReading }">-->
+<!--            <div class="card h-100">-->
+<!--                <div class="card-body d-flex justify-content-evenly flex-column">-->
+<!--                    <div class="row mb-3">-->
+<!--                        <div class="row">-->
+<!--                            <div class="col">-->
+<!--                                <div class="row">-->
+<!--                                    <div class="col-md-12 col-lg-12 d-flex">-->
+<!--                                        <img src="/uniprep-assets/images/dashboard/Myprofile.png" alt="uniprep My Profile" height="80" width="80" />-->
+<!--                                    </div>-->
+<!--                                    <div class="row mt-2">-->
+<!--                                        <h5 class="mb-1 uppercase">My Profile</h5>-->
+<!--                                    </div>-->
+<!--                                </div>-->
+<!--                            </div>-->
+<!--                            <div class="col">-->
+<!--                                &lt;!&ndash;                                <div [attr.data-percentage]="readProgressionPercentage" class="progress1">&ndash;&gt;-->
+<!--                                &lt;!&ndash;								<span class="progress1-left">&ndash;&gt;-->
+<!--                                &lt;!&ndash;									<span class="progress1-bar"></span>&ndash;&gt;-->
+<!--                                &lt;!&ndash;								</span>&ndash;&gt;-->
+<!--                                &lt;!&ndash;                                    <span class="progress1-right">&ndash;&gt;-->
+<!--                                &lt;!&ndash;									<span class="progress1-bar"></span>&ndash;&gt;-->
+<!--                                &lt;!&ndash;								</span>&ndash;&gt;-->
+<!--                                &lt;!&ndash;                                    <div class="progress1-value">&ndash;&gt;-->
+<!--                                &lt;!&ndash;                                        <div>{{ readProgressionPercentage }}%<br/></div>&ndash;&gt;-->
+<!--                                &lt;!&ndash;                                    </div>&ndash;&gt;-->
+<!--                                &lt;!&ndash;                                </div>&ndash;&gt;-->
+<!--                                <div class="progress-circle" [attr.data-value]="progress" [style.&#45;&#45;value]="progress">-->
+<!--                                    <svg class="progress-ring" width="100" height="100">-->
+<!--                                        <circle class="progress-ring__background" stroke="#EEEEEE" stroke-width="10" fill="transparent" r="45" cx="50" cy="50" />-->
+<!--                                        <circle class="progress-ring__circle" stroke="black" stroke-width="10" fill="transparent" r="45" cx="50" cy="50" />-->
+<!--                                    </svg>-->
+<!--                                    <div class="progress-text">{{ progress }}%</div>-->
+<!--                                </div>-->
+<!--                            </div>-->
+<!--                        </div>-->
+<!--                        <div class="col-12">-->
+<!--                            <p class="mb-0">Complete your profile for personalised content.</p>-->
+<!--                        </div>-->
+<!--                        <div class="col-md-12 col-lg-12 d-flex mt-2">-->
+<!--                            <button pButton  (click)="openMyProfile()" class="btn w-100 m-0 p-0">-->
+<!--                                <div class="row">-->
+<!--                                    <div class="col-12">-->
+<!--										<span style="cursor: pointer; color: white" class="ellipse-button fw-normal container-fluid">-->
+<!--                                           <strong>{{ progress != 100 ? "Complete my profile" : "My Profile" }}</strong></span>-->
+<!--                                    </div>-->
+<!--                                </div>-->
+<!--                            </button>-->
+<!--                        </div>-->
+<!--                    </div>-->
+<!--                </div>-->
+<!--            </div>-->
+<!--        </div>-->
+<!--        <div class="col-12 col-lg-5 my-md-0 my-2" [ngClass]="{ 'readingData-enable': enableReading, 'readingData-disable': !enableReading }">-->
+<!--            <div class="card h-100">-->
+<!--                <div class="card-body d-flex justify-content-evenly flex-column">-->
+<!--                    <div class="row mb-3">-->
+<!--                        <div class="row">-->
+<!--                            <div class="col">-->
+<!--                                <div class="row">-->
+<!--                                    <div class="col-md-12 col-lg-12 d-flex">-->
+<!--                                        <img src="/uniprep-assets/images/dashboard/Reading.png" alt="uniprep Quiz" height="80" width="80" />-->
+<!--                                    </div>-->
+<!--                                    <div class="row mt-2">-->
+<!--                                        <h5 class="mb-1 uppercase">Reading</h5>-->
+<!--                                    </div>-->
+<!--                                </div>-->
+<!--                            </div>-->
+<!--                            <div class="col">-->
+<!--                                &lt;!&ndash;                                <div [attr.data-percentage]="readProgressionPercentage" class="progress1">&ndash;&gt;-->
+<!--                                &lt;!&ndash;								<span class="progress1-left">&ndash;&gt;-->
+<!--                                &lt;!&ndash;									<span class="progress1-bar"></span>&ndash;&gt;-->
+<!--                                &lt;!&ndash;								</span>&ndash;&gt;-->
+<!--                                &lt;!&ndash;                                    <span class="progress1-right">&ndash;&gt;-->
+<!--                                &lt;!&ndash;									<span class="progress1-bar"></span>&ndash;&gt;-->
+<!--                                &lt;!&ndash;								</span>&ndash;&gt;-->
+<!--                                &lt;!&ndash;                                    <div class="progress1-value">&ndash;&gt;-->
+<!--                                &lt;!&ndash;                                        <div>{{ readProgressionPercentage }}%<br/></div>&ndash;&gt;-->
+<!--                                &lt;!&ndash;                                    </div>&ndash;&gt;-->
+<!--                                &lt;!&ndash;                                </div>&ndash;&gt;-->
+<!--                                <div class="progress1-circle" [attr.data-value]="progressReading" [style.&#45;&#45;value]="progressReading">-->
+<!--                                    <svg class="progress1-ring" width="100" height="100">-->
+<!--                                        <circle class="progress1-ring__background" stroke="#EEEEEE" stroke-width="10" fill="transparent" r="45" cx="50" cy="50" />-->
+<!--                                        <circle class="progress1-ring__circle" stroke="rgb(63, 76, 131)" stroke-width="10" fill="transparent" r="45" cx="50" cy="50" />-->
+<!--                                    </svg>-->
+<!--                                    <div class="progress1-text">{{ progressReading }}%</div>-->
+<!--                                </div>-->
+<!--                            </div>-->
+<!--                        </div>-->
+<!--                        <div class="col-12">-->
+<!--                            <p class="mb-0">Expand your horizons through reading.</p>-->
+<!--                            <br />-->
+<!--                        </div>-->
+<!--                        <div class="col-md-12 col-lg-12 d-flex mt-2">-->
+<!--                            <button pButton  (click)="openReading()" class="btn w-100 m-0 p-0">-->
+<!--                                <div class="row">-->
+<!--                                    <div class="col-12">-->
+<!--										<span style="cursor: pointer; background: rgb(63, 76, 131);-->
+<!--color: white;" class="ellipse-button fw-normal container-fluid">-->
+<!--                                            <strong>{{ quizpercentage >= 90 ? "Completed" : "Start Reading" }}</strong></span>-->
+<!--                                    </div>-->
+<!--                                </div>-->
+<!--                            </button>-->
+<!--                        </div>-->
+<!--                    </div>-->
+<!--                </div>-->
+<!--            </div>-->
+<!--        </div>-->
+<!--        <div class="col-12 col-lg-5 my-md-0 my-2">-->
+<!--            <div class="card h-100">-->
+<!--                <div class="card-body d-flex justify-content-evenly flex-column">-->
+<!--                    <div class="row mb-3 text-center">-->
+<!--                        <div class="col-md-12 col-lg-12 text-center">-->
+<!--                            <img src="/uniprep-assets/images/dashboard/Quiz.png" alt="uniprep Quiz" height="80" width="80" />-->
+<!--                        </div>-->
+<!--                        <div class="row mt-2">-->
+<!--                            <h5 class="mb-1 uppercase">Quiz</h5>-->
+<!--                            <p class="mb-0">Get certified for completing the quiz with an extraordinary score.</p>-->
+<!--                        </div>-->
+<!--                        <div class="col-md-12 col-lg-12 d-flex mt-2">-->
+<!--                            <button pButton  (click)="openQuiz()" class="btn w-100 m-0 p-0">-->
+<!--                                <div class="row">-->
+<!--                                    <div class="col-12">-->
+<!--										<span style="cursor: pointer; background: #f0780e; color: white; font-weight: bold"-->
+<!--                                              class="ellipse-button fw-normal container-fluid"><strong>Start Quiz</strong></span>-->
+<!--                                    </div>-->
+<!--                                </div>-->
+<!--                            </button>-->
+<!--                        </div>-->
+<!--                    </div>-->
+<!--                </div>-->
+<!--            </div>-->
+<!--        </div>-->
+<!--        <div class="col-12 col-lg-5 my-md-0 my-2">-->
+<!--            <div class="card h-100">-->
+<!--                <div class="card h-100">-->
+<!--                    <div class="card-body d-flex justify-content-evenly flex-column">-->
+<!--                        <div class="row mb-3 text-center">-->
+<!--                            <div class="col-md-12 col-lg-12 text-center">-->
+<!--                                <div class="row mb-3 text-center">-->
+<!--                                    <div class="col-md-12 col-lg-12 text-center">-->
+<!--                                        <img src="/uniprep-assets/images/dashboard/Certification.png" alt="uniprep my certificate" height="80" width="80" />-->
+<!--                                    </div>-->
+<!--                                    &lt;!&ndash;<div class="col-6 mt-5">-->
+<!--                                        <div style="text-align: center; font-size: x-large;">-->
+<!--                                            <span style="background-color: black; color: white; border-radius: 50px; padding: 10px;"><b>{{certificatecountstudent}}</b></span>-->
+<!--                                        </div>-->
+<!--                                    </div> &ndash;&gt;-->
+<!--                                </div>-->
+<!--                            </div>-->
+<!--                            <div class="row mt-2">-->
+<!--                                <h5 class="mb-1 uppercase fw-bold">Certification</h5>-->
+<!--                                <p class="mb-0">Get all your certificates in one place to share them on social media.</p>-->
+<!--                            </div>-->
+<!--                            <div class="col-md-12 col-lg-12 d-flex mt-2">-->
+<!--                                <button pButton  (click)="openCertificate()" class="btn w-100 m-0 p-0">-->
+<!--                                    <div class="row">-->
+<!--                                        <div class="col-12">-->
+<!--										<span style="cursor: pointer; color: white" class="ellipse-button fw-normal container-fluid">-->
+<!--                                            <strong>My Certificates</strong>-->
+<!--                                        </span>-->
+<!--                                        </div>-->
+<!--                                    </div>-->
+<!--                                </button>-->
+<!--                            </div>-->
+<!--                        </div>-->
+<!--                    </div>-->
+<!--                </div>-->
+<!--            </div>-->
+<!--        </div>-->
+<!--    </div>-->
+<!--</div>-->
+<div [ngStyle]="{ display: continueReading }" class="modal modal-bg" role="dialog" tabindex="-1">
+    <div class="modal-dialog modal-lg modal-dialog-centered modal-dialog-scrollable" role="document">
+        <div class="modal-content card bg-light">
+            <div class="modal-header justify-content-between">
+                <h3 class="mb-0 continue-reading-header" tooltipZIndex="auto" tooltipPosition="top"
+                    pTooltip="Complete the reading for all modules to get the certificate.">Continue Reading</h3>
+                <div class="popupclose">
+                    <a (click)="closeReading()" class="close" role="button">
+                        <span aria-hidden="true"><i class="fa-solid fa-circle-x fa-2xl uniprep-primary"></i></span>
+                    </a>
                 </div>
-                <div class="modal-body card-body">
-                    <div class="container">
-                        <div class="row mb-2">
-                            <div class="col-md-12">
-                                <div class="row">
-                                    <div *ngFor="let readPro of readingProgressings" class="col-md-6 p-2">
-                                        <div class="card continuecard">
-                                            <div class="card-body">
-                                                <div class="modal-selected-box d-flex flex-column">
-                                                    <h6 class="fw-semibold">{{ readPro.module_name }}</h6>
-                                                    <div class="d-flex justify-content-between">
-                                                        <div>
-                                                            <div [attr.data-percentage]="readPro.progression"
-                                                                class="progress1">
-                                                                <span class="progress1-left">
-                                                                    <span class="progress1-bar"></span>
-                                                                </span>
-                                                                <span class="progress1-right">
-                                                                    <span class="progress1-bar"></span>
-                                                                </span>
-                                                                <div class="progress1-value">
-                                                                    <div>{{ readPro.progression | number : "1.0-0" }}
-                                                                        %<br />
-                                                                    </div>
+            </div>
+            <div class="modal-body card-body">
+                <div class="container">
+                    <div class="row mb-2">
+                        <div class="col-md-12">
+                            <div class="row">
+                                <div *ngFor="let readPro of readingProgressings" class="col-md-6 p-2">
+                                    <div class="card continuecard">
+                                        <div class="card-body">
+                                            <div class="modal-selected-box d-flex flex-column">
+                                                <h6 class="fw-semibold">{{ readPro.module_name }}</h6>
+                                                <div class="d-flex justify-content-between">
+                                                    <div>
+                                                        <div [attr.data-percentage]="readPro.progression"
+                                                            class="progress1">
+                                                            <span class="progress1-left">
+                                                                <span class="progress1-bar"></span>
+                                                            </span>
+                                                            <span class="progress1-right">
+                                                                <span class="progress1-bar"></span>
+                                                            </span>
+                                                            <div class="progress1-value">
+                                                                <div>{{ readPro.progression | number : "1.0-0" }}
+                                                                    %<br />
                                                                 </div>
                                                             </div>
                                                         </div>
-                                                        <div class="align-items-center justify-content-center">
-                                                            <div class="d-flex flex-column"
-                                                                *ngIf="readPro.progression_status == 'Pending'">
-                                                                <p class="text-center text-small mb-0">
-                                                                    {{ readPro.progression_status }}
-                                                                </p>
-                                                                <button pButton
-                                                                    (click)="onClickReadProgression(readPro)"
-                                                                    class="btn btn-dark">Read Now
-                                                                </button>
-                                                            </div>
-                                                            <p *ngIf="readPro.progression_status == 'Completed'"
-                                                                class="text-center text-black text-small mb-0">
-                                                                <strong>{{ readPro.progression_status }}</strong>
+                                                    </div>
+                                                    <div class="align-items-center justify-content-center">
+                                                        <div class="d-flex flex-column"
+                                                            *ngIf="readPro.progression_status == 'Pending'">
+                                                            <p class="text-center text-small mb-0">
+                                                                {{ readPro.progression_status }}
                                                             </p>
+                                                            <button pButton (click)="onClickReadProgression(readPro)"
+                                                                class="btn btn-dark">Read Now
+                                                            </button>
                                                         </div>
+                                                        <p *ngIf="readPro.progression_status == 'Completed'"
+                                                            class="text-center text-black text-small mb-0">
+                                                            <strong>{{ readPro.progression_status }}</strong>
+                                                        </p>
                                                     </div>
                                                 </div>
                                             </div>
@@ -771,10 +772,11 @@
             </div>
         </div>
     </div>
-    <!-- <div [ngStyle]="{ display: continueQuiz }" class="modal modal-bg" role="dialog" tabindex="-1">
+</div>
+<!-- <div [ngStyle]="{ display: continueQuiz }" class="modal modal-bg" role="dialog" tabindex="-1">
     <div class="modal-dialog modal-dialog-scrollable modal-dialog-centered" role="document">
         <div class="modal-content card bg-light">-->
-    <!-- <div class=" justify-content-between">
+<!-- <div class=" justify-content-between">
                 <h3 class="mb-0 continue-reading-header" tooltipZIndex="auto" tooltipPosition="top" pTooltip="Complete the reading for all modules to get the certificate.">Continue Reading</h3>
                 <div class="popupclose">
                     <a (click)="closeQuiz()" class="close" role="button">
@@ -782,10 +784,10 @@
                     </a>
                 </div>
             </div> -->
-    <!-- <div class="mt-2" style="text-align: right">
+<!-- <div class="mt-2" style="text-align: right">
                 <a (click)="closeQuiz()" class="close" role="button">-->
-    <!-- <span aria-hidden="true"><img src="/uniprep-assets/images/icons/close_button.svg" /></span> -->
-    <!--<span aria-hidden="true"><i class="fa-solid fa-circle-x fa-2xl uniprep-primary"></i></span>
+<!-- <span aria-hidden="true"><img src="/uniprep-assets/images/icons/close_button.svg" /></span> -->
+<!--<span aria-hidden="true"><i class="fa-solid fa-circle-x fa-2xl uniprep-primary"></i></span>
                 </a>
             </div>
             <div class="modal-body">
@@ -842,68 +844,68 @@
     </div>
 </div> -->
 
-    <p-dialog [(visible)]="isVideoVisible" [modal]="true" [style]="{ width: '30vw' }" header="Header">
-        <ng-template pTemplate="header">
-            <span class="text-xl font-bold">Recommended Videos</span>
-        </ng-template>
-        <div class="container-fluid">
-            <p>Test video</p>
-        </div>
-    </p-dialog>
+<p-dialog [(visible)]="isVideoVisible" [modal]="true" [style]="{ width: '30vw' }" header="Header">
+    <ng-template pTemplate="header">
+        <span class="text-xl font-bold">Recommended Videos</span>
+    </ng-template>
+    <div class="container-fluid">
+        <p>Test video</p>
+    </div>
+</p-dialog>
 
-    <p-dialog [(visible)]="isShareWithSocialMedia" [closable]="false" [style]="{ width: 'auto' }" class="p-0 m-0"
-        class="timerpopup" [modal]="true" [draggable]="false" [resizable]="false">
-        <div class="px-5 pb-5 pt-3">
-            <div class="justify-content-center text-center pb-5 px-5"></div>
-        </div>
-    </p-dialog>
+<p-dialog [(visible)]="isShareWithSocialMedia" [closable]="false" [style]="{ width: 'auto' }" class="p-0 m-0"
+    class="timerpopup" [modal]="true" [draggable]="false" [resizable]="false">
+    <div class="px-5 pb-5 pt-3">
+        <div class="justify-content-center text-center pb-5 px-5"></div>
+    </div>
+</p-dialog>
 
-    <p-dialog [(visible)]="isViewMoreOrgVisible" [closable]="true" [style]="{ width: '80vw' }" class="p-0 m-0"
-        [modal]="true" [draggable]="false" [resizable]="false">
-        <div class="text-center">
-            <h4 class="mb-0 uniprep-primary">Trusted by 1000+ Educational Partners</h4>
-        </div>
-        <div class="px-5 pb-5 pt-3">
-            <div class="justify-content-center text-center pb-5">
-                <div class="row">
-                    <div class="col-lg-2 col-md-3 col-sm-4 col-6 p-2 d-flex justify-content-center align-items-center"
-                        *ngFor="let uni of partnerTrusterLogo">
-                        <img alt="{{ uni.logo }}" class="trustedbylogo" src="{{ uni.logo }}" />
-                    </div>
+<p-dialog [(visible)]="isViewMoreOrgVisible" [closable]="true" [style]="{ width: '80vw' }" class="p-0 m-0"
+    [modal]="true" [draggable]="false" [resizable]="false">
+    <div class="text-center">
+        <h4 class="mb-0 uniprep-primary">Trusted by 1000+ Educational Partners</h4>
+    </div>
+    <div class="px-5 pb-5 pt-3">
+        <div class="justify-content-center text-center pb-5">
+            <div class="row">
+                <div class="col-lg-2 col-md-3 col-sm-4 col-6 p-2 d-flex justify-content-center align-items-center"
+                    *ngFor="let uni of partnerTrusterLogo">
+                    <img alt="{{ uni.logo }}" class="trustedbylogo" src="{{ uni.logo }}" />
                 </div>
             </div>
         </div>
-    </p-dialog>
-    <p-dialog [(visible)]="isViewMoreJobApplication" [closable]="true" [style]="{ width: '80vw' }" class="p-0 m-0"
-        [modal]="true" [draggable]="false" [resizable]="false">
-        <div class="text-center">
-            <h4 class="mb-0 uniprep-primary">Recent Job Applications</h4>
-        </div>
-        <div class="px-5 pb-5 pt-3">
-            <div class="justify-content-center text-center pb-5">
-                <div class="row">
-                    <div class="col-lg-2 col-md-3 col-sm-4 col-6 p-2 d-flex justify-content-center align-items-center"
-                        *ngFor="let uni of partnerTrusterLogo">
-                        <img alt="{{ uni.logo }}" class="trustedbylogo" src="{{ uni.logo }}" />
-                    </div>
+    </div>
+</p-dialog>
+<p-dialog [(visible)]="isViewMoreJobApplication" [closable]="true" [style]="{ width: '80vw' }" class="p-0 m-0"
+    [modal]="true" [draggable]="false" [resizable]="false">
+    <div class="text-center">
+        <h4 class="mb-0 uniprep-primary">Recent Job Applications</h4>
+    </div>
+    <div class="px-5 pb-5 pt-3">
+        <div class="justify-content-center text-center pb-5">
+            <div class="row">
+                <div class="col-lg-2 col-md-3 col-sm-4 col-6 p-2 d-flex justify-content-center align-items-center"
+                    *ngFor="let uni of partnerTrusterLogo">
+                    <img alt="{{ uni.logo }}" class="trustedbylogo" src="{{ uni.logo }}" />
                 </div>
             </div>
         </div>
-    </p-dialog>
-    <p-dialog [(visible)]="restrict" [modal]="true" [style]="{ width: '30vw' }" [draggable]="false" [resizable]="false"
-        class="restrictionDialog" [breakpoints]="{ '960px': '30vw', '959px': '60vw', '425px': '90vw' }"
-        (onHide)="clearRestriction()">
-        <div *ngIf="ehitlabelIsShow" class="text-center mt-5 mb-4">
-            <img src="../../../uniprep-assets/images/smartloack.png" class="image" width="60" />
-            <h3 class="offer">Upgrade Required</h3>
-            <p>To access this exclusive module,please upgrade your plan now</p>
-            <button pButton pButton type="button"
-                class="text-white p-ripple p-button-rounded p-button-warning p-button p-component p-2"
-                (click)="upgradePlan()">Upgrade Plan<i class="fa fa-arrow-right exhausted-plan-icon"></i></button>
-        </div>
-        <div *ngIf="!ehitlabelIsShow" class="text-center mt-5 mb-4">
-            <img src="../../../uniprep-assets/images/smartloack.png" class="image" width="60" />
-            <h3 class="offer">Upgrade Required</h3>
-            <p>Please contact {{ orgnamewhitlabel }} Company for access</p>
-        </div>
-    </p-dialog>
+    </div>
+</p-dialog>
+<p-dialog [(visible)]="restrict" [modal]="true" [style]="{ width: '30vw' }" [draggable]="false" [resizable]="false"
+    class="restrictionDialog" [breakpoints]="{ '960px': '30vw', '959px': '60vw', '425px': '90vw' }"
+    (onHide)="clearRestriction()">
+    <div *ngIf="ehitlabelIsShow" class="text-center mt-5 mb-4">
+        <img src="../../../uniprep-assets/images/smartloack.png" class="image" width="60" />
+        <h3 class="offer">Upgrade Required</h3>
+        <p>To access this exclusive module,please upgrade your plan now</p>
+        <button pButton pButton type="button"
+            class="text-white p-ripple p-button-rounded p-button-warning p-button p-component p-2"
+            (click)="upgradePlan()">Upgrade Plan<i class="fa fa-arrow-right exhausted-plan-icon"></i></button>
+    </div>
+    <div *ngIf="!ehitlabelIsShow" class="text-center mt-5 mb-4">
+        <img src="../../../uniprep-assets/images/smartloack.png" class="image" width="60" />
+        <h3 class="offer">Upgrade Required</h3>
+        <p>Please contact {{ orgnamewhitlabel }} Company for access</p>
+    </div>
+</p-dialog>

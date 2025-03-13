@@ -11,23 +11,27 @@ import { LocationService } from "src/app/location.service"
 import { CommonModule } from "@angular/common"
 import { DialogModule } from "primeng/dialog"
 import { CarouselModule } from "primeng/carousel"
-import { FormsModule } from "@angular/forms"
+import { FormsModule, ReactiveFormsModule } from "@angular/forms"
 import { ButtonModule } from "primeng/button"
 import { TooltipModule } from "primeng/tooltip"
 import { RouterModule } from "@angular/router"
 import { SelectModule } from "primeng/select"
-import {StorageService} from "../../storage.service";
+import { StorageService } from "../../storage.service";
 import { JobSearchService } from "../job-search/job-search.service"
 import { CalendarModule } from "primeng/calendar"
 import { DatePickerModule } from "primeng/datepicker"
+import { InputTextModule } from "primeng/inputtext"
+import { AccordionModule } from "primeng/accordion"
+import { TableModule } from "primeng/table"
+import { TabViewModule } from "primeng/tabview"
 
 @Component({
 	selector: "uni-dashboard",
 	templateUrl: "./dashboard.component.html",
 	styleUrls: ["./dashboard.component.scss"],
 	standalone: true,
-	imports: [CommonModule, DialogModule, CarouselModule,  FormsModule, ButtonModule, TooltipModule, RouterModule, SelectModule,
-		CalendarModule,DatePickerModule,
+	imports: [CommonModule, DialogModule, CarouselModule, FormsModule, ButtonModule, TooltipModule, RouterModule, SelectModule,
+		CalendarModule, DatePickerModule, InputTextModule, TabViewModule, TableModule, AccordionModule, ReactiveFormsModule,
 	],
 	providers: [DashboardService, AuthService, DataService, LocationService],
 	changeDetection: ChangeDetectionStrategy.OnPush
@@ -45,7 +49,7 @@ export class DashboardComponent implements OnInit, OnChanges {
 	isVideoVisible: boolean = false
 	isShareWithSocialMedia: boolean = false
 	isViewMoreOrgVisible: boolean = false
-	isViewMoreJobApplication:boolean=false;
+	isViewMoreJobApplication: boolean = false;
 	partnerTrusterLogo: any
 	enableReading!: boolean
 	restrict: boolean = false
@@ -56,8 +60,8 @@ export class DashboardComponent implements OnInit, OnChanges {
 	orgnamewhitlabel: any
 	orglogowhitelabel: any
 	@ViewChild("carousel") carousel!: Carousel
-	groupedListFav:any= [];
-	groupedListFav2:any=[];
+	groupedListFav: any[] = [];
+	groupedListFav2: any[] = [];
 	date: Date = new Date();
 	university: any[] = [
 		{
@@ -80,38 +84,40 @@ export class DashboardComponent implements OnInit, OnChanges {
 	headerFlag!: string
 	currentModuleSlug: any
 	userData: any
-	recentJobApplication:any[]=[];
+	recentJobApplication: any[] = [];
 	currentMonth: number;
 	currentYear: number;
 	daysInMonth: number[] = [];
 	usageData: any[] = [];
 	monthName: string = '';
-	weekdays: string[] = ['S', 'M', 'T', 'W', 'T', 'F', 'S']; 
+	weekdays: string[] = ['S', 'M', 'T', 'W', 'T', 'F', 'S'];
 	firstDayIndex: number = 0;
 	constructor(private dashboardService: DashboardService, private service: AuthService, private router: Router,
-				private dataService: DataService, private authService: AuthService, private locationService: LocationService,
-				private cdr: ChangeDetectorRef, private storage: StorageService, private jobSearchService: JobSearchService) {
+		private dataService: DataService, private authService: AuthService, private locationService: LocationService,
+		private cdr: ChangeDetectorRef, private storage: StorageService, private jobSearchService: JobSearchService,
+	) {
 		this.responsiveOptions = [
 			{
-				breakpoint: '1024px', 
-				numVisible: 3,        
+				breakpoint: '1024px',
+				numVisible: 3,
 				numScroll: 1
-			  },
-			  {
-				breakpoint: '768px',  
-				numVisible: 2,      
+			},
+			{
+				breakpoint: '768px',
+				numVisible: 2,
 				numScroll: 1
-			  },
-			  {
-				breakpoint: '560px', 
-				numVisible: 1,        
+			},
+			{
+				breakpoint: '560px',
+				numVisible: 1,
 				numScroll: 1
-			  }
+			}
 		]
 		const today = new Date();
 		this.currentMonth = today.getMonth();
 		this.currentYear = today.getFullYear();
-		this.monthName = today.toLocaleString('default', { month: 'long' }); 	
+		this.monthName = today.toLocaleString('default', { month: 'long' });
+		this.generateDays();
 	}
 
 	fieldsToCheck = ["name", "email", "phone", "home_country_id", "selected_country", "location_id", "last_degree_passing_year", "intake_year_looking", "intake_month_looking", "programlevel_id"]
@@ -121,41 +127,37 @@ export class DashboardComponent implements OnInit, OnChanges {
 		this.initializeEssentialData();
 		this.recentJobs();
 		this.getUserTrackin();
-		// Load other data in parallel
 		this.loadParallelData();
 		this.groupedListFav = this.chunkArray(this.listFav, 4);
 		this.groupedListFav2 = this.chunkArray(this.recentJobApplication, 2);
-		
 	}
 	recentJobs() {
 		let req = {
-		  location: 'in', // India
-		  page: 1,
-		  result_per_page: 10,
-		  what_and: 'Software Development Engineer', // Role
-		  where: 'Bengaluru', // City
+			location: 'in', // India
+			page: 1,
+			result_per_page: 10,
+			what_and: 'Software Development Engineer', // Role
+			where: 'Bengaluru', // City
 		}
 		this.jobSearchService.searchJobs(req).subscribe({
-		  next:(data: any) => {
-			this.recentJobApplication=data.results
-			console.log('recent jobs', this.recentJobApplication
-			)
-			this.groupedListFav2 = this.chunkArray(this.recentJobApplication, 2);
-			console.log(this.groupedListFav2);
-		  },
-		  error:(error) => {
-			  console.error('Error fetching job listings:', error);
-		  }
+			next: (data: any) => {
+				this.recentJobApplication = data.results
+				this.groupedListFav2 = this.chunkArray(this.recentJobApplication, 2);
+				this.cdr.detectChanges();
+			},
+			error: (error) => {
+				console.error('Error fetching job listings:', error);
+			}
 		});
 	}
 	chunkArray(array: any[], size: number): any[] {
 		const result = [];
 		for (let i = 0; i < array.length; i += size) {
-		  result.push(array.slice(i, i + size));
+			result.push(array.slice(i, i + size));
 		}
 		return result;
-	  }
-	  
+	}
+
 	private initializeEssentialData(): void {
 		this.selectedCountryId = Number(this.storage.get("countryId"));
 		this.storage.set("currentmodulenameforrecently", "");
@@ -163,9 +165,10 @@ export class DashboardComponent implements OnInit, OnChanges {
 		// Load white label data
 		this.imagewhitlabeldomainname = window.location.hostname;
 		this.ehitlabelIsShow = this.imagewhitlabeldomainname === "*.uniprep.ai" ||
-								this.imagewhitlabeldomainname === "dev-student.uniprep.ai" || 
-							  this.imagewhitlabeldomainname === "uniprep.ai" || 
-							  this.imagewhitlabeldomainname === "localhost";
+			this.imagewhitlabeldomainname === "dev-student.uniprep.ai" ||
+			this.imagewhitlabeldomainname === "uniprep.ai" ||
+			this.imagewhitlabeldomainname === "localhost";
+		this.cdr.detectChanges();
 	}
 
 	private loadParallelData(): void {
@@ -193,6 +196,8 @@ export class DashboardComponent implements OnInit, OnChanges {
 		});
 
 		// Subscribe to main data
+		console.log(mainData$);
+
 		this.subs.sink = mainData$.subscribe(({
 			partnerLogo,
 			userData,
@@ -256,13 +261,13 @@ export class DashboardComponent implements OnInit, OnChanges {
 	private handleCountryList(countryList: any[]): void {
 		this.carousel.page = 0;
 		this.countryLists = countryList;
-		
+
 		// Find selected country
 		const selectedCountry = this.countryLists.find((element: any) => element.id == this.selectedCountryId);
 		if (selectedCountry) {
 			this.selectedCountryName = selectedCountry.country;
 			this.headerFlag = selectedCountry.flag;
-			
+
 			// Move selected country to start of list
 			this.countryLists = [
 				selectedCountry,
@@ -433,7 +438,7 @@ export class DashboardComponent implements OnInit, OnChanges {
 	openViewMoreOrg(): void {
 		this.isViewMoreOrgVisible = true;
 	}
-	viewMoreOpenJobApplication(){
+	viewMoreOpenJobApplication() {
 		// this.isViewMoreJobApplication=true;
 	}
 	quizpercentage: any = 0
@@ -495,19 +500,20 @@ export class DashboardComponent implements OnInit, OnChanges {
 	}
 
 	setProgress(progress: number) {
-		const circle = document.querySelector(".progress-ring__circle") as SVGCircleElement
-		const radius = circle.r.baseVal.value
-		const circumference = 2 * Math.PI * radius
-		const offset = circumference - (progress / 100) * circumference
-		circle.style.strokeDasharray = `${circumference} ${circumference}`
-		circle.style.strokeDashoffset = `${offset}`
+		// const circle = document.querySelector(".progress-bar") as SVGCircleElement
+		// const radius = circle.r.baseVal.value
+		// const circumference = 2 * Math.PI * radius
+		// const offset = circumference - (progress / 100) * circumference
+		// circle.style.strokeDasharray = `${circumference} ${circumference}`
+		// circle.style.strokeDashoffset = `${offset}`
+		this.progress = Math.max(0, Math.min(progress, 100));
 	}
 
 	setProgress1(progress: number) {
 		if (typeof progress !== 'number') {
 			progress = 0;
 		}
-		
+
 		const circle = document.querySelector('.progress1-ring__circle') as SVGCircleElement;
 		if (!circle) {
 			console.warn('Progress ring circle element not found');
@@ -516,170 +522,170 @@ export class DashboardComponent implements OnInit, OnChanges {
 
 		const radius = circle.r.baseVal.value;
 		const circumference = radius * 2 * Math.PI;
-		
+
 		circle.style.strokeDasharray = `${circumference} ${circumference}`;
 		circle.style.strokeDashoffset = `${circumference}`;
 
 		const offset = circumference - (progress / 100) * circumference;
 		circle.style.strokeDashoffset = offset.toString();
 	}
-    
-    listFav: any[] = [
-        {
-            "id": 1,
-            "moduleName": "CV Builder",
-            "Description": "Craft a standout CV that highlights your skills and experience, ready for any job application.",
-            "tooltip": "Craft a standout CV that highlights your skills and experience, ready for any job application.",
-            "imageLink": "https://api.uniprep.ai/uniprepapi/storage/app/public/resources-coverimage/CV.png",
-            "mode": "cv-builder",
-            "url": "/pages/job-tool/cv-builder"
-        },
-        {
-            "id": 2,
-            "moduleName": "Learning Hub",
-            "Description": "Craft a standout CV that highlights your skills and experience, ready for any job application.",
-            "tooltip": "Craft a standout CV that highlights your skills and experience, ready for any job application.",
-            "imageLink": "https://api.uniprep.ai/uniprepapi/storage/app/public/resources-coverimage/LearningHub.svg",
-            "mode": "cv-builder",
-             "url": "/pages/modules/learning-hub"
-        },
-        {
-            "id": 3,
-            "moduleName": "Job Portal",
-            "Description": "Craft a standout CV that highlights your skills and experience, ready for any job application.",
-            "tooltip": "Craft a standout CV that highlights your skills and experience, ready for any job application.",
-            "imageLink": "https://api.uniprep.ai/uniprepapi/storage/app/public/resources-coverimage/JobPortal.svg",
-            "mode": "cv-builder",
-            "url": "/pages/job-portal/job-search"
-        },
-        {
-            "id": 4,
-            "moduleName": "Career Planner",
-            "Description": "Craft a standout CV that highlights your skills and experience, ready for any job application.",
-            "tooltip": "Craft a standout CV that highlights your skills and experience, ready for any job application.",
-            "imageLink": "https://api.uniprep.ai/uniprepapi/storage/app/public/resources-coverimage/CareerPlanner.svg",
-            "mode": "cv-builder",
-            "url": "/pages/job-tool/careerplannerlist"
-        },
-        {
-            "id": 5,
-            "moduleName": "Employer Test",
-            "Description": "Craft a standout CV that highlights your skills and experience, ready for any job application.",
-            "tooltip": "Craft a standout CV that highlights your skills and experience, ready for any job application.",
-            "imageLink": "https://api.uniprep.ai/uniprepapi/storage/app/public/resources-coverimage/EmployerTest.svg",
-            "mode": "cv-builder",
-            "url": "/pages/job-tool/list/employer-test/13"
-        },
-        {
-            "id": 6,
-            "moduleName": "Pitch Deck",
-            "Description": "Craft a standout CV that highlights your skills and experience, ready for any job application.",
-            "tooltip": "Craft a standout CV that highlights your skills and experience, ready for any job application.",
-            "imageLink": "https://api.uniprep.ai/uniprepapi/storage/app/public/resources-coverimage/Pitchdeck.svg",
-            "mode": "cv-builder",
-            "url": "/pages/pitch-deck"
-        },
-        {
-            "id": 7,
-            "moduleName": "UNILEARN",
-            "Description": "Craft a standout CV that highlights your skills and experience, ready for any job application.",
-            "tooltip": "Craft a standout CV that highlights your skills and experience, ready for any job application.",
-            "imageLink": "https://api.uniprep.ai/uniprepapi/storage/app/public/resources-coverimage/UNILEARN.svg",
-            "mode": "cv-builder",
-            "url": "/pages/unilearn/modules"
-        },
-        {
-            "id": 8,
-            "moduleName": "UNIFINDER",
-            "Description": "Craft a standout CV that highlights your skills and experience, ready for any job application.",
-            "tooltip": "Craft a standout CV that highlights your skills and experience, ready for any job application.",
-            "imageLink": "https://api.uniprep.ai/uniprepapi/storage/app/public/resources-coverimage/UNIFINDER.svg",
-            "mode": "cv-builder",
-            "url": "/pages/course-list"
-        },
-        {
-            "id": 9,
-            "moduleName": "UNISCHOLAR",
-            "Description": "Craft a standout CV that highlights your skills and experience, ready for any job application.",
-            "tooltip": "Craft a standout CV that highlights your skills and experience, ready for any job application.",
-            "imageLink": "https://api.uniprep.ai/uniprepapi/storage/app/public/resources-coverimage/UNISCHOLAR.svg",
-            "mode": "cv-builder",
-            "url": "/pages/scholarship-list"
-        },
-        {
-            "id": 10,
-            "moduleName": "Global Repository",
-            "Description": "Craft a standout CV that highlights your skills and experience, ready for any job application.",
-            "tooltip": "Craft a standout CV that highlights your skills and experience, ready for any job application.",
-            "imageLink": "https://api.uniprep.ai/uniprepapi/storage/app/public/resources-coverimage/GlobalRepository.svg",
-            "mode": "cv-builder",
-            "url": "/pages/job-tool/cv-builder"
-        },
-        {
-            "id": 11,
-            "moduleName": "AI Global Advisor",
-            "Description": "Craft a standout CV that highlights your skills and experience, ready for any job application.",
-            "tooltip": "Craft a standout CV that highlights your skills and experience, ready for any job application.",
-            "imageLink": "https://api.uniprep.ai/uniprepapi/storage/app/public/resources-coverimage/AI Business Advisor.svg",
-            "mode": "cv-builder",
-            "url": "/pages/advisor"
-        },
-        {
-            "id": 12,
-            "moduleName": "Language Hub",
-            "Description": "Craft a standout CV that highlights your skills and experience, ready for any job application.",
-            "tooltip": "Craft a standout CV that highlights your skills and experience, ready for any job application.",
-            "imageLink": "https://api.uniprep.ai/uniprepapi/storage/app/public/resources-coverimage/LanguageHub.svg",
-            "mode": "cv-builder",
-            "url": "/pages/language-hub/languages"
-        }
-    ]
 
-    // navigate Favourites
-    selectFav(req: any) {
-        this.router.navigateByUrl(req.url);
-    }
-	redirectToCvBuilder(){
+	listFav: any[] = [
+		{
+			"id": 1,
+			"moduleName": "CV Builder",
+			"Description": "Craft a standout CV that highlights your skills and experience, ready for any job application.",
+			"tooltip": "Craft a standout CV that highlights your skills and experience, ready for any job application.",
+			"imageLink": "https://api.uniprep.ai/uniprepapi/storage/app/public/resources-coverimage/CV.png",
+			"mode": "cv-builder",
+			"url": "/pages/job-tool/cv-builder"
+		},
+		{
+			"id": 2,
+			"moduleName": "Learning Hub",
+			"Description": "Craft a standout CV that highlights your skills and experience, ready for any job application.",
+			"tooltip": "Craft a standout CV that highlights your skills and experience, ready for any job application.",
+			"imageLink": "https://api.uniprep.ai/uniprepapi/storage/app/public/resources-coverimage/LearningHub.svg",
+			"mode": "cv-builder",
+			"url": "/pages/modules/learning-hub"
+		},
+		{
+			"id": 3,
+			"moduleName": "Job Portal",
+			"Description": "Craft a standout CV that highlights your skills and experience, ready for any job application.",
+			"tooltip": "Craft a standout CV that highlights your skills and experience, ready for any job application.",
+			"imageLink": "https://api.uniprep.ai/uniprepapi/storage/app/public/resources-coverimage/JobPortal.svg",
+			"mode": "cv-builder",
+			"url": "/pages/job-portal/job-search"
+		},
+		{
+			"id": 4,
+			"moduleName": "Career Planner",
+			"Description": "Craft a standout CV that highlights your skills and experience, ready for any job application.",
+			"tooltip": "Craft a standout CV that highlights your skills and experience, ready for any job application.",
+			"imageLink": "https://api.uniprep.ai/uniprepapi/storage/app/public/resources-coverimage/CareerPlanner.svg",
+			"mode": "cv-builder",
+			"url": "/pages/job-tool/careerplannerlist"
+		},
+		{
+			"id": 5,
+			"moduleName": "Employer Test",
+			"Description": "Craft a standout CV that highlights your skills and experience, ready for any job application.",
+			"tooltip": "Craft a standout CV that highlights your skills and experience, ready for any job application.",
+			"imageLink": "https://api.uniprep.ai/uniprepapi/storage/app/public/resources-coverimage/EmployerTest.svg",
+			"mode": "cv-builder",
+			"url": "/pages/job-tool/list/employer-test/13"
+		},
+		{
+			"id": 6,
+			"moduleName": "Pitch Deck",
+			"Description": "Craft a standout CV that highlights your skills and experience, ready for any job application.",
+			"tooltip": "Craft a standout CV that highlights your skills and experience, ready for any job application.",
+			"imageLink": "https://api.uniprep.ai/uniprepapi/storage/app/public/resources-coverimage/Pitchdeck.svg",
+			"mode": "cv-builder",
+			"url": "/pages/pitch-deck"
+		},
+		{
+			"id": 7,
+			"moduleName": "UNILEARN",
+			"Description": "Craft a standout CV that highlights your skills and experience, ready for any job application.",
+			"tooltip": "Craft a standout CV that highlights your skills and experience, ready for any job application.",
+			"imageLink": "https://api.uniprep.ai/uniprepapi/storage/app/public/resources-coverimage/UNILEARN.svg",
+			"mode": "cv-builder",
+			"url": "/pages/unilearn/modules"
+		},
+		{
+			"id": 8,
+			"moduleName": "UNIFINDER",
+			"Description": "Craft a standout CV that highlights your skills and experience, ready for any job application.",
+			"tooltip": "Craft a standout CV that highlights your skills and experience, ready for any job application.",
+			"imageLink": "https://api.uniprep.ai/uniprepapi/storage/app/public/resources-coverimage/UNIFINDER.svg",
+			"mode": "cv-builder",
+			"url": "/pages/course-list"
+		},
+		{
+			"id": 9,
+			"moduleName": "UNISCHOLAR",
+			"Description": "Craft a standout CV that highlights your skills and experience, ready for any job application.",
+			"tooltip": "Craft a standout CV that highlights your skills and experience, ready for any job application.",
+			"imageLink": "https://api.uniprep.ai/uniprepapi/storage/app/public/resources-coverimage/UNISCHOLAR.svg",
+			"mode": "cv-builder",
+			"url": "/pages/scholarship-list"
+		},
+		{
+			"id": 10,
+			"moduleName": "Global Repository",
+			"Description": "Craft a standout CV that highlights your skills and experience, ready for any job application.",
+			"tooltip": "Craft a standout CV that highlights your skills and experience, ready for any job application.",
+			"imageLink": "https://api.uniprep.ai/uniprepapi/storage/app/public/resources-coverimage/GlobalRepository.svg",
+			"mode": "cv-builder",
+			"url": "/pages/job-tool/cv-builder"
+		},
+		{
+			"id": 11,
+			"moduleName": "AI Global Advisor",
+			"Description": "Craft a standout CV that highlights your skills and experience, ready for any job application.",
+			"tooltip": "Craft a standout CV that highlights your skills and experience, ready for any job application.",
+			"imageLink": "https://api.uniprep.ai/uniprepapi/storage/app/public/resources-coverimage/AI Business Advisor.svg",
+			"mode": "cv-builder",
+			"url": "/pages/advisor"
+		},
+		{
+			"id": 12,
+			"moduleName": "Language Hub",
+			"Description": "Craft a standout CV that highlights your skills and experience, ready for any job application.",
+			"tooltip": "Craft a standout CV that highlights your skills and experience, ready for any job application.",
+			"imageLink": "https://api.uniprep.ai/uniprepapi/storage/app/public/resources-coverimage/LanguageHub.svg",
+			"mode": "cv-builder",
+			"url": "/pages/language-hub/languages"
+		}
+	]
+
+	// navigate Favourites
+	selectFav(req: any) {
+		this.router.navigateByUrl(req.url);
+	}
+	redirectToCvBuilder() {
 		this.router.navigate(['/pages/job-tool/cv-builder']);
 	}
 	generateDays(): void {
-	    this.firstDayIndex = new Date(this.currentYear, this.currentMonth, 1).getDay();
+		this.firstDayIndex = new Date(this.currentYear, this.currentMonth, 1).getDay();
 		const totalDays = new Date(this.currentYear, this.currentMonth + 1, 0).getDate();
 		this.daysInMonth = Array.from({ length: totalDays }, (_, i) => i + 1);
-	  }
-	
-	  setUsageData(): void {
+	}
+
+	setUsageData(): void {
 		// Example usage data (should come from an API)
-	  }
-	  getUsageDataForDay(day: number): any {
+	}
+	getUsageDataForDay(day: number): any {
 		return this.usageData.filter(entry => entry.day === day);
-	  }
-	
-	  getStatusClass(day: number): string {
+	}
+
+	getStatusClass(day: number): string {
 		const usageEntries = this.getUsageDataForDay(day);
-		if (usageEntries.some((entry:any) => entry.status === 'high')) return 'high';
-		if (usageEntries.some((entry:any) => entry.status === 'medium')) return 'medium';
-		if (usageEntries.some((entry:any) => entry.status === 'low')) return 'low';
+		if (usageEntries.some((entry: any) => entry.status === 'high')) return 'high';
+		if (usageEntries.some((entry: any) => entry.status === 'medium')) return 'medium';
+		if (usageEntries.some((entry: any) => entry.status === 'low')) return 'low';
 		return 'nostatus';
-	  }
-	  getUserTrackin() {
+	}
+	getUserTrackin() {
 		this.dashboardService.getUserTracking().subscribe({
-		  next:(data: any) => {
-			data.forEach(((ele:any)=>{
-				var bindingdata={
-					day: parseInt(ele.date.split("-")[2], 10),
-					status:ele.status,
-					timeUsage:ele.usage_time
-				}
-				this.usageData.push(bindingdata)
-			}))
-			this.generateDays();	
-			console.log(this.usageData);
-		  },
-		  error:(error) => {
-			  console.error('Error fetching job listings:', error);
-		  }
+			next: (data: any) => {
+				data.forEach(((ele: any) => {
+					var bindingdata = {
+						day: parseInt(ele.date.split("-")[2], 10),
+						status: ele.status,
+						timeUsage: ele.usage_time
+					}
+					this.usageData.push(bindingdata)
+					this.cdr.detectChanges();
+				}))
+				console.log(this.usageData);
+			},
+			error: (error) => {
+				console.error('Error fetching job listings:', error);
+			}
 		});
 	}
-	
+
 }

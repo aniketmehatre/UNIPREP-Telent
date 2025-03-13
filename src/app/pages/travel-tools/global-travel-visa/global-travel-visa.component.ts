@@ -10,13 +10,22 @@ import { MessageService } from 'primeng/api';
 import { CardModule } from 'primeng/card';
 import { DialogModule } from 'primeng/dialog';
 import { DataService } from 'src/app/data.service';
+import { SelectModule } from 'primeng/select';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { ButtonModule } from 'primeng/button';
+import { InputGroupModule } from 'primeng/inputgroup';
+import { InputGroupAddonModule } from 'primeng/inputgroupaddon';
+import { InputTextModule } from 'primeng/inputtext';
+import { MultiSelectModule } from 'primeng/multiselect';
 
 @Component({
     selector: 'uni-global-travel-visa',
     templateUrl: './global-travel-visa.component.html',
     styleUrls: ['./global-travel-visa.component.scss'],
     standalone: true,
-    imports: [CommonModule,CarouselModule, CardModule, DialogModule]
+    imports: [CommonModule,CarouselModule, CardModule, DialogModule,SelectModule,
+      ButtonModule,MultiSelectModule,CarouselModule,InputGroupModule,InputGroupAddonModule,FormsModule,ReactiveFormsModule,InputTextModule
+    ]
 })
 export class GlobalTravelVisaComponent implements OnInit {
   recommendations: { id: number, question: string }[] = [
@@ -102,7 +111,9 @@ export class GlobalTravelVisaComponent implements OnInit {
   getCountriesList() {
     this.travelToolService.getCountriesList().subscribe(response => {
       const country=response.find((item:any) => item.id === 122);
-      this.allCountries = country ? [country] : []; 
+      this.allCountries = country ? [country] : [];
+      console.log(this.allCountries );
+      
     });
   }
   getVisaCountriesList() {
@@ -121,6 +132,7 @@ export class GlobalTravelVisaComponent implements OnInit {
   }
 
   next(itemId: number) {
+    console.log(this.selectedData);
     this.invalidClass = !(itemId in this.selectedData);
     if (!this.invalidClass) {
       this.activePageIndex < this.recommendations.length - 1 ? this.activePageIndex++ : this.getRecommendation();
