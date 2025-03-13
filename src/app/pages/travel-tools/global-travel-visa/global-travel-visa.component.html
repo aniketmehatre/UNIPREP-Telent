@@ -37,12 +37,12 @@
                                 </div>
                                 <div class="col-md-6">
                                     <ng-container *ngIf="recommendation.id == 1">
-                                        <p-select [options]="allCountries" [filter]="true" [(ngModel)]="selectedData[recommendation.id]" optionLabel="country" styleClass="w-100" 
-                                                optionValue="id" [showClear]="true" placeholder="Country" [appendTo]="'body'"></p-select>
+                                        <p-select  [disabled]="true"  [options]="allCountries" [filter]="true" [(ngModel)]="selectedData[recommendation.id]" optionLabel="country" styleClass="w-100" 
+                                                optionValue="id" [showClear]="true" placeholder="India" [appendTo]="'body'"></p-select>
                                         <p class="text-center" [ngClass]="{ 'd-none': invalidClass === false }" style="color: red">Please Choose Any one option</p>
                                     </ng-container>
                                     <ng-container *ngIf="recommendation.id == 2">
-                                        <p-select [options]="allCountries" [filter]="true" [(ngModel)]="selectedData[recommendation.id]" optionLabel="country" styleClass="w-100" 
+                                        <p-select [options]="visaCountries" [filter]="true" [(ngModel)]="selectedData[recommendation.id]" optionLabel="country" styleClass="w-100" 
                                                 optionValue="id" [showClear]="true" placeholder="Country" [appendTo]="'body'"></p-select>
                                         <p class="text-center" [ngClass]="{ 'd-none': invalidClass === false }" style="color: red">Please Choose Any one option</p>
                                     </ng-container>

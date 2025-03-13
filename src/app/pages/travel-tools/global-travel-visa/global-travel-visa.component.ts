@@ -63,6 +63,7 @@ export class GlobalTravelVisaComponent implements OnInit {
   eachVisaNameCategory:any[]=[];
   isQuestionAnswerVisible: boolean = false;
   selectedQuestionData: any;
+  isNotSelectingDropdown:boolean=false
   constructor(
     private travelToolService: TravelToolsService,
     private router: Router,
@@ -111,9 +112,7 @@ export class GlobalTravelVisaComponent implements OnInit {
   getCountriesList() {
     this.travelToolService.getCountriesList().subscribe(response => {
       const country=response.find((item:any) => item.id === 122);
-      this.allCountries = country ? [country] : [];
-      console.log(this.allCountries );
-      
+      this.allCountries = country ? [country] : []; 
     });
   }
   getVisaCountriesList() {
@@ -132,8 +131,11 @@ export class GlobalTravelVisaComponent implements OnInit {
   }
 
   next(itemId: number) {
-    console.log(this.selectedData);
-    this.invalidClass = !(itemId in this.selectedData);
+    if(itemId==1){
+      this.invalidClass = !(itemId in {1:122});
+    }else{
+      this.invalidClass = !(itemId in this.selectedData);
+    }
     if (!this.invalidClass) {
       this.activePageIndex < this.recommendations.length - 1 ? this.activePageIndex++ : this.getRecommendation();
     }
