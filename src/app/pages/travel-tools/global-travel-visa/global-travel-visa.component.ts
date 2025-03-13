@@ -10,18 +10,20 @@ import { MessageService } from 'primeng/api';
 import { CardModule } from 'primeng/card';
 import { DialogModule } from 'primeng/dialog';
 import { DataService } from 'src/app/data.service';
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { ButtonModule } from 'primeng/button';
 import { TooltipModule } from 'primeng/tooltip';
-import { SelectModule } from 'primeng/select';
+import { InputGroupAddonModule } from 'primeng/inputgroupaddon';
+import { InputTextModule } from 'primeng/inputtext';
+import { MultiSelectModule } from 'primeng/multiselect';
+import { ButtonModule } from 'primeng/button';
 
 @Component({
-  selector: 'uni-global-travel-visa',
-  templateUrl: './global-travel-visa.component.html',
-  styleUrls: ['./global-travel-visa.component.scss'],
-  standalone: true,
-  imports: [CommonModule, TooltipModule, ButtonModule, CarouselModule, FormsModule, ReactiveFormsModule, DialogModule, CardModule, SelectModule]
-
+    selector: 'uni-global-travel-visa',
+    templateUrl: './global-travel-visa.component.html',
+    styleUrls: ['./global-travel-visa.component.scss'],
+    standalone: true,
+    imports: [CommonModule,CarouselModule, CardModule, DialogModule,SelectModule,
+      ButtonModule,MultiSelectModule,CarouselModule,InputGroupModule,InputGroupAddonModule,FormsModule,ReactiveFormsModule,InputTextModule
+    ]
 })
 export class GlobalTravelVisaComponent implements OnInit {
   recommendations: { id: number, question: string }[] = [
@@ -59,6 +61,7 @@ export class GlobalTravelVisaComponent implements OnInit {
   eachVisaNameCategory: any[] = [];
   isQuestionAnswerVisible: boolean = false;
   selectedQuestionData: any;
+  isNotSelectingDropdown:boolean=false
   constructor(
     private travelToolService: TravelToolsService,
     private router: Router,
@@ -126,7 +129,11 @@ export class GlobalTravelVisaComponent implements OnInit {
   }
 
   next(itemId: number) {
-    this.invalidClass = !(itemId in this.selectedData);
+    if(itemId==1){
+      this.invalidClass = !(itemId in {1:122});
+    }else{
+      this.invalidClass = !(itemId in this.selectedData);
+    }
     if (!this.invalidClass) {
       this.activePageIndex < this.recommendations.length - 1 ? this.activePageIndex++ : this.getRecommendation();
     }
