@@ -84,28 +84,26 @@
                     <div class="col-12 mt-4">
                         <p class="mb-0 text-start" style="font-size: 11px;">Complete your profile today:</p>
                     </div>
-                    <div class="col-lg-4 col-md-12 col-sm-12 mt-2">
+                </div>
+                <div class="row">
+                <div class="d-flex flex-row gap-2 flex-nowrap overflow-y-auto ">
                         <button class=" px-4 py-2 border rounded-lg shadow-md  bg-white" style="border-radius: 15px; font-size: 9px;width: -webkit-fill-available;
                             ">
                             <span (click)="openMyProfile()" style="color: #394D83;">My Profile <i
                                     class="fa-solid fa-user" style="color: #FF913B;"></i></span>
                         </button>
-                    </div>
-                    <div class="col-lg-4 col-md-12 col-sm-12 mt-2">
                         <button (click)="redirectToCvBuilder()" class=" px-4 py-2 border rounded-lg shadow-md  bg-white"
                             style="border-radius: 15px; font-size: 9px;width: -webkit-fill-available;
                             ">
                             <span style="color: #394D83;">CV Builder <i class="fa-solid fa-file-lines"
                                     style="color: #394D83;"></i></span>
                         </button>
-                    </div>
-                    <div class="col-lg-4 col-md-12 col-sm-12 mt-2">
                         <button class=" px-4 py-2 border rounded-lg shadow-md  bg-white" style="border-radius: 15px; font-size: 9px;width: -webkit-fill-available;
                             ">
                             <span style="color: #394D83;">Talent Connect</span>
                         </button>
-                    </div>
                 </div>
+            </div>
                 <!-- <button pButton severity="contrast" (click)="openMyProfile()"
                     class="btn btn-dark btn-rounded mt-3">{{ progress != 100 ? "Complete my profile" : "My Profile"
                     }}
@@ -137,7 +135,7 @@
                                             <p class="mb-0 text-sm text-capitalize">
                                                 <b>{{ v.moduleName | uppercase }}</b>
                                             </p>
-                                            <p class="mb-0 text-sm">
+                                            <p class="mb-0 text-muted">
                                                 {{ v.module}}
                                             </p>
                                         </div>
