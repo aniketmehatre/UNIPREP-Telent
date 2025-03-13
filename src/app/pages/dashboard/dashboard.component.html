@@ -63,14 +63,14 @@
                     </div>
                     <div class="col-3">
                         <div class="progress-bar-container">
-                            <div class="progress-bar2" style="width: 60%"></div>
+                            <div class="progress-bar2" [style.width.%]="progress"></div>
                             <!-- Adjust the width to indicate progress -->
                             <span class="text-gray-700" style="font-size: 9px;">Job Profile</span>
                         </div>
                     </div>
                     <div class="col-3">
                         <div class="progress-bar-container">
-                            <div class="progress-bar3" style="width: 60%"></div>
+                            <div class="progress-bar3" [style.width.%]="progress"></div>
                             <!-- Adjust the width to indicate progress -->
                             <span class="text-gray-700" style="font-size: 9px;">CV Details</span>
                         </div>
@@ -78,7 +78,7 @@
                     <div class="col-12">
                         <button pButton class="btn btn-rounded mt-5"
                             style="color: #5F6E9A; background-color: white; border-color: #FAFAFC;font-size: 10px;width: -webkit-fill-available;">
-                            ATS Compobility:45%
+                            ATS Compobility : {{progress}}%
                         </button>
                     </div>
                     <div class="col-12 mt-4">
@@ -308,9 +308,9 @@
                 </div>
                 <div class="input-container">
                     <i class="fa-regular fa-envelope"></i>
-                    <input type="email" placeholder="Enter Email Address" />
+                    <input [(ngModel)]="sendInvite" type="email" placeholder="Enter Email Address" />
                 </div>
-                <button pButton severity="warn" class="btn btn-rounded font-weight-bold mt-3" style="color: #666666; border-color: #666666;
+                <button pButton (click)="sendInviteMail()" severity="warn" class="btn btn-rounded font-weight-bold mt-3" style="color: #666666; border-color: #666666;
                     background-color: #FFFFFF; font-size: 10px;">
                     Send Invite
                 </button>

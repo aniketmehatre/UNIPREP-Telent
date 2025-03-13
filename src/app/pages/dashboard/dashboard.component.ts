@@ -24,6 +24,7 @@ import { InputTextModule } from "primeng/inputtext"
 import { AccordionModule } from "primeng/accordion"
 import { TableModule } from "primeng/table"
 import { TabViewModule } from "primeng/tabview"
+import { MessageService } from "primeng/api"
 
 @Component({
 	selector: "uni-dashboard",
@@ -46,6 +47,7 @@ export class DashboardComponent implements OnInit, OnChanges {
 	quizProgressings: any = []
 	continueReading = "none"
 	continueQuiz = "none"
+	sendInvite:any=""
 	isVideoVisible: boolean = false
 	isShareWithSocialMedia: boolean = false
 	isViewMoreOrgVisible: boolean = false
@@ -96,6 +98,7 @@ export class DashboardComponent implements OnInit, OnChanges {
 	constructor(private dashboardService: DashboardService, private service: AuthService, private router: Router,
 		private dataService: DataService, private authService: AuthService, private locationService: LocationService,
 		private cdr: ChangeDetectorRef, private storage: StorageService, private jobSearchService: JobSearchService,
+		private toastr: MessageService
 	) {
 		this.responsiveOptions = [
 			{
@@ -700,5 +703,18 @@ export class DashboardComponent implements OnInit, OnChanges {
 			}
 		});
 	}
-
+	sendInviteMail(){
+		var data={
+			email:this.sendInvite
+		}
+		this.dashboardService.sentEmailForInviteUniPrep(data).subscribe({
+			next: (data: any) => {
+				this.toastr.add({severity:'success', summary: 'Success', detail: data.message});
+				this.sendInvite=""
+			},
+			error: (error) => {
+				console.error('Error fetching job listings:', error);
+			}
+		});
+	}
 }
