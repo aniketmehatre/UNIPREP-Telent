@@ -81,7 +81,26 @@
 						</div> -->
 					</button>
 				</div>
-				<div class="flex-shrink-0 align-items-center d-flex" *ngIf="currentModuleId == 8">
+				<div class="flex-shrink-0 flex align-items-center position-relative" *ngIf="currentModuleId == 8">
+					<div class="w-full search-container border-primary rounded-3">
+						<p-inputGroup>
+							<p-inputGroupAddon>
+								<i class="pi pi-search"></i>
+							</p-inputGroupAddon>
+							<input *ngIf="currentModuleId == 8" class="w-full border-0 bg-transparent" type="text" placeholder="Look for your specialization" pInputText [(ngModel)]="searchLearning" (ngModelChange)="performSearch()" />
+						</p-inputGroup>
+
+						<div *ngIf="filteredData.length" class="dropdown-container text-start">
+							<div *ngFor="let result of filteredData" class="dropdown-item">
+								<div (click)="takeMeToQuestion(result)" role="button">
+									<h3>{{ result.title }}</h3>
+									<p>{{ result.subtitle }}</p>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+				<!-- <div class="flex-shrink-0 align-items-center d-flex" *ngIf="currentModuleId == 8">
 					<div class="p-input-icon-left h-100 w-100 search-container border-primary rounded-3">
 						<i class="fa-solid fa-search"></i>
 						<input *ngIf="currentModuleId == 8" class="w-100 px-5 border-0 py-2 h-100 bg-transparent" type="text" placeholder="Look for you specialization" pInputText [(ngModel)]="searchLearning" (input)="performSearch()" />
@@ -95,7 +114,7 @@
 							</div>
 						</div>
 					</div>
-				</div>
+				</div> -->
 			</div>
 
 			<!-- <div class="col-md-3 mt-0 text-start  justify-content-start d-none d-md-flex"
