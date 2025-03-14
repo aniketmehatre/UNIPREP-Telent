@@ -15,7 +15,7 @@ import { UniLearnRoutingModule } from "./unilearn-routing.module";
 import { UniLearnComponent } from "./unilearn.component";
 import { LearnModulesComponent } from "./learnmodules/learnmodules.component";
 import { LearnsubModulesComponent } from "./learnsubmodules/learnsubmodules.component";
-import { PdfJsViewerModule } from "ng2-pdfjs-viewer";
+;
 import { TestModulesComponent } from "./testmodule/testmodule.component";
 import { QuizinfowindowComponent } from "./quizinfowindow/quizinfowindow.component";
 import { QuizwindowComponent } from "./quizwindow/quizwindow.component";
@@ -23,6 +23,7 @@ import { NgxAudioPlayerModule } from "ngx-audio-player";
 import { FormsModule, ReactiveFormsModule } from "@angular/forms";
 import { CheckboxModule } from "primeng/checkbox";
 import { RadioButtonModule } from "primeng/radiobutton";
+import {PdfViewerModule} from "ng2-pdf-viewer";
 
 @NgModule({
   imports: [
@@ -39,7 +40,7 @@ import { RadioButtonModule } from "primeng/radiobutton";
     TooltipModule,
     CardModule,
     PaginatorModule,
-    PdfJsViewerModule,
+    PdfViewerModule,
     NgxAudioPlayerModule,
     FormsModule,
     ReactiveFormsModule,

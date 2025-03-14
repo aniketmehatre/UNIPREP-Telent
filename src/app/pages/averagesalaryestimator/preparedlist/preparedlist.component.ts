@@ -9,7 +9,7 @@ import { CommonModule } from "@angular/common";
 import { DialogModule } from "primeng/dialog";
 import { TabViewModule } from "primeng/tabview";
 import { SidebarModule } from "primeng/sidebar"
-import { PdfJsViewerModule } from "ng2-pdfjs-viewer"
+
 import { CardModule } from "primeng/card"
 import { PaginatorModule } from "primeng/paginator"
 import { FormsModule, ReactiveFormsModule } from "@angular/forms"
@@ -23,13 +23,14 @@ import { InputGroupAddonModule } from "primeng/inputgroupaddon"
 import { RadioButtonModule } from "primeng/radiobutton"
 import { TravelToolsService } from "../../travel-tools/travel-tools.service";
 import { DownloadRespose } from 'src/app/@Models/travel-tools.model';
+import {PdfViewerModule} from "ng2-pdf-viewer";
 
 @Component({
   selector: "uni-aspreparedlist",
   templateUrl: "./preparedlist.component.html",
   styleUrls: ["./preparedlist.component.scss"],
   standalone: true,
-  imports: [CommonModule, DialogModule,PdfJsViewerModule, TabViewModule, RouterModule, CardModule, FormsModule, ReactiveFormsModule, CarouselModule, ButtonModule, MultiSelectModule, SelectModule, InputGroupModule, InputTextModule, InputGroupAddonModule],
+  imports: [CommonModule, DialogModule, PdfViewerModule, TabViewModule, RouterModule, CardModule, FormsModule, ReactiveFormsModule, CarouselModule, ButtonModule, MultiSelectModule, SelectModule, InputGroupModule, InputTextModule, InputGroupAddonModule],
   providers: [MessageService,AveragesalaryestimatorService]
 })
 export class AverageSalaryPreparedListComponent implements OnInit {
