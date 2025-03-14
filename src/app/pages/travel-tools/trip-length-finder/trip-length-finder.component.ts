@@ -16,6 +16,7 @@ import { InputGroupModule } from 'primeng/inputgroup';
 import { InputGroupAddonModule } from 'primeng/inputgroupaddon';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { SelectModule } from 'primeng/select';
+import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
 
 
 import { DownloadRespose } from 'src/app/@Models/travel-tools.model';
@@ -32,8 +33,8 @@ export class TripLengthFinderComponent implements OnInit {
     private travelToolService: TravelToolsService,
     private router: Router,
     private costOfLivingService: CostOfLivingService,
-    private toast: MessageService
-
+    private toast: MessageService,
+    private sanitizer: DomSanitizer
   ) { }
 
   recommendations: { id: number, question: string }[] = [
@@ -45,7 +46,7 @@ export class TripLengthFinderComponent implements OnInit {
   activePageIndex: number = 0;
   selectedData: { [key: string]: any } = {};
   invalidClass: boolean = false;
-  recommendationData: any;
+  recommendationData: SafeHtml;
   savedResponse: any = [];
   destinationLocationList: City[] = [];
 
@@ -69,10 +70,10 @@ export class TripLengthFinderComponent implements OnInit {
         mode: "trip_length_finder"
       };
       this.travelToolService.getChatgptRecommendations(data).subscribe((response:any) => {
-        this.recommendationData = response.response;
-        // console.log(response);
-        // console.log(this.recommendationData);
-        
+        let chatGptResponse = response.response;
+				chatGptResponse = chatGptResponse
+					.replace(/```html|```/g, '');
+				this.recommendationData = this.sanitizer.bypassSecurityTrustHtml(chatGptResponse);
         this.isRecommendation = false;
         this.isResponsePage = true;
       })
@@ -118,27 +119,28 @@ export class TripLengthFinderComponent implements OnInit {
   }
 
   downloadRecommadation() {
-    // this.travelToolService.downloadRecommendation({ data: this.recommendationData }).subscribe({
-    //   next: res => {
-    //     window.open(res.url, "_blank");
-    //   },
-    //   error: err => {
-    //     console.log(err?.error?.message);
-    //   }
-    // });
-
-    // let downloadString:string = "This is a paragraph with some text and emojis 😊🎉. Markdown processing with emojis works!";
     let selectedCityAndCountry = this.selectedData[1].city_name+', '+this.selectedData[1].country_name;
     let addingInput = `
-      <p><strong>Input:<br></strong></p>
+      <div style="font-family: 'Poppins', sans-serif; display: flex; align-items: center; justify-content: space-between; border-bottom: 2px solid #d32f2f; padding-bottom: 10px; margin-bottom: 20px;">
+				<div style="text-align: center;">
+					<h2 style="margin: 0; color: #1a237e;">Trip Length Finder</h2>
+				</div>
+			</div><p><strong>Input:<br></strong></p>
       <p><strong>Which Destination are you planning to visit?</strong></p>
       <p>${selectedCityAndCountry}</p>
       <br>
-      <p><strong>Response:<br></strong></p>
-      ${this.recommendationData}
     `;
+
+    let finalRecommendation = addingInput + '<p><strong>Response:<br></strong></p>' + this.recommendationData + '</div>';
+		finalRecommendation = finalRecommendation
+			.replace(/```html|```/g, '') 
+			.replace(/\(see https:\/\/g\.co\/ng\/security#xss\)/g, '') 
+			.replace(/SafeValue must use \[property\]=binding:/g, '')
+			.replace(/class="container"/g, ''); //because if i add container the margin will increase so i removed the container now the spacing is proper.
+
+
     let paramData: DownloadRespose = {
-      response: addingInput,
+      response: finalRecommendation,
       module_name: "Trip Length Finder",
       file_name: "trip_length_finder"
     };

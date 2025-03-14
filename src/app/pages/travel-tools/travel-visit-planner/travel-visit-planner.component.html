@@ -36,11 +36,23 @@
                             </div>
                             <div class="col-md-6">
                                 <ng-container *ngIf="recommendation.id == 1">
-                                    <p-select [options]="destinationLocationList" [virtualScroll]="true"
+                                    <p-select [options]="destinationLocationList" [virtualScroll]="true" 
                                         [virtualScrollItemSize]="50" [(ngModel)]="selectedData[recommendation.id]"
                                         [appendTo]="'body'" [filter]="true" filterBy="city_name,country_name"
                                         [showClear]="true" placeholder="Select Destination" styleClass="w-100"
                                         (onChange)="hideWarning(recommendation.id)">
+                                        <ng-template let-country pTemplate="item">
+                                            <div class="d-flex align-items-center gap-2">
+                                                <div class="dropdownimg">
+                                                    <img [src]="country.flag" class="img-fluid" />
+                                                </div>
+                                                <div>
+                                                    <span *ngIf="country.city_name !== null">
+                                                        {{ country.city_name }},
+                                                    </span>{{ country.country_name }}
+                                                </div>
+                                            </div>
+                                        </ng-template>
                                         <ng-template pTemplate="selectedItem" let-selectedOption>
                                             <div class="d-flex align-items-center gap-2">
                                                 <div class="dropdownimg">

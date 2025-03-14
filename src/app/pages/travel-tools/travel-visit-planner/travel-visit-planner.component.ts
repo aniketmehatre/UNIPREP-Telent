@@ -20,7 +20,7 @@ import { DialogModule } from 'primeng/dialog';
 import { CardModule } from 'primeng/card';
 import { InputNumberModule } from 'primeng/inputnumber';
 import { DownloadRespose } from 'src/app/@Models/travel-tools.model';
-
+import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
 @Component({
     selector: 'uni-travel-visit-planner',
     templateUrl: './travel-visit-planner.component.html',
@@ -34,8 +34,8 @@ export class TravelVisitPlannerComponent implements OnInit {
     private travelToolService: TravelToolsService,
     private router: Router,
     private costOfLivingService: CostOfLivingService,
-    private toast: MessageService
-
+    private toast: MessageService,
+    private sanitizer: DomSanitizer
   ) { }
 
   recommendations: { id: number, question: string }[] = [
@@ -57,7 +57,7 @@ export class TravelVisitPlannerComponent implements OnInit {
   selectedData: { [key: string]: any } = {};
   allCountries: any = [];
   invalidClass: boolean = false;
-  recommendationData: any = [];
+  recommendationData: SafeHtml = [];
   savedResponse: any = [];
   destinationLocationList: City[] = [];
 
@@ -100,7 +100,10 @@ export class TravelVisitPlannerComponent implements OnInit {
         mode: "travel_visit_planner"
       };
       this.travelToolService.getChatgptRecommendations(data).subscribe(response => {
-        this.recommendationData = response.response;
+        let chatGptResponse = response.response;
+				chatGptResponse = chatGptResponse
+					.replace(/```html|```/g, '');
+				this.recommendationData = this.sanitizer.bypassSecurityTrustHtml(chatGptResponse);
         this.isRecommendation = false;
         this.isResponsePage = true;
       })
@@ -146,7 +149,11 @@ export class TravelVisitPlannerComponent implements OnInit {
 
   downloadRecommadation() {
     let selectedCityAndCountry = this.selectedData[1].city_name+', '+this.selectedData[1].country_name;
-    let addingInput = `<p><strong>Input:<br></strong></p>`;
+    let addingInput = `<div style="font-family: 'Poppins', sans-serif; display: flex; align-items: center; justify-content: space-between; border-bottom: 2px solid #d32f2f; padding-bottom: 10px; margin-bottom: 20px;">
+				<div style="text-align: center;">
+					<h2 style="margin: 0; color: #1a237e;">Travel Visit Planner</h2>
+				</div>
+			</div><p><strong>Input:<br></strong></p>`;
     this.recommendations.forEach(values =>{
       addingInput += `<p><strong>${values.question}</strong></p>`;
       let currentAnswer = "";
@@ -159,7 +166,13 @@ export class TravelVisitPlannerComponent implements OnInit {
       }
       addingInput += `<p>${currentAnswer}</p><br>`;
     });
-    let finalRecommendation = addingInput+ '<p><strong>Response:<br></strong></p>' + this.recommendationData;
+    let finalRecommendation = addingInput + '<p><strong>Response:<br></strong></p>' + this.recommendationData + '</div>';
+		finalRecommendation = finalRecommendation
+			.replace(/```html|```/g, '') 
+			.replace(/\(see https:\/\/g\.co\/ng\/security#xss\)/g, '') 
+			.replace(/SafeValue must use \[property\]=binding:/g, '')
+			.replace(/class="container"/g, ''); //because if i add container the margin will increase so i removed the container now the spacing is proper.
+
     let paramData: DownloadRespose = {
       response: finalRecommendation,
       module_name: "Travel Visit Planner",
