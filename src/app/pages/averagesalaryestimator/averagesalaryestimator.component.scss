@@ -439,3 +439,22 @@
 .dropdown-list li:hover {
   background-color: #f0f0f0;
 }
+
+.position-relative {
+  position: relative;
+}
+
+.search-icon {
+  position: absolute;
+  right: 15px; /* Adjust spacing from the right */
+  top: 50%;
+  transform: translateY(-50%);
+  color: #007bff; /* Adjust icon color */
+  cursor: pointer;
+  font-size: 1.2rem;
+  pointer-events: none; /* Prevent interaction */
+}
+
+.inputHeight {
+  padding-right: 40px; /* Ensure text doesn't overlap with icon */
+}

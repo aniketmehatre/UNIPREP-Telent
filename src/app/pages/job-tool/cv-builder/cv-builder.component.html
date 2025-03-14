@@ -122,7 +122,7 @@
 								<i class="fa-solid fa-circle-question m-2 uniprep-primary" pTooltip="Please select your level of experience to proceed further" tooltipPosition="top"></i>
 							</div>
 							<!-- (onChange)="changeExperience()" -->
-							<p-dropdown [options]="experienceLevel" placeholder="Select Experience Level" styleClass="w-100" formControlName="selected_exp_level" optionLabel="level" optionValue="id"></p-dropdown>
+							<p-select [options]="experienceLevel" placeholder="Select Experience Level" styleClass="w-100" formControlName="selected_exp_level" optionLabel="level" optionValue="id"></p-select>
 							<div *ngIf="submitted && f['selected_exp_level'].errors" class="text-danger text-xs">
 								<div *ngIf="f['selected_exp_level'].errors">Experience Level Required</div>
 							</div>
