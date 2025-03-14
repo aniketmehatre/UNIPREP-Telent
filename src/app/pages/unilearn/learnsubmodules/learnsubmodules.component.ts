@@ -8,14 +8,15 @@ import { ArrayHeaderService } from "../array-header.service"
 import { Location } from "@angular/common"
 import { AuthService } from "src/app/Auth/auth.service"
 import { DialogModule } from "primeng/dialog"
-import { PdfJsViewerModule } from "ng2-pdfjs-viewer"
+
 import {StorageService} from "../../../storage.service";
+import {PdfViewerModule} from "ng2-pdf-viewer";
 
 @Component({
 	selector: "uni-learnsubmodules",
 	templateUrl: "./learnsubmodules.component.html",
 	styleUrls: ["./learnsubmodules.component.scss"],
-	imports: [DialogModule, CommonModule, PdfJsViewerModule],
+	imports: [DialogModule, CommonModule, PdfViewerModule],
 	standalone: true,
 })
 export class LearnsubModulesComponent implements OnInit, AfterViewInit {

@@ -4,7 +4,7 @@ import { PageFacadeService } from '../../page-facade.service';
 import { CommonModule } from '@angular/common';
 import { DialogModule } from 'primeng/dialog';
 import { SidebarModule } from 'primeng/sidebar';
-import { PdfJsViewerModule } from "ng2-pdfjs-viewer"
+
 import { RouterModule } from '@angular/router';
 import { CardModule } from 'primeng/card';
 import { PaginatorModule } from 'primeng/paginator';
@@ -16,12 +16,13 @@ import { SelectModule } from 'primeng/select';
 import { InputGroupModule } from 'primeng/inputgroup';
 import { InputTextModule } from 'primeng/inputtext';
 import { InputGroupAddonModule } from 'primeng/inputgroupaddon';
+import {PdfViewerModule} from "ng2-pdf-viewer";
 @Component({
     selector: 'uni-carrerplannerlist',
     templateUrl: './carrerplannerlist.component.html',
     styleUrls: ['./carrerplannerlist.component.scss'],
     standalone: true,
-    imports: [CommonModule,DialogModule, SidebarModule,PdfJsViewerModule, RouterModule, CardModule, PaginatorModule, FormsModule, ReactiveFormsModule, CarouselModule, ButtonModule, MultiSelectModule, SelectModule, InputGroupModule, InputTextModule, InputGroupAddonModule]
+    imports: [CommonModule,DialogModule, SidebarModule, PdfViewerModule, RouterModule, CardModule, PaginatorModule, FormsModule, ReactiveFormsModule, CarouselModule, ButtonModule, MultiSelectModule, SelectModule, InputGroupModule, InputTextModule, InputGroupAddonModule]
 })
 export class CarrerplannerlistComponent implements OnInit {
   listcreerplaner:any=[];

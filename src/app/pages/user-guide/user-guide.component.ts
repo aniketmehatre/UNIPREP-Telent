@@ -2,20 +2,20 @@ import { Component, OnInit, AfterViewInit, ViewChild } from "@angular/core";
 import { UserGuideService } from "./user-guide.service";
 import { DomSanitizer, SafeHtml, SafeUrl, SafeResourceUrl } from "@angular/platform-browser";
 import { CommonModule } from '@angular/common';
-import { PdfJsViewerModule } from "ng2-pdfjs-viewer"
 import { Router } from "@angular/router";
 import { MessageService } from "primeng/api";
 import { ToastModule } from 'primeng/toast';
 import { ButtonModule } from 'primeng/button';
 import { TooltipModule } from 'primeng/tooltip';
 import { HttpClient } from "@angular/common/http";
+import {PdfViewerModule} from "ng2-pdf-viewer";
 
 @Component({
     selector: "uni-user-guide",
     templateUrl: "./user-guide.component.html",
     styleUrls: ["./user-guide.component.scss"],
     standalone: true,
-    imports: [CommonModule, PdfJsViewerModule, ToastModule, ButtonModule, TooltipModule],
+    imports: [CommonModule, PdfViewerModule, ToastModule, ButtonModule, TooltipModule],
     providers: [MessageService]
 })
 export class UserGuideComponent implements OnInit, AfterViewInit {

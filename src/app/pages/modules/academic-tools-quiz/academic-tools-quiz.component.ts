@@ -12,16 +12,17 @@ import { GetAcademicListPayload, SubmitRecommendation, SubmitStreamResponse } fr
 import { DomSanitizer, SafeUrl } from "@angular/platform-browser";
 import { AcademicService } from "../academic.service";
 import { QuizResponse } from "src/app/@Models/career-tool-category.model";
-import { PdfJsViewerModule } from "ng2-pdfjs-viewer";
+;
 import { CommonModule } from "@angular/common";
 import { DialogModule } from "primeng/dialog";
 import { CarouselModule } from "primeng/carousel";
 import { ButtonModule } from "primeng/button";
+import {PdfViewerModule} from "ng2-pdf-viewer";
 @Component({
   selector: "uni-academic-tools-quiz",
   templateUrl: "./academic-tools-quiz.component.html",
   styleUrls: ["./academic-tools-quiz.component.scss"],
-  imports: [PdfJsViewerModule, DialogModule, CommonModule, CarouselModule, ButtonModule],
+  imports: [PdfViewerModule, DialogModule, CommonModule, CarouselModule, ButtonModule],
   standalone: true,
 })
 export class AcademicToolsQuizComponent implements OnInit, AfterViewInit {
