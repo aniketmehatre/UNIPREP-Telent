@@ -731,7 +731,7 @@ uni-subscription {
 
 .btn-primary {
 	color: #fff !important;
-	background: var(--uniprep-primary);
+	background: var(--uniprep-primary) !important;
 	border-radius: 10px !important;
 	
 	&:disabled {
@@ -765,7 +765,7 @@ uni-subscription {
 
 .btn-outline-primary {
 	color: var(--uniprep-primary) !important;
-	background: white;
+	background: white !important;
 	border-radius: 10px !important;
 	border: 1px solid var(--uniprep-primary);
 
@@ -800,7 +800,7 @@ uni-subscription {
 
 .btn-secondary {
 	color: #fff !important;
-	background: var(--uniprep-secondary);
+	background: var(--uniprep-secondary) !important;
 	border-color: #ffa53c !important;
 
 	.btn-icon {
@@ -840,7 +840,7 @@ uni-subscription {
 
 .btn-tertiary {
 	color: #000 !important;
-	background: rgb(89, 140, 223);
+	background: rgb(89, 140, 223) !important;
 	background: linear-gradient(0deg, rgba(89, 140, 223, 1) 0%, rgba(186, 222, 242, 1) 100%);
 	border-color: #598cdf !important;
 	border-radius: 10px !important;
@@ -862,9 +862,9 @@ uni-subscription {
 
 .btn-success {
 	color: #fff !important;
-	background: var(--uniprep-green);
+	background: var(--uniprep-green) !important;
 	border-radius: 10px !important;
-	border: 1px solid var(--uniprep-green);
+	border: 1px solid var(--uniprep-green) !important;
 	&:disabled {
 		background-color: #343a40;
 		background: linear-gradient(0deg, rgb(0, 0, 0) 0%, rgb(77, 77, 77) 100%);
@@ -1011,7 +1011,7 @@ uni-subscription {
 
 .btn-gray {
 	color: var(--uniprep-primarydark) !important;
-	background: var(--uniprep-gray);
+	background: var(--uniprep-gray) !important;
 	border-radius: 10px !important;
 	&:disabled {
 		background-color: #343a40;

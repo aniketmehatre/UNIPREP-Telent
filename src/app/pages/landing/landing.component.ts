@@ -5,11 +5,11 @@ import { AuthService } from "../../Auth/auth.service"
 import { LocationService } from "../../location.service"
 import { environment } from "@env/environment"
 import { LocalStorageService } from "ngx-localstorage"
-import {Router, RouterModule} from "@angular/router"
-import {ScrollTop, ScrollTopModule} from 'primeng/scrolltop';
-import {CommonModule} from "@angular/common";
-import {DialogModule} from "primeng/dialog";
-import {MessageService} from "primeng/api";
+import { Router, RouterModule } from "@angular/router"
+import { ScrollTop, ScrollTopModule } from "primeng/scrolltop"
+import { CommonModule } from "@angular/common"
+import { DialogModule } from "primeng/dialog"
+import { MessageService } from "primeng/api"
 
 @Component({
 	selector: "uni-landing",
@@ -39,7 +39,7 @@ export class LandingComponent implements OnInit {
 	currentImage: string = "/uniprep-assets/images/feature1.webp"
 	contactForm: any
 	blogs: any
-	contactSuccess: boolean = false;
+	contactSuccess: boolean = false
 	welcomevideoLink: string = `https://${environment.domain}/uniprepapi/storage/app/public/Landing/welcome.mp4`
 
 	showTandC() {
@@ -63,26 +63,59 @@ export class LandingComponent implements OnInit {
 		this.isDarkMode = this.themeService.getInitialSwitchState()
 	}
 
-  cardItems = [
-    {
-      text: 'You want to connect with potential employers.',
-    },
-    {
-      text: "You're unsure about career preparation and want to upskill.",
-    },
-    {
-      text: "You're interested in learning new languages.",
-    },
-    {
-      text: "You're seeking education abroad.",
-    },
-    {
-      text: "You're planning to start your own business.",
-    },
-    {
-      text: "You're eager to travel the world.",
-    },
-  ];
+	stats = [
+		{
+			icon: "fa-globe",
+			number: "28+",
+			text: "Countries Covered",
+		},
+		{
+			icon: "fa-gears",
+			number: "70+",
+			text: "Exclusive Features",
+		},
+		{
+			icon: "fa-earth-americas",
+			number: "100+",
+			text: "Countries Open for Access",
+		},
+		{
+			icon: "fa-hand-holding-circle-dollar",
+			number: "1000+",
+			text: "Courses for Upskilling",
+		},
+		{
+			icon: "fa-language",
+			number: "25+",
+			text: "Languages to Learn",
+		},
+		{
+			icon: "fa-briefcase",
+			number: "1000+",
+			text: "Business Pitches",
+		},
+	]
+
+	cardItems = [
+		{
+			text: "You want to connect with potential employers.",
+		},
+		{
+			text: "You're unsure about career preparation and want to upskill.",
+		},
+		{
+			text: "You're interested in learning new languages.",
+		},
+		{
+			text: "You're seeking education abroad.",
+		},
+		{
+			text: "You're planning to start your own business.",
+		},
+		{
+			text: "You're eager to travel the world.",
+		},
+	]
 
 	accordionItems = [
 		{
@@ -266,11 +299,11 @@ export class LandingComponent implements OnInit {
 			// this.getOrgList();
 			// this.reviewOrg.reset()
 			// alert("Thank You, we will get back to you at the earliest.")
-			this.contactSuccess = true;
+			this.contactSuccess = true
 			setTimeout(() => {
-				this.contactSuccess = false;
-				this.displaycontactform = false;
-			}, 2000);
-		});
+				this.contactSuccess = false
+				this.displaycontactform = false
+			}, 2000)
+		})
 	}
 }
