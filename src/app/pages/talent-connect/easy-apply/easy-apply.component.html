@@ -211,19 +211,20 @@
       </div>
     </div>
   </div>
-  <div class="card-footer border-0 bg-transparent">
-    <div class="row d-flex align-items-center justify-content-between">
-     <p-paginator
-       *ngIf="totalJobs != 0"
-       [rows]="pageSize"
-       [totalRecords]="totalJobs"
-       [first]="(page - 1) * pageSize"
-       (onPageChange)="pageChange($event)"
-       [rowsPerPageOptions]="[50, 100, 300, 500, 1000]"
-       [disabled]="totalJobs <= pageSize"
-     >
-     </p-paginator>
-    </div>
+   </div>
+   </div>
+<div class="card-footer border-0 bg-transparent">
+  <div class="row d-flex align-items-center justify-content-between">
+   <p-paginator
+     *ngIf="totalJobs != 0"
+     [rows]="pageSize"
+     [totalRecords]="totalJobs"
+     [first]="(page - 1) * pageSize"
+     (onPageChange)="pageChange($event)"
+     [rowsPerPageOptions]="[50, 100, 300, 500, 1000]"
+     [disabled]="totalJobs <= pageSize"
+   >
+   </p-paginator>
   </div>
 </div>
 <div>

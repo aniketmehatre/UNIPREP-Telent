@@ -1,7 +1,8 @@
 import { Component } from '@angular/core';
-import {NgClass} from "@angular/common";
+import { CommonModule, NgClass } from "@angular/common";
 import { ActivatedRoute } from '@angular/router';
 import { TalentConnectService } from '../../talent-connect.service';
+import { ButtonModule } from 'primeng/button';
 
 export interface Job {
   isChecked: number
@@ -126,7 +127,7 @@ export class JobViewComponent {
   getJobDetails(id: number) {
     this.talentConnectService.getJobDetails(id).subscribe({
       next: response => {
-        this.jobDetails = response.job[0];
+        // this.jobDetails = response.job[0];
       },
       error: error => {
         console.log(error);
@@ -137,8 +138,9 @@ export class JobViewComponent {
   applyJob(id: number) {
     this.talentConnectService.applyJob(id).subscribe({
       next: response => {
+        this.isShowApplyChat = true;
         if (response.success) {
-
+          this.isShowApplyChat = true;
         }
         this.jobDetails = response.job;
       },

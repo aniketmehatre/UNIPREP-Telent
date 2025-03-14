@@ -4,6 +4,12 @@
     border-radius: 12px;
     background: #fff;
   }
+
+  .card-body {
+    p-select {
+        padding: 2.5px;
+    }
+  }
   
   h5 {
     font-weight: bold;

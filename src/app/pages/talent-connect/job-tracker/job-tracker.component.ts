@@ -6,6 +6,8 @@ import { CommonModule } from '@angular/common';
 import { TalentConnectService } from '../talent-connect.service';
 import { Job } from '../easy-apply/job-view/job-view.component';
 import { RouterModule } from '@angular/router';
+import { JobDetailsComponent } from './job-details/job-details.component';
+import { JobChatUiComponent } from './job-chat-ui/job-chat-ui.component';
 interface DropdownOption {
   label: string;
   value: string;
@@ -24,7 +26,7 @@ interface ChatMessage {
   templateUrl: './job-tracker.component.html',
   styleUrls: ['./job-tracker.component.scss'],
   standalone: true,
-  imports: [Select, Dialog, JobListComponent, CommonModule, RouterModule]
+  imports: [Select, Dialog, JobListComponent, JobDetailsComponent, JobChatUiComponent, CommonModule, RouterModule]
 })
 export class JobTrackerComponent {
   displayModal: boolean = false;
@@ -120,6 +122,7 @@ export class JobTrackerComponent {
     this.talentConnectService.getJobTrackerDetail(id).subscribe({
       next: response => {
         this.jobDetails = response.job[0];
+        this.showInfo = true;
       },
       error: error => {
         console.log(error);

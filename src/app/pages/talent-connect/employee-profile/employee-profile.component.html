@@ -22,9 +22,9 @@
             <!-- <div class="col-md-3 mt-2 text-end desktop justify-content-end d-none d-md-flex"></div> -->
         </div>
     </div>
-    <div class="card-body text-center flex-fill overflow-y-auto">
+    <div class="card-body flex-fill overflow-y-auto">
         <div class="row">
-            <div class="col-md-9 col-lg-8">
+            <div class="col-md-12 col-lg-8 mb-2 d-flex flex-fill">
                 <div class="container">
                     <div
                         class="w-100 bg-primary rounded-top-4 text-start d-flex justify-content-between align-items-center">
@@ -40,7 +40,7 @@
                             </button>
                         </div>
                     </div>
-                    <div class="mt-2">
+                    <div class="rounded-top-0">
                         <form [formGroup]="personalInfoForm">
                             <div class="card p-4 overflow-y-auto scroll-hidden"
                                 style="max-height: calc(100vh - 330px);">
@@ -112,9 +112,9 @@
                                                 <div class="col-md-6">
                                                     <label for="dateOfBirth" class="form-label">Date of Birth<span
                                                             class="text-danger">*</span></label>
-                                                    <p-calendar id="dateOfBirth" formControlName="date_of_birth"
-                                                        [showIcon]="false" dateFormat="dd/mm/yy"
-                                                        placeholder="DD/MM/YYYY" styleClass="w-100"></p-calendar>
+                                                    <p-datepicker id="dateOfBirth" formControlName="date_of_birth"
+                                                        dateFormat="dd-mm-yy" placeholder="DD/MM/YYYY"
+                                                        styleClass="w-100" />
                                                     <small class="text-danger"
                                                         *ngIf="personalInfoForm.get('date_of_birth')?.invalid && personalInfoForm.get('date_of_birth')?.touched">
                                                         This field is mandatory
@@ -127,23 +127,24 @@
                                                 <div class="col-md-6">
                                                     <label for="gender" class="form-label">Gender <span
                                                             class="text-danger">*</span></label>
-                                                    <p-dropdown id="gender" formControlName="gender"
+                                                    <p-select id="gender" formControlName="gender"
                                                         [options]="genderOptions" placeholder="Select your gender"
-                                                        styleClass="w-100" optionLabel="label"
-                                                        optionValue="value"></p-dropdown>
+                                                        styleClass="w-100"></p-select>
                                                     <small class="text-danger"
-                                                        *ngIf="personalInfoForm.get('gender')?.invalid &&personalInfoForm.get('gender')?.touched">
+                                                        *ngIf="personalInfoForm.get('gender')?.invalid && personalInfoForm.get('gender')?.touched">
                                                         This field is mandatory
                                                     </small>
                                                 </div>
 
                                                 <!-- Nationality -->
                                                 <div class="col-md-6">
-                                                    <label for="nationality" class="form-label">Nationality<span class="text-danger">*</span></label>
-                                                    <p-dropdown id="nationality" formControlName="nationality_id"
+                                                    <label for="nationality" class="form-label">Nationality<span
+                                                            class="text-danger">*</span></label>
+                                                    <p-select id="nationality" formControlName="nationality_id"
                                                         [options]="locations" placeholder="Select your nationality"
                                                         styleClass="w-100" optionLabel="location" optionValue="id"
-                                                        [filter]="true" filterBy="location"></p-dropdown>
+                                                        [filter]="true" filterBy="location"
+                                                        [appendTo]="'body'"></p-select>
                                                     <small class="text-danger"
                                                         *ngIf="personalInfoForm.get('nationality_id')?.invalid && personalInfoForm.get('nationality_id')?.touched">
                                                         This field is mandatory
@@ -157,10 +158,11 @@
                                                     <label for="location" class="form-label">Current Location<span
                                                             class="text-danger">*</span> (City,
                                                         Country)</label>
-                                                    <p-dropdown id="location" formControlName="location_id"
+                                                    <p-select id="location" formControlName="location_id"
                                                         [options]="locations" placeholder="Select your current location"
                                                         styleClass="w-100" optionLabel="location" optionValue="id"
-                                                        [filter]="true" filterBy="location"></p-dropdown>
+                                                        [filter]="true" filterBy="location"
+                                                        [appendTo]="'body'"></p-select>
                                                     <small class="text-danger"
                                                         *ngIf="personalInfoForm.get('location_id')?.invalid &&personalInfoForm.get('location_id')?.touched">
                                                         This field is mandatory
@@ -181,14 +183,14 @@
                                                 <div class="col-md-6">
                                                     <label for="highestQualification" class="form-label">Highest
                                                         Qualification <span class="text-danger">*</span></label>
-                                                    <p-dropdown id="highestQualification"
+                                                    <p-select id="highestQualification"
                                                         formControlName="education_qualification_id"
                                                         [options]="qualifications"
                                                         placeholder="Select your highest qualification"
                                                         styleClass="w-100" optionLabel="qualification_name"
-                                                        optionValue="id"></p-dropdown>
+                                                        optionValue="id"></p-select>
                                                     <small class="text-danger"
-                                                        *ngIf="education.get('education_qualification_id')?.invalid &&education.get('education_qualification_id')?.touched">
+                                                        *ngIf="education.get('education_qualification_id')?.invalid && education.get('education_qualification_id')?.touched">
                                                         This field is mandatory
                                                     </small>
                                                 </div>
@@ -214,12 +216,10 @@
                                                 <div class="col-md-6">
                                                     <label for="fieldOfStudy" class="form-label">Field of Study /
                                                         Major <span class="text-danger">*</span></label>
-                                                    <div class="p-inputgroup">
-                                                        <input pInputText id="fieldOfStudy"
-                                                            formControlName="education_field_id"
-                                                            placeholder="Enter your field of study"
-                                                            class="form-control" />
-                                                    </div>
+                                                    <p-select id="highestQualification"
+                                                        formControlName="education_field_id" [options]="fieldsOfStudy"
+                                                        placeholder="Select Graduation Year" styleClass="w-100"
+                                                        optionLabel="field_name" optionValue="id"></p-select>
                                                     <small class="text-danger"
                                                         *ngIf="education.get('education_field_id')?.invalid &&education.get('education_field_id')?.touched">
                                                         This field is mandatory
@@ -247,10 +247,12 @@
                                                     <label for="fieldOfStudy" class="form-label">Graduation
                                                         Year <span class="text-danger">*</span></label>
                                                     <div class="p-inputgroup">
-                                                        <input pInputText id="fieldOfStudy"
+                                                        <p-select id="highestQualification"
                                                             formControlName="education_graduation_year_id"
-                                                            placeholder="Enter your field of study"
-                                                            class="form-control" />
+                                                            [options]="graduationYears"
+                                                            placeholder="Select Graduation Year" styleClass="w-100"
+                                                            optionLabel="graduation_year_name"
+                                                            optionValue="id"></p-select>
                                                     </div>
                                                     <small class="text-danger"
                                                         *ngIf="education.get('education_graduation_year_id')?.invalid && education.get('education_graduation_year_id')?.touched">
@@ -263,9 +265,9 @@
                                                     <label for="courseName" class="form-label">GPA Percentage <span
                                                             class="text-danger">*</span></label>
                                                     <div class="p-inputgroup">
-                                                        <input pInputText id="courseName"
+                                                        <p-input-number id="courseName"
                                                             formControlName="education_gpa_percentage"
-                                                            placeholder="Enter your course name" class="form-control" />
+                                                            placeholder="Enter your GPA" class="w-100" />
                                                     </div>
                                                     <small class="text-danger"
                                                         *ngIf="education.get('education_gpa_percentage')?.invalid &&education.get('education_gpa_percentage')?.touched">
@@ -276,8 +278,8 @@
                                         </ng-container>
                                     </ng-container>
                                     <div class="row mb-3">
-                                        <button class="w-full p-3 rounded-3">
-                                            Add More &nbsp;<i class="fa fa-plus" (click)="addEducation();"></i>
+                                        <button class="w-full p-3 rounded-3" (click)="addEducation();">
+                                            Add More &nbsp;<i class="fa fa-plus"></i>
                                         </button>
                                     </div>
                                 </div>
@@ -290,22 +292,23 @@
                                             <div class="row mb-3">
                                                 <div class="col-md-6">
                                                     <label for="highestQualification" class="form-label">Total Years of
-                                                        Experience</label>
-                                                        <p-input-number id="university"
+                                                        Experience</label><br>
+                                                    <p-select id="highestQualification"
                                                         formControlName="work_experience_total_years_experience"
-                                                        placeholder="Enter your toal years of experience"
-                                                        class="form-control"></p-input-number>
+                                                        [options]="totalYearExperienceList"
+                                                        placeholder="Select total experience"
+                                                        styleClass="w-100"></p-select>
+
                                                 </div>
                                             </div>
                                             <h5 class="card-title mb-4">Work Experience Details</h5>
                                             <div class="row mb-3">
                                                 <div class="col-md-6">
                                                     <label for="highestQualification" class="form-label">Years of
-                                                        Experience</label>
-                                                    <p-input-number id="university"
-                                                        formControlName="work_experience_company_name"
-                                                        placeholder="Enter your company"
-                                                        class="form-control"></p-input-number>
+                                                        Experience</label><br>
+                                                    <p-input-number inputId="integeronly"
+                                                        formControlName="work_experience_total_years_experience"
+                                                        placeholder="Enter your year of experience" class="w-100" />
                                                 </div>
 
                                                 <!-- University/Institution Name -->
@@ -322,22 +325,22 @@
                                                 <!-- Field of Study / Major -->
                                                 <div class="col-md-6">
                                                     <label for="fieldOfStudy" class="form-label">Job Title</label>
-                                                    <div class="p-inputgroup">
-                                                        <input pInputText id="fieldOfStudy"
-                                                            formControlName="work_experience_job_title"
-                                                            placeholder="Enter job title" class="form-control" />
-                                                    </div>
+                                                    <p-select id="highestQualification"
+                                                        formControlName="work_experience_job_title"
+                                                        [options]="jobTitles" placeholder="Select Job Title"
+                                                        styleClass="w-100" optionLabel="job_title" optionValue="id"
+                                                        [filter]="true" filterBy="job_title"></p-select>
                                                 </div>
 
                                                 <!-- Course Name -->
                                                 <div class="col-md-6">
                                                     <label for="courseName" class="form-label">Employment Type</label>
                                                     <div class="p-inputgroup">
-                                                        <p-dropdown id="highestQualification"
+                                                        <p-select id="highestQualification"
                                                             formControlName="work_experience_employment_type"
-                                                            [options]="employementTypeList"
-                                                            placeholder="Select employement type" styleClass="w-100"
-                                                            optionLabel="employment_type" optionValue="id"></p-dropdown>
+                                                            [options]="preferredEmploymentType"
+                                                            placeholder="Select employement type"
+                                                            styleClass="w-100"></p-select>
                                                     </div>
                                                 </div>
                                             </div>
@@ -345,10 +348,11 @@
                                                 <!-- Duration Field -->
                                                 <div class="col-md-6 mb-3">
                                                     <label for="duration" class="form-label">Duration</label>
-                                                    <p-calendar id="duration" selectionMode="range"
+                                                    <p-datepicker id="duration" selectionMode="range"
                                                         dateFormat="dd/mm/yy" placeholder="DD/MM/YYYY To DD/MM/YYYY"
-                                                        formControlName="work_experience_duration"
-                                                        styleClass="p-inputtext w-100" [showIcon]="false"></p-calendar>
+                                                        formControlName="work_experience_duration" styleClass="w-100"
+                                                        [iconDisplay]="'input'" [showIcon]="true"
+                                                        inputId="icondisplay" />
                                                 </div>
 
                                                 <!-- Salary Field -->
@@ -362,11 +366,13 @@
                                                                 class="w-100"
                                                                 formControlName="work_experience_salary_per_month"></p-inputNumber>
                                                         </div>
-                                                        <p-dropdown [options]="[{ label: 'INR', value: 'INR' }]"
-                                                            styleClass="p-dropdown p-component" placeholder="INR"
+                                                        <p-select [options]="currencies"
+                                                            styleClass="p-select p-component"
+                                                            optionLabel="currency_code" optionValue="id"
+                                                            placeholder="INR"
                                                             formControlName="work_experience_currency_id"
                                                             [style]="{ width: '80px' }">
-                                                        </p-dropdown>
+                                                        </p-select>
                                                     </div>
                                                 </div>
                                             </div>
@@ -392,13 +398,17 @@
                                                             <i
                                                                 class="pi pi-cloud-upload !border-2 !rounded-full !p-8 !text-4xl !text-muted-color fw-bold"></i>
                                                             <div class="fw-bold">
-                                                                Upload your Experience Letter
+                                                                {{experience.get('work_experience_experience_letter')?.value
+                                                                ?
+                                                                experience.get('work_experience_experience_letter')?.value
+                                                                : 'Upload your Experience Letter'}}
                                                             </div>
                                                         </div>
                                                         <input type="file" [auto]="true" style="visibility: hidden;"
                                                             accept="application/pdf" [maxFileSize]="1000000"
+                                                            (change)="uploadFile(fileType.EXPERIENCE_LETTER, $event, i)"
                                                             #fileExperieceUpload>
-                                                        
+
                                                     </div>
                                                 </div>
                                             </div>
@@ -417,30 +427,31 @@
                                     </h2>
                                     <div class="mb-2">
                                         <span class="text-danger fw-bold">Confused about your career?</span>
-                                        Click here to plan it!
+                                        <a routerLink="/pages/job-tool/careerplannerlist" class="px-1">Click here</a> to
+                                        plan it!
                                     </div>
                                     <ng-container class="career-experience">
                                         <div class="row mb-3">
                                             <div class="col-md-6">
                                                 <label for="highestQualification" class="form-label">Career
                                                     Status<span class="text-danger">*</span></label>
-                                                <p-dropdown id="highestQualification"
+                                                <p-select id="highestQualification"
                                                     formControlName="career_preference_career_status"
-                                                    [options]="careerInterests" placeholder="Select total experience"
-                                                    styleClass="w-100" optionLabel="interest"
-                                                    optionValue="interest"></p-dropdown>
+                                                    [options]="careerStatus" placeholder="Select total experience"
+                                                    styleClass="w-100"></p-select>
                                                 <small class="text-danger"
                                                     *ngIf="personalInfoForm.get('career_preference_career_status')?.invalid &&personalInfoForm.get('career_preference_career_status')?.touched">
                                                     This field is mandatory
                                                 </small>
                                             </div>
                                             <div class="col-md-6">
-                                                <label for="highestQualification" class="form-label">Job Title<span class="text-danger">*</span></label>
-                                                <p-dropdown id="highestQualification"
+                                                <label for="highestQualification" class="form-label">Job Title<span
+                                                        class="text-danger">*</span></label>
+                                                <p-select id="highestQualification"
                                                     formControlName="career_preference_job_title_id"
-                                                    [options]="jobTitles" placeholder="Select total experience"
-                                                    styleClass="w-100" optionLabel="job_title"
-                                                    optionValue="id"></p-dropdown>
+                                                    [options]="jobTitles" placeholder="Select Job Title"
+                                                    styleClass="w-100" optionLabel="job_title" optionValue="id"
+                                                    [filter]="true" filterBy="job_title"></p-select>
                                                 <small class="text-danger"
                                                     *ngIf="personalInfoForm.get('career_preference_job_title_id')?.invalid &&personalInfoForm.get('career_preference_job_title_id')?.touched">
                                                     This field is mandatory
@@ -451,11 +462,11 @@
                                             <div class="col-md-6">
                                                 <label for="highestQualification" class="form-label">Career Interest /
                                                     Industry<span class="text-danger">*</span></label>
-                                                <p-dropdown id="highestQualification"
+                                                <p-select id="highestQualification"
                                                     formControlName="career_preference_career_interest_id"
-                                                    [options]="careerInterests"
-                                                    placeholder="Enter total years of experience" styleClass="w-100"
-                                                    optionLabel="interest" optionValue="id"></p-dropdown>
+                                                    [options]="careerInterests" placeholder="Enter career interest"
+                                                    styleClass="w-100" optionLabel="interest"
+                                                    optionValue="id"></p-select>
                                                 <small class="text-danger"
                                                     *ngIf="personalInfoForm.get('career_preference_career_interest_id')?.invalid &&personalInfoForm.get('career_preference_career_interest_id')?.touched">
                                                     This field is mandatory
@@ -467,25 +478,26 @@
                                                 <label for="university" class="form-label">Preferred Work
                                                     Location<span class="text-danger">*</span></label>
                                                 <div class="p-inputgroup">
-                                                    <input pInputText id="university"
+                                                    <p-select id="highestQualification"
                                                         formControlName="career_preference_preferred_work_location_id"
-                                                        placeholder="Enter your company" class="form-control" />
-                                                    </div>
-                                                    <small class="text-danger"
-                                                        *ngIf="personalInfoForm.get('career_preference_preferred_work_location_id')?.invalid &&personalInfoForm.get('career_preference_preferred_work_location_id')?.touched">
-                                                        This field is mandatory
-                                                    </small>
+                                                        [options]="locations" placeholder="Select Your Location"
+                                                        styleClass="w-100" optionLabel="location"
+                                                        optionValue="id"></p-select>
+                                                </div>
+                                                <small class="text-danger"
+                                                    *ngIf="personalInfoForm.get('career_preference_preferred_work_location_id')?.invalid &&personalInfoForm.get('career_preference_preferred_work_location_id')?.touched">
+                                                    This field is mandatory
+                                                </small>
                                             </div>
                                         </div>
                                         <div class="row mb-3">
                                             <div class="col-md-6">
                                                 <label for="highestQualification" class="form-label">Preferred
                                                     Employement Type<span class="text-danger">*</span></label>
-                                                <p-dropdown id="highestQualification"
+                                                <p-select id="highestQualification"
                                                     formControlName="career_preference_preferred_employment_type"
-                                                    [options]="employementTypeList"
-                                                    placeholder="Enter total years of experience" styleClass="w-100"
-                                                    optionLabel="employment_type" optionValue="id"></p-dropdown>
+                                                    [options]="preferredEmploymentType"
+                                                    placeholder="Select Employement Type" styleClass="w-100"></p-select>
                                                 <small class="text-danger"
                                                     *ngIf="personalInfoForm.get('career_preference_preferred_employment_type')?.invalid &&personalInfoForm.get('career_preference_preferred_employment_type')?.touched">
                                                     This field is mandatory
@@ -497,9 +509,11 @@
                                                 <label for="university" class="form-label">Preferred Workplace
                                                     Type<span class="text-danger">*</span></label>
                                                 <div class="p-inputgroup">
-                                                    <input pInputText id="university"
+                                                    <p-select id="highestQualification"
                                                         formControlName="career_preference_preferred_workplace_type"
-                                                        placeholder="Enter your company" class="form-control" />
+                                                        [options]="preferredWorkplaceType"
+                                                        placeholder="Enter Workplace Type"
+                                                        styleClass="w-100"></p-select>
                                                 </div>
                                                 <small class="text-danger"
                                                     *ngIf="personalInfoForm.get('career_preference_preferred_workplace_type')?.invalid &&personalInfoForm.get('career_preference_preferred_workplace_type')?.touched">
@@ -511,28 +525,38 @@
                                             <div class="col-md-6">
                                                 <label for="highestQualification" class="form-label">Willingness to
                                                     Relocate?<span class="text-danger">*</span></label>
-                                                <p-dropdown id="highestQualification"
+                                                <p-select id="highestQualification"
                                                     formControlName="career_preference_willingness_to_relocate"
                                                     [options]="[{label: 'Yes', value:'Yes'}, {label: 'No', value:'No'}]"
-                                                    placeholder="Enter total years of experience" styleClass="w-100"
-                                                    optionLabel="label" optionValue="value"></p-dropdown>
+                                                    placeholder="Wiiling to relocate" styleClass="w-100"
+                                                    optionLabel="label" optionValue="value"></p-select>
                                                 <small class="text-danger"
-                                                    *ngIf="personalInfoForm.get('career_preference_willingness_to_relocate')?.invalid &&personalInfoForm.get('career_preference_willingness_to_relocate')?.touched">
+                                                    *ngIf="personalInfoForm.get('career_preference_willingness_to_relocate')?.invalid && personalInfoForm.get('career_preference_willingness_to_relocate')?.touched">
                                                     This field is mandatory
                                                 </small>
                                             </div>
                                             <!-- University/Institution Name -->
                                             <div class="col-md-6">
-                                                <label for="university" class="form-label">Expected Salary<span class="text-danger">*</span></label>
-                                                <div class="p-inputgroup">
-                                                    <p-dropdown id="highestQualification"
-                                                        formControlName="career_preference_expected_salary"
-                                                        [options]="[{label: 'Yes', value:'Yes'}, {label: 'No', value:'No'}]"
-                                                        placeholder="Enter total years of experience" styleClass="w-100"
-                                                        optionLabel="label" optionValue="value"></p-dropdown>
-                                                </div>
+                                                <label for="university" class="form-label">Expected Salary<span
+                                                        class="text-danger">*</span></label>
+                                                        <div class="d-flex w-100">
+                                                            <p-select [options]="currencies"
+                                                            styleClass="p-select p-component"
+                                                            optionLabel="currency_code" optionValue="id"
+                                                            placeholder="INR"
+                                                            formControlName="career_preference_currency_id"
+                                                            [style]="{ width: '80px' }">
+                                                           </p-select>
+                                                            <div class="flex-grow-1 me-2">
+                                                                <p-inputNumber id="salary"
+                                                                    placeholder="Enter your salary/month"
+                                                                    styleClass="p-inputtext w-100" [showButtons]="false"
+                                                                    class="w-100"
+                                                                    formControlName="career_preference_expected_salary"></p-inputNumber>
+                                                            </div>
+                                                        </div>
                                                 <small class="text-danger"
-                                                    *ngIf="personalInfoForm.get('education_qualification_id')?.invalid &&personalInfoForm.get('education_qualification_id')?.touched">
+                                                    *ngIf="personalInfoForm.get('career_preference_expected_salary')?.invalid &&personalInfoForm.get('career_preference_expected_salary')?.touched">
                                                     This field is mandatory
                                                 </small>
                                             </div>
@@ -548,10 +572,11 @@
                                         <div class="mb-2">
                                             <div class="mb-2">
                                                 <span class="text-danger fw-bold">Dont have any certificates yet?</span>
-                                                Click here to plan it!
+                                                <a routerLink="/pages/modules/learning-hub" class="px-1">Click here</a>
+                                                to plan it!
                                             </div>
                                         </div>
-                                        <label class="form-label mb-3">Professional / online Certifications<span class="text-danger">*</span></label>
+                                        <label class="form-label mb-3">Professional / online Certifications</label>
                                         <ng-container class="education" formArrayName="certifications">
                                             <ng-container
                                                 *ngFor="let certificate of certifications.controls; let i = index"
@@ -566,10 +591,13 @@
                                                         <button
                                                             class="btn btn-light d-flex align-items-center justify-content-center w-100 border border-dash p-2"
                                                             (click)="certificateFile.click()">
-                                                            <i class="pi pi-upload me-2"></i> Upload certificate
+                                                            <i class="pi pi-upload me-2"></i>
+                                                            {{certificate.get('certifications_certificate_file')?.value
+                                                            ? certificate.get('certifications_certificate_file')?.value
+                                                            : 'Upload certificate'}}
                                                         </button>
                                                         <input type="file" accept="application/pdf"
-                                                            (change)="uploadFile(fileType.CERTIFICATE, $event, i);"
+                                                            (change)="uploadFile(fileType.CERTIFICATIONS, $event, i);"
                                                             style="visibility: hidden;" #certificateFile>
                                                     </div>
                                                     <div class="col-md-2">
@@ -597,10 +625,13 @@
                                                         <button
                                                             class="btn btn-light d-flex align-items-center justify-content-center w-100 border p-2"
                                                             (click)="acheivementFile.click()">
-                                                            <i class="pi pi-upload me-2"></i> Upload Supporting Document
+                                                            <i class="pi pi-upload me-2"></i>
+                                                            {{certificate.get('certifications_achievement_file')?.value
+                                                            ? certificate.get('certifications_achievement_file')?.value
+                                                            : 'Upload Supporting Document'}}
                                                         </button>
                                                         <input type="file" accept="application/pdf"
-                                                            (change)="uploadFile(fileType.ACHIEVEMENT, $event, i);"
+                                                            (change)="uploadFile(fileType.ACHIEVEMENTS, $event, i);"
                                                             style="visibility: hidden;" #acheivementFile>
                                                     </div>
                                                     <div class="col-md-2">
@@ -620,7 +651,8 @@
                                     <h2 class="card-title mb-1">Addtional Details</h2>
                                     <div class="mb-2">
                                         <span class="text-danger fw-bold">Want to learn a new language?</span>
-                                        Click here to plan it!
+                                        <a routerLink="/pages/language-hub/languages" class="px-1">Click here</a> to
+                                        plan it!
                                     </div>
                                     <ng-container class="work-experience">
                                         <div class="row mb-3">
@@ -638,10 +670,10 @@
                                                 *ngFor="let language of languages.controls; let i = index"
                                                 [formGroupName]="i">
                                                 <div class="col-md-6">
-                                                    <p-dropdown id="highestQualification"
+                                                    <p-select id="highestQualification"
                                                         formControlName="languages_language_id" [options]="languagelist"
                                                         placeholder="Enter know language" styleClass="w-100"
-                                                        optionLabel="language" optionValue="id"></p-dropdown>
+                                                        optionLabel="language" optionValue="id"></p-select>
                                                     <small class="text-danger"
                                                         *ngIf="language.get('languages_language_id')?.invalid && language.get('languages_language_id')?.touched">
                                                         This field is mandatory
@@ -679,10 +711,9 @@
                                             <div class="col-md-6">
                                                 <label for="highestQualification" class="form-label">Hobbies &
                                                     Interests</label>
-                                                <p-dropdown id="highestQualification"
-                                                    formControlName="languages_hobby_id" [options]="hobbies"
-                                                    placeholder="Enter if any hobbies and interests" styleClass="w-100"
-                                                    optionLabel="hobby" optionValue="id"></p-dropdown>
+                                                <p-select id="highestQualification" formControlName="languages_hobby_id"
+                                                    [options]="hobbies" placeholder="Enter if any hobbies and interests"
+                                                    styleClass="w-100" optionLabel="hobby" optionValue="id"></p-select>
                                             </div>
                                         </div>
                                     </ng-container>
@@ -692,7 +723,8 @@
                                     <h2 class="card-title mb-1">Key Strengths & Professional Traits</h2>
                                     <div class="mb-2">
                                         <span class="text-danger fw-bold">Showcase your skills and strengths</span>
-                                        Click here to plan it!
+                                        <a routerLink="/pages/modules/skill-mastery" class="px-1">Click here</a> to plan
+                                        it!
                                     </div>
                                     <ng-container class="work-experience">
                                         <div class="row mb-3">
@@ -709,20 +741,20 @@
                                         <div class="row mb-3">
                                             <div class="col-md-6">
                                                 <label for="highestQualification" class="form-label">Soft skills</label>
-                                                <p-dropdown id="highestQualification"
+                                                <p-select id="highestQualification"
                                                     formControlName="career_preference_soft_skill_id"
                                                     [options]="softSkills" placeholder="Enter know language"
                                                     styleClass="w-100" optionLabel="soft_skill"
-                                                    optionValue="id"></p-dropdown>
+                                                    optionValue="id"></p-select>
                                             </div>
                                             <div class="col-md-6">
                                                 <label for="highestQualification" class="form-label">Your top
                                                     professional strength</label>
-                                                <p-dropdown id="highestQualification"
+                                                <p-select id="highestQualification"
                                                     formControlName="career_preference_professional_strength_id"
                                                     [options]="professionalStrengths" placeholder="Enter know language"
                                                     styleClass="w-100" optionLabel="strength"
-                                                    optionValue="id"></p-dropdown>
+                                                    optionValue="id"></p-select>
                                             </div>
                                         </div>
                                         <div class="row mb-3">
@@ -767,7 +799,7 @@
                                                 <input pInputText id="university"
                                                     formControlName="networking_linkedin_profile"
                                                     placeholder="Linkedin Profile Link" class="form-control w-100" />
-                                                    <small class="text-danger"
+                                                <small class="text-danger"
                                                     *ngIf="personalInfoForm.get('networking_linkedin_profile')?.invalid && personalInfoForm.get('networking_linkedin_profile')?.touched">
                                                     This field is mandatory
                                                 </small>
@@ -788,13 +820,13 @@
                                                 *ngFor="let experience of socialMedia.controls; let i = index"
                                                 [formGroupName]="i">
                                                 <div class="col-md-6">
-                                                    <p-dropdown id="highestQualification"
+                                                    <p-select id="highestQualification"
                                                         formControlName="networking_social_media"
                                                         [options]="socialMedias"
                                                         placeholder="Select any social media platform"
                                                         styleClass="w-100" optionLabel="social_media"
-                                                        optionValue="social_media"></p-dropdown>
-                                                        <small class="text-danger"
+                                                        optionValue="social_media"></p-select>
+                                                    <small class="text-danger"
                                                         *ngIf="experience.get('networking_social_media')?.invalid && experience.get('networking_social_media')?.touched">
                                                         This field is mandatory
                                                     </small>
@@ -809,7 +841,8 @@
                                                         </div>
                                                         <div class="col-md-2">
                                                             <button style="border: 1px solid rgb(255, 37, 37)"
-                                                                class="px-3 py-2 rounded-lg">
+                                                                class="px-3 py-2 rounded-lg"
+                                                                (click)="removeSocialMedia(i);">
                                                                 <i class="fa fa-trash text-danger"></i>
                                                             </button>
                                                         </div>
@@ -843,7 +876,9 @@
                                     <div class="row  justify-content-center mt-3">
                                         <div class="upload-section text-center mb-4 py-2"
                                             style="border: 1px dashed lightgray">
-                                            <h4>Upload CV / Resume</h4>
+                                            <h4>{{ personalInfoForm.get('career_preference_cv_filename')?.value ?
+                                                personalInfoForm.get('career_preference_cv_filename')?.value : 'Upload
+                                                CV / Resume'}}</h4>
                                             <button pButton label="UPLOAD"
                                                 class="p-button-primary rounded-pill px-5 py-2"
                                                 (click)="fileUpload.click();"></button>
@@ -861,12 +896,17 @@
                                     <div class="row w-100 justify-content-center">
                                         <div class="col-md-6 mb-3">
                                             <div class="border rounded p-3">
-                                                <h4 class="mb-3">Introduction Video Upload</h4>
+                                                <h4 class="mb-3">Introduction Video Upload<span
+                                                        class="text-danger">*</span></h4>
                                                 <small class="text-muted">(90-120 seconds)</small>
                                                 <input pInputText placeholder="Provide the video link"
                                                     class="form-control mt-2"
                                                     formControlName="career_preference_video_link">
                                             </div>
+                                            <small class="text-danger"
+                                                *ngIf="personalInfoForm.get('career_preference_video_link')?.invalid &&personalInfoForm.get('career_preference_video_link')?.touched">
+                                                This field is Valid url
+                                            </small>
                                         </div>
 
                                         <div class="col-md-6 mb-3">
@@ -877,8 +917,8 @@
                                                     <input pInputText placeholder="Provide the portfolio link"
                                                         class="form-control"
                                                         formControlName="career_preference_portfolio_upload_link">
-                                                    <button pButton label="UPLOAD"
-                                                        class="p-button-secondary ms-2"></button>
+                                                    <!-- <button pButton label="UPLOAD"
+                                                        class="p-button-secondary ms-2"></button> -->
                                                 </div>
                                             </div>
                                         </div>
@@ -890,47 +930,71 @@
                                     <h5 class="card-title mb-1">Academic Reference</h5>
                                     <ng-container class="work-experience" formArrayName="academicReferences">
                                         <ng-container
-                                            *ngFor="let language of academicReferences.controls; let i = index"
+                                            *ngFor="let academic of academicReferences.controls; let i = index"
                                             [formGroupName]="i">
                                             <div class="row mb-3">
                                                 <div class="col-md-4">
                                                     <label for="highestQualification" class="form-label">College
-                                                        Name</label>
+                                                        Name<span class="text-danger">*</span></label>
                                                     <input pInputText id="university"
                                                         formControlName="references_college_name"
                                                         placeholder="Enter the reference college name"
                                                         class="form-control w-100" />
+                                                    <small class="text-danger"
+                                                        *ngIf="academic.get('references_college_name')?.invalid && academic.get('references_college_name')?.touched">
+                                                        This field is mandatory
+                                                    </small>
                                                 </div>
                                                 <div class="col-md-4">
-                                                    <label for="highestQualification" class="form-label">Name</label>
+                                                    <label for="highestQualification" class="form-label">Name<span
+                                                            class="text-danger">*</span></label>
                                                     <input pInputText id="university"
                                                         formControlName="references_reference_name"
                                                         placeholder="Enter the reference name"
                                                         class="form-control w-100" />
+                                                    <small class="text-danger"
+                                                        *ngIf="academic.get('references_reference_name')?.invalid && academic.get('references_reference_name')?.touched">
+                                                        This field is mandatory
+                                                    </small>
                                                 </div>
                                                 <div class="col-md-4">
                                                     <label for="highestQualification"
-                                                        class="form-label">Desigination</label>
+                                                        class="form-label">Desigination<span
+                                                            class="text-danger">*</span></label>
                                                     <input pInputText id="university"
                                                         formControlName="references_designation"
                                                         placeholder="Enter the reference desigination"
                                                         class="form-control w-100" />
+                                                    <small class="text-danger"
+                                                        *ngIf="academic.get('references_designation')?.invalid && academic.get('references_designation')?.touched">
+                                                        This field is mandatory
+                                                    </small>
                                                 </div>
                                             </div>
                                             <div class="row mb-3">
                                                 <div class="col-md-6">
                                                     <label for="highestQualification" class="form-label">Phone
-                                                        Number</label>
-                                                    <input pInputText id="university"
-                                                        formControlName="references_phone_number"
+                                                        Number<span class="text-danger">*</span></label>
+                                                    <p-inputNumber id="university"
                                                         placeholder="Enter the reference phone number"
-                                                        class="form-control w-100" />
+                                                        styleClass="p-inputtext w-100" [showButtons]="false"
+                                                        class="w-100"
+                                                        formControlName="references_phone_number"></p-inputNumber>
+                                                    <small class="text-danger"
+                                                        *ngIf="academic.get('references_phone_number')?.invalid && academic.get('references_phone_number')?.touched">
+                                                        This field is mandatory
+                                                    </small>
                                                 </div>
                                                 <div class="col-md-6">
-                                                    <label for="highestQualification" class="form-label">Email</label>
+                                                    <label for="highestQualification" class="form-label">Email<span
+                                                            class="text-danger">*</span></label>
                                                     <input pInputText id="university" formControlName="references_email"
                                                         placeholder="Enter the reference email"
                                                         class="form-control w-100" />
+                                                    <small class="text-danger"
+                                                        *ngIf="academic.get('references_email')?.invalid && academic.get('references_email')?.touched">
+                                                        This field is valid email
+                                                    </small>
                                                 </div>
                                             </div>
                                         </ng-container>
@@ -974,10 +1038,11 @@
                                                 <div class="col-md-6">
                                                     <label for="highestQualification" class="form-label">Phone
                                                         Number</label>
-                                                    <input pInputText id="university"
-                                                        formControlName="references_phone_number"
+                                                    <p-inputNumber id="university"
                                                         placeholder="Enter the reference phone number"
-                                                        class="form-control w-100" />
+                                                        styleClass="p-inputtext w-100" [showButtons]="false"
+                                                        class="w-100"
+                                                        formControlName="references_phone_number"></p-inputNumber>
                                                 </div>
                                                 <div class="col-md-6">
                                                     <label for="highestQualification" class="form-label">Email</label>
@@ -1005,8 +1070,8 @@
                     </div>
                 </div>
             </div>
-            <div class="col-md-4">
-                <div class="">
+            <div class="col-md-8 col-lg-4 d-flex flex-fill">
+                <div class="container">
                     <div class="profile-container d-flex flex-column justify-content-between p-2 pb-0 rounded-4"
                         style="border: 2px solid var(--uniprep-secondary); min-height: calc(100vh - 290px);">
                         <div class="d-flex gap-2">
@@ -1016,9 +1081,7 @@
                             </div>
                             <div class="message-box d-flex text-start">
                                 <p class="mb-0 text-muted">
-                                    Enter your full legal name, including first, middle (if
-                                    applicable), and last name, ensuring accuracy for
-                                    identification, records, and applications.
+                                    {{ currentMessage }}
                                 </p>
                             </div>
                         </div>
@@ -1038,8 +1101,10 @@
                                     </div>
                                     <div class="col-9">
                                         <div class="d-flex justify-content-between text-start">
-                                            <div>
-                                                <span class="fw-bold">John Doe</span>
+                                            <div (mouseenter)="updateMessageBox('fullName')"
+                                                (mouseleave)="resetMessageBox()">
+                                                <span class="fw-bold">{{personalInfoForm.get('full_name')?.value ||
+                                                    'John Doe'}}</span>
                                                 <i *ngIf="true" class="fas fa-check-circle ms-1"
                                                     style="color: #4285f4"></i>
                                             </div>
@@ -1071,7 +1136,8 @@
                                             <div>
                                                 <i class="fas fa-briefcase me-2" style="color: #fda172"></i>
                                             </div>
-                                            <div>
+                                            <div (mouseenter)="updateMessageBox('location')"
+                                                (mouseleave)="resetMessageBox()">
                                                 <div class="text-muted small">Current Location</div>
                                                 <div class="fw-bold">{{personalInfoForm?.get('location_id')?.value ?
                                                     personalInfoForm?.get('location_id')?.value : 'Mysore, India'}}
@@ -1084,7 +1150,8 @@
                                             <div>
                                                 <i class="fas fa-map-marker-alt me-2" style="color: #94c973"></i>
                                             </div>
-                                            <div>
+                                            <div (mouseenter)="updateMessageBox('jobTitle')"
+                                                (mouseleave)="resetMessageBox()">
                                                 <div class="text-muted small">Desired Job Title</div>
                                                 <div class="fw-bold">
                                                     {{personalInfoForm?.get('preferredWorkLocation')?.value ?
@@ -1103,7 +1170,8 @@
                                             <div>
                                                 <i class="far fa-calendar-alt me-2" style="color: #6c757d"></i>
                                             </div>
-                                            <div>
+                                            <div (mouseenter)="updateMessageBox('employmentType')"
+                                                (mouseleave)="resetMessageBox()">
                                                 <div class="text-muted small">Employment Type</div>
                                                 <div class="fw-bold">
                                                     {{personalInfoForm?.get('preferredEmploymentType')?.value ?
@@ -1117,7 +1185,8 @@
                                             <div>
                                                 <i class="fas fa-building me-2" style="color: #fda172"></i>
                                             </div>
-                                            <div>
+                                            <div (mouseenter)="updateMessageBox('workArrangement')"
+                                                (mouseleave)="resetMessageBox()">
                                                 <div class="text-muted small">Work Arrangement</div>
                                                 <div class="fw-bold">
                                                     {{personalInfoForm?.get('preferredWorkLocation')?.value ?
@@ -1135,10 +1204,13 @@
                                             <div>
                                                 <i class="fas fa-users me-2" style="color: #dc3545"></i>
                                             </div>
-                                            <div>
+                                            <div (mouseenter)="updateMessageBox('careerStatus')"
+                                                (mouseleave)="resetMessageBox()">
                                                 <div class="text-muted small">Current Career Status</div>
-                                                <div class="fw-bold">{{personalInfoForm?.get('careerStatus')?.value ?
-                                                    personalInfoForm?.get('careerStatus')?.value : 'Active Students'}}
+                                                <div class="fw-bold">
+                                                    {{personalInfoForm?.get('career_preference_career_status')?.value ?
+                                                    personalInfoForm?.get('career_preference_career_status')?.value :
+                                                    'Active Students'}}
                                                 </div>
                                             </div>
                                         </div>
@@ -1147,10 +1219,14 @@
                                         <div class="d-flex align-items-start">
                                             <div></div>
                                             <i class="fas fa-users me-2" style="color: #dc3545"></i>
-                                            <div>
+                                            <div (mouseenter)="updateMessageBox('expectedSalary')"
+                                                (mouseleave)="resetMessageBox()">
                                                 <div class="text-muted small">Expected Salary</div>
-                                                <div class="fw-bold">{{personalInfoForm?.get('expectedSalary')?.value ?
-                                                    personalInfoForm?.get('expectedSalary')?.value : '₹30,000/Month'}}
+                                                <div class="fw-bold">
+                                                    {{personalInfoForm?.get('career_preference_expected_salary')?.value
+                                                    ?
+                                                    personalInfoForm?.get('career_preference_expected_salary')?.value :
+                                                    '₹30,000/Month'}}
                                                 </div>
                                             </div>
                                         </div>
@@ -1171,10 +1247,11 @@
                 <p-progressBar [value]="profileCompletion"></p-progressBar>
             </div>
             <!-- Save Button -->
-            <div class="d-flex justify-content-end mt-3">
-                <button type="button" pButton label="Save Changes" icon="pi pi-check" class="p-button-primary"
-                    (click)="onSubmit();"></button>
-            </div>
+            <button pButton type="button" (click)="onSubmit()"
+                class="btn btn-primary  btn-rounded p-1 ps-4 mt-1">
+                <span class="me-2">Create Profile</span><span class="btn-icon px-2 py-2"><i
+                        class="pi pi-check text-white"></i></span>
+            </button>
         </div>
     </div>
 </div>

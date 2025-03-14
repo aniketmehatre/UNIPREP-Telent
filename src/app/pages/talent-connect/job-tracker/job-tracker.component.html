@@ -34,7 +34,7 @@
 			<div class="row g-3" *ngIf="selectedJobId else showEmptyConainter">
 				<div class="col-lg-8 col-md-7 col-12 position-relative overflow-hidden" [hidden]="!showInfo">
 					<div class="job-details-container h-100 overflow-auto">
-					  <uni-job-details (closeInfo)="toggleInfo();" [showInfo]="showInfo" [jobDetails]="jobDetails"></uni-job-details>
+					  <uni-job-details (closeInfo)="toggleInfo();" [showInfo]="true" [jobDetails]="jobDetails"></uni-job-details>
 					</div>
 				  </div>
 			  <div class="col-lg-4 col-md-5 col-12" [ngClass]="{'col-lg-12': !showInfo}">
