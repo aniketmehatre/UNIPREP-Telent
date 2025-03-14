@@ -66,7 +66,7 @@ export class GlobalTravelVisaComponent implements OnInit {
   isQuestionAnswerVisible: boolean = false;
   selectedQuestionData: any;
   isNotSelectingDropdown:boolean=false;
-  imgurl:any=`https://${environment.domain}/uniprepapi/storage/app/public/ToolIcons/travel-tools/`;
+  imageUrl:any=`https://${environment.domain}/uniprepapi/storage/app/public/ToolIcons/travel-tools/`;
   constructor(
     private travelToolService: TravelToolsService,
     private router: Router,
@@ -299,28 +299,50 @@ export class GlobalTravelVisaComponent implements OnInit {
   goToHome(data: any) {
     this.isQuestionAnswerVisible = false;
   }
-  getVisaName(name:string){
-    let result = name.includes("Applying for");
-    return result 
-  }
-  getVisaName1(name:string){
-    let result = name.includes("Visa Cost");
-    return result 
-  }
-  getVisaName2(name:string){
-    let result = name.includes("Business & Residency");
-    return result 
-  }
-  getVisaName3(name:string){
-    let result = name.includes("Validity & Restrictions");
-    return result 
-  }
-  getVisaName4(name:string){
-    let result = name.includes("Post-Arrival");
-    return result 
-  }
-  getVisaName5(name:string){
-    let result = name.includes("Visa Centers");
-    return result 
+  // getVisaName(name:string){
+  //   let result = name.includes("Applying for");
+  //   return result 
+  // }
+  // getVisaName1(name:string){
+  //   let result = name.includes("Visa Cost");
+  //   return result 
+  // }
+  // getVisaName2(name:string){
+  //   let result = name.includes("Business & Residency");
+  //   return result 
+  // }
+  // getVisaName3(name:string){
+  //   let result = name.includes("Validity & Restrictions");
+  //   return result 
+  // }
+  // getVisaName4(name:string){
+  //   let result = name.includes("Post-Arrival");
+  //   return result 
+  // }
+  // getVisaName5(name:string){
+  //   let result = name.includes("Visa Centers");
+  //   return result 
+  // }
+  getVisaName(name: string) {
+    let image = '';
+    if (name.includes("Applying for")) {
+      image = this.imageUrl + 'ApplyingforanEntrepreneurVisa.svg';
+    }
+    else if (name.includes("Visa Cost")) {
+      image = this.imageUrl + 'VisaCostProcessingTime.svg';
+    }
+    else if (name.includes("Visa Centers")) {
+      image = this.imageUrl + 'VisaCentersApplicationSubmission.svg';
+    }
+    else if (name.includes("Restrictions")) {
+      image = this.imageUrl + 'EntrepreneurVisaValidityRestrictions.svg';
+    }
+    else if (name.includes("Post-Arrival Questions")) {
+      image = this.imageUrl + 'PostArrivalQuestions.svg';
+    }
+    else if (name.includes("Residency-Related")) {
+      image = this.imageUrl + 'BusinessResidencyRelatedEntrepreneurVisaQuestionsforIndianNationals.svg';
+    }
+    return image;
   }
 }
