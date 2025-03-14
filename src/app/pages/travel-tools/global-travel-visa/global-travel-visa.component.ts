@@ -18,6 +18,7 @@ import { ButtonModule } from 'primeng/button';
 import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 import {InputGroupModule} from "primeng/inputgroup";
 import {SelectModule} from "primeng/select";
+import { environment } from '@env/environment';
 
 @Component({
     selector: 'uni-global-travel-visa',
@@ -64,7 +65,8 @@ export class GlobalTravelVisaComponent implements OnInit {
   eachVisaNameCategory: any[] = [];
   isQuestionAnswerVisible: boolean = false;
   selectedQuestionData: any;
-  isNotSelectingDropdown:boolean=false
+  isNotSelectingDropdown:boolean=false;
+  imgurl:any=`https://${environment.domain}/uniprepapi/storage/app/public/ToolIcons/travel-tools/`;
   constructor(
     private travelToolService: TravelToolsService,
     private router: Router,
@@ -107,6 +109,7 @@ export class GlobalTravelVisaComponent implements OnInit {
       "study-visa": "Education Tools"
     }
     this.moduleTitile = moduleTitile[currentEndpoint] || "";
+    // image url
 
   }
 
@@ -295,5 +298,29 @@ export class GlobalTravelVisaComponent implements OnInit {
   }
   goToHome(data: any) {
     this.isQuestionAnswerVisible = false;
+  }
+  getVisaName(name:string){
+    let result = name.includes("Applying for");
+    return result 
+  }
+  getVisaName1(name:string){
+    let result = name.includes("Visa Cost");
+    return result 
+  }
+  getVisaName2(name:string){
+    let result = name.includes("Business & Residency");
+    return result 
+  }
+  getVisaName3(name:string){
+    let result = name.includes("Entrepreneur Visa Validity");
+    return result 
+  }
+  getVisaName4(name:string){
+    let result = name.includes("Post-Arrival");
+    return result 
+  }
+  getVisaName5(name:string){
+    let result = name.includes("Visa Centers");
+    return result 
   }
 }

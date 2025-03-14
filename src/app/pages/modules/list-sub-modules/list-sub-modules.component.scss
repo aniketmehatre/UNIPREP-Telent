@@ -196,13 +196,13 @@ selctedQuizTiny {
 	margin-top: 20px;
 	color: #ff9113;
 }
-.search-container {
-	display: flex;
-	flex: 1;
-    align-items: start;
-    justify-content: center;
-    height: max-content;
-}
+// .search-container {
+// 	display: flex;
+// 	flex: 1;
+//     align-items: start;
+//     justify-content: center;
+//     height: max-content;
+// }
 // .p-input-icon-left>i, .p-input-icon-right>i, .p-input-icon-right>i:not(.filterDialog) .p-input-icon-left>i:not(.filterDialog),.alignment {
 //     position: absolute;
 //     top: 50%;
@@ -298,3 +298,23 @@ input[type="text"] {
   .dropdown-container1 label {
 	margin-bottom: 5px; /* Adjust as needed */
   }
+  .search-container {
+    position: relative;
+    display: flex;
+    align-items: center;
+    padding-left: 40px; /* Prevents text from overlapping with the icon */
+}
+
+.search-icon {
+    position: absolute;
+    left: 15px; /* Adjust spacing from the left */
+    top: 50%;
+    transform: translateY(-50%);
+    color: #007bff; /* Adjust icon color */
+    font-size: 1.2rem;
+    pointer-events: none; /* Prevents interaction */
+}
+
+.input-field {
+    padding-left: 40px; /* Ensures input text does not overlap with the icon */
+}

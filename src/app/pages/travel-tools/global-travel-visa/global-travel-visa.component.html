@@ -127,7 +127,12 @@
                                 <div
                                     class="card-body d-flex justify-content-center align-items-center">
                                     <div class="py-3">
-                                        <img src="../../../../uniprep-assets/images/founderstool/growth.svg" height="50" width="50" alt="">
+                                        <img *ngIf="getVisaName(item.question_category)" [src]="imgurl+'ApplyingforanEntrepreneurVisa.svg'" height="50" width="50" alt="">
+                                        <img *ngIf="getVisaName1(item.question_category)" [src]="imgurl+'VisaCostProcessingTime.svg'" height="50" width="50" alt="">
+                                        <img *ngIf="getVisaName2(item.question_category)" [src]="imgurl+'BusinessResidencyRelatedEntrepreneurVisaQuestionsforIndianNationals.svg'" height="50" width="50" alt="">
+                                        <img *ngIf="getVisaName3(item.question_category)" [src]="imgurl+'EntrepreneurVisaValidityRestrictions.svg'" height="50" width="50" alt="">
+                                        <img *ngIf="getVisaName4(item.question_category)" [src]="imgurl+'PostArrivalQuestions.svg'" height="50" width="50" alt="">
+                                        <img *ngIf="getVisaName5(item.question_category)" [src]="imgurl+'VisaCentersApplicationSubmission.svg'" height="50" width="50" alt="">
                                         <p class="text-start fw-bold questiontext mb-0 mt-2" title="{{ item.question }}">
                                             {{ item.question_category }}</p>
                                     </div>
