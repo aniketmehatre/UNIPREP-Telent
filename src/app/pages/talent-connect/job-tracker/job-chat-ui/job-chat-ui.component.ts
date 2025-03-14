@@ -1,8 +1,10 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
 import {FormsModule} from "@angular/forms";
-import {Avatar} from "primeng/avatar";
-import {NgClass} from "@angular/common";
+import { Avatar, AvatarModule } from "primeng/avatar";
+import { CommonModule, NgClass } from "@angular/common";
 import {ProgressBar} from "primeng/progressbar";
+import { Chip, ChipModule } from 'primeng/chip';
+import { Button, ButtonModule } from 'primeng/button';
 
 interface ChatMessage {
   sender: string;
@@ -19,9 +21,11 @@ interface ChatMessage {
   standalone: true,
   imports: [
     FormsModule,
-    Avatar,
-    NgClass,
-    ProgressBar
+    AvatarModule,
+    ProgressBar,
+    CommonModule,
+    ChipModule,
+    ButtonModule
   ]
 })
 export class JobChatUiComponent {

@@ -1,131 +1,61 @@
+import { CommonModule } from '@angular/common';
 import { Component, EventEmitter, OnInit, Output, Input } from '@angular/core';
 import { MenuItem } from 'primeng/api';
-
-interface Job {
-  id: number;
-  title: string;
-  company: string;
-  companyLogo?: string;
-  location: string;
-  status: 'Job Applied' | 'Application Received' | 'Shortlisted' | 'Position Closed';
-  stage: 'Initial Round' | 'HR Round' | 'Selected';
-  workLocation?: string;
-  position?: string;
-  startDate?: string;
-  companySize?: string;
-  workMode?: string;
-  employmentType?: string;
-  salaryRange?: string;
-  availableVacancies?: number;
-  totalApplied?: number;
-  overview?: string;
-  responsibilities?: string[];
-  appliedDate?: string;
-}
+import { ButtonModule } from 'primeng/button';
+import { ChipModule } from 'primeng/chip';
+import { TalentConnectService } from '../../talent-connect.service';
+import { Job } from '../../easy-apply/job-view/job-view.component';
+import { StepsModule } from 'primeng/steps';
 
 @Component({
   selector: 'uni-job-details',
   templateUrl: './job-details.component.html',
   styleUrls: ['./job-details.component.scss'],
+  imports: [ChipModule, ButtonModule, StepsModule, CommonModule],
   standalone: true,
 })
 export class JobDetailsComponent  implements OnInit{
 
   @Output() closeInfo: EventEmitter<boolean> = new EventEmitter<boolean>(true);
   @Input() showInfo: boolean = true;
-  jobDetails: any = {
-      title: 'Senior UI/UX Designer',
-      company: 'UNIABROAD Pvt. Ltd.',
-    verified: true,
-    skillMatch: {
-      matched: 3,
-      total: 4,
-      skills: ['UI Design', 'Graphic Design', 'UX Design', 'Motion Design']
-    },
-    postedDate: '19-02-2025',
-    companySize: '0-50',
-      position: 'UI Designer',
-      startDate: '19-02-2025',
-    workLocation: 'Mysore',
-      workMode: 'Onsite',
-      employmentType: 'Full Time',
-      salaryRange: '50,000 - 1,00,000',
-    dueDate: '25-02-2025',
-    totalApplied: 10,
-      availableVacancies: 50,
-    experienceLevel: 'Mid Level',
-    educationalDegree: 'Bachelor\'s Degree',
-    industry: 'Tech Industry',
-    overview: 'We are looking for a *creative and detail-oriented UI/UX Designer* to join our team at UNIABROAD. The ideal candidate will be responsible for designing user-friendly, engaging, and visually appealing interfaces for our digital platforms, ensuring a seamless user experience for students and stakeholders.',
-      responsibilities: [
-        'Design and implement intuitive, user-centered interfaces for web and mobile applications.',
-        'Conduct user research and usability testing to understand pain points and improve UI/UX designs.',
-        'Develop wireframes, prototypes, and mockups that effectively communicate design ideas.',
-        'Collaborate with developers, product managers, and marketing teams to ensure seamless design integration'
-      ],
-    technicalProficiency: 'We are looking for a creative and detail-oriented UI/UX Designer to join our team. The ideal candidate will be responsible for designing user-centered digital experiences, creating',
-    languageProficiency: [
-      { language: 'Kannada', level: 'Native' },
-      { language: 'Hindi', level: 'Beginner' },
-      { language: 'English', level: 'Advanced' }
-    ],
-    compensationStructure: ['Performance-Based Bonuses', 'Profit-Sharing', 'Freelance/Contract-Based Pay'],
-    benefits: ['Training & Certifications', 'Flexible Hours', 'Health Insurance'],
-    softSkills: ['Creativity & Problem-Solving', 'Communication Skills', 'Attention to Detail'],
-    hiringProcess: {
-      stages: ['Onboarding & Orientation', 'Interview Process', 'Initial Screening & Phone Interview', 'Resume Screening & Shortlisting'],
-      timeframe: '2-4 Weeks',
-      format: 'Traditional Interview Format'
-    }
+  @Input() jobDetails: Job = {
+    isChecked: 0,
+    id: 1,
+    experience_level: "Mid-Level",
+    job_overview: "We are looking for a skilled Software Developer to join our team.",
+    key_responsibilities: "Develop, test, and maintain web applications.",
+    technical_proficiency: ["JavaScript", "Angular", "Node.js"],
+    language_proficiency: ["English", "Spanish"],
+    start_date: "2025-04-01",
+    due_date: "2025-06-30",
+    available_vacancies: 3,
+    hiring_timeframe: "2 months",
+    created_at: "2025-03-10",
+    interview_format: "Virtual",
+    position: "Software Developer",
+    work_location: "Remote",
+    comapany_name: "Tech Solutions Inc.",
+    industry_name: "IT & Software",
+    company_size: 500,
+    compensation_structure: "Annual Salary",
+    work_mode: "Hybrid",
+    employment_type: "Full-Time",
+    benefits_perks: "Health insurance, Flexible hours",
+    soft_skills: "Teamwork, Communication",
+    hiring_stages: "Resume screening, Technical interview, HR interview",
+    total_applied: 25,
+    company_logo_url: "https://example.com/logo1.png",
+    educational_degree: 'B.sc',
+    salary_range: 100000,
+    stage: null
   };
   jobs!: any;
   activeIndex: number = 0;
   steps: MenuItem[] = [];
   activeStepIndex: number = 1;
 
+  constructor(private talentConnectService: TalentConnectService) { }
   ngOnInit(): void {
-    this.jobs = {
-      title: 'Senior UI/UX Designer',
-      company: 'UNIABROAD Pvt. Ltd.',
-      verified: true,
-      appliedOn: '19-02-2025',
-      applicationStage: {
-        initialRound: { complete: true, number: 1, label: 'Initial Round' },
-        hrRound: { complete: false, active: true, number: 2, label: 'HR Round' },
-        selected: { complete: false, number: 3, label: 'Selected' }
-      },
-      workLocation: 'Mysore',
-      position: 'UI Designer',
-      startDate: '19-02-2025',
-      companySize: '0-50',
-      workMode: 'Onsite',
-      employmentType: 'Full Time',
-      salaryRange: '50,000 - 1,00,000',
-      availableVacancies: 50,
-      totalApplied: 10,
-      overview: 'We are looking for a *creative and detail-oriented UI/UX Designer* to join our team at UNIABROAD. The ideal candidate will be responsible for designing user-friendly, engaging, and visually appealing interfaces for our digital platforms, ensuring a seamless user experience for students and stakeholders.',
-      keyResponsibilities: [
-        'Design and implement intuitive, user-centered interfaces for web and mobile applications.',
-        'Conduct user research and usability testing to understand pain points and improve UI/UX designs.',
-        'Develop wireframes, prototypes, and mockups that effectively communicate design solutions.',
-        'Basic knowledge of motion design and micro-interactions.'
-      ],
-      requiredSkills: [
-        'Bachelor\'s degree in Graphic Design, Interaction Design, Computer Science, or a related field.',
-        '2+ years of experience in UI/UX design.',
-        'Strong understanding of UX principles, information architecture, and user psychology.',
-        'Experience with responsive design, usability testing, and A/B testing methodologies.',
-        'Strong portfolio showcasing UI/UX design work.'
-      ],
-      keySkills: ['Figma', 'Sketch', 'CSS', 'Responsive Design', 'JavaScript', 'Adobe XD', 'HTML'],
-      aboutCompany: 'UNIABROAD is a leading ed-tech company specializing in providing international education services. With a presence in multiple countries, our mission is to simplify the study abroad journey for students through innovative digital solutions',
-      howToApply: 'Interested candidates can send their resume and portfolio to *[careers@uniabroad.com]* with the subject line *"Application for UI/UX Designer – UNIABROAD',
-      benefits: [
-        'Competitive salary and benefits package.',
-        'Dynamic and innovative work environment.',
-        'Professional development and learning opportunities.'
-      ]
-    };
     this.steps = [
       {
         label: this.jobs.applicationStage.initialRound.label
@@ -137,12 +67,6 @@ export class JobDetailsComponent  implements OnInit{
         label: this.jobs.applicationStage.selected.label
       }
     ];
-
-
-    // // Select the first job by default
-    // this.selectedJob = this.jobs[0];
-
-    // this.setActiveStep(this.selectedJob?.stage);
   }
 
 
@@ -152,9 +76,11 @@ export class JobDetailsComponent  implements OnInit{
     }
   
     selectJob(job: Job): void {
-      // this.selectedJob = job;
-      this.setActiveStep(job.stage);
+      if (job?.stage) {
+        this.setActiveStep(job?.stage);
+      }
     }
+
 
     setActiveStep(stage: string | undefined): void {
       if (!stage) return;

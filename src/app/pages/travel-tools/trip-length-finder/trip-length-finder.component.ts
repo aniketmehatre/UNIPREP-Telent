@@ -48,8 +48,6 @@ export class TripLengthFinderComponent implements OnInit {
   recommendationData: any;
   savedResponse: any = [];
   destinationLocationList: City[] = [];
-  cityList: City[] = [];
-  destinationFilter: string = '';
 
   ngOnInit(): void {
     this.getCityList();
@@ -58,25 +56,9 @@ export class TripLengthFinderComponent implements OnInit {
   getCityList() {
     this.costOfLivingService.getCities().subscribe({
       next: response => {
-        this.cityList = response;
         this.destinationLocationList = response;
       }
     });
-  }
-
-  customFilterFunction() {
-    if (this.destinationFilter === "") {
-      this.destinationLocationList = this.cityList;
-      return;
-    }
-    this.destinationLocationList = this.cityList.filter(city =>
-      city?.city_name?.toLowerCase().includes(this.destinationFilter.toLowerCase()) || city?.country_name?.toLowerCase().includes(this.destinationFilter.toLowerCase())
-    );
-  }
-
-  resetFunction() {
-    this.destinationFilter = '';
-    this.destinationLocationList = this.cityList;
   }
 
   getRecommendation(productId: number) {

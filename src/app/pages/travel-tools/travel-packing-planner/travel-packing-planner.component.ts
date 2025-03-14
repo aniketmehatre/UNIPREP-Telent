@@ -20,9 +20,8 @@ import { SelectModule } from 'primeng/select';
 import { DialogModule } from 'primeng/dialog';
 import { CardModule } from 'primeng/card';
 import { InputNumberModule } from 'primeng/inputnumber';
-
 import { DownloadRespose } from 'src/app/@Models/travel-tools.model';
-import { error } from 'console';
+
 @Component({
     selector: 'uni-travel-packing-planner',
     templateUrl: './travel-packing-planner.component.html',
@@ -35,7 +34,6 @@ export class TravelPackingPlannerComponent implements OnInit {
   recommendations: { id: number, question: string }[] = TravelPackingPlannerQuestionList;
   activePageIndex: number = 0;
   destinationLocationList: City[] = [];
-  destinationFilter: string = '';
   selectedData: { [key: string]: any } = {};
   invalidClass: boolean = false;
   travelTypeList: { id: number, name: string }[] = [
@@ -62,7 +60,6 @@ export class TravelPackingPlannerComponent implements OnInit {
     { id: 11, name: 'November' },
     { id: 12, name: 'December' }
   ];
-  cityList: City[] = [];
   recommendationData: string = '';
   isRecommendationQuestion: boolean = true;
   isRecommendationData: boolean = false;
@@ -84,25 +81,9 @@ export class TravelPackingPlannerComponent implements OnInit {
   getCityList() {
     this.costOfLivingService.getCities().subscribe({
       next: response => {
-        this.cityList = response;
         this.destinationLocationList = response;
       }
     });
-  }
-
-  customFilterFunction(type: string) {
-    if (this.destinationFilter === "") {
-      this.destinationLocationList = this.cityList;
-      return;
-    }
-    this.destinationLocationList = this.cityList.filter(city =>
-      city?.city_name?.toLowerCase().includes(this.destinationFilter.toLowerCase()) || city?.country_name?.toLowerCase().includes(this.destinationFilter.toLowerCase())
-    );
-  }
-
-  resetFunction(type: string) {
-    this.destinationFilter = '';
-    this.destinationLocationList = this.cityList;
   }
 
   previous() {
@@ -113,8 +94,6 @@ export class TravelPackingPlannerComponent implements OnInit {
   }
 
   next(itemId: number) {
-    this.destinationFilter = "";
-    this.destinationLocationList = this.cityList;
     this.invalidClass = false;
     if (itemId in this.selectedData) {
       if (this.activePageIndex < this.recommendations.length - 1) {

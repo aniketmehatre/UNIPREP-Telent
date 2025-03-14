@@ -10,13 +10,23 @@ import { MessageService } from 'primeng/api';
 import { CardModule } from 'primeng/card';
 import { DialogModule } from 'primeng/dialog';
 import { DataService } from 'src/app/data.service';
+import { TooltipModule } from 'primeng/tooltip';
+import { InputGroupAddonModule } from 'primeng/inputgroupaddon';
+import { InputTextModule } from 'primeng/inputtext';
+import { MultiSelectModule } from 'primeng/multiselect';
+import { ButtonModule } from 'primeng/button';
+import {FormsModule, ReactiveFormsModule} from "@angular/forms";
+import {InputGroupModule} from "primeng/inputgroup";
+import {SelectModule} from "primeng/select";
 
 @Component({
     selector: 'uni-global-travel-visa',
     templateUrl: './global-travel-visa.component.html',
     styleUrls: ['./global-travel-visa.component.scss'],
     standalone: true,
-    imports: [CommonModule,CarouselModule, CardModule, DialogModule]
+    imports: [CommonModule,CarouselModule, CardModule, DialogModule,SelectModule,
+      ButtonModule,MultiSelectModule,CarouselModule,InputGroupModule,InputGroupAddonModule,FormsModule,ReactiveFormsModule,InputTextModule
+    ]
 })
 export class GlobalTravelVisaComponent implements OnInit {
   recommendations: { id: number, question: string }[] = [
@@ -31,7 +41,7 @@ export class GlobalTravelVisaComponent implements OnInit {
   activePageIndex: number = 0;
   selectedData: { [key: string]: any } = {};
   allCountries: Countries[] = [];
-  visaCountries:Countries[]=[];
+  visaCountries: Countries[] = [];
   invalidClass: boolean = false;
   title: string = "";
   isRecommendationQuestion: boolean = true;
@@ -39,10 +49,10 @@ export class GlobalTravelVisaComponent implements OnInit {
   isRecommendationSavedData: boolean = false;
   isRecommendationEachVisaNameData: boolean = false;
   recommendationDataList: any[] = [];
-  recomendationData:any[]=[];
-  modeName:any;
-  moduleId:any;
-  moduleTitile:string="";
+  recomendationData: any[] = [];
+  modeName: any;
+  moduleId: any;
+  moduleTitile: string = "";
   visaCategoryList: any[] = [
     {
       id: 1,
@@ -50,10 +60,11 @@ export class GlobalTravelVisaComponent implements OnInit {
       answer: `Lorem ipsum dolor sit amet consectetur adipisicing elit.Consequatur harum neque deserunt reiciendis minus repellat tempora deleniti mollitia, in natus sint laudantium repellendus earum beatae nostrum dolorum illo dolorem culpa a. Eveniet perferendis aut quisquam? Ipsa illo minima inventore assumenda quibusdam voluptas eum iure, magnam consectetur omnis officiis, similique accusantium nobis natus vero nulla nostrum distinctio. Officiis porro dolore veniam ad a sint quia vel ipsam, aliquam repellendus repudiandae commodi odit, hic praesentium eius rem quo nobis animi doloremque dignissimos impedit! Nobis ratione quidem dolor tenetur quod, quae at? Vel amet esse suscipit quas iure, libero dolor adipisci eos exercitationem reiciendis earum? Veniam, at. Nesciunt eaque quas dolorem itaque beatae ratione sunt sapiente, placeat sint impedit et nostrum doloremque. Maiores, eveniet sed tempora quia accusantium qui maxime vero aperiam? Quo consectetur quod quidem. Aspernatur, sit officia! Vitae molestiae atque distinctio harum fugit, eaque minus, placeat ab excepturi voluptas impedit inventore dolore dolorem unde ipsum, corporis molestias laboriosam ipsam. Nulla rerum deserunt asperiores provident, distinctio ad nemo laborum, eveniet doloribus quis veniam itaque fugit autem quae alias minus magnam. Magni, pariatur error. Voluptatem, pariatur quis ipsa, corrupti praesentium animi maiores odit iure esse hic aliquam cum, perspiciatis ipsum architecto sunt repellat.`
     },
   ];
-  visaCategoryQuestionList:any[]=[];
-  eachVisaNameCategory:any[]=[];
+  visaCategoryQuestionList: any[] = [];
+  eachVisaNameCategory: any[] = [];
   isQuestionAnswerVisible: boolean = false;
   selectedQuestionData: any;
+  isNotSelectingDropdown:boolean=false
   constructor(
     private travelToolService: TravelToolsService,
     private router: Router,
@@ -77,39 +88,39 @@ export class GlobalTravelVisaComponent implements OnInit {
       "study-visa": "Global Study Visa"
     };
     this.title = titles[currentEndpoint] || "";
-    const modeName:{[key: string]: string}={
+    const modeName: { [key: string]: string } = {
       "travel-visa": "global_travel_visa",
       "enterpreneur-visa": "global_entrepreneur_visa",
       "study-visa": "global_study_visa"
     }
-    this.modeName=modeName[currentEndpoint] || "";
-    const modeid:{[key: string]: number}={
+    this.modeName = modeName[currentEndpoint] || "";
+    const modeid: { [key: string]: number } = {
       "travel-visa": 36,
       "enterpreneur-visa": 35,
       "study-visa": 37
     }
-    this.moduleId=modeid[currentEndpoint] || "";
-    
-    const moduleTitile:{[key: string]: string}={
+    this.moduleId = modeid[currentEndpoint] || "";
+
+    const moduleTitile: { [key: string]: string } = {
       "travel-visa": "Travel Tools",
       "enterpreneur-visa": "Founders Tools",
       "study-visa": "Education Tools"
     }
-    this.moduleTitile=moduleTitile[currentEndpoint] || "";
-    
+    this.moduleTitile = moduleTitile[currentEndpoint] || "";
+
   }
 
   getCountriesList() {
     this.travelToolService.getCountriesList().subscribe(response => {
-      const country=response.find((item:any) => item.id === 122);
-      this.allCountries = country ? [country] : []; 
+      const country = response.find((item: any) => item.id === 122);
+      this.allCountries = country ? [country] : [];
     });
   }
   getVisaCountriesList() {
-    var data={
-      mode:this.modeName
+    var data = {
+      mode: this.modeName
     }
-    this.travelToolService.getVisaCountriesList(data).subscribe((response:any) => {
+    this.travelToolService.getVisaCountriesList(data).subscribe((response: any) => {
       this.visaCountries = response.data;
     });
   }
@@ -121,7 +132,11 @@ export class GlobalTravelVisaComponent implements OnInit {
   }
 
   next(itemId: number) {
-    this.invalidClass = !(itemId in this.selectedData);
+    if(itemId==1){
+      this.invalidClass = !(itemId in {1:122});
+    }else{
+      this.invalidClass = !(itemId in this.selectedData);
+    }
     if (!this.invalidClass) {
       this.activePageIndex < this.recommendations.length - 1 ? this.activePageIndex++ : this.getRecommendation();
     }
@@ -132,7 +147,7 @@ export class GlobalTravelVisaComponent implements OnInit {
     this.isRecommendationQuestion = true;
     this.isRecommendationData = false;
     this.isRecommendationSavedData = false;
-    this.isRecommendationEachVisaNameData=false;
+    this.isRecommendationEachVisaNameData = false;
     this.selectedData = {};
   }
 
@@ -140,8 +155,8 @@ export class GlobalTravelVisaComponent implements OnInit {
     this.isRecommendationQuestion = false; // if api is done, then have to remove
     this.isRecommendationData = true;
     this.isRecommendationSavedData = false;
-    this.isRecommendationEachVisaNameData=false;
-    this.recommendationDataList=[];
+    this.isRecommendationEachVisaNameData = false;
+    this.recommendationDataList = [];
     let data = {
       // source_id: this.selectedData[1],
       country: this.selectedData[2],
@@ -153,8 +168,8 @@ export class GlobalTravelVisaComponent implements OnInit {
         this.isRecommendationQuestion = false;
         this.isRecommendationData = true;
         this.isRecommendationSavedData = false;
-        this.isRecommendationEachVisaNameData=false;
-        this.recomendationData= response.Data;
+        this.isRecommendationEachVisaNameData = false;
+        this.recomendationData = response.Data;
         const uniqueVisaData = Array.from(
           new Set(this.recomendationData.map(item => item.visa_name)) // Extract unique visa names
         ).map(visa_name => ({ visa_name }));
@@ -166,17 +181,17 @@ export class GlobalTravelVisaComponent implements OnInit {
     });
   }
 
-  getVisaCategoryList(name:any) {
-    this.isRecommendationQuestion = false; 
+  getVisaCategoryList(name: any) {
+    this.isRecommendationQuestion = false;
     this.isRecommendationData = false;
     this.isRecommendationSavedData = false;
-    this.isRecommendationEachVisaNameData=true;
-    this.eachVisaNameCategory=[];
+    this.isRecommendationEachVisaNameData = true;
+    this.eachVisaNameCategory = [];
     const bridgingVisaData = this.recomendationData.filter(item => item.visa_name === name);
     const uniqueVisaCategory = Array.from(
       new Set(bridgingVisaData.map(item => item.question_category)) // Extract unique visa category names
     ).map(question_category => ({ question_category }));
-    this.eachVisaNameCategory=uniqueVisaCategory
+    this.eachVisaNameCategory = uniqueVisaCategory
   }
 
   viewOneQuestion(data: any) {
@@ -237,16 +252,16 @@ export class GlobalTravelVisaComponent implements OnInit {
 
   goBack() {
     if (this.isRecommendationData) {
-      this.isRecommendationData=false;
-      this.isRecommendationQuestion=true;
-      this.activePageIndex=0;
-    }else if(this.isRecommendationEachVisaNameData){
-      this.isRecommendationEachVisaNameData=false;
-      this.isRecommendationData=true;
-    }else if(this.isRecommendationSavedData){
-      this.isRecommendationSavedData=false;
-      this.isRecommendationEachVisaNameData=true;
-    }else{
+      this.isRecommendationData = false;
+      this.isRecommendationQuestion = true;
+      this.activePageIndex = 0;
+    } else if (this.isRecommendationEachVisaNameData) {
+      this.isRecommendationEachVisaNameData = false;
+      this.isRecommendationData = true;
+    } else if (this.isRecommendationSavedData) {
+      this.isRecommendationSavedData = false;
+      this.isRecommendationEachVisaNameData = true;
+    } else {
       const urls: { [key: string]: string } = {
         "Global Travel Visa": "/pages/travel-tools",
         "Global Work Visa": "/pages/job-tool",
@@ -257,21 +272,21 @@ export class GlobalTravelVisaComponent implements OnInit {
       this.router.navigateByUrl(targetUrl);
     }
   }
-  viewQuestions(category:any){
-    this.visaCategoryQuestionList=[];
-    this.isRecommendationQuestion = false; 
+  viewQuestions(category: any) {
+    this.visaCategoryQuestionList = [];
+    this.isRecommendationQuestion = false;
     this.isRecommendationData = false;
     this.isRecommendationSavedData = true;
-    this.isRecommendationEachVisaNameData=false;
+    this.isRecommendationEachVisaNameData = false;
     const bridgingVisaData = this.recomendationData.filter(item => item.question_category === category);
-    this.visaCategoryQuestionList=bridgingVisaData
+    this.visaCategoryQuestionList = bridgingVisaData
   }
   openReport() {
     let data: any = {
       isVisible: true,
       moduleId: this.moduleId,
       questionId: this.selectedQuestionData?.id,
-      countryId:0,
+      countryId: 0,
     };
     // if (this.currentModuleId == 8) {
     //   data.reporttype = 8;

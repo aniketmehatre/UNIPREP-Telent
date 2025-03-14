@@ -1,18 +1,18 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { CompanyConnectComponent } from './company-connect.component';
+import { CompanyConnect1Component } from './company-connect.component';
 
-describe('CompanyConnectComponent', () => {
-  let component: CompanyConnectComponent;
-  let fixture: ComponentFixture<CompanyConnectComponent>;
+describe('CompanyConnect1Component', () => {
+  let component: CompanyConnect1Component;
+  let fixture: ComponentFixture<CompanyConnect1Component>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ CompanyConnectComponent ]
+      declarations: [CompanyConnect1Component]
     })
     .compileComponents();
 
-    fixture = TestBed.createComponent(CompanyConnectComponent);
+    fixture = TestBed.createComponent(CompanyConnect1Component);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

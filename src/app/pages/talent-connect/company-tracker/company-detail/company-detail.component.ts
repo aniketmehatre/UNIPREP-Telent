@@ -1,10 +1,14 @@
+import { CommonModule } from '@angular/common';
 import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { Button, ButtonModule } from 'primeng/button';
+import { Chip, ChipModule } from 'primeng/chip';
 
 @Component({
   selector: 'uni-company-detail',
   templateUrl: './company-detail.component.html',
   styleUrls: ['./company-detail.component.scss'],
   standalone: true,
+  imports: [ChipModule, ButtonModule, CommonModule,]
 })
 export class CompanyDetailComponent {
   @Output() openChat: EventEmitter<boolean> = new EventEmitter<boolean>(true);
