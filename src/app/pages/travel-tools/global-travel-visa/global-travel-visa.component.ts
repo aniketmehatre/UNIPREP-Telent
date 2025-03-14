@@ -312,7 +312,7 @@ export class GlobalTravelVisaComponent implements OnInit {
     return result 
   }
   getVisaName3(name:string){
-    let result = name.includes("Entrepreneur Visa Validity");
+    let result = name.includes("Validity & Restrictions");
     return result 
   }
   getVisaName4(name:string){
