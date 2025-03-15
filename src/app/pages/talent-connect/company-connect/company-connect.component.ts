@@ -67,6 +67,7 @@ export class CompanyConnect1Component implements OnInit {
 
     ngOnInit() {
         this.listCompanyData()
+        this.getCompanyTypes()
     }
 
     listCompanyData() {
@@ -92,6 +93,17 @@ export class CompanyConnect1Component implements OnInit {
                 this.totalCount = data.totalcount;
                 this.totalJob = data.totaljob;
                 this.totalVacancies = data.totalvacancies
+            },
+            error: err => {
+                console.log(err)
+            }
+        })
+    }
+
+    getCompanyTypes() {
+        this.talentConnectService.getCompanyTypes().subscribe({
+            next: data => {
+                console.log(data)
             },
             error: err => {
                 console.log(err)

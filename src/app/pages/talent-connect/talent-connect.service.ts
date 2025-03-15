@@ -1,7 +1,7 @@
-import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { Injectable } from '@angular/core';
-import { environment } from '@env/environment';
-import { Observable, BehaviorSubject } from 'rxjs';
+import {HttpClient, HttpHeaders} from '@angular/common/http';
+import {Injectable} from '@angular/core';
+import {environment} from '@env/environment';
+import {Observable} from 'rxjs';
 
 @Injectable({
     providedIn: 'root'
@@ -115,4 +115,9 @@ export class TalentConnectService {
             { headers: headers });
     }
 
+    // getcompanytypes
+
+    getCompanyTypes() {
+        return this.http.get<any>(environment.ApiUrl + "/getcompanytypes", {headers: this.headers});
+    }
 }

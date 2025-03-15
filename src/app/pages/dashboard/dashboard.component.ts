@@ -200,7 +200,6 @@ export class DashboardComponent implements OnInit, OnChanges {
 		});
 
 		// Subscribe to main data
-		console.log(mainData$);
 
 		this.subs.sink = mainData$.subscribe(({
 			partnerLogo,
