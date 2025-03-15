@@ -147,11 +147,12 @@ export class CareerplannercountrywiseComponent implements OnInit {
 				</div>
 			</div>
           <p><strong>Input:<br></strong></p>
-          <p><strong>Which country are you interested in pursuing your career?</strong></p>
-          <p>${selectedCityAndCountry}</p>
-          <p><strong>Select Your Specialization</strong></p>
+          <p style="color: #d32f2f;"><strong>Which country are you interested in pursuing your career?</strong></p>
+          <p>${selectedCityAndCountry}</p><br>
+          <p style="color: #d32f2f;"><strong>Select Your Specialization</strong></p>
           <p>${specialization_name}</p>
           <br>
+          <div class="divider"></div>
           <p><strong>Response:<br></strong></p>
           ${this.customizedResponse}
         `;
@@ -159,7 +160,7 @@ export class CareerplannercountrywiseComponent implements OnInit {
 			.replace(/```html|```/g, '') 
 			.replace(/\(see https:\/\/g\.co\/ng\/security#xss\)/g, '') 
 			.replace(/SafeValue must use \[property\]=binding:/g, '')
-			.replace(/class="container"/g, ''); //because if i add container the margin will increase so i removed the container now the spacing is proper.
+			.replace(/class="container"/g, 'style="line-height:1.9"'); //because if i add container the margin will increase so i removed the container now the spacing is proper.
     let paramData: DownloadRespose = {
       response: addingInput,
       module_name: "Career Planner",

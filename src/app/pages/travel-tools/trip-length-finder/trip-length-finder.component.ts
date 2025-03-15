@@ -72,7 +72,8 @@ export class TripLengthFinderComponent implements OnInit {
       this.travelToolService.getChatgptRecommendations(data).subscribe((response:any) => {
         let chatGptResponse = response.response;
 				chatGptResponse = chatGptResponse
-					.replace(/```html|```/g, '');
+					.replace(/```html|```/g, '')
+          .replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>');
 				this.recommendationData = this.sanitizer.bypassSecurityTrustHtml(chatGptResponse);
         this.isRecommendation = false;
         this.isResponsePage = true;
@@ -126,18 +127,18 @@ export class TripLengthFinderComponent implements OnInit {
 					<h2 style="margin: 0; color: #1a237e;">Trip Length Finder</h2>
 				</div>
 			</div><p><strong>Input:<br></strong></p>
-      <p><strong>Which Destination are you planning to visit?</strong></p>
+      <p style="color: #d32f2f;"><strong>Which Destination are you planning to visit?</strong></p>
       <p>${selectedCityAndCountry}</p>
       <br>
     `;
 
-    let finalRecommendation = addingInput + '<p><strong>Response:<br></strong></p>' + this.recommendationData + '</div>';
+    let finalRecommendation = addingInput + '<div class="divider"></div><p><strong>Response:<br><br></strong></p>' + this.recommendationData + '</div>';
 		finalRecommendation = finalRecommendation
-			.replace(/```html|```/g, '') 
+			.replace(/```html|```/g, '')
+      .replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>')
 			.replace(/\(see https:\/\/g\.co\/ng\/security#xss\)/g, '') 
 			.replace(/SafeValue must use \[property\]=binding:/g, '')
-			.replace(/class="container"/g, ''); //because if i add container the margin will increase so i removed the container now the spacing is proper.
-
+			.replace(/class="container"/g, 'style="line-height:1.9"'); //because if i add container the margin will increase so i removed the container now the spacing is proper.
 
     let paramData: DownloadRespose = {
       response: finalRecommendation,
