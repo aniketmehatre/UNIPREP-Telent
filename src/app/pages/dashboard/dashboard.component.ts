@@ -670,9 +670,6 @@ export class DashboardComponent implements OnInit, OnChanges {
 		this.daysInMonth = Array.from({ length: totalDays }, (_, i) => i + 1);
 	}
 
-	setUsageData(): void {
-		// Example usage data (should come from an API)
-	}
 	getUsageDataForDay(day: number): any {
 		return this.usageData.filter(entry => entry.day === day);
 	}
@@ -696,7 +693,6 @@ export class DashboardComponent implements OnInit, OnChanges {
 					this.usageData.push(bindingdata)
 					this.cdr.detectChanges();
 				}))
-				console.log(this.usageData);
 			},
 			error: (error) => {
 				console.error('Error fetching job listings:', error);
