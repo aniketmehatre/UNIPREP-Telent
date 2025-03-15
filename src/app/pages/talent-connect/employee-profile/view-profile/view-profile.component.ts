@@ -290,7 +290,7 @@ export class ViewProfileComponent implements OnInit {
       },
       attachments: [
         { name: formData.career_preference_cv_filename || '', type: 'document' },
-        { name: formData.career_preference_portfolio_upload_link || '', type: 'document' },
+        { name: formData.career_preference_portfolio_upload_link || '', type: 'link' },
         { name: formData.career_preference_video_link || '', type: 'video' }
       ].filter(att => att.name),
       academicReference: (formData.academicReferences || []).map((ref: any) => ({

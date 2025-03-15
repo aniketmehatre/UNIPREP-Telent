@@ -4,6 +4,8 @@ import { ViewProfileComponent } from './view-profile/view-profile.component';
 import { DialogService, DynamicDialogRef } from 'primeng/dynamicdialog';
 import { TalentConnectService } from '../talent-connect.service';
 import { HttpClient } from '@angular/common/http';
+import { Toast } from 'primeng/toast';
+import { MessageService } from 'primeng/api';
 
 export enum FileType {
   CERTIFICATIONS = 'Certificates',
@@ -38,74 +40,32 @@ export class EmployeeProfileComponent implements OnInit {
   logo: any;
   uploadedFiles: { [key: string]: File } = {};
   profileId: string = '';
-  preferredEmploymentType: any;
-  preferredWorkplaceType: any;
-  careerStatus: any;
-  totalYearExperienceList: any;
-  genderOptions = [
-    { label: 'Male', value: 'Male' },
-    { label: 'Female', value: 'Female' },
-    { label: 'Non-Binary', value: 'Non-Binary' },
-    { label: 'Prefer Not to Say', value: 'Prefer Not to Say' }
 
-  ];
-  currencies = [{ id: 1, currency_code: "AFN", currency_name: null }];
-  careerInterests = [
-    { id: 1, interest: "Agriculture & Farming" },
-    { id: 2, interest: "Forestry & Timber" }
-  ];
-  fieldsOfStudy = [
-    { id: 1, field_name: "Accounting & Finance" },
-    { id: 2, field_name: "Acoustics" }
-  ];
-  graduationYears = [
-    { id: 2, graduation_year_name: "1980" },
-    { id: 3, graduation_year_name: "1981" }
-  ];
-  hobbies = [
-    { id: 75, hobby: "3D Printing" },
-    { id: 48, hobby: "American Football" }
-  ];
-  jobTitles = [
-    { id: 855, job_title: "Senior Data Engineer" },
-    { id: 968, job_title: "Senior Marketing Manager" }
-  ];
-  employementTypeList = [
-    { id: 855, employment_type: "Hybrid" },
-    { id: 968, employment_type: "WFH" }
-  ];
-  languagelist = [
-    { id: 30, language: "Amharic" },
-    { id: 51, language: "Assamese" },
-    { id: 55, language: "Azerbaijani" }
-  ];
-  locations = [
-    { id: 1, location: "Andaman And Nicobar Islands, Nicobars" }
-  ];
-  professionalStrengths = [
-    { id: 126, strength: "Accountability" },
-    { id: 95, strength: "Accounting Principles" }
-  ];
-  qualifications = [
-    { id: 2, qualification_name: "Bachelor's Degree" },
-    { id: 5, qualification_name: "Doctorate (Ph.D.)" }
-  ];
-  softSkills = [
-    { id: 63, soft_skill: "Accepting Feedback Positively" },
-    { id: 29, soft_skill: "Accountability" }
-  ];
-
-  socialMedias = [
-    { id: 63, social_media: "Linked IN" },
-    { id: 29, social_media: "Facebook" },
-    { id: 29, social_media: "Instagram" }
-  ];
+  // Dropdown options
+  preferredEmploymentType: any = [];
+  preferredWorkplaceType: any = [];
+  careerStatus: any = [];
+  totalYearExperienceList: any = [];
+  genderOptions: any[] = [];
+  currencies: any[] = [];
+  careerInterests: any[] = [];
+  fieldsOfStudy: any[] = [];
+  graduationYears: any[] = [];
+  hobbies: any[] = [];
+  jobTitles: any[] = [];
+  employementTypeList: any[] = [];
+  languagelist: any[] = [];
+  locations: any[] = [];
+  professionalStrengths: any[] = [];
+  qualifications: any[] = [];
+  softSkills: any[] = [];
+  socialMedias: any[] = ['Facebook', 'Instagram', 'LinkedIN', 'X'];
 
   constructor(
     private fb: FormBuilder,
     private dialogService: DialogService,
     private talentConnectService: TalentConnectService,
-    private http: HttpClient
+    private toastService: MessageService
   ) { }
 
   ngOnInit() {
@@ -116,6 +76,15 @@ export class EmployeeProfileComponent implements OnInit {
     });
     this.getProfileData();
   }
+
+  get educationDetails() { return this.personalInfoForm.get('educationDetails') as FormArray; }
+  get workExperience() { return this.personalInfoForm.get('work_experience') as FormArray; }
+  get languages() { return this.personalInfoForm.get('languages') as FormArray; }
+  get socialMedia() { return this.personalInfoForm.get('networking_social_media') as FormArray; }
+  get academicReferences() { return this.personalInfoForm.get('academicReferences') as FormArray; }
+  get professionalReferences() { return this.personalInfoForm.get('professional_references') as FormArray; }
+  get certifications() { return this.personalInfoForm.get('certifications') as FormArray; }
+  get achievements() { return this.personalInfoForm.get('acheivements') as FormArray; }
 
   initializeForm() {
     this.personalInfoForm = this.fb.group({
@@ -188,15 +157,15 @@ export class EmployeeProfileComponent implements OnInit {
 
   createWorkExperienceGroup() {
     return this.fb.group({
-      work_experience_total_years_experience: [null],
-      work_experience_company_name: [null],
-      work_experience_job_title: [null],
-      work_experience_employment_type: [null],
-      work_experience_duration: [null],
-      work_experience_salary_per_month: [null],
-      work_experience_currency_id: [null],
-      work_experience_job_responsibilities: [null],
-      work_experience_experience_letter: [null]
+      work_experience_total_years_experience: [''],
+      work_experience_company_name: [''],
+      work_experience_job_title: [''],
+      work_experience_employment_type: [''],
+      work_experience_duration: [''],
+      work_experience_salary_per_month: [''],
+      work_experience_currency_id: [''],
+      work_experience_job_responsibilities: [''],
+      work_experience_experience_letter: ['']
     });
   }
 
@@ -248,118 +217,38 @@ export class EmployeeProfileComponent implements OnInit {
     });
   }
 
-  // Getter methods for form arrays
-  get educationDetails() {
-    return this.personalInfoForm.get('educationDetails') as FormArray;
+  addFormArrayItem(formArray: FormArray, createMethod: () => FormGroup): void {
+    formArray.push(createMethod());
   }
 
-  get workExperience() {
-    return this.personalInfoForm.get('work_experience') as FormArray;
-  }
-
-  get languages() {
-    return this.personalInfoForm.get('languages') as FormArray;
-  }
-
-  get socialMedia() {
-    return this.personalInfoForm.get('networking_social_media') as FormArray;
-  }
-
-  get academicReferences() {
-    return this.personalInfoForm.get('academicReferences') as FormArray;
-  }
-
-  get professionalReferences() {
-    return this.personalInfoForm.get('professional_references') as FormArray;
-  }
-
-  get certifications() {
-    return this.personalInfoForm.get('certifications') as FormArray;
-  }
-
-  get achievements() {
-    return this.personalInfoForm.get('acheivements') as FormArray;
-  }
-
-  // Methods to add more form groups
-  addEducation() {
-    this.educationDetails.push(this.createEducationGroup());
-  }
-
-  addWorkExperience() {
-    this.workExperience.push(this.createWorkExperienceGroup());
-  }
-
-  addLanguage() {
-    this.languages.push(this.createLanguageGroup());
-  }
-
-  addSocialMedia() {
-    this.socialMedia.push(this.createSocialMediaGroup());
-  }
-
-  addAcademicReference() {
-    this.academicReferences.push(this.createAcademicReferenceGroup());
-  }
-
-  addProfessionalReference() {
-    this.professionalReferences.push(this.createProfessionalReferenceGroup());
-  }
-
-  addCertifications() {
-    this.certifications.push(this.createCertificateGroup());
-  }
-
-  addAcheivements() {
-    this.achievements.push(this.createAcheivementGroup());
-  }
-
-  // Methods to remove form groups
-  removeEducation(index: number) {
-    this.educationDetails.removeAt(index);
-  }
-
-  removeWorkExperience(index: number) {
-    const fileId = `${FileType.EXPERIENCE_LETTER}_${index}`;
-    if (this.uploadedFiles[fileId]) {
-      delete this.uploadedFiles[fileId];
+  // Generic function to remove items from form arrays
+  removeFormArrayItem(formArray: FormArray, index: number, fileKey?: string): void {
+    if (index > 0) {
+      if (fileKey && this.uploadedFiles[`${fileKey}_${index}`]) {
+        delete this.uploadedFiles[`${fileKey}_${index}`];
+      }
+      formArray.removeAt(index);
     }
-    this.workExperience.removeAt(index);
   }
 
-  removeLanguage(index: number) {
-    this.languages.removeAt(index);
-  }
+  addEducation(): void { this.addFormArrayItem(this.educationDetails, () => this.createEducationGroup()); }
+  addWorkExperience(): void { this.addFormArrayItem(this.workExperience, () => this.createWorkExperienceGroup()); }
+  addLanguage(): void { this.addFormArrayItem(this.languages, () => this.createLanguageGroup()); }
+  addSocialMedia(): void { this.addFormArrayItem(this.socialMedia, () => this.createSocialMediaGroup()); }
+  addAcademicReference(): void { this.addFormArrayItem(this.academicReferences, () => this.createAcademicReferenceGroup()); }
+  addProfessionalReference(): void { this.addFormArrayItem(this.professionalReferences, () => this.createProfessionalReferenceGroup()); }
+  addCertifications(): void { this.addFormArrayItem(this.certifications, () => this.createCertificateGroup()); }
+  addAcheivements(): void { this.addFormArrayItem(this.achievements, () => this.createAcheivementGroup()); }
 
-  removeSocialMedia(index: number) {
-    this.socialMedia.removeAt(index);
-  }
-
-  removeAcademicReference(index: number) {
-    this.academicReferences.removeAt(index);
-  }
-
-  removeProfessionalReference(index: number) {
-    this.professionalReferences.removeAt(index);
-  }
-
-  removeCertification(index: number) {
-    // Remove associated file if exists
-    const fileId = `${FileType.CERTIFICATIONS}_${index}`;
-    if (this.uploadedFiles[fileId]) {
-      delete this.uploadedFiles[fileId];
-    }
-    this.certifications.removeAt(index);
-  }
-
-  removeAchievement(index: number) {
-    // Remove associated file if exists
-    const fileId = `${FileType.ACHIEVEMENTS}_${index}`;
-    if (this.uploadedFiles[fileId]) {
-      delete this.uploadedFiles[fileId];
-    }
-    this.achievements.removeAt(index);
-  }
+  // Remove methods - simplified using generic function
+  removeEducation(index: number): void { this.removeFormArrayItem(this.educationDetails, index); }
+  removeWorkExperience(index: number): void { this.removeFormArrayItem(this.workExperience, index, FileType.EXPERIENCE_LETTER); }
+  removeLanguage(index: number): void { this.removeFormArrayItem(this.languages, index); }
+  removeSocialMedia(index: number): void { this.removeFormArrayItem(this.socialMedia, index); }
+  removeAcademicReference(index: number): void { this.removeFormArrayItem(this.academicReferences, index); }
+  removeProfessionalReference(index: number): void { this.removeFormArrayItem(this.professionalReferences, index); }
+  removeCertification(index: number): void { this.removeFormArrayItem(this.certifications, index, FileType.CERTIFICATIONS); }
+  removeAchievement(index: number): void { this.removeFormArrayItem(this.achievements, index, FileType.ACHIEVEMENTS); }
 
   uploadFile(type: FileType, event: any, index: number) {
     console.log('calling', type);
@@ -414,8 +303,7 @@ export class EmployeeProfileComponent implements OnInit {
     console.log(this.personalInfoForm);
     if (this.personalInfoForm.valid) {
       const formData = new FormData();
-      const profileId = this.personalInfoForm.get('id')?.value;
-
+      const profileId = this.profileId;
       const isUpdateOperation = profileId !== null && profileId !== undefined;
 
       if (isUpdateOperation) {
@@ -649,9 +537,18 @@ export class EmployeeProfileComponent implements OnInit {
 
         this.talentConnectService.updateProfile(formData).subscribe({
           next: response => {
-            console.log('Profile updated successfully', response);
+            this.toastService.add({
+              severity: "success",
+              summary: "Success",
+              detail: "Profile updated successfully"
+            });
           },
           error: error => {
+            this.toastService.add({
+              severity: "error",
+              summary: "Required",
+              detail: error.error.message
+            });
             console.error('Error updating profile', error);
           }
         });
@@ -786,9 +683,18 @@ export class EmployeeProfileComponent implements OnInit {
         this.talentConnectService.submitProfile(formData).subscribe({
           next: response => {
             console.log('Profile submitted successfully', response);
+            this.toastService.add({
+              severity: "success",
+              summary: "Success",
+              detail: "Profile Created Successfully",
+            });
           },
           error: error => {
-            console.error('Error submitting profile', error);
+            this.toastService.add({
+              severity: "error",
+              summary: "Required",
+              detail: error.error.message,
+            });          
           }
         });
       }
@@ -885,7 +791,9 @@ export class EmployeeProfileComponent implements OnInit {
         this.preferredEmploymentType = response.preferred_employment_type;
         this.genderOptions = response.gender;
         this.careerStatus = response.career_status;
-        this.totalYearExperienceList = response.total_year_experience;
+        this.totalYearExperienceList = response.total_years_experience;
+        this.graduationYears = response.graduation_years;
+        this.fieldsOfStudy = response.fields_of_study;
       },
       error: error => {
         console.log(error);
@@ -897,8 +805,9 @@ export class EmployeeProfileComponent implements OnInit {
     this.talentConnectService.getMyProfileData().subscribe({
       next: response => {
         if (response.status) {
-          this.profileId = response.id;
-          this.patchFormData(response.data[(response?.data).length - 1]);
+          const responses = response.data[(response?.data).length - 1];
+          this.profileId = responses.id;
+          this.patchFormData(responses);
         }
       },
       error: error => {
@@ -912,7 +821,7 @@ export class EmployeeProfileComponent implements OnInit {
 
     this.personalInfoForm.patchValue({
       full_name: response.full_name,
-      date_of_birth: response.date_of_birth,
+      date_of_birth: new Date(response.date_of_birth),
       nationality_id: response.nationality_id,
       gender: response.gender,
       location_id: response.location_id,
@@ -973,29 +882,48 @@ export class EmployeeProfileComponent implements OnInit {
     if (response.certifications) {
       const certArray = this.personalInfoForm.get('certifications') as FormArray;
       certArray.clear();
-      response.certifications.forEach((cert: any) => {
-        certArray.push(this.fb.group({
-          certifications_certificate_name: [cert.name || ''],
-          certifications_certificate_file: [cert.file_name || '']
-        }));
-      });
-    }
 
-    if (response.acheivements) {
       const achievArray = this.personalInfoForm.get('acheivements') as FormArray;
       achievArray.clear();
-      response.acheivements.forEach((achiev: any) => {
-        achievArray.push(this.fb.group({
-          certifications_achievement_name: [achiev.name || ''],
-          certifications_achievement_file: [achiev.file_name || '']
+      response.certifications.forEach((achiev: any) => {
+        if (achiev?.type == 'Achievement') {
+          achievArray.push(this.fb.group({
+            certifications_achievement_name: [achiev.name || ''],
+            certifications_achievement_file: [achiev.file_name || '']
+          }));
+        } else {
+          certArray.push(this.fb.group({
+            certifications_certificate_name: [achiev.name || ''],
+            certifications_certificate_file: [achiev.file_name || '']
+          }));
+        }
+      });
+    }
+    //patch languages
+    if (response.languages) {
+      const lanArray = this.personalInfoForm.get('languages') as FormArray;
+      lanArray.clear();
+      response.languages.forEach((cert: any) => {
+        lanArray.push(this.fb.group({
+          languages_language_id: [cert.language_id || ''],
+          languages_proficiency: [cert.proficiency || '']
         }));
       });
     }
-
+    //networking
+    if (response.networking) {
+      const lanArray = this.personalInfoForm.get('networking_social_media') as FormArray;
+      lanArray.clear();
+      response.networking.forEach((cert: any) => {
+        lanArray.push(this.fb.group({
+          networking_social_media: [cert.social_media || ''],
+          networking_social_media_link: [cert.social_media_link || '']
+        }));
+      });
+    }
     // Patch References
     if (response.references) {
       const academicRefArray = this.personalInfoForm.get('academicReferences') as FormArray;
-
       academicRefArray.clear();
 
       response.references.forEach((ref: any) => {
@@ -1027,6 +955,15 @@ export class EmployeeProfileComponent implements OnInit {
 
   updateMessageBox(fieldKey: string): void {
     this.currentMessage = this.hoverMessages[fieldKey];
+  }
+
+  public getListValue(list: any[], id: number) {
+    if (list) {
+      const data = list.find((item) => item.id == id);
+      if (data) {
+        return data;
+      }
+    }
   }
 
   resetMessageBox(): void {
