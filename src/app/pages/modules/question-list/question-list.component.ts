@@ -1,30 +1,28 @@
-import { ChangeDetectorRef, Component, OnInit, ViewChild, ElementRef, HostListener, PipeTransform, Pipe } from "@angular/core"
-import { Observable } from "rxjs"
-import { ReadQuestion } from "../../../@Models/read-question.model"
-import { MenuItem, MessageService } from "primeng/api"
-import { ModuleServiceService } from "../../module-store/module-service.service"
-import { ModuleStoreService } from "../../module-store/module-store.service"
-import { DataService } from "../../../data.service"
-import { ActivatedRoute, NavigationEnd, Router } from "@angular/router"
-import { Location } from "@angular/common"
-import { DomSanitizer, SafeResourceUrl, Meta, Title } from "@angular/platform-browser"
-import { Carousel } from "primeng/carousel"
-import { AuthService } from "src/app/Auth/auth.service"
-import { NgxUiLoaderService } from "ngx-ui-loader"
-import { PageFacadeService } from "../../page-facade.service"
-import { LocationService } from "src/app/location.service"
-import { MarkdownService } from "ngx-markdown"
-import { CommonModule } from "@angular/common"
-import { DialogModule } from "primeng/dialog"
-import { CardModule } from "primeng/card"
-import { PaginatorModule } from "primeng/paginator"
-import { SkeletonModule } from "primeng/skeleton"
-import { TooltipModule } from "primeng/tooltip"
-import { ButtonModule } from "primeng/button"
-import { MultiSelectModule } from "primeng/multiselect"
-import { CarouselModule } from "primeng/carousel"
-import { InputGroupModule } from "primeng/inputgroup"
-import { InputGroupAddonModule } from "primeng/inputgroupaddon"
+import {Component, ElementRef, HostListener, OnInit, Pipe, PipeTransform, ViewChild} from "@angular/core"
+import {Observable} from "rxjs"
+import {ReadQuestion} from "../../../@Models/read-question.model"
+import {MenuItem, MessageService} from "primeng/api"
+import {ModuleServiceService} from "../../module-store/module-service.service"
+import {ModuleStoreService} from "../../module-store/module-store.service"
+import {DataService} from "../../../data.service"
+import {ActivatedRoute, Router} from "@angular/router"
+import {CommonModule, Location} from "@angular/common"
+import {DomSanitizer, Meta, SafeResourceUrl, Title} from "@angular/platform-browser"
+import {Carousel, CarouselModule} from "primeng/carousel"
+import {AuthService} from "src/app/Auth/auth.service"
+import {NgxUiLoaderService} from "ngx-ui-loader"
+import {PageFacadeService} from "../../page-facade.service"
+import {LocationService} from "src/app/location.service"
+import {MarkdownService} from "ngx-markdown"
+import {DialogModule} from "primeng/dialog"
+import {CardModule} from "primeng/card"
+import {PaginatorModule} from "primeng/paginator"
+import {SkeletonModule} from "primeng/skeleton"
+import {TooltipModule} from "primeng/tooltip"
+import {ButtonModule} from "primeng/button"
+import {MultiSelectModule} from "primeng/multiselect"
+import {InputGroupModule} from "primeng/inputgroup"
+import {InputGroupAddonModule} from "primeng/inputgroupaddon"
 import {StorageService} from "../../../storage.service";
 
 @Component({
@@ -33,7 +31,8 @@ import {StorageService} from "../../../storage.service";
 	styleUrls: ["./question-list.component.scss"],
 	providers: [MarkdownService],
 	standalone: true,
-	imports: [CommonModule, DialogModule, CardModule, PaginatorModule, SkeletonModule, TooltipModule, ButtonModule, MultiSelectModule, CarouselModule, InputGroupModule, InputGroupAddonModule],
+	imports: [CommonModule, DialogModule, CardModule, PaginatorModule, SkeletonModule, TooltipModule,
+		ButtonModule, MultiSelectModule, CarouselModule, InputGroupModule, InputGroupAddonModule],
 })
 export class QuestionListComponent implements OnInit {
 	@ViewChild("carouselVideoElm") carouselVideoElm: any

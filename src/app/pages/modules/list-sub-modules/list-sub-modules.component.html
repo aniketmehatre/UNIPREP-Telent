@@ -13,7 +13,12 @@
             </div> -->
 			<!-- after complete the work needs to uncomment the below code -->
 			<div class="col d-flex flex-md-row flex-column gap-2 justify-content-center text-center">
-				<div *ngIf="currentModuleId == 5 || 1 || 7 || 3 || 4">
+				<div *ngIf="this.currentModuleId == 5 || 1 || 7 || 3 || 4 || 10">
+                    <span *ngIf="this.currentModuleId == 10">
+                    <div class="backIcon d-md-flex d-none" (click)="goBack()" role="button">
+							<span class="fa-solid fa-chevron-left" (click)="goBack()"></span>
+						</div>
+                    </span>
 					<span *ngIf="this.currentModuleId == 8 && this.canShowQuestionList">
 						<div class="backIcon d-md-flex d-none" (click)="goBack()" role="button">
 							<span class="fa-solid fa-chevron-left" (click)="goBack()"></span>
