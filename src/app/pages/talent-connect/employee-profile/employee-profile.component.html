@@ -188,7 +188,7 @@
                                                         [options]="qualifications"
                                                         placeholder="Select your highest qualification"
                                                         styleClass="w-100" optionLabel="qualification_name"
-                                                        optionValue="id"></p-select>
+                                                        optionValue="id" [filter]="true" filterBy="qualification_name"></p-select>
                                                     <small class="text-danger"
                                                         *ngIf="education.get('education_qualification_id')?.invalid && education.get('education_qualification_id')?.touched">
                                                         This field is mandatory
@@ -219,7 +219,7 @@
                                                     <p-select id="highestQualification"
                                                         formControlName="education_field_id" [options]="fieldsOfStudy"
                                                         placeholder="Select Field" styleClass="w-100"
-                                                        optionLabel="field_name" optionValue="id"></p-select>
+                                                        optionLabel="field_name" optionValue="id" [filter]="true" filterBy="field_name"></p-select>
                                                     <small class="text-danger"
                                                         *ngIf="education.get('education_field_id')?.invalid &&education.get('education_field_id')?.touched">
                                                         This field is mandatory
@@ -439,7 +439,7 @@
                                                     Status<span class="text-danger">*</span></label>
                                                 <p-select id="highestQualification"
                                                     formControlName="career_preference_career_status"
-                                                    [options]="careerStatus" placeholder="Select total experience"
+                                                    [options]="careerStatus" placeholder="Select Career Status"
                                                     styleClass="w-100"></p-select>
                                                 <small class="text-danger"
                                                     *ngIf="personalInfoForm.get('career_preference_career_status')?.invalid &&personalInfoForm.get('career_preference_career_status')?.touched">
@@ -468,7 +468,7 @@
                                                     formControlName="career_preference_career_interest_id"
                                                     [options]="careerInterests" placeholder="Enter career interest"
                                                     styleClass="w-100" optionLabel="interest"
-                                                    optionValue="id"></p-select>
+                                                    optionValue="id" [filter]="true" filterBy="interest"></p-select>
                                                 <small class="text-danger"
                                                     *ngIf="personalInfoForm.get('career_preference_career_interest_id')?.invalid &&personalInfoForm.get('career_preference_career_interest_id')?.touched">
                                                     This field is mandatory
@@ -484,7 +484,7 @@
                                                         formControlName="career_preference_preferred_work_location_id"
                                                         [options]="locations" placeholder="Select Your Location"
                                                         styleClass="w-100" optionLabel="location"
-                                                        optionValue="id"></p-select>
+                                                        optionValue="id" [filter]="true" filterBy="location" [appendTo]="'body'"></p-select>
                                                 </div>
                                                 <small class="text-danger"
                                                     *ngIf="personalInfoForm.get('career_preference_preferred_work_location_id')?.invalid &&personalInfoForm.get('career_preference_preferred_work_location_id')?.touched">
@@ -545,7 +545,7 @@
                                                             <p-select [options]="currencies"
                                                             styleClass="p-select p-component"
                                                             optionLabel="currency_code" optionValue="id"
-                                                            placeholder="INR"
+                                                            placeholder="Select"
                                                             formControlName="career_preference_currency_id"
                                                             [style]="{ width: '80px' }">
                                                            </p-select>
@@ -558,7 +558,7 @@
                                                             </div>
                                                         </div>
                                                 <small class="text-danger"
-                                                    *ngIf="personalInfoForm.get('career_preference_expected_salary')?.invalid && personalInfoForm.get('career_preference_currency_id')?.invalid && personalInfoForm.get('career_preference_expected_salary')?.touched">
+                                                    *ngIf="(personalInfoForm.get('career_preference_expected_salary')?.invalid && personalInfoForm.get('career_preference_expected_salary')?.touched) || (personalInfoForm.get('career_preference_currency_id')?.invalid && personalInfoForm.get('career_preference_currency_id')?.touched) ">
                                                     This field with currency is mandatory
                                                 </small>
                                             </div>
@@ -1088,7 +1088,7 @@
             </div>
             <div class="col-md-8 col-lg-4 d-flex flex-fill">
                 <div class="container-fluid">
-                    <div class="profile-container d-flex flex-column justify-content-between p-2 pb-0 rounded-4"
+                    <div class="profile-container d-flex flex-column justify-content-between p-2 pb-0  overflow-y-auto rounded-4"
                         style="border: 2px solid var(--uniprep-secondary); height: calc(100vh - 290px);">
                         <div class="d-flex gap-2">
                             <div>

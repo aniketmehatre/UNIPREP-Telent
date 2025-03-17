@@ -34,7 +34,7 @@ export class TalentConnectService {
 
     getJobDetails(id: number) {
         return this.http.post<any>(
-            environment.ApiUrl + "/showuserJobs", { id: id },
+            environment.ApiUrl + "/showuserTrack", { id: id },
             { headers: this.headers });
     }
 
@@ -155,6 +155,12 @@ export class TalentConnectService {
         formData.append("companyId", companyId);
         const headers = new HttpHeaders().set("Accept", "application/json");
         return this.http.post<any>(environment.ApiUrl + "/followcompany", formData,  {headers: headers});
+    }
+
+    getCurrencies() {
+        return this.http.get<any>(environment.ApiUrl + "/currenciesList", {
+            headers: this.headers
+        });
     }
 
 }
