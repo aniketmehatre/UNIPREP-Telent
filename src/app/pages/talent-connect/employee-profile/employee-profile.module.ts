@@ -16,6 +16,7 @@ import { DialogService } from 'primeng/dynamicdialog';
 import { BadgeModule } from 'primeng/badge';
 import { SelectModule } from 'primeng/select';
 import { DatePickerModule } from 'primeng/datepicker';
+import { ToastModule } from 'primeng/toast';
 
 const routes: Routes = [
   {
@@ -43,7 +44,8 @@ const routes: Routes = [
     DialogModule,
     BadgeModule,
     SelectModule,
-    DatePickerModule
+    DatePickerModule,
+    ToastModule
   ]
 })
 export class EmployeeProfileModule { }

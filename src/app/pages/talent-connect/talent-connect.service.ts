@@ -56,6 +56,18 @@ export class TalentConnectService {
             { headers: this.headers });
     }
 
+    sendMessage(data: { job_id: number, chat: string }) {
+        return this.http.post<any>(
+            environment.ApiUrl + "/sendMessage", data,
+            { headers: this.headers });
+    }
+
+    getMessage(data: { job_id: number }) {
+        return this.http.post<any>(
+            environment.ApiUrl + "/getMessage", data,
+            { headers: this.headers });
+    }
+
     //My Profile
     getMyProfileDropDownValues() {
         return this.http.get<any>(
