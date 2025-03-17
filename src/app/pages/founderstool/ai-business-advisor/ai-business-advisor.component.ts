@@ -177,7 +177,7 @@ export class AiBusinessAdvisorComponent implements OnInit {
   downloadRecommadation() {
     let addingInput = `<div style="font-family: 'Poppins', sans-serif; display: flex; align-items: center; justify-content: space-between; border-bottom: 2px solid #d32f2f; padding-bottom: 10px; margin-bottom: 20px;">
 				<div style="text-align: center;">
-					<h2 style="margin: 0; color: #1a237e;">Trip Length Finder</h2>
+					<h2 style="margin: 0; color: #1a237e;">Business Advisor</h2>
 				</div></div>
         <p><strong>Input:<br></strong></p>`;
 
