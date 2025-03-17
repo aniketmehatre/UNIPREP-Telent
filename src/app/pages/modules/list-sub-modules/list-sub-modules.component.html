@@ -86,17 +86,18 @@
 						</div> -->
 					</button>
 				</div>
-				<div class="flex-shrink-0 align-items-center d-flex"  *ngIf="currentModuleId == 8">
-					<div class="p-input-icon-left h-100 w-100 search-container border-primary rounded-3">
-						<i class="fa-solid fa-search search-icon"></i>
-						<input *ngIf="currentModuleId == 8" class="w-100 px-5 border-0 py-2 h-100 bg-transparent input-field" 
-						type="text" placeholder="Look for you specialization" pInputText [(ngModel)]="searchLearning" (input)="performSearch()" />
-						<div *ngIf="filteredData.length" class="dropdown-container text-start">
-							<div *ngFor="let result of filteredData" class="dropdown-item">
-								<div (click)="takeMeToQuestion(result)" role="button">
-									<h3>{{ result.title }}</h3>
-									<p>{{ result.subtitle }}</p>
-								</div>
+				<div class="flex-shrink-0 align-items-center d-flex position-relative"  *ngIf="currentModuleId == 8">
+					<p-inputgroup>
+						<p-inputgroup-addon>
+							<i class="fa-solid fa-search"></i>
+						</p-inputgroup-addon>
+						<input *ngIf="currentModuleId == 8" type="text" placeholder="Look for you specialization" pInputText [(ngModel)]="searchLearning" (input)="performSearch()" />
+					</p-inputgroup>
+					<div *ngIf="filteredData.length" class="dropdown-container text-start">
+						<div *ngFor="let result of filteredData" class="dropdown-item" role="button" (click)="takeMeToQuestion(result)">
+							<div role="button">
+								<h3>{{ result.title }}</h3>
+								<p>{{ result.subtitle }}</p>
 							</div>
 						</div>
 					</div>

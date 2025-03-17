@@ -214,18 +214,6 @@ selctedQuizTiny {
 //     margin-top: -0.01rem;    
 // }
 
-.input-container {
-	position: relative;
-	width: 100%;
-}
-
-input[type="text"] {
-	width: 100%;
-	padding: 8px 30px 8px 8px;
-	border: 1px solid #ccc;
-	border-radius: 4px;
-}
-
 .clear-button {
 	position: absolute;
 	right: 10px;
@@ -242,7 +230,6 @@ input[type="text"] {
 	position: absolute;
     width: 100%;
     top: 100%;
-    margin-top: 10px;
     z-index: 9;
     background: white;
     border: 1px solid var(--uniprep-secondary);
@@ -303,18 +290,4 @@ input[type="text"] {
     display: flex;
     align-items: center;
     padding-left: 40px; /* Prevents text from overlapping with the icon */
-}
-
-.search-icon {
-    position: absolute;
-    left: 15px; /* Adjust spacing from the left */
-    top: 50%;
-    transform: translateY(-50%);
-    color: #007bff; /* Adjust icon color */
-    font-size: 1.2rem;
-    pointer-events: none; /* Prevents interaction */
-}
-
-.input-field {
-    padding-left: 40px; /* Ensures input text does not overlap with the icon */
 }
