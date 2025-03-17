@@ -26,7 +26,7 @@ import {Carousel} from "primeng/carousel";
 export class GovermentFundingOppurtunityComponent implements OnInit {
   fundData: any[] = [];
   countryList: Country[] = [];
-  stateList: unknown = [];
+  stateList: any = [];
   page = 1;
   pageSize = 25;
   first: number = 0;
@@ -292,6 +292,17 @@ export class GovermentFundingOppurtunityComponent implements OnInit {
     this.userManagementService.GetUserPersonalInfo().subscribe((data) => {
       this.PersonalInfo = data;
     });
+  }
+
+  onStateChange() {
+    console.log(this.selectedData[2]);
+    const allSelected = this.selectedData[2]?.some((state: number) => state === 380);
+
+    if (allSelected) {
+      this.selectedData[2] = [...this.stateList.map((item: any) => item.id)];
+    } else {
+      this.selectedData[2] = this.selectedData[1].filter((state: number) => state !== 380);
+    }
   }
 
   bookmarkQuestion(FundId: any, isFav: any) {
