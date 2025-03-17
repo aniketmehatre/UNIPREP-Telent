@@ -11,7 +11,7 @@
           <div class="job-card mb-3" (click)="onClickJobCard(company.id)" *ngFor="let company of companyList">
             <div class="d-flex">
               <div class="company-logo me-3">
-                <img src="assets/images/uniabroad-logo.png" alt="UNIABROAD">
+                <img src="{{company.company_logo}}" alt="UNIABROAD">
               </div>
               <div class="job-details text-left">
                 <h5 class="job-title mb-1 text-left">{{company.company_name}}</h5>

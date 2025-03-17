@@ -27,36 +27,7 @@ export class CompanyListsComponent implements OnInit {
     { label: 'Recieved', active: false }
   ];
 
-  companyList: any = [
-    {
-      name: 'UNIABROAD Pvt. Ltd',
-      location: 'Bangalore, India',
-      code: '001',
-      status: 'Sent',
-      position:'Project Manager'
-    },
-    {
-      name: 'UNIABROAD Pvt. Ltd',
-      location: 'Bangalore, India',
-      code: '001',
-      status: 'Sent',
-      position:'Project Manager'
-    },
-    {
-      name: 'UNIABROAD Pvt. Ltd',
-      location: 'Bangalore, India',
-      code: '001',
-      status: 'Sent',
-      position:'Project Manager'
-    },
-    {
-      name: 'UNIABROAD Pvt. Ltd',
-      location: 'Bangalore, India',
-      code: '001',
-      status: 'Sent',
-      position:'Project Manager'
-    }
-  ]
+  companyList: any = []
 
   page: number = 1;
   perPage: number = 10;
