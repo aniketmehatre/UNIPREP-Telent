@@ -90,11 +90,6 @@ export class HeaderSearchComponent implements OnInit, OnDestroy {
 				this.isSearchResultFound = false
 			}
 		})
-		route.events.subscribe((val) => {
-			if (val instanceof NavigationEnd) {
-				this.moduleDatasWithurl()
-			}
-		})
 	}
 	page: number = 1
 
@@ -117,7 +112,6 @@ export class HeaderSearchComponent implements OnInit, OnDestroy {
 	}
 	imagewhitlabeldomainname: any
 	ngOnInit(): void {
-		this.moduleDatasWithurl()
 		this.locationService.getOrgName().subscribe((orgname) => {
 			this.orgnamewhitlabel = orgname
 		})
@@ -149,36 +143,36 @@ export class HeaderSearchComponent implements OnInit, OnDestroy {
 	showModuleSearchBare() {
 		this.windowChange.emit({ stage: "modulesearch" })
 	}
-	moduleDatasWithurl() {
-		this.currentRoute = this.route.url
-		if (this.currentRoute.includes("learning-hub")) {
-			this.flobalsearchbuttonname = "Module"
-			this.isButtonShowOnlyModulesMenus = true
-		} else if (this.currentRoute.includes("k12")) {
-			this.flobalsearchbuttonname = "Subject"
-			this.isButtonShowOnlyModulesMenus = true
-		} else if (this.currentRoute.includes("unilearn")) {
-			this.flobalsearchbuttonname = "Module"
-			this.isButtonShowOnlyModulesMenus = true
-		} else if (this.currentRoute.includes("startup")) {
-			this.flobalsearchbuttonname = "Files"
-			this.isButtonShowOnlyModulesMenus = true
-		} else if (this.currentRoute.includes("resource")) {
-			this.flobalsearchbuttonname = "Resources"
-			this.isButtonShowOnlyModulesMenus = true
-		} else if (this.currentRoute.includes("events")) {
-			this.flobalsearchbuttonname = "Events"
-			this.isButtonShowOnlyModulesMenus = true
-		} else if (this.currentRoute.includes("success-stories")) {
-			this.flobalsearchbuttonname = "Stories"
-			this.isButtonShowOnlyModulesMenus = true
-		} else if (this.currentRoute.includes("tutorials")) {
-			this.flobalsearchbuttonname = "Tutorials"
-			this.isButtonShowOnlyModulesMenus = true
-		} else {
-			this.isButtonShowOnlyModulesMenus = false
-		}
-	}
+	// moduleDatasWithurl() {
+	// 	this.currentRoute = this.route.url
+	// 	if (this.currentRoute.includes("learning-hub")) {
+	// 		this.flobalsearchbuttonname = "Module"
+	// 		this.isButtonShowOnlyModulesMenus = true
+	// 	} else if (this.currentRoute.includes("k12")) {
+	// 		this.flobalsearchbuttonname = "Subject"
+	// 		this.isButtonShowOnlyModulesMenus = true
+	// 	} else if (this.currentRoute.includes("unilearn")) {
+	// 		this.flobalsearchbuttonname = "Module"
+	// 		this.isButtonShowOnlyModulesMenus = true
+	// 	} else if (this.currentRoute.includes("startup")) {
+	// 		this.flobalsearchbuttonname = "Files"
+	// 		this.isButtonShowOnlyModulesMenus = true
+	// 	} else if (this.currentRoute.includes("resource")) {
+	// 		this.flobalsearchbuttonname = "Resources"
+	// 		this.isButtonShowOnlyModulesMenus = true
+	// 	} else if (this.currentRoute.includes("events")) {
+	// 		this.flobalsearchbuttonname = "Events"
+	// 		this.isButtonShowOnlyModulesMenus = true
+	// 	} else if (this.currentRoute.includes("success-stories")) {
+	// 		this.flobalsearchbuttonname = "Stories"
+	// 		this.isButtonShowOnlyModulesMenus = true
+	// 	} else if (this.currentRoute.includes("tutorials")) {
+	// 		this.flobalsearchbuttonname = "Tutorials"
+	// 		this.isButtonShowOnlyModulesMenus = true
+	// 	} else {
+	// 		this.isButtonShowOnlyModulesMenus = false
+	// 	}
+	// }
 	onSearchChange(event: any) {
 		this.searchKeyword = event
 		event == "" ? (this.isSearchResultFound = false) : ""

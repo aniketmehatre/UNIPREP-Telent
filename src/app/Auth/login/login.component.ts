@@ -205,6 +205,23 @@ export class LoginComponent implements OnInit, OnDestroy {
 		this.service.getMe().subscribe({
 			next: (userData) => {
 				this.loadCountryList(userData)
+        this.subs.sink = this.service.selectMessage$().subscribe((message) => {
+            let req = {
+              userId: userData.userdetails[0].user_id,
+              location: this.locationData.city,
+              country: this.locationData.country_name,
+            };
+            this.locationService
+              .sendSessionData(req, "login")
+              .subscribe((response) => {
+              });
+            // this.toast.add({
+            //   severity: "success",
+            //   summary: "Success",
+            //   detail: message,
+            // });
+      
+        });
 				this.toast.add({
 					severity: "success",
 					summary: "Success",

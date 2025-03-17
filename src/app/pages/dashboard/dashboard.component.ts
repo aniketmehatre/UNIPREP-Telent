@@ -525,7 +525,7 @@ export class DashboardComponent implements OnInit, OnChanges {
 
 		const circle = document.querySelector('.progress1-ring__circle') as SVGCircleElement;
 		if (!circle) {
-			console.warn('Progress ring circle element not found');
+			// console.warn('Progress ring circle element not found');
 			return;
 		}
 
