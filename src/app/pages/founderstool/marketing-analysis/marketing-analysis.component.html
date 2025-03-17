@@ -43,10 +43,62 @@
                   <h5 class="uniprep-primary fw-semibold mt-3 mb-1">
                     {{ recommendation.question.branches[1] }}
                   </h5>
-                  <p-select styleClass="w-100" appendTo="body" [options]="locationList" [filter]="true"
-                    formControlName="location" filterBy="country" optionLabel="country" optionValue="country"
-                    [autoDisplayFirst]="false">
+                  <p-select [options]="locationList" formControlName="location" [virtualScroll]="true"
+                      [virtualScrollItemSize]="50" [appendTo]="'body'" placeholder="Select Destination" [filter]="true"
+                      filterBy="city_name,country_name" [showClear]="true" styleClass="w-100">
+                      <ng-template let-country pTemplate="item">
+                          <div class="d-flex align-items-center gap-2">
+                              <div class="dropdownimg">
+                                  <img [src]="country.flag" class="img-fluid" />
+                              </div>
+                              <div>
+                                  <span *ngIf="country.city_name !== null">
+                                      {{ country.city_name }},
+                                  </span>{{ country.country_name }}
+                              </div>
+                          </div>
+                      </ng-template>
+                      <ng-template pTemplate="selectedItem" let-selectedOption>
+                          <div class="d-flex align-items-center gap-2">
+                              <div class="dropdownimg">
+                                  <img [src]="selectedOption.flag" class="img-fluid" />
+                              </div>
+                              <div>
+                                  <span *ngIf="selectedOption.city_name !== null">
+                                      {{ selectedOption.city_name }},
+                                  </span>{{ selectedOption.country_name }}
+                              </div>
+                          </div>
+                      </ng-template>
                   </p-select>
+                  <!-- <p-select styleClass="w-100" appendTo="body" [options]="locationList" [filter]="true"  [virtualScroll]="true"
+                    formControlName="location" filterBy="city_name,country_name" placeholder="Market Place" [virtualScrollItemSize]="50"
+                    [autoDisplayFirst]="false">
+                    <ng-template let-country pTemplate="item">
+                      <div class="d-flex align-items-center gap-2">
+                          <div class="dropdownimg">
+                              <img [src]="country.flag" class="img-fluid" />
+                          </div>
+                          <div>
+                              <span *ngIf="country.city_name !== null">
+                                  {{ country.city_name }},
+                              </span>{{ country.country_name }}
+                          </div>
+                      </div>
+                  </ng-template>
+                  <ng-template pTemplate="selectedItem" let-selectedOption>
+                      <div class="d-flex align-items-center gap-2">
+                          <div class="dropdownimg">
+                              <img [src]="selectedOption.flag" class="img-fluid" />
+                          </div>
+                          <div>
+                              <span *ngIf="selectedOption.city_name !== null">
+                                  {{ selectedOption.city_name }},
+                              </span>{{ selectedOption.country_name }}
+                          </div>
+                      </div>
+                  </ng-template>
+                  </p-select> -->
                   <p class="text-center" *ngIf="marketingForm.get('location')?.errors?.required && submitted"
                     style="color: red">
                     Please Choose Any one option
@@ -69,8 +121,8 @@
                     {{ recommendation.question.branches[3] }}
                   </h5>
                   <p-select styleClass="w-100" formControlName="productService" appendTo="body"
-                    [options]="productServiceList" [filter]="true" filterBy="name"
-                    optionLabel="name" optionValue="name" [autoDisplayFirst]="false">
+                    [options]="productServiceList" [filter]="true" filterBy="Product/Service" placeholder="Target Audience"
+                    optionLabel="Product/Service" optionValue="Product/Service" [autoDisplayFirst]="false">
                   </p-select>
                   <p class="text-center" *ngIf="
                         marketingForm.get('productService')?.errors?.required && submitted

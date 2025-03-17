@@ -43,7 +43,7 @@ export class AiBusinessAdvisorComponent implements OnInit {
     { id: 3, question: 'What is the duration in which you want to achieve your goals?' },
     { id: 4, question: 'What challenges your business is currently facing?' },
     { id: 5, question: 'Who is your target audience?' },
-    { id: 6, question: 'What is your budget for your business goals?' },
+    { id: 6, question: 'What is your budget for business goals?' },
     { id: 7, question: 'What is the overall strategy you want to align with?' }
   ];
   isRecommendationQuestion: boolean = true;

@@ -1,3 +1,5 @@
+import { SafeHtml } from "@angular/platform-browser"
+
 export interface AllCountryRes{
     id: number
     country: string
@@ -23,7 +25,7 @@ export interface CurrencyList{
 export interface SaveResponse{
     country_name: string
     university_name: string
-    response: string
+    response: SafeHtml
 }
 
 export interface SavedResponse{

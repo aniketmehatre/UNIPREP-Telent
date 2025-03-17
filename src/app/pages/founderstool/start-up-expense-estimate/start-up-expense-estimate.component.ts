@@ -3,7 +3,6 @@ import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { MessageService } from 'primeng/api';
 import { AuthService } from 'src/app/Auth/auth.service';
-import { DataService } from 'src/app/data.service';
 import { LocationService } from 'src/app/location.service';
 import { PageFacadeService } from '../../page-facade.service';
 import { FounderstoolService } from '../founderstool.service';
@@ -20,11 +19,11 @@ import { SelectModule } from 'primeng/select';
 import { InputGroupModule } from 'primeng/inputgroup';
 import { InputTextModule } from 'primeng/inputtext';
 import { InputGroupAddonModule } from 'primeng/inputgroupaddon';
-
 import { startupDropdownData } from './startup-expense.data';
 import { TravelToolsService } from '../../travel-tools/travel-tools.service';
 import { DownloadRespose } from 'src/app/@Models/travel-tools.model';
 import { CostOfLivingService } from '../../job-tool/cost-of-living/cost-of-living.service';
+import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
 
 interface selectList {
   name: string;
@@ -72,7 +71,7 @@ export class StartUpExpenseEstimateComponent implements OnInit {
   isRecommendationQuestion: boolean = true;
   isRecommendationData: boolean = false;
   isRecommendationSavedData: boolean = false;
-  recommendationData: string = '';
+  recommendationData: SafeHtml;
   departureFilter: string = '';
   locationsList: any = [];
   departureLocationList: any = [];
@@ -85,7 +84,8 @@ export class StartUpExpenseEstimateComponent implements OnInit {
     private router: Router,
     private travelToolService: TravelToolsService,
     private pageFacade: PageFacadeService,
-    private costOfLiving: CostOfLivingService
+    private costOfLiving: CostOfLivingService,
+    private sanitizer: DomSanitizer
   ) {
     this.marketingForm = this.fb.group({
       industry: ['', Validators.required],
@@ -250,14 +250,21 @@ export class StartUpExpenseEstimateComponent implements OnInit {
     }
     let data: any = {
       ...this.marketingForm.value,
-      mode: 'startup_expense_estimator'
+      mode: 'startup_expense_estimator',
+      location: formData.location.city_name+', '+formData.location.country_name
     }
     this.foundersToolsService.getChatgptRecommendations(data).subscribe({
       next: response => {
         this.isRecommendationQuestion = false;
         this.isRecommendationData = true;
         this.isRecommendationSavedData = false;
-        this.recommendationData = response.response;
+        // this.recommendationData = response.response;
+        let chatGptResponse = response.response;
+				chatGptResponse = chatGptResponse
+					.replace(/```html|```/g, '')
+          .replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>')
+          .replace(/\(see https:\/\/angular\.dev\/best-practices\/security#preventing-cross-site-scripting-xss\)/g,'');
+				this.recommendationData = this.sanitizer.bypassSecurityTrustHtml(chatGptResponse);
       },
       error: error => {
         this.isRecommendationData = false;
@@ -318,16 +325,19 @@ export class StartUpExpenseEstimateComponent implements OnInit {
   downloadRecommadation() {
     const formValue = ['industry', 'location', 'startup_stage', 'team_size', 'current_investment', 'revenue_model', 'primary_expense', 'operating_expense', 'budget', 'expense_estimation'];
     const formData = this.marketingForm.value;
-    let addingInput = `<p><strong>Input:<br></strong></p>`;
+    let addingInput = `<div style="font-family: 'Poppins', sans-serif; display: flex; align-items: center; justify-content: space-between; border-bottom: 2px solid #d32f2f; padding-bottom: 10px; margin-bottom: 20px;">
+				<div style="text-align: center;">
+					<h2 style="margin: 0; color: #1a237e;">Startup Expense Estimator</h2>
+				</div>
+			</div><p><strong>Input:<br></strong></p>`;
 
     // Keep track of which formValue index we're currently using
     let formValueIndex = 0;
-
     this.recommendations.forEach((category: any) => {
       addingInput += `<p><strong>${category.question.heading}</strong></p>`;
 
       category.question.branches.forEach((branchQuestion: any) => {
-        addingInput += `<p>${branchQuestion}</p>`;
+        addingInput += `<p style="color: #d32f2f;"><strong>${branchQuestion}</strong></p>`;
 
         let currentAnswer = "";
         const currentFormField = formValue[formValueIndex];
@@ -338,10 +348,13 @@ export class StartUpExpenseEstimateComponent implements OnInit {
               currentAnswer = formData['investment_currency_code'] + ' ' + formData[currentFormField];
               break;
             case 'operating_expense':
-              currentAnswer = formData['expense_currency_code'] + ' ' + formData[currentFormField];
+              currentAnswer = formData['investment_currency_code'] + ' ' + formData[currentFormField];
               break;
             case 'budget':
-              currentAnswer = formData['sales_currency_code'] + ' ' + formData[currentFormField];
+              currentAnswer = formData['investment_currency_code'] + ' ' + formData[currentFormField];
+              break;
+            case 'location':
+              currentAnswer = formData['location'].city_name + ', ' + formData['location'].country_name;
               break;
             default:
               currentAnswer = formData[currentFormField];
@@ -350,8 +363,7 @@ export class StartUpExpenseEstimateComponent implements OnInit {
         } else {
           currentAnswer = "No answer provided";
         }
-
-        addingInput += `<p><strong>${currentAnswer}</strong></p>`;
+        addingInput += `<p>${currentAnswer}</p>`;
 
         formValueIndex++;
       });
@@ -359,7 +371,14 @@ export class StartUpExpenseEstimateComponent implements OnInit {
       addingInput += `<br>`;
     });
 
-    let finalRecommendation = addingInput + '<p><strong>Response:<br></strong></p>' + this.recommendationData;
+    let finalRecommendation = addingInput + '<div class="divider"></div><p><strong>Response:<br></strong></p>' + this.recommendationData;
+    finalRecommendation = finalRecommendation
+    .replace(/```html|```/g, '') 
+    .replace(/\(see https:\/\/g\.co\/ng\/security#xss\)/g, '') 
+    .replace(/SafeValue must use \[property\]=binding:/g, '')
+    .replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>')
+    .replace(/\(see https:\/\/angular\.dev\/best-practices\/security#preventing-cross-site-scripting-xss\)/g,'')
+    .replace(/class="container"/g, 'style="line-height:1.9"'); //because if i add container the margin will increase so i removed the container now the spacing is proper.
     let paramData: DownloadRespose = {
       response: finalRecommendation,
       module_name: "Startup Expenses Estimate",

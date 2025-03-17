@@ -104,7 +104,7 @@
                                     <ng-container *ngIf="recommendation.id == 5">
                                         <p-select [options]="monthList" styleClass="w-100"
                                             [(ngModel)]="selectedData[recommendation.id]" optionLabel="name"
-                                            optionValue="name" [appendTo]="'body'" placeholder="Seasons">
+                                            optionValue="name" [appendTo]="'body'" placeholder="Select month">
                                         </p-select>
                                         <p class="text-center" [ngClass]="{ 'd-none': invalidClass === false }"
                                             style="color: red">Please Choose Any one option</p>

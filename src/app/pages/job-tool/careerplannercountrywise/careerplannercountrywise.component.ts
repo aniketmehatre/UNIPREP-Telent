@@ -37,7 +37,7 @@ export class CareerplannercountrywiseComponent implements OnInit {
   form: FormGroup;
   submitted: boolean = false;
   isFormVisible: boolean = true;
-  customizedResponse: any;
+  customizedResponse: SafeHtml;
   isFormChatgptresponse: boolean = false;
   isSavedResponse: boolean = false;
   recommadationSavedQuestionList: any[] = [];
@@ -80,9 +80,10 @@ export class CareerplannercountrywiseComponent implements OnInit {
 
         let chatGptResponse = res.response;
 				chatGptResponse = chatGptResponse
-					.replace(/```html|```/g, '');
+					.replace(/```html|```/g, '')
+          .replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>')
+          .replace(/\(see https:\/\/angular\.dev\/best-practices\/security#preventing-cross-site-scripting-xss\)/g,'');
 				this.customizedResponse = this.sanitizer.bypassSecurityTrustHtml(chatGptResponse);
-        // this.customizedResponse = res.response
         this.submitted = false
         this.isFormVisible = false;
         this.isFormChatgptresponse = true;
@@ -160,6 +161,8 @@ export class CareerplannercountrywiseComponent implements OnInit {
 			.replace(/```html|```/g, '') 
 			.replace(/\(see https:\/\/g\.co\/ng\/security#xss\)/g, '') 
 			.replace(/SafeValue must use \[property\]=binding:/g, '')
+      .replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>')
+      .replace(/\(see https:\/\/angular\.dev\/best-practices\/security#preventing-cross-site-scripting-xss\)/g,'')
 			.replace(/class="container"/g, 'style="line-height:1.9"'); //because if i add container the margin will increase so i removed the container now the spacing is proper.
     let paramData: DownloadRespose = {
       response: addingInput,

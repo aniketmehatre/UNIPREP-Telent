@@ -41,7 +41,7 @@ export class TravelVisitPlannerComponent implements OnInit {
   recommendations: { id: number, question: string }[] = [
     { id: 1, question: "What is your destination?" },
     { id: 2, question: "How many days will your trip last?" },
-    { id: 3, question: "During which travel season or specific month do you plan to travel?" }
+    { id: 3, question: "During which season do you want to travel?" }
   ];
   seasons: { value: string }[] = [
     { value: "Summer" },
