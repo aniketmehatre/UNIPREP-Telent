@@ -206,8 +206,6 @@ export class LoginComponent implements OnInit, OnDestroy {
 			next: (userData) => {
 				this.loadCountryList(userData)
         this.subs.sink = this.service.selectMessage$().subscribe((message) => {
-          console.log(message);
-          
             let req = {
               userId: userData.userdetails[0].user_id,
               location: this.locationData.city,
