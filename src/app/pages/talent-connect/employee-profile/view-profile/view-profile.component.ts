@@ -99,7 +99,18 @@ interface ProfileData {
 export class ViewProfileComponent implements OnInit {
   @Input() display: boolean = false;
   public isSample: boolean = true;
-
+  public Array = Array;
+  graduationYears: any[] = [];
+  currencies: any[] = [];
+  careerInterests: any[] = [];
+  fieldsOfStudy: any[] = [];
+  hobbies: any[] = [];
+  jobTitles: any[] = [];
+  languagelist: any[] = [];
+  locations: any[] = [];
+  professionalStrengths: any[] = [];
+  qualifications: any[] = [];
+  softSkills: any[] = [];
   // Define a single profile data object
   profileData: ProfileData = {
     personalInfo: {
@@ -197,11 +208,24 @@ export class ViewProfileComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
+    const data = this.config.data
     // Set theme color based on sample or real profile
-    this.isSample = this.config.data?.isSample ?? true;
+    this.isSample = data?.isSample ?? true;
 
     // If we have real profile data, use it
-    if (!this.isSample && this.config.data?.profileData) {
+    if (!this.isSample && data?.profileData) {
+      this.careerInterests = data?.careerInterests;
+      this.currencies = data?.currencies,
+        this.careerInterests = data?.careerInterests,
+        this.jobTitles = data?.jobTitles,
+        this.languagelist = data?.languagelist,
+        this.locations = data?.locations,
+        this.hobbies = data?.hobbies,
+        this.professionalStrengths = data?.professionalStrengths,
+        this.qualifications = data?.qualifications,
+        this.softSkills = data?.softSkills,
+        this.fieldsOfStudy = data?.fieldsOfStudy,
+        this.graduationYears = data?.graduationYears
       this.profileData = this.mapToProfileData(this.config.data.profileData);
     }
 
@@ -217,6 +241,17 @@ export class ViewProfileComponent implements OnInit {
     // Implement actual file download logic
   }
 
+  public getListValue(list: any[], id: number) {
+    if (list) {
+      const data = list.find((item) => item.id == id);
+      if (data) {
+        return data;
+      } else {
+        return null;
+      }
+    }
+  }
+
   closeDialog() {
     this.ref.close();
     this.display = false;
@@ -229,22 +264,22 @@ export class ViewProfileComponent implements OnInit {
         fullName: formData.full_name || '',
         dateOfBirth: formData.date_of_birth ? new Date(formData.date_of_birth).toISOString() : '',
         gender: formData.gender || '',
-        nationality: formData.nationality_id || '',
-        location: formData.location_id || '',
+        nationality: this.getListValue(this.locations, formData.nationality_id)?.location || '',
+        location: this.getListValue(this.locations, formData.location_id)?.location || '',
         logo: formData.profile_image || null
       },
       educationDetails: (formData.educationDetails || []).map((edu: any) => ({
-        highestQualification: edu.education_qualification_id || '',
+        highestQualification: this.getListValue(this.qualifications, edu.education_qualification_id)?.qualification_name || '',
         university: edu.education_university_name || '',
-        fieldOfStudy: edu.education_field_id || '',
+        fieldOfStudy: this.getListValue(this.fieldsOfStudy, edu.education_field_id)?.field_name || '',
         courseName: edu.education_course_name || '',
-        graduationYear: edu.education_graduation_year_id || '',
+        graduationYear: this.getListValue(this.graduationYears, edu.education_graduation_year_id)?.graduation_year_name || '',
         gpa: edu.education_gpa_percentage ? `${edu.education_gpa_percentage} %` : ''
       })),
       workExperience: (formData.work_experience || []).map((exp: any) => ({
         totalExperience: exp.work_experience_total_years_experience || '',
         companyName: exp.work_experience_company_name || '',
-        jobTitle: exp.work_experience_job_title || '',
+        jobTitle: this.getListValue(this.jobTitles, exp.work_experience_job_title)?.job_title || '',
         employmentType: exp.work_experience_employment_type || '',
         duration: exp.work_experience_duration || '',
         salary: exp.work_experience_salary_per_month || '',
@@ -254,9 +289,9 @@ export class ViewProfileComponent implements OnInit {
       })),
       careerPreferences: {
         careerStatus: formData.career_preference_career_status || '',
-        careerInterest: formData.career_preference_career_interest_id || '',
-        jobTitle: formData.career_preference_job_title_id || '',
-        preferredWorkLocation: formData.career_preference_preferred_work_location_id || '',
+        careerInterest: this.getListValue(this.careerInterests, formData.career_preference_career_interest_id)?.interest || '',
+        jobTitle: this.getListValue(this.jobTitles, formData.career_preference_job_title_id)?.job_title || '',
+        preferredWorkLocation: this.getListValue(this.locations, formData.career_preference_preferred_work_location_id)?.location || '',
         preferredEmploymentType: formData.career_preference_preferred_employment_type || '',
         preferredWorkplaceType: formData.career_preference_preferred_workplace_type || '',
         willingToRelocate: formData.career_preference_willingness_to_relocate || '',
@@ -272,13 +307,13 @@ export class ViewProfileComponent implements OnInit {
       })),
       additionalDetails: {
         languagesKnown: (formData.languages || []).map((lang: any) =>
-          `${lang.languages_language_id || ''} (${lang.languages_proficiency || ''})`),
-        hobbiesAndInterests: formData.languages_hobby_id ? formData.languages_hobby_id.split(',') : []
+          `${this.getListValue(this.languagelist, lang.languages_language_id)?.language || ''}(${lang.languages_proficiency || ''})`),
+        hobbiesAndInterests: this.getListValue(this.hobbies, formData.languages_hobby_id) || ''
       },
       keyStrengths: {
         industryDifferentiators: formData.career_preference_set_industry_apart ?
           formData.career_preference_set_industry_apart.split(',') : [],
-        topProfessionalStrength: formData.career_preference_professional_strength_id || '',
+        topProfessionalStrength: this.getListValue(this.professionalStrengths, formData.career_preference_professional_strength_id)?.strength || '',
         solvedRealWorldChallenge: formData.career_preference_real_world_challenge || '',
         leadershipRoles: formData.career_preference_leadership_experience || '',
         mostAdmiredQuality: formData.career_preference_admired_quality || ''

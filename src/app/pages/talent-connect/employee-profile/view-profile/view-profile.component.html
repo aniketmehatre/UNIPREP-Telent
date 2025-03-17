@@ -182,21 +182,20 @@
         <h4>Certifications & Achievements</h4>
       </div>
       <div class="card-body">
-        <div class="row">
+        <div class="row g-2">
           <div class="col-md-6" *ngFor="let cert of profileData.certifications">
-            <div class="d-flex justify-content-between align-items-center mb-3">
-              <span>{{ cert.name }}</span>
-              <button class="btn btn-primary btn-sm" (click)="downloadFile(cert.file)">
-                Download
+            <div class="d-flex justify-content-between align-items-center border p-2 rounded bg-secondary-subtle">
+              <span>{{cert.name}}</span>
+              <button class="btn btn-outline-primary btn-sm"><a [href]="cert.file" [download]="cert.file" target="_blank">
+                <i class="pi pi-download"></i>
+              </a>
               </button>
-            </div>
           </div>
+        </div>
         </div>
       </div>
     </section>
-
     <hr>
-
     <!-- Additional Details Section -->
     <section class="card-inside mb-4">
       <div class="card-header">
@@ -210,7 +209,7 @@
           </div>
           <div class="col-md-6">
             <h5>Hobbies & Interests</h5>
-            <p>{{ profileData.additionalDetails.hobbiesAndInterests.join(', ') }}</p>
+            <p>{{ profileData.additionalDetails.hobbiesAndInterests }}</p>
           </div>
         </div>
       </div>
@@ -227,7 +226,7 @@
         <div class="row">
           <div class="col-md-12">
             <h5>What Sets You Apart in Your Industry?</h5>
-            <p>{{ profileData.keyStrengths.industryDifferentiators.join(', ') }}</p>
+            <p>{{ profileData.keyStrengths.industryDifferentiators }}</p>
           </div>
           <div class="col-md-6">
             <h5>Top Professional Strength</h5>
@@ -290,7 +289,7 @@
       <div class="card-body">
         <div class="row g-3">
           <div *ngFor="let attachment of profileData.attachments" class="col-12">
-            <div class="d-flex justify-content-between align-items-center border p-2 rounded">
+            <div class="d-flex justify-content-between align-items-center border p-2 rounded bg-secondary-subtle">
               <span>{{attachment.name}}</span>
               <button class="btn btn-outline-primary btn-sm"><a [href]="attachment.name" [download]="attachment.name" target="_blank">
                 <i class="pi pi-download"></i>

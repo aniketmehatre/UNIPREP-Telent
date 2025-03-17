@@ -34,7 +34,7 @@ export class TalentConnectService {
 
     getJobDetails(id: number) {
         return this.http.post<any>(
-            environment.ApiUrl + "/showuserJobs", { id: id },
+            environment.ApiUrl + "/showuserTrack", { id: id },
             { headers: this.headers });
     }
 
@@ -87,6 +87,12 @@ export class TalentConnectService {
 
     updateProfile(formData: any): Observable<any> {
         return this.http.post(`${environment.ApiUrl}/updatestudentprofile `, formData);
+    }
+
+    getCurrencies() {
+        return this.http.get<any>(environment.ApiUrl + "/currenciesList", {
+            headers: this.headers
+        });
     }
 
 }

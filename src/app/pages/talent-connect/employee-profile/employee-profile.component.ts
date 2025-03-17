@@ -3,8 +3,6 @@ import { FormGroup, FormBuilder, Validators, FormArray } from '@angular/forms';
 import { ViewProfileComponent } from './view-profile/view-profile.component';
 import { DialogService, DynamicDialogRef } from 'primeng/dynamicdialog';
 import { TalentConnectService } from '../talent-connect.service';
-import { HttpClient } from '@angular/common/http';
-import { Toast } from 'primeng/toast';
 import { MessageService } from 'primeng/api';
 
 export enum FileType {
@@ -47,13 +45,12 @@ export class EmployeeProfileComponent implements OnInit {
   careerStatus: any = [];
   totalYearExperienceList: any = [];
   genderOptions: any[] = [];
+  graduationYears: any[] = [];
   currencies: any[] = [];
   careerInterests: any[] = [];
   fieldsOfStudy: any[] = [];
-  graduationYears: any[] = [];
   hobbies: any[] = [];
   jobTitles: any[] = [];
-  employementTypeList: any[] = [];
   languagelist: any[] = [];
   locations: any[] = [];
   professionalStrengths: any[] = [];
@@ -138,7 +135,7 @@ export class EmployeeProfileComponent implements OnInit {
       languages_hobby_id: [null],
 
       // Profile Image
-      profile_image: [''],
+      profile_image: ['', Validators.required],
       additional_notes: [null]
     });
   }
@@ -286,6 +283,7 @@ export class EmployeeProfileComponent implements OnInit {
       this.personalInfoForm.get('profile_image')?.setValue(file.name);
     };
     reader.readAsDataURL(file);
+    this.uploadedFiles['profile_image'] = file;
   }
 
   onRemovePhoto() {
@@ -300,7 +298,14 @@ export class EmployeeProfileComponent implements OnInit {
   }
 
   onSubmit() {
-    console.log(this.personalInfoForm);
+    if (this.personalInfoForm.get('profile_image')?.invalid) {
+      this.toastService.add({
+        severity: "error",
+        summary: "Required",
+        detail: 'please upload profile photo'
+      });
+      return;
+    }
     if (this.personalInfoForm.valid) {
       const formData = new FormData();
       const profileId = this.profileId;
@@ -700,6 +705,11 @@ export class EmployeeProfileComponent implements OnInit {
       }
     } else {
       this.markFormGroupTouched(this.personalInfoForm);
+      this.toastService.add({
+        severity: "error",
+        summary: "Required",
+        detail: 'please give required feilds'
+      });
     }
   }
 
@@ -739,14 +749,27 @@ export class EmployeeProfileComponent implements OnInit {
       height: '80%',
       data: {
         profileData: this.personalInfoForm.value,
-        isSample: isSample
+        isSample: isSample,
+        currencies: this.currencies,
+        careerInterests: this.careerInterests,
+        jobTitles: this.jobTitles,
+        languagelist: this.languagelist,
+        locations: this.locations,
+        hobbies: this.hobbies,
+        professionalStrengths: this.professionalStrengths,
+        qualifications: this.qualifications,
+        softSkills: this.softSkills,
+        fieldsOfStudy: this.fieldsOfStudy,
+        graduationYears: this.graduationYears
       },
       styleClass: 'employee-profile-dialog'
     });
+
     this.ref.onClose.subscribe((product: any) => {
-    // Handle dialog close
+      // Handle dialog close
     });
   }
+
 
   calculateProfileCompletion(): any {
     let totalFields = 0;
@@ -787,13 +810,13 @@ export class EmployeeProfileComponent implements OnInit {
         this.professionalStrengths = response.professional_strengths;
         this.qualifications = response.qualifications;
         this.softSkills = response.soft_skills;
+        this.fieldsOfStudy = response.fields_of_study;
         this.preferredWorkplaceType = response.preferred_workplace_type;
         this.preferredEmploymentType = response.preferred_employment_type;
-        this.genderOptions = response.gender;
-        this.careerStatus = response.career_status;
         this.totalYearExperienceList = response.total_years_experience;
+        this.careerStatus = response.career_status;
         this.graduationYears = response.graduation_years;
-        this.fieldsOfStudy = response.fields_of_study;
+        this.genderOptions = response.gender;
       },
       error: error => {
         console.log(error);
@@ -825,6 +848,7 @@ export class EmployeeProfileComponent implements OnInit {
       nationality_id: response.nationality_id,
       gender: response.gender,
       location_id: response.location_id,
+      profile_image: response.dp_image,
 
       career_preference_career_status: response.careerPreference?.career_status,
       career_preference_job_title_id: response.careerPreference?.job_title_id,
@@ -950,6 +974,7 @@ export class EmployeeProfileComponent implements OnInit {
         }))
     });
   }
+    this.logo = response?.dp_image;
     this.originalProfileData = { ...this.personalInfoForm.value };
   }
 

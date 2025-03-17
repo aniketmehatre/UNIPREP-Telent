@@ -1,414 +1,430 @@
 <div class="card readingcard h-100">
-    <div class="card-header border-0 bg-transparent">
-      <div class="row">
-        <div class="col-md-12 d-flex gap-2 text-center">
-          <div
-            class="backIcon d-md-flex d-none"
-            role="button"
-            routerLink="/pages/talent-connect/list">
-            <span class="fa-solid fa-chevron-left"></span>
-          </div>
-          <div
-            class="select-title d-flex justify-content-between align-items-center">
-            <div>
-                <h5
-                  class="mb-0"
-                  tooltipPosition="top"
-                  pTooltip="Questions related to the application process are answered">
-                  Job Description<i
-                    class="questiontooltip fa-solid fa-circle-question"
-                  ></i>
-                </h5>
-              </div>
-          </div>
+  <div class="card-header border-0 bg-transparent">
+    <div class="row">
+      <div class="col-md-12 d-flex gap-2 text-center">
+        <div
+          class="backIcon d-md-flex d-none"
+          role="button"
+          routerLink="/pages/talent-connect/list">
+          <span class="fa-solid fa-chevron-left"></span>
         </div>
-        <!-- <div class="col-md-3 mt-2 text-end desktop justify-content-end d-none d-md-flex"></div> -->
+        <div
+          class="select-title d-flex justify-content-between align-items-center">
+          <div>
+              <h5
+                class="mb-0"
+                tooltipPosition="top"
+                pTooltip="Questions related to the application process are answered">
+                Job Description<i
+                  class="questiontooltip fa-solid fa-circle-question"
+                ></i>
+              </h5>
+            </div>
+        </div>
       </div>
     </div>
-    <div class="card-body text-start flex-fill overflow-y-auto">
-        <div class="row">
-            <div class="col-md-8 overflow-auto" [ngClass]="{'col-md-12': !isShowApplyChat}" style="height: calc(100vh - 250px);">
-                <div class="row">
-                    <div class="col-md-2 ">
-                        <div class="logo-container border p-3 mb-3">
-                          <img [src]="jobDetails?.company_logo_url" alt="UNIABROAD" class="img-fluid">
-                        </div>
-                      </div>
-                      <div class="col-md-8">
-                        <h1 class="fw-bold">{{ jobDetails.position }}</h1>
-                        <div class="d-flex align-items-center mb-2">
-                          <span class="me-2">{{ jobDetails.comapany_name }}</span>
-                          <span class="ms-1 text-primary" *ngIf="jobDetails">
-                              <i class="fas fa-check-circle"></i>
-                            </span>
-                        </div>
-                        <div class="mb-3">
-                          <span class="text-muted">You match {{ 0 }} out of {{ 0 }} skill requirements for this job</span>
-                        </div>
-                        <div class="d-flex flex-wrap gap-2 mb-3">
-                          <div>
-                            <p class="text-muted mb-0 small">Total Vacancies</p>
-                            <p class="mb-0 fw-bold fs-4">{{ jobDetails.available_vacancies }}</p>
-                          </div>
-                          <div>
-                            <p class="text-muted mb-0 small">Total Applied</p>
-                            <p class="mb-0 fw-bold fs-4">{{ jobDetails.total_applied }}</p>
-                          </div>
-                          <div>
-                            <span *ngFor="let skill of jobDetails.soft_skills" class="badge me-1" [ngClass]="{'bg-warning text-dark': skill === 'UI Design' || skill === 'Graphic Design' || skill === 'UX Design', 'bg-secondary': skill === 'Motion Design'}">
-                              {{ skill }}
-                            </span>
-                          </div>
-                        </div>
-                      </div>
-                      <div class="col-md-2 text-end">
-                        <button pButton [label]="jobDetails.stage ? 'Applied': 'Apply'" icon="fa fa-arrow-pointer" iconPos="right" [ngClass]="jobDetails?.stage ? 'bg-success' : 'bg-priamry'" class="p-button-primary mb-3" (click)="applyJob(id)"></button>
-                        <div class="posted-date">Posted On : {{ jobDetails.created_at }}</div>
+  </div>
+  <div class="card-body text-start flex-fill overflow-y-auto">
+      <div class="row">
+          <div class="col-md-8 overflow-auto" [ngClass]="{'col-md-12': !isShowApplyChat}" style="height: calc(100vh - 250px);">
+              <div class="row">
+                  <div class="col-md-2 ">
+                      <div class="logo-container border p-3 mb-3">
+                        <img [src]="jobDetails?.company_logo_url" alt="UNIABROAD" class="img-fluid">
                       </div>
                     </div>
-                <div class="row mb-4">
-                  <div class="col-md-12" >
-                    <div class="card shadow-sm">
-                      <div class="card-body p-4">
-                        <div class="row row-cols-2 row-cols-md-6 g-4">
-                          <!-- Company Size -->
-                          <div class="col">
-                            <div class="d-flex flex-column">
-                              <div class="d-flex align-items-center mb-2">
-                                <i class="pi pi-users me-2 text-secondary"></i>
-                                <span class="text-muted">Company Size</span>
-                              </div>
-                              <div class="fw-bold">{{ jobDetails.company_size }}</div>
+                    <div class="col-md-8">
+                      <h1 class="fw-bold">{{ jobDetails?.position }}</h1>
+                      <div class="d-flex align-items-center mb-2">
+                        <span class="me-2">{{ jobDetails.company_name }}</span>
+                        <span class="ms-1 text-primary" *ngIf="jobDetails">
+                            <i class="fas fa-check-circle"></i>
+                          </span>
+                      </div>
+                      <div class="mb-3">
+                        <span class="text-muted">You match {{ 0 }} out of {{ 0 }} skill requirements for this job</span>
+                      </div>
+                      <div class="d-flex flex-wrap gap-2 mb-3">
+                        <div>
+                          <p class="text-muted mb-0 small">Total Vacancies</p>
+                          <p class="mb-0 fw-bold fs-4">{{ jobDetails.available_vacancies }}</p>
+                        </div>
+                        <div>
+                          <p class="text-muted mb-0 small">Total Applied</p>
+                          <p class="mb-0 fw-bold fs-4">{{ jobDetails.total_applied }}</p>
+                        </div>
+                        <div>
+                          <span *ngFor="let skill of jobDetails?.soft_skills" class="badge me-1" [ngClass]="{'bg-warning text-dark': skill === 'UI Design' || skill === 'Graphic Design' || skill === 'UX Design', 'bg-secondary': skill === 'Motion Design'}">
+                            {{ skill }}
+                          </span>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="col-md-2 text-end">
+                      <button pButton [label]="jobDetails.stage ? 'Applied': 'Apply'" icon="fa fa-arrow-pointer" iconPos="right" [ngClass]="jobDetails?.stage ? 'bg-success' : 'bg-priamry'" class="p-button-primary mb-3" (click)="applyJob(id)"></button>
+                      <div class="posted-date">Posted On : {{ jobDetails.created_at | date: 'dd-MM-yyyy' }}</div>
+                    </div>
+                  </div>
+              <div class="row mb-4">
+                <div class="col-md-12" >
+                  <div class="card shadow-sm">
+                    <div class="card-body p-4">
+                      <div class="row row-cols-2 row-cols-md-6 g-4">
+                        <!-- Company Size -->
+                        <div class="col">
+                          <div class="d-flex flex-column">
+                            <div class="d-flex align-items-center mb-2">
+                              <i class="pi pi-users me-2 text-secondary"></i>
+                              <span class="text-muted">Company Size</span>
                             </div>
+                            <div class="fw-bold">{{ jobDetails.company_size }}</div>
                           </div>
-              
-                          <!-- Position -->
-                          <div class="col">
-                            <div class="d-flex flex-column">
-                              <div class="d-flex align-items-center mb-2">
-                                <i class="pi pi-briefcase me-2 text-secondary"></i>
-                                <span class="text-muted">Position</span>
-                              </div>
-                              <div class="fw-bold">{{ jobDetails.position }}</div>
+                        </div>
+            
+                        <!-- Position -->
+                        <div class="col">
+                          <div class="d-flex flex-column">
+                            <div class="d-flex align-items-center mb-2">
+                              <i class="pi pi-briefcase me-2 text-secondary"></i>
+                              <span class="text-muted">Position</span>
                             </div>
+                            <div class="fw-bold">{{ jobDetails.position }}</div>
                           </div>
-              
-                          <!-- Start Date -->
-                          <div class="col">
-                            <div class="d-flex flex-column">
-                              <div class="d-flex align-items-center mb-2">
-                                <i class="pi pi-calendar me-2 text-secondary"></i>
-                                <span class="text-muted">Start Date</span>
-                              </div>
-                              <div class="fw-bold">{{ jobDetails.start_date }}</div>
+                        </div>
+            
+                        <!-- Start Date -->
+                        <div class="col">
+                          <div class="d-flex flex-column">
+                            <div class="d-flex align-items-center mb-2">
+                              <i class="pi pi-calendar me-2 text-secondary"></i>
+                              <span class="text-muted">Start Date</span>
                             </div>
+                            <div class="fw-bold">{{ jobDetails.start_date }}</div>
                           </div>
-              
-                          <!-- Work Location -->
-                          <div class="col">
-                            <div class="d-flex flex-column">
-                              <div class="d-flex align-items-center mb-2">
-                                <i class="pi pi-map-marker me-2 text-secondary"></i>
-                                <span class="text-muted">Work Location</span>
-                              </div>
-                              <div class="fw-bold">{{ jobDetails.work_location }}</div>
+                        </div>
+            
+                        <!-- Work Location -->
+                        <div class="col">
+                          <div class="d-flex flex-column">
+                            <div class="d-flex align-items-center mb-2">
+                              <i class="pi pi-map-marker me-2 text-secondary"></i>
+                              <span class="text-muted">Work Location</span>
                             </div>
+                            <div class="fw-bold">{{ jobDetails.work_location }}</div>
                           </div>
-              
-                          <!-- Work Mode -->
-                          <div class="col">
-                            <div class="d-flex flex-column">
-                              <div class="d-flex align-items-center mb-2">
-                                <i class="pi pi-desktop me-2 text-secondary"></i>
-                                <span class="text-muted">Work Mode</span>
-                              </div>
-                              <div class="fw-bold">{{ jobDetails.work_mode }}</div>
+                        </div>
+            
+                        <!-- Work Mode -->
+                        <div class="col">
+                          <div class="d-flex flex-column">
+                            <div class="d-flex align-items-center mb-2">
+                              <i class="pi pi-desktop me-2 text-secondary"></i>
+                              <span class="text-muted">Work Mode</span>
                             </div>
+                            <div class="fw-bold">{{ Array.isArray(jobDetails.work_mode) ? jobDetails.work_mode.join(', ') : jobDetails.work_mode }}</div>
                           </div>
-              
-                          <!-- Employment Type -->
-                          <div class="col">
-                            <div class="d-flex flex-column">
-                              <div class="d-flex align-items-center mb-2">
-                                <i class="pi pi-clock me-2 text-secondary"></i>
-                                <span class="text-muted">Employment Type</span>
-                              </div>
-                              <div class="fw-bold">{{ jobDetails.employment_type }}</div>
+                        </div>
+            
+                        <!-- Employment Type -->
+                        <div class="col">
+                          <div class="d-flex flex-column">
+                            <div class="d-flex align-items-center mb-2">
+                              <i class="pi pi-clock me-2 text-secondary"></i>
+                              <span class="text-muted">Employment Type</span>
                             </div>
+                            <div class="fw-bold">{{ Array.isArray(jobDetails.employment_type) ? jobDetails.employment_type.join(', ') : jobDetails.employment_type }}</div>
                           </div>
-              
-                          <!-- Salary Range -->
-                          <div class="col">
-                            <div class="d-flex flex-column">
-                              <div class="d-flex align-items-center mb-2">
-                                <i class="pi pi-dollar me-2 text-secondary"></i>
-                                <span class="text-muted">Salary Range</span>
-                              </div>
-                              <div class="fw-bold">{{ jobDetails.salary_range }}</div>
+                        </div>
+            
+                        <!-- Salary Range -->
+                        <div class="col">
+                          <div class="d-flex flex-column">
+                            <div class="d-flex align-items-center mb-2">
+                              <i class="pi pi-dollar me-2 text-secondary"></i>
+                              <span class="text-muted">Salary Range</span>
                             </div>
+                            <div class="fw-bold">{{ jobDetails.salary_range }}</div>
                           </div>
-              
-                          <!-- Due Date -->
-                          <div class="col">
-                            <div class="d-flex flex-column">
-                              <div class="d-flex align-items-center mb-2">
-                                <i class="pi pi-calendar-times me-2 text-secondary"></i>
-                                <span class="text-muted">Due Date</span>
-                              </div>
-                              <div class="fw-bold">{{ jobDetails.due_date }}</div>
+                        </div>
+            
+                        <!-- Due Date -->
+                        <div class="col">
+                          <div class="d-flex flex-column">
+                            <div class="d-flex align-items-center mb-2">
+                              <i class="pi pi-calendar-times me-2 text-secondary"></i>
+                              <span class="text-muted">Due Date</span>
                             </div>
+                            <div class="fw-bold">{{ jobDetails.due_date }}</div>
                           </div>
-              
-                          <!-- Total Applied -->
-                          <div class="col">
-                            <div class="d-flex flex-column">
-                              <div class="d-flex align-items-center mb-2">
-                                <i class="pi pi-user-plus me-2 text-secondary"></i>
-                                <span class="text-muted">Total Applied</span>
-                              </div>
-                              <div class="fw-bold">{{ jobDetails.total_applied }}</div>
+                        </div>
+            
+                        <!-- Total Applied -->
+                        <div class="col">
+                          <div class="d-flex flex-column">
+                            <div class="d-flex align-items-center mb-2">
+                              <i class="pi pi-user-plus me-2 text-secondary"></i>
+                              <span class="text-muted">Total Applied</span>
                             </div>
+                            <div class="fw-bold">{{ jobDetails.total_applied }}</div>
                           </div>
-              
-                          <!-- Available Vacancies -->
-                          <div class="col">
-                            <div class="d-flex flex-column">
-                              <div class="d-flex align-items-center mb-2">
-                                <i class="pi pi-users me-2 text-secondary"></i>
-                                <span class="text-muted">Available Vacancies</span>
-                              </div>
-                              <div class="fw-bold">{{ jobDetails.available_vacancies }}</div>
+                        </div>
+            
+                        <!-- Available Vacancies -->
+                        <div class="col">
+                          <div class="d-flex flex-column">
+                            <div class="d-flex align-items-center mb-2">
+                              <i class="pi pi-users me-2 text-secondary"></i>
+                              <span class="text-muted">Available Vacancies</span>
                             </div>
+                            <div class="fw-bold">{{ jobDetails.available_vacancies }}</div>
                           </div>
-              
-                          <!-- Experience Level -->
-                          <div class="col">
-                            <div class="d-flex flex-column">
-                              <div class="d-flex align-items-center mb-2">
-                                <i class="pi pi-chart-line me-2 text-secondary"></i>
-                                <span class="text-muted">Experience Level</span>
-                              </div>
-                              <div class="fw-bold">{{ jobDetails.experience_level }}</div>
+                        </div>
+            
+                        <!-- Experience Level -->
+                        <div class="col">
+                          <div class="d-flex flex-column">
+                            <div class="d-flex align-items-center mb-2">
+                              <i class="pi pi-chart-line me-2 text-secondary"></i>
+                              <span class="text-muted">Experience Level</span>
                             </div>
+                            <div class="fw-bold">{{ jobDetails.experience_level }}</div>
                           </div>
-              
-                          <!-- Educational Degree -->
-                          <div class="col">
-                            <div class="d-flex flex-column">
-                              <div class="d-flex align-items-center mb-2">
-                                <i class="pi pi-book me-2 text-secondary"></i>
-                                <span class="text-muted">Educational Degree</span>
-                              </div>
-                              <div class="fw-bold">{{ jobDetails.educational_degree }}</div>
+                        </div>
+            
+                        <!-- Educational Degree -->
+                        <div class="col">
+                          <div class="d-flex flex-column">
+                            <div class="d-flex align-items-center mb-2">
+                              <i class="pi pi-book me-2 text-secondary"></i>
+                              <span class="text-muted">Educational Degree</span>
                             </div>
+                            <div class="fw-bold">{{ jobDetails.educational_degree }}</div>
                           </div>
-              
-                          <!-- Industry -->
-                          <div class="col">
-                            <div class="d-flex flex-column">
-                              <div class="d-flex align-items-center mb-2">
-                                <i class="pi pi-building me-2 text-secondary"></i>
-                                <span class="text-muted">Industry</span>
-                              </div>
-                              <div class="fw-bold">{{ jobDetails.industry_name }}</div>
+                        </div>
+            
+                        <!-- Industry -->
+                        <div class="col">
+                          <div class="d-flex flex-column">
+                            <div class="d-flex align-items-center mb-2">
+                              <i class="pi pi-building me-2 text-secondary"></i>
+                              <span class="text-muted">Industry</span>
                             </div>
+                            <div class="fw-bold">{{ jobDetails.industry_name }}</div>
                           </div>
                         </div>
                       </div>
                     </div>
                   </div>
                 </div>
-              
-                <div class="row mb-4">
-                  <div class="col-md-12">
-                    <div class="card shadow-sm">
-                      <div class="card-body p-4">
-                        <div class="row">
-                          <div class="col-md-3">
-                            <h2 class="fs-3 fw-bold">Job Overview</h2>
-                          </div>
-                          <div class="col-md-9 font-bold">
-                            <p class="mb-0" [innerHTML]="jobDetails.job_overview"></p>
+              </div>
+            
+              <div class="row mb-4">
+                <div class="col-md-12">
+                  <div class="card shadow-sm">
+                    <div class="card-body p-4">
+                      <div class="row">
+                        <div class="col-md-3">
+                          <h2 class="fs-3 fw-bold">Job Overview</h2>
+                        </div>
+                        <div class="col-md-9 font-bold">
+                          <p class="mb-0" [innerHTML]="jobDetails.job_overview"></p>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            
+              <div class="row mb-4">
+                <div class="col-md-12">
+                  <div class="card shadow-sm">
+                    <div class="card-body p-4">
+                      <div class="row">
+                        <div class="col-md-3">
+                          <h2 class="fs-3 fw-bold">Key<br>Responsibilities</h2>
+                        </div>
+                        <div class="col-md-9 font-bold">
+                          <ul class="list-unstyled">
+                            <li *ngFor="let resp of jobDetails?.key_responsibilities" class="mb-3">
+                              <div class="d-flex">
+                                <i class="pi pi-circle-fill me-2 mt-1" style="font-size: 8px;"></i>
+                                <span>{{ resp }}</span>
+                              </div>
+                            </li>
+                          </ul>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            
+              <!-- Technical Proficiency -->
+              <div class="row mb-4">
+                <div class="col-md-12">
+                  <div class="card shadow-sm">
+                    <div class="card-body p-4">
+                      <div class="row">
+                        <div class="col-md-3">
+                          <h2 class="fs-3 fw-bold">Technical<br>Proficiency</h2>
+                        </div>
+                        <div class="col-md-9 font-bold">
+                          <ul class="list-unstyled">
+                            <li *ngFor="let tech of jobDetails?.technical_proficiency" class="mb-3">
+                              <div class="d-flex">
+                                <i class="pi pi-circle-fill me-2 mt-1" style="font-size: 8px;"></i>
+                                <span>{{ tech }}</span>
+                              </div>
+                            </li>
+                          </ul>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            
+              <!-- Language Proficiency -->
+              <div class="row mb-4">
+                <div class="col-md-12">
+                  <div class="card shadow-sm">
+                    <div class="card-body p-4">
+                      <div class="row">
+                        <div class="col-md-3">
+                          <h2 class="fs-3 fw-bold">Language<br>Proficiency</h2>
+                        </div>
+                        <div class="col-md-9">
+                          <ul class="list-unstyled font-bold">
+                            <li *ngFor="let lang of jobDetails?.language_proficiency" class="mb-3">
+                              <div class="d-flex">
+                                <i class="pi pi-circle-fill me-2 mt-1" style="font-size: 8px;"></i>
+                                <span>{{ lang.language }} - {{ lang.level }}</span>
+                              </div>
+                            </li>
+                          </ul>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            
+              <!-- Compensation Structure -->
+              <div class="row mb-4">
+                <div class="col-md-12">
+                  <div class="card shadow-sm">
+                    <div class="card-body p-4">
+                      <div class="row">
+                        <div class="col-md-3">
+                          <h2 class="fs-3 fw-bold">Compensation<br>Structure</h2>
+                        </div>
+                        <div class="col-md-9 font-bold">
+                          <div class="d-flex flex-wrap gap-2">
+                            <span *ngFor="let comp of jobDetails.compensation_structure" class="badge bg-warning text-dark p-2 rounded">{{ comp }}</span>
                           </div>
                         </div>
                       </div>
                     </div>
                   </div>
                 </div>
-              
-                <div class="row mb-4">
-                  <div class="col-md-12">
-                    <div class="card shadow-sm">
-                      <div class="card-body p-4">
-                        <div class="row">
-                          <div class="col-md-3">
-                            <h2 class="fs-3 fw-bold">Key<br>Responsibilities</h2>
-                          </div>
-                          <div class="col-md-9 font-bold">
-                            <ul class="list-unstyled">
-                              <li *ngFor="let resp of jobDetails.key_responsibilities" class="mb-3">
-                                <div class="d-flex">
-                                  <i class="pi pi-circle-fill me-2 mt-1" style="font-size: 8px;"></i>
-                                  <span>{{ resp }}</span>
-                                </div>
-                              </li>
-                            </ul>
+              </div>
+            
+              <!-- Additional Benefits & Perks -->
+              <div class="row mb-4">
+                <div class="col-md-12">
+                  <div class="card shadow-sm">
+                    <div class="card-body p-4">
+                      <div class="row">
+                        <div class="col-md-3">
+                          <h2 class="fs-3 fw-bold">Additional Benefits<br>& Perks</h2>
+                        </div>
+                        <div class="col-md-9 font-bold">
+                          <div class="d-flex flex-wrap gap-2">
+                            <span *ngFor="let benefit of jobDetails.benefits_perks" class="badge bg-warning text-dark p-2 rounded">{{ benefit }}</span>
                           </div>
                         </div>
                       </div>
                     </div>
                   </div>
                 </div>
-              
-                <!-- Technical Proficiency -->
-                <div class="row mb-4">
-                  <div class="col-md-12">
-                    <div class="card shadow-sm">
-                      <div class="card-body p-4">
-                        <div class="row">
-                          <div class="col-md-3">
-                            <h2 class="fs-3 fw-bold">Technical<br>Proficiency</h2>
-                          </div>
-                          <div class="col-md-9 font-bold">
-                            <p>{{ jobDetails.technical_proficiency }}</p>
+              </div>
+            
+              <!-- Essential Soft Skills -->
+              <div class="row mb-4">
+                <div class="col-md-12">
+                  <div class="card shadow-sm">
+                    <div class="card-body p-4">
+                      <div class="row">
+                        <div class="col-md-3">
+                          <h2 class="fs-3 fw-bold">Essential Soft Skills</h2>
+                        </div>
+                        <div class="col-md-9 font-bold">
+                          <div class="d-flex flex-wrap gap-2">
+                            <span *ngFor="let skill of jobDetails?.soft_skills" class="badge bg-warning text-dark p-2 rounded">{{ skill }}</span>
                           </div>
                         </div>
                       </div>
                     </div>
                   </div>
                 </div>
-              
-                <!-- Language Proficiency -->
-                <div class="row mb-4">
-                  <div class="col-md-12">
-                    <div class="card shadow-sm">
-                      <div class="card-body p-4">
-                        <div class="row">
-                          <div class="col-md-3">
-                            <h2 class="fs-3 fw-bold">Language<br>Proficiency</h2>
+              </div>
+            
+              <!-- Hiring & Recruitment -->
+              <div class="row mb-4">
+                <div class="col-md-12">
+                  <div class="card shadow-sm">
+                    <div class="card-body p-4">
+                      <div class="row">
+                        <div class="col-md-3">
+                          <h2 class="fs-3 fw-bold">Hiring & Recruitment</h2>
+                        </div>
+                        <div class="col-md-9 font-bold">
+                          <h6 class="mb-2">Hiring Process Stages</h6>
+                          <div class="d-flex flex-wrap gap-2 mb-4">
+                            <ng-container *ngIf="Array.isArray(jobDetails.hiring_stages) && jobDetails.hiring_stages.length > 0">
+                              <ng-container *ngIf="jobDetails.hiring_stages[0].id !== undefined">
+                                <span *ngFor="let stage of jobDetails.hiring_stages" class="badge bg-warning text-dark p-2 rounded">{{ stage.name }}</span>
+                              </ng-container>
+                              <ng-container *ngIf="jobDetails.hiring_stages[0].id === undefined">
+                                <span *ngFor="let stage of jobDetails.hiring_stages" class="badge bg-warning text-dark p-2 rounded">{{ stage }}</span>
+                              </ng-container>
+                            </ng-container>
+                            <ng-container *ngIf="!Array.isArray(jobDetails.hiring_stages)">
+                              <span class="badge bg-warning text-dark p-2 rounded">{{ jobDetails.hiring_stages }}</span>
+                            </ng-container>
                           </div>
-                          <div class="col-md-9">
-                            <ul class="list-unstyled font-bold">
-                              <li *ngFor="let lang of jobDetails.language_proficiency" class="mb-3">
-                                <div class="d-flex">
-                                  <i class="pi pi-circle-fill me-2 mt-1" style="font-size: 8px;"></i>
-                                  <span>{{ lang.language }} - {{ lang.level }}</span>
-                                </div>
-                              </li>
-                            </ul>
-                          </div>
+            
+                          <h6 class="mb-2">Estimated Hiring Decision Timeframe</h6>
+                          <p class="mb-4">{{ jobDetails.hiring_timeframe }}</p>
+            
+                          <h6 class="mb-2">Interview Format</h6>
+                          <p>{{ jobDetails.interview_format }}</p>
                         </div>
                       </div>
                     </div>
                   </div>
                 </div>
-              
-                <!-- Compensation Structure -->
-                <div class="row mb-4">
-                  <div class="col-md-12">
-                    <div class="card shadow-sm">
-                      <div class="card-body p-4">
-                        <div class="row">
-                          <div class="col-md-3">
-                            <h2 class="fs-3 fw-bold">Compensation<br>Structure</h2>
-                          </div>
-                          <div class="col-md-9 font-bold">
-                            <div class="d-flex flex-wrap gap-2">
-                              <span *ngFor="let comp of jobDetails.compensation_structure" class="badge bg-warning text-dark p-2 rounded">{{ comp }}</span>
-                            </div>
-                          </div>
+              </div>
+          </div>
+          <div class="col-md-4" *ngIf="isShowApplyChat" style="max-height: calc(100vh - 250px);">
+              <div class="chat-container">
+                  <div class="card">
+                    <!-- Header -->
+                    <div class="card-header d-flex justify-content-between align-items-center p-3">
+                      <div class="d-flex align-items-center">
+                        <div class="uniabroad-icon me-2">
+                          <img src="assets/uniabroad-icon.png" alt="UNIABROAD" width="24" height="24">
+                        </div>
+                        <div>
+                          <h5 class="mb-0 fw-bold">UNIABROAD</h5>
+                          <p class="small text-muted mb-0">Active</p>
                         </div>
                       </div>
+                      <button type="button" class="btn-close" aria-label="Close" (click)="isShowApplyChat=false;"></button>
                     </div>
-                  </div>
-                </div>
-              
-                <!-- Additional Benefits & Perks -->
-                <div class="row mb-4">
-                  <div class="col-md-12">
-                    <div class="card shadow-sm">
-                      <div class="card-body p-4">
-                        <div class="row">
-                          <div class="col-md-3">
-                            <h2 class="fs-3 fw-bold">Additional Benefits<br>& Perks</h2>
-                          </div>
-                          <div class="col-md-9 font-bold">
-                            <div class="d-flex flex-wrap gap-2">
-                              <span *ngFor="let benefit of jobDetails.benefits_perks" class="badge bg-warning text-dark p-2 rounded">{{ benefit }}</span>
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              
-                <!-- Essential Soft Skills -->
-                <div class="row mb-4">
-                  <div class="col-md-12">
-                    <div class="card shadow-sm">
-                      <div class="card-body p-4">
-                        <div class="row">
-                          <div class="col-md-3">
-                            <h2 class="fs-3 fw-bold">Essential Soft Skills</h2>
-                          </div>
-                          <div class="col-md-9 font-bold">
-                            <div class="d-flex flex-wrap gap-2">
-                              <span *ngFor="let skill of jobDetails.soft_skills" class="badge bg-warning text-dark p-2 rounded">{{ skill }}</span>
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              
-                <!-- Hiring & Recruitment -->
-                <div class="row mb-4">
-                  <div class="col-md-12">
-                    <div class="card shadow-sm">
-                      <div class="card-body p-4">
-                        <div class="row">
-                          <div class="col-md-3">
-                            <h2 class="fs-3 fw-bold">Hiring & Recruitment</h2>
-                          </div>
-                          <div class="col-md-9 font-bold">
-                            <h6 class="mb-2">Hiring Process Stages</h6>
-                            <div class="d-flex flex-wrap gap-2 mb-4">
-                              <span *ngFor="let stage of jobDetails.hiring_stages" class="badge bg-warning text-dark p-2 rounded">{{ stage }}</span>
-                            </div>
-              
-                            <h6 class="mb-2">Estimated Hiring Decision Timeframe</h6>
-                            <p class="mb-4">{{ jobDetails.hiring_timeframe }}</p>
-              
-                            <h6 class="mb-2">Interview Format</h6>
-                            <p>{{ jobDetails.interview_format }}</p>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-            </div>
-            <div class="col-md-4 overflow-auto" style="height: calc(100vh - 250px);">
-                <div class="chat-container">
-                    <div class="card">
-                      <!-- Header -->
-                      <div class="card-header d-flex justify-content-between align-items-center p-3">
-                        <div class="d-flex align-items-center">
-                          <div class="uniabroad-icon me-2">
-                            <img src="assets/uniabroad-icon.png" alt="UNIABROAD" width="24" height="24">
-                          </div>
-                          <div>
-                            <h5 class="mb-0 fw-bold">UNIABROAD</h5>
-                            <p class="small text-muted mb-0">Active</p>
-                          </div>
-                        </div>
-                        <button type="button" class="btn-close" aria-label="Close" (click)="isShowApplyChat=false;"></button>
-                      </div>
-              
+                    <div style="height: calc(100vh - 250px);" class="overflow-y-auto ">
                       <!-- Initial View (Empty State) -->
-                      <div class="card-body chat-body" *ngIf="currentView === 'initial'">
+                      <div class="card-body chat-body overflow-y-auto" *ngIf="currentView === 'initial'" >
                         <div class="description-box mt-3">
                           <h5 class="text-center mb-3">Write a description about yourself</h5>
                           
@@ -431,21 +447,21 @@
                       <div class="chat-body" *ngIf="currentView === 'conversation'">
                         <ng-container *ngFor="let message of messages">
                           <!-- Sender ID -->
-                          <div class="sender-id mb-1" *ngIf="message.sender === 'johndoe'">
+                          <div class="sender-id mb-1" *ngIf="message.sender === 'uniabroad'">
                             {{'@'+message.sender}}
                           </div>
               
-                          <div class="d-flex mb-3" [ngClass]="{'justify-content-start': message.sender === 'johndoe', 'justify-content-end': message.sender === 'uniabroad'}">
-                            <div *ngIf="message.sender === 'johndoe'" class="avatar me-2">
+                          <div class="d-flex mb-3" [ngClass]="{'justify-content-start': message.sender === 'uniabroad', 'justify-content-end': message.sender === 'johndoe'}">
+                            <div *ngIf="message.sender === 'uniabroad'" class="avatar me-2">
                               <img src="assets/user-avatar.jpg" class="rounded-circle" width="32" height="32" alt="User">
                             </div>
                             
                             <!-- Text Message -->
-                            <div *ngIf="message.type === 'text'" class="message-content" 
-                                [ngClass]="{'bg-light': message.sender === 'johndoe', 'bg-primary text-white': message.sender === 'uniabroad'}">
+                            <div *ngIf="message.type === 'text'" class="message-content w-100" 
+                                [ngClass]="{'bg-light': message.sender === 'uniabroad', 'bg-primary text-white': message.sender === 'johndoe'}">
                               <p class="mb-2">{{message.content}}</p>
                               <small class="message-time" 
-                                    [ngClass]="{'text-muted': message.sender === 'johndoe', 'text-white-50': message.sender === 'uniabroad'}">
+                                    [ngClass]="{'text-muted': message.sender === 'uniabroad', 'text-white-50': message.sender === 'johndoe'}">
                                 {{message.time}}
                               </small>
                             </div>
@@ -478,26 +494,24 @@
                           </div>
                         </ng-container>
                       </div>
-              
-                      <!-- Input Area -->
-                      <div class="card-footer bg-white position-sticky bottom-0">
-                        <div class="input-group">
-                          <span class="input-group-text border-0 bg-white">
-                            <i class="pi pi-paperclip"></i>
-                          </span>
-                          <input type="text" class="form-control border-0" placeholder="Text with UNIABROAD..." #messageInput
-                                (keyup.enter)="sendMessage(messageInput.value); messageInput.value = ''">
-                          <span class="input-group-text border-0 bg-white">
-                            <i class="pi pi-send"></i>
-                          </span>
-                        </div>
+                    </div>
+            
+                    <!-- Input Area -->
+                    <div class="card-footer bg-white bottom-0 mt-auto">
+                      <div class="input-group">
+                        <span class="input-group-text border-0 bg-white">
+                          <i class="pi pi-paperclip"></i>
+                        </span>
+                        <input type="text" class="form-control border-0" placeholder="Text with UNIABROAD..." #messageInput
+                              (keyup.enter)="sendMessage(messageInput.value); messageInput.value = ''">
+                        <span class="input-group-text border-0 bg-white" >
+                          <i class="pi pi-send" (click)="sendMessage(messageInput.value);"></i>
+                        </span>
                       </div>
                     </div>
-                </div>
-            </div>
-        </div>
+                  </div>
+              </div>
+          </div>
+      </div>
   </div>
-</div>    
-
-  
-  
+</div>

@@ -39,33 +39,38 @@ export class EasyApplyComponent {
   employmentTypes: any[] = [];
   experienceLevels: any[] = [];
   totalJobs: number = 4;
-  currencies: any[] = [
-    { label: 'INR', value: 'INR' },
-    { label: 'USD', value: 'USD' },
-    { label: 'EUR', value: 'EUR' }
-  ];
+  currencies: any[] = [];
   page: number = 0;
   pageSize: number = 8;
   displayModal: boolean = false;
   filterForm: FormGroup = new FormGroup({});
-  constructor(private fb: FormBuilder, private talentConnectService: TalentConnectService) { }
+  constructor(private fb: FormBuilder, private talentConnectService: TalentConnectService, private talenconnectService: TalentConnectService) { }
   ngOnInit(): void {
     this.getList();
     this.initializeForm();
     this.getOptionsList();
+    this.getcurrencies();
   }
 
   initializeForm() {
     this.filterForm = this.fb.group({
       keyword: [''],
-      positionTitle: [''],
+      position: [''],
       industry: [null],
-      workLocation: [null],
-      workMode: [null],
-      employmentType: [null],
+      worklocation: [null],
+      work_mode: [null],
+      employment_type: [null],
       currency: ['INR'],
       salary: [''],
       experienceLevel: [null]
+    });
+  }
+
+  getcurrencies() {
+    this.talenconnectService.getCurrencies().subscribe({
+      next: (response: any) => {
+        this.currencies = response;
+      }
     });
   }
 

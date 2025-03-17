@@ -41,9 +41,8 @@
     </div>
   </div>
   <div class="card-body text-center flex-fill overflow-y-auto">
-    <div class="row">
-      <div>
-        <div class="d-flex gap-2 justify-content-center align-items-center">
+    <div class="d-flex flex-fill align-items-center">
+        <div class="d-flex flex-fill gap-2 justify-content-center align-items-center">
           <button
             type="button"
             class="p-2 px-4 mb-4 mt-3 rounded-lg"
@@ -58,80 +57,54 @@
             Job Tracker
           </button>
         </div>
-      </div>
-      <div class="text-end">
-        <span class="fw-bold">Total Job : {{ totalJobs }}</span>
+      <div class="text-end ">
+        <span class="fw-bold border border-success px-2 py-1 rounded-pill me-1">Total Job : {{ totalJobs }}</span>
+        <span class="fw-bold border border-danger px-2 py-1 rounded-pill ">Total Vacanies : {{ totalJobs }}</span>
       </div>
     </div>
     <div class="row">
       <div class="col-md-6 col-lg-4 mb-4" *ngFor="let job of jobListings" [routerLink]="['/pages/talent-connect/easy-apply', job.id]">
-          <div class="card-inside" style="border-radius: 10px; margin-bottom: 20px; transition: transform 0.3s; border: 1px solid gray;">
-            <!-- Job Header -->
-            <div class="card-body bg-white card-header-inside">
-              <div class="row align-items-center w-100">
-                <div class="col-auto">
-                  <img
-                    [src]="job.company_logo"
-                    alt="Company Logo"
-                    width="100"
-                    height="80"
-                    class="rounded"
-                  />
-                </div>
-                <div class="col">
-                  <h5 class="mb-1">{{ job.position }}</h5>
-                  <p class="mb-0 text-orange">
-                    {{ job.company_name }}
-                    <span class="ms-1 text-primary" *ngIf="job.isVerified">
-                      <i class="fas fa-check-circle"></i>
-                    </span>
-                  </p>
-                  <p class="mb-0 text-warning" style="font-size: 10px">
-                    You match {{ job.matchedSkills }} out of
-                    {{ job.totalSkills }} skill requirements for this job
-                  </p>
-                </div>
-
-                <!-- Share Button Column -->
-                <div class="col-auto">
-                  <button class="btn btn-link text-warning p-0">
-                    <i class="fas fa-share-alt"></i>
-                  </button>
-                </div>
+        <div class="card-inside h-100 d-flex flex-column" style="border-radius: 10px; margin-bottom: 20px; transition: transform 0.3s; border: 1px solid gray;">
+          <!-- Job Header -->
+          <div class="card-body bg-white card-header-inside">
+            <div class="row align-items-center w-100">
+              <div class="col-auto">
+                <img [src]="job.company_logo" alt="Company Logo" width="100" height="80" class="rounded"/>
+              </div>
+              <div class="col">
+                <h5 class="mb-1">{{ job?.position }}</h5>
+                <p class="mb-0 text-orange">
+                  {{ job.company_name }}
+                  <span class="ms-1 text-primary" *ngIf="job.isVerified">
+                    <i class="fas fa-check-circle"></i>
+                  </span>
+                </p>
+                <p class="mb-0 text-warning" style="font-size: 10px">
+                  You match {{ job.matchedSkills }} out of {{ job.totalSkills }} skill requirements for this job
+                </p>
+              </div>
+              <div class="col-auto">
+                <button class="btn btn-link text-warning p-0">
+                  <i class="fas fa-share-alt"></i>
+                </button>
               </div>
             </div>
-            <div class="m-2 border border-bottom-100"></div>
-              <div class="d-flex justify-content-between align-items-center">
-                <div>
-                  <p class="text-muted mb-0 small">Total Vacancies</p>
-                  <p class="mb-0 fw-bold fs-4">{{ job.available_vacancies }}</p>
-                </div>
-                <button class="btn-success px-3"><i class="fa fa-check"></i>&nbsp;Actively Hiring</button>
-              </div>
-            <div class="m-2 border border-bottom-100"></div>
-            <div class="card-body pt-0">
-              <div class="row">
-                <div class="col-md-6">
-                  <div class="d-flex mb-3 align-items-center">
-                    <div class="me-2 text-success">
-                      <i class="fas fa-map-marker-alt"></i>
-                    </div>
-                    <div>
-                      <p class="text-muted mb-0 small">Work Location</p>
-                      <p class="mb-0 fw-medium">{{ job.worklocation }}</p>
-                    </div>
+          </div>
+        
+          <div class="m-2 border border-bottom-100"></div>
+        
+          <!-- Job Details (Make this section flexible) -->
+          <div class="card-body flex-grow-1">
+            <div class="row">
+              <div class="col-md-6">
+                <div class="d-flex mb-3 align-items-center">
+                  <div class="me-2 text-success">
+                    <i class="fas fa-map-marker-alt"></i>
                   </div>
+                  <div>
+                    <p class="text-muted mb-0 small">Work Location</p>
+                    <p class="mb-0 fw-medium">{{ job.worklocation }}</p>
                   </div>
-                  <div class="col-md-6">
-                  <!-- Start Date and Company Size -->                  
-                   <div class="d-flex mb-3 align-items-center">
-                    <div class="me-2 text-primary">
-                      <i class="fas fa-calendar-alt"></i>
-                    </div>
-                    <div class="me-4">
-                      <p class="text-muted mb-0 small">Total Applied</p>
-                      <p class="mb-0 fw-medium">{{ job.total_applied }}</p>
-                    </div>
                 </div>
               </div>
               <div class="col-md-6">
@@ -139,77 +112,93 @@
                   <div class="me-2 text-primary">
                     <i class="fas fa-calendar-alt"></i>
                   </div>
-                  <div class="me-4">
+                  <div>
+                    <p class="text-muted mb-0 small">Total Applied</p>
+                    <p class="mb-0 fw-medium">{{ job.total_applied }}</p>
+                  </div>
+                </div>
+              </div>
+        
+              <div class="col-md-6">
+                <div class="d-flex mb-3 align-items-center">
+                  <div class="me-2 text-primary">
+                    <i class="fas fa-calendar-alt"></i>
+                  </div>
+                  <div>
                     <p class="text-muted mb-0 small">Start Date</p>
                     <p class="mb-0 fw-medium">{{ job.start_date }}</p>
                   </div>
+                </div>
               </div>
-              </div>
+        
               <div class="col-md-6">
                 <div class="d-flex mb-3 align-items-center">
                   <div class="me-2 text-primary">
                     <i class="fas fa-calendar-alt"></i>
                   </div>
-                  <div class="me-4">
+                  <div>
                     <p class="text-muted mb-0 small">Due Date</p>
                     <p class="mb-0 fw-medium">{{ job.due_date }}</p>
                   </div>
+                </div>
               </div>
-              </div>
+        
               <div class="col-md-6">
                 <div class="d-flex mb-3 align-items-center">
                   <div class="me-2 text-warning">
                     <i class="fas fa-building"></i>
                   </div>
-                  <div class="me-4">
+                  <div>
                     <p class="text-muted mb-0 small">Work Mode</p>
                     <p class="mb-0 fw-medium">{{ job.work_mode }}</p>
                   </div>
                 </div>
               </div>
+        
               <div class="col-md-6">
                 <div class="d-flex mb-3 align-items-center">
-                <div class="me-2 text-danger">
-                  <i class="fas fa-briefcase"></i>
-                </div>
-                <div>
-                  <p class="text-muted mb-0 small">Employment Type</p>
-                  <p class="mb-0 fw-medium">{{ job.employment_type }}</p>
-                </div>
+                  <div class="me-2 text-danger">
+                    <i class="fas fa-briefcase"></i>
+                  </div>
+                  <div>
+                    <p class="text-muted mb-0 small">Employment Type</p>
+                    <p class="mb-0 fw-medium">{{ job.employment_type }}</p>
+                  </div>
                 </div>
               </div>
-
+        
               <div class="col-md-6">
                 <div class="d-flex mb-3 align-items-center">
-                <div class="me-2 text-success">
-                  <i class="fas fa-dollar-sign"></i>
+                  <div class="me-2 text-success">
+                    <i class="fas fa-dollar-sign"></i>
+                  </div>
+                  <div>
+                    <p class="text-muted mb-0 small">Salary Range</p>
+                    <p class="mb-0 fw-medium">{{ job.salary_offer }}</p>
+                  </div>
                 </div>
-                <div>
-                  <p class="text-muted mb-0 small">Salary Range</p>
-                  <p class="mb-0 fw-medium">{{ job.salary_offer }}</p>
+              </div>
+        
+              <div class="col-md-6">
+                <div class="d-flex mb-3 align-items-center">
+                  <div class="me-2 text-success">
+                    <i class="fas fa-users"></i>
+                  </div>
+                  <div>
+                    <p class="text-muted mb-0 small">Company Size</p>
+                    <p class="mb-0 fw-medium">{{ job.companySize }}</p>
+                  </div>
                 </div>
               </div>
-             </div>
-
-             <div class="col-md-6">
-              <div class="d-flex mb-3 align-items-center">
-              <div class="me-2 text-success">
-                <i class="fas fa-users"></i>
-              </div>
-              <div>
-                <p class="text-muted mb-0 small">Company Size</p>
-                <p class="mb-0 fw-medium">{{ job.companySize }}</p>
-              </div>
-            </div>
-           </div>
-
-            <!-- Posted Date -->
-            <div class="card-footer bg-white text-end border-top-0">
-              <small class="text-muted">Posted On : {{ job.postedDate }}</small>
             </div>
           </div>
-      </div>
-    </div>
+        
+          <!-- Footer (Sticks to the bottom) -->
+          <div class="card-footer bg-white text-end border-top-0 mt-auto">
+            <small class="text-muted">Posted On: {{ job.created_at | date: 'dd-MM-yyyy' }}</small>
+          </div>
+        </div>
+        
   </div>
    </div>
    </div>
@@ -257,7 +246,7 @@
             <input 
               type="text" 
               pInputText 
-              formControlName="positionTitle" 
+              formControlName="position" 
               placeholder="Enter position title" 
               class="form-control">
           </div>
@@ -280,7 +269,7 @@
           <label class="form-label fw-bold">Work Location <span class="text-danger">(Multi select)</span></label>
           <p-multiSelect 
             [options]="locations" 
-            formControlName="workLocation" 
+            formControlName="worklocation" 
             defaultLabel="Select work location" 
             optionLabel="work_location" 
             optionValue="id"
@@ -295,7 +284,7 @@
           <label class="form-label fw-bold">Work mode <span class="text-danger">(Multi select)</span></label>
           <p-multiSelect 
             [options]="workModes" 
-            formControlName="workMode" 
+            formControlName="work_mode" 
             defaultLabel="Select work type" 
             optionLabel="label" 
             display="chip"
@@ -307,7 +296,7 @@
           <label class="form-label fw-bold">Employment Type <span class="text-danger">(Multi select)</span></label>
           <p-multiSelect 
             [options]="employmentTypes" 
-            formControlName="employmentType" 
+            formControlName="employment_type" 
             defaultLabel="Select employment type" 
             optionLabel="label" 
             display="chip"
@@ -320,7 +309,8 @@
           <p-select
             [options]="currencies" 
             formControlName="currency" 
-            optionLabel="label" 
+            optionLabel="currency_code" 
+            optionId="id"
             [filter]="true" 
             filterBy="label" 
             class="w-100">
@@ -331,25 +321,22 @@
       <div class="row mb-4">
         <div class="col-md-4">
           <label class="form-label fw-bold">Salary offered</label>
-          <div class="input-group">
-            <div class="input-group-prepend">
-              <span class="input-group-text">
-                <p-select
-                  [options]="currencies" 
-                  formControlName="currency" 
-                  optionLabel="label" 
-                  [showClear]="false" 
-                  styleClass="border-0 p-dropdown-sm h-100">
-                </p-select>
-              </span>
+          <div class="d-flex w-100 gap-2">
+            <p-select [options]="currencies"
+            styleClass="p-select p-component"
+            optionLabel="currency_code" optionValue="id"
+            placeholder="Select"
+            formControlName="currency"
+            [style]="{ width: '80px' }">
+           </p-select>
+            <div class="flex-grow-1 me-2">
+                <p-inputNumber id="salary"
+                    placeholder="Enter your salary/month"
+                    styleClass="p-inputtext w-100" [showButtons]="false"
+                    class="w-100"
+                    formControlName="salary"></p-inputNumber>
             </div>
-            <input 
-              type="text" 
-              pInputText 
-              formControlName="salary" 
-              placeholder="Input salary offered per month" 
-              class="form-control pl-2">
-          </div>
+        </div>
         </div>
         
         <div class="col-md-4">
