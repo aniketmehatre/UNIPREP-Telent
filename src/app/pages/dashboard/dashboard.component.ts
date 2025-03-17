@@ -1,3 +1,4 @@
+import { InputGroupModule } from 'primeng/inputgroup';
 import { Component, Input, OnChanges, OnInit, SimpleChanges, ViewChild, ChangeDetectionStrategy, ChangeDetectorRef } from "@angular/core"
 import { DashboardService } from "./dashboard.service"
 import { AuthService } from "../../Auth/auth.service"
@@ -25,13 +26,13 @@ import { AccordionModule } from "primeng/accordion"
 import { TableModule } from "primeng/table"
 import { TabViewModule } from "primeng/tabview"
 import { MessageService } from "primeng/api"
-
+import { InputGroupAddonModule } from "primeng/inputgroupaddon"
 @Component({
 	selector: "uni-dashboard",
 	templateUrl: "./dashboard.component.html",
 	styleUrls: ["./dashboard.component.scss"],
 	standalone: true,
-	imports: [CommonModule, DialogModule, CarouselModule, FormsModule, ButtonModule, TooltipModule, RouterModule, SelectModule,
+	imports: [CommonModule, DialogModule, CarouselModule,InputGroupAddonModule,InputGroupModule, FormsModule, ButtonModule, TooltipModule, RouterModule, SelectModule,
 		CalendarModule, DatePickerModule, InputTextModule, TabViewModule, TableModule, AccordionModule, ReactiveFormsModule,
 	],
 	providers: [DashboardService, AuthService, DataService, LocationService],
@@ -102,14 +103,19 @@ export class DashboardComponent implements OnInit, OnChanges {
 	) {
 		this.responsiveOptions = [
 			{
+				breakpoint: '1280px',
+				numVisible: 4,
+				numScroll: 4
+			},
+			{
 				breakpoint: '1024px',
 				numVisible: 3,
-				numScroll: 1
+				numScroll: 3
 			},
 			{
 				breakpoint: '768px',
 				numVisible: 2,
-				numScroll: 1
+				numScroll: 2
 			},
 			{
 				breakpoint: '560px',

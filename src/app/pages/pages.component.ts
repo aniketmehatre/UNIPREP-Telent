@@ -15,7 +15,6 @@ import {HeaderComponent} from "@theme/components/header/header.component";
 import {SidenavComponent} from "@theme/components/sidenav/sidenav.component";
 import {DialogModule} from 'primeng/dialog';
 import {ButtonModule} from 'primeng/button';
-import {FooterStatusBoxComponent} from "./footer-status-box/footer-status-box.component";
 import {HeaderSearchComponent} from "./header-search/header-search.component"
 import {StorageService} from "../storage.service";
 
@@ -31,7 +30,6 @@ import {StorageService} from "../storage.service";
     ButtonModule,
     HeaderComponent, 
     SidenavComponent,
-    FooterStatusBoxComponent,
     HeaderSearchComponent
   ],
 })
