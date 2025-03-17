@@ -98,26 +98,51 @@ export class TalentConnectService {
     }
 
 
-    getCompanyDetails(formValues: any) {
+    getCompanyDetails(id: any) {
         const formData = new FormData();
-        formData.append("perpage", "100");
-        formData.append("page", "1");
-        formData.append("companyname", "Test");
-        formData.append("industrytype", "2,1");
-        formData.append("companysize", "1");
-        formData.append("hq", "2");
-        formData.append("globalpresence", "1,2,3");
-        formData.append("foundedyear", "2002");
-        formData.append("companytype", "1");
+        formData.append("id", id);
         const headers = new HttpHeaders().set("Accept", "application/json");
         return this.http.post<any>(
-            environment.ApiUrl + "/getcompaenydetails", formData,
+            environment.ApiUrl + "/getcompanydetails", formData,
             { headers: headers });
     }
 
     // getcompanytypes
-
     getCompanyTypes() {
-        return this.http.get<any>(environment.ApiUrl + "/getcompanytypes", {headers: this.headers});
+        const headers = new HttpHeaders().set("Accept", "application/json");
+        return this.http.get<any>(environment.ApiUrlEmployer + "/getcompanytypes", {headers: headers});
     }
+
+    // getindustrytypes
+    getIndustryTypes() {
+        const headers = new HttpHeaders().set("Accept", "application/json");
+        return this.http.get<any>(environment.ApiUrlEmployer + "/getindustrytypes", {headers: headers});
+    }
+
+    // getcompanysize
+    getCompanySizes() {
+        const headers = new HttpHeaders().set("Accept", "application/json");
+        return this.http.get<any>(environment.ApiUrlEmployer + "/getcompanysize", {headers: headers});
+    }
+
+    // globalPresence
+    globalPresence() {
+        const headers = new HttpHeaders().set("Accept", "application/json");
+        return this.http.post<any>(environment.ApiUrlEmployer + "/globalPresence", {},  {headers: headers});
+    }
+
+    // getcitywithflag
+    getCityWithFlag() {
+        const headers = new HttpHeaders().set("Accept", "application/json");
+        return this.http.post<any>(environment.ApiUrlEmployer + "/getcitywithflag", {},  {headers: headers});
+    }
+
+    // follow company
+    followCompany(companyId: any) {
+        const formData = new FormData();
+        formData.append("companyId", companyId);
+        const headers = new HttpHeaders().set("Accept", "application/json");
+        return this.http.post<any>(environment.ApiUrl + "/followcompany", formData,  {headers: headers});
+    }
+
 }

@@ -1,9 +1,10 @@
-import { Component } from '@angular/core';
-import { CommonModule, NgClass } from "@angular/common";
-import { Chip, ChipModule } from "primeng/chip";
+import {Component} from '@angular/core';
+import {CommonModule} from "@angular/common";
+import {ChipModule} from "primeng/chip";
 import {JobChatUiComponent} from "../../job-tracker/job-chat-ui/job-chat-ui.component";
-import { ButtonModule } from 'primeng/button';
-import { RouterModule } from '@angular/router';
+import {ButtonModule} from 'primeng/button';
+import {ActivatedRoute, RouterModule} from '@angular/router';
+import {TalentConnectService} from "../../talent-connect.service";
 
 @Component({
   selector: 'uni-company-view',
@@ -64,10 +65,44 @@ export class CompanyViewComponent {
   interviewFormat = 'Traditional Interview Format';
 
   showChat: boolean = false;
-  constructor() { }
+  companyDetails: any;
+  companyId: any
+
+  constructor(private route: ActivatedRoute, private talentConnectService: TalentConnectService) {
+  }
 
   ngOnInit(): void {
+    this.companyId = this.route.snapshot.paramMap.get('id');
+    this.getCompanyDetail(this.companyId)
   }
+
+
+  followCompany(){
+    this.talentConnectService.followCompany(this.companyId).subscribe(
+        {
+          next: result => {
+            console.log(result);
+          },
+          error: err => {
+            console.log(err)
+          }
+        }
+    )
+  }
+
+  getCompanyDetail(id: any) {
+    this.talentConnectService.getCompanyDetails(id).subscribe({
+      next: data => {
+        console.log(data)
+        this.companyDetails = data[0]
+      },
+      error: err => {
+        console.log(err)
+      }
+    })
+  }
+
+
 
   openVideoPopup(id: string) {}
 }

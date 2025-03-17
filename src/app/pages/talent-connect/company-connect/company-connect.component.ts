@@ -68,6 +68,9 @@ export class CompanyConnect1Component implements OnInit {
     ngOnInit() {
         this.listCompanyData()
         this.getCompanyTypes()
+        this.getIndustryTypes()
+        this.globalPresenceData()
+        this.getCityWithFlag()
     }
 
     listCompanyData() {
@@ -104,6 +107,55 @@ export class CompanyConnect1Component implements OnInit {
         this.talentConnectService.getCompanyTypes().subscribe({
             next: data => {
                 console.log(data)
+                this.companyTypes = data;
+            },
+            error: err => {
+                console.log(err)
+            }
+        })
+    }
+
+    getIndustryTypes() {
+        this.talentConnectService.getIndustryTypes().subscribe({
+            next: data => {
+                console.log(data)
+                this.industryTypes = data
+            },
+            error: err => {
+                console.log(err)
+            }
+        })
+    }
+
+    globalPresenceData() {
+        this.talentConnectService.globalPresence().subscribe({
+            next: data => {
+                console.log(data)
+                this.globalPresence = data
+            },
+            error: err => {
+                console.log(err)
+            }
+        })
+    }
+
+    getCityWithFlag() {
+        this.talentConnectService.getCityWithFlag().subscribe({
+            next: data => {
+                console.log(data)
+                this.locations = data
+            },
+            error: err => {
+                console.log(err)
+            }
+        })
+    }
+
+    getCompanySizes() {
+        this.talentConnectService.getCompanySizes().subscribe({
+            next: data => {
+                console.log(data)
+                this.industryTypes = data.industries
             },
             error: err => {
                 console.log(err)

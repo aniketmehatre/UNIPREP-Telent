@@ -22,28 +22,29 @@ import { InputGroupAddonModule } from "primeng/inputgroupaddon"
 import { PaginatorModule } from "primeng/paginator"
 import {PdfViewerModule} from "ng2-pdf-viewer";
 import {DomSanitizer} from "@angular/platform-browser";
+import {PdfJsViewerModule} from "ng2-pdfjs-viewer";
 
 @Component({
 	selector: "uni-pitch-desk",
 	templateUrl: "./pitch-desk.component.html",
 	styleUrls: ["./pitch-desk.component.scss"],
 	standalone: true,
-	imports: [
-		CommonModule,
-		InputGroupModule, 
-		InputGroupAddonModule, 
-		DialogModule, 
-		InputTextModule, 
-		SkeletonModule, 
-		TooltipModule, 
-		ButtonModule, 
-		MultiSelectModule, 
-		CarouselModule,
-		FormsModule,
-		ReactiveFormsModule,
-		PaginatorModule,
-		PdfViewerModule
-	],
+    imports: [
+        CommonModule,
+        InputGroupModule,
+        InputGroupAddonModule,
+        DialogModule,
+        InputTextModule,
+        SkeletonModule,
+        TooltipModule,
+        ButtonModule,
+        MultiSelectModule,
+        CarouselModule,
+        FormsModule,
+        ReactiveFormsModule,
+        PaginatorModule,
+        PdfViewerModule,
+    ],
 })
 export class PitchDeskComponent implements OnInit, OnDestroy, AfterViewInit {
 	@ViewChild('pdfViewer') pdfViewer: any;
@@ -80,7 +81,9 @@ export class PitchDeskComponent implements OnInit, OnDestroy, AfterViewInit {
 	pdfLoadError: boolean = false;
 
 	constructor(private pitchDesk: PitchDeskService, private userManagementService: UserManagementService,
-				private sanitizer: DomSanitizer, private fb: FormBuilder, private router: Router, private authService: AuthService, private toast: MessageService, private dataService: DataService, private pageFacade: PageFacadeService, private locationService: LocationService) {
+				private fb: FormBuilder, private router: Router, private authService: AuthService,
+				private toast: MessageService, private dataService: DataService,
+				private pageFacade: PageFacadeService, private locationService: LocationService) {
 		this.filterForm = this.fb.group({
 			pitchdeck_name: [""],
 			country: [""],
