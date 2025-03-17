@@ -22,7 +22,7 @@
 		</div> -->
 		<div class="row">
 			<div class="d-flex flex-row gap-4 flex-nowrap overflow-y-auto py-3">
-				<p role="button" class="text-nowrap" *ngFor="let cat of categorylist" [ngClass]="{'selected-category': isSelected(cat.id)}" (click)="filterCat(cat.id)">{{cat.name}}</p>
+				<h5 role="button" class="text-nowrap mb-0 fw-medium" *ngFor="let cat of categorylist" [ngClass]="{'selected-category': isSelected(cat.id)}" (click)="filterCat(cat.id)">{{cat.name}}</h5>
 			</div>
 		</div>
 	</div>
