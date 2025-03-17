@@ -68,7 +68,7 @@
     </div>     -->
 </div>
 <div class="card" style="border-radius: 0px 0px 15px 15px !important; background-color: white !important">
-	<p-paginator [rows]="10" [totalRecords]="totalcount" (onPageChange)="paginate($event)" [rowsPerPageOptions]="[50, 100, 200, 500, 1000]" dropdownAppendTo="body"></p-paginator>
+	<p-paginator [rows]="50" [totalRecords]="totalcount" (onPageChange)="paginate($event)" [rowsPerPageOptions]="[50, 100, 200, 500, 1000]" dropdownAppendTo="body"></p-paginator>
 </div>
 <!-- filter pop-up -->
 <div class="modal" tabindex="-1" role="dialog" [ngStyle]="{ display: newfile }">
