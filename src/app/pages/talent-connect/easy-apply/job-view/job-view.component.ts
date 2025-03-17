@@ -39,7 +39,7 @@ export interface Job {
 }
 
 interface Message {
-  sender: string; // Changed from isSender to sender for clarity
+  sender: boolean; // Changed from isSender to sender for clarity
   content: string;
   time: string;
   type: 'text' | 'file' | 'button';
@@ -92,19 +92,19 @@ export class JobViewComponent implements OnInit {
   
   messages: Message[] = [
     {
-      sender: 'johndoe',
+      sender: true,
       content: 'I am a passionate UI/UX designer dedicated to crafting intuitive, user-centered experiences. With a keen eye for aesthetics and functionality, I specialize in wireframing, prototyping, and interaction design. My goal is to create seamless digital journeys that enhance usability, accessibility, and engagement, blending creativity with data-driven decision-making.',
       time: '12:00',
       type: 'text'
     },
     {
-      sender: 'johndoe',
+      sender: false,
       content: 'Cover Letter.pdf',
       time: '12:00',
       type: 'file'
     },
     {
-      sender: 'uniabroad',
+      sender: false,
       content: 'Click here to track your Job Application',
       time: '12:00',
       type: 'button'
@@ -219,7 +219,7 @@ export class JobViewComponent implements OnInit {
           // Handle array response
           this.messages = response.map(item => {
             return {
-              sender: item.isEmployeer ? 'uniabroad' : 'johndoe',
+              sender: item.employeer == 0 ? true : false,
               content: item.chat,
               time: new Date(item.created_at).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }),
               type: 'text'
@@ -238,22 +238,13 @@ export class JobViewComponent implements OnInit {
 
   sendMessage(message: string): void {
     if (!message.trim()) return;
-
-    // Add message to local array immediately for better UX
-    this.messages.push({
-      sender: 'johndoe',
-      content: message,
-      time: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }),
-      type: 'text'
-    });
-
     this.talentConnectService.sendMessage({ job_id: this.id, chat: message }).subscribe({
       next: response => {
         console.log('Message sent:', response);
         // If there's a response message from the server, add it
         if (response.message) {
           this.messages.push({
-            sender: 'uniabroad',
+            sender: true,
             content: response.message,
             time: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }),
             type: 'text'

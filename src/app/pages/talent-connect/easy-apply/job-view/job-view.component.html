@@ -26,7 +26,7 @@
   </div>
   <div class="card-body text-start flex-fill overflow-y-auto">
       <div class="row">
-          <div class="col-md-8 overflow-auto" [ngClass]="{'col-md-12': !isShowApplyChat}" style="height: calc(100vh - 250px);">
+          <div class="col-md-8 overflow-auto" [ngClass]="{'col-md-12': !isShowApplyChat}" style="height: calc(100vh - 200px);">
               <div class="row">
                   <div class="col-md-2 ">
                       <div class="logo-container border p-3 mb-3">
@@ -406,111 +406,115 @@
                 </div>
               </div>
           </div>
-          <div class="col-md-4" *ngIf="isShowApplyChat" style="max-height: calc(100vh - 250px);">
-              <div class="chat-container">
-                  <div class="card">
-                    <!-- Header -->
-                    <div class="card-header d-flex justify-content-between align-items-center p-3">
-                      <div class="d-flex align-items-center">
-                        <div class="uniabroad-icon me-2">
-                          <img src="assets/uniabroad-icon.png" alt="UNIABROAD" width="24" height="24">
-                        </div>
-                        <div>
-                          <h5 class="mb-0 fw-bold">UNIABROAD</h5>
-                          <p class="small text-muted mb-0">Active</p>
-                        </div>
-                      </div>
-                      <button type="button" class="btn-close" aria-label="Close" (click)="isShowApplyChat=false;"></button>
+          <div class="col-md-4" *ngIf="isShowApplyChat">
+            <div class="chat-container h-100 d-flex flex-column">
+              <div class="card h-100 d-flex flex-column">
+                <!-- Header - Fixed at top -->
+                <div class="card-header d-flex justify-content-between align-items-center p-3">
+                  <div class="d-flex align-items-center">
+                    <div class="uniabroad-icon me-2">
+                      <img src="assets/uniabroad-icon.png" alt="UNIABROAD" width="24" height="24">
                     </div>
-                    <div style="height: calc(100vh - 250px);" class="overflow-y-auto ">
-                      <!-- Initial View (Empty State) -->
-                      <div class="card-body chat-body overflow-y-auto" *ngIf="currentView === 'initial'" >
-                        <div class="description-box mt-3">
-                          <h5 class="text-center mb-3">Write a description about yourself</h5>
-                          
-                          <div class="upload-section text-center">
-                            <p class="mb-1">Upload Cover Letter</p>
-                            <p class="small text-muted">Supported Formats: doc, docx, pdf, upto 2 MB</p>
-                          </div>
-              
-                          <div class="cover-letter-box mt-4">
-                            <p class="text-center mb-0 fw-medium">Need a cover letter?</p>
-                            <button pButton 
-                                   class="p-button-text p-button-plain w-100" 
-                                   label="Click here to write one!"
-                                   (click)="switchToConversationView()"></button>
-                          </div>
-                        </div>
-                      </div>
-              
-                      <!-- Conversation View -->
-                      <div class="chat-body" *ngIf="currentView === 'conversation'">
-                        <ng-container *ngFor="let message of messages">
-                          <!-- Sender ID -->
-                          <div class="sender-id mb-1" *ngIf="message.sender === 'uniabroad'">
-                            {{'@'+message.sender}}
-                          </div>
-              
-                          <div class="d-flex mb-3" [ngClass]="{'justify-content-start': message.sender === 'uniabroad', 'justify-content-end': message.sender === 'johndoe'}">
-                            <div *ngIf="message.sender === 'uniabroad'" class="avatar me-2">
-                              <img src="assets/user-avatar.jpg" class="rounded-circle" width="32" height="32" alt="User">
-                            </div>
-                            
-                            <!-- Text Message -->
-                            <div *ngIf="message.type === 'text'" class="message-content w-100" 
-                                [ngClass]="{'bg-light': message.sender === 'uniabroad', 'bg-primary text-white': message.sender === 'johndoe'}">
-                              <p class="mb-2">{{message.content}}</p>
-                              <small class="message-time" 
-                                    [ngClass]="{'text-muted': message.sender === 'uniabroad', 'text-white-50': message.sender === 'johndoe'}">
-                                {{message.time}}
-                              </small>
-                            </div>
-                            
-                            <!-- File Attachment -->
-                            <div *ngIf="message.type === 'file'" class="message-content file-message w-75">
-                              <p class="mb-0">{{message.content}}</p>
-                              <small class="message-time text-muted">{{message.time}}</small>
-                            </div>
-                            
-                            <!-- Button Message -->
-                            <div *ngIf="message.type === 'button'" class="w-75">
-                              <div class="sender-id mb-1 text-end">
-                                {{'@'+message.sender}}
-                              </div>
-                              <button pButton 
-                                    class="p-button-warning w-100 d-flex justify-content-between align-items-center">
-                                <span>{{message.content}}</span>
-                                <div class="d-flex align-items-center">
-                                  <small class="me-2">{{message.time}}</small>
-                                  <i class="pi pi-check"></i>
-                                  <img src="assets/uniabroad-icon.png" alt="UNIABROAD" width="18" height="18" class="ms-2">
-                                </div>
-                              </button>
-                            </div>
-                            
-                            <div *ngIf="message.sender === 'uniabroad' && message.type !== 'button'" class="avatar ms-2">
-                              <img src="assets/uniabroad-icon.png" class="rounded-circle" width="32" height="32" alt="UNIABROAD">
-                            </div>
-                          </div>
-                        </ng-container>
-                      </div>
+                    <div>
+                      <h5 class="mb-0 fw-bold">UNIABROAD</h5>
+                      <p class="small text-muted mb-0">Active</p>
                     </div>
-            
-                    <!-- Input Area -->
-                    <div class="card-footer bg-white bottom-0 mt-auto">
-                      <div class="input-group">
-                        <span class="input-group-text border-0 bg-white">
-                          <i class="pi pi-paperclip"></i>
-                        </span>
-                        <input type="text" class="form-control border-0" placeholder="Text with UNIABROAD..." #messageInput
-                              (keyup.enter)="sendMessage(messageInput.value); messageInput.value = ''">
-                        <span class="input-group-text border-0 bg-white" >
-                          <i class="pi pi-send" (click)="sendMessage(messageInput.value);"></i>
-                        </span>
+                  </div>
+                  <button type="button" class="btn-close" aria-label="Close" (click)="isShowApplyChat=false;"></button>
+                </div>
+                
+                <!-- Body - Scrollable content -->
+                <div class="card-body p-0 flex-grow-1 overflow-hidden d-flex flex-column">
+                  <!-- Initial View (Empty State) -->
+                  <div class="chat-body h-100 overflow-y-auto" *ngIf="currentView === 'initial'">
+                    <div class="description-box mt-3 p-3">
+                      <h5 class="text-center mb-3">Write a description about yourself</h5>
+                      
+                      <div class="upload-section text-center">
+                        <p class="mb-1">Upload Cover Letter</p>
+                        <p class="small text-muted">Supported Formats: doc, docx, pdf, upto 2 MB</p>
+                      </div>
+              
+                      <div class="cover-letter-box mt-4">
+                        <p class="text-center mb-0 fw-medium">Need a cover letter?</p>
+                        <button pButton 
+                               class="p-button-text p-button-plain w-100" 
+                               label="Click here to write one!"
+                               (click)="switchToConversationView()"></button>
                       </div>
                     </div>
                   </div>
+          
+                  <!-- Conversation View -->
+                  <div class="chat-body h-100 overflow-y-auto p-3" *ngIf="currentView === 'conversation'">
+                    <ng-container *ngFor="let message of messages">
+                      <!-- Sender ID for UNIABROAD -->
+                      <div class="sender-id mb-1" *ngIf="!message.sender">
+                        UNIABROAD
+                      </div>
+          
+                      <!-- Fix alignment based on boolean sender -->
+                      <div class="d-flex mb-3" [ngClass]="{'justify-content-start': !message.sender, 'justify-content-end': message.sender}">
+                        <div *ngIf="!message.sender" class="avatar me-2">
+                          <img src="assets/user-avatar.jpg" class="rounded-circle" width="32" height="32" alt="User">
+                        </div>
+                        
+                        <!-- Text Message -->
+                        <div *ngIf="message.type === 'text'" class="message-content" 
+                            [ngClass]="{'bg-light': !message.sender, 'bg-primary text-white': message.sender}"
+                            [ngStyle]="{'max-width': '75%'}">
+                          <p class="mb-2">{{message.content}}</p>
+                          <div class="d-flex justify-content-between align-items-center">
+                                                        <!-- Added tick icons for read receipts for johndoe -->
+                                                        <span *ngIf="message.sender" class="ms-2 text-white-50">
+                                                          <i class="pi pi-check"></i><i class="pi pi-check"></i>
+                                                        </span>
+                            <small class="message-time" 
+                                  [ngClass]="{'text-muted': !message.sender, 'text-white-50': message.sender}">
+                              {{message.time}} 
+                            </small>
+                          </div>
+                        </div>
+                        
+                        <!-- File Attachment -->
+                        <div *ngIf="message.type === 'file'" class="message-content file-message" style="min-width: 50%">
+                          <p class="mb-0">{{message.content}}</p>
+                          <small class="message-time text-muted">{{message.time}}</small>
+                        </div>
+                        
+                        <!-- Button Message -->
+                        <div *ngIf="message.type === 'button'" style="max-width: 75%">
+                          <div class="sender-id mb-1 text-end">
+                            {{message.sender ? 'johndoe' : 'UNIABROAD'}}
+                          </div>
+                          <button pButton 
+                                class="p-button-warning w-100 d-flex justify-content-between align-items-center">
+                            <span>{{message.content}}</span>
+                            <div class="d-flex align-items-center">
+                              <small class="me-2">{{message.time}}</small>
+                            </div>
+                          </button>
+                        </div>
+                      </div>
+                    </ng-container>
+                  </div>
+                </div>
+          
+                <!-- Footer - Fixed at bottom -->
+                <div class="card-footer bg-white p-2">
+                  <div class="input-group">
+                    <span class="input-group-text border-0 bg-white">
+                      <i class="pi pi-paperclip"></i>
+                    </span>
+                    <input type="text" class="form-control border-0" placeholder="Text with UNIABROAD..." #messageInput
+                          (keyup.enter)="sendMessage(messageInput.value); messageInput.value = ''">
+                    <span class="input-group-text border-0 bg-white" >
+                      <i class="pi pi-send" (click)="sendMessage(messageInput.value); messageInput.value = '';"></i>
+                    </span>
+                  </div>
+                </div>
               </div>
+            </div>
           </div>
       </div>
   </div>
