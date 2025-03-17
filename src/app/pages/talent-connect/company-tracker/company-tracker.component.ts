@@ -5,6 +5,7 @@ import { CompanyDetailComponent } from './company-detail/company-detail.componen
 import { JobChatUiComponent } from '../job-tracker/job-chat-ui/job-chat-ui.component';
 import { CompanyListsComponent } from './company-list/company-list.component';
 import { RouterLink } from '@angular/router';
+import {TalentConnectService} from "../talent-connect.service";
 
 @Component({
   selector: 'uni-company-tracker',
@@ -22,6 +23,8 @@ export class CompanyTracker1Component {
   openVideoPopup(link: string) {
 
   }
+  page: number = 1;
+  perPage: number = 10;
 
   currentPage: number = 1;
   itemsPerPage: number = 10;
@@ -35,10 +38,11 @@ export class CompanyTracker1Component {
   showChat: boolean = false;
   orgnamewhitlabel: string = '';
 
-  constructor() { }
+  constructor(private talentConnectService: TalentConnectService,) { }
 
-  ngOnInit(): void {  
+  ngOnInit(): void {
   }
+
 
   toggleInfo(): void {
     this.showChat = !this.showChat;

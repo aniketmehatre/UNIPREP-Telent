@@ -44,7 +44,7 @@
                 <div class="col-md-2">
                   <div class="logo-container border rounded p-2">
                     <img
-                      [src]="companyDetails.company_logo"
+                      src="{{companyDetails!.company_logo}}"
                       alt="Company Logo"
                       class="img-fluid"
                       onerror="this.src"
@@ -81,7 +81,7 @@
                     <div>
                       <small class="text-muted d-block"
                         >Headquarters Location</small>
-                      <span>{{companyDetails.HQ_country}}, {{ companyDetails.HQ_country }}</span>
+                      <span>{{companyDetails.HQ_city}}, {{ companyDetails.HQ_country }}</span>
                     </div>
                   </div>
                 </div>
@@ -131,7 +131,7 @@
                     </div>
                     <div class="col-md-3">
                       <h6 class="text-muted text-primary">Headquarters Location</h6>
-                      <p>India, Mysore</p>
+                      <p>{{companyDetails.HQ_city}}, {{ companyDetails.HQ_country }}</p>
                     </div>
                     <div class="col-md-3">
                       <h6 class="text-muted text-primary">Global Presence</h6>
@@ -173,7 +173,7 @@
                       <h5 class="text-primary">Work Life Balance Policies</h5>
                       <div class="mt-2">
                         <p-chip
-                          *ngFor="let policy of workLifeBalancePolicies"
+                          *ngFor="let policy of companyDetails.work_life_balance_policy"
                           label="{{ policy }}"
                           styleClass="m-1 bg-warning bg-opacity-25 text-dark"
                         ></p-chip>
@@ -183,7 +183,7 @@
                       <h5 class="text-primary">Employee Benefits & Perks</h5>
                       <div class="mt-2">
                         <p-chip
-                          *ngFor="let benefit of employeeBenefits"
+                          *ngFor="let benefit of companyDetails.benefits"
                           label="{{ benefit }}"
                           styleClass="m-1 bg-info bg-opacity-25 text-dark"
                         ></p-chip>
@@ -193,7 +193,7 @@
 
                   <div class="mt-4">
                     <h5 class="text-primary">Work Location & Mode</h5>
-                    <p>{{ workLocation }}</p>
+                    <p>{{ companyDetails.work_mode }}</p>
                   </div>
                 </div>
               </div>
@@ -210,8 +210,8 @@
                 <div class="col-md-9">
                   <h5 class="text-primary">Hiring Process Stages</h5>
                   <div class="mt-2">
-                    <p-chip
-                      label="{{ companyDetails.hiring_process_stages }}"
+                    <p-chip *ngFor="let hire of companyDetails.hiring_process_stages"
+                      label="{{ hire }}"
                       styleClass="m-1 bg-warning bg-opacity-25 text-dark"
                     ></p-chip>
                   </div>
@@ -234,7 +234,7 @@
         </div>
       </div>
       <div class="col-md-3" *ngIf="showChat">
-        <uni-job-chat-ui (closeChat)="showChat = false"></uni-job-chat-ui>
+        <uni-chat [companyDetails]="companyDetails" (closeChat)="showChat = false"></uni-chat>
       </div>
     </div>
   </div>

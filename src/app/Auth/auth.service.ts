@@ -203,6 +203,7 @@ export class AuthService {
   getMe(): Observable<any> {
     const token = this.getToken();
     if (!token) {
+      this.logout();
       return throwError(() => new Error('No authentication token'));
     }
 

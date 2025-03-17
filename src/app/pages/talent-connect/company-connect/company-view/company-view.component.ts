@@ -5,6 +5,7 @@ import {JobChatUiComponent} from "../../job-tracker/job-chat-ui/job-chat-ui.comp
 import {ButtonModule} from 'primeng/button';
 import {ActivatedRoute, RouterModule} from '@angular/router';
 import {TalentConnectService} from "../../talent-connect.service";
+import {ChatComponent} from "../chat/chat.component";
 
 @Component({
   selector: 'uni-company-view',
@@ -15,8 +16,8 @@ import {TalentConnectService} from "../../talent-connect.service";
     ButtonModule,
     CommonModule,
     ChipModule,
-    JobChatUiComponent,
-    RouterModule
+    RouterModule,
+    ChatComponent
   ]
 })
 export class CompanyViewComponent implements OnInit {
@@ -35,16 +36,6 @@ export class CompanyViewComponent implements OnInit {
     logo: 'assets/uniabroad-logo.png',
     about: 'We\'re a company dedicated to helping students achieve their dream of studying abroad. Our journey began in 2019, when our founders recognized the need for a reliable and comprehensive overseas education company. Since then, we\'ve been working tirelessly to guide students in the process of applying to and studying at top universities around the world.\nWe\'re proud of the work we\'ve done so far, and we\'re excited to continue making a positive impact on the lives of students around the world.'
   };
-
-  workLifeBalancePolicies = [
-    'Flexible Work Arrangements',
-    'Health Insurance',
-    'Childcare Assistance',
-    'Learning & Growth',
-    'Flexible',
-    'Remote Work Options'
-  ];
-
   employeeBenefits = [
     'Professional Development',
     'Workplace Perks',
@@ -53,16 +44,6 @@ export class CompanyViewComponent implements OnInit {
   ];
 
   workLocation = 'On-Site';
-
-  hiringStages = [
-    'Onboarding & Orientation',
-    'Interview Process',
-    'Initial Screening & Phone Interview',
-    'Resume Screening & Shortlisting'
-  ];
-
-  hiringTimeframe = '2-4 Weeks';
-  interviewFormat = 'Traditional Interview Format';
 
   showChat: boolean = false;
   companyDetails: any;
@@ -81,7 +62,7 @@ export class CompanyViewComponent implements OnInit {
     this.talentConnectService.followCompany(this.companyId).subscribe(
         {
           next: result => {
-            console.log(result);
+            this.getCompanyDetail(this.companyId)
           },
           error: err => {
             console.log(err)
@@ -93,8 +74,10 @@ export class CompanyViewComponent implements OnInit {
   getCompanyDetail(id: any) {
     this.talentConnectService.getCompanyDetails(id).subscribe({
       next: data => {
-        console.log(data)
         this.companyDetails = data[0]
+        this.companyDetails.work_life_balance_policy = this.companyDetails.work_life_balance_policy.split(", ");
+        this.companyDetails.hiring_process_stages = this.companyDetails.hiring_process_stages.split(", ");
+        this.companyDetails.benefits = this.companyDetails.benefits.split(", ");
       },
       error: err => {
         console.log(err)
@@ -105,7 +88,6 @@ export class CompanyViewComponent implements OnInit {
   onClickShortListCompany(id: any) {
     this.talentConnectService.shortListCompany(id).subscribe({
       next: data => {
-        console.log(data)
         this.getCompanyDetail(this.companyId)
       },
       error: err => {

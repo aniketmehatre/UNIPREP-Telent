@@ -23,7 +23,6 @@ interface DropdownOption {
         FormsModule,
         Dialog,
         Select,
-        PrimeTemplate,
         Tooltip,
         RouterLink,
         NgClass,

@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component, EventEmitter, Input, Output } from '@angular/core';
+import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import { Button, ButtonModule } from 'primeng/button';
 import { Chip, ChipModule } from 'primeng/chip';
 
@@ -10,8 +10,8 @@ import { Chip, ChipModule } from 'primeng/chip';
   standalone: true,
   imports: [ChipModule, ButtonModule, CommonModule,]
 })
-export class CompanyDetailComponent {
-  @Output() openChat: EventEmitter<boolean> = new EventEmitter<boolean>(true);
+export class CompanyDetailComponent implements OnInit {
+  @Output() openChat = new EventEmitter<boolean>(true);
   @Input() showInfo: boolean = true;
 
   companyData = {
@@ -54,6 +54,10 @@ export class CompanyDetailComponent {
     hiringTimeframe: '2-4 Weeks',
     interviewFormat: 'Online & In-Person'
   };
+
+  ngOnInit() {
+
+  }
 
 }
 

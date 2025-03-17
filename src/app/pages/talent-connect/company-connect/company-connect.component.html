@@ -211,10 +211,14 @@
   </div>
 </div>
 </div>
-  <p-dialog header="Filter" [(visible)]="displayModal" [modal]="true" [style]="{width: '70%'}" [closeOnEscape]="true"
+  <p-dialog [(visible)]="displayModal" [modal]="true" [style]="{width: '70%'}" [closeOnEscape]="true"
     (onShow)="onDialogOpen()"
     styleClass="filter-modal">
-
+      <ng-template #header>
+          <div class="inline-flex items-center justify-center gap-2">
+              <span class="font-bold whitespace-nowrap">Filter</span>
+          </div>
+      </ng-template>
     <div class="container-fluid p-3">
         <form (ngSubmit)="applyFilter()" [formGroup]="companyForm">
         <div class="mb-4">
@@ -275,7 +279,7 @@
       </form>
     </div>
 
-    <ng-template pTemplate="footer">
+    <ng-template  #footer>
         <div class="d-grid gap-2 col-12 mx-auto">
             <button type="submit" class="btn btn-dark w-100 block"
           style="background-color: var(--uniprep-primary); border: none">Apply Filter</button>
