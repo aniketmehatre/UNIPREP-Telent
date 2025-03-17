@@ -206,7 +206,8 @@ export class LoginComponent implements OnInit, OnDestroy {
 			next: (userData) => {
 				this.loadCountryList(userData)
         this.subs.sink = this.service.selectMessage$().subscribe((message) => {
-          if (message == "Login Success") {
+          console.log(message);
+          
             let req = {
               userId: userData.userdetails[0].user_id,
               location: this.locationData.city,
@@ -216,12 +217,12 @@ export class LoginComponent implements OnInit, OnDestroy {
               .sendSessionData(req, "login")
               .subscribe((response) => {
               });
-            this.toast.add({
-              severity: "success",
-              summary: "Success",
-              detail: message,
-            });
-          }
+            // this.toast.add({
+            //   severity: "success",
+            //   summary: "Success",
+            //   detail: message,
+            // });
+      
         });
 				this.toast.add({
 					severity: "success",
