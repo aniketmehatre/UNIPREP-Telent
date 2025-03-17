@@ -1552,11 +1552,11 @@ export class HeaderComponent implements OnInit, OnDestroy {
 		}
 		// this headerserch  condition for modules and question (two component used)
 		this.currentRoute = this.router.url
-		if (this.currentRoute.includes("learning-hub") || this.currentRoute.includes("k12") || this.currentRoute.includes("startup") || this.currentRoute.includes("unilearn") || this.currentRoute.includes("resource") || this.currentRoute.includes("events") || this.currentRoute.includes("success-stories") || this.currentRoute.includes("tutorials")) {
-			this.isShowHeaderSearchForModule = true
-		} else {
-			this.isShowHeaderSearchForModule = false
-		}
+		// if (this.currentRoute.includes("learning-hub") || this.currentRoute.includes("k12") || this.currentRoute.includes("startup") || this.currentRoute.includes("unilearn") || this.currentRoute.includes("resource") || this.currentRoute.includes("events") || this.currentRoute.includes("success-stories") || this.currentRoute.includes("tutorials")) {
+		// 	this.isShowHeaderSearchForModule = true
+		// } else {
+		// 	this.isShowHeaderSearchForModule = false
+		// }
 	}
 
 	private initializeUserProfile() {
