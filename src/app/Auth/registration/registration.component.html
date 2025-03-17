@@ -110,7 +110,7 @@
 																	<p-inputgroup-addon>
 																		<img class="bg-image text-center" src="../../../uniprep-assets/images/icons/Uniprep_Icons_select_country.png" />
 																	</p-inputgroup-addon>
-																	<p-select styleClass="w-100" formControlName="home_country" appendTo="body" [options]="countryList" [filter]="true" (onChange)="changeLocation($event)" filterBy="country" optionLabel="country" optionValue="id" [autoDisplayFirst]="false"></p-select>
+																	<p-select styleClass="w-100 text-start" formControlName="home_country" appendTo="body" [options]="countryList" [filter]="true" (onChange)="changeLocation($event)" filterBy="country" optionLabel="country" optionValue="id" [autoDisplayFirst]="false"></p-select>
 																</p-inputgroup>
 																<div *ngIf="submitted && f['home_country']['errors']" class="UserInfoValidation">
 																	<div style="color: red" *ngIf="f['home_country']['errors']['required']">Country is required</div>
@@ -185,6 +185,7 @@
 												<div class="d-flex justify-content-between">
 													<div class="w-100">&nbsp;</div>
 													<div class="w-100">
+														<asl-google-signin-button width="300" logo_alignment="center" type="standard" size="large"></asl-google-signin-button>
 														<!-- <asl-google-signin-button width="300" text="signup_with" logo_alignment="center" type="standard" size="large"></asl-google-signin-button> -->
 													</div>
 													<div class="w-100">&nbsp;</div>

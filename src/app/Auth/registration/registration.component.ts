@@ -1,4 +1,10 @@
 import { Component, ElementRef, OnInit, ViewChild } from "@angular/core"
+import {
+	ChangeDetectionStrategy,
+	ChangeDetectorRef,
+	CUSTOM_ELEMENTS_SCHEMA,
+	OnDestroy,Renderer2,
+} from "@angular/core"
 import { FormBuilder, FormGroup, Validators } from "@angular/forms"
 import { Router } from "@angular/router"
 import { matchValidator } from "src/app/@Supports/matchvalidator"
@@ -8,7 +14,6 @@ import { MessageService } from "primeng/api"
 import { CountryISO, SearchCountryField } from "ngx-intl-tel-input"
 // import { FacebookService } from "ngx-facebook";
 import { environment } from "@env/environment"
-import { SocialAuthService } from "@abacritt/angularx-social-login"
 import { LocalStorageService } from "ngx-localstorage"
 import { SubSink } from "subsink"
 import { FluidModule } from "primeng/fluid"
@@ -18,19 +23,22 @@ import { InputTextModule } from "primeng/inputtext"
 import { InputIconModule } from "primeng/inputicon"
 import { InputGroupModule } from "primeng/inputgroup"
 import { InputGroupAddonModule } from "primeng/inputgroupaddon"
-import { SocialLoginModule } from "@abacritt/angularx-social-login"
 import { FormsModule, ReactiveFormsModule } from "@angular/forms"
 import { RouterModule } from "@angular/router"
 import { InputOtpModule } from "primeng/inputotp"
 import { ToastModule } from "primeng/toast"
 import { SelectModule } from "primeng/select"
 import { NgxIntlTelInputModule } from "ngx-intl-tel-input"
-
+import {
+	SocialLoginModule,
+	SocialAuthServiceConfig, SocialAuthService, GoogleSigninButtonModule,
+} from '@abacritt/angularx-social-login';
 @Component({
 	selector: "app-registration",
 	templateUrl: "./registration.component.html",
 	styleUrls: ["./registration.component.scss"],
 	standalone: true,
+	schemas: [CUSTOM_ELEMENTS_SCHEMA],
 	imports: [CommonModule, InputOtpModule, FluidModule, PasswordModule, RouterModule, InputTextModule, InputIconModule, InputGroupModule, InputGroupAddonModule, SocialLoginModule, FormsModule, ReactiveFormsModule, ToastModule, SelectModule, NgxIntlTelInputModule],
 })
 export class RegistrationComponent implements OnInit {
