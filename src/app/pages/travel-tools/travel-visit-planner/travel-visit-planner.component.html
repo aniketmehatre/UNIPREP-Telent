@@ -84,7 +84,7 @@
                                 <ng-container *ngIf="recommendation.id == 3">
                                     <p-select [options]="seasons" (onChange)="hideWarning(recommendation.id)"
                                         [(ngModel)]="selectedData[recommendation.id]" optionLabel="value"
-                                        styleClass="w-100" optionValue="value" placeholder="Seasons"
+                                        styleClass="w-100" optionValue="value" placeholder="Select Seasons"
                                         [appendTo]="'body'"></p-select>
                                     <p class="text-center" [ngClass]="{ 'd-none': invalidClass === false }"
                                         style="color: red">Please Choose Any one option</p>

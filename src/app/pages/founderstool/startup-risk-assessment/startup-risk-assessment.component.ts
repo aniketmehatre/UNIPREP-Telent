@@ -33,12 +33,12 @@ interface DropDown {
 })
 export class StartupRiskAssessmentComponent implements OnInit {
   recommendations: { id: number, question: string }[] = [
-    { id: 1, question: 'What industry is your startup in?' },
+    { id: 1, question: 'What industry are you operating in?' },
     { id: 2, question: 'Can you describe your business model?' },
     { id: 3, question: 'What stage is your startup currently at?' },
     { id: 4, question: 'What are the key risks your startup has identified?' },
     { id: 5, question: 'What is the current financial status of your startup?' },
-    { id: 6, question: 'What is the competitor in the market?' },
+    { id: 6, question: 'What is the competation in the market?' },
     { id: 7, question: 'Who is your target audience?' },
     { id: 8, question: 'What is the budget of allocated across diffrent areas of your business?' },
     { id: 9, question: 'What is the geographical focus of your startup?' }

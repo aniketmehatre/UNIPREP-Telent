@@ -42,7 +42,7 @@
                                         <p-select [options]="departureLocationList" [virtualScroll]="true"
                                             [virtualScrollItemSize]="50" [(ngModel)]="selectedData[recommendation.id]"
                                             [appendTo]="'body'" [filter]="true" filterBy="city_name,country_name"
-                                            [showClear]="true" placeholder="Select Departure Country"
+                                            [showClear]="true" placeholder="Select Departure Location"
                                             styleClass="w-100">
                                             <ng-template let-country pTemplate="item">
                                                 <div class="d-flex align-items-center gap-2">
@@ -76,7 +76,7 @@
                                         <p-select [options]="destinationLocationList" [virtualScroll]="true"
                                             [virtualScrollItemSize]="50" [(ngModel)]="selectedData[recommendation.id]"
                                             [appendTo]="'body'" [filter]="true" filterBy="city_name,country_name"
-                                            [showClear]="true" placeholder="Select Destination Country"
+                                            [showClear]="true" placeholder="Select Destination Location"
                                             styleClass="w-100">
                                             <ng-template let-country pTemplate="item">
                                                 <div class="d-flex align-items-center gap-2">
@@ -123,7 +123,7 @@
                                         <p-select [options]="trvelExperienceList" styleClass="w-100"
                                             [(ngModel)]="selectedData[recommendation.id]" optionLabel="name"
                                             optionValue="name" [appendTo]="'body'"
-                                            placeholder="Select Travel Experience">
+                                            placeholder="Select Your Travel Experience">
                                         </p-select>
                                         <p class="text-center" [ngClass]="{ 'd-none': invalidClass === false }"
                                             style="color: red">Please Choose Any one option</p>

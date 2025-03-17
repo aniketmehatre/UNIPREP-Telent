@@ -60,7 +60,7 @@ export class AverageSalaryComponent implements OnInit {
     },
     {
       id: 3,
-      question: "What is the type Employement type?",
+      question: "What is your Employement type?",
     },
     {
       id: 4,
