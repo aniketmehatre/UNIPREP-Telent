@@ -14,12 +14,13 @@ import { InputGroupModule } from 'primeng/inputgroup';
 import { InputTextModule } from 'primeng/inputtext';
 import { InputGroupAddonModule } from 'primeng/inputgroupaddon';
 import {StorageService} from "../../../storage.service";
+import { Paginator, PaginatorModule } from 'primeng/paginator';
 @Component({
     selector: 'uni-country-insights',
     templateUrl: './country-insights.component.html',
     styleUrls: ['./country-insights.component.scss'],
     standalone: true,
-    imports: [FormsModule, ReactiveFormsModule, CarouselModule, ButtonModule, CommonModule, RouterModule, DialogModule, MultiSelectModule, SelectModule, CardModule, InputGroupModule, InputTextModule, InputGroupAddonModule]
+  imports: [FormsModule, ReactiveFormsModule, CarouselModule, ButtonModule, CommonModule, RouterModule, DialogModule, MultiSelectModule, SelectModule, CardModule, InputGroupModule, InputTextModule, PaginatorModule, InputGroupAddonModule]
 })
 export class CountryInsightsComponent implements OnInit {
   first = 0;
@@ -55,6 +56,13 @@ export class CountryInsightsComponent implements OnInit {
     this.storage.set('country_insights_country_name', countryname);
     this.storage.set('country_insights_country', countryId);
     this.router.navigate(['/pages/education-tools/country-insights', id]);
+  }
+
+  paginate(event: any) {
+    console.log(event);
+    this.data.page = event.page + 1;
+    this.data.pageSize = event.rows;
+    this.getList();
   }
 
 }
