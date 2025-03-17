@@ -21,6 +21,7 @@ import { DialogModule } from 'primeng/dialog';
 import { CardModule } from 'primeng/card';
 import { InputNumberModule } from 'primeng/inputnumber';
 import { DownloadRespose } from 'src/app/@Models/travel-tools.model';
+import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
 
 @Component({
     selector: 'uni-travel-packing-planner',
@@ -60,7 +61,7 @@ export class TravelPackingPlannerComponent implements OnInit {
     { id: 11, name: 'November' },
     { id: 12, name: 'December' }
   ];
-  recommendationData: string = '';
+  recommendationData: SafeHtml;
   isRecommendationQuestion: boolean = true;
   isRecommendationData: boolean = false;
   isRecommendationSavedData: boolean = false;
@@ -70,7 +71,8 @@ export class TravelPackingPlannerComponent implements OnInit {
     private travelToolsService: TravelToolsService,
     private router: Router,
     private costOfLivingService: CostOfLivingService,
-    private toast: MessageService
+    private toast: MessageService,
+    private sanitizer: DomSanitizer
   ) { }
 
   ngOnInit(): void {
@@ -119,6 +121,11 @@ export class TravelPackingPlannerComponent implements OnInit {
         this.isRecommendationData = true;
         this.isRecommendationSavedData = false;
         this.recommendationData = response.response;
+        let chatGptResponse = response.response;
+				chatGptResponse = chatGptResponse
+					.replace(/```html|```/g, '')
+          .replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>');
+				this.recommendationData = this.sanitizer.bypassSecurityTrustHtml(chatGptResponse);
       },
       error: error => {
         this.isRecommendationData = false;
@@ -169,9 +176,14 @@ export class TravelPackingPlannerComponent implements OnInit {
 
   downloadRecommadation() {
     let selectedCityAndCountry = this.selectedData[1].city_name+', '+this.selectedData[1].country_name;
-    let addingInput = `<p><strong>Input:<br></strong></p>`;
+    let addingInput = `<div style="font-family: 'Poppins', sans-serif; display: flex; align-items: center; justify-content: space-between; border-bottom: 2px solid #d32f2f; padding-bottom: 10px; margin-bottom: 20px;">
+				<div style="text-align: center;">
+					<h2 style="margin: 0; color: #1a237e;">Travel Packaging Planner</h2>
+				</div>
+			</div>
+      <p><strong>Input:<br></strong></p>`;
     this.recommendations.forEach(values =>{
-      addingInput += `<p><strong>${values.question}</strong></p>`;
+      addingInput += `<p style="color: #d32f2f;"><strong>${values.question}</strong></p>`;
       let currentAnswer = "";
       if(values.id == 1){
         currentAnswer = selectedCityAndCountry;
@@ -184,10 +196,16 @@ export class TravelPackingPlannerComponent implements OnInit {
       }else if(values.id == 5){
         currentAnswer = `${ this.selectedData[5] } Month`;
       }
-      addingInput += `<p><strong>${ currentAnswer }</strong></p><br>`;
+      addingInput += `<p>${ currentAnswer }</p><br>`;
     });
-    let finalRecommendation = addingInput+ '<p><strong>Response:<br></strong></p>' + this.recommendationData;
-    
+    let finalRecommendation = addingInput+ '<div class="divider"></div><p><strong>Response:<br><br></strong></p>' + this.recommendationData;
+    finalRecommendation = finalRecommendation
+			.replace(/```html|```/g, '')
+      .replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>')
+			.replace(/\(see https:\/\/g\.co\/ng\/security#xss\)/g, '') 
+			.replace(/SafeValue must use \[property\]=binding:/g, '')
+			.replace(/class="container"/g, 'style="line-height:1.9"'); //because if i add container the margin will increase so i removed the container now the spacing is proper.
+		
     let paramData: DownloadRespose = {
         response: finalRecommendation,
         module_name: "Travel Packing Planner",

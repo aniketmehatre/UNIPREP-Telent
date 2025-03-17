@@ -148,43 +148,57 @@ export class TravelVisitPlannerComponent implements OnInit {
   }
 
   downloadRecommadation() {
-    let selectedCityAndCountry = this.selectedData[1].city_name+', '+this.selectedData[1].country_name;
-    let addingInput = `<div style="font-family: 'Poppins', sans-serif; display: flex; align-items: center; justify-content: space-between; border-bottom: 2px solid #d32f2f; padding-bottom: 10px; margin-bottom: 20px;">
-				<div style="text-align: center;">
-					<h2 style="margin: 0; color: #1a237e;">Travel Visit Planner</h2>
-				</div>
-			</div><p><strong>Input:<br></strong></p>`;
-    this.recommendations.forEach(values =>{
-      addingInput += `<p><strong>${values.question}</strong></p>`;
-      let currentAnswer = "";
-      if(values.id == 1){
-        currentAnswer = selectedCityAndCountry;
-      }else if(values.id == 2){
-        currentAnswer = `${this.selectedData[2]} Days`;
-      }else if(values.id == 3){
-        currentAnswer = `${this.selectedData[3]} Season`;
-      }
-      addingInput += `<p>${currentAnswer}</p><br>`;
+    let selectedCityAndCountry = this.selectedData[1].city_name + ', ' + this.selectedData[1].country_name;
+    
+    let addingInput = `
+        <div style="font-family: 'Poppins', sans-serif; display: flex; align-items: center; justify-content: space-between; 
+        border-bottom: 2px solid #d32f2f; padding-bottom: 10px; margin-bottom: 20px;">
+            <div style="text-align: center;">
+                <h2 style="margin: 0; color: #1a237e;">Travel Visit Planner</h2>
+            </div>
+        </div>
+        <p><strong>Input:<br></strong></p>
+    `;
+
+    this.recommendations.forEach(values => {
+        addingInput += `<p><strong style="color: #d32f2f;">${values.question}</strong></p>`;
+        let currentAnswer = "";
+        if (values.id == 1) {
+            currentAnswer = selectedCityAndCountry;
+        } else if (values.id == 2) {
+            currentAnswer = `${this.selectedData[2]} Days `;
+        } else if (values.id == 3) {
+            currentAnswer = `${this.selectedData[3]} Season`;
+        }
+        addingInput += `<p>${currentAnswer}</p><br>`;
     });
-    let finalRecommendation = addingInput + '<p><strong>Response:<br></strong></p>' + this.recommendationData + '</div>';
-		finalRecommendation = finalRecommendation
-			.replace(/```html|```/g, '') 
-			.replace(/\(see https:\/\/g\.co\/ng\/security#xss\)/g, '') 
-			.replace(/SafeValue must use \[property\]=binding:/g, '')
-			.replace(/class="container"/g, ''); //because if i add container the margin will increase so i removed the container now the spacing is proper.
+
+    // ✅ Convert SafeHtml to a string before using .replace()
+    let sanitizedResponse = this.sanitizer.sanitize(1, this.recommendationData) || ''; 
+
+    let cleanResponse = sanitizedResponse
+        .replace(/<\/?html>|<\/?head>|<\/?body>/g, '') // Remove full document tags
+        .replace(/<head>.*?<\/head>/gs, '') // Remove head section (if any)
+        .replace(/class="container"/g, 'style="line-height:1.9;color: black;"'); // Ensure spacing
+
+    let finalRecommendation = addingInput + '<div class="divider"></div><p><strong>Response:<br><br></strong></p>' + cleanResponse + '</div>';
+
+    console.log(finalRecommendation, "final recommendation");
 
     let paramData: DownloadRespose = {
-      response: finalRecommendation,
-      module_name: "Travel Visit Planner",
-      file_name: "travel_visit_planner"
+        response: finalRecommendation,
+        module_name: "Travel Visit Planner",
+        file_name: "travel_visit_planner"
     };
 
-    this.travelToolService.convertHTMLtoPDF(paramData).then(() =>{
-      console.log("PDF genrated Successfully.");
-    }).catch(error => {
-      console.error("Error generating PDF:", error);
-    })
-  }
+    this.travelToolService.convertHTMLtoPDF(paramData)
+        .then(() => {
+            console.log("PDF generated successfully.");
+        })
+        .catch(error => {
+            console.error("Error generating PDF:", error);
+        });
+}
 
   goBack() {
     this.router.navigateByUrl('/pages/travel-tools');

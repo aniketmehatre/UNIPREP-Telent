@@ -19,7 +19,7 @@ import { InputTextModule } from 'primeng/inputtext';
 import { InputGroupAddonModule } from 'primeng/inputgroupaddon';
 import { DownloadRespose } from 'src/app/@Models/travel-tools.model';
 import { TravelToolsService } from '../../travel-tools/travel-tools.service';
-
+import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
 @Component({
     selector: 'uni-ai-business-advisor',
     templateUrl: './ai-business-advisor.component.html',
@@ -49,7 +49,7 @@ export class AiBusinessAdvisorComponent implements OnInit {
   isRecommendationQuestion: boolean = true;
   isRecommendationData: boolean = false;
   isRecommendationSavedData: boolean = false;
-  recommendationData: string = '';
+  recommendationData: SafeHtml;
   activePageIndex: number = 0;
   form: FormGroup;
   inValidClass: boolean = false;
@@ -62,7 +62,8 @@ export class AiBusinessAdvisorComponent implements OnInit {
     private foundersToolService: FounderstoolService,
     private router: Router,
     private toast: MessageService,
-    private travelToolService: TravelToolsService
+    private travelToolService: TravelToolsService,
+    private sanitizer: DomSanitizer
   ) { }
 
   ngOnInit(): void {
@@ -121,7 +122,11 @@ export class AiBusinessAdvisorComponent implements OnInit {
         this.isRecommendationQuestion = false;
         this.isRecommendationData = true;
         this.isRecommendationSavedData = false;
-        this.recommendationData = response.response;
+        let chatGptResponse = response.response;
+				chatGptResponse = chatGptResponse
+					.replace(/```html|```/g, '')
+          .replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>');
+				this.recommendationData = this.sanitizer.bypassSecurityTrustHtml(chatGptResponse);
       },
       error: error => {
         this.isRecommendationData = false;
@@ -170,10 +175,14 @@ export class AiBusinessAdvisorComponent implements OnInit {
   }
 
   downloadRecommadation() {
-    let addingInput = `<p><strong>Input:<br></strong></p>`;
+    let addingInput = `<div style="font-family: 'Poppins', sans-serif; display: flex; align-items: center; justify-content: space-between; border-bottom: 2px solid #d32f2f; padding-bottom: 10px; margin-bottom: 20px;">
+				<div style="text-align: center;">
+					<h2 style="margin: 0; color: #1a237e;">Trip Length Finder</h2>
+				</div></div>
+        <p><strong>Input:<br></strong></p>`;
 
     this.recommendations.forEach(item => {
-      addingInput += `<p><strong>${item.question}</strong></p>`;
+      addingInput += `<p style="color: #d32f2f;"><strong>${item.question}</strong></p>`;
       let currentAnswer = "";
       if (this.selectedData && this.selectedData[item.id]) {
         if (item.id == 6) {
@@ -193,6 +202,12 @@ export class AiBusinessAdvisorComponent implements OnInit {
     });
 
     let finalRecommendation = addingInput + '<p><strong>Response:<br></strong></p>' + this.recommendationData;
+    finalRecommendation = finalRecommendation
+			.replace(/```html|```/g, '')
+      .replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>')
+			.replace(/\(see https:\/\/g\.co\/ng\/security#xss\)/g, '') 
+			.replace(/SafeValue must use \[property\]=binding:/g, '')
+			.replace(/class="container"/g, 'style="line-height:1.9"'); //because if i add container the margin will increase so i removed the container now the spacing is proper.
 
     let paramData: DownloadRespose = {
       response: finalRecommendation,

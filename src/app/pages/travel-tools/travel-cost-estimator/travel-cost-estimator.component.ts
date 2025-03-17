@@ -118,7 +118,8 @@ export class TravelCostEstimatorComponent implements OnInit {
 				// this.recommendationData = response.response;
 				let chatGptResponse = response.response;
 				chatGptResponse = chatGptResponse
-					.replace(/```html|```/g, '');
+					.replace(/```html|```/g, '')
+					.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>');
 				this.recommendationData = this.sanitizer.bypassSecurityTrustHtml(chatGptResponse);
 			},
 			error: error => {
@@ -185,7 +186,7 @@ export class TravelCostEstimatorComponent implements OnInit {
 			<p><strong>Input:<br></strong></p>`;
 
 		this.recommendations.forEach(values => {
-			addingInput += `<p><strong>${values.question}</strong></p>`;
+			addingInput += `<p style="color: #d32f2f;"><strong>${values.question}</strong></p>`;
 			let currentAnswer = "";
 			if (values.id == 1) {
 				currentAnswer = departureLocation;
@@ -201,12 +202,12 @@ export class TravelCostEstimatorComponent implements OnInit {
 			// }
 			addingInput += `<p>${currentAnswer}</p><br>`;
 		});
-		let finalRecommendation = addingInput + '<p><strong>Response:<br></strong></p>' + this.recommendationData + '</div>';
+		let finalRecommendation = addingInput + '<div class=\"divider\"></div><p><strong>Response:<br></strong></p>' + this.recommendationData + '</div>';
 		finalRecommendation = finalRecommendation
 			.replace(/```html|```/g, '') 
 			.replace(/\(see https:\/\/g\.co\/ng\/security#xss\)/g, '') 
 			.replace(/SafeValue must use \[property\]=binding:/g, '')
-			.replace(/class="container"/g, ''); //because if i add container the margin will increase so i removed the container now the spacing is proper.
+			.replace(/class="container"/g, 'style="line-height:1.9"'); //because if i add container the margin will increase so i removed the container now the spacing is proper.
 		
 		let paramData: DownloadRespose = {
 			response: finalRecommendation,
