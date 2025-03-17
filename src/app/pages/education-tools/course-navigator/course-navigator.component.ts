@@ -304,4 +304,13 @@ export class CourseNavigatorComponent implements OnInit {
       this.router.navigateByUrl('/pages/education-tools');
     }
   }
+
+  getContentPreview(content: string): string {
+    const div = document.createElement("div");
+    div.innerHTML = content;
+    const text = div.innerText || div.textContent || "";
+    const sentences = text.split(". ");
+    let paragraph = sentences[0] ? sentences[0] : "";
+    return paragraph.length > 75 ? paragraph.slice(13, 85) + ' ...' : paragraph;
+  }
 }
