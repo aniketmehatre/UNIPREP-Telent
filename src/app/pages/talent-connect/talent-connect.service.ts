@@ -90,6 +90,15 @@ export class TalentConnectService {
     }
 
 
+
+    // short list company
+    shortListCompany(companyId: any): Observable<any> {
+        const formData = new FormData();
+        formData.append("companyId", companyId);
+        const headers = new HttpHeaders().set("Accept", "application/json");
+        return this.http.post<any>(environment.ApiUrl + "/shortlistcompany", formData,  {headers: headers});
+    }
+
     // company connect
 
     getTalentConnectCompanies(formValues: any) {

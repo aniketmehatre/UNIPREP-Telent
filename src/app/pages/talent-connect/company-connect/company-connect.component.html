@@ -82,8 +82,10 @@
                                     </a>
                                 </div>
                                 <div class="text-start">
-                                    <button class="p-2 rounded-2" [ngClass]="company.shortlisted ? 'active-shortlist' : 'inActive-shortlist' ">
-                                        {{ company.shortlisted ? "Shortlisted" : "Shortlist" }}
+                                    <button class="p-2 rounded-2" [ngClass]="company.shortlisted == 1 ? 'active-shortlist' : 'inActive-shortlist'"
+                                            (click)="onClickShortListCompany(company.id)"
+                                    [disabled]="company.shortlisted == 1">
+                                        {{ company.shortlisted == 1 ? "Shortlisted" : "Shortlist" }}
                                     </button>
                                 </div>
                             </div>
@@ -210,6 +212,7 @@
 </div>
 </div>
   <p-dialog header="Filter" [(visible)]="displayModal" [modal]="true" [style]="{width: '70%'}" [closeOnEscape]="true"
+    (onShow)="onDialogOpen()"
     styleClass="filter-modal">
 
     <div class="container-fluid p-3">
@@ -224,6 +227,7 @@
           <div class="col-md-4">
             <label class="form-label fw-bold">Industry Type</label>
               <p-select [options]="industryTypes" formControlName="industrytype"
+                        optionValue="id" optionLabel="industry_name"
                         placeholder="Select your preferred industry" styleClass="w-100"
               [showClear]="true"></p-select>
           </div>
@@ -238,6 +242,7 @@
           <div class="col-md-4">
             <label class="form-label fw-bold">Headquarters Location</label>
               <p-select [options]="locations" formControlName="hq" placeholder="Select Headquarters Location"
+                        optionValue="city_id" optionLabel="city_name"
                         styleClass="w-100"
               [showClear]="true"></p-select>
           </div>
@@ -247,6 +252,7 @@
           <div class="col-md-4">
             <label class="form-label fw-bold">Global Presence</label>
               <p-select [options]="globalPresence" formControlName="globalpresence" placeholder="Select global presence"
+                        optionValue="id" optionLabel="country"
                         styleClass="w-100"
               [showClear]="true"></p-select>
           </div>
@@ -260,7 +266,8 @@
 
           <div class="col-md-4">
             <label class="form-label fw-bold">Company Type</label>
-              <p-select [options]="companyTypes" formControlName="companytype" placeholder="Select company type"
+              <p-select [options]="companyTypes" formControlName="companytype"
+                        optionLabel="type" optionValue="id" placeholder="Select company type"
                         styleClass="w-100"
               [showClear]="true"></p-select>
           </div>

@@ -67,10 +67,6 @@ export class CompanyConnect1Component implements OnInit {
 
     ngOnInit() {
         this.listCompanyData()
-        this.getCompanyTypes()
-        this.getIndustryTypes()
-        this.globalPresenceData()
-        this.getCityWithFlag()
     }
 
     listCompanyData() {
@@ -181,5 +177,24 @@ export class CompanyConnect1Component implements OnInit {
 
     onClickCompany(id: number) {
         this.router.navigate(['/pages/talent-connect/company-connect', id]);
+    }
+
+    onClickShortListCompany(id: any) {
+        this.talentConnectService.shortListCompany(id).subscribe({
+            next: data => {
+                console.log(data)
+                this.listCompanyData()
+            },
+            error: err => {
+
+            }
+        })
+    }
+
+    onDialogOpen() {
+        this.getCompanyTypes()
+        this.getIndustryTypes()
+        this.globalPresenceData()
+        this.getCityWithFlag()
     }
 }

@@ -206,7 +206,7 @@ export class CareerToolComponent implements OnInit {
       imageLink: this.domainUrl+"GlobalEmployementInsights.svg",
       refLink: "",
       mode: "global-employment-insights",
-      launch_soon: true
+      launch_soon: false
     },
     // {
     //   id: 20,

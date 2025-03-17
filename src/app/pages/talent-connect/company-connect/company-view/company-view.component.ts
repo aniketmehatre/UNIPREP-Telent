@@ -1,4 +1,4 @@
-import {Component} from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {CommonModule} from "@angular/common";
 import {ChipModule} from "primeng/chip";
 import {JobChatUiComponent} from "../../job-tracker/job-chat-ui/job-chat-ui.component";
@@ -19,7 +19,7 @@ import {TalentConnectService} from "../../talent-connect.service";
     RouterModule
   ]
 })
-export class CompanyViewComponent {
+export class CompanyViewComponent implements OnInit {
 
   companyInfo = {
     name: 'UNIABROAD Technology Pvt. Ltd.',
@@ -98,6 +98,18 @@ export class CompanyViewComponent {
       },
       error: err => {
         console.log(err)
+      }
+    })
+  }
+
+  onClickShortListCompany(id: any) {
+    this.talentConnectService.shortListCompany(id).subscribe({
+      next: data => {
+        console.log(data)
+        this.getCompanyDetail(this.companyId)
+      },
+      error: err => {
+
       }
     })
   }
