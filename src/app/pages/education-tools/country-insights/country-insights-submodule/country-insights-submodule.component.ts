@@ -15,12 +15,13 @@ import { InputGroupModule } from 'primeng/inputgroup';
 import { InputTextModule } from 'primeng/inputtext';
 import { InputGroupAddonModule } from 'primeng/inputgroupaddon';
 import {StorageService} from "../../../../storage.service";
+import { PaginatorModule } from 'primeng/paginator';
 @Component({
     selector: 'uni-country-insights-submodule',
     templateUrl: './country-insights-submodule.component.html',
     styleUrls: ['./country-insights-submodule.component.scss'],
     standalone: true,
-    imports: [FormsModule, ReactiveFormsModule, CarouselModule, ButtonModule, CommonModule, RouterModule, DialogModule, MultiSelectModule, SelectModule, CardModule, InputGroupModule, InputTextModule, InputGroupAddonModule]
+  imports: [FormsModule, ReactiveFormsModule, PaginatorModule, CarouselModule, ButtonModule, CommonModule, RouterModule, DialogModule, MultiSelectModule, SelectModule, CardModule, InputGroupModule, InputTextModule, InputGroupAddonModule]
 })
 export class CountryInsightsSubmoduleComponent implements OnInit {
   questionsList: QuestionsList[] = [];
@@ -127,6 +128,12 @@ export class CountryInsightsSubmoduleComponent implements OnInit {
     const { title, answer } = this.questionDetail || {};
     const message = `${title}\n${answer}`;
     this.copyTextToClipboard(message);
+  }
+
+  paginate(event: any) {
+    this.page = event.page + 1;
+    this.pageSize = event.rows;
+    this.getQuizQuestionData();
   }
 
   private copyTextToClipboard(text: string) {

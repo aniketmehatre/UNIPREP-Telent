@@ -50,6 +50,11 @@
 
     </div>
     </div>
+    <div class="card-footer">
+      <p-paginator *ngIf="totalQuizCount != 0" [rows]="pageSize" [totalRecords]="totalQuizCount"
+      (onPageChange)="paginate($event)" [rowsPerPageOptions]="[100, 300, 500, 1000]"></p-paginator>
+    </div>   
+</div>
 
     <div class="modal" tabindex="-1" role="dialog" [ngClass]="{ 'd-block': questionModal }" (click)="closeModal()">
         <div class="modal-dialog modal-md modal-dialog-centered" role="document" (click)="$event.stopPropagation()">
