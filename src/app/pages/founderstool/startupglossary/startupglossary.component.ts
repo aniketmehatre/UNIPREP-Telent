@@ -33,6 +33,7 @@ export class StartupglossaryComponent implements OnInit {
   ngOnInit(): void {
     this.category_dropdown = [
       { id: null, name: "All" },
+      { id: null, name: "|" },
       { id: "A", name: "A" },
       { id: "B", name: "B" },
       { id: "C", name: "C" },
