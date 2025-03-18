@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from "@angular/common";
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, RouterLink } from '@angular/router';
 import { TalentConnectService } from '../../talent-connect.service';
 import { ButtonModule } from 'primeng/button';
 import { TooltipModule } from 'primeng/tooltip';
@@ -44,6 +44,7 @@ interface Message {
   content: string;
   time: string;
   markAsRead?: boolean;
+  profile_image?: string;
   type: 'text' | 'file' | 'button';
 }
 
@@ -52,12 +53,15 @@ interface Message {
   templateUrl: './job-view.component.html',
   styleUrls: ['./job-view.component.scss'],
   standalone: true,
-  imports: [CommonModule, ButtonModule, TooltipModule, FormsModule]
+  imports: [CommonModule, ButtonModule, TooltipModule, FormsModule, RouterLink]
 })
 export class JobViewComponent implements OnInit {
   id!: number;
   public Array = Array;
+  appliedId: number = NaN;
+  attachmentFileName: string = '';
   isApplied: boolean = false;
+  attachmentFile!: File;
   jobDetails: Job = {
     matching_skills: 'You match 0 out of 0 skill requirements for this job',
     isChecked: 0,
@@ -137,10 +141,13 @@ export class JobViewComponent implements OnInit {
             company_name: jobData.company_name || jobData.comapany_name,
             work_location: jobData.work_location || jobData.worklocation
           };
+          if (response?.applied_jobid) {
+            this.appliedId = response?.applied_jobid
+          }
           this.isApplied = response?.isapplied;
           if (response?.isapplied) {
             this.isShowApplyChat = response?.isapplied;
-            this.getMessages(id);
+            this.getMessages(response?.applied_jobid);
           }
         }
       },
@@ -197,34 +204,47 @@ export class JobViewComponent implements OnInit {
     });
   }
 
+  uploadFilesChat($event: any) {
+    this.attachmentFile = $event.target.files[0];
+    this.attachmentFileName = $event.target.files[0]?.name;
+  }
+
   getMessages(job_id: number) {
-    this.talentConnectService.getMessage({ job_id: job_id }).subscribe({
-      next: response => {
-        if (Array.isArray(response?.messages)) {
-          // Handle array response
-          this.messages = response?.messages.map((item: any) => {
-            return {
-              sender: item.employer == 0 ? false : true,
-              content: item.chat,
-              markAsRead: item?.markasread == 0 ? false : true,
-              time: new Date(item.created_at).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }),
-              type: item.attachments ? 'file' : 'text'
-            };
-          });
-        } else {
-          // Handle object response
-          console.log('Message response:', response);
+    if (this.appliedId) {
+      this.talentConnectService.getMessage({ job_id: this.appliedId }).subscribe({
+        next: response => {
+          if (Array.isArray(response?.messages)) {
+            // Handle array response
+            this.messages = response?.messages.map((item: any) => {
+              return {
+                sender: item.employer == 0 ? false : true,
+                content: item.chat,
+                markAsRead: item?.markasread == 0 ? false : true,
+                time: new Date(item.created_at).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }),
+                type: item.attachment ? 'file' : 'text'
+              };
+            });
+          } else {
+            // Handle object response
+            console.log('Message response:', response);
+          }
+        },
+        error: error => {
+          console.log(error);
         }
-      },
-      error: error => {
-        console.log(error);
-      }
-    });
+      });
+    }
   }
 
   sendMessage(message: string): void {
     if (!message.trim()) return;
-    this.talentConnectService.sendMessage({ job_id: this.id, chat: message }).subscribe({
+    const formData = new FormData();
+    if (this.attachmentFile) {
+      formData.append('attachment', this.attachmentFile)
+    }
+    formData.append('chat', message);
+    formData.append('job_id', this.appliedId.toString());
+    this.talentConnectService.sendMessage(formData).subscribe({
       next: response => {
         console.log('Message sent:', response);
         // If there's a response message from the server, add it

@@ -991,14 +991,6 @@ export class EmployeeProfileComponent implements OnInit {
     }
   }
 
-  extractLastName(url: string): string {
-    if (!url) return '';
-    let fileName = url.split('/').pop() || ''; // "1742015348_cv_letter.pdf"
-
-    let namePart = fileName.split('.')[0]; // "1742015348_cv_letter"
-    let nameParts = namePart.split('_');
-    return nameParts.length > 1 ? nameParts[nameParts.length - 1] : '';
-  }
 
   resetMessageBox(): void {
     this.currentMessage = this.hoverMessages.fullName; // Default message

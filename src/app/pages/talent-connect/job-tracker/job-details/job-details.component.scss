@@ -13,5 +13,22 @@
     padding: 1.25rem;
     height: 100%;
     box-shadow: 0 2px 10px rgba(0,0,0,0.05);
-    height: 100%;
+    height: calc(100vh - 250px);
+    overflow-y: auto;
+  }
+
+  .card-body {
+    width: 100%;
+  }
+  
+  p-steps .p-steps  {
+    .p-steps-list {
+      width: 100%;
+    }
+    display: flex; /* Ensures it stretches fully */
+    justify-content: space-between; /* Ensures steps are spaced properly */
+  }
+
+  ::ng-deep .p-steps-list {
+    width: 100%;
   }

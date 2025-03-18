@@ -2381,3 +2381,14 @@ uni-global-employment-insights {
     font-family: "Poppins", sans-serif;
     line-height: 2rem;
 }
+
+.cursor-pointer {
+	cursor: pointer;
+}
+
+.noscrollbar {
+	&::-webkit-scrollbar {
+		scrollbar-width: none; /* Firefox */
+		-ms-overflow-style: none;
+	}
+}

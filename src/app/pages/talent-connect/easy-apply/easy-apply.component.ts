@@ -109,6 +109,7 @@ export class EasyApplyComponent {
   }
 
   resetFilter(): void {
+    this.getList({});
     console.log('Resetting filters');
   }
 
