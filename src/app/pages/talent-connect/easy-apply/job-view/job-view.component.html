@@ -61,7 +61,7 @@
                       </div>
                     </div>
                     <div class="col-md-2 text-end">
-                      <button pButton [label]="jobDetails.stage ? 'Applied': 'Apply'" icon="fa fa-arrow-pointer" iconPos="right" [ngClass]="jobDetails?.stage ? 'bg-success' : 'bg-priamry'" class="p-button-primary mb-3" (click)="applyJob(id)"></button>
+                      <button pButton [label]="isApplied ? 'Applied': 'Apply'" icon="fa fa-arrow-pointer" iconPos="right" [ngClass]="isApplied ? 'bg-success' : 'bg-priamry'" class="p-button-primary mb-3" (click)="applyJob(id)" [disabled]="isApplied"></button>
                       <div class="posted-date">Posted On : {{ jobDetails.created_at | date: 'dd-MM-yyyy' }}</div>
                     </div>
                   </div>
@@ -69,7 +69,7 @@
                 <div class="col-md-12" >
                   <div class="card shadow-sm">
                     <div class="card-body p-4">
-                      <div class="row row-cols-2 row-cols-md-6 g-4">
+                      <div class="row row-cols-2 row-cols-md-4 g-4 row-lg-6">
                         <!-- Company Size -->
                         <div class="col">
                           <div class="d-flex flex-column">
@@ -426,7 +426,7 @@
                 <!-- Body - Scrollable content -->
                 <div class="card-body p-0 flex-grow-1 overflow-hidden d-flex flex-column">
                   <!-- Initial View (Empty State) -->
-                  <div class="chat-body h-100 overflow-y-auto" *ngIf="currentView === 'initial'">
+                  <div class="chat-body h-100 overflow-y-auto" *ngIf="messages?.length < 1">
                     <div class="description-box mt-3 p-3">
                       <h5 class="text-center mb-3">Write a description about yourself</h5>
                       
@@ -446,7 +446,7 @@
                   </div>
           
                   <!-- Conversation View -->
-                  <div class="chat-body h-100 overflow-y-auto p-3" *ngIf="currentView === 'conversation'">
+                  <div class="chat-body h-100 overflow-y-auto p-3" *ngIf="messages?.length > 0">
                     <ng-container *ngFor="let message of messages">
                       <!-- Sender ID for UNIABROAD -->
                       <div class="sender-id mb-1" *ngIf="!message.sender">
@@ -464,18 +464,18 @@
                             [ngClass]="{'bg-light': !message.sender, 'bg-primary text-white': message.sender}"
                             [ngStyle]="{'max-width': '75%'}">
                           <p class="mb-2">{{message.content}}</p>
-                          <div class="d-flex justify-content-between align-items-center">
-                                                        <!-- Added tick icons for read receipts for johndoe -->
-                                                        <span *ngIf="message.sender" class="ms-2 text-white-50">
-                                                          <i class="pi pi-check"></i><i class="pi pi-check"></i>
-                                                        </span>
-                            <small class="message-time" 
+                          <div class="d-flex justify-content-between align-items-center flex-row-reverse">
+                            <div>                                                      
+                              <span *ngIf="message.sender" class="ms-2 text-white-50">
+                                <i class="fa-solid fa-check" [style.color]="message.markAsRead ? 'skyblue':'lightgray'"></i><i class="fa-solid fa-check" [style.color]="message.markAsRead ? 'skyblue':'lightgray'"></i>
+                              </span>
+                            </div>
+                            <small class="message-time text-end" 
                                   [ngClass]="{'text-muted': !message.sender, 'text-white-50': message.sender}">
                               {{message.time}} 
                             </small>
                           </div>
                         </div>
-                        
                         <!-- File Attachment -->
                         <div *ngIf="message.type === 'file'" class="message-content file-message" style="min-width: 50%">
                           <p class="mb-0">{{message.content}}</p>

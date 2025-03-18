@@ -43,6 +43,7 @@ interface Message {
   sender: boolean; // Changed from isSender to sender for clarity
   content: string;
   time: string;
+  markAsRead?: boolean;
   type: 'text' | 'file' | 'button';
 }
 
@@ -93,26 +94,7 @@ export class JobViewComponent implements OnInit {
   isShowApplyChat: boolean = false;
   currentView: 'initial' | 'conversation' = 'initial';
   
-  messages: Message[] = [
-    {
-      sender: true,
-      content: 'I am a passionate UI/UX designer dedicated to crafting intuitive, user-centered experiences. With a keen eye for aesthetics and functionality, I specialize in wireframing, prototyping, and interaction design. My goal is to create seamless digital journeys that enhance usability, accessibility, and engagement, blending creativity with data-driven decision-making.',
-      time: '12:00',
-      type: 'text'
-    },
-    {
-      sender: false,
-      content: 'Cover Letter.pdf',
-      time: '12:00',
-      type: 'file'
-    },
-    {
-      sender: false,
-      content: 'Click here to track your Job Application',
-      time: '12:00',
-      type: 'button'
-    }
-  ];
+  messages: Message[] = [];
 
   constructor(private activatedRoute: ActivatedRoute, private talentConnectService: TalentConnectService) { }
 
@@ -218,14 +200,15 @@ export class JobViewComponent implements OnInit {
   getMessages(job_id: number) {
     this.talentConnectService.getMessage({ job_id: job_id }).subscribe({
       next: response => {
-        if (Array.isArray(response)) {
+        if (Array.isArray(response?.messages)) {
           // Handle array response
-          this.messages = response.map(item => {
+          this.messages = response?.messages.map((item: any) => {
             return {
-              sender: item.employeer == 0 ? true : false,
+              sender: item.employer == 0 ? false : true,
               content: item.chat,
+              markAsRead: item?.markasread == 0 ? false : true,
               time: new Date(item.created_at).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }),
-              type: 'text'
+              type: item.attachments ? 'file' : 'text'
             };
           });
         } else {
@@ -248,7 +231,7 @@ export class JobViewComponent implements OnInit {
         if (response.message) {
           this.messages.push({
             sender: true,
-            content: response.message,
+            content: message,
             time: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }),
             type: 'text'
           });
