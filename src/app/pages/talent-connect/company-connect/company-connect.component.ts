@@ -4,11 +4,11 @@ import {TalentConnectService} from "../talent-connect.service";
 import {FormBuilder, FormGroup, FormsModule, ReactiveFormsModule} from "@angular/forms";
 import {Dialog} from "primeng/dialog";
 import {Select} from "primeng/select";
-import {PrimeTemplate} from "primeng/api";
 import {Tooltip} from "primeng/tooltip";
 import {Router, RouterLink} from "@angular/router";
 import {CommonModule, NgClass} from "@angular/common";
 import {TagModule} from "primeng/tag";
+import { forkJoin } from 'rxjs';
 
 interface DropdownOption {
     label: string;
@@ -45,7 +45,6 @@ export class CompanyConnect1Component implements OnInit {
     foundedYears: DropdownOption[] = [];
     companyTypes: DropdownOption[] = [];
     companyDataList = []
-    totalPitchDeckCount: number;
     totalJob: number;
     totalVacancies: number;
     companyForm: FormGroup;
@@ -86,71 +85,10 @@ export class CompanyConnect1Component implements OnInit {
         };
         this.talentConnectService.getTalentConnectCompanies(requestDataEmpty).subscribe({
             next: data => {
-                console.log(data)
                 this.companyDataList = data.companies;
                 this.totalCount = data.totalcount;
                 this.totalJob = data.totaljob;
                 this.totalVacancies = data.totalvacancies
-            },
-            error: err => {
-                console.log(err)
-            }
-        })
-    }
-
-    getCompanyTypes() {
-        this.talentConnectService.getCompanyTypes().subscribe({
-            next: data => {
-                console.log(data)
-                this.companyTypes = data;
-            },
-            error: err => {
-                console.log(err)
-            }
-        })
-    }
-
-    getIndustryTypes() {
-        this.talentConnectService.getIndustryTypes().subscribe({
-            next: data => {
-                console.log(data)
-                this.industryTypes = data
-            },
-            error: err => {
-                console.log(err)
-            }
-        })
-    }
-
-    globalPresenceData() {
-        this.talentConnectService.globalPresence().subscribe({
-            next: data => {
-                console.log(data)
-                this.globalPresence = data
-            },
-            error: err => {
-                console.log(err)
-            }
-        })
-    }
-
-    getCityWithFlag() {
-        this.talentConnectService.getCityWithFlag().subscribe({
-            next: data => {
-                console.log(data)
-                this.locations = data
-            },
-            error: err => {
-                console.log(err)
-            }
-        })
-    }
-
-    getCompanySizes() {
-        this.talentConnectService.getCompanySizes().subscribe({
-            next: data => {
-                console.log(data)
-                this.industryTypes = data.industries
             },
             error: err => {
                 console.log(err)
@@ -183,7 +121,6 @@ export class CompanyConnect1Component implements OnInit {
     onClickShortListCompany(id: any) {
         this.talentConnectService.shortListCompany(id).subscribe({
             next: data => {
-                console.log(data)
                 this.listCompanyData()
             },
             error: err => {
@@ -193,9 +130,27 @@ export class CompanyConnect1Component implements OnInit {
     }
 
     onDialogOpen() {
-        this.getCompanyTypes()
-        this.getIndustryTypes()
-        this.globalPresenceData()
-        this.getCityWithFlag()
+        this.loadApiData();
+    }
+
+    loadApiData() {
+        forkJoin({
+            companyTypes: this.talentConnectService.getCompanyTypes(),
+            industryTypes: this.talentConnectService.getIndustryTypes(),
+            globalPresence: this.talentConnectService.globalPresence(),
+            locations: this.talentConnectService.getCityWithFlag(),
+            companySizes: this.talentConnectService.getCompanySizes()
+        }).subscribe({
+            next: (results) => {
+                this.companyTypes = results.companyTypes;
+                this.industryTypes = results.industryTypes;
+                this.globalPresence = results.globalPresence;
+                this.locations = results.locations;
+                this.companySizes = results.companySizes.industries; // Adjusting for industry structure
+            },
+            error: (error) => {
+                console.error("Error loading data:", error);
+            }
+        });
     }
 }
