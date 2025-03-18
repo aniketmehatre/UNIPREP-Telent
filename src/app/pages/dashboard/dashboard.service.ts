@@ -224,5 +224,10 @@ sentEmailForInviteUniPrep(data:any){
       headers: headers,
   });
 }
-
+profileCompletion(){
+  const headers = new HttpHeaders().set("Accept", "application/json");
+  return this.http.get<any>(environment.ApiUrl + "/getpercentagecompletion", {
+      headers: headers,
+  });
+}
 }

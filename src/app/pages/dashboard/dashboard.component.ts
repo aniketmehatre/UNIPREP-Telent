@@ -138,6 +138,7 @@ export class DashboardComponent implements OnInit, OnChanges {
 		this.recentJobs();
 		this.getUserTrackin();
 		this.loadParallelData();
+		this.profileCompletion();
 		this.groupedListFav = this.chunkArray(this.listFav, 4);
 		this.groupedListFav2 = this.chunkArray(this.recentJobApplication, 2);
 	}
@@ -712,6 +713,15 @@ export class DashboardComponent implements OnInit, OnChanges {
 			next: (data: any) => {
 				this.toastr.add({severity:'success', summary: 'Success', detail: data.message});
 				this.sendInvite=""
+			},
+			error: (error) => {
+				console.error('Error fetching job listings:', error);
+			}
+		});
+	}
+	profileCompletion(){
+		this.dashboardService.profileCompletion().subscribe({
+			next: (data: any) => {
 			},
 			error: (error) => {
 				console.error('Error fetching job listings:', error);
