@@ -722,8 +722,6 @@ export class DashboardComponent implements OnInit, OnChanges {
 	profileCompletion(){
 		this.dashboardService.profileCompletion().subscribe({
 			next: (data: any) => {
-				this.toastr.add({severity:'success', summary: 'Success', detail: data.message});
-				this.sendInvite=""
 			},
 			error: (error) => {
 				console.error('Error fetching job listings:', error);
