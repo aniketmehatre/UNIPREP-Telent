@@ -1,0 +1,111 @@
+/* chat.component.scss */
+
+.text-left {
+  text-align: left;
+}
+
+.chat-container {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+  max-width: 100%;
+  border: 1px solid #dee2e6;
+  border-radius: 0.25rem;
+  background-color: #fff;
+}
+
+.chat-header {
+  background-color: #fff;
+}
+
+.progress-container {
+  padding: 0 15px;
+}
+
+.progress-steps {
+  position: relative;
+  display: flex;
+  width: 100%;
+}
+
+.progress-step {
+  position: relative;
+  padding: 0 10px;
+
+  .progress-bar {
+    height: 4px;
+    margin-bottom: 10px;
+  }
+
+  .step-info {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  &.active .step-name {
+    font-weight: bold;
+  }
+
+  &.completed .progress-bar {
+    background-color: #fd7e14 !important;
+  }
+}
+
+.chat-messages {
+  flex: 1;
+  overflow-y: auto;
+  background-color: #f8f9fa;
+}
+
+.message-container {
+  margin-bottom: 15px;
+  max-width: 80%;
+
+  &.justify-content-end {
+    margin-left: auto;
+
+    .message-content {
+      background-color: #fd7e14;
+    }
+  }
+}
+
+.message-content {
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+
+  .message-text {
+    word-break: break-word;
+  }
+}
+
+.chat-input {
+  background-color: #fff;
+}
+
+/* Override PrimeNG button styles to match the design */
+:host ::ng-deep {
+  .p-button-secondary {
+    background-color: #6c757d;
+    border-color: #6c757d;
+  }
+
+  .p-button.p-button-secondary:hover {
+    background-color: #5a6268;
+    border-color: #545b62;
+  }
+
+  .p-avatar {
+    &.bg-light {
+      background-color: #e9ecef !important;
+    }
+  }
+}
+
+.chat-logo {
+  width: 24px; /* Adjust size as needed */
+  height: 24px;
+  object-fit: contain;
+}

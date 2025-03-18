@@ -1,4 +1,4 @@
-<div class="container-fluid bg-white">
+<div class="container-fluid bg-white" *ngIf="companyData">
   <!-- Main card container -->
   <div class="card main-card mb-3">
     <!-- Company header section -->
@@ -70,7 +70,7 @@
             <div class="col-md-3">
               <h6 class="text-muted text-primary">Company Size</h6>
               <p>
-                {{ companyData.companySize }}<br />
+                {{ companyData!.companySize }}<br />
                 <small class="text-muted">({{ companyData.sizeCategory }})</small>
               </p>
             </div>
@@ -80,13 +80,13 @@
             </div>
             <div class="col-md-3">
               <h6 class="text-muted text-primary">Global Presence</h6>
-              <p>{{ companyData.globalPresence.join(", ") }}</p>
+              <p>{{ companyData!.globalPresence.join(", ") }}</p>
             </div>
           </div>
           <div class="row mt-4">
             <div class="col-md-3">
               <h6 class="text-muted text-primary">Year Founded</h6>
-              <p>{{ companyData.foundedYear }}</p>
+              <p>{{ companyData!.foundedYear }}</p>
             </div>
             <div class="col-md-3">
               <h6 class="text-muted text-primary">Official Website</h6>

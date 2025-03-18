@@ -18,7 +18,7 @@ import {TalentConnectService} from "../../talent-connect.service";
   styleUrls: ['./company-list.component.scss']
 })
 export class CompanyListsComponent implements OnInit {
-  @Output() emitId: EventEmitter<number> = new EventEmitter();
+  @Output() companyTrackerEmit: EventEmitter<number> = new EventEmitter();
   activeIndex: number = 0;
   tabs = [
     { label: 'All Companies', active: true },
@@ -39,6 +39,7 @@ export class CompanyListsComponent implements OnInit {
     this.getCompanyTrackerList()
   }
 
+  companyTotalCount: number = 0;
   getCompanyTrackerList() {
     const requestData = {
       perpage: this.perPage,
@@ -57,7 +58,7 @@ export class CompanyListsComponent implements OnInit {
     };
     this.talentConnectService.getCompanyTracker(requestDataEmpty).subscribe({
       next: data => {
-        console.log(data)
+        this.companyTotalCount = data.count
         this.companyList = data.companies
 
       },
@@ -164,11 +165,37 @@ export class CompanyListsComponent implements OnInit {
   }
 
   onClickJobCard(id: number) {
-    this.emitId.emit(id);
+    this.companyTrackerEmit.emit(id);
   }
 
   selectTab(tab: any) {
     this.tabs.forEach(t => (t.active = false));
     tab.active = true;
+  }
+
+  onNextClick(){
+    this.page = this.page + 1;
+    if (this.activeIndex == 0) {
+      this.getCompanyTrackerList()
+    } else if (this.activeIndex == 1) {
+      this.shortListedList()
+    } else if (this.activeIndex == 2) {
+      this.sendMessageList()
+    } else if (this.activeIndex == 3) {
+      this.receivedMessageList()
+    }
+  }
+
+  onBackClick(){
+    if (this.activeIndex == 0) {
+      this.page = this.page - 1;
+      this.getCompanyTrackerList()
+    } else if (this.activeIndex == 1) {
+      this.shortListedList()
+    } else if (this.activeIndex == 2) {
+      this.sendMessageList()
+    } else if (this.activeIndex == 3) {
+      this.receivedMessageList()
+    }
   }
 }
