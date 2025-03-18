@@ -82,13 +82,12 @@
                                                                                 [options]="positions"
                                                                                 formControlName="position_title"
                                                                                 placeholder="Select a position"
-                                                                                display="chip" optionLabel="jobpreferences"
+                                                                                display="chip" optionLabel="jobrole"
                                                                                 optionValue="id"
-                                                                                [options]="jobPreferences"
                                                                                 [appendTo]="'body'" [showClear]="true"
                                                                                 [virtualScroll]="true"
                                                                                 [virtualScrollItemSize]="30"
-                                                                                [filter]="true" filterBy="jobpreferences">
+                                                                                [filter]="true" filterBy="jobrole">
                                                                             </p-select>
                                                                             <div *ngIf="info.get('position_title')?.touched && info.get('position_title')?.invalid"
                                                                                 class="text-danger mt-1">
@@ -365,21 +364,20 @@
                                                                             </div>
                                                                             <!-- Workplace Type -->
                                                                             <div class="mb-2">
-                                                                                <p-dropdown [style]="{'width':'100%'}"
+                                                                                <p-select [style]="{'width':'100%'}"
+                                                                                    [options]="workplaceTypes"
                                                                                     formControlName="workplacetypes"
                                                                                     placeholder="Select Employment Type"
-                                                                                    display="chip" 
-                                                                                    optionLabel="employment_type"
+                                                                                    display="chip" optionLabel="employment_type"
                                                                                     optionValue="id"
-                                                                                    [options]="workplaceTypes"
                                                                                     [appendTo]="'body'" [showClear]="true"
                                                                                     [virtualScroll]="true"
                                                                                     [virtualScrollItemSize]="30"
                                                                                     [filter]="true" filterBy="employment_type">
-                                                                                </p-dropdown>
-                                                                                <div *ngIf="info.get('employment_type')?.touched && info.get('employment_type')?.invalid"
+                                                                                </p-select>
+                                                                                <div *ngIf="info.get('workplacetypes')?.touched && info.get('workplacetypes')?.invalid"
                                                                                     class="text-danger mt-1">
-                                                                                    Employment Type is required.
+                                                                                    workplace Type is required.
                                                                                 </div>
                                                                             </div>
                                                                             <!-- Other Benefits -->
