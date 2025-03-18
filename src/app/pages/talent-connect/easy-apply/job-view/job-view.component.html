@@ -42,7 +42,7 @@
                           </span>
                       </div>
                       <div class="mb-3">
-                        <span class="text-muted">You match {{ 0 }} out of {{ 0 }} skill requirements for this job</span>
+                        <span class="text-muted">{{jobDetails?.matching_skills}}</span>
                       </div>
                       <div class="d-flex flex-wrap gap-2 mb-3">
                         <div>
@@ -61,7 +61,7 @@
                       </div>
                     </div>
                     <div class="col-md-2 text-end">
-                      <button pButton [label]="jobDetails.stage ? 'Applied': 'Apply'" icon="fa fa-arrow-pointer" iconPos="right" [ngClass]="jobDetails?.stage ? 'bg-success' : 'bg-priamry'" class="p-button-primary mb-3" (click)="applyJob(id)"></button>
+                      <button pButton [label]="isApplied ? 'Applied': 'Apply'" icon="fa fa-arrow-pointer" iconPos="right" [ngClass]="isApplied ? 'bg-success' : 'bg-priamry'" class="p-button-primary mb-3" (click)="applyJob(id)" [disabled]="isApplied"></button>
                       <div class="posted-date">Posted On : {{ jobDetails.created_at | date: 'dd-MM-yyyy' }}</div>
                     </div>
                   </div>
@@ -69,7 +69,7 @@
                 <div class="col-md-12" >
                   <div class="card shadow-sm">
                     <div class="card-body p-4">
-                      <div class="row row-cols-2 row-cols-md-6 g-4">
+                      <div class="row row-cols-2 row-cols-md-4 g-4 row-lg-6">
                         <!-- Company Size -->
                         <div class="col">
                           <div class="d-flex flex-column">
@@ -413,10 +413,10 @@
                 <div class="card-header d-flex justify-content-between align-items-center p-3">
                   <div class="d-flex align-items-center">
                     <div class="uniabroad-icon me-2">
-                      <img src="assets/uniabroad-icon.png" alt="UNIABROAD" width="24" height="24">
+                      <img [src]="jobDetails?.company_logo" alt="UNIABROAD" width="24" height="24">
                     </div>
                     <div>
-                      <h5 class="mb-0 fw-bold">UNIABROAD</h5>
+                      <h5 class="mb-0 fw-bold">{{jobDetails?.company_name}}</h5>
                       <p class="small text-muted mb-0">Active</p>
                     </div>
                   </div>
@@ -426,7 +426,7 @@
                 <!-- Body - Scrollable content -->
                 <div class="card-body p-0 flex-grow-1 overflow-hidden d-flex flex-column">
                   <!-- Initial View (Empty State) -->
-                  <div class="chat-body h-100 overflow-y-auto" *ngIf="currentView === 'initial'">
+                  <div class="chat-body h-100 overflow-y-auto" *ngIf="messages?.length < 1">
                     <div class="description-box mt-3 p-3">
                       <h5 class="text-center mb-3">Write a description about yourself</h5>
                       
@@ -440,23 +440,23 @@
                         <button pButton 
                                class="p-button-text p-button-plain w-100" 
                                label="Click here to write one!"
-                               (click)="switchToConversationView()"></button>
+                               routerLink="/pages/job-tool/coverletter-builder"></button>
                       </div>
                     </div>
                   </div>
           
                   <!-- Conversation View -->
-                  <div class="chat-body h-100 overflow-y-auto p-3" *ngIf="currentView === 'conversation'">
+                  <div class="chat-body h-100 overflow-y-auto p-3" *ngIf="messages?.length > 0">
                     <ng-container *ngFor="let message of messages">
                       <!-- Sender ID for UNIABROAD -->
                       <div class="sender-id mb-1" *ngIf="!message.sender">
-                        UNIABROAD
+                       {{jobDetails?.company_name}}
                       </div>
           
                       <!-- Fix alignment based on boolean sender -->
                       <div class="d-flex mb-3" [ngClass]="{'justify-content-start': !message.sender, 'justify-content-end': message.sender}">
                         <div *ngIf="!message.sender" class="avatar me-2">
-                          <img src="assets/user-avatar.jpg" class="rounded-circle" width="32" height="32" alt="User">
+                          <img [src]="message.profile_image" class="rounded-circle" width="32" height="32" alt="User">
                         </div>
                         
                         <!-- Text Message -->
@@ -464,22 +464,22 @@
                             [ngClass]="{'bg-light': !message.sender, 'bg-primary text-white': message.sender}"
                             [ngStyle]="{'max-width': '75%'}">
                           <p class="mb-2">{{message.content}}</p>
-                          <div class="d-flex justify-content-between align-items-center">
-                                                        <!-- Added tick icons for read receipts for johndoe -->
-                                                        <span *ngIf="message.sender" class="ms-2 text-white-50">
-                                                          <i class="pi pi-check"></i><i class="pi pi-check"></i>
-                                                        </span>
-                            <small class="message-time" 
+                          <div class="d-flex justify-content-between align-items-center flex-row-reverse">
+                            <div>                                                      
+                              <span *ngIf="message.sender" class="ms-2 text-white-50">
+                                <i class="fa-solid fa-check" [style.color]="message.markAsRead ? 'skyblue':'lightgray'"></i><i class="fa-solid fa-check" [style.color]="message.markAsRead ? 'skyblue':'lightgray'"></i>
+                              </span>
+                            </div>
+                            <small class="message-time text-end" 
                                   [ngClass]="{'text-muted': !message.sender, 'text-white-50': message.sender}">
                               {{message.time}} 
                             </small>
                           </div>
                         </div>
-                        
                         <!-- File Attachment -->
-                        <div *ngIf="message.type === 'file'" class="message-content file-message" style="min-width: 50%">
-                          <p class="mb-0">{{message.content}}</p>
-                          <small class="message-time text-muted">{{message.time}}</small>
+                        <div *ngIf="message.type === 'file'" class="message-content file-message text-start" style="min-width: 50%" >
+                          <a [href]="message.attachment_url" target="_blank">{{message.content ?? message.attachment}}</a><br>
+                          <small class="message-time text-muted text-start">{{message.time}}</small>
                         </div>
                         
                         <!-- Button Message -->
@@ -502,14 +502,19 @@
           
                 <!-- Footer - Fixed at bottom -->
                 <div class="card-footer bg-white p-2">
+                  <input type="file" class="d-none" accept=".doc,.docx,.pdf, application/msword,application/vnd.openxmlformats-officedocument.wordprocessingml.document" #fileAttachment (change)="uploadFilesChat($event);" [limit]="1">
+                  <div *ngIf="attachmentFile" class="border d-flex justify-content-between align-items-center p-2">
+                      <div>{{attachmentFileName}}</div>
+                      <i class="fas fa-xmark" (click)="attachmentFile = null; attachmentFileName = null;"></i>
+                  </div>
                   <div class="input-group">
-                    <span class="input-group-text border-0 bg-white">
+                    <span class="input-group-text border-0 bg-white" (click)="fileAttachment.click();">
                       <i class="pi pi-paperclip"></i>
                     </span>
-                    <input type="text" class="form-control border-0" placeholder="Text with UNIABROAD..." #messageInput
+                    <input type="text" class="form-control border-0" [placeholder]="'Text with ... '+jobDetails?.company_name" #messageInput
                           (keyup.enter)="sendMessage(messageInput.value); messageInput.value = ''">
-                    <span class="input-group-text border-0 bg-white" >
-                      <i class="pi pi-send" (click)="sendMessage(messageInput.value); messageInput.value = '';"></i>
+                    <span class="input-group-text border-0 bg-white" (click)="sendMessage(messageInput.value); messageInput.value = '';">
+                      <i class="pi pi-send"></i>
                     </span>
                   </div>
                 </div>

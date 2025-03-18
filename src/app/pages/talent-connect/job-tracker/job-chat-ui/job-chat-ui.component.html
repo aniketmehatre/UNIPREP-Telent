@@ -4,13 +4,13 @@
         <button *ngIf="!showInfo" pButton icon="pi pi-info-circle" label="Open Info" class="p-button-secondary" (click)="openInfo.emit(true)"></button>
         <div class="d-flex align-items-center ms-3">
           <img src="assets/icons/chat-icon.png" alt="Chat" class="chat-logo me-2" />
-            <div>
-            <h5 class="mb-0 fw-bold">{{ organizationName }}</h5>
+            <div class="text-start">
+            <h5 class="mb-0 fw-bold">{{ jobDetails.company_name }}</h5>
             <span class="text-success">{{ organizationStatus }}</span>
           </div>
         </div>
       </div>
-      <div class="text-end w-full">
+      <div class="text-end w-full cursor-pointer">
         <i class="fa-solid fa-xmark" (click)="closeChat.emit(true);"></i>
       </div>
     </div>
@@ -25,57 +25,76 @@
           </div>
       </div>
     </div>
-    
-    <!-- Chat messages area -->
-    <div class="chat-messages p-3">
-      <div *ngFor="let message of messages" 
-           class="message-container d-flex mb-3"
-           [ngClass]="{'justify-content-end': message.isCurrentUser}">
-        
-        <div class="avatar me-2" *ngIf="!message.isCurrentUser">
-          <p-avatar [label]="message.sender.charAt(1).toUpperCase()" 
-                   styleClass="bg-light text-dark" 
-                   shape="circle" 
-                   [size]="'small'"></p-avatar>
+    <div style="height: calc(100vh - 350px)" class="overflow-auto noscrollbar">
+      <ng-container *ngFor="let message of messages">
+        <div class="sender-id mb-1" *ngIf="!message.sender">
+         {{jobDetails?.company_name}}
         </div>
-        
-        <div class="message-content"
-             [ngClass]="{'bg-primary text-white rounded': message.isCurrentUser, 
-                        'bg-light rounded': !message.isCurrentUser}">
-          <div class="sender-info text-muted small text-left" *ngIf="!message.isCurrentUser">
-            {{ message.sender }}
+
+        <!-- Fix alignment based on boolean sender -->
+        <div class="d-flex mb-3" [ngClass]="{'justify-content-start': !message.sender, 'justify-content-end': message.sender}">
+          <div *ngIf="!message.sender" class="avatar me-2">
+            <img [src]="message.profile_image" class="rounded-circle" width="32" height="32" alt="User">
           </div>
-          <div class="message-text p-3">
-            {{ message.content }}
+          
+          <!-- Text Message -->
+          <div *ngIf="message.type === 'text'" class="message-content text-start" 
+              [ngClass]="{'bg-light': !message.sender, 'bg-primary text-white': message.sender}"
+              [ngStyle]="{'max-width': '75%'}">
+            <p class="mb-2">{{message.content}}</p>
+            <div class="d-flex justify-content-between align-items-center flex-row-reverse">
+              <div>                                                      
+                <span *ngIf="message.sender" class="ms-2 text-white-50">
+                  <i class="fa-solid fa-check" [style.color]="message.markAsRead ? 'skyblue':'lightgray'"></i><i class="fa-solid fa-check" [style.color]="message.markAsRead ? 'skyblue':'lightgray'"></i>
+                </span>
+              </div>
+              <small class="message-time text-end" 
+                    [ngClass]="{'text-muted': !message.sender, 'text-white-50': message.sender}">
+                {{message.time}} 
+              </small>
+            </div>
           </div>
-          <div class="message-time text-end small pe-2 pb-1"
-               [ngClass]="{'text-white-50': message.isCurrentUser, 'text-muted': !message.isCurrentUser}">
-            {{ message.timestamp }}
+          <!-- File Attachment -->
+          <div *ngIf="message.type === 'file'" class="message-content file-message text-start" style="min-width: 50%" >
+            <a [href]="message.attachment_url" target="_blank">{{message.content ?? message.attachment}}</a><br>
+            <small class="message-time text-muted text-start">{{message.time}}</small>
+          </div>
+          
+          <!-- Button Message -->
+          <div *ngIf="message.type === 'button'" style="max-width: 75%">
+            <div class="sender-id mb-1 text-end">
+              {{message.sender ? 'johndoe' : 'UNIABROAD'}}
+            </div>
+            <button pButton 
+                  class="p-button-warning w-100 d-flex justify-content-between align-items-center">
+              <span>{{message.content}}</span>
+              <div class="d-flex align-items-center">
+                <small class="me-2">{{message.time}}</small>
+              </div>
+            </button>
           </div>
         </div>
-        
-        <div class="avatar ms-2" *ngIf="message.isCurrentUser">
-          <p-avatar icon="pi pi-user" 
-                   styleClass="bg-light" 
-                   shape="circle" 
-                   [size]="'small'"></p-avatar>
-        </div>
-      </div>
+      </ng-container>
     </div>
     
     <!-- Message input area -->
-    <div class="chat-input p-3 border-top position-relative">
+    <div class="p-3 border-top mt-auto">
+      <div *ngIf="attachmentFile" class="border d-flex justify-content-between align-items-center p-2">
+          <div>{{attachmentFile.name}}</div>
+          <i class="fas fa-xmark" (click)="attachmentFile = null; attachmentFileName = null;"></i>
+      </div>
         <div class="input-group">
+          <input type="file" class="d-none" accept=".doc,.docx,.pdf, application/msword,application/vnd.openxmlformats-officedocument.wordprocessingml.document" #fileAttachment (change)="uploadFilesChat($event);">
           <input type="text" 
                  class="form-control" 
-                 placeholder="Text with UNIABROAD..." 
-                 [(ngModel)]="newMessage"
-                 (keyup.enter)="sendMessage()">
+                 [placeholder]="'Text with ...'+jobDetails.company_name" 
+                 #messageInput
+                 (keyup.enter)="sendMessage(messageInput.value); messageInput.value = ''">
           
-          <span class="input-group-text">
-            <i class="pi pi-paperclip"></i>
+          <span class="input-group-text" (click)="fileAttachment.click();">
+            <i class="pi pi-paperclip" ></i>
           </span>
-          <span class="input-group-text cursor-pointer" (click)="sendMessage()">
+          <span class="input-group-text cursor-pointer" (click)="sendMessage(messageInput.value); messageInput.value = ''">
             <i class="pi pi-send"></i>
           </span>
         </div>

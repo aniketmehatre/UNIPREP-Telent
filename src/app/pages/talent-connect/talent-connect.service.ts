@@ -34,7 +34,7 @@ export class TalentConnectService {
 
     getJobDetails(id: number) {
         return this.http.post<any>(
-            environment.ApiUrl + "/showuserTrack", { id: id },
+            environment.ApiUrl + "/showuserJobs", { id: id },
             { headers: this.headers });
     }
 
@@ -56,9 +56,9 @@ export class TalentConnectService {
             { headers: this.headers });
     }
 
-    sendMessage(data: { job_id: number, chat: string }) {
+    sendMessage(formData: FormData) {
         return this.http.post<any>(
-            environment.ApiUrl + "/sendMessage", data,
+            environment.ApiUrl + "/sendMessage", formData,
             { headers: this.headers });
     }
 

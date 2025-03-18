@@ -53,6 +53,6 @@
     </div>
     <div class="card-footer">
       <p-paginator *ngIf="countryInsightsCount != 0" [rows]="pageSize" [totalRecords]="countryInsightsCount"
-      (onPageChange)="paginate($event)" [rowsPerPageOptions]="[25, 100, 300, 500, 1000]"></p-paginator>
+      (onPageChange)="paginate($event)" [rowsPerPageOptions]="[10, 25, 100, 300, 500, 1000]"></p-paginator>
     </div>   
     </div>

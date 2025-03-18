@@ -991,6 +991,7 @@ export class EmployeeProfileComponent implements OnInit {
     }
   }
 
+
   resetMessageBox(): void {
     this.currentMessage = this.hoverMessages.fullName; // Default message
   }

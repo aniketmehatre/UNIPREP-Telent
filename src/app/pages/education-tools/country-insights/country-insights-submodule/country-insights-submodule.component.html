@@ -52,7 +52,7 @@
     </div>
     <div class="card-footer">
       <p-paginator *ngIf="totalQuizCount != 0" [rows]="pageSize" [totalRecords]="totalQuizCount"
-      (onPageChange)="paginate($event)" [rowsPerPageOptions]="[100, 300, 500, 1000]"></p-paginator>
+      (onPageChange)="paginate($event)" [rowsPerPageOptions]="[10, 25, 100, 300, 500, 1000]"></p-paginator>
     </div>   
 </div>
 
