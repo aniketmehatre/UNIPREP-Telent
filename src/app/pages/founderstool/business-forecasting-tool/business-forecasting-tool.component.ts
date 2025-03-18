@@ -73,26 +73,32 @@ export class BusinessForecastingToolComponent implements OnInit {
       id: 1,
       question: {
         heading: 'Basic Information',
-        branches: ["What is your business type or industry?",
+        branches: [
+          "What industry is your start up in?",
           "Does your business have seasonal functionalities?",
-          "Does your business experience seasonality? If yes, please specify the peak seasons",
-          "What are the key revenue drivers for your business?"]
+          "If yes, please specify the peak seasons",
+          "What are the key revenue drivers for your business?"
+        ]
       },
     },
     {
       id: 2,
       question: {
         heading: 'Marketing & Sales',
-        branches: ["Who is your target audience?",
-          "What are your growth assumptions?"]
+        branches: [
+          "Who is your target audience?",
+          "What are the key growth assumptions for your startup?"
+        ]
       },
     },
     {
       id: 3,
       question: {
         heading: 'Analysis',
-        branches: ["What is the desired forecast period for this revenue forecasting?",
-          "What are your revenue goals for the forecast period?"]
+        branches: [
+          "What is the preferred timeframe for this revenue forecast?",
+          "What are your revenue goals for the forecast period?"
+        ]
       },
     },
   ];

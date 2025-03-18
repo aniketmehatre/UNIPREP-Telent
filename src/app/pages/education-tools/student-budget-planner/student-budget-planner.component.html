@@ -56,7 +56,7 @@
                                     <!-- University -->
                                     <div class="d-flex flex-column mb-3 align-items-center">
                                         <div class="col-md-9">
-                                            <h5 class="m-2">What is the name of the university you will be attending?</h5>
+                                            <h5 class="m-2">Which university will you be attending?</h5>
                                         </div>
                                         <div class="col-md-9">
                                             <p-select [options]="universityList" styleClass="w-100" [filter]="true" [filterBy]="'university_name'"
@@ -71,11 +71,11 @@
                                     <!-- Course Duration -->
                                     <div class="d-flex flex-column mb-3 align-items-center">
                                         <div class="col-md-9">
-                                            <h5 class="m-2">How long is the duration of your course?</h5>
+                                            <h5 class="m-2">What is the length of your course?</h5>
                                         </div>
                                         <div class="col-md-9">
                                             <p-select [options]="courseDurationList" styleClass="w-100" [(ngModel)]="selectedData['course_duration']" optionLabel="value"
-                                                optionValue="value" [appendTo]="'body'" placeholder="Select Duration">
+                                                optionValue="value" [appendTo]="'body'" placeholder="Select Course Duration">
                                             </p-select>
                                             <div *ngIf="!selectedData['course_duration'] && isSubmitted" class="text-danger text-xs">
                                                 <div>Course Duration Required</div>
@@ -85,11 +85,11 @@
                                     <!-- Stay Back Period -->
                                     <div class="d-flex flex-column mb-3 align-items-center">
                                         <div class="col-md-9">
-                                            <h5 class="m-2">What is the stay-back period allowed after completing your studies?</h5>
+                                            <h5 class="m-2">What is the duration of the post-study stay-back period?</h5>
                                         </div>
                                         <div class="col-md-9">
                                             <p-select [options]="stayBackList" styleClass="w-100" [(ngModel)]="selectedData['stay_back']" optionLabel="value"
-                                                optionValue="value" [appendTo]="'body'" placeholder="Select Stay Back Months">
+                                                optionValue="value" [appendTo]="'body'" placeholder="Select Stay Back Period">
                                             </p-select>
                                             <!-- <input type="text" pInputText placeholder="Stay Back Months" class="w-100" disabled="true" [(ngModel)]="selectedData['stay_back']" /> -->
                                             <div *ngIf="!selectedData['stay_back'] && isSubmitted" class="text-danger text-xs">
