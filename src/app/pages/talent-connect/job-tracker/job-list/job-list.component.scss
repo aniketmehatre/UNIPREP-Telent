@@ -1,5 +1,6 @@
 .pagination-container {
     display: flex;
+    margin-bottom: 4px;
     justify-content: flex-end; /* Ensures correct alignment */
   }
   
@@ -136,7 +137,7 @@
   }
 
   .job-cards {
-    max-height: calc(100vh - 350px);
+    height: calc(100vh - 420px);
     overflow-y: auto;
   }
   

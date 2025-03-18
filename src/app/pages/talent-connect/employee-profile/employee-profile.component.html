@@ -893,8 +893,7 @@
                                         <div class="upload-section text-center mb-4 py-2"
                                             style="border: 1px dashed lightgray">
                                             <h4>{{ personalInfoForm.get('career_preference_cv_filename')?.value ?
-                                                personalInfoForm.get('career_preference_cv_filename')?.value : 'Upload
-                                                CV / Resume'}}</h4>
+                                                personalInfoForm.get('career_preference_cv_filename')?.value : 'Upload CV / Resume'}}</h4>
                                             <button pButton label="UPLOAD"
                                                 class="p-button-primary rounded-pill px-5 py-2"
                                                 (click)="fileUpload.click();"></button>
@@ -902,7 +901,7 @@
                                                 Supported Formats: doc, docx, pdf upto 2 MB
                                             </div>
                                             <input type="file" #fileUpload style="visibility: hidden;"
-                                                (change)="uploadFile(fileType.CV, $event, 0);">
+                                                (change)="uploadFile(fileType.CV, $event, 0);" accept="application/pdf">
                                             <small class="text-danger"
                                                 *ngIf="personalInfoForm.get('career_preference_cv_filename')?.invalid && personalInfoForm.get('career_preference_cv_filename')?.touched">
                                                 This field is mandatory

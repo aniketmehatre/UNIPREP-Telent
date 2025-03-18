@@ -1,7 +1,6 @@
-import { Component, EventEmitter, Input, OnInit, Output } from "@angular/core";
-import { Location } from "@angular/common";
-import { MenuItem, MessageService } from "primeng/api";
-import { ActivatedRoute, Router } from "@angular/router";
+import { Component, EventEmitter, input, Input, OnInit, Output } from "@angular/core";
+import { MessageService } from "primeng/api";
+import { Router } from "@angular/router";
 import { AuthService } from "../../../../Auth/auth.service";
 import { PageFacadeService } from "../../../page-facade.service";
 import { JobOfferComparisionService } from "../joboffercomparison.service";
@@ -20,6 +19,8 @@ import { InputTextModule } from "primeng/inputtext"
 import { InputGroupAddonModule } from "primeng/inputgroupaddon"
 import { RadioButtonModule } from "primeng/radiobutton"
 import {PdfViewerModule} from "ng2-pdf-viewer";
+import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
+
 @Component({
   selector: "uni-jopreparedlist",
   templateUrl: "./preparedlist.component.html",
@@ -39,21 +40,21 @@ export class JobOfferPreparedListComponent implements OnInit {
   orglogowhitelabel: any;
   totalDataCount: any = 0;
   ListData: any = [];
-  ComparisonResponse: any;
+  ComparisonResponse: SafeHtml;
   ComparisonResponseVisibility = true;
+  userAnswers:any = [];
   @Input() prepData: any;
-  @Output() windowChange = new EventEmitter();
+  @Output() windowChange = new EventEmitter<any>();
   loopRange = Array.from({ length: 30 })
     .fill(0)
     .map((_, index) => index);
   constructor(
-    private location: Location,
-    private route: ActivatedRoute,
     private toast: MessageService,
     private authService: AuthService,
     private service: JobOfferComparisionService,
     private router: Router,
-    private pageFacade: PageFacadeService
+    private pageFacade: PageFacadeService,
+    private sanitizer: DomSanitizer
   ) {}
   ngOnInit(): void {
     this.getjobofferResponse();
@@ -85,9 +86,16 @@ export class JobOfferPreparedListComponent implements OnInit {
     this.service
       .getcomparisonResponse(this.prepData)
       .subscribe((response: any) => {
-        this.ComparisonResponse = response;
+        let chatGptResponse = response.response;
+				chatGptResponse = chatGptResponse
+					.replace(/```html|```/g, '')
+          .replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>');
+				this.ComparisonResponse = this.sanitizer.bypassSecurityTrustHtml(chatGptResponse);
+        console.log(this.ComparisonResponse, "final comparison response");
         this.ComparisonResponseVisibility = true;
         this.isSkeletonVisible = false;
+        console.log(response.answer);
+        this.userAnswers = response.answer;
       });
   }
   getSavedResponse() {
@@ -118,7 +126,15 @@ export class JobOfferPreparedListComponent implements OnInit {
       }
     });
   }
-
+  
+  downloadRecommadation(){
+    console.log("yes its coming inside");
+    let inputs = this.userAnswers;
+    inputs.forEach((element:any) => {
+        
+    });
+  }
+  
   upgradePlan(): void {
     this.router.navigate(["/pages/subscriptions"]);
   }

@@ -20,14 +20,15 @@
                   <i class="pi pi-map-marker me-1 text-primary"></i>
                   <span>{{job.worklocation}}</span>
                 </div>
-                <span class="status-badge" [ngClass]="getStatusClass(job.stage)">{{job.stage}}</span>
+                <p  style="color: var(--uniprep-secondary); font-size: 10px;">{{job.matching_skills}}</p>
+                <span class="status-badge" [style.color]="'white'" [style.backgroundColor]="job.color_code">{{job.hiringstage}}</span>
               </div>
             </div>
           </div>
         </div>
       </p-tabPanel>
   </p-tabView>
-    <div class="pagination-container mt-4">
+    <div class="pagination-container my-auto">
       <p-paginator [first]="first" [rows]="pageSize" [totalRecords]="totalAppliedJobs" (onPageChange)="onPageChange($event)" [showCurrentPageReport]="true"
       currentPageReportTemplate="Page {first}/{last}" [showPageLinks]="false" [showFirstLastIcon]="false" ></p-paginator>
     </div>

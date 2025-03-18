@@ -7,7 +7,6 @@ import { JobOfferComparisionService } from "./joboffercomparison.service";
 import { CommonModule } from "@angular/common";
 import { DialogModule } from "primeng/dialog"
 import { SidebarModule } from "primeng/sidebar"
-
 import { CardModule } from "primeng/card"
 import { PaginatorModule } from "primeng/paginator"
 import { FormsModule, ReactiveFormsModule } from "@angular/forms"
@@ -20,12 +19,13 @@ import { InputTextModule } from "primeng/inputtext"
 import { InputGroupAddonModule } from "primeng/inputgroupaddon"
 import { RadioButtonModule } from "primeng/radiobutton"
 import {PdfViewerModule} from "ng2-pdf-viewer";
+import { JobOfferPreparedListComponent } from "./preparedlist/preparedlist.component";
 @Component({
   selector: "uni-joboffercomparisontool",
   templateUrl: "./joboffercomparisontool.component.html",
   styleUrls: ["./joboffercomparisontool.component.scss"],
   standalone: true,
-  imports: [CommonModule, DialogModule, SidebarModule, PdfViewerModule, CardModule, PaginatorModule, FormsModule, ReactiveFormsModule, CarouselModule, ButtonModule, MultiSelectModule, SelectModule, InputGroupModule, InputTextModule, InputGroupAddonModule, RadioButtonModule]
+  imports: [CommonModule, DialogModule, SidebarModule, PdfViewerModule, CardModule, PaginatorModule, FormsModule, ReactiveFormsModule, CarouselModule, ButtonModule, MultiSelectModule, SelectModule, InputGroupModule, InputTextModule, InputGroupAddonModule, RadioButtonModule, JobOfferPreparedListComponent]
 })
 
 export class JoboffercomparisontoolComponent implements OnInit {
@@ -252,18 +252,13 @@ export class JoboffercomparisontoolComponent implements OnInit {
         return;
       } else {
         this.benefitsInformation.clear();
+        this.worktimingsInformation.clear();
+        this.additionalPerksInformation.clear();
+
         this.basicInformation.value.forEach((infodetail: any) => {
           this.benefitsInformation.push(this.createBenfitInfoGroup());
-        });
-        this.worktimingsInformation.clear();
-        this.basicInformation.value.forEach((infodetail: any) => {
           this.worktimingsInformation.push(this.createworktimingsGroup());
-        });
-        this.additionalPerksInformation.clear();
-        this.basicInformation.value.forEach((infodetail: any) => {
-          this.additionalPerksInformation.push(
-            this.createadditionalPerksGroup()
-          );
+          this.additionalPerksInformation.push(this.createadditionalPerksGroup());
         });
         this.activePageIndex++;
       }

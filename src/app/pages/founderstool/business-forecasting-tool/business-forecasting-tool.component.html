@@ -33,7 +33,7 @@
                                         {{ recommendation.question.branches[0] }}
                                     </h5>
                                     <p-select styleClass="w-100" class="w-100" formControlName="industry" appendTo="body" [options]="industryList"
-                                    [filter]="true" filterBy="Industry" placeholder="Industry" optionLabel="Industry" optionValue="Industry"
+                                    [filter]="true" filterBy="Industry" placeholder="Select Industry" optionLabel="Industry" optionValue="Industry"
                                      [autoDisplayFirst]="false">
                                 </p-select>
                                     <p class="text-center" *ngIf="form.get('industry')?.errors?.required && submitted" style="color: red">
@@ -64,7 +64,7 @@
                                     </h5>
                                     <p-multiSelect [options]="seasonsList" styleClass="w-100"
                                         formControlName="seasons" optionLabel="name" optionValue="name"
-                                        [appendTo]="'body'" placeholder="Select Seasons (multi-select)">
+                                        [appendTo]="'body'" placeholder="Select Seasons">
                                     </p-multiSelect>
                                     <p class="text-center" *ngIf="form.get('seasons')?.errors?.required && submitted" style="color: red">
                                         Please Choose Any one option
@@ -76,7 +76,7 @@
                                     </h5>
                                     <p-multiSelect [options]="factorsList" styleClass="w-100"
                                         formControlName="factors" optionLabel="name" optionValue="name"
-                                        [appendTo]="'body'" placeholder="Select Factors">
+                                        [appendTo]="'body'" placeholder="Select Revenue drivers">
                                     </p-multiSelect>
                                     <p class="text-center" *ngIf="form.get('factors')?.errors?.required && submitted" style="color: red">
                                         Please Choose Any one option
@@ -122,7 +122,7 @@
                                     </h5>
                                     <div class="w-100 d-flex gap-2 flex-fill">
                                         <p-select styleClass="w-100" class="w-100" formControlName="forecast_peroid" appendTo="body" [options]="durationList"
-                                            [filter]="true" filterBy="name" placeholder="Time Frame" optionLabel="name"
+                                            [filter]="true" filterBy="name" placeholder="Select Duration" optionLabel="name"
                                             optionValue="name" [autoDisplayFirst]="false">
                                         </p-select>
                                     </div>
@@ -134,7 +134,7 @@
                                     <h5 class="uniprep-primary fw-semibold mt-3 mb-2">
                                         {{ recommendation.question.branches[1] }}
                                     </h5>
-                                    <p-multiSelect styleClass="w-100" placeholder="Goals" [options]="goalList"
+                                    <p-multiSelect styleClass="w-100" placeholder="Select Goals" [options]="goalList"
                                         optionLabel="value" optionValue="value" formControlName="goals">
                                     </p-multiSelect>
                                     <p class="text-center" *ngIf=" form.get('goals')?.errors?.required && submitted" style="color: red">

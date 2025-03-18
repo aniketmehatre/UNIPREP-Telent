@@ -27,10 +27,7 @@ export class JobListComponent implements OnInit {
   totalAppliedJobs: number = 0;
   pageSize: number = 10;
   tabs = [
-    { label: 'All Jobs', active: true },
-    { label: 'Job Applied', active: false },
-    { label: 'Application Received', active: false },
-    { label: 'Shortlisted', active: false }
+    { label: 'All Jobs', active: true }
   ];
 
   constructor(private talentConnectService: TalentConnectService) { }
@@ -39,17 +36,6 @@ export class JobListComponent implements OnInit {
   ngOnInit(): void {
     this.getAppliedJobList();
   }
-
-  getStatusClass(status: string): string {
-    switch (status) {
-      case 'Job Applied': return 'bg-primary text-white';
-      case 'Application Received': return 'bg-warning text-dark';
-      case 'Shortlisted': return 'bg-success text-white';
-      case 'Position Closed': return 'bg-danger text-white';
-      default: return 'bg-secondary text-white';
-    }
-  }
-
 
   onClickJobCard(id: number) {
     this.emitId.emit(id);
@@ -69,6 +55,14 @@ export class JobListComponent implements OnInit {
       next: response => {
         this.appliedJobList = response.jobs;
         this.totalAppliedJobs = response.totaljobs;
+        this.tabs = [
+          { label: 'All Jobs', active: true },
+          ...response.hiringStages.map((item: any) => ({
+            id: item.id,
+            label: item.hiringstage,
+            active: false
+          }))
+        ];
       },
       error: error => {
         console.log(error);

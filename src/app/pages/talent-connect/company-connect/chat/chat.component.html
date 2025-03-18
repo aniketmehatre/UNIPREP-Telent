@@ -73,9 +73,12 @@
                    [(ngModel)]="newMessage"
                    (keyup.enter)="sendMessage()">
 
-            <span class="input-group-text">
-            <i class="pi pi-paperclip"></i>
-          </span>
+            <input type="file" #fileInput hidden (change)="onFileSelected($event)"/>
+
+            <!-- Paperclip Icon to Trigger File Input -->
+            <span class="input-group-text cursor-pointer" (click)="fileInput.click()">
+                <i class="pi pi-paperclip"></i>
+              </span>
             <span class="input-group-text cursor-pointer" (click)="sendMessage()">
             <i class="pi pi-send"></i>
           </span>

@@ -43,7 +43,7 @@
                                         <div class="col-md-9">
                                             <h5 class="m-2 ">In which country do you plan to study?</h5>
                                         </div>
-                                        <div class="col-md-9">
+                                        <div class="col-md-9 text-start">
                                             <p-select [options]="countriesList" [filter]="true" [filterBy]="'country'" styleClass="w-100" (onChange)="onChangeCountry()"
                                                 [(ngModel)]="selectedData['country']" optionLabel="country"
                                                 optionValue="id" [appendTo]="'body'" placeholder="Select Country">
@@ -56,9 +56,9 @@
                                     <!-- University -->
                                     <div class="d-flex flex-column mb-3 align-items-center">
                                         <div class="col-md-9">
-                                            <h5 class="m-2">What is the name of the university you will be attending?</h5>
+                                            <h5 class="m-2">Which university will you be attending?</h5>
                                         </div>
-                                        <div class="col-md-9">
+                                        <div class="col-md-9 text-start">
                                             <p-select [options]="universityList" styleClass="w-100" [filter]="true" [filterBy]="'university_name'"
                                                 [(ngModel)]="selectedData['university']" optionLabel="university_name"
                                                 optionValue="id" [appendTo]="'body'" placeholder="Select University">
@@ -71,11 +71,11 @@
                                     <!-- Course Duration -->
                                     <div class="d-flex flex-column mb-3 align-items-center">
                                         <div class="col-md-9">
-                                            <h5 class="m-2">How long is the duration of your course?</h5>
+                                            <h5 class="m-2">What is the length of your course?</h5>
                                         </div>
-                                        <div class="col-md-9">
+                                        <div class="col-md-9 text-start">
                                             <p-select [options]="courseDurationList" styleClass="w-100" [(ngModel)]="selectedData['course_duration']" optionLabel="value"
-                                                optionValue="value" [appendTo]="'body'" placeholder="Select Duration">
+                                                optionValue="value" [appendTo]="'body'" placeholder="Select Course Duration">
                                             </p-select>
                                             <div *ngIf="!selectedData['course_duration'] && isSubmitted" class="text-danger text-xs">
                                                 <div>Course Duration Required</div>
@@ -85,11 +85,11 @@
                                     <!-- Stay Back Period -->
                                     <div class="d-flex flex-column mb-3 align-items-center">
                                         <div class="col-md-9">
-                                            <h5 class="m-2">What is the stay-back period allowed after completing your studies?</h5>
+                                            <h5 class="m-2">What is the duration of the post-study stay-back period?</h5>
                                         </div>
-                                        <div class="col-md-9">
+                                        <div class="col-md-9 text-start">
                                             <p-select [options]="stayBackList" styleClass="w-100" [(ngModel)]="selectedData['stay_back']" optionLabel="value"
-                                                optionValue="value" [appendTo]="'body'" placeholder="Select Stay Back Months">
+                                                optionValue="value" [appendTo]="'body'" placeholder="Select Stay Back Period">
                                             </p-select>
                                             <!-- <input type="text" pInputText placeholder="Stay Back Months" class="w-100" disabled="true" [(ngModel)]="selectedData['stay_back']" /> -->
                                             <div *ngIf="!selectedData['stay_back'] && isSubmitted" class="text-danger text-xs">
@@ -118,7 +118,7 @@
                                         <div class="col-md-9">
                                             <h5 class="m-2">What is the net tuition fee for your entire course?</h5>
                                         </div>
-                                        <div class="col-md-9">
+                                        <div class="col-md-9 text-start">
                                             <input type="text" pInputText [placeholder]="'Overall Net Tution' +  (selectedCurrency ? ' in '+ selectedCurrency : '')" class="w-100"  [(ngModel)]="selectedData['tution']" />
                                             <div *ngIf="!selectedData['tution'] && isSubmitted" class="text-danger text-xs">
                                                 <div>Overall Net Tution Required</div>
@@ -129,7 +129,7 @@
                                         <div class="col-md-9">
                                             <h5 class="m-2">How much do you expect to spend on accommodation per month?</h5>
                                         </div>
-                                        <div class="col-md-9">
+                                        <div class="col-md-9 text-start">
                                             <input type="text" pInputText [placeholder]="'Cost/Month' + (selectedCurrency ? ' in '+ selectedCurrency : '')" class="w-100"  [(ngModel)]="selectedData['accommodation']" />
                                             <div *ngIf="!selectedData['accommodation'] && isSubmitted" class="text-danger text-xs">
                                                 <div>Accommodation Required</div>
@@ -140,7 +140,7 @@
                                         <div class="col-md-9">
                                             <h5 class="m-2">What are your estimated travel expenses per month?</h5>
                                         </div>
-                                        <div class="col-md-9">
+                                        <div class="col-md-9 text-start">
                                             <input type="text" pInputText [placeholder]="'Cost/Month' + (selectedCurrency ? ' in '+ selectedCurrency : '')" class="w-100"  [(ngModel)]="selectedData['travel_expense']" />
                                             <div  *ngIf="!selectedData['travel_expense'] && isSubmitted" class="text-danger text-xs">
                                                 <div>Travel Expenses Required</div>
@@ -151,7 +151,7 @@
                                         <div class="col-md-9">
                                             <h5 class="m-2">How much do you plan to spend on food and groceries each month?</h5>
                                         </div>
-                                        <div class="col-md-9">
+                                        <div class="col-md-9 text-start">
                                             <input type="text" pInputText [placeholder]="'Cost/Month' + (selectedCurrency ? ' in '+ selectedCurrency : '')" class="w-100"  [(ngModel)]="selectedData['food_and_grocery']" />
                                             <div *ngIf="!selectedData['food_and_grocery'] && isSubmitted" class="text-danger text-xs">
                                                 <div>Food & Groceries Required</div>
@@ -162,7 +162,7 @@
                                         <div class="col-md-9">
                                             <h5 class="m-2">What are your anticipated miscellaneous expenses per month?</h5>
                                         </div>
-                                        <div class="col-md-9">
+                                        <div class="col-md-9 text-start">
                                             <input type="text" pInputText [placeholder]="'Cost/Month' + (selectedCurrency ? ' in '+ selectedCurrency : '')" class="w-100"  [(ngModel)]="selectedData['miscellaneous']" />
                                             <div *ngIf="!selectedData['miscellaneous'] && isSubmitted" class="text-danger text-xs">
                                                 <div>Miscellaneous Required</div>

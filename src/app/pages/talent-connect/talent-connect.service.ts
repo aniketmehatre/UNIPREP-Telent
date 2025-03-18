@@ -34,7 +34,7 @@ export class TalentConnectService {
 
     getJobDetails(id: number) {
         return this.http.post<any>(
-            environment.ApiUrl + "/showuserTrack", { id: id },
+            environment.ApiUrl + "/showuserJobs", { id: id },
             { headers: this.headers });
     }
 
@@ -56,9 +56,9 @@ export class TalentConnectService {
             { headers: this.headers });
     }
 
-    sendMessage(data: { job_id: number, chat: string }) {
+    sendMessage(formData: FormData) {
         return this.http.post<any>(
-            environment.ApiUrl + "/sendMessage", data,
+            environment.ApiUrl + "/sendMessage", formData,
             { headers: this.headers });
     }
 
@@ -104,13 +104,13 @@ export class TalentConnectService {
         const formData = new FormData();
         formData.append("perpage", formValues.perpage);
         formData.append("page", formValues.page);
-        formData.append("companyname", formValues.companyname);
-        formData.append("industrytype", formValues.industrytype);
-        formData.append("companysize", formValues.companysize);
-        formData.append("hq", formValues.hq);
-        formData.append("globalpresence", formValues.globalpresence);
-        formData.append("foundedyear", formValues.foundedyear);
-        formData.append("companytype", formValues.companytype);
+        // formData.append("companyname", formValues.companyname);
+        // formData.append("industrytype", formValues.industrytype);
+        // formData.append("companysize", formValues.companysize);
+        // formData.append("hq", formValues.hq);
+        // formData.append("globalpresence", formValues.globalpresence);
+        // formData.append("foundedyear", formValues.foundedyear);
+        // formData.append("companytype", formValues.companytype);
         const headers = new HttpHeaders().set("Accept", "application/json");
         return this.http.post<any>(
             environment.ApiUrl + "/gettalentconnectcompanies", formData,
