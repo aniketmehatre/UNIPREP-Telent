@@ -95,11 +95,12 @@ export class ChatComponent implements OnInit {
   }
 
   sendMessage(): void {
+    console.log(this.companyDetails);
     if (this.newMessage.trim()) {
       let req = {
         company_id: this.companyDetails.id,
         chat: this.newMessage,
-        attachment: null
+        attachment: this.selectedFile
       }
       this.talentConnectService.sendCompanyConnectUserMessage(req).subscribe({
         next: data => {
@@ -121,4 +122,13 @@ export class ChatComponent implements OnInit {
       this.newMessage = '';
     }
   }
+
+  selectedFile: File | null = null;
+  onFileSelected(event: any) {
+    if (event.target.files.length > 0) {
+      this.selectedFile = event.target.files[0];
+      console.log("Selected File:", this.selectedFile);
+    }
+  }
+
 }

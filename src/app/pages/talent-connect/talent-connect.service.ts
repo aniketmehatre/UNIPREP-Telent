@@ -104,13 +104,13 @@ export class TalentConnectService {
         const formData = new FormData();
         formData.append("perpage", formValues.perpage);
         formData.append("page", formValues.page);
-        formData.append("companyname", formValues.companyname);
-        formData.append("industrytype", formValues.industrytype);
-        formData.append("companysize", formValues.companysize);
-        formData.append("hq", formValues.hq);
-        formData.append("globalpresence", formValues.globalpresence);
-        formData.append("foundedyear", formValues.foundedyear);
-        formData.append("companytype", formValues.companytype);
+        // formData.append("companyname", formValues.companyname);
+        // formData.append("industrytype", formValues.industrytype);
+        // formData.append("companysize", formValues.companysize);
+        // formData.append("hq", formValues.hq);
+        // formData.append("globalpresence", formValues.globalpresence);
+        // formData.append("foundedyear", formValues.foundedyear);
+        // formData.append("companytype", formValues.companytype);
         const headers = new HttpHeaders().set("Accept", "application/json");
         return this.http.post<any>(
             environment.ApiUrl + "/gettalentconnectcompanies", formData,

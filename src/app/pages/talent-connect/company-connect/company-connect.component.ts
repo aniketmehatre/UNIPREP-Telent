@@ -170,8 +170,10 @@ export class CompanyConnect1Component implements OnInit {
 
     }
 
-    pageChange($event: PaginatorState) {
-
+    pageChange(event: any) {
+        this.page = event.page + 1
+        this.perPage = event.rows
+        this.listCompanyData()
     }
 
     onClickCompany(id: number) {
