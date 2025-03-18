@@ -53,7 +53,7 @@
                                     <p-select [options]="departureLocationList" [virtualScroll]="true"
                                                 [virtualScrollItemSize]="50" formControlName="location"
                                                 [appendTo]="'body'" [filter]="true" [showClear]="true"
-                                                placeholder="Select Departure location" styleClass="w-100">
+                                                placeholder="Select location" styleClass="w-100">
                                         <ng-template pTemplate="filter" let-options="options">
                                             <div class="d-flex gap-2">
                                                 <div class="p-inputgroup" (click)="$event.stopPropagation()">
@@ -134,7 +134,7 @@
                                     <h5 class="uniprep-primary fw-semibold mt-3 mb-1">
                                         {{ recommendation.question.branches[0] }}
                                     </h5>
-                                    <p-multiSelect styleClass="w-100" placeholder="Select Expense" [options]="primaryExpenseList"
+                                    <p-multiSelect styleClass="w-100" placeholder="Select Expense Category" [options]="primaryExpenseList"
                                                    optionLabel="name" optionValue="name" appendTo="body" formControlName="primary_expense">
                                     </p-multiSelect>
                                     <p class="text-center" *ngIf="
@@ -183,7 +183,7 @@
                         filterBy="currency_symbol" placeholder="Currency" optionLabel="currency_symbol" optionValue="currency_symbol"
                         [autoDisplayFirst]="false" appendTo="body">
                       </p-select>
-                      <input class="w-100 pl-4 border border-gray rounded-3" type="number" pInputText [placeholder]="marketingForm.get('expense_currency_code').value ? 'Amount in'+' '+marketingForm.get('expense_currency_code').value : 'Operating Expense' "
+                      <input class="w-100 pl-4 border border-gray rounded-3" type="number" pInputText placeholder="Monthly Operating Expense"
                         formControlName="operating_expense" />
                     </div>
                     <p class="text-center" *ngIf="marketingForm.get('operating_expense')?.errors?.required && submitted"
@@ -205,7 +205,7 @@
                         filterBy="currency_symbol" placeholder=" Currency" optionLabel="currency_symbol" optionValue="currency_symbol"
                         [autoDisplayFirst]="false">
                       </p-select>
-                      <input class="w-100 pl-4 border border-gray rounded-3" type="text" pInputText [placeholder]="marketingForm.get('sales_currency_code').value ? 'Amount in'+' '+marketingForm.get('sales_currency_code').value : 'Marketing and SalesBuget Amount' "
+                      <input class="w-100 pl-4 border border-gray rounded-3" type="text" pInputText placeholder="Monthly Marketing and Sales Buget "
                         formControlName="budget" />
                     </div>
                     <p class="text-center" *ngIf="marketingForm.get('budget')?.errors?.required && submitted"
@@ -218,7 +218,7 @@
                       {{ recommendation.question.branches[1] }}
                     </h5>
                     <p-select styleClass="w-100" formControlName="expense_estimation" appendTo="body" [options]="expenseEstimation" [filter]="true"
-                    filterBy="name" placeholder="Select Expense Estimation" optionLabel="name" optionValue="name"
+                    filterBy="name" placeholder="Select Expense Estimation Duration" optionLabel="name" optionValue="name"
                     [autoDisplayFirst]="false">
                   </p-select>
                     <p class="text-center" *ngIf="

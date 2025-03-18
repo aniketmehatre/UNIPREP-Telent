@@ -108,7 +108,7 @@ export class GlobalEdufitComponent implements OnInit {
       id: 2,
       question: {
         heading: 'Finance',
-        branches: ["What is the tuition fee for the program?", "What is the estimated cost of living per year?", "What is the post-study work visa or stayback period in the country?"]
+        branches: ["What is the tuition fee for the program?", "What is the estimated cost of living per year?", "What is the stay back period in the country?"]
       },
     },
   ];

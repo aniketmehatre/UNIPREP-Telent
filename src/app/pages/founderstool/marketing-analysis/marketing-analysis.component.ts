@@ -108,21 +108,21 @@ export class MarketingAnalysisComponent implements OnInit {
       id: 1,
       question: {
         heading: 'Basic Information',
-        branches: ["What industry does your business operate in?", "Where is your business or target market location?", "Who is your target market ?", "What products or services does your business offer?"]
+        branches: ["What industry does your business operate in?", "Where is your business business located?", "Who is your target audience ?", "What products or services does your business offer?"]
       },
     },
     {
       id: 2,
       question: {
         heading: 'Marketing & Sales',
-        branches: ["Can you describe your business model?", "Through which sales channels do you reach your customers?", "Over what duration do you want this analysis to be conducted?"]
+        branches: ["What is your business model?", "Through which sales channels do you reach your customers?", "What is the preferred timeframe for this analysis?"]
       },
     },
     {
       id: 3,
       question: {
         heading: 'Finance',
-        branches: ["What budget have you allocated for conducting this market research?", " What are your primary revenue streams?", "What specific aspects do you want to focus on in the competitor analysis?", "What time frame do you have in mind for the market forecast?"]
+        branches: ["What is your allocated budget for conducting this market research?", " What are your primary revenue streams?", "What specific factors are you focusing on in the competitor analysis?", "Over what period should the market forecast be conducted?"]
       },
     },
   ];
