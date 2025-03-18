@@ -99,7 +99,6 @@ interface ProfileData {
 export class ViewProfileComponent implements OnInit {
   @Input() display: boolean = false;
   public isSample: boolean = true;
-  public Array = Array;
   graduationYears: any[] = [];
   currencies: any[] = [];
   careerInterests: any[] = [];
@@ -344,4 +343,11 @@ export class ViewProfileComponent implements OnInit {
       }))
     };
   }
+
+  extractLastName(url: string): string {
+    if (!url) return '';
+    let fileName = url.split('/').pop() || ''; // "1742015348_cv_letter.pdf"
+    return fileName;
+  }
+
 }

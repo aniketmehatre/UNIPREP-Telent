@@ -35,6 +35,7 @@ export interface Job {
   company_logo_url: string;
   educational_degree: string;
   salary_range: number;
+  matching_skills: string;
   stage: string | null;
 }
 
@@ -55,7 +56,9 @@ interface Message {
 export class JobViewComponent implements OnInit {
   id!: number;
   public Array = Array;
+  isApplied: boolean = false;
   jobDetails: Job = {
+    matching_skills: 'You match 0 out of 0 skill requirements for this job',
     isChecked: 0,
     id: 1,
     experience_level: "Mid-Level",
@@ -152,9 +155,9 @@ export class JobViewComponent implements OnInit {
             company_name: jobData.company_name || jobData.comapany_name,
             work_location: jobData.work_location || jobData.worklocation
           };
-
-          if (this.jobDetails.stage) {
-            this.isShowApplyChat = true;
+          this.isApplied = response?.isapplied;
+          if (response?.isapplied) {
+            this.isShowApplyChat = response?.isapplied;
             this.getMessages(id);
           }
         }

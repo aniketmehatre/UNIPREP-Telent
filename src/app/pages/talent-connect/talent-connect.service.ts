@@ -34,7 +34,7 @@ export class TalentConnectService {
 
     getJobDetails(id: number) {
         return this.http.post<any>(
-            environment.ApiUrl + "/showuserTrack", { id: id },
+            environment.ApiUrl + "/showuserJobs", { id: id },
             { headers: this.headers });
     }
 

@@ -21,6 +21,7 @@ export class JobDetailsComponent  implements OnInit{
   @Input() jobDetails: Job = {
     isChecked: 0,
     id: 1,
+    matching_skills: "You match 0 out of 0 skill requirements for this job",
     experience_level: "Mid-Level",
     job_overview: "We are looking for a skilled Software Developer to join our team.",
     key_responsibilities: "Develop, test, and maintain web applications.",
