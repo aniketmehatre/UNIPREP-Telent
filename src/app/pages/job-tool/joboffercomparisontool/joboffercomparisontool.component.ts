@@ -217,6 +217,7 @@ export class JoboffercomparisontoolComponent implements OnInit {
   getJobPreferences() {
     this.avgestservice.getJobPreferences().subscribe((response) => {
       this.jobPreferences = response;
+      console.log(this.jobPreferences, "job prefrences");
     });
   }
   //workplace type
@@ -224,6 +225,7 @@ export class JoboffercomparisontoolComponent implements OnInit {
   getworkplaceType() {
     this.service.getemploymentType().subscribe((response) => {
       this.workplaceTypes = response;
+      console.log(this.workplaceTypes, "workplaceTypes");
     });
   }
   ngOnInit() {
@@ -335,11 +337,15 @@ export class JoboffercomparisontoolComponent implements OnInit {
     }
   }
   windowChange(data: any) {
-    this.preparedvisibility = data;
-    this.activePageIndex = 0;
-    this.basicInformationForm.reset();
-    this.salaryandemployeeBenefitsForm.reset();
-    this.worktimingsForm.reset();
-    this.additionalPerksForm.reset();
+    if(data == "error_arrived"){
+      this.preparedvisibility = false;
+    }else{
+      this.preparedvisibility = data;
+      this.activePageIndex = 0;
+      this.basicInformationForm.reset();
+      this.salaryandemployeeBenefitsForm.reset();
+      this.worktimingsForm.reset();
+      this.additionalPerksForm.reset();
+    }
   }
 }

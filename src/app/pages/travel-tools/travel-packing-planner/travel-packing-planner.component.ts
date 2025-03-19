@@ -176,6 +176,77 @@ export class TravelPackingPlannerComponent implements OnInit {
 
   downloadRecommadation() {
     let selectedCityAndCountry = this.selectedData[1].city_name+', '+this.selectedData[1].country_name;
+    let styles = `
+    <head>
+        <style>
+            .container {
+                max-width: 950px;
+                margin: 25px auto;
+                padding: 25px;
+                background: rgba(255, 255, 255, 0.95);
+                border-radius: 10px;
+                box-shadow: 4px 4px 15px rgba(0, 0, 0, 0.2);
+                color: black;
+                text-align: left;
+                position: relative;
+                line-height: 1.9;
+                page-break-before: auto;
+                page-break-after: auto;
+            }
+
+            h2, h3 {
+                color: #1a237e;
+            }
+
+            .title-highlight {
+                color: #d32f2f;
+                font-weight: bold;
+                font-size: 22px;
+            }
+
+            .loan-details, .section-content {
+                padding: 15px;
+                border-radius: 8px;
+                font-size: 16px;
+            }
+
+            li {
+                page-break-inside: avoid;
+                word-wrap: break-word;
+            }
+
+            ul {
+                padding-left: 20px;
+                page-break-inside: auto;
+            }
+
+            .highlight {
+                color: #d32f2f;
+                font-weight: bold;
+                font-size: 20px;
+            }
+
+            .icon {
+                color: #3949ab;
+                margin-right: 10px;
+            }
+
+            .divider {
+                height: 2px;
+                background: linear-gradient(to right, #3949ab, #d32f2f);
+                margin: 20px 0;
+            }
+
+            .page-break {
+                page-break-before: auto;
+            }
+
+            .blue-background {
+                background-color: #e3f2fd;
+            }
+        </style>
+    </head>
+`;
     let addingInput = `<div style="font-family: 'Poppins', sans-serif; display: flex; align-items: center; justify-content: space-between; border-bottom: 2px solid #d32f2f; padding-bottom: 10px; margin-bottom: 20px;">
 				<div style="text-align: center;">
 					<h2 style="margin: 0; color: #1a237e;">Travel Packaging Planner</h2>
@@ -200,12 +271,15 @@ export class TravelPackingPlannerComponent implements OnInit {
     });
     let finalRecommendation = addingInput+ '<div class="divider"></div><p><strong>Response:<br><br></strong></p>' + this.recommendationData;
     finalRecommendation = finalRecommendation
-			.replace(/```html|```/g, '')
-      .replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>')
-			.replace(/\(see https:\/\/g\.co\/ng\/security#xss\)/g, '') 
-			.replace(/SafeValue must use \[property\]=binding:/g, '')
-			.replace(/class="container"/g, 'style="line-height:1.9"'); //because if i add container the margin will increase so i removed the container now the spacing is proper.
-		
+    .replace(/<head>(.*?)<\/head>/gs, '') // Remove <head> content
+    .replace(/```html|```/g, '')
+    .replace(/<html>|```/g, '')
+    .replace(/<\/html>|```/g, '')
+    .replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>')
+    .replace(/\(see https:\/\/g\.co\/ng\/security#xss\)/g, '')
+    .replace(/SafeValue must use \[property\]=binding:/g, '')
+    .replace(/class="container"/g, 'style="line-height:1.9;page-break-before: auto;page-break-after: auto;"');
+    finalRecommendation = `<html>${styles}<body>` + finalRecommendation + `</body></html>`;
     let paramData: DownloadRespose = {
         response: finalRecommendation,
         module_name: "Travel Packing Planner",

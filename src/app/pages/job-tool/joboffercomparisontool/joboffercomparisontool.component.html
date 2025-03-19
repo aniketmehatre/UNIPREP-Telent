@@ -101,12 +101,57 @@
 											<ng-container *ngIf="recommendation.id == 2">
 												<!-- Salary and Benefits Form -->
 												<form [formGroup]="salaryandemployeeBenefitsForm">
-													<div class="row" formArrayName="benefitsInformation">
-														<!-- Company Names Row -->
-														<div class="row mb-4  align-items-center">
-															<div class="col-md-2">
-																<div class="fw-bold text-start">
-																	<h5 class="fw-bold mb-0">Company</h5>
+													<div class="row">
+														<!-- Headings Column -->
+														<div class="col-md-3">
+															<div class="p-2 fw-bold text-end"></div>
+															<div class="p-3 fw-bold text-end">
+																<h5 class="fw-bold mb-0">Annual Salary</h5>
+															</div>
+															<div class="p-3 fw-bold text-end">
+																<h5 class="fw-bold mb-0">Employe Benefits</h5>
+															</div>
+														</div>
+
+														<!-- Fields Column -->
+														<div class="col-md-7">
+															<div class="row col-md-12">
+																<div class="d-flex gap-2" formArrayName="benefitsInformation">
+																	<ng-container *ngFor="let benefitsinfo of benefitsInformation.controls; let i = index">
+																		<ng-container [formGroupName]="i">
+																			<div [ngClass]="benefitsInformation.length === 2 ? 'col-md-6' : 'col-md-4'">
+																				<div class="mb-2 text-center">
+																					<h6 class="fw-bold">
+																						{{ basicInformationForm.controls.basicInformation.controls[i].get("companyName").value }}
+																					</h6>
+																				</div>
+																				<!-- Salary --><!-- Currency -->
+																				<div class="col-md-12 d-flex mb-2">
+																					<div class="col-md-5">
+																						<p-select [style]="{ width: '100%' }" [options]="currencies" formControlName="currency" optionLabel="currency_code" optionValue="currency_code" [appendTo]="'body'" placeholder="Currency" [filter]="true" filterBy="country,currency_code" [showClear]="true" styleClass="w-100">
+																							<ng-template let-data pTemplate="item">
+																								<div>
+																									{{ data.country }} -
+																									{{ data.currency_code }}
+																								</div>
+																							</ng-template>
+																						</p-select>
+																						<div *ngIf="benefitsinfo.get('currency')?.touched && benefitsinfo.get('currency')?.invalid" class="text-danger mt-1">Currency is required.</div>
+																					</div>
+																					<div class="col-md-7">
+																						<input type="text" class="w-100 form-control" formControlName="salary" placeholder="Salary" />
+																						<div *ngIf="benefitsinfo.get('salary')?.touched && benefitsinfo.get('salary')?.invalid" class="text-danger mt-1">Salary is required.</div>
+																					</div>
+																				</div>
+
+																				<!-- Benefits -->
+																				<div class="mb-2">
+																					<p-multiSelect [showClear]="true" display="chip" styleClass="w-100" placeholder="Benefits" formControlName="benefits" [options]="employeebenefits" display="chip" optionLabel="benefit" optionValue="id" [appendTo]="'body'"></p-multiSelect>
+																					<div *ngIf="benefitsinfo.get('benefits')[i]?.touched && benefitsinfo.get('benefits')[i]?.invalid" class="text-danger mt-1">Benefits is required.</div>
+																				</div>
+																			</div>
+																		</ng-container>
+																	</ng-container>
 																</div>
 															</div>
 															<ng-container *ngFor="let benefitsinfo of benefitsInformation.controls; let i = index" [formGroupName]="i">
@@ -225,12 +270,54 @@
 											<ng-container *ngIf="recommendation.id == 4">
 												<!-- Additional Perks Form -->
 												<form [formGroup]="additionalPerksForm">
-													<div class="row" formArrayName="additionalPerksInformation">
-														<!-- Company Names Row -->
-														<div class="row mb-4  align-items-center">
-															<div class="col-md-2">
-																<div class="fw-bold text-start">
-																	<h5 class="fw-bold mb-0">Company</h5>
+
+													<div class="row">
+														<!-- Headings Column -->
+														<div class="col-md-3">
+															<div class="p-3 fw-bold text-end"></div>
+															<div class="p-3 fw-bold text-end">
+																<h5 class="fw-bold mb-0">Work Location Flexibility</h5>
+															</div>
+															<div class="p-3 fw-bold text-end">
+																<h5 class="fw-bold mb-0">Other Benefits</h5>
+															</div>
+															<div class="p-3 fw-bold text-end">
+																<h5 class="fw-bold mb-0">Travel Opportunities</h5>
+															</div>
+														</div>
+
+														<!-- Fields Column -->
+														<div class="col-md-7">
+															<div class="row col-md-12">
+																<div class="d-flex gap-2" formArrayName="additionalPerksInformation">
+																	<ng-container *ngFor="let info of additionalPerksInformation.controls; let i = index">
+																		<ng-container [formGroupName]="i">
+																			<div [ngClass]="additionalPerksInformation.length === 2 ? 'col-md-6' : 'col-md-4'">
+																				<div class="mb-2 text-center">
+																					<h6 class="fw-bold">
+																						{{ basicInformationForm.controls.basicInformation.controls[i].get("companyName").value }}
+																					</h6>
+																				</div>
+																				<!-- Workplace Type -->
+																				<div class="mb-2">
+																					<p-select [style]="{ width: '100%' }" formControlName="workplacetypes" placeholder="Work Location Flexibility" display="chip" optionLabel="employment_type" optionValue="id" [options]="workplaceTypes" [appendTo]="'body'" [showClear]="true" [virtualScroll]="true" [virtualScrollItemSize]="30" [filter]="true" filterBy="employment_type"> </p-select>
+																					<div *ngIf="info.get('employment_type')?.touched && info.get('employment_type')?.invalid" class="text-danger mt-1">Work Location Flexibility is required.</div>
+																				</div>
+																				<!-- Other Benefits -->
+																				<div class="mb-2">
+																					<p-multiSelect styleClass="w-100" placeholder="Perks" formControlName="perks" [options]="workbenefits" display="chip" optionLabel="benefit" optionValue="id" [appendTo]="'body'"></p-multiSelect>
+
+																					<div *ngIf="info.get('perks')?.touched && info.get('perks')?.invalid" class="text-danger mt-1">Other Benefits is required.</div>
+																				</div>
+																				<!-- Travel Opportunities -->
+																				<div class="mb-2">
+																					<p-multiSelect styleClass="w-100" placeholder="Oppurtunity" formControlName="travel_opportunities" [options]="traveloppurtunities" display="chip" optionLabel="oppurtunity" optionValue="id" [appendTo]="'body'"></p-multiSelect>
+
+																					<div *ngIf="info.get('travel_opportunities')?.touched && info.get('travel_opportunities')?.invalid" class="text-danger mt-1">Travel Opportunities is required.</div>
+																				</div>
+																			</div>
+																		</ng-container>
+																	</ng-container>
 																</div>
 															</div>
 															<ng-container *ngFor="let info of additionalPerksInformation.controls; let i = index" [formGroupName]="i">
