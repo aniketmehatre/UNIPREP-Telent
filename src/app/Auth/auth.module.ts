@@ -28,7 +28,7 @@ import { ScrollTopModule } from "primeng/scrolltop"
 import { SocialLoginModule, SocialAuthServiceConfig } from "@abacritt/angularx-social-login"
 import { GoogleLoginProvider, FacebookLoginProvider } from "@abacritt/angularx-social-login"
 @NgModule({
-	declarations: [ SetpasswordComponent, MaintenanceComponent],
+	declarations: [ MaintenanceComponent],
 	// imports: [
 	//   FormsModule,
 	//   LoginComponent,
