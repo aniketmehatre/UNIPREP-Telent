@@ -27,12 +27,7 @@ import {SubSink} from "subsink"
 import {LocationService} from "../../location.service"
 import {AuthService} from "../auth.service"
 import {finalize} from 'rxjs/operators';
-import {
-	GoogleLoginProvider,
-	GoogleSigninButtonModule,
-	SocialAuthService,
-	SocialLoginModule,
-} from '@abacritt/angularx-social-login';
+import {GoogleSigninButtonModule, SocialAuthService, SocialLoginModule,} from '@abacritt/angularx-social-login';
 
 declare var google: any;
 @Component({
@@ -66,38 +61,8 @@ export class LoginComponent implements OnInit, OnDestroy {
 				private storage: LocalStorageService, private authTokenService: AuthTokenService,
 				private cdr: ChangeDetectorRef, private el: ElementRef, private renderer: Renderer2) {}
 
-	button1Clicked() {
-		this.button2.nativeElement.click()
-	}
-
 	ngOnDestroy() {
 		this.subs.unsubscribe()
-	}
-
-	signInWithGoogle(): void {
-		setTimeout(() => {
-			if (!this.authService) {
-				console.error('Google Auth Service is not initialized!');
-				return;
-			}
-
-			this.authService.signIn(GoogleLoginProvider.PROVIDER_ID)
-				.then(user => {
-					console.log('User Logged In:', user);
-				})
-				.catch(error => console.error('Login failed:', error));
-		}, 500); // 🔹 Small delay to let authService initialize
-	}
-
-
-	showPassword(): void {
-		if (this.password === "password") {
-			this.password = "text"
-			this.show = false
-		} else {
-			this.password = "password"
-			this.show = true
-		}
 	}
 
 	ngOnInit() {
@@ -217,12 +182,6 @@ export class LoginComponent implements OnInit, OnDestroy {
               .sendSessionData(req, "login")
               .subscribe((response) => {
               });
-            // this.toast.add({
-            //   severity: "success",
-            //   summary: "Success",
-            //   detail: message,
-            // });
-      
         });
 				this.toast.add({
 					severity: "success",
@@ -289,17 +248,4 @@ export class LoginComponent implements OnInit, OnDestroy {
 			}
 		})
 	}
-
-	// loginWithFacebook(){
-	//   this.authService.signIn(FacebookLoginProvider.PROVIDER_ID);
-	// }
-	//
-	// loginWithLinkedIn(){
-	//     this.ngxLinkedinService.signIn().subscribe(user => {
-	//       console.info('signIn', user);
-	//     });
-	//   window.location.href = `https://www.linkedin.com/uas/oauth2/authorization?response_type=code&client_id=${
-	//       this.linkedInCredentials.clientId
-	//   }&redirect_uri=${this.linkedInCredentials.redirectUrl}&scope={this.linkedInCredentials.scope}`;
-	// }
 }
