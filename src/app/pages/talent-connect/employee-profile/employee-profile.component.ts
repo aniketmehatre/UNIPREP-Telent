@@ -29,6 +29,7 @@ export class EmployeeProfileComponent implements OnInit {
     careerStatus: "Select your current career status. Employers need to know your availability to determine if you're the right fit for the role. An updated career status helps match you with opportunities that align with your current situation.",
     expectedSalary: "Enter your expected salary range in numbers upto 6 digits. This helps employers assess if your compensation expectations align with their budget."
   };
+  updateArrayIds!: any;
   originalProfileData: any;
   profileData: any;
   fileType = FileType;
@@ -143,6 +144,7 @@ export class EmployeeProfileComponent implements OnInit {
   // Form group creation methods
   createEducationGroup() {
     return this.fb.group({
+      id: [''],
       education_qualification_id: [null, Validators.required],
       education_university_name: [null, Validators.required],
       education_field_id: [null, Validators.required],
@@ -154,6 +156,7 @@ export class EmployeeProfileComponent implements OnInit {
 
   createWorkExperienceGroup() {
     return this.fb.group({
+      id: [''],
       work_experience_total_years_experience: [''],
       work_experience_company_name: [''],
       work_experience_job_title: [''],
@@ -168,6 +171,7 @@ export class EmployeeProfileComponent implements OnInit {
 
   createCertificateGroup() {
     return this.fb.group({
+      id: [''],
       certifications_certificate_name: [''],
       certifications_certificate_file: ['']
     });
@@ -175,6 +179,7 @@ export class EmployeeProfileComponent implements OnInit {
 
   createAcheivementGroup() {
     return this.fb.group({
+      id: [''],
       certifications_achievement_name: [''],
       certifications_achievement_file: ['']
     });
@@ -182,6 +187,7 @@ export class EmployeeProfileComponent implements OnInit {
 
   createLanguageGroup() {
     return this.fb.group({
+      id: [''],
       languages_language_id: [null, Validators.required],
       languages_proficiency: [null, Validators.required],
     });
@@ -189,6 +195,7 @@ export class EmployeeProfileComponent implements OnInit {
 
   createSocialMediaGroup() {
     return this.fb.group({
+      id: [''],
       networking_social_media: [null],
       networking_social_media_link: [null]
     });
@@ -196,6 +203,7 @@ export class EmployeeProfileComponent implements OnInit {
 
   createAcademicReferenceGroup() {
     return this.fb.group({
+      id: [''],
       references_college_name: [null, Validators.required],
       references_reference_name: [null, Validators.required],
       references_designation: [null, Validators.required],
@@ -206,6 +214,7 @@ export class EmployeeProfileComponent implements OnInit {
 
   createProfessionalReferenceGroup() {
     return this.fb.group({
+      id: [''],
       references_company_name: [null],
       references_reference_name: [null],
       references_designation: [null],
@@ -297,6 +306,24 @@ export class EmployeeProfileComponent implements OnInit {
     this.personalInfoForm.get('career_preference_cv_filename')?.setValue('');
   }
 
+
+  private isArrayItemModified(formGroup: FormGroup, originalData: any): boolean {
+    if (!originalData) return true; // Consider new items as modified
+    for (const controlName of Object.keys(formGroup.controls)) {
+      const control = formGroup.get(controlName);
+      if (controlName === 'id') continue;
+      const currentValue = control?.value;
+      const originalValue = originalData[controlName];
+      if (currentValue !== originalValue) {
+        if (!((currentValue === '' || currentValue === null || currentValue === undefined) &&
+          (originalValue === '' || originalValue === null || originalValue === undefined))) {
+          return true;
+        }
+      }
+    }
+    return false;
+  }
+
   onSubmit() {
     if (this.personalInfoForm.get('profile_image')?.invalid) {
       this.toastService.add({
@@ -306,6 +333,7 @@ export class EmployeeProfileComponent implements OnInit {
       });
       return;
     }
+
     if (this.personalInfoForm.valid) {
       const formData = new FormData();
       const profileId = this.profileId;
@@ -313,9 +341,9 @@ export class EmployeeProfileComponent implements OnInit {
 
       if (isUpdateOperation) {
         formData.append('id', profileId);
-
         const originalValues = this.originalProfileData;
 
+        formData.append('profile_completion', this.profileCompletion.toString());
         this.appendIfModified(formData, 'full_name', originalValues);
         this.appendIfModified(formData, 'date_of_birth', originalValues, value =>
           value ? new Date(value).toISOString() : '');
@@ -323,9 +351,15 @@ export class EmployeeProfileComponent implements OnInit {
         this.appendIfModified(formData, 'gender', originalValues);
         this.appendIfModified(formData, 'location_id', originalValues);
 
+        // Education Details
         this.educationDetails.controls.forEach((control, index) => {
           const education = control as FormGroup;
           const originalEducation = originalValues.educationDetails?.[index] || {};
+
+          // Only append the ID if the item has been modified
+          if (education.get('id')?.value && this.isArrayItemModified(education, originalEducation)) {
+            formData.append(`educationDetails[${index}][id]`, education.get('id')?.value);
+          }
 
           this.appendIfModified(formData,
             `educationDetails[${index}][education_qualification_id]`,
@@ -353,9 +387,15 @@ export class EmployeeProfileComponent implements OnInit {
             value => education.get('education_gpa_percentage')?.value || '');
         });
 
+        // Work Experience
         this.workExperience.controls.forEach((control, index) => {
           const work = control as FormGroup;
           const originalWork = originalValues.work_experience?.[index] || {};
+
+          // Only append the ID if the item has been modified
+          if (work.get('id')?.value && this.isArrayItemModified(work, originalWork)) {
+            formData.append(`work_experience[${index}][id]`, work.get('id')?.value);
+          }
 
           this.appendIfModified(formData,
             `work_experience[${index}][work_experience_total_years_experience]`,
@@ -396,6 +436,7 @@ export class EmployeeProfileComponent implements OnInit {
           }
         });
 
+        // Career preferences
         this.appendIfModified(formData, 'career_preference_career_status', originalValues);
         this.appendIfModified(formData, 'career_preference_job_title_id', originalValues);
         this.appendIfModified(formData, 'career_preference_career_interest_id', originalValues);
@@ -417,12 +458,19 @@ export class EmployeeProfileComponent implements OnInit {
         this.appendIfModified(formData, 'career_preference_video_link', originalValues);
         this.appendIfModified(formData, 'career_preference_portfolio_upload_link', originalValues);
 
+        // Networking
         this.appendIfModified(formData, 'networking_linkedin_profile', originalValues);
         this.appendIfModified(formData, 'networking_personal_website', originalValues);
 
+        // Social Media
         this.socialMedia.controls.forEach((control, index) => {
           const social = control as FormGroup;
           const originalSocial = originalValues.networking_social_media?.[index] || {};
+
+          // Only append the ID if the item has been modified
+          if (social.get('id')?.value && this.isArrayItemModified(social, originalSocial)) {
+            formData.append(`networking_social_media[${index}][id]`, social.get('id')?.value);
+          }
 
           this.appendIfModified(formData,
             `networking_social_media[${index}][networking_social_media]`,
@@ -434,9 +482,15 @@ export class EmployeeProfileComponent implements OnInit {
             value => social.get('networking_social_media_link')?.value || '');
         });
 
+        // Academic References
         this.academicReferences.controls.forEach((control, index) => {
           const ref = control as FormGroup;
           const originalRef = originalValues.academicReferences?.[index] || {};
+
+          // Only append the ID if the item has been modified
+          if (ref.get('id')?.value && this.isArrayItemModified(ref, originalRef)) {
+            formData.append(`academicReferences[${index}][id]`, ref.get('id')?.value);
+          }
 
           this.appendIfModified(formData,
             `academicReferences[${index}][references_college_name]`,
@@ -460,9 +514,15 @@ export class EmployeeProfileComponent implements OnInit {
             value => ref.get('references_email')?.value || '');
         });
 
+        // Professional References
         this.professionalReferences.controls.forEach((control, index) => {
           const ref = control as FormGroup;
           const originalRef = originalValues.professional_references?.[index] || {};
+
+          // Only append the ID if the item has been modified
+          if (ref.get('id')?.value && this.isArrayItemModified(ref, originalRef)) {
+            formData.append(`professional_references[${index}][id]`, ref.get('id')?.value);
+          }
 
           this.appendIfModified(formData,
             `professional_references[${index}][references_company_name]`,
@@ -488,9 +548,15 @@ export class EmployeeProfileComponent implements OnInit {
 
         this.appendIfModified(formData, 'career_preference_notes', originalValues);
 
+        // Certifications
         this.certifications.controls.forEach((control, index) => {
           const cert = control as FormGroup;
           const originalCert = originalValues.certifications?.[index] || {};
+
+          // Only append the ID if the item has been modified
+          if (cert.get('id')?.value && this.isArrayItemModified(cert, originalCert)) {
+            formData.append(`certifications[${index}][id]`, cert.get('id')?.value);
+          }
 
           this.appendIfModified(formData,
             `certifications[${index}][certifications_certificate_name]`,
@@ -503,9 +569,15 @@ export class EmployeeProfileComponent implements OnInit {
           }
         });
 
+        // Achievements
         this.achievements.controls.forEach((control, index) => {
           const ach = control as FormGroup;
           const originalAch = originalValues.acheivements?.[index] || {};
+
+          // Only append the ID if the item has been modified
+          if (ach.get('id')?.value && this.isArrayItemModified(ach, originalAch)) {
+            formData.append(`acheivements[${index}][id]`, ach.get('id')?.value);
+          }
 
           this.appendIfModified(formData,
             `acheivements[${index}][certifications_achievement_name]`,
@@ -518,9 +590,15 @@ export class EmployeeProfileComponent implements OnInit {
           }
         });
 
+        // Languages
         this.languages.controls.forEach((control, index) => {
           const lang = control as FormGroup;
           const originalLang = originalValues.languages?.[index] || {};
+
+          // Only append the ID if the item has been modified
+          if (lang.get('id')?.value && this.isArrayItemModified(lang, originalLang)) {
+            formData.append(`languages[${index}][id]`, lang.get('id')?.value);
+          }
 
           this.appendIfModified(formData,
             `languages[${index}][languages_language_id]`,
@@ -558,12 +636,13 @@ export class EmployeeProfileComponent implements OnInit {
           }
         });
       } else {
+        // Create operation - same as original code
         formData.append('full_name', this.personalInfoForm.get('full_name')?.value || '');
         formData.append('date_of_birth', new Date(this.personalInfoForm.get('date_of_birth')?.value).toISOString() || '');
         formData.append('nationality_id', this.personalInfoForm.get('nationality_id')?.value || '');
         formData.append('gender', this.personalInfoForm.get('gender')?.value || '');
         formData.append('location_id', this.personalInfoForm.get('location_id')?.value || '');
-
+        formData.append('profile_completion', this.profileCompletion.toString());
         this.educationDetails.controls.forEach((control, index) => {
           const education = control as FormGroup;
           formData.append(`educationDetails[${index}][education_qualification_id]`, education.get('education_qualification_id')?.value || '');
@@ -699,7 +778,7 @@ export class EmployeeProfileComponent implements OnInit {
               severity: "error",
               summary: "Required",
               detail: error.error.message,
-            });          
+            });
           }
         });
       }
@@ -712,7 +791,6 @@ export class EmployeeProfileComponent implements OnInit {
       });
     }
   }
-
   private appendIfModified(formData: FormData, fieldName: string, originalData: any, valueTransform?: (value: any) => any) {
     const currentValue = this.personalInfoForm.get(fieldName)?.value;
     const transformedValue = valueTransform ? valueTransform(currentValue) : (currentValue || '');
@@ -873,6 +951,7 @@ export class EmployeeProfileComponent implements OnInit {
       educationArray.clear();
       response.education.forEach((edu: any) => {
         educationArray.push(this.fb.group({
+          id: [edu.id], // Store the original ID
           education_qualification_id: [edu.qualification_id, Validators.required],
           education_university_name: [edu.university_name, Validators.required],
           education_field_id: [edu.field_id, Validators.required],
@@ -883,12 +962,13 @@ export class EmployeeProfileComponent implements OnInit {
       });
     }
 
-    // Patch Work Experience
+    // Patch Work Experience with IDs
     if (response.work_experience) {
       const workExpArray = this.personalInfoForm.get('work_experience') as FormArray;
       workExpArray.clear();
       response.work_experience.forEach((exp: any) => {
         workExpArray.push(this.fb.group({
+          id: [exp.id], // Store the original ID
           work_experience_total_years_experience: [exp.total_years_experience],
           work_experience_company_name: [exp.company_name],
           work_experience_job_title: [exp.job_title],
@@ -902,80 +982,90 @@ export class EmployeeProfileComponent implements OnInit {
       });
     }
 
-    // Patch Certifications & Achievements
+    // Patch Certifications & Achievements with IDs
     if (response.certifications) {
       const certArray = this.personalInfoForm.get('certifications') as FormArray;
       certArray.clear();
-
       const achievArray = this.personalInfoForm.get('acheivements') as FormArray;
       achievArray.clear();
-      response.certifications.forEach((achiev: any) => {
-        if (achiev?.type == 'Achievement') {
+
+      response.certifications.forEach((item: any) => {
+        if (item?.type == 'Achievement') {
           achievArray.push(this.fb.group({
-            certifications_achievement_name: [achiev.name || ''],
-            certifications_achievement_file: [achiev.file_name || '']
+            id: [item.id], // Store the original ID
+            certifications_achievement_name: [item.name || ''],
+            certifications_achievement_file: [item.file_name || '']
           }));
         } else {
           certArray.push(this.fb.group({
-            certifications_certificate_name: [achiev.name || ''],
-            certifications_certificate_file: [achiev.file_name || '']
+            id: [item.id], // Store the original ID
+            certifications_certificate_name: [item.name || ''],
+            certifications_certificate_file: [item.file_name || '']
           }));
         }
       });
     }
-    //patch languages
+
+    // Patch languages with IDs
     if (response.languages) {
       const lanArray = this.personalInfoForm.get('languages') as FormArray;
       lanArray.clear();
-      response.languages.forEach((cert: any) => {
+      response.languages.forEach((lang: any) => {
         lanArray.push(this.fb.group({
-          languages_language_id: [cert.language_id || ''],
-          languages_proficiency: [cert.proficiency || '']
+          id: [lang.id], // Store the original ID
+          languages_language_id: [lang.language_id || ''],
+          languages_proficiency: [lang.proficiency || '']
         }));
       });
     }
-    //networking
+
+    // Patch networking with IDs
     if (response.networking) {
-      const lanArray = this.personalInfoForm.get('networking_social_media') as FormArray;
-      lanArray.clear();
-      response.networking.forEach((cert: any) => {
-        lanArray.push(this.fb.group({
-          networking_social_media: [cert.social_media || ''],
-          networking_social_media_link: [cert.social_media_link || '']
+      const socArray = this.personalInfoForm.get('networking_social_media') as FormArray;
+      socArray.clear();
+      response.networking.forEach((net: any) => {
+        socArray.push(this.fb.group({
+          id: [net.id], // Store the original ID
+          networking_social_media: [net.social_media || ''],
+          networking_social_media_link: [net.social_media_link || '']
         }));
       });
     }
-    // Patch References
+
+    // Patch References with IDs
     if (response.references) {
       const academicRefArray = this.personalInfoForm.get('academicReferences') as FormArray;
       academicRefArray.clear();
-
       response.references.forEach((ref: any) => {
         academicRefArray.push(this.fb.group({
+          id: [ref.id], // Store the original ID
           references_college_name: [ref.college_name, Validators.required],
           references_reference_name: [ref.reference_name, Validators.required],
           references_designation: [ref.designation, Validators.required],
           references_phone_number: [ref.phone_number, Validators.required],
           references_email: [ref.email, [Validators.required, Validators.email]]
-        }))
+        }));
       });
     }
+
+    // Patch Professional References with IDs
     if (response.professional_refrences) {
       const professionalRefArray = this.personalInfoForm.get('professional_references') as FormArray;
-
       professionalRefArray.clear();
       response.professional_refrences.forEach((ref: any) => {
         professionalRefArray.push(this.fb.group({
+          id: [ref.id], // Store the original ID
           references_company_name: [ref.college_name, Validators.required],
           references_reference_name: [ref.reference_name, Validators.required],
           references_designation: [ref.designation, Validators.required],
           references_phone_number: [ref.phone_number, Validators.required],
           references_email: [ref.email, [Validators.required, Validators.email]]
-        }))
-    });
-  }
+        }));
+      });
+    }
     this.logo = response?.dp_image;
     this.originalProfileData = { ...this.personalInfoForm.value };
+    console.log(this.originalProfileData);
   }
 
   updateMessageBox(fieldKey: string): void {
@@ -994,6 +1084,12 @@ export class EmployeeProfileComponent implements OnInit {
 
   resetMessageBox(): void {
     this.currentMessage = this.hoverMessages.fullName; // Default message
+  }
+
+  extractLastName(url: string): string {
+    if (!url) return '';
+    let fileName = url.split('/').pop() || ''; // "1742015348_cv_letter.pdf"
+    return fileName;
   }
 
 }
