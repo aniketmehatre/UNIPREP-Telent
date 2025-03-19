@@ -66,7 +66,7 @@ export class DashboardComponent implements OnInit, OnChanges {
 	groupedListFav: any[] = [];
 	groupedListFav2: any[] = [];
 	date: Date = new Date();
-	cvBuilderPercentage:number=50;
+	cvBuilderPercentage:number=0;
 	talentConnectPercentage:number=10;
 	totalPercentage:number=0;
 	isShowingCompletion:boolean=false;
@@ -729,12 +729,15 @@ export class DashboardComponent implements OnInit, OnChanges {
 	profileCompletion(){
 		this.dashboardService.profileCompletion().subscribe({
 			next: (data: any) => {
+				console.log(data);
+				this.cvBuilderPercentage=data.cv_builder_completion
 				this.totalPercentage=Math.floor((this.cvBuilderPercentage + this.talentConnectPercentage + this.progress) / 3);
 				if (this.totalPercentage >= 60 && this.totalPercentage <= 99) {
 					this.isShowingCompletion = true;
 				} else {
 					this.isShowingCompletion = false;
 				}
+				this.cdr.detectChanges();
 			},
 			error: (error) => {
 				console.error('Error fetching job listings:', error);
