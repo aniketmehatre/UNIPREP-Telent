@@ -6,7 +6,8 @@ import {
 	CUSTOM_ELEMENTS_SCHEMA,
 	ElementRef,
 	OnDestroy,
-	OnInit, Renderer2,
+	OnInit,
+	Renderer2,
 	ViewChild
 } from "@angular/core"
 import {FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators} from "@angular/forms"
@@ -27,10 +28,11 @@ import {LocationService} from "../../location.service"
 import {AuthService} from "../auth.service"
 import {finalize} from 'rxjs/operators';
 import {
+	GoogleLoginProvider,
+	GoogleSigninButtonModule,
+	SocialAuthService,
 	SocialLoginModule,
-	SocialAuthServiceConfig, SocialAuthService, GoogleSigninButtonModule,
 } from '@abacritt/angularx-social-login';
-import { GoogleLoginProvider } from '@abacritt/angularx-social-login';
 
 declare var google: any;
 @Component({

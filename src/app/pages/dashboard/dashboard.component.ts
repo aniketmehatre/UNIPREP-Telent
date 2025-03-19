@@ -732,7 +732,6 @@ export class DashboardComponent implements OnInit, OnChanges {
 	profileCompletion(){
 		this.dashboardService.profileCompletion().subscribe({
 			next: (data: any) => {
-				console.log(data);
 				this.cvBuilderPercentage=data.cv_builder_completion
 				this.talentConnectPercentage=data.talent_connect_completion
 				this.totalPercentage=Math.floor((this.cvBuilderPercentage + this.talentConnectPercentage + this.progress) / 3);
