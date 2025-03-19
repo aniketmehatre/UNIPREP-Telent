@@ -119,7 +119,8 @@ appConfig = {
                 disallowedRoutes: [
                   '/api/auth/login',
                   '/api/auth/register',
-                  '/api/auth/forgot-password'
+                  '/api/auth/forgot-password',
+                  '/api/auth/verification'
                 ],
                 headerName: "Authorization",
                 authScheme: "Bearer ",

@@ -40,9 +40,10 @@ export class AuthGuard  {
   canActivate(
     route: ActivatedRouteSnapshot,
     state: RouterStateSnapshot): Observable<boolean | UrlTree> | Promise<boolean | UrlTree> | boolean | UrlTree {
-    
+    console.log('coming guar')
     // Check if the route is public
     if (this.publicRoutes.some(route => state.url.startsWith(route))) {
+      debugger
       return true;
     }
 
