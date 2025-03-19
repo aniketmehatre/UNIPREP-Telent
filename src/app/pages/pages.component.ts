@@ -63,8 +63,7 @@ export class PagesComponent implements OnInit, OnDestroy {
   private subs = new SubSink();
   visibleExhastedUser!: boolean;
   constructor(private pageFacade: PageFacadeService, private router: Router, private dataService: DataService,
-    public meta: Meta, private titleService: Title, private route: ActivatedRoute,
-    private locationService: LocationService, private dashboardService: DashboardService,
+    public meta: Meta, private locationService: LocationService,
     private service: AuthService, private deviceService: DeviceDetectorService,
     private sanitizer: DomSanitizer, private storage: StorageService) {
     // dev
