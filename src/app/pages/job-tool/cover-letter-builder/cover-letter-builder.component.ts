@@ -26,6 +26,7 @@ import { TextareaModule } from "primeng/textarea"
 import { EditorModule } from "primeng/editor"
 import { SkeletonModule } from "primeng/skeleton"
 import {PdfViewerModule} from "ng2-pdf-viewer";
+import {ConfirmPopup} from "primeng/confirmpopup";
 
 declare const pdfjsLib: any;
 
@@ -40,7 +41,7 @@ interface ResumeHistory {
 	templateUrl: "./cover-letter-builder.component.html",
 	styleUrls: ["./cover-letter-builder.component.scss"],
 	standalone: true,
-	imports: [CommonModule, EditorModule, DialogModule, SidebarModule, SkeletonModule, PdfViewerModule, RouterModule, CardModule, PaginatorModule, FormsModule, ReactiveFormsModule, CarouselModule, ButtonModule, MultiSelectModule, SelectModule, InputGroupModule, InputTextModule, InputGroupAddonModule, TextareaModule],
+	imports: [CommonModule,ConfirmPopup, EditorModule, DialogModule, SidebarModule, SkeletonModule, PdfViewerModule, RouterModule, CardModule, PaginatorModule, FormsModule, ReactiveFormsModule, CarouselModule, ButtonModule, MultiSelectModule, SelectModule, InputGroupModule, InputTextModule, InputGroupAddonModule, TextareaModule],
 	providers: [CvBuilderService, ConfirmationService, MessageService],
 })
 export class CoverLetterBuilderComponent implements OnInit, AfterViewInit {

@@ -157,11 +157,11 @@ export class SidenavComponent {
     //   url: "/pages/modules/career-hub",
     //   image: "fa-solid fa-briefcase",
     // },
-    {
-      title: "Job Portal",
-      url: "/pages/job-portal/job-search",
-      image: "fa-solid fa-briefcase",
-    },
+    // {
+    //   title: "Job Portal",
+    //   url: "/pages/job-portal/job-search",
+    //   image: "fa-solid fa-briefcase",
+    // },
     {
       title: "Employer Connect",
       url: "/pages/talent-connect/list",
