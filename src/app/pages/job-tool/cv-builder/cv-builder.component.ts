@@ -837,7 +837,7 @@ export class CvBuilderComponent implements OnInit, AfterViewInit {
     let data = {
       userdata: { ...formData },
       selectedResumeLevel: this.selectedResumeLevel,
-      // active_index: this.moduleActiveIndex,
+      active_index: this.moduleActiveIndex,
       hiding_headers: this.hidingHeaders,
     };
     this.resumeService.storeUserFilledData(data).subscribe();

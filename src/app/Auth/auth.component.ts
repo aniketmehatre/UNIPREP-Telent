@@ -37,4 +37,5 @@ export class AuthComponent {
 		this.isDeviceStatus = "none"
 		this.isDeviceStatusPopupView = true
 	}
+	
 }

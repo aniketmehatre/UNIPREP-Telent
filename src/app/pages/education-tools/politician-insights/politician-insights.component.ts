@@ -162,6 +162,7 @@ export class PoliticianInsightsComponent implements OnInit, OnDestroy {
         this.isShowPoliticians = true;
         this.isShowCountryQuesAns = false;
         this.politicians = res.politicians;
+        this.totalPoliticianList = res.total_politicians;
         this.isSkeletonVisible = false;
       },
       (error) => {
