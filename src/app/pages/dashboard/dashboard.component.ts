@@ -149,8 +149,6 @@ export class DashboardComponent implements OnInit, OnChanges {
 	recentJobs() {
 		this.dashboardService.RecentJobApplication().subscribe({
 			next: (data: any) => {
-				console.log(data);
-				
 				this.recentJobApplication = data.jobs
 				this.groupedListFav2 = this.chunkArray(this.recentJobApplication, 2);
 				if(this.recentJobApplication.length==0){
@@ -453,7 +451,11 @@ export class DashboardComponent implements OnInit, OnChanges {
 		this.isViewMoreOrgVisible = true;
 	}
 	viewMoreOpenJobApplication() {
-		// this.isViewMoreJobApplication=true;
+		if(this.recentJobApplication.length>0){
+			this.isViewMoreJobApplication=false;
+		}else{
+			this.isViewMoreJobApplication=true;
+		}
 	}
 	quizpercentage: any = 0
 	checkquizquestionmodule() {
