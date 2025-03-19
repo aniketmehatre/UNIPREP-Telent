@@ -120,7 +120,7 @@ export class EmployeeProfileComponent implements OnInit {
 
       // Achievements
       career_preference_cv_filename: ['', Validators.required],
-      career_preference_video_link: ['', Validators.required],
+      career_preference_video_link: [''],
       career_preference_portfolio_upload_link: [''],
 
       // References
@@ -136,7 +136,7 @@ export class EmployeeProfileComponent implements OnInit {
       languages_hobby_id: [null],
 
       // Profile Image
-      profile_image: ['', Validators.required],
+      profile_image: [''],
       additional_notes: [null]
     });
   }
@@ -334,7 +334,7 @@ export class EmployeeProfileComponent implements OnInit {
     //   return;
     // }
 
-    if (this.personalInfoForm.valid) {
+    if (this.personalInfoForm.valid) {    
       const formData = new FormData();
       const profileId = this.profileId;
       const isUpdateOperation = profileId !== null && profileId !== undefined;
@@ -787,7 +787,7 @@ export class EmployeeProfileComponent implements OnInit {
       this.toastService.add({
         severity: "error",
         summary: "Required",
-        detail: 'please give required feilds'
+        detail: ' Please fill the required fields'
       });
     }
   }
