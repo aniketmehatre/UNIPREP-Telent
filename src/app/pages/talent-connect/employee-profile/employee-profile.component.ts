@@ -38,7 +38,7 @@ export class EmployeeProfileComponent implements OnInit {
   ref: DynamicDialogRef | undefined;
   logo: any;
   uploadedFiles: { [key: string]: File } = {};
-  profileId: string = '';
+  profileId: string | null = null;
 
   // Dropdown options
   preferredEmploymentType: any = [];
@@ -120,7 +120,7 @@ export class EmployeeProfileComponent implements OnInit {
 
       // Achievements
       career_preference_cv_filename: ['', Validators.required],
-      career_preference_video_link: [''],
+      career_preference_video_link: ['', Validators.required],
       career_preference_portfolio_upload_link: [''],
 
       // References
@@ -337,6 +337,7 @@ export class EmployeeProfileComponent implements OnInit {
     if (this.personalInfoForm.valid) {    
       const formData = new FormData();
       const profileId = this.profileId;
+      console.log(profileId);
       const isUpdateOperation = profileId !== null && profileId !== undefined;
 
       if (isUpdateOperation) {
