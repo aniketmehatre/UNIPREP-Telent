@@ -147,17 +147,17 @@ export class DashboardComponent implements OnInit, OnChanges {
 		this.groupedListFav2 = this.chunkArray(this.recentJobApplication, 2);
 	}
 	recentJobs() {
-		let req = {
-			location: 'in', // India
-			page: 1,
-			result_per_page: 10,
-			what_and: 'Software Development Engineer', // Role
-			where: 'Bengaluru', // City
-		}
-		this.jobSearchService.searchJobs(req).subscribe({
+		this.dashboardService.RecentJobApplication().subscribe({
 			next: (data: any) => {
-				this.recentJobApplication = data.results
+				console.log(data);
+				
+				this.recentJobApplication = data.jobs
 				this.groupedListFav2 = this.chunkArray(this.recentJobApplication, 2);
+				if(this.recentJobApplication.length==0){
+					this.isNoApplicationsData=true;
+				}else{
+					this.isNoApplicationsData=false;
+				}
 				this.cdr.detectChanges();
 			},
 			error: (error) => {
