@@ -769,6 +769,7 @@ export class EmployeeProfileComponent implements OnInit {
         this.talentConnectService.submitProfile(formData).subscribe({
           next: response => {
             console.log('Profile submitted successfully', response);
+            this.getProfileData();
             this.toastService.add({
               severity: "success",
               summary: "Success",
