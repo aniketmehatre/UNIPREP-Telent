@@ -1,4 +1,11 @@
-import { Component, EventEmitter, Input, OnInit, Output } from "@angular/core";
+import {
+  ChangeDetectorRef,
+  Component,
+  EventEmitter,
+  Input,
+  OnInit,
+  Output,
+} from "@angular/core";
 import { ArrayHeaderService } from "../../unilearn/array-header.service";
 import { FortuneCompaniesService } from "../fortune-companies.service";
 import { PageFacadeService } from "../../page-facade.service";
@@ -8,23 +15,26 @@ import { CommonModule } from "@angular/common";
 import { RouterModule } from "@angular/router";
 import { DialogModule } from "primeng/dialog";
 import { PaginatorModule } from "primeng/paginator";
-import {FormsModule} from "@angular/forms";
-import {Skeleton} from "primeng/skeleton";
+import { FormsModule } from "@angular/forms";
+import { Skeleton } from "primeng/skeleton";
+import { LocationService } from "src/app/location.service";
 
 @Component({
   selector: "uni-fortune-companies-lists",
   templateUrl: "./fortune-companies-list.component.html",
   styleUrls: ["./fortune-companies-list.component.scss"],
-  standalone: true,
-  imports: [CommonModule, RouterModule, DialogModule, PaginatorModule, FormsModule, Skeleton]
+  standalone: false,
 })
 export class FortuneCompaniesListsComponent implements OnInit {
   constructor(
     private router: Router,
     private arrayHeaderService: ArrayHeaderService,
     private service: FortuneCompaniesService,
-    private pageFacade: PageFacadeService
+    private pageFacade: PageFacadeService,
+    private locationService: LocationService
   ) {}
+  countryLists: any[] = [];
+  selectedCountryId: any = 0;
   isSkeletonVisible: boolean = true;
   moduleList: any;
   @Input() prepData: any;
@@ -35,7 +45,36 @@ export class FortuneCompaniesListsComponent implements OnInit {
 
   ngOnInit(): void {
     this.init();
+    this.locationService
+      .dashboardLocationList()
+      .subscribe((countryList: any) => {
+        this.countryLists = countryList;
+      });
     this.arrayHeaderService.clearAll();
+  }
+  selectCountry(selectedId: any): void {
+    this.countryLists.forEach((element: any) => {
+      if (element.id === selectedId) {
+        // element.id
+        this.service
+          .getfortunecompanieslists({
+            perpage: this.perpage,
+            page: this.page,
+            country: element.id,
+          })
+          .subscribe((res: any) => {
+            this.isSkeletonVisible = false;
+            this.totalDataCount = res.total_count;
+            this.moduleList = res.data;
+          });
+      }
+    });
+    this.countryLists.forEach((item: any, i: any) => {
+      if (item.id === selectedId) {
+        this.countryLists.splice(i, 1);
+        this.countryLists.unshift(item);
+      }
+    });
   }
   page: number = 1;
   perpage: number = 50;

@@ -1,90 +1,203 @@
 <div class="card readingcard">
-    <div class="card-header border-0 bg-transparent">
-      <div class="row justify-content-center">
-        <div class="col-md-12 d-flex gap-2 text-center">
-            <div class="backIcon" role="button" (click)="backtoMain()">
-                <span class="fa-solid fa-chevron-left"></span>
-            </div>
-            <div class="select-title d-flex justify-content-between align-items-center">
-                <div>
-                    <h5 class="mb-0" pTooltip="Questions related to the application process are answered"
-                        tooltipPosition="top">
-                        Career Tools - {{ "FORTUNE COMPANIES"
-                        }}<i class="questiontooltip fa-solid fa-circle-question"></i>
-                    </h5>
-                </div>
-                <div>
-                    <!-- <button pButton (click)="
+  <div class="card-header border-0 bg-transparent">
+    <div class="row justify-content-center">
+      <div class="col-md-12 d-flex gap-2 text-center">
+        <div class="backIcon" role="button" (click)="backtoMain()">
+          <span class="fa-solid fa-chevron-left"></span>
+        </div>
+        <div
+          class="select-title d-flex justify-content-between align-items-center"
+        >
+          <div>
+            <h5
+              class="mb-0"
+              pTooltip="Questions related to the application process are answered"
+              tooltipPosition="top"
+            >
+              Career Tools - {{ "FORTUNE COMPANIES"
+              }}<i class="questiontooltip fa-solid fa-circle-question"></i>
+            </h5>
+          </div>
+          <div>
+            <!-- <button pButton (click)="
               openVideoPopup(
                 'https://www.youtube.com/embed/cbny1-f4rXI?si=E3WEU6LuiMLWA1Uq'
               )
             " class="how-it-works-button">
                         How it works?<i class="fa-solid fa-play d-md-block d-none"></i>
                     </button> -->
-                </div>
-            </div>
-            <div class="p-input-icon-left">
-              <i class="pi pi-search"></i>
-            <input class="w-100 px-5 py-2 mb-1" type="text" placeholder="Search" pInputText [(ngModel)]="valueNearYouFilter" (input)="performSearch()" />
           </div>
         </div>
-    </div>
-    </div>
-    <div class="card-body text-center flex-fill overflow-y-auto">
-      <div *ngIf="isSkeletonVisible">
-        <div class="row">
-          <div *ngFor="let index of loopRange" class="col-lg-2 col-md-3 col-sm-4 col-xs-12 col-12">
-            <div class="card my-2">
-              <div class="card-body">
-                <div class="row justify-content-center align-items-center">
-                  <div class="col-3 col-md-12 d-flex justify-content-center">
-                    <p-skeleton width="5rem" height="5rem" styleClass="mb-2"></p-skeleton>
-                  </div>
-                  <div class="col-9 col-md-12">
-                    <p-skeleton width="100%" styleClass="mb-2"></p-skeleton>
-                    <p-skeleton width="100%"></p-skeleton>
-                  </div>
-                </div>
+        <div>
+          <!-- <p-select
+            [options]="countryLists"
+            [(ngModel)]="selectedCountryId"
+            optionLabel="country"
+            optionValue="id"
+            (onChange)="selectCountry($event.value)"
+            [filter]="true"
+            filterBy="country"
+            [showClear]="true"
+            placeholder="Select a Country"
+            class="w-full md:w-56"
+          >
+            <ng-template #selectedItem let-selectedOption>
+              <div class="flex items-center gap-2">
+                <img [src]="selectedOption.flag" style="width: 18px" />
+                <div>{{ selectedOption.country }}</div>
               </div>
+            </ng-template>
+            <ng-template let-country #item>
+              <div class="flex items-center gap-2">
+                <img [src]="country.flag" style="width: 18px" />
+                <div>{{ country.country }}</div>
+              </div>
+            </ng-template>
+          </p-select> -->
+        </div>
+
+        <div class="d-flex justify-content-start align-items-start">
+          <div class="d-flex flex-column align-items-start">
+            <div class="col-12">
+              <p-select
+                [options]="countryLists"
+                [(ngModel)]="selectedCountryId"
+                optionLabel="country"
+                optionValue="id"
+                (onChange)="selectCountry($event.value)"
+                [filter]="true"
+                filterBy="country"
+                [showClear]="true"
+                placeholder="Select a Country"
+                class="w-full md:w-56"
+              >
+                <ng-template #selectedItem let-selectedOption>
+                  <div class="flex items-center gap-2">
+                    <img [src]="selectedOption.flag" style="width: 18px" />
+                    <div>{{ selectedOption.country }}</div>
+                  </div>
+                </ng-template>
+                <ng-template let-country #item>
+                  <div class="flex items-center gap-2">
+                    <img [src]="country.flag" style="width: 18px" />
+                    <div>{{ country.country }}</div>
+                  </div>
+                </ng-template>
+              </p-select>
+            </div>
+          </div>
+        </div>
+
+        <div class="d-flex justify-content-start align-items-start">
+          <div class="d-flex flex-column align-items-start">
+            <div class="col-12">
+              <p-iconfield>
+                <p-inputicon styleClass="pi pi-search" />
+                <input
+                  type="text"
+                  pInputText
+                  placeholder="Enter Company"
+                  [(ngModel)]="valueNearYouFilter"
+                  (input)="performSearch()"
+                />
+              </p-iconfield>
             </div>
           </div>
         </div>
       </div>
-      <div class="d-flex" [ngClass]="{ 'justify-content-center align-items-center h-100': moduleList.length <= 4 }"
-        *ngIf="!isSkeletonVisible">
-        <div class="row w-100" [ngClass]="{ 'justify-content-center align-items-center h-100': moduleList.length <= 4 }">
-          <div *ngFor="let module of moduleList" class="col-lg-2 col-md-3 col-sm-4 col-xs-12 col-12">
-            <div class="row w-100 m-0 justify-content-center h-100">
-              <div (click)="onModuleClick(module)" class="card subjectcard" role="button">
-                <div
-                  class="card-body d-flex flex-md-column flex-row justify-content-md-between align-items-center px-0 py-2">
-                  <div>
-                    <div class="submoduleicon">
-                      <img alt="{{ module.company_name }}" class="selectimage" src="{{ module.logo }}" />
-                    </div>
-                    <h6 class="text-center subjecttitle d-md-block d-none pt-2">
-                      {{ module.company_name }}
-                    </h6>
-                  </div>
-                  <div class="text-start text-md-center">
-                    <h6 class="subjecttitle d-md-none d-block pt-2">
-                      {{ module.company_name }}
-                    </h6>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
     </div>
-    <div class="card-footer border-0 bg-transparent">
+  </div>
+  <div class="card-body text-center flex-fill overflow-y-auto">
+    <div *ngIf="isSkeletonVisible">
       <div class="row">
-          <div class="col-md-3">&nbsp;</div>
-          <div class="col-md-6">
-              <p-paginator [rows]="perpage" [totalRecords]="totalDataCount" (onPageChange)="paginate($event)"
-                  [rowsPerPageOptions]="[50, 100, 300, 500, 1000]"></p-paginator>
+        <div
+          *ngFor="let index of loopRange"
+          class="col-lg-2 col-md-3 col-sm-4 col-xs-12 col-12"
+        >
+          <div class="card my-2">
+            <div class="card-body">
+              <div class="row justify-content-center align-items-center">
+                <div class="col-3 col-md-12 d-flex justify-content-center">
+                  <p-skeleton
+                    width="5rem"
+                    height="5rem"
+                    styleClass="mb-2"
+                  ></p-skeleton>
+                </div>
+                <div class="col-9 col-md-12">
+                  <p-skeleton width="100%" styleClass="mb-2"></p-skeleton>
+                  <p-skeleton width="100%"></p-skeleton>
+                </div>
+              </div>
+            </div>
           </div>
+        </div>
       </div>
+    </div>
+    <div
+      class="d-flex"
+      [ngClass]="{
+        'justify-content-center align-items-center h-100':
+          moduleList.length <= 4
+      }"
+      *ngIf="!isSkeletonVisible"
+    >
+      <div
+        class="row w-100"
+        [ngClass]="{
+          'justify-content-center align-items-center h-100':
+            moduleList.length <= 4
+        }"
+      >
+        <div
+          *ngFor="let module of moduleList"
+          class="col-lg-2 col-md-3 col-sm-4 col-xs-12 col-12"
+        >
+          <div class="row w-100 m-0 justify-content-center h-100">
+            <div
+              (click)="onModuleClick(module)"
+              class="card subjectcard"
+              role="button"
+            >
+              <div
+                class="card-body d-flex flex-md-column flex-row justify-content-md-between align-items-center px-0 py-2"
+              >                
+                <div>
+                  <span class="country-icon" ><img class="country-img" [alt]="module.country" [src]="module.flag" /></span>
+                  <div class="submoduleicon">
+                    <img
+                      alt="{{ module.company_name }}"
+                      class="selectimage"
+                      src="{{ module.logo }}"
+                    />
+                  </div>
+                  <h6 class="text-center subjecttitle d-md-block d-none pt-2">
+                    {{ module.company_name }}
+                  </h6>
+                </div>
+                <div class="text-start text-md-center">
+                  <h6 class="subjecttitle d-md-none d-block pt-2">
+                    {{ module.company_name }}
+                  </h6>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
   </div>
+  <div class="card-footer border-0 bg-transparent">
+    <div class="row">
+      <div class="col-md-3">&nbsp;</div>
+      <div class="col-md-6">
+        <p-paginator
+          [rows]="perpage"
+          [totalRecords]="totalDataCount"
+          (onPageChange)="paginate($event)"
+          [rowsPerPageOptions]="[50, 100, 300, 500, 1000]"
+        ></p-paginator>
+      </div>
+    </div>
   </div>
+</div>

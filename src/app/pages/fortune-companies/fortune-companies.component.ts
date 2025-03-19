@@ -6,8 +6,7 @@ import { DialogModule } from "primeng/dialog";
 @Component({
   selector: "uni-fortune-companies",
   templateUrl: "./fortune-companies.component.html",
-  standalone: true,
-  imports: [CommonModule, RouterModule, DialogModule]
+  standalone: false
 })
 export class FortuneCompaniesComponent implements OnInit {
   @Input() prepData: any;
