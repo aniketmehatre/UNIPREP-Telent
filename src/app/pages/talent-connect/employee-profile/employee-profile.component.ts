@@ -29,6 +29,7 @@ export class EmployeeProfileComponent implements OnInit {
     careerStatus: "Select your current career status. Employers need to know your availability to determine if you're the right fit for the role. An updated career status helps match you with opportunities that align with your current situation.",
     expectedSalary: "Enter your expected salary range in numbers upto 6 digits. This helps employers assess if your compensation expectations align with their budget."
   };
+  languageProficiency!: any;
   updateArrayIds!: any;
   originalProfileData: any;
   profileData: any;
@@ -157,7 +158,7 @@ export class EmployeeProfileComponent implements OnInit {
   createWorkExperienceGroup() {
     return this.fb.group({
       id: [''],
-      work_experience_total_years_experience: [''],
+      work_experience_total_years_experience: ['', Validators.required],
       work_experience_company_name: [''],
       work_experience_job_title: [''],
       work_experience_employment_type: [''],
@@ -896,6 +897,7 @@ export class EmployeeProfileComponent implements OnInit {
         this.careerStatus = response.career_status;
         this.graduationYears = response.graduation_years;
         this.genderOptions = response.gender;
+        this.languageProficiency = response.language_proficiency;
       },
       error: error => {
         console.log(error);

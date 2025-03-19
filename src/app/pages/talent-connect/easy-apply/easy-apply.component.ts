@@ -44,6 +44,7 @@ export class EasyApplyComponent {
   page: number = 0;
   pageSize: number = 8;
   displayModal: boolean = false;
+  first: number = 0;
   filterForm: FormGroup = new FormGroup({});
   constructor(private fb: FormBuilder, private talentConnectService: TalentConnectService, private talenconnectService: TalentConnectService) { }
   ngOnInit(): void {
@@ -99,6 +100,13 @@ export class EasyApplyComponent {
     this.talentConnectService.getJobListDropdown().subscribe(data => {
       this.industries = data?.industrytypes;
     });
+  }
+
+  onPageChange(event: any) {
+    this.page = event.first / this.pageSize + 1;
+    this.pageSize = event.rows;
+    this.first = event.first;
+    this.getList();
   }
 
   show(): void {
