@@ -122,9 +122,9 @@ export class TripLengthFinderComponent implements OnInit {
   downloadRecommadation() {
     let selectedCityAndCountry = this.selectedData[1].city_name+', '+this.selectedData[1].country_name;
     let addingInput = `
-      <div style="font-family: 'Poppins', sans-serif; display: flex; align-items: center; justify-content: space-between; border-bottom: 2px solid #d32f2f; padding-bottom: 10px; margin-bottom: 20px;">
+      <div class="title-bar">
 				<div style="text-align: center;">
-					<h2 style="margin: 0; color: #1a237e;">Trip Length Finder</h2>
+					<h2 style="color: #1a237e;">Trip Length Finder</h2>
 				</div>
 			</div><p><strong>Input:<br></strong></p>
       <p style="color: #d32f2f;"><strong>Which Destination are you planning to visit?</strong></p>
@@ -132,14 +132,112 @@ export class TripLengthFinderComponent implements OnInit {
       <br>
     `;
 
+    let styles = `
+    <style>
+    .container {
+    width: 100%;
+    background: rgba(255, 255, 255, 0.95);
+    border-radius: 10px;
+    box-shadow: 4px 4px 15px rgba(0, 0, 0, 0.2);
+    position: relative;
+    page-break-before: auto;
+    page-break-after: auto;
+}
+
+.title-bar {
+    font-family: 'Poppins', sans-serif;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    border-bottom: 2px solid #d32f2f;
+    padding-bottom: 10px;
+    margin-bottom: 20px;
+}
+
+.body-content {
+    font-size: 16px;
+    margin: 25px auto;
+    padding: 25px;
+    line-height: 1.9;
+    color: black;
+    text-align: left;
+}
+
+h2,
+h3 {
+    color: #1a237e;
+    page-break-inside: avoid;
+    page-break-before: auto;
+}
+
+.title-highlight {
+    color: #d32f2f;
+    font-weight: bold;
+    font-size: 22px;
+}
+
+.loan-details,
+.section-content {
+    padding: 15px;
+    border-radius: 8px;
+    font-size: 16px;
+}
+
+li {
+    page-break-inside: avoid;
+    word-wrap: break-word;
+}
+
+ul {
+    padding-left: 20px;
+    page-break-inside: auto;
+}
+
+.highlight {
+    color: #d32f2f;
+    font-weight: bold;
+    font-size: 20px;
+}
+
+.icon {
+    color: #3949ab;
+    margin-right: 10px;
+}
+
+.divider {
+    height: 2px;
+    background: linear-gradient(to right, #3949ab, #d32f2f);
+    margin: 20px 0;
+}
+
+.page-break {
+    page-break-before: auto;
+}
+
+.blue-background {
+    background-color: #e3f2fd;
+}
+
+.packing-list,
+.summary {
+    padding: 15px;
+    border-radius: 8px;
+    font-size: 16px;
+}
+    
+</style>`;
     let finalRecommendation = addingInput + '<div class="divider"></div><p><strong>Response:<br><br></strong></p>' + this.recommendationData + '</div>';
 		finalRecommendation = finalRecommendation
 			.replace(/```html|```/g, '')
+			.replace(/<head>/g, '')
+			.replace(/<\/head>/g, '')
       .replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>')
 			.replace(/\(see https:\/\/g\.co\/ng\/security#xss\)/g, '') 
 			.replace(/SafeValue must use \[property\]=binding:/g, '')
-			.replace(/class="container"/g, 'style="line-height:1.9"'); //because if i add container the margin will increase so i removed the container now the spacing is proper.
-
+      .replace(/<style>(.*?)<\/style>/gs, '')
+			// .replace(/class="container"/g, 'style="line-height:1.9"'); //because if i add container the margin will increase so i removed the container now the spacing is proper.
+      finalRecommendation = `<html><head>${ styles }</head><body class="body-content">${ finalRecommendation } </body></html>`;
+      console.log(finalRecommendation);
     let paramData: DownloadRespose = {
       response: finalRecommendation,
       module_name: "Trip Length Finder",

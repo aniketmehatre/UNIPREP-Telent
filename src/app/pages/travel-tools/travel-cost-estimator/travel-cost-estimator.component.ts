@@ -207,7 +207,7 @@ export class TravelCostEstimatorComponent implements OnInit {
 			.replace(/```html|```/g, '') 
 			.replace(/\(see https:\/\/g\.co\/ng\/security#xss\)/g, '') 
 			.replace(/SafeValue must use \[property\]=binding:/g, '')
-			.replace(/class="container"/g, 'style="line-height:1.9"'); //because if i add container the margin will increase so i removed the container now the spacing is proper.
+			.replace(/class="container"/g, 'style="line-height:1.9;page-break-before: auto;page-break-after: auto;"'); //because if i add container the margin will increase so i removed the container now the spacing is proper.
 		
 		let paramData: DownloadRespose = {
 			response: finalRecommendation,

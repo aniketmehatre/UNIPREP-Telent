@@ -80,8 +80,10 @@ export class TravelToolsService {
       headers: this.headers,
     });
   }
-
+  
   convertHTMLtoPDF(data: any): Promise<void> {
+    
+    // console.log(response);
     return new Promise((resolve, reject) => {
       const now = new Date();
       const timestamp = now.toISOString().slice(0, 19).replace("T", "_").replace(/:/g, "");
@@ -92,7 +94,14 @@ export class TravelToolsService {
           margin: 15,
           filename: dynamicFileName,
           image: { type: 'jpeg', quality: 1.0 },
-          html2canvas: { scale: 3, useCORS: true }, // Remove 'dpi' & 'letterRendering' (deprecated)
+          html2canvas: { 
+            scale: 2,
+            useCORS: true,
+            logging: true,
+            allowTaint: true,
+            scrollX: 0,
+            scrollY: 0,
+          }, // Remove 'dpi' & 'letterRendering' (deprecated)
           jsPDF: { unit: 'mm', format: 'a4', orientation: 'portrait' }
         })
         .toPdf()
@@ -107,4 +116,20 @@ export class TravelToolsService {
     });
   }
   
+  generatePDF() {
+    const now = new Date();
+    const timestamp = now.toISOString().slice(0, 19).replace("T", "_").replace(/:/g, "");
+    const dynamicFileName = `travel_plan_${timestamp}.pdf`;
+  
+    html2pdf()
+      .from(document.body)
+      .set({
+        margin: 15,
+        filename: dynamicFileName,
+        image: { type: 'jpeg', quality: 1.0 },
+        html2canvas: { scale: 3, useCORS: true },
+        jsPDF: { unit: 'mm', format: 'a4', orientation: 'portrait' }
+      })
+      .save();
+  }
 }
