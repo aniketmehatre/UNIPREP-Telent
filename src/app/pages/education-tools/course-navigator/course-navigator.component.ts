@@ -313,4 +313,8 @@ export class CourseNavigatorComponent implements OnInit {
     let paragraph = sentences[0] ? sentences[0] : "";
     return paragraph.length > 75 ? paragraph.slice(13, 85) + ' ...' : paragraph;
   }
+
+  openReport() {
+    
+  }
 }

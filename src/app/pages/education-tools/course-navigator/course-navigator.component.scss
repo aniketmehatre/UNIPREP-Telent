@@ -1,17 +1,18 @@
 .answercard {
-	background-color: var(--uniprep-primaryop10);
-	border: 2px solid var(--uniprep-primary);
+	background-color: var(--uniprep-tertiary);
+	border: none;
 	overflow-y: auto;
 }
 
 .socialShareBtn {
-	height: 40px;
-	width: 40px;
-	border-radius: 50px !important;
+	height: 38px;
+	width: 38px;
+	border-radius: 5px !important;
 	margin: 0;
 	display: flex;
 	justify-content: center;
 	align-items: center;
+	background-color: black !important;
 }
 
 #socialSharingList {
@@ -19,20 +20,29 @@
 	position: absolute;
 	right: 0rem;
 	top: 3rem;
-}
+	z-index: 10;
 
-#socialSharingList ul {
-	padding: 10px !important;
-	margin-bottom: 0;
+	::ng-deep.p-card-body {
+		padding: 0px;
 
-	li {
-		display: flex;
-		align-items: center;
-		margin-bottom: 5px;
+		.p-card-content {
+			padding: 0px;
+		}
 	}
 
-	i {
-		margin-right: 10px;
+	ul {
+		padding: 10px !important;
+		margin-bottom: 0;
+
+		li {
+			display: flex;
+			align-items: center;
+			margin-bottom: 5px;
+		}
+
+		i {
+			margin-right: 10px;
+		}
 	}
 }
 
@@ -78,4 +88,41 @@
 	opacity: 1;
 	max-height: 100px;
 	/* Adjust as needed */
+}
+
+
+.career-closeIcon {
+	height: 100%;
+	width: 50px;
+	min-height: 40px;
+	border-radius: 8px;
+	background-color: #1c1b17;
+	color: white;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+}
+
+.career-homeIcon {
+	height: 100%;
+	width: 80px;
+	min-height: 40px;
+	border-radius: 8px;
+	background-color: var(--uniprep-secondary);
+	color: white;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+}
+
+.career-reportIcon {
+	height: 100%;
+	width: 90px;
+	min-height: 40px;
+	border-radius: 8px;
+	background-color: var(--uniprep-primary);
+	color: white;
+	display: flex;
+	align-items: center;
+	justify-content: center;
 }

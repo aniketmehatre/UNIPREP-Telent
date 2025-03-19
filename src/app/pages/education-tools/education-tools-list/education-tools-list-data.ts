@@ -48,7 +48,7 @@ export const EducationToolsData = [
     //  description: "This tool lets you get a global travel visa with the help of few easy steps",
     image: domainUrl + "LoanComparisonTool.svg",
     url: "/pages/education-tools/edu-loan-compare",
-    launch_soon: true,
+    launch_soon: false,
   },
   {
     title: "UNICOMPARE",
