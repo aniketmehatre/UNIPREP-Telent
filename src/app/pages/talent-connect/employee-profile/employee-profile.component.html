@@ -164,7 +164,7 @@
                                                         [filter]="true" filterBy="location"
                                                         [appendTo]="'body'"></p-select>
                                                     <small class="text-danger"
-                                                        *ngIf="personalInfoForm.get('location_id')?.invalid &&personalInfoForm.get('location_id')?.touched">
+                                                        *ngIf="personalInfoForm.get('location_id')?.invalid && personalInfoForm.get('location_id')?.touched">
                                                         This field is mandatory
                                                     </small>
                                                 </div>
@@ -402,7 +402,7 @@
                                                             <div class="fw-bold">
                                                                 {{experience.get('work_experience_experience_letter')?.value
                                                                 ?
-                                                                experience.get('work_experience_experience_letter')?.value
+                                                                extractLastName(experience.get('work_experience_experience_letter')?.value)
                                                                 : 'Upload your Experience Letter'}}
                                                             </div>
                                                         </div>
@@ -595,7 +595,7 @@
                                                             (click)="certificateFile.click()">
                                                             <i class="pi pi-upload me-2"></i>
                                                             {{certificate.get('certifications_certificate_file')?.value
-                                                            ? certificate.get('certifications_certificate_file')?.value
+                                                            ? extractLastName(certificate.get('certifications_certificate_file')?.value)
                                                             : 'Upload certificate'}}
                                                         </button>
                                                         <input type="file" accept="application/pdf"
@@ -636,7 +636,7 @@
                                                             (click)="acheivementFile.click()">
                                                             <i class="pi pi-upload me-2"></i>
                                                             {{certificate.get('certifications_achievement_file')?.value
-                                                            ? certificate.get('certifications_achievement_file')?.value
+                                                            ? extractLastName(certificate.get('certifications_achievement_file')?.value)
                                                             : 'Upload Supporting Document'}}
                                                         </button>
                                                         <input type="file" accept="application/pdf"
@@ -893,7 +893,7 @@
                                         <div class="upload-section text-center mb-4 py-2"
                                             style="border: 1px dashed lightgray">
                                             <h4>{{ personalInfoForm.get('career_preference_cv_filename')?.value ?
-                                                personalInfoForm.get('career_preference_cv_filename')?.value : 'Upload CV / Resume'}}</h4>
+                                               extractLastName(personalInfoForm.get('career_preference_cv_filename')?.value) : 'Upload CV / Resume'}}</h4>
                                             <button pButton label="UPLOAD"
                                                 class="p-button-primary rounded-pill px-5 py-2"
                                                 (click)="fileUpload.click();"></button>
@@ -1265,7 +1265,7 @@
             <!-- Save Button -->
             <button pButton type="button" (click)="onSubmit()"
                 class="btn btn-primary  btn-rounded p-1 ps-4 mt-1">
-                <span class="me-2">Create Profile</span><span class="btn-icon px-2 py-2"><i
+                <span class="me-2">{{this.profileId ?'Update Profile': 'Create Profile'}}</span><span class="btn-icon px-2 py-2"><i
                         class="pi pi-check text-white"></i></span>
             </button>
         </div>

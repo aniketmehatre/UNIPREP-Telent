@@ -3,36 +3,36 @@
     padding: 20px;
   
     .card-inside {
-     .card-header {
+     .card-header-modal {
         h4 {
-            font-size: 25px;
-            font-weight: bolder;
+            font-size: 25px !important;
+            font-weight: bolder !important;
         }
      }
       .card-body {
-        padding: 20px;
+        padding: 20px !important;
   
         h5 {
-          color: var(--dynamic-heading-color);
-          margin-bottom: 10px;
-          font-weight: 600;
+          color: var(--dynamic-heading-color) !important;
+          margin-bottom: 10px !important;
+          font-weight: 600 !important;
         }
   
         p {
-          margin-bottom: 10px;
-          color: black;
-          font-weight: bolder;
-          font-size: small;
+          margin-bottom: 10px !important;
+          color: black !important;
+          font-weight: bolder !important;
+          font-size: small !important;
         }
   
         ul {
-          padding-left: 20px;
+          padding-left: 20px !important;
         }
   
         a {
-          color: #007bff;
-          text-decoration: none;
-          transition: color 0.3s ease;
+          color: #007bff !important;
+          text-decoration: none !important;
+          transition: color 0.3s ease !important;
   
           &:hover {
             color: #0056b3;

@@ -32,8 +32,7 @@
           type="button"
           title="Close Popup"
           class="border-primary bg-primary text-white rounded-3 px-2 mt-2"
-          (click)="displayModal = true"
-        >
+          (click)="displayModal = true">
           <i class="fa-solid fa-caret-down"></i>&nbsp;&nbsp;Filter
         </button>
       </div>
@@ -41,7 +40,7 @@
     </div>
   </div>
   <div class="card-body text-center flex-fill overflow-y-auto">
-    <div class="d-flex flex-fill align-items-center">
+    <div class="d-md-flex flex-fill align-items-center d-block mb-2">
         <div class="d-flex flex-fill gap-2 justify-content-center align-items-center">
           <button
             type="button"
@@ -59,7 +58,7 @@
         </div>
       <div class="text-end ">
         <span class="fw-bold border border-success px-2 py-1 rounded-pill me-1">Total Job : {{ totalJobs }}</span>
-        <span class="fw-bold border border-danger px-2 py-1 rounded-pill ">Total Vacanies : {{ totalJobs }}</span>
+        <span class="fw-bold border border-danger px-2 py-1 rounded-pill ">Total Vacanies : {{ totalVacancies   }}</span>
       </div>
     </div>
     <div class="row">
@@ -80,7 +79,7 @@
                   </span>
                 </p>
                 <p class="mb-0 text-warning" style="font-size: 10px">
-                  You match {{ job.matchedSkills }} out of {{ job.totalSkills }} skill requirements for this job
+                  {{job.matched_skills}}
                 </p>
               </div>
               <div class="col-auto">
