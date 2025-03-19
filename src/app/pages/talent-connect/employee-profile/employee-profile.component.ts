@@ -27,7 +27,8 @@ export class EmployeeProfileComponent implements OnInit {
     employmentType: "Select the type of employment for this position. This helps employers understand your work schedule and availability.",
     workArrangement: "Choose your ideal workplace type. The more specific you are, the better employers can match you with opportunities, increasing your chances of getting hired for the role that suits you best.",
     careerStatus: "Select your current career status. Employers need to know your availability to determine if you're the right fit for the role. An updated career status helps match you with opportunities that align with your current situation.",
-    expectedSalary: "Enter your expected salary range in numbers upto 6 digits. This helps employers assess if your compensation expectations align with their budget."
+    expectedSalary: "Enter your expected salary range in numbers upto 6 digits. This helps employers assess if your compensation expectations align with their budget.",
+    course: "Be specific about the course you completed. Employers are more likely to shortlist candidates with clear, detailed academic backgrounds. Numbers and special characters are not allowed."
   };
   languageProficiency!: any;
   updateArrayIds!: any;
