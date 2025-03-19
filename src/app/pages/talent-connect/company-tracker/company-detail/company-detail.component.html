@@ -5,10 +5,10 @@
     <div class="company-header p-3">
       <div class="row">
         <div class="col-3 col-md-2">
-          <img src="assets/uniabroad-logo.png" alt="UNIABROAD Logo" class="company-logo">
+          <img src="{{companyData.company_logo}}" alt="UNIABROAD Logo" class="company-logo">
         </div>
         <div class="col-7 col-md-8 text-left">
-          <h1 class="company-name">{{companyData.name}}</h1>
+          <h1 class="company-name">{{companyData.company_name}}</h1>
           <p class="founded-text">Founded : {{companyData.foundedYear}}</p>
           <div class="text-left">
             <button pButton class="p-button-outlined py-1">
@@ -23,35 +23,7 @@
         </div>
       </div>
     </div>
-    <div class="row mt-4">
-      <div class="col-md-4">
-        <div class="d-flex align-items-center">
-          <i class="pi pi-map-marker text-success me-2"></i>
-          <div>
-            <small class="text-muted d-block">Headquarters Location</small>
-            <span>{{ companyData.headquartersLocation }}</span>
-          </div>
-        </div>
-      </div>
-      <div class="col-md-4">
-        <div class="d-flex align-items-center">
-          <i class="pi pi-briefcase text-primary me-2"></i>
-          <div>
-            <small class="text-muted d-block">Company Type</small>
-            <span>{{ companyData.companyType }}</span>
-          </div>
-        </div>
-      </div>
-      <div class="col-md-4">
-        <div class="d-flex align-items-center">
-          <i class="pi pi-users text-info me-2"></i>
-          <div>
-            <small class="text-muted d-block ">Company Size</small>
-            <span>0-50</span>
-          </div>
-        </div>
-      </div>
-    </div>
+    
   </div>
 
   <!-- About Organization Section -->
@@ -80,7 +52,7 @@
             </div>
             <div class="col-md-3">
               <h6 class="text-muted text-primary">Global Presence</h6>
-              <p>{{ companyData!.globalPresence.join(", ") }}</p>
+              <p>{{ companyData!.global_presence.join(", ") }}</p>
             </div>
           </div>
           <div class="row mt-4">
@@ -90,7 +62,7 @@
             </div>
             <div class="col-md-3">
               <h6 class="text-muted text-primary">Official Website</h6>
-              <p>{{ 'http//www.uniprep.com' }}</p>
+              <p>{{ companyData.website }}</p>
             </div>
             <div class="col-md-6">
               <h6 class="text-muted text-primary">LinkedIn Profile</h6>

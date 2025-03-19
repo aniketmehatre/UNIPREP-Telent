@@ -71,5 +71,27 @@
   .cursor-pointer {
     cursor: pointer;
   }
+  .module-button {
+    border-radius: 10px;
+    font-weight: bold;
+    background-color: white;
+    color: var(--uniprep-primary);
+    &:hover, &:active, &:focus {
+      color: white;
+      background-color: var(--uniprep-primary);
+    }
+  }
+  button.p-button-primary {
+    background-color: #3f51b5;
+  }
   
-  
+  button.p-button-secondary {
+    color: #3f51b5;
+    border-color: #3f51b5;
+  }
+  .active-button {
+    background-color: var(--uniprep-primary); /* Change to your primary color */
+    color: white;
+    border: 2px solid var(--uniprep-primary);
+    font-weight: bold;
+  }

@@ -127,3 +127,9 @@
 .work-mode-icon {
   color: #4CAF50;
 }
+.active-button {
+  background-color: var(--uniprep-primary); /* Change to your primary color */
+  color: white;
+  border: 2px solid var(--uniprep-primary);
+  font-weight: bold;
+}

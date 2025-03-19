@@ -52,6 +52,7 @@ export class CompanyDetailComponent implements OnInit {
         this.companyData.work_life_balance_policy = this.companyData.work_life_balance_policy.split(", ");
         this.companyData.hiring_process_stages = this.companyData.hiring_process_stages.split(", ");
         this.companyData.benefits = this.companyData.benefits.split(", ");
+        this.companyData.global_presence = this.companyData.global_presence.split(", ");
       },
       error: err => {
         console.log(err)
