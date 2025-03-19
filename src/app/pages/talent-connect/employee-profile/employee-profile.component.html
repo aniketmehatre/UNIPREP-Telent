@@ -233,7 +233,7 @@
                                                     <div class="p-inputgroup">
                                                         <input pInputText id="courseName"
                                                             formControlName="education_course_name"
-                                                            placeholder="Enter your course name" class="form-control" />
+                                                            placeholder="Enter your course name" class="form-control" (mouseenter)="updateMessageBox('course')" (mouseleave)="resetMessage();"/>
                                                     </div>
                                                     <small class="text-danger"
                                                         *ngIf="education.get('education_course_name')?.invalid &&education.get('education_course_name')?.touched">
@@ -298,7 +298,10 @@
                                                         [options]="totalYearExperienceList"
                                                         placeholder="Select total experience"
                                                         styleClass="w-100"></p-select>
-
+                                                        <small class="text-danger"
+                                                        *ngIf="experience.get('work_experience_total_years_experience')?.invalid && experience.get('work_experience_total_years_experience')?.touched">
+                                                        This field is mandatory
+                                                    </small>
                                                 </div>
                                             </div>
                                             <h5 class="card-title mb-4">Work Experience Details</h5>
@@ -698,10 +701,9 @@
                                                 <div class="col-md-6">
                                                     <div class="row">
                                                         <div class="col-md-10">
-                                                            <input pInputText id="university"
-                                                                formControlName="languages_proficiency"
-                                                                placeholder="Enter language proficiency"
-                                                                class="form-control w-100" />
+                                                            <p-select id="highestQualification"
+                                                            formControlName="languages_proficiency" [options]="languageProficiency"
+                                                            placeholder="Enter language proficiency" styleClass="w-100"></p-select>
                                                             <small class="text-danger"
                                                                 *ngIf="language.get('languages_proficiency')?.invalid && language.get('languages_proficiency')?.touched">
                                                                 This field is mandatory
@@ -919,7 +921,7 @@
                                                     formControlName="career_preference_video_link">
                                             </div>
                                             <small class="text-danger"
-                                                *ngIf="personalInfoForm.get('career_preference_video_link')?.invalid &&personalInfoForm.get('career_preference_video_link')?.touched">
+                                                *ngIf="personalInfoForm.get('career_preference_video_link')?.invalid && personalInfoForm.get('career_preference_video_link')?.touched">
                                                 This field is Valid url
                                             </small>
                                         </div>
@@ -990,7 +992,7 @@
                                                 <div class="col-md-6">
                                                     <label for="highestQualification" class="form-label">Phone
                                                         Number<span class="text-danger">*</span></label>
-                                                    <p-inputNumber id="university"
+                                                    <p-inputNumber id="university" [useGrouping]="false"
                                                         placeholder="Enter the reference phone number"
                                                         styleClass="p-inputtext w-100" [showButtons]="false"
                                                         class="w-100"
@@ -1053,7 +1055,7 @@
                                                 <div class="col-md-6">
                                                     <label for="highestQualification" class="form-label">Phone
                                                         Number</label>
-                                                    <p-inputNumber id="university"
+                                                    <p-inputNumber id="university" [useGrouping]="false"
                                                         placeholder="Enter the reference phone number"
                                                         styleClass="p-inputtext w-100" [showButtons]="false"
                                                         class="w-100"
@@ -1189,8 +1191,7 @@
                                                 <div class="text-muted small">Employment Type</div>
                                                 <div class="fw-bold">
                                                     {{personalInfoForm?.get('career_preference_preferred_employment_type')?.value ?
-                                                    personalInfoForm?.get('career_preference_preferred_employment_type')?.value : 'Full
-                                                    Time'}}</div>
+                                                    personalInfoForm?.get('career_preference_preferred_employment_type')?.value : 'Full Time'}}</div>
                                             </div>
                                         </div>
                                     </div>
