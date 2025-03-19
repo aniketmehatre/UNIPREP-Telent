@@ -40,10 +40,8 @@ export class AuthGuard  {
   canActivate(
     route: ActivatedRouteSnapshot,
     state: RouterStateSnapshot): Observable<boolean | UrlTree> | Promise<boolean | UrlTree> | boolean | UrlTree {
-    console.log('coming guar')
     // Check if the route is public
     if (this.publicRoutes.some(route => state.url.startsWith(route))) {
-      debugger
       return true;
     }
 
@@ -51,12 +49,8 @@ export class AuthGuard  {
     if (currentTime - this.lastCheck < this.CACHE_DURATION && this.lastResult !== null) {
       return this.lastResult;
     }
-    
-    console.log('AuthGuard - Checking route:', state.url);
-    
     try {
       if (!this.authTokenService.isTokenValid()) {
-        console.log('AuthGuard - No valid token found');
         this.lastCheck = currentTime;
         this.lastResult = this.router.createUrlTree(['/login']);
         return this.lastResult;
