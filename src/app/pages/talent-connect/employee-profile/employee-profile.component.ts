@@ -325,14 +325,14 @@ export class EmployeeProfileComponent implements OnInit {
   }
 
   onSubmit() {
-    if (this.personalInfoForm.get('profile_image')?.invalid) {
-      this.toastService.add({
-        severity: "error",
-        summary: "Required",
-        detail: 'please upload profile photo'
-      });
-      return;
-    }
+    // if (this.personalInfoForm.get('profile_image')?.invalid) {
+    //   this.toastService.add({
+    //     severity: "error",
+    //     summary: "Required",
+    //     detail: 'please upload profile photo'
+    //   });
+    //   return;
+    // }
 
     if (this.personalInfoForm.valid) {
       const formData = new FormData();
@@ -807,12 +807,12 @@ export class EmployeeProfileComponent implements OnInit {
     }
   }
 
-  private markFormGroupTouched(formGroup: FormGroup) {
+  private markFormGroupTouched(formGroup: FormGroup | FormArray) {
     Object.values(formGroup.controls).forEach(control => {
       control.markAsTouched();
 
-      if (control instanceof FormGroup) {
-        this.markFormGroupTouched(control);
+      if (control instanceof FormGroup || control instanceof FormArray) {
+        this.markFormGroupTouched(control); // Recursively mark nested FormGroups & FormArrays
       }
     });
   }

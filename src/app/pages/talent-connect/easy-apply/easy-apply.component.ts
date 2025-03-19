@@ -32,6 +32,7 @@ interface JobListing {
   standalone: false,
 })
 export class EasyApplyComponent {
+  totalVacancies: string = '';
   jobListings: JobListing[] = [];
   industries: any[] = [];
   locations: any[] = [];
@@ -86,6 +87,7 @@ export class EasyApplyComponent {
       next: response => {
         this.jobListings = response.jobs;
         this.totalJobs = response.totaljobs;
+        this.totalVacancies = response.totalvacancies;
       },
       error: error => {
         console.log(error);
