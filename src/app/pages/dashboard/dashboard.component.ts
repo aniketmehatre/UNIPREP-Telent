@@ -67,7 +67,7 @@ export class DashboardComponent implements OnInit, OnChanges {
 	groupedListFav2: any[] = [];
 	date: Date = new Date();
 	cvBuilderPercentage:number=0;
-	talentConnectPercentage:number=10;
+	talentConnectPercentage:number=0;
 	totalPercentage:number=0;
 	isShowingCompletion:boolean=false;
 	university: any[] = [
@@ -731,6 +731,7 @@ export class DashboardComponent implements OnInit, OnChanges {
 			next: (data: any) => {
 				console.log(data);
 				this.cvBuilderPercentage=data.cv_builder_completion
+				this.talentConnectPercentage=data.talent_connect_completion
 				this.totalPercentage=Math.floor((this.cvBuilderPercentage + this.talentConnectPercentage + this.progress) / 3);
 				if (this.totalPercentage >= 60 && this.totalPercentage <= 99) {
 					this.isShowingCompletion = true;
