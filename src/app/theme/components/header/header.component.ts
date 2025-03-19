@@ -607,6 +607,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
 			},
 			error: (error) => console.error('Error in dashboard country subscription:', error)
 		});
+		this.setupReportWindowSubscription();
 	}
 
 	private initializeForms() {
