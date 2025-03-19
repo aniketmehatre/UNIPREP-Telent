@@ -452,9 +452,10 @@ export class DashboardComponent implements OnInit, OnChanges {
 	}
 	viewMoreOpenJobApplication() {
 		if(this.recentJobApplication.length>0){
-			this.isViewMoreJobApplication=false;
-		}else{
 			this.isViewMoreJobApplication=true;
+			this.toastr.add({severity:'', summary: '', detail: "No Recent Job Applications Yet"});
+		}else{
+			this.isViewMoreJobApplication=false;
 		}
 	}
 	quizpercentage: any = 0
