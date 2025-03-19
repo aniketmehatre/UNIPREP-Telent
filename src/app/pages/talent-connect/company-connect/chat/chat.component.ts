@@ -29,6 +29,8 @@ interface ChatMessage {
 })
 export class ChatComponent implements OnInit {
   @Input() companyDetails!: any;
+  @Input() id!: any;
+
   organizationName: string = 'UNIABROAD';
   organizationStatus: string = 'Active';
   @Output() openInfo: EventEmitter<boolean> = new EventEmitter<boolean>(true);
@@ -49,49 +51,19 @@ export class ChatComponent implements OnInit {
   ngOnInit(): void {
     console.log(this.companyDetails)
     //this.loadSampleMessages();
-    this.getChatMessageForCompanyConnect(this.companyDetails.id);
+    this.getChatMessageForCompanyConnect(this.id);
   }
 
 
   getChatMessageForCompanyConnect(id: any){
     this.talentConnectService.getChatMessageForCompanyConnect(id).subscribe({
       next: data => {
-        console.log(data);
         this.messages = data.message;
       },
       error: err => {
 
       }
     })
-  }
-
-  loadSampleMessages(): void {
-    this.messages = [
-      {
-        sender: '@johndoe',
-        content: 'We can meet at my House near st.89 🏠',
-        timestamp: '12:00',
-        isCurrentUser: false
-      },
-      {
-        sender: '@uniabroad',
-        content: 'Where do you want to meet guys? 👀',
-        timestamp: '12:00',
-        isCurrentUser: true
-      },
-      {
-        sender: '@johndoe',
-        content: 'We can meet at my House near st.89 🏠',
-        timestamp: '12:00',
-        isCurrentUser: false
-      },
-      {
-        sender: '@johndoe',
-        content: 'We can meet at my House near st.89 🏠',
-        timestamp: '12:00',
-        isCurrentUser: false
-      }
-    ];
   }
 
   sendMessage(): void {

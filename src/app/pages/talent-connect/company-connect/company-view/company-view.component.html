@@ -202,7 +202,7 @@
         </div>
       </div>
       <div class="col-md-3" *ngIf="showChat">
-        <uni-chat [companyDetails]="companyDetails" (closeChat)="showChat = false"></uni-chat>
+        <uni-chat [companyDetails]="companyDetails" [id]="companyId" (closeChat)="showChat = false"></uni-chat>
       </div>
     </div>
   </div>

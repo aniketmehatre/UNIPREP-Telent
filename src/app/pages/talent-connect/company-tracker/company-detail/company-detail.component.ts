@@ -47,17 +47,30 @@ export class CompanyDetailComponent implements OnInit {
       };
     this.talentConnectService.getCompanyDetails(this.companyDetails).subscribe({
       next: data => {
-        console.log(data[0])
         this.companyData = data[0]
         this.companyData.work_life_balance_policy = this.companyData.work_life_balance_policy.split(", ");
         this.companyData.hiring_process_stages = this.companyData.hiring_process_stages.split(", ");
         this.companyData.benefits = this.companyData.benefits.split(", ");
         this.companyData.global_presence = this.companyData.global_presence.split(", ");
+        this.companyData.industry_type = this.companyData.industry_type.split(", ");
       },
       error: err => {
         console.log(err)
       }
     })
+  }
+
+  followCompany(){
+    this.talentConnectService.followCompany(this.companyDetails).subscribe(
+        {
+          next: result => {
+            this.init()
+          },
+          error: err => {
+            console.log(err)
+          }
+        }
+    )
   }
 
 }
