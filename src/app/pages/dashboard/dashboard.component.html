@@ -41,11 +41,11 @@
 					</div>
 					<div class="col-6">
 						<div style="display: flex; justify-content: space-between">
-							<div style="font-size: 3rem">{{ progress }}%</div>
+							<div style="font-size: 3rem">{{totalPercentage }}%</div>
 						</div>
 					</div>
 					<div class="col-6">
-						<button class="justify-content-center gap-2 px-4 py-2 border-0 rounded-lg shadow-md w-100" style="border-radius: 15px; font-size: 10px">
+						<button *ngIf="isShowingCompletion" class="justify-content-center gap-2 px-4 py-2 border-0 rounded-lg shadow-md w-100" style="border-radius: 15px; font-size: 10px">
 							<span class="text-gray-700 uniprep-primary fw-semibold">You are almost there!</span>
 						</button>
 					</div>
@@ -53,21 +53,21 @@
 						<div class="progress-bar-container">
 							<div class="progress-bar" [style.width.%]="progress"></div>
 							<!-- Adjust the width to indicate progress -->
-							<span class="text-gray-700" style="font-size: 9px">Basic Details</span>
+							<span  pTooltip="{{ progress }}% " tooltipPosition="top" class="text-gray-700" style="font-size: 9px">Basic Details</span>
 						</div>
 					</div>
 					<div class="col-3">
 						<div class="progress-bar-container">
-							<div class="progress-bar2" [style.width.%]="progress"></div>
+							<div class="progress-bar2" [style.width.%]="talentConnectPercentage"></div>
 							<!-- Adjust the width to indicate progress -->
-							<span class="text-gray-700" style="font-size: 9px">Job Profile</span>
+							<span  pTooltip="{{ talentConnectPercentage }}% " tooltipPosition="top" class="text-gray-700" style="font-size: 9px">Job Profile</span>
 						</div>
 					</div>
 					<div class="col-3">
 						<div class="progress-bar-container">
-							<div class="progress-bar3" [style.width.%]="progress"></div>
+							<div class="progress-bar3" [style.width.%]="cvBuilderPercentage"></div>
 							<!-- Adjust the width to indicate progress -->
-							<span class="text-gray-700" style="font-size: 9px">CV Details</span>
+							<span  pTooltip="{{cvBuilderPercentage}}% " tooltipPosition="top" class="text-gray-700" style="font-size: 9px">CV Details</span>
 						</div>
 					</div>
 					<!-- <div class="col-12">
@@ -83,7 +83,7 @@
 						<button (click)="redirectToCvBuilder()" class="px-4 py-2 border rounded-lg shadow-md bg-white" style="border-radius: 15px; font-size: 9px; width: -webkit-fill-available">
 							<span style="color: #394d83">CV Builder <i class="fa-solid fa-file-lines" style="color: #394d83"></i></span>
 						</button>
-						<button class="px-4 py-2 border rounded-lg shadow-md bg-white" style="border-radius: 15px; font-size: 9px; width: -webkit-fill-available">
+						<button (click)="redirectToTalentConnect()" class="px-4 py-2 border rounded-lg shadow-md bg-white" style="border-radius: 15px; font-size: 9px; width: -webkit-fill-available">
 							<span style="color: #394d83">Talent Connect <i class="fa-solid fa-user-tie" style="color: #394d83"></i></span>
 						</button>
 					</div>

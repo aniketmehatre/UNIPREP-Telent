@@ -66,6 +66,10 @@ export class DashboardComponent implements OnInit, OnChanges {
 	groupedListFav: any[] = [];
 	groupedListFav2: any[] = [];
 	date: Date = new Date();
+	cvBuilderPercentage:number=50;
+	talentConnectPercentage:number=10;
+	totalPercentage:number=0;
+	isShowingCompletion:boolean=false;
 	university: any[] = [
 		{
 			image: "../../../uniprep-assets/images/icons/university1.svg",
@@ -670,6 +674,9 @@ export class DashboardComponent implements OnInit, OnChanges {
 	redirectToCvBuilder() {
 		this.router.navigate(['/pages/job-tool/cv-builder']);
 	}
+	redirectToTalentConnect(){
+		this.router.navigate(['/pages/talent-connect/my-profile']);
+	}
 	generateDays(): void {
 		this.firstDayIndex = new Date(this.currentYear, this.currentMonth, 1).getDay();
 		const totalDays = new Date(this.currentYear, this.currentMonth + 1, 0).getDate();
@@ -722,6 +729,12 @@ export class DashboardComponent implements OnInit, OnChanges {
 	profileCompletion(){
 		this.dashboardService.profileCompletion().subscribe({
 			next: (data: any) => {
+				this.totalPercentage=Math.floor((this.cvBuilderPercentage + this.talentConnectPercentage + this.progress) / 3);
+				if (this.totalPercentage >= 60 && this.totalPercentage <= 99) {
+					this.isShowingCompletion = true;
+				} else {
+					this.isShowingCompletion = false;
+				}
 			},
 			error: (error) => {
 				console.error('Error fetching job listings:', error);
