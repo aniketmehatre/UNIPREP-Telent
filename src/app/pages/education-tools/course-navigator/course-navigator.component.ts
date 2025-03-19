@@ -17,6 +17,7 @@ import { InputGroupModule } from 'primeng/inputgroup';
 import { InputTextModule } from 'primeng/inputtext';
 import { InputGroupAddonModule } from 'primeng/inputgroupaddon';
 import { environment } from '@env/environment';
+import { DataService } from 'src/app/data.service';
 
 @Component({
     selector: 'uni-course-navigator',
@@ -84,7 +85,8 @@ export class CourseNavigatorComponent implements OnInit {
     private router: Router,
     private meta: Meta,
     private toast: MessageService,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    private dataService: DataService
 
   ) { }
 
@@ -312,5 +314,17 @@ export class CourseNavigatorComponent implements OnInit {
     const sentences = text.split(". ");
     let paragraph = sentences[0] ? sentences[0] : "";
     return paragraph.length > 75 ? paragraph.slice(13, 85) + ' ...' : paragraph;
+  }
+  goToHome(data: any) {
+    this.isQuestionAnswerVisible = false;
+  }
+  openReport() {
+    let data: any = {
+      isVisible: true,
+      // moduleId: this.moduleid,
+      // questionId: this.dataanswerquestion?.id,
+      // countryId:this.countryId,
+    };
+    this.dataService.openReportWindow(data);
   }
 }

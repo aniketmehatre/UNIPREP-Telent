@@ -249,7 +249,7 @@
     </div>
 </div>
 
-<p-dialog #dialogContent [(visible)]="isQuestionAnswerVisible" [draggable]="false" [modal]="true"
+<!-- <p-dialog #dialogContent [(visible)]="isQuestionAnswerVisible" [draggable]="false" [modal]="true"
     class="questionmodal contributor-modal blog-content" header="Header" [maximizable]="true"
     (onShow)="onShowModal($event)">
     <ng-template pTemplate="header">
@@ -269,13 +269,6 @@
                     <h3 class="uniprep-primary unselectable d-md-block d-none">{{ selectedQuestionData?.question }}</h3>
                     <h5 class="uniprep-primary unselectable d-md-none d-block">{{ selectedQuestionData?.question }}</h5>
                 </div>
-                <!-- <div>
-                    <button pButton type="button" (click)="addCNUserQuestions(selectedQuestionData)"
-                        class="btn btn-primary btn-rounded p-1 ps-4">
-                        <span class="me-2">Save Response</span><span class="btn-icon px-2 py-2">
-                            <i class="fa-regular fa-floppy-disk"></i></span>
-                    </button>
-                </div> -->
             </div>
         </div>
     </ng-template>
@@ -303,4 +296,64 @@
             </div>
         </div>
     </div>
+</p-dialog> -->
+<!-- new ui -->
+<p-dialog #dialogContent [(visible)]="isQuestionAnswerVisible" [draggable]="false" [modal]="true" header="Header" [closable]="false"
+  (onShow)="onShowModal($event)">
+  <ng-template pTemplate="header">
+    <div class="card-header border-0 bg-transparent px-4 pt-4 pb-0 w-100">
+      <div class="row justify-content-center">
+          <div class="col-md-12 d-flex gap-2 text-center">
+              <div class="career-homeIcon px-3" role="button"  (click)="goToHome($event)">
+                  <span class="fa-solid fa-home me-2"></span>Home
+              </div>
+              <div class="select-title d-flex flex-fill justify-content-between align-items-center w-100">
+                  <div>
+                    <div>
+                        <h4>Course Navigator</h4>
+                    </div>
+                  </div>
+              </div>
+              <div class="career-reportIcon px-3" role="button" (click)="openReport()">
+                  <span class="fa-solid fa-file me-2"></span>Report
+              </div>
+              <div class="career-closeIcon" role="button"
+              (click)="goToHome($event)">
+                  <span class="fa-solid fa-close"></span>
+              </div>
+          </div>
+      </div>
+      <div class="d-flex align-items-center position-relative mt-1" style="justify-content: end !important;">
+        <button pButton  class="btn btn-primary socialShareBtn" (click)="showSocialSharingList()"><i class="fa-solid fa-share"></i></button>
+        <p-card id="socialSharingList">
+          <ul style="list-style: none; cursor: pointer">
+            <li (click)="shareViaWhatsapp()"><i class="pi pi-whatsapp"></i>Whatsapp</li>
+            <li (click)="shareViaMail()"><i class="pi pi-envelope"></i>Email</li>
+            <li (click)="shareViaFacebook()"><i class="pi pi-facebook"></i>Facebook</li>
+            <li (click)="shareViaTwitter()"><i class="pi pi-twitter"></i>Twitter</li>
+            <li (click)="shareViaInstagram()"><i class="pi pi-instagram"></i>Instagram</li>
+            <li (click)="shareViaLinkedIn()"><i class="pi pi-linkedin"></i>LinkedIn</li>
+            <li (click)="copyLink()"><i class="pi pi-link"></i>Copy Link</li>
+          </ul>
+        </p-card>
+  </div>
+  </div>
+  </ng-template>
+  <div class=" px-4">
+    <div class="card flex-fill answercard" style="border: none;">
+      <div class="card-body text-start">
+        <div>
+            <h3 class="mt-2">
+                <b>{{ selectedQuestionData?.question }}</b>
+              </h3>
+        </div>
+        <div class="fw-medium" style="white-space: inherit; max-height: 80%; min-height: 80%"
+        [innerHTML]="selectedQuestionData?.answer"></div>
+      </div>
+    </div>
+  </div>
+  <ng-template pTemplate="footer">
+    <div class="d-flex justify-content-between flex-nowrap flex-column flex-md-row px-4 mt-4 mb-2">
+    </div>
+  </ng-template>
 </p-dialog>
