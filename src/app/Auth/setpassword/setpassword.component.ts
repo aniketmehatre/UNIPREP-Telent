@@ -1,15 +1,20 @@
 import { Component, OnInit } from "@angular/core";
-import { FormBuilder, FormGroup, Validators } from "@angular/forms";
-import { ActivatedRoute, Router } from "@angular/router";
+import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators } from "@angular/forms";
+import { ActivatedRoute, Router, RouterModule } from "@angular/router";
 import { matchValidator } from "src/app/@Supports/matchvalidator";
 import { AuthService } from "../auth.service";
 import { MessageService } from "primeng/api";
+import { CommonModule } from "@angular/common";
+import { InputGroupAddonModule } from "primeng/inputgroupaddon";
+import { InputTextModule } from "primeng/inputtext";
+import { InputGroupModule } from "primeng/inputgroup";
 
 @Component({
     selector: "app-setpassword",
     templateUrl: "./setpassword.component.html",
     styleUrls: ["./setpassword.component.scss"],
-    standalone: false
+    standalone: true,
+    imports: [CommonModule, ReactiveFormsModule, FormsModule, InputGroupAddonModule, InputTextModule, InputGroupModule, RouterModule]
 })
 export class SetpasswordComponent implements OnInit {
   public setpasswordForm: any = FormGroup;
