@@ -4,10 +4,11 @@
 @use "customprimeng.scss";
 
 * {
-    box-sizing: border-box;
-    margin: 0;
-    padding: 0;
+	box-sizing: border-box;
+	margin: 0;
+	padding: 0;
 }
+
 :root {
 	--uniprep-primary: rgb(63, 76, 131);
 	--uniprep-primarydark: #001631;
@@ -136,34 +137,28 @@ body {
 	background-color: var(--uniprep-primary) !important;
 }
 
-.border-primary
-{
+.border-primary {
 	border: 1px solid var(--uniprep-primary) !important;
 }
 
-.border-secondary
-{
+.border-secondary {
 	border: 1px solid var(--uniprep-secondary) !important;
 }
 
 
-.bg-primary
-{
+.bg-primary {
 	background: var(--uniprep-primary) !important;
 }
 
-.bg-secondary
-{
+.bg-secondary {
 	background: var(--uniprep-secondary) !important;
 }
 
-.bg-lightgray
-{
+.bg-lightgray {
 	background: var(--uniprep-lightgray) !important;
 }
 
-.bg-darkgray
-{
+.bg-darkgray {
 	background: var(--uniprep-darkgray) !important;
 }
 
@@ -294,8 +289,7 @@ small {
 	overflow: hidden;
 }
 
-.line-break
-{
+.line-break {
 	line-break: anywhere;
 }
 
@@ -353,15 +347,16 @@ small {
 
 .p-carousel-content-container {
 	height: 100% !important;
+
 	.p-carousel-item-list {
 		height: 100% !important;
 	}
 }
 
-uni-pages
-{
-	height:100dvh;
+uni-pages {
+	height: 100dvh;
 }
+
 // uni-cover-letter-builder {
 // 	flex: 1;
 // 	overflow: auto !important;
@@ -536,7 +531,7 @@ uni-fortune-companies-data-list,
 uni-company-connect,
 uni-global-employment-country-lists,
 uni-global-employment-data-list,
-uni-global-work-visa  {
+uni-global-work-visa {
 	display: flex;
 	flex: 1;
 	height: 100%;
@@ -545,8 +540,13 @@ uni-global-work-visa  {
 	border-radius: 10px;
 }
 
-uni-auth,app-login,app-root,app-registration,app-forgot-password,app-verification,app-setpassword
-{
+uni-auth,
+app-login,
+app-root,
+app-registration,
+app-forgot-password,
+app-verification,
+app-setpassword {
 	display: flex;
 	flex: 1;
 	height: 100%;
@@ -554,10 +554,11 @@ uni-auth,app-login,app-root,app-registration,app-forgot-password,app-verificatio
 	overflow: hidden;
 }
 
-uni-cost-of-living,uni-salary-converter
-{
-overflow-y: auto;
+uni-cost-of-living,
+uni-salary-converter {
+	overflow-y: auto;
 }
+
 @media screen and (max-width: 480px) {
 	uni-faq {
 		overflow-y: scroll !important;
@@ -735,7 +736,7 @@ uni-subscription {
 	color: #fff !important;
 	background: var(--uniprep-primary) !important;
 	border-radius: 10px !important;
-	
+
 	&:disabled {
 		background-color: #343a40;
 		background: linear-gradient(0deg, rgb(0, 0, 0) 0%, rgb(77, 77, 77) 100%);
@@ -753,9 +754,9 @@ uni-subscription {
 		box-shadow: 0 0 0 0.25rem var(--uniprep-primaryop10) !important;
 		border-color: var(--uniprep-primarydark) !important;
 	}
-	.btn-icon
-	{
-		border-radius:100px;
+
+	.btn-icon {
+		border-radius: 100px;
 		background-color: var(--uniprep-primarydark);
 		width: 30px;
 		height: 30px;
@@ -788,9 +789,9 @@ uni-subscription {
 		box-shadow: 0 0 0 0.25rem var(--uniprep-primaryop10) !important;
 		border-color: var(--uniprep-primarydark) !important;
 	}
-	.btn-icon
-	{
-		border-radius:100px;
+
+	.btn-icon {
+		border-radius: 100px;
 		background-color: var(--uniprep-primarydark);
 		width: 30px;
 		height: 30px;
@@ -828,9 +829,9 @@ uni-subscription {
 		border-color: var(--uniprep-secondary) !important;
 		box-shadow: 0 0 0 0.25rem var(--uniprep-secondaryop10);
 	}
-	.btn-icon
-	{
-		border-radius:100px;
+
+	.btn-icon {
+		border-radius: 100px;
 		background-color: var(--uniprep-secondaryhighlight);
 		width: 30px;
 		height: 30px;
@@ -846,6 +847,7 @@ uni-subscription {
 	background: linear-gradient(0deg, rgba(89, 140, 223, 1) 0%, rgba(186, 222, 242, 1) 100%);
 	border-color: #598cdf !important;
 	border-radius: 10px !important;
+
 	&:hover {
 		color: #000 !important;
 		background: rgb(89, 140, 223);
@@ -867,6 +869,7 @@ uni-subscription {
 	background: var(--uniprep-green) !important;
 	border-radius: 10px !important;
 	border: 1px solid var(--uniprep-green) !important;
+
 	&:disabled {
 		background-color: #343a40;
 		background: linear-gradient(0deg, rgb(0, 0, 0) 0%, rgb(77, 77, 77) 100%);
@@ -885,9 +888,9 @@ uni-subscription {
 		box-shadow: 0 0 0 0.25rem var(--uniprep-lightgreen) !important;
 		border-color: var(--uniprep-lightgreen);
 	}
-	.btn-icon
-	{
-		border-radius:100px;
+
+	.btn-icon {
+		border-radius: 100px;
 		background-color: var(--uniprep-darkgreen);
 		width: 30px;
 		height: 30px;
@@ -903,6 +906,7 @@ uni-subscription {
 	padding: 5px;
 	border-color: #ffb2b2 !important;
 	border-radius: 10px !important;
+
 	.btn-icon {
 		width: 35px;
 		height: 35px;
@@ -941,6 +945,7 @@ uni-subscription {
 	padding: 5px !important;
 	border-color: var(--uniprep-primaryhighlight) !important;
 	border-radius: 10px !important;
+
 	.btn-icon {
 		width: 35px;
 		height: 35px;
@@ -979,6 +984,7 @@ uni-subscription {
 	padding: 5px 10px !important;
 	border-color: #708fb5 !important;
 	border-radius: 10px !important;
+
 	.btn-icon {
 		width: 35px;
 		height: 35px;
@@ -1015,6 +1021,7 @@ uni-subscription {
 	color: var(--uniprep-primarydark) !important;
 	background: var(--uniprep-gray) !important;
 	border-radius: 10px !important;
+
 	&:disabled {
 		background-color: #343a40;
 		background: linear-gradient(0deg, rgb(0, 0, 0) 0%, rgb(77, 77, 77) 100%);
@@ -1032,9 +1039,9 @@ uni-subscription {
 		box-shadow: 0 0 0 0.25rem var(--uniprep-primaryop10) !important;
 		border-color: var(--uniprep-darkgray) !important;
 	}
-	.btn-icon
-	{
-		border-radius:100px;
+
+	.btn-icon {
+		border-radius: 100px;
 		background-color: var(--uniprep-lightgray);
 		width: 30px;
 		height: 30px;
@@ -1047,8 +1054,8 @@ uni-subscription {
 
 .backIcon {
 	height: 100%;
-    width: 50px;
-	min-height:40px;
+	width: 50px;
+	min-height: 40px;
 	border-radius: 8px;
 	background-color: var(--uniprep-primary);
 	color: white;
@@ -1060,6 +1067,7 @@ uni-subscription {
 .subjectcard {
 	border: 1px solid var(--uniprep-secondary);
 	width: 100%;
+
 	.submoduleicon {
 		height: 75px;
 		width: 75px;
@@ -1067,6 +1075,7 @@ uni-subscription {
 		display: flex;
 		justify-content: center;
 		align-items: center;
+
 		.selectimage {
 			width: 100%;
 			height: 100%;
@@ -1143,6 +1152,7 @@ uni-subscription {
 		max-width: 100%;
 	}
 }
+
 @media screen and (max-width: 480px) {
 	.readingcardgrid {
 		flex: 0 0 100%;
@@ -1419,12 +1429,13 @@ uni-subscription {
 
 .select-title {
 	background: #1c1b17;
-    color: #fff;
-    padding: 8px 8px 8px 15px;
-    border-radius: 10px;
-    position: relative;
+	color: #fff;
+	padding: 8px 8px 8px 15px;
+	border-radius: 10px;
+	position: relative;
 	flex: 1;
 	text-align: start;
+
 	.questiontooltip {
 		color: var(--uniprep-secondary);
 		vertical-align: top;
@@ -1441,8 +1452,8 @@ uni-subscription {
 	border: none;
 	text-wrap-mode: nowrap;
 	display: flex;
-    align-items: center;
-    gap: 0.5rem;
+	align-items: center;
+	gap: 0.5rem;
 }
 
 .form-switch .form-check-input:focus {
@@ -1814,8 +1825,9 @@ p-dialog.restrictionDialog .p-dialog .p-dialog-header .p-dialog-header-icon {
 
 @media (max-width: 575.98px) {
 	.p-carousel .p-carousel-indicators {
-		display:none;
+		display: none;
 	}
+
 	uni-subscription-history {
 		.historycard {
 			text-align: center !important;
@@ -2045,19 +2057,22 @@ p-dialog.restrictionDialog .p-dialog .p-dialog-header .p-dialog-header-icon {
 		}
 	}
 }
+
 .p-input-icon-left>.p-inputtext {
-    padding-left: 2rem;
+	padding-left: 2rem;
 }
+
 .input-wrapper {
 	position: relative;
 }
 
 .completed {
-    background-color: #9bc32a !important;
-    color: white !important;
-    border-radius: 20px !important;
-    border: #9bc32a 2px solid;
+	background-color: #9bc32a !important;
+	color: white !important;
+	border-radius: 20px !important;
+	border: #9bc32a 2px solid;
 }
+
 .question-tab {
 	.p-tabview-nav-content {
 		border: 1px solid #3f4c83;
@@ -2090,29 +2105,53 @@ p-dialog.restrictionDialog .p-dialog .p-dialog-header .p-dialog-header-icon {
 	.p-tabview .p-tabview-nav li .p-tabview-nav-link:not(.p-disabled):focus {
 		box-shadow: none;
 	}
-	.p-tabview .p-tabview-panels{
+
+	.p-tabview .p-tabview-panels {
 		padding: 0 !important;
 	}
 }
 
-uni-assessment, uni-travel-tools, uni-founderstool, uni-education-tools, uni-contributors, uni-talent-connect {
+uni-assessment,
+uni-travel-tools,
+uni-founderstool,
+uni-education-tools,
+uni-contributors,
+uni-talent-connect {
 	display: flex;
 	flex: 1;
 	height: 100%;
 	flex-direction: column;
 	overflow: hidden;
-	
-	uni-global-travel-visa, uni-travel-cost-estimator, uni-travel-packing-planner, uni-travel-visit-planner, 
-	uni-trip-length-finder, uni-travel-glossary, uni-business-plan-generator, uni-education-tools-list, 
-	uni-course-navigator, uni-startup-risk-assessment,  uni-marketing-analysis, uni-goverment-funding-opportunity, uni-ai-business-advisor,
-    uni-politician-insights,uni-start-up-expense-estimate, uni-business-forecasting-tool, uni-country-insights, uni-country-insights-submodule, 
-	uni-student-budget-planner, uni-uni-compare, uni-global-edufit, uni-edu-loan-compare, uni-company-connect {
+
+	uni-global-travel-visa,
+	uni-travel-cost-estimator,
+	uni-travel-packing-planner,
+	uni-travel-visit-planner,
+	uni-trip-length-finder,
+	uni-travel-glossary,
+	uni-business-plan-generator,
+	uni-education-tools-list,
+	uni-course-navigator,
+	uni-startup-risk-assessment,
+	uni-marketing-analysis,
+	uni-goverment-funding-opportunity,
+	uni-ai-business-advisor,
+	uni-politician-insights,
+	uni-start-up-expense-estimate,
+	uni-business-forecasting-tool,
+	uni-country-insights,
+	uni-country-insights-submodule,
+	uni-student-budget-planner,
+	uni-uni-compare,
+	uni-global-edufit,
+	uni-edu-loan-compare,
+	uni-company-connect {
 		flex: 1;
 		overflow-y: auto;
 		display: flex;
 		flex-direction: column;
 	}
-    
+
 }
 
 .assessment-sts-sec {
@@ -2127,26 +2166,28 @@ uni-assessment, uni-travel-tools, uni-founderstool, uni-education-tools, uni-con
 }
 
 .assessment-tag {
-    position: absolute;
-    right: 5px;
-    top: 5px;
-    color: white;
+	position: absolute;
+	right: 5px;
+	top: 5px;
+	color: white;
 	padding: 2px 10px;
 	border-radius: 15px;
 	font-size: 10px;
 }
 
 .ilearn-challenge-table .p-datatable {
-	.p-datatable-thead > tr > th {
+	.p-datatable-thead>tr>th {
 		background: var(--uniprep-primary);
 		color: white;
 		border: 1px solid var(--uniprep-primarydark);
 	}
-	.p-datatable-tbody > tr > td {
+
+	.p-datatable-tbody>tr>td {
 		border-width: 1px;
 		font-size: 13px;
 		font-weight: 500;
 	}
+
 	&>.p-datatable-wrapper {
 		height: 400px;
 	}
@@ -2156,54 +2197,56 @@ uni-assessment, uni-travel-tools, uni-founderstool, uni-education-tools, uni-con
 	margin-bottom: 20px;
 }
 
-  @media (min-width: 992px) {
-    .col-custom-lg-2 {
-        flex: 0 0 auto;
-        width: 20%;
-    }
+@media (min-width: 992px) {
+	.col-custom-lg-2 {
+		flex: 0 0 auto;
+		width: 20%;
+	}
 }
 
 .carousal-container-sec .p-carousel-content {
-    height: 100% !important;
-    .p-carousel-container {
-      height: 100%;
-      .p-carousel-items-container {
-        height: 100%;
-      }
-    }
+	height: 100% !important;
+
+	.p-carousel-container {
+		height: 100%;
+
+		.p-carousel-items-container {
+			height: 100%;
+		}
+	}
 }
 
 .custom-number-input .number-input {
-    border-right: 0;
+	border-right: 0;
 }
 
 .custom-number-input .plus-icon,
 .custom-number-input .minus-icon {
-    background-color: white !important;
-    color: black !important;
-    border: 1px solid #ced4da;
+	background-color: white !important;
+	color: black !important;
+	border: 1px solid #ced4da;
 }
 
 .custom-number-input .minus-icon {
-    order: 2 !important;
-    border-top-left-radius: 0 !important;
-    border-bottom-left-radius: 0 !important;
-    border-left: 0 !important;
-    border-right: 0;
+	order: 2 !important;
+	border-top-left-radius: 0 !important;
+	border-bottom-left-radius: 0 !important;
+	border-left: 0 !important;
+	border-right: 0;
 }
 
 .custom-number-input .plus-icon {
-    border-left: 0;
+	border-left: 0;
 }
 
 .custom-number-input .number-input.p-inputtext:enabled:focus {
-    border: 1px solid #ced4da;
-    border-right: 0;
-    box-shadow: none;
+	border: 1px solid #ced4da;
+	border-right: 0;
+	box-shadow: none;
 }
 
 .grp-drpdwn .p-dropdown-label {
-    padding: 4px;
+	padding: 4px;
 }
 
 .btn-outline-secondary {
@@ -2212,12 +2255,12 @@ uni-assessment, uni-travel-tools, uni-founderstool, uni-education-tools, uni-con
 	border-radius: 10px;
 	border: 1px solid var(--uniprep-secondary);
 
-    &:hover {
-      color: var(--uniprep-tertiary);
-      background: var(--uniprep-secondary);
+	&:hover {
+		color: var(--uniprep-tertiary);
+		background: var(--uniprep-secondary);
 		border: 1px solid var(--uniprep-secondary);
-    }
-	
+	}
+
 	&:focus {
 		color: var(--uniprep-tertiary);
 		background: var(--uniprep-secondary);
@@ -2229,16 +2272,20 @@ uni-assessment, uni-travel-tools, uni-founderstool, uni-education-tools, uni-con
 .p-selectbutton .p-button {
 	background: var(--uniprep-primaryop10);
 	border-radius: 25px;
+
 	.p-button-label {
 		font-weight: 600;
 	}
+
 	&.p-highlight {
 		background: var(--uniprep-primary);
 		border-color: var(--uniprep-primary);
 		color: var(--uniprep-tertiary);
+
 		&:hover {
 			background: var(--uniprep-primaryhighlight);
 		}
+
 		&:focus {
 			box-shadow: 0 0 0 0.25rem var(--uniprep-primaryop10) !important;
 		}
@@ -2246,9 +2293,9 @@ uni-assessment, uni-travel-tools, uni-founderstool, uni-education-tools, uni-con
 }
 
 .cn-select-btn .p-button {
-    padding: 0.5rem 1.25rem;
+	padding: 0.5rem 1.25rem;
 }
-  
+
 
 uni-career-hacks {
 	display: flex;
@@ -2256,6 +2303,7 @@ uni-career-hacks {
 	height: 100%;
 	flex-direction: column;
 	overflow: hidden;
+
 	uni-careerhackslists {
 		flex: 1;
 		overflow-y: auto;
@@ -2271,6 +2319,7 @@ uni-talent-connect {
 	height: 100%;
 	flex-direction: column;
 	overflow: hidden;
+
 	uni-job-tracker {
 		flex: 1;
 		overflow-y: auto;
@@ -2278,12 +2327,14 @@ uni-talent-connect {
 		flex-direction: column;
 	}
 }
+
 uni-salary-hacks {
 	display: flex;
 	flex: 1;
 	height: 100%;
 	flex-direction: column;
 	overflow: hidden;
+
 	uni-salaryhackslists {
 		flex: 1;
 		overflow-y: auto;
@@ -2292,12 +2343,14 @@ uni-salary-hacks {
 	}
 
 }
+
 uni-job-seeker-success-stories {
 	display: flex;
 	flex: 1;
 	height: 100%;
 	flex-direction: column;
 	overflow: hidden;
+
 	uni-seekerlists {
 		flex: 1;
 		overflow-y: auto;
@@ -2306,27 +2359,30 @@ uni-job-seeker-success-stories {
 	}
 
 }
-.dropdownimg {
-    width: 24px;
-    height: 24px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
 
-    img {
-        height: 100%;
-        width: 100%;
-        border-radius: 100%;
-        border: 2px solid var(--uniprep-primaryop10);
-        object-fit: cover;
-    }
+.dropdownimg {
+	width: 24px;
+	height: 24px;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+
+	img {
+		height: 100%;
+		width: 100%;
+		border-radius: 100%;
+		border: 2px solid var(--uniprep-primaryop10);
+		object-fit: cover;
+	}
 }
+
 uni-fortune-companies {
 	display: flex;
 	flex: 1;
 	height: 100%;
 	flex-direction: column;
 	overflow: hidden;
+
 	uni-fortune-companies-data-list {
 		flex: 1;
 		overflow-y: auto;
@@ -2335,18 +2391,20 @@ uni-fortune-companies {
 	}
 
 }
+
 .fortunequestionmodal {
 	.p-dialog {
-	  width: 50%;
-	  height: max-content;
-	  max-height: 98%;
-	}
-  }
-  .questionmodal.contributor-modal {
-
-    .p-dialog {
 		width: 50%;
-    }
+		height: max-content;
+		max-height: 98%;
+	}
+}
+
+.questionmodal.contributor-modal {
+
+	.p-dialog {
+		width: 60%;
+	}
 
 }
 
@@ -2366,12 +2424,14 @@ uni-global-employment-insights {
 	height: 100%;
 	flex-direction: column;
 	overflow: hidden;
+
 	uni-global-employment-country-lists {
 		flex: 1;
 		overflow-y: auto;
 		display: flex;
 		flex-direction: column;
 	}
+
 	uni-global-employment-data-list {
 		flex: 1;
 		overflow-y: auto;
@@ -2379,10 +2439,11 @@ uni-global-employment-insights {
 		flex-direction: column;
 	}
 }
+
 .blog-content {
 	font-size: 16px;
-    font-family: "Poppins", sans-serif;
-    line-height: 2rem;
+	font-family: "Poppins", sans-serif;
+	line-height: 2rem;
 }
 
 .cursor-pointer {
@@ -2391,7 +2452,68 @@ uni-global-employment-insights {
 
 .noscrollbar {
 	&::-webkit-scrollbar {
-		scrollbar-width: none; /* Firefox */
+		scrollbar-width: none;
+		/* Firefox */
 		-ms-overflow-style: none;
+	}
+}
+
+.chatgpt-response {
+	.container {
+		max-width: 950px;
+		margin: 25px auto;
+		padding: 25px;
+		background: rgba(255, 255, 255, 0.95);
+		border-radius: 10px;
+		box-shadow: 4px 4px 15px rgba(0, 0, 0, 0.2);
+		color: black;
+		text-align: left;
+		position: relative;
+	}
+	
+	h2,
+	h3 {
+		color: #1a237e;
+	}
+	
+	.title-highlight {
+		color: #d32f2f;
+		font-weight: bold;
+		font-size: 22px;
+	}
+	
+	.loan-details {
+		padding: 15px;
+		border-radius: 8px;
+		font-size: 16px;
+	}
+	
+	ul {
+		padding-left: 20px;
+	}
+	
+	.highlight {
+		color: #d32f2f;
+		font-weight: bold;
+		font-size: 20px;
+	}
+	
+	.icon {
+		color: #3949ab;
+		margin-right: 10px;
+	}
+	
+	.divider {
+		height: 2px;
+		background: linear-gradient(to right, #3949ab, #d32f2f);
+		margin: 20px 0;
+	}
+	
+	.page-break {
+		page-break-before: auto;
+	}
+	
+	.blue-background {
+		background-color: #e3f2fd;
 	}
 }
