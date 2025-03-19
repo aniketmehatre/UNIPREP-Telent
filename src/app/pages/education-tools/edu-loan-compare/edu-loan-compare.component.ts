@@ -25,6 +25,7 @@ import { TravelToolsService } from '../../travel-tools/travel-tools.service';
 import { CommonType } from 'src/app/@Models/common-type';
 import { InputNumberModule } from 'primeng/inputnumber';
 import { Currencies } from 'src/app/@Models/currency.model';
+import { DomSanitizer } from '@angular/platform-browser';
 
 @Component({
   selector: 'uni-edu-loan-compare',
@@ -55,7 +56,8 @@ export class EduLoanCompareComponent implements OnInit {
     private educationToolService: EducationToolsService,
     private toast: MessageService,
     private router: Router,
-    private travelToolService: TravelToolsService
+    private travelToolsService: TravelToolsService,
+    private sanitizer: DomSanitizer
   ) {
     this.form = this.fb.group({
       currency: ['', Validators.required],
@@ -112,7 +114,12 @@ export class EduLoanCompareComponent implements OnInit {
         this.isRecommendationQuestion = false;
         this.isRecommendationData = true;
         this.isRecommendationSavedData = false;
-        this.recommendationData = response.response;
+        let chatGptResponse = response.response
+          .replace(/```html|```/g, '')
+          .replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>');
+        this.recommendationData = this.sanitizer.bypassSecurityTrustHtml(chatGptResponse) as string;
+        this.isFromSavedData = false;
+        this.saveRecommadation('getAllHistory')
       },
       error: error => {
         this.isRecommendationData = false;
@@ -120,18 +127,26 @@ export class EduLoanCompareComponent implements OnInit {
     });
   }
 
-  saveRecommadation() {
+  saveRecommadation(type?: string) {
     if (!this.isFromSavedData) {
       this.educationToolService.getAnalysisList('loan_comparison_tool').subscribe({
         next: response => {
-          this.isRecommendationQuestion = false;
-          this.isRecommendationData = false;
-          this.isRecommendationSavedData = true;
+          if (!type) {
+            this.isRecommendationQuestion = false;
+            this.isRecommendationData = false;
+            this.isRecommendationSavedData = true;
+          }
           this.recommadationSavedQuestionList = response.data;
+          this.isFromSavedData = true;
         },
         error: error => {
         }
       });
+    }
+    else {
+      this.isRecommendationQuestion = false;
+      this.isRecommendationData = false;
+      this.isRecommendationSavedData = true;
     }
   }
 
@@ -139,8 +154,10 @@ export class EduLoanCompareComponent implements OnInit {
     this.isRecommendationQuestion = false;
     this.isRecommendationData = true;
     this.isRecommendationSavedData = false;
-    this.isFromSavedData = true;
-    this.recommendationData = data;
+    let chatGptResponse = data
+      .replace(/```html|```/g, '')
+      .replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>');
+    this.recommendationData = this.sanitizer.bypassSecurityTrustHtml(chatGptResponse) as string;
   }
 
   resetRecommendation() {
@@ -149,73 +166,52 @@ export class EduLoanCompareComponent implements OnInit {
     this.isRecommendationSavedData = false;
     this.form.reset();
     this.activePageIndex = 0;
-    this.isFromSavedData = false;
-  }
-
-  onSaveRes() {
-    this.toast.add({ severity: "success", summary: "Success", detail: "Response saved successfully" });
   }
 
   downloadRecommadation() {
-    const formValue = ['bankname', 'loanamount', 'location', 'interestrate_type', 'interestrate', 'interestterm', 'studyduration', 'moratoriumperiod', 'loanrepaymentperiod'];
     const formData = this.form.value;
-    let addingInput = `<p><strong>Input:<br></strong></p>`;
+    let addingInput = `
+			<div style="font-family: 'Poppins', sans-serif; display: flex; align-items: center; justify-content: space-between; border-bottom: 2px solid #d32f2f; padding-bottom: 10px; margin-bottom: 20px;">
+				<div style="text-align: center;">
+					<h2 style="margin: 0; color: #1a237e;">EDULOAN Repayment Advisor</h2>
+				</div>
+			</div>
+			<p><strong>Input:<br></strong></p>`;
 
-    // Keep track of which formValue index we're currently using
-    let formValueIndex = 0;
-
-    this.recommendations.forEach((category: any) => {
-      addingInput += `<p><strong>${category.question.heading}</strong></p>`;
-
-      category.question.branches.forEach((branchQuestion: any) => {
-        addingInput += `<p>${branchQuestion}</p>`;
-
-        let currentAnswer = "";
-        const currentFormField = formValue[formValueIndex];
-
-        if (formData && formData[currentFormField]) {
-          switch (currentFormField) {
-            case 'loanamount':
-              currentAnswer = `1. ${formData['currency']} ${formData[currentFormField]}   2. ${formData['currency']} ${formData['compare_' + currentFormField]}`;
-              break;
-            case 'interestterm':
-              currentAnswer = `1. ${formData[currentFormField]} Months   2. ${formData['compare_' + currentFormField]} Months `;
-              break;
-            case 'studyduration':
-              currentAnswer = `1. ${formData[currentFormField]} Months   2. ${formData['compare_' + currentFormField]} Months `;
-              break;
-            default:
-              currentAnswer = `1. ${formData[currentFormField]}   2. ${formData['compare_' + currentFormField]} `;
-              break;
-          }
-        } else {
-          currentAnswer = "No answer provided";
-        }
-
-        addingInput += `<p><strong>${currentAnswer}</strong></p>`;
-
-        formValueIndex++;
+    this.recommendations.forEach(({ id, questions }) => {
+      questions.forEach((question, index) => {
+        addingInput += `<p style="color: #d32f2f;"><strong>${question}</strong></p>`;
+        const answersMap: any = {
+          1: [formData.currency + ' ' + formData.loan_amount, formData.interest_rate + ' %', formData.loan_tenure + ' month'],
+          2: [formData.moratorium_period, formData.repayment_year + ' year']
+        };
+        addingInput += `<p>${answersMap[id]?.[index] || ''}</p><br>`;
       });
-
-      // Add spacing between categories
-      addingInput += `<br>`;
     });
-
-    let finalRecommendation = addingInput + '<p><strong>Response:<br></strong></p>' + this.recommendationData;
+    let finalRecommendation = addingInput + '<div class=\"divider\"></div><p><strong>Response:<br></strong></p>' + this.recommendationData + '</div>';
+    finalRecommendation = finalRecommendation
+      .replace(/```html|```/g, '')
+      .replace(/\(see https:\/\/g\.co\/ng\/security#xss\)/g, '')
+      .replace(/SafeValue must use \[property\]=binding:/g, '')
+      .replace(/<style>(.*?)<\/style>/gs, '<link rel="stylesheet" href="https://api.uniprep.ai/uniprepapi/storage/app/public/prompt_css/promptstyle.css">');
     let paramData: DownloadRespose = {
       response: finalRecommendation,
-      module_name: "Edu Loan Comparison",
-      file_name: "edu_loan_comparison"
+      module_name: "EDULOAN Repayment Advisor",
+      file_name: "eduloan_repayment_advisor"
     };
-    this.travelToolService.convertHTMLtoPDF(paramData).then(() => {
+    this.travelToolsService.convertHTMLtoPDF(paramData).then(() => {
       console.log("PDF successfully generated.");
     }).catch(error => {
       console.error("Error generating PDF:", error);
-    });
+    })
   }
 
   goBack() {
-    this.router.navigateByUrl('/pages/education-tools');
+    if (this.isRecommendationQuestion) {
+      this.router.navigateByUrl('/pages/education-tools');
+    }
+    else {
+      this.resetRecommendation();
+    }
   }
-
 }

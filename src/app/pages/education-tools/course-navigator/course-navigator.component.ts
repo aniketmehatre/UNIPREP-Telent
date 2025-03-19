@@ -315,16 +315,8 @@ export class CourseNavigatorComponent implements OnInit {
     let paragraph = sentences[0] ? sentences[0] : "";
     return paragraph.length > 75 ? paragraph.slice(13, 85) + ' ...' : paragraph;
   }
-  goToHome(data: any) {
-    this.isQuestionAnswerVisible = false;
-  }
+
   openReport() {
-    let data: any = {
-      isVisible: true,
-      // moduleId: this.moduleid,
-      // questionId: this.dataanswerquestion?.id,
-      // countryId:this.countryId,
-    };
-    this.dataService.openReportWindow(data);
+    
   }
 }
