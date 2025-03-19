@@ -22,7 +22,7 @@ import { InputGroupAddonModule } from "primeng/inputgroupaddon"
 import { PaginatorModule } from "primeng/paginator"
 import {PdfViewerModule} from "ng2-pdf-viewer";
 import {DomSanitizer} from "@angular/platform-browser";
-import {PdfJsViewerModule} from "ng2-pdfjs-viewer";
+// import {PdfJsViewerModule} from "ng2-pdfjs-viewer";
 
 @Component({
 	selector: "uni-pitch-desk",
