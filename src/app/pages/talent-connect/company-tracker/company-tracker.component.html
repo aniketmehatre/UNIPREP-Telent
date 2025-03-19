@@ -23,7 +23,7 @@
 		<div class="row gx-3">
 		  <!-- Sidebar with job list -->
 		  <div class="col-lg-3 col-md-5 col-12 border-end mb-3 mb-md-0">
-			<uni-company-list (emitId)="onClickJobId($event)"></uni-company-list>
+			<uni-company-list (companyTrackerEmit)="onClickJobId($event)"></uni-company-list>
 		  </div>
   
 		  <!-- Main content with job details and chat -->
@@ -31,11 +31,11 @@
 			<div class="row g-3" *ngIf="selectedJobId else showEmptyConainter">
 				<div class="col-lg-8 col-md-7 col-12 position-relative overflow-hidden" [ngClass]="{'col-lg-12': !showChat}">
 					<div class="job-details-container h-100 overflow-auto">
-					  <uni-company-detail (openChat)="toggleInfo();" [showInfo]="showChat"></uni-company-detail>
+					  <uni-company-detail (openChat)="toggleInfo();" [companyDetails]="selectedJobId"  [showInfo]="showChat"></uni-company-detail>
 					</div>
 				  </div>
 			  <div class="col-lg-4 col-md-5 col-12" [hidden]="!showChat">
-				<uni-job-chat-ui (closeChat)="toggleInfo();" [showInfo]="showChat"></uni-job-chat-ui>
+				<uni-chat [companyDetails]="companyData"  (closeChat)="toggleInfo();" [showInfo]="showChat"></uni-chat>
 			  </div>
 			</div>
 			<ng-template #showEmptyConainter>

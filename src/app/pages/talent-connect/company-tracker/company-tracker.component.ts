@@ -1,20 +1,21 @@
 import { CommonModule } from '@angular/common';
-import { Component } from '@angular/core';
+import {Component, EventEmitter, Output} from '@angular/core';
 import { Dialog } from 'primeng/dialog';
 import { CompanyDetailComponent } from './company-detail/company-detail.component';
-import { JobChatUiComponent } from '../job-tracker/job-chat-ui/job-chat-ui.component';
 import { CompanyListsComponent } from './company-list/company-list.component';
 import { RouterLink } from '@angular/router';
 import {TalentConnectService} from "../talent-connect.service";
+import {ChatComponent} from "./chat/chat.component";
 
 @Component({
   selector: 'uni-company-tracker',
   templateUrl: './company-tracker.component.html',
   styleUrls: ['./company-tracker.component.scss'],
   standalone: true,
-  imports: [CommonModule, Dialog, CompanyListsComponent, CompanyDetailComponent, JobChatUiComponent, RouterLink]
+  imports: [CommonModule, Dialog, CompanyListsComponent, CompanyDetailComponent, RouterLink, ChatComponent, ChatComponent]
 })
 export class CompanyTracker1Component {
+  @Output() companyTrackerEmit: EventEmitter<number> = new EventEmitter();
   isSkeletonVisible: boolean = false;
   ehitlabelIsShow: boolean = false;
   restrict: boolean = false;
@@ -47,10 +48,11 @@ export class CompanyTracker1Component {
   toggleInfo(): void {
     this.showChat = !this.showChat;
   }
-
-  onClickJobId(event: number) {
+  companyData: any
+  onClickJobId(event: any) {
+    this.companyData = event;
     this.showChat = false;
-    this.selectedJobId = event;
+    this.selectedJobId = event.id;
   }
 
   upgradePlan() {
