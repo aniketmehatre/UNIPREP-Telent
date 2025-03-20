@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, Output, EventEmitter } from '@angular/core';
 import { Dialog } from 'primeng/dialog';
 import { Select } from 'primeng/select';
 import { JobListComponent } from './job-list/job-list.component';
@@ -8,6 +8,9 @@ import { Job } from '../easy-apply/job-view/job-view.component';
 import { RouterModule } from '@angular/router';
 import { JobDetailsComponent } from './job-details/job-details.component';
 import { JobChatUiComponent } from './job-chat-ui/job-chat-ui.component';
+import { MultiSelectModule } from 'primeng/multiselect';
+import { InputNumberModule } from 'primeng/inputnumber';
+import { FormGroup, ReactiveFormsModule } from '@angular/forms';
 interface DropdownOption {
   label: string;
   value: string;
@@ -26,60 +29,14 @@ interface ChatMessage {
   templateUrl: './job-tracker.component.html',
   styleUrls: ['./job-tracker.component.scss'],
   standalone: true,
-  imports: [Select, Dialog, JobListComponent, JobDetailsComponent, JobChatUiComponent, CommonModule, RouterModule]
+  imports: [Select, Dialog, ReactiveFormsModule, JobListComponent, JobDetailsComponent, JobChatUiComponent, InputNumberModule, MultiSelectModule, CommonModule, RouterModule]
 })
 export class JobTrackerComponent {
-  displayModal: boolean = false;
   orgnamewhitlabel: any
-  industryTypes: DropdownOption[] = [];
-  companySizes: DropdownOption[] = [];
-  locations: DropdownOption[] = [];
-  globalPresence: DropdownOption[] = [];
-  foundedYears: DropdownOption[] = [];
-  companyTypes: DropdownOption[] = [];
-
+  displayModal: boolean = false;
   constructor(private talentConnectService: TalentConnectService) { }
 
-  ngOnInit() {
-    // Populate dropdown options
-    this.industryTypes = [
-      { label: 'Technology', value: 'tech' },
-      { label: 'Healthcare', value: 'healthcare' },
-      { label: 'Finance', value: 'finance' },
-      { label: 'Manufacturing', value: 'manufacturing' },
-      { label: 'Retail', value: 'retail' }
-    ];
-
-    this.companySizes = [
-      { label: 'Small (1-50)', value: 'small' },
-      { label: 'Medium (51-250)', value: 'medium' },
-      { label: 'Large (251-1000)', value: 'large' },
-      { label: 'Enterprise (1000+)', value: 'enterprise' }
-    ];
-
-    this.locations = [
-      { label: 'North America', value: 'na' },
-      { label: 'Europe', value: 'eu' },
-      { label: 'Asia Pacific', value: 'apac' },
-      { label: 'Latin America', value: 'latam' },
-      { label: 'Middle East & Africa', value: 'mea' }
-    ];
-
-    this.globalPresence = [
-      { label: 'Global', value: 'global' },
-      { label: 'Regional', value: 'regional' },
-      { label: 'Local', value: 'local' }
-    ];
-
-    this.foundedYears = this.generateYears();
-
-    this.companyTypes = [
-      { label: 'Public', value: 'public' },
-      { label: 'Private', value: 'private' },
-      { label: 'Non-profit', value: 'nonprofit' },
-      { label: 'Government', value: 'government' }
-    ];
-  }
+  ngOnInit() { }
 
   isSkeletonVisible: boolean = false;
   ehitlabelIsShow: boolean = false;
@@ -130,30 +87,12 @@ export class JobTrackerComponent {
     });
   }
 
-
-  private generateYears(): DropdownOption[] {
-    const currentYear = new Date().getFullYear();
-    const years: DropdownOption[] = [];
-
-    for (let i = currentYear; i >= 1900; i--) {
-      years.push({ label: i.toString(), value: i.toString() });
-    }
-
-    return years;
-  }
-
   showFilterModal() {
     this.displayModal = true;
   }
 
-  applyFilter() {
-    console.log('Applying filters');
-    this.displayModal = false;
-  }
 
-  resetFilter() {
-    console.log('Resetting filters');
-  }
+
 
   upgradePlan(){
 

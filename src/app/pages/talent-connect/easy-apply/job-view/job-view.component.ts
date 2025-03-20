@@ -37,6 +37,7 @@ export interface Job {
   salary_range: number;
   matching_skills: string;
   stage: string | null;
+  company_logo?: string;
 }
 
 interface Message {
@@ -46,6 +47,8 @@ interface Message {
   markAsRead?: boolean;
   profile_image?: string;
   type: 'text' | 'file' | 'button';
+  attachment?: string | null;
+  attachment_url?: any | null;
 }
 
 @Component({
@@ -61,7 +64,7 @@ export class JobViewComponent implements OnInit {
   appliedId: number = NaN;
   attachmentFileName: string = '';
   isApplied: boolean = false;
-  attachmentFile!: File;
+  attachmentFile!: File | null;
   jobDetails: Job = {
     matching_skills: 'You match 0 out of 0 skill requirements for this job',
     isChecked: 0,
@@ -246,6 +249,7 @@ export class JobViewComponent implements OnInit {
     formData.append('job_id', this.appliedId.toString());
     this.talentConnectService.sendMessage(formData).subscribe({
       next: response => {
+        console.log(this.attachmentFile);
         console.log('Message sent:', response);
         // If there's a response message from the server, add it
         if (response.message) {
@@ -253,9 +257,13 @@ export class JobViewComponent implements OnInit {
             sender: true,
             content: message,
             time: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }),
-            type: 'text'
+            type: !this.attachmentFile ? 'text' : 'file',
+            attachment: this.attachmentFileName ? this.attachmentFileName : null,
+            attachment_url: this.attachmentFile ? this.attachmentFile : null
           });
         }
+        this.attachmentFile = null;
+        this.attachmentFileName = '';
       },
       error: error => {
         console.log('Error sending message:', error);
