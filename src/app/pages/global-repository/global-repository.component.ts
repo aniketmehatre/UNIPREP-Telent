@@ -36,7 +36,7 @@ export class GlobalRepositoryComponent implements OnInit {
   globalRepoList: any[] = [];
   selectedCountryName: any;
   countryLists: any[] = [];
-  selectedCountryId: any = 0;
+  selectedCountryId: any;
   responsiveOptions: any
   myForm = new FormGroup({
     selectedCountryId: new FormControl(null), // Initialize to null
@@ -47,6 +47,8 @@ export class GlobalRepositoryComponent implements OnInit {
     private locationService: LocationService,
     private cdRef: ChangeDetectorRef, private storage: StorageService
   ) {
+    console.log(this.storage.get("countryId"))
+    this.selectedCountryId = this.storage.get("countryId")
     this.dataService.countryNameSource.subscribe((countryName) => {
       this.updatedMenuNameLifeAt = countryName;
       this.globalRepoList = [
@@ -112,6 +114,7 @@ export class GlobalRepositoryComponent implements OnInit {
       .dashboardLocationList()
       .subscribe((countryList: any) => {
         this.countryLists = countryList;
+        console.log(Number(this.storage.get("countryId")))
         const storedCountryId = Number(this.storage.get("countryId")) || 0;
 
         // Set the selectedCountryId after the API call
@@ -122,11 +125,13 @@ export class GlobalRepositoryComponent implements OnInit {
       });
   }
 
-  selectCountry(selectedId: any): void {
+  selectCountry(selectedId: any) {
     this.countryLists.forEach((element: any) => {
       if (element.id === selectedId) {
         this.selectedCountryName = element.country;
+        console.log( element.id)
         this.storage.set("countryId", element.id);
+        console.log(this.storage.get("countryId"))
         this.storage.set("selectedcountryId", element.id);
         this.selectedCountryId = element.id;
         this.dataService.changeCountryId(element.id);
