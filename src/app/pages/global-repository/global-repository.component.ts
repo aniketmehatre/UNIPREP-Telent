@@ -61,31 +61,31 @@ export class GlobalRepositoryComponent implements OnInit {
         {
           id: 2,
           name: "Post Admission",
-          icon: "https://api.uniprep.ai/uniprepapi/storage/app/public/resources-coverimage/PostAdmission.svg",
+          icon: "https://api.uniprep.ai/uniprepapi/storage/app/public/resources-coverimage/new/Postadmission.svg",
           url: "/pages/modules/post-admission",
         },
         {
           id: 3,
           name: "Universities",
-          icon: "https://api.uniprep.ai/uniprepapi/storage/app/public/resources-coverimage/University.svg",
+          icon: "https://api.uniprep.ai/uniprepapi/storage/app/public/resources-coverimage/new/Universities.svg",
           url: "/pages/modules/university",
         },
         {
           id: 4,
           name: "Career Hub",
-          icon: "https://api.uniprep.ai/uniprepapi/storage/app/public/resources-coverimage/CareerHub.svg",
+          icon: "https://api.uniprep.ai/uniprepapi/storage/app/public/resources-coverimage/new/CareerHub.svg",
           url: "/pages/modules/career-hub",
         },
         {
           id: 5,
           name: "Travel & Tourism",
-          icon: "https://api.uniprep.ai/uniprepapi/storage/app/public/resources-coverimage/TravelTourism.svg",
+          icon: "https://api.uniprep.ai/uniprepapi/storage/app/public/resources-coverimage/new/travelandtourism.svg",
           url: "/pages/modules/travel-and-tourism",
         },
         {
           id: 6,
           name: "Life In " + this.updatedMenuNameLifeAt,
-          icon: "https://api.uniprep.ai/uniprepapi/storage/app/public/resources-coverimage/LifeAt.svg",
+          icon: "https://api.uniprep.ai/uniprepapi/storage/app/public/resources-coverimage/new/Lifeat.svg",
           url: "/pages/modules/life-at-country",
         },
       ];
