@@ -110,6 +110,7 @@ export class ViewProfileComponent implements OnInit {
   professionalStrengths: any[] = [];
   qualifications: any[] = [];
   softSkills: any[] = [];
+  logo: any;
   // Define a single profile data object
   profileData: ProfileData = {
     personalInfo: {
@@ -210,7 +211,6 @@ export class ViewProfileComponent implements OnInit {
     const data = this.config.data
     // Set theme color based on sample or real profile
     this.isSample = data?.isSample ?? true;
-
     // If we have real profile data, use it
     if (!this.isSample && data?.profileData) {
       this.careerInterests = data?.careerInterests;
