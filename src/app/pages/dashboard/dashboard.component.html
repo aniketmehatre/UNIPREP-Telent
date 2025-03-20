@@ -41,7 +41,7 @@
 					</div>
 					<div class="col-6">
 						<div style="display: flex; justify-content: space-between">
-							<div style="font-size: 3rem">{{totalPercentage }}%</div>
+							<div style="font-size: 3rem">{{ totalPercentage }}%</div>
 						</div>
 					</div>
 					<div class="col-6">
@@ -53,21 +53,21 @@
 						<div class="progress-bar-container">
 							<div class="progress-bar" [style.width.%]="progress"></div>
 							<!-- Adjust the width to indicate progress -->
-							<span  pTooltip="{{ progress }}% " tooltipPosition="top" class="text-gray-700" style="font-size: 9px">Basic Details</span>
+							<span pTooltip="{{ progress }}% " tooltipPosition="top" class="text-gray-700" style="font-size: 9px">Basic Details</span>
 						</div>
 					</div>
 					<div class="col-3">
 						<div class="progress-bar-container">
 							<div class="progress-bar2" [style.width.%]="talentConnectPercentage"></div>
 							<!-- Adjust the width to indicate progress -->
-							<span  pTooltip="{{ talentConnectPercentage }}% " tooltipPosition="top" class="text-gray-700" style="font-size: 9px">Job Profile</span>
+							<span pTooltip="{{ talentConnectPercentage }}% " tooltipPosition="top" class="text-gray-700" style="font-size: 9px">Job Profile</span>
 						</div>
 					</div>
 					<div class="col-3">
 						<div class="progress-bar-container">
 							<div class="progress-bar3" [style.width.%]="cvBuilderPercentage"></div>
 							<!-- Adjust the width to indicate progress -->
-							<span  pTooltip="{{cvBuilderPercentage}}% " tooltipPosition="top" class="text-gray-700" style="font-size: 9px">CV Details</span>
+							<span pTooltip="{{ cvBuilderPercentage }}% " tooltipPosition="top" class="text-gray-700" style="font-size: 9px">CV Details</span>
 						</div>
 					</div>
 					<!-- <div class="col-12">
@@ -146,25 +146,29 @@
 								<div (click)="selectFav(v)" role="button" class="card-body country-border">
 									<div class="d-flex justify-content-evenly">
 										<div>
-											<img alt="country" class="countryicon mb-2" src="{{v.company_logo}}" />
+											<img alt="country" class="countryicon mb-2" src="{{ v.company_logo }}" />
 										</div>
 										<div class="ms-2">
 											<h6 class="mb-0 text-sm text-capitalize">
 												<b>{{ v.position }}</b>
 											</h6>
 											<p class="text-muted text-small">{{ v.company_name }}</p>
-											<p class="text-muted text-small">Status: {{v.status}}</p>
+											<p class="text-muted text-small">Status: {{ v.status }}</p>
 											<p class="mb-0 text-small text-capitalize mt-2">
 												<i class="fa-solid fa-location-dot" style="color: #79ae28"></i>&nbsp;
 												<span style="font-weight: 500px; color: black">{{ v.worklocation }}</span>
 											</p>
-											<button class="btn btn-rounded text-small m-0 mb-2"   [ngStyle]="{
-												'border': '1px solid ' + v.color_code, 
-												'background-color': v.color_code, 
-												'color': 'white', 
-												'font-size': '10px', 
-												'border-radius': '5px'
-											  }">{{v.hiringstage}}</button>
+											<button
+												class="btn btn-rounded text-small m-0 mb-2"
+												[ngStyle]="{
+													border: '1px solid ' + v.color_code,
+													'background-color': v.color_code,
+													color: 'white',
+													'font-size': '10px',
+													'border-radius': '5px'
+												}">
+												{{ v.hiringstage }}
+											</button>
 										</div>
 									</div>
 								</div>
@@ -226,7 +230,7 @@
 					<div *ngFor="let day of daysInMonth" class="day-box" [ngClass]="getStatusClass(day)">
 						<!-- Display Usage Data (if available) -->
 						<div *ngFor="let entry of getUsageDataForDay(day)" class="usage-info" pTooltip="{{ entry.timeUsage }} " tooltipPosition="top">
-							<span style="color: white">.</span>
+							<span class="dot"></span>
 						</div>
 					</div>
 				</div>
@@ -838,29 +842,33 @@
 				<!-- <div class="col-lg-2 col-md-3 col-sm-4 col-6 p-2 d-flex justify-content-center align-items-center" *ngFor="let uni of recentJobApplication">
 					<img alt="{{ uni.logo }}" class="trustedbylogo" src="{{ uni.logo }}" />
 				</div> -->
-				<div class="col-lg-4 col-md-6 col-sm-12" *ngFor="let v of recentJobApplication" >
+				<div class="col-lg-4 col-md-6 col-sm-12" *ngFor="let v of recentJobApplication">
 					<div class="card">
 						<div class="card-body country-border">
 							<div class="d-flex justify-content-evenly">
 								<div>
-									<img alt="country" width="60" height="60" class="mb-2" src="{{v.company_logo}}" />
+									<img alt="country" width="60" height="60" class="mb-2" src="{{ v.company_logo }}" />
 								</div>
 								<div class="ms-2">
 									<h6 class="mb-0 text-sm text-capitalize">
 										<b>{{ v.position }}</b>
 									</h6>
 									<p class="text-muted text-medium">{{ v.company_name }}</p>
-									<p class="text-muted text-medium">Status: {{v.status}}</p>
+									<p class="text-muted text-medium">Status: {{ v.status }}</p>
 									<p class="mb-0 text-medium text-capitalize mt-2">
 										<i class="fa-solid fa-location-dot" style="color: #79ae28"></i>&nbsp;
 										<span style="font-weight: 500px; color: black">{{ v.worklocation }}</span>
 									</p>
-									<button class="btn btn-rounded text-medium m-0 mb-2"   [ngStyle]="{
-										'border': '1px solid ' + v.color_code, 
-										'background-color': v.color_code, 
-										'color': 'white', 
-										'border-radius': '5px'
-									  }">{{v.hiringstage}}</button>
+									<button
+										class="btn btn-rounded text-medium m-0 mb-2"
+										[ngStyle]="{
+											border: '1px solid ' + v.color_code,
+											'background-color': v.color_code,
+											color: 'white',
+											'border-radius': '5px'
+										}">
+										{{ v.hiringstage }}
+									</button>
 								</div>
 							</div>
 						</div>

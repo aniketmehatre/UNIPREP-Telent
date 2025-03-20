@@ -656,12 +656,16 @@ Due to the split circle of progress-left and progress right, we must use the ani
 .calendar-grid {
   display: grid;
   grid-template-columns: repeat(7, 1fr);
-  gap: 5px;
+  gap: 10px;
+  justify-content: center;
+  align-items: center;
+  justify-items: center;
+  align-content: center;
 }
 
 .day-box {
-  width: 22px;
-  height: 22px;
+  width: 25px;
+  height: 25px;
   line-height: 30px;
   text-align: center;
   border-radius: 50%;
@@ -669,10 +673,10 @@ Due to the split circle of progress-left and progress right, we must use the ani
   font-weight: bold;
 }
 
-.high {  color: white; border: 6px solid #FF881E;}
-.medium { color: white; border: 6px solid #455C9E; }
-.low {  color: black; border: 6px solid #C8CFE5; }
-.nostatus{background-color:#C8CFE5;}
+.high {  color: white; border: 5px solid #FF881E;}
+.medium { color: white; border: 5px solid #455C9E; }
+.low {  color: black; border: 5px solid #C8CFE5; }
+.nostatus{background-color:#ECEDF3;}
 
 .legend {
   display: flex;
@@ -686,8 +690,12 @@ Due to the split circle of progress-left and progress right, we must use the ani
 .weekdays {
   display: grid;
   grid-template-columns: repeat(7, 1fr);
+  gap: 10px;
+  justify-content: center;
+  align-items: center;
+  justify-items: center;
+  align-content: center;
   font-weight: bold;
-  margin-bottom: 5px;
 }
 
 .weekday {
@@ -697,7 +705,20 @@ Due to the split circle of progress-left and progress right, we must use the ani
 
 /* Empty cells for first week alignment */
 .empty {
-  width: 30px;
-  height: 30px;
+  width: 25px;
+  height: 25px;
 }
 
+.usage-info
+{
+  position: relative;
+  width: 100%;
+  height: 100%;
+  .dot
+  {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%) translateX(-50%);
+    left: 50%;
+  }
+}
