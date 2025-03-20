@@ -1080,7 +1080,7 @@ export class EmployeeProfileComponent implements OnInit {
           work_experience_company_name: [exp.company_name],
           work_experience_job_title: [exp.job_title],
           work_experience_employment_type: [exp.employment_type],
-          work_experience_duration: [exp.duration],
+          work_experience_duration: [exp.duration ? (exp.duration).split(',').map((item: any) => new Date(item)) : null],
           work_experience_salary_per_month: [exp.salary_per_month],
           work_experience_currency_id: [exp.currency_id],
           work_experience_job_responsibilities: [exp.job_responsibilities],
