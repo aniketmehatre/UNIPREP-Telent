@@ -1,12 +1,9 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { MessageService } from 'primeng/api';
-import { AuthService } from 'src/app/Auth/auth.service';
-import { LocationService } from 'src/app/location.service';
-import { PageFacadeService } from '../../page-facade.service';
 import { EducationToolsService } from '../education-tools.service';
-import { eduLoanOptions, eduloanRecommendations, loanTensureMonths, moratoriumPeriods, repaymentYears } from './edu-loan-compare.data';
+import { eduloanRecommendations, loanTensureMonths, moratoriumPeriods, repaymentYears } from './edu-loan-compare.data';
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
 import { DialogModule } from 'primeng/dialog';
@@ -54,7 +51,6 @@ export class EduLoanCompareComponent implements OnInit {
   constructor(
     private fb: FormBuilder,
     private educationToolService: EducationToolsService,
-    private toast: MessageService,
     private router: Router,
     private travelToolsService: TravelToolsService,
     private sanitizer: DomSanitizer
@@ -116,7 +112,8 @@ export class EduLoanCompareComponent implements OnInit {
         this.isRecommendationSavedData = false;
         let chatGptResponse = response.response
           .replace(/```html|```/g, '')
-          .replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>');
+          .replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>')
+          .replace(/<style>(.*?)<\/style>/gs, '<link rel="stylesheet" href="https://api.uniprep.ai/uniprepapi/storage/app/public/prompt_css/promptstyle.css">');
         this.recommendationData = this.sanitizer.bypassSecurityTrustHtml(chatGptResponse) as string;
         this.isFromSavedData = false;
         this.saveRecommadation('getAllHistory')
@@ -156,7 +153,8 @@ export class EduLoanCompareComponent implements OnInit {
     this.isRecommendationSavedData = false;
     let chatGptResponse = data
       .replace(/```html|```/g, '')
-      .replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>');
+      .replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>')
+      .replace(/<style>(.*?)<\/style>/gs, '<link rel="stylesheet" href="https://api.uniprep.ai/uniprepapi/storage/app/public/prompt_css/promptstyle.css">');
     this.recommendationData = this.sanitizer.bypassSecurityTrustHtml(chatGptResponse) as string;
   }
 
@@ -172,8 +170,12 @@ export class EduLoanCompareComponent implements OnInit {
     const formData = this.form.value;
     let addingInput = `
 			<div style="font-family: 'Poppins', sans-serif; display: flex; align-items: center; justify-content: space-between; border-bottom: 2px solid #d32f2f; padding-bottom: 10px; margin-bottom: 20px;">
-				<div style="text-align: center;">
-					<h2 style="margin: 0; color: #1a237e;">EDULOAN Repayment Advisor</h2>
+				<div style="display: flex; align-items: center; gap: 10px;">
+         <div style="height: 50px; width: 50px;">
+            <img style="width: 100%; height: 100%;object-fit: contain;"
+              src="https://api.uniprep.ai/uniprepapi/storage/app/public/ToolIcons/education-tools/LoanComparisonTool.svg" alt="Logo">
+         </div>
+				 <h2 style="margin: 0; color: #1a237e;">EDULOAN Repayment Advisor</h2>
 				</div>
 			</div>
 			<p><strong>Input:<br></strong></p>`;
@@ -193,6 +195,7 @@ export class EduLoanCompareComponent implements OnInit {
       .replace(/```html|```/g, '')
       .replace(/\(see https:\/\/g\.co\/ng\/security#xss\)/g, '')
       .replace(/SafeValue must use \[property\]=binding:/g, '')
+      .replace(/class="container p-4"/g, 'class="container"')
       .replace(/<style>(.*?)<\/style>/gs, '<link rel="stylesheet" href="https://api.uniprep.ai/uniprepapi/storage/app/public/prompt_css/promptstyle.css">');
     let paramData: DownloadRespose = {
       response: finalRecommendation,
