@@ -17,9 +17,7 @@ import { DataService } from "src/app/data.service";
   selector: "uni-fortune-companies-data-list",
   templateUrl: "./data-list.component.html",
   styleUrls: ["./data-list.component.scss"],
-  standalone: true,
-  imports: [CommonModule, RouterModule, DialogModule, CardModule, PaginatorModule],
-  providers: [MessageService]
+  standalone: false,
 })
 export class FortuneCompaniesdataListsComponent implements OnInit {
   isSkeletonVisible: boolean = true;

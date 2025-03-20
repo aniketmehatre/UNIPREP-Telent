@@ -7,20 +7,9 @@
 			<form [formGroup]="form" (ngSubmit)="compare()" class="row justify-content-center">
 				<div class="col-md-5 mb-3 mb-md-0">
 					<p-select [options]="sourceCities" optionValue="city_id" formControlName="sourceCity"
-						placeholder="Source Location or Country" [filter]="true" [virtualScroll]="true"
-						[virtualScrollItemSize]="50" [showClear]="true" [appendTo]="'body'"
+						placeholder="Source Location or Country" [filter]="true" filterBy="city_name,country_name"
+						[virtualScroll]="true" [virtualScrollItemSize]="50" [showClear]="true" [appendTo]="'body'"
 						styleClass="w-100 border-secondary">
-						<ng-template pTemplate="filter" let-options="options">
-							<div class="d-flex gap-2">
-								<p-inputgroup (click)="$event.stopPropagation()">
-									<p-inputgroup-addon><i class="fa-solid fa-search"></i></p-inputgroup-addon>
-									<input type="text" pInputText placeholder="Filter" formControlName="sourceFilter"
-										(keyup)="customFilterFunction('source')" />
-								</p-inputgroup>
-								<button pButton  pButton icon="pi pi-times" class="btn btn-primary"
-									(click)="resetFunction('source')" severity="secondary"></button>
-							</div>
-						</ng-template>
 						<ng-template pTemplate="selectedItem" let-selectedOption>
 							<div class="d-flex align-items-center gap-2">
 								<div class="dropdownimg"><img [src]="selectedOption.flag" class="img-fluid" /></div>
@@ -43,20 +32,9 @@
 				</div>
 				<div class="col-md-5 mb-3 mb-md-0">
 					<p-select [options]="targetCities" optionValue="city_id" formControlName="targetCity"
-						placeholder="Target Location or Country" [filter]="true" [virtualScroll]="true"
-						[virtualScrollItemSize]="50" [showClear]="true" [appendTo]="'body'"
+						placeholder="Target Location or Country" [filter]="true" filterBy="city_name,country_name"
+						[virtualScroll]="true" [virtualScrollItemSize]="50" [showClear]="true" [appendTo]="'body'"
 						styleClass="w-100 border-primary">
-						<ng-template pTemplate="filter" let-options="options">
-							<div class="d-flex gap-2">
-								<p-inputgroup (click)="$event.stopPropagation()">
-									<p-inputgroup-addon><i class="fa-solid fa-search"></i></p-inputgroup-addon>
-									<input type="text" pInputText placeholder="Filter" formControlName="targetFilter"
-										(keyup)="customFilterFunction('target')" />
-								</p-inputgroup>
-								<button pButton  pButton icon="pi pi-times" class="btn btn-primary"
-									(click)="resetFunction('target')" severity="secondary"></button>
-							</div>
-						</ng-template>
 						<ng-template pTemplate="selectedItem" let-selectedOption>
 							<div class="d-flex align-items-center gap-2">
 								<div class="dropdownimg"><img [src]="selectedOption.flag" class="img-fluid" /></div>
@@ -78,7 +56,7 @@
 					</p-select>
 				</div>
 				<div class="col d-flex justify-content-center">
-					<button pButton  class="btn btn-primary btn-rounded d-flex gap-2 align-items-center" type="submit"
+					<button pButton class="btn btn-primary btn-rounded d-flex gap-2 align-items-center" type="submit"
 						[disabled]="form.value.sourceCity === null || form.value.targetCity === null"><span>Compare</span>
 						<span class="btn-icon"><i class="pi pi-sync"></i></span></button>
 				</div>
@@ -91,8 +69,8 @@
 		Did you know ?
 	</div>
 	<br>
-	<p-carousel [value]="costofLivingStatements" [numVisible]="3" [autoplayInterval]="5000" [circular]="true" [showNavigators]="false"
-		[showIndicators]="false" [responsiveOptions]="responsiveOptions">
+	<p-carousel [value]="costofLivingStatements" [numVisible]="3" [autoplayInterval]="5000" [circular]="true"
+		[showNavigators]="false" [showIndicators]="false" [responsiveOptions]="responsiveOptions">
 		<ng-template let-cost pTemplate="item">
 			<div class="card h-100 costofliving-card m-2">
 				<div class="card-body">
@@ -113,7 +91,7 @@
 		<img src="../../../uniprep-assets/images/smartloack.png" class="image" width="60" />
 		<h3 class="offer">Upgrade Required</h3>
 		<p>To access this exclusive module,please upgrade your plan now</p>
-		<button pButton  pButton type="button"
+		<button pButton pButton type="button"
 			class="text-white p-ripple p-button-rounded p-button-warning p-button p-component p-2"
 			(click)="upgradePlan()">Upgrade Plan<i class="fa fa-arrow-right exhausted-plan-icon"></i></button>
 	</div>

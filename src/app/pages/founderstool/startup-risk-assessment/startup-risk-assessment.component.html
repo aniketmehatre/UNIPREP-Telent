@@ -69,7 +69,7 @@
                                 <ng-container *ngIf="recommendation.id == 6">
                                     <p-select [(ngModel)]="selectedData[recommendation.id]" [options]="competitiveMarketList"
                                     styleClass="w-100" optionLabel="marketCompetition" optionValue="marketCompetition" [appendTo]="'body'"
-                                    placeholder="Select Competitive Market">
+                                    placeholder="Select Competation Level">
                                 </p-select>
                                     <div class="text-center" [ngClass]="{ 'd-none': inValidClass === false }" style="color: red">Competitive market is required
                                    </div>
@@ -85,7 +85,7 @@
                                 <ng-container *ngIf="recommendation.id == 8">
                                   <div class="w-100 d-flex gap-2 flex-fill">
                                     <p-select  [(ngModel)]="selectedData[10]" [options]="currencyList" [filter]="true"
-                                      filterBy="currency_code" placeholder=" Currency" appendTo="body" optionLabel="currency_code" optionValue="currency_code"
+                                      filterBy="currency_symbol" placeholder=" Currency" appendTo="body" optionLabel="currency_symbol" optionValue="currency_symbol"
                                       [autoDisplayFirst]="false">
                                     </p-select>
                                     <input  [(ngModel)]="selectedData[recommendation.id]" class="w-100 pl-4 border border-gray rounded-3" type="number" [min]="100000" pInputText [placeholder]="selectedData[8] ? 'Amount in'+' '+selectedData[8] : 'Budget' "

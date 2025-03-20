@@ -36,7 +36,7 @@ const routes: Routes = [
 
 
 @NgModule({
-  declarations: [CompanyConnect1Component],
+  declarations: [],
   imports: [
     CommonModule,
     RouterModule.forChild(routes),

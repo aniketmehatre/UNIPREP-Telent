@@ -12,7 +12,7 @@
                             Education Tools -> Course Navigator</h5>
                     </div>
                     <div>
-                        <button pButton  class="how-it-works-button" severity="warn" >How it works?
+                        <button pButton class="how-it-works-button" severity="warn">How it works?
                             <i class="fa-solid fa-play d-md-block d-none"></i></button>
                     </div>
                 </div>
@@ -29,7 +29,8 @@
                         <div>&nbsp;</div>
                         <div class="row justify-content-center text-start">
                             <div class="col-md-12 mb-4">
-                                <h5 class="text-center uniprep-primary fw-semibold mb-0">Question Number {{ recommendation.id }}
+                                <h5 class="text-center uniprep-primary fw-semibold mb-0">
+                                    Question Number {{ recommendation.id }}
                                 </h5>
                                 <h2 class="fw-bold mb-0 text-center">{{ recommendation.question }}</h2>
                             </div>
@@ -37,22 +38,9 @@
                                 <div class="recommendationinput d-flex flex-column justify-content-center gap-3">
                                     <ng-container *ngIf="recommendation.id == 1">
                                         <p-select [options]="specializationList" styleClass="w-100" [filter]="true"
-                                            [(ngModel)]="selectedData[recommendation.id]"
+                                            filterBy="specialization_name" [(ngModel)]="selectedData[recommendation.id]"
                                             optionLabel="specialization_name" optionValue="id" [appendTo]="'body'"
                                             placeholder="Specialization">
-                                            <ng-template pTemplate="filter" let-options="options">
-                                                <div class="d-flex gap-2">
-                                                    <p-inputgroup (click)="$event.stopPropagation()">
-                                                        <p-inputgroup-addon>
-                                                            <i class="fa-solid fa-search"></i></p-inputgroup-addon>
-                                                        <input type="text" pInputText placeholder="Filter"
-                                                            [(ngModel)]="specializationFilter"
-                                                            (keyup)="customFilterFunction()" />
-                                                    </p-inputgroup>
-                                                    <button pButton  pButton icon="pi pi-times" class="btn btn-primary"
-                                                        (click)="resetFunction()" severity="secondary"></button>
-                                                </div>
-                                            </ng-template>
                                         </p-select>
                                         <p class="text-center" [ngClass]="{ 'd-none': invalidClass === false }"
                                             style="color: red">Please Choose Any one option</p>
@@ -69,17 +57,17 @@
                             </div>
                         </div>
                         <div class="d-flex justify-content-between mt-2">
-                            <button pButton  pButton type="button" class="btn btn-primary btn-rounded p-1 pe-4"
+                            <button pButton pButton type="button" class="btn btn-primary btn-rounded p-1 pe-4"
                                 [style.visibility]="recommendation.id == 1 ? 'hidden' : 'visible'" (click)="previous()">
                                 <span class="btn-icon px-2 py-2"><i class="fa fa-arrow-left"></i></span> <span
                                     class="ms-2">Previous</span>
                             </button>
-                            <button pButton  pButton type="button" (click)="next(recommendation.id)"
+                            <button pButton pButton type="button" (click)="next(recommendation.id)"
                                 *ngIf="recommendation.id != 2" class="btn btn-primary btn-rounded p-1 ps-4">
                                 <span class="me-2">Next</span><span class="btn-icon px-2 py-2"><i
                                         class="fa fa-arrow-right"></i></span>
                             </button>
-                            <button pButton  pButton type="button" (click)="next(recommendation.id)"
+                            <button pButton pButton type="button" (click)="next(recommendation.id)"
                                 *ngIf="recommendation.id == 2" class="btn btn-success btn-rounded p-1 ps-4">
                                 <span class="me-2">Get Recommendations</span><span class="btn-icon px-2 py-2"><i
                                         class="fa fa-check-circle"></i></span>
@@ -106,7 +94,7 @@
                             Education Tools -> Course Navigator</h5>
                     </div>
                     <div>
-                        <button pButton  class="how-it-works-button" severity="warn" >How it works?
+                        <button pButton class="how-it-works-button" severity="warn">How it works?
                             <i class="fa-solid fa-play d-md-block d-none"></i></button>
                     </div>
                 </div>
@@ -120,7 +108,7 @@
                 <div *ngFor="let item of recommendationDataList"
                     class="col-lg-2 col-md-3 col-sm-4 col-xs-12 col-12 mb-3">
                     <div class="row w-100 m-0 justify-content-center h-100">
-                        <div class="card subjectcard" role="button" (click)="getCourseSubmodules(item.id)">  
+                        <div class="card subjectcard" role="button" (click)="getCourseSubmodules(item.id)">
                             <div
                                 class="card-body d-flex flex-md-column flex-row justify-content-md-between align-items-center">
                                 <div>
@@ -139,7 +127,7 @@
     </div>
     <div class="card-footer bg-transparent border-0">
         <div class="text-end">
-            <button pButton  pButton type="button" class="btn ps-3 btn-quit btn-rounded" (click)="resetRecommendation()">
+            <button pButton pButton type="button" class="btn ps-3 btn-quit btn-rounded" (click)="resetRecommendation()">
                 Reset Recommendations<span class="btn-icon"><i class="fa-solid fa-arrow-rotate-right"></i>
                 </span>
             </button>
@@ -152,7 +140,8 @@
     <div class="card-header border-0 bg-transparent">
         <div class="row justify-content-center align-items-center">
             <div class="col-md-12 d-flex gap-4">
-                <div class="backIcon d-md-flex d-none" role="button" (click)="goBack('submodule')" style="height: auto;">
+                <div class="backIcon d-md-flex d-none" role="button" (click)="goBack('submodule')"
+                    style="height: auto;">
                     <span class="fa-solid fa-chevron-left"></span>
                 </div>
                 <div class="select-title d-flex justify-content-between align-items-center">
@@ -172,8 +161,7 @@
         <div class="h-100 d-flex flex-column justify-content-between">
             <div></div>
             <div class="row" [ngClass]="{'justify-content-center': courseSubmodules.length <=6 }">
-                <div *ngFor="let item of courseSubmodules"
-                    class="col-lg-2 col-md-3 col-sm-4 col-xs-12 col-12 mb-3">
+                <div *ngFor="let item of courseSubmodules" class="col-lg-2 col-md-3 col-sm-4 col-xs-12 col-12 mb-3">
                     <div class="row w-100 m-0 justify-content-center h-100">
                         <div class="card subjectcard" role="button" (click)="getCourseQandAList(item.id)">
                             <div
@@ -207,7 +195,8 @@
     <div class="card-header border-0 bg-transparent">
         <div class="row justify-content-center align-items-center">
             <div class="col-md-12 d-flex gap-4">
-                <div class="backIcon d-md-flex d-none" role="button" (click)="goBack('questions')" style="height: auto;">
+                <div class="backIcon d-md-flex d-none" role="button" (click)="goBack('questions')"
+                    style="height: auto;">
                     <span class="fa-solid fa-chevron-left"></span>
                 </div>
                 <div class="select-title d-flex justify-content-between align-items-center">
@@ -216,7 +205,7 @@
                             Education Tools -> Course Navigator</h5>
                     </div>
                     <div>
-                        <button pButton  class="how-it-works-button" severity="warn" >How it works?
+                        <button pButton class="how-it-works-button" severity="warn">How it works?
                             <i class="fa-solid fa-play d-md-block d-none"></i></button>
                     </div>
                 </div>
@@ -239,6 +228,9 @@
                                 <div class="col">
                                     <p class="text-start fw-bold questiontext mb-0" title="{{ sub.question }}">
                                         {{ sub.question }}</p>
+                                    <p class="text-start questiontext mt-2 mb-0 content-preview">
+                                        {{getContentPreview(sub.answer)}}
+                                    </p>
                                 </div>
                             </div>
 
@@ -258,54 +250,50 @@
 </div>
 
 <p-dialog #dialogContent [(visible)]="isQuestionAnswerVisible" [draggable]="false" [modal]="true"
-    class="questionmodal contributor-modal blog-content" header="Header" [maximizable]="true" (onShow)="onShowModal($event)">
+    class="questionmodal contributor-modal" header="Header" [closable]="false"
+    (onShow)="onShowModal($event)">
     <ng-template pTemplate="header">
-        <div class="d-flex w-100 flex-column px-4">
-            <div class="d-flex flex-row justify-content-md-between justify-content-center">
-                <div class="d-md-block d-none">
-                </div>
-                <div class="col-md-8 col-auto-2 col-6">
-                    <h5 class="select-title w-100 text-center mb-0">Course Navigator</h5>
-                </div>
-                <div class="d-md-block d-none">
+        <div class="card-header border-0 bg-transparent px-4 pt-4 pb-0 w-100">
+            <div class="row justify-content-center">
+                <div class="col-md-12 d-flex gap-2 text-center">
+                    <div class="career-homeIcon px-3" role="button" (click)="isQuestionAnswerVisible=false">
+                        <span class="fa-solid fa-home me-2"></span>Home
+                    </div>
+                    <div class="select-title d-flex flex-fill justify-content-between align-items-center w-100">
+                        <div>
+                            <h5 class="mb-0"> Course Navigator</h5>
+                        </div>
+                    </div>
+                    <div class="career-reportIcon px-3" role="button" (click)="openReport()">
+                        <span class="fa-solid fa-file me-2"></span>Report
+                    </div>
+                    <div class="career-closeIcon" role="button" (click)="isQuestionAnswerVisible=false">
+                        <span class="fa-solid fa-close"></span>
+                    </div>
                 </div>
             </div>
-            <div class="d-flex justify-content-between align-items-center my-3">
-                <div></div>
-                <div>
-                    <h3 class="uniprep-primary unselectable d-md-block d-none">{{ selectedQuestionData?.question }}</h3>
-                    <h5 class="uniprep-primary unselectable d-md-none d-block">{{ selectedQuestionData?.question }}</h5>
-                </div>
-                <!-- <div>
-                    <button pButton type="button" (click)="addCNUserQuestions(selectedQuestionData)"
-                        class="btn btn-primary btn-rounded p-1 ps-4">
-                        <span class="me-2">Save Response</span><span class="btn-icon px-2 py-2">
-                            <i class="fa-regular fa-floppy-disk"></i></span>
-                    </button>
-                </div> -->
+            <div class="d-flex align-items-center position-relative mt-1" style="justify-content: end !important;">
+                <button pButton class="btn btn-primary socialShareBtn" (click)="showSocialSharingList()"><i
+                        class="fa-solid fa-share"></i></button>
+                <p-card id="socialSharingList">
+                    <ul style="list-style: none; cursor: pointer">
+                        <li (click)="shareViaWhatsapp()"><i class="pi pi-whatsapp"></i>Whatsapp</li>
+                        <li (click)="shareViaMail()"><i class="pi pi-envelope"></i>Email</li>
+                        <li (click)="shareViaFacebook()"><i class="pi pi-facebook"></i>Facebook</li>
+                        <li (click)="shareViaTwitter()"><i class="pi pi-twitter"></i>Twitter</li>
+                        <li (click)="shareViaInstagram()"><i class="pi pi-instagram"></i>Instagram</li>
+                        <li (click)="shareViaLinkedIn()"><i class="pi pi-linkedin"></i>LinkedIn</li>
+                        <li (click)="copyLink()"><i class="pi pi-link"></i>Copy Link</li>
+                    </ul>
+                </p-card>
             </div>
         </div>
     </ng-template>
-    <div class="carousel-container px-4 pb-3">
-        <div class="card flex-fill answercard">
+    <div class="px-4 blog-content">
+        <div class="card flex-fill answercard" style="border: none;">
             <div class="card-body text-start">
-                <div class="d-flex align-items-center justify-content-between position-relative">
-                    <span></span>
-                    <button pButton  class="btn btn-primary socialShareBtn" (click)="showSocialSharingList()"><i
-                            class="fa-light fa-xl fa-share-nodes"></i></button>
-                    <p-card id="socialSharingList">
-                        <ul style="list-style: none; cursor: pointer">
-                            <li (click)="shareViaWhatsapp()"><i class="pi pi-whatsapp"></i>Whatsapp</li>
-                            <li (click)="shareViaMail()"><i class="pi pi-envelope"></i>Email</li>
-                            <li (click)="shareViaFacebook()"><i class="pi pi-facebook"></i>Facebook</li>
-                            <li (click)="shareViaTwitter()"><i class="pi pi-twitter"></i>Twitter</li>
-                            <li (click)="shareViaInstagram()"><i class="pi pi-instagram"></i>Instagram</li>
-                            <li (click)="shareViaLinkedIn()"><i class="pi pi-linkedin"></i>LinkedIn</li>
-                            <li (click)="copyLink()"><i class="pi pi-link"></i>Copy Link</li>
-                        </ul>
-                    </p-card>
-                </div>
-                <div class="fw-medium" style="white-space: inherit; max-height: 80%; min-height: 80%"
+                <h1><b>{{ selectedQuestionData?.question }}</b></h1>
+                <div class="fw-medium" style="white-space: inherit; max-height: 80%; min-height: 80%;"
                     [innerHTML]="selectedQuestionData?.answer"></div>
             </div>
         </div>

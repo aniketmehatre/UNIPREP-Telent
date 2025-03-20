@@ -77,37 +77,43 @@
 }
 .center-button {
 	position: absolute;
-  color: white;
-  border: none;
-  white-space: nowrap;
-  border-radius: 10px;
-  margin: 0px 8px;
-  left: 0;
-  right: 0;
-  padding: 10px;
+	color: white;
+	border: none;
+	white-space: nowrap;
+	border-radius: 10px;
+	margin: 0px 8px;
+	left: 0;
+	right: 0;
+	padding: 10px;
 	display: none;
-  bottom: 0.5rem;
+	bottom: 0.5rem;
 }
 
 .HistoryDownloadIcon {
-	padding: 5px;
 	background-color: var(--uniprep-primary);
-	color: white;
-	border-radius: 25px;
+    color: white;
+    border-radius: 100px;
+    height: 40px;
+    width: 40px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 	// position: absolute;
 	// transform: translateY(9%) translateX(250%);
 	// top: 57%;
-	transform: translateY(-250%) translateX(250%);
 }
 
 .HistoryDeleteIcon {
-	padding: 5px;
 	background-color: #d80027;
-	color: white;
-	border-radius: 25px;
+    color: white;
+    border-radius: 100px;
+    height: 40px;
+    width: 40px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 	// position: absolute;
 	// bottom: 70%;
-	transform: translateY(-1235%) translateX(382%);
 }
 
 .tickIcon {
@@ -131,22 +137,22 @@
 	width: 30%;
 	margin: 25px;
 }
-@media (max-width: 768px) { 
+@media (max-width: 768px) {
 	.createResumeButton {
-	  width: 60%; 
-	  padding: 12px 40px; 
-	  font-size: 14px; 
+		width: 60%;
+		padding: 12px 40px;
+		font-size: 14px;
 	}
-  }
-  
-  @media (max-width: 480px) { 
+}
+
+@media (max-width: 480px) {
 	.createResumeButton {
-	  width: 90%; 
-	  padding: 10px 20px;
-	  font-size: 13px; 
-	  margin: 15px auto;
+		width: 90%;
+		padding: 10px 20px;
+		font-size: 13px;
+		margin: 15px auto;
 	}
-  }
+}
 .p-button-info-prev {
 	background-color: #0e3361;
 	color: white;
@@ -281,13 +287,12 @@
 	li {
 		list-style: none;
 	}
-  ul
-  {
-    padding-left: 2em !important;
-  }
-  .small-text {
-    font-size: 0.9em;
-  }
+	ul {
+		padding-left: 2em !important;
+	}
+	.small-text {
+		font-size: 0.9em;
+	}
 }
 .previewBodyFormFull {
 	overflow: hidden;
@@ -328,13 +333,12 @@
 	li {
 		list-style: none;
 	}
-  ul
-  {
-    padding-left: 2em !important;
-  }
-  .small-text {
-    font-size: 0.9em;
-  }
+	ul {
+		padding-left: 2em !important;
+	}
+	.small-text {
+		font-size: 0.9em;
+	}
 }
 
 .cvPreview {
@@ -530,8 +534,8 @@
 	color: black;
 	text-decoration: none;
 	display: block;
-  padding: 5px;
-  position: relative;
+	padding: 5px;
+	position: relative;
 	&:hover {
 		background-color: var(--uniprep-primaryhighlight);
 		border-radius: 25px;
@@ -557,10 +561,10 @@
 }
 
 .ColorCheckBox {
-  position: absolute;
-  left: 50%;
-  top: 50%;
-  transform: translateX(-50%) translateY(-50%);
+	position: absolute;
+	left: 50%;
+	top: 50%;
+	transform: translateX(-50%) translateY(-50%);
 }
 
 .colorWhite {
@@ -609,7 +613,6 @@
 }
 
 .cvSampleImg {
-	cursor: pointer;
 	margin: auto;
 	text-align: center;
 	display: flex;
@@ -897,30 +900,43 @@ body {
 }
 
 .pdf-preview {
-    width: 100%;
-    height: 500px;
-    background: #f8f9fa;
-    border: 1px solid #dee2e6;
-    border-radius: 4px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    overflow: hidden;
-    cursor: pointer;
-    transition: all 0.2s ease;
+	width: 100%;
+	height: 100%;
+	background: #f8f9fa;
+	border: 1px solid #dee2e6;
+	border-radius: 4px;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	overflow: hidden;
+	position: relative;
+	transition: all 0.2s ease;
 
-    &:hover {
-        border-color: #adb5bd;
-    }
+	&:hover {
+		border-color: #adb5bd;
+	}
 
-    .pdf-thumbnail {
-        max-width: 100%;
-        max-height: 100%;
-        object-fit: contain;
-    }
+	.pdf-thumbnail {
+		max-width: 100%;
+		width: 100%;
+		max-height: 300px;
+		object-fit: contain;
+		background: none;
+		border: none;
+	}
 
-    .loading-placeholder {
-        color: #6c757d;
-        font-size: 14px;
-    }
+	.loading-placeholder {
+		color: #6c757d;
+		font-size: 14px;
+	}
+	.resume-option
+	{
+		width: 100%;
+		height: 100%;
+		display: flex;
+		flex-direction: column;
+		justify-content: space-between;
+		align-items: end;
+		padding: 10px;
+	}
 }

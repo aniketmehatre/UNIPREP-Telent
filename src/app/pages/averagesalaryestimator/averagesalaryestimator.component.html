@@ -70,7 +70,7 @@
                                                 <div
                                                         class="col-md-11 col-lg-11 mb-2 mb-md-0 position-relative"
                                                 >
-                          <span class="p-input-icon-left w-100">
+                          <!-- <span class="p-input-icon-left w-100">
                             <i class="pi pi-search"></i>
                             <input
                                     type="text"
@@ -80,7 +80,18 @@
                                     pInputText
                                     placeholder=" Search by Job Role"
                             />
-                          </span>
+                          </span> -->
+                          <div class="position-relative w-100">
+                            <input
+                                type="text"
+                                #jobRoleInput
+                                (input)="searchJob($event)"
+                                class="form-control w-100 rounded-5 border-primary inputHeight pr-5"
+                                placeholder="Search by Job Role"
+                            />
+                            <i class="pi pi-search search-icon"></i>
+                         </div>
+                        
                           <ul
                             *ngIf="filterJobRole.length > 0"
                             class="dropdown-list"

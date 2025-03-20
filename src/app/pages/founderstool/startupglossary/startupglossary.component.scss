@@ -1,6 +1,7 @@
 .selected-category {
-  color: rgb(125, 95, 233);
+  color: var(--uniprep-secondary);
   cursor: pointer;
+  font-weight: 700 !important;
 }
 
 .card1 {

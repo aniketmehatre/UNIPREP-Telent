@@ -8,7 +8,7 @@ import { DataService } from "src/app/data.service"
 import { PageFacadeService } from "../page-facade.service"
 import { UserManagementService } from "../user-management/user-management.service"
 import { LocationService } from "src/app/location.service"
-import { PdfJsViewerModule } from "ng2-pdfjs-viewer"
+
 import { CommonModule } from "@angular/common"
 import { DialogModule } from "primeng/dialog"
 import { InputTextModule } from "primeng/inputtext"
@@ -20,28 +20,31 @@ import { CarouselModule } from "primeng/carousel"
 import { InputGroupModule } from "primeng/inputgroup"
 import { InputGroupAddonModule } from "primeng/inputgroupaddon"
 import { PaginatorModule } from "primeng/paginator"
+import {PdfViewerModule} from "ng2-pdf-viewer";
+import {DomSanitizer} from "@angular/platform-browser";
+// import {PdfJsViewerModule} from "ng2-pdfjs-viewer";
 
 @Component({
 	selector: "uni-pitch-desk",
 	templateUrl: "./pitch-desk.component.html",
 	styleUrls: ["./pitch-desk.component.scss"],
 	standalone: true,
-	imports: [
-		PdfJsViewerModule, 
-		CommonModule, 
-		InputGroupModule, 
-		InputGroupAddonModule, 
-		DialogModule, 
-		InputTextModule, 
-		SkeletonModule, 
-		TooltipModule, 
-		ButtonModule, 
-		MultiSelectModule, 
-		CarouselModule,
-		FormsModule,
-		ReactiveFormsModule,
-		PaginatorModule
-	],
+    imports: [
+        CommonModule,
+        InputGroupModule,
+        InputGroupAddonModule,
+        DialogModule,
+        InputTextModule,
+        SkeletonModule,
+        TooltipModule,
+        ButtonModule,
+        MultiSelectModule,
+        CarouselModule,
+        FormsModule,
+        ReactiveFormsModule,
+        PaginatorModule,
+        PdfViewerModule,
+    ],
 })
 export class PitchDeskComponent implements OnInit, OnDestroy, AfterViewInit {
 	@ViewChild('pdfViewer') pdfViewer: any;
@@ -77,7 +80,10 @@ export class PitchDeskComponent implements OnInit, OnDestroy, AfterViewInit {
 	isPdfDownloadOption: any
 	pdfLoadError: boolean = false;
 
-	constructor(private pitchDesk: PitchDeskService, private userManagementService: UserManagementService, private fb: FormBuilder, private router: Router, private authService: AuthService, private toast: MessageService, private dataService: DataService, private pageFacade: PageFacadeService, private locationService: LocationService) {
+	constructor(private pitchDesk: PitchDeskService, private userManagementService: UserManagementService,
+				private fb: FormBuilder, private router: Router, private authService: AuthService,
+				private toast: MessageService, private dataService: DataService,
+				private pageFacade: PageFacadeService, private locationService: LocationService) {
 		this.filterForm = this.fb.group({
 			pitchdeck_name: [""],
 			country: [""],
@@ -254,11 +260,11 @@ export class PitchDeskComponent implements OnInit, OnDestroy, AfterViewInit {
 	}
 
 	showPdf(url: any, pdname: string) {
-		if (this.planExpired) {
-			this.restrict = true;
-			return;
-		}
-		
+		// if (this.planExpired) {
+		// 	this.restrict = true;
+		// 	return;
+		// }
+		//
 		this.pdfLoadError = false;
 		this.isPdfLoaded = true;
 		this.pdname = pdname;
@@ -275,7 +281,6 @@ export class PitchDeskComponent implements OnInit, OnDestroy, AfterViewInit {
 				try {
 					// Create a blob URL from the PDF blob
 					this.pdfURL = URL.createObjectURL(pdfBlob);
-					
 					setTimeout(() => {
 						if (this.pdfViewer) {
 							this.pdfViewer.pdfSrc = this.pdfURL;

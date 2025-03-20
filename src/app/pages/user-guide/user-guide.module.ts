@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { PdfJsViewerModule } from "ng2-pdfjs-viewer"
 import { UserGuideRoutingModule } from './user-guide-routing.module';
+import {PdfViewerModule} from "ng2-pdf-viewer";
 
 
 @NgModule({
@@ -9,7 +9,7 @@ import { UserGuideRoutingModule } from './user-guide-routing.module';
   imports: [
     CommonModule,
     UserGuideRoutingModule,
-    PdfJsViewerModule
+    PdfViewerModule
   ]
 })
 export class UserGuideModule { }

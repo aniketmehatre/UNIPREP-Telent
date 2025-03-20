@@ -12,7 +12,7 @@ import { EnterpriseSubscriptionService } from "./components/enterprise-subscript
 import { HttpErrorInterceptor } from "./interceptors/http-error.interceptor"
 import { NGX_LOCAL_STORAGE_CONFIG } from "ngx-localstorage"
 import { ModalService } from "./components/modal/modal.service"
-import { FacebookLoginProvider, GoogleLoginProvider, SocialAuthServiceConfig } from "angularx-social-login"
+import { SocialAuthServiceConfig, GoogleLoginProvider } from '@abacritt/angularx-social-login';
 import { pagesReducer } from "./pages/store/pages.reducer"
 import { JwtModule } from "@auth0/angular-jwt"
 import { environment } from "@env/environment"
@@ -58,104 +58,124 @@ export function tokenGetter(): string {
   }
 }
 
-export const appConfig: ApplicationConfig = {
+export let appConfig: ApplicationConfig;
+appConfig = {
   providers: [
-    // Store configuration
-    importProvidersFrom(
-      StoreModule.forRoot({
-        auth: authFeature.reducer,
-        pages: pagesReducer
-      }),
-      EffectsModule.forRoot([AuthEffects])
-    ),
-    provideStoreDevtools({
-      maxAge: 25,
-      logOnly: environment.production,
-      autoPause: true,
-      features: {
-        pause: false,
-        lock: true,
-        persist: true,
-      },
-    }),
-    // Other providers
-    importProvidersFrom(
-      BrowserAnimationsModule,
-      NgxIntlTelInputModule
-    ),
-    provideRouter(
-      appRoutes,
-      withInMemoryScrolling({
-        anchorScrolling: "enabled",
-        scrollPositionRestoration: "enabled",
-      }),
-      withEnabledBlockingInitialNavigation(),
-      withViewTransitions()
-    ),
-    importProvidersFrom(
-      JwtModule.forRoot({
-        config: {
-          tokenGetter,
-          allowedDomains: ["api.uniprep.ai"],
-          disallowedRoutes: [
-            '/api/auth/login',
-            '/api/auth/register',
-            '/api/auth/forgot-password'
-          ],
-          headerName: "Authorization",
-          authScheme: "Bearer ",
-          throwNoTokenError: false,
-          skipWhenExpired: true
-        },
-      })
-    ),
-    provideHttpClient(
-      withInterceptorsFromDi(),
-      withInterceptors([HttpErrorInterceptor])
-    ),
-    MessageService,
-    provideAnimationsAsync(),
-    providePrimeNG({
-      theme: {
-        preset: MyPreset,
-        options: {
-          darkModeSelector: ".app-dark",
-        },
-      },
-    }),
-    LandingComponent,
-    DashboardComponent,
-    DeviceDetectorService,
-    DatePipe,
-    AuthService,
-    EnterpriseSubscriptionService,
+    provideHttpClient(),
     {
-      provide: NGX_LOCAL_STORAGE_CONFIG,
-      useValue: NGX_LOCAL_STORAGE_CONFIG,
-    },
-    ModalService,
-    {
-      provide: "SocialAuthServiceConfig",
+      provide: 'SocialAuthServiceConfig',
       useValue: {
         autoLogin: false,
         providers: [
           {
             id: GoogleLoginProvider.PROVIDER_ID,
             provider: new GoogleLoginProvider(
-              "32944187384-4jubeedmfdusvhk6n7ben61ce7u9ber8.apps.googleusercontent.com",
-              {
-                oneTapEnabled: false,
-              }
-            ),
-          },
-          {
-            id: FacebookLoginProvider.PROVIDER_ID,
-            provider: new FacebookLoginProvider("892925195633254"),
-          },
+                '750560403636-pd8q2gts7v35t7opukgohhtkspf9ftgo.apps.googleusercontent.com'
+            )
+          }
         ],
+        onError: (error) => {
+          console.error(error);
+        }
       } as SocialAuthServiceConfig,
     },
-    provideAnimations(), // Required for ngx-bootstrap
-    provideClientHydration(), provideClientHydration(withEventReplay()),
+        // Store configuration
+        importProvidersFrom(
+            StoreModule.forRoot({
+              auth: authFeature.reducer,
+              pages: pagesReducer
+            }),
+            EffectsModule.forRoot([AuthEffects])
+        ),
+        provideStoreDevtools({
+          maxAge: 25,
+          logOnly: environment.production,
+          autoPause: true,
+          features: {
+            pause: false,
+            lock: true,
+            persist: true,
+          },
+        }),
+        // Other providers
+        importProvidersFrom(
+            BrowserAnimationsModule,
+            NgxIntlTelInputModule
+        ),
+        provideRouter(
+            appRoutes,
+            withInMemoryScrolling({
+              anchorScrolling: "enabled",
+              scrollPositionRestoration: "enabled",
+            }),
+            withEnabledBlockingInitialNavigation(),
+            withViewTransitions()
+        ),
+        importProvidersFrom(
+            JwtModule.forRoot({
+              config: {
+                tokenGetter,
+                allowedDomains: ["api.uniprep.ai"],
+                disallowedRoutes: [
+                  '/api/auth/login',
+                  '/api/auth/register',
+                  '/api/auth/forgot-password',
+                  '/api/auth/verification'
+                ],
+                headerName: "Authorization",
+                authScheme: "Bearer ",
+                throwNoTokenError: false,
+                skipWhenExpired: true
+              },
+            })
+        ),
+        provideHttpClient(
+            withInterceptorsFromDi(),
+            withInterceptors([HttpErrorInterceptor])
+        ),
+        MessageService,
+        provideAnimationsAsync(),
+        providePrimeNG({
+          theme: {
+            preset: MyPreset,
+            options: {
+              darkModeSelector: ".app-dark",
+            },
+          },
+        }),
+        LandingComponent,
+        DashboardComponent,
+        DeviceDetectorService,
+        DatePipe,
+        AuthService,
+        EnterpriseSubscriptionService,
+        {
+          provide: NGX_LOCAL_STORAGE_CONFIG,
+          useValue: NGX_LOCAL_STORAGE_CONFIG,
+        },
+        ModalService,
+        // {
+        //   provide: "SocialAuthServiceConfig",
+        //   useValue: {
+        //     autoLogin: false,
+        //     providers: [
+        //       {
+        //         id: GoogleLoginProvider.PROVIDER_ID,
+        //         provider: new GoogleLoginProvider(
+        //           "32944187384-4jubeedmfdusvhk6n7ben61ce7u9ber8.apps.googleusercontent.com",
+        //           {
+        //             oneTapEnabled: false,
+        //           }
+        //         ),
+        //       },
+        //       {
+        //         id: FacebookLoginProvider.PROVIDER_ID,
+        //         provider: new FacebookLoginProvider("892925195633254"),
+        //       },
+        //     ],
+        //   } as SocialAuthServiceConfig,
+        // },
+        provideAnimations(), // Required for ngx-bootstrap
+        provideClientHydration(), provideClientHydration(withEventReplay()),
   ],
 };

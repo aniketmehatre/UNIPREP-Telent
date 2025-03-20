@@ -1,13 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
-import { Country } from 'ngx-intl-tel-input/lib/model/country.model';
 import { MessageService } from 'primeng/api';
 import { AuthService } from 'src/app/Auth/auth.service';
-import { DataService } from 'src/app/data.service';
 import { LocationService } from 'src/app/location.service';
 import { PageFacadeService } from '../../page-facade.service';
-import { UserManagementService } from '../../user-management/user-management.service';
 import { FounderstoolService } from '../founderstool.service';
 import { CommonModule } from '@angular/common';
 import { DialogModule } from 'primeng/dialog';
@@ -22,6 +19,8 @@ import { SelectModule } from 'primeng/select';
 import { InputGroupModule } from 'primeng/inputgroup';
 import { InputTextModule } from 'primeng/inputtext';
 import { InputGroupAddonModule } from 'primeng/inputgroupaddon';
+import { CostOfLivingService } from '../../job-tool/cost-of-living/cost-of-living.service';
+import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
 export interface selectList {
   name: string;
 }
@@ -67,12 +66,12 @@ export class MarketingAnalysisComponent implements OnInit {
     page: this.page,
     perpage: this.pageSize,
   };
-  currencyandCountryList: any;
+  // currencyandCountryList: any;
   currenciesList: any;
   isRecommendationQuestion: boolean = true;
   isRecommendationData: boolean = false;
   isRecommendationSavedData: boolean = false;
-  recommendationData: string = '';
+  recommendationData: SafeHtml;
   constructor(
     private fb: FormBuilder,
     private foundersToolsService: FounderstoolService,
@@ -81,7 +80,10 @@ export class MarketingAnalysisComponent implements OnInit {
     private authService: AuthService,
     private router: Router,
     private travelToolService: TravelToolsService,
-    private pageFacade: PageFacadeService
+    private pageFacade: PageFacadeService,
+    private costOfLivingService: CostOfLivingService,
+    private sanitizer: DomSanitizer
+    
   ) {
     this.marketingForm = this.fb.group({
       industry: ['', Validators.required],
@@ -106,21 +108,21 @@ export class MarketingAnalysisComponent implements OnInit {
       id: 1,
       question: {
         heading: 'Basic Information',
-        branches: ["What industry does your business operate in?", "Where is your business or target market location?", "Who is your target market ?", "What products or services does your business offer?"]
+        branches: ["What industry does your business operate in?", "Where is your business business located?", "Who is your target audience ?", "What products or services does your business offer?"]
       },
     },
     {
       id: 2,
       question: {
         heading: 'Marketing & Sales',
-        branches: ["Can you describe your business model?", "Through which sales channels do you reach your customers?", "Over what duration do you want this analysis to be conducted?"]
+        branches: ["What is your business model?", "Through which sales channels do you reach your customers?", "What is the preferred timeframe for this analysis?"]
       },
     },
     {
       id: 3,
       question: {
         heading: 'Finance',
-        branches: ["What budget have you allocated for conducting this market research?", " What are your primary revenue streams?", "What specific aspects do you want to focus on in the competitor analysis?", "What time frame do you have in mind for the market forecast?"]
+        branches: ["What is your allocated budget for conducting this market research?", " What are your primary revenue streams?", "What specific factors are you focusing on in the competitor analysis?", "Over what period should the market forecast be conducted?"]
       },
     },
   ];
@@ -140,6 +142,7 @@ export class MarketingAnalysisComponent implements OnInit {
     } else {
       this.ehitlabelIsShow = false;
     }
+    this.getCityList();
     this.getCurrenyandLocation();
   }
 
@@ -149,15 +152,23 @@ export class MarketingAnalysisComponent implements OnInit {
 
 
   getCurrenyandLocation() {
-    this.foundersToolsService.getCurrencyAndCountries().subscribe((res: any) => {
-      console.log(res);
-      this.currencyandCountryList = res;
-    });
+    // this.foundersToolsService.getCurrencyAndCountries().subscribe((res: any) => {
+    //   console.log(res);
+    //   this.currencyandCountryList = res;
+    // });
+
     this.foundersToolsService.getCurrenciesList().subscribe((res: any) => {
-      console.log(res);
       this.currenciesList = res;
     });
   }
+
+  getCityList() {
+		this.costOfLivingService.getCities().subscribe({
+			next: response => {
+				this.locationList = response;
+			}
+		});
+	}
 
   checkplanExpire(): void {
     this.authService.getNewUserTimeLeft().subscribe((res) => {
@@ -219,14 +230,20 @@ export class MarketingAnalysisComponent implements OnInit {
     }
     let data: any = {
       ...this.marketingForm.value,
-      mode: 'market_analysis'
+      mode: 'market_analysis',
+      location: formData.location.city_name+', '+formData.location.country_name
     }
     this.foundersToolsService.getChatgptRecommendations(data).subscribe({
       next: response => {
         this.isRecommendationQuestion = false;
         this.isRecommendationData = true;
         this.isRecommendationSavedData = false;
-        this.recommendationData = response.response;
+        // this.recommendationData = response.response;
+        let chatGptResponse = response.response;
+				chatGptResponse = chatGptResponse
+					.replace(/```html|```/g, '')
+          .replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>');
+				this.recommendationData = this.sanitizer.bypassSecurityTrustHtml(chatGptResponse);
       },
       error: error => {
         this.isRecommendationData = false;
@@ -310,7 +327,11 @@ export class MarketingAnalysisComponent implements OnInit {
   downloadRecommadation() {
     const formValue = ['industry', 'location', 'targetMarket', 'productService', 'businessModel', 'salesChannel', 'timeFrame', 'budget', 'revenueStreams', 'competitorAnalysis', 'forecast'];
     const formData = this.marketingForm.value;
-    let addingInput = `<p><strong>Input:<br></strong></p>`;
+    let addingInput = `<div style="font-family: 'Poppins', sans-serif; display: flex; align-items: center; justify-content: space-between; border-bottom: 2px solid #d32f2f; padding-bottom: 10px; margin-bottom: 20px;">
+				<div style="text-align: center;">
+					<h2 style="margin: 0; color: #1a237e;">Marketing Analysis</h2>
+				</div>
+			</div><p><strong>Input:<br></strong></p>`;
 
     // Keep track of which formValue index we're currently using
     let formValueIndex = 0;
@@ -319,7 +340,7 @@ export class MarketingAnalysisComponent implements OnInit {
       addingInput += `<p><strong>${category.question.heading}</strong></p>`;
 
       category.question.branches.forEach((branchQuestion: any) => {
-        addingInput += `<p>${branchQuestion}</p>`;
+        addingInput += `<p style="color: #d32f2f;"><strong>${branchQuestion}</strong></p>`;
 
         let currentAnswer = "";
         const currentFormField = formValue[formValueIndex];
@@ -334,7 +355,7 @@ export class MarketingAnalysisComponent implements OnInit {
           currentAnswer = "No answer provided";
         }
 
-        addingInput += `<p><strong>${currentAnswer}</strong></p>`;
+        addingInput += `<p>${currentAnswer}</p>`;
 
         formValueIndex++;
       });
@@ -343,7 +364,14 @@ export class MarketingAnalysisComponent implements OnInit {
       addingInput += `<br>`;
     });
 
-    let finalRecommendation = addingInput + '<p><strong>Response:<br></strong></p>' + this.recommendationData;
+    let finalRecommendation = addingInput+ '<div class="divider"></div><p><strong>Response:<br><br></strong></p>' + this.recommendationData;
+    finalRecommendation = finalRecommendation
+			.replace(/```html|```/g, '')
+      .replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>')
+			.replace(/\(see https:\/\/g\.co\/ng\/security#xss\)/g, '') 
+			.replace(/SafeValue must use \[property\]=binding:/g, '')
+			.replace(/class="container"/g, 'style="line-height:1.9"'); //because if i add container the margin will increase so i removed the container now the spacing is proper.
+
     let paramData: DownloadRespose = {
       response: finalRecommendation,
       module_name: "Marketing Analysis",

@@ -186,33 +186,44 @@
     </div>
   </div>
 
-  <ng-template pTemplate="footer">
-    <div class="d-flex justify-content-between flex-nowrap flex-column flex-md-row px-4 mt-4 mb-2">
-      <div class="col-6 flex-full test-start" *ngIf="videoLinks">
-        <h5 class="text-start mb-1" *ngIf="oneQuestionContent?.videolink?.length > 0">Recommended Videos</h5>
+  <ng-template #footer>
+    <div class="d-flex justify-content-between w-100 p-4">
+      <div class="d-flex flex-column" *ngIf="videoLinks">
+        <h5 class="text-start mb-1" *ngIf="oneQuestionContent?.videolink?.length > 0">
+          Recommended Videos
+        </h5>
         <div class="d-flex align-items-center gap-2 pb-2">
-          <div class="scrollable-container" id="video-links-container" #videoLinksContainer>
+          <div class="scrollable-container w-100" id="video-links-container" #videoLinksContainer>
             <div class="d-flex flex-nowrap flex-md-wrap overflow-x-auto gap-2">
-              <span class="btn btn-primary text-small videolinkbutton flex-shrink-0" (click)="openVideoPopup(videoL.link)" *ngFor="let videoL of oneQuestionContent?.videolink; let ind = index">Video {{ ind + 1 }} &nbsp;<i class="fa-solid fa-video"></i></span>
+              <span class="btn btn-primary text-small videolinkbutton flex-shrink-0"
+                    (click)="openVideoPopup(videoL.link)"
+                    *ngFor="let videoL of oneQuestionContent?.videolink; let ind = index">
+                Video {{ ind + 1 }} &nbsp;<i class="fa-solid fa-video"></i>
+              </span>
             </div>
           </div>
         </div>
       </div>
-
-      <div class="col-6 flex-full test-start" *ngIf="refLink">
-        <h5 class="text-start mb-1" *ngIf="oneQuestionContent?.reflink?.length > 0">Recommended Links</h5>
+    
+      <!-- Right Column: Recommended Links -->
+      <div class="d-flex flex-column" *ngIf="refLink">
+        <h5 class="text-start mb-1" *ngIf="oneQuestionContent?.reflink?.length > 0">
+          Recommended Links
+        </h5>
         <div class="d-flex align-items-center gap-2 pb-2">
-          <div class="scrollable-container" id="ref-links-container" #refLinksContainer>
+          <div class="scrollable-container w-100" id="ref-links-container" #refLinksContainer>
             <div class="d-flex flex-nowrap flex-md-wrap overflow-x-auto gap-2">
-              <a class="btn btn-secondary text-small reflinkbutton flex-shrink-0" target="_blank" href="{{ refL.link }}" *ngFor="let refL of oneQuestionContent?.reflink; let ind = index">Link {{ ind + 1 }} &nbsp;<i class="fa-solid fa-link"></i></a>
+              <a class="btn btn-secondary text-small reflinkbutton flex-shrink-0"
+                 target="_blank"
+                 href="{{ refL.link }}"
+                 *ngFor="let refL of oneQuestionContent?.reflink; let ind = index">
+                Link {{ ind + 1 }} &nbsp;<i class="fa-solid fa-link"></i>
+              </a>
             </div>
           </div>
         </div>
       </div>
-<!--			<div class="align-items-center d-flex desktop">-->
-<!--				<button pButton  class="btn w-100 btn-primary theme-dark-blue mx-0 px-5 py-2" (click)="onClickAsk(oneQuestionContent?.question)"><i class="fa-solid h5 fa-file-contract"></i>&nbsp; Click here to ask&nbsp;Personalised Questions</button>-->
-<!--			</div>-->
-		</div>
+      </div>
 	</ng-template>
 </p-dialog>
 

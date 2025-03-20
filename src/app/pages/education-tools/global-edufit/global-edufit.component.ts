@@ -3,14 +3,9 @@ import { FormBuilder, FormGroup, Validators, FormsModule, ReactiveFormsModule } 
 import { Router } from '@angular/router';
 import { MessageService } from 'primeng/api';
 import { AuthService } from 'src/app/Auth/auth.service';
-import { DataService } from 'src/app/data.service';
 import { LocationService } from 'src/app/location.service';
-import { FounderstoolService } from '../../founderstool/founderstool.service';
-import { startupDropdownData } from '../../founderstool/start-up-expense-estimate/startup-expense.data';
 import { PageFacadeService } from '../../page-facade.service';
 import { EducationToolsService } from '../education-tools.service';
-import { University } from 'src/app/@Models/sop-response.model';
-import { options } from 'marked';
 import { optionsGlobal } from './global-edufit.data';
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
@@ -22,7 +17,7 @@ import { ButtonModule } from 'primeng/button';
 import { SelectModule } from 'primeng/select';
 import { DownloadRespose } from 'src/app/@Models/travel-tools.model';
 import { TravelToolsService } from '../../travel-tools/travel-tools.service';
-
+import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
 @Component({
   selector: 'uni-global-edufit',
   templateUrl: './global-edufit.component.html',
@@ -63,7 +58,7 @@ export class GlobalEdufitComponent implements OnInit {
   isRecommendationQuestion: boolean = true;
   isRecommendationData: boolean = false;
   isRecommendationSavedData: boolean = false;
-  recommendationData: string = '';
+  recommendationData: SafeHtml;
   constructor(
     private fb: FormBuilder,
     private educationToolService: EducationToolsService,
@@ -71,9 +66,9 @@ export class GlobalEdufitComponent implements OnInit {
     private toast: MessageService,
     private authService: AuthService,
     private router: Router,
-    private dataService: DataService,
     private pageFacade: PageFacadeService,
-    private travelToolService: TravelToolsService
+    private travelToolService: TravelToolsService,
+    private sanitizer: DomSanitizer
   ) {
     this.form = this.fb.group({
       home_country: ['', Validators.required],
@@ -113,7 +108,7 @@ export class GlobalEdufitComponent implements OnInit {
       id: 2,
       question: {
         heading: 'Finance',
-        branches: ["What is the tuition fee for the program?", "What is the estimated cost of living per year?", "What is the post-study work visa or stayback period in the country?"]
+        branches: ["What is the tuition fee for the program?", "What is the estimated cost of living per year?", "What is the stay back period in the country?"]
       },
     },
   ];
@@ -228,7 +223,11 @@ export class GlobalEdufitComponent implements OnInit {
         this.isRecommendationQuestion = false;
         this.isRecommendationData = true;
         this.isRecommendationSavedData = false;
-        this.recommendationData = response.response;
+        let chatGptResponse = response.response;
+				chatGptResponse = chatGptResponse
+					.replace(/```html|```/g, '')
+          .replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>');
+				this.recommendationData = this.sanitizer.bypassSecurityTrustHtml(chatGptResponse);
       },
       error: error => {
         this.isRecommendationData = false;
@@ -310,7 +309,10 @@ export class GlobalEdufitComponent implements OnInit {
   downloadRecommadation() {
     const formValue = ['interested_country', 'university', 'specialization', 'fees', 'cost_estimation', 'period'];
     const formData = this.form.value;
-    let addingInput = `<p><strong>Input:<br></strong></p>`;
+    let addingInput = `<div style="font-family: 'Poppins', sans-serif; display: flex; align-items: center; justify-content: space-between; border-bottom: 2px solid #d32f2f; padding-bottom: 10px; margin-bottom: 20px;">
+				<div style="text-align: center;">
+					<h2 style="margin: 0; color: #1a237e;">GLOBAL EDUFIT</h2>
+				</div></div><p><strong>Input:<br></strong></p>`;
 
     // Keep track of which formValue index we're currently using
     let formValueIndex = 0;
@@ -319,7 +321,7 @@ export class GlobalEdufitComponent implements OnInit {
       addingInput += `<p><strong>${category.question.heading}</strong></p>`;
 
       category.question.branches.forEach((branchQuestion: any) => {
-        addingInput += `<p>${branchQuestion}</p>`;
+        addingInput += `<p style="color: #d32f2f;"><strong>${branchQuestion}</strong></p>`;
 
         let currentAnswer = "";
         const currentFormField = formValue[formValueIndex];
@@ -329,13 +331,9 @@ export class GlobalEdufitComponent implements OnInit {
             currentAnswer = formData['currency_code'] + ' ' + formData[currentFormField];
           }
           else if (currentFormField == 'interested_country') {
-            // const selected = this.countryList.find((c: any) => c.id === formData[currentFormField]);
-            // currentAnswer = selected.country;
             currentAnswer = formData['interested_country'].country
           }
           else if (currentFormField == 'university') {
-            // const selected = this.countryList.find((c: any) => c.id === formData[currentFormField]);
-            // currentAnswer = selected.country;
             currentAnswer = formData['university'].university_name
           }
           else {
@@ -344,7 +342,7 @@ export class GlobalEdufitComponent implements OnInit {
         } else {
           currentAnswer = "No answer provided";
         }
-        addingInput += `<p><strong>${currentAnswer}</strong></p>`;
+        addingInput += `<p>${currentAnswer}</p>`;
 
         formValueIndex++;
       });
@@ -354,6 +352,13 @@ export class GlobalEdufitComponent implements OnInit {
     });
 
     let finalRecommendation = addingInput + '<p><strong>Response:<br></strong></p>' + this.recommendationData;
+     finalRecommendation = finalRecommendation
+			.replace(/```html|```/g, '')
+      .replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>')
+			.replace(/\(see https:\/\/g\.co\/ng\/security#xss\)/g, '') 
+			.replace(/SafeValue must use \[property\]=binding:/g, '')
+			.replace(/class="container"/g, 'style="line-height:1.9"'); //because if i add container the margin will increase so i removed the container now the spacing is proper.
+
     let paramData: DownloadRespose = {
       response: finalRecommendation,
       module_name: "Global Edufit",

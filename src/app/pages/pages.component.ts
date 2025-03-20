@@ -1,23 +1,22 @@
-import {Component, ElementRef, HostListener, OnDestroy, OnInit, Output, ViewChild} from "@angular/core";
-import {PageFacadeService} from "./page-facade.service";
-import {SubSink} from "subsink";
-import {ActivatedRoute, NavigationEnd, Router, RouterModule} from "@angular/router";
-import {DataService} from "../data.service";
-import {DashboardService} from "./dashboard/dashboard.service";
-import {AuthService} from "../Auth/auth.service";
-import {DeviceDetectorService} from "ngx-device-detector";
-import {CommonModule} from "@angular/common";
+import { Component, ElementRef, HostListener, OnDestroy, OnInit, Output, ViewChild } from "@angular/core";
+import { PageFacadeService } from "./page-facade.service";
+import { SubSink } from "subsink";
+import { ActivatedRoute, NavigationEnd, Router, RouterModule } from "@angular/router";
+import { DataService } from "../data.service";
+import { DashboardService } from "./dashboard/dashboard.service";
+import { AuthService } from "../Auth/auth.service";
+import { DeviceDetectorService } from "ngx-device-detector";
+import { CommonModule } from "@angular/common";
 // @ts-ignore
 import Contlo from "contlo-web-sdk";
-import {DomSanitizer, Meta, SafeResourceUrl, Title} from "@angular/platform-browser";
-import {LocationService} from "../location.service";
-import {HeaderComponent} from "@theme/components/header/header.component";
-import {SidenavComponent} from "@theme/components/sidenav/sidenav.component";
-import {DialogModule} from 'primeng/dialog';
-import {ButtonModule} from 'primeng/button';
-import {FooterStatusBoxComponent} from "./footer-status-box/footer-status-box.component";
-import {HeaderSearchComponent} from "./header-search/header-search.component"
-import {StorageService} from "../storage.service";
+import { DomSanitizer, Meta, SafeResourceUrl, Title } from "@angular/platform-browser";
+import { LocationService } from "../location.service";
+import { HeaderComponent } from "@theme/components/header/header.component";
+import { SidenavComponent } from "@theme/components/sidenav/sidenav.component";
+import { DialogModule } from 'primeng/dialog';
+import { ButtonModule } from 'primeng/button';
+import { HeaderSearchComponent } from "./header-search/header-search.component"
+import { StorageService } from "../storage.service";
 
 @Component({
   selector: "uni-pages",
@@ -25,13 +24,12 @@ import {StorageService} from "../storage.service";
   styleUrls: ["./pages.component.scss"],
   standalone: true,
   imports: [
-    CommonModule, 
+    CommonModule,
     RouterModule,
     DialogModule,
     ButtonModule,
-    HeaderComponent, 
+    HeaderComponent,
     SidenavComponent,
-    FooterStatusBoxComponent,
     HeaderSearchComponent
   ],
 })
@@ -65,10 +63,9 @@ export class PagesComponent implements OnInit, OnDestroy {
   private subs = new SubSink();
   visibleExhastedUser!: boolean;
   constructor(private pageFacade: PageFacadeService, private router: Router, private dataService: DataService,
-              public meta: Meta, private titleService: Title, private route: ActivatedRoute,
-              private locationService: LocationService, private dashboardService: DashboardService,
-              private service: AuthService, private deviceService: DeviceDetectorService,
-              private sanitizer: DomSanitizer, private storage: StorageService) {
+    public meta: Meta, private locationService: LocationService,
+    private service: AuthService, private deviceService: DeviceDetectorService,
+    private sanitizer: DomSanitizer, private storage: StorageService) {
     // dev
     //  Contlo.init('d7a84b3a1d83fa9f7e33f7396d57ac88', 'https://dev-student.uniprep.ai');
 
@@ -86,7 +83,11 @@ export class PagesComponent implements OnInit, OnDestroy {
     this.deviceCheck();
     router.events.subscribe((val) => {
       if (val instanceof NavigationEnd) {
-        if (val.url.includes("subscriptions") || val.url.includes("dashboard") || val.url.includes("userguide") || val.url.includes("support-help") || val.url.includes("usermanagement") || val.url.includes("chat") || val.url.includes("guideline") || val.url.includes("termsandcondition") || val.url.includes("privacypolicy") || val.url.includes("refundpolicy") || val.url.includes("cancellationpolicy") || val.url.includes("export-credit") || val.url.includes("cv-builder") || val.url.includes("coverletter-builder")) {
+        if (val.url.includes("subscriptions") || val.url.includes("dashboard") || val.url.includes("userguide") 
+          || val.url.includes("support-help") || val.url.includes("usermanagement") || val.url.includes("chat") 
+        || val.url.includes("guideline") || val.url.includes("termsandcondition") || val.url.includes("privacypolicy") 
+        || val.url.includes("refundpolicy") || val.url.includes("cancellationpolicy") || val.url.includes("export-credit") 
+        || val.url.includes("cv-builder") || val.url.includes("coverletter-builder") || val.url.includes("talent-connect")) {
           this.showSearch = false;
           //this.isFooterBoxVisible = false;
         } else {
@@ -135,15 +136,15 @@ export class PagesComponent implements OnInit, OnDestroy {
     });
     this.imagewhitlabeldomainname = window.location.hostname;
     this.ehitlabelIsShow = this.imagewhitlabeldomainname === "*.uniprep.ai" ||
-        this.imagewhitlabeldomainname === "dev-student.uniprep.ai" ||
-        this.imagewhitlabeldomainname === "uniprep.ai" || this.imagewhitlabeldomainname === "localhost"
-        || this.imagewhitlabeldomainname === "meta.uniprep.ai";
+      this.imagewhitlabeldomainname === "dev-student.uniprep.ai" ||
+      this.imagewhitlabeldomainname === "uniprep.ai" || this.imagewhitlabeldomainname === "localhost"
+      || this.imagewhitlabeldomainname === "meta.uniprep.ai";
     this.imagewhitlabeldomainname = window.location.hostname;
     this.footerIsShow = this.imagewhitlabeldomainname === "*.uniprep.ai" ||
-        this.imagewhitlabeldomainname === "dev-student.uniprep.ai" ||
-        this.imagewhitlabeldomainname === "uniprep.ai" ||
-        this.imagewhitlabeldomainname === "localhost" ||
-        this.imagewhitlabeldomainname === "meta.uniprep.ai";
+      this.imagewhitlabeldomainname === "dev-student.uniprep.ai" ||
+      this.imagewhitlabeldomainname === "uniprep.ai" ||
+      this.imagewhitlabeldomainname === "localhost" ||
+      this.imagewhitlabeldomainname === "meta.uniprep.ai";
     this.locationService.getImage().subscribe((imageUrl) => {
       this.imageUrlWhitelabel = imageUrl;
     });
@@ -240,11 +241,11 @@ export class PagesComponent implements OnInit, OnDestroy {
   // selectedLink:string = "https://www.youtube.com/watch?v=3-5YyylOgKw";
   openVideoInYoutube() {
     if (!this.howItWorksVideoLink) return;
-    
+
     // Get the raw URL string from SafeResourceUrl
     const safeUrl = this.howItWorksVideoLink.toString();
     const embedUrl = safeUrl.replace('unsafe:', ''); // Remove 'unsafe:' prefix if present
-    
+
     // Extract video ID from embed URL
     const videoId = embedUrl.split('/embed/')[1]?.split('?')[0];
     if (videoId) {
@@ -296,7 +297,7 @@ export class PagesComponent implements OnInit, OnDestroy {
 
   private extractYoutubeVideoId(url: string): string | null {
     if (!url) return null;
-    
+
     // Handle various YouTube URL formats
     const patterns = [
       /(?:youtube\.com\/watch\?v=|youtu\.be\/|youtube\.com\/embed\/)([^#\&\?]*).*/,

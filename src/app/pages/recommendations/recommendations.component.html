@@ -15,7 +15,7 @@
 	</div>
 	<div class="card-body text-center flex-fill overflow-y-auto">
 		<div class="container-fluid h-100">
-			<p-carousel [value]="products" [numVisible]="1" [numScroll]="1" [circular]="false" [showNavigators]="false" [showIndicators]="true" [page]="activePageIndex" styleClass="h-100 w-100" *ngIf="!enableModule">
+			<p-carousel  [value]="products" [numVisible]="1" [numScroll]="1" [circular]="false" [showNavigators]="false" [showIndicators]="false" [page]="activePageIndex" styleClass="h-100 w-100" *ngIf="!enableModule">
 				<ng-template let-product let-i="index" pTemplate="item">
 					<div class="h-100 d-flex flex-column justify-content-between">
 						<div>&nbsp;</div>

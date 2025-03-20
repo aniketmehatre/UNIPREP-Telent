@@ -27,12 +27,12 @@
                             <i class="fa-solid fa-moon"></i>
                         </label> -->
 					</div>
-					<div style="width: -webkit-fill-available !important" *ngIf="!isShowHeaderSearchForModule">
+					<!-- <div style="width: -webkit-fill-available !important">
 						<uni-header-search *ngIf="showSearch" (windowChange)="showSearchComponent($event)"></uni-header-search>
-					</div>
-					<div style="width: -webkit-fill-available !important" *ngIf="isShowHeaderSearchForModule">
+					</div> -->
+					<!-- <div style="width: -webkit-fill-available !important" *ngIf="isShowHeaderSearchForModule">
 						<uni-header-search-module *ngIf="showSearch" (windowChange)="showSearchComponent($event)"></uni-header-search-module>
-					</div>
+					</div> -->
 					<div class="d-md-none gap-2 d-flex align-items-center">
 						<div label="" role="button" class="headerHomeCountry p-0" [title]="homeCountryName">
 							<img #openCountryPopup src="{{ headerHomeFlag }}" alt="flag" height="auto" width="auto" />

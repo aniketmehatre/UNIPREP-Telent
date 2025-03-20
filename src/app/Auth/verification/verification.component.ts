@@ -1,109 +1,80 @@
-import {Component, ElementRef, OnInit, ViewChild} from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { ActivatedRoute, Router } from '@angular/router';
-import { AuthService } from '../auth.service';
-import {MessageService} from "primeng/api";
+import { Component, CUSTOM_ELEMENTS_SCHEMA, OnInit } from "@angular/core"
+import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators } from "@angular/forms"
+import { ActivatedRoute, Router, RouterModule } from "@angular/router"
+import { AuthService } from "../auth.service"
+import { MessageService } from "primeng/api"
+import { CommonModule } from "@angular/common"
+import { InputOtpModule } from "primeng/inputotp"
 
 @Component({
-    selector: 'app-verification',
-    templateUrl: './verification.component.html',
-    styleUrls: ['./verification.component.scss'],
-    standalone: false
+	selector: "app-verification",
+	templateUrl: "./verification.component.html",
+	styleUrls: ["./verification.component.scss"],
+	standalone: true,
+	schemas: [CUSTOM_ELEMENTS_SCHEMA],
+	imports: [CommonModule, ReactiveFormsModule, RouterModule, InputOtpModule],
 })
 export class VerificationComponent implements OnInit {
-  @ViewChild('otp1') otp1!: ElementRef;
-  @ViewChild('otp2') otp2!: ElementRef;
-  @ViewChild('otp3') otp3!: ElementRef;
-  @ViewChild('otp4') otp4!: ElementRef;
-  public otpForm: any = FormGroup;
-  constructor(private service: AuthService, private formBuilder: FormBuilder,
-    private router: Router,
-    private route: ActivatedRoute,private toastr: MessageService) {}
-  ngOnInit() {
-    this.otpForm = this.formBuilder.group({
-      otp1: ["", [Validators.required]],
-      otp2: ["", [Validators.required]],
-      otp3: ["", [Validators.required]],
-      otp4: ["", [Validators.required]],
-    });
+	public otpForm: FormGroup;
+	submitted = false;
 
-    if (this.route.snapshot.paramMap.get("email") == null) {
-      this.router.navigate(['/forgot-password']);
-    }
-  }
-  submitted = false;
-  get f() {
-    return this.otpForm.controls;
-  }
-  onSubmit() {
-    this.submitted = true;
-    if (this.otpForm.invalid) {
-      return;
-    }
-    let _otp=this.otpForm.value.otp1+this.otpForm.value.otp2+this.otpForm.value.otp3+this.otpForm.value.otp4;
+	constructor(
+		private service: AuthService, 
+		private formBuilder: FormBuilder, 
+		private router: Router, 
+		private route: ActivatedRoute, 
+		private toastr: MessageService
+	) {}
 
-    const data = {
-      otp: _otp,
-      email: this.route.snapshot.paramMap.get("email"),
-    };
-    this.service.validateEmailOTP(data).subscribe(
-        (res: any) => {
-          this.router.navigate(["/setpassword",_otp,this.route.snapshot.paramMap.get("email")]);
-        },
-        (error: any) => {
+	ngOnInit() {
+		this.otpForm = this.formBuilder.group({
+			otp: ["", [Validators.required, Validators.minLength(4), Validators.maxLength(4)]]
+		});
 
-        }
-    );
-  }
-  resend(){
-    let val = {
-      email: this.route.snapshot.paramMap.get("email"),
-    };
-    this.service.getOTP(val).subscribe(
-      (res: any) => {
-        this.toastr.add({severity:'success', summary: 'Success', detail: "OTP Generated and Sent to " + val.email});
-      },
-      (error: any) => {
-        this.toastr.add({severity:'warning', summary: 'Sorry :(', detail: error});
-      }
-    );
-  }
+		if (this.route.snapshot.paramMap.get("email") == null) {
+			this.router.navigate(["/forgot-password"])
+		}
+	}
 
-  focusNextInput(event: KeyboardEvent | TouchEvent, num: number) {
-    const isBackspace = (event instanceof KeyboardEvent && (event as KeyboardEvent).key.toLowerCase() === "backspace");
-  
-    if (isBackspace) {
-      switch (num) {
-        case 2:
-          this.otp1.nativeElement.focus();
-          break;
-        case 3:
-          this.otp2.nativeElement.focus();
-          break;
-        case 4:
-          this.otp3.nativeElement.focus();
-          break;
-      }
-      // Prevent the default backspace behavior
-      event.preventDefault();
-    } else if (/^\d$/.test((event as KeyboardEvent).key)) {
-      switch (num) {
-        case 1:
-          this.otp2.nativeElement.focus();
-          break;
-        case 2:
-          this.otp3.nativeElement.focus();
-          break;
-        case 3:
-          this.otp4.nativeElement.focus();
-          break;
-      }
-    }
-  
-    // Prevent the default behavior for touch events
-    if (event instanceof TouchEvent) {
-      event.preventDefault();
-    }
-  }
-  
+	get f() {
+		return this.otpForm.controls;
+	}
+
+	onSubmit() {
+		this.submitted = true;
+		
+		if (this.otpForm.invalid) {
+			this.toastr.add({ severity: "error", summary: "Error", detail: "Please enter a valid 4-digit OTP." });
+			return;
+		}
+
+		const otpValue = this.otpForm.get('otp')?.value;
+		const data = {
+			otp: otpValue,
+			email: this.route.snapshot.paramMap.get("email"),
+		}
+
+		this.service.validateEmailOTP(data).subscribe(
+			(res: any) => {
+				this.router.navigate(["/setpassword", otpValue, this.route.snapshot.paramMap.get("email")])
+			},
+			(error: any) => {
+				this.toastr.add({ severity: "error", summary: "Error", detail: "Invalid OTP. Please try again." });
+			}
+		)
+	}
+
+	resend() {
+		let val = {
+			email: this.route.snapshot.paramMap.get("email"),
+		}
+		this.service.getOTP(val).subscribe(
+			(res: any) => {
+				this.toastr.add({ severity: "success", summary: "Success", detail: "OTP Generated and Sent to " + val.email })
+			},
+			(error: any) => {
+				this.toastr.add({ severity: "warning", summary: "Sorry :(", detail: error })
+			}
+		)
+	}
 }

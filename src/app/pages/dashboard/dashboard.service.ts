@@ -212,5 +212,28 @@ checkModuleQuizProgressbar(data: any) {
       headers: headers,
   });
 }
-
+getUserTracking(){
+  const headers = new HttpHeaders().set("Accept", "application/json");
+  return this.http.post<any>(environment.ApiUrl + "/getdashboardmonthlyusage", {
+      headers: headers,
+  });
+}
+sentEmailForInviteUniPrep(data:any){
+  const headers = new HttpHeaders().set("Accept", "application/json");
+  return this.http.post<any>(environment.ApiUrl + "/sendDashboardemail",data, {
+      headers: headers,
+  });
+}
+profileCompletion(){
+  const headers = new HttpHeaders().set("Accept", "application/json");
+  return this.http.get<any>(environment.ApiUrl + "/getpercentagecompletion", {
+      headers: headers,
+  });
+}
+RecentJobApplication(){
+  const headers = new HttpHeaders().set("Accept", "application/json");
+  return this.http.post<any>(environment.ApiUrl + "/getuserRecentJobs", {}, {
+      headers: headers,
+  });
+}
 }

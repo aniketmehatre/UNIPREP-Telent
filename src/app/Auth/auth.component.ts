@@ -4,12 +4,14 @@ import { DeviceDetectorService } from "ngx-device-detector"
 import { CommonModule } from "@angular/common"
 import { ToastModule } from "primeng/toast"
 import { SocialLoginModule, SocialAuthServiceConfig } from "@abacritt/angularx-social-login"
+import { InputGroupAddonModule } from "primeng/inputgroupaddon"
+import { InputGroupModule } from "primeng/inputgroup"
 @Component({
 	selector: "uni-auth",
 	templateUrl: "./auth.component.html",
 	styleUrls: ["./auth.component.scss"],
 	standalone: true,
-	imports: [CommonModule, RouterModule, ToastModule, SocialLoginModule],
+	imports: [CommonModule, RouterModule, ToastModule, SocialLoginModule, InputGroupAddonModule, InputGroupModule],
 })
 export class AuthComponent {
 	isDeviceStatus: any = "none"

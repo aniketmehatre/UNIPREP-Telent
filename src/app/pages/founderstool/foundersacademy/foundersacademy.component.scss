@@ -55,8 +55,9 @@
   border: 0;
 }
 .selected-category {
-  color: rgb(125, 95, 233);  
-  cursor: pointer;  
+  color: var(--uniprep-secondary);
+  cursor: pointer;
+  font-weight: 700 !important;
 }
 
 .card1{

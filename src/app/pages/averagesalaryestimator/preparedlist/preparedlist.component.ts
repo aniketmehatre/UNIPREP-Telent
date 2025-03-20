@@ -1,17 +1,13 @@
 import { Component, EventEmitter, Input, OnInit, Output } from "@angular/core";
-import { Location } from "@angular/common";
-import { MenuItem, MessageService } from "primeng/api";
-import { ActivatedRoute, Router, RouterModule } from "@angular/router";
+import { MessageService } from "primeng/api";
+import {  Router, RouterModule } from "@angular/router";
 import { AuthService } from "../../../Auth/auth.service";
 import { PageFacadeService } from "../../page-facade.service";
 import { AveragesalaryestimatorService } from "../averagesalaryestimator.service";
 import { CommonModule } from "@angular/common";
 import { DialogModule } from "primeng/dialog";
 import { TabViewModule } from "primeng/tabview";
-import { SidebarModule } from "primeng/sidebar"
-import { PdfJsViewerModule } from "ng2-pdfjs-viewer"
 import { CardModule } from "primeng/card"
-import { PaginatorModule } from "primeng/paginator"
 import { FormsModule, ReactiveFormsModule } from "@angular/forms"
 import { CarouselModule } from "primeng/carousel"
 import { ButtonModule } from "primeng/button"
@@ -20,16 +16,17 @@ import { SelectModule } from "primeng/select"
 import { InputGroupModule } from "primeng/inputgroup"
 import { InputTextModule } from "primeng/inputtext"
 import { InputGroupAddonModule } from "primeng/inputgroupaddon"
-import { RadioButtonModule } from "primeng/radiobutton"
 import { TravelToolsService } from "../../travel-tools/travel-tools.service";
 import { DownloadRespose } from 'src/app/@Models/travel-tools.model';
+import {PdfViewerModule} from "ng2-pdf-viewer";
+import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
 
 @Component({
   selector: "uni-aspreparedlist",
   templateUrl: "./preparedlist.component.html",
   styleUrls: ["./preparedlist.component.scss"],
   standalone: true,
-  imports: [CommonModule, DialogModule,PdfJsViewerModule, TabViewModule, RouterModule, CardModule, FormsModule, ReactiveFormsModule, CarouselModule, ButtonModule, MultiSelectModule, SelectModule, InputGroupModule, InputTextModule, InputGroupAddonModule],
+  imports: [CommonModule, DialogModule, PdfViewerModule, TabViewModule, RouterModule, CardModule, FormsModule, ReactiveFormsModule, CarouselModule, ButtonModule, MultiSelectModule, SelectModule, InputGroupModule, InputTextModule, InputGroupAddonModule],
   providers: [MessageService,AveragesalaryestimatorService]
 })
 export class AverageSalaryPreparedListComponent implements OnInit {
@@ -44,7 +41,7 @@ export class AverageSalaryPreparedListComponent implements OnInit {
   orglogowhitelabel: any;
   totalDataCount: any = 0;
   ListData: any = [];
-  EstimateResponse: any;
+  EstimateResponse: SafeHtml;
   EstimateResponseVisibility = true;
   selectedJobRole: any;
   @Input() prepData: any;
@@ -55,14 +52,13 @@ export class AverageSalaryPreparedListComponent implements OnInit {
     .map((_, index) => index);
   readanswerpopubVisibility = false;
   constructor(
-    private location: Location,
-    private route: ActivatedRoute,
     private toast: MessageService,
     private authService: AuthService,
     private service: AveragesalaryestimatorService,
     private router: Router,
     private pageFacade: PageFacadeService,
-    private travelService: TravelToolsService
+    private travelService: TravelToolsService,
+    private sanitizer: DomSanitizer,
   ) {}
   ngOnInit(): void {
     this.selectedJobRole = this?.prepData?.role;
@@ -92,7 +88,7 @@ export class AverageSalaryPreparedListComponent implements OnInit {
   downloadRecommendation(){
     let addingInput = `<p><strong>Input:<br></strong></p>`;
     this.recommendationsData.forEach(values =>{
-      addingInput += `<p><strong>${values.question}</strong></p>`;
+      addingInput += `<p style="color: #d32f2f;"><strong>${values.question}</strong></p>`;
       let currentAnswer = "";
       if(values.id == 1){
         currentAnswer = this.prepData.role;
@@ -113,7 +109,14 @@ export class AverageSalaryPreparedListComponent implements OnInit {
       }
       addingInput += `<p>${currentAnswer}</p><br>`;
     });
-    let finalRecommendation = addingInput+ '<p><strong>Response:<br></strong></p>' + this.EstimateResponse;
+    let finalRecommendation = addingInput+ '<div class="divider"></div><p><strong>Response:<br><br></strong></p>' + this.EstimateResponse;
+    finalRecommendation = finalRecommendation
+    .replace(/```html|```/g, '') 
+    .replace(/\(see https:\/\/g\.co\/ng\/security#xss\)/g, '') 
+    .replace(/SafeValue must use \[property\]=binding:/g, '')
+    .replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>')
+    .replace(/class="container"/g, 'style="line-height:1.9"'); //because if i add container the margin will increase so i removed the container now the spacing is proper.
+
     let paramData: DownloadRespose = {
       response: finalRecommendation,
       module_name: "Average Salary Estimator",
@@ -128,7 +131,11 @@ export class AverageSalaryPreparedListComponent implements OnInit {
   }
   getEstimateResponse() {
     this.service.getestimates(this.prepData).subscribe((response: any) => {
-      this.EstimateResponse = response?.data;
+      let chatGptResponse = response?.data;
+      chatGptResponse = chatGptResponse
+        .replace(/```html|```/g, '')
+        .replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>');
+      this.EstimateResponse = this.sanitizer.bypassSecurityTrustHtml(chatGptResponse);
       this.EstimateResponseVisibility = true;
       this.isSkeletonVisible = false;
     });

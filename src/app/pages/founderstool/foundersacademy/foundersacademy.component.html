@@ -22,7 +22,7 @@
 		</div> -->
 		<div class="row">
 			<div class="d-flex flex-row gap-4 flex-nowrap overflow-y-auto py-3">
-				<p role="button" class="text-nowrap" *ngFor="let cat of categorylist" [ngClass]="{'selected-category': isSelected(cat.id)}" (click)="filterCat(cat.id)">{{cat.name}}</p>
+				<h5 role="button" class="text-nowrap mb-0 fw-medium" *ngFor="let cat of categorylist" [ngClass]="{'selected-category': isSelected(cat.id)}" (click)="filterCat(cat.id)">{{cat.name}}</h5>
 			</div>
 		</div>
 	</div>
@@ -33,7 +33,7 @@
 						<div class="card h-100 position-relative tutcard" role="button" (click)="openVideoPopup(acade.link)" style="aspect-ratio: 16/9;">
 							<div class="tutgradient"></div>
 							<div class="d-flex justify-content-center align-items-center h-100">
-								<img src="{{ acade.coverimage }}" style="max-width: 100%; height: auto;" />
+								<img [src]="getThumbnailUrl(acade.link)" style="max-width: 100%; height: auto;"  alt="founders academy"/>
 							</div>
 							<div class="tutorialcontent">
 								<h5 class="mb-0 text-white">{{ acade.title }}</h5>

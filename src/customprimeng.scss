@@ -32,27 +32,25 @@
 	max-height: 170px;
 }
 
-.iti__flag-container
-{
+.iti__flag-container {
 	width: 35px;
 	display: flex;
 	justify-content: center;
 	align-items: center;
 	border: 1px solid #c7cace;
-    background: white;
-    border-radius: 5px 0 0 5px;
+	background: white;
+	border-radius: 5px 0 0 5px;
 	cursor: pointer;
 }
 
-.iti__selected-flag
-{
+.iti__selected-flag {
 	display: flex;
 	justify-content: center;
 	align-items: center;
 }
 
 
-.iti__flag-container.open + input {
+.iti__flag-container.open+input {
 	border-bottom-left-radius: 0px;
 	border-bottom-right-radius: 0px;
 }
@@ -117,4 +115,16 @@ ngx-intl-tel-input input::placeholder {
 
 ngx-intl-tel-input input[disabled] {
 	background-color: #e5eaf1;
+}
+
+.p-select-header .p-iconfield {
+
+	.p-inputtext:not(:last-child) {
+		padding-inline-start: 2.5rem;
+	}
+
+	.p-inputicon:last-child {
+		left: 10px;
+		width: 0;
+	}
 }

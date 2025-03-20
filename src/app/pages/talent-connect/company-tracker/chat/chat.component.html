@@ -1,0 +1,89 @@
+<div class="chat-container">
+    <div class="chat-header d-flex justify-content-between align-items-center p-3 border-bottom">
+        <div class="d-flex align-items-center">
+            <button *ngIf="!showInfo" pButton icon="pi pi-info-circle"
+             label="Open Info" class="p-button-secondary" (click)="openInfo.emit(true)"></button>
+            <div class="d-flex align-items-center ms-3 text-left">
+                <img src="{{companyDetails.company_logo}}" alt="Chat" class="chat-logo me-2" />
+                <div class="ps-2">
+                    <h5 class="mb-0 fw-bold text-left">{{ companyDetails.company_name }}</h5>
+                    <span class="text-success text-left">{{ organizationStatus }}</span>
+                </div>
+            </div>
+        </div>
+        <div class="text-end w-full">
+            <i class="fa-solid fa-xmark" (click)="closeChat.emit(true);"></i>
+        </div>
+    </div>
+
+    <!-- Progress bar section -->
+    <div class="progress-container my-2 d-block d-lg-none">
+        <div class="progress-steps d-flex">
+            <div class="progress-step flex-fill"
+                 *ngFor="let stage of stages; let i = index">
+                <p-progressBar [value]="stage.completed ? 100 : 0" [showValue]="false" [style]="{ height: '6px'}"></p-progressBar>
+                <div class="text-left">{{ i+1+' '+stage.name}} </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Chat messages area -->
+    <div class="chat-messages p-3">
+        <div *ngFor="let message of messages"
+             class="message-container d-flex mb-3"
+             [ngClass]="{'justify-content-end': message.added_by == 'Student'}">
+
+            <div class="avatar me-2" *ngIf="!message.added_by == 'Student'">
+                <p-avatar [label]="message.sender.charAt(1).toUpperCase()"
+                          styleClass="bg-light text-dark"
+                          shape="circle"
+                          [size]="'small'"></p-avatar>
+            </div>
+
+            <div class="message-content"
+                 [ngClass]="{'bg-primary text-white rounded': message.added_by == 'Student',
+                        'bg-light rounded': !message.added_by == 'Student'}">
+                <div class="sender-info text-muted small text-left" *ngIf="!message.added_by == 'Student'">
+                    {{ message.userName }}
+                </div>
+                <div class="message-text p-3">
+                    {{ message.chat }}
+                </div>
+                <div class="message-time text-end small pe-2 pb-1"
+                     [ngClass]="{'text-white-50': message.added_by == 'Student',
+                     'text-muted': !message.added_by == 'Student'}" style="font-size:8px">
+                    {{ message.date }} {{message.time}}
+                </div>
+            </div>
+
+            <div class="avatar ms-2" *ngIf="message.added_by == 'Student'">
+                <p-avatar icon="pi pi-user"
+                          styleClass="bg-light"
+                          shape="circle"
+                          [size]="'small'"></p-avatar>
+            </div>
+        </div>
+    </div>
+
+    <!-- Message input area -->
+    <div class="chat-input p-3 border-top position-relative">
+        <div class="input-group">
+            <input type="text"
+                   class="form-control"
+                   placeholder="Text with UNIABROAD..."
+                   [(ngModel)]="newMessage"
+                   (keyup.enter)="sendMessage()">
+
+            <input type="file" #fileInput hidden (change)="onFileSelected($event)"/>
+
+            <!-- Paperclip Icon to Trigger File Input -->
+            <span class="input-group-text cursor-pointer" (click)="fileInput.click()">
+                <i class="pi pi-paperclip"></i>
+              </span>
+            <span class="input-group-text cursor-pointer" (click)="sendMessage()">
+            <i class="pi pi-send"></i>
+          </span>
+        </div>
+    </div>
+
+</div>

@@ -196,13 +196,13 @@ selctedQuizTiny {
 	margin-top: 20px;
 	color: #ff9113;
 }
-.search-container {
-	display: flex;
-	flex: 1;
-    align-items: start;
-    justify-content: center;
-    height: max-content;
-}
+// .search-container {
+// 	display: flex;
+// 	flex: 1;
+//     align-items: start;
+//     justify-content: center;
+//     height: max-content;
+// }
 // .p-input-icon-left>i, .p-input-icon-right>i, .p-input-icon-right>i:not(.filterDialog) .p-input-icon-left>i:not(.filterDialog),.alignment {
 //     position: absolute;
 //     top: 50%;
@@ -213,18 +213,6 @@ selctedQuizTiny {
 //     top: 50%;         
 //     margin-top: -0.01rem;    
 // }
-
-.input-container {
-	position: relative;
-	width: 100%;
-}
-
-input[type="text"] {
-	width: 100%;
-	padding: 8px 30px 8px 8px;
-	border: 1px solid #ccc;
-	border-radius: 4px;
-}
 
 .clear-button {
 	position: absolute;
@@ -242,7 +230,6 @@ input[type="text"] {
 	position: absolute;
     width: 100%;
     top: 100%;
-    margin-top: 10px;
     z-index: 9;
     background: white;
     border: 1px solid var(--uniprep-secondary);
@@ -298,3 +285,9 @@ input[type="text"] {
   .dropdown-container1 label {
 	margin-bottom: 5px; /* Adjust as needed */
   }
+  .search-container {
+    position: relative;
+    display: flex;
+    align-items: center;
+    padding-left: 40px; /* Prevents text from overlapping with the icon */
+}

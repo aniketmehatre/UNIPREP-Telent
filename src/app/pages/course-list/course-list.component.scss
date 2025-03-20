@@ -15,29 +15,28 @@
 }
 
 .course-guidelines{
-    background-color: #EBEDF2;
+    background-color: #EBEDF2 !important;
     color: #001631 !important;
     border-radius: 20px !important;
     border: none;
 }
 
 .buy-credits-button{
-    background-color: var(--uniprep-secondary);
+    background-color: var(--uniprep-secondary) !important;
     color: white;
     border-radius: 20px !important;
     border: none;
 }
 
 .exportButton{
-    background-color: #EBEDF2;
+    background-color: #EBEDF2 !important;
     color: #001631 !important;
     border-radius: 20px !important;
-    border: 1px solid blue;
     padding: 10px;
 }
 
 .courseNameTag{
-    background-color: var(--uniprep-primary);
+    background-color: var(--uniprep-primary) !important;
     font-weight: 700;
     color: white;
     border-radius: 10px;
@@ -46,7 +45,7 @@
 }
 
 .shortlistedCourseTag{
-    background-color: black;
+    background-color: black !important;
     color: white;
     padding: 5px;
     border-radius: 25px;

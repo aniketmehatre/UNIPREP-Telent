@@ -14,14 +14,15 @@ import { DialogModule } from "primeng/dialog";
 import { SelectModule } from "primeng/select";
 import { MultiSelectModule } from "primeng/multiselect";
 import { FormsModule, ReactiveFormsModule } from "@angular/forms";
-import {Carousel} from "primeng/carousel";
+import { Carousel } from "primeng/carousel";
+import { ButtonModule } from 'primeng/button';
 
 @Component({
   selector: "uni-goverment-funding-opportunity",
   templateUrl: "./goverment-funding-opportunity.component.html",
   styleUrls: ["./goverment-funding-opportunity.component.scss"],
   standalone: true,
-    imports: [CommonModule, DialogModule, SelectModule, MultiSelectModule, FormsModule, ReactiveFormsModule, Carousel],
+  imports: [CommonModule, DialogModule, SelectModule, MultiSelectModule, FormsModule, ReactiveFormsModule, Carousel, ButtonModule],
 })
 export class GovermentFundingOppurtunityComponent implements OnInit {
   fundData: any[] = [];
@@ -256,7 +257,7 @@ export class GovermentFundingOppurtunityComponent implements OnInit {
     this.isFilterVisible = true;
   }
 
-  exportTable() {}
+  exportTable() { }
 
   checkplanExpire(): void {
     this.authService.getNewUserTimeLeft().subscribe((res) => {
@@ -513,6 +514,7 @@ export class GovermentFundingOppurtunityComponent implements OnInit {
       this.viewFavouritesLabel = "View Favourites";
       this.data.favourite = 0;
       // this.addAnyValueToOptions();
+      this.fundData = [];
     });
   }
 }

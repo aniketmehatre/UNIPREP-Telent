@@ -1,33 +1,48 @@
 .subjectcard {
-    border: 1px solid var(--uniprep-secondary);
-    width: 100%;
-    margin: 10px 0px;
-  
-    .submoduleicon {
-      height: 100px;
-      width: 100px;
-      margin: auto;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-  
-      .selectimage {
-        width: 60%;
-        height: 60%;
-        object-fit: contain;
-      }
-    } &:focus {
-      background-color: var(--uniprep-primaryop10);
-      border: 1px solid var(--uniprep-primary);
-    }
-  
-    &:hover {
-      background-color: var(--uniprep-primaryop10);
-      border: 1px solid var(--uniprep-primary);
+  border: 1px solid var(--uniprep-secondary);
+  width: 100%;
+  margin: 10px 0px;
+
+  .submoduleicon {
+    height: 100px;
+    width: 100px;
+    margin: auto;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    .selectimage {
+      width: 60%;
+      height: 60%;
+      object-fit: contain;
     }
   }
-  .subjecttitle {
-    font-size: 18px;
-    font-weight: 800;
+  &:focus {
+    background-color: var(--uniprep-primaryop10);
+    border: 1px solid var(--uniprep-primary);
   }
-  
+
+  &:hover {
+    background-color: var(--uniprep-primaryop10);
+    border: 1px solid var(--uniprep-primary);
+  }
+}
+.subjecttitle {
+  font-size: 18px;
+  font-weight: 800;
+}
+.search-container {
+  position: relative;
+  display: flex;
+  align-items: center;
+  padding-left: 30px; /* Prevents text from overlapping with the icon */
+}
+.country-icon {
+  position: absolute;
+  right: 5px;
+  .country-img {
+    height: 30px;
+    width: 30px;
+    border-radius: 50%;
+  }
+}

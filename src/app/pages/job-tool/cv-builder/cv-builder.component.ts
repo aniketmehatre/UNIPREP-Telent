@@ -13,7 +13,7 @@ import { City } from "src/app/@Models/cost-of-living";
 import { CommonModule } from "@angular/common";
 import { DialogModule } from "primeng/dialog";
 import { SidebarModule } from "primeng/sidebar";
-import { PdfJsViewerModule } from "ng2-pdfjs-viewer"
+
 import { RouterModule } from '@angular/router';
 import { CardModule } from 'primeng/card';
 import { PaginatorModule } from 'primeng/paginator';
@@ -28,6 +28,8 @@ import { InputGroupAddonModule } from 'primeng/inputgroupaddon';
 import { CvBuilderService } from "./cv-builder.service";
 import { TextareaModule } from 'primeng/textarea';
 import { DomSanitizer, SafeUrl } from '@angular/platform-browser';
+import {PdfViewerModule} from "ng2-pdf-viewer";
+import {ConfirmPopup} from "primeng/confirmpopup";
 declare const pdfjsLib: any;
 
 interface ResumeHistory {
@@ -41,7 +43,7 @@ interface ResumeHistory {
   templateUrl: "./cv-builder.component.html",
   styleUrls: ["./cv-builder.component.scss"],
   standalone: true,
-  imports: [CommonModule, DialogModule,TextareaModule, SidebarModule, PdfJsViewerModule, RouterModule, CardModule, PaginatorModule, FormsModule, ReactiveFormsModule, CarouselModule, ButtonModule, MultiSelectModule, SelectModule, InputGroupModule, InputTextModule, InputGroupAddonModule],
+  imports: [CommonModule, DialogModule, TextareaModule, SidebarModule, PdfViewerModule, RouterModule, CardModule, PaginatorModule, FormsModule, ReactiveFormsModule, CarouselModule, ButtonModule, MultiSelectModule, SelectModule, InputGroupModule, InputTextModule, InputGroupAddonModule, ConfirmPopup],
   providers: [CvBuilderService,ConfirmationService,MessageService]
 })
 export class CvBuilderComponent implements OnInit, AfterViewInit {
@@ -835,7 +837,7 @@ export class CvBuilderComponent implements OnInit, AfterViewInit {
     let data = {
       userdata: { ...formData },
       selectedResumeLevel: this.selectedResumeLevel,
-      // active_index: this.moduleActiveIndex,
+      active_index: this.moduleActiveIndex,
       hiding_headers: this.hidingHeaders,
     };
     this.resumeService.storeUserFilledData(data).subscribe();
@@ -948,6 +950,8 @@ export class CvBuilderComponent implements OnInit, AfterViewInit {
       this.ngAfterViewInit();
     }
     this.activePageIndex++;
+    console.log(this.activePageIndex);
+    
     if (this.activePageIndex == 4) {
       if (this.clickedDownloadButton) {
         //if the user not donwload the resume,in the presently created resume is not visible in the resume history page.

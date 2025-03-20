@@ -20,9 +20,9 @@ import { SkeletonModule } from 'primeng/skeleton';
 import { PaginatorModule } from 'primeng/paginator';
 import { FluidModule } from 'primeng/fluid';
 import { TooltipModule } from 'primeng/tooltip';
-
-import html2pdf from 'html2pdf.js';
 import { DownloadRespose } from 'src/app/@Models/travel-tools.model';
+import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
+
 @Component({
     selector: 'uni-student-budget-planner',
     templateUrl: './student-budget-planner.component.html',
@@ -37,6 +37,7 @@ export class StudentBudgetPlannerComponent implements OnInit {
     private travelService: TravelToolsService, 
     private router: Router, 
     private toastr: MessageService,
+    private sanitizer: DomSanitizer,
   ) { }
   recommendations: { id: number, question: string}[] = [
     {
@@ -45,19 +46,19 @@ export class StudentBudgetPlannerComponent implements OnInit {
     {
       id: 2, question: 'Student Expenses'
     },
-    {
-      id: 3, question: 'Financials'
-    },
-    {
-      id: 4, question: 'Project Income'
-    }
+    // {
+    //   id: 3, question: 'Financials'
+    // },
+    // {
+    //   id: 4, question: 'Project Income'
+    // }
   ];
   activePageIndex: number = 0;
   countriesList: AllCountryRes[] = [];
   allUniversityList: UniversityRes[] = [];
   currencyList: CurrencyList[] = [];
   universityList: any[] = [];
-  recommendationData: string = "";
+  recommendationData: SafeHtml;
   isRecommendation:boolean = true;
   isResponsePage:boolean = false;
   isSavedResponse:boolean = false;
@@ -76,13 +77,13 @@ export class StudentBudgetPlannerComponent implements OnInit {
     travel_expense: null,
     food_and_grocery: null,
     miscellaneous: null,
-    education_loan: null,
-    family_loan: null,
-    monthly_payment: null,
-    repayment_period: null,
-    part_time_income: null,
-    full_time_income: null,
-    other_income: null,
+    // education_loan: null,
+    // family_loan: null,
+    // monthly_payment: null,
+    // repayment_period: null,
+    // part_time_income: null,
+    // full_time_income: null,
+    // other_income: null,
     mode: 'student_budget_planner',
   }
   selectedData: any = {...this.selectedDataArray}
@@ -172,17 +173,21 @@ export class StudentBudgetPlannerComponent implements OnInit {
         let countryName = this.getCountryName();
         this.selectedData['country'] = countryName;
       }
-      if(value === null){
-        this.selectedData[key] = "none";
-      }
+      // if(value === null){
+      //   this.selectedData[key] = "none";
+      // }
     });
     this.travelService.getChatgptRecommendations(this.selectedData).subscribe({
       next: response =>{
-        this.recommendationData = response.response;
         this.isResponsePage = true;
         this.isRecommendation = false;
         this.isSavedResponse = false;
         this.isOldResponse = false;
+        let chatGptResponse = response.response;
+				chatGptResponse = chatGptResponse
+					.replace(/```html|```/g, '')
+          .replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>');
+				this.recommendationData = this.sanitizer.bypassSecurityTrustHtml(chatGptResponse);
       }
     })
   }
@@ -247,43 +252,39 @@ export class StudentBudgetPlannerComponent implements OnInit {
   }
 
   downloadResponse(){ 
-    let addingInput = `<p><strong>Input:<br></strong></p>
-    <p><strong>Country of Study</strong></p>
+    let addingInput = `<div style="font-family: 'Poppins', sans-serif; display: flex; align-items: center; justify-content: space-between; border-bottom: 2px solid #d32f2f; padding-bottom: 10px; margin-bottom: 20px;">
+				<div style="text-align: center;">
+					<h2 style="margin: 0; color: #1a237e;">Marketing Analysis</h2>
+				</div></div><p><strong>Input:<br></strong></p>
+    <p style="color: #d32f2f;"><strong>Country of Study</strong></p>
     <p>${this.selectedData.country}</strong></p><br>
-    <p><strong>University</strong></p>
+    <p style="color: #d32f2f;"><strong>University</strong></p>
     <p>${this.selectedData.university}</strong></p><br>
-    <p><strong>Course Duration</strong></p>
+    <p style="color: #d32f2f;"><strong>Course Duration</strong></p>
     <p>${this.selectedData.course_duration}</strong></p><br>
-    <p><strong>StayBack</strong></p>
+    <p style="color: #d32f2f;"><strong>StayBack</strong></p>
     <p>${this.selectedData.stay_back} Period</strong></p><br>
-    <p><strong>Overall Net Tution</strong></p>
+    <p style="color: #d32f2f;"><strong>Overall Net Tution</strong></p>
     <p>${this.selectedData.tution} in ${this.selectedCurrency}</p><br>
-    <p><strong>Accommodation</strong></p>
+    <p style="color: #d32f2f;"><strong>Accommodation</strong></p>
     <p>${this.selectedData.accommodation} / Month in ${this.selectedCurrency}</p><br>
-    <p><strong>Travel Expenses</strong></p>
+    <p style="color: #d32f2f;"><strong>Travel Expenses</strong></p>
     <p>${this.selectedData.travel_expense} / Month in ${this.selectedCurrency}</p><br>
-    <p><strong>Food & Grocerries</strong></p>
+    <p style="color: #d32f2f;"><strong>Food & Grocerries</strong></p>
     <p>${this.selectedData.food_and_grocery} / Month in ${this.selectedCurrency}</p><br>
-    <p><strong>Miscellaneous</strong></p>
+    <p style="color: #d32f2f;"><strong>Miscellaneous</strong></p>
     <p>${this.selectedData.miscellaneous} / Month in ${this.selectedCurrency}</p><br>
-    <p><strong>Education Loan</strong></p>
-    <p>${this.selectedData.education_loan} / Month in ${this.selectedCurrency}</p><br>
-    <p><strong>Friends & Family Loan</strong></p>
-    <p>${this.selectedData.family_loan} / Month in ${this.selectedCurrency}</p><br>
-    <p><strong>Monthly Payment</strong></p>
-    <p>${this.selectedData.monthly_payment}/ Month in ${this.selectedCurrency}</p><br>
-    <p><strong>Repayment Period</strong></p>
-    <p>${this.selectedData.repayment_period}</p><br>
-    <p><strong>Part Time income</strong></p>
-    <p>${this.selectedData.part_time_income}/ Month in ${this.selectedCurrency}</p><br>
-    <p><strong>full Time income</strong></p>
-    <p>${this.selectedData.full_time_income} / Month in ${this.selectedCurrency}</p><br>
-    <p><strong>Other income</strong></p>
-    <p>${this.selectedData.other_income} / Month in ${this.selectedCurrency}</p><br>
+    <div class="divider"></div>
     <p><strong>Response</strong></p><br> ${this.recommendationData}`;
-    
+
+    let finalRecommendation = addingInput
+    .replace(/```html|```/g, '')
+    .replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>')
+    .replace(/\(see https:\/\/g\.co\/ng\/security#xss\)/g, '') 
+    .replace(/SafeValue must use \[property\]=binding:/g, '')
+    .replace(/class="container"/g, 'style="line-height:1.9"'); //because if i add container the margin will increase so i removed the container now the spacing is proper.
     let paramsData: DownloadRespose = {
-      response: addingInput,
+      response: finalRecommendation,
       module_name: "Student Budget Planner",
       file_name: "student_budget_planner"
     }

@@ -17,6 +17,7 @@ import { InputGroupModule } from 'primeng/inputgroup';
 import { InputTextModule } from 'primeng/inputtext';
 import { InputGroupAddonModule } from 'primeng/inputgroupaddon';
 import { environment } from '@env/environment';
+import { DataService } from 'src/app/data.service';
 
 @Component({
     selector: 'uni-course-navigator',
@@ -39,7 +40,6 @@ export class CourseNavigatorComponent implements OnInit {
   selectedData: { [key: string]: any } = {};
   invalidClass: boolean = false;
   specializationList: CurrentSpecialization[] = [];
-  specializations: CurrentSpecialization[] = [];
   recommendationDataList: EducatiionsRec[] = [];
   isRecommendationQuestion: boolean = true;
   isRecommendationData: boolean = false;
@@ -51,7 +51,6 @@ export class CourseNavigatorComponent implements OnInit {
   // stateOptions = [{ label: 'Default', value: 'default' }, { label: 'Saved', value: 'saved' }];
   selectedState: string = 'default';
   selectedQuestionData: CourseNavigator;
-  specializationFilter: string = '';
   recommandedQandAList: CourseNavigator[] = [];
   courseSubmodules: CourseSubmodulesList[] = [
     {
@@ -86,7 +85,8 @@ export class CourseNavigatorComponent implements OnInit {
     private router: Router,
     private meta: Meta,
     private toast: MessageService,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    private dataService: DataService
 
   ) { }
 
@@ -105,21 +105,10 @@ export class CourseNavigatorComponent implements OnInit {
     this.educationToolsService.getCurrentSpecializations().subscribe({
       next: response => {
         this.specializationList = response;
-        this.specializations = response;
       },
       error: error => {
       }
     });
-  }
-
-  customFilterFunction() {
-    if (this.specializationFilter === "") {
-      this.specializationList = this.specializations;
-      return;
-    }
-    this.specializationList = this.specializations.filter(item =>
-      item?.specialization_name?.toLowerCase().includes(this.specializationFilter.toLowerCase())
-    );
   }
 
   previous() {
@@ -141,6 +130,7 @@ export class CourseNavigatorComponent implements OnInit {
       spec_id: this.selectedData[1],
       edu_id: this.selectedData[2]
     }
+    console.log(data, "selected data");
     this.educationToolsService.getDegreeRecommadations(data).subscribe({
       next: response => {
         this.isRecommendationQuestion = false;
@@ -161,8 +151,6 @@ export class CourseNavigatorComponent implements OnInit {
     this.isRecommendationSavedData = false;
     this.isCourseSubmodule = false;
     this.selectedData = {};
-    this.specializationFilter = "";
-    this.specializationList = this.specializations;
   }
 
   getCourseSubmodules(degreeId: number) {
@@ -317,5 +305,18 @@ export class CourseNavigatorComponent implements OnInit {
     if(!type) {
       this.router.navigateByUrl('/pages/education-tools');
     }
+  }
+
+  getContentPreview(content: string): string {
+    const div = document.createElement("div");
+    div.innerHTML = content;
+    const text = div.innerText || div.textContent || "";
+    const sentences = text.split(". ");
+    let paragraph = sentences[0] ? sentences[0] : "";
+    return paragraph.length > 75 ? paragraph.slice(13, 85) + ' ...' : paragraph;
+  }
+
+  openReport() {
+    
   }
 }

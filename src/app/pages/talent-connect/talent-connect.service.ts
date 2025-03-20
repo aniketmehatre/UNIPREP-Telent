@@ -1,7 +1,7 @@
-import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { Injectable } from '@angular/core';
-import { environment } from '@env/environment';
-import { Observable, BehaviorSubject } from 'rxjs';
+import {HttpClient, HttpHeaders} from '@angular/common/http';
+import {Injectable} from '@angular/core';
+import {environment} from '@env/environment';
+import {Observable} from 'rxjs';
 
 @Injectable({
     providedIn: 'root'
@@ -96,10 +96,170 @@ export class TalentConnectService {
         return this.http.post(`${environment.ApiUrl}/updatestudentprofile `, formData);
     }
 
+
+
+    // short list company
+    shortListCompany(companyId: any): Observable<any> {
+        const formData = new FormData();
+        formData.append("companyId", companyId);
+        const headers = new HttpHeaders().set("Accept", "application/json");
+        return this.http.post<any>(environment.ApiUrl + "/shortlistcompany", formData,  {headers: headers});
+    }
+
+    // company connect
+    getTalentConnectCompanies(formValues: any) {
+        const formData = new FormData();
+        formData.append("perpage", formValues.perpage);
+        formData.append("page", formValues.page);
+        // formData.append("companyname", formValues.companyname);
+        // formData.append("industrytype", formValues.industrytype);
+        // formData.append("companysize", formValues.companysize);
+        // formData.append("hq", formValues.hq);
+        // formData.append("globalpresence", formValues.globalpresence);
+        // formData.append("foundedyear", formValues.foundedyear);
+        // formData.append("companytype", formValues.companytype);
+        const headers = new HttpHeaders().set("Accept", "application/json");
+        return this.http.post<any>(
+            environment.ApiUrl + "/gettalentconnectcompanies", formData,
+            { headers: headers });
+    }
+
+
+    getCompanyDetails(id: any) {
+        const formData = new FormData();
+        formData.append("id", id);
+        const headers = new HttpHeaders().set("Accept", "application/json");
+        return this.http.post<any>(
+            environment.ApiUrl + "/getcompanydetails", formData,
+            { headers: headers });
+    }
+
+    // getcompanytypes
+    getCompanyTypes() {
+        const headers = new HttpHeaders().set("Accept", "application/json");
+        return this.http.get<any>(environment.ApiUrlEmployer + "/getcompanytypes", {headers: headers});
+    }
+
+    // getindustrytypes
+    getIndustryTypes() {
+        const headers = new HttpHeaders().set("Accept", "application/json");
+        return this.http.get<any>(environment.ApiUrlEmployer + "/getindustrytypes", {headers: headers});
+    }
+
+    // getcompanysize
+    getCompanySizes() {
+        const headers = new HttpHeaders().set("Accept", "application/json");
+        return this.http.get<any>(environment.ApiUrlEmployer + "/getcompanysize", {headers: headers});
+    }
+
+    // globalPresence
+    globalPresence() {
+        const headers = new HttpHeaders().set("Accept", "application/json");
+        return this.http.post<any>(environment.ApiUrlEmployer + "/globalPresence", {},  {headers: headers});
+    }
+
+    // getcitywithflag
+    getCityWithFlag() {
+        const headers = new HttpHeaders().set("Accept", "application/json");
+        return this.http.post<any>(environment.ApiUrlEmployer + "/getcitywithflag", {},  {headers: headers});
+    }
+
+    // follow company
+    followCompany(companyId: any) {
+        const formData = new FormData();
+        formData.append("companyId", companyId);
+        const headers = new HttpHeaders().set("Accept", "application/json");
+        return this.http.post<any>(environment.ApiUrl + "/followcompany", formData,  {headers: headers});
+    }
+
     getCurrencies() {
         return this.http.get<any>(environment.ApiUrl + "/currenciesList", {
             headers: this.headers
         });
     }
 
+    // get chat message
+    getChatMessageForCompanyConnect(companyId: any) {
+        const formData = new FormData();
+        formData.append("companyid", companyId);
+        const headers = new HttpHeaders().set("Accept", "application/json");
+        return this.http.post<any>(environment.ApiUrl + "/getchatmessages", formData,  {headers: headers});
+    }
+
+    // sendcompanyconnectusermessage
+    sendCompanyConnectUserMessage(formDataValue: any) {
+        const formData = new FormData();
+        formData.append("company_id", formDataValue.company_id);
+        formData.append("chat", formDataValue.chat);
+        formData.append("attachment", formDataValue.attachment);
+        const headers = new HttpHeaders().set("Accept", "application/json");
+        return this.http.post<any>(environment.ApiUrl + "/sendcompanyconnectusermessage", formData,  {headers: headers});
+    }
+
+
+    //getcompanytracker
+    getCompanyTracker(formValues: any) {
+        const formData = new FormData();
+        formData.append("perpage", formValues.perpage);
+        formData.append("page", formValues.page);
+        // formData.append("companyname", formValues.companyname);
+        // formData.append("industrytype", formValues.industrytype);
+        // formData.append("companysize", formValues.companysize);
+        // formData.append("hq", formValues.hq);
+        // formData.append("globalpresence", formValues.globalpresence);
+        // formData.append("foundedyear", formValues.foundedyear);
+        // formData.append("companytype", formValues.companytype);
+        // formData.append("status", "1");
+        const headers = new HttpHeaders().set("Accept", "application/json");
+        return this.http.post<any>(environment.ApiUrl + "/getcompanytracker", formData,  {headers: headers});
+    }
+
+    getShortListedCompanyList(formValues: any) {
+        const formData = new FormData();
+        formData.append("perpage", formValues.perpage);
+        formData.append("page", formValues.page);
+        // formData.append("companyname", formValues.companyname);
+        // formData.append("industrytype", formValues.industrytype);
+        // formData.append("companysize", formValues.companysize);
+        // formData.append("hq", formValues.hq);
+        // formData.append("globalpresence", formValues.globalpresence);
+        // formData.append("foundedyear", formValues.foundedyear);
+        // formData.append("companytype", formValues.companytype);
+        // formData.append("status", "1");
+        const headers = new HttpHeaders().set("Accept", "application/json");
+        return this.http.post<any>(environment.ApiUrl + "/getshortlistedcompanytracker", formData,  {headers: headers});
+    }
+
+    getReceivedMessageCompanyTracker(formValues: any) {
+        const formData = new FormData();
+        formData.append("perpage", formValues.perpage);
+        formData.append("page", formValues.page);
+        // formData.append("companyname", formValues.companyname);
+        // formData.append("industrytype", formValues.industrytype);
+        // formData.append("companysize", formValues.companysize);
+        // formData.append("hq", formValues.hq);
+        // formData.append("globalpresence", formValues.globalpresence);
+        // formData.append("foundedyear", formValues.foundedyear);
+        // formData.append("companytype", formValues.companytype);
+        // formData.append("status", "1");
+        const headers = new HttpHeaders().set("Accept", "application/json");
+        return this.http.post<any>(environment.ApiUrl + "/getreceievedmessagecompanytracker", formData,  {headers: headers});
+    }
+
+
+    getSendMessageCompanyTracker(formValues: any) {
+        const formData = new FormData();
+        formData.append("perpage", formValues.perpage);
+        formData.append("page", formValues.page);
+        // formData.append("companyname", formValues.companyname);
+        // formData.append("industrytype", formValues.industrytype);
+        // formData.append("companysize", formValues.companysize);
+        // formData.append("hq", formValues.hq);
+        // formData.append("globalpresence", formValues.globalpresence);
+        // formData.append("foundedyear", formValues.foundedyear);
+        // formData.append("companytype", formValues.companytype);
+        // formData.append("status", "1");
+        const headers = new HttpHeaders().set("Accept", "application/json");
+        return this.http.post<any>(environment.ApiUrl + "/getsendmessagecompanytracker", formData,  {headers: headers});
+    }
 }

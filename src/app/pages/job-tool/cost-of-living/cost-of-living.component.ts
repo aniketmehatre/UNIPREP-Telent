@@ -16,13 +16,13 @@ import { InputGroupModule } from 'primeng/inputgroup';
 import { InputTextModule } from 'primeng/inputtext';
 import { InputGroupAddonModule } from 'primeng/inputgroupaddon';
 import { SelectModule } from 'primeng/select';
+import { ComparisionComponent } from './comparision/comparision.component';
 @Component({
-    selector: 'uni-cost-of-living',
-    templateUrl: './cost-of-living.component.html',
-    styleUrls: ['./cost-of-living.component.scss'],
-    standalone: true,
-
-    imports: [CommonModule, DialogModule,  FormsModule, ReactiveFormsModule, SelectModule, CarouselModule, ButtonModule, CommonModule, RouterModule, DialogModule, MultiSelectModule, CardModule, InputGroupModule, InputTextModule, InputGroupAddonModule],
+  selector: 'uni-cost-of-living',
+  templateUrl: './cost-of-living.component.html',
+  styleUrls: ['./cost-of-living.component.scss'],
+  standalone: true,
+  imports: [CommonModule, DialogModule, FormsModule, ReactiveFormsModule, SelectModule, CarouselModule, ButtonModule, CommonModule, RouterModule, DialogModule, MultiSelectModule, CardModule, InputGroupModule, InputTextModule, InputGroupAddonModule, ComparisionComponent],
 
 })
 export class CostOfLivingComponent implements OnInit {
@@ -60,9 +60,7 @@ export class CostOfLivingComponent implements OnInit {
   ) {
     this.form = this.fb.group({
       sourceCity: [null],
-      targetCity: [null],
-      sourceFilter: [''],
-      targetFilter: ['']
+      targetCity: [null]
     });
   }
 
@@ -142,48 +140,6 @@ export class CostOfLivingComponent implements OnInit {
       });
   }
 
-  resetFunction(typeOfField: string) {
-    if (typeOfField == 'source') {
-      this.sourceCities = this.cities;
-      this.form.get('sourceFilter')?.setValue('');
-      return;
-    }
-    this.targetCities = this.cities;
-    this.form.get('targetFilter')?.setValue('');
-  }
-
-
-  customFilterFunction(typeOfField: string) {
-    if (typeOfField == 'source') {
-      if (this.form.get('sourceFilter')?.value === "") {
-        this.sourceCities = this.cities;
-        return;
-      }
-      this.sourceCities = this.cities.filter(city =>
-        city?.city_name?.toLowerCase().includes(this.form.get('sourceFilter')?.value?.toLowerCase()) || city.country_name.toLowerCase().includes(this.form.get('sourceFilter')?.value?.toLowerCase())
-      );
-      const sourceCountries = this.sourceCities.filter(city => city.city_name == '');
-      sourceCountries.forEach(city => {
-        this.sourceCities.pop();
-      });
-      this.sourceCities.unshift(...sourceCountries);
-      return;
-    }
-    if (this.form.get('targetFilter')?.value === "") {
-      this.targetCities = this.cities;
-      return;
-    }
-    this.targetCities = this.cities.filter(city =>
-      city?.city_name?.toLowerCase().includes(this.form.get('targetFilter')?.value?.toLowerCase()) || city.country_name.toLowerCase().includes(this.form.get('targetFilter')?.value?.toLowerCase())
-    );
-    console.log(this.targetCities);
-    const targetCountries = this.targetCities.filter(city => city.city_name == '');
-    targetCountries.forEach(city => {
-      this.targetCities.pop();
-    });
-    this.targetCities.unshift(...targetCountries);
-  }
-
   cityChange(typeOfField: string, cityDetails: any) {
     if (typeOfField == 'source') {
       this.sourceCountry = cityDetails.country_name;
@@ -195,7 +151,7 @@ export class CostOfLivingComponent implements OnInit {
     this.authService.getNewUserTimeLeft().subscribe((res) => {
       let data = res.time_left;
       let subscription_exists_status = res.subscription_details;
-      if (data.plan === "expired" || data.plan === 'subscription_expired' || subscription_exists_status.subscription_plan=="Student") {
+      if (data.plan === "expired" || data.plan === 'subscription_expired' || subscription_exists_status.subscription_plan == "Student") {
         this.planExpired = true;
       } else {
         this.planExpired = false;

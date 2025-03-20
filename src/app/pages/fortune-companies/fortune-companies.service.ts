@@ -1,11 +1,5 @@
 import { Injectable } from "@angular/core";
 import { HttpClient, HttpHeaders } from "@angular/common/http";
-import {
-  City,
-  CostOfLiving,
-  CurrencyConvert,
-  GoodWithIcon,
-} from "src/app/@Models/cost-of-living";
 import { environment } from "@env/environment";
 
 @Injectable({

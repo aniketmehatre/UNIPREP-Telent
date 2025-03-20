@@ -39,16 +39,16 @@
                     </div>
                   </ng-container>
                   <ng-container *ngIf="recommendation.id == 2">
-                    <p-dropdown [(ngModel)]="selectedData[recommendation.id]" [options]="businessGoalsList" [filter]="true" filterBy="goal"
-                    styleClass="w-100" optionLabel="goal" optionValue="goal" [appendTo]="'body'" placeholder="Select Goal">
-                  </p-dropdown>
+                    <p-select [(ngModel)]="selectedData[recommendation.id]" [options]="businessGoalsList" [filter]="true" filterBy="goal"
+                      styleClass="w-100" optionLabel="goal" optionValue="goal" [appendTo]="'body'" placeholder="Select Goal">
+                    </p-select>
                     <div class="text-center" [ngClass]="{ 'd-none': inValidClass === false }" style="color: red">
                       Business Primary Goal is required
                     </div>
                   </ng-container>
                   <ng-container *ngIf="recommendation.id == 3">
-                    <p-select [(ngModel)]="selectedData[recommendation.id]" [options]="durationList"
-                      styleClass="w-100" optionLabel="name" optionValue="name" [appendTo]="'body'" placeholder="Months">
+                    <p-select [(ngModel)]="selectedData[recommendation.id]" [options]="durationList" [filter]="true" filterBy="duration"
+                      styleClass="w-100" optionLabel="duration" optionValue="duration" [appendTo]="'body'" placeholder="Months">
                     </p-select>
                     <div class="text-center" [ngClass]="{ 'd-none': inValidClass === false }" style="color: red">
                       Business Duration is required

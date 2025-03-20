@@ -93,7 +93,7 @@ export const FoundersToolsData = [
         launch_soon: false
     },
     {
-        title: "Government Funds Opportunity",
+        title: "Government Funding List",
         description: "This tool lets you build a cover letter with the help of a few easy steps.",
         image: domainUrl+"GovernmentFundingOpportunity.svg",
         url: "/pages/founderstool/governmentfunds",
@@ -104,7 +104,7 @@ export const FoundersToolsData = [
         description: "An assessment that evaluates an entrepreneur's in-depth knowledge and proficiency in specific industries.",
         image: domainUrl+"MarketAnalysis.svg",
         url: "/pages/founderstool/marketing-anaylsis",
-        launch_soon: true
+        launch_soon: false
     },
     {
         title: "Business Advisor",

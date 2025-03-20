@@ -61,7 +61,7 @@ import { StepsModule } from "primeng/steps"
 import { CheckboxModule } from "primeng/checkbox"
 import { RadioButtonModule } from "primeng/radiobutton"
 import { PitchDeskComponent } from "./pitch-desk/pitch-desk.component"
-import { PdfJsViewerModule } from "ng2-pdfjs-viewer"
+
 import { ExportCreditComponent } from "./export-credit/export-credit.component"
 import { MycertificateComponent } from "./mycertificate/mycertificate.component"
 import { CareerPlannerComponent } from "./career-planner/career-planner.component"
@@ -96,6 +96,7 @@ import { OverlayPanelModule } from "primeng/overlaypanel";
 
 import { GlobalRepositoryComponent } from './global-repository/global-repository.component';
 import { GlobalEmploymentComponent } from "./global-employment-insights/global-employment-insights.component";
+import {PdfViewerModule} from "ng2-pdf-viewer";
 
 @NgModule({
 	declarations: [
@@ -180,7 +181,7 @@ import { GlobalEmploymentComponent } from "./global-employment-insights/global-e
 		CheckboxModule,
 		StepsModule,
 		RadioButtonModule,
-		PdfJsViewerModule,
+		PdfViewerModule,
 		SkeletonModule
 	],
 	schemas: [CUSTOM_ELEMENTS_SCHEMA],

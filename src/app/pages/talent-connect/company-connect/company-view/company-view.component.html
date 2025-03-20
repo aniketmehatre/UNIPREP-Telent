@@ -5,8 +5,7 @@
         <div
           class="backIcon d-md-flex d-none"
           role="button"
-          routerLink="/pages/talent-connect/list"
-        >
+          routerLink="/pages/talent-connect/company-connect">
           <span class="fa-solid fa-chevron-left"></span>
         </div>
         <div
@@ -18,7 +17,7 @@
               tooltipPosition="top"
               pTooltip="Questions related to the application process are answered"
             >
-              Employeer Connect<i
+              Employer Connect<i
                 class="questiontooltip fa-solid fa-circle-question"
               ></i>
             </h5>
@@ -44,7 +43,7 @@
                 <div class="col-md-2">
                   <div class="logo-container border rounded p-2">
                     <img
-                      [src]="companyInfo.logo"
+                      src="{{companyDetails!.company_logo}}"
                       alt="Company Logo"
                       class="img-fluid"
                       onerror="this.src"
@@ -52,49 +51,26 @@
                   </div>
                 </div>
                 <div class="col-md-7">
-                  <h1 class="fw-bold">{{ companyInfo.name }}</h1>
-                  <p class="text-muted">Founded : {{ companyInfo.founded }}</p>
-                  <button class="btn btn-outline-primary">
-                    Follow <i class="pi pi-plus fs-6"></i>
+                  <h1 class="fw-bold">{{ companyDetails.company_name }}</h1>
+                  <p class="text-muted pt-2">Founded : {{ companyDetails.founded_year }}</p>
+                  <button pButton class="pt-2 btn {{companyDetails.followed == 0 ? 'btn-outline-primary' : 'btn-primary' }}"
+                          (click)="followCompany()" [disabled]="companyDetails.followed == 1">
+                    {{companyDetails.followed == 0 ? 'Follow' : 'Followed' }}
+                      <i [ngClass]="companyDetails.followed == 0 ? 'pi pi-plus' : 'pi pi-check'" class="fs-6"></i>
                   </button>
                 </div>
-                <div class="col-md-3 text-end">
-                  <button class="btn btn-success me-2">Shortlist</button>
-                  <button class="btn btn-primary" (click)="showChat = true">
-                    Chat <i class="pi pi-comments"></i>
-                  </button>
-                </div>
-              </div>
+                  <div class="col-md-3 d-flex justify-content-end gap-2 pt-2">
+                      <button class="p-2 rounded-2"
+                              [ngClass]="companyDetails.shortlisted == 1 ? 'btn btn-secondary' : 'btn btn-outline-secondary'"
+                              (click)="onClickShortListCompany(companyDetails.id)"
+                              [disabled]="companyDetails.shortlisted == 1">
+                          {{ companyDetails.shortlisted == 1 ? "Shortlisted" : "Shortlist" }}
+                      </button>
 
-              <div class="row mt-4">
-                <div class="col-md-4">
-                  <div class="d-flex align-items-center">
-                    <i class="pi pi-map-marker text-success me-2"></i>
-                    <div>
-                      <small class="text-muted d-block"
-                        >Headquarters Location</small>
-                      <span>{{ companyInfo.headquartersLocation }}</span>
-                    </div>
+                      <button class="btn btn-success p-2 rounded-2" (click)="showChat = true">
+                          Chat <i class="pi pi-comment"></i>
+                      </button>
                   </div>
-                </div>
-                <div class="col-md-4">
-                  <div class="d-flex align-items-center">
-                    <i class="pi pi-briefcase text-primary me-2"></i>
-                    <div>
-                      <small class="text-muted d-block">Company Type</small>
-                      <span>{{ companyInfo.companyType }}</span>
-                    </div>
-                  </div>
-                </div>
-                <div class="col-md-4">
-                  <div class="d-flex align-items-center">
-                    <i class="pi pi-users text-info me-2"></i>
-                    <div>
-                      <small class="text-muted d-block ">Company Size</small>
-                      <span>0-50</span>
-                    </div>
-                  </div>
-                </div>
               </div>
             </div>
           </div>
@@ -110,12 +86,12 @@
                   <div class="row">
                     <div class="col-md-3">
                       <h6 class="text-muted text-primary">Industry Type</h6>
-                      <p>{{ companyInfo.industryType }}</p>
+                      <p>{{ companyDetails.industry_type }}</p>
                     </div>
                     <div class="col-md-3">
                       <h6 class="text-muted text-primary">Company Size</h6>
                       <p>
-                        {{ companyInfo.companySize }}<br />
+                        {{ companyDetails.size }}<br />
                         <small class="text-muted"
                           >({{ companyInfo.sizeCategory }})</small
                         >
@@ -123,25 +99,25 @@
                     </div>
                     <div class="col-md-3">
                       <h6 class="text-muted text-primary">Headquarters Location</h6>
-                      <p>India, Mysore</p>
+                      <p>{{companyDetails.HQ_city}}, {{ companyDetails.HQ_country }}</p>
                     </div>
                     <div class="col-md-3">
                       <h6 class="text-muted text-primary">Global Presence</h6>
-                      <p>{{ companyInfo.globalPresence.join(", ") }}</p>
+                      <p>{{ companyDetails.global_presence }}</p>
                     </div>
                   </div>
                   <div class="row mt-4">
                     <div class="col-md-3">
                       <h6 class="text-muted text-primary">Year Founded</h6>
-                      <p>{{ companyInfo.founded }}</p>
+                      <p>{{ companyDetails.founded_year }}</p>
                     </div>
                     <div class="col-md-3">
                       <h6 class="text-muted text-primary">Official Website</h6>
-                      <p>{{ companyInfo.websiteUrl }}</p>
+                      <p>{{ companyDetails.website }}</p>
                     </div>
                     <div class="col-md-6">
                       <h6 class="text-muted text-primary">LinkedIn Profile</h6>
-                      <p>{{ companyInfo.linkedInProfile }}</p>
+                      <p>{{ companyDetails.linkedin_link }}</p>
                     </div>
                   </div>
                 </div>
@@ -165,7 +141,7 @@
                       <h5 class="text-primary">Work Life Balance Policies</h5>
                       <div class="mt-2">
                         <p-chip
-                          *ngFor="let policy of workLifeBalancePolicies"
+                          *ngFor="let policy of companyDetails.work_life_balance_policy"
                           label="{{ policy }}"
                           styleClass="m-1 bg-warning bg-opacity-25 text-dark"
                         ></p-chip>
@@ -175,7 +151,7 @@
                       <h5 class="text-primary">Employee Benefits & Perks</h5>
                       <div class="mt-2">
                         <p-chip
-                          *ngFor="let benefit of employeeBenefits"
+                          *ngFor="let benefit of companyDetails.benefits"
                           label="{{ benefit }}"
                           styleClass="m-1 bg-info bg-opacity-25 text-dark"
                         ></p-chip>
@@ -185,7 +161,7 @@
 
                   <div class="mt-4">
                     <h5 class="text-primary">Work Location & Mode</h5>
-                    <p>{{ workLocation }}</p>
+                    <p>{{ companyDetails.work_mode }}</p>
                   </div>
                 </div>
               </div>
@@ -202,9 +178,8 @@
                 <div class="col-md-9">
                   <h5 class="text-primary">Hiring Process Stages</h5>
                   <div class="mt-2">
-                    <p-chip
-                      *ngFor="let stage of hiringStages"
-                      label="{{ stage }}"
+                    <p-chip *ngFor="let hire of companyDetails.hiring_process_stages"
+                      label="{{ hire }}"
                       styleClass="m-1 bg-warning bg-opacity-25 text-dark"
                     ></p-chip>
                   </div>
@@ -213,12 +188,12 @@
                     <h5 class="text-primary">
                       Estimated Hiring Decision Timeframe
                     </h5>
-                    <p>{{ hiringTimeframe }}</p>
+                    <p>{{ companyDetails.timeframe }}</p>
                   </div>
 
                   <div class="mt-4">
                     <h5 class="text-primary">Interview Format</h5>
-                    <p>{{ interviewFormat }}</p>
+                    <p>{{ companyDetails.format }}</p>
                   </div>
                 </div>
               </div>
@@ -227,7 +202,7 @@
         </div>
       </div>
       <div class="col-md-3" *ngIf="showChat">
-        <uni-job-chat-ui (closeChat)="showChat = false"></uni-job-chat-ui>
+        <uni-chat [companyDetails]="companyDetails" [id]="companyId" (closeChat)="showChat = false"></uni-chat>
       </div>
     </div>
   </div>

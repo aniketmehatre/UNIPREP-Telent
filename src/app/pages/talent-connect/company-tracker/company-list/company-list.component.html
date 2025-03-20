@@ -1,25 +1,25 @@
 <div class="job-tracker-panel">
     <div class="d-flex justify-content-between align-items-center mb-3 p-2 border-bottom">
       <h4 class="m-0">All</h4>
-      <span class="text-muted">Total Application : 100</span>
+      <span class="text-muted">Total Application : {{ companyTotalCount }}</span>
     </div>
 
-    <p-tabView [(activeIndex)]="activeIndex" [scrollable]="true" styleClass="p-0">
+    <p-tabView [(activeIndex)]="activeIndex" [scrollable]="true" styleClass="p-0" (onChange)="onTabChange($event)">
       <p-tabPanel *ngFor="let tab of tabs" [header]="tab.label" class="p-0">
         <div class="job-cards" style="height: calc(100vh - 400px);">
           <!-- Job 1 -->
-          <div class="job-card mb-3" (click)="onClickJobCard(1)" *ngFor="let company of companyList">
+            <div class="job-card mb-3" (click)="onClickJobCard(company)" *ngFor="let company of companyList">
             <div class="d-flex">
               <div class="company-logo me-3">
-                <img src="assets/images/uniabroad-logo.png" alt="UNIABROAD">
+                <img src="{{company.company_logo}}" alt="UNIABROAD">
               </div>
               <div class="job-details text-left">
-                <h5 class="job-title mb-1 text-left">{{company.name}}</h5>
+                <h5 class="job-title mb-1 text-left">{{company.company_name}}</h5>
                 <p class="company-name mb-1 text-left">Applied For: {{company.position}}</p>
-                <p class="job-status mb-1 text-left">Job ID : {{company.code}}</p>
+                <!-- <p class="job-status mb-1 text-left">Job ID : {{company.code}}</p> -->
                 <div class="d-flex align-items-center location mb-2">
                   <i class="pi pi-map-marker me-1 text-success"></i>
-                  <span>{{company.location}}</span>
+                    <span>{{ company.HQ_city }} {{ company.HQ_country }}</span>
                 </div>
                 <span class="status-badge" [ngClass]="getStatusClass('Sent')">{{company.status}}</span>
               </div>
@@ -29,11 +29,11 @@
       </p-tabPanel>
   </p-tabView>
     <div class="pagination-container d-flex justify-content-between align-items-center mt-4">
-      <button class="btn btn-light">
+        <button class="btn btn-light" (click)="onBackClick()">
         <i class="pi pi-chevron-left me-1 fs-6"></i> Back
       </button>
-      <span>Page 1 / 10</span>
-      <button class="btn btn-light">
+        <span>Page {{ page }} / {{ perPage }}</span>
+        <button class="btn btn-light" (click)="onNextClick()">
         Next <i class="pi pi-chevron-right ms-1 fs-6"></i>
       </button>
     </div>

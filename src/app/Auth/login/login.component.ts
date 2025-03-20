@@ -6,7 +6,8 @@ import {
 	CUSTOM_ELEMENTS_SCHEMA,
 	ElementRef,
 	OnDestroy,
-	OnInit, Renderer2,
+	OnInit,
+	Renderer2,
 	ViewChild
 } from "@angular/core"
 import {FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators} from "@angular/forms"
@@ -26,12 +27,7 @@ import {SubSink} from "subsink"
 import {LocationService} from "../../location.service"
 import {AuthService} from "../auth.service"
 import {finalize} from 'rxjs/operators';
-import {
-	GoogleLoginProvider,
-	GoogleSigninButtonModule,
-	SocialAuthService,
-	SocialAuthServiceConfig, SocialLoginModule
-} from "@abacritt/angularx-social-login";
+import {GoogleSigninButtonModule, SocialAuthService, SocialLoginModule,} from '@abacritt/angularx-social-login';
 
 declare var google: any;
 @Component({
@@ -41,26 +37,8 @@ declare var google: any;
 	schemas: [CUSTOM_ELEMENTS_SCHEMA],
 	standalone: true,
 	imports: [CommonModule, FluidModule, PasswordModule, RouterModule, InputTextModule, InputIconModule,
-		InputGroupModule, InputGroupAddonModule, SocialLoginModule, FormsModule, ReactiveFormsModule,
-		GoogleSigninButtonModule],
-	providers: [MessageService,
-		{
-			provide: 'SocialAuthServiceConfig',
-			useValue: {
-				autoLogin: false,
-				lang: 'en',
-				providers: [
-					{
-						id: GoogleLoginProvider.PROVIDER_ID,
-						provider: new GoogleLoginProvider('AIzaSyCxrgn6ZZL3IsY_3xrSqQJi_3yT_OKr-n0') // Replace with actual Client ID
-					}
-				],
-				onError: (err) => {
-					console.error(err);
-				}
-			} as SocialAuthServiceConfig
-		}
-	],
+		InputGroupModule, InputGroupAddonModule, FormsModule, ReactiveFormsModule,
+		SocialLoginModule, GoogleSigninButtonModule],
 	changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class LoginComponent implements OnInit, OnDestroy {
@@ -83,22 +61,8 @@ export class LoginComponent implements OnInit, OnDestroy {
 				private storage: LocalStorageService, private authTokenService: AuthTokenService,
 				private cdr: ChangeDetectorRef, private el: ElementRef, private renderer: Renderer2) {}
 
-	button1Clicked() {
-		this.button2.nativeElement.click()
-	}
-
 	ngOnDestroy() {
 		this.subs.unsubscribe()
-	}
-
-	showPassword(): void {
-		if (this.password === "password") {
-			this.password = "text"
-			this.show = false
-		} else {
-			this.password = "password"
-			this.show = true
-		}
 	}
 
 	ngOnInit() {
@@ -208,6 +172,17 @@ export class LoginComponent implements OnInit, OnDestroy {
 		this.service.getMe().subscribe({
 			next: (userData) => {
 				this.loadCountryList(userData)
+        this.subs.sink = this.service.selectMessage$().subscribe((message) => {
+            let req = {
+              userId: userData.userdetails[0].user_id,
+              location: this.locationData.city,
+              country: this.locationData.country_name,
+            };
+            this.locationService
+              .sendSessionData(req, "login")
+              .subscribe((response) => {
+              });
+        });
 				this.toast.add({
 					severity: "success",
 					summary: "Success",
@@ -273,17 +248,4 @@ export class LoginComponent implements OnInit, OnDestroy {
 			}
 		})
 	}
-
-	// loginWithFacebook(){
-	//   this.authService.signIn(FacebookLoginProvider.PROVIDER_ID);
-	// }
-	//
-	// loginWithLinkedIn(){
-	//     this.ngxLinkedinService.signIn().subscribe(user => {
-	//       console.info('signIn', user);
-	//     });
-	//   window.location.href = `https://www.linkedin.com/uas/oauth2/authorization?response_type=code&client_id=${
-	//       this.linkedInCredentials.clientId
-	//   }&redirect_uri=${this.linkedInCredentials.redirectUrl}&scope={this.linkedInCredentials.scope}`;
-	// }
 }

@@ -26,8 +26,8 @@ export const appRoutes: Routes = [
 	{ path: "certificates", component: CertificatesComponent },
 	{ path: "enterprisepayment/:id", component: EnterpriseSubscriptionComponent },
 	{ path: "forgot-password", component: ForgotPasswordComponent }	,
-	{ path: "verification", component: VerificationComponent },
-	{ path: "setpassword", component: SetpasswordComponent },
+	{ path: "verification/:email", component: VerificationComponent },
+	{ path: "setpassword/:otp/:email", component: SetpasswordComponent },
 
 
 	// Protected routes that require authentication
