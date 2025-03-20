@@ -59,6 +59,7 @@ export class JobListComponent implements OnInit {
   ngOnInit(): void {
     this.initializeForm();
     this.getAppliedJobList();
+    this.getOptionsList();
   }
 
   onClickJobCard(id: number) {
@@ -79,6 +80,7 @@ export class JobListComponent implements OnInit {
     const data = {
       page: this.page,
       perPage: this.pageSize,
+      ...params
     }
     this.talentConnectService.getAppliedJobList(data).subscribe({
       next: response => {
@@ -104,13 +106,13 @@ export class JobListComponent implements OnInit {
     this.filterForm = this.fb.group({
       keyword: [''],
       position: [''],
-      industry: [null],
-      worklocation: [null],
+      industry_type: [null],
+      work_location: [null],
       work_mode: [null],
       employment_type: [null],
       currency: ['INR'],
       salary: [''],
-      experienceLevel: [null],
+      experience_level: [null],
       status: ['']
     });
   }
@@ -148,6 +150,9 @@ export class JobListComponent implements OnInit {
   }
 
   getOptionsList() {
+    this.talentConnectService.getCountries().subscribe(data => {
+      this.locations = data;
+    });
     this.talentConnectService.getJobListDropdown().subscribe(data => {
       this.industries = data?.industrytypes;
       this.experienceLevels = data.experiecelevel;

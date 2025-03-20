@@ -29,7 +29,7 @@ interface ChatMessage {
   templateUrl: './job-tracker.component.html',
   styleUrls: ['./job-tracker.component.scss'],
   standalone: true,
-  imports: [Select, Dialog, ReactiveFormsModule, JobListComponent, JobDetailsComponent, JobChatUiComponent, InputNumberModule, MultiSelectModule, CommonModule, RouterModule]
+  imports: [ReactiveFormsModule, JobListComponent, JobDetailsComponent, JobChatUiComponent, InputNumberModule, MultiSelectModule, CommonModule, RouterModule]
 })
 export class JobTrackerComponent {
   orgnamewhitlabel: any
@@ -60,7 +60,7 @@ export class JobTrackerComponent {
     { label: 'Selected' }
   ];
 
-  showInfo: boolean = true;
+  showInfo: boolean = false;
   messages: ChatMessage[] = [];
   newMessage: string = '';
   jobDetails: Job;
@@ -70,7 +70,6 @@ export class JobTrackerComponent {
   }
 
   onClickJobId(event: number) {
-    this.showInfo = true;
     this.selectedJobId = event;
     this.getJobTrackDetails(this.selectedJobId);
   }

@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, OnChanges, Output, SimpleChanges } from '@angular/core';
+import { Component, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChanges } from '@angular/core';
 import {FormsModule} from "@angular/forms";
 import { Avatar, AvatarModule } from "primeng/avatar";
 import { CommonModule, NgClass } from "@angular/common";
@@ -16,6 +16,7 @@ interface ChatMessage {
   profile_image?: string;
   type: 'text' | 'file' | 'button';
   attachment_url?: string | null;
+  attachment?: string | null;
 }
 
 @Component({
@@ -53,13 +54,12 @@ export class JobChatUiComponent implements OnChanges {
   attachmentFile: any;
 
   constructor(private talentConnectService: TalentConnectService) { }
-  
-  ngOnInit(): void {
-    this.loadSampleMessages();
-  }
+
 
   ngOnChanges(changes: SimpleChanges): void {
-    this.getMessages(this.jobDetails.id);
+    if (changes?.['jobDetails']) {
+      this.getMessages(this.jobDetails.id);
+    }
   }
 
   loadSampleMessages(): void {
@@ -77,7 +77,11 @@ export class JobChatUiComponent implements OnChanges {
               content: item.chat,
               markAsRead: item?.markasread == 0 ? false : true,
               time: new Date(item.created_at).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }),
-              type: item.attachment ? 'file' : 'text'
+              type: item.attachment_url ? 'file' : 'text',
+              attachment: item.attachment ?? null,
+              attachment_url: item.attachment_url ?? null,
+              company_logo: item.company_logo ?? null,
+              profile_image: item.profile_image ?? null,
             };
           });
         } else {
@@ -96,7 +100,7 @@ export class JobChatUiComponent implements OnChanges {
   }
 
   sendMessage(message: string): void {
-    if (!message.trim()) return;
+    if (!message.trim() && !this.attachmentFile) return;
     const formData = new FormData();
     if (this.attachmentFile) {
       formData.append('attachment', this.attachmentFile)
@@ -105,15 +109,15 @@ export class JobChatUiComponent implements OnChanges {
     formData.append('job_id', this.jobDetails.id.toString());
     this.talentConnectService.sendMessage(formData).subscribe({
       next: response => {
-        console.log('Message sent:', response);
         // If there's a response message from the server, add it
         if (response.message) {
           this.messages.push({
             sender: true,
             content: message,
             time: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }),
-            type: this.attachmentFile ? 'text' : 'file',
-            attachment_url: this.attachmentFile ? this.attachmentFile : null
+            type: this.attachmentFile ? 'file' : 'text',
+            attachment_url: this.attachmentFile ? this.attachmentFile : null,
+            attachment: this.attachmentFile ? this.attachmentFile.name : null
           });
         }
         this.attachmentFile = null;

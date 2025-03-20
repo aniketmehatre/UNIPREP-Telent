@@ -14,7 +14,7 @@
 					</div>
 				</div>
 				<button type="button" title="Close Popup"
-				class="btn btn-primary btn-rounded mt-2" (click)="displayModal = true;"><i class="fa-solid fa-caret-down"></i>&nbsp;&nbsp;Report
+				class="btn btn-primary btn-rounded mt-2" (click)="displayModal = true;"><i class="fa-solid fa-caret-down"></i>&nbsp;&nbsp;Filters
 		       </button>
 			</div>
 			<!-- <div class="col-md-3 mt-2 text-end desktop justify-content-end d-none d-md-flex"></div> -->
@@ -42,8 +42,8 @@
 				  <uni-job-details (closeInfo)="toggleInfo()" [showInfo]="true" [jobDetails]="jobDetails"></uni-job-details>
 				</div>
 			  </div>
-			  <div class="col h-100" [ngClass]="{'col-lg-4 col-md-12': showInfo, 'col-lg-12 col-md-12': !showInfo}">
-				<uni-job-chat-ui (openInfo)="toggleInfo()" [showInfo]="showInfo" [jobDetails]="jobDetails" style="height: 100%; overflow-y: auto;"></uni-job-chat-ui>
+			  <div [ngClass]="{'col-lg-4 col-md-12': showInfo, 'col-lg-12 col-md-12': !showInfo}" >
+				<uni-job-chat-ui (openInfo)="toggleInfo()" [showInfo]="showInfo" [jobDetails]="jobDetails" ></uni-job-chat-ui>
 			  </div>
 			</div>
 			<ng-template #showEmptyContainer>
