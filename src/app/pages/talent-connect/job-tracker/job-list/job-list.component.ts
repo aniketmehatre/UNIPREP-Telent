@@ -19,11 +19,12 @@ import { TabsModule } from 'primeng/tabs';
 })
 export class JobListComponent implements OnInit {
   @Output() emitId: EventEmitter<number> = new EventEmitter();
-  activeIndex: number = 1;
+  activeIndex: number = 0;
   first: number = 0;
   page: number = 1;
   jobDetails: any;
   appliedJobList!: any;
+  filteredAppliedJob!: any;
   totalAppliedJobs: number = 0;
   pageSize: number = 10;
   tabs = [
@@ -43,7 +44,12 @@ export class JobListComponent implements OnInit {
 
   selectTab(tab: any) {
     this.tabs.forEach(t => (t.active = false));
-    tab.active = true;
+    this.tabs[tab].active = true;
+    if (this.tabs[tab].label !== 'All Jobs') {
+      this.filteredAppliedJob = this.appliedJobList.filter((item: any) => item.hiringstage == this.tabs[tab].label);
+    } else {
+      this.filteredAppliedJob = this.appliedJobList;
+    }
   }
 
   getAppliedJobList() {
@@ -54,6 +60,7 @@ export class JobListComponent implements OnInit {
     this.talentConnectService.getAppliedJobList(data).subscribe({
       next: response => {
         this.appliedJobList = response.jobs;
+        this.filteredAppliedJob = response.jobs;
         this.totalAppliedJobs = response.totaljobs;
         this.tabs = [
           { label: 'All Jobs', active: true },

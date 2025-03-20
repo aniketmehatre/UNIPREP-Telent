@@ -15,6 +15,7 @@ interface ChatMessage {
   markAsRead?: boolean;
   profile_image?: string;
   type: 'text' | 'file' | 'button';
+  attachment_url?: string | null;
 }
 
 @Component({
@@ -111,9 +112,11 @@ export class JobChatUiComponent implements OnChanges {
             sender: true,
             content: message,
             time: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }),
-            type: this.attachmentFile ? 'file' : 'text'
+            type: this.attachmentFile ? 'text' : 'file',
+            attachment_url: this.attachmentFile ? this.attachmentFile : null
           });
         }
+        this.attachmentFile = null;
       },
       error: error => {
         console.log('Error sending message:', error);

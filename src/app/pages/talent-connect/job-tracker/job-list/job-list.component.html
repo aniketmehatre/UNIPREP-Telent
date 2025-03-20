@@ -4,10 +4,10 @@
       <span class="text-muted">Total Jobs : {{totalAppliedJobs}}</span>
     </div>
 
-    <p-tabView [(activeIndex)]="activeIndex" [scrollable]="true" styleClass="p-0">
+    <p-tabView [(activeIndex)]="activeIndex" [scrollable]="true" styleClass="p-0" (activeIndexChange)="selectTab($event)" >
       <p-tabPanel *ngFor="let tab of tabs" [header]="tab.label" class="p-0">
         <div class="job-cards">
-          <div class="job-card mb-3" (click)="onClickJobCard(job.id)" *ngFor="let job of appliedJobList;">
+          <div class="job-card mb-3" (click)="onClickJobCard(job.id)" *ngFor="let job of filteredAppliedJob;">
             <div class="d-flex">
               <div class="company-logo me-3">
                 <img [src]="job.company_logo" alt="Company Logo">
