@@ -50,7 +50,7 @@
 			</div>
 		</div>
 		<div class="row mb-0" *ngIf="!isSkeletonVisible">
-            <div class="card countrycard d-none d-lg-block mt-2">
+            <div class="card countrycard d-none d-lg-block mt-2" *ngIf="countryLists">
                 <div class="card-body text-center pb-0">
                     <h5 class="mb-0">Select a country in Global Repository</h5>
                     <p-carousel #carousel [circular]="false" [numScroll]="7" [numVisible]="7" [responsiveOptions]="responsiveOptions" [value]="countryLists">
@@ -68,7 +68,7 @@
                     <div class="badge bg-dark text-wrap bottom-text text-capitalize">You Have Currently Selected {{ selectedCountryName }}. If you're intrigued by details about other countries, start exploring them now!</div>
                 </div>
             </div>
-            <div class="row row-cols-lg-5 row-cols-md-3 row-cols-sm-2 row-cols-1">
+            <div class="row row-cols-lg-5 row-cols-md-3 row-cols-sm-2 row-cols-1" *ngIf="globalRepoList">
                 <div *ngFor="let sub of globalRepoList" class="mb-3 mt-2">
                     <div class="row w-100 m-0 justify-content-center h-100">
                         <div (click)="onSubModuleClick(sub)" class="card subjectcard position-relative" role="button">
