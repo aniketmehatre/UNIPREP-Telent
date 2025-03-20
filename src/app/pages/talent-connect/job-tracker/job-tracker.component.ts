@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, Output, EventEmitter } from '@angular/core';
 import { Dialog } from 'primeng/dialog';
 import { Select } from 'primeng/select';
 import { JobListComponent } from './job-list/job-list.component';
@@ -10,6 +10,7 @@ import { JobDetailsComponent } from './job-details/job-details.component';
 import { JobChatUiComponent } from './job-chat-ui/job-chat-ui.component';
 import { MultiSelectModule } from 'primeng/multiselect';
 import { InputNumberModule } from 'primeng/inputnumber';
+import { FormGroup, ReactiveFormsModule } from '@angular/forms';
 interface DropdownOption {
   label: string;
   value: string;
@@ -28,17 +29,11 @@ interface ChatMessage {
   templateUrl: './job-tracker.component.html',
   styleUrls: ['./job-tracker.component.scss'],
   standalone: true,
-  imports: [Select, Dialog, JobListComponent, JobDetailsComponent, JobChatUiComponent, InputNumberModule, MultiSelectModule, CommonModule, RouterModule]
+  imports: [Select, Dialog, ReactiveFormsModule, JobListComponent, JobDetailsComponent, JobChatUiComponent, InputNumberModule, MultiSelectModule, CommonModule, RouterModule]
 })
 export class JobTrackerComponent {
-  displayModal: boolean = false;
   orgnamewhitlabel: any
-  industries: any[] = [];
-  locations: any[] = [];
-  workModes: any[] = [];
-  employmentTypes: any[] = [];
-  experienceLevels: any[] = [];
-
+  displayModal: boolean = false;
   constructor(private talentConnectService: TalentConnectService) { }
 
   ngOnInit() { }
@@ -92,30 +87,12 @@ export class JobTrackerComponent {
     });
   }
 
-
-  private generateYears(): DropdownOption[] {
-    const currentYear = new Date().getFullYear();
-    const years: DropdownOption[] = [];
-
-    for (let i = currentYear; i >= 1900; i--) {
-      years.push({ label: i.toString(), value: i.toString() });
-    }
-
-    return years;
-  }
-
   showFilterModal() {
     this.displayModal = true;
   }
 
-  applyFilter() {
-    console.log('Applying filters');
-    this.displayModal = false;
-  }
 
-  resetFilter() {
-    console.log('Resetting filters');
-  }
+
 
   upgradePlan(){
 

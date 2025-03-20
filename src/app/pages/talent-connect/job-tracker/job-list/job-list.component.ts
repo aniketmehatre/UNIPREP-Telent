@@ -1,9 +1,15 @@
-import { Component, ElementRef, Output, EventEmitter, OnInit } from '@angular/core';
+import { Component, ElementRef, Output, EventEmitter, OnInit, Input } from '@angular/core';
 import { TabPanel, TabView, TabViewModule } from "primeng/tabview";
 import { CommonModule, NgClass } from "@angular/common";
 import { TalentConnectService } from '../../talent-connect.service';
 import { Paginator, PaginatorModule } from 'primeng/paginator';
 import { TabsModule } from 'primeng/tabs';
+import { FormBuilder, FormGroup, ReactiveFormsModule } from '@angular/forms';
+import { SelectModule } from 'primeng/select';
+import { MultiSelectModule } from 'primeng/multiselect';
+import { InputNumberModule } from 'primeng/inputnumber';
+import { DialogModule } from 'primeng/dialog';
+import { ButtonModule } from 'primeng/button';
 
 @Component({
   selector: 'uni-job-list',
@@ -14,11 +20,20 @@ import { TabsModule } from 'primeng/tabs';
     TabsModule,
     TabViewModule,
     PaginatorModule,
-    CommonModule
+    CommonModule,
+    SelectModule,
+    MultiSelectModule,
+    InputNumberModule,
+    DialogModule,
+    ReactiveFormsModule,
+    ButtonModule
   ]
 })
 export class JobListComponent implements OnInit {
   @Output() emitId: EventEmitter<number> = new EventEmitter();
+  @Input() displayModal: boolean = false;
+  @Output() closeFilter: EventEmitter<boolean> = new EventEmitter<boolean>(true);
+
   activeIndex: number = 0;
   first: number = 0;
   page: number = 1;
@@ -26,15 +41,23 @@ export class JobListComponent implements OnInit {
   appliedJobList!: any;
   filteredAppliedJob!: any;
   totalAppliedJobs: number = 0;
+  industries: any[] = [];
+  locations: any[] = [];
+  workModes: any[] = [];
+  employmentTypes: any[] = [];
+  experienceLevels: any[] = [];
+  currencies: any[] = [];
   pageSize: number = 10;
+  filterForm: FormGroup = new FormGroup({});
   tabs = [
     { label: 'All Jobs', active: true }
   ];
 
-  constructor(private talentConnectService: TalentConnectService) { }
+  constructor(private talentConnectService: TalentConnectService, private fb: FormBuilder) { }
 
 
   ngOnInit(): void {
+    this.initializeForm();
     this.getAppliedJobList();
   }
 
@@ -52,7 +75,7 @@ export class JobListComponent implements OnInit {
     }
   }
 
-  getAppliedJobList() {
+  getAppliedJobList(params?: any) {
     const data = {
       page: this.page,
       perPage: this.pageSize,
@@ -77,6 +100,22 @@ export class JobListComponent implements OnInit {
     });
   }
 
+  initializeForm() {
+    this.filterForm = this.fb.group({
+      keyword: [''],
+      position: [''],
+      industry: [null],
+      worklocation: [null],
+      work_mode: [null],
+      employment_type: [null],
+      currency: ['INR'],
+      salary: [''],
+      experienceLevel: [null],
+      status: ['']
+    });
+  }
+
+
   getJobTrackDetails(id: number) {
     this.talentConnectService.getJobDetails(id).subscribe({
       next: response => {
@@ -95,6 +134,30 @@ export class JobListComponent implements OnInit {
     this.first = event.first;
     this.getAppliedJobList();
   }
+
+  applyFilter(): void {
+    this.getAppliedJobList(this.filterForm.value);
+    this.displayModal = false;
+    this.closeFilter.emit(true);
+  }
+
+  resetFilter(): void {
+    this.getAppliedJobList();
+    this.displayModal = false;
+    this.closeFilter.emit(true);
+  }
+
+  getOptionsList() {
+    this.talentConnectService.getJobListDropdown().subscribe(data => {
+      this.industries = data?.industrytypes;
+      this.experienceLevels = data.experiecelevel;
+      this.workModes = data?.workmode;
+      this.employmentTypes = data?.employmenttype;
+      this.currencies = data?.currencycode;
+      // this.locations = data?.locations;
+    });
+  }
+
 
   
 }

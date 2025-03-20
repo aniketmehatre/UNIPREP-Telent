@@ -10,7 +10,7 @@
 						<h5 class="mb-0" tooltipPosition="top" pTooltip="Questions related to the application process are answered">Job Tracker<i class="questiontooltip fa-solid fa-circle-question"></i></h5>
 					</div>
 					<div>
-						<button class="how-it-works-button" (click)="openVideoPopup(howItWorksVideoLink)">How it works?<i class="fa-solid fa-play d-md-block d-none"></i></button>
+						<button class="how-it-works-button">How it works?<i class="fa-solid fa-play d-md-block d-none"></i></button>
 					</div>
 				</div>
 				<button type="button" title="Close Popup"
@@ -31,7 +31,7 @@
 		<div class="row gx-3">
 		  <!-- Sidebar with job list -->
 		  <div class="col-lg-3 col-md-3 col-12 border-end mb-3 mb-md-0" >
-			<uni-job-list (emitId)="onClickJobId($event)"></uni-job-list>
+			<uni-job-list (emitId)="onClickJobId($event)" [displayModal]="displayModal" (closeFilter)="displayModal = false"></uni-job-list>
 		  </div>
 	  
 		  <!-- Main content with job details and chat -->
@@ -64,157 +64,3 @@
 		</div>
 	</div>
   
-	<div>
-		<p-dialog 
-		  header="Filter" 
-		  [(visible)]="displayModal" 
-		  [modal]="true" 
-		  [style]="{width: '80%'}" 
-		  [baseZIndex]="10000"
-		  [draggable]="false" 
-		  [resizable]="false"
-		  styleClass="container">
-		  
-		  <form [formGroup]="filterForm" class="p-3">
-			<div class="mb-4">
-			  <label class="form-label fw-bold">Search</label>
-			  <div class="p-inputgroup">
-				<input 
-				  type="text" 
-				  pInputText 
-				  placeholder="Search by Keyword" 
-				  class="form-control">
-			  </div>
-			</div>
-			
-			<div class="row mb-4">
-			  <div class="col-md-4">
-				<label class="form-label fw-bold">Position Title</label>
-				<div class="p-inputgroup">
-				  <input 
-					type="text" 
-					pInputText 
-					formControlName="position" 
-					placeholder="Enter position title" 
-					class="form-control">
-				</div>
-			  </div>
-			  
-			  <div class="col-md-4">
-				<label class="form-label fw-bold">Industry <span class="text-danger">(Multi select)</span></label>
-				<p-multiSelect 
-				  [options]="industries" 
-				  formControlName="industry" 
-				  defaultLabel="Select industry" 
-				  optionLabel="industry_name" 
-				  optionValue="id"
-				  display="chip"
-				  class="w-100">
-				</p-multiSelect>
-			  </div>
-			  
-			  <div class="col-md-4">
-				<label class="form-label fw-bold">Work Location <span class="text-danger">(Multi select)</span></label>
-				<p-multiSelect 
-				  [options]="locations" 
-				  formControlName="worklocation" 
-				  defaultLabel="Select work location" 
-				  optionLabel="work_location" 
-				  optionValue="id"
-				  display="chip"
-				  class="w-100">
-				</p-multiSelect>
-			  </div>
-			</div>
-			
-			<div class="row mb-4">
-			  <div class="col-md-4">
-				<label class="form-label fw-bold">Work mode <span class="text-danger">(Multi select)</span></label>
-				<p-multiSelect 
-				  [options]="workModes" 
-				  formControlName="work_mode" 
-				  defaultLabel="Select work type" 
-				  optionLabel="label" 
-				  display="chip"
-				  class="w-100">
-				</p-multiSelect>
-			  </div>
-			  
-			  <div class="col-md-4">
-				<label class="form-label fw-bold">Employment Type <span class="text-danger">(Multi select)</span></label>
-				<p-multiSelect 
-				  [options]="employmentTypes" 
-				  formControlName="employment_type" 
-				  defaultLabel="Select employment type" 
-				  optionLabel="label" 
-				  display="chip"
-				  class="w-100">
-				</p-multiSelect>
-			  </div>
-			  
-			  <div class="col-md-4">
-				<label class="form-label fw-bold">Currency display for salaries</label>
-				<p-select
-				  [options]="currencies" 
-				  formControlName="currency" 
-				  optionLabel="currency_code" 
-				  optionId="id"
-				  [filter]="true" 
-				  filterBy="label" 
-				  class="w-100">
-				</p-select>
-			  </div>
-			</div>
-			
-			<div class="row mb-4">
-			  <div class="col-md-4">
-				<label class="form-label fw-bold">Salary offered</label>
-				<div class="d-flex w-100 gap-2">
-				  <p-select [options]="currencies"
-				  styleClass="p-select p-component"
-				  optionLabel="currency_code" optionValue="id"
-				  placeholder="Select"
-				  formControlName="currency"
-				  [style]="{ width: '80px' }">
-				 </p-select>
-				  <div class="flex-grow-1 me-2">
-					  <p-inputNumber id="salary"
-						  placeholder="Enter your salary/month"
-						  styleClass="p-inputtext w-100" [showButtons]="false"
-						  class="w-100"
-						  formControlName="salary"></p-inputNumber>
-				  </div>
-			  </div>
-			  </div>
-			  
-			  <div class="col-md-4">
-				<label class="form-label fw-bold">Experience Level <span class="text-danger">(Multi select)</span></label>
-				<p-multiSelect 
-				  [options]="experienceLevels" 
-				  formControlName="experienceLevel" 
-				  optionLabel="label" 
-				  display="chip"
-				  class="w-100">
-				</p-multiSelect>
-			  </div>
-			  <div class="col-md-4 h-full mt-auto">
-				<button 
-				pButton 
-				label="Apply Filter" 
-				(click)="applyFilter()" 
-				class="btn-primary w-100">
-			  </button>
-			  </div>
-			</div>
-		  </form>
-		  
-		  <div class="dialog-footer p-3 d-flex justify-content-center">
-			<button 
-			  pButton 
-			  label="Reset Filter" 
-			  (click)="resetFilter()" 
-			  class="p-button-text text-primary">
-			</button>
-		  </div>
-		</p-dialog>
-	  </div>
