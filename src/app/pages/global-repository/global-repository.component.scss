@@ -226,3 +226,54 @@ input[type="text"] {
     max-width: 150px; /* Adjust based on your design */
     display: inline-block;
 }
+
+.countrycard {
+	.card-header {
+		background: transparent;
+		text-align: center;
+	}
+
+	.card-body {
+		.p-carousel .p-carousel-indicators .p-carousel-indicator.p-highlight button {
+			background-color: #001631;
+			height: 5px;
+		}
+	}
+
+	.card-footer {
+		background: transparent;
+		text-align: center;
+		padding-bottom: 0;
+		border-top: none;
+	}
+
+	.countryicon {
+		width: 60px;
+	}
+
+	.bottom-text {
+		width: auto;
+		font-size: 0.9rem;
+		font-weight: normal;
+		padding: 15px 30px;
+		border-radius: 10px 10px 0px 0px;
+	}
+
+	.country-text {
+		color: var(--uniprep-primary);
+		font-weight: 600;
+		font-size: 1rem;
+	}
+
+	.country-text-small {
+		color: #001631;
+		font-weight: 600;
+		font-size: 1rem;
+	}
+
+	.country-border {
+		border: 2px solid var(--uniprep-primary);
+		border-radius: 10px;
+		background: var(--uniprep-primaryop10);
+	}
+}

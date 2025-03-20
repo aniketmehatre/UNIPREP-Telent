@@ -108,6 +108,24 @@
 			</div>
 		</div>
 		<div class="row mb-0" *ngIf="!isSkeletonVisible">
+            <div class="row">
+                <div class="card">
+                    <div class="card-body text-center pb-0">
+                        <h5 class="mb-0">SELECTED COUNTRY</h5>
+                        <p-carousel #carousel [circular]="false" [numScroll]="7" [numVisible]="7" [responsiveOptions]="responsiveOptions" [value]="countryLists">
+                            <ng-template let-v pTemplate="item">
+                                <div (click)="selectCountry(v)" role="button" class="text-center card-body {{ selectedCountryId == v.id ? 'country-border' : '' }}">
+                                    <img alt="country" class="countryicon mb-2" src="{{ v.flag != '' ? v.flag : '../../uniprep-assets/images/mstile-150x150.png' }}" />
+                                    <p class="mb-0 text-center text-sm text-capitalize {{ selectedCountryId == v.id ? 'country-text' : 'country-text-small' }}">
+                                        {{ v.country | uppercase }}
+                                    </p>
+                                </div>
+                            </ng-template>
+                        </p-carousel>
+                        <div class="badge bg-dark text-wrap bottom-text text-capitalize">You Have Currently Selected {{ selectedCountryName }}. If you're intrigued by details about other countries, start exploring them now!</div>
+                    </div>
+                </div>
+            </div>
 			<div *ngFor="let sub of globalRepoList" class="col-lg-2 col-md-3 col-sm-4 col-xs-12 col-12 mb-3">
 				<div class="row w-100 m-0 justify-content-center h-100">
 					<div (click)="onSubModuleClick(sub)" class="card subjectcard position-relative" role="button">

@@ -23,13 +23,17 @@ import { SelectModule } from "primeng/select"
 import { StorageService } from "../../../storage.service"
 import { InputTextModule } from "primeng/inputtext"
 import { FormsModule, ReactiveFormsModule } from "@angular/forms"
+import {ProgressBar} from "primeng/progressbar";
+import {Breadcrumb} from "primeng/breadcrumb";
 @Component({
 	selector: "uni-list-sub-modules",
 	templateUrl: "./list-sub-modules.component.html",
 	styleUrls: ["./list-sub-modules.component.scss"],
 	providers: [ConfirmationService],
 	standalone: true,
-	imports: [CommonModule, DialogModule,FormsModule, ReactiveFormsModule, InputTextModule, CarouselModule, TooltipModule, SkeletonModule, ButtonModule, MultiSelectModule, InputGroupModule, InputGroupAddonModule, SelectModule],
+	imports: [CommonModule, DialogModule, FormsModule, ReactiveFormsModule, InputTextModule,
+		CarouselModule, TooltipModule, SkeletonModule, ButtonModule, MultiSelectModule, InputGroupModule,
+		InputGroupAddonModule, SelectModule, ProgressBar, Breadcrumb],
 })
 export class ListSubModulesComponent implements OnInit {
 	subModules$!: Observable<ModuleListSub[]>
@@ -705,4 +709,5 @@ export class ListSubModulesComponent implements OnInit {
 
 	//     });
 	// }
+	countryList: any
 }

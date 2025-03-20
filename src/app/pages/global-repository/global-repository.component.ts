@@ -10,6 +10,7 @@ import { TooltipModule } from "primeng/tooltip";
 import { SelectModule } from "primeng/select";
 import { FormControl, FormGroup, FormsModule } from "@angular/forms";
 import {StorageService} from "../../storage.service";
+import {Carousel} from "primeng/carousel";
 @Component({
   selector: "uni-global-repository",
   templateUrl: "./global-repository.component.html",
@@ -24,6 +25,7 @@ import {StorageService} from "../../storage.service";
     TooltipModule,
     SelectModule,
     FormsModule,
+    Carousel,
   ],
 })
 export class GlobalRepositoryComponent implements OnInit {
@@ -35,6 +37,7 @@ export class GlobalRepositoryComponent implements OnInit {
   selectedCountryName: any;
   countryLists: any[] = [];
   selectedCountryId: any = 0;
+  responsiveOptions: any
   myForm = new FormGroup({
     selectedCountryId: new FormControl(null), // Initialize to null
   });
@@ -85,6 +88,23 @@ export class GlobalRepositoryComponent implements OnInit {
         },
       ];
     });
+    this.responsiveOptions = [
+      {
+        breakpoint: "1199px",
+        numVisible: 1,
+        numScroll: 1,
+      },
+      {
+        breakpoint: "991px",
+        numVisible: 2,
+        numScroll: 1,
+      },
+      {
+        breakpoint: "767px",
+        numVisible: 1,
+        numScroll: 1,
+      },
+    ]
   }
 
   ngOnInit() {
@@ -129,4 +149,5 @@ export class GlobalRepositoryComponent implements OnInit {
   onSubModuleClick(data: any) {
     this.router.navigateByUrl(data.url);
   }
+
 }
