@@ -212,6 +212,7 @@ export class ViewProfileComponent implements OnInit {
     // Set theme color based on sample or real profile
     this.isSample = data?.isSample ?? true;
     // If we have real profile data, use it
+    console.log(data);
     if (!this.isSample && data?.profileData) {
       this.careerInterests = data?.careerInterests;
       this.currencies = data?.currencies,
@@ -276,11 +277,11 @@ export class ViewProfileComponent implements OnInit {
         gpa: edu.education_gpa_percentage ? `${edu.education_gpa_percentage} %` : ''
       })),
       workExperience: (formData.work_experience || []).map((exp: any) => ({
-        totalExperience: exp.work_experience_total_years_experience || '',
+        totalExperience: exp.year_of_experience || '',
         companyName: exp.work_experience_company_name || '',
         jobTitle: this.getListValue(this.jobTitles, exp.work_experience_job_title)?.job_title || '',
         employmentType: exp.work_experience_employment_type || '',
-        duration: exp.work_experience_duration || '',
+        duration: exp.work_experience_duration ? (exp.work_experience_duration)?.map((item: any) => new Date(item)) : '',
         salary: exp.work_experience_salary_per_month || '',
         responsibilities: Array.isArray(exp.work_experience_job_responsibilities) ?
           exp.work_experience_job_responsibilities :
