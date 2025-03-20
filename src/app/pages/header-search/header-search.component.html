@@ -138,7 +138,7 @@
 				<div class="d-flex align-items-center gap-2 pb-2">
 					<div class="scrollable-container" id="video-links-container" #videoLinksContainer>
 						<div class="d-flex flex-nowrap flex-md-wrap overflow-x-auto gap-2">
-							<span class="btn btn-primary text-small videolinkbutton flex-shrink-0" (click)="openVideoPopup(videoL.link)" *ngFor="let videoL of oneQuestionContent?.videolink; let ind = index">Video {{ ind + 1 }} &nbsp;<i class="fa-solid fa-video"></i></span>
+							<span class="btn btn-primary text-small videolinkbutton flex-shrink-0" (click)="openVideoPopup(videoL.link)" *ngFor="let videoL of oneQuestionContent?.videolink; let ind = index">Video {{ ind + 1 }} &nbsp;<i class="fa-solid fa-video fa-sm"></i></span>
 						</div>
 					</div>
 				</div>
@@ -149,14 +149,25 @@
 				<div class="d-flex align-items-center gap-2 pb-2">
 					<div class="scrollable-container" id="ref-links-container" #refLinksContainer>
 						<div class="d-flex flex-nowrap flex-md-wrap overflow-x-auto gap-2">
-							<a class="btn btn-secondary text-small reflinkbutton flex-shrink-0" target="_blank" href="{{ refL.link }}" *ngFor="let refL of oneQuestionContent?.reflink; let ind = index">Link {{ ind + 1 }} &nbsp;<i class="fa-solid fa-link"></i></a>
+							<a class="btn btn-secondary text-small reflinkbutton flex-shrink-0" target="_blank" href="{{ refL.link }}" *ngFor="let refL of oneQuestionContent?.reflink; let ind = index">Link {{ ind + 1 }} &nbsp;<i class="fa-solid fa-link fa-sm"></i></a>
 						</div>
 					</div>
 				</div>
 			</div>
-
 			<div class="align-items-center d-flex desktop">
-				<button class="btn w-100 btn-primary theme-dark-blue mx-0 px-5 py-2" (click)="onClickAsk()"><i class="fa-solid h5 fa-file-contract"></i>&nbsp; Click here to ask&nbsp;Personalised Questions</button>
+				<button class="btn w-100 btn-primary theme-dark-blue mx-0 px-5 py-2 align-items-center" (click)="onClickAsk()">
+					<div class="row justify-content-center align-items-center">
+						<div class="col-12">
+							<i class="fa-solid fa-file-contract h5 mb-2"></i>
+						</div>
+						<div class="col-12">
+							<span>Click here to ask&nbsp;Personalised Questions</span>
+						</div>
+					</div>
+					<!-- <i class="fa-solid fa-file-contract h5 mb-2"></i>
+					<br>
+					<span>Click here to ask&nbsp;Personalised Questions</span> -->
+				</button>
 			</div>
 		</div>
 	</ng-template>
