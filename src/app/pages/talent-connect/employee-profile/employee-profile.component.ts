@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormGroup, FormBuilder, Validators, FormArray } from '@angular/forms';
+import { FormGroup, FormBuilder, Validators, FormArray, AbstractControl } from '@angular/forms';
 import { ViewProfileComponent } from './view-profile/view-profile.component';
 import { DialogService, DynamicDialogRef } from 'primeng/dynamicdialog';
 import { TalentConnectService } from '../talent-connect.service';
@@ -96,7 +96,7 @@ export class EmployeeProfileComponent implements OnInit {
       location_id: [null, Validators.required],
 
       educationDetails: this.fb.array([this.createEducationGroup()]),
-
+      total_years_of_experience: ['', Validators.required],
       work_experience: this.fb.array([this.createWorkExperienceGroup()]),
 
       career_preference_career_status: [null, Validators.required],
@@ -159,7 +159,7 @@ export class EmployeeProfileComponent implements OnInit {
   createWorkExperienceGroup() {
     return this.fb.group({
       id: [''],
-      work_experience_total_years_experience: ['', Validators.required],
+      years_of_experience: ['', Validators.required],
       work_experience_company_name: [''],
       work_experience_job_title: [''],
       work_experience_employment_type: [''],
@@ -291,7 +291,7 @@ export class EmployeeProfileComponent implements OnInit {
     const reader = new FileReader();
     reader.onload = () => {
       this.logo = reader.result;
-      this.personalInfoForm.get('profile_image')?.setValue(file.name);
+      this.personalInfoForm.get('profile_image')?.setValue(reader.result);
     };
     reader.readAsDataURL(file);
     this.uploadedFiles['profile_image'] = file;
@@ -353,7 +353,7 @@ export class EmployeeProfileComponent implements OnInit {
         this.appendIfModified(formData, 'nationality_id', originalValues);
         this.appendIfModified(formData, 'gender', originalValues);
         this.appendIfModified(formData, 'location_id', originalValues);
-
+        this.appendIfModified(formData, 'total_years_of_experience', originalValues);
         // Education Details
         this.educationDetails.controls.forEach((control, index) => {
           const education = control as FormGroup;
@@ -401,9 +401,9 @@ export class EmployeeProfileComponent implements OnInit {
           }
 
           this.appendIfModified(formData,
-            `work_experience[${index}][work_experience_total_years_experience]`,
+            `work_experience[${index}][years_of_experience]`,
             originalWork,
-            value => work.get('work_experience_total_years_experience')?.value || '');
+            value => work.get('years_of_experience')?.value || '');
           this.appendIfModified(formData,
             `work_experience[${index}][work_experience_company_name]`,
             originalWork,
@@ -448,6 +448,7 @@ export class EmployeeProfileComponent implements OnInit {
         this.appendIfModified(formData, 'career_preference_preferred_workplace_type', originalValues);
         this.appendIfModified(formData, 'career_preference_willingness_to_relocate', originalValues);
         this.appendIfModified(formData, 'career_preference_expected_salary', originalValues);
+        this.appendIfModified(formData, 'career_preference_currency_id', originalValues);
         this.appendIfModified(formData, 'career_preference_set_industry_apart', originalValues);
         this.appendIfModified(formData, 'career_preference_soft_skill_id', originalValues);
         this.appendIfModified(formData, 'career_preference_professional_strength_id', originalValues);
@@ -646,6 +647,7 @@ export class EmployeeProfileComponent implements OnInit {
         formData.append('gender', this.personalInfoForm.get('gender')?.value || '');
         formData.append('location_id', this.personalInfoForm.get('location_id')?.value || '');
         formData.append('profile_completion', this.profileCompletion.toString());
+        formData.append('total_years_of_experience', this.personalInfoForm.get('total_years_of_experience')?.value || '');
         this.educationDetails.controls.forEach((control, index) => {
           const education = control as FormGroup;
           formData.append(`educationDetails[${index}][education_qualification_id]`, education.get('education_qualification_id')?.value || '');
@@ -658,7 +660,7 @@ export class EmployeeProfileComponent implements OnInit {
 
         this.workExperience.controls.forEach((control, index) => {
           const work = control as FormGroup;
-          formData.append(`work_experience[${index}][work_experience_total_years_experience]`, work.get('work_experience_total_years_experience')?.value || '');
+          formData.append(`work_experience[${index}][years_of_experience]`, work.get('years_of_experience')?.value || '');
           formData.append(`work_experience[${index}][work_experience_company_name]`, work.get('work_experience_company_name')?.value || '');
           formData.append(`work_experience[${index}][work_experience_job_title]`, work.get('work_experience_job_title')?.value || '');
           formData.append(`work_experience[${index}][work_experience_employment_type]`, work.get('work_experience_employment_type')?.value || '');
@@ -683,6 +685,7 @@ export class EmployeeProfileComponent implements OnInit {
         formData.append('career_preference_preferred_workplace_type', this.personalInfoForm.get('career_preference_preferred_workplace_type')?.value || '');
         formData.append('career_preference_willingness_to_relocate', this.personalInfoForm.get('career_preference_willingness_to_relocate')?.value || '');
         formData.append('career_preference_expected_salary', this.personalInfoForm.get('career_preference_expected_salary')?.value || '');
+        formData.append('career_preference_currency_id', this.personalInfoForm.get('career_preference_currency_id')?.value || '');
         formData.append('career_preference_set_industry_apart', this.personalInfoForm.get('career_preference_set_industry_apart')?.value || '');
         formData.append('career_preference_soft_skill_id', this.personalInfoForm.get('career_preference_soft_skill_id')?.value || '');
         formData.append('career_preference_professional_strength_id', this.personalInfoForm.get('career_preference_professional_strength_id')?.value || '');
@@ -842,7 +845,7 @@ export class EmployeeProfileComponent implements OnInit {
         qualifications: this.qualifications,
         softSkills: this.softSkills,
         fieldsOfStudy: this.fieldsOfStudy,
-        graduationYears: this.graduationYears
+        graduationYears: this.graduationYears,
       },
       styleClass: 'employee-profile-dialog'
     });
@@ -854,31 +857,130 @@ export class EmployeeProfileComponent implements OnInit {
 
 
   calculateProfileCompletion(): any {
-    let totalFields = 0;
-    let filledFields = 0;
+    let totalWeight = 100;
+    let filledWeight = 0;
 
-    function countFields(formGroup: FormGroup | FormArray) {
-      if (formGroup instanceof FormGroup) {
-        Object.keys(formGroup.controls).forEach((key) => {
-          const control = formGroup.get(key);
-          if (control instanceof FormGroup || control instanceof FormArray) {
-            countFields(control);
-          } else {
-            totalFields++;
-            if (control?.value !== null && control?.value !== '') {
-              filledFields++;
-            }
-          }
-        });
-      } else if (formGroup instanceof FormArray) {
-        formGroup.controls.forEach((group) => countFields(group as FormGroup));
+    function checkField(control: AbstractControl | null, weight: number) {
+      if (control?.value !== null && control?.value !== '') {
+        filledWeight += weight;
       }
     }
 
-    countFields(this.personalInfoForm);
+    // Personal Information (15%)
+    checkField(this.personalInfoForm.get('full_name'), 2);
+    checkField(this.personalInfoForm.get('profile_image'), 5);
+    checkField(this.personalInfoForm.get('date_of_birth'), 2);
+    checkField(this.personalInfoForm.get('gender'), 2);
+    checkField(this.personalInfoForm.get('nationality_id'), 2);
+    checkField(this.personalInfoForm.get('location_id'), 2);
+    checkField(this.personalInfoForm.get('total_years_of_experience'), 1);
 
-    this.profileCompletion = totalFields === 0 ? 0 : Math.round((filledFields / totalFields) * 100);
+    // Contact Information (10%)
+    checkField(this.personalInfoForm.get('networking_linkedin_profile'), 2);
+
+    if (this.socialMedia?.controls?.length) {
+      this.socialMedia.controls.forEach((sm) => {
+        checkField(sm.get('networking_social_media'), 1);
+        checkField(sm.get('networking_social_media_link'), 1);
+      });
+    }
+
+    checkField(this.personalInfoForm.get('networking_personal_website'), 0);
+
+    // Education Details (15%)
+    if (this.educationDetails?.controls?.length) {
+      this.educationDetails.controls.forEach((edu, index) => {
+        if (index == 0) {
+          checkField(edu.get('education_qualification_id'), 2);
+          checkField(edu.get('education_university_name'), 2);
+          checkField(edu.get('education_field_id'), 2);
+          checkField(edu.get('education_course_name'), 1);
+          checkField(edu.get('education_graduation_year_id'), 2);
+          checkField(edu.get('education_gpa_percentage'), 2);
+        }
+      });
+    }
+
+    // Career Preferences & Aspirations (10%)
+    checkField(this.personalInfoForm.get('career_preference_career_status'), 3);
+    checkField(this.personalInfoForm.get('career_preference_job_title_id'), 3);
+    checkField(this.personalInfoForm.get('career_preference_career_interest_id'), 3);
+    checkField(this.personalInfoForm.get('career_preference_preferred_work_location_id'), 3);
+    checkField(this.personalInfoForm.get('career_preference_preferred_employment_type'), 3);
+    checkField(this.personalInfoForm.get('career_preference_preferred_workplace_type'), 3);
+    checkField(this.personalInfoForm.get('career_preference_willingness_to_relocate'), 2);
+    checkField(this.personalInfoForm.get('career_preference_currency_id'), 2);
+    checkField(this.personalInfoForm.get('career_preference_expected_salary'), 2);
+
+    // Certifications & Achievements (8%)
+    if (this.certifications?.controls?.length) {
+      this.certifications.controls.forEach((cert, index) => {
+        if (index == 0) {
+          checkField(cert.get('certifications_certificate_name'), 1);
+          checkField(cert.get('certifications_certificate_file'), 1);
+        }
+      });
+    }
+
+    if (this.achievements?.controls?.length) {
+      this.achievements.controls.forEach((ach, index) => {
+        if (index == 0) {
+          checkField(ach.get('certifications_achievement_name'), 1);
+          checkField(ach.get('certifications_achievement_file'), 1);
+        }
+      });
+    }
+
+    // Skills & Strengths (12%)
+    checkField(this.personalInfoForm.get('career_preference_soft_skill_id'), 2);
+    checkField(this.personalInfoForm.get('career_preference_professional_strength_id'), 2);
+    checkField(this.personalInfoForm.get('career_preference_set_industry_apart'), 1);
+    checkField(this.personalInfoForm.get('career_preference_real_world_challenge'), 1);
+    checkField(this.personalInfoForm.get('career_preference_leadership_experience'), 1);
+    checkField(this.personalInfoForm.get('career_preference_admired_quality'), 1);
+
+    if (this.languages?.controls?.length) {
+      this.languages.controls.forEach((lang, index) => {
+        if (index == 0) {
+          checkField(lang.get('languages_language_id'), 2);
+          checkField(lang.get('languages_proficiency'), 2);
+        }
+      });
+    }
+
+    // Attachments & Media (5%)
+    checkField(this.personalInfoForm.get('career_preference_cv_filename'), 5);
+    checkField(this.personalInfoForm.get('career_preference_video_link'), 5);
+
+    // References & Endorsements (5%)
+    if (this.academicReferences?.controls?.length) {
+      this.academicReferences.controls.forEach((ref, index) => {
+        if (index == 0) {
+          checkField(ref.get('references_college_name'), 2);
+          checkField(ref.get('references_reference_name'), 2);
+          checkField(ref.get('references_designation'), 2);
+          checkField(ref.get('references_phone_number'), 2);
+          checkField(ref.get('references_email'), 2);
+        }
+      });
+    }
+
+    if (this.professionalReferences?.controls?.length) {
+      this.professionalReferences.controls.forEach((ref, index) => {
+        if (index == 0) {
+          checkField(ref.get('references_company_name'), 1);
+          checkField(ref.get('references_reference_name'), 1);
+          checkField(ref.get('references_designation'), 1);
+          checkField(ref.get('references_phone_number'), 1);
+          checkField(ref.get('references_email'), 1);
+        }
+      });
+    }
+
+    this.profileCompletion = Math.round((filledWeight / totalWeight) * 100);
   }
+
+
 
   getDropDownOptionList() {
     this.talentConnectService.getMyProfileDropDownValues().subscribe({
@@ -926,59 +1028,59 @@ export class EmployeeProfileComponent implements OnInit {
     if (!response) return;
 
     this.personalInfoForm.patchValue({
-      full_name: response.full_name,
-      date_of_birth: new Date(response.date_of_birth),
-      nationality_id: response.nationality_id,
-      gender: response.gender,
-      location_id: response.location_id,
-      profile_image: response.dp_image,
+      full_name: response.full_name || '',
+      date_of_birth: new Date(response.date_of_birth) || null,
+      nationality_id: response.nationality_id || '',
+      gender: response.gender || '',
+      location_id: response.location_id || '',
+      profile_image: response.dp_image || '',
+      total_years_of_experience: response.total_years_of_experience || '',
+      career_preference_career_status: response.careerPreference?.career_status || '',
+      career_preference_job_title_id: response.careerPreference?.job_title_id || '',
+      career_preference_career_interest_id: response.careerPreference?.career_interest_id || '',
+      career_preference_preferred_work_location_id: response.careerPreference?.preferred_work_location_id || '',
+      career_preference_preferred_employment_type: response.careerPreference?.preferred_employment_type || '',
+      career_preference_preferred_workplace_type: response.careerPreference?.preferred_workplace_type || '',
+      career_preference_willingness_to_relocate: response.careerPreference?.willingness_to_relocate || '',
+      career_preference_expected_salary: response.careerPreference?.expected_salary || '',
+      career_preference_currency_id: response.careerPreference?.currency_id || '',
+      career_preference_cv_filename: response.careerPreference?.cv_filename || '',
+      career_preference_video_link: response.careerPreference?.video_link || '',
+      career_preference_portfolio_upload_link: response.careerPreference?.portfolio_upload_link || '',
 
-      career_preference_career_status: response.careerPreference?.career_status,
-      career_preference_job_title_id: response.careerPreference?.job_title_id,
-      career_preference_career_interest_id: response.careerPreference?.career_interest_id,
-      career_preference_preferred_work_location_id: response.careerPreference?.preferred_work_location_id,
-      career_preference_preferred_employment_type: response.careerPreference?.preferred_employment_type,
-      career_preference_preferred_workplace_type: response.careerPreference?.preferred_workplace_type,
-      career_preference_willingness_to_relocate: response.careerPreference?.willingness_to_relocate,
-      career_preference_expected_salary: response.careerPreference?.expected_salary,
-      career_preference_currency_id: response.careerPreference?.currency_id,
-      career_preference_cv_filename: response.careerPreference?.cv_filename,
-      career_preference_video_link: response.careerPreference?.video_link,
-      career_preference_portfolio_upload_link: response.careerPreference?.portfolio_upload_link,
-
-      networking_linkedin_profile: response.linkedin_profile,
-      networking_personal_website: response.personal_website,
+      networking_linkedin_profile: response.linkedin_profile || '',
+      networking_personal_website: response.personal_website || '',
     });
 
     // Patch Education Details
-    if (response.education) {
+    if (response.education && response.education.length > 0) {
       const educationArray = this.personalInfoForm.get('educationDetails') as FormArray;
       educationArray.clear();
       response.education.forEach((edu: any) => {
         educationArray.push(this.fb.group({
           id: [edu.id], // Store the original ID
-          education_qualification_id: [edu.qualification_id, Validators.required],
-          education_university_name: [edu.university_name, Validators.required],
-          education_field_id: [edu.field_id, Validators.required],
-          education_course_name: [edu.course_name, Validators.required],
-          education_graduation_year_id: [edu.graduation_year_id, Validators.required],
-          education_gpa_percentage: [edu.gpa_percentage, Validators.required]
+          education_qualification_id: [edu.qualification_id || '', Validators.required],
+          education_university_name: [edu.university_name || '', Validators.required],
+          education_field_id: [edu.field_id || '', Validators.required],
+          education_course_name: [edu.course_name || '', Validators.required],
+          education_graduation_year_id: [edu.graduation_year_id || '', Validators.required],
+          education_gpa_percentage: [edu.gpa_percentage || '', Validators.required]
         }));
       });
-    }
+    } 
 
     // Patch Work Experience with IDs
-    if (response.work_experience) {
+    if (response.work_experience && response.work_experience.length > 0) {
       const workExpArray = this.personalInfoForm.get('work_experience') as FormArray;
       workExpArray.clear();
       response.work_experience.forEach((exp: any) => {
         workExpArray.push(this.fb.group({
           id: [exp.id], // Store the original ID
-          work_experience_total_years_experience: [exp.total_years_experience],
+          years_of_experience: [exp.years_of_experience],
           work_experience_company_name: [exp.company_name],
           work_experience_job_title: [exp.job_title],
           work_experience_employment_type: [exp.employment_type],
-          work_experience_duration: [exp.duration],
+          work_experience_duration: [exp.duration ? (exp.duration).split(',').map((item: any) => new Date(item)) : null],
           work_experience_salary_per_month: [exp.salary_per_month],
           work_experience_currency_id: [exp.currency_id],
           work_experience_job_responsibilities: [exp.job_responsibilities],
@@ -988,7 +1090,7 @@ export class EmployeeProfileComponent implements OnInit {
     }
 
     // Patch Certifications & Achievements with IDs
-    if (response.certifications) {
+    if (response.certifications && response.certifications.length > 0) {
       const certArray = this.personalInfoForm.get('certifications') as FormArray;
       certArray.clear();
       const achievArray = this.personalInfoForm.get('acheivements') as FormArray;
@@ -1009,10 +1111,10 @@ export class EmployeeProfileComponent implements OnInit {
           }));
         }
       });
-    }
+    } 
 
     // Patch languages with IDs
-    if (response.languages) {
+    if (response.languages && response.languages.length > 0) {
       const lanArray = this.personalInfoForm.get('languages') as FormArray;
       lanArray.clear();
       response.languages.forEach((lang: any) => {
@@ -1025,7 +1127,7 @@ export class EmployeeProfileComponent implements OnInit {
     }
 
     // Patch networking with IDs
-    if (response.networking) {
+    if (response.networking && response.networking.length > 0) {
       const socArray = this.personalInfoForm.get('networking_social_media') as FormArray;
       socArray.clear();
       response.networking.forEach((net: any) => {
@@ -1035,26 +1137,25 @@ export class EmployeeProfileComponent implements OnInit {
           networking_social_media_link: [net.social_media_link || '']
         }));
       });
-    }
+    } 
 
     // Patch References with IDs
-    if (response.references) {
+    if (response.references && response.references.length > 0) {
       const academicRefArray = this.personalInfoForm.get('academicReferences') as FormArray;
       academicRefArray.clear();
       response.references.forEach((ref: any) => {
         academicRefArray.push(this.fb.group({
           id: [ref.id], // Store the original ID
-          references_college_name: [ref.college_name, Validators.required],
-          references_reference_name: [ref.reference_name, Validators.required],
-          references_designation: [ref.designation, Validators.required],
-          references_phone_number: [ref.phone_number, Validators.required],
-          references_email: [ref.email, [Validators.required, Validators.email]]
+          references_college_name: [ref.college_name || '', Validators.required],
+          references_reference_name: [ref.reference_name || '', Validators.required],
+          references_designation: [ref.designation || '', Validators.required],
+          references_phone_number: [ref.phone_number || null, Validators.required],
+          references_email: [ref.email || '', [Validators.required, Validators.email]]
         }));
       });
-    }
-
+    } 
     // Patch Professional References with IDs
-    if (response.professional_refrences) {
+    if (response.professional_refrences && response.professional_refrences.length > 0) {
       const professionalRefArray = this.personalInfoForm.get('professional_references') as FormArray;
       professionalRefArray.clear();
       response.professional_refrences.forEach((ref: any) => {
@@ -1067,7 +1168,7 @@ export class EmployeeProfileComponent implements OnInit {
           references_email: [ref.email, [Validators.required, Validators.email]]
         }));
       });
-    }
+    } 
     this.logo = response?.dp_image;
     this.originalProfileData = { ...this.personalInfoForm.value };
     console.log(this.originalProfileData);

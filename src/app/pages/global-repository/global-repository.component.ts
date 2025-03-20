@@ -10,6 +10,7 @@ import { TooltipModule } from "primeng/tooltip";
 import { SelectModule } from "primeng/select";
 import { FormControl, FormGroup, FormsModule } from "@angular/forms";
 import {StorageService} from "../../storage.service";
+import {Carousel} from "primeng/carousel";
 @Component({
   selector: "uni-global-repository",
   templateUrl: "./global-repository.component.html",
@@ -24,6 +25,7 @@ import {StorageService} from "../../storage.service";
     TooltipModule,
     SelectModule,
     FormsModule,
+    Carousel,
   ],
 })
 export class GlobalRepositoryComponent implements OnInit {
@@ -34,7 +36,8 @@ export class GlobalRepositoryComponent implements OnInit {
   globalRepoList: any[] = [];
   selectedCountryName: any;
   countryLists: any[] = [];
-  selectedCountryId: any = 0;
+  selectedCountryId: any;
+  responsiveOptions: any
   myForm = new FormGroup({
     selectedCountryId: new FormControl(null), // Initialize to null
   });
@@ -44,6 +47,8 @@ export class GlobalRepositoryComponent implements OnInit {
     private locationService: LocationService,
     private cdRef: ChangeDetectorRef, private storage: StorageService
   ) {
+    console.log(this.storage.get("countryId"))
+    this.selectedCountryId = this.storage.get("countryId")
     this.dataService.countryNameSource.subscribe((countryName) => {
       this.updatedMenuNameLifeAt = countryName;
       this.globalRepoList = [
@@ -56,35 +61,52 @@ export class GlobalRepositoryComponent implements OnInit {
         {
           id: 2,
           name: "Post Admission",
-          icon: "https://api.uniprep.ai/uniprepapi/storage/app/public/resources-coverimage/PostAdmission.svg",
+          icon: "https://api.uniprep.ai/uniprepapi/storage/app/public/resources-coverimage/new/Postadmission.svg",
           url: "/pages/modules/post-admission",
         },
         {
           id: 3,
           name: "Universities",
-          icon: "https://api.uniprep.ai/uniprepapi/storage/app/public/resources-coverimage/University.svg",
+          icon: "https://api.uniprep.ai/uniprepapi/storage/app/public/resources-coverimage/new/Universities.svg",
           url: "/pages/modules/university",
         },
         {
           id: 4,
           name: "Career Hub",
-          icon: "https://api.uniprep.ai/uniprepapi/storage/app/public/resources-coverimage/CareerHub.svg",
+          icon: "https://api.uniprep.ai/uniprepapi/storage/app/public/resources-coverimage/new/CareerHub.svg",
           url: "/pages/modules/career-hub",
         },
         {
           id: 5,
           name: "Travel & Tourism",
-          icon: "https://api.uniprep.ai/uniprepapi/storage/app/public/resources-coverimage/TravelTourism.svg",
+          icon: "https://api.uniprep.ai/uniprepapi/storage/app/public/resources-coverimage/new/travelandtourism.svg",
           url: "/pages/modules/travel-and-tourism",
         },
         {
           id: 6,
           name: "Life In " + this.updatedMenuNameLifeAt,
-          icon: "https://api.uniprep.ai/uniprepapi/storage/app/public/resources-coverimage/LifeAt.svg",
+          icon: "https://api.uniprep.ai/uniprepapi/storage/app/public/resources-coverimage/new/Lifeat.svg",
           url: "/pages/modules/life-at-country",
         },
       ];
     });
+    this.responsiveOptions = [
+      {
+        breakpoint: "1199px",
+        numVisible: 1,
+        numScroll: 1,
+      },
+      {
+        breakpoint: "991px",
+        numVisible: 2,
+        numScroll: 1,
+      },
+      {
+        breakpoint: "767px",
+        numVisible: 1,
+        numScroll: 1,
+      },
+    ]
   }
 
   ngOnInit() {
@@ -92,6 +114,7 @@ export class GlobalRepositoryComponent implements OnInit {
       .dashboardLocationList()
       .subscribe((countryList: any) => {
         this.countryLists = countryList;
+        console.log(Number(this.storage.get("countryId")))
         const storedCountryId = Number(this.storage.get("countryId")) || 0;
 
         // Set the selectedCountryId after the API call
@@ -102,11 +125,13 @@ export class GlobalRepositoryComponent implements OnInit {
       });
   }
 
-  selectCountry(selectedId: any): void {
+  selectCountry(selectedId: any) {
     this.countryLists.forEach((element: any) => {
       if (element.id === selectedId) {
         this.selectedCountryName = element.country;
+        console.log( element.id)
         this.storage.set("countryId", element.id);
+        console.log(this.storage.get("countryId"))
         this.storage.set("selectedcountryId", element.id);
         this.selectedCountryId = element.id;
         this.dataService.changeCountryId(element.id);
@@ -129,4 +154,5 @@ export class GlobalRepositoryComponent implements OnInit {
   onSubModuleClick(data: any) {
     this.router.navigateByUrl(data.url);
   }
+
 }

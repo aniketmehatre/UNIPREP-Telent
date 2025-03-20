@@ -950,6 +950,8 @@ export class CvBuilderComponent implements OnInit, AfterViewInit {
       this.ngAfterViewInit();
     }
     this.activePageIndex++;
+    console.log(this.activePageIndex);
+    
     if (this.activePageIndex == 4) {
       if (this.clickedDownloadButton) {
         //if the user not donwload the resume,in the presently created resume is not visible in the resume history page.

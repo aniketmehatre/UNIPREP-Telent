@@ -286,31 +286,31 @@
                                 <hr />
                                 <div class="card-body">
                                     <h2 class="card-title mb-4">Work Experience</h2>
+                                    <div class="row mb-3">
+                                        <div class="col-md-6">
+                                            <label for="highestQualification" class="form-label">Total Years of
+                                                Experience</label><br>
+                                            <p-select id="highestQualification"
+                                                formControlName="total_years_of_experience"
+                                                [options]="totalYearExperienceList"
+                                                placeholder="Select total experience"
+                                                styleClass="w-100"></p-select>
+                                                <small class="text-danger"
+                                                *ngIf="personalInfoForm.get('total_years_of_experience')?.invalid && personalInfoForm.get('total_years_of_experience')?.touched">
+                                                This field is mandatory
+                                            </small>
+                                        </div>
+                                    </div>
                                     <ng-container class="work-experience" formArrayName="work_experience">
                                         <ng-container *ngFor="let experience of workExperience.controls; let i = index"
                                             [formGroupName]="i">
-                                            <div class="row mb-3">
-                                                <div class="col-md-6">
-                                                    <label for="highestQualification" class="form-label">Total Years of
-                                                        Experience</label><br>
-                                                    <p-select id="highestQualification"
-                                                        formControlName="work_experience_total_years_experience"
-                                                        [options]="totalYearExperienceList"
-                                                        placeholder="Select total experience"
-                                                        styleClass="w-100"></p-select>
-                                                        <small class="text-danger"
-                                                        *ngIf="experience.get('work_experience_total_years_experience')?.invalid && experience.get('work_experience_total_years_experience')?.touched">
-                                                        This field is mandatory
-                                                    </small>
-                                                </div>
-                                            </div>
                                             <h5 class="card-title mb-4">Work Experience Details</h5>
                                             <div class="row mb-3">
                                                 <div class="col-md-6">
                                                     <label for="highestQualification" class="form-label">Years of
                                                         Experience</label><br>
                                                         <p-select id="highestQualification"
-                                                        formControlName="work_experience_total_years_experience"
+                                                        formControlName="years_of_experience"
                                                         [options]="totalYearExperienceList"
                                                         placeholder="Select total experience"
                                                         styleClass="w-100"></p-select>
@@ -1091,7 +1091,7 @@
                 <div class="container-fluid">
                     <div class="profile-container d-flex flex-column justify-content-between p-2 pb-0  overflow-y-auto rounded-4"
                         style="border: 2px solid var(--uniprep-secondary); height: calc(100vh - 290px);">
-                        <div class="d-flex gap-2">
+                        <div class="d-flex gap-2" style="min-height: 50%">
                             <div>
                                 <img src="https://cdn-icons-png.flaticon.com/512/147/147144.png" width="40"
                                     alt="icon" />
