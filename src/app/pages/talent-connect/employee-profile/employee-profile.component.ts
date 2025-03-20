@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormGroup, FormBuilder, Validators, FormArray } from '@angular/forms';
+import { FormGroup, FormBuilder, Validators, FormArray, AbstractControl } from '@angular/forms';
 import { ViewProfileComponent } from './view-profile/view-profile.component';
 import { DialogService, DynamicDialogRef } from 'primeng/dynamicdialog';
 import { TalentConnectService } from '../talent-connect.service';
@@ -291,7 +291,7 @@ export class EmployeeProfileComponent implements OnInit {
     const reader = new FileReader();
     reader.onload = () => {
       this.logo = reader.result;
-      this.personalInfoForm.get('profile_image')?.setValue(file.name);
+      this.personalInfoForm.get('profile_image')?.setValue(reader.result);
     };
     reader.readAsDataURL(file);
     this.uploadedFiles['profile_image'] = file;
@@ -842,7 +842,7 @@ export class EmployeeProfileComponent implements OnInit {
         qualifications: this.qualifications,
         softSkills: this.softSkills,
         fieldsOfStudy: this.fieldsOfStudy,
-        graduationYears: this.graduationYears
+        graduationYears: this.graduationYears,
       },
       styleClass: 'employee-profile-dialog'
     });
@@ -854,31 +854,138 @@ export class EmployeeProfileComponent implements OnInit {
 
 
   calculateProfileCompletion(): any {
-    let totalFields = 0;
-    let filledFields = 0;
+    let totalWeight = 100;
+    let filledWeight = 0;
 
-    function countFields(formGroup: FormGroup | FormArray) {
-      if (formGroup instanceof FormGroup) {
-        Object.keys(formGroup.controls).forEach((key) => {
-          const control = formGroup.get(key);
-          if (control instanceof FormGroup || control instanceof FormArray) {
-            countFields(control);
-          } else {
-            totalFields++;
-            if (control?.value !== null && control?.value !== '') {
-              filledFields++;
-            }
-          }
-        });
-      } else if (formGroup instanceof FormArray) {
-        formGroup.controls.forEach((group) => countFields(group as FormGroup));
+    function checkField(control: AbstractControl | null, weight: number) {
+      if (control?.value !== null && control?.value !== '') {
+        filledWeight += weight;
       }
     }
 
-    countFields(this.personalInfoForm);
+    // Personal Information (15%)
+    checkField(this.personalInfoForm.get('full_name'), 2);
+    checkField(this.personalInfoForm.get('profile_image'), 5);
+    checkField(this.personalInfoForm.get('date_of_birth'), 2);
+    checkField(this.personalInfoForm.get('gender'), 2);
+    checkField(this.personalInfoForm.get('nationality_id'), 2);
+    checkField(this.personalInfoForm.get('location_id'), 2);
 
-    this.profileCompletion = totalFields === 0 ? 0 : Math.round((filledFields / totalFields) * 100);
+    // Contact Information (10%)
+    checkField(this.personalInfoForm.get('networking_linkedin_profile'), 2);
+
+    if (this.socialMedia?.controls?.length) {
+      this.socialMedia.controls.forEach((sm) => {
+        checkField(sm.get('networking_social_media'), 1);
+        checkField(sm.get('networking_social_media_link'), 1);
+      });
+    }
+
+    checkField(this.personalInfoForm.get('networking_personal_website'), 0);
+
+    // Education Details (15%)
+    if (this.educationDetails?.controls?.length) {
+      this.educationDetails.controls.forEach((edu, index) => {
+        if (index == 0) {
+          checkField(edu.get('education_qualification_id'), 2);
+          checkField(edu.get('education_university_name'), 2);
+          checkField(edu.get('education_field_id'), 2);
+          checkField(edu.get('education_course_name'), 1);
+          checkField(edu.get('education_graduation_year_id'), 2);
+          checkField(edu.get('education_gpa_percentage'), 2);
+        }
+      });
+    }
+
+    // Work Experience Details (20%)
+    if (this.workExperience?.controls?.length) {
+      this.workExperience.controls.forEach((exp, index) => {
+        if (index == 0) {
+          checkField(exp.get('work_experience_total_years_experience'), 2);
+        }
+      });
+    }
+
+    // Career Preferences & Aspirations (10%)
+    checkField(this.personalInfoForm.get('career_preference_career_status'), 3);
+    checkField(this.personalInfoForm.get('career_preference_job_title_id'), 3);
+    checkField(this.personalInfoForm.get('career_preference_career_interest_id'), 3);
+    checkField(this.personalInfoForm.get('career_preference_preferred_work_location_id'), 3);
+    checkField(this.personalInfoForm.get('career_preference_preferred_employment_type'), 3);
+    checkField(this.personalInfoForm.get('career_preference_preferred_workplace_type'), 3);
+    checkField(this.personalInfoForm.get('career_preference_willingness_to_relocate'), 2);
+    checkField(this.personalInfoForm.get('career_preference_currency_id'), 2);
+    checkField(this.personalInfoForm.get('career_preference_expected_salary'), 2);
+
+    // Certifications & Achievements (8%)
+    if (this.certifications?.controls?.length) {
+      this.certifications.controls.forEach((cert, index) => {
+        if (index == 0) {
+          checkField(cert.get('certifications_certificate_name'), 1);
+          checkField(cert.get('certifications_certificate_file'), 1);
+        }
+      });
+    }
+
+    if (this.achievements?.controls?.length) {
+      this.achievements.controls.forEach((ach, index) => {
+        if (index == 0) {
+          checkField(ach.get('certifications_achievement_name'), 1);
+          checkField(ach.get('certifications_achievement_file'), 1);
+        }
+      });
+    }
+
+    // Skills & Strengths (12%)
+    checkField(this.personalInfoForm.get('career_preference_soft_skill_id'), 2);
+    checkField(this.personalInfoForm.get('career_preference_professional_strength_id'), 2);
+    checkField(this.personalInfoForm.get('career_preference_set_industry_apart'), 1);
+    checkField(this.personalInfoForm.get('career_preference_real_world_challenge'), 1);
+    checkField(this.personalInfoForm.get('career_preference_leadership_experience'), 1);
+    checkField(this.personalInfoForm.get('career_preference_admired_quality'), 1);
+
+    if (this.languages?.controls?.length) {
+      this.languages.controls.forEach((lang, index) => {
+        if (index == 0) {
+          checkField(lang.get('languages_language_id'), 2);
+          checkField(lang.get('languages_proficiency'), 2);
+        }
+      });
+    }
+
+    // Attachments & Media (5%)
+    checkField(this.personalInfoForm.get('career_preference_cv_filename'), 5);
+    checkField(this.personalInfoForm.get('career_preference_video_link'), 5);
+
+    // References & Endorsements (5%)
+    if (this.academicReferences?.controls?.length) {
+      this.academicReferences.controls.forEach((ref, index) => {
+        if (index == 0) {
+          checkField(ref.get('references_college_name'), 2);
+          checkField(ref.get('references_reference_name'), 2);
+          checkField(ref.get('references_designation'), 2);
+          checkField(ref.get('references_phone_number'), 2);
+          checkField(ref.get('references_email'), 2);
+        }
+      });
+    }
+
+    if (this.professionalReferences?.controls?.length) {
+      this.professionalReferences.controls.forEach((ref, index) => {
+        if (index == 0) {
+          checkField(ref.get('references_company_name'), 1);
+          checkField(ref.get('references_reference_name'), 1);
+          checkField(ref.get('references_designation'), 1);
+          checkField(ref.get('references_phone_number'), 1);
+          checkField(ref.get('references_email'), 1);
+        }
+      });
+    }
+
+    this.profileCompletion = Math.round((filledWeight / totalWeight) * 100);
   }
+
+
 
   getDropDownOptionList() {
     this.talentConnectService.getMyProfileDropDownValues().subscribe({
