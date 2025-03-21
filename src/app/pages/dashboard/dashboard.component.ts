@@ -145,6 +145,9 @@ export class DashboardComponent implements OnInit, OnChanges {
 		this.profileCompletion();
 		this.groupedListFav = this.chunkArray(this.listFav, 4);
 		this.groupedListFav2 = this.chunkArray(this.recentJobApplication, 2);
+		this.locationService.dashboardLocationList().subscribe((countryList: any) => {
+			this.countryLists = countryList
+		});
 	}
 	recentJobs() {
 		this.dashboardService.RecentJobApplication().subscribe({

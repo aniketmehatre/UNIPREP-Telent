@@ -49,8 +49,10 @@ interface Job {
 export class JobDetailsComponent implements OnInit, OnChanges {
 
   @Output() closeInfo: EventEmitter<boolean> = new EventEmitter<boolean>(true);
-  @Input() showInfo: boolean = true;
+  @Output() openChat: EventEmitter<boolean> = new EventEmitter<boolean>(true);
+  @Input() showInfo: boolean = false;
   @Input() jobDetails: Job = {} as Job;
+  @Input() showChat: boolean = false;
 
   activeIndex: number = 0;
   steps: MenuItem[] = [];

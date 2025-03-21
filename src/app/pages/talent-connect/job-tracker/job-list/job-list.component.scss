@@ -120,6 +120,60 @@
     width: 30px;
     height: 35px;
   }
+
+  :host ::ng-deep {
+    .p-dialog-header {
+      padding: 1rem 1.5rem !important;
+      border-bottom: 1px solid #dee2e6;
+    }
+    
+    .p-dialog-content {
+      padding: 0 !important;
+    }
+    
+    .p-dialog .p-dialog-header .p-dialog-title {
+      font-weight: 600;
+    }
+    
+    .p-dialog-footer {
+      border-top: 1px solid #dee2e6;
+      padding: 1rem 1.5rem;
+    }
+    
+    .p-multiselect, .p-dropdown {
+      width: 100%;
+    }
+    
+    .dialog-footer {
+      border-top: 1px solid #dee2e6;
+    }
+    
+    .input-group-prepend .p-dropdown {
+      border-top-right-radius: 0;
+      border-bottom-right-radius: 0;
+    }
+
+    .input-group-text {
+      padding: 0px;
+    }
+
+    
+    
+    .input-group .form-control {
+      border-top-left-radius: 0;
+      border-bottom-left-radius: 0;
+    }
+    
+    // Styling for the multiselect fields
+    .p-multiselect-label-container {
+      height: 38px;
+    }
+  }
+  
+  .form-label {
+    margin-bottom: 0.5rem;
+    display: block;
+  }
   
   .left-btn {
     top: 15px;

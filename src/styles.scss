@@ -439,6 +439,7 @@ uni-modules {
 	}
 }
 
+uni-job-view,
 uni-job-tracker,
 uni-employee-profile,
 uni-founderstool,
@@ -2469,20 +2470,21 @@ uni-global-employment-insights {
 		color: black;
 		text-align: left;
 		position: relative;
+		page-break-before: auto;
+      	page-break-after: auto;
 	}
 	
 	h2,
 	h3 {
 		color: #1a237e;
 	}
-	
 	.title-highlight {
 		color: #d32f2f;
 		font-weight: bold;
 		font-size: 22px;
 	}
 	
-	.loan-details {
+	.loan-details, .section-content {
 		padding: 15px;
 		border-radius: 8px;
 		font-size: 16px;
@@ -2490,12 +2492,6 @@ uni-global-employment-insights {
 	
 	ul {
 		padding-left: 20px;
-	}
-	
-	.highlight {
-		color: #d32f2f;
-		font-weight: bold;
-		font-size: 20px;
 	}
 	
 	.icon {
@@ -2516,4 +2512,27 @@ uni-global-employment-insights {
 	.blue-background {
 		background-color: #e3f2fd;
 	}
+	
+    .packing-list,
+    .summary {
+        padding: 15px;
+        border-radius: 8px;
+        font-size: 16px;
+    }
+}
+
+
+//AI Response Code
+.title-highlight
+{
+	color:var(--uniprep-secondary) !important;
+	font-weight: 700;
+	.icon
+	{
+		color:var(--uniprep-primary) !important;
+	}
+}
+.blue-background
+{
+	background-color:var(--uniprep-primaryop10) !important;
 }

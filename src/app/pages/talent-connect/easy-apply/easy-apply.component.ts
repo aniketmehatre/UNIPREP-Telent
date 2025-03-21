@@ -51,7 +51,7 @@ export class EasyApplyComponent {
     this.getList();
     this.initializeForm();
     this.getOptionsList();
-    this.getcurrencies();
+    this.getCountries();
   }
 
   initializeForm() {
@@ -68,10 +68,10 @@ export class EasyApplyComponent {
     });
   }
 
-  getcurrencies() {
-    this.talenconnectService.getCurrencies().subscribe({
+  getCountries() {
+    this.talenconnectService.getCountries().subscribe({
       next: (response: any) => {
-        this.currencies = response;
+        this.locations = response;
       }
     });
   }
@@ -99,6 +99,11 @@ export class EasyApplyComponent {
   getOptionsList() {
     this.talentConnectService.getJobListDropdown().subscribe(data => {
       this.industries = data?.industrytypes;
+      this.experienceLevels = data.experiecelevel;
+      this.workModes = data?.workmode;
+      this.employmentTypes = data?.employmenttype;
+      this.currencies = data?.currencycode;
+      // this.locations = data?.locations;
     });
   }
 

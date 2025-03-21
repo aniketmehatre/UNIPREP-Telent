@@ -26,11 +26,11 @@
   </div>
   <div class="card-body text-start flex-fill overflow-y-auto">
       <div class="row">
-          <div class="col-md-8 overflow-auto" [ngClass]="{'col-md-12': !isShowApplyChat}" style="height: calc(100vh - 200px);">
+          <div class="col-md-8 overflow-auto" [ngClass]="{'col-md-12': !isShowApplyChat}" style="height: calc(100vh - 200px);" *ngIf="showInfo">
               <div class="row">
                   <div class="col-md-2 ">
-                      <div class="logo-container border p-3 mb-3">
-                        <img [src]="jobDetails?.company_logo_url" alt="UNIABROAD" class="img-fluid">
+                      <div class="logo-container border mb-3">
+                        <img [src]="jobDetails?.company_logo_url" alt="company_logo" style="object-fit:fit; width: 100%; height: 100%">
                       </div>
                     </div>
                     <div class="col-md-8">
@@ -41,9 +41,6 @@
                             <i class="fas fa-check-circle"></i>
                           </span>
                       </div>
-                      <div class="mb-3">
-                        <span class="text-muted">{{jobDetails?.matching_skills}}</span>
-                      </div>
                       <div class="d-flex flex-wrap gap-2 mb-3">
                         <div>
                           <p class="text-muted mb-0 small">Total Vacancies</p>
@@ -53,23 +50,30 @@
                           <p class="text-muted mb-0 small">Total Applied</p>
                           <p class="mb-0 fw-bold fs-4">{{ jobDetails.total_applied }}</p>
                         </div>
+                        <div class="border border-end"></div>
                         <div>
-                          <span *ngFor="let skill of jobDetails?.soft_skills" class="badge me-1" [ngClass]="{'bg-warning text-dark': skill === 'UI Design' || skill === 'Graphic Design' || skill === 'UX Design', 'bg-secondary': skill === 'Motion Design'}">
+                          <p class="text-secondary small text-muted " style="color: var(--uniprep-secondary) !important">{{jobDetails.matching_skills}}</p>
+                          <span *ngFor="let skill of jobDetails?.soft_skills" class="badge bg-warning text-dark p-2 py-3 me-1 rounded">{{ skill }}</span>
+                          <!-- <span *ngFor="let skill of jobDetails?.soft_skills" class="badge me-1" [ngClass]="{'bg-warning text-dark': skill === 'UI Design' || skill === 'Graphic Design' || skill === 'UX Design', 'bg-secondary': skill === 'Motion Design'}">
                             {{ skill }}
-                          </span>
+                          </span> -->
                         </div>
                       </div>
                     </div>
                     <div class="col-md-2 text-end">
-                      <button pButton [label]="isApplied ? 'Applied': 'Apply'" icon="fa fa-arrow-pointer" iconPos="right" [ngClass]="isApplied ? 'bg-success' : 'bg-priamry'" class="p-button-primary mb-3" (click)="applyJob(id)" [disabled]="isApplied"></button>
+                      <button pButton label="Close Info" class="btn btn-primary" (click)="showInfo=false;" *ngIf="isShowApplyChat && isApplied"></button>
+                      <button pButton class="p-button-success chat-btn" *ngIf="!isShowApplyChat && isApplied" (click)="isShowApplyChat = true">
+                        <i class="pi pi-comments"></i> Chat
+                      </button>  
+                      <button *ngIf="!isApplied" pButton label="Apply" icon="fa fa-arrow-pointer" iconPos="right" class="p-button-primary mb-3" (click)="applyJob(id)" [disabled]="isApplied"></button>
                       <div class="posted-date">Posted On : {{ jobDetails.created_at | date: 'dd-MM-yyyy' }}</div>
                     </div>
                   </div>
+                  <hr>
               <div class="row mb-4">
                 <div class="col-md-12" >
-                  <div class="card shadow-sm">
                     <div class="card-body p-4">
-                      <div class="row row-cols-2 row-cols-md-4 g-4 row-lg-6">
+                      <div class="row row-cols-2 row-cols-md-4 g-4 row-lg-6 ">
                         <!-- Company Size -->
                         <div class="col">
                           <div class="d-flex flex-column">
@@ -215,12 +219,11 @@
                       </div>
                     </div>
                   </div>
-                </div>
               </div>
             
               <div class="row mb-4">
                 <div class="col-md-12">
-                  <div class="card shadow-sm">
+                  <div class="card shadow-sm  bg-secondary-subtle">
                     <div class="card-body p-4">
                       <div class="row">
                         <div class="col-md-3">
@@ -237,8 +240,8 @@
             
               <div class="row mb-4">
                 <div class="col-md-12">
-                  <div class="card shadow-sm">
-                    <div class="card-body p-4">
+                  <div class="card shadow-sm bg-secondary-subtle">
+                    <div class="card-body p-4 ">
                       <div class="row">
                         <div class="col-md-3">
                           <h2 class="fs-3 fw-bold">Key<br>Responsibilities</h2>
@@ -262,8 +265,8 @@
               <!-- Technical Proficiency -->
               <div class="row mb-4">
                 <div class="col-md-12">
-                  <div class="card shadow-sm">
-                    <div class="card-body p-4">
+                  <div class="card shadow-sm bg-secondary-subtle">
+                    <div class="card-body p-4  ">
                       <div class="row">
                         <div class="col-md-3">
                           <h2 class="fs-3 fw-bold">Technical<br>Proficiency</h2>
@@ -287,8 +290,8 @@
               <!-- Language Proficiency -->
               <div class="row mb-4">
                 <div class="col-md-12">
-                  <div class="card shadow-sm">
-                    <div class="card-body p-4">
+                  <div class="card shadow-sm  bg-secondary-subtle">
+                    <div class="card-body p-4 ">
                       <div class="row">
                         <div class="col-md-3">
                           <h2 class="fs-3 fw-bold">Language<br>Proficiency</h2>
@@ -312,8 +315,8 @@
               <!-- Compensation Structure -->
               <div class="row mb-4">
                 <div class="col-md-12">
-                  <div class="card shadow-sm">
-                    <div class="card-body p-4">
+                  <div class="card shadow-sm  bg-secondary-subtle">
+                    <div class="card-body p-4 ">
                       <div class="row">
                         <div class="col-md-3">
                           <h2 class="fs-3 fw-bold">Compensation<br>Structure</h2>
@@ -332,7 +335,7 @@
               <!-- Additional Benefits & Perks -->
               <div class="row mb-4">
                 <div class="col-md-12">
-                  <div class="card shadow-sm">
+                  <div class="card shadow-sm  bg-secondary-subtle">
                     <div class="card-body p-4">
                       <div class="row">
                         <div class="col-md-3">
@@ -352,8 +355,8 @@
               <!-- Essential Soft Skills -->
               <div class="row mb-4">
                 <div class="col-md-12">
-                  <div class="card shadow-sm">
-                    <div class="card-body p-4">
+                  <div class="card shadow-sm  bg-secondary-subtle">
+                    <div class="card-body p-4 ">
                       <div class="row">
                         <div class="col-md-3">
                           <h2 class="fs-3 fw-bold">Essential Soft Skills</h2>
@@ -372,8 +375,8 @@
               <!-- Hiring & Recruitment -->
               <div class="row mb-4">
                 <div class="col-md-12">
-                  <div class="card shadow-sm">
-                    <div class="card-body p-4">
+                  <div class="card shadow-sm bg-secondary-subtle">
+                    <div class="card-body p-4  ">
                       <div class="row">
                         <div class="col-md-3">
                           <h2 class="fs-3 fw-bold">Hiring & Recruitment</h2>
@@ -406,120 +409,8 @@
                 </div>
               </div>
           </div>
-          <div class="col-md-4" *ngIf="isShowApplyChat">
-            <div class="chat-container h-100 d-flex flex-column">
-              <div class="card h-100 d-flex flex-column">
-                <!-- Header - Fixed at top -->
-                <div class="card-header d-flex justify-content-between align-items-center p-3">
-                  <div class="d-flex align-items-center">
-                    <div class="uniabroad-icon me-2">
-                      <img [src]="jobDetails?.company_logo" alt="UNIABROAD" width="24" height="24">
-                    </div>
-                    <div>
-                      <h5 class="mb-0 fw-bold">{{jobDetails?.company_name}}</h5>
-                      <p class="small text-muted mb-0">Active</p>
-                    </div>
-                  </div>
-                  <button type="button" class="btn-close" aria-label="Close" (click)="isShowApplyChat=false;"></button>
-                </div>
-                
-                <!-- Body - Scrollable content -->
-                <div class="card-body p-0 flex-grow-1 overflow-hidden d-flex flex-column">
-                  <!-- Initial View (Empty State) -->
-                  <div class="chat-body h-100 overflow-y-auto" *ngIf="messages?.length < 1">
-                    <div class="description-box mt-3 p-3">
-                      <h5 class="text-center mb-3">Write a description about yourself</h5>
-                      
-                      <div class="upload-section text-center">
-                        <p class="mb-1">Upload Cover Letter</p>
-                        <p class="small text-muted">Supported Formats: doc, docx, pdf, upto 2 MB</p>
-                      </div>
-              
-                      <div class="cover-letter-box mt-4">
-                        <p class="text-center mb-0 fw-medium">Need a cover letter?</p>
-                        <button pButton 
-                               class="p-button-text p-button-plain w-100" 
-                               label="Click here to write one!"
-                               routerLink="/pages/job-tool/coverletter-builder"></button>
-                      </div>
-                    </div>
-                  </div>
-          
-                  <!-- Conversation View -->
-                  <div class="chat-body h-100 overflow-y-auto p-3" *ngIf="messages?.length > 0">
-                    <ng-container *ngFor="let message of messages">
-                      <!-- Sender ID for UNIABROAD -->
-                      <div class="sender-id mb-1" *ngIf="!message.sender">
-                       {{jobDetails?.company_name}}
-                      </div>
-          
-                      <!-- Fix alignment based on boolean sender -->
-                      <div class="d-flex mb-3" [ngClass]="{'justify-content-start': !message.sender, 'justify-content-end': message.sender}">
-                        <div *ngIf="!message.sender" class="avatar me-2">
-                          <img [src]="message.profile_image" class="rounded-circle" width="32" height="32" alt="User">
-                        </div>
-                        
-                        <!-- Text Message -->
-                        <div *ngIf="message.type === 'text'" class="message-content" 
-                            [ngClass]="{'bg-light': !message.sender, 'bg-primary text-white': message.sender}"
-                            [ngStyle]="{'max-width': '75%'}">
-                          <p class="mb-2">{{message.content}}</p>
-                          <div class="d-flex justify-content-between align-items-center flex-row-reverse">
-                            <div>                                                      
-                              <span *ngIf="message.sender" class="ms-2 text-white-50">
-                                <i class="fa-solid fa-check" [style.color]="message.markAsRead ? 'skyblue':'lightgray'"></i><i class="fa-solid fa-check" [style.color]="message.markAsRead ? 'skyblue':'lightgray'"></i>
-                              </span>
-                            </div>
-                            <small class="message-time text-end" 
-                                  [ngClass]="{'text-muted': !message.sender, 'text-white-50': message.sender}">
-                              {{message.time}} 
-                            </small>
-                          </div>
-                        </div>
-                        <!-- File Attachment -->
-                        <div *ngIf="message.type === 'file'" class="message-content file-message text-start" style="min-width: 50%" >
-                          <a [href]="message.attachment_url" target="_blank">{{message.content ?? message.attachment}}</a><br>
-                          <small class="message-time text-muted text-start">{{message.time}}</small>
-                        </div>
-                        
-                        <!-- Button Message -->
-                        <div *ngIf="message.type === 'button'" style="max-width: 75%">
-                          <div class="sender-id mb-1 text-end">
-                            {{message.sender ? 'johndoe' : 'UNIABROAD'}}
-                          </div>
-                          <button pButton 
-                                class="p-button-warning w-100 d-flex justify-content-between align-items-center">
-                            <span>{{message.content}}</span>
-                            <div class="d-flex align-items-center">
-                              <small class="me-2">{{message.time}}</small>
-                            </div>
-                          </button>
-                        </div>
-                      </div>
-                    </ng-container>
-                  </div>
-                </div>
-          
-                <!-- Footer - Fixed at bottom -->
-                <div class="card-footer bg-white p-2">
-                  <input type="file" class="d-none" accept=".doc,.docx,.pdf, application/msword,application/vnd.openxmlformats-officedocument.wordprocessingml.document" #fileAttachment (change)="uploadFilesChat($event);" [limit]="1">
-                  <div *ngIf="attachmentFile" class="border d-flex justify-content-between align-items-center p-2">
-                      <div>{{attachmentFileName}}</div>
-                      <i class="fas fa-xmark" (click)="attachmentFile = null; attachmentFileName = null;"></i>
-                  </div>
-                  <div class="input-group">
-                    <span class="input-group-text border-0 bg-white" (click)="fileAttachment.click();">
-                      <i class="pi pi-paperclip"></i>
-                    </span>
-                    <input type="text" class="form-control border-0" [placeholder]="'Text with ... '+jobDetails?.company_name" #messageInput
-                          (keyup.enter)="sendMessage(messageInput.value); messageInput.value = ''">
-                    <span class="input-group-text border-0 bg-white" (click)="sendMessage(messageInput.value); messageInput.value = '';">
-                      <i class="pi pi-send"></i>
-                    </span>
-                  </div>
-                </div>
-              </div>
-            </div>
+          <div class="col-12" *ngIf="isShowApplyChat" [ngClass]="{'col-md-4 col-lg-4': showInfo}">
+            <uni-job-chat-ui (openInfo)="showInfo=true" [showInfo]="showInfo" [jobDetails]="jobDetails" (closeChat)="isShowApplyChat = false"></uni-job-chat-ui>
           </div>
       </div>
   </div>

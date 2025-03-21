@@ -11,6 +11,13 @@ export class TalentConnectService {
 
     constructor(private http: HttpClient) { }
 
+
+    getCountries() {
+        return this.http.post<any>(environment.ApiUrl + "/getcountryandcurrency", {
+            headers: this.headers
+        });
+    }
+
     //Easy-Apply
     getJobListDropdown() {
         return this.http.get<any>(

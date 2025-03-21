@@ -4,13 +4,13 @@
       <span class="text-muted">Total Jobs : {{totalAppliedJobs}}</span>
     </div>
 
-    <p-tabView [(activeIndex)]="activeIndex" [scrollable]="true" styleClass="p-0">
+    <p-tabView [(activeIndex)]="activeIndex" [scrollable]="true" styleClass="p-0" (activeIndexChange)="selectTab($event)" >
       <p-tabPanel *ngFor="let tab of tabs" [header]="tab.label" class="p-0">
         <div class="job-cards">
-          <div class="job-card mb-3" (click)="onClickJobCard(job.id)" *ngFor="let job of appliedJobList;">
+          <div class="job-card mb-3" (click)="onClickJobCard(job.id)" *ngFor="let job of filteredAppliedJob;">
             <div class="d-flex">
               <div class="company-logo me-3">
-                <img [src]="job.company_logo" alt="Company Logo">
+                <img [src]="job.company_logo" alt="Company Logo" style="object-fit: cover;">
               </div>
               <div class="job-details text-left">
                 <h5 class="job-title mb-1 text-left">{{job.position}}</h5>
@@ -33,3 +33,172 @@
       currentPageReportTemplate="Page {first}/{last}" [showPageLinks]="false" [showFirstLastIcon]="false" ></p-paginator>
     </div>
   </div>
+
+<div>
+		<p-dialog 
+		  header="Filter" 
+		  [(visible)]="displayModal" 
+		  [modal]="true" 
+		  [style]="{width: '80%'}" 
+		  [baseZIndex]="10000"
+		  [draggable]="false" 
+		  [resizable]="false"
+      (onHide)="displayModal = false; closeFilter.emit(false);"
+		  styleClass="container">
+		  
+		  <form [formGroup]="filterForm" class="p-3">
+			<div class="mb-4">
+			  <label class="form-label fw-bold">Search</label>
+			  <div class="p-inputgroup">
+				<input 
+				  type="text" 
+				  pInputText 
+				  placeholder="Search by Keyword" 
+				  class="form-control">
+			  </div>
+			</div>
+			
+			<div class="row mb-4">
+			  <div class="col-md-4">
+				<label class="form-label fw-bold">Position Title</label>
+				<div class="p-inputgroup">
+				  <input 
+					type="text" 
+					pInputText 
+					formControlName="position" 
+					placeholder="Enter position title" 
+					class="form-control w-100" >
+				</div>
+			  </div>
+			  
+			  <div class="col-md-4">
+				<label class="form-label fw-bold">Industry <span class="text-danger">(Multi select)</span></label>
+				<p-multiSelect 
+				  [options]="industries" 
+				  formControlName="industry_type" 
+				  placeholder="Select industry" 
+				  optionLabel="industry_name" 
+				  optionValue="id"
+				  display="chip"
+				  class="w-100">
+				</p-multiSelect>
+			  </div>
+			  
+			  <div class="col-md-4">
+				<label class="form-label fw-bold">Work Location <span class="text-danger">(Multi select)</span></label>
+				<p-multiSelect 
+				  [options]="locations" 
+				  formControlName="work_location" 
+				  placeholder="Select work location" 
+				  optionLabel="country" 
+				  optionValue="id"
+				  display="chip"
+				  class="w-100">
+				</p-multiSelect>
+			  </div>
+			</div>
+			
+			<div class="row mb-4">
+			  <div class="col-md-4">
+				<label class="form-label fw-bold">Work mode <span class="text-danger">(Multi select)</span></label>
+				<p-multiSelect 
+				  [options]="workModes" 
+				  formControlName="work_mode" 
+				  placeholder="Select work type" 
+				  optionLabel="work_mode"
+				  optionValue="id" 
+				  display="chip"
+				  class="w-100">
+				</p-multiSelect>
+			  </div>
+			  
+			  <div class="col-md-4">
+				<label class="form-label fw-bold">Employment Type <span class="text-danger">(Multi select)</span></label>
+				<p-multiSelect 
+				  [options]="employmentTypes" 
+				  formControlName="employment_type" 
+				  placeholder="Select employment type" 
+				  optionLabel="employment_type"
+				  optionValue="id" 
+				  display="chip"
+				  class="w-100">
+				</p-multiSelect>
+			  </div>
+			  
+			  <div class="col-md-4">
+				<label class="form-label fw-bold">Currency display for salaries</label>
+				<p-select
+				  [options]="currencies" 
+				  formControlName="currency" 
+				  optionLabel="currency_code" 
+				  optionId="id"
+				  [filter]="true" 
+				  appendTo="body"
+				  filterBy="currency_code" 
+				  class="w-100">
+				</p-select>
+			  </div>
+			</div>
+			
+			<div class="row mb-4">
+			  <div class="col-md-4">
+				<label class="form-label fw-bold">Salary offered</label>
+				<div class="d-flex w-100 gap-2">
+				  <p-select [options]="currencies"
+				  styleClass="p-select p-component"
+				  optionLabel="currency_code" optionValue="id"
+				  placeholder="Select"
+				  formControlName="currency"
+				  [style]="{ width: '80px' }">
+				 </p-select>
+				  <div class="flex-grow-1 me-2">
+					  <p-inputNumber id="salary"
+						  placeholder="Enter your salary/month"
+						  styleClass="p-inputtext w-100" [showButtons]="false"
+						  class="w-100"
+						  formControlName="salary"></p-inputNumber>
+				  </div>
+			  </div>
+			  </div>
+			  
+			  <div class="col-md-4">
+				<label class="form-label fw-bold">Experience Level <span class="text-danger">(Multi select)</span></label>
+				<p-multiSelect 
+				  [options]="experienceLevels" 
+				  formControlName="experience_level" 
+				  optionLabel="label"
+				  optionValue="id"
+				  display="chip"
+				  class="w-100">
+				</p-multiSelect>
+      </div>
+      <div class="col-md-4">
+				<label class="form-label fw-bold">Status</label>
+				<p-select 
+				  [options]="['Active', 'IN Active']" 
+				  formControlName="status" 
+				  display="chip"
+				  class="w-100">
+				</p-select>
+      </div>
+      </div>
+		  </form>
+		  
+		  <div class="dialog-footer p-3 d-flex justify-content-center w-100">
+      <div class="col-md-4 h-full mt-auto w-100">
+      <button 
+      pButton 
+      label="Apply Filter" 
+      (click)="applyFilter()" 
+      class="btn-primary w-100">
+      </button>
+			<button 
+			  pButton 
+			  label="Reset Filter" 
+			  (click)="resetFilter()" 
+			  class="p-button-text text-primary">
+			</button>
+		  </div>
+      </div>
+		</p-dialog>
+</div>
