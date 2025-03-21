@@ -2461,25 +2461,17 @@ uni-global-employment-insights {
 
 .chatgpt-response {
 	.container {
-		max-width: 950px;
-		margin: 25px auto;
 		padding: 25px;
-		background: rgba(255, 255, 255, 0.95);
-		border-radius: 10px;
-		box-shadow: 4px 4px 15px rgba(0, 0, 0, 0.2);
-		color: black;
-		text-align: left;
-		position: relative;
 	}
 
 	h2,
 	h3 {
-		color: #1a237e;
+		color: var(--uniprep-primary) !important;
 	}
 
 	.title-highlight {
-		color: #d32f2f;
-		font-weight: bold;
+		color: var(--uniprep-secondary) !important;
+		font-weight: 700;
 		font-size: 22px;
 	}
 
@@ -2494,30 +2486,11 @@ uni-global-employment-insights {
 		padding-left: 20px;
 	}
 
-	.icon {
-		color: #3949ab;
-		margin-right: 10px;
-	}
-
-	.divider {
-		height: 2px;
-		background: linear-gradient(to right, #3949ab, #d32f2f);
-		margin: 20px 0;
-	}
-
-	.blue-background {
-		background-color: #e3f2fd;
-	}
-
 	.packing-list,
 	.summary {
 		padding: 15px;
 		border-radius: 8px;
 		font-size: 16px;
-	}
-
-	ul {
-		padding-left: 20px;
 	}
 
 	.logo {
@@ -2527,18 +2500,13 @@ uni-global-employment-insights {
 	}
 
 	.icon {
-		color: #3949ab;
+		color: var(--uniprep-primary) !important;
 		margin-right: 10px;
-	}
-
-	h2,
-	h3 {
-		color: #1a237e;
 	}
 
 	.divider {
 		height: 2px;
-		background: linear-gradient(to right, #3949ab, #d32f2f);
+		background: linear-gradient(to right, var(--uniprep-primaryop10), var(--uniprep-secondaryop10));
 		margin: 20px 0;
 	}
 
@@ -2602,21 +2570,6 @@ uni-global-employment-insights {
 	}
 
 	.blue-background {
-		background-color: #e3f2fd;
+		background-color: var(--uniprep-primaryop10) !important;
 	}
-}
-
-
-//AI Response Code
-.title-highlight {
-	color: var(--uniprep-secondary) !important;
-	font-weight: 700;
-
-	.icon {
-		color: var(--uniprep-primary) !important;
-	}
-}
-
-.blue-background {
-	background-color: var(--uniprep-primaryop10) !important;
 }
