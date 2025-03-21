@@ -24,6 +24,7 @@ import { SelectModule } from 'primeng/select';
 import { SkeletonModule } from 'primeng/skeleton';
 import { TooltipModule } from 'primeng/tooltip';
 import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
+import { PromptService } from '../../prompt.service';
 @Component({
 	selector: 'uni-travel-cost-estimator',
 	templateUrl: './travel-cost-estimator.component.html',
@@ -57,7 +58,8 @@ export class TravelCostEstimatorComponent implements OnInit {
 		private router: Router,
 		private costOfLivingService: CostOfLivingService,
 		private toast: MessageService,
-		private sanitizer: DomSanitizer
+		private sanitizer: DomSanitizer,
+		private prompt: PromptService
 	) { }
 
 	ngOnInit(): void {
@@ -115,11 +117,10 @@ export class TravelCostEstimatorComponent implements OnInit {
 				this.isRecommendationQuestion = false;
 				this.isRecommendationData = true;
 				this.isRecommendationSavedData = false;
-				// this.recommendationData = response.response;
 				let chatGptResponse = response.response;
-				chatGptResponse = chatGptResponse
-					.replace(/```html|```/g, '')
-					.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>');
+				// chatGptResponse = chatGptResponse
+				// 	.replace(/```html|```/g, '')
+				// 	.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>');
 				this.recommendationData = this.sanitizer.bypassSecurityTrustHtml(chatGptResponse);
 			},
 			error: error => {
@@ -174,19 +175,17 @@ export class TravelCostEstimatorComponent implements OnInit {
 
 		let departureLocation = this.selectedData[1].city_name + ', ' + this.selectedData[1].country_name;
 		let destinationLocation = this.selectedData[2].city_name + ', ' + this.selectedData[2].country_name;
-		let logoUrl = "https://api.uniprep.ai/uniprepapi/storage/app/public/unipreplogo/travel_cost_estimator.svg";
 		let moduleName = "Travel Cost Estimator";
-
+		
 		let addingInput = `
-			<div style="font-family: 'Poppins', sans-serif; display: flex; align-items: center; justify-content: space-between; border-bottom: 2px solid #d32f2f; padding-bottom: 10px; margin-bottom: 20px;">
+			<div style="font-family: 'Poppins', sans-serif; display: flex; align-items: center; justify-content: space-between; border-bottom: 2px solid #f0780e; padding-bottom: 10px; margin-bottom: 20px;">
 				<div style="text-align: center;">
 					<h2 style="margin: 0; color: #1a237e;">${moduleName}</h2>
 				</div>
-			</div>
-			<p><strong>Input:<br></strong></p>`;
-
+			</div>`;
+		let inputString: string = `<p><strong>Input:<br></strong></p>`;
 		this.recommendations.forEach(values => {
-			addingInput += `<p style="color: #d32f2f;"><strong>${values.question}</strong></p>`;
+			inputString += `<p style="color: #f0780e;"><strong>${values.question}</strong></p>`;
 			let currentAnswer = "";
 			if (values.id == 1) {
 				currentAnswer = departureLocation;
@@ -200,25 +199,34 @@ export class TravelCostEstimatorComponent implements OnInit {
 			// else if(values.id == 5){
 			//   currentAnswer = `${ this.selectedData[5] } Currency`;
 			// }
-			addingInput += `<p>${currentAnswer}</p><br>`;
+			inputString += `<p>${currentAnswer}</p><br>`;
 		});
-		let finalRecommendation = addingInput + '<div class=\"divider\"></div><p><strong>Response:<br></strong></p>' + this.recommendationData + '</div>';
-		finalRecommendation = finalRecommendation
-			.replace(/```html|```/g, '') 
-			.replace(/\(see https:\/\/g\.co\/ng\/security#xss\)/g, '') 
-			.replace(/SafeValue must use \[property\]=binding:/g, '')
-			.replace(/class="container"/g, 'style="line-height:1.9;page-break-before: auto;page-break-after: auto;"'); //because if i add container the margin will increase so i removed the container now the spacing is proper.
+		inputString += `<div class=\"divider\"></div><p><strong>Response:<br></strong></p>`;
+		// let finalRecommendation = this.recommendationData + '</div>';
+		// finalRecommendation = finalRecommendation
+		// 	.replace(/```html|```/g, '') 
+		// 	.replace(/\(see https:\/\/g\.co\/ng\/security#xss\)/g, '') 
+		// 	.replace(/SafeValue must use \[property\]=binding:/g, '')
+		// 	.replace(/class="container"/g, 'style="line-height:1.9;page-break-before: auto;page-break-after: auto;"'); //because if i add container the margin will increase so i removed the container now the spacing is proper.
 		
-		let paramData: DownloadRespose = {
-			response: finalRecommendation,
+		let params: any = {
 			module_name: "Travel Cost Estimator",
-			file_name: "travel_cost_estimator"
-		};
-		this.travelToolsService.convertHTMLtoPDF(paramData).then(() => {
-			console.log("PDF successfully generated.");
-		}).catch(error => {
-			console.error("Error generating PDF:", error);
-		})
+			file_name: "travel_cost_estimator",
+			response: this.recommendationData,
+			inputString: inputString
+		  };
+		this.prompt.responseBuilder(params);
+
+		// let paramData: any = {
+		// 	response: this.recommendationData,
+		// 	module_name: "Travel Cost Estimator",
+		// 	file_name: "travel_cost_estimator",
+		// };
+		// this.travelToolsService.convertHTMLtoPDF(paramData).then(() => {
+		// 	console.log("PDF successfully generated.");
+		// }).catch(error => {
+		// 	console.error("Error generating PDF:", error);
+		// })
 	}
 
 	goBack() {

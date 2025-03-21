@@ -95,7 +95,7 @@ export class TravelToolsService {
           filename: dynamicFileName,
           image: { type: 'jpeg', quality: 1.0 },
           html2canvas: { 
-            scale: 2,
+            scale: 4,
             useCORS: true,
             logging: true,
             allowTaint: true,
