@@ -1,10 +1,11 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { CommonModule } from "@angular/common";
 import { ActivatedRoute, RouterLink } from '@angular/router';
 import { TalentConnectService } from '../../talent-connect.service';
 import { ButtonModule } from 'primeng/button';
 import { TooltipModule } from 'primeng/tooltip';
 import { FormsModule } from '@angular/forms';
+import { JobChatUiComponent } from '../../job-tracker/job-chat-ui/job-chat-ui.component';
 
 export interface Job {
   isChecked: number;
@@ -56,7 +57,7 @@ interface Message {
   templateUrl: './job-view.component.html',
   styleUrls: ['./job-view.component.scss'],
   standalone: true,
-  imports: [CommonModule, ButtonModule, TooltipModule, FormsModule, RouterLink]
+  imports: [CommonModule, ButtonModule, TooltipModule, FormsModule, JobChatUiComponent, RouterLink]
 })
 export class JobViewComponent implements OnInit {
   id!: number;
@@ -64,6 +65,7 @@ export class JobViewComponent implements OnInit {
   appliedId: number = NaN;
   attachmentFileName: string = '';
   isApplied: boolean = false;
+  @Input() showInfo: boolean = true;
   attachmentFile!: File | null;
   jobDetails: Job = {
     matching_skills: 'You match 0 out of 0 skill requirements for this job',

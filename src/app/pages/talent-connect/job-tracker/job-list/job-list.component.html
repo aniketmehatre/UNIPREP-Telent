@@ -10,7 +10,7 @@
           <div class="job-card mb-3" (click)="onClickJobCard(job.id)" *ngFor="let job of filteredAppliedJob;">
             <div class="d-flex">
               <div class="company-logo me-3">
-                <img [src]="job.company_logo" alt="Company Logo">
+                <img [src]="job.company_logo" alt="Company Logo" style="object-fit: cover;">
               </div>
               <div class="job-details text-left">
                 <h5 class="job-title mb-1 text-left">{{job.position}}</h5>
@@ -67,7 +67,7 @@
 					pInputText 
 					formControlName="position" 
 					placeholder="Enter position title" 
-					class="form-control">
+					class="form-control w-100" >
 				</div>
 			  </div>
 			  
@@ -75,8 +75,8 @@
 				<label class="form-label fw-bold">Industry <span class="text-danger">(Multi select)</span></label>
 				<p-multiSelect 
 				  [options]="industries" 
-				  formControlName="industry" 
-				  defaultLabel="Select industry" 
+				  formControlName="industry_type" 
+				  placeholder="Select industry" 
 				  optionLabel="industry_name" 
 				  optionValue="id"
 				  display="chip"
@@ -88,9 +88,9 @@
 				<label class="form-label fw-bold">Work Location <span class="text-danger">(Multi select)</span></label>
 				<p-multiSelect 
 				  [options]="locations" 
-				  formControlName="worklocation" 
-				  defaultLabel="Select work location" 
-				  optionLabel="work_location" 
+				  formControlName="work_location" 
+				  placeholder="Select work location" 
+				  optionLabel="country" 
 				  optionValue="id"
 				  display="chip"
 				  class="w-100">
@@ -104,8 +104,9 @@
 				<p-multiSelect 
 				  [options]="workModes" 
 				  formControlName="work_mode" 
-				  defaultLabel="Select work type" 
-				  optionLabel="label" 
+				  placeholder="Select work type" 
+				  optionLabel="work_mode"
+				  optionValue="id" 
 				  display="chip"
 				  class="w-100">
 				</p-multiSelect>
@@ -116,8 +117,9 @@
 				<p-multiSelect 
 				  [options]="employmentTypes" 
 				  formControlName="employment_type" 
-				  defaultLabel="Select employment type" 
-				  optionLabel="label" 
+				  placeholder="Select employment type" 
+				  optionLabel="employment_type"
+				  optionValue="id" 
 				  display="chip"
 				  class="w-100">
 				</p-multiSelect>
@@ -131,7 +133,8 @@
 				  optionLabel="currency_code" 
 				  optionId="id"
 				  [filter]="true" 
-				  filterBy="label" 
+				  appendTo="body"
+				  filterBy="currency_code" 
 				  class="w-100">
 				</p-select>
 			  </div>
@@ -162,8 +165,9 @@
 				<label class="form-label fw-bold">Experience Level <span class="text-danger">(Multi select)</span></label>
 				<p-multiSelect 
 				  [options]="experienceLevels" 
-				  formControlName="experienceLevel" 
-				  optionLabel="label" 
+				  formControlName="experience_level" 
+				  optionLabel="label"
+				  optionValue="id"
 				  display="chip"
 				  class="w-100">
 				</p-multiSelect>
