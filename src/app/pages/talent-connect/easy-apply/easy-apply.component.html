@@ -2,24 +2,13 @@
   <div class="card-header border-0 bg-transparent">
     <div class="row">
       <div class="col-md-12 d-flex gap-2 text-center">
-        <div
-          class="backIcon d-md-flex d-none"
-          role="button"
-          routerLink="/pages/talent-connect/list">
+        <div class="backIcon d-md-flex d-none" role="button" routerLink="/pages/talent-connect/list">
           <span class="fa-solid fa-chevron-left"></span>
         </div>
-        <div
-          class="select-title d-flex justify-content-between align-items-center"
-        >
+        <div class="select-title d-flex justify-content-between align-items-center">
           <div>
-            <h5
-              class="mb-0"
-              tooltipPosition="top"
-              pTooltip="Questions related to the application process are answered"
-            >
-              Easy Apply<i
-                class="questiontooltip fa-solid fa-circle-question"
-              ></i>
+            <h5 class="mb-0" tooltipPosition="top" pTooltip="Questions related to the application process are answered">
+              Easy Apply<i class="questiontooltip fa-solid fa-circle-question"></i>
             </h5>
           </div>
           <div>
@@ -28,12 +17,9 @@
             </button>
           </div>
         </div>
-        <button
-          type="button"
-          title="Close Popup"
-          class="border-primary bg-primary text-white rounded-3 px-2 mt-2"
+        <button type="button" class="border-primary bg-primary text-white rounded-2 px-2 mt-2"
           (click)="displayModal = true">
-          <i class="fa-solid fa-caret-down"></i>&nbsp;&nbsp;Filter
+          <i class="fa-solid fa-filter"></i>&nbsp;&nbsp;Filter
         </button>
       </div>
       <!-- <div class="col-md-3 mt-2 text-end desktop justify-content-end d-none d-md-flex"></div> -->
@@ -41,25 +27,28 @@
   </div>
   <div class="card-body text-center flex-fill overflow-y-auto">
     <div class="row justify-content-center">
-        <div class="d-flex flex-fill gap-2 justify-content-center align-items-center">
-          <button  pButton class="btn border bg-primary px-3 py-3" >Job Search</button>
-          <button pButton class="btn border px-3 py-3 bg-white" style="color: var(--uniprep-primary)" routerLink="/pages/talent-connect/job-tracker">Job Tracker</button>
-        </div>
+      <div class="d-flex flex-fill gap-2 justify-content-center align-items-center">
+        <button pButton class="btn border bg-primary px-3 py-3">Job Search</button>
+        <button pButton class="btn border px-3 py-3 bg-white" style="color: var(--uniprep-primary)"
+          routerLink="/pages/talent-connect/job-tracker">Job Tracker</button>
+      </div>
       <div class="text-end  my-2">
-        <span class="fw-bold border border-success px-2 py-1 rounded-pill me-1">Total Job : {{ totalJobs }}</span>
-        <span class="fw-bold border border-danger px-2 py-1 rounded-pill ">Total Vacancies : {{ totalVacancies   }}</span>
+        <span class="fw-bold border border-primary px-2 py-1 rounded-pill me-1 text-gray"  style="background-color:#E6EDF6">Total Job : {{ totalJobs }}</span>
+        <span class="fw-bold border border-sucess px-2 py-1 rounded-pill  text-gray"  style="background-color:#F5F8EC">Total Vacancies : {{ totalVacancies }}</span>
       </div>
     </div>
     <div class="row">
-      <div class="col-md-6 col-lg-4 mb-4" *ngFor="let job of jobListings" [routerLink]="['/pages/talent-connect/easy-apply', job.id]">
-        <div class="card-inside h-100 d-flex flex-column" style="border-radius: 10px; margin-bottom: 20px; transition: transform 0.3s; border: 1px solid gray;">
+      <div class="col-md-6 col-lg-3 mb-2" *ngFor="let job of jobListings"
+        [routerLink]="['/pages/talent-connect/easy-apply', job.id]">
+        <div class="card-inside h-100 d-flex flex-column"
+          style="border-radius: 10px; transition: transform 0.3s; border: 1px solid gray;">
           <!-- Job Header -->
-          <div class="card-body card-header-inside">
-            <div class="row align-items-center w-100">
-              <div class="col-auto">
-                <img [src]="job.company_logo" alt="Company Logo" width="100" height="80" class="rounded"/>
+          <div class="card-header-inside">
+            <div class="row align-items-start w-100">
+              <div class="col-md-3">
+                <img [src]="job.company_logo" alt="Company Logo" class="rounded-2 h-100 w-100" />
               </div>
-              <div class="col">
+              <div class="col-md-8">
                 <h5 class="mb-1">{{ job?.position }}</h5>
                 <p class="mb-0 text-orange">
                   {{ job.company_name }}
@@ -71,27 +60,32 @@
                   {{job.matching_skills}}
                 </p>
               </div>
-              <div class="col-auto">
+              <div class="col-md-1">
                 <button class="btn btn-link text-warning p-0">
-                  <i class="fas fa-share-alt"></i>
+                  <i class="fas fa-share-alt" style="font-size: 10px;"></i>
                 </button>
               </div>
-            </div>  
+            </div>
             <hr>
             <div class="row justify-content-between align-items-center w-100">
-                <div class="col-6">
-                  <p class="text-muted mb-0 small">Total Vacancies</p>
-                  <p class="mb-0 fw-bold fs-4">{{ job?.available_vacancies }}</p>
+              <div class="col-6">
+                <div class="d-flex gap-2 align-items-center">
+                  <i class="fa-solid fa-user-tie" style.color="bg-primary"></i>
+                  <div>
+                    <p class="text-muted mb-0 small">Total Vacancies</p>
+                    <p class="mb-0 fw-bold fs-4">{{ job?.available_vacancies }}</p>
+                  </div>
                 </div>
-                <div class="col-6 text-end">
-                  <button class="!rounded-pill btn-success px-3">Actively Hiring</button>
-                </div>
+              </div>
+              <div class="col-6 text-end">
+                <button class="!rounded-pill btn-success px-3 text-nowrap">Actively Hiring</button>
+              </div>
             </div>
             <hr>
           </div>
-                
+
           <!-- Job Details (Make this section flexible) -->
-          <div class="card-body flex-grow-1">
+          <div class="flex-grow-1">
             <div class="row">
               <div class="col-md-6">
                 <div class="d-flex mb-3 align-items-center">
@@ -107,7 +101,7 @@
               <div class="col-md-6">
                 <div class="d-flex mb-3 align-items-center">
                   <div class="me-2 text-primary">
-                    <i class="fas fa-calendar-alt"></i>
+                    <i class="fa-solid fa-user-tie" style.color="bg-primary"></i>
                   </div>
                   <div>
                     <p class="text-muted mb-0 small">Total Applied</p>
@@ -115,7 +109,7 @@
                   </div>
                 </div>
               </div>
-        
+
               <div class="col-md-6">
                 <div class="d-flex mb-3 align-items-center">
                   <div class="me-2 text-primary">
@@ -127,7 +121,7 @@
                   </div>
                 </div>
               </div>
-        
+
               <div class="col-md-6">
                 <div class="d-flex mb-3 align-items-center">
                   <div class="me-2 text-primary">
@@ -139,7 +133,7 @@
                   </div>
                 </div>
               </div>
-        
+
               <div class="col-md-6">
                 <div class="d-flex mb-3 align-items-center">
                   <div class="me-2 text-warning">
@@ -151,7 +145,7 @@
                   </div>
                 </div>
               </div>
-        
+
               <div class="col-md-6">
                 <div class="d-flex mb-3 align-items-center">
                   <div class="me-2 text-danger">
@@ -163,7 +157,7 @@
                   </div>
                 </div>
               </div>
-        
+
               <div class="col-md-6">
                 <div class="d-flex mb-3 align-items-center">
                   <div class="me-2 text-success">
@@ -175,7 +169,7 @@
                   </div>
                 </div>
               </div>
-        
+
               <div class="col-md-6">
                 <div class="d-flex mb-3 align-items-center">
                   <div class="me-2 text-success">
@@ -183,195 +177,120 @@
                   </div>
                   <div>
                     <p class="text-muted mb-0 small">Company Size</p>
-                    <p class="mb-0 fw-medium">{{ job.companySize }}</p>
+                    <p class="mb-0 fw-medium">{{ job.company_size }}</p>
                   </div>
                 </div>
               </div>
             </div>
           </div>
-        
+
           <!-- Footer (Sticks to the bottom) -->
-          <div class="card-footer bg-white text-end border-top-0 mt-auto">
+          <div class="text-end border-top-0 mt-auto">
             <small class="text-muted">Posted On: {{ job.created_at | date: 'dd-MM-yyyy' }}</small>
           </div>
         </div>
-        
-  </div>
-   </div>
-   </div>
-<div class="card-footer border-0 bg-transparent">
-  <div class="row d-flex align-items-center justify-content-between">
-   <p-paginator
-     *ngIf="totalJobs != 0"
-     [rows]="pageSize"
-     [totalRecords]="totalJobs"
-     [first]="(page - 1) * pageSize"
-     (onPageChange)="onPageChange($event)"
-     [rowsPerPageOptions]="[10,50, 100, 300, 500, 1000]"
-     [disabled]="totalJobs <= pageSize"
-   >
-   </p-paginator>
-  </div>
-</div>
-<div>
-  <p-dialog 
-    header="Filter" 
-    [(visible)]="displayModal" 
-    [modal]="true" 
-    [style]="{width: '80%'}" 
-    [baseZIndex]="10000"
-    [draggable]="false" 
-    [resizable]="false"
-    styleClass="container">
-    
-    <form [formGroup]="filterForm" class="p-3">
-      <div class="mb-4">
-        <label class="form-label fw-bold">Search</label>
-        <div class="p-inputgroup">
-          <input 
-            type="text" 
-            pInputText 
-            placeholder="Search by Keyword" 
-            class="form-control">
-        </div>
+
       </div>
-      
-      <div class="row mb-4">
-        <div class="col-md-4">
-          <label class="form-label fw-bold">Position Title</label>
+    </div>
+  </div>
+  <div class="card-footer border-0 bg-transparent">
+    <div class="row d-flex align-items-center justify-content-between">
+      <p-paginator *ngIf="totalJobs != 0" [rows]="pageSize" [totalRecords]="totalJobs" [first]="(page - 1) * pageSize"
+        (onPageChange)="onPageChange($event)" [rowsPerPageOptions]="[10,50, 100, 300, 500, 1000]"
+        [disabled]="totalJobs <= pageSize">
+      </p-paginator>
+    </div>
+  </div>
+  <div>
+    <p-dialog header="Filter" [(visible)]="displayModal" [modal]="true" [style]="{width: '80%'}" [baseZIndex]="10000"
+      [draggable]="false" [resizable]="false" styleClass="container">
+
+      <form [formGroup]="filterForm" class="p-3">
+        <div class="mb-4">
+          <label class="form-label fw-bold">Search</label>
           <div class="p-inputgroup">
-            <input 
-              type="text" 
-              pInputText 
-              formControlName="position" 
-              placeholder="Enter position title" 
-              class="form-control">
+            <input type="text" pInputText placeholder="Search by Keyword" class="form-control">
           </div>
         </div>
-        
-        <div class="col-md-4">
-          <label class="form-label fw-bold">Industry <span class="text-danger">(Multi select)</span></label>
-          <p-multiSelect 
-            [options]="industries" 
-            formControlName="industry" 
-            placeholder="Select industry" 
-            optionLabel="industry_name" 
-            optionValue="id"
-            display="chip"
-            class="w-100">
-          </p-multiSelect>
-        </div>
-        
-        <div class="col-md-4">
-          <label class="form-label fw-bold">Work Location <span class="text-danger">(Multi select)</span></label>
-          <p-multiSelect 
-            [options]="locations" 
-            formControlName="worklocation" 
-            placeholder="Select work location" 
-            optionLabel="country" 
-            optionValue="id"
-            display="chip"
-            appendTo="body"
-            class="w-100">
-          </p-multiSelect>
-        </div>
-      </div>
-      
-      <div class="row mb-4">
-        <div class="col-md-4">
-          <label class="form-label fw-bold">Work mode <span class="text-danger">(Multi select)</span></label>
-          <p-multiSelect 
-            [options]="workModes" 
-            formControlName="work_mode" 
-            placeholder="Select work type" 
-            optionLabel="work_mode"
-            optionValue="id"
-            appendTo="body"
-            display="chip"
-            class="w-100">
-          </p-multiSelect>
-        </div>
-        
-        <div class="col-md-4">
-          <label class="form-label fw-bold">Employment Type <span class="text-danger">(Multi select)</span></label>
-          <p-multiSelect 
-            [options]="employmentTypes" 
-            formControlName="employment_type" 
-            placeholder="Select employment type" 
-            optionLabel="label" 
-            optionValue="id"
-            appendTo="body"
-            display="chip"
-            class="w-100">
-          </p-multiSelect>
-        </div>
-        
-        <div class="col-md-4">
-          <label class="form-label fw-bold">Currency display for salaries</label>
-          <p-select
-            [options]="currencies" 
-            formControlName="currency" 
-            optionLabel="currency_code" 
-            optionValue="id"
-            appendTo="body"
-            [filter]="true" 
-            filterBy="label" 
-            class="w-100">
-          </p-select>
-        </div>
-      </div>
-      
-      <div class="row mb-4">
-        <div class="col-md-4">
-          <label class="form-label fw-bold">Salary offered</label>
-          <div class="d-flex w-100 gap-2">
-            <p-select [options]="currencies"
-            styleClass="p-select p-component"
-            optionLabel="currency_code" optionValue="id"
-            placeholder="Select"
-            formControlName="currency"
-            [style]="{ width: '80px' }">
-           </p-select>
-            <div class="flex-grow-1 me-2">
-                <p-inputNumber id="salary"
-                    placeholder="Enter your salary/month"
-                    styleClass="p-inputtext w-100" [showButtons]="false"
-                    class="w-100"
-                    formControlName="salary"></p-inputNumber>
+
+        <div class="row mb-4">
+          <div class="col-md-4">
+            <label class="form-label fw-bold">Position Title</label>
+            <div class="p-inputgroup">
+              <input type="text" pInputText formControlName="position" placeholder="Enter position title"
+                class="form-control">
             </div>
+          </div>
+
+          <div class="col-md-4">
+            <label class="form-label fw-bold">Industry <span class="text-danger">(Multi select)</span></label>
+            <p-multiSelect [options]="industries" formControlName="industry" placeholder="Select industry"
+              optionLabel="industry_name" optionValue="id" display="chip" class="w-100">
+            </p-multiSelect>
+          </div>
+
+          <div class="col-md-4">
+            <label class="form-label fw-bold">Work Location <span class="text-danger">(Multi select)</span></label>
+            <p-multiSelect [options]="locations" formControlName="worklocation" placeholder="Select work location"
+              optionLabel="country" optionValue="id" display="chip" appendTo="body" class="w-100">
+            </p-multiSelect>
+          </div>
         </div>
+
+        <div class="row mb-4">
+          <div class="col-md-4">
+            <label class="form-label fw-bold">Work mode <span class="text-danger">(Multi select)</span></label>
+            <p-multiSelect [options]="workModes" formControlName="work_mode" placeholder="Select work type"
+              optionLabel="work_mode" optionValue="id" appendTo="body" display="chip" class="w-100">
+            </p-multiSelect>
+          </div>
+
+          <div class="col-md-4">
+            <label class="form-label fw-bold">Employment Type <span class="text-danger">(Multi select)</span></label>
+            <p-multiSelect [options]="employmentTypes" formControlName="employment_type"
+              placeholder="Select employment type" optionLabel="label" optionValue="id" appendTo="body" display="chip"
+              class="w-100">
+            </p-multiSelect>
+          </div>
+
+          <div class="col-md-4">
+            <label class="form-label fw-bold">Currency display for salaries</label>
+            <p-select [options]="currencies" formControlName="currency" optionLabel="currency_code" optionValue="id"
+              appendTo="body" [filter]="true" filterBy="label" class="w-100">
+            </p-select>
+          </div>
         </div>
-        
-        <div class="col-md-4">
-          <label class="form-label fw-bold">Experience Level <span class="text-danger">(Multi select)</span></label>
-          <p-multiSelect 
-            [options]="experienceLevels" 
-            formControlName="experienceLevel" 
-            optionLabel="label" 
-            optionValue="id"
-            appendTo="body"
-            display="chip"
-            class="w-100">
-          </p-multiSelect>
+
+        <div class="row mb-4">
+          <div class="col-md-4">
+            <label class="form-label fw-bold">Salary offered</label>
+            <div class="d-flex w-100 gap-2">
+              <p-select [options]="currencies" styleClass="p-select p-component" optionLabel="currency_code"
+                optionValue="id" placeholder="Select" formControlName="currency" [style]="{ width: '80px' }">
+              </p-select>
+              <div class="flex-grow-1 me-2">
+                <p-inputNumber id="salary" placeholder="Enter your salary/month" styleClass="p-inputtext w-100"
+                  [showButtons]="false" class="w-100" formControlName="salary"></p-inputNumber>
+              </div>
+            </div>
+          </div>
+
+          <div class="col-md-4">
+            <label class="form-label fw-bold">Experience Level <span class="text-danger">(Multi select)</span></label>
+            <p-multiSelect [options]="experienceLevels" formControlName="experienceLevel" optionLabel="label"
+              optionValue="id" appendTo="body" display="chip" class="w-100">
+            </p-multiSelect>
+          </div>
+          <div class="col-md-4 h-full mt-auto">
+            <button pButton label="Apply Filter" (click)="applyFilter()" class="btn-primary w-100">
+            </button>
+          </div>
         </div>
-        <div class="col-md-4 h-full mt-auto">
-          <button 
-          pButton 
-          label="Apply Filter" 
-          (click)="applyFilter()" 
-          class="btn-primary w-100">
+      </form>
+
+      <div class="dialog-footer p-3 d-flex justify-content-center">
+        <button pButton label="Reset Filter" (click)="resetFilter()" class="p-button-text text-primary">
         </button>
-        </div>
       </div>
-    </form>
-    
-    <div class="dialog-footer p-3 d-flex justify-content-center">
-      <button 
-        pButton 
-        label="Reset Filter" 
-        (click)="resetFilter()" 
-        class="p-button-text text-primary">
-      </button>
-    </div>
-  </p-dialog>
-</div>
+    </p-dialog>
+  </div>

@@ -17,6 +17,7 @@ import { BadgeModule } from 'primeng/badge';
 import { SelectModule } from 'primeng/select';
 import { DatePickerModule } from 'primeng/datepicker';
 import { ToastModule } from 'primeng/toast';
+import { MultiSelectModule } from 'primeng/multiselect';
 
 const routes: Routes = [
   {
@@ -45,7 +46,8 @@ const routes: Routes = [
     BadgeModule,
     SelectModule,
     DatePickerModule,
-    ToastModule
+    ToastModule,
+    MultiSelectModule
   ]
 })
 export class EmployeeProfileModule { }

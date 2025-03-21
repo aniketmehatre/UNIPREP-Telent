@@ -4,13 +4,17 @@
     border-radius: 10px;
     margin: 0; /* Remove extra margin */
     padding: 10px; /* Keep padding inside */
-    text-align: left
+    text-align: left;
+    &:hover {
+      background-color: #FEFBF6;
+      border-color: var(--uniprep-secondary) !important;
+    }
   }
   
-  .card-header-inside {
-    padding-top: 1.25rem;
-    padding-bottom: 0.75rem;
-  }
+  // .card-header-inside {
+  //   padding-top: 1.25rem;
+  //   padding-bottom: 0.75rem;
+  // }
   
   .share-button {
     position: absolute;

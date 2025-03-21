@@ -6,6 +6,7 @@ import { ButtonModule } from 'primeng/button';
 import { TooltipModule } from 'primeng/tooltip';
 import { FormsModule } from '@angular/forms';
 import { JobChatUiComponent } from '../../job-tracker/job-chat-ui/job-chat-ui.component';
+import { MessageService } from 'primeng/api';
 
 export interface Job {
   isChecked: number;
@@ -105,7 +106,7 @@ export class JobViewComponent implements OnInit {
   
   messages: Message[] = [];
 
-  constructor(private activatedRoute: ActivatedRoute, private talentConnectService: TalentConnectService) { }
+  constructor(private activatedRoute: ActivatedRoute, private talentConnectService: TalentConnectService, private message: MessageService) { }
 
   ngOnInit(): void {
     this.id = this.activatedRoute?.snapshot?.params?.['id'] as number;
@@ -198,10 +199,17 @@ export class JobViewComponent implements OnInit {
       next: response => {
         if (response.success) {
           this.isShowApplyChat = true;
+        } else {
+          this.message.add({
+            severity: "error",
+            summary: "Error",
+            detail: response.message,
+          })
         }
         if (response.job && response.job[0]) {
           this.jobDetails = response.job[0];
         }
+
       },
       error: error => {
         console.log(error);

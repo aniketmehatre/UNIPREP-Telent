@@ -296,13 +296,12 @@ export class GovermentFundingOppurtunityComponent implements OnInit {
   }
 
   onStateChange() {
-    console.log(this.selectedData[2]);
-    const allSelected = this.selectedData[2]?.some((state: number) => state === 380);
-
-    if (allSelected) {
-      this.selectedData[2] = [...this.stateList.map((item: any) => item.id)];
+    if (this.selectedData[2]?.includes(380)) {
+      this.selectedData[2] = this.stateList.map((item: any) => item.id);
+    } else if (this.stateList.length - 1 == this.selectedData[2]?.length && !this.selectedData[2].includes(380)) {
+      this.selectedData[2] = [];
     } else {
-      this.selectedData[2] = this.selectedData[1].filter((state: number) => state !== 380);
+      this.selectedData[2] = this.selectedData[2];
     }
   }
 
