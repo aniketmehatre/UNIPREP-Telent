@@ -115,4 +115,19 @@ export class LearningVideosComponent implements OnInit {
   openNextVideo() {
     window.open(this.openNextPageLink);
   }
+
+  getThumbnailUrl(youtubeUrl: string): string {
+    let videoId: string | null = null;
+
+    // Check if URL contains "youtu.be/"
+    if (youtubeUrl.includes('youtu.be/')) {
+      videoId = youtubeUrl.split('youtu.be/')[1].split('?')[0];
+    }
+    // Check if URL contains "youtube.com/watch?v="
+    else if (youtubeUrl.includes('youtube.com/watch?v=')) {
+      videoId = youtubeUrl.split('v=')[1].split('&')[0];
+    }
+
+    return videoId ? `https://img.youtube.com/vi/${videoId}/maxresdefault.jpg` : '';
+  }
 }

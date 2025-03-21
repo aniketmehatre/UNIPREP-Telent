@@ -33,7 +33,7 @@
 						<div class="card h-100 position-relative tutcard" role="button" (click)="openVideoPopup(acade.link)" style="aspect-ratio: 16/9;">
 							<div class="tutgradient"></div>
 							<div class="d-flex justify-content-center align-items-center h-100">
-								<img src="{{ acade.coverimage }}" style="max-width: 100%; height: auto;" />
+								<img [src]="getThumbnailUrl(acade.link)" style="max-width: 100%; height: auto;"  alt="founders academy"/>
 							</div>
 							<div class="tutorialcontent">
 								<h5 class="mb-0 text-white">{{ acade.title }}</h5>
