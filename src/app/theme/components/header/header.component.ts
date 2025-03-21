@@ -121,7 +121,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
 	countryLists!: any
 	timeHours: any
 	timeDays: any
-	freeTrial!: boolean
+	freeTrial: boolean
 	visibleExhasted: boolean = false
 	reportType: number = 1
 	SearchCountryField = SearchCountryField
