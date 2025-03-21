@@ -34,6 +34,7 @@ import { AuthTokenService } from 'src/app/core/services/auth-token.service'
 import CryptoJS from "crypto-js";
 import { AvatarGroupModule } from 'primeng/avatargroup';
 import {StorageService} from "../../../storage.service";
+import { DropdownModule } from "primeng/dropdown";
 
 // import { SocialAuthService } from "@abacritt/angularx-social-login";
 
@@ -60,7 +61,8 @@ import {StorageService} from "../../../storage.service";
 		InputGroupModule,
 		InputGroupAddonModule,
 		TextareaModule,
-		AvatarGroupModule
+		AvatarGroupModule,
+		DropdownModule
 	],
 	providers: [MessageService, AuthService, LocationService, ThemeService, DashboardService, AssessmentService, AuthTokenService],
 })
@@ -507,7 +509,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
 		this.initializeUserProfile();
 		this.loadUserData();
 		this.conditionModuleOrQuestionComponent();
-
+		this.getProgramlevelList();
 		// Load organization name
 		this.locationService.getOrgName().subscribe({
 			next: (orgname) => {
@@ -607,6 +609,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
 			},
 			error: (error) => console.error('Error in dashboard country subscription:', error)
 		});
+		
 	}
 
 	private initializeForms() {
@@ -1362,9 +1365,21 @@ export class HeaderComponent implements OnInit, OnDestroy {
 	}
 
 	checkNewUSerLogin(): void {
+		if(this.service._userLoginCount === undefined) {
+			this.service.getMe().subscribe(() => {
+				this.runAfterDataLoads();
+			});
+		}else {
+			this.runAfterDataLoads();
+		}
+		
+	}
+
+	runAfterDataLoads(): void {
 		let userLoginCount = this.service._userLoginCount
 		if (userLoginCount === 4) {
-			this.freeTrial = true
+			this.freeTrial = true;
+
 		}
 	}
 
