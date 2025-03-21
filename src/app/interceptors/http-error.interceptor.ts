@@ -7,6 +7,7 @@ import { inject } from "@angular/core";
 import { DataService } from "../data.service";
 import { environment } from "../../environments/environment";
 import { AuthTokenService } from "../core/services/auth-token.service";
+import { LocationService } from "../location.service";
 
 // Cache for public routes check
 const publicRoutesSet = new Set([
@@ -41,7 +42,7 @@ export const HttpErrorInterceptor: HttpInterceptorFn = (
   const toastr = inject(MessageService);
   const ngxService = inject(NgxUiLoaderService);
   const authTokenService = inject(AuthTokenService);
-  
+  const locationService = inject(LocationService);
   const currentUrl = window.location.href;
   const isPublicRoute = Array.from(publicRoutesSet).some(route => currentUrl.includes(route));
   const isBackgroundRequest = Array.from(backgroundRequestsSet).some(path => request.url.includes(path));
@@ -71,6 +72,7 @@ export const HttpErrorInterceptor: HttpInterceptorFn = (
       }
     }),
     catchError((error: HttpErrorResponse) => {
+      locationService.sessionEndApiCall().subscribe((data: any) => {})
       if (error.status === 401 && !isPublicRoute) {
         authTokenService.clearToken();
         toastr.add({

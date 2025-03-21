@@ -158,17 +158,13 @@
 												<i class="fa-solid fa-location-dot" style="color: #79ae28"></i>&nbsp;
 												<span style="font-weight: 500px; color: black">{{ v.worklocation }}</span>
 											</p>
-											<button
-												class="btn btn-rounded text-small m-0 mb-2"
-												[ngStyle]="{
-													border: '1px solid ' + v.color_code,
-													'background-color': v.color_code,
-													color: 'white',
-													'font-size': '10px',
-													'border-radius': '5px'
-												}">
-												{{ v.hiringstage }}
-											</button>
+											<button class="btn btn-rounded text-small m-0 mb-2"   [ngStyle]="{
+												'border': '1px solid ' + v.color_code, 
+												'background-color': v.color_code, 
+												'color': 'white', 
+												'font-size': '10px', 
+												'border-radius': '2px'
+											  }">{{v.hiringstage}}</button>
 										</div>
 									</div>
 								</div>
@@ -842,17 +838,17 @@
 				<!-- <div class="col-lg-2 col-md-3 col-sm-4 col-6 p-2 d-flex justify-content-center align-items-center" *ngFor="let uni of recentJobApplication">
 					<img alt="{{ uni.logo }}" class="trustedbylogo" src="{{ uni.logo }}" />
 				</div> -->
-				<div class="col-lg-4 col-md-6 col-sm-12" *ngFor="let v of recentJobApplication">
+				<div class="col-lg-4 col-md-6 col-sm-12 mt-2" *ngFor="let v of recentJobApplication" >
 					<div class="card">
-						<div class="card-body country-border">
+						<div class="card-body country-border text-start">
 							<div class="d-flex justify-content-evenly">
 								<div>
-									<img alt="country" width="60" height="60" class="mb-2" src="{{ v.company_logo }}" />
+									<img alt="country" width="70" height="70" class="mb-2" src="{{v.company_logo}}" />
 								</div>
 								<div class="ms-2">
-									<h6 class="mb-0 text-sm text-capitalize">
+									<h4 class="mb-0 text-sm text-capitalize">
 										<b>{{ v.position }}</b>
-									</h6>
+									</h4>
 									<p class="text-muted text-medium">{{ v.company_name }}</p>
 									<p class="text-muted text-medium">Status: {{ v.status }}</p>
 									<p class="mb-0 text-medium text-capitalize mt-2">
