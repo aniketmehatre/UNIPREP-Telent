@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { CommonModule } from "@angular/common";
 import { ActivatedRoute, RouterLink } from '@angular/router';
 import { TalentConnectService } from '../../talent-connect.service';
@@ -65,6 +65,7 @@ export class JobViewComponent implements OnInit {
   appliedId: number = NaN;
   attachmentFileName: string = '';
   isApplied: boolean = false;
+  @Input() showInfo: boolean = true;
   attachmentFile!: File | null;
   jobDetails: Job = {
     matching_skills: 'You match 0 out of 0 skill requirements for this job',

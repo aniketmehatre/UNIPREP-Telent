@@ -3,6 +3,7 @@
     <!-- Header - Fixed at top -->
     <div class="card-header d-flex justify-content-between align-items-center p-3 mb-2">
       <div class="d-flex align-items-center">
+        <button *ngIf="!showInfo" pButton icon="pi pi-info-circle" label="Open Info" class="p-button-secondary text-dark me-1" (click)="openInfo.emit(true)"></button>
         <div class="uniabroad-icon me-2">
           <p-avatar [image]="jobDetails?.company_logo_url ?? 'https://primefaces.org/cdn/primeng/images/demo/avatar/amyelsner.png'" size="large" shape="circle" />
         </div>

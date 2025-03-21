@@ -61,6 +61,7 @@ export class JobTrackerComponent {
   ];
 
   showInfo: boolean = false;
+  showChat: boolean = false;
   messages: ChatMessage[] = [];
   newMessage: string = '';
   jobDetails: Job;

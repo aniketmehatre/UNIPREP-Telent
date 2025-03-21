@@ -30,20 +30,20 @@
 		</div>
 		<div class="row gx-3">
 		  <!-- Sidebar with job list -->
-		  <div class="col-lg-3 col-md-3 col-12 border-end mb-3 mb-md-0" >
+		  <div class="col-lg-3 col-md-3 col-12 border-end mb-3 mb-md-0" [ngClass]="{'vh-100': !showInfo}" >
 			<uni-job-list (emitId)="onClickJobId($event)" [displayModal]="displayModal" (closeFilter)="displayModal = false"></uni-job-list>
 		  </div>
 	  
 		  <!-- Main content with job details and chat -->
 		  <div class="col-lg-9 col-md-9 col-12">
 			<div class="row g-3" *ngIf="selectedJobId; else showEmptyContainer">
-			  <div class="col-lg-8 col-md-7 col-12" *ngIf="showInfo">
+			  <div class="col-lg-8 col-md-7 col-12" *ngIf="showInfo" [ngClass]="{'col-lg-12 col-md-12': !showChat}">
 				<div class="job-details-container">
-				  <uni-job-details (closeInfo)="toggleInfo()" [showInfo]="true" [jobDetails]="jobDetails"></uni-job-details>
+				  <uni-job-details (closeInfo)="showInfo = false;" [showInfo]="showInfo" [showChat]="showChat" [jobDetails]="jobDetails" (openChat)="showChat = true;"></uni-job-details>
 				</div>
 			  </div>
-			  <div [ngClass]="{'col-lg-4 col-md-12': showInfo, 'col-lg-12 col-md-12': !showInfo}" >
-				<uni-job-chat-ui (openInfo)="toggleInfo()" [showInfo]="showInfo" [jobDetails]="jobDetails" ></uni-job-chat-ui>
+			  <div  [ngClass]="{'col-lg-4 col-md-12': showInfo, 'col-lg-12 col-md-12': !showInfo, 'vh-100': !showInfo}" *ngIf="showChat">
+				<uni-job-chat-ui (openInfo)="showInfo = true;" [showInfo]="showInfo" [jobDetails]="jobDetails" (closeChat)="showChat=false;"></uni-job-chat-ui>
 			  </div>
 			</div>
 			<ng-template #showEmptyContainer>

@@ -26,7 +26,7 @@
   </div>
   <div class="card-body text-start flex-fill overflow-y-auto">
       <div class="row">
-          <div class="col-md-8 overflow-auto" [ngClass]="{'col-md-12': !isShowApplyChat}" style="height: calc(100vh - 200px);">
+          <div class="col-md-8 overflow-auto" [ngClass]="{'col-md-12': !isShowApplyChat}" style="height: calc(100vh - 200px);" *ngIf="showInfo">
               <div class="row">
                   <div class="col-md-2 ">
                       <div class="logo-container border mb-3">
@@ -41,9 +41,6 @@
                             <i class="fas fa-check-circle"></i>
                           </span>
                       </div>
-                      <div class="mb-3">
-                        <span class="text-muted">{{jobDetails?.matching_skills}}</span>
-                      </div>
                       <div class="d-flex flex-wrap gap-2 mb-3">
                         <div>
                           <p class="text-muted mb-0 small">Total Vacancies</p>
@@ -55,6 +52,7 @@
                         </div>
                         <div class="border border-end"></div>
                         <div>
+                          <p class="text-secondary small text-muted " style="color: var(--uniprep-secondary) !important">{{jobDetails.matching_skills}}</p>
                           <span *ngFor="let skill of jobDetails?.soft_skills" class="badge bg-warning text-dark p-2 py-3 me-1 rounded">{{ skill }}</span>
                           <!-- <span *ngFor="let skill of jobDetails?.soft_skills" class="badge me-1" [ngClass]="{'bg-warning text-dark': skill === 'UI Design' || skill === 'Graphic Design' || skill === 'UX Design', 'bg-secondary': skill === 'Motion Design'}">
                             {{ skill }}
@@ -63,7 +61,11 @@
                       </div>
                     </div>
                     <div class="col-md-2 text-end">
-                      <button pButton [label]="isApplied ? 'Applied': 'Apply'" icon="fa fa-arrow-pointer" iconPos="right" [ngClass]="isApplied ? 'bg-success' : 'bg-priamry'" class="p-button-primary mb-3" (click)="applyJob(id)" [disabled]="isApplied"></button>
+                      <button pButton label="Close Info" class="btn btn-primary" (click)="showInfo=false;" *ngIf="isShowApplyChat && isApplied"></button>
+                      <button pButton class="p-button-success chat-btn" *ngIf="!isShowApplyChat && isApplied" (click)="isShowApplyChat = true">
+                        <i class="pi pi-comments"></i> Chat
+                      </button>  
+                      <button *ngIf="!isApplied" pButton label="Apply" icon="fa fa-arrow-pointer" iconPos="right" class="p-button-primary mb-3" (click)="applyJob(id)" [disabled]="isApplied"></button>
                       <div class="posted-date">Posted On : {{ jobDetails.created_at | date: 'dd-MM-yyyy' }}</div>
                     </div>
                   </div>
@@ -407,8 +409,8 @@
                 </div>
               </div>
           </div>
-          <div class="col-md-4" *ngIf="isShowApplyChat">
-            <uni-job-chat-ui (openInfo)="toggleInfo()" [showInfo]="showInfo" [jobDetails]="jobDetails"></uni-job-chat-ui>
+          <div class="col-12" *ngIf="isShowApplyChat" [ngClass]="{'col-md-4 col-lg-4': showInfo}">
+            <uni-job-chat-ui (openInfo)="showInfo=true" [showInfo]="showInfo" [jobDetails]="jobDetails" (closeChat)="isShowApplyChat = false"></uni-job-chat-ui>
           </div>
       </div>
   </div>

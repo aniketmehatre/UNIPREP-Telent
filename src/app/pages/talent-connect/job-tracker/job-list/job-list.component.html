@@ -10,7 +10,7 @@
           <div class="job-card mb-3" (click)="onClickJobCard(job.id)" *ngFor="let job of filteredAppliedJob;">
             <div class="d-flex">
               <div class="company-logo me-3">
-                <img [src]="job.company_logo" alt="Company Logo">
+                <img [src]="job.company_logo" alt="Company Logo" style="object-fit: cover;">
               </div>
               <div class="job-details text-left">
                 <h5 class="job-title mb-1 text-left">{{job.position}}</h5>

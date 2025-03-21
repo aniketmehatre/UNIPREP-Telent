@@ -254,7 +254,7 @@
           <p-multiSelect 
             [options]="industries" 
             formControlName="industry" 
-            defaultLabel="Select industry" 
+            placeholder="Select industry" 
             optionLabel="industry_name" 
             optionValue="id"
             display="chip"
@@ -267,10 +267,11 @@
           <p-multiSelect 
             [options]="locations" 
             formControlName="worklocation" 
-            defaultLabel="Select work location" 
-            optionLabel="work_location" 
+            placeholder="Select work location" 
+            optionLabel="country" 
             optionValue="id"
             display="chip"
+            appendTo="body"
             class="w-100">
           </p-multiSelect>
         </div>
@@ -282,8 +283,10 @@
           <p-multiSelect 
             [options]="workModes" 
             formControlName="work_mode" 
-            defaultLabel="Select work type" 
-            optionLabel="label" 
+            placeholder="Select work type" 
+            optionLabel="work_mode"
+            optionValue="id"
+            appendTo="body"
             display="chip"
             class="w-100">
           </p-multiSelect>
@@ -294,8 +297,10 @@
           <p-multiSelect 
             [options]="employmentTypes" 
             formControlName="employment_type" 
-            defaultLabel="Select employment type" 
+            placeholder="Select employment type" 
             optionLabel="label" 
+            optionValue="id"
+            appendTo="body"
             display="chip"
             class="w-100">
           </p-multiSelect>
@@ -307,7 +312,8 @@
             [options]="currencies" 
             formControlName="currency" 
             optionLabel="currency_code" 
-            optionId="id"
+            optionValue="id"
+            appendTo="body"
             [filter]="true" 
             filterBy="label" 
             class="w-100">
@@ -342,6 +348,8 @@
             [options]="experienceLevels" 
             formControlName="experienceLevel" 
             optionLabel="label" 
+            optionValue="id"
+            appendTo="body"
             display="chip"
             class="w-100">
           </p-multiSelect>

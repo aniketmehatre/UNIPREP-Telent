@@ -15,7 +15,10 @@
           </div>
         </div>
         <div class="col-md-4 col-sm-3 text-end">
-          <button pButton label="Close Info" class="btn btn-primary" (click)="closeInfo.emit(false)"></button>
+          <button pButton label="Close Info" class="btn btn-primary" (click)="closeInfo.emit(false)" *ngIf="showChat"></button>
+          <button pButton class="p-button-success chat-btn" *ngIf="!showChat" (click)="openChat.emit(true)">
+            <i class="pi pi-comments"></i> Chat
+          </button>          
           <div class="mt-2">
             <small>Applied On: {{ jobDetails.created_at | date: 'dd-MM-yyyy' }}</small>
           </div>
