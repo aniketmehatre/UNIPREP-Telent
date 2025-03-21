@@ -27,11 +27,10 @@ interface ChatMessage {
   imports: [
     FormsModule,
     AvatarModule,
-    ProgressBar,
     CommonModule,
     ChipModule,
     ButtonModule
-  ]
+]
 })
 export class JobChatUiComponent implements OnChanges {
   organizationName: string = 'UNIABROAD';
