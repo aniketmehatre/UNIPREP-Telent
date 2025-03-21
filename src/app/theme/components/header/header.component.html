@@ -691,11 +691,11 @@
             </div>
             <div class="w-100 phonenumberblock mt-2" *ngIf="formvisbility">
               <p class="m-1">Select Your Home Country</p>
-              <p-dropdown class="w-100" formControlName="home_country" appendTo="body" [options]="indiaHomeCountry" [filter]="true" placeholder="Country" (onChange)="changeLocation($event)" filterBy="country" optionLabel="country" optionValue="id" [autoDisplayFirst]="false" styleClass="custom-dropdown"></p-dropdown>
+              <p-select class="w-100" formControlName="home_country" appendTo="body" [options]="indiaHomeCountry" [filter]="true" placeholder="Country" (onChange)="changeLocation($event)" filterBy="country" optionLabel="country" optionValue="id" [autoDisplayFirst]="false" styleClass="custom-dropdown"></p-select>
             </div>
             <div class="w-100 phonenumberblock mt-2" *ngIf="formvisbility">
               <p class="m-1">Select Your Current Education</p>
-              <p-dropdown class="w-100" formControlName="study_level" appendTo="body" [options]="programLevelList" placeholder="Current Education" optionLabel="programlevel" optionValue="id" [autoDisplayFirst]="false" styleClass="custom-dropdown"></p-dropdown>
+              <p-select class="w-100" formControlName="study_level" appendTo="body" [options]="programLevelList" placeholder="Current Education" optionLabel="programlevel" optionValue="id" [autoDisplayFirst]="false" styleClass="custom-dropdown"></p-select>
             </div>
             <div *ngIf="freeTrialErrorMsg" class="text-danger text-center">
               {{ freeTrialErrorMsg }}
