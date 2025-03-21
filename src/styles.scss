@@ -2470,69 +2470,153 @@ uni-global-employment-insights {
 		color: black;
 		text-align: left;
 		position: relative;
-		page-break-before: auto;
-      	page-break-after: auto;
 	}
-	
+
 	h2,
 	h3 {
 		color: #1a237e;
 	}
+
 	.title-highlight {
 		color: #d32f2f;
 		font-weight: bold;
 		font-size: 22px;
 	}
-	
-	.loan-details, .section-content {
+
+	.loan-details,
+	.section-content {
 		padding: 15px;
 		border-radius: 8px;
 		font-size: 16px;
 	}
-	
+
 	ul {
 		padding-left: 20px;
 	}
-	
+
 	.icon {
 		color: #3949ab;
 		margin-right: 10px;
 	}
-	
+
 	.divider {
 		height: 2px;
 		background: linear-gradient(to right, #3949ab, #d32f2f);
 		margin: 20px 0;
 	}
-	
-	.page-break {
-		page-break-before: auto;
-	}
-	
+
 	.blue-background {
 		background-color: #e3f2fd;
 	}
-	
-    .packing-list,
-    .summary {
-        padding: 15px;
-        border-radius: 8px;
-        font-size: 16px;
-    }
+
+	.packing-list,
+	.summary {
+		padding: 15px;
+		border-radius: 8px;
+		font-size: 16px;
+	}
+
+	ul {
+		padding-left: 20px;
+	}
+
+	.logo {
+		display: block;
+		margin: 20px auto;
+		width: 220px;
+	}
+
+	.icon {
+		color: #3949ab;
+		margin-right: 10px;
+	}
+
+	h2,
+	h3 {
+		color: #1a237e;
+	}
+
+	.divider {
+		height: 2px;
+		background: linear-gradient(to right, #3949ab, #d32f2f);
+		margin: 20px 0;
+	}
+
+	.highlight {
+		color: #d32f2f;
+		font-weight: bold;
+		font-size: 20px;
+	}
+
+	.comparison-table th,
+	.expense-table th,
+	.forecast-table th,
+	.budget-table th {
+		background-color: #1a237e;
+		color: white;
+	}
+
+	.comparison-table,
+	.budget-table,
+	.expense-table,
+	.comparison-table,
+	.forecast-table {
+		width: 100%;
+		border-collapse: collapse;
+		margin-top: 20px;
+	}
+
+	.comparison-table th,
+	.comparison-table td,
+	.expense-table th,
+	.expense-table td,
+	.forecast-table th,
+	.forecast-table td,
+	.budget-table th,
+	.budget-table td,
+	.comparison-table th,
+	.comparison-table td {
+		border: 1px solid #ddd;
+		padding: 10px;
+		text-align: center;
+	}
+
+	.comparison-table th {
+		background-color: #1a237e;
+		color: white;
+	}
+
+	.insights,
+	.summary,
+	.business-info,
+	.section-content,
+	.job-list,
+	.salary-info,
+	.packing-list,
+	.itinerary,
+	.recommendations,
+	.loan-details {
+		padding: 15px;
+		border-radius: 8px;
+		font-size: 16px;
+	}
+
+	.blue-background {
+		background-color: #e3f2fd;
+	}
 }
 
 
 //AI Response Code
-.title-highlight
-{
-	color:var(--uniprep-secondary) !important;
+.title-highlight {
+	color: var(--uniprep-secondary) !important;
 	font-weight: 700;
-	.icon
-	{
-		color:var(--uniprep-primary) !important;
+
+	.icon {
+		color: var(--uniprep-primary) !important;
 	}
 }
-.blue-background
-{
-	background-color:var(--uniprep-primaryop10) !important;
+
+.blue-background {
+	background-color: var(--uniprep-primaryop10) !important;
 }

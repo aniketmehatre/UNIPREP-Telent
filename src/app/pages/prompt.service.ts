@@ -150,7 +150,7 @@ export class PromptService {
         let titleData = `
                 <div class="title-bar">
                     <div style="width: 250px;">
-                        <img style=" width: 100%; height: 100%;object-fit: contain;" src="https://api.uniprep.ai/uniprepapi/storage/app/public/ToolIcons/education-tools/UNIPREP-TCE.png" alt="Logo">
+                        <img style=" width: 100%; height: 100%;object-fit: contain;" src="https://api.uniprep.ai/uniprepapi/storage/app/public/prompt_modules/${ data.file_name }" alt="Logo">
                     </div>
                 </div>`;
         // Rebuild final content using the extracted part
