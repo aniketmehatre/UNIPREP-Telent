@@ -70,10 +70,10 @@ export class TripLengthFinderComponent implements OnInit {
       };
       this.travelToolService.getChatgptRecommendations(data).subscribe((response:any) => {
         let chatGptResponse = response.response;
-				chatGptResponse = chatGptResponse
-					.replace(/```html|```/g, '')
-          .replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>')
-          .replace(/<head>(.*?)<\/head>/gs, ''); // Fix escaping;
+				// chatGptResponse = chatGptResponse
+				// 	.replace(/```html|```/g, '')
+        //   .replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>')
+        //   .replace(/<head>(.*?)<\/head>/gs, ''); // Fix escaping;
 				this.recommendationData = this.sanitizer.bypassSecurityTrustHtml(chatGptResponse);
         this.isRecommendation = false;
         this.isResponsePage = true;
@@ -90,7 +90,7 @@ export class TripLengthFinderComponent implements OnInit {
   }
 
   resetRecommendation() {
-    this.recommendationData = [];
+    this.recommendationData = "";
     this.isRecommendation = true;
     this.isResponsePage = false;
     this.isSavedPage = false;
