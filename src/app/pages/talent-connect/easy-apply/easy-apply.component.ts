@@ -70,10 +70,8 @@ export class EasyApplyComponent {
   }
 
   getCountries() {
-    this.talenconnectService.getCountries().subscribe({
-      next: (response: any) => {
-        this.locations = response;
-      }
+    this.talentConnectService.getEasyApplyWorkLocationList().subscribe(data => {
+      this.locations = data.worklocations;
     });
   }
 

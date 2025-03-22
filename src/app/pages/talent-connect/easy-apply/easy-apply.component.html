@@ -231,8 +231,8 @@
 
           <div class="col-md-4">
             <label class="form-label fw-bold">Work Location <span class="text-danger">(Multi select)</span></label>
-            <p-multiSelect [options]="locations" formControlName="worklocation" placeholder="Select work location"
-              optionLabel="country" optionValue="id" display="chip" appendTo="body" class="w-100">
+            <p-multiSelect [options]="locations" formControlName="worklocation" [virtualScroll]="true"   [virtualScrollItemSize]="50" placeholder="Select work location"
+              optionLabel="work_location" optionValue="id" display="chip" appendTo="body" class="w-100">
             </p-multiSelect>
           </div>
         </div>
