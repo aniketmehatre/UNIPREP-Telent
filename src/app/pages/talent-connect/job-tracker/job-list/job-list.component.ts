@@ -150,8 +150,8 @@ export class JobListComponent implements OnInit {
   }
 
   getOptionsList() {
-    this.talentConnectService.getCountries().subscribe(data => {
-      this.locations = data;
+    this.talentConnectService.getEasyApplyWorkLocationList().subscribe(data => {
+      this.locations = data.worklocations;
     });
     this.talentConnectService.getJobListDropdown().subscribe(data => {
       this.industries = data?.industrytypes;

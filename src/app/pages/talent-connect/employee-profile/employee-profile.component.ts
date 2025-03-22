@@ -236,7 +236,7 @@ export class EmployeeProfileComponent implements OnInit {
   createWorkExperienceGroup() {
     return this.fb.group({
       id: [''],
-      years_of_experience: ['', Validators.required],
+      years_of_experience: [''],
       work_experience_company_name: [''],
       work_experience_job_title: [''],
       work_experience_employment_type: [''],
@@ -412,8 +412,7 @@ export class EmployeeProfileComponent implements OnInit {
     //   });
     //   return;
     // }
-
-    if (this.personalInfoForm.valid) {    
+    if (this.personalInfoForm.valid) {   
       const formData = new FormData();
       const profileId = this.profileId;
       console.log(profileId);
@@ -475,6 +474,15 @@ export class EmployeeProfileComponent implements OnInit {
           // Only append the ID if the item has been modified
           if (work.get('id')?.value && this.isArrayItemModified(work, originalWork)) {
             formData.append(`work_experience[${index}][id]`, work.get('id')?.value);
+          }
+
+          if (control.get('work_experience_duration')?.value?.length == 1) {
+            this.toastService.add({
+              severity: "error",
+              summary: "Duration",
+              detail: 'Please select both from and to values'
+            });
+            return;
           }
 
           this.appendIfModified(formData,
@@ -958,7 +966,7 @@ export class EmployeeProfileComponent implements OnInit {
     let filledWeight = 0;
 
     function checkField(control: AbstractControl | null, weight: number) {
-      if (control?.value !== null && control?.value !== '' && control?.value?.length > 0) {
+      if (control?.value !== null && control?.value !== '' && (Array.isArray(control?.value) ? control?.value.length > 0 : true)) {
         filledWeight += weight;
       }
     }
@@ -1182,7 +1190,7 @@ export class EmployeeProfileComponent implements OnInit {
           work_experience_company_name: [exp.company_name],
           work_experience_job_title: [exp.job_title],
           work_experience_employment_type: [exp.employment_type],
-          work_experience_duration: [exp.duration ? (exp.duration).split(',').map((item: any) => new Date(item)) : null],
+          work_experience_duration: [exp.duration ? JSON.parse(exp.duration).map((item: any) => new Date(item)) : null],
           work_experience_salary_per_month: [exp.salary_per_month],
           work_experience_currency_id: [exp.currency_id],
           work_experience_job_responsibilities: [exp.job_responsibilities],

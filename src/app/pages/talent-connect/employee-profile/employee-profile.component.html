@@ -352,6 +352,9 @@
                                                         formControlName="work_experience_duration" styleClass="w-100"
                                                         [iconDisplay]="'input'" [showIcon]="true"
                                                         inputId="icondisplay" (mouseleave)="resetMessageBox()" (mouseenter)="updateMessageBox('work_experience_duration')"/>
+                                                        <div *ngIf="experience.get('work_experience_duration')?.value?.length == 1" class="text-danger">
+                                                            Please select both from and to values.
+                                                        </div>
                                                 </div>
 
                                                 <!-- Salary Field -->

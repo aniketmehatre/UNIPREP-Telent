@@ -165,7 +165,7 @@
                   </div>
                   <div>
                     <p class="text-muted mb-0 small">Salary Range</p>
-                    <p class="mb-0 fw-medium">{{ job.salary_offer }}</p>
+                    <p class="mb-0 fw-medium"> {{job.currency_code}} {{ job.salary_offer }}</p>
                   </div>
                 </div>
               </div>
@@ -209,7 +209,7 @@
         <div class="mb-4">
           <label class="form-label fw-bold">Search</label>
           <div class="p-inputgroup">
-            <input type="text" pInputText placeholder="Search by Keyword" class="form-control">
+            <input type="text" pInputText placeholder="Search by Keyword" class="form-control" formControlName="keyword">
           </div>
         </div>
 
@@ -248,15 +248,15 @@
           <div class="col-md-4">
             <label class="form-label fw-bold">Employment Type <span class="text-danger">(Multi select)</span></label>
             <p-multiSelect [options]="employmentTypes" formControlName="employment_type"
-              placeholder="Select employment type" optionLabel="label" optionValue="id" appendTo="body" display="chip"
+              placeholder="Select employment type" optionLabel="employment_type" optionValue="id" appendTo="body" display="chip"
               class="w-100">
             </p-multiSelect>
           </div>
 
           <div class="col-md-4">
             <label class="form-label fw-bold">Currency display for salaries</label>
-            <p-select [options]="currencies" formControlName="currency" optionLabel="currency_code" optionValue="id"
-              appendTo="body" [filter]="true" filterBy="label" class="w-100">
+            <p-select [options]="currencies" formControlName="currency" optionLabel="currency_code" optionValue="currency_code"
+              appendTo="body" [filter]="true" filterBy="currency_code" class="w-100">
             </p-select>
           </div>
         </div>
@@ -266,7 +266,7 @@
             <label class="form-label fw-bold">Salary offered</label>
             <div class="d-flex w-100 gap-2">
               <p-select [options]="currencies" styleClass="p-select p-component" optionLabel="currency_code"
-                optionValue="id" placeholder="Select" formControlName="currency" [style]="{ width: '80px' }">
+                optionValue="currency_code" placeholder="Select" formControlName="salary_currency" [filter]="true" filterBy="currency_code" [style]="{ width: '80px' }">
               </p-select>
               <div class="flex-grow-1 me-2">
                 <p-inputNumber id="salary" placeholder="Enter your salary/month" styleClass="p-inputtext w-100"
@@ -278,11 +278,11 @@
           <div class="col-md-4">
             <label class="form-label fw-bold">Experience Level <span class="text-danger">(Multi select)</span></label>
             <p-multiSelect [options]="experienceLevels" formControlName="experienceLevel" optionLabel="label"
-              optionValue="id" appendTo="body" display="chip" class="w-100">
+              optionValue="label" appendTo="body" display="chip" class="w-100">
             </p-multiSelect>
           </div>
           <div class="col-md-4 h-full mt-auto">
-            <button pButton label="Apply Filter" (click)="applyFilter()" class="btn-primary w-100">
+            <button pButton label="Apply Filter" (click)="applyFilter()" class="btn-primary w-100 p-2">
             </button>
           </div>
         </div>
