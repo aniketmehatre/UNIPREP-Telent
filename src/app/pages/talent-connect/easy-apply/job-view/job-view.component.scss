@@ -18,16 +18,9 @@
     color: #6c757d;
   }
   
-  .logo-container {
-    border-radius: 0.5rem;
-    height: 80px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-  }
   
   .bg-warning {
-    background-color: #fff3cd !important;
+    background-color: #F9E9D8 !important;
   }
   
   .text-dark {
@@ -146,4 +139,12 @@
 
   input.form-control::placeholder {
     color: #adb5bd;
+  }
+
+  .bg-badge-color {
+    background-color: var(--uniprep-secondary);
+  }
+
+  .bg-secondary-subtle {
+    background-color: #F8F8F8 !important;
   }

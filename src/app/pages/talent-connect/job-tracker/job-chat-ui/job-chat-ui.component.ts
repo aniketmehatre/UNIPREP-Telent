@@ -7,6 +7,7 @@ import { Chip, ChipModule } from 'primeng/chip';
 import { Button, ButtonModule } from 'primeng/button';
 import { TalentConnectService } from '../../talent-connect.service';
 import { Job } from '../../easy-apply/job-view/job-view.component';
+import { RouterModule } from '@angular/router';
 
 interface ChatMessage {
   sender: boolean; // Changed from isSender to sender for clarity
@@ -29,8 +30,9 @@ interface ChatMessage {
     AvatarModule,
     CommonModule,
     ChipModule,
-    ButtonModule
-]
+    ButtonModule,
+    RouterModule
+  ]
 })
 export class JobChatUiComponent implements OnChanges {
   organizationName: string = 'UNIABROAD';

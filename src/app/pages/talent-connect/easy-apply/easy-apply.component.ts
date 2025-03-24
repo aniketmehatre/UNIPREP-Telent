@@ -62,17 +62,16 @@ export class EasyApplyComponent {
       worklocation: [null],
       work_mode: [null],
       employment_type: [null],
-      currency: ['INR'],
+      currency: [],
       salary: [''],
-      experienceLevel: [null]
+      experienceLevel: [null],
+      salary_currency: [null]
     });
   }
 
   getCountries() {
-    this.talenconnectService.getCountries().subscribe({
-      next: (response: any) => {
-        this.locations = response;
-      }
+    this.talentConnectService.getEasyApplyWorkLocationList().subscribe(data => {
+      this.locations = data.worklocations;
     });
   }
 
@@ -103,7 +102,7 @@ export class EasyApplyComponent {
       this.workModes = data?.workmode;
       this.employmentTypes = data?.employmenttype;
       this.currencies = data?.currencycode;
-      // this.locations = data?.locations;
+      this.locations = data?.locations;
     });
   }
 
@@ -125,6 +124,8 @@ export class EasyApplyComponent {
 
   resetFilter(): void {
     this.getList({});
+    this.displayModal = false;
+    this.filterForm.reset();
     console.log('Resetting filters');
   }
 

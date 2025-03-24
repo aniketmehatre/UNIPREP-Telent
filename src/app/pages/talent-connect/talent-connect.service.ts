@@ -18,6 +18,13 @@ export class TalentConnectService {
         });
     }
 
+
+    getEasyApplyWorkLocationList() {
+        return this.http.get<any>(environment.ApiUrl + "/easyappyworklocations", {
+            headers: this.headers
+        });
+    }
+
     //Easy-Apply
     getJobListDropdown() {
         return this.http.get<any>(

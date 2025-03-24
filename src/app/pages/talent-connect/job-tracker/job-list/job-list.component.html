@@ -90,9 +90,12 @@
 				  [options]="locations" 
 				  formControlName="work_location" 
 				  placeholder="Select work location" 
-				  optionLabel="country" 
+				  optionLabel="work_location" 
 				  optionValue="id"
 				  display="chip"
+				  [virtualScroll]="true"   [virtualScrollItemSize]="50"
+				  [filter]="true"
+				  filterBy="work_location"
 				  class="w-100">
 				</p-multiSelect>
 			  </div>

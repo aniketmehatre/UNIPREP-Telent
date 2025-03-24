@@ -3,7 +3,7 @@
     <!-- Header - Fixed at top -->
     <div class="card-header d-flex justify-content-between align-items-center p-3 mb-2">
       <div class="d-flex align-items-center">
-        <button *ngIf="!showInfo" pButton icon="pi pi-info-circle" label="Open Info" class="p-button-secondary text-dark me-1" (click)="openInfo.emit(true)"></button>
+        <button *ngIf="!showInfo" pButton icon="pi pi-info-circle" label="Open Info" class="btn-primary text-dark me-1" (click)="openInfo.emit(true)"></button>
         <div class="uniabroad-icon me-2">
           <p-avatar [image]="jobDetails?.company_logo_url ?? 'https://primefaces.org/cdn/primeng/images/demo/avatar/amyelsner.png'" size="large" shape="circle" />
         </div>
@@ -28,7 +28,7 @@
           </div>            
           </div>
           <div class="cover-letter-box m-3 py-4 rounded-3" style="background-color: #F9E9D8;">
-            <p class="text-center mb-0 fw-medium">Need a cover letter?</p>
+            <p class="text-center">Need a cover letter?</p>
             <button pButton 
                    class="p-button-text p-button-plain w-100" 
                    label="Click here to write one!"
@@ -94,20 +94,20 @@
     </div>
 
     <!-- Footer - Fixed at bottom -->
-    <div class="card-footer bg-white p-2">
+    <div class="card-footer bg-white p-2 border-0">
       <input type="file" class="d-none" accept=".doc,.docx,.pdf, application/msword,application/vnd.openxmlformats-officedocument.wordprocessingml.document" #fileAttachment (change)="uploadFilesChat($event);">
       <div *ngIf="attachmentFile" class="border d-flex justify-content-between align-items-center p-2">
           <div>{{attachmentFile.name}}</div>
           <i class="fas fa-xmark" (click)="attachmentFile = null; attachmentFileName = null;"></i>
       </div>
-      <div class="input-group">
-        <span class="input-group-text border-0 bg-white" (click)="fileAttachment.click();">
-          <i class="pi pi-paperclip"></i>
-        </span>
-        <input type="text" class="form-control border-0" [placeholder]="'Text with ... '+jobDetails?.company_name" #messageInput
+      <div class="input-group border rounded-4  p-1 h-auto">
+        <input type="text" class="form-control border-0 h-auto" [placeholder]="'Text with ... '+jobDetails?.company_name" #messageInput
               (keyup.enter)="sendMessage(messageInput.value); messageInput.value = ''">
+        <span class="input-group-text border-0 bg-white" (click)="fileAttachment.click();">
+                <i class="pi pi-paperclip"></i>
+        </span>
         <span class="input-group-text border-0 bg-white" (click)="sendMessage(messageInput.value); messageInput.value = '';">
-          <i class="pi pi-send"></i>
+          <i class="pi pi-send" style="color: var(--uniprep-secondary);"></i>
         </span>
       </div>
     </div>
