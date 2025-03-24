@@ -228,16 +228,16 @@ export class CareerToolComponent implements OnInit {
     //   mode: "virtual-incubation-center",
     //   launch_soon: true
     // },
-    {
-      id: 22,
-      moduleName: "Market Analysis",
-      Description: "Access actionable tips and strategies to accelerate your career growth and achieve your goals.",
-      tooltip: "Unleash your potential with proven career hacks designed to fast-track your success.",
-      imageLink: environment.production === false ? "https://api.uniprep.ai/uniprepapi/storage/app//public/icon/modules/chacks.png" : "https://uniprep.ai/uniprepapi/storage/app/public/icon/modules/chacks.png",
-      refLink: "",
-      mode: "market-analysis",
-      launch_soon: false
-    }
+    // {
+    //   id: 22,
+    //   moduleName: "Market Analysis",
+    //   Description: "Access actionable tips and strategies to accelerate your career growth and achieve your goals.",
+    //   tooltip: "Unleash your potential with proven career hacks designed to fast-track your success.",
+    //   imageLink: environment.production === false ? "https://api.uniprep.ai/uniprepapi/storage/app//public/icon/modules/chacks.png" : "https://uniprep.ai/uniprepapi/storage/app/public/icon/modules/chacks.png",
+    //   refLink: "",
+    //   mode: "market-analysis",
+    //   launch_soon: false
+    // }
   ]
 
   constructor(private router: Router, private employerGlobalService: EmployerGlobalService,
