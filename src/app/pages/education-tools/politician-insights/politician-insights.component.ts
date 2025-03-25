@@ -22,6 +22,7 @@ import { LocationService } from 'src/app/location.service';
 import { FounderstoolService } from '../../founderstool/founderstool.service';
 import { PageFacadeService } from '../../page-facade.service';
 import { Location } from '@angular/common';
+import { PaginatorModule } from 'primeng/paginator';
 
 export interface Politician {
   name: string;
@@ -37,7 +38,7 @@ export interface Politician {
     templateUrl: './politician-insights.component.html',
     styleUrls: ['./politician-insights.component.scss'],
     standalone: true,
-    imports: [FormsModule, ReactiveFormsModule, CarouselModule, ButtonModule, CommonModule, RouterModule, DialogModule, MultiSelectModule, SelectModule, CardModule, InputGroupModule, InputTextModule, InputGroupAddonModule]
+  imports: [PaginatorModule, FormsModule, ReactiveFormsModule, CarouselModule, ButtonModule, CommonModule, RouterModule, DialogModule, MultiSelectModule, SelectModule, CardModule, InputGroupModule, InputTextModule, InputGroupAddonModule]
 })
 export class PoliticianInsightsComponent implements OnInit, OnDestroy {
   countrylist: any[] = [];
@@ -49,8 +50,8 @@ export class PoliticianInsightsComponent implements OnInit, OnDestroy {
   dataanswerquestion: any;
   countryId: any;
   politicianId: any;
+  totalPolitician: number = 0;
   politicians: Politician[] = [];
-  totalPoliticianList: number = 3;
   isSkeletonVisible: boolean = false;
   isShowPoliticians: boolean = false;
   readonly modeName: string = "politician_insights";
@@ -162,7 +163,7 @@ export class PoliticianInsightsComponent implements OnInit, OnDestroy {
         this.isShowPoliticians = true;
         this.isShowCountryQuesAns = false;
         this.politicians = res.politicians;
-        this.totalPoliticianList = res.total_politicians;
+        this.totalPolitician = res.totalpoliticians;
         this.isSkeletonVisible = false;
       },
       (error) => {
