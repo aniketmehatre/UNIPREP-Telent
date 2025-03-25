@@ -217,9 +217,9 @@ export class TripLengthFinderComponent implements OnInit {
     //   page-break-inside: avoid;
     // }
     // </style>`;
-    let inputString: string = `<p><strong>Input:<br></strong></p>
-      <p style="color: #d32f2f;"><strong>Which Destination are you planning to visit?</strong></p>
-      <p>${selectedCityAndCountry}</p>
+    let inputString: string = `<p style="color: #f0780e;"><strong>Input:<br></strong></p>
+      <p style="color: rgb(63, 76, 131);"><strong>Which Destination are you planning to visit?</strong></p>
+      <p>${ selectedCityAndCountry }</p>
       <div class="divider"></div><p><strong>Response:<br></strong></p>`;
     let params: any = {
       module_name: "Trip Length Finder",

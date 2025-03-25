@@ -129,8 +129,6 @@ export class PromptService {
         let processedRecommendation = (data.response || '') + '<br>';
 
         processedRecommendation = this.extraContentRemover(processedRecommendation);
-        console.log(processedRecommendation, "extraContentRemover");
-
         let titleData = `
                 <div class="title-bar">
                     <div style="width: 250px;">
