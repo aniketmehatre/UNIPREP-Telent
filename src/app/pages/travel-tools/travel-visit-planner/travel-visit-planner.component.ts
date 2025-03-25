@@ -19,8 +19,9 @@ import { SelectModule } from 'primeng/select';
 import { DialogModule } from 'primeng/dialog';
 import { CardModule } from 'primeng/card';
 import { InputNumberModule } from 'primeng/inputnumber';
-import { DownloadRespose } from 'src/app/@Models/travel-tools.model';
+import { sendDownloadParams } from 'src/app/@Models/travel-tools.model';
 import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
+import { PromptService } from '../../prompt.service';
 @Component({
     selector: 'uni-travel-visit-planner',
     templateUrl: './travel-visit-planner.component.html',
@@ -35,7 +36,8 @@ export class TravelVisitPlannerComponent implements OnInit {
     private router: Router,
     private costOfLivingService: CostOfLivingService,
     private toast: MessageService,
-    private sanitizer: DomSanitizer
+    private sanitizer: DomSanitizer,
+    private prompt: PromptService,
   ) { }
 
   recommendations: { id: number, question: string }[] = [
@@ -57,7 +59,7 @@ export class TravelVisitPlannerComponent implements OnInit {
   selectedData: { [key: string]: any } = {};
   allCountries: any = [];
   invalidClass: boolean = false;
-  recommendationData: SafeHtml = [];
+  recommendationData: SafeHtml = "";
   savedResponse: any = [];
   destinationLocationList: City[] = [];
 
@@ -102,7 +104,7 @@ export class TravelVisitPlannerComponent implements OnInit {
       this.travelToolService.getChatgptRecommendations(data).subscribe(response => {
         let chatGptResponse = response.response;
 				chatGptResponse = chatGptResponse
-					.replace(/```html|```/g, '');
+					// .replace(/```html|```/g, '');
 				this.recommendationData = this.sanitizer.bypassSecurityTrustHtml(chatGptResponse);
         this.isRecommendation = false;
         this.isResponsePage = true;
@@ -119,7 +121,7 @@ export class TravelVisitPlannerComponent implements OnInit {
   }
 
   resetRecommendation() {
-    this.recommendationData = [];
+    this.recommendationData = "";
     this.isRecommendation = true;
     this.isResponsePage = false;
     this.isSavedPage = false;
@@ -149,19 +151,9 @@ export class TravelVisitPlannerComponent implements OnInit {
 
   downloadRecommadation() {
     let selectedCityAndCountry = this.selectedData[1].city_name + ', ' + this.selectedData[1].country_name;
-    
-    let addingInput = `
-        <div style="font-family: 'Poppins', sans-serif; display: flex; align-items: center; justify-content: space-between; 
-        border-bottom: 2px solid #d32f2f; padding-bottom: 10px; margin-bottom: 20px;">
-            <div style="text-align: center;">
-                <h2 style="margin: 0; color: #1a237e;">Travel Visit Planner</h2>
-            </div>
-        </div>
-        <p><strong>Input:<br></strong></p>
-    `;
-
+    let inputString: string = `<p style="color: #f0780e;"><strong>Input:<br></strong></p>`;
     this.recommendations.forEach(values => {
-        addingInput += `<p><strong style="color: #d32f2f;">${values.question}</strong></p>`;
+      inputString += `<p><strong style="color: rgb(63, 76, 131);">${values.question}</strong></p>`;
         let currentAnswer = "";
         if (values.id == 1) {
             currentAnswer = selectedCityAndCountry;
@@ -170,34 +162,27 @@ export class TravelVisitPlannerComponent implements OnInit {
         } else if (values.id == 3) {
             currentAnswer = `${this.selectedData[3]} Season`;
         }
-        addingInput += `<p>${currentAnswer}</p><br>`;
+        inputString += `<p>${currentAnswer}</p><br>`;
     });
 
-    // ✅ Convert SafeHtml to a string before using .replace()
-    let sanitizedResponse = this.sanitizer.sanitize(1, this.recommendationData) || ''; 
+    inputString += `<div class=\"divider\"></div><p style="color: #f0780e;"><strong>Response:<br></strong></p>`;
 
-    let cleanResponse = sanitizedResponse
-        .replace(/<\/?html>|<\/?head>|<\/?body>/g, '') // Remove full document tags
-        .replace(/<head>.*?<\/head>/gs, '') // Remove head section (if any)
-        .replace(/class="container"/g, 'style="line-height:1.9;color: black;"'); // Ensure spacing
-
-    let finalRecommendation = addingInput + '<div class="divider"></div><p><strong>Response:<br><br></strong></p>' + cleanResponse + '</div>';
-
-    console.log(finalRecommendation, "final recommendation");
-
-    let paramData: DownloadRespose = {
-        response: finalRecommendation,
-        module_name: "Travel Visit Planner",
-        file_name: "travel_visit_planner"
+    let paramData: sendDownloadParams = {
+      response: this.recommendationData,
+      module_name: "Travel Visit Planner",
+      file_name: "travel_visit_planner",
+      inputString: inputString
     };
 
-    this.travelToolService.convertHTMLtoPDF(paramData)
-        .then(() => {
-            console.log("PDF generated successfully.");
-        })
-        .catch(error => {
-            console.error("Error generating PDF:", error);
-        });
+    this.prompt.responseBuilder(paramData);
+
+    // this.travelToolService.convertHTMLtoPDF(paramData)
+    //     .then(() => {
+    //         console.log("PDF generated successfully.");
+    //     })
+    //     .catch(error => {
+    //         console.error("Error generating PDF:", error);
+    //     });
 }
 
   goBack() {

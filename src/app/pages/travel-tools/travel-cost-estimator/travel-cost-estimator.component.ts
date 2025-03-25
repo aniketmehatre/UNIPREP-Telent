@@ -7,7 +7,7 @@ import { Router } from '@angular/router';
 import { CostOfLivingService } from '../../job-tool/cost-of-living/cost-of-living.service';
 import { City } from 'src/app/@Models/cost-of-living';
 import { MessageService } from 'primeng/api';
-import { DownloadRespose } from 'src/app/@Models/travel-tools.model';
+import { sendDownloadParams } from 'src/app/@Models/travel-tools.model';
 import { CommonModule } from '@angular/common';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { ButtonModule } from 'primeng/button';
@@ -175,17 +175,16 @@ export class TravelCostEstimatorComponent implements OnInit {
 
 		let departureLocation = this.selectedData[1].city_name + ', ' + this.selectedData[1].country_name;
 		let destinationLocation = this.selectedData[2].city_name + ', ' + this.selectedData[2].country_name;
-		let moduleName = "Travel Cost Estimator";
-		
-		let addingInput = `
-			<div style="font-family: 'Poppins', sans-serif; display: flex; align-items: center; justify-content: space-between; border-bottom: 2px solid #f0780e; padding-bottom: 10px; margin-bottom: 20px;">
-				<div style="text-align: center;">
-					<h2 style="margin: 0; color: #1a237e;">${moduleName}</h2>
-				</div>
-			</div>`;
-		let inputString: string = `<p><strong>Input:<br></strong></p>`;
+		// let moduleName = "Travel Cost Estimator";
+		// let addingInput = `
+		// 	<div style="font-family: 'Poppins', sans-serif; display: flex; align-items: center; justify-content: space-between; border-bottom: 2px solid #f0780e; padding-bottom: 10px; margin-bottom: 20px;">
+		// 		<div style="text-align: center;">
+		// 			<h2 style="margin: 0; color: #1a237e;">${moduleName}</h2>
+		// 		</div>
+		// 	</div>`;
+		let inputString: string = `<p style="color: #f0780e;"><strong>Input:<br></strong></p>`;
 		this.recommendations.forEach(values => {
-			inputString += `<p style="color: #f0780e;"><strong>${values.question}</strong></p>`;
+			inputString += `<p  style="color: rgb(63, 76, 131);"><strong>${values.question}</strong></p>`;
 			let currentAnswer = "";
 			if (values.id == 1) {
 				currentAnswer = departureLocation;
@@ -196,37 +195,18 @@ export class TravelCostEstimatorComponent implements OnInit {
 			} else if (values.id == 4) {
 				currentAnswer = this.selectedData[4];
 			}
-			// else if(values.id == 5){
-			//   currentAnswer = `${ this.selectedData[5] } Currency`;
-			// }
 			inputString += `<p>${currentAnswer}</p><br>`;
 		});
-		inputString += `<div class=\"divider\"></div><p><strong>Response:<br></strong></p>`;
-		// let finalRecommendation = this.recommendationData + '</div>';
-		// finalRecommendation = finalRecommendation
-		// 	.replace(/```html|```/g, '') 
-		// 	.replace(/\(see https:\/\/g\.co\/ng\/security#xss\)/g, '') 
-		// 	.replace(/SafeValue must use \[property\]=binding:/g, '')
-		// 	.replace(/class="container"/g, 'style="line-height:1.9;page-break-before: auto;page-break-after: auto;"'); //because if i add container the margin will increase so i removed the container now the spacing is proper.
+		inputString += `<div class=\"divider\"></div><p style="color: #f0780e;"><strong>Response:<br></strong></p>`;
 		
-		let params: any = {
+		let params: sendDownloadParams = {
 			module_name: "Travel Cost Estimator",
 			file_name: "travel_cost_estimator",
 			response: this.recommendationData,
 			inputString: inputString
-		  };
+		};
+		console.log(this.recommendationData);
 		this.prompt.responseBuilder(params);
-
-		// let paramData: any = {
-		// 	response: this.recommendationData,
-		// 	module_name: "Travel Cost Estimator",
-		// 	file_name: "travel_cost_estimator",
-		// };
-		// this.travelToolsService.convertHTMLtoPDF(paramData).then(() => {
-		// 	console.log("PDF successfully generated.");
-		// }).catch(error => {
-		// 	console.error("Error generating PDF:", error);
-		// })
 	}
 
 	goBack() {
