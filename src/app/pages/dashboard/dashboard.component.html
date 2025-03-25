@@ -39,7 +39,7 @@
 					<div class="col-12">
 						<h5><span class="emoji">👤</span> Profile Completion</h5>
 					</div>
-					<div class="col-6">
+					<div class="col-6 mb-4">
 						<div style="display: flex; justify-content: space-between">
 							<div style="font-size: 3rem">{{ totalPercentage }}%</div>
 						</div>
@@ -53,22 +53,22 @@
 						<div class="progress-bar-container">
 							<div class="progress-bar" [style.width.%]="progress"></div>
 							<!-- Adjust the width to indicate progress -->
-							<span pTooltip="{{ progress }}% " tooltipPosition="top" class="text-gray-700" style="font-size: 9px">Basic Details</span>
 						</div>
+						<span pTooltip="{{ progress }}% " tooltipPosition="top" class="text-gray-700" style="font-size: 9px">Basic Details</span>
 					</div>
 					<div class="col-3">
 						<div class="progress-bar-container">
 							<div class="progress-bar2" [style.width.%]="talentConnectPercentage"></div>
 							<!-- Adjust the width to indicate progress -->
-							<span pTooltip="{{ talentConnectPercentage }}% " tooltipPosition="top" class="text-gray-700" style="font-size: 9px">Job Profile</span>
 						</div>
+						<span pTooltip="{{ talentConnectPercentage }}% " tooltipPosition="top" class="text-gray-700" style="font-size: 9px">Job Profile</span>
 					</div>
 					<div class="col-3">
 						<div class="progress-bar-container">
 							<div class="progress-bar3" [style.width.%]="cvBuilderPercentage"></div>
 							<!-- Adjust the width to indicate progress -->
-							<span pTooltip="{{ cvBuilderPercentage }}% " tooltipPosition="top" class="text-gray-700" style="font-size: 9px">CV Details</span>
 						</div>
+						<span pTooltip="{{ cvBuilderPercentage }}% " tooltipPosition="top" class="text-gray-700" style="font-size: 9px">CV Details</span>
 					</div>
 					<!-- <div class="col-12">
 						<button pButton class="btn btn-rounded mt-2" style="color: var(--uniprep-primary); background-color: white; border-color: var(--uniprep-primaryop10); font-size: 10px; width: -webkit-fill-available">ATS Compobility : {{ progress }}%</button>
@@ -76,14 +76,14 @@
 					<div class="col-12 mt-4">
 						<p class="mb-0 text-start" style="font-size: 11px">Complete your profile today:</p>
 					</div>
-					<div class="col-12 d-flex gap-2">
-						<button class="px-4 py-2 border rounded-lg shadow-md bg-white" style="border-radius: 15px; font-size: 9px; width: -webkit-fill-available">
+					<div class="col-12 d-flex gap-2 mt-2">
+						<button class="px-2 py-2 border rounded-lg shadow-md bg-white" style="border-radius: 15px; font-size: 9px; width: -webkit-fill-available">
 							<span (click)="openMyProfile()" style="color: #394d83">My Profile <i class="fa-solid fa-user" style="color: #394d83"></i></span>
 						</button>
-						<button (click)="redirectToCvBuilder()" class="px-4 py-2 border rounded-lg shadow-md bg-white" style="border-radius: 15px; font-size: 9px; width: -webkit-fill-available">
+						<button (click)="redirectToCvBuilder()" class="px-2 py-2 border rounded-lg shadow-md bg-white" style="border-radius: 15px; font-size: 9px; width: -webkit-fill-available">
 							<span style="color: #394d83">CV Builder <i class="fa-solid fa-file-lines" style="color: #394d83"></i></span>
 						</button>
-						<button (click)="redirectToTalentConnect()" class="px-4 py-2 border rounded-lg shadow-md bg-white" style="border-radius: 15px; font-size: 9px; width: -webkit-fill-available">
+						<button (click)="redirectToTalentConnect()" class="px-2 py-2 border rounded-lg shadow-md bg-white" style="border-radius: 15px; font-size: 9px; width: -webkit-fill-available">
 							<span style="color: #394d83">Talent Connect <i class="fa-solid fa-user-tie" style="color: #394d83"></i></span>
 						</button>
 					</div>
@@ -158,13 +158,17 @@
 												<i class="fa-solid fa-location-dot" style="color: #79ae28"></i>&nbsp;
 												<span style="font-weight: 500px; color: black">{{ v.worklocation }}</span>
 											</p>
-											<button class="btn btn-rounded text-small m-0 mb-2"   [ngStyle]="{
-												'border': '1px solid ' + v.color_code, 
-												'background-color': v.color_code, 
-												'color': 'white', 
-												'font-size': '10px', 
-												'border-radius': '2px'
-											  }">{{v.hiringstage}}</button>
+											<button
+												class="btn btn-rounded text-small m-0 mb-2"
+												[ngStyle]="{
+													border: '1px solid ' + v.color_code,
+													'background-color': v.color_code,
+													color: 'white',
+													'font-size': '10px',
+													'border-radius': '2px'
+												}">
+												{{ v.hiringstage }}
+											</button>
 										</div>
 									</div>
 								</div>
@@ -211,7 +215,7 @@
 	<div class="col-lg-3 col-md-6 col-sm-12 mt-2">
 		<div class="card bg-white h-100 p-3">
 			<div class="calendar-container">
-				<h5 style="text-align: start"><span class="emoji">🕒</span>  {{ monthName }} {{ currentYear }}</h5>
+				<h5 style="text-align: start"><span class="emoji">🕒</span> {{ monthName }} {{ currentYear }}</h5>
 
 				<div class="weekdays">
 					<div *ngFor="let day of weekdays" class="weekday">{{ day }}</div>
@@ -838,12 +842,12 @@
 				<!-- <div class="col-lg-2 col-md-3 col-sm-4 col-6 p-2 d-flex justify-content-center align-items-center" *ngFor="let uni of recentJobApplication">
 					<img alt="{{ uni.logo }}" class="trustedbylogo" src="{{ uni.logo }}" />
 				</div> -->
-				<div class="col-lg-4 col-md-6 col-sm-12 mt-2" *ngFor="let v of recentJobApplication" >
+				<div class="col-lg-4 col-md-6 col-sm-12 mt-2" *ngFor="let v of recentJobApplication">
 					<div class="card">
 						<div class="card-body country-border text-start">
 							<div class="d-flex justify-content-evenly">
 								<div>
-									<img alt="country" width="70" height="70" class="mb-2" src="{{v.company_logo}}" />
+									<img alt="country" width="70" height="70" class="mb-2" src="{{ v.company_logo }}" />
 								</div>
 								<div class="ms-2">
 									<h4 class="mb-0 text-sm text-capitalize">
