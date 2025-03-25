@@ -77,7 +77,12 @@
                 <div class="text-start">
                   <h5 class="card-title mb-1">{{ politician.name }}</h5>
                   <div class="d-flex align-items-center mb-2">
-                    <img [src]="politician.flag" class="me-2 rounded-circle" [alt]="politician.country + ' flag'" width="20" height="20" />
+                    <img 
+                      [src]="politician.flag" 
+                      class="me-2 rounded-circle" 
+                      [alt]="politician.country + ' flag'" 
+                      style="width: 20px; height: 20px; object-fit: cover; border-radius: 50%;" 
+                    />
                     <span>{{ politician.country }}</span>
                   </div>
                 </div>
