@@ -23,14 +23,14 @@
     <div class="card-body flex-fill overflow-y-auto">
         <div class="row">
             <div class="readingcardgrid mb-3" *ngFor="let list of wealthleadersqueslist">
-                <div class="card subjectcard h-100">
+                <div class="card subjectcard h-100"  (click)="seeAnswer(list.id)" style="cursor: pointer;">
                     <div class="card-body d-flex justify-content-between flex-column">
                         <p class="text-start fw-medium mb-2">{{list.question}}</p>
                         <div class="d-flex justify-content-center align-items-center">
-                            <button pButton  class="btn btn-primary btn-rounded w-100" [ngClass]="{ 'read-btn': list.read == 1 }"
+                            <!-- <button pButton  class="btn btn-primary btn-rounded w-100" [ngClass]="{ 'read-btn': list.read == 1 }"
                                 (click)="seeAnswer(list.id)">
                                 {{list.read == 1 ? 'Read' : 'Read Answer'}}
-                            </button>
+                            </button> -->
                         </div>
                     </div>
                 </div>
