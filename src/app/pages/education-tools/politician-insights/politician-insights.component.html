@@ -117,7 +117,7 @@
   <div class="row" *ngIf="isShowPoliticians || isShowCountryQuesAns">
     <div class="col-md-3">&nbsp;</div>
     <div class="col-md-6 col-11"></div>
-    <div class="col-md-3 text-end">
+    <div class="col-md-3 text-center">
       <p-paginator *ngIf="totalPolitician != 0" [rows]="pageSize" [totalRecords]="totalPolitician"
         (onPageChange)="pageChange($event)" [rowsPerPageOptions]="[10, 25, 100, 300, 500, 1000]"></p-paginator>
     </div>
