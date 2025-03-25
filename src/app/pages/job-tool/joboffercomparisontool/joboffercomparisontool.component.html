@@ -101,9 +101,19 @@
 											<ng-container *ngIf="recommendation.id == 2">
 												<!-- Salary and Benefits Form -->
 												<form [formGroup]="salaryandemployeeBenefitsForm">
-													<div class="row">
+													<div class="row" formArrayName="benefitsInformation">
+														<div class="row mb-4 align-items-center">
+															<div class="col-md-2"></div>
+															<ng-container *ngFor="let info of worktimingsInformation.controls; let i = index" [formGroupName]="i">
+																<div [ngClass]="worktimingsInformation.length === 2 ? 'col-md-5' : 'col-md-3'">
+																	<h6 class="fw-bold text-center">
+																		{{ basicInformationForm.controls.basicInformation.controls[i].get("companyName").value }}
+																	</h6>
+																</div>
+															</ng-container>
+														</div>
 														<!-- Headings Column -->
-														<div class="col-md-3">
+														<!-- <div class="col-md-3">
 															<div class="p-2 fw-bold text-end"></div>
 															<div class="p-3 fw-bold text-end">
 																<h5 class="fw-bold mb-0">Annual Salary</h5>
@@ -111,10 +121,10 @@
 															<div class="p-3 fw-bold text-end">
 																<h5 class="fw-bold mb-0">Employe Benefits</h5>
 															</div>
-														</div>
+														</div> -->
 
 														<!-- Fields Column -->
-														<div class="col-md-7">
+														<!-- <div class="col-md-7">
 															<div class="row col-md-12">
 																<div class="d-flex gap-2" formArrayName="benefitsInformation">
 																	<ng-container *ngFor="let benefitsinfo of benefitsInformation.controls; let i = index">
@@ -124,9 +134,9 @@
 																					<h6 class="fw-bold">
 																						{{ basicInformationForm.controls.basicInformation.controls[i].get("companyName").value }}
 																					</h6>
-																				</div>
-																				<!-- Salary --><!-- Currency -->
-																				<div class="col-md-12 d-flex mb-2">
+																				</div> -->
+														<!-- Salary --><!-- Currency -->
+														<!-- <div class="col-md-12 d-flex mb-2">
 																					<div class="col-md-5">
 																						<p-select [style]="{ width: '100%' }" [options]="currencies" formControlName="currency" optionLabel="currency_code" optionValue="currency_code" [appendTo]="'body'" placeholder="Currency" [filter]="true" filterBy="country,currency_code" [showClear]="true" styleClass="w-100">
 																							<ng-template let-data pTemplate="item">
@@ -142,10 +152,10 @@
 																						<input type="text" class="w-100 form-control" formControlName="salary" placeholder="Salary" />
 																						<div *ngIf="benefitsinfo.get('salary')?.touched && benefitsinfo.get('salary')?.invalid" class="text-danger mt-1">Salary is required.</div>
 																					</div>
-																				</div>
+																				</div> -->
 
-																				<!-- Benefits -->
-																				<div class="mb-2">
+														<!-- Benefits -->
+														<!-- <div class="mb-2">
 																					<p-multiSelect [showClear]="true" display="chip" styleClass="w-100" placeholder="Benefits" formControlName="benefits" [options]="employeebenefits" display="chip" optionLabel="benefit" optionValue="id" [appendTo]="'body'"></p-multiSelect>
 																					<div *ngIf="benefitsinfo.get('benefits')[i]?.touched && benefitsinfo.get('benefits')[i]?.invalid" class="text-danger mt-1">Benefits is required.</div>
 																				</div>
@@ -161,10 +171,10 @@
 																	</h6>
 																</div>
 															</ng-container>
-														</div>
+														</div> -->
 
 														<!-- Annual Salary Row -->
-														<div class="row mb-4  align-items-center">
+														<div class="row mb-4 align-items-center">
 															<div class="col-md-2">
 																<div class="fw-bold text-start">
 																	<h5 class="fw-bold mb-0">Annual Salary</h5>
@@ -191,7 +201,7 @@
 														</div>
 
 														<!-- Employee Benefits Row -->
-														<div class="row  align-items-center">
+														<div class="row align-items-center">
 															<div class="col-md-2">
 																<div class="fw-bold text-start">
 																	<h5 class="fw-bold mb-0">Employee Benefits</h5>
@@ -212,15 +222,11 @@
 												<form [formGroup]="worktimingsForm">
 													<div class="row" formArrayName="worktimingsInformation">
 														<!-- Company Names Row -->
-														<div class="row mb-4  align-items-center">
-															<div class="col-md-2">
-																<div class="fw-bold text-start">
-																	<h5 class="fw-bold mb-0">Company</h5>
-																</div>
-															</div>
+														<div class="row mb-4 align-items-center">
+															<div class="col-md-2"></div>
 															<ng-container *ngFor="let info of worktimingsInformation.controls; let i = index" [formGroupName]="i">
 																<div [ngClass]="worktimingsInformation.length === 2 ? 'col-md-5' : 'col-md-3'">
-																	<h6 class="fw-bold">
+																	<h6 class="fw-bold text-center">
 																		{{ basicInformationForm.controls.basicInformation.controls[i].get("companyName").value }}
 																	</h6>
 																</div>
@@ -228,7 +234,7 @@
 														</div>
 
 														<!-- Working Hours & Days Row -->
-														<div class="row mb-4  align-items-center">
+														<div class="row mb-4 align-items-center">
 															<div class="col-md-2">
 																<div class="fw-bold text-start">
 																	<h5 class="fw-bold mb-0">Working Hours & Days</h5>
@@ -251,7 +257,7 @@
 														</div>
 
 														<!-- Employment Type Row -->
-														<div class="row  align-items-center">
+														<div class="row align-items-center">
 															<div class="col-md-2">
 																<div class="fw-bold text-start">
 																	<h5 class="fw-bold mb-0">Employment Type</h5>
@@ -270,10 +276,19 @@
 											<ng-container *ngIf="recommendation.id == 4">
 												<!-- Additional Perks Form -->
 												<form [formGroup]="additionalPerksForm">
-
-													<div class="row">
+													<div class="row" formArrayName="additionalPerksInformation">
+														<div class="row mb-4 align-items-center">
+															<div class="col-md-2"></div>
+															<ng-container *ngFor="let info of worktimingsInformation.controls; let i = index" [formGroupName]="i">
+																<div [ngClass]="worktimingsInformation.length === 2 ? 'col-md-5' : 'col-md-3'">
+																	<h6 class="fw-bold text-center">
+																		{{ basicInformationForm.controls.basicInformation.controls[i].get("companyName").value }}
+																	</h6>
+																</div>
+															</ng-container>
+														</div>
 														<!-- Headings Column -->
-														<div class="col-md-3">
+														<!-- <div class="col-md-3">
 															<div class="p-3 fw-bold text-end"></div>
 															<div class="p-3 fw-bold text-end">
 																<h5 class="fw-bold mb-0">Work Location Flexibility</h5>
@@ -284,10 +299,10 @@
 															<div class="p-3 fw-bold text-end">
 																<h5 class="fw-bold mb-0">Travel Opportunities</h5>
 															</div>
-														</div>
+														</div> -->
 
 														<!-- Fields Column -->
-														<div class="col-md-7">
+														<!-- <div class="col-md-7">
 															<div class="row col-md-12">
 																<div class="d-flex gap-2" formArrayName="additionalPerksInformation">
 																	<ng-container *ngFor="let info of additionalPerksInformation.controls; let i = index">
@@ -297,20 +312,20 @@
 																					<h6 class="fw-bold">
 																						{{ basicInformationForm.controls.basicInformation.controls[i].get("companyName").value }}
 																					</h6>
-																				</div>
-																				<!-- Workplace Type -->
-																				<div class="mb-2">
+																				</div> -->
+														<!-- Workplace Type -->
+														<!-- <div class="mb-2">
 																					<p-select [style]="{ width: '100%' }" formControlName="workplacetypes" placeholder="Work Location Flexibility" display="chip" optionLabel="employment_type" optionValue="id" [options]="workplaceTypes" [appendTo]="'body'" [showClear]="true" [virtualScroll]="true" [virtualScrollItemSize]="30" [filter]="true" filterBy="employment_type"> </p-select>
 																					<div *ngIf="info.get('employment_type')?.touched && info.get('employment_type')?.invalid" class="text-danger mt-1">Work Location Flexibility is required.</div>
-																				</div>
-																				<!-- Other Benefits -->
-																				<div class="mb-2">
+																				</div> -->
+														<!-- Other Benefits -->
+														<!-- <div class="mb-2">
 																					<p-multiSelect styleClass="w-100" placeholder="Perks" formControlName="perks" [options]="workbenefits" display="chip" optionLabel="benefit" optionValue="id" [appendTo]="'body'"></p-multiSelect>
 
 																					<div *ngIf="info.get('perks')?.touched && info.get('perks')?.invalid" class="text-danger mt-1">Other Benefits is required.</div>
-																				</div>
-																				<!-- Travel Opportunities -->
-																				<div class="mb-2">
+																				</div> -->
+														<!-- Travel Opportunities -->
+														<!-- <div class="mb-2">
 																					<p-multiSelect styleClass="w-100" placeholder="Oppurtunity" formControlName="travel_opportunities" [options]="traveloppurtunities" display="chip" optionLabel="oppurtunity" optionValue="id" [appendTo]="'body'"></p-multiSelect>
 
 																					<div *ngIf="info.get('travel_opportunities')?.touched && info.get('travel_opportunities')?.invalid" class="text-danger mt-1">Travel Opportunities is required.</div>
@@ -327,10 +342,10 @@
 																	</h6>
 																</div>
 															</ng-container>
-														</div>
+														</div> -->
 
 														<!-- Workplace Type & Other Benefits Row -->
-														<div class="row mb-4  align-items-center">
+														<div class="row mb-4 align-items-center">
 															<div class="col-md-2">
 																<div class="fw-bold text-start">
 																	<h5 class="fw-bold mb-0">Workplace & Benefits</h5>
@@ -353,7 +368,7 @@
 														</div>
 
 														<!-- Travel Opportunities Row -->
-														<div class="row  align-items-center">
+														<div class="row align-items-center">
 															<div class="col-md-2">
 																<div class="fw-bold text-start">
 																	<h5 class="fw-bold mb-0">Travel Opportunities</h5>

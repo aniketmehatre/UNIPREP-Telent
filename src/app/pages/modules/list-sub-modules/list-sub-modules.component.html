@@ -1,23 +1,13 @@
 <div class="card readingcard">
 	<div class="card-header border-0 bg-transparent">
 		<div class="row">
-
-			<!-- <div class="col-md-3 d-flex">
-                <span *ngIf="this.currentModuleId == 8 && this.canShowQuestionList">
-                    <p-button (click)="goBack()" icon="fa-solid fa-chevron-left"
-                        styleClass="p-button-rounded p-button-text text-dark"></p-button>
-                </span>
-            </div> -->
-
-			<!-- <div class="col-md-8 text-center">
-                <h5 class="select-title mb-3" tooltipPosition="top" pTooltip="Questions related to the application process are answered">{{ currentModuleName | uppercase }} <i class="questiontooltip fa-solid fa-circle-question"></i></h5>
-            </div> -->
-			<!-- after complete the work needs to uncomment the below code -->
 			<div class="col d-flex flex-md-row flex-column gap-2 justify-content-center text-center">
 				<div *ngIf="this.currentModuleId == 5 || 1 || 7 || 3 || 4 || 10">
-                    <span *ngIf="this.currentModuleId == 10">
-                    <div class="backIcon d-md-flex d-none" (click)="goBack()" role="button">
-							<span class="fa-solid fa-chevron-left" (click)="goBack()"></span>
+                    <span *ngIf="this.currentModuleId == 10 || this.currentModuleId == 1 ||
+                    this.currentModuleId == 7 || this.currentModuleId == 3 || this.currentModuleId == 4
+                    || this.currentModuleId == 5">
+                    <div class="backIcon d-md-flex d-none" (click)="goBackNew()" role="button">
+							<span class="fa-solid fa-chevron-left" (click)="goBackNew()"></span>
 						</div>
                     </span>
 					<span *ngIf="this.currentModuleId == 8 && this.canShowQuestionList">
@@ -26,13 +16,6 @@
 						</div>
 					</span>
 					<div class="p-input-icon-left search-container mt-2" *ngIf="currentModuleId != 8">
-						<!--					<i class="fa-solid fa-search alignment" *ngIf="currentModuleId != 5 && currentModuleId != 10"></i>-->
-						<!--					<i class="fa-solid fa-search noalignment" *ngIf="currentModuleId == 5 || currentModuleId == 10"></i>-->
-						<!-- <i class="fa-solid fa-search noalignment"  *ngIf="currentModuleId == 5 "></i> -->
-						<!--					<input *ngIf="currentModuleId == 5 || 1 || 7 || 3 || 4" class="w-100 px-5 py-2" type="text" placeholder="Search Files" pInputText [(ngModel)]="searchUniversity" (input)="performSearch()" />-->
-						<!--<input *ngIf="  currentModuleId ==  5   " class="w-100 px-5 py-2" type="text"
-								placeholder="Search Files" pInputText [(ngModel)]="searchUniversity"
-								(input)="performSearch()" /> -->
 						<div *ngIf="filteredData.length" class="dropdown-container">
 							<div *ngFor="let result of filteredData" role="button" class="dropdown-item" (click)="selectSearchResult(result)">
 								<h3>{{ result.title }}</h3>
@@ -53,38 +36,10 @@
 					</div>
 				</div>
 				<div class="flex-shrink-0 gap-2 justify-content-center align-items-center d-flex" *ngIf="currentModuleId != 8 && currentModuleId != 10 && currentModuleId != 11 && currentModuleId != 14 && currentModuleId != 7 && currentModuleId != 5">
-<!--					<div class="d-flex justify-content-start align-items-start">-->
-<!--						<div class="d-flex flex-column align-items-start">-->
-<!--							<div class="dropdown-container1">-->
-<!--								<span class="select-label">Country Selection</span>-->
-<!--								<p-select [options]="countryLists" [(ngModel)]="selectedCountryId" optionLabel="country" optionValue="id" (onChange)="selectCountry($event.value)" [filter]="true" filterBy="country" [showClear]="true" placeholder="Select a Country" class="w-full md:w-56">-->
-<!--									<ng-template #selectedItem let-selectedOption>-->
-<!--										<div class="flex items-center gap-2">-->
-<!--											<img [src]="selectedOption.flag" style="width: 18px" />-->
-<!--											<div>{{ selectedOption.country }}</div>-->
-<!--										</div>-->
-<!--									</ng-template>-->
-<!--									<ng-template let-country #item>-->
-<!--										<div class="flex items-center gap-2">-->
-<!--											<img [src]="country.flag" style="width: 18px" />-->
-<!--											<div>{{ country.country }}</div>-->
-<!--										</div>-->
-<!--									</ng-template>-->
-<!--								</p-select>-->
-<!--							</div>-->
-<!--						</div>-->
-<!--					</div>-->
-					<button pButton pButton role="button" (click)="startQuiz()" class="m-0 btn btn-primary btn-rounded" [disabled]="quizpercentage >= 90">
+					<button pButton pButton role="button" (click)="startQuiz()" class="m-0 btn btn-secondary p-3" [disabled]="quizpercentage >= 90">
 						<p class="mb-0">
-							<i class="fa-regular fa-lightbulb-on"></i> Start Quiz
-							<!-- <span class="mb-0">{{ quizpercentage | number:'1.0-0' }}%</span> -->
+							<i class="fa-regular fa-lightbulb-on" style="font-size: 0.9rem;"> </i>  Start Quiz
 						</p>
-
-						<!-- <div class="row">
-							<div style="cursor: pointer" class="col-12">
-								<span style="cursor: pointer" class="ellipse-button fw-regular container-fluid">{{ quizpercentage >= 90 ? "Completed" : "Start" }}</span>
-							</div>
-						</div> -->
 					</button>
 				</div>
 				<div class="flex-shrink-0 align-items-center d-flex position-relative"  *ngIf="currentModuleId == 8">
@@ -103,43 +58,7 @@
 						</div>
 					</div>
 				</div>
-				<!-- <div class="flex-shrink-0 align-items-center d-flex" *ngIf="currentModuleId == 8">
-					<div class="p-input-icon-left h-100 w-100 search-container border-primary rounded-3">
-						<i class="fa-solid fa-search"></i>
-						<input *ngIf="currentModuleId == 8" class="w-100 px-5 border-0 py-2 h-100 bg-transparent" type="text" placeholder="Look for you specialization" pInputText [(ngModel)]="searchLearning" (input)="performSearch()" />
-
-						<div *ngIf="filteredData.length" class="dropdown-container text-start">
-							<div *ngFor="let result of filteredData" class="dropdown-item">
-								<div (click)="takeMeToQuestion(result)" role="button">
-									<h3>{{ result.title }}</h3>
-									<p>{{ result.subtitle }}</p>
-								</div>
-							</div>
-						</div>
-					</div>
-				</div> -->
 			</div>
-
-			<!-- <div class="col-md-3 mt-0 text-start  justify-content-start d-none d-md-flex"
-                *ngIf="  currentModuleId ==  5 || 1 || 7 || 3 || 4  ">
-
-                <div class="p-input-icon-left w-100 mt-2 search-container" *ngIf=" currentModuleId != 8">
-                    <i class="fa-solid fa-search"></i>
-                    <input *ngIf="  currentModuleId ==  5 || 1 || 7 || 3 || 4  " class="w-100 px-5 py-2" type="text"
-                        placeholder="Search Files" pInputText [(ngModel)]="searchUniversity"
-                        (input)="performSearch()" />
-                    <div *ngIf="filteredData.length" class="dropdown-container">
-                        <div *ngFor="let result of filteredData" class="dropdown-item"
-                            (click)="selectSearchResult(result)">
-
-                            <h3>{{ result.title }}</h3>
-                            <p>{{ result.subtitle }}</p>
-
-                        </div>
-                    </div>
-                </div>
-
-            </div> -->
 		</div>
 	</div>
 	<div class="card-body text-center flex-fill overflow-y-auto">
@@ -161,11 +80,7 @@
 			</div>
 		</div>
 		<div class="row mb-0" *ngIf="!isSkeletonVisible">
-			<!-- <div class="row justify-content-center" *ngIf="currentModuleId == 14 && selectSubmoduleName == ''">
-				<div class="col-md-3 text-start  justify-content-start">
-					<p-select placeholder="Change Class" [style]="{ width: '350px' }" [ngModel]="selectedClassId" [options]="subModuleMainList" optionValue="id" optionLabel="category" [filter]="true" (onChange)="onStatusChange($event)"> </p-select>
-				</div>
-			</div> -->
+			
 			<div *ngFor="let sub of subModuleList" class="col-lg-2 col-md-3 col-sm-4 col-xs-12 col-12 mb-3">
 				<div class="row w-100 m-0 justify-content-center h-100">
 					<div (click)="onSubModuleClick(sub.submodule_id, sub)" class="card subjectcard position-relative" role="button">
@@ -186,10 +101,7 @@
 				</div>
 			</div>
 		</div>
-		<!-- feature enhancement -->
-		<!-- <div class="float-right mobile" (click)="startQuiz()">
-            <button pButton  class="btn warning pt-2" type="submit">Start Quiz</button>
-        </div> -->
+
 	</div>
 </div>
 <p-dialog class="quizmodal" header="Header" footer="Footer" [draggable]="false" [modal]="true" [(visible)]="isStartQuiz" [style]="{ width: '70vw' }" [closable]="false">
@@ -505,29 +417,6 @@
 		</div>
 	</ng-template>
 </p-dialog>
-<!-- <p-confirmDialog #cd [style]="{width: '25vw'}" class="me-2 px-2 py-2" [closable]="false">
-    <ng-template pTemplate="header">
-        <div class="container py-3">
-            <div class="row justify-content-center">
-                <h3 class="text-center">Quit</h3>
-            </div>
-        </div>
-    </ng-template>
-    <ng-template pTemplate="footer">
-        <div class="container py-3">
-            <div class="row justify-content-center">
-                <button pButton  (click)="cd.reject()" class="btn btn-primary btn-rounded me-2 px-2 py-2">
-                    <div class="d-flex align-items-center"><span class="fw-normal h6 mb-0 px-3 py-1">No</span>
-                    </div>
-                </button>
-                <button pButton  (click)="quitQuiz(cd)" class="btn btn-quit btn-rounded me-2 px-2 py-2">
-                    <div class="d-flex align-items-center"><span class="fw-normal h6 mb-0 px-3 py-1">Yes</span>
-                    </div>
-                </button>
-            </div>
-        </div>
-    </ng-template>
-</p-confirmDialog> -->
 <p-dialog [(visible)]="restrict" [modal]="true" [style]="{ width: '30vw' }" [draggable]="false" [resizable]="false" class="restrictionDialog" [breakpoints]="{ '960px': '30vw', '959px': '60vw', '425px': '90vw' }" (onHide)="clearRestriction()">
 	<div *ngIf="ehitlabelIsShow" class="text-center mt-5 mb-4">
 		<img src="../../../uniprep-assets/images/smartloack.png" class="image" width="60" />

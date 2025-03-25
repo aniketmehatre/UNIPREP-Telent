@@ -152,7 +152,7 @@
                                 <i class="fa-regular fa-download"></i></span>
                         </button>
                     </div>
-                    <div class="card p-3 poppins-content chatgpt-response" [innerHtml]="recommendationData"></div>
+                    <div class="card p-3 poppins-content chatgpt-response bg-white" [innerHtml]="recommendationData"></div>
                 </div>
                 <div class="col-md-2"></div>
             </div>
@@ -177,10 +177,10 @@
                             <div class="card-body text-start">
                                 <h5 class="fw-bold mb-0">EduLoan Repaymeny Advisor {{i+1}}</h5>
                                 <p class="text-small"><b>Loan Amount : </b>{{item.currency+' '}} {{item.loan_amount}}</p>
-                                <p class="text-small"><b>Interest Rate : </b>{{item.interest_rate}}</p>
-                                <p class="text-small"><b>Loan Tenure : </b>{{item.loan_tenure}}</p>
+                                <p class="text-small"><b>Interest Rate : </b>{{item.interest_rate}} %</p>
+                                <p class="text-small"><b>Loan Tenure : </b>{{item.loan_tenure}} month</p>
                                 <p class="text-small"><b>Moratorium Period : </b>{{item.moratorium_period}}</p>
-                                <p class="text-small"><b>Repayment Year : </b>{{item.repayment_year}}</p>
+                                <p class="text-small"><b>Repayment Year : </b>{{item.repayment_year}} year</p>
                             </div>
                         </div>
                     </div>

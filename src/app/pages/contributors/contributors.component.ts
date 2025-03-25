@@ -13,13 +13,14 @@ import { LocationData } from 'src/app/@Models/location.model';
 import { MessageService } from 'primeng/api';
 import { Meta } from '@angular/platform-browser';
 import { ActivatedRoute } from '@angular/router';
+import {Select} from "primeng/select";
 
 @Component({
   selector: 'uni-contributors',
   templateUrl: './contributors.component.html',
   styleUrls: ['./contributors.component.scss'],
   standalone: true,
-  imports: [CommonModule, RouterModule, DialogModule, CardModule, PaginatorModule, DropdownModule, ReactiveFormsModule],
+    imports: [CommonModule, RouterModule, DialogModule, CardModule, PaginatorModule, DropdownModule, ReactiveFormsModule, Select],
   providers: [MessageService]
 })
 export class ContributorsComponent implements OnInit {

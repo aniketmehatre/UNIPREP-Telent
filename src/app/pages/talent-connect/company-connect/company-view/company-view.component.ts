@@ -86,6 +86,7 @@ export class CompanyViewComponent implements OnInit {
   }
 
   onClickShortListCompany(id: any) {
+    console.log(id)
     this.talentConnectService.shortListCompany(id).subscribe({
       next: data => {
         this.getCompanyDetail(this.companyId)
