@@ -106,13 +106,13 @@ export class JobListComponent implements OnInit {
     this.filterForm = this.fb.group({
       keyword: [''],
       position: [''],
-      industry_type: [null],
-      work_location: [null],
+      industry: [null],
+      worklocation: [null],
       work_mode: [null],
       employment_type: [null],
       currency: ['INR'],
       salary: [''],
-      experience_level: [null],
+      experienceLevel: [null],
       status: ['']
     });
   }

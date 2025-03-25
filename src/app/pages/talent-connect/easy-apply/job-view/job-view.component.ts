@@ -21,7 +21,7 @@ export interface Job {
   available_vacancies: number;
   hiring_timeframe: string;
   created_at: string;
-  interview_format: string;
+  interview_format: string[];
   position: string;
   work_location: string;
   company_name: string;
@@ -82,7 +82,7 @@ export class JobViewComponent implements OnInit {
     available_vacancies: 3,
     hiring_timeframe: "2 months",
     created_at: "2025-03-10",
-    interview_format: "Virtual",
+    interview_format: ["Virtual"],
     position: "Software Developer",
     work_location: "Remote",
     company_name: "Tech Solutions Inc.", // Fixed typo from comapany_name
@@ -129,6 +129,8 @@ export class JobViewComponent implements OnInit {
           // Parse string arrays if they come as comma-separated strings
           this.jobDetails = {
             ...jobData,
+            interview_format: Array.isArray(jobData.interview_format) ?
+              jobData.interview_format : [jobData.interview_format],
             technical_proficiency: this.parseArrayData(jobData.technical_proficiency),
             key_responsibilities: this.parseArrayData(jobData.key_responsibilities),
             language_proficiency: this.parseLanguageProficiency(jobData.language_proficiency),

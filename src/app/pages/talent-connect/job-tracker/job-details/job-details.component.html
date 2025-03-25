@@ -340,7 +340,9 @@
                 <p class="mb-4">{{ jobDetails.hiring_timeframe }}</p>
 
                 <h6 class="mb-2">Interview Format</h6>
-                <p>{{ jobDetails.interview_format }}</p>
+                <span *ngFor="let stage of jobDetails.interview_format" class="badge bg-warning-sub text-dark fw-medium p-2 rounded">
+                  {{ stage }}
+                </span>
               </div>
             </div>
           </div>
