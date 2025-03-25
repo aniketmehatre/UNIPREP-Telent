@@ -23,7 +23,7 @@
 	--uniprep-secondaryhighlight: #f6895a;
 	--uniprep-tertiary: #ffffff;
 	--uniprep-lightgray: #b3b3b3;
-	--uniprep-gray: #F1F1F1;
+	--uniprep-gray: #f1f1f1;
 	--uniprep-darkgray: #636363;
 	--uniprep-lightgreen: #b7e044;
 	--uniprep-green: #9bc329;
@@ -107,6 +107,12 @@ input:-webkit-autofill:active {
 	font-weight: 400;
 }
 
+.emoji {
+	font-family: "Noto Color Emoji", sans-serif;
+	font-weight: 400;
+	font-style: normal;
+}
+
 html,
 body {
 	font-family: "Poppins", sans-serif;
@@ -144,7 +150,6 @@ body {
 .border-secondary {
 	border: 1px solid var(--uniprep-secondary) !important;
 }
-
 
 .bg-primary {
 	background: var(--uniprep-primary) !important;
@@ -1052,7 +1057,6 @@ uni-subscription {
 	}
 }
 
-
 .backIcon {
 	height: 100%;
 	width: 50px;
@@ -1161,7 +1165,6 @@ uni-subscription {
 	}
 }
 
-
 .modal {
 	background: #00000080;
 }
@@ -1201,7 +1204,6 @@ uni-subscription {
 
 .uniprepchat {
 	.p-dialog-mask {
-
 		// background: rgb(0 0 0 / 70%);
 		// pointer-events:auto;
 		.p-dialog {
@@ -1583,7 +1585,7 @@ uni-subscription {
 	border-right: none !important;
 }
 
-.subscriptiontable .p-datatable .p-datatable-thead>tr>th {
+.subscriptiontable .p-datatable .p-datatable-thead > tr > th {
 	border: 2px solid #f1f1f1;
 	border-width: 0 0 2px 0;
 	font-size: 20px;
@@ -1671,7 +1673,6 @@ p-dialog.restrictionDialog .p-dialog .p-dialog-header .p-dialog-header-icon {
 }
 
 @media (max-width: 1499.98px) {
-
 	html,
 	body {
 		font-size: 13px;
@@ -1683,7 +1684,6 @@ p-dialog.restrictionDialog .p-dialog .p-dialog-header .p-dialog-header-icon {
 }
 
 @media (max-width: 1399.98px) {
-
 	html,
 	body {
 		font-size: 12px;
@@ -1702,7 +1702,6 @@ p-dialog.restrictionDialog .p-dialog .p-dialog-header .p-dialog-header-icon {
 }
 
 @media (max-width: 1299.98px) {
-
 	html,
 	body {
 		font-size: 12px;
@@ -1721,7 +1720,6 @@ p-dialog.restrictionDialog .p-dialog .p-dialog-header .p-dialog-header-icon {
 }
 
 @media (max-width: 1199.98px) {
-
 	html,
 	body {
 		font-size: 12px;
@@ -1741,7 +1739,6 @@ p-dialog.restrictionDialog .p-dialog .p-dialog-header .p-dialog-header-icon {
 }
 
 @media (max-width: 991.98px) {
-
 	html,
 	body {
 		font-size: 12px;
@@ -1780,7 +1777,6 @@ p-dialog.restrictionDialog .p-dialog .p-dialog-header .p-dialog-header-icon {
 }
 
 @media (max-width: 767.98px) {
-
 	html,
 	body {
 		font-size: 12px;
@@ -1844,7 +1840,7 @@ p-dialog.restrictionDialog .p-dialog .p-dialog-header .p-dialog-header-icon {
 		padding: 0px !important;
 	}
 
-	.subscriptiontable .p-datatable .p-datatable-thead>tr>th {
+	.subscriptiontable .p-datatable .p-datatable-thead > tr > th {
 		font-size: 14px !important;
 		white-space: nowrap;
 		font-weight: 500;
@@ -1947,7 +1943,6 @@ p-dialog.restrictionDialog .p-dialog .p-dialog-header .p-dialog-header-icon {
 }
 
 @media screen and (max-width: 480px) {
-
 	html,
 	body {
 		font-size: 12px;
@@ -2018,7 +2013,7 @@ p-dialog.restrictionDialog .p-dialog .p-dialog-header .p-dialog-header-icon {
 	}
 }
 
-@media (max-width:450px) {
+@media (max-width: 450px) {
 	.pdf-container {
 		border: 1px solid #e0e0e0;
 		border-radius: 5px;
@@ -2036,7 +2031,7 @@ p-dialog.restrictionDialog .p-dialog .p-dialog-header .p-dialog-header-icon {
 	}
 }
 
-@media (min-width:451px) {
+@media (min-width: 451px) {
 	.pdf-container {
 		border: 1px solid #e0e0e0;
 		height: 85% !important;
@@ -2046,7 +2041,6 @@ p-dialog.restrictionDialog .p-dialog .p-dialog-header .p-dialog-header-icon {
 		justify-content: center;
 		padding: 10px 0px;
 		border-radius: 5px;
-
 
 		.pdf-viewer {
 			width: 98% !important;
@@ -2059,7 +2053,7 @@ p-dialog.restrictionDialog .p-dialog .p-dialog-header .p-dialog-header-icon {
 	}
 }
 
-.p-input-icon-left>.p-inputtext {
+.p-input-icon-left > .p-inputtext {
 	padding-left: 2rem;
 }
 
@@ -2100,7 +2094,7 @@ p-dialog.restrictionDialog .p-dialog .p-dialog-header .p-dialog-header-icon {
 	.p-tabview .p-tabview-nav li.p-highlight .p-tabview-nav-link {
 		color: white;
 		background-color: #3f4c83;
-		height: 20px
+		height: 20px;
 	}
 
 	.p-tabview .p-tabview-nav li .p-tabview-nav-link:not(.p-disabled):focus {
@@ -2152,7 +2146,6 @@ uni-talent-connect {
 		display: flex;
 		flex-direction: column;
 	}
-
 }
 
 .assessment-sts-sec {
@@ -2177,19 +2170,19 @@ uni-talent-connect {
 }
 
 .ilearn-challenge-table .p-datatable {
-	.p-datatable-thead>tr>th {
+	.p-datatable-thead > tr > th {
 		background: var(--uniprep-primary);
 		color: white;
 		border: 1px solid var(--uniprep-primarydark);
 	}
 
-	.p-datatable-tbody>tr>td {
+	.p-datatable-tbody > tr > td {
 		border-width: 1px;
 		font-size: 13px;
 		font-weight: 500;
 	}
 
-	&>.p-datatable-wrapper {
+	& > .p-datatable-wrapper {
 		height: 400px;
 	}
 }
@@ -2297,7 +2290,6 @@ uni-talent-connect {
 	padding: 0.5rem 1.25rem;
 }
 
-
 uni-career-hacks {
 	display: flex;
 	flex: 1;
@@ -2311,7 +2303,6 @@ uni-career-hacks {
 		display: flex;
 		flex-direction: column;
 	}
-
 }
 
 uni-talent-connect {
@@ -2342,7 +2333,6 @@ uni-salary-hacks {
 		display: flex;
 		flex-direction: column;
 	}
-
 }
 
 uni-job-seeker-success-stories {
@@ -2358,7 +2348,6 @@ uni-job-seeker-success-stories {
 		display: flex;
 		flex-direction: column;
 	}
-
 }
 
 .dropdownimg {
@@ -2390,7 +2379,6 @@ uni-fortune-companies {
 		display: flex;
 		flex-direction: column;
 	}
-
 }
 
 .fortunequestionmodal {
@@ -2402,11 +2390,9 @@ uni-fortune-companies {
 }
 
 .questionmodal.contributor-modal {
-
 	.p-dialog {
 		width: 60%;
 	}
-
 }
 
 .poppins-content {
