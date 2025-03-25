@@ -10,7 +10,7 @@ import { AuthService } from "src/app/Auth/auth.service"
 import { NgxUiLoaderService } from "ngx-ui-loader"
 import { PageFacadeService } from "../../page-facade.service"
 import { Meta, Title } from "@angular/platform-browser"
-import { CommonModule } from "@angular/common"
+import { CommonModule, Location } from "@angular/common"
 import { DialogModule } from "primeng/dialog"
 import { CarouselModule } from "primeng/carousel"
 import { TooltipModule } from "primeng/tooltip"
@@ -92,7 +92,11 @@ export class ListSubModulesComponent implements OnInit {
 	selectedCountryId: any = 4
 	selectedCountryName: any
 
-	constructor(private moduleListService: ModuleServiceService, private router: Router, private dataService: DataService, public authService: AuthService, private locationService: LocationService, private route: ActivatedRoute, private ngxService: NgxUiLoaderService, private confirmationService: ConfirmationService, private pageFacade: PageFacadeService, private meta: Meta, private cdRef: ChangeDetectorRef, private titleService: Title, private storage: StorageService) {
+	constructor(private moduleListService: ModuleServiceService, private router: Router, private dataService: DataService,
+		 public authService: AuthService, private locationService: LocationService, private route: ActivatedRoute,
+		  private ngxService: NgxUiLoaderService, private confirmationService: ConfirmationService,
+		   private pageFacade: PageFacadeService, private meta: Meta, private cdRef: ChangeDetectorRef,
+		    private titleService: Title, private storage: StorageService, private location: Location,) {
 		this.countryId = Number(this.storage.get("countryId"))
 
 		this.dataService.countryIdSource.subscribe((data) => {
@@ -622,6 +626,10 @@ export class ListSubModulesComponent implements OnInit {
 		this.isSkeletonVisible = true
 		this.loadModuleAndSubModule()
 		this.canShowQuestionList = false
+	}
+
+	goBackNew(){
+		this.router.navigateByUrl('pages/global-repo')
 	}
 
 	clearRestriction() {
