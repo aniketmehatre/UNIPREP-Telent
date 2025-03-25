@@ -23,6 +23,7 @@ import { FounderstoolService } from '../../founderstool/founderstool.service';
 import { PageFacadeService } from '../../page-facade.service';
 import { Location } from '@angular/common';
 import { PaginatorModule } from 'primeng/paginator';
+import { SkeletonModule } from 'primeng/skeleton';
 
 export interface Politician {
   name: string;
@@ -38,7 +39,7 @@ export interface Politician {
     templateUrl: './politician-insights.component.html',
     styleUrls: ['./politician-insights.component.scss'],
     standalone: true,
-  imports: [PaginatorModule, FormsModule, ReactiveFormsModule, CarouselModule, ButtonModule, CommonModule, RouterModule, DialogModule, MultiSelectModule, SelectModule, CardModule, InputGroupModule, InputTextModule, InputGroupAddonModule]
+  imports: [PaginatorModule, SkeletonModule, FormsModule, ReactiveFormsModule, CarouselModule, ButtonModule, CommonModule, RouterModule, DialogModule, MultiSelectModule, SelectModule, CardModule, InputGroupModule, InputTextModule, InputGroupAddonModule]
 })
 export class PoliticianInsightsComponent implements OnInit, OnDestroy {
   countrylist: any[] = [];
