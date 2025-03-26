@@ -1,5 +1,5 @@
 import { ChangeDetectorRef, Component, OnInit } from "@angular/core"
-import { ActivatedRoute, NavigationEnd, Router } from "@angular/router"
+import { ActivatedRoute, NavigationEnd, Router, RouterModule } from "@angular/router"
 import { filter, Observable } from "rxjs"
 import { ModuleListSub } from "../../../@Models/module.model"
 import { ConfirmationService, MenuItem } from "primeng/api"
@@ -31,7 +31,7 @@ import {Breadcrumb} from "primeng/breadcrumb";
 	styleUrls: ["./list-sub-modules.component.scss"],
 	providers: [ConfirmationService],
 	standalone: true,
-	imports: [CommonModule, DialogModule, FormsModule, ReactiveFormsModule, InputTextModule,
+	imports: [CommonModule,RouterModule, DialogModule, FormsModule, ReactiveFormsModule, InputTextModule,
 		CarouselModule, TooltipModule, SkeletonModule, ButtonModule, MultiSelectModule, InputGroupModule,
 		InputGroupAddonModule, SelectModule, ProgressBar, Breadcrumb],
 })

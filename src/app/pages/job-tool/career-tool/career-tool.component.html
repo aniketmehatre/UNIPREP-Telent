@@ -1,24 +1,23 @@
-<div class="row" style="overflow-y: auto; max-height: 100%;">
-    <div class="col-lg-2 col-md-4 col-12 mt-3" *ngFor="let modules of modulesList">
-        <div [class.disabled]="modules.launch_soon" (click)="chooseOneOption(modules.mode, modules.launch_soon)"
-             class="card resourcecard text-black h-100">
-            <div class="card-body text-center d-flex flex-column">
-                <uni-launch-soon-tag *ngIf="modules.launch_soon" message="Launching soon"></uni-launch-soon-tag>
+<div class="row" style="overflow-y: auto; max-height: 100%">
+	<div class="col-lg-2 col-md-4 col-12 mt-3" *ngFor="let modules of modulesList">
+		<div [class.disabled]="modules.launch_soon" (click)="chooseOneOption(modules.mode, modules.launch_soon)" class="card resourcecard text-black h-100">
+			<div class="card-body text-center d-flex flex-column">
+				<uni-launch-soon-tag *ngIf="modules.launch_soon" message="Launching soon"></uni-launch-soon-tag>
 
-                <!-- Image at the top center -->
-                <div class="resourceimg mx-auto mb-3">
-                    <img [src]="modules?.imageLink" alt="" />
-                </div>
-                <!-- Content below the image -->
-                <div class="d-flex flex-column gap-2 justify-content-between flex-grow-1">
-                    <div>
-                        <h5>{{ modules.moduleName }}</h5>
-                        <p style="overflow-wrap: anywhere" class="small mb-0">
-                            {{ modules.Description }}
-                        </p>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
+				<!-- Image at the top center -->
+				<div class="resourceimg mx-auto mb-3">
+					<img [src]="modules?.imageLink" alt="" />
+				</div>
+				<!-- Content below the image -->
+				<div class="d-flex flex-column gap-2 justify-content-between flex-grow-1">
+					<div>
+						<h5>{{ modules.moduleName }}</h5>
+						<p style="overflow-wrap: anywhere" class="small mb-0">
+							{{ modules.Description }}
+						</p>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
 </div>

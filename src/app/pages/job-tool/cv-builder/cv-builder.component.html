@@ -1,4 +1,4 @@
-<div class="container-fluid h-100 d-flex flex-column justify-content-center" >
+<div class="container-fluid h-100 d-flex flex-column justify-content-center">
 	<div class="row justify-content-center" *ngIf="activePageIndex == 4 || activePageIndex == 0">
 		<div class="flex-column">
 			<div>
@@ -9,15 +9,15 @@
 						<div>
 							<!-- Replace PDF viewer with image -->
 							<div class="pdf-preview" *ngIf="resumes?.pdf_name">
-								<img *ngIf="pdfThumbnails[resumes.pdf_name]" [src]="pdfThumbnails[resumes.pdf_name]" alt="PDF Preview" class="pdf-thumbnail"/>
+								<img *ngIf="pdfThumbnails[resumes.pdf_name]" [src]="pdfThumbnails[resumes.pdf_name]" alt="PDF Preview" class="pdf-thumbnail" />
 								<div *ngIf="!pdfThumbnails[resumes.pdf_name]" class="loading-placeholder">Loading preview...</div>
-                <div class="position-absolute resume-option">
-                  <span role="button" class="HistoryDeleteIcon" (click)="confirm($event, resumes.pdf_name, resumes.id)"><i class="fa-solid fa-trash" ></i></span>
-                  <p-confirmPopup></p-confirmPopup>
-                  <span role="button" class="HistoryDownloadIcon" (click)="downloadOldResume(resumes.pdf_name)">
-                    <i class="fa-solid fa-download" ></i>
-                  </span>
-                </div>
+								<div class="position-absolute resume-option">
+									<span role="button" class="HistoryDeleteIcon" (click)="confirm($event, resumes.pdf_name, resumes.id)"><i class="fa-solid fa-trash"></i></span>
+									<p-confirmPopup></p-confirmPopup>
+									<span role="button" class="HistoryDownloadIcon" (click)="downloadOldResume(resumes.pdf_name)">
+										<i class="fa-solid fa-download"></i>
+									</span>
+								</div>
 							</div>
 							<div *ngIf="pdfLoadError" class="alert alert-danger mt-3">
 								<p>Error loading PDF. Please try downloading the file instead.</p>

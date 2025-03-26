@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, OnInit, Output } from "@angular/core";
+import { Component, CUSTOM_ELEMENTS_SCHEMA, EventEmitter, Input, OnInit, Output } from "@angular/core";
 import { Location } from "@angular/common";
 import { MenuItem, MessageService } from "primeng/api";
 import { ActivatedRoute, Router } from "@angular/router";
