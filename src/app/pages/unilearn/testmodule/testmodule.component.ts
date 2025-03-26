@@ -46,7 +46,7 @@ export class TestModulesComponent implements OnInit {
 	}
 
 	getFormattedValues(): string {
-		return this.arrayHeaderService.getItems().join(" -> ")
+		return this.arrayHeaderService.getItems().join(" > ")
 	}
 	avgtotalQuestions = 0
 	avgtotalAnswers = 0
