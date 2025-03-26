@@ -2,7 +2,7 @@ import { Component, OnInit, OnDestroy, ViewChild, AfterViewInit } from "@angular
 import { PitchDeskService } from "./pitch-desk.service"
 import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule } from "@angular/forms"
 import { AuthService } from "src/app/Auth/auth.service"
-import { Router } from "@angular/router"
+import { Router, RouterModule } from "@angular/router"
 import { MessageService } from "primeng/api"
 import { DataService } from "src/app/data.service"
 import { PageFacadeService } from "../page-facade.service"
@@ -20,8 +20,8 @@ import { CarouselModule } from "primeng/carousel"
 import { InputGroupModule } from "primeng/inputgroup"
 import { InputGroupAddonModule } from "primeng/inputgroupaddon"
 import { PaginatorModule } from "primeng/paginator"
-import {PdfViewerModule} from "ng2-pdf-viewer";
-import {DomSanitizer} from "@angular/platform-browser";
+import { PdfViewerModule } from "ng2-pdf-viewer"
+import { DomSanitizer } from "@angular/platform-browser"
 // import {PdfJsViewerModule} from "ng2-pdfjs-viewer";
 
 @Component({
@@ -29,25 +29,10 @@ import {DomSanitizer} from "@angular/platform-browser";
 	templateUrl: "./pitch-desk.component.html",
 	styleUrls: ["./pitch-desk.component.scss"],
 	standalone: true,
-    imports: [
-        CommonModule,
-        InputGroupModule,
-        InputGroupAddonModule,
-        DialogModule,
-        InputTextModule,
-        SkeletonModule,
-        TooltipModule,
-        ButtonModule,
-        MultiSelectModule,
-        CarouselModule,
-        FormsModule,
-        ReactiveFormsModule,
-        PaginatorModule,
-        PdfViewerModule,
-    ],
+	imports: [CommonModule, InputGroupModule, InputGroupAddonModule, DialogModule, RouterModule, InputTextModule, SkeletonModule, TooltipModule, ButtonModule, MultiSelectModule, CarouselModule, FormsModule, ReactiveFormsModule, PaginatorModule, PdfViewerModule],
 })
 export class PitchDeskComponent implements OnInit, OnDestroy, AfterViewInit {
-	@ViewChild('pdfViewer') pdfViewer: any;
+	@ViewChild("pdfViewer") pdfViewer: any
 	pitchDeskList: any[] = []
 	page = 1
 	pageSize = 50
@@ -75,15 +60,12 @@ export class PitchDeskComponent implements OnInit, OnDestroy, AfterViewInit {
 	orgnamewhitlabel: any
 	orglogowhitelabel: any
 	pdname: any
-	private allPitchDeskData: any[] = [];
+	private allPitchDeskData: any[] = []
 	pdfURL: any
 	isPdfDownloadOption: any
-	pdfLoadError: boolean = false;
+	pdfLoadError: boolean = false
 
-	constructor(private pitchDesk: PitchDeskService, private userManagementService: UserManagementService,
-				private fb: FormBuilder, private router: Router, private authService: AuthService,
-				private toast: MessageService, private dataService: DataService,
-				private pageFacade: PageFacadeService, private locationService: LocationService) {
+	constructor(private pitchDesk: PitchDeskService, private userManagementService: UserManagementService, private fb: FormBuilder, private router: Router, private authService: AuthService, private toast: MessageService, private dataService: DataService, private pageFacade: PageFacadeService, private locationService: LocationService) {
 		this.filterForm = this.fb.group({
 			pitchdeck_name: [""],
 			country: [""],
@@ -112,15 +94,15 @@ export class PitchDeskComponent implements OnInit, OnDestroy, AfterViewInit {
 
 	ngOnDestroy(): void {
 		// Clean up blob URL if it exists
-		if (this.pdfURL && this.pdfURL.startsWith('blob:')) {
-			URL.revokeObjectURL(this.pdfURL);
+		if (this.pdfURL && this.pdfURL.startsWith("blob:")) {
+			URL.revokeObjectURL(this.pdfURL)
 		}
 	}
 
 	ngAfterViewInit() {
 		if (this.pdfViewer && this.pdfURL) {
-			this.pdfViewer.pdfSrc = this.pdfURL;
-			this.pdfViewer.refresh();
+			this.pdfViewer.pdfSrc = this.pdfURL
+			this.pdfViewer.refresh()
 		}
 	}
 
@@ -177,19 +159,19 @@ export class PitchDeskComponent implements OnInit, OnDestroy, AfterViewInit {
 			} else this.totalPitchDeckCount = responce.total_count
 
 			// Store the complete data for client-side filtering
-			this.allPitchDeskData = responce.data;
-			
+			this.allPitchDeskData = responce.data
+
 			this.pitchDeskList = responce.data.map((item: any) => ({
 				...item,
-				isChecked: this.selectAllCheckboxes ? 1 : 0
-			}));
-			this.selectedCheckboxCount = this.selectAllCheckboxes ? this.pitchDeskList.length : 0;
+				isChecked: this.selectAllCheckboxes ? 1 : 0,
+			}))
+			this.selectedCheckboxCount = this.selectAllCheckboxes ? this.pitchDeskList.length : 0
 			this.exportCreditCount = responce.credit_count ? responce.credit_count : 0
 			this.favCount = responce.fav_count
 
 			// If there's a search term, filter the results
 			if (this.valueNearYouFilter) {
-				this.performSearch();
+				this.performSearch()
 			}
 		})
 		this.isFilterVisible = "none"
@@ -229,30 +211,27 @@ export class PitchDeskComponent implements OnInit, OnDestroy, AfterViewInit {
 	}
 
 	performSearch() {
-		const searchValue = this.valueNearYouFilter.trim().toLowerCase();
-		
+		const searchValue = this.valueNearYouFilter.trim().toLowerCase()
+
 		if (!searchValue) {
 			// If search is empty, show all data from our stored complete list
-			this.pitchDeskList = this.allPitchDeskData.map(item => ({
+			this.pitchDeskList = this.allPitchDeskData.map((item) => ({
 				...item,
-				isChecked: this.selectAllCheckboxes ? 1 : 0
-			}));
-			return;
+				isChecked: this.selectAllCheckboxes ? 1 : 0,
+			}))
+			return
 		}
 
 		// Filter the stored data client-side
-		this.pitchDeskList = this.allPitchDeskData.filter(item => 
-			item.pitchdeck_name.toLowerCase().includes(searchValue) ||
-			item.funding_type_name?.toLowerCase().includes(searchValue) ||
-			item.sector_name?.toLowerCase().includes(searchValue) ||
-			item.country_name?.toLowerCase().includes(searchValue)
-		).map(item => ({
-			...item,
-			isChecked: this.selectAllCheckboxes ? 1 : 0
-		}));
+		this.pitchDeskList = this.allPitchDeskData
+			.filter((item) => item.pitchdeck_name.toLowerCase().includes(searchValue) || item.funding_type_name?.toLowerCase().includes(searchValue) || item.sector_name?.toLowerCase().includes(searchValue) || item.country_name?.toLowerCase().includes(searchValue))
+			.map((item) => ({
+				...item,
+				isChecked: this.selectAllCheckboxes ? 1 : 0,
+			}))
 
 		// Update the total count for pagination
-		this.totalPitchDeckCount = this.pitchDeskList.length;
+		this.totalPitchDeckCount = this.pitchDeskList.length
 	}
 
 	closeGuidelines() {
@@ -265,14 +244,14 @@ export class PitchDeskComponent implements OnInit, OnDestroy, AfterViewInit {
 		// 	return;
 		// }
 		//
-		this.pdfLoadError = false;
-		this.isPdfLoaded = true;
-		this.pdname = pdname;
-		
+		this.pdfLoadError = false
+		this.isPdfLoaded = true
+		this.pdname = pdname
+
 		if (!this.planExpired && this.exportCreditCount != 0) {
-			this.isPdfDownloadOption = true;
+			this.isPdfDownloadOption = true
 		} else {
-			this.isPdfDownloadOption = false;
+			this.isPdfDownloadOption = false
 		}
 
 		// Get the PDF file as a blob
@@ -280,28 +259,28 @@ export class PitchDeskComponent implements OnInit, OnDestroy, AfterViewInit {
 			(pdfBlob: Blob) => {
 				try {
 					// Create a blob URL from the PDF blob
-					this.pdfURL = URL.createObjectURL(pdfBlob);
+					this.pdfURL = URL.createObjectURL(pdfBlob)
 					setTimeout(() => {
 						if (this.pdfViewer) {
-							this.pdfViewer.pdfSrc = this.pdfURL;
-							this.pdfViewer.refresh();
+							this.pdfViewer.pdfSrc = this.pdfURL
+							this.pdfViewer.refresh()
 						}
-					}, 100);
+					}, 100)
 				} catch (error) {
-					console.error('Error creating blob URL:', error);
-					this.pdfLoadError = true;
+					console.error("Error creating blob URL:", error)
+					this.pdfLoadError = true
 				}
 			},
 			(error) => {
-				console.error('Error fetching PDF:', error);
-				this.pdfLoadError = true;
+				console.error("Error fetching PDF:", error)
+				this.pdfLoadError = true
 			}
-		);
+		)
 	}
 
 	onError(error: any) {
-		console.error('PDF loading error:', error);
-		this.pdfLoadError = true;
+		console.error("PDF loading error:", error)
+		this.pdfLoadError = true
 	}
 
 	download(): void {
@@ -380,42 +359,41 @@ export class PitchDeskComponent implements OnInit, OnDestroy, AfterViewInit {
 
 	onCheckboxChange(event: any, item: any) {
 		if (this.planExpired) {
-			this.restrict = true;
-			return;
+			this.restrict = true
+			return
 		}
-		
-		const isChecked = event.target.checked;
-		item.isChecked = isChecked ? 1 : 0;
-		
+
+		const isChecked = event.target.checked
+		item.isChecked = isChecked ? 1 : 0
+
 		// Update selected count and check if all items are selected
-		this.selectedCheckboxCount = this.pitchDeskList.filter(item => item.isChecked === 1).length;
-		this.selectAllCheckboxes = this.pitchDeskList.length > 0 && 
-			this.pitchDeskList.every(item => item.isChecked === 1);
-		
+		this.selectedCheckboxCount = this.pitchDeskList.filter((item) => item.isChecked === 1).length
+		this.selectAllCheckboxes = this.pitchDeskList.length > 0 && this.pitchDeskList.every((item) => item.isChecked === 1)
+
 		// Update export data IDs
 		if (isChecked) {
 			if (!this.exportDataIds.includes(item.id)) {
-				this.exportDataIds.push(item.id);
+				this.exportDataIds.push(item.id)
 			}
 		} else {
-			this.exportDataIds = this.exportDataIds.filter((id: number) => id !== item.id);
+			this.exportDataIds = this.exportDataIds.filter((id: number) => id !== item.id)
 		}
 	}
 
 	selectAllCheckbox() {
 		if (this.planExpired) {
-			this.restrict = true;
-			return;
+			this.restrict = true
+			return
 		}
-		
+
 		// Update all items in the list immediately
-		this.pitchDeskList.forEach(item => {
-			item.isChecked = this.selectAllCheckboxes ? 1 : 0;
-		});
-		
+		this.pitchDeskList.forEach((item) => {
+			item.isChecked = this.selectAllCheckboxes ? 1 : 0
+		})
+
 		// Update counts and IDs
-		this.selectedCheckboxCount = this.selectAllCheckboxes ? this.pitchDeskList.length : 0;
-		this.exportDataIds = this.selectAllCheckboxes ? this.pitchDeskList.map(item => item.id) : [];
+		this.selectedCheckboxCount = this.selectAllCheckboxes ? this.pitchDeskList.length : 0
+		this.exportDataIds = this.selectAllCheckboxes ? this.pitchDeskList.map((item) => item.id) : []
 	}
 
 	exportData() {

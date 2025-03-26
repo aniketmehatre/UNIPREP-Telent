@@ -2,17 +2,17 @@
 	<div class="card-header border-0 bg-transparent">
 		<div class="row justify-content-center">
 			<div class="col-md-12 d-flex gap-2 text-center">
-				<div class="backIcon" role="button" *ngIf="!isQuestionNotAsked" (click)="isQuestionAsked = false; isQuestionNotAsked = true;">
+				<div class="backIcon" role="button" *ngIf="!isQuestionNotAsked" (click)="isQuestionAsked = false; isQuestionNotAsked = true">
 					<span class="fa-solid fa-chevron-left"></span>
 				</div>
 				<div class="select-title d-flex justify-content-between align-items-center">
-					<div>
-						<h5 class="w-100 mb-0" tooltipPosition="top"
-							pTooltip="Access resources for starting your business, from ideation to execution.">AI Global Advisor<i class="questiontooltip fa-solid fa-circle-question"></i></h5>
+					<div class="d-flex gap-2">
+						<h5 routerLink="/pages/dashboard" role="button" class="mb-0" tooltipPosition="top" pTooltip=""><i class="fa-regular fa-home"></i></h5>
+						<span><i class="fa-solid fa-chevron-right"></i></span>
+						<h5 role="button" class="mb-0" tooltipPosition="top" >AI Global Advisor</h5>
 					</div>
 					<div>
-						<button pButton  class="how-it-works-button" severity="warn"  (click)="openVideoPopup('https://www.youtube.com/embed/dcojCJtwck0?si=Dq6ONzGdpyzGwnhp')">How
-							it works?<i class="fa-solid fa-play d-md-block d-none"></i></button>
+						<button pButton class="how-it-works-button" severity="warn" (click)="openVideoPopup('https://www.youtube.com/embed/dcojCJtwck0?si=Dq6ONzGdpyzGwnhp')">How it works?<i class="fa-solid fa-play d-md-block d-none"></i></button>
 					</div>
 				</div>
 			</div>
@@ -29,22 +29,19 @@
 						<img style="width: 100px" src="../../../uniprep-assets/images/icon-light.svg" />
 					</div>
 					<!-- <img style="width:150px" src="../../../uniprep-assets/images/icon-light.svg"> -->
-					<p-carousel [value]="questions" [responsiveOptions]="responsiveOptions" [numVisible]="5"
-						[numScroll]="1" [circular]="true" [showIndicators]="false"  [showNavigators]="true"> 
+					<p-carousel [value]="questions" [responsiveOptions]="responsiveOptions" [numVisible]="5" [numScroll]="1" [circular]="true" [showIndicators]="false" [showNavigators]="true">
 						<ng-template let-question pTemplate="item">
 							<div class="card h-100 mx-2 mb-1" style="border: 1px solid var(--uniprep-secondary)">
 								<div class="card-body">
-									<p class="mb-2"><i class="fa-regular fa-xl {{question.icons}}"></i></p>
-									<h6 style="cursor: pointer" (click)="triggerSample(question.question)">{{
-										question.question }}</h6>
+									<p class="mb-2"><i class="fa-regular fa-xl {{ question.icons }}"></i></p>
+									<h6 style="cursor: pointer" (click)="triggerSample(question.question)">{{ question.question }}</h6>
 								</div>
 							</div>
 						</ng-template>
 					</p-carousel>
 				</div>
 				<div class="d-flex justify-content-center">
-					<button pButton  class="btn btn-primary btn-rounded px-5 mt-4" (click)="getChatHistory()">Chat
-						History</button>
+					<button pButton class="btn btn-primary btn-rounded px-5 mt-4" (click)="getChatHistory()">Chat History</button>
 				</div>
 			</div>
 		</div>
@@ -142,7 +139,7 @@
 					<hr />
 				</div>
 				<div class="advisor-answer" *ngIf="chat.input == 2 || chat.input == 4">
-					<div class="d-flex flex-column" >
+					<div class="d-flex flex-column">
 						<div class="d-flex align-items-center mb-3" *ngIf="chat.input == 4">
 							<p class="UserFirstLetter">{{ chat.name.slice(0, 2) }}</p>
 							<div class="d-flex flex-column">
@@ -153,7 +150,7 @@
 						<div class="d-flex align-items-center mb-4" *ngIf="chat.input == 2">
 							<img style="width: 50px" src="../../../uniprep-assets/images/icon-light.svg" />
 							<div class="d-flex flex-column">
-								<p *ngIf="chat.input == 2">UNIPREP AI Advisor</p> 
+								<p *ngIf="chat.input == 2">UNIPREP AI Advisor</p>
 								<p>{{ chat.created }}</p>
 							</div>
 						</div>
@@ -165,7 +162,7 @@
 									</div>
 								</ul>
 							</div> -->
-							<div style="font-size:1.1rem" [innerHTML]="chat.formatedMsg"></div>
+							<div style="font-size: 1.1rem" [innerHTML]="chat.formatedMsg"></div>
 						</div>
 					</div>
 					<hr />
@@ -191,7 +188,7 @@
 		<div class="row justify-content-center mt-5">
 			<div class="col-md-4 d-flex align-items-center flex-column">
 				<p class="text-danger mb-2">Not happy with the answer ?</p>
-				<button pButton  class="btn btn-primary btn-rounded px-5" (click)="askExpert()">{{ this.requestButton }}</button>
+				<button pButton class="btn btn-primary btn-rounded px-5" (click)="askExpert()">{{ this.requestButton }}</button>
 			</div>
 		</div>
 	</div>
@@ -199,26 +196,20 @@
 		<div class="row justify-content-center">
 			<div class="col-md-12">
 				<p-inputgroup class="advisorinput">
-					<input type="text" [(ngModel)]="userQuestion" (keyup)="lengthCheck()" pInputText (keydown.enter)="getAns()" 
-						placeholder="Ask any questions you have about traveling abroad, studying abroad, career or entrepreneurship!" />
-					<button pButton  type="button" (click)="getAns()" class="btn btn-success btn-rounded"
-						[disabled]="smallquestion"><i class="fa-solid fa-stars"></i> {{responseType}}</button>
+					<input type="text" [(ngModel)]="userQuestion" (keyup)="lengthCheck()" pInputText (keydown.enter)="getAns()" placeholder="Ask any questions you have about traveling abroad, studying abroad, career or entrepreneurship!" />
+					<button pButton type="button" (click)="getAns()" class="btn btn-success btn-rounded" [disabled]="smallquestion"><i class="fa-solid fa-stars"></i> {{ responseType }}</button>
 				</p-inputgroup>
 				<!-- <small class="fw-semibold"	*ngIf="isQuestionEmpty" style="color:red">Please enter the question</small> -->
 			</div>
 		</div>
 	</div>
 </div>
-<p-dialog [(visible)]="restrict" [style]="{ width: '30vw' }" [draggable]="false" [resizable]="false"
-	class="restrictionDialog" [breakpoints]="{ '960px': '30vw', '959px': '60vw', '425px': '90vw' }"
-	(onHide)="clearRestriction()">
+<p-dialog [(visible)]="restrict" [style]="{ width: '30vw' }" [draggable]="false" [resizable]="false" class="restrictionDialog" [breakpoints]="{ '960px': '30vw', '959px': '60vw', '425px': '90vw' }" (onHide)="clearRestriction()">
 	<div *ngIf="ehitlabelIsShow" class="text-center mt-5 mb-4">
 		<img src="../../../uniprep-assets/images/smartloack.png" class="image" width="60" />
 		<h3 class="offer">Upgrade Required</h3>
 		<p>To access this exclusive module,please upgrade your plan now</p>
-		<button pButton  pButton type="button"
-			class="text-white p-ripple p-button-rounded p-button-warning p-button p-component p-2"
-			(click)="upgradePlan()">Upgrade Plan<i class="fa fa-arrow-right exhausted-plan-icon"></i></button>
+		<button pButton pButton type="button" class="text-white p-ripple p-button-rounded p-button-warning p-button p-component p-2" (click)="upgradePlan()">Upgrade Plan<i class="fa fa-arrow-right exhausted-plan-icon"></i></button>
 	</div>
 	<div *ngIf="!ehitlabelIsShow" class="text-center mt-5 mb-4">
 		<img src="../../../uniprep-assets/images/smartloack.png" class="image" width="60" />
