@@ -195,7 +195,7 @@ export class EmployeeProfileComponent implements OnInit {
       // Networking
       networking_linkedin_profile: ['', Validators.required],
       networking_social_media: this.fb.array([this.createSocialMediaGroup()]),
-      networking_personal_website: [null],
+      networking_personal_website: [null, Validators.pattern(/^(http:\/\/www\.|https:\/\/www\.|http:\/\/|https:\/\/)?[a-z0-9]+([\-\.]{1}[a-z0-9]+)*\.[a-z]{2,5}(:[0-9]{1,5})?(\/.*)?$/)],
 
       // Achievements
       career_preference_cv_filename: ['', Validators.required],
