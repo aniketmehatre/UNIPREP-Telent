@@ -16,12 +16,13 @@ import { SelectModule } from 'primeng/select';
 import { InputGroupModule } from 'primeng/inputgroup';
 import { InputTextModule } from 'primeng/inputtext';
 import { InputGroupAddonModule } from 'primeng/inputgroupaddon';
+import { JobPreparedListComponent } from './preparedlist/preparedlist.component';
 @Component({
   selector: "uni-job-prep",
   templateUrl: "./interviewpreparation.component.html",
   styleUrls: ["./interviewpreparation.component.scss"],
   standalone: true,
-  imports: [CommonModule, RouterModule, TooltipModule, DialogModule, CardModule, PaginatorModule, FormsModule, ReactiveFormsModule, CarouselModule, ButtonModule, MultiSelectModule, SelectModule, InputGroupModule, InputTextModule, InputGroupAddonModule]
+  imports: [CommonModule, RouterModule, TooltipModule, DialogModule, CardModule, PaginatorModule, FormsModule, ReactiveFormsModule, CarouselModule, ButtonModule, MultiSelectModule, SelectModule, InputGroupModule, InputTextModule, InputGroupAddonModule, JobPreparedListComponent]
 })
 export class JobPreparationComponent implements OnInit {
   @ViewChild('jobRoleInput') JobRoleInput: ElementRef;

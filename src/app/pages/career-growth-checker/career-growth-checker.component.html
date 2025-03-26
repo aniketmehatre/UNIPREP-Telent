@@ -6,25 +6,24 @@
 				<div class="form-group row align-items-center">
 					<div class="col-md-7 position-relative mb-3 mb-md-0">
 						<div class="position-relative">
-						<span class="search-icon"><i class="fas fa-search search-icon"></i></span>
-						<input type="text" id="jobSearch" placeholder="Search for a Job" class="ps-5 w-100 rounded-pill border-secondary" formControlName="jobSearch"/>
+							<span class="search-icon"><i class="fas fa-search search-icon"></i></span>
+							<input type="text" id="jobSearch" placeholder="Search for a Job" class="ps-5 w-100 rounded-pill border-secondary" formControlName="jobSearch" />
 						</div>
-					
+
 						<div class="dropdown-list-container" *ngIf="hasFilteredOptions && filteredOptions.length > 0">
-						<ul class="dropdown-list">
-							<li *ngFor="let option of filteredOptions" role="button" (click)="selectOption(option)" [id]="option.id">
-							{{ option.jobrole }}
-							</li>
-						</ul>
+							<ul class="dropdown-list">
+								<li *ngFor="let option of filteredOptions" role="button" (click)="selectOption(option)" [id]="option.id">
+									{{ option.jobrole }}
+								</li>
+							</ul>
 						</div>
-							
 					</div>
 					<div class="col-md-3 mb-3 mb-md-0">
 						<p-select [options]="countries" styleClass="w-100 rounded-pill border-primary" formControlName="country" optionValue="id" optionLabel="country" placeholder="Select Country" [filter]="true" [showClear]="true"> </p-select>
 						<div *ngIf="invalidClassCountry" class="error-message text-danger mt-2">Please Choose Any one option</div>
 					</div>
 					<div class="col-md-2 text-center">
-						<button pButton  pButton type="submit" class="btn btn-primary btn-rounded p-2">
+						<button pButton pButton type="submit" class="btn btn-primary btn-rounded p-2">
 							<span class="mx-2">Search</span><span class="btn-icon"><i class="fas fa-search"></i></span>
 						</button>
 					</div>
@@ -32,7 +31,7 @@
 			</form>
 		</div>
 	</div>
-</div>	
+</div>
 
 <div class="h-100 overflow-y-auto justify-content-center align-items-start" *ngIf="showResult">
 	<div class="fixed-header pb-2">
@@ -111,7 +110,7 @@
 		<img src="../../../uniprep-assets/images/smartloack.png" class="image" width="60" />
 		<h3 class="offer">Upgrade Required</h3>
 		<p>To access this exclusive module,please upgrade your plan now</p>
-		<button pButton  pButton type="button" class="text-white p-ripple p-button-rounded p-button-warning p-button p-component p-2" (click)="upgradePlan()">Upgrade Plan<i class="fa fa-arrow-right exhausted-plan-icon"></i></button>
+		<button pButton pButton type="button" class="text-white p-ripple p-button-rounded p-button-warning p-button p-component p-2" (click)="upgradePlan()">Upgrade Plan<i class="fa fa-arrow-right exhausted-plan-icon"></i></button>
 	</div>
 	<div *ngIf="!ehitlabelIsShow" class="text-center mt-5 mb-4">
 		<img src="../../../uniprep-assets/images/smartloack.png" class="image" width="60" />

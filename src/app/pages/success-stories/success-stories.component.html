@@ -7,20 +7,20 @@
 		</div>
 	</div>
 	<div class="card-body text-center flex-fill overflow-y-auto">
-			<div class="row">
-				<div class="col-md-3 col-12" *ngFor="let tutorial of tutoriallist">
-					<div class="text-decoration-none text-white" role="button" (click)="openVideoPopup(tutorial.link)">
-						<div class="card my-2 position-relative tutcard">
-							<div class="tutgradient"></div>
-							<img src="{{ tutorial.coverimage }}" class="successimage"/>
-							<div class="tutorialcontent">
-								<h5 class="mb-0 text-white">{{ tutorial.title }}</h5>
-								<p class="mb-0 text-white small" title="{{ tutorial.description }}">{{ tutorial.description.length > 35 ? tutorial.description.slice(0, 35) + "..." : tutorial.description }}</p>
-							</div>
+		<div class="row">
+			<div class="col-md-3 col-12" *ngFor="let tutorial of tutoriallist">
+				<div class="text-decoration-none text-white" role="button" (click)="openVideoPopup(tutorial.link)">
+					<div class="card my-2 position-relative tutcard">
+						<div class="tutgradient"></div>
+						<img src="{{ tutorial.coverimage }}" class="successimage" />
+						<div class="tutorialcontent">
+							<h5 class="mb-0 text-white">{{ tutorial.title }}</h5>
+							<p class="mb-0 text-white small" title="{{ tutorial.description }}">{{ tutorial.description.length > 35 ? tutorial.description.slice(0, 35) + "..." : tutorial.description }}</p>
 						</div>
 					</div>
 				</div>
-			</div> 
+			</div>
+		</div>
 	</div>
 </div>
 <!-- Bootstrap Modal Markup -->
@@ -30,8 +30,8 @@
 			<div class="modal-body position-relative pt-4">
 				<div class="modalbuttons">
 					<div class="d-flex gap-2">
-						<button pButton  title="New Window" type="button" class="btn btn-primary btn-rounded" (click)="openNextVideo()"><i class="fa-solid fa-arrow-up-right-from-square"></i></button>
-						<button pButton  type="button" title="Close Popup" class="btn btn-primary btn-rounded" (click)="closeVideoPopup()"><i class="fa-solid fa-xmark"></i></button>
+						<button pButton title="New Window" type="button" class="btn btn-primary btn-rounded" (click)="openNextVideo()"><i class="fa-solid fa-arrow-up-right-from-square"></i></button>
+						<button pButton type="button" title="Close Popup" class="btn btn-primary btn-rounded" (click)="closeVideoPopup()"><i class="fa-solid fa-xmark"></i></button>
 					</div>
 				</div>
 				<div class="embed-responsive"><iframe #videoFrame [src]="selectedVideoLink" width="100%" frameborder="0" allowfullscreen></iframe></div>

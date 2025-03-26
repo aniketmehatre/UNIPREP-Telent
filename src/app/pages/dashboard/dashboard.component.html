@@ -1,7 +1,7 @@
 <!-- new design -->
 <div class="header-container">
 	<div class="text-container">
-		<h4 class="fw-semibold mb-0">Hello, {{ userName }}</h4>
+		<h4 class="fw-semibold mb-0">Hello, {{ userName }} <span class="emoji">👏</span></h4>
 		<h6 class="fw-normal lh-base mb-2 mb-md-0">
 			Welcome to <span class="highlight-text"><b>UNIPREP</b></span
 			>! Let's get started on your journey to a brighter future!
@@ -26,7 +26,7 @@
 	<div class="col-lg-3 col-md-6 col-sm-12">
 		<div class="card mt-2 bg-white" style="height: 100%">
 			<div class="card-body">
-				<h5 class="mb-2 text-start">🎥&nbsp;Introduction to UNIPREP</h5>
+				<h5 class="mb-2 text-start"><span class="emoji">🎥</span> Introduction to UNIPREP</h5>
 				<iframe width="100%" target="_blank" height="100%" style="border-radius: 15px" src="https://www.youtube.com/embed/Sv8EyWriqV0?si=S3wZ7jT4B7y8o-zX" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
 			</div>
 		</div>
@@ -37,9 +37,9 @@
 			<div class="card-body d-flex flex-column justify-content-between">
 				<div class="row align-items-center">
 					<div class="col-12">
-						<h5><i class="fa-solid fa-user" style="color: #ff913b"></i> &nbsp; Profile Completion</h5>
+						<h5><span class="emoji">👤</span> Profile Completion</h5>
 					</div>
-					<div class="col-6">
+					<div class="col-6 mb-4">
 						<div style="display: flex; justify-content: space-between">
 							<div style="font-size: 3rem">{{ totalPercentage }}%</div>
 						</div>
@@ -53,22 +53,22 @@
 						<div class="progress-bar-container">
 							<div class="progress-bar" [style.width.%]="progress"></div>
 							<!-- Adjust the width to indicate progress -->
-							<span pTooltip="{{ progress }}% " tooltipPosition="top" class="text-gray-700" style="font-size: 9px">Basic Details</span>
 						</div>
+						<span pTooltip="{{ progress }}% " tooltipPosition="top" class="text-gray-700" style="font-size: 9px">Basic Details</span>
 					</div>
 					<div class="col-3">
 						<div class="progress-bar-container">
 							<div class="progress-bar2" [style.width.%]="talentConnectPercentage"></div>
 							<!-- Adjust the width to indicate progress -->
-							<span pTooltip="{{ talentConnectPercentage }}% " tooltipPosition="top" class="text-gray-700" style="font-size: 9px">Job Profile</span>
 						</div>
+						<span pTooltip="{{ talentConnectPercentage }}% " tooltipPosition="top" class="text-gray-700" style="font-size: 9px">Job Profile</span>
 					</div>
 					<div class="col-3">
 						<div class="progress-bar-container">
 							<div class="progress-bar3" [style.width.%]="cvBuilderPercentage"></div>
 							<!-- Adjust the width to indicate progress -->
-							<span pTooltip="{{ cvBuilderPercentage }}% " tooltipPosition="top" class="text-gray-700" style="font-size: 9px">CV Details</span>
 						</div>
+						<span pTooltip="{{ cvBuilderPercentage }}% " tooltipPosition="top" class="text-gray-700" style="font-size: 9px">CV Details</span>
 					</div>
 					<!-- <div class="col-12">
 						<button pButton class="btn btn-rounded mt-2" style="color: var(--uniprep-primary); background-color: white; border-color: var(--uniprep-primaryop10); font-size: 10px; width: -webkit-fill-available">ATS Compobility : {{ progress }}%</button>
@@ -76,14 +76,14 @@
 					<div class="col-12 mt-4">
 						<p class="mb-0 text-start" style="font-size: 11px">Complete your profile today:</p>
 					</div>
-					<div class="col-12 d-flex gap-2">
-						<button class="px-4 py-2 border rounded-lg shadow-md bg-white" style="border-radius: 15px; font-size: 9px; width: -webkit-fill-available">
+					<div class="col-12 d-flex gap-2 mt-2">
+						<button class="px-2 py-2 border rounded-lg shadow-md bg-white" style="border-radius: 15px; font-size: 9px; width: -webkit-fill-available">
 							<span (click)="openMyProfile()" style="color: #394d83">My Profile <i class="fa-solid fa-user" style="color: #394d83"></i></span>
 						</button>
-						<button (click)="redirectToCvBuilder()" class="px-4 py-2 border rounded-lg shadow-md bg-white" style="border-radius: 15px; font-size: 9px; width: -webkit-fill-available">
+						<button (click)="redirectToCvBuilder()" class="px-2 py-2 border rounded-lg shadow-md bg-white" style="border-radius: 15px; font-size: 9px; width: -webkit-fill-available">
 							<span style="color: #394d83">CV Builder <i class="fa-solid fa-file-lines" style="color: #394d83"></i></span>
 						</button>
-						<button (click)="redirectToTalentConnect()" class="px-4 py-2 border rounded-lg shadow-md bg-white" style="border-radius: 15px; font-size: 9px; width: -webkit-fill-available">
+						<button (click)="redirectToTalentConnect()" class="px-2 py-2 border rounded-lg shadow-md bg-white" style="border-radius: 15px; font-size: 9px; width: -webkit-fill-available">
 							<span style="color: #394d83">Talent Connect <i class="fa-solid fa-user-tie" style="color: #394d83"></i></span>
 						</button>
 					</div>
@@ -98,7 +98,7 @@
 	<div class="col-lg-6 col-md-12 col-sm-12">
 		<div class="card fav-card mt-2" style="background-color: white">
 			<div class="card-body text-center">
-				<h5 class="mb-0 text-start"><i class="fa-solid fa-star" style="color: #ff913b"></i> Featured Favourites</h5>
+				<h5 class="mb-0 text-start ms-4 ps-4"><span class="emoji">⭐</span> Featured Favourites</h5>
 
 				<!-- Carousel Component -->
 				<p-carousel #carousel [circular]="true" [numScroll]="1" [numVisible]="1" [responsiveOptions]="responsiveOptions" [value]="groupedListFav" [showIndicators]="true" [indicatorStyle]="{ width: '10px', height: '10px', borderRadius: '50%' }">
@@ -111,12 +111,12 @@
 											<img alt="country" class="countryicon" [src]="v.imageLink != '' ? v.imageLink : '../../uniprep-assets/images/mstile-150x150.png'" />
 										</div>
 										<div class="text-start">
-											<p class="mb-0 text-sm text-capitalize">
+											<p class="mb-0 text-sm text-capitalize" style="font-size: larger;">
 												<b>{{ v.moduleName | uppercase }}</b>
 											</p>
-											<p class="mb-0 text-muted">
+											<!-- <p class="mb-0 text-muted">
 												{{ v.module }}
-											</p>
+											</p> -->
 										</div>
 									</div>
 								</div>
@@ -135,7 +135,7 @@
 		<div class="card fav-card mt-2 bg-white">
 			<div class="card-body d-flex flex-column justify-content-between">
 				<div class="flex justify-content-between">
-					<h5 class="mb-0 p-2 text-start">Recent Job Applications</h5>
+					<h5 class="mb-0 p-2 text-start"><span class="emoji">💼</span> Recent Job Applications</h5>
 					<button class="btn btn-rounded text-small px-4 py-2 m-0 mb-2 bg-white" style="border: 1px solid rgb(161, 154, 154)" (click)="viewMoreOpenJobApplication()">View All</button>
 				</div>
 
@@ -146,7 +146,7 @@
 								<div (click)="selectFav(v)" role="button" class="card-body country-border">
 									<div class="d-flex justify-content-evenly">
 										<div>
-											<img alt="country" class="countryicon mb-2" src="{{ v.company_logo }}" />
+											<img alt="logo" class="countryicon mb-2" src="{{ v.company_logo }}" />
 										</div>
 										<div class="ms-2">
 											<h6 class="mb-0 text-sm text-capitalize">
@@ -158,13 +158,17 @@
 												<i class="fa-solid fa-location-dot" style="color: #79ae28"></i>&nbsp;
 												<span style="font-weight: 500px; color: black">{{ v.worklocation }}</span>
 											</p>
-											<button class="btn btn-rounded text-small m-0 mb-2"   [ngStyle]="{
-												'border': '1px solid ' + v.color_code, 
-												'background-color': v.color_code, 
-												'color': 'white', 
-												'font-size': '10px', 
-												'border-radius': '2px'
-											  }">{{v.hiringstage}}</button>
+											<button
+												class="btn btn-rounded text-small m-0 mb-2"
+												[ngStyle]="{
+													border: '1px solid ' + v.color_code,
+													'background-color': v.color_code,
+													color: 'white',
+													'font-size': '10px',
+													'border-radius': '2px'
+												}">
+												{{ v.hiringstage }}
+											</button>
 										</div>
 									</div>
 								</div>
@@ -186,7 +190,7 @@
 				<div class="card h-100 bg-white">
 					<div class="card-body d-flex flex-column justify-content-between">
 						<div class="text-start">
-							<h5 class="mb-1 uppercase">⌛&nbsp;Quiz</h5>
+							<h5 class="mb-1 uppercase"><span class="emoji">⌛</span> Quiz</h5>
 							<p class="mb-0">Get certified for completing the quiz with an extraordinary score.</p>
 						</div>
 						<button pButton severity="warn" (click)="openQuiz()" class="btn btn-rounded font-weight-bold mt-3" style="color: #ff9138; border-color: #ff9138; background-color: #fff1e7">Start Quiz</button>
@@ -197,7 +201,7 @@
 				<div class="card h-100 bg-white">
 					<div class="card-body d-flex flex-column justify-content-between">
 						<div class="text-start">
-							<h5 class="mb-1 uppercase fw-bold">Certification</h5>
+							<h5 class="mb-1 uppercase fw-bold"><span class="emoji">📜</span> Certification</h5>
 							<p class="mb-0">Get all your certificates in one place to share them on social media.</p>
 						</div>
 						<button pButton (click)="openCertificate()" class="btn btn-rounded mt-3" style="color: #455c9e; background-color: #ecedf3; border-color: #455c9e">My Certificates</button>
@@ -211,7 +215,7 @@
 	<div class="col-lg-3 col-md-6 col-sm-12 mt-2">
 		<div class="card bg-white h-100 p-3">
 			<div class="calendar-container">
-				<h5 style="text-align: start"><span style="color: #0054b4">🕒</span>&nbsp; {{ monthName }} {{ currentYear }}</h5>
+				<h5 style="text-align: start"><span class="emoji">🕒</span> {{ monthName }} {{ currentYear }}</h5>
 
 				<div class="weekdays">
 					<div *ngFor="let day of weekdays" class="weekday">{{ day }}</div>
@@ -248,7 +252,7 @@
 		<div class="card trustedcard bg-white">
 			<div class="card-body text-center pb-3 bodyclass">
 				<div class="flex justify-content-between">
-					<h5 class="mb-0 p-2 text-start ms-4">Trusted by 1000+ Educational Partners</h5>
+					<h5 class="mb-0 p-2 text-start"><span class="emoji">🌱</span> Trusted by 1000+ Educational Partners</h5>
 					<button class="btn btn-rounded text-small px-4 py-2 m-0 mb-2 bg-white" style="border: 1px solid rgb(161, 154, 154)" (click)="openViewMoreOrg()">View All</button>
 				</div>
 				<p-carousel [numScroll]="6" [numVisible]="6" [autoplayInterval]="3000" [circular]="true" [responsiveOptions]="responsiveOptions" [showIndicators]="true" [value]="partnerTrusterLogo" class="text-center" [indicatorStyle]="{ width: '10px', height: '10px', borderRadius: '50%' }">
@@ -263,7 +267,7 @@
 		<div class="card bg=white h-100">
 			<div class="card-body d-flex flex-column justify-content-between">
 				<div class="text-start">
-					<h5 class="mb-1 mt-2 uppercase">💌&nbsp;Invite People to Try <span style="color: #ff9138">UNIPREP</span></h5>
+					<h5 class="mb-1 mt-2 uppercase"><span class="emoji">💌</span> Invite People to Try <span style="color: #ff9138">UNIPREP</span></h5>
 					<p class="mb-0">We'll email them instructions and a link to create an account</p>
 				</div>
 				<p-inputgroup>
@@ -838,12 +842,12 @@
 				<!-- <div class="col-lg-2 col-md-3 col-sm-4 col-6 p-2 d-flex justify-content-center align-items-center" *ngFor="let uni of recentJobApplication">
 					<img alt="{{ uni.logo }}" class="trustedbylogo" src="{{ uni.logo }}" />
 				</div> -->
-				<div class="col-lg-4 col-md-6 col-sm-12 mt-2" *ngFor="let v of recentJobApplication" >
+				<div class="col-lg-4 col-md-6 col-sm-12 mt-2" *ngFor="let v of recentJobApplication">
 					<div class="card">
 						<div class="card-body country-border text-start">
 							<div class="d-flex justify-content-evenly">
 								<div>
-									<img alt="country" width="70" height="70" class="mb-2" src="{{v.company_logo}}" />
+									<img alt="country" width="70" height="70" class="mb-2" src="{{ v.company_logo }}" />
 								</div>
 								<div class="ms-2">
 									<h4 class="mb-0 text-sm text-capitalize">

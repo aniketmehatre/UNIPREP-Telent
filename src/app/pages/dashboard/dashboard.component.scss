@@ -377,10 +377,9 @@ Due to the split circle of progress-left and progress right, we must use the ani
 }
 // button
 .progress-bar-container {
-  width: 100%; /* Full width */
-  background-color: transparent; /* Background color of the bar */
-  border-radius: 5px; /* Rounded corners */
-  margin-top: 15px; /* Space from content */
+  width: 100%;
+  background-color: #f3f3f3;
+  border-radius: 5px;
 }
 
 .progress-bar {

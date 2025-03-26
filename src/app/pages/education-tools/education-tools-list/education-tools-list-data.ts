@@ -13,7 +13,7 @@ export const EducationToolsData = [
     //  description: "This tool lets you get a polician insights with the help of few easy steps",
     image: domainUrl + "PoliticalInsights.svg",
     url: "/pages/education-tools/politician-insights",
-    launch_soon: true,
+    launch_soon: false,
   },
   {
     title: "Global Study Visa",

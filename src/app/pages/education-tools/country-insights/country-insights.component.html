@@ -1,58 +1,60 @@
 <div class="card readingcard">
-    <div class="card-header border-0 bg-transparent">
-        <div class="row justify-content-center align-items-center">
-            <div class="col-md-12 d-flex gap-2">
-                <div class="backIcon d-md-flex d-none" [routerLink]="['/pages/education-tools']" role="button">
-                    <span class="fa-solid fa-chevron-left"></span>
-                  </div>
-                <div class="select-title d-flex justify-content-between align-items-center">
-                    <div>
-                        <h5 class="w-100 mb-0" tooltipPosition="top" pTooltip="">
-                          Education Tools -> Country Insights</h5>
-                    </div>
-                    <!-- <div>
+	<div class="card-header border-0 bg-transparent">
+		<div class="row justify-content-center align-items-center">
+			<div class="col-md-12 d-flex gap-2">
+				<div class="backIcon d-md-flex d-none" [routerLink]="['/pages/education-tools']" role="button">
+					<span class="fa-solid fa-chevron-left"></span>
+				</div>
+				<div class="select-title d-flex justify-content-between align-items-center">
+					<div class="d-flex gap-2">
+						<h5 routerLink="/pages/dashboard" role="button" class="mb-0" tooltipPosition="top" pTooltip=""><i class="fa-regular fa-home"></i></h5>
+						<span><i class="fa-solid fa-chevron-right"></i></span>
+						<h5 routerLink="/pages/education-tools" role="button" class="mb-0" tooltipPosition="top" pTooltip="">Education Tools</h5>
+						<span><i class="fa-solid fa-chevron-right"></i></span>
+						<h5 class="mb-0" tooltipPosition="top" pTooltip="">Country Insights</h5>
+					</div>
+					<!-- <div>
                         <button class="how-it-works-button">How it works?
                             <i class="fa-solid fa-play d-md-block d-none"></i></button>
                     </div> -->
-                </div>
-            </div>
-        </div>
-    </div>
-    <div class="card-body text-center flex-fill overflow-y-auto">
-        <div class="row mb-0">
-            <ng-container *ngIf="isSkeletonVisible; else showCountryCards">
-                <div  class="col-lg-2 col-md-3 col-sm-4 col-xs-12 col-12 mb-3" *ngFor="let _ of [1,2,3,4,5,6]">
-                    <div class="country-card bg-white text-center shadow-sm border p-3">
-                        <div class="flag-circle">
-                            <p-skeleton width="60px" height="60px" styleClass="mb-3"></p-skeleton>
-                        </div>
-                        <div class="text-center">
-                            <p-skeleton width="100%" height="20px"></p-skeleton>
-                        </div>
-                    </div>
-                </div>
-            </ng-container>
-            <ng-template #showCountryCards>
-            <div *ngFor="let item of countryInsightsList; let i = index" class="col-lg-2 col-md-3 col-sm-4 col-xs-12 col-12 mb-3">
-              <div class="row w-100 m-0 justify-content-center h-100">
-                <div class="card subjectcard" role="button">
-                  <div class="card-body" (click)="onClickSubModule(item.country_id, item.id, item.country);">
-                    <!-- <img src="{{item.country_flag}}" alt="" height="70" width="70"> -->
-                    <div class="flag-circle">
-                      <img alt="" class="selectimage" src="{{ item.flag }}" />
-                    </div>
-                    <p class="mt-2" style="font-size: small">
-                      <b>{{ item.country }}</b>
-                    </p>
-                  </div>
-                </div>
-              </div>
-            </div>
-            </ng-template>
-          </div>    
-    </div>
-    <div class="card-footer">
-      <p-paginator *ngIf="countryInsightsCount != 0" [rows]="pageSize" [totalRecords]="countryInsightsCount"
-      (onPageChange)="paginate($event)" [rowsPerPageOptions]="[10, 25, 100, 300, 500, 1000]"></p-paginator>
-    </div>   
-    </div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="card-body text-center flex-fill overflow-y-auto">
+		<div class="row mb-0">
+			<ng-container *ngIf="isSkeletonVisible; else showCountryCards">
+				<div class="col-lg-2 col-md-3 col-sm-4 col-xs-12 col-12 mb-3" *ngFor="let _ of [1, 2, 3, 4, 5, 6]">
+					<div class="country-card bg-white text-center shadow-sm border p-3">
+						<div class="flag-circle">
+							<p-skeleton width="60px" height="60px" styleClass="mb-3"></p-skeleton>
+						</div>
+						<div class="text-center">
+							<p-skeleton width="100%" height="20px"></p-skeleton>
+						</div>
+					</div>
+				</div>
+			</ng-container>
+			<ng-template #showCountryCards>
+				<div *ngFor="let item of countryInsightsList; let i = index" class="col-lg-2 col-md-3 col-sm-4 col-xs-12 col-12 mb-3">
+					<div class="row w-100 m-0 justify-content-center h-100">
+						<div class="card subjectcard" role="button">
+							<div class="card-body" (click)="onClickSubModule(item.country_id, item.id, item.country)">
+								<!-- <img src="{{item.country_flag}}" alt="" height="70" width="70"> -->
+								<div class="flag-circle">
+									<img alt="" class="selectimage" src="{{ item.flag }}" />
+								</div>
+								<p class="mt-2" style="font-size: small">
+									<b>{{ item.country }}</b>
+								</p>
+							</div>
+						</div>
+					</div>
+				</div>
+			</ng-template>
+		</div>
+	</div>
+	<div class="card-footer">
+		<p-paginator *ngIf="countryInsightsCount != 0" [rows]="pageSize" [totalRecords]="countryInsightsCount" (onPageChange)="paginate($event)" [rowsPerPageOptions]="[10, 25, 100, 300, 500, 1000]"></p-paginator>
+	</div>
+</div>

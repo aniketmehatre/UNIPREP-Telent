@@ -1,74 +1,56 @@
 <div class="card readingcard">
-    <ng-container *ngIf="isRecommendationQuestion">
-      <div class="card-header border-0 bg-transparent">
-        <div class="row justify-content-center">
-          <div class="col-md-12 d-flex gap-2">
-            <div class="backIcon d-md-flex d-none" (click)="goBack()" role="button">
-              <span class="fa-solid fa-chevron-left"></span>
-            </div>
-            <div class="select-title d-flex justify-content-between align-items-center">
-              <div>
-                <h5 class="w-100 mb-0" tooltipPosition="top"
-                  pTooltip="Access fully and partially funded opportunities for education.">
-                Education Tools -> GLOBAL EDUFIT<i class="questiontooltip fa-solid fa-circle-question"></i>
-                </h5>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-      <div class="card-body text-center flex-fill overflow-y-auto">
-        <form [formGroup]="form" class="mt-4">
-          <p-carousel [value]="recommendations" [numVisible]="1" [numScroll]="1" [circular]="false"
-            [showNavigators]="false" [showIndicators]="false" [page]="activePageIndex" styleClass="h-100">
-            <ng-template let-recommendation let-i="index" pTemplate="item">
-              <div class="row text-center d-flex justify-content-center align-items-center">
-                <!-- ------------------ Basic Information View -------------------- -->
-                <div *ngIf="recommendation.id == 1" class="col-md-6 ">
-                  <h2 class="fw-bold mb-2">
-                    {{ recommendation.question.heading }}
-                  </h2>
-                  <div class="d-flex flex-column gap-2 mb-2">
-                    <h5 class="uniprep-primary fw-semibold mt-3 mb-1">
-                      {{ recommendation.question.branches[0] }}
-                    </h5>
-                    <p-select styleClass="w-100" appendTo="body" [options]="interestedCountryList" [filter]="true"
-                      formControlName="interested_country" filterBy="country" optionLabel="country"
-                      [autoDisplayFirst]="false" placeholder="Select the interested country">
-                    </p-select>
-                    <!-- (ngModelChange)="setCompareUniversityList($event);" -->
-                    <p class="text-center" *ngIf="form.get('interested_country')?.errors?.required && submitted"
-                      style="color: red">
-                      Please Choose Any one option
-                    </p>
-                  </div>
-                  <div class="d-flex flex-column gap-2 mb-1">
-                    <h5 class="uniprep-primary fw-semibold mt-3 mb-1">
-                      {{ recommendation.question.branches[1] }}
-                    </h5>
-                    <p-select styleClass="w-100" appendTo="body" [options]="universityList" [filter]="true"
-                      formControlName="university" filterBy="university_name" optionLabel="university_name"
-                      [autoDisplayFirst]="false" placeholder="Select the univesity">
-                    </p-select>
-                    <p class="text-center" *ngIf="form.get('university')?.errors?.required && submitted"
-                      style="color: red">
-                      Please Choose Any one option
-                    </p>
-                  </div>
-                  <div class="d-flex flex-column gap-2 mb-1">
-                    <h5 class="uniprep-primary fw-semibold mt-3 mb-1">
-                      {{ recommendation.question.branches[2] }}
-                    </h5>
-                    <p-select styleClass="w-100" appendTo="body" [options]="specializationList" [filter]="true"
-                      formControlName="specialization" filterBy="course_name" optionLabel="course_name" optionValue="course_name"
-                      [autoDisplayFirst]="false" placeholder="Select the Course">
-                    </p-select>
-                    <p class="text-center" *ngIf="form.get('specialization')?.errors?.required && submitted"
-                      style="color: red">
-                      Please Choose Any one option
-                    </p>
-                  </div>
-                  <!-- <div class="d-flex flex-column gap-2 mb-1">
+	<ng-container *ngIf="isRecommendationQuestion">
+		<div class="card-header border-0 bg-transparent">
+			<div class="row justify-content-center">
+				<div class="col-md-12 d-flex gap-2">
+					<div class="backIcon d-md-flex d-none" (click)="goBack()" role="button">
+						<span class="fa-solid fa-chevron-left"></span>
+					</div>
+					<div class="select-title d-flex justify-content-between align-items-center">
+						<div class="d-flex gap-2">
+							<h5 routerLink="/pages/dashboard" role="button" class="mb-0" tooltipPosition="top" pTooltip=""><i class="fa-regular fa-home"></i></h5>
+							<span><i class="fa-solid fa-chevron-right"></i></span>
+							<h5 routerLink="/pages/education-tools" role="button" class="mb-0" tooltipPosition="top" pTooltip="">Education Tools</h5>
+							<span><i class="fa-solid fa-chevron-right"></i></span>
+							<h5 class="mb-0" tooltipPosition="top" pTooltip="">Global Edufit</h5>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="card-body text-center flex-fill overflow-y-auto">
+			<form [formGroup]="form" class="mt-4">
+				<p-carousel [value]="recommendations" [numVisible]="1" [numScroll]="1" [circular]="false" [showNavigators]="false" [showIndicators]="false" [page]="activePageIndex" styleClass="h-100">
+					<ng-template let-recommendation let-i="index" pTemplate="item">
+						<div class="row text-center d-flex justify-content-center align-items-center">
+							<!-- ------------------ Basic Information View -------------------- -->
+							<div *ngIf="recommendation.id == 1" class="col-md-6">
+								<h2 class="fw-bold mb-2">
+									{{ recommendation.question.heading }}
+								</h2>
+								<div class="d-flex flex-column gap-2 mb-2">
+									<h5 class="uniprep-primary fw-semibold mt-3 mb-1">
+										{{ recommendation.question.branches[0] }}
+									</h5>
+									<p-select styleClass="w-100" appendTo="body" [options]="interestedCountryList" [filter]="true" formControlName="interested_country" filterBy="country" optionLabel="country" [autoDisplayFirst]="false" placeholder="Select the interested country"> </p-select>
+									<!-- (ngModelChange)="setCompareUniversityList($event);" -->
+									<p class="text-center" *ngIf="form.get('interested_country')?.errors?.required && submitted" style="color: red">Please Choose Any one option</p>
+								</div>
+								<div class="d-flex flex-column gap-2 mb-1">
+									<h5 class="uniprep-primary fw-semibold mt-3 mb-1">
+										{{ recommendation.question.branches[1] }}
+									</h5>
+									<p-select styleClass="w-100" appendTo="body" [options]="universityList" [filter]="true" formControlName="university" filterBy="university_name" optionLabel="university_name" [autoDisplayFirst]="false" placeholder="Select the univesity"> </p-select>
+									<p class="text-center" *ngIf="form.get('university')?.errors?.required && submitted" style="color: red">Please Choose Any one option</p>
+								</div>
+								<div class="d-flex flex-column gap-2 mb-1">
+									<h5 class="uniprep-primary fw-semibold mt-3 mb-1">
+										{{ recommendation.question.branches[2] }}
+									</h5>
+									<p-select styleClass="w-100" appendTo="body" [options]="specializationList" [filter]="true" formControlName="specialization" filterBy="course_name" optionLabel="course_name" optionValue="course_name" [autoDisplayFirst]="false" placeholder="Select the Course"> </p-select>
+									<p class="text-center" *ngIf="form.get('specialization')?.errors?.required && submitted" style="color: red">Please Choose Any one option</p>
+								</div>
+								<!-- <div class="d-flex flex-column gap-2 mb-1">
                     <h5 class="uniprep-primary fw-semibold mt-3 mb-1">
                       {{ recommendation.question.branches[2] }}
                     </h5>
@@ -86,9 +68,9 @@
                      Please Choose Any one option
                    </p>
                   </div> -->
-                </div>
-  
-                <!-- <div *ngIf="recommendation.id == 2" class="col-md-6 offset-md-3">
+							</div>
+
+							<!-- <div *ngIf="recommendation.id == 2" class="col-md-6 offset-md-3">
                   <h2 class="fw-bold mb-2">
                     {{ recommendation.question.heading }}
                   </h2>
@@ -119,211 +101,170 @@
                     </p>
                   </div>
                 </div> -->
-                <div *ngIf="recommendation.id == 2" class="col-md-6">
-                  <h2 class="fw-bold mb-2">
-                    {{ recommendation.question.heading }}
-                  </h2>
-                  <div>
-                    <h5 class="uniprep-primary fw-semibold mt-3 mb-1">
-                      {{ recommendation.question.branches[0] }}
-                    </h5>
-                    <div class="w-100 d-flex gap-2 flex-fill">
-                      <p-select formControlName="currency_code" appendTo="body" [options]="currencyandCountryList" [filter]="true"
-                        filterBy="currency_symbol" placeholder="Currency" optionLabel="currency_symbol" optionValue="currency_symbol"
-                        [autoDisplayFirst]="false">
-                      </p-select>
-                      <input class="w-100 pl-4 border border-gray rounded-3" type="number" pInputText placeholder="Fees"
-                        formControlName="fees" [max]="99999999"/>
-                    </div>
-                    <p class="text-center" *ngIf="(form.get('fees')?.errors?.required || form.get('fees')?.errors?.max )&& submitted"
-                      style="color: red">
-                      Please Enter this amount and max 8 digit only allowed
-                    </p>
-                  </div>
-                  <div>
-                    <h5 class="uniprep-primary fw-semibold mt-3 mb-1">
-                      {{ recommendation.question.branches[1] }}
-                    </h5>
-                    <div class="w-100 d-flex gap-2 flex-fill">
-                    <div class="border border-gray rounded-3 d-flex align-items-center justify-content-center bg-white" style="width: 50px">{{form.get('currency_code').value || ''}}</div>
-                    <input class="w-100 border border-gray rounded-3" type="number" pInputText placeholder="Enter Amount"
-                    formControlName="cost_estimation" [max]="99999999" />
-                    </div>
-                    <p class="text-center" *ngIf="
-                          (form.get('cost_estimation')?.errors?.required || form.get('cost_estimation')?.errors?.max) && submitted
-                        " style="color: red">
-                      Please Enter this amount and max 8 digit only allowed
-                    </p>
-                  </div>
-                  <div>
-                    <h5 class="uniprep-primary fw-semibold mt-3 mb-1">
-                      {{ recommendation.question.branches[2] }}
-                    </h5>
-                    <p-select styleClass="w-100" formControlName="period" appendTo="body" [options]="periodsList" [filter]="true"
-                    filterBy="name" placeholder="Select Stayback Period" optionLabel="name" optionValue="name"
-                    [autoDisplayFirst]="false">
-                  </p-select>
-                    <p class="text-center" *ngIf="
-                          form.get('period')?.errors?.required && submitted
-                        " style="color: red">
-                      Please Choose Any one option
-                    </p>
-                  </div>
-                </div>
-              </div>
-            </ng-template>
-          </p-carousel>
-        </form>
-      </div>
-      <div class="card-footer bg-transparent border-0">
-        <div class="d-flex justify-content-between mt-2">
-          <button pButton  pButton type="button" class="btn btn-primary btn-rounded p-1 pe-4"
-            [style.visibility]="activePageIndex == 0 ? 'hidden' : 'visible'" (click)="previous()">
-            <span class="btn-icon px-2 py-2"><i class="fa fa-arrow-left"></i></span>
-            <span class="ms-2">Previous</span>
-          </button>
-          <button pButton type="button" (click)="next()" *ngIf="activePageIndex == 0"
-            class="btn btn-primary btn-rounded p-1 ps-4">
-            <span class="me-2">Next</span><span class="btn-icon px-2 py-2"><i class="fa fa-arrow-right"></i></span>
-          </button>
-          <button pButton type="button" (click)="getRecommendation()" *ngIf="activePageIndex == 1"
-            class="btn btn-success btn-rounded p-1 ps-4">
-            <span class="me-2">Get Recommendations</span><span class="btn-icon px-2 py-2">
-              <i class="fa fa-check-circle"></i></span>
-          </button>
-        </div>
-      </div>
-    </ng-container>
-    <!-- ----------------- Recommandation Response View ----------------- -->
-    <ng-container *ngIf="isRecommendationData">
-      <div class="card-header border-0 bg-transparent">
-        <div class="row justify-content-center align-items-center">
-          <div class="col-md-12 d-flex gap-4">
-            <div class="backIcon d-md-flex d-none" role="button" (click)="goBack()" style="height: auto;">
-              <span class="fa-solid fa-chevron-left"></span>
-            </div>
-            <div class="select-title d-flex justify-content-between align-items-center">
-              <div>
-                <h5 class="w-100 mb-0" tooltipPosition="top" pTooltip="">
-                Education Tools -> GLOBAL EDUFIT<i class="questiontooltip fa-solid fa-circle-question"></i></h5>
-              </div>
-            </div>
-            <div class="d-flex align-items-center">
-              <button pButton type="button" (click)="saveRecommadation()" class="btn btn-primary btn-rounded py-2 px-4">
-                <span>History</span>
-              </button>
-            </div>
-          </div>
-        </div>
-      </div>
-      <div class="card-body worksans flex-fill overflow-y-auto">
-        <div class="row">
-            <div class="col-md-2"></div>
-            <div class="col-md-8">
-                <div class="d-flex justify-content-end gap-3 mb-3">
-                    <button pButton  pButton type="button" (click)="downloadRecommadation()"
-                        class="btn btn-secondary btn-rounded p-1 ps-4">
-                        <span class="me-2">Download</span><span class="btn-icon px-2 py-2">
-                            <i class="fa-regular fa-download"></i></span>
-                    </button>
-                </div>
-                <div class="card p-3 fs-5" [innerHtml]="recommendationData"></div>
-            </div>
-            <div class="col-md-2"></div>
-        </div>
-    </div>
-      <div class="card-footer bg-transparent border-0">
-        <div class="text-end">
-          <button pButton  pButton type="button" class="btn ps-3 btn-quit btn-rounded" (click)="resetRecommendation()">
-            Reset Recommendations<span class="btn-icon"><i class="fa-solid fa-arrow-rotate-right"></i>
-            </span>
-          </button>
-        </div>
-      </div>
-    </ng-container>
-  
-    <!-- ----------------- Recommandation Saved Response View ----------------- -->
-    <ng-container *ngIf="isRecommendationSavedData">
-      <div class="card-header border-0 bg-transparent">
-        <div class="row justify-content-center align-items-center">
-          <div class="col-md-12 d-flex gap-4">
-            <div class="backIcon d-md-flex d-none" role="button" (click)="goBack()" style="height: auto;">
-              <span class="fa-solid fa-chevron-left"></span>
-            </div>
-            <div class="select-title d-flex justify-content-between align-items-center">
-              <div>
-                <h5 class="w-100 mb-0" tooltipPosition="top" pTooltip="">
-                Education Tools -> GLOBAL EDUFIT<i class="questiontooltip fa-solid fa-circle-question"></i></h5>
-              </div>
-              <div>
-                <button pButton  class="how-it-works-button" severity="warn" >How it works?
-                  <i class="fa-solid fa-play d-md-block d-none"></i></button>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-      <div class="card-body text-center flex-fill overflow-y-auto">
-        <div class="row mb-0">
-          <div *ngFor="let item of recommadationSavedQuestionList; let i=index;"
-            class="col-lg-3 col-md-3 col-sm-4 col-xs-12 col-12 mb-3">
-            <div class="row w-100 m-0 justify-content-center h-100">
-              <div class="card subjectcard" role="button" (click)="showRecommandationData(item.response)">
-                <div class="card-body text-start">
-                  <h5 class="fw-bold mb-0">Global Edufit {{i+1}}</h5>
-                  <p class="text-small"><b>Home Country : </b>{{item.homecountry}}</p>
-                  <p class="text-small"><b>Interested Country : </b>{{item.interested_country}}</p>
-              </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-      <div class="card-footer bg-transparent border-0">
-        <div class="text-end">
-          <button pButton  pButton type="button" class="btn ps-3 btn-quit btn-rounded" (click)="resetRecommendation()">
-            Reset Recommendations<span class="btn-icon"><i class="fa-solid fa-arrow-rotate-right"></i>
-            </span>
-          </button>
-        </div>
-      </div>
-    </ng-container>
-  </div>
-  
-  <p-dialog [(visible)]="restrict" [style]="{ width: '30vw' }" [draggable]="false" [resizable]="false"
-    class="restrictionDialog" [breakpoints]="{ '960px': '30vw', '959px': '60vw', '425px': '90vw' }"
-    (onHide)="clearRestriction()">
-    <div *ngIf="ehitlabelIsShow" class="text-center mt-5 mb-1">
-      <img src="../../../uniprep-assets/images/smartloack.png" class="image" width="60" />
-      <h3 class="offer">Upgrade Required</h3>
-      <p>To access this exclusive module,please upgrade your plan now</p>
-      <button pButton  pButton type="button" class="text-white p-ripple p-button-rounded p-button-warning p-button p-component p-2"
-        (click)="upgradePlan()">
-        Upgrade Plan<i class="fa fa-arrow-right exhausted-plan-icon"></i>
-      </button>
-    </div>
-    <div *ngIf="!ehitlabelIsShow" class="text-center mt-5 mb-1">
-      <img src="../../../uniprep-assets/images/smartloack.png" class="image" width="60" />
-      <h3 class="offer">Upgrade Required</h3>
-      <p>Please contact {{ orgnamewhitlabel }} Company for access</p>
-    </div>
-  </p-dialog>
-  
-  <p-dialog [(visible)]="restrict" [style]="{ width: '30vw' }" [draggable]="false" [resizable]="false"
-    class="restrictionDialog" [breakpoints]="{ '960px': '30vw', '959px': '60vw', '425px': '90vw' }"
-    (onHide)="clearRestriction()">
-    <div *ngIf="ehitlabelIsShow" class="text-center mt-5 mb-1">
-      <img src="../../../uniprep-assets/images/smartloack.png" class="image" width="60" />
-      <h3 class="offer">Upgrade Required</h3>
-      <p>To access this exclusive module,please upgrade your plan now</p>
-      <button pButton  pButton type="button" class="text-white p-ripple p-button-rounded p-button-warning p-button p-component p-2"
-        (click)="upgradePlan()">
-        Upgrade Plan<i class="fa fa-arrow-right exhausted-plan-icon"></i>
-      </button>
-    </div>
-    <div *ngIf="!ehitlabelIsShow" class="text-center mt-5 mb-1">
-      <img src="{{ orglogowhitelabel }}" class="image" width="60" />
-      <h3 class="offer">Upgrade Required</h3>
-      <p>Please contact {{ orgnamewhitlabel }} Company for access</p>
-    </div>
-  </p-dialog>
+							<div *ngIf="recommendation.id == 2" class="col-md-6">
+								<h2 class="fw-bold mb-2">
+									{{ recommendation.question.heading }}
+								</h2>
+								<div>
+									<h5 class="uniprep-primary fw-semibold mt-3 mb-1">
+										{{ recommendation.question.branches[0] }}
+									</h5>
+									<div class="w-100 d-flex gap-2 flex-fill">
+										<p-select formControlName="currency_code" appendTo="body" [options]="currencyandCountryList" [filter]="true" filterBy="currency_symbol" placeholder="Currency" optionLabel="currency_symbol" optionValue="currency_symbol" [autoDisplayFirst]="false"> </p-select>
+										<input class="w-100 pl-4 border border-gray rounded-3" type="number" pInputText placeholder="Fees" formControlName="fees" [max]="99999999" />
+									</div>
+									<p class="text-center" *ngIf="(form.get('fees')?.errors?.required || form.get('fees')?.errors?.max) && submitted" style="color: red">Please Enter this amount and max 8 digit only allowed</p>
+								</div>
+								<div>
+									<h5 class="uniprep-primary fw-semibold mt-3 mb-1">
+										{{ recommendation.question.branches[1] }}
+									</h5>
+									<div class="w-100 d-flex gap-2 flex-fill">
+										<div class="border border-gray rounded-3 d-flex align-items-center justify-content-center bg-white" style="width: 50px">{{ form.get("currency_code").value || "" }}</div>
+										<input class="w-100 border border-gray rounded-3" type="number" pInputText placeholder="Enter Amount" formControlName="cost_estimation" [max]="99999999" />
+									</div>
+									<p class="text-center" *ngIf="(form.get('cost_estimation')?.errors?.required || form.get('cost_estimation')?.errors?.max) && submitted" style="color: red">Please Enter this amount and max 8 digit only allowed</p>
+								</div>
+								<div>
+									<h5 class="uniprep-primary fw-semibold mt-3 mb-1">
+										{{ recommendation.question.branches[2] }}
+									</h5>
+									<p-select styleClass="w-100" formControlName="period" appendTo="body" [options]="periodsList" [filter]="true" filterBy="name" placeholder="Select Stayback Period" optionLabel="name" optionValue="name" [autoDisplayFirst]="false"> </p-select>
+									<p class="text-center" *ngIf="form.get('period')?.errors?.required && submitted" style="color: red">Please Choose Any one option</p>
+								</div>
+							</div>
+						</div>
+					</ng-template>
+				</p-carousel>
+			</form>
+		</div>
+		<div class="card-footer bg-transparent border-0">
+			<div class="d-flex justify-content-between mt-2">
+				<button pButton pButton type="button" class="btn btn-primary btn-rounded p-1 pe-4" [style.visibility]="activePageIndex == 0 ? 'hidden' : 'visible'" (click)="previous()">
+					<span class="btn-icon px-2 py-2"><i class="fa fa-arrow-left"></i></span>
+					<span class="ms-2">Previous</span>
+				</button>
+				<button pButton type="button" (click)="next()" *ngIf="activePageIndex == 0" class="btn btn-primary btn-rounded p-1 ps-4">
+					<span class="me-2">Next</span><span class="btn-icon px-2 py-2"><i class="fa fa-arrow-right"></i></span>
+				</button>
+				<button pButton type="button" (click)="getRecommendation()" *ngIf="activePageIndex == 1" class="btn btn-success btn-rounded p-1 ps-4">
+					<span class="me-2">Get Recommendations</span><span class="btn-icon px-2 py-2"> <i class="fa fa-check-circle"></i></span>
+				</button>
+			</div>
+		</div>
+	</ng-container>
+	<!-- ----------------- Recommandation Response View ----------------- -->
+	<ng-container *ngIf="isRecommendationData">
+		<div class="card-header border-0 bg-transparent">
+			<div class="row justify-content-center align-items-center">
+				<div class="col-md-12 d-flex gap-4">
+					<div class="backIcon d-md-flex d-none" role="button" (click)="goBack()" style="height: auto">
+						<span class="fa-solid fa-chevron-left"></span>
+					</div>
+					<div class="select-title d-flex justify-content-between align-items-center">
+						<div>
+							<h5 class="w-100 mb-0" tooltipPosition="top" pTooltip="">Education Tools -> GLOBAL EDUFIT<i class="questiontooltip fa-solid fa-circle-question"></i></h5>
+						</div>
+					</div>
+					<div class="d-flex align-items-center">
+						<button pButton type="button" (click)="saveRecommadation()" class="btn btn-primary btn-rounded py-2 px-4">
+							<span>History</span>
+						</button>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="card-body worksans flex-fill overflow-y-auto">
+			<div class="row">
+				<div class="col-md-2"></div>
+				<div class="col-md-8">
+					<div class="d-flex justify-content-end gap-3 mb-3">
+						<button pButton pButton type="button" (click)="downloadRecommadation()" class="btn btn-secondary btn-rounded p-1 ps-4">
+							<span class="me-2">Download</span><span class="btn-icon px-2 py-2"> <i class="fa-regular fa-download"></i></span>
+						</button>
+					</div>
+					<div class="card p-3 fs-5" [innerHtml]="recommendationData"></div>
+				</div>
+				<div class="col-md-2"></div>
+			</div>
+		</div>
+		<div class="card-footer bg-transparent border-0">
+			<div class="text-end">
+				<button pButton pButton type="button" class="btn ps-3 btn-quit btn-rounded" (click)="resetRecommendation()">
+					Reset Recommendations<span class="btn-icon"><i class="fa-solid fa-arrow-rotate-right"></i> </span>
+				</button>
+			</div>
+		</div>
+	</ng-container>
+
+	<!-- ----------------- Recommandation Saved Response View ----------------- -->
+	<ng-container *ngIf="isRecommendationSavedData">
+		<div class="card-header border-0 bg-transparent">
+			<div class="row justify-content-center align-items-center">
+				<div class="col-md-12 d-flex gap-4">
+					<div class="backIcon d-md-flex d-none" role="button" (click)="goBack()" style="height: auto">
+						<span class="fa-solid fa-chevron-left"></span>
+					</div>
+					<div class="select-title d-flex justify-content-between align-items-center">
+						<div>
+							<h5 class="w-100 mb-0" tooltipPosition="top" pTooltip="">Education Tools -> GLOBAL EDUFIT<i class="questiontooltip fa-solid fa-circle-question"></i></h5>
+						</div>
+						<div>
+							<button pButton class="how-it-works-button" severity="warn">How it works? <i class="fa-solid fa-play d-md-block d-none"></i></button>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="card-body text-center flex-fill overflow-y-auto">
+			<div class="row mb-0">
+				<div *ngFor="let item of recommadationSavedQuestionList; let i = index" class="col-lg-3 col-md-3 col-sm-4 col-xs-12 col-12 mb-3">
+					<div class="row w-100 m-0 justify-content-center h-100">
+						<div class="card subjectcard" role="button" (click)="showRecommandationData(item.response)">
+							<div class="card-body text-start">
+								<h5 class="fw-bold mb-0">Global Edufit {{ i + 1 }}</h5>
+								<p class="text-small"><b>Home Country : </b>{{ item.homecountry }}</p>
+								<p class="text-small"><b>Interested Country : </b>{{ item.interested_country }}</p>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="card-footer bg-transparent border-0">
+			<div class="text-end">
+				<button pButton pButton type="button" class="btn ps-3 btn-quit btn-rounded" (click)="resetRecommendation()">
+					Reset Recommendations<span class="btn-icon"><i class="fa-solid fa-arrow-rotate-right"></i> </span>
+				</button>
+			</div>
+		</div>
+	</ng-container>
+</div>
+
+<p-dialog [(visible)]="restrict" [style]="{ width: '30vw' }" [draggable]="false" [resizable]="false" class="restrictionDialog" [breakpoints]="{ '960px': '30vw', '959px': '60vw', '425px': '90vw' }" (onHide)="clearRestriction()">
+	<div *ngIf="ehitlabelIsShow" class="text-center mt-5 mb-1">
+		<img src="../../../uniprep-assets/images/smartloack.png" class="image" width="60" />
+		<h3 class="offer">Upgrade Required</h3>
+		<p>To access this exclusive module,please upgrade your plan now</p>
+		<button pButton pButton type="button" class="text-white p-ripple p-button-rounded p-button-warning p-button p-component p-2" (click)="upgradePlan()">Upgrade Plan<i class="fa fa-arrow-right exhausted-plan-icon"></i></button>
+	</div>
+	<div *ngIf="!ehitlabelIsShow" class="text-center mt-5 mb-1">
+		<img src="../../../uniprep-assets/images/smartloack.png" class="image" width="60" />
+		<h3 class="offer">Upgrade Required</h3>
+		<p>Please contact {{ orgnamewhitlabel }} Company for access</p>
+	</div>
+</p-dialog>
+
+<p-dialog [(visible)]="restrict" [style]="{ width: '30vw' }" [draggable]="false" [resizable]="false" class="restrictionDialog" [breakpoints]="{ '960px': '30vw', '959px': '60vw', '425px': '90vw' }" (onHide)="clearRestriction()">
+	<div *ngIf="ehitlabelIsShow" class="text-center mt-5 mb-1">
+		<img src="../../../uniprep-assets/images/smartloack.png" class="image" width="60" />
+		<h3 class="offer">Upgrade Required</h3>
+		<p>To access this exclusive module,please upgrade your plan now</p>
+		<button pButton pButton type="button" class="text-white p-ripple p-button-rounded p-button-warning p-button p-component p-2" (click)="upgradePlan()">Upgrade Plan<i class="fa fa-arrow-right exhausted-plan-icon"></i></button>
+	</div>
+	<div *ngIf="!ehitlabelIsShow" class="text-center mt-5 mb-1">
+		<img src="{{ orglogowhitelabel }}" class="image" width="60" />
+		<h3 class="offer">Upgrade Required</h3>
+		<p>Please contact {{ orgnamewhitlabel }} Company for access</p>
+	</div>
+</p-dialog>

@@ -1,196 +1,154 @@
 <div class="card readingcard">
-    <div class="card-header border-0 bg-transparent">
-        <div class="row justify-content-center align-items-center">
-            <div class="col-md-12 d-flex gap-4">
-                <div class="backIcon d-md-flex d-none" role="button" (click)="goBack()" style="height: auto;">
-                    <span class="fa-solid fa-chevron-left"></span>
-                </div>
-                <div class="select-title d-flex justify-content-between align-items-center">
-                    <div>
-                        <h5 class="w-100 mb-0" tooltipPosition="top" pTooltip="">
-                            Education Tools -> EDULOAN Repayment Advisor
-                        </h5>
-                    </div>
-                    <div>
-                        <button pButton class="how-it-works-button" severity="warn">How it works?
-                            <i class="fa-solid fa-play d-md-block d-none"></i>
-                        </button>
-                    </div>
-                </div>
-                <div class="d-flex align-items-center">
-                    <button pButton type="button" (click)="saveRecommadation()" class="btn btn-primary py-2 px-4">
-                        <span>History</span>
-                    </button>
-                </div>
-            </div>
-        </div>
-    </div>
-    <ng-container *ngIf="isRecommendationQuestion">
-        <div class="card-body text-center flex-fill overflow-y-auto">
-            <div class="container-fluid h-100">
-                <p-carousel [value]="recommendations" [numVisible]="1" [numScroll]="1" [circular]="false"
-                    [showNavigators]="false" [showIndicators]="false" [page]="activePageIndex"
-                    styleClass="h-100 carousal-container-sec">
-                    <ng-template let-recommendation let-i="index" pTemplate="item">
-                        <form [formGroup]="form" class="h-100">
-                            <div class="h-100 d-flex flex-column justify-content-between">
-                                <div>&nbsp;</div>
-                                <div class="row justify-content-center text-start">
-                                    <div class="col-md-12 mb-4">
-                                        <h2 class="fw-bold mb-0 text-center">{{recommendation.heading}}</h2>
-                                    </div>
-                                    <div class="col-md-6">
-                                        <div *ngIf="recommendation.id == 1"
-                                            class="d-flex flex-column justify-content-center gap-4">
-                                            <div class="d-flex flex-column justify-content-center gap-2">
-                                                <h5 class="text-center uniprep-primary fw-semibold mb-0">
-                                                    {{ recommendation.questions[0] }}
-                                                </h5>
-                                                <div class="d-flex gap-2">
-                                                    <p-select formControlName="currency" [options]="currenciesList"
-                                                        optionLabel="currency_symbol" optionValue="currency_symbol"
-                                                        [filter]="true" filterBy="currency_symbol"
-                                                        placeholder="Select Currency" style="width: 35%;">
-                                                    </p-select>
-                                                    <p-inputnumber formControlName="loan_amount"
-                                                        placeholder="Enter Amount" class="w-100" />
-                                                </div>
-                                                <div *ngIf="(form.get('currency')?.errors?.required || form.get('loan_amount')?.errors?.required) && submitted"
-                                                    class="text-center text-danger"> Currency and Loan amount is
-                                                    required.
-                                                </div>
-                                            </div>
-                                            <div class="d-flex flex-column justify-content-center gap-2">
-                                                <h5 class="text-center uniprep-primary fw-semibold mb-0">
-                                                    {{ recommendation.questions[1] }}
-                                                </h5>
-                                                <p-inputnumber formControlName="interest_rate"
-                                                    placeholder="Enter Interest Rate" inputId="minmaxfraction"
-                                                    mode="decimal" [minFractionDigits]="2" [maxFractionDigits]="2"
-                                                    suffix=" %" class="w-100" />
-                                                <div *ngIf="form.get('interest_rate')?.errors?.required && submitted"
-                                                    class="text-center text-danger"> Interest rate is required.
-                                                </div>
-                                            </div>
-                                            <div class="d-flex flex-column justify-content-center gap-2">
-                                                <h5 class="text-center uniprep-primary fw-semibold mb-0">
-                                                    {{ recommendation.questions[2] }}
-                                                </h5>
-                                                <p-select formControlName="loan_tenure" [options]="loanTensureMonthList"
-                                                    [filter]="true" filterBy="value" optionLabel="value"
-                                                    optionValue="value" placeholder="Select Month">
-                                                </p-select>
-                                                <div *ngIf="form.get('loan_tenure')?.errors?.required && submitted"
-                                                    class="text-center text-danger"> Loan tenure is required.
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div *ngIf="recommendation.id == 2"
-                                            class="d-flex flex-column justify-content-center gap-4">
-                                            <div class="d-flex flex-column justify-content-center gap-2">
-                                                <h5 class="text-center uniprep-primary fw-semibold mb-0">
-                                                    {{ recommendation.questions[0] }}
-                                                </h5>
-                                                <p-select formControlName="moratorium_period"
-                                                    [options]="moratoriumPeriodList" optionLabel="value"
-                                                    optionValue="value" [filter]="true" filterBy="value"
-                                                    placeholder="Select Moratorium Period">
-                                                </p-select>
-                                                <div *ngIf="form.get('moratorium_period')?.errors?.required && submitted"
-                                                    class="text-center text-danger"> Moratorium period is required.
-                                                </div>
-                                            </div>
-                                            <div class="d-flex flex-column justify-content-center gap-2">
-                                                <h5 class="text-center uniprep-primary fw-semibold mb-0">
-                                                    {{ recommendation.questions[1] }}
-                                                </h5>
-                                                <p-select formControlName="repayment_year" [options]="repaymentYearList"
-                                                    optionLabel="value" optionValue="value" [filter]="true"
-                                                    filterBy="value" placeholder="Select Year">
-                                                </p-select>
-                                                <div *ngIf="form.get('repayment_year')?.errors?.required && submitted"
-                                                    class="text-center text-danger"> Repayment year is required.
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="d-flex justify-content-between mt-2">
-                                    <button pButton pButton type="button" class="btn btn-primary btn-rounded p-1 pe-4"
-                                        [style.visibility]="recommendation.id == 1 ? 'hidden' : 'visible'"
-                                        (click)="previous()">
-                                        <span class="btn-icon px-2 py-2"><i class="fa fa-arrow-left"></i></span> <span
-                                            class="ms-2">Previous</span>
-                                    </button>
-                                    <button pButton pButton type="button" (click)="next(recommendation.id)"
-                                        *ngIf="recommendation.id != 2" class="btn btn-primary btn-rounded p-1 ps-4">
-                                        <span class="me-2">Next</span><span class="btn-icon px-2 py-2"><i
-                                                class="fa fa-arrow-right"></i></span>
-                                    </button>
-                                    <button pButton pButton type="button" (click)="next(recommendation.id)"
-                                        *ngIf="recommendation.id == 2" class="btn btn-success btn-rounded p-1 ps-4">
-                                        <span class="me-2">Get Recommendations</span><span class="btn-icon px-2 py-2"><i
-                                                class="fa fa-check-circle"></i></span>
-                                    </button>
-                                </div>
-                            </div>
-                        </form>
-                    </ng-template>
-                </p-carousel>
-            </div>
-        </div>
-    </ng-container>
-    <ng-container *ngIf="isRecommendationData">
-        <div class="card-body worksans flex-fill overflow-y-auto">
-            <div class="row">
-                <div class="col-md-2"></div>
-                <div class="col-md-8">
-                    <div class="d-flex justify-content-end gap-3 mb-3">
-                        <button pButton pButton type="button" (click)="downloadRecommadation()"
-                            class="btn btn-secondary btn-rounded p-1 ps-4">
-                            <span class="me-2">Download</span><span class="btn-icon px-2 py-2">
-                                <i class="fa-regular fa-download"></i></span>
-                        </button>
-                    </div>
-                    <div class="card p-3 poppins-content chatgpt-response bg-white" [innerHtml]="recommendationData"></div>
-                </div>
-                <div class="col-md-2"></div>
-            </div>
-        </div>
-        <div class="card-footer bg-transparent border-0">
-            <div class="text-end">
-                <button pButton pButton type="button" class="btn ps-3 btn-quit btn-rounded"
-                    (click)="resetRecommendation()">
-                    Reset Recommendations<span class="btn-icon"><i class="fa-solid fa-arrow-rotate-right"></i>
-                    </span>
-                </button>
-            </div>
-        </div>
-    </ng-container>
-    <ng-container *ngIf="isRecommendationSavedData">
-        <div class="card-body text-center flex-fill overflow-y-auto">
-            <div class="row mb-0" *ngIf="recommadationSavedQuestionList.length > 0; else noHistory">
-                <div *ngFor="let item of recommadationSavedQuestionList; let i=index;"
-                    class="col-lg-3 col-md-3 col-sm-4 col-xs-12 col-4 mb-3">
-                    <div class="row w-100 m-0 justify-content-center h-100">
-                        <div class="card subjectcard" role="button" (click)="showRecommandationData(item.response)">
-                            <div class="card-body text-start">
-                                <h5 class="fw-bold mb-0">EduLoan Repaymeny Advisor {{i+1}}</h5>
-                                <p class="text-small"><b>Loan Amount : </b>{{item.currency+' '}} {{item.loan_amount}}</p>
-                                <p class="text-small"><b>Interest Rate : </b>{{item.interest_rate}} %</p>
-                                <p class="text-small"><b>Loan Tenure : </b>{{item.loan_tenure}} month</p>
-                                <p class="text-small"><b>Moratorium Period : </b>{{item.moratorium_period}}</p>
-                                <p class="text-small"><b>Repayment Year : </b>{{item.repayment_year}} year</p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <ng-template #noHistory>
-                <div class="d-flex justify-content-center">
-                    <h3 class="uniprep-lightgray">No History</h3>
-                </div>
-            </ng-template>
-        </div>
-    </ng-container>
+	<div class="card-header border-0 bg-transparent">
+		<div class="row justify-content-center align-items-center">
+			<div class="col-md-12 d-flex gap-4">
+				<div class="backIcon d-md-flex d-none" role="button" (click)="goBack()" style="height: auto">
+					<span class="fa-solid fa-chevron-left"></span>
+				</div>
+				<div class="select-title d-flex justify-content-between align-items-center">
+					<div class="d-flex gap-2">
+						<h5 routerLink="/pages/dashboard" role="button" class="mb-0" tooltipPosition="top" pTooltip=""><i class="fa-regular fa-home"></i></h5>
+                        <span><i class="fa-solid fa-chevron-right"></i></span>
+                        <h5 routerLink="/pages/education-tools" role="button" class="mb-0" tooltipPosition="top" pTooltip="">Education Tools</h5>
+                        <span><i class="fa-solid fa-chevron-right"></i></span>
+						<h5 class="mb-0" tooltipPosition="top" pTooltip="">EDULOAN Repayment Advisor</h5>
+					</div>
+					<div>
+						<button pButton class="how-it-works-button" severity="warn">
+							How it works?
+							<i class="fa-solid fa-play d-md-block d-none"></i>
+						</button>
+					</div>
+				</div>
+				<div class="d-flex align-items-center">
+					<button pButton type="button" (click)="saveRecommadation()" class="btn btn-primary py-2 px-4">
+						<span>History</span>
+					</button>
+				</div>
+			</div>
+		</div>
+	</div>
+	<ng-container *ngIf="isRecommendationQuestion">
+		<div class="card-body text-center flex-fill overflow-y-auto">
+			<div class="container-fluid h-100">
+				<p-carousel [value]="recommendations" [numVisible]="1" [numScroll]="1" [circular]="false" [showNavigators]="false" [showIndicators]="false" [page]="activePageIndex" styleClass="h-100 carousal-container-sec">
+					<ng-template let-recommendation let-i="index" pTemplate="item">
+						<form [formGroup]="form" class="h-100">
+							<div class="h-100 d-flex flex-column justify-content-between">
+								<div>&nbsp;</div>
+								<div class="row justify-content-center text-start">
+									<div class="col-md-12 mb-4">
+										<h2 class="fw-bold mb-0 text-center">{{ recommendation.heading }}</h2>
+									</div>
+									<div class="col-md-6">
+										<div *ngIf="recommendation.id == 1" class="d-flex flex-column justify-content-center gap-4">
+											<div class="d-flex flex-column justify-content-center gap-2">
+												<h5 class="text-center uniprep-primary fw-semibold mb-0">
+													{{ recommendation.questions[0] }}
+												</h5>
+												<div class="d-flex gap-2">
+													<p-select formControlName="currency" [options]="currenciesList" optionLabel="currency_symbol" optionValue="currency_symbol" [filter]="true" filterBy="currency_symbol" placeholder="Select Currency" style="width: 35%"> </p-select>
+													<p-inputnumber formControlName="loan_amount" placeholder="Enter Amount" class="w-100" />
+												</div>
+												<div *ngIf="(form.get('currency')?.errors?.required || form.get('loan_amount')?.errors?.required) && submitted" class="text-center text-danger">Currency and Loan amount is required.</div>
+											</div>
+											<div class="d-flex flex-column justify-content-center gap-2">
+												<h5 class="text-center uniprep-primary fw-semibold mb-0">
+													{{ recommendation.questions[1] }}
+												</h5>
+												<p-inputnumber formControlName="interest_rate" placeholder="Enter Interest Rate" inputId="minmaxfraction" mode="decimal" [minFractionDigits]="2" [maxFractionDigits]="2" suffix=" %" class="w-100" />
+												<div *ngIf="form.get('interest_rate')?.errors?.required && submitted" class="text-center text-danger">Interest rate is required.</div>
+											</div>
+											<div class="d-flex flex-column justify-content-center gap-2">
+												<h5 class="text-center uniprep-primary fw-semibold mb-0">
+													{{ recommendation.questions[2] }}
+												</h5>
+												<p-select formControlName="loan_tenure" [options]="loanTensureMonthList" [filter]="true" filterBy="value" optionLabel="value" optionValue="value" placeholder="Select Month"> </p-select>
+												<div *ngIf="form.get('loan_tenure')?.errors?.required && submitted" class="text-center text-danger">Loan tenure is required.</div>
+											</div>
+										</div>
+										<div *ngIf="recommendation.id == 2" class="d-flex flex-column justify-content-center gap-4">
+											<div class="d-flex flex-column justify-content-center gap-2">
+												<h5 class="text-center uniprep-primary fw-semibold mb-0">
+													{{ recommendation.questions[0] }}
+												</h5>
+												<p-select formControlName="moratorium_period" [options]="moratoriumPeriodList" optionLabel="value" optionValue="value" [filter]="true" filterBy="value" placeholder="Select Moratorium Period"> </p-select>
+												<div *ngIf="form.get('moratorium_period')?.errors?.required && submitted" class="text-center text-danger">Moratorium period is required.</div>
+											</div>
+											<div class="d-flex flex-column justify-content-center gap-2">
+												<h5 class="text-center uniprep-primary fw-semibold mb-0">
+													{{ recommendation.questions[1] }}
+												</h5>
+												<p-select formControlName="repayment_year" [options]="repaymentYearList" optionLabel="value" optionValue="value" [filter]="true" filterBy="value" placeholder="Select Year"> </p-select>
+												<div *ngIf="form.get('repayment_year')?.errors?.required && submitted" class="text-center text-danger">Repayment year is required.</div>
+											</div>
+										</div>
+									</div>
+								</div>
+								<div class="d-flex justify-content-between mt-2">
+									<button pButton pButton type="button" class="btn btn-primary btn-rounded p-1 pe-4" [style.visibility]="recommendation.id == 1 ? 'hidden' : 'visible'" (click)="previous()">
+										<span class="btn-icon px-2 py-2"><i class="fa fa-arrow-left"></i></span> <span class="ms-2">Previous</span>
+									</button>
+									<button pButton pButton type="button" (click)="next(recommendation.id)" *ngIf="recommendation.id != 2" class="btn btn-primary btn-rounded p-1 ps-4">
+										<span class="me-2">Next</span><span class="btn-icon px-2 py-2"><i class="fa fa-arrow-right"></i></span>
+									</button>
+									<button pButton pButton type="button" (click)="next(recommendation.id)" *ngIf="recommendation.id == 2" class="btn btn-success btn-rounded p-1 ps-4">
+										<span class="me-2">Get Recommendations</span><span class="btn-icon px-2 py-2"><i class="fa fa-check-circle"></i></span>
+									</button>
+								</div>
+							</div>
+						</form>
+					</ng-template>
+				</p-carousel>
+			</div>
+		</div>
+	</ng-container>
+	<ng-container *ngIf="isRecommendationData">
+		<div class="card-body worksans flex-fill overflow-y-auto">
+			<div class="row">
+				<div class="col-md-2"></div>
+				<div class="col-md-8">
+					<div class="d-flex justify-content-end gap-3 mb-3">
+						<button pButton pButton type="button" (click)="downloadRecommadation()" class="btn btn-secondary btn-rounded p-1 ps-4">
+							<span class="me-2">Download</span><span class="btn-icon px-2 py-2"> <i class="fa-regular fa-download"></i></span>
+						</button>
+					</div>
+					<div class="card p-3 poppins-content chatgpt-response bg-white" [innerHtml]="recommendationData"></div>
+				</div>
+				<div class="col-md-2"></div>
+			</div>
+		</div>
+		<div class="card-footer bg-transparent border-0">
+			<div class="text-end">
+				<button pButton pButton type="button" class="btn ps-3 btn-quit btn-rounded" (click)="resetRecommendation()">
+					Reset Recommendations<span class="btn-icon"><i class="fa-solid fa-arrow-rotate-right"></i> </span>
+				</button>
+			</div>
+		</div>
+	</ng-container>
+	<ng-container *ngIf="isRecommendationSavedData">
+		<div class="card-body text-center flex-fill overflow-y-auto">
+			<div class="row mb-0" *ngIf="recommadationSavedQuestionList.length > 0; else noHistory">
+				<div *ngFor="let item of recommadationSavedQuestionList; let i = index" class="col-lg-3 col-md-3 col-sm-4 col-xs-12 col-4 mb-3">
+					<div class="row w-100 m-0 justify-content-center h-100">
+						<div class="card subjectcard" role="button" (click)="showRecommandationData(item.response)">
+							<div class="card-body text-start">
+								<h5 class="fw-bold mb-0">EduLoan Repaymeny Advisor {{ i + 1 }}</h5>
+								<p class="text-small"><b>Loan Amount : </b>{{ item.currency + " " }} {{ item.loan_amount }}</p>
+								<p class="text-small"><b>Interest Rate : </b>{{ item.interest_rate }} %</p>
+								<p class="text-small"><b>Loan Tenure : </b>{{ item.loan_tenure }} month</p>
+								<p class="text-small"><b>Moratorium Period : </b>{{ item.moratorium_period }}</p>
+								<p class="text-small"><b>Repayment Year : </b>{{ item.repayment_year }} year</p>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<ng-template #noHistory>
+				<div class="d-flex justify-content-center">
+					<h3 class="uniprep-lightgray">No History</h3>
+				</div>
+			</ng-template>
+		</div>
+	</ng-container>
 </div>

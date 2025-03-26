@@ -3,7 +3,7 @@ import { Component, OnInit, ViewChild, AfterViewInit } from "@angular/core"
 import { PageFacadeService } from "../../page-facade.service"
 import { learnModules, learnsubModules, submoduledata } from "../unilearn.model"
 import { UniLearnService } from "../unilearn.service"
-import { ActivatedRoute, Router } from "@angular/router"
+import { ActivatedRoute, Router, RouterModule } from "@angular/router"
 import { ArrayHeaderService } from "../array-header.service"
 import { Location } from "@angular/common"
 import { AuthService } from "src/app/Auth/auth.service"
@@ -16,7 +16,7 @@ import {PdfViewerModule} from "ng2-pdf-viewer";
 	selector: "uni-learnsubmodules",
 	templateUrl: "./learnsubmodules.component.html",
 	styleUrls: ["./learnsubmodules.component.scss"],
-	imports: [DialogModule, CommonModule, PdfViewerModule],
+	imports: [DialogModule, CommonModule, PdfViewerModule, RouterModule],
 	standalone: true,
 })
 export class LearnsubModulesComponent implements OnInit, AfterViewInit {
@@ -68,7 +68,7 @@ export class LearnsubModulesComponent implements OnInit, AfterViewInit {
 	}
 
 	getFormattedValues(): string {
-		return this.arrayHeaderService.getItems().join(" -> ")
+		return this.arrayHeaderService.getItems().join( ` > `)
 	}
 
 	getModules() {

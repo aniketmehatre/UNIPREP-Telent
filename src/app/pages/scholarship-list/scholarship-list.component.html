@@ -4,11 +4,13 @@
 			<div class="row justify-content-center">
 				<div class="col-md-12 text-center">
 					<div class="select-title d-flex justify-content-between align-items-center">
-						<div>
-							<h5 class="w-100 mb-0" tooltipPosition="top" pTooltip="Access fully and partially funded opportunities for education.">UNISCHOLAR <i class="questiontooltip fa-solid fa-circle-question"></i></h5>
+						<div class="d-flex gap-2">
+							<h5 routerLink="/pages/dashboard" role="button" class="mb-0" tooltipPosition="top" pTooltip=""><i class="fa-regular fa-home"></i></h5>
+							<span><i class="fa-solid fa-chevron-right"></i></span>
+							<h5 routerLink="/pages/scholarship-list" role="button" class="mb-0" tooltipPosition="right" pTooltip="Access fully and partially funded opportunities for education.">UNISCHOLAR</h5>
 						</div>
 						<div>
-							<button pButton  class="how-it-works-button" severity="warn" (click)="openHowItWorksVideoPopup('https://www.youtube.com/embed/5B7AeCCKCKw?si=uUXSoWHIsi3fxJH2')">How it works?<i class="fa-solid fa-play d-md-block d-none"></i></button>
+							<button pButton class="how-it-works-button" severity="warn" (click)="openHowItWorksVideoPopup('https://www.youtube.com/embed/5B7AeCCKCKw?si=uUXSoWHIsi3fxJH2')">How it works?<i class="fa-solid fa-play d-md-block d-none"></i></button>
 						</div>
 					</div>
 				</div>
@@ -22,7 +24,7 @@
 							<div>&nbsp;</div>
 							<div class="row justify-content-center text-start">
 								<div class="col-md-12 mb-4">
-									<h5 class="text-center uniprep-primary fw-semibold mb-0">Question Number {{ recommendation.id }}</h5>
+									<!-- <h5 class="text-center uniprep-primary fw-semibold mb-0">Question Number {{ recommendation.id }}</h5> -->
 									<h2 class="fw-bold mb-0 text-center">{{ recommendation.question }}</h2>
 								</div>
 								<div class="col-md-6">
@@ -62,13 +64,13 @@
 								</div>
 							</div>
 							<div class="d-flex justify-content-between mt-2">
-								<button pButton  pButton type="button" class="btn btn-primary btn-rounded p-1 pe-4" [style.visibility]="recommendation.id == 1 ? 'hidden' : 'visible'" (click)="previous()">
+								<button pButton pButton type="button" class="btn btn-primary btn-rounded p-1 pe-4" [style.visibility]="recommendation.id == 1 ? 'hidden' : 'visible'" (click)="previous()">
 									<span class="btn-icon px-2 py-2"><i class="fa fa-arrow-left"></i></span> <span class="ms-2">Previous</span>
 								</button>
-								<button pButton  pButton type="button" (click)="next(recommendation.id)" *ngIf="recommendation.id != 4" class="btn btn-primary btn-rounded p-1 ps-4">
+								<button pButton pButton type="button" (click)="next(recommendation.id)" *ngIf="recommendation.id != 4" class="btn btn-primary btn-rounded p-1 ps-4">
 									<span class="me-2">Next</span><span class="btn-icon px-2 py-2"><i class="fa fa-arrow-right"></i></span>
 								</button>
-								<button pButton  pButton type="button" (click)="getRecommendation()" severity="success" *ngIf="recommendation.id == 4" class="btn btn-success btn-rounded p-1 ps-4">
+								<button pButton pButton type="button" (click)="getRecommendation()" severity="success" *ngIf="recommendation.id == 4" class="btn btn-success btn-rounded p-1 ps-4">
 									<span class="me-2">Get Recommendations</span><span class="btn-icon px-2 py-2"><i class="fa fa-check-circle"></i></span>
 								</button>
 							</div>
@@ -83,37 +85,40 @@
 			<div class="row d-md-none d-flex">
 				<div class="col-12">
 					<div class="select-title d-flex justify-content-between align-items-center">
-						<div>
-							<h5 class="mb-0" tooltipPosition="top" pTooltip="UNISCHOLAR">UNISCHOLAR <i class="questiontooltip fa-solid fa-circle-question"></i></h5>
+						<div class="d-flex gap-2">
+							<h5 routerLink="/pages/dashboard" role="button" class="mb-0" tooltipPosition="top" pTooltip=""><i class="fa-regular fa-home"></i></h5>
+							<span><i class="fa-solid fa-chevron-right"></i></span>
+							<h5 routerLink="/pages/scholarship-list" role="button" class="mb-0" tooltipPosition="right" pTooltip="Access fully and partially funded opportunities for education.">UNISCHOLAR</h5>
 						</div>
 						<div>
-							<button pButton  class="how-it-works-button" severity="warn" (click)="openHowItWorksVideoPopup('https://www.youtube.com/embed/5B7AeCCKCKw?si=uUXSoWHIsi3fxJH2')">How it works?<i class="fa-solid fa-play d-md-block d-none"></i></button>
+							<button pButton class="how-it-works-button" severity="warn" (click)="openHowItWorksVideoPopup('https://www.youtube.com/embed/5B7AeCCKCKw?si=uUXSoWHIsi3fxJH2')">How it works?<i class="fa-solid fa-play d-md-block d-none"></i></button>
 						</div>
 					</div>
 				</div>
-        <div class="col-12">
-          <div class="d-flex justify-content-between mt-2 gap-1">
-            <button pButton  *ngIf="ehitlabelIsShow" class="btn btn-secondary text-small btn-rounded flex-fill" (click)="buyCredits()" type="button">Buy Credits</button>
-            <button pButton  class="btn btn-outline-primary text-small btn-rounded d-flex gap-2 align-items-center flex-fill" (click)="exportData()" type="button">
-              Export <span class="btn-icon text-white">{{ exportCreditCount }}</span>
-            </button>
-            <button pButton  class="btn btn-secondary text-small flex-fill" (click)="openReport()" type="button"><i class="fa-solid fa-circle-exclamation"></i></button>
-            <button pButton  class="btn btn-gray text-small flex-fill" (click)="scholarGuidlines()" type="button"><i class="fa-solid fa-graduation-cap"></i></button>
-            <button pButton  class="btn btn-primary text-small flex-fill" (click)="viewFavourites()" type="button"><i class="fa-solid fa-bookmark"></i><span class="ms-2">({{ favCount }})</span>
-            </button>
-						<button pButton  class="btn btn-primary text-small flex-fill" (click)="filterBy()" type="button"><i class="fa-solid fa-bars-filter"></i></button>
-          </div>
-        </div>
-        <div class="col-12 mt-2">
-          <div class="d-flex justify-content-between align-items-center">
-            <div class="d-flex gap-2 align-items-center">
-              <input type="checkbox" class="me-0" [(ngModel)]="selectAllCheckboxes" (click)="selectAllCheckbox()" id="selectAllcheckbox" />
-              <label class="text-small fw-semibold" for="selectAllcheckbox" style="cursor: pointer">Select All</label>
-              <span class="text-small fw-semibold">Selected : {{ selectedScholarship }}</span>
-            </div>
-            <span class="text-muted fw-semibold text-small">Total Scholarship : {{ totalScholarShipCount }}</span>
-          </div>
-        </div>
+				<div class="col-12">
+					<div class="d-flex justify-content-between mt-2 gap-1">
+						<button pButton *ngIf="ehitlabelIsShow" class="btn btn-secondary text-small btn-rounded flex-fill" (click)="buyCredits()" type="button">Buy Credits</button>
+						<button pButton class="btn btn-outline-primary text-small btn-rounded d-flex gap-2 align-items-center flex-fill" (click)="exportData()" type="button">
+							Export <span class="btn-icon text-white">{{ exportCreditCount }}</span>
+						</button>
+						<button pButton class="btn btn-secondary text-small flex-fill" (click)="openReport()" type="button"><i class="fa-solid fa-circle-exclamation"></i></button>
+						<button pButton class="btn btn-gray text-small flex-fill" (click)="scholarGuidlines()" type="button"><i class="fa-solid fa-graduation-cap"></i></button>
+						<button pButton class="btn btn-primary text-small flex-fill" (click)="viewFavourites()" type="button">
+							<i class="fa-solid fa-bookmark"></i><span class="ms-2">({{ favCount }})</span>
+						</button>
+						<button pButton class="btn btn-primary text-small flex-fill" (click)="filterBy()" type="button"><i class="fa-solid fa-bars-filter"></i></button>
+					</div>
+				</div>
+				<div class="col-12 mt-2">
+					<div class="d-flex justify-content-between align-items-center">
+						<div class="d-flex gap-2 align-items-center">
+							<input type="checkbox" class="me-0" [(ngModel)]="selectAllCheckboxes" (click)="selectAllCheckbox()" id="selectAllcheckbox" />
+							<label class="text-small fw-semibold" for="selectAllcheckbox" style="cursor: pointer">Select All</label>
+							<span class="text-small fw-semibold">Selected : {{ selectedScholarship }}</span>
+						</div>
+						<span class="text-muted fw-semibold text-small">Total Scholarship : {{ totalScholarShipCount }}</span>
+					</div>
+				</div>
 			</div>
 			<div class="row justify-content-center d-md-flex d-none">
 				<!-- <div class="col-xxl-3 col-xl-3 col-lg-4 col-md-4 col-sm-4 col-xs-12 col-12 text-start"> -->
@@ -129,18 +134,20 @@
 				<div class="col-12">
 					<div class="d-flex flex-md-row flex-column gap-2">
 						<div class="select-title d-flex justify-content-between align-items-center">
-							<div>
-								<h5 class="mb-0" tooltipPosition="top" pTooltip="UNISCHOLAR">UNISCHOLAR <i class="questiontooltip fa-solid fa-circle-question"></i></h5>
+							<div class="d-flex gap-2">
+								<h5 routerLink="/pages/dashboard" role="button" class="mb-0" tooltipPosition="top" pTooltip=""><i class="fa-regular fa-home"></i></h5>
+								<span><i class="fa-solid fa-chevron-right"></i></span>
+								<h5 routerLink="/pages/scholarship-list" role="button" class="mb-0" tooltipPosition="right" pTooltip="Access fully and partially funded opportunities for education.">UNISCHOLAR</h5>
 							</div>
 							<div>
-								<button pButton  class="how-it-works-button" severity="warn" (click)="openHowItWorksVideoPopup('https://www.youtube.com/embed/5B7AeCCKCKw?si=uUXSoWHIsi3fxJH2')">How it works?<i class="fa-solid fa-play d-md-block d-none"></i></button>
+								<button pButton class="how-it-works-button" severity="warn" (click)="openHowItWorksVideoPopup('https://www.youtube.com/embed/5B7AeCCKCKw?si=uUXSoWHIsi3fxJH2')">How it works?<i class="fa-solid fa-play d-md-block d-none"></i></button>
 							</div>
 						</div>
 						<div class="d-flex justify-content-end gap-2">
-							<button pButton  class="btn btn-gray text-small btn-rounded" (click)="scholarGuidlines()" type="button">Scholarship Guidelines</button>
-							<button pButton  *ngIf="ehitlabelIsShow && PersonalInfo?.usertype_id !== 14 && (PersonalInfo?.trail_config_id >= 4 && PersonalInfo?.trail_config_id <= 7) && PersonalInfo?.trail_expired_flag == 2" class="btn btn-secondary text-small btn-rounded" (click)="buyCredits()" type="button">Buy Credits</button>
-							<button pButton  class="btn btn-outline-primary text-small btn-rounded d-flex gap-2 align-items-center" (click)="exportData()" type="button">
-								Export <span *ngIf="PersonalInfo?.usertype_id !== 14 && (PersonalInfo?.trail_config_id >= 4 && PersonalInfo?.trail_config_id <= 7) && PersonalInfo?.trail_expired_flag == 2" class="btn-icon text-white">{{ exportCreditCount }}</span>
+							<button pButton class="btn btn-gray text-small btn-rounded" (click)="scholarGuidlines()" type="button">Scholarship Guidelines</button>
+							<button pButton *ngIf="ehitlabelIsShow && PersonalInfo?.usertype_id !== 14 && PersonalInfo?.trail_config_id >= 4 && PersonalInfo?.trail_config_id <= 7 && PersonalInfo?.trail_expired_flag == 2" class="btn btn-secondary text-small btn-rounded" (click)="buyCredits()" type="button">Buy Credits</button>
+							<button pButton class="btn btn-outline-primary text-small btn-rounded d-flex gap-2 align-items-center" (click)="exportData()" type="button">
+								Export <span *ngIf="PersonalInfo?.usertype_id !== 14 && PersonalInfo?.trail_config_id >= 4 && PersonalInfo?.trail_config_id <= 7 && PersonalInfo?.trail_expired_flag == 2" class="btn-icon text-white">{{ exportCreditCount }}</span>
 							</button>
 						</div>
 					</div>
@@ -152,14 +159,14 @@
 								<input type="checkbox" class="me-0" [(ngModel)]="selectAllCheckboxes" (click)="selectAllCheckbox()" id="selectAllcheckbox" />
 								<label class="p-2 fw-semibold" for="selectAllcheckbox" style="cursor: pointer">Select All</label>
 								<span class="p-2 fw-semibold">Selected : {{ selectedScholarship }}</span>
-								<button pButton  class="btn btn-primary text-small btn-rounded" (click)="viewFavourites()" type="button">
+								<button pButton class="btn btn-primary text-small btn-rounded" (click)="viewFavourites()" type="button">
 									{{ viewFavouritesLabel }}<span class="ms-2" *ngIf="viewFavouritesLabel != 'View All'">({{ favCount }})</span>
 								</button>
 							</span>
 						</div>
 						<div class="d-flex align-items-center justify-content-end gap-1 mt-3">
-							<button pButton  class="btn btn-secondary btn-rounded text-small" (click)="openReport()" type="button">Report</button>
-							<button pButton  class="btn btn-primary text-small btn-rounded" (click)="filterBy()" type="button">Filter by</button>
+							<button pButton class="btn btn-secondary btn-rounded text-small" (click)="openReport()" type="button">Report</button>
+							<button pButton class="btn btn-primary text-small btn-rounded" (click)="filterBy()" type="button">Filter by</button>
 							<div class="pe-2">
 								<span class="text-muted text-small"
 									><strong>Total Scholarship : {{ totalScholarShipCount }}</strong></span
@@ -248,16 +255,16 @@
 			</div>
 		</div>
 		<div class="card-footer border-0 bg-transparent position-relative">
-      <button pButton  pButton type="button" style="bottom:5rem;right:1rem" class="btn btn-quit btn-rounded p-1 ps-3 text-small position-absolute d-flex d-md-none " (click)="resetRecommendation()">
-        <span>Reset</span><span class="btn-icon"><i class="fa-solid fa-arrow-rotate-right"></i> </span>
-      </button>
+			<button pButton pButton type="button" style="bottom: 5rem; right: 1rem" class="btn btn-quit btn-rounded p-1 ps-3 text-small position-absolute d-flex d-md-none" (click)="resetRecommendation()">
+				<span>Reset</span><span class="btn-icon"><i class="fa-solid fa-arrow-rotate-right"></i> </span>
+			</button>
 			<div class="row">
 				<div class="col-md-3 d-md-block d-none">&nbsp;</div>
 				<div class="col-md-6 col-11">
 					<p-paginator *ngIf="totalScholarShipCount != 0" [rows]="pageSize" [totalRecords]="totalScholarShipCount" (onPageChange)="pageChange($event)" [rowsPerPageOptions]="[100, 300, 500, 1000]"></p-paginator>
 				</div>
 				<div class="col-md-3 d-none d-md-block text-end">
-					<button pButton  pButton type="button" class="btn ps-md-3 ps-0 btn-quit btn-rounded" (click)="resetRecommendation()">
+					<button pButton pButton type="button" class="btn ps-md-3 ps-0 btn-quit btn-rounded" (click)="resetRecommendation()">
 						<span>Reset Recommendations</span><span class="btn-icon"><i class="fa-solid fa-arrow-rotate-right"></i> </span>
 					</button>
 				</div>
@@ -271,7 +278,7 @@
 		<img src="../../../uniprep-assets/images/smartloack.png" class="image" width="60" />
 		<h3 class="offer">Upgrade Required</h3>
 		<p>To access this exclusive module,please upgrade your plan now</p>
-		<button pButton  pButton type="button" class="text-white p-ripple p-button-rounded p-button-warning p-button p-component p-2" (click)="upgradePlan()">Upgrade Plan<i class="fa fa-arrow-right exhausted-plan-icon"></i></button>
+		<button pButton pButton type="button" class="text-white p-ripple p-button-rounded p-button-warning p-button p-component p-2" (click)="upgradePlan()">Upgrade Plan<i class="fa fa-arrow-right exhausted-plan-icon"></i></button>
 	</div>
 	<div *ngIf="!ehitlabelIsShow" class="text-center mt-5 mb-4">
 		<img src="../../../uniprep-assets/images/smartloack.png" class="image" width="60" />
@@ -313,23 +320,7 @@
 						<label class="form-label" style="font-size: medium; font-weight: 500">Filter by Study Level</label>
 						<div class="form-group">
 							<div class="mb-3">
-								<p-multiSelect 
-									[options]="studyLevelList" 
-									styleClass="w-100" 
-									formControlName="study_level" 
-									[optionValue]="'id'" 
-									[optionLabel]="'level'"
-									placeholder="Select Study Level" 
-									class="filterInput" 
-									[appendTo]="'body'"
-									[showToggleAll]="true"
-									[selectionLimit]="0"
-									[defaultLabel]="'Select Study Level'"
-									[displaySelectedLabel]="true"
-									[showHeader]="true"
-									[filter]="true"
-									[filterBy]="'level'">
-								</p-multiSelect>
+								<p-multiSelect [options]="studyLevelList" styleClass="w-100" formControlName="study_level" [optionValue]="'id'" [optionLabel]="'level'" placeholder="Select Study Level" class="filterInput" [appendTo]="'body'" [showToggleAll]="true" [selectionLimit]="0" [defaultLabel]="'Select Study Level'" [displaySelectedLabel]="true" [showHeader]="true" [filter]="true" [filterBy]="'level'"> </p-multiSelect>
 							</div>
 						</div>
 					</div>
@@ -354,9 +345,9 @@
 		</div>
 		<br />
 		<div class="row gap-3">
-			<div class="col-12"><button pButton  type="submit" class="btn btn-dark w-100" style="background-color: var(--uniprep-primary) !important">Apply Filter</button></div>
+			<div class="col-12"><button pButton type="submit" class="btn btn-dark w-100" style="background-color: var(--uniprep-primary) !important">Apply Filter</button></div>
 			<div class="col-12">
-				<button pButton  class="btn btn-danger ps-3 pe-3 pt-2 pb-2 w-100" (click)="clearFilter()" style="border-radius: 8px; color: #fff" type="button">Reset Filter</button>
+				<button pButton class="btn btn-danger ps-3 pe-3 pt-2 pb-2 w-100" (click)="clearFilter()" style="border-radius: 8px; color: #fff" type="button">Reset Filter</button>
 			</div>
 			<!-- <div class="col-12">
 				<button pButton  class="btn btn-danger ps-3 pe-3 pt-2 pb-2 w-100" (click)="resetFilter()" style="border-radius: 8px; color: #fff" type="button">Clear & Close Filter</button>
@@ -370,7 +361,7 @@
 		<img src="../../../uniprep-assets/images/smartloack.png" class="image" width="60" />
 		<h3 class="offer">Upgrade Required</h3>
 		<p>To access this exclusive module,please upgrade your plan now</p>
-		<button pButton  pButton type="button" class="text-white p-ripple p-button-rounded p-button-warning p-button p-component p-2" (click)="upgradePlan()">Upgrade Plan<i class="fa fa-arrow-right exhausted-plan-icon"></i></button>
+		<button pButton pButton type="button" class="text-white p-ripple p-button-rounded p-button-warning p-button p-component p-2" (click)="upgradePlan()">Upgrade Plan<i class="fa fa-arrow-right exhausted-plan-icon"></i></button>
 	</div>
 	<div *ngIf="!ehitlabelIsShow" class="text-center mt-5 mb-4">
 		<img src="{{ orglogowhitelabel }}" class="image" width="60" />

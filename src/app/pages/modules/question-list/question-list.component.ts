@@ -5,7 +5,7 @@ import {MenuItem, MessageService} from "primeng/api"
 import {ModuleServiceService} from "../../module-store/module-service.service"
 import {ModuleStoreService} from "../../module-store/module-store.service"
 import {DataService} from "../../../data.service"
-import {ActivatedRoute, Router} from "@angular/router"
+import {ActivatedRoute, Router, RouterModule} from "@angular/router"
 import {CommonModule, Location} from "@angular/common"
 import {DomSanitizer, Meta, SafeResourceUrl, Title} from "@angular/platform-browser"
 import {Carousel, CarouselModule} from "primeng/carousel"
@@ -31,7 +31,7 @@ import {StorageService} from "../../../storage.service";
 	styleUrls: ["./question-list.component.scss"],
 	providers: [MarkdownService],
 	standalone: true,
-	imports: [CommonModule, DialogModule, CardModule, PaginatorModule, SkeletonModule, TooltipModule,
+	imports: [CommonModule,RouterModule, DialogModule, CardModule, PaginatorModule, SkeletonModule, TooltipModule,
 		ButtonModule, MultiSelectModule, CarouselModule, InputGroupModule, InputGroupAddonModule],
 })
 export class QuestionListComponent implements OnInit {

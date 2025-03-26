@@ -1,5 +1,5 @@
 import { Component, ElementRef, Input, OnInit, ViewChild } from "@angular/core";
-import { Router } from "@angular/router";
+import { Router, RouterModule } from "@angular/router";
 import { AveragesalaryestimatorService } from "../../averagesalaryestimator/averagesalaryestimator.service";
 import { PageFacadeService } from "../../page-facade.service";
 import { FormArray, FormBuilder, FormGroup, Validators } from "@angular/forms";
@@ -25,7 +25,7 @@ import { JobOfferPreparedListComponent } from "./preparedlist/preparedlist.compo
   templateUrl: "./joboffercomparisontool.component.html",
   styleUrls: ["./joboffercomparisontool.component.scss"],
   standalone: true,
-  imports: [CommonModule, DialogModule, SidebarModule, PdfViewerModule, CardModule, PaginatorModule, FormsModule, ReactiveFormsModule, CarouselModule, ButtonModule, MultiSelectModule, SelectModule, InputGroupModule, InputTextModule, InputGroupAddonModule, RadioButtonModule, JobOfferPreparedListComponent]
+  imports: [CommonModule,RouterModule, DialogModule, SidebarModule, PdfViewerModule, CardModule, PaginatorModule, FormsModule, ReactiveFormsModule, CarouselModule, ButtonModule, MultiSelectModule, SelectModule, InputGroupModule, InputTextModule, InputGroupAddonModule, RadioButtonModule, JobOfferPreparedListComponent]
 })
 
 export class JoboffercomparisontoolComponent implements OnInit {

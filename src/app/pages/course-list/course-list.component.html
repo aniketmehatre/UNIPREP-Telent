@@ -4,9 +4,11 @@
       <div class="row justify-content-center">
         <div class="col-md-12 text-center">
           <div class="select-title d-flex justify-content-between align-items-center">
-            <div>
-              <h5 class="w-100 mb-0" tooltipPosition="top" pTooltip="Search and apply to courses worldwide with our comprehensive global course finder">UNIFINDER<i class="questiontooltip fa-solid fa-circle-question"></i></h5>
-            </div>
+            <div class="d-flex gap-2">
+							<h5 routerLink="/pages/dashboard" role="button" class="mb-0" tooltipPosition="top" pTooltip=""><i class="fa-regular fa-home"></i></h5>
+							<span><i class="fa-solid fa-chevron-right"></i></span>
+							<h5 routerLink="/pages/course-list" role="button" class="mb-0" tooltipPosition="right" pTooltip="Search and apply to courses worldwide with our comprehensive global course finder">UNIFINDER</h5>
+						</div>
             <div>
               <button pButton  class="how-it-works-button" severity="warn" (click)="openVideoPopup('https://www.youtube.com/embed/LKBP_32UGD8?si=kze04qppwORIcazK')">How it works?<i class="fa-solid fa-play d-md-block d-none"></i></button>
             </div>
@@ -23,7 +25,7 @@
               <div>&nbsp;</div>
               <div class="row justify-content-center text-start">
                 <div class="col-md-12 mb-4">
-                  <h5 class="text-center uniprep-primary fw-semibold mb-0">Question Number {{ recommendation.id }}</h5>
+                  <!-- <h5 class="text-center uniprep-primary fw-semibold mb-0">Question Number {{ recommendation.id }}</h5> -->
                   <h2 class="fw-bold mb-0 text-center">{{ recommendation.question }}</h2>
                 </div>
                 <div class="col-md-6">
@@ -88,8 +90,10 @@
         <div class="row d-md-none d-flex">
           <div class="col-12">
             <div class="select-title d-flex justify-content-between align-items-center">
-              <div>
-                <h5 class="w-100 mb-0" tooltipPosition="top" pTooltip="Search and apply to courses worldwide with our comprehensive global course finder">UNIFINDER<i class="questiontooltip fa-solid fa-circle-question"></i></h5>
+              <div class="d-flex gap-2">
+                <h5 routerLink="/pages/dashboard" role="button" class="mb-0" tooltipPosition="top" pTooltip=""><i class="fa-regular fa-home"></i></h5>
+                <span><i class="fa-solid fa-chevron-right"></i></span>
+                <h5 routerLink="/pages/course-list" role="button" class="mb-0" tooltipPosition="right" pTooltip="Search and apply to courses worldwide with our comprehensive global course finder">UNIFINDER</h5>
               </div>
               <div>
                 <button pButton  class="how-it-works-button" severity="warn" (click)="openVideoPopup('https://www.youtube.com/embed/LKBP_32UGD8?si=kze04qppwORIcazK')">How it works?<i class="fa-solid fa-play d-md-block d-none"></i></button>
@@ -123,8 +127,10 @@
         <div class="row justify-content-center d-md-flex d-none">
           <div class="col-12 d-flex gap-2 flex-md-row flex-column justify-content-center align-items-center">
             <div class="select-title d-flex justify-content-between align-items-center">
-              <div>
-                <h5 class="w-100 mb-0" tooltipPosition="top" pTooltip="Search and apply to courses worldwide with our comprehensive global course finder">UNIFINDER<i class="questiontooltip fa-solid fa-circle-question"></i></h5>
+              <div class="d-flex gap-2">
+                <h5 routerLink="/pages/dashboard" role="button" class="mb-0" tooltipPosition="top" pTooltip=""><i class="fa-regular fa-home"></i></h5>
+                <span><i class="fa-solid fa-chevron-right"></i></span>
+                <h5 routerLink="/pages/course-list" role="button" class="mb-0" tooltipPosition="right" pTooltip="Search and apply to courses worldwide with our comprehensive global course finder">UNIFINDER</h5>
               </div>
               <div>
                 <button pButton  class="how-it-works-button" severity="warn" (click)="openVideoPopup('https://www.youtube.com/embed/LKBP_32UGD8?si=kze04qppwORIcazK')">How it works? <i class="fa-solid fa-play d-md-block d-none"></i></button>

@@ -1,75 +1,73 @@
-import { Component, OnInit } from '@angular/core';
-import { CommonModule } from '@angular/common';
-import { LanguageArrayGlobalService } from '../language-array-global.service';
-import { PageFacadeService } from '../../page-facade.service';
-import {Location} from "@angular/common";
-import { LanguageHubService } from '../language-hub.service';
-import { FormsModule } from "@angular/forms";
-import { SkeletonModule } from "primeng/skeleton";
-import { TooltipModule } from "primeng/tooltip";
-import { ButtonModule } from "primeng/button";
-import { MultiSelectModule } from "primeng/multiselect";
-import { CarouselModule } from "primeng/carousel";
-import { InputGroupModule } from "primeng/inputgroup";
-import { InputGroupAddonModule } from "primeng/inputgroupaddon";
+import { Component, OnInit } from "@angular/core"
+import { CommonModule } from "@angular/common"
+import { LanguageArrayGlobalService } from "../language-array-global.service"
+import { PageFacadeService } from "../../page-facade.service"
+import { Location } from "@angular/common"
+import { LanguageHubService } from "../language-hub.service"
+import { FormsModule } from "@angular/forms"
+import { SkeletonModule } from "primeng/skeleton"
+import { TooltipModule } from "primeng/tooltip"
+import { ButtonModule } from "primeng/button"
+import { MultiSelectModule } from "primeng/multiselect"
+import { CarouselModule } from "primeng/carousel"
+import { InputGroupModule } from "primeng/inputgroup"
+import { InputGroupAddonModule } from "primeng/inputgroupaddon"
+import { RouterModule } from "@angular/router"
 
 @Component({
-    selector: 'app-vocabulary',
-    templateUrl: './vocabulary.component.html',
-    styleUrls: ['./vocabulary.component.scss'],
-    standalone: true,
-    imports: [CommonModule,FormsModule, SkeletonModule, TooltipModule, ButtonModule, MultiSelectModule, CarouselModule, InputGroupModule, InputGroupAddonModule]
+	selector: "app-vocabulary",
+	templateUrl: "./vocabulary.component.html",
+	styleUrls: ["./vocabulary.component.scss"],
+	standalone: true,
+	imports: [CommonModule, FormsModule, RouterModule, SkeletonModule, TooltipModule, ButtonModule, MultiSelectModule, CarouselModule, InputGroupModule, InputGroupAddonModule],
 })
 export class VocabularyComponent implements OnInit {
-  alphabet: string[] = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'.split('');
-  searchTerm: string = '';
-  isPlaying1: boolean = false;
-  words: any;
+	alphabet: string[] = "ABCDEFGHIJKLMNOPQRSTUVWXYZ".split("")
+	searchTerm: string = ""
+	isPlaying1: boolean = false
+	words: any
 
-  groupedWords: { letter: string; words: { word: string; translation: string }[] }[] = [];
+	groupedWords: { letter: string; words: { word: string; translation: string }[] }[] = []
 
-  constructor(private languageArrayGlobalService: LanguageArrayGlobalService,
-    private pageFacade: PageFacadeService, private location: Location,
-    private languageHubService: LanguageHubService
-  ) { }
+	constructor(private languageArrayGlobalService: LanguageArrayGlobalService, private pageFacade: PageFacadeService, private location: Location, private languageHubService: LanguageHubService) {}
 
-  getFormattedValues(): string {
-    return this.languageArrayGlobalService.getItems().join(" -> ");
-  }
+	getFormattedValues(): string {
+		return this.languageArrayGlobalService.getItems().join(" -> ")
+	}
 
-  ngOnInit() {
-    this.getVocabularyRecord();
-  }
+	ngOnInit() {
+		this.getVocabularyRecord()
+	}
 
-  getVocabularyRecord(){
-    this.languageHubService.getVocabulary(null).subscribe((_res) => {
-      this.words = _res
-      this.groupWordsByAlphabet();
-    });
-  }
+	getVocabularyRecord() {
+		this.languageHubService.getVocabulary(null).subscribe((_res) => {
+			this.words = _res
+			this.groupWordsByAlphabet()
+		})
+	}
 
-  onClickLetter(letter: any) {
-    this.languageHubService.getVocabulary(letter).subscribe((_res) => {
-      this.words = _res
-      this.groupWordsByAlphabet();
-    });
-  }
+	onClickLetter(letter: any) {
+		this.languageHubService.getVocabulary(letter).subscribe((_res) => {
+			this.words = _res
+			this.groupWordsByAlphabet()
+		})
+	}
 
-  groupWordsByAlphabet() {
-    this.groupedWords = this.alphabet.map(letter => ({
-      letter,
-      words: this.words.filter((word: any) => word.word.startsWith(letter))
-    })).filter(group => group.words.length > 0);
-  }
+	groupWordsByAlphabet() {
+		this.groupedWords = this.alphabet
+			.map((letter) => ({
+				letter,
+				words: this.words.filter((word: any) => word.word.startsWith(letter)),
+			}))
+			.filter((group) => group.words.length > 0)
+	}
 
-  openVideoPopup(videoLink: string) {
-    this.pageFacade.openHowitWorksVideoPopup(videoLink);
-  }
+	openVideoPopup(videoLink: string) {
+		this.pageFacade.openHowitWorksVideoPopup(videoLink)
+	}
 
-  goToHome(event: any) {
-    this.languageArrayGlobalService.removeItem(
-      this.languageArrayGlobalService.getItems().length - 1
-    );
-    this.location.back();
-  }
+	goToHome(event: any) {
+		this.languageArrayGlobalService.removeItem(this.languageArrayGlobalService.getItems().length - 1)
+		this.location.back()
+	}
 }

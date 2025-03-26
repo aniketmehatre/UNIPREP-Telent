@@ -9,9 +9,16 @@
           <span class="fa-solid fa-chevron-left"></span>
         </div>
         <div class="select-title d-flex justify-content-between align-items-center">
-          <div>
-            <h5 class="mb-0" tooltipPosition="top" pTooltip="Questions related to the application process are answered">{{ "Language Hub" | uppercase }} -> {{getFormattedValues()}}<i class="questiontooltip fa-solid fa-circle-question"></i></h5>
+          <div class="d-flex gap-2">
+            <h5 routerLink="/pages/dashboard" role="button" class="mb-0" tooltipPosition="top" pTooltip=""><i class="fa-regular fa-home"></i></h5>
+            <span><i class="fa-solid fa-chevron-right"></i></span>
+            <h5 routerLink="/pages/language-hub/languages" role="button" class="mb-0" tooltipPosition="top" pTooltip="">Language Hub</h5>
+            <span><i class="fa-solid fa-chevron-right"></i></span>
+            <h5 role="button" class="mb-0" tooltipPosition="top" pTooltip="">{{getFormattedValues()}}</h5>
           </div>
+          <!-- <div>
+            <h5 class="mb-0" tooltipPosition="top" pTooltip="Questions related to the application process are answered">{{ "Language Hub" | uppercase }} -> {{getFormattedValues()}}<i class="questiontooltip fa-solid fa-circle-question"></i></h5>
+          </div> -->
           <div>
             <button pButton  class="how-it-works-button" severity="warn" (click)="openVideoPopup('https://www.youtube.com/embed/01xivveciUI?si=Cdi3e7ycApMa8sWO')">How it works?<i class="fa-solid fa-play d-md-block d-none"></i></button>
           </div>

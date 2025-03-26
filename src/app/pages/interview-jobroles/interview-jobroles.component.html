@@ -1,45 +1,49 @@
 <div class="card readingcard">
-  <div class="card-header border-0 bg-transparent">
-    <div class="row ">
-      <div class="col-md-12 d-flex gap-2 text-center">
-        <div class="backIcon d-md-flex d-none" (click)="goBack()" role="button">
-          <span class="fa-solid fa-chevron-left" (click)="goBack()"></span>
-        </div>
-        <div class="select-title d-flex justify-content-between align-items-center">
-          <div>
-            <h5 class="mb-0 text-uppercase" tooltipPosition="top" pTooltip="Sharpen your interview readiness with essential question practice and strategic answer guidance.">Job Interview Preparation<i class="questiontooltip fa-solid fa-circle-question"></i></h5>
-          </div>
-          <div>
-            <button pButton  (click)="openVideoPopup('https://www.youtube.com/embed/cbny1-f4rXI?si=E3WEU6LuiMLWA1Uq')" class="how-it-works-button">How it works?<i class="fa-solid fa-play d-md-block d-none"></i></button>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-  <div class="card-body flex-fill overflow-y-auto">
-    <div class="container-fluid d-flex flex-fill h-100 flex-column justify-content-center">
-      <div class="row justify-content-center">
-        <div class="col-md-6 position-relative">
-          <h4 class="uniprep-primary text-center">Prepare confidently for job interviews anywhere in the world with our expert guidance.</h4>
-          <div class="searchInput position-relative">
-            <span class="p-input-icon-left flex-grow-1 d-lg-flex btn-rounded">
-              <i class="fa-solid fa-search"></i>
-              <input type="text btn-rounded" class="w-100 border-secondary btn-rounded" (input)="searchRole($event)" pInputText placeholder="Enter Job Title" />
-            </span>
-            <ul *ngIf="filteredJobRoles.length > 0" class="dropdown-list">
-              <li *ngFor="let job of filteredJobRoles" (click)="interviewQuestions(job.slug)">{{ job.jobrole }}</li>
-            </ul>
-          </div>
-          <!-- <div class="rounded-3" style="margin-top: 1rem; border: 1px solid var(--uniprep-secondary); padding: 10px; position:absolute;width:100%;height: 30vh;overflow-y: auto;" *ngIf="searchDiv">
+	<div class="card-header border-0 bg-transparent">
+		<div class="row">
+			<div class="col-md-12 d-flex gap-2 text-center">
+				<div class="backIcon d-md-flex d-none" (click)="goBack()" role="button">
+					<span class="fa-solid fa-chevron-left" (click)="goBack()"></span>
+				</div>
+				<div class="select-title d-flex justify-content-between align-items-center">
+					<div class="d-flex gap-2">
+						<h5 routerLink="/pages/dashboard" role="button" class="mb-0" tooltipPosition="top" pTooltip=""><i class="fa-regular fa-home"></i></h5>
+						<span><i class="fa-solid fa-chevron-right"></i></span>
+						<h5 routerLink="/pages/job-tool/career-tool" role="button" class="mb-0" tooltipPosition="top" pTooltip="">Career Tools</h5>
+						<span><i class="fa-solid fa-chevron-right"></i></span>
+						<h5 class="mb-0" tooltipPosition="top" pTooltip="">Job Interview Preperation</h5>
+					</div>
+					<div>
+						<button pButton (click)="openVideoPopup('https://www.youtube.com/embed/cbny1-f4rXI?si=E3WEU6LuiMLWA1Uq')" class="how-it-works-button">How it works?<i class="fa-solid fa-play d-md-block d-none"></i></button>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="card-body flex-fill overflow-y-auto">
+		<div class="container-fluid d-flex flex-fill h-100 flex-column justify-content-center">
+			<div class="row justify-content-center">
+				<div class="col-md-6 position-relative">
+					<h4 class="uniprep-primary text-center">Prepare confidently for job interviews anywhere in the world with our expert guidance.</h4>
+					<div class="searchInput position-relative">
+						<span class="p-input-icon-left flex-grow-1 d-lg-flex btn-rounded">
+							<i class="fa-solid fa-search"></i>
+							<input type="text btn-rounded" class="w-100 border-secondary btn-rounded" (input)="searchRole($event)" pInputText placeholder="Enter Job Title" />
+						</span>
+						<ul *ngIf="filteredJobRoles.length > 0" class="dropdown-list">
+							<li *ngFor="let job of filteredJobRoles" (click)="interviewQuestions(job.slug)">{{ job.jobrole }}</li>
+						</ul>
+					</div>
+					<!-- <div class="rounded-3" style="margin-top: 1rem; border: 1px solid var(--uniprep-secondary); padding: 10px; position:absolute;width:100%;height: 30vh;overflow-y: auto;" *ngIf="searchDiv">
 						  <ng-container *ngFor="let item of jobRoles">
 							  <option style="cursor: pointer" (click)="interviewQuestions(item.slug)" value="{{ item.slug }}">{{ item.jobrole }}</option>
 						  </ng-container> -->
 
-          <!-- <option value="1">Data Intern</option>
+					<!-- <option value="1">Data Intern</option>
 							  <option value="1">Dubak Intern</option> -->
-          <!-- </div> -->
-        </div>
-      </div>
-    </div>
-  </div>
+					<!-- </div> -->
+				</div>
+			</div>
+		</div>
+	</div>
 </div>
