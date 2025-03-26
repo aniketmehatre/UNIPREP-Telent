@@ -3,7 +3,7 @@ import { PageFacadeService } from "../page-facade.service"
 import { CourseListService } from "./course-list.service"
 import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule } from "@angular/forms"
 import { MessageService } from "primeng/api"
-import { Router } from "@angular/router"
+import { Router, RouterModule } from "@angular/router"
 import { AuthService } from "src/app/Auth/auth.service"
 import { UserManagementService } from "../user-management/user-management.service"
 import { LocationService } from "src/app/location.service"
@@ -18,7 +18,7 @@ import { ButtonModule } from "primeng/button"
 	templateUrl: "./course-list.component.html",
 	styleUrls: ["./course-list.component.scss"],
 	standalone: true,
-	imports: [CommonModule, DialogModule, MultiSelectModule, FormsModule, ReactiveFormsModule, CarouselModule, ButtonModule],
+	imports: [CommonModule, DialogModule, MultiSelectModule, FormsModule, ReactiveFormsModule, CarouselModule, ButtonModule, RouterModule],
 })
 export class CourseListComponent implements OnInit {
 	page: number = 1

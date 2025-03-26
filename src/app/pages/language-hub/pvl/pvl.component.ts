@@ -2,7 +2,7 @@ import { Component, OnInit } from "@angular/core";
 import { CommonModule } from "@angular/common";
 import { LanguageHubService } from "../language-hub.service";
 import { LanguageHubDataService } from "../language-hub-data.service";
-import { Router } from "@angular/router";
+import { Router, RouterModule } from "@angular/router";
 import { PageFacadeService } from "../../page-facade.service";
 import { AuthService } from "src/app/Auth/auth.service";
 import { LanguageArrayGlobalService } from "../language-array-global.service";
@@ -20,7 +20,7 @@ import { InputGroupAddonModule } from "primeng/inputgroupaddon";
     templateUrl: "./pvl.component.html",
     styleUrls: ["./pvl.component.scss"],
     standalone: true,
-    imports: [CommonModule, SkeletonModule, TooltipModule, ButtonModule, MultiSelectModule, CarouselModule, InputGroupModule, InputGroupAddonModule]
+    imports: [CommonModule,RouterModule, SkeletonModule, TooltipModule, ButtonModule, MultiSelectModule, CarouselModule, InputGroupModule, InputGroupAddonModule]
 })
 export class PvlComponent implements OnInit {
   isSkeletonVisible: boolean = true;
@@ -76,7 +76,7 @@ export class PvlComponent implements OnInit {
   }
 
   getFormattedValues(): string {
-    return this.languageArrayGlobalService.getItems().join(" -> ");
+    return this.languageArrayGlobalService.getItems().join(" > ");
   }
 
   goToHome(event: any) {

@@ -6,7 +6,7 @@ import Speech from "speak-tts";
 import { Location } from "@angular/common";
 import { LanguageHubDataService } from "../language-hub-data.service";
 import { MenuItem, MessageService } from "primeng/api";
-import { ActivatedRoute, Router } from "@angular/router";
+import { ActivatedRoute, Router, RouterModule } from "@angular/router";
 import { DeviceDetectorService } from "ngx-device-detector";
 import { AuthService } from "../../../Auth/auth.service";
 import { PageFacadeService } from "../../page-facade.service";
@@ -29,7 +29,7 @@ import {StorageService} from "../../../storage.service";
   templateUrl: "./question-list.component.html",
   styleUrls: ["./question-list.component.scss"],
   standalone: true,
-  imports: [CommonModule, DialogModule, PaginatorModule, SkeletonModule, TooltipModule, ButtonModule, MultiSelectModule, CarouselModule, InputGroupModule, InputGroupAddonModule],
+  imports: [CommonModule,RouterModule, DialogModule, PaginatorModule, SkeletonModule, TooltipModule, ButtonModule, MultiSelectModule, CarouselModule, InputGroupModule, InputGroupAddonModule],
 })
 export class QuestionListComponent implements OnInit {
   jsonData: any = [
@@ -703,7 +703,7 @@ export class QuestionListComponent implements OnInit {
   }
 
   getFormattedValues(): string {
-    return this.languageArrayGlobalService.getItems().join(" -> ");
+    return this.languageArrayGlobalService.getItems().join(" > ");
   }
 
   goToBack(event: any) {
