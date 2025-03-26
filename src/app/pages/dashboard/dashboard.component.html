@@ -98,7 +98,7 @@
 	<div class="col-lg-6 col-md-12 col-sm-12">
 		<div class="card fav-card mt-2" style="background-color: white">
 			<div class="card-body text-center">
-				<h5 class="mb-0 text-start"><span class="emoji">⭐</span> Featured Favourites</h5>
+				<h5 class="mb-0 text-start ms-4 ps-4"><span class="emoji">⭐</span> Featured Favourites</h5>
 
 				<!-- Carousel Component -->
 				<p-carousel #carousel [circular]="true" [numScroll]="1" [numVisible]="1" [responsiveOptions]="responsiveOptions" [value]="groupedListFav" [showIndicators]="true" [indicatorStyle]="{ width: '10px', height: '10px', borderRadius: '50%' }">
@@ -111,12 +111,12 @@
 											<img alt="country" class="countryicon" [src]="v.imageLink != '' ? v.imageLink : '../../uniprep-assets/images/mstile-150x150.png'" />
 										</div>
 										<div class="text-start">
-											<p class="mb-0 text-sm text-capitalize">
+											<p class="mb-0 text-sm text-capitalize" style="font-size: larger;">
 												<b>{{ v.moduleName | uppercase }}</b>
 											</p>
-											<p class="mb-0 text-muted">
+											<!-- <p class="mb-0 text-muted">
 												{{ v.module }}
-											</p>
+											</p> -->
 										</div>
 									</div>
 								</div>
