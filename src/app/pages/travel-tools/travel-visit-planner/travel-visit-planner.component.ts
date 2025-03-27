@@ -30,7 +30,7 @@ import { PromptService } from "../../prompt.service"
 	imports: [CommonModule, RouterModule, SkeletonModule, FluidModule, InputTextModule, TooltipModule, ButtonModule, MultiSelectModule, CarouselModule, InputGroupModule, InputGroupAddonModule, FormsModule, ReactiveFormsModule, InputTextModule, SelectModule, DialogModule, CardModule, InputNumberModule],
 })
 export class TravelVisitPlannerComponent implements OnInit {
-	constructor(private travelToolService: TravelToolsService, private router: Router, private costOfLivingService: CostOfLivingService, private toast: MessageService, private sanitizer: DomSanitizer, private prompt: PromptService) {}
+	constructor(private travelToolService: TravelToolsService, private router: Router, private costOfLivingService: CostOfLivingService, private toast: MessageService, private sanitizer: DomSanitizer, private promptService: PromptService) { }
 
 	recommendations: { id: number; question: string }[] = [
 		{ id: 1, question: "What is your destination?" },
@@ -88,10 +88,7 @@ export class TravelVisitPlannerComponent implements OnInit {
 				mode: "travel_visit_planner",
 			}
 			this.travelToolService.getChatgptRecommendations(data).subscribe((response) => {
-				let chatGptResponse = response.response
-				chatGptResponse = chatGptResponse
-				// .replace(/```html|```/g, '');
-				this.recommendationData = this.sanitizer.bypassSecurityTrustHtml(chatGptResponse)
+				this.recommendationData = this.sanitizer.bypassSecurityTrustHtml(response.response)
 				this.isRecommendation = false
 				this.isResponsePage = true
 			})
@@ -136,10 +133,10 @@ export class TravelVisitPlannerComponent implements OnInit {
 	}
 
 	downloadRecommadation() {
-		let selectedCityAndCountry = this.selectedData[1].city_name + ", " + this.selectedData[1].country_name
-		let inputString: string = `<p style="color: #f0780e;"><strong>Input:<br></strong></p>`
+		let addingInput: string = '';
+		let selectedCityAndCountry = this.selectedData[1].city_name + ", " + this.selectedData[1].country_name;
 		this.recommendations.forEach((values) => {
-			inputString += `<p><strong style="color: rgb(63, 76, 131);">${values.question}</strong></p>`
+			addingInput += `<p style="color: #3f4c83;"><strong>${values.question}</strong></p>`
 			let currentAnswer = ""
 			if (values.id == 1) {
 				currentAnswer = selectedCityAndCountry
@@ -148,29 +145,17 @@ export class TravelVisitPlannerComponent implements OnInit {
 			} else if (values.id == 3) {
 				currentAnswer = `${this.selectedData[3]} Season`
 			}
-			inputString += `<p>${currentAnswer}</p><br>`
-		})
-
-		inputString += `<div class=\"divider\"></div><p style="color: #f0780e;"><strong>Response:<br></strong></p>`
-
-		let paramData: sendDownloadParams = {
-			response: this.recommendationData,
+			addingInput += `<p>${currentAnswer}</p><br>`
+		});
+		let params: any = {
 			module_name: "Travel Visit Planner",
-			file_name: "travel_visit_planner",
-			inputString: inputString,
-		}
-
-		this.prompt.responseBuilder(paramData)
-
-		// this.travelToolService.convertHTMLtoPDF(paramData)
-		//     .then(() => {
-		//         console.log("PDF generated successfully.");
-		//     })
-		//     .catch(error => {
-		//         console.error("Error generating PDF:", error);
-		//     });
+			file_name: "trip_length_finder",
+			response: this.recommendationData,
+			inputString: addingInput
+		};
+		this.promptService.responseBuilder(params);
 	}
-
+	
 	goBack() {
 		this.router.navigateByUrl("/pages/travel-tools")
 	}

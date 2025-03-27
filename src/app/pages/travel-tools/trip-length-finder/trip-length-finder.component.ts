@@ -125,15 +125,14 @@ export class TripLengthFinderComponent implements OnInit {
     // this.recommendationData = this.sanitizer.bypassSecurityTrustHtml(content);
     // let selectedCityAndCountry = 'Médéa';
     let selectedCityAndCountry = this.selectedData[1].city_name+', '+this.selectedData[1].country_name;
-    let inputString: string = `<p style="color: #f0780e;"><strong>Input:<br></strong></p>
-      <p style="color: rgb(63, 76, 131);"><strong>Which Destination are you planning to visit?</strong></p>
-      <p>${ selectedCityAndCountry }</p>
-      <div class="divider"></div><p><strong>Response:<br></strong></p>`;
+    let addingInput: string = `
+      <p style="color: #3f4c83;"><strong>Which Destination are you planning to visit?</strong></p>
+      <p>${ selectedCityAndCountry }</p>`;
     let params: any = {
       module_name: "Trip Length Finder",
       file_name: "trip_length_finder",
       response: this.recommendationData,
-      inputString: inputString
+      inputString: addingInput
     };
     this.prompt.responseBuilder(params);
   }

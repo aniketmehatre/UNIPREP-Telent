@@ -134,8 +134,9 @@ export class PromptService {
                         <img style=" width: 100%; height: 100%;object-fit: contain;" src="https://api.uniprep.ai/uniprepapi/storage/app/public/prompt_modules/${data.file_name}.png" alt="Logo">
                     </div>
                 </div>`;
+        let inputData = `<p style="color: #f0780e;"><strong>Input:<br></strong></p>${data.inputString}<div class="divider"></div><p><strong>Response:<br></strong></p>`;
         // Rebuild final content using the extracted part
-        let finalRecommendation = `<html><head>${this.style}</head><body class="body-content">${titleData} ${data.inputString} ${processedRecommendation}</body></html>`;
+        let finalRecommendation = `<html><head>${this.style}</head><body class="body-content">${titleData} ${inputData} ${processedRecommendation}</body></html>`;
         console.log(finalRecommendation);
         let paramData: DownloadRespose = {
             response: finalRecommendation,

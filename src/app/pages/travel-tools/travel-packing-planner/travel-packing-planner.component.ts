@@ -22,6 +22,7 @@ import { CardModule } from "primeng/card"
 import { InputNumberModule } from "primeng/inputnumber"
 import { DownloadRespose } from "src/app/@Models/travel-tools.model"
 import { DomSanitizer, SafeHtml } from "@angular/platform-browser"
+import { PromptService } from "../../prompt.service"
 
 @Component({
 	selector: "uni-travel-packing-planner",
@@ -64,9 +65,10 @@ export class TravelPackingPlannerComponent implements OnInit {
 	isRecommendationQuestion: boolean = true
 	isRecommendationData: boolean = false
 	isRecommendationSavedData: boolean = false
-	recommadationSavedQuestionList: any[] = [{}]
-	isFromSavedData: boolean = false
-	constructor(private travelToolsService: TravelToolsService, private router: Router, private costOfLivingService: CostOfLivingService, private toast: MessageService, private sanitizer: DomSanitizer) {}
+	recommadationSavedQuestionList: any[] = [];
+	isFromSavedData: boolean = false;
+	
+	constructor(private travelToolsService: TravelToolsService, private router: Router, private costOfLivingService: CostOfLivingService, private toast: MessageService, private sanitizer: DomSanitizer, private promptService : PromptService) { }
 
 	ngOnInit(): void {
 		this.selectedData = { 4: 1 }
@@ -76,15 +78,15 @@ export class TravelPackingPlannerComponent implements OnInit {
 	getCityList() {
 		this.costOfLivingService.getCities().subscribe({
 			next: (response) => {
-				this.destinationLocationList = response
+				this.destinationLocationList = response;
 			},
-		})
+		});
 	}
 
 	previous() {
 		this.invalidClass = false
 		if (this.activePageIndex > 0) {
-			this.activePageIndex--
+			this.activePageIndex--;
 		}
 	}
 
@@ -92,10 +94,10 @@ export class TravelPackingPlannerComponent implements OnInit {
 		this.invalidClass = false
 		if (itemId in this.selectedData) {
 			if (this.activePageIndex < this.recommendations.length - 1) {
-				this.activePageIndex++
+				this.activePageIndex++;
 			}
 		} else {
-			this.invalidClass = true
+			this.invalidClass = true;
 		}
 	}
 
@@ -110,13 +112,10 @@ export class TravelPackingPlannerComponent implements OnInit {
 		}
 		this.travelToolsService.getChatgptRecommendations(data).subscribe({
 			next: (response) => {
-				this.isRecommendationQuestion = false
-				this.isRecommendationData = true
-				this.isRecommendationSavedData = false
-				this.recommendationData = response.response
-				let chatGptResponse = response.response
-				chatGptResponse = chatGptResponse.replace(/```html|```/g, "").replace(/\*\*(.*?)\*\*/g, "<strong>$1</strong>")
-				this.recommendationData = this.sanitizer.bypassSecurityTrustHtml(chatGptResponse)
+				this.isRecommendationQuestion = false;
+				this.isRecommendationData = true;
+				this.isRecommendationSavedData = false;
+				this.recommendationData = this.sanitizer.bypassSecurityTrustHtml(response.response)
 			},
 			error: (error) => {
 				this.isRecommendationData = false
@@ -142,7 +141,7 @@ export class TravelPackingPlannerComponent implements OnInit {
 					this.isRecommendationSavedData = true
 					this.recommadationSavedQuestionList = response.data
 				},
-				error: (error) => {},
+				error: (error) => { },
 			})
 		} else {
 			this.isRecommendationQuestion = false
@@ -164,86 +163,10 @@ export class TravelPackingPlannerComponent implements OnInit {
 	}
 
 	downloadRecommadation() {
-		let selectedCityAndCountry = this.selectedData[1].city_name + ", " + this.selectedData[1].country_name
-		let styles = `
-    <head>
-        <style>
-            .container {
-                max-width: 950px;
-                margin: 25px auto;
-                padding: 25px;
-                background: rgba(255, 255, 255, 0.95);
-                border-radius: 10px;
-                box-shadow: 4px 4px 15px rgba(0, 0, 0, 0.2);
-                color: black;
-                text-align: left;
-                position: relative;
-                line-height: 1.9;
-                page-break-before: auto;
-                page-break-after: auto;
-            }
-
-            h2, h3 {
-                color: #1a237e;
-            }
-
-            .title-highlight {
-                color: #d32f2f;
-                font-weight: bold;
-                font-size: 22px;
-            }
-
-            .loan-details, .section-content {
-                padding: 15px;
-                border-radius: 8px;
-                font-size: 16px;
-            }
-
-            li {
-                page-break-inside: avoid;
-                word-wrap: break-word;
-            }
-
-            ul {
-                padding-left: 20px;
-                page-break-inside: auto;
-            }
-
-            .highlight {
-                color: #d32f2f;
-                font-weight: bold;
-                font-size: 20px;
-            }
-
-            .icon {
-                color: #3949ab;
-                margin-right: 10px;
-            }
-
-            .divider {
-                height: 2px;
-                background: linear-gradient(to right, #3949ab, #d32f2f);
-                margin: 20px 0;
-            }
-
-            .page-break {
-                page-break-before: auto;
-            }
-
-            .blue-background {
-                background-color: #e3f2fd;
-            }
-        </style>
-    </head>
-`
-		let addingInput = `<div style="font-family: 'Poppins', sans-serif; display: flex; align-items: center; justify-content: space-between; border-bottom: 2px solid #d32f2f; padding-bottom: 10px; margin-bottom: 20px;">
-				<div style="text-align: center;">
-					<h2 style="margin: 0; color: #1a237e;">Travel Packaging Planner</h2>
-				</div>
-			</div>
-      <p><strong>Input:<br></strong></p>`
+		let addingInput: string = '';
+		let selectedCityAndCountry = this.selectedData[1].city_name + ", " + this.selectedData[1].country_name;
 		this.recommendations.forEach((values) => {
-			addingInput += `<p style="color: #d32f2f;"><strong>${values.question}</strong></p>`
+			addingInput += `<p style="color: #3f4c83;"><strong>${values.question}</strong></p>`
 			let currentAnswer = ""
 			if (values.id == 1) {
 				currentAnswer = selectedCityAndCountry
@@ -258,30 +181,13 @@ export class TravelPackingPlannerComponent implements OnInit {
 			}
 			addingInput += `<p>${currentAnswer}</p><br>`
 		})
-		let finalRecommendation = addingInput + '<div class="divider"></div><p><strong>Response:<br><br></strong></p>' + this.recommendationData
-		finalRecommendation = finalRecommendation
-			.replace(/<head>(.*?)<\/head>/gs, "") // Remove <head> content
-			.replace(/```html|```/g, "")
-			.replace(/<html>|```/g, "")
-			.replace(/<\/html>|```/g, "")
-			.replace(/\*\*(.*?)\*\*/g, "<strong>$1</strong>")
-			.replace(/\(see https:\/\/g\.co\/ng\/security#xss\)/g, "")
-			.replace(/SafeValue must use \[property\]=binding:/g, "")
-			.replace(/class="container"/g, 'style="line-height:1.9;page-break-before: auto;page-break-after: auto;"')
-		finalRecommendation = `<html>${styles}<body>` + finalRecommendation + `</body></html>`
-		let paramData: DownloadRespose = {
-			response: finalRecommendation,
-			module_name: "Travel Packing Planner",
-			file_name: "travel_packing_planner",
-		}
-		this.travelToolsService
-			.convertHTMLtoPDF(paramData)
-			.then(() => {
-				console.log("PDF Download Successfully")
-			})
-			.catch((error) => {
-				console.error("Error generating PDF:", error)
-			})
+		let params: any = {
+			module_name: "Travel Packaging Planner",
+			file_name: "trip_length_finder",
+			response: this.recommendationData,
+			inputString: addingInput
+		};
+		this.promptService.responseBuilder(params);
 	}
 
 	goBack() {
