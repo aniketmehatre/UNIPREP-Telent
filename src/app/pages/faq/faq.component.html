@@ -2,7 +2,13 @@
   <div class="card-header border-0 bg-transparent">
     <div class="row justify-content-center">
       <div class="col-md-12 d-flex gap-2 text-start">
-        <h5 class="select-title mb-1 text-capitalize" tooltipPosition="top" pTooltip="Find answers to frequently asked questions covering a range of topics to help clarify common inquiries.">FREQUENTLY ASKED QUESTIONS<i class="questiontooltip fa-solid fa-circle-question"></i></h5>
+        <div class="select-title d-flex justify-content-between align-items-center" style="width: 100%">
+					<div class="d-flex gap-2">
+						<h5 routerLink="/pages/dashboard" role="button" class="mb-0" tooltipPosition="top" pTooltip=""><i class="fa-regular fa-home"></i></h5>
+						<span><i class="fa-solid fa-chevron-right"></i></span>
+						<h5 routerLink="/pages/mycertificate" role="button" class="mb-0" tooltipPosition="top" pTooltip="Find answers to frequently asked questions covering a range of topics to help clarify common inquiries.">Frequently Asked Questions</h5>
+					</div>
+				</div>
       </div>
     </div>
   </div>

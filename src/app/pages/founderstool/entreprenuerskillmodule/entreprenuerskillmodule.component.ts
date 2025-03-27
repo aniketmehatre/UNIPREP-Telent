@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { DomSanitizer } from '@angular/platform-browser';
-import { Router } from '@angular/router';
+import { Router, RouterModule } from '@angular/router';
 import { FounderstoolService } from '../founderstool.service';
 import { AuthService } from 'src/app/Auth/auth.service';
 import { LocationService } from 'src/app/location.service';
@@ -13,7 +13,7 @@ import {StorageService} from "../../../storage.service";
     templateUrl: './entreprenuerskillmodule.component.html',
     styleUrls: ['./entreprenuerskillmodule.component.scss'],
     standalone: true,
-    imports: [CommonModule, DialogModule]
+    imports: [CommonModule, DialogModule, RouterModule]
 })
 export class EntreprenuerskillmoduleComponent implements OnInit {
   categoryCount:number=0;
