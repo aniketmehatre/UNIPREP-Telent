@@ -22,6 +22,7 @@ import {PdfViewerModule} from "ng2-pdf-viewer";
 import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
 import { DownloadRespose } from 'src/app/@Models/travel-tools.model';
 import { TravelToolsService } from "src/app/pages/travel-tools/travel-tools.service";
+import { PromptService } from "src/app/pages/prompt.service";
 
 @Component({
   selector: "uni-jopreparedlist",
@@ -57,7 +58,8 @@ export class JobOfferPreparedListComponent implements OnInit {
     private router: Router,
     private pageFacade: PageFacadeService,
     private sanitizer: DomSanitizer,
-    private travelService: TravelToolsService
+    private travelService: TravelToolsService,
+    private promptService: PromptService
   ) {}
   ngOnInit(): void {
     this.getjobofferResponse();
@@ -87,16 +89,10 @@ export class JobOfferPreparedListComponent implements OnInit {
   getjobofferResponse() {
     this.selectedCompanies=this.prepData.jobs.map((data:any)=>data.company).join(' and ');
     this.service.getcomparisonResponse(this.prepData).subscribe((response: any) => {
-        let chatGptResponse = response.response;
-				chatGptResponse = chatGptResponse
-					.replace(/```html|```/g, '')
-          .replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>');
-				this.ComparisonResponse = this.sanitizer.bypassSecurityTrustHtml(chatGptResponse);
+				this.ComparisonResponse = this.sanitizer.bypassSecurityTrustHtml(response.response);
         this.ComparisonResponseVisibility = true;
         this.isSkeletonVisible = false;
-        this.userAnswers = response.questions;
-        this.userAnswers = this.userAnswers
-            .replace(/####/g, '<br>').replace(/- \*\*/g, '<br>**');
+        this.userAnswers = this.sanitizer.bypassSecurityTrustHtml(response.questions);
       }, (error: any) =>{
         this.windowChange.emit("error_arrived");
         console.log(error);
@@ -131,29 +127,16 @@ export class JobOfferPreparedListComponent implements OnInit {
     });
   }
   
-  downloadRecommadation(){
-    let addingInput = `<div style="font-family: 'Poppins', sans-serif; display: flex; align-items: center; justify-content: space-between; border-bottom: 2px solid #d32f2f; padding-bottom: 10px; margin-bottom: 20px;page-break-before: auto;">
-    <div style="text-align: center;">
-      <h2 style="margin: 0; color: #1a237e;">Job Offer Comparison Between ${ this.selectedCompanies }</h2>
-    </div></div><p><strong>Input:<br></strong></p> ${ this.userAnswers }<div class="divider"></div><p><strong>Response</strong></p><br> ${this.ComparisonResponse}`;
-    let finalRecommendation = addingInput
-    .replace(/```html|```/g, '')
-    .replace(/\*\*(.*?)\*\*/g, '<p style="color: #d32f2f;" ><strong>$1</strong></p>')
-    .replace(/\(see https:\/\/g\.co\/ng\/security#xss\)/g, '') 
-    .replace(/SafeValue must use \[property\]=binding:/g, '')
-    .replace(/class="container"/g, 'style="line-height:1.9"'); //because if i add container the margin will increase so i removed the container now the spacing is proper.
-    let paramsData: DownloadRespose = {
-      response: finalRecommendation,
-      module_name: "Job Offer Comparison Tool",
-      file_name: "job_offer_comparison_tool"
-    }
-    this.travelService.convertHTMLtoPDF(paramsData).then(() =>{
-      console.log('PDF Download Successfully.');
-    }).catch(error => {
-      console.error("PDF having some issue",error);
-    });
-  }
-  
+  downloadRecommadation() {
+		let params: any = {
+			module_name: "Job Offer Comparison Tool",
+			file_name: "job_offer_comparison_tool",
+			response: this.ComparisonResponse,
+			inputString: this.userAnswers
+		};
+		this.promptService.responseBuilder(params);
+	}
+
   upgradePlan(): void {
     this.router.navigate(["/pages/subscriptions"]);
   }

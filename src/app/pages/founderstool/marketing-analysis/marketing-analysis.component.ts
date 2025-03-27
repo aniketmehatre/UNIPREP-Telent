@@ -27,6 +27,7 @@ export interface selectList {
 import { marketingAnalysisData } from './marketing-analysis.data';
 import { TravelToolsService } from '../../travel-tools/travel-tools.service';
 import { DownloadRespose } from 'src/app/@Models/travel-tools.model';
+import { PromptService } from '../../prompt.service';
 
 @Component({
     selector: 'uni-marketing-analysis',
@@ -82,7 +83,8 @@ export class MarketingAnalysisComponent implements OnInit {
     private travelToolService: TravelToolsService,
     private pageFacade: PageFacadeService,
     private costOfLivingService: CostOfLivingService,
-    private sanitizer: DomSanitizer
+    private sanitizer: DomSanitizer,
+    private promptService: PromptService
     
   ) {
     this.marketingForm = this.fb.group({
@@ -238,12 +240,7 @@ export class MarketingAnalysisComponent implements OnInit {
         this.isRecommendationQuestion = false;
         this.isRecommendationData = true;
         this.isRecommendationSavedData = false;
-        // this.recommendationData = response.response;
-        let chatGptResponse = response.response;
-				chatGptResponse = chatGptResponse
-					.replace(/```html|```/g, '')
-          .replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>');
-				this.recommendationData = this.sanitizer.bypassSecurityTrustHtml(chatGptResponse);
+				this.recommendationData = this.sanitizer.bypassSecurityTrustHtml(response.response);
       },
       error: error => {
         this.isRecommendationData = false;
@@ -306,9 +303,6 @@ export class MarketingAnalysisComponent implements OnInit {
     this.recommendationData = data;
   }
 
-
-
-
   resetRecommendation() {
     this.foundersToolsService.resetRecommendation().subscribe(res => {
       this.isRecommendationQuestion = true;
@@ -325,28 +319,22 @@ export class MarketingAnalysisComponent implements OnInit {
   }
 
   downloadRecommadation() {
+		let addingInput: string = '';
     const formValue = ['industry', 'location', 'targetMarket', 'productService', 'businessModel', 'salesChannel', 'timeFrame', 'budget', 'revenueStreams', 'competitorAnalysis', 'forecast'];
     const formData = this.marketingForm.value;
-    let addingInput = `<div style="font-family: 'Poppins', sans-serif; display: flex; align-items: center; justify-content: space-between; border-bottom: 2px solid #d32f2f; padding-bottom: 10px; margin-bottom: 20px;">
-				<div style="text-align: center;">
-					<h2 style="margin: 0; color: #1a237e;">Marketing Analysis</h2>
-				</div>
-			</div><p><strong>Input:<br></strong></p>`;
-
     // Keep track of which formValue index we're currently using
     let formValueIndex = 0;
-
     this.recommendations.forEach((category: any) => {
       addingInput += `<p><strong>${category.question.heading}</strong></p>`;
-
       category.question.branches.forEach((branchQuestion: any) => {
-        addingInput += `<p style="color: #d32f2f;"><strong>${branchQuestion}</strong></p>`;
-
+        addingInput += `<p style="color: #3f4c83;"><strong>${branchQuestion}</strong></p>`;
         let currentAnswer = "";
         const currentFormField = formValue[formValueIndex];
-
         if (formData && formData[currentFormField]) {
-          if (currentFormField == 'budget') {
+          if (currentFormField == 'location') {
+            currentAnswer = formData.location.city_name+', '+formData.location.country_name
+          }
+          else if (currentFormField == 'budget') {
             currentAnswer = formData['currencycode'] + ' ' + formData[currentFormField];
           } else {
             currentAnswer = formData[currentFormField];
@@ -354,34 +342,19 @@ export class MarketingAnalysisComponent implements OnInit {
         } else {
           currentAnswer = "No answer provided";
         }
-
-        addingInput += `<p>${currentAnswer}</p>`;
-
+        addingInput += `<p>${currentAnswer}</p><br>`;
         formValueIndex++;
       });
-
       // Add spacing between categories
       addingInput += `<br>`;
     });
-
-    let finalRecommendation = addingInput+ '<div class="divider"></div><p><strong>Response:<br><br></strong></p>' + this.recommendationData;
-    finalRecommendation = finalRecommendation
-			.replace(/```html|```/g, '')
-      .replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>')
-			.replace(/\(see https:\/\/g\.co\/ng\/security#xss\)/g, '') 
-			.replace(/SafeValue must use \[property\]=binding:/g, '')
-			.replace(/class="container"/g, 'style="line-height:1.9"'); //because if i add container the margin will increase so i removed the container now the spacing is proper.
-
-    let paramData: DownloadRespose = {
-      response: finalRecommendation,
-      module_name: "Marketing Analysis",
-      file_name: "marketing_analysis"
-    };
-    this.travelToolService.convertHTMLtoPDF(paramData).then(() => {
-      console.log("PDF successfully generated.");
-    }).catch(error => {
-      console.error("Error generating PDF:", error);
-    });
-  }
+		let params: any = {
+			module_name: "Marketing Analysis",
+			file_name: "marketing_analysis",
+			response: this.recommendationData,
+			inputString: addingInput
+		};
+		this.promptService.responseBuilder(params);
+	}
 
 }

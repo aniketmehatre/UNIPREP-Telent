@@ -52,7 +52,7 @@ export class TravelCostEstimatorComponent implements OnInit {
 	recommadationSavedQuestionList: TravelCostEstimator[] = []
 	isFromSavedData: boolean = false
 
-	constructor(private travelToolsService: TravelToolsService, private router: Router, private costOfLivingService: CostOfLivingService, private toast: MessageService, private sanitizer: DomSanitizer, private prompt: PromptService) {}
+	constructor(private travelToolsService: TravelToolsService, private router: Router, private costOfLivingService: CostOfLivingService, private toast: MessageService, private sanitizer: DomSanitizer, private promptService: PromptService) {}
 
 	ngOnInit(): void {
 		this.selectedData = { 3: 1 }
@@ -162,40 +162,28 @@ export class TravelCostEstimatorComponent implements OnInit {
 	}
 
 	downloadRecommadation() {
-		let departureLocation = this.selectedData[1].city_name + ", " + this.selectedData[1].country_name
-		let destinationLocation = this.selectedData[2].city_name + ", " + this.selectedData[2].country_name
-		// let moduleName = "Travel Cost Estimator";
-		// let addingInput = `
-		// 	<div style="font-family: 'Poppins', sans-serif; display: flex; align-items: center; justify-content: space-between; border-bottom: 2px solid #f0780e; padding-bottom: 10px; margin-bottom: 20px;">
-		// 		<div style="text-align: center;">
-		// 			<h2 style="margin: 0; color: #1a237e;">${moduleName}</h2>
-		// 		</div>
-		// 	</div>`;
-		let inputString: string = `<p style="color: #f0780e;"><strong>Input:<br></strong></p>`
+		let addingInput: string = '';
 		this.recommendations.forEach((values) => {
-			inputString += `<p  style="color: rgb(63, 76, 131);"><strong>${values.question}</strong></p>`
+			addingInput += `<p style="color: #3f4c83;"><strong>${values.question}</strong></p>`
 			let currentAnswer = ""
 			if (values.id == 1) {
-				currentAnswer = departureLocation
+				currentAnswer = this.selectedData[1].city_name + ", " + this.selectedData[1].country_name
 			} else if (values.id == 2) {
-				currentAnswer = destinationLocation
+				currentAnswer = this.selectedData[2].city_name + ", " + this.selectedData[2].country_name
 			} else if (values.id == 3) {
 				currentAnswer = `${this.selectedData[3]} Days`
 			} else if (values.id == 4) {
 				currentAnswer = this.selectedData[4]
 			}
-			inputString += `<p>${currentAnswer}</p><br>`
+			addingInput += `<p>${currentAnswer}</p><br>`
 		})
-		inputString += `<div class=\"divider\"></div><p style="color: #f0780e;"><strong>Response:<br></strong></p>`
-
-		let params: sendDownloadParams = {
+		let params: any = {
 			module_name: "Travel Cost Estimator",
 			file_name: "travel_cost_estimator",
 			response: this.recommendationData,
-			inputString: inputString,
-		}
-		console.log(this.recommendationData)
-		this.prompt.responseBuilder(params)
+			inputString: addingInput
+		};
+		this.promptService.responseBuilder(params);
 	}
 
 	goBack() {

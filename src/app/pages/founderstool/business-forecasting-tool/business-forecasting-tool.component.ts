@@ -22,6 +22,7 @@ import { InputGroupAddonModule } from "primeng/inputgroupaddon"
 import { DownloadRespose } from "src/app/@Models/travel-tools.model"
 import { TravelToolsService } from "../../travel-tools/travel-tools.service"
 import { DomSanitizer, SafeHtml } from "@angular/platform-browser"
+import { PromptService } from "../../prompt.service"
 
 @Component({
 	selector: "uni-business-forecasting-tool",
@@ -93,7 +94,7 @@ export class BusinessForecastingToolComponent implements OnInit {
 	]
 	invalidClass: boolean = false
 	selectedData: { [key: string]: any } = {}
-	constructor(private fb: FormBuilder, private foundersToolsService: FounderstoolService, private locationService: LocationService, private authService: AuthService, private router: Router, private pageFacade: PageFacadeService, private toast: MessageService, private travelToolService: TravelToolsService, private sanitizer: DomSanitizer) {
+	constructor(private fb: FormBuilder, private foundersToolsService: FounderstoolService, private locationService: LocationService, private authService: AuthService, private router: Router, private pageFacade: PageFacadeService, private toast: MessageService, private travelToolService: TravelToolsService, private sanitizer: DomSanitizer, private promptService: PromptService) {
 		this.form = this.fb.group({
 			industry: ["", Validators.required],
 			seasons: [[]],
@@ -214,12 +215,7 @@ export class BusinessForecastingToolComponent implements OnInit {
 				this.isRecommendationQuestion = false
 				this.isRecommendationData = true
 				this.isRecommendationSavedData = false
-				let chatGptResponse = response.response
-				chatGptResponse = chatGptResponse
-					.replace(/```html|```/g, "")
-					.replace(/\*\*(.*?)\*\*/g, "<strong>$1</strong>")
-					.replace(/\(see https:\/\/angular\.dev\/best-practices\/security#preventing-cross-site-scripting-xss\)/g, "")
-				this.recommendationData = this.sanitizer.bypassSecurityTrustHtml(chatGptResponse)
+				this.recommendationData = this.sanitizer.bypassSecurityTrustHtml(response.response)
 			},
 			error: (error) => {
 				this.isRecommendationData = false
@@ -309,26 +305,16 @@ export class BusinessForecastingToolComponent implements OnInit {
 	}
 
 	downloadRecommadation() {
+		let addingInput: string = '';
 		const formValue = ["industry", "seasonalfunctionality", "seasons", "factors", "target_audience", "assumptions", "forecast_peroid", "goals"]
 		const formData = this.form.value
-		let addingInput = `<div style="font-family: 'Poppins', sans-serif; display: flex; align-items: center; justify-content: space-between; border-bottom: 2px solid #d32f2f; padding-bottom: 10px; margin-bottom: 20px;">
-				<div style="text-align: center;">
-					<h2 style="margin: 0; color: #1a237e;">Revenue Forecasting Tool</h2>
-				</div>
-			</div><p><strong>Input:<br></strong></p>`
-
-		// Keep track of which formValue index we're currently using
 		let formValueIndex = 0
-
-		this.recommendations.forEach((category: any, categoryIndex: number) => {
+		this.recommendations.forEach((category: any) => {
 			addingInput += `<p><strong>${category.question.heading}</strong></p>`
-
-			category.question.branches.forEach((branchQuestion: any, index: number) => {
-				addingInput += `<p style="color: #d32f2f;><strong>${branchQuestion}</strong></p>`
-
+			category.question.branches.forEach((branchQuestion: any) => {
+				addingInput += `<p style="color: #3f4c83;><strong>${branchQuestion}</strong></p>`
 				let currentAnswer = ""
 				const currentFormField = formValue[formValueIndex]
-
 				if (formData && formData[currentFormField]) {
 					if (currentFormField == "seasonalfunctionality") {
 						currentAnswer = formData[currentFormField] ? "Yes" : "No"
@@ -338,37 +324,19 @@ export class BusinessForecastingToolComponent implements OnInit {
 				} else {
 					currentAnswer = "No answer provided"
 				}
-
-				addingInput += `<p>${currentAnswer}</p>`
-
+				addingInput += `<p>${currentAnswer}</p><br>`
 				formValueIndex++
 			})
-
 			// Add spacing between categories
 			addingInput += `<br>`
 		})
-
-		let finalRecommendation = addingInput + '<div class="divider"></div><p><strong>Response:<br></strong></p>' + this.recommendationData
-		finalRecommendation = finalRecommendation
-			.replace(/```html|```/g, "")
-			.replace(/\(see https:\/\/g\.co\/ng\/security#xss\)/g, "")
-			.replace(/SafeValue must use \[property\]=binding:/g, "")
-			.replace(/\*\*(.*?)\*\*/g, "<strong>$1</strong>")
-			.replace(/\(see https:\/\/angular\.dev\/best-practices\/security#preventing-cross-site-scripting-xss\)/g, "")
-			.replace(/class="container"/g, 'style="line-height:1.9"') //because if i add container the margin will increase so i removed the container now the spacing is proper.
-		let paramData: DownloadRespose = {
-			response: finalRecommendation,
+		let params: any = {
 			module_name: "Revenue Forecasting Tool",
 			file_name: "revenue_forecasting_tool",
-		}
-		this.travelToolService
-			.convertHTMLtoPDF(paramData)
-			.then(() => {
-				console.log("PDF successfully generated.")
-			})
-			.catch((error) => {
-				console.error("Error generating PDF:", error)
-			})
+			response: this.recommendationData,
+			inputString: addingInput
+		};
+		this.promptService.responseBuilder(params);
 	}
 
 	isGoBackNavigation() {
