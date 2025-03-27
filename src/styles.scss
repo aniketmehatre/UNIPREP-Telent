@@ -1074,20 +1074,19 @@ uni-subscription {
 	width: 100%;
 
 	.submoduleicon {
-		height: 75px;
-		width: 75px;
+		height: 100px;
+		width: 100px;
 		margin: auto;
 		display: flex;
 		justify-content: center;
 		align-items: center;
 
 		.selectimage {
-			width: 100%;
-			height: 100%;
+			width: 60%;
+			height: 60%;
 			object-fit: contain;
 		}
 	}
-
 	&:focus {
 		background-color: var(--uniprep-primaryop10);
 		border: 1px solid var(--uniprep-primary);
@@ -1097,11 +1096,10 @@ uni-subscription {
 		background-color: var(--uniprep-primaryop10);
 		border: 1px solid var(--uniprep-primary);
 	}
+}
 
-	// .subjecttitle {
-	//   height: 50px;
-	//   font-size: 16px;
-	// }
+.subjecttitle {
+	font-weight: bold;
 }
 
 .readingcardgrid {
