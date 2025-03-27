@@ -1,5 +1,5 @@
 import { InputGroupModule } from 'primeng/inputgroup';
-import { Component, Input, OnChanges, OnInit, SimpleChanges, ViewChild, ChangeDetectionStrategy, ChangeDetectorRef } from "@angular/core"
+import { Component, Input, OnChanges, OnInit, SimpleChanges, ViewChild, ChangeDetectionStrategy, ChangeDetectorRef, OnDestroy } from "@angular/core"
 import { DashboardService } from "./dashboard.service"
 import { AuthService } from "../../Auth/auth.service"
 import { SubSink } from "subsink"
@@ -27,6 +27,8 @@ import { TableModule } from "primeng/table"
 import { TabViewModule } from "primeng/tabview"
 import { MessageService } from "primeng/api"
 import { InputGroupAddonModule } from "primeng/inputgroupaddon"
+import { SeoManagerComponent } from 'src/app/components/seo-manager/seo-manager.component';
+
 @Component({
 	selector: "uni-dashboard",
 	templateUrl: "./dashboard.component.html",
@@ -35,10 +37,10 @@ import { InputGroupAddonModule } from "primeng/inputgroupaddon"
 	imports: [CommonModule, DialogModule, CarouselModule,InputGroupAddonModule,InputGroupModule, FormsModule, ButtonModule, TooltipModule, RouterModule, SelectModule,
 		CalendarModule, DatePickerModule, InputTextModule, TabViewModule, TableModule, AccordionModule, ReactiveFormsModule,
 	],
-	providers: [DashboardService, AuthService, DataService, LocationService],
+	providers: [DashboardService, AuthService, DataService, LocationService,SeoManagerComponent],
 	changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class DashboardComponent implements OnInit, OnChanges {
+export class DashboardComponent implements OnInit, OnChanges, OnDestroy {
 	private subs = new SubSink()
 	userName: any
 	responsiveOptions: any
@@ -103,7 +105,7 @@ export class DashboardComponent implements OnInit, OnChanges {
 	constructor(private dashboardService: DashboardService, private service: AuthService, private router: Router,
 		private dataService: DataService, private authService: AuthService, private locationService: LocationService,
 		private cdr: ChangeDetectorRef, private storage: StorageService, private jobSearchService: JobSearchService,
-		private toastr: MessageService
+		private toastr: MessageService, private seoManagerComponent: SeoManagerComponent
 	) {
 		this.responsiveOptions = [
 			{
@@ -148,7 +150,9 @@ export class DashboardComponent implements OnInit, OnChanges {
 		this.locationService.dashboardLocationList().subscribe((countryList: any) => {
 			this.countryLists = countryList
 		});
+		this.seoManagerComponent.updateDynamicContent('UNIPREP | Your Gateway to International Education, Career Success & Entrepreneurship');
 	}
+
 	recentJobs() {
 		this.dashboardService.RecentJobApplication().subscribe({
 			next: (data: any) => {
@@ -298,7 +302,8 @@ export class DashboardComponent implements OnInit, OnChanges {
 	}
 
 	ngOnDestroy(): void {
-		this.subs.unsubscribe()
+		this.subs.unsubscribe();
+		this.seoManagerComponent.updateDynamicContent("UNIPREP | Your Gateway to International Education, Career Success & Entrepreneurship");
 	}
 
 	certificatecountstudent: number = 0

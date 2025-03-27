@@ -6,11 +6,15 @@
 					<span class="fa-solid fa-chevron-left"></span>
 				</div>
 				<div class="select-title d-flex justify-content-between align-items-center">
-					<div>
-						<h5 class="mb-0" tooltipPosition="top" pTooltip="This section provides a comprehensive walkthrough on the UNIPREP platform.">Founders Tool -> Founders Academy<i class="questiontooltip fa-solid fa-circle-question"></i></h5>
+					<div class="d-flex gap-2">
+						<h5 routerLink="/pages/dashboard" role="button" class="mb-0" tooltipPosition="top" pTooltip=""><i class="fa-regular fa-home"></i></h5>
+						<span><i class="fa-solid fa-chevron-right"></i></span>
+						<h5 routerLink="/pages/founderstool/founderstoollist" role="button" class="mb-0" tooltipPosition="top">Founders Tool</h5>
+						<span><i class="fa-solid fa-chevron-right"></i></span>
+						<h5 role="button" class="mb-0" tooltipPosition="top" pTooltip="">Founders Academy</h5>
 					</div>
 					<div>
-						<button pButton  (click)="openVideoPopup('https://www.youtube.com/embed/KO9kxe3KSFw?si=x3hkz-VoddLXQ4Oq')" class="how-it-works-button">How it works?<i class="fa-solid fa-play d-md-block d-none"></i></button>
+						<button pButton (click)="openVideoPopup('https://www.youtube.com/embed/KO9kxe3KSFw?si=x3hkz-VoddLXQ4Oq')" class="how-it-works-button">How it works?<i class="fa-solid fa-play d-md-block d-none"></i></button>
 					</div>
 				</div>
 			</div>
@@ -22,7 +26,7 @@
 		</div> -->
 		<div class="row">
 			<div class="d-flex flex-row gap-4 flex-nowrap overflow-y-auto py-3">
-				<h5 role="button" class="text-nowrap mb-0 fw-medium" *ngFor="let cat of categorylist" [ngClass]="{'selected-category': isSelected(cat.id)}" (click)="filterCat(cat.id)">{{cat.name}}</h5>
+				<h5 role="button" class="text-nowrap mb-0 fw-medium" *ngFor="let cat of categorylist" [ngClass]="{ 'selected-category': isSelected(cat.id) }" (click)="filterCat(cat.id)">{{ cat.name }}</h5>
 			</div>
 		</div>
 	</div>
@@ -30,16 +34,16 @@
 		<div class="container-fluid">
 			<div class="row">
 				<div class="col-md-3 mb-3 col-12" *ngFor="let acade of academyllist">
-						<div class="card h-100 position-relative tutcard" role="button" (click)="openVideoPopup(acade.link)" style="aspect-ratio: 16/9;">
-							<div class="tutgradient"></div>
-							<div class="d-flex justify-content-center align-items-center h-100">
-								<img [src]="getThumbnailUrl(acade.link)" style="max-width: 100%; height: auto;"  alt="founders academy"/>
-							</div>
-							<div class="tutorialcontent">
-								<h5 class="mb-0 text-white">{{ acade.title }}</h5>
-								<!-- <p class="mb-0 text-white small" title="{{ acade.description }}">{{acade.description }}</p> -->
-							</div>
+					<div class="card h-100 position-relative tutcard" role="button" (click)="openVideoPopup(acade.link)" style="aspect-ratio: 16/9">
+						<div class="tutgradient"></div>
+						<div class="d-flex justify-content-center align-items-center h-100">
+							<img [src]="getThumbnailUrl(acade.link)" style="max-width: 100%; height: auto" alt="founders academy" />
 						</div>
+						<div class="tutorialcontent">
+							<h5 class="mb-0 text-white">{{ acade.title }}</h5>
+							<!-- <p class="mb-0 text-white small" title="{{ acade.description }}">{{acade.description }}</p> -->
+						</div>
+					</div>
 				</div>
 			</div>
 		</div>
@@ -53,8 +57,8 @@
 			<div class="modal-body position-relative pt-4">
 				<div class="modalbuttons">
 					<div class="d-flex gap-2">
-						<button pButton  title="New Window" type="button" class="btn btn-primary btn-rounded" (click)="openNextVideo()"><i class="fa-solid fa-arrow-up-right-from-square"></i></button>
-						<button pButton  type="button" title="Close Popup" class="btn btn-primary btn-rounded" (click)="closeVideoPopup()"><i class="fa-solid fa-xmark"></i></button>
+						<button pButton title="New Window" type="button" class="btn btn-primary btn-rounded" (click)="openNextVideo()"><i class="fa-solid fa-arrow-up-right-from-square"></i></button>
+						<button pButton type="button" title="Close Popup" class="btn btn-primary btn-rounded" (click)="closeVideoPopup()"><i class="fa-solid fa-xmark"></i></button>
 					</div>
 				</div>
 				<div class="embed-responsive"><iframe #videoFrame [src]="selectedVideoLink" width="100%" frameborder="0" allowfullscreen></iframe></div>
