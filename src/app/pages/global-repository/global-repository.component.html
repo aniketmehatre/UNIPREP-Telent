@@ -2,21 +2,21 @@
 	<div class="card-header border-0 bg-transparent">
 		<div class="row">
 			<div class="col d-flex flex-md-row flex-column gap-2 justify-content-center text-center">
-				<div>
+				<!-- <div> -->
 					<!--					<span>-->
 					<!--						<div class="backIcon d-md-flex d-none" (click)="goBack()" role="button">-->
 					<!--							<span class="fa-solid fa-chevron-left"></span>-->
 					<!--						</div>-->
 					<!--					</span>-->
-					<div class="p-input-icon-left search-container mt-2">
+					<!-- <div class="p-input-icon-left search-container mt-2"> -->
 						<!-- <div *ngIf="filteredData.length" class="dropdown-container">
 							<div *ngFor="let result of filteredData" role="button" class="dropdown-item" (click)="selectSearchResult(result)">
 								<h3>{{ result.title }}</h3>
 								<p>{{ result.subtitle }}</p>
 							</div>
 						</div> -->
-					</div>
-				</div>
+					<!-- </div> -->
+				<!-- </div> -->
 				<div class="select-title d-flex justify-content-between align-items-center">
 					<div class="d-flex gap-2">
 						<h5 routerLink="/pages/dashboard" role="button" class="mb-0" tooltipPosition="top" pTooltip=""><i class="fa-regular fa-home"></i></h5>
@@ -48,8 +48,8 @@
 				</div>
 			</div>
 		</div>
-		<div class="row mb-0" *ngIf="!isSkeletonVisible">
-			<div class="card countrycard d-none d-lg-block mt-2" *ngIf="countryLists">
+		<div *ngIf="!isSkeletonVisible">
+			<div class="card countrycard d-none d-lg-block mb-3" *ngIf="countryLists">
 				<div class="card-body text-center pb-0">
 					<h5 class="mb-0">Select a country in Global Repository</h5>
 					<p-carousel #carousel [circular]="false" [numScroll]="7" [numVisible]="7" [responsiveOptions]="responsiveOptions" [value]="countryLists">
