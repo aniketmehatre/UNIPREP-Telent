@@ -248,6 +248,51 @@ export class JoboffercomparisontoolComponent implements OnInit {
   }
 
   next(selectedId: number): void {
+    let test =  [
+          {
+              "company": "TCS",
+              "position_title": 1,
+              "location": 892,
+              "currency": "INR",
+              "benefits": 1,
+              "salary": "100000",
+              "perks": [
+                  3
+              ],
+              "workplacetypes": 1,
+              "working_days": 5,
+              "work_hours": 1,
+              "employment_type": 1,
+              "travel_opportunities": [
+                  1
+              ]
+          },
+          {
+              "company": "ZOHO",
+              "position_title": 1,
+              "location": 876,
+              "currency": "INR",
+              "benefits": 1,
+              "salary": "100000",
+              "perks": [
+                  3
+              ],
+              "workplacetypes": 1,
+              "working_days": 5,
+              "work_hours": 1,
+              "employment_type": 1,
+              "travel_opportunities": [
+                  1
+              ]
+          }
+      ]
+  
+  let processData = {
+    jobs: test
+  };
+  this.prepData = processData;
+  this.preparedvisibility = true;
+  return;
     if (selectedId == 1) {
       if (this.basicInformationForm.invalid) {
         this.basicInformationForm.markAllAsTouched();

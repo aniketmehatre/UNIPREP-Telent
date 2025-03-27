@@ -208,23 +208,16 @@
 							<span class="me-2">Download</span><span class="btn-icon px-2 py-2"> <i class="fa-regular fa-download"></i></span>
 						</button>
 					</div>
+					<div class="card p-3 poppins-content chatgpt-response bg-white h-100 overflow-y-auto" [innerHtml]="recommendationData"></div>
 				</div>
+				<div class="col-md-2"></div>
 			</div>
-			<div class="card-body worksans flex-fill overflow-y-auto">
-				<div class="row">
-					<div class="col-md-2"></div>
-					<div class="col-md-8">
-						<div class="card p-3 fs-5" [innerHtml]="recommendationData"></div>
-					</div>
-					<div class="col-md-2"></div>
-				</div>
-			</div>
-			<div class="card-footer bg-transparent border-0">
-				<div class="text-end">
-					<button pButton type="button" class="btn ps-3 btn-quit btn-rounded" (click)="resetRecommendation()">
-						Reset Recommendations<span class="btn-icon"><i class="fa-solid fa-arrow-rotate-right"></i> </span>
-					</button>
-				</div>
+		</div>
+		<div class="card-footer bg-transparent border-0">
+			<div class="text-end">
+				<button pButton type="button" class="btn ps-3 btn-quit btn-rounded" (click)="resetRecommendation()">
+					Reset Recommendations<span class="btn-icon"><i class="fa-solid fa-arrow-rotate-right"></i> </span>
+				</button>
 			</div>
 		</div>
 	</ng-container>

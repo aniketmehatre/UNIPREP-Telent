@@ -20,6 +20,7 @@ import { InputGroupAddonModule } from "primeng/inputgroupaddon"
 import { DownloadRespose } from "src/app/@Models/travel-tools.model"
 import { TravelToolsService } from "../../travel-tools/travel-tools.service"
 import { DomSanitizer, SafeHtml } from "@angular/platform-browser"
+import { PromptService } from "../../prompt.service"
 interface DropDown {
 	[key: string]: string
 }
@@ -65,7 +66,7 @@ export class StartupRiskAssessmentComponent implements OnInit {
 	enableModule: boolean = false
 	isFromSavedData: boolean = false
 	currencyList: any = []
-	constructor(private fb: FormBuilder, private founderToolService: FounderstoolService, private router: Router, private toast: MessageService, private travelToolService: TravelToolsService, private sanitizer: DomSanitizer) {}
+	constructor(private fb: FormBuilder, private founderToolService: FounderstoolService, private router: Router, private toast: MessageService, private travelToolService: TravelToolsService, private sanitizer: DomSanitizer, private promptService: PromptService) {}
 
 	ngOnInit(): void {
 		this.getCurrenyandLocation()
@@ -133,13 +134,10 @@ export class StartupRiskAssessmentComponent implements OnInit {
 		}
 		this.founderToolService.getChatgptRecommendations(data).subscribe({
 			next: (response) => {
-				let chatGptResponse = response.response
-				chatGptResponse = chatGptResponse.replace(/```html|```/g, "").replace(/\*\*(.*?)\*\*/g, "<strong>$1</strong>")
-				this.recommendationData = this.sanitizer.bypassSecurityTrustHtml(chatGptResponse)
-
 				this.isRecommendationQuestion = false
 				this.isRecommendationData = true
 				this.isRecommendationSavedData = false
+				this.recommendationData = this.sanitizer.bypassSecurityTrustHtml(response.response)
 			},
 			error: (error) => {
 				this.isRecommendationData = false
@@ -187,10 +185,9 @@ export class StartupRiskAssessmentComponent implements OnInit {
 	}
 
 	downloadRecommadation() {
-		let addingInput = `<p><strong>Input:<br></strong></p>`
-
+		let addingInput: string = '';
 		this.recommendations.forEach((item) => {
-			addingInput += `<p style="color: #d32f2f;"><strong>${item.question}</strong></p>`
+			addingInput += `<p style="color: #3f4c83;"><strong>${item.question}</strong></p>`
 			let currentAnswer = ""
 			if (this.selectedData && this.selectedData[item.id]) {
 				if (item.id == 8) {
@@ -201,30 +198,14 @@ export class StartupRiskAssessmentComponent implements OnInit {
 			} else {
 				currentAnswer = "No answer provided"
 			}
-
 			addingInput += `<p>${currentAnswer}</p><br>`
 		})
-
-		let finalRecommendation = addingInput + '<div class="divider"></div><p><strong>Response:<br><br></strong></p>' + this.recommendationData
-		finalRecommendation = finalRecommendation
-			.replace(/```html|```/g, "")
-			.replace(/\(see https:\/\/g\.co\/ng\/security#xss\)/g, "")
-			.replace(/SafeValue must use \[property\]=binding:/g, "")
-			.replace(/\*\*(.*?)\*\*/g, "<strong>$1</strong>")
-			.replace(/class="container"/g, 'style="line-height:1.9"') //because if i add container the margin will increase so i removed the container now the spacing is proper.
-
-		let paramData: DownloadRespose = {
-			response: finalRecommendation,
+		let params: any = {
 			module_name: "Startup Risk Assessment",
-			file_name: "startup_risk_assessment",
-		}
-		this.travelToolService
-			.convertHTMLtoPDF(paramData)
-			.then(() => {
-				console.log("PDF successfully generated.")
-			})
-			.catch((error) => {
-				console.error("Error generating PDF:", error)
-			})
+			file_name: "trip_length_finder",
+			response: this.recommendationData,
+			inputString: addingInput
+		};
+		this.promptService.responseBuilder(params);
 	}
 }

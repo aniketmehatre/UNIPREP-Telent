@@ -24,6 +24,7 @@ import { TravelToolsService } from "../../travel-tools/travel-tools.service"
 import { DownloadRespose } from "src/app/@Models/travel-tools.model"
 import { CostOfLivingService } from "../../job-tool/cost-of-living/cost-of-living.service"
 import { DomSanitizer, SafeHtml } from "@angular/platform-browser"
+import { PromptService } from "../../prompt.service"
 
 interface selectList {
 	name: string
@@ -73,7 +74,7 @@ export class StartUpExpenseEstimateComponent implements OnInit {
 	departureFilter: string = ""
 	locationsList: any = []
 	departureLocationList: any = []
-	constructor(private fb: FormBuilder, private foundersToolsService: FounderstoolService, private locationService: LocationService, private toast: MessageService, private authService: AuthService, private router: Router, private travelToolService: TravelToolsService, private pageFacade: PageFacadeService, private costOfLiving: CostOfLivingService, private sanitizer: DomSanitizer) {
+	constructor(private fb: FormBuilder, private foundersToolsService: FounderstoolService, private locationService: LocationService, private toast: MessageService, private authService: AuthService, private router: Router, private travelToolService: TravelToolsService, private pageFacade: PageFacadeService, private costOfLiving: CostOfLivingService, private sanitizer: DomSanitizer, private promptService: PromptService) {
 		this.marketingForm = this.fb.group({
 			industry: ["", Validators.required],
 			location: ["", Validators.required],
@@ -301,25 +302,17 @@ export class StartUpExpenseEstimateComponent implements OnInit {
 	}
 
 	downloadRecommadation() {
+		let addingInput: string = '';
 		const formValue = ["industry", "location", "startup_stage", "team_size", "current_investment", "revenue_model", "primary_expense", "operating_expense", "budget", "expense_estimation"]
 		const formData = this.marketingForm.value
-		let addingInput = `<div style="font-family: 'Poppins', sans-serif; display: flex; align-items: center; justify-content: space-between; border-bottom: 2px solid #d32f2f; padding-bottom: 10px; margin-bottom: 20px;">
-				<div style="text-align: center;">
-					<h2 style="margin: 0; color: #1a237e;">Startup Expense Estimator</h2>
-				</div>
-			</div><p><strong>Input:<br></strong></p>`
-
 		// Keep track of which formValue index we're currently using
 		let formValueIndex = 0
 		this.recommendations.forEach((category: any) => {
 			addingInput += `<p><strong>${category.question.heading}</strong></p>`
-
 			category.question.branches.forEach((branchQuestion: any) => {
-				addingInput += `<p style="color: #d32f2f;"><strong>${branchQuestion}</strong></p>`
-
+				addingInput += `<p style="color: #3f4c83;"><strong>${branchQuestion}</strong></p>`
 				let currentAnswer = ""
 				const currentFormField = formValue[formValueIndex]
-
 				if (formData && formData[currentFormField]) {
 					switch (currentFormField) {
 						case "current_investment":
@@ -341,35 +334,19 @@ export class StartUpExpenseEstimateComponent implements OnInit {
 				} else {
 					currentAnswer = "No answer provided"
 				}
-				addingInput += `<p>${currentAnswer}</p>`
-
+				addingInput += `<p>${currentAnswer}</p><br>`
 				formValueIndex++
 			})
-
 			addingInput += `<br>`
-		})
+		});
 
-		let finalRecommendation = addingInput + '<div class="divider"></div><p><strong>Response:<br></strong></p>' + this.recommendationData
-		finalRecommendation = finalRecommendation
-			.replace(/```html|```/g, "")
-			.replace(/\(see https:\/\/g\.co\/ng\/security#xss\)/g, "")
-			.replace(/SafeValue must use \[property\]=binding:/g, "")
-			.replace(/\*\*(.*?)\*\*/g, "<strong>$1</strong>")
-			.replace(/\(see https:\/\/angular\.dev\/best-practices\/security#preventing-cross-site-scripting-xss\)/g, "")
-			.replace(/class="container"/g, 'style="line-height:1.9"') //because if i add container the margin will increase so i removed the container now the spacing is proper.
-		let paramData: DownloadRespose = {
-			response: finalRecommendation,
+		let params: any = {
 			module_name: "Startup Expenses Estimate",
-			file_name: "startup_expense_estimate",
-		}
-		this.travelToolService
-			.convertHTMLtoPDF(paramData)
-			.then(() => {
-				console.log("PDF successfully generated.")
-			})
-			.catch((error) => {
-				console.error("Error generating PDF:", error)
-			})
+			file_name: "trip_length_finder",
+			response: this.recommendationData,
+			inputString: addingInput
+		};
+		this.promptService.responseBuilder(params);
 	}
 
 	showRecommandationData(data: string) {
