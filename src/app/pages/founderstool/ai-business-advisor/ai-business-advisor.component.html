@@ -1,213 +1,179 @@
 <div class="card readingcard">
-  <ng-container *ngIf="isRecommendationQuestion">
-    <div class="card-header border-0 bg-transparent">
-      <div class="row justify-content-center align-items-center">
-        <div class="col-md-12 d-flex gap-2">
-            <div class="backIcon d-md-flex d-none" role="button" (click)="goBack()" style="height: auto;">
-                <span class="fa-solid fa-chevron-left"></span>
-            </div>
-            <div class="select-title d-flex justify-content-between align-items-center">
-                <div>
-                    <h5 class="w-100 mb-0" tooltipPosition="top" pTooltip="">
-                      Founders Tools -> AI BUSINESS ADVISOR<i class="questiontooltip fa-solid fa-circle-question"></i></h5>
-                </div>
-            </div>
-        </div>
-    </div>
-    </div>
-    <div class="card-body text-center flex-fill overflow-y-auto">
-      <div class="container-fluid h-100">
-        <p-carousel [value]="recommendations" [numVisible]="1" [numScroll]="1" [circular]="false"
-          [showNavigators]="false" [showIndicators]="false" [page]="activePageIndex" styleClass="h-100">
-          <ng-template let-recommendation pTemplate="item">
-            <div class="h-100 d-flex flex-column justify-content-between">
-              <div>&nbsp;</div>
-              <div class="row justify-content-center text-start">
-                <div class="col-md-12 mb-4">
-                  <h5 class="uniprep-primary fw-semibold mb-0">
-                    <!-- Question Number {{ recommendation.id }} -->
-                  </h5>
-                  <h2 class="fw-bold mb-0 text-center">{{ recommendation.question }}</h2>
-                </div>
-                <div class="col-md-6">
-                  <ng-container *ngIf="recommendation.id == 1">
-                    <p-select [(ngModel)]="selectedData[recommendation.id]" [options]="industryList" [filter]="true" filterBy="Industry"
-                      styleClass="w-100" optionLabel="Industry" optionValue="Industry" [appendTo]="'body'" placeholder="Select Industry">
-                    </p-select>
-                    <div class="text-center" [ngClass]="{ 'd-none': inValidClass === false }" style="color: red">
-                      Business Type is required
-                    </div>
-                  </ng-container>
-                  <ng-container *ngIf="recommendation.id == 2">
-                    <p-select [(ngModel)]="selectedData[recommendation.id]" [options]="businessGoalsList" [filter]="true" filterBy="goal"
-                      styleClass="w-100" optionLabel="goal" optionValue="goal" [appendTo]="'body'" placeholder="Select Goal">
-                    </p-select>
-                    <div class="text-center" [ngClass]="{ 'd-none': inValidClass === false }" style="color: red">
-                      Business Primary Goal is required
-                    </div>
-                  </ng-container>
-                  <ng-container *ngIf="recommendation.id == 3">
-                    <p-select [(ngModel)]="selectedData[recommendation.id]" [options]="durationList" [filter]="true" filterBy="duration"
-                      styleClass="w-100" optionLabel="duration" optionValue="duration" [appendTo]="'body'" placeholder="Months">
-                    </p-select>
-                    <div class="text-center" [ngClass]="{ 'd-none': inValidClass === false }" style="color: red">
-                      Business Duration is required
-                    </div>
-                  </ng-container>
-                  <ng-container *ngIf="recommendation.id == 4">
-                    <p-select [(ngModel)]="selectedData[recommendation.id]" [options]="challengeList"  [filter]="true" filterBy="challenge" 
-                      styleClass="w-100" optionLabel="challenge" optionValue="challenge" [appendTo]="'body'" placeholder="Select Challenge">
-                    </p-select>
-                    <div class="text-center" [ngClass]="{ 'd-none': inValidClass === false }" style="color: red">
-                      Challenges are required
-                    </div>
-                  </ng-container>
-                  <ng-container *ngIf="recommendation.id == 5">
-                    <p-select [(ngModel)]="selectedData[recommendation.id]" [options]="targetAudienceList"  [filter]="true" filterBy="audience" 
-                      styleClass="w-100" optionLabel="audience" optionValue="audience" [appendTo]="'body'" placeholder="Select Target Audience">
-                    </p-select>
-                    <div [ngClass]="{ 'd-none': inValidClass === false }" style="color: red" class="text-danger">
-                      Ideal customers is required
-                    </div>
-                  </ng-container>
-                  <ng-container *ngIf="recommendation.id == 6">
-                    <div class="w-100 d-flex gap-2 flex-fill">
-                      <p-select  [(ngModel)]="selectedData[8]" [options]="currencyList" [filter]="true"
-                        filterBy="currency_symbol" placeholder=" Currency" appendTo="body" optionLabel="currency_symbol" optionValue="currency_symbol"
-                        [autoDisplayFirst]="false">
-                      </p-select>
-                      <input  [(ngModel)]="selectedData[recommendation.id]" class="w-100 pl-4 border border-gray rounded-3" type="number" [max]="99999999" pInputText [placeholder]="selectedData[8] ? 'Amount in'+' '+selectedData[8] : 'Enter Amount' "
-                        />
-                    </div>  
-                    <div class="text-center" [ngClass]="{ 'd-none': inValidClass === false }" style="color: red">
-                      Budget is required or maximum 8 digit allowed 
-                    </div>
-                  </ng-container>
-                  <ng-container *ngIf="recommendation.id == 7">
-                    <p-select [(ngModel)]="selectedData[recommendation.id]" [filter]="true" filterBy="strategy" [options]="strategyBusinessList"
-                      styleClass="w-100" optionLabel="strategy" optionValue="strategy" [appendTo]="'body'" placeholder="Strategy">
-                    </p-select>
-                    <div class="text-center" [ngClass]="{ 'd-none': inValidClass === false }" style="color: red">
-                       Strategy is required
-                    </div>
-                  </ng-container>
-                </div>
-              </div>
-              <div class="d-flex justify-content-between mt-2">
-                <button pButton  pButton type="button" class="btn btn-primary btn-rounded p-1 pe-4" [style.visibility]="
-                    activePageIndex == 0 ? 'hidden' : 'visible'
-                  " (click)="previous()">
-                  <span class="btn-icon px-2 py-2"><i class="fa fa-arrow-left"></i></span>
-                  <span class="ms-2">Previous</span>
-                </button>
-                <button pButton  pButton type="button" (click)="next(activePageIndex + 1)" *ngIf="recommendation.id  <= 6"
-                  class="btn btn-primary btn-rounded p-1 ps-4">
-                  <span class="me-2">Next</span><span class="btn-icon px-2 py-2"><i
-                      class="fa fa-arrow-right"></i></span>
-                </button>
-                <button pButton  pButton type="button" (click)="getRecommendation(activePageIndex + 1)" *ngIf="recommendation.id  == 7"
-                  class="btn btn-success btn-rounded p-1 ps-4">
-                  <span class="me-2">Get Recommendations</span><span class="btn-icon px-2 py-2">
-                    <i class="fa fa-check-circle"></i></span>
-                </button>
-              </div>
-            </div>
-          </ng-template>
-        </p-carousel>
-      </div>
-    </div>
-  </ng-container>
-  <ng-container *ngIf="isRecommendationData">
-    <div class="card-header border-0 bg-transparent">
-        <div class="row justify-content-center align-items-center">
-            <div class="col-md-12 d-flex gap-2">
-                <div class="backIcon d-md-flex d-none" role="button" (click)="goBack()" style="height: auto;">
-                    <span class="fa-solid fa-chevron-left"></span>
-                </div>
-                <div class="select-title d-flex justify-content-between align-items-center">
-                    <div>
-                        <h5 class="w-100 mb-0" tooltipPosition="top" pTooltip="">
-                          FOUNDERS TOOL -  BUSINESS ADVISOR<i class="questiontooltip fa-solid fa-circle-question"></i></h5>
-                    </div>
-                </div>
-                <div class="d-flex align-items-center">
-                    <button pButton  pButton type="button" (click)="saveRecommadation()"
-                        class="btn btn-primary btn-rounded py-2 px-4">
-                        <span>History</span>
-                    </button>
-                </div>
-            </div>
-        </div>
-    </div>
-    <div class="card-body worksans flex-fill overflow-y-auto">
-      <div class="row">
-          <div class="col-md-2"></div>
-          <div class="col-md-8">
-              <div class="d-flex justify-content-end gap-3 mb-3">
-                  <button pButton type="button" (click)="downloadRecommadation()"
-                      class="btn btn-secondary btn-rounded p-1 ps-4">
-                      <span class="me-2">Download</span><span class="btn-icon px-2 py-2">
-                          <i class="fa-regular fa-download"></i></span>
-                  </button>
-              </div>
-              <div class="card p-3 poppins-content" [innerHtml]="recommendationData"></div>
-          </div>
-          <div class="col-md-2"></div>
-      </div>
-  </div>
-    <div class="card-footer bg-transparent border-0">
-        <div class="text-end">
-            <button pButton  pButton type="button" class="btn ps-3 btn-quit btn-rounded" (click)="resetRecommendation()">
-                Reset Recommendations<span class="btn-icon"><i class="fa-solid fa-arrow-rotate-right"></i>
-                </span>
-            </button>
-        </div>
-    </div>
-</ng-container>
+	<ng-container *ngIf="isRecommendationQuestion">
+		<div class="card-header border-0 bg-transparent">
+			<div class="row justify-content-center align-items-center">
+				<div class="col-md-12 d-flex gap-2">
+					<div class="backIcon d-md-flex d-none" role="button" (click)="goBack()" style="height: auto">
+						<span class="fa-solid fa-chevron-left"></span>
+					</div>
+					<div class="select-title d-flex justify-content-between align-items-center">
+						<div class="d-flex gap-2">
+							<h5 routerLink="/pages/dashboard" role="button" class="mb-0" tooltipPosition="top" pTooltip=""><i class="fa-regular fa-home"></i></h5>
+							<span><i class="fa-solid fa-chevron-right"></i></span>
+							<h5 routerLink="/pages/founderstool/founderstoollist" role="button" class="mb-0" tooltipPosition="top">Founders Tool</h5>
+							<span><i class="fa-solid fa-chevron-right"></i></span>
+							<h5 role="button" class="mb-0" tooltipPosition="top" pTooltip="Access resources for starting your business, from ideation to execution.">AI Business Advisor</h5>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="card-body text-center flex-fill overflow-y-auto">
+			<div class="container-fluid h-100">
+				<p-carousel [value]="recommendations" [numVisible]="1" [numScroll]="1" [circular]="false" [showNavigators]="false" [showIndicators]="false" [page]="activePageIndex" styleClass="h-100">
+					<ng-template let-recommendation pTemplate="item">
+						<div class="h-100 d-flex flex-column justify-content-between">
+							<div>&nbsp;</div>
+							<div class="row justify-content-center text-start">
+								<div class="col-md-12 mb-4">
+									<h5 class="uniprep-primary fw-semibold mb-0">
+										<!-- Question Number {{ recommendation.id }} -->
+									</h5>
+									<h2 class="fw-bold mb-0 text-center">{{ recommendation.question }}</h2>
+								</div>
+								<div class="col-md-6">
+									<ng-container *ngIf="recommendation.id == 1">
+										<p-select [(ngModel)]="selectedData[recommendation.id]" [options]="industryList" [filter]="true" filterBy="Industry" styleClass="w-100" optionLabel="Industry" optionValue="Industry" [appendTo]="'body'" placeholder="Select Industry"> </p-select>
+										<div class="text-center" [ngClass]="{ 'd-none': inValidClass === false }" style="color: red">Business Type is required</div>
+									</ng-container>
+									<ng-container *ngIf="recommendation.id == 2">
+										<p-select [(ngModel)]="selectedData[recommendation.id]" [options]="businessGoalsList" [filter]="true" filterBy="goal" styleClass="w-100" optionLabel="goal" optionValue="goal" [appendTo]="'body'" placeholder="Select Goal"> </p-select>
+										<div class="text-center" [ngClass]="{ 'd-none': inValidClass === false }" style="color: red">Business Primary Goal is required</div>
+									</ng-container>
+									<ng-container *ngIf="recommendation.id == 3">
+										<p-select [(ngModel)]="selectedData[recommendation.id]" [options]="durationList" [filter]="true" filterBy="duration" styleClass="w-100" optionLabel="duration" optionValue="duration" [appendTo]="'body'" placeholder="Months"> </p-select>
+										<div class="text-center" [ngClass]="{ 'd-none': inValidClass === false }" style="color: red">Business Duration is required</div>
+									</ng-container>
+									<ng-container *ngIf="recommendation.id == 4">
+										<p-select [(ngModel)]="selectedData[recommendation.id]" [options]="challengeList" [filter]="true" filterBy="challenge" styleClass="w-100" optionLabel="challenge" optionValue="challenge" [appendTo]="'body'" placeholder="Select Challenge"> </p-select>
+										<div class="text-center" [ngClass]="{ 'd-none': inValidClass === false }" style="color: red">Challenges are required</div>
+									</ng-container>
+									<ng-container *ngIf="recommendation.id == 5">
+										<p-select [(ngModel)]="selectedData[recommendation.id]" [options]="targetAudienceList" [filter]="true" filterBy="audience" styleClass="w-100" optionLabel="audience" optionValue="audience" [appendTo]="'body'" placeholder="Select Target Audience"> </p-select>
+										<div [ngClass]="{ 'd-none': inValidClass === false }" style="color: red" class="text-danger">Ideal customers is required</div>
+									</ng-container>
+									<ng-container *ngIf="recommendation.id == 6">
+										<div class="w-100 d-flex gap-2 flex-fill">
+											<p-select [(ngModel)]="selectedData[8]" [options]="currencyList" [filter]="true" filterBy="currency_symbol" placeholder=" Currency" appendTo="body" optionLabel="currency_symbol" optionValue="currency_symbol" [autoDisplayFirst]="false"> </p-select>
+											<input [(ngModel)]="selectedData[recommendation.id]" class="w-100 pl-4 border border-gray rounded-3" type="number" [max]="99999999" pInputText [placeholder]="selectedData[8] ? 'Amount in' + ' ' + selectedData[8] : 'Enter Amount'" />
+										</div>
+										<div class="text-center" [ngClass]="{ 'd-none': inValidClass === false }" style="color: red">Budget is required or maximum 8 digit allowed</div>
+									</ng-container>
+									<ng-container *ngIf="recommendation.id == 7">
+										<p-select [(ngModel)]="selectedData[recommendation.id]" [filter]="true" filterBy="strategy" [options]="strategyBusinessList" styleClass="w-100" optionLabel="strategy" optionValue="strategy" [appendTo]="'body'" placeholder="Strategy"> </p-select>
+										<div class="text-center" [ngClass]="{ 'd-none': inValidClass === false }" style="color: red">Strategy is required</div>
+									</ng-container>
+								</div>
+							</div>
+							<div class="d-flex justify-content-between mt-2">
+								<button pButton pButton type="button" class="btn btn-primary btn-rounded p-1 pe-4" [style.visibility]="activePageIndex == 0 ? 'hidden' : 'visible'" (click)="previous()">
+									<span class="btn-icon px-2 py-2"><i class="fa fa-arrow-left"></i></span>
+									<span class="ms-2">Previous</span>
+								</button>
+								<button pButton pButton type="button" (click)="next(activePageIndex + 1)" *ngIf="recommendation.id <= 6" class="btn btn-primary btn-rounded p-1 ps-4">
+									<span class="me-2">Next</span><span class="btn-icon px-2 py-2"><i class="fa fa-arrow-right"></i></span>
+								</button>
+								<button pButton pButton type="button" (click)="getRecommendation(activePageIndex + 1)" *ngIf="recommendation.id == 7" class="btn btn-success btn-rounded p-1 ps-4">
+									<span class="me-2">Get Recommendations</span><span class="btn-icon px-2 py-2"> <i class="fa fa-check-circle"></i></span>
+								</button>
+							</div>
+						</div>
+					</ng-template>
+				</p-carousel>
+			</div>
+		</div>
+	</ng-container>
+	<ng-container *ngIf="isRecommendationData">
+		<div class="card-header border-0 bg-transparent">
+			<div class="row justify-content-center align-items-center">
+				<div class="col-md-12 d-flex gap-2">
+					<div class="backIcon d-md-flex d-none" role="button" (click)="goBack()" style="height: auto">
+						<span class="fa-solid fa-chevron-left"></span>
+					</div>
+					<div class="select-title d-flex justify-content-between align-items-center">
+						<div class="d-flex gap-2">
+							<h5 routerLink="/pages/dashboard" role="button" class="mb-0" tooltipPosition="top" pTooltip=""><i class="fa-regular fa-home"></i></h5>
+							<span><i class="fa-solid fa-chevron-right"></i></span>
+							<h5 routerLink="/pages/founderstool/founderstoollist" role="button" class="mb-0" tooltipPosition="top">Founders Tool</h5>
+							<span><i class="fa-solid fa-chevron-right"></i></span>
+							<h5 role="button" class="mb-0" tooltipPosition="top" pTooltip="Access resources for starting your business, from ideation to execution.">AI Business Advisor</h5>
+						</div>
+					</div>
+					<div class="d-flex align-items-center">
+						<button pButton pButton type="button" (click)="saveRecommadation()" class="btn btn-primary btn-rounded py-2 px-4">
+							<span>History</span>
+						</button>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="card-body worksans flex-fill overflow-y-auto">
+			<div class="row">
+				<div class="col-md-2"></div>
+				<div class="col-md-8">
+					<div class="d-flex justify-content-end gap-3 mb-3">
+						<button pButton type="button" (click)="downloadRecommadation()" class="btn btn-secondary btn-rounded p-1 ps-4">
+							<span class="me-2">Download</span><span class="btn-icon px-2 py-2"> <i class="fa-regular fa-download"></i></span>
+						</button>
+					</div>
+					<div class="card p-3 poppins-content" [innerHtml]="recommendationData"></div>
+				</div>
+				<div class="col-md-2"></div>
+			</div>
+		</div>
+		<div class="card-footer bg-transparent border-0">
+			<div class="text-end">
+				<button pButton pButton type="button" class="btn ps-3 btn-quit btn-rounded" (click)="resetRecommendation()">
+					Reset Recommendations<span class="btn-icon"><i class="fa-solid fa-arrow-rotate-right"></i> </span>
+				</button>
+			</div>
+		</div>
+	</ng-container>
 
-<!-- ----------------- Recommandation Saved Response View ----------------- -->
-<ng-container *ngIf="isRecommendationSavedData">
-    <div class="card-header border-0 bg-transparent">
-        <div class="row justify-content-center align-items-center">
-            <div class="col-md-12 d-flex gap-4">
-                <div class="backIcon d-md-flex d-none" role="button" (click)="goBack()" style="height: auto;">
-                    <span class="fa-solid fa-chevron-left"></span>
-                </div>
-                <div class="select-title d-flex justify-content-between align-items-center">
-                    <div>
-                        <h5 class="w-100 mb-0" tooltipPosition="top" pTooltip="">
-                          FOUNDERS TOOL - BUSINESS ADVISOR<i class="questiontooltip fa-solid fa-circle-question"></i></h5>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-    <div class="card-body text-center flex-fill overflow-y-auto">
-        <div class="row mb-0">
-            <div *ngFor="let item of recommadationSavedQuestionList; let i=index;"
-                class="col-lg-3 col-md-3 col-sm-4 col-xs-12 col-12 mb-3">
-                <div class="row w-100 m-0 justify-content-center h-100">
-                    <div class="card subjectcard" role="button" (click)="showRecommandationData(item.response)">
-                        <div class="card-body text-start">
-                            <h5 class="fw-bold mb-0">Business Advise {{i+1}}</h5>
-                            <p class="text-small"><b>Type of Business : </b>{{item.industry}}</p>
-                            <p class="text-small"><b>Focus : </b>{{item.goals}}</p>
-                            <p class="text-small"><b>Ideal Customers : </b>{{item.customers}}</p>
-                            <p class="text-small"><b>Budget : </b>{{item.budget}}</p>
-                            <p class="text-small"><b>Strategy : </b>{{item.strategy}}</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-    <div class="card-footer bg-transparent border-0">
-        <div class="text-end">
-            <button pButton  pButton type="button" class="btn ps-3 btn-quit btn-rounded" (click)="resetRecommendation()">
-                Reset Recommendations<span class="btn-icon"><i class="fa-solid fa-arrow-rotate-right"></i>
-                </span>
-            </button>
-        </div>
-    </div>
-</ng-container>
+	<!-- ----------------- Recommandation Saved Response View ----------------- -->
+	<ng-container *ngIf="isRecommendationSavedData">
+		<div class="card-header border-0 bg-transparent">
+			<div class="row justify-content-center align-items-center">
+				<div class="col-md-12 d-flex gap-4">
+					<div class="backIcon d-md-flex d-none" role="button" (click)="goBack()" style="height: auto">
+						<span class="fa-solid fa-chevron-left"></span>
+					</div>
+					<div class="select-title d-flex justify-content-between align-items-center">
+						<div class="d-flex gap-2">
+							<h5 routerLink="/pages/dashboard" role="button" class="mb-0" tooltipPosition="top" pTooltip=""><i class="fa-regular fa-home"></i></h5>
+							<span><i class="fa-solid fa-chevron-right"></i></span>
+							<h5 routerLink="/pages/founderstool/founderstoollist" role="button" class="mb-0" tooltipPosition="top">Founders Tool</h5>
+							<span><i class="fa-solid fa-chevron-right"></i></span>
+							<h5 role="button" class="mb-0" tooltipPosition="top" pTooltip="Access resources for starting your business, from ideation to execution.">AI Business Advisor</h5>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="card-body text-center flex-fill overflow-y-auto">
+			<div class="row mb-0">
+				<div *ngFor="let item of recommadationSavedQuestionList; let i = index" class="col-lg-3 col-md-3 col-sm-4 col-xs-12 col-12 mb-3">
+					<div class="row w-100 m-0 justify-content-center h-100">
+						<div class="card subjectcard" role="button" (click)="showRecommandationData(item.response)">
+							<div class="card-body text-start">
+								<h5 class="fw-bold mb-0">Business Advise {{ i + 1 }}</h5>
+								<p class="text-small"><b>Type of Business : </b>{{ item.industry }}</p>
+								<p class="text-small"><b>Focus : </b>{{ item.goals }}</p>
+								<p class="text-small"><b>Ideal Customers : </b>{{ item.customers }}</p>
+								<p class="text-small"><b>Budget : </b>{{ item.budget }}</p>
+								<p class="text-small"><b>Strategy : </b>{{ item.strategy }}</p>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="card-footer bg-transparent border-0">
+			<div class="text-end">
+				<button pButton pButton type="button" class="btn ps-3 btn-quit btn-rounded" (click)="resetRecommendation()">
+					Reset Recommendations<span class="btn-icon"><i class="fa-solid fa-arrow-rotate-right"></i> </span>
+				</button>
+			</div>
+		</div>
+	</ng-container>
 </div>

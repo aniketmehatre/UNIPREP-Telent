@@ -1,7 +1,7 @@
 import { Component, ElementRef, HostListener, OnInit, ViewChild } from "@angular/core"
 import { DomSanitizer } from "@angular/platform-browser"
 import { FounderstoolService } from "../founderstool.service"
-import { Router } from "@angular/router"
+import { Router, RouterModule } from "@angular/router"
 import { CommonModule } from "@angular/common"
 import { DialogModule } from "primeng/dialog"
 @Component({
@@ -9,7 +9,7 @@ import { DialogModule } from "primeng/dialog"
 	templateUrl: "./foundersacademy.component.html",
 	styleUrls: ["./foundersacademy.component.scss"],
 	standalone: true,
-	imports: [CommonModule, DialogModule],
+	imports: [CommonModule, DialogModule, RouterModule],
 })
 export class FoundersacademyComponent implements OnInit {
 	@ViewChild("videoFrame") videoFrame: ElementRef | undefined

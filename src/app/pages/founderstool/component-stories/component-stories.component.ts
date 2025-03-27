@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { PageFacadeService } from '../../page-facade.service';
-import { ActivatedRoute, Router } from '@angular/router';
+import { ActivatedRoute, Router, RouterModule } from '@angular/router';
 import { LocationService } from 'src/app/location.service';
 import { FounderstoolService } from '../founderstool.service';
 import { MessageService } from 'primeng/api';
@@ -14,7 +14,7 @@ import { CardModule  } from "primeng/card";
     templateUrl: './component-stories.component.html',
     styleUrls: ['./component-stories.component.scss'],
     standalone: true,
-    imports: [CommonModule, DialogModule, CardModule]
+    imports: [CommonModule, DialogModule, CardModule, RouterModule]
 })
 export class ComponentStoriesComponent implements OnInit {
 
