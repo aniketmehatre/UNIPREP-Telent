@@ -1086,15 +1086,18 @@ export class EmployeeProfileComponent implements OnInit {
   }
 
 
-
   getDropDownOptionList() {
+    this.talentConnectService.getMyProfileDropDownValues().subscribe({
+      next: response => { this.locations = response; }
+    });
+
     this.talentConnectService.getMyProfileDropDownValues().subscribe({
       next: response => {
         this.currencies = response.currencies;
         this.careerInterests = response.career_interests;
         this.jobTitles = response.job_titles;
         this.languagelist = response.languages;
-        this.locations = response.locations;
+        // this.locations = response.locations;
         this.hobbies = response.hobbies;
         this.professionalStrengths = response.professional_strengths;
         this.qualifications = response.qualifications;

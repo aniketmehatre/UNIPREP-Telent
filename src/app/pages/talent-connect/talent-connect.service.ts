@@ -18,6 +18,9 @@ export class TalentConnectService {
         });
     }
 
+    getCityCountries() {
+        return this.http.get<any>(environment.ApiUrl + "/getworldcitiescountry ");
+    }
 
     getEasyApplyWorkLocationList() {
         return this.http.get<any>(environment.ApiUrl + "/easyappyworklocations", {
