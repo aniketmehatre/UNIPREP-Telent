@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormGroup, FormBuilder, Validators, FormArray, AbstractControl } from '@angular/forms';
+import { FormGroup, FormBuilder, Validators, FormArray, AbstractControl, FormControl } from '@angular/forms';
 import { ViewProfileComponent } from './view-profile/view-profile.component';
 import { DialogService, DynamicDialogRef } from 'primeng/dynamicdialog';
 import { TalentConnectService } from '../talent-connect.service';
@@ -21,7 +21,7 @@ export enum FileType {
   styleUrl: './employee-profile.component.scss'
 })
 export class EmployeeProfileComponent implements OnInit {
-  countryList: any = [];
+  nationalityList: any = [];
   currentMessage: string = "Enter your full name as per your official documents. This is the name that will appear on your offer letter and in the employer's database, so ensure it is accurate for a smooth hiring process. Numbers and special characters are not allowed.";
   hoverMessages: any = {
     // Personal Information
@@ -195,12 +195,12 @@ export class EmployeeProfileComponent implements OnInit {
       // Networking
       networking_linkedin_profile: ['', Validators.required],
       networking_social_media: this.fb.array([this.createSocialMediaGroup()]),
-      networking_personal_website: [null],
+      networking_personal_website: [null, Validators.pattern(/^(http:\/\/www\.|https:\/\/www\.|http:\/\/|https:\/\/)?[a-z0-9]+([\-\.]{1}[a-z0-9]+)*\.[a-z]{2,5}(:[0-9]{1,5})?(\/.*)?$/)],
 
       // Achievements
       career_preference_cv_filename: ['', Validators.required],
-      career_preference_video_link: ['', Validators.required],
-      career_preference_portfolio_upload_link: [''],
+      career_preference_video_link: ['', [Validators.required, Validators.pattern(/^(http:\/\/www\.|https:\/\/www\.|http:\/\/|https:\/\/)?[a-z0-9]+([\-\.]{1}[a-z0-9]+)*\.[a-z]{2,5}(:[0-9]{1,5})?(\/.*)?$/)]],
+      career_preference_portfolio_upload_link: ['', Validators.pattern(/^(http:\/\/www\.|https:\/\/www\.|http:\/\/|https:\/\/)?[a-z0-9]+([\-\.]{1}[a-z0-9]+)*\.[a-z]{2,5}(:[0-9]{1,5})?(\/.*)?$/)],
 
       // References
       academicReferences: this.fb.array([this.createAcademicReferenceGroup()]),
@@ -283,11 +283,11 @@ export class EmployeeProfileComponent implements OnInit {
   createAcademicReferenceGroup() {
     return this.fb.group({
       id: [''],
-      references_college_name: [null, Validators.required],
-      references_reference_name: [null, Validators.required],
-      references_designation: [null, Validators.required],
-      references_phone_number: [null, Validators.required],
-      references_email: [null, [Validators.required, Validators.email]]
+      references_college_name: [null],
+      references_reference_name: [null],
+      references_designation: [null],
+      references_phone_number: [null, Validators.max(9999999999)],
+      references_email: [null, Validators.email]
     });
   }
 
@@ -297,8 +297,8 @@ export class EmployeeProfileComponent implements OnInit {
       references_company_name: [null],
       references_reference_name: [null],
       references_designation: [null],
-      references_phone_number: [null],
-      references_email: [null]
+      references_phone_number: [null, Validators.max(9999999999)],
+      references_email: [null, Validators.email]
     });
   }
 
@@ -1088,11 +1088,6 @@ export class EmployeeProfileComponent implements OnInit {
 
 
   getDropDownOptionList() {
-    this.locationService.getHomeCountry(1).subscribe({
-      next: response => {
-        this.countryList = response;
-      }
-    });
     this.talentConnectService.getMyProfileDropDownValues().subscribe({
       next: response => {
         this.currencies = response.currencies;
@@ -1112,6 +1107,7 @@ export class EmployeeProfileComponent implements OnInit {
         this.graduationYears = response.graduation_years;
         this.genderOptions = response.gender;
         this.languageProficiency = response.language_proficiency;
+        this.nationalityList = response.nationalites;
       },
       error: error => {
         console.log(error);
@@ -1196,6 +1192,7 @@ export class EmployeeProfileComponent implements OnInit {
           work_experience_job_responsibilities: [exp.job_responsibilities],
           work_experience_experience_letter: [exp.experience_letter]
         }));
+        // this.disableFieldsWhenClickFresher(workExpArray[workExpArray.length - 1], );
       });
     }
 
@@ -1310,6 +1307,25 @@ export class EmployeeProfileComponent implements OnInit {
     if (!url) return '';
     let fileName = url.split('/').pop() || ''; // "1742015348_cv_letter.pdf"
     return fileName;
+  }
+
+  disableFieldsWhenClickFresher(controls: FormGroup, isFresher: boolean) {
+    if (isFresher) {
+      controls?.disable();
+      controls.get('years_of_experience')?.enable();
+    } else {
+      controls?.enable();
+    }
+  }
+
+  handleValidationsForFields(control: FormControl, isRemove: boolean) {
+    if (isRemove) {
+      control.clearValidators();
+      control.updateValueAndValidity();
+    } else {
+      control.addValidators([Validators.required]);
+      control.updateValueAndValidity();
+    }
   }
 
 }
