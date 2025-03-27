@@ -10,10 +10,15 @@ export class SeoManagerComponent implements OnInit {
 	constructor(private seoService: SeoService) {}
 
 	ngOnInit() {
+    this.updateDynamicContent("UNIPREP | Your Gateway to International Education, Career Success & Entrepreneurship")
 		// Set default SEO settings
-		this.seoService.updateMetaTags({
+		
+	}
+
+  updateDynamicContent(title: string) {
+    this.seoService.updateMetaTags({
 			// Basic Meta Tags
-			title: "UNIPREP | Your Gateway to International Education, Career Success & Entrepreneurship",
+			title: title,
 			author: "UNIPREP",
 			canonicalUrl: "https://uniprep.ai/home",
 			alternateUrl: "https://uniprep.ai/home",
@@ -46,5 +51,5 @@ export class SeoManagerComponent implements OnInit {
 				sameAs: ["https://www.facebook.com/uniprepindia", "https://www.instagram.com/uniprepindia/", "https://www.linkedin.com/company/uniprep-india/", "https://www.youtube.com/@UNIPREPGlobal"],
 			},
 		});
-	}
+  }
 }
