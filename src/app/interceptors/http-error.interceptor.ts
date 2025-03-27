@@ -72,7 +72,10 @@ export const HttpErrorInterceptor: HttpInterceptorFn = (
       }
     }),
     catchError((error: HttpErrorResponse) => {
-      locationService.sessionEndApiCall().subscribe((data: any) => {})
+      const token=authTokenService.getToken()
+      if(token){
+        locationService.sessionEndApiCall().subscribe((data: any) => {})
+      }
       if (error.status === 401 && !isPublicRoute) {
         authTokenService.clearToken();
         toastr.add({
