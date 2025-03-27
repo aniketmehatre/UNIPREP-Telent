@@ -1170,7 +1170,7 @@ export class EmployeeProfileComponent implements OnInit {
           education_field_id: [edu.field_id || '', Validators.required],
           education_course_name: [edu.course_name || '', Validators.required],
           education_graduation_year_id: [edu.graduation_year_id || '', Validators.required],
-          education_gpa_percentage: [edu.gpa_percentage || '', Validators.required]
+          education_gpa_percentage: [edu.gpa_percentage || '']
         }));
       });
     } 
@@ -1253,11 +1253,11 @@ export class EmployeeProfileComponent implements OnInit {
       response.references.forEach((ref: any) => {
         academicRefArray.push(this.fb.group({
           id: [ref.id], // Store the original ID
-          references_college_name: [ref.college_name || '', Validators.required],
-          references_reference_name: [ref.reference_name || '', Validators.required],
-          references_designation: [ref.designation || '', Validators.required],
-          references_phone_number: [ref.phone_number || null, Validators.required],
-          references_email: [ref.email || '', [Validators.required, Validators.email]]
+          references_college_name: [ref.college_name || ''],
+          references_reference_name: [ref.reference_name || ''],
+          references_designation: [ref.designation || ''],
+          references_phone_number: [ref.phone_number || null, Validators.max(9999999999)],
+          references_email: [ref.email || '', [Validators.email]]
         }));
       });
     } 
@@ -1268,11 +1268,11 @@ export class EmployeeProfileComponent implements OnInit {
       response.professional_refrences.forEach((ref: any) => {
         professionalRefArray.push(this.fb.group({
           id: [ref.id], // Store the original ID
-          references_company_name: [ref.college_name, Validators.required],
-          references_reference_name: [ref.reference_name, Validators.required],
-          references_designation: [ref.designation, Validators.required],
-          references_phone_number: [ref.phone_number, Validators.required],
-          references_email: [ref.email, [Validators.required, Validators.email]]
+          references_company_name: [ref.college_name],
+          references_reference_name: [ref.reference_name],
+          references_designation: [ref.designation],
+          references_phone_number: [ref.phone_number, Validators.max(9999999999)],
+          references_email: [ref.email, [Validators.email]]
         }));
       });
     } 
