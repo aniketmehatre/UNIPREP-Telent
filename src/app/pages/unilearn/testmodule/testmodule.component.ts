@@ -1,6 +1,6 @@
 import { Component, EventEmitter, Input, OnInit, Output } from "@angular/core"
 import { PageFacadeService } from "../../page-facade.service"
-import { learnModules, learnsubModules, submoduledata } from "../unilearn.model"
+import { learnsubModules, submoduledata } from "../unilearn.model"
 import { UniLearnService } from "../unilearn.service"
 import { ActivatedRoute, Router } from "@angular/router"
 import { ArrayHeaderService } from "../array-header.service"
@@ -8,8 +8,7 @@ import { CommonModule } from "@angular/common"
 import { SkeletonModule } from "primeng/skeleton"
 import { TooltipModule } from "primeng/tooltip"
 import { RouterModule } from "@angular/router"
-import {StorageService} from "../../../storage.service";
-import { map } from 'rxjs/operators';
+import { StorageService } from "../../../storage.service"
 @Component({
 	selector: "uni-testmodule",
 	templateUrl: "./testmodule.component.html",
@@ -63,6 +62,7 @@ export class TestModulesComponent implements OnInit {
 	openVideoPopup(videoLink: string) {
 		this.pageFacade.openHowitWorksVideoPopup(videoLink)
 	}
+	
 	contentalignment = false
 	onModuleClick(moduledata: submoduledata) {
 		this.paramData.parent_id = moduledata.id
