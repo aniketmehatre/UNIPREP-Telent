@@ -45,8 +45,8 @@ export class FortuneCompaniesListsComponent implements OnInit {
 
   ngOnInit(): void {
     this.init();
-    this.locationService
-      .dashboardLocationList()
+    this.service
+      .getfortunecompaniescountrylists()
       .subscribe((countryList: any) => {
         this.countryLists = countryList;
       });

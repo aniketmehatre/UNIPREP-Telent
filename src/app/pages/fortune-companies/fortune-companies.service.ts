@@ -30,4 +30,10 @@ export class FortuneCompaniesService {
       headers: headers,
     });
   }
+  getfortunecompaniescountrylists() {
+    const headers = new HttpHeaders().set("Accept", "application/json");
+    return this.http.get<any>(environment.ApiUrl + "/getfortunecompanycountrylist", {
+      headers: headers,
+    });
+  }
 }
