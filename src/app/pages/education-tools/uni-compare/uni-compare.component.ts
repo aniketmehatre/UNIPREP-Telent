@@ -435,7 +435,7 @@ export class UniCompareComponent implements OnInit, OnDestroy {
     });
 		let params: any = {
 			module_name: "Uni Compare",
-			file_name: "trip_length_finder",
+			file_name: "uni_compare",
 			response: this.recommendationData,
 			inputString: addingInput
 		};

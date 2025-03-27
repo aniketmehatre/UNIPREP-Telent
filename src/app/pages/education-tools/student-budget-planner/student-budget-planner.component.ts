@@ -274,7 +274,7 @@ export class StudentBudgetPlannerComponent implements OnInit {
 
     let params: any = {
       module_name: "Student Budget Planner",
-      file_name: "trip_length_finder",
+      file_name: "student_budget_planner",
       response: this.recommendationData,
       inputString: addingInput
     };

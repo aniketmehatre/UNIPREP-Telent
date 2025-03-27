@@ -342,7 +342,7 @@ export class StartUpExpenseEstimateComponent implements OnInit {
 
 		let params: any = {
 			module_name: "Startup Expenses Estimate",
-			file_name: "trip_length_finder",
+			file_name: "startup_expenses_estimate",
 			response: this.recommendationData,
 			inputString: addingInput
 		};

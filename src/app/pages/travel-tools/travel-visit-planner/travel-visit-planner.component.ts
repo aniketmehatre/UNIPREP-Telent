@@ -149,7 +149,7 @@ export class TravelVisitPlannerComponent implements OnInit {
 		});
 		let params: any = {
 			module_name: "Travel Visit Planner",
-			file_name: "trip_length_finder",
+			file_name: "travel_visit_planner",
 			response: this.recommendationData,
 			inputString: addingInput
 		};

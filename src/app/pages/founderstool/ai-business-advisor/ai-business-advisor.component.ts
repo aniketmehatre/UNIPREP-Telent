@@ -183,7 +183,7 @@ export class AiBusinessAdvisorComponent implements OnInit {
 		})
 		let params: any = {
 			module_name: "AI Business Advisor",
-			file_name: "trip_length_finder",
+			file_name: "ai_business_advisor",
 			response: this.recommendationData,
 			inputString: addingInput
 		};

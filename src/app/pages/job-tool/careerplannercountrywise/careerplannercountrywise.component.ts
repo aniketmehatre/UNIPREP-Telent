@@ -136,7 +136,7 @@ export class CareerplannercountrywiseComponent implements OnInit {
     `;
 		let params: any = {
 			module_name: "Career Planner Coutrywise",
-			file_name: "trip_length_finder",
+			file_name: "career_planner_coutrywise",
 			response: this.recommendationData,
 			inputString: addingInput
 		};

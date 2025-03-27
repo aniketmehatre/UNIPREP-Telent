@@ -332,7 +332,7 @@ export class BusinessForecastingToolComponent implements OnInit {
 		})
 		let params: any = {
 			module_name: "Revenue Forecasting Tool",
-			file_name: "trip_length_finder",
+			file_name: "revenue_forecasting_tool",
 			response: this.recommendationData,
 			inputString: addingInput
 		};

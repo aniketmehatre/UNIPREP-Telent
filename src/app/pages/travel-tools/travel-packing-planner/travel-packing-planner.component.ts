@@ -183,7 +183,7 @@ export class TravelPackingPlannerComponent implements OnInit {
 		})
 		let params: any = {
 			module_name: "Travel Packaging Planner",
-			file_name: "trip_length_finder",
+			file_name: "travel_packaging_planner",
 			response: this.recommendationData,
 			inputString: addingInput
 		};

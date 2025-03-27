@@ -175,7 +175,7 @@ export class EduLoanCompareComponent implements OnInit {
     });
     let params: any = {
       module_name: "EDULOAN Repayment Advisor",
-      file_name: "trip_length_finder",
+      file_name: "eduloan_repayment_advisor",
       response: this.recommendationData,
       inputString: addingInput
     };

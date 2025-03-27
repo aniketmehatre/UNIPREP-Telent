@@ -179,7 +179,7 @@ export class TravelCostEstimatorComponent implements OnInit {
 		})
 		let params: any = {
 			module_name: "Travel Cost Estimator",
-			file_name: "trip_length_finder",
+			file_name: "travel_cost_estimator",
 			response: this.recommendationData,
 			inputString: addingInput
 		};

@@ -350,7 +350,7 @@ export class MarketingAnalysisComponent implements OnInit {
     });
 		let params: any = {
 			module_name: "Marketing Analysis",
-			file_name: "trip_length_finder",
+			file_name: "marketing_analysis",
 			response: this.recommendationData,
 			inputString: addingInput
 		};

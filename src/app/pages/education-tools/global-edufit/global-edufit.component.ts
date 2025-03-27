@@ -339,7 +339,7 @@ export class GlobalEdufitComponent implements OnInit {
     });
 		let params: any = {
 			module_name: "Global Edufit",
-			file_name: "trip_length_finder",
+			file_name: "global_edufit",
 			response: this.recommendationData,
 			inputString: addingInput
 		};

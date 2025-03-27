@@ -202,7 +202,7 @@ export class StartupRiskAssessmentComponent implements OnInit {
 		})
 		let params: any = {
 			module_name: "Startup Risk Assessment",
-			file_name: "trip_length_finder",
+			file_name: "startup_risk_assessment",
 			response: this.recommendationData,
 			inputString: addingInput
 		};
