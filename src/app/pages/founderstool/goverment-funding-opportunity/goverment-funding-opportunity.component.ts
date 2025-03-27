@@ -1,6 +1,6 @@
 import { Component, OnInit } from "@angular/core";
 import { FormBuilder, FormGroup } from "@angular/forms";
-import { Router } from "@angular/router";
+import { Router, RouterModule } from "@angular/router";
 import { MessageService } from "primeng/api";
 import { AuthService } from "src/app/Auth/auth.service";
 import { DataService } from "src/app/data.service";
@@ -22,7 +22,7 @@ import { ButtonModule } from 'primeng/button';
   templateUrl: "./goverment-funding-opportunity.component.html",
   styleUrls: ["./goverment-funding-opportunity.component.scss"],
   standalone: true,
-  imports: [CommonModule, DialogModule, SelectModule, MultiSelectModule, FormsModule, ReactiveFormsModule, Carousel, ButtonModule],
+  imports: [CommonModule, RouterModule, DialogModule, SelectModule, MultiSelectModule, FormsModule, ReactiveFormsModule, Carousel, ButtonModule],
 })
 export class GovermentFundingOppurtunityComponent implements OnInit {
   fundData: any[] = [];
