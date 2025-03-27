@@ -52,6 +52,9 @@ export class GlobalTravelVisaComponent implements OnInit {
 	modeName: any
 	moduleId: any
 	moduleTitile: string = ""
+  countryNameTitle:any=""
+  visaNameTite:any=""
+  visaCategoryTitle:any=""
 	visaCategoryList: any[] = [
 		{
 			id: 1,
@@ -153,7 +156,7 @@ export class GlobalTravelVisaComponent implements OnInit {
 		this.recommendationDataList = []
 		let data = {
 			// source_id: this.selectedData[1],
-			country: this.selectedData[2],
+			country: this.selectedData[2].id,
 			mode: this.modeName,
 			// resident_id: this.selectedData[3]
 		}
@@ -176,6 +179,7 @@ export class GlobalTravelVisaComponent implements OnInit {
 	}
 
 	getVisaCategoryList(name: any) {
+    this.visaNameTite=name;
 		this.isRecommendationQuestion = false
 		this.isRecommendationData = false
 		this.isRecommendationSavedData = false
@@ -267,6 +271,7 @@ export class GlobalTravelVisaComponent implements OnInit {
 		}
 	}
 	viewQuestions(category: any) {
+    this.visaCategoryTitle=category;
 		this.visaCategoryQuestionList = []
 		this.isRecommendationQuestion = false
 		this.isRecommendationData = false
@@ -331,4 +336,7 @@ export class GlobalTravelVisaComponent implements OnInit {
 		}
 		return image
 	}
+  onChangeCountry(eve:any){
+    this.countryNameTitle=eve.value.country
+  }
 }
