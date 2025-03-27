@@ -9,6 +9,7 @@ import { SkeletonModule } from "primeng/skeleton"
 import { TooltipModule } from "primeng/tooltip"
 import { RouterModule } from "@angular/router"
 import {StorageService} from "../../../storage.service";
+import { map } from 'rxjs/operators';
 @Component({
 	selector: "uni-testmodule",
 	templateUrl: "./testmodule.component.html",
@@ -64,7 +65,6 @@ export class TestModulesComponent implements OnInit {
 	}
 	contentalignment = false
 	onModuleClick(moduledata: submoduledata) {
-		this.arrayHeaderService.addItem(moduledata.submodule_name)
 		this.paramData.parent_id = moduledata.id
 		this.paramData.module_id = moduledata.module_id
 		this.selected_module = moduledata.submodule_name
@@ -87,8 +87,13 @@ export class TestModulesComponent implements OnInit {
 				})
 				break
 		}
+		if (this.arrayHeaderService.getItems().length > 1) {
+			this.arrayHeaderService.removeItem(1)
+		}
+		this.arrayHeaderService.addItem(moduledata.submodule_name)
 	}
-	backtoMain() {
+
+	back() {
 		//this.arrayHeaderService.removeItem(this.arrayHeaderService.getItems().length - 1);
 		this.getFormattedValues()
 		const hasFileType4 = this.submoduleList.some((data: any) => data.file_type === 4)
