@@ -24,6 +24,7 @@ import { uniCompareOptions } from './uni-compare.data';
 import { DownloadRespose } from 'src/app/@Models/travel-tools.model';
 import { TravelToolsService } from '../../travel-tools/travel-tools.service';
 import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
+import { PromptService } from '../../prompt.service';
 
 @Component({
   selector: 'uni-uni-compare',
@@ -78,7 +79,8 @@ export class UniCompareComponent implements OnInit, OnDestroy {
     private dataService: DataService,
     private pageFacade: PageFacadeService,
     private travelToolService: TravelToolsService,
-    private sanitizer: DomSanitizer
+    private sanitizer: DomSanitizer,
+    private promptService: PromptService
 
   ) {
     this.form = this.fb.group({
@@ -295,11 +297,7 @@ export class UniCompareComponent implements OnInit, OnDestroy {
         this.isRecommendationQuestion = false;
         this.isRecommendationData = true;
         this.isRecommendationSavedData = false;
-        let chatGptResponse = response.response;
-				chatGptResponse = chatGptResponse
-					.replace(/```html|```/g, '')
-					.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>');
-				this.recommendationData = this.sanitizer.bypassSecurityTrustHtml(chatGptResponse);
+				this.recommendationData = this.sanitizer.bypassSecurityTrustHtml(response.response);
       },
       error: error => {
         this.isRecommendationData = false;
@@ -400,30 +398,20 @@ export class UniCompareComponent implements OnInit, OnDestroy {
   }
 
   downloadRecommadation() {
+		let addingInput: string = '';
     const formValue = ['country', 'university', 'specialization', 'fees', 'expense', 'period'];
     const formData = this.form.value;
     formData['country'] = formData['country'].country;
     formData['compare_country'] = formData['compare_country'].country;
     formData['university'] = formData['university'].university_name;
     formData['compare_university'] = formData['compare_university'].university_name;
-    let addingInput = `<div style="font-family: 'Poppins', sans-serif; display: flex; align-items: center; justify-content: space-between; border-bottom: 2px solid #d32f2f; padding-bottom: 10px; margin-bottom: 20px;">
-				<div style="text-align: center;">
-					<h2 style="margin: 0; color: #1a237e;">UNICOMPARE</h2>
-				</div>
-			</div><p><strong>Input:<br></strong></p>`;
-
-    // Keep track of which formValue index we're currently using
     let formValueIndex = 0;
-
     this.recommendations.forEach((category: any) => {
       addingInput += `<p><strong>${category.question.heading}</strong></p>`;
-
       category.question.branches.forEach((branchQuestion: any) => {
-        addingInput += `<p style="color: #d32f2f;"><strong>${branchQuestion}</strong></p>`;
-
+        addingInput += `<p style="color: #3f4c83;"><strong>${branchQuestion}</strong></p>`;
         let currentAnswer = "";
         const currentFormField = formValue[formValueIndex];
-
         if (formData && formData[currentFormField]) {
           switch (currentFormField) {
             case 'fees':
@@ -439,34 +427,20 @@ export class UniCompareComponent implements OnInit, OnDestroy {
         } else {
           currentAnswer = "No answer provided";
         }
-
         addingInput += `<p>${currentAnswer}</p><br>`;
-
         formValueIndex++;
       });
-
       // Add spacing between categories
       addingInput += `<br>`;
     });
-
-    let finalRecommendation = addingInput + '<div class=\"divider\"></div><p><strong>Response:<br></strong></p>' + this.recommendationData +'</div>';
-    finalRecommendation = finalRecommendation
-			.replace(/```html|```/g, '') 
-			.replace(/\(see https:\/\/g\.co\/ng\/security#xss\)/g, '') 
-			.replace(/SafeValue must use \[property\]=binding:/g, '')
-			.replace(/class="container"/g, 'style="line-height:1.9"'); //because if i add container the margin will increase so i removed the container now the spacing is proper.
-		
-    let paramData: DownloadRespose = {
-      response: finalRecommendation,
-      module_name: "Uni Compare",
-      file_name: formData['university']+'_vs_'+formData['compare_university'],
-    };
-    this.travelToolService.convertHTMLtoPDF(paramData).then(() => {
-      console.log("PDF successfully generated.");
-    }).catch(error => {
-      console.error("Error generating PDF:", error);
-    });
-  } 
+		let params: any = {
+			module_name: "Uni Compare",
+			file_name: "trip_length_finder",
+			response: this.recommendationData,
+			inputString: addingInput
+		};
+		this.promptService.responseBuilder(params);
+	}
 
   updatePanelStyle = () => {
     this.panelStyle = window.innerWidth > 990 ? { width: '370px' } : { width: '100%' };

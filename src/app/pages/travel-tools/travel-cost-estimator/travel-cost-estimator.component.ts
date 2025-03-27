@@ -164,7 +164,7 @@ export class TravelCostEstimatorComponent implements OnInit {
 	downloadRecommadation() {
 		let addingInput: string = '';
 		this.recommendations.forEach((values) => {
-			addingInput += `<p  style="color: rgb(63, 76, 131);"><strong>${values.question}</strong></p>`
+			addingInput += `<p style="color: #3f4c83;"><strong>${values.question}</strong></p>`
 			let currentAnswer = ""
 			if (values.id == 1) {
 				currentAnswer = this.selectedData[1].city_name + ", " + this.selectedData[1].country_name
