@@ -1,6 +1,6 @@
 import { Component, EventEmitter, Input, OnInit, Output } from "@angular/core";
 import { MessageService } from "primeng/api";
-import {  Router, RouterModule } from "@angular/router";
+import { Router, RouterModule } from "@angular/router";
 import { AuthService } from "../../../Auth/auth.service";
 import { PageFacadeService } from "../../page-facade.service";
 import { AveragesalaryestimatorService } from "../averagesalaryestimator.service";
@@ -18,8 +18,9 @@ import { InputTextModule } from "primeng/inputtext"
 import { InputGroupAddonModule } from "primeng/inputgroupaddon"
 import { TravelToolsService } from "../../travel-tools/travel-tools.service";
 import { DownloadRespose } from 'src/app/@Models/travel-tools.model';
-import {PdfViewerModule} from "ng2-pdf-viewer";
+import { PdfViewerModule } from "ng2-pdf-viewer";
 import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
+import { PromptService } from "../../prompt.service";
 
 @Component({
   selector: "uni-aspreparedlist",
@@ -27,7 +28,7 @@ import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
   styleUrls: ["./preparedlist.component.scss"],
   standalone: true,
   imports: [CommonModule, DialogModule, PdfViewerModule, TabViewModule, RouterModule, CardModule, FormsModule, ReactiveFormsModule, CarouselModule, ButtonModule, MultiSelectModule, SelectModule, InputGroupModule, InputTextModule, InputGroupAddonModule],
-  providers: [MessageService,AveragesalaryestimatorService]
+  providers: [MessageService, AveragesalaryestimatorService]
 })
 export class AverageSalaryPreparedListComponent implements OnInit {
   isSkeletonVisible: boolean = true;
@@ -45,7 +46,7 @@ export class AverageSalaryPreparedListComponent implements OnInit {
   EstimateResponseVisibility = true;
   selectedJobRole: any;
   @Input() prepData: any;
-  @Input() recommendationsData: {id: number, question: string}[];
+  @Input() recommendationsData: { id: number, question: string }[];
   @Output() windowChange = new EventEmitter();
   loopRange = Array.from({ length: 30 })
     .fill(0)
@@ -59,7 +60,8 @@ export class AverageSalaryPreparedListComponent implements OnInit {
     private pageFacade: PageFacadeService,
     private travelService: TravelToolsService,
     private sanitizer: DomSanitizer,
-  ) {}
+    private promptService: PromptService
+  ) { }
   ngOnInit(): void {
     this.selectedJobRole = this?.prepData?.role;
     this.getEstimateResponse();
@@ -85,57 +87,43 @@ export class AverageSalaryPreparedListComponent implements OnInit {
         this.totalDataCount = this.ListData.length;
       });
   }
-  downloadRecommendation(){
-    let addingInput = `<p><strong>Input:<br></strong></p>`;
-    this.recommendationsData.forEach(values =>{
-      addingInput += `<p style="color: #d32f2f;"><strong>${values.question}</strong></p>`;
+
+  downloadRecommadation() {
+    let addingInput: string = '';
+    this.recommendationsData.forEach(values => {
+      addingInput += `<p style="color: #3f4c83;"><strong>${values.question}</strong></p>`;
       let currentAnswer = "";
-      if(values.id == 1){
+      if (values.id == 1) {
         currentAnswer = this.prepData.role;
-      }else if(values.id == 2){
-        if(this.prepData.experience === 1){
+      } else if (values.id == 2) {
+        if (this.prepData.experience === 1) {
           currentAnswer = " Fresher";
-        }else{
-          currentAnswer = this.prepData.experience+ this.prepData.experience == 2 ? " Year" : " Years";
+        } else {
+          currentAnswer = this.prepData.experience + this.prepData.experience == 2 ? " Year" : " Years";
         }
-      }else if(values.id == 3){
+      } else if (values.id == 3) {
         currentAnswer = this.prepData.worktype_name;
-      }else if(values.id == 4){
+      } else if (values.id == 4) {
         currentAnswer = this.prepData.location_name;
-      }else if(values.id == 5){
+      } else if (values.id == 5) {
         currentAnswer = this.prepData.workplace_type_name;
-      }else if(values.id == 6){
+      } else if (values.id == 6) {
         currentAnswer = this.prepData.currency;
       }
       addingInput += `<p>${currentAnswer}</p><br>`;
     });
-    let finalRecommendation = addingInput+ '<div class="divider"></div><p><strong>Response:<br><br></strong></p>' + this.EstimateResponse;
-    finalRecommendation = finalRecommendation
-    .replace(/```html|```/g, '') 
-    .replace(/\(see https:\/\/g\.co\/ng\/security#xss\)/g, '') 
-    .replace(/SafeValue must use \[property\]=binding:/g, '')
-    .replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>')
-    .replace(/class="container"/g, 'style="line-height:1.9"'); //because if i add container the margin will increase so i removed the container now the spacing is proper.
-
-    let paramData: DownloadRespose = {
-      response: finalRecommendation,
+    let params: any = {
       module_name: "Average Salary Estimator",
-      file_name: "average_salary_estimator"
+      file_name: "average_salary_estimator",
+      response: this.EstimateResponse,
+      inputString: addingInput
     };
-
-    this.travelService.convertHTMLtoPDF(paramData).then(() =>{
-      console.log("PDF genrated Successfully.");
-    }).catch(error => {
-      console.error("Error generating PDF:", error);
-    })
+    this.promptService.responseBuilder(params);
   }
+
   getEstimateResponse() {
     this.service.getestimates(this.prepData).subscribe((response: any) => {
-      let chatGptResponse = response?.data;
-      chatGptResponse = chatGptResponse
-        .replace(/```html|```/g, '')
-        .replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>');
-      this.EstimateResponse = this.sanitizer.bypassSecurityTrustHtml(chatGptResponse);
+      this.EstimateResponse = this.sanitizer.bypassSecurityTrustHtml(response?.data);
       this.EstimateResponseVisibility = true;
       this.isSkeletonVisible = false;
     });
@@ -147,8 +135,8 @@ export class AverageSalaryPreparedListComponent implements OnInit {
     });
   }
   backtoMain() {
-    if(this.readResponse){
-      this.readResponse=false;
+    if (this.readResponse) {
+      this.readResponse = false;
       return;
     }
     this.windowChange.emit(false);
@@ -244,6 +232,6 @@ export class AverageSalaryPreparedListComponent implements OnInit {
   savedresponseData: any;
   readSavedResponse(savedResponse: any) {
     this.savedresponseData = savedResponse;
-    this.readResponse=true;
+    this.readResponse = true;
   }
 }
