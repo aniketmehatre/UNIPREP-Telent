@@ -6,8 +6,10 @@
 			</div> -->
 			<div class="col-md-12 d-flex gap-2 text-center">
 				<div class="select-title d-flex justify-content-between align-items-center">
-					<div>
-						<h5 class="w-100 mb-0" tooltipPosition="top" pTooltip="Access resources for starting your business, from ideation to execution.">Founders Tool<i class="questiontooltip fa-solid fa-circle-question"></i></h5>
+					<div class="d-flex gap-2">
+						<h5 routerLink="/pages/dashboard" role="button" class="mb-0" tooltipPosition="top" pTooltip=""><i class="fa-regular fa-home"></i></h5>
+						<span><i class="fa-solid fa-chevron-right"></i></span>
+						<h5 routerLink="/pages/founderstool/founderstoollist" role="button" class="mb-0" tooltipPosition="top">Founders Tool</h5>
 					</div>
 					<div>
 						<!-- <button pButton  class="how-it-works-button" severity="warn" (click)="openVideoPopup('https://www.youtube.com/embed/l00Z_Nk6GLI?si=j1IwWBZjrXEAYjxH')">How it works?<i class="fa-solid fa-play d-md-block d-none"></i></button> -->
@@ -20,18 +22,18 @@
 		<div class="row mb-0">
 			<div class="readingcardgrid mb-3" *ngFor="let item of founderToolsList">
 				<div class="row w-100 m-0 justify-content-center h-100">
-					<div [class.disabled]="item.launch_soon"  (click)="navigateSubModule(item.url, item.launch_soon)" class="card subjectcard" role="button">
-						<div  class="card-body d-flex flex-md-column gap-2 flex-row justify-content-md-between align-items-center">
-                            <uni-launch-soon-tag *ngIf="item.launch_soon" message="Launching soon"></uni-launch-soon-tag>
-                            <div>
+					<div [class.disabled]="item.launch_soon" (click)="navigateSubModule(item.url, item.launch_soon)" class="card subjectcard" role="button">
+						<div class="card-body d-flex flex-md-column gap-2 flex-row justify-content-md-between align-items-center">
+							<uni-launch-soon-tag *ngIf="item.launch_soon" message="Launching soon"></uni-launch-soon-tag>
+							<div>
 								<div class="submoduleicon">
 									<img class="selectimage" [src]="item.image" />
 								</div>
-								<h5 class="text-center mt-3 fw-bold d-md-block d-none mb-0">{{item.title}}</h5>
+								<h5 class="text-center mt-3 fw-bold d-md-block d-none mb-0">{{ item.title }}</h5>
 							</div>
 							<div class="d-flex flex-column text-md-center text-start">
-								<h5 class=" mt-3 fw-bold d-block d-md-none mb-0">{{item.title}}</h5>
-								<p class="text-small d-none">{{item.description}}</p>
+								<h5 class="mt-3 fw-bold d-block d-md-none mb-0">{{ item.title }}</h5>
+								<p class="text-small d-none">{{ item.description }}</p>
 							</div>
 						</div>
 					</div>
@@ -46,7 +48,7 @@
 		<img src="../../../uniprep-assets/images/smartloack.png" class="image" width="60" />
 		<h3 class="offer">Upgrade Required</h3>
 		<p>To access this exclusive module,please upgrade your plan now</p>
-		<button pButton  pButton type="button" class="text-white p-ripple p-button-rounded p-button-warning p-button p-component p-2" (click)="upgradePlan()">Upgrade Plan<i class="fa fa-arrow-right exhausted-plan-icon"></i></button>
+		<button pButton pButton type="button" class="text-white p-ripple p-button-rounded p-button-warning p-button p-component p-2" (click)="upgradePlan()">Upgrade Plan<i class="fa fa-arrow-right exhausted-plan-icon"></i></button>
 	</div>
 	<div *ngIf="!ehitlabelIsShow" class="text-center mt-5 mb-4">
 		<img src="{{ orglogowhitelabel }}" class="image" width="60" />

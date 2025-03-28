@@ -11,7 +11,9 @@ export class ArrayHeaderService {
 
   // Optional: Methods to interact with the array
   addItem(item: any): void {
-    this.globalArray.push(item);
+    if (!this.globalArray.includes(item)) {
+      this.globalArray.push(item);
+    }
   }
 
   getItems(): any[] {

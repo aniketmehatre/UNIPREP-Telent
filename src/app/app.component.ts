@@ -5,17 +5,21 @@ import { LocalStorageService } from "ngx-localstorage"
 import { NgxUiLoaderModule } from "ngx-ui-loader"
 import { ToastModule } from "primeng/toast"
 import { RouterModule } from "@angular/router"
-import {MessageService} from "primeng/api"
+import { MessageService } from "primeng/api"
+import { SeoManagerComponent } from "./components/seo-manager/seo-manager.component"
+
 @Component({
 	selector: "app-root",
-	template: ` <router-outlet></router-outlet>
+	template: ` 
+		<app-seo-manager></app-seo-manager>
+		<router-outlet></router-outlet>
 		<p-toast position="top-right"></p-toast>
 		<ngx-ui-loader overlayColor="rgba(0,0,0,0.8)" logoUrl="uniprep-assets/images/icon-loader.svg" [bgsSize]="40" bgsType="three-bounce" [bgsOpacity]="1" bgsColor="#f0780e" fgsOpacity="1" fgsColor="#f0780e" hasProgressBar="false"></ngx-ui-loader>`,
 	standalone: true,
-	imports: [NgxUiLoaderModule, ToastModule, RouterModule],
-  providers: [
-    MessageService, // Provide your service here
-  ],
+	imports: [NgxUiLoaderModule, ToastModule, RouterModule, SeoManagerComponent],
+	providers: [
+		MessageService,
+	],
 })
 export class AppComponent {
 	constructor(private storage: LocalStorageService, private whitelabelservice: LocationService) {}

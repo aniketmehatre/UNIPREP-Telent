@@ -1,32 +1,32 @@
 .launch-soon-tag {
-  border-top-right-radius: 10px;
+	border-top-right-radius: 10px;
 }
 .card.disabled {
-  opacity: 0.6; /* Makes the card appear grayed out */
-  cursor: not-allowed; /* Shows a disabled cursor */
+	opacity: 0.6; /* Makes the card appear grayed out */
+	cursor: not-allowed; /* Shows a disabled cursor */
 }
-
 .icon-container {
-  background-color: #f0f4f8;
-  border-radius: 50%;
-  width: 100px;
-  height: 100px;
-  margin: 0 auto 15px;
-  margin-top: 10px;
+	width: 100px;
+	height: 100px;
+	border-radius: 100%;
+	padding: 20px;
+	margin: 0;
+	background-color: var(--uniprep-primaryop30);
 }
 
 .feature-icon {
-  width: 80px;
-  height: 80px;
+	width: 100%;
+	height: 100%;
+	object-fit: contain;
 }
 
-.module-button {
-  border-radius: 5px;
-  font-weight: bold;
-  background-color: white;
-  color: var(--uniprep-primary);
-  &:hover, &:active, &:focus {
-    color: white;
-    background-color: var(--uniprep-primary);
-  }
+.employercard {
+	&:hover {
+		background-color: var(--uniprep-primaryop10);
+		border: 1px solid var(--uniprep-primary);
+		.btn-outline-primary {
+			background-color: var(--uniprep-primary) !important;
+      color: white !important;
+		}
+	}
 }

@@ -23,6 +23,7 @@ import { CommonType } from 'src/app/@Models/common-type';
 import { InputNumberModule } from 'primeng/inputnumber';
 import { Currencies } from 'src/app/@Models/currency.model';
 import { DomSanitizer } from '@angular/platform-browser';
+import { PromptService } from '../../prompt.service';
 
 @Component({
   selector: 'uni-edu-loan-compare',
@@ -53,7 +54,8 @@ export class EduLoanCompareComponent implements OnInit {
     private educationToolService: EducationToolsService,
     private router: Router,
     private travelToolsService: TravelToolsService,
-    private sanitizer: DomSanitizer
+    private sanitizer: DomSanitizer,
+    private promptService: PromptService
   ) {
     this.form = this.fb.group({
       currency: ['', Validators.required],
@@ -110,11 +112,7 @@ export class EduLoanCompareComponent implements OnInit {
         this.isRecommendationQuestion = false;
         this.isRecommendationData = true;
         this.isRecommendationSavedData = false;
-        let chatGptResponse = response.response
-          .replace(/```html|```/g, '')
-          .replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>')
-          .replace(/<style>(.*?)<\/style>/gs, '<link rel="stylesheet" href="https://api.uniprep.ai/uniprepapi/storage/app/public/prompt_css/promptstyle.css">');
-        this.recommendationData = this.sanitizer.bypassSecurityTrustHtml(chatGptResponse) as string;
+        this.recommendationData = this.sanitizer.bypassSecurityTrustHtml(response.response) as string;
         this.isFromSavedData = false;
         this.saveRecommadation('getAllHistory')
       },
@@ -151,11 +149,7 @@ export class EduLoanCompareComponent implements OnInit {
     this.isRecommendationQuestion = false;
     this.isRecommendationData = true;
     this.isRecommendationSavedData = false;
-    let chatGptResponse = data
-      .replace(/```html|```/g, '')
-      .replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>')
-      .replace(/<style>(.*?)<\/style>/gs, '<link rel="stylesheet" href="https://api.uniprep.ai/uniprepapi/storage/app/public/prompt_css/promptstyle.css">');
-    this.recommendationData = this.sanitizer.bypassSecurityTrustHtml(chatGptResponse) as string;
+    this.recommendationData = this.sanitizer.bypassSecurityTrustHtml(data) as string;
   }
 
   resetRecommendation() {
@@ -168,21 +162,10 @@ export class EduLoanCompareComponent implements OnInit {
 
   downloadRecommadation() {
     const formData = this.form.value;
-    let addingInput = `
-			<div style="font-family: 'Poppins', sans-serif; display: flex; align-items: center; justify-content: space-between; border-bottom: 2px solid #d32f2f; padding-bottom: 10px; margin-bottom: 20px;">
-				<div style="display: flex; align-items: center; gap: 10px;">
-         <div style="height: 50px; width: 50px;">
-            <img style="width: 100%; height: 100%;object-fit: contain;"
-              src="https://api.uniprep.ai/uniprepapi/storage/app/public/ToolIcons/education-tools/LoanComparisonTool.svg" alt="Logo">
-         </div>
-				 <h2 style="margin: 0; color: #1a237e;">EDULOAN Repayment Advisor</h2>
-				</div>
-			</div>
-			<p><strong>Input:<br></strong></p>`;
-
+    let addingInput: string = '';
     this.recommendations.forEach(({ id, questions }) => {
       questions.forEach((question, index) => {
-        addingInput += `<p style="color: #d32f2f;"><strong>${question}</strong></p>`;
+        addingInput += `<p style="color: #3f4c83;"><strong>${question}</strong></p>`;
         const answersMap: any = {
           1: [formData.currency + ' ' + formData.loan_amount, formData.interest_rate + ' %', formData.loan_tenure + ' month'],
           2: [formData.moratorium_period, formData.repayment_year + ' year']
@@ -190,23 +173,13 @@ export class EduLoanCompareComponent implements OnInit {
         addingInput += `<p>${answersMap[id]?.[index] || ''}</p><br>`;
       });
     });
-    let finalRecommendation = addingInput + '<div class=\"divider\"></div><p><strong>Response:<br></strong></p>' + this.recommendationData + '</div>';
-    finalRecommendation = finalRecommendation
-      .replace(/```html|```/g, '')
-      .replace(/\(see https:\/\/g\.co\/ng\/security#xss\)/g, '')
-      .replace(/SafeValue must use \[property\]=binding:/g, '')
-      .replace(/class="container p-4"/g, 'class="container"')
-      .replace(/<style>(.*?)<\/style>/gs, '<link rel="stylesheet" href="https://api.uniprep.ai/uniprepapi/storage/app/public/prompt_css/promptstyle.css">');
-    let paramData: DownloadRespose = {
-      response: finalRecommendation,
+    let params: any = {
       module_name: "EDULOAN Repayment Advisor",
-      file_name: "eduloan_repayment_advisor"
+      file_name: "eduloan_repayment_advisor",
+      response: this.recommendationData,
+      inputString: addingInput
     };
-    this.travelToolsService.convertHTMLtoPDF(paramData).then(() => {
-      console.log("PDF successfully generated.");
-    }).catch(error => {
-      console.error("Error generating PDF:", error);
-    })
+    this.promptService.responseBuilder(params);
   }
 
   goBack() {

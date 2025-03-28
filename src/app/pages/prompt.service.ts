@@ -24,12 +24,8 @@ export class PromptService {
                 page-break-after: auto;
             }
             .title-bar {
-                display: flex;
-                align-items: center;
-                justify-content:center;
                 border-bottom: 2px solid #f0780e;
-                padding-bottom: 10px;
-                margin-bottom: 20px;
+                margin-bottom: 10px;
                 page-break-after: avoid; 
             }
             .title-highlight {
@@ -54,12 +50,9 @@ export class PromptService {
                 color: rgb(63, 76, 131);
                 margin-right: 10px;
             }
-            h2,
-            h3 {
+            .body-content h2,
+            .body-content h3 {
                 color: rgb(63, 76, 131);
-                page-break-before: auto;
-                page-break-inside: avoid; 
-                page-break-after: avoid;
             }
             .divider {
                 height: 2px;
@@ -124,6 +117,12 @@ export class PromptService {
                 background-color: #e3f2fd;
                 page-break-inside: avoid;
             }
+            h1, h2, h3,h4,h5,h6,p,div,span,ul,li {
+                page-break-before: auto;
+                page-break-after: auto; 
+                page-break-inside: avoid;
+                position: relative;
+            }
             </style>`;
     responseBuilder(data: any) {
         let processedRecommendation = (data.response || '') + '<br>';
@@ -135,8 +134,9 @@ export class PromptService {
                         <img style=" width: 100%; height: 100%;object-fit: contain;" src="https://api.uniprep.ai/uniprepapi/storage/app/public/prompt_modules/${data.file_name}.png" alt="Logo">
                     </div>
                 </div>`;
+        let inputData = `<p style="color: #f0780e;"><strong>Input:<br></strong></p>${data.inputString}<div class="divider"></div><p><strong>Response:<br></strong></p>`;
         // Rebuild final content using the extracted part
-        let finalRecommendation = `<html><head>${this.style}</head><body class="body-content">${titleData} ${data.inputString} ${processedRecommendation}</body></html>`;
+        let finalRecommendation = `<html><head>${this.style}</head><body class="body-content">${titleData} ${inputData} ${processedRecommendation}</body></html>`;
         console.log(finalRecommendation);
         let paramData: DownloadRespose = {
             response: finalRecommendation,
@@ -165,7 +165,7 @@ export class PromptService {
             .replace(/\(see https:\/\/g\.co\/ng\/security#xss\)/g, '') // Remove unwanted security message
             .replace(/SafeValue must use \[property\]=binding:/g, '') // Remove Angular security message
             .replace(/\(see https:\/\/angular\.dev\/best-practices\/security#preventing-cross-site-scripting-xss\)/g, '')
-            // .replace(/<head>(.*?)<\/head>/gs, ''); // Fix escaping
+        // .replace(/<head>(.*?)<\/head>/gs, ''); // Fix escaping
 
         return htmlString;
     }

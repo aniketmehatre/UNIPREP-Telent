@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FounderstoolService } from '../founderstool.service';
 import { DomSanitizer } from '@angular/platform-browser';
-import { Router } from '@angular/router';
+import { Router, RouterModule } from '@angular/router';
 import { AuthService } from 'src/app/Auth/auth.service';
 import { LocationService } from 'src/app/location.service';
 import { PageFacadeService } from '../../page-facade.service';
@@ -13,7 +13,7 @@ import {StorageService} from "../../../storage.service";
     templateUrl: './entreprenuersectorproficiency.component.html',
     styleUrls: ['./entreprenuersectorproficiency.component.scss'],
     standalone: true,
-    imports: [CommonModule, DialogModule]
+    imports: [CommonModule, DialogModule, RouterModule]
 })
 export class EntreprenuersectorproficiencyComponent implements OnInit {
   categoryCount:number=0;

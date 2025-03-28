@@ -4,7 +4,7 @@ import { EventsService } from "./events.service"
 import { DatePipe } from "@angular/common"
 import { MessageService } from "primeng/api"
 import { AuthService } from "src/app/Auth/auth.service"
-import { Router } from "@angular/router"
+import { Router, RouterModule } from "@angular/router"
 import { PageFacadeService } from "../page-facade.service"
 import { LocationService } from "src/app/location.service"
 import { CommonModule } from "@angular/common"
@@ -38,7 +38,7 @@ const dateRangeValidator: any = (control: FormGroup): ValidationErrors | null =>
 	templateUrl: "./events.component.html",
 	styleUrls: ["./events.component.scss"],
 	standalone: true,
-	imports: [CommonModule, DialogModule,  FormsModule, ReactiveFormsModule, SelectModule, InputGroupModule, InputGroupAddonModule, InputTextModule],
+	imports: [CommonModule, RouterModule, DialogModule, FormsModule, ReactiveFormsModule, SelectModule, InputGroupModule, InputGroupAddonModule, InputTextModule],
 })
 export class EventsComponent implements OnInit {
 	activeButton: number = 1

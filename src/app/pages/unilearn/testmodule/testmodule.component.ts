@@ -1,6 +1,6 @@
 import { Component, EventEmitter, Input, OnInit, Output } from "@angular/core"
 import { PageFacadeService } from "../../page-facade.service"
-import { learnModules, learnsubModules, submoduledata } from "../unilearn.model"
+import { learnsubModules, submoduledata } from "../unilearn.model"
 import { UniLearnService } from "../unilearn.service"
 import { ActivatedRoute, Router } from "@angular/router"
 import { ArrayHeaderService } from "../array-header.service"
@@ -8,7 +8,7 @@ import { CommonModule } from "@angular/common"
 import { SkeletonModule } from "primeng/skeleton"
 import { TooltipModule } from "primeng/tooltip"
 import { RouterModule } from "@angular/router"
-import {StorageService} from "../../../storage.service";
+import { StorageService } from "../../../storage.service"
 @Component({
 	selector: "uni-testmodule",
 	templateUrl: "./testmodule.component.html",
@@ -62,9 +62,9 @@ export class TestModulesComponent implements OnInit {
 	openVideoPopup(videoLink: string) {
 		this.pageFacade.openHowitWorksVideoPopup(videoLink)
 	}
+	
 	contentalignment = false
 	onModuleClick(moduledata: submoduledata) {
-		this.arrayHeaderService.addItem(moduledata.submodule_name)
 		this.paramData.parent_id = moduledata.id
 		this.paramData.module_id = moduledata.module_id
 		this.selected_module = moduledata.submodule_name
@@ -87,8 +87,13 @@ export class TestModulesComponent implements OnInit {
 				})
 				break
 		}
+		if (this.arrayHeaderService.getItems().length > 1) {
+			this.arrayHeaderService.removeItem(1)
+		}
+		this.arrayHeaderService.addItem(moduledata.submodule_name)
 	}
-	backtoMain() {
+
+	back() {
 		//this.arrayHeaderService.removeItem(this.arrayHeaderService.getItems().length - 1);
 		this.getFormattedValues()
 		const hasFileType4 = this.submoduleList.some((data: any) => data.file_type === 4)

@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { PageFacadeService } from '../../page-facade.service';
-import { Router } from '@angular/router';
+import { Router, RouterModule } from '@angular/router';
 import { AuthService } from 'src/app/Auth/auth.service';
 import { LocationService } from 'src/app/location.service';
 import { FoundersToolsData } from './founders-tool-list-data';
@@ -11,7 +11,7 @@ import { DialogModule } from "primeng/dialog";
     templateUrl: './founderstoollist.component.html',
     styleUrls: ['./founderstoollist.component.scss'],
     standalone: true,
-    imports: [CommonModule, DialogModule]
+    imports: [CommonModule, DialogModule, RouterModule]
 })
 export class FounderstoollistComponent implements OnInit {
   founderToolsList = FoundersToolsData;

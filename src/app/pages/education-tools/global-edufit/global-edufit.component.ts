@@ -18,6 +18,7 @@ import { SelectModule } from 'primeng/select';
 import { DownloadRespose } from 'src/app/@Models/travel-tools.model';
 import { TravelToolsService } from '../../travel-tools/travel-tools.service';
 import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
+import { PromptService } from '../../prompt.service';
 @Component({
   selector: 'uni-global-edufit',
   templateUrl: './global-edufit.component.html',
@@ -68,7 +69,8 @@ export class GlobalEdufitComponent implements OnInit {
     private router: Router,
     private pageFacade: PageFacadeService,
     private travelToolService: TravelToolsService,
-    private sanitizer: DomSanitizer
+    private sanitizer: DomSanitizer,
+    private promptService: PromptService
   ) {
     this.form = this.fb.group({
       home_country: ['', Validators.required],
@@ -223,11 +225,7 @@ export class GlobalEdufitComponent implements OnInit {
         this.isRecommendationQuestion = false;
         this.isRecommendationData = true;
         this.isRecommendationSavedData = false;
-        let chatGptResponse = response.response;
-				chatGptResponse = chatGptResponse
-					.replace(/```html|```/g, '')
-          .replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>');
-				this.recommendationData = this.sanitizer.bypassSecurityTrustHtml(chatGptResponse);
+				this.recommendationData = this.sanitizer.bypassSecurityTrustHtml(response.response);
       },
       error: error => {
         this.isRecommendationData = false;
@@ -307,25 +305,16 @@ export class GlobalEdufitComponent implements OnInit {
   }
 
   downloadRecommadation() {
+		let addingInput: string = '';
     const formValue = ['interested_country', 'university', 'specialization', 'fees', 'cost_estimation', 'period'];
     const formData = this.form.value;
-    let addingInput = `<div style="font-family: 'Poppins', sans-serif; display: flex; align-items: center; justify-content: space-between; border-bottom: 2px solid #d32f2f; padding-bottom: 10px; margin-bottom: 20px;">
-				<div style="text-align: center;">
-					<h2 style="margin: 0; color: #1a237e;">GLOBAL EDUFIT</h2>
-				</div></div><p><strong>Input:<br></strong></p>`;
-
-    // Keep track of which formValue index we're currently using
     let formValueIndex = 0;
-
     this.recommendations.forEach((category: any) => {
       addingInput += `<p><strong>${category.question.heading}</strong></p>`;
-
       category.question.branches.forEach((branchQuestion: any) => {
-        addingInput += `<p style="color: #d32f2f;"><strong>${branchQuestion}</strong></p>`;
-
+        addingInput += `<p style="color: #3f4c83;"><strong>${branchQuestion}</strong></p>`;
         let currentAnswer = "";
         const currentFormField = formValue[formValueIndex];
-
         if (formData && formData[currentFormField]) {
           if (currentFormField == 'fees' || currentFormField == 'cost_estimation') {
             currentAnswer = formData['currency_code'] + ' ' + formData[currentFormField];
@@ -343,33 +332,19 @@ export class GlobalEdufitComponent implements OnInit {
           currentAnswer = "No answer provided";
         }
         addingInput += `<p>${currentAnswer}</p>`;
-
         formValueIndex++;
       });
-
       // Add spacing between categories
       addingInput += `<br>`;
     });
-
-    let finalRecommendation = addingInput + '<p><strong>Response:<br></strong></p>' + this.recommendationData;
-     finalRecommendation = finalRecommendation
-			.replace(/```html|```/g, '')
-      .replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>')
-			.replace(/\(see https:\/\/g\.co\/ng\/security#xss\)/g, '') 
-			.replace(/SafeValue must use \[property\]=binding:/g, '')
-			.replace(/class="container"/g, 'style="line-height:1.9"'); //because if i add container the margin will increase so i removed the container now the spacing is proper.
-
-    let paramData: DownloadRespose = {
-      response: finalRecommendation,
-      module_name: "Global Edufit",
-      file_name: "global_edufit"
-    };
-    this.travelToolService.convertHTMLtoPDF(paramData).then(() => {
-      console.log("PDF successfully generated.");
-    }).catch(error => {
-      console.error("Error generating PDF:", error);
-    });
-  }
+		let params: any = {
+			module_name: "Global Edufit",
+			file_name: "global_edufit",
+			response: this.recommendationData,
+			inputString: addingInput
+		};
+		this.promptService.responseBuilder(params);
+	}
 
   setCompareUniversityList(id: string) {
     this.educationToolService.getUniverstityByCountry(id).subscribe(data => {

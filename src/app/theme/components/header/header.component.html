@@ -9,42 +9,15 @@
 								<i class="fa-solid fa-bars fa-2xl"></i>
 							</a>
 						</div>
-						<!-- <div class="menutoggle d-md-block d-none my-2">
-                            <button pButton  class="btn m-0 align-items-center d-flex" (click)="toggleMenu()">
-                                <i class="fa-solid" [ngClass]="isMenuOpen ? 'fa-arrow-left-to-line' : 'fa-arrow-right-to-line'"></i>
-                            </button>
-                        </div> -->
-						<!-- <div class="btn btn-secondary m-0 px-2 py-1" style="cursor: default; pointer-events: none">
-              <span class="small fw-regular">V 1.0</span>
-            </div> -->
-						<!-- <label class="me-2">
-                            <i class="fa-solid fa-sun"></i>
-                        </label>
-                        <div class="form-check form-switch">
-                            <input type="checkbox" role="button" id="darkmodeswitch" class="form-check-input" />
-                        </div>
-                        <label class="ms-1">
-                            <i class="fa-solid fa-moon"></i>
-                        </label> -->
 					</div>
-					<!-- <div style="width: -webkit-fill-available !important">
-						<uni-header-search *ngIf="showSearch" (windowChange)="showSearchComponent($event)"></uni-header-search>
-					</div> -->
-					<!-- <div style="width: -webkit-fill-available !important" *ngIf="isShowHeaderSearchForModule">
-						<uni-header-search-module *ngIf="showSearch" (windowChange)="showSearchComponent($event)"></uni-header-search-module>
-					</div> -->
 					<div class="d-md-none gap-2 d-flex align-items-center">
 						<div label="" role="button" class="headerHomeCountry p-0" [title]="homeCountryName">
-							<img #openCountryPopup src="{{ headerHomeFlag }}" alt="flag" height="auto" width="auto" />
+							<img #openCountryPopup [src]="headerHomeFlag ? headerHomeFlag : '../../uniprep-assets/images/placeholder.webp'" alt="flag" height="auto" width="auto" />
 						</div>
-						<!-- <div label="" role="button" class="headercountry p-0">
-              <img #openCountryPopup src="{{ headerFlag }}" alt="flag" height="auto" width="auto" (click)="openFlagModal(totalCountryList, $event)" />
-            </div> -->
 						<p-avatar (click)="openchat()" class="mr-2" size="large" role="button"><i class="fa-solid fa-comments"></i> </p-avatar>
 						<p-avatar class="" label="" *ngIf="false" (click)="np.toggle($event)" icon="pi pi-bell" size="large" role="button"> </p-avatar>
 						<p-avatar routerLink="/pages/usermanagement" aria-expanded="false" role="button" size="large">
 							<span class="nme">{{ (firstChar || "")?.charAt(0) }}</span>
-							<!-- <span class="fw-medium">{{userName }}</span> -->
 						</p-avatar>
 						<p-avatar (click)="logout()" label="" size="large" role="button"> <i class="fa-solid fa-power-off"></i></p-avatar>
 					</div>
@@ -96,21 +69,8 @@
 							</ng-template>
 						</button>
 						<div label="" role="button" class="headerHomeCountry" [title]="homeCountryName">
-							<img #openCountryPopup src="{{ headerHomeFlag }}" alt="flag" height="auto" width="auto" />
+							<img #openCountryPopup [src]="headerHomeFlag ? headerHomeFlag : '../../uniprep-assets/images/placeholder.webp'" alt="flag" height="auto" width="auto" />
 						</div>
-						<!-- <div label="" role="button" class="headercountry">
-                <img #openCountryPopup src="{{ headerFlag }}" alt="flag" height="auto" width="auto" (click)="openFlagModal(totalCountryList, $event)" />
-              </div> -->
-            <!--            <button-->
-            <!--              class="btn btn-primary btn-rounded me-2 ms-0 my-0"-->
-            <!--              alt="chat with notification"-->
-            <!--              (click)="onClickSubscribe()"-->
-            <!--            >-->
-            <!--              <span class="text-small fw-normal px-3">Subscribe Now</span>-->
-            <!--            </button>-->
-<!--            <button class="btn btn-secondary btn-rounded" (click)="openReportModal(op, $event)" alt="reports">-->
-<!--              <span class="text-small fw-normal px-4"><i class="fa-solid fa-bug"></i> Report 12</span>-->
-<!--            </button>-->
               <button class="btn btn-secondary d-flex justify-content-center align-items-center"
                       (click)="openReportModal(op, $event)" alt="reports" style="width: 40px; height: 40px; padding: 0; ">
                   <i class="fa-solid fa-bug" style="font-size: 16px;"></i> <!-- Bug icon -->
@@ -188,7 +148,6 @@
               </div>
             </div>
           </div>
-          <!-- <div label="" role="button" class="headercountry me-2 d-none d-md-block" (click)="openFlagModal(totalCountryList, $event)"> -->
             <div class="d-flex gap-2 d-md-none">
             <button class="btn btn-primary p-3 m-0" alt="chat with notification" (click)="onClickSubscribe()">
               <i class="fa-solid fa-crown"></i>
@@ -196,9 +155,7 @@
             <button class="btn btn-secondary p-3 m-0" (click)="openReportModal(op, $event)" alt="reports">
               <i class="fa-solid fa-circle-exclamation"></i>
             </button>
-            <!-- <div label="" role="button" class="headercountry me-2" title="Selected Country">
-              <img #openCountryPopup src="{{ headerFlag }}" alt="flag" height="auto" width="auto" (click)="openFlagModal(totalCountryList, $event)" />
-            </div> -->
+           
           </div>
             <div class="d-none d-md-flex gap-2 align-items-center">
                 <button *ngIf="service._user?.student_type_id == 2" class="btn btn-ilearn"
@@ -223,9 +180,7 @@
           <div label="" role="button" class="headercountry me-2 ms-2 d-none d-md-block" title="Selected Country">
             <img src="../../../uniprep-assets/icons/india.png" alt="flag" height="auto" width="auto" />
           </div>
-          <!-- <div label="" role="button" class="headercountry me-2 d-none d-md-block" title="Selected Country">
-            <img #openCountryPopup src="{{ headerFlag }}" alt="flag" height="auto" width="auto" (click)="openFlagModal(totalCountryList, $event)" />
-          </div> -->
+
             <div class="d-none d-md-flex align-items-center gap-3">
                 <!-- Chat Icon -->
                 <a (click)="openchat()" title="Chat">
@@ -313,7 +268,7 @@
 					<ul class="px-0">
 						<ng-container *ngFor="let v of countryLists.slice(column * 10, (column + 1) * 10); let i = index">
 							<li class="list-group-item my-2 d-flex align-items-center gap-2" role="button" (click)="selectCountryInHeader(v, totalCountryList)">
-								<img alt="country" class="countryicon mr-2" [src]="v.flag || '../../uniprep-assets/images/mstile-150x150.png'" width="25" />
+								<img alt="country" class="countryicon mr-2" [src]="v.flag || '../../uniprep-assets/images/placeholder.webp'" width="25" />
 								<span class="text-nowrap">{{ v.country }}</span>
 							</li>
 						</ng-container>
@@ -332,20 +287,16 @@
 		<div *ngIf="isLondon" class="mega-menu">
 			<div class="row justify-content-center">
 				<h5 class="text-center mb-2">Home Country</h5>
-				<!--                <p-select [options]="countryList" [(ngModel)]="homeCountryId"-->
-				<!--                        [style]="{'width': '250px'}"-->
-				<!--                        optionValue="id"-->
-				<!--                        optionLabel="country"></p-select>-->
 				<p-select id="selectedHomeCountry" [styleClass]="'w-100'" style="width: 100% !important" [(ngModel)]="selectedHomeCountry" [options]="countryList" [filter]="true" filterBy="country" [showClear]="true" optionLabel="country" (onChange)="onHomeCountryChange($event)" placeholder="Source Country">
 					<ng-template pTemplate="selectedItem">
 						<div class="flex align-items-center gap-2" *ngIf="selectedHomeCountry">
-							<img [src]="selectedHomeCountry.flag" [class]="'flag flag-' + selectedHomeCountry.code" style="width: 18px" />
+							<img [src]="selectedHomeCountry.flag ? selectedHomeCountry.flag  : '../../uniprep-assets/images/placeholder.webp'" [class]="'flag flag-' + selectedHomeCountry.code" style="width: 18px" />
 							<div>{{ selectedHomeCountry.country }}</div>
 						</div>
 					</ng-template>
 					<ng-template let-country pTemplate="item">
 						<div class="flex align-items-center gap-2">
-							<img [src]="country.flag" [class]="'flag flag-' + country.code" style="width: 18px" />
+							<img [src]="country.flag ? country.flag : '../../uniprep-assets/images/placeholder.webp'" [class]="'flag flag-' + country.code" style="width: 18px" />
 							<div>{{ country.country }}</div>
 						</div>
 					</ng-template>
@@ -367,18 +318,6 @@
 	</div>
 </p-dialog>
 
-<!-- <p-dialog class="thankyoupopup" [modal]="true" header="Header" [(visible)]="showReportSuccess" [breakpoints]="{ '960px': '75vw' }" [style]="{ width: 'auto' }" [draggable]="false" [resizable]="false">
-	<ng-template pTemplate="header">
-		<span class="text-xl font-bold"></span>
-	</ng-template>
-	<div class="px-3 pb-3 pt-2">
-		<div class="justify-content-center text-center">
-			<h4 class="text-center mb-2">We have noted your feedback.<br />Our team will get back to you shortly.</h4>
-			<h3 class="text-center mb-2 text-green">Thank You</h3>
-			<img class="pb-5" src="../../../uniprep-assets/images/icons/thumbsup.webp" width="auto" alt="thumbs up" />
-		</div>
-	</div>
-</p-dialog> -->
 
 <p-dialog [(visible)]="isShowFreeTrialStart" [closable]="false" [style]="{ width: 'auto' }" class="p-0 m-0 bg-white" class="timerpopup" [modal]="true" [draggable]="false" [resizable]="false">
 	<div class="px-5 pb-5 pt-3">
@@ -470,122 +409,13 @@
 		</div>
 	</div>
 </p-dialog>
-<!-- old subscription popup -->
-<!--<p-dialog [(visible)]="freeTrial" [closable]="false" class="p-0 m-0" [modal]="true" [draggable]="false" [resizable]="false">
-    <div class="d-flex justify-content-between p-4">
-        <div>
-            <h4>Congratulations</h4>
-            <p class="get-certificate">You have unlocked 24 Hours free trial.</p>
-            <h4 class="get-certificate">Explore our <span class="text-xl font-bold fw-bold" style="color: #3f4c83"> Features</span> today!.</h4>
-        </div>
-        <div>
-            <img src="../../../uniprep-assets/images/popup-clock.png" alt="clock" width="70" />
-        </div>
-    </div>
-    <div class="px-5 pb-5 pt-3"> -->
-<!-- <h4>Get More With our<span class="text-xl font-bold p-3 fw-bold" style="color: #3F4C83;"> Subscription.</span></h4> -->
-<!-- <p class="list-data"><i class="pi pi-check mr-2"></i>Enjoy free access to the BETA version.</p>
-        <p class="list-data"><i class="pi pi-check mr-2"></i>Our mobile application is set to launch by the 1st of February 2024</p>
-        <p class="list-data"><i class="pi pi-check mr-2"></i><b>We welcome your input and recommendations to improvise the platform through our report option</b></p>
-        <p class="list-data"><i class="pi pi-check mr-2"></i>Find answers to over half a million questions</p>
-        <p class="list-data"><i class="pi pi-check mr-2"></i>Ask personalised questions & get tailored responses from experts</p>
-        <p class="list-data"><i class="pi pi-check mr-2"></i>Smart keyword search to navigate your searches</p>
-        <p class="list-data"><i class="pi pi-check mr-2"></i>Verified and up-to-date information</p>
-        <p class="list-data"><i class="pi pi-check mr-2"></i>Resources to build a solid portfolio</p>
-        <p class="list-data"><i class="pi pi-check mr-2"></i>Access to exclusive events</p>
-        <div class="d-flex justify-content-center">
-            <button pButton  class="btn btn-primary btn-rounded me-2 ms-0 my-0" (click)="onClickSubscribeData()" alt="chat with notification"><span class="text-small fw-normal px-2">Subscribe Now</span></button>
-            <button pButton  class="btn btn-secondary btn-rounded me-2 ms-0 my-0" alt="reports"><span class="text-small fw-normal px-2" (click)="continueTrial()">Continue Trial</span></button>
-        </div>
-    </div>
-</p-dialog> -->
 
-<!-- <p-dialog [(visible)]="visibleExhasted" [closable]="false" class="p-0 m-0" [modal]="true"
-          [draggable]="false" [resizable]="false">
-    <div class="d-flex justify-content-between p-4">
-        <div>
-            <h4>Your <span class="text-xl font-bold p-1 fw-bold" style="color: #3f4c83"> Subscription</span> Was Exhausted</h4>
-            <p class="get-certificate">Explore all modules on UNIPREP and get a certificate.</p>
-        </div>
-        <div>
-            <img src="../../../uniprep-assets/images/popup-clock.png" alt="clock" width="70" />
-        </div>
-    </div>
-    <div class="px-5 pb-5 pt-3">
-        <h4>Get More With our<span class="text-xl font-bold p-1 fw-bold" style="color: #3f4c83"> Subscription.</span>
-        </h4>
-        <p class="list-data"><i class="pi pi-check mr-2"></i>Find Over 5 Lakh questions and answers throughout platform
-        </p>
-        <p class="list-data"><i class="pi pi-check mr-2"></i>Ask any Personalized Questions & Get answer within 12
-            working hours</p>
-        <p class="list-data"><i class="pi pi-check mr-2"></i>Get Expert Answers to Your Queries</p>
-        <p class="list-data"><i class="pi pi-check mr-2"></i>Discover Unexplored Questions</p>
-        <p class="list-data"><i class="pi pi-check mr-2"></i>Earn a Certificate by Taking Quizzes</p>
-        <p class="list-data"><i class="pi pi-check mr-2"></i>Share Your Certificates on LinkedIn</p>
-        <p class="list-data"><i class="pi pi-check mr-2"></i>Find Answers to your question with Verified Source links
-        </p>
-        <p class="list-data"><i class="pi pi-check mr-2"></i>Answers to your questions reviewed by Educational Bodies
-        </p>
-        <p class="list-data"><i class="pi pi-check mr-2"></i>Navigate using Keyword Search</p>
-        <div class="d-flex justify-content-center">
-            <button pButton  class="btn btn-primary btn-rounded me-2 ms-0 my-0" (click)="onClickSubscribedUser()"
-                    alt="chat with notification"><span class="text-small fw-normal px-3">Subscribe Now</span></button>
-        </div>
-    </div>
-</p-dialog> -->
-<!-- <p-dialog [(visible)]="freeTrial" [closable]="false" class="p-0 m-0" [modal]="true" [draggable]="false" [resizable]="false">
-    
-        <div class="col-md-12 justify-content-center">
-            <div class="d-flex flex-column ">
-            <img src="../../../uniprep-assets/images/popup-clock.png" alt="clock" width="100" />
-            <h4>Congratulations</h4>
-        </div>
-    </div>
-</p-dialog> -->
-<!-- <div [ngStyle]="{ display: currentEducation ? 'block' : 'none' }" class="modal modal-bg firsttimeloginpopup" role="dialog" tabindex="-1">
-  <div class="modal-dialog modal-dialog-scrollable modal-dialog-centered" role="document">
-    <div class="modal-content card bg-light">
-      <div class="modal-body card-body">
-        <div class="container">
-          <div class="row mb-2">
-            <div class="col-md-12 px-4">
-              <div class="d-flex flex-column">
-                <div class="icon-container d-flex justify-content-center p-2">
-                  <img [src]="educationImage" alt="clock" width="100" />
-                </div>
-                <div class="mt-1 mb-1">
-                  <span>
-                    <strong class="firsttimelogin">
-                      <h3 style="color: #f0780e; margin-bottom: 0">Update Your Educational Details</h3>
-                    </strong>
-                  </span>
-                </div>
-                <form [formGroup]="currentEducationForm">
-                  <div class="w-100 phonenumberblock mt-2">
-                    <p class="m-1">Select Your Current Study Level</p>
-                    <p-select class="w-100" formControlName="current_education" appendTo="body" [options]="programLevelList" placeholder="Current Education" optionLabel="programlevel" optionValue="id" [autoDisplayFirst]="false" styleClass="custom-dropdown"></p-select>
-                  </div>
-                  <div class="d-flex justify-content-center mt-4">
-                    <button pButton  [disabled]="currentEducationForm.invalid" class="btn btn-primary btn-rounded me-2 ms-0 my-0" (click)="UpdateEducationLevel()" alt="chat with notification">
-                      <span class="text-small fw-normal px-3">Update Details</span>
-                    </button>
-                  </div>
-                </form>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-</div> -->
 <p-dialog [(visible)]="whatsappVerification" [modal]="true" [closable]="false" styleClass="whatsappVerification">
 	<div class="container">
 		<div class="row mb-2">
 			<div class="col-md-12 px-4">
 				<div class="d-flex flex-column">
 					<div class="icon-container d-flex justify-content-center p-2">
-						<!-- <img [src]="educationImage" alt="clock" width="100" /> -->
 					</div>
 					<div class="mt-1 mb-1">
 						<span>
@@ -628,37 +458,6 @@
 		</div>
 	</div>
 </p-dialog>
-<!-- <p-dialog [visible]="currentEducation && !formvisbility" [modal]="true" [closable]="false" styleClass="currentEduPopup">
-	<div class="container">
-		<div class="row mb-2">
-			<div class="col-md-12 px-4">
-				<div class="d-flex flex-column">
-					<div class="icon-container d-flex justify-content-center p-2">
-						<img [src]="educationImage" alt="clock" width="100" />
-					</div>
-					<div class="mt-1 mb-1">
-						<span>
-							<strong class="firsttimelogin">
-								<h3 style="color: #f0780e; margin-bottom: 0">Update Your Educational Details</h3>
-							</strong>
-						</span>
-					</div>
-					<form [formGroup]="currentEducationForm">
-						<div class="w-100 phonenumberblock mt-2">
-							<p class="m-1">Select Your Current Study Level</p>
-							<p-select class="w-100" formControlName="current_education" appendTo="body" [options]="programLevelList" placeholder="Current Education" optionLabel="programlevel" optionValue="id" [autoDisplayFirst]="false" styleClass="custom-dropdown"></p-select>
-						</div>
-						<div class="d-flex justify-content-center mt-4">
-							<button pButton [disabled]="currentEducationForm.invalid" class="btn btn-primary btn-rounded me-2 ms-0 my-0" (click)="UpdateEducationLevel()" alt="chat with notification">
-								<span class="text-small fw-normal px-3">Update Details</span>
-							</button>
-						</div>
-					</form>
-				</div>
-			</div>
-		</div>
-	</div>
-</p-dialog> -->
 <p-dialog [(visible)]="freeTrial" [modal]="true" [closable]="false" styleClass="FirstLoginPopup">
   <div class="container">
     <div class="row mb-2 p-2">
@@ -717,71 +516,6 @@
     </div>
   </div>
 </p-dialog>
-<!-- [ngStyle]="{ display: freeTrial ? 'block' : 'none' }"  -->
-<!-- <div class="modal modal-bg firsttimeloginpopup" role="dialog" tabindex="-1" style="display: block;">
-  <div class="modal-dialog modal-dialog-scrollable modal-dialog-centered" role="document">
-    <div class="modal-content card bg-light">
-      <div class="modal-body card-body">
-        <div class="container">
-          <div class="row mb-2">
-            <div class="col-md-12 px-4">
-              <div class="d-flex flex-column">
-                <div class="icon-container d-flex justify-content-center p-2">
-                  <img src="../../../uniprep-assets/images/TrialStart.png" alt="clock" width="100" />
-                </div>
-                <div class="mt-1 mb-1">
-                  <span>
-                    <strong class="firsttimelogin">
-                      <h5 style="color: rgb(63 76 131)">Congratulations</h5>
-                    </strong>
-                  </span>
-                </div>
-                <div class="mt-1">
-                  <span>
-                    <strong class="firsttimelogin">
-                      <h2 style="color: #f0780e; margin-bottom: 0">You have unlocked</h2>
-                    </strong>
-                    <strong class="firsttimelogin">
-                      <h2 style="color: #f0780e; margin-top: 0">{{ timeLeftInfo }} free trial.</h2>
-                    </strong>
-                  </span>
-                </div>
-                <form [formGroup]="mobileForm">
-                  <div class="w-100 phonenumberblock" *ngIf="formvisbility">
-                    <p class="m-1">Enter your number to continue the experience</p>
-                    <ngx-intl-tel-input class="intel-input w-100" [cssClass]="'custom'" [preferredCountries]="['in', 'gb']" [enableAutoCountrySelect]="true" [enablePlaceholder]="true" [searchCountryFlag]="true" [maxLength]="15" [searchCountryField]="[SearchCountryField.Iso2, SearchCountryField.Name]" [phoneValidation]="true" [selectedCountryISO]="preferredCountry" customPlaceholder="Enter Contact Number" formControlName="phone"> </ngx-intl-tel-input>
-                  </div>
-                  <div class="w-100 phonenumberblock mt-2" *ngIf="formvisbility">
-                    <p class="m-1">Select Your Home Country</p>
-                    <p-select class="w-100" formControlName="home_country" appendTo="body" [options]="countryList" [filter]="true" placeholder="Country" (onChange)="changeLocation($event)" filterBy="country" optionLabel="country" optionValue="id" [autoDisplayFirst]="false" styleClass="custom-dropdown"></p-select>
-                  </div>
-                  <div class="w-100 phonenumberblock mt-2" *ngIf="formvisbility">
-                    <p class="m-1">Select Your Current Education</p>
-                    <p-select class="w-100" formControlName="study_level" appendTo="body" [options]="programLevelList" placeholder="Current Education" optionLabel="programlevel" optionValue="id" [autoDisplayFirst]="false" styleClass="custom-dropdown"></p-select>
-                  </div>
-                  <div *ngIf="freeTrialErrorMsg" class="text-danger text-center">
-                    {{ freeTrialErrorMsg }}
-                  </div>
-                  <div class="icon-container mt-2 d-flex justify-content-center mb-2">
-                    <h6 style="color: rgb(63 76 131)">Enjoy access to <strong>UNIPREP</strong> V 2.0</h6>
-                  </div>
-                  <div class="d-flex justify-content-center">
-                    <button pButton  [disabled]="formvisbility && mobileForm.invalid" class="btn btn-primary btn-rounded me-2 ms-0 my-0" (click)="onClickSubscribedUser()" alt="chat with notification">
-                      <span class="text-small fw-normal px-3">Subscribe Now</span>
-                    </button>
-                    <button pButton  [disabled]="formvisbility && mobileForm.invalid" class="btn btn-secondary btn-rounded me-2 ms-0 my-0" alt="reports">
-                      <span class="text-small fw-normal px-2" (click)="continueTrial()">Continue Trial</span>
-                    </button>
-                  </div>
-                </form>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-</div> -->
 <div [ngStyle]="{ display: demoTrial ? 'block' : 'none' }" class="modal modal-bg firsttimeloginpopup" role="dialog" tabindex="-1">
 	<div class="modal-dialog modal-dialog-scrollable modal-dialog-centered" role="document">
 		<div class="modal-content card bg-light">
@@ -843,13 +577,6 @@
 								<div class="icon-container mb-3 mt-3">
 									<img src="../../../uniprep-assets/images/TrialExpire.png" alt="clock" width="100" />
 								</div>
-								<!-- <div class="mt-4 mb-1">
-									<span>
-										<strong class="firsttimelogin">
-											<h5 style="color: rgb(63 76 131)">Oops! Your Subscription has exhausted</h5>
-										</strong>
-									</span>
-								</div> -->
 								<div class="icon-container mt-1 d-flex justify-content-center mb-1">
 									<h6 style="color: rgb(63 76 131)">Please contact {{ orgnamewhitlabel }} Company for access</h6>
 								</div>
