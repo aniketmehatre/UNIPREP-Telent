@@ -72,9 +72,8 @@ export const HttpErrorInterceptor: HttpInterceptorFn = (
       }
     }),
     catchError((error: HttpErrorResponse) => {
-      const token=authTokenService.getToken()
-      if(token){
-        locationService.sessionEndApiCall().subscribe((data: any) => {})
+      if (authTokenService.isTokenValid()) {
+        locationService.sessionEndApiCall().subscribe((data: any) => { })
       }
       if (error.status === 401 && !isPublicRoute) {
         authTokenService.clearToken();
@@ -90,11 +89,11 @@ export const HttpErrorInterceptor: HttpInterceptorFn = (
           detail: 'The server is taking too long to respond. Please try again.'
         });
       }
-      
+
       if (!isBackgroundRequest) {
         ngxService.stopBackground();
       }
-      
+
       return throwError(() => error);
     }),
     finalize(() => {

@@ -44,16 +44,7 @@
                                       [autoDisplayFirst]="false">
                                     </p-select> -->
 
-									<p-select [options]="departureLocationList" [virtualScroll]="true" [virtualScrollItemSize]="50" formControlName="location" [appendTo]="'body'" [filter]="true" [showClear]="true" placeholder="Select Departure location" styleClass="w-100 text-start">
-										<ng-template pTemplate="filter" let-options="options">
-											<div class="d-flex gap-2">
-												<div class="p-inputgroup" (click)="$event.stopPropagation()">
-													<span class="p-inputgroup-addon"> <i class="pi pi-search"></i></span>
-													<input type="text" pInputText placeholder="Search" formControlName="locationFilterString" (keyup)="customFilterFunction('departure')" />
-												</div>
-												<button pButton icon="pi pi-times" class="btn btn-primary" (click)="resetFunction('departure')" severity="secondary"></button>
-											</div>
-										</ng-template>
+									<p-select [options]="departureLocationList" [virtualScroll]="true" [virtualScrollItemSize]="50" formControlName="location" [appendTo]="'body'" [filter]="true" filterBy="city_name,country_name" [showClear]="true" placeholder="Select Departure location" styleClass="w-100 text-start">
 										<ng-template let-country pTemplate="item">
 											<div class="d-flex align-items-center gap-2">
 												<div class="dropdownimg">
