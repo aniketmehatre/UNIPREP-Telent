@@ -100,7 +100,7 @@ export const FoundersToolsData = [
         launch_soon: false
     },
     {
-        title: "Marketing Analysis",
+        title: "Market Analysis",
         description: "An assessment that evaluates an entrepreneur's in-depth knowledge and proficiency in specific industries.",
         image: domainUrl+"MarketAnalysis.svg",
         url: "/pages/founderstool/marketing-anaylsis",
