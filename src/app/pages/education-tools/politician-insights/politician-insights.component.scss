@@ -94,22 +94,14 @@
 
 .questioncard:hover {
 	border: 1px solid var(--uniprep-secondary);
+	// background-color: var(--uniprep-primary);
+	// color: white;
 }
 
-.questioncard::after {
-	content: "\2197";
-	/* Unicode for right arrow (→) */
-	font-size: 20px;
-	color: #ffffff;
-	position: absolute;
-	bottom: 10px;
-	right: 13px;
-	opacity: 0;
-	transition: opacity 0.3sease-in-out, transform 0.3sease-in-out;
-	background-color: var(--uniprep-secondary);
-	border-radius: 0.5rem;
-	width: 30px;
+.text-secondary {
+	color: var(--uniprep-secondary) !important;
 }
+
 
 .questioncard:hover::after {
 	opacity: 1;
@@ -118,7 +110,7 @@
 }
 
 .questioncard {
-	border: 1px solid #ececec;
+	border: 1px solid var(--uniprep-secondary);
 	padding: 0;
 
 	.homecountry {
@@ -127,13 +119,13 @@
 		border-radius: 100px;
 		padding: 0;
 
-		img {
-			height: 100%;
-			width: 100%;
-			border-radius: 100%;
-			border: 1px solid transparent;
-			object-fit: cover;
-		}
+		// img {
+		// 	height: 100%;
+		// 	width: 100%;
+		// 	border-radius: 100%;
+		// 	border: 1px solid transparent;
+		// 	object-fit: cover;
+		// }
 	}
 }
 

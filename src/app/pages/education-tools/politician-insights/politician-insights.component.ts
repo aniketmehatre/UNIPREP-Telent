@@ -103,6 +103,11 @@ export class PoliticianInsightsComponent implements OnInit, OnDestroy {
     this.pageFacade.openHowitWorksVideoPopup(videoLink);
   }
 
+  get getCountryName() {
+    const data = this.countrylist.find((item) => item.id == this.countryId);
+    return data.country;
+  }
+
   goBack() {
     if (this.isShowCountryData) {
       this.router.navigate(["/pages/education-tools"]);
