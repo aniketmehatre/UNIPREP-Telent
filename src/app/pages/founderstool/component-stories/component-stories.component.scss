@@ -97,7 +97,7 @@
 }
 
 .questioncard::after {
-	content: "\2197";
+	// content: "\2197";
 	/* Unicode for right arrow (→) */
 	font-size: 20px;
 	color: #ffffff;
@@ -118,8 +118,9 @@
 }
 
 .questioncard {
-	border: 1px solid #ececec;
+	// border: 1px solid #ececec;
 	padding: 0;
+	border: 1px solid var(--uniprep-secondary);
 
 	.homecountry {
 		width: 25px;
