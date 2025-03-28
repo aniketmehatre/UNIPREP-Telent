@@ -258,10 +258,7 @@ export class PoliticianInsightsComponent implements OnInit, OnDestroy {
   }
 
   getContentPreview(content: string): string {
-    const parser = new DOMParser();
-    const doc = parser.parseFromString(content, "text/html");
-    const paragraph = doc.querySelector("p")?.textContent || '';
-    return paragraph.length > 75 ? paragraph.slice(0, 75) + ' ...' : paragraph;
+    return content.length > 75 ? content.slice(0, 75) + ' ...' : content;
   }
 
   pageChange(event: any) {

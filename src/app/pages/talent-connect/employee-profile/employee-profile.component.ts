@@ -1087,7 +1087,7 @@ export class EmployeeProfileComponent implements OnInit {
 
 
   getDropDownOptionList() {
-    this.talentConnectService.getMyProfileDropDownValues().subscribe({
+    this.talentConnectService.getCityCountries().subscribe({
       next: response => { this.locations = response; }
     });
 
@@ -1146,10 +1146,10 @@ export class EmployeeProfileComponent implements OnInit {
       total_years_of_experience: response.total_years_of_experience || '',
       career_preference_career_status: response.careerPreference?.career_status || '',
       career_preference_job_title_id: response.careerPreference?.job_title_id || '',
-      career_preference_career_interest_id: [response.careerPreference?.career_interest_id],
-      career_preference_preferred_work_location_id: [response.careerPreference?.preferred_work_location_id],
-      career_preference_preferred_employment_type: [response.careerPreference?.preferred_employment_type],
-      career_preference_preferred_workplace_type: [response.careerPreference?.preferred_workplace_type],
+      career_preference_career_interest_id: response.careerPreference?.career_interest_id,
+      career_preference_preferred_work_location_id: response.careerPreference?.preferred_work_location_id,
+      career_preference_preferred_employment_type: response.careerPreference?.preferred_employment_type,
+      career_preference_preferred_workplace_type: response.careerPreference?.preferred_workplace_type,
       career_preference_willingness_to_relocate: response.careerPreference?.willingness_to_relocate || '',
       career_preference_expected_salary: response.careerPreference?.expected_salary || '',
       career_preference_currency_id: response.careerPreference?.currency_id || '',
@@ -1297,7 +1297,7 @@ export class EmployeeProfileComponent implements OnInit {
     } else {
       const foundItem = list.find(item => item.id === id);
       return foundItem ? foundItem?.[key] : "";
-  // Return single value or empty string
+      // Return single value or empty string
     }
   }
 

@@ -169,8 +169,8 @@
                                                         Country)</label>
                                                     <p-select id="location" formControlName="location_id"
                                                         [options]="locations" placeholder="Select your current location"
-                                                        styleClass="w-100" optionLabel="location" optionValue="id"
-                                                        [filter]="true" filterBy="location" [appendTo]="'body'"
+                                                        styleClass="w-100" optionLabel="city_name" optionValue="id"
+                                                        [filter]="true" filterBy="city_name" [appendTo]="'body'"
                                                         (mouseleave)="resetMessageBox()"
                                                         (mouseenter)="updateMessageBox('location_id')"></p-select>
                                                     <small class="text-danger"
@@ -250,7 +250,7 @@
                                                             formControlName="education_course_name"
                                                             placeholder="Enter your course name" class="form-control"
                                                             (mouseenter)="updateMessageBox('education_course_name')"
-                                                            (mouseleave)="resetMessage();" />
+                                                            (mouseleave)="resetMessageBox();" />
                                                     </div>
                                                     <small class="text-danger"
                                                         *ngIf="education.get('education_course_name')?.invalid &&education.get('education_course_name')?.touched">
@@ -672,7 +672,7 @@
                                                         </button>
                                                     </div>
                                                     <div class="col-md-1">
-                                                        <button
+                                                        <button *ngIf="i !== 0"
                                                             class="btn btn-outline-danger d-flex align-items-center justify-content-center p-2"
                                                             (click)="removeCertification(i);">
                                                             <i class="pi pi-trash"></i>
@@ -711,14 +711,14 @@
                                                             style="visibility: hidden;" #acheivementFile>
                                                     </div>
                                                     <div class="col-md-1">
-                                                        <button
+                                                        <button 
                                                             class="btn btn-outline-primary d-flex align-items-center justify-content-center p-2"
                                                             (click)="addAcheivements();">
                                                             <i class="pi pi-plus"></i>
                                                         </button>
                                                     </div>
                                                     <div class="col-md-1">
-                                                        <button
+                                                        <button *ngIf="i !== 0"
                                                             class="btn btn-outline-danger d-flex align-items-center justify-content-center p-2"
                                                             (click)="removeAchievement(i);">
                                                             <i class="pi pi-trash"></i>
@@ -779,7 +779,7 @@
                                                             </small>
                                                         </div>
                                                         <div class="col-md-2">
-                                                            <button style="border: 1px solid rgb(255, 37, 37)"
+                                                            <button *ngIf="i !== 0" style="border: 1px solid rgb(255, 37, 37)"
                                                                 class="px-3 py-2 rounded-lg"
                                                                 (click)="removeLanguage(i);">
                                                                 <i class="fa fa-trash text-danger"></i>
@@ -950,7 +950,7 @@
                                                                 (mouseenter)="updateMessageBox('networking_social_media_link')" />
                                                         </div>
                                                         <div class="col-md-2">
-                                                            <button style="border: 1px solid rgb(255, 37, 37)"
+                                                            <button *ngIf="i !== 0" style="border: 1px solid rgb(255, 37, 37)"
                                                                 class="px-3 py-2 rounded-lg"
                                                                 (click)="removeSocialMedia(i);">
                                                                 <i class="fa fa-trash text-danger"></i>

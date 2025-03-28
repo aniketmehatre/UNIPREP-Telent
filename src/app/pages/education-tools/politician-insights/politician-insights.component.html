@@ -102,8 +102,7 @@
 							<div class="row justify-content-center w-100">
 								<div class="col">
 									<p class="text-start fw-bold questiontext mb-0" title="{{ item.question }}">{{ item.question }}</p>
-									<p class="text-start questiontext mt-2 mb-0 content-preview">
-										{{ getContentPreview(item.answer) }}
+									<p class="text-start questiontext mt-2 mb-0 content-preview" [innerHTML]="getContentPreview(item.answer)">
 									</p>
 								</div>
 							</div>
