@@ -11,6 +11,7 @@ export interface CourseNavigator {
   id: number;
   course_id: number
   degree_id: number;
+  degree_name: string;
   question: string;
   answer: string;
   status: number;
