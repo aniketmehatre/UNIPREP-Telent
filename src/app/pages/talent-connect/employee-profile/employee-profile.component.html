@@ -1037,8 +1037,7 @@
                                     <div class="row w-100 justify-content-center">
                                         <div class="col-md-6 mb-3">
                                             <div class="border rounded p-3">
-                                                <h4 class="mb-3">Introduction Video Upload<span
-                                                        class="text-danger">*</span></h4>
+                                                <h4 class="mb-3">Introduction Video Upload</h4>
                                                 <small class="text-muted">(90-120 seconds)</small>
                                                 <input pInputText placeholder="Provide the video link"
                                                     class="form-control mt-2"
@@ -1325,8 +1324,7 @@
                                                 (mouseleave)="resetMessageBox()">
                                                 <div class="text-muted small">Current Location</div>
                                                 <div class="fw-bold">{{personalInfoForm?.get('location_id')?.value ?
-                                                    getListValue(locations, personalInfoForm?.get('location_id')?.value,
-                                                    'location') : ''}}
+                                                    getListValue(locations, personalInfoForm?.get('location_id')?.value,'location') : ''}}
                                                 </div>
                                             </div>
                                         </div>
@@ -1399,8 +1397,7 @@
                                                 <div class="text-muted small">Current Career Status</div>
                                                 <div class="fw-bold">
                                                     {{personalInfoForm?.get('career_preference_career_status')?.value ?
-                                                    personalInfoForm?.get('career_preference_career_status')?.value :
-                                                    ''}}
+                                                   personalInfoForm?.get('career_preference_career_status')?.value : ''}}
                                                 </div>
                                             </div>
                                         </div>
@@ -1415,8 +1412,8 @@
                                                 <div class="fw-bold">
                                                     {{personalInfoForm?.get('career_preference_expected_salary')?.value
                                                     ?
-                                                    personalInfoForm?.get('career_preference_expected_salary')?.value+'
-                                                    /Salary' :
+                                                    getListValue(currencies, personalInfoForm?.get('career_preference_currency_id')?.value,'currency_code')+' '+personalInfoForm?.get('career_preference_expected_salary')?.value+'
+                                                    /Month' :
                                                     ''}}
                                                 </div>
                                             </div>
