@@ -6,25 +6,37 @@
 					<span class="fa-solid fa-chevron-left"></span>
 				</div>
 				<div class="select-title d-flex justify-content-between align-items-center" style="width: 100%">
-          <div class="d-flex gap-2">
-						<h5 routerLink="/pages/dashboard" role="button" class="mb-0" tooltipPosition="top" pTooltip=""><i class="fa-regular fa-home"></i></h5>
+					<div class="d-flex gap-2">
+						<h5 routerLink="/pages/dashboard" role="button" class="mb-0" tooltipPosition="top" pTooltip="">
+							<i class="fa-regular fa-home"></i></h5>
 						<span><i class="fa-solid fa-chevron-right"></i></span>
-						<h5 routerLink="/pages/global-repo" role="button" class="mb-0" tooltipPosition="top" pTooltip="">Global Repository</h5>
-            <span><i class="fa-solid fa-chevron-right"></i></span>
-            <h5 *ngIf="currentModuleId == 8" class="mb-0" tooltipPosition="top" pTooltip="{{ tooltip }}">
-							<span class="desktop">{{ currentModuleName }} <span><i class="fa-solid fa-chevron-right"></i></span> </span>{{ learningHubMainModuleName ? learningHubMainModuleName + " > " : "" }} {{ moduleName }} <i class="questiontooltip fa-solid fa-circle-question"></i>
+						<h5 routerLink="/pages/global-repo" role="button" class="mb-0" tooltipPosition="top"
+							pTooltip="">Global Repository</h5>
+						<span><i class="fa-solid fa-chevron-right"></i></span>
+						<h5 *ngIf="currentModuleId == 8" class="mb-0" tooltipPosition="top" pTooltip="{{ tooltip }}">
+							<span class="desktop">{{ currentModuleName }} <span><i
+										class="fa-solid fa-chevron-right"></i></span> </span>{{
+							learningHubMainModuleName ? learningHubMainModuleName + " > " : "" }} {{ moduleName }} <i
+								class="questiontooltip fa-solid fa-circle-question"></i>
 						</h5>
 						<h5 *ngIf="currentModuleId != 8" class="mb-0" tooltipPosition="top" pTooltip="{{ tooltip }}">
-							<span class="desktop">{{ currentModuleName }} <span><i class="fa-solid fa-chevron-right"></i></span></span> {{ moduleName }} <i class="questiontooltip fa-solid fa-circle-question"></i>
+							<span class="desktop">{{ currentModuleName }} <span><i
+										class="fa-solid fa-chevron-right"></i></span></span> {{ moduleName }} <i
+								class="questiontooltip fa-solid fa-circle-question"></i>
 						</h5>
 					</div>
 					<div *ngIf="currentModuleName != 'K12' && currentModuleName != 'K12 Academy'">
-						<button pButton class="how-it-works-button" severity="warn" (click)="openHowItWorksVideoPopup(howItWorksVideoLink)">How it works?<i class="fa-solid fa-play d-md-block d-none"></i></button>
+						<button pButton class="how-it-works-button" severity="warn"
+							(click)="openHowItWorksVideoPopup(howItWorksVideoLink)">How it works?<i
+								class="fa-solid fa-play d-md-block d-none"></i></button>
 					</div>
 				</div>
-				<button pButton pButton role="button" (click)="startQuiz()" class="m-0 btn btn-primary flex-shrink-0 btn-rounded" [disabled]="quizpercentage >= 90" *ngIf="currentModuleId == 8 || currentModuleId == 10 || (currentModuleId != 14 && currentModuleId != 7 && currentModuleId != 1 && currentModuleId != 3 && currentModuleId != 6 && currentModuleId != 4)">
+				<button pButton pButton role="button" (click)="startQuiz()"
+					class="m-0 btn btn-primary flex-shrink-0 btn-rounded" [disabled]="quizpercentage >= 90"
+					*ngIf="currentModuleId == 8 || currentModuleId == 10 || (currentModuleId != 14 && currentModuleId != 7 && currentModuleId != 1 && currentModuleId != 3 && currentModuleId != 6 && currentModuleId != 4)">
 					<p class="mb-0">
-						<i class="fa-regular fa-lightbulb-on"></i> Start Quiz <span class="mb-0">{{ quizpercentage | percent : "1.0-0" }}</span>
+						<i class="fa-regular fa-lightbulb-on"></i> Start Quiz <span class="mb-0">{{ quizpercentage |
+							percent : "1.0-0" }}</span>
 					</p>
 
 					<!-- <div class="row">
@@ -72,20 +84,27 @@
 		<div class="row" *ngIf="!isSkeletonVisible">
 			<div *ngFor="let sub of questionListData; let i = index" class="readingcardgrid my-2">
 				<div class="row w-100 h-100 m-0 justify-content-center">
-					<div (click)="viewOneQuestion(sub)" role="button" class="card questioncard {{ sub.read == 1 ? '' : '' }}">
-						<div class="card-body d-flex flex-sm-column flex-row justify-content-sm-between align-items-center gap-2">
+					<div (click)="viewOneQuestion(sub)" role="button"
+						class="card questioncard {{ sub.read == 1 ? '' : '' }}">
+						<div
+							class="card-body d-flex flex-sm-column flex-row justify-content-sm-between align-items-center gap-2">
 							<div class="row justify-content-center w-100">
 								<div class="col">
-									<p class="text-start fw-bold questiontext mb-0" title="{{ sub.question }}">{{ sub.question }}</p>
+									<p class="text-start fw-bold questiontext mb-0" title="{{ sub.question }}">{{
+										sub.question }}</p>
 								</div>
 								<!--<div class="col-md-4 text-center">
                                             <p class="mb-3 circle text-center">{{i+1}}</p>
                                         </div> -->
-								<div class="col-2 align-items-center justify-content-center text-center" *ngIf="sub.national == 'yes'">
-									<div class="homecountry"><img [src]="homeCountryLogo" alt="home_country_logo" class="w-10 shadow-2 no-border-radius" /></div>
+								<div class="col-2 align-items-center justify-content-center text-center"
+									*ngIf="sub.national == 'yes'">
+									<div class="homecountry"><img [src]="homeCountryLogo" alt="home_country_logo"
+											class="w-10 shadow-2 no-border-radius" /></div>
 								</div>
-								<div class="col-2 align-items-center justify-content-center text-center" *ngIf="sub.popular == 1 && sub.national == 'no'">
-									<i class="fa-solid fa-star uniprep-secondary fa-xl" pTooltip="Most Popular Question" tooltipPosition="right"></i>
+								<div class="col-2 align-items-center justify-content-center text-center"
+									*ngIf="sub.popular == 1 && sub.national == 'no'">
+									<i class="fa-solid fa-star uniprep-secondary fa-xl" pTooltip="Most Popular Question"
+										tooltipPosition="right"></i>
 								</div>
 								<!--<i class="pi pi-star-fill text-primary" pTooltip="Most Popular National Question" tooltipPosition="right" style="font-size: 1.5rem"></i>-->
 							</div>
@@ -104,31 +123,19 @@
 		</div>
 	</div>
 	<div class="card-footer py-0 border-0 bg-transparent">
-		<p-paginator [rows]="10" [totalRecords]="totalQuestionCount" (onPageChange)="paginatepost($event)" [rowsPerPageOptions]="[25, 50, 100, 200]" dropdownAppendTo="body"></p-paginator>
+		<p-paginator [rows]="10" [totalRecords]="totalQuestionCount" (onPageChange)="paginatepost($event)"
+			[rowsPerPageOptions]="[25, 50, 100, 200]" dropdownAppendTo="body"></p-paginator>
 	</div>
 </div>
-<p-dialog #dialogContent [(visible)]="isQuestionAnswerVisible" [draggable]="false" [modal]="true" class="questionmodal" header="Header" [maximizable]="true" (onShow)="onShowModal($event)" [style]="{ width: '85rem' }">
+<!-- <p-dialog #dialogContent [(visible)]="isQuestionAnswerVisible" [draggable]="false" [modal]="true" class="questionmodal" header="Header" [maximizable]="true" (onShow)="onShowModal($event)" [style]="{ width: '85rem' }">
 	<ng-template pTemplate="header">
 		<div class="d-flex w-100 flex-column px-4">
 			<div class="d-flex flex-row justify-content-md-between justify-content-center">
-				<!-- <div class="d-md-block d-none">
-          <button pButton (click)="goToHome($event)" class="btn btn-secondary homecardbtn px-3 mt-4 mb-3">
-            <i class="fa-solid h5 fa-house"></i><br />
-            <span>Home</span>
-          </button>
-        </div> -->
 				<div class="col-md-10 col-10">
 					<h5 class="select-title w-100 text-center mb-0">{{ currentModuleName }} - {{ moduleName }}</h5>
 					<p-breadcrumb [model]="breadCrumb" class="w-100 mt-2 d-md-block d-none text-small"></p-breadcrumb>
 				</div>
 				<div class="d-md-block d-nonecol-md-2 col-2">
-					<!-- <button pButton class="btn btn-primary theme-dark-blue mx-0 px-5 py-2 my-2 text-xs"
-            (click)="onClickAsk(oneQuestionContent?.question)">
-            <i class="fa-solid h5 fa-file-contract"></i>
-            <br />
-            Click here to ask <br />
-            Personalised Questions
-          </button> -->
 					<button pButton (click)="openReport()" class="btn btn-primary px-2 py-2 homecardbtn mt-2 mb-2 mx-2">
 						<i class="fa-solid p fa-file-contract"></i>
 						<br />
@@ -144,10 +151,6 @@
 				<p-breadcrumb [model]="breadCrumb" class="w-100 mt-2 text-small"></p-breadcrumb>
 				<div>
 					<button pButton (click)="openReport()" class="btn btn-primary px-3 d-flex justify-content-center align-items-center gap-3"><i class="fa-solid mb-0 fa-file-contract"></i><span>Report</span></button>
-					<!--          <button pButton  (click)="reviewBy()" class="btn btn-primary homecardbtn my-0 px-4 py-2">-->
-					<!--						<i class="fa-regular fa-user h5"></i><br />-->
-					<!--						Reviewed By-->
-					<!--					</button>-->
 				</div>
 			</div>
 		</div>
@@ -158,11 +161,9 @@
 				<div class="d-flex align-items-center justify-content-between position-relative">
 					<span class="text-small blockquote text-start mb-0">
 						Last updated at: {{ oneQuestionContent?.updated_at | date }}
-						<!-- <span *ngIf="currentModuleId != 8"> -->
 						<span *ngIf="oneQuestionContent?.verified === 1" class="badge" style="background-color: #2b8902">Verified</span>
 						<span *ngIf="oneQuestionContent?.pre_verified === 1 && oneQuestionContent?.verified !== 1" style="background-color: darkorchid" class="badge">Pre Verified</span>
 						<span *ngIf="oneQuestionContent?.pre_verified !== 1 && oneQuestionContent?.verified !== 1" style="background-color: #3f4c83" class="badge">Non Pre-Verified</span>
-						<!-- </span> -->
 					</span>
 					<button pButton class="btn btn-primary socialShareBtn" (click)="showSocialSharingList()"><i class="fa-light fa-xl fa-share-nodes"></i></button>
 					<p-card id="socialSharingList">
@@ -196,8 +197,6 @@
 					</div>
 				</div>
 			</div>
-
-			<!-- Right Column: Recommended Links -->
 			<div class="d-flex flex-column" *ngIf="refLink">
 				<h5 class="text-start mb-1" *ngIf="oneQuestionContent?.reflink?.length > 0">Recommended Links</h5>
 				<div class="d-flex align-items-center gap-2 pb-2">
@@ -208,15 +207,6 @@
 					</div>
 				</div>
 			</div>
-			<!-- <div class="d-flex flex-column">
-        <button pButton class="btn btn-primary theme-dark-blue mx-0 px-5 py-2 my-2 text-xs"
-            (click)="onClickAsk(oneQuestionContent?.question)">
-            <i class="fa-solid h5 fa-file-contract"></i>
-            <br />
-            Click here to ask <br />
-            Personalised Questions
-          </button> 
-      </div> -->
 			<div class="align-items-center d-flex desktop">
 				<button class="btn w-100 btn-primary theme-dark-blue mx-0 px-5 py-2 align-items-center" (click)="onClickAsk(oneQuestionContent?.question)">
 					<div class="row justify-content-center align-items-center">
@@ -228,15 +218,131 @@
 						</div>
 						<div class="col-12">Personalised Questions</div>
 					</div>
-					<!-- <i class="fa-solid fa-file-contract h5 mb-2"></i>
-					<br>
-					<span>Click here to ask&nbsp;Personalised Questions</span> -->
 				</button>
 			</div>
 		</div>
 	</ng-template>
-</p-dialog>
+</p-dialog> -->
 
+<!-- new ui -->
+<p-dialog #dialogContent [(visible)]="isQuestionAnswerVisible" [draggable]="false" [modal]="true" header="Header"
+	[closable]="false" (onShow)="onShowModal($event)">
+	<ng-template pTemplate="header">
+		<div class="card-header border-0 bg-transparent px-4 pt-4 pb-0 w-100">
+			<div class="row justify-content-center">
+				<div class="col-md-12 d-flex gap-2 text-center">
+					<div class="career-homeIcon px-3" role="button" (click)="goToHome($event)"><span
+							class="fa-solid fa-home me-2"></span>Home</div>
+					<div class="select-title d-flex flex-fill justify-content-between align-items-center w-100">
+						<div>
+							<h5 class="mb-0">
+								{{ currentModuleName }} - {{ moduleName }}
+							</h5>
+						</div>
+					</div>
+					<div class="career-reportIcon px-3" role="button" (click)="openReport()"><span
+							class="fa-solid fa-file me-2"></span>Report</div>
+					<div class="career-closeIcon" role="button" (click)="goToHome($event)">
+						<span class="fa-solid fa-close"></span>
+					</div>
+				</div>
+			</div>
+			<div class="d-flex align-items-center position-relative mt-1" style="justify-content: end !important">
+				<button pButton class="btn btn-primary socialShareBtn" (click)="showSocialSharingList()"><i
+						class="fa-solid fa-share"></i></button>
+				<p-card id="socialSharingList">
+					<ul style="list-style: none; cursor: pointer">
+						<li (click)="shareViaWhatsapp()"><i class="pi pi-whatsapp"></i>Whatsapp</li>
+						<li (click)="shareViaMail()"><i class="pi pi-envelope"></i>Email</li>
+						<li (click)="shareViaFacebook()"><i class="pi pi-facebook"></i>Facebook</li>
+						<li (click)="shareViaTwitter()"><i class="pi pi-twitter"></i>Twitter</li>
+						<li (click)="shareViaInstagram()"><i class="pi pi-instagram"></i>Instagram</li>
+						<li (click)="shareViaLinkedIn()"><i class="pi pi-linkedin"></i>LinkedIn</li>
+						<li (click)="copyLink()"><i class="pi pi-link"></i>Copy Link</li>
+					</ul>
+				</p-card>
+			</div>
+		</div>
+	</ng-template>
+	<div class="px-4">
+		<div class="card flex-fill answercard" style="border: none">
+			<div class="card-body text-start">
+				<h3 class="unselectable d-md-block d-none">{{ oneQuestionContent?.question }}</h3>
+				<h5 class="unselectable d-md-none d-block">{{ oneQuestionContent?.question }}</h5>
+				<div class="fw-medium blog-content" style="white-space: inherit; max-height: 80%; min-height: 80%"
+					[innerHTML]="oneQuestionContent?.answer"></div>
+			</div>
+		</div>
+	</div>
+	<ng-template pTemplate="footer">
+		<div class="row cutom-row p-4">
+			<div class="col-custom-4-5">
+				<div class="d-flex flex-column" *ngIf="videoLinks">
+					<h5 class="text-start mb-1" *ngIf="oneQuestionContent?.videolink?.length > 0">Recommended Videos</h5>
+					<div class="d-flex align-items-center gap-2 pb-2">
+						<!-- Scrollable Video Links -->
+						<div class="scrollable-container" id="video-links-container" #videoLinksContainer>
+							<div class="d-flex flex-row gap-4 flex-nowrap overflow-x-auto py-3 video-scroll-container"
+								#scrollContainer>
+								<span class="btn btn-primary text-small videolinkbutton flex-shrink-0"
+									(click)="openVideoPopup(videoL.link)"
+									*ngFor="let videoL of oneQuestionContent?.videolink; let ind = index">
+									Video {{ ind + 1 }} &nbsp;<i class="fa-solid fa-video"></i>
+								</span>
+							</div>
+						</div>
+	
+						<!-- Right Arrow (Circular Scrolling) -->
+						<button class="scroll-btn-vedio  right" (click)="scrollRight()" aria-label="Scroll Right">
+							<i class="fa-solid fa-chevron-right"></i>
+						</button>
+					</div>
+				</div>
+			</div>
+			<div class="col-custom-4-5">
+				<div class="d-flex flex-column" *ngIf="refLink">
+					<h5 class="text-start mb-1" *ngIf="oneQuestionContent?.reflink?.length > 0">Recommended Links</h5>
+					<div class="d-flex align-items-center gap-2 pb-2">
+						<!-- Scrollable Reference Links -->
+						<div class="scrollable-container " id="ref-links-container" #refLinksContainer>
+							<div class="d-flex flex-row gap-4 flex-nowrap overflow-x-auto py-3 video-scroll-container"
+								#scrollContainerlink>
+								<a class="btn btn-secondary text-small reflinkbutton flex-shrink-0" target="_blank"
+									href="{{ refL.link }}"
+									*ngFor="let refL of oneQuestionContent?.reflink; let ind = index">
+									Link {{ ind + 1 }} &nbsp;<i class="fa-solid fa-link"></i>
+								</a>
+							</div>
+						</div>
+	
+						<!-- Right Arrow (Circular Scrolling) -->
+						<button class="scroll-btn-link right" (click)="scrollRightLinks()" aria-label="Scroll Right">
+							<i class="fa-solid fa-chevron-right"></i>
+						</button>
+					</div>
+				</div>
+			</div>
+			<div class="col-custom-3">
+				<div class="align-items-center d-flex desktop">
+					<button class="btn w-100 btn-primary theme-dark-blue mx-0 px-5 py-2 align-items-center"
+						(click)="onClickAsk(oneQuestionContent?.question)">
+						<div class="row justify-content-center align-items-center">
+							<div class="col-12">
+								<i class="fa-solid fa-file-contract h5 mb-2"></i>
+							</div>
+							<div class="col-12">
+								<span>Click here to ask</span>
+							</div>
+							<div class="col-12">Personalised Questions</div>
+						</div>
+					</button>
+				</div>
+			</div>
+	
+	
+		</div>
+	</ng-template>
+</p-dialog>
 <!-- <p-dialog [(visible)]="isRecommendedVideoVisible" class="questionvideopopup" [modal]="true" [style]="{ width: '80vw' }">
 	<div class="container-fluid">
 		<div class="row justify-content-center align-items-center">
@@ -311,12 +417,16 @@
 		</div>
 	</div>
 </p-dialog> -->
-<p-dialog [(visible)]="restrict" [modal]="true" [style]="{ width: '30vw' }" [draggable]="false" [resizable]="false" class="restrictionDialog" [breakpoints]="{ '960px': '30vw', '959px': '60vw', '425px': '90vw' }" (onHide)="clearRestriction()">
+<p-dialog [(visible)]="restrict" [modal]="true" [style]="{ width: '30vw' }" [draggable]="false" [resizable]="false"
+	class="restrictionDialog" [breakpoints]="{ '960px': '30vw', '959px': '60vw', '425px': '90vw' }"
+	(onHide)="clearRestriction()">
 	<div *ngIf="ehitlabelIsShow" class="text-center mt-5 mb-4">
 		<img src="../../../uniprep-assets/images/smartloack.png" class="image" width="60" />
 		<h3 class="offer">Upgrade Required</h3>
 		<p>To access this exclusive module,please upgrade your plan now</p>
-		<button pButton pButton type="button" class="text-white p-ripple p-button-rounded p-button-warning p-button p-component p-2" (click)="upgradePlan()">Upgrade Plan<i class="fa fa-arrow-right exhausted-plan-icon"></i></button>
+		<button pButton pButton type="button"
+			class="text-white p-ripple p-button-rounded p-button-warning p-button p-component p-2"
+			(click)="upgradePlan()">Upgrade Plan<i class="fa fa-arrow-right exhausted-plan-icon"></i></button>
 	</div>
 	<div *ngIf="!ehitlabelIsShow" class="text-center mt-5 mb-4">
 		<img src="../../../uniprep-assets/images/smartloack.png" class="image" width="60" />
@@ -331,11 +441,14 @@
 			<div class="modal-body position-relative pt-4">
 				<div class="modalbuttons">
 					<div class="d-flex gap-2">
-						<button pButton title="New Window" type="button" class="btn btn-primary" (click)="openNextVideo()"><i class="fa-solid fa-arrow-up-right-from-square"></i></button>
-						<button pButton type="button" title="Close Popup" class="btn btn-primary" (click)="closeVideoPopup()"><i class="fa-solid fa-xmark"></i></button>
+						<button pButton title="New Window" type="button" class="btn btn-primary"
+							(click)="openNextVideo()"><i class="fa-solid fa-arrow-up-right-from-square"></i></button>
+						<button pButton type="button" title="Close Popup" class="btn btn-primary"
+							(click)="closeVideoPopup()"><i class="fa-solid fa-xmark"></i></button>
 					</div>
 				</div>
-				<div class="embed-responsive"><iframe #videoFrame [src]="selectedVideoLink" width="100%" frameborder="0" allowfullscreen></iframe></div>
+				<div class="embed-responsive"><iframe #videoFrame [src]="selectedVideoLink" width="100%" frameborder="0"
+						allowfullscreen></iframe></div>
 			</div>
 		</div>
 	</div>
