@@ -307,8 +307,8 @@ export class EmployeeProfileComponent implements OnInit {
   }
 
   // Generic function to remove items from form arrays
-  removeFormArrayItem(formArray: FormArray, index: number, fileKey?: string): void {
-    if (index > 0) {
+  removeFormArrayItem(formArray: FormArray, index: number, isRequired: boolean = false, fileKey?: string,): void {
+    if (!isRequired || index > 0) {
       if (fileKey && this.uploadedFiles[`${fileKey}_${index}`]) {
         delete this.uploadedFiles[`${fileKey}_${index}`];
       }
@@ -326,14 +326,14 @@ export class EmployeeProfileComponent implements OnInit {
   addAcheivements(): void { this.addFormArrayItem(this.achievements, () => this.createAcheivementGroup()); }
 
   // Remove methods - simplified using generic function
-  removeEducation(index: number): void { this.removeFormArrayItem(this.educationDetails, index); }
-  removeWorkExperience(index: number): void { this.removeFormArrayItem(this.workExperience, index, FileType.EXPERIENCE_LETTER); }
-  removeLanguage(index: number): void { this.removeFormArrayItem(this.languages, index); }
-  removeSocialMedia(index: number): void { this.removeFormArrayItem(this.socialMedia, index); }
-  removeAcademicReference(index: number): void { this.removeFormArrayItem(this.academicReferences, index); }
-  removeProfessionalReference(index: number): void { this.removeFormArrayItem(this.professionalReferences, index); }
-  removeCertification(index: number): void { this.removeFormArrayItem(this.certifications, index, FileType.CERTIFICATIONS); }
-  removeAchievement(index: number): void { this.removeFormArrayItem(this.achievements, index, FileType.ACHIEVEMENTS); }
+  removeEducation(index: number): void { this.removeFormArrayItem(this.educationDetails, index, true); }
+  removeWorkExperience(index: number): void { this.removeFormArrayItem(this.workExperience, index, false, FileType.EXPERIENCE_LETTER); }
+  removeLanguage(index: number): void { this.removeFormArrayItem(this.languages, index, true); }
+  removeSocialMedia(index: number): void { this.removeFormArrayItem(this.socialMedia, index, false); }
+  removeAcademicReference(index: number): void { this.removeFormArrayItem(this.academicReferences, index, false); }
+  removeProfessionalReference(index: number): void { this.removeFormArrayItem(this.professionalReferences, index, false); }
+  removeCertification(index: number): void { this.removeFormArrayItem(this.certifications, index, false, FileType.CERTIFICATIONS); }
+  removeAchievement(index: number): void { this.removeFormArrayItem(this.achievements, index, false, FileType.ACHIEVEMENTS); }
 
   uploadFile(type: FileType, event: any, index: number) {
     console.log('calling', type);
@@ -1085,12 +1085,15 @@ export class EmployeeProfileComponent implements OnInit {
     this.profileCompletion = Math.round((filledWeight / totalWeight) * 100);
   }
 
-
-  getDropDownOptionList() {
-    this.talentConnectService.getCityCountries().subscribe({
+  getCityCountryList(search?: string) {
+    this.talentConnectService.getCityCountries(search).subscribe({
       next: response => { this.locations = response; }
     });
+  }
 
+
+  getDropDownOptionList() {
+    this.getCityCountryList();
     this.talentConnectService.getMyProfileDropDownValues().subscribe({
       next: response => {
         this.currencies = response.currencies;
@@ -1301,6 +1304,10 @@ export class EmployeeProfileComponent implements OnInit {
     }
   }
 
+  filterLocation(search: any) {
+    this.getCityCountryList(search.filter);
+  }
+
 
   resetMessageBox(): void {
     this.currentMessage = this.currentMessage; // Default message
@@ -1319,6 +1326,10 @@ export class EmployeeProfileComponent implements OnInit {
     } else {
       controls?.enable();
     }
+  }
+
+  routerBlankPage(url: string) {
+    window.open(url, '_blank');
   }
 
   handleValidationsForFields(control: FormControl, isRemove: boolean) {
