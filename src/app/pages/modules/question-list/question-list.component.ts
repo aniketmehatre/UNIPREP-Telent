@@ -96,6 +96,10 @@ export class QuestionListComponent implements OnInit {
 	homeCountryLogo: any
 	learningHubMainModuleName: any
 	learningHubQuizBreadCrumb: any
+	@ViewChild('scrollContainer') scrollContainer!: ElementRef;
+	@ViewChild('scrollContainerlink') scrollContainerlink!: ElementRef;
+	vediolink:any[]=[];
+	weblink:any[]=[];
 	constructor(private moduleListService: ModuleServiceService, private mService: ModuleServiceService,
 				private moduleStoreService: ModuleStoreService, private dataService: DataService,
 				private route: ActivatedRoute, private _location: Location, private _sanitizer: DomSanitizer,
@@ -660,6 +664,9 @@ export class QuestionListComponent implements OnInit {
 		// this.cdRef.markForCheck();
 		this.oneQuestionContent = questionData
 		this.isQuestionAnswerVisible = true
+		console.log(this.oneQuestionContent);
+		this.vediolink=this.oneQuestionContent.videolink
+		this.weblink=this.oneQuestionContent.reflink
 		// this.getSubmoduleName(questionData.country_id)
 		this.breadCrumb = [
 			{
@@ -834,6 +841,38 @@ export class QuestionListComponent implements OnInit {
 	openHowItWorksVideoPopup(videoLink: string) {
 		this.pageFacade.openHowitWorksVideoPopup(videoLink)
 	}
+	scrollRight() {
+        if (this.scrollContainer) {
+            let container = this.scrollContainer.nativeElement;
+
+            // Scroll right smoothly
+            container.scrollBy({ left: 200, behavior: 'smooth' });
+
+            // Move the first video to the end after scrolling
+            setTimeout(() => {
+                let firstVideo =  this.oneQuestionContent?.videolink.shift(); // Remove first element
+                if (firstVideo) {
+					this.oneQuestionContent?.videolink.push(firstVideo); // Add it to the end
+                }
+            }, 300); // Delay to match scrolling speed
+        }
+    }
+	scrollRightLinks() {
+        if (this.scrollContainerlink) {
+            let container = this.scrollContainerlink.nativeElement;
+
+            // Scroll right smoothly
+            container.scrollBy({ left: 200, behavior: 'smooth' });
+
+            // Move the first link to the end after scrolling
+            setTimeout(() => {
+                let firstLink = this.oneQuestionContent?.reflink.shift(); // Remove first element
+                if (firstLink) {
+                    this.oneQuestionContent?.reflink.push(firstLink); // Add it to the end
+                }
+            }, 300); // Delay to match scrolling speed
+        }
+    }
 }
 @Pipe({
 	name: "safe",
@@ -845,4 +884,5 @@ export class SafePipe implements PipeTransform {
 	transform(url: string): SafeResourceUrl {
 		return this.sanitizer.bypassSecurityTrustResourceUrl(url)
 	}
+
 }
