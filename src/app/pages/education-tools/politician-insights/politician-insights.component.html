@@ -1,118 +1,45 @@
 <div class="card readingcard">
-	<div class="card-header border-0 bg-transparent">
+	<div class="card-header border-0 bg-transparent w-100">
 		<div class="row justify-content-center">
 			<div class="col-md-12 d-flex gap-2 text-center">
 				<div class="backIcon d-md-flex d-none" (click)="goBack()" role="button">
 					<span class="fa-solid fa-chevron-left"></span>
 				</div>
-				<div class="select-title d-flex justify-content-between align-items-center">
+				<div class="select-title d-flex justify-content-between align-items-center w-100">
 					<div class="d-flex gap-2">
-						<h5 routerLink="/pages/dashboard" role="button" class="mb-0" tooltipPosition="top" pTooltip=""><i class="fa-regular fa-home"></i></h5>
+						<h5 routerLink="/pages/dashboard" role="button" class="mb-0">
+							<i class="fa-regular fa-home"></i>
+						</h5>
 						<span><i class="fa-solid fa-chevron-right"></i></span>
-						<h5 routerLink="/pages/education-tools" role="button" class="mb-0" tooltipPosition="top" pTooltip="">Education Tools</h5>
+						<h5 routerLink="/pages/education-tools" role="button" class="mb-0">Education Tools</h5>
 						<span><i class="fa-solid fa-chevron-right"></i></span>
-						<h5 class="mb-0" tooltipPosition="top" pTooltip=""  [routerLink]="['/pages/education-tools/politician-insights']">Political Insights</h5>
-						<span><i class="fa-solid fa-chevron-right" *ngIf="isShowPoliticians || isShowCountryQuesAns"></i></span>
-						<h5 class="mb-0" tooltipPosition="top" pTooltip="" *ngIf="isShowPoliticians || isShowCountryQuesAns">{{getCountryName}} Insights</h5>
+						<h5 [routerLink]="['/pages/education-tools/politician-insights']" class="mb-0">Political
+							Insights</h5>
+						<span *ngIf="isShowPoliticians || isShowCountryQuesAns"><i
+								class="fa-solid fa-chevron-right"></i></span>
+						<h5 *ngIf="isShowPoliticians || isShowCountryQuesAns" class="mb-0">{{ getCountryName }} Insights
+						</h5>
 					</div>
-					<div>
-						<div class="card-header border-0 bg-transparent">
-							<div class="row justify-content-center">
-								<div class="col-md-12 d-flex gap-2 text-center">
-									<div class="backIcon" role="button" (click)="backtoMain()">
-										<span class="fa-solid fa-chevron-left"></span>
-									</div>
-									<div class="select-title d-flex justify-content-between align-items-center">
-										<div class="d-flex gap-2">
-											<h5 routerLink="/pages/dashboard" role="button" class="mb-0" tooltipPosition="top" pTooltip=""><i class="fa-regular fa-home"></i></h5>
-											<span><i class="fa-solid fa-chevron-right"></i></span>
-											<h5 routerLink="/pages/job-tool/career-tool" role="button" class="mb-0" tooltipPosition="top" pTooltip="">Career Tools</h5>
-											<span><i class="fa-solid fa-chevron-right"></i></span>
-											<h5 class="mb-0" tooltipPosition="top" pTooltip="Questions related to the application process are answered">Fortune Companies</h5>
-										</div>
-										<div>
-											<!-- <button pButton (click)="
-								  openVideoPopup(
-									'https://www.youtube.com/embed/cbny1-f4rXI?si=E3WEU6LuiMLWA1Uq'
-								  )
-								" class="how-it-works-button">
-											How it works?<i class="fa-solid fa-play d-md-block d-none"></i>
-										</button> -->
-										</div>
-									</div>
-									<div>
-										<!-- <p-select
-								[options]="countryLists"
-								[(ngModel)]="selectedCountryId"
-								optionLabel="country"
-								optionValue="id"
-								(onChange)="selectCountry($event.value)"
-								[filter]="true"
-								filterBy="country"
-								[showClear]="true"
-								placeholder="Select a Country"
-								class="w-full md:w-56"
-							  >
-								<ng-template #selectedItem let-selectedOption>
-								  <div class="flex items-center gap-2">
-									<img [src]="selectedOption.flag" style="width: 18px" />
-									<div>{{ selectedOption.country }}</div>
-								  </div>
-								</ng-template>
-								<ng-template let-country #item>
-								  <div class="flex items-center gap-2">
-									<img [src]="country.flag" style="width: 18px" />
-									<div>{{ country.country }}</div>
-								  </div>
-								</ng-template>
-							  </p-select> -->
-									</div>
-					
-									<div class="d-flex justify-content-start align-items-start">
-										<div class="d-flex flex-column align-items-start">
-											<div class="col-12">
-												<p-select [options]="countryLists" [(ngModel)]="selectedCountryId" optionLabel="country" optionValue="id" (onChange)="selectCountry($event.value)" [filter]="true" filterBy="country" [showClear]="true" placeholder="Select a Country" class="w-full md:w-56">
-													<ng-template #selectedItem let-selectedOption>
-														<div class="flex items-center gap-2">
-															<img [src]="selectedOption.flag" style="width: 18px" />
-															<div>{{ selectedOption.country }}</div>
-														</div>
-													</ng-template>
-													<ng-template let-country #item>
-														<div class="flex items-center gap-2">
-															<img [src]="country.flag" style="width: 18px" />
-															<div>{{ country.country }}</div>
-														</div>
-													</ng-template>
-												</p-select>
-											</div>
-										</div>
-									</div>
-					
-									<div class="d-flex justify-content-start align-items-start">
-										<div class="d-flex flex-column align-items-start">
-											<div class="col-12">
-												<p-iconfield>
-													<p-inputicon styleClass="pi pi-search" />
-													<input type="text" pInputText placeholder="Enter Company" [(ngModel)]="valueNearYouFilter" (input)="performSearch()" />
-												</p-iconfield>
-											</div>
-										</div>
-									</div>
-								</div>
-							</div>
-						</div>
-						<!-- <button class="how-it-works-button"
-              (click)="openVideoPopup('https://www.youtube.com/embed/l00Z_Nk6GLI?si=j1IwWBZjrXEAYjxH')">How it works?<i
-                class="fa-solid fa-play d-md-block d-none"></i></button> -->
-					</div>
+				</div>
+				<!-- Politician Selection Section -->
+				<div class="d-flex gap-3 align-items-center w-25" *ngIf="isShowPoliticians">
+					<p-multi-select [options]="politicianNamesList" [(ngModel)]="selectedPolitician" optionLabel="name"
+						optionValue="id" (onChange)="getPoliticianList()" [filter]="true" filterBy="name"
+						[showClear]="true" placeholder="Select Politician Name" class="w-50" appendTo="body"></p-multi-select>
+
+					<p-multi-select [options]="politicianOccupationList" [(ngModel)]="selectedOccupation"
+						optionLabel="occupation" optionValue="id" (onChange)="getPoliticianList()"
+						[filter]="true" filterBy="occupation" [showClear]="true"
+						placeholder="Select Politician Occupation" class="w-50" appendTo="body"></p-multi-select>
 				</div>
 			</div>
 		</div>
 	</div>
+
 	<div class="card-body text-center flex-fill overflow-y-auto" *ngIf="isShowCountryData">
 		<div class="row mb-0">
-			<div *ngFor="let item of countrylist; let i = index" class="col-lg-2 col-md-3 col-sm-4 col-xs-12 col-12 mb-3">
+			<div *ngFor="let item of countrylist; let i = index"
+				class="col-lg-2 col-md-3 col-sm-4 col-xs-12 col-12 mb-3">
 				<div class="row w-100 m-0 justify-content-center h-100">
 					<div class="card subjectcard" role="button">
 						<div class="card-body" (click)="showDatas(item)">
@@ -154,15 +81,19 @@
 
 			<!-- Actual Politician Cards -->
 			<ng-template #showPoliticians>
-				<div *ngFor="let politician of politicians" class="col-12 col-md-4 col-lg-4 mb-2 cursor-pointer" (click)="showQuestionDatas(politician.id)">
+				<div *ngFor="let politician of politicians" class="col-12 col-md-4 col-lg-4 mb-2 cursor-pointer"
+					(click)="showQuestionDatas(politician.id)">
 					<div class="card border-1 h-100 mb-2" style="border-color: orange">
 						<div class="card-body d-flex flex-column justify-content-start align-items-start">
 							<div class="d-flex align-items-center">
-								<img [src]="politician.image ?? '/uniprep-assets/images/placeholder.png'" class="rounded-circle me-3" [alt]="politician.name" width="80" height="80" />
+								<img [src]="politician.image ?? '/uniprep-assets/images/placeholder.png'"
+									class="rounded-circle me-3" [alt]="politician.name" width="80" height="80" />
 								<div class="text-start">
 									<h5 class="card-title mb-1">{{ politician.name }}</h5>
 									<div class="d-flex align-items-center mb-2">
-										<img [src]="politician.flag" class="me-2 rounded-circle" [alt]="politician.country + ' flag'" style="width: 20px; height: 20px; object-fit: cover; border-radius: 50%" />
+										<img [src]="politician.flag" class="me-2 rounded-circle"
+											[alt]="politician.country + ' flag'"
+											style="width: 20px; height: 20px; object-fit: cover; border-radius: 50%" />
 										<span>{{ politician.country }}</span>
 									</div>
 								</div>
@@ -181,48 +112,55 @@
 	<div class="card-body text-center flex-fill overflow-y-auto" *ngIf="isShowCountryQuesAns">
 		<div class="row mb-2">
 			<div class="row">
-                <div *ngFor="let item of questuionanswerlist; let i = index" class="col-md-3 col-sm-4 col-xs-12 col-12 mb-3">
-                    <div class="row w-100 m-0 justify-content-center h-100">
-                        <div class="card subjectcard" role="button" (click)="showDataAnswer(item)">
-                            <div class="card-body d-flex justify-content-center align-items-center">
-                                <div class="py-3">
-                                    <p class="text-start fw-bold questiontext mb-0" title="{{ item.question }}">
-                                        {{ item.question }}
-                                    </p>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
+				<div *ngFor="let item of questuionanswerlist; let i = index"
+					class="col-md-3 col-sm-4 col-xs-12 col-12 mb-3">
+					<div class="row w-100 m-0 justify-content-center h-100">
+						<div class="card subjectcard" role="button" (click)="showDataAnswer(item)">
+							<div class="card-body d-flex justify-content-center align-items-center">
+								<div class="py-3">
+									<p class="text-start fw-bold questiontext mb-0" title="{{ item.question }}">
+										{{ item.question }}
+									</p>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
 		</div>
 	</div>
 	<div class="row justify-content-center" *ngIf="isShowPoliticians || isShowCountryQuesAns">
 		<div class="col text-middle">
-			<p-paginator *ngIf="totalPolitician != 0" [rows]="pageSize" [totalRecords]="totalPolitician" (onPageChange)="pageChange($event)" [rowsPerPageOptions]="[10, 25, 100, 300, 500, 1000]"></p-paginator>
+			<p-paginator *ngIf="totalPolitician != 0" [rows]="pageSize" [totalRecords]="totalPolitician"
+				(onPageChange)="pageChange($event)" [rowsPerPageOptions]="[10, 25, 100, 300, 500, 1000]"></p-paginator>
 		</div>
 	</div>
 </div>
 
 <!-- question ans -->
-<p-dialog #dialogContent [(visible)]="isQuestionAnswerVisible" [draggable]="false" [modal]="true" header="Header" [closable]="false" (onShow)="onShowModal($event)">
+<p-dialog #dialogContent [(visible)]="isQuestionAnswerVisible" [draggable]="false" [modal]="true" header="Header"
+	[closable]="false" (onShow)="onShowModal($event)">
 	<ng-template pTemplate="header">
 		<div class="card-header border-0 bg-transparent px-4 pt-4 pb-0 w-100">
 			<div class="row justify-content-center">
 				<div class="col-md-12 d-flex gap-2 text-center">
-					<div class="career-homeIcon px-3" role="button" (click)="goToHome($event)"><span class="fa-solid fa-home me-2"></span>Home</div>
+					<div class="career-homeIcon px-3" role="button" (click)="goToHome($event)"><span
+							class="fa-solid fa-home me-2"></span>Home</div>
 					<div class="select-title d-flex flex-fill justify-content-between align-items-center w-100">
 						<div class="d-flex gap-2">
-							<h5 routerLink="/pages/dashboard" role="button" class="mb-0" tooltipPosition="top" pTooltip=""><i class="fa-regular fa-home"></i></h5>
+							<h5 routerLink="/pages/dashboard" role="button" class="mb-0" tooltipPosition="top"
+								pTooltip=""><i class="fa-regular fa-home"></i></h5>
 							<span><i class="fa-solid fa-chevron-right"></i></span>
-							<h5 routerLink="/pages/education-tools" role="button" class="mb-0" tooltipPosition="top" pTooltip="">Education Tools</h5>
+							<h5 routerLink="/pages/education-tools" role="button" class="mb-0" tooltipPosition="top"
+								pTooltip="">Education Tools</h5>
 							<span><i class="fa-solid fa-chevron-right"></i></span>
 							<h5 class="mb-0" tooltipPosition="top" pTooltip="">Political Insights</h5>
 							<span><i class="fa-solid fa-chevron-right"></i></span>
 							<h5 class="mb-0" tooltipPosition="top" pTooltip="">{{getCountryName}} Insights</h5>
 						</div>
 					</div>
-					<div class="career-reportIcon px-3" role="button" (click)="openReport()"><span class="fa-solid fa-file me-2"></span>Report</div>
+					<div class="career-reportIcon px-3" role="button" (click)="openReport()"><span
+							class="fa-solid fa-file me-2"></span>Report</div>
 					<div class="career-closeIcon" role="button" (click)="goToHome($event)">
 						<span class="fa-solid fa-close"></span>
 					</div>
@@ -250,9 +188,10 @@
 		<div class="card flex-fill answercard" style="border: none">
 			<div class="card-body text-start">
 				<h1 class="d-md-block d-none">
-                    <b>{{ dataanswerquestion?.question }}</b>
-                </h1>
-				<div class="fw-medium blog-content" style="white-space: inherit; max-height: 80%; min-height: 80%" [innerHTML]="dataanswerquestion?.answer"></div>
+					<b>{{ dataanswerquestion?.question }}</b>
+				</h1>
+				<div class="fw-medium blog-content" style="white-space: inherit; max-height: 80%; min-height: 80%"
+					[innerHTML]="dataanswerquestion?.answer"></div>
 			</div>
 		</div>
 	</div>

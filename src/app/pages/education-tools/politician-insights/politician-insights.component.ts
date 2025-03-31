@@ -61,6 +61,10 @@ export class PoliticianInsightsComponent implements OnInit, OnDestroy {
   page: number = 1;
   pageSize: number = 10;
   first: number = 0;
+  politicianNamesList: { id: number, name: string }[] = [];
+  politicianOccupationList: { id: number, occupation: string }[] = [];
+  selectedPolitician: string[] | null = [];
+  selectedOccupation: string[] | null = [];
   constructor(
     private pageFacade: PageFacadeService,
     private dataService: DataService,
@@ -92,6 +96,7 @@ export class PoliticianInsightsComponent implements OnInit, OnDestroy {
         this.isShowCountryData = false;
         this.countryId = params['id'];
         this.getPoliticianList(params['id']);
+        this.getPoliticianDropDownList();
       } else {
         this.isShowCountryQuesAns = false;
         this.isShowCountryData = true;
@@ -156,12 +161,26 @@ export class PoliticianInsightsComponent implements OnInit, OnDestroy {
     );
   }
 
+  getPoliticianDropDownList() {
+    this.educationToolService.getPoliticianDropDownList(this.countryId).subscribe({
+      next: response => {
+        this.politicianNamesList = response?.politicians;
+        this.politicianOccupationList = response?.occupations;
+      },
+      error: error => {
+        console.error(error);
+      }
+    })
+  }
+
   getPoliticianList(id: any) {
     this.isSkeletonVisible = true;
     const datas: any = {
-      country: id,
+      country: this.countryId,
       page: this.page,
-      perpage: this.pageSize
+      perpage: this.pageSize,
+      politician_id: this.selectedPolitician ?? null,
+      politician_occupation: this.selectedOccupation ?? null,
     };
     this.educationToolService.getPoliticiansListByCountry(datas).subscribe(
       (res: any) => {
