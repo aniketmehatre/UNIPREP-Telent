@@ -65,7 +65,7 @@
                                         <p-select [options]="visaCountries" [filter]="true"
                                             [(ngModel)]="selectedData[recommendation.id]"
                                             (onChange)="onChangeCountry($event)" optionLabel="country"
-                                            styleClass="w-100" [showClear]="true" placeholder="Country"
+                                            styleClass="w-100" [showClear]="true" placeholder="Select country"
                                             [appendTo]="'body'"></p-select>
                                         <p class="text-center" [ngClass]="{ 'd-none': invalidClass === false }"
                                             style="color: red">Please Choose Any one option</p>
