@@ -22,14 +22,14 @@
 					</div>
 				</div>
 				<!-- Politician Selection Section -->
-				<div class="d-flex gap-3 align-items-center w-25" *ngIf="isShowPoliticians">
+				<div class="d-flex gap-3 align-items-center w-25 w-md-100" *ngIf="isShowPoliticians">
 					<p-multi-select [options]="politicianNamesList" [(ngModel)]="selectedPolitician" optionLabel="name"
 						optionValue="id" (onChange)="getPoliticianList()" [filter]="true" filterBy="name"
-						[showClear]="true" placeholder="Select Politician Name" class="w-50" appendTo="body"></p-multi-select>
+						[showClear]="false" placeholder="Select Politician Name" class="w-50" appendTo="body"></p-multi-select>
 
 					<p-multi-select [options]="politicianOccupationList" [(ngModel)]="selectedOccupation"
 						optionLabel="occupation" optionValue="id" (onChange)="getPoliticianList()"
-						[filter]="true" filterBy="occupation" [showClear]="true"
+						[filter]="true" filterBy="occupation" [showClear]="false"
 						placeholder="Select Politician Occupation" class="w-50" appendTo="body"></p-multi-select>
 				</div>
 			</div>
