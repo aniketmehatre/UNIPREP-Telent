@@ -55,7 +55,7 @@
 											<h5 class="m-2">Which university will you be attending?</h5>
 										</div>
 										<div class="col-md-9 text-start">
-											<p-select [options]="universityList" styleClass="w-100" [filter]="true" [filterBy]="'university_name'" [(ngModel)]="selectedData['university']" optionLabel="university_name" optionValue="id" [appendTo]="'body'" placeholder="Select University"> </p-select>
+											<p-select [options]="universityList" styleClass="w-100" [filter]="true" [filterBy]="'university_name'" [(ngModel)]="selectedData['university']" optionLabel="university_name" optionValue="university_name" [appendTo]="'body'" placeholder="Select University"> </p-select>
 											<div *ngIf="notfilledArray.includes('university')" class="text-danger text-xs">
 												<div>University Required</div>
 											</div>

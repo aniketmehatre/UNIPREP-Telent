@@ -58,6 +58,7 @@ export class CHCountryListsComponent implements OnInit {
 		}
 		this.windowChange.emit({
 			country_id: moduledata.id,
+			countryName: moduledata.country,
 			stage: 2,
 		})
 	}
