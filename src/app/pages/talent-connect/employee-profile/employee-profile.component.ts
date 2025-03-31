@@ -951,6 +951,7 @@ export class EmployeeProfileComponent implements OnInit {
         softSkills: this.softSkills,
         fieldsOfStudy: this.fieldsOfStudy,
         graduationYears: this.graduationYears,
+        nationalityList: this.nationalityList
       },
       styleClass: 'employee-profile-dialog'
     });

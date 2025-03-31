@@ -110,6 +110,7 @@ export class ViewProfileComponent implements OnInit {
   professionalStrengths: any[] = [];
   qualifications: any[] = [];
   softSkills: any[] = [];
+  nationalityList: any[] = [];
   logo: any;
   // Define a single profile data object
   profileData: ProfileData = {
@@ -225,7 +226,9 @@ export class ViewProfileComponent implements OnInit {
         this.qualifications = data?.qualifications,
         this.softSkills = data?.softSkills,
         this.fieldsOfStudy = data?.fieldsOfStudy,
-        this.graduationYears = data?.graduationYears
+        this.graduationYears = data?.graduationYears,
+        this.nationalityList = data?.nationalityList
+
       this.profileData = this.mapToProfileData(this.config.data.profileData);
     }
 
@@ -240,6 +243,7 @@ export class ViewProfileComponent implements OnInit {
     console.log(`Downloading ${filename}`);
     // Implement actual file download logic
   }
+
   public getListValue(list: any[], id: number | number[], key: string): string {
     if (!list) return ""; // Return empty string if list is null/undefined
 
@@ -265,8 +269,8 @@ export class ViewProfileComponent implements OnInit {
         fullName: formData.full_name || '',
         dateOfBirth: formData.date_of_birth ? new Date(formData.date_of_birth).toISOString() : '',
         gender: formData.gender || '',
-        nationality: this.getListValue(this.locations, formData.nationality_id, 'location') || '',
-        location: this.getListValue(this.locations, formData.location_id, 'location') || '',
+        nationality: this.getListValue(this.nationalityList, formData.nationality_id, 'nationality_name') || '',
+        location: this.getListValue(this.locations, formData.location_id, 'city_state') || '',
         logo: formData.profile_image || null
       },
       educationDetails: (formData.educationDetails || []).map((edu: any) => ({
@@ -292,7 +296,7 @@ export class ViewProfileComponent implements OnInit {
         careerStatus: formData.career_preference_career_status || '',
         careerInterest: this.getListValue(this.careerInterests, formData.career_preference_career_interest_id, 'interest') || '',
         jobTitle: this.getListValue(this.jobTitles, formData.career_preference_job_title_id, 'job_title') || '',
-        preferredWorkLocation: this.getListValue(this.locations, formData.career_preference_preferred_work_location_id, 'location') || '',
+        preferredWorkLocation: this.getListValue(this.locations, formData.career_preference_preferred_work_location_id, 'city_state') || '',
         preferredEmploymentType: formData.career_preference_preferred_employment_type || '',
         preferredWorkplaceType: formData.career_preference_preferred_workplace_type || '',
         willingToRelocate: formData.career_preference_willingness_to_relocate || '',

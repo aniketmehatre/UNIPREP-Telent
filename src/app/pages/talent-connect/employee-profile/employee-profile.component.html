@@ -552,8 +552,8 @@
                                                     <p-multiSelect id="highestQualification"
                                                         formControlName="career_preference_preferred_work_location_id"
                                                         [options]="locations" placeholder="Select Your Location"
-                                                        styleClass="w-100" optionLabel="location" optionValue="id"
-                                                        [filter]="true" filterBy="location" [appendTo]="'body'"
+                                                        styleClass="w-100" optionLabel="city_state" optionValue="id"
+                                                        [filter]="true" filterBy="city_state" [appendTo]="'body'" (onFilter)="filterLocation($event);"
                                                         (mouseleave)="resetMessageBox()"
                                                         (mouseenter)="updateMessageBox('career_preference_preferred_work_location_id')"></p-multiSelect>
                                                 </div>
