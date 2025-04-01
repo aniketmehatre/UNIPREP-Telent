@@ -80,7 +80,7 @@
 }
 
 .icon-container {
-  width: 40px;
+  min-width: 30px;
   height: 40px;
   border-radius: 8px;
   display: flex;
@@ -92,14 +92,15 @@
 
 .info-label {
   color: #6c757d;
-  font-size: 14px;
-  font-weight: 400;
+  font-size: 12px;
+  font-weight: 500;
 }
 
 .info-value {
   color: #212529;
-  font-size: 16px;
-  font-weight: 600;
+  font-size: 14px;
+  font-weight: 700;
+  word-break: break-all;
 }
 
 /* Custom icon background colors */
