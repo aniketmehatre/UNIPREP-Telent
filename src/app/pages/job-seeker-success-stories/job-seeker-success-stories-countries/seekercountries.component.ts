@@ -88,6 +88,7 @@ export class SeekercountriesComponent implements OnInit {
     console.log('Module clicked:', moduledata);
     const data = {
       country_id: moduledata.id,
+			countryName: moduledata.country,
       stage: 2,
     };
     this.prepData = data;

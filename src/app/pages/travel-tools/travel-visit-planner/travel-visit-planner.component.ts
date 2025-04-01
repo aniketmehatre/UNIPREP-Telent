@@ -82,7 +82,7 @@ export class TravelVisitPlannerComponent implements OnInit {
 		this.hideWarning(productId)
 		if (!this.invalidClass) {
 			let data = {
-				destination: this.selectedData[1].city_name ?? this.selectedData[1].country_name,
+				destination: this.selectedData[1].city_name + ', ' + this.selectedData[1].country_name,
 				trip_duration: this.selectedData[2] + " days",
 				season: this.selectedData[3],
 				mode: "travel_visit_planner",
@@ -155,7 +155,7 @@ export class TravelVisitPlannerComponent implements OnInit {
 		};
 		this.promptService.responseBuilder(params);
 	}
-	
+
 	goBack() {
 		this.router.navigateByUrl("/pages/travel-tools")
 	}

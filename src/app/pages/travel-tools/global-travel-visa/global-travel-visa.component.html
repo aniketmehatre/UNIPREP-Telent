@@ -65,7 +65,7 @@
                                         <p-select [options]="visaCountries" [filter]="true"
                                             [(ngModel)]="selectedData[recommendation.id]"
                                             (onChange)="onChangeCountry($event)" optionLabel="country"
-                                            styleClass="w-100" [showClear]="true" placeholder="Country"
+                                            styleClass="w-100" [showClear]="true" placeholder="Select country"
                                             [appendTo]="'body'"></p-select>
                                         <p class="text-center" [ngClass]="{ 'd-none': invalidClass === false }"
                                             style="color: red">Please Choose Any one option</p>
@@ -228,7 +228,7 @@
     </div>
 </p-dialog> -->
 <p-dialog #dialogContent [(visible)]="isQuestionAnswerVisible" [draggable]="false" [modal]="true" header="Header"
-    [closable]="false" (onShow)="onShowModal($event)">
+    class="questionmodal custom-quiz-modal" [closable]="false" (onShow)="onShowModal($event)">
     <ng-template pTemplate="header">
         <div class="card-header border-0 bg-transparent px-4 pt-4 pb-0 w-100">
             <div class="row justify-content-center">
@@ -261,7 +261,7 @@
                 </div>
             </div>
             <div class="d-flex align-items-center position-relative mt-1" style="justify-content: end !important">
-                <button class="btn btn-primary socialShareBtn" (click)="showSocialSharingList()"><i
+                <button class="btn socialShareBtn" (click)="showSocialSharingList()"><i
                         class="fa-solid fa-share"></i></button>
                 <p-card id="socialSharingList">
                     <ul style="list-style: none; cursor: pointer">
