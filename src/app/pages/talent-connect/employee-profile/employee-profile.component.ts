@@ -193,7 +193,7 @@ export class EmployeeProfileComponent implements OnInit {
       career_preference_admired_quality: [''],
 
       // Networking
-      networking_linkedin_profile: ['', Validators.required],
+      networking_linkedin_profile: ['', [Validators.required, Validators.pattern(/^(http:\/\/www\.|https:\/\/www\.|http:\/\/|https:\/\/)?[a-z0-9]+([\-\.]{1}[a-z0-9]+)*\.[a-z]{2,5}(:[0-9]{1,5})?(\/.*)?$/)]],
       networking_social_media: this.fb.array([this.createSocialMediaGroup()]),
       networking_personal_website: [null, Validators.pattern(/^(http:\/\/www\.|https:\/\/www\.|http:\/\/|https:\/\/)?[a-z0-9]+([\-\.]{1}[a-z0-9]+)*\.[a-z]{2,5}(:[0-9]{1,5})?(\/.*)?$/)],
 
@@ -1283,9 +1283,9 @@ export class EmployeeProfileComponent implements OnInit {
         }));
       });
     } 
+    this.filterLocation(response?.location_id)
     this.logo = response?.dp_image;
     this.originalProfileData = { ...this.personalInfoForm.value };
-    console.log(this.originalProfileData);
   }
 
   updateMessageBox(fieldKey: string): void {

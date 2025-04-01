@@ -60,7 +60,7 @@ interface ProfileData {
   };
   networking: {
     linkedinProfile: string;
-    socialMedia: string;
+    socialMedia: { media: string, link: string }[];
     personalWebsite: string;
   };
   attachments: Array<{ name: string; type: string }>;
@@ -179,7 +179,7 @@ export class ViewProfileComponent implements OnInit {
     },
     networking: {
       linkedinProfile: 'https://www.linkedin.com/in/johnsmithdesign/',
-      socialMedia: 'https://www.instagram.com/johnsmithdesign/',
+      socialMedia: [{ media: 'instagram', link: 'https://www.instagram.com/johnsmithdesign/' }],
       personalWebsite: 'https://www.behance.net/johnsmidesign/'
     },
     attachments: [
@@ -325,7 +325,7 @@ export class ViewProfileComponent implements OnInit {
       },
       networking: {
         linkedinProfile: formData.networking_linkedin_profile || '',
-        socialMedia: formData.networking_social_media?.[0]?.networking_social_media_link || '',
+        socialMedia: [{ media: formData.networking_social_media?.map((media: any) => media.networking_social_media), link: formData.networking_social_media?.map((media: any) => media.networking_social_media_link) }],
         personalWebsite: formData.networking_personal_website || ''
       },
       attachments: [

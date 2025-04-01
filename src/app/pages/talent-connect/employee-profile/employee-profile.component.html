@@ -938,7 +938,7 @@
                                                     (mouseenter)="updateMessageBox('networking_linkedin_profile')" />
                                                 <small class="text-danger"
                                                     *ngIf="personalInfoForm.get('networking_linkedin_profile')?.invalid && personalInfoForm.get('networking_linkedin_profile')?.touched">
-                                                    This field is mandatory
+                                                    This field is mandatory with valid url
                                                 </small>
                                             </div>
                                         </div>
@@ -1330,7 +1330,7 @@
                                                 (mouseleave)="resetMessageBox()">
                                                 <div class="text-muted small">Current Location</div>
                                                 <div class="fw-bold">{{personalInfoForm?.get('location_id')?.value ?
-                                                    getListValue(locations, personalInfoForm?.get('location_id')?.value,'location') : ''}}
+                                                    getListValue(locations, personalInfoForm?.get('location_id')?.value,'city_state') : ''}}
                                                 </div>
                                             </div>
                                         </div>
@@ -1384,7 +1384,7 @@
                                                     {{personalInfoForm?.get('career_preference_career_status')?.value ?
                                                     getListValue(locations,
                                                     personalInfoForm?.get('career_preference_preferred_work_location_id')?.value,
-                                                    'location') : ''}}
+                                                    'city_state') : ''}}
                                                 </div>
                                             </div>
                                         </div>

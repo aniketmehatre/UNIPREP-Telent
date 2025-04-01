@@ -264,9 +264,11 @@
           </div>
           <div class="col-md-6">
             <h5>Social Media</h5>
-            <a [href]="profileData.networking.socialMedia" target="_blank">
-              {{ profileData.networking.socialMedia }}
-            </a>
+            <ng-container *ngFor="let media of profileData.networking.socialMedia">
+              <a [href]="media.link" target="_blank">
+                {{ media.media }}
+              </a> <br>
+            </ng-container>
           </div>
           <div class="col-md-6">
             <h5>Personal Website</h5>
