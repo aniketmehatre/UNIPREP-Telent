@@ -12,7 +12,7 @@
 					</div>
 					<div class="d-md-none gap-2 d-flex align-items-center">
 						<div label="" role="button" class="headerHomeCountry p-0" [title]="homeCountryName">
-							<img #openCountryPopup [src]="headerHomeFlag ? headerHomeFlag : '../../uniprep-assets/images/placeholder.webp'" alt="flag" height="auto" width="auto" />
+							<img #openCountryPopup [src]="headerHomeFlag ? headerHomeFlag : '../../uniprep-assets/images/location.webp'" alt="flag" height="auto" width="auto" />
 						</div>
 						<p-avatar (click)="openchat()" class="mr-2" size="large" role="button"><i class="fa-solid fa-comments"></i> </p-avatar>
 						<p-avatar class="" label="" *ngIf="false" (click)="np.toggle($event)" icon="pi pi-bell" size="large" role="button"> </p-avatar>
@@ -69,7 +69,7 @@
 							</ng-template>
 						</button>
 						<div label="" role="button" class="headerHomeCountry" [title]="homeCountryName">
-							<img #openCountryPopup [src]="headerHomeFlag ? headerHomeFlag : '../../uniprep-assets/images/placeholder.webp'" alt="flag" height="auto" width="auto" />
+							<img #openCountryPopup [src]="headerHomeFlag ? headerHomeFlag : '../../uniprep-assets/images/location.webp'" alt="flag" height="auto" width="auto" />
 						</div>
               <button class="btn btn-secondary d-flex justify-content-center align-items-center"
                       (click)="openReportModal(op, $event)" alt="reports" style="width: 40px; height: 40px; padding: 0; ">
@@ -268,7 +268,7 @@
 					<ul class="px-0">
 						<ng-container *ngFor="let v of countryLists.slice(column * 10, (column + 1) * 10); let i = index">
 							<li class="list-group-item my-2 d-flex align-items-center gap-2" role="button" (click)="selectCountryInHeader(v, totalCountryList)">
-								<img alt="country" class="countryicon mr-2" [src]="v.flag || '../../uniprep-assets/images/placeholder.webp'" width="25" />
+								<img alt="country" class="countryicon mr-2" [src]="v.flag || '../../uniprep-assets/images/location.webp'" width="25" />
 								<span class="text-nowrap">{{ v.country }}</span>
 							</li>
 						</ng-container>
@@ -290,13 +290,13 @@
 				<p-select id="selectedHomeCountry" [styleClass]="'w-100'" style="width: 100% !important" [(ngModel)]="selectedHomeCountry" [options]="countryList" [filter]="true" filterBy="country" [showClear]="true" optionLabel="country" (onChange)="onHomeCountryChange($event)" placeholder="Source Country">
 					<ng-template pTemplate="selectedItem">
 						<div class="flex align-items-center gap-2" *ngIf="selectedHomeCountry">
-							<img [src]="selectedHomeCountry.flag ? selectedHomeCountry.flag  : '../../uniprep-assets/images/placeholder.webp'" [class]="'flag flag-' + selectedHomeCountry.code" style="width: 18px" />
+							<img [src]="selectedHomeCountry.flag ? selectedHomeCountry.flag  : '../../uniprep-assets/images/location.webp'" [class]="'flag flag-' + selectedHomeCountry.code" style="width: 18px" />
 							<div>{{ selectedHomeCountry.country }}</div>
 						</div>
 					</ng-template>
 					<ng-template let-country pTemplate="item">
 						<div class="flex align-items-center gap-2">
-							<img [src]="country.flag ? country.flag : '../../uniprep-assets/images/placeholder.webp'" [class]="'flag flag-' + country.code" style="width: 18px" />
+							<img [src]="country.flag ? country.flag : '../../uniprep-assets/images/location.webp'" [class]="'flag flag-' + country.code" style="width: 18px" />
 							<div>{{ country.country }}</div>
 						</div>
 					</ng-template>
