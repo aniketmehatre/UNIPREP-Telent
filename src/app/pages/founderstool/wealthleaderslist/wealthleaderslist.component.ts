@@ -12,6 +12,7 @@ import { StorageService } from "../../../storage.service";
 import { InputGroupModule } from 'primeng/inputgroup';
 import { InputGroupAddonModule } from 'primeng/inputgroupaddon';
 import { InputTextModule } from 'primeng/inputtext';
+import { debounceTime, Subject } from 'rxjs';
 @Component({
   selector: 'uni-wealthleaderslist',
   templateUrl: './wealthleaderslist.component.html',
@@ -28,12 +29,17 @@ export class WealthleaderslistComponent implements OnInit {
   perpage: number = 50;
   pageno: number = 1;
   totalcount: number = 0;
+  searchSubject = new Subject<string>();
+
   constructor(private router: Router, private pageFacade: PageFacadeService, private service: FounderstoolService,
     private storage: StorageService, private sanitizer: DomSanitizer, private route: ActivatedRoute,
     private fb: FormBuilder,
   ) {
     this.filterForm = this.fb.group({
       country: [''],
+    });
+    this.searchSubject.pipe(debounceTime(1000)).subscribe(() => {
+      this.getWealthLeaders();
     });
   }
 
@@ -58,7 +64,7 @@ export class WealthleaderslistComponent implements OnInit {
     this.pageFacade.openHowitWorksVideoPopup(videoLink);
   }
   performSearch() {
-    this.getWealthLeaders();
+    this.searchSubject.next(this.valueNearYouFilter);
   }
   getWealthLeaders() {
     var data = {

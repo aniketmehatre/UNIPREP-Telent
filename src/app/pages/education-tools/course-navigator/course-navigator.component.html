@@ -44,14 +44,14 @@
 										<p-select [options]="specializationList" styleClass="w-100" [filter]="true"
 											filterBy="specialization_name" [(ngModel)]="selectedData[recommendation.id]"
 											optionLabel="specialization_name" optionValue="id" [appendTo]="'body'"
-											placeholder="Specialization"> </p-select>
+											placeholder="Select Specialization"> </p-select>
 										<p class="text-center" [ngClass]="{ 'd-none': invalidClass === false }"
 											style="color: red">Please Choose Any one option</p>
 									</ng-container>
 									<ng-container *ngIf="recommendation.id == 2">
 										<p-select [options]="educationList" styleClass="w-100"
 											[(ngModel)]="selectedData[recommendation.id]" optionLabel="name"
-											optionValue="id" [appendTo]="'body'" placeholder="Your Degree"> </p-select>
+											optionValue="id" [appendTo]="'body'" placeholder="Select Degree"> </p-select>
 										<p class="text-center" [ngClass]="{ 'd-none': invalidClass === false }"
 											style="color: red">Please Choose Any one option</p>
 									</ng-container>

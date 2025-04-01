@@ -1,9 +1,14 @@
 .country-icon {
   position: absolute;
   right: 5px;
+
   .country-img {
     height: 30px;
     width: 30px;
     border-radius: 50%;
   }
+}
+
+.submoduleicon {
+  scale: 1.5;
 }

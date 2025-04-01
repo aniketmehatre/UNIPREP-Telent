@@ -84,7 +84,11 @@ export class FortuneCompaniesdataListsComponent implements OnInit {
     this.isQuestionAnswerVisible = false;
   }
   backtoMain() {
-    this.windowChange.emit({ stage: 1 });
+    this.windowChange.emit({ 
+      stage: 1,
+      countryId: this.prepData.countryId,
+      searchText: this.prepData.searchText
+    });
   }
   paginate(event: any) {
     this.page = event.page + 1;

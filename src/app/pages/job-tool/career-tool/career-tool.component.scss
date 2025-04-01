@@ -1,62 +1,11 @@
-.resourcecard {
-  border: 1px solid var(--uniprep-primary);
-
-  &:hover {
-    background-color: var(--uniprep-primaryop10);
-    cursor: pointer;
-  }
-
-  .resourceimg {
-    width: 60px;
-    height: 60px;
-
-    img {
-      width: inherit;
-      border-radius: 5px;
-    }
-  }
-}
 
 
-
-.resourceimg {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-
-.resourceimg img {
-  max-width: 100%;
-  height: auto;
-}
-
-.card-body {
-  display: flex;
-  flex-direction: column;
-  justify-content: flex-start;
-  align-items: center;
-  text-align: center;
-}
 
 .card {
   position: relative;
 }
-.col-md-2-4 {
-  width: 20%; /* For 5 columns, each takes 20% of the available width */
-}
-.resourcecard {
-  height: 100%; /* Make sure the card takes full height */
-}
 
-.card-body {
-  overflow-y: auto; /* Allow scrolling within the card if content overflows */
-}
 
-@media (max-width: 576px) {
-  .card-body {
-    padding: 1rem; /* Adjust padding for better fit on smaller screens */
-  }
-}
 .card.disabled {
   opacity: 0.6; /* Makes the card appear grayed out */
   cursor: not-allowed; /* Shows a disabled cursor */
