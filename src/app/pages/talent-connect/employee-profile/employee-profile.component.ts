@@ -22,6 +22,7 @@ export enum FileType {
 })
 export class EmployeeProfileComponent implements OnInit {
   nationalityList: any = [];
+  selectedSocialMedias: string[] = [];
   currentMessage: string = "Enter your full name as per your official documents. This is the name that will appear on your offer letter and in the employer's database, so ensure it is accurate for a smooth hiring process. Numbers and special characters are not allowed.";
   hoverMessages: any = {
     // Personal Information
@@ -135,6 +136,7 @@ export class EmployeeProfileComponent implements OnInit {
   qualifications: any[] = [];
   softSkills: any[] = [];
   socialMedias: any[] = ['Facebook', 'Instagram', 'LinkedIN', 'X'];
+  filteredSocialMedias: any[] = ['Facebook', 'Instagram', 'LinkedIN', 'X'];
 
   constructor(
     private fb: FormBuilder,
@@ -186,7 +188,7 @@ export class EmployeeProfileComponent implements OnInit {
       career_preference_expected_salary: [null, Validators.required],
       career_preference_currency_id: [null, Validators.required],
       career_preference_set_industry_apart: [''],
-      career_preference_soft_skill_id: [null],
+      career_preference_soft_skill_id: [[]],
       career_preference_professional_strength_id: [null],
       career_preference_real_world_challenge: [''],
       career_preference_leadership_experience: [''],
@@ -772,7 +774,7 @@ export class EmployeeProfileComponent implements OnInit {
         formData.append('career_preference_expected_salary', this.personalInfoForm.get('career_preference_expected_salary')?.value || '');
         formData.append('career_preference_currency_id', this.personalInfoForm.get('career_preference_currency_id')?.value || '');
         formData.append('career_preference_set_industry_apart', this.personalInfoForm.get('career_preference_set_industry_apart')?.value || '');
-        formData.append('career_preference_soft_skill_id', this.personalInfoForm.get('career_preference_soft_skill_id')?.value || '');
+        formData.append('career_preference_soft_skill_id', JSON.stringify(this.personalInfoForm.get('career_preference_soft_skill_id')?.value) || '');
         formData.append('career_preference_professional_strength_id', this.personalInfoForm.get('career_preference_professional_strength_id')?.value || '');
         formData.append('career_preference_real_world_challenge', this.personalInfoForm.get('career_preference_real_world_challenge')?.value || '');
         formData.append('career_preference_leadership_experience', this.personalInfoForm.get('career_preference_leadership_experience')?.value || '');
@@ -1150,15 +1152,16 @@ export class EmployeeProfileComponent implements OnInit {
       total_years_of_experience: response.total_years_of_experience || '',
       career_preference_career_status: response.careerPreference?.career_status || '',
       career_preference_job_title_id: response.careerPreference?.job_title_id || '',
-      career_preference_career_interest_id: response.careerPreference?.career_interest_id,
-      career_preference_preferred_work_location_id: response.careerPreference?.preferred_work_location_id,
-      career_preference_preferred_employment_type: response.careerPreference?.preferred_employment_type,
-      career_preference_preferred_workplace_type: response.careerPreference?.preferred_workplace_type,
+      career_preference_career_interest_id: response.careerPreference?.career_interest_id || [],
+      career_preference_preferred_work_location_id: response.careerPreference?.preferred_work_location_id || [],
+      career_preference_preferred_employment_type: response.careerPreference?.preferred_employment_type || [],
+      career_preference_preferred_workplace_type: response.careerPreference?.preferred_workplace_type || [],
       career_preference_willingness_to_relocate: response.careerPreference?.willingness_to_relocate || '',
       career_preference_expected_salary: response.careerPreference?.expected_salary || '',
       career_preference_currency_id: response.careerPreference?.currency_id || '',
       career_preference_cv_filename: response.careerPreference?.cv_filename || '',
       career_preference_video_link: response.careerPreference?.video_link || '',
+      career_preference_soft_skill_id: response.career_preference_soft_skill_id || [],
       career_preference_portfolio_upload_link: response.careerPreference?.portfolio_upload_link || '',
 
       networking_linkedin_profile: response.linkedin_profile || '',
@@ -1343,7 +1346,7 @@ export class EmployeeProfileComponent implements OnInit {
     }
   }
 
-  generateAiSummary(mode: string, data: number, formControl: FormControl) {
+  generateAiSummary(mode: string, data: string, formControl: FormControl) {
     console.log(data);
     if (data) {
       this.talentConnectService.getAiSummaryByMode(mode, data).subscribe({
@@ -1364,4 +1367,13 @@ export class EmployeeProfileComponent implements OnInit {
       });
     }
   }
+
+  changeSocialMedia(value: string) {
+    this.selectedSocialMedias = this.socialMedia.controls
+      .map(control => control.get('networking_social_media')?.value)
+      .filter(value => value !== null && value !== undefined);
+  }
+
+
+
 }

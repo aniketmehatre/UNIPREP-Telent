@@ -844,7 +844,7 @@
                                                     <label for="highestQualification" class="form-label">What sets you apart
                                                         in your industry?</label>
                                                         <button class="ai-generate-btn ms-3 text-small"
-                                                            style="width: fit-content" (click)="generateAiSummary('joboverview', personalInfoForm?.get('career_preference_job_title_id')?.value,  personalInfoForm?.get('career_preference_set_industry_apart'));">
+                                                            style="width: fit-content" (click)="generateAiSummary('joboverview', getListValue(jobTitles, personalInfoForm?.get('career_preference_job_title_id')?.value, 'job_title'),  personalInfoForm?.get('career_preference_set_industry_apart'));">
                                                             <i class="pi pi-star"></i>AI Generate
                                                         </button>
                                                 </div>
@@ -864,11 +864,11 @@
                                         <div class="row mb-3">
                                             <div class="col-md-6">
                                                 <label for="highestQualification" class="form-label">Soft skills</label>
-                                                <input pInputText id="highestQualification"
+                                                <p-multi-select pInputText id="highestQualification"
                                                     formControlName="career_preference_soft_skill_id"
-                                                    placeholder="Enter Soft Skills" class="form-control w-100"
+                                                    placeholder="Enter Soft Skills" class="form-control p-1 w-100"
                                                     (mouseleave)="resetMessageBox()"
-                                                    (mouseenter)="updateMessageBox('career_preference_soft_skill_id')" />
+                                                    (mouseenter)="updateMessageBox('career_preference_soft_skill_id')"></p-multi-select>
                                             </div>
                                             <div class="col-md-6">
                                                 <label for="highestQualification" class="form-label">Your top
@@ -900,11 +900,11 @@
                                             <div class="col-md-6">
                                                 <label for="highestQualification" class="form-label">Have you taken on
                                                     leadership roles?</label>
-                                                <text-area pTextarea id="university"
+                                                <textarea pTextarea id="university"
                                                     formControlName="career_preference_leadership_experience"
                                                     placeholder="Have you taken on leadership roles?"
-                                                    class="form-control w-100" (mouseleave)="resetMessageBox()"
-                                                    (mouseenter)="updateMessageBox('career_preference_leadership_experience')" #leaderShip></text-area>
+                                                    class="form-control w-100" (mouseleave)="resetMessageBox()" rows="5"
+                                                    (mouseenter)="updateMessageBox('career_preference_leadership_experience')" #leaderShip></textarea>
                                                     <small class="text-muted d-block text-end">{{
                                                         leaderShip.value?.length }}/500</small>
                                             </div>
@@ -966,8 +966,12 @@
                                                         formControlName="networking_social_media"
                                                         [options]="socialMedias"
                                                         placeholder="Select any social media platform"
-                                                        styleClass="w-100" (mouseleave)="resetMessageBox()"
-                                                        (mouseenter)="updateMessageBox('networking_social_media')"></p-select>
+                                                        styleClass="w-100" (mouseleave)="resetMessageBox()" (ngModelChange)="changeSocialMedia($event);"
+                                                        (mouseenter)="updateMessageBox('networking_social_media')">
+                                                        <ng-template let-socialMedia #item >
+                                                                <span *ngIf="!selectedSocialMedias?.includes(socialMedia)">{{ socialMedia }}</span>
+                                                        </ng-template>
+                                                    </p-select>
                                                     <small class="text-danger"
                                                         *ngIf="experience.get('networking_social_media')?.invalid && experience.get('networking_social_media')?.touched">
                                                         This field is mandatory
@@ -987,7 +991,7 @@
                                                             <button
                                                                 style="border: 1px solid rgb(255, 37, 37)"
                                                                 class="px-3 py-2 rounded-lg"
-                                                                (click)="removeSocialMedia(i);">
+                                                                (click)="removeSocialMedia(i); removeSelectedSocialMedia(experience.get('networking_social_media')?.value);">
                                                                 <i class="fa fa-trash text-danger"></i>
                                                             </button>
                                                         </div>
