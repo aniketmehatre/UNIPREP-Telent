@@ -2669,3 +2669,12 @@ uni-global-employment-insights {
 	align-items: center;
 	justify-content: center;
 }
+.ai-generate-btn {
+	height: 18px;
+	padding: 0px 4px 20px 4px;
+	font-size: 10px;
+	color: #fff !important;
+	background: var(--uniprep-green);
+	border-radius: 10px !important;
+	border: 1px solid var(--uniprep-green);
+  }

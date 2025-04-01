@@ -301,21 +301,23 @@
 												<small class="text-danger" *ngIf="personalInfoForm.get('career_preference_career_interest_id')?.invalid && personalInfoForm.get('career_preference_career_interest_id')?.touched"> This field is mandatory </small>
 											</div>
 
-											<!-- University/Institution Name -->
-											<div class="col-md-6">
-												<label for="university" class="form-label">Preferred Work Location<span class="text-danger">*</span></label>
-												<div class="p-inputgroup">
-													<p-multiSelect id="highestQualification" formControlName="career_preference_preferred_work_location_id" [options]="locations" placeholder="Select Your Location" styleClass="w-100" optionLabel="city_state" optionValue="id" [filter]="true" filterBy="city_state" [appendTo]="'body'" (onFilter)="filterLocation($event)" (mouseleave)="resetMessageBox()" (mouseenter)="updateMessageBox('career_preference_preferred_work_location_id')"></p-multiSelect>
-												</div>
-												<small class="text-danger" *ngIf="personalInfoForm.get('career_preference_preferred_work_location_id')?.invalid && personalInfoForm.get('career_preference_preferred_work_location_id')?.touched"> This field is mandatory </small>
-											</div>
-										</div>
-										<div class="row mb-3">
-											<div class="col-md-6">
-												<label for="highestQualification" class="form-label">Preferred Employement Type<span class="text-danger">*</span></label>
-												<p-multiSelect id="highestQualification" formControlName="career_preference_preferred_employment_type" [options]="preferredEmploymentType" placeholder="Select Employement Type" styleClass="w-100"></p-multiSelect>
-												<small class="text-danger" *ngIf="personalInfoForm.get('career_preference_preferred_employment_type')?.invalid && personalInfoForm.get('career_preference_preferred_employment_type')?.touched"> This field is mandatory </small>
-											</div>
+                                            <div class="row mb-4">
+                                                <div class="col-md-6 mb-3">
+                                                    <div class="d-flex justify-content-between mb-1">
+                                                        <label for="responsibilities" class="form-label">Job
+                                                            Responsibilities</label>
+                                                            <button class="ai-generate-btn ms-3 text-small"
+                                                            style="width: fit-content" (click)="generateAiSummary('keyresponsibilities', experience?.get('work_experience_job_title')?.value,  experience?.get('work_experience_job_responsibilities'));">
+                                                            <i class="pi pi-star"></i>AI Generate
+                                                        </button>
+                                                    </div>
+                                                    <textarea pTextarea id="responsibilities" class="form-control w-100"
+                                                        placeholder="Enter your Job Responsibilities & Key Achievements"
+                                                        rows="5" maxlength="200"
+                                                        formControlName="work_experience_job_responsibilities"
+                                                        (mouseleave)="resetMessageBox()"
+                                                        (mouseenter)="updateMessageBox('work_experience_job_responsibilities')"></textarea>
+                                                </div>
 
 											<!-- University/Institution Name -->
 											<div class="col-md-6">
@@ -605,176 +607,813 @@
 											<small class="text-danger" *ngIf="personalInfoForm.get('career_preference_video_link')?.invalid && personalInfoForm.get('career_preference_video_link')?.touched"> This field is valid url </small>
 										</div>
 
-										<div class="col-md-6 mb-3">
-											<div class="border rounded p-3">
-												<h4 class="mb-3">Portfolio Upload</h4>
-												<small class="text-muted">(For Designers, Writers, Developers)</small>
-												<div class="input-group mt-2">
-													<input pInputText placeholder="Provide the portfolio link" class="form-control" formControlName="career_preference_portfolio_upload_link" (mouseleave)="resetMessageBox()" (mouseenter)="updateMessageBox('career_preference_portfolio_upload_link')" />
-													<!-- <button pButton label="UPLOAD"
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </ng-container>
+                                    </ng-container>
+                                    <div class="row mb-3">
+                                        <button class="w-full p-3 rounded-3" (click)="addWorkExperience();"
+                                            [disabled]="personalInfoForm?.get('total_years_of_experience')?.value == 'Fresher'">
+                                            Add More &nbsp;<i class="fa fa-plus"></i>
+                                        </button>
+                                    </div>
+                                </div>
+                                <hr />
+                                <div class="card-body">
+                                    <h2 class="card-title mb-1">
+                                        Career Prefrenences & Aspirations
+                                    </h2>
+                                    <div class="mb-2">
+                                        <span class="text-danger fw-bold">Confused about your career?</span>
+                                        <a (click)="routerBlankPage('/pages/job-tool/careerplannerlist');" class="px-1">Click here</a> to
+                                        plan it!
+                                    </div>
+                                    <ng-container class="career-experience">
+                                        <div class="row mb-3">
+                                            <div class="col-md-6">
+                                                <label for="highestQualification" class="form-label">Career
+                                                    Status<span class="text-danger">*</span></label>
+                                                <p-select id="highestQualification"
+                                                    formControlName="career_preference_career_status"
+                                                    [options]="careerStatus" placeholder="Select Career Status"
+                                                    styleClass="w-100" (mouseleave)="resetMessageBox()"
+                                                    (mouseenter)="updateMessageBox('career_preference_career_status')"></p-select>
+                                                <small class="text-danger"
+                                                    *ngIf="personalInfoForm.get('career_preference_career_status')?.invalid && personalInfoForm.get('career_preference_career_status')?.touched">
+                                                    This field is mandatory
+                                                </small>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <label for="highestQualification" class="form-label">Job Title<span
+                                                        class="text-danger">*</span></label>
+                                                <p-select id="highestQualification"
+                                                    formControlName="career_preference_job_title_id"
+                                                    [options]="jobTitles" placeholder="Select Job Title"
+                                                    styleClass="w-100" optionLabel="job_title" optionValue="id"
+                                                    [filter]="true" filterBy="job_title"
+                                                    (mouseleave)="resetMessageBox()"
+                                                    (mouseenter)="updateMessageBox('career_preference_job_title_id')"></p-select>
+                                                <small class="text-danger"
+                                                    *ngIf="personalInfoForm.get('career_preference_job_title_id')?.invalid &&personalInfoForm.get('career_preference_job_title_id')?.touched">
+                                                    This field is mandatory
+                                                </small>
+                                            </div>
+                                        </div>
+                                        <div class="row mb-3">
+                                            <div class="col-md-6">
+                                                <label for="highestQualification" class="form-label">Career Interest /
+                                                    Industry<span class="text-danger">*</span></label>
+                                                <p-multiSelect id="highestQualification"
+                                                    formControlName="career_preference_career_interest_id"
+                                                    [options]="careerInterests" placeholder="Enter career interest"
+                                                    styleClass="w-100" optionLabel="interest" optionValue="id"
+                                                    [filter]="true" filterBy="interest" (mouseleave)="resetMessageBox()"
+                                                    (mouseenter)="updateMessageBox('career_preference_career_interest_id')"></p-multiSelect>
+                                                <small class="text-danger"
+                                                    *ngIf="personalInfoForm.get('career_preference_career_interest_id')?.invalid &&personalInfoForm.get('career_preference_career_interest_id')?.touched">
+                                                    This field is mandatory
+                                                </small>
+                                            </div>
+
+                                            <!-- University/Institution Name -->
+                                            <div class="col-md-6">
+                                                <label for="university" class="form-label">Preferred Work
+                                                    Location<span class="text-danger">*</span></label>
+                                                <div class="p-inputgroup">
+                                                    <p-multiSelect id="highestQualification"
+                                                        formControlName="career_preference_preferred_work_location_id"
+                                                        [options]="locations" placeholder="Select Your Location"
+                                                        styleClass="w-100" optionLabel="city_state" optionValue="id"
+                                                        [filter]="true" filterBy="city_state" [appendTo]="'body'" (onFilter)="filterLocation($event);"
+                                                        (mouseleave)="resetMessageBox()"
+                                                        (mouseenter)="updateMessageBox('career_preference_preferred_work_location_id')"></p-multiSelect>
+                                                </div>
+                                                <small class="text-danger"
+                                                    *ngIf="personalInfoForm.get('career_preference_preferred_work_location_id')?.invalid &&personalInfoForm.get('career_preference_preferred_work_location_id')?.touched">
+                                                    This field is mandatory
+                                                </small>
+                                            </div>
+                                        </div>
+                                        <div class="row mb-3">
+                                            <div class="col-md-6">
+                                                <label for="highestQualification" class="form-label">Preferred
+                                                    Employement Type<span class="text-danger">*</span></label>
+                                                <p-multiSelect id="highestQualification"
+                                                    formControlName="career_preference_preferred_employment_type"
+                                                    [options]="preferredEmploymentType"
+                                                    placeholder="Select Employement Type"
+                                                    styleClass="w-100"></p-multiSelect>
+                                                <small class="text-danger"
+                                                    *ngIf="personalInfoForm.get('career_preference_preferred_employment_type')?.invalid && personalInfoForm.get('career_preference_preferred_employment_type')?.touched">
+                                                    This field is mandatory
+                                                </small>
+                                            </div>
+
+                                            <!-- University/Institution Name -->
+                                            <div class="col-md-6">
+                                                <label for="university" class="form-label">Preferred Workplace
+                                                    Type<span class="text-danger">*</span></label>
+                                                <div class="p-inputgroup">
+                                                    <p-multiSelect id="highestQualification"
+                                                        formControlName="career_preference_preferred_workplace_type"
+                                                        [options]="preferredWorkplaceType"
+                                                        placeholder="Enter Workplace Type" styleClass="w-100"
+                                                        (mouseleave)="resetMessageBox()"
+                                                        (mouseenter)="updateMessageBox('career_preference_preferred_workplace_type')"
+                                                        (ngModelChange)="handleValidationsForFields(personalInfoForm?.get('career_preference_willingness_to_relocate'), $event == 'Remote Work')"></p-multiSelect>
+                                                </div>
+                                                <small class="text-danger"
+                                                    *ngIf="personalInfoForm.get('career_preference_preferred_workplace_type')?.invalid &&personalInfoForm.get('career_preference_preferred_workplace_type')?.touched">
+                                                    This field is mandatory
+                                                </small>
+                                            </div>
+                                        </div>
+                                        <div class="row mb-3">
+                                            <div class="col-md-6">
+                                                <label for="highestQualification" class="form-label">Willingness to
+                                                    Relocate?<span class="text-danger">*</span></label>
+                                                <p-select id="highestQualification"
+                                                    formControlName="career_preference_willingness_to_relocate"
+                                                    [options]="[{label: 'Yes', value:'Yes'}, {label: 'No', value:'No'}]"
+                                                    placeholder="Wiiling to relocate" styleClass="w-100"
+                                                    optionLabel="label" optionValue="value"
+                                                    (mouseleave)="resetMessageBox()"
+                                                    (mouseenter)="updateMessageBox('career_preference_willingness_to_relocate')"
+                                                    [disabled]="personalInfoForm.get('career_preference_preferred_workplace_type')?.value == 'Remote Work'"></p-select>
+                                                <small class="text-danger"
+                                                    *ngIf="personalInfoForm.get('career_preference_willingness_to_relocate')?.invalid && personalInfoForm.get('career_preference_willingness_to_relocate')?.touched">
+                                                    This field is mandatory
+                                                </small>
+                                            </div>
+                                            <!-- University/Institution Name -->
+                                            <div class="col-md-6">
+                                                <label for="university" class="form-label">Expected Salary<span
+                                                        class="text-danger">*</span></label>
+                                                <div class="d-flex w-100 gap-2">
+                                                    <p-select [options]="currencies" styleClass="p-select p-component"
+                                                        optionLabel="currency_code" optionValue="id"
+                                                        placeholder="Select" [filter]="true" filterBy="currency_code"
+                                                        formControlName="career_preference_currency_id"
+                                                        [style]="{ width: '100px' }" (mouseleave)="resetMessageBox()"
+                                                        (mouseenter)="updateMessageBox('career_preference_currency_id')">
+                                                    </p-select>
+                                                    <div class="flex-grow-1 me-2">
+                                                        <p-inputNumber id="salary" placeholder="Enter your salary/month"
+                                                            styleClass="p-inputtext w-100" [showButtons]="false"
+                                                            class="w-100"
+                                                            formControlName="career_preference_expected_salary"></p-inputNumber>
+                                                    </div>
+                                                </div>
+                                                <small class="text-danger"
+                                                    *ngIf="(personalInfoForm.get('career_preference_expected_salary')?.invalid && personalInfoForm.get('career_preference_expected_salary')?.touched) || (personalInfoForm.get('career_preference_currency_id')?.invalid && personalInfoForm.get('career_preference_currency_id')?.touched) ">
+                                                    This field with currency is mandatory
+                                                </small>
+                                            </div>
+                                        </div>
+                                    </ng-container>
+                                </div>
+                                <hr />
+                                <div class="row">
+                                    <div class="col-12">
+                                        <h2 class="card-title mb-1">
+                                            Certifications & Achievements
+                                        </h2>
+                                        <div class="mb-2">
+                                            <div class="mb-2">
+                                                <span class="text-danger fw-bold">Dont have any certificates yet?</span>
+                                                <a (click)="routerBlankPage('/pages/modules/learning-hub');" class="px-1">Click here</a>
+                                                to plan it!
+                                            </div>
+                                        </div>
+                                        <label class="form-label mb-3">Professional / online Certifications</label>
+                                        <ng-container class="education" formArrayName="certifications">
+                                            <ng-container
+                                                *ngFor="let certificate of certifications.controls; let i = index"
+                                                [formGroupName]="i">
+                                                <div class="row mb-3">
+                                                    <div class="col-md-6">
+                                                        <input pInputText class="form-control"
+                                                            placeholder="Enter certification name" class="w-100"
+                                                            formControlName="certifications_certificate_name"
+                                                            (mouseleave)="resetMessageBox()"
+                                                            (mouseenter)="updateMessageBox('certifications_certificate_name')">
+                                                    </div>
+                                                    <div class="col-md-4">
+                                                        <button
+                                                            class="btn btn-light d-flex align-items-center justify-content-center w-100 border border-dash p-2"
+                                                            (click)="certificateFile.click()"
+                                                            (mouseleave)="resetMessageBox()"
+                                                            (mouseenter)="updateMessageBox('certifications_certificate_file')">
+                                                            <i class="pi pi-upload me-2"></i>
+                                                            {{certificate.get('certifications_certificate_file')?.value
+                                                            ?
+                                                            extractLastName(certificate.get('certifications_certificate_file')?.value)
+                                                            : 'Upload certificate'}}
+                                                        </button>
+                                                        <input type="file" accept="application/pdf"
+                                                            (change)="uploadFile(fileType.CERTIFICATIONS, $event, i);"
+                                                            style="visibility: hidden;" #certificateFile>
+                                                    </div>
+                                                    <div class="col-md-1">
+                                                        <button
+                                                            class="btn btn-outline-primary d-flex align-items-center justify-content-center p-2"
+                                                            (click)="addCertifications();">
+                                                            <i class="pi pi-plus"></i>
+                                                        </button>
+                                                    </div>
+                                                    <div class="col-md-1">
+                                                        <button *ngIf="i != 0"
+                                                            class="btn btn-outline-danger d-flex align-items-center justify-content-center p-2"
+                                                            (click)="removeCertification(i);">
+                                                            <i class="pi pi-trash"></i>
+                                                        </button>
+                                                    </div>
+                                                </div>
+                                            </ng-container>
+                                        </ng-container>
+                                        <ng-container class="education" formArrayName="acheivements">
+                                            <ng-container
+                                                *ngFor="let certificate of achievements.controls; let i = index"
+                                                [formGroupName]="i">
+                                                <label class="form-label mb-3">Achievement Name</label>
+                                                <div class="row mb-3">
+                                                    <div class="col-md-6">
+                                                        <input pInputText class="form-control w-100"
+                                                            placeholder="Enter Achievement Name"
+                                                            formControlName="certifications_achievement_name"
+                                                            (mouseleave)="resetMessageBox()"
+                                                            (mouseenter)="updateMessageBox('certifications_achievement_name')">
+                                                    </div>
+                                                    <div class="col-md-4">
+                                                        <button
+                                                            class="btn btn-light d-flex align-items-center justify-content-center w-100 border p-2"
+                                                            (click)="acheivementFile.click()"
+                                                            (mouseleave)="resetMessageBox()"
+                                                            (mouseenter)="updateMessageBox('certifications_achievement_file')">
+                                                            <i class="pi pi-upload me-2"></i>
+                                                            {{certificate.get('certifications_achievement_file')?.value
+                                                            ?
+                                                            extractLastName(certificate.get('certifications_achievement_file')?.value)
+                                                            : 'Upload Supporting Document'}}
+                                                        </button>
+                                                        <input type="file" accept="application/pdf"
+                                                            (change)="uploadFile(fileType.ACHIEVEMENTS, $event, i);"
+                                                            style="visibility: hidden;" #acheivementFile>
+                                                    </div>
+                                                    <div class="col-md-1">
+                                                        <button
+                                                            class="btn btn-outline-primary d-flex align-items-center justify-content-center p-2"
+                                                            (click)="addAcheivements();">
+                                                            <i class="pi pi-plus"></i>
+                                                        </button>
+                                                    </div>
+                                                    <div class="col-md-1">
+                                                        <button *ngIf="i!=0"
+                                                            class="btn btn-outline-danger d-flex align-items-center justify-content-center p-2"
+                                                            (click)="removeAchievement(i);">
+                                                            <i class="pi pi-trash"></i>
+                                                        </button>
+                                                    </div>
+                                                </div>
+                                            </ng-container>
+                                        </ng-container>
+                                        <hr class="my-4">
+                                    </div>
+                                </div>
+                                <div class="card-body">
+                                    <h2 class="card-title mb-1">Addtional Details</h2>
+                                    <div class="mb-2">
+                                        <span class="text-danger fw-bold">Want to learn a new language?</span>
+                                        <a  (click)="routerBlankPage('/pages/language-hub/languages');" class="px-1">Click here</a> to
+                                        plan it!
+                                    </div>
+                                    <ng-container class="work-experience">
+                                        <div class="row mb-3">
+                                            <div class="col-md-6">
+                                                <label for="highestQualification" class="form-label">Language
+                                                    known<span class="text-danger">*</span></label>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <label for="highestQualification" class="form-label">Language
+                                                    Proficiency<span class="text-danger">*</span></label>
+                                            </div>
+                                        </div>
+                                        <ng-container formArrayName="languages">
+                                            <div class="row mb-3"
+                                                *ngFor="let language of languages.controls; let i = index"
+                                                [formGroupName]="i">
+                                                <div class="col-md-6">
+                                                    <p-select id="highestQualification"
+                                                        formControlName="languages_language_id" [options]="languagelist"
+                                                        placeholder="Enter know language" styleClass="w-100"
+                                                        optionLabel="language" optionValue="id" [filter]="true"
+                                                        filterBy="language" (mouseleave)="resetMessageBox()"
+                                                        (mouseenter)="updateMessageBox('languages_language_id')"></p-select>
+                                                    <small class="text-danger"
+                                                        *ngIf="language.get('languages_language_id')?.invalid && language.get('languages_language_id')?.touched">
+                                                        This field is mandatory
+                                                    </small>
+                                                </div>
+                                                <div class="col-md-6">
+                                                    <div class="row">
+                                                        <div class="col-md-10">
+                                                            <p-select id="highestQualification"
+                                                                formControlName="languages_proficiency"
+                                                                [options]="languageProficiency"
+                                                                placeholder="Enter language proficiency"
+                                                                styleClass="w-100" (mouseleave)="resetMessageBox()"
+                                                                (mouseenter)="updateMessageBox('languages_proficiency')"></p-select>
+                                                            <small class="text-danger"
+                                                                *ngIf="language.get('languages_proficiency')?.invalid && language.get('languages_proficiency')?.touched">
+                                                                This field is mandatory
+                                                            </small>
+                                                        </div>
+                                                        <div class="col-md-2">
+                                                            <button *ngIf="i !== 0"
+                                                                style="border: 1px solid rgb(255, 37, 37)"
+                                                                class="px-3 py-2 rounded-lg"
+                                                                (click)="removeLanguage(i);">
+                                                                <i class="fa fa-trash text-danger"></i>
+                                                            </button>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </ng-container>
+                                        <div class="row mb-3">
+                                            <button class="w-full p-3 rounded-3" (click)="addLanguage();">
+                                                Add More Language&nbsp;<i class="fa fa-plus"></i>
+                                            </button>
+                                        </div>
+                                        <div class="row mb-3">
+                                            <div class="col-md-6">
+                                                <label for="highestQualification" class="form-label">Hobbies &
+                                                    Interests</label>
+                                                <input pInputText id="highestQualification"
+                                                    formControlName="languages_hobby_id"
+                                                    placeholder="Enter if any hobbies and interests"
+                                                    class="form-control w-100" />
+                                            </div>
+                                        </div>
+                                    </ng-container>
+                                </div>
+                                <hr>
+                                <div class="card-body">
+                                    <h2 class="card-title mb-1">Key Strengths & Professional Traits</h2>
+                                    <div class="mb-2">
+                                        <span class="text-danger fw-bold">Showcase your skills and strengths</span>
+                                        <a (click)="routerBlankPage('/pages/modules/skill-mastery');" class="px-1"  >Click here</a> to plan
+                                        it!
+                                    </div>
+                                    <ng-container class="work-experience">
+                                        <div class="row mb-3">
+                                            <div class="col-md-12">
+                                                <div class="d-flex justify-content-between">
+                                                    <label for="highestQualification" class="form-label">What sets you apart
+                                                        in your industry?</label>
+                                                        <button class="ai-generate-btn ms-3 text-small"
+                                                            style="width: fit-content" (click)="generateAiSummary('joboverview', personalInfoForm?.get('career_preference_job_title_id')?.value,  personalInfoForm?.get('career_preference_set_industry_apart'));">
+                                                            <i class="pi pi-star"></i>AI Generate
+                                                        </button>
+                                                </div>
+                                                <div class="position-relative">
+                                                    <textarea pTextarea id="responsibilities"
+                                                        formControlName="career_preference_set_industry_apart"
+                                                        class="form-control w-100"
+                                                        placeholder="Enter your Job Responsibilities & Key Achievements"
+                                                        rows="4" maxlength="500" (mouseleave)="resetMessageBox()"
+                                                        (mouseenter)="updateMessageBox('career_preference_set_industry_apart')"
+                                                        #keyResponsibility></textarea>
+                                                    <small class="text-muted d-block text-end">{{
+                                                        keyResponsibility.value?.length }}/500</small>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="row mb-3">
+                                            <div class="col-md-6">
+                                                <label for="highestQualification" class="form-label">Soft skills</label>
+                                                <input pInputText id="highestQualification"
+                                                    formControlName="career_preference_soft_skill_id"
+                                                    placeholder="Enter Soft Skills" class="form-control w-100"
+                                                    (mouseleave)="resetMessageBox()"
+                                                    (mouseenter)="updateMessageBox('career_preference_soft_skill_id')" />
+                                            </div>
+                                            <div class="col-md-6">
+                                                <label for="highestQualification" class="form-label">Your top
+                                                    professional strength</label>
+                                                <p-select id="highestQualification"
+                                                    formControlName="career_preference_professional_strength_id"
+                                                    [options]="professionalStrengths" placeholder="Enter know language"
+                                                    styleClass="w-100" optionLabel="strength" optionValue="id"
+                                                    (mouseleave)="resetMessageBox()"
+                                                    (mouseenter)="updateMessageBox('career_preference_professional_strength_id')"></p-select>
+                                            </div>
+                                        </div>
+                                        <div class="row mb-3">
+                                            <div class="col-md-6">
+                                                <label for="highestQualification" class="form-label">Have a you solved a
+                                                    real-world challenge in your feilds?</label>
+                                                <div class="position-relative">
+                                                    <textarea pTextarea id="university"
+                                                        formControlName="career_preference_real_world_challenge"
+                                                        placeholder="Have a you solved a real-world challenge?" rows="5"
+                                                        maxLength="200" class="form-control w-100"
+                                                        (mouseleave)="resetMessageBox()"
+                                                        (mouseenter)="updateMessageBox('career_preference_real_world_challenge')"
+                                                        #challenges></textarea>
+                                                    <small class="text-muted d-block text-end">{{
+                                                        challenges.value?.length }}/200</small>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <label for="highestQualification" class="form-label">Have you taken on
+                                                    leadership roles?</label>
+                                                <text-area pTextarea id="university"
+                                                    formControlName="career_preference_leadership_experience"
+                                                    placeholder="Have you taken on leadership roles?"
+                                                    class="form-control w-100" (mouseleave)="resetMessageBox()"
+                                                    (mouseenter)="updateMessageBox('career_preference_leadership_experience')" #leaderShip></text-area>
+                                                    <small class="text-muted d-block text-end">{{
+                                                        leaderShip.value?.length }}/500</small>
+                                            </div>
+                                        </div>
+                                        <div class="row mb-3">
+                                            <div class="col-md-12">
+                                                <label for="highestQualification" class="form-label">One quality others
+                                                    admire most about you?</label>
+                                                <div class="position-relative">
+                                                    <textarea pTextarea id="responsibilities"
+                                                        formControlName="career_preference_admired_quality"
+                                                        class="form-control w-100"
+                                                        placeholder="Enter one quality others admire most about you"
+                                                        rows="4" maxlength="200" (mouseleave)="resetMessageBox()"
+                                                        (mouseenter)="updateMessageBox('career_preference_admired_quality')"
+                                                        #admiredQuality></textarea>
+                                                    <small class="text-muted d-block text-end">{{
+                                                        admiredQuality.value?.length }}/500</small>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </ng-container>
+                                </div>
+                                <hr>
+                                <div class="card-body">
+                                    <h2 class="card-title mb-3">Professional Networking & Online Presence</h2>
+                                    <ng-container class="work-experience">
+                                        <div class="row mb-3">
+                                            <div class="col-md-12">
+                                                <label for="highestQualification" class="form-label">LinkedIn
+                                                    Profile<span class="text-danger">*</span></label>
+                                                <input pInputText id="university"
+                                                    formControlName="networking_linkedin_profile"
+                                                    placeholder="Linkedin Profile Link" class="form-control w-100"
+                                                    (mouseleave)="resetMessageBox()"
+                                                    (mouseenter)="updateMessageBox('networking_linkedin_profile')" />
+                                                <small class="text-danger"
+                                                    *ngIf="personalInfoForm.get('networking_linkedin_profile')?.invalid && personalInfoForm.get('networking_linkedin_profile')?.touched">
+                                                    This field is mandatory with valid url
+                                                </small>
+                                            </div>
+                                        </div>
+                                        <div class="row mb-3">
+                                            <div class="col-md-6">
+                                                <label for="highestQualification" class="form-label">Social
+                                                    Media</label>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <label for="highestQualification" class="form-label">Provide the
+                                                    link</label>
+                                            </div>
+                                        </div>
+                                        <ng-conatiner formArrayName="networking_social_media">
+                                            <div class="row mb-3"
+                                                *ngFor="let experience of socialMedia.controls; let i = index"
+                                                [formGroupName]="i">
+                                                <div class="col-md-6">
+                                                    <p-select id="highestQualification"
+                                                        formControlName="networking_social_media"
+                                                        [options]="socialMedias"
+                                                        placeholder="Select any social media platform"
+                                                        styleClass="w-100" (mouseleave)="resetMessageBox()"
+                                                        (mouseenter)="updateMessageBox('networking_social_media')"></p-select>
+                                                    <small class="text-danger"
+                                                        *ngIf="experience.get('networking_social_media')?.invalid && experience.get('networking_social_media')?.touched">
+                                                        This field is mandatory
+                                                    </small>
+                                                </div>
+                                                <div class="col-md-6">
+                                                    <div class="row">
+                                                        <div class="col-md-10">
+                                                            <input pInputText id="university"
+                                                                formControlName="networking_social_media_link"
+                                                                placeholder="Social media link"
+                                                                class="form-control w-100"
+                                                                (mouseleave)="resetMessageBox()"
+                                                                (mouseenter)="updateMessageBox('networking_social_media_link')" />
+                                                        </div>
+                                                        <div class="col-md-2">
+                                                            <button
+                                                                style="border: 1px solid rgb(255, 37, 37)"
+                                                                class="px-3 py-2 rounded-lg"
+                                                                (click)="removeSocialMedia(i);">
+                                                                <i class="fa fa-trash text-danger"></i>
+                                                            </button>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </ng-conatiner>
+                                        <div class="row mb-3">
+                                            <button class="w-full p-3 rounded-3" (click)="addSocialMedia();">
+                                                Add more Social media&nbsp;<i class="fa fa-plus"></i>
+                                            </button>
+                                        </div>
+                                        <div class="row mb-3">
+                                            <div class="col-md-6">
+                                                <label for="highestQualification" class="form-label">Personal
+                                                    Website</label>
+                                                <input pInputText id="university"
+                                                    formControlName="networking_personal_website"
+                                                    placeholder="Website link" class="form-control w-100"
+                                                    (mouseleave)="resetMessageBox()"
+                                                    (mouseenter)="updateMessageBox('networking_personal_website')" />
+                                                <small class="text-danger"
+                                                    *ngIf="personalInfoForm.get('networking_personal_website')?.invalid && personalInfoForm.get('networking_personal_website')?.touched">
+                                                    This field is valid url
+                                                </small>
+                                            </div>
+                                        </div>
+                                    </ng-container>
+                                </div>
+                                <hr>
+                                <div class="card-body">
+                                    <h2 class="card-title mb-3">Achievements & Media</h2>
+                                    <div class="mb-2">
+                                        <span class="text-danger fw-bold">Don't have a resume </span>
+                                       <a  class="text-primary" (click)="routerBlankPage('/pages/job-tool/cv-builder');">Click here</a> to create one!
+                                    </div>
+                                    <div class="row  justify-content-center mt-3">
+                                        <div class="upload-section text-center mb-4 py-2"
+                                            style="border: 1px dashed lightgray">
+                                            <h4>{{ personalInfoForm.get('career_preference_cv_filename')?.value ?
+                                                extractLastName(personalInfoForm.get('career_preference_cv_filename')?.value)
+                                                : 'Upload CV / Resume'}}</h4>
+                                            <button pButton label="UPLOAD"
+                                                class="p-button-primary rounded-pill px-5 py-2"
+                                                (click)="fileUpload.click();" (mouseleave)="resetMessageBox()"
+                                                (mouseenter)="updateMessageBox('career_preference_cv_filename')"></button>
+                                            <div class="text-muted mt-2">
+                                                Supported Formats: doc, docx, pdf upto 2 MB
+                                            </div>
+                                            <input type="file" #fileUpload style="visibility: hidden;"
+                                                (change)="uploadFile(fileType.CV, $event, 0);" accept="application/pdf">
+                                            <small class="text-danger"
+                                                *ngIf="personalInfoForm.get('career_preference_cv_filename')?.invalid && personalInfoForm.get('career_preference_cv_filename')?.touched">
+                                                This field is mandatory
+                                            </small>
+                                        </div>
+                                    </div>
+                                    <div class="row w-100 justify-content-center">
+                                        <div class="col-md-6 mb-3">
+                                            <div class="border rounded p-3">
+                                                <h4 class="mb-3">Introduction Video Upload</h4>
+                                                <small class="text-muted">(90-120 seconds)</small>
+                                                <input pInputText placeholder="Provide the video link"
+                                                    class="form-control mt-2"
+                                                    formControlName="career_preference_video_link"
+                                                    (mouseleave)="resetMessageBox()"
+                                                    (mouseenter)="updateMessageBox('career_preference_video_link')">
+                                            </div>
+                                            <small class="text-danger"
+                                                *ngIf="personalInfoForm.get('career_preference_video_link')?.invalid && personalInfoForm.get('career_preference_video_link')?.touched">
+                                                This field is valid url
+                                            </small>
+                                        </div>
+
+                                        <div class="col-md-6 mb-3">
+                                            <div class="border rounded p-3">
+                                                <h4 class="mb-3">Portfolio Upload</h4>
+                                                <small class="text-muted">(For Designers, Writers, Developers)</small>
+                                                <div class="input-group mt-2">
+                                                    <input pInputText placeholder="Provide the portfolio link"
+                                                        class="form-control"
+                                                        formControlName="career_preference_portfolio_upload_link"
+                                                        (mouseleave)="resetMessageBox()"
+                                                        (mouseenter)="updateMessageBox('career_preference_portfolio_upload_link')">
+                                                    <!-- <button pButton label="UPLOAD"
                                                         class="p-button-secondary ms-2"></button> -->
-												</div>
-											</div>
-											<small class="text-danger" *ngIf="personalInfoForm.get('career_preference_portfolio_upload_link')?.invalid && personalInfoForm.get('career_preference_portfolio_upload_link')?.touched"> This field is valid url </small>
-										</div>
-									</div>
-								</div>
-								<hr class="my-3" />
-								<div class="card-body">
-									<h2 class="card-title mb-3">Reference & Endorsement</h2>
-									<ng-container class="work-experience" formArrayName="academicReferences">
-										<ng-container *ngFor="let academic of academicReferences.controls; let i = index" [formGroupName]="i">
-											<div class="d-flex justify-content-between">
-												<h5 class="card-title mb-1">Academic Reference</h5>
-												<button class="btn btn-outline-danger d-flex align-items-center justify-content-center px-3 py-2" (click)="removeAcademicReference(i)">
-													<span><i class="fa-regular fa-trash fa-lg"></i></span>
-												</button>
-											</div>
-											<div class="row mb-3">
-												<div class="col-md-4">
-													<label for="highestQualification" class="form-label"
-														>College Name
-														<!-- <span class="text-danger">*</span> -->
-													</label>
-													<input pInputText id="university" formControlName="references_college_name" placeholder="Enter the reference college name" class="form-control w-100" (mouseleave)="resetMessageBox()" (mouseenter)="updateMessageBox('references_college_name')" />
-													<small class="text-danger" *ngIf="academic.get('references_college_name')?.invalid && academic.get('references_college_name')?.touched"> This field is mandatory </small>
-												</div>
-												<div class="col-md-4">
-													<label for="highestQualification" class="form-label"
-														>Name
-														<!-- <span class="text-danger">*</span> -->
-													</label>
-													<input pInputText id="university" formControlName="references_reference_name" placeholder="Enter the reference name" class="form-control w-100" (mouseleave)="resetMessageBox()" (mouseenter)="updateMessageBox('references_reference_name')" />
-													<small class="text-danger" *ngIf="academic.get('references_reference_name')?.invalid && academic.get('references_reference_name')?.touched"> This field is mandatory </small>
-												</div>
-												<div class="col-md-4">
-													<label for="highestQualification" class="form-label"
-														>Desigination
-														<!-- <span class="text-danger">*</span> -->
-													</label>
-													<input pInputText id="university" formControlName="references_designation" placeholder="Enter the reference desigination" class="form-control w-100" (mouseleave)="resetMessageBox()" (mouseenter)="updateMessageBox('references_designation')" />
-													<small class="text-danger" *ngIf="academic.get('references_designation')?.invalid && academic.get('references_designation')?.touched"> This field is mandatory </small>
-												</div>
-											</div>
-											<div class="row mb-3">
-												<div class="col-md-6">
-													<label for="highestQualification" class="form-label"
-														>Phone Number
-														<!-- <span class="text-danger">*</span> -->
-													</label>
-													<p-inputNumber id="university" [useGrouping]="false" placeholder="Enter the reference phone number" styleClass="p-inputtext w-100" [showButtons]="false" class="w-100" formControlName="references_phone_number" (mouseleave)="resetMessageBox()" (mouseenter)="updateMessageBox('references_phone_number')"></p-inputNumber>
-													<small class="text-danger" *ngIf="academic.get('references_phone_number')?.invalid && academic.get('references_phone_number')?.touched"> This field is valid phone number </small>
-												</div>
-												<div class="col-md-6">
-													<label for="highestQualification" class="form-label"
-														>Email
-														<!-- <span class="text-danger">*</span> -->
-													</label>
-													<input pInputText id="university" formControlName="references_email" placeholder="Enter the reference email" class="form-control w-100" (mouseleave)="resetMessageBox()" (mouseenter)="updateMessageBox('references_email')" />
-													<small class="text-danger" *ngIf="academic.get('references_email')?.invalid && academic.get('references_email')?.touched"> This field is valid email </small>
-												</div>
-											</div>
-										</ng-container>
-										<div class="row mb-3">
-											<button class="w-full btn btn-primary" (click)="addAcademicReference()">Add Academic Reference&nbsp;<i class="fa fa-plus"></i></button>
-										</div>
-									</ng-container>
-									<ng-container formArrayName="professional_references">
-										<ng-container class="work-experience" *ngFor="let reference of professionalReferences.controls; let i = index" [formGroupName]="i">
-											<div class="d-flex justify-content-between">
-												<h5 class="card-title my-3">Professional Reference</h5>
-												<button class="btn btn-outline-danger d-flex align-items-center justify-content-center px-3 py-2" (click)="removeProfessionalReference(i)">
-													<span><i class="fa-regular fa-trash fa-lg"></i></span>
-												</button>
-											</div>
-											<div class="row mb-3">
-												<div class="col-md-4">
-													<label for="highestQualification" class="form-label">Company Name</label>
-													<input pInputText id="university" formControlName="references_company_name" placeholder="Enter the reference college name" class="form-control w-100" (mouseleave)="resetMessageBox()" (mouseenter)="updateMessageBox('references_company_name')" />
-												</div>
-												<div class="col-md-4">
-													<label for="highestQualification" class="form-label">Name</label>
-													<input pInputText id="university" formControlName="references_reference_name" placeholder="Enter the reference name" class="form-control w-100" (mouseleave)="resetMessageBox()" (mouseenter)="updateMessageBox('pro_references_reference_name')" />
-												</div>
-												<div class="col-md-4">
-													<label for="highestQualification" class="form-label">Desigination</label>
-													<input pInputText id="university" formControlName="references_designation" placeholder="Enter the reference desigination" class="form-control w-100" (mouseleave)="resetMessageBox()" (mouseenter)="updateMessageBox('pro_references_designation')" />
-												</div>
-											</div>
-											<div class="row mb-3">
-												<div class="col-md-6">
-													<label for="highestQualification" class="form-label">Phone Number</label>
-													<p-inputNumber id="university" [useGrouping]="false" placeholder="Enter the reference phone number" styleClass="p-inputtext w-100" [showButtons]="false" class="w-100" formControlName="references_phone_number" (mouseleave)="resetMessageBox()" (mouseenter)="updateMessageBox('pro_references_phone_number')"></p-inputNumber>
-													<small class="text-danger" *ngIf="reference.get('references_phone_number')?.invalid && reference.get('references_phone_number')?.touched"> This field is valid phone number </small>
-												</div>
-												<div class="col-md-6">
-													<label for="highestQualification" class="form-label">Email</label>
-													<input pInputText id="university" formControlName="references_email" placeholder="Enter the reference email" class="form-control w-100" (mouseleave)="resetMessageBox()" (mouseenter)="updateMessageBox('pro_references_email')" />
-													<small class="text-danger" *ngIf="reference.get('references_email')?.invalid && reference.get('references_email')?.touched"> This field is valid email </small>
-												</div>
-											</div>
-										</ng-container>
-										<div class="row mb-3">
-											<button class="w-full btn btn-primary" (click)="addProfessionalReference()">Add Professional Reference&nbsp;<i class="fa fa-plus"></i></button>
-										</div>
-									</ng-container>
-									<h5 class="card-title my-3">Add Note</h5>
-									<div class="row mb-3">
-										<div class="position-relative">
-											<textarea pTextarea id="responsibilities" formControlName="additional_notes" class="form-control w-100" placeholder="Additional Information if any" rows="5" maxlength="500" #additionalNotes></textarea>
-											<small class="text-muted d-block text-end">{{ additionalNotes.value?.length }}/500</small>
-										</div>
-									</div>
-								</div>
-							</div>
-						</form>
-					</div>
-				</div>
-			</div>
-			<div class="col-md-4 col-lg-3 d-flex flex-fill h-100">
-				<div class="card border-secondary">
-					<div class="card-body d-flex flex-column justify-content-between">
-						<div class="d-flex gap-2">
-							<div>
-								<img src="uniprep-assets/images/mascot.webp" width="50" alt="icon" />
-							</div>
-							<div class="message-box d-flex text-start text-truncate text-wrap">
-								<p class="mb-0 fw-medium">
-									{{ currentMessage }}
-								</p>
-							</div>
-						</div>
-						<div>
-							<div class="card card-inside" style="border-radius: 10px; transition: transform 0.3s; border: 1px solid #e9ecef" [style.border]="true ? '1px solid #FDA172' : '1px solid #e9ecef'">
-								<div class="card-body">
-									<div class="row mb-3">
-										<div class="col-xl-3 col-lg-3 col-md-3 col-sm-3 col-3">
-											<div>
-												<img [src]="logo ? logo : 'uniprep-assets/images/avatar.webp'" alt="Profile Image" class="rounded-circle w-100 h-100" />
-											</div>
-										</div>
-										<div class="col-9 text-start">
-											<div class="d-flex justify-content-between text-start">
-												<div (mouseenter)="updateMessageBox('full_name')" (mouseleave)="resetMessageBox()">
-													<span class="fw-bold">{{ personalInfoForm.get("full_name")?.value }}</span>
-													<i *ngIf="true" class="fas fa-check-circle ms-1" style="color: #4285f4"></i>
-												</div>
-												<a style="color: #fda172">
-													<i class="fas fa-share-alt"></i>
-												</a>
-											</div>
-											<div style="font-size: 12px" class="text-start">Profile Updated On 18-02-2025</div>
-											<div class="mt-2 text-start d-flex justify-content-between align-items-center">
-												<div>
-													<small>Profile Completion: {{ profileCompletion }}%</small>
-													<p-progressBar [value]="profileCompletion" [showValue]="false" [style]="{ height: '6px', color: 'var(--uniprep-secondary)' }" styleClass="text-secondary"></p-progressBar>
-												</div>
-												<button class="btn btn-sm" style="background-color: #94c973; color: white; font-size: 0.8rem; border-radius: 20px">
-													{{ true ? "Shortlisted" : "Shortlist" }}
-												</button>
-											</div>
-										</div>
-									</div>
+                                                </div>
+                                            </div>
+                                            <small class="text-danger"
+                                                *ngIf="personalInfoForm.get('career_preference_portfolio_upload_link')?.invalid && personalInfoForm.get('career_preference_portfolio_upload_link')?.touched">
+                                                This field is valid url
+                                            </small>
+                                        </div>
+                                    </div>
+                                </div>
+                                <hr>
+                                <div class="card-body">
+                                    <h2 class="card-title mb-3">Reference & Endorsement</h2>
+                                    <h5 class="card-title mb-1">Academic Reference</h5>
+                                    <ng-container class="work-experience" formArrayName="academicReferences">
+                                        <ng-container
+                                            *ngFor="let academic of academicReferences.controls; let i = index"
+                                            [formGroupName]="i">
+                                            <div class="d-flex justify-content-end">
+                                                <button
+                                                    class="btn btn-outline-danger d-flex align-items-center justify-content-center p-2"
+                                                    (click)="removeAcademicReference(i);">
+                                                    <i class="pi pi-trash"></i>
+                                                </button>
+                                            </div>
+                                            <div class="row mb-3">
+                                                <div class="col-md-4">
+                                                    <label for="highestQualification" class="form-label">College Name
+                                                        <!-- <span class="text-danger">*</span> -->
+                                                    </label>
+                                                    <input pInputText id="university"
+                                                        formControlName="references_college_name"
+                                                        placeholder="Enter the reference college name"
+                                                        class="form-control w-100" (mouseleave)="resetMessageBox()"
+                                                        (mouseenter)="updateMessageBox('references_college_name')" />
+                                                    <small class="text-danger"
+                                                        *ngIf="academic.get('references_college_name')?.invalid && academic.get('references_college_name')?.touched">
+                                                        This field is mandatory
+                                                    </small>
+                                                </div>
+                                                <div class="col-md-4">
+                                                    <label for="highestQualification" class="form-label">Name
+                                                        <!-- <span class="text-danger">*</span> -->
+                                                    </label>
+                                                    <input pInputText id="university"
+                                                        formControlName="references_reference_name"
+                                                        placeholder="Enter the reference name"
+                                                        class="form-control w-100" (mouseleave)="resetMessageBox()"
+                                                        (mouseenter)="updateMessageBox('references_reference_name')" />
+                                                    <small class="text-danger"
+                                                        *ngIf="academic.get('references_reference_name')?.invalid && academic.get('references_reference_name')?.touched">
+                                                        This field is mandatory
+                                                    </small>
+                                                </div>
+                                                <div class="col-md-4">
+                                                    <label for="highestQualification" class="form-label">Desigination
+                                                        <!-- <span class="text-danger">*</span> -->
+                                                    </label>
+                                                    <input pInputText id="university"
+                                                        formControlName="references_designation"
+                                                        placeholder="Enter the reference desigination"
+                                                        class="form-control w-100" (mouseleave)="resetMessageBox()"
+                                                        (mouseenter)="updateMessageBox('references_designation')" />
+                                                    <small class="text-danger"
+                                                        *ngIf="academic.get('references_designation')?.invalid && academic.get('references_designation')?.touched">
+                                                        This field is mandatory
+                                                    </small>
+                                                </div>
+                                            </div>
+                                            <div class="row mb-3">
+                                                <!-- <div class="col-md-6">
+                                                    <label for="highestQualification" class="form-label">Phone
+                                                        Number
+                                                        <span class="text-danger">*</span>
+                                                    </label>
+                                                    <p-inputNumber id="university" [useGrouping]="false"
+                                                        placeholder="Enter the reference phone number"
+                                                        styleClass="p-inputtext w-100" [showButtons]="false"
+                                                        class="w-100" formControlName="references_phone_number"
+                                                        (mouseleave)="resetMessageBox()"
+                                                        (mouseenter)="updateMessageBox('references_phone_number')"></p-inputNumber>
+                                                    <small class="text-danger"
+                                                        *ngIf="academic.get('references_phone_number')?.invalid && academic.get('references_phone_number')?.touched">
+                                                        This field is valid phone number
+                                                    </small>
+                                                </div> -->
+                                                <div class="col-md-6">
+                                                    <label for="highestQualification" class="form-label">Email
+                                                        <!-- <span class="text-danger">*</span> -->
+                                                    </label>
+                                                    <input pInputText id="university" formControlName="references_email"
+                                                        placeholder="Enter the reference email"
+                                                        class="form-control w-100" (mouseleave)="resetMessageBox()"
+                                                        (mouseenter)="updateMessageBox('references_email')" />
+                                                    <small class="text-danger"
+                                                        *ngIf="academic.get('references_email')?.invalid && academic.get('references_email')?.touched">
+                                                        This field is valid email
+                                                    </small>
+                                                </div>
+                                            </div>
+                                        </ng-container>
+                                        <div class="row mb-3">
+                                            <button class="w-full p-3 rounded-3" (click)="addAcademicReference();">
+                                                Add more&nbsp;<i class="fa fa-plus"></i>
+                                            </button>
+                                        </div>
+                                    </ng-container>
+                                    <ng-container formArrayName="professional_references">
+                                        <h5 class="card-title my-3">Professional Reference</h5>
+                                        <ng-container class="work-experience"
+                                            *ngFor="let reference of professionalReferences.controls; let i = index"
+                                            [formGroupName]="i">
+                                            <div class="d-flex justify-content-end">
+                                                <button
+                                                    class="btn btn-outline-danger d-flex align-items-center justify-content-center p-2"
+                                                    (click)="removeProfessionalReference(i);">
+                                                    <i class="pi pi-trash"></i>
+                                                </button>
+                                            </div>
+                                            <div class="row mb-3">
+                                                <div class="col-md-4">
+                                                    <label for="highestQualification" class="form-label">Company
+                                                        Name</label>
+                                                    <input pInputText id="university"
+                                                        formControlName="references_company_name"
+                                                        placeholder="Enter the reference college name"
+                                                        class="form-control w-100" (mouseleave)="resetMessageBox()"
+                                                        (mouseenter)="updateMessageBox('references_company_name')" />
+                                                </div>
+                                                <div class="col-md-4">
+                                                    <label for="highestQualification" class="form-label">Name</label>
+                                                    <input pInputText id="university"
+                                                        formControlName="references_reference_name"
+                                                        placeholder="Enter the reference name"
+                                                        class="form-control w-100" (mouseleave)="resetMessageBox()"
+                                                        (mouseenter)="updateMessageBox('pro_references_reference_name')" />
+                                                </div>
+                                                <div class="col-md-4">
+                                                    <label for="highestQualification"
+                                                        class="form-label">Desigination</label>
+                                                    <input pInputText id="university"
+                                                        formControlName="references_designation"
+                                                        placeholder="Enter the reference desigination"
+                                                        class="form-control w-100" (mouseleave)="resetMessageBox()"
+                                                        (mouseenter)="updateMessageBox('pro_references_designation')" />
+                                                </div>
+                                            </div>
+                                            <div class="row mb-3">
+                                              <!-- <div class="col-md-6">
+                                                    <label for="highestQualification" class="form-label">Phone
+                                                        Number</label>
+                                                    <p-inputNumber id="university" [useGrouping]="false"
+                                                        placeholder="Enter the reference phone number"
+                                                        styleClass="p-inputtext w-100" [showButtons]="false"
+                                                        class="w-100" formControlName="references_phone_number"
+                                                        (mouseleave)="resetMessageBox()"
+                                                        (mouseenter)="updateMessageBox('pro_references_phone_number')"></p-inputNumber>
+                                                    <small class="text-danger"
+                                                        *ngIf="reference.get('references_phone_number')?.invalid && reference.get('references_phone_number')?.touched">
+                                                        This field is valid phone number
+                                                    </small>
+                                                </div> -->
+                                                <div class="col-md-6">
+                                                    <label for="highestQualification" class="form-label">Email</label>
+                                                    <input pInputText id="university" formControlName="references_email"
+                                                        placeholder="Enter the reference email"
+                                                        class="form-control w-100" (mouseleave)="resetMessageBox()"
+                                                        (mouseenter)="updateMessageBox('pro_references_email')" />
+                                                    <small class="text-danger"
+                                                        *ngIf="reference.get('references_email')?.invalid && reference.get('references_email')?.touched">
+                                                        This field is valid email
+                                                    </small>
+                                                </div>
+                                            </div>
+                                        </ng-container>
+                                        <div class="row mb-3">
+                                            <button class="w-full p-3 rounded-3" (click)="addProfessionalReference();">
+                                                Add more&nbsp;<i class="fa fa-plus"></i>
+                                            </button>
+                                        </div>
+                                    </ng-container>
+                                    <h5 class="card-title my-3">Add Note</h5>
+                                    <div class="row mb-3">
+                                        <div class="position-relative">
+                                            <textarea pTextarea id="responsibilities" formControlName="additional_notes"
+                                                class="form-control w-100" placeholder="Additional Information if any"
+                                                rows="5" maxlength="500" #additionalNotes></textarea>
+                                            <small class="text-muted d-block text-end">{{ additionalNotes.value?.length
+                                                }}/500</small>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-8 col-lg-4 d-flex flex-fill">
+                <div class="container-fluid">
+                    <div class="profile-container d-flex flex-column justify-content-between p-2 pb-0  overflow-y-auto rounded-4"
+                        style="border: 2px solid var(--uniprep-secondary); height: calc(100vh - 250px);">
+                        <div class="d-flex gap-2" style="min-height: 50%">
+                            <div>
+                                <img src="https://cdn-icons-png.flaticon.com/512/147/147144.png" width="40"
+                                    alt="icon" />
+                            </div>
+                            <div class="message-box d-flex text-start text-truncate text-wrap">
+                                <p class="mb-0 text-muted ">
+                                    {{ currentMessage }}
+                                </p>
+                            </div>
+                        </div>
 
 									<!-- Open Positions -->
 									<div class="row mb-3 text-start">

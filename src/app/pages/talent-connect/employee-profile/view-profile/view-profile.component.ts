@@ -337,14 +337,14 @@ export class ViewProfileComponent implements OnInit {
         collegeName: ref.references_college_name || '',
         name: ref.references_reference_name || '',
         designation: ref.references_designation || '',
-        phoneNumber: ref.references_phone_number || '',
+        // phoneNumber: ref.references_phone_number || '',
         email: ref.references_email || ''
       })),
       professionalReference: (formData.professional_references || []).map((ref: any) => ({
         companyName: ref.references_company_name || '',
         name: ref.references_reference_name || '',
         designation: ref.references_designation || '',
-        phoneNumber: ref.references_phone_number || '',
+        // phoneNumber: ref.references_phone_number || '',
         email: ref.references_email || ''
       }))
     };
