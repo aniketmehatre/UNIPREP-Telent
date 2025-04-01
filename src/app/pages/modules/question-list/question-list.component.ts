@@ -100,6 +100,7 @@ export class QuestionListComponent implements OnInit {
 	@ViewChild('scrollContainerlink') scrollContainerlink!: ElementRef;
 	vediolink:any[]=[];
 	weblink:any[]=[];
+	private scrollInterval: any;
 	constructor(private moduleListService: ModuleServiceService, private mService: ModuleServiceService,
 				private moduleStoreService: ModuleStoreService, private dataService: DataService,
 				private route: ActivatedRoute, private _location: Location, private _sanitizer: DomSanitizer,
@@ -841,37 +842,42 @@ export class QuestionListComponent implements OnInit {
 	openHowItWorksVideoPopup(videoLink: string) {
 		this.pageFacade.openHowitWorksVideoPopup(videoLink)
 	}
-	scrollRight() {
-        if (this.scrollContainer) {
-            let container = this.scrollContainer.nativeElement;
+	// scroll code
+	// scrollRightLinks() {
+    //     if (this.scrollContainerlink) {
+    //         let container = this.scrollContainerlink.nativeElement;
+    //         container.scrollBy({ left: 200, behavior: 'smooth' });
 
-            // Scroll right smoothly
-            container.scrollBy({ left: 200, behavior: 'smooth' });
-
-            // Move the first video to the end after scrolling
-            setTimeout(() => {
-                let firstVideo =  this.oneQuestionContent?.videolink.shift(); // Remove first element
-                if (firstVideo) {
-					this.oneQuestionContent?.videolink.push(firstVideo); // Add it to the end
-                }
-            }, 300); // Delay to match scrolling speed
-        }
+    //     }
+    // }
+    ngAfterViewInit() {
+        this.scrollRightLinks();
+		this.scrollRight();
     }
-	scrollRightLinks() {
-        if (this.scrollContainerlink) {
-            let container = this.scrollContainerlink.nativeElement;
+	scrollRight() {
+		let container = this.scrollContainer.nativeElement;
 
-            // Scroll right smoothly
-            container.scrollBy({ left: 200, behavior: 'smooth' });
-
-            // Move the first link to the end after scrolling
-            setTimeout(() => {
-                let firstLink = this.oneQuestionContent?.reflink.shift(); // Remove first element
-                if (firstLink) {
-                    this.oneQuestionContent?.reflink.push(firstLink); // Add it to the end
-                }
-            }, 300); // Delay to match scrolling speed
-        }
+		this.scrollInterval = setInterval(() => {
+			if (container.scrollLeft + container.clientWidth >= container.scrollWidth) {
+				// Reset to the start when reaching the end
+				container.scrollTo({ left: 0, behavior: 'instant' });
+			} else {
+				// Scroll right smoothly
+				container.scrollBy({ left: 2, behavior: 'smooth' }); // Adjust speed by changing "left" value
+			}
+		}, 0);
+}
+    scrollRightLinks() {
+        const container = this.scrollContainerlink.nativeElement;
+        this.scrollInterval = setInterval(() => {
+            if (container.scrollLeft + container.clientWidth >= container.scrollWidth) {
+                // Reset to the start when reaching the end
+                container.scrollTo({ left: 0, behavior: 'instant' });
+            } else {
+                // Scroll right smoothly
+                container.scrollBy({ left: 2, behavior: 'smooth' }); // Adjust speed by changing "left" value
+            }
+        }, 0); // Adjust speed by changing interval time
     }
 }
 @Pipe({
