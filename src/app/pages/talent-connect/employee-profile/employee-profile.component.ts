@@ -93,12 +93,12 @@ export class EmployeeProfileComponent implements OnInit {
     references_college_name: "Enter the college name for academic reference using letters only (max 50 characters).",
     references_reference_name: "Enter the academic reference's name using letters only (max 50 characters).",
     references_designation: "Enter their designation (e.g., Professor, HOD) using letters only (max 50 characters).",
-    references_phone_number: "Enter their valid phone number.",
+    // references_phone_number: "Enter their valid phone number.",
     references_email: "Enter their email address (e.g., professor@university.edu).",
     references_company_name: "Enter the company name for professional reference using letters only (max 50 characters).",
     pro_references_reference_name: "Enter the professional reference's name using letters only (max 50 characters).",
     pro_references_designation: "Enter their job title (e.g., Manager, Director) using letters only (max 50 characters).",
-    pro_references_phone_number: "Enter a valid phone number using digits only",
+    // pro_references_phone_number: "Enter a valid phone number using digits only",
     pro_references_email: "Enter a valid email address (e.g., manager@company.com).",
 
     // Additional Notes
@@ -286,7 +286,7 @@ export class EmployeeProfileComponent implements OnInit {
       references_college_name: [null],
       references_reference_name: [null],
       references_designation: [null],
-      references_phone_number: [null, Validators.max(9999999999)],
+      // references_phone_number: [null, Validators.max(9999999999)],
       references_email: [null, Validators.email]
     });
   }
@@ -297,7 +297,7 @@ export class EmployeeProfileComponent implements OnInit {
       references_company_name: [null],
       references_reference_name: [null],
       references_designation: [null],
-      references_phone_number: [null, Validators.max(9999999999)],
+      // references_phone_number: [null, Validators.max(9999999999)],
       references_email: [null, Validators.email]
     });
   }
@@ -593,10 +593,10 @@ export class EmployeeProfileComponent implements OnInit {
             `academicReferences[${index}][references_designation]`,
             originalRef,
             value => ref.get('references_designation')?.value || '');
-          this.appendIfModified(formData,
-            `academicReferences[${index}][references_phone_number]`,
-            originalRef,
-            value => ref.get('references_phone_number')?.value || '');
+          // this.appendIfModified(formData,
+          //   `academicReferences[${index}][references_phone_number]`,
+          //   originalRef,
+          //   value => ref.get('references_phone_number')?.value || '');
           this.appendIfModified(formData,
             `academicReferences[${index}][references_email]`,
             originalRef,
@@ -625,10 +625,10 @@ export class EmployeeProfileComponent implements OnInit {
             `professional_references[${index}][references_designation]`,
             originalRef,
             value => ref.get('references_designation')?.value || '');
-          this.appendIfModified(formData,
-            `professional_references[${index}][references_phone_number]`,
-            originalRef,
-            value => ref.get('references_phone_number')?.value || '');
+          // this.appendIfModified(formData,
+          //   `professional_references[${index}][references_phone_number]`,
+          //   originalRef,
+          //   value => ref.get('references_phone_number')?.value || '');
           this.appendIfModified(formData,
             `professional_references[${index}][references_email]`,
             originalRef,
@@ -800,7 +800,7 @@ export class EmployeeProfileComponent implements OnInit {
           formData.append(`academicReferences[${index}][references_college_name]`, ref.get('references_college_name')?.value || '');
           formData.append(`academicReferences[${index}][references_reference_name]`, ref.get('references_reference_name')?.value || '');
           formData.append(`academicReferences[${index}][references_designation]`, ref.get('references_designation')?.value || '');
-          formData.append(`academicReferences[${index}][references_phone_number]`, ref.get('references_phone_number')?.value || '');
+          // formData.append(`academicReferences[${index}][references_phone_number]`, ref.get('references_phone_number')?.value || '');
           formData.append(`academicReferences[${index}][references_email]`, ref.get('references_email')?.value || '');
         });
 
@@ -809,7 +809,7 @@ export class EmployeeProfileComponent implements OnInit {
           formData.append(`professional_references[${index}][references_company_name]`, ref.get('references_company_name')?.value || '');
           formData.append(`professional_references[${index}][references_reference_name]`, ref.get('references_reference_name')?.value || '');
           formData.append(`professional_references[${index}][references_designation]`, ref.get('references_designation')?.value || '');
-          formData.append(`professional_references[${index}][references_phone_number]`, ref.get('references_phone_number')?.value || '');
+          // formData.append(`professional_references[${index}][references_phone_number]`, ref.get('references_phone_number')?.value || '');
           formData.append(`professional_references[${index}][references_email]`, ref.get('references_email')?.value || '');
         });
 
@@ -1064,8 +1064,8 @@ export class EmployeeProfileComponent implements OnInit {
         if (index == 0) {
           checkField(ref.get('references_college_name'), 2);
           checkField(ref.get('references_reference_name'), 2);
-          checkField(ref.get('references_designation'), 2);
-          checkField(ref.get('references_phone_number'), 2);
+          checkField(ref.get('references_designation'), 4); //weight add 2 for comment phone number enable comment change this 2
+          // checkField(ref.get('references_phone_number'), 2);
           checkField(ref.get('references_email'), 2);
         }
       });
@@ -1077,7 +1077,7 @@ export class EmployeeProfileComponent implements OnInit {
           checkField(ref.get('references_company_name'), 1);
           checkField(ref.get('references_reference_name'), 1);
           checkField(ref.get('references_designation'), 1);
-          checkField(ref.get('references_phone_number'), 1);
+          // checkField(ref.get('references_phone_number'), 1);
           checkField(ref.get('references_email'), 1);
         }
       });
@@ -1263,7 +1263,7 @@ export class EmployeeProfileComponent implements OnInit {
           references_college_name: [ref.college_name || ''],
           references_reference_name: [ref.reference_name || ''],
           references_designation: [ref.designation || ''],
-          references_phone_number: [ref.phone_number || null, Validators.max(9999999999)],
+          // references_phone_number: [ref.phone_number || null, Validators.max(9999999999)],
           references_email: [ref.email || '', [Validators.email]]
         }));
       });
@@ -1278,7 +1278,7 @@ export class EmployeeProfileComponent implements OnInit {
           references_company_name: [ref.college_name],
           references_reference_name: [ref.reference_name],
           references_designation: [ref.designation],
-          references_phone_number: [ref.phone_number, Validators.max(9999999999)],
+          // references_phone_number: [ref.phone_number, Validators.max(9999999999)],
           references_email: [ref.email, [Validators.email]]
         }));
       });
@@ -1343,4 +1343,25 @@ export class EmployeeProfileComponent implements OnInit {
     }
   }
 
+  generateAiSummary(mode: string, data: number, formControl: FormControl) {
+    console.log(data);
+    if (data) {
+      this.talentConnectService.getAiSummaryByMode(mode, data).subscribe({
+        next: response => {
+          if (response) {
+            formControl.patchValue(response.data);
+          }
+        },
+        error: error => {
+          console.error(error);
+        }
+      });
+    } else {
+      this.toastService.add({
+        severity: "error",
+        summary: "Required",
+        detail: 'Please give field of job title'
+      });
+    }
+  }
 }

@@ -440,7 +440,10 @@
                                                     <div class="d-flex justify-content-between mb-1">
                                                         <label for="responsibilities" class="form-label">Job
                                                             Responsibilities</label>
-                                                        <button class="btn btn-success py-0">Ai Generate</button>
+                                                            <button class="ai-generate-btn ms-3 text-small"
+                                                            style="width: fit-content" (click)="generateAiSummary('keyresponsibilities', experience?.get('work_experience_job_title')?.value,  experience?.get('work_experience_job_responsibilities'));">
+                                                            <i class="pi pi-star"></i>AI Generate
+                                                        </button>
                                                     </div>
                                                     <textarea pTextarea id="responsibilities" class="form-control w-100"
                                                         placeholder="Enter your Job Responsibilities & Key Achievements"
@@ -840,8 +843,8 @@
                                                 <div class="d-flex justify-content-between">
                                                     <label for="highestQualification" class="form-label">What sets you apart
                                                         in your industry?</label>
-                                                        <button class="ai-gbtn ms-3 text-small"
-                                                            style="width: fit-content">
+                                                        <button class="ai-generate-btn ms-3 text-small"
+                                                            style="width: fit-content" (click)="generateAiSummary('joboverview', personalInfoForm?.get('career_preference_job_title_id')?.value,  personalInfoForm?.get('career_preference_set_industry_apart'));">
                                                             <i class="pi pi-star"></i>AI Generate
                                                         </button>
                                                 </div>
@@ -897,11 +900,13 @@
                                             <div class="col-md-6">
                                                 <label for="highestQualification" class="form-label">Have you taken on
                                                     leadership roles?</label>
-                                                <input pInputText id="university"
+                                                <text-area pTextarea id="university"
                                                     formControlName="career_preference_leadership_experience"
                                                     placeholder="Have you taken on leadership roles?"
                                                     class="form-control w-100" (mouseleave)="resetMessageBox()"
-                                                    (mouseenter)="updateMessageBox('career_preference_leadership_experience')" />
+                                                    (mouseenter)="updateMessageBox('career_preference_leadership_experience')" #leaderShip></text-area>
+                                                    <small class="text-muted d-block text-end">{{
+                                                        leaderShip.value?.length }}/500</small>
                                             </div>
                                         </div>
                                         <div class="row mb-3">
@@ -1138,10 +1143,10 @@
                                                 </div>
                                             </div>
                                             <div class="row mb-3">
-                                                <div class="col-md-6">
+                                                <!-- <div class="col-md-6">
                                                     <label for="highestQualification" class="form-label">Phone
                                                         Number
-                                                        <!-- <span class="text-danger">*</span> -->
+                                                        <span class="text-danger">*</span>
                                                     </label>
                                                     <p-inputNumber id="university" [useGrouping]="false"
                                                         placeholder="Enter the reference phone number"
@@ -1153,7 +1158,7 @@
                                                         *ngIf="academic.get('references_phone_number')?.invalid && academic.get('references_phone_number')?.touched">
                                                         This field is valid phone number
                                                     </small>
-                                                </div>
+                                                </div> -->
                                                 <div class="col-md-6">
                                                     <label for="highestQualification" class="form-label">Email
                                                         <!-- <span class="text-danger">*</span> -->
@@ -1216,7 +1221,7 @@
                                                 </div>
                                             </div>
                                             <div class="row mb-3">
-                                                <div class="col-md-6">
+                                              <!-- <div class="col-md-6">
                                                     <label for="highestQualification" class="form-label">Phone
                                                         Number</label>
                                                     <p-inputNumber id="university" [useGrouping]="false"
@@ -1229,7 +1234,7 @@
                                                         *ngIf="reference.get('references_phone_number')?.invalid && reference.get('references_phone_number')?.touched">
                                                         This field is valid phone number
                                                     </small>
-                                                </div>
+                                                </div> -->
                                                 <div class="col-md-6">
                                                     <label for="highestQualification" class="form-label">Email</label>
                                                     <input pInputText id="university" formControlName="references_email"
