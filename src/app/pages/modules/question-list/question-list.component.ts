@@ -141,7 +141,6 @@ export class QuestionListComponent implements OnInit {
 		})
 		this.dataService.homeCountryFlagSource.subscribe((data) => {
 			this.homeCountryLogo = data
-			console.log(this.homeCountryLogo, "data")
 		})
 		this.dataService.countryFlagSource.subscribe((data) => {
 			this.countryFlag = data
@@ -387,6 +386,7 @@ export class QuestionListComponent implements OnInit {
 		}
 
 		this.mService.studentsSubmoduleQuestions(data).subscribe((data: any) => {
+			this.homeCountryLogo = data.country_flag
 			this.questionListData = data?.questions
 			this.isSkeletonVisible = false
 			this.totalQuestionCount = data?.questioncount

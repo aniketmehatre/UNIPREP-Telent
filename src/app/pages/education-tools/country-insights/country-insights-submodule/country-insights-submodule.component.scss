@@ -11,7 +11,7 @@
 }
 .text-card
 {
-  background-color:var(--uniprep-primaryop10);
+  background-color:#fff;
   border-radius: 16px;
   border:1px solid var(--uniprep-primary);
 }
@@ -68,7 +68,6 @@
 }
 
 .answer-text {
-	color: #333;
 	font-size: 16px;
 	line-height: 1.5;
 }
@@ -106,6 +105,10 @@
 
 #socialSharingList.show {
 	display: block;
+}
+
+::ng-deep .modal-dialog {
+	width: 60% !important;
 }
 
 .sharebtn {
