@@ -1,4 +1,4 @@
-<div class="card readingcard">
+<div class="card readingcard bg-white">
 	<div class="card-header border-0 bg-transparent">
 		<div class="row justify-content-center">
 			<div class="col-md-12 col-12 d-flex flex-md-row flex-column align-items-center gap-2 text-center">
@@ -62,10 +62,10 @@
 			<!-- <div class="col-md-1 col-1">&nbsp;</div> -->
 		</div>
 	</div>
-	<div class="card-body text-center flex-fill">
+	<div class="card-body text-center flex-fill bg-white">
 		<div class="row overflow-hidden h-100" *ngIf="isSkeletonVisible">
 			<div *ngFor="let index of loopRange" class="col-xxl-3 col-xl-3 col-lg-3 col-md-4 col-sm-6 col-xs-12 col-12">
-				<div class="card my-2">
+				<div class="card my-2 bg-white">
 					<div class="card-body">
 						<div class="row align-items-center">
 							<div class="col-8 col-md-12">
@@ -85,7 +85,7 @@
 			<div *ngFor="let sub of questionListData; let i = index" class="readingcardgrid my-2">
 				<div class="row w-100 h-100 m-0 justify-content-center">
 					<div (click)="viewOneQuestion(sub)" role="button"
-						class="card questioncard {{ sub.read == 1 ? '' : '' }}">
+						class="card questioncard {{ sub.read == 1 ? '' : '' }} bg-white">
 						<div
 							class="card-body d-flex flex-sm-column flex-row justify-content-sm-between align-items-center gap-2">
 							<div class="row justify-content-center w-100">
