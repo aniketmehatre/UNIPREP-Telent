@@ -82,7 +82,7 @@
 			</div>
 		</div>
 		<div class="row" *ngIf="!isSkeletonVisible">
-			<div *ngFor="let sub of questionListData; let i = index" class="readingcardgrid my-2">
+			<div *ngFor="let sub of questionListData; let i = index" class="readingcardgrid1 my-2">
 				<div class="row w-100 h-100 m-0 justify-content-center">
 					<div (click)="viewOneQuestion(sub)" role="button"
 						class="card questioncard {{ sub.read == 1 ? '' : '' }} bg-white">
