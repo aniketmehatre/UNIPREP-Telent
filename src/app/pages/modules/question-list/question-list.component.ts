@@ -100,6 +100,7 @@ export class QuestionListComponent implements OnInit {
 	@ViewChild('scrollContainerlink') scrollContainerlink!: ElementRef;
 	vediolink:any[]=[];
 	weblink:any[]=[];
+	isHidGlobalRepository:boolean=true;
 	private scrollInterval: any;
 	constructor(private moduleListService: ModuleServiceService, private mService: ModuleServiceService,
 				private moduleStoreService: ModuleStoreService, private dataService: DataService,
@@ -289,6 +290,7 @@ export class QuestionListComponent implements OnInit {
 				this.currentApiSlug = "getlearninghubsubmoduleqcount"
 				this.howItWorksVideoLink = "https://www.youtube.com/embed/prvvJsgnya8?si=QSAeOB9qPMF-ya-D"
 				this.currentModuleSlug = "learning-hub"
+				this.isHidGlobalRepository=false;
 				break
 			case "skill-mastery":
 				this.currentModuleId = 10
@@ -296,6 +298,7 @@ export class QuestionListComponent implements OnInit {
 				this.currentApiSlug = "getskillmasterysubmoduleqcount"
 				this.howItWorksVideoLink = "https://www.youtube.com/embed/mzyfeeL1b4Y?si=SYUFI6bW4xU-QZbT"
 				this.currentModuleSlug = "skill-mastery"
+				this.isHidGlobalRepository=false;
 				break
 			case "k12-category":
 				this.currentModuleId = 14

@@ -9,8 +9,8 @@
 					<div class="d-flex gap-2">
 						<h5 routerLink="/pages/dashboard" role="button" class="mb-0" tooltipPosition="top" pTooltip="">
 							<i class="fa-regular fa-home"></i></h5>
-						<span><i class="fa-solid fa-chevron-right"></i></span>
-						<h5 routerLink="/pages/global-repo" role="button" class="mb-0" tooltipPosition="top"
+						<span *ngIf="isHidGlobalRepository"><i class="fa-solid fa-chevron-right"></i></span>
+						<h5 *ngIf="isHidGlobalRepository" routerLink="/pages/global-repo" role="button" class="mb-0" tooltipPosition="top"
 							pTooltip="">Global Repository</h5>
 						<span><i class="fa-solid fa-chevron-right"></i></span>
 						<h5 *ngIf="currentModuleId == 8" class="mb-0" tooltipPosition="top" pTooltip="{{ tooltip }}">
