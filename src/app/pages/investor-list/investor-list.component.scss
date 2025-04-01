@@ -92,6 +92,11 @@ input[type="checkbox"] {
 	transition: border-color 0.3s ease;
 	cursor: pointer;
 	position: relative;
+	padding: 10px;
+	label
+	{
+		text-align: center;
+	}
 }
 
 .cube:hover {

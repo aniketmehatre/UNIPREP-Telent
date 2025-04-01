@@ -1,7 +1,5 @@
 .card-inside {
   border: 10px solid #f4a261; /* Light orange border */
-  border-radius: 10px; /* Rounded corners */
-  padding: 15px;
   transition: all 0.3s ease-in-out;
 }
 
@@ -64,11 +62,13 @@
   .inActive-shortlist {
     background-color: #3f51b5;
     color: white;
+    border-radius: 5px !important;
   }
 
   .active-shortlist {
     background-color: var(--uniprep-primary);
     color: white;
+    border-radius: 5px !important;
   }
 
   /* CSS for Company Information Card */
@@ -80,7 +80,7 @@
 }
 
 .icon-container {
-  width: 40px;
+  min-width: 30px;
   height: 40px;
   border-radius: 8px;
   display: flex;
@@ -92,14 +92,17 @@
 
 .info-label {
   color: #6c757d;
-  font-size: 14px;
-  font-weight: 400;
+  font-size: 0.8rem;
+  font-weight: 500;
 }
 
 .info-value {
   color: #212529;
-  font-size: 16px;
+  font-size: 0.9rem;
   font-weight: 600;
+  word-break: break-word; /* Ensures long words break */
+  overflow-wrap: break-word; /* Helps with word wrapping */
+  hyphens: auto;
 }
 
 /* Custom icon background colors */

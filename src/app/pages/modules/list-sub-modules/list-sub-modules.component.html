@@ -84,7 +84,7 @@
 						<div class="card-body d-flex flex-md-column flex-row justify-content-md-between align-items-center">
 							<div>
 								<div class="submoduleicon mt-2">
-									<img loading="lazy" alt="{{ sub.category == null ? sub.submodule_name : sub.category }}" class="selectimage" src="{{ sub.icon }}" />
+									<img loading="lazy" (error)="$event.target.src = '/uniprep-assets/images/placeholder.webp'" alt="{{ sub.category == null ? sub.submodule_name : sub.category }}" class="selectimage" src="{{ sub.icon }}" />
 								</div>
 								<h5 class="text-center mt-3 fw-bold d-md-block d-none mb-0">{{ sub.category == null ? sub.submodule_name : sub.category }}</h5>
 							</div>
