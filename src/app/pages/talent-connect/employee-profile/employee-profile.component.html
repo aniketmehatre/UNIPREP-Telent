@@ -691,7 +691,7 @@
                                                         </button>
                                                     </div>
                                                     <div class="col-md-1">
-                                                        <button *ngIf="i !== 0"
+                                                        <button *ngIf="i != 0"
                                                             class="btn btn-outline-danger d-flex align-items-center justify-content-center p-2"
                                                             (click)="removeCertification(i);">
                                                             <i class="pi pi-trash"></i>
@@ -737,7 +737,7 @@
                                                         </button>
                                                     </div>
                                                     <div class="col-md-1">
-                                                        <button *ngIf="i !== 0"
+                                                        <button *ngIf="i!=0"
                                                             class="btn btn-outline-danger d-flex align-items-center justify-content-center p-2"
                                                             (click)="removeAchievement(i);">
                                                             <i class="pi pi-trash"></i>
@@ -837,8 +837,14 @@
                                     <ng-container class="work-experience">
                                         <div class="row mb-3">
                                             <div class="col-md-12">
-                                                <label for="highestQualification" class="form-label">What sets you apart
-                                                    in your industry?</label>
+                                                <div class="d-flex justify-content-between">
+                                                    <label for="highestQualification" class="form-label">What sets you apart
+                                                        in your industry?</label>
+                                                        <button class="ai-gbtn ms-3 text-small"
+                                                            style="width: fit-content">
+                                                            <i class="pi pi-star"></i>AI Generate
+                                                        </button>
+                                                </div>
                                                 <div class="position-relative">
                                                     <textarea pTextarea id="responsibilities"
                                                         formControlName="career_preference_set_industry_apart"
@@ -973,7 +979,7 @@
                                                                 (mouseenter)="updateMessageBox('networking_social_media_link')" />
                                                         </div>
                                                         <div class="col-md-2">
-                                                            <button *ngIf="i !== 0"
+                                                            <button
                                                                 style="border: 1px solid rgb(255, 37, 37)"
                                                                 class="px-3 py-2 rounded-lg"
                                                                 (click)="removeSocialMedia(i);">
@@ -1268,8 +1274,8 @@
                                 <img src="https://cdn-icons-png.flaticon.com/512/147/147144.png" width="40"
                                     alt="icon" />
                             </div>
-                            <div class="message-box d-flex text-start">
-                                <p class="mb-0 text-muted" style="width: fit-content">
+                            <div class="message-box d-flex text-start text-truncate text-wrap">
+                                <p class="mb-0 text-muted ">
                                     {{ currentMessage }}
                                 </p>
                             </div>
@@ -1280,7 +1286,7 @@
                                 style="border-radius: 10px; transition: transform 0.3s; border: 1px solid #e9ecef;"
                                 [style.border]="true ? '1px solid #FDA172' : '1px solid #e9ecef'">
                                 <div class="row mb-3">
-                                    <div class="col-xl-3 col-lg-3 col-md-12">
+                                    <div class="col-xl-3 col-lg-3 col-md-3 col-sm-3">
                                         <img [src]="logo ? logo : 'uniprep-assets/images/placeholder.png'"
                                             alt="Company Logo" class="rounded-circle w-100 h-100" />
                                     </div>

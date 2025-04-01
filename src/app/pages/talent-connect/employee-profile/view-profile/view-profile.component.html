@@ -11,7 +11,7 @@
           <div class="col-md-3 text-center">
             <div class="d-flex justify-content-center align-items-center border border-black h-100 p-4 rounded-3">
               <div class="bg-secondary-subtle h-100 w-100 d-flex justify-content-center align-items-center rounded-3" style="border: 1px dashed">
-                <img [src]="profileData.personalInfo.logo ? profileData.personalInfo.logo : 'https://randomuser.me/api/portraits/men/7.jpg'"class="rounded-circle" alt="Profile Photo" width="150" height="150">
+                <img [src]="profileData.personalInfo.logo ?? 'uniprep-assets/images/placeholder.png'" class="rounded-circle" alt="Profile Photo" width="150" height="150">
               </div>
             </div>
           </div>
