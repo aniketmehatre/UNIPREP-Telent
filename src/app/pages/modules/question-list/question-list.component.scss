@@ -322,16 +322,34 @@ p {
 	background: rgba(0, 0, 0, 0.8);
 }
 
+/* Default (Desktop) */
 .col-custom-4-5 {
-	flex: 0 0 37.5%;
-	/* (4.5/12) * 100 */
-	max-width: 37.5%;
+    flex: 0 0 37.5%; /* 4.5/12 */
+    max-width: 37.5%;
 }
 
 .col-custom-3 {
-	flex: 0 0 25%;
-	/* (3/12) * 100 */
-	max-width: 25%;
+    flex: 0 0 25%; /* 3/12 */
+    max-width: 25%;
 }
 
-.cutom-row {}
+/* Medium Screens (Tablets) */
+@media (max-width: 992px) {
+    .col-custom-4-5 {
+        flex: 0 0 50%; /* 2 columns */
+        max-width: 50%;
+    }
+    
+    .col-custom-3 {
+        flex: 0 0 100%; /* Stacks below */
+        max-width: 100%;
+    }
+}
+
+/* Small Screens (Phones) */
+@media (max-width: 768px) {
+    .col-custom-4-5, .col-custom-3 {
+        flex: 0 0 100%; /* Full-width stack */
+        max-width: 100%;
+    }
+}
