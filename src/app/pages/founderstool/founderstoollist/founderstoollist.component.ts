@@ -6,12 +6,13 @@ import { LocationService } from 'src/app/location.service';
 import { FoundersToolsData } from './founders-tool-list-data';
 import { CommonModule } from "@angular/common";
 import { DialogModule } from "primeng/dialog";
+import { SharedModule } from 'src/app/shared/shared.module';
 @Component({
     selector: 'uni-founderstoollist',
     templateUrl: './founderstoollist.component.html',
     styleUrls: ['./founderstoollist.component.scss'],
     standalone: true,
-    imports: [CommonModule, DialogModule, RouterModule]
+    imports: [CommonModule, DialogModule, RouterModule, SharedModule]
 })
 export class FounderstoollistComponent implements OnInit {
   founderToolsList = FoundersToolsData;

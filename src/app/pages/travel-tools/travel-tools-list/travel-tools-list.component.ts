@@ -13,6 +13,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { SelectModule } from 'primeng/select';
 import { RouterModule } from '@angular/router';
 import { environment } from "@env/environment";
+import { SharedModule } from 'src/app/shared/shared.module';
 
 @Component({
     selector: 'uni-travel-tools-list',
@@ -33,7 +34,8 @@ import { environment } from "@env/environment";
         FormsModule,
         ReactiveFormsModule,
         SelectModule,
-        RouterModule
+        RouterModule,
+        SharedModule
     ]
 })
 export class TravelToolsListComponent implements OnInit {
