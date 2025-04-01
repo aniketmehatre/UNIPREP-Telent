@@ -114,12 +114,11 @@ export class GlobalRepositoryComponent implements OnInit {
       .dashboardLocationList()
       .subscribe((countryList: any) => {
         this.countryLists = countryList;
-        console.log(Number(this.storage.get("countryId")))
         const storedCountryId = Number(this.storage.get("countryId")) || 0;
-
         // Set the selectedCountryId after the API call
         this.selectedCountryId = storedCountryId;
-
+        let currentSelectedCountry = this.countryLists.find((element:any) => storedCountryId == element.id)
+        this.selectedCountryName = currentSelectedCountry.country;
         // To make sure the dropdown updates, you might need to manually trigger change detection
         this.cdRef.detectChanges();
       });
@@ -129,9 +128,7 @@ export class GlobalRepositoryComponent implements OnInit {
     this.countryLists.forEach((element: any) => {
       if (element.id === selectedId) {
         this.selectedCountryName = element.country;
-        console.log( element.id)
         this.storage.set("countryId", element.id);
-        console.log(this.storage.get("countryId"))
         this.storage.set("selectedcountryId", element.id);
         this.selectedCountryId = element.id;
         this.dataService.changeCountryId(element.id);

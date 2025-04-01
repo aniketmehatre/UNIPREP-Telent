@@ -1087,6 +1087,7 @@ uni-subscription {
 			object-fit: contain;
 		}
 	}
+
 	&:focus {
 		background-color: var(--uniprep-primaryop10);
 		border: 1px solid var(--uniprep-primary);
@@ -1202,6 +1203,7 @@ uni-subscription {
 
 .uniprepchat {
 	.p-dialog-mask {
+
 		// background: rgb(0 0 0 / 70%);
 		// pointer-events:auto;
 		.p-dialog {
@@ -1583,7 +1585,7 @@ uni-subscription {
 	border-right: none !important;
 }
 
-.subscriptiontable .p-datatable .p-datatable-thead > tr > th {
+.subscriptiontable .p-datatable .p-datatable-thead>tr>th {
 	border: 2px solid #f1f1f1;
 	border-width: 0 0 2px 0;
 	font-size: 20px;
@@ -1671,6 +1673,7 @@ p-dialog.restrictionDialog .p-dialog .p-dialog-header .p-dialog-header-icon {
 }
 
 @media (max-width: 1499.98px) {
+
 	html,
 	body {
 		font-size: 13px;
@@ -1682,6 +1685,7 @@ p-dialog.restrictionDialog .p-dialog .p-dialog-header .p-dialog-header-icon {
 }
 
 @media (max-width: 1399.98px) {
+
 	html,
 	body {
 		font-size: 12px;
@@ -1700,6 +1704,7 @@ p-dialog.restrictionDialog .p-dialog .p-dialog-header .p-dialog-header-icon {
 }
 
 @media (max-width: 1299.98px) {
+
 	html,
 	body {
 		font-size: 12px;
@@ -1718,6 +1723,7 @@ p-dialog.restrictionDialog .p-dialog .p-dialog-header .p-dialog-header-icon {
 }
 
 @media (max-width: 1199.98px) {
+
 	html,
 	body {
 		font-size: 12px;
@@ -1737,6 +1743,7 @@ p-dialog.restrictionDialog .p-dialog .p-dialog-header .p-dialog-header-icon {
 }
 
 @media (max-width: 991.98px) {
+
 	html,
 	body {
 		font-size: 12px;
@@ -1775,6 +1782,7 @@ p-dialog.restrictionDialog .p-dialog .p-dialog-header .p-dialog-header-icon {
 }
 
 @media (max-width: 767.98px) {
+
 	html,
 	body {
 		font-size: 12px;
@@ -1838,7 +1846,7 @@ p-dialog.restrictionDialog .p-dialog .p-dialog-header .p-dialog-header-icon {
 		padding: 0px !important;
 	}
 
-	.subscriptiontable .p-datatable .p-datatable-thead > tr > th {
+	.subscriptiontable .p-datatable .p-datatable-thead>tr>th {
 		font-size: 14px !important;
 		white-space: nowrap;
 		font-weight: 500;
@@ -1941,6 +1949,7 @@ p-dialog.restrictionDialog .p-dialog .p-dialog-header .p-dialog-header-icon {
 }
 
 @media screen and (max-width: 480px) {
+
 	html,
 	body {
 		font-size: 12px;
@@ -2051,7 +2060,7 @@ p-dialog.restrictionDialog .p-dialog .p-dialog-header .p-dialog-header-icon {
 	}
 }
 
-.p-input-icon-left > .p-inputtext {
+.p-input-icon-left>.p-inputtext {
 	padding-left: 2rem;
 }
 
@@ -2168,19 +2177,19 @@ uni-talent-connect {
 }
 
 .ilearn-challenge-table .p-datatable {
-	.p-datatable-thead > tr > th {
+	.p-datatable-thead>tr>th {
 		background: var(--uniprep-primary);
 		color: white;
 		border: 1px solid var(--uniprep-primarydark);
 	}
 
-	.p-datatable-tbody > tr > td {
+	.p-datatable-tbody>tr>td {
 		border-width: 1px;
 		font-size: 13px;
 		font-weight: 500;
 	}
 
-	& > .p-datatable-wrapper {
+	&>.p-datatable-wrapper {
 		height: 400px;
 	}
 }
@@ -2387,7 +2396,7 @@ uni-fortune-companies {
 	}
 }
 
-.questionmodal.contributor-modal {
+.questionmodal.custom-quiz-modal {
 	.p-dialog {
 		width: 60%;
 	}
@@ -2558,6 +2567,108 @@ uni-global-employment-insights {
 	}
 }
 
+.questiontext {
+	font-size: 1.2rem;
+}
+
+#socialSharingList {
+	display: none;
+	position: absolute;
+	right: 0rem;
+	top: 3rem;
+	z-index: 10;
+
+	.p-card-body {
+		padding: 0px;
+
+		.p-card-content {
+			padding: 0px;
+		}
+	}
+
+	ul {
+		padding: 10px !important;
+		margin-bottom: 0;
+
+		li {
+			display: flex;
+			align-items: center;
+			margin-bottom: 5px;
+		}
+
+		i {
+			margin-right: 10px;
+		}
+	}
+}
+
+.answercard {
+	background-color: white;
+	overflow-y: auto;
+}
+
+.socialShareBtn {
+	height: 38px;
+	width: 38px;
+	border-radius: 5px !important;
+	margin: 0;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	background-color: #000000;
+	color: var(--uniprep-tertiary);
+
+	&:hover {
+		background-color: #000000 !important;
+		color: var(--uniprep-tertiary) !important;
+	}
+
+	&:focus, &:active {
+		background-color: #000000 !important;
+		color: var(--uniprep-tertiary) !important;
+	}
+
+}
+
+.select-title {
+	border-radius: 5px;
+}
+
+.career-closeIcon {
+	height: 100%;
+	width: 50px;
+	min-height: 40px;
+	border-radius: 8px;
+	background-color: #1c1b17;
+	color: white;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+}
+
+.career-homeIcon {
+	height: 100%;
+	width: 80px;
+	min-height: 40px;
+	border-radius: 8px;
+	background-color: var(--uniprep-secondary);
+	color: white;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+}
+
+.career-reportIcon {
+	height: 100%;
+	width: 90px;
+	min-height: 40px;
+	border-radius: 8px;
+	background-color: var(--uniprep-primary);
+	color: white;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+}
 .ai-generate-btn {
 	height: 18px;
 	padding: 0px 4px 20px 4px;

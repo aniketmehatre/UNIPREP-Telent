@@ -19,59 +19,61 @@ import { InputTextModule } from 'primeng/inputtext';
 import { InputGroupAddonModule } from 'primeng/inputgroupaddon';
 import { PaginatorModule } from 'primeng/paginator';
 import { TooltipModule } from 'primeng/tooltip';
-import {StorageService} from "../../../storage.service";
+import { StorageService } from "../../../storage.service";
 @Component({
-    selector: 'uni-wealthleaderreadans',
-    templateUrl: './wealthleaderreadans.component.html',
-    styleUrls: ['./wealthleaderreadans.component.scss'],
-    standalone: true,
-    imports: [FormsModule,TooltipModule, InputIconModule,ReactiveFormsModule,PaginatorModule, CarouselModule, ButtonModule, CommonModule, RouterModule, DialogModule, MultiSelectModule, SelectModule, CardModule, InputGroupModule, InputTextModule, InputGroupAddonModule]
+  selector: 'uni-wealthleaderreadans',
+  templateUrl: './wealthleaderreadans.component.html',
+  styleUrls: ['./wealthleaderreadans.component.scss'],
+  standalone: true,
+  imports: [FormsModule, TooltipModule, InputIconModule, ReactiveFormsModule, PaginatorModule, CarouselModule, ButtonModule, CommonModule, RouterModule, DialogModule, MultiSelectModule, SelectModule, CardModule, InputGroupModule, InputTextModule, InputGroupAddonModule]
 })
 export class WealthleaderreadansComponent implements OnInit {
-  wealthleadersname:any;
+  wealthleadersname: any;
   perpage: number = 50;
   pageno: number = 1;
   totalcount: number = 0;
-  idleader:any;
-  wealthleadersqueslist:any[]=[];
+  idleader: any;
+  wealthleadersqueslist: any[] = [];
   isQuestionAnswerVisible: boolean = false;
-  wealthleaderanswer:any=[];
-  constructor(private router:Router,private pageFacade: PageFacadeService,
-    private service: FounderstoolService,private route: ActivatedRoute,private meta: Meta, private toastr: MessageService,
+  wealthleaderanswer: any = [];
+  constructor(private router: Router, private pageFacade: PageFacadeService,
+    private service: FounderstoolService, private route: ActivatedRoute, private meta: Meta, private toastr: MessageService,
     private dataService: DataService, private storage: StorageService
   ) { }
   ngOnInit(): void {
-    this.wealthleadersname=this.storage.get("wealthleadersname")
+    this.wealthleadersname = this.storage.get("wealthleadersname")
     this.idleader = this.route.snapshot.paramMap.get('id');
     this.getWealthLeaders();
   }
-  goBack(){
-    this.router.navigate(['/pages/education-tools/wealthleaderslist']);
+  goBack() {
+    let countryId = this.route.snapshot.queryParamMap.get('country');
+    let searchText = this.route.snapshot.queryParamMap.get('search');
+    this.router.navigate(['/pages/education-tools/wealthleaderslist'], { queryParams: { country: countryId, search: searchText } });
   }
   openVideoPopup(videoLink: string) {
     this.pageFacade.openHowitWorksVideoPopup(videoLink);
   }
-  answerid:any;
-  seeAnswer(id:any){
-    this.answerid=id
-    var data={
-      questionid:id
+  answerid: any;
+  seeAnswer(id: any) {
+    this.answerid = id
+    var data = {
+      questionid: id
     }
-    this.service.wealthLeadersans(data).subscribe((res:any)=>{
-      this.wealthleaderanswer=res.data
+    this.service.wealthLeadersans(data).subscribe((res: any) => {
+      this.wealthleaderanswer = res.data
       this.isQuestionAnswerVisible = true;
       this.getWealthLeaders();
     })
   }
-  getWealthLeaders(){
-    var data={
-      page:this.pageno,
-      perPage:this.perpage,
-      wealth_leader_id:this.idleader,
+  getWealthLeaders() {
+    var data = {
+      page: this.pageno,
+      perPage: this.perpage,
+      wealth_leader_id: this.idleader,
     }
-    this.service.wealthLeadersquestion(data).subscribe((res)=>{
-      this.wealthleadersqueslist=res.data;
-      this.totalcount=res.total_count;
+    this.service.wealthLeadersquestion(data).subscribe((res) => {
+      this.wealthleadersqueslist = res.data;
+      this.totalcount = res.total_count;
     })
   }
   showSocialSharingList() {
@@ -140,7 +142,7 @@ export class WealthleaderreadansComponent implements OnInit {
 
     // Combine data with a safe format
     textarea.textContent = `${safeUrl}/${selectedQuestionId}`;
-    
+
     // Append the textarea safely
     document.body.append(textarea);
     textarea.select();
@@ -160,9 +162,14 @@ export class WealthleaderreadansComponent implements OnInit {
     let data: any = {
       isVisible: true,
       moduleId: 24,
-      questionId:  this.answerid,
+      questionId: this.answerid,
       // countryId:this.countryId,
     };
     this.dataService.openReportWindow(data);
+  }
+
+  onShowModal(value: any) {
+    let socialShare: any = document.getElementById("socialSharingList");
+    socialShare.style.display = "none";
   }
 }

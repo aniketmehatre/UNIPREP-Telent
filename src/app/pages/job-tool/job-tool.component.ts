@@ -89,7 +89,7 @@ export class JobToolComponent implements OnInit {
       this.tooltip = "Access a curated list of companies by industry and location to target your job search effectively."
       this.howItWorksVideo = 'https://www.youtube.com/embed/uihpCF4rvB4?si=h8CASyoCT5RaP6Ko';
     } else if (this.currentRoute.includes("coverletter-builder")) {
-      this.title = "Career Tools -> Coverletter-Builder";
+      this.title = "Career Tools > Coverletter-Builder";
       this.tooltip = ""
       this.howItWorksVideo = 'https://www.youtube.com/embed/Sv1gVFIgFZ0?si=hHmclRvvE2ZXcEm7';
     } else if (this.currentRoute.includes("career-planner")) {

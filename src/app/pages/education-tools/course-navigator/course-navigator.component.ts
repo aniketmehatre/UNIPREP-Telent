@@ -20,11 +20,11 @@ import { environment } from '@env/environment';
 import { DataService } from 'src/app/data.service';
 
 @Component({
-    selector: 'uni-course-navigator',
-    templateUrl: './course-navigator.component.html',
-    styleUrls: ['./course-navigator.component.scss'],
-    standalone: true,
-    imports: [FormsModule, ReactiveFormsModule, CarouselModule, ButtonModule, CommonModule, RouterModule, DialogModule, MultiSelectModule, SelectModule, CardModule, InputGroupModule, InputTextModule, InputGroupAddonModule]
+  selector: 'uni-course-navigator',
+  templateUrl: './course-navigator.component.html',
+  styleUrls: ['./course-navigator.component.scss'],
+  standalone: true,
+  imports: [FormsModule, ReactiveFormsModule, CarouselModule, ButtonModule, CommonModule, RouterModule, DialogModule, MultiSelectModule, SelectModule, CardModule, InputGroupModule, InputTextModule, InputGroupAddonModule]
 })
 export class CourseNavigatorComponent implements OnInit {
 
@@ -80,6 +80,8 @@ export class CourseNavigatorComponent implements OnInit {
     },
   ];
   selectedDegreeId: number;
+  selectedDegreeName: string = '';
+
   constructor(
     private educationToolsService: EducationToolsService,
     private router: Router,
@@ -130,7 +132,6 @@ export class CourseNavigatorComponent implements OnInit {
       spec_id: this.selectedData[1],
       edu_id: this.selectedData[2]
     }
-    console.log(data, "selected data");
     this.educationToolsService.getDegreeRecommadations(data).subscribe({
       next: response => {
         this.isRecommendationQuestion = false;
@@ -153,8 +154,9 @@ export class CourseNavigatorComponent implements OnInit {
     this.selectedData = {};
   }
 
-  getCourseSubmodules(degreeId: number) {
-    this.selectedDegreeId = degreeId;
+  getCourseSubmodules(data: EducatiionsRec) {
+    this.selectedDegreeId = data.id;
+    this.selectedDegreeName = data.degree_name;
     this.isRecommendationQuestion = false;
     this.isRecommendationData = false;
     this.isRecommendationSavedData = false;
@@ -172,6 +174,7 @@ export class CourseNavigatorComponent implements OnInit {
         this.isCourseSubmodule = false;
         if (questionId) {
           this.viewOneQuestion(this.recommandedQandAList[0]);
+          this.selectedDegreeName = this.recommadationQuestionList[0].degree_name;
         }
       },
       error: error => {
@@ -302,21 +305,12 @@ export class CourseNavigatorComponent implements OnInit {
       this.isCourseSubmodule = false;
       this.isRecommendationData = true;
     }
-    if(!type) {
+    if (!type) {
       this.router.navigateByUrl('/pages/education-tools');
     }
   }
 
-  getContentPreview(content: string): string {
-    const div = document.createElement("div");
-    div.innerHTML = content;
-    const text = div.innerText || div.textContent || "";
-    const sentences = text.split(". ");
-    let paragraph = sentences[0] ? sentences[0] : "";
-    return paragraph.length > 75 ? paragraph.slice(13, 85) + ' ...' : paragraph;
-  }
-
   openReport() {
-    
+
   }
 }

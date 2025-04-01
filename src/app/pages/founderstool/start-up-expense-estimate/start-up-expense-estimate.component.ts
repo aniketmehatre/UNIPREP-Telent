@@ -77,8 +77,7 @@ export class StartUpExpenseEstimateComponent implements OnInit {
 	constructor(private fb: FormBuilder, private foundersToolsService: FounderstoolService, private locationService: LocationService, private toast: MessageService, private authService: AuthService, private router: Router, private travelToolService: TravelToolsService, private pageFacade: PageFacadeService, private costOfLiving: CostOfLivingService, private sanitizer: DomSanitizer, private promptService: PromptService) {
 		this.marketingForm = this.fb.group({
 			industry: ["", Validators.required],
-			location: ["", Validators.required],
-			locationFilterString: [""],
+			location: [null, Validators.required],
 			startup_stage: ["", Validators.required],
 			team_size: ["", Validators.required],
 			primary_expense: ["", Validators.required],
@@ -162,17 +161,6 @@ export class StartUpExpenseEstimateComponent implements OnInit {
 				this.departureLocationList = response
 			},
 		})
-	}
-
-	customFilterFunction(type: string) {
-		if (type === "departure") {
-			let locationFilterString = this.marketingForm.value.locationFilterString
-			if (locationFilterString === "") {
-				this.departureLocationList = this.locationsList
-				return
-			}
-			this.departureLocationList = this.locationsList.filter((city: any) => city?.city_name?.toLowerCase().includes(locationFilterString.toLowerCase()) || city?.country_name?.toLowerCase().includes(locationFilterString.toLowerCase()))
-		}
 	}
 
 	checkplanExpire(): void {
@@ -368,5 +356,4 @@ export class StartUpExpenseEstimateComponent implements OnInit {
 		})
 	}
 
-	resetFunction(departure: string) {}
 }

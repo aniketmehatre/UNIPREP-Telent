@@ -90,36 +90,13 @@ export class AverageSalaryComponent implements OnInit {
   selectCard(index: number): void {
     this.selectedCardIndex = index;
   }
-  customFilterFunction(type: string) {
-    if (this.departureFilter === "") {
-      this.departureLocationList = this.cityList;
-      return;
-    }
-    this.departureLocationList = this.cityList.filter(
-      (city) =>
-        city?.city_name
-          ?.toLowerCase()
-          .includes(this.departureFilter.toLowerCase()) ||
-        city?.country_name
-          ?.toLowerCase()
-          .includes(this.departureFilter.toLowerCase())
-    );
-  }
 
-  resetFunction(type: string) {
-    this.departureFilter = "";
-    this.departureLocationList = this.cityList;
-  }
-  cityList: City[] = [];
   departureLocationList: City[] = [];
-  destinationLocationList: City[] = [];
-  departureFilter: string = "";
+
   getCityList() {
     this.service.getCitieswithflag().subscribe({
       next: (response: any) => {
-        this.cityList = response;
         this.departureLocationList = response;
-        this.destinationLocationList = response;
       },
     });
   }

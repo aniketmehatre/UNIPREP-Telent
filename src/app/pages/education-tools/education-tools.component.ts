@@ -6,12 +6,13 @@ import { SkeletonModule } from 'primeng/skeleton';
 import { CarouselModule } from 'primeng/carousel';
 import { PaginatorModule } from 'primeng/paginator';
 import { FluidModule } from 'primeng/fluid';
+import { SharedModule } from 'src/app/shared/shared.module';
 @Component({
     selector: 'uni-education-tools',
     templateUrl: './education-tools.component.html',
     styleUrls: ['./education-tools.component.scss'],
     standalone: true,
-    imports: [CommonModule, RouterModule, ButtonModule, SkeletonModule, CarouselModule, PaginatorModule, FluidModule]
+    imports: [CommonModule, RouterModule, ButtonModule, SkeletonModule, CarouselModule, PaginatorModule, FluidModule, SharedModule]
 })
 export class EducationToolsComponent implements OnInit {
 

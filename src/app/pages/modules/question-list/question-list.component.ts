@@ -96,6 +96,12 @@ export class QuestionListComponent implements OnInit {
 	homeCountryLogo: any
 	learningHubMainModuleName: any
 	learningHubQuizBreadCrumb: any
+	@ViewChild('scrollContainer') scrollContainer!: ElementRef;
+	@ViewChild('scrollContainerlink') scrollContainerlink!: ElementRef;
+	vediolink:any[]=[];
+	weblink:any[]=[];
+	isHidGlobalRepository:boolean=true;
+	private scrollInterval: any;
 	constructor(private moduleListService: ModuleServiceService, private mService: ModuleServiceService,
 				private moduleStoreService: ModuleStoreService, private dataService: DataService,
 				private route: ActivatedRoute, private _location: Location, private _sanitizer: DomSanitizer,
@@ -137,7 +143,6 @@ export class QuestionListComponent implements OnInit {
 		})
 		this.dataService.homeCountryFlagSource.subscribe((data) => {
 			this.homeCountryLogo = data
-			console.log(this.homeCountryLogo, "data")
 		})
 		this.dataService.countryFlagSource.subscribe((data) => {
 			this.countryFlag = data
@@ -284,6 +289,7 @@ export class QuestionListComponent implements OnInit {
 				this.currentApiSlug = "getlearninghubsubmoduleqcount"
 				this.howItWorksVideoLink = "https://www.youtube.com/embed/prvvJsgnya8?si=QSAeOB9qPMF-ya-D"
 				this.currentModuleSlug = "learning-hub"
+				this.isHidGlobalRepository=false;
 				break
 			case "skill-mastery":
 				this.currentModuleId = 10
@@ -291,6 +297,7 @@ export class QuestionListComponent implements OnInit {
 				this.currentApiSlug = "getskillmasterysubmoduleqcount"
 				this.howItWorksVideoLink = "https://www.youtube.com/embed/mzyfeeL1b4Y?si=SYUFI6bW4xU-QZbT"
 				this.currentModuleSlug = "skill-mastery"
+				this.isHidGlobalRepository=false;
 				break
 			case "k12-category":
 				this.currentModuleId = 14
@@ -383,6 +390,7 @@ export class QuestionListComponent implements OnInit {
 		}
 
 		this.mService.studentsSubmoduleQuestions(data).subscribe((data: any) => {
+			this.homeCountryLogo = data.country_flag
 			this.questionListData = data?.questions
 			this.isSkeletonVisible = false
 			this.totalQuestionCount = data?.questioncount
@@ -660,6 +668,9 @@ export class QuestionListComponent implements OnInit {
 		// this.cdRef.markForCheck();
 		this.oneQuestionContent = questionData
 		this.isQuestionAnswerVisible = true
+		console.log(this.oneQuestionContent);
+		this.vediolink=this.oneQuestionContent.videolink
+		this.weblink=this.oneQuestionContent.reflink
 		// this.getSubmoduleName(questionData.country_id)
 		this.breadCrumb = [
 			{
@@ -834,6 +845,43 @@ export class QuestionListComponent implements OnInit {
 	openHowItWorksVideoPopup(videoLink: string) {
 		this.pageFacade.openHowitWorksVideoPopup(videoLink)
 	}
+	// scroll code
+	// scrollRightLinks() {
+    //     if (this.scrollContainerlink) {
+    //         let container = this.scrollContainerlink.nativeElement;
+    //         container.scrollBy({ left: 200, behavior: 'smooth' });
+
+    //     }
+    // }
+    ngAfterViewInit() {
+        this.scrollRightLinks();
+		this.scrollRight();
+    }
+	scrollRight() {
+		let container = this.scrollContainer.nativeElement;
+
+		this.scrollInterval = setInterval(() => {
+			if (container.scrollLeft + container.clientWidth >= container.scrollWidth) {
+				// Reset to the start when reaching the end
+				container.scrollTo({ left: 0, behavior: 'instant' });
+			} else {
+				// Scroll right smoothly
+				container.scrollBy({ left: 2, behavior: 'smooth' }); // Adjust speed by changing "left" value
+			}
+		}, 0);
+}
+    scrollRightLinks() {
+        const container = this.scrollContainerlink.nativeElement;
+        this.scrollInterval = setInterval(() => {
+            if (container.scrollLeft + container.clientWidth >= container.scrollWidth) {
+                // Reset to the start when reaching the end
+                container.scrollTo({ left: 0, behavior: 'instant' });
+            } else {
+                // Scroll right smoothly
+                container.scrollBy({ left: 2, behavior: 'smooth' }); // Adjust speed by changing "left" value
+            }
+        }, 0); // Adjust speed by changing interval time
+    }
 }
 @Pipe({
 	name: "safe",
@@ -845,4 +893,5 @@ export class SafePipe implements PipeTransform {
 	transform(url: string): SafeResourceUrl {
 		return this.sanitizer.bypassSecurityTrustResourceUrl(url)
 	}
+
 }

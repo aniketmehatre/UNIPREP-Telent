@@ -17,7 +17,7 @@ import { ButtonModule } from "primeng/button"
 	templateUrl: "./global-work-visa.component.html",
 	styleUrls: ["./global-work-visa.component.scss"],
 	standalone: true,
-	imports: [CommonModule,ButtonModule, Carousel, RouterModule, SelectModule, NgClass, DialogModule, Card, FormsModule, ReactiveFormsModule],
+	imports: [CommonModule, ButtonModule, Carousel, RouterModule, SelectModule, NgClass, DialogModule, Card, FormsModule, ReactiveFormsModule],
 })
 export class GlobalWorkVisaComponent implements OnInit {
 	recommendations: { id: number; question: string }[] = [
@@ -46,7 +46,10 @@ export class GlobalWorkVisaComponent implements OnInit {
 	eachVisaQuestionCategory: any[] = []
 	isQuestionAnswerVisible: boolean = false
 	selectedQuestionData: any
-	constructor(private service: GlobalworkvisaService, private router: Router, private meta: Meta, private toast: MessageService, private dataService: DataService) {}
+	selectedVisaName: string = '';
+	selectedVisaCategory: string = '';
+
+	constructor(private service: GlobalworkvisaService, private router: Router, private meta: Meta, private toast: MessageService, private dataService: DataService) { }
 
 	ngOnInit(): void {
 		this.getCountriesList()
@@ -95,32 +98,34 @@ export class GlobalWorkVisaComponent implements OnInit {
 		this.isRecommendationData = true
 		this.isRecommendationSavedData = false
 		this.isRecommendationEachVisaNameData = false
-		this.recommendationDataList = []
-		;(this.paramData.country_id = this.selectedData[2]),
-			(this.paramData.nationality = this.selectedData[1]),
-			this.service.getVisaRecommendationsList(this.paramData).subscribe({
-				next: (response) => {
-					this.isRecommendationQuestion = false
-					this.isRecommendationData = true
-					this.isRecommendationSavedData = false
-					this.isRecommendationEachVisaNameData = false
-					this.recomendationData = response
-					const uniqueVisaData = Array.from(
-						new Set(this.recomendationData.map((item) => item.visa_name)) // Extract unique visa names
-					).map((visa_name) => {
-						const visa = this.recomendationData.find((item) => item.visa_name === visa_name)
-						return { id: visa.id, visa_name }
-					})
-					this.recommendationDataList = uniqueVisaData
-				},
-				error: (error) => {
-					this.isRecommendationData = false
-				},
-			})
+		this.recommendationDataList = [];
+		this.paramData.country_id = this.selectedData[2]
+		this.paramData.nationality = this.selectedData[1]
+		this.service.getVisaRecommendationsList(this.paramData).subscribe({
+			next: (response) => {
+				this.isRecommendationQuestion = false
+				this.isRecommendationData = true
+				this.isRecommendationSavedData = false
+				this.isRecommendationEachVisaNameData = false
+				this.recomendationData = response
+				const uniqueVisaData = Array.from(
+					new Set(this.recomendationData.map((item) => item.visa_name)) // Extract unique visa names
+				).map((visa_name) => {
+					const visa = this.recomendationData.find((item) => item.visa_name === visa_name)
+					return { id: visa.id, visa_name }
+				})
+				this.recommendationDataList = uniqueVisaData
+			},
+			error: (error) => {
+				this.isRecommendationData = false
+			},
+		})
 	}
 
 	getVisaCategoryList(selectedData: any) {
-		;(this.paramData.visa_type_id = selectedData.id), (this.isRecommendationQuestion = false)
+		this.paramData.visa_type_id = selectedData.id;
+		this.selectedVisaName = selectedData.visa_name;
+		this.isRecommendationQuestion = false
 		this.isRecommendationData = false
 		this.isRecommendationSavedData = false
 		this.isRecommendationEachVisaNameData = true
@@ -196,16 +201,19 @@ export class GlobalWorkVisaComponent implements OnInit {
 		} else if (this.isRecommendationEachVisaNameData) {
 			this.isRecommendationEachVisaNameData = false
 			this.isRecommendationData = true
+			this.selectedVisaName = '';
 		} else if (this.isRecommendationSavedData) {
 			this.isRecommendationSavedData = false
 			this.isRecommendationEachVisaNameData = true
+			this.selectedVisaCategory = '';
 		} else {
 			this.router.navigateByUrl("/pages/job-tool/career-tool")
 		}
 	}
 	visaCategoryQuestionList: any[] = []
 	viewQuestions(category: any) {
-		this.paramData.category_id = category.id
+		this.paramData.category_id = category.id;
+		this.selectedVisaCategory = category.category_name;
 		this.service.getGlobalworkvisaQA(this.paramData).subscribe((response) => {
 			this.visaCategoryQuestionList = response
 			this.isRecommendationQuestion = false

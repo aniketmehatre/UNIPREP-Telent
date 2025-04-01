@@ -23,11 +23,12 @@
 						<p-inputgroup-addon>
 							<i class="fa-solid fa-search"></i>
 						</p-inputgroup-addon>
-						<input type="text" placeholder="Search" pInputText [(ngModel)]="valueNearYouFilter" (input)="performSearch()" />
+						<input type="text" placeholder="Search" pInputText [(ngModel)]="valueNearYouFilter" (ngModelChange)="performSearch()" />
 					</p-inputgroup>
 				</div>
 			</div>
 		</div>
+		<div class="uniprep-lightgray mt-2">Wealth Leaders count : {{totalcount}}</div>
 	</div>
 	<div class="card-body">
 		<div class="row">
