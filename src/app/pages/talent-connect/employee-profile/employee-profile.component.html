@@ -109,7 +109,7 @@
 										</div>
 									</div>
 								</div>
-								<hr class="my-3"/>
+								<hr class="my-3" />
 								<div class="card-body">
 									<h2 class="card-title mb-1">Education Details</h2>
 									<ng-container class="education" formArrayName="educationDetails">
@@ -178,7 +178,7 @@
 										<button class="w-full btn btn-primary" pButton (click)="addEducation()">Add Education Details &nbsp;<i class="fa fa-plus"></i></button>
 									</div>
 								</div>
-								<hr class="my-3"/>
+								<hr class="my-3" />
 								<div class="card-body">
 									<h2 class="card-title mb-4">Work Experience</h2>
 									<div class="row mb-3">
@@ -274,7 +274,7 @@
 										<button class="w-full btn btn-primary" (click)="addWorkExperience()" [disabled]="personalInfoForm?.get('total_years_of_experience')?.value == 'Fresher'">Add Work Experience Details &nbsp;<i class="fa fa-plus"></i></button>
 									</div>
 								</div>
-								<hr class="my-3"/>
+								<hr class="my-3" />
 								<div class="card-body">
 									<h2 class="card-title mb-1">Career Prefrenences & Aspirations</h2>
 									<div class="mb-2">
@@ -359,7 +359,7 @@
 										</div>
 									</ng-container>
 								</div>
-								<hr class="my-3"/>
+								<hr class="my-3" />
 								<div class="row">
 									<div class="col-12">
 										<h2 class="card-title mb-1">Certifications & Achievements</h2>
@@ -455,9 +455,9 @@
 															<small class="text-danger" *ngIf="language.get('languages_proficiency')?.invalid && language.get('languages_proficiency')?.touched"> This field is mandatory </small>
 														</div>
 														<div *ngIf="i !== 0" class="col-md-2">
-                                                            <button class="btn btn-outline-danger d-flex align-items-center justify-content-center px-3 py-2" (click)="removeLanguage(i)">
-                                                                <span><i class="fa-regular fa-trash fa-lg"></i></span>
-                                                            </button>
+															<button class="btn btn-outline-danger d-flex align-items-center justify-content-center px-3 py-2" (click)="removeLanguage(i)">
+																<span><i class="fa-regular fa-trash fa-lg"></i></span>
+															</button>
 														</div>
 													</div>
 												</div>
@@ -474,7 +474,7 @@
 										</div>
 									</ng-container>
 								</div>
-								<hr class="my-3"/>
+								<hr class="my-3" />
 								<div class="card-body">
 									<h2 class="card-title mb-1">Key Strengths & Professional Traits</h2>
 									<div class="mb-2">
@@ -495,26 +495,26 @@
 											</div>
 										</div>
 										<div class="row mb-3">
-											<div class="col-md-6">
+											<div class="col-md-4">
 												<label for="highestQualification" class="form-label">Soft skills</label>
 												<input pInputText id="highestQualification" formControlName="career_preference_soft_skill_id" placeholder="Enter Soft Skills" class="form-control w-100" (mouseleave)="resetMessageBox()" (mouseenter)="updateMessageBox('career_preference_soft_skill_id')" />
 											</div>
-											<div class="col-md-6">
+											<div class="col-md-4">
 												<label for="highestQualification" class="form-label">Your top professional strength</label>
 												<p-select id="highestQualification" formControlName="career_preference_professional_strength_id" [options]="professionalStrengths" placeholder="Enter know language" styleClass="w-100" optionLabel="strength" optionValue="id" (mouseleave)="resetMessageBox()" (mouseenter)="updateMessageBox('career_preference_professional_strength_id')"></p-select>
 											</div>
+											<div class="col-md-4">
+												<label for="highestQualification" class="form-label">Have you taken on leadership roles?</label>
+												<input pInputText id="university" formControlName="career_preference_leadership_experience" placeholder="Have you taken on leadership roles?" class="form-control w-100" (mouseleave)="resetMessageBox()" (mouseenter)="updateMessageBox('career_preference_leadership_experience')" />
+											</div>
 										</div>
 										<div class="row mb-3">
-											<div class="col-md-6">
+											<div class="col-md-12">
 												<label for="highestQualification" class="form-label">Have a you solved a real-world challenge in your feilds?</label>
 												<div class="position-relative">
 													<textarea pTextarea id="university" formControlName="career_preference_real_world_challenge" placeholder="Have a you solved a real-world challenge?" rows="5" maxLength="200" class="form-control w-100" (mouseleave)="resetMessageBox()" (mouseenter)="updateMessageBox('career_preference_real_world_challenge')" #challenges></textarea>
 													<small class="text-muted d-block text-end">{{ challenges.value?.length }}/200</small>
 												</div>
-											</div>
-											<div class="col-md-6">
-												<label for="highestQualification" class="form-label">Have you taken on leadership roles?</label>
-												<input pInputText id="university" formControlName="career_preference_leadership_experience" placeholder="Have you taken on leadership roles?" class="form-control w-100" (mouseleave)="resetMessageBox()" (mouseenter)="updateMessageBox('career_preference_leadership_experience')" />
 											</div>
 										</div>
 										<div class="row mb-3">
@@ -528,7 +528,7 @@
 										</div>
 									</ng-container>
 								</div>
-								<hr class="my-3"/>
+								<hr class="my-3" />
 								<div class="card-body">
 									<h2 class="card-title mb-3">Professional Networking & Online Presence</h2>
 									<ng-container class="work-experience">
@@ -579,7 +579,7 @@
 										</div>
 									</ng-container>
 								</div>
-								<hr class="my-3"/>
+								<hr class="my-3" />
 								<div class="card-body">
 									<h2 class="card-title mb-3">Achievements & Media</h2>
 									<div class="mb-2">
@@ -619,7 +619,7 @@
 										</div>
 									</div>
 								</div>
-								<hr class="my-3"/>
+								<hr class="my-3" />
 								<div class="card-body">
 									<h2 class="card-title mb-3">Reference & Endorsement</h2>
 									<ng-container class="work-experience" formArrayName="academicReferences">
@@ -880,16 +880,21 @@
 		</div>
 	</div>
 	<div class="card-footer bg-white">
-		<div class="d-flex justify-content-between">
-			<div class="w-75 text-start">
-				<small>Profile Completion: {{ profileCompletion }}%</small>
-				<p-progressBar [value]="profileCompletion"></p-progressBar>
+		<div class="row align-items-center">
+			<div class="col-md-10">
+				<div class="d-flex align-items-center gap-2">
+					<span class="h6 mb-0 flex-shrink-0 uniprep-secondary fw-bold">Profile: {{ profileCompletion }}%</span>
+					<div class="w-100">
+						<p-progressBar [style]="{ height: '12px' }" color="#f0780e" styleClass="rounded-pill" [showValue]="false" [value]="profileCompletion"></p-progressBar>
+					</div>
+				</div>
 			</div>
-			<!-- Save Button -->
-			<button pButton type="button" (click)="onSubmit()" class="btn btn-primary btn-rounded p-1 ps-4 mt-1">
-				<span class="me-2">{{ this.profileId ? "Update Profile" : "Create Profile" }}</span
-				><span class="btn-icon px-2 py-2"><i class="pi pi-check text-white"></i></span>
-			</button>
+			<div class="col-md-2 d-flex justify-content-end">
+				<button pButton type="button" (click)="onSubmit()" class="btn btn-primary btn-rounded p-1 ps-4 mt-1">
+					<span class="me-2">{{ this.profileId ? "Update Profile" : "Create Profile" }}</span
+					><span class="btn-icon px-2 py-2"><i class="pi pi-check text-white"></i></span>
+				</button>
+			</div>
 		</div>
 	</div>
 </div>
