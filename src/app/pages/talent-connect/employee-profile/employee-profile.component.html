@@ -18,94 +18,92 @@
 		</div>
 	</div>
 	<div class="card-body flex-fill overflow-y-auto">
-		<div class="row">
-			<div class="col-md-12 col-lg-8 mb-2 d-flex flex-fill">
-				<div class="container-fluid">
-					<div class="w-100 bg-primary rounded-top-4 text-start d-flex justify-content-between align-items-center">
-						<h5 class="text-white py-2 px-2 fw-medium">Edit your Profile</h5>
-						<div class="d-flex gap-2 mx-2 px-2">
-							<button class="button-profile-top rounded-pill px-3 py-1" (click)="openProfileDialog(true)">Profile Sample</button>
-							<button class="button-profile-top rounded-pill px-3 py-1" (click)="openProfileDialog(false)">Profile Preview</button>
+		<div class="row h-100">
+			<div class="col-md-8 col-lg-9 mb-2 d-flex flex-fill h-100">
+				<div class="card overflow-y-hidden">
+					<div class="card-header bg-primary">
+						<div class="rounded-top-4 text-start d-flex justify-content-between align-items-center">
+							<h5 class="text-white mb-0 fw-medium">Edit your Profile</h5>
+							<div class="d-flex gap-2">
+								<button class="btn btn-secondary btn-rounded px-3 py-1" (click)="openProfileDialog(true)">Profile Sample</button>
+								<button class="button-profile-top rounded-pill px-3 py-1" (click)="openProfileDialog(false)">Profile Preview</button>
+							</div>
 						</div>
 					</div>
-					<div class="rounded-top-0">
+					<div class="card-body h-100 overflow-y-auto">
 						<form [formGroup]="personalInfoForm">
-							<div class="card p-4 overflow-y-auto scroll-hidden" style="height: calc(100vh - 300px)">
-								<div class="card-body">
-									<div class="row">
-										<!-- Photo Upload Section -->
-										<div class="col-md-5">
-											<div class="text-center mb-3 p-3 rounded" style="border: 1px dashed lightgray">
-												<div class="bg-light p-3">
-													<div class="position-relative mx-auto mb-3" style="width: 120px; height: 120px">
-														<ng-container *ngIf="logo; else showSample">
-															<img [src]="logo" styleClass="shadow-lg object-fit" style="width: 120px; height: 120px" class="rounded-circle" />
-														</ng-container>
-														<ng-template #showSample>
-															<div class="bg-secondary bg-opacity-25 d-flex justify-content-center align-items-center rounded-circle" style="width: 120px; height: 120px">
-																<i class="pi pi-user" style="font-size: 3rem; color: #6c757d"></i>
-															</div>
-														</ng-template>
+							<div class="row">
+								<!-- Photo Upload Section -->
+								<div class="col-md-5">
+									<div class="text-center mb-3 p-3 rounded" style="border: 1px dashed lightgray">
+										<div class="bg-light p-3">
+											<div class="position-relative mx-auto mb-3" style="width: 120px; height: 120px">
+												<ng-container *ngIf="logo; else showSample">
+													<img [src]="logo" styleClass="shadow-lg object-fit" style="width: 120px; height: 120px" class="rounded-circle" />
+												</ng-container>
+												<ng-template #showSample>
+													<div class="bg-secondary bg-opacity-25 d-flex justify-content-center align-items-center rounded-circle" style="width: 120px; height: 120px">
+														<i class="pi pi-user" style="font-size: 3rem; color: #6c757d"></i>
 													</div>
+												</ng-template>
+											</div>
 
-													<div class="d-flex justify-content-center gap-2 mb-3">
-														<input name="image" type="file" (change)="onUploadPhoto($event)" accept="image/*" #fileUploadImage style="display: none" />
-														<p-button label="Upload Photo" icon="pi pi-upload" styleClass="p-button-sm" (click)="fileUploadImage.click()" (mouseenter)="updateMessageBox('profile_image')" (mouseleave)="resetMessageBox()"></p-button>
-														<p-button label="Remove Photo" icon="pi pi-times" (onClick)="onRemovePhoto()" styleClass="p-button-sm p-button-outlined"></p-button>
-													</div>
-												</div>
-
-												<small class="text-muted d-block"> You have to upload a close, straight faced photo with plain background. </small>
-
-												<div class="d-flex justify-content-center mt-3">
-													<img src="/uniprep-assets/images/correctProfilePic.png" width="150" height="100" />
-												</div>
+											<div class="d-flex justify-content-center gap-2 mb-3">
+												<input name="image" type="file" (change)="onUploadPhoto($event)" accept="image/*" #fileUploadImage style="display: none" />
+												<p-button label="Upload Photo" icon="pi pi-upload" styleClass="p-button-sm" (click)="fileUploadImage.click()" (mouseenter)="updateMessageBox('profile_image')" (mouseleave)="resetMessageBox()"></p-button>
+												<p-button label="Remove Photo" icon="pi pi-times" (onClick)="onRemovePhoto()" styleClass="p-button-sm p-button-outlined"></p-button>
 											</div>
 										</div>
-										<div class="col-md-7">
-											<h2 class="card-title mb-4">Personal Information</h2>
-											<div class="row mb-3">
-												<!-- Full Name -->
-												<div class="col-md-6">
-													<label for="fullName" class="form-label">Full Name <span class="text-danger">*</span></label>
-													<div class="p-inputgroup">
-														<input pInputText id="fullName" formControlName="full_name" placeholder="Alexanne Stant" class="form-control" (focus)="updateMessageBox('full_name')" (mouseleave)="resetMessageBox()" />
-													</div>
-													<small class="text-danger" *ngIf="personalInfoForm.get('full_name')?.invalid && personalInfoForm.get('full_name')?.touched"> This field is mandatory </small>
-												</div>
 
-												<!-- Date of Birth -->
-												<div class="col-md-6">
-													<label for="dateOfBirth" class="form-label">Date of Birth<span class="text-danger">*</span></label>
-													<p-datepicker id="dateOfBirth" formControlName="date_of_birth" dateFormat="dd-mm-yy" placeholder="DD/MM/YYYY" styleClass="w-100" (mouseenter)="updateMessageBox('date_of_birth')" (mouseleave)="resetMessageBox()" />
-													<small class="text-danger" *ngIf="personalInfoForm.get('date_of_birth')?.invalid && personalInfoForm.get('date_of_birth')?.touched"> This field is mandatory </small>
-												</div>
+										<small class="text-muted d-block"> You have to upload a close, straight faced photo with plain background. </small>
+
+										<div class="d-flex justify-content-center mt-3">
+											<img src="/uniprep-assets/images/correctProfilePic.png" width="150" height="100" />
+										</div>
+									</div>
+								</div>
+								<div class="col-md-7">
+									<h2 class="card-title mb-4">Personal Information</h2>
+									<div class="row mb-3">
+										<!-- Full Name -->
+										<div class="col-md-6">
+											<label for="fullName" class="form-label">Full Name <span class="text-danger">*</span></label>
+											<div class="p-inputgroup">
+												<input pInputText id="fullName" formControlName="full_name" placeholder="Alexanne Stant" class="form-control" (focus)="updateMessageBox('full_name')" (mouseleave)="resetMessageBox()" />
 											</div>
+											<small class="text-danger" *ngIf="personalInfoForm.get('full_name')?.invalid && personalInfoForm.get('full_name')?.touched"> This field is mandatory </small>
+										</div>
 
-											<div class="row mb-3">
-												<!-- Gender -->
-												<div class="col-md-6">
-													<label for="gender" class="form-label">Gender <span class="text-danger">*</span></label>
-													<p-select id="gender" formControlName="gender" [options]="genderOptions" placeholder="Select your gender" styleClass="w-100" (mouseenter)="updateMessageBox('gender')" (mouseleave)="resetMessageBox()"></p-select>
-													<small class="text-danger" *ngIf="personalInfoForm.get('gender')?.invalid && personalInfoForm.get('gender')?.touched"> This field is mandatory </small>
-												</div>
+										<!-- Date of Birth -->
+										<div class="col-md-6">
+											<label for="dateOfBirth" class="form-label">Date of Birth<span class="text-danger">*</span></label>
+											<p-datepicker id="dateOfBirth" formControlName="date_of_birth" dateFormat="dd-mm-yy" placeholder="DD/MM/YYYY" styleClass="w-100" (mouseenter)="updateMessageBox('date_of_birth')" (mouseleave)="resetMessageBox()" />
+											<small class="text-danger" *ngIf="personalInfoForm.get('date_of_birth')?.invalid && personalInfoForm.get('date_of_birth')?.touched"> This field is mandatory </small>
+										</div>
+									</div>
 
-												<!-- Nationality -->
-												<div class="col-md-6">
-													<label for="nationality" class="form-label">Nationality<span class="text-danger">*</span></label>
-													<p-select id="nationality" formControlName="nationality_id" [options]="nationalityList" placeholder="Select your nationality" styleClass="w-100" optionLabel="nationality_name" optionValue="id" [filter]="true" filterBy="nationality_name" [appendTo]="'body'" (mouseleave)="resetMessageBox()" (mouseenter)="updateMessageBox('nationality_id')"></p-select>
-													<small class="text-danger" *ngIf="personalInfoForm.get('nationality_id')?.invalid && personalInfoForm.get('nationality_id')?.touched"> This field is mandatory </small>
-												</div>
-											</div>
+									<div class="row mb-3">
+										<!-- Gender -->
+										<div class="col-md-6">
+											<label for="gender" class="form-label">Gender <span class="text-danger">*</span></label>
+											<p-select id="gender" formControlName="gender" [options]="genderOptions" placeholder="Select your gender" styleClass="w-100" (mouseenter)="updateMessageBox('gender')" (mouseleave)="resetMessageBox()"></p-select>
+											<small class="text-danger" *ngIf="personalInfoForm.get('gender')?.invalid && personalInfoForm.get('gender')?.touched"> This field is mandatory </small>
+										</div>
 
-											<!-- Current Location -->
-											<div class="row mb-3">
-												<div class="col-12">
-													<label for="location" class="form-label">Current Location<span class="text-danger">*</span> (City, Country)</label>
-													<p-select id="location" formControlName="location_id" [options]="locations" placeholder="Select your current location" styleClass="w-100" optionLabel="city_state" optionValue="id" [filter]="true" filterBy="city_state" [appendTo]="'body'" (mouseleave)="resetMessageBox()" (mouseenter)="updateMessageBox('location_id')" (onFilter)="filterLocation($event)"></p-select>
-													<small class="text-danger" *ngIf="personalInfoForm.get('location_id')?.invalid && personalInfoForm.get('location_id')?.touched"> This field is mandatory </small>
-												</div>
-											</div>
+										<!-- Nationality -->
+										<div class="col-md-6">
+											<label for="nationality" class="form-label">Nationality<span class="text-danger">*</span></label>
+											<p-select id="nationality" formControlName="nationality_id" [options]="nationalityList" placeholder="Select your nationality" styleClass="w-100" optionLabel="nationality_name" optionValue="id" [filter]="true" filterBy="nationality_name" [appendTo]="'body'" (mouseleave)="resetMessageBox()" (mouseenter)="updateMessageBox('nationality_id')"></p-select>
+											<small class="text-danger" *ngIf="personalInfoForm.get('nationality_id')?.invalid && personalInfoForm.get('nationality_id')?.touched"> This field is mandatory </small>
+										</div>
+									</div>
+
+									<!-- Current Location -->
+									<div class="row mb-3">
+										<div class="col-12">
+											<label for="location" class="form-label">Current Location<span class="text-danger">*</span> (City, Country)</label>
+											<p-select id="location" formControlName="location_id" [options]="locations" placeholder="Select your current location" styleClass="w-100" optionLabel="city_state" optionValue="id" [filter]="true" filterBy="city_state" [appendTo]="'body'" (mouseleave)="resetMessageBox()" (mouseenter)="updateMessageBox('location_id')" (onFilter)="filterLocation($event)"></p-select>
+											<small class="text-danger" *ngIf="personalInfoForm.get('location_id')?.invalid && personalInfoForm.get('location_id')?.touched"> This field is mandatory </small>
 										</div>
 									</div>
 								</div>
@@ -174,7 +172,7 @@
 										</ng-container>
 									</ng-container>
 									<div class="row mb-3">
-										<button class="w-full p-3 rounded-3" (click)="addEducation()">Add More &nbsp;<i class="fa fa-plus"></i></button>
+										<button class="w-full btn btn-primary" pButton (click)="addEducation()">Add More &nbsp;<i class="fa fa-plus"></i></button>
 									</div>
 								</div>
 								<hr />
@@ -730,10 +728,10 @@
 					</div>
 				</div>
 			</div>
-			<div class="col-md-8 col-lg-4 d-flex flex-fill">
-				<div class="container-fluid">
-					<div class="profile-container d-flex flex-column justify-content-between p-2 pb-0 overflow-y-auto rounded-4" style="border: 2px solid var(--uniprep-secondary); height: calc(100vh - 250px)">
-						<div class="d-flex gap-2" style="min-height: 50%">
+			<div class="col-md-4 col-lg-3 d-flex flex-fill h-100">
+				<div class="card border-secondary">
+					<div class="card-body d-flex flex-column justify-content-between">
+						<div class="d-flex gap-2">
 							<div>
 								<img src="https://cdn-icons-png.flaticon.com/512/147/147144.png" width="40" alt="icon" />
 							</div>
@@ -743,132 +741,135 @@
 								</p>
 							</div>
 						</div>
+						<div>
+							<div class="card card-inside" style="border-radius: 10px; transition: transform 0.3s; border: 1px solid #e9ecef" [style.border]="true ? '1px solid #FDA172' : '1px solid #e9ecef'">
+								<div class="card-body">
+									<div class="row mb-3">
+										<div class="col-xl-3 col-lg-3 col-md-3 col-sm-3 col-3">
+											<div>
+												<img [src]="logo ? logo : 'uniprep-assets/images/placeholder.png'" alt="Company Logo" class="rounded-circle w-100 h-100" />
+											</div>
+										</div>
+										<div class="col-9 text-start">
+											<div class="d-flex justify-content-between text-start">
+												<div (mouseenter)="updateMessageBox('full_name')" (mouseleave)="resetMessageBox()">
+													<span class="fw-bold">{{ personalInfoForm.get("full_name")?.value }}</span>
+													<i *ngIf="true" class="fas fa-check-circle ms-1" style="color: #4285f4"></i>
+												</div>
+												<a style="color: #fda172">
+													<i class="fas fa-share-alt"></i>
+												</a>
+											</div>
+											<div style="font-size: 12px" class="text-start">Profile Updated On 18-02-2025</div>
+											<div class="mt-2 text-start d-flex justify-content-between align-items-center">
+												<div>
+													<small>Profile Completion: {{ profileCompletion }}%</small>
+													<p-progressBar [value]="profileCompletion" [showValue]="false" [style]="{ height: '6px', color: 'var(--uniprep-secondary)' }" styleClass="text-secondary"></p-progressBar>
+												</div>
+												<button class="btn btn-sm" style="background-color: #94c973; color: white; font-size: 0.8rem; border-radius: 20px">
+													{{ true ? "Shortlisted" : "Shortlist" }}
+												</button>
+											</div>
+										</div>
+									</div>
 
-						<div class="card-inside">
-							<div class="card-body" style="border-radius: 10px; transition: transform 0.3s; border: 1px solid #e9ecef" [style.border]="true ? '1px solid #FDA172' : '1px solid #e9ecef'">
-								<div class="row mb-3">
-									<div class="col-xl-3 col-lg-3 col-md-3 col-sm-3">
-										<img [src]="logo ? logo : 'uniprep-assets/images/placeholder.png'" alt="Company Logo" class="rounded-circle w-100 h-100" />
-									</div>
-									<div class="col-9 text-start">
-										<div class="d-flex justify-content-between text-start">
-											<div (mouseenter)="updateMessageBox('full_name')" (mouseleave)="resetMessageBox()">
-												<span class="fw-bold">{{ personalInfoForm.get("full_name")?.value }}</span>
-												<i *ngIf="true" class="fas fa-check-circle ms-1" style="color: #4285f4"></i>
-											</div>
-											<a style="color: #fda172">
-												<i class="fas fa-share-alt"></i>
-											</a>
-										</div>
-										<div style="font-size: 12px" class="text-start">Profile Updated On 18-02-2025</div>
-										<div class="mt-2 text-start d-flex justify-content-between align-items-center">
-											<div>
-												<small>Profile Completion: {{ profileCompletion }}%</small>
-												<p-progressBar [value]="profileCompletion" [showValue]="false" [style]="{ height: '6px', color: 'var(--uniprep-secondary)' }" styleClass="text-secondary"></p-progressBar>
-											</div>
-											<button class="btn btn-sm" style="background-color: #94c973; color: white; font-size: 0.8rem; border-radius: 20px">
-												{{ true ? "Shortlisted" : "Shortlist" }}
-											</button>
-										</div>
-									</div>
-								</div>
-
-								<!-- Open Positions -->
-								<div class="row mb-3 text-start">
-									<div class="col-6">
-										<div class="d-flex align-items-center">
-											<div>
-												<i class="fas fa-briefcase me-2" style="color: #fda172"></i>
-											</div>
-											<div (mouseenter)="updateMessageBox('location_id')" (mouseleave)="resetMessageBox()">
-												<div class="text-muted small">Current Location</div>
-												<div class="fw-bold">{{ personalInfoForm?.get("location_id")?.value ? getListValue(locations, personalInfoForm?.get("location_id")?.value, "city_state") : "" }}</div>
+									<!-- Open Positions -->
+									<div class="row mb-3 text-start">
+										<div class="col-6">
+											<div class="d-flex align-items-center">
+												<div>
+													<i class="fas fa-briefcase me-2" style="color: #fda172"></i>
+												</div>
+												<div (mouseenter)="updateMessageBox('location_id')" (mouseleave)="resetMessageBox()">
+													<div class="text-muted small">Current Location</div>
+													<div class="fw-bold">{{ personalInfoForm?.get("location_id")?.value ? getListValue(locations, personalInfoForm?.get("location_id")?.value, "city_state") : "" }}</div>
+												</div>
 											</div>
 										</div>
-									</div>
-									<div class="col-6">
-										<div class="d-flex align-items-start">
-											<div>
-												<i class="fas fa-map-marker-alt me-2" style="color: #94c973"></i>
-											</div>
-											<div (mouseenter)="updateMessageBox('career_preference_job_title_id')" (mouseleave)="resetMessageBox()">
-												<div class="text-muted small">Desired Job Title</div>
-												<div class="fw-bold">
-													{{ personalInfoForm?.get("career_preference_job_title_id")?.value ? getListValue(jobTitles, personalInfoForm?.get("career_preference_job_title_id")?.value, "job_title") : "" }}
+										<div class="col-6">
+											<div class="d-flex align-items-start">
+												<div>
+													<i class="fas fa-map-marker-alt me-2" style="color: #94c973"></i>
+												</div>
+												<div (mouseenter)="updateMessageBox('career_preference_job_title_id')" (mouseleave)="resetMessageBox()">
+													<div class="text-muted small">Desired Job Title</div>
+													<div class="fw-bold">
+														{{ personalInfoForm?.get("career_preference_job_title_id")?.value ? getListValue(jobTitles, personalInfoForm?.get("career_preference_job_title_id")?.value, "job_title") : "" }}
+													</div>
 												</div>
 											</div>
 										</div>
 									</div>
-								</div>
 
-								<!-- Location and Year -->
-								<div class="row mb-3 text-start">
-									<div class="col-6">
-										<div class="d-flex align-items-start">
-											<div>
-												<i class="far fa-calendar-alt me-2" style="color: #6c757d"></i>
+									<!-- Location and Year -->
+									<div class="row mb-3 text-start">
+										<div class="col-6">
+											<div class="d-flex align-items-start">
+												<div>
+													<i class="far fa-calendar-alt me-2" style="color: #6c757d"></i>
+												</div>
+												<div (mouseenter)="updateMessageBox('career_preference_preferred_employment_type')" (mouseleave)="resetMessageBox()">
+													<div class="text-muted small">Employment Type</div>
+													<div class="fw-bold">
+														{{ personalInfoForm?.get("career_preference_preferred_employment_type")?.value ? personalInfoForm?.get("career_preference_preferred_employment_type")?.value : "" }}
+													</div>
+												</div>
 											</div>
-											<div (mouseenter)="updateMessageBox('career_preference_preferred_employment_type')" (mouseleave)="resetMessageBox()">
-												<div class="text-muted small">Employment Type</div>
-												<div class="fw-bold">
-													{{ personalInfoForm?.get("career_preference_preferred_employment_type")?.value ? personalInfoForm?.get("career_preference_preferred_employment_type")?.value : "" }}
+										</div>
+										<div class="col-6">
+											<div class="d-flex align-items-start h-50">
+												<div>
+													<i class="fas fa-building me-2" style="color: #fda172"></i>
+												</div>
+												<div (mouseenter)="updateMessageBox('career_preference_career_status')" (mouseleave)="resetMessageBox()">
+													<div class="text-muted small">Work Arrangement</div>
+													<div class="fw-bold">
+														{{ personalInfoForm?.get("career_preference_career_status")?.value ? getListValue(locations, personalInfoForm?.get("career_preference_preferred_work_location_id")?.value, "city_state") : "" }}
+													</div>
 												</div>
 											</div>
 										</div>
 									</div>
-									<div class="col-6">
-										<div class="d-flex align-items-start h-50">
-											<div>
-												<i class="fas fa-building me-2" style="color: #fda172"></i>
-											</div>
-											<div (mouseenter)="updateMessageBox('career_preference_career_status')" (mouseleave)="resetMessageBox()">
-												<div class="text-muted small">Work Arrangement</div>
-												<div class="fw-bold">
-													{{ personalInfoForm?.get("career_preference_career_status")?.value ? getListValue(locations, personalInfoForm?.get("career_preference_preferred_work_location_id")?.value, "city_state") : "" }}
+
+									<!-- Company Type and Size -->
+									<div class="row text-start">
+										<div class="col-6">
+											<div class="d-flex align-items-start">
+												<div>
+													<i class="fas fa-users me-2" style="color: #dc3545"></i>
+												</div>
+												<div (mouseenter)="updateMessageBox('career_preference_career_status')" (mouseleave)="resetMessageBox()">
+													<div class="text-muted small">Current Career Status</div>
+													<div class="fw-bold">
+														{{ personalInfoForm?.get("career_preference_career_status")?.value ? personalInfoForm?.get("career_preference_career_status")?.value : "" }}
+													</div>
 												</div>
 											</div>
 										</div>
-									</div>
-								</div>
-
-								<!-- Company Type and Size -->
-								<div class="row text-start">
-									<div class="col-6">
-										<div class="d-flex align-items-start">
-											<div>
+										<div class="col-6">
+											<div class="d-flex align-items-start">
+												<div></div>
 												<i class="fas fa-users me-2" style="color: #dc3545"></i>
-											</div>
-											<div (mouseenter)="updateMessageBox('career_preference_career_status')" (mouseleave)="resetMessageBox()">
-												<div class="text-muted small">Current Career Status</div>
-												<div class="fw-bold">
-													{{ personalInfoForm?.get("career_preference_career_status")?.value ? personalInfoForm?.get("career_preference_career_status")?.value : "" }}
-												</div>
-											</div>
-										</div>
-									</div>
-									<div class="col-6">
-										<div class="d-flex align-items-start">
-											<div></div>
-											<i class="fas fa-users me-2" style="color: #dc3545"></i>
-											<div (mouseenter)="updateMessageBox('career_preference_expected_salary')" (mouseleave)="resetMessageBox()">
-												<div class="text-muted small">Expected Salary</div>
-												<div class="fw-bold">
-													{{
-														personalInfoForm?.get("career_preference_expected_salary")?.value
-															? getListValue(currencies, personalInfoForm?.get("career_preference_currency_id")?.value, "currency_code") +
-															  " " +
-															  personalInfoForm?.get("career_preference_expected_salary")?.value +
-															  "
+												<div (mouseenter)="updateMessageBox('career_preference_expected_salary')" (mouseleave)="resetMessageBox()">
+													<div class="text-muted small">Expected Salary</div>
+													<div class="fw-bold">
+														{{
+															personalInfoForm?.get("career_preference_expected_salary")?.value
+																? getListValue(currencies, personalInfoForm?.get("career_preference_currency_id")?.value, "currency_code") +
+																  " " +
+																  personalInfoForm?.get("career_preference_expected_salary")?.value +
+																  "
                                                     /Month"
-															: ""
-													}}
+																: ""
+														}}
+													</div>
 												</div>
 											</div>
 										</div>
 									</div>
 								</div>
 							</div>
-							<p class="text-center text-muted" style="font-size: 12px">Your profile card as viewed by a company</p>
+							<p class="text-center text-muted text-small fw-semibold">Your profile card as viewed by a company</p>
 						</div>
 					</div>
 				</div>
