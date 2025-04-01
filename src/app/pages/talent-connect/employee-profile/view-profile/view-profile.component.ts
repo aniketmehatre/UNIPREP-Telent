@@ -49,7 +49,7 @@ interface ProfileData {
   userAchievements: Array<{ name: string; file: string }>;
   additionalDetails: {
     languagesKnown: string[];
-    hobbiesAndInterests: string[];
+    hobbiesAndInterests: string;
   };
   keyStrengths: {
     industryDifferentiators: string[];
@@ -60,7 +60,7 @@ interface ProfileData {
   };
   networking: {
     linkedinProfile: string;
-    socialMedia: string;
+    socialMedia: { media: string, link: string }[];
     personalWebsite: string;
   };
   attachments: Array<{ name: string; type: string }>;
@@ -110,6 +110,7 @@ export class ViewProfileComponent implements OnInit {
   professionalStrengths: any[] = [];
   qualifications: any[] = [];
   softSkills: any[] = [];
+  nationalityList: any[] = [];
   logo: any;
   // Define a single profile data object
   profileData: ProfileData = {
@@ -161,7 +162,7 @@ export class ViewProfileComponent implements OnInit {
     ],
     additionalDetails: {
       languagesKnown: ['English', 'Kannada', 'Telugu'],
-      hobbiesAndInterests: ['Travelling', 'Reading Books']
+      hobbiesAndInterests: 'Travelling, Reading Books'
     },
     keyStrengths: {
       industryDifferentiators: [
@@ -178,7 +179,7 @@ export class ViewProfileComponent implements OnInit {
     },
     networking: {
       linkedinProfile: 'https://www.linkedin.com/in/johnsmithdesign/',
-      socialMedia: 'https://www.instagram.com/johnsmithdesign/',
+      socialMedia: [{ media: 'instagram', link: 'https://www.instagram.com/johnsmithdesign/' }],
       personalWebsite: 'https://www.behance.net/johnsmidesign/'
     },
     attachments: [
@@ -225,7 +226,9 @@ export class ViewProfileComponent implements OnInit {
         this.qualifications = data?.qualifications,
         this.softSkills = data?.softSkills,
         this.fieldsOfStudy = data?.fieldsOfStudy,
-        this.graduationYears = data?.graduationYears
+        this.graduationYears = data?.graduationYears,
+        this.nationalityList = data?.nationalityList
+
       this.profileData = this.mapToProfileData(this.config.data.profileData);
     }
 
@@ -241,14 +244,16 @@ export class ViewProfileComponent implements OnInit {
     // Implement actual file download logic
   }
 
-  public getListValue(list: any[], id: number) {
-    if (list) {
-      const data = list.find((item) => item.id == id);
-      if (data) {
-        return data;
-      } else {
-        return null;
-      }
+  public getListValue(list: any[], id: number | number[], key: string): string {
+    if (!list) return ""; // Return empty string if list is null/undefined
+
+    if (Array.isArray(id)) {
+      const matchedItems = list.filter(item => id.includes(item.id));
+      return matchedItems.map(item => item?.[key]).join(",");
+    } else {
+      const foundItem = list.find(item => item.id === id);
+      return foundItem ? foundItem?.[key] : "";
+      // Return single value or empty string
     }
   }
 
@@ -264,22 +269,22 @@ export class ViewProfileComponent implements OnInit {
         fullName: formData.full_name || '',
         dateOfBirth: formData.date_of_birth ? new Date(formData.date_of_birth).toISOString() : '',
         gender: formData.gender || '',
-        nationality: this.getListValue(this.locations, formData.nationality_id)?.location || '',
-        location: this.getListValue(this.locations, formData.location_id)?.location || '',
+        nationality: this.getListValue(this.nationalityList, formData.nationality_id, 'nationality_name') || '',
+        location: this.getListValue(this.locations, formData.location_id, 'city_state') || '',
         logo: formData.profile_image || null
       },
       educationDetails: (formData.educationDetails || []).map((edu: any) => ({
-        highestQualification: this.getListValue(this.qualifications, edu.education_qualification_id)?.qualification_name || '',
+        highestQualification: this.getListValue(this.qualifications, edu.education_qualification_id, 'qualification_name') || '',
         university: edu.education_university_name || '',
-        fieldOfStudy: this.getListValue(this.fieldsOfStudy, edu.education_field_id)?.field_name || '',
+        fieldOfStudy: this.getListValue(this.fieldsOfStudy, edu.education_field_id, 'field_name') || '',
         courseName: edu.education_course_name || '',
-        graduationYear: this.getListValue(this.graduationYears, edu.education_graduation_year_id)?.graduation_year_name || '',
+        graduationYear: this.getListValue(this.graduationYears, edu.education_graduation_year_id, 'graduation_year_name') || '',
         gpa: edu.education_gpa_percentage ? `${edu.education_gpa_percentage} %` : ''
       })),
       workExperience: (formData.work_experience || []).map((exp: any) => ({
         totalExperience: exp.year_of_experience || '',
         companyName: exp.work_experience_company_name || '',
-        jobTitle: this.getListValue(this.jobTitles, exp.work_experience_job_title)?.job_title || '',
+        jobTitle: this.getListValue(this.jobTitles, exp.work_experience_job_title, 'job_title') || '',
         employmentType: exp.work_experience_employment_type || '',
         duration: exp.work_experience_duration ? (exp.work_experience_duration)?.map((item: any) => new Date(item)) : '',
         salary: exp.work_experience_salary_per_month || '',
@@ -289,9 +294,9 @@ export class ViewProfileComponent implements OnInit {
       })),
       careerPreferences: {
         careerStatus: formData.career_preference_career_status || '',
-        careerInterest: this.getListValue(this.careerInterests, formData.career_preference_career_interest_id)?.interest || '',
-        jobTitle: this.getListValue(this.jobTitles, formData.career_preference_job_title_id)?.job_title || '',
-        preferredWorkLocation: this.getListValue(this.locations, formData.career_preference_preferred_work_location_id)?.location || '',
+        careerInterest: this.getListValue(this.careerInterests, formData.career_preference_career_interest_id, 'interest') || '',
+        jobTitle: this.getListValue(this.jobTitles, formData.career_preference_job_title_id, 'job_title') || '',
+        preferredWorkLocation: this.getListValue(this.locations, formData.career_preference_preferred_work_location_id, 'city_state') || '',
         preferredEmploymentType: formData.career_preference_preferred_employment_type || '',
         preferredWorkplaceType: formData.career_preference_preferred_workplace_type || '',
         willingToRelocate: formData.career_preference_willingness_to_relocate || '',
@@ -307,20 +312,20 @@ export class ViewProfileComponent implements OnInit {
       })),
       additionalDetails: {
         languagesKnown: (formData.languages || []).map((lang: any) =>
-          `${this.getListValue(this.languagelist, lang.languages_language_id)?.language || ''}(${lang.languages_proficiency || ''})`),
-        hobbiesAndInterests: this.getListValue(this.hobbies, formData.languages_hobby_id) || ''
+          `${this.getListValue(this.languagelist, lang.languages_language_id, 'language') || ''}(${lang.languages_proficiency || ''})`),
+        hobbiesAndInterests: this.getListValue(this.hobbies, formData.languages_hobby_id, 'hobby') || ''
       },
       keyStrengths: {
         industryDifferentiators: formData.career_preference_set_industry_apart ?
           formData.career_preference_set_industry_apart.split(',') : [],
-        topProfessionalStrength: this.getListValue(this.professionalStrengths, formData.career_preference_professional_strength_id)?.strength || '',
+        topProfessionalStrength: this.getListValue(this.professionalStrengths, formData.career_preference_professional_strength_id, 'strength') || '',
         solvedRealWorldChallenge: formData.career_preference_real_world_challenge || '',
         leadershipRoles: formData.career_preference_leadership_experience || '',
         mostAdmiredQuality: formData.career_preference_admired_quality || ''
       },
       networking: {
         linkedinProfile: formData.networking_linkedin_profile || '',
-        socialMedia: formData.networking_social_media?.[0]?.networking_social_media_link || '',
+        socialMedia: [{ media: formData.networking_social_media?.map((media: any) => media.networking_social_media), link: formData.networking_social_media?.map((media: any) => media.networking_social_media_link) }],
         personalWebsite: formData.networking_personal_website || ''
       },
       attachments: [

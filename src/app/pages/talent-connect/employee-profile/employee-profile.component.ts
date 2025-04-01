@@ -193,13 +193,13 @@ export class EmployeeProfileComponent implements OnInit {
       career_preference_admired_quality: [''],
 
       // Networking
-      networking_linkedin_profile: ['', Validators.required],
+      networking_linkedin_profile: ['', [Validators.required, Validators.pattern(/^(http:\/\/www\.|https:\/\/www\.|http:\/\/|https:\/\/)?[a-z0-9]+([\-\.]{1}[a-z0-9]+)*\.[a-z]{2,5}(:[0-9]{1,5})?(\/.*)?$/)]],
       networking_social_media: this.fb.array([this.createSocialMediaGroup()]),
       networking_personal_website: [null, Validators.pattern(/^(http:\/\/www\.|https:\/\/www\.|http:\/\/|https:\/\/)?[a-z0-9]+([\-\.]{1}[a-z0-9]+)*\.[a-z]{2,5}(:[0-9]{1,5})?(\/.*)?$/)],
 
       // Achievements
       career_preference_cv_filename: ['', Validators.required],
-      career_preference_video_link: ['', [Validators.required, Validators.pattern(/^(http:\/\/www\.|https:\/\/www\.|http:\/\/|https:\/\/)?[a-z0-9]+([\-\.]{1}[a-z0-9]+)*\.[a-z]{2,5}(:[0-9]{1,5})?(\/.*)?$/)]],
+      career_preference_video_link: ['', [Validators.pattern(/^(http:\/\/www\.|https:\/\/www\.|http:\/\/|https:\/\/)?[a-z0-9]+([\-\.]{1}[a-z0-9]+)*\.[a-z]{2,5}(:[0-9]{1,5})?(\/.*)?$/)]],
       career_preference_portfolio_upload_link: ['', Validators.pattern(/^(http:\/\/www\.|https:\/\/www\.|http:\/\/|https:\/\/)?[a-z0-9]+([\-\.]{1}[a-z0-9]+)*\.[a-z]{2,5}(:[0-9]{1,5})?(\/.*)?$/)],
 
       // References
@@ -307,8 +307,8 @@ export class EmployeeProfileComponent implements OnInit {
   }
 
   // Generic function to remove items from form arrays
-  removeFormArrayItem(formArray: FormArray, index: number, fileKey?: string): void {
-    if (index > 0) {
+  removeFormArrayItem(formArray: FormArray, index: number, isRequired: boolean = false, fileKey?: string,): void {
+    if (!isRequired || index > 0) {
       if (fileKey && this.uploadedFiles[`${fileKey}_${index}`]) {
         delete this.uploadedFiles[`${fileKey}_${index}`];
       }
@@ -326,14 +326,14 @@ export class EmployeeProfileComponent implements OnInit {
   addAcheivements(): void { this.addFormArrayItem(this.achievements, () => this.createAcheivementGroup()); }
 
   // Remove methods - simplified using generic function
-  removeEducation(index: number): void { this.removeFormArrayItem(this.educationDetails, index); }
-  removeWorkExperience(index: number): void { this.removeFormArrayItem(this.workExperience, index, FileType.EXPERIENCE_LETTER); }
-  removeLanguage(index: number): void { this.removeFormArrayItem(this.languages, index); }
-  removeSocialMedia(index: number): void { this.removeFormArrayItem(this.socialMedia, index); }
-  removeAcademicReference(index: number): void { this.removeFormArrayItem(this.academicReferences, index); }
-  removeProfessionalReference(index: number): void { this.removeFormArrayItem(this.professionalReferences, index); }
-  removeCertification(index: number): void { this.removeFormArrayItem(this.certifications, index, FileType.CERTIFICATIONS); }
-  removeAchievement(index: number): void { this.removeFormArrayItem(this.achievements, index, FileType.ACHIEVEMENTS); }
+  removeEducation(index: number): void { this.removeFormArrayItem(this.educationDetails, index, true); }
+  removeWorkExperience(index: number): void { this.removeFormArrayItem(this.workExperience, index, false, FileType.EXPERIENCE_LETTER); }
+  removeLanguage(index: number): void { this.removeFormArrayItem(this.languages, index, true); }
+  removeSocialMedia(index: number): void { this.removeFormArrayItem(this.socialMedia, index, false); }
+  removeAcademicReference(index: number): void { this.removeFormArrayItem(this.academicReferences, index, false); }
+  removeProfessionalReference(index: number): void { this.removeFormArrayItem(this.professionalReferences, index, false); }
+  removeCertification(index: number): void { this.removeFormArrayItem(this.certifications, index, false, FileType.CERTIFICATIONS); }
+  removeAchievement(index: number): void { this.removeFormArrayItem(this.achievements, index, false, FileType.ACHIEVEMENTS); }
 
   uploadFile(type: FileType, event: any, index: number) {
     console.log('calling', type);
@@ -951,6 +951,7 @@ export class EmployeeProfileComponent implements OnInit {
         softSkills: this.softSkills,
         fieldsOfStudy: this.fieldsOfStudy,
         graduationYears: this.graduationYears,
+        nationalityList: this.nationalityList
       },
       styleClass: 'employee-profile-dialog'
     });
@@ -1085,12 +1086,15 @@ export class EmployeeProfileComponent implements OnInit {
     this.profileCompletion = Math.round((filledWeight / totalWeight) * 100);
   }
 
-
-  getDropDownOptionList() {
-    this.talentConnectService.getCityCountries().subscribe({
+  getCityCountryList(search?: string) {
+    this.talentConnectService.getCityCountries(search).subscribe({
       next: response => { this.locations = response; }
     });
+  }
 
+
+  getDropDownOptionList() {
+    this.getCityCountryList();
     this.talentConnectService.getMyProfileDropDownValues().subscribe({
       next: response => {
         this.currencies = response.currencies;
@@ -1279,9 +1283,9 @@ export class EmployeeProfileComponent implements OnInit {
         }));
       });
     } 
+    this.filterLocation(response?.location_id)
     this.logo = response?.dp_image;
     this.originalProfileData = { ...this.personalInfoForm.value };
-    console.log(this.originalProfileData);
   }
 
   updateMessageBox(fieldKey: string): void {
@@ -1299,6 +1303,10 @@ export class EmployeeProfileComponent implements OnInit {
       return foundItem ? foundItem?.[key] : "";
       // Return single value or empty string
     }
+  }
+
+  filterLocation(search: any) {
+    this.getCityCountryList(search.filter);
   }
 
 
@@ -1319,6 +1327,10 @@ export class EmployeeProfileComponent implements OnInit {
     } else {
       controls?.enable();
     }
+  }
+
+  routerBlankPage(url: string) {
+    window.open(url, '_blank');
   }
 
   handleValidationsForFields(control: FormControl, isRemove: boolean) {

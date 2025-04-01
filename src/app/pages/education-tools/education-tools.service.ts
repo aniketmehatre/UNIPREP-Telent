@@ -145,6 +145,12 @@ export class EducationToolsService {
     });
   }
 
+  getPoliticianDropDownList(country_id: string) {
+    return this.http.post<any>(`${environment.ApiUrl}/listsfordropdown`, {
+      country: country_id
+    });
+  }
+
   // getCourseListBoxDropdown() {
   //   return this.http.post<any>(environment.ApiUrl + "/CourseListSelectBox", {
   //     headers: this.headers,
