@@ -2,7 +2,8 @@ import { Component, OnInit, Renderer2, ElementRef, HostListener, AfterViewInit, 
 import { MessageService, ConfirmationService } from "primeng/api";
 import { FormBuilder, FormGroup, FormArray, Validators, AbstractControl } from "@angular/forms";
 // import { CourseListService } from '../../course-list/course-list.service';
-import { HttpClient, HttpHeaders } from "@angular/common/http";
+import { HttpClient } from "@angular/common/http";
+import { TooltipModule } from 'primeng/tooltip';
 import { Router } from "@angular/router";
 import { MenuItem } from "primeng/api";
 import Swiper from "swiper";
@@ -13,7 +14,6 @@ import { City } from "src/app/@Models/cost-of-living";
 import { CommonModule } from "@angular/common";
 import { DialogModule } from "primeng/dialog";
 import { SidebarModule } from "primeng/sidebar";
-
 import { RouterModule } from '@angular/router';
 import { CardModule } from 'primeng/card';
 import { PaginatorModule } from 'primeng/paginator';
@@ -27,9 +27,9 @@ import { InputTextModule } from 'primeng/inputtext';
 import { InputGroupAddonModule } from 'primeng/inputgroupaddon';
 import { CvBuilderService } from "./cv-builder.service";
 import { TextareaModule } from 'primeng/textarea';
-import { DomSanitizer, SafeUrl } from '@angular/platform-browser';
-import {PdfViewerModule} from "ng2-pdf-viewer";
-import {ConfirmPopup} from "primeng/confirmpopup";
+import { DomSanitizer } from '@angular/platform-browser';
+import { PdfViewerModule } from "ng2-pdf-viewer";
+import { ConfirmPopup } from "primeng/confirmpopup";
 declare const pdfjsLib: any;
 
 interface ResumeHistory {
@@ -43,7 +43,7 @@ interface ResumeHistory {
   templateUrl: "./cv-builder.component.html",
   styleUrls: ["./cv-builder.component.scss"],
   standalone: true,
-  imports: [CommonModule, DialogModule, TextareaModule, SidebarModule, PdfViewerModule, RouterModule, CardModule, PaginatorModule, FormsModule, ReactiveFormsModule, CarouselModule, ButtonModule, MultiSelectModule, SelectModule, InputGroupModule, InputTextModule, InputGroupAddonModule, ConfirmPopup],
+  imports: [CommonModule, DialogModule, TextareaModule, SidebarModule, PdfViewerModule, RouterModule, CardModule, PaginatorModule, FormsModule, ReactiveFormsModule, CarouselModule, ButtonModule, MultiSelectModule, SelectModule, InputGroupModule, InputTextModule, InputGroupAddonModule, ConfirmPopup, TooltipModule],
   providers: [CvBuilderService,ConfirmationService,MessageService]
 })
 export class CvBuilderComponent implements OnInit, AfterViewInit {
