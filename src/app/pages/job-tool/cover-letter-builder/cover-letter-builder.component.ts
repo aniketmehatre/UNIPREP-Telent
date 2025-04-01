@@ -10,7 +10,7 @@ import { CvBuilderService } from "../cv-builder/cv-builder.service"
 import { CommonModule } from "@angular/common"
 import { DialogModule } from "primeng/dialog"
 import { SidebarModule } from "primeng/sidebar"
-
+import { TooltipModule } from 'primeng/tooltip';
 import { RouterModule } from "@angular/router"
 import { CardModule } from "primeng/card"
 import { PaginatorModule } from "primeng/paginator"
@@ -42,7 +42,7 @@ interface ResumeHistory {
 	styleUrls: ["./cover-letter-builder.component.scss"],
 	standalone: true,
 	imports: [CommonModule,ConfirmPopup, EditorModule, DialogModule, SidebarModule, SkeletonModule, PdfViewerModule, RouterModule, CardModule, PaginatorModule, FormsModule, ReactiveFormsModule, CarouselModule, ButtonModule, MultiSelectModule, SelectModule, InputGroupModule, InputTextModule, InputGroupAddonModule, TextareaModule],
-	providers: [CvBuilderService, ConfirmationService, MessageService],
+	providers: [CvBuilderService, ConfirmationService, MessageService, TooltipModule],
 })
 export class CoverLetterBuilderComponent implements OnInit, AfterViewInit {
 	@ViewChild("pdfViewer") pdfViewer: any
@@ -224,7 +224,7 @@ export class CoverLetterBuilderComponent implements OnInit, AfterViewInit {
 	swiper!: Swiper
 	pdfLoadError: boolean = false
 	pdfUrl: string = ""
-
+	countryCodeList:any[] = [];
 	constructor(private toaster: MessageService, private fb: FormBuilder, private resumeService: CourseListService, private locationService: LocationService, private authService: AuthService, private router: Router, private confirmService: ConfirmationService, private cvBuilderService: CvBuilderService) {
 		this.resumeFormInfoData = this.fb.group({
 			// user_name: ['Vivek Kaliyaperumal', [Validators.required]],
@@ -232,6 +232,7 @@ export class CoverLetterBuilderComponent implements OnInit, AfterViewInit {
 			// user_email: ['vivek.uniabroad@gmail.com', [Validators.required, Validators.email]],
 			// user_location: ['Mysuru, India', [Validators.required]],
 			// user_phone: ['9524000756',[Validators.required, Validators.pattern('^\\+?[1-9]\\d{1,14}$')]],
+			// country_code: ['+91'],
 			// user_website: ['www.xyz.com'],
 			// degree_college_name: ['xyz engineering college'],
 			// edu_degree: ['BE - CSE'],
@@ -251,6 +252,7 @@ export class CoverLetterBuilderComponent implements OnInit, AfterViewInit {
 			user_email: ["", [Validators.required, Validators.email]],
 			user_location: ["", [Validators.required]],
 			user_phone: ["", [Validators.required, Validators.pattern("^\\+?[1-9]\\d{1,14}$")]],
+			country_code: [""],
 			user_website: [""],
 			degree_college_name: [""],
 			edu_degree: [""],
@@ -363,7 +365,8 @@ export class CoverLetterBuilderComponent implements OnInit, AfterViewInit {
 		this.items = [{ label: "Personal Information" }, { label: "Organisation Details" }, { label: "Letter Area" }]
 
 		this.checkplanExpire()
-		this.hideHeader()
+		// this.hideHeader()
+		this.getCountryCodeList();
 		this.locationService.getImage().subscribe((imageUrl) => {
 			this.orglogowhitelabel = imageUrl
 		})
@@ -376,6 +379,14 @@ export class CoverLetterBuilderComponent implements OnInit, AfterViewInit {
 		} else {
 			this.ehitlabelIsShow = false
 		}
+	}
+
+	getCountryCodeList(){
+		this.cvBuilderService.getCountryCodes().subscribe({
+			next: response =>{
+				this.countryCodeList = response;
+			}
+		})
 	}
 
 	loadPdfThumbnail(pdfUrl: string): void {
@@ -508,13 +519,13 @@ export class CoverLetterBuilderComponent implements OnInit, AfterViewInit {
 		}
 	}
 
-	hideHeader() {
-		if (this.activePageIndex == 2) {
-			this.resumeService.setData(true)
-		} else {
-			this.resumeService.setData(false)
-		}
-	}
+	// hideHeader() {
+	// 	if (this.activePageIndex == 2) {
+	// 		this.resumeService.setData(true)
+	// 	} else {
+	// 		this.resumeService.setData(false)
+	// 	}
+	// }
 
 	toggleFullScreen() {
 		this.fullScreenVisible = !this.fullScreenVisible
@@ -614,7 +625,7 @@ export class CoverLetterBuilderComponent implements OnInit, AfterViewInit {
 
 	selectResumeTemplate(templateName: string) {
 		this.activePageIndex++
-		this.hideHeader()
+		// this.hideHeader()
 		this.selectedResumeLevel = templateName
 		this.imgOnclick(templateName)
 	}

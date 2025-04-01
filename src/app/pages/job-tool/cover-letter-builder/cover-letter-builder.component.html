@@ -128,7 +128,7 @@
 	</div>
 </div>
 <div class="container-fluid h-100 d-flex flex-column" *ngIf="activePageIndex == 2">
-	<div class="row align-items-center mb-2">
+	<!-- <div class="row align-items-center mb-2">
 		<div class="col-md-1">
 			<div class="backIcon d-md-flex d-none" role="button" (click)="previous()">
 				<span class="pi pi-angle-left"></span>
@@ -138,7 +138,7 @@
 			<p-steps [model]="items" [readonly]="false" [activeIndex]="moduleActiveIndex"></p-steps>
 		</div>
 		<div class="col-md-1">&nbsp;</div>
-	</div>
+	</div> -->
 	<div class="row flex-fill overflow-hidden">
 		<div class="col-md-6 h-100 d-flex flex-column overflow-hidden gap-2">
 			<div class="flex-fill overflow-y-auto">
@@ -189,6 +189,16 @@
 											<div *ngIf="submitted && f['user_location'].errors" class="text-danger text-xs">
 												<div style="margin-left: 10px" *ngIf="f['user_location'].errors">Location Required</div>
 											</div>
+										</div>
+									</div>
+								</div>
+								<div class="col-md-6">
+									<div class="d-flex align-items-center">
+										<label class="uniprep-primarydark fw-bold h6">Country Code</label>
+									</div>
+									<div class="form-group">
+										<div class="mb-3">
+											<p-select [options]="countryCodeList" styleClass="w-100" [filter]="true" [filterBy]="'name'" placeholder="Select Country Code" formControlName="country_code" optionLabel="name" optionValue="code"></p-select>
 										</div>
 									</div>
 								</div>
@@ -493,7 +503,7 @@
 					<div class="col-11 py-3 mb-5" [ngStyle]="{ 'background-color': selectedThemeColor }">
 						<div class="d-flex justify-content-between px-3 text-white">
 							<div><i class="fa-solid fa-location-dot text-white"></i> {{ f["user_location"].value }}</div>
-							<div><i class="fa-solid fa-phone text-white"></i> {{ f["user_phone"].value }}</div>
+							<div><i class="fa-solid fa-phone text-white"></i> {{ f["country_code"].value }} {{ f["user_phone"].value }}</div>
 							<div><i class="fa-solid fa-envelope text-white"></i> {{ f["user_email"].value }}</div>
 							<div *ngIf="f['user_website'].value"><i class="fa-solid fa-globe text-white"></i> {{ f["user_website"].value }}</div>
 						</div>
@@ -531,7 +541,7 @@
 					<div class="col-11 mb-5">
 						<div class="d-flex justify-content-between px-3">
 							<div><i class="fa-solid fa-location-dot"></i> {{ f["user_location"].value }}</div>
-							<div><i class="fa-solid fa-phone"></i> {{ f["user_phone"].value }}</div>
+							<div><i class="fa-solid fa-phone"></i> {{ f["country_code"].value }} {{ f["user_phone"].value }}</div>
 							<div><i class="fa-solid fa-envelope"></i> {{ f["user_email"].value }}</div>
 							<div *ngIf="f['user_website'].value"><i class="fa-solid fa-globe"></i> {{ f["user_website"].value }}</div>
 						</div>
@@ -565,7 +575,7 @@
 					<div class="col-12 py-3" [ngStyle]="{ 'background-color': selectedThemeColor }">
 						<div class="d-flex justify-content-between px-3 text-white">
 							<div><i class="fa-solid fa-location-dot"></i> {{ f["user_location"].value }}</div>
-							<div><i class="fa-solid fa-phone"></i> {{ f["user_phone"].value }}</div>
+							<div><i class="fa-solid fa-phone"></i> {{ f["country_code"].value }} {{ f["user_phone"].value }}</div>
 							<div><i class="fa-solid fa-envelope"></i> {{ f["user_email"].value }}</div>
 							<div *ngIf="f['user_website'].value"><i class="fa-solid fa-globe"></i> {{ f["user_website"].value }}</div>
 						</div>
@@ -601,7 +611,7 @@
 					<div class="col-4">
 						<div class="d-flex flex-column gap-3">
 							<div><i class="fa-solid fa-location-dot" [ngStyle]="{ color: selectedThemeColor }"></i> {{ f["user_location"].value }}</div>
-							<div><i class="fa-solid fa-phone" [ngStyle]="{ color: selectedThemeColor }"></i> {{ f["user_phone"].value }}</div>
+							<div><i class="fa-solid fa-phone" [ngStyle]="{ color: selectedThemeColor }"></i> {{ f["country_code"].value }} {{ f["user_phone"].value }}</div>
 							<div><i class="fa-solid fa-envelope" [ngStyle]="{ color: selectedThemeColor }"></i> {{ f["user_email"].value }}</div>
 							<div *ngIf="f['user_website'].value"><i class="fa-solid fa-globe" [ngStyle]="{ color: selectedThemeColor }"></i> {{ f["user_website"].value }}</div>
 						</div>
@@ -635,7 +645,7 @@
 					<div class="col-4">
 						<div class="d-flex flex-column gap-3">
 							<div><i class="fa-solid fa-location-dot"></i> {{ f["user_location"].value }}</div>
-							<div><i class="fa-solid fa-phone"></i> {{ f["user_phone"].value }}</div>
+							<div><i class="fa-solid fa-phone"></i> {{ f["country_code"].value }} {{ f["user_phone"].value }}</div>
 							<div><i class="fa-solid fa-envelope"></i> {{ f["user_email"].value }}</div>
 							<div *ngIf="f['user_website'].value"><i class="fa-solid fa-globe"></i> {{ f["user_website"].value }}</div>
 						</div>
