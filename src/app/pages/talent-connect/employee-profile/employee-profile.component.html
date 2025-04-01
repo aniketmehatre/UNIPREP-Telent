@@ -249,8 +249,10 @@
 												<div class="col-md-6 mb-3">
 													<div class="d-flex justify-content-between mb-1">
 														<label for="responsibilities" class="form-label">Job Responsibilities</label>
-														<button class="btn btn-success py-0">Ai Generate</button>
-													</div>
+                                                        <button class="ai-generate-btn ms-3 text-small"
+                                                        style="width: fit-content" (click)="generateAiSummary('joboverview',  getListValue(jobTitles, experience?.get('work_experience_job_title')?.value, 'job_title'),  experience?.get('work_experience_job_responsibilities'));">
+                                                        <i class="pi pi-star"></i>AI Generate
+                                                    </button>													</div>
 													<textarea pTextarea id="responsibilities" class="form-control w-100" placeholder="Enter your Job Responsibilities & Key Achievements" rows="5" maxlength="200" formControlName="work_experience_job_responsibilities" (mouseleave)="resetMessageBox()" (mouseenter)="updateMessageBox('work_experience_job_responsibilities')"></textarea>
 												</div>
 
@@ -532,7 +534,8 @@
                                             <div class="col-md-6">
                                                 <label for="highestQualification" class="form-label">Soft skills</label>
                                                 <p-multi-select pInputText id="highestQualification"
-                                                    formControlName="career_preference_soft_skill_id"
+                                                    formControlName="career_preference_soft_skill_id" [options]="softSkills" optionLabel="id"
+                                                    optionLabel="soft_skill"
                                                     placeholder="Enter Soft Skills" class="form-control p-1 w-100"
                                                     (mouseleave)="resetMessageBox()"
                                                     (mouseenter)="updateMessageBox('career_preference_soft_skill_id')"></p-multi-select>
@@ -666,13 +669,11 @@
                                                 </div>
                                             </div>
                                         </ng-conatiner>
+										<div class="row mb-3">
+											<button class="w-full btn btn-primary" (click)="addSocialMedia()">Add more Social media&nbsp;<i class="fa fa-plus"></i></button>
+										</div>
                                         <div class="row mb-3">
-                                            <button class="w-full p-3 rounded-3" (click)="addSocialMedia();">
-                                                Add more Social media&nbsp;<i class="fa fa-plus"></i>
-                                            </button>
-                                        </div>
-                                        <div class="row mb-3">
-                                            <div class="col-md-6">
+                                            <div class="col-md-12">
                                                 <label for="highestQualification" class="form-label">Personal
                                                     Website</label>
                                                 <input pInputText id="university"

@@ -1352,7 +1352,7 @@ export class EmployeeProfileComponent implements OnInit {
       this.talentConnectService.getAiSummaryByMode(mode, data).subscribe({
         next: response => {
           if (response) {
-            formControl.patchValue(response.data);
+            formControl.patchValue(response.response);
           }
         },
         error: error => {
