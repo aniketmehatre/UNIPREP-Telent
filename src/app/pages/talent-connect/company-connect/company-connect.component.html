@@ -17,157 +17,156 @@
 			</div>
 			<!-- <div class="col-md-3 mt-2 text-end desktop justify-content-end d-none d-md-flex"></div> -->
 		</div>
-		<div class="card-body text-center flex-fill overflow-y-auto">
-			<div class="row align-items-center">
-				<!-- Left Spacer (Keeps Buttons Centered) -->
-				<div class="col-md-4"></div>
+		<div class="row mt-2 align-items-center">
+			<!-- Left Spacer (Keeps Buttons Centered) -->
+			<div class="col-md-4"></div>
 
-				<!-- Centered Buttons -->
-				<div class="col-md-4">
-					<div class="d-flex gap-3 justify-content-center">
-						<button type="button" class="p-2 px-4 module-button primary-btn active-button" routerLink="/pages/talent-connect/company-connect">Company Search</button>
+			<!-- Centered Buttons -->
+			<div class="col-md-4">
+				<div class="d-flex gap-3 justify-content-center">
+					<button type="button" class="p-2 px-4 module-button primary-btn active-button" routerLink="/pages/talent-connect/company-connect">Company Search</button>
 
-						<button type="button" class="p-2 px-4 module-button outlined-btn" routerLink="/pages/talent-connect/company-tracker">Company Tracker</button>
-					</div>
-				</div>
-
-				<!-- Right Section: Chips / Badges -->
-				<div class="col-md-4">
-					<div class="d-flex gap-2 justify-content-end">
-						<p-tag [style]="{ border: '2px solid var(--uniprep-secondary)', color: 'var(--text-color)' }" [rounded]="true" severity="danger">Total Companies : {{ this.totalCount }} </p-tag>
-						<p-tag [style]="{ border: '2px solid var(--uniprep-primary)', color: 'var(--text-color)' }" [rounded]="true" severity="info">Total Jobs : {{ this.totalJob }} </p-tag>
-						<p-tag [style]="{ border: '2px solid green', color: 'var(--text-color)' }" [rounded]="true" severity="success">Total Vacancies : {{ this.totalVacancies }} </p-tag>
-					</div>
+					<button type="button" class="p-2 px-4 module-button outlined-btn" routerLink="/pages/talent-connect/company-tracker">Company Tracker</button>
 				</div>
 			</div>
 
-			<div class="row mt-3">
-				<div class="col-12 col-md-3 col-lg-3 mb-3" *ngFor="let company of companyDataList">
-					<div class="card h-100" role="button" (click)="onClickCompany(company.id)" style="transition: transform 0.3s; border: 1px solid #fda172" [style.border]="company.verified ? '1px solid #FFA500' : '1px solid #fda172'">
-						<div class="card-body">
-							<div class="row mb-3">
-								<div class="col-3">
-									<div style="width: 100%; height: 100%; background-color: #f8f9fa; display: flex; align-items: center; justify-content: center; border-radius: 5px; border: 1px solid #e9ecef">
-										<img src="{{ company.company_logo }}" alt="Company Logo" style="max-width: 50px" />
-									</div>
+			<!-- Right Section: Chips / Badges -->
+			<div class="col-md-4">
+				<div class="d-flex gap-2 justify-content-end">
+					<p-tag [style]="{ border: '2px solid var(--uniprep-secondary)', color: 'var(--text-color)' }" [rounded]="true" severity="danger">Total Companies : {{ this.totalCount }} </p-tag>
+					<p-tag [style]="{ border: '2px solid var(--uniprep-primary)', color: 'var(--text-color)' }" [rounded]="true" severity="info">Total Jobs : {{ this.totalJob }} </p-tag>
+					<p-tag [style]="{ border: '2px solid green', color: 'var(--text-color)' }" [rounded]="true" severity="success">Total Vacancies : {{ this.totalVacancies }} </p-tag>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="card-body text-center flex-fill overflow-y-auto">
+		<div class="row mt-3">
+			<div class="col-12 col-md-3 col-lg-3 mb-3" *ngFor="let company of companyDataList">
+				<div class="card h-100 card-inside" role="button" (click)="onClickCompany(company.id)" style="transition: transform 0.3s; border: 1px solid #fda172" [style.border]="company.verified ? '1px solid #FFA500' : '1px solid #fda172'">
+					<div class="card-body">
+						<div class="row mb-3">
+							<div class="col-3">
+								<div style="width: 100%; height: 100%; background-color: #f8f9fa; display: flex; align-items: center; justify-content: center; border-radius: 5px; border: 1px solid #e9ecef">
+									<img src="{{ company.company_logo }}" alt="Company Logo" style="max-width: 50px" />
 								</div>
-								<div class="col-9 text-start">
-									<div class="d-flex justify-content-between text-start">
-										<div class="d-block">
-											<div class="fw-bold">{{ company.company_name ? company.company_name : "Company Name" }}</div>
-											<p class="text-muted">Founded: {{ company.founded_year || "2019" }}</p>
-										</div>
-										<a href="#" style="color: #fda172">
-											<i class="fas fa-share-alt"></i>
-										</a>
+							</div>
+							<div class="col-9 text-start">
+								<div class="d-flex justify-content-between text-start">
+									<div class="d-block">
+										<h5 class="fw-bold mb-0">{{ company.company_name ? company.company_name : "Company Name" }}</h5>
+										<p class="text-muted text-small">Founded: {{ company.founded_year || "2019" }}</p>
 									</div>
-									<div class="text-start">
-										<button class="p-1 rounded-2 text-small" [ngClass]="company.shortlisted == 1 ? 'active-shortlist' : 'inActive-shortlist'" (click)="onClickShortListCompany(company.id)" [disabled]="company.shortlisted == 1">
-											{{ company.shortlisted == 1 ? "Shortlisted" : "Shortlist" }}
-										</button>
+									<a href="#" style="color: #fda172">
+										<i class="fa-regular fa-share-alt fa-xl"></i>
+									</a>
+								</div>
+								<div class="text-start">
+									<button class="px-3 py-2 rounded-1 text-small btn" pButton [ngClass]="company.shortlisted == 1 ? 'active-shortlist' : 'inActive-shortlist'" (click)="onClickShortListCompany(company.id)" [disabled]="company.shortlisted == 1">
+										{{ company.shortlisted == 1 ? "Shortlisted" : "Shortlist" }}
+									</button>
+								</div>
+							</div>
+						</div>
+						<div class="row text-start">
+							<!-- First Row -->
+							<hr class="my-1" />
+							<div class="col-6">
+								<div class="d-flex align-items-center gap-2">
+									<div class="icon-container job-icon">
+										<i class="fas fa-briefcase"></i>
+									</div>
+									<div class="info-container">
+										<div class="info-label">Open Jobs</div>
+										<div class="info-value">{{ company.jobs }}</div>
 									</div>
 								</div>
 							</div>
-							<div class="row text-start">
-								<!-- First Row -->
-								<hr class="my-1"/>
-								<div class="col-6">
-									<div class="d-flex align-items-center gap-2">
-										<div class="icon-container job-icon">
-											<i class="fas fa-briefcase"></i>
-										</div>
-										<div class="info-container">
-											<div class="info-label" >Open Jobs</div>
-											<div class="info-value" >{{ company.jobs }}</div>
-										</div>
+
+							<div class="col-6">
+								<div class="d-flex align-items-center gap-2">
+									<div class="icon-container vacancies-icon">
+										<i class="fas fa-users"></i>
+									</div>
+									<div class="info-container">
+										<div class="info-label">Open Vacancies</div>
+										<div class="info-value">{{ company.vacancies }}</div>
 									</div>
 								</div>
+							</div>
+							<hr class="my-1" />
 
-								<div class="col-6">
-									<div class="d-flex align-items-center gap-2">
-										<div class="icon-container vacancies-icon">
-											<i class="fas fa-users"></i>
-										</div>
-										<div class="info-container">
-											<div class="info-label" >Open Vacancies</div>
-											<div class="info-value" >{{ company.vacancies }}</div>
-										</div>
+							<!-- Second Row -->
+							<div class="col-6 mb-3">
+								<div class="d-flex align-items-center gap-2">
+									<div class="icon-container company-icon">
+										<i class="fas fa-building"></i>
+									</div>
+									<div class="info-container">
+										<div class="info-label">Company Type</div>
+										<div class="info-value">{{ company.type }}</div>
 									</div>
 								</div>
-								<hr class="my-1"/>
+							</div>
 
-								<!-- Second Row -->
-								<div class="col-6 mb-3">
-									<div class="d-flex align-items-center gap-2">
-										<div class="icon-container company-icon">
-											<i class="fas fa-building"></i>
-										</div>
-										<div class="info-container">
-											<div class="info-label" >Company Type</div>
-											<div class="info-value" >{{ company.type }}</div>
-										</div>
+							<div class="col-6 mb-3">
+								<div class="d-flex align-items-center gap-2">
+									<div class="icon-container size-icon">
+										<i class="fas fa-users-cog"></i>
+									</div>
+									<div class="info-container">
+										<div class="info-label">Company Size</div>
+										<div class="info-value">{{ company.size }}</div>
 									</div>
 								</div>
+							</div>
 
-								<div class="col-6 mb-3">
-									<div class="d-flex align-items-center gap-2">
-										<div class="icon-container size-icon">
-											<i class="fas fa-users-cog"></i>
-										</div>
-										<div class="info-container">
-											<div class="info-label" >Company Size</div>
-											<div class="info-value" >{{ company.size }}</div>
-										</div>
+							<!-- Third Row -->
+							<div class="col-6 mb-3">
+								<div class="d-flex align-items-center gap-2">
+									<div class="icon-container industry-icon">
+										<i class="fas fa-industry"></i>
+									</div>
+									<div class="info-container">
+										<div class="info-label">Industry</div>
+										<div class="info-value">{{ company.industry_type }}</div>
 									</div>
 								</div>
+							</div>
 
-								<!-- Third Row -->
-								<div class="col-6 mb-3">
-									<div class="d-flex align-items-center gap-2">
-										<div class="icon-container industry-icon">
-											<i class="fas fa-industry"></i>
-										</div>
-										<div class="info-container">
-											<div class="info-label" >Industry</div>
-											<div class="info-value" >{{ company.industry_type }}</div>
-										</div>
+							<div class="col-6 mb-3">
+								<div class="d-flex align-items-center gap-2">
+									<div class="icon-container location-icon">
+										<i class="fas fa-map-marker-alt"></i>
+									</div>
+									<div class="info-container">
+										<div class="info-label">Headquarters</div>
+										<div class="info-value">{{ company.HQ_city }} , {{ company.HQ_country }}</div>
 									</div>
 								</div>
+							</div>
 
-								<div class="col-6 mb-3">
-									<div class="d-flex align-items-center gap-2">
-										<div class="icon-container location-icon">
-											<i class="fas fa-map-marker-alt"></i>
-										</div>
-										<div class="info-container">
-											<div class="info-label" >Headquarters</div>
-											<div class="info-value" >{{ company.HQ_city }} , {{ company.HQ_country }}</div>
-										</div>
+							<!-- Fourth Row -->
+							<div class="col-6">
+								<div class="d-flex align-items-center gap-2">
+									<div class="icon-container department-icon">
+										<i class="fas fa-laptop-code"></i>
+									</div>
+									<div class="info-container">
+										<div class="info-label">Department</div>
+										<div class="info-value">{{ company.departments }}</div>
 									</div>
 								</div>
+							</div>
 
-								<!-- Fourth Row -->
-								<div class="col-6">
-									<div class="d-flex align-items-center gap-2">
-										<div class="icon-container department-icon">
-											<i class="fas fa-laptop-code"></i>
-										</div>
-										<div class="info-container">
-											<div class="info-label" >Department</div>
-											<div class="info-value" >{{ company.departments }}</div>
-										</div>
+							<div class="col-6">
+								<div class="d-flex align-items-center gap-2">
+									<div class="icon-container work-mode-icon">
+										<i class="fas fa-map-pin"></i>
 									</div>
-								</div>
-
-								<div class="col-6">
-									<div class="d-flex align-items-center gap-2">
-										<div class="icon-container work-mode-icon">
-											<i class="fas fa-map-pin"></i>
-										</div>
-										<div class="info-container">
-											<div class="info-label" >Work mode</div>
-											<div class="info-value" >{{ company.work_mode }}</div>
-										</div>
+									<div class="info-container">
+										<div class="info-label">Work mode</div>
+										<div class="info-value">{{ company.work_mode }}</div>
 									</div>
 								</div>
 							</div>
@@ -177,11 +176,11 @@
 			</div>
 		</div>
 	</div>
+</div>
+<div class="card-footer border-0 bg-transparent">
 	<div class="card-footer border-0 bg-transparent">
-		<div class="card-footer border-0 bg-transparent">
-			<div class="row d-flex align-items-center gap-2 justify-content-between">
-				<p-paginator *ngIf="totalCount != 0" [rows]="perPage" [totalRecords]="totalCount" [first]="(page - 1) * perPage" (onPageChange)="pageChange($event)" [rowsPerPageOptions]="[50, 100, 300, 500, 1000]"></p-paginator>
-			</div>
+		<div class="row d-flex align-items-center gap-2 justify-content-between">
+			<p-paginator *ngIf="totalCount != 0" [rows]="perPage" [totalRecords]="totalCount" [first]="(page - 1) * perPage" (onPageChange)="pageChange($event)" [rowsPerPageOptions]="[50, 100, 300, 500, 1000]"></p-paginator>
 		</div>
 	</div>
 </div>
