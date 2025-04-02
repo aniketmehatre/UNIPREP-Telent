@@ -417,10 +417,12 @@
                                                     </div>
                                                     <textarea pTextarea id="responsibilities" class="form-control w-100"
                                                         placeholder="Enter your Job Responsibilities & Key Achievements"
-                                                        rows="5" maxlength="2000"
+                                                        rows="5" maxlength="4000"
                                                         formControlName="work_experience_job_responsibilities"
                                                         (mouseleave)="resetMessageBox()"
-                                                        (mouseenter)="updateMessageBox('work_experience_job_responsibilities')"></textarea>
+                                                        (mouseenter)="updateMessageBox('work_experience_job_responsibilities')" #jobRepo></textarea>
+                                                        <small class="text-muted d-block text-end" >{{
+                                                        jobRepo.value?.length }}/4000</small>
                                                 </div>
 
                                                 <!-- Experience Letter Upload -->
@@ -817,11 +819,11 @@
                                                         formControlName="career_preference_set_industry_apart"
                                                         class="form-control w-100"
                                                         placeholder="Enter your Job Responsibilities & Key Achievements"
-                                                        rows="4" maxlength="2000" (mouseleave)="resetMessageBox()"
+                                                        rows="4" maxlength="4000" (mouseleave)="resetMessageBox()"
                                                         (mouseenter)="updateMessageBox('career_preference_set_industry_apart')"
                                                         #keyResponsibility></textarea>
                                                     <small class="text-muted d-block text-end">{{
-                                                        keyResponsibility.value?.length }}/2000</small>
+                                                        keyResponsibility.value?.length }}/4000</small>
                                                 </div>
                                             </div>
                                         </div>
