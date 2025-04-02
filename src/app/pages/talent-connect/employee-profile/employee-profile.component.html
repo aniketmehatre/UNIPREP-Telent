@@ -938,9 +938,7 @@
                                                         (ngModelChange)="changeSocialMedia($event);"
                                                         (mouseenter)="updateMessageBox('networking_social_media')">
                                                         <ng-template let-socialMedia #item>
-                                                            <span
-                                                                *ngIf="!selectedSocialMedias?.includes(socialMedia)">{{
-                                                                socialMedia }}</span>
+                                                            <span [ariaDisabled]="selectedSocialMedias?.includes(socialMedia)">{{socialMedia}}<span *ngIf="selectedSocialMedias?.includes(socialMedia)">(Selected)</span></span>
                                                         </ng-template>
                                                     </p-select>
                                                     <small class="text-danger"
