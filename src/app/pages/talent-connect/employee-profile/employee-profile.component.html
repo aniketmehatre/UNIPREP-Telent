@@ -1303,11 +1303,7 @@
                                                     (mouseleave)="resetMessageBox()">
                                                     <div class="text-muted small">Desired Job Title</div>
                                                     <div class="fw-bold">
-                                                        {{
-                                                        personalInfoForm?.get("career_preference_job_title_id")?.value ?
-                                                        getListValue(jobTitles,
-                                                        personalInfoForm?.get("career_preference_job_title_id")?.value,
-                                                        "job_title") : "" }}
+                                                        {{personalInfoForm?.get("career_preference_job_title_id")?.value || '-'}}
                                                     </div>
                                                 </div>
                                             </div>

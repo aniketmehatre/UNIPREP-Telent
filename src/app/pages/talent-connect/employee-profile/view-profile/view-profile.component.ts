@@ -284,7 +284,7 @@ export class ViewProfileComponent implements OnInit {
       workExperience: (formData.work_experience || []).map((exp: any) => ({
         totalExperience: exp.year_of_experience || '',
         companyName: exp.work_experience_company_name || '',
-        jobTitle: this.getListValue(this.jobTitles, exp.work_experience_job_title, 'job_title') || '',
+        jobTitle: exp.work_experience_job_title || '',
         employmentType: exp.work_experience_employment_type || '',
         duration: exp.work_experience_duration ? (exp.work_experience_duration)?.map((item: any) => new Date(item)) : '',
         salary: exp.work_experience_salary_per_month || '',
@@ -295,7 +295,7 @@ export class ViewProfileComponent implements OnInit {
       careerPreferences: {
         careerStatus: formData.career_preference_career_status || '',
         careerInterest: this.getListValue(this.careerInterests, formData.career_preference_career_interest_id, 'interest') || '',
-        jobTitle: this.getListValue(this.jobTitles, formData.career_preference_job_title_id, 'job_title') || '',
+        jobTitle: formData.career_preference_job_title_id || '',
         preferredWorkLocation: this.getListValue(this.locations, formData.career_preference_preferred_work_location_id, 'city_state') || '',
         preferredEmploymentType: formData.career_preference_preferred_employment_type || '',
         preferredWorkplaceType: formData.career_preference_preferred_workplace_type || '',
