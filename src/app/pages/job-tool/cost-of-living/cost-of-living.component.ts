@@ -143,10 +143,21 @@ export class CostOfLivingComponent implements OnInit {
   cityChange(typeOfField: string, cityDetails: any) {
     if (typeOfField == 'source') {
       this.sourceCountry = cityDetails.country_name;
+      this.targetCities = this.cities.filter((item: any) => item.city_id != cityDetails.city_id);
       return;
     }
-    this.targetCountry = cityDetails.country_name
+    this.targetCountry = cityDetails.country_name;
+    this.sourceCities = this.cities.filter((item: any) => item.city_id != cityDetails.city_id);
   }
+
+  onClear(event: Event, typeOfField: string) {
+    if (typeOfField == 'source') {
+      this.targetCities = this.cities;
+      return;
+    }
+    this.sourceCities = this.cities;
+  }
+
   checkplanExpire(): void {
     this.authService.getNewUserTimeLeft().subscribe((res) => {
       let data = res.time_left;

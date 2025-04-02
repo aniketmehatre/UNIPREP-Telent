@@ -36,7 +36,7 @@ export class WealthleaderslistComponent implements OnInit {
     private fb: FormBuilder,
   ) {
     this.filterForm = this.fb.group({
-      country: [''],
+      country: [null],
     });
     this.searchSubject.pipe(debounceTime(1000)).subscribe(() => {
       this.getWealthLeaders();
@@ -51,9 +51,11 @@ export class WealthleaderslistComponent implements OnInit {
   }
   initWealthLeaders() {
     this.valueNearYouFilter = this.route.snapshot.queryParamMap.get('search') || '';
-    this.filterForm.patchValue({
-      country: Number(this.route.snapshot.queryParamMap.get('country') || 0)
-    });
+    if (this.route.snapshot.queryParamMap.get('country')) {
+      this.filterForm.patchValue({
+        country: Number(this.route.snapshot.queryParamMap.get('country'))
+      });
+    }
     this.getWealthLeaders();
   }
 

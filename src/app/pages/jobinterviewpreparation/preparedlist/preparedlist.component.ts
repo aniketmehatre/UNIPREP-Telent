@@ -8,7 +8,6 @@ import { InterviewPreparationService } from "../interviewpreparation.service";
 import { CommonModule } from "@angular/common";
 import { PaginatorModule } from "primeng/paginator";
 import { DialogModule } from "primeng/dialog";
-import { TabViewModule } from "primeng/tabview";
 import { RouterModule } from '@angular/router';
 import { CardModule } from 'primeng/card';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
@@ -19,12 +18,13 @@ import { SelectModule } from 'primeng/select';
 import { InputGroupModule } from 'primeng/inputgroup';
 import { InputTextModule } from 'primeng/inputtext';
 import { InputGroupAddonModule } from 'primeng/inputgroupaddon';
+import { TabsModule } from "primeng/tabs";
 @Component({
   selector: "uni-preparedlist",
   templateUrl: "./preparedlist.component.html",
   styleUrls: ["./preparedlist.component.scss"],
   standalone: true,
-  imports: [CommonModule, PaginatorModule, DialogModule, TabViewModule, RouterModule, CardModule, FormsModule, ReactiveFormsModule, CarouselModule, ButtonModule, MultiSelectModule, SelectModule, InputGroupModule, InputTextModule, InputGroupAddonModule],
+  imports: [CommonModule, PaginatorModule, DialogModule,TabsModule, RouterModule, CardModule, FormsModule, ReactiveFormsModule, CarouselModule, ButtonModule, MultiSelectModule, SelectModule, InputGroupModule, InputTextModule, InputGroupAddonModule],
   providers: [MessageService,InterviewPreparationService]
 })
 export class JobPreparedListComponent implements OnInit {
@@ -157,11 +157,88 @@ export class JobPreparedListComponent implements OnInit {
     );
   }
   changeType(event: any) {
-    let tabIndex = event.index;
+    let tabIndex = event;
     if (tabIndex == 0) {
       this.getDefaultQuestions();
     } else {
       this.getSavedQuestion();
     }
+  }
+
+  onShowModal(value: any) {
+    let socialShare: any = document.getElementById("socialSharingList");
+    socialShare.style.display = "none";
+  }
+
+  showSocialSharingList() {
+    let socialShare: any = document.getElementById("socialSharingList");
+    if (socialShare.style.display == "") {
+      socialShare.style.display = "block";
+    }
+    else {
+      socialShare.style.display = socialShare.style.display == "none" ? "block" : "none";
+    }
+  }
+
+  shareViaWhatsapp() {
+    // let url = window.location.href + '/' + this.selectedQuestionData?.degree_id + '/' + this.selectedQuestionData?.course_id + '/' + this.selectedQuestionData?.id
+    // this.meta.updateTag({ property: 'og:url', content: url });
+    // const shareUrl = `whatsapp://send?text=${encodeURIComponent(url)}`;
+    // window.open(shareUrl, '_blank');
+  }
+
+  shareViaInstagram() {
+    // let url = window.location.href + '/' + this.selectedQuestionData?.degree_id + '/' + this.selectedQuestionData?.course_id + '/' + this.selectedQuestionData?.id
+    // this.meta.updateTag({ property: 'og:url', content: url });
+    // const shareUrl = `https://www.instagram.com?url=${encodeURIComponent(url)}`;
+    // window.open(shareUrl, '_blank');
+  }
+
+  shareViaFacebook() {
+    // let url = window.location.href + '/' + this.selectedQuestionData?.degree_id + '/' + this.selectedQuestionData?.course_id + '/' + this.selectedQuestionData?.id
+    // this.meta.updateTag({ property: 'og:url', content: url });
+    // const shareUrl = `https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(url)}`;
+    // window.open(shareUrl, '_blank');
+  }
+
+  shareViaLinkedIn() {
+    // let url = window.location.href + '/' + this.selectedQuestionData?.degree_id + '/' + this.selectedQuestionData?.course_id + '/' + this.selectedQuestionData?.id
+    // this.meta.updateTag({ property: 'og:url', content: url });
+    // const shareUrl = `https://www.linkedin.com/shareArticle?url=${encodeURIComponent(url)}`;
+    // window.open(shareUrl, '_blank');
+  }
+
+  shareViaTwitter() {
+    // let url = window.location.href + '/' + this.selectedQuestionData?.degree_id + '/' + this.selectedQuestionData?.course_id + '/' + this.selectedQuestionData?.id
+    // this.meta.updateTag({ property: 'og:url', content: url });
+    // const shareUrl = `https://twitter.com/intent/tweet?url=${encodeURIComponent(url)}`;
+    // window.open(shareUrl, '_blank');
+  }
+
+  shareViaMail() {
+    // let url = window.location.href + '/' + this.selectedQuestionData?.degree_id + '/' + this.selectedQuestionData?.course_id + '/' + this.selectedQuestionData?.id
+    // this.meta.updateTag({ property: 'og:url', content: url });
+    // const shareUrl = `mailto:?body=${encodeURIComponent(url)}`;
+    // window.open(shareUrl, '_blank');
+  }
+
+  copyLink() {
+    // const safeUrl = encodeURI(window.location.href);
+    // const selectedDegreeId = this.selectedQuestionData?.degree_id || '';
+    // const selectedCourseId = this.selectedQuestionData?.course_id || '';
+    // const selectedQuestionId = this.selectedQuestionData?.id || '';
+    // const textToCopy = `${safeUrl}/${selectedDegreeId}/${selectedCourseId}/${selectedQuestionId}`;
+    // navigator.clipboard.writeText(textToCopy)
+    //   .then(() => {
+    //     this.toast.add({ severity: 'success', summary: 'Success', detail: 'Question Copied' });
+    //   })
+    //   .catch((err) => {
+    //     this.toast.add({ severity: "error", summary: "Warning", detail: 'Failed to copy the question' });
+    //     console.error('Failed to copy text: ', err);
+    //   });
+  }
+  
+  openReport() {
+
   }
 }
