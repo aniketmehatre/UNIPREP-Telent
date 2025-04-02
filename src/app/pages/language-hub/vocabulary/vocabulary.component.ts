@@ -13,6 +13,7 @@ import {InputGroupModule} from "primeng/inputgroup"
 import {InputGroupAddonModule} from "primeng/inputgroupaddon"
 import {ActivatedRoute, RouterModule} from "@angular/router"
 import {TranslateViewService} from "../translate-view/translate-view.service";
+import {LanguageHubDataService} from "../language-hub-data.service";
 
 @Component({
 	selector: "app-vocabulary",
@@ -27,7 +28,7 @@ export class VocabularyComponent implements OnInit {
 	isPlaying1: boolean = false
 	words: any
 	id: string | null = null;
-
+	selectedLanguageCode: any
 	playingStates: { [key: string]: boolean } = {};
 
 	groupedWords: { letter: string; words: { id: number, english_words: string; searched_words: string }[] }[] = []
@@ -35,8 +36,11 @@ export class VocabularyComponent implements OnInit {
 
 	constructor(private languageArrayGlobalService: LanguageArrayGlobalService, private pageFacade: PageFacadeService,
 				private location: Location, private languageHubService: LanguageHubService,
-				private translateViewService: TranslateViewService,
+				private translateViewService: TranslateViewService, private lhs: LanguageHubDataService,
 				private route: ActivatedRoute) {
+		this.lhs.dataLanguageCode$.subscribe((data) => {
+			this.selectedLanguageCode = data
+		})
 	}
 
 	getFormattedValues(): string {
@@ -116,7 +120,7 @@ export class VocabularyComponent implements OnInit {
 	}
 
 	synthesizeSpeech(content: any, id: any) {
-		this.translateViewService.synthesize(content, 'hi').subscribe((response: any) => {
+		this.translateViewService.synthesize(content, this.selectedLanguageCode).subscribe((response: any) => {
 			const audioContent = response.audioContent
 			const audioUrl = "data:audio/mp3;base64," + audioContent
 			const audio = new Audio(audioUrl)
@@ -131,10 +135,10 @@ export class VocabularyComponent implements OnInit {
 	togglePlayPause(id: number, content: any) {
 		if (this.playingStates[id]) {
 			this.playingStates[id] = false;
-			this.synthesizeSpeech(content, id)
+			this.synthesizeSpeech(content.searched_words, id)
 		} else {
 			this.playingStates[id] = true;
-			this.synthesizeSpeech(content, id)
+			this.synthesizeSpeech(content.searched_words, id)
 		}
 	}
 }

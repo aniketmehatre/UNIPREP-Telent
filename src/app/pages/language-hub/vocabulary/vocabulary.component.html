@@ -58,7 +58,7 @@
                     <hr/>
                     <div *ngFor="let word of group.words" class="word-entry">
                         <div class="word">{{ word.english_words }}</div>
-                        <div (click)="togglePlayPause(word.id, word.searched_words)" class="topbutton btn p-0">
+                        <div (click)="togglePlayPause(word.id, word)" class="topbutton btn p-0">
                             <i [ngClass]="{ 'fa': true, 'fa-volume-up': playingStates[word.id], 'fa-play': !playingStates[word.id] }"></i>
                             {{ word.searched_words }}
                         </div>
