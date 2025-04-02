@@ -8,7 +8,6 @@ import { InterviewPreparationService } from "../interviewpreparation.service";
 import { CommonModule } from "@angular/common";
 import { PaginatorModule } from "primeng/paginator";
 import { DialogModule } from "primeng/dialog";
-import { TabViewModule } from "primeng/tabview";
 import { RouterModule } from '@angular/router';
 import { CardModule } from 'primeng/card';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
@@ -19,12 +18,13 @@ import { SelectModule } from 'primeng/select';
 import { InputGroupModule } from 'primeng/inputgroup';
 import { InputTextModule } from 'primeng/inputtext';
 import { InputGroupAddonModule } from 'primeng/inputgroupaddon';
+import { TabsModule } from "primeng/tabs";
 @Component({
   selector: "uni-preparedlist",
   templateUrl: "./preparedlist.component.html",
   styleUrls: ["./preparedlist.component.scss"],
   standalone: true,
-  imports: [CommonModule, PaginatorModule, DialogModule, TabViewModule, RouterModule, CardModule, FormsModule, ReactiveFormsModule, CarouselModule, ButtonModule, MultiSelectModule, SelectModule, InputGroupModule, InputTextModule, InputGroupAddonModule],
+  imports: [CommonModule, PaginatorModule, DialogModule,TabsModule, RouterModule, CardModule, FormsModule, ReactiveFormsModule, CarouselModule, ButtonModule, MultiSelectModule, SelectModule, InputGroupModule, InputTextModule, InputGroupAddonModule],
   providers: [MessageService,InterviewPreparationService]
 })
 export class JobPreparedListComponent implements OnInit {
@@ -157,7 +157,7 @@ export class JobPreparedListComponent implements OnInit {
     );
   }
   changeType(event: any) {
-    let tabIndex = event.index;
+    let tabIndex = event;
     if (tabIndex == 0) {
       this.getDefaultQuestions();
     } else {
