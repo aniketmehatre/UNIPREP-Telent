@@ -125,7 +125,6 @@ export class ComparisionComponent implements OnInit {
     this.sortCategorywisePrices();
   }
   getDiffrencePercentage(original_value: number, new_value: number) {
-    console.log(original_value, new_value);
     const difference = original_value - new_value;
     const avg = (original_value + new_value) / 2;
     this.totalDiffPercentage = ((difference / avg) * 100).toString();
@@ -216,7 +215,6 @@ export class ComparisionComponent implements OnInit {
           }
         } else {
           this.costOfLivingService.inrRate = res.rate;
-          console.log("Inr", this.costOfLivingService.inrRate);
         }
         this.calculatecategorywisePrices();
       },

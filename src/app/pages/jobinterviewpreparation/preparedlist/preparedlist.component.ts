@@ -164,4 +164,81 @@ export class JobPreparedListComponent implements OnInit {
       this.getSavedQuestion();
     }
   }
+
+  onShowModal(value: any) {
+    let socialShare: any = document.getElementById("socialSharingList");
+    socialShare.style.display = "none";
+  }
+
+  showSocialSharingList() {
+    let socialShare: any = document.getElementById("socialSharingList");
+    if (socialShare.style.display == "") {
+      socialShare.style.display = "block";
+    }
+    else {
+      socialShare.style.display = socialShare.style.display == "none" ? "block" : "none";
+    }
+  }
+
+  shareViaWhatsapp() {
+    // let url = window.location.href + '/' + this.selectedQuestionData?.degree_id + '/' + this.selectedQuestionData?.course_id + '/' + this.selectedQuestionData?.id
+    // this.meta.updateTag({ property: 'og:url', content: url });
+    // const shareUrl = `whatsapp://send?text=${encodeURIComponent(url)}`;
+    // window.open(shareUrl, '_blank');
+  }
+
+  shareViaInstagram() {
+    // let url = window.location.href + '/' + this.selectedQuestionData?.degree_id + '/' + this.selectedQuestionData?.course_id + '/' + this.selectedQuestionData?.id
+    // this.meta.updateTag({ property: 'og:url', content: url });
+    // const shareUrl = `https://www.instagram.com?url=${encodeURIComponent(url)}`;
+    // window.open(shareUrl, '_blank');
+  }
+
+  shareViaFacebook() {
+    // let url = window.location.href + '/' + this.selectedQuestionData?.degree_id + '/' + this.selectedQuestionData?.course_id + '/' + this.selectedQuestionData?.id
+    // this.meta.updateTag({ property: 'og:url', content: url });
+    // const shareUrl = `https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(url)}`;
+    // window.open(shareUrl, '_blank');
+  }
+
+  shareViaLinkedIn() {
+    // let url = window.location.href + '/' + this.selectedQuestionData?.degree_id + '/' + this.selectedQuestionData?.course_id + '/' + this.selectedQuestionData?.id
+    // this.meta.updateTag({ property: 'og:url', content: url });
+    // const shareUrl = `https://www.linkedin.com/shareArticle?url=${encodeURIComponent(url)}`;
+    // window.open(shareUrl, '_blank');
+  }
+
+  shareViaTwitter() {
+    // let url = window.location.href + '/' + this.selectedQuestionData?.degree_id + '/' + this.selectedQuestionData?.course_id + '/' + this.selectedQuestionData?.id
+    // this.meta.updateTag({ property: 'og:url', content: url });
+    // const shareUrl = `https://twitter.com/intent/tweet?url=${encodeURIComponent(url)}`;
+    // window.open(shareUrl, '_blank');
+  }
+
+  shareViaMail() {
+    // let url = window.location.href + '/' + this.selectedQuestionData?.degree_id + '/' + this.selectedQuestionData?.course_id + '/' + this.selectedQuestionData?.id
+    // this.meta.updateTag({ property: 'og:url', content: url });
+    // const shareUrl = `mailto:?body=${encodeURIComponent(url)}`;
+    // window.open(shareUrl, '_blank');
+  }
+
+  copyLink() {
+    // const safeUrl = encodeURI(window.location.href);
+    // const selectedDegreeId = this.selectedQuestionData?.degree_id || '';
+    // const selectedCourseId = this.selectedQuestionData?.course_id || '';
+    // const selectedQuestionId = this.selectedQuestionData?.id || '';
+    // const textToCopy = `${safeUrl}/${selectedDegreeId}/${selectedCourseId}/${selectedQuestionId}`;
+    // navigator.clipboard.writeText(textToCopy)
+    //   .then(() => {
+    //     this.toast.add({ severity: 'success', summary: 'Success', detail: 'Question Copied' });
+    //   })
+    //   .catch((err) => {
+    //     this.toast.add({ severity: "error", summary: "Warning", detail: 'Failed to copy the question' });
+    //     console.error('Failed to copy text: ', err);
+    //   });
+  }
+  
+  openReport() {
+
+  }
 }
