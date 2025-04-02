@@ -411,7 +411,7 @@
                                                             Responsibilities</label>
                                                         <button class="ai-generate-btn ms-3 text-small"
                                                             style="width: fit-content"
-                                                            (click)="generateAiSummary('joboverview',  getListValue(jobTitles, experience?.get('work_experience_job_title')?.value, 'job_title'),  experience?.get('work_experience_job_responsibilities'));">
+                                                            (click)="generateAiSummary('joboverview',experience?.get('work_experience_job_title')?.value,  experience?.get('work_experience_job_responsibilities'));">
                                                             <i class="pi pi-star"></i>AI Generate
                                                         </button>
                                                     </div>
@@ -810,7 +810,7 @@
                                                         in your industry?</label>
                                                     <button class="ai-generate-btn ms-3 text-small"
                                                         style="width: fit-content"
-                                                        (click)="generateAiSummary('joboverview', getListValue(jobTitles, personalInfoForm?.get('career_preference_job_title_id')?.value, 'job_title'),  personalInfoForm?.get('career_preference_set_industry_apart'));">
+                                                        (click)="generateAiSummary('joboverview',personalInfoForm?.get('career_preference_job_title_id')?.value,  personalInfoForm?.get('career_preference_set_industry_apart'));">
                                                         <i class="pi pi-star"></i>AI Generate
                                                     </button>
                                                 </div>
@@ -832,7 +832,7 @@
                                                 <label for="highestQualification" class="form-label">Soft skills</label>
                                                 <p-multi-select pInputText id="highestQualification"
                                                     formControlName="career_preference_soft_skill_id"
-                                                    [options]="softSkills" optionLabel="id" optionLabel="soft_skill"
+                                                    [options]="softSkills" optionValue="id" optionLabel="soft_skill"
                                                     placeholder="Enter Soft Skills" class="form-control p-1 w-100"
                                                     (mouseleave)="resetMessageBox()"
                                                     (mouseenter)="updateMessageBox('career_preference_soft_skill_id')"></p-multi-select>
@@ -931,18 +931,19 @@
                                                 [formGroupName]="i">
                                                 <div class="col-md-6">
                                                     <p-select id="highestQualification"
-                                                        formControlName="networking_social_media"
-                                                        [options]="socialMedias"
-                                                        placeholder="Select any social media platform"
-                                                        styleClass="w-100" (mouseleave)="resetMessageBox()"
-                                                        (ngModelChange)="changeSocialMedia($event);"
-                                                        (mouseenter)="updateMessageBox('networking_social_media')">
-                                                        <ng-template let-socialMedia #item>
-                                                            <span
-                                                                *ngIf="!selectedSocialMedias?.includes(socialMedia)">{{
-                                                                socialMedia }}</span>
-                                                        </ng-template>
-                                                    </p-select>
+                                                    formControlName="networking_social_media"
+                                                    [options]="socialMedias"
+                                                    placeholder="Select any social media platform"
+                                                    styleClass="w-100" 
+                                                    (mouseleave)="resetMessageBox()"
+                                                    (ngModelChange)="changeSocialMedia($event);"
+                                                    (mouseenter)="updateMessageBox('networking_social_media')"
+                                                    [optionDisabled]="isDisabled">
+                                                    
+                                                    <ng-template let-socialMedia #item>
+                                                        <span>{{socialMedia}}&nbsp;<span *ngIf="selectedSocialMedias?.includes(socialMedia)">(Selected)</span></span>
+                                                    </ng-template>
+                                                </p-select>
                                                     <small class="text-danger"
                                                         *ngIf="experience.get('networking_social_media')?.invalid && experience.get('networking_social_media')?.touched">
                                                         This field is mandatory

@@ -331,7 +331,7 @@ export class EmployeeProfileComponent implements OnInit {
   removeEducation(index: number): void { this.removeFormArrayItem(this.educationDetails, index, true); }
   removeWorkExperience(index: number): void { this.removeFormArrayItem(this.workExperience, index, false, FileType.EXPERIENCE_LETTER); }
   removeLanguage(index: number): void { this.removeFormArrayItem(this.languages, index, true); }
-  removeSocialMedia(index: number): void { this.removeFormArrayItem(this.socialMedia, index, false); }
+  removeSocialMedia(index: number, value: string): void { this.removeFormArrayItem(this.socialMedia, index, false); this.removeSelectedSocialMedia(value); }
   removeAcademicReference(index: number): void { this.removeFormArrayItem(this.academicReferences, index, false); }
   removeProfessionalReference(index: number): void { this.removeFormArrayItem(this.professionalReferences, index, false); }
   removeCertification(index: number): void { this.removeFormArrayItem(this.certifications, index, false, FileType.CERTIFICATIONS); }
@@ -1245,6 +1245,7 @@ export class EmployeeProfileComponent implements OnInit {
 
     // Patch networking with IDs
     if (response.networking && response.networking.length > 0) {
+      this.selectedSocialMedias = [];
       const socArray = this.personalInfoForm.get('networking_social_media') as FormArray;
       socArray.clear();
       response.networking.forEach((net: any) => {
@@ -1253,6 +1254,7 @@ export class EmployeeProfileComponent implements OnInit {
           networking_social_media: [net.social_media || ''],
           networking_social_media_link: [net.social_media_link || '']
         }));
+        this.selectedSocialMedias.push(net.social_media);
       });
     } 
 
@@ -1374,6 +1376,13 @@ export class EmployeeProfileComponent implements OnInit {
       .filter(value => value !== null && value !== undefined);
   }
 
+  removeSelectedSocialMedia(value: string) {
+    this.selectedSocialMedias = this.selectedSocialMedias.filter((item) => item !== value);
+  }
+
+  isDisabled = (socialMedia: string): boolean => {
+    return this.selectedSocialMedias.includes(socialMedia);
+  };
 
 
 }
