@@ -185,9 +185,14 @@
 									<label class="uniprep-primarydark fw-bold h6">Current Address</label>
 									<div class="form-group">
 										<div class="mb-3">
-											<input class="w-100" type="text" placeholder="Location" formControlName="user_location" pInputText />
-											<div *ngIf="submitted && f['user_location'].errors" class="text-danger text-xs">
-												<div style="margin-left: 10px" *ngIf="f['user_location'].errors">Location Required</div>
+											<div class="input-wrapper">
+												<input type="text" formControlName="user_location" (input)="searchLocation($event, 'user_location')" (focusout)="onFocusOut()" placeholder="Location, Country" class="form-control job-input bg-transparent" />
+												<ul *ngIf="filteredLocations.length > 0" class="dropdown-list">
+													<li *ngFor="let city of filteredLocations" (click)="selectLocation(city, 'user_location')">{{ city.country_name }}</li>
+												</ul>
+												<div *ngIf="submitted && f['user_location'].errors" class="text-danger text-xs">
+													<div *ngIf="f['user_location'].errors">Location Required</div>
+												</div>
 											</div>
 										</div>
 									</div>
@@ -300,13 +305,29 @@
 										</div>
 									</div>
 								</div>
-								<div class="col-md-6">
+								<!-- <div class="col-md-6">
 									<label class="uniprep-primarydark fw-bold h6">Location</label>
 									<div class="form-group">
 										<div class="mb-3">
 											<input class="w-100" type="text" placeholder="Organization Location" formControlName="org_location" pInputText />
 											<div *ngIf="submitted && f['org_location'].errors" class="text-danger text-xs">
 												<div style="margin-left: 10px" *ngIf="f['org_location'].errors">Organization Location Required</div>
+											</div>
+										</div>
+									</div>
+								</div> -->
+								<div class="col-md-6">
+									<label class="uniprep-primarydark fw-bold h6">Location</label>
+									<div class="form-group">
+										<div class="mb-3">
+											<div class="input-wrapper">
+												<input type="text" formControlName="org_location" (input)="searchLocation($event, 'org_location')" (focusout)="onFocusOut()" placeholder="Location, Country" class="form-control job-input bg-transparent" />
+												<ul *ngIf="orgLocation.length > 0" class="dropdown-list">
+													<li *ngFor="let city of orgLocation" (click)="selectLocation(city, 'org_location')">{{ city.country_name }}</li>
+												</ul>
+												<div *ngIf="submitted && f['org_location'].errors" class="text-danger text-xs">
+													<div *ngIf="f['org_location'].errors">Organization Location Required</div>
+												</div>
 											</div>
 										</div>
 									</div>

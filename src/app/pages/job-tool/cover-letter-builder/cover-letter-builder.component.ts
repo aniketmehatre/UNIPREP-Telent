@@ -36,6 +36,14 @@ interface ResumeHistory {
     created_time: string;
 }
 
+interface City {
+	city_id: number
+	city_name: string
+	country_name: string
+	flag: string
+	label?: string;
+}
+
 @Component({
 	selector: "uni-cover-letter-builder",
 	templateUrl: "./cover-letter-builder.component.html",
@@ -68,6 +76,9 @@ export class CoverLetterBuilderComponent implements OnInit, AfterViewInit {
 	isButtonDisabled: boolean = false
 	resumeHistory: any = [];
 	pdfThumbnails: { [key: string]: string } = {};
+	filteredLocations: any = [];
+	orgLocation:any = [];
+	cities: City[] = [];
 	resumeSlider: any = [
 		{
 			id: 1,
@@ -227,25 +238,25 @@ export class CoverLetterBuilderComponent implements OnInit, AfterViewInit {
 	countryCodeList:any[] = [];
 	constructor(private toaster: MessageService, private fb: FormBuilder, private resumeService: CourseListService, private locationService: LocationService, private authService: AuthService, private router: Router, private confirmService: ConfirmationService, private cvBuilderService: CvBuilderService) {
 		this.resumeFormInfoData = this.fb.group({
-			// user_name: ['Vivek Kaliyaperumal', [Validators.required]],
-			// user_job_title: ['Full stack developer', [Validators.required]],
-			// user_email: ['vivek.uniabroad@gmail.com', [Validators.required, Validators.email]],
-			// user_location: ['Mysuru, India', [Validators.required]],
-			// user_phone: ['9524000756',[Validators.required, Validators.pattern('^\\+?[1-9]\\d{1,14}$')]],
-			// country_code: ['+91'],
-			// user_website: ['www.xyz.com'],
-			// degree_college_name: ['xyz engineering college'],
-			// edu_degree: ['BE - CSE'],
-			// exp_designation: ['Laravel Developer'],
-			// years_of_exp: ['3 years'],
-			// achievements_one: ['employee of the year'],
-			// achievements_two: ['employee of the month'],
-			// user_summary: ['Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industrys standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.', [Validators.required]],
-			// org_name: ['Rsoft technologies pvt ltd',[Validators.required]],
-			// org_location: ['Chennai, India',[Validators.required]],
-			// jobposition: ['Managing Director',[Validators.required]],
-			// managername: ['Badri Narayanan',[Validators.required]],
-			// getknowaboutas: ['News Paper',[Validators.required]],
+		// 	user_name: ['Vivek Kaliyaperumal', [Validators.required]],
+		// 	user_job_title: ['Full stack developer', [Validators.required]],
+		// 	user_email: ['vivek.uniabroad@gmail.com', [Validators.required, Validators.email]],
+		// 	user_location: ['Mysuru, India', [Validators.required]],
+		// 	user_phone: ['9524000756',[Validators.required, Validators.pattern('^\\+?[1-9]\\d{1,14}$')]],
+		// 	country_code: ['+91'],
+		// 	user_website: ['www.xyz.com'],
+		// 	degree_college_name: ['xyz engineering college'],
+		// 	edu_degree: ['BE - CSE'],
+		// 	exp_designation: ['Laravel Developer'],
+		// 	years_of_exp: ['3 years'],
+		// 	achievements_one: ['employee of the year'],
+		// 	achievements_two: ['employee of the month'],
+		// 	user_summary: ['Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industrys standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.', [Validators.required]],
+		// 	org_name: ['Rsoft technologies pvt ltd',[Validators.required]],
+		// 	org_location: ['Chennai, India',[Validators.required]],
+		// 	jobposition: ['Managing Director',[Validators.required]],
+		// 	managername: ['Badri Narayanan',[Validators.required]],
+		// 	getknowaboutas: ['News Paper',[Validators.required]],
 
 			user_name: ["", [Validators.required]],
 			user_job_title: ["", [Validators.required]],
@@ -320,6 +331,58 @@ export class CoverLetterBuilderComponent implements OnInit, AfterViewInit {
 		this.pdfLoadError = true
 	}
 
+	searchLocation(event: any, mode: string) {
+		const query = event.target.value.toLowerCase();
+		if(mode === "user_location"){
+			if (query.length > 3) {
+				this.filteredLocations = this.getFilteredLocations(query);
+			} else if (query.length < 2) {
+				this.filteredLocations = [];
+			}
+		}else{
+			if (query.length > 3) {
+				this.orgLocation = this.getFilteredLocations(query);
+			} else if (query.length < 2) {
+				this.orgLocation = [];
+			}
+		}
+		
+	}
+
+	getLocationsList() {
+		this.cvBuilderService.getLocationList().subscribe((res: any) => {
+			this.cities = res;
+		});
+	}
+
+	getFilteredLocations(query: string) {
+		const mockLocations = this.cities;
+	
+		return mockLocations.filter((city: any) => city.country_name.toLowerCase().includes(query.toLowerCase()));
+	}
+	
+	onFocusOut() {
+		setTimeout(() => {
+		  this.filteredLocations = [];
+		  this.orgLocation = [];
+		}, 200); // Delay clearing the dropdown by 200 milliseconds
+	}
+
+
+	selectLocation(city: any, mode: string) {
+		if(mode === "user_location"){
+			this.resumeFormInfoData.patchValue({
+				user_location: city.country_name,
+			});
+			this.filteredLocations = [];
+		}else if(mode === "org_location"){
+			this.resumeFormInfoData.patchValue({
+				org_location: city.country_name,
+			});
+			this.orgLocation = [];
+		}
+	}
+
 	pdfViewLoader() {
 		try {
 			if (!this.pdfUrl) {
@@ -367,6 +430,7 @@ export class CoverLetterBuilderComponent implements OnInit, AfterViewInit {
 		this.checkplanExpire()
 		// this.hideHeader()
 		this.getCountryCodeList();
+		this.getLocationsList();
 		this.locationService.getImage().subscribe((imageUrl) => {
 			this.orglogowhitelabel = imageUrl
 		})
