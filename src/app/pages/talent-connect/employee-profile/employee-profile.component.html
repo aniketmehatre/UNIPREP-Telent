@@ -341,8 +341,8 @@
                                                     <p-select id="highestQualification"
                                                         formControlName="work_experience_job_title"
                                                         [options]="jobTitles" placeholder="Select Job Title"
-                                                        styleClass="w-100" optionLabel="job_title" optionValue="id"
-                                                        [filter]="true" filterBy="job_title"
+                                                        styleClass="w-100 p-0" optionLabel="job_title" optionValue="job_title"
+                                                        [filter]="true" filterBy="job_title" [editable]="true"
                                                         (mouseleave)="resetMessageBox()"
                                                         [disabled]="experience.get('years_of_experience')?.value == 'Fresher'"
                                                         (mouseenter)="updateMessageBox('work_experience_job_title')"></p-select>
@@ -489,8 +489,8 @@
                                                 <p-select id="highestQualification"
                                                     formControlName="career_preference_job_title_id"
                                                     [options]="jobTitles" placeholder="Select Job Title"
-                                                    styleClass="w-100" optionLabel="job_title" optionValue="id"
-                                                    [filter]="true" filterBy="job_title"
+                                                    styleClass="w-100" optionLabel="job_title" optionValue="job_title"
+                                                    [filter]="true" filterBy="job_title" [editable]="true"
                                                     (mouseleave)="resetMessageBox()"
                                                     (mouseenter)="updateMessageBox('career_preference_job_title_id')"></p-select>
                                                 <small class="text-danger"
