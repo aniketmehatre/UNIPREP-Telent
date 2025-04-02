@@ -1245,6 +1245,7 @@ export class EmployeeProfileComponent implements OnInit {
 
     // Patch networking with IDs
     if (response.networking && response.networking.length > 0) {
+      this.selectedSocialMedias = [];
       const socArray = this.personalInfoForm.get('networking_social_media') as FormArray;
       socArray.clear();
       response.networking.forEach((net: any) => {
@@ -1253,6 +1254,7 @@ export class EmployeeProfileComponent implements OnInit {
           networking_social_media: [net.social_media || ''],
           networking_social_media_link: [net.social_media_link || '']
         }));
+        this.selectedSocialMedias.push(net.social_media);
       });
     } 
 
