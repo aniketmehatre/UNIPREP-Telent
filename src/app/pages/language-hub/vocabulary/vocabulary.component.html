@@ -30,7 +30,7 @@
 				<div class="alphabet-nav">
 					<p href="#" class="all" (click)="onClickLetter(null)">ALL</p>
 					|
-					<p class="text-black fw-normal" *ngFor="let letter of alphabet" (click)="onClickLetter(letter)">
+                    <p (click)="onClickLetterNew(letter)" *ngFor="let letter of alphabet" class="text-black fw-normal">
 						{{ letter }}
 					</p>
 				</div>
@@ -42,31 +42,28 @@
 							<i class="fa-solid fa-search"></i>
 							<!-- Icon for the search bar -->
 						</p-inputgroup-addon>
-						<input type="text" pInputText [(ngModel)]="searchTerm" placeholder="Search for a term" />
-					</p-inputgroup>
+<!--						<input type="text" pInputText [(ngModel)]="searchTerm" placeholder="Search for a term" />-->
+                        <input type="text" pInputText [(ngModel)]="searchTerm" (ngModelChange)="filterWords()" placeholder="Search for a term" />
+
+                    </p-inputgroup>
 				</div>
 			</div>
 
 			<!-- Word List -->
 			<div class="dict">
-				<div *ngFor="let group of groupedWords">
-					<h1 class="headerTextColor">
-						<spon class="headerTextColor">{{ group.letter }}</spon>
-					</h1>
-					<hr />
-					<div *ngFor="let word of group.words" class="word-entry">
-						<div class="word">{{ word.word }}</div>
-						<div class="translation">
-							<i
-								[ngClass]="{
-									fa: true,
-									'fa-volume-up': isPlaying1,
-									'fa-play': !isPlaying1
-								}"></i>
-							{{ word.translation }}
-						</div>
-					</div>
-				</div>
+                <div *ngFor="let group of groupedWords">
+                    <h1 class="headerTextColor">
+                        <span class="headerTextColor">{{ group.letter }}</span>
+                    </h1>
+                    <hr/>
+                    <div *ngFor="let word of group.words" class="word-entry">
+                        <div class="word">{{ word.english_words }}</div>
+                        <div (click)="togglePlayPause(word.id, word.searched_words)" class="topbutton btn p-0">
+                            <i [ngClass]="{ 'fa': true, 'fa-volume-up': playingStates[word.id], 'fa-play': !playingStates[word.id] }"></i>
+                            {{ word.searched_words }}
+                        </div>
+                    </div>
+                </div>
 			</div>
 		</div>
 	</div>
