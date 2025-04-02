@@ -331,7 +331,7 @@ export class EmployeeProfileComponent implements OnInit {
   removeEducation(index: number): void { this.removeFormArrayItem(this.educationDetails, index, true); }
   removeWorkExperience(index: number): void { this.removeFormArrayItem(this.workExperience, index, false, FileType.EXPERIENCE_LETTER); }
   removeLanguage(index: number): void { this.removeFormArrayItem(this.languages, index, true); }
-  removeSocialMedia(index: number): void { this.removeFormArrayItem(this.socialMedia, index, false); }
+  removeSocialMedia(index: number, value: string): void { this.removeFormArrayItem(this.socialMedia, index, false); this.removeSelectedSocialMedia(value); }
   removeAcademicReference(index: number): void { this.removeFormArrayItem(this.academicReferences, index, false); }
   removeProfessionalReference(index: number): void { this.removeFormArrayItem(this.professionalReferences, index, false); }
   removeCertification(index: number): void { this.removeFormArrayItem(this.certifications, index, false, FileType.CERTIFICATIONS); }
@@ -1374,6 +1374,13 @@ export class EmployeeProfileComponent implements OnInit {
       .filter(value => value !== null && value !== undefined);
   }
 
+  removeSelectedSocialMedia(value: string) {
+    this.selectedSocialMedias = this.selectedSocialMedias.filter((item) => item !== value);
+  }
+
+  isDisabled = (socialMedia: string): boolean => {
+    return this.selectedSocialMedias.includes(socialMedia);
+  };
 
 
 }

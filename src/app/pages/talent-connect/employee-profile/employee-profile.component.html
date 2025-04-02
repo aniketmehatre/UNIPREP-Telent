@@ -931,16 +931,19 @@
                                                 [formGroupName]="i">
                                                 <div class="col-md-6">
                                                     <p-select id="highestQualification"
-                                                        formControlName="networking_social_media"
-                                                        [options]="socialMedias"
-                                                        placeholder="Select any social media platform"
-                                                        styleClass="w-100" (mouseleave)="resetMessageBox()"
-                                                        (ngModelChange)="changeSocialMedia($event);"
-                                                        (mouseenter)="updateMessageBox('networking_social_media')">
-                                                        <ng-template let-socialMedia #item>
-                                                            <span [ariaDisabled]="selectedSocialMedias?.includes(socialMedia)">{{socialMedia}}<span *ngIf="selectedSocialMedias?.includes(socialMedia)">(Selected)</span></span>
-                                                        </ng-template>
-                                                    </p-select>
+                                                    formControlName="networking_social_media"
+                                                    [options]="socialMedias"
+                                                    placeholder="Select any social media platform"
+                                                    styleClass="w-100" 
+                                                    (mouseleave)="resetMessageBox()"
+                                                    (ngModelChange)="changeSocialMedia($event);"
+                                                    (mouseenter)="updateMessageBox('networking_social_media')"
+                                                    [optionDisabled]="isDisabled">
+                                                    
+                                                    <ng-template let-socialMedia #item>
+                                                        <span>{{socialMedia}}&nbsp;<span *ngIf="selectedSocialMedias?.includes(socialMedia)">(Selected)</span></span>
+                                                    </ng-template>
+                                                </p-select>
                                                     <small class="text-danger"
                                                         *ngIf="experience.get('networking_social_media')?.invalid && experience.get('networking_social_media')?.touched">
                                                         This field is mandatory
