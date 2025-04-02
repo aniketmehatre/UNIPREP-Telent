@@ -91,6 +91,7 @@ export class ComponentStoriesComponent implements OnInit {
   showDatas(data: any) {
     // get all country ,question, answer api
     localStorage.setItem("countrynameforcomponentstorie",data.country)
+    this.countryname=data.country;
     this.questuionanswerlist=[]; 
     if (this.currentRoute.includes('startup-funding-hacks')) {
       this.router.navigate(['/pages/founderstool/startup-funding-hacks', data.id]); 

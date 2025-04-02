@@ -1,5 +1,5 @@
 .questioncard {
-	border: 1px solid var(--uniprep-primary);
+	border: 1px solid #f0780e;
 	padding: 0;
 	.homecountry {
 		width: 25px;
@@ -14,4 +14,7 @@
 			object-fit: cover;
 		}
 	}
+}
+.questiontext{
+	font-size: 1.2rem;
 }
