@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { TravelToolsService } from './travel-tools/travel-tools.service';
 import { DownloadRespose } from 'src/app/@Models/travel-tools.model';
+import { environment } from '@env/environment';
 
 @Injectable({
     providedIn: 'root'
@@ -67,6 +68,7 @@ export class PromptService {
             .comparison-table th,
             .expense-table th,
             .forecast-table th,
+            .detail-table th,
             .budget-table th {
                 background-color: rgb(63, 76, 131);
                 color: white;
@@ -75,15 +77,16 @@ export class PromptService {
             .budget-table,
             .expense-table,
             .comparison-table,
+            .detail-table,
             .forecast-table {
                 width: 100%;
                 border-collapse: collapse;
                 margin-top: 20px;
             }
-            .comparison-table th,
-            .comparison-table td,
             .expense-table th,
             .expense-table td,
+            .detail-table th,
+            .detail-table td,
             .forecast-table th,
             .forecast-table td,
             .budget-table th,
@@ -120,23 +123,23 @@ export class PromptService {
             h1, h2, h3,h4,h5,h6,p,div,span,ul,li {
                 page-break-before: auto;
                 page-break-after: auto; 
-                page-break-inside: avoid;
+                page-break-inside: auto;
                 position: relative;
             }
             </style>`;
     responseBuilder(data: any) {
         let processedRecommendation = (data.response || '') + '<br>';
-
         processedRecommendation = this.extraContentRemover(processedRecommendation);
+        let imageUrl = `uniprep-assets/images/prompt_modules/${ data.file_name }.png`;
         let titleData = `
                 <div class="title-bar">
                     <div style="width: 250px;">
-                        <img style=" width: 100%; height: 100%;object-fit: contain;" src="https://api.uniprep.ai/uniprepapi/storage/app/public/prompt_modules/${data.file_name}.png" alt="Logo">
+                        <img style=" width: 100%; height: 100%;object-fit: contain;" src="${ imageUrl }" alt="Logo">
                     </div>
                 </div>`;
-        let inputData = `<p style="color: #f0780e;"><strong>Input:<br></strong></p>${data.inputString}<div class="divider"></div><p><strong>Response:<br></strong></p>`;
+        let inputData = `<p style="color: #f0780e;"><strong>Input:<br></strong></p>${ data.inputString }<div class="divider"></div><p><strong>Response:<br></strong></p>`;
         // Rebuild final content using the extracted part
-        let finalRecommendation = `<html><head>${this.style}</head><body class="body-content">${titleData} ${inputData} ${processedRecommendation}</body></html>`;
+        let finalRecommendation = `<html><head>${ this.style }</head><body class="body-content">${ titleData } ${ inputData } ${ processedRecommendation }</body></html>`;
         console.log(finalRecommendation);
         let paramData: DownloadRespose = {
             response: finalRecommendation,
