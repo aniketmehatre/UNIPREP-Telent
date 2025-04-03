@@ -53,6 +53,7 @@ export class CostOfLivingComponent implements OnInit {
   ];
   responsiveOptions: { breakpoint: string; numVisible: number; numScroll: number; }[];
 
+
   constructor(
     private fb: FormBuilder, private locationService: LocationService,
     private costOfLivingService: CostOfLivingService, private router: Router, private authService: AuthService,
@@ -62,6 +63,7 @@ export class CostOfLivingComponent implements OnInit {
       sourceCity: [null],
       targetCity: [null]
     });
+    this.cityChange();
   }
 
   ngOnInit() {
@@ -139,25 +141,34 @@ export class CostOfLivingComponent implements OnInit {
       error => {
       });
   }
-
-  cityChange(typeOfField: string, cityDetails: any) {
-    if (typeOfField == 'source') {
-      this.sourceCountry = cityDetails.country_name;
-      this.targetCities = this.cities.filter((item: any) => item.city_id != cityDetails.city_id);
-      return;
-    }
-    this.targetCountry = cityDetails.country_name;
-    this.sourceCities = this.cities.filter((item: any) => item.city_id != cityDetails.city_id);
+  cityChange() {
+    this.form.controls['sourceCity'].valueChanges.subscribe(
+      data => {
+        if (data) {
+          this.sourceCountry = data.country_name;
+          this.targetCities = this.cities.map(city => ({
+            ...city,
+            disabled: city.city_id === data.city_id, // Disable selected city
+          }));
+        } else {
+          this.targetCities = this.cities;
+        }
+      }
+    );
+    this.form.controls['targetCity'].valueChanges.subscribe(
+      data => {
+        if (data) {
+          this.targetCountry = data.country_name;
+          this.sourceCities = this.cities.map(city => ({
+            ...city,
+            disabled: city.city_id === data.city_id, // Disable selected city
+          }));
+        } else {
+          this.sourceCities = this.cities;
+        }
+      }
+    );
   }
-
-  onClear(event: Event, typeOfField: string) {
-    if (typeOfField == 'source') {
-      this.targetCities = this.cities;
-      return;
-    }
-    this.sourceCities = this.cities;
-  }
-
   checkplanExpire(): void {
     this.authService.getNewUserTimeLeft().subscribe((res) => {
       let data = res.time_left;

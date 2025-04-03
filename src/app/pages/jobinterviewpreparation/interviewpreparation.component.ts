@@ -1,5 +1,5 @@
 import { Component, Input, OnInit, ViewChild, ElementRef } from "@angular/core";
-import { Router } from "@angular/router";
+import { ActivatedRoute, Router } from "@angular/router";
 import { PageFacadeService } from "../page-facade.service";
 import { InterviewPreparationService } from "./interviewpreparation.service";
 import { CommonModule } from '@angular/common';
@@ -30,9 +30,10 @@ export class JobPreparationComponent implements OnInit {
   constructor(
     private router: Router,
     private pageFacade: PageFacadeService,
-    private service: InterviewPreparationService
+    private service: InterviewPreparationService,
+    private route: ActivatedRoute
   ) {
-    this.getJobRoles();
+   
   }
   @Input() prepData: any;
   enableModule: boolean = false;
@@ -72,9 +73,25 @@ export class JobPreparationComponent implements OnInit {
     },
   ];
   ngOnInit() {
+    if (this.route.snapshot.queryParamMap.get('questionid')) { //Question share
+      this.prepData = {
+        questionid:this.route.snapshot.queryParamMap.get('questionid'),
+        role: this.route.snapshot.queryParamMap.get('role'),
+        jobrole: this.route.snapshot.queryParamMap.get('jobrole'),
+        softskill: this.route.snapshot.queryParamMap.get('softskill'),
+        techskill: this.route.snapshot.queryParamMap.get('techskill'),
+        experience: this.route.snapshot.queryParamMap.get('experience'),
+        reason: this.route.snapshot.queryParamMap.get('reason'),
+        job_preference: this.route.snapshot.queryParamMap.get('job_preference'),
+        industry:this.route.snapshot.queryParamMap.get('industry')
+      }
+      this.preparedvisibility = true;
+      return;
+    }
     this.selectedData={};
     this.activePageIndex=0;
-    this.selectedCardIndex=null
+    this.selectedCardIndex=null;
+    this.getJobRoles();
     this.getsoftSkills();
     this.getJobExperience();
     this.getJoiningReasons();
@@ -182,8 +199,19 @@ export class JobPreparationComponent implements OnInit {
     this.prepData = processedData;
   }
   windowChange(data: any) {
+    if (this.route.snapshot.queryParamMap.get('questionid')) { // remove question share query params
+      this.router.navigate(['/pages/interviewprep']);
+      this.getJobRoles();
+      this.getsoftSkills();
+      this.getJobExperience();
+      this.getJoiningReasons();
+      this.getJobPreferences();
+      this.getIndustries();
+    }
     this.preparedvisibility = data;
-    this.ngOnInit();
+    this.selectedData={};
+    this.activePageIndex=0;
+    this.selectedCardIndex=null;
   }
   openVideoPopup(videoLink: string) {
     this.pageFacade.openHowitWorksVideoPopup(videoLink);
