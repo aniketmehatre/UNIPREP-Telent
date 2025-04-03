@@ -110,11 +110,9 @@ export class CostOfLivingComponent implements OnInit {
       this.restrict = true;
       return;
     }
-    var sourceCityDetails = this.cities.find(city => city.city_id === this.form.value.sourceCity);
-    var targetCityDetails = this.cities.find(city => city.city_id === this.form.value.targetCity);
-    this.sourcecountryName = sourceCityDetails ? sourceCityDetails.country_name : '';
-    this.targetcountryName = targetCityDetails ? targetCityDetails.country_name : '';
-    this.costOfLivingService.calculatePrices(sourceCityDetails).subscribe(response => {
+    this.sourcecountryName = this.form.value.sourceCity.country_name;
+    this.targetcountryName = this.form.value.targetCity.country_name;
+    this.costOfLivingService.calculatePrices(this.form.value.sourceCity).subscribe(response => {
       if (response.error !== null) {
         this.toastr.add({ severity: 'error', summary: 'Alert', detail: 'Something went wrong please contact the team or reload the page again', life: 10000 });
       }
@@ -122,7 +120,7 @@ export class CostOfLivingComponent implements OnInit {
       this.sourceCountryPrices?.prices?.forEach((price: Price) => {
         price.itemCount = 1;
       })
-      this.costOfLivingService.calculatePrices(targetCityDetails).subscribe(response => {
+      this.costOfLivingService.calculatePrices(this.form.value.targetCity).subscribe(response => {
         if (response.error !== null) {
           this.toastr.add({ severity: 'error', summary: 'Alert', detail: 'Something went wrong please contact the team or reload the page again', life: 10000 });
         }
