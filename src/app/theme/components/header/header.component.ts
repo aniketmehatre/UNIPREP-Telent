@@ -599,7 +599,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
 
 		// Initialize report form
 		this.initializeReportForm();
-
+		this.setupEventSubscriptions();
 		// Subscribe to dashboard country changes
 		this.dashboardService.selectedCountry$.subscribe({
 			next: (countryData: any) => {
