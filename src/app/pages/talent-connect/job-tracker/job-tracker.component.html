@@ -24,7 +24,7 @@
 		</div>
 	</div>
   
-	<div class="card-body text-center flex-fill h-100" >
+	<div class="card-body text-center flex-fill h-75" >
 		<div class="row mb-2">
 			<div class="d-flex flex-fill gap-2 justify-content-center align-items-center">
 				<button  pButton class="btn border bg-white px-3 py-3" style="color: var(--uniprep-primary)" routerLink="/pages/talent-connect/easy-apply">Job Search</button>
@@ -33,7 +33,7 @@
 		</div>
 		<div class="row gx-3">
 		  <!-- Sidebar with job list -->
-		  <div class="col-lg-3 col-md-3 col-12 border-end mb-3 mb-md-0" [ngClass]="{'vh-100': !showInfo}" >
+		  <div class="col-lg-3 col-md-3 col-12 border-end mb-3 mb-md-0" [ngClass]="{'h-75': !showInfo}" >
 			<uni-job-list (emitId)="onClickJobId($event)" [displayModal]="displayModal" (closeFilter)="displayModal = false"></uni-job-list>
 		  </div>
 	  
@@ -45,7 +45,7 @@
 				  <uni-job-details (closeInfo)="showInfo = false;" [showInfo]="showInfo" [showChat]="showChat" [jobDetails]="jobDetails" (openChat)="showChat = true;"></uni-job-details>
 				</div>
 			  </div>
-			  <div  [ngClass]="{'col-lg-4 col-md-12': showInfo, 'col-lg-12 col-md-12': !showInfo, 'vh-100': !showInfo}" *ngIf="showChat">
+			  <div  [ngClass]="{'col-lg-4 col-md-12': showInfo, 'col-lg-12 col-md-12': !showInfo, 'h-75': !showInfo}" *ngIf="showChat">
 				<uni-job-chat-ui (openInfo)="showInfo = true;" [showInfo]="showInfo" [jobDetails]="jobDetails" (closeChat)="showChat=false;"></uni-job-chat-ui>
 			  </div>
 			</div>

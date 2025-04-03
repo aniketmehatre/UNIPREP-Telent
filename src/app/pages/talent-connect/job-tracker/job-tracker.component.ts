@@ -71,8 +71,13 @@ export class JobTrackerComponent {
   }
 
   onClickJobId(event: number) {
-    this.selectedJobId = event;
-    this.getJobTrackDetails(this.selectedJobId);
+    if (event) {
+      this.selectedJobId = event;
+      this.getJobTrackDetails(this.selectedJobId);
+    } else {
+      this.showChat = false;
+      this.showInfo = false;
+    }
   }
 
   getJobTrackDetails(id: number) {

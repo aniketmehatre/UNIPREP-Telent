@@ -27,7 +27,7 @@ export class TalentConnectService {
     }
 
     getEasyApplyWorkLocationList() {
-        return this.http.get<any>(environment.ApiUrl + "/easyappyworklocations", {
+        return this.http.get<any>(environment.ApiUrl + "/employer/easyappyworklocations", {
             headers: this.headers
         });
     }
@@ -35,7 +35,7 @@ export class TalentConnectService {
     //Easy-Apply
     getJobListDropdown() {
         return this.http.get<any>(
-            environment.ApiUrl + "/easyappydropdownlist",
+            environment.ApiUrl + "/employer/easyappydropdownlist",
             { headers: this.headers });
     }
 

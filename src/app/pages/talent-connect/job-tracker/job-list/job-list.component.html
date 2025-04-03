@@ -120,7 +120,7 @@
 				<label class="form-label fw-bold">Employment Type <span class="text-danger">(Multi select)</span></label>
 				<p-multiSelect 
 				  [options]="employmentTypes" 
-				  formControlName="employmenttype" 
+				  formControlName="employment_type" 
 				  placeholder="Select employment type" 
 				  optionLabel="employment_type"
 				  optionValue="id" 
@@ -169,7 +169,7 @@
 				<label class="form-label fw-bold">Experience Level <span class="text-danger">(Multi select)</span></label>
 				<p-multiSelect 
 				  [options]="experienceLevels" 
-				  formControlName="experience_level" 
+				  formControlName="experienceLevel" 
 				  optionLabel="label"
 				  optionValue="id"
 				  display="chip"
@@ -181,7 +181,7 @@
 				<p-select 
 				  [options]="[{label: 'Active', value: 1}, {label: 'IN Active', value: 0}]" 
 				  formControlName="status" 
-				  display="chip",
+				  display="chip"
 				  optionLabel="label"
 				  optionValue="value"
 				  class="w-100">
