@@ -41,7 +41,7 @@ export class EasyApplyComponent {
   experienceLevels: any[] = [];
   totalJobs: number = 4;
   currencies: any[] = [];
-  page: number = 0;
+  page: number = 1;
   pageSize: number = 8;
   displayModal: boolean = false;
   first: number = 0;

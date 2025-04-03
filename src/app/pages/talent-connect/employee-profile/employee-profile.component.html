@@ -341,9 +341,9 @@
                                                     <p-select id="highestQualification"
                                                         formControlName="work_experience_job_title"
                                                         [options]="jobTitles" placeholder="Select Job Title"
-                                                        styleClass="w-100 p-0" optionLabel="job_title" optionValue="job_title"
-                                                        [filter]="true" filterBy="job_title" [editable]="true"
-                                                        (mouseleave)="resetMessageBox()"
+                                                        styleClass="w-100 p-0" optionLabel="job_title"
+                                                        optionValue="job_title" [filter]="true" filterBy="job_title"
+                                                        [editable]="true" (mouseleave)="resetMessageBox()"
                                                         [disabled]="experience.get('years_of_experience')?.value == 'Fresher'"
                                                         (mouseenter)="updateMessageBox('work_experience_job_title')"></p-select>
                                                 </div>
@@ -420,8 +420,9 @@
                                                         rows="5" maxlength="4000"
                                                         formControlName="work_experience_job_responsibilities"
                                                         (mouseleave)="resetMessageBox()"
-                                                        (mouseenter)="updateMessageBox('work_experience_job_responsibilities')" #jobRepo></textarea>
-                                                        <small class="text-muted d-block text-end" >{{
+                                                        (mouseenter)="updateMessageBox('work_experience_job_responsibilities')"
+                                                        #jobRepo></textarea>
+                                                    <small class="text-muted d-block text-end">{{
                                                         jobRepo.value?.length }}/4000</small>
                                                 </div>
 
@@ -931,19 +932,19 @@
                                                 [formGroupName]="i">
                                                 <div class="col-md-6">
                                                     <p-select id="highestQualification"
-                                                    formControlName="networking_social_media"
-                                                    [options]="socialMedias"
-                                                    placeholder="Select any social media platform"
-                                                    styleClass="w-100" 
-                                                    (mouseleave)="resetMessageBox()"
-                                                    (ngModelChange)="changeSocialMedia($event);"
-                                                    (mouseenter)="updateMessageBox('networking_social_media')"
-                                                    [optionDisabled]="isDisabled">
-                                                    
-                                                    <ng-template let-socialMedia #item>
-                                                        <span>{{socialMedia}}&nbsp;<span *ngIf="selectedSocialMedias?.includes(socialMedia)">(Selected)</span></span>
-                                                    </ng-template>
-                                                </p-select>
+                                                        formControlName="networking_social_media"
+                                                        [options]="socialMedias"
+                                                        placeholder="Select any social media platform"
+                                                        styleClass="w-100" (mouseleave)="resetMessageBox()"
+                                                        (ngModelChange)="changeSocialMedia($event);"
+                                                        (mouseenter)="updateMessageBox('networking_social_media')"
+                                                        [optionDisabled]="isDisabled">
+
+                                                        <ng-template let-socialMedia #item>
+                                                            <span>{{socialMedia}}&nbsp;<span
+                                                                    *ngIf="selectedSocialMedias?.includes(socialMedia)">(Selected)</span></span>
+                                                        </ng-template>
+                                                    </p-select>
                                                     <small class="text-danger"
                                                         *ngIf="experience.get('networking_social_media')?.invalid && experience.get('networking_social_media')?.touched">
                                                         This field is mandatory
@@ -1211,9 +1212,16 @@
                                         <div class="position-relative">
                                             <textarea pTextarea id="responsibilities" formControlName="additional_notes"
                                                 class="form-control w-100" placeholder="Additional Information if any"
-                                                rows="5" maxlength="500" #additionalNotes></textarea>
-                                            <small class="text-muted d-block text-end">{{ additionalNotes.value?.length
-                                                }}/500</small>
+                                                rows="5" maxlength="4000" #additionalNotes></textarea>
+                                            <div>
+                                                <small class="text-danger"
+                                                    *ngIf="personalInfoForm.get('additional_notes')?.invalid">
+                                                    This field is exceed the length of limit </small>
+                                                <small class="text-muted d-block text-end">{{
+                                                    additionalNotes.value?.length
+                                                    }}/4000</small>
+                                            </div>
+
                                         </div>
                                     </div>
                                 </div>
@@ -1304,7 +1312,8 @@
                                                     (mouseleave)="resetMessageBox()">
                                                     <div class="text-muted small">Desired Job Title</div>
                                                     <div class="fw-bold">
-                                                        {{personalInfoForm?.get("career_preference_job_title_id")?.value || '-'}}
+                                                        {{personalInfoForm?.get("career_preference_job_title_id")?.value
+                                                        || '-'}}
                                                     </div>
                                                 </div>
                                             </div>

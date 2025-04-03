@@ -1,9 +1,9 @@
 <div class="job-detail-container">
     <div class="card-body">
       <div class="row align-items-center">
-        <div class="col-md-1 col-sm-3" [ngClass]="{'col-md-2': showChat}">
-          <div class="bg-light d-flex justify-content-center align-items-center">
-            <img [src]="jobDetails.company_logo_url" alt="Company Logo" class="img-fluid w-100 h-100"/>
+        <div class="col-md-1 mx-auto" [ngClass]="{'col-md-2': showChat}">
+          <div class="bg-light d-flex justify-content-center align-items-center mx-auto" style="width: 80px; height: 100%; overflow: hidden; border-radius: 5px;">
+            <img [src]="jobDetails.company_logo_url" alt="Company Logo" class="img-fluid" style="max-width: 100%; max-height: 100%; object-fit: contain;"/>
           </div>
         </div>
         <div class="col-md-10 col-sm-8 text-start" [ngClass]="{'col-md-11': !showChat}">

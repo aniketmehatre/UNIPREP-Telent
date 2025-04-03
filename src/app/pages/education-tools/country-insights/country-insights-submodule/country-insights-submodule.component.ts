@@ -16,6 +16,7 @@ import { InputTextModule } from 'primeng/inputtext';
 import { InputGroupAddonModule } from 'primeng/inputgroupaddon';
 import {StorageService} from "../../../../storage.service";
 import { PaginatorModule } from 'primeng/paginator';
+import { DataService } from 'src/app/data.service';
 @Component({
     selector: 'uni-country-insights-submodule',
     templateUrl: './country-insights-submodule.component.html',
@@ -37,7 +38,7 @@ export class CountryInsightsSubmoduleComponent implements OnInit {
   countryname: string = '';
   isSkeletonVisible: boolean = false;
   constructor(private educationToolService: EducationToolsService, private route: ActivatedRoute, private meta: Meta,
-              private storage: StorageService) {
+    private storage: StorageService, private dataService: DataService) {
 
   }
 
@@ -68,6 +69,15 @@ export class CountryInsightsSubmoduleComponent implements OnInit {
 
   }
 
+  openReport() {
+    const data = {
+      isVisible: true,
+      questionId: this.questionDetail?.id,
+      countryId: this.countryId,
+    };
+    this.dataService.openReportWindow(data);
+  }
+
   closeModal() {
     this.questionDetail = null;
     this.questionModal = false;
@@ -76,11 +86,20 @@ export class CountryInsightsSubmoduleComponent implements OnInit {
   viewModal(data: QuestionsList) {
     this.questionDetail = data;
     this.questionModal = true;
+    let socialShare: any = document.getElementById("socialSharingList");
+    socialShare.style.display = "none";
   }
 
   showSocialSharingList(index: any): void {
-    this.selectedIndex = this.selectedIndex === index ? null : index;
+    let socialShare: any = document.getElementById("socialSharingList");
+    if (socialShare.style.display == "") {
+      socialShare.style.display = "block";
+    }
+    else {
+      socialShare.style.display = socialShare.style.display == "none" ? "block" : "none";
+    }
   }
+
   shareViaWhatsapp(link: any) {
     const { title, answer } = this.questionDetail || {};
     const message = `*${title}*\n${answer}`;

@@ -141,6 +141,7 @@ export class JobListComponent implements OnInit {
     this.getAppliedJobList(this.filterForm.value);
     this.displayModal = false;
     this.closeFilter.emit(true);
+    this.emitId.emit(NaN);
   }
 
   resetFilter(): void {
