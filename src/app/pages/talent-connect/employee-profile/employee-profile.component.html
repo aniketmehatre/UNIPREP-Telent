@@ -153,7 +153,7 @@
                                                 filterBy="city_state" [appendTo]="'body'"
                                                 (mouseleave)="resetMessageBox()"
                                                 (mouseenter)="updateMessageBox('location_id')"
-                                                (onFilter)="filterLocation($event)"></p-select>
+                                                (onFilter)="filterLocation($event, false)"></p-select>
                                             <small class="text-danger"
                                                 *ngIf="personalInfoForm.get('location_id')?.invalid && personalInfoForm.get('location_id')?.touched">
                                                 This field is mandatory </small>
@@ -411,7 +411,7 @@
                                                             Responsibilities</label>
                                                         <button class="ai-generate-btn ms-3 text-small"
                                                             style="width: fit-content"
-                                                            (click)="generateAiSummary('joboverview',experience?.get('work_experience_job_title')?.value,  experience?.get('work_experience_job_responsibilities'));">
+                                                            (click)="generateAiSummary('joboverview',experience?.get('work_experience_job_title')?.value,  experience?.get('work_experience_job_responsibilities'));" [disabled]="isLoadingAiSummary">
                                                             <i class="pi pi-star"></i>AI Generate
                                                         </button>
                                                     </div>
@@ -490,7 +490,7 @@
                                                 <p-select id="highestQualification"
                                                     formControlName="career_preference_job_title_id"
                                                     [options]="jobTitles" placeholder="Select Job Title"
-                                                    styleClass="w-100" optionLabel="job_title" optionValue="job_title"
+                                                    styleClass="w-100 p-0" optionLabel="job_title" optionValue="job_title"
                                                     [filter]="true" filterBy="job_title" [editable]="true"
                                                     (mouseleave)="resetMessageBox()"
                                                     (mouseenter)="updateMessageBox('career_preference_job_title_id')"></p-select>
@@ -521,10 +521,10 @@
                                                 <div class="p-inputgroup">
                                                     <p-multiSelect id="highestQualification"
                                                         formControlName="career_preference_preferred_work_location_id"
-                                                        [options]="locations" placeholder="Select Your Location"
+                                                        [options]="preferredLocationsList" placeholder="Select Your Location"
                                                         styleClass="w-100" optionLabel="city_state" optionValue="id"
                                                         [filter]="true" filterBy="city_state" [appendTo]="'body'"
-                                                        (onFilter)="filterLocation($event)"
+                                                        (onFilter)="filterLocation($event, true);"
                                                         (mouseleave)="resetMessageBox()"
                                                         (mouseenter)="updateMessageBox('career_preference_preferred_work_location_id')"></p-multiSelect>
                                                 </div>
@@ -811,7 +811,7 @@
                                                         in your industry?</label>
                                                     <button class="ai-generate-btn ms-3 text-small"
                                                         style="width: fit-content"
-                                                        (click)="generateAiSummary('joboverview',personalInfoForm?.get('career_preference_job_title_id')?.value,  personalInfoForm?.get('career_preference_set_industry_apart'));">
+                                                        (click)="generateAiSummary('joboverview',personalInfoForm?.get('career_preference_job_title_id')?.value,  personalInfoForm?.get('career_preference_set_industry_apart'));" [disabled]="isLoadingAiSummary">
                                                         <i class="pi pi-star"></i>AI Generate
                                                     </button>
                                                 </div>
