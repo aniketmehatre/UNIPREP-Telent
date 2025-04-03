@@ -876,12 +876,12 @@ export class HeaderComponent implements OnInit, OnDestroy {
 		this.isQuestionVisible = true
 		this.isVisibleModulesMenu = false
 		// this.dataService.openReportWindowSource.subscribe((data) => {
-		//   if (data.from == 'module') {
-		//     this.isQuestionVisible = false
-		//   }else{
-		//     this.isQuestionVisible = true;
-		//     this.isVisibleModulesMenu = false;
-		//   }
+		// 	if (data.from == 'module') {
+		// 		this.isQuestionVisible = false
+		// 	} else {
+		// 		this.isQuestionVisible = true;
+		// 		this.isVisibleModulesMenu = false;
+		// 	}
 		// });
 		// let data = {}
 		// this.dataService.openReportWindow(data);
