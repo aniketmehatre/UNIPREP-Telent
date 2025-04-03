@@ -1,45 +1,35 @@
-import { Component, ElementRef, OnInit, ViewChild } from "@angular/core"
-import {
-	ChangeDetectionStrategy,
-	ChangeDetectorRef,
-	CUSTOM_ELEMENTS_SCHEMA,
-	OnDestroy,Renderer2,
-} from "@angular/core"
-import { FormBuilder, FormGroup, Validators } from "@angular/forms"
-import { Router } from "@angular/router"
-import { matchValidator } from "src/app/@Supports/matchvalidator"
-import { LocationService } from "src/app/location.service"
-import { AuthService } from "../auth.service"
-import { MessageService } from "primeng/api"
-import { CountryISO, SearchCountryField } from "ngx-intl-tel-input"
-// import { FacebookService } from "ngx-facebook";
-import { environment } from "@env/environment"
-import { LocalStorageService } from "ngx-localstorage"
-import { SubSink } from "subsink"
-import { FluidModule } from "primeng/fluid"
-import { CommonModule } from "@angular/common"
-import { PasswordModule } from "primeng/password"
-import { InputTextModule } from "primeng/inputtext"
-import { InputIconModule } from "primeng/inputicon"
-import { InputGroupModule } from "primeng/inputgroup"
-import { InputGroupAddonModule } from "primeng/inputgroupaddon"
-import { FormsModule, ReactiveFormsModule } from "@angular/forms"
-import { RouterModule } from "@angular/router"
-import { InputOtpModule } from "primeng/inputotp"
-import { ToastModule } from "primeng/toast"
-import { SelectModule } from "primeng/select"
-import { NgxIntlTelInputModule } from "ngx-intl-tel-input"
-import {
-	SocialLoginModule,
-	SocialAuthServiceConfig, SocialAuthService, GoogleSigninButtonModule,
-} from '@abacritt/angularx-social-login';
+import {Component, CUSTOM_ELEMENTS_SCHEMA, ElementRef, OnInit, ViewChild} from "@angular/core"
+import {FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators} from "@angular/forms"
+import {Router, RouterModule} from "@angular/router"
+import {matchValidator} from "src/app/@Supports/matchvalidator"
+import {LocationService} from "src/app/location.service"
+import {AuthService} from "../auth.service"
+import {MessageService} from "primeng/api"
+import {CountryISO, NgxIntlTelInputModule, SearchCountryField} from "ngx-intl-tel-input"
+import {environment} from "@env/environment"
+import {LocalStorageService} from "ngx-localstorage"
+import {SubSink} from "subsink"
+import {FluidModule} from "primeng/fluid"
+import {CommonModule} from "@angular/common"
+import {PasswordModule} from "primeng/password"
+import {InputTextModule} from "primeng/inputtext"
+import {InputIconModule} from "primeng/inputicon"
+import {InputGroupModule} from "primeng/inputgroup"
+import {InputGroupAddonModule} from "primeng/inputgroupaddon"
+import {InputOtpModule} from "primeng/inputotp"
+import {ToastModule} from "primeng/toast"
+import {SelectModule} from "primeng/select"
+import {GoogleSigninButtonModule, SocialAuthService, SocialLoginModule,} from '@abacritt/angularx-social-login';
+
 @Component({
 	selector: "app-registration",
 	templateUrl: "./registration.component.html",
 	styleUrls: ["./registration.component.scss"],
 	standalone: true,
 	schemas: [CUSTOM_ELEMENTS_SCHEMA],
-	imports: [CommonModule, InputOtpModule, FluidModule, PasswordModule, RouterModule, InputTextModule, InputIconModule, InputGroupModule, InputGroupAddonModule, SocialLoginModule, FormsModule, ReactiveFormsModule, ToastModule, SelectModule, NgxIntlTelInputModule],
+	imports: [CommonModule, InputOtpModule, FluidModule, PasswordModule, RouterModule, InputTextModule,
+		InputIconModule, InputGroupModule, InputGroupAddonModule, SocialLoginModule, FormsModule,
+		ReactiveFormsModule, ToastModule, SelectModule, NgxIntlTelInputModule, GoogleSigninButtonModule],
 })
 export class RegistrationComponent implements OnInit {
 	@ViewChild("otp1") otp1!: ElementRef
@@ -47,10 +37,6 @@ export class RegistrationComponent implements OnInit {
 	@ViewChild("otp3") otp3!: ElementRef
 	@ViewChild("otp4") otp4!: ElementRef
 
-	@ViewChild("otp5") otp5!: ElementRef
-	@ViewChild("otp6") otp6!: ElementRef
-	@ViewChild("otp7") otp7!: ElementRef
-	@ViewChild("otp8") otp8!: ElementRef
 	public registrationForm: any = FormGroup
 	genderList: any
 	intakeYearLooking: any
@@ -67,8 +53,8 @@ export class RegistrationComponent implements OnInit {
 	public otpForm: any = FormGroup
 	public emailOTPForm: any = FormGroup
 
-	isMobileOTPSend: boolean = false
-	isMobileOTPValidated: boolean = false
+	// isMobileOTPSend: boolean = false
+	// isMobileOTPValidated: boolean = false
 	isEmailOTPSend: boolean = false
 	isEmailOTPValidated: boolean = false
 	isRemainingFieldVisible: boolean = false
@@ -91,7 +77,7 @@ export class RegistrationComponent implements OnInit {
 	SearchCountryField = SearchCountryField
 	CountryISO = CountryISO
 	preferredCountries: CountryISO[] = [CountryISO.India]
-	isMobileOTPEdit: boolean = false
+	// isMobileOTPEdit: boolean = false
 	imageUrlWhitelabel: string | null = null
 	// domainnamecondition:any;
 	// domainname:any;
@@ -136,11 +122,6 @@ export class RegistrationComponent implements OnInit {
 					} else {
 						this.storage.set(environment.tokenKey, data?.authorisation?.token)
 					}
-					// setTimeout(() => {
-					// 	this.service.getMe().subscribe((data) => {
-					// 		this.router.navigate(["/pages/dashboard"])
-					// 	})
-					// }, 2000)
 				},
 				(error: any) => {
 					this.toastr.add({
@@ -165,22 +146,9 @@ export class RegistrationComponent implements OnInit {
 		this.password = "password"
 		this.registrationForm = this.formBuilder.group({
 			fullName: ["", [Validators.required]],
-			// location: ["", [Validators.required]],
-			contactNumber: ["", [Validators.required]],
 			emailAddress: ["", [Validators.required, Validators.email]],
-			// country_code: ['+91', [Validators.required]],
-			// interestedCountry: [null, [Validators.required]],
-			home_country: ["", [Validators.required]],
-			// lastDegreePassingYear: ["", [Validators.required]],
-			// intakeYear: ["", [Validators.required]],
-			// intakeMonth: ["", [Validators.required]],
-			// programLevel: ["", [Validators.required]],
-			// gender: [""],
 			password: ["", [Validators.required, Validators.minLength(8), matchValidator("confirmPassword", true)]],
 			confirmPassword: ["", [Validators.required, matchValidator("password")]],
-			// terms: [false, [Validators.required]],
-
-			country: [122, [Validators.required]],
 		})
 
 		this.otpForm = this.formBuilder.group({
@@ -193,21 +161,6 @@ export class RegistrationComponent implements OnInit {
 			otp: ['', [Validators.required, Validators.minLength(4), Validators.maxLength(4)]]
 		})
 
-		this.GetLocationList()
-		this.gethomeCountryList()
-		this.getProgramLevelList()
-		this.getIntrestedCountryList()
-		this.genderList = [
-			{ label: "M", value: "Male" },
-			{ label: "F", value: "Female" },
-		]
-		this.intakeYearLooking = [
-			{ label: "2023", value: "2023" },
-			{ label: "2024", value: "2024" },
-			{ label: "2025", value: "2025" },
-			{ label: "2026", value: "2026" },
-			{ label: "2027", value: "2027" },
-		]
 		this.getUserLocation() //while registering the user needs to get the location based city, state, region, country.
 	}
 
@@ -287,43 +240,13 @@ export class RegistrationComponent implements OnInit {
 
 	onSubmit() {
 		this.submitted = true
-		// if (this.registrationForm.value.terms == false) {
-		//     this.toastr.add({
-		//         severity: 'error',
-		//         summary: 'Alert!!!',
-		//         detail: "Please agree Terms and Condition before Signup"
-		//     });
-		//     return;
-		// }
-		// if (this.registrationForm.invalid) {
-		//   this.toastr.add({
-		//     severity: "error",
-		//     summary: "Alert!!!",
-		//     detail: "Fill all the information",
-		//   });
-		//   return;
-		// }
-		var data = {
+		let data = {
 			name: this.registrationForm.value.fullName,
-			// location_id: this.registrationForm.value.location,
-			phone: this.registrationForm.value.contactNumber.number,
 			email: this.registrationForm.value.emailAddress,
-			// interested_country_id: this.registrationForm.value.interestedCountry,
-			// last_degree_passing_year: this.registrationForm.value.lastDegreePassingYear.getFullYear(),
-			// intake_year_looking: this.registrationForm.value.intakeYear.getFullYear(),
-			// intake_month_looking: this.registrationForm.value.intakeMonth.getMonth() + 1,
-			// programlevel_id: this.registrationForm.value.programLevel.id,
-			// gender: this.registrationForm.value.gender.label,
 			password: this.registrationForm.value.password,
 			password_confirmation: this.registrationForm.value.confirmPassword,
 			platform_id: 1,
 			usertype_id: 1,
-			home_country: this.registrationForm.value.home_country,
-			// country_id: this.registrationForm.value.country,
-			country_code: this.registrationForm.value.contactNumber.dialCode,
-			current_country_location: this.currentLocationCountry,
-			current_city_location: this.currentLocationCity,
-			current_state_location: this.currentLocationState,
 		}
 
 		this.service.Registraion(data).subscribe(
@@ -412,8 +335,8 @@ export class RegistrationComponent implements OnInit {
 						this.startTimer = 30
 					}
 					this.processTimer()
-					this.isMobileOTPSend = true
-					this.isMobileOTPEdit = true
+					// this.isMobileOTPSend = true
+					// this.isMobileOTPEdit = true
 					this.toastr.add({
 						severity: "success",
 						summary: "Success",
@@ -421,7 +344,7 @@ export class RegistrationComponent implements OnInit {
 					})
 				},
 				(error: any) => {
-					this.isMobileOTPSend = false
+					// this.isMobileOTPSend = false
 				}
 			)
 		} else {
@@ -438,27 +361,27 @@ export class RegistrationComponent implements OnInit {
 			return
 		}
 		let _otp = this.otpForm.value.otp1 + this.otpForm.value.otp2 + this.otpForm.value.otp3 + this.otpForm.value.otp4
-		if (!this.isMobileOTPValidated) {
-			let val = {
-				phone: this.registrationForm.value.contactNumber.number,
-				country_code: this.registrationForm.value.contactNumber.dialCode,
-				otp: _otp,
-			}
-			this.service.verifySmsOTP(val).subscribe(
-				(res: any) => {
-					this.isMobileOTPValidated = true
-					this.otpForm.reset()
-					this.toastr.add({
-						severity: "success",
-						summary: "Success",
-						detail: "OTP Verified Successfully",
-					})
-				},
-				(error: any) => {
-					this.isMobileOTPValidated = false
-				}
-			)
-		}
+		// if (!this.isMobileOTPValidated) {
+		// 	let val = {
+		// 		phone: this.registrationForm.value.contactNumber.number,
+		// 		country_code: this.registrationForm.value.contactNumber.dialCode,
+		// 		otp: _otp,
+		// 	}
+		// 	this.service.verifySmsOTP(val).subscribe(
+		// 		(res: any) => {
+		// 			this.isMobileOTPValidated = true
+		// 			this.otpForm.reset()
+		// 			this.toastr.add({
+		// 				severity: "success",
+		// 				summary: "Success",
+		// 				detail: "OTP Verified Successfully",
+		// 			})
+		// 		},
+		// 		(error: any) => {
+		// 			this.isMobileOTPValidated = false
+		// 		}
+		// 	)
+		// }
 	}
 
 	numericOnly(event: any): boolean {
@@ -527,7 +450,7 @@ export class RegistrationComponent implements OnInit {
 	}
 
 	editMobileNumberAgain() {
-		this.isMobileOTPSend = false
+		// this.isMobileOTPSend = false
 	}
 
 	editEmailAgain() {

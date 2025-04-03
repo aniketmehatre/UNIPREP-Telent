@@ -6,13 +6,20 @@ import { CompanyListsComponent } from './company-list/company-list.component';
 import { RouterLink } from '@angular/router';
 import {TalentConnectService} from "../talent-connect.service";
 import {ChatComponent} from "./chat/chat.component";
+import {FormBuilder, FormGroup, ReactiveFormsModule} from "@angular/forms";
+import {Select} from "primeng/select";
+import {forkJoin} from "rxjs";
 
+interface DropdownOption {
+  label: string;
+  value: string;
+}
 @Component({
   selector: 'uni-company-tracker',
   templateUrl: './company-tracker.component.html',
   styleUrls: ['./company-tracker.component.scss'],
   standalone: true,
-  imports: [CommonModule, Dialog, CompanyListsComponent, CompanyDetailComponent, RouterLink, ChatComponent, ChatComponent]
+    imports: [CommonModule, Dialog, CompanyListsComponent, CompanyDetailComponent, RouterLink, ChatComponent, ChatComponent, ReactiveFormsModule, Select]
 })
 export class CompanyTracker1Component {
   @Output() companyTrackerEmit: EventEmitter<number> = new EventEmitter();
@@ -21,6 +28,15 @@ export class CompanyTracker1Component {
   restrict: boolean = false;
   howItWorksVideoLink: string = '';
   selectedJobId: number | null = null;
+  displayModal: boolean = false;
+  industryTypes: DropdownOption[] = [];
+  companySizes: DropdownOption[] = [];
+  locations: DropdownOption[] = [];
+  globalPresence: DropdownOption[] = [];
+  foundedYears: DropdownOption[] = [];
+  companyTypes: DropdownOption[] = [];
+  companyForm: FormGroup;
+
   openVideoPopup(link: string) {
 
   }
@@ -39,7 +55,17 @@ export class CompanyTracker1Component {
   showChat: boolean = false;
   orgnamewhitlabel: string = '';
 
-  constructor(private talentConnectService: TalentConnectService,) { }
+  constructor(private talentConnectService: TalentConnectService, private fb: FormBuilder) {
+    this.companyForm = this.fb.group({
+      companyname: [''],
+      industrytype: [[]], // Array values
+      companysize: [],
+      hq: [],
+      globalpresence: [[]], // Array values
+      foundedyear: [],
+      companytype: [],
+    });
+  }
 
   ngOnInit(): void {
   }
@@ -58,4 +84,38 @@ export class CompanyTracker1Component {
   upgradePlan() {
 
   }
+
+  onDialogOpen() {
+    this.loadApiData();
+  }
+
+  loadApiData() {
+    forkJoin({
+      companyTypes: this.talentConnectService.getCompanyTypes(),
+      industryTypes: this.talentConnectService.getIndustryTypes(),
+      globalPresence: this.talentConnectService.globalPresence(),
+      locations: this.talentConnectService.getCityWithFlag(),
+      companySizes: this.talentConnectService.getCompanySizes()
+    }).subscribe({
+      next: (results) => {
+        this.companyTypes = results.companyTypes;
+        this.industryTypes = results.industryTypes;
+        this.globalPresence = results.globalPresence;
+        this.locations = results.locations;
+        this.companySizes = results.companySizes.industries; // Adjusting for industry structure
+      },
+      error: (error) => {
+        console.error("Error loading data:", error);
+      }
+    });
+  }
+
+  applyFilter() {
+    console.log(this.companyForm.value)
+  }
+
+  clearFilter() {
+
+  }
+
 }
