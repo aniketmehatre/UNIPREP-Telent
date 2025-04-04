@@ -1167,9 +1167,13 @@ export class EmployeeProfileComponent implements OnInit {
       career_preference_currency_id: response.careerPreference?.currency_id || '',
       career_preference_cv_filename: response.careerPreference?.cv_filename || '',
       career_preference_video_link: response.careerPreference?.video_link || '',
-      career_preference_soft_skill_id: response.career_preference_soft_skill_id || [],
+      career_preference_soft_skill_id: response.careerPreference.soft_skill_id || [],
       career_preference_portfolio_upload_link: response.careerPreference?.portfolio_upload_link || '',
-
+      career_preference_set_industry_apart: response.careerPreference?.set_industry_apart || '',
+      career_preference_real_world_challenge: response.careerPreference?.real_world_challenge || '',
+      career_preference_professional_strength_id: response.careerPreference?.professional_strength_id || '',
+      career_preference_leadership_experience: response.careerPreference?.leadership_experience || '',
+      career_preference_admired_quality: response.careerPreference?.admired_quality,
       networking_linkedin_profile: response.linkedin_profile || '',
       networking_personal_website: response.personal_website || '',
     });

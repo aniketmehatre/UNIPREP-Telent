@@ -120,7 +120,7 @@
             <h5>Job Responsibilities</h5>
             <ul>
               <li *ngFor="let responsibility of experience.responsibilities">
-                {{ responsibility }}
+                <div [innerHTML]="responsibility"></div>
               </li>
             </ul>
           </div>
