@@ -627,7 +627,7 @@
                                             <ng-container
                                                 *ngFor="let certificate of certifications.controls; let i = index"
                                                 [formGroupName]="i">
-                                                <div class="row mb-2 align-items-center">
+                                                <div class="row mb-2 align-items-center g-1">
                                                     <div class="col-md-6">
                                                         <input pInputText class="form-control"
                                                             placeholder="Enter certification name" class="w-100"
@@ -652,14 +652,14 @@
                                                             style="visibility: hidden; position: absolute"
                                                             #certificateFile />
                                                     </div>
-                                                    <div class="col-md-1 d-flex justify-content-center">
+                                                    <div class="col-md-1 col-3 d-flex justify-content-center">
                                                         <button
                                                             class="btn btn-outline-primary d-flex align-items-center justify-content-center p-2"
                                                             (click)="addCertifications()">
                                                             <i class="pi pi-plus"></i>
                                                         </button>
                                                     </div>
-                                                    <div *ngIf="i != 0" class="col-md-1 d-flex justify-content-center">
+                                                    <div *ngIf="i != 0" class="col-md-1 col-3 d-flex justify-content-center">
                                                         <button
                                                             class="btn btn-outline-danger d-flex align-items-center justify-content-center px-3 py-2"
                                                             (click)="removeCertification(i)">
@@ -674,7 +674,7 @@
                                             <ng-container
                                                 *ngFor="let certificate of achievements.controls; let i = index"
                                                 [formGroupName]="i">
-                                                <div class="row mb-2 align-items-center">
+                                                <div class="row mb-2 align-items-center g-1">
                                                     <div class="col-md-6">
                                                         <input pInputText class="form-control w-100"
                                                             placeholder="Enter Achievement Name"
@@ -699,14 +699,14 @@
                                                             style="visibility: hidden; position: absolute"
                                                             #acheivementFile />
                                                     </div>
-                                                    <div class="col-md-1 d-flex justify-content-center">
+                                                    <div class="col-md-1 col-3 d-flex justify-content-center">
                                                         <button
                                                             class="btn btn-outline-primary d-flex align-items-center justify-content-center p-2"
                                                             (click)="addAcheivements()">
                                                             <i class="pi pi-plus"></i>
                                                         </button>
                                                     </div>
-                                                    <div *ngIf="i != 0" class="col-md-1 d-flex justify-content-center">
+                                                    <div *ngIf="i != 0" class="col-md-1 col-3 d-flex justify-content-center">
                                                         <button
                                                             class="btn btn-outline-danger d-flex align-items-center justify-content-center px-3 py-2"
                                                             (click)="removeAchievement(i)">
@@ -739,7 +739,7 @@
                                             </div>
                                         </div>
                                         <ng-container formArrayName="languages">
-                                            <div class="row mb-3"
+                                            <div class="row mb-3 g-1"
                                                 *ngFor="let language of languages.controls; let i = index"
                                                 [formGroupName]="i">
                                                 <div class="col-md-6">
@@ -766,7 +766,7 @@
                                                                 *ngIf="language.get('languages_proficiency')?.invalid && language.get('languages_proficiency')?.touched">
                                                                 This field is mandatory </small>
                                                         </div>
-                                                        <div *ngIf="i !== 0" class="col-md-2">
+                                                        <div *ngIf="i !== 0" class="col">
                                                             <button
                                                                 class="btn btn-outline-danger d-flex align-items-center justify-content-center px-3 py-2"
                                                                 (click)="removeLanguage(i)">
@@ -927,7 +927,7 @@
                                             </div>
                                         </div>
                                         <ng-conatiner formArrayName="networking_social_media">
-                                            <div class="row mb-3"
+                                            <div class="row mb-3 g-1"
                                                 *ngFor="let experience of socialMedia.controls; let i = index"
                                                 [formGroupName]="i">
                                                 <div class="col-md-6">
@@ -951,8 +951,8 @@
                                                     </small>
                                                 </div>
                                                 <div class="col-md-6">
-                                                    <div class="row">
-                                                        <div class="col-md-10">
+                                                    <div class="row g-1">
+                                                        <div class="col-10">
                                                             <input pInputText id="university"
                                                                 formControlName="networking_social_media_link"
                                                                 placeholder="Social media link"
@@ -960,7 +960,7 @@
                                                                 (mouseleave)="resetMessageBox()"
                                                                 (mouseenter)="updateMessageBox('networking_social_media_link')" />
                                                         </div>
-                                                        <div class="col-md-2">
+                                                        <div class="col-2">
                                                             <button style="border: 1px solid rgb(255, 37, 37)"
                                                                 class="px-3 py-2 rounded-lg"
                                                                 (click)="removeSocialMedia(i); removeSelectedSocialMedia(experience.get('networking_social_media')?.value);">
