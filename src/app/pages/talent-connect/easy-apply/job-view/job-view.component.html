@@ -15,229 +15,232 @@
 	</div>
 	<div class="card-body text-start flex-fill overflow-y-auto">
 		<div class="row justify-content-between h-100">
-			<div class="h-100 overflow-hidden" [ngClass]="!isShowApplyChat ? 'col-md-12':'col-md-8'" *ngIf="showInfo">
+			<div class="h-100 overflow-hidden" [ngClass]="!isShowApplyChat ? 'col-md-12' : 'col-md-8'" *ngIf="showInfo">
 				<div class="card h-100 overflow-y-auto">
-					<div class="card-body">
-						<div class="row">
-							<div class="col-3 col-md-2 col-lg-2">
+					<div class="card-header bg-transparent p-4">
+						<div class="d-flex gap-2">
+							<div>
 								<div class="logo-container border rounded-3">
 									<img [src]="jobDetails?.company_logo_url" alt="company_logo" style="object-fit: fit; width: 100%; height: 100%" />
 								</div>
 							</div>
-							<div class="col-8 col-md-8 col-lg-8 p-1">
-								<h1 class="fw-bold fs-2 fs-md-1 mb-0">{{ jobDetails?.position }}</h1>
-								<div class="d-flex align-items-center mb-2">
-									<span class="me-2">{{ jobDetails.company_name }}</span>
-									<span class="ms-1 text-primary" *ngIf="jobDetails">
-										<i class="fas fa-check-circle"></i>
-									</span>
+							<div class="container-fluid">
+								<div class="row">
+									<div class="col-10 col-md-10 col-lg-10">
+										<h1 class="fw-bold fs-2 fs-md-1 mb-0">{{ jobDetails?.position }}</h1>
+										<div class="d-flex align-items-center mb-2">
+											<span class="me-2">{{ jobDetails.company_name }}</span>
+											<span class="ms-1 text-primary" *ngIf="jobDetails">
+												<i class="fas fa-check-circle"></i>
+											</span>
+										</div>
+										<div class="d-flex flex-wrap gap-2 mb-3">
+											<div class="d-flex align-items-center gap-2">
+												<i class="fas fa-users my-auto"></i>
+												<div>
+													<p class="text-muted mb-0 small">Total Vacancies</p>
+													<p class="mb-0 fw-bold fs-4">{{ jobDetails.available_vacancies }}</p>
+												</div>
+											</div>
+											<div class="d-flex align-items-center gap-2">
+												<i class="fas fa-user my-auto"></i>
+												<div>
+													<p class="text-muted mb-0 small">Total Applied</p>
+													<p class="mb-0 fw-bold fs-4">{{ jobDetails.total_applied }}</p>
+												</div>
+											</div>
+											<div class="border border-end d-none d-md-block"></div>
+											<div>
+												<p class="text-primary small text-muted">
+													{{ jobDetails.matching_skills }}
+												</p>
+												<div class="d-flex flex-wrap gap-1">
+													<span *ngFor="let skill of jobDetails?.soft_skills" class="badge bg-badge-color text-white p-2 py-3 me-1 mb-1 rounded">{{ skill }}</span>
+												</div>
+											</div>
+										</div>
+									</div>
+									<div class="col-12 col-md-2 col-lg-2 text-md-end text-center">
+										<button pButton label="Close Info" class="btn btn-primary" (click)="showInfo = false" *ngIf="isShowApplyChat && isApplied"></button>
+										<button pButton class="p-button-success chat-btn" *ngIf="!isShowApplyChat && isApplied" (click)="isShowApplyChat = true"><i class="pi pi-comments"></i> Chat</button>
+										<button *ngIf="!isApplied" pButton label="Apply" icon="fa fa-arrow-pointer" iconPos="right" class="p-button-primary mb-3" (click)="applyJob(id)" [disabled]="isApplied"></button>
+										<div class="posted-date text-nowrap">Posted On : {{ jobDetails.created_at | date : "dd-MM-yyyy" }}</div>
+									</div>
 								</div>
-								<div class="d-flex flex-wrap gap-2 mb-3">
-									<div class="d-flex align-items-center gap-2">
-										<i class="fas fa-users my-auto"></i>
-										<div>
-											<p class="text-muted mb-0 small">Total Vacancies</p>
-											<p class="mb-0 fw-bold fs-4">{{ jobDetails.available_vacancies }}</p>
-										</div>
-									</div>
-									<div class="d-flex align-items-center gap-2">
-										<i class="fas fa-user my-auto"></i>
-										<div>
-											<p class="text-muted mb-0 small">Total Applied</p>
-											<p class="mb-0 fw-bold fs-4">{{ jobDetails.total_applied }}</p>
-										</div>
-									</div>
-									<div class="border border-end d-none d-md-block"></div>
-									<div>
-										<p class="text-primary small text-muted">
-											{{ jobDetails.matching_skills }}
-										</p>
-										<div class="d-flex flex-wrap gap-1">
-											<span *ngFor="let skill of jobDetails?.soft_skills" class="badge bg-badge-color text-white p-2 py-3 me-1 mb-1 rounded">{{ skill }}</span>
-										</div>
-									</div>
-								</div>
-							</div>
-							<div class="col-12 col-md-2 col-lg-2 text-md-end text-center mt-3 mt-md-0">
-								<button pButton label="Close Info" class="btn btn-primary" (click)="showInfo = false" *ngIf="isShowApplyChat && isApplied"></button>
-								<button pButton class="p-button-success chat-btn" *ngIf="!isShowApplyChat && isApplied" (click)="isShowApplyChat = true"><i class="pi pi-comments"></i> Chat</button>
-								<button *ngIf="!isApplied" pButton label="Apply" icon="fa fa-arrow-pointer" iconPos="right" class="p-button-primary mb-3" (click)="applyJob(id)" [disabled]="isApplied"></button>
-								<div class="posted-date text-nowrap">Posted On : {{ jobDetails.created_at | date : "dd-MM-yyyy" }}</div>
 							</div>
 						</div>
-						<hr />
+					</div>
+					<div class="card-body h-100 overflow-y-auto p-4">
 						<div class="row mb-4">
 							<div class="col-md-12">
-								<div class="p-3 p-md-4 rounded-3">
-									<div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-6 g-3" [ngClass]="{ '!row-cols-lg-4': isShowApplyChat }">
-										<!-- Company Size -->
-										<div class="col">
-											<div class="d-flex flex-column">
-												<div class="d-flex align-items-center mb-2">
-													<i class="fas fa-users me-2" style="color: gray"></i>
-													<div>
-														<span class="text-muted">Company Size</span>
-														<div class="fw-bold">{{ jobDetails.company_size }}</div>
+								<div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-6 g-3" [ngClass]="{ '!row-cols-lg-4': isShowApplyChat }">
+									<!-- Company Size -->
+									<div class="col">
+										<div class="d-flex flex-column">
+											<div class="d-flex align-items-center mb-2">
+												<i class="fas fa-users me-2" style="color: gray"></i>
+												<div>
+													<span class="text-muted">Company Size</span>
+													<div class="fw-bold">{{ jobDetails.company_size }}</div>
+												</div>
+											</div>
+										</div>
+									</div>
+
+									<!-- Position -->
+									<div class="col">
+										<div class="d-flex flex-column">
+											<div class="d-flex align-items-center mb-2">
+												<i class="fas fa-suitcase me-2" style="color: blue"></i>
+												<div>
+													<span class="text-muted">Position</span>
+													<div class="fw-bold">{{ jobDetails.position }}</div>
+												</div>
+											</div>
+										</div>
+									</div>
+
+									<!-- Start Date -->
+									<div class="col">
+										<div class="d-flex flex-column">
+											<div class="d-flex align-items-center mb-2">
+												<i class="fas fa-calendar me-2" style="color: purple"></i>
+												<div>
+													<span class="text-muted">Start Date</span>
+													<div class="fw-bold">{{ jobDetails.start_date }}</div>
+												</div>
+											</div>
+										</div>
+									</div>
+
+									<!-- Due Date -->
+									<div class="col">
+										<div class="d-flex flex-column">
+											<div class="d-flex align-items-center mb-2">
+												<i class="fas fa-calendar me-2" style="color: red"></i>
+												<div>
+													<span class="text-muted">Due Date</span>
+													<div class="fw-bold">{{ jobDetails.due_date }}</div>
+												</div>
+											</div>
+										</div>
+									</div>
+
+									<!-- Work Location -->
+									<div class="col">
+										<div class="d-flex flex-column">
+											<div class="d-flex align-items-center mb-2">
+												<i class="fas fa-location-dot me-2" style="color: green"></i>
+												<div>
+													<span class="text-muted">Work Location</span>
+													<div class="fw-bold">{{ jobDetails.work_location }}</div>
+												</div>
+											</div>
+										</div>
+									</div>
+
+									<!-- Work Mode -->
+									<div class="col">
+										<div class="d-flex flex-column">
+											<div class="d-flex align-items-center mb-2">
+												<i class="fa fa-building-user me-2" style="color: var(--uniprep-secondary)"></i>
+												<div>
+													<span class="text-muted">Work Mode</span>
+													<div class="fw-bold text-break">{{ Array.isArray(jobDetails.work_mode) ? jobDetails.work_mode.join(", ") : jobDetails.work_mode }}</div>
+												</div>
+											</div>
+										</div>
+									</div>
+
+									<!-- Employment Type -->
+									<div class="col">
+										<div class="d-flex flex-column">
+											<div class="d-flex align-items-center mb-2">
+												<i class="fas fa-person-digging me-2" style="color: red"></i>
+												<div>
+													<span class="text-muted">Employment Type</span>
+													<div class="fw-bold text-break">{{ Array.isArray(jobDetails.employment_type) ? jobDetails.employment_type.join(", ") : jobDetails.employment_type }}</div>
+												</div>
+											</div>
+										</div>
+									</div>
+
+									<!-- Salary Range -->
+									<div class="col">
+										<div class="d-flex flex-column">
+											<div class="d-flex align-items-center mb-2">
+												<i class="fas fa-dollar me-2 text-success"></i>
+												<div>
+													<span class="text-muted">Salary Range</span>
+													<div class="fw-bold">
+														<span class="me-1">{{ jobDetails.currency_code }}</span
+														>{{ jobDetails.salary_offer }}
 													</div>
 												</div>
 											</div>
 										</div>
+									</div>
 
-										<!-- Position -->
-										<div class="col">
-											<div class="d-flex flex-column">
-												<div class="d-flex align-items-center mb-2">
-													<i class="fas fa-suitcase me-2" style="color: blue"></i>
-													<div>
-														<span class="text-muted">Position</span>
-														<div class="fw-bold">{{ jobDetails.position }}</div>
-													</div>
+									<!-- Total Applied -->
+									<div class="col">
+										<div class="d-flex flex-column">
+											<div class="d-flex align-items-center mb-2">
+												<i class="fas fa-user-plus me-2 text-primary"></i>
+												<div>
+													<span class="text-muted">Total Applied</span>
+													<div class="fw-bold">{{ jobDetails.total_applied }}</div>
 												</div>
 											</div>
 										</div>
+									</div>
 
-										<!-- Start Date -->
-										<div class="col">
-											<div class="d-flex flex-column">
-												<div class="d-flex align-items-center mb-2">
-													<i class="fas fa-calendar me-2" style="color: purple"></i>
-													<div>
-														<span class="text-muted">Start Date</span>
-														<div class="fw-bold">{{ jobDetails.start_date }}</div>
-													</div>
+									<!-- Available Vacancies -->
+									<div class="col">
+										<div class="d-flex flex-column">
+											<div class="d-flex align-items-center mb-2">
+												<i class="fas fa-users me-2 text-secondary"></i>
+												<div>
+													<span class="text-muted">Available Vacancies</span>
+													<div class="fw-bold">{{ jobDetails.available_vacancies }}</div>
 												</div>
 											</div>
 										</div>
+									</div>
 
-										<!-- Due Date -->
-										<div class="col">
-											<div class="d-flex flex-column">
-												<div class="d-flex align-items-center mb-2">
-													<i class="fas fa-calendar me-2" style="color: red"></i>
-													<div>
-														<span class="text-muted">Due Date</span>
-														<div class="fw-bold">{{ jobDetails.due_date }}</div>
-													</div>
+									<!-- Experience Level -->
+									<div class="col">
+										<div class="d-flex flex-column">
+											<div class="d-flex align-items-center mb-2">
+												<i class="fa-solid fa-user-plus me-2" style="color: black"></i>
+												<div>
+													<span class="text-muted">Experience Level</span>
+													<div class="fw-bold">{{ jobDetails.experience_level }}</div>
 												</div>
 											</div>
 										</div>
+									</div>
 
-										<!-- Work Location -->
-										<div class="col">
-											<div class="d-flex flex-column">
-												<div class="d-flex align-items-center mb-2">
-													<i class="fas fa-location-dot me-2" style="color: green"></i>
-													<div>
-														<span class="text-muted">Work Location</span>
-														<div class="fw-bold">{{ jobDetails.work_location }}</div>
-													</div>
+									<!-- Educational Degree -->
+									<div class="col">
+										<div class="d-flex flex-column">
+											<div class="d-flex align-items-center mb-2">
+												<i class="fas fa-user-graduate me-2 text-primary"></i>
+												<div>
+													<span class="text-muted">Educational Degree</span>
+													<div class="fw-bold text-break">{{ jobDetails.minimum_education }}</div>
 												</div>
 											</div>
 										</div>
+									</div>
 
-										<!-- Work Mode -->
-										<div class="col">
-											<div class="d-flex flex-column">
-												<div class="d-flex align-items-center mb-2">
-													<i class="fa fa-building-user me-2" style="color: var(--uniprep-secondary)"></i>
-													<div>
-														<span class="text-muted">Work Mode</span>
-														<div class="fw-bold text-break">{{ Array.isArray(jobDetails.work_mode) ? jobDetails.work_mode.join(", ") : jobDetails.work_mode }}</div>
-													</div>
-												</div>
-											</div>
-										</div>
-
-										<!-- Employment Type -->
-										<div class="col">
-											<div class="d-flex flex-column">
-												<div class="d-flex align-items-center mb-2">
-													<i class="fas fa-person-digging me-2" style="color: red"></i>
-													<div>
-														<span class="text-muted">Employment Type</span>
-														<div class="fw-bold text-break">{{ Array.isArray(jobDetails.employment_type) ? jobDetails.employment_type.join(", ") : jobDetails.employment_type }}</div>
-													</div>
-												</div>
-											</div>
-										</div>
-
-										<!-- Salary Range -->
-										<div class="col">
-											<div class="d-flex flex-column">
-												<div class="d-flex align-items-center mb-2">
-													<i class="fas fa-dollar me-2 text-success"></i>
-													<div>
-														<span class="text-muted">Salary Range</span>
-														<div class="fw-bold">
-															<span class="me-1">{{ jobDetails.currency_code }}</span
-															>{{ jobDetails.salary_offer }}
-														</div>
-													</div>
-												</div>
-											</div>
-										</div>
-
-										<!-- Total Applied -->
-										<div class="col">
-											<div class="d-flex flex-column">
-												<div class="d-flex align-items-center mb-2">
-													<i class="fas fa-user-plus me-2 text-primary"></i>
-													<div>
-														<span class="text-muted">Total Applied</span>
-														<div class="fw-bold">{{ jobDetails.total_applied }}</div>
-													</div>
-												</div>
-											</div>
-										</div>
-
-										<!-- Available Vacancies -->
-										<div class="col">
-											<div class="d-flex flex-column">
-												<div class="d-flex align-items-center mb-2">
-													<i class="fas fa-users me-2 text-secondary"></i>
-													<div>
-														<span class="text-muted">Available Vacancies</span>
-														<div class="fw-bold">{{ jobDetails.available_vacancies }}</div>
-													</div>
-												</div>
-											</div>
-										</div>
-
-										<!-- Experience Level -->
-										<div class="col">
-											<div class="d-flex flex-column">
-												<div class="d-flex align-items-center mb-2">
-													<i class="fa-solid fa-user-plus me-2" style="color: black"></i>
-													<div>
-														<span class="text-muted">Experience Level</span>
-														<div class="fw-bold">{{ jobDetails.experience_level }}</div>
-													</div>
-												</div>
-											</div>
-										</div>
-
-										<!-- Educational Degree -->
-										<div class="col">
-											<div class="d-flex flex-column">
-												<div class="d-flex align-items-center mb-2">
-													<i class="fas fa-user-graduate me-2 text-primary"></i>
-													<div>
-														<span class="text-muted">Educational Degree</span>
-														<div class="fw-bold text-break">{{ jobDetails.minimum_education }}</div>
-													</div>
-												</div>
-											</div>
-										</div>
-
-										<!-- Industry -->
-										<div class="col">
-											<div class="d-flex flex-column">
-												<div class="d-flex align-items-center mb-2">
-													<i class="fas fa-building me-2" style="color: darkblue"></i>
-													<div>
-														<span class="text-muted">Industry</span>
-														<div class="fw-bold">{{ jobDetails.industry_name }}</div>
-													</div>
+									<!-- Industry -->
+									<div class="col">
+										<div class="d-flex flex-column">
+											<div class="d-flex align-items-center mb-2">
+												<i class="fas fa-building me-2" style="color: darkblue"></i>
+												<div>
+													<span class="text-muted">Industry</span>
+													<div class="fw-bold">{{ jobDetails.industry_name }}</div>
 												</div>
 											</div>
 										</div>
