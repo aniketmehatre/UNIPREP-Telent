@@ -3,8 +3,8 @@ import { HttpClient, HttpHeaders, HttpParams } from "@angular/common/http";
 import {Observable} from "rxjs/internal/Observable";
 import {environment} from "@env/environment";
 import {City} from "../../@Models/cost-of-living";
-import { ChatGPTResponse } from 'src/app/@Models/chat-gpt.model';
-
+import { map } from 'rxjs';
+import { removeExtraResponse } from '../prompt';
 @Injectable({
     providedIn: 'root'
 })
@@ -116,9 +116,12 @@ export class JobSearchService {
     getCountryCurrencyChatGptOutput(data:any) {
         const headers = new HttpHeaders().set("Accept", "application/json");
         return this.http.post<any>(environment.ApiUrl + "/getIntegratedRecom",data,{
-        headers: headers,
-        });
+            headers: headers,
+        }).pipe(
+            map(res => ({ response: removeExtraResponse(res.response) })) // Process response before returning
+        );
     }
+
     getTripList(type:string) {
         const headers = new HttpHeaders().set("Accept", "application/json");
         return this.http.get<any>(environment.ApiUrl + `/userSavedResponse?mode=${type}`, {
