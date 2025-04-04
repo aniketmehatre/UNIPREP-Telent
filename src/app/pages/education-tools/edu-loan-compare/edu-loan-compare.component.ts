@@ -168,7 +168,7 @@ export class EduLoanCompareComponent implements OnInit {
         addingInput += `<p style="color: #3f4c83;"><strong>${question}</strong></p>`;
         const answersMap: any = {
           1: [formData.currency + ' ' + formData.loan_amount, formData.interest_rate + ' %', formData.loan_tenure + ' month'],
-          2: [formData.moratorium_period, formData.repayment_year + ' year']
+          2: [formData.moratorium_period, formData.repayment_year]
         };
         addingInput += `<p>${answersMap[id]?.[index] || ''}</p><br>`;
       });

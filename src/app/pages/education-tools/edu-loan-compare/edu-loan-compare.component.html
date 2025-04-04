@@ -79,7 +79,7 @@
 												<h5 class="text-center uniprep-primary fw-semibold mb-0">
 													{{ recommendation.questions[1] }}
 												</h5>
-												<p-select formControlName="repayment_year" [options]="repaymentYearList" optionLabel="value" optionValue="value" [filter]="true" filterBy="value" placeholder="Select Year"> </p-select>
+												<p-select formControlName="repayment_year" [options]="repaymentYearList" optionLabel="value" optionValue="value" placeholder="Select Year"> </p-select>
 												<div *ngIf="form.get('repayment_year')?.errors?.required && submitted" class="text-center text-danger">Repayment year is required.</div>
 											</div>
 										</div>

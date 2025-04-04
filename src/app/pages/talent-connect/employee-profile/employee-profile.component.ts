@@ -22,6 +22,7 @@ export enum FileType {
 })
 export class EmployeeProfileComponent implements OnInit {
   nationalityList: any = [];
+  isLoadingAiSummary: boolean = false;
   selectedSocialMedias: string[] = [];
   currentMessage: string = "Enter your full name as per your official documents. This is the name that will appear on your offer letter and in the employer's database, so ensure it is accurate for a smooth hiring process. Numbers and special characters are not allowed.";
   hoverMessages: any = {
@@ -136,15 +137,13 @@ export class EmployeeProfileComponent implements OnInit {
   qualifications: any[] = [];
   softSkills: any[] = [];
   socialMedias: any[] = ['Facebook', 'Instagram', 'LinkedIN', 'X'];
-  filteredSocialMedias: any[] = ['Facebook', 'Instagram', 'LinkedIN', 'X'];
+  preferredLocationsList: any[] = [];
 
   constructor(
     private fb: FormBuilder,
     private dialogService: DialogService,
     private talentConnectService: TalentConnectService,
     private toastService: MessageService,
-    private locationService: LocationService,
-    private foundertoolService: FounderstoolService
   ) { }
 
   ngOnInit() {
@@ -338,7 +337,6 @@ export class EmployeeProfileComponent implements OnInit {
   removeAchievement(index: number): void { this.removeFormArrayItem(this.achievements, index, false, FileType.ACHIEVEMENTS); }
 
   uploadFile(type: FileType, event: any, index: number) {
-    console.log('calling', type);
     const file: File = event.target.files[0];
     if (!file) return;
 
@@ -870,7 +868,7 @@ export class EmployeeProfileComponent implements OnInit {
           error: error => {
             this.toastService.add({
               severity: "error",
-              summary: "Required",
+              summary: "Error",
               detail: error.error.message,
             });
           }
@@ -1088,9 +1086,17 @@ export class EmployeeProfileComponent implements OnInit {
     this.profileCompletion = Math.round((filledWeight / totalWeight) * 100);
   }
 
-  getCityCountryList(search?: string) {
+  getCityCountryList(search?: string, isPreferLocation: boolean | null = null) {
     this.talentConnectService.getCityCountries(search).subscribe({
-      next: response => { this.locations = response; }
+      next: response => {
+        if (isPreferLocation !== null) {
+          isPreferLocation ?
+            this.preferredLocationsList = response : this.locations = response;
+          return;
+        }
+        this.preferredLocationsList = response;
+        this.locations = response;
+      }
     });
   }
 
@@ -1161,9 +1167,13 @@ export class EmployeeProfileComponent implements OnInit {
       career_preference_currency_id: response.careerPreference?.currency_id || '',
       career_preference_cv_filename: response.careerPreference?.cv_filename || '',
       career_preference_video_link: response.careerPreference?.video_link || '',
-      career_preference_soft_skill_id: response.career_preference_soft_skill_id || [],
+      career_preference_soft_skill_id: response.careerPreference.soft_skill_id || [],
       career_preference_portfolio_upload_link: response.careerPreference?.portfolio_upload_link || '',
-
+      career_preference_set_industry_apart: response.careerPreference?.set_industry_apart || '',
+      career_preference_real_world_challenge: response.careerPreference?.real_world_challenge || '',
+      career_preference_professional_strength_id: response.careerPreference?.professional_strength_id || '',
+      career_preference_leadership_experience: response.careerPreference?.leadership_experience || '',
+      career_preference_admired_quality: response.careerPreference?.admired_quality,
       networking_linkedin_profile: response.linkedin_profile || '',
       networking_personal_website: response.personal_website || '',
     });
@@ -1310,8 +1320,8 @@ export class EmployeeProfileComponent implements OnInit {
     }
   }
 
-  filterLocation(search: any) {
-    this.getCityCountryList(search.filter);
+  filterLocation(search: any, isPrefredLocation?: boolean) {
+    this.getCityCountryList(search.filter, isPrefredLocation);
   }
 
 
@@ -1349,15 +1359,17 @@ export class EmployeeProfileComponent implements OnInit {
   }
 
   generateAiSummary(mode: string, data: string, formControl: FormControl) {
-    console.log(data);
     if (data) {
+      this.isLoadingAiSummary = true;
       this.talentConnectService.getAiSummaryByMode(mode, data).subscribe({
         next: response => {
+          this.isLoadingAiSummary = false;
           if (response) {
             formControl.patchValue(response.response);
           }
         },
         error: error => {
+          this.isLoadingAiSummary = false;
           console.error(error);
         }
       });
