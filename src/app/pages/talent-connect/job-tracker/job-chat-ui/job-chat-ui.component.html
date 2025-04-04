@@ -1,115 +1,104 @@
-<div class="chat-container h-100 d-flex flex-column">
-  <div class="h-100 d-flex flex-column">
-    <!-- Header - Fixed at top -->
-    <div class="card-header d-flex justify-content-between align-items-center p-3 mb-2">
-      <div class="d-flex align-items-center">
-        <button *ngIf="!showInfo" pButton icon="pi pi-info-circle" label="Open Info" class="btn-primary text-dark me-1" (click)="openInfo.emit(true)"></button>
-        <div class="uniabroad-icon me-2">
-          <p-avatar [image]="jobDetails?.company_logo_url ?? 'https://primefaces.org/cdn/primeng/images/demo/avatar/amyelsner.png'" size="large" shape="circle" />
-        </div>
-        <div>
-          <h5 class="mb-0 fw-bold">{{jobDetails?.company_name}}</h5>
-          <p class="small text-muted mb-0 text-start">Active</p>
-        </div>
-      </div>
-      <button type="button" class="btn-close" aria-label="Close" (click)="closeChat.emit(true)"></button>
-    </div>
-    
-    <!-- Body - Scrollable content -->
-    <div class="card-body p-0 flex-grow-1 overflow-hidden d-flex flex-column" style="height: calc(100vh - 450px);">
-      <!-- Initial View (Empty State) -->
-      <div class="chat-body h-100 overflow-y-auto"  *ngIf="messages?.length < 1">
-        <div class="description-box m-3 py-4 rounded-3" style="background-color: #EDEFF4;">
-          <h5 class="text-center mb-3">Write a description about yourself</h5>
-          
-          <div class="upload-section text-center">
-            <p class="mb-1">Upload Cover Letter</p>
-            <p class="small text-muted">Supported Formats: doc, docx, pdf, upto 2 MB</p>
-          </div>            
-          </div>
-          <div class="cover-letter-box m-3 py-4 rounded-3" style="background-color: #F9E9D8;">
-            <p class="text-center">Need a cover letter?</p>
-            <button pButton 
-                   class="p-button-text p-button-plain w-100" 
-                   label="Click here to write one!"
-                   routerLink="/pages/job-tool/coverletter-builder"></button>
-          </div>
-      </div>
+<div class="card h-100">
+	<div class="card-header bg-transparent d-flex justify-content-between align-items-center">
+		<div class="d-flex align-items-center">
+			<button *ngIf="!showInfo" pButton icon="pi pi-info-circle" label="Open Info" class="btn-primary text-dark me-1" (click)="openInfo.emit(true)"></button>
+			<div class="uniabroad-icon me-2">
+				<p-avatar [image]="jobDetails?.company_logo_url ?? 'https://primefaces.org/cdn/primeng/images/demo/avatar/amyelsner.png'" size="large" shape="circle" />
+			</div>
+			<div>
+				<h5 class="mb-0 fw-bold">{{ jobDetails?.company_name }}</h5>
+				<p class="small text-muted mb-0 text-start">Active</p>
+			</div>
+		</div>
+		<button type="button" class="btn-close" aria-label="Close" (click)="closeChat.emit(true)"></button>
+	</div>
+	<div class="card-body">
+		<div class="h-100 d-flex flex-column">
+			<!-- Body - Scrollable content -->
+			<div class="card-body p-0 flex-grow-1 overflow-hidden d-flex flex-column" style="height: calc(100vh - 450px)">
+				<!-- Initial View (Empty State) -->
+				<div class="chat-body h-100 overflow-y-auto" *ngIf="messages?.length < 1">
+					<div class="description-box m-3 py-4 rounded-3" style="background-color: #edeff4">
+						<h5 class="text-center mb-3">Write a description about yourself</h5>
 
-      <!-- Conversation View -->
-      <div class="chat-body h-100 overflow-y-auto p-3" *ngIf="messages?.length > 0">
-        <ng-container *ngFor="let message of messages">
-          <!-- Sender ID for UNIABROAD -->
-          <div class="sender-id mb-1 text-start">
-           {{message.sender ? jobDetails?.profile_name : jobDetails?.company_name}}
-          </div>
+						<div class="upload-section text-center">
+							<p class="mb-1">Upload Cover Letter</p>
+							<p class="small text-muted">Supported Formats: doc, docx, pdf, upto 2 MB</p>
+						</div>
+					</div>
+					<div class="cover-letter-box m-3 py-4 rounded-3" style="background-color: #f9e9d8">
+						<p class="text-center">Need a cover letter?</p>
+						<button pButton class="p-button-text p-button-plain w-100" label="Click here to write one!" routerLink="/pages/job-tool/coverletter-builder"></button>
+					</div>
+				</div>
 
-          <!-- Fix alignment based on boolean sender -->
-          <div class="d-flex mb-2" [ngClass]="{'justify-content-start': !message.sender, 'justify-content-end': message.sender}">   
-            <div class="avatar me-1" *ngIf="!message.sender">
-              <p-avatar [image]="jobDetails?.company_logo_url ?? 'https://primefaces.org/cdn/primeng/images/demo/avatar/amyelsner.png'" shape="circle" />
-            </div>         
-            <!-- Text Message -->
-            <div *ngIf="message.type === 'text'" class="message-content text-start" 
-                [ngClass]="{'bg-secondary text-white': !message.sender, 'bg-secondary-subtle': message.sender}"
-                [ngStyle]="{'max-width': '75%'}">
-              <p>{{message.content}}</p>
-              <div class="d-flex justify-content-between align-items-center flex-row-reverse">
-                <div>                                                      
-                  <span *ngIf="message.sender" class="ms-2 text-white-50">
-                    <i class="fa-solid fa-check" [style.color]="message.markAsRead ? 'skyblue':'lightgray'"></i><i class="fa-solid fa-check" [style.color]="message.markAsRead ? 'skyblue':'lightgray'"></i>
-                  </span>
-                </div>
-                <small class="message-time text-end" 
-                      [ngClass]="{'text-muted': !message.sender, 'text-black': message.sender}">
-                  {{message.time}} 
-                </small>
-              </div>
-            </div>
-            <!-- File Attachment -->
-            <div *ngIf="message.type === 'file'" class="message-content file-message text-start" style="min-width: 50%" >
-              <a [href]="message.attachment_url" target="_blank" class="text-black">{{message.attachment}}</a><br>
-              <small class="message-time text-muted text-start">{{message.time}}</small>
-            </div>
-            
-            <!-- Button Message -->
-            <div *ngIf="message.type === 'button'" style="max-width: 75%">
-              <div class="sender-id mb-1 text-end">
-                {{message.sender ? message.company_logo : message.profile_image }}
-              </div>
-              <button pButton 
-                    class="p-button-warning w-100 d-flex justify-content-between align-items-center">
-                <span>{{message.content}}</span>
-                <div class="d-flex align-items-center">
-                  <small class="me-2">{{message.time}}</small>
-                </div>
-              </button>
-            </div>
-            <div class="avatar ms-2" *ngIf="message.sender">
-              <p-avatar [image]="message.profile_image ?? 'https://primefaces.org/cdn/primeng/images/demo/avatar/amyelsner.png'" shape="circle" />
-            </div>
-          </div>
-        </ng-container>
-      </div>
-    </div>
+				<!-- Conversation View -->
+				<div class="chat-body h-100 overflow-y-auto p-3" *ngIf="messages?.length > 0">
+					<ng-container *ngFor="let message of messages">
+						<!-- Sender ID for UNIABROAD -->
+						<div class="sender-id mb-1 text-start">
+							{{ message.sender ? jobDetails?.profile_name : jobDetails?.company_name }}
+						</div>
 
-    <!-- Footer - Fixed at bottom -->
-    <div class="card-footer bg-white p-2 border-0">
-      <input type="file" class="d-none" accept=".doc,.docx,.pdf, application/msword,application/vnd.openxmlformats-officedocument.wordprocessingml.document" #fileAttachment (change)="uploadFilesChat($event);">
-      <div *ngIf="attachmentFile" class="border d-flex justify-content-between align-items-center p-2">
-          <div>{{attachmentFile.name}}</div>
-          <i class="fas fa-xmark" (click)="attachmentFile = null; attachmentFileName = null;"></i>
-      </div>
-      <div class="input-group border rounded-4  p-1 h-auto">
-        <input type="text" class="form-control border-0 h-auto" [placeholder]="'Text with ... '+jobDetails?.company_name" #messageInput
-              (keyup.enter)="sendMessage(messageInput.value); messageInput.value = ''">
-        <span class="input-group-text border-0 bg-white" (click)="fileAttachment.click();">
-                <i class="pi pi-paperclip"></i>
-        </span>
-        <span class="input-group-text border-0 bg-white" (click)="sendMessage(messageInput.value); messageInput.value = '';">
-          <i class="pi pi-send" style="color: var(--uniprep-secondary);"></i>
-        </span>
-      </div>
-    </div>
-  </div>
+						<!-- Fix alignment based on boolean sender -->
+						<div class="d-flex mb-2" [ngClass]="{ 'justify-content-start': !message.sender, 'justify-content-end': message.sender }">
+							<div class="avatar me-1" *ngIf="!message.sender">
+								<p-avatar [image]="jobDetails?.company_logo_url ?? 'https://primefaces.org/cdn/primeng/images/demo/avatar/amyelsner.png'" shape="circle" />
+							</div>
+							<!-- Text Message -->
+							<div *ngIf="message.type === 'text'" class="message-content text-start" [ngClass]="{ 'bg-secondary text-white': !message.sender, 'bg-secondary-subtle': message.sender }" [ngStyle]="{ 'max-width': '75%' }">
+								<p>{{ message.content }}</p>
+								<div class="d-flex justify-content-between align-items-center flex-row-reverse">
+									<div>
+										<span *ngIf="message.sender" class="ms-2 text-white-50"> <i class="fa-solid fa-check" [style.color]="message.markAsRead ? 'skyblue' : 'lightgray'"></i><i class="fa-solid fa-check" [style.color]="message.markAsRead ? 'skyblue' : 'lightgray'"></i> </span>
+									</div>
+									<small class="message-time text-end" [ngClass]="{ 'text-muted': !message.sender, 'text-black': message.sender }">
+										{{ message.time }}
+									</small>
+								</div>
+							</div>
+							<!-- File Attachment -->
+							<div *ngIf="message.type === 'file'" class="message-content file-message text-start" style="min-width: 50%">
+								<a [href]="message.attachment_url" target="_blank" class="text-black">{{ message.attachment }}</a
+								><br />
+								<small class="message-time text-muted text-start">{{ message.time }}</small>
+							</div>
+
+							<!-- Button Message -->
+							<div *ngIf="message.type === 'button'" style="max-width: 75%">
+								<div class="sender-id mb-1 text-end">
+									{{ message.sender ? message.company_logo : message.profile_image }}
+								</div>
+								<button pButton class="p-button-warning w-100 d-flex justify-content-between align-items-center">
+									<span>{{ message.content }}</span>
+									<div class="d-flex align-items-center">
+										<small class="me-2">{{ message.time }}</small>
+									</div>
+								</button>
+							</div>
+							<div class="avatar ms-2" *ngIf="message.sender">
+								<p-avatar [image]="message.profile_image ?? 'https://primefaces.org/cdn/primeng/images/demo/avatar/amyelsner.png'" shape="circle" />
+							</div>
+						</div>
+					</ng-container>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="card-footer bg-transparent">
+		<input type="file" class="d-none" accept=".doc,.docx,.pdf, application/msword,application/vnd.openxmlformats-officedocument.wordprocessingml.document" #fileAttachment (change)="uploadFilesChat($event)" />
+		<div *ngIf="attachmentFile" class="border d-flex justify-content-between align-items-center p-2">
+			<div>{{ attachmentFile.name }}</div>
+			<i class="fas fa-xmark" (click)="attachmentFile = null; attachmentFileName = null"></i>
+		</div>
+		<div class="input-group border rounded-4 p-1 h-auto">
+			<input type="text" class="form-control border-0 h-auto" [placeholder]="'Text with ... ' + jobDetails?.company_name" #messageInput (keyup.enter)="sendMessage(messageInput.value); messageInput.value = ''" />
+			<span class="input-group-text border-0 bg-white" (click)="fileAttachment.click()">
+				<i class="pi pi-paperclip"></i>
+			</span>
+			<span class="input-group-text border-0 bg-white" (click)="sendMessage(messageInput.value); messageInput.value = ''">
+				<i class="pi pi-send" style="color: var(--uniprep-secondary)"></i>
+			</span>
+		</div>
+	</div>
 </div>
