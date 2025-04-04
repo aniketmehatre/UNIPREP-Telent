@@ -32,7 +32,7 @@
 	<div class="card-body text-center flex-fill overflow-y-auto">
 		<div class="row">
 			<div class="col-md-6 col-lg-3 mb-2" *ngFor="let job of jobListings" [routerLink]="['/pages/talent-connect/easy-apply', job.id]">
-				<div class="card card-inside h-100 text-start position-relative">
+				<div class="card card-inside h-100 text-start position-relative" role="button">
 					<button class="btn btn-link text-warning p-0 position-absolute" style="right: 0.5rem; top: 0.5rem">
 						<i class="fa-regular fa-share-alt"></i>
 					</button>
