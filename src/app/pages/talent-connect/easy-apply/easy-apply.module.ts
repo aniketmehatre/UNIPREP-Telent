@@ -15,6 +15,7 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { InputTextModule } from 'primeng/inputtext';
 import { SelectModule } from 'primeng/select';
 import { InputNumberModule } from 'primeng/inputnumber';
+import { TooltipModule } from 'primeng/tooltip';
 
 const routes: Routes = [
   {
@@ -45,7 +46,8 @@ const routes: Routes = [
     ButtonModule,
     ReactiveFormsModule,
     SelectModule,
-    InputNumberModule
+    InputNumberModule,
+    TooltipModule
   ]
 })
 export class EasyApplyModule { }
