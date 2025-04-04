@@ -41,7 +41,6 @@ nav {
     align-items: center;
     flex-direction: row;
   }
-
 }
 
 .reportwidthfix {
@@ -473,7 +472,7 @@ $background-color_4: #fff;
   border: none;
   margin-bottom: 3px;
   padding: 0.8rem;
-  i{
+  i {
     color: white;
     background: #3f4c83;
     border-radius: 50%;
@@ -481,18 +480,18 @@ $background-color_4: #fff;
     font-size: small !important;
     margin-right: 1rem;
   }
-  .deafult-icon{
+  .deafult-icon {
     background: #ececec !important;
     color: #c3c3c3;
   }
 }
-.isread{
+.isread {
   border-radius: 4px;
   background-color: #ececec;
 }
 .list-group-item h5 {
   margin: 0;
-  font-size: 1rem;    
+  font-size: 1rem;
   font-weight: 700;
 }
 .list-group-item small {
@@ -550,7 +549,8 @@ $background-color_4: #fff;
 
 .assessment-popup {
   width: 460px;
-  .p-dialog-titlebar, .p-dialog-content {
+  .p-dialog-titlebar,
+  .p-dialog-content {
     border-radius: 15px !important;
   }
   &.upgrade-plan {

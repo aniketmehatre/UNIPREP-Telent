@@ -33,7 +33,7 @@ import { TextareaModule } from 'primeng/textarea'
 import { AuthTokenService } from 'src/app/core/services/auth-token.service'
 import CryptoJS from "crypto-js";
 import { AvatarGroupModule } from 'primeng/avatargroup';
-import {StorageService} from "../../../storage.service";
+import { StorageService } from "../../../storage.service";
 import { DropdownModule } from "primeng/dropdown";
 
 // import { SocialAuthService } from "@abacritt/angularx-social-login";
@@ -368,32 +368,36 @@ export class HeaderComponent implements OnInit, OnDestroy {
 	isResendOTP: boolean = false
 
 	sendOTP() {
+
 		this.phoneVerification.disable()
 		let formData = this.phoneVerification.value
+
 		let sendPhoneNumber = {
 			country_code: formData.verification_phone.dialCode,
 			phone: formData.verification_phone.number,
 			whatsapp_number_or_not: formData.choice,
 			dial_code: formData.verification_phone.countryCode,
 		}
-		this.service.sendWhatsappOtp(sendPhoneNumber).subscribe({
-			next: (response) => {
-				this.isSendingOTP = true
-				this.toast.add({
-					severity: "success",
-					summary: "Success",
-					detail: response.message,
-				})
-			},
-			error: (error) => {
-				this.phoneVerification.enable()
-				this.toast.add({
-					severity: "error",
-					summary: "Error",
-					detail: error?.message,
-				})
-			},
-		})
+		this.isSendingOTP = true
+		// this.service.sendWhatsappOtp(sendPhoneNumber).subscribe({
+		// 	next: (response) => {
+		// 		console.log("OTP sent successfully", response)
+		// 		this.isSendingOTP = true
+		// 		this.toast.add({
+		// 			severity: "success",
+		// 			summary: "Success",
+		// 			detail: response.message,
+		// 		})
+		// 	},
+		// 	error: (error) => {
+		// 		this.phoneVerification.enable()
+		// 		this.toast.add({
+		// 			severity: "error",
+		// 			summary: "Error",
+		// 			detail: error?.message,
+		// 		})
+		// 	},
+		// })
 	}
 
 	submitPhoneVerification() {
@@ -403,7 +407,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
 			phone: formData.verification_phone.number,
 			dial_code: formData.verification_phone.countryCode,
 			otp: this.otp.join(""),
-			whatsapp_number_or_not: formData.choice == "yes" ? "no" : "yes",
+			whatsapp_number_or_not: formData.choice,
 		}
 		this.service.validateWhatsappOtp(sendOTP).subscribe({
 			next: (response) => {
@@ -490,7 +494,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
 				const userDetails = response.userdetails[0];
 				this.userName = userDetails.name || '';
 				this.firstChar = this.userName ? this.userName.charAt(0).toUpperCase() : '';
-				
+
 				// Set home country icon if available
 				if (userDetails.home_country_id) {
 					this.homeCountryId = userDetails.home_country_id;
@@ -649,7 +653,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
 
 			// Get decrypted phone using auth service
 			// let phoneValue = await this.service.decryptData(encryptedPhone);
-			
+
 			// Handle the decrypted phone data
 			if (phoneValue) {
 				// let phoneValue;
@@ -777,8 +781,8 @@ export class HeaderComponent implements OnInit, OnDestroy {
 					this.demoDays = data.userdetails[0].login_status.replace("Demo-", "")
 				}
 				/*if (data.userdetails[0].login_status == "Demo") {
-          this.demoTrial = true;
-        } */
+		  this.demoTrial = true;
+		} */
 				let programLevelId = data.userdetails[0].programlevel_id
 				if (programLevelId == null || programLevelId == "null" || programLevelId == "") {
 					this.currentEducation = true
@@ -927,7 +931,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
 			})
 		).subscribe(socialUser => {
 			if (socialUser) {
-				this.authService.signOut().catch(error => 
+				this.authService.signOut().catch(error =>
 					console.warn('Social logout error:', error)
 				);
 			}
@@ -1073,130 +1077,130 @@ export class HeaderComponent implements OnInit, OnDestroy {
 
 	subScribedUserCount(): void {
 		this.service.getNewUserTimeLeft().subscribe((res) => {
-		  this.currentUserSubscriptionPlan = res?.subscription_details?.subscription_plan;
-		  this.enterpriseSubscriptionLink = res.enterprise_subscription_link;
-		  let data = res.time_left;
-		  if (data.plan === "not_started") {
-			this.visible = false;
-		  } else {
-			this.getTimer(
-			  data.minutes,
-			  data.seconds,
-			  data.hours,
-			  data.days,
-			  data.months
-			);
-		  }
+			this.currentUserSubscriptionPlan = res?.subscription_details?.subscription_plan;
+			this.enterpriseSubscriptionLink = res.enterprise_subscription_link;
+			let data = res.time_left;
+			if (data.plan === "not_started") {
+				this.visible = false;
+			} else {
+				this.getTimer(
+					data.minutes,
+					data.seconds,
+					data.hours,
+					data.days,
+					data.months
+				);
+			}
 		});
-	  }
-	
-	  getTimer(minute: any, sec: any, hours: any, days: any, months: any): void {
+	}
+
+	getTimer(minute: any, sec: any, hours: any, days: any, months: any): void {
 		let totalSeconds: number = hours * 3600 + minute * 60 + sec;
 		let textSec: string | number = "0";
-	
+
 		this.timerInterval = setInterval(() => {
-		  totalSeconds--;
-	
-		  const hoursLeft: number = Math.floor(totalSeconds / 3600);
-		  const minutesLeft: number = Math.floor((totalSeconds % 3600) / 60);
-		  const secondsLeft: number = totalSeconds % 60;
-	
-		  this.min$ =
-			minutesLeft < 10 && minutesLeft > 0 ? "0" + minutesLeft.toString() : minutesLeft.toString();
-		  this.sec$ =
-			secondsLeft < 10 && secondsLeft > 0 ? "0" + secondsLeft.toString() : secondsLeft.toString();
-	
-		  this.hrs$ = hoursLeft;
-		  // this.min$ = textMin;
-		  // this.sec$ = textSec;
-		  this.month$ = months;
-		  this.day$ = days;
-		  if (minute <= 0 && hours <= 0 && sec <= 0) {
-			this.hrs$ = 0;
-			this.min$ = 0;
-			this.sec$ = 0;
-		  }
-		  //else {
-		  //   this.hrs$ = hoursLeft;
-		  //   this.min$ = textMin;
-		  //   this.sec$ = textSec;
-		  // }
-	
-		  if (
-			minutesLeft <= 0 &&
-			this.hrs$ <= 0 &&
-			this.day$ <= 0 &&
-			secondsLeft <= 0 &&
-			this.month$ <= 0
-		  ) {
-			this.visibleExhasted = true;
-			clearInterval(this.timerInterval);
-		  }
+			totalSeconds--;
+
+			const hoursLeft: number = Math.floor(totalSeconds / 3600);
+			const minutesLeft: number = Math.floor((totalSeconds % 3600) / 60);
+			const secondsLeft: number = totalSeconds % 60;
+
+			this.min$ =
+				minutesLeft < 10 && minutesLeft > 0 ? "0" + minutesLeft.toString() : minutesLeft.toString();
+			this.sec$ =
+				secondsLeft < 10 && secondsLeft > 0 ? "0" + secondsLeft.toString() : secondsLeft.toString();
+
+			this.hrs$ = hoursLeft;
+			// this.min$ = textMin;
+			// this.sec$ = textSec;
+			this.month$ = months;
+			this.day$ = days;
+			if (minute <= 0 && hours <= 0 && sec <= 0) {
+				this.hrs$ = 0;
+				this.min$ = 0;
+				this.sec$ = 0;
+			}
+			//else {
+			//   this.hrs$ = hoursLeft;
+			//   this.min$ = textMin;
+			//   this.sec$ = textSec;
+			// }
+
+			if (
+				minutesLeft <= 0 &&
+				this.hrs$ <= 0 &&
+				this.day$ <= 0 &&
+				secondsLeft <= 0 &&
+				this.month$ <= 0
+			) {
+				this.visibleExhasted = true;
+				clearInterval(this.timerInterval);
+			}
 		}, 1000);
-	  }
-	
-	  checkNewUser(): void {
+	}
+
+	checkNewUser(): void {
 		this.service.getNewUserTimeLeft().subscribe((res) => {
-		  this.currentUserSubscriptionPlan = res?.subscription_details?.subscription_plan;
-		  this.enterpriseSubscriptionLink = res.enterprise_subscription_link;
-		  this.dashboardService.updatedata(res.time_left);
-		  let data = res.time_left;
-		  if (data.plan === "on_progress") {
-			this.userLoginTimeLeftCount = false;
-			this.timer(data.minutes, data.seconds, data.hours);
-		  }
+			this.currentUserSubscriptionPlan = res?.subscription_details?.subscription_plan;
+			this.enterpriseSubscriptionLink = res.enterprise_subscription_link;
+			this.dashboardService.updatedata(res.time_left);
+			let data = res.time_left;
+			if (data.plan === "on_progress") {
+				this.userLoginTimeLeftCount = false;
+				this.timer(data.minutes, data.seconds, data.hours);
+			}
 		});
-	  }
-	
-	  timer(minute: any, sec: any, hours: any): void {
+	}
+
+	timer(minute: any, sec: any, hours: any): void {
 		let totalSeconds: number = hours * 3600 + minute * 60 + sec;
 		let textSec: string | number = "0";
-	
+
 		this.timerInterval = setInterval(() => {
-		  totalSeconds--;
-	
-		  const hoursLeft: number = Math.floor(totalSeconds / 3600);
-		  const minutesLeft: number = Math.floor((totalSeconds % 3600) / 60);
-		  const secondsLeft: number = totalSeconds % 60;
-	
-		  this.timeHours = hoursLeft;
-		  this.timeLeftMins =
-			minutesLeft < 10 && minutesLeft > 0 ? "0" + minutesLeft : minutesLeft.toString();
-		  this.timeLeftSecs =
-			secondsLeft < 10 && secondsLeft > 0 ? "0" + secondsLeft : secondsLeft.toString();
-		  if (this.timeLeftMins == '00') {
-			this.timeLeftMins = 0;
-		  }
-		  if (this.timeLeftSecs == '00') {
-			this.timeLeftSecs = 0;
-		  }
-		  if (minute <= 0 && hours <= 0 && sec <= 0) {
-			this.timeHours = 0;
-			this.timeLeftMins = 0;
-			this.timeLeftSecs = 0;
-		  }
-		  // else {
-		  //   this.timeHours = hoursLeft;
-		  //   this.timeLeftMins = textMin;
-		  //   this.timeLeftSecs = textSec;
-		  // }
-		  console.log(minutesLeft)
-		  if (
-			minutesLeft <= 0 &&
-			this.timeHours <= 0 &&
-			secondsLeft <= 0
-		  ) {
-			this.visible = true;
-			this.locationService.trialEnds().subscribe((res) => {
-			  console.log(res)
-			})
-			clearInterval(this.timerInterval);
-		  }
-		  this.min$ = minutesLeft
-		  this.sec$ = secondsLeft
-		  this.hrs$ = this.timeHours;
+			totalSeconds--;
+
+			const hoursLeft: number = Math.floor(totalSeconds / 3600);
+			const minutesLeft: number = Math.floor((totalSeconds % 3600) / 60);
+			const secondsLeft: number = totalSeconds % 60;
+
+			this.timeHours = hoursLeft;
+			this.timeLeftMins =
+				minutesLeft < 10 && minutesLeft > 0 ? "0" + minutesLeft : minutesLeft.toString();
+			this.timeLeftSecs =
+				secondsLeft < 10 && secondsLeft > 0 ? "0" + secondsLeft : secondsLeft.toString();
+			if (this.timeLeftMins == '00') {
+				this.timeLeftMins = 0;
+			}
+			if (this.timeLeftSecs == '00') {
+				this.timeLeftSecs = 0;
+			}
+			if (minute <= 0 && hours <= 0 && sec <= 0) {
+				this.timeHours = 0;
+				this.timeLeftMins = 0;
+				this.timeLeftSecs = 0;
+			}
+			// else {
+			//   this.timeHours = hoursLeft;
+			//   this.timeLeftMins = textMin;
+			//   this.timeLeftSecs = textSec;
+			// }
+			console.log(minutesLeft)
+			if (
+				minutesLeft <= 0 &&
+				this.timeHours <= 0 &&
+				secondsLeft <= 0
+			) {
+				this.visible = true;
+				this.locationService.trialEnds().subscribe((res) => {
+					console.log(res)
+				})
+				clearInterval(this.timerInterval);
+			}
+			this.min$ = minutesLeft
+			this.sec$ = secondsLeft
+			this.hrs$ = this.timeHours;
 		}, 1000);
-	  }
+	}
 
 	onSubmit(op: any) {
 		let data
@@ -1252,7 +1256,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
 				op.hide()
 				// this.showReportSuccess = false;
 			}, 3000)
-			this.locationService.reportFaqQuestionaftersubmit(maildata).subscribe((res) => {})
+			this.locationService.reportFaqQuestionaftersubmit(maildata).subscribe((res) => { })
 		})
 		this.getReportOption()
 	}
@@ -1365,21 +1369,22 @@ export class HeaderComponent implements OnInit, OnDestroy {
 	}
 
 	checkNewUSerLogin(): void {
-		if(this.service._userLoginCount === undefined) {
+		if (this.service._userLoginCount === undefined) {
 			this.service.getMe().subscribe(() => {
 				this.runAfterDataLoads();
 			});
-		}else {
+		} else {
 			this.runAfterDataLoads();
 		}
-		
+
 	}
 
 	runAfterDataLoads(): void {
-		let userLoginCount = this.service._userLoginCount
+		//let userLoginCount = this.service._userLoginCount
+		let userLoginCount = 4
 		if (userLoginCount === 4) {
-			this.freeTrial = true;
-
+			//this.freeTrial = true;
+			this.whatsappVerification = true
 		}
 	}
 
@@ -1438,14 +1443,14 @@ export class HeaderComponent implements OnInit, OnDestroy {
 		this.subs.sink = this.locationService.getHomeCountry(2).subscribe({
 			next: (res: any) => {
 				this.countryList = res;
-				
+
 				// First try to get country from localStorage
 				const storedHomeCountryId = this.storage.get('homeCountryId');
-				
+
 				// Find selected home country with fallbacks
-				const selectedHomeCountry = storedHomeCountryId ? 
+				const selectedHomeCountry = storedHomeCountryId ?
 					res.find((data: any) => data.id === Number(storedHomeCountryId)) :
-					res.find((data: any) => data.id === this.homeCountryId) || 
+					res.find((data: any) => data.id === this.homeCountryId) ||
 					res.find((data: any) => data.id === 122);
 
 				if (selectedHomeCountry) {
@@ -1495,7 +1500,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
 				this.selectedHomeCountry = selectedCountry;
 				this.dataService.changeHomeCountryFlag(selectedCountry.flag);
 				this.storage.set('homeCountryId', selectedCountry.id.toString());
-				
+
 				// Update the form if it exists
 				if (this.mobileForm) {
 					this.mobileForm.patchValue({
@@ -1583,11 +1588,11 @@ export class HeaderComponent implements OnInit, OnDestroy {
 			next: (data) => {
 				if (data?.userdetails?.[0]) {
 					const userDetails = data.userdetails[0];
-					
+
 					// Set user name and first character
 					this.userName = userDetails.name?.toString() || '';
 					this.firstChar = this.userName ? this.userName.charAt(0).toUpperCase() : '';
-					
+
 					// Store user details in localStorage for persistence
 					this.storage.set('user_details', JSON.stringify({
 						name: this.userName,
@@ -1595,20 +1600,20 @@ export class HeaderComponent implements OnInit, OnDestroy {
 						homeCountryId: userDetails.home_country_id,
 						programLevelId: userDetails.programlevel_id
 					}));
-					
+
 					// Handle program level
 					if (!userDetails.programlevel_id) {
 						this.currentEducation = true;
 						this.educationImage = `https://${this.ApiUrl}/uniprepapi/storage/app/public/uploads/education.svg`;
 					}
-					
+
 					// Handle demo trial status
 					const loginStatus = userDetails.login_status;
 					if (typeof loginStatus === 'string' && loginStatus.includes('Demo')) {
 						this.demoTrial = true;
 						this.demoDays = loginStatus.replace('Demo-', '');
 					}
-					
+
 					// Update home country
 					this.homeCountryId = Number(userDetails.home_country_id);
 					this.selectedHomeCountry = Number(userDetails.home_country_id);
@@ -1631,11 +1636,11 @@ export class HeaderComponent implements OnInit, OnDestroy {
 	toggleProfileDropdown(event: Event) {
 		event.preventDefault();
 		event.stopPropagation();
-		
+
 		const dropdown = document.querySelector('.profile-dropdown');
 		if (dropdown) {
 			dropdown.classList.toggle('show');
-			
+
 			// Close dropdown when clicking outside
 			const closeDropdown = (e: MouseEvent) => {
 				if (!dropdown.contains(e.target as Node)) {
@@ -1643,7 +1648,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
 					document.removeEventListener('click', closeDropdown);
 				}
 			};
-			
+
 			document.addEventListener('click', closeDropdown);
 		}
 	}
