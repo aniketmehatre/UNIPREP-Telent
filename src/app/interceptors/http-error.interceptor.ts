@@ -70,8 +70,8 @@ export const HttpErrorInterceptor: HttpInterceptorFn = (
       }
     }),
     catchError((error: HttpErrorResponse) => {
-      if (authTokenService.isTokenValid()) {
-        locationService.sessionEndApiCall().subscribe((data: any) => { })
+      if (authTokenService.isTokenValid() && error.status !== 0) {
+        locationService.sessionEndApiCall().subscribe();
       }
       if (error.status === 401 && !isPublicRoute) {
         authTokenService.clearToken();

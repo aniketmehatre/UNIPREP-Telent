@@ -5,6 +5,7 @@ import { ChatGPTResponse } from 'src/app/@Models/chat-gpt.model';
 import { Countries } from 'src/app/@Models/country.model';
 import { CountryandCurrency } from 'src/app/@Models/currency.model';
 import { map } from 'rxjs';
+import { removeExtraResponse } from '../prompt';
 import html2pdf from 'html2pdf.js';
 
 @Injectable({
@@ -28,23 +29,10 @@ export class TravelToolsService {
     return this.http.post<{ response: any }>(environment.ApiUrl + "/getIntegratedRecom", data, {
       headers: this.headers,
     }).pipe(
-      map(res => ({ response: this.removeExtraContent(res.response) })) // Process response before returning
+      map(res => ({ response: removeExtraResponse(res.response) })) // Process response before returning
     );
   }
 
-  removeExtraContent(responseHtml: string) {
-    const tempDiv = document.createElement('div');
-    tempDiv.innerHTML = responseHtml;
-    const container = tempDiv.querySelector('.container');
-
-    if (container) {
-      const finalHTML = container.outerHTML;
-      return finalHTML // Return extracted content
-    } else {
-      console.log('No container found in the response!');
-      return ''; // Return empty string if no container found
-    }
-  }
 
   getCountriesList() {
     return this.http.post<Countries[]>(environment.ApiUrl + "/AllCountries", {

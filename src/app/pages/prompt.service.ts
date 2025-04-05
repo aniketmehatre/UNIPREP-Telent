@@ -114,13 +114,18 @@ export class PromptService {
                 padding: 15px;
                 border-radius: 8px;
                 font-size: 16px;
+                page-break-before: auto;
+                page-break-after: auto; 
+                page-break-inside: auto;
+            }
+            .loan-details, .insights {
                 page-break-inside: avoid;
             }
             .blue-background {
                 background-color: #e3f2fd;
                 page-break-inside: avoid;
             }
-            h1, h2, h3,h4,h5,h6,p,div,span,ul,li {
+            h1, h2, h3,h4,h5,h6,p,div,span {
                 page-break-before: auto;
                 page-break-after: auto; 
                 page-break-inside: auto;
@@ -130,7 +135,7 @@ export class PromptService {
     responseBuilder(data: any) {
         let processedRecommendation = (data.response || '') + '<br>';
         processedRecommendation = this.extraContentRemover(processedRecommendation);
-        let imageUrl = `uniprep-assets/images/prompt_modules/${ data.file_name }.png`;
+        let imageUrl = `https://${environment.domain}/uniprepapi/storage/app/public/prompt_modules/${ data.file_name }.png`;
         let titleData = `
                 <div class="title-bar">
                     <div style="width: 250px;">
@@ -172,5 +177,4 @@ export class PromptService {
 
         return htmlString;
     }
-
 }
