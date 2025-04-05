@@ -1,7 +1,7 @@
 import { SocialAuthService } from "@abacritt/angularx-social-login"
 import { CommonModule } from "@angular/common"
 import { Component, ElementRef, EventEmitter, Input, OnDestroy, OnInit, Output, ViewChild, ViewEncapsulation } from "@angular/core"
-import { AbstractControl, FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators } from "@angular/forms"
+import { AbstractControl, FormArray, FormBuilder, FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators } from "@angular/forms"
 import { ActivatedRoute, Router, RouterModule } from "@angular/router"
 import { MenuItem, MessageService } from "primeng/api"
 import { AuthService } from "../../../Auth/auth.service"
@@ -176,7 +176,12 @@ export class HeaderComponent implements OnInit, OnDestroy {
 	phone: string = ''
 
 	isLoading: boolean = false
-
+	// otp = new FormArray([
+	//   new FormControl(''),
+	//   new FormControl(''),
+	//   new FormControl(''),
+	//   new FormControl(''),
+	// ]);
 	constructor(
 		private router: Router,
 		private locationService: LocationService,
@@ -216,6 +221,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
 		this.phoneVerification = this.formBuilder.group({
 			verification_phone: ["", Validators.required],
 			choice: [false, Validators.required],
+			otp: this.otp
 		})
 
 		this.setPasswordForm = this.formBuilder.group(
@@ -426,7 +432,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
 				this.toast.add({
 					severity: "error",
 					summary: "Error",
-					detail: error?.message,
+					detail: error?.error.message,
 				})
 			},
 		})

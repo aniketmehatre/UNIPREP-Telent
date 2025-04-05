@@ -516,6 +516,7 @@
 							<div class="otp-container m-4">
 								<input *ngFor="let digit of otpArray; let i = index" type="text" maxlength="1"
 									class="otp-box" [id]="'otp-' + i" [(ngModel)]="otp[i]"
+									formControlName="otp"
 									(input)="onInputOTP($event, i)" (keydown)="onKeydownOPT($event, i)" />
 							</div>
 							<div class="d-flex justify-content-center m-3 gap-3">

@@ -37,7 +37,7 @@ export const HttpErrorInterceptor: HttpInterceptorFn = (
   request: HttpRequest<unknown>,
   next: HttpHandlerFn
 ): Observable<HttpEvent<unknown>> => {
-  const toastr = inject(MessageService);
+  const toast = inject(MessageService);
   const ngxService = inject(NgxUiLoaderService);
   const authTokenService = inject(AuthTokenService);
   const locationService = inject(LocationService);
@@ -75,13 +75,21 @@ export const HttpErrorInterceptor: HttpInterceptorFn = (
       }
       if (error.status === 401 && !isPublicRoute) {
         authTokenService.clearToken();
-        toastr.add({
+        toast.add({
           severity: 'error',
           summary: 'Session Expired',
           detail: 'Please login again'
         });
+      } else if (error.status === 400) {
+        console.log('error', error.error.message);
+        toast.add({
+          severity: 'error',
+          summary: 'Unauthorized',
+          detail: 'You are not authorized to access this resource',
+          life: 3000
+        });
       } else if (error instanceof Error && error.message.includes('timeout')) {
-        toastr.add({
+        toast.add({
           severity: 'error',
           summary: 'Request Timeout',
           detail: 'The server is taking too long to respond. Please try again.'
