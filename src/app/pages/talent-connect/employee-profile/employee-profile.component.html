@@ -149,11 +149,12 @@
                                                     class="text-danger">*</span> (City, Country)</label>
                                             <p-select id="location" formControlName="location_id" [options]="locations"
                                                 placeholder="Select your current location" styleClass="w-100"
-                                                optionLabel="city_state" optionValue="id" [filter]="true"
-                                                filterBy="city_state" [appendTo]="'body'"
+                                                optionLabel="work_location" optionValue="id" [filter]="true"
+                                                filterBy="work_location" [appendTo]="'body'" [virtualScroll]="true"   [virtualScrollItemSize]="50" 
                                                 (mouseleave)="resetMessageBox()"
                                                 (mouseenter)="updateMessageBox('location_id')"
-                                                (onFilter)="filterLocation($event, false)"></p-select>
+                                                ></p-select>
+                                                <!-- (onFilter)="filterLocation($event, false)" -->
                                             <small class="text-danger"
                                                 *ngIf="personalInfoForm.get('location_id')?.invalid && personalInfoForm.get('location_id')?.touched">
                                                 This field is mandatory </small>
@@ -522,11 +523,12 @@
                                                     <p-multiSelect id="highestQualification"
                                                         formControlName="career_preference_preferred_work_location_id"
                                                         [options]="preferredLocationsList" placeholder="Select Your Location"
-                                                        styleClass="w-100" optionLabel="city_state" optionValue="id"
-                                                        [filter]="true" filterBy="city_state" [appendTo]="'body'"
-                                                        (onFilter)="filterLocation($event, true);"
-                                                        (mouseleave)="resetMessageBox()"
-                                                        (mouseenter)="updateMessageBox('career_preference_preferred_work_location_id')"></p-multiSelect>
+                                                        styleClass="w-100" optionLabel="work_location" optionValue="id"
+                                                        [filter]="true" filterBy="work_location" [appendTo]="'body'"
+                                                        (mouseleave)="resetMessageBox()" [virtualScroll]="true"   [virtualScrollItemSize]="50" 
+                                                        (mouseenter)="updateMessageBox('career_preference_preferred_work_location_id')"
+                                                        ></p-multiSelect>  
+                                                        <!-- (onFilter)="filterLocation($event, true);" -->
                                                 </div>
                                                 <small class="text-danger"
                                                     *ngIf="personalInfoForm.get('career_preference_preferred_work_location_id')?.invalid && personalInfoForm.get('career_preference_preferred_work_location_id')?.touched">
