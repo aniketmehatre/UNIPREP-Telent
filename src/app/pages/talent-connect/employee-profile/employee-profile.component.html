@@ -104,7 +104,7 @@
 									<div class="row">
 										<div class="col-12">
 											<label for="location" class="form-label">Current Location<span class="text-danger">*</span> (City, Country)</label>
-											<p-select id="location" formControlName="location_id" [options]="locations" placeholder="Select your current location" styleClass="w-100" optionLabel="work_location" optionValue="id" [filter]="true" filterBy="work_location" [appendTo]="'body'" (mouseleave)="resetMessageBox()" (mouseenter)="updateMessageBox('location_id')"></p-select>
+											<p-select id="location" formControlName="location_id" [options]="locations" [virtualScroll]="true" [virtualScrollItemSize]="50" placeholder="Select your current location" styleClass="w-100" optionLabel="work_location" optionValue="id" [filter]="true" filterBy="work_location" [appendTo]="'body'" (mouseleave)="resetMessageBox()" (mouseenter)="updateMessageBox('location_id')"></p-select>
 											<small class="text-danger" *ngIf="personalInfoForm.get('location_id')?.invalid && personalInfoForm.get('location_id')?.touched"> This field is mandatory </small>
 										</div>
 									</div>
@@ -306,7 +306,7 @@
 											<div class="col-md-6">
 												<label for="university" class="form-label">Preferred Work Location<span class="text-danger">*</span></label>
 												<div class="p-inputgroup">
-													<p-multiSelect id="highestQualification" formControlName="career_preference_preferred_work_location_id" [options]="locations" placeholder="Select Your Location" styleClass="w-100" optionLabel="work_location" optionValue="id" [filter]="true" filterBy="work_location" [appendTo]="'body'"  (mouseleave)="resetMessageBox()" (mouseenter)="updateMessageBox('career_preference_preferred_work_location_id')"></p-multiSelect>
+													<p-multiSelect id="highestQualification" formControlName="career_preference_preferred_work_location_id" [options]="locations" [virtualScroll]="true" [virtualScrollItemSize]="50" placeholder="Select Your Location" styleClass="w-100" optionLabel="work_location" optionValue="id" [filter]="true" filterBy="work_location" [appendTo]="'body'"  (mouseleave)="resetMessageBox()" (mouseenter)="updateMessageBox('career_preference_preferred_work_location_id')"></p-multiSelect>
 												</div>
 												<small class="text-danger" *ngIf="personalInfoForm.get('career_preference_preferred_work_location_id')?.invalid && personalInfoForm.get('career_preference_preferred_work_location_id')?.touched"> This field is mandatory </small>
 											</div>
@@ -696,7 +696,7 @@
 											<div class="row mb-3">
 												<div class="col-md-4">
 													<label for="highestQualification" class="form-label">Company Name</label>
-													<input pInputText fluid id="university" formControlName="references_company_name" placeholder="Enter the reference college name" class="form-control w-100" (mouseleave)="resetMessageBox()" (mouseenter)="updateMessageBox('references_company_name')" />
+													<input pInputText fluid id="university" formControlName="references_company_name" placeholder="Enter the reference company name" class="form-control w-100" (mouseleave)="resetMessageBox()" (mouseenter)="updateMessageBox('references_company_name')" />
 												</div>
 												<div class="col-md-4">
 													<label for="highestQualification" class="form-label">Name</label>
