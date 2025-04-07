@@ -157,7 +157,7 @@ export class CareerToolComponent implements OnInit {
       imageLink: this.domainUrl + "JobOfferComparisonTool.svg",
       refLink: "",
       mode: "job-offer-comparison",
-      launch_soon: false
+      launch_soon: true
     },
     {
       id: 15,
