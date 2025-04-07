@@ -74,15 +74,15 @@ export class CompanyViewComponent implements OnInit {
   getCompanyDetail(id: any) {
     this.talentConnectService.getCompanyDetails(id).subscribe({
       next: data => {
-        this.companyDetails = data[0]
+        this.companyDetails = data[0];
         this.companyDetails.work_life_balance_policy = this.companyDetails.work_life_balance_policy.split(", ");
         this.companyDetails.hiring_process_stages = this.companyDetails.hiring_process_stages.split(", ");
         this.companyDetails.benefits = this.companyDetails.benefits.split(", ");
       },
       error: err => {
-        console.log(err)
+        console.log(err);
       }
-    })
+    });
   }
 
   onClickShortListCompany(id: any) {

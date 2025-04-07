@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { Form, FormBuilder, FormGroup } from '@angular/forms';
 import { TalentConnectService } from '../talent-connect.service';
+import { MessageService } from 'primeng/api';
 
 interface JobListing {
   id: number;
@@ -46,7 +47,7 @@ export class EasyApplyComponent {
   displayModal: boolean = false;
   first: number = 0;
   filterForm: FormGroup = new FormGroup({});
-  constructor(private fb: FormBuilder, private talentConnectService: TalentConnectService, private talenconnectService: TalentConnectService) { }
+  constructor(private fb: FormBuilder, private talentConnectService: TalentConnectService, private messageService: MessageService) { }
   ngOnInit(): void {
     this.getList();
     this.initializeForm();
@@ -85,6 +86,13 @@ export class EasyApplyComponent {
     }
     this.talentConnectService.getJobList(data).subscribe({
       next: response => {
+        if (!response.success) {
+          this.messageService.add({
+            severity: 'error',
+            summary: 'Restricted',
+            detail: response?.message
+          });
+        }
         this.jobListings = response.jobs;
         this.totalJobs = response.totaljobs;
         this.totalVacancies = response.totalvacancies;
@@ -126,7 +134,6 @@ export class EasyApplyComponent {
     this.getList({});
     this.displayModal = false;
     this.filterForm.reset();
-    console.log('Resetting filters');
   }
 
   openVideoPopup(id: string) {}
