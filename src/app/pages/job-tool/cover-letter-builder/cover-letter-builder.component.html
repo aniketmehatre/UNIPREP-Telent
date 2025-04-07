@@ -219,63 +219,6 @@
 										</div>
 									</div>
 								</div>
-								<div class="col-md-12">
-									<label class="uniprep-primarydark fw-bold h6">Website (Optional)</label>
-									<div class="form-group">
-										<div class="mb-3">
-											<input class="w-100" type="text" placeholder="Website or portfolio Link" formControlName="user_website" pInputText />
-										</div>
-									</div>
-								</div>
-							</div>
-							<h4 class="uniprep-primary">Enter Your Latest Degree (Optional)</h4>
-							<div class="row mb-3">
-								<div class="col-md-6">
-									<label class="uniprep-primarydark fw-bold h6">College/School Name</label>
-									<div class="form-group">
-										<div class="mb-3">
-											<input class="w-100" type="text" placeholder="College/School Name" formControlName="degree_college_name" pInputText />
-										</div>
-									</div>
-								</div>
-								<div class="col-md-6">
-									<label class="uniprep-primarydark fw-bold h6">Degree</label>
-									<div class="form-group">
-										<div class="mb-3">
-											<input class="w-100" type="text" placeholder="Your Degree" formControlName="edu_degree" pInputText />
-										</div>
-									</div>
-								</div>
-							</div>
-							<h4 class="uniprep-primary">Relevant Experience (Optional)</h4>
-							<div class="row mb-3">
-								<div class="col-md-6">
-									<label class="uniprep-primarydark fw-bold h6">Designation</label>
-									<div class="form-group">
-										<div class="mb-3">
-											<input class="w-100" type="text" placeholder="Your Previous Designation" formControlName="exp_designation" pInputText />
-										</div>
-									</div>
-								</div>
-								<div class="col-md-6">
-									<label class="uniprep-primarydark fw-bold h6">Years of Experience</label>
-									<div class="form-group">
-										<div class="mb-3">
-											<input class="w-100" type="text" placeholder="Your Experience" formControlName="years_of_exp" pInputText />
-										</div>
-									</div>
-								</div>
-							</div>
-							<h4 class="uniprep-primary">Achievements (Optional)</h4>
-							<div class="row">
-								<div class="col-md-12">
-									<div class="form-group">
-										<div class="mb-3">
-											<input class="w-100 m-1" type="text" placeholder="Your Achievements" formControlName="achievements_one" pInputText />
-											<input class="w-100 m-1" type="text" placeholder="Your Achievements" formControlName="achievements_two" pInputText />
-										</div>
-									</div>
-								</div>
 							</div>
 						</ng-container>
 						<ng-container *ngIf="moduleActiveIndex == 1">
@@ -292,7 +235,7 @@
 										</div>
 									</div>
 								</div>
-								<div class="col-md-6">
+								<!-- <div class="col-md-6">
 									<label class="uniprep-primarydark fw-bold h6">Manager Name</label>
 									<div class="row">
 										<div class="form-group">
@@ -301,17 +244,6 @@
 												<div *ngIf="submitted && f['managername'].errors" class="text-danger text-xs">
 													<div style="margin-left: 10px" *ngIf="f['managername'].errors">Manger Name Required</div>
 												</div>
-											</div>
-										</div>
-									</div>
-								</div>
-								<!-- <div class="col-md-6">
-									<label class="uniprep-primarydark fw-bold h6">Location</label>
-									<div class="form-group">
-										<div class="mb-3">
-											<input class="w-100" type="text" placeholder="Organization Location" formControlName="org_location" pInputText />
-											<div *ngIf="submitted && f['org_location'].errors" class="text-danger text-xs">
-												<div style="margin-left: 10px" *ngIf="f['org_location'].errors">Organization Location Required</div>
 											</div>
 										</div>
 									</div>
@@ -343,35 +275,41 @@
 										</div>
 									</div>
 								</div>
-
-								<!-- <div class="col-md-12">
-								<label class="uniprep-primarydark fw-bold h6">How did you get to know about us</label>
-								<div class="form-group">
-									<div class="mb-3">
-										<input class="w-100" type="text" placeholder="About as"
-											formControlName="getknowaboutas" pInputText />
-										<div *ngIf="submitted && f['getknowaboutas'].errors"
-											class="text-danger text-xs">
-											<div style="margin-left:10px;" *ngIf="f['getknowaboutas'].errors">About as Required
+								<div class="col-md-12">
+									<div class="d-flex justify-content-between align-items-center">
+										<div>
+											<label class="uniprep-primarydark fw-bold h6 mb-0">Job Description</label>
+										</div>
+										<div>
+											<button pButton type="button" class="deleteDivButton m-2 p-2" [disabled]="generateDesBtnDisable" (click)="chatGPTIntegration('generate_description')" style="background-color: #9bc329">AI Generate</button>
+											<button pButton type="button" class="deleteDivButton m-2 p-2 bg-secondary" [disabled]="rephraseDesBtnDisable" >Rephrase</button>
+										</div>
+									</div>
+									<div class="form-group">
+										<div class="mb-3">
+											<p-editor [style]="{ height: '30vh' }" class="mt-2" formControlName="job_description" placeholder="Job Description" [modules]="editorModules"></p-editor>
+											<div *ngIf="submitted && f['job_description'].errors" class="text-danger text-xs">
+												<div style="margin-left: 10px" *ngIf="f['job_description'].errors">Required</div>
 											</div>
 										</div>
 									</div>
 								</div>
-							</div> -->
 							</div>
 						</ng-container>
 						<ng-container *ngIf="moduleActiveIndex == 2">
 							<div class="row">
 								<div class="col-md-12">
 									<div class="d-flex justify-content-between align-items-center">
-										<label class="uniprep-primarydark fw-bold h6 mb-0">Cover Letter Section</label>
-										<button pButton pButton type="button" class="deleteDivButton mb-2" [disabled]="isButtonDisabled" (click)="chatGPTIntegration()" style="background-color: #9bc329">Generate &nbsp;<i class="fa-solid fa-line-columns trashIcon" style="background-color: #9bc329"></i></button>
+										<div>
+											<label class="uniprep-primarydark fw-bold h6 mb-0">Cover Letter Section</label>
+										</div>
+										<div>
+											<button pButton type="button" class="deleteDivButton m-2 p-2" [disabled]="generateConBtnDisable" (click)="chatGPTIntegration('generate_summary')" style="background-color: #9bc329">AI Generate</button>
+											<button pButton type="button" class="deleteDivButton m-2 p-2 bg-secondary" [disabled]="rephraseconBtnDisable">Rephrase</button>
+										</div>
 									</div>
 									<div class="form-group">
 										<div class="mb-3">
-											<!-- <button pButton  pButton type="button" (click)="chatGPTIntegration()"
-											class="text-white p-ripple p-button-rounded p-button-info-prev p-button p-component p-2"><i
-												class="fa fa-arrow-left exhausted-plan-icon-prev"></i> Generate</button> -->
 											<p-editor [style]="{ height: '50vh' }" class="mt-2" formControlName="user_summary" placeholder="Generate Your Content" [modules]="editorModules"></p-editor>
 											<div *ngIf="submitted && f['user_summary'].errors" class="text-danger text-xs">
 												<div style="margin-left: 10px" *ngIf="f['user_summary'].errors">Required</div>
@@ -526,7 +464,7 @@
 							<div><i class="fa-solid fa-location-dot text-white"></i> {{ f["user_location"].value }}</div>
 							<div><i class="fa-solid fa-phone text-white"></i> {{ f["country_code"].value }} {{ f["user_phone"].value }}</div>
 							<div><i class="fa-solid fa-envelope text-white"></i> {{ f["user_email"].value }}</div>
-							<div *ngIf="f['user_website'].value"><i class="fa-solid fa-globe text-white"></i> {{ f["user_website"].value }}</div>
+							<!-- <div *ngIf="f['user_website'].value"><i class="fa-solid fa-globe text-white"></i> {{ f["user_website"].value }}</div> -->
 						</div>
 					</div>
 					<div class="col-12 content-font-size">
@@ -536,7 +474,7 @@
 							<div>{{ f["org_location"].value }}</div>
 							<div>{{ currentDate | date : "dd-MM-yyyy" }}</div>
 						</div>
-						<p class="mb-2">Dear {{ f["managername"].value }},</p>
+						<p class="mb-2">Dear Hiring Manager,</p>
 						<p class="centered-paragraph">
 							<span class="UserSummary" [innerHTML]="f['user_summary'].value"></span>
 						</p>
@@ -564,17 +502,17 @@
 							<div><i class="fa-solid fa-location-dot"></i> {{ f["user_location"].value }}</div>
 							<div><i class="fa-solid fa-phone"></i> {{ f["country_code"].value }} {{ f["user_phone"].value }}</div>
 							<div><i class="fa-solid fa-envelope"></i> {{ f["user_email"].value }}</div>
-							<div *ngIf="f['user_website'].value"><i class="fa-solid fa-globe"></i> {{ f["user_website"].value }}</div>
+							<!-- <div *ngIf="f['user_website'].value"><i class="fa-solid fa-globe"></i> {{ f["user_website"].value }}</div> -->
 						</div>
 					</div>
 					<div class="col-12 content-font-size">
 						<div class="row pt-2 pb-2 mb-3 flex-fill gap-1">
-							<div>{{ f["managername"].value }}</div>
+							<!-- <div>{{ f["managername"].value }}</div> -->
 							<div>{{ f["org_name"].value }}</div>
 							<div>{{ f["org_location"].value }}</div>
 							<div>{{ currentDate | date : "dd-MM-yyyy" }}</div>
 						</div>
-						<p class="mb-2">Dear {{ f["managername"].value }},</p>
+						<p class="mb-2">Dear Hiring Manager,</p>
 						<p class="centered-paragraph">
 							<span class="UserSummary" [innerHTML]="f['user_summary'].value"></span>
 						</p>
@@ -598,18 +536,18 @@
 							<div><i class="fa-solid fa-location-dot"></i> {{ f["user_location"].value }}</div>
 							<div><i class="fa-solid fa-phone"></i> {{ f["country_code"].value }} {{ f["user_phone"].value }}</div>
 							<div><i class="fa-solid fa-envelope"></i> {{ f["user_email"].value }}</div>
-							<div *ngIf="f['user_website'].value"><i class="fa-solid fa-globe"></i> {{ f["user_website"].value }}</div>
+							<!-- <div *ngIf="f['user_website'].value"><i class="fa-solid fa-globe"></i> {{ f["user_website"].value }}</div> -->
 						</div>
 					</div>
 					<div class="col-11 text-center py-3 bg-black mb-4" style="border-radius: 0px 0px 20px 20px">&nbsp;</div>
 					<div class="col-12 content-font-size">
 						<div class="row pt-2 pb-2 mb-3 flex-fill gap-1">
-							<div>{{ f["managername"].value }}</div>
+							<!-- <div>{{ f["managername"].value }}</div> -->
 							<div>{{ f["org_name"].value }}</div>
 							<div>{{ f["org_location"].value }}</div>
 							<div>{{ currentDate | date : "dd-MM-yyyy" }}</div>
 						</div>
-						<p class="mb-2">Dear {{ f["managername"].value }},</p>
+						<p class="mb-2">Dear Hiring Manager,</p>
 						<p class="centered-paragraph">
 							<span class="UserSummary" [innerHTML]="f['user_summary'].value"></span>
 						</p>
@@ -634,17 +572,17 @@
 							<div><i class="fa-solid fa-location-dot" [ngStyle]="{ color: selectedThemeColor }"></i> {{ f["user_location"].value }}</div>
 							<div><i class="fa-solid fa-phone" [ngStyle]="{ color: selectedThemeColor }"></i> {{ f["country_code"].value }} {{ f["user_phone"].value }}</div>
 							<div><i class="fa-solid fa-envelope" [ngStyle]="{ color: selectedThemeColor }"></i> {{ f["user_email"].value }}</div>
-							<div *ngIf="f['user_website'].value"><i class="fa-solid fa-globe" [ngStyle]="{ color: selectedThemeColor }"></i> {{ f["user_website"].value }}</div>
+							<!-- <div *ngIf="f['user_website'].value"><i class="fa-solid fa-globe" [ngStyle]="{ color: selectedThemeColor }"></i> {{ f["user_website"].value }}</div> -->
 						</div>
 					</div>
 					<div class="col-12 mt-4 content-font-size">
 						<div class="row pt-2 pb-2 mb-3 flex-fill gap-1">
-							<div>{{ f["managername"].value }}</div>
+							<!-- <div>{{ f["managername"].value }}</div> -->
 							<div>{{ f["org_name"].value }}</div>
 							<div>{{ f["org_location"].value }}</div>
 							<div>{{ currentDate | date : "dd-MM-yyyy" }}</div>
 						</div>
-						<p class="mb-2">Dear {{ f["managername"].value }},</p>
+						<p class="mb-2">Dear Hiring Manager,</p>
 						<p class="centered-paragraph">
 							<span class="UserSummary" [innerHTML]="f['user_summary'].value"></span>
 						</p>
@@ -668,19 +606,19 @@
 							<div><i class="fa-solid fa-location-dot"></i> {{ f["user_location"].value }}</div>
 							<div><i class="fa-solid fa-phone"></i> {{ f["country_code"].value }} {{ f["user_phone"].value }}</div>
 							<div><i class="fa-solid fa-envelope"></i> {{ f["user_email"].value }}</div>
-							<div *ngIf="f['user_website'].value"><i class="fa-solid fa-globe"></i> {{ f["user_website"].value }}</div>
+							<!-- <div *ngIf="f['user_website'].value"><i class="fa-solid fa-globe"></i> {{ f["user_website"].value }}</div> -->
 						</div>
 					</div>
 				</div>
 				<div class="row px-3">
 					<div class="row pt-2 pb-2 mb-3 flex-fill gap-1 content-font-size">
-						<div>{{ f["managername"].value }}</div>
+						<!-- <div>{{ f["managername"].value }}</div> -->
 						<div>{{ f["org_name"].value }}</div>
 						<div>{{ f["org_location"].value }}</div>
 						<div>{{ currentDate | date : "dd-MM-yyyy" }}</div>
 					</div>
 					<div class="col-12 content-font-size">
-						<p class="mb-2">Dear {{ f["managername"].value }},</p>
+						<p class="mb-2">Dear Hiring Manager,</p>
 						<p class="centered-paragraph">
 							<span class="UserSummary" [innerHTML]="f['user_summary'].value"></span>
 						</p>
