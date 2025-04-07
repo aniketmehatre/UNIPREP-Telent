@@ -1,4 +1,4 @@
-<div class="card readingcard overflow-auto overflow-md-auto">
+<div class="card readingcard h-100">
 	<div class="card-header border-0 bg-transparent">
 		<div class="row">
 			<div class="col-md-12 d-flex gap-2 text-center">
@@ -13,57 +13,50 @@
 						<button class="how-it-works-button">How it works?<i class="fa-solid fa-play d-md-block d-none"></i></button>
 					</div>
 				</div>
-				<button
-				type="button"
-				class="border-primary bg-primary text-white rounded-2 px-2 mt-2"
-				(click)="displayModal = true">
-				<i class="fa-solid fa-filter"></i>&nbsp;&nbsp;Filter
-			  </button>
+				<button type="button" class="border-primary bg-primary text-white rounded-2 px-2 mt-2" (click)="displayModal = true"><i class="fa-solid fa-filter"></i>&nbsp;&nbsp;Filter</button>
 			</div>
 			<!-- <div class="col-md-3 mt-2 text-end desktop justify-content-end d-none d-md-flex"></div> -->
 		</div>
-	</div>
-  
-	<div class="card-body text-center flex-fill h-75" >
-		<div class="row mb-2">
+		<div class="row mt-2">
 			<div class="d-flex flex-fill gap-2 justify-content-center align-items-center">
-				<button  pButton class="btn border bg-white px-3 py-3" style="color: var(--uniprep-primary)" routerLink="/pages/talent-connect/easy-apply">Job Search</button>
+				<button pButton class="btn border bg-white px-3 py-3" style="color: var(--uniprep-primary)" routerLink="/pages/talent-connect/easy-apply">Job Search</button>
 				<button pButton class="btn border bg-primary px-3 py-3 text-white">Job Tracker</button>
 			</div>
 		</div>
-		<div class="row gx-3">
-		  <!-- Sidebar with job list -->
-		  <div class="col-lg-3 col-md-3 col-12 border-end mb-3 mb-md-0" [ngClass]="{'h-75': !showInfo}" >
-			<uni-job-list (emitId)="onClickJobId($event)" [displayModal]="displayModal" (closeFilter)="displayModal = false"></uni-job-list>
-		  </div>
-	  
-		  <!-- Main content with job details and chat -->
-		  <div class="col-lg-9 col-md-9 col-12">
-			<div class="row g-3" *ngIf="selectedJobId; else showEmptyContainer">
-			  <div class="col-lg-8 col-md-7 col-12" *ngIf="showInfo" [ngClass]="{'col-lg-12 col-md-12': !showChat}">
-				<div class="job-details-container">
-				  <uni-job-details (closeInfo)="showInfo = false;" [showInfo]="showInfo" [showChat]="showChat" [jobDetails]="jobDetails" (openChat)="showChat = true;"></uni-job-details>
-				</div>
-			  </div>
-			  <div  [ngClass]="{'col-lg-4 col-md-12': showInfo, 'col-lg-12 col-md-12': !showInfo, 'h-75': !showInfo}" *ngIf="showChat">
-				<uni-job-chat-ui (openInfo)="showInfo = true;" [showInfo]="showInfo" [jobDetails]="jobDetails" (closeChat)="showChat=false;"></uni-job-chat-ui>
-			  </div>
+	</div>
+
+	<div class="card-body text-center flex-fill overflow-y-auto">
+		<div class="row h-100">
+			<!-- Sidebar with job list -->
+			<div class="col-lg-3 col-md-3 col-12 h-100" [ngClass]="{ '': !showInfo }">
+				<uni-job-list (emitId)="onClickJobId($event)" [displayModal]="displayModal" (closeFilter)="displayModal = false"></uni-job-list>
 			</div>
-			<ng-template #showEmptyContainer>
-			  <div class="detail-panel d-flex flex-column align-items-center justify-content-center h-100">
-				<div class="no-selection text-center">
-				  <div class="building-icon mb-4">
-					<img src="uniprep-assets/images/building-icon.png" alt="Building" class="img-fluid">
-				  </div>
-				  <h4 class="mb-3">No Application Selected</h4>
-				  <p class="text-muted">
-					Select an application to check your information<br>
-					and move forward with your interview
-				  </p>
+
+			<!-- Main content with job details and chat -->
+			<div class="col-lg-9 col-md-9 col-12 h-100">
+				<div class="row h-100" *ngIf="selectedJobId; else showEmptyContainer">
+					<div class="col-lg-8 col-md-7 col-12 h-100" *ngIf="showInfo" [ngClass]="{ 'col-lg-12 col-md-12': !showChat }">
+						<uni-job-details (closeInfo)="showInfo = false" [showInfo]="showInfo" [showChat]="showChat" [jobDetails]="jobDetails" (openChat)="showChat = true"></uni-job-details>
+					</div>
+					<div [ngClass]="{ 'col-lg-4 col-md-12': showInfo, 'col-lg-12 col-md-12': !showInfo, '': !showInfo }" *ngIf="showChat">
+						<uni-job-chat-ui (openInfo)="showInfo = true" [showInfo]="showInfo" [jobDetails]="jobDetails" (closeChat)="showChat = false"></uni-job-chat-ui>
+					</div>
 				</div>
-			  </div>
-			</ng-template>
-		  </div>
+				<ng-template #showEmptyContainer>
+					<div class="card bg-white h-100">
+						<div class="card-body d-flex flex-column align-items-center justify-content-center">
+							<div class="building-icon mb-4">
+								<img src="uniprep-assets/images/building-icon.png" alt="Building" class="img-fluid" />
+							</div>
+							<h4 class="mb-3">No Application Selected</h4>
+							<p class="text-muted">
+								Select an application to check your information<br />
+								and move forward with your interview
+							</p>
+						</div>
+					</div>
+				</ng-template>
+			</div>
 		</div>
 	</div>
-  
+</div>

@@ -1086,23 +1086,34 @@ export class EmployeeProfileComponent implements OnInit {
     this.profileCompletion = Math.round((filledWeight / totalWeight) * 100);
   }
 
-  getCityCountryList(search?: string, isPreferLocation: boolean | null = null) {
-    this.talentConnectService.getCityCountries(search).subscribe({
+  // getCityCountryList(search?: string, isPreferLocation: boolean | null = null) {
+  //   this.talentConnectService.getCityCountries(search).subscribe({
+  //     next: response => {
+  //       if (isPreferLocation !== null) {
+  //         isPreferLocation ?
+  //           this.preferredLocationsList = response : this.locations = response;
+  //         return;
+  //       }
+  //       this.preferredLocationsList = response;
+  //       this.locations = response;
+  //     }
+  //   });
+  // }
+
+  //this is recovery purpose need to change.
+  getWorkLocation() {
+    this.talentConnectService.getEasyApplyWorkLocationList().subscribe({
       next: response => {
-        if (isPreferLocation !== null) {
-          isPreferLocation ?
-            this.preferredLocationsList = response : this.locations = response;
-          return;
-        }
-        this.preferredLocationsList = response;
-        this.locations = response;
+        this.preferredLocationsList = response.worklocations;
+        this.locations = response.worklocations;
       }
     });
   }
 
 
   getDropDownOptionList() {
-    this.getCityCountryList();
+    this.getWorkLocation()
+    //this.getCityCountryList();
     this.talentConnectService.getMyProfileDropDownValues().subscribe({
       next: response => {
         this.currencies = response.currencies;
@@ -1298,7 +1309,7 @@ export class EmployeeProfileComponent implements OnInit {
         }));
       });
     } 
-    this.filterLocation(response?.location_id)
+    // this.filterLocation(response?.location_id)
     this.logo = response?.dp_image;
     this.originalProfileData = { ...this.personalInfoForm.value };
   }
@@ -1320,9 +1331,9 @@ export class EmployeeProfileComponent implements OnInit {
     }
   }
 
-  filterLocation(search: any, isPrefredLocation?: boolean) {
-    this.getCityCountryList(search.filter, isPrefredLocation);
-  }
+  // filterLocation(search: any, isPrefredLocation?: boolean) {
+  //   this.getCityCountryList(search.filter, isPrefredLocation);
+  // }
 
 
   resetMessageBox(): void {
