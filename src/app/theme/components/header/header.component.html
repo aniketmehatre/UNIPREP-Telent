@@ -571,6 +571,7 @@
 								[enablePlaceholder]="true" [searchCountryFlag]="true" [maxLength]="15"
 								[searchCountryField]="[SearchCountryField.Iso2, SearchCountryField.Name]"
 								[phoneValidation]="true" [selectedCountryISO]="preferredCountry"
+                                                [(ngModel)]="phoneNumber"
 								customPlaceholder="Enter Contact Number" formControlName="phone"> </ngx-intl-tel-input>
 						</div>
 						<div class="w-100 phonenumberblock mt-2" *ngIf="formvisbility">

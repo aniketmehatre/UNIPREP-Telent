@@ -1,40 +1,46 @@
-import { SocialAuthService } from "@abacritt/angularx-social-login"
-import { CommonModule } from "@angular/common"
-import { Component, ElementRef, EventEmitter, Input, OnDestroy, OnInit, Output, ViewChild, ViewEncapsulation } from "@angular/core"
-import { AbstractControl, FormArray, FormBuilder, FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators } from "@angular/forms"
-import { ActivatedRoute, Router, RouterModule } from "@angular/router"
-import { MenuItem, MessageService } from "primeng/api"
-import { AuthService } from "../../../Auth/auth.service"
-import { SubSink } from "subsink"
-import { NavigationEnd } from "@angular/router"
-import { LocationService } from "../../../location.service"
-import { DataService } from "src/app/data.service"
-import { matchValidator } from "../../../@Supports/matchvalidator"
-import { ThemeService } from "../../../theme.service"
-import { DashboardService } from "src/app/pages/dashboard/dashboard.service"
-import { count, Observable, of, EMPTY, forkJoin, timeout, finalize, catchError } from "rxjs"
-import { CountryISO, SearchCountryField } from "ngx-intl-tel-input"
-import { environment } from "@env/environment"
-import { NgxIntlTelInputModule } from "ngx-intl-tel-input"
-import { DialogModule } from "primeng/dialog"
-import { PopoverModule } from "primeng/popover"
-import { TabsModule } from "primeng/tabs"
-import { ILearnChallengeData } from "src/app/@Models/ilearn-challenge.model"
-import { AssessmentService } from "src/app/pages/assessment/assessment.service"
-import { ModuleServiceService } from "src/app/pages/module-store/module-service.service"
-import { AvatarModule } from "primeng/avatar"
-import { InputTextModule } from "primeng/inputtext"
-import { switchMap, take } from "rxjs/operators"
-import { SelectModule } from "primeng/select"
-import { TabViewModule } from "primeng/tabview"
-import { InputGroupModule } from "primeng/inputgroup"
-import { InputGroupAddonModule } from "primeng/inputgroupaddon"
-import { TextareaModule } from 'primeng/textarea'
-import { AuthTokenService } from 'src/app/core/services/auth-token.service'
-import CryptoJS from "crypto-js";
-import { AvatarGroupModule } from 'primeng/avatargroup';
-import { StorageService } from "../../../storage.service";
-import { DropdownModule } from "primeng/dropdown";
+import {SocialAuthService} from "@abacritt/angularx-social-login"
+import {CommonModule} from "@angular/common"
+import {
+	Component,
+	ElementRef,
+	EventEmitter,
+	Input,
+	OnDestroy,
+	OnInit,
+	Output,
+	ViewChild,
+	ViewEncapsulation
+} from "@angular/core"
+import {AbstractControl, FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators} from "@angular/forms"
+import {ActivatedRoute, NavigationEnd, Router, RouterModule} from "@angular/router"
+import {MenuItem, MessageService} from "primeng/api"
+import {AuthService} from "../../../Auth/auth.service"
+import {SubSink} from "subsink"
+import {LocationService} from "../../../location.service"
+import {DataService} from "src/app/data.service"
+import {ThemeService} from "../../../theme.service"
+import {DashboardService} from "src/app/pages/dashboard/dashboard.service"
+import {catchError, count, EMPTY, finalize, forkJoin, Observable, of, timeout} from "rxjs"
+import {CountryISO, NgxIntlTelInputModule, SearchCountryField} from "ngx-intl-tel-input"
+import {environment} from "@env/environment"
+import {DialogModule} from "primeng/dialog"
+import {PopoverModule} from "primeng/popover"
+import {TabsModule} from "primeng/tabs"
+import {ILearnChallengeData} from "src/app/@Models/ilearn-challenge.model"
+import {AssessmentService} from "src/app/pages/assessment/assessment.service"
+import {ModuleServiceService} from "src/app/pages/module-store/module-service.service"
+import {AvatarModule} from "primeng/avatar"
+import {InputTextModule} from "primeng/inputtext"
+import {take} from "rxjs/operators"
+import {SelectModule} from "primeng/select"
+import {TabViewModule} from "primeng/tabview"
+import {InputGroupModule} from "primeng/inputgroup"
+import {InputGroupAddonModule} from "primeng/inputgroupaddon"
+import {TextareaModule} from 'primeng/textarea'
+import {AuthTokenService} from 'src/app/core/services/auth-token.service'
+import {AvatarGroupModule} from 'primeng/avatargroup';
+import {StorageService} from "../../../storage.service";
+import {DropdownModule} from "primeng/dropdown";
 
 // import { SocialAuthService } from "@abacritt/angularx-social-login";
 
@@ -64,7 +70,7 @@ import { DropdownModule } from "primeng/dropdown";
 		AvatarGroupModule,
 		DropdownModule
 	],
-	providers: [MessageService, AuthService, LocationService, ThemeService, DashboardService, AssessmentService, AuthTokenService],
+	providers: [AuthService, LocationService, ThemeService, DashboardService, AssessmentService, AuthTokenService],
 })
 export class HeaderComponent implements OnInit, OnDestroy {
 	@ViewChild("op") op!: ElementRef<HTMLInputElement>
@@ -374,7 +380,6 @@ export class HeaderComponent implements OnInit, OnDestroy {
 	isResendOTP: boolean = false
 
 	sendOTP() {
-
 		this.phoneVerification.disable()
 		let formData = this.phoneVerification.value
 
@@ -384,28 +389,27 @@ export class HeaderComponent implements OnInit, OnDestroy {
 			whatsapp_number_or_not: formData.choice,
 			dial_code: formData.verification_phone.countryCode,
 		}
-		this.isSendingOTP = true
-		// this.service.sendWhatsappOtp(sendPhoneNumber).subscribe({
-		// 	next: (response) => {
-		// 		console.log("OTP sent successfully", response)
-		// 		this.isSendingOTP = true
-		// 		this.toast.add({
-		// 			severity: "success",
-		// 			summary: "Success",
-		// 			detail: response.message,
-		// 		})
-		// 	},
-		// 	error: (error) => {
-		// 		this.phoneVerification.enable()
-		// 		this.toast.add({
-		// 			severity: "error",
-		// 			summary: "Error",
-		// 			detail: error?.message,
-		// 		})
-		// 	},
-		// })
+		this.service.sendWhatsappOtp(sendPhoneNumber).subscribe({
+			next: (response) => {
+				this.isSendingOTP = true
+				this.toast.add({
+					severity: "success",
+					summary: "Success",
+					detail: response.message,
+				})
+			},
+			error: (error) => {
+				this.phoneVerification.enable()
+				this.toast.add({
+					severity: "error",
+					summary: "Error",
+					detail: error?.message,
+				})
+			},
+		})
 	}
 
+	phoneNumber: any
 	submitPhoneVerification() {
 		let formData = this.phoneVerification.value
 		let sendOTP = {
@@ -417,12 +421,23 @@ export class HeaderComponent implements OnInit, OnDestroy {
 		}
 		this.service.validateWhatsappOtp(sendOTP).subscribe({
 			next: (response) => {
-				this.whatsappVerification = false
-				this.toast.add({
-					severity: "success",
-					summary: "Success",
-					detail: "Phone number verified successfully",
-				})
+				if (response.message == 'Otp Invalid') {
+					this.toast.add({
+						severity: "error",
+						summary: "Error",
+						detail: response.message,
+					})
+				} else {
+					this.whatsappVerification = false
+					this.freeTrial = true
+					this.formvisbility = true
+					this.phoneNumber = formData.verification_phone.number
+					this.toast.add({
+						severity: "success",
+						summary: "Success",
+						detail: 'OTP validated successfully',
+					})
+				}
 			},
 			error: (error) => {
 				this.isResendOTP = true
