@@ -203,35 +203,13 @@ export class TalentConnectService {
 
     //getcompanytracker
     getCompanyTracker(formValues: any) {
-        const formData = new FormData();
-        formData.append("perpage", formValues.perpage);
-        formData.append("page", formValues.page);
-        // formData.append("companyname", formValues.companyname);
-        // formData.append("industrytype", formValues.industrytype);
-        // formData.append("companysize", formValues.companysize);
-        // formData.append("hq", formValues.hq);
-        // formData.append("globalpresence", formValues.globalpresence);
-        // formData.append("foundedyear", formValues.foundedyear);
-        // formData.append("companytype", formValues.companytype);
-        // formData.append("status", "1");
         const headers = new HttpHeaders().set("Accept", "application/json");
-        return this.http.post<any>(environment.ApiUrl + "/getcompanytracker", formData,  {headers: headers});
+        return this.http.post<any>(environment.ApiUrl + "/getcompanytracker", formValues, { headers: headers });
     }
 
     getShortListedCompanyList(formValues: any) {
-        const formData = new FormData();
-        formData.append("perpage", formValues.perpage);
-        formData.append("page", formValues.page);
-        // formData.append("companyname", formValues.companyname);
-        // formData.append("industrytype", formValues.industrytype);
-        // formData.append("companysize", formValues.companysize);
-        // formData.append("hq", formValues.hq);
-        // formData.append("globalpresence", formValues.globalpresence);
-        // formData.append("foundedyear", formValues.foundedyear);
-        // formData.append("companytype", formValues.companytype);
-        // formData.append("status", "1");
         const headers = new HttpHeaders().set("Accept", "application/json");
-        return this.http.post<any>(environment.ApiUrl + "/getshortlistedcompanytracker", formData,  {headers: headers});
+        return this.http.post<any>(environment.ApiUrl + "/getshortlistedcompanytracker", formValues, { headers: headers });
     }
 
     getReceivedMessageCompanyTracker(formValues: any) {

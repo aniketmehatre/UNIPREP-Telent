@@ -45,6 +45,7 @@ export class CompanyListsComponent implements OnInit {
 
   companyTotalCount: number = 0;
   getCompanyTrackerList(params?: any) {
+    console.log(params);
     const requestData = {
       perpage: this.perPage,
       page: this.page,

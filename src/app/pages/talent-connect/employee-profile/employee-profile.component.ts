@@ -477,7 +477,8 @@ export class EmployeeProfileComponent implements OnInit {
             formData.append(`work_experience[${index}][id]`, work.get('id')?.value);
           }
 
-          if (!control.get('work_experience_duration_from')?.value || !control.get('work_experience_duration_to')?.value) {
+          if ((control.get('work_experience_duration_from')?.value && !control.get('work_experience_duration_to')?.value)
+            || (!control.get('work_experience_duration_from')?.value && control.get('work_experience_duration_to')?.value)) {
             this.toastService.add({
               severity: "error",
               summary: "Duration",
