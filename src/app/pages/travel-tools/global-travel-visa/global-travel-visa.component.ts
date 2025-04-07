@@ -63,7 +63,8 @@ export class GlobalTravelVisaComponent implements OnInit {
 		},
 	]
 	visaCategoryQuestionList: any[] = []
-	eachVisaNameCategory: any[] = []
+	eachVisaNameCategory: any[] = [];
+	eachVisaCategoryAllList:any[]=[];
 	isQuestionAnswerVisible: boolean = false
 	selectedQuestionData: any
 	isNotSelectingDropdown: boolean = false
@@ -170,7 +171,7 @@ export class GlobalTravelVisaComponent implements OnInit {
 				const uniqueVisaData = Array.from(
 					new Set(this.recomendationData.map((item) => item.visa_name)) // Extract unique visa names
 				).map((visa_name) => ({ visa_name }))
-				this.recommendationDataList = uniqueVisaData
+				this.recommendationDataList = uniqueVisaData				
 			},
 			error: (error) => {
 				this.isRecommendationData = false
@@ -184,16 +185,20 @@ export class GlobalTravelVisaComponent implements OnInit {
 		this.isRecommendationData = false
 		this.isRecommendationSavedData = false
 		this.isRecommendationEachVisaNameData = true
-		this.eachVisaNameCategory = []
+		this.eachVisaNameCategory = [];
+		this.eachVisaCategoryAllList=[];
 		const bridgingVisaData = this.recomendationData.filter((item) => item.visa_name === name)
 		const uniqueVisaCategory = Array.from(
 			new Set(bridgingVisaData.map((item) => item.question_category)) // Extract unique visa category names
 		).map((question_category) => ({ question_category }))
-		this.eachVisaNameCategory = uniqueVisaCategory
+		this.eachVisaNameCategory = uniqueVisaCategory;
+		this.eachVisaCategoryAllList=bridgingVisaData;
 	}
 
 	viewOneQuestion(data: any) {
 		this.isQuestionAnswerVisible = true
+		console.log(data);
+		
 		this.selectedQuestionData = data
 	}
 
@@ -277,8 +282,8 @@ export class GlobalTravelVisaComponent implements OnInit {
 		this.isRecommendationData = false
 		this.isRecommendationSavedData = true
 		this.isRecommendationEachVisaNameData = false
-		const bridgingVisaData = this.recomendationData.filter((item) => item.question_category === category)
-		this.visaCategoryQuestionList = bridgingVisaData
+		const bridgingVisaData = this.eachVisaCategoryAllList.filter((item) => item.question_category === category)
+		this.visaCategoryQuestionList = bridgingVisaData		
 	}
 	openReport() {
 		let data: any = {
