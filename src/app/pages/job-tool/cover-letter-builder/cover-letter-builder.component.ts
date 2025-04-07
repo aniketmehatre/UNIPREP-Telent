@@ -73,7 +73,11 @@ export class CoverLetterBuilderComponent implements OnInit, AfterViewInit {
 	previewImage: string = ""
 	coverHistories: any = []
 	currentDate: Date = new Date()
-	isButtonDisabled: boolean = false
+	// isButtonDisabled: boolean = false
+	generateDesBtnDisable: boolean = false;
+	rephraseDesBtnDisable: boolean = false;
+	generateConBtnDisable: boolean = false;
+	rephraseconBtnDisable: boolean = false;
 	resumeHistory: any = [];
 	pdfThumbnails: { [key: string]: string } = {};
 	filteredLocations: any = [];
@@ -244,19 +248,10 @@ export class CoverLetterBuilderComponent implements OnInit, AfterViewInit {
 			// user_location: ['Mysuru, India', [Validators.required]],
 			// user_phone: ['9524000756',[Validators.required, Validators.pattern('^\\+?[1-9]\\d{1,14}$')]],
 			// country_code: ['+91'],
-			// user_website: ['www.xyz.com'],
-			// degree_college_name: ['xyz engineering college'],
-			// edu_degree: ['BE - CSE'],
-			// exp_designation: ['Laravel Developer'],
-			// years_of_exp: ['3 years'],
-			// achievements_one: ['employee of the year'],
-			// achievements_two: ['employee of the month'],
 			// user_summary: ['Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industrys standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.', [Validators.required]],
 			// org_name: ['Rsoft technologies pvt ltd',[Validators.required]],
 			// org_location: ['Chennai, India',[Validators.required]],
 			// jobposition: ['Managing Director',[Validators.required]],
-			// managername: ['Badri Narayanan',[Validators.required]],
-			// getknowaboutas: ['News Paper',[Validators.required]],
 
 			user_name: ["", [Validators.required]],
 			user_job_title: ["", [Validators.required]],
@@ -264,18 +259,11 @@ export class CoverLetterBuilderComponent implements OnInit, AfterViewInit {
 			user_location: ["", [Validators.required]],
 			user_phone: ["", [Validators.required, Validators.pattern("^\\+?[1-9]\\d{1,14}$")]],
 			country_code: [""],
-			user_website: [""],
-			degree_college_name: [""],
-			edu_degree: [""],
-			exp_designation: [""],
-			years_of_exp: [""],
-			achievements_one: [""],
-			achievements_two: [""],
 			user_summary: ["", [Validators.required]],
 			org_name: ["", [Validators.required]],
 			org_location: ["", [Validators.required]],
 			jobposition: ["", [Validators.required]],
-			managername: ["", [Validators.required]],
+			job_description: ["", [Validators.required]],
 		})
 	}
 
@@ -401,6 +389,15 @@ export class CoverLetterBuilderComponent implements OnInit, AfterViewInit {
 	}
 
 	ngOnInit(): void {
+		let userDetails = this.authService._user;
+		let location = userDetails?.district+', '+ userDetails?.state;
+		this.resumeFormInfoData.patchValue({
+			user_name: userDetails?.name,
+			user_email: userDetails?.email,
+			user_location: location,
+			user_phone: userDetails?.phone,
+			country_code: userDetails?.country_code,
+		});
 		// Load PDF.js library dynamically
 		if (!document.getElementById('pdfjs-script')) {
 			const script = document.createElement('script');
@@ -654,14 +651,23 @@ export class CoverLetterBuilderComponent implements OnInit, AfterViewInit {
 		})
 	}
 
-	chatGPTIntegration() {
+	chatGPTIntegration(mode: string) {
 		const formData = this.resumeFormInfoData.value
 		formData.mode = "cover_letter"
+		formData.inner_mode = mode
 		formData.max_tokens = 1500
-		this.isButtonDisabled = true
-		this.resumeFormInfoData.patchValue({
-			user_summary: "",
-		})
+		if(mode == 'generate_description'){
+			this.resumeFormInfoData.patchValue({
+				job_description: "",
+			})
+			this.generateDesBtnDisable = true;
+		}else if(mode == 'generate_summary'){
+			this.resumeFormInfoData.patchValue({
+				user_summary: "",
+			})
+			this.generateConBtnDisable = true;
+		}
+		
 
 		this.cvBuilderService.openAiIntegration(formData).subscribe((res) => {
 			if (res.response && res.response.length > 0) {
@@ -670,9 +676,16 @@ export class CoverLetterBuilderComponent implements OnInit, AfterViewInit {
 					.filter((part: any) => part.trim() !== "")
 					.map((part: any) => part + "</p><br>")
 					.join("")
-				this.resumeFormInfoData.patchValue({
-					user_summary: GPTResponse,
-				})
+
+				if(mode == 'generate_description'){
+					this.resumeFormInfoData.patchValue({
+						job_description: GPTResponse,
+					})
+				}else if(mode == 'generate_summary'){
+					this.resumeFormInfoData.patchValue({
+						user_summary: GPTResponse,
+					})
+				}
 			} else {
 				console.error("Unexpected response structure:", res)
 			}
