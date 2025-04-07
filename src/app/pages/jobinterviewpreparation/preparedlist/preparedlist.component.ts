@@ -8,7 +8,6 @@ import { InterviewPreparationService } from "../interviewpreparation.service";
 import { CommonModule } from "@angular/common";
 import { PaginatorModule } from "primeng/paginator";
 import { DialogModule } from "primeng/dialog";
-import { TabViewModule } from "primeng/tabview";
 import { RouterModule } from '@angular/router';
 import { CardModule } from 'primeng/card';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
@@ -19,13 +18,15 @@ import { SelectModule } from 'primeng/select';
 import { InputGroupModule } from 'primeng/inputgroup';
 import { InputTextModule } from 'primeng/inputtext';
 import { InputGroupAddonModule } from 'primeng/inputgroupaddon';
+import { TabsModule } from "primeng/tabs";
+import { Meta } from "@angular/platform-browser";
 @Component({
   selector: "uni-preparedlist",
   templateUrl: "./preparedlist.component.html",
   styleUrls: ["./preparedlist.component.scss"],
   standalone: true,
-  imports: [CommonModule, PaginatorModule, DialogModule, TabViewModule, RouterModule, CardModule, FormsModule, ReactiveFormsModule, CarouselModule, ButtonModule, MultiSelectModule, SelectModule, InputGroupModule, InputTextModule, InputGroupAddonModule],
-  providers: [MessageService,InterviewPreparationService]
+  imports: [CommonModule, PaginatorModule, DialogModule, TabsModule, RouterModule, CardModule, FormsModule, ReactiveFormsModule, CarouselModule, ButtonModule, MultiSelectModule, SelectModule, InputGroupModule, InputTextModule, InputGroupAddonModule],
+  providers: [InterviewPreparationService]
 })
 export class JobPreparedListComponent implements OnInit {
   isSkeletonVisible: boolean = true;
@@ -38,7 +39,7 @@ export class JobPreparedListComponent implements OnInit {
   orgnamewhitlabel: any;
   orglogowhitelabel: any;
   totalDataCount: any;
-  ListData: any = [];
+  ListData: any[] = [];
   selectedJobRole: any;
   @Input() prepData: any;
   @Output() windowChange = new EventEmitter();
@@ -46,13 +47,13 @@ export class JobPreparedListComponent implements OnInit {
     .fill(0)
     .map((_, index) => index);
   readanswerpopubVisibility = false;
-  constructor(private location: Location, private route: ActivatedRoute, private toast: MessageService, private authService: AuthService, private service: InterviewPreparationService, private router: Router, private pageFacade: PageFacadeService) {}
+  constructor(private location: Location, private route: ActivatedRoute, private toast: MessageService, private authService: AuthService, private service: InterviewPreparationService, private router: Router, private pageFacade: PageFacadeService, private meta: Meta) { }
   ngOnInit(): void {
     this.selectedJobRole = this.prepData.role;
     this.getDefaultQuestions();
     this.checkPlanExpiry();
     this.imagewhitlabeldomainname = window.location.hostname;
-    this.ehitlabelIsShow = ["*.uniprep.ai","dev-student.uniprep.ai", "uniprep.ai", "localhost"].includes(this.imagewhitlabeldomainname);
+    this.ehitlabelIsShow = ["*.uniprep.ai", "dev-student.uniprep.ai", "uniprep.ai", "localhost"].includes(this.imagewhitlabeldomainname);
   }
   getDefaultQuestions() {
     this.service
@@ -63,6 +64,12 @@ export class JobPreparedListComponent implements OnInit {
         this.isSkeletonVisible = false;
         this.ListData = response;
         this.totalDataCount = this.ListData.length;
+        if (this.prepData.questionid) {
+          const quiz = this.ListData.find(item => item.id == this.prepData.questionid);
+          if (quiz) {
+            this.readAnswer(quiz);
+          }
+        }
       });
   }
   getSavedQuestion() {
@@ -157,11 +164,67 @@ export class JobPreparedListComponent implements OnInit {
     );
   }
   changeType(event: any) {
-    let tabIndex = event.index;
+    let tabIndex = event;
     if (tabIndex == 0) {
       this.getDefaultQuestions();
     } else {
       this.getSavedQuestion();
     }
+  }
+
+  onShowModal(value: any) {
+    let socialShare = document.getElementById("socialSharingList") as HTMLDivElement;
+    socialShare.style.display = "none";
+  }
+
+  showSocialSharingList() {
+    let socialShare = document.getElementById("socialSharingList") as HTMLDivElement;
+    if (socialShare.style.display == "") {
+      socialShare.style.display = "block";
+    }
+    else {
+      socialShare.style.display = socialShare.style.display == "none" ? "block" : "none";
+    }
+  }
+
+  shareQuestion(type: string) {
+    const socialMedias: { [key: string]: string } = {
+      "Whatsapp": "whatsapp://send?text=",
+      "Instagram": "https://www.instagram.com?url=",
+      "Facebook": "https://www.facebook.com/sharer/sharer.php?u=",
+      "LinkedIn": "https://www.linkedin.com/shareArticle?url=",
+      "Twitter": "https://twitter.com/intent/tweet?url=",
+      "Mail": "mailto:?body=",
+    }
+    const safeUrl = encodeURI(window.location.origin + '/pages/interviewprep');
+    const params = new URLSearchParams();
+    Object.keys(this.prepData).forEach(key => {
+      params.append(key, this.prepData[key]);
+    });
+    const url = `${safeUrl}?${params.toString()}`;
+    this.meta.updateTag({ property: 'og:url', content: url });
+    const shareUrl = socialMedias[type] + encodeURIComponent(url);
+    window.open(shareUrl, '_blank');
+  }
+
+  copyLink() {
+    const safeUrl = encodeURI(window.location.origin + '/pages/interviewprep');
+    const params = new URLSearchParams();
+    Object.keys(this.prepData).forEach(key => {
+      params.append(key, this.prepData[key]);
+    });
+    const textToCopy = `${safeUrl}?${params.toString()}`;
+    navigator.clipboard.writeText(textToCopy)
+      .then(() => {
+        this.toast.add({ severity: 'success', summary: 'Success', detail: 'Question Copied' });
+      })
+      .catch((err) => {
+        this.toast.add({ severity: "error", summary: "Warning", detail: 'Failed to copy the question' });
+        console.error('Failed to copy text: ', err);
+      });
+  }
+
+  openReport() {
+
   }
 }

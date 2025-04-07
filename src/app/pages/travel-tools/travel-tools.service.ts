@@ -4,6 +4,8 @@ import { environment } from '@env/environment';
 import { ChatGPTResponse } from 'src/app/@Models/chat-gpt.model';
 import { Countries } from 'src/app/@Models/country.model';
 import { CountryandCurrency } from 'src/app/@Models/currency.model';
+import { map } from 'rxjs';
+import { removeExtraResponse } from '../prompt';
 import html2pdf from 'html2pdf.js';
 
 @Injectable({
@@ -26,8 +28,11 @@ export class TravelToolsService {
   getChatgptRecommendations(data: any) {
     return this.http.post<{ response: any }>(environment.ApiUrl + "/getIntegratedRecom", data, {
       headers: this.headers,
-    });
+    }).pipe(
+      map(res => ({ response: removeExtraResponse(res.response) })) // Process response before returning
+    );
   }
+
 
   getCountriesList() {
     return this.http.post<Countries[]>(environment.ApiUrl + "/AllCountries", {

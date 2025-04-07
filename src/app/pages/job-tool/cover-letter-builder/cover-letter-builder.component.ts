@@ -36,6 +36,14 @@ interface ResumeHistory {
     created_time: string;
 }
 
+interface City {
+	city_id: number
+	city_name: string
+	country_name: string
+	flag: string
+	label?: string;
+}
+
 @Component({
 	selector: "uni-cover-letter-builder",
 	templateUrl: "./cover-letter-builder.component.html",
@@ -68,6 +76,9 @@ export class CoverLetterBuilderComponent implements OnInit, AfterViewInit {
 	isButtonDisabled: boolean = false
 	resumeHistory: any = [];
 	pdfThumbnails: { [key: string]: string } = {};
+	filteredLocations: any = [];
+	orgLocation:any = [];
+	cities: City[] = [];
 	resumeSlider: any = [
 		{
 			id: 1,
@@ -320,6 +331,58 @@ export class CoverLetterBuilderComponent implements OnInit, AfterViewInit {
 		this.pdfLoadError = true
 	}
 
+	searchLocation(event: any, mode: string) {
+		const query = event.target.value.toLowerCase();
+		if(mode === "user_location"){
+			if (query.length > 3) {
+				this.filteredLocations = this.getFilteredLocations(query);
+			} else if (query.length < 2) {
+				this.filteredLocations = [];
+			}
+		}else{
+			if (query.length > 3) {
+				this.orgLocation = this.getFilteredLocations(query);
+			} else if (query.length < 2) {
+				this.orgLocation = [];
+			}
+		}
+		
+	}
+
+	getLocationsList() {
+		this.cvBuilderService.getLocationList().subscribe((res: any) => {
+			this.cities = res;
+		});
+	}
+
+	getFilteredLocations(query: string) {
+		const mockLocations = this.cities;
+	
+		return mockLocations.filter((city: any) => city.country_name.toLowerCase().includes(query.toLowerCase()));
+	}
+	
+	onFocusOut() {
+		setTimeout(() => {
+		  this.filteredLocations = [];
+		  this.orgLocation = [];
+		}, 200); // Delay clearing the dropdown by 200 milliseconds
+	}
+
+
+	selectLocation(city: any, mode: string) {
+		if(mode === "user_location"){
+			this.resumeFormInfoData.patchValue({
+				user_location: city.country_name,
+			});
+			this.filteredLocations = [];
+		}else if(mode === "org_location"){
+			this.resumeFormInfoData.patchValue({
+				org_location: city.country_name,
+			});
+			this.orgLocation = [];
+		}
+	}
+
 	pdfViewLoader() {
 		try {
 			if (!this.pdfUrl) {
@@ -367,6 +430,7 @@ export class CoverLetterBuilderComponent implements OnInit, AfterViewInit {
 		this.checkplanExpire()
 		// this.hideHeader()
 		this.getCountryCodeList();
+		this.getLocationsList();
 		this.locationService.getImage().subscribe((imageUrl) => {
 			this.orglogowhitelabel = imageUrl
 		})
@@ -560,8 +624,20 @@ export class CoverLetterBuilderComponent implements OnInit, AfterViewInit {
 			return
 		}
 		let formData = this.resumeFormInfoData.value
+		const userSummary = formData.user_summary;
+		//this user summary contains &nbsp; when we edit the content so removed the &nbsp; manually.
+		const cleanedContent = cleanHtmlContent(userSummary); 
+
+		function cleanHtmlContent(html: string): string {
+			return html
+				.replace(/<p>(&nbsp;|\s)*<\/p>/g, '') // remove empty or space-only paragraphs
+				.replace(/&nbsp;/g, ' ')              // convert non-breaking spaces to regular spaces
+				.trim();
+		}
+
 		let data = {
 			...formData,
+			user_summary: cleanedContent,
 			cover_name: this.selectedResumeLevel,
 			selectedThemeColor: this.selectedThemeColor,
 		}

@@ -18,14 +18,14 @@ export class LanguageHubService {
   }
 
   getVocabulary(req: any) {
-    if (req){
+    if (req.letters){
       const headers = new HttpHeaders().set("Accept", "application/json");
-      return this.http.get(environment.ApiUrl + `/getvocabulary?letter=${req}`,   {
+      return this.http.get<any>(environment.ApiUrl + `/getvocabularyusingid?langauge_id=${req.language_id}&letters=${req.letters}`,  {
         headers: headers,
       });
     }else{
       const headers = new HttpHeaders().set("Accept", "application/json");
-      return this.http.get<any>(environment.ApiUrl + "/getvocabulary",  {
+      return this.http.get<any>(environment.ApiUrl + `/getvocabularyusingid?langauge_id=${req.language_id}`,  {
         headers: headers,
       });
     }

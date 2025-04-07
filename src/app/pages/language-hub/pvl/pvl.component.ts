@@ -30,11 +30,11 @@ export class PvlComponent implements OnInit {
       type: 'Practice',
       icon: '../../../../uniprep-assets/images/pvl/Practice.svg'
     },
-    // {
-    //   id: 2,
-    //   type: 'Vocabulary',
-    //   icon: '../../../../uniprep-assets/images/pvl/Vocabulary.svg'
-    // },
+    {
+      id: 2,
+      type: 'Vocabulary',
+      icon: '../../../../uniprep-assets/images/pvl/Vocabulary.svg'
+    },
     {
       id: 3,
       type: 'Learning Videos',
@@ -93,7 +93,7 @@ export class PvlComponent implements OnInit {
     if(sub.type == "Practice") {
       this.router.navigate([`/pages/language-hub/levels/${this.selectedLanguageId}`]);
     }else if (sub.type == 'Vocabulary') {
-      this.router.navigate(['/pages/language-hub/vocabulary']);
+      this.router.navigate([`/pages/language-hub/vocabulary/${this.selectedLanguageId}`]);
     }else{
       this.router.navigate(['/pages/language-hub/learning-videos']);
     }

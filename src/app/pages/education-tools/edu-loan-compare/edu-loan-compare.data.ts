@@ -45,10 +45,10 @@ export const moratoriumPeriods = [
 ];
 
 export const repaymentYears = [
-    { id: 1, value: 1 },
-    { id: 2, value: 2 },
-    { id: 3, value: 3 },
-    { id: 4, value: 4 },
-    { id: 5, value: 5 },
-    { id: 6, value: 6 }
+    { id: 1, value: '1 Year' },
+    { id: 2, value: '2 Years' },
+    { id: 3, value: '3 Years' },
+    { id: 4, value: '4 Years' },
+    { id: 5, value: '5 Years' },
+    { id: 6, value: '6 Years' }
 ];

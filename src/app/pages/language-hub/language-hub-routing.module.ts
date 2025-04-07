@@ -24,7 +24,7 @@ const routes: Routes = [
                 path: 'pvl/:id', component: PvlComponent,
             },
             {
-                path: 'vocabulary', component: VocabularyComponent,
+                path: 'vocabulary/:id', component: VocabularyComponent,
             },
             {
                 path: 'learning-videos', component: LearningVideosComponent,
