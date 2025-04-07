@@ -122,19 +122,9 @@ export class TalentConnectService {
 
     // company connect
     getTalentConnectCompanies(formValues: any) {
-        const formData = new FormData();
-        formData.append("perpage", formValues.perpage);
-        formData.append("page", formValues.page);
-        // formData.append("companyname", formValues.companyname);
-        // formData.append("industrytype", formValues.industrytype);
-        // formData.append("companysize", formValues.companysize);
-        // formData.append("hq", formValues.hq);
-        // formData.append("globalpresence", formValues.globalpresence);
-        // formData.append("foundedyear", formValues.foundedyear);
-        // formData.append("companytype", formValues.companytype);
         const headers = new HttpHeaders().set("Accept", "application/json");
         return this.http.post<any>(
-            environment.ApiUrl + "/gettalentconnectcompanies", formData,
+            environment.ApiUrl + "/gettalentconnectcompanies", formValues,
             { headers: headers });
     }
 
@@ -151,31 +141,31 @@ export class TalentConnectService {
     // getcompanytypes
     getCompanyTypes() {
         const headers = new HttpHeaders().set("Accept", "application/json");
-        return this.http.get<any>(environment.ApiUrlEmployer + "/getcompanytypes", {headers: headers});
+        return this.http.get<any>(environment.ApiUrl + "/getcompanytypes", { headers: headers });
     }
 
     // getindustrytypes
     getIndustryTypes() {
         const headers = new HttpHeaders().set("Accept", "application/json");
-        return this.http.get<any>(environment.ApiUrlEmployer + "/getindustrytypes", {headers: headers});
+        return this.http.get<any>(environment.ApiUrl + "/getindustrytypes", { headers: headers });
     }
 
     // getcompanysize
     getCompanySizes() {
         const headers = new HttpHeaders().set("Accept", "application/json");
-        return this.http.get<any>(environment.ApiUrlEmployer + "/getcompanysize", {headers: headers});
+        return this.http.get<any>(environment.ApiUrl + "/getcompanysize", { headers: headers });
     }
 
     // globalPresence
     globalPresence() {
         const headers = new HttpHeaders().set("Accept", "application/json");
-        return this.http.post<any>(environment.ApiUrlEmployer + "/globalPresence", {},  {headers: headers});
+        return this.http.post<any>(environment.ApiUrlEmployer + "/globalPresence", {}, { headers: headers });
     }
 
     // getcitywithflag
     getCityWithFlag() {
         const headers = new HttpHeaders().set("Accept", "application/json");
-        return this.http.post<any>(environment.ApiUrlEmployer + "/getcitywithflag", {},  {headers: headers});
+        return this.http.post<any>(environment.ApiUrlEmployer + "/getcitywithflag", {}, { headers: headers });
     }
 
     // follow company

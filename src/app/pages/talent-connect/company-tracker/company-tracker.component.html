@@ -13,6 +13,7 @@
 						<button class="how-it-works-button" (click)="openVideoPopup(howItWorksVideoLink)">How it works?<i class="fa-solid fa-play d-md-block d-none"></i></button>
 					</div>
 				</div>
+				<button type="button" title="Close Popup" class="btn btn-primary btn-lg rounded-3 shadow-sm px-4 text-normal" (click)="displayModal = true">Filter&nbsp;&nbsp;<i class="fa-solid fa-caret-down"></i></button>
 			</div>
 			<!-- <div class="col-md-3 mt-2 text-end desktop justify-content-end d-none d-md-flex"></div> -->
 		</div>
@@ -38,7 +39,7 @@
             </div>
 		  <!-- Sidebar with job list -->
 		  <div class="col-lg-3 col-md-5 col-12 border-end mb-3 mb-md-0">
-			<uni-company-list (companyTrackerEmit)="onClickJobId($event)"></uni-company-list>
+			<uni-company-list (companyTrackerEmit)="onClickJobId($event)" (triggerCloseFilter)="displayModal = false" [displayModal]="displayModal"></uni-company-list>
 		  </div>
   
 		  <!-- Main content with job details and chat -->
@@ -71,7 +72,6 @@
 		</div>
 	  </div>
 	</div>
-  
 	<!-- Responsive Upgrade Dialog -->
 	<p-dialog
 	  [(visible)]="restrict"
@@ -103,4 +103,3 @@
 	  </div>
 	</p-dialog>
   </div>
-  

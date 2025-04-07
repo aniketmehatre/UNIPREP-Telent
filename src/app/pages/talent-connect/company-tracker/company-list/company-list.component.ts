@@ -1,10 +1,11 @@
 import { CommonModule } from '@angular/common';
-import {Component, EventEmitter, OnInit, Output} from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { Dialog } from 'primeng/dialog';
 import { PaginatorModule } from 'primeng/paginator';
 import { TabsModule } from 'primeng/tabs';
 import { TabView, TabViewModule } from 'primeng/tabview';
 import {TalentConnectService} from "../../talent-connect.service";
+import { CompanyFilterComponent } from '../../company-connect/company-filter/company-filter.component';
 
 @Component({
   selector: 'uni-company-list',
@@ -13,12 +14,15 @@ import {TalentConnectService} from "../../talent-connect.service";
     TabsModule,
     TabViewModule,
     PaginatorModule,
-    CommonModule],
+    CommonModule,
+    CompanyFilterComponent],
   templateUrl: './company-list.component.html',
   styleUrls: ['./company-list.component.scss']
 })
 export class CompanyListsComponent implements OnInit {
   @Output() companyTrackerEmit: EventEmitter<number> = new EventEmitter();
+  @Input() displayModal: boolean = false;
+  @Output() triggerCloseFilter: EventEmitter<boolean> = new EventEmitter();
   activeIndex: number = 0;
   tabs = [
     { label: 'All Companies', active: true },
@@ -40,27 +44,17 @@ export class CompanyListsComponent implements OnInit {
   }
 
   companyTotalCount: number = 0;
-  getCompanyTrackerList() {
+  getCompanyTrackerList(params?: any) {
     const requestData = {
       perpage: this.perPage,
       page: this.page,
-      companyname: "Test",
-      industrytype: [2, 1],  // Converted to an array for better structure
-      companysize: 1,
-      hq: 2,
-      globalpresence: [1, 2, 3], // Converted to an array
-      foundedyear: 2002,
-      companytype: 1
+      ...params
     };
-    const requestDataEmpty = {
-      perpage: this.perPage,
-      page: this.page,
-    };
-    this.talentConnectService.getCompanyTracker(requestDataEmpty).subscribe({
+    this.talentConnectService.getCompanyTracker(requestData).subscribe({
       next: data => {
         this.companyTotalCount = data.count
         this.companyList = data.companies
-
+        this.triggerCloseFilter.emit();
       },
       error: err => {}
     })

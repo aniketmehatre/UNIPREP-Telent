@@ -6,21 +6,25 @@ import { CompanyListsComponent } from './company-list/company-list.component';
 import { RouterLink } from '@angular/router';
 import {TalentConnectService} from "../talent-connect.service";
 import {ChatComponent} from "./chat/chat.component";
+import { CompanyFilterComponent } from "../company-connect/company-filter/company-filter.component";
 
 @Component({
   selector: 'uni-company-tracker',
   templateUrl: './company-tracker.component.html',
   styleUrls: ['./company-tracker.component.scss'],
   standalone: true,
-  imports: [CommonModule, Dialog, CompanyListsComponent, CompanyDetailComponent, RouterLink, ChatComponent, ChatComponent]
+  imports: [CommonModule, Dialog, CompanyListsComponent, CompanyDetailComponent, RouterLink, ChatComponent, ChatComponent, CompanyFilterComponent]
 })
 export class CompanyTracker1Component {
   @Output() companyTrackerEmit: EventEmitter<number> = new EventEmitter();
+  @Output() triggerApplyFilter: EventEmitter<any> = new EventEmitter();
   isSkeletonVisible: boolean = false;
   ehitlabelIsShow: boolean = false;
   restrict: boolean = false;
   howItWorksVideoLink: string = '';
   selectedJobId: number | null = null;
+  displayModal: boolean = false;
+  companyData: any
   openVideoPopup(link: string) {
 
   }
@@ -48,12 +52,13 @@ export class CompanyTracker1Component {
   toggleInfo(): void {
     this.showChat = !this.showChat;
   }
-  companyData: any
+
   onClickJobId(event: any) {
     this.companyData = event;
     this.showChat = false;
     this.selectedJobId = event.id;
   }
+
 
   upgradePlan() {
 
