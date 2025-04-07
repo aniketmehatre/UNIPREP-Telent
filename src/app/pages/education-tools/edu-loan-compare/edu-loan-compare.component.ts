@@ -24,13 +24,15 @@ import { InputNumberModule } from 'primeng/inputnumber';
 import { Currencies } from 'src/app/@Models/currency.model';
 import { DomSanitizer } from '@angular/platform-browser';
 import { PromptService } from '../../prompt.service';
+import { SharedModule } from 'src/app/shared/shared.module';
+import { SkeletonModule } from 'primeng/skeleton';
 
 @Component({
   selector: 'uni-edu-loan-compare',
   templateUrl: './edu-loan-compare.component.html',
   styleUrls: ['./edu-loan-compare.component.scss'],
   standalone: true,
-  imports: [CommonModule, RouterModule, DialogModule, CardModule, PaginatorModule, FormsModule, ReactiveFormsModule, CarouselModule, ButtonModule, CommonModule, RouterModule, DialogModule, MultiSelectModule, SelectModule, CardModule, InputGroupModule, InputTextModule, InputGroupAddonModule, InputNumberModule]
+  imports: [CommonModule, RouterModule, DialogModule, CardModule, PaginatorModule, FormsModule, ReactiveFormsModule, CarouselModule, ButtonModule, CommonModule, RouterModule, DialogModule, MultiSelectModule, SelectModule, CardModule, InputGroupModule, InputTextModule, InputGroupAddonModule, InputNumberModule,SkeletonModule, SharedModule]
 })
 export class EduLoanCompareComponent implements OnInit {
 
@@ -48,6 +50,7 @@ export class EduLoanCompareComponent implements OnInit {
   isRecommendationSavedData: boolean = false;
   recommendationData: string = '';
   activePageIndex: number = 0;
+  isResponseSkeleton: boolean = false;
 
   constructor(
     private fb: FormBuilder,
@@ -107,16 +110,19 @@ export class EduLoanCompareComponent implements OnInit {
       ...this.form.value,
       mode: 'loan_comparison_tool'
     }
+    this.isRecommendationQuestion = false;
+    this.isRecommendationSavedData = false;
+    this.isRecommendationData = true;
+    this.isResponseSkeleton = true;
     this.educationToolService.getChatgptRecommendations(data).subscribe({
       next: response => {
-        this.isRecommendationQuestion = false;
-        this.isRecommendationData = true;
-        this.isRecommendationSavedData = false;
+        this.isResponseSkeleton = false;
         this.recommendationData = this.sanitizer.bypassSecurityTrustHtml(response.response) as string;
         this.isFromSavedData = false;
-        this.saveRecommadation('getAllHistory')
+        this.saveRecommadation('getAllHistory');
       },
       error: error => {
+        this.isResponseSkeleton = false;
         this.isRecommendationData = false;
       }
     });

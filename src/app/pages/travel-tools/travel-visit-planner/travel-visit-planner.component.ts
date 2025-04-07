@@ -22,12 +22,13 @@ import { InputNumberModule } from "primeng/inputnumber"
 import { sendDownloadParams } from "src/app/@Models/travel-tools.model"
 import { DomSanitizer, SafeHtml } from "@angular/platform-browser"
 import { PromptService } from "../../prompt.service"
+import { SharedModule } from "src/app/shared/shared.module"
 @Component({
 	selector: "uni-travel-visit-planner",
 	templateUrl: "./travel-visit-planner.component.html",
 	styleUrls: ["./travel-visit-planner.component.scss"],
 	standalone: true,
-	imports: [CommonModule, RouterModule, SkeletonModule, FluidModule, InputTextModule, TooltipModule, ButtonModule, MultiSelectModule, CarouselModule, InputGroupModule, InputGroupAddonModule, FormsModule, ReactiveFormsModule, InputTextModule, SelectModule, DialogModule, CardModule, InputNumberModule],
+	imports: [CommonModule, RouterModule, SkeletonModule, FluidModule, InputTextModule, TooltipModule, ButtonModule, MultiSelectModule, CarouselModule, InputGroupModule, InputGroupAddonModule, FormsModule, ReactiveFormsModule, InputTextModule, SelectModule, DialogModule, CardModule, InputNumberModule, SharedModule],
 })
 export class TravelVisitPlannerComponent implements OnInit {
 	constructor(private travelToolService: TravelToolsService, private router: Router, private costOfLivingService: CostOfLivingService, private toast: MessageService, private sanitizer: DomSanitizer, private promptService: PromptService) { }
@@ -48,6 +49,7 @@ export class TravelVisitPlannerComponent implements OnInit {
 	recommendationData: SafeHtml = ""
 	savedResponse: any = []
 	destinationLocationList: City[] = []
+	isResponseSkeleton: boolean = false;
 
 	ngOnInit(): void {
 		this.selectedData[2] = 1 //second page i need to show the days count so manually i enter the day.
@@ -87,10 +89,18 @@ export class TravelVisitPlannerComponent implements OnInit {
 				season: this.selectedData[3],
 				mode: "travel_visit_planner",
 			}
-			this.travelToolService.getChatgptRecommendations(data).subscribe((response) => {
-				this.recommendationData = this.sanitizer.bypassSecurityTrustHtml(response.response)
-				this.isRecommendation = false
-				this.isResponsePage = true
+			this.isRecommendation = false;
+			this.isResponsePage = true;
+			this.isResponseSkeleton = true;
+			this.travelToolService.getChatgptRecommendations(data).subscribe({
+				next: (response) => {
+					this.isResponseSkeleton = false;
+					this.recommendationData = this.sanitizer.bypassSecurityTrustHtml(response.response)
+				},
+				error: (error) => {
+					console.error(error);
+					this.isResponseSkeleton = false;
+				},
 			})
 		}
 	}

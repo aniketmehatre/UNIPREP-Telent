@@ -18,12 +18,13 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { SelectModule } from 'primeng/select';
 import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
 import { PromptService } from '../../prompt.service';
+import { SharedModule } from 'src/app/shared/shared.module';
 @Component({
   selector: 'uni-trip-length-finder',
   templateUrl: './trip-length-finder.component.html',
   styleUrls: ['./trip-length-finder.component.scss'],
   standalone: true,
-  imports: [CommonModule, SkeletonModule, FluidModule, InputTextModule, TooltipModule, ButtonModule, MultiSelectModule, CarouselModule, InputGroupModule, InputGroupAddonModule, FormsModule, ReactiveFormsModule, InputTextModule, SelectModule]
+  imports: [CommonModule, SkeletonModule, FluidModule, InputTextModule, TooltipModule, ButtonModule, MultiSelectModule, CarouselModule, InputGroupModule, InputGroupAddonModule, FormsModule, ReactiveFormsModule, InputTextModule, SelectModule, SharedModule]
 })
 export class TripLengthFinderComponent implements OnInit {
 
@@ -48,6 +49,7 @@ export class TripLengthFinderComponent implements OnInit {
   recommendationData: SafeHtml;
   savedResponse: any = [];
   destinationLocationList: City[] = [];
+  isResponseSkeleton: boolean = false;
 
   ngOnInit(): void {
     this.getCityList();
@@ -68,10 +70,18 @@ export class TripLengthFinderComponent implements OnInit {
         country: this.selectedData[1].city_name + ', ' + this.selectedData[1].country_name,
         mode: "trip_length_finder"
       };
-      this.travelToolService.getChatgptRecommendations(data).subscribe((response: any) => {
-        this.recommendationData = this.sanitizer.bypassSecurityTrustHtml(response.response);
-        this.isRecommendation = false;
-        this.isResponsePage = true;
+      this.isResponsePage = true;
+      this.isRecommendation = false;
+      this.isResponseSkeleton = true;
+      this.travelToolService.getChatgptRecommendations(data).subscribe({
+        next: (response: any) => {
+          this.recommendationData = this.sanitizer.bypassSecurityTrustHtml(response.response);
+          this.isResponseSkeleton = false;
+        },
+        error: (error) => {
+          console.error(error);
+          this.isResponseSkeleton = false;
+        },
       })
     }
   }

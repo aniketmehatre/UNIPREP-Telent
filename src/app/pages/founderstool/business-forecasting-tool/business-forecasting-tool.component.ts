@@ -23,13 +23,15 @@ import { DownloadRespose } from "src/app/@Models/travel-tools.model"
 import { TravelToolsService } from "../../travel-tools/travel-tools.service"
 import { DomSanitizer, SafeHtml } from "@angular/platform-browser"
 import { PromptService } from "../../prompt.service"
+import { SkeletonModule } from "primeng/skeleton"
+import { SharedModule } from "src/app/shared/shared.module"
 
 @Component({
 	selector: "uni-business-forecasting-tool",
 	templateUrl: "./business-forecasting-tool.component.html",
 	styleUrls: ["./business-forecasting-tool.component.scss"],
 	standalone: true,
-	imports: [CommonModule, DialogModule, RouterModule, CardModule, PaginatorModule, FormsModule, ReactiveFormsModule, CarouselModule, ButtonModule, MultiSelectModule, SelectModule, InputGroupModule, InputTextModule, InputGroupAddonModule],
+	imports: [CommonModule, DialogModule, RouterModule, CardModule, PaginatorModule, FormsModule, ReactiveFormsModule, CarouselModule, ButtonModule, MultiSelectModule, SelectModule, InputGroupModule, InputTextModule, InputGroupAddonModule, SkeletonModule, SharedModule],
 })
 export class BusinessForecastingToolComponent implements OnInit {
 	industryList: any[] = businessForeCastData.Industry
@@ -94,6 +96,8 @@ export class BusinessForecastingToolComponent implements OnInit {
 	]
 	invalidClass: boolean = false
 	selectedData: { [key: string]: any } = {}
+	isResponseSkeleton: boolean = false;
+
 	constructor(private fb: FormBuilder, private foundersToolsService: FounderstoolService, private locationService: LocationService, private authService: AuthService, private router: Router, private pageFacade: PageFacadeService, private toast: MessageService, private travelToolService: TravelToolsService, private sanitizer: DomSanitizer, private promptService: PromptService) {
 		this.form = this.fb.group({
 			industry: ["", Validators.required],
@@ -210,15 +214,19 @@ export class BusinessForecastingToolComponent implements OnInit {
 			...this.form.value,
 			mode: "revenue_forescasting_tool",
 		}
+		this.isRecommendationQuestion = false
+		this.isRecommendationSavedData = false
+		this.isRecommendationData = true
+		this.isResponseSkeleton = true;
 		this.foundersToolsService.getChatgptRecommendations(data).subscribe({
 			next: (response) => {
-				this.isRecommendationQuestion = false
-				this.isRecommendationData = true
-				this.isRecommendationSavedData = false
+				this.isResponseSkeleton = false;
 				this.recommendationData = this.sanitizer.bypassSecurityTrustHtml(response.response)
 			},
 			error: (error) => {
-				this.isRecommendationData = false
+				this.isResponseSkeleton = false;
+				this.isRecommendationData = false;
+				this.isRecommendationQuestion = true;
 			},
 		})
 	}

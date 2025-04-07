@@ -123,7 +123,25 @@
 							<span class="me-2">Download</span><span class="btn-icon px-2 py-2"> <i class="fa-regular fa-download"></i></span>
 						</button>
 					</div>
-					<div class="card p-3 poppins-content chatgpt-response bg-white h-100 overflow-y-auto" [innerHtml]="recommendationData"></div>
+					<div *ngIf="isResponseSkeleton; else showResponseData" class="card p-3 chatgpt-response bg-white h-100 overflow-y-auto">
+						<p-skeleton width='30rem' height='2rem' styleClass="mb-2"></p-skeleton>
+						<p-skeleton width='100%' height='1rem' styleClass="mb-2"></p-skeleton>
+						<p-skeleton width='100%' height='1rem' styleClass="mb-2"></p-skeleton>
+						<p-skeleton width='90%' height='1rem' styleClass="mb-2"></p-skeleton>
+						<p-skeleton width='100%' height='1rem' styleClass="mb-2"></p-skeleton>
+						<p-skeleton width='95%' height='1rem' styleClass="mb-2"></p-skeleton>
+						<p-skeleton width='50%' height='1rem'></p-skeleton>
+						<div class="divider"></div>
+						<p-skeleton width='30rem' height='2rem' styleClass="mb-2"></p-skeleton>
+						<p-skeleton width='100%' height='1rem' styleClass="mb-2"></p-skeleton>
+						<p-skeleton width='100%' height='1rem' styleClass="mb-2"></p-skeleton>
+						<div class="d-flex justify-content-end">
+							<uni-percentage-loader />
+						</div>
+					</div>
+					<ng-template #showResponseData>
+						<div class="card p-3 poppins-content chatgpt-response bg-white h-100 overflow-y-auto" [innerHtml]="recommendationData"></div>
+					</ng-template>
 				</div>
 				<div class="col-md-2"></div>
 			</div>

@@ -25,6 +25,8 @@ import { DownloadRespose } from "src/app/@Models/travel-tools.model"
 import { CostOfLivingService } from "../../job-tool/cost-of-living/cost-of-living.service"
 import { DomSanitizer, SafeHtml } from "@angular/platform-browser"
 import { PromptService } from "../../prompt.service"
+import { SkeletonModule } from "primeng/skeleton"
+import { SharedModule } from "src/app/shared/shared.module"
 
 interface selectList {
 	name: string
@@ -34,7 +36,7 @@ interface selectList {
 	templateUrl: "./start-up-expense-estimate.component.html",
 	styleUrls: ["./start-up-expense-estimate.component.scss"],
 	standalone: true,
-	imports: [CommonModule, DialogModule, RouterModule, CardModule, PaginatorModule, FormsModule, ReactiveFormsModule, CarouselModule, ButtonModule, MultiSelectModule, InputGroupModule, InputTextModule, InputGroupAddonModule, SelectModule],
+	imports: [CommonModule, DialogModule, RouterModule, CardModule, PaginatorModule, FormsModule, ReactiveFormsModule, CarouselModule, ButtonModule, MultiSelectModule, InputGroupModule, InputTextModule, InputGroupAddonModule, SelectModule, SkeletonModule, SharedModule],
 })
 export class StartUpExpenseEstimateComponent implements OnInit {
 	locationList: any[]
@@ -74,6 +76,8 @@ export class StartUpExpenseEstimateComponent implements OnInit {
 	departureFilter: string = ""
 	locationsList: any = []
 	departureLocationList: any = []
+	isResponseSkeleton: boolean = false;
+
 	constructor(private fb: FormBuilder, private foundersToolsService: FounderstoolService, private locationService: LocationService, private toast: MessageService, private authService: AuthService, private router: Router, private travelToolService: TravelToolsService, private pageFacade: PageFacadeService, private costOfLiving: CostOfLivingService, private sanitizer: DomSanitizer, private promptService: PromptService) {
 		this.marketingForm = this.fb.group({
 			industry: ["", Validators.required],
@@ -221,11 +225,13 @@ export class StartUpExpenseEstimateComponent implements OnInit {
 			mode: "startup_expense_estimator",
 			location: formData.location.city_name + ", " + formData.location.country_name,
 		}
+		this.isRecommendationQuestion = false
+		this.isRecommendationSavedData = false
+		this.isRecommendationData = true
+		this.isResponseSkeleton = true;
 		this.foundersToolsService.getChatgptRecommendations(data).subscribe({
 			next: (response) => {
-				this.isRecommendationQuestion = false
-				this.isRecommendationData = true
-				this.isRecommendationSavedData = false
+				this.isResponseSkeleton = false;
 				// this.recommendationData = response.response;
 				let chatGptResponse = response.response
 				chatGptResponse = chatGptResponse
@@ -235,6 +241,7 @@ export class StartUpExpenseEstimateComponent implements OnInit {
 				this.recommendationData = this.sanitizer.bypassSecurityTrustHtml(chatGptResponse)
 			},
 			error: (error) => {
+				this.isResponseSkeleton = false;
 				this.isRecommendationData = false
 			},
 		})

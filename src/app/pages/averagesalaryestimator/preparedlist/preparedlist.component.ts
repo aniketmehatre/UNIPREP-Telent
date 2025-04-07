@@ -21,13 +21,15 @@ import { DownloadRespose } from 'src/app/@Models/travel-tools.model';
 import { PdfViewerModule } from "ng2-pdf-viewer";
 import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
 import { PromptService } from "../../prompt.service";
+import { SkeletonModule } from "primeng/skeleton";
+import { SharedModule } from "src/app/shared/shared.module";
 
 @Component({
   selector: "uni-aspreparedlist",
   templateUrl: "./preparedlist.component.html",
   styleUrls: ["./preparedlist.component.scss"],
   standalone: true,
-  imports: [CommonModule, DialogModule, PdfViewerModule, TabViewModule, RouterModule, CardModule, FormsModule, ReactiveFormsModule, CarouselModule, ButtonModule, MultiSelectModule, SelectModule, InputGroupModule, InputTextModule, InputGroupAddonModule],
+  imports: [CommonModule, DialogModule, PdfViewerModule, TabViewModule, RouterModule, CardModule, FormsModule, ReactiveFormsModule, CarouselModule, ButtonModule, MultiSelectModule, SelectModule, InputGroupModule, InputTextModule, InputGroupAddonModule, SkeletonModule, SharedModule],
   providers: [MessageService, AveragesalaryestimatorService]
 })
 export class AverageSalaryPreparedListComponent implements OnInit {
