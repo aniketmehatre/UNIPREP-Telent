@@ -21,12 +21,14 @@ import { DownloadRespose } from "src/app/@Models/travel-tools.model"
 import { TravelToolsService } from "../../travel-tools/travel-tools.service"
 import { DomSanitizer, SafeHtml } from "@angular/platform-browser"
 import { PromptService } from "../../prompt.service"
+import { SkeletonModule } from "primeng/skeleton"
+import { SharedModule } from "src/app/shared/shared.module"
 @Component({
 	selector: "uni-ai-business-advisor",
 	templateUrl: "./ai-business-advisor.component.html",
 	styleUrls: ["./ai-business-advisor.component.scss"],
 	standalone: true,
-	imports: [CommonModule, RouterModule, DialogModule, CardModule, PaginatorModule, FormsModule, ReactiveFormsModule, CarouselModule, ButtonModule, MultiSelectModule, SelectModule, InputGroupModule, InputTextModule, InputGroupAddonModule],
+	imports: [CommonModule, RouterModule, DialogModule, CardModule, PaginatorModule, FormsModule, ReactiveFormsModule, CarouselModule, ButtonModule, MultiSelectModule, SelectModule, InputGroupModule, InputTextModule, InputGroupAddonModule, SkeletonModule, SharedModule],
 })
 export class AiBusinessAdvisorComponent implements OnInit {
 	strategyBusinessList: any = businessAdvisor.strategies
@@ -58,6 +60,8 @@ export class AiBusinessAdvisorComponent implements OnInit {
 	enableModule: boolean = false
 	isFromSavedData: boolean = false
 	currencyList: any = []
+	isResponseSkeleton: boolean = false;
+
 	constructor(private fb: FormBuilder, private foundersToolService: FounderstoolService, private router: Router, private toast: MessageService, private travelToolService: TravelToolsService, private sanitizer: DomSanitizer, private promptService: PromptService) {}
 
 	ngOnInit(): void {
@@ -111,14 +115,17 @@ export class AiBusinessAdvisorComponent implements OnInit {
 			currency: this.selectedData[8],
 			mode: "business_advisor",
 		}
+		this.isRecommendationQuestion = false
+		this.isRecommendationSavedData = false
+		this.isRecommendationData = true
+		this.isResponseSkeleton = true;
 		this.foundersToolService.getChatgptRecommendations(data).subscribe({
 			next: (response) => {
-				this.isRecommendationQuestion = false
-				this.isRecommendationData = true
-				this.isRecommendationSavedData = false
+				this.isResponseSkeleton = false;
 				this.recommendationData = this.sanitizer.bypassSecurityTrustHtml(response.response)
 			},
 			error: (error) => {
+				this.isResponseSkeleton = false;
 				this.isRecommendationData = false
 			},
 		})

@@ -28,13 +28,15 @@ import { marketingAnalysisData } from './marketing-analysis.data';
 import { TravelToolsService } from '../../travel-tools/travel-tools.service';
 import { DownloadRespose } from 'src/app/@Models/travel-tools.model';
 import { PromptService } from '../../prompt.service';
+import { SkeletonModule } from 'primeng/skeleton';
+import { SharedModule } from 'src/app/shared/shared.module';
 
 @Component({
     selector: 'uni-marketing-analysis',
     templateUrl: './marketing-analysis.component.html',
     styleUrls: ['./marketing-analysis.component.scss'],
     standalone: true,
-    imports: [CommonModule, DialogModule, CardModule,RouterModule, PaginatorModule, FormsModule, ReactiveFormsModule, CarouselModule, ButtonModule, MultiSelectModule, SelectModule, InputGroupModule, InputTextModule, InputGroupAddonModule]
+    imports: [CommonModule, DialogModule, CardModule,RouterModule, PaginatorModule, FormsModule, ReactiveFormsModule, CarouselModule, ButtonModule, MultiSelectModule, SelectModule, InputGroupModule, InputTextModule, InputGroupAddonModule, SkeletonModule, SharedModule]
 })
 export class MarketingAnalysisComponent implements OnInit {
   locationList: any[] = [];
@@ -73,6 +75,8 @@ export class MarketingAnalysisComponent implements OnInit {
   isRecommendationData: boolean = false;
   isRecommendationSavedData: boolean = false;
   recommendationData: SafeHtml;
+	isResponseSkeleton: boolean = false;
+
   constructor(
     private fb: FormBuilder,
     private foundersToolsService: FounderstoolService,
@@ -235,16 +239,20 @@ export class MarketingAnalysisComponent implements OnInit {
       mode: 'market_analysis',
       location: formData.location.city_name+', '+formData.location.country_name
     }
+    this.isRecommendationQuestion = false;
+    this.isRecommendationSavedData = false;
+    this.isRecommendationData = true;
+    this.isResponseSkeleton = true;
     this.foundersToolsService.getChatgptRecommendations(data).subscribe({
       next: response => {
-        this.isRecommendationQuestion = false;
-        this.isRecommendationData = true;
-        this.isRecommendationSavedData = false;
+				this.isResponseSkeleton = false;
 				this.recommendationData = this.sanitizer.bypassSecurityTrustHtml(response.response);
       },
-      error: error => {
-        this.isRecommendationData = false;
-      }
+      error: (error) => {
+				console.error(error);
+				this.isResponseSkeleton = false;
+				this.isRecommendationData = false;
+			}
     });
   }
 

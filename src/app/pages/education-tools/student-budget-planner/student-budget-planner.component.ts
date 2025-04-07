@@ -23,13 +23,14 @@ import { TooltipModule } from 'primeng/tooltip';
 import { DownloadRespose } from 'src/app/@Models/travel-tools.model';
 import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
 import { PromptService } from '../../prompt.service';
+import { SharedModule } from 'src/app/shared/shared.module';
 
 @Component({
   selector: 'uni-student-budget-planner',
   templateUrl: './student-budget-planner.component.html',
   styleUrls: ['./student-budget-planner.component.scss'],
   standalone: true,
-  imports: [CommonModule, InputTextModule, InputGroupModule, InputGroupAddonModule, SelectModule, FormsModule, ReactiveFormsModule, ButtonModule, SkeletonModule, CarouselModule, PaginatorModule, FluidModule, DialogModule, MultiSelectModule, CardModule, RouterModule, TooltipModule, InputIconModule]
+  imports: [CommonModule, InputTextModule, InputGroupModule, InputGroupAddonModule, SelectModule, FormsModule, ReactiveFormsModule, ButtonModule, SkeletonModule, CarouselModule, PaginatorModule, FluidModule, DialogModule, MultiSelectModule, CardModule, RouterModule, TooltipModule, InputIconModule, SharedModule]
 })
 export class StudentBudgetPlannerComponent implements OnInit {
 
@@ -116,6 +117,7 @@ export class StudentBudgetPlannerComponent implements OnInit {
     { value: 'Upto 60 Months' },
   ]
   notfilledArray: string[] = [];
+	isResponseSkeleton: boolean = false;
 
   ngOnInit(): void {
     this.dropdownValues();
@@ -180,14 +182,20 @@ export class StudentBudgetPlannerComponent implements OnInit {
       //   this.selectedData[key] = "none";
       // }
     });
+    this.isRecommendation = false;
+    this.isSavedResponse = false;
+    this.isOldResponse = false;
+    this.isResponsePage = true;
+		this.isResponseSkeleton = true;
     this.travelService.getChatgptRecommendations(this.selectedData).subscribe({
       next: response => {
-        this.isResponsePage = true;
-        this.isRecommendation = false;
-        this.isSavedResponse = false;
-        this.isOldResponse = false;
+        this.isResponseSkeleton = false;
         this.recommendationData = this.sanitizer.bypassSecurityTrustHtml(response.response);
-      }
+      },
+      error: (error) => {
+				console.error(error);
+				this.isResponseSkeleton = false;
+			}
     })
   }
 

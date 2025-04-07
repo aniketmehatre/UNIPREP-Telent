@@ -7,9 +7,11 @@
                 </div>
                 <div class="select-title d-flex justify-content-between align-items-center">
                     <div class="d-flex gap-2">
-                        <h5 routerLink="/pages/dashboard" role="button" class="mb-0" tooltipPosition="top" pTooltip=""><i class="fa-regular fa-home"></i></h5>
-						<span><i class="fa-solid fa-chevron-right"></i></span>
-						<h5 routerLink="/pages/travel-tools" role="button" class="mb-0" tooltipPosition="top" pTooltip="">Travel Tools</h5>
+                        <h5 routerLink="/pages/dashboard" role="button" class="mb-0" tooltipPosition="top" pTooltip="">
+                            <i class="fa-regular fa-home"></i></h5>
+                        <span><i class="fa-solid fa-chevron-right"></i></span>
+                        <h5 routerLink="/pages/travel-tools" role="button" class="mb-0" tooltipPosition="top"
+                            pTooltip="">Travel Tools</h5>
                         <span><i class="fa-solid fa-chevron-right"></i></span>
                         <h5 class="mb-0" tooltipPosition="top" pTooltip="">Trip Length Finder</h5>
                     </div>
@@ -94,9 +96,11 @@
                 </div>
                 <div class="select-title d-flex justify-content-between align-items-center">
                     <div class="d-flex gap-2">
-                        <h5 routerLink="/pages/dashboard" role="button" class="mb-0" tooltipPosition="top" pTooltip=""><i class="fa-regular fa-home"></i></h5>
-						<span><i class="fa-solid fa-chevron-right"></i></span>
-						<h5 routerLink="/pages/travel-tools" role="button" class="mb-0" tooltipPosition="top" pTooltip="">Travel Tools</h5>
+                        <h5 routerLink="/pages/dashboard" role="button" class="mb-0" tooltipPosition="top" pTooltip="">
+                            <i class="fa-regular fa-home"></i></h5>
+                        <span><i class="fa-solid fa-chevron-right"></i></span>
+                        <h5 routerLink="/pages/travel-tools" role="button" class="mb-0" tooltipPosition="top"
+                            pTooltip="">Travel Tools</h5>
                         <span><i class="fa-solid fa-chevron-right"></i></span>
                         <h5 class="mb-0" tooltipPosition="top" pTooltip="">Trip Length Finder</h5>
                     </div>
@@ -132,9 +136,28 @@
                             <i class="fa-regular fa-floppy-disk"></i></span>
                     </button> -->
                 </div>
-                <markdown class="d-flex flex-fill h-100 overflow-hidden" emoji>
-                    <div class="card p-3 poppins-content chatgpt-response bg-white h-100 overflow-y-auto" [innerHtml]="recommendationData"></div>
-                </markdown>
+                <div *ngIf="isResponseSkeleton; else showResponseData" class="card p-3 chatgpt-response bg-white h-100 overflow-y-auto">
+                    <p-skeleton width='30rem' height='2rem' styleClass="mb-2"></p-skeleton>
+					<p-skeleton width='100%' height='1rem' styleClass="mb-2"></p-skeleton>
+					<p-skeleton width='100%' height='1rem' styleClass="mb-2"></p-skeleton>
+					<p-skeleton width='90%' height='1rem' styleClass="mb-2"></p-skeleton>
+					<p-skeleton width='100%' height='1rem' styleClass="mb-2"></p-skeleton>
+					<p-skeleton width='95%' height='1rem' styleClass="mb-2"></p-skeleton>
+					<p-skeleton width='50%' height='1rem'></p-skeleton>
+					<div class="divider"></div>
+                    <p-skeleton width='30rem' height='2rem' styleClass="mb-2"></p-skeleton>
+					<p-skeleton width='100%' height='1rem' styleClass="mb-2"></p-skeleton>
+					<p-skeleton width='100%' height='1rem' styleClass="mb-2"></p-skeleton>
+					<div class="d-flex justify-content-end">
+						<uni-percentage-loader />
+					</div>
+                </div>
+                <ng-template #showResponseData>
+                    <markdown class="d-flex flex-fill h-100 overflow-hidden" emoji>
+                        <div class="card p-3 poppins-content chatgpt-response bg-white h-100 overflow-y-auto"
+                            [innerHtml]="recommendationData"></div>
+                    </markdown>
+                </ng-template>
             </div>
             <div class="col-md-2"></div>
         </div>
@@ -157,9 +180,11 @@
                 </div>
                 <div class="select-title d-flex justify-content-between align-items-center">
                     <div class="d-flex gap-2">
-                        <h5 routerLink="/pages/dashboard" role="button" class="mb-0" tooltipPosition="top" pTooltip=""><i class="fa-regular fa-home"></i></h5>
-						<span><i class="fa-solid fa-chevron-right"></i></span>
-						<h5 routerLink="/pages/travel-tools" role="button" class="mb-0" tooltipPosition="top" pTooltip="">Travel Tools</h5>
+                        <h5 routerLink="/pages/dashboard" role="button" class="mb-0" tooltipPosition="top" pTooltip="">
+                            <i class="fa-regular fa-home"></i></h5>
+                        <span><i class="fa-solid fa-chevron-right"></i></span>
+                        <h5 routerLink="/pages/travel-tools" role="button" class="mb-0" tooltipPosition="top"
+                            pTooltip="">Travel Tools</h5>
                         <span><i class="fa-solid fa-chevron-right"></i></span>
                         <h5 class="mb-0" tooltipPosition="top" pTooltip="">Trip Length Finder</h5>
                     </div>

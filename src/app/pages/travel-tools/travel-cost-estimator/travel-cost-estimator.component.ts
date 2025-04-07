@@ -25,12 +25,14 @@ import { SkeletonModule } from "primeng/skeleton"
 import { TooltipModule } from "primeng/tooltip"
 import { DomSanitizer, SafeHtml } from "@angular/platform-browser"
 import { PromptService } from "../../prompt.service"
+import { SharedModule } from "src/app/shared/shared.module"
+
 @Component({
 	selector: "uni-travel-cost-estimator",
 	templateUrl: "./travel-cost-estimator.component.html",
 	styleUrls: ["./travel-cost-estimator.component.scss"],
 	standalone: true,
-	imports: [CommonModule, RouterModule, SkeletonModule, FluidModule, InputTextModule, TooltipModule, ButtonModule, MultiSelectModule, CarouselModule, InputGroupModule, InputGroupAddonModule, FormsModule, ReactiveFormsModule, InputTextModule, SelectModule, DialogModule, CardModule, InputNumberModule],
+	imports: [CommonModule, RouterModule, SkeletonModule, FluidModule, InputTextModule, TooltipModule, ButtonModule, MultiSelectModule, CarouselModule, InputGroupModule, InputGroupAddonModule, FormsModule, ReactiveFormsModule, InputTextModule, SelectModule, DialogModule, CardModule, InputNumberModule, SharedModule],
 })
 export class TravelCostEstimatorComponent implements OnInit {
 	recommendations: { id: number; question: string }[] = TravelCostEstimatorQuestionList
@@ -51,8 +53,9 @@ export class TravelCostEstimatorComponent implements OnInit {
 	recommendationData: SafeHtml = ""
 	recommadationSavedQuestionList: TravelCostEstimator[] = []
 	isFromSavedData: boolean = false
+	isResponseSkeleton: boolean = false;
 
-	constructor(private travelToolsService: TravelToolsService, private router: Router, private costOfLivingService: CostOfLivingService, private toast: MessageService, private sanitizer: DomSanitizer, private promptService: PromptService) {}
+	constructor(private travelToolsService: TravelToolsService, private router: Router, private costOfLivingService: CostOfLivingService, private toast: MessageService, private sanitizer: DomSanitizer, private promptService: PromptService) { }
 
 	ngOnInit(): void {
 		this.selectedData = { 3: 1 }
@@ -104,22 +107,21 @@ export class TravelCostEstimatorComponent implements OnInit {
 			currency: this.selectedData[1].currencycode,
 			mode: "travelcostestimator",
 		}
+		this.isRecommendationQuestion = false
+		this.isRecommendationSavedData = false
+		this.isRecommendationData = true
+		this.isResponseSkeleton = true;
 		this.travelToolsService.getChatgptRecommendations(data).subscribe({
 			next: (response) => {
-				this.isRecommendationQuestion = false
-				this.isRecommendationData = true
-				this.isRecommendationSavedData = false
-				let chatGptResponse = response.response
-				// chatGptResponse = chatGptResponse
-				// 	.replace(/```html|```/g, '')
-				// 	.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>');
-				this.recommendationData = this.sanitizer.bypassSecurityTrustHtml(chatGptResponse)
+				this.isResponseSkeleton = false;
+				this.recommendationData = this.sanitizer.bypassSecurityTrustHtml(response.response)
 			},
 			error: (error) => {
-				console.error(error)
+				console.error(error);
+				this.isResponseSkeleton = false;
 				this.isRecommendationData = false
-			},
-		})
+			}
+		});
 	}
 
 	resetRecommendation() {
@@ -140,7 +142,7 @@ export class TravelCostEstimatorComponent implements OnInit {
 					this.isRecommendationSavedData = true
 					this.recommadationSavedQuestionList = response.data
 				},
-				error: (error) => {},
+				error: (error) => { },
 			})
 		} else {
 			this.isRecommendationQuestion = false
