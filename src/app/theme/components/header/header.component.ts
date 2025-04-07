@@ -1401,8 +1401,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
 	}
 
 	runAfterDataLoads(): void {
-		//let userLoginCount = this.service._userLoginCount
-		let userLoginCount = 4
+		let userLoginCount = this.service._userLoginCount
 		if (userLoginCount === 4) {
 			//this.freeTrial = true;
 			this.whatsappVerification = true
