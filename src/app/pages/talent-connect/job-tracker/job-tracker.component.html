@@ -34,11 +34,9 @@
 
 			<!-- Main content with job details and chat -->
 			<div class="col-lg-9 col-md-9 col-12 h-100">
-				<div class="row" *ngIf="selectedJobId; else showEmptyContainer">
-					<div class="col-lg-8 col-md-7 col-12" *ngIf="showInfo" [ngClass]="{ 'col-lg-12 col-md-12': !showChat }">
-						<div class="job-details-container">
-							<uni-job-details (closeInfo)="showInfo = false" [showInfo]="showInfo" [showChat]="showChat" [jobDetails]="jobDetails" (openChat)="showChat = true"></uni-job-details>
-						</div>
+				<div class="row h-100" *ngIf="selectedJobId; else showEmptyContainer">
+					<div class="col-lg-8 col-md-7 col-12 h-100" *ngIf="showInfo" [ngClass]="{ 'col-lg-12 col-md-12': !showChat }">
+						<uni-job-details (closeInfo)="showInfo = false" [showInfo]="showInfo" [showChat]="showChat" [jobDetails]="jobDetails" (openChat)="showChat = true"></uni-job-details>
 					</div>
 					<div [ngClass]="{ 'col-lg-4 col-md-12': showInfo, 'col-lg-12 col-md-12': !showInfo, '': !showInfo }" *ngIf="showChat">
 						<uni-job-chat-ui (openInfo)="showInfo = true" [showInfo]="showInfo" [jobDetails]="jobDetails" (closeChat)="showChat = false"></uni-job-chat-ui>
