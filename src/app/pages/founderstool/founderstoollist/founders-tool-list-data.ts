@@ -125,7 +125,7 @@ export const FoundersToolsData = [
         description: "An assessment that evaluates an entrepreneur's in-depth knowledge and proficiency in specific industries.",
         image: domainUrl+"StartupExpenseEstimator.svg",
         url: "/pages/founderstool/startup-expense-estimate",
-        launch_soon: false
+        launch_soon: true
     },
     {
         title: "Business Forecasting Tool",
