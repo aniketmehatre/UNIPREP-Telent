@@ -38,3 +38,4 @@
       </button>
     </div>
   </div>
+  <app-company-filter [openModal]="displayModal" (closeFilter)="displayModal = false; triggerCloseFilter.emit();" (triggerApplyFiler)="getCompanyTrackerList($event)" (resetFilter)="getCompanyTrackerList();"></app-company-filter>

@@ -9,6 +9,7 @@ import {Router, RouterLink} from "@angular/router";
 import {CommonModule, NgClass} from "@angular/common";
 import {TagModule} from "primeng/tag";
 import { forkJoin } from 'rxjs';
+import { CompanyFilterComponent } from "./company-filter/company-filter.component";
 
 interface DropdownOption {
     label: string;
@@ -28,7 +29,8 @@ interface DropdownOption {
         NgClass,
         ReactiveFormsModule,
         Paginator,
-        TagModule
+        TagModule,
+        CompanyFilterComponent
     ],
     standalone: true
 })
@@ -51,44 +53,27 @@ export class CompanyConnect1Component implements OnInit {
 
 
     constructor(private talentConnectService: TalentConnectService, private fb: FormBuilder,
-                private router: Router) {
-        this.companyForm = this.fb.group({
-            companyname: [''],
-            industrytype: [[]], // Array values
-            companysize: [],
-            hq: [],
-            globalpresence: [[]], // Array values
-            foundedyear: [],
-            companytype: [],
-        });
+        private router: Router) {
     }
 
     ngOnInit() {
         this.listCompanyData()
     }
 
-    listCompanyData() {
+    listCompanyData(params?: any) {
         const requestData = {
             perpage: this.perPage,
             page: this.page,
-            companyname: "Test",
-            industrytype: [2, 1],  // Converted to an array for better structure
-            companysize: 1,
-            hq: 2,
-            globalpresence: [1, 2, 3], // Converted to an array
-            foundedyear: 2002,
-            companytype: 1
+            ...params
         };
-        const requestDataEmpty = {
-            perpage: this.perPage,
-            page: this.page,
-        };
-        this.talentConnectService.getTalentConnectCompanies(requestDataEmpty).subscribe({
+
+        this.talentConnectService.getTalentConnectCompanies(requestData).subscribe({
             next: data => {
                 this.companyDataList = data.companies;
                 this.totalCount = data.totalcount;
                 this.totalJob = data.totaljob;
-                this.totalVacancies = data.totalvacancies
+                this.totalVacancies = data.totalvacancies;
+                this.displayModal = false;
             },
             error: err => {
                 console.log(err)
@@ -127,30 +112,5 @@ export class CompanyConnect1Component implements OnInit {
 
             }
         })
-    }
-
-    onDialogOpen() {
-        this.loadApiData();
-    }
-
-    loadApiData() {
-        forkJoin({
-            companyTypes: this.talentConnectService.getCompanyTypes(),
-            industryTypes: this.talentConnectService.getIndustryTypes(),
-            globalPresence: this.talentConnectService.globalPresence(),
-            locations: this.talentConnectService.getCityWithFlag(),
-            companySizes: this.talentConnectService.getCompanySizes()
-        }).subscribe({
-            next: (results) => {
-                this.companyTypes = results.companyTypes;
-                this.industryTypes = results.industryTypes;
-                this.globalPresence = results.globalPresence;
-                this.locations = results.locations;
-                this.companySizes = results.companySizes.industries; // Adjusting for industry structure
-            },
-            error: (error) => {
-                console.error("Error loading data:", error);
-            }
-        });
     }
 }

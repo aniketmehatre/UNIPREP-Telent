@@ -9,6 +9,7 @@ import {ChatComponent} from "./chat/chat.component";
 import {FormBuilder, FormGroup, ReactiveFormsModule} from "@angular/forms";
 import {Select} from "primeng/select";
 import {forkJoin} from "rxjs";
+import { CompanyFilterComponent } from "../company-connect/company-filter/company-filter.component";
 
 interface DropdownOption {
   label: string;
@@ -19,10 +20,11 @@ interface DropdownOption {
   templateUrl: './company-tracker.component.html',
   styleUrls: ['./company-tracker.component.scss'],
   standalone: true,
-    imports: [CommonModule, Dialog, CompanyListsComponent, CompanyDetailComponent, RouterLink, ChatComponent, ChatComponent, ReactiveFormsModule, Select]
+  imports: [CommonModule, Dialog, CompanyListsComponent, CompanyDetailComponent, RouterLink, ChatComponent, ChatComponent, CompanyFilterComponent]
 })
 export class CompanyTracker1Component {
   @Output() companyTrackerEmit: EventEmitter<number> = new EventEmitter();
+  @Output() triggerApplyFilter: EventEmitter<any> = new EventEmitter();
   isSkeletonVisible: boolean = false;
   ehitlabelIsShow: boolean = false;
   restrict: boolean = false;
@@ -37,6 +39,7 @@ export class CompanyTracker1Component {
   companyTypes: DropdownOption[] = [];
   companyForm: FormGroup;
 
+  companyData: any
   openVideoPopup(link: string) {
 
   }
@@ -74,12 +77,13 @@ export class CompanyTracker1Component {
   toggleInfo(): void {
     this.showChat = !this.showChat;
   }
-  companyData: any
+
   onClickJobId(event: any) {
     this.companyData = event;
     this.showChat = false;
     this.selectedJobId = event.id;
   }
+
 
   upgradePlan() {
 

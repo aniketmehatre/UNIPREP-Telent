@@ -13,10 +13,9 @@
 						<button class="how-it-works-button" (click)="openVideoPopup(howItWorksVideoLink)">How it works?<i class="fa-solid fa-play d-md-block d-none"></i></button>
 					</div>
 				</div>
-                <button type="button" title="Close Popup" class="btn btn-primary btn-lg rounded-3 shadow-sm px-4 text-normal" (click)="displayModal = true">Filter&nbsp;&nbsp;<i class="fa-solid fa-caret-down"></i></button>
-            </div>
-
-            <!-- <div class="col-md-3 mt-2 text-end desktop justify-content-end d-none d-md-flex"></div> -->
+				<button type="button" title="Close Popup" class="btn btn-primary btn-lg rounded-3 shadow-sm px-4 text-normal" (click)="displayModal = true">Filter&nbsp;&nbsp;<i class="fa-solid fa-caret-down"></i></button>
+			</div>
+			<!-- <div class="col-md-3 mt-2 text-end desktop justify-content-end d-none d-md-flex"></div> -->
 		</div>
 	</div>
   
@@ -40,7 +39,7 @@
             </div>
 		  <!-- Sidebar with job list -->
 		  <div class="col-lg-3 col-md-5 col-12 border-end mb-3 mb-md-0">
-			<uni-company-list (companyTrackerEmit)="onClickJobId($event)"></uni-company-list>
+			<uni-company-list (companyTrackerEmit)="onClickJobId($event)" (triggerCloseFilter)="displayModal = false" [displayModal]="displayModal"></uni-company-list>
 		  </div>
   
 		  <!-- Main content with job details and chat -->
@@ -73,7 +72,6 @@
 		</div>
 	  </div>
 	</div>
-  
 	<!-- Responsive Upgrade Dialog -->
 	<p-dialog
 	  [(visible)]="restrict"
@@ -105,60 +103,3 @@
 	  </div>
 	</p-dialog>
   </div>
-
-<p-dialog [(visible)]="displayModal" [modal]="true" [style]="{ width: '70%' }" [closeOnEscape]="true" (onShow)="onDialogOpen()" styleClass="filter-modal">
-    <ng-template #header>
-        <div class="inline-flex items-center justify-center gap-2">
-            <span class="font-bold whitespace-nowrap">Filter</span>
-        </div>
-    </ng-template>
-    <div class="container-fluid p-3">
-        <form (ngSubmit)="applyFilter()" [formGroup]="companyForm">
-            <div class="mb-4">
-                <label class="form-label fw-bold">Company Name</label>
-                <input class="form-control p-2" formControlName="companyname" pInputText placeholder="Search by company name" />
-            </div>
-
-            <div class="row mb-4">
-                <div class="col-md-4">
-                    <label class="form-label fw-bold">Industry Type</label>
-                    <p-select [options]="industryTypes" formControlName="industrytype" optionValue="id" optionLabel="industry_name" placeholder="Select your preferred industry" styleClass="w-100" [showClear]="true"></p-select>
-                </div>
-
-                <div class="col-md-4">
-                    <label class="form-label fw-bold">Company Size</label>
-                    <p-select [options]="companySizes" formControlName="companysize" placeholder="Select Company Size" styleClass="w-100" [showClear]="true"></p-select>
-                </div>
-
-                <div class="col-md-4">
-                    <label class="form-label fw-bold">Headquarters Location</label>
-                    <p-select [options]="locations" formControlName="hq" placeholder="Select Headquarters Location" optionValue="city_id" optionLabel="city_name" styleClass="w-100" [showClear]="true"></p-select>
-                </div>
-            </div>
-
-            <div class="row mb-4">
-                <div class="col-md-4">
-                    <label class="form-label fw-bold">Global Presence</label>
-                    <p-select [options]="globalPresence" formControlName="globalpresence" placeholder="Select global presence" optionValue="id" optionLabel="country" styleClass="w-100" [showClear]="true"></p-select>
-                </div>
-
-                <div class="col-md-4">
-                    <label class="form-label fw-bold">Year Founded</label>
-                    <p-select [options]="foundedYears" formControlName="foundedyear" placeholder="Select founded year" styleClass="w-100" [showClear]="true"></p-select>
-                </div>
-
-                <div class="col-md-4">
-                    <label class="form-label fw-bold">Company Type</label>
-                    <p-select [options]="companyTypes" formControlName="companytype" optionLabel="type" optionValue="id" placeholder="Select company type" styleClass="w-100" [showClear]="true"></p-select>
-                </div>
-            </div>
-        </form>
-    </div>
-
-    <ng-template #footer>
-        <div class="d-grid gap-2 col-12 mx-auto">
-            <button type="submit" class="btn btn-dark w-100 block" style="background-color: var(--uniprep-primary); border: none">Apply Filter</button>
-            <button class="btn btn-outline-dark w-100" (click)="clearFilter()" style="background-color: white; border-radius: 8px; color: var(--uniprep-primary); border: none" type="button">Reset Filter</button>
-        </div>
-    </ng-template>
-</p-dialog>

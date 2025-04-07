@@ -229,8 +229,11 @@
 												<!-- Duration Field -->
 												<div class="col-md-6 mb-3">
 													<label for="duration" class="form-label">Duration</label>
-													<p-datepicker id="duration" selectionMode="range" dateFormat="dd/mm/yy" placeholder="DD/MM/YYYY To DD/MM/YYYY" formControlName="work_experience_duration" styleClass="w-100" [iconDisplay]="'input'" [showIcon]="true" inputId="icondisplay" (mouseleave)="resetMessageBox()" (mouseenter)="updateMessageBox('work_experience_duration')" [disabled]="experience.get('years_of_experience')?.value == 'Fresher'" />
-													<div *ngIf="experience.get('work_experience_duration')?.value?.length == 1" class="text-danger">Please select both from and to values.</div>
+													<div class="d-block d-md-flex gap-2 w-full">
+														<p-datepicker formControlName="work_experience_duration_from" size="small" placeholder="From Date" dateFormat="dd-mm-yy"   inputId="icondisplay"/> 
+														<p-datepicker formControlName="work_experience_duration_to" size="small" placeholder="To Date" dateFormat="dd-mm-yy" inputId="icondisplay"/>
+													</div>
+													<div *ngIf="experience.get('work_experience_duration_from')?.value && experience.get('')" class="text-danger">Please select both from and to values.</div>
 												</div>
 
 												<!-- Salary Field -->

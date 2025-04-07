@@ -48,7 +48,7 @@ export class EmployeeProfileComponent implements OnInit {
     years_of_experience: "Select your total years of experience in the above company. Providing accurate experience helps employers assess your expertise and consider you for the right opportunities.",
     work_experience_job_title: "Enter your job title clearly. Employers look for specific roles to match your experience with their needs. A well-defined job title can boost your chances of landing the right job.",
     work_experience_employment_type: "Select the type of employment for this position. This helps employers understand your work schedule and availability.",
-    work_experience_duration: "Enter the dates you started and ended your employment at this company in dd/mm/yyy to dd/mm/yyy format. This helps employers assess your experience timeline.",
+    work_experience_duration_from: "Enter the dates you started and ended your employment at this company in dd/mm/yyy to dd/mm/yyy format. This helps employers assess your experience timeline.",
     work_experience_salary_per_month: "Enter your monthly salary (up to 6 digits) during your time at the company. Being upfront about your salary can help align you with employers offering competitive pay.",
     work_experience_currency_id: "Choose the correct currency to ensure clarity in salary discussions and avoid misunderstandings during the hiring process.",
     work_experience_job_responsibilities: "List your key responsibilities in this role (max 100 characters). A clear and concise description helps employers quickly understand your expertise and improves your chances of getting noticed. Only alphabets are allowed.",
@@ -241,7 +241,8 @@ export class EmployeeProfileComponent implements OnInit {
       work_experience_company_name: [''],
       work_experience_job_title: [''],
       work_experience_employment_type: [''],
-      work_experience_duration: [''],
+      work_experience_duration_from: [''],
+      work_experience_duration_to: [''],
       work_experience_salary_per_month: [''],
       work_experience_currency_id: [''],
       work_experience_job_responsibilities: [''],
@@ -476,7 +477,7 @@ export class EmployeeProfileComponent implements OnInit {
             formData.append(`work_experience[${index}][id]`, work.get('id')?.value);
           }
 
-          if (control.get('work_experience_duration')?.value?.length == 1) {
+          if (!control.get('work_experience_duration_from')?.value || !control.get('work_experience_duration_to')?.value) {
             this.toastService.add({
               severity: "error",
               summary: "Duration",
@@ -502,9 +503,13 @@ export class EmployeeProfileComponent implements OnInit {
             originalWork,
             value => work.get('work_experience_employment_type')?.value || '');
           this.appendIfModified(formData,
-            `work_experience[${index}][work_experience_duration]`,
+            `work_experience[${index}][work_experience_duration_from]`,
             originalWork,
-            value => work.get('work_experience_duration')?.value || '');
+            value => work.get('work_experience_duration_from')?.value || '');
+          this.appendIfModified(formData,
+            `work_experience[${index}][work_experience_duration_to]`,
+            originalWork,
+            value => work.get('work_experience_duration_to')?.value || '');
           this.appendIfModified(formData,
             `work_experience[${index}][work_experience_salary_per_month]`,
             originalWork,
@@ -749,7 +754,8 @@ export class EmployeeProfileComponent implements OnInit {
           formData.append(`work_experience[${index}][work_experience_company_name]`, work.get('work_experience_company_name')?.value || '');
           formData.append(`work_experience[${index}][work_experience_job_title]`, work.get('work_experience_job_title')?.value || '');
           formData.append(`work_experience[${index}][work_experience_employment_type]`, work.get('work_experience_employment_type')?.value || '');
-          formData.append(`work_experience[${index}][work_experience_duration]`, work.get('work_experience_duration')?.value || '');
+          formData.append(`work_experience[${index}][work_experience_duration_from]`, work.get('work_experience_duration_from')?.value || '');
+          formData.append(`work_experience[${index}][work_experience_duration_to]`, work.get('work_experience_duration_to')?.value || '');
           formData.append(`work_experience[${index}][work_experience_salary_per_month]`, work.get('work_experience_salary_per_month')?.value || '');
           formData.append(`work_experience[${index}][work_experience_currency_id]`, work.get('work_experience_currency_id')?.value || '');
           formData.append(`work_experience[${index}][work_experience_job_responsibilities]`, work.get('work_experience_job_responsibilities')?.value || '');
@@ -1217,7 +1223,8 @@ export class EmployeeProfileComponent implements OnInit {
           work_experience_company_name: [exp.company_name],
           work_experience_job_title: [exp.job_title],
           work_experience_employment_type: [exp.employment_type],
-          work_experience_duration: [exp.duration ? JSON.parse(exp.duration).map((item: any) => new Date(item)) : null],
+          work_experience_duration_from: [exp.duration ? new Date(exp.duration_from) : null],
+          work_experience_duration_to: [exp.duration ? new Date(exp.duration_to) : null],
           work_experience_salary_per_month: [exp.salary_per_month],
           work_experience_currency_id: [exp.currency_id],
           work_experience_job_responsibilities: [exp.job_responsibilities],
