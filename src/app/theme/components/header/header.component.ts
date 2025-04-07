@@ -41,6 +41,7 @@ import {AuthTokenService} from 'src/app/core/services/auth-token.service'
 import {AvatarGroupModule} from 'primeng/avatargroup';
 import {StorageService} from "../../../storage.service";
 import {DropdownModule} from "primeng/dropdown";
+import {AutoFocus} from "primeng/autofocus";
 
 // import { SocialAuthService } from "@abacritt/angularx-social-login";
 
@@ -68,7 +69,7 @@ import {DropdownModule} from "primeng/dropdown";
 		InputGroupAddonModule,
 		TextareaModule,
 		AvatarGroupModule,
-		DropdownModule
+		DropdownModule,
 	],
 	providers: [AuthService, LocationService, ThemeService, DashboardService, AssessmentService, AuthTokenService],
 })
@@ -410,6 +411,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
 	}
 
 	phoneNumber: any
+	isPhoneDisabled: boolean = true
 	submitPhoneVerification() {
 		let formData = this.phoneVerification.value
 		let sendOTP = {
@@ -419,6 +421,8 @@ export class HeaderComponent implements OnInit, OnDestroy {
 			otp: this.otp.join(""),
 			whatsapp_number_or_not: formData.choice,
 		}
+		this.phoneVerification.get('verification_phone')?.disable();
+
 		this.service.validateWhatsappOtp(sendOTP).subscribe({
 			next: (response) => {
 				if (response.message == 'Otp Invalid') {
@@ -430,6 +434,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
 				} else {
 					this.whatsappVerification = false
 					this.freeTrial = true
+					this.isPhoneDisabled = true
 					this.formvisbility = true
 					this.phoneNumber = formData.verification_phone.number
 					this.toast.add({

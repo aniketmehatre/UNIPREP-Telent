@@ -571,3 +571,14 @@ $background-color_4: #fff;
   align-items: center;
   cursor: pointer;
 }
+
+:host ::ng-deep .disabled input {
+  pointer-events: none;
+  background-color: #f1f1f1;
+  color: #888;
+  cursor: not-allowed;
+}
+
+:host ::ng-deep .disabled .iti__flag-container {
+  pointer-events: none;
+}

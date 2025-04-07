@@ -564,20 +564,25 @@
 						</span>
 					</div>
 					<form [formGroup]="mobileForm">
-						<div class="w-100 phonenumberblock" *ngIf="formvisbility">
+						<div class="w-100 phonenumberblock d-none" *ngIf="formvisbility">
 							<p class="m-1">Enter your number to continue the experience</p>
-							<ngx-intl-tel-input class="intel-input w-100" [cssClass]="'custom'"
+							<ngx-intl-tel-input class="intel-input w-100"
+                                [cssClass]="isPhoneDisabled ? 'custom disabled' : 'custom'"
 								[preferredCountries]="['in', 'gb']" [enableAutoCountrySelect]="true"
 								[enablePlaceholder]="true" [searchCountryFlag]="true" [maxLength]="15"
 								[searchCountryField]="[SearchCountryField.Iso2, SearchCountryField.Name]"
 								[phoneValidation]="true" [selectedCountryISO]="preferredCountry"
                                                 [(ngModel)]="phoneNumber"
-								customPlaceholder="Enter Contact Number" formControlName="phone"> </ngx-intl-tel-input>
+                                                [disabled]="isPhoneDisabled"
+                                                [attr.disabled]="isPhoneDisabled"
+                                                customPlaceholder="Enter Contact Number"
+                                                formControlName="phone"></ngx-intl-tel-input>
 						</div>
 						<div class="w-100 phonenumberblock mt-2" *ngIf="formvisbility">
 							<p class="m-1">Select Your Home Country</p>
 							<p-select class="w-100" formControlName="home_country" appendTo="body"
 								[options]="indiaHomeCountry" [filter]="true" placeholder="Country"
+                                      [autofocus]="true"
 								(onChange)="changeLocation($event)" filterBy="country" optionLabel="country"
 								optionValue="id" [autoDisplayFirst]="false" styleClass="custom-dropdown"></p-select>
 						</div>

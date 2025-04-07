@@ -20,6 +20,7 @@ import {InputOtpModule} from "primeng/inputotp"
 import {ToastModule} from "primeng/toast"
 import {SelectModule} from "primeng/select"
 import {GoogleSigninButtonModule, SocialAuthService, SocialLoginModule,} from '@abacritt/angularx-social-login';
+import {ButtonDirective} from "primeng/button";
 
 @Component({
 	selector: "app-registration",
@@ -29,7 +30,7 @@ import {GoogleSigninButtonModule, SocialAuthService, SocialLoginModule,} from '@
 	schemas: [CUSTOM_ELEMENTS_SCHEMA],
 	imports: [CommonModule, InputOtpModule, FluidModule, PasswordModule, RouterModule, InputTextModule,
 		InputIconModule, InputGroupModule, InputGroupAddonModule, SocialLoginModule, FormsModule,
-		ReactiveFormsModule, ToastModule, SelectModule, NgxIntlTelInputModule, GoogleSigninButtonModule],
+		ReactiveFormsModule, ToastModule, SelectModule, NgxIntlTelInputModule, GoogleSigninButtonModule, ButtonDirective],
 })
 export class RegistrationComponent implements OnInit {
 	@ViewChild("otp1") otp1!: ElementRef
