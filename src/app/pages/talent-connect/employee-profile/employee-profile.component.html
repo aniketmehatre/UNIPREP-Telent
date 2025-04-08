@@ -504,7 +504,7 @@
 													</div>
 												</div>
 												<div class="position-relative">
-													<p-editor [style]="{ height: '350px', maxHeight: 'auto' }" formControlName="career_preference_set_industry_apart" placeholder="Enter your sets you apart in your industry" (mouseleave)="resetMessageBox()" (mouseenter)="updateMessageBox('career_preference_set_industry_apart')" #keyResponsibility/>
+													<p-editor [style]="{ height: '150px', maxHeight: 'auto' }" formControlName="career_preference_set_industry_apart" placeholder="Enter your sets you apart in your industry" (mouseleave)="resetMessageBox()" (mouseenter)="updateMessageBox('career_preference_set_industry_apart')" #keyResponsibility/>
 													<small class="text-muted d-block text-end">{{ personalInfoForm.get('career_preference_set_industry_apart')?.value?.length }}/4000</small>
 												</div>
 											</div>
@@ -741,7 +741,7 @@
 									<h5 class="card-title my-3">Add Note</h5>
 									<div class="row mb-3">
 										<div class="position-relative">
-											<p-editor [style]="{ height: '350px', maxHeight: 'auto' }" formControlName="additional_notes" placeholder="Additional Information" #additionalNotes/>
+											<p-editor [style]="{ height: '150px', maxHeight: 'auto' }" formControlName="additional_notes" placeholder="Additional Information" #additionalNotes/>
 											<!-- <textarea pTextarea id="responsibilities" formControlName="additional_notes" class="form-control w-100" placeholder="Additional Information if any" rows="5" maxlength="500" #additionalNotes></textarea> -->
 											<small class="text-muted d-block text-end">{{ personalInfoForm.get('additional_notes')?.value?.length }}/5000</small>
 										</div>
@@ -769,9 +769,9 @@
 							<div class="card card-inside" style="border-radius: 10px; transition: transform 0.3s; border: 1px solid #e9ecef" [style.border]="true ? '1px solid #FDA172' : '1px solid #e9ecef'">
 								<div class="card-body">
 									<div class="row mb-3">
-										<div class="col-xl-3 col-lg-3 col-md-3 col-sm-3 col-3 d-flex align-items-center">
-											<div>
-												<img [src]="logo ? logo : 'uniprep-assets/images/avatar.webp'" alt="Profile Image" class="rounded-3" style="object-fit: cover; width: 100%; aspect-ratio: 1 / 1" />
+										<div class="col-xl-3 col-lg-3 col-md-3 col-sm-12 col-12 d-flex align-items-center">
+											<div class="w-100 h-100">
+												<img [src]="logo ? logo : 'uniprep-assets/images/avatar.webp'" alt="Profile Image" class="rounded-3" style="object-fit: fill; width: 100%; height: 100%;"/>
 											</div>
 										</div>
 										<div class="col-9 text-start">
