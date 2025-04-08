@@ -19,6 +19,7 @@ import { DatePickerModule } from 'primeng/datepicker';
 import { ToastModule } from 'primeng/toast';
 import { MultiSelectModule } from 'primeng/multiselect';
 import { FluidModule } from 'primeng/fluid';
+import { EditorModule } from 'primeng/editor';
 
 const routes: Routes = [
   {
@@ -49,7 +50,8 @@ const routes: Routes = [
     SelectModule,
     DatePickerModule,
     ToastModule,
-    MultiSelectModule
+    MultiSelectModule,
+    EditorModule
   ]
 })
 export class EmployeeProfileModule { }

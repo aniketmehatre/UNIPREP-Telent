@@ -253,17 +253,21 @@
 											</div>
 
 											<div class="row mb-4">
-												<div class="col-md-6 mb-3">
+												<div class="col-md-12 mb-3">
 													<div class="d-flex justify-content-between mb-1">
 														<label for="responsibilities" class="form-label">Job Responsibilities</label>
-														<button class="text-small btn btn-success btn-rounded d-flex align-items-center gap-2" style="width: fit-content" (click)="generateAiSummary('joboverview', experience?.get('work_experience_job_title')?.value, experience?.get('work_experience_job_responsibilities'))"><i class="fa-solid fa-stars"></i>AI Generate</button>
+														<div class="d-flex gap-2">
+															<p-button type="button" icon="pi pi-refresh" (click)="this.personalInfoForm.get('work_experience_job_responsibilities')?.setValue(null);"></p-button>
+															<button class="text-small btn btn-success btn-rounded d-flex align-items-center gap-2" style="width: fit-content" (click)="generateAiSummary('joboverview', experience?.get('work_experience_job_title')?.value, experience?.get('work_experience_job_responsibilities'))"><i class="fa-solid fa-stars"></i>AI Generate</button>
+														</div>
 													</div>
-													<textarea pTextarea id="responsibilities" class="form-control w-100" placeholder="Enter your Job Responsibilities & Key Achievements" rows="5" maxlength="4000" formControlName="work_experience_job_responsibilities" (mouseleave)="resetMessageBox()" (mouseenter)="updateMessageBox('work_experience_job_responsibilities')" #jobRepo></textarea>
-													<small class="text-muted d-block text-end">{{ jobRepo.value?.length }}/4000</small>
+													<p-editor [style]="{ height: '150px', maxHeight: 'auto' }" formControlName="work_experience_job_responsibilities" placeholder="Enter your Job Responsibilities & Key Achievements" (mouseenter)="showRecommendation('insight')" (mouseleave)="hideRecommendation()" #jobRepo/>
+													<!-- <textarea pTextarea id="responsibilities" class="form-control w-100" placeholder="Enter your Job Responsibilities & Key Achievements" rows="5" maxlength="4000" formControlName="work_experience_job_responsibilities" (mouseleave)="resetMessageBox()" (mouseenter)="updateMessageBox('work_experience_job_responsibilities')" #jobRepo></textarea> -->
+													<small class="text-muted d-block text-end">{{ personalInfoForm.get('work_experience_job_responsibilities')?.value?.length }}/4000</small>
 												</div>
 
 												<!-- Experience Letter Upload -->
-												<div class="col-md-6 mb-3">
+												<div class="col-md-12 mb-3">
 													<label class="form-label fw-medium">Experience Letter <span class="text-muted">(Optional)</span></label>
 													<div class="upload-box" (click)="fileExperieceUpload.click()" [disabled]="experience.get('years_of_experience')?.value == 'Fresher'" (mouseenter)="updateMessageBox('work_experience_experience_letter')" (mouseleave)="resetMessageBox()">
 														<div class="d-flex align-items-center justify-center-center flex-column mt-3">
@@ -497,8 +501,8 @@
 													<button class="text-small btn btn-success btn-rounded d-flex align-items-center gap-2" style="width: fit-content" (click)="generateAiSummary('joboverview', personalInfoForm?.get('career_preference_job_title_id')?.value, personalInfoForm?.get('career_preference_set_industry_apart'))"><i class="fa-solid fa-stars"></i>AI Generate</button>
 												</div>
 												<div class="position-relative">
-													<textarea pTextarea id="responsibilities" formControlName="career_preference_set_industry_apart" class="form-control w-100" placeholder="Enter your Job Responsibilities & Key Achievements" rows="4" maxlength="4000" (mouseleave)="resetMessageBox()" (mouseenter)="updateMessageBox('career_preference_set_industry_apart')" #keyResponsibility></textarea>
-													<small class="text-muted d-block text-end">{{ keyResponsibility.value?.length }}/4000</small>
+													<p-editor [style]="{ height: '350px', maxHeight: 'auto' }" formControlName="career_preference_set_industry_apart" placeholder="Enter your sets you apart in your industry" (mouseleave)="resetMessageBox()" (mouseenter)="updateMessageBox('career_preference_set_industry_apart')" #keyResponsibility/>
+													<small class="text-muted d-block text-end">{{ personalInfoForm.get('career_preference_set_industry_apart')?.value?.length }}/4000</small>
 												</div>
 											</div>
 										</div>
@@ -556,7 +560,7 @@
 												<label for="highestQualification" class="form-label">Provide the link</label>
 											</div>
 										</div>
-										<ng-conatiner formArrayName="networking_social_media">
+										<ng-container formArrayName="networking_social_media">
 											<div class="row mb-3" *ngFor="let experience of socialMedia.controls; let i = index" [formGroupName]="i">
 												<div class="col-md-6">
 													<p-select id="highestQualification" formControlName="networking_social_media" [options]="socialMedias" placeholder="Select any social media platform" styleClass="w-100" (mouseleave)="resetMessageBox()" (ngModelChange)="changeSocialMedia($event)" (mouseenter)="updateMessageBox('networking_social_media')" [optionDisabled]="isDisabled">
@@ -579,7 +583,7 @@
 													</div>
 												</div>
 											</div>
-										</ng-conatiner>
+										</ng-container>
 										<div class="row mb-3">
 											<button class="w-full btn btn-primary" (click)="addSocialMedia()">Add more Social media&nbsp;<i class="fa fa-plus"></i></button>
 										</div>
@@ -734,8 +738,9 @@
 									<h5 class="card-title my-3">Add Note</h5>
 									<div class="row mb-3">
 										<div class="position-relative">
-											<textarea pTextarea id="responsibilities" formControlName="additional_notes" class="form-control w-100" placeholder="Additional Information if any" rows="5" maxlength="500" #additionalNotes></textarea>
-											<small class="text-muted d-block text-end">{{ additionalNotes.value?.length }}/500</small>
+											<p-editor [style]="{ height: '350px', maxHeight: 'auto' }" formControlName="additional_notes" placeholder="Additional Information" #additionalNotes/>
+											<!-- <textarea pTextarea id="responsibilities" formControlName="additional_notes" class="form-control w-100" placeholder="Additional Information if any" rows="5" maxlength="500" #additionalNotes></textarea> -->
+											<small class="text-muted d-block text-end">{{ personalInfoForm.get('additional_notes')?.value?.length }}/5000</small>
 										</div>
 									</div>
 								</div>

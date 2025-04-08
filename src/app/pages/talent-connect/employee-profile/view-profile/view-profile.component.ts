@@ -17,6 +17,7 @@ interface ProfileData {
     nationality: string;
     location: string;
     logo: string | null;
+    total_years_of_experience: number;
   };
   educationDetails: Array<{
     highestQualification: string;
@@ -27,13 +28,14 @@ interface ProfileData {
     gpa: string;
   }>;
   workExperience: Array<{
-    totalExperience: string;
+    totalExperience: number;
     companyName: string;
     jobTitle: string;
     duration: string;
     salary: string;
     employmentType: string;
-    responsibilities: string[];
+    responsibilities: string;
+    experienceLetter: { name: string; file: string };
   }>;
   careerPreferences: {
     careerStatus: string;
@@ -120,7 +122,8 @@ export class ViewProfileComponent implements OnInit {
       gender: 'Male',
       nationality: 'Indian',
       location: 'Bangalore, India',
-      logo: null
+      logo: null,
+      total_years_of_experience: 1,
     },
     educationDetails: [{
       highestQualification: 'Msc in UI/UX Designing',
@@ -131,16 +134,14 @@ export class ViewProfileComponent implements OnInit {
       gpa: '8.9 GPA'
     }],
     workExperience: [{
-      totalExperience: '2 Years 2 Months',
+      totalExperience: 2,
       companyName: 'UNIABROAD Technology Pvt Ltd',
       jobTitle: 'Senior UI/UX Designer',
       duration: '1 Year',
       salary: '1,00,000',
       employmentType: 'Full Type',
-      responsibilities: [
-        'Designed intuitive and visually appealing user interfaces for web and mobile applications',
-        'Created wireframes, prototypes, and design systems to enhance user experience'
-      ]
+      responsibilities: 'Designed intuitive and visually appealing user interfaces for web and mobile applications',
+      experienceLetter: { name: 'Experience letter', file: 'document' }
     }],
     careerPreferences: {
       careerStatus: 'Full Time',
@@ -240,8 +241,7 @@ export class ViewProfileComponent implements OnInit {
   }
 
   downloadFile(filename: string): void {
-    console.log(`Downloading ${filename}`);
-    // Implement actual file download logic
+    window.open(filename, '_blank');
   }
 
   public getListValue(list: any[], id: number | number[], key: string): string {
@@ -271,7 +271,8 @@ export class ViewProfileComponent implements OnInit {
         gender: formData.gender || '',
         nationality: this.getListValue(this.nationalityList, formData.nationality_id, 'nationality_name') || '',
         location: this.getListValue(this.locations, formData.location_id, 'work_location') || '',
-        logo: formData.profile_image || null
+        logo: formData.profile_image || null,
+        total_years_of_experience: formData.total_years_of_experience || 0,
       },
       educationDetails: (formData.educationDetails || []).map((edu: any) => ({
         highestQualification: this.getListValue(this.qualifications, edu.education_qualification_id, 'qualification_name') || '',
@@ -282,15 +283,14 @@ export class ViewProfileComponent implements OnInit {
         gpa: edu.education_gpa_percentage ? `${edu.education_gpa_percentage} %` : ''
       })),
       workExperience: (formData.work_experience || []).map((exp: any) => ({
-        totalExperience: exp.year_of_experience || '',
+        totalExperience: exp.years_of_experience || '',
         companyName: exp.work_experience_company_name || '',
         jobTitle: exp.work_experience_job_title || '',
         employmentType: exp.work_experience_employment_type || '',
-        duration: exp.work_experience_duration ? (exp.work_experience_duration)?.map((item: any) => new Date(item)) : '',
+        duration: (exp.work_experience_duration_from && exp.work_experience_duration_from) ? exp.work_experience_duration_from + '-' + exp.work_experience_duration_to : '',
         salary: exp.work_experience_salary_per_month || '',
-        responsibilities: Array.isArray(exp.work_experience_job_responsibilities) ?
-          exp.work_experience_job_responsibilities :
-          [exp.work_experience_job_responsibilities || '']
+        responsibilities: exp.work_experience_job_responsibilities || '',
+        experienceLetter: { name: exp.work_experience_experience_letter, file: exp.work_experience_experience_letter }
       })),
       careerPreferences: {
         careerStatus: formData.career_preference_career_status || '',

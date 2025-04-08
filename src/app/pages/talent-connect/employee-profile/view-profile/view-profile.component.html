@@ -92,10 +92,14 @@
           <h4>Work Experience & Internships</h4>
         </div>
         <div class="card-body">
+          <div class="row">
+            <h5>Total Years of Experience</h5>
+            <p>{{ profileData.personalInfo.total_years_of_experience }} Years</p>
+          </div>
           <div class="row" *ngFor="let experience of profileData.workExperience">
             <div class="col-md-6">
-              <h5>Total Years of Experience</h5>
-              <p>{{ experience.totalExperience }}</p>
+              <h5>Years of Experience</h5>
+              <p>{{ experience.totalExperience }} Years</p>
             </div>
             <div class="col-md-6">
               <h5>Company Name</h5>
@@ -107,7 +111,7 @@
             </div>
             <div class="col-md-6">
               <h5>Duration</h5>
-              <p>{{ isSample ? experience.duration : (experience.duration[0] | date: 'dd-MM-yyyy')+ ' - ' +(experience.duration[1] | date: 'dd-MM-yyyy')}}</p>
+              <p>{{ experience.duration }}</p>
             </div>
             <div class="col-md-6">
               <h5>Employment Type</h5>
@@ -117,15 +121,20 @@
               <h5>Salary</h5>
               <p>{{ experience.salary }}</p>
             </div>
-            <div class="col-md-12">
+            <div class="col-md-6">
               <h5>Job Responsibilities</h5>
-              <ul>
-                <li *ngFor="let responsibility of experience.responsibilities">
-                  <div [innerHTML]="responsibility"></div>
-                </li>
-              </ul>
+              <div [innerHTML]="experience.responsibilities"></div>
             </div>
+            <div class="col-md-6">
+              <h5>Experience letter</h5>
+                <div class="d-flex justify-content-between align-items-center border p-2 rounded bg-secondary-subtle">
+                  <span>{{extractLastName(experience.experienceLetter.name)}}</span>
+                  <button class="btn btn-outline-primary btn-sm" (click)="downloadFile(experience.experienceLetter.file)">
+                    <i class="pi pi-download"></i>
+                  </button>
+                </div>
           </div>
+        </div>
         </div>
       </section>
   
@@ -291,11 +300,14 @@
         <div class="card-body">
           <div class="row g-3">
             <div *ngFor="let attachment of profileData.attachments" class="col-12">
-              <div class="d-flex justify-content-between align-items-center border p-2 rounded bg-secondary-subtle cursor-pointer" (click)="attachmentLink.click();">
+              <div class="d-flex justify-content-between align-items-center border p-2 rounded bg-secondary-subtle cursor-pointer" (click)="(attachment.type == 'document') ? $event.stopPropagation() : attachmentLink.click();">
                 <span>{{extractLastName(attachment.name)}}</span>
-                <a [href]="attachment.name" [download]="attachment.name" target="_blank" #attachmentLink [ngClass]="{'d-none': !(attachment.type == 'document')}">
+                <button class="btn btn-outline-primary btn-sm" (click)="downloadFile(attachment.name)" target="_blank" *ngIf="attachment.type == 'document' else link">
                   <i class="pi pi-download"></i>
-                </a>
+                </button>
+                <ng-template>
+                  <a [href]="attachment.name" target="_blank" #attachmentLink></a>
+                </ng-template>
               </div>
             </div>
           </div>
