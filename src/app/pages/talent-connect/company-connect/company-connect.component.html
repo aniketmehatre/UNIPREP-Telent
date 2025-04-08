@@ -48,7 +48,7 @@
 						<div class="row mb-3">
 							<div class="col-3">
 								<div style="width: 100%; height: 100%; background-color: #f8f9fa; display: flex; align-items: center; justify-content: center; border-radius: 5px; border: 1px solid #e9ecef">
-									<img src="{{ company.company_logo }}" alt="Company Logo" style="max-width: 50px" />
+									<img (error)="$event.target.src = '/uniprep-assets/images/job.webp'" src="{{ company.company_logo }}" alt="Company Logo" style="width: 100%; object-fit: contain" />
 								</div>
 							</div>
 							<div class="col-9 text-start">
@@ -184,4 +184,4 @@
 		</div>
 	</div>
 </div>
-<app-company-filter [openModal]="displayModal" (closeFilter)="displayModal = false;" (triggerApplyFiler)="listCompanyData($event)" (resetFilter)="listCompanyData();"></app-company-filter>
+<app-company-filter [openModal]="displayModal" (closeFilter)="displayModal = false" (triggerApplyFiler)="listCompanyData($event)" (resetFilter)="listCompanyData()"></app-company-filter>
