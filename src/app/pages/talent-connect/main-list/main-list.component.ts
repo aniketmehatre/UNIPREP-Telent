@@ -1,5 +1,8 @@
-import {Component, OnInit} from '@angular/core';
+import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
 import {environment} from "@env/environment";
+import { TalentConnectService } from '../talent-connect.service';
+import { Observable } from 'rxjs';
+import { MessageService } from 'primeng/api';
 
 @Component({
     selector: 'uni-main-list',
@@ -10,8 +13,9 @@ import {environment} from "@env/environment";
 export class MainListComponent implements OnInit {
     protected talentConnectMainList: any [] = []
     protected domainUrl: string = `https://${environment.domain}/uniprepapi/storage/app/public/ToolIcons/travel-tools/`;
-
-    constructor() {
+    isLoading: boolean = false;
+    isProfileCreated: boolean = false;
+    constructor(private talentConnectService: TalentConnectService, private messageService: MessageService, private cdr: ChangeDetectorRef) {
         this.talentConnectMainList = [
             {
                 id: 1,
@@ -62,6 +66,39 @@ export class MainListComponent implements OnInit {
     }
 
     ngOnInit() {
+        this.checkIfProfileCreated();
+    }
 
+    private checkIfProfileCreated() {
+        this.isLoading = true;
+        this.talentConnectService.getMyProfileData().subscribe({
+            next: response => {
+                this.isLoading = false;
+                if (response && response.count) {
+                    if (response.count > 0) {
+                        this.isProfileCreated = true;
+                        this.cdr.detectChanges();
+                    }
+                }
+            },
+            error: error => {
+                this.isLoading = false
+                console.log('error while calling get profile!.')
+            }
+        });
+    }
+
+
+    checkAndNotAllowAccessModules(event: any, moduleId: number) {
+        if (!this.isProfileCreated) {
+            if (moduleId === 2 || moduleId === 3) {
+                event.preventDefault();
+                event.stopPropagation();
+                this.messageService.add({
+                    severity: 'error',
+                    summary: 'Please create your profile first!'
+                });
+            }
+        }
     }
 }
