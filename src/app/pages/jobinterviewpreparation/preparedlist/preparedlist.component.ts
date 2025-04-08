@@ -20,12 +20,13 @@ import { InputTextModule } from 'primeng/inputtext';
 import { InputGroupAddonModule } from 'primeng/inputgroupaddon';
 import { TabsModule } from "primeng/tabs";
 import { Meta } from "@angular/platform-browser";
+import { SkeletonModule } from "primeng/skeleton";
 @Component({
   selector: "uni-preparedlist",
   templateUrl: "./preparedlist.component.html",
   styleUrls: ["./preparedlist.component.scss"],
   standalone: true,
-  imports: [CommonModule, PaginatorModule, DialogModule, TabsModule, RouterModule, CardModule, FormsModule, ReactiveFormsModule, CarouselModule, ButtonModule, MultiSelectModule, SelectModule, InputGroupModule, InputTextModule, InputGroupAddonModule],
+  imports: [CommonModule, PaginatorModule, DialogModule, TabsModule, RouterModule, CardModule, FormsModule, ReactiveFormsModule, CarouselModule, ButtonModule, MultiSelectModule, SelectModule, InputGroupModule, InputTextModule, InputGroupAddonModule, SkeletonModule],
   providers: [InterviewPreparationService]
 })
 export class JobPreparedListComponent implements OnInit {
