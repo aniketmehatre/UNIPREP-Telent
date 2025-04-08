@@ -18,13 +18,13 @@
 			<div class="h-100 overflow-hidden" [ngClass]="!isShowApplyChat ? 'col-md-12' : 'col-sm-7 col-md-7 col-lg-8 col-xl-9'" *ngIf="showInfo">
 				<div class="card h-100 overflow-y-auto">
 					<div class="card-header bg-transparent p-4">
-						<div class="d-flex gap-2">
-							<div>
-								<div class="logo-container border rounded-3">
-									<img [src]="jobDetails?.company_logo_url" alt="company_logo" style="object-fit: fit; width: 100%; height: 100%" />
+						<div class="row">
+							<div class="col-md-2 col-3">
+								<div class="logo-container">
+									<img [src]="jobDetails?.company_logo_url" alt="company_logo" style="object-fit: contain; width: 100%; height: 100%" />
 								</div>
 							</div>
-							<div class="container-fluid">
+							<div class="col-md-10 col-9">
 								<div class="row">
 									<div class="col-12 col-sm-12 col-md-8 col-lg-9 col-xl-10">
 										<h2 class="fw-bold mb-0">{{ jobDetails?.position }}</h2>
@@ -34,35 +34,6 @@
 												<i class="fas fa-check-circle"></i>
 											</span>
 										</div>
-										<div class="d-flex gap-3 flex-wrap">
-											<div class="d-flex gap-2">
-												<div class="d-flex align-items-center gap-3">
-													<span><i class="fa-solid fa-user-magnifying-glass fa-lg"></i></span>
-													<div>
-														<p class="text-muted mb-0">Total Vacancies</p>
-														<h4 class="mb-0 fw-bold">{{ jobDetails.available_vacancies }}</h4>
-													</div>
-												</div>
-												<div class="d-flex align-items-center gap-3">
-													<span><i class="fa-solid fa-user-tie fa-lg" style="color: #cc660a"></i></span>
-													<div>
-														<p class="text-muted mb-0">Total Applied</p>
-														<h4 class="mb-0 fw-bold">{{ jobDetails.total_applied }}</h4>
-													</div>
-												</div>
-											</div>
-											<div class="d-none d-sm-none d-md-none col-lg-flex d-xl-flex justify-content-center">
-												<hr class="vr h-100 m-0" />
-											</div>
-											<div>
-												<p class="text-primary text-small fw-medium text-muted">
-													{{ jobDetails.matching_skills }}
-												</p>
-												<div class="d-flex flex-wrap gap-1">
-													<span *ngFor="let skill of jobDetails?.soft_skills" class="badge bg-badge-color text-white">{{ skill }}</span>
-												</div>
-											</div>
-										</div>
 									</div>
 									<div class="col-12 col-sm-12 col-md-4 col-lg-3 col-xl-2 mt-md-0 mt-2">
 										<div class="d-flex flex-md-column flex-row justify-content-md-end justify-content-between align-items-center align-items-md-end">
@@ -70,6 +41,36 @@
 											<button pButton class="p-button-success chat-btn" *ngIf="!isShowApplyChat && isApplied" (click)="isShowApplyChat = true"><i class="pi pi-comments"></i> Chat</button>
 											<button *ngIf="!isApplied" pButton label="Apply" icon="fa fa-arrow-pointer" iconPos="right" class="p-button-primary mb-3" (click)="applyJob(id)" [disabled]="isApplied"></button>
 											<div class="posted-date text-nowrap">Posted On : {{ jobDetails.created_at | date : "dd-MM-yyyy" }}</div>
+										</div>
+									</div>
+									<div class="col-12 col-sm-12 col-md-12">
+										<div class="row align-items-center">
+											<div class="col-md-2 col-6">
+												<div class="d-flex align-items-center gap-3">
+													<span><i class="fa-solid fa-user-magnifying-glass fa-lg"></i></span>
+													<div>
+														<p class="text-muted text-small mb-0">Total Vacancies</p>
+														<h4 class="mb-0 fw-bold">{{ jobDetails.available_vacancies }}</h4>
+													</div>
+												</div>
+											</div>
+											<div class="col-md-2 col-6">
+												<div class="d-flex align-items-center gap-3">
+													<span><i class="fa-solid fa-user-tie fa-lg" style="color: #cc660a"></i></span>
+													<div>
+														<p class="text-muted text-small mb-0">Total Applied</p>
+														<h4 class="mb-0 fw-bold">{{ jobDetails.total_applied }}</h4>
+													</div>
+												</div>
+											</div>
+											<div class="col-md-8 col-12">
+												<p class="text-primary text-small fw-medium text-muted">
+													{{ jobDetails.matching_skills }}
+												</p>
+												<div class="d-flex flex-wrap gap-1 overflow-y-auto" style="max-height: 4rem">
+													<span *ngFor="let skill of jobDetails?.soft_skills" class="badge bg-badge-color text-white">{{ skill }}</span>
+												</div>
+											</div>
 										</div>
 									</div>
 								</div>
