@@ -110,7 +110,7 @@
 						<div class="card subjectcard" role="button" (click)="viewQuestions(item)">
 							<div class="card-body d-flex justify-content-center align-items-center">
 								<div class="py-3">
-									<img src="uniprep-assets/images/founderstool/growth.svg" height="50" width="50" alt="" />
+									<img [src]="item?.icon" height="50" width="50" alt="" />
 									<p class="text-start questiontext fw-bold questiontext mb-0 mt-2" title="{{ item.category_name }}">
 										{{ item.category_name }}
 									</p>
