@@ -4,8 +4,7 @@ import { ViewProfileComponent } from './view-profile/view-profile.component';
 import { DialogService, DynamicDialogRef } from 'primeng/dynamicdialog';
 import { TalentConnectService } from '../talent-connect.service';
 import { MessageService } from 'primeng/api';
-import { LocationService } from 'src/app/location.service';
-import { FounderstoolService } from '../../founderstool/founderstool.service';
+
 
 export enum FileType {
   CERTIFICATIONS = 'Certificates',

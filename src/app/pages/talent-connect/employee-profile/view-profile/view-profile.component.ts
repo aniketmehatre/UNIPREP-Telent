@@ -7,6 +7,7 @@ import { CardModule } from 'primeng/card';
 import { DialogModule } from 'primeng/dialog';
 import { DynamicDialogRef, DynamicDialogConfig } from 'primeng/dynamicdialog';
 import { TooltipModule } from 'primeng/tooltip';
+import { formatDate } from '@angular/common';
 
 // Simplified interfaces
 interface ProfileData {
@@ -287,7 +288,7 @@ export class ViewProfileComponent implements OnInit {
         companyName: exp.work_experience_company_name || '',
         jobTitle: exp.work_experience_job_title || '',
         employmentType: exp.work_experience_employment_type || '',
-        duration: (exp.work_experience_duration_from && exp.work_experience_duration_from) ? exp.work_experience_duration_from + '-' + exp.work_experience_duration_to : '',
+        duration: (exp.work_experience_duration_from && exp.work_experience_duration_from) ? formatDate(new Date(exp.work_experience_duration_from), 'MMM,dd,yyyy', 'en-US') + '-' + formatDate(new Date(exp.work_experience_duration_to), 'MMM,dd,yyyy', 'en-US') : '',
         salary: exp.work_experience_salary_per_month || '',
         responsibilities: exp.work_experience_job_responsibilities || '',
         experienceLetter: { name: exp.work_experience_experience_letter, file: exp.work_experience_experience_letter }
