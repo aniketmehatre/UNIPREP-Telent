@@ -22,8 +22,6 @@ interface DropdownOption {
     imports: [
         CommonModule,
         FormsModule,
-        Dialog,
-        Select,
         Tooltip,
         RouterLink,
         NgClass,

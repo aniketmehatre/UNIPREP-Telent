@@ -19,6 +19,15 @@
 	height: 100%;
 	object-fit: contain;
 }
+.card-border {
+	border: 1px solid var(--uniprep-primary);
+	border-radius: 10px;
+	background-color: white;
+	&.disabled {
+		opacity: 0.6; /* Makes the card appear grayed out */
+		cursor: not-allowed; /* Shows a disabled cursor */
+	}
+}
 
 .employercard {
 	&:hover {
@@ -26,7 +35,7 @@
 		border: 1px solid var(--uniprep-primary);
 		.btn-outline-primary {
 			background-color: var(--uniprep-primary) !important;
-      color: white !important;
+      		color: white !important;
 		}
 	}
 }
