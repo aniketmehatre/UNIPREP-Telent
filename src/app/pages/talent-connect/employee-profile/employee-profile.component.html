@@ -214,7 +214,7 @@
 												<!-- Field of Study / Major -->
 												<div class="col-md-6">
 													<label for="fieldOfStudy" class="form-label">Job Title</label>
-													<p-select id="highestQualification" [virtualScroll]="true" [virtualScrollItemSize]="50" formControlName="work_experience_job_title" [options]="jobTitles" placeholder="Select Job Title" styleClass="w-100 p-0" optionLabel="job_title" optionValue="job_title" [filter]="true" filterBy="job_title" [editable]="true" (mouseleave)="resetMessageBox()" [disabled]="experience.get('years_of_experience')?.value == 'Fresher'" (mouseenter)="updateMessageBox('work_experience_job_title')"></p-select>
+													<p-select id="highestQualification" pTooltip="Not able to find option type in this field" [virtualScroll]="true" [virtualScrollItemSize]="50" formControlName="work_experience_job_title" [options]="jobTitles" placeholder="Select Job Title" styleClass="w-100 p-0" optionLabel="job_title" optionValue="job_title" [filter]="true" filterBy="job_title" [editable]="true" (mouseleave)="resetMessageBox()" [disabled]="experience.get('years_of_experience')?.value == 'Fresher'" (mouseenter)="updateMessageBox('work_experience_job_title')"></p-select>
 												</div>
 
 												<!-- Course Name -->
@@ -302,7 +302,7 @@
 											</div>
 											<div class="col-md-6">
 												<label for="highestQualification" class="form-label">Job Title<span class="text-danger">*</span></label>
-												<p-select id="highestQualification" [virtualScroll]="true" [virtualScrollItemSize]="50"  formControlName="career_preference_job_title_id" [options]="jobTitles" placeholder="Select Job Title" styleClass="w-100" optionLabel="job_title" optionValue="job_title" [filter]="true" filterBy="job_title" [editable]="true" (mouseleave)="resetMessageBox()" (mouseenter)="updateMessageBox('career_preference_job_title_id')"></p-select>
+												<p-select id="highestQualification" pTooltip="Not able to find option type in this field" [virtualScroll]="true" [virtualScrollItemSize]="50"  formControlName="career_preference_job_title_id" [options]="jobTitles" placeholder="Select Job Title" styleClass="w-100" optionLabel="job_title" optionValue="job_title" [filter]="true" filterBy="job_title" [editable]="true" (mouseleave)="resetMessageBox()" (mouseenter)="updateMessageBox('career_preference_job_title_id')"></p-select>
 												<small class="text-danger" *ngIf="personalInfoForm.get('career_preference_job_title_id')?.invalid && personalInfoForm.get('career_preference_job_title_id')?.touched"> This field is mandatory </small>
 											</div>
 										</div>

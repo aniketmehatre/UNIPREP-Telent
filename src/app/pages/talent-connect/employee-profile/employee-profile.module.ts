@@ -20,6 +20,7 @@ import { ToastModule } from 'primeng/toast';
 import { MultiSelectModule } from 'primeng/multiselect';
 import { FluidModule } from 'primeng/fluid';
 import { EditorModule } from 'primeng/editor';
+import { TooltipModule } from 'primeng/tooltip';
 
 const routes: Routes = [
   {
@@ -51,7 +52,8 @@ const routes: Routes = [
     DatePickerModule,
     ToastModule,
     MultiSelectModule,
-    EditorModule
+    EditorModule,
+    TooltipModule
   ]
 })
 export class EmployeeProfileModule { }
