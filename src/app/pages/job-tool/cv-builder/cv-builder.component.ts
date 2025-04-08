@@ -1,15 +1,12 @@
-import { Component, OnInit, Renderer2, ElementRef, HostListener, AfterViewInit, ViewChild } from "@angular/core";
+import { Component, OnInit, AfterViewInit, ViewChild } from "@angular/core";
 import { MessageService, ConfirmationService } from "primeng/api";
 import { FormBuilder, FormGroup, FormArray, Validators, AbstractControl } from "@angular/forms";
-// import { CourseListService } from '../../course-list/course-list.service';
-import { HttpClient } from "@angular/common/http";
 import { TooltipModule } from 'primeng/tooltip';
 import { Router } from "@angular/router";
 import { MenuItem } from "primeng/api";
 import Swiper from "swiper";
 import { AuthService } from "../../../Auth/auth.service";
 import { LocationService } from "../../../location.service";
-import { JobSearchService } from "../../job-search/job-search.service";
 import { City } from "src/app/@Models/cost-of-living";
 import { CommonModule } from "@angular/common";
 import { DialogModule } from "primeng/dialog";
@@ -27,9 +24,9 @@ import { InputTextModule } from 'primeng/inputtext';
 import { InputGroupAddonModule } from 'primeng/inputgroupaddon';
 import { CvBuilderService } from "./cv-builder.service";
 import { TextareaModule } from 'primeng/textarea';
-import { DomSanitizer } from '@angular/platform-browser';
 import { PdfViewerModule } from "ng2-pdf-viewer";
 import { ConfirmPopup } from "primeng/confirmpopup";
+import { ToastModule } from 'primeng/toast';
 declare const pdfjsLib: any;
 
 interface ResumeHistory {
@@ -43,7 +40,7 @@ interface ResumeHistory {
   templateUrl: "./cv-builder.component.html",
   styleUrls: ["./cv-builder.component.scss"],
   standalone: true,
-  imports: [CommonModule, DialogModule, TextareaModule, SidebarModule, PdfViewerModule, RouterModule, CardModule, PaginatorModule, FormsModule, ReactiveFormsModule, CarouselModule, ButtonModule, MultiSelectModule, SelectModule, InputGroupModule, InputTextModule, InputGroupAddonModule, ConfirmPopup, TooltipModule],
+  imports: [CommonModule, DialogModule, TextareaModule, SidebarModule, PdfViewerModule, RouterModule, CardModule, PaginatorModule, FormsModule, ReactiveFormsModule, CarouselModule, ButtonModule, MultiSelectModule, SelectModule, InputGroupModule, InputTextModule, InputGroupAddonModule, ConfirmPopup, TooltipModule,ToastModule],
   providers: [CvBuilderService,ConfirmationService,MessageService]
 })
 export class CvBuilderComponent implements OnInit, AfterViewInit {
@@ -226,11 +223,11 @@ export class CvBuilderComponent implements OnInit, AfterViewInit {
   filteredExpeAndEduLocations: { [key: number]: any[] } = {};
   pdfThumbnails: { [key: string]: string } = {};
 
-  constructor(private toaster: MessageService, private fb: FormBuilder, private resumeService: CvBuilderService, private http: HttpClient, private router: Router, private confirmService: ConfirmationService, private renderer: Renderer2, private el: ElementRef, private authService: AuthService, private locationService: LocationService, private cityService: JobSearchService, private sanitizer: DomSanitizer) {
+  constructor(private toaster: MessageService, private fb: FormBuilder, private resumeService: CvBuilderService, private router: Router, private confirmService: ConfirmationService, private authService: AuthService, private locationService: LocationService) {
     this.resumeFormInfoData = this.fb.group({
       selected_exp_level: ["", Validators.required],
-      user_name: ["Your Full Name", Validators.required],
-      user_job_title: ["Your Job Title", Validators.required],
+      user_name: ["", Validators.required],
+      user_job_title: ["", Validators.required],
       user_email: ["", [Validators.required, Validators.email]],
       user_location: ["", Validators.required],
       country_code: ["+91"],
@@ -339,6 +336,18 @@ export class CvBuilderComponent implements OnInit, AfterViewInit {
     }
   }
 
+  getUserDetails(){
+    let userDetails = this.authService._user;
+		let location = userDetails?.district+', '+ userDetails?.state;
+		this.resumeFormInfoData.patchValue({
+			user_name: userDetails?.name,
+			user_email: userDetails?.email,
+			user_location: location,
+			user_phone: userDetails?.phone,
+			country_code: userDetails?.country_code,
+		});
+  }
+
   ngOnInit(): void {
     this.hideHeader();
     this.getLocationsList();
@@ -349,7 +358,6 @@ export class CvBuilderComponent implements OnInit, AfterViewInit {
         ["clean"], // Clear formatting button
       ],
     };
-    // this.triggerAddMoreButton();
     this.checkplanExpire();
     this.locationService.getImage().subscribe((imageUrl) => {
       this.orglogowhitelabel = imageUrl;
@@ -364,12 +372,6 @@ export class CvBuilderComponent implements OnInit, AfterViewInit {
     this.resumeFormInfoData.get("user_name")?.valueChanges.subscribe((value) => {
       this.splitUserName(value); // it calls when the user enters the user name
     });
-    // if (this.resumeFormInfoData.invalid) {
-    //   this.errorMessages = this.getWorkExpArray.controls.map(control =>
-    //     control.get('work_job_description')?.errors?.['maxWordsExceeded'] ? 'Job Description exceeds the maximum word limit.' : ''
-    //   );
-    //   return;
-    // }
     this.items = [{ label: "Personal Information" }, { label: "Work Experience" }, { label: "Your Education" }, { label: "Skills & Certifications" }, { label: "Additional Information" }];
     this.getCountryCodeList();
     this.skillsList();
@@ -605,6 +607,8 @@ export class CvBuilderComponent implements OnInit, AfterViewInit {
           });
           this.filledFields.push("language_known");
         }
+      }else{
+        this.getUserDetails();
       }
     });
   }
@@ -1274,19 +1278,32 @@ export class CvBuilderComponent implements OnInit, AfterViewInit {
     } else if (fieldName == "work_job_description") {
       // parameters.mode =  "work_job_description";
       this.genreateButtonDisabled[iteration] = true;
+      console.log(this.getWorkExpArray.value, "work job description");
       const work_designation = this.getWorkExpArray.value[iteration].work_designation;
       parameters.work_designation = work_designation;
-      // prompt = `Provide five roles and responsibilities for a ${work_designation} role without using headings.`;
-      // prompt = `Provide four bullet points with ul and li HTML tags detailing the roles and responsibilities for a ${work_designation} role, without any headings.`;
+    } else if(fieldName == "rephrase_summary"){
+      if (!formData.user_summary) {
+        this.toaster.add({ severity: "error", summary: "Error", detail: "Please provide user summary..!" });
+        return;
+      }else{
+        parameters.user_summary = formData.user_summary
+      }
+    }else if(fieldName == "rephrase_job_description"){
+      if (!this.getWorkExpArray.value[iteration].work_job_description) {
+        this.toaster.add({ severity: "error", summary: "Error", detail: "Please provide job description..!" });
+        return;
+      }else{
+        parameters.work_job_description = this.getWorkExpArray.value[iteration].work_job_description
+      }
     }
     console.log(parameters, "parameters");
     this.resumeService.openAiIntegration(parameters).subscribe((res) => {
       if (res.response && res.response.length > 0) {
-        if (fieldName == "user_summary") {
+        if (fieldName == "user_summary" || fieldName == "rephrase_summary") {
           this.resumeFormInfoData.patchValue({
             user_summary: res.response,
           });
-        } else if (fieldName == "work_job_description") {
+        } else if (fieldName == "work_job_description" || fieldName == "rephrase_job_description") {
           const workExpArray = this.getWorkExpArray;
           if (workExpArray.length > 0) {
             const firstWorkExpGroup = workExpArray.at(iteration) as FormGroup;

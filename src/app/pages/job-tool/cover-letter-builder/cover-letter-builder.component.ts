@@ -551,7 +551,7 @@ export class CoverLetterBuilderComponent implements OnInit, AfterViewInit {
 		if (this.moduleActiveIndex === 0) {
 			controlNames = ["user_name", "user_job_title", "user_email", "user_location", "user_phone"]
 		} else if (this.moduleActiveIndex === 1) {
-			controlNames = ["org_name", "managername", "org_location", "jobposition"]
+			controlNames = ["org_name", "org_location", "jobposition"]
 		} else if (this.moduleActiveIndex === 2) {
 			controlNames = ["user_summary"]
 		}
