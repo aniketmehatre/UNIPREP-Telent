@@ -38,7 +38,7 @@
 									<div class="col-md-6" [ngStyle]="recommendation.id == 7 ? { width: '100%' } : {}">
 										<div class="recommendationinput d-flex flex-column justify-content-center gap-3">
 											<ng-container *ngIf="recommendation.id == 1">
-												<p-select styleClass="w-100" placeholder="Job Role" display="chip" optionLabel="jobrole" optionValue="id" [options]="jobRoles" [(ngModel)]="selectedData[recommendation.id]" [appendTo]="'body'" [virtualScroll]="true" [virtualScrollItemSize]="10" [filter]="true" [filterBy]="'jobrole'"></p-select>
+												<p-select styleClass="w-100" placeholder="Select Job role" display="chip" optionLabel="jobrole" optionValue="id" [options]="jobRoles" [(ngModel)]="selectedData[recommendation.id]" [appendTo]="'body'" [virtualScroll]="true" [virtualScrollItemSize]="10" [filter]="true" [filterBy]="'jobrole'"></p-select>
 												<!-- <div class="col-md-11 col-lg-11 mb-2 mb-md-0 position-relative">
 													<span class="p-input-icon-left w-100">
 														<i class="fa-solid fa-search"></i>
@@ -51,23 +51,23 @@
 												<p class="text-center" [ngClass]="{ 'd-none': invalidClass === false }" style="color: red">Please Choose Any one option</p>
 											</ng-container>
 											<ng-container *ngIf="recommendation.id == 2">
-												<p-multiSelect styleClass="w-100" placeholder="Select any two" display="chip" optionLabel="soft_skill_name" optionValue="id" [options]="softSkills" [selectionLimit]="2" [displaySelectedLabel]="true" [(ngModel)]="selectedData[recommendation.id]" [appendTo]="'body'"></p-multiSelect>
+												<p-multiSelect styleClass="w-100" placeholder="Select any two soft skills" display="chip" optionLabel="soft_skill_name" optionValue="id" [options]="softSkills" [selectionLimit]="2" [displaySelectedLabel]="true" [(ngModel)]="selectedData[recommendation.id]" [appendTo]="'body'"></p-multiSelect>
 												<p class="text-center" [ngClass]="{ 'd-none': invalidClass === false }" style="color: red">Please Choose Any Two options</p>
 											</ng-container>
 											<ng-container *ngIf="recommendation.id == 3">
-												<p-multiSelect styleClass="w-100" placeholder="Select any two" display="chip" optionLabel="hard_skill" optionValue="hard_skill" [options]="hardSkills" [selectionLimit]="2" [displaySelectedLabel]="true" [(ngModel)]="selectedData[recommendation.id]" [appendTo]="'body'"></p-multiSelect>
+												<p-multiSelect styleClass="w-100" placeholder="Select any two professional skills" display="chip" optionLabel="hard_skill" optionValue="hard_skill" [options]="hardSkills" [selectionLimit]="2" [displaySelectedLabel]="true" [(ngModel)]="selectedData[recommendation.id]" [appendTo]="'body'"></p-multiSelect>
 												<p class="text-center" [ngClass]="{ 'd-none': invalidClass === false }" style="color: red">Please Choose Any Two options</p>
 											</ng-container>
 											<ng-container *ngIf="recommendation.id == 4">
-												<p-select styleClass="w-100" placeholder="Select" display="chip" optionLabel="experience" optionValue="id" [options]="jobExperience" [(ngModel)]="selectedData[recommendation.id]" [appendTo]="'body'"></p-select>
+												<p-select styleClass="w-100" placeholder="Select experience" display="chip" optionLabel="experience" optionValue="id" [options]="jobExperience" [(ngModel)]="selectedData[recommendation.id]" [appendTo]="'body'"></p-select>
 												<p class="text-center" [ngClass]="{ 'd-none': invalidClass === false }" style="color: red">Please Choose Any one option</p>
 											</ng-container>
 											<ng-container *ngIf="recommendation.id == 5">
-												<p-select styleClass="w-100" placeholder="Select" display="chip" optionLabel="reasons" optionValue="id" [options]="joiningReasons" [(ngModel)]="selectedData[recommendation.id]" [appendTo]="'body'"></p-select>
+												<p-select styleClass="w-100" placeholder="Select reason" display="chip" optionLabel="reasons" optionValue="id" [options]="joiningReasons" [(ngModel)]="selectedData[recommendation.id]" [appendTo]="'body'"></p-select>
 												<p class="text-center" [ngClass]="{ 'd-none': invalidClass === false }" style="color: red">Please Choose Any one option</p>
 											</ng-container>
 											<ng-container *ngIf="recommendation.id == 6">
-												<p-select styleClass="w-100" placeholder="Select" display="chip" optionLabel="industry" optionValue="id" [options]="industries" [(ngModel)]="selectedData[recommendation.id]" [appendTo]="'body'"></p-select>
+												<p-select styleClass="w-100" placeholder="Select industry" display="chip" optionLabel="industry" optionValue="id" [options]="industries" [(ngModel)]="selectedData[recommendation.id]" [appendTo]="'body'"></p-select>
 												<p class="text-center" [ngClass]="{ 'd-none': invalidClass === false }" style="color: red">Please Choose Any one option</p>
 											</ng-container>
 											<ng-container *ngIf="recommendation.id == 7">
