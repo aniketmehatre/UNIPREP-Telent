@@ -169,9 +169,11 @@ export class GlobalTravelVisaComponent implements OnInit {
 				this.isRecommendationEachVisaNameData = false
 				this.recomendationData = response.Data
 				const uniqueVisaData = Array.from(
-					new Set(this.recomendationData.map((item) => item.visa_name)) // Extract unique visa names
-				).map((visa_name) => ({ visa_name }))
-				this.recommendationDataList = uniqueVisaData				
+					new Map(
+					  this.recomendationData.map((item) => [item.visa_name, { visa_name: item.visa_name, visa_icons: item.visa_icons }])
+					).values()
+				  );
+				this.recommendationDataList = uniqueVisaData								
 			},
 			error: (error) => {
 				this.isRecommendationData = false
