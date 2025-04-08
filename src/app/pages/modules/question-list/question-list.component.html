@@ -293,7 +293,7 @@
 						</div>
 	
 						<!-- Right Arrow (Circular Scrolling) -->
-						<button class="scroll-btn-vedio  right" (click)="scrollRight()" aria-label="Scroll Right">
+						<button class="scroll-btn-vedio  right" *ngIf="oneQuestionContent?.videolink?.length > 0"  (click)="scrollRight()" aria-label="Scroll Right">
 							<i class="fa-solid fa-chevron-right"></i>
 						</button>
 					</div>
@@ -316,7 +316,8 @@
 						</div>
 	
 						<!-- Right Arrow (Circular Scrolling) -->
-						<button class="scroll-btn-link right" (click)="scrollRightLinks()" aria-label="Scroll Right">
+						<button class="scroll-btn-link right" *ngIf="oneQuestionContent?.reflink?.length > 0"
+                                (click)="scrollRightLinks()" aria-label="Scroll Right">
 							<i class="fa-solid fa-chevron-right"></i>
 						</button>
 					</div>

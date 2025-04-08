@@ -90,25 +90,28 @@
 				<div class="col-md-2"></div>
 			</div>
 		</div>
-		<div *ngIf="isSkeletonVisible">
-			<div class="row">
-				<div *ngFor="let index of loopRange" class="col-xxl-2 col-xl-3 col-lg-3 col-md-4 col-sm-6 col-xs-12 col-12">
-					<div class="card my-2">
-						<div class="card-body">
-							<div class="row align-items-center">
-								<div class="col-8 col-md-12">
-									<p-skeleton styleClass="mb-1" width="100%"></p-skeleton>
-									<p-skeleton styleClass="mb-1" width="100%"></p-skeleton>
-									<p-skeleton styleClass="mb-2" width="80%"></p-skeleton>
-								</div>
-								<div class="col-4 col-md-12">
-									<p-skeleton height="3rem" width="100%" borderRadius="100px"></p-skeleton>
-								</div>
-							</div>
-						</div>
+		<div *ngIf="isSkeletonVisible" class="row">
+			<div class="col-md-2"></div>
+			<div class="col-md-8">
+				<p-skeleton width='30rem' height='2rem' styleClass="mb-2"></p-skeleton>
+				<div  class="card p-3 chatgpt-response bg-white h-100 overflow-y-auto">
+					<p-skeleton width='30rem' height='2rem' styleClass="mb-2"></p-skeleton>
+					<p-skeleton width='100%' height='1rem' styleClass="mb-2"></p-skeleton>
+					<p-skeleton width='100%' height='1rem' styleClass="mb-2"></p-skeleton>
+					<p-skeleton width='90%' height='1rem' styleClass="mb-2"></p-skeleton>
+					<p-skeleton width='100%' height='1rem' styleClass="mb-2"></p-skeleton>
+					<p-skeleton width='95%' height='1rem' styleClass="mb-2"></p-skeleton>
+					<p-skeleton width='50%' height='1rem'></p-skeleton>
+					<div class="divider"></div>
+					<p-skeleton width='30rem' height='2rem' styleClass="mb-2"></p-skeleton>
+					<p-skeleton width='100%' height='1rem' styleClass="mb-2"></p-skeleton>
+					<p-skeleton width='100%' height='1rem' styleClass="mb-2"></p-skeleton>
+					<div class="d-flex justify-content-end">
+						<uni-percentage-loader />
 					</div>
 				</div>
 			</div>
+			<div class="col-md-2"></div>
 		</div>
 		<div *ngIf="!isSkeletonVisible && totalDataCount != 0 && !EstimateResponseVisibility" [ngClass]="readResponse ? 'h-100' : 'row'">
 			<ng-container *ngIf="readResponse">

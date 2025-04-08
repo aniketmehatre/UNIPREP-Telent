@@ -21,6 +21,8 @@ import { DownloadRespose } from "src/app/@Models/travel-tools.model"
 import { TravelToolsService } from "../../travel-tools/travel-tools.service"
 import { DomSanitizer, SafeHtml } from "@angular/platform-browser"
 import { PromptService } from "../../prompt.service"
+import { SkeletonModule } from "primeng/skeleton"
+import { SharedModule } from "src/app/shared/shared.module"
 interface DropDown {
 	[key: string]: string
 }
@@ -30,7 +32,7 @@ interface DropDown {
 	templateUrl: "./startup-risk-assessment.component.html",
 	styleUrls: ["./startup-risk-assessment.component.scss"],
 	standalone: true,
-	imports: [CommonModule, RouterModule, DialogModule, CardModule, PaginatorModule, FormsModule, ReactiveFormsModule, CarouselModule, ButtonModule, MultiSelectModule, SelectModule, InputGroupModule, InputTextModule, InputGroupAddonModule],
+	imports: [CommonModule, RouterModule, DialogModule, CardModule, PaginatorModule, FormsModule, ReactiveFormsModule, CarouselModule, ButtonModule, MultiSelectModule, SelectModule, InputGroupModule, InputTextModule, InputGroupAddonModule, SkeletonModule, SharedModule],
 })
 export class StartupRiskAssessmentComponent implements OnInit {
 	recommendations: { id: number; question: string }[] = [
@@ -66,7 +68,9 @@ export class StartupRiskAssessmentComponent implements OnInit {
 	enableModule: boolean = false
 	isFromSavedData: boolean = false
 	currencyList: any = []
-	constructor(private fb: FormBuilder, private founderToolService: FounderstoolService, private router: Router, private toast: MessageService, private travelToolService: TravelToolsService, private sanitizer: DomSanitizer, private promptService: PromptService) {}
+	isResponseSkeleton: boolean = false;
+
+	constructor(private fb: FormBuilder, private founderToolService: FounderstoolService, private router: Router, private toast: MessageService, private travelToolService: TravelToolsService, private sanitizer: DomSanitizer, private promptService: PromptService) { }
 
 	ngOnInit(): void {
 		this.getCurrenyandLocation()
@@ -132,14 +136,17 @@ export class StartupRiskAssessmentComponent implements OnInit {
 			currency: this.selectedData[10],
 			mode: "startup_risk_assessment",
 		}
+		this.isRecommendationQuestion = false
+		this.isRecommendationSavedData = false
+		this.isRecommendationData = true
+		this.isResponseSkeleton = true;
 		this.founderToolService.getChatgptRecommendations(data).subscribe({
 			next: (response) => {
-				this.isRecommendationQuestion = false
-				this.isRecommendationData = true
-				this.isRecommendationSavedData = false
+				this.isResponseSkeleton = false;
 				this.recommendationData = this.sanitizer.bypassSecurityTrustHtml(response.response)
 			},
 			error: (error) => {
+				this.isResponseSkeleton = false;
 				this.isRecommendationData = false
 			},
 		})
@@ -163,7 +170,7 @@ export class StartupRiskAssessmentComponent implements OnInit {
 					this.isRecommendationSavedData = true
 					this.recommadationSavedQuestionList = response.data
 				},
-				error: (error) => {},
+				error: (error) => { },
 			})
 		}
 	}

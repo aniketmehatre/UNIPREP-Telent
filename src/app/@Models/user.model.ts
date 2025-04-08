@@ -51,4 +51,5 @@ export interface User {
     is_phn_or_whs_verified: number;
     login_status: number;
     ilearn_popup_status: number;
+    country_code: number;
 }

@@ -19,12 +19,14 @@ import { DownloadRespose } from 'src/app/@Models/travel-tools.model';
 import { TravelToolsService } from '../../travel-tools/travel-tools.service';
 import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
 import { PromptService } from '../../prompt.service';
+import { SkeletonModule } from 'primeng/skeleton';
+import { SharedModule } from 'src/app/shared/shared.module';
 @Component({
   selector: 'uni-global-edufit',
   templateUrl: './global-edufit.component.html',
   styleUrls: ['./global-edufit.component.scss'],
   standalone: true,
-  imports: [CommonModule, SelectModule,RouterModule, DialogModule, CardModule, PaginatorModule,CarouselModule, ButtonModule, FormsModule, ReactiveFormsModule]
+  imports: [CommonModule, SelectModule,RouterModule, DialogModule, CardModule, PaginatorModule,CarouselModule, ButtonModule, FormsModule, ReactiveFormsModule, SkeletonModule, SharedModule]
 })
 export class GlobalEdufitComponent implements OnInit {
   universityList: any = [];
@@ -60,6 +62,8 @@ export class GlobalEdufitComponent implements OnInit {
   isRecommendationData: boolean = false;
   isRecommendationSavedData: boolean = false;
   recommendationData: SafeHtml;
+	isResponseSkeleton: boolean = false;
+
   constructor(
     private fb: FormBuilder,
     private educationToolService: EducationToolsService,
@@ -220,14 +224,17 @@ export class GlobalEdufitComponent implements OnInit {
       interested_country: formData.interested_country.country,
       mode: 'global_edufit'
     }
+    this.isRecommendationQuestion = false;
+    this.isRecommendationSavedData = false;
+    this.isRecommendationData = true;
+		this.isResponseSkeleton = true;
     this.educationToolService.getChatgptRecommendations(data).subscribe({
       next: response => {
-        this.isRecommendationQuestion = false;
-        this.isRecommendationData = true;
-        this.isRecommendationSavedData = false;
+				this.isResponseSkeleton = false;
 				this.recommendationData = this.sanitizer.bypassSecurityTrustHtml(response.response);
       },
       error: error => {
+				this.isResponseSkeleton = false;
         this.isRecommendationData = false;
       }
     });

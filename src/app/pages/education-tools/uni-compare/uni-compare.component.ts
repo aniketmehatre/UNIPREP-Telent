@@ -25,13 +25,15 @@ import { DownloadRespose } from 'src/app/@Models/travel-tools.model';
 import { TravelToolsService } from '../../travel-tools/travel-tools.service';
 import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
 import { PromptService } from '../../prompt.service';
+import { SharedModule } from 'src/app/shared/shared.module';
+import { SkeletonModule } from 'primeng/skeleton';
 
 @Component({
   selector: 'uni-uni-compare',
   templateUrl: './uni-compare.component.html',
   styleUrls: ['./uni-compare.component.scss'],
   standalone: true,
-  imports: [CommonModule, RouterModule, DialogModule, CardModule, PaginatorModule, FormsModule, ReactiveFormsModule, CarouselModule, ButtonModule, CommonModule, RouterModule, DialogModule, MultiSelectModule, SelectModule, CardModule, InputGroupModule, InputTextModule, InputGroupAddonModule]
+  imports: [CommonModule, RouterModule, DialogModule, CardModule, PaginatorModule, FormsModule, ReactiveFormsModule, CarouselModule, ButtonModule, CommonModule, RouterModule, DialogModule, MultiSelectModule, SelectModule, CardModule, InputGroupModule, InputTextModule, InputGroupAddonModule,SkeletonModule, SharedModule]
 })
 export class UniCompareComponent implements OnInit, OnDestroy {
   panelStyle: { width: string } = { width: '360px' };
@@ -69,6 +71,8 @@ export class UniCompareComponent implements OnInit, OnDestroy {
   isRecommendationData: boolean = false;
   isRecommendationSavedData: boolean = false;
   recommendationData: SafeHtml = '';
+	isResponseSkeleton: boolean = false;
+
   constructor(
     private fb: FormBuilder,
     private educationToolService: EducationToolsService,
@@ -292,16 +296,20 @@ export class UniCompareComponent implements OnInit, OnDestroy {
       university: formData.university.university_name,
       compare_university: formData.compare_university.university_name,
     }
+    this.isRecommendationQuestion = false;
+    this.isRecommendationSavedData = false;
+    this.isRecommendationData = true;
+		this.isResponseSkeleton = true;
     this.educationToolService.getChatgptRecommendations(data).subscribe({
       next: response => {
-        this.isRecommendationQuestion = false;
-        this.isRecommendationData = true;
-        this.isRecommendationSavedData = false;
+				this.isResponseSkeleton = false;
 				this.recommendationData = this.sanitizer.bypassSecurityTrustHtml(response.response);
       },
-      error: error => {
-        this.isRecommendationData = false;
-      }
+      error: (error) => {
+				console.error(error);
+				this.isResponseSkeleton = false;
+				this.isRecommendationData = false;
+			}
     });
   }
 

@@ -23,13 +23,14 @@ import { InputNumberModule } from "primeng/inputnumber"
 import { DownloadRespose } from "src/app/@Models/travel-tools.model"
 import { DomSanitizer, SafeHtml } from "@angular/platform-browser"
 import { PromptService } from "../../prompt.service"
+import { SharedModule } from "src/app/shared/shared.module"
 
 @Component({
 	selector: "uni-travel-packing-planner",
 	templateUrl: "./travel-packing-planner.component.html",
 	styleUrls: ["./travel-packing-planner.component.scss"],
 	standalone: true,
-	imports: [CommonModule, RouterModule, SkeletonModule, FluidModule, InputTextModule, TooltipModule, ButtonModule, MultiSelectModule, CarouselModule, InputGroupModule, InputGroupAddonModule, FormsModule, ReactiveFormsModule, InputTextModule, SelectModule, DialogModule, CardModule, InputNumberModule],
+	imports: [CommonModule, RouterModule, SkeletonModule, FluidModule, InputTextModule, TooltipModule, ButtonModule, MultiSelectModule, CarouselModule, InputGroupModule, InputGroupAddonModule, FormsModule, ReactiveFormsModule, InputTextModule, SelectModule, DialogModule, CardModule, InputNumberModule, SharedModule],
 })
 export class TravelPackingPlannerComponent implements OnInit {
 	recommendations: { id: number; question: string }[] = TravelPackingPlannerQuestionList
@@ -67,6 +68,7 @@ export class TravelPackingPlannerComponent implements OnInit {
 	isRecommendationSavedData: boolean = false
 	recommadationSavedQuestionList: any[] = [];
 	isFromSavedData: boolean = false;
+	isResponseSkeleton: boolean = false;
 	
 	constructor(private travelToolsService: TravelToolsService, private router: Router, private costOfLivingService: CostOfLivingService, private toast: MessageService, private sanitizer: DomSanitizer, private promptService : PromptService) { }
 
@@ -110,15 +112,19 @@ export class TravelPackingPlannerComponent implements OnInit {
 			travel_month: this.selectedData[5],
 			mode: "travel_packaging_planner",
 		}
+		this.isRecommendationQuestion = false;
+		this.isRecommendationData = true;
+		this.isRecommendationSavedData = false;
+		this.isResponseSkeleton = true;
 		this.travelToolsService.getChatgptRecommendations(data).subscribe({
 			next: (response) => {
-				this.isRecommendationQuestion = false;
-				this.isRecommendationData = true;
-				this.isRecommendationSavedData = false;
+				this.isResponseSkeleton = false;
 				this.recommendationData = this.sanitizer.bypassSecurityTrustHtml(response.response)
 			},
 			error: (error) => {
-				this.isRecommendationData = false
+				console.error(error);
+				this.isResponseSkeleton = false;
+				this.isRecommendationData = false;
 			},
 		})
 	}

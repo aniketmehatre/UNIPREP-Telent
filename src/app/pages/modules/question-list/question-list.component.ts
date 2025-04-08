@@ -668,7 +668,6 @@ export class QuestionListComponent implements OnInit {
 		// this.cdRef.markForCheck();
 		this.oneQuestionContent = questionData
 		this.isQuestionAnswerVisible = true
-		console.log(this.oneQuestionContent);
 		this.vediolink=this.oneQuestionContent.videolink
 		this.weblink=this.oneQuestionContent.reflink
 		// this.getSubmoduleName(questionData.country_id)

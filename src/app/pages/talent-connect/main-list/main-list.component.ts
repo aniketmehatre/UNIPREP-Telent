@@ -20,7 +20,7 @@ export class MainListComponent implements OnInit {
             {
                 id: 1,
                 title: 'YOUR PROFILE',
-                image: this.domainUrl + "TripLengthFinder.svg",
+                image: './uniprep-assets/images/employer-connect/YourProfile.svg',
                 value: '1 M+ Profiles',
                 navigate_title: 'Create Profile',
                 navigate_url: '/pages/talent-connect/my-profile',
@@ -29,7 +29,7 @@ export class MainListComponent implements OnInit {
             {
                 id: 2,
                 title: "EASY APPLY",
-                image: this.domainUrl + "TripLengthFinder.svg",
+                image: './uniprep-assets/images/employer-connect/EasyApply.svg',
                 value: '1 M+ JOBS',
                 navigate_title: 'Apply',
                 navigate_url: '/pages/talent-connect/easy-apply',
@@ -38,8 +38,8 @@ export class MainListComponent implements OnInit {
             {
                 id: 3,
                 title: "COMPANY CONNECT",
-                image: this.domainUrl + "TripLengthFinder.svg",
-                value: '1 M+ JOBS',
+                image: './uniprep-assets/images/employer-connect/CompanyConnect.svg',
+                value: '100+ Companies',
                 navigate_title: 'Connect',
                 navigate_url: '/pages/talent-connect/company-connect',
                 launch_soon: false,

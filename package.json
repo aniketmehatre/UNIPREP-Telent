@@ -40,6 +40,7 @@
     "@types/facebook-js-sdk": "^3.3.10",
     "angular-fittext": "^2.1.1",
     "angular-linkedin-sdk": "^0.2.0",
+    "angular-socialshare": "^2.3.11",
     "angularx-social-login": "^4.1.0",
     "autoprefixer": "^10.4.20",
     "bootstrap": "^5.3.3",

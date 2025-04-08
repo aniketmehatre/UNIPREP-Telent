@@ -1,40 +1,47 @@
-import { SocialAuthService } from "@abacritt/angularx-social-login"
-import { CommonModule } from "@angular/common"
-import { Component, ElementRef, EventEmitter, Input, OnDestroy, OnInit, Output, ViewChild, ViewEncapsulation } from "@angular/core"
-import { AbstractControl, FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators } from "@angular/forms"
-import { ActivatedRoute, Router, RouterModule } from "@angular/router"
-import { MenuItem, MessageService } from "primeng/api"
-import { AuthService } from "../../../Auth/auth.service"
-import { SubSink } from "subsink"
-import { NavigationEnd } from "@angular/router"
-import { LocationService } from "../../../location.service"
-import { DataService } from "src/app/data.service"
-import { matchValidator } from "../../../@Supports/matchvalidator"
-import { ThemeService } from "../../../theme.service"
-import { DashboardService } from "src/app/pages/dashboard/dashboard.service"
-import { count, Observable, of, EMPTY, forkJoin, timeout, finalize, catchError } from "rxjs"
-import { CountryISO, SearchCountryField } from "ngx-intl-tel-input"
-import { environment } from "@env/environment"
-import { NgxIntlTelInputModule } from "ngx-intl-tel-input"
-import { DialogModule } from "primeng/dialog"
-import { PopoverModule } from "primeng/popover"
-import { TabsModule } from "primeng/tabs"
-import { ILearnChallengeData } from "src/app/@Models/ilearn-challenge.model"
-import { AssessmentService } from "src/app/pages/assessment/assessment.service"
-import { ModuleServiceService } from "src/app/pages/module-store/module-service.service"
-import { AvatarModule } from "primeng/avatar"
-import { InputTextModule } from "primeng/inputtext"
-import { switchMap, take } from "rxjs/operators"
-import { SelectModule } from "primeng/select"
-import { TabViewModule } from "primeng/tabview"
-import { InputGroupModule } from "primeng/inputgroup"
-import { InputGroupAddonModule } from "primeng/inputgroupaddon"
-import { TextareaModule } from 'primeng/textarea'
-import { AuthTokenService } from 'src/app/core/services/auth-token.service'
-import CryptoJS from "crypto-js";
-import { AvatarGroupModule } from 'primeng/avatargroup';
+import {SocialAuthService} from "@abacritt/angularx-social-login"
+import {CommonModule} from "@angular/common"
+import {
+	Component,
+	ElementRef,
+	EventEmitter,
+	Input,
+	OnDestroy,
+	OnInit,
+	Output,
+	ViewChild,
+	ViewEncapsulation
+} from "@angular/core"
+import {AbstractControl, FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators} from "@angular/forms"
+import {ActivatedRoute, NavigationEnd, Router, RouterModule} from "@angular/router"
+import {MenuItem, MessageService} from "primeng/api"
+import {AuthService} from "../../../Auth/auth.service"
+import {SubSink} from "subsink"
+import {LocationService} from "../../../location.service"
+import {DataService} from "src/app/data.service"
+import {ThemeService} from "../../../theme.service"
+import {DashboardService} from "src/app/pages/dashboard/dashboard.service"
+import {catchError, count, EMPTY, finalize, forkJoin, Observable, of, timeout} from "rxjs"
+import {CountryISO, NgxIntlTelInputModule, SearchCountryField} from "ngx-intl-tel-input"
+import {environment} from "@env/environment"
+import {DialogModule} from "primeng/dialog"
+import {PopoverModule} from "primeng/popover"
+import {TabsModule} from "primeng/tabs"
+import {ILearnChallengeData} from "src/app/@Models/ilearn-challenge.model"
+import {AssessmentService} from "src/app/pages/assessment/assessment.service"
+import {ModuleServiceService} from "src/app/pages/module-store/module-service.service"
+import {AvatarModule} from "primeng/avatar"
+import {InputTextModule} from "primeng/inputtext"
+import {take} from "rxjs/operators"
+import {SelectModule} from "primeng/select"
+import {TabViewModule} from "primeng/tabview"
+import {InputGroupModule} from "primeng/inputgroup"
+import {InputGroupAddonModule} from "primeng/inputgroupaddon"
+import {TextareaModule} from 'primeng/textarea'
+import {AuthTokenService} from 'src/app/core/services/auth-token.service'
+import {AvatarGroupModule} from 'primeng/avatargroup';
 import {StorageService} from "../../../storage.service";
-import { DropdownModule } from "primeng/dropdown";
+import {DropdownModule} from "primeng/dropdown";
+import {AutoFocus} from "primeng/autofocus";
 
 // import { SocialAuthService } from "@abacritt/angularx-social-login";
 
@@ -62,9 +69,9 @@ import { DropdownModule } from "primeng/dropdown";
 		InputGroupAddonModule,
 		TextareaModule,
 		AvatarGroupModule,
-		DropdownModule
+		DropdownModule,
 	],
-	providers: [MessageService, AuthService, LocationService, ThemeService, DashboardService, AssessmentService, AuthTokenService],
+	providers: [AuthService, LocationService, ThemeService, DashboardService, AssessmentService, AuthTokenService],
 })
 export class HeaderComponent implements OnInit, OnDestroy {
 	@ViewChild("op") op!: ElementRef<HTMLInputElement>
@@ -176,7 +183,12 @@ export class HeaderComponent implements OnInit, OnDestroy {
 	phone: string = ''
 
 	isLoading: boolean = false
-
+	// otp = new FormArray([
+	//   new FormControl(''),
+	//   new FormControl(''),
+	//   new FormControl(''),
+	//   new FormControl(''),
+	// ]);
 	constructor(
 		private router: Router,
 		private locationService: LocationService,
@@ -216,6 +228,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
 		this.phoneVerification = this.formBuilder.group({
 			verification_phone: ["", Validators.required],
 			choice: [false, Validators.required],
+			otp: this.otp
 		})
 
 		this.setPasswordForm = this.formBuilder.group(
@@ -370,6 +383,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
 	sendOTP() {
 		this.phoneVerification.disable()
 		let formData = this.phoneVerification.value
+
 		let sendPhoneNumber = {
 			country_code: formData.verification_phone.dialCode,
 			phone: formData.verification_phone.number,
@@ -396,6 +410,8 @@ export class HeaderComponent implements OnInit, OnDestroy {
 		})
 	}
 
+	phoneNumber: any
+	isPhoneDisabled: boolean = true
 	submitPhoneVerification() {
 		let formData = this.phoneVerification.value
 		let sendOTP = {
@@ -403,16 +419,30 @@ export class HeaderComponent implements OnInit, OnDestroy {
 			phone: formData.verification_phone.number,
 			dial_code: formData.verification_phone.countryCode,
 			otp: this.otp.join(""),
-			whatsapp_number_or_not: formData.choice == "yes" ? "no" : "yes",
+			whatsapp_number_or_not: formData.choice,
 		}
+		this.phoneVerification.get('verification_phone')?.disable();
+
 		this.service.validateWhatsappOtp(sendOTP).subscribe({
 			next: (response) => {
-				this.whatsappVerification = false
-				this.toast.add({
-					severity: "success",
-					summary: "Success",
-					detail: "Phone number verified successfully",
-				})
+				if (response.message == 'Otp Invalid') {
+					this.toast.add({
+						severity: "error",
+						summary: "Error",
+						detail: response.message,
+					})
+				} else {
+					this.whatsappVerification = false
+					this.freeTrial = true
+					this.isPhoneDisabled = true
+					this.formvisbility = true
+					this.phoneNumber = formData.verification_phone.number
+					this.toast.add({
+						severity: "success",
+						summary: "Success",
+						detail: 'OTP validated successfully',
+					})
+				}
 			},
 			error: (error) => {
 				this.isResendOTP = true
@@ -422,7 +452,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
 				this.toast.add({
 					severity: "error",
 					summary: "Error",
-					detail: error?.message,
+					detail: error?.error.message,
 				})
 			},
 		})
@@ -490,7 +520,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
 				const userDetails = response.userdetails[0];
 				this.userName = userDetails.name || '';
 				this.firstChar = this.userName ? this.userName.charAt(0).toUpperCase() : '';
-				
+
 				// Set home country icon if available
 				if (userDetails.home_country_id) {
 					this.homeCountryId = userDetails.home_country_id;
@@ -649,7 +679,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
 
 			// Get decrypted phone using auth service
 			// let phoneValue = await this.service.decryptData(encryptedPhone);
-			
+
 			// Handle the decrypted phone data
 			if (phoneValue) {
 				// let phoneValue;
@@ -777,8 +807,8 @@ export class HeaderComponent implements OnInit, OnDestroy {
 					this.demoDays = data.userdetails[0].login_status.replace("Demo-", "")
 				}
 				/*if (data.userdetails[0].login_status == "Demo") {
-          this.demoTrial = true;
-        } */
+		  this.demoTrial = true;
+		} */
 				let programLevelId = data.userdetails[0].programlevel_id
 				if (programLevelId == null || programLevelId == "null" || programLevelId == "") {
 					this.currentEducation = true
@@ -927,7 +957,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
 			})
 		).subscribe(socialUser => {
 			if (socialUser) {
-				this.authService.signOut().catch(error => 
+				this.authService.signOut().catch(error =>
 					console.warn('Social logout error:', error)
 				);
 			}
@@ -1073,130 +1103,130 @@ export class HeaderComponent implements OnInit, OnDestroy {
 
 	subScribedUserCount(): void {
 		this.service.getNewUserTimeLeft().subscribe((res) => {
-		  this.currentUserSubscriptionPlan = res?.subscription_details?.subscription_plan;
-		  this.enterpriseSubscriptionLink = res.enterprise_subscription_link;
-		  let data = res.time_left;
-		  if (data.plan === "not_started") {
-			this.visible = false;
-		  } else {
-			this.getTimer(
-			  data.minutes,
-			  data.seconds,
-			  data.hours,
-			  data.days,
-			  data.months
-			);
-		  }
+			this.currentUserSubscriptionPlan = res?.subscription_details?.subscription_plan;
+			this.enterpriseSubscriptionLink = res.enterprise_subscription_link;
+			let data = res.time_left;
+			if (data.plan === "not_started") {
+				this.visible = false;
+			} else {
+				this.getTimer(
+					data.minutes,
+					data.seconds,
+					data.hours,
+					data.days,
+					data.months
+				);
+			}
 		});
-	  }
-	
-	  getTimer(minute: any, sec: any, hours: any, days: any, months: any): void {
+	}
+
+	getTimer(minute: any, sec: any, hours: any, days: any, months: any): void {
 		let totalSeconds: number = hours * 3600 + minute * 60 + sec;
 		let textSec: string | number = "0";
-	
+
 		this.timerInterval = setInterval(() => {
-		  totalSeconds--;
-	
-		  const hoursLeft: number = Math.floor(totalSeconds / 3600);
-		  const minutesLeft: number = Math.floor((totalSeconds % 3600) / 60);
-		  const secondsLeft: number = totalSeconds % 60;
-	
-		  this.min$ =
-			minutesLeft < 10 && minutesLeft > 0 ? "0" + minutesLeft.toString() : minutesLeft.toString();
-		  this.sec$ =
-			secondsLeft < 10 && secondsLeft > 0 ? "0" + secondsLeft.toString() : secondsLeft.toString();
-	
-		  this.hrs$ = hoursLeft;
-		  // this.min$ = textMin;
-		  // this.sec$ = textSec;
-		  this.month$ = months;
-		  this.day$ = days;
-		  if (minute <= 0 && hours <= 0 && sec <= 0) {
-			this.hrs$ = 0;
-			this.min$ = 0;
-			this.sec$ = 0;
-		  }
-		  //else {
-		  //   this.hrs$ = hoursLeft;
-		  //   this.min$ = textMin;
-		  //   this.sec$ = textSec;
-		  // }
-	
-		  if (
-			minutesLeft <= 0 &&
-			this.hrs$ <= 0 &&
-			this.day$ <= 0 &&
-			secondsLeft <= 0 &&
-			this.month$ <= 0
-		  ) {
-			this.visibleExhasted = true;
-			clearInterval(this.timerInterval);
-		  }
+			totalSeconds--;
+
+			const hoursLeft: number = Math.floor(totalSeconds / 3600);
+			const minutesLeft: number = Math.floor((totalSeconds % 3600) / 60);
+			const secondsLeft: number = totalSeconds % 60;
+
+			this.min$ =
+				minutesLeft < 10 && minutesLeft > 0 ? "0" + minutesLeft.toString() : minutesLeft.toString();
+			this.sec$ =
+				secondsLeft < 10 && secondsLeft > 0 ? "0" + secondsLeft.toString() : secondsLeft.toString();
+
+			this.hrs$ = hoursLeft;
+			// this.min$ = textMin;
+			// this.sec$ = textSec;
+			this.month$ = months;
+			this.day$ = days;
+			if (minute <= 0 && hours <= 0 && sec <= 0) {
+				this.hrs$ = 0;
+				this.min$ = 0;
+				this.sec$ = 0;
+			}
+			//else {
+			//   this.hrs$ = hoursLeft;
+			//   this.min$ = textMin;
+			//   this.sec$ = textSec;
+			// }
+
+			if (
+				minutesLeft <= 0 &&
+				this.hrs$ <= 0 &&
+				this.day$ <= 0 &&
+				secondsLeft <= 0 &&
+				this.month$ <= 0
+			) {
+				this.visibleExhasted = true;
+				clearInterval(this.timerInterval);
+			}
 		}, 1000);
-	  }
-	
-	  checkNewUser(): void {
+	}
+
+	checkNewUser(): void {
 		this.service.getNewUserTimeLeft().subscribe((res) => {
-		  this.currentUserSubscriptionPlan = res?.subscription_details?.subscription_plan;
-		  this.enterpriseSubscriptionLink = res.enterprise_subscription_link;
-		  this.dashboardService.updatedata(res.time_left);
-		  let data = res.time_left;
-		  if (data.plan === "on_progress") {
-			this.userLoginTimeLeftCount = false;
-			this.timer(data.minutes, data.seconds, data.hours);
-		  }
+			this.currentUserSubscriptionPlan = res?.subscription_details?.subscription_plan;
+			this.enterpriseSubscriptionLink = res.enterprise_subscription_link;
+			this.dashboardService.updatedata(res.time_left);
+			let data = res.time_left;
+			if (data.plan === "on_progress") {
+				this.userLoginTimeLeftCount = false;
+				this.timer(data.minutes, data.seconds, data.hours);
+			}
 		});
-	  }
-	
-	  timer(minute: any, sec: any, hours: any): void {
+	}
+
+	timer(minute: any, sec: any, hours: any): void {
 		let totalSeconds: number = hours * 3600 + minute * 60 + sec;
 		let textSec: string | number = "0";
-	
+
 		this.timerInterval = setInterval(() => {
-		  totalSeconds--;
-	
-		  const hoursLeft: number = Math.floor(totalSeconds / 3600);
-		  const minutesLeft: number = Math.floor((totalSeconds % 3600) / 60);
-		  const secondsLeft: number = totalSeconds % 60;
-	
-		  this.timeHours = hoursLeft;
-		  this.timeLeftMins =
-			minutesLeft < 10 && minutesLeft > 0 ? "0" + minutesLeft : minutesLeft.toString();
-		  this.timeLeftSecs =
-			secondsLeft < 10 && secondsLeft > 0 ? "0" + secondsLeft : secondsLeft.toString();
-		  if (this.timeLeftMins == '00') {
-			this.timeLeftMins = 0;
-		  }
-		  if (this.timeLeftSecs == '00') {
-			this.timeLeftSecs = 0;
-		  }
-		  if (minute <= 0 && hours <= 0 && sec <= 0) {
-			this.timeHours = 0;
-			this.timeLeftMins = 0;
-			this.timeLeftSecs = 0;
-		  }
-		  // else {
-		  //   this.timeHours = hoursLeft;
-		  //   this.timeLeftMins = textMin;
-		  //   this.timeLeftSecs = textSec;
-		  // }
-		  console.log(minutesLeft)
-		  if (
-			minutesLeft <= 0 &&
-			this.timeHours <= 0 &&
-			secondsLeft <= 0
-		  ) {
-			this.visible = true;
-			this.locationService.trialEnds().subscribe((res) => {
-			  console.log(res)
-			})
-			clearInterval(this.timerInterval);
-		  }
-		  this.min$ = minutesLeft
-		  this.sec$ = secondsLeft
-		  this.hrs$ = this.timeHours;
+			totalSeconds--;
+
+			const hoursLeft: number = Math.floor(totalSeconds / 3600);
+			const minutesLeft: number = Math.floor((totalSeconds % 3600) / 60);
+			const secondsLeft: number = totalSeconds % 60;
+
+			this.timeHours = hoursLeft;
+			this.timeLeftMins =
+				minutesLeft < 10 && minutesLeft > 0 ? "0" + minutesLeft : minutesLeft.toString();
+			this.timeLeftSecs =
+				secondsLeft < 10 && secondsLeft > 0 ? "0" + secondsLeft : secondsLeft.toString();
+			if (this.timeLeftMins == '00') {
+				this.timeLeftMins = 0;
+			}
+			if (this.timeLeftSecs == '00') {
+				this.timeLeftSecs = 0;
+			}
+			if (minute <= 0 && hours <= 0 && sec <= 0) {
+				this.timeHours = 0;
+				this.timeLeftMins = 0;
+				this.timeLeftSecs = 0;
+			}
+			// else {
+			//   this.timeHours = hoursLeft;
+			//   this.timeLeftMins = textMin;
+			//   this.timeLeftSecs = textSec;
+			// }
+			console.log(minutesLeft)
+			if (
+				minutesLeft <= 0 &&
+				this.timeHours <= 0 &&
+				secondsLeft <= 0
+			) {
+				this.visible = true;
+				this.locationService.trialEnds().subscribe((res) => {
+					console.log(res)
+				})
+				clearInterval(this.timerInterval);
+			}
+			this.min$ = minutesLeft
+			this.sec$ = secondsLeft
+			this.hrs$ = this.timeHours;
 		}, 1000);
-	  }
+	}
 
 	onSubmit(op: any) {
 		let data
@@ -1252,7 +1282,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
 				op.hide()
 				// this.showReportSuccess = false;
 			}, 3000)
-			this.locationService.reportFaqQuestionaftersubmit(maildata).subscribe((res) => {})
+			this.locationService.reportFaqQuestionaftersubmit(maildata).subscribe((res) => { })
 		})
 		this.getReportOption()
 	}
@@ -1365,21 +1395,21 @@ export class HeaderComponent implements OnInit, OnDestroy {
 	}
 
 	checkNewUSerLogin(): void {
-		if(this.service._userLoginCount === undefined) {
+		if (this.service._userLoginCount === undefined) {
 			this.service.getMe().subscribe(() => {
 				this.runAfterDataLoads();
 			});
-		}else {
+		} else {
 			this.runAfterDataLoads();
 		}
-		
+
 	}
 
 	runAfterDataLoads(): void {
 		let userLoginCount = this.service._userLoginCount
 		if (userLoginCount === 4) {
-			this.freeTrial = true;
-
+			//this.freeTrial = true;
+			this.whatsappVerification = true
 		}
 	}
 
@@ -1438,14 +1468,14 @@ export class HeaderComponent implements OnInit, OnDestroy {
 		this.subs.sink = this.locationService.getHomeCountry(2).subscribe({
 			next: (res: any) => {
 				this.countryList = res;
-				
+
 				// First try to get country from localStorage
 				const storedHomeCountryId = this.storage.get('homeCountryId');
-				
+
 				// Find selected home country with fallbacks
-				const selectedHomeCountry = storedHomeCountryId ? 
+				const selectedHomeCountry = storedHomeCountryId ?
 					res.find((data: any) => data.id === Number(storedHomeCountryId)) :
-					res.find((data: any) => data.id === this.homeCountryId) || 
+					res.find((data: any) => data.id === this.homeCountryId) ||
 					res.find((data: any) => data.id === 122);
 
 				if (selectedHomeCountry) {
@@ -1495,7 +1525,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
 				this.selectedHomeCountry = selectedCountry;
 				this.dataService.changeHomeCountryFlag(selectedCountry.flag);
 				this.storage.set('homeCountryId', selectedCountry.id.toString());
-				
+
 				// Update the form if it exists
 				if (this.mobileForm) {
 					this.mobileForm.patchValue({
@@ -1583,11 +1613,11 @@ export class HeaderComponent implements OnInit, OnDestroy {
 			next: (data) => {
 				if (data?.userdetails?.[0]) {
 					const userDetails = data.userdetails[0];
-					
+
 					// Set user name and first character
 					this.userName = userDetails.name?.toString() || '';
 					this.firstChar = this.userName ? this.userName.charAt(0).toUpperCase() : '';
-					
+
 					// Store user details in localStorage for persistence
 					this.storage.set('user_details', JSON.stringify({
 						name: this.userName,
@@ -1595,20 +1625,20 @@ export class HeaderComponent implements OnInit, OnDestroy {
 						homeCountryId: userDetails.home_country_id,
 						programLevelId: userDetails.programlevel_id
 					}));
-					
+
 					// Handle program level
 					if (!userDetails.programlevel_id) {
 						this.currentEducation = true;
 						this.educationImage = `https://${this.ApiUrl}/uniprepapi/storage/app/public/uploads/education.svg`;
 					}
-					
+
 					// Handle demo trial status
 					const loginStatus = userDetails.login_status;
 					if (typeof loginStatus === 'string' && loginStatus.includes('Demo')) {
 						this.demoTrial = true;
 						this.demoDays = loginStatus.replace('Demo-', '');
 					}
-					
+
 					// Update home country
 					this.homeCountryId = Number(userDetails.home_country_id);
 					this.selectedHomeCountry = Number(userDetails.home_country_id);
@@ -1631,11 +1661,11 @@ export class HeaderComponent implements OnInit, OnDestroy {
 	toggleProfileDropdown(event: Event) {
 		event.preventDefault();
 		event.stopPropagation();
-		
+
 		const dropdown = document.querySelector('.profile-dropdown');
 		if (dropdown) {
 			dropdown.classList.toggle('show');
-			
+
 			// Close dropdown when clicking outside
 			const closeDropdown = (e: MouseEvent) => {
 				if (!dropdown.contains(e.target as Node)) {
@@ -1643,7 +1673,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
 					document.removeEventListener('click', closeDropdown);
 				}
 			};
-			
+
 			document.addEventListener('click', closeDropdown);
 		}
 	}
