@@ -39,7 +39,7 @@
 						<uni-job-details (closeInfo)="showInfo = false" [showInfo]="showInfo" [showChat]="showChat" [jobDetails]="jobDetails" (openChat)="showChat = true"></uni-job-details>
 					</div>
 					<div [ngClass]="{ 'col-lg-4 col-md-12': showInfo, 'col-lg-12 col-md-12': !showInfo, '': !showInfo }" *ngIf="showChat">
-						<uni-job-chat-ui (openInfo)="showInfo = true" [showInfo]="showInfo" [jobDetails]="jobDetails" (closeChat)="showChat = false"></uni-job-chat-ui>
+						<uni-job-chat-ui (openInfo)="showInfo = true" [showInfo]="showInfo" [jobDetails]="jobDetails" [jobId]="jobDetails?.id" (closeChat)="showChat = false"></uni-job-chat-ui>
 					</div>
 				</div>
 				<ng-template #showEmptyContainer>

@@ -38,6 +38,7 @@ export class JobChatUiComponent implements OnChanges {
   organizationName: string = 'UNIABROAD';
   organizationStatus: string = 'Active';
   @Input() jobDetails!: Job;
+  @Input() jobId!: number;
   @Output() openInfo: EventEmitter<boolean> = new EventEmitter<boolean>(true);
   @Output() closeChat: EventEmitter<boolean> = new EventEmitter<boolean>(true);
   @Input() showInfo: boolean = true;
@@ -58,8 +59,8 @@ export class JobChatUiComponent implements OnChanges {
 
 
   ngOnChanges(changes: SimpleChanges): void {
-    if (changes?.['jobDetails']) {
-      this.getMessages(this.jobDetails.id);
+    if (changes?.['jobId']) {
+      this.getMessages(this.jobId);
     }
   }
 
@@ -107,7 +108,7 @@ export class JobChatUiComponent implements OnChanges {
       formData.append('attachment', this.attachmentFile)
     }
     formData.append('chat', message);
-    formData.append('job_id', this.jobDetails.id.toString());
+    formData.append('job_id', this.jobId.toString());
     this.talentConnectService.sendMessage(formData).subscribe({
       next: response => {
         // If there's a response message from the server, add it
