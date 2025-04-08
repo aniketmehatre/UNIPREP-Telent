@@ -270,7 +270,7 @@ export class ViewProfileComponent implements OnInit {
         dateOfBirth: formData.date_of_birth ? new Date(formData.date_of_birth).toISOString() : '',
         gender: formData.gender || '',
         nationality: this.getListValue(this.nationalityList, formData.nationality_id, 'nationality_name') || '',
-        location: this.getListValue(this.locations, formData.location_id, 'city_state') || '',
+        location: this.getListValue(this.locations, formData.location_id, 'work_location') || '',
         logo: formData.profile_image || null
       },
       educationDetails: (formData.educationDetails || []).map((edu: any) => ({
@@ -296,7 +296,7 @@ export class ViewProfileComponent implements OnInit {
         careerStatus: formData.career_preference_career_status || '',
         careerInterest: this.getListValue(this.careerInterests, formData.career_preference_career_interest_id, 'interest') || '',
         jobTitle: formData.career_preference_job_title_id || '',
-        preferredWorkLocation: this.getListValue(this.locations, formData.career_preference_preferred_work_location_id, 'city_state') || '',
+        preferredWorkLocation: this.getListValue(this.locations, formData.career_preference_preferred_work_location_id, 'work_location') || '',
         preferredEmploymentType: formData.career_preference_preferred_employment_type || '',
         preferredWorkplaceType: formData.career_preference_preferred_workplace_type || '',
         willingToRelocate: formData.career_preference_willingness_to_relocate || '',

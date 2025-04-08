@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, TemplateRef, ViewChild } from '@angular/core';
 import { FormGroup, FormBuilder, Validators, FormArray, AbstractControl, FormControl } from '@angular/forms';
 import { ViewProfileComponent } from './view-profile/view-profile.component';
 import { DialogService, DynamicDialogRef } from 'primeng/dynamicdialog';
@@ -21,6 +21,7 @@ export enum FileType {
   styleUrl: './employee-profile.component.scss'
 })
 export class EmployeeProfileComponent implements OnInit {
+  @ViewChild('header', { static: true }) headerTemplate!: TemplateRef<any>;
   nationalityList: any = [];
   isLoadingAiSummary: boolean = false;
   selectedSocialMedias: string[] = [];
@@ -943,7 +944,9 @@ export class EmployeeProfileComponent implements OnInit {
   openProfileDialog(isSample: boolean) {
     this.ref = this.dialogService.open(ViewProfileComponent, {
       width: '80%',
-      height: '80%',
+      height: '100vh',
+      showHeader: false,
+      closable: false,
       data: {
         profileData: this.personalInfoForm.value,
         isSample: isSample,

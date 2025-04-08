@@ -837,7 +837,7 @@
 												</div>
 												<div class="overflow-hidden">
 													<p class="text-muted text-small">Current Location</p>
-													<p class="fw-semibold text-small text-truncate">{{ personalInfoForm?.get("location_id")?.value ? getListValue(locations, personalInfoForm?.get("location_id")?.value, "city_state") : "-" }}</p>
+													<p class="fw-semibold text-small text-truncate">{{ personalInfoForm?.get("location_id")?.value ? getListValue(locations, personalInfoForm?.get("location_id")?.value, "work_location") : "-" }}</p>
 												</div>
 											</div>
 										</div>
@@ -850,7 +850,7 @@
 												<div class="overflow-hidden">
 													<p class="text-muted text-small">Interested Industry</p>
 													<p class="fw-semibold text-small text-truncate">
-														{{ personalInfoForm?.get("career_preference_career_interest_id")?.value ? personalInfoForm?.get("career_preference_career_interest_id")?.value : "-" }}
+														{{ personalInfoForm?.get("career_preference_career_interest_id")?.value ? getListValue(careerInterests, personalInfoForm?.get("career_preference_career_interest_id")?.value, "interest") : "-" }}
 													</p>
 												</div>
 											</div>

@@ -92,3 +92,13 @@ label {
 .scroll-hidden::-webkit-scrollbar {
     width: 4px; /* Chrome, Safari, Edge */
 }
+
+/* For the dialog content */
+.employee-profile-dialog {
+    overflow: hidden !important; /* Prevent scroll inside the dialog */
+  }
+  
+  /* Optional: prevent scroll of the background when dialog is open */
+  body.p-overflow-hidden {
+    overflow: hidden !important;
+  }
