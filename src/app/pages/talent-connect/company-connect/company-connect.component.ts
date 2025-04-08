@@ -1,5 +1,5 @@
 import {Component, OnInit} from '@angular/core';
-import {Paginator, PaginatorState} from "primeng/paginator";
+import { PaginatorModule } from "primeng/paginator";
 import {TalentConnectService} from "../talent-connect.service";
 import {FormBuilder, FormGroup, FormsModule, ReactiveFormsModule} from "@angular/forms";
 import {Dialog} from "primeng/dialog";
@@ -28,7 +28,7 @@ interface DropdownOption {
         RouterLink,
         NgClass,
         ReactiveFormsModule,
-        Paginator,
+        PaginatorModule,
         TagModule,
         CompanyFilterComponent
     ],

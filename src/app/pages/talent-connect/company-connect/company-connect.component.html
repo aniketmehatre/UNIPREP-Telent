@@ -180,7 +180,7 @@
 <div class="card-footer border-0 bg-transparent">
 	<div class="card-footer border-0 bg-transparent">
 		<div class="row d-flex align-items-center gap-2 justify-content-between">
-			<p-paginator *ngIf="totalCount != 0" [rows]="perPage" [totalRecords]="totalCount" [first]="(page - 1) * perPage" (onPageChange)="pageChange($event)" [rowsPerPageOptions]="[50, 100, 300, 500, 1000]"></p-paginator>
+			<p-paginator *ngIf="totalCount != 0" [rows]="perPage" [totalRecords]="totalCount" [first]="(page - 1) * perPage" (onPageChange)="pageChange($event)" [rowsPerPageOptions]="[10, 50, 100, 300, 500, 1000]"></p-paginator>
 		</div>
 	</div>
 </div>
