@@ -45,31 +45,31 @@ export class JobPreparationComponent implements OnInit {
   recommendations: any = [
     {
       id: 1,
-      question: "Select your Role/Position",
+      question: "What is your desired Job role or position?",
     },
     {
       id: 2,
-      question: "Select your Soft Skills",
+      question: "Which soft skills do you consider your strongest?",
     },
     {
       id: 3,
-      question: "Select your Professional Skills",
+      question: "Which professional skills do you consider your strongest?",
     },
     {
       id: 4,
-      question: "Select your Job Experience",
+      question: "How many years of job experience do you have?",
     },
     {
       id: 5,
-      question: "Select your Reason for Joining the Role",
+      question: "What is your primary reason for transitioning to this specific role?",
     },
     {
       id: 6,
-      question: "Select your Industry",
+      question: "What industry does your job role align with?",
     },
     {
       id: 7,
-      question: "Select your Job Preference",
+      question: "What is your preferred work environment?",
     },
   ];
   ngOnInit() {

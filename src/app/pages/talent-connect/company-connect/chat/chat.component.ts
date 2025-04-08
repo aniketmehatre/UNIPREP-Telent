@@ -45,6 +45,7 @@ export class ChatComponent implements OnInit {
 
   messages: any[] = [];
   newMessage: string = '';
+  attachmentFile: any;
 
   constructor(private talentConnectService: TalentConnectService,) { }
 
@@ -103,4 +104,36 @@ export class ChatComponent implements OnInit {
     }
   }
 
+  uploadFilesChat($event: any) {
+    this.attachmentFile = $event.target.files[0];
+  }
+
+  sendMessageNew(message: string): void {
+    if (!message.trim() && !this.attachmentFile) return;
+    const formData = new FormData();
+    if (this.attachmentFile) {
+      formData.append('attachment', this.attachmentFile)
+    }
+    formData.append('chat', message);
+    formData.append('company_id', this.companyDetails.id.toString());
+    this.talentConnectService.sendCompanyConnectUserMessage(formData).subscribe({
+      next: response => {
+        // If there's a response message from the server, add it
+        if (response.message) {
+          this.messages.push({
+            // sender: true,
+            // content: message,
+            time: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }),
+            type: this.attachmentFile ? 'file' : 'text',
+            attachment_url: this.attachmentFile ? this.attachmentFile : null,
+            attachment: this.attachmentFile ? this.attachmentFile.name : null
+          });
+        }
+        this.attachmentFile = null;
+      },
+      error: error => {
+        console.log('Error sending message:', error);
+      }
+    });
+  }
 }
