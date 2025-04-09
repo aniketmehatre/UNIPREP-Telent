@@ -24,6 +24,21 @@ export class EmployeeProfileComponent implements OnInit {
   nationalityList: any = [];
   isLoadingAiSummary: boolean = false;
   selectedSocialMedias: string[] = [];
+  isShowCreatedSuccessfullyPopup: boolean = false;
+  isShowAiEvaluation: boolean = true;
+  aiEvaluationContent: string = '<p><strong>Introduction: </strong><br>\
+A Network Administrator plays a crucial role in the IT industry by managing and maintaining an organization\'s network infrastructure. They are responsible for ensuring the smooth operation of network systems, troubleshooting issues, and implementing security measures to protect sensitive data.</p><br>\
+<p><strong>Key Functions: </strong><br>\
+<ol>\
+  <li>Designing and implementing network configurations.</li><br>\
+  <li>Maintaining network security protocols and monitoring for potential threats.</li><br>\
+  <li>Managing network performance and optimizing for efficiency.</li><br>\
+  <li>Providing technical support to users for network-related issues.</li><br>\
+  <li>Collaborating with other IT teams to integrate new technologies into the network.</li>\
+</ol></p><br>\
+<p><strong>Overview of the Role: </strong><br>\
+A Network Administrator\'s role directly impacts the company\'s success by ensuring that communication systems are operational, data is secure, and employees can work efficiently. The ideal candidate should have strong technical skills, problem-solving ability, attention to detail, excellent communication skills, and a proactive approach to staying updated on the latest network technologies and security trends.</p><br>';
+
   currentMessage: string = "Enter your full name as per your official documents. This is the name that will appear on your offer letter and in the employer's database, so ensure it is accurate for a smooth hiring process. Numbers and special characters are not allowed.";
   hoverMessages: any = {
     // Personal Information
@@ -186,7 +201,7 @@ export class EmployeeProfileComponent implements OnInit {
       career_preference_willingness_to_relocate: [null, Validators.required],
       career_preference_expected_salary: [null, Validators.required],
       career_preference_currency_id: [null, Validators.required],
-      career_preference_set_industry_apart: [''],
+      career_preference_set_industry_apart: ['', Validators.maxLength(150)],
       career_preference_soft_skill_id: [[]],
       career_preference_professional_strength_id: [null],
       career_preference_real_world_challenge: [''],
@@ -239,7 +254,7 @@ export class EmployeeProfileComponent implements OnInit {
       id: [''],
       years_of_experience: [''],
       work_experience_company_name: [''],
-      work_experience_job_title: [''],
+      work_experience_job_title: ['', Validators.maxLength(150)],
       work_experience_employment_type: [''],
       work_experience_duration_from: [''],
       work_experience_duration_to: [''],

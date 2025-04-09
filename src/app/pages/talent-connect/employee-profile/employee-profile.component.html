@@ -19,18 +19,18 @@
 	</div>
 	<div class="card-body flex-fill overflow-y-auto">
 		<div class="row h-100">
-			<div class="col-md-8 col-lg-9 col-sm-7 mb-2 d-flex flex-fill h-100">
-				<div class="card overflow-y-hidden">
+			<div class="col-md-8 col-lg-9 col-sm-7 mb-2 d-flex flex-fill h-100" >
+				<div class="card overflow-y-hidden w-100">
 					<div class="card-header bg-primary">
 						<div class="rounded-top-4 text-start d-flex justify-content-between align-items-center">
-							<h5 class="text-white mb-0 fw-medium">Edit your Profile</h5>
-							<div class="d-flex gap-2">
+							<h5 class="text-white mb-0 fw-medium">{{isShowAiEvaluation ? 'Career Profile Evaluation':'Edit your Profile'}}</h5>
+							<div class="d-flex gap-2" *ngIf="!isShowAiEvaluation">
 								<button class="btn btn-secondary btn-rounded px-3 py-1" (click)="openProfileDialog(true)">Profile Sample</button>
 								<button class="button-profile-top rounded-pill px-3 py-1" (click)="openProfileDialog(false)">Profile Preview</button>
 							</div>
 						</div>
 					</div>
-					<div class="card-body h-100 overflow-y-auto">
+					<div class="card-body h-100 overflow-y-auto" *ngIf="!isShowAiEvaluation">
 						<form [formGroup]="personalInfoForm">
 							<div class="row">
 								<!-- Photo Upload Section -->
@@ -42,7 +42,7 @@
 													<img [src]="logo" styleClass="shadow-lg object-fit" style="width: 120px; height: 120px; object-fit: cover" class="rounded-circle" />
 												</ng-container>
 												<ng-template #showSample>
-													<div class="bg-secondary rounded-pill overflow-hidden d-flex justify-content-center align-items-center rounded-circle" style="width: 120px; height: 120px;margin: auto;">
+													<div class="bg-secondary rounded-pill overflow-hidden d-flex justify-content-center align-items-center rounded-circle" style="width: 120px; height: 120px; margin: auto;">
 														<img src="uniprep-assets/images/avatar.webp" class="w-100 h-100" />
 													</div>
 												</ng-template>
@@ -261,9 +261,10 @@
 															<button class="text-small btn btn-success btn-rounded d-flex align-items-center gap-2" style="width: fit-content" (click)="generateAiSummary('joboverview', experience?.get('work_experience_job_title')?.value, experience?.get('work_experience_job_responsibilities'))"><i class="fa-solid fa-stars"></i>AI Generate</button>
 														</div>
 													</div>
-													<p-editor [style]="{ height: '150px', maxHeight: 'auto' }" formControlName="work_experience_job_responsibilities" placeholder="Enter your Job Responsibilities & Key Achievements" (mouseenter)="showRecommendation('insight')" (mouseleave)="hideRecommendation()" #jobRepo/>
+													<p-editor [style]="{ height: '150px', maxHeight: 'auto' }" formControlName="work_experience_job_responsibilities" placeholder="Enter your Job Responsibilities & Key Achievements" [maxlength]="150" (mouseenter)="showRecommendation('insight')" (mouseleave)="hideRecommendation()" #jobRepo/>
 													<!-- <textarea pTextarea id="responsibilities" class="form-control w-100" placeholder="Enter your Job Responsibilities & Key Achievements" rows="5" maxlength="4000" formControlName="work_experience_job_responsibilities" (mouseleave)="resetMessageBox()" (mouseenter)="updateMessageBox('work_experience_job_responsibilities')" #jobRepo></textarea> -->
-													<small class="text-muted d-block text-end">{{ experience.get('work_experience_job_responsibilities')?.value?.length }}/4000</small>
+														<small class="text-danger text-start" *ngIf="experience.get('work_experience_job_responsibilities')?.invalid && experience.get('work_experience_job_responsibilities')?.touched">This field exceed the maximum length</small>
+														<small class="text-muted d-block text-end">{{ experience.get('work_experience_job_responsibilities')?.value?.length }}/150</small>
 												</div>
 
 												<!-- Experience Letter Upload -->
@@ -504,8 +505,11 @@
 													</div>
 												</div>
 												<div class="position-relative">
-													<p-editor [style]="{ height: '150px', maxHeight: 'auto' }" formControlName="career_preference_set_industry_apart" placeholder="Enter your sets you apart in your industry" (mouseleave)="resetMessageBox()" (mouseenter)="updateMessageBox('career_preference_set_industry_apart')" #keyResponsibility/>
-													<small class="text-muted d-block text-end">{{ personalInfoForm.get('career_preference_set_industry_apart')?.value?.length }}/4000</small>
+													<p-editor [style]="{ height: '150px', maxHeight: 'auto' }" formControlName="career_preference_set_industry_apart" [maxlength]="50" placeholder="Enter your sets you apart in your industry" (mouseleave)="resetMessageBox()" (mouseenter)="updateMessageBox('career_preference_set_industry_apart')" #keyResponsibility/>
+													<div class="d-flex justify-content-between">
+														<small class="text-danger" *ngIf="personalInfoForm.get('career_preference_set_industry_apart')?.invalid && personalInfoForm.get('career_preference_set_industry_apart')?.touched">This field exceed the maximum length</small>
+														<small class="text-muted d-block text-end">{{ personalInfoForm.get('career_preference_set_industry_apart')?.value?.length }}/150</small>
+													</div>
 												</div>
 											</div>
 										</div>
@@ -750,6 +754,9 @@
 							</div>
 						</form>
 					</div>
+					<div class="card-body h-100 overflow-y-auto"  *ngIf="isShowAiEvaluation">
+						<div [innerHTML]="aiEvaluationContent"></div>
+					</div>
 				</div>
 			</div>
 			<div class="col-md-4 col-lg-3 col-sm-5 d-flex flex-fill h-100">
@@ -903,7 +910,7 @@
 	</div>
 	<div class="card-footer bg-white">
 		<div class="row align-items-center">
-			<div class="col-md-10">
+			<div  [ngClass]="isShowAiEvaluation ? 'col-md-8': 'col-md-10' ">
 				<div class="d-flex align-items-center gap-2">
 					<span class="h6 mb-0 flex-shrink-0 uniprep-secondary fw-bold">Profile: {{ profileCompletion }}%</span>
 					<div class="w-100">
@@ -911,12 +918,37 @@
 					</div>
 				</div>
 			</div>
-			<div class="col-md-2 d-flex justify-content-end">
-				<button pButton type="button" (click)="onSubmit()" class="btn btn-primary btn-rounded p-1 ps-4 mt-1">
-					<span class="me-2">{{ this.profileId ? "Update Profile" : "Create Profile" }}</span
-					><span class="btn-icon px-2 py-2"><i class="pi pi-check text-white"></i></span>
-				</button>
+			<div class="d-flex justify-content-end" [ngClass]="isShowAiEvaluation ? 'col-md-4': 'col-md-2' ">
+				<ng-container *ngIf="!isShowAiEvaluation">
+					<button pButton type="button" (click)="onSubmit()" class="btn btn-primary btn-rounded p-1 ps-4 mt-1">
+						<span class="me-2">{{ this.profileId ? "Update Profile" : "Create Profile" }}</span
+						><span class="btn-icon px-2 py-2"><i class="pi pi-check text-white"></i></span>
+					</button>
+				</ng-container>
+				<ng-container *ngIf="isShowAiEvaluation">
+					<button pButton type="button" (click)="isShowAiEvaluation = false" class="btn btn-primary btn-rounded p-1 ps-4 mt-1 me-1">
+						<span class="me-2">Edit Your Profile</span
+						><span class="btn-icon px-2 py-2"><i class="pi pi-check text-white"></i></span>
+					</button>
+					<button pButton type="button" (click)="onSubmit()" class="btn btn-success btn-rounded p-1 ps-4 mt-1">
+						<span class="me-2">{{ this.profileId ? "Update Profile" : "Create Profile" }}</span
+						><span class="btn-icon px-2 py-2"><i class="pi pi-check text-white"></i></span>
+					</button>
+				</ng-container>
 			</div>
 		</div>
 	</div>
 </div>
+<p-confirmdialog id="confirm-dialog" styleClass="p-3 w-25" [visible]="isShowCreatedSuccessfullyPopup" [closable]="false">
+    <ng-template #message let-message>
+        <div class="d-flex flex-column align-items-center w-100 gap-4 mt-1">
+            <i class="text-success fa-solid fa-check-circle" style="font-size: 50px;"></i>
+            <p>Created your profile successfully</p>
+        </div>
+    </ng-template>
+	<ng-template #footer>
+		<div class="text-center w-100 mt-2">
+			<button class="btn btn-secondary px-4">OK</button>
+		</div>
+	</ng-template>
+</p-confirmdialog>

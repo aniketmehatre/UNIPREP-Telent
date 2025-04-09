@@ -102,3 +102,7 @@ label {
   body.p-overflow-hidden {
     overflow: hidden !important;
   }
+
+  ::ng-deep .confirm-dialog {
+    padding: 10px;
+  }

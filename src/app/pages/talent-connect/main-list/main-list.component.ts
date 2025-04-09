@@ -1,8 +1,9 @@
-import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
+import { ChangeDetectorRef, Component, OnInit, } from '@angular/core';
 import {environment} from "@env/environment";
 import { TalentConnectService } from '../talent-connect.service';
 import { Observable } from 'rxjs';
 import { MessageService } from 'primeng/api';
+import { Router } from '@angular/router';
 
 @Component({
     selector: 'uni-main-list',
@@ -15,7 +16,7 @@ export class MainListComponent implements OnInit {
     protected domainUrl: string = `https://${environment.domain}/uniprepapi/storage/app/public/ToolIcons/travel-tools/`;
     isLoading: boolean = false;
     isProfileCreated: boolean = false;
-    constructor(private talentConnectService: TalentConnectService, private messageService: MessageService, private cdr: ChangeDetectorRef) {
+    constructor(private router: Router, private talentConnectService: TalentConnectService, private messageService: MessageService, private cdr: ChangeDetectorRef) {
         this.talentConnectMainList = [
             {
                 id: 1,
@@ -89,7 +90,7 @@ export class MainListComponent implements OnInit {
     }
 
 
-    checkAndNotAllowAccessModules(event: any, moduleId: number) {
+    checkAndNotAllowAccessModules(event: any, moduleId: number, url: string, launchMode: boolean) {
         if (!this.isProfileCreated) {
             if (moduleId === 2 || moduleId === 3) {
                 event.preventDefault();
@@ -98,7 +99,11 @@ export class MainListComponent implements OnInit {
                     severity: 'error',
                     summary: 'Please create your profile first!'
                 });
-            }
+                return;
+            } 
+        } else {
+            this.router.navigateByUrl(url);
         }
+
     }
 }

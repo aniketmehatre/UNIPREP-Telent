@@ -51,67 +51,86 @@
 		</div>
 	</div>
 	<div class="card-footer">
-		<p-paginator *ngIf="totalQuizCount != 0" [rows]="pageSize" [totalRecords]="totalQuizCount" (onPageChange)="paginate($event)" [rowsPerPageOptions]="[100, 300, 500, 1000]"></p-paginator>
+		<p-paginator *ngIf="totalQuizCount != 0" [rows]="pageSize" [totalRecords]="totalQuizCount" (onPageChange)="paginate($event)" [rowsPerPageOptions]="[25, 100, 300, 500, 1000]"></p-paginator>
 	</div>
 </div>
 
-<div class="modal" tabindex="-1" role="dialog" [ngClass]="{ 'd-block': questionModal }" (click)="closeModal()">
-	<div class="modal-dialog modal-dialog-centered" style="max-width: 60%;" role="document" (click)="$event.stopPropagation()">
-		<div class="modal-content" >
-			<div class="modal-body position-relative pt-4">
-				<div class="modalbuttons">
-					<div class="d-flex gap-2">
-						<button pButton type="button" title="Close Popup" class="btn btn-primary btn-rounded" (click)="closeModal()">
-							<i class="fa-solid fa-xmark"></i>
-						</button>
-					</div>
-				</div>
-				<div>
-					<div class="row justify-content-center">
-						<div class="col-md-12 d-flex gap-2 text-center">
-					<div class="career-homeIcon px-3" role="button" (click)="this.questionModal = false;"><span
-						class="fa-solid fa-home me-2"></span>Home</div>
-					<div class="select-title d-flex justify-content-between align-items-center">
-							<div class="d-flex gap-2">
-								<h5 class="mb-0" tooltipPosition="top" pTooltip="">Education Tools</h5>
-								<span class="my-auto "><i class="fa-solid fa-chevron-right"></i></span>
-								<h5 class="mb-0" tooltipPosition="top" pTooltip="">Country Insights</h5>
-								<span class="my-auto"><i class="fa-solid fa-chevron-right"></i></span>
-								<h5 class="mb-0" tooltipPosition="top" pTooltip="">{{ countryname ? countryname + " Insights" : "Country Insights" }}</h5>
-								<span class="my-auto"><i class="fa-solid fa-chevron-right"></i></span>
-								<h5 class="mb-0" tooltipPosition="top" pTooltip="">{{ questionDetail?.title}}</h5>
-							</div>						
-						</div>
-						<div class="career-reportIcon px-3" role="button" (click)="openReport()"><span
-							class="fa-solid fa-file me-2"></span>Report</div>
-						</div>
-					</div>
-					<div class="p-2 text-card position-relative mt-3">
-						<div class="card-body overflow-y-auto mh-100">
-							<div class="w-100 d-flex justify-content-between align-items-center">
-								<h2 class="question-title flex-grow-1 me-3">{{ questionDetail?.title }}</h2>
-								<div class="flex-shrink-0 position-relative">
-									<button pButton (click)="showSocialSharingList(1); $event.stopPropagation()" class="btn btn-primary btn-rounded sharebtn">
-										<i class="fa-light fa-share-nodes"></i>
-									</button>
-									<p-card id="socialSharingList" class="socialSharingList" [ngClass]="{ show: selectedIndex === 1 }">
-										<ul style="list-style: none; cursor: pointer">
-											<li (click)="shareViaWhatsapp(''); $event.stopPropagation()"><i class="pi pi-whatsapp"></i>Whatsapp</li>
-											<li (click)="shareViaMail(''); $event.stopPropagation()"><i class="pi pi-envelope"></i>Email</li>
-											<li (click)="shareViaFacebook(''); $event.stopPropagation()"><i class="pi pi-facebook"></i>Facebook</li>
-											<li (click)="shareViaTwitter(''); $event.stopPropagation()"><i class="pi pi-twitter"></i>Twitter</li>
-											<li (click)="shareViaInstagram(''); $event.stopPropagation()"><i class="pi pi-instagram"></i>Instagram</li>
-											<li (click)="shareViaLinkedIn(''); $event.stopPropagation()"><i class="pi pi-linkedin"></i>LinkedIn</li>
-											<li (click)="copyLink(''); $event.stopPropagation()"><i class="pi pi-link"></i>Copy Link</li>
-										</ul>
-									</p-card>
-								</div>
-							</div>
-							<p class="answer-text" [innerHTML]="questionDetail?.answer"></p>
-						</div>
-					</div>
-				</div>
-			</div>
+<p-dialog
+  [(visible)]="questionModal"
+  [modal]="true"
+  [style]="{ width: '70%' }"
+  [contentStyle]="{ 'max-height': '60%', 'overflow-y': 'auto' }"
+  [closable]="false"
+  [dismissableMask]="true"
+  [showHeader]="false"
+  [baseZIndex]="10000"
+  (onHide)="closeModal()"
+>
+
+
+  <div class="modal-body position-relative pt-2">
+    <div class="row justify-content-center">
+      <div class="col-md-12 d-flex gap-2 text-center">
+        <div class="career-homeIcon px-3" role="button" (click)="questionModal = false">
+          <span class="fa-solid fa-home me-2"></span>Home
+        </div>
+
+        <div class="select-title d-flex justify-content-between align-items-center">
+          <div class="d-flex gap-2">
+            <h5 class="mb-0">Education Tools</h5>
+            <span class="my-auto"><i class="fa-solid fa-chevron-right"></i></span>
+            <h5 class="mb-0">Country Insights</h5>
+            <span class="my-auto"><i class="fa-solid fa-chevron-right"></i></span>
+            <h5 class="mb-0">{{ countryname ? countryname + " Insights" : "Country Insights" }}</h5>
+            <span class="my-auto"><i class="fa-solid fa-chevron-right"></i></span>
+            <h5 class="mb-0">{{ questionDetail?.title }}</h5>
+          </div>
+        </div>
+
+        <div class="career-reportIcon px-3" role="button" (click)="openReport()">
+          <span class="fa-solid fa-file me-2"></span>Report
+        </div>
+		<div class="h-100">
+			<button
+			pButton
+			class="btn btn-primary btn-rounded h-100"
+			(click)="closeModal()"
+			title="Close">
+			<i class="fa-solid fa-xmark"></i>
+		  </button>
 		</div>
-	</div>
-</div>
+      </div>
+    </div>
+
+    <div class="p-2 text-card position-relative mt-3">
+      <div class="card-body">
+        <div class="w-100 d-flex justify-content-between align-items-center">
+          <h2 class="question-title flex-grow-1 me-3">{{ questionDetail?.title }}</h2>
+          <div class="flex-shrink-0 position-relative">
+            <button
+              pButton
+              (click)="showSocialSharingList(1); $event.stopPropagation()"
+              class="btn btn-primary btn-rounded sharebtn"
+            >
+              <i class="fa-light fa-share-nodes"></i>
+            </button>
+            <p-card id="socialSharingList" class="socialSharingList" [ngClass]="{ show: selectedIndex === 1 }">
+              <ul style="list-style: none; cursor: pointer">
+                <li (click)="shareViaWhatsapp(''); $event.stopPropagation()"><i class="pi pi-whatsapp"></i>Whatsapp</li>
+                <li (click)="shareViaMail(''); $event.stopPropagation()"><i class="pi pi-envelope"></i>Email</li>
+                <li (click)="shareViaFacebook(''); $event.stopPropagation()"><i class="pi pi-facebook"></i>Facebook</li>
+                <li (click)="shareViaTwitter(''); $event.stopPropagation()"><i class="pi pi-twitter"></i>Twitter</li>
+                <li (click)="shareViaInstagram(''); $event.stopPropagation()"><i class="pi pi-instagram"></i>Instagram</li>
+                <li (click)="shareViaLinkedIn(''); $event.stopPropagation()"><i class="pi pi-linkedin"></i>LinkedIn</li>
+                <li (click)="copyLink(''); $event.stopPropagation()"><i class="pi pi-link"></i>Copy Link</li>
+              </ul>
+            </p-card>
+          </div>
+        </div>
+
+        <p class="answer-text" [innerHTML]="questionDetail?.answer"></p>
+      </div>
+    </div>
+  </div>
+</p-dialog>
+
