@@ -1,4 +1,5 @@
 <div class="container-fluid h-100 d-flex flex-column justify-content-center">
+	<p-toast></p-toast>
 	<div class="row justify-content-center" *ngIf="activePageIndex == 4 || activePageIndex == 0">
 		<div class="flex-column">
 			<div>
@@ -283,7 +284,10 @@
 												<label class="uniprep-primarydark fw-bold h6 mb-0">Summary</label>
 												<i class="fa-solid fa-circle-question m-2 uniprep-primary" pTooltip="We recommend you provide or generate a concise summary about yourself" tooltipPosition="top"></i>
 											</div>
-											<button pButton class="deleteDivButton" (click)="chatGPTIntegration('user_summary', 0)" [disabled]="isButtonDisabled" style="background-color: #9bc329">Generate &nbsp;<i class="fa-solid fa-line-columns trashIcon" style="background-color: #9bc329"></i></button>
+											<div>
+												<button pButton class="deleteDivButton" (click)="chatGPTIntegration('user_summary', 0)" style="background-color: #9bc329">Generate </button>
+												<button pButton type="button" (click)="chatGPTIntegration('rephrase_summary', 0)" class="deleteDivButton m-2 p-2 bg-secondary" >Rephrase</button>
+											</div>
 										</div>
 										<div class="form-group">
 											<div class="mb-3">
@@ -450,7 +454,10 @@
 																<label class="uniprep-primarydark fw-bold h6 mb-0">Job Description</label>
 																<i class="fa-solid fa-circle-question m-2 uniprep-primary" pTooltip="We recommend you describe minimum 5 key responsibilities and achievements" tooltipPosition="top"></i>
 															</div>
-															<button pButton class="deleteDivButton mb-2" (click)="chatGPTIntegration('work_job_description', i)" [disabled]="genreateButtonDisabled[i]" style="background-color: #9bc329">Generate &nbsp;<i class="fa-solid fa-line-columns trashIcon" style="background-color: #9bc329"></i></button>
+															<div>
+																<button pButton class="deleteDivButton mb-2" (click)="chatGPTIntegration('work_job_description', i)" [disabled]="genreateButtonDisabled[i]" style="background-color: #9bc329">AI Generate</button>
+																<button pButton type="button" (click)="chatGPTIntegration('rephrase_job_description', i)" class="deleteDivButton m-2 p-2 bg-secondary" [disabled]="rephraseDesBtnDisable" >Rephrase</button>
+															</div>
 														</div>
 														<!-- (ngModelChange)="onEditorModelChange($event, i)" -->
 														<div class="form-group">

@@ -1,25 +1,32 @@
 <!-- select country currecny -->
 <div class="card readingcard" *ngIf="isFormVisible">
-	<div class="card-header border-0 bg-transparent">
-		<div class="row justify-content-center">
-			<div class="col-md-12 d-flex gap-2 text-center">
-				<div class="backIcon d-md-flex d-none" role="button" (click)="goBackcareerPlanList()">
-					<span class="fa-solid fa-chevron-left"></span>
-				</div>
-				<div class="select-title d-flex justify-content-between align-items-center">
-					<div>
-						<h5 class="w-100 mb-0" tooltipPosition="top"
-							pTooltip="Plan your career path by exploring job opportunities worldwide">Career Planner<i
-								class="questiontooltip fa-solid fa-circle-question"></i></h5>
-					</div>
-					<div>
-						<button pButton  class="how-it-works-button" severity="warn"  (click)="openVideoPopup('https://www.youtube.com/embed/jG3wFxF8zZI?si=2I3dijKIH-aEisoS')">How
-							it works? <i class="fa-solid fa-play d-md-block d-none"></i></button>
-					</div>
-				</div>
-			</div>
-		</div>
-	</div>
+    <div class="card-header border-0 bg-transparent">
+        <div class="row justify-content-center">
+            <div class="col-md-12 d-flex gap-2 text-center">
+                <div class="backIcon d-md-flex d-none" role="button" (click)="goBackcareerPlanList()">
+                    <span class="fa-solid fa-chevron-left"></span>
+                </div>
+                <div class="select-title d-flex justify-content-between align-items-center">
+                    <div class="d-flex gap-2">
+                        <h5 routerLink="/pages/dashboard" role="button" class="mb-0" tooltipPosition="top" pTooltip="">
+                            <i class="fa-regular fa-home"></i>
+                        </h5>
+                        <span><i class="fa-solid fa-chevron-right"></i></span>
+                        <h5 class=" mb-0" tooltipPosition="top">Career Tools</h5>
+                        <span><i class="fa-solid fa-chevron-right"></i></span>
+                        <h5 class=" mb-0" tooltipPosition="top">Career Planner</h5>
+                        <span><i class="fa-solid fa-chevron-right"></i></span>
+                        <h5 class=" mb-0" tooltipPosition="top">Country Wise</h5>
+                    </div>
+                    <div>
+                        <button pButton class="how-it-works-button" severity="warn"
+                            (click)="openVideoPopup('https://www.youtube.com/embed/jG3wFxF8zZI?si=2I3dijKIH-aEisoS')">How
+                            it works? <i class="fa-solid fa-play d-md-block d-none"></i></button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
     <div class="body mt-4">
         <form role="form" [formGroup]="form" (ngSubmit)="formSubmit()">
             <div class="row">
@@ -37,9 +44,10 @@
                 <div class="col-12 mt-4 p-2">
                     <div class="form-group">
                         <h3>Select Your Specialization</h3>
-                        <p-select [options]="specializationList" styleClass="w-100 border-primary" formControlName="specialization_name"
-                            optionValue="specialization_name" optionLabel="specialization_name" placeholder="Select Specialization"
-                            [filter]="true" [showClear]="true">
+                        <p-select [options]="specializationList" styleClass="w-100 border-primary"
+                            formControlName="specialization_name" optionValue="specialization_name"
+                            optionLabel="specialization_name" placeholder="Select Specialization" [filter]="true"
+                            [showClear]="true">
                         </p-select>
                         <div *ngIf="submitted && form.get('currency')?.hasError('required')" style="color: red;">
                             Specialization is required.
@@ -62,7 +70,7 @@
                     </div>
                 </div> -->
             </div>
-            <button pButton  pButton class="btn btn-success btn-rounded footer-btn" type="submit">
+            <button pButton pButton class="btn btn-success btn-rounded footer-btn" type="submit">
                 <span class="me-2">Get Recommendations</span>
                 <span class="btn-icon px-2 py-2">
                     <i class="fa fa-check-circle"></i>
@@ -81,18 +89,24 @@
                     <span class="fa-solid fa-chevron-left"></span>
                 </div>
                 <div class="select-title d-flex justify-content-between align-items-center">
-                    <div>
-                        <h5 class="w-100 mb-0" tooltipPosition="top"
-                        pTooltip="Plan your career path by exploring job opportunities worldwide">Career Planner<i
-                            class="questiontooltip fa-solid fa-circle-question"></i></h5>
+                    <div class="d-flex gap-2">
+                        <h5 routerLink="/pages/dashboard" role="button" class="mb-0" tooltipPosition="top" pTooltip="">
+                            <i class="fa-regular fa-home"></i>
+                        </h5>
+                        <span><i class="fa-solid fa-chevron-right"></i></span>
+                        <h5 class=" mb-0" tooltipPosition="top">Career Tools</h5>
+                        <span><i class="fa-solid fa-chevron-right"></i></span>
+                        <h5 class=" mb-0" tooltipPosition="top">Career Planner</h5>
+                        <span><i class="fa-solid fa-chevron-right"></i></span>
+                        <h5 class=" mb-0" tooltipPosition="top">Country Wise</h5>
                     </div>
                     <div>
-                        <button pButton  class="how-it-works-button" severity="warn" >How it works?
+                        <button pButton class="how-it-works-button" severity="warn">How it works?
                             <i class="fa-solid fa-play d-md-block d-none"></i></button>
                     </div>
                 </div>
                 <div class="d-flex align-items-center">
-                    <button pButton  pButton type="button" (click)="saveRecommadation()"
+                    <button pButton pButton type="button" (click)="saveRecommadation()"
                         class="btn btn-primary btn-rounded py-2 px-4">
                         <span>History</span>
                     </button>
@@ -116,32 +130,34 @@
                             <i class="fa-regular fa-floppy-disk"></i></span>
                     </button> -->
                 </div>
-                <div *ngIf="isResponseSkeleton; else showResponseData" class="card p-3 chatgpt-response bg-white h-100 overflow-y-auto">
-					<p-skeleton width='30rem' height='2rem' styleClass="mb-2"></p-skeleton>
-					<p-skeleton width='100%' height='1rem' styleClass="mb-2"></p-skeleton>
-					<p-skeleton width='100%' height='1rem' styleClass="mb-2"></p-skeleton>
-					<p-skeleton width='90%' height='1rem' styleClass="mb-2"></p-skeleton>
-					<p-skeleton width='100%' height='1rem' styleClass="mb-2"></p-skeleton>
-					<p-skeleton width='95%' height='1rem' styleClass="mb-2"></p-skeleton>
-					<p-skeleton width='50%' height='1rem'></p-skeleton>
-					<div class="divider"></div>
-					<p-skeleton width='30rem' height='2rem' styleClass="mb-2"></p-skeleton>
-					<p-skeleton width='100%' height='1rem' styleClass="mb-2"></p-skeleton>
-					<p-skeleton width='100%' height='1rem' styleClass="mb-2"></p-skeleton>
-					<div class="d-flex justify-content-end">
-						<uni-percentage-loader />
-					</div>
-				</div>
-				<ng-template #showResponseData>
-					<div class="card p-3 poppins-content chatgpt-response bg-white h-100 overflow-y-auto" [innerHtml]="recommendationData"></div>
-				</ng-template>
+                <div *ngIf="isResponseSkeleton; else showResponseData"
+                    class="card p-3 chatgpt-response bg-white h-100 overflow-y-auto">
+                    <p-skeleton width='30rem' height='2rem' styleClass="mb-2"></p-skeleton>
+                    <p-skeleton width='100%' height='1rem' styleClass="mb-2"></p-skeleton>
+                    <p-skeleton width='100%' height='1rem' styleClass="mb-2"></p-skeleton>
+                    <p-skeleton width='90%' height='1rem' styleClass="mb-2"></p-skeleton>
+                    <p-skeleton width='100%' height='1rem' styleClass="mb-2"></p-skeleton>
+                    <p-skeleton width='95%' height='1rem' styleClass="mb-2"></p-skeleton>
+                    <p-skeleton width='50%' height='1rem'></p-skeleton>
+                    <div class="divider"></div>
+                    <p-skeleton width='30rem' height='2rem' styleClass="mb-2"></p-skeleton>
+                    <p-skeleton width='100%' height='1rem' styleClass="mb-2"></p-skeleton>
+                    <p-skeleton width='100%' height='1rem' styleClass="mb-2"></p-skeleton>
+                    <div class="d-flex justify-content-end">
+                        <uni-percentage-loader />
+                    </div>
+                </div>
+                <ng-template #showResponseData>
+                    <div class="card p-3 poppins-content chatgpt-response bg-white h-100 overflow-y-auto"
+                        [innerHtml]="recommendationData"></div>
+                </ng-template>
             </div>
             <div class="col-md-2"></div>
         </div>
     </div>
     <div class="card-footer bg-transparent border-0">
         <div class="text-end">
-            <button pButton  pButton type="button" class="btn ps-3 btn-quit btn-rounded" (click)="BackReset()">
+            <button pButton pButton type="button" class="btn ps-3 btn-quit btn-rounded" (click)="BackReset()">
                 Reset Recommendations<span class="btn-icon"><i class="fa-solid fa-arrow-rotate-right"></i>
                 </span>
             </button>
@@ -150,32 +166,39 @@
 </div>
 <!-- saved response -->
 <div class="card readingcard" *ngIf="isSavedResponse">
-	<div class="card-header border-0 bg-transparent">
-		<div class="row justify-content-center">
-			<div class="col-md-12 d-flex gap-2 text-center">
-				<div class="backIcon d-md-flex d-none" role="button" (click)="goBackChatGptResp()">
-					<span class="fa-solid fa-chevron-left"></span>
-				</div>
-				<div class="select-title d-flex justify-content-between align-items-center">
-					<div>
-						<h5 class="w-100 mb-0" tooltipPosition="top"
-							pTooltip="Plan your career path by exploring job opportunities worldwide">Career Planner<i
-								class="questiontooltip fa-solid fa-circle-question"></i></h5>
-					</div>
-					<div>
-						<button pButton  class="how-it-works-button" severity="warn"  (click)="openVideoPopup('https://www.youtube.com/embed/jG3wFxF8zZI?si=2I3dijKIH-aEisoS')">How
-							it works? <i class="fa-solid fa-play d-md-block d-none"></i></button>
-					</div>
-				</div>
+    <div class="card-header border-0 bg-transparent">
+        <div class="row justify-content-center">
+            <div class="col-md-12 d-flex gap-2 text-center">
+                <div class="backIcon d-md-flex d-none" role="button" (click)="goBackChatGptResp()">
+                    <span class="fa-solid fa-chevron-left"></span>
+                </div>
+                <div class="select-title d-flex justify-content-between align-items-center">
+                    <div class="d-flex gap-2">
+                        <h5 routerLink="/pages/dashboard" role="button" class="mb-0" tooltipPosition="top" pTooltip="">
+                            <i class="fa-regular fa-home"></i>
+                        </h5>
+                        <span><i class="fa-solid fa-chevron-right"></i></span>
+                        <h5 class=" mb-0" tooltipPosition="top">Career Tools</h5>
+                        <span><i class="fa-solid fa-chevron-right"></i></span>
+                        <h5 class=" mb-0" tooltipPosition="top">Career Planner</h5>
+                        <span><i class="fa-solid fa-chevron-right"></i></span>
+                        <h5 class=" mb-0" tooltipPosition="top">Country Wise</h5>
+                    </div>
+                    <div>
+                        <button pButton class="how-it-works-button" severity="warn"
+                            (click)="openVideoPopup('https://www.youtube.com/embed/jG3wFxF8zZI?si=2I3dijKIH-aEisoS')">How
+                            it works? <i class="fa-solid fa-play d-md-block d-none"></i></button>
+                    </div>
+                </div>
                 <!-- <div class="d-flex align-items-center">
                     <button pButton  pButton type="button" (click)="saveRecommadation()"
                         class="btn btn-primary btn-rounded py-2 px-4">
                         <span>Save</span>
                     </button>
                 </div> -->
-			</div>
-		</div>
-	</div>
+            </div>
+        </div>
+    </div>
     <div class="card-body text-center flex-fill overflow-y-auto">
         <div class="row mb-0">
             <div *ngFor="let item of recommadationSavedQuestionList; let i=index;"
