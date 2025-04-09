@@ -21,12 +21,13 @@ import { InputGroupAddonModule } from 'primeng/inputgroupaddon';
 import { TabsModule } from "primeng/tabs";
 import { Meta } from "@angular/platform-browser";
 import { SkeletonModule } from "primeng/skeleton";
+import { SharedModule } from "src/app/shared/shared.module";
 @Component({
   selector: "uni-preparedlist",
   templateUrl: "./preparedlist.component.html",
   styleUrls: ["./preparedlist.component.scss"],
   standalone: true,
-  imports: [CommonModule, PaginatorModule, DialogModule, TabsModule, RouterModule, CardModule, FormsModule, ReactiveFormsModule, CarouselModule, ButtonModule, MultiSelectModule, SelectModule, InputGroupModule, InputTextModule, InputGroupAddonModule, SkeletonModule],
+  imports: [CommonModule, PaginatorModule, DialogModule, TabsModule, RouterModule, CardModule, FormsModule, ReactiveFormsModule, CarouselModule, ButtonModule, MultiSelectModule, SelectModule, InputGroupModule, InputTextModule, InputGroupAddonModule, SkeletonModule, SharedModule],
   providers: [InterviewPreparationService]
 })
 export class JobPreparedListComponent implements OnInit {
@@ -48,6 +49,8 @@ export class JobPreparedListComponent implements OnInit {
     .fill(0)
     .map((_, index) => index);
   readanswerpopubVisibility = false;
+  isResponseSkeleton: boolean = false;
+
   constructor(private location: Location, private route: ActivatedRoute, private toast: MessageService, private authService: AuthService, private service: InterviewPreparationService, private router: Router, private pageFacade: PageFacadeService, private meta: Meta) { }
   ngOnInit(): void {
     this.selectedJobRole = this.prepData.role;
@@ -123,10 +126,12 @@ export class JobPreparedListComponent implements OnInit {
     this.selectedAnswer = quizdata?.ans;
     this.selectedQuestionId = quizdata?.id;
     this.prepData.questionid = quizdata?.id;
+    this.readanswerpopubVisibility = true;
+    this.isResponseSkeleton = true;
     this.service.getcustomizedResponse(this.prepData).subscribe(
       (response: any) => {
+        this.isResponseSkeleton = false;
         this.customizedResponse = response;
-        this.readanswerpopubVisibility = true;
       },
       (error) => {
         this.toast.add({
@@ -135,6 +140,7 @@ export class JobPreparedListComponent implements OnInit {
           detail: "Something went wrong in Fetch customized Answer",
         });
         this.readanswerpopubVisibility = true;
+        this.isResponseSkeleton = false;
       }
     );
   }

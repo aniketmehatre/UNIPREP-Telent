@@ -168,7 +168,23 @@
 			<div class="card w-100">
 				<div class="card-header border-0">{{ "Generic" | uppercase }}</div>
 				<div class="card-body overflow-x-auto">
-					<div [innerHTML]="selectedAnswer"></div>
+					<div *ngIf="isResponseSkeleton; else showResponseData">
+						<p-skeleton width='30rem' height='2rem' styleClass="mb-2"></p-skeleton>
+						<p-skeleton width='100%' height='1rem' styleClass="mb-2"></p-skeleton>
+						<p-skeleton width='100%' height='1rem' styleClass="mb-2"></p-skeleton>
+						<p-skeleton width='90%' height='1rem' styleClass="mb-2"></p-skeleton>
+						<p-skeleton width='100%' height='1rem' styleClass="mb-2"></p-skeleton>
+						<p-skeleton width='95%' height='1rem' styleClass="mb-2"></p-skeleton>
+						<p-skeleton width='50%' height='1rem'></p-skeleton>
+						<div class="divider"></div>
+						<p-skeleton width='30rem' height='2rem' styleClass="mb-2"></p-skeleton>
+						<p-skeleton width='100%' height='1rem' styleClass="mb-2"></p-skeleton>
+						<p-skeleton width='100%' height='1rem' styleClass="mb-2"></p-skeleton>
+						<uni-percentage-loader />
+					</div>
+					<ng-template #showResponseData>
+						<div [innerHTML]="selectedAnswer"></div>
+					</ng-template>
 				</div>
 			</div>
 		</div>
@@ -190,7 +206,23 @@
 					</div>
 				</div>
 				<div class="card-body overflow-x-auto">
-					<div [innerHTML]="customizedResponse"></div>
+					<div *ngIf="isResponseSkeleton; else showCustomResponseData">
+						<p-skeleton width='30rem' height='2rem' styleClass="mb-2"></p-skeleton>
+						<p-skeleton width='100%' height='1rem' styleClass="mb-2"></p-skeleton>
+						<p-skeleton width='100%' height='1rem' styleClass="mb-2"></p-skeleton>
+						<p-skeleton width='90%' height='1rem' styleClass="mb-2"></p-skeleton>
+						<p-skeleton width='100%' height='1rem' styleClass="mb-2"></p-skeleton>
+						<p-skeleton width='95%' height='1rem' styleClass="mb-2"></p-skeleton>
+						<p-skeleton width='50%' height='1rem'></p-skeleton>
+						<div class="divider"></div>
+						<p-skeleton width='30rem' height='2rem' styleClass="mb-2"></p-skeleton>
+						<p-skeleton width='100%' height='1rem' styleClass="mb-2"></p-skeleton>
+						<p-skeleton width='100%' height='1rem' styleClass="mb-2"></p-skeleton>
+						<uni-percentage-loader />
+					</div>
+					<ng-template #showCustomResponseData>
+						<div [innerHTML]="customizedResponse"></div>
+					</ng-template>
 				</div>
 			</div>
 		</div>
