@@ -19,7 +19,7 @@ import { SelectModule } from "primeng/select"
 	templateUrl: "./salary-converter.component.html",
 	styleUrls: ["./salary-converter.component.scss"],
 	standalone: true,
-	imports: [CommonModule, ButtonModule, CarouselModule, DialogModule,  FormsModule, InputNumberModule, SelectModule],
+	imports: [CommonModule, ButtonModule, CarouselModule, DialogModule, FormsModule, InputNumberModule, SelectModule],
 	encapsulation: ViewEncapsulation.None,
 })
 export class SalaryConverterComponent implements OnInit {
@@ -34,6 +34,8 @@ export class SalaryConverterComponent implements OnInit {
 	fromCountry: any
 	toCountry: any
 	countries: any[] = []
+	targetCountries: any[] = []
+	sourceCountries: any[] = []
 	rates: any
 	statementText: any
 	inHomeCurrency: any
@@ -89,6 +91,8 @@ export class SalaryConverterComponent implements OnInit {
 		this.checkplanExpire()
 		this.salaryConverterService.getCountries().subscribe((data) => {
 			this.countries = data
+			this.sourceCountries = data
+			this.targetCountries = data
 		})
 	}
 
@@ -132,6 +136,10 @@ export class SalaryConverterComponent implements OnInit {
 		this.selectedCountryName = event.value.countryName
 		this.isPPPCardVisible = false
 		this.taxData = []
+		this.targetCountries = this.countries.map(item => ({
+			...item,
+			disabled: item.countryName === event.value.countryName, // Disable selected city
+		}));
 	}
 
 	onCountryToChange(event: any) {
@@ -140,6 +148,18 @@ export class SalaryConverterComponent implements OnInit {
 		this.selectedToCountryName = event.value.countryName
 		this.isPPPCardVisible = false
 		this.taxData = []
+		this.sourceCountries = this.countries.map(item => ({
+			...item,
+			disabled: item.countryName === event.value.countryName, // Disable selected city
+		}));
+	}
+
+	onClearCountry(event: Event, type: string) {
+		if (type == 'source') {
+			this.targetCountries = this.countries;
+		} else {
+			this.sourceCountries = this.countries;
+		}
 	}
 
 	goBack() {

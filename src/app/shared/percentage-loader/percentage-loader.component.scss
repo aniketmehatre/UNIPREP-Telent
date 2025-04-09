@@ -1,3 +1,9 @@
+.loader-container {
+    position: absolute;
+    bottom: 2rem;
+    right: 2rem;
+    z-index: 10;
+}
 .outer-container {
     height: 100px;
     width: 100px;
@@ -5,7 +11,6 @@
     // background: linear-gradient(135deg, #ff6ec4, #7873f5);
     border-radius: 50%;
     animation: rotate2 1.2s linear infinite;
-    margin-right: 20px;
 }
 
 .inner-container {

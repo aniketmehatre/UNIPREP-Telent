@@ -20,7 +20,7 @@
 							</div>
 						</ng-template>
 						<ng-template let-country pTemplate="item">
-							<div class="d-flex align-items-center gap-2" [ngClass]="{'disabled-option': country.disabled}" (click)="cityChange('source', country)">
+							<div class="d-flex align-items-center gap-2">
 								<div class="dropdownimg"><img [src]="country.flag" class="img-fluid" /></div>
 								<div>
 									<span *ngIf="country.city_name !== null">{{ country.city_name }}, </span>{{

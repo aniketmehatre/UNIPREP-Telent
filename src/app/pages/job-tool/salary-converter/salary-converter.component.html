@@ -30,7 +30,7 @@
       <div class="dropdown-container">
         <div class="form-group">
           <div class="mb-3">
-            <p-select id="fromCountry" styleClass="w-100 border-secondary" [(ngModel)]="fromCountry" [options]="countries" [filter]="true" filterBy="countryName" [showClear]="true" optionLabel="countryName" (onChange)="onCountryChange($event)" placeholder="Source Country" appendTo="body">
+            <p-select id="fromCountry" styleClass="w-100 border-secondary" [(ngModel)]="fromCountry" [options]="sourceCountries" [filter]="true" filterBy="countryName" [showClear]="true" optionLabel="countryName" (onChange)="onCountryChange($event)" (onClear)="onClearCountry($event, 'source')" placeholder="Source Country" appendTo="body">
               <ng-template pTemplate="selectedItem">
                 <div class="d-flex align-items-center gap-2" *ngIf="fromCountry">
                   <div class="dropdownimg"><img [src]="fromCountry.flag" class="img-fluid" /></div>
@@ -62,7 +62,7 @@
             <!-- <p-select id="toCountry" styleClass="w-100" [(ngModel)]="toCountry" [options]="countries"
                                 optionLabel="countryName" [filter]="true" filterBy="countryName" [showClear]="true"
                                 (onChange)="onCountryToChange($event)" placeholder="Target Country"></p-select> -->
-            <p-select id="toCountry" styleClass="w-100 border-primary" [(ngModel)]="toCountry" [options]="countries" [filter]="true" filterBy="countryName" [showClear]="true" optionLabel="countryName" (onChange)="onCountryToChange($event)" placeholder="Target Country" appendTo="body">
+            <p-select id="toCountry" styleClass="w-100 border-primary" [(ngModel)]="toCountry" [options]="targetCountries" [filter]="true" filterBy="countryName" [showClear]="true" optionLabel="countryName" (onChange)="onCountryToChange($event)" (onClear)="onClearCountry($event, 'target')" placeholder="Target Country" appendTo="body">
               <ng-template pTemplate="selectedItem">
                 <div class="d-flex align-items-center gap-2" *ngIf="toCountry">
                   <div class="dropdownimg"><img [src]="toCountry.flag" class="img-fluid" /></div>
