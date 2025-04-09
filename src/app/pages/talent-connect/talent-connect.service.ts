@@ -1,4 +1,4 @@
-import {HttpClient, HttpHeaders} from '@angular/common/http';
+import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import {Injectable} from '@angular/core';
 import {environment} from '@env/environment';
 import {Observable} from 'rxjs';
@@ -244,4 +244,12 @@ export class TalentConnectService {
         const headers = new HttpHeaders().set("Accept", "application/json");
         return this.http.post<any>(environment.ApiUrl + "/getsendmessagecompanytracker", formData,  {headers: headers});
     }
+
+    getStudentProfilesUsingId(id: string) {
+        let params = new HttpParams()
+            .set('student_id', id);
+        return this.http.get<any>(
+            environment.ApiUrlEmployer + "/getstudentprofilesusingid", { params },);
+    }
+
 }

@@ -22,7 +22,7 @@ import { DataService } from 'src/app/data.service';
     templateUrl: './country-insights-submodule.component.html',
     styleUrls: ['./country-insights-submodule.component.scss'],
     standalone: true,
-  imports: [FormsModule, ReactiveFormsModule, PaginatorModule, CarouselModule, ButtonModule, CommonModule, RouterModule, DialogModule, MultiSelectModule, SelectModule, CardModule, InputGroupModule, InputTextModule, InputGroupAddonModule]
+  imports: [DialogModule, FormsModule, ReactiveFormsModule, PaginatorModule, CarouselModule, ButtonModule, CommonModule, RouterModule, DialogModule, MultiSelectModule, SelectModule, CardModule, InputGroupModule, InputTextModule, InputGroupAddonModule]
 })
 export class CountryInsightsSubmoduleComponent implements OnInit {
   questionsList: QuestionsList[] = [];
@@ -72,6 +72,7 @@ export class CountryInsightsSubmoduleComponent implements OnInit {
   openReport() {
     const data = {
       isVisible: true,
+      moduleId: this.moduleId,
       questionId: this.questionDetail?.id,
       countryId: this.countryId,
     };

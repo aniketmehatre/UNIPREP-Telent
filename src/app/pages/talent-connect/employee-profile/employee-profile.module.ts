@@ -21,18 +21,25 @@ import { MultiSelectModule } from 'primeng/multiselect';
 import { FluidModule } from 'primeng/fluid';
 import { EditorModule } from 'primeng/editor';
 import { TooltipModule } from 'primeng/tooltip';
+import { CompleteProfileViewComponent } from './complete-profile-view/complete-profile-view.component';
+import { ConfirmDialogModule } from 'primeng/confirmdialog';
+import { ConfirmationService } from 'primeng/api';
 
 const routes: Routes = [
   {
     path: '',
     component: EmployeeProfileComponent,
   },
+  {
+    path: ':id',
+    component: CompleteProfileViewComponent
+  }
 ]
 
 
 @NgModule({
   declarations: [EmployeeProfileComponent],
-  providers: [DialogService],
+  providers: [DialogService, ConfirmationService],
   imports: [
     CommonModule,
     RouterModule.forChild(routes),
@@ -53,7 +60,8 @@ const routes: Routes = [
     ToastModule,
     MultiSelectModule,
     EditorModule,
-    TooltipModule
+    TooltipModule,
+    ConfirmDialogModule
   ]
 })
 export class EmployeeProfileModule { }
