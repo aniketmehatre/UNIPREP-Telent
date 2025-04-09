@@ -2,23 +2,13 @@
   <div class="card-header border-0 bg-transparent">
     <div class="row">
       <div class="col-md-12 d-flex gap-2 text-center">
-        <div
-          class="backIcon d-md-flex d-none"
-          role="button"
-          routerLink="/pages/talent-connect/company-connect">
+        <div class="backIcon d-md-flex d-none" role="button" routerLink="/pages/talent-connect/company-connect">
           <span class="fa-solid fa-chevron-left"></span>
         </div>
-        <div
-          class="select-title d-flex justify-content-between align-items-center"
-        >
+        <div class="select-title d-flex justify-content-between align-items-center">
           <div>
-            <h5
-              class="mb-0"
-              tooltipPosition="top"
-              pTooltip="Questions related to the application process are answered">
-              Company Connect<i
-                class="questiontooltip fa-solid fa-circle-question"
-              ></i>
+            <h5 class="mb-0" tooltipPosition="top" pTooltip="Questions related to the application process are answered">
+              Company Connect<i class="questiontooltip fa-solid fa-circle-question"></i>
             </h5>
           </div>
           <div>
@@ -33,172 +23,161 @@
   </div>
   <div class="card-body text-center flex-fill overflow-y-auto">
     <!-- company-profile.component.html -->
-    <div class="row">
-      <div class="col-md-9" [ngClass]="{'col-md-12': !showChat}">
-        <div class="container-fluid bg-light text-start overflow-y-auto">
-          <div class="card mb-4 mt-3 bg-secondary-subtle">
-            <div class="card-body">
-              <div class="row align-items-center">
-                <div class="col-md-2">
-                  <div class="logo-container border rounded p-2">
-                    <img
-                      src="{{companyDetails?.company_logo}}"
-                      alt="Company Logo"
-                      class="img-fluid"
-                      onerror="this.src"
-                    />
+    <div class="row h-100">
+      <div class="col-md-9 h-100 overflow-hidden" [ngClass]="{'col-md-12': !showChat}">
+        <div class="card h-100 overflow-y-auto text-start" style="box-shadow:none">
+          <div class="p-2">
+            <div class="card mb-4 bg-secondary-subtle">
+              <div class="card-body">
+                <div class="row align-items-center">
+                  <div class="col-md-2">
+                    <div class="logo-container border rounded p-2">
+                      <img src="{{companyDetails?.company_logo}}" alt="Company Logo" class="img-fluid"
+                        onerror="this.src" />
+                    </div>
                   </div>
-                </div>
-                <div class="col-md-7">
-                  <h1 class="fw-bold">{{ companyDetails.company_name }}</h1>
-                  <p class="text-muted pt-2">Founded : {{ companyDetails.founded_year }}</p>
-                  <button class="pt-2 btn {{companyDetails.followed == 0 ? 'btn-outline-primary' : 'btn-primary' }}"
-                          (click)="followCompany()" [disabled]="companyDetails.followed == 1">
-                    {{companyDetails.followed == 0 ? 'Follow' : 'Followed' }}
-                      <i [ngClass]="companyDetails.followed == 0 ? 'pi pi-plus' : 'pi pi-check'" class="fs-6"></i>
-                  </button>
-                </div>
+                  <div class="col-md-7">
+                    <h1 class="fw-bold">{{ companyDetails?.company_name }}</h1>
+                    <p class="text-muted pt-2">Founded : {{ companyDetails?.founded_year }}</p>
+                    <button class="pt-2 btn {{companyDetails?.followed == 0 ? 'btn-outline-primary' : 'btn-primary' }}"
+                      (click)="followCompany()" [disabled]="companyDetails?.followed == 1">
+                      {{companyDetails?.followed == 0 ? 'Follow' : 'Followed' }}
+                      <i [ngClass]="companyDetails?.followed == 0 ? 'pi pi-plus' : 'pi pi-check'" class="fs-6"></i>
+                    </button>
+                  </div>
                   <div class="col-md-3 d-flex justify-content-end gap-2 pt-2">
-                      <button class="p-2 rounded-2"
-                              [ngClass]="companyDetails.shortlisted == 1 ? 'btn btn-secondary' : 'btn btn-outline-secondary'"
-                              (click)="onClickShortListCompany(companyDetails.id)"
-                              [disabled]="companyDetails.shortlisted == 1">
-                          {{ companyDetails.shortlisted == 1 ? "Shortlisted" : "Shortlist" }}
-                      </button>
+                    <button class="p-2 rounded-2"
+                      [ngClass]="companyDetails?.shortlisted == 1 ? 'btn btn-secondary' : 'btn btn-outline-secondary'"
+                      (click)="onClickShortListCompany(companyDetails?.id)"
+                      [disabled]="companyDetails?.shortlisted == 1">
+                      {{ companyDetails?.shortlisted == 1 ? "Shortlisted" : "Shortlist" }}
+                    </button>
 
-                      <button pButton severity="success" class="success rounded-2" (click)="showChat = true">
-                          Chat <i class="pi pi-comment"></i>
-                      </button>
-                  </div>
-              </div>
-            </div>
-          </div>
-
-          <!-- About Organization Section -->
-          <div class="card bg-secondary-subtle mb-4">
-            <div class="card-body">
-              <div class="row">
-                <div class="col-md-3 h-100">
-                  <h2 class="fw-bold mb-4">About Organization</h2>
-                </div>
-                <div class="col-md-9">
-                  <div class="row">
-                    <div class="col-md-3 mb-3">
-                      <h6 class="text-muted text-primary">Industry Type</h6>
-                      <p>{{ companyDetails.industry_type }}</p>
-                    </div>
-                    <div class="col-md-3 mb-3">
-                      <h6 class="text-muted text-primary">Company Size</h6>
-                      <p>
-                        {{ companyDetails.size }}<br />
-                        <small class="text-muted"
-                          >({{ companyInfo.sizeCategory }})</small
-                        >
-                      </p>
-                    </div>
-                    <div class="col-md-3 mb-3">
-                      <h6 class="text-muted text-primary">Company Type</h6>
-                      <p>{{ companyDetails.company_type[0]?.name }}</p>
-                    </div>
-                    <div class="col-md-3 mb-3">
-                      <h6 class="text-muted text-primary">Headquarters Location</h6>
-                      <p>{{companyDetails.HQ_city}}, {{ companyDetails.HQ_country }}</p>
-                    </div>
-                    <div class="col-md-3 mb-3">
-                      <h6 class="text-muted text-primary">Global Presence</h6>
-                      <p>{{ companyDetails.global_presence }}</p>
-                    </div>
-                    <div class="col-md-3 mb-3">
-                      <h6 class="text-muted text-primary">Official Website</h6>
-                      <p>{{ companyDetails.website }}</p>
-                    </div>
-                    <div class="col-md-3 mb-3">
-                      <h6 class="text-muted text-primary">Department</h6>
-                      <p>{{ companyDetails.departments }}</p>
-                    </div>
-                    <div class="col-md-3 mb-3">
-                      <h6 class="text-muted text-primary">Work Mode</h6>
-                      <p>{{ companyDetails.work_mode }}</p>
-                    </div>
-                    <div class="col-md-3">
-                      <h6 class="text-muted text-primary">LinkedIn Profile</h6>
-                      <p>{{ companyDetails.linkedin_link }}</p>
-                    </div>
+                    <button pButton severity="success" class="success rounded-2" (click)="showChat = true">
+                      Chat <i class="pi pi-comment"></i>
+                    </button>
                   </div>
                 </div>
               </div>
             </div>
           </div>
-
-          <!-- Company Insights Section -->
-          <div class="card mb-4 bg-secondary-subtle">
-            <div class="card-body">
-              <div class="row">
-                <div class="col-md-3 h-100">
-                  <h2 class="fw-bold mb-4">Company Insights</h2>
-                </div>
-                <div class="col-md-9">
-                  <h5 class="text-primary">About Company</h5>
-                  <p style="white-space: pre-line">{{ companyInfo.about }}</p>
-
-                  <div class="row mt-4">
-                    <div class="col-md-6">
-                      <h5 class="text-primary">Work Life Balance Policies</h5>
-                      <div class="mt-2">
-                        <p-chip
-                          *ngFor="let policy of companyDetails.work_life_balance_policy"
-                          label="{{ policy }}"
-                          styleClass="m-1 bg-warning bg-opacity-25 text-dark"
-                        ></p-chip>
+          <div class="p-2 h-100 overflow-y-auto">
+            <!-- About Organization Section -->
+            <div class="card bg-secondary-subtle mb-4">
+              <div class="card-body">
+                <div class="row">
+                  <div class="col-md-3 h-100">
+                    <h2 class="fw-bold mb-4">About Organization</h2>
+                  </div>
+                  <div class="col-md-9">
+                    <div class="row">
+                      <div class="col-md-3 mb-3">
+                        <h6 class="text-muted text-primary">Industry Type</h6>
+                        <p>{{ companyDetails?.industry_type }}</p>
                       </div>
-                    </div>
-                    <div class="col-md-6">
-                      <h5 class="text-primary">Employee Benefits & Perks</h5>
-                      <div class="mt-2">
-                        <p-chip
-                          *ngFor="let benefit of companyDetails.benefits"
-                          label="{{ benefit }}"
-                          styleClass="m-1 bg-info bg-opacity-25 text-dark"
-                        ></p-chip>
+                      <div class="col-md-3 mb-3">
+                        <h6 class="text-muted text-primary">Company Size</h6>
+                        <p>
+                          {{ companyDetails?.size }}<br />
+                          <small class="text-muted">({{ companyInfo.sizeCategory }})</small>
+                        </p>
+                      </div>
+                      <div class="col-md-3 mb-3">
+                        <h6 class="text-muted text-primary">Company Type</h6>
+                        <p>{{ companyDetails?.company_type[0]?.name }}</p>
+                      </div>
+                      <div class="col-md-3 mb-3">
+                        <h6 class="text-muted text-primary">Headquarters Location</h6>
+                        <p>{{companyDetails?.HQ_city}}, {{ companyDetails?.HQ_country }}</p>
+                      </div>
+                      <div class="col-md-3 mb-3">
+                        <h6 class="text-muted text-primary">Global Presence</h6>
+                        <p>{{ companyDetails?.global_presence }}</p>
+                      </div>
+                      <div class="col-md-3 mb-3">
+                        <h6 class="text-muted text-primary">Official Website</h6>
+                        <p>{{ companyDetails?.website }}</p>
+                      </div>
+                      <div class="col-md-3 mb-3">
+                        <h6 class="text-muted text-primary">Department</h6>
+                        <p>{{ companyDetails?.departments }}</p>
+                      </div>
+                      <div class="col-md-3 mb-3">
+                        <h6 class="text-muted text-primary">Work Mode</h6>
+                        <p>{{ companyDetails?.work_mode }}</p>
+                      </div>
+                      <div class="col-md-3">
+                        <h6 class="text-muted text-primary">LinkedIn Profile</h6>
+                        <p>{{ companyDetails?.linkedin_link }}</p>
                       </div>
                     </div>
                   </div>
-
-                  <div class="mt-4">
-                    <h5 class="text-primary">Work Location & Mode</h5>
-                    <p>{{ companyDetails.work_mode }}</p>
-                  </div>
                 </div>
               </div>
             </div>
 
-          </div>
-          <!-- Hiring & Recruitment Section -->
-          <div class="card mt-2 bg-secondary-subtle">
-            <div class="card-body">
-              <div class="row">
-                <div class="col-md-3 h-100">
-                  <h2 class="fw-bold mb-4">Hiring & Recruitment</h2>
+            <!-- Company Insights Section -->
+            <div class="card mb-4 bg-secondary-subtle">
+              <div class="card-body">
+                <div class="row">
+                  <div class="col-md-3 h-100">
+                    <h2 class="fw-bold mb-4">Company Insights</h2>
+                  </div>
+                  <div class="col-md-9">
+                    <h5 class="text-primary">About Company</h5>
+                    <p style="white-space: pre-line">{{ companyInfo.about }}</p>
+
+                    <div class="row mt-4">
+                      <div class="col-md-6">
+                        <h5 class="text-primary">Work Life Balance Policies</h5>
+                        <div class="mt-2">
+                          <p-chip *ngFor="let policy of companyDetails?.work_life_balance_policy" label="{{ policy }}"
+                            styleClass="m-1 bg-warning bg-opacity-25 text-dark"></p-chip>
+                        </div>
+                      </div>
+                      <div class="col-md-6">
+                        <h5 class="text-primary">Employee Benefits & Perks</h5>
+                        <div class="mt-2">
+                          <p-chip *ngFor="let benefit of companyDetails?.benefits" label="{{ benefit }}"
+                            styleClass="m-1 bg-info bg-opacity-25 text-dark"></p-chip>
+                        </div>
+                      </div>
+                    </div>
+
+                    <div class="mt-4">
+                      <h5 class="text-primary">Work Location & Mode</h5>
+                      <p>{{ companyDetails?.work_mode }}</p>
+                    </div>
+                  </div>
                 </div>
-                <div class="col-md-9">
-                  <h5 class="text-primary">Hiring Process Stages</h5>
-                  <div class="mt-2">
-                    <p-chip *ngFor="let hire of companyDetails.hiring_process_stages"
-                      label="{{ hire }}"
-                      styleClass="m-1 bg-warning bg-opacity-25 text-dark"
-                    ></p-chip>
-                  </div>
+              </div>
 
-                  <div class="mt-4">
-                    <h5 class="text-primary">
-                      Estimated Hiring Decision Timeframe
-                    </h5>
-                    <p>{{ companyDetails.timeframe }}</p>
+            </div>
+            <!-- Hiring & Recruitment Section -->
+            <div class="card mt-2 bg-secondary-subtle">
+              <div class="card-body">
+                <div class="row">
+                  <div class="col-md-3 h-100">
+                    <h2 class="fw-bold mb-4">Hiring & Recruitment</h2>
                   </div>
+                  <div class="col-md-9">
+                    <h5 class="text-primary">Hiring Process Stages</h5>
+                    <div class="mt-2">
+                      <p-chip *ngFor="let hire of companyDetails?.hiring_process_stages" label="{{ hire }}"
+                        styleClass="m-1 bg-warning bg-opacity-25 text-dark"></p-chip>
+                    </div>
 
-                  <div class="mt-4">
-                    <h5 class="text-primary">Interview Format</h5>
-                    <p>{{ companyDetails.format }}</p>
+                    <div class="mt-4">
+                      <h5 class="text-primary">
+                        Estimated Hiring Decision Timeframe
+                      </h5>
+                      <p>{{ companyDetails?.timeframe }}</p>
+                    </div>
+
+                    <div class="mt-4">
+                      <h5 class="text-primary">Interview Format</h5>
+                      <p>{{ companyDetails?.format }}</p>
+                    </div>
                   </div>
                 </div>
               </div>
@@ -206,10 +185,9 @@
           </div>
         </div>
       </div>
-      <div class="col-md-3" *ngIf="showChat">
+      <div class="col-md-3 h-100 overflow-y-auto pt-2" *ngIf="showChat">
         <uni-chat [companyDetails]="companyDetails" [id]="companyId" (closeChat)="showChat = false"></uni-chat>
       </div>
     </div>
   </div>
 </div>
-

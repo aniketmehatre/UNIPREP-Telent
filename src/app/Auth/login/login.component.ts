@@ -243,7 +243,7 @@ export class LoginComponent implements OnInit, OnDestroy {
 				this.toast.add({
 					severity: "error",
 					summary: "Error",
-					detail: error.message || 'Login failed'
+					detail: error?.error?.message || 'Login failed'
 				})
 			}
 		})

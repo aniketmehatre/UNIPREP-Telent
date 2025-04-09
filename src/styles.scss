@@ -537,7 +537,8 @@ uni-fortune-companies-data-list,
 uni-company-connect,
 uni-global-employment-country-lists,
 uni-global-employment-data-list,
-uni-global-work-visa {
+uni-global-work-visa,
+uni-company-view {
 	display: flex;
 	flex: 1;
 	height: 100%;
@@ -2627,7 +2628,8 @@ uni-global-employment-insights {
 		color: var(--uniprep-tertiary) !important;
 	}
 
-	&:focus, &:active {
+	&:focus,
+	&:active {
 		background-color: #000000 !important;
 		color: var(--uniprep-tertiary) !important;
 	}
@@ -2673,6 +2675,7 @@ uni-global-employment-insights {
 	align-items: center;
 	justify-content: center;
 }
+
 .ai-generate-btn {
 	height: 18px;
 	padding: 0px 4px 20px 4px;
@@ -2681,4 +2684,4 @@ uni-global-employment-insights {
 	background: var(--uniprep-green);
 	border-radius: 10px !important;
 	border: 1px solid var(--uniprep-green);
-  }
+}
