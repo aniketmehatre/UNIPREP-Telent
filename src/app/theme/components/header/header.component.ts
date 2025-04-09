@@ -794,7 +794,6 @@ export class HeaderComponent implements OnInit, OnDestroy {
 		this.reportType = 3
 		this.reportlearnlanguagetype = data.reporttype === 8 ? 8 : 0
 		this.subs.sink = this.service.getMe().subscribe((data) => {
-			debugger;
 			if (data) {
 				//this.storage.set('countryId', data.userdetails[0].interested_country_id);
 				this.userName = data.userdetails[0].name.toString()
