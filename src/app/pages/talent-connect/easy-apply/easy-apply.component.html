@@ -38,7 +38,7 @@
 					</button>
 					<div class="card-body">
 						<div class="d-flex gap-2 align-items-center">
-							<div class="rounded-2 d-flex" style="border: 1px solid #e7e7e7; height: 85px; width: 85px; padding: 0.4rem">
+							<div class="rounded-2 d-flex overflow-hidden" style="border: 1px solid #e7e7e7; height: 85px; width: 85px">
 								<img class="w-100" [src]="job.company_logo" alt="Company Logo" />
 							</div>
 							<div>
@@ -52,11 +52,12 @@
 								<p class="mb-0 text-warning fw-medium" style="font-size: 0.7rem">
 									{{ job.matching_skills }}
 								</p>
+								<button pButton class="btn btn-rounded btn-success w-100 text-nowrap py-1"><i class="fa-solid fa-check"></i>Actively Hiring</button>
 							</div>
 						</div>
 						<hr class="my-2" />
 						<div class="row justify-content-between align-items-center">
-							<div class="col-6">
+							<div class="col-md-6">
 								<div class="d-flex gap-2 align-items-center">
 									<i class="fa-solid fa-user-tie" style="color: #cc660a"></i>
 									<div>
@@ -65,8 +66,14 @@
 									</div>
 								</div>
 							</div>
-							<div class="col-6 text-end">
-								<button pButton class="btn btn-rounded btn-success w-100 text-nowrap py-1"><i class="fa-solid fa-check"></i>Actively Hiring</button>
+							<div class="col-md-6">
+								<div class="d-flex gap-2 align-items-center">
+									<i class="fa-solid fa-user-tie" style.color="bg-primary"></i>
+									<div>
+										<p class="text-muted mb-0 text-small">Total Applied</p>
+										<h3 class="mb-0 fw-medium">{{ job.total_applied }}</h3>
+									</div>
+								</div>
 							</div>
 						</div>
 						<hr class="my-2" />
@@ -79,17 +86,6 @@
 									<div class="overflow-hidden">
 										<p class="text-muted mb-0 text-small">Work Location</p>
 										<p class="mb-0 fw-medium text-truncate">{{ job.worklocation }}</p>
-									</div>
-								</div>
-							</div>
-							<div class="col-md-6">
-								<div class="d-flex mb-3 align-items-center">
-									<div class="me-2 text-primary">
-										<i class="fa-solid fa-user-tie" style.color="bg-primary"></i>
-									</div>
-									<div class="overflow-hidden">
-										<p class="text-muted mb-0 text-small">Total Applied</p>
-										<p class="mb-0 fw-medium text-truncate">{{ job.total_applied }}</p>
 									</div>
 								</div>
 							</div>
