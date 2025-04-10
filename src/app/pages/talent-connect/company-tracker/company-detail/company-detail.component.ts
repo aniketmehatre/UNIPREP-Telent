@@ -1,20 +1,24 @@
 import { CommonModule } from '@angular/common';
-import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
-import { Button, ButtonModule } from 'primeng/button';
-import { Chip, ChipModule } from 'primeng/chip';
-import {TalentConnectService} from "../../talent-connect.service";
+import { Component, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChanges } from '@angular/core';
+import { ButtonModule } from 'primeng/button';
+import { ChipModule } from 'primeng/chip';
+import { TalentConnectService } from "../../talent-connect.service";
+import { ChatComponent } from '../../company-connect/chat/chat.component';
+import { Company } from 'src/app/@Models/company-connect.model';
 
 @Component({
   selector: 'uni-company-detail',
   templateUrl: './company-detail.component.html',
   styleUrls: ['./company-detail.component.scss'],
   standalone: true,
-  imports: [ChipModule, ButtonModule, CommonModule,]
+  imports: [ChipModule, ButtonModule, CommonModule, ChatComponent]
 })
-export class CompanyDetailComponent implements OnInit {
-  @Input() companyDetails!: any;
+export class CompanyDetailComponent implements OnInit, OnChanges {
+
+  @Input() companyId!: any;
   @Output() openChat = new EventEmitter<boolean>(true);
   @Input() showInfo: boolean = true;
+  showChat: boolean = false;
 
   companyData = {
     name: 'UNIABROAD Technology Pvt. Ltd.',

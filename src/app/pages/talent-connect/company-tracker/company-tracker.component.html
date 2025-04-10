@@ -17,89 +17,59 @@
 			</div>
 			<!-- <div class="col-md-3 mt-2 text-end desktop justify-content-end d-none d-md-flex"></div> -->
 		</div>
-	</div>
-  
-	<div class="card-body text-center flex-fill overflow-y-auto">
-	  <div class="container-fluid px-1 py-1">
-		<div class="row gx-1">
-			<div class="d-flex gap-2 justify-content-center">
-                <!-- Company Search Button -->
-                <button type="button" pButton
-                        class="p-2 px-2 mb-1 mt-1 module-button primary-btn"
-                        routerLink="/pages/talent-connect/company-connect">
-                    Company Search
-                </button>
-
-                <!-- Company Tracker Button -->
-                <button type="button" pButton
-                        class="p-2 px-2 mb-1 mt-1 module-button outlined-btn active-button"
-                        routerLink="/pages/talent-connect/company-tracker">
-                    Company Tracker
-                </button>
-            </div>
-		  <!-- Sidebar with job list -->
-		  <div class="col-lg-3 col-md-5 col-12 border-end mb-3 mb-md-0">
-			<uni-company-list (companyTrackerEmit)="onClickJobId($event)" (triggerCloseFilter)="displayModal = false" [displayModal]="displayModal"></uni-company-list>
-		  </div>
-  
-		  <!-- Main content with job details and chat -->
-		  <div class="col-lg-9 col-md-7 col-12">
-			<div class="row g-3" *ngIf="selectedJobId else showEmptyConainter">
-				<div class="col-lg-8 col-md-7 col-12 position-relative overflow-hidden" [ngClass]="{'col-lg-12': !showChat}">
-					<div class="job-details-container h-100 overflow-auto">
-					  <uni-company-detail (openChat)="toggleInfo();" [companyDetails]="selectedJobId"  [showInfo]="showChat"></uni-company-detail>
-					</div>
-				  </div>
-			  <div class="col-lg-4 col-md-5 col-12" [hidden]="!showChat">
-				<uni-chat [companyDetails]="companyData"  (closeChat)="toggleInfo();" [showInfo]="showChat"></uni-chat>
-			  </div>
+		<div class="row mt-2 align-items-center justify-content-center">
+			<!-- Centered Buttons -->
+			<div class="col-md-4">
+				<div class="d-flex gap-3 justify-content-center">
+					<button type="button" pButton class="btn border px-3 py-3 bg-white" routerLink="/pages/talent-connect/company-connect">Company Search</button>
+					<button type="button" pButton class="btn border btn-primary px-3 py-3">Company Tracker</button>
+				</div>
 			</div>
-			<ng-template #showEmptyConainter>
-				<div class="detail-panel d-flex flex-column align-items-center justify-content-center">
-					<div class="no-selection text-center">
-					  <div class="building-icon mb-4">
-						<img src="uniprep-assets/images/building-icon.png" alt="Building" class="img-fluid">
-					  </div>
-					  <h4 class="mb-3">No Application Selected</h4>
-					  <p class="text-muted">
-						Select a application to move check your information<br>
-						and move forward with your interview
-					  </p>
-					</div>
-				  </div>
-			</ng-template>
-		  </div>
 		</div>
-	  </div>
+	</div>
+
+	<div class="card-body flex-fill overflow-y-auto">
+		<div class="row h-100">
+			<!-- Sidebar with job list -->
+			<div class="col-lg-3 col-md-5 col-12 h-100">
+				<uni-company-list (companyTrackerEmit)="onClickJobId($event)" (triggerCloseFilter)="displayModal = false" [displayModal]="displayModal"></uni-company-list>
+			</div>
+
+			<!-- Main content with job details and chat -->
+			<div class="col-lg-9 col-md-7 col-12 h-100">
+				<ng-template #showEmptyConainter>
+					<div class="card bg-white h-100">
+						<div class="d-flex flex-fill justify-content-center align-items-center flex-column text-center">
+							<div class="building-icon mb-4">
+								<img src="uniprep-assets/images/building-icon.png" alt="Building" class="img-fluid" />
+							</div>
+							<h4 class="mb-3">No Application Selected</h4>
+							<p class="text-muted">
+								Select a application to move check your information<br />
+								and move forward with your interview
+							</p>
+						</div>
+					</div>
+				</ng-template>
+				<div class="h-100" *ngIf="selectedJobId; else showEmptyConainter">
+					<uni-company-detail (openChat)="toggleInfo()" [companyId]="selectedJobId" [showInfo]="showChat"></uni-company-detail>
+				</div>
+			</div>
+		</div>
 	</div>
 	<!-- Responsive Upgrade Dialog -->
-	<p-dialog
-	  [(visible)]="restrict"
-	  [modal]="true"
-	  [style]="{ width: '30vw' }"
-	  [draggable]="false"
-	  [resizable]="false"
-	  class="restrictionDialog"
-	  [breakpoints]="{ '960px': '50vw', '768px': '70vw', '480px': '90vw' }"
-	  (onHide)="restrict = false"
-	>
-	  <div *ngIf="ehitlabelIsShow" class="text-center my-4">
-		<img src="../../../uniprep-assets/images/smartloack.png" class="image" width="60" />
-		<h3 class="offer">Upgrade Required</h3>
-		<p>To access this exclusive module, please upgrade your plan now.</p>
-		<button 
-		  pButton type="button" 
-		  class="btn btn-warning text-white p-ripple p-button-rounded p-2" 
-		  (click)="upgradePlan()"
-		>
-		  Upgrade Plan <i class="fa fa-arrow-right exhausted-plan-icon"></i>
-		</button>
-	  </div>
-  
-	  <div *ngIf="!ehitlabelIsShow" class="text-center my-4">
-		<img src="../../../uniprep-assets/images/smartloack.png" class="image" width="60" />
-		<h3 class="offer">Upgrade Required</h3>
-		<p>Please contact {{ orgnamewhitlabel }} Company for access.</p>
-	  </div>
+	<p-dialog [(visible)]="restrict" [modal]="true" [style]="{ width: '30vw' }" [draggable]="false" [resizable]="false" class="restrictionDialog" [breakpoints]="{ '960px': '50vw', '768px': '70vw', '480px': '90vw' }" (onHide)="restrict = false">
+		<div *ngIf="ehitlabelIsShow" class="text-center my-4">
+			<img src="../../../uniprep-assets/images/smartloack.png" class="image" width="60" />
+			<h3 class="offer">Upgrade Required</h3>
+			<p>To access this exclusive module, please upgrade your plan now.</p>
+			<button pButton type="button" class="btn btn-warning text-white p-ripple p-button-rounded p-2" (click)="upgradePlan()">Upgrade Plan <i class="fa fa-arrow-right exhausted-plan-icon"></i></button>
+		</div>
+
+		<div *ngIf="!ehitlabelIsShow" class="text-center my-4">
+			<img src="../../../uniprep-assets/images/smartloack.png" class="image" width="60" />
+			<h3 class="offer">Upgrade Required</h3>
+			<p>Please contact {{ orgnamewhitlabel }} Company for access.</p>
+		</div>
 	</p-dialog>
-  </div>
+</div>
