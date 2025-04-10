@@ -1,76 +1,75 @@
 import { CommonModule } from '@angular/common';
-import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
-import { Button, ButtonModule } from 'primeng/button';
-import { Chip, ChipModule } from 'primeng/chip';
-import {TalentConnectService} from "../../talent-connect.service";
+import { Component, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChanges } from '@angular/core';
+import { ButtonModule } from 'primeng/button';
+import { ChipModule } from 'primeng/chip';
+import { TalentConnectService } from "../../talent-connect.service";
+import { ChatComponent } from '../../company-connect/chat/chat.component';
+import { Company } from 'src/app/@Models/company-connect.model';
 
 @Component({
   selector: 'uni-company-detail',
   templateUrl: './company-detail.component.html',
   styleUrls: ['./company-detail.component.scss'],
   standalone: true,
-  imports: [ChipModule, ButtonModule, CommonModule,]
+  imports: [ChipModule, ButtonModule, CommonModule, ChatComponent]
 })
-export class CompanyDetailComponent implements OnInit {
-  @Input() companyDetails!: any;
+export class CompanyDetailComponent implements OnInit, OnChanges {
+
+  @Input() companyId!: any;
   @Output() openChat = new EventEmitter<boolean>(true);
   @Input() showInfo: boolean = true;
+  showChat: boolean = false;
 
-  constructor(private talentConnectService: TalentConnectService,) {
+  companyInfo = {
+    name: 'UNIABROAD Technology Pvt. Ltd.',
+    founded: 2019,
+    headquartersLocation: 'Mysore, Karnataka',
+    companyType: 'Startup',
+    companySize: '10-49 Employees',
+    sizeCategory: 'Small enterprises',
+    industryType: 'Primary',
+    globalPresence: ['India', 'United Kingdom'],
+    websiteUrl: 'www.uniabroad.co.in',
+    linkedInProfile: 'https://www.linkedin.com/company/example-corp/',
+    logo: 'assets/uniabroad-logo.png',
+    about: 'We\'re a company dedicated to helping students achieve their dream of studying abroad. Our journey began in 2019, when our founders recognized the need for a reliable and comprehensive overseas education company. Since then, we\'ve been working tirelessly to guide students in the process of applying to and studying at top universities around the world.\nWe\'re proud of the work we\'ve done so far, and we\'re excited to continue making a positive impact on the lives of students around the world.'
+  };
+  companyDetails!: Company;
+
+  constructor(private talentConnectService: TalentConnectService) {
   }
 
   ngOnInit() {
-    console.log(this.companyDetails);
-    this.init()
   }
 
+  ngOnChanges(changes: SimpleChanges) {
+    if (changes) {
+      this.init();
+    }
+  }
 
-  perPage: number = 10
-  page: number = 1
-  companyData: any
-  init(){
-      const requestData = {
-        perpage: this.perPage,
-        page: this.page,
-        companyname: "Test",
-        industrytype: [2, 1],  // Converted to an array for better structure
-        companysize: 1,
-        hq: 2,
-        globalpresence: [1, 2, 3], // Converted to an array
-        foundedyear: 2002,
-        companytype: 1
-      };
-      const requestDataEmpty = {
-        perpage: this.perPage,
-        page: this.page,
-
-      };
-    this.talentConnectService.getCompanyDetails(this.companyDetails).subscribe({
+  init() {
+    this.talentConnectService.getCompanyDetails(this.companyId).subscribe({
       next: data => {
-        this.companyData = data[0]
-        this.companyData.work_life_balance_policy = this.companyData.work_life_balance_policy.split(", ");
-        this.companyData.hiring_process_stages = this.companyData.hiring_process_stages.split(", ");
-        this.companyData.benefits = this.companyData.benefits.split(", ");
-        this.companyData.global_presence = this.companyData.global_presence.split(", ");
-        this.companyData.industry_type = this.companyData.industry_type.split(", ");
+        this.companyDetails = data[0];
       },
       error: err => {
-        console.log(err)
+        console.log(err);
       }
-    })
+    });
   }
 
-  followCompany(){
-    this.talentConnectService.followCompany(this.companyDetails).subscribe(
-        {
-          next: result => {
-            this.init()
-          },
-          error: err => {
-            console.log(err)
-          }
+  followCompany() {
+    this.talentConnectService.followCompany(this.companyId).subscribe({
+      next: response => {
+        if (response.success) {
+          this.companyDetails.followed = 1;
         }
-    )
+      },
+      error: err => {
+        console.log(err);
+      }
+    });
   }
 
 }

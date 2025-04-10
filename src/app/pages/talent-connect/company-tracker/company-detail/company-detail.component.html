@@ -1,148 +1,157 @@
-<div class="container-fluid bg-white" *ngIf="companyData">
-  <!-- Main card container -->
-  <div class="card main-card mb-3">
-    <!-- Company header section -->
-    <div class="company-header p-3">
-      <div class="row">
-        <div class="col-3 col-md-2">
-          <img src="{{companyData.company_logo}}" alt="UNIABROAD Logo" class="company-logo">
-        </div>
-        <div class="col-7 col-md-8 text-left">
-          <h1 class="company-name">{{companyData.company_name}}</h1>
-          <p class="founded-text">Founded : {{companyData.founded_year}}</p>
-          <div class="text-left">
-            <!-- <button pButton class="p-button-outlined py-1">
-              Follow&nbsp;<i class="pi pi-plus"></i>
-            </button> -->
-            <button pButton class="pt-2 btn {{companyData.followed == 0 ? 'btn-outline-primary' : 'btn-primary' }}"
-                          (click)="followCompany()" [disabled]="companyData.followed == 1">
-                    {{companyData.followed == 0 ? 'Follow' : 'Followed' }}
-                      <i [ngClass]="companyData.followed == 0 ? 'pi pi-plus' : 'pi pi-check'" class="fs-6"></i>
-                  </button>
-          </div>
-        </div>
-        <div class="col-2 text-end">
-          <button pButton class="p-button-success chat-btn" *ngIf="!showInfo" (click)="openChat.emit(true)">
-            <i class="pi pi-comments"></i> Chat
-          </button>
-        </div>
-      </div>
-    </div>
-    
-  </div>
+<div class="card readingcard h-100">
+	<div class="card-body text-center flex-fill overflow-y-auto">
+		<!-- company-profile.component.html -->
+		<div class="row h-100">
+			<div class="col-md-9 h-100 overflow-hidden" [ngClass]="{ 'col-md-12': !showChat }">
+				<div class="card h-100 overflow-y-auto text-start" style="box-shadow: none">
+					<div class="p-2">
+						<div class="card mb-4 bg-secondary-subtle">
+							<div class="card-body">
+								<div class="row align-items-center">
+									<div class="col-md-2">
+										<div class="logo-container border rounded p-2">
+											<img src="{{ companyDetails?.company_logo }}" alt="Company Logo" class="img-fluid" onerror="this.src" />
+										</div>
+									</div>
+									<div class="col-md-7">
+										<h1 class="fw-bold">{{ companyDetails?.company_name }}</h1>
+										<p class="text-muted pt-2">Founded : {{ companyDetails?.founded_year }}</p>
+										<button class="pt-2 btn {{ companyDetails?.followed == 0 ? 'btn-outline-primary' : 'btn-primary' }}" (click)="followCompany()" [disabled]="companyDetails?.followed == 1">
+											{{ companyDetails?.followed == 0 ? "Follow" : "Followed" }}
+											<i [ngClass]="companyDetails?.followed == 0 ? 'pi pi-plus' : 'pi pi-check'" class="fs-6"></i>
+										</button>
+									</div>
+									<div class="col-md-3 d-flex justify-content-end gap-2 pt-2">
+										<button *ngIf="!showChat; else showClose" pButton severity="success" class="success rounded-2" (click)="showChat = true">Chat <i class="pi pi-comment"></i></button>
+										<ng-template #showClose>
+											<button pButton label="Close Info" class="btn btn-primary" (click)="showChat = false"></button>
+										</ng-template>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="p-2 h-100 overflow-y-auto">
+						<!-- About Organization Section -->
+						<div class="card bg-secondary-subtle mb-4">
+							<div class="card-body">
+								<div class="row">
+									<div class="col-md-3 h-100">
+										<h2 class="fw-bold mb-4">About Organization</h2>
+									</div>
+									<div class="col-md-9">
+										<div class="row">
+											<div class="col-md-3 mb-3">
+												<h6 class="text-muted text-primary">Industry Type</h6>
+												<p>{{ companyDetails?.industry_type }}</p>
+											</div>
+											<div class="col-md-3 mb-3">
+												<h6 class="text-muted text-primary">Company Size</h6>
+												<p>
+													{{ companyDetails?.size }}<br />
+													<small class="text-muted">({{ companyInfo.sizeCategory }})</small>
+												</p>
+											</div>
+											<div class="col-md-3 mb-3">
+												<h6 class="text-muted text-primary">Company Type</h6>
+												<p>{{ companyDetails?.company_type[0]?.name }}</p>
+											</div>
+											<div class="col-md-3 mb-3">
+												<h6 class="text-muted text-primary">Headquarters Location</h6>
+												<p>{{ companyDetails?.HQ_city }}, {{ companyDetails?.HQ_country }}</p>
+											</div>
+											<div class="col-md-3 mb-3">
+												<h6 class="text-muted text-primary">Global Presence</h6>
+												<p>{{ companyDetails?.global_presence }}</p>
+											</div>
+											<div class="col-md-3 mb-3">
+												<h6 class="text-muted text-primary">Official Website</h6>
+												<p>{{ companyDetails?.website }}</p>
+											</div>
+											<div class="col-md-3 mb-3">
+												<h6 class="text-muted text-primary">Department</h6>
+												<p>{{ companyDetails?.departments }}</p>
+											</div>
+											<div class="col-md-3 mb-3">
+												<h6 class="text-muted text-primary">Work Mode</h6>
+												<p>{{ companyDetails?.work_mode }}</p>
+											</div>
+											<div class="col-md-3">
+												<h6 class="text-muted text-primary">LinkedIn Profile</h6>
+												<p>{{ companyDetails?.linkedin_link }}</p>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
 
-  <!-- About Organization Section -->
-  <div class="card bg-secondary-subtle mb-4 text-start">
-    <div class="card-body">
-      <div class="row">
-        <div class="col-md-3 h-100">
-          <h2 class="fw-bold mb-4">About Organization</h2>
-        </div>
-        <div class="col-md-9">
-          <div class="row">
-            <div class="col-md-3">
-              <h6 class="text-muted text-primary">Industry Type</h6>
-              <p>{{ companyData.industry_type.join(', ') }}</p>
-            </div>
-            <div class="col-md-3">
-              <h6 class="text-muted text-primary">Company Size</h6>
-              <p>
-                {{ companyData!.companySize }}<br />
-                <small class="text-muted">({{ companyData.size }})</small>
-              </p>
-            </div>
-            <div class="col-md-3">
-              <h6 class="text-muted text-primary">Headquarters Location</h6>
-              <p>{{companyData.HQ_city}} {{companyData.HQ_country}}</p>
-            </div>
-            <div class="col-md-3">
-              <h6 class="text-muted text-primary">Global Presence</h6>
-              <p>{{ companyData!.global_presence.join(", ") }}</p>
-            </div>
-          </div>
-          <div class="row mt-4">
-            <div class="col-md-3">
-              <h6 class="text-muted text-primary">Year Founded</h6>
-              <p>{{ companyData!.founded_year }}</p>
-            </div>
-            <div class="col-md-3">
-              <h6 class="text-muted text-primary">Official Website</h6>
-              <p>{{ companyData.website }}</p>
-            </div>
-            <div class="col-md-6">
-              <h6 class="text-muted text-primary">LinkedIn Profile</h6>
-              <p>{{ companyData.linkedin_link }}</p>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
+						<!-- Company Insights Section -->
+						<div class="card mb-4 bg-secondary-subtle">
+							<div class="card-body">
+								<div class="row">
+									<div class="col-md-3 h-100">
+										<h2 class="fw-bold mb-4">Company Insights</h2>
+									</div>
+									<div class="col-md-9">
+										<h5 class="text-primary">About Company</h5>
+										<p style="white-space: pre-line">{{ companyInfo.about }}</p>
 
-  <!-- Company Insights Section -->
-  <div class="card mb-4 bg-secondary-subtle text-start">
-    <div class="card-body">
-      <div class="row">
-        <div class="col-md-3 h-100">
-          <h2 class="fw-bold mb-4">Company Insights</h2>
-        </div>
-        <div class="col-md-9">
-          <h5 class="text-primary">About Company</h5>
-          <p style="white-space: pre-line">{{ companyData.about }}</p>
+										<div class="row mt-4">
+											<div class="col-md-6">
+												<h5 class="text-primary">Work Life Balance Policies</h5>
+												<div class="mt-2">
+													<p-chip *ngFor="let policy of companyDetails?.work_life_balance_policy" label="{{ policy }}" styleClass="m-1 bg-warning bg-opacity-25 text-dark"></p-chip>
+												</div>
+											</div>
+											<div class="col-md-6">
+												<h5 class="text-primary">Employee Benefits & Perks</h5>
+												<div class="mt-2">
+													<p-chip *ngFor="let benefit of companyDetails?.benefits" label="{{ benefit }}" styleClass="m-1 bg-info bg-opacity-25 text-dark"></p-chip>
+												</div>
+											</div>
+										</div>
 
-          <div class="row mt-4">
-            <div class="col-md-6">
-              <h5 class="text-primary">Work Life Balance Policies</h5>
-              <div class="mt-2">
-                <p-chip *ngFor="let policy of companyData.work_life_balance_policy" label="{{ policy }}"
-                  styleClass="m-1 bg-warning bg-opacity-25 text-dark"></p-chip>
-              </div>
-            </div>
-            <div class="col-md-6">
-              <h5 class="text-primary">Employee Benefits & Perks</h5>
-              <div class="mt-2">
-                <p-chip *ngFor="let benefit of companyData.benefits" label="{{ benefit }}"
-                  styleClass="m-1 bg-info bg-opacity-25 text-dark"></p-chip>
-              </div>
-            </div>
-          </div>
+										<div class="mt-4">
+											<h5 class="text-primary">Work Location & Mode</h5>
+											<p>{{ companyDetails?.work_mode }}</p>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+						<!-- Hiring & Recruitment Section -->
+						<div class="card mt-2 bg-secondary-subtle">
+							<div class="card-body">
+								<div class="row">
+									<div class="col-md-3 h-100">
+										<h2 class="fw-bold mb-4">Hiring & Recruitment</h2>
+									</div>
+									<div class="col-md-9">
+										<h5 class="text-primary">Hiring Process Stages</h5>
+										<div class="mt-2">
+											<p-chip *ngFor="let hire of companyDetails?.hiring_process_stages" label="{{ hire }}" styleClass="m-1 bg-warning bg-opacity-25 text-dark"></p-chip>
+										</div>
 
-          <div class="mt-4">
-            <h5 class="text-primary">Work Location & Mode</h5>
-            <p>{{ companyData.work_mode }}</p>
-          </div>
-        </div>
-      </div>
-    </div>
+										<div class="mt-4">
+											<h5 class="text-primary">Estimated Hiring Decision Timeframe</h5>
+											<p>{{ companyDetails?.timeframe }}</p>
+										</div>
 
-  </div>
-  <!-- Hiring & Recruitment Section -->
-  <div class="card mt-2 bg-secondary-subtle text-start">
-    <div class="card-body">
-      <div class="row">
-        <div class="col-md-3 h-100">
-          <h2 class="fw-bold mb-4">Hiring & Recruitment</h2>
-        </div>
-        <div class="col-md-9">
-          <h5 class="text-primary">Hiring Process Stages</h5>
-          <div class="mt-2">
-            <p-chip *ngFor="let stage of companyData.hiring_process_stages" label="{{ stage }}"
-              styleClass="m-1 bg-warning bg-opacity-25 text-dark"></p-chip>
-          </div>
-
-          <div class="mt-4">
-            <h5 class="text-primary">
-              Estimated Hiring Decision Timeframe
-            </h5>
-            <p>{{ companyData.timeframe }}</p>
-          </div>
-
-          <div class="mt-4">
-            <h5 class="text-primary">Interview Format</h5>
-            <p>{{ companyData.format }}</p>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
+										<div class="mt-4">
+											<h5 class="text-primary">Interview Format</h5>
+											<p>{{ companyDetails?.format }}</p>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="col-md-3 h-100 overflow-y-auto pt-2" *ngIf="showChat">
+				<uni-chat [companyDetails]="companyDetails" (closeChat)="showChat = false"></uni-chat>
+			</div>
+		</div>
+	</div>
 </div>
