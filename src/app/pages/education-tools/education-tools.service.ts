@@ -31,7 +31,7 @@ export class EducationToolsService {
   }
 
   getDegreeRecommadations(data: any) {
-    return this.http.get<EducatiionsRec[]>(`${environment.ApiUrl}/getDegrees?spec_id=${data.spec_id}&edu_id=${data.edu_id}`, {
+    return this.http.get<EducatiionsRec[]>(`${environment.ApiUrl}/getDegrees?spec_id=${data.spec_id}`, {
       headers: this.headers,
     });
   }
