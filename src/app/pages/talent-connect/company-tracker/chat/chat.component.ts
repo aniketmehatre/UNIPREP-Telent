@@ -1,41 +1,44 @@
-import {Component, EventEmitter, Input, OnInit, Output, SimpleChanges} from '@angular/core';
-import {ButtonDirective} from "primeng/button";
-import {NgClass, NgForOf, NgIf} from "@angular/common";
-import {ProgressBar} from "primeng/progressbar";
-import {Job} from "../../easy-apply/job-view/job-view.component";
-import {TalentConnectService} from "../../talent-connect.service";
-import {Avatar} from "primeng/avatar";
-import {FormsModule} from "@angular/forms";
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { ButtonModule } from "primeng/button";
+import { CommonModule} from "@angular/common";
+import { ProgressBar, ProgressBarModule } from "primeng/progressbar";
+import { TalentConnectService } from "../../talent-connect.service";
+import {  AvatarModule } from "primeng/avatar";
+import { FormsModule } from "@angular/forms";
+import { Company, CompanyMessage } from 'src/app/@Models/company-connect.model';
+import { environment } from '@env/environment';
 
 @Component({
-  selector: 'uni-chat',
+    selector: 'uni-chat',
     imports: [
-        ButtonDirective,
-        NgForOf,
-        NgIf,
+        ButtonModule,
         ProgressBar,
-        Avatar,
+        AvatarModule,
         FormsModule,
-        NgClass
+        CommonModule,
+        ProgressBarModule
     ],
-  templateUrl: './chat.component.html',
-  styleUrl: './chat.component.scss'
+    templateUrl: './chat.component.html',
+    styleUrl: './chat.component.scss'
 })
 export class ChatComponent implements OnInit {
-    @Input() companyDetails!: any;
-    organizationStatus: string = 'Active';
+
+    @Input() companyDetails!: Company;
     @Output() openInfo: EventEmitter<boolean> = new EventEmitter<boolean>(true);
     @Output() closeChat: EventEmitter<boolean> = new EventEmitter<boolean>(true);
     @Input() showInfo: boolean = true;
+
+    organizationName: string = 'UNIABROAD';
+    organizationStatus: string = 'Active';
     currentStage: number = 2;
-    stages: Array<{number: number, name: string, completed: boolean}> = [
+    stages: Array<{ number: number, name: string, completed: boolean }> = [
         { number: 1, name: 'Initial Round', completed: true },
         { number: 2, name: 'HR Round', completed: false },
         { number: 3, name: 'Selected', completed: false }
     ];
-
-    messages: any[] = [];
-    newMessage: string = '';
+    messages: CompanyMessage[] = [];
+    userLogo: string = '';
+    attachmentFile: File | null = null;
 
     constructor(private talentConnectService: TalentConnectService,) { }
 
@@ -44,11 +47,13 @@ export class ChatComponent implements OnInit {
     }
 
 
-    getChatMessageForCompanyConnect(id: any){
+    getChatMessageForCompanyConnect(id: any) {
         this.talentConnectService.getChatMessageForCompanyConnect(id).subscribe({
             next: data => {
-                console.log(data);
                 this.messages = data.message;
+                if (this.messages.length > 0) {
+                    this.userLogo = this.messages[0].icon;
+                }
             },
             error: err => {
 
@@ -56,69 +61,40 @@ export class ChatComponent implements OnInit {
         })
     }
 
-    loadSampleMessages(): void {
-        this.messages = [
-            {
-                sender: '@johndoe',
-                content: 'We can meet at my House near st.89 🏠',
-                timestamp: '12:00',
-                isCurrentUser: false
-            },
-            {
-                sender: '@uniabroad',
-                content: 'Where do you want to meet guys? 👀',
-                timestamp: '12:00',
-                isCurrentUser: true
-            },
-            {
-                sender: '@johndoe',
-                content: 'We can meet at my House near st.89 🏠',
-                timestamp: '12:00',
-                isCurrentUser: false
-            },
-            {
-                sender: '@johndoe',
-                content: 'We can meet at my House near st.89 🏠',
-                timestamp: '12:00',
-                isCurrentUser: false
-            }
-        ];
-    }
+    sendMessage(message: string): void {
+        if (!message.trim() && !this.attachmentFile) return;
+        let req: any = {
+            company_id: this.companyDetails.id,
+            chat: message,
+        }
+        if (this.attachmentFile) {
+            req.attachment = this.attachmentFile;
+        }
+        this.talentConnectService.sendCompanyConnectUserMessage(req).subscribe({
+            next: response => {
+                // this.getChatMessageForCompanyConnect(this.companyDetails.id);
 
-    sendMessage(): void {
-        console.log(this.companyDetails);
-        if (this.newMessage.trim()) {
-            let req = {
-                company_id: this.companyDetails.id,
-                chat: this.newMessage,
-                attachment: this.selectedFile
-            }
-            this.talentConnectService.sendCompanyConnectUserMessage(req).subscribe({
-                next: data => {
-                    console.log(data)
-                    this.getChatMessageForCompanyConnect(this.companyDetails.id)
-                },
-                error: err => {
-
+                // If there's a response message from the server, add it
+                if (response.message) {
+                    this.messages.push({
+                        added_by: 'Student',
+                        chat: message ?? '',
+                        time: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }),
+                        attachment_url: this.attachmentFile ? `https://${environment.domain}/uniprepapi/storage/app/public/CompanyConnectAttachment/${this.attachmentFile.name}` : '',
+                        attachment: this.attachmentFile ? this.attachmentFile.name : '',
+                        icon: this.userLogo
+                    });
                 }
-            })
-            // const message: ChatMessage = {
-            //   sender: this.currentUser,
-            //   content: this.newMessage,
-            //   timestamp: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }),
-            //   isCurrentUser: true
-            // };
-            //
-            // this.messages.push(message);
-            this.newMessage = '';
-        }
+                this.attachmentFile = null;
+            },
+            error: error => {
+                console.log('Error sending message:', error);
+            }
+        });
     }
 
-    selectedFile: File | null = null;
-    onFileSelected(event: any) {
-        if (event.target.files.length > 0) {
-            this.selectedFile = event.target.files[0];
-            console.log("Selected File:", this.selectedFile);
-        }
+    uploadFilesChat(event: any) {
+        this.attachmentFile = event.target.files[0];
     }
+
 }

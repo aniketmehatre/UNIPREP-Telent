@@ -1,29 +1,19 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
-import { Avatar } from "primeng/avatar";
-import { ButtonDirective } from "primeng/button";
-import { CommonModule, NgClass, NgForOf, NgIf } from "@angular/common";
+import { AvatarModule } from "primeng/avatar";
+import { ButtonModule } from "primeng/button";
+import { CommonModule } from "@angular/common";
 import { ProgressBar, ProgressBarModule } from "primeng/progressbar";
-import { FormsModule, ReactiveFormsModule } from "@angular/forms";
+import { FormsModule } from "@angular/forms";
 import { TalentConnectService } from "../../talent-connect.service";
 import { Company, CompanyMessage } from 'src/app/@Models/company-connect.model';
 import { environment } from '@env/environment';
-interface ChatMessage {
-  sender: string;
-  content: string;
-  timestamp: string;
-  avatar?: string;
-  isCurrentUser: boolean;
-}
 @Component({
   selector: 'uni-chat',
   imports: [
-    Avatar,
-    ButtonDirective,
-    NgForOf,
-    NgIf,
-    ReactiveFormsModule,
+    ButtonModule,
+    ProgressBar,
+    AvatarModule,
     FormsModule,
-    NgClass,
     CommonModule,
     ProgressBarModule
   ],
@@ -32,20 +22,18 @@ interface ChatMessage {
 })
 export class ChatComponent implements OnInit {
   @Input() companyDetails!: Company;
-  @Input() id!: any;
-
-  organizationName: string = 'UNIABROAD';
-  organizationStatus: string = 'Active';
   @Output() openInfo: EventEmitter<boolean> = new EventEmitter<boolean>(true);
   @Output() closeChat: EventEmitter<boolean> = new EventEmitter<boolean>(true);
   @Input() showInfo: boolean = true;
+
+  organizationName: string = 'UNIABROAD';
+  organizationStatus: string = 'Active';
   currentStage: number = 2;
   stages: Array<{ number: number, name: string, completed: boolean }> = [
     { number: 1, name: 'Initial Round', completed: true },
     { number: 2, name: 'HR Round', completed: false },
     { number: 3, name: 'Selected', completed: false }
   ];
-
   messages: CompanyMessage[] = [];
   userLogo: string = '';
   attachmentFile: File | null = null;
@@ -53,7 +41,7 @@ export class ChatComponent implements OnInit {
   constructor(private talentConnectService: TalentConnectService,) { }
 
   ngOnInit(): void {
-    this.getChatMessageForCompanyConnect(this.id);
+    this.getChatMessageForCompanyConnect(this.companyDetails.id);
   }
 
 
@@ -83,7 +71,7 @@ export class ChatComponent implements OnInit {
     this.talentConnectService.sendCompanyConnectUserMessage(req).subscribe({
       next: response => {
         // this.getChatMessageForCompanyConnect(this.companyDetails.id);
-        
+
         // If there's a response message from the server, add it
         if (response.message) {
           this.messages.push({

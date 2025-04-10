@@ -47,7 +47,7 @@
 			<div class="row g-3" *ngIf="selectedJobId else showEmptyConainter">
 				<div class="col-lg-8 col-md-7 col-12 position-relative overflow-hidden" [ngClass]="{'col-lg-12': !showChat}">
 					<div class="job-details-container h-100 overflow-auto">
-					  <uni-company-detail (openChat)="toggleInfo();" [companyDetails]="selectedJobId"  [showInfo]="showChat"></uni-company-detail>
+					  <uni-company-detail (openChat)="toggleInfo();" [companyId]="selectedJobId"  [showInfo]="showChat"></uni-company-detail>
 					</div>
 				  </div>
 			  <div class="col-lg-4 col-md-5 col-12" [hidden]="!showChat">

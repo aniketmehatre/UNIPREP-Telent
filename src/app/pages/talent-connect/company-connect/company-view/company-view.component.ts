@@ -1,7 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {CommonModule} from "@angular/common";
 import {ChipModule} from "primeng/chip";
-import {JobChatUiComponent} from "../../job-tracker/job-chat-ui/job-chat-ui.component";
 import {ButtonModule} from 'primeng/button';
 import {ActivatedRoute, RouterModule} from '@angular/router';
 import {TalentConnectService} from "../../talent-connect.service";
@@ -75,9 +74,6 @@ export class CompanyViewComponent implements OnInit {
     this.talentConnectService.getCompanyDetails(id).subscribe({
       next: data => {
         this.companyDetails = data[0];
-        this.companyDetails.work_life_balance_policy = this.companyDetails.work_life_balance_policy.split(", ");
-        this.companyDetails.hiring_process_stages = this.companyDetails.hiring_process_stages.split(", ");
-        this.companyDetails.benefits = this.companyDetails.benefits.split(", ");
       },
       error: err => {
         console.log(err);
