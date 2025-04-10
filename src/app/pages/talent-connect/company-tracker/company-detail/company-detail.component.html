@@ -11,14 +11,9 @@
           <h1 class="company-name">{{companyData.company_name}}</h1>
           <p class="founded-text">Founded : {{companyData.founded_year}}</p>
           <div class="text-left">
-            <!-- <button pButton class="p-button-outlined py-1">
+            <button pButton class="p-button-outlined py-1">
               Follow&nbsp;<i class="pi pi-plus"></i>
-            </button> -->
-            <button pButton class="pt-2 btn {{companyData.followed == 0 ? 'btn-outline-primary' : 'btn-primary' }}"
-                          (click)="followCompany()" [disabled]="companyData.followed == 1">
-                    {{companyData.followed == 0 ? 'Follow' : 'Followed' }}
-                      <i [ngClass]="companyData.followed == 0 ? 'pi pi-plus' : 'pi pi-check'" class="fs-6"></i>
-                  </button>
+            </button>
           </div>
         </div>
         <div class="col-2 text-end">
@@ -28,7 +23,35 @@
         </div>
       </div>
     </div>
-    
+    <div class="row mt-4">
+      <div class="col-md-4">
+        <div class="d-flex align-items-center">
+          <i class="pi pi-map-marker text-success me-2"></i>
+          <div>
+            <small class="text-muted d-block">Headquarters Location</small>
+            <span>{{ companyData.headquartersLocation }}</span>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-4">
+        <div class="d-flex align-items-center">
+          <i class="pi pi-briefcase text-primary me-2"></i>
+          <div>
+            <small class="text-muted d-block">Company Type</small>
+            <span>{{ companyData.companyType }}</span>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-4">
+        <div class="d-flex align-items-center">
+          <i class="pi pi-users text-info me-2"></i>
+          <div>
+            <small class="text-muted d-block ">Company Size</small>
+            <span>0-50</span>
+          </div>
+        </div>
+      </div>
+    </div>
   </div>
 
   <!-- About Organization Section -->
@@ -42,36 +65,36 @@
           <div class="row">
             <div class="col-md-3">
               <h6 class="text-muted text-primary">Industry Type</h6>
-              <p>{{ companyData.industry_type.join(', ') }}</p>
+              <p>{{ companyData.industryType }}</p>
             </div>
             <div class="col-md-3">
               <h6 class="text-muted text-primary">Company Size</h6>
               <p>
-                {{ companyData!.companySize }}<br />
-                <small class="text-muted">({{ companyData.size }})</small>
+                {{ companyData.companySize }}<br />
+                <small class="text-muted">({{ companyData.sizeCategory }})</small>
               </p>
             </div>
             <div class="col-md-3">
               <h6 class="text-muted text-primary">Headquarters Location</h6>
-              <p>{{companyData.HQ_city}} {{companyData.HQ_country}}</p>
+              <p>India, Mysore</p>
             </div>
             <div class="col-md-3">
               <h6 class="text-muted text-primary">Global Presence</h6>
-              <p>{{ companyData!.global_presence.join(", ") }}</p>
+              <p>{{ companyData.globalPresence.join(", ") }}</p>
             </div>
           </div>
           <div class="row mt-4">
             <div class="col-md-3">
               <h6 class="text-muted text-primary">Year Founded</h6>
-              <p>{{ companyData!.founded_year }}</p>
+              <p>{{ companyData.foundedYear }}</p>
             </div>
             <div class="col-md-3">
               <h6 class="text-muted text-primary">Official Website</h6>
-              <p>{{ companyData.website }}</p>
+              <p>{{ 'http//www.uniprep.com' }}</p>
             </div>
             <div class="col-md-6">
               <h6 class="text-muted text-primary">LinkedIn Profile</h6>
-              <p>{{ companyData.linkedin_link }}</p>
+              <p>{{ companyData.linkedInProfile }}</p>
             </div>
           </div>
         </div>
@@ -94,14 +117,14 @@
             <div class="col-md-6">
               <h5 class="text-primary">Work Life Balance Policies</h5>
               <div class="mt-2">
-                <p-chip *ngFor="let policy of companyData.work_life_balance_policy" label="{{ policy }}"
+                <p-chip *ngFor="let policy of companyData.workLifeBalancePolicies" label="{{ policy }}"
                   styleClass="m-1 bg-warning bg-opacity-25 text-dark"></p-chip>
               </div>
             </div>
             <div class="col-md-6">
               <h5 class="text-primary">Employee Benefits & Perks</h5>
               <div class="mt-2">
-                <p-chip *ngFor="let benefit of companyData.benefits" label="{{ benefit }}"
+                <p-chip *ngFor="let benefit of companyData.employeeBenefits" label="{{ benefit }}"
                   styleClass="m-1 bg-info bg-opacity-25 text-dark"></p-chip>
               </div>
             </div>
@@ -109,7 +132,7 @@
 
           <div class="mt-4">
             <h5 class="text-primary">Work Location & Mode</h5>
-            <p>{{ companyData.work_mode }}</p>
+            <p>{{ companyData.workLocation }}</p>
           </div>
         </div>
       </div>
@@ -126,7 +149,7 @@
         <div class="col-md-9">
           <h5 class="text-primary">Hiring Process Stages</h5>
           <div class="mt-2">
-            <p-chip *ngFor="let stage of companyData.hiring_process_stages" label="{{ stage }}"
+            <p-chip *ngFor="let stage of companyData.hiringStages" label="{{ stage }}"
               styleClass="m-1 bg-warning bg-opacity-25 text-dark"></p-chip>
           </div>
 
@@ -134,12 +157,12 @@
             <h5 class="text-primary">
               Estimated Hiring Decision Timeframe
             </h5>
-            <p>{{ companyData.timeframe }}</p>
+            <p>{{ companyData.hiringTimeframe }}</p>
           </div>
 
           <div class="mt-4">
             <h5 class="text-primary">Interview Format</h5>
-            <p>{{ companyData.format }}</p>
+            <p>{{ companyData.interviewFormat }}</p>
           </div>
         </div>
       </div>
