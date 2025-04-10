@@ -295,9 +295,9 @@
 							<label class="form-label" style="font-size: medium; font-weight: 500">Filter by Country</label>
 							<div class="form-group">
 								<div class="mb-3">
-									<p-dropdown [options]="countryList" [filter]="true" filterBy="country" styleClass="w-100" formControlName="country" (ngModelChange)="changeCountryId($event)"
+									<p-select [options]="countryList" [filter]="true" filterBy="country" styleClass="w-100" formControlName="country" (ngModelChange)="changeCountryId($event)"
 										optionValue="id" placeholder="Select  Country" optionLabel="country"
-										class="filterInput" [appendTo]="'body'"> </p-dropdown>
+										class="filterInput" [appendTo]="'body'"> </p-select>
 								</div>
 							</div>
 						</div>
