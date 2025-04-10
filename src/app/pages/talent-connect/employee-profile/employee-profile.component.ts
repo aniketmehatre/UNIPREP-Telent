@@ -25,7 +25,7 @@ export class EmployeeProfileComponent implements OnInit {
   isLoadingAiSummary: boolean = false;
   selectedSocialMedias: string[] = [];
   isShowCreatedSuccessfullyPopup: boolean = false;
-  isShowAiEvaluation: boolean = true;
+  isShowAiEvaluation: boolean = false;
   aiEvaluationContent: string = '<p><strong>Introduction: </strong><br>\
 A Network Administrator plays a crucial role in the IT industry by managing and maintaining an organization\'s network infrastructure. They are responsible for ensuring the smooth operation of network systems, troubleshooting issues, and implementing security measures to protect sensitive data.</p><br>\
 <p><strong>Key Functions: </strong><br>\

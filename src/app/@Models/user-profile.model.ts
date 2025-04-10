@@ -104,4 +104,5 @@ interface Language {
     professional_references: Reference[];
     languages: Language[];
     networking: any[]; // Type is not clear from provided data
+   updated_at?: Date;
   }
