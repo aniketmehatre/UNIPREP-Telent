@@ -1,6 +1,8 @@
 import { Injectable } from "@angular/core";
 import { HttpClient, HttpHeaders } from "@angular/common/http";
 import { environment } from "@env/environment";
+import { map } from 'rxjs';
+import { removeExtraResponse } from '../prompt';
 @Injectable({
   providedIn: "root",
 })
@@ -33,7 +35,9 @@ export class AveragesalaryestimatorService {
     const headers = new HttpHeaders().set("Accept", "application/json");
     return this.http.post<any>(environment.ApiUrl + "/getaveragesalaryestimates",recommendData, {
       headers: headers,
-    });
+    }).pipe(
+      map(res => ({ data: removeExtraResponse(res.data) })) // Process response before returning
+    );
   }
   getCities() {
     const headers = new HttpHeaders().set("Accept", "application/json");

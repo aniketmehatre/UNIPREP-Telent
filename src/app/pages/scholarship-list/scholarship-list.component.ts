@@ -89,19 +89,19 @@ export class ScholarshipListComponent implements OnInit {
 	recommendations: any = [
 		{
 			id: 1,
-			question: "Select your Scholarship Country",
+			question: "Which country do you want to study in?",
 		},
 		{
 			id: 2,
-			question: "Select your Study Level",
+			question: "What is your preferred study level?",
 		},
 		{
 			id: 3,
-			question: "Select your Scholarship Type",
+			question: "What type of scholarship you want to opt for?",
 		},
 		{
 			id: 4,
-			question: "Choose  your Scholarship Coverage",
+			question: "What is your preferred scholarship coverage?",
 		},
 	]
 	invalidClass: boolean = false
