@@ -85,28 +85,28 @@ export class CourseListComponent implements OnInit {
 	recommendations: any = [
 		{
 			id: 1,
-			question: "Select the country you are interested in for studying abroad",
+			question: "Which country are you interested in studying?",
 		},
 		{
 			id: 2,
-			question: "Select your subjects of interests",
+			question: "What are the subjects of your interest?",
 		},
 		{
 			id: 3,
-			question: "Select your Study Level",
+			question: "What is your preferred study level?",
 		},
 		{
 			id: 4,
-			question: "Select your Preferred Intake Month",
+			question: "Which is your preferred intake month?",
 		},
 		{
 			id: 5,
-			question: "Choose your prerequisite requirements.",
+			question: "Which pre requisite test would you appear for?",
 		},
 		{
 			id: 6,
-			question: "Select your Preferred university world rank",
-		},
+			question: "What is your preferred university's world rank?",
+		}, 
 	]
 	invalidClass: boolean = false
 	selectedData: { [key: string]: any } = {}
