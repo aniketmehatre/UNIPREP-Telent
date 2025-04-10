@@ -15,65 +15,60 @@
         </div>
         <button type="button" class="btn-close" aria-label="Close" (click)="closeChat.emit(true)"></button>
     </div>
-    <div class="card-body">
-        <div class="h-100 d-flex flex-column">
-            <div class="card-body p-0 flex-grow-1 overflow-hidden d-flex flex-column"
-                style="height: calc(100vh - 450px)">
-                <div class="chat-body h-100 overflow-y-auto p-3" *ngIf="messages?.length > 0">
-                    <!-- Progress bar section -->
-                    <div class="progress-container my-2 d-block d-lg-none">
-                        <div class="progress-steps d-flex">
-                            <div class="progress-step flex-fill" *ngFor="let stage of stages; let i = index">
-                                <p-progressBar [value]="stage.completed ? 100 : 0" [showValue]="false"
-                                    [style]="{ height: '6px'}"></p-progressBar>
-                                <div class="text-left">{{ i+1+' '+stage.name}} </div>
+    <div class="card-body overflow-y-auto">
+        <div *ngIf="messages?.length > 0">
+            <!-- Progress bar section -->
+            <div class="progress-container my-2 d-block d-lg-none">
+                <div class="progress-steps d-flex">
+                    <div class="progress-step flex-fill" *ngFor="let stage of stages; let i = index">
+                        <p-progressBar [value]="stage.completed ? 100 : 0" [showValue]="false"
+                            [style]="{ height: '6px'}"></p-progressBar>
+                        <div class="text-left">{{ i+1+' '+stage.name}} </div>
+                    </div>
+                </div>
+            </div>
+
+            <ng-container *ngFor="let message of messages">
+                <div class="d-flex mb-2">
+                    <div class="avatar me-1" *ngIf="message.added_by != 'Student'">
+                        <p-avatar
+                            [image]="companyDetails?.company_logo ?? 'https://primefaces.org/cdn/primeng/images/demo/avatar/amyelsner.png'"
+                            shape="circle" />
+                    </div>
+                    <div class="w-100 d-flex flex-column align-items-end"
+                        [ngClass]="message.added_by == 'Student' ? 'align-items-end' : 'align-items-start'">
+                        <div *ngIf="message.attachment_url" class="message-content file-message text-start"
+                            style="min-width: 50%">
+                            <a [href]="message.attachment_url" target="_blank" class="text-black">{{
+                                message.attachment }}</a><br />
+                            <small class="message-time text-muted text-start">{{ message.time }}</small>
+                        </div>
+                        <div *ngIf="message.chat" class="message-content text-start"
+                            [ngClass]="message.added_by == 'Student' ? 'bg-secondary text-white' : 'bg-secondary-subtle'">
+                            <p>{{ message.chat }}</p>
+                            <div class="d-flex justify-content-between align-items-center flex-row-reverse">
+                                <div>
+                                    <span *ngIf="message.added_by == 'Student'" class="ms-2 text-white-50"> <i
+                                            class="fa-solid fa-check"
+                                            [style.color]="message?.markAsRead ? 'skyblue' : 'lightgray'"></i><i
+                                            class="fa-solid fa-check"
+                                            [style.color]="message?.markAsRead ? 'skyblue' : 'lightgray'"></i>
+                                    </span>
+                                </div>
+                                <small class="message-time text-end"
+                                    [ngClass]="message.added_by == 'Student'? 'text-white' : 'text-muted'">
+                                    {{ message.time }}
+                                </small>
                             </div>
                         </div>
                     </div>
-
-                    <ng-container *ngFor="let message of messages">
-                        <div class="d-flex mb-2">
-                            <div class="avatar me-1" *ngIf="message.added_by != 'Student'">
-                                <p-avatar
-                                    [image]="companyDetails?.company_logo ?? 'https://primefaces.org/cdn/primeng/images/demo/avatar/amyelsner.png'"
-                                    shape="circle" />
-                            </div>
-                            <div class="w-100 d-flex flex-column align-items-end"
-                                [ngClass]="message.added_by == 'Student' ? 'align-items-end' : 'align-items-start'">
-                                <div *ngIf="message.attachment_url" class="message-content file-message text-start"
-                                    style="min-width: 50%">
-                                    <a [href]="message.attachment_url" target="_blank" class="text-black">{{
-                                        message.attachment }}</a><br />
-                                    <small class="message-time text-muted text-start">{{ message.time }}</small>
-                                </div>
-                                <div *ngIf="message.chat" class="message-content text-start"
-                                    [ngClass]="message.added_by == 'Student' ? 'bg-secondary text-white' : 'bg-secondary-subtle'">
-                                    <p>{{ message.chat }}</p>
-                                    <div class="d-flex justify-content-between align-items-center flex-row-reverse">
-                                        <div>
-                                            <span *ngIf="message.added_by == 'Student'" class="ms-2 text-white-50"> <i
-                                                    class="fa-solid fa-check"
-                                                    [style.color]="message?.markAsRead ? 'skyblue' : 'lightgray'"></i><i
-                                                    class="fa-solid fa-check"
-                                                    [style.color]="message?.markAsRead ? 'skyblue' : 'lightgray'"></i>
-                                            </span>
-                                        </div>
-                                        <small class="message-time text-end"
-                                            [ngClass]="message.added_by == 'Student'? 'text-white' : 'text-muted'">
-                                            {{ message.time }}
-                                        </small>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="avatar ms-2" *ngIf="message.added_by == 'Student'">
-                                <p-avatar
-                                    [image]="message.icon ?? 'https://primefaces.org/cdn/primeng/images/demo/avatar/amyelsner.png'"
-                                    shape="circle" />
-                            </div>
-                        </div>
-                    </ng-container>
+                    <div class="avatar ms-2" *ngIf="message.added_by == 'Student'">
+                        <p-avatar
+                            [image]="message.icon ?? 'https://primefaces.org/cdn/primeng/images/demo/avatar/amyelsner.png'"
+                            shape="circle" />
+                    </div>
                 </div>
-            </div>
+            </ng-container>
         </div>
     </div>
     <div class="card-footer bg-transparent border-0">
