@@ -53,9 +53,12 @@
                       {{ companyDetails?.shortlisted == 1 ? "Shortlisted" : "Shortlist" }}
                     </button>
 
-                    <button pButton severity="success" class="success rounded-2" (click)="showChat = true">
+                    <button *ngIf="!showChat else showClose" pButton severity="success" class="success rounded-2" (click)="showChat = true">
                       Chat <i class="pi pi-comment"></i>
                     </button>
+                    <ng-template #showClose>
+                      <button pButton label="Close Info" class="btn btn-primary" (click)="showChat = false"></button>
+                    </ng-template>
                   </div>
                 </div>
               </div>
