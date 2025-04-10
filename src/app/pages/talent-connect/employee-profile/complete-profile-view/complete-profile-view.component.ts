@@ -155,4 +155,8 @@ export class CompleteProfileViewComponent implements OnInit {
 		});
 	}
 
+
+  openView(url: string) {
+    window.open(url, '_blank');
+  }
 }
