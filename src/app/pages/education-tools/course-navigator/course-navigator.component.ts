@@ -4,7 +4,7 @@ import { EducationToolsService } from '../education-tools.service';
 import { Meta } from '@angular/platform-browser';
 import { MessageService } from 'primeng/api';
 import { CourseNavigator, EducatiionsRec, CourseSubmodulesList } from 'src/app/@Models/course-navigator.model';
-import { CurrentSpecialization, BasicType, RecommandationQuestion } from 'src/app/@Models/recommandation-question.model';
+import { CurrentSpecialization, RecommandationQuestion } from 'src/app/@Models/recommandation-question.model';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { CarouselModule } from 'primeng/carousel';
 import { CommonModule } from '@angular/common';
@@ -17,7 +17,6 @@ import { InputGroupModule } from 'primeng/inputgroup';
 import { InputTextModule } from 'primeng/inputtext';
 import { InputGroupAddonModule } from 'primeng/inputgroupaddon';
 import { environment } from '@env/environment';
-import { DataService } from 'src/app/data.service';
 
 @Component({
   selector: 'uni-course-navigator',
@@ -32,15 +31,11 @@ export class CourseNavigatorComponent implements OnInit {
     { id: 1, question: 'Select your Specialization' },
     { id: 2, question: 'Choose Your Degree' }
   ];
-  educationList: BasicType[] = [
-    { id: 1, name: 'Bachelors' },
-    { id: 2, name: 'Masters' }
-  ];
   activePageIndex: number = 0;
-  selectedData: { [key: string]: any } = {};
-  invalidClass: boolean = false;
   specializationList: CurrentSpecialization[] = [];
+  specializations: CurrentSpecialization[] = [];
   recommendationDataList: EducatiionsRec[] = [];
+  degreeList: EducatiionsRec[] = [];
   isRecommendationQuestion: boolean = true;
   isRecommendationData: boolean = false;
   isRecommendationSavedData: boolean = false;
@@ -81,6 +76,9 @@ export class CourseNavigatorComponent implements OnInit {
   ];
   selectedDegreeId: number;
   selectedDegreeName: string = '';
+  specializationFilter: string = '';
+  degreeFilter: string = '';
+  selectedSpecialization: string = '';
 
   constructor(
     private educationToolsService: EducationToolsService,
@@ -88,7 +86,6 @@ export class CourseNavigatorComponent implements OnInit {
     private meta: Meta,
     private toast: MessageService,
     private route: ActivatedRoute,
-    private dataService: DataService
 
   ) { }
 
@@ -107,30 +104,32 @@ export class CourseNavigatorComponent implements OnInit {
     this.educationToolsService.getCurrentSpecializations().subscribe({
       next: response => {
         this.specializationList = response;
+        this.specializations = response;
       },
       error: error => {
       }
     });
   }
 
-  previous() {
-    this.invalidClass = false;
-    if (this.activePageIndex > 0) {
-      this.activePageIndex--;
+  performSearch(type: string) {
+    if (type == 'specialization') {
+      const searchValue = this.specializationFilter.toLowerCase();
+      this.specializationList = this.specializations.filter((item) => {
+        return item.specialization_name.toLowerCase().includes(searchValue);
+      });
+    }
+    else {
+      const searchValue = this.degreeFilter.toLowerCase();
+      this.recommendationDataList = this.degreeList.filter((item) => {
+        return item.degree_name.toLowerCase().includes(searchValue);
+      });
     }
   }
 
-  next(itemId: number) {
-    this.invalidClass = !(itemId in this.selectedData);
-    if (!this.invalidClass) {
-      this.activePageIndex < this.recommendations.length - 1 ? this.activePageIndex++ : this.getRecommendation();
-    }
-  }
-
-  getRecommendation() {
-    let data: any = {
-      spec_id: this.selectedData[1],
-      edu_id: this.selectedData[2]
+  getCourseList(value: CurrentSpecialization) {
+    this.selectedSpecialization = value.specialization_name;
+    let data = {
+      spec_id: value.id,
     }
     this.educationToolsService.getDegreeRecommadations(data).subscribe({
       next: response => {
@@ -138,6 +137,7 @@ export class CourseNavigatorComponent implements OnInit {
         this.isRecommendationData = true;
         this.isRecommendationSavedData = false;
         this.recommendationDataList = response;
+        this.degreeList = response;
       },
       error: error => {
         this.isRecommendationData = false;
@@ -151,7 +151,6 @@ export class CourseNavigatorComponent implements OnInit {
     this.isRecommendationData = false;
     this.isRecommendationSavedData = false;
     this.isCourseSubmodule = false;
-    this.selectedData = {};
   }
 
   getCourseSubmodules(data: EducatiionsRec) {
@@ -175,6 +174,7 @@ export class CourseNavigatorComponent implements OnInit {
         if (questionId) {
           this.viewOneQuestion(this.recommandedQandAList[0]);
           this.selectedDegreeName = this.recommadationQuestionList[0].degree_name;
+          this.selectedSpecialization = this.recommadationQuestionList[0].specialization_name;
         }
       },
       error: error => {
@@ -232,60 +232,23 @@ export class CourseNavigatorComponent implements OnInit {
     }
   }
 
-  shareViaWhatsapp() {
-    let url = window.location.href + '/' + this.selectedQuestionData?.degree_id + '/' + this.selectedQuestionData?.course_id + '/' + this.selectedQuestionData?.id
+  shareQuestion(type: string) {
+    const socialMedias: { [key: string]: string } = {
+      "Whatsapp": "whatsapp://send?text=",
+      "Instagram": "https://www.instagram.com?url=",
+      "Facebook": "https://www.facebook.com/sharer/sharer.php?u=",
+      "LinkedIn": "https://www.linkedin.com/shareArticle?url=",
+      "Twitter": "https://twitter.com/intent/tweet?url=",
+      "Mail": "mailto:?body=",
+    }
+    const url = encodeURI(window.location.origin + '/pages/education-tools/course-navigator/' + this.selectedQuestionData?.degree_id + '/' + this.selectedQuestionData?.course_id + '/' + this.selectedQuestionData?.id);
     this.meta.updateTag({ property: 'og:url', content: url });
-    const shareUrl = `whatsapp://send?text=${encodeURIComponent(url)}`;
-    window.open(shareUrl, '_blank');
-  }
-
-  shareViaInstagram() {
-    let url = window.location.href + '/' + this.selectedQuestionData?.degree_id + '/' + this.selectedQuestionData?.course_id + '/' + this.selectedQuestionData?.id
-    this.meta.updateTag({ property: 'og:url', content: url });
-    const shareUrl = `https://www.instagram.com?url=${encodeURIComponent(url)}`;
-    window.open(shareUrl, '_blank');
-  }
-
-  shareViaFacebook() {
-    let url = window.location.href + '/' + this.selectedQuestionData?.degree_id + '/' + this.selectedQuestionData?.course_id + '/' + this.selectedQuestionData?.id
-    this.meta.updateTag({ property: 'og:url', content: url });
-    const shareUrl = `https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(url)}`;
-    window.open(shareUrl, '_blank');
-  }
-
-  shareViaLinkedIn() {
-    let url = window.location.href + '/' + this.selectedQuestionData?.degree_id + '/' + this.selectedQuestionData?.course_id + '/' + this.selectedQuestionData?.id
-    this.meta.updateTag({ property: 'og:url', content: url });
-    const shareUrl = `https://www.linkedin.com/shareArticle?url=${encodeURIComponent(url)}`;
-    window.open(shareUrl, '_blank');
-  }
-
-  shareViaTwitter() {
-    let url = window.location.href + '/' + this.selectedQuestionData?.degree_id + '/' + this.selectedQuestionData?.course_id + '/' + this.selectedQuestionData?.id
-    this.meta.updateTag({ property: 'og:url', content: url });
-    const shareUrl = `https://twitter.com/intent/tweet?url=${encodeURIComponent(url)}`;
-    window.open(shareUrl, '_blank');
-  }
-
-  shareViaMail() {
-    let url = window.location.href + '/' + this.selectedQuestionData?.degree_id + '/' + this.selectedQuestionData?.course_id + '/' + this.selectedQuestionData?.id
-    this.meta.updateTag({ property: 'og:url', content: url });
-    const shareUrl = `mailto:?body=${encodeURIComponent(url)}`;
+    const shareUrl = socialMedias[type] + encodeURIComponent(url);
     window.open(shareUrl, '_blank');
   }
 
   copyLink() {
-    // this.meta.updateTag(
-    //   { property: 'og:title', content:  this.selectedQuestionName.question},
-    // );
-    // this.meta.updateTag(
-    //   { name: 'title', content:  this.selectedQuestionName.question},
-    // );
-    const safeUrl = encodeURI(window.location.href);
-    const selectedDegreeId = this.selectedQuestionData?.degree_id || '';
-    const selectedCourseId = this.selectedQuestionData?.course_id || '';
-    const selectedQuestionId = this.selectedQuestionData?.id || '';
-    const textToCopy = `${safeUrl}/${selectedDegreeId}/${selectedCourseId}/${selectedQuestionId}`;
+    const textToCopy = encodeURI(window.location.origin + '/pages/education-tools/course-navigator/' + this.selectedQuestionData?.degree_id + '/' + this.selectedQuestionData?.course_id + '/' + this.selectedQuestionData?.id);
     navigator.clipboard.writeText(textToCopy)
       .then(() => {
         this.toast.add({ severity: 'success', summary: 'Success', detail: 'Question Copied' });
@@ -304,6 +267,11 @@ export class CourseNavigatorComponent implements OnInit {
     if (type == 'submodule') {
       this.isCourseSubmodule = false;
       this.isRecommendationData = true;
+    }
+    if (type == 'recommandation') {
+      this.isRecommendationData = false;
+      this.isRecommendationQuestion = true;
+      this.degreeFilter = '';
     }
     if (!type) {
       this.router.navigateByUrl('/pages/education-tools');
