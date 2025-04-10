@@ -3,7 +3,7 @@ import { Component, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChange
 import { ButtonModule } from 'primeng/button';
 import { ChipModule } from 'primeng/chip';
 import { TalentConnectService } from "../../talent-connect.service";
-import { ChatComponent } from '../chat/chat.component';
+import { ChatComponent } from '../../company-connect/chat/chat.component';
 import { Company } from 'src/app/@Models/company-connect.model';
 
 @Component({

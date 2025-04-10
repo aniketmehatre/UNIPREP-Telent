@@ -1,10 +1,10 @@
-import {Component, OnInit} from '@angular/core';
-import {CommonModule} from "@angular/common";
-import {ChipModule} from "primeng/chip";
-import {ButtonModule} from 'primeng/button';
-import {ActivatedRoute, RouterModule} from '@angular/router';
-import {TalentConnectService} from "../../talent-connect.service";
-import {ChatComponent} from "../chat/chat.component";
+import { Component, OnInit } from '@angular/core';
+import { CommonModule } from "@angular/common";
+import { ChipModule } from "primeng/chip";
+import { ButtonModule } from 'primeng/button';
+import { ActivatedRoute, RouterModule } from '@angular/router';
+import { TalentConnectService } from "../../talent-connect.service";
+import { ChatComponent } from "../chat/chat.component";
 
 @Component({
   selector: 'uni-company-view',
@@ -56,20 +56,6 @@ export class CompanyViewComponent implements OnInit {
     this.getCompanyDetail(this.companyId)
   }
 
-
-  followCompany(){
-    this.talentConnectService.followCompany(this.companyId).subscribe(
-        {
-          next: result => {
-            this.getCompanyDetail(this.companyId)
-          },
-          error: err => {
-            console.log(err)
-          }
-        }
-    )
-  }
-
   getCompanyDetail(id: any) {
     this.talentConnectService.getCompanyDetails(id).subscribe({
       next: data => {
@@ -92,7 +78,18 @@ export class CompanyViewComponent implements OnInit {
     })
   }
 
+  followCompany() {
+    this.talentConnectService.followCompany(this.companyId).subscribe({
+      next: response => {
+        if (response.success) {
+          this.companyDetails.followed = 1;
+        }
+      },
+      error: err => {
+        console.log(err)
+      }
+    });
+  }
 
-
-  openVideoPopup(id: string) {}
+  openVideoPopup(id: string) { }
 }
