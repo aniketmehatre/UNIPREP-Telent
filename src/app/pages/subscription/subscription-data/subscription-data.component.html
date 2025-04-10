@@ -52,7 +52,7 @@
               <li class="fw-semibold">Learning Hub</li>
               <li class="fw-semibold">Employer Connect</li>
               <li class="fw-semibold">Career Tools</li>
-              <li class="fw-semibold">Pitch Desk</li>
+              <li class="fw-semibold">Pitch Deck</li>
               <li class="fw-semibold">Founder Tools</li>
               <!--
               <li class="fw-semibold" *ngIf="education_level==='HigherEducation'||education_level==='K12'">Career Tools
@@ -75,8 +75,8 @@
 
           <div class="columns col-lg-2 col-md-2 p-0 bl-1 br-1">
             <ul class="price text-center list-unstyled ">
-              <li class="header mt-15">
-                <h4 class="mb-0 fw-bold">Free</h4>
+              <li class="header mt-15" >
+                <h4 class="mb-0 fw-bold" style="margin-top:2px;">Free</h4>
                 <h2 class="amount orange">0 {{ currency }}</h2>
               </li>
               <li class="mt-18"><i class="fa-solid fa-check green"></i></li>
@@ -116,7 +116,7 @@
             [ngClass]="{'br-1':subscription}">
             <ul class="price text-center list-unstyled ">
               <!-- add this to hide career and entrepreneur for k10 -->
-              <li style="background-color: #3f4c83; color: white" *ngIf="subscription.popular == 1">Most Popular Plan
+              <li style="background-color: #3f4c83; color: white;margin-top:5px;" *ngIf="subscription.popular == 1">Most Popular Plan
               </li>
               <li class="header" [ngClass]="{
                     header: subscription.popular === 1,
