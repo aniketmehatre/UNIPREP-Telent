@@ -39,7 +39,7 @@
 					<div class="card-body">
 						<div class="d-flex gap-2 align-items-center">
 							<div class="rounded-2 d-flex overflow-hidden" style="border: 1px solid #e7e7e7; height: 85px; width: 85px">
-								<img class="w-100" [src]="job.company_logo" alt="Company Logo" />
+								<img class="w-100" (error)="$event.target.src = '/uniprep-assets/images/job.webp'" [src]="job.company_logo" alt="Company Logo" />
 							</div>
 							<div>
 								<h5 class="mb-0 fw-semibold">{{ job?.position }}</h5>
