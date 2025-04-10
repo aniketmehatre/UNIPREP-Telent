@@ -38,9 +38,29 @@ export class LandingNewComponent implements OnInit {
 	displaycontactform!: boolean
 	currentImage: string = "/uniprep-assets/images/feature1.webp"
 	contactForm: any
-	blogs: any
 	contactSuccess: boolean = false
 	welcomevideoLink: string = `https://${environment.domain}/uniprepapi/storage/app/public/Landing/welcome.mp4`
+
+	blogs = [
+		{
+			featured_img: 'uk.png',
+			title: 'United Kingdom',
+			date: '12/06/2024',
+			desc: 'Benefits of studying in the United Kingdom. UK is the worlds most popular study destination, UK'
+		},
+		{
+			featured_img: 'bathUni.png',
+			title: 'Bath Spa University',
+			date: '12/06/2024',
+			desc: 'Bath Spa University is a public inititutions of higher education and research which offers to enrol in'
+		},
+		{
+			featured_img: 'eur.png',
+			title: '5 European Study Destinations',
+			date: '12/06/2024',
+			desc: 'There seems to be an awful rumour floating all around spreading discouragement that studying.'
+		}
+	];
 
 	showTandC() {
 		this.displaytandc = true
@@ -252,9 +272,9 @@ export class LandingNewComponent implements OnInit {
 		//   }
 		// });
 
-		this.service.getFeatBlogs().subscribe((response) => {
-			this.blogs = response
-		})
+		// this.service.getFeatBlogs().subscribe((response) => {
+		// 	this.blogs = response
+		// })
 
 		this.timeLeftInfoCard = "24 Hours"
 		// Any additional initialization can go here
