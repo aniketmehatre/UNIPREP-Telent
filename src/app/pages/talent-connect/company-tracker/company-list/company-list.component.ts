@@ -1,11 +1,11 @@
 import { CommonModule } from '@angular/common';
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
-import { Dialog } from 'primeng/dialog';
 import { PaginatorModule } from 'primeng/paginator';
 import { TabsModule } from 'primeng/tabs';
-import { TabView, TabViewModule } from 'primeng/tabview';
-import {TalentConnectService} from "../../talent-connect.service";
+import { TabViewModule } from 'primeng/tabview';
+import { TalentConnectService } from "../../talent-connect.service";
 import { CompanyFilterComponent } from '../../company-connect/company-filter/company-filter.component';
+import { Company } from 'src/app/@Models/company-connect.model';
 
 @Component({
   selector: 'uni-company-list',
@@ -15,7 +15,8 @@ import { CompanyFilterComponent } from '../../company-connect/company-filter/com
     TabViewModule,
     PaginatorModule,
     CommonModule,
-    CompanyFilterComponent],
+    CompanyFilterComponent
+  ],
   templateUrl: './company-list.component.html',
   styleUrls: ['./company-list.component.scss']
 })
@@ -31,166 +32,133 @@ export class CompanyListsComponent implements OnInit {
     { label: 'Recieved', active: false }
   ];
 
-  companyList: any = []
-
+  companyList: Company[] = [];
   page: number = 1;
   perPage: number = 10;
+  companyCount: number = 0;
+  totalPage: number = 0;
 
-  constructor(private talentConnectService: TalentConnectService,) {
+  constructor(private talentConnectService: TalentConnectService) {
   }
 
   ngOnInit() {
     this.getCompanyTrackerList()
   }
 
-  companyTotalCount: number = 0;
   getCompanyTrackerList(params?: any) {
-    console.log(params);
     const requestData = {
-      perpage: this.perPage,
       page: this.page,
+      perpage: this.perPage,
       ...params
     };
     this.talentConnectService.getCompanyTracker(requestData).subscribe({
       next: data => {
-        this.companyTotalCount = data.count
-        this.companyList = data.companies
+        this.companyList = data.companies;
+        this.companyCount = data.count;
+        this.totalPage = Math.ceil(data.count / this.perPage);
         this.triggerCloseFilter.emit();
       },
-      error: err => {}
-    })
+      error: err => { }
+    });
 
+  }
+
+  shortListedList(params?: any) {
+    const requestData = {
+      page: this.page,
+      perpage: this.perPage,
+      ...params
+    };
+    this.talentConnectService.getShortListedCompanyList(requestData).subscribe({
+      next: data => {
+        this.companyList = data.companies;
+        this.companyCount = data.count;
+        this.totalPage = Math.ceil(data.count / this.perPage);
+        this.triggerCloseFilter.emit();
+      },
+      error: err => { }
+    });
+  }
+
+  sendMessageList(params?: any) {
+    const requestData = {
+      page: this.page,
+      perpage: this.perPage,
+      ...params
+    };
+    this.talentConnectService.getSendMessageCompanyTracker(requestData).subscribe({
+      next: data => {
+        this.companyList = data.companies;
+        this.companyCount = data.count;
+        this.totalPage = Math.ceil(data.count / this.perPage);
+        this.triggerCloseFilter.emit();
+      },
+      error: err => { }
+    });
+  }
+
+  receivedMessageList(params?: any) {
+    const requestData = {
+      page: this.page,
+      perpage: this.perPage,
+      ...params
+    };
+    this.talentConnectService.getReceivedMessageCompanyTracker(requestData).subscribe({
+      next: data => {
+        console.log(data)
+        this.companyList = data.companies;
+        this.companyCount = data.count;
+        this.totalPage = Math.ceil(data.count / this.perPage);
+        this.triggerCloseFilter.emit();
+      },
+      error: err => { }
+    });
+  }
+
+  applyFilter(event: any) {
+    if (this.activeIndex == 0) {
+      this.getCompanyTrackerList(event);
+    } else if (this.activeIndex == 1) {
+      this.shortListedList(event);
+    } else if (this.activeIndex == 2) {
+      this.sendMessageList(event);
+    } else if (this.activeIndex == 3) {
+      this.receivedMessageList(event);
+    }
+  }
+
+  onNextClick() {
+    if (this.page >= this.totalPage) {
+      return;
+    }
+    this.page = this.page + 1;
+    this.applyFilter({});
+  }
+
+  onBackClick() {
+    if (this.page == 1) {
+      return;
+    }
+    this.page = this.page - 1;
+    this.applyFilter({});
   }
 
   onTabChange(event: any) {
     this.activeIndex = event.index;
-    if (this.activeIndex == 0) {
-      this.getCompanyTrackerList()
-    } else if (this.activeIndex == 1) {
-      this.shortListedList()
-    } else if (this.activeIndex == 2) {
-      this.sendMessageList()
-    } else if (this.activeIndex == 3) {
-      this.receivedMessageList()
-    }
-  }
-
-  shortListedList() {
-    const requestData = {
-      perpage: this.perPage,
-      page: this.page,
-      companyname: "Test",
-      industrytype: [2, 1],  // Converted to an array for better structure
-      companysize: 1,
-      hq: 2,
-      globalpresence: [1, 2, 3], // Converted to an array
-      foundedyear: 2002,
-      companytype: 1
-    };
-    const requestDataEmpty = {
-      perpage: this.perPage,
-      page: this.page,
-    };
-    this.talentConnectService.getShortListedCompanyList(requestDataEmpty).subscribe({
-      next: data => {
-        console.log(data)
-        this.companyList = data.companies
-      },
-      error: err => {}
-    })
-  }
-
-  sendMessageList() {
-    const requestData = {
-      perpage: this.perPage,
-      page: this.page,
-      companyname: "Test",
-      industrytype: [2, 1],  // Converted to an array for better structure
-      companysize: 1,
-      hq: 2,
-      globalpresence: [1, 2, 3], // Converted to an array
-      foundedyear: 2002,
-      companytype: 1
-    };
-    const requestDataEmpty = {
-      perpage: this.perPage,
-      page: this.page,
-    };
-    this.talentConnectService.getSendMessageCompanyTracker(requestDataEmpty).subscribe({
-      next: data => {
-        console.log(data)
-        this.companyList = data.companies
-      },
-      error: err => {}
-    })
-  }
-
-  receivedMessageList() {
-    const requestData = {
-      perpage: this.perPage,
-      page: this.page,
-      companyname: "Test",
-      industrytype: [2, 1],  // Converted to an array for better structure
-      companysize: 1,
-      hq: 2,
-      globalpresence: [1, 2, 3], // Converted to an array
-      foundedyear: 2002,
-      companytype: 1
-    };
-    const requestDataEmpty = {
-      perpage: this.perPage,
-      page: this.page,
-    };
-    this.talentConnectService.getReceivedMessageCompanyTracker(requestDataEmpty).subscribe({
-      next: data => {
-        console.log(data)
-        this.companyList = data.companies
-      },
-      error: err => {}
-    })
+    this.applyFilter({});
   }
 
   getStatusClass(status: string): string {
-    switch (status) {
-      case 'Sent': return 'bg-primary text-white';
-      case 'Shortlisted': return 'bg-success text-white';
-      case 'Recieved': return  'bg-secondary text-white';
-      default: return 'bg-secondary text-white';
-    }
+    const statusClassMap: { [key: string]: string } = {
+      Sent: 'bg-primary text-white',
+      Shortlisted: 'bg-success text-white',
+      Received: 'bg-secondary text-white',
+    };
+    return statusClassMap[status] || 'bg-secondary text-white';
   }
 
   onClickJobCard(id: number) {
     this.companyTrackerEmit.emit(id);
   }
 
-  selectTab(tab: any) {
-    this.tabs.forEach(t => (t.active = false));
-    tab.active = true;
-  }
-
-  onNextClick(){
-    this.page = this.page + 1;
-    if (this.activeIndex == 0) {
-      this.getCompanyTrackerList()
-    } else if (this.activeIndex == 1) {
-      this.shortListedList()
-    } else if (this.activeIndex == 2) {
-      this.sendMessageList()
-    } else if (this.activeIndex == 3) {
-      this.receivedMessageList()
-    }
-  }
-
-  onBackClick(){
-    if (this.activeIndex == 0) {
-      this.page = this.page - 1;
-      this.getCompanyTrackerList()
-    } else if (this.activeIndex == 1) {
-      this.shortListedList()
-    } else if (this.activeIndex == 2) {
-      this.sendMessageList()
-    } else if (this.activeIndex == 3) {
-      this.receivedMessageList()
-    }
-  }
 }
