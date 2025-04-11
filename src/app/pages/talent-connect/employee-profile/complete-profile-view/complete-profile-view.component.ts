@@ -29,7 +29,7 @@ import { Router } from '@angular/router';
   styleUrls: ['./complete-profile-view.component.scss']
 })
 export class CompleteProfileViewComponent implements OnInit {
-  profileData: UserProfile;
+  profileData!: UserProfile;
   id: string = '';
   constructor(private activatedRoute:ActivatedRoute, private talentConnectService: TalentConnectService, private message: MessageService, private router: Router) { }
 
