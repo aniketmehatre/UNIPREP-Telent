@@ -314,8 +314,11 @@ export class ViewProfileComponent implements OnInit {
       additionalDetails: {
         languagesKnown: (formData.languages || []).map((lang: any) =>
           `${this.getListValue(this.languagelist, lang.languages_language_id, 'language') || ''}(${lang.languages_proficiency || ''})`),
-        hobbiesAndInterests: this.getListValue(this.hobbies, formData.languages_hobby_id, 'hobby') || ''
-      },
+        hobbiesAndInterests: (formData.languages_hobby_id || [])
+          .map((id: number) => this.getListValue(this.hobbies, id, 'hobby'))
+          .filter(Boolean)
+          .join(', ')
+      },      
       keyStrengths: {
         industryDifferentiators: formData.career_preference_set_industry_apart ?
           formData.career_preference_set_industry_apart.split(',') : [],

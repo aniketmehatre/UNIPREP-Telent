@@ -1,6 +1,8 @@
 <div class="h-100 overflow-hidden">
-  <div class="w-100 bg-primary rounded-top-4 text-start d-flex justify-content-between align-items-center py-3 px-4 overflow-hidden">
-    <h5 class="text-white fw-medium fs-4">{{isSample ? 'Sample Profile' : profileData.personalInfo.fullName + '\'s profile'}}</h5>
+  <div
+    class="w-100 bg-primary rounded-top-4 text-start d-flex justify-content-between align-items-center py-3 px-4 overflow-hidden">
+    <h5 class="text-white fw-medium fs-4">{{isSample ? 'Sample Profile' : profileData.personalInfo.fullName + '\'s
+      profile'}}</h5>
     <i class="fa-solid fa-circle-xmark fs-2 cursor-pointer" style="color: white;" (click)="closeDialog()"></i>
   </div>
   <div class="profile-dialog-content h-100 overflow-y-auto">
@@ -25,11 +27,16 @@
                 </div>
                 <div class="col-md-6">
                   <h5>Date of Birth</h5>
-                  <p>{{ isSample ? profileData.personalInfo.dateOfBirth :(profileData.personalInfo.dateOfBirth |  date: 'dd-MM-yyyy')}}</p>
+                  <p>{{ isSample ? profileData.personalInfo.dateOfBirth :(profileData.personalInfo.dateOfBirth | date:
+                    'dd-MM-yyyy')}}</p>
                 </div>
                 <div class="col-md-6">
                   <h5>Gender</h5>
                   <p>{{ profileData.personalInfo.gender }}</p>
+                </div>
+                <div class="col-md-6" *ngIf="profileData.educationDetails?.length">
+                  <h5>Graduation Year</h5>
+                  <p>{{ profileData.educationDetails[profileData.educationDetails.length - 1].graduationYear }}</p>
                 </div>
                 <div class="col-md-6">
                   <h5>Nationality</h5>
@@ -44,9 +51,9 @@
           </div>
         </div>
       </section>
-  
+
       <hr>
-  
+
       <!-- Education Details Section -->
       <section class="card-inside mb-4">
         <div class="card-header">
@@ -81,9 +88,9 @@
           </div>
         </div>
       </section>
-  
+
       <hr>
-  
+
       <!-- Work Experience Section -->
       <section class="card-inside mb-4">
         <div class="card-header">
@@ -125,19 +132,19 @@
             </div>
             <div class="col-md-6">
               <h5>Experience letter</h5>
-                <div class="d-flex justify-content-between align-items-center border p-2 rounded bg-secondary-subtle">
-                  <span>{{extractLastName(experience.experienceLetter.name)}}</span>
-                  <button class="btn btn-outline-primary btn-sm" (click)="downloadFile(experience.experienceLetter.file)">
-                    <i class="pi pi-download"></i>
-                  </button>
-                </div>
+              <div class="d-flex justify-content-between align-items-center border p-2 rounded bg-secondary-subtle">
+                <span>{{extractLastName(experience.experienceLetter.name)}}</span>
+                <button class="btn btn-outline-primary btn-sm" (click)="downloadFile(experience.experienceLetter.file)">
+                  <i class="pi pi-download"></i>
+                </button>
+              </div>
+            </div>
           </div>
         </div>
-        </div>
       </section>
-  
+
       <hr>
-  
+
       <!-- Career Preferences Section -->
       <section class="card-inside mb-4">
         <div class="card-header">
@@ -180,9 +187,9 @@
           </div>
         </div>
       </section>
-  
+
       <hr>
-  
+
       <!-- Certifications Section -->
       <section class="card-inside mb-4">
         <div class="card-header">
@@ -193,12 +200,13 @@
             <div class="col-md-6" *ngFor="let cert of profileData.certifications">
               <div class="d-flex justify-content-between align-items-center border p-2 rounded bg-secondary-subtle">
                 <span>{{cert.name}}</span>
-                <button class="btn btn-outline-primary btn-sm"><a [href]="cert.file" [download]="cert.file" target="_blank">
-                  <i class="pi pi-download"></i>
-                </a>
+                <button class="btn btn-outline-primary btn-sm"><a [href]="cert.file" [download]="cert.file"
+                    target="_blank">
+                    <i class="pi pi-download"></i>
+                  </a>
                 </button>
+              </div>
             </div>
-          </div>
           </div>
         </div>
       </section>
@@ -221,9 +229,9 @@
           </div>
         </div>
       </section>
-  
+
       <hr>
-  
+
       <!-- Key Strengths Section -->
       <section class="card-inside mb-4">
         <div class="card-header">
@@ -254,9 +262,9 @@
           </div>
         </div>
       </section>
-  
+
       <hr>
-  
+
       <!-- Professional Networking Section -->
       <section class="card-inside mb-4">
         <div class="card-header">
@@ -287,9 +295,9 @@
           </div>
         </div>
       </section>
-  
+
       <hr>
-  
+
       <!-- Attachments Section -->
       <section class="card-inside mb-4">
         <div class="card-header">
@@ -298,9 +306,12 @@
         <div class="card-body">
           <div class="row g-3">
             <div *ngFor="let attachment of profileData.attachments" class="col-12">
-              <div class="d-flex justify-content-between align-items-center border p-2 rounded bg-secondary-subtle cursor-pointer" (click)="(attachment.type == 'document') ? $event.stopPropagation() : attachmentLink.click();">
+              <div
+                class="d-flex justify-content-between align-items-center border p-2 rounded bg-secondary-subtle cursor-pointer"
+                (click)="(attachment.type == 'document') ? $event.stopPropagation() : attachmentLink.click();">
                 <span>{{extractLastName(attachment.name)}}</span>
-                <button class="btn btn-outline-primary btn-sm" (click)="downloadFile(attachment.name)" target="_blank" *ngIf="attachment.type == 'document' else link">
+                <button class="btn btn-outline-primary btn-sm" (click)="downloadFile(attachment.name)" target="_blank"
+                  *ngIf="attachment.type == 'document' else link">
                   <i class="pi pi-download"></i>
                 </button>
                 <ng-template>
@@ -311,7 +322,7 @@
           </div>
         </div>
       </section>
-  
+
       <!-- References Section -->
       <section class="card-inside">
         <div class="card-header">
@@ -341,7 +352,7 @@
               <p>{{reference.designation}}</p>
             </div>
           </div>
-          
+
           <h4 class="fw-bold my-3">Professional Reference</h4>
           <div class="row g-3" *ngFor="let reference of profileData.professionalReference">
             <div class="col-md-4">
