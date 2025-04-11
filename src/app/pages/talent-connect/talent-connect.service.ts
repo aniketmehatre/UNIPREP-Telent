@@ -252,4 +252,10 @@ export class TalentConnectService {
             environment.ApiUrlEmployer + "/getstudentprofilesusingid", { params },);
     }
 
+    getAiEvaluationSummary() {
+        return this.http.post<any>(
+            environment.ApiUrl + "/getcountryandcurrency",
+            { headers: this.headers });
+    }
+
 }

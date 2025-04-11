@@ -26,18 +26,41 @@ export class EmployeeProfileComponent implements OnInit {
   selectedSocialMedias: string[] = [];
   isShowCreatedSuccessfullyPopup: boolean = false;
   isShowAiEvaluation: boolean = false;
-  aiEvaluationContent: string = '<p><strong>Introduction: </strong><br>\
-A Network Administrator plays a crucial role in the IT industry by managing and maintaining an organization\'s network infrastructure. They are responsible for ensuring the smooth operation of network systems, troubleshooting issues, and implementing security measures to protect sensitive data.</p><br>\
-<p><strong>Key Functions: </strong><br>\
-<ol>\
-  <li>Designing and implementing network configurations.</li><br>\
-  <li>Maintaining network security protocols and monitoring for potential threats.</li><br>\
-  <li>Managing network performance and optimizing for efficiency.</li><br>\
-  <li>Providing technical support to users for network-related issues.</li><br>\
-  <li>Collaborating with other IT teams to integrate new technologies into the network.</li>\
-</ol></p><br>\
-<p><strong>Overview of the Role: </strong><br>\
-A Network Administrator\'s role directly impacts the company\'s success by ensuring that communication systems are operational, data is secure, and employees can work efficiently. The ideal candidate should have strong technical skills, problem-solving ability, attention to detail, excellent communication skills, and a proactive approach to staying updated on the latest network technologies and security trends.</p><br>';
+  aiEvaluationContent: string = `<div class="resume-evaluation p-4 bg-white rounded-xl shadow-md max-w-xl mx-auto">
+  <h2 class="text-2xl font-bold mb-4 text-gray-800">AI Resume Evaluation</h2>
+
+  <div class="mb-4">
+    <h3 class="text-lg font-semibold text-gray-700">Overall Score</h3>
+    <div class="w-full bg-gray-200 rounded-full h-4 mt-2">
+      <div class="bg-green-500 h-4 rounded-full" style="width: 85%;"></div>
+    </div>
+    <p class="text-sm text-gray-500 mt-1">85% Match</p>
+  </div>
+
+  <div class="mb-4">
+    <h3 class="text-lg font-semibold text-gray-700">Category Breakdown</h3>
+    <ul class="text-sm text-gray-600 space-y-2 mt-2">
+      <li><strong>Skills Match:</strong> 90%</li>
+      <li><strong>Experience Relevance:</strong> 80%</li>
+      <li><strong>Education Fit:</strong> 75%</li>
+      <li><strong>Keyword Optimization:</strong> 88%</li>
+    </ul>
+  </div>
+
+  <div class="mb-4">
+    <h3 class="text-lg font-semibold text-gray-700">AI Suggestions</h3>
+    <ul class="list-disc list-inside text-sm text-gray-600 mt-2">
+      <li>Add more industry-specific keywords.</li>
+      <li>Quantify achievements (e.g., “increased sales by 20%”).</li>
+      <li>Include recent certifications relevant to the role.</li>
+      <li>Tailor your summary to the specific job position.</li>
+    </ul>
+  </div>
+
+  <button class="mt-4 px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition">
+    Download Full Report
+  </button>
+</div>`;
 
   currentMessage: string = "Enter your full name as per your official documents. This is the name that will appear on your offer letter and in the employer's database, so ensure it is accurate for a smooth hiring process. Numbers and special characters are not allowed.";
   hoverMessages: any = {
@@ -730,6 +753,7 @@ A Network Administrator\'s role directly impacts the company\'s success by ensur
 
         this.talentConnectService.updateProfile(formData).subscribe({
           next: response => {
+            this.isShowCreatedSuccessfullyPopup = true;
             this.toastService.add({
               severity: "success",
               summary: "Success",
@@ -879,8 +903,8 @@ A Network Administrator\'s role directly impacts the company\'s success by ensur
 
         this.talentConnectService.submitProfile(formData).subscribe({
           next: response => {
-            console.log('Profile submitted successfully', response);
             this.getProfileData();
+            this.isShowCreatedSuccessfullyPopup = true;
             this.toastService.add({
               severity: "success",
               summary: "Success",
@@ -1432,5 +1456,29 @@ A Network Administrator\'s role directly impacts the company\'s success by ensur
     return this.selectedSocialMedias.includes(socialMedia);
   };
 
+  onCallAIEvaluation() {
+    if (this.personalInfoForm.valid) {
+      this.talentConnectService.getAiEvaluationSummary().subscribe({
+        next: response => {
+          // this.aiEvaluationContent = response.content;
+          this.isShowAiEvaluation = true;
+        },
+        error: () => {
+          this.toastService.add({
+            severity: 'error',
+            summary: 'Error Occur Generate Ai Evaluation',
+            detail: 'Please try again'
+          })
+        }
+      });
+    } else {
+      this.markFormGroupTouched(this.personalInfoForm);
+      this.toastService.add({
+        severity: "error",
+        summary: "Required",
+        detail: ' Please fill the required fields'
+      });
+    }
+  }
 
 }

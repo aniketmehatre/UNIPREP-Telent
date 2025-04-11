@@ -277,14 +277,7 @@
 											<h2 class="fs-3 fw-bold">Key<br class="d-none d-md-block" />Responsibilities</h2>
 										</div>
 										<div class="col-12 col-md-9 font-bold">
-											<ul class="list-unstyled">
-												<li *ngFor="let resp of jobDetails?.key_responsibilities" class="mb-3">
-													<div class="d-flex">
-														<i class="pi pi-circle-fill me-2 mt-1" style="font-size: 8px"></i>
-														<span>{{ resp }}</span>
-													</div>
-												</li>
-											</ul>
+											<div [innerHTML]="jobDetails?.key_responsibilities"></div>
 										</div>
 									</div>
 								</div>

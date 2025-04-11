@@ -8,7 +8,7 @@
 				<p class="small text-muted mb-0 text-start">Active</p>
 			</div>
 		</div>
-		<button type="button" class="btn-close" aria-label="Close" (click)="closeChat.emit(true)"></button>
+		<button type="button" *ngIf="showInfo" class="btn-close" aria-label="Close" (click)="closeChat.emit(true)"></button>
 	</div>
 	<div class="card-body">
 		<div class="h-100 d-flex flex-column">
@@ -83,20 +83,28 @@
 			</div>
 		</div>
 	</div>
-	<div class="card-footer bg-transparent border-0">
-		<input type="file" class="d-none" accept=".doc,.docx,.pdf, application/msword,application/vnd.openxmlformats-officedocument.wordprocessingml.document" #fileAttachment (change)="uploadFilesChat($event)" />
+    <div class="card-footer bg-white p-2 border-0">
+		<input type="file" class="d-none" accept=".doc,.docx,.pdf, application/msword,application/vnd.openxmlformats-officedocument.wordprocessingml.document" #fileAttachment (change)="uploadFilesChat($event);">
 		<div *ngIf="attachmentFile" class="border d-flex justify-content-between align-items-center p-2">
-			<div>{{ attachmentFile.name }}</div>
-			<i class="fas fa-xmark" (click)="attachmentFile = null; attachmentFileName = null"></i>
+		  <div>{{attachmentFile.name}}</div>
+		  <i class="fas fa-xmark" (click)="attachmentFile = null; attachmentFileName = null;"></i>
 		</div>
-		<div class="input-group rounded-4 p-1 h-auto" style="border: 1px solid #e8e8e8">
-			<input type="text" class="form-control border-0 h-auto" [placeholder]="'Text with ... ' + jobDetails?.company_name" #messageInput (keyup.enter)="sendMessage(messageInput.value); messageInput.value = ''" />
-			<span role="button" class="input-group-text border-0 bg-white" (click)="fileAttachment.click()">
-				<i class="fa-solid fa-paperclip"></i>
-			</span>
-			<span role="button" class="input-group-text border-0 bg-white" (click)="sendMessage(messageInput.value); messageInput.value = ''">
-				<i class="fa-solid fa-paper-plane-top" style="color: var(--uniprep-secondary)"></i>
-			</span>
+		<div class="input-group border rounded-4 p-1 h-auto">
+		  <textarea 
+			class="form-control border-0 overflow-hidden" 
+			[placeholder]="'Text with ... '+ jobDetails?.company_name" 
+			#messageInput
+			rows="1"
+			style="resize: none; min-height: 38px; max-height: 200px;"
+			(input)="autoGrow($event.target)"
+			(keyup.enter)="sendMessage(messageInput.value); messageInput.value = ''; autoGrow(messageInput);">
+		  </textarea>
+		  <span class="input-group-text border-0 bg-white" (click)="fileAttachment.click();">
+			<i class="pi pi-paperclip"></i>
+		  </span>
+		  <span class="input-group-text border-0 bg-white" (click)="sendMessage(messageInput.value); messageInput.value = ''; autoGrow(messageInput);">
+			<i class="pi pi-send" style="color: var(--uniprep-secondary);"></i>
+		  </span>
 		</div>
-	</div>
+	  </div>
 </div>

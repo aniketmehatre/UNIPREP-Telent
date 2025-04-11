@@ -214,7 +214,7 @@
 												<!-- Field of Study / Major -->
 												<div class="col-md-6">
 													<label for="fieldOfStudy" class="form-label">Job Title</label>
-													<p-select id="highestQualification" pTooltip="Not able to find option type in this field" [virtualScroll]="true" [virtualScrollItemSize]="50" formControlName="work_experience_job_title" [options]="jobTitles" placeholder="Select Job Title" styleClass="w-100 p-0" optionLabel="job_title" optionValue="job_title" [filter]="true" filterBy="job_title" [editable]="true" (mouseleave)="resetMessageBox()" [disabled]="experience.get('years_of_experience')?.value == 'Fresher'" (mouseenter)="updateMessageBox('work_experience_job_title')"></p-select>
+													<p-select id="highestQualification" pTooltip="Not able to find please type in this field" [virtualScroll]="true" [virtualScrollItemSize]="50" formControlName="work_experience_job_title" [options]="jobTitles" placeholder="Select Job Title" styleClass="w-100 p-0" optionLabel="job_title" optionValue="job_title" [filter]="true" filterBy="job_title" [editable]="true" (mouseleave)="resetMessageBox()" [disabled]="experience.get('years_of_experience')?.value == 'Fresher'" (mouseenter)="updateMessageBox('work_experience_job_title')"></p-select>
 												</div>
 
 												<!-- Course Name -->
@@ -303,7 +303,7 @@
 											</div>
 											<div class="col-md-6">
 												<label for="highestQualification" class="form-label">Job Title<span class="text-danger">*</span></label>
-												<p-select id="highestQualification" pTooltip="Not able to find option type in this field" [virtualScroll]="true" [virtualScrollItemSize]="50"  formControlName="career_preference_job_title_id" [options]="jobTitles" placeholder="Select Job Title" styleClass="w-100" optionLabel="job_title" optionValue="job_title" [filter]="true" filterBy="job_title" [editable]="true" (mouseleave)="resetMessageBox()" (mouseenter)="updateMessageBox('career_preference_job_title_id')"></p-select>
+												<p-select id="highestQualification" pTooltip="Not able to find please type in this field" [virtualScroll]="true" [virtualScrollItemSize]="50"  formControlName="career_preference_job_title_id" [options]="jobTitles" placeholder="Select Job Title" styleClass="w-100" optionLabel="job_title" optionValue="job_title" [filter]="true" filterBy="job_title" [editable]="true" (mouseleave)="resetMessageBox()" (mouseenter)="updateMessageBox('career_preference_job_title_id')"></p-select>
 												<small class="text-danger" *ngIf="personalInfoForm.get('career_preference_job_title_id')?.invalid && personalInfoForm.get('career_preference_job_title_id')?.touched"> This field is mandatory </small>
 											</div>
 										</div>
@@ -805,7 +805,7 @@
 									</div>
 
 									<!-- Open Positions -->
-									<div class="row text-start">
+									<div class="row text-start content-card">
 										<div class="col-12 mb-3">
 											<div class="d-flex align-items-start gap-2">
 												<div style="max-width: 20px; width: 100%">
@@ -813,7 +813,7 @@
 												</div>
 												<div class="overflow-hidden">
 													<p class="text-muted text-small">Desired Job Title</p>
-													<p class="fw-semibold text-small text-truncate">
+													<p class=" text-small text-truncate">
 														{{ personalInfoForm?.get("career_preference_job_title_id")?.value || "-" }}
 													</p>
 												</div>
@@ -826,7 +826,7 @@
 												</div>
 												<div class="overflow-hidden">
 													<p class="text-muted text-small">Employment Type</p>
-													<p class="fw-semibold text-small text-truncate">
+													<p class=" text-small text-truncate">
 														{{ personalInfoForm?.get("career_preference_preferred_employment_type")?.value ? personalInfoForm?.get("career_preference_preferred_employment_type")?.value : "-" }}
 													</p>
 												</div>
@@ -839,7 +839,7 @@
 												</div>
 												<div class="overflow-hidden">
 													<p class="text-muted text-small">Work Arrangement</p>
-													<p class="fw-semibold text-small text-truncate">
+													<p class=" text-small text-truncate">
 														{{ personalInfoForm?.get("career_preference_preferred_workplace_type")?.value ? personalInfoForm?.get("career_preference_preferred_workplace_type")?.value : "-" }}
 													</p>
 												</div>
@@ -852,7 +852,7 @@
 												</div>
 												<div class="overflow-hidden">
 													<p class="text-muted text-small">Current Location</p>
-													<p class="fw-semibold text-small text-truncate">{{ personalInfoForm?.get("location_id")?.value ? getListValue(locations, personalInfoForm?.get("location_id")?.value, "work_location") : "-" }}</p>
+													<p class=" text-small text-truncate">{{ personalInfoForm?.get("location_id")?.value ? getListValue(locations, personalInfoForm?.get("location_id")?.value, "work_location") : "-" }}</p>
 												</div>
 											</div>
 										</div>
@@ -864,7 +864,7 @@
 												</div>
 												<div class="overflow-hidden">
 													<p class="text-muted text-small">Interested Industry</p>
-													<p class="fw-semibold text-small text-truncate">
+													<p class=" text-small text-truncate">
 														{{ personalInfoForm?.get("career_preference_career_interest_id")?.value ? getListValue(careerInterests, personalInfoForm?.get("career_preference_career_interest_id")?.value, "interest") : "-" }}
 													</p>
 												</div>
@@ -878,7 +878,7 @@
 
 												<div class="overflow-hidden">
 													<p class="text-muted text-small">Expected Salary</p>
-													<p class="fw-semibold text-small text-truncate">
+													<p class=" text-small text-truncate">
 														{{ personalInfoForm?.get("career_preference_expected_salary")?.value ? getListValue(currencies, personalInfoForm?.get("career_preference_currency_id")?.value, "currency_code") + " " + personalInfoForm?.get("career_preference_expected_salary")?.value + "/Month" : "-" }}
 													</p>
 												</div>
@@ -892,7 +892,7 @@
 
 												<div class="overflow-hidden">
 													<p class="text-muted text-small">Total Experience</p>
-													<p class="fw-semibold text-small text-truncate">
+													<p class=" text-small text-truncate">
 														{{ personalInfoForm?.get("total_years_of_experience")?.value ? personalInfoForm?.get("total_years_of_experience")?.value : "-" }}
 													</p>
 												</div>
@@ -901,7 +901,7 @@
 									</div>
 								</div>
 							</div>
-							<p class="text-center text-muted text-small fw-semibold mt-2">Your profile card as viewed by a company</p>
+							<p class="text-center text-muted text-small  mt-2">Your profile card as viewed by a company</p>
 						</div>
 					</div>
 				</div>
@@ -920,18 +920,18 @@
 			</div>
 			<div class="d-flex justify-content-end" [ngClass]="isShowAiEvaluation ? 'col-md-4': 'col-md-2' ">
 				<ng-container *ngIf="!isShowAiEvaluation">
-					<button pButton type="button" (click)="onSubmit()" class="btn btn-primary btn-rounded p-1 ps-4 mt-1">
+					<button pButton type="button" (click)="onCallAIEvaluation()" class="btn btn-primary btn-rounded p-1 ps-4 mt-1">
 						<span class="me-2">{{ this.profileId ? "Update Profile" : "Create Profile" }}</span
 						><span class="btn-icon px-2 py-2"><i class="pi pi-check text-white"></i></span>
 					</button>
 				</ng-container>
 				<ng-container *ngIf="isShowAiEvaluation">
-					<button pButton type="button" (click)="isShowAiEvaluation = false" class="btn btn-primary btn-rounded p-1 ps-4 mt-1 me-1">
-						<span class="me-2">Edit Your Profile</span
+					<button pButton type="button" (click)="isShowAiEvaluation = false; aiEvaluationContent = '';" class="btn btn-primary btn-rounded p-1 ps-4 mt-1 me-1">
+						<span class="me-2">Edit Profile</span
 						><span class="btn-icon px-2 py-2"><i class="pi pi-check text-white"></i></span>
 					</button>
 					<button pButton type="button" (click)="onSubmit()" class="btn btn-success btn-rounded p-1 ps-4 mt-1">
-						<span class="me-2">{{ this.profileId ? "Update Profile" : "Create Profile" }}</span
+						<span class="me-2">Complete Your Profile</span
 						><span class="btn-icon px-2 py-2"><i class="pi pi-check text-white"></i></span>
 					</button>
 				</ng-container>
@@ -948,7 +948,7 @@
     </ng-template>
 	<ng-template #footer>
 		<div class="text-center w-100 mt-2">
-			<button class="btn btn-secondary px-4">OK</button>
+			<button class="btn btn-secondary px-4" [routerLink]="['/pages/talent-connect/my-profile',this.profileId]">OK</button>
 		</div>
 	</ng-template>
 </p-confirmdialog>

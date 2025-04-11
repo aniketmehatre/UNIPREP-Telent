@@ -28,7 +28,9 @@
 			</div>
 		</div>
 		<hr class="my-2" />
-		<p-steps [model]="steps" [activeIndex]="activeIndex" [readonly]="true" class="w-100"></p-steps>
+		<div>
+			<p-steps [model]="steps" [activeIndex]="activeIndex" [readonly]="true" class="w-100"></p-steps>
+		</div>
 	</div>
 	<div class="card-body overflow-y-auto">
 		<!-- Job Details -->
@@ -153,18 +155,7 @@
 								<h2 class="fs-3 fw-bold">Key<br />Responsibilities</h2>
 							</div>
 							<div class="col-md-7 font-bold">
-								<!-- Handle both string and array formats -->
-								<div *ngIf="typeof jobDetails.key_responsibilities === 'string'">
-									<p>{{ jobDetails.key_responsibilities }}</p>
-								</div>
-								<ul *ngIf="array.isArray(jobDetails.key_responsibilities)" class="list-unstyled">
-									<li *ngFor="let resp of jobDetails.key_responsibilities" class="mb-3">
-										<div class="d-flex">
-											<i class="pi pi-circle-fill me-2 mt-1" style="font-size: 8px"></i>
-											<span>{{ resp }}</span>
-										</div>
-									</li>
-								</ul>
+								<div [innerHTML]="jobDetails.key_responsibilities"></div>
 							</div>
 						</div>
 					</div>
@@ -199,35 +190,12 @@
 								<!-- Parse the language proficiency string format [language,level] -->
 								<ul class="list-unstyled font-bold">
 									<ng-container *ngIf="jobDetails.language_proficiency && typeof jobDetails.language_proficiency === 'string'">
-										<ng-container *ngFor="let langString of jobDetails.language_proficiency.split('],[')">
-											<li class="mb-3" *ngIf="langString">
-												<div class="d-flex gap-2">
-													<span>{{ langString.replace("[", "").replace("]", "").split(",")[0] }}</span>
-													<span class="d-flex gap-2">
-														<i class="fa-solid fa-star text-warning"></i>
-														<i class="fa-solid fa-star text-warning"></i>
-														<i class="fa-solid fa-star text-warning"></i>
-														<i class="fa-solid fa-star text-warning"></i>
-														<i class="fa fa-star"></i>
-													</span>
-												</div>
-											</li>
+										<ng-container *ngFor="let langString of jobDetails.language_proficiency">
+											<div class="d-flex align-items-center">
+												<span class="me-2" style="width: 100px;">{{langString.language}}</span>
+												<p-rating [ngModel]="getProficiencyRating(lang.language_proficiency)" [readonly]="true"/>
+											  </div>
 										</ng-container>
-									</ng-container>
-									<!-- Handle the array format -->
-									<ng-container *ngIf="jobDetails.language_proficiency && array.isArray(jobDetails.language_proficiency)">
-										<li *ngFor="let lang of jobDetails.language_proficiency" class="mb-3">
-											<div class="d-flex gap-2">
-												<span>{{ lang.language }}</span>
-												<span class="d-flex gap-2">
-													<i class="fa-solid fa-star text-warning"></i>
-													<i class="fa-solid fa-star text-warning"></i>
-													<i class="fa-solid fa-star text-warning"></i>
-													<i class="fa-solid fa-star text-warning"></i>
-													<i class="fa fa-star"></i>
-												</span>
-											</div>
-										</li>
 									</ng-container>
 								</ul>
 							</div>

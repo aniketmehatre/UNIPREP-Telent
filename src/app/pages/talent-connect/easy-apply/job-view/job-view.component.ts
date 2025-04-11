@@ -68,38 +68,7 @@ export class JobViewComponent implements OnInit {
   isApplied: boolean = false;
   @Input() showInfo: boolean = true;
   attachmentFile!: File | null;
-  jobDetails: Job = {
-    matching_skills: 'You match 0 out of 0 skill requirements for this job',
-    isChecked: 0,
-    id: 1,
-    experience_level: "Mid-Level",
-    job_overview: "We are looking for a skilled Software Developer to join our team.",
-    key_responsibilities: "Develop, test, and maintain web applications.",
-    technical_proficiency: ["JavaScript", "Angular", "Node.js"],
-    language_proficiency: [{ "language": "English", "level": "High" }, { "language": "Spanish", "level": "Medium" }],
-    start_date: "2025-04-01",
-    due_date: "2025-06-30",
-    available_vacancies: 3,
-    hiring_timeframe: "2 months",
-    created_at: "2025-03-10",
-    interview_format: ["Virtual"],
-    position: "Software Developer",
-    work_location: "Remote",
-    company_name: "Tech Solutions Inc.", // Fixed typo from comapany_name
-    industry_name: "IT & Software",
-    company_size: 500,
-    compensation_structure: ["Annual Salary", "Performance Bonus"],
-    work_mode: "Hybrid",
-    employment_type: "Full-Time",
-    benefits_perks: ["Health insurance", "Flexible hours"],
-    soft_skills: ["Teamwork", "Communication"],
-    hiring_stages: [{ "id": 1, "name": "Resume screening" }, { "id": 2, "name": "Technical interview" }, { "id": 3, "name": "HR interview" }],
-    total_applied: 25,
-    company_logo_url: "https://example.com/logo1.png",
-    educational_degree: 'B.sc',
-    salary_range: 100000,
-    stage: null
-  };
+  jobDetails: Job;
 
   isShowApplyChat: boolean = false;
   currentView: 'initial' | 'conversation' = 'initial';
@@ -201,6 +170,7 @@ export class JobViewComponent implements OnInit {
       next: response => {
         if (response.success) {
           this.isShowApplyChat = true;
+          this.isApplied = true;
         } else {
           this.message.add({
             severity: "error",
