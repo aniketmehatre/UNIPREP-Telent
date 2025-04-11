@@ -1,11 +1,11 @@
-<div class="h-100">
+<div class="h-100 overflow-hidden">
   <div
-    class="w-100 bg-primary rounded-top-4 text-start d-flex justify-content-between align-items-center py-3 px-4 overflow-y-auto">
+    class="w-100 bg-primary rounded-top-4 text-start d-flex justify-content-between align-items-center py-3 px-4 overflow-hidden">
     <h5 class="text-white fw-medium fs-4">{{isSample ? 'Sample Profile' : profileData.personalInfo.fullName + '\'s
       profile'}}</h5>
     <i class="fa-solid fa-circle-xmark fs-2 cursor-pointer" style="color: white;" (click)="closeDialog()"></i>
   </div>
-  <div class="profile-dialog-content flex-grow-1 overflow-auto">
+  <div class="profile-dialog-content h-100 overflow-y-auto" style="padding-bottom: 100px;">
     <div class="container-fluid profile-container">
       <!-- Personal Information Section -->
       <section class="card-inside mb-4 ">
