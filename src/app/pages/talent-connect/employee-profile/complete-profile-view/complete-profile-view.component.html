@@ -70,7 +70,7 @@
           </div>
         </div>
         <div class="col-md-3 col-lg-3 d-flex flex-column gap-2 align-items-end">
-          <button pButton label="Edit Profile" icon="pi pi-pencil" class="p-button-outlined"></button>
+          <button pButton label="Edit Profile" icon="pi pi-pencil" class="p-button-outlined" routerLink="/pages/talent-connect/my-profile"></button>
           <button pButton label="Share Profile" icon="pi pi-share-alt" class="p-button-outlined p-button-warning"></button>
         </div>
       </div>
@@ -185,7 +185,7 @@
             </div>
             <div class="col-md-4 mb-3">
               <div class="text-primary fw-bold">Preferred Work Location</div>
-              <div>{{profileData.careerPreference.preferred_work_location || 'Not specified'}}</div>
+              <div>{{profileData.careerPreference.preferred_work_location?.join(',') || 'Not specified'}}</div>
             </div>
             <div class="col-md-4 mb-3">
               <div class="text-primary fw-bold">Willingness to Relocate?</div>
@@ -197,7 +197,7 @@
             </div>
             <div class="col-md-4 mb-3">
               <div class="text-primary fw-bold">Preferred Employment Type</div>
-              <div>{{profileData.careerPreference.preferred_employment_type | json}}</div>
+              <div>{{profileData.careerPreference.preferred_employment_type?.join(',')}}</div>
             </div>
             <div class="col-md-4 mb-3">
               <div class="text-primary fw-bold">Salary Range</div>
@@ -209,7 +209,7 @@
             </div>
             <div class="col-md-4 mb-3">
               <div class="text-primary fw-bold">Preferred Workplace Type</div>
-              <div>{{profileData.careerPreference.preferred_workplace_type | json}}</div>
+              <div>{{profileData.careerPreference.preferred_workplace_type?.join(',')}}</div>
             </div>
           </div>
         </div>

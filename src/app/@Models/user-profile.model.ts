@@ -60,8 +60,8 @@ interface Language {
     id: number;
     student_id: number;
     career_status: string;
-    preferred_employment_type: string; // JSON string of array
-    preferred_workplace_type: string; // JSON string of array
+    preferred_employment_type: string[]; // JSON string of array
+    preferred_workplace_type: string[]; // JSON string of array
     willingness_to_relocate: string;
     currency_id: number;
     expected_salary: string;
@@ -73,7 +73,7 @@ interface Language {
     portfolio_upload_link: string | null;
     video_link: string | null;
     notes: string | null;
-    preferred_work_location: string | null;
+    preferred_work_location: string[] | null;
     job_title: string | null;
     career_interest_name: string | null;
     soft_skill_name: string | null;
