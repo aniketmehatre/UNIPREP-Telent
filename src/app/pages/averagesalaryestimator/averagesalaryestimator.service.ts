@@ -14,18 +14,19 @@ export class AveragesalaryestimatorService {
       headers: headers,
     });
   }
-  getWorkplacetype() {
-    const headers = new HttpHeaders().set("Accept", "application/json");
-    return this.http.get<any>(environment.ApiUrl + "/getworkplacetypes", {
-      headers: headers,
-    });
-  }
+  // getWorkplacetype() {
+  //   const headers = new HttpHeaders().set("Accept", "application/json");
+  //   return this.http.get<any>(environment.ApiUrl + "/getworkplacetypes", {
+  //     headers: headers,
+  //   });
+  // }
   getWorkmodetype() {
     const headers = new HttpHeaders().set("Accept", "application/json");
     return this.http.get<any>(environment.ApiUrl + "/getworkplacetypes", {
       headers: headers,
     });
-  }getJobRoles() {
+  }
+  getJobRoles() {
     const headers = new HttpHeaders().set("Accept", "application/json");
     return this.http.post<any>(environment.ApiUrl + "/onlyJobRoles", {
       headers: headers,

@@ -238,4 +238,23 @@ export class AverageSalaryComponent implements OnInit {
     this.JobRoleInput.nativeElement.value = jobRoleLabel;
     this.filterJobRole = [];
   }
+
+  showHistoryList:boolean = false;
+  readResponse:boolean = false;
+  ListData: any;
+  totalDataCount: number = 0;
+  saveRecommadation(){
+    this.service.getavgsalarysavedresponse().subscribe((response: any) => {
+      this.ListData = response;
+      this.totalDataCount = this.ListData.length;
+      this.showHistoryList = true;
+      this.readResponse = false;
+    });
+  }
+  savedresponseData: any = [];
+  readSavedResponse(savedResponse: any) {
+    console.log(savedResponse, "saved response");
+    this.savedresponseData = savedResponse;
+    this.readResponse = true;
+  }
 }

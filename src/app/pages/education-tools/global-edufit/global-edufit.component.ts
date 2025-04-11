@@ -272,18 +272,19 @@ export class GlobalEdufitComponent implements OnInit {
   }
 
   saveRecommadation() {
-    if (!this.isFromSavedData) {
+    // if (!this.isFromSavedData) {
       this.educationToolService.getAnalysisList('global_edufit').subscribe({
         next: response => {
           this.isRecommendationQuestion = false;
           this.isRecommendationData = false;
           this.isRecommendationSavedData = true;
           this.recommadationSavedQuestionList = response.data;
+          console.log(this.recommadationSavedQuestionList,"saved data");
         },
         error: error => {
         }
       });
-    }
+    // }
   }
 
   showRecommandationData(data: string) {

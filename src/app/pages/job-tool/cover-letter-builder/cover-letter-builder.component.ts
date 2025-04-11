@@ -677,11 +677,11 @@ export class CoverLetterBuilderComponent implements OnInit, AfterViewInit {
 					.map((part: any) => part + "</p><br>")
 					.join("")
 
-				if(mode == 'generate_description'){
+				if(mode == 'generate_description' || mode == 'rephrase_description'){
 					this.resumeFormInfoData.patchValue({
 						job_description: GPTResponse,
 					})
-				}else if(mode == 'generate_summary'){
+				}else if(mode == 'generate_summary' || mode == 'rephrase_summary'){
 					this.resumeFormInfoData.patchValue({
 						user_summary: GPTResponse,
 					})

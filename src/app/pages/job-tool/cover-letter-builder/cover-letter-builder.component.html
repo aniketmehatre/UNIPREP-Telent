@@ -159,10 +159,10 @@
 									</div>
 								</div>
 								<div class="col-md-6">
-									<label class="uniprep-primarydark fw-bold h6">Job Title</label>
+									<label class="uniprep-primarydark fw-bold h6">Previous Job Title</label>
 									<div class="form-group">
 										<div class="mb-3">
-											<input class="w-100" type="text" placeholder="Your Job Title" formControlName="user_job_title" pInputText />
+											<input class="w-100" type="text" placeholder="Previous Your Job Title" formControlName="user_job_title" pInputText />
 											<div *ngIf="submitted && f['user_job_title'].errors" class="text-danger text-xs">
 												<div style="margin-left: 10px" *ngIf="f['user_job_title'].errors">Your Job Title Required</div>
 											</div>
@@ -249,7 +249,7 @@
 									</div>
 								</div> -->
 								<div class="col-md-6">
-									<label class="uniprep-primarydark fw-bold h6">Location</label>
+									<label class="uniprep-primarydark fw-bold h6">Organization Location</label>
 									<div class="form-group">
 										<div class="mb-3">
 											<div class="input-wrapper">
@@ -281,8 +281,8 @@
 											<label class="uniprep-primarydark fw-bold h6 mb-0">Job Description</label>
 										</div>
 										<div>
-											<button pButton type="button" class="deleteDivButton m-2 p-2" [disabled]="generateDesBtnDisable" (click)="chatGPTIntegration('generate_description')" style="background-color: #9bc329">AI Generate</button>
-											<button pButton type="button" class="deleteDivButton m-2 p-2 bg-secondary" [disabled]="rephraseDesBtnDisable" >Rephrase</button>
+											<button pButton type="button" class="deleteDivButton m-2 p-2" (click)="chatGPTIntegration('generate_description')" style="background-color: #9bc329">AI Generate</button>
+											<button pButton type="button" class="deleteDivButton m-2 p-2 bg-secondary" (click)="chatGPTIntegration('rephrase_description')" >Rephrase</button>
 										</div>
 									</div>
 									<div class="form-group">
@@ -304,8 +304,8 @@
 											<label class="uniprep-primarydark fw-bold h6 mb-0">Cover Letter Section</label>
 										</div>
 										<div>
-											<button pButton type="button" class="deleteDivButton m-2 p-2" [disabled]="generateConBtnDisable" (click)="chatGPTIntegration('generate_summary')" style="background-color: #9bc329">AI Generate</button>
-											<button pButton type="button" class="deleteDivButton m-2 p-2 bg-secondary" [disabled]="rephraseconBtnDisable">Rephrase</button>
+											<button pButton type="button" class="deleteDivButton m-2 p-2" (click)="chatGPTIntegration('generate_summary')" style="background-color: #9bc329">AI Generate</button>
+											<button pButton type="button" class="deleteDivButton m-2 p-2 bg-secondary" (click)="chatGPTIntegration('rephrase_summary')">Rephrase</button>
 										</div>
 									</div>
 									<div class="form-group">
