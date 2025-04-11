@@ -1,7 +1,6 @@
-import { Component, CUSTOM_ELEMENTS_SCHEMA, EventEmitter, Input, OnInit, Output } from "@angular/core";
-import { Location } from "@angular/common";
-import { MenuItem, MessageService } from "primeng/api";
-import { ActivatedRoute, Router } from "@angular/router";
+import { Component, EventEmitter, Input, OnInit, Output } from "@angular/core";
+import { MessageService } from "primeng/api";
+import { Router } from "@angular/router";
 import { AuthService } from "../../../Auth/auth.service";
 import { PageFacadeService } from "../../page-facade.service";
 import { InterviewPreparationService } from "../interviewpreparation.service";
@@ -32,6 +31,10 @@ import { SavedJobInterviewQuestion } from "src/app/@Models/job-interview.model";
   providers: [InterviewPreparationService]
 })
 export class JobPreparedListComponent implements OnInit {
+
+  @Input() prepData: any;
+  @Output() windowChange = new EventEmitter();
+
   isSkeletonVisible: boolean = true;
   planExpired: boolean = false;
   restrict: boolean = false;
@@ -46,15 +49,18 @@ export class JobPreparedListComponent implements OnInit {
   defaultListData: any[] = [];
   savedListData: SavedJobInterviewQuestion[] = [];
   selectedJobRole: any;
-  @Input() prepData: any;
-  @Output() windowChange = new EventEmitter();
+  readanswerpopubVisibility = false;
+  isResponseSkeleton: boolean = false;
+  selectedQuestion = "";
+  selectedAnswer: any;
+  customizedResponse: any;
+  selectedQuestionId: any;
+  tabValue: number = 0;
   loopRange = Array.from({ length: 30 })
     .fill(0)
     .map((_, index) => index);
-  readanswerpopubVisibility = false;
-  isResponseSkeleton: boolean = false;
 
-  constructor(private location: Location, private route: ActivatedRoute, private toast: MessageService, private authService: AuthService, private service: InterviewPreparationService, private router: Router, private pageFacade: PageFacadeService, private meta: Meta) { }
+  constructor(private toast: MessageService, private authService: AuthService, private service: InterviewPreparationService, private router: Router, private pageFacade: PageFacadeService, private meta: Meta) { }
 
   ngOnInit(): void {
     this.selectedJobRole = this.prepData.role;
@@ -66,33 +72,25 @@ export class JobPreparedListComponent implements OnInit {
   }
 
   getDefaultQuestions() {
-    this.service
-      .getquestionByJobrole({
-        jobrole: this.prepData.jobrole,
-      })
-      .subscribe((response: any) => {
-        this.isSkeletonVisible = false;
-        this.defaultListData = response;
-        this.ListData = response;
-        this.totalDataCount = this.ListData.length;
-        if (this.prepData.questionid) {
-          const quiz = this.ListData.find(item => item.id == this.prepData.questionid);
-          if (quiz) {
-            this.readAnswer(quiz);
-          }
+    this.service.getquestionByJobrole({ jobrole: this.prepData.jobrole }).subscribe(response => {
+      this.isSkeletonVisible = false;
+      this.defaultListData = response;
+      this.ListData = response;
+      this.totalDataCount = this.ListData.length;
+      if (this.prepData.questionid) {
+        const quiz = this.ListData.find(item => item.id == this.prepData.questionid);
+        if (quiz) {
+          this.readAnswer(quiz);
         }
-      });
+      }
+    });
   }
   getSavedQuestion() {
-    this.service
-      .getsavedquestionByJobrole({
-        jobrole: this.prepData.jobrole,
-      })
-      .subscribe((response: any) => {
-        this.isSkeletonVisible = false;
-        this.savedListData = response;
-        this.totalDataCount = this.ListData.length;
-      });
+    this.service.getsavedquestionByJobrole({ jobrole: this.prepData.jobrole }).subscribe(response => {
+      this.isSkeletonVisible = false;
+      this.savedListData = response;
+      this.totalDataCount = this.ListData.length;
+    });
   }
   backtoMain() {
     this.windowChange.emit(false);
@@ -124,11 +122,7 @@ export class JobPreparedListComponent implements OnInit {
   openVideoPopup(videoLink: string) {
     this.pageFacade.openHowitWorksVideoPopup(videoLink);
   }
-  selectedQuestion = "";
-  selectedAnswer: any;
-  customizedResponse: any;
-  selectedQuestionId: any;
-  tabValue: number = 0;
+
 
   readAnswer(quizdata: any) {
     this.selectedQuestion = quizdata?.ques;
@@ -141,21 +135,17 @@ export class JobPreparedListComponent implements OnInit {
       return;
     }
     this.isResponseSkeleton = true;
-    this.service.getcustomizedResponse(this.prepData).subscribe(
-      (response: any) => {
+    this.service.getcustomizedResponse(this.prepData).subscribe({
+      next: response => {
         this.isResponseSkeleton = false;
         this.customizedResponse = response;
       },
-      (error) => {
-        this.toast.add({
-          severity: "error",
-          summary: "Error",
-          detail: "Something went wrong in Fetch customized Answer",
-        });
+      error: error => {
+        this.toast.add({ severity: "error", summary: "Error", detail: "Something went wrong in Fetch customized Answer" });
         this.readanswerpopubVisibility = true;
         this.isResponseSkeleton = false;
       }
-    );
+    });
   }
   saveInterviewQuestion() {
     if (this.savedListData.some(item => item?.ques === this.selectedQuestion)) {
@@ -169,16 +159,16 @@ export class JobPreparedListComponent implements OnInit {
       customized_ans: this.customizedResponse,
       jobrole_id: this.prepData.jobrole,
     };
-    this.service.saveInterviewQuestion(paramData).subscribe(
-      (response) => {
+    this.service.saveInterviewQuestion(paramData).subscribe({
+      next: response => {
         this.toast.add({ severity: "success", summary: "Success", detail: response.message });
         this.readanswerpopubVisibility = false;
         this.getSavedQuestion();
       },
-      (error) => {
+      error: error => {
         this.toast.add({ severity: "error", summary: "Error", detail: error.message });
       }
-    );
+    });
   }
   changeType(event: any) {
     this.tabValue = event;
