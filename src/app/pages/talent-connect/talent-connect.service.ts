@@ -213,36 +213,14 @@ export class TalentConnectService {
     }
 
     getReceivedMessageCompanyTracker(formValues: any) {
-        const formData = new FormData();
-        formData.append("perpage", formValues.perpage);
-        formData.append("page", formValues.page);
-        // formData.append("companyname", formValues.companyname);
-        // formData.append("industrytype", formValues.industrytype);
-        // formData.append("companysize", formValues.companysize);
-        // formData.append("hq", formValues.hq);
-        // formData.append("globalpresence", formValues.globalpresence);
-        // formData.append("foundedyear", formValues.foundedyear);
-        // formData.append("companytype", formValues.companytype);
-        // formData.append("status", "1");
         const headers = new HttpHeaders().set("Accept", "application/json");
-        return this.http.post<any>(environment.ApiUrl + "/getreceievedmessagecompanytracker", formData,  {headers: headers});
+        return this.http.post<any>(environment.ApiUrl + "/getreceievedmessagecompanytracker", formValues,  {headers: headers});
     }
 
 
     getSendMessageCompanyTracker(formValues: any) {
-        const formData = new FormData();
-        formData.append("perpage", formValues.perpage);
-        formData.append("page", formValues.page);
-        // formData.append("companyname", formValues.companyname);
-        // formData.append("industrytype", formValues.industrytype);
-        // formData.append("companysize", formValues.companysize);
-        // formData.append("hq", formValues.hq);
-        // formData.append("globalpresence", formValues.globalpresence);
-        // formData.append("foundedyear", formValues.foundedyear);
-        // formData.append("companytype", formValues.companytype);
-        // formData.append("status", "1");
         const headers = new HttpHeaders().set("Accept", "application/json");
-        return this.http.post<any>(environment.ApiUrl + "/getsendmessagecompanytracker", formData,  {headers: headers});
+        return this.http.post<any>(environment.ApiUrl + "/getsendmessagecompanytracker", formValues,  {headers: headers});
     }
 
     getStudentProfilesUsingId(id: string) {
