@@ -22,6 +22,7 @@ import { TabsModule } from "primeng/tabs";
 import { Meta } from "@angular/platform-browser";
 import { SkeletonModule } from "primeng/skeleton";
 import { SharedModule } from "src/app/shared/shared.module";
+import { SavedJobInterviewQuestion } from "src/app/@Models/job-interview.model";
 @Component({
   selector: "uni-preparedlist",
   templateUrl: "./preparedlist.component.html",
@@ -42,6 +43,8 @@ export class JobPreparedListComponent implements OnInit {
   orglogowhitelabel: any;
   totalDataCount: any;
   ListData: any[] = [];
+  defaultListData: any[] = [];
+  savedListData: SavedJobInterviewQuestion[] = [];
   selectedJobRole: any;
   @Input() prepData: any;
   @Output() windowChange = new EventEmitter();
@@ -52,13 +55,16 @@ export class JobPreparedListComponent implements OnInit {
   isResponseSkeleton: boolean = false;
 
   constructor(private location: Location, private route: ActivatedRoute, private toast: MessageService, private authService: AuthService, private service: InterviewPreparationService, private router: Router, private pageFacade: PageFacadeService, private meta: Meta) { }
+
   ngOnInit(): void {
     this.selectedJobRole = this.prepData.role;
     this.getDefaultQuestions();
+    this.getSavedQuestion();
     this.checkPlanExpiry();
     this.imagewhitlabeldomainname = window.location.hostname;
     this.ehitlabelIsShow = ["*.uniprep.ai", "dev-student.uniprep.ai", "uniprep.ai", "localhost"].includes(this.imagewhitlabeldomainname);
   }
+
   getDefaultQuestions() {
     this.service
       .getquestionByJobrole({
@@ -66,6 +72,7 @@ export class JobPreparedListComponent implements OnInit {
       })
       .subscribe((response: any) => {
         this.isSkeletonVisible = false;
+        this.defaultListData = response;
         this.ListData = response;
         this.totalDataCount = this.ListData.length;
         if (this.prepData.questionid) {
@@ -83,7 +90,7 @@ export class JobPreparedListComponent implements OnInit {
       })
       .subscribe((response: any) => {
         this.isSkeletonVisible = false;
-        this.ListData = response;
+        this.savedListData = response;
         this.totalDataCount = this.ListData.length;
       });
   }
@@ -121,12 +128,18 @@ export class JobPreparedListComponent implements OnInit {
   selectedAnswer: any;
   customizedResponse: any;
   selectedQuestionId: any;
+  tabValue: number = 0;
+
   readAnswer(quizdata: any) {
     this.selectedQuestion = quizdata?.ques;
     this.selectedAnswer = quizdata?.ans;
     this.selectedQuestionId = quizdata?.id;
-    this.prepData.questionid = quizdata?.id;
+    // this.prepData.questionid = quizdata?.id;
     this.readanswerpopubVisibility = true;
+    if (quizdata?.customized_ans) {
+      this.customizedResponse = quizdata?.customized_ans;
+      return;
+    }
     this.isResponseSkeleton = true;
     this.service.getcustomizedResponse(this.prepData).subscribe(
       (response: any) => {
@@ -145,6 +158,10 @@ export class JobPreparedListComponent implements OnInit {
     );
   }
   saveInterviewQuestion() {
+    if (this.savedListData.some(item => item?.ques === this.selectedQuestion)) {
+      this.toast.add({ severity: "warn", summary: "Warning", detail: "This question has already been saved." });
+      return;
+    }
     let paramData = {
       questionid: this.selectedQuestionId,
       ques: this.selectedQuestion,
@@ -154,28 +171,21 @@ export class JobPreparedListComponent implements OnInit {
     };
     this.service.saveInterviewQuestion(paramData).subscribe(
       (response) => {
-        this.toast.add({
-          severity: "success",
-          summary: "Success",
-          detail: response.message,
-        });
+        this.toast.add({ severity: "success", summary: "Success", detail: response.message });
         this.readanswerpopubVisibility = false;
+        this.getSavedQuestion();
       },
       (error) => {
-        this.toast.add({
-          severity: "error",
-          summary: "Error",
-          detail: error.message,
-        });
+        this.toast.add({ severity: "error", summary: "Error", detail: error.message });
       }
     );
   }
   changeType(event: any) {
-    let tabIndex = event;
-    if (tabIndex == 0) {
-      this.getDefaultQuestions();
+    this.tabValue = event;
+    if (this.tabValue == 0) {
+      this.ListData = this.defaultListData;
     } else {
-      this.getSavedQuestion();
+      this.ListData = this.savedListData;
     }
   }
 

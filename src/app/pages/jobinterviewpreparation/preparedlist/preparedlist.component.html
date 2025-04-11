@@ -8,7 +8,8 @@
 				<div class="select-title d-flex justify-content-between align-items-center">
 					<div class="d-flex gap-2">
 						<h5 routerLink="/pages/dashboard" role="button" class="mb-0" tooltipPosition="top" pTooltip="">
-							<i class="fa-regular fa-home"></i></h5>
+							<i class="fa-regular fa-home"></i>
+						</h5>
 						<span><i class="fa-solid fa-chevron-right"></i></span>
 						<h5 routerLink="/pages/job-tool/career-tool" role="button" class="mb-0" tooltipPosition="top"
 							pTooltip="">Career Tools</h5>
@@ -28,10 +29,10 @@
 								class="fa-solid fa-play d-md-block d-none"></i></button>
 					</div>
 				</div>
-				<p-tabs value="0" class="custom-p-tab" (onChange)="changeType($event)">
+				<p-tabs [value]="tabValue" class="custom-p-tab" (onChange)="changeType($event)">
 					<p-tablist>
-						<p-tab value="0" (click)="changeType(0)">Default</p-tab>
-						<p-tab value="1" (click)="changeType(1)">Saved</p-tab>
+						<p-tab [value]="0" (click)="changeType(0)">Default</p-tab>
+						<p-tab [value]="1" (click)="changeType(1)">Saved</p-tab>
 					</p-tablist>
 				</p-tabs>
 			</div>
@@ -85,7 +86,8 @@
 			<div class="col-md-3">&nbsp;</div>
 			<div class="col-md-6">
 				<p-paginator *ngIf="totalDataCount != 0" [rows]="perpage" [totalRecords]="totalDataCount"
-					(onPageChange)="paginate($event)" [rowsPerPageOptions]="[50, 100, 300, 500, 1000]"></p-paginator>
+					(onPageChange)="paginate($event)"
+					[rowsPerPageOptions]="[25, 50, 100, 300, 500, 1000]"></p-paginator>
 			</div>
 			<div class="col-md-3 text-end">
 				<button pButton pButton type="button" class="btn btn-quit ps-3 btn-rounded" (click)="backtoMain()">
