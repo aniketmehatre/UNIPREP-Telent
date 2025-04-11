@@ -49,6 +49,8 @@ export class JobListComponent implements OnInit {
   currencies: any[] = [];
   pageSize: number = 10;
   filterForm: FormGroup = new FormGroup({});
+  totalPage: number = 0;
+
   tabs = [
     { label: 'All Jobs', active: true }
   ];
@@ -95,11 +97,29 @@ export class JobListComponent implements OnInit {
             active: false
           }))
         ];
+        this.totalPage = Math.ceil(response.totaljobs / this.pageSize);
       },
       error: error => {
         console.log(error);
       }
     });
+  }
+
+
+  onNextClick() {
+    if (this.page >= this.totalPage) {
+      return;
+    }
+    this.page = this.page + 1;
+    this.getAppliedJobList();
+  }
+
+  onBackClick() {
+    if (this.page == 1) {
+      return;
+    }
+    this.page = this.page - 1;
+    this.getAppliedJobList();
   }
 
   initializeForm() {

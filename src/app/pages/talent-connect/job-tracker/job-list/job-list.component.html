@@ -28,8 +28,12 @@
 			</p-tabPanel>
 		</p-tabView>
 	</div>
-	<div class="card-footer bg-transparent p-0">
-		<p-paginator class="bg-transparent" [first]="first" [rows]="pageSize" [totalRecords]="totalAppliedJobs" (onPageChange)="onPageChange($event)" [showCurrentPageReport]="true" currentPageReportTemplate="Page {first}/{last}" [showPageLinks]="false" [showFirstLastIcon]="false"></p-paginator>
+	<div class="card-footer bg-transparent">
+		<div class="pagination-container d-flex justify-content-between align-items-center">
+			<button class="btn btn-light" (click)="onBackClick()"><i class="pi pi-chevron-left me-1 fs-6"></i> Back</button>
+			<span>Page {{ page }} / {{ totalPage }}</span>
+			<button class="btn btn-light" (click)="onNextClick()">Next <i class="pi pi-chevron-right ms-1 fs-6"></i></button>
+		</div>
 	</div>
 </div>
 
