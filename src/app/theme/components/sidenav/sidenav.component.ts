@@ -68,6 +68,81 @@ export class SidenavComponent {
       image: "fa-solid fa-scribble",
     },
     {
+      title: "Career",
+      url: "",
+      image: "",
+    },
+    // {
+    //   title: "Career Hub",
+    //   url: "/pages/modules/career-hub",
+    //   image: "fa-solid fa-briefcase",
+    // },
+    // {
+    //   title: "Job Portal",
+    //   url: "/pages/job-portal/job-search",
+    //   image: "fa-solid fa-briefcase",
+    // },
+    {
+      title: "Employer Connect",
+      url: "/pages/talent-connect/list",
+      image: "fa-solid fa-briefcase",
+    },
+    {
+      title: "Learning Hub",
+      url: "/pages/modules/learning-hub",
+      image: "fa-solid fa-road-circle-check",
+    },
+    {
+      title: "Skill Mastery",
+      url: "/pages/modules/skill-mastery",
+      image: "fa-solid fa-swatchbook",
+    },
+    {
+      title: "Career Tools",
+      url: "/pages/job-tool/career-tool",
+      image: "fa-solid fa-file-user",
+    },
+    // {
+    //   title: "Career Planner",
+    //   url: "/pages/career-planner",
+    //   image: "fa-solid fa-arrow-progress",
+    // },
+    // {
+    //   title: "Company List",
+    //   url: "/pages/company-list",
+    //   image: "fa-solid fa-buildings",
+    // },
+    {
+      title: "Travel & Life",
+      url: "",
+      image: "",
+    },
+    {
+      title: "Language Hub",
+      url: "/pages/language-hub",
+      image: "fa-solid fa-books",
+    },
+    // {
+    //   title: "Travel and Tourism",
+    //   url: "/pages/modules/travel-and-tourism",
+    //   image: "fa-solid fa-plane",
+    // },
+    // {
+    //   title: "Life in",
+    //   url: "/pages/modules/life-at-country",
+    //   image: "fa-solid fa-earth-americas",
+    // },
+    // {
+    //   title: "Cost of Living",
+    //   url: "/pages/job-tool/cost-of-living",
+    //   image: "fa-solid fa-dollar-sign",
+    // },
+    {
+      title: "Travel Tools",
+      url: "/pages/travel-tools",
+      image: "fa-solid fa-compass",
+    },
+    {
       title: "International Education",
       url: "",
       image: "",
@@ -117,81 +192,6 @@ export class SidenavComponent {
       url: "/pages/education-tools",
       image: "fa-solid fa-school",
     },
-    {
-      title: "Travel & Life",
-      url: "",
-      image: "",
-    },
-    {
-      title: "Language Hub",
-      url: "/pages/language-hub",
-      image: "fa-solid fa-books",
-    },
-    // {
-    //   title: "Travel and Tourism",
-    //   url: "/pages/modules/travel-and-tourism",
-    //   image: "fa-solid fa-plane",
-    // },
-    // {
-    //   title: "Life in",
-    //   url: "/pages/modules/life-at-country",
-    //   image: "fa-solid fa-earth-americas",
-    // },
-    // {
-    //   title: "Cost of Living",
-    //   url: "/pages/job-tool/cost-of-living",
-    //   image: "fa-solid fa-dollar-sign",
-    // },
-    {
-      title: "Travel Tools",
-      url: "/pages/travel-tools",
-      image: "fa-solid fa-compass",
-    },
-    {
-      title: "Career",
-      url: "",
-      image: "",
-    },
-    // {
-    //   title: "Career Hub",
-    //   url: "/pages/modules/career-hub",
-    //   image: "fa-solid fa-briefcase",
-    // },
-    // {
-    //   title: "Job Portal",
-    //   url: "/pages/job-portal/job-search",
-    //   image: "fa-solid fa-briefcase",
-    // },
-    {
-      title: "Employer Connect",
-      url: "/pages/talent-connect/list",
-      image: "fa-solid fa-briefcase",
-    },
-    {
-      title: "Learning Hub",
-      url: "/pages/modules/learning-hub",
-      image: "fa-solid fa-road-circle-check",
-    },
-    {
-      title: "Skill Mastery",
-      url: "/pages/modules/skill-mastery",
-      image: "fa-solid fa-swatchbook",
-    },
-    {
-      title: "Career Tools",
-      url: "/pages/job-tool/career-tool",
-      image: "fa-solid fa-file-user",
-    },
-    // {
-    //   title: "Career Planner",
-    //   url: "/pages/career-planner",
-    //   image: "fa-solid fa-arrow-progress",
-    // },
-    // {
-    //   title: "Company List",
-    //   url: "/pages/company-list",
-    //   image: "fa-solid fa-buildings",
-    // },
     {
       title: "Entrepreneur",
       url: "",

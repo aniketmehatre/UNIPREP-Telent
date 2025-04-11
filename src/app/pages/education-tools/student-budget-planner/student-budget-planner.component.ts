@@ -280,7 +280,7 @@ export class StudentBudgetPlannerComponent implements OnInit {
     `;
 
     let params: any = {
-      module_name: "Student Budget Planner",
+      module_name: "Education ROI",
       file_name: "student_budget_planner",
       response: this.recommendationData,
       inputString: addingInput
