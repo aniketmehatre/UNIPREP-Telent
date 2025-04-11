@@ -101,9 +101,6 @@ export class MainListComponent implements OnInit {
                 });
                 return;
             } 
-            if (moduleId == 1) {
-                this.router.navigateByUrl(url);
-            }
         } else {
             this.router.navigateByUrl(url);
         }
