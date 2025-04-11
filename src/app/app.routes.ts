@@ -17,8 +17,8 @@ import { SetpasswordComponent } from "./Auth/setpassword/setpassword.component"
 import {LandingNewComponent} from "./pages/landing-new/landing-new.component";
 export const appRoutes: Routes = [
 	// Public routes that don't require authentication
-	{ path: "", component: LandingNewComponent, pathMatch: "full" }, // Default route is now landing page
-	{ path: "landing", component: LandingNewComponent },
+	{ path: "", component: LandingComponent, pathMatch: "full" }, // Default route is now landing page
+	{ path: "landing", component: LandingComponent },
 	{ path: "login", component: LoginComponent },
 	{ path: "register", component: RegistrationComponent },
 	{ path: "privacy", component: PrivacyComponent },
