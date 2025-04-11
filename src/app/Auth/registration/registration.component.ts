@@ -403,7 +403,9 @@ export class RegistrationComponent implements OnInit {
 				this.toastr.add({ severity: "success", summary: "Success", detail: "OTP sent to your email." })
 			},
 			(error) => {
-				this.toastr.add({ severity: "error", summary: "Error", detail: error.message || "Failed to send OTP." })
+				const errorMessage = error?.error?.message || "Failed to send OTP.";
+				this.toastr.add({ severity: "error", summary: "Error", detail: errorMessage });
+				//this.toastr.add({ severity: "error", summary: "Error", detail: error.message || "Failed to send OTP." || "This email has already been taken."})
 			}
 		)
 	}
