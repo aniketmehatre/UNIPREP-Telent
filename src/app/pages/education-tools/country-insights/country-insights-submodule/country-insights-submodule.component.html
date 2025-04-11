@@ -55,82 +55,57 @@
 	</div>
 </div>
 
-<p-dialog
-  [(visible)]="questionModal"
-  [modal]="true"
-  [style]="{ width: '70%' }"
-  [contentStyle]="{ 'max-height': '60%', 'overflow-y': 'auto' }"
-  [closable]="false"
-  [dismissableMask]="true"
-  [showHeader]="false"
-  [baseZIndex]="10000"
-  (onHide)="closeModal()"
->
-
-
-  <div class="modal-body position-relative pt-2">
-    <div class="row justify-content-center">
-      <div class="col-md-12 d-flex gap-2 text-center">
-        <div class="career-homeIcon px-3" role="button" (click)="questionModal = false">
-          <span class="fa-solid fa-home me-2"></span>Home
-        </div>
-
-        <div class="select-title d-flex justify-content-between align-items-center">
-          <div class="d-flex gap-2">
-            <h5 class="mb-0">Education Tools</h5>
-            <span class="my-auto"><i class="fa-solid fa-chevron-right"></i></span>
-            <h5 class="mb-0">Country Insights</h5>
-            <span class="my-auto"><i class="fa-solid fa-chevron-right"></i></span>
-            <h5 class="mb-0">{{ countryname ? countryname + " Insights" : "Country Insights" }}</h5>
-            <span class="my-auto"><i class="fa-solid fa-chevron-right"></i></span>
-            <h5 class="mb-0">{{ questionDetail?.title }}</h5>
+<!-- question ans -->
+<p-dialog #dialogContent [(visible)]="questionModal" [draggable]="false" [modal]="true" header="Header" [closable]="false" (onShow)="onShowModal($event)">
+	<ng-template pTemplate="header">
+		<div class="card-header border-0 bg-transparent px-4 pt-4 pb-0 w-100">
+			<div class="row justify-content-center">
+				<div class="col-md-12 d-flex gap-2 text-center">
+					<div class="career-homeIcon px-3" role="button" (click)="goToHome($event)"><span class="fa-solid fa-home me-2"></span>Home</div>
+          <div class="select-title d-flex justify-content-between align-items-center">
+            <div class="d-flex gap-2">
+              <h5 class="mb-0">Education Tools</h5>
+              <span class="my-auto"><i class="fa-solid fa-chevron-right"></i></span>
+              <h5 class="mb-0">Country Insights</h5>
+              <span class="my-auto"><i class="fa-solid fa-chevron-right"></i></span>
+              <h5 class="mb-0">{{ countryname ? countryname + " Insights" : "Country Insights" }}</h5>
+              <span class="my-auto"><i class="fa-solid fa-chevron-right"></i></span>
+              <h5 class="mb-0">{{ questionDetail?.title }}</h5>
+            </div>
           </div>
-        </div>
-
-        <div class="career-reportIcon px-3" role="button" (click)="openReport()">
-          <span class="fa-solid fa-file me-2"></span>Report
-        </div>
-		<div class="h-100">
-			<button
-			pButton
-			class="btn btn-primary btn-rounded h-100"
-			(click)="closeModal()"
-			title="Close">
-			<i class="fa-solid fa-xmark"></i>
-		  </button>
+					<div class="career-reportIcon px-3" role="button" (click)="openReport()"><span class="fa-solid fa-file me-2"></span>Report</div>
+					<div class="career-closeIcon" role="button" (click)="closeModal();">
+						<span class="fa-solid fa-close"></span>
+					</div>
+				</div>
+			</div>
+			<div class="d-flex align-items-center position-relative mt-1" style="justify-content: end !important">
+				<button pButton class="btn btn-primary socialShareBtn" (click)="showSocialSharingList()"><i class="fa-solid fa-share"></i></button>
+				<p-card id="socialSharingList">
+					<ul style="list-style: none; cursor: pointer">
+						<li (click)="shareViaWhatsapp()"><i class="pi pi-whatsapp"></i>Whatsapp</li>
+						<li (click)="shareViaMail()"><i class="pi pi-envelope"></i>Email</li>
+						<li (click)="shareViaFacebook()"><i class="pi pi-facebook"></i>Facebook</li>
+						<li (click)="shareViaTwitter()"><i class="pi pi-twitter"></i>Twitter</li>
+						<li (click)="shareViaInstagram()"><i class="pi pi-instagram"></i>Instagram</li>
+						<li (click)="shareViaLinkedIn()"><i class="pi pi-linkedin"></i>LinkedIn</li>
+						<li (click)="copyLink()"><i class="pi pi-link"></i>Copy Link</li>
+					</ul>
+				</p-card>
+			</div>
 		</div>
-      </div>
-    </div>
-
-    <div class="p-2 text-card position-relative mt-3">
-      <div class="card-body">
-        <div class="w-100 d-flex justify-content-between align-items-center">
-          <h2 class="question-title flex-grow-1 me-3">{{ questionDetail?.title }}</h2>
-          <div class="flex-shrink-0 position-relative">
-            <button
-              pButton
-              (click)="showSocialSharingList(1); $event.stopPropagation()"
-              class="btn btn-primary btn-rounded sharebtn"
-            >
-              <i class="fa-light fa-share-nodes"></i>
-            </button>
-            <p-card id="socialSharingList" class="socialSharingList" [ngClass]="{ show: selectedIndex === 1 }">
-              <ul style="list-style: none; cursor: pointer">
-                <li (click)="shareViaWhatsapp(''); $event.stopPropagation()"><i class="pi pi-whatsapp"></i>Whatsapp</li>
-                <li (click)="shareViaMail(''); $event.stopPropagation()"><i class="pi pi-envelope"></i>Email</li>
-                <li (click)="shareViaFacebook(''); $event.stopPropagation()"><i class="pi pi-facebook"></i>Facebook</li>
-                <li (click)="shareViaTwitter(''); $event.stopPropagation()"><i class="pi pi-twitter"></i>Twitter</li>
-                <li (click)="shareViaInstagram(''); $event.stopPropagation()"><i class="pi pi-instagram"></i>Instagram</li>
-                <li (click)="shareViaLinkedIn(''); $event.stopPropagation()"><i class="pi pi-linkedin"></i>LinkedIn</li>
-                <li (click)="copyLink(''); $event.stopPropagation()"><i class="pi pi-link"></i>Copy Link</li>
-              </ul>
-            </p-card>
-          </div>
-        </div>
-
-        <p class="answer-text" [innerHTML]="questionDetail?.answer"></p>
-      </div>
-    </div>
-  </div>
+	</ng-template>
+	<div class="px-4">
+		<div class="card flex-fill answercard" style="border: none">
+			<div class="card-body text-start">
+        <h1 class="fw-bold mb-3">{{questionDetail?.title}}</h1>
+				<div class="fw-medium blog-content" style="white-space: inherit; max-height: 80%; min-height: 80%" [innerHTML]="questionDetail?.answer"></div>
+			</div>
+		</div>
+	</div>
+	<ng-template pTemplate="footer">
+		<div class="d-flex justify-content-between flex-nowrap flex-column flex-md-row px-4 mt-4 mb-2"></div>
+	</ng-template>
 </p-dialog>
+
 

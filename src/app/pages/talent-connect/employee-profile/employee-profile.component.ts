@@ -376,13 +376,15 @@ export class EmployeeProfileComponent implements OnInit {
   removeAchievement(index: number): void { this.removeFormArrayItem(this.achievements, index, false, FileType.ACHIEVEMENTS); }
 
   uploadFile(type: FileType, event: any, index: number) {
+    let previewUrl = '';
     const file: File = event.target.files[0];
     if (!file) return;
-
+    debugger;
     // Store the file in uploadedFiles with a unique key
     const fileId = `${type}_${index}`;
     this.uploadedFiles[fileId] = file;
-
+    const reader = new FileReader();
+    reader.readAsDataURL(file);
     switch (type) {
       case FileType.CERTIFICATIONS:
         (this.certifications.at(index) as FormGroup).get('certifications_certificate_file')?.setValue(file.name);

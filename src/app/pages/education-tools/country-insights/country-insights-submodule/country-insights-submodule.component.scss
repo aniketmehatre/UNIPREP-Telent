@@ -65,57 +65,136 @@
 	color: rgb(125, 95, 233);
 	cursor: pointer;
 }
-
-.answer-text {
-	font-size: 16px;
-    line-height: 2rem;
-	font-family: "Poppins", sans-serif;
+// new ui
+.answercard {
+	background-color: white;
+	overflow-y: auto;
 }
 
-.question-title {
-	color: #3b4da7;
-	font-size: 24px;
-	font-weight: 700;
-	margin-bottom: 16px;
-	padding-right: 48px;
+::ng-deep .p-dialog {
+	max-width: 70% !important;
 }
 
-#socialSharingList {
-	display: none;
-	position: absolute;
-  top: 3rem;
-  right: 0rem;
+::ng-deep .p-dialog-header {
+	padding: 3px !important;
 }
 
-#socialSharingList ul {
-	padding: 5px !important;
-	margin-bottom: 0;
-}
-
-#socialSharingList ul li {
-	display: flex;
-	align-items: center;
-	padding: 2px 0px;
-	font-size: 1rem;
-}
-
-#socialSharingList ul li i {
-	margin-right: 10px;
-}
-
-#socialSharingList.show {
-	display: block;
-}
-
-::ng-deep .modal-dialog {
-	width: 80% !important;
-}
-
-.sharebtn {
+.socialShareBtn {
+	height: 38px;
+	width: 38px;
+	border-radius: 5px !important;
+	margin: 0;
 	display: flex;
 	justify-content: center;
 	align-items: center;
-	height: 35px;
-	width: 35px;
-	border: none;
+	left: 12px;
+	background-color: black !important;
+}
+
+.select-title {
+	border-radius: 5px !important;
+}
+
+.career-closeIcon {
+	height: 100%;
+	width: 50px;
+	min-height: 40px;
+	border-radius: 8px;
+	background-color: #1c1b17;
+	color: white;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+}
+
+.career-homeIcon {
+	height: 100%;
+	width: 80px;
+	min-height: 40px;
+	border-radius: 8px;
+	background-color: var(--uniprep-secondary);
+	color: white;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+}
+
+.career-reportIcon {
+	height: 100%;
+	width: 90px;
+	min-height: 40px;
+	border-radius: 8px;
+	background-color: var(--uniprep-primary);
+	color: white;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+}
+
+.careerreadingcardgrid {
+	flex: 0 0 25%;
+	max-width: 25%;
+}
+
+@media (max-width: 1499.98px) {
+	.careerreadingcardgrid {
+		flex: 0 0 25%;
+		max-width: 25%;
+	}
+}
+
+@media (max-width: 1399.98px) {
+	.careerreadingcardgrid {
+		flex: 0 0 25%;
+		max-width: 25%;
+	}
+}
+
+@media (max-width: 1299.98px) {
+	.careerreadingcardgrid {
+		flex: 0 0 25%;
+		max-width: 25%;
+	}
+}
+
+@media (max-width: 1199.98px) {
+	.careerreadingcardgrid {
+		flex: 0 0 33%;
+		max-width: 33%;
+	}
+}
+
+@media (max-width: 991.98px) {
+	.careerreadingcardgrid {
+		flex: 0 0 33%;
+		max-width: 33%;
+	}
+}
+
+@media (max-width: 767.98px) {
+	.careerreadingcardgrid {
+		flex: 0 0 50%;
+		max-width: 50%;
+	}
+}
+
+.questioncard .content-preview {
+	opacity: 0;
+	max-height: 0;
+	overflow: hidden;
+	transition: opacity 0.3s ease-in-out, max-height 0.3s ease-in-out;
+}
+
+.questioncard:hover .content-preview {
+	opacity: 1;
+	max-height: 100px;
+	/* Adjust as needed */
+}
+
+.blog-content {
+	font-family: "Poppins", sans-serif;
+	line-height: 2rem;
+}
+::ng-deep .blog-content ,p {
+	font-size: 16px;
 }
