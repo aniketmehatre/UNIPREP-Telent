@@ -24,6 +24,7 @@ import { Router } from '@angular/router';
     CardModule,
     DividerModule,
     FormsModule,
+    ProgressBarModule,
     TooltipModule],
   templateUrl: './complete-profile-view.component.html',
   styleUrls: ['./complete-profile-view.component.scss']
@@ -136,6 +137,12 @@ export class CompleteProfileViewComponent implements OnInit {
     if(this.id) {
       this.getStudentDetails(this.id);
     }
+  }
+
+  extractFileName(url: string): string {
+    if (!url) return '';
+    let fileName = url.split('/').pop() || ''; // "1742015348_cv_letter.pdf"
+    return fileName;
   }
 
   getStudentDetails(id: string) {
