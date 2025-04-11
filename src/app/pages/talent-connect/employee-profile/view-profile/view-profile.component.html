@@ -4,7 +4,7 @@
     <h5 class="text-white fw-medium fs-4">{{isSample ? 'Sample Profile' : profileData.personalInfo.fullName + '\'s profile'}}</h5>
     <i class="fa-solid fa-circle-xmark fs-2 cursor-pointer" style="color: white;" (click)="closeDialog()"></i>
   </div>
-  <div class="profile-dialog-content h-100 overflow-y-auto" style="padding-bottom: 100px;">
+  <div class="profile-dialog-content h-100 overflow-y-auto text-wrap" style="padding-bottom: 100px;">
     <div class="container-fluid profile-container">
       <!-- Personal Information Section -->
       <section class="card-inside mb-4 ">
@@ -125,7 +125,7 @@
               <h5>Salary</h5>
               <p>{{ experience.salary }}</p>
             </div>
-            <div class="col-md-6 text-wrap">
+            <div class="col-md-12 text-wrap">
               <h5>Job Responsibilities</h5>
               <div [innerHTML]="experience.responsibilities"></div>
             </div>
@@ -238,7 +238,7 @@
         </div>
         <div class="card-body">
           <div class="row">
-            <div class="col-md-12">
+            <div class="col-md-12 text-wrap">
               <h5>What Sets You Apart in Your Industry?</h5>
               <p [innerHTML]=" profileData.keyStrengths.industryDifferentiators"></p>
             </div>
