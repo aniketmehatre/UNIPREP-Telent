@@ -261,10 +261,10 @@
 															<button class="text-small btn btn-success btn-rounded d-flex align-items-center gap-2" style="width: fit-content" (click)="generateAiSummary('joboverview', experience?.get('work_experience_job_title')?.value, experience?.get('work_experience_job_responsibilities'))"><i class="fa-solid fa-stars"></i>AI Generate</button>
 														</div>
 													</div>
-													<p-editor [style]="{ height: '150px', maxHeight: 'auto' }" formControlName="work_experience_job_responsibilities" placeholder="Enter your Job Responsibilities & Key Achievements" [maxlength]="150" (mouseenter)="showRecommendation('insight')" (mouseleave)="hideRecommendation()" #jobRepo/>
+													<p-editor #editor [style]="{ height: '150px', maxHeight: 'auto' }" formControlName="work_experience_job_responsibilities" placeholder="Enter your Job Responsibilities & Key Achievements" (mouseenter)="showRecommendation('insight')" (mouseleave)="hideRecommendation()" (ngModelChange)="checkMaximumWordsInFields(experience.get('work_experience_job_responsibilities'), 150)"/>
 													<!-- <textarea pTextarea id="responsibilities" class="form-control w-100" placeholder="Enter your Job Responsibilities & Key Achievements" rows="5" maxlength="4000" formControlName="work_experience_job_responsibilities" (mouseleave)="resetMessageBox()" (mouseenter)="updateMessageBox('work_experience_job_responsibilities')" #jobRepo></textarea> -->
 														<small class="text-danger text-start" *ngIf="experience.get('work_experience_job_responsibilities')?.invalid && experience.get('work_experience_job_responsibilities')?.touched">This field exceed the maximum length</small>
-														<small class="text-muted d-block text-end">{{ experience.get('work_experience_job_responsibilities')?.value?.length }}/150</small>
+														<small class="text-muted d-block text-end">{{ getWordCountUsingControl(experience.get('work_experience_job_responsibilities')) }}/150</small>
 												</div>
 
 												<!-- Experience Letter Upload -->
@@ -505,11 +505,9 @@
 													</div>
 												</div>
 												<div class="position-relative">
-													<p-editor [style]="{ height: '150px', maxHeight: 'auto' }" formControlName="career_preference_set_industry_apart" [maxlength]="50" placeholder="Enter your sets you apart in your industry" (mouseleave)="resetMessageBox()" (mouseenter)="updateMessageBox('career_preference_set_industry_apart')" #keyResponsibility/>
-													<div class="d-flex justify-content-between">
-														<small class="text-danger" *ngIf="personalInfoForm.get('career_preference_set_industry_apart')?.invalid && personalInfoForm.get('career_preference_set_industry_apart')?.touched">This field exceed the maximum length</small>
-														<small class="text-muted d-block text-end">{{ personalInfoForm.get('career_preference_set_industry_apart')?.value?.length }}/150</small>
-													</div>
+													<p-editor #editor [style]="{ height: '150px', maxHeight: 'auto' }" formControlName="career_preference_set_industry_apart" placeholder="Enter your sets you apart in your industry" (mouseleave)="resetMessageBox()" (mouseenter)="updateMessageBox('career_preference_set_industry_apart')" (ngModelChange)="checkMaximumWordsInFields(personalInfoForm.get('career_preference_set_industry_apart'), 150)"/>
+													<small class="text-danger text-start" *ngIf="personalInfoForm.get('career_preference_set_industry_apart')?.invalid && personalInfoForm.get('career_preference_set_industry_apart')?.touched">This field exceed the maximum length</small>
+													<small class="text-muted d-block text-end">{{ getWordCountUsingControl(personalInfoForm.get('career_preference_set_industry_apart')) }}/150</small>
 												</div>
 											</div>
 										</div>
@@ -527,22 +525,25 @@
 											<div class="col-md-6">
 												<label for="highestQualification" class="form-label">Have a you solved a real-world challenge in your feilds?</label>
 												<div class="position-relative">
-													<textarea pTextarea id="university" formControlName="career_preference_real_world_challenge" placeholder="Have a you solved a real-world challenge?" rows="5" maxLength="200" class="form-control w-100" (mouseleave)="resetMessageBox()" (mouseenter)="updateMessageBox('career_preference_real_world_challenge')" #challenges></textarea>
-													<small class="text-muted d-block text-end">{{ challenges.value?.length }}/200</small>
+													<textarea pTextarea id="university" formControlName="career_preference_real_world_challenge" placeholder="Have a you solved a real-world challenge?" rows="5"  class="form-control w-100" (mouseleave)="resetMessageBox()" (mouseenter)="updateMessageBox('career_preference_real_world_challenge')" (ngModelChange)="checkMaximumWordsInFields(personalInfoForm.get('career_preference_real_world_challenge'), 150)"></textarea>
+													<small class="text-danger text-start" *ngIf="personalInfoForm.get('career_preference_real_world_challenge')?.invalid && personalInfoForm.get('career_preference_real_world_challenge')?.touched">This field exceed the maximum length</small>
+													<small class="text-muted d-block text-end">{{ getWordCountUsingControl(personalInfoForm.get('career_preference_real_world_challenge')) }}/150</small>
 												</div>
 											</div>
 											<div class="col-md-6">
 												<label for="highestQualification" class="form-label">Have you taken on leadership roles?</label>
-												<textarea pTextarea id="university" formControlName="career_preference_leadership_experience" placeholder="Have you taken on leadership roles?" class="form-control w-100" (mouseleave)="resetMessageBox()" rows="5" (mouseenter)="updateMessageBox('career_preference_leadership_experience')" #leaderShip></textarea>
-												<small class="text-muted d-block text-end">{{ leaderShip.value?.length }}/500</small>
+												<textarea pTextarea id="university" formControlName="career_preference_leadership_experience" placeholder="Have you taken on leadership roles?" class="form-control w-100" (mouseleave)="resetMessageBox()" rows="5" (mouseenter)="updateMessageBox('career_preference_leadership_experience')" (ngModelChange)="checkMaximumWordsInFields(personalInfoForm.get('career_preference_leadership_experience'), 150)"></textarea>
+												<small class="text-danger text-start" *ngIf="personalInfoForm.get('career_preference_leadership_experience')?.invalid && personalInfoForm.get('career_preference_leadership_experience')?.touched">This field exceed the maximum length</small>
+												<small class="text-muted d-block text-end">{{ getWordCountUsingControl(personalInfoForm.get('career_preference_leadership_experience')) }}/150</small>											
 											</div>
 										</div>
 										<div class="row mb-3">
 											<div class="col-md-12">
 												<label for="highestQualification" class="form-label">One quality others admire most about you?</label>
 												<div class="position-relative">
-													<textarea pTextarea id="responsibilities" formControlName="career_preference_admired_quality" class="form-control w-100" placeholder="Enter one quality others admire most about you" rows="4" maxlength="500" (mouseleave)="resetMessageBox()" (mouseenter)="updateMessageBox('career_preference_admired_quality')" #admiredQuality></textarea>
-													<small class="text-muted d-block text-end">{{ admiredQuality.value?.length }}/500</small>
+													<textarea pTextarea id="responsibilities" formControlName="career_preference_admired_quality" class="form-control w-100" placeholder="Enter one quality others admire most about you" rows="4" (mouseleave)="resetMessageBox()" (mouseenter)="updateMessageBox('career_preference_admired_quality')" (ngModelChange)="checkMaximumWordsInFields(personalInfoForm.get('career_preference_admired_quality'), 150)"></textarea>
+													<small class="text-danger text-start" *ngIf="personalInfoForm.get('career_preference_admired_quality')?.invalid && personalInfoForm.get('career_preference_admired_quality')?.touched">This field exceed the maximum length</small>
+													<small class="text-muted d-block text-end">{{ getWordCountUsingControl(personalInfoForm.get('career_preference_admired_quality')) }}/150</small>													
 												</div>
 											</div>
 										</div>
@@ -745,7 +746,7 @@
 									<h5 class="card-title my-3">Add Note</h5>
 									<div class="row mb-3">
 										<div class="position-relative">
-											<p-editor [style]="{ height: '150px', maxHeight: 'auto' }" formControlName="additional_notes" placeholder="Additional Information" #additionalNotes/>
+											<p-editor  #editor [style]="{ height: '150px', maxHeight: 'auto' }" formControlName="additional_notes" placeholder="Additional Information"/>
 											<!-- <textarea pTextarea id="responsibilities" formControlName="additional_notes" class="form-control w-100" placeholder="Additional Information if any" rows="5" maxlength="500" #additionalNotes></textarea> -->
 											<small class="text-muted d-block text-end">{{ personalInfoForm.get('additional_notes')?.value?.length }}/5000</small>
 										</div>

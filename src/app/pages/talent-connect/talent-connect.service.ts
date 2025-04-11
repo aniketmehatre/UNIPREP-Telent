@@ -249,7 +249,7 @@ export class TalentConnectService {
         let params = new HttpParams()
             .set('student_id', id);
         return this.http.get<any>(
-            environment.ApiUrlEmployer + "/getstudentprofilesusingid", { params },);
+            environment.ApiUrl + "/getstudentprofilesusingid", { params },);
     }
 
     getAiEvaluationSummary() {
