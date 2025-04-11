@@ -1,9 +1,9 @@
 <!-- ----------------- Recommandation Question View ----------------- -->
 <div class="card readingcard" *ngIf="isRecommendationQuestion">
 	<div class="card-header border-0 bg-transparent">
-		<div class="row justify-content-center align-items-center">
-			<div class="col-md-12 d-flex gap-4">
-				<div class="backIcon d-md-flex d-none" role="button" (click)="goBack()" style="height: auto">
+		<div class="row">
+			<div class="col-md-12 d-flex align-items-center gap-4">
+				<div class="backIcon d-md-flex d-none" role="button" (click)="goBack()">
 					<span class="fa-solid fa-chevron-left"></span>
 				</div>
 				<div class="select-title d-flex justify-content-between align-items-center">
@@ -22,58 +22,39 @@
 							<i class="fa-solid fa-play d-md-block d-none"></i></button>
 					</div>
 				</div>
+				<p-iconfield>
+					<p-inputicon styleClass="pi pi-search" />
+					<input type="text" pInputText placeholder="Search Specialization" [(ngModel)]="specializationFilter"
+						(ngModelChange)="performSearch('specialization')" />
+				</p-iconfield>
 			</div>
 		</div>
 	</div>
-	<div class="card-body text-center flex-fill overflow-y-auto">
+	<div class="card-body text-center flex-fill h-100 overflow-y-auto">
 		<div class="container-fluid h-100">
 			<p-carousel [value]="recommendations" [numVisible]="1" [numScroll]="1" [circular]="false"
 				[showNavigators]="false" [showIndicators]="false" [page]="activePageIndex"
-				styleClass="h-100 carousal-container-sec">
+				styleClass="carousal-container-sec">
 				<ng-template let-recommendation let-i="index" pTemplate="item">
-					<div class="h-100 d-flex flex-column justify-content-between">
-						<div>&nbsp;</div>
-						<div class="row justify-content-center text-start">
-							<div class="col-md-12 mb-4">
-								<!-- <h5 class="text-center uniprep-primary fw-semibold mb-0">Question Number {{ recommendation.id }}</h5> -->
-								<h2 class="fw-bold mb-0 text-center">{{ recommendation.question }}</h2>
-							</div>
-							<div class="col-md-6">
-								<div class="recommendationinput d-flex flex-column justify-content-center gap-3">
-									<ng-container *ngIf="recommendation.id == 1">
-										<p-select [options]="specializationList" styleClass="w-100" [filter]="true"
-											filterBy="specialization_name" [(ngModel)]="selectedData[recommendation.id]"
-											optionLabel="specialization_name" optionValue="id" [appendTo]="'body'"
-											placeholder="Select Specialization"> </p-select>
-										<p class="text-center" [ngClass]="{ 'd-none': invalidClass === false }"
-											style="color: red">Please Choose Any one option</p>
-									</ng-container>
-									<ng-container *ngIf="recommendation.id == 2">
-										<p-select [options]="educationList" styleClass="w-100"
-											[(ngModel)]="selectedData[recommendation.id]" optionLabel="name"
-											optionValue="id" [appendTo]="'body'" placeholder="Select Degree"> </p-select>
-										<p class="text-center" [ngClass]="{ 'd-none': invalidClass === false }"
-											style="color: red">Please Choose Any one option</p>
-									</ng-container>
+					<div class="d-flex flex-column justify-content-between">
+						<div class="row">
+							<div *ngFor="let item of specializationList"
+								class="col-lg-2 col-md-3 col-sm-4 col-xs-12 col-12 mb-3">
+								<div class="row w-100 m-0 justify-content-center h-100">
+									<div class="card subjectcard" role="button" (click)="getCourseList(item)">
+										<div
+											class="card-body d-flex flex-md-column flex-row justify-content-md-between align-items-center">
+											<div>
+												<div class="submoduleicon">
+													<img class="selectimage" [src]="item.icon" />
+												</div>
+												<h5 class="text-center mt-3 fw-bold mb-0">{{ item.specialization_name }}
+												</h5>
+											</div>
+										</div>
+									</div>
 								</div>
 							</div>
-						</div>
-						<div class="d-flex justify-content-between mt-2">
-							<button pButton pButton type="button" class="btn btn-primary btn-rounded p-1 pe-4"
-								[style.visibility]="recommendation.id == 1 ? 'hidden' : 'visible'" (click)="previous()">
-								<span class="btn-icon px-2 py-2"><i class="fa fa-arrow-left"></i></span> 
-								<span class="ms-2">Previous</span>
-							</button>
-							<button pButton pButton type="button" (click)="next(recommendation.id)"
-								*ngIf="recommendation.id != 2" class="btn btn-primary btn-rounded p-1 ps-4">
-								<span class="me-2">Next</span><span class="btn-icon px-2 py-2">
-									<i class="fa fa-arrow-right"></i></span>
-							</button>
-							<button pButton pButton type="button" (click)="next(recommendation.id)"
-								*ngIf="recommendation.id == 2" class="btn btn-success btn-rounded p-1 ps-4">
-								<span class="me-2">Get Recommendations</span><span class="btn-icon px-2 py-2">
-									<i class="fa fa-check-circle"></i></span>
-							</button>
 						</div>
 					</div>
 				</ng-template>
@@ -85,9 +66,9 @@
 <!-- ----------------- Recommandation Response View ----------------- -->
 <div class="card readingcard" *ngIf="isRecommendationData">
 	<div class="card-header border-0 bg-transparent">
-		<div class="row justify-content-center align-items-center">
-			<div class="col-md-12 d-flex gap-4">
-				<div class="backIcon d-md-flex d-none" role="button" (click)="goBack()" style="height: auto">
+		<div class="row">
+			<div class="col-md-12 d-flex align-items-center gap-4">
+				<div class="backIcon d-md-flex d-none" role="button" (click)="goBack('recommandation')">
 					<span class="fa-solid fa-chevron-left"></span>
 				</div>
 				<div class="select-title d-flex justify-content-between align-items-center">
@@ -100,37 +81,39 @@
 							pTooltip="">Education Tools</h5>
 						<span><i class="fa-solid fa-chevron-right"></i></span>
 						<h5 class="mb-0" tooltipPosition="top" pTooltip="">Course Navigator</h5>
+						<span><i class="fa-solid fa-chevron-right"></i></span>
+						<h5 class="mb-0" tooltipPosition="top" pTooltip="">{{selectedSpecialization}}</h5>
 					</div>
 					<div>
 						<button pButton class="how-it-works-button" severity="warn">How it works? <i
 								class="fa-solid fa-play d-md-block d-none"></i></button>
 					</div>
 				</div>
+				<p-iconfield>
+					<p-inputicon styleClass="pi pi-search" />
+					<input type="text" pInputText placeholder="Search Degree" [(ngModel)]="degreeFilter"
+						(ngModelChange)="performSearch('degree')" />
+				</p-iconfield>
 			</div>
 		</div>
 	</div>
 	<div class="card-body text-center flex-fill overflow-y-auto">
-		<div class="h-100 d-flex flex-column justify-content-between">
-			<div></div>
-			<div class="row" [ngClass]="{ 'justify-content-center': recommendationDataList.length <= 6 }">
-				<div *ngFor="let item of recommendationDataList"
-					class="col-lg-2 col-md-3 col-sm-4 col-xs-12 col-12 mb-3">
-					<div class="row w-100 m-0 justify-content-center h-100">
-						<div class="card subjectcard" role="button" (click)="getCourseSubmodules(item)">
-							<div
-								class="card-body d-flex flex-md-column flex-row justify-content-md-between align-items-center">
-								<div>
-									<div class="submoduleicon">
-										<img class="selectimage" [src]="item.icon" />
-									</div>
-									<h5 class="text-center mt-3 fw-bold mb-0">{{ item.degree_name }}</h5>
+		<div class="row">
+			<div *ngFor="let item of recommendationDataList" class="col-lg-2 col-md-3 col-sm-4 col-xs-12 col-12 mb-3">
+				<div class="row w-100 m-0 justify-content-center h-100">
+					<div class="card subjectcard" role="button" (click)="getCourseSubmodules(item)">
+						<div
+							class="card-body d-flex flex-md-column flex-row justify-content-md-between align-items-center">
+							<div>
+								<div class="submoduleicon">
+									<img class="selectimage" [src]="item.icon" />
 								</div>
+								<h5 class="text-center mt-3 fw-bold mb-0">{{ item.degree_name }}</h5>
 							</div>
 						</div>
 					</div>
 				</div>
 			</div>
-			<div></div>
 		</div>
 	</div>
 	<div class="card-footer bg-transparent border-0">
@@ -145,9 +128,9 @@
 <!-- ----------------- Recommandation Response View ----------------- -->
 <div class="card readingcard" *ngIf="isCourseSubmodule">
 	<div class="card-header border-0 bg-transparent">
-		<div class="row justify-content-center align-items-center">
+		<div class="row">
 			<div class="col-md-12 d-flex gap-4">
-				<div class="backIcon d-md-flex d-none" role="button" (click)="goBack('submodule')" style="height: auto">
+				<div class="backIcon d-md-flex d-none" role="button" (click)="goBack('submodule')">
 					<span class="fa-solid fa-chevron-left"></span>
 				</div>
 				<div class="select-title d-flex justify-content-between align-items-center">
@@ -160,6 +143,8 @@
 							pTooltip="">Education Tools</h5>
 						<span><i class="fa-solid fa-chevron-right"></i></span>
 						<h5 class="mb-0" tooltipPosition="top" pTooltip="">Course Navigator</h5>
+						<span><i class="fa-solid fa-chevron-right"></i></span>
+						<h5 class="mb-0" tooltipPosition="top" pTooltip="">{{selectedSpecialization}}</h5>
 						<span><i class="fa-solid fa-chevron-right"></i></span>
 						<h5 class="mb-0" tooltipPosition="top" pTooltip="">{{ selectedDegreeName }}</h5>
 					</div>
@@ -206,9 +191,9 @@
 <!-- ----------------- Recommandation Saved Response View ----------------- -->
 <div class="card readingcard" *ngIf="isRecommendationSavedData">
 	<div class="card-header border-0 bg-transparent">
-		<div class="row justify-content-center align-items-center">
+		<div class="row">
 			<div class="col-md-12 d-flex gap-4">
-				<div class="backIcon d-md-flex d-none" role="button" (click)="goBack('questions')" style="height: auto">
+				<div class="backIcon d-md-flex d-none" role="button" (click)="goBack('questions')">
 					<span class="fa-solid fa-chevron-left"></span>
 				</div>
 				<div class="select-title d-flex justify-content-between align-items-center">
@@ -221,6 +206,8 @@
 							pTooltip="">Education Tools</h5>
 						<span><i class="fa-solid fa-chevron-right"></i></span>
 						<h5 class="mb-0" tooltipPosition="top" pTooltip="">Course Navigator</h5>
+						<span><i class="fa-solid fa-chevron-right"></i></span>
+						<h5 class="mb-0" tooltipPosition="top" pTooltip="">{{selectedSpecialization}}</h5>
 						<span><i class="fa-solid fa-chevron-right"></i></span>
 						<h5 class="mb-0" tooltipPosition="top" pTooltip="">{{ selectedDegreeName }}</h5>
 					</div>
@@ -268,6 +255,8 @@
 					<div class="select-title d-flex flex-fill gap-2 align-items-center w-100">
 						<h5 class="mb-0">Course Navigator</h5>
 						<span><i class="fa-solid fa-chevron-right"></i></span>
+						<h5 class="mb-0" tooltipPosition="top" pTooltip="">{{selectedSpecialization}}</h5>
+						<span><i class="fa-solid fa-chevron-right"></i></span>
 						<h5 class="mb-0" tooltipPosition="top" pTooltip="">{{ selectedDegreeName }}</h5>
 					</div>
 					<div class="career-reportIcon px-3" role="button" (click)="openReport()">
@@ -283,12 +272,12 @@
 					<i class="fa-solid fa-share"></i></button>
 				<p-card id="socialSharingList">
 					<ul style="list-style: none; cursor: pointer">
-						<li (click)="shareViaWhatsapp()"><i class="pi pi-whatsapp"></i>Whatsapp</li>
-						<li (click)="shareViaMail()"><i class="pi pi-envelope"></i>Email</li>
-						<li (click)="shareViaFacebook()"><i class="pi pi-facebook"></i>Facebook</li>
-						<li (click)="shareViaTwitter()"><i class="pi pi-twitter"></i>Twitter</li>
-						<li (click)="shareViaInstagram()"><i class="pi pi-instagram"></i>Instagram</li>
-						<li (click)="shareViaLinkedIn()"><i class="pi pi-linkedin"></i>LinkedIn</li>
+						<li (click)="shareQuestion('Whatsapp')"><i class="pi pi-whatsapp"></i>Whatsapp</li>
+						<li (click)="shareQuestion('Mail')"><i class="pi pi-envelope"></i>Email</li>
+						<li (click)="shareQuestion('Facebook')"><i class="pi pi-facebook"></i>Facebook</li>
+						<li (click)="shareQuestion('Twitter')"><i class="pi pi-twitter"></i>Twitter</li>
+						<li (click)="shareQuestion('Instagram')"><i class="pi pi-instagram"></i>Instagram</li>
+						<li (click)="shareQuestion('LinkedIn')"><i class="pi pi-linkedin"></i>LinkedIn</li>
 						<li (click)="copyLink()"><i class="pi pi-link"></i>Copy Link</li>
 					</ul>
 				</p-card>

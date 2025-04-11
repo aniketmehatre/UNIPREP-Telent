@@ -1,9 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
-import { MessageService } from 'primeng/api';
 import { EducationToolsService } from '../education-tools.service';
-import { eduloanRecommendations, loanTensureMonths, moratoriumPeriods, repaymentYears } from './edu-loan-compare.data';
+import { eduloanRecommendations, loanTensureMonths, moratoriumPeriods, repaymentYears, courseDuration } from './edu-loan-compare.data';
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
 import { DialogModule } from 'primeng/dialog';
@@ -17,7 +16,6 @@ import { SelectModule } from 'primeng/select';
 import { InputGroupModule } from 'primeng/inputgroup';
 import { InputTextModule } from 'primeng/inputtext';
 import { InputGroupAddonModule } from 'primeng/inputgroupaddon';
-import { DownloadRespose } from 'src/app/@Models/travel-tools.model';
 import { TravelToolsService } from '../../travel-tools/travel-tools.service';
 import { CommonType } from 'src/app/@Models/common-type';
 import { InputNumberModule } from 'primeng/inputnumber';
@@ -39,6 +37,7 @@ export class EduLoanCompareComponent implements OnInit {
   recommendations: { id: number, heading: string, questions: string[] }[] = eduloanRecommendations
   loanTensureMonthList: CommonType[] = loanTensureMonths;
   moratoriumPeriodList: CommonType[] = moratoriumPeriods;
+  courseDurationList: CommonType[] = courseDuration;
   repaymentYearList: CommonType[] = repaymentYears;
   isFromSavedData: boolean = false;
   recommadationSavedQuestionList: any = [];
@@ -56,7 +55,6 @@ export class EduLoanCompareComponent implements OnInit {
     private fb: FormBuilder,
     private educationToolService: EducationToolsService,
     private router: Router,
-    private travelToolsService: TravelToolsService,
     private sanitizer: DomSanitizer,
     private promptService: PromptService
   ) {
@@ -64,6 +62,7 @@ export class EduLoanCompareComponent implements OnInit {
       currency: ['', Validators.required],
       loan_amount: [null, Validators.required],
       interest_rate: [null, Validators.required],
+      course_duration: ['', Validators.required],
       loan_tenure: ['', Validators.required],
       moratorium_period: ['', Validators.required],
       repayment_year: ['', Validators.required]
@@ -90,7 +89,7 @@ export class EduLoanCompareComponent implements OnInit {
     this.submitted = false;
     const formData = this.form.value;
     if (this.activePageIndex == 0) {
-      if (!formData.currency || !formData.loan_amount || !formData.interest_rate || !formData.loan_tenure) {
+      if (!formData.currency || !formData.loan_amount || !formData.interest_rate || !formData.loan_tenure || !formData.course_duration) {
         this.submitted = true;
         return;
       }
@@ -173,7 +172,7 @@ export class EduLoanCompareComponent implements OnInit {
       questions.forEach((question, index) => {
         addingInput += `<p style="color: #3f4c83;"><strong>${question}</strong></p>`;
         const answersMap: any = {
-          1: [formData.currency + ' ' + formData.loan_amount, formData.interest_rate + ' %', formData.loan_tenure + ' month'],
+          1: [formData.currency + ' ' + formData.loan_amount, formData.interest_rate + ' %', formData.loan_tenure, formData.course_duration],
           2: [formData.moratorium_period, formData.repayment_year]
         };
         addingInput += `<p>${answersMap[id]?.[index] || ''}</p><br>`;

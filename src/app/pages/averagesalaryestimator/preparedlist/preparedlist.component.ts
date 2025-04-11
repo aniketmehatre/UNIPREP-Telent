@@ -17,7 +17,6 @@ import { InputGroupModule } from "primeng/inputgroup"
 import { InputTextModule } from "primeng/inputtext"
 import { InputGroupAddonModule } from "primeng/inputgroupaddon"
 import { TravelToolsService } from "../../travel-tools/travel-tools.service";
-import { DownloadRespose } from 'src/app/@Models/travel-tools.model';
 import { PdfViewerModule } from "ng2-pdf-viewer";
 import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
 import { PromptService } from "../../prompt.service";
@@ -101,7 +100,7 @@ export class AverageSalaryPreparedListComponent implements OnInit {
         if (this.prepData.experience === 1) {
           currentAnswer = " Fresher";
         } else {
-          currentAnswer = this.prepData.experience + this.prepData.experience == 2 ? " Year" : " Years";
+          currentAnswer = `${this.prepData.experience} ${this.prepData.experience === 1 ? "Year" : "Years"}`;
         }
       } else if (values.id == 3) {
         currentAnswer = this.prepData.worktype_name;

@@ -16,13 +16,14 @@ import { MultiSelectModule } from "primeng/multiselect";
 import { FormsModule, ReactiveFormsModule } from "@angular/forms";
 import { Carousel } from "primeng/carousel";
 import { ButtonModule } from 'primeng/button';
+import {Paginator} from "primeng/paginator";
 
 @Component({
   selector: "uni-goverment-funding-opportunity",
   templateUrl: "./goverment-funding-opportunity.component.html",
   styleUrls: ["./goverment-funding-opportunity.component.scss"],
   standalone: true,
-  imports: [CommonModule, RouterModule, DialogModule, SelectModule, MultiSelectModule, FormsModule, ReactiveFormsModule, Carousel, ButtonModule],
+	imports: [CommonModule, RouterModule, DialogModule, SelectModule, MultiSelectModule, FormsModule, ReactiveFormsModule, Carousel, ButtonModule, Paginator],
 })
 export class GovermentFundingOppurtunityComponent implements OnInit {
 	fundData: any[] = []

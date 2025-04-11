@@ -37,7 +37,7 @@ export class CompanyConnect1Component implements OnInit {
     totalCount: number;
     first: number = 0;
     page: number = 1;
-    perPage: number = 10;
+    perPage: number = 12;
     industryTypes: DropdownOption[] = [];
     companySizes: DropdownOption[] = [];
     locations: DropdownOption[] = [];
