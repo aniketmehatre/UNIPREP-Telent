@@ -169,10 +169,6 @@ export class CountryInsightsSubmoduleComponent implements OnInit {
     alert('Text copied to clipboard!');
   }
 
-  onShowModal(value: any) {
-    let socialShare: any = document.getElementById("socialSharingList");
-    socialShare.style.display = "none";
-  }
 
 
 }
