@@ -224,7 +224,7 @@ export class EmployeeProfileComponent implements OnInit {
       career_preference_willingness_to_relocate: [null, Validators.required],
       career_preference_expected_salary: [null, Validators.required],
       career_preference_currency_id: [null, Validators.required],
-      career_preference_set_industry_apart: ['', Validators.maxLength(150)],
+      career_preference_set_industry_apart: [''],
       career_preference_soft_skill_id: [[]],
       career_preference_professional_strength_id: [null],
       career_preference_real_world_challenge: [''],
@@ -277,7 +277,7 @@ export class EmployeeProfileComponent implements OnInit {
       id: [''],
       years_of_experience: [''],
       work_experience_company_name: [''],
-      work_experience_job_title: ['', Validators.maxLength(150)],
+      work_experience_job_title: [''],
       work_experience_employment_type: [''],
       work_experience_duration_from: [''],
       work_experience_duration_to: [''],
@@ -1479,6 +1479,35 @@ export class EmployeeProfileComponent implements OnInit {
         detail: ' Please fill the required fields'
       });
     }
+  }
+
+  checkMaximumWordsInFields(control: FormControl, maxNumber: number = 150): void {
+    if (control.value) {
+      const words = control.value.replace(/<\/?[^>]+(>|$)/g, '').match(/\b\w+\b/g) || [];
+      const wordCount = words.length;
+      const wordLimitExceeded = wordCount > maxNumber;
+      if (wordLimitExceeded) {
+        // const trimmedText = words.slice(0, maxNumber).join(' ');
+        control.setValue(control.value, { emitEvent: false });
+        control.setErrors({ maxWordsExceeded: true });
+      } else {
+        // Clear maxWordsExceeded error only (preserve other errors)
+        if (control.hasError('maxWordsExceeded')) {
+          const errors = { ...control.errors };
+          delete errors['maxWordsExceeded'];
+          control.setErrors(Object.keys(errors).length ? errors : null);
+        }
+      }
+    }
+  }
+
+  getWordCountUsingControl(control: FormControl) {
+    let wordCount = 0;
+    if (control.value) {
+      const words = control.value.replace(/<\/?[^>]+(>|$)/g, '').match(/\b\w+\b/g) || [];
+      wordCount = words.length;
+    }
+    return wordCount;
   }
 
 }

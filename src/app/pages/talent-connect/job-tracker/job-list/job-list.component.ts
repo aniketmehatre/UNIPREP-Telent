@@ -4,7 +4,7 @@ import { CommonModule, NgClass } from "@angular/common";
 import { TalentConnectService } from '../../talent-connect.service';
 import { Paginator, PaginatorModule } from 'primeng/paginator';
 import { TabsModule } from 'primeng/tabs';
-import { FormBuilder, FormGroup, ReactiveFormsModule } from '@angular/forms';
+import { FormBuilder, FormControl, FormGroup, ReactiveFormsModule } from '@angular/forms';
 import { SelectModule } from 'primeng/select';
 import { MultiSelectModule } from 'primeng/multiselect';
 import { InputNumberModule } from 'primeng/inputnumber';
@@ -165,5 +165,4 @@ export class JobListComponent implements OnInit {
   }
 
 
-  
 }
