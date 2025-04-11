@@ -1,96 +1,25 @@
 <div class="card readingcard h-100">
-    <div class="card-header border-0 bg-transparent">
-        <div class="row">
-            <div class="col-md-12 d-flex gap-2 text-center">
-                <div class="backIcon d-md-flex d-none" role="button" routerLink="/pages/talent-connect/list">
-                    <span class="fa-solid fa-chevron-left"></span>
-                </div>
-                <div class="select-title d-flex justify-content-between align-items-center">
-                    <div>
-                        <h5 class="mb-0" tooltipPosition="top"
-                            pTooltip="Questions related to the application process are answered">
-                            Company Connect<i class="questiontooltip fa-solid fa-circle-question"></i>
-                        </h5>
-                    </div>
-                    <div>
-                        <button class="how-it-works-button" (click)="openVideoPopup('')">
-                            How it works?<i class="fa-solid fa-play d-md-block d-none"></i>
-                        </button>
-                    </div>
-                </div>
-                <button type="button" title="Close Popup"
-				class="btn btn-rounded mt-2 p-button-primary" (click)="displayModal = true;"><i class="fa-solid fa-caret-down"></i>&nbsp;&nbsp;Filter
-		       </button>
-            </div>
-            <!-- <div class="col-md-3 mt-2 text-end desktop justify-content-end d-none d-md-flex"></div> -->
-        </div>
-    </div>
-    <div class="card-body text-center flex-fill overflow-y-auto">
-        <div class="row">
-            <div class="d-flex gap-2 justify-content-center">
-                <button type="button"
-                class="p-2 px-4 mb-4 mt-3 module-button" style='background-color: var(--uniprep-primary); color: white' routerLink="/pages/talent-connect/company-connect">Company Search
-               </button>
-               <button type="button" 
-               class="p-2 px-4 mb-4 mt-3 module-button"  routerLink="/pages/talent-connect/company-tracker">Company Tracker
-              </button>
-            </div>
-        </div>
-        <div class="row">
-            <div class="col-12 col-md-4 col-lg-4 mt-2" *ngFor="let company of companyDataList" [routerLink]="['/pages/talent-connect/company-connect',1]">
-                <div class="card-inside" style="border-radius: 10px; margin-bottom: 20px; transition: transform 0.3s; border: 1px solid #e9ecef;" [style.border]=" company.verified ? '1px solid #FDA172' : '1px solid #e9ecef'">
-                    <div class="card-body">
-                        <div class="row mb-3">
-                            <div class="col-3">
-                                <div style="width: 100%; height: 100%; background-color: #f8f9fa; display: flex;
-                                           align-items: center; justify-content: center; border-radius: 5px; border: 1px solid #e9ecef;">
-                                    <img [src]="company.logo" alt="Company Logo" style="max-width: 50px" />
-                                </div>
-                            </div>
-                            <div class="col-9 text-start">
-                                <div class="d-flex justify-content-between text-start">
-                                    <div class="d-block">
-                                        <div class="fw-bold">{{ company.name }}</div>
-                                        <p class="text-muted">Founded: {{company.year || '2019'}}</p>
-                                    </div>
-                                    <a href="#" style="color: #fda172">
-                                        <i class="fas fa-share-alt"></i>
-                                    </a>
-                                </div>
-                                <div class="text-start">
-                                    <button class="p-2 rounded-2" [ngClass]="company.shortlisted ? 'active-shortlist' : 'inActive-shortlist' ">
-                                        {{ company.shortlisted ? "Shortlisted" : "Shortlist" }}
-                                    </button>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="row text-start">
-                            <!-- First Row -->
-                             <hr>
-                            <div class="col-6 mb-3">
-                              <div class="d-flex align-items-center">
-                                <div class="icon-container me-2 job-icon">
-                                  <i class="fas fa-briefcase"></i>
-                                </div>
-                                <div class="info-container">
-                                  <div class="info-label">Open Jobs</div>
-                                  <div class="info-value">05</div>
-                                </div>
-                              </div>
-                            </div>
-                            
-                            <div class="col-6 mb-3">
-                              <div class="d-flex align-items-center">
-                                <div class="icon-container me-2 vacancies-icon">
-                                  <i class="fas fa-users"></i>
-                                </div>
-                                <div class="info-container">
-                                  <div class="info-label">Open Vacancies</div>
-                                  <div class="info-value">05</div>
-                                </div>
-                              </div>
-                            </div>
-                            <hr>
+	<div class="card-header border-0 bg-transparent">
+		<div class="row">
+			<div class="col-md-12 d-flex gap-2 text-center">
+				<div class="backIcon d-md-flex d-none" role="button" routerLink="/pages/talent-connect/list">
+					<span class="fa-solid fa-chevron-left"></span>
+				</div>
+				<div class="select-title d-flex justify-content-between align-items-center">
+					<div>
+						<h5 class="mb-0" tooltipPosition="top" pTooltip="Questions related to the application process are answered">Company Connect<i class="questiontooltip fa-solid fa-circle-question"></i></h5>
+					</div>
+					<div>
+						<button class="how-it-works-button" (click)="openVideoPopup('')">How it works?<i class="fa-solid fa-play d-md-block d-none"></i></button>
+					</div>
+				</div>
+				<button type="button" title="Close Popup" class="btn btn-primary btn-lg rounded-3 shadow-sm px-4 text-normal" (click)="displayModal = true">Filter&nbsp;&nbsp;<i class="fa-solid fa-caret-down"></i></button>
+			</div>
+			<!-- <div class="col-md-3 mt-2 text-end desktop justify-content-end d-none d-md-flex"></div> -->
+		</div>
+		<div class="row mt-2 align-items-center">
+			<!-- Left Spacer (Keeps Buttons Centered) -->
+			<div class="col-md-4"></div>
 
 			<!-- Centered Buttons -->
 			<div class="col-md-4">
