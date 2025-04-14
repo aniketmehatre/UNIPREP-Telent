@@ -219,20 +219,25 @@ export class AverageSalaryPreparedListComponent implements OnInit {
       }
     );
   }
-  changeType(event: any) {
-    let tabIndex = event.index;
-    if (tabIndex == 0) {
-      this.getEstimateResponse();
-      this.EstimateResponseVisibility = true;
-    } else {
-      this.getSavedResponse();
-      this.EstimateResponseVisibility = false;
-    }
-  }
+  // changeType(event: any) {
+  //   let tabIndex = event.index;
+  //   if (tabIndex == 0) {
+  //     this.getEstimateResponse();
+  //     this.EstimateResponseVisibility = true;
+  //   } else {
+  //     this.getSavedResponse();
+  //     this.EstimateResponseVisibility = false;
+  //   }
+  // }
   readResponse = false;
   savedresponseData: any;
   readSavedResponse(savedResponse: any) {
     this.savedresponseData = savedResponse;
     this.readResponse = true;
+  }
+
+  saveRecommadation(){
+    this.getSavedResponse();
+    this.EstimateResponseVisibility = false;
   }
 }
