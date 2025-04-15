@@ -46,7 +46,7 @@ export const FoundersToolsData = [
     {
         title: "Global Entrepreneur Visa",
         description: "An assessment that evaluates an entrepreneur's in-depth knowledge and proficiency in specific industries.",
-        image: domainUrl+"GlobalEntrepreneurVisa.svg",
+        image: domainUrl + "GlobalEntrepreneurVisa.svg",
         url: "/pages/founderstool/enterpreneur-visa",
         launch_soon: false
     },
@@ -60,21 +60,21 @@ export const FoundersToolsData = [
     {
         title: "Startup Funding Hacks",
         description: "An assessment that evaluates an entrepreneur's in-depth knowledge and proficiency in specific industries.",
-        image: domainUrl+"StartupFundingHacks.svg",
+        image: domainUrl + "StartupFundingHacks.svg",
         url: "/pages/founderstool/startup-funding-hacks",
         launch_soon: false
     },
     {
         title: "Founder Success Stories",
         description: "An assessment that evaluates an entrepreneur's in-depth knowledge and proficiency in specific industries.",
-        image: domainUrl+"FounderSuccessStories.svg",
+        image: domainUrl + "FounderSuccessStories.svg",
         url: "/pages/founderstool/founder-success-stories",
         launch_soon: false
     },
     {
         title: "Founder Failure Stories",
         description: "An assessment that evaluates an entrepreneur's in-depth knowledge and proficiency in specific industries.",
-        image: domainUrl+"FounderFailureStories.svg",
+        image: domainUrl + "FounderFailureStories.svg",
         url: "/pages/founderstool/founder-failure-stories",
         launch_soon: false
     },
@@ -95,35 +95,35 @@ export const FoundersToolsData = [
     {
         title: "Government Funding List",
         description: "This tool lets you build a cover letter with the help of a few easy steps.",
-        image: domainUrl+"GovernmentFundingOpportunity.svg",
+        image: domainUrl + "GovernmentFundingOpportunity.svg",
         url: "/pages/founderstool/governmentfunds",
         launch_soon: false
     },
     {
         title: "Market Analysis",
         description: "An assessment that evaluates an entrepreneur's in-depth knowledge and proficiency in specific industries.",
-        image: domainUrl+"MarketAnalysis.svg",
+        image: domainUrl + "MarketAnalysis.svg",
         url: "/pages/founderstool/marketing-anaylsis",
         launch_soon: false
     },
     {
         title: "Business Advisor",
         description: "An assessment that evaluates an entrepreneur's in-depth knowledge and proficiency in specific industries.",
-        image: domainUrl+"AIBusinessAdvisor.svg",
+        image: domainUrl + "AIBusinessAdvisor.svg",
         url: "/pages/founderstool/business-advisor",
         launch_soon: false
     },
     {
         title: "Startup Risk Assessment",
         description: "An assessment that evaluates an entrepreneur's in-depth knowledge and proficiency in specific industries.",
-        image: domainUrl+"StartupRiskAssessment.svg",
+        image: domainUrl + "StartupRiskAssessment.svg",
         url: "/pages/founderstool/risk-assessment",
         launch_soon: false
     },
     {
         title: "Startup Expense Estimator",
         description: "An assessment that evaluates an entrepreneur's in-depth knowledge and proficiency in specific industries.",
-        image: domainUrl+"StartupExpenseEstimator.svg",
+        image: domainUrl + "StartupExpenseEstimator.svg",
         url: "/pages/founderstool/startup-expense-estimate",
         launch_soon: true
     },
@@ -133,5 +133,12 @@ export const FoundersToolsData = [
         image: "../../../uniprep-assets/images/founderstool/revenue-forecating-tool.svg",
         url: "/pages/founderstool/business-forecasting-tool",
         launch_soon: false
+    },
+    {
+        title: "Virtual Founders Lab",
+        description: "An assessment that evaluates an entrepreneur's in-depth knowledge and proficiency in specific industries.",
+        image: "../../../uniprep-assets/images/founderstool/revenue-forecating-tool.svg",
+        url: "/pages/founderstool/business-forecasting-tool",
+        launch_soon: true
     }
 ];

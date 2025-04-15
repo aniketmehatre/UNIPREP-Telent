@@ -63,5 +63,26 @@ export const EducationToolsData = [
     image: domainUrl + "GlobalEdufit.svg",
     url: "/pages/education-tools/global-edufit",
     launch_soon: false,
+  },
+  {
+    title: "Video Mock Interview – University",
+    //  description: "This tool lets you get a global travel visa with the help of few easy steps",
+    image: domainUrl + "GlobalEdufit.svg",
+    url: "/pages/education-tools/scholarship-finder",
+    launch_soon: true,
+  },
+  {
+    title: "UNIPAY",
+    //  description: "This tool lets you get a global travel visa with the help of few easy steps",
+    image: domainUrl + "GlobalEdufit.svg",
+    url: "/pages/education-tools/scholarship-finder",
+    launch_soon: true,
+  },
+  {
+    title: "SOP Expert",
+    //  description: "This tool lets you get a global travel visa with the help of few easy steps",
+    image: domainUrl + "GlobalEdufit.svg",
+    url: "/pages/education-tools/scholarship-finder",
+    launch_soon: true,
   }
 ]
