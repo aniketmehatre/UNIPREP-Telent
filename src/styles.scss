@@ -2691,3 +2691,19 @@ uni-global-employment-insights {
 	border-radius: 10px !important;
 	border: 1px solid var(--uniprep-green);
 }
+
+.is-ai-bg-blue{
+	background-color: #007bff; /* Bootstrap primary */
+	color: white;
+	padding: 3px 10px;
+	border-radius: 12px;
+	font-size: 10px;
+	font-weight: 500;
+	white-space: nowrap;
+}
+  
+.is-ai-div{
+	position: absolute;
+	top: 5px;
+	right: 5px;
+}

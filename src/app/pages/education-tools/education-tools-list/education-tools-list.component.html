@@ -21,7 +21,7 @@
             <div *ngFor="let item of EducationToolsList" class="col-custom-lg-2 col-md-3 col-sm-4 col-xs-12 col-12 mb-3">
                 <div class="row w-100 m-0 justify-content-center h-100">
                      <div [class.disabled]="item.launch_soon" [routerLink]="item.launch_soon ? null : item.url" class="card subjectcard position-relative" role="button">
-<!--                        <div [routerLink]="item.url" class="card subjectcard position-relative" role="button">-->
+                        <div class="is-ai-div" *ngIf="item.is_ai"><span class="is-ai-bg-blue"><i class="fa-solid fa-stars"></i> AI</span></div>
                         <!-- Launch Soon Tag -->
                         <uni-launch-soon-tag *ngIf="item.launch_soon" message="Launching soon"></uni-launch-soon-tag>
                         <!-- Card Body -->

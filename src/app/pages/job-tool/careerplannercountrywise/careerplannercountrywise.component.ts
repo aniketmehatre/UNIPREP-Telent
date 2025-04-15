@@ -129,7 +129,7 @@ export class CareerplannercountrywiseComponent implements OnInit {
     this.isSavedResponse = false;
   }
   goBackcareerPlanList() {
-    this.router.navigate(['/pages/job-tool/careerplannerlist']);
+    this.router.navigate(['/pages/job-tool/career-tool']);
   }
   openVideoPopup(videoLink: string) {
     this.pageFacade.openHowitWorksVideoPopup(videoLink);
