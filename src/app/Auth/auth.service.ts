@@ -13,7 +13,7 @@ import { AuthActions } from "./store/actions";
 import { authFeature } from "./store/reducer";
 import { NGX_LOCAL_STORAGE_CONFIG } from "ngx-localstorage";
 import { AuthTokenService } from "../core/services/auth-token.service";
-import {StorageService} from "../storage.service";
+import { StorageService } from "../storage.service";
 const ngxLocalstorageConfiguration = NGX_LOCAL_STORAGE_CONFIG as unknown as { prefix: string, delimiter: string };
 
 @Injectable({
@@ -22,7 +22,7 @@ const ngxLocalstorageConfiguration = NGX_LOCAL_STORAGE_CONFIG as unknown as { pr
 export class AuthService {
   private readonly LOGIN_TIMEOUT = 8000; // 8 seconds timeout for login
   private readonly API_TIMEOUT = 5000;  // 5 seconds for other API calls
-  
+
   _logindata: any;
   // user!: User;
   _user!: User | null;
@@ -37,13 +37,13 @@ export class AuthService {
   private readonly CACHE_DURATION = 300000; // 5 minutes cache duration
 
   constructor(
-    private http: HttpClient, 
-    private store: Store<AuthState>, 
-    private router: Router, 
+    private http: HttpClient,
+    private store: Store<AuthState>,
+    private router: Router,
     private dataService: DataService,
     private authTokenService: AuthTokenService,
     private storage: StorageService,
-  ) {}
+  ) { }
 
   getToken(): string | null {
     return this.authTokenService.getToken();
@@ -56,12 +56,12 @@ export class AuthService {
       length: token?.length,
       preview: token ? `${token.substring(0, 20)}...` : 'none'
     });
-    
+
     // Base headers that should be present in all requests
     let headers = new HttpHeaders()
       .set('Accept', 'application/json')
       .set('Content-Type', 'application/json');
-    
+
     if (!token) {
       console.warn('GetAuthHeaders - No token available for request');
       return headers;
@@ -71,10 +71,10 @@ export class AuthService {
       // Clean the token and ensure proper format
       const cleanToken = token.replace(/['"]+/g, '').trim();
       const bearerToken = cleanToken.startsWith('Bearer ') ? cleanToken : `Bearer ${cleanToken}`;
-      
+
       // Add authorization header
       headers = headers.set('Authorization', bearerToken);
-      
+
       // Verify headers were set correctly
       const finalAuthHeader = headers.get('Authorization');
 
@@ -91,7 +91,7 @@ export class AuthService {
     }
   }
 
- 
+
   set user(u: User | null) {
     this._user = u;
     this.userData.next(u);
@@ -120,11 +120,11 @@ export class AuthService {
 
   login(data: LoginRequest): Observable<UserData> {
     this.store.dispatch(AuthActions.login({ request: data }));
-    
+
     // Reset cache and tokens
     this.resetGetMeCache();
     this.authTokenService.clearToken();
-    
+
     const loginRequest$ = this.http.post<UserData>(environment.ApiUrl + "/login", data, {
       headers: new HttpHeaders().set('Accept', 'application/json')
     }).pipe(
@@ -203,7 +203,7 @@ export class AuthService {
   getMe(): Observable<any> {
     const token = this.getToken();
     if (!token) {
-      this.logout();
+      this.logout().subscribe();
       return throwError(() => new Error('No authentication token'));
     }
 
@@ -458,7 +458,7 @@ export class AuthService {
     const headers = new HttpHeaders().set("Accept", "application/json");
     if (!this.dataCache$) {
       this.dataCache$ = this.http.post<any>(environment.ApiUrl + "/getsubscriptiontimeleft", { headers: headers }).pipe(
-        tap((data) => {}),
+        tap((data) => { }),
         shareReplay(1)
       );
     }
@@ -515,28 +515,28 @@ export class AuthService {
       console.warn('SaveToken - Attempted to save empty token');
       return;
     }
-    
+
     try {
       // Clean and validate the token
       const cleanToken = token.replace(/['"]+/g, '').trim();
       if (!cleanToken) {
         throw new Error('Token is empty after cleaning');
       }
-      
+
       // Verify token format
       if (!this.isTokenValid(cleanToken)) {
         throw new Error('Token validation failed');
       }
-      
+
       const tokenKey = `${ngxLocalstorageConfiguration.prefix}${ngxLocalstorageConfiguration.delimiter}${environment.tokenKey}`;
       this.storage.set(tokenKey, cleanToken);
-      
+
       // Verify token was saved correctly
       const savedToken = this.storage.get(tokenKey);
       if (savedToken !== cleanToken) {
         throw new Error('Token verification failed after save');
       }
-      
+
       console.debug('SaveToken - Token saved and verified successfully');
     } catch (error) {
       console.error('SaveToken - Error:', error);
@@ -560,21 +560,21 @@ export class AuthService {
     try {
       const tokenToCheck = token || this.getToken();
       console.debug('isTokenValid - Token to check:', tokenToCheck ? 'Token exists' : 'No token');
-      
+
       if (!tokenToCheck) return false;
-      
+
       const decoded: any = jwtDecode(tokenToCheck);
       const currentTime = Math.floor(Date.now() / 1000);
-      
+
       console.debug('isTokenValid - Token expiration:', decoded.exp);
       console.debug('isTokenValid - Current time:', currentTime);
       console.debug('isTokenValid - Time until expiration:', decoded.exp - currentTime);
-      
+
       if (!decoded.exp) {
         console.warn('Token missing expiration');
         return false;
       }
-      
+
       const isValid = decoded.exp > currentTime;
       console.debug('Token validity check:', isValid ? 'Valid' : 'Expired');
       return isValid;

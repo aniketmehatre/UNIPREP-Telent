@@ -17,13 +17,15 @@ import { InputGroupModule } from 'primeng/inputgroup';
 import { InputTextModule } from 'primeng/inputtext';
 import { InputGroupAddonModule } from 'primeng/inputgroupaddon';
 import { environment } from '@env/environment';
+import { IconFieldModule } from 'primeng/iconfield';
+import { InputIconModule } from 'primeng/inputicon';
 
 @Component({
   selector: 'uni-course-navigator',
   templateUrl: './course-navigator.component.html',
   styleUrls: ['./course-navigator.component.scss'],
   standalone: true,
-  imports: [FormsModule, ReactiveFormsModule, CarouselModule, ButtonModule, CommonModule, RouterModule, DialogModule, MultiSelectModule, SelectModule, CardModule, InputGroupModule, InputTextModule, InputGroupAddonModule]
+  imports: [FormsModule, ReactiveFormsModule, CarouselModule, ButtonModule, CommonModule, RouterModule, DialogModule, MultiSelectModule, SelectModule, CardModule, InputGroupModule, InputTextModule, InputGroupAddonModule, IconFieldModule, InputIconModule]
 })
 export class CourseNavigatorComponent implements OnInit {
 

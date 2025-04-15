@@ -73,13 +73,13 @@ export const HttpErrorInterceptor: HttpInterceptorFn = (
       if (authTokenService.isTokenValid() && error.status !== 0) {
         locationService.sessionEndApiCall().subscribe();
       }
-      if (error.status === 401 && !isPublicRoute) {
-        authTokenService.clearToken();
+      if ((error.status === 500 || error.status === 401) && !isPublicRoute) {
         toast.add({
           severity: 'error',
           summary: 'Session Expired',
           detail: 'Please login again'
         });
+        authTokenService.clearToken();
       } else if (error.status === 400) {
         console.log('error', error.error.message);
         toast.add({
