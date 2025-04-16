@@ -1,6 +1,6 @@
 import { environment } from "@env/environment";
 let domainUrl = `https://${environment.domain}/uniprepapi/storage/app/public/ToolIcons/founders-tools/`;
-export interface FoundersTools{
+export interface FoundersTools {
     title: string
     description: string
     image: string
@@ -9,7 +9,7 @@ export interface FoundersTools{
     is_ai: boolean
 }
 
-export const FoundersToolsData:FoundersTools[] = [
+export const FoundersToolsData: FoundersTools[] = [
     {
         title: "Founders Academy",
         description: "A comprehensive video library covering key topics to help entrepreneurs build successful startups.",
@@ -157,7 +157,7 @@ export const FoundersToolsData:FoundersTools[] = [
     {
         title: "Virtual Founders Lab",
         description: "An assessment that evaluates an entrepreneur's in-depth knowledge and proficiency in specific industries.",
-        image: "../../../uniprep-assets/images/founderstool/revenue-forecating-tool.svg",
+        image: "../../../uniprep-assets/images/founderstool/VirtualFoundersLab.svg",
         url: "/pages/founderstool/business-forecasting-tool",
         launch_soon: true,
         is_ai: false,
