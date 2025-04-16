@@ -1,5 +1,5 @@
 const dev_domain = 'api.uniprep.ai';
-const prod_domain = 'prod-api.uniprep.ai'
+const prod_domain = 'uniprep.ai'
 const dev_url = `https://${dev_domain}/uniprepapi/public/api`;
 const prod_url = `https://${prod_domain}/uniprepapi/public/api`;
 const dev_uniapplyb2c_url = 'http://uniapplyb2c.uniabroad.io/auth/login?redirect=/pages/applications'
