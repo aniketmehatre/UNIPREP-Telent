@@ -33,7 +33,6 @@
     "@ngrx/entity": "^19.0.1",
     "@ngrx/store": "^19.0.1",
     "@ngrx/store-devtools": "^19.0.1",
-    "@nguniversal/common": "^16.2.0",
     "@ngx-meta/core": "^9.0.0",
     "@primeng/themes": "^19.0.6",
     "@stripe/stripe-js": "^5.6.0",
