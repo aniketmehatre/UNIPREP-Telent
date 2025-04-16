@@ -84,7 +84,7 @@ export class TravelToolsListComponent implements OnInit {
       url: "/pages/travel-tools/trip-length-finder",
       launch_soon: false,
       is_ai: true,
-    }
+    },
     {
       title: "Travel Glossary",
       image: this.domainUrl + "TravelGlossary.svg",
