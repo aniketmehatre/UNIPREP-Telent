@@ -314,10 +314,10 @@ export class ViewProfileComponent implements OnInit {
       additionalDetails: {
         languagesKnown: (formData.languages || []).map((lang: any) =>
           `${this.getListValue(this.languagelist, lang.languages_language_id, 'language') || ''}(${lang.languages_proficiency || ''})`),
-        hobbiesAndInterests: (formData.languages_hobby_id || [])
+        hobbiesAndInterests: Array.isArray(formData.languages_hobby_id) ? (formData.languages_hobby_id || [])
           .map((id: number) => this.getListValue(this.hobbies, id, 'hobby'))
           .filter(Boolean)
-          .join(', ')
+          .join(', ') : formData.languages_hobby_id
       },      
       keyStrengths: {
         industryDifferentiators: formData.career_preference_set_industry_apart ?
