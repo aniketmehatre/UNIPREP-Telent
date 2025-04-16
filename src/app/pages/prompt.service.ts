@@ -2,13 +2,16 @@ import { Injectable } from '@angular/core';
 import { TravelToolsService } from './travel-tools/travel-tools.service';
 import { DownloadRespose } from 'src/app/@Models/travel-tools.model';
 import { environment } from '@env/environment';
+import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 
 @Injectable({
     providedIn: 'root'
 })
 export class PromptService {
+    headers = new HttpHeaders().set("Accept", "application/json");
     constructor(
-        private travelService: TravelToolsService
+        private travelService: TravelToolsService,
+        private http: HttpClient
     ) {
     }
     style: string = `<style>
@@ -176,5 +179,11 @@ export class PromptService {
         // .replace(/<head>(.*?)<\/head>/gs, ''); // Fix escaping
 
         return htmlString;
+    }
+
+    getAicredits(){
+        return this.http.get<number>(`${environment.ApiUrl}/getAIcredCount`, {
+            headers: this.headers,
+        });
     }
 }

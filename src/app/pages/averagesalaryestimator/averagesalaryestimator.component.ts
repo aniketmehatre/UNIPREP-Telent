@@ -2,11 +2,10 @@ import { Component, Input, OnInit, ViewChild, ElementRef } from "@angular/core";
 import { Router, RouterModule } from "@angular/router";
 import { PageFacadeService } from "../page-facade.service";
 import { AveragesalaryestimatorService } from "./averagesalaryestimator.service";
-// import value from "crypto-js";
 import { CommonModule } from "@angular/common"
 import { DialogModule } from "primeng/dialog"
 import { SidebarModule } from "primeng/sidebar"
-
+import { PromptService } from "../prompt.service";
 import { CardModule } from "primeng/card"
 import { PaginatorModule } from "primeng/paginator"
 import { FormsModule, ReactiveFormsModule } from "@angular/forms"
@@ -18,7 +17,6 @@ import { InputGroupModule } from "primeng/inputgroup"
 import { InputTextModule } from "primeng/inputtext"
 import { InputGroupAddonModule } from "primeng/inputgroupaddon"
 import { RadioButtonModule } from "primeng/radiobutton"
-import value from "crypto-js";
 import { City } from "src/app/@Models/cost-of-living";
 import { EducationToolsService } from "../education-tools/education-tools.service";
 import {AverageSalaryPreparedListComponent} from "./preparedlist/preparedlist.component";
@@ -38,7 +36,8 @@ export class AverageSalaryComponent implements OnInit {
     private router: Router,
     private pageFacade: PageFacadeService,
     private service: AveragesalaryestimatorService,
-    private educationService: EducationToolsService
+    private educationService: EducationToolsService,
+    private promptService: PromptService
   ) {
     this.getJobRoles();
   }
@@ -48,7 +47,7 @@ export class AverageSalaryComponent implements OnInit {
   invalidClass: boolean = false;
   selectedData: { [key: string]: any } = {};
   filterJobRole: any[] = [];
-
+  aiCreditCount: number = 0;
   recommendations: { id: number , question: string}[] = [
     {
       id: 1,
@@ -84,7 +83,17 @@ export class AverageSalaryComponent implements OnInit {
     this.getCityList();
     this.getyearsofExperience();
     this.getcurrencies();
+    this.getAICreditCount();
   }
+
+  getAICreditCount(){
+    this.promptService.getAicredits().subscribe({
+      next: resp =>{
+        this.aiCreditCount = resp;
+      }
+    })
+  }
+
   selectedCardIndex: number | null = null;
 
   selectCard(index: number): void {
@@ -183,6 +192,7 @@ export class AverageSalaryComponent implements OnInit {
       locationid: this.selectedData[4]?.city_id,
       location_name: this.selectedData[4]?.city_name+', '+this.selectedData[4]?.country_name,
       experience: this.selectedData[2],
+      aiCredit: this.aiCreditCount
       // currency: this.selectedData[6],
     };
     this.prepData = processedData;

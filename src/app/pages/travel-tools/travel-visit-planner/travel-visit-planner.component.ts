@@ -50,12 +50,19 @@ export class TravelVisitPlannerComponent implements OnInit {
 	savedResponse: any = []
 	destinationLocationList: City[] = []
 	isResponseSkeleton: boolean = false;
-
+	aiCreditCount: number = 0;
 	ngOnInit(): void {
 		this.selectedData[2] = 1 //second page i need to show the days count so manually i enter the day.
-		this.getCityList()
+		this.getCityList();
+		this.getAICreditCount();
 	}
-
+	getAICreditCount(){
+		this.promptService.getAicredits().subscribe({
+		  next: resp =>{
+			this.aiCreditCount = resp;
+		  }
+		})
+	}
 	getCityList() {
 		this.costOfLivingService.getCities().subscribe({
 			next: (response) => {
@@ -96,6 +103,7 @@ export class TravelVisitPlannerComponent implements OnInit {
 				next: (response) => {
 					this.isResponseSkeleton = false;
 					this.recommendationData = this.sanitizer.bypassSecurityTrustHtml(response.response)
+					this.getAICreditCount();
 				},
 				error: (error) => {
 					console.error(error);
