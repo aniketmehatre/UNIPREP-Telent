@@ -6,7 +6,7 @@ import { CommonModule } from '@angular/common';
 import { TooltipModule } from 'primeng/tooltip';
 import { StorageService } from "../../../storage.service";
 import { SharedModule } from 'src/app/shared/shared.module';
-export interface CareerTools{
+export interface CareerTools {
   id: number
   moduleName: string
   tooltip: string
@@ -225,7 +225,7 @@ export class CareerToolComponent implements OnInit {
       id: 20,
       moduleName: "Distance Learning",
       tooltip: "Unleash your potential with proven career hacks designed to fast-track your success.",
-      imageLink: environment.production === false ? "https://api.uniprep.ai/uniprepapi/storage/app//public/icon/modules/chacks.png" : "https://uniprep.ai/uniprepapi/storage/app/public/icon/modules/chacks.png",
+      imageLink: this.domainUrl + "Distancelearning.svg",
       refLink: "",
       mode: "modules-enterprenuer-tools",
       launch_soon: true,
@@ -235,7 +235,7 @@ export class CareerToolComponent implements OnInit {
       id: 21,
       moduleName: "Executive Education",
       tooltip: "Unleash your potential with proven career hacks designed to fast-track your success.",
-      imageLink: environment.production === false ? "https://api.uniprep.ai/uniprepapi/storage/app//public/icon/modules/chacks.png" : "https://uniprep.ai/uniprepapi/storage/app/public/icon/modules/chacks.png",
+      imageLink: this.domainUrl + "executiveeducationn.svg",
       refLink: "",
       mode: "virtual-incubation-center",
       launch_soon: true,
@@ -245,7 +245,7 @@ export class CareerToolComponent implements OnInit {
       id: 22,
       moduleName: "Video Mock Interview – Job",
       tooltip: "Unleash your potential with proven career hacks designed to fast-track your success.",
-      imageLink: environment.production === false ? "https://api.uniprep.ai/uniprepapi/storage/app//public/icon/modules/chacks.png" : "https://uniprep.ai/uniprepapi/storage/app/public/icon/modules/chacks.png",
+      imageLink: this.domainUrl + "videomockinterviewjob.svg",
       refLink: "",
       mode: "market-analysis",
       launch_soon: true,

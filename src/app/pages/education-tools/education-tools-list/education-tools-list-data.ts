@@ -8,7 +8,7 @@ export interface educationTools {
   is_ai: boolean
 }
 
-export const EducationToolsData:educationTools[] = [
+export const EducationToolsData: educationTools[] = [
   {
     title: "Course Navigator",
     image: domainUrl + "CourseNavigator.svg",
@@ -70,27 +70,27 @@ export const EducationToolsData:educationTools[] = [
     image: domainUrl + "GlobalEdufit.svg",
     url: "/pages/education-tools/global-edufit",
     launch_soon: false,
-    is_ai:false,
+    is_ai: false,
   },
   {
     title: "Video Mock Interview – University",
-    image: domainUrl + "GlobalEdufit.svg",
+    image: domainUrl + "videomockinterviewuniversity.svg",
     url: "/pages/education-tools/scholarship-finder",
     launch_soon: true,
-    is_ai:false,
+    is_ai: false,
   },
   {
     title: "UNIPAY",
-    image: domainUrl + "GlobalEdufit.svg",
+    image: domainUrl + "UNIPAY.svg",
     url: "/pages/education-tools/scholarship-finder",
     launch_soon: true,
-    is_ai:false,
+    is_ai: false,
   },
   {
     title: "SOP Expert",
-    image: domainUrl + "GlobalEdufit.svg",
+    image: domainUrl + "sopexpert.svg",
     url: "/pages/education-tools/scholarship-finder",
     launch_soon: true,
-    is_ai:false,
+    is_ai: false,
   }
 ]
