@@ -18,7 +18,6 @@ export const EducationToolsData:educationTools[] = [
   },
   {
     title: "Politician Insights",
-    //  description: "This tool lets you get a polician insights with the help of few easy steps",
     image: domainUrl + "PoliticalInsights.svg",
     url: "/pages/education-tools/politician-insights",
     launch_soon: false,
@@ -40,7 +39,6 @@ export const EducationToolsData:educationTools[] = [
   },
   {
     title: "Wealth Leaders",
-    //  description: "An assessment that evaluates an entrepreneur's in-depth knowledge and proficiency in specific industries.",
     image: domainUrl + "WealthLeaders.svg",
     url: "/pages/education-tools/wealthleaderslist",
     launch_soon: false,
@@ -48,7 +46,6 @@ export const EducationToolsData:educationTools[] = [
   },
   {
     title: "Education ROI",
-    // description: "This tool lets you get a global travel visa with the help of few easy steps",
     image: domainUrl + "StudentBudgetPlanner.svg",
     url: "/pages/education-tools/student-budget-planner",
     launch_soon: false,
@@ -70,10 +67,30 @@ export const EducationToolsData:educationTools[] = [
   },
   {
     title: "Global Edufit",
-    // description: "This tool lets you get a global travel visa with the help of few easy steps",
     image: domainUrl + "GlobalEdufit.svg",
     url: "/pages/education-tools/global-edufit",
     launch_soon: false,
-    is_ai: true
+    is_ai:false,
+  },
+  {
+    title: "Video Mock Interview – University",
+    image: domainUrl + "GlobalEdufit.svg",
+    url: "/pages/education-tools/scholarship-finder",
+    launch_soon: true,
+    is_ai:false,
+  },
+  {
+    title: "UNIPAY",
+    image: domainUrl + "GlobalEdufit.svg",
+    url: "/pages/education-tools/scholarship-finder",
+    launch_soon: true,
+    is_ai:false,
+  },
+  {
+    title: "SOP Expert",
+    image: domainUrl + "GlobalEdufit.svg",
+    url: "/pages/education-tools/scholarship-finder",
+    launch_soon: true,
+    is_ai:false,
   }
 ]

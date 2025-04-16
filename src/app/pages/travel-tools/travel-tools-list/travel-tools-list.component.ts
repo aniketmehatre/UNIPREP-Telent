@@ -24,27 +24,27 @@ export interface TravelToolsMain{
 }
 
 @Component({
-    selector: 'uni-travel-tools-list',
-    templateUrl: './travel-tools-list.component.html',
-    styleUrls: ['./travel-tools-list.component.scss'],
-    standalone: true,
-    imports: [
-        CommonModule,
-        SkeletonModule,
-        FluidModule,
-        InputTextModule,
-        TooltipModule,
-        ButtonModule,
-        MultiSelectModule,
-        CarouselModule,
-        InputGroupModule,
-        InputGroupAddonModule,
-        FormsModule,
-        ReactiveFormsModule,
-        SelectModule,
-        RouterModule,
-        SharedModule
-    ]
+  selector: 'uni-travel-tools-list',
+  templateUrl: './travel-tools-list.component.html',
+  styleUrls: ['./travel-tools-list.component.scss'],
+  standalone: true,
+  imports: [
+    CommonModule,
+    SkeletonModule,
+    FluidModule,
+    InputTextModule,
+    TooltipModule,
+    ButtonModule,
+    MultiSelectModule,
+    CarouselModule,
+    InputGroupModule,
+    InputGroupAddonModule,
+    FormsModule,
+    ReactiveFormsModule,
+    SelectModule,
+    RouterModule,
+    SharedModule
+  ]
 })
 export class TravelToolsListComponent implements OnInit {
     isLaunchingSoon = false;
@@ -101,7 +101,7 @@ export class TravelToolsListComponent implements OnInit {
       },
     ];
 
-    loopRange = [0, 1, 2, 3, 4, 5];
+  loopRange = [0, 1, 2, 3, 4, 5];
 
   constructor() { }
 

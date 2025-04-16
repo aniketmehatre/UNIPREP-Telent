@@ -220,6 +220,36 @@ export class CareerToolComponent implements OnInit {
       mode: "global-employment-insights",
       is_ai: false,
       launch_soon: false
+    },
+    {
+      id: 20,
+      moduleName: "Distance Learning",
+      tooltip: "Unleash your potential with proven career hacks designed to fast-track your success.",
+      imageLink: environment.production === false ? "https://api.uniprep.ai/uniprepapi/storage/app//public/icon/modules/chacks.png" : "https://uniprep.ai/uniprepapi/storage/app/public/icon/modules/chacks.png",
+      refLink: "",
+      mode: "modules-enterprenuer-tools",
+      launch_soon: true,
+      is_ai: false,
+    },
+    {
+      id: 21,
+      moduleName: "Executive Education",
+      tooltip: "Unleash your potential with proven career hacks designed to fast-track your success.",
+      imageLink: environment.production === false ? "https://api.uniprep.ai/uniprepapi/storage/app//public/icon/modules/chacks.png" : "https://uniprep.ai/uniprepapi/storage/app/public/icon/modules/chacks.png",
+      refLink: "",
+      mode: "virtual-incubation-center",
+      launch_soon: true,
+      is_ai: false,
+    },
+    {
+      id: 22,
+      moduleName: "Video Mock Interview – Job",
+      tooltip: "Unleash your potential with proven career hacks designed to fast-track your success.",
+      imageLink: environment.production === false ? "https://api.uniprep.ai/uniprepapi/storage/app//public/icon/modules/chacks.png" : "https://uniprep.ai/uniprepapi/storage/app/public/icon/modules/chacks.png",
+      refLink: "",
+      mode: "market-analysis",
+      launch_soon: true,
+      is_ai: false,
     }
   ]
 
