@@ -19,7 +19,7 @@ jobs:
           node-version: '18'
 
       - name: 📦 Install Dependencies
-        run: npm install
+        run: npm install --force
 
       - name: 🛠️ Build Angular App (Development)
         run: npm run build -- --configuration development
