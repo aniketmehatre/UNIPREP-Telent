@@ -3,7 +3,7 @@ name: 🚀 Deploy Angular App to Contabo Server
 on:
   push:
     branches:
-      - update_angular_19_new
+      - dev-pipeline
 
 jobs:
   deploy:
