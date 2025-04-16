@@ -22,15 +22,18 @@ jobs:
         with:
           node-version: "18"
 
-      - name: ♻️ Cache Node Modules
+      - name: ♻️ Cache Dependencies
         uses: actions/cache@v3
         with:
-          path: ~/.npm
-          key: ${{ runner.os }}-node-${{ hashFiles('package-lock.json') }}
+          path: |
+            ~/.npm
+            **/node_modules
+          key: ${{ runner.os }}-node-modules-${{ hashFiles('package-lock.json') }}
           restore-keys: |
-            ${{ runner.os }}-node-
+            ${{ runner.os }}-node-modules-
 
       - name: 📦 Install Dependencies
+        if: steps.cache.outputs.cache-hit != 'true'
         run: npm install --legacy-peer-deps
 
       - name: 🛠️ Build Angular App (Development)
