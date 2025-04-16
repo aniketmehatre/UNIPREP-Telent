@@ -65,8 +65,8 @@ export class AuthTokenService {
     if (shouldRedirect) {
       const currentUrl = this.router.url;
       const publicRoutes = [
-        // '',
-        // '/',
+        '',
+        '/',
         '/landing',
         '/login',
         '/register',
