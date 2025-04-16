@@ -5,6 +5,10 @@ on:
     branches:
       - dev-pipeline
 
+concurrency:
+  group: deploy-dev-pipeline
+  cancel-in-progress: true
+
 jobs:
   deploy:
     runs-on: ubuntu-latest
