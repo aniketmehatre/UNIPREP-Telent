@@ -76,6 +76,7 @@ export class MarketingAnalysisComponent implements OnInit {
   isRecommendationSavedData: boolean = false;
   recommendationData: SafeHtml;
 	isResponseSkeleton: boolean = false;
+  aiCreditCount: number = 0;
 
   constructor(
     private fb: FormBuilder,
@@ -150,7 +151,15 @@ export class MarketingAnalysisComponent implements OnInit {
     }
     this.getCityList();
     this.getCurrenyandLocation();
-  }
+    this.getAICreditCount();
+	}
+	getAICreditCount(){
+		this.promptService.getAicredits().subscribe({
+		  next: resp =>{
+			this.aiCreditCount = resp;
+		  }
+		})
+	}
 
   goBack() {
     this.router.navigateByUrl('/pages/founderstool/founderstoollist');
@@ -247,6 +256,7 @@ export class MarketingAnalysisComponent implements OnInit {
       next: response => {
 				this.isResponseSkeleton = false;
 				this.recommendationData = this.sanitizer.bypassSecurityTrustHtml(response.response);
+        this.getAICreditCount();
       },
       error: (error) => {
 				console.error(error);
