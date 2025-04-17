@@ -95,7 +95,7 @@ export class CoBrandedComponent implements OnInit, OnDestroy {
     if (type === 'login') {
       this.route.navigate(['/login']);
     } else if (type === 'employer') {
-      window.location.href = 'https://employer.uniprep.ai/login'
+      window.location.href = 'https://dmu.uniprep.ai/institute/login';
     }
   }
 
