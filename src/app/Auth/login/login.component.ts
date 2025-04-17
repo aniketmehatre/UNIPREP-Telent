@@ -1,4 +1,4 @@
-import {CommonModule} from "@angular/common"
+import { CommonModule } from "@angular/common"
 import {
 	ChangeDetectionStrategy,
 	ChangeDetectorRef,
@@ -10,24 +10,24 @@ import {
 	Renderer2,
 	ViewChild
 } from "@angular/core"
-import {FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators} from "@angular/forms"
-import {Router, RouterModule} from "@angular/router"
-import {environment} from "@env/environment"
-import {LocalStorageService} from "ngx-localstorage"
-import {MessageService} from "primeng/api"
-import {FluidModule} from "primeng/fluid"
-import {InputGroupModule} from "primeng/inputgroup"
-import {InputGroupAddonModule} from "primeng/inputgroupaddon"
-import {InputIconModule} from "primeng/inputicon"
-import {InputTextModule} from "primeng/inputtext"
-import {PasswordModule} from "primeng/password"
-import {AuthTokenService} from "src/app/core/services/auth-token.service"
-import {DataService} from "src/app/data.service"
-import {SubSink} from "subsink"
-import {LocationService} from "../../location.service"
-import {AuthService} from "../auth.service"
-import {finalize} from 'rxjs/operators';
-import {GoogleSigninButtonModule, SocialAuthService, SocialLoginModule,} from '@abacritt/angularx-social-login';
+import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators } from "@angular/forms"
+import { Router, RouterModule } from "@angular/router"
+import { environment } from "@env/environment"
+import { LocalStorageService } from "ngx-localstorage"
+import { MessageService } from "primeng/api"
+import { FluidModule } from "primeng/fluid"
+import { InputGroupModule } from "primeng/inputgroup"
+import { InputGroupAddonModule } from "primeng/inputgroupaddon"
+import { InputIconModule } from "primeng/inputicon"
+import { InputTextModule } from "primeng/inputtext"
+import { PasswordModule } from "primeng/password"
+import { AuthTokenService } from "src/app/core/services/auth-token.service"
+import { DataService } from "src/app/data.service"
+import { SubSink } from "subsink"
+import { LocationService } from "../../location.service"
+import { AuthService } from "../auth.service"
+import { finalize } from 'rxjs/operators';
+import { GoogleSigninButtonModule, SocialAuthService, SocialLoginModule, } from '@abacritt/angularx-social-login';
 
 declare var google: any;
 @Component({
@@ -56,10 +56,10 @@ export class LoginComponent implements OnInit, OnDestroy {
 	domainNameCondition: string
 	ipURL: string = "https://api.ipify.org?format=json"
 	constructor(private service: AuthService, private formBuilder: FormBuilder, private route: Router,
-				private toast: MessageService, private dataService: DataService,
-				private locationService: LocationService, private authService: SocialAuthService,
-				private storage: LocalStorageService, private authTokenService: AuthTokenService,
-				private cdr: ChangeDetectorRef, private el: ElementRef, private renderer: Renderer2) {}
+		private toast: MessageService, private dataService: DataService,
+		private locationService: LocationService, private authService: SocialAuthService,
+		private storage: LocalStorageService, private authTokenService: AuthTokenService,
+		private cdr: ChangeDetectorRef, private el: ElementRef, private renderer: Renderer2) { }
 
 	ngOnDestroy() {
 		this.subs.unsubscribe()
@@ -92,16 +92,16 @@ export class LoginComponent implements OnInit, OnDestroy {
 	}
 
 	private isDomainMain(): boolean {
-		return this.domainNameCondition === "dev-student.uniprep.ai" || 
-			   this.domainNameCondition === "*.uniprep.ai" || 
-			   this.domainNameCondition === "uniprep.ai" || 
-			   this.domainNameCondition === "localhost"
+		return this.domainNameCondition === "dev-student.uniprep.ai" ||
+			this.domainNameCondition === "*.uniprep.ai" ||
+			this.domainNameCondition === "uniprep.ai" ||
+			this.domainNameCondition === "localhost"
 	}
 
 	private setupSocialAuth() {
 		this.subs.sink = this.authService.authState.subscribe(user => {
 			if (!user) return
-			
+
 			this.isLoading = true
 			this.cdr.markForCheck()
 
@@ -172,17 +172,17 @@ export class LoginComponent implements OnInit, OnDestroy {
 		this.service.getMe().subscribe({
 			next: (userData) => {
 				this.loadCountryList(userData)
-        this.subs.sink = this.service.selectMessage$().subscribe((message) => {
-            let req = {
-              userId: userData.userdetails[0].user_id,
-              location: this.locationData.city,
-              country: this.locationData.country_name,
-            };
-            this.locationService
-              .sendSessionData(req, "login")
-              .subscribe((response) => {
-              });
-        });
+				this.subs.sink = this.service.selectMessage$().subscribe((message) => {
+					let req = {
+						userId: userData.userdetails[0].user_id,
+						location: this.locationData.city,
+						country: this.locationData.country_name,
+					};
+					this.locationService
+						.sendSessionData(req, "login")
+						.subscribe((response) => {
+						});
+				});
 				this.toast.add({
 					severity: "success",
 					summary: "Success",
@@ -203,7 +203,7 @@ export class LoginComponent implements OnInit, OnDestroy {
 	countryLists: any
 	loadCountryList(data: any) {
 		this.locationService.getCountry().subscribe((countryList) => {
-			const selectedCountry = countryList.find((element: any) => 
+			const selectedCountry = countryList.find((element: any) =>
 				element.id === Number(data.userdetails[0].selected_country)
 			)
 

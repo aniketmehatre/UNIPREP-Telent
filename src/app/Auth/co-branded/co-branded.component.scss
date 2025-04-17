@@ -1,0 +1,19 @@
+.startbg {
+  background-color: #050b16;
+  min-height: 100vh;
+  background-image: url("/assets/top-right-circle.svg"),
+    url("/assets/bottom-left-circle.svg");
+  background-repeat: no-repeat;
+  background-position: top right, bottom left;
+}
+.card {
+  background-color: white;
+  border-radius: 12px;
+}
+.btn-outline-primary {
+  border: 1px solid #ccc;
+  transition: all 0.3s;
+}
+.btn-outline-primary:hover {
+  background-color: #f8f9fa;
+}

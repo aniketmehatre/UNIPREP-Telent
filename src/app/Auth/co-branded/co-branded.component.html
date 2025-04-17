@@ -1,0 +1,23 @@
+<section class="startbg h-100">
+    <div class="container-fluid h-100">
+        <div class="row h-100 align-items-center justify-content-center">
+            <div class="card text-center p-5 shadow rounded align-items-center justify-content-center"
+                style="max-width: 500px;">
+                <img src="{{ imageUrlWhitelabel }}" width="150" class="mb-4" alt="University Logo" />
+                <h5 class="fw-semibold mb-4">Welcome, Please Login to your account.</h5>
+
+                <div class="d-flex justify-content-between gap-3">
+                    <button class="btn btn-outline-primary w-100 py-3" (click)="navigateTo('student-login')">
+                        <i class="fa-solid fa-user-graduate mb-2 d-block fs-4"></i>
+                        For Students
+                    </button>
+
+                    <button class="btn btn-outline-primary w-100 py-3" (click)="navigateTo('institution-login')">
+                        <i class="fa-solid fa-building-columns mb-2 d-block fs-4"></i>
+                        For Institutions
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
