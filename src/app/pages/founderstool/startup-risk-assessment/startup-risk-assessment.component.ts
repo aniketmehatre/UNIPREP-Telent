@@ -69,12 +69,22 @@ export class StartupRiskAssessmentComponent implements OnInit {
 	isFromSavedData: boolean = false
 	currencyList: any = []
 	isResponseSkeleton: boolean = false;
+	aiCreditCount: number = 0;
 
 	constructor(private fb: FormBuilder, private founderToolService: FounderstoolService, private router: Router, private toast: MessageService, private travelToolService: TravelToolsService, private sanitizer: DomSanitizer, private promptService: PromptService) { }
 
 	ngOnInit(): void {
 		this.getCurrenyandLocation()
 		// this.getStartUpRiskAssesmentOptionsList();
+		this.getAICreditCount();
+	}
+
+	getAICreditCount(){
+		this.promptService.getAicredits().subscribe({
+		  next: resp =>{
+			this.aiCreditCount = resp;
+		  }
+		})
 	}
 
 	getCurrenyandLocation() {
@@ -144,6 +154,7 @@ export class StartupRiskAssessmentComponent implements OnInit {
 			next: (response) => {
 				this.isResponseSkeleton = false;
 				this.recommendationData = this.sanitizer.bypassSecurityTrustHtml(response.response)
+				this.getAICreditCount();
 			},
 			error: (error) => {
 				this.isResponseSkeleton = false;

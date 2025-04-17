@@ -19,7 +19,6 @@ import { SelectModule } from "primeng/select"
 import { InputGroupModule } from "primeng/inputgroup"
 import { InputTextModule } from "primeng/inputtext"
 import { InputGroupAddonModule } from "primeng/inputgroupaddon"
-import { DownloadRespose } from "src/app/@Models/travel-tools.model"
 import { TravelToolsService } from "../../travel-tools/travel-tools.service"
 import { DomSanitizer, SafeHtml } from "@angular/platform-browser"
 import { PromptService } from "../../prompt.service"
@@ -97,6 +96,7 @@ export class BusinessForecastingToolComponent implements OnInit {
 	invalidClass: boolean = false
 	selectedData: { [key: string]: any } = {}
 	isResponseSkeleton: boolean = false;
+	aiCreditCount: number = 0;
 
 	constructor(private fb: FormBuilder, private foundersToolsService: FounderstoolService, private locationService: LocationService, private authService: AuthService, private router: Router, private pageFacade: PageFacadeService, private toast: MessageService, private travelToolService: TravelToolsService, private sanitizer: DomSanitizer, private promptService: PromptService) {
 		this.form = this.fb.group({
@@ -127,8 +127,15 @@ export class BusinessForecastingToolComponent implements OnInit {
 		}
 		this.getForeCastingOptionLists()
 		this.getCurrenyandLocation()
+		this.getAICreditCount();
 	}
-
+	getAICreditCount(){
+		this.promptService.getAicredits().subscribe({
+		  next: resp =>{
+			this.aiCreditCount = resp;
+		  }
+		})
+	}
 	backtoMain() {
 		this.router.navigateByUrl("/pages/founderstool")
 	}
@@ -222,6 +229,7 @@ export class BusinessForecastingToolComponent implements OnInit {
 			next: (response) => {
 				this.isResponseSkeleton = false;
 				this.recommendationData = this.sanitizer.bypassSecurityTrustHtml(response.response)
+				this.getAICreditCount();
 			},
 			error: (error) => {
 				this.isResponseSkeleton = false;

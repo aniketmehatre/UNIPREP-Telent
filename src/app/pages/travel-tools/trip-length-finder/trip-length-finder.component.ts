@@ -50,10 +50,18 @@ export class TripLengthFinderComponent implements OnInit {
   savedResponse: any = [];
   destinationLocationList: City[] = [];
   isResponseSkeleton: boolean = false;
-
+  aiCreditCount: number = 0;
   ngOnInit(): void {
     this.getCityList();
-  }
+    this.getAICreditCount();
+	}
+	getAICreditCount(){
+		this.prompt.getAicredits().subscribe({
+		  next: resp =>{
+			this.aiCreditCount = resp;
+		  }
+		})
+	}
 
   getCityList() {
     this.costOfLivingService.getCities().subscribe({
@@ -77,6 +85,7 @@ export class TripLengthFinderComponent implements OnInit {
         next: (response: any) => {
           this.recommendationData = this.sanitizer.bypassSecurityTrustHtml(response.response);
           this.isResponseSkeleton = false;
+          this.getAICreditCount();
         },
         error: (error) => {
           console.error(error);
