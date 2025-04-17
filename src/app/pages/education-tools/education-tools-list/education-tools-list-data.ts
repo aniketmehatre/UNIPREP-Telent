@@ -70,7 +70,7 @@ export const EducationToolsData: educationTools[] = [
     image: domainUrl + "GlobalEdufit.svg",
     url: "/pages/education-tools/global-edufit",
     launch_soon: false,
-    is_ai: false,
+    is_ai: true,
   },
   {
     title: "Video Mock Interview – University",
