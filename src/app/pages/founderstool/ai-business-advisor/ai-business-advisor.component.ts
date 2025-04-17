@@ -61,13 +61,21 @@ export class AiBusinessAdvisorComponent implements OnInit {
 	isFromSavedData: boolean = false
 	currencyList: any = []
 	isResponseSkeleton: boolean = false;
+	aiCreditCount:  number = 0;
 
 	constructor(private fb: FormBuilder, private foundersToolService: FounderstoolService, private router: Router, private toast: MessageService, private travelToolService: TravelToolsService, private sanitizer: DomSanitizer, private promptService: PromptService) {}
 
 	ngOnInit(): void {
 		this.getCurrenyandLocation()
+		this.getAICreditCount();
 	}
-
+	getAICreditCount(){
+		this.promptService.getAicredits().subscribe({
+		  next: resp =>{
+			this.aiCreditCount = resp;
+		  }
+		})
+	}
 	getCurrenyandLocation() {
 		this.foundersToolService.getCurrenciesList().subscribe((res: any) => {
 			this.currencyList = res
@@ -123,6 +131,7 @@ export class AiBusinessAdvisorComponent implements OnInit {
 			next: (response) => {
 				this.isResponseSkeleton = false;
 				this.recommendationData = this.sanitizer.bypassSecurityTrustHtml(response.response)
+				this.getAICreditCount();
 			},
 			error: (error) => {
 				this.isResponseSkeleton = false;
