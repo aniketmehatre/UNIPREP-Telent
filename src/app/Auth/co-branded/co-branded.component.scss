@@ -1,8 +1,6 @@
 .startbg {
-  background-color: #050b16;
   min-height: 100vh;
-  background-image: url("/assets/top-right-circle.svg"),
-    url("/assets/bottom-left-circle.svg");
+  background-image: url(/uniprep-assets/images/startbg.webp);
   background-repeat: no-repeat;
   background-position: top right, bottom left;
 }
