@@ -2,21 +2,23 @@
     <div class="container-fluid h-100">
         <div class="row h-100 align-items-center justify-content-center">
             <div class="card text-center p-5 shadow rounded align-items-center justify-content-center"
-                style="max-width: 500px;">
+                style="max-width: 600px;">
                 <img src="{{ imageUrlWhitelabel }}" width="150" class="mb-4" alt="University Logo" />
                 <h5 class="fw-bold mb-4">Welcome, Please Login to your account.</h5>
 
                 <div class="d-flex justify-content-between gap-3">
-                    <button class="btn btn-outline-primary w-100 py-4 px-5" (click)="navigateTo('login')">
-                        <img src="/uniprep-assets/images/graduated.svg" width="120" class="mb-4"
+                    <button class="btn btn-outline-primary w-100 py-2 px-5 ml-4 mr-4" style="width: 200px !important;"
+                        (click)="navigateTo('login')">
+                        <img src="/uniprep-assets/images/graduated.svg" width="60" height="60" class="mb-4"
                             alt="University Logo" />
                         <br>
                         For Students
                     </button>
 
-                    <button class="btn btn-outline-primary w-100 py-4 px-5"
+                    <button class="btn btn-outline-primary w-100 py-2 px-5  ms-4 me-4" style="width: 200px !important;"
                         (click)="navigateTo('employer')">
-                        <img src="/uniprep-assets/images/settings.svg" width="120" class="mb-4" alt="University Logo" />
+                        <img src="/uniprep-assets/images/settings.svg" width="60" height="60" class="mb-4"
+                            alt="University Logo" />
                         <br>
                         For Institutions
                     </button>
