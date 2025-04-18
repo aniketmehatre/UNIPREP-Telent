@@ -33,7 +33,7 @@ export class AppComponent {
 		this.domainNameCondition = window.location.hostname
 		this.domainname = this.isDomainMain() ? 'main' : 'sub'
 		if (this.domainname === 'sub') {
-			this.router.navigate(['/co-branded'], { replaceUrl: true });
+			this.router.navigate(['/students'], { replaceUrl: true });
 		}
 		this.getImageWhitelabel()
 		document.addEventListener("visibilitychange", () => {
