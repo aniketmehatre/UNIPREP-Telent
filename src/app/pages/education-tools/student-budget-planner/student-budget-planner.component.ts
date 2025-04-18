@@ -89,6 +89,7 @@ export class StudentBudgetPlannerComponent implements OnInit {
     mode: 'student_budget_planner',
   }
   selectedData: any = { ...this.selectedDataArray }
+  aiCreditCount: number = 0;
 
   courseDurationList: { value: string }[] = [
     { value: '6 Months' },
@@ -120,7 +121,15 @@ export class StudentBudgetPlannerComponent implements OnInit {
 
   ngOnInit(): void {
     this.dropdownValues();
+    this.getAICreditCount();
   }
+  getAICreditCount(){
+		this.promptService.getAicredits().subscribe({
+		  next: resp =>{
+			this.aiCreditCount = resp;
+		  }
+		})
+	}
   dropdownValues() {
     this.educationService.getDropdownValues().subscribe({
       next: response => {
@@ -190,6 +199,7 @@ export class StudentBudgetPlannerComponent implements OnInit {
       next: response => {
         this.isResponseSkeleton = false;
         this.recommendationData = this.sanitizer.bypassSecurityTrustHtml(response.response);
+        this.getAICreditCount();
       },
       error: (error) => {
 				console.error(error);

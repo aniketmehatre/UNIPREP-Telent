@@ -50,6 +50,7 @@ export class EduLoanCompareComponent implements OnInit {
   recommendationData: string = '';
   activePageIndex: number = 0;
   isResponseSkeleton: boolean = false;
+  aiCreditCount: number = 0;
 
   constructor(
     private fb: FormBuilder,
@@ -71,8 +72,15 @@ export class EduLoanCompareComponent implements OnInit {
 
   ngOnInit(): void {
     this.getCountryList();
+    this.getAICreditCount();
   }
-
+  getAICreditCount(){
+		this.promptService.getAicredits().subscribe({
+		  next: resp =>{
+			this.aiCreditCount = resp;
+		  }
+		})
+	}
   getCountryList() {
     this.educationToolService.getCurrencies().subscribe(data => {
       this.currenciesList = data;
@@ -119,6 +127,7 @@ export class EduLoanCompareComponent implements OnInit {
         this.recommendationData = this.sanitizer.bypassSecurityTrustHtml(response.response) as string;
         this.isFromSavedData = false;
         this.saveRecommadation('getAllHistory');
+        this.getAICreditCount();
       },
       error: error => {
         this.isResponseSkeleton = false;

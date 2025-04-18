@@ -72,7 +72,7 @@ export class UniCompareComponent implements OnInit, OnDestroy {
   isRecommendationSavedData: boolean = false;
   recommendationData: SafeHtml = '';
 	isResponseSkeleton: boolean = false;
-
+  aiCreditCount: number = 0;
   constructor(
     private fb: FormBuilder,
     private educationToolService: EducationToolsService,
@@ -169,8 +169,15 @@ export class UniCompareComponent implements OnInit, OnDestroy {
       this.ehitlabelIsShow = false;
     }
     this.getCountryandSpecilizationList();
+    this.getAICreditCount();
   }
-
+  getAICreditCount(){
+		this.promptService.getAicredits().subscribe({
+		  next: resp =>{
+			this.aiCreditCount = resp;
+		  }
+		})
+	}
   getAndSetCourseNameList(universityId: number, mode: string){
     this.educationToolService.courseNameList(universityId).subscribe({
       next: response =>{
@@ -304,6 +311,7 @@ export class UniCompareComponent implements OnInit, OnDestroy {
       next: response => {
 				this.isResponseSkeleton = false;
 				this.recommendationData = this.sanitizer.bypassSecurityTrustHtml(response.response);
+        this.getAICreditCount();
       },
       error: (error) => {
 				console.error(error);
