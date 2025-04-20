@@ -44,7 +44,7 @@
 							<div>
 								<h5 class="mb-0 fw-semibold">{{ job?.position }}</h5>
 								<p class="mb-0 text-muted d-flex fw-semibold">
-									<a [href]="job.company_website">{{ job.company_name }}</a>
+									<a [href]="job.company_website" target="_blank" (click)="$event.stopPropagation();">{{ job.company_name }}</a>
 									<span class="uniprep-secondary" *ngIf="job.isVerified">
 										<i class="fas fa-check-circle"></i>
 									</span>
