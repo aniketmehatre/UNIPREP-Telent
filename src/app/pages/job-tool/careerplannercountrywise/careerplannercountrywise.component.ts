@@ -7,7 +7,6 @@ import { CommonModule } from '@angular/common';
 import { MessageService } from 'primeng/api';
 import { DialogModule } from 'primeng/dialog';
 import { SidebarModule } from 'primeng/sidebar';
-
 import { RouterModule } from '@angular/router';
 import { CardModule } from 'primeng/card';
 import { PaginatorModule } from 'primeng/paginator';
@@ -19,8 +18,6 @@ import { SelectModule } from 'primeng/select';
 import { InputGroupModule } from 'primeng/inputgroup';
 import { InputTextModule } from 'primeng/inputtext';
 import { InputGroupAddonModule } from 'primeng/inputgroupaddon';
-import { DownloadRespose } from 'src/app/@Models/travel-tools.model';
-import { TravelToolsService } from '../../travel-tools/travel-tools.service';
 import { EducationToolsService } from '../../education-tools/education-tools.service';
 import { PdfViewerModule } from "ng2-pdf-viewer";
 import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
@@ -46,15 +43,14 @@ export class CareerplannercountrywiseComponent implements OnInit {
   recommadationSavedQuestionList: any[] = [];
   specializationList: any = [];
   isResponseSkeleton: boolean = false;
-
+  aiCreditCount:number = 0;
   constructor(private router: Router, private service: JobSearchService, private fb: FormBuilder, private pageFacade: PageFacadeService,
-    private toast: MessageService, private travelToolService: TravelToolsService, private educationService: EducationToolsService, private sanitizer: DomSanitizer,
+    private toast: MessageService, private educationService: EducationToolsService, private sanitizer: DomSanitizer,
     private promptService: PromptService
   ) {
     this.form = this.fb.group({
       country: ['', [Validators.required]],
       specialization_name: ['', [Validators.required]],
-      // currency: ['', [Validators.required]],
     });
   }
 
@@ -65,11 +61,20 @@ export class CareerplannercountrywiseComponent implements OnInit {
 
     this.educationService.getcareerPlannerSpec().subscribe({
       next: response => {
-        // console.log(response);
         this.specializationList = response;
+      }
+    });
+    this.getAICreditCount();
+  }
+
+  getAICreditCount(){
+    this.promptService.getAicredits().subscribe({
+      next: resp =>{
+        this.aiCreditCount = resp;
       }
     })
   }
+
   get f() {
     return this.form.controls;
   }
@@ -87,6 +92,7 @@ export class CareerplannercountrywiseComponent implements OnInit {
       this.isResponseSkeleton = true;
       this.service.getCountryCurrencyChatGptOutput(data).subscribe({
         next: (res: any) => {
+          this.getAICreditCount();
           this.isResponseSkeleton = false;
           this.recommendationData = this.sanitizer.bypassSecurityTrustHtml(res.response);
           this.submitted = false
@@ -129,7 +135,7 @@ export class CareerplannercountrywiseComponent implements OnInit {
     this.isSavedResponse = false;
   }
   goBackcareerPlanList() {
-    this.router.navigate(['/pages/job-tool/careerplannerlist']);
+    this.router.navigate(['/pages/job-tool/career-tool']);
   }
   openVideoPopup(videoLink: string) {
     this.pageFacade.openHowitWorksVideoPopup(videoLink);

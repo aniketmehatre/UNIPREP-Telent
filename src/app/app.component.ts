@@ -4,7 +4,7 @@ import { environment } from "@env/environment"
 import { LocalStorageService } from "ngx-localstorage"
 import { NgxUiLoaderModule } from "ngx-ui-loader"
 import { ToastModule } from "primeng/toast"
-import { RouterModule } from "@angular/router"
+import { ActivatedRoute, Route, Router, RouterModule } from "@angular/router"
 import { MessageService } from "primeng/api"
 import { SeoManagerComponent } from "./components/seo-manager/seo-manager.component"
 
@@ -22,14 +22,30 @@ import { SeoManagerComponent } from "./components/seo-manager/seo-manager.compon
 	],
 })
 export class AppComponent {
-	constructor(private storage: LocalStorageService, private whitelabelservice: LocationService) {}
+	constructor(private storage: LocalStorageService, private whitelabelservice: LocationService,
+		private router: Router,
+	) { }
 	private isPageHidden = false
+	domainNameCondition: string
+	domainname: string = 'main'
 
 	ngOnInit() {
+		this.domainNameCondition = window.location.hostname
+		this.domainname = this.isDomainMain() ? 'main' : 'sub'
+		if (this.domainname === 'sub') {
+			this.router.navigate(['/students'], { replaceUrl: true });
+		}
 		this.getImageWhitelabel()
 		document.addEventListener("visibilitychange", () => {
 			this.isPageHidden = document.hidden
 		})
+	}
+
+	private isDomainMain(): boolean {
+		return this.domainNameCondition === "dev-student.uniprep.ai" ||
+			this.domainNameCondition === "*.uniprep.ai" ||
+			this.domainNameCondition === "uniprep.ai" ||
+			this.domainNameCondition === "localhost"
 	}
 
 	@HostListener("window:beforeunload", ["$event"])
@@ -122,6 +138,6 @@ export class AppComponent {
 		var data = {
 			domainname: this.imagewhitlabeldomainname,
 		}
-		this.whitelabelservice.getWhitlabelData(data).subscribe((res) => {})
+		this.whitelabelservice.getWhitlabelData(data).subscribe((res) => { })
 	}
 }

@@ -20,7 +20,6 @@ import { SelectModule } from "primeng/select"
 import { DialogModule } from "primeng/dialog"
 import { CardModule } from "primeng/card"
 import { InputNumberModule } from "primeng/inputnumber"
-import { DownloadRespose } from "src/app/@Models/travel-tools.model"
 import { DomSanitizer, SafeHtml } from "@angular/platform-browser"
 import { PromptService } from "../../prompt.service"
 import { SharedModule } from "src/app/shared/shared.module"
@@ -69,12 +68,21 @@ export class TravelPackingPlannerComponent implements OnInit {
 	recommadationSavedQuestionList: any[] = [];
 	isFromSavedData: boolean = false;
 	isResponseSkeleton: boolean = false;
-	
+	aiCreditCount: number = 0;
 	constructor(private travelToolsService: TravelToolsService, private router: Router, private costOfLivingService: CostOfLivingService, private toast: MessageService, private sanitizer: DomSanitizer, private promptService : PromptService) { }
 
 	ngOnInit(): void {
 		this.selectedData = { 4: 1 }
-		this.getCityList()
+		this.getCityList();
+		this.getAICreditCount();
+	}
+
+	getAICreditCount(){
+		this.promptService.getAicredits().subscribe({
+		  next: resp =>{
+			this.aiCreditCount = resp;
+		  }
+		})
 	}
 
 	getCityList() {
@@ -119,7 +127,8 @@ export class TravelPackingPlannerComponent implements OnInit {
 		this.travelToolsService.getChatgptRecommendations(data).subscribe({
 			next: (response) => {
 				this.isResponseSkeleton = false;
-				this.recommendationData = this.sanitizer.bypassSecurityTrustHtml(response.response)
+				this.recommendationData = this.sanitizer.bypassSecurityTrustHtml(response.response);
+				this.getAICreditCount();
 			},
 			error: (error) => {
 				console.error(error);

@@ -90,7 +90,10 @@ export class CountryInsightsSubmoduleComponent implements OnInit {
     let socialShare: any = document.getElementById("socialSharingList");
     socialShare.style.display = "none";
   }
-
+  onShowModal(value: any) {
+		let socialShare: any = document.getElementById("socialSharingList")
+		socialShare.style.display = "none"
+	}
   showSocialSharingList(index: any): void {
     let socialShare: any = document.getElementById("socialSharingList");
     if (socialShare.style.display == "") {
@@ -166,10 +169,6 @@ export class CountryInsightsSubmoduleComponent implements OnInit {
     alert('Text copied to clipboard!');
   }
 
-  onShowModal(value: any) {
-    let socialShare: any = document.getElementById("socialSharingList");
-    socialShare.style.display = "none";
-  }
 
 
 }

@@ -11,7 +11,7 @@ import { Router } from '@angular/router';
 export class AuthTokenService {
   private readonly TOKEN_EXPIRY_THRESHOLD = 5 * 60; // 5 minutes in seconds
   private tokenSubject = new BehaviorSubject<string | null>(null);
-  
+
   constructor(
     private storage: LocalStorageService,
     private router: Router
@@ -60,26 +60,26 @@ export class AuthTokenService {
   clearToken(shouldRedirect: boolean = true): void {
     this.storage.remove(environment.tokenKey);
     this.tokenSubject.next(null);
-    
+
     // Only redirect to login if explicitly requested and current route is not public
     if (shouldRedirect) {
       const currentUrl = this.router.url;
       const publicRoutes = [
-        '', 
-        '/', 
-        '/landing', 
-        '/login', 
-        '/register', 
-        '/privacy', 
-        '/blogs', 
-        '/certificates', 
+        // '',
+        // '/',
+        '/landing',
+        '/login',
+        '/register',
+        '/privacy',
+        '/blogs',
+        '/certificates',
         '/enterprisepayment',
         '/forgot-password',
         '/setpassword',
         '/verification'
       ];
       const isPublicRoute = publicRoutes.some(route => currentUrl.startsWith(route));
-      
+
       if (!isPublicRoute) {
         this.router.navigate(['/login']);
       }

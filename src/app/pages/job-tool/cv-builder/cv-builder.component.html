@@ -455,7 +455,8 @@
 																<i class="fa-solid fa-circle-question m-2 uniprep-primary" pTooltip="We recommend you describe minimum 5 key responsibilities and achievements" tooltipPosition="top"></i>
 															</div>
 															<div>
-																<button pButton class="deleteDivButton mb-2" (click)="chatGPTIntegration('work_job_description', i)" [disabled]="genreateButtonDisabled[i]" style="background-color: #9bc329">AI Generate</button>
+																<!-- [disabled]="genreateButtonDisabled[i]" -->
+																<button pButton class="deleteDivButton mb-2" (click)="chatGPTIntegration('work_job_description', i)"  style="background-color: #9bc329">AI Generate</button>
 																<button pButton type="button" (click)="chatGPTIntegration('rephrase_job_description', i)" class="deleteDivButton m-2 p-2 bg-secondary" [disabled]="rephraseDesBtnDisable" >Rephrase</button>
 															</div>
 														</div>

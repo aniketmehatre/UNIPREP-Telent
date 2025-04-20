@@ -23,6 +23,6 @@ export class PercentageLoaderComponent {
       } else {
         clearInterval(percentageInterval);
       }
-    }, 30);
+    }, 200);
   }
 }

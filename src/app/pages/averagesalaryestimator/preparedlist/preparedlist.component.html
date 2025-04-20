@@ -6,86 +6,53 @@
 					<span class="fa-solid fa-chevron-left"></span>
 				</div>
 				<div class="select-title d-flex justify-content-between align-items-center">
-          <div class="d-flex gap-2">
-            <h5 routerLink="/pages/dashboard" role="button" class="mb-0" tooltipPosition="top" pTooltip=""><i class="fa-regular fa-home"></i></h5>
-            <span><i class="fa-solid fa-chevron-right"></i></span>
-            <h5 routerLink="/pages/job-tool/career-tool" role="button" class="mb-0" tooltipPosition="top" pTooltip="">Career Tools</h5>
-            <span><i class="fa-solid fa-chevron-right"></i></span>
-            <h5 class="mb-0" tooltipPosition="top" pTooltip="Access a curated list of companies by industry and location to target your job search effectively.">Average Salary Estimator</h5>
-          </div>
-					<div>
-						<!-- <button
-              (click)="
-                openVideoPopup(
-                  'https://www.youtube.com/embed/cbny1-f4rXI?si=E3WEU6LuiMLWA1Uq'
-                )
-              "
-              class="how-it-works-button"
-            >
-              How it works?<i class="fa-solid fa-play d-md-block d-none"></i>
-            </button> -->
+					<div class="d-flex gap-2">
+						<h5 routerLink="/pages/dashboard" role="button" class="mb-0" tooltipPosition="top" pTooltip="">
+							<i class="fa-regular fa-home"></i></h5>
+						<span><i class="fa-solid fa-chevron-right"></i></span>
+						<h5 routerLink="/pages/job-tool/career-tool" role="button" class="mb-0" tooltipPosition="top"
+							pTooltip="">Career Tools</h5>
+						<span><i class="fa-solid fa-chevron-right"></i></span>
+						<h5 class="mb-0" tooltipPosition="top"
+							pTooltip="Access a curated list of companies by industry and location to target your job search effectively.">
+							Average Salary Estimator</h5>
 					</div>
 				</div>
-				<div class="question-tab">
+				<!-- <div class="question-tab">
 					<p-tabView (onChange)="changeType($event)">
 						<p-tabPanel header="Default"> </p-tabPanel>
 						<p-tabPanel header="History"></p-tabPanel>
 					</p-tabView>
+				</div> -->
+				<div class="d-flex align-items-center gap-1">
+					<button pButton  class="btn btn-outline-primary text-small btn-rounded d-flex gap-2 align-items-center flex-fill" type="button">
+						AI Credit <span class="btn-icon text-white">{{ aiCreditCount }}</span>
+					  </button>
+					<button pButton type="button" (click)="saveRecommadation()"
+						class="btn btn-primary btn-rounded py-2 px-4">
+						<span>History</span>
+					</button>
 				</div>
 			</div>
 		</div>
 	</div>
 	<div class="card-body flex-fill overflow-y-auto">
-		<!-- <div
-      *ngIf="prepData?.role && !isSkeletonVisible && EstimateResponseVisibility"
-      class="container-fluid h-100"
-    >
-      <div
-        class="h-100 d-flex flex-column align-items-center justify-content-center"
-      >
-        <div
-          class="estimatemainblock ps-5 pe-5 pb-3 row justify-content-center "
-        >
-          <div class="text-end mt-4 p-0">
-            <button pButton 
-              (click)="saveRoleResponse()"
-              class="btn btn-back btn-rounded me-3"
-              style="padding: 0 !important"
-            >
-              <div class="d-flex align-items-center">
-                <span class="fw-normal h6 mb-0 ps-3 pe-2">Save Response</span>
-                <div class="btn-icon">
-                  <i class="fa-regular fa-floppy-disk"></i>
-                </div>
-              </div>
-            </button>
-          </div>
-          <h3 class="primary-color mb-4">
-            {{ selectedJobRole }}
-          </h3>
-
-          <div class="primary-color poppins-content" [innerHTML]="EstimateResponse"></div>
-        </div>
-      </div>
-    </div> -->
 		<div class="container-fluid h-100" *ngIf="prepData?.role && !isSkeletonVisible && EstimateResponseVisibility">
 			<div class="row">
 				<div class="col-md-2"></div>
 				<div class="col-md-8">
 					<div class="d-flex justify-content-end gap-3 mb-3">
-						<button pButton type="button" (click)="downloadRecommadation()" class="btn btn-secondary btn-rounded p-1 ps-4">
-							<span class="me-2">Download</span><span class="btn-icon px-2 py-2"> <i class="fa-regular fa-download"></i></span>
+						<button pButton type="button" (click)="downloadRecommadation()"
+							class="btn btn-secondary btn-rounded p-1 ps-4">
+							<span class="me-2">Download</span><span class="btn-icon px-2 py-2"> <i
+									class="fa-regular fa-download"></i></span>
 						</button>
-						<!-- <button pButton type="button" (click)="saveRoleResponse()"
-                  class="btn btn-primary btn-rounded p-1 ps-4">
-                  <span class="me-2">Save Response</span><span class="btn-icon px-2 py-2">
-                      <i class="fa-regular fa-floppy-disk"></i></span>
-              </button> -->
 					</div>
 					<h3 class="primary-color mb-4">
 						{{ selectedJobRole }}
 					</h3>
-                    <div class="card p-3 poppins-content chatgpt-response bg-white h-100 overflow-y-auto" [innerHtml]="EstimateResponse"></div>
+					<div class="card p-3 poppins-content chatgpt-response bg-white h-100 overflow-y-auto"
+						[innerHtml]="EstimateResponse"></div>
 				</div>
 				<div class="col-md-2"></div>
 			</div>
@@ -94,7 +61,7 @@
 			<div class="col-md-2"></div>
 			<div class="col-md-8">
 				<p-skeleton width='30rem' height='2rem' styleClass="mb-2"></p-skeleton>
-				<div  class="card p-3 chatgpt-response bg-white h-100 overflow-y-auto">
+				<div class="card p-3 chatgpt-response bg-white h-100 overflow-y-auto">
 					<p-skeleton width='30rem' height='2rem' styleClass="mb-2"></p-skeleton>
 					<p-skeleton width='100%' height='1rem' styleClass="mb-2"></p-skeleton>
 					<p-skeleton width='100%' height='1rem' styleClass="mb-2"></p-skeleton>
@@ -113,14 +80,16 @@
 			</div>
 			<div class="col-md-2"></div>
 		</div>
-		<div *ngIf="!isSkeletonVisible && totalDataCount != 0 && !EstimateResponseVisibility" [ngClass]="readResponse ? 'h-100' : 'row'">
+		<div *ngIf="!isSkeletonVisible && totalDataCount != 0 && !EstimateResponseVisibility"
+			[ngClass]="readResponse ? 'h-100' : 'row'">
 			<ng-container *ngIf="readResponse">
 				<div class="container-fluid h-100">
 					<div class="row">
 						<div class="col-md-2"></div>
 						<div class="col-md-8">
 							<div class="d-flex justify-content-end gap-3 mb-3">
-								<button pButton (click)="saveRoleResponse()" class="btn btn-back btn-rounded me-3" style="padding: 0 !important" disabled>
+								<button pButton (click)="saveRoleResponse()" class="btn btn-back btn-rounded me-3"
+									style="padding: 0 !important" disabled>
 									<div class="d-flex align-items-center">
 										<span class="fw-normal h6 mb-0 ps-3 pe-2">Saved</span>
 										<div class="btn-icon">
@@ -132,17 +101,20 @@
 							<h3 class="primary-color mb-4">
 								{{ savedresponseData.jobrole }}
 							</h3>
-							<div class="card p-3 poppins-content chatgpt-response bg-white h-100 overflow-y-auto" [innerHtml]="EstimateResponse"></div>
+							<div class="card p-3 poppins-content chatgpt-response bg-white h-100 overflow-y-auto"
+								[innerHtml]="EstimateResponse"></div>
 						</div>
 						<div class="col-md-2"></div>
 					</div>
 				</div>
 			</ng-container>
 			<ng-container *ngIf="!readResponse">
-				<div *ngFor="let sub of ListData; let i = index" class="col-xxl-2 col-xl-3 col-lg-3 col-md-4 col-sm-6 col-xs-12 col-12 my-2">
+				<div *ngFor="let sub of ListData; let i = index"
+					class="col-xxl-2 col-xl-3 col-lg-3 col-md-4 col-sm-6 col-xs-12 col-12 my-2">
 					<div class="row w-100 h-100 m-0 justify-content-center">
 						<div class="card questioncard cursor-pointer" (click)="readSavedResponse(sub)">
-							<div class="card-body d-flex flex-sm-column flex-row justify-content-sm-between align-items-center gap-2 gap-md-0">
+							<div
+								class="card-body d-flex flex-sm-column flex-row justify-content-sm-between align-items-center gap-2 gap-md-0">
 								<div class="row justify-content-center w-100">
 									<div class="col">
 										<p class="primary-color p-3 fw-bold questiontext mb-0 mb-md-2">
@@ -156,7 +128,8 @@
 				</div>
 			</ng-container>
 		</div>
-		<div *ngIf="!prepData?.role && EstimateResponseVisibility" class="d-flex justify-content-center align-items-center h-100 flex-column">
+		<div *ngIf="!prepData?.role && EstimateResponseVisibility"
+			class="d-flex justify-content-center align-items-center h-100 flex-column">
 			<h3 class="primary-color">It seems we don't have any recommendations that</h3>
 			<h3 class="primary-color">match your current selection.</h3>
 			<br />
@@ -170,7 +143,8 @@
 		<div class="row">
 			<div class="col-md-3">&nbsp;</div>
 			<div class="col-md-6">
-				<p-paginator *ngIf="!EstimateResponseVisibility" [rows]="perpage" [totalRecords]="totalDataCount" (onPageChange)="paginate($event)" [rowsPerPageOptions]="[50, 100, 300, 500, 1000]"></p-paginator>
+				<p-paginator *ngIf="!EstimateResponseVisibility" [rows]="perpage" [totalRecords]="totalDataCount"
+					(onPageChange)="paginate($event)" [rowsPerPageOptions]="[50, 100, 300, 500, 1000]"></p-paginator>
 			</div>
 			<div class="col-md-3 text-end">
 				<button pButton pButton type="button" class="btn btn-quit ps-3 btn-rounded" (click)="backtoMain()">
@@ -180,12 +154,16 @@
 		</div>
 	</div>
 </div>
-<p-dialog [(visible)]="restrict" [modal]="true" [style]="{ width: '30vw' }" [draggable]="false" [resizable]="false" class="restrictionDialog" [breakpoints]="{ '960px': '30vw', '959px': '60vw', '425px': '90vw' }" (onHide)="clearRestriction()">
+<p-dialog [(visible)]="restrict" [modal]="true" [style]="{ width: '30vw' }" [draggable]="false" [resizable]="false"
+	class="restrictionDialog" [breakpoints]="{ '960px': '30vw', '959px': '60vw', '425px': '90vw' }"
+	(onHide)="clearRestriction()">
 	<div *ngIf="ehitlabelIsShow" class="text-center mt-5 mb-4">
 		<img src="../../../uniprep-assets/images/smartloack.png" class="image" width="60" />
 		<h3 class="offer">Upgrade Required</h3>
 		<p>To access this exclusive module,please upgrade your plan now</p>
-		<button pButton pButton type="button" class="text-white p-ripple p-button-rounded p-button-warning p-button p-component p-2" (click)="upgradePlan()">Upgrade Plan<i class="fa fa-arrow-right exhausted-plan-icon"></i></button>
+		<button pButton pButton type="button"
+			class="text-white p-ripple p-button-rounded p-button-warning p-button p-component p-2"
+			(click)="upgradePlan()">Upgrade Plan<i class="fa fa-arrow-right exhausted-plan-icon"></i></button>
 	</div>
 	<div *ngIf="!ehitlabelIsShow" class="text-center mt-5 mb-4">
 		<img src="{{ orglogowhitelabel }}" class="image" width="60" />
@@ -194,7 +172,8 @@
 	</div>
 </p-dialog>
 
-<p-dialog [(visible)]="readanswerpopubVisibility" [modal]="true" [header]="'headerTitle'" [style]="{ width: '90vw', height: '90vh' }" [closable]="true" [draggable]="false" id="preparedlist">
+<p-dialog [(visible)]="readanswerpopubVisibility" [modal]="true" [header]="'headerTitle'"
+	[style]="{ width: '90vw', height: '90vh' }" [closable]="true" [draggable]="false" id="preparedlist">
 	<ng-template pTemplate="header">
 		<div class="d-flex w-100 flex-column px-4">
 			<div class="d-flex flex-row justify-content-md-between justify-content-center">
@@ -226,7 +205,8 @@
 					<div class="col"></div>
 					<div class="col">{{ "Customized" | uppercase }}</div>
 					<div class="col text-right">
-						<button pButton (click)="saveInterviewQuestion()" class="btn btn-back btn-rounded me-3" style="padding: 0 !important">
+						<button pButton (click)="saveInterviewQuestion()" class="btn btn-back btn-rounded me-3"
+							style="padding: 0 !important">
 							<div class="d-flex align-items-center">
 								<span class="fw-normal h6 mb-0 ps-3 pe-2">Save Response</span>
 								<div class="btn-icon">

@@ -11,8 +11,13 @@
         <div class="card-body">
           <div class="row">
             <div class="col-md-3 text-center">
-              <div class="d-flex justify-content-center align-items-center h-100 p-4 rounded-3 bg-light" style="border: 1px dashed">
-                  <img (error)="$event.target.src = '/uniprep-assets/images/avatar.webp'" [src]="profileData.personalInfo.logo ?? 'uniprep-assets/images/avatar.png'" class="rounded-circle" alt="Profile Photo" width="150" height="150">
+              <div class="d-flex justify-content-center align-items-center border border-black h-100 p-4 rounded-3">
+                <div class="bg-secondary-subtle h-100 w-100 d-flex justify-content-center align-items-center rounded-3"
+                  style="border: 1px dashed">
+                  <img (error)="$event.target.src = '/uniprep-assets/images/avatar.webp'"
+                    [src]="profileData.personalInfo.logo ?? 'uniprep-assets/images/avatar.png'" class="rounded-circle"
+                    alt="Profile Photo" width="150" height="150">
+                </div>
               </div>
             </div>
             <div class="col-md-9">
@@ -50,7 +55,6 @@
           </div>
         </div>
       </section>
-
       <hr>
 
       <!-- Education Details Section -->

@@ -7,7 +7,6 @@ import { Router, RouterModule } from "@angular/router"
 import { CostOfLivingService } from "../../job-tool/cost-of-living/cost-of-living.service"
 import { City } from "src/app/@Models/cost-of-living"
 import { MessageService } from "primeng/api"
-import { sendDownloadParams } from "src/app/@Models/travel-tools.model"
 import { CommonModule } from "@angular/common"
 import { FormsModule, ReactiveFormsModule } from "@angular/forms"
 import { ButtonModule } from "primeng/button"
@@ -54,13 +53,13 @@ export class TravelCostEstimatorComponent implements OnInit {
 	recommadationSavedQuestionList: TravelCostEstimator[] = []
 	isFromSavedData: boolean = false
 	isResponseSkeleton: boolean = false;
-
+	aiCreditCount: number = 0;
 	constructor(private travelToolsService: TravelToolsService, private router: Router, private costOfLivingService: CostOfLivingService, private toast: MessageService, private sanitizer: DomSanitizer, private promptService: PromptService) { }
 
 	ngOnInit(): void {
 		this.selectedData = { 3: 1 }
-		// this.getCurrencyList();
-		this.getCityList()
+		this.getCityList();
+		this.getAICreditCount();
 	}
 
 	getCityList() {
@@ -72,13 +71,13 @@ export class TravelCostEstimatorComponent implements OnInit {
 		})
 	}
 
-	// getCurrencyList() {
-	//   this.travelToolsService.getCurrencies().subscribe({
-	//     next: response => {
-	//       this.currencyList = response;
-	//     }
-	//   });
-	// }
+	getAICreditCount(){
+		this.promptService.getAicredits().subscribe({
+		  next: resp =>{
+			this.aiCreditCount = resp;
+		  }
+		})
+	}
 
 	previous() {
 		this.invalidClass = false
@@ -115,6 +114,7 @@ export class TravelCostEstimatorComponent implements OnInit {
 			next: (response) => {
 				this.isResponseSkeleton = false;
 				this.recommendationData = this.sanitizer.bypassSecurityTrustHtml(response.response)
+				this.getAICreditCount();
 			},
 			error: (error) => {
 				console.error(error);

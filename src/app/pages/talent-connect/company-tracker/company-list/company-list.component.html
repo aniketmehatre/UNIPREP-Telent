@@ -2,7 +2,7 @@
 	<div class="card-header bg-transparent">
 		<div class="d-flex justify-content-between align-items-center">
 			<h4 class="m-0">All</h4>
-			<span class="text-muted">Total Application : {{ companyTotalCount }}</span>
+			<span class="text-muted">Total Application : {{ companyCount }}</span>
 		</div>
 	</div>
 	<div class="card-body overflow-y-auto p-0">
@@ -21,7 +21,7 @@
 									<i class="pi pi-map-marker me-1 text-success"></i>
 									<span>{{ company.HQ_city }}, {{ company.HQ_country }}</span>
 								</div>
-								<span class="status-badge" [ngClass]="getStatusClass('Sent')">{{ company.status }}</span>
+								<span class="status-badge" [ngClass]="getStatusClass(company.status)">{{ company.status }}</span>
 							</div>
 						</div>
 					</div>
@@ -32,9 +32,9 @@
 	<div class="card-footer bg-transparent">
 		<div class="pagination-container d-flex justify-content-between align-items-center">
 			<button class="btn btn-light" (click)="onBackClick()"><i class="pi pi-chevron-left me-1 fs-6"></i> Back</button>
-			<span>Page {{ page }} / {{ perPage }}</span>
+			<span>Page {{ page }} / {{ totalPage }}</span>
 			<button class="btn btn-light" (click)="onNextClick()">Next <i class="pi pi-chevron-right ms-1 fs-6"></i></button>
 		</div>
 	</div>
 </div>
-<app-company-filter [openModal]="displayModal" (closeFilter)="displayModal = false; triggerCloseFilter.emit()" (triggerApplyFiler)="getCompanyTrackerList($event)" (resetFilter)="getCompanyTrackerList()"></app-company-filter>
+<app-company-filter [openModal]="displayModal" (closeFilter)="displayModal = false; triggerCloseFilter.emit()" (triggerApplyFiler)="applyFilter($event)" (resetFilter)="applyFilter({})"></app-company-filter>

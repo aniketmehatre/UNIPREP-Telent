@@ -14,11 +14,13 @@ import { DashboardComponent } from "./pages/dashboard/dashboard.component"
 import { ForgotPasswordComponent } from "./Auth/forgot-password/forgot-password.component"
 import { VerificationComponent } from "./Auth/verification/verification.component"
 import { SetpasswordComponent } from "./Auth/setpassword/setpassword.component"
-import {LandingNewComponent} from "./pages/landing-new/landing-new.component";
+import { LandingNewComponent } from "./pages/landing-new/landing-new.component";
+import { CoBrandedComponent } from "./Auth/co-branded/co-branded.component"
 export const appRoutes: Routes = [
 	// Public routes that don't require authentication
-	{ path: "", component: LandingNewComponent, pathMatch: "full" }, // Default route is now landing page
-	{ path: "landing", component: LandingNewComponent },
+	{ path: "", component: LandingComponent, pathMatch: "full" }, // Default route is now landing page
+	{ path: "landing", component: LandingComponent },
+	{ path: "students", component: CoBrandedComponent },
 	{ path: "login", component: LoginComponent },
 	{ path: "register", component: RegistrationComponent },
 	{ path: "privacy", component: PrivacyComponent },
@@ -26,7 +28,7 @@ export const appRoutes: Routes = [
 	{ path: "blogs/:slug", component: BlogdetailComponent },
 	{ path: "certificates", component: CertificatesComponent },
 	{ path: "enterprisepayment/:id", component: EnterpriseSubscriptionComponent },
-	{ path: "forgot-password", component: ForgotPasswordComponent }	,
+	{ path: "forgot-password", component: ForgotPasswordComponent },
 	{ path: "verification/:email", component: VerificationComponent },
 	{ path: "setpassword/:otp/:email", component: SetpasswordComponent },
 
@@ -40,7 +42,7 @@ export const appRoutes: Routes = [
 			user: UserResolver,
 		},
 	},
-	
+
 	// Auth module routes
 	{
 		path: "auth",

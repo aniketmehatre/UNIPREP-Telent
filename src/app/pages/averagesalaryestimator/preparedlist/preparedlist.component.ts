@@ -16,7 +16,6 @@ import { SelectModule } from "primeng/select"
 import { InputGroupModule } from "primeng/inputgroup"
 import { InputTextModule } from "primeng/inputtext"
 import { InputGroupAddonModule } from "primeng/inputgroupaddon"
-import { TravelToolsService } from "../../travel-tools/travel-tools.service";
 import { PdfViewerModule } from "ng2-pdf-viewer";
 import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
 import { PromptService } from "../../prompt.service";
@@ -46,6 +45,7 @@ export class AverageSalaryPreparedListComponent implements OnInit {
   EstimateResponse: SafeHtml;
   EstimateResponseVisibility = true;
   selectedJobRole: any;
+  aiCreditCount: number = 0;
   @Input() prepData: any;
   @Input() recommendationsData: { id: number, question: string }[];
   @Output() windowChange = new EventEmitter();
@@ -59,12 +59,12 @@ export class AverageSalaryPreparedListComponent implements OnInit {
     private service: AveragesalaryestimatorService,
     private router: Router,
     private pageFacade: PageFacadeService,
-    private travelService: TravelToolsService,
     private sanitizer: DomSanitizer,
     private promptService: PromptService
   ) { }
   ngOnInit(): void {
     this.selectedJobRole = this?.prepData?.role;
+    this.aiCreditCount = this.prepData.aiCredit;
     this.getEstimateResponse();
     this.getSavedResponse();
     this.checkPlanExpiry();
@@ -88,7 +88,13 @@ export class AverageSalaryPreparedListComponent implements OnInit {
         this.totalDataCount = this.ListData.length;
       });
   }
-
+  getAICreditCount(){
+    this.promptService.getAicredits().subscribe({
+      next: resp =>{
+        this.aiCreditCount = resp;
+      }
+    })
+  }
   downloadRecommadation() {
     let addingInput: string = '';
     this.recommendationsData.forEach(values => {
@@ -125,6 +131,7 @@ export class AverageSalaryPreparedListComponent implements OnInit {
   getEstimateResponse() {
     this.service.getestimates(this.prepData).subscribe((response: any) => {
       this.EstimateResponse = this.sanitizer.bypassSecurityTrustHtml(response?.data);
+      this.getAICreditCount();
       this.EstimateResponseVisibility = true;
       this.isSkeletonVisible = false;
     });
@@ -219,20 +226,25 @@ export class AverageSalaryPreparedListComponent implements OnInit {
       }
     );
   }
-  changeType(event: any) {
-    let tabIndex = event.index;
-    if (tabIndex == 0) {
-      this.getEstimateResponse();
-      this.EstimateResponseVisibility = true;
-    } else {
-      this.getSavedResponse();
-      this.EstimateResponseVisibility = false;
-    }
-  }
+  // changeType(event: any) {
+  //   let tabIndex = event.index;
+  //   if (tabIndex == 0) {
+  //     this.getEstimateResponse();
+  //     this.EstimateResponseVisibility = true;
+  //   } else {
+  //     this.getSavedResponse();
+  //     this.EstimateResponseVisibility = false;
+  //   }
+  // }
   readResponse = false;
   savedresponseData: any;
   readSavedResponse(savedResponse: any) {
     this.savedresponseData = savedResponse;
     this.readResponse = true;
+  }
+
+  saveRecommadation(){
+    this.getSavedResponse();
+    this.EstimateResponseVisibility = false;
   }
 }

@@ -63,6 +63,7 @@ export class GlobalEdufitComponent implements OnInit {
   isRecommendationSavedData: boolean = false;
   recommendationData: SafeHtml;
 	isResponseSkeleton: boolean = false;
+  aiCreditCount: number = 0;
 
   constructor(
     private fb: FormBuilder,
@@ -135,8 +136,15 @@ export class GlobalEdufitComponent implements OnInit {
       this.ehitlabelIsShow = false;
     }
     this.getCurrenyandLocation();
+    this.getAICreditCount();
   }
-
+  getAICreditCount(){
+		this.promptService.getAicredits().subscribe({
+		  next: resp =>{
+			this.aiCreditCount = resp;
+		  }
+		})
+	}
   goBack() {
     this.router.navigateByUrl('/pages/education-tools');
   }
@@ -232,6 +240,7 @@ export class GlobalEdufitComponent implements OnInit {
       next: response => {
 				this.isResponseSkeleton = false;
 				this.recommendationData = this.sanitizer.bypassSecurityTrustHtml(response.response);
+        this.getAICreditCount();
       },
       error: error => {
 				this.isResponseSkeleton = false;
@@ -272,18 +281,19 @@ export class GlobalEdufitComponent implements OnInit {
   }
 
   saveRecommadation() {
-    if (!this.isFromSavedData) {
+    // if (!this.isFromSavedData) {
       this.educationToolService.getAnalysisList('global_edufit').subscribe({
         next: response => {
           this.isRecommendationQuestion = false;
           this.isRecommendationData = false;
           this.isRecommendationSavedData = true;
           this.recommadationSavedQuestionList = response.data;
+          console.log(this.recommadationSavedQuestionList,"saved data");
         },
         error: error => {
         }
       });
-    }
+    // }
   }
 
   showRecommandationData(data: string) {

@@ -1,0 +1,35 @@
+name: 🚀 Deploy Angular App to Contabo Server
+
+on:
+  push:
+    branches:
+      - dev-pipeline
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: 🧱 Checkout Code
+        uses: actions/checkout@v3
+
+      - name: 🔧 Setup Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: "18"
+
+      - name: 📦 Install Dependencies
+        run: npm install --legacy-peer-deps
+
+      - name: 🛠️ Build Angular App (Development)
+        run: npm run build -- --configuration development
+
+      - name: 📂 Deploy via rsync (Safe Copy)
+        run: |
+          echo "${{ secrets.DEV_SERVER_SSH_KEY }}" > key.pem
+          chmod 600 key.pem
+          rsync -e "ssh -i key.pem -o StrictHostKeyChecking=no" \
+            -avz --delete \
+            --exclude='.htaccess' \
+            dist/UNIPREP/browser/ \
+            ${{ secrets.DEV_SERVER_USER }}@${{ secrets.DEV_SERVER_HOST }}:/var/www/html/frontend/uniprep-student/

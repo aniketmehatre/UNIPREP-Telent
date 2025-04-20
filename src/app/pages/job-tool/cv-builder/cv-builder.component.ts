@@ -1274,11 +1274,10 @@ export class CvBuilderComponent implements OnInit, AfterViewInit {
         parameters.experience_level = selectedExp.level;
         // prompt = `Provide a professional summary for a resume, up to 30 words, tailored to a ${formData.user_job_title} role with ${selectedExp.level} of experience.`;
       }
-      this.isButtonDisabled = true;
+      // this.isButtonDisabled = true;
     } else if (fieldName == "work_job_description") {
       // parameters.mode =  "work_job_description";
-      this.genreateButtonDisabled[iteration] = true;
-      console.log(this.getWorkExpArray.value, "work job description");
+      // this.genreateButtonDisabled[iteration] = true;
       const work_designation = this.getWorkExpArray.value[iteration].work_designation;
       parameters.work_designation = work_designation;
     } else if(fieldName == "rephrase_summary"){
@@ -1296,7 +1295,6 @@ export class CvBuilderComponent implements OnInit, AfterViewInit {
         parameters.work_job_description = this.getWorkExpArray.value[iteration].work_job_description
       }
     }
-    console.log(parameters, "parameters");
     this.resumeService.openAiIntegration(parameters).subscribe((res) => {
       if (res.response && res.response.length > 0) {
         if (fieldName == "user_summary" || fieldName == "rephrase_summary") {
@@ -1315,7 +1313,6 @@ export class CvBuilderComponent implements OnInit, AfterViewInit {
           }
         }
       }
-      console.log(res, "open Ai integration");
     });
     // return;
     // const headers = new HttpHeaders({
