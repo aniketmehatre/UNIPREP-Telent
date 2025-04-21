@@ -171,7 +171,7 @@ export class CostOfLivingComponent implements OnInit {
     this.authService.getNewUserTimeLeft().subscribe((res) => {
       let data = res.time_left;
       let subscription_exists_status = res.subscription_details;
-      if (data.plan === "expired" || data.plan === 'subscription_expired' || subscription_exists_status.subscription_plan == "Student") {
+      if (data.plan === "expired" || data.plan === 'subscription_expired'  ) {
         this.planExpired = true;
       } else {
         this.planExpired = false;
