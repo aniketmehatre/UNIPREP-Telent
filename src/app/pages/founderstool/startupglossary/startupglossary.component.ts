@@ -96,18 +96,6 @@ export class StartupglossaryComponent implements OnInit {
   goBack() {
     this.router.navigate(['/pages/founderstool/founderstoollist']);
   }
-  // performSearch() {
-  //   const filteredData = this.startupglossarylists.filter((item: any) => {
-  //     return item.glossaryterm.toLowerCase().includes(this.valueNearYouFilter.toLowerCase());
-  //   });
-  //   this.groupedTerms = {};
-  //   filteredData.forEach(item => {
-  //     if (!this.groupedTerms[item.alphabet]) {
-  //       this.groupedTerms[item.alphabet] = [];
-  //     }
-  //     this.groupedTerms[item.alphabet].push(item);
-  //   });
-  // }
   performSearch() {
     // highlights the words
      const search = this.valueNearYouFilter?.trim();
