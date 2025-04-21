@@ -46,7 +46,7 @@ export class LandingComponent implements OnInit {
 	displaycancellationpolicy!: boolean
 	displaycontactform!: boolean;
 	displayLearningHubpage: boolean = false;
-	displayJobSeekerPage: boolean = true;
+	displayJobSeekerPage: boolean = false;
 	currentImage: string = "/uniprep-assets/images/feature1.webp"
 	contactForm: any
 	blogs: any
