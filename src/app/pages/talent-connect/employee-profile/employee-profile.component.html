@@ -75,7 +75,7 @@
 										<!-- Date of Birth -->
 										<div class="col-md-6">
 											<label for="dateOfBirth" class="form-label">Date of Birth<span class="text-danger">*</span></label>
-											<p-datepicker id="dateOfBirth" formControlName="date_of_birth" dateFormat="dd-mm-yy" placeholder="DD/MM/YYYY" styleClass="w-100" (mouseenter)="updateMessageBox('date_of_birth')" (mouseleave)="resetMessageBox()" />
+											<p-datepicker id="dateOfBirth" formControlName="date_of_birth" dateFormat="dd-mm-yy" placeholder="DD/MM/YYYY" styleClass="w-100" [maxDate]="today" (mouseenter)="updateMessageBox('date_of_birth')" (mouseleave)="resetMessageBox()" />
 											<small class="text-danger" *ngIf="personalInfoForm.get('date_of_birth')?.invalid && personalInfoForm.get('date_of_birth')?.touched"> This field is mandatory </small>
 										</div>
 									</div>
@@ -162,9 +162,14 @@
 
 												<!-- Course Name -->
 												<div class="col-md-6">
-													<label for="courseName" class="form-label">GPA Percentage</label>
+													<label for="courseName" class="form-label">Percentage</label>
 													<div class="p-inputgroup">
+														<p-inputgroup>
 														<p-input-number id="courseName" formControlName="education_gpa_percentage" mode="decimal" placeholder="Enter your GPA" class="w-100" [maxFractionDigits]="2" [min]="0" [max]="100" (mouseleave)="resetMessageBox()" (mouseenter)="updateMessageBox('education_gpa_percentage')" />
+														<p-inputgroup-addon>
+															<i class="pi pi-percentage"></i>
+														</p-inputgroup-addon>
+														</p-inputgroup>
 														<small class="text-danger" *ngIf="education.get('education_graduation_year_id')?.invalid && education.get('education_gpa_percentage')?.touched">This field need min 0 to max 100 </small>
 													</div>
 												</div>
@@ -227,8 +232,8 @@
 												<div class="col-md-6 mb-3">
 													<label for="duration" class="form-label">Duration</label>
 													<div class="d-block d-md-flex gap-2 w-full">
-														<p-datepicker formControlName="work_experience_duration_from" size="small" placeholder="From Date" dateFormat="dd-mm-yy"   inputId="icondisplay"/> 
-														<p-datepicker formControlName="work_experience_duration_to" size="small" placeholder="To Date" dateFormat="dd-mm-yy" inputId="icondisplay"/>
+														<p-datepicker formControlName="work_experience_duration_from" size="small" placeholder="From Date" dateFormat="dd-mm-yy" [maxDate]="today"  inputId="icondisplay"/> 
+														<p-datepicker formControlName="work_experience_duration_to" size="small" placeholder="To Date" dateFormat="dd-mm-yy" inputId="icondisplay" [minDate]="experience.get('work_experience_duration_from')?.value"/>
 													</div>
 													<div
 													*ngIf="(experience.get('work_experience_duration_from')?.value && !experience.get('work_experience_duration_to')?.value) 

@@ -1,4 +1,4 @@
-import { Component, OnInit, TemplateRef, ViewChild } from '@angular/core';
+import { Component, ElementRef, OnInit, TemplateRef, ViewChild } from '@angular/core';
 import { FormGroup, FormBuilder, Validators, FormArray, AbstractControl, FormControl } from '@angular/forms';
 import { ViewProfileComponent } from './view-profile/view-profile.component';
 import { DialogService, DynamicDialogRef } from 'primeng/dynamicdialog';
@@ -20,7 +20,9 @@ export enum FileType {
   styleUrl: './employee-profile.component.scss'
 })
 export class EmployeeProfileComponent implements OnInit {
+  @ViewChild('fileUploadImage') fileInput: ElementRef;
   @ViewChild('header', { static: true }) headerTemplate!: TemplateRef<any>;
+  today: Date = new Date();
   nationalityList: any = [];
   isLoadingAiSummary: boolean = false;
   selectedSocialMedias: string[] = [];
@@ -174,7 +176,7 @@ export class EmployeeProfileComponent implements OnInit {
   professionalStrengths: any[] = [];
   qualifications: any[] = [];
   softSkills: any[] = [];
-  socialMedias: any[] = ['Facebook', 'Instagram', 'LinkedIN', 'X'];
+  socialMedias: any[] = ['Facebook', 'Instagram', 'X'];
   preferredLocationsList: any[] = [];
 
   constructor(
@@ -402,6 +404,7 @@ export class EmployeeProfileComponent implements OnInit {
   }
 
   onUploadPhoto(event: any) {
+    console.log(event);
     const file = event.target.files[0];
     if (!file) return;
 
@@ -418,6 +421,7 @@ export class EmployeeProfileComponent implements OnInit {
   onRemovePhoto() {
     this.logo = null;
     delete this.uploadedFiles['profile_image'];
+    this.fileInput.nativeElement.value = '';
     this.personalInfoForm.get('profile_image')?.setValue('');
   }
 
