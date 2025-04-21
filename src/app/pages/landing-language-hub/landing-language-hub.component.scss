@@ -1,0 +1,349 @@
+:host {
+    display: block;
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+  }
+  
+  .learning-hub-container {
+    background-color: #000;
+    color: #fff;
+    padding: 2rem 8rem;
+    margin: 0 auto;
+  }
+  
+  // Top Navigation
+  .top-nav {
+    display: flex;
+    align-items: center;
+    padding: 1.5rem 0;
+  }
+  
+  .back-button {
+    background: none;
+    border: 1px solid #333;
+    border-radius: 50%;
+    width: 30px;
+    height: 30px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #fff;
+    cursor: pointer;
+  }
+  
+  .learning-hub-button {
+    margin-left: 1rem;
+    background-color: rgba(255, 255, 255, 0.1);
+    border-radius: 20px;
+    padding: 0.5rem 1rem;
+    font-size: 0.9rem;
+  }
+  
+  // Hero Section
+  .hero-section {
+    display: flex;
+    gap: 2rem;
+    padding: 2rem 0 4rem;
+    align-items: center;
+  }
+  
+  .hero-content {
+    flex: 1;
+  }
+  
+  .hero-title {
+    font-size: 3rem;
+    font-weight: 800;
+    line-height: 1.2;
+    margin-bottom: 1.5rem;
+  }
+  
+  .highlight {
+    color: #f5812f;
+  }
+  
+  .hero-description {
+    font-size: 1.1rem;
+    line-height: 1.6;
+    margin-bottom: 2rem;
+    opacity: 0.9;
+  }
+  
+  .hero-buttons {
+    display: flex;
+    gap: 1rem;
+  }
+  
+  .learn-more-btn {
+    background-color: transparent;
+    color: #fff;
+    border: 1px solid #333;
+    border-radius: 5px;
+    padding: 0.6rem 2rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s;
+  }
+  
+  .try-free-btn {
+    background-color: #f5812f;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    padding: 0.6rem 2rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s;
+  }
+  
+  .hero-image {
+    flex: 1;
+    img {
+      width: 100%;
+      border-radius: 10px;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+    }
+  }
+  
+  // Section Styles
+  .section-title {
+    font-size: 2.5rem;
+    font-weight: 700;
+    margin-bottom: 2.5rem;
+  }
+  
+  // Why Choose Section
+  .why-choose-section {
+    padding: 4rem 0;
+  }
+  
+  .features-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(400px, 1fr));
+    gap: 1.5rem;
+  }
+  
+  .feature-card {
+	border-radius: 1.5rem;
+	border: 1px solid #e6ddfe08;
+	background: linear-gradient(0deg, rgba(255, 255, 255, 0) 0%, rgba(255, 255, 255, 0.05) 100%);
+	box-shadow: 0px 10px 25px 0px rgba(230, 221, 254, 0.1) inset;
+	color: white;
+    padding: 1.5rem;
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+  }
+  
+  .feature-icon {
+    font-size: 1.5rem;
+    background-color: rgba(255, 255, 255, 0.1);
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  
+  .feature-title {
+    font-size: 1.2rem;
+    font-weight: 600;
+    margin-bottom: 0.5rem;
+  }
+  
+  .feature-description {
+    font-size: 0.9rem;
+    opacity: 0.8;
+  }
+  
+  // CTA Banner
+  .cta-banner {
+    background: linear-gradient(to right, #c94b8e, #f5812f);
+    border-radius: 15px;
+    padding: 2rem;
+    margin: 4rem 0;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  
+  .cta-title {
+    font-size: 2.5rem;
+    font-weight: 700;
+  }
+  
+  .register-btn {
+    background-color: #000;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    padding: 0.75rem 1.5rem;
+    font-weight: 600;
+    cursor: pointer;
+  }
+  
+  // How it Works Section
+  .how-it-works-section {
+    padding: 4rem 0;
+  }
+  
+  .steps-container {
+    display: flex;
+    gap: 3rem;
+  }
+  
+  .steps-list {
+    flex: 1;
+  }
+  
+  .step-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+	border-radius: 1.5rem;
+	border: 1px solid #e6ddfe08;
+	background: linear-gradient(0deg, rgba(255, 255, 255, 0) 0%, rgba(255, 255, 255, 0.05) 100%);
+	box-shadow: 0px 10px 25px 0px rgba(230, 221, 254, 0.1) inset;
+    padding: 1.5rem;
+    margin-bottom: 1rem;
+  }
+  
+  .step-title {
+    font-size: 1.2rem;
+    font-weight: 600;
+    margin-bottom: 0.25rem;
+  }
+  
+  .step-description {
+    font-size: 0.9rem;
+    opacity: 0.8;
+  }
+  
+  .step-icon {
+    font-size: 2rem;
+  }
+  
+  .steps-image {
+    flex: 1;
+    img {
+      width: 100%;
+      border-radius: 10px;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+    }
+  }
+  
+  // Who It's For Section
+  .who-its-for-section {
+    padding: 4rem 0;
+  }
+  
+  .user-types-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+    gap: 1.5rem;
+  }
+  
+  .user-type-card {
+	border-radius: 1.5rem;
+	border: 1px solid #e6ddfe08;
+	background: linear-gradient(0deg, rgba(255, 255, 255, 0) 0%, rgba(255, 255, 255, 0.05) 100%);
+	box-shadow: 0px 10px 25px 0px rgba(230, 221, 254, 0.1) inset;
+    padding: 1.5rem;
+    text-align: center;
+  }
+  
+  .user-type-image {
+    width: 100%;
+    height: 150px;
+    margin-bottom: 1rem;
+    img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      border-radius: 8px;
+    }
+  }
+  
+  .user-type-title {
+    font-size: 1.3rem;
+    font-weight: 600;
+    margin-bottom: 0.5rem;
+  }
+  
+  .user-type-description {
+    font-size: 0.9rem;
+    opacity: 0.8;
+  }
+  
+  // FAQ Section
+  .faq-section {
+    padding: 4rem 0;
+  }
+  
+  .faq-list {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+  }
+  
+  .faq-item {
+    background-color: rgba(255, 255, 255, 0.05);
+    border-radius: 10px;
+    overflow: hidden;
+  }
+  
+  .faq-question {
+    padding: 1.5rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    cursor: pointer;
+    font-weight: 500;
+  }
+  
+  .faq-answer {
+    padding: 0 1.5rem 1.5rem;
+    opacity: 0.8;
+    line-height: 1.6;
+  }
+  
+  .faq-icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  
+  // Responsive styles
+  @media (max-width: 992px) {
+    .hero-section, .steps-container {
+      flex-direction: column;
+    }
+    
+    .hero-title {
+      font-size: 2.5rem;
+    }
+    
+    .section-title {
+      font-size: 2rem;
+    }
+    
+    .cta-title {
+      font-size: 2rem;
+    }
+  }
+  
+  @media (max-width: 768px) {
+    .features-grid, .user-types-grid {
+      grid-template-columns: 1fr;
+    }
+    
+    .hero-title {
+      font-size: 2rem;
+    }
+    
+    .cta-banner {
+      flex-direction: column;
+      gap: 1.5rem;
+      text-align: center;
+    }
+  }
