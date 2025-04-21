@@ -1,5 +1,6 @@
 import { environment } from "@env/environment";
 let domainUrl = `https://${environment.domain}/uniprepapi/storage/app/public/ToolIcons/education-tools/`;
+let careerToolImageURL: string = `https://${environment.domain}/uniprepapi/storage/app/public/ToolIcons/career-tools/`;
 export interface educationTools {
   title: string
   image: string
@@ -90,6 +91,27 @@ export const EducationToolsData: educationTools[] = [
     title: "SOP Expert",
     image: domainUrl + "sopexpert.svg",
     url: "/pages/education-tools/scholarship-finder",
+    launch_soon: true,
+    is_ai: false,
+  },
+  {
+    title: "UNILOAN",
+    image: careerToolImageURL + "Distancelearning.svg",
+    url: "",
+    launch_soon: true,
+    is_ai: false,
+  },
+  {
+    title: "Distance Learning Education",
+    image: careerToolImageURL + "Distancelearning.svg",
+    url: "",
+    launch_soon: true,
+    is_ai: false,
+  },
+  {
+    title: "Executive Education",
+    image: careerToolImageURL + "executiveeducationn.svg",
+    url: "",
     launch_soon: true,
     is_ai: false,
   }

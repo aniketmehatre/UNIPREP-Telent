@@ -9,6 +9,7 @@ import { AuthService } from "src/app/Auth/auth.service";
 import { DataService } from "src/app/data.service";
 import { LocationService } from "src/app/location.service";
 import { AssessmentService } from "src/app/pages/assessment/assessment.service";
+import { StorageService } from "src/app/storage.service";
 
 export interface SideMenu {
   title: string;
@@ -316,12 +317,15 @@ export class SidenavComponent {
   collegeStudentRestrictedMenus = ["Assessment"];
   currentUserSubscriptionPlan: string = "";
 
-  constructor(private router: Router, private activatedRoute: ActivatedRoute, private dataService: DataService, private authService: AuthService, private locationService: LocationService, private assessmentService: AssessmentService) {
+  constructor(private router: Router, private activatedRoute: ActivatedRoute, private dataService: DataService,
+    private authService: AuthService, private locationService: LocationService,
+    private assessmentService: AssessmentService, private storage: StorageService) {
     this.dataService.countryNameSource.subscribe((countryName) => {
       this.menus.filter((data) => {
         if (data.title.includes("Life in")) data.title = "Life in " + countryName;
       });
     });
+
     router.events
       .pipe(
         filter((event) => event instanceof NavigationEnd),
@@ -339,6 +343,17 @@ export class SidenavComponent {
         },
       });
   }
+
+  get filteredMenus(): SideMenu[] {
+    if (this.storage.get('home_country_name') === 'India') {
+      return this.menus;
+    } else {
+      return this.menus.filter(menu =>
+        !['Global Repository', 'UNISCHOLAR', 'UNIFINDER'].includes(menu.title)
+      );
+    }
+  }
+
   enterpriseSubscriptionLink: any;
   ngOnInit(): void {
     //this.sampleMenus = this.menus;

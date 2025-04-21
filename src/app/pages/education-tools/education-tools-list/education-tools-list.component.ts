@@ -8,6 +8,7 @@ import { CarouselModule } from 'primeng/carousel';
 import { PaginatorModule } from 'primeng/paginator';
 import { FluidModule } from 'primeng/fluid';
 import { SharedModule } from 'src/app/shared/shared.module';
+import { StorageService } from 'src/app/storage.service';
 @Component({
   selector: 'uni-education-tools-list',
   templateUrl: './education-tools-list.component.html',
@@ -21,9 +22,21 @@ export class EducationToolsListComponent implements OnInit {
 
   EducationToolsList = EducationToolsData;
   isLaunchingSoon: true;
-  constructor() { }
+  constructor(private storage: StorageService) { }
 
   ngOnInit(): void {
   }
 
+  get filteredEducationTools(): any[] {
+    if (this.storage.get('home_country_name') === 'India') {
+      return EducationToolsData;
+    } else {
+      const excludedTitles = [
+        'UNILOAN',
+        'Executive Education',
+        'Distance Learning Education'
+      ];
+      return EducationToolsData.filter(tool => !excludedTitles.includes(tool.title));
+    }
+  }
 }
