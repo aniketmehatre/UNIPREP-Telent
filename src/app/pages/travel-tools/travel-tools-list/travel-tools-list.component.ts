@@ -14,6 +14,7 @@ import { SelectModule } from 'primeng/select';
 import { RouterModule } from '@angular/router';
 import { environment } from "@env/environment";
 import { SharedModule } from 'src/app/shared/shared.module';
+import { StorageService } from 'src/app/storage.service';
 
 export interface TravelToolsMain {
   title: string,
@@ -110,9 +111,21 @@ export class TravelToolsListComponent implements OnInit {
 
   loopRange = [0, 1, 2, 3, 4, 5];
 
-  constructor() { }
+  constructor(private storage: StorageService) { }
 
   ngOnInit(): void {
+  }
+
+
+  get filteredTravelTools(): any[] {
+    if (this.storage.get('home_country_name') === 'India') {
+      return this.travelToolsList;
+    } else {
+      const excludedTitles = [
+        'Global Travel Visa'
+      ];
+      return this.travelToolsList.filter(tool => !excludedTitles.includes(tool.title));
+    }
   }
 
 }

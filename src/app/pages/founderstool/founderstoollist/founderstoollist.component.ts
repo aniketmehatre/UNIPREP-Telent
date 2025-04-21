@@ -7,12 +7,13 @@ import { FoundersToolsData } from './founders-tool-list-data';
 import { CommonModule } from "@angular/common";
 import { DialogModule } from "primeng/dialog";
 import { SharedModule } from 'src/app/shared/shared.module';
+import { StorageService } from 'src/app/storage.service';
 @Component({
-    selector: 'uni-founderstoollist',
-    templateUrl: './founderstoollist.component.html',
-    styleUrls: ['./founderstoollist.component.scss'],
-    standalone: true,
-    imports: [CommonModule, DialogModule, RouterModule, SharedModule]
+  selector: 'uni-founderstoollist',
+  templateUrl: './founderstoollist.component.html',
+  styleUrls: ['./founderstoollist.component.scss'],
+  standalone: true,
+  imports: [CommonModule, DialogModule, RouterModule, SharedModule]
 })
 export class FounderstoollistComponent implements OnInit {
   founderToolsList = FoundersToolsData;
@@ -23,7 +24,8 @@ export class FounderstoollistComponent implements OnInit {
   restrict: boolean = false;
   planExpired: boolean = false;
 
-  constructor(  private pageFacade: PageFacadeService, private router:Router,private locationService: LocationService, private authService: AuthService,) { }
+  constructor(private pageFacade: PageFacadeService, private router: Router, private locationService: LocationService,
+    private storage: StorageService, private authService: AuthService,) { }
 
   ngOnInit(): void {
     this.checkplanExpire()
@@ -40,38 +42,49 @@ export class FounderstoollistComponent implements OnInit {
       this.ehitlabelIsShow = false;
     }
   }
+
+  get filteredFoundersTool(): any[] {
+    if (this.storage.get('home_country_name') === 'India') {
+      return this.founderToolsList;
+    } else {
+      const excludedTitles = [
+        'Global Entrepreneur Visa'
+      ];
+      return this.founderToolsList.filter(tool => !excludedTitles.includes(tool.title));
+    }
+  }
   openVideoPopup(videoLink: string) {
     this.pageFacade.openHowitWorksVideoPopup(videoLink);
   }
-  openAcademy(){
+  openAcademy() {
     if (this.planExpired) {
       this.restrict = true;
       return;
     }
     this.router.navigate(['/pages/founderstool/foundersacademy']);
   }
-  openInvestorTraining(){
+  openInvestorTraining() {
     if (this.planExpired) {
       this.restrict = true;
       return;
     }
     this.router.navigate(['/pages/founderstool/investorpitchtraining']);
   }
-  openStartUpGlossary(){
+  openStartUpGlossary() {
     if (this.planExpired) {
       this.restrict = true;
       return;
     }
     this.router.navigate(['/pages/founderstool/startupglossary']);
   }
-  openEntreprenuerSkill(){
+  openEntreprenuerSkill() {
     if (this.planExpired) {
       this.restrict = true;
       return;
     }
     this.router.navigate(['/pages/founderstool/entrepreneurskillmodule']);
   }
-  openEntreprenuerSector(){
+  openEntreprenuerSector() {
     if (this.planExpired) {
       this.restrict = true;
       return;
@@ -95,7 +108,7 @@ export class FounderstoollistComponent implements OnInit {
     this.router.navigate(['/pages/founderstool/marketing-anaylsis']);
   }
 
-  openInvestorList(){
+  openInvestorList() {
     this.router.navigate(['/pages/investor-list']);
   }
 
@@ -103,7 +116,7 @@ export class FounderstoollistComponent implements OnInit {
     this.authService.getNewUserTimeLeft().subscribe((res) => {
       let data = res.time_left;
       let subscription_exists_status = res.subscription_details;
-      if (data.plan === "expired" || data.plan === 'subscription_expired'  ||   subscription_exists_status.subscription_plan=="Student"  ||   subscription_exists_status.subscription_plan == "Career") {
+      if (data.plan === "expired" || data.plan === 'subscription_expired' || subscription_exists_status.subscription_plan == "Student" || subscription_exists_status.subscription_plan == "Career") {
         this.planExpired = true;
       } else {
         this.planExpired = false;
@@ -117,8 +130,8 @@ export class FounderstoollistComponent implements OnInit {
     this.restrict = false;
   }
 
-  navigateSubModule(url:string, launch_soon: any) {
-    if (launch_soon){
+  navigateSubModule(url: string, launch_soon: any) {
+    if (launch_soon) {
       return launch_soon;
     }
     // if (this.planExpired) {

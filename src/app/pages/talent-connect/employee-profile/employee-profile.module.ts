@@ -24,6 +24,8 @@ import { TooltipModule } from 'primeng/tooltip';
 import { CompleteProfileViewComponent } from './complete-profile-view/complete-profile-view.component';
 import { ConfirmDialogModule } from 'primeng/confirmdialog';
 import { ConfirmationService } from 'primeng/api';
+import { InputGroupAddonModule } from 'primeng/inputgroupaddon';
+import { InputGroupModule } from 'primeng/inputgroup';
 
 const routes: Routes = [
   {
@@ -61,7 +63,9 @@ const routes: Routes = [
     MultiSelectModule,
     EditorModule,
     TooltipModule,
-    ConfirmDialogModule
+    ConfirmDialogModule,
+    InputGroupAddonModule,
+    InputGroupModule
   ]
 })
 export class EmployeeProfileModule { }

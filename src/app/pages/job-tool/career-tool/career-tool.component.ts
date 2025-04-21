@@ -159,7 +159,6 @@ export class CareerToolComponent implements OnInit {
       mode: "global-work-visa",
       is_ai: false,
       launch_soon: false
-
     },
     {
       id: 13,
@@ -221,28 +220,28 @@ export class CareerToolComponent implements OnInit {
       is_ai: false,
       launch_soon: false
     },
+    // {
+    //   id: 20,
+    //   moduleName: "Distance Learning",
+    //   tooltip: "Unleash your potential with proven career hacks designed to fast-track your success.",
+    //   imageLink: this.domainUrl + "Distancelearning.svg",
+    //   refLink: "",
+    //   mode: "modules-enterprenuer-tools",
+    //   launch_soon: true,
+    //   is_ai: false,
+    // },
+    // {
+    //   id: 21,
+    //   moduleName: "Executive Education",
+    //   tooltip: "Unleash your potential with proven career hacks designed to fast-track your success.",
+    //   imageLink: this.domainUrl + "executiveeducationn.svg",
+    //   refLink: "",
+    //   mode: "virtual-incubation-center",
+    //   launch_soon: true,
+    //   is_ai: false,
+    // },
     {
       id: 20,
-      moduleName: "Distance Learning",
-      tooltip: "Unleash your potential with proven career hacks designed to fast-track your success.",
-      imageLink: this.domainUrl + "Distancelearning.svg",
-      refLink: "",
-      mode: "modules-enterprenuer-tools",
-      launch_soon: true,
-      is_ai: false,
-    },
-    {
-      id: 21,
-      moduleName: "Executive Education",
-      tooltip: "Unleash your potential with proven career hacks designed to fast-track your success.",
-      imageLink: this.domainUrl + "executiveeducationn.svg",
-      refLink: "",
-      mode: "virtual-incubation-center",
-      launch_soon: true,
-      is_ai: false,
-    },
-    {
-      id: 22,
       moduleName: "Video Mock Interview – Job",
       tooltip: "Unleash your potential with proven career hacks designed to fast-track your success.",
       imageLink: this.domainUrl + "videomockinterviewjob.svg",
@@ -324,6 +323,14 @@ export class CareerToolComponent implements OnInit {
     }
     else {
       this.router.navigate(['/pages/job-tool/list/employer-test/13']);
+    }
+  }
+
+  get filteredModulesList(): CareerTools[] {
+    if (this.storage.get('home_country_name') === 'India') {
+      return this.modulesList;
+    } else {
+      return this.modulesList.filter(m => ![12].includes(m.id));
     }
   }
 }

@@ -4,12 +4,15 @@
             <div class="col-md-12 text-center">
                 <div class="select-title d-flex justify-content-between align-items-center">
                     <div class="d-flex gap-2">
-                        <h5 routerLink="/pages/dashboard" role="button" class="mb-0" tooltipPosition="top" pTooltip=""><i class="fa-regular fa-home"></i></h5>
+                        <h5 routerLink="/pages/dashboard" role="button" class="mb-0" tooltipPosition="top" pTooltip="">
+                            <i class="fa-regular fa-home"></i></h5>
                         <span><i class="fa-solid fa-chevron-right"></i></span>
-                        <h5 routerLink="/pages/education-tools" role="button" class="mb-0" tooltipPosition="right" pTooltip="Search and apply to courses worldwide with our comprehensive global course finder">Education Tools</h5>
+                        <h5 routerLink="/pages/education-tools" role="button" class="mb-0" tooltipPosition="right"
+                            pTooltip="Search and apply to courses worldwide with our comprehensive global course finder">
+                            Education Tools</h5>
                     </div>
                     <div>
-                        <button pButton  class="how-it-works-button" severity="warn" >How it works?
+                        <button pButton class="how-it-works-button" severity="warn">How it works?
                             <i class="fa-solid fa-play d-md-block d-none"></i></button>
                     </div>
                 </div>
@@ -18,15 +21,19 @@
     </div>
     <div class="card-body text-center flex-fill overflow-y-auto">
         <div class="row mb-0">
-            <div *ngFor="let item of EducationToolsList" class="col-custom-lg-2 col-md-3 col-sm-4 col-xs-12 col-12 mb-3">
+            <div *ngFor="let item of filteredEducationTools"
+                class="col-custom-lg-2 col-md-3 col-sm-4 col-xs-12 col-12 mb-3">
                 <div class="row w-100 m-0 justify-content-center h-100">
-                     <div [class.disabled]="item.launch_soon" [routerLink]="item.launch_soon ? null : item.url" class="card subjectcard position-relative" role="button">
-                        <div class="is-ai-div" *ngIf="item.is_ai"><span class="is-ai-bg-blue"><i class="fa-solid fa-stars"></i> AI</span></div>
+                    <div [class.disabled]="item.launch_soon" [routerLink]="item.launch_soon ? null : item.url"
+                        class="card subjectcard position-relative" role="button">
+                        <div class="is-ai-div" *ngIf="item.is_ai"><span class="is-ai-bg-blue"><i
+                                    class="fa-solid fa-stars"></i> AI</span></div>
                         <!-- Launch Soon Tag -->
                         <uni-launch-soon-tag *ngIf="item.launch_soon" message="Launching soon"></uni-launch-soon-tag>
 
                         <!-- Card Body -->
-                        <div class="card-body d-flex flex-md-column flex-row justify-content-md-between align-items-center">
+                        <div
+                            class="card-body d-flex flex-md-column flex-row justify-content-md-between align-items-center">
                             <div>
                                 <div class="submoduleicon">
                                     <img class="selectimage" [src]="item.image" />
