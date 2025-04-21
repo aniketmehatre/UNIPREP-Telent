@@ -1,4 +1,4 @@
-import { Component, OnInit, TemplateRef, ViewChild } from '@angular/core';
+import { ChangeDetectorRef, Component, ElementRef, OnInit, TemplateRef, ViewChild } from '@angular/core';
 import { FormGroup, FormBuilder, Validators, FormArray, AbstractControl, FormControl } from '@angular/forms';
 import { ViewProfileComponent } from './view-profile/view-profile.component';
 import { DialogService, DynamicDialogRef } from 'primeng/dynamicdialog';
@@ -20,7 +20,9 @@ export enum FileType {
   styleUrl: './employee-profile.component.scss'
 })
 export class EmployeeProfileComponent implements OnInit {
+  @ViewChild('fileUploadImage') fileInput: ElementRef;
   @ViewChild('header', { static: true }) headerTemplate!: TemplateRef<any>;
+  today: Date = new Date();
   nationalityList: any = [];
   isLoadingAiSummary: boolean = false;
   selectedSocialMedias: string[] = [];
@@ -62,7 +64,7 @@ export class EmployeeProfileComponent implements OnInit {
   </button>
 </div>`;
 
-  currentMessage: string = "Enter your full name as per your official documents. This is the name that will appear on your offer letter and in the employer's database, so ensure it is accurate for a smooth hiring process. Numbers and special characters are not allowed.";
+  currentMessage: string = "Hi, I am here to help you";
   hoverMessages: any = {
     // Personal Information
     full_name: "Enter your full name as per your official documents. This is the name that will appear on your offer letter and in the employer's database, so ensure it is accurate for a smooth hiring process. Numbers and special characters are not allowed.",
@@ -174,7 +176,7 @@ export class EmployeeProfileComponent implements OnInit {
   professionalStrengths: any[] = [];
   qualifications: any[] = [];
   softSkills: any[] = [];
-  socialMedias: any[] = ['Facebook', 'Instagram', 'LinkedIN', 'X'];
+  socialMedias: any[] = ['Facebook', 'Instagram', 'X'];
   preferredLocationsList: any[] = [];
 
   constructor(
@@ -182,6 +184,7 @@ export class EmployeeProfileComponent implements OnInit {
     private dialogService: DialogService,
     private talentConnectService: TalentConnectService,
     private toastService: MessageService,
+    private changeDetector: ChangeDetectorRef
   ) { }
 
   ngOnInit() {
@@ -226,7 +229,7 @@ export class EmployeeProfileComponent implements OnInit {
       career_preference_currency_id: [null, Validators.required],
       career_preference_set_industry_apart: [''],
       career_preference_soft_skill_id: [[]],
-      career_preference_professional_strength_id: [null],
+      career_preference_professional_strength_id: [[]],
       career_preference_real_world_challenge: [''],
       career_preference_leadership_experience: [''],
       career_preference_admired_quality: [''],
@@ -402,6 +405,7 @@ export class EmployeeProfileComponent implements OnInit {
   }
 
   onUploadPhoto(event: any) {
+    console.log(event);
     const file = event.target.files[0];
     if (!file) return;
 
@@ -418,6 +422,7 @@ export class EmployeeProfileComponent implements OnInit {
   onRemovePhoto() {
     this.logo = null;
     delete this.uploadedFiles['profile_image'];
+    this.fileInput.nativeElement.value = '';
     this.personalInfoForm.get('profile_image')?.setValue('');
   }
 
@@ -1232,12 +1237,13 @@ export class EmployeeProfileComponent implements OnInit {
       career_preference_portfolio_upload_link: response.careerPreference?.portfolio_upload_link || '',
       career_preference_set_industry_apart: response.careerPreference?.set_industry_apart || '',
       career_preference_real_world_challenge: response.careerPreference?.real_world_challenge || '',
-      career_preference_professional_strength_id: response.careerPreference?.professional_strength_id || '',
+      career_preference_professional_strength_id: (Array.isArray(response.careerPreference?.professional_strength_id) ? response.careerPreference?.professional_strength_id : [response.careerPreference?.professional_strength_id]) || [],
       career_preference_leadership_experience: response.careerPreference?.leadership_experience || '',
       career_preference_admired_quality: response.careerPreference?.admired_quality,
       networking_linkedin_profile: response.linkedin_profile || '',
       networking_personal_website: response.personal_website || '',
     });
+    this.checkMaximumWordsInFields(this.personalInfoForm.get('career_preference_set_industry_apart') as FormControl);
 
     // Patch Education Details
     if (response.education && response.education.length > 0) {
@@ -1260,9 +1266,9 @@ export class EmployeeProfileComponent implements OnInit {
     if (response.work_experience && response.work_experience.length > 0) {
       const workExpArray = this.personalInfoForm.get('work_experience') as FormArray;
       workExpArray.clear();
-      response.work_experience.forEach((exp: any) => {
-        workExpArray.push(this.fb.group({
-          id: [exp.id], // Store the original ID
+      response.work_experience.forEach((exp: any, i: number) => {
+        const group = this.fb.group({
+          id: [exp.id],
           years_of_experience: [exp.years_of_experience],
           work_experience_company_name: [exp.company_name],
           work_experience_job_title: [exp.job_title],
@@ -1273,8 +1279,12 @@ export class EmployeeProfileComponent implements OnInit {
           work_experience_currency_id: [exp.currency_id],
           work_experience_job_responsibilities: [exp.job_responsibilities],
           work_experience_experience_letter: [exp.experience_letter]
-        }));
-        // this.disableFieldsWhenClickFresher(workExpArray[workExpArray.length - 1], );
+        });
+
+        workExpArray.push(group);
+
+        const jobRespControl = group.get('work_experience_job_responsibilities') as FormControl;
+        this.checkMaximumWordsInFields(jobRespControl);
       });
     }
 
@@ -1484,23 +1494,24 @@ export class EmployeeProfileComponent implements OnInit {
   }
 
   checkMaximumWordsInFields(control: FormControl, maxNumber: number = 150): void {
-    if (control.value) {
-      const words = control.value.replace(/<\/?[^>]+(>|$)/g, '').match(/\b\w+\b/g) || [];
-      const wordCount = words.length;
-      const wordLimitExceeded = wordCount > maxNumber;
-      if (wordLimitExceeded) {
-        // const trimmedText = words.slice(0, maxNumber).join(' ');
-        control.setValue(control.value, { emitEvent: false });
-        control.setErrors({ maxWordsExceeded: true });
-      } else {
-        // Clear maxWordsExceeded error only (preserve other errors)
-        if (control.hasError('maxWordsExceeded')) {
-          const errors = { ...control.errors };
-          delete errors['maxWordsExceeded'];
-          control.setErrors(Object.keys(errors).length ? errors : null);
-        }
+    if (!control) return;
+
+    const rawValue = control.value || '';
+    const cleanText = rawValue.replace(/<\/?[^>]+(>|$)/g, '');
+    const words = cleanText.match(/\b\w+\b/g) || [];
+    const wordCount = words.length;
+
+    if (wordCount > maxNumber) {
+      control.setErrors({ ...(control.errors || {}), maxWordsExceeded: true });
+    } else {
+      if (control.hasError('maxWordsExceeded')) {
+        const errors = { ...control.errors };
+        delete errors['maxWordsExceeded'];
+        control.setErrors(Object.keys(errors).length ? errors : null);
       }
     }
+
+    control.updateValueAndValidity({ onlySelf: true });
   }
 
   getWordCountUsingControl(control: FormControl) {
