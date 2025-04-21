@@ -64,7 +64,7 @@ export class EmployeeProfileComponent implements OnInit {
   </button>
 </div>`;
 
-  currentMessage: string = "Enter your full name as per your official documents. This is the name that will appear on your offer letter and in the employer's database, so ensure it is accurate for a smooth hiring process. Numbers and special characters are not allowed.";
+  currentMessage: string = "Hi, I am here to help you";
   hoverMessages: any = {
     // Personal Information
     full_name: "Enter your full name as per your official documents. This is the name that will appear on your offer letter and in the employer's database, so ensure it is accurate for a smooth hiring process. Numbers and special characters are not allowed.",
