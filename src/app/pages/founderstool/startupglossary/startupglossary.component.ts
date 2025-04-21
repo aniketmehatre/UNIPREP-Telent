@@ -88,6 +88,7 @@ export class StartupglossaryComponent implements OnInit {
           this.groupedTerms[item.alphabet] = [];
         }
         this.groupedTerms[item.alphabet].push(item);
+        this.performSearch();
       });
 
     });
@@ -108,24 +109,48 @@ export class StartupglossaryComponent implements OnInit {
   //   });
   // }
   performSearch() {
-    const searchValue = this.valueNearYouFilter.toLowerCase();
-    const filteredData = this.startupglossarylists.filter((item: any) => {
-      return (
-        item.glossaryterm?.toLowerCase().includes(searchValue) ||
-      item.summary?.toLowerCase().includes(searchValue) ||
-      item.key?.toLowerCase().includes(searchValue)
-      );
-    });
-  
-    this.groupedTerms = {};
-    filteredData.forEach(item => {
-      if (!this.groupedTerms[item.alphabet]) {
-        this.groupedTerms[item.alphabet] = [];
-      }
-      this.groupedTerms[item.alphabet].push(item);
-    });
-  }
+    // highlights the words
+     const search = this.valueNearYouFilter?.trim();
+     if (!search) {
+       this.resetHighlights(); // Optional: show full terms without highlights
+       return;
+     }
+     
+     const highlight = (text: string) =>
+       text.split(new RegExp(`(${search})`, 'gi')).map(part => ({
+       word: part,
+       highlight: part.toLowerCase() === search.toLowerCase()
+       }));
+     
+     for (const key in this.groupedTerms) {
+       this.groupedTerms[key].forEach(term => {
+       term.glossarytermParts = highlight(term.glossaryterm);
+       term.summaryParts = highlight(term.summary);
+       });
+     }
+     // normal searcth code
+     const searchValue = this.valueNearYouFilter.toLowerCase()
+     const filteredData = this.startupglossarylists.filter((item: any) => {
+     return item.glossaryterm?.toLowerCase().includes(searchValue) || item.summary?.toLowerCase().includes(searchValue) || item.key?.toLowerCase().includes(searchValue)
+       
+     })
+     this.groupedTerms = {}
+     filteredData.forEach((item) => {
+       if (!this.groupedTerms[item.alphabet]) {
+         this.groupedTerms[item.alphabet] = []
+       }
+       this.groupedTerms[item.alphabet].push(item)
+     })
+   }
   isObjectEmpty(obj: object): boolean {
     return Object.keys(obj).length === 0;
   }
+  resetHighlights() {
+		for (const key in this.groupedTerms) {
+		  this.groupedTerms[key].forEach(term => {
+			term.glossarytermParts = [{ word: term.glossaryterm, highlight: false }];
+			term.summaryParts = [{ word: term.summary, highlight: false }];
+		  });
+		}
+	}
 }
