@@ -19,7 +19,7 @@
 	</div>
 	<div class="card-body flex-fill overflow-y-auto">
 		<div class="row h-100">
-			<div class="col-md-8 col-lg-9 col-sm-7 mb-2 d-flex flex-fill h-100" >
+			<div class="col-md-8 col-8-5 col-sm-7 mb-2 d-flex flex-fill h-100" >
 				<div class="card overflow-y-hidden w-100">
 					<div class="card-header bg-primary">
 						<div class="rounded-top-4 text-start d-flex justify-content-between align-items-center">
@@ -121,7 +121,7 @@
 												<div class="col-md-6">
 													<label for="highestQualification" class="form-label">Highest Qualification <span class="text-danger">*</span></label>
 													<p-select id="highestQualification" formControlName="education_qualification_id" [options]="qualifications" placeholder="Select your highest qualification" styleClass="w-100" optionLabel="qualification_name" optionValue="id" [filter]="true" filterBy="qualification_name" (mouseleave)="resetMessageBox()" (onFocus)="updateMessageBox('education_qualification_id')"></p-select>
-													<small class="text-danger" *ngIf="education.get('education_qualification_id')?.invalid && education.get('education_qualification_id')?.touched"> This field is mandatory </small>
+													<small class="text-danger" *ngIf="education.get('education_qualification_id')?.invalid && education.get('education_qualification_id')?.touched">This field is mandatory </small>
 												</div>
 
 												<!-- University/Institution Name -->
@@ -522,7 +522,7 @@
 											</div>
 											<div class="col-md-6">
 												<label for="highestQualification" class="form-label">Your top professional strength</label>
-												<p-select id="highestQualification" formControlName="career_preference_professional_strength_id" [options]="professionalStrengths" placeholder="Enter know language" styleClass="w-100" optionLabel="strength" optionValue="id" (mouseleave)="resetMessageBox()" (onFocus)="updateMessageBox('career_preference_professional_strength_id')"></p-select>
+												<p-multiSelect id="highestQualification" formControlName="career_preference_professional_strength_id" [options]="professionalStrengths" placeholder="Enter know language" styleClass="w-100" optionLabel="strength" optionValue="id" (mouseleave)="resetMessageBox()" (onFocus)="updateMessageBox('career_preference_professional_strength_id')"></p-multiSelect>
 											</div>
 										</div>
 										<div class="row mb-3">
@@ -764,7 +764,7 @@
 					</div>
 				</div>
 			</div>
-			<div class="col-md-4 col-lg-3 col-sm-5 d-flex flex-fill h-100">
+			<div class="col-md-4 col-3-5 col-sm-5 d-flex flex-fill h-100">
 				<div class="card border-secondary">
 					<div class="card-body d-flex flex-column justify-content-between overflow-y-auto">
 						<div class="d-flex gap-2" style="max-height: 50%;">
