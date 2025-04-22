@@ -1447,7 +1447,7 @@ export class EmployeeProfileComponent implements OnInit {
       this.toastService.add({
         severity: "error",
         summary: "Required",
-        detail: 'Please complete all required fields before generating summary.'
+        detail: mode == 'joboverview' ? 'Please fill job_title and company_name fields before generating summary.' : 'Please fill industry type and career status fields before generating summary.'
       });
     }
   }
