@@ -37,6 +37,7 @@ interface ProfileData {
     employmentType: string;
     responsibilities: string;
     experienceLetter: { name: string; file: string };
+    exp_currency: string;
   }>;
   careerPreferences: {
     careerStatus: string;
@@ -47,6 +48,7 @@ interface ProfileData {
     preferredWorkplaceType: string;
     willingToRelocate: string;
     salaryRange: string;
+    currency: string;
   };
   certifications: Array<{ name: string; file: string }>;
   userAchievements: Array<{ name: string; file: string }>;
@@ -142,7 +144,8 @@ export class ViewProfileComponent implements OnInit {
       salary: '1,00,000',
       employmentType: 'Full Type',
       responsibilities: 'Designed intuitive and visually appealing user interfaces for web and mobile applications',
-      experienceLetter: { name: 'Experience letter', file: 'document' }
+      experienceLetter: { name: 'Experience letter', file: 'document' },
+      exp_currency: 'INR'
     }],
     careerPreferences: {
       careerStatus: 'Full Time',
@@ -152,7 +155,8 @@ export class ViewProfileComponent implements OnInit {
       preferredEmploymentType: 'Full Time',
       preferredWorkplaceType: 'Collaborative',
       willingToRelocate: 'Yes',
-      salaryRange: '3 LPA'
+      salaryRange: '3 LPA',
+      currency: 'INR'
     },
     certifications: [
       { name: 'Udemy UI/UX Course', file: 'UdemyCertificate.pdf' },
@@ -293,7 +297,8 @@ export class ViewProfileComponent implements OnInit {
         duration: (exp.work_experience_duration_from && exp.work_experience_duration_from) ? formatDate(new Date(exp.work_experience_duration_from), 'MMM,dd,yyyy', 'en-US') + '-' + formatDate(new Date(exp.work_experience_duration_to), 'MMM,dd,yyyy', 'en-US') : '',
         salary: exp.work_experience_salary_per_month || '',
         responsibilities: exp.work_experience_job_responsibilities || '',
-        experienceLetter: { name: exp.work_experience_experience_letter, file: exp.work_experience_experience_letter }
+        experienceLetter: { name: exp.work_experience_experience_letter, file: exp.work_experience_experience_letter },
+        exp_currency: exp.work_experience_currency_id || ''
       })),
       careerPreferences: {
         careerStatus: formData.career_preference_career_status || '',
@@ -303,7 +308,8 @@ export class ViewProfileComponent implements OnInit {
         preferredEmploymentType: formData.career_preference_preferred_employment_type || '',
         preferredWorkplaceType: formData.career_preference_preferred_workplace_type || '',
         willingToRelocate: formData.career_preference_willingness_to_relocate || '',
-        salaryRange: formData.career_preference_expected_salary || ''
+        salaryRange: formData.career_preference_expected_salary || '',
+        currency: formData.career_preference_currency_id || ''
       },
       certifications: (formData.certifications || []).map((cert: any) => ({
         name: cert.certifications_certificate_name || '',

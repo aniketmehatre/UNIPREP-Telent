@@ -130,7 +130,7 @@
               </div>
               <div class="col-md-6" *ngIf="experience.salary">
                 <h5>Salary</h5>
-                <p>{{ experience.salary }}</p>
+                <p>{{getListValue(this.currencies, experience.exp_currency, 'currency_code')}} {{ experience.salary }}/ Month</p>
               </div>
               <div class="col-md-12 text-wrap" *ngIf="experience.responsibilities">
                 <h5>Job Responsibilities</h5>
@@ -166,19 +166,19 @@
               <h5>Job Title</h5>
               <p>{{ profileData.careerPreferences.jobTitle }}</p>
             </div>
-            <div class="col-md-6" *ngIf="profileData.careerPreferences.careerInterest">
+            <div class="col-md-6" *ngIf="profileData.careerPreferences.careerInterest.length">
               <h5>Career Interest/Industry</h5>
               <p>{{ profileData.careerPreferences.careerInterest }}</p>
             </div>
-            <div class="col-md-6" *ngIf="profileData.careerPreferences.preferredWorkLocation">
+            <div class="col-md-6" *ngIf="profileData.careerPreferences.preferredWorkLocation.length">
               <h5>Preferred Work Location</h5>
               <p>{{ profileData.careerPreferences.preferredWorkLocation }}</p>
             </div>
-            <div class="col-md-6" *ngIf="profileData.careerPreferences.preferredEmploymentType">
+            <div class="col-md-6" *ngIf="profileData.careerPreferences.preferredEmploymentType.length">
               <h5>Preferred Employment Type</h5>
               <p>{{ profileData.careerPreferences.preferredEmploymentType }}</p>
             </div>
-            <div class="col-md-6" *ngIf="profileData.careerPreferences.preferredWorkplaceType">
+            <div class="col-md-6" *ngIf="profileData.careerPreferences.preferredWorkplaceType.length">
               <h5>Preferred Workplace Type</h5>
               <p>{{ profileData.careerPreferences.preferredWorkplaceType }}</p>
             </div>
@@ -188,7 +188,7 @@
             </div>
             <div class="col-md-6" *ngIf="profileData.careerPreferences.salaryRange">
               <h5>Salary Range</h5>
-              <p>{{ profileData.careerPreferences.salaryRange }}</p>
+              <p>{{getListValue(this.currencies, profileData.careerPreferences.currency, 'currency_code')}} {{ profileData.careerPreferences.salaryRange }} / Month</p>
             </div>
           </div>
         </div>
