@@ -141,7 +141,7 @@
                 <div class="d-flex justify-content-between align-items-center border p-2 rounded bg-secondary-subtle">
                   <span>{{extractLastName(experience.experienceLetter.name)}}</span>
                   <button class="btn btn-outline-primary btn-sm" (click)="experience.experienceLetter.file.includes('http') ? downloadFile(experience.experienceLetter.file) : downloadFile(experience.experienceLetter.file.path)">
-                    <i class="pi pi-download"></i>
+                    <i class="fa-solid fa-download"></i>
                   </button>
                 </div>
               </div>
@@ -205,7 +205,7 @@
               <div class="d-flex justify-content-between align-items-center">
                 <p class="fw-bold">{{cert.name}}</p>
                 <div>
-                  <button *ngIf="cert.file" pButton [label]="extractLastName(cert.file)" icon="pi pi-download" class="p-button-outlined p-button-secondary mb-2 w-100 justify-content-between" (click)="downloadFile(cert.file_name);"></button>
+                  <button *ngIf="cert.file" pButton [label]="extractLastName(cert.file)" icon="fas fa-download" class="p-button-outlined p-button-secondary mb-2 w-100 justify-content-between" (click)="downloadFile(cert.file_name);"></button>
                 </div>
               </div>
             </div>
@@ -216,7 +216,7 @@
                 <div class="d-flex justify-content-between align-items-center">
                   <p class="fw-bold">{{cert.name}}</p>
                   <div>
-                    <button *ngIf="cert.file" pButton [label]="extractLastName(cert.file)" icon="pi pi-download" class="p-button-outlined p-button-secondary mb-2 w-100 justify-content-between" (click)="downloadFile(cert.file_name);"></button>
+                    <button *ngIf="cert.file" pButton [label]="extractLastName(cert.file)" icon="fas fa-download" class="p-button-outlined p-button-secondary mb-2 w-100 justify-content-between" (click)="downloadFile(cert.file_name);"></button>
                   </div>
                 </div>
               </div>
@@ -314,16 +314,17 @@
             <div *ngFor="let attachment of profileData.attachments" class="col-12">
               <div
                 class="d-flex justify-content-between align-items-center border p-2 rounded bg-secondary-subtle cursor-pointer"
-                (click)="(attachment.type == 'document') ? $event.stopPropagation() : attachmentLink.click();">
-                <span>{{extractLastName(attachment.name)}}</span>
-                <button class="btn btn-outline-primary btn-sm" (click)="downloadFile(attachment.name)" target="_blank"
+                (click)="(attachment.type == 'document') ? $event.stopPropagation() : attachmentLink.click();" [ngClass]="attachment.type == 'document' ? 'w-50' : 'w-100'">
+                <span class="fw-bold fs-6">{{extractLastName(attachment.name)}}</span>
+                <button class="btn btn-sm" (click)="downloadFile(attachment.name)" target="_blank"
                   *ngIf="attachment.type == 'document'; else link">
-                  <i class="pi pi-download"></i>
+                  <i class="fa-solid fa-download fa-xl"></i>
                 </button>
                 <ng-template #link>
                   <a [href]="attachment.name" target="_blank" #attachmentLink></a>
                 </ng-template>
               </div>
+              
             </div>
           </div>
         </div>
