@@ -276,7 +276,7 @@ export class ViewProfileComponent implements OnInit {
         total_years_of_experience: formData.total_years_of_experience || 0,
       },
       educationDetails: (formData.educationDetails || [])
-        .sort((a: any, b: any) => a.education_qualification_id - b.education_qualification_id)
+        .sort((a: any, b: any) => b.education_qualification_id - a.education_qualification_id)
         .map((edu: any) => ({
         highestQualification: this.getListValue(this.qualifications, edu.education_qualification_id, 'qualification_name') || '',
         university: edu.education_university_name || '',

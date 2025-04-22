@@ -988,7 +988,7 @@ export class EmployeeProfileComponent implements OnInit {
 
   openProfileDialog(isSample: boolean) {
     this.ref = this.dialogService.open(ViewProfileComponent, {
-      width: '80%',
+      width: '65%',
       height: '100vh',
       showHeader: false,
       closable: false,
