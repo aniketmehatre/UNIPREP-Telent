@@ -83,6 +83,7 @@ interface ProfileData {
     phoneNumber: string;
     email: string;
   }>;
+  additionalInfo: string;
 }
 
 @Component({
@@ -206,7 +207,8 @@ export class ViewProfileComponent implements OnInit {
       designation: 'Human Resource',
       phoneNumber: '+91 - 7660987651',
       email: 'michael@uniabroad.co.in'
-    }]
+    }],
+    additionalInfo: 'Sample of addtional Info'
   };
 
   constructor(
@@ -358,7 +360,8 @@ export class ViewProfileComponent implements OnInit {
         designation: ref.references_designation || '',
         // phoneNumber: ref.references_phone_number || '',
         email: ref.references_email || ''
-      }))
+      })),
+      additionalInfo: formData.additional_notes
     };
   }
 

@@ -1427,7 +1427,9 @@ export class EmployeeProfileComponent implements OnInit {
   }
 
   generateAiSummary(mode: string, data: any, formControl: FormControl) {
-    if (data) {
+    const hasValidValues = data && Object.values(data).every(val => val !== null && val !== '');
+
+    if (hasValidValues) {
       this.isLoadingAiSummary = true;
       this.talentConnectService.getAiSummaryByMode(mode, data).subscribe({
         next: response => {
@@ -1445,10 +1447,11 @@ export class EmployeeProfileComponent implements OnInit {
       this.toastService.add({
         severity: "error",
         summary: "Required",
-        detail: 'Please give field of job title'
+        detail: 'Please complete all required fields before generating summary.'
       });
     }
   }
+
 
   changeSocialMedia(value: string) {
     this.selectedSocialMedias = this.socialMedia.controls
