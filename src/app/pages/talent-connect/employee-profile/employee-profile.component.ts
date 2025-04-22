@@ -1430,7 +1430,7 @@ export class EmployeeProfileComponent implements OnInit {
     }
   }
 
-  generateAiSummary(mode: string, data: string, formControl: FormControl) {
+  generateAiSummary(mode: string, data: any, formControl: FormControl) {
     if (data) {
       this.isLoadingAiSummary = true;
       this.talentConnectService.getAiSummaryByMode(mode, data).subscribe({
