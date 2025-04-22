@@ -10,7 +10,7 @@ import { ScrollTop, ScrollTopModule } from "primeng/scrolltop"
 import { CommonModule } from "@angular/common"
 import { DialogModule } from "primeng/dialog"
 import { MessageService } from "primeng/api"
-import { LandingLanguageHubComponent } from "../landing-language-hub/landing-language-hub.component"
+import { LandingLanguageHubComponent } from "./landing-language-hub/landing-language-hub.component"
 
 interface CareerCard {
 	id: number;
