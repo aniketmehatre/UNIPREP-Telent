@@ -1,3 +1,11 @@
+<div class="loader-overlay" *ngIf="isLoadingAiSummary">
+	<div class="loader">
+		<div class="circle"></div>
+		<div class="circle"></div>
+		<div class="circle"></div>
+		<div class="circle"></div>
+	</div>
+</div>
 <div class="card readingcard h-100">
 	<div class="card-header border-0 bg-transparent">
 		<div class="row">
@@ -75,7 +83,7 @@
 										<!-- Date of Birth -->
 										<div class="col-md-6">
 											<label for="dateOfBirth" class="form-label">Date of Birth<span class="text-danger">*</span></label>
-											<p-datepicker id="dateOfBirth" formControlName="date_of_birth" dateFormat="dd-mm-yy" placeholder="DD/MM/YYYY" styleClass="w-100" [maxDate]="today" (onFocus)="updateMessageBox('date_of_birth')" (mouseleave)="resetMessageBox()" />
+											<p-datepicker id="dateOfBirth" formControlName="date_of_birth" dateFormat="dd-mm-yy" placeholder="DD/MM/YYYY" styleClass="w-100" [maxDate]="today" [readonlyInput]="true" (onFocus)="updateMessageBox('date_of_birth')" (mouseleave)="resetMessageBox()" />
 											<small class="text-danger" *ngIf="personalInfoForm.get('date_of_birth')?.invalid && personalInfoForm.get('date_of_birth')?.touched"> This field is mandatory </small>
 										</div>
 									</div>
@@ -128,16 +136,16 @@
 												<div class="col-md-6">
 													<label for="university" class="form-label">Institution Name <span class="text-danger">*</span></label>
 													<div class="p-inputgroup">
-														<input pInputText fluid id="university" formControlName="education_university_name" placeholder="Enter your university / institution Name" class="form-control" (mouseleave)="resetMessageBox()" (focus)="updateMessageBox('education_university_name')" />
+														<input pInputText fluid id="university" formControlName="education_university_name" placeholder="Enter your institution Name" class="form-control" (mouseleave)="resetMessageBox()" (focus)="updateMessageBox('education_university_name')" />
 													</div>
 													<small class="text-danger" *ngIf="education.get('education_university_name')?.invalid && education.get('education_university_name')?.touched"> This field is mandatory </small>
 												</div>
 											</div>
 											<div class="row mb-3">
 												<!-- Field of Study / Major -->
-												<div class="col-md-6">
+												<div class="col-md-6">	
 													<label for="fieldOfStudy" class="form-label">Major <span class="text-danger">*</span></label>
-													<p-select id="highestQualification" formControlName="education_field_id" [options]="fieldsOfStudy" placeholder="Select Field" styleClass="w-100" optionLabel="field_name" optionValue="id" [filter]="true" filterBy="field_name" (mouseleave)="resetMessageBox()" (onFocus)="updateMessageBox('education_field_id')"></p-select>
+													<p-select id="highestQualification" formControlName="education_field_id" [options]="fieldsOfStudy" placeholder="Select Major" styleClass="w-100" optionLabel="field_name" optionValue="id" [filter]="true" filterBy="field_name" (mouseleave)="resetMessageBox()" (onFocus)="updateMessageBox('education_field_id')"></p-select>
 													<small class="text-danger" *ngIf="education.get('education_field_id')?.invalid && education.get('education_field_id')?.touched"> This field is mandatory </small>
 												</div>
 
@@ -232,8 +240,8 @@
 												<div class="col-md-6 mb-3">
 													<label for="duration" class="form-label">Duration</label>
 													<div class="d-block d-md-flex gap-2 w-full">
-														<p-datepicker formControlName="work_experience_duration_from" size="small" placeholder="From Date" dateFormat="dd-mm-yy" [maxDate]="today"  inputId="icondisplay"/> 
-														<p-datepicker formControlName="work_experience_duration_to" size="small" placeholder="To Date" dateFormat="dd-mm-yy" inputId="icondisplay" [minDate]="experience.get('work_experience_duration_from')?.value"/>
+														<p-datepicker formControlName="work_experience_duration_from" size="small" placeholder="From Date" dateFormat="dd-mm-yy" [maxDate]="today"  inputId="icondisplay" [readonlyInput]="true"/> 
+														<p-datepicker formControlName="work_experience_duration_to" size="small" placeholder="To Date" dateFormat="dd-mm-yy" inputId="icondisplay" [minDate]="experience.get('work_experience_duration_from')?.value" [readonlyInput]="true"/>
 													</div>
 													<div
 													*ngIf="(experience.get('work_experience_duration_from')?.value && !experience.get('work_experience_duration_to')?.value) 
@@ -266,7 +274,7 @@
 													</div>
 													<p-editor #editor [style]="{ height: '150px', maxHeight: 'auto' }" formControlName="work_experience_job_responsibilities" placeholder="Enter your Job Responsibilities & Key Achievements" (onFocus)="updateMessageBox('work_experience_job_responsibilities')" (mouseleave)="resetMessageBox()" (ngModelChange)="checkMaximumWordsInFields(experience.get('work_experience_job_responsibilities'), 150)"/>
 													<!-- <textarea pTextarea id="responsibilities" class="form-control w-100" placeholder="Enter your Job Responsibilities & Key Achievements" rows="5" maxlength="4000" formControlName="work_experience_job_responsibilities" (mouseleave)="resetMessageBox()" (onFocus)="updateMessageBox('work_experience_job_responsibilities')" #jobRepo></textarea> -->
-														<small class="text-danger text-start" *ngIf="experience.get('work_experience_job_responsibilities')?.invalid">This field exceed the maximum length</small>
+														<small class="text-danger text-start" *ngIf="getWordCountUsingControl(experience.get('work_experience_job_responsibilities')) > 150">This field exceed the maximum length</small>
 														<small class="text-muted d-block text-end">{{ getWordCountUsingControl(experience.get('work_experience_job_responsibilities'))}}/150</small>
 												</div>
 
@@ -510,7 +518,7 @@
 												</div>
 												<div class="position-relative">
 													<p-editor #editor [style]="{ height: '150px', maxHeight: 'auto' }" formControlName="career_preference_set_industry_apart" placeholder="Enter your sets you apart in your industry" (mouseleave)="resetMessageBox()" (onFocus)="updateMessageBox('career_preference_set_industry_apart')" (ngModelChange)="checkMaximumWordsInFields(personalInfoForm.get('career_preference_set_industry_apart'), 150)"/>
-													<small class="text-danger text-start" *ngIf="personalInfoForm.get('career_preference_set_industry_apart')?.invalid">This field exceed the maximum length</small>
+													<small class="text-danger text-start" *ngIf="getWordCountUsingControl(personalInfoForm.get('career_preference_set_industry_apart')) > 150">This field exceed the maximum length</small>
 													<small class="text-muted d-block text-end">{{ getWordCountUsingControl(personalInfoForm.get('career_preference_set_industry_apart')) }}/150</small>
 												</div>
 											</div>
@@ -530,14 +538,14 @@
 												<label for="highestQualification" class="form-label">Have a you solved a real-world challenge in your feilds?</label>
 												<div class="position-relative">
 													<textarea pTextarea id="university" formControlName="career_preference_real_world_challenge" placeholder="Have a you solved a real-world challenge?" rows="5"  class="form-control w-100" (mouseleave)="resetMessageBox()" (onFocus)="updateMessageBox('career_preference_real_world_challenge')" (ngModelChange)="checkMaximumWordsInFields(personalInfoForm.get('career_preference_real_world_challenge'), 150)"></textarea>
-													<small class="text-danger text-start" *ngIf="personalInfoForm.get('career_preference_real_world_challenge')?.invalid && personalInfoForm.get('career_preference_real_world_challenge')?.touched">This field exceed the maximum length</small>
+													<small class="text-danger text-start" *ngIf="getWordCountUsingControl(personalInfoForm.get('career_preference_real_world_challenge')) > 150">This field exceed the maximum length</small>
 													<small class="text-muted d-block text-end">{{ getWordCountUsingControl(personalInfoForm.get('career_preference_real_world_challenge')) }}/150</small>
 												</div>
 											</div>
 											<div class="col-md-6">
 												<label for="highestQualification" class="form-label">Have you taken on leadership roles?</label>
 												<textarea pTextarea id="university" formControlName="career_preference_leadership_experience" placeholder="Have you taken on leadership roles?" class="form-control w-100" (mouseleave)="resetMessageBox()" rows="5" (onFocus)="updateMessageBox('career_preference_leadership_experience')" (ngModelChange)="checkMaximumWordsInFields(personalInfoForm.get('career_preference_leadership_experience'), 150)"></textarea>
-												<small class="text-danger text-start" *ngIf="personalInfoForm.get('career_preference_leadership_experience')?.invalid && personalInfoForm.get('career_preference_leadership_experience')?.touched">This field exceed the maximum length</small>
+												<small class="text-danger text-start" *ngIf="getWordCountUsingControl(personalInfoForm.get('career_preference_real_world_challenge')) > 150">This field exceed the maximum length</small>
 												<small class="text-muted d-block text-end">{{ getWordCountUsingControl(personalInfoForm.get('career_preference_leadership_experience')) }}/150</small>											
 											</div>
 										</div>
@@ -546,7 +554,7 @@
 												<label for="highestQualification" class="form-label">One quality others admire most about you?</label>
 												<div class="position-relative">
 													<textarea pTextarea id="responsibilities" formControlName="career_preference_admired_quality" class="form-control w-100" placeholder="Enter one quality others admire most about you" rows="4" (mouseleave)="resetMessageBox()" (onFocus)="updateMessageBox('career_preference_admired_quality')" (ngModelChange)="checkMaximumWordsInFields(personalInfoForm.get('career_preference_admired_quality'), 150)"></textarea>
-													<small class="text-danger text-start" *ngIf="personalInfoForm.get('career_preference_admired_quality')?.invalid && personalInfoForm.get('career_preference_admired_quality')?.touched">This field exceed the maximum length</small>
+													<small class="text-danger text-start" *ngIf="getWordCountUsingControl(personalInfoForm.get('career_preference_admired_quality')) > 150">This field exceed the maximum length</small>
 													<small class="text-muted d-block text-end">{{ getWordCountUsingControl(personalInfoForm.get('career_preference_admired_quality')) }}/150</small>													
 												</div>
 											</div>

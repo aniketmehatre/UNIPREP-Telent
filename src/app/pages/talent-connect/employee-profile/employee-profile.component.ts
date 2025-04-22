@@ -1,9 +1,10 @@
 import { ChangeDetectorRef, Component, ElementRef, OnInit, TemplateRef, ViewChild } from '@angular/core';
-import { FormGroup, FormBuilder, Validators, FormArray, AbstractControl, FormControl } from '@angular/forms';
+import { FormGroup, FormBuilder, Validators, FormArray, AbstractControl, FormControl, MaxValidator } from '@angular/forms';
 import { ViewProfileComponent } from './view-profile/view-profile.component';
 import { DialogService, DynamicDialogRef } from 'primeng/dynamicdialog';
 import { TalentConnectService } from '../talent-connect.service';
 import { MessageService } from 'primeng/api';
+import { maxWordsValidator } from 'src/app/shared/directives/maxwordValidators.directive';
 
 
 export enum FileType {
@@ -227,12 +228,12 @@ export class EmployeeProfileComponent implements OnInit {
       career_preference_willingness_to_relocate: [null, Validators.required],
       career_preference_expected_salary: [null, Validators.required],
       career_preference_currency_id: [null, Validators.required],
-      career_preference_set_industry_apart: [''],
+      career_preference_set_industry_apart: ['', maxWordsValidator(150)],
       career_preference_soft_skill_id: [[]],
       career_preference_professional_strength_id: [[]],
-      career_preference_real_world_challenge: [''],
-      career_preference_leadership_experience: [''],
-      career_preference_admired_quality: [''],
+      career_preference_real_world_challenge: ['', maxWordsValidator(150)],
+      career_preference_leadership_experience: ['', maxWordsValidator(150)],
+      career_preference_admired_quality: ['', maxWordsValidator(150)],
 
       // Networking
       networking_linkedin_profile: ['', [Validators.required, Validators.pattern(/^(http:\/\/www\.|https:\/\/www\.|http:\/\/|https:\/\/)?[a-z0-9]+([\-\.]{1}[a-z0-9]+)*\.[a-z]{2,5}(:[0-9]{1,5})?(\/.*)?$/)]],
@@ -286,7 +287,7 @@ export class EmployeeProfileComponent implements OnInit {
       work_experience_duration_to: [''],
       work_experience_salary_per_month: [''],
       work_experience_currency_id: [''],
-      work_experience_job_responsibilities: [''],
+      work_experience_job_responsibilities: ['', maxWordsValidator(150)],
       work_experience_experience_letter: ['']
     });
   }
@@ -1129,9 +1130,9 @@ export class EmployeeProfileComponent implements OnInit {
     if (this.professionalReferences?.controls?.length) {
       this.professionalReferences.controls.forEach((ref, index) => {
         if (index == 0) {
-          checkField(ref.get('references_company_name'), 1);
-          checkField(ref.get('references_reference_name'), 1);
-          checkField(ref.get('references_designation'), 1);
+          checkField(ref.get('references_company_name'), 2);
+          checkField(ref.get('references_reference_name'), 2);
+          checkField(ref.get('references_designation'), 4);
           // checkField(ref.get('references_phone_number'), 1);
           checkField(ref.get('references_email'), 1);
         }
@@ -1243,7 +1244,6 @@ export class EmployeeProfileComponent implements OnInit {
       networking_linkedin_profile: response.linkedin_profile || '',
       networking_personal_website: response.personal_website || '',
     });
-    this.checkMaximumWordsInFields(this.personalInfoForm.get('career_preference_set_industry_apart') as FormControl);
 
     // Patch Education Details
     if (response.education && response.education.length > 0) {
@@ -1277,14 +1277,10 @@ export class EmployeeProfileComponent implements OnInit {
           work_experience_duration_to: [exp.duration_to ? new Date(exp.duration_to) : null],
           work_experience_salary_per_month: [exp.salary_per_month],
           work_experience_currency_id: [exp.currency_id],
-          work_experience_job_responsibilities: [exp.job_responsibilities],
+          work_experience_job_responsibilities: [exp.job_responsibilities, maxWordsValidator(150)],
           work_experience_experience_letter: [exp.experience_letter]
         });
-
         workExpArray.push(group);
-
-        const jobRespControl = group.get('work_experience_job_responsibilities') as FormControl;
-        this.checkMaximumWordsInFields(jobRespControl);
       });
     }
 
@@ -1493,26 +1489,6 @@ export class EmployeeProfileComponent implements OnInit {
     }
   }
 
-  checkMaximumWordsInFields(control: FormControl, maxNumber: number = 150): void {
-    if (!control) return;
-
-    const rawValue = control.value || '';
-    const cleanText = rawValue.replace(/<\/?[^>]+(>|$)/g, '');
-    const words = cleanText.match(/\b\w+\b/g) || [];
-    const wordCount = words.length;
-
-    if (wordCount > maxNumber) {
-      control.setErrors({ ...(control.errors || {}), maxWordsExceeded: true });
-    } else {
-      if (control.hasError('maxWordsExceeded')) {
-        const errors = { ...control.errors };
-        delete errors['maxWordsExceeded'];
-        control.setErrors(Object.keys(errors).length ? errors : null);
-      }
-    }
-
-    control.updateValueAndValidity({ onlySelf: true });
-  }
 
   getWordCountUsingControl(control: FormControl) {
     let wordCount = 0;
