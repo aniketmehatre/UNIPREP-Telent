@@ -14,6 +14,11 @@
 							<span><i class="fa-solid fa-chevron-right"></i></span>
 							<h5 role="button" class="mb-0" tooltipPosition="top" pTooltip="Access resources for starting your business, from ideation to execution.">AI Business Advisor</h5>
 						</div>
+						<div>
+							<button pButton class="how-it-works-button" severity="warn"
+								(click)="openVideoPopup('https://www.youtube.com/embed/jG3wFxF8zZI?si=2I3dijKIH-aEisoS')">How
+								it works? <i class="fa-solid fa-play d-md-block d-none"></i></button>
+						</div>
 					</div>
 					<div class="d-flex align-items-center gap-1">
 						<button pButton  class="btn btn-outline-primary text-small btn-rounded d-flex gap-2 align-items-center flex-fill" type="button">
@@ -63,10 +68,16 @@
 									</ng-container>
 									<ng-container *ngIf="recommendation.id == 6">
 										<div class="w-100 d-flex gap-2 flex-fill">
-											<p-select [(ngModel)]="selectedData[8]" [options]="currencyList" [filter]="true" filterBy="currency_symbol" placeholder=" Currency" appendTo="body" optionLabel="currency_symbol" optionValue="currency_symbol" [autoDisplayFirst]="false"> </p-select>
-											<input [(ngModel)]="selectedData[recommendation.id]" class="w-100 pl-4 border border-gray rounded-3" type="number" [max]="99999999" pInputText [placeholder]="selectedData[8] ? 'Amount in' + ' ' + selectedData[8] : 'Enter Amount'" />
+											<div>
+												<p-select [(ngModel)]="selectedData[8]" [options]="currencyList" [filter]="true" filterBy="currency_symbol" placeholder=" Currency" appendTo="body" optionLabel="currency_symbol" optionValue="currency_symbol" [autoDisplayFirst]="false"> </p-select>
+												<div class="text-center" [ngClass]="{ 'd-none': inValidClass === false }" style="color: red">Currency required</div>
+											</div>
+											<div class="w-100">
+												<input [(ngModel)]="selectedData[recommendation.id]" class="w-100 pl-4 border border-gray rounded-3" type="number" [max]="99999999" pInputText [placeholder]="selectedData[8] ? 'Amount in' + ' ' + selectedData[8] : 'Enter Amount'" />
+												<div class="text-center" [ngClass]="{ 'd-none': inValidClass === false }" style="color: red">Budget is required or maximum 8 digit allowed</div>
+											</div>
+											
 										</div>
-										<div class="text-center" [ngClass]="{ 'd-none': inValidClass === false }" style="color: red">Budget is required or maximum 8 digit allowed</div>
 									</ng-container>
 									<ng-container *ngIf="recommendation.id == 7">
 										<p-select [(ngModel)]="selectedData[recommendation.id]" [filter]="true" filterBy="strategy" [options]="strategyBusinessList" styleClass="w-100" optionLabel="strategy" optionValue="strategy" [appendTo]="'body'" placeholder="Strategy"> </p-select>
@@ -106,6 +117,11 @@
 							<h5 routerLink="/pages/founderstool/founderstoollist" role="button" class="mb-0" tooltipPosition="top">Founders Tool</h5>
 							<span><i class="fa-solid fa-chevron-right"></i></span>
 							<h5 role="button" class="mb-0" tooltipPosition="top" pTooltip="Access resources for starting your business, from ideation to execution.">AI Business Advisor</h5>
+						</div>
+						<div>
+							<button pButton class="how-it-works-button" severity="warn"
+								(click)="openVideoPopup('https://www.youtube.com/embed/jG3wFxF8zZI?si=2I3dijKIH-aEisoS')">How
+								it works? <i class="fa-solid fa-play d-md-block d-none"></i></button>
 						</div>
 					</div>
 					<div class="d-flex align-items-center gap-1">
@@ -176,6 +192,11 @@
 							<h5 routerLink="/pages/founderstool/founderstoollist" role="button" class="mb-0" tooltipPosition="top">Founders Tool</h5>
 							<span><i class="fa-solid fa-chevron-right"></i></span>
 							<h5 role="button" class="mb-0" tooltipPosition="top" pTooltip="Access resources for starting your business, from ideation to execution.">AI Business Advisor</h5>
+						</div>
+						<div>
+							<button pButton class="how-it-works-button" severity="warn"
+								(click)="openVideoPopup('https://www.youtube.com/embed/jG3wFxF8zZI?si=2I3dijKIH-aEisoS')">How
+								it works? <i class="fa-solid fa-play d-md-block d-none"></i></button>
 						</div>
 					</div>
 					<div class="d-flex align-items-center gap-1">

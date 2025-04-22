@@ -19,7 +19,7 @@ import { SelectModule } from "primeng/select"
 import { DialogModule } from "primeng/dialog"
 import { CardModule } from "primeng/card"
 import { InputNumberModule } from "primeng/inputnumber"
-import { sendDownloadParams } from "src/app/@Models/travel-tools.model"
+import { PageFacadeService } from '../../page-facade.service';
 import { DomSanitizer, SafeHtml } from "@angular/platform-browser"
 import { PromptService } from "../../prompt.service"
 import { SharedModule } from "src/app/shared/shared.module"
@@ -31,10 +31,10 @@ import { SharedModule } from "src/app/shared/shared.module"
 	imports: [CommonModule, RouterModule, SkeletonModule, FluidModule, InputTextModule, TooltipModule, ButtonModule, MultiSelectModule, CarouselModule, InputGroupModule, InputGroupAddonModule, FormsModule, ReactiveFormsModule, InputTextModule, SelectModule, DialogModule, CardModule, InputNumberModule, SharedModule],
 })
 export class TravelVisitPlannerComponent implements OnInit {
-	constructor(private travelToolService: TravelToolsService, private router: Router, private costOfLivingService: CostOfLivingService, private toast: MessageService, private sanitizer: DomSanitizer, private promptService: PromptService) { }
+	constructor(private travelToolService: TravelToolsService, private router: Router, private costOfLivingService: CostOfLivingService, private toast: MessageService, private sanitizer: DomSanitizer, private promptService: PromptService,private pageFacade: PageFacadeService) { }
 
 	recommendations: { id: number; question: string }[] = [
-		{ id: 1, question: "What is your destination?" },
+		{ id: 1, question: "What is your travel destination?" },
 		{ id: 2, question: "How many days will your trip last?" },
 		{ id: 3, question: "During which season do you want to travel?" },
 	]
@@ -176,5 +176,9 @@ export class TravelVisitPlannerComponent implements OnInit {
 
 	goBack() {
 		this.router.navigateByUrl("/pages/travel-tools")
+	}
+
+	openVideoPopup(videoLink: string) {
+		this.pageFacade.openHowitWorksVideoPopup(videoLink);
 	}
 }

@@ -1,6 +1,6 @@
 import { Component, OnInit } from "@angular/core"
 import { TravelToolsService } from "../travel-tools.service"
-// import { CountryandCurrency } from 'src/app/@Models/currency.model';
+import { PageFacadeService } from "../../page-facade.service"
 import { TravelCostEstimatorQuestionList } from "../trvel-tool-questions"
 import { TravelCostEstimator } from "src/app/@Models/chat-gpt.model"
 import { Router, RouterModule } from "@angular/router"
@@ -54,7 +54,7 @@ export class TravelCostEstimatorComponent implements OnInit {
 	isFromSavedData: boolean = false
 	isResponseSkeleton: boolean = false;
 	aiCreditCount: number = 0;
-	constructor(private travelToolsService: TravelToolsService, private router: Router, private costOfLivingService: CostOfLivingService, private toast: MessageService, private sanitizer: DomSanitizer, private promptService: PromptService) { }
+	constructor(private travelToolsService: TravelToolsService, private router: Router, private costOfLivingService: CostOfLivingService, private toast: MessageService, private sanitizer: DomSanitizer, private promptService: PromptService,private pageFacade: PageFacadeService,) { }
 
 	ngOnInit(): void {
 		this.selectedData = { 3: 1 }
@@ -69,6 +69,10 @@ export class TravelCostEstimatorComponent implements OnInit {
 				this.destinationLocationList = response
 			},
 		})
+	}
+
+	openVideoPopup(videoLink: string) {
+		this.pageFacade.openHowitWorksVideoPopup(videoLink);
 	}
 
 	getAICreditCount(){
