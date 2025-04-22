@@ -1,4 +1,4 @@
-import { Component, ElementRef, OnInit, ViewChild } from "@angular/core"
+import {Component, ElementRef, OnDestroy, OnInit, ViewChild} from "@angular/core"
 import { ThemeService } from "../../theme.service"
 import { FormBuilder, FormsModule, ReactiveFormsModule, FormControl, FormGroup, Validators } from "@angular/forms"
 import { AuthService } from "../../Auth/auth.service"
@@ -27,7 +27,7 @@ import { MessageService } from "primeng/api"
 	],
 	providers: [MessageService, AuthService],
 })
-export class LandingComponent implements OnInit {
+export class LandingComponent implements OnInit, OnDestroy {
 	@ViewChild("videoPlayer")
 	videoPlayer!: ElementRef
 	isPlaying = false
@@ -62,6 +62,10 @@ export class LandingComponent implements OnInit {
 		// Initialize the isDarkMode property with the value from the service
 		this.isDarkMode = this.themeService.getInitialSwitchState()
 	}
+
+	ngOnDestroy() {
+		localStorage.clear();
+    }
 
 	stats = [
 		{

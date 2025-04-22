@@ -108,6 +108,7 @@ export class RegistrationComponent implements OnInit {
 	dateTime = new Date()
 	private subs = new SubSink()
 	ngOnInit() {
+		localStorage.clear()
 		// this.domainnamecondition=window.location.hostname
 		// if ( this.domainnamecondition === "dev-student.uniprep.ai" ||  this.domainnamecondition === "uniprep.ai" ||  this.domainnamecondition === "localhost") {
 		//   this.domainname="main"
