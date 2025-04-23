@@ -54,6 +54,8 @@ export class TravelCostEstimatorComponent implements OnInit {
 	isFromSavedData: boolean = false
 	isResponseSkeleton: boolean = false;
 	aiCreditCount: number = 0;
+	userInputs: any= [];
+
 	constructor(private travelToolsService: TravelToolsService, private router: Router, private costOfLivingService: CostOfLivingService, private toast: MessageService, private sanitizer: DomSanitizer, private promptService: PromptService,private pageFacade: PageFacadeService,) { }
 
 	ngOnInit(): void {
@@ -110,6 +112,7 @@ export class TravelCostEstimatorComponent implements OnInit {
 			currency: this.selectedData[1].currencycode,
 			mode: "travelcostestimator",
 		}
+		this.userInputs = data; 
 		this.isRecommendationQuestion = false
 		this.isRecommendationSavedData = false
 		this.isRecommendationData = true
@@ -155,12 +158,17 @@ export class TravelCostEstimatorComponent implements OnInit {
 		}
 	}
 
-	showRecommandationData(data: string) {
+	showRecommandationData(data: string, userInputs: any) {
+		console.log(userInputs);
 		this.isRecommendationQuestion = false
 		this.isRecommendationData = true
 		this.isRecommendationSavedData = false
 		this.isFromSavedData = true
 		this.recommendationData = data
+
+		const encodedJson = userInputs;
+		const decodedInput = JSON.parse(encodedJson);
+		this.userInputs = decodedInput;
 	}
 
 	onSaveRes() {
@@ -171,17 +179,17 @@ export class TravelCostEstimatorComponent implements OnInit {
 		let addingInput: string = '';
 		this.recommendations.forEach((values) => {
 			addingInput += `<p style="color: #3f4c83;"><strong>${values.question}</strong></p>`
-			let currentAnswer = ""
+			let currentAnswer = "";
 			if (values.id == 1) {
-				currentAnswer = this.selectedData[1].city_name + ", " + this.selectedData[1].country_name
+				currentAnswer = this.userInputs.country;
 			} else if (values.id == 2) {
-				currentAnswer = this.selectedData[2].city_name + ", " + this.selectedData[2].country_name
+				currentAnswer = this.userInputs.destination;
 			} else if (values.id == 3) {
-				currentAnswer = `${this.selectedData[3]} Days`
+				currentAnswer = `${this.userInputs.duration} Days`;
 			} else if (values.id == 4) {
-				currentAnswer = this.selectedData[4]
+				currentAnswer = this.userInputs.experience;
 			}
-			addingInput += `<p>${currentAnswer}</p><br>`
+			addingInput += `<p>${currentAnswer}</p><br>`;
 		})
 		let params: any = {
 			module_name: "Travel Cost Estimator",

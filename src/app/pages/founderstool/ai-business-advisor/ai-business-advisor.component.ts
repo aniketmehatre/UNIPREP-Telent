@@ -1,5 +1,5 @@
 import { Component, OnInit } from "@angular/core"
-import { FormGroup, FormBuilder, Validators } from "@angular/forms"
+import { FormGroup } from "@angular/forms"
 import { FounderstoolService } from "../founderstool.service"
 import { Router } from "@angular/router"
 import { businessAdvisor } from "./business-advisor.data"
@@ -18,7 +18,6 @@ import { InputGroupModule } from "primeng/inputgroup"
 import { InputTextModule } from "primeng/inputtext"
 import { InputGroupAddonModule } from "primeng/inputgroupaddon"
 import { PageFacadeService } from '../../page-facade.service';
-import { TravelToolsService } from "../../travel-tools/travel-tools.service"
 import { DomSanitizer, SafeHtml } from "@angular/platform-browser"
 import { PromptService } from "../../prompt.service"
 import { SkeletonModule } from "primeng/skeleton"
@@ -62,6 +61,7 @@ export class AiBusinessAdvisorComponent implements OnInit {
 	currencyList: any = []
 	isResponseSkeleton: boolean = false;
 	aiCreditCount:  number = 0;
+	userInputs: any;
 
 	constructor( private foundersToolService: FounderstoolService, private router: Router, private toast: MessageService, private sanitizer: DomSanitizer, private promptService: PromptService,private pageFacade: PageFacadeService) {}
 
@@ -127,6 +127,7 @@ export class AiBusinessAdvisorComponent implements OnInit {
 			currency: this.selectedData[8],
 			mode: "business_advisor",
 		}
+		this.userInputs = data;
 		this.isRecommendationQuestion = false
 		this.isRecommendationSavedData = false
 		this.isRecommendationData = true
@@ -167,12 +168,16 @@ export class AiBusinessAdvisorComponent implements OnInit {
 		}
 	}
 
-	showRecommandationData(data: string) {
+	showRecommandationData(data: string, userInputs: any) {
 		this.isRecommendationQuestion = false
 		this.isRecommendationData = true
 		this.isRecommendationSavedData = false
 		this.isFromSavedData = true
 		this.recommendationData = data
+
+		const encodedJson = userInputs;
+		const decodedInput = JSON.parse(encodedJson);
+		this.userInputs = decodedInput;
 	}
 
 	goBack() {
@@ -188,17 +193,45 @@ export class AiBusinessAdvisorComponent implements OnInit {
 		this.recommendations.forEach((item) => {
 			addingInput += `<p style="color: #3f4c83;"><strong>${item.question}</strong></p>`
 			let currentAnswer = ""
-			if (this.selectedData && this.selectedData[item.id]) {
-				if (item.id == 6) {
-					currentAnswer = this.selectedData[8] + " " + this.selectedData[item.id]
-				} else if (item.id == 3) {
-					currentAnswer = `${this.selectedData[item.id]} Months`
-				} else {
-					currentAnswer = this.selectedData[item.id]
-				}
-			} else {
+			if(item.id == 1){
+				currentAnswer = this.userInputs.type
+			}
+			else if(item.id == 2){
+				currentAnswer = this.userInputs.goals
+			}
+			else if(item.id == 3){
+				currentAnswer = `${this.userInputs.duration} Months`
+			}
+			else if(item.id == 4){
+				currentAnswer = this.userInputs.challenges
+			}
+			else if(item.id == 5){
+				currentAnswer = this.userInputs.customers
+			}
+			else if(item.id == 6){
+				currentAnswer = this.userInputs.currency +' '+this.userInputs.budget
+			}
+			else if(item.id == 7){
+				currentAnswer = this.userInputs.strategy
+			}
+			else if(item.id == 8){
+				currentAnswer = this.userInputs.currency
+			}
+			else {
 				currentAnswer = "No answer provided"
 			}
+
+			// if (this.selectedData && this.selectedData[item.id]) {
+			// 	if (item.id == 6) {
+			// 		currentAnswer = this.selectedData[8] + " " + this.selectedData[item.id]
+			// 	} else if (item.id == 3) {
+			// 		currentAnswer = `${this.selectedData[item.id]} Months`
+			// 	} else {
+			// 		currentAnswer = this.selectedData[item.id]
+			// 	}
+			// } else {
+			// 	currentAnswer = "No answer provided"
+			// }
 			addingInput += `<p>${currentAnswer}</p><br>`
 		})
 		let params: any = {

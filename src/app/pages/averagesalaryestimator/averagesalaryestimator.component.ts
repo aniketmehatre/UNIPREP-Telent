@@ -74,6 +74,8 @@ export class AverageSalaryComponent implements OnInit {
     //   question: "Select your Preferred Currency",
     // },
   ];
+  userInputs: any;
+
   ngOnInit() {
     this.selectedData = {};
     this.activePageIndex = 0;
@@ -263,8 +265,43 @@ export class AverageSalaryComponent implements OnInit {
   }
   savedresponseData: any = [];
   readSavedResponse(savedResponse: any) {
-    console.log(savedResponse, "saved response");
+    const encodedJson = savedResponse.user_inputs;
+		const decodedInput = JSON.parse(encodedJson);
+		this.userInputs = decodedInput;
     this.savedresponseData = savedResponse;
     this.readResponse = true;
+  }
+
+  downloadRecommadation() {
+    let addingInput: string = '';
+    this.recommendations.forEach(values => {
+      addingInput += `<p style="color: #3f4c83;"><strong>${values.question}</strong></p>`;
+      let currentAnswer = "";
+      if (values.id == 1) {
+        currentAnswer = this.userInputs.role;
+      } else if (values.id == 2) {
+        if (this.userInputs.experience === 1) {
+          currentAnswer = " Fresher";
+        } else {
+          currentAnswer = `${this.userInputs.experience} ${this.userInputs.experience === 1 ? "Year" : "Years"}`;
+        }
+      } else if (values.id == 3) {
+        currentAnswer = this.userInputs.worktype_name;
+      } else if (values.id == 4) {
+        currentAnswer = this.userInputs.location_name;
+      } else if (values.id == 5) {
+        currentAnswer = this.userInputs.workplace_type_name;
+      } else if (values.id == 6) {
+        currentAnswer = this.userInputs.currency;
+      }
+      addingInput += `<p>${currentAnswer}</p><br>`;
+    });
+    let params: any = {
+      module_name: "Average Salary Estimator",
+      file_name: "average_salary_estimator",
+      response: this.savedresponseData.answer,
+      inputString: addingInput
+    };
+    this.promptService.responseBuilder(params);
   }
 }

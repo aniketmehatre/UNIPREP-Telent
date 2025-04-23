@@ -58,14 +58,14 @@
 												<h5 class="text-center uniprep-primary fw-semibold mb-0">
 													{{ recommendation.questions[1] }}
 												</h5>
-												<p-inputnumber formControlName="interest_rate" placeholder="Enter Interest Rate" inputId="minmaxfraction" mode="decimal" [minFractionDigits]="2" [maxFractionDigits]="2" suffix=" %" class="w-100" />
+												<p-inputnumber formControlName="interest_rate" placeholder="Enter interest rate in %" inputId="minmaxfraction" mode="decimal" [minFractionDigits]="2" [maxFractionDigits]="2" suffix=" %" class="w-100" />
 												<div *ngIf="form.get('interest_rate')?.errors?.required && submitted" class="text-center text-danger">Interest rate is required.</div>
 											</div>
 											<div class="d-flex flex-column justify-content-center gap-2">
 												<h5 class="text-center uniprep-primary fw-semibold mb-0">
 													{{ recommendation.questions[2] }}
 												</h5>
-												<p-select formControlName="loan_tenure" [options]="loanTensureMonthList" [filter]="true" filterBy="value" optionLabel="value" optionValue="value" placeholder="Select Month"> </p-select>
+												<p-select formControlName="loan_tenure" [options]="loanTensureMonthList" [filter]="true" filterBy="value" optionLabel="value" optionValue="value" placeholder="Select number of months"> </p-select>
 												<div *ngIf="form.get('loan_tenure')?.errors?.required && submitted" class="text-center text-danger">Loan tenure is required.</div>
 											</div>
 											<div class="d-flex flex-column justify-content-center gap-2">
@@ -88,7 +88,7 @@
 												<h5 class="text-center uniprep-primary fw-semibold mb-0">
 													{{ recommendation.questions[1] }}
 												</h5>
-												<p-select formControlName="repayment_year" [options]="repaymentYearList" optionLabel="value" optionValue="value" placeholder="Select Year"> </p-select>
+												<p-select formControlName="repayment_year" [options]="repaymentYearList" optionLabel="value" optionValue="value" placeholder="Select years"> </p-select>
 												<div *ngIf="form.get('repayment_year')?.errors?.required && submitted" class="text-center text-danger">Repayment year is required.</div>
 											</div>
 										</div>
@@ -158,7 +158,7 @@
 			<div class="row mb-0" *ngIf="recommadationSavedQuestionList.length > 0; else noHistory">
 				<div *ngFor="let item of recommadationSavedQuestionList; let i = index" class="col-lg-3 col-md-3 col-sm-4 col-xs-12 col-4 mb-3">
 					<div class="row w-100 m-0 justify-content-center h-100">
-						<div class="card subjectcard" role="button" (click)="showRecommandationData(item.response)">
+						<div class="card subjectcard" role="button" (click)="showRecommandationData(item.response, item.user_inputs)">
 							<div class="card-body text-start">
 								<h5 class="fw-bold mb-0">EduLoan Repaymeny Advisor {{ i + 1 }}</h5>
 								<p class="text-small"><b>Loan Amount : </b>{{ item.currency + " " }} {{ item.loan_amount }}</p>

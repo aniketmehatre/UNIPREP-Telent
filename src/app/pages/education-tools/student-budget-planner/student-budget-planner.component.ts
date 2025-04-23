@@ -92,6 +92,7 @@ export class StudentBudgetPlannerComponent implements OnInit {
   }
   selectedData: any = { ...this.selectedDataArray }
   aiCreditCount: number = 0;
+  userInputs: any;
 
   courseDurationList: { value: string }[] = [
     { value: '6 Months' },
@@ -188,12 +189,11 @@ export class StudentBudgetPlannerComponent implements OnInit {
     Object.entries(this.selectedData).forEach(([key, value]) => {
       if (key === 'country') {
         let countryName = this.getCountryName();
+        this.selectedData['country_id'] = this.selectedData['country'];
         this.selectedData['country'] = countryName;
       }
-      // if(value === null){
-      //   this.selectedData[key] = "none";
-      // }
     });
+    this.userInputs = this.selectedData;
     this.isRecommendation = false;
     this.isSavedResponse = false;
     this.isOldResponse = false;
@@ -252,12 +252,17 @@ export class StudentBudgetPlannerComponent implements OnInit {
     })
   }
 
-  showRecommandationData(response: string) {
+  showRecommandationData(response: string, userInputs: any) {
     this.recommendationData = response;
     this.isSavedResponse = false;
     this.isRecommendation = false;
     this.isResponsePage = true;
     this.isOldResponse = true;
+
+    
+		const encodedJson = userInputs;
+		const decodedInput = JSON.parse(encodedJson);
+		this.userInputs = decodedInput;
   }
 
   resetRecommendation() {
@@ -272,25 +277,30 @@ export class StudentBudgetPlannerComponent implements OnInit {
   }
 
   downloadRecommadation() {
+    let currentCurrency = this.selectedCurrency;
+    if(!currentCurrency){
+      let getCurrencyName = this.countriesList.find(u => u.id === this.userInputs.country_id);
+      currentCurrency = getCurrencyName?.currency || '';  // Default to empty string
+    }
     let addingInput: string = `
       <p style="color: #3f4c83;"><strong>In which country do you plan to study?</strong></p>
-      <p>${this.selectedData.countryName}</p><br>
+      <p>${this.userInputs.countryName}</p><br>
       <p style="color: #3f4c83;"><strong>Which university will you be attending?</strong></p>
-      <p>${this.selectedData.university}</p><br>
+      <p>${this.userInputs.university}</p><br>
       <p style="color: #3f4c83;"><strong>What is the length of your course?</strong></p>
-      <p>${this.selectedData.course_duration}</p><br>
+      <p>${this.userInputs.course_duration}</p><br>
       <p style="color: #3f4c83;"><strong>What is the duration of the post-study stay-back period?</strong></p>
-      <p>${this.selectedData.stay_back}</p><br>
+      <p>${this.userInputs.stay_back}</p><br>
       <p style="color: #3f4c83;"><strong>What is the net tuition fee for your entire course?</strong></p>
-      <p>${this.selectedData.tution} in ${this.selectedCurrency}</p><br>
+      <p>${this.userInputs.tution} in ${currentCurrency}</p><br>
       <p style="color: #3f4c83;"><strong>How much do you expect to spend on accommodation per month?</strong></p>
-      <p>${this.selectedData.accommodation} / Month in ${this.selectedCurrency}</p><br>
+      <p>${this.userInputs.accommodation} / Month in ${currentCurrency}</p><br>
       <p style="color: #3f4c83;"><strong>What are your estimated travel expenses per month?</strong></p>
-      <p>${this.selectedData.travel_expense} / Month in ${this.selectedCurrency}</p><br>
+      <p>${this.userInputs.travel_expense} / Month in ${currentCurrency}</p><br>
       <p style="color: #3f4c83;"><strong>How much do you plan to spend on food and groceries each month?</strong></p>
-      <p>${this.selectedData.food_and_grocery} / Month in ${this.selectedCurrency}</p><br>
+      <p>${this.userInputs.food_and_grocery} / Month in ${currentCurrency}</p><br>
       <p style="color: #3f4c83;"><strong>What are your anticipated miscellaneous expenses per month?</strong></p>
-      <p>${this.selectedData.miscellaneous} / Month in ${this.selectedCurrency}</p><br>
+      <p>${this.userInputs.miscellaneous} / Month in ${currentCurrency}</p><br>
     `;
 
     let params: any = {
