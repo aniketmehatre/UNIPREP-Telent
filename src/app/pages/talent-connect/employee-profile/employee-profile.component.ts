@@ -1494,6 +1494,13 @@ export class EmployeeProfileComponent implements OnInit {
   }
 
 
+  addCustomJobTitle(customValue: string, control: FormControl) {
+    if (customValue && !this.jobTitles.some(job => job.job_title === customValue)) {
+      this.jobTitles = [...this.jobTitles, { id: null, job_title: customValue }];
+      control?.setValue(customValue);
+    }
+  }
+
   getWordCountUsingControl(control: FormControl) {
     let wordCount = 0;
     if (control.value) {

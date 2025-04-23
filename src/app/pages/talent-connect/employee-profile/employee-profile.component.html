@@ -224,7 +224,16 @@
 												<!-- Field of Study / Major -->
 												<div class="col-md-6">
 													<label for="fieldOfStudy" class="form-label">Job Title</label>
-													<p-select id="highestQualification" pTooltip="Not able to find please type in this field" [virtualScroll]="true" [virtualScrollItemSize]="50" formControlName="work_experience_job_title" [options]="jobTitles" placeholder="Select Job Title" styleClass="w-100 p-0" optionLabel="job_title" optionValue="job_title" [filter]="true" filterBy="job_title" [editable]="true" (focusout)="resetMessageBox()" [disabled]="experience.get('years_of_experience')?.value == 'Fresher'" (onFocus)="updateMessageBox('work_experience_job_title')"></p-select>
+													<p-select id="highestQualification" [virtualScroll]="true" [virtualScrollItemSize]="50" formControlName="work_experience_job_title" [options]="jobTitles" placeholder="Select Job Title" styleClass="w-100" optionLabel="job_title" optionValue="job_title" [filter]="true" filterBy="job_title" (focusout)="resetMessageBox()" [disabled]="experience.get('years_of_experience')?.value == 'Fresher'" (onFocus)="updateMessageBox('work_experience_job_title')">
+														<ng-template #footer>
+															<div class="p-2">
+																<p-inputgroup>
+																<input pInputText placeholder="Custom Value" #jobtitleExp/>
+																<p-button label="Add New" fluid severity="secondary" text size="small" icon="pi pi-plus"(click)="addCustomJobTitle(jobtitleExp.value, experience.get('work_experience_job_title'));"/>
+																</p-inputgroup>
+															</div>
+														</ng-template>
+													</p-select>
 												</div>
 
 												<!-- Course Name -->
