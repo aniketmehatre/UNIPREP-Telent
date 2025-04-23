@@ -24,11 +24,8 @@
                 <div class="bg-secondary-subtle w-100 d-flex justify-content-center align-items-center rounded-3"
                   style="border: 1px dashed">
                   <img (error)="
-                      $event.target.src = '/uniprep-assets/images/avatar.webp'
-                    " [src]="
-                      profileData.personalInfo.logo ??
-                      'uniprep-assets/images/avatar.png'
-                    " class="rounded-circle p-4" alt="Profile Photo" width="200" height="200" />
+                      $event.target.src = '/uniprep-assets/images/avatar.webp'" [src]="
+                      profileData.personalInfo.logo ?? 'uniprep-assets/images/avatar.png'" class="rounded-circle p-4" alt="Profile Photo" width="200" height="200" />
                 </div>
               </div>
             </div>
@@ -55,21 +52,6 @@
                 <div class="col-md-6" *ngIf="profileData.personalInfo?.gender">
                   <h5>Gender</h5>
                   <p>{{ profileData.personalInfo.gender }}</p>
-                </div>
-                <div class="col-md-6" *ngIf="
-                    profileData.educationDetails?.length &&
-                    profileData.educationDetails[
-                      profileData.educationDetails.length - 1
-                    ]?.graduationYear
-                  ">
-                  <h5>Graduation Year</h5>
-                  <p>
-                    {{
-                    profileData.educationDetails[
-                    profileData.educationDetails.length - 1
-                    ].graduationYear
-                    }}
-                  </p>
                 </div>
                 <div class="col-md-6" *ngIf="profileData.personalInfo?.nationality">
                   <h5>Nationality</h5>
