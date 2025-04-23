@@ -85,8 +85,9 @@ export class CareerplannercountrywiseComponent implements OnInit {
         this.specializationList = response;
       }
     });
-    this.getAICreditCount();
     this.checkplanExpire();
+    this.getAICreditCount();
+   
   }
 
   getAICreditCount(){
@@ -101,6 +102,10 @@ export class CareerplannercountrywiseComponent implements OnInit {
     return this.form.controls;
   }
   formSubmit() {
+    if (this.planExpired) {
+			this.restrict = true
+			return
+		}
     this.submitted = true;
     if (this.form.valid) {
       var data = {
@@ -129,6 +134,8 @@ export class CareerplannercountrywiseComponent implements OnInit {
       })
     }
   }
+
+ 
   BackReset() {
     this.isFormVisible = true;
     this.isFormChatgptresponse = false;
@@ -209,7 +216,7 @@ export class CareerplannercountrywiseComponent implements OnInit {
 			let data = res.time_left
 			let subscription_exists_status = res.subscription_details
 			this.currentPlan = subscription_exists_status.subscription_plan
-			if (data.plan === "expired" || data.plan === "subscription_expired" || subscription_exists_status.subscription_plan === "free_trail" || subscription_exists_status.subscription_plan === "Student" || subscription_exists_status.subscription_plan === "Career") {
+			if (data.plan === "expired" || data.plan === "subscription_expired" || subscription_exists_status.subscription_plan === "free_trail" || subscription_exists_status.subscription_plan === "Student"  ) {
 				this.planExpired = true
 				//this.restrict = true;
 			} else {
