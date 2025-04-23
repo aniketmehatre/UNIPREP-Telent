@@ -45,11 +45,11 @@
 									></ng-container>
 
 									<ng-container *ngIf="recommendation.id == 2">
-										<p-multiSelect styleClass="w-100" placeholder="Investor Country" [options]="countryList" (onChange)="loadHeadQuartersData($event)" display="chip" optionLabel="country" optionValue="id" [(ngModel)]="selectedData[recommendation.id]" [appendTo]="'body'"></p-multiSelect>
+										<p-multiSelect styleClass="w-100" placeholder="Please select investor's country " [options]="countryList" (onChange)="loadHeadQuartersData($event)" display="chip" optionLabel="country" optionValue="id" [(ngModel)]="selectedData[recommendation.id]" [appendTo]="'body'"></p-multiSelect>
 										<p class="text-center" [ngClass]="{ 'd-none': invalidClass === false }" style="color: red">Please Choose Any one option</p>
 									</ng-container>
 									<ng-container *ngIf="recommendation.id == 3">
-										<p-multiSelect styleClass="w-100" placeholder="Headquarters Location" [options]="headQuartersList" display="chip" optionLabel="head_quarters_name" optionValue="id" [(ngModel)]="selectedData[recommendation.id]" [appendTo]="'body'"></p-multiSelect>
+										<p-multiSelect styleClass="w-100" placeholder="Please select headquaters location" [options]="headQuartersList" display="chip" optionLabel="head_quarters_name" optionValue="id" [(ngModel)]="selectedData[recommendation.id]" [appendTo]="'body'"></p-multiSelect>
 										<p class="text-center" [ngClass]="{ 'd-none': invalidClass === false }" style="color: red">Please Choose Any one option</p>
 									</ng-container>
 								</div>

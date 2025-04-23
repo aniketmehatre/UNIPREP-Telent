@@ -231,6 +231,8 @@ export class CareerGrowthCheckerComponent implements OnInit {
 			}
 			this.invalidClassCountry = false
 			this.careerGrowthService.GetProgressionDetails(data).subscribe((res) => {
+
+			 
 				if (res.progressionNames != null) {
 					this.showSearch = false
 					this.showResult = true
