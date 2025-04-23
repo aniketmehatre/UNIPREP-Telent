@@ -66,15 +66,15 @@ export class InvestorListComponent implements OnInit {
   recommendations: any = [
     {
       id: 1,
-      question: "Select the type of investor",
+      question: "What type of an investor are you looking for?",
     },
     {
       id: 2,
-      question: "Select the investor's country",
+      question: "What is the preferred country of the investor?",
     },
     {
       id: 3,
-      question: "Select the location of the headquarters",
+      question: "What is the preferred headquaters location?",
     },
   ];
 

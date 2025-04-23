@@ -51,6 +51,7 @@ export class EduLoanCompareComponent implements OnInit {
   activePageIndex: number = 0;
   isResponseSkeleton: boolean = false;
   aiCreditCount: number = 0;
+  userInputs: any;
 
   constructor(
     private fb: FormBuilder,
@@ -118,6 +119,7 @@ export class EduLoanCompareComponent implements OnInit {
       ...this.form.value,
       mode: 'loan_comparison_tool'
     }
+    this.userInputs = data;
     this.isRecommendationQuestion = false;
     this.isRecommendationSavedData = false;
     this.isRecommendationData = true;
@@ -160,11 +162,15 @@ export class EduLoanCompareComponent implements OnInit {
     }
   }
 
-  showRecommandationData(data: string) {
+  showRecommandationData(data: string, userInputs: any) {
     this.isRecommendationQuestion = false;
     this.isRecommendationData = true;
     this.isRecommendationSavedData = false;
     this.recommendationData = this.sanitizer.bypassSecurityTrustHtml(data) as string;
+
+    const encodedJson = userInputs;
+		const decodedInput = JSON.parse(encodedJson);
+		this.userInputs = decodedInput;
   }
 
   resetRecommendation() {
@@ -176,14 +182,14 @@ export class EduLoanCompareComponent implements OnInit {
   }
 
   downloadRecommadation() {
-    const formData = this.form.value;
+    // const formData = this.form.value;
     let addingInput: string = '';
     this.recommendations.forEach(({ id, questions }) => {
       questions.forEach((question, index) => {
         addingInput += `<p style="color: #3f4c83;"><strong>${question}</strong></p>`;
         const answersMap: any = {
-          1: [formData.currency + ' ' + formData.loan_amount, formData.interest_rate + ' %', formData.loan_tenure, formData.course_duration],
-          2: [formData.moratorium_period, formData.repayment_year]
+          1: [this.userInputs.currency + ' ' + this.userInputs.loan_amount, this.userInputs.interest_rate + ' %', this.userInputs.loan_tenure, this.userInputs.course_duration],
+          2: [this.userInputs.moratorium_period, this.userInputs.repayment_year]
         };
         addingInput += `<p>${answersMap[id]?.[index] || ''}</p><br>`;
       });

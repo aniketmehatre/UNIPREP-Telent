@@ -1232,4 +1232,9 @@ body {
 	  margin: 15px auto;
 	}
   } 
-  
+  ::ng-deep .ql-toolbar.ql-snow {
+	border: 2px solid #ccc !important;
+  }
+  :host ::ng-deep.p-editor .p-editor-content.ql-snow{
+	border: 2px solid #ccc !important;
+  } 

@@ -57,10 +57,10 @@
 									<!-- University -->
 									<div class="d-flex flex-column mb-3 align-items-center">
 										<div class="col-md-9">
-											<h5 class="m-2">Which university will you be attending?</h5>
+											<h5 class="m-2">Which university do you wish to attend?</h5>
 										</div>
 										<div class="col-md-9 text-start">
-											<p-select [options]="universityList" styleClass="w-100" [filter]="true" [filterBy]="'university_name'" [(ngModel)]="selectedData['university']" optionLabel="university_name" optionValue="university_name" [appendTo]="'body'" placeholder="Select University"> </p-select>
+											<p-select [options]="universityList" styleClass="w-100" [filter]="true" [filterBy]="'university_name'" [(ngModel)]="selectedData['university']" optionLabel="university_name" optionValue="university_name" [appendTo]="'body'" placeholder="Select your preferred university"> </p-select>
 											<div *ngIf="notfilledArray.includes('university')" class="text-danger text-xs">
 												<div>University Required</div>
 											</div>
@@ -81,10 +81,10 @@
 									<!-- Stay Back Period -->
 									<div class="d-flex flex-column mb-3 align-items-center">
 										<div class="col-md-9">
-											<h5 class="m-2">What is the duration of the post-study stay-back period?</h5>
+											<h5 class="m-2">What is the duration of the post study stay back visa?</h5>
 										</div>
 										<div class="col-md-9 text-start">
-											<p-select [options]="stayBackList" styleClass="w-100" [(ngModel)]="selectedData['stay_back']" optionLabel="value" optionValue="value" [appendTo]="'body'" placeholder="Select Stay Back Period"> </p-select>
+											<p-select [options]="stayBackList" styleClass="w-100" [(ngModel)]="selectedData['stay_back']" optionLabel="value" optionValue="value" [appendTo]="'body'" placeholder="Select stay back visa validity"> </p-select>
 											<!-- <input type="text" pInputText placeholder="Stay Back Months" class="w-100" disabled="true" [(ngModel)]="selectedData['stay_back']" /> -->
 											<div *ngIf="!selectedData['stay_back'] && isSubmitted" class="text-danger text-xs">
 												<div>Stay Back Required</div>
@@ -356,7 +356,7 @@
 		<div class="row mb-0">
 			<div *ngFor="let item of recommadationSavedQuestionList; let i = index" class="col-lg-3 col-md-3 col-sm-4 col-xs-12 col-12 mb-3">
 				<div class="row w-100 m-0 justify-content-center h-100">
-					<div class="card subjectcard" role="button" (click)="showRecommandationData(item.response)">
+					<div class="card subjectcard" role="button" (click)="showRecommandationData(item.response, item.user_inputs)">
 						<div class="card-body text-start">
 							<h5 class="fw-bold mb-0">Budget Planner {{ i + 1 }}</h5>
 							<p class="text-small"><b>Country : </b>{{ item.country_name }}</p>

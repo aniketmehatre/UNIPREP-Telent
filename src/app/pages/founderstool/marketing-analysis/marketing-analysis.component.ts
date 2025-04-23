@@ -26,7 +26,6 @@ export interface selectList {
 }
 import { marketingAnalysisData } from './marketing-analysis.data';
 import { TravelToolsService } from '../../travel-tools/travel-tools.service';
-import { DownloadRespose } from 'src/app/@Models/travel-tools.model';
 import { PromptService } from '../../prompt.service';
 import { SkeletonModule } from 'primeng/skeleton';
 import { SharedModule } from 'src/app/shared/shared.module';
@@ -77,6 +76,7 @@ export class MarketingAnalysisComponent implements OnInit {
   recommendationData: SafeHtml;
 	isResponseSkeleton: boolean = false;
   aiCreditCount: number = 0;
+  userInputs: any;
 
   constructor(
     private fb: FormBuilder,
@@ -85,7 +85,6 @@ export class MarketingAnalysisComponent implements OnInit {
     private toast: MessageService,
     private authService: AuthService,
     private router: Router,
-    private travelToolService: TravelToolsService,
     private pageFacade: PageFacadeService,
     private costOfLivingService: CostOfLivingService,
     private sanitizer: DomSanitizer,
@@ -115,14 +114,14 @@ export class MarketingAnalysisComponent implements OnInit {
       id: 1,
       question: {
         heading: 'Basic Information',
-        branches: ["What industry does your business operate in?", "Where is your business business located?", "Who is your target audience ?", "What products or services does your business offer?"]
+        branches: ["What industry does your business operate in?", "Where is you business established?", "What is the age group of your target audience?", "What products or services does your business offer?"]
       },
     },
     {
       id: 2,
       question: {
         heading: 'Marketing & Sales',
-        branches: ["What is your business model?", "Through which sales channels do you reach your customers?", "What is the preferred timeframe for this analysis?"]
+        branches: ["What is your business model?", "Which sales channels do you use to reach to your customers?", "What is the preferred timeframe for this analysis?"]
       },
     },
     {
@@ -244,6 +243,7 @@ export class MarketingAnalysisComponent implements OnInit {
       mode: 'market_analysis',
       location: formData.location.city_name+', '+formData.location.country_name
     }
+    this.userInputs = data;
     this.isRecommendationQuestion = false;
     this.isRecommendationSavedData = false;
     this.isRecommendationData = true;
@@ -272,7 +272,6 @@ export class MarketingAnalysisComponent implements OnInit {
   next() {
     this.submitted = false;
     const formData = this.marketingForm.value;
-    console.log(formData)
     if (this.activePageIndex == 0) {
       if (!formData.industry || !formData.location || !formData.targetMarket || !formData.productService) {
         this.submitted = true;
@@ -309,12 +308,16 @@ export class MarketingAnalysisComponent implements OnInit {
     }
   }
 
-  showRecommandationData(data: string) {
+  showRecommandationData(data: string, userInputs: any) {
     this.isRecommendationQuestion = false;
     this.isRecommendationData = true;
     this.isRecommendationSavedData = false;
     this.isFromSavedData = true;
     this.recommendationData = data;
+
+		const encodedJson = userInputs;
+		const decodedInput = JSON.parse(encodedJson);
+		this.userInputs = decodedInput;
   }
 
   resetRecommendation() {
@@ -335,7 +338,6 @@ export class MarketingAnalysisComponent implements OnInit {
   downloadRecommadation() {
 		let addingInput: string = '';
     const formValue = ['industry', 'location', 'targetMarket', 'productService', 'businessModel', 'salesChannel', 'timeFrame', 'budget', 'revenueStreams', 'competitorAnalysis', 'forecast'];
-    const formData = this.marketingForm.value;
     // Keep track of which formValue index we're currently using
     let formValueIndex = 0;
     this.recommendations.forEach((category: any) => {
@@ -344,14 +346,11 @@ export class MarketingAnalysisComponent implements OnInit {
         addingInput += `<p style="color: #3f4c83;"><strong>${branchQuestion}</strong></p>`;
         let currentAnswer = "";
         const currentFormField = formValue[formValueIndex];
-        if (formData && formData[currentFormField]) {
-          if (currentFormField == 'location') {
-            currentAnswer = formData.location.city_name+', '+formData.location.country_name
-          }
-          else if (currentFormField == 'budget') {
-            currentAnswer = formData['currencycode'] + ' ' + formData[currentFormField];
+        if (this.userInputs[currentFormField]) {
+          if (currentFormField == 'budget') {
+            currentAnswer = this.userInputs['currencycode'] + ' ' + this.userInputs[currentFormField];
           } else {
-            currentAnswer = formData[currentFormField];
+            currentAnswer = this.userInputs[currentFormField];
           }
         } else {
           currentAnswer = "No answer provided";
@@ -362,6 +361,7 @@ export class MarketingAnalysisComponent implements OnInit {
       // Add spacing between categories
       addingInput += `<br>`;
     });
+
 		let params: any = {
 			module_name: "Marketing Analysis",
 			file_name: "marketing_analysis",

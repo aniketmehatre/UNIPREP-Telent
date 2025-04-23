@@ -53,6 +53,8 @@ export class CareerplannercountrywiseComponent implements OnInit {
   imagewhitlabeldomainname: any
 	orgnamewhitlabel: any
 	orglogowhitelabel: any
+  userInputs: any;
+
   constructor(private router: Router, private service: JobSearchService, private fb: FormBuilder, private pageFacade: PageFacadeService,
     private toast: MessageService, private educationService: EducationToolsService, private sanitizer: DomSanitizer,
     private promptService: PromptService,private authService: AuthService,private locationService: LocationService
@@ -85,8 +87,9 @@ export class CareerplannercountrywiseComponent implements OnInit {
         this.specializationList = response;
       }
     });
-    this.getAICreditCount();
     this.checkplanExpire();
+    this.getAICreditCount();
+   
   }
 
   getAICreditCount(){
@@ -101,14 +104,18 @@ export class CareerplannercountrywiseComponent implements OnInit {
     return this.form.controls;
   }
   formSubmit() {
+    if (this.planExpired) {
+			this.restrict = true
+			return
+		}
     this.submitted = true;
     if (this.form.valid) {
       var data = {
         mode: "careerplanner",
-        // currency_code: this.form.value.currency,
         country: this.form.value.country,
         specialization_name: this.form.value.specialization_name
       }
+      this.userInputs = data;
       this.isFormVisible = false;
       this.isFormChatgptresponse = true;
       this.isResponseSkeleton = true;
@@ -119,7 +126,6 @@ export class CareerplannercountrywiseComponent implements OnInit {
           this.recommendationData = this.sanitizer.bypassSecurityTrustHtml(res.response);
           this.submitted = false
           this.isSavedResponse = false;
-          console.log( this.recommendationData );
           
         },
         error: (error) => {
@@ -129,6 +135,8 @@ export class CareerplannercountrywiseComponent implements OnInit {
       })
     }
   }
+
+ 
   BackReset() {
     this.isFormVisible = true;
     this.isFormChatgptresponse = false;
@@ -163,13 +171,17 @@ export class CareerplannercountrywiseComponent implements OnInit {
       this.isSavedResponse = false;
     }
   }
-  showRecommandationData(data: any) {
+  showRecommandationData(data: any, userInputs: any) {
     console.log(data);
     
     this.recommendationData = data
     this.isFormVisible = false;
     this.isFormChatgptresponse = true;
     this.isSavedResponse = false;
+
+    const encodedJson = userInputs;
+		const decodedInput = JSON.parse(encodedJson);
+		this.userInputs = decodedInput;
   }
   goBackcareerPlanList() {
     this.router.navigate(['/pages/job-tool/career-tool']);
@@ -184,9 +196,9 @@ export class CareerplannercountrywiseComponent implements OnInit {
   downloadRecommadation() {
     let addingInput: string = `
       <p style="color: #3f4c83;"><strong>Which country are you interested in pursuing your career?</strong></p>
-      <p>${this.form.value.country}</p><br>
+      <p>${this.userInputs.country}</p><br>
       <p style="color: #3f4c83;"><strong>Select Your Specialization</strong></p>
-      <p>${this.form.value.specialization_name}</p>
+      <p>${this.userInputs.specialization_name}</p>
       <br>
     `;
     let params: any = {
@@ -209,7 +221,7 @@ export class CareerplannercountrywiseComponent implements OnInit {
 			let data = res.time_left
 			let subscription_exists_status = res.subscription_details
 			this.currentPlan = subscription_exists_status.subscription_plan
-			if (data.plan === "expired" || data.plan === "subscription_expired" || subscription_exists_status.subscription_plan === "free_trail" || subscription_exists_status.subscription_plan === "Student" || subscription_exists_status.subscription_plan === "Career") {
+			if (data.plan === "expired" || data.plan === "subscription_expired" || subscription_exists_status.subscription_plan === "free_trail" || subscription_exists_status.subscription_plan === "Student"  ) {
 				this.planExpired = true
 				//this.restrict = true;
 			} else {
