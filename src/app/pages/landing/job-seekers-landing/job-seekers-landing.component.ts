@@ -106,17 +106,17 @@ export class JobSeekersLandingComponent implements OnInit {
 					case 'international-students':
 						this.category = 2;
 						break;
-					case 'global-travallers':
+					case 'global-travellers':
 						this.category = 3;
 						break;
 					case 'entrepreneurs':
 						this.category = 4;
 						break;
 				}
+				this.getLandingPageDetailBasedOnCategory(this.category);
 			}
 		});
 
-		this.getLandingPageDetailBasedOnCategory(this.category);
 	}
 
 	getLandingPageDetailBasedOnCategory(category: number) {
