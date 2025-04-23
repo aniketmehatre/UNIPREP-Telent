@@ -65,7 +65,8 @@ export class EmployeeProfileComponent implements OnInit {
   </button>
 </div>`;
 
-  currentMessage: string = "Hi, I am here to help you";
+  defaultMessage: string = "Hi, I am here to help you";
+  currentMessage: string = 'Hi, I am here to help you'; 
   hoverMessages: any = {
     // Personal Information
     full_name: "Enter your full name as per your official documents. This is the name that will appear on your offer letter and in the employer's database, so ensure it is accurate for a smooth hiring process. Numbers and special characters are not allowed.",
@@ -1394,7 +1395,7 @@ export class EmployeeProfileComponent implements OnInit {
 
 
   resetMessageBox(): void {
-    this.currentMessage = this.currentMessage; // Default message
+    this.currentMessage = this.defaultMessage; // Default message
   }
 
   extractLastName(url: string): string {
@@ -1492,6 +1493,13 @@ export class EmployeeProfileComponent implements OnInit {
     }
   }
 
+
+  addCustomJobTitle(customValue: string, control: FormControl) {
+    if (customValue && !this.jobTitles.some(job => job.job_title === customValue)) {
+      this.jobTitles = [...this.jobTitles, { id: null, job_title: customValue }];
+      control?.setValue(customValue);
+    }
+  }
 
   getWordCountUsingControl(control: FormControl) {
     let wordCount = 0;
