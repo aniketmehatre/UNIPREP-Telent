@@ -58,7 +58,7 @@
 
 											<div class="d-flex justify-content-center gap-2 mb-2">
 												<input name="image" type="file" (change)="onUploadPhoto($event)" accept="image/*" #fileUploadImage style="display: none" />
-												<p-button label="Upload Photo" icon="pi pi-upload" styleClass="p-button-sm" (click)="fileUploadImage.click()" (onFocus)="updateMessageBox('profile_image')" (mouseleave)="resetMessageBox()"></p-button>
+												<p-button label="Upload Photo" icon="pi pi-upload" styleClass="p-button-sm" (click)="fileUploadImage.click()" (onFocus)="updateMessageBox('profile_image')" (focusout)="resetMessageBox()"></p-button>
 												<p-button label="Remove Photo" icon="pi pi-times" (onClick)="onRemovePhoto()" styleClass="p-button-sm p-button-outlined"></p-button>
 											</div>
 										</div>
@@ -75,7 +75,7 @@
 										<div class="col-md-6">
 											<label for="fullName" class="form-label">Full Name <span class="text-danger">*</span></label>
 											<div class="p-inputgroup">
-												<input pInputText fluid id="fullName" formControlName="full_name" placeholder="Enter your name" class="form-control" (focus)="updateMessageBox('full_name')" (blur)="resetMessageBox()" />
+												<input pInputText fluid id="fullName" formControlName="full_name" placeholder="Enter your name" class="form-control" (focus)="updateMessageBox('full_name')" (focusout)="resetMessageBox()" />
 											</div>
 											<small class="text-danger" *ngIf="personalInfoForm.get('full_name')?.invalid && personalInfoForm.get('full_name')?.touched"> This field is mandatory </small>
 										</div>
@@ -83,7 +83,7 @@
 										<!-- Date of Birth -->
 										<div class="col-md-6">
 											<label for="dateOfBirth" class="form-label">Date of Birth<span class="text-danger">*</span></label>
-											<p-datepicker id="dateOfBirth" formControlName="date_of_birth" dateFormat="dd-mm-yy" placeholder="DD/MM/YYYY" styleClass="w-100" [maxDate]="today" [readonlyInput]="true" (onFocus)="updateMessageBox('date_of_birth')" (mouseleave)="resetMessageBox()" />
+											<p-datepicker id="dateOfBirth" formControlName="date_of_birth" dateFormat="dd-mm-yy" placeholder="DD/MM/YYYY" styleClass="w-100" [maxDate]="today" [readonlyInput]="true" (onFocus)="updateMessageBox('date_of_birth')" (focusout)="resetMessageBox()" />
 											<small class="text-danger" *ngIf="personalInfoForm.get('date_of_birth')?.invalid && personalInfoForm.get('date_of_birth')?.touched"> This field is mandatory </small>
 										</div>
 									</div>
@@ -92,14 +92,14 @@
 										<!-- Gender -->
 										<div class="col-md-6">
 											<label for="gender" class="form-label">Gender <span class="text-danger">*</span></label>
-											<p-select id="gender" formControlName="gender" [options]="genderOptions" placeholder="Select your gender" styleClass="w-100" (onFocus)="updateMessageBox('gender')" (mouseleave)="resetMessageBox()"></p-select>
+											<p-select id="gender" formControlName="gender" [options]="genderOptions" placeholder="Select your gender" styleClass="w-100" (onFocus)="updateMessageBox('gender')" (focusout)="resetMessageBox()"></p-select>
 											<small class="text-danger" *ngIf="personalInfoForm.get('gender')?.invalid && personalInfoForm.get('gender')?.touched"> This field is mandatory </small>
 										</div>
 
 										<!-- Nationality -->
 										<div class="col-md-6">
 											<label for="nationality" class="form-label">Nationality<span class="text-danger">*</span></label>
-											<p-select id="nationality" formControlName="nationality_id" [options]="nationalityList" placeholder="Select your nationality" styleClass="w-100" optionLabel="nationality_name" optionValue="id" [filter]="true" filterBy="nationality_name" [appendTo]="'body'" (mouseleave)="resetMessageBox()" (onFocus)="updateMessageBox('nationality_id')"></p-select>
+											<p-select id="nationality" formControlName="nationality_id" [options]="nationalityList" placeholder="Select your nationality" styleClass="w-100" optionLabel="nationality_name" optionValue="id" [filter]="true" filterBy="nationality_name" [appendTo]="'body'" (focusout)="resetMessageBox()" (onFocus)="updateMessageBox('nationality_id')"></p-select>
 											<small class="text-danger" *ngIf="personalInfoForm.get('nationality_id')?.invalid && personalInfoForm.get('nationality_id')?.touched"> This field is mandatory </small>
 										</div>
 									</div>
@@ -108,7 +108,7 @@
 									<div class="row">
 										<div class="col-12">
 											<label for="location" class="form-label">Current Location<span class="text-danger">*</span></label>
-											<p-select id="location" formControlName="location_id" [options]="locations" [virtualScroll]="true" [virtualScrollItemSize]="50" placeholder="Select your current location" styleClass="w-100" optionLabel="work_location" optionValue="id" [filter]="true" filterBy="work_location" [appendTo]="'body'" (mouseleave)="resetMessageBox()" (onFocus)="updateMessageBox('location_id')"></p-select>
+											<p-select id="location" formControlName="location_id" [options]="locations" [virtualScroll]="true" [virtualScrollItemSize]="50" placeholder="Select your current location" styleClass="w-100" optionLabel="work_location" optionValue="id" [filter]="true" filterBy="work_location" [appendTo]="'body'" (focusout)="resetMessageBox()" (onFocus)="updateMessageBox('location_id')"></p-select>
 											<small class="text-danger" *ngIf="personalInfoForm.get('location_id')?.invalid && personalInfoForm.get('location_id')?.touched"> This field is mandatory </small>
 										</div>
 									</div>
@@ -128,7 +128,7 @@
 												<!-- Highest Qualification -->
 												<div class="col-md-6">
 													<label for="highestQualification" class="form-label">Highest Qualification <span class="text-danger">*</span></label>
-													<p-select id="highestQualification" formControlName="education_qualification_id" [options]="qualifications" placeholder="Select your highest qualification" styleClass="w-100" optionLabel="qualification_name" optionValue="id" [filter]="true" filterBy="qualification_name" (mouseleave)="resetMessageBox()" (onFocus)="updateMessageBox('education_qualification_id')"></p-select>
+													<p-select id="highestQualification" formControlName="education_qualification_id" [options]="qualifications" placeholder="Select your highest qualification" styleClass="w-100" optionLabel="qualification_name" optionValue="id" [filter]="true" filterBy="qualification_name" (focusout)="resetMessageBox()" (onFocus)="updateMessageBox('education_qualification_id')"></p-select>
 													<small class="text-danger" *ngIf="education.get('education_qualification_id')?.invalid && education.get('education_qualification_id')?.touched">This field is mandatory </small>
 												</div>
 
@@ -136,7 +136,7 @@
 												<div class="col-md-6">
 													<label for="university" class="form-label">Institution Name <span class="text-danger">*</span></label>
 													<div class="p-inputgroup">
-														<input pInputText fluid id="university" formControlName="education_university_name" placeholder="Enter your institution Name" class="form-control" (mouseleave)="resetMessageBox()" (focus)="updateMessageBox('education_university_name')" />
+														<input pInputText fluid id="university" formControlName="education_university_name" placeholder="Enter your institution Name" class="form-control" (focusout)="resetMessageBox()" (focus)="updateMessageBox('education_university_name')" />
 													</div>
 													<small class="text-danger" *ngIf="education.get('education_university_name')?.invalid && education.get('education_university_name')?.touched"> This field is mandatory </small>
 												</div>
@@ -145,7 +145,7 @@
 												<!-- Field of Study / Major -->
 												<div class="col-md-6">	
 													<label for="fieldOfStudy" class="form-label">Major <span class="text-danger">*</span></label>
-													<p-select id="highestQualification" formControlName="education_field_id" [options]="fieldsOfStudy" placeholder="Select Major" styleClass="w-100" optionLabel="field_name" optionValue="id" [filter]="true" filterBy="field_name" (mouseleave)="resetMessageBox()" (onFocus)="updateMessageBox('education_field_id')"></p-select>
+													<p-select id="highestQualification" formControlName="education_field_id" [options]="fieldsOfStudy" placeholder="Select Major" styleClass="w-100" optionLabel="field_name" optionValue="id" [filter]="true" filterBy="field_name" (focusout)="resetMessageBox()" (onFocus)="updateMessageBox('education_field_id')"></p-select>
 													<small class="text-danger" *ngIf="education.get('education_field_id')?.invalid && education.get('education_field_id')?.touched"> This field is mandatory </small>
 												</div>
 
@@ -153,7 +153,7 @@
 												<div class="col-md-6">
 													<label for="courseName" class="form-label">Course Name <span class="text-danger">*</span></label>
 													<div class="p-inputgroup">
-														<input pInputText fluid id="courseName" formControlName="education_course_name" placeholder="Enter your course name" class="form-control" (focus)="updateMessageBox('education_course_name')" (mouseleave)="resetMessageBox()" />
+														<input pInputText fluid id="courseName" formControlName="education_course_name" placeholder="Enter your course name" class="form-control" (focus)="updateMessageBox('education_course_name')" (focusout)="resetMessageBox()" />
 													</div>
 													<small class="text-danger" *ngIf="education.get('education_course_name')?.invalid && education.get('education_course_name')?.touched"> This field is mandatory </small>
 												</div>
@@ -163,7 +163,7 @@
 												<div class="col-md-6">
 													<label for="fieldOfStudy" class="form-label">Graduation Year <span class="text-danger">*</span></label>
 													<div class="p-inputgroup">
-														<p-select id="highestQualification" formControlName="education_graduation_year_id" [options]="graduationYears" placeholder="Select Graduation Year" styleClass="w-100" optionLabel="graduation_year_name" optionValue="id" (mouseleave)="resetMessageBox()" (onFocus)="updateMessageBox('education_graduation_year_id')"></p-select>
+														<p-select id="highestQualification" formControlName="education_graduation_year_id" [options]="graduationYears" placeholder="Select Graduation Year" styleClass="w-100" optionLabel="graduation_year_name" optionValue="id" (focusout)="resetMessageBox()" (onFocus)="updateMessageBox('education_graduation_year_id')"></p-select>
 													</div>
 													<small class="text-danger" *ngIf="education.get('education_graduation_year_id')?.invalid && education.get('education_graduation_year_id')?.touched"> This field is mandatory </small>
 												</div>
@@ -173,7 +173,7 @@
 													<label for="courseName" class="form-label">Percentage</label>
 													<div class="p-inputgroup">
 														<p-inputgroup>
-														<p-input-number id="courseName" formControlName="education_gpa_percentage" mode="decimal" placeholder="Enter your GPA" class="w-100" [maxFractionDigits]="2" [min]="0" [max]="100" (mouseleave)="resetMessageBox()" (onFocus)="updateMessageBox('education_gpa_percentage')" />
+														<p-input-number id="courseName" formControlName="education_gpa_percentage" mode="decimal" placeholder="Enter your GPA" class="w-100" [maxFractionDigits]="2" [min]="0" [max]="100" (focusout)="resetMessageBox()" (onFocus)="updateMessageBox('education_gpa_percentage')" />
 														<p-inputgroup-addon>
 															<i class="pi pi-percentage"></i>
 														</p-inputgroup-addon>
@@ -194,7 +194,7 @@
 									<div class="row mb-3">
 										<div class="col-md-12">
 											<label for="highestQualification" class="form-label">Total Years of Experience</label><br />
-											<p-select id="highestQualification" formControlName="total_years_of_experience" [options]="totalYearExperienceList" placeholder="Select total experience" styleClass="w-100" (mouseleave)="resetMessageBox()" (onFocus)="updateMessageBox('total_years_of_experience')"></p-select>
+											<p-select id="highestQualification" formControlName="total_years_of_experience" [options]="totalYearExperienceList" placeholder="Select total experience" styleClass="w-100" (focusout)="resetMessageBox()" (onFocus)="updateMessageBox('total_years_of_experience')"></p-select>
 											<small class="text-danger" *ngIf="personalInfoForm.get('total_years_of_experience')?.invalid && personalInfoForm.get('total_years_of_experience')?.touched"> This field is mandatory </small>
 										</div>
 									</div>
@@ -209,14 +209,14 @@
 											<div class="row mb-3">
 												<div class="col-md-6">
 													<label for="highestQualification" class="form-label">Years of Experience</label><br />
-													<p-select id="highestQualification" formControlName="years_of_experience" [options]="totalYearExperienceList" placeholder="Select total experience" styleClass="w-100" (mouseleave)="resetMessageBox()" (onFocus)="updateMessageBox('years_of_experience')" (ngModelChange)="disableFieldsWhenClickFresher(experience, experience.get('years_of_experience')?.value == 'Fresher')"></p-select>
+													<p-select id="highestQualification" formControlName="years_of_experience" [options]="totalYearExperienceList" placeholder="Select total experience" styleClass="w-100" (focusout)="resetMessageBox()" (onFocus)="updateMessageBox('years_of_experience')" (ngModelChange)="disableFieldsWhenClickFresher(experience, experience.get('years_of_experience')?.value == 'Fresher')"></p-select>
 												</div>
 
 												<!-- University/Institution Name -->
 												<div class="col-md-6">
 													<label for="university" class="form-label">Company Name</label>
 													<div class="p-inputgroup">
-														<input pInputText fluid id="university" formControlName="work_experience_company_name" placeholder="Enter your company" class="form-control" [disabled]="experience.get('years_of_experience')?.value == 'Fresher'" (mouseleave)="resetMessageBox()" (focus)="updateMessageBox('work_experience_company_name')" />
+														<input pInputText fluid id="university" formControlName="work_experience_company_name" placeholder="Enter your company" class="form-control" [disabled]="experience.get('years_of_experience')?.value == 'Fresher'" (focusout)="resetMessageBox()" (focus)="updateMessageBox('work_experience_company_name')" />
 													</div>
 												</div>
 											</div>
@@ -224,14 +224,23 @@
 												<!-- Field of Study / Major -->
 												<div class="col-md-6">
 													<label for="fieldOfStudy" class="form-label">Job Title</label>
-													<p-select id="highestQualification" pTooltip="Not able to find please type in this field" [virtualScroll]="true" [virtualScrollItemSize]="50" formControlName="work_experience_job_title" [options]="jobTitles" placeholder="Select Job Title" styleClass="w-100 p-0" optionLabel="job_title" optionValue="job_title" [filter]="true" filterBy="job_title" [editable]="true" (mouseleave)="resetMessageBox()" [disabled]="experience.get('years_of_experience')?.value == 'Fresher'" (onFocus)="updateMessageBox('work_experience_job_title')"></p-select>
+													<p-select id="highestQualification" [virtualScroll]="true" [virtualScrollItemSize]="50" formControlName="work_experience_job_title" [options]="jobTitles" placeholder="Select Job Title" styleClass="w-100" optionLabel="job_title" optionValue="job_title" [filter]="true" filterBy="job_title" (focusout)="resetMessageBox()" [disabled]="experience.get('years_of_experience')?.value == 'Fresher'" (onFocus)="updateMessageBox('work_experience_job_title')">
+														<ng-template #footer>
+															<div class="p-2">
+																<p-inputgroup>
+																<input pInputText placeholder="Custom Value" #jobtitleExp/>
+																<p-button label="Add New" fluid severity="secondary" text size="small" icon="pi pi-plus"(click)="addCustomJobTitle(jobtitleExp.value, experience.get('work_experience_job_title'));"/>
+																</p-inputgroup>
+															</div>
+														</ng-template>
+													</p-select>
 												</div>
 
 												<!-- Course Name -->
 												<div class="col-md-6">
 													<label for="courseName" class="form-label">Employment Type</label>
 													<div class="p-inputgroup">
-														<p-select id="highestQualification" formControlName="work_experience_employment_type" [options]="preferredEmploymentType" placeholder="Select employement type" styleClass="w-100" (mouseleave)="resetMessageBox()" [disabled]="experience.get('years_of_experience')?.value == 'Fresher'" (onFocus)="updateMessageBox('work_experience_employment_type')"></p-select>
+														<p-select id="highestQualification" formControlName="work_experience_employment_type" [options]="preferredEmploymentType" placeholder="Select employement type" styleClass="w-100" (focusout)="resetMessageBox()" [disabled]="experience.get('years_of_experience')?.value == 'Fresher'" (onFocus)="updateMessageBox('work_experience_employment_type')"></p-select>
 													</div>
 												</div>
 											</div>
@@ -256,7 +265,7 @@
 													<div class="d-flex w-100 gap-2">
 														<p-select [options]="currencies" styleClass="p-select p-component" optionLabel="currency_code" optionValue="id" placeholder="Select Currency" [filter]="true" filterBy="currency_code" appendTo="body" formControlName="work_experience_currency_id" [style]="{ width: '100px' }" [disabled]="experience.get('years_of_experience')?.value == 'Fresher'"> </p-select>
 														<div class="flex-grow-1 me-2">
-															<p-inputNumber id="salary" placeholder="Enter your salary/month" styleClass="p-inputtext w-100" [showButtons]="false" class="w-100" formControlName="work_experience_salary_per_month" (mouseleave)="resetMessageBox()" (onFocus)="updateMessageBox('work_experience_salary_per_month')" [disabled]="experience.get('years_of_experience')?.value == 'Fresher'"></p-inputNumber>
+															<p-inputNumber id="salary" placeholder="Enter your salary/month" styleClass="p-inputtext w-100" [showButtons]="false" class="w-100" formControlName="work_experience_salary_per_month" (focusout)="resetMessageBox()" (onFocus)="updateMessageBox('work_experience_salary_per_month')" [disabled]="experience.get('years_of_experience')?.value == 'Fresher'"></p-inputNumber>
 														</div>
 													</div>
 												</div>
@@ -272,8 +281,8 @@
 															<button *ngIf="experience?.get('work_experience_job_title')?.value" class="text-small btn btn-danger btn-rounded d-flex align-items-center gap-2" style="width: fit-content" (click)="generateAiSummary('joboverview', {title: experience?.get('work_experience_job_title')?.value, company_name: experience?.get('work_experience_company_name')?.value}, experience?.get('work_experience_job_responsibilities'))">RePhrase</button>
 														</div>
 													</div>
-													<p-editor #editor [style]="{ height: '150px', maxHeight: 'auto' }" formControlName="work_experience_job_responsibilities" placeholder="Enter your Job Responsibilities & Key Achievements" (onFocus)="updateMessageBox('work_experience_job_responsibilities')" (mouseleave)="resetMessageBox()" (ngModelChange)="checkMaximumWordsInFields(experience.get('work_experience_job_responsibilities'), 150)"/>
-													<!-- <textarea pTextarea id="responsibilities" class="form-control w-100" placeholder="Enter your Job Responsibilities & Key Achievements" rows="5" maxlength="4000" formControlName="work_experience_job_responsibilities" (mouseleave)="resetMessageBox()" (onFocus)="updateMessageBox('work_experience_job_responsibilities')" #jobRepo></textarea> -->
+													<p-editor #editor [style]="{ height: '150px', maxHeight: 'auto' }" formControlName="work_experience_job_responsibilities" placeholder="Enter your Job Responsibilities & Key Achievements" (onFocus)="updateMessageBox('work_experience_job_responsibilities')" (focusout)="resetMessageBox()" (ngModelChange)="checkMaximumWordsInFields(experience.get('work_experience_job_responsibilities'), 150)"/>
+													<!-- <textarea pTextarea id="responsibilities" class="form-control w-100" placeholder="Enter your Job Responsibilities & Key Achievements" rows="5" maxlength="4000" formControlName="work_experience_job_responsibilities" (focusout)="resetMessageBox()" (onFocus)="updateMessageBox('work_experience_job_responsibilities')" #jobRepo></textarea> -->
 														<small class="text-danger text-start" *ngIf="getWordCountUsingControl(experience.get('work_experience_job_responsibilities')) > 150">This field exceed the maximum length</small>
 														<small class="text-muted d-block text-end">{{ getWordCountUsingControl(experience.get('work_experience_job_responsibilities'))}}/150</small>
 												</div>
@@ -281,7 +290,7 @@
 												<!-- Experience Letter Upload -->
 												<div class="col-md-12 mb-3">
 													<label class="form-label fw-medium">Experience Letter <span class="text-muted">(Optional)</span></label>
-													<div class="upload-box" (click)="fileExperieceUpload.click()" [disabled]="experience.get('years_of_experience')?.value == 'Fresher'" (onFocus)="updateMessageBox('work_experience_experience_letter')" (mouseleave)="resetMessageBox()">
+													<div class="upload-box" (click)="fileExperieceUpload.click()" [disabled]="experience.get('years_of_experience')?.value == 'Fresher'" (onFocus)="updateMessageBox('work_experience_experience_letter')" (focusout)="resetMessageBox()">
 														<div class="d-flex align-items-center justify-center-center flex-column mt-3">
 															<i class="pi pi-cloud-upload !border-2 !rounded-full !p-8 !text-4xl !text-muted-color fw-bold"></i>
 															<div class="fw-bold">
@@ -309,19 +318,19 @@
 										<div class="row mb-3">
 											<div class="col-md-6">
 												<label for="highestQualification" class="form-label">Career Status<span class="text-danger">*</span></label>
-												<p-select id="highestQualification" formControlName="career_preference_career_status" [options]="careerStatus" placeholder="Select Career Status" styleClass="w-100" (mouseleave)="resetMessageBox()" (onFocus)="updateMessageBox('career_preference_career_status')"></p-select>
+												<p-select id="highestQualification" formControlName="career_preference_career_status" [options]="careerStatus" placeholder="Select Career Status" styleClass="w-100" (focusout)="resetMessageBox()" (onFocus)="updateMessageBox('career_preference_career_status')"></p-select>
 												<small class="text-danger" *ngIf="personalInfoForm.get('career_preference_career_status')?.invalid && personalInfoForm.get('career_preference_career_status')?.touched"> This field is mandatory </small>
 											</div>
 											<div class="col-md-6">
 												<label for="highestQualification" class="form-label">Job Title<span class="text-danger">*</span></label>
-												<p-select id="highestQualification" pTooltip="Not able to find please type in this field" [virtualScroll]="true" [virtualScrollItemSize]="50"  formControlName="career_preference_job_title_id" [options]="jobTitles" placeholder="Select Job Title" styleClass="w-100 p-0" optionLabel="job_title" optionValue="job_title" [filter]="true" filterBy="job_title" [editable]="true" (mouseleave)="resetMessageBox()" (onFocus)="updateMessageBox('career_preference_job_title_id')"></p-select>
+												<p-select id="highestQualification" pTooltip="Not able to find please type in this field" [virtualScroll]="true" [virtualScrollItemSize]="50"  formControlName="career_preference_job_title_id" [options]="jobTitles" placeholder="Select Job Title" styleClass="w-100 p-0" optionLabel="job_title" optionValue="job_title" [filter]="true" filterBy="job_title" [editable]="true" (focusout)="resetMessageBox()" (onFocus)="updateMessageBox('career_preference_job_title_id')"></p-select>
 												<small class="text-danger" *ngIf="personalInfoForm.get('career_preference_job_title_id')?.invalid && personalInfoForm.get('career_preference_job_title_id')?.touched"> This field is mandatory </small>
 											</div>
 										</div>
 										<div class="row mb-3">
 											<div class="col-md-6">
 												<label for="highestQualification" class="form-label">Career Interest / Industry<span class="text-danger">*</span></label>
-												<p-multiSelect id="highestQualification" formControlName="career_preference_career_interest_id" [options]="careerInterests" placeholder="Enter career interest" styleClass="w-100" optionLabel="interest" optionValue="id" [filter]="true" filterBy="interest" (mouseleave)="resetMessageBox()" (onFocus)="updateMessageBox('career_preference_career_interest_id')"></p-multiSelect>
+												<p-multiSelect id="highestQualification" formControlName="career_preference_career_interest_id" [options]="careerInterests" placeholder="Enter career interest" styleClass="w-100" optionLabel="interest" optionValue="id" [filter]="true" filterBy="interest" (focusout)="resetMessageBox()" (onFocus)="updateMessageBox('career_preference_career_interest_id')"></p-multiSelect>
 												<small class="text-danger" *ngIf="personalInfoForm.get('career_preference_career_interest_id')?.invalid && personalInfoForm.get('career_preference_career_interest_id')?.touched"> This field is mandatory </small>
 											</div>
 
@@ -329,7 +338,7 @@
 											<div class="col-md-6">
 												<label for="university" class="form-label">Preferred Work Location<span class="text-danger">*</span></label>
 												<div class="p-inputgroup">
-													<p-multiSelect id="highestQualification" formControlName="career_preference_preferred_work_location_id" [options]="locations" [virtualScroll]="true" [virtualScrollItemSize]="50" placeholder="Select Your Location" styleClass="w-100" optionLabel="work_location" optionValue="id" [filter]="true" filterBy="work_location" [appendTo]="'body'"  (mouseleave)="resetMessageBox()" (onFocus)="updateMessageBox('career_preference_preferred_work_location_id')"></p-multiSelect>
+													<p-multiSelect id="highestQualification" formControlName="career_preference_preferred_work_location_id" [options]="locations" [virtualScroll]="true" [virtualScrollItemSize]="50" placeholder="Select Your Location" styleClass="w-100" optionLabel="work_location" optionValue="id" [filter]="true" filterBy="work_location" [appendTo]="'body'"  (focusout)="resetMessageBox()" (onFocus)="updateMessageBox('career_preference_preferred_work_location_id')"></p-multiSelect>
 												</div>
 												<small class="text-danger" *ngIf="personalInfoForm.get('career_preference_preferred_work_location_id')?.invalid && personalInfoForm.get('career_preference_preferred_work_location_id')?.touched"> This field is mandatory </small>
 											</div>
@@ -345,7 +354,7 @@
 											<div class="col-md-6">
 												<label for="university" class="form-label">Preferred Workplace Type<span class="text-danger">*</span></label>
 												<div class="p-inputgroup">
-													<p-multiSelect id="highestQualification" formControlName="career_preference_preferred_workplace_type" [options]="preferredWorkplaceType" placeholder="Enter Workplace Type" styleClass="w-100" (mouseleave)="resetMessageBox()" (onFocus)="updateMessageBox('career_preference_preferred_workplace_type')" (ngModelChange)="handleValidationsForFields(personalInfoForm?.get('career_preference_willingness_to_relocate'), $event == 'Remote Work')"></p-multiSelect>
+													<p-multiSelect id="highestQualification" formControlName="career_preference_preferred_workplace_type" [options]="preferredWorkplaceType" placeholder="Enter Workplace Type" styleClass="w-100" (focusout)="resetMessageBox()" (onFocus)="updateMessageBox('career_preference_preferred_workplace_type')" (ngModelChange)="handleValidationsForFields(personalInfoForm?.get('career_preference_willingness_to_relocate'), $event == 'Remote Work')"></p-multiSelect>
 												</div>
 												<small class="text-danger" *ngIf="personalInfoForm.get('career_preference_preferred_workplace_type')?.invalid && personalInfoForm.get('career_preference_preferred_workplace_type')?.touched"> This field is mandatory </small>
 											</div>
@@ -364,7 +373,7 @@
 													styleClass="w-100"
 													optionLabel="label"
 													optionValue="value"
-													(mouseleave)="resetMessageBox()"
+													(focusout)="resetMessageBox()"
 													(onFocus)="updateMessageBox('career_preference_willingness_to_relocate')"
 													[disabled]="personalInfoForm.get('career_preference_preferred_workplace_type')?.value == 'Remote Work'"></p-select>
 												<small class="text-danger" *ngIf="personalInfoForm.get('career_preference_willingness_to_relocate')?.invalid && personalInfoForm.get('career_preference_willingness_to_relocate')?.touched"> This field is mandatory </small>
@@ -373,7 +382,7 @@
 											<div class="col-md-6">
 												<label for="university" class="form-label">Expected Salary / Month<span class="text-danger">*</span></label>
 												<div class="d-flex w-100 gap-2">
-													<p-select [options]="currencies" styleClass="p-select p-component" optionLabel="currency_code" optionValue="id" placeholder="Select" [filter]="true" filterBy="currency_code" formControlName="career_preference_currency_id" [style]="{ width: '100px' }" (mouseleave)="resetMessageBox()" (onFocus)="updateMessageBox('career_preference_currency_id')"> </p-select>
+													<p-select [options]="currencies" styleClass="p-select p-component" optionLabel="currency_code" optionValue="id" placeholder="Select" [filter]="true" filterBy="currency_code" formControlName="career_preference_currency_id" [style]="{ width: '100px' }" (focusout)="resetMessageBox()" (onFocus)="updateMessageBox('career_preference_currency_id')"> </p-select>
 													<div class="flex-grow-1 me-2">
 														<p-inputNumber id="salary" placeholder="Enter your salary/month" styleClass="p-inputtext w-100" [showButtons]="false" class="w-100" formControlName="career_preference_expected_salary"></p-inputNumber>
 													</div>
@@ -399,10 +408,10 @@
 											<ng-container *ngFor="let certificate of certifications.controls; let i = index" [formGroupName]="i">
 												<div class="row mb-2 align-items-center">
 													<div class="col-md-6">
-														<input pInputText fluid class="form-control" placeholder="Enter certification name" class="w-100" formControlName="certifications_certificate_name" (mouseleave)="resetMessageBox()" (focus)="updateMessageBox('certifications_certificate_name')" />
+														<input pInputText fluid class="form-control" placeholder="Enter certification name" class="w-100" formControlName="certifications_certificate_name" (focusout)="resetMessageBox()" (focus)="updateMessageBox('certifications_certificate_name')" />
 													</div>
 													<div class="col position-relative">
-														<button class="btn btn-light d-flex align-items-center justify-content-center w-100 border border-dash p-2" (click)="certificateFile.click()" (mouseleave)="resetMessageBox()" (onFocus)="updateMessageBox('certifications_certificate_file')">
+														<button class="btn btn-light d-flex align-items-center justify-content-center w-100 border border-dash p-2" (click)="certificateFile.click()" (focusout)="resetMessageBox()" (onFocus)="updateMessageBox('certifications_certificate_file')">
 															<i class="pi pi-upload me-2"></i>
 															{{ certificate.get("certifications_certificate_file")?.value ? extractLastName(certificate.get("certifications_certificate_file")?.value) : "Upload certificate" }}
 														</button>
@@ -426,10 +435,10 @@
 											<ng-container *ngFor="let certificate of achievements.controls; let i = index" [formGroupName]="i">
 												<div class="row mb-2 align-items-center">
 													<div class="col-md-6">
-														<input pInputText fluid class="form-control w-100" placeholder="Enter Achievement Name" formControlName="certifications_achievement_name" (mouseleave)="resetMessageBox()" (focus)="updateMessageBox('certifications_achievement_name')" />
+														<input pInputText fluid class="form-control w-100" placeholder="Enter Achievement Name" formControlName="certifications_achievement_name" (focusout)="resetMessageBox()" (focus)="updateMessageBox('certifications_achievement_name')" />
 													</div>
 													<div class="col position-relative">
-														<button class="btn btn-light d-flex align-items-center justify-content-center w-100 border p-2" (click)="acheivementFile.click()" (mouseleave)="resetMessageBox()" (onFocus)="updateMessageBox('certifications_achievement_file')">
+														<button class="btn btn-light d-flex align-items-center justify-content-center w-100 border p-2" (click)="acheivementFile.click()" (focusout)="resetMessageBox()" (onFocus)="updateMessageBox('certifications_achievement_file')">
 															<i class="pi pi-upload me-2"></i>
 															{{ certificate.get("certifications_achievement_file")?.value ? extractLastName(certificate.get("certifications_achievement_file")?.value) : "Upload Supporting Document" }}
 														</button>
@@ -469,13 +478,13 @@
 										<ng-container formArrayName="languages">
 											<div class="row mb-3" *ngFor="let language of languages.controls; let i = index" [formGroupName]="i">
 												<div class="col-md-6">
-													<p-select id="highestQualification" formControlName="languages_language_id" [options]="languagelist" placeholder="Enter know language" styleClass="w-100" optionLabel="language" optionValue="id" [filter]="true" filterBy="language" (mouseleave)="resetMessageBox()" (onFocus)="updateMessageBox('languages_language_id')"></p-select>
+													<p-select id="highestQualification" formControlName="languages_language_id" [options]="languagelist" placeholder="Enter know language" styleClass="w-100" optionLabel="language" optionValue="id" [filter]="true" filterBy="language" (focusout)="resetMessageBox()" (onFocus)="updateMessageBox('languages_language_id')"></p-select>
 													<small class="text-danger" *ngIf="language.get('languages_language_id')?.invalid && language.get('languages_language_id')?.touched"> This field is mandatory </small>
 												</div>
 												<div class="col-md-6">
 													<div class="row">
 														<div class="col">
-															<p-select id="highestQualification" formControlName="languages_proficiency" [options]="languageProficiency" placeholder="Enter language proficiency" styleClass="w-100" (mouseleave)="resetMessageBox()" (onFocus)="updateMessageBox('languages_proficiency')"></p-select>
+															<p-select id="highestQualification" formControlName="languages_proficiency" [options]="languageProficiency" placeholder="Enter language proficiency" styleClass="w-100" (focusout)="resetMessageBox()" (onFocus)="updateMessageBox('languages_proficiency')"></p-select>
 															<small class="text-danger" *ngIf="language.get('languages_proficiency')?.invalid && language.get('languages_proficiency')?.touched"> This field is mandatory </small>
 														</div>
 														<div *ngIf="i !== 0" class="col-md-2">
@@ -517,7 +526,7 @@
 													</div>
 												</div>
 												<div class="position-relative">
-													<p-editor #editor [style]="{ height: '150px', maxHeight: 'auto' }" formControlName="career_preference_set_industry_apart" placeholder="Enter your sets you apart in your industry" (mouseleave)="resetMessageBox()" (onFocus)="updateMessageBox('career_preference_set_industry_apart')" (ngModelChange)="checkMaximumWordsInFields(personalInfoForm.get('career_preference_set_industry_apart'), 150)"/>
+													<p-editor #editor [style]="{ height: '150px', maxHeight: 'auto' }" formControlName="career_preference_set_industry_apart" placeholder="Enter your sets you apart in your industry" (focusout)="resetMessageBox()" (onFocus)="updateMessageBox('career_preference_set_industry_apart')" (ngModelChange)="checkMaximumWordsInFields(personalInfoForm.get('career_preference_set_industry_apart'), 150)"/>
 													<small class="text-danger text-start" *ngIf="getWordCountUsingControl(personalInfoForm.get('career_preference_set_industry_apart')) > 150">This field exceed the maximum length</small>
 													<small class="text-muted d-block text-end">{{ getWordCountUsingControl(personalInfoForm.get('career_preference_set_industry_apart')) }}/150</small>
 												</div>
@@ -526,25 +535,25 @@
 										<div class="row mb-3">
 											<div class="col-md-6">
 												<label for="highestQualification" class="form-label">Soft skills</label>
-												<p-multi-select pInputText fluid id="highestQualification" formControlName="career_preference_soft_skill_id" [options]="softSkills" optionValue="id" optionLabel="soft_skill" placeholder="Enter Soft Skills" class="form-control p-1 w-100" (mouseleave)="resetMessageBox()" (focus)="updateMessageBox('career_preference_soft_skill_id')"></p-multi-select>
+												<p-multi-select pInputText fluid id="highestQualification" formControlName="career_preference_soft_skill_id" [options]="softSkills" optionValue="id" optionLabel="soft_skill" placeholder="Enter Soft Skills" class="form-control p-1 w-100" (focusout)="resetMessageBox()" (focus)="updateMessageBox('career_preference_soft_skill_id')"></p-multi-select>
 											</div>
 											<div class="col-md-6">
 												<label for="highestQualification" class="form-label">Your top professional strength</label>
-												<p-multiSelect id="highestQualification" formControlName="career_preference_professional_strength_id" [options]="professionalStrengths" placeholder="Enter know language" styleClass="w-100" optionLabel="strength" optionValue="id" (mouseleave)="resetMessageBox()" (onFocus)="updateMessageBox('career_preference_professional_strength_id')"></p-multiSelect>
+												<p-multiSelect id="highestQualification" formControlName="career_preference_professional_strength_id" [options]="professionalStrengths" placeholder="Enter know language" styleClass="w-100" optionLabel="strength" optionValue="id" (focusout)="resetMessageBox()" (onFocus)="updateMessageBox('career_preference_professional_strength_id')"></p-multiSelect>
 											</div>
 										</div>
 										<div class="row mb-3">
 											<div class="col-md-6">
 												<label for="highestQualification" class="form-label">Have a you solved a real-world challenge in your feilds?</label>
 												<div class="position-relative">
-													<textarea pTextarea id="university" formControlName="career_preference_real_world_challenge" placeholder="Have a you solved a real-world challenge?" rows="5"  class="form-control w-100" (mouseleave)="resetMessageBox()" (onFocus)="updateMessageBox('career_preference_real_world_challenge')" (ngModelChange)="checkMaximumWordsInFields(personalInfoForm.get('career_preference_real_world_challenge'), 150)"></textarea>
+													<textarea pTextarea id="university" formControlName="career_preference_real_world_challenge" placeholder="Have a you solved a real-world challenge?" rows="5"  class="form-control w-100" (focusout)="resetMessageBox()" (onFocus)="updateMessageBox('career_preference_real_world_challenge')" (ngModelChange)="checkMaximumWordsInFields(personalInfoForm.get('career_preference_real_world_challenge'), 150)"></textarea>
 													<small class="text-danger text-start" *ngIf="getWordCountUsingControl(personalInfoForm.get('career_preference_real_world_challenge')) > 150">This field exceed the maximum length</small>
 													<small class="text-muted d-block text-end">{{ getWordCountUsingControl(personalInfoForm.get('career_preference_real_world_challenge')) }}/150</small>
 												</div>
 											</div>
 											<div class="col-md-6">
 												<label for="highestQualification" class="form-label">Have you taken on leadership roles?</label>
-												<textarea pTextarea id="university" formControlName="career_preference_leadership_experience" placeholder="Have you taken on leadership roles?" class="form-control w-100" (mouseleave)="resetMessageBox()" rows="5" (onFocus)="updateMessageBox('career_preference_leadership_experience')" (ngModelChange)="checkMaximumWordsInFields(personalInfoForm.get('career_preference_leadership_experience'), 150)"></textarea>
+												<textarea pTextarea id="university" formControlName="career_preference_leadership_experience" placeholder="Have you taken on leadership roles?" class="form-control w-100" (focusout)="resetMessageBox()" rows="5" (onFocus)="updateMessageBox('career_preference_leadership_experience')" (ngModelChange)="checkMaximumWordsInFields(personalInfoForm.get('career_preference_leadership_experience'), 150)"></textarea>
 												<small class="text-danger text-start" *ngIf="getWordCountUsingControl(personalInfoForm.get('career_preference_real_world_challenge')) > 150">This field exceed the maximum length</small>
 												<small class="text-muted d-block text-end">{{ getWordCountUsingControl(personalInfoForm.get('career_preference_leadership_experience')) }}/150</small>											
 											</div>
@@ -553,7 +562,7 @@
 											<div class="col-md-12">
 												<label for="highestQualification" class="form-label">One quality others admire most about you?</label>
 												<div class="position-relative">
-													<textarea pTextarea id="responsibilities" formControlName="career_preference_admired_quality" class="form-control w-100" placeholder="Enter one quality others admire most about you" rows="4" (mouseleave)="resetMessageBox()" (onFocus)="updateMessageBox('career_preference_admired_quality')" (ngModelChange)="checkMaximumWordsInFields(personalInfoForm.get('career_preference_admired_quality'), 150)"></textarea>
+													<textarea pTextarea id="responsibilities" formControlName="career_preference_admired_quality" class="form-control w-100" placeholder="Enter one quality others admire most about you" rows="4" (focusout)="resetMessageBox()" (onFocus)="updateMessageBox('career_preference_admired_quality')" (ngModelChange)="checkMaximumWordsInFields(personalInfoForm.get('career_preference_admired_quality'), 150)"></textarea>
 													<small class="text-danger text-start" *ngIf="getWordCountUsingControl(personalInfoForm.get('career_preference_admired_quality')) > 150">This field exceed the maximum length</small>
 													<small class="text-muted d-block text-end">{{ getWordCountUsingControl(personalInfoForm.get('career_preference_admired_quality')) }}/150</small>													
 												</div>
@@ -568,7 +577,7 @@
 										<div class="row mb-3">
 											<div class="col-md-12">
 												<label for="highestQualification" class="form-label">LinkedIn Profile<span class="text-danger">*</span></label>
-												<input pInputText fluid id="university" formControlName="networking_linkedin_profile" placeholder="Linkedin Profile Link" class="form-control w-100" (mouseleave)="resetMessageBox()" (focus)="updateMessageBox('networking_linkedin_profile')" />
+												<input pInputText fluid id="university" formControlName="networking_linkedin_profile" placeholder="Linkedin Profile Link" class="form-control w-100" (focusout)="resetMessageBox()" (focus)="updateMessageBox('networking_linkedin_profile')" />
 												<small class="text-danger" *ngIf="personalInfoForm.get('networking_linkedin_profile')?.invalid && personalInfoForm.get('networking_linkedin_profile')?.touched"> This field is mandatory with valid url </small>
 											</div>
 										</div>
@@ -583,7 +592,7 @@
 										<ng-container formArrayName="networking_social_media">
 											<div class="row mb-3" *ngFor="let experience of socialMedia.controls; let i = index" [formGroupName]="i">
 												<div class="col-md-6">
-													<p-select id="highestQualification" formControlName="networking_social_media" [options]="socialMedias" placeholder="Select any social media platform" styleClass="w-100" (mouseleave)="resetMessageBox()" (ngModelChange)="changeSocialMedia($event)" (onFocus)="updateMessageBox('networking_social_media')" [optionDisabled]="isDisabled">
+													<p-select id="highestQualification" formControlName="networking_social_media" [options]="socialMedias" placeholder="Select any social media platform" styleClass="w-100" (focusout)="resetMessageBox()" (ngModelChange)="changeSocialMedia($event)" (onFocus)="updateMessageBox('networking_social_media')" [optionDisabled]="isDisabled">
 														<ng-template let-socialMedia #item>
 															<span>{{ socialMedia }}&nbsp;<span *ngIf="selectedSocialMedias?.includes(socialMedia)">(Selected)</span></span>
 														</ng-template>
@@ -593,7 +602,7 @@
 												<div class="col-md-6">
 													<div class="row">
 														<div class="col-md-10">
-															<input pInputText fluid id="university" formControlName="networking_social_media_link" placeholder="Social media link" class="form-control w-100" (mouseleave)="resetMessageBox()" (focus)="updateMessageBox('networking_social_media_link')" />
+															<input pInputText fluid id="university" formControlName="networking_social_media_link" placeholder="Social media link" class="form-control w-100" (focusout)="resetMessageBox()" (focus)="updateMessageBox('networking_social_media_link')" />
 														</div>
 														<div class="col-md-2">
 															<button class="btn btn-outline-danger d-flex align-items-center justify-content-center px-3 py-2" (click)="removeSocialMedia(i); removeSelectedSocialMedia(experience.get('networking_social_media')?.value)" style="width: fit-content">
@@ -610,7 +619,7 @@
 										<div class="row mb-3">
 											<div class="col-md-12">
 												<label for="highestQualification" class="form-label">Personal Website</label>
-												<input pInputText fluid id="university" formControlName="networking_personal_website" placeholder="Website link" class="form-control w-100" (mouseleave)="resetMessageBox()" (focus)="updateMessageBox('networking_personal_website')" />
+												<input pInputText fluid id="university" formControlName="networking_personal_website" placeholder="Website link" class="form-control w-100" (focusout)="resetMessageBox()" (focus)="updateMessageBox('networking_personal_website')" />
 												<small class="text-danger" *ngIf="personalInfoForm.get('networking_personal_website')?.invalid && personalInfoForm.get('networking_personal_website')?.touched"> This field is valid url </small>
 											</div>
 										</div>
@@ -626,7 +635,7 @@
 									<div class="row justify-content-center mt-3">
 										<div class="upload-section text-center mb-4 py-2" style="border: 1px dashed lightgray">
 											<h4>{{ personalInfoForm.get("career_preference_cv_filename")?.value ? extractLastName(personalInfoForm.get("career_preference_cv_filename")?.value) : "Upload CV / Resume" }}</h4>
-											<button pButton label="UPLOAD" class="p-button-primary rounded-pill px-5 py-2" (click)="fileUpload.click()" (mouseleave)="resetMessageBox()" (onFocus)="updateMessageBox('career_preference_cv_filename')"></button>
+											<button pButton label="UPLOAD" class="p-button-primary rounded-pill px-5 py-2" (click)="fileUpload.click()" (focusout)="resetMessageBox()" (onFocus)="updateMessageBox('career_preference_cv_filename')"></button>
 											<div class="text-muted mt-2">Supported Formats: doc, docx, pdf upto 2 MB</div>
 											<input type="file" #fileUpload style="visibility: hidden" (change)="uploadFile(fileType.CV, $event, 0)" accept="application/pdf" />
 											<small class="text-danger" *ngIf="personalInfoForm.get('career_preference_cv_filename')?.invalid && personalInfoForm.get('career_preference_cv_filename')?.touched"> This field is mandatory </small>
@@ -637,7 +646,7 @@
 											<div class="border rounded p-3">
 												<h4 class="mb-3">Introduction Video Upload</h4>
 												<small class="text-muted">(90-120 seconds)</small>
-												<input pInputText fluid placeholder="Provide the video link" class="form-control mt-2" formControlName="career_preference_video_link" (mouseleave)="resetMessageBox()" (focus)="updateMessageBox('career_preference_video_link')" />
+												<input pInputText fluid placeholder="Provide the video link" class="form-control mt-2" formControlName="career_preference_video_link" (focusout)="resetMessageBox()" (focus)="updateMessageBox('career_preference_video_link')" />
 											</div>
 											<small class="text-danger" *ngIf="personalInfoForm.get('career_preference_video_link')?.invalid && personalInfoForm.get('career_preference_video_link')?.touched"> This field is valid url </small>
 										</div>
@@ -647,7 +656,7 @@
 												<h4 class="mb-3">Portfolio Upload</h4>
 												<small class="text-muted">(For Designers, Writers, Developers)</small>
 												<div class="input-group mt-2">
-													<input pInputText fluid placeholder="Provide the portfolio link" class="form-control" formControlName="career_preference_portfolio_upload_link" (mouseleave)="resetMessageBox()" (focus)="updateMessageBox('career_preference_portfolio_upload_link')" />
+													<input pInputText fluid placeholder="Provide the portfolio link" class="form-control" formControlName="career_preference_portfolio_upload_link" (focusout)="resetMessageBox()" (focus)="updateMessageBox('career_preference_portfolio_upload_link')" />
 													<!-- <button pButton label="UPLOAD"
                                                         class="p-button-secondary ms-2"></button> -->
 												</div>
@@ -673,7 +682,7 @@
 														>College Name
 														<!-- <span class="text-danger">*</span> -->
 													</label>
-													<input pInputText fluid id="university" formControlName="references_college_name" placeholder="Enter the reference college name" class="form-control w-100" (mouseleave)="resetMessageBox()" (focus)="updateMessageBox('references_college_name')" />
+													<input pInputText fluid id="university" formControlName="references_college_name" placeholder="Enter the reference college name" class="form-control w-100" (focusout)="resetMessageBox()" (focus)="updateMessageBox('references_college_name')" />
 													<small class="text-danger" *ngIf="academic.get('references_college_name')?.invalid && academic.get('references_college_name')?.touched"> This field is mandatory </small>
 												</div>
 												<div class="col-md-4">
@@ -681,7 +690,7 @@
 														>Referee Name
 														<!-- <span class="text-danger">*</span> -->
 													</label>
-													<input pInputText fluid id="university" formControlName="references_reference_name" placeholder="Enter the reference name" class="form-control w-100" (mouseleave)="resetMessageBox()" (focus)="updateMessageBox('references_reference_name')" />
+													<input pInputText fluid id="university" formControlName="references_reference_name" placeholder="Enter the reference name" class="form-control w-100" (focusout)="resetMessageBox()" (focus)="updateMessageBox('references_reference_name')" />
 													<small class="text-danger" *ngIf="academic.get('references_reference_name')?.invalid && academic.get('references_reference_name')?.touched"> This field is mandatory </small>
 												</div>
 												<div class="col-md-4">
@@ -689,7 +698,7 @@
 														>Desigination
 														<!-- <span class="text-danger">*</span> -->
 													</label>
-													<input pInputText fluid id="university" formControlName="references_designation" placeholder="Enter the reference desigination" class="form-control w-100" (mouseleave)="resetMessageBox()" (focus)="updateMessageBox('references_designation')" />
+													<input pInputText fluid id="university" formControlName="references_designation" placeholder="Enter the reference desigination" class="form-control w-100" (focusout)="resetMessageBox()" (focus)="updateMessageBox('references_designation')" />
 													<small class="text-danger" *ngIf="academic.get('references_designation')?.invalid && academic.get('references_designation')?.touched"> This field is mandatory </small>
 												</div>
 											</div>
@@ -699,7 +708,7 @@
 														>Phone Number
 														<span class="text-danger">*</span>
 													</label>
-													<p-inputNumber id="university" [useGrouping]="false" placeholder="Enter the reference phone number" styleClass="p-inputtext w-100" [showButtons]="false" class="w-100" formControlName="references_phone_number" (mouseleave)="resetMessageBox()" (onFocus)="updateMessageBox('references_phone_number')"></p-inputNumber>
+													<p-inputNumber id="university" [useGrouping]="false" placeholder="Enter the reference phone number" styleClass="p-inputtext w-100" [showButtons]="false" class="w-100" formControlName="references_phone_number" (focusout)="resetMessageBox()" (onFocus)="updateMessageBox('references_phone_number')"></p-inputNumber>
 													<small class="text-danger" *ngIf="academic.get('references_phone_number')?.invalid && academic.get('references_phone_number')?.touched"> This field is valid phone number </small>
 												</div> -->
 												<div class="col-md-12">
@@ -707,7 +716,7 @@
 														>Email
 														<!-- <span class="text-danger">*</span> -->
 													</label>
-													<input pInputText fluid id="university" formControlName="references_email" placeholder="Enter the reference email" class="form-control w-100" (mouseleave)="resetMessageBox()" (focus)="updateMessageBox('references_email')" />
+													<input pInputText fluid id="university" formControlName="references_email" placeholder="Enter the reference email" class="form-control w-100" (focusout)="resetMessageBox()" (focus)="updateMessageBox('references_email')" />
 													<small class="text-danger" *ngIf="academic.get('references_email')?.invalid && academic.get('references_email')?.touched"> This field is valid email </small>
 												</div>
 											</div>
@@ -727,26 +736,26 @@
 											<div class="row mb-3">
 												<div class="col-md-4">
 													<label for="highestQualification" class="form-label">Company Name</label>
-													<input pInputText fluid id="university" formControlName="references_company_name" placeholder="Enter the reference company name" class="form-control w-100" (mouseleave)="resetMessageBox()" (focus)="updateMessageBox('references_company_name')" />
+													<input pInputText fluid id="university" formControlName="references_company_name" placeholder="Enter the reference company name" class="form-control w-100" (focusout)="resetMessageBox()" (focus)="updateMessageBox('references_company_name')" />
 												</div>
 												<div class="col-md-4">
 													<label for="highestQualification" class="form-label">Referee Name</label>
-													<input pInputText fluid id="university" formControlName="references_reference_name" placeholder="Enter the reference name" class="form-control w-100" (mouseleave)="resetMessageBox()" (focus)="updateMessageBox('pro_references_reference_name')" />
+													<input pInputText fluid id="university" formControlName="references_reference_name" placeholder="Enter the reference name" class="form-control w-100" (focusout)="resetMessageBox()" (focus)="updateMessageBox('pro_references_reference_name')" />
 												</div>
 												<div class="col-md-4">
 													<label for="highestQualification" class="form-label">Desigination</label>
-													<input pInputText fluid id="university" formControlName="references_designation" placeholder="Enter the reference desigination" class="form-control w-100" (mouseleave)="resetMessageBox()" (focus)="updateMessageBox('pro_references_designation')" />
+													<input pInputText fluid id="university" formControlName="references_designation" placeholder="Enter the reference desigination" class="form-control w-100" (focusout)="resetMessageBox()" (focus)="updateMessageBox('pro_references_designation')" />
 												</div>
 											</div>
 											<div class="row mb-3">
 												<!-- <div class="col-md-6">
 													<label for="highestQualification" class="form-label">Phone Number</label>
-													<p-inputNumber id="university" [useGrouping]="false" placeholder="Enter the reference phone number" styleClass="p-inputtext w-100" [showButtons]="false" class="w-100" formControlName="references_phone_number" (mouseleave)="resetMessageBox()" (onFocus)="updateMessageBox('pro_references_phone_number')"></p-inputNumber>
+													<p-inputNumber id="university" [useGrouping]="false" placeholder="Enter the reference phone number" styleClass="p-inputtext w-100" [showButtons]="false" class="w-100" formControlName="references_phone_number" (focusout)="resetMessageBox()" (onFocus)="updateMessageBox('pro_references_phone_number')"></p-inputNumber>
 													<small class="text-danger" *ngIf="reference.get('references_phone_number')?.invalid && reference.get('references_phone_number')?.touched"> This field is valid phone number </small>
 												</div> -->
 												<div class="col-md-12">
 													<label for="highestQualification" class="form-label">Email</label>
-													<input pInputText fluid id="university" formControlName="references_email" placeholder="Enter the reference email" class="form-control w-100" (mouseleave)="resetMessageBox()" (focus)="updateMessageBox('pro_references_email')" />
+													<input pInputText fluid id="university" formControlName="references_email" placeholder="Enter the reference email" class="form-control w-100" (focusout)="resetMessageBox()" (focus)="updateMessageBox('pro_references_email')" />
 													<small class="text-danger" *ngIf="reference.get('references_email')?.invalid && reference.get('references_email')?.touched"> This field is valid email </small>
 												</div>
 											</div>
@@ -796,7 +805,7 @@
 										</div>
 										<div class="col-9 text-start">
 											<div class="d-flex justify-content-between text-start">
-												<div (onFocus)="updateMessageBox('full_name')" (mouseleave)="resetMessageBox()">
+												<div (onFocus)="updateMessageBox('full_name')" (focusout)="resetMessageBox()">
 													<span class="fw-bold">{{ personalInfoForm.get("full_name")?.value || "-" }}</span>
 													<i *ngIf="true" class="fas fa-check-circle ms-1" style="color: #4285f4"></i>
 												</div>
