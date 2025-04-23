@@ -1460,6 +1460,12 @@ export class EmployeeProfileComponent implements OnInit {
       .filter(value => value !== null && value !== undefined);
   }
 
+  focusInput(input: HTMLInputElement) {
+    setTimeout(() => {
+      input.focus();
+    }, 0);
+  }
+
   removeSelectedSocialMedia(value: string) {
     this.selectedSocialMedias = this.selectedSocialMedias.filter((item) => item !== value);
   }

@@ -228,7 +228,7 @@
 														<ng-template #footer>
 															<div class="p-2">
 																<p-inputgroup>
-																<input pInputText placeholder="Custom Value" #jobtitleExp/>
+																<input pInputText placeholder="Custom Value" #jobtitleExp (click)="focusInput(jobtitleExp)"/>
 																<p-button label="Add New" fluid severity="secondary" text size="small" icon="pi pi-plus"(click)="addCustomJobTitle(jobtitleExp.value, experience.get('work_experience_job_title'));"/>
 																</p-inputgroup>
 															</div>
@@ -323,7 +323,16 @@
 											</div>
 											<div class="col-md-6">
 												<label for="highestQualification" class="form-label">Job Title<span class="text-danger">*</span></label>
-												<p-select id="highestQualification" pTooltip="Not able to find please type in this field" [virtualScroll]="true" [virtualScrollItemSize]="50"  formControlName="career_preference_job_title_id" [options]="jobTitles" placeholder="Select Job Title" styleClass="w-100 p-0" optionLabel="job_title" optionValue="job_title" [filter]="true" filterBy="job_title" [editable]="true" (focusout)="resetMessageBox()" (onFocus)="updateMessageBox('career_preference_job_title_id')"></p-select>
+												<p-select id="highestQualification" pTooltip="Not able to find please type in this field" [virtualScroll]="true" [virtualScrollItemSize]="50"  formControlName="career_preference_job_title_id" [options]="jobTitles" placeholder="Select Job Title" styleClass="w-100" optionLabel="job_title" optionValue="job_title" [filter]="true" filterBy="job_title" (focusout)="resetMessageBox()" (onFocus)="updateMessageBox('career_preference_job_title_id')">
+													<ng-template #footer>
+														<div class="p-2">
+															<p-inputgroup>
+															<input pInputText placeholder="Custom Value" #jobtitleExp (click)="focusInput(jobtitleExp)"/>
+															<p-button label="Add New" fluid severity="secondary" text size="small" icon="pi pi-plus"(click)="addCustomJobTitle(jobtitleExp.value, personalInfoForm.get('career_preference_job_title_id'));"/>
+															</p-inputgroup>
+														</div>
+													</ng-template>
+												</p-select>
 												<small class="text-danger" *ngIf="personalInfoForm.get('career_preference_job_title_id')?.invalid && personalInfoForm.get('career_preference_job_title_id')?.touched"> This field is mandatory </small>
 											</div>
 										</div>
