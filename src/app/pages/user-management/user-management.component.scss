@@ -106,3 +106,41 @@
 		opacity: 1;
 	}
 }
+// personal information ui 
+/* Large screens (≥992px): 5 per row */
+@media (min-width: 992px) {
+	.custom-5-cols > .col {
+	  flex: 0 0 20%;
+	  max-width: 20%;
+	}
+  }
+  
+  /* Medium screens (≥768px and <992px): 4 per row */
+  @media (min-width: 768px) and (max-width: 991.98px) {
+	.custom-5-cols > .col {
+	  flex: 0 0 25%;
+	  max-width: 25%;
+	}
+  }
+  
+  /* Small screens (≥576px and <768px): 2 per row */
+  @media (min-width: 576px) and (max-width: 767.98px) {
+	.custom-5-cols > .col {
+	  flex: 0 0 50%;
+	  max-width: 50%;
+	}
+  }
+  
+  /* Extra small screens (<576px): 1 per row */
+  @media (max-width: 575.98px) {
+	.custom-5-cols > .col {
+	  flex: 0 0 100%;
+	  max-width: 100%;
+	}
+  }
+  
+  /* Optional: spacing between rows */
+  .custom-5-cols > .col {
+	margin-bottom: 1rem;
+  }
+  
