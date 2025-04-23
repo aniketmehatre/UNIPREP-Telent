@@ -74,9 +74,9 @@ export class CoverLetterBuilderComponent implements OnInit, AfterViewInit {
 	coverHistories: any = []
 	currentDate: Date = new Date()
 	// isButtonDisabled: boolean = false
-	generateDesBtnDisable: boolean = false;
+	generateDesBtnDisable: boolean = true;
 	rephraseDesBtnDisable: boolean = false;
-	generateConBtnDisable: boolean = false;
+	generateConBtnDisable: boolean = true;
 	rephraseconBtnDisable: boolean = false;
 	resumeHistory: any = [];
 	pdfThumbnails: { [key: string]: string } = {};
@@ -660,12 +660,20 @@ export class CoverLetterBuilderComponent implements OnInit, AfterViewInit {
 			this.resumeFormInfoData.patchValue({
 				job_description: "",
 			})
-			this.generateDesBtnDisable = true;
+			this.rephraseDesBtnDisable = true;
+			this.generateDesBtnDisable=false;
+		}else if(mode == 'rephrase_description'){
+			this.rephraseDesBtnDisable = false;
+			this.generateDesBtnDisable=true;
 		}else if(mode == 'generate_summary'){
 			this.resumeFormInfoData.patchValue({
 				user_summary: "",
 			})
+			this.generateConBtnDisable = false;
+			this.rephraseconBtnDisable = true;
+		}else if(mode == 'rephrase_summary'){
 			this.generateConBtnDisable = true;
+			this.rephraseconBtnDisable = false;
 		}
 		
 
