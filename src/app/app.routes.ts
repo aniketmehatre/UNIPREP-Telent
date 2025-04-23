@@ -22,6 +22,7 @@ export const appRoutes: Routes = [
 	{ path: "landing", component: LandingComponent },
 	{ path: "students", component: CoBrandedComponent },
 	{ path: "login", component: LoginComponent },
+	{ path: "students/login", component: LoginComponent },
 	{ path: "register", component: RegistrationComponent },
 	{ path: "privacy", component: PrivacyComponent },
 	{ path: "blogs", component: BloglistComponent },
