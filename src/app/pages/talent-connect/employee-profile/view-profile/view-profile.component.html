@@ -105,7 +105,7 @@
           </div>
         </div>
       </section>
-
+      <hr *ngIf="profileData.educationDetails?.length">
       <!-- Work Experience Section -->
       <section class="card-inside mb-4" *ngIf="
           profileData.workExperience?.length ||
@@ -185,7 +185,10 @@
           </div>
         </div>
       </section>
-
+      <hr *ngIf="
+      profileData.workExperience?.length ||
+      profileData.personalInfo?.total_years_of_experience
+    ">
       <!-- Career Preferences Section -->
       <section class="card-inside mb-4" *ngIf="profileData.careerPreferences">
         <div class="card-header">
@@ -241,6 +244,7 @@
           </div>
         </div>
       </section>
+      <hr *ngIf="profileData.careerPreferences">
 
       <!-- Certifications Section -->
       <section class="card-inside mb-4 cerfiticates" *ngIf="profileData.certifications?.length">
@@ -282,6 +286,7 @@
           </div>
         </div>
       </section>
+      <hr *ngIf="profileData.certifications?.length">
 
       <!-- Additional Details Section -->
       <section class="card-inside mb-4" *ngIf="
@@ -306,6 +311,7 @@
           </div>
         </div>
       </section>
+      <hr>
 
       <!-- Key Strengths Section -->
       <section class="card-inside mb-4" *ngIf="profileData.keyStrengths">
@@ -337,6 +343,7 @@
           </div>
         </div>
       </section>
+      <hr *ngIf="profileData.keyStrengths">
 
       <!-- Professional Networking Section -->
       <section class="card-inside mb-4" *ngIf="
@@ -377,6 +384,12 @@
           </div>
         </div>
       </section>
+      <hr  *ngIf="
+      profileData.networking?.linkedinProfile ||
+      (profileData.networking?.socialMedia &&
+        profileData.networking.socialMedia.length) ||
+      profileData.networking?.personalWebsite
+    ">
 
       <!-- Attachments Section -->
       <section class="card-inside mb-4" *ngIf="profileData.attachments?.length">
@@ -408,6 +421,7 @@
           </div>
         </div>
       </section>
+      <hr *ngIf="profileData.attachments?.length">
 
       <!-- References Section -->
       <section class="card-inside" *ngIf="
@@ -473,11 +487,16 @@
           </div>
         </div>
       </section>
+      <hr *ngIf="
+      profileData.academicReference?.length ||
+      profileData.professionalReference?.length
+    ">
 
       <section class="card-inside mt-3" *ngIf="profileData.additionalInfo">
         <h4 class="text-dark fw-bold mb-3">Additional Notes</h4>
         <p [innerHTML]="profileData.additionalInfo"></p>
       </section>
+
     </div>
   </div>
 </div>
