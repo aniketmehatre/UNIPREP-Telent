@@ -1258,7 +1258,7 @@ export class EmployeeProfileComponent implements OnInit {
           education_field_id: [edu.field_id || '', Validators.required],
           education_course_name: [edu.course_name || '', Validators.required],
           education_graduation_year_id: [edu.graduation_year_id || '', Validators.required],
-          education_gpa_percentage: [edu.gpa_percentage || '']
+          education_gpa_percentage: [edu.gpa_percentage || null]
         }));
       });
     } 

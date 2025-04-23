@@ -202,7 +202,7 @@
 										<ng-container *ngFor="let experience of workExperience.controls; let i = index" [formGroupName]="i">
 											<div class="d-flex justify-content-between">
 												<h5 class="card-title">Work Experience Details</h5>
-												<button class="btn btn-outline-danger d-flex align-items-center justify-content-center px-3 py-2" (click)="removeWorkExperience(i)">
+												<button class="btn btn-outline-danger d-flex align-items-center justify-content-center px-3 py-2" (click)="removeWorkExperience(i)" *ngIf="i !== 0">
 													<span><i class="fa-regular fa-trash fa-lg"></i></span>
 												</button>
 											</div>
@@ -614,7 +614,7 @@
 															<input pInputText fluid id="university" formControlName="networking_social_media_link" placeholder="Social media link" class="form-control w-100" (focusout)="resetMessageBox()" (focus)="updateMessageBox('networking_social_media_link')" />
 														</div>
 														<div class="col-md-2">
-															<button class="btn btn-outline-danger d-flex align-items-center justify-content-center px-3 py-2" (click)="removeSocialMedia(i); removeSelectedSocialMedia(experience.get('networking_social_media')?.value)" style="width: fit-content">
+															<button class="btn btn-outline-danger d-flex align-items-center justify-content-center px-3 py-2" (click)="removeSocialMedia(i); removeSelectedSocialMedia(experience.get('networking_social_media')?.value)" style="width: fit-content" *ngIf="i !== 0">
 																<span><i class="fa-regular fa-trash fa-lg"></i></span>
 															</button>
 														</div>
@@ -681,7 +681,7 @@
 										<ng-container *ngFor="let academic of academicReferences.controls; let i = index" [formGroupName]="i">
 											<div class="d-flex justify-content-between">
 												<h5 class="card-title mb-1">Academic Reference</h5>
-												<button class="btn btn-outline-danger d-flex align-items-center justify-content-center px-3 py-2" (click)="removeAcademicReference(i)">
+												<button class="btn btn-outline-danger d-flex align-items-center justify-content-center px-3 py-2" (click)="removeAcademicReference(i)" *ngIf="i !== 0">
 													<span><i class="fa-regular fa-trash fa-lg"></i></span>
 												</button>
 											</div>
@@ -738,7 +738,7 @@
 										<ng-container class="work-experience" *ngFor="let reference of professionalReferences.controls; let i = index" [formGroupName]="i">
 											<div class="d-flex justify-content-between">
 												<h5 class="card-title my-3">Professional Reference</h5>
-												<button class="btn btn-outline-danger d-flex align-items-center justify-content-center px-3 py-2" (click)="removeProfessionalReference(i)">
+												<button class="btn btn-outline-danger d-flex align-items-center justify-content-center px-3 py-2" (click)="removeProfessionalReference(i)" *ngIf="i !== 0">
 													<span><i class="fa-regular fa-trash fa-lg"></i></span>
 												</button>
 											</div>
