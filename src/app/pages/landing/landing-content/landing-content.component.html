@@ -1,0 +1,510 @@
+<section class="pb-2 pt-5 py-md-3 darksection" id="home">
+  <div class="container-fluid pt-5 text-center">
+    <div class="row justify-content-center">
+      <div class="col-md-8 d-flex flex-column justify-content-center align-items-center">
+        <h1 class="text-center fw-extralight text-white mb-4 d-md-block d-none"><span class="fw-bold">Launch</span> Your Career and Land Your Dream Job with <span class="fw-bold">UNIPREP</span></h1>
+        <h2 class="text-center fw-extralight text-white mb-4 d-block d-md-none"><span class="fw-bold">Launch</span> Your Career and Land Your Dream Job with <span class="fw-bold">UNIPREP</span></h2>
+        <!-- <p class="mb-4">Unlock your potential and embrace a world of possibilities through UNIPREP's comprehensive resources and guidance. or Gain the tools to explore, adapt, and thrive in a global landscape, setting the stage for your future success.</p> -->
+        <!-- <h4 class="fw-medium text-grey">Explore Today - It's <span class="fw-semibold text-white">FREE!</span></h4> -->
+        <h4 class="fw-medium text-grey">Dev Pipeline</h4>
+        <div class="text-center mb-4 mt-4">
+          <a href="/register" class="text-decoration-none"
+            ><button type="button" class="btn btn-secondary px-4 py-3 m-0"><h5 class="mb-0">REGISTER NOW!</h5></button></a
+          >
+        </div>
+      </div>
+    </div>
+  </div>
+</section>	
+<section class="pb-0 darksection homebg">
+  <div class="container-fluid pt-3 text-center">
+    <div class="row justify-content-center">
+      <div class="col-md-10">
+        <div class="video-container" (click)="toggleVideo()">
+          <i class="fa-solid fa-circle-play uniprep-secondary fa-beat" role="button" *ngIf="!isPlaying"></i>
+          <video class="rounded-4" #videoPlayer width="100%" height="100%" preload="none" poster="/uniprep-assets/images/uniprepmockup.png">
+            <source [src]="welcomevideoLink" type="video/mp4" />
+          </video>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+	<!-- <section class="marquee-container pb-5 darksection">
+		<div class="container-fluid-fluid">
+			<div class="row">
+				<div class="col-md-12">
+					<a href="http://uniprep.ai" class="marquee">
+						<img src="/uniprep-assets/images/countries.webp" alt="Countries" class="marquee-img" />
+						<img src="/uniprep-assets/images/countries.webp" alt="Countries" class="marquee-img" />
+						<img src="/uniprep-assets/images/countries.webp" alt="Countries" class="marquee-img" />
+					</a>
+				</div>
+			</div>
+		</div>
+	</section> -->
+	
+	<section class="pt-5 pb-5 darksection" id="about">
+		<div class="container-fluid text-center">
+			<div class="row justify-content-center">
+				<div class="col-md-9 text-start d-flex align-items-center pt-5">
+					<div class="card">
+						<div class="card-body p-5">
+							<!-- <h4 class="p-5 text-white text-center fw-extralight"><span class="h1">"</span><span class="fw-bold">UNIPREP</span> is the world's only all-in-one SaaS platform designed to help <span class="fw-bold uniprep-secondary">students, professionals</span> & <span class="fw-bold uniprep-secondary">founders</span>, achieve success in today's competitive world.<span class="h1">"</span></h4>-->
+							<h4 class="p-5 text-white text-center fw-extralight"><span class="fw-bold">UNIPREP</span> is a virtual Placement Assistance Platform crafted by UNIABROAD to offer students affordable access to world-class <span class="fw-bold uniprep-secondary">educational resources, essential career tools, and entrepreneurial resources</span> equivalent to those of top institutions like Stanford, Oxford, and the IITs, making premier education accessible to everyone.</h4>
+						</div>
+					</div>
+					<!-- <h1 class="text-white text-md-start text-center">ABOUT UNIPREP</h1> -->
+					<!-- <p class="text-justify mb-5">
+							UNIPREP is a one-stop global search platform, designed to act as a personalized advisor, catering to all students and graduates seeking guidance on career growth, opportunities, life, and education abroad.<br /><br />Experts with firsthand experience residing in various countries have answered over half a million questions addressing all 360-degree queries. The information on the portal is further reviewed by the alumni of top international universities.
+						</p> -->
+				</div>
+			</div>
+		</div>
+	</section>
+	<!-- <section class="pt-4 pb-4 darksection" id="solution">
+		<div class="container-fluid">
+			<div class="row">
+				<div class="col-md-12">
+					<div class="card promocard px-5 py-5">
+						<div class="card-body">
+							<div class="row">
+								<div class="col-md-6 col-12">
+									<h3 class="mb-md-0 mb-3 text-md-start text-center fw-semibold">"A Student spends more than 2 months to get all the information about pursuing their career abroad."</h3>
+								</div>
+								<div class="col-md-3 col-6">
+									<h1 class="mb-0 fw-semibold text-md-start text-center">2X</h1>
+									<span class="mb-0 small text-md-start text-center">Save twice the time you spend on research</span>
+								</div>
+								<div class="col-md-3 col-6">
+									<h1 class="mb-0 fw-semibold text-md-start text-center">95%</h1>
+									<span class="mb-0 small text-md-start text-center">Increase your chances of working abroad.</span>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</section> -->
+	<section class="pt-5 pb-5 darksection" id="isforyou">
+		<div class="container-fluid">
+			<div class="row justify-content-center">
+				<div class="col-md-12 text-center mb-3">
+					<h2 class="text-white fw-extralight mb-4"><span class="fw-bold uniprep-secondary">UNIPREP</span> Is for you, If...</h2>
+				</div>
+				<div class="col-md-10">
+					<div class="row justify-content-center">
+						<div class="col-md-4 col-12 text-center isforyou" *ngFor="let card of cardItems">
+							<div class="card darkcard h-100">
+								<div class="card-body d-flex py-5 px-4">
+									<div class="d-flex flex-md-row flex-column gap-2 align-items-center card-title">
+										<i class="fa-thin fa-square-check fa-2xl cardicon mb-4 mb-md-0"></i>
+										<h5 class="text-md-start text-center mb-0">{{ card.text }}</h5>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</section>
+	
+	<section class="pt-5 pb-5 cta-field darksection">
+		<div class="container-fluid">
+			<div class="row justify-content-center">
+				<div class="col-md-10">
+					<div class="card py-4 px-4">
+						<div class="card-body">
+							<div class="row align-items-center justify-content-center">
+								<div class="col-md-10">
+									<h3 class="mb-md-0 mb-3 text-md-start text-center fw-light"><span class="fw-bold">Get Free Access</span><br />Right Away!</h3>
+								</div>
+								<div class="col-md-2 col-7">
+									<a href="/register" class="btn cta-btn m-0 h5 py-4">REGISTER NOW</a>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</section>
+	<!-- <section class="pt-4 pb-4 darksection" id="features">
+		<div class="container-fluid text-center">
+			<div class="row justify-content-between align-items-center">
+				<div class="col-md-5 text-start order-2 order-md-1">
+					<h1 class="fw-semibold text-md-start text-center">One-Stop Global Search Platform</h1>
+					<img src="/uniprep-assets/images/onestopsearchmob.webp" class="w-100 d-md-none d-block mb-5" />
+					<p class="text-md-start text-center">Imagine a platform that has answers to all your queries. Discover everything you need in one place, streamline your career goals with us!</p>
+				</div>
+				<div class="col-md-5 order-1 order-md-2">
+					<img src="/uniprep-assets/images/onestopsearch.webp" class="w-100 d-md-block d-none" />
+				</div>
+			</div>
+		</div>
+	</section>
+	<section class="pt-4 pb-4 darksection">
+		<div class="container-fluid text-center">
+			<div class="row justify-content-between align-items-center">
+				<div class="col-md-5 order-1 order-md-1">
+					<img src="/uniprep-assets/images/verifiedinfo.webp" class="w-100 d-md-block d-none" />
+				</div>
+				<div class="col-md-5 text-start order-2 order-md-2">
+					<h1 class="fw-semibold text-md-start text-center">Verified & Reliable Information</h1>
+					<img src="/uniprep-assets/images/verifiedinfomob.webp" class="w-100 d-md-none d-block mb-5" />
+					<p class="text-md-start text-center">No more struggling for hours to get information on the internet addressing your specific needs. Get access to information validated by experts at your fingertips.</p>
+				</div>
+			</div>
+		</div>
+	</section>
+	<section class="darksection">
+		<div class="container-fluid text-center">
+			<div class="row justify-content-between align-items-center">
+				<div class="col-md-5 text-start order-2 order-md-1">
+					<button pButton  type="button" class="btn btn-secondary px-4 py-2 m-0 d-md-block d-none">Coming Soon</button>
+					<h1 class="fw-semibold text-md-start text-center">Quiz and Certificate</h1>
+					<button pButton  type="button" class="btn btn-secondary px-4 py-2 m-auto mb-3 d-md-none d-block">Coming Soon</button>
+					<img src="/uniprep-assets/images/quizcertificatemob.webp" class="w-100 d-md-none d-block mb-5" />
+					<p class="text-md-start text-center">Test your readiness, earn a certificate, and step confidently into your overseas journey of success.</p>
+				</div>
+				<div class="col-md-5 order-1 order-md-2">
+					<img src="/uniprep-assets/images/quizcertificate.webp" class="w-100 d-md-block d-none" />
+				</div>
+			</div>
+		</div>
+	</section> -->
+	<section class="pt-5 pb-5 darksection" id="keyfeatures">
+		<div class="container-fluid text-center">
+			<div class="row justify-content-center">
+				<div class="col-md-10">
+					<div class="row justify-content-between align-items-center">
+						<div class="col-md-6">
+							<h2 class="text-white fw-semibold text-md-start text-center mb-3 d-block d-md-none">Key Features</h2>
+							<div class="featureimage mb-md-0 mb-3 p-3">
+								<img [src]="currentImage" class="w-100 rounded-2" alt="Image" />
+							</div>
+						</div>
+						<div class="col-md-6 col-12">
+							<h2 class="text-white fw-semibold text-md-start text-center mb-3 d-none d-md-block">Key Features</h2>
+							<div class="accordion accordion-flush" id="accordionFeatures">
+								<div class="accordion" id="accordionFeatures">
+									<div class="accordion-item featurecard" *ngFor="let item of accordionItems; let i = index">
+										<h2 class="accordion-header">
+											<button class="accordion-button text-white" type="button" data-bs-toggle="collapse" [attr.data-bs-target]="'#' + item.id" aria-expanded="true" [attr.aria-controls]="item.id" (click)="changeImage(item.image)">
+												{{ item.title }}
+											</button>
+										</h2>
+										<div [id]="item.id" class="accordion-collapse collapse" data-bs-parent="#accordionFeatures" [ngClass]="{ show: i === 0 }">
+											<div class="accordion-body">
+												<p class="mb-0 text-white fw-extralight">{{ item.content }}</p>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</section>
+	
+	<section class="pt-5 pb-5 darksection">
+		<div class="container-fluid">
+			<div class="row justify-content-center">
+				<div class="col-md-10">
+					<div class="card overflow-y-auto">
+						<div class="card-body p-5">
+							<div class="row">
+								<div class="d-flex justify-content-between gap-5">
+									<div class="text-center pt-4 pb-4" *ngFor="let stat of stats">
+										<i class="fa-thin {{ stat.icon }} fa-2xl pb-4"></i>
+										<h3 class="mb-2 uniprep-secondary">{{ stat.number }}</h3>
+										<h5 class="mb-0">{{ stat.text }}</h5>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</section>
+	
+	<section class="pt-5 pb-5 cta-field darksection">
+		<div class="container-fluid">
+			<div class="row justify-content-center">
+				<div class="col-md-10">
+					<div class="card py-4 px-4">
+						<div class="card-body">
+							<div class="row align-items-center justify-content-center">
+								<div class="col-md-10">
+									<h3 class="mb-md-0 mb-3 text-md-start text-center">Act Now!</h3>
+									<h5 class="fw-medium text-white d-md-block d-none">Start your journey with us today for <span class="fw-bold">FREE!</span></h5>
+									<h5 class="fw-medium text-white text-center d-md-none d-block">Start your journey with us today<br />for <span class="fw-bold">FREE!</span></h5>
+								</div>
+								<div class="col-md-2 col-6">
+									<a href="/register" class="btn cta-btn m-0 h5 py-4">REGISTER NOW</a>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</section>
+	
+	<!-- <section class="darksection pt-5 pb-5 comparisionchart" id="comparision">
+		<div class="container-fluid">
+			<div class="row justify-content-center">
+				<div class="col-md-8">
+					<div class="row">
+						<div class="col-md-12">
+							<h2 class="text-white fw-extralight text-md-center text-center mb-5">What Makes <span class="fw-bold uniprep-secondary">UNIPREP</span> Unique</h2>
+						</div>
+						<div class="col-md-12">
+							<div class="card overflow-y-auto">
+								<div class="card-body">
+									<div class="d-flex gap-3">
+										<div class="card flex-md-fill flex-shrink-0">
+											<div class="card-body">
+												<h4 class="fw-medium mb-4">Features</h4>
+												<ul>
+													<li class="text-grey">Explore education, career and life in over 25 countries</li>
+													<li class="text-grey">Learn 25 regional and international languages</li>
+													<li class="text-grey">1000+ specialisations for upskilling with certifications</li>
+													<li class="text-grey">Resources to clear nationalised tests like JEE, NDA, KCET and more</li>
+													<li class="text-grey">Resources to clear pre-requisite tests like IELTS, GRE, GMAT and more</li>
+													<li class="text-grey">Career tools (CV builder, Interview prep, career growth checker and more)</li>
+													<li class="text-grey">Job portal featuring 1M+ active jobs</li>
+													<li class="text-grey">Start-up incubation</li>
+													<li class="text-grey">AI global advisor</li> -->
+	
+	<!-- <li class="text-grey">Global Personal Advisor</li>
+													<li class="text-grey">Global Q&A Database</li>
+													<li class="text-grey">International Events Access</li>
+													<li class="text-grey">International Scholarship Data</li>
+													<li class="text-grey">Global Knowledge Resources</li>
+													<li class="text-grey">Startup Kit</li>
+													<li class="text-grey">Company Data</li>
+													<li class="text-grey">Investor Data</li> -->
+	<!-- </ul>
+											</div>
+										</div>
+										<div class="card flex-shrink-0">
+											<div class="card-body">
+												<h5 class="fw-medium mb-4">Institutions</h5>
+												<ul class="text-center">
+													<li class="text-grey"><i class="fa-regular fa-xmark fa-xl"></i></li>
+													<li class="text-grey"><i class="fa-regular fa-xmark fa-xl"></i></li>
+													<li class="text-grey"><i class="fa-regular fa-xmark fa-xl"></i></li>
+													<li class="text-grey"><i class="fa-regular fa-xmark fa-xl"></i></li>
+													<li class="text-grey"><i class="fa-regular fa-xmark fa-xl"></i></li>
+													<li class="text-grey"><i class="fa-regular fa-xmark fa-xl"></i></li>
+													<li class="text-grey"><i class="fa-regular fa-xmark fa-xl"></i></li>
+													<li class="text-grey"><i class="fa-regular fa-xmark fa-xl"></i></li>
+													<li class="text-grey"><i class="fa-regular fa-xmark fa-xl"></i></li>
+												</ul>
+											</div>
+										</div>
+										<div class="card flex-shrink-0">
+											<div class="card-body">
+												<h5 class="uniprep-secondary fw-bold mb-4 px-5">UNIPREP</h5>
+												<ul class="text-center">
+													<li class="uniprep-secondary"><i class="fa-regular fa-check fa-xl"></i></li>
+													<li class="uniprep-secondary"><i class="fa-regular fa-check fa-xl"></i></li>
+													<li class="uniprep-secondary"><i class="fa-regular fa-check fa-xl"></i></li>
+													<li class="uniprep-secondary"><i class="fa-regular fa-check fa-xl"></i></li>
+													<li class="uniprep-secondary"><i class="fa-regular fa-check fa-xl"></i></li>
+													<li class="uniprep-secondary"><i class="fa-regular fa-check fa-xl"></i></li>
+													<li class="uniprep-secondary"><i class="fa-regular fa-check fa-xl"></i></li>
+													<li class="uniprep-secondary"><i class="fa-regular fa-check fa-xl"></i></li>
+													<li class="uniprep-secondary"><i class="fa-regular fa-check fa-xl"></i></li>
+												</ul>
+											</div>
+										</div> -->
+	
+	<!-- <div class="card flex-shrink-0">
+											<div class="card-body">
+												<h5 class="uniprep-secondary fw-bold mb-4 px-3">UNIPREP</h5>
+												<ul class="text-center">
+													<li class="uniprep-secondary"><i class="fa-regular fa-check fa-xl"></i></li>
+													<li class="uniprep-secondary"><i class="fa-regular fa-check fa-xl"></i></li>
+													<li class="uniprep-secondary"><i class="fa-regular fa-check fa-xl"></i></li>
+													<li class="uniprep-secondary"><i class="fa-regular fa-check fa-xl"></i></li>
+													<li class="uniprep-secondary"><i class="fa-regular fa-check fa-xl"></i></li>
+													<li class="uniprep-secondary"><i class="fa-regular fa-check fa-xl"></i></li>
+													<li class="uniprep-secondary"><i class="fa-regular fa-check fa-xl"></i></li>
+													<li class="uniprep-secondary"><i class="fa-regular fa-check fa-xl"></i></li>
+												</ul>
+											</div>
+										</div>
+										<div class="card flex-shrink-0">
+											<div class="card-body">
+												<h5 class="fw-medium mb-4">AI Assistants</h5>
+												<ul class="text-center">
+													<li class="text-grey"><i class="fa-regular fa-xmark fa-xl"></i></li>
+													<li class="text-grey"><i class="fa-regular fa-xmark fa-xl"></i></li>
+													<li class="text-grey"><i class="fa-regular fa-xmark fa-xl"></i></li>
+													<li class="text-grey"><i class="fa-regular fa-xmark fa-xl"></i></li>
+													<li class="text-grey"><i class="fa-regular fa-xmark fa-xl"></i></li>
+													<li class="text-grey"><i class="fa-regular fa-xmark fa-xl"></i></li>
+													<li class="text-grey"><i class="fa-regular fa-xmark fa-xl"></i></li>
+													<li class="text-grey"><i class="fa-regular fa-xmark fa-xl"></i></li>
+												</ul>
+											</div>
+										</div>
+										<div class="card flex-shrink-0">
+											<div class="card-body">
+												<h5 class="fw-medium mb-4">Search Engines</h5>
+												<ul class="text-center">
+													<li class="text-grey"><i class="fa-regular fa-xmark fa-xl"></i></li>
+													<li class="text-grey"><i class="fa-regular fa-xmark fa-xl"></i></li>
+													<li class="text-grey"><i class="fa-regular fa-xmark fa-xl"></i></li>
+													<li class="text-grey"><i class="fa-regular fa-xmark fa-xl"></i></li>
+													<li class="text-grey"><i class="fa-regular fa-check fa-xl"></i></li>
+													<li class="text-grey"><i class="fa-regular fa-xmark fa-xl"></i></li>
+													<li class="text-grey"><i class="fa-regular fa-xmark fa-xl"></i></li>
+													<li class="text-grey"><i class="fa-regular fa-xmark fa-xl"></i></li>
+												</ul>
+											</div>
+										</div>
+										<div class="card flex-shrink-0">
+											<div class="card-body">
+												<h5 class="fw-medium mb-4">Institutions</h5>
+												<ul class="text-center">
+													<li class="text-grey"><i class="fa-regular fa-xmark fa-xl"></i></li>
+													<li class="text-grey"><i class="fa-regular fa-xmark fa-xl"></i></li>
+													<li class="text-grey"><i class="fa-regular fa-xmark fa-xl"></i></li>
+													<li class="text-grey"><i class="fa-regular fa-xmark fa-xl"></i></li>
+													<li class="text-grey"><i class="fa-regular fa-xmark fa-xl"></i></li>
+													<li class="text-grey"><i class="fa-regular fa-xmark fa-xl"></i></li>
+													<li class="text-grey"><i class="fa-regular fa-xmark fa-xl"></i></li>
+													<li class="text-grey"><i class="fa-regular fa-xmark fa-xl"></i></li>
+												</ul>
+											</div>
+										</div> -->
+	<!-- </div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</section> -->
+	<!-- <section class="pt-4 pb-4 darksection" id="testimonials">
+		<div class="container-fluid">
+			<div class="row">
+				<div class="col-md-12">
+					<h1 class="text-white fw-semibold text-md-center mb-3 text-center">What Our Subscribers Say</h1>
+					<div class="card promocard px-md-5 px-2 py-5">
+						<div class="card-body">
+							<div class="row justify-content-center">
+								<div class="col-md-8 text-center">
+									<h3 class="mb-2 fw-semibold">“UNIRPEP is an extremely helpful platform for individuals aspiring for a career abroad. I could get answers to all kind of questions related to UK in one place. The chat option is really helpful”</h3>
+									<h6 class="mb-1">John Doe</h6>
+									<p>Student,VVCE</p>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</section> -->
+	<section class="darksection py-5">
+		<div class="container-fluid">
+			<div class="row justify-content-center">
+				<div class="col-md-12 text-center">
+					<h2 class="text-white fw-light mb-4">Blogs</h2>
+				</div>
+				<div class="col-md-10 mt-4">
+					<div class="row justify-content-center">
+						<div class="col-md-4" *ngFor="let blog of blogs">
+							<a style="text-decoration: none" href="blogs/{{ blog.slug }}">
+								<div class="card">
+									<div class="card-body">
+										<div class="card rounded-4 blogimage" style="background-image: url('{{ blog.featured_img }}');"></div>
+										<h5 class="text-white pt-3 fw-bold">{{ blog.title }}</h5>
+										<p class="text-white fw-light"><i class="fa-solid fa-calendar me-2"></i>{{ blog.date }}</p>
+										<p class="pt-1 text-white line-clamp">
+											{{ blog.desc }}
+										</p>
+									</div>
+								</div>
+							</a>
+						</div>
+					</div>
+					<div class="d-flex justify-content-center">
+						<a [routerLink]="['/blogs']" class="text-decoration-none"><button type="button" class="btn btn-secondary px-4 py-2 m-0 text-center mt-4">LOAD MORE</button></a>
+					</div>
+				</div>
+			</div>
+		</div>
+	</section>
+	<section class="marquee-container darksection pb-5 pt-5">
+		<div class="container-fluid">
+			<div class="row justify-content-center">
+				<div class="col-md-12 text-center">
+					<h2 class="text-white fw-light mb-4">Trusted By <span class="uniprep-secondary fw-bold">350+</span> Institutions Globally</h2>
+				</div>
+				<div class="col-md-10 mb-3 marquee overflow-hidden">
+					<img src="/uniprep-assets/images/collegelogos.webp" alt="Universities" class="marquee-imgu" />
+					<img src="/uniprep-assets/images/collegelogos.webp" alt="Universities" class="marquee-imgu" />
+				</div>
+			</div>
+		</div>
+	</section>
+	
+	<section class="pt-5 pb-5 cta-field darksection">
+		<div class="container-fluid">
+			<div class="row justify-content-center">
+				<div class="col-md-10">
+					<div class="card py-4 px-4">
+						<div class="card-body">
+							<div class="row align-items-center justify-content-center">
+								<div class="col-md-10">
+									<h3 class="mb-md-0 mb-3 text-md-start text-center fw-light">Sign-Up Now<br /><span class="fw-bold">for Free!</span></h3>
+								</div>
+								<div class="col-md-2 col-7">
+									<a href="/register" class="btn cta-btn m-0 h5 py-4">LEARN MORE</a>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</section>
+	
+	<section class="pt-5 pb-0 darksection homefaqbg" id="faq">
+		<div class="container-fluid text-start">
+			<div class="row justify-content-center">
+				<div class="col-md-6 text-center">
+					<h2 class="text-white fw-semibold mb-5">Frequently Asked Questions</h2>
+				</div>
+				<div class="col-md-8">
+					<div class="accordion pb-3" id="accordionFAQ">
+						<div class="accordion-item faqcard" *ngFor="let faq of faqItems; let i = index">
+							<h2 class="accordion-header">
+								<button class="accordion-button text-white collapsed" type="button" data-bs-toggle="collapse" [attr.data-bs-target]="'#' + faq.id" aria-expanded="false" [attr.aria-controls]="faq.id">
+									{{ faq.question }}
+								</button>
+							</h2>
+							<div [id]="faq.id" class="accordion-collapse collapse" data-bs-parent="#accordionFAQ">
+								<div class="accordion-body">{{ faq.answer }}</div>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="col-md-10 text-center">
+					<a href="/register" class="text-decoration-none d-flex justify-content-center mb-5"
+						><button type="button" class="btn btn-secondary px-4 py-3 m-0"><h5 class="mb-0">KNOW MORE</h5></button></a
+					>
+				</div>
+			</div>
+		</div>
+	</section>

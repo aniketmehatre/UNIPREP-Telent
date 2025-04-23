@@ -29,6 +29,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { provideClientHydration, withEventReplay } from '@angular/platform-browser';
 import { provideServiceWorker } from '@angular/service-worker';
 import MyPreset from "./mypreset"
+import { LandingModule } from "./pages/landing/landing.module"
 
 // Assuming ngxLocalstorageConfiguration is properly defined elsewhere in your code
 const ngxLocalstorageConfiguration = NGX_LOCAL_STORAGE_CONFIG as unknown as {
@@ -143,7 +144,7 @@ appConfig = {
             },
           },
         }),
-        LandingComponent,
+    LandingModule,
         DashboardComponent,
         DeviceDetectorService,
         DatePipe,
