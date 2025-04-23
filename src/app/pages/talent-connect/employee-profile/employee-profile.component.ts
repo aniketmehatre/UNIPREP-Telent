@@ -1516,4 +1516,16 @@ export class EmployeeProfileComponent implements OnInit {
     return wordCount;
   }
 
+
+  isNotEmptyHtml(value: string): boolean {
+    const val = value || '';
+    return !!(
+      val &&
+      val.trim() !== '' &&
+      val !== '<p></p>' &&
+      val !== '<p>&nbsp;</p>' &&
+      val.replace(/<[^>]*>/g, '').trim() !== ''
+    );
+  }
 }
+
