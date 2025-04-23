@@ -18,8 +18,15 @@ import { LandingNewComponent } from "./pages/landing-new/landing-new.component";
 import { CoBrandedComponent } from "./Auth/co-branded/co-branded.component"
 export const appRoutes: Routes = [
 	// Public routes that don't require authentication
-	{ path: "", component: LandingComponent, pathMatch: "full" }, // Default route is now landing page
-	{ path: "landing", component: LandingComponent },
+	{
+		path: "",
+		loadChildren: () => import('./pages/landing/landing.module').then(m => m.LandingModule),
+		pathMatch: "full"
+	}, // Default route is now landing page
+	{
+		path: "landing",
+		loadChildren: () => import('./pages/landing/landing.module').then(m => m.LandingModule)
+	},
 	{ path: "students", component: CoBrandedComponent },
 	{ path: "login", component: LoginComponent },
 	{ path: "students/login", component: LoginComponent },

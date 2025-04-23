@@ -2,68 +2,67 @@
   <!-- Header Section -->
   <div class="header">
     <div class="navigation">
-    <button class="back-button">
+    <button class="back-button" routerLink="/landing">
       <i class="arrow-left"></i>
     </button>
-    <button class="job-seekers-button">For Job Seekers</button>
+    <button class="job-seekers-button">{{categoryName}}</button>
     </div>
   
     <div class="hero">
     <h1 class="title">From Skill-Building to Global Career Success</h1>
     <p class="subtitle">
-      UNIPREP guides jobseekers through every stage of their professional journey — from identifying strengths and mastering skills, to securing global opportunities and growing with purpose. Whether you're just starting out or scaling up, we're with you every step of the way.
+      UNIPREP guides {{categoryName}} through every stage of their professional journey — from identifying strengths and mastering skills, to securing global opportunities and growing with purpose. Whether you're just starting out or scaling up, we're with you every step of the way.
     </p>
     </div>
   </div>
   
-  <!-- Steps Sections -->
-  <div *ngFor="let step of steps" class="step-section">
+<!-- Steps Sections -->
+<div *ngFor="let step of steps" class="step-section">
+  <ng-container *ngIf="getCardsForStep(step.id).length">
     <div class="row">
-    <div class="col-md-3">
-      <div class="step-header">
-        <div class="step-icon">
-          <i class="fas fa-{{step.icon}}"></i>
-        </div>
-        <div class="step-info">
-          <h2 class="step-title">Step {{step.id}}: {{step.title}}</h2>
-          <p class="step-subtitle">{{step.subtitle}}</p>
-        </div>
-        </div>
-    </div>
-    <div class="col-md-9">
-      <div class="cards-grid">
-        <div *ngFor="let card of getCardsForStep(step.id)" class="card">
-          <div class="card-header">
-          <div class="card-icon" [ngClass]="'icon-' + card.icon"></div>
-          <div class="card-number">{{card.id}}</div>
+      <div class="col-md-3">
+        <div class="step-header">
+          <div class="step-icon">
+            <i class="fas fa-{{step.icon}}"></i>
           </div>
-          <div class="card-content">
-          <h3 class="card-title">
-            {{card.title}}
-            <i class="fa-solid fa-arrow-up-right-from-square"></i>
-          </h3>
-          <p class="card-description">{{card.description}}</p>
+          <div class="step-info">
+            <h2 class="step-title">Step {{step.id}}: {{step.title}}</h2>
+            <p class="step-subtitle">{{step.subtitle}}</p>
           </div>
         </div>
+      </div>
+      <div class="col-md-9">
+        <div class="cards-grid">
+          <div *ngFor="let card of getCardsForStep(step.id)" class="card">
+            <div class="card-header" style="padding-left: 0px">
+              <div class="card-icon fs-2">{{card.icon}}</div>
+              <div class="card-number">{{card.order_no}}</div>
+            </div>
+            <div class="card-content" [routerLink]="['/landing/explore',categorySlug, card.id]">
+              <h3 class="card-title">
+                {{card.feature_name}}
+                <i class="fa-solid fa-arrow-up-right-from-square"></i>
+              </h3>
+              <p class="card-description">{{card.description}}</p>
+            </div>
+          </div>
         </div>
+      </div>
     </div>
-    </div>
+  </ng-container>
+</div>
 
-
-  </div>
-  
-  <!-- CTA Banner -->
-  <div class="cta-banner">
-    <div class="cta-content">
+<!-- CTA Banner -->
+<div class="cta-banner">
+  <div class="cta-content">
     <h2 class="cta-title">UNIPREP IS YOUR CAREER CO-PILOT</h2>
     <p class="cta-subtitle">READY WHEN YOU ARE.</p>
-    </div>
-    <button class="register-button">Register Now</button>
   </div>
-  
+  <button class="register-button" routerLink="/register">Register Now</button>
+</div>
   <!-- Why UNIPREP Section -->
   <div class="why-section">
-    <h2 class="why-title">Why <span class="highlight">UNIPREP</span> for Job Seekers?</h2>
+    <h2 class="why-title">Why <span class="highlight">UNIPREP</span> {{categoryName}}</h2>
     <p class="why-subtitle">UNIPREP is more than a platform — it's your complete career success system.</p>
     
     <div class="benefits-grid">

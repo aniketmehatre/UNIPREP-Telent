@@ -1,84 +1,60 @@
 <div class="learning-hub-container">
   <!-- Back Button and Learning Hub -->
   <div class="top-nav">
-    <button class="back-button">
+    <button class="back-button"  (click)="goBack();">
       <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
         <path d="M19 12H5M12 19l-7-7 7-7"/>
       </svg>
     </button>
-    <div class="learning-hub-button">Learning Hub</div>
+    <div class="learning-hub-button">{{landingPageData?.feature_name}}</div>
   </div>
 
   <!-- Hero Section -->
   <div class="hero-section">
     <div class="hero-content">
       <h1 class="hero-title">
-        <span class="highlight">Learn Real Skills.</span> Get Certified. Build Your Future.
+        <span class="highlight">Learn Real Skills.</span> {{landingPageData?.herocover?.hero_title}}
       </h1>
       <p class="hero-description">
-        Unlock 1,000+ industry-relevant courses designed to help you grow faster in your career. From IT and Finance to Marketing and Healthcare, the Learning Hub makes it easy to learn what matters — and earn certificates that count.
+        {{landingPageData?.herocover?.hero_description}}
       </p>
       <div class="hero-buttons">
         <button class="learn-more-btn">Learn More</button>
-        <button class="try-free-btn">Try for Free!</button>
+        <button class="try-free-btn" routerLink="/login">Try for Free!</button>
       </div>
     </div>
     <div class="hero-image">
-      <img src="uniprep-assets/images/screenshot.png" alt="Learning Hub Dashboard" />
+      <!-- <div class="video-container" (click)="toggleVideo()">
+        <i class="fa-solid fa-circle-play uniprep-secondary fa-beat" role="button" *ngIf="!isPlaying"></i>
+        <video class="rounded-4" #videoPlayer width="100%" height="100%" preload="none" [poster]='landingPageData?.herocover.video_cover_image'>
+          <source [src]="'https://'+environment.domain+'/uniprepapi/storage/app/public/Landing/welcome.mp4'" type="video/mp4" />
+        </video>
+      </div> -->
+      <img [src]="landingPageData?.herocover.video_cover_image ?? 'uniprep-assets/images/screenshot.png'" alt="Learning Hub Dashboard" />
     </div>
   </div>
 
   <!-- Why Choose Section -->
   <div class="why-choose-section">
-    <h2 class="section-title">Why Choose the <span class="highlight">Learning Hub</span>?</h2>
+    <h2 class="section-title">Why Choose the <span class="highlight">{{landingPageData?.feature_name}}</span>?</h2>
     
     <div class="features-grid">
-      <div class="feature-card">
-        <div class="feature-icon">🔍</div>
-        <div class="feature-content">
-          <h3 class="feature-title highlight">1,000+ Specializations</h3>
-          <p class="feature-description">Learn what top employers want</p>
+      <ng-container *ngFor="let item of chooseUsList">
+        <div class="feature-card">
+          <div class="feature-icon">{{item.chooseus_icon}}</div>
+          <div class="feature-content">
+            <h3 class="feature-title highlight">{{item.chooseus_title}}</h3>
+            <p class="feature-description">{{item.chooseus_subtitle}}</p>
+          </div>
         </div>
-      </div>
-      
-      <div class="feature-card">
-        <div class="feature-icon">🎓</div>
-        <div class="feature-content">
-          <h3 class="feature-title highlight">Interactive Lessons</h3>
-          <p class="feature-description">Video-based, task-driven, and easy to follow</p>
-        </div>
-      </div>
-      
-      <div class="feature-card">
-        <div class="feature-icon">🏆</div>
-        <div class="feature-content">
-          <h3 class="feature-title highlight">Recognized Certificates</h3>
-          <p class="feature-description">Showcase your skills with confidence</p>
-        </div>
-      </div>
-      
-      <div class="feature-card">
-        <div class="feature-icon">🎬</div>
-        <div class="feature-content">
-          <h3 class="feature-title highlight">Demo Video Available</h3>
-          <p class="feature-description">Preview the platform before you begin</p>
-        </div>
-      </div>
-      
-      <div class="feature-card">
-        <div class="feature-icon">📈</div>
-        <div class="feature-content">
-          <h3 class="feature-title highlight">Track Your Progress</h3>
-          <p class="feature-description">See how far you've come, and what's next</p>
-        </div>
-      </div>
+      </ng-container>
     </div>
   </div>
 
   <!-- CTA Banner -->
   <div class="cta-banner">
     <h2 class="cta-title">POST A JOB NOW</h2>
-    <button class="register-btn">Register Now</button>
+    <button class="register-btn" routerLink="/register">Register Now</button>
   </div>
 
   <!-- How it Works Section -->
@@ -87,17 +63,17 @@
     
     <div class="row gap-2">
       <div class="col-md-4">
-        <div *ngFor="let step of steps" class="step-item">
+        <div *ngFor="let step of howitsWorks" class="step-item" (click)="selectedStep = step;">
           <div class="step-content">
-            <h3 class="step-title">Step {{ step.number }}</h3>
-            <p class="step-description">{{ step.title }}</p>
+            <h3 class="step-title">Step {{ step.step }}</h3>
+            <p class="step-description">{{ step.itswork_title }}</p>
           </div>
-          <div class="step-icon">{{ step.icon }}</div>
+          <!-- <div class="step-icon">{{ step.icon }}</div> -->
         </div>
       </div>
       
-      <div class="steps-image col-md-9">
-        <img src="uniprep-assets/images/screenshot2.png" alt="Platform Preview" />
+      <div class="steps-image col-md-9" *ngIf="selectedStep">
+        <img [src]="selectedStep?.feature_image_url" alt="Platform Preview" />
       </div>
     </div>
   </div>
@@ -107,12 +83,12 @@
     <h2 class="section-title">Who It's For?</h2>
     
     <div class="user-types-grid">
-      <div *ngFor="let userType of userTypes" class="user-type-card">
+      <div *ngFor="let userType of whoItsFor" class="user-type-card">
         <div class="user-type-image">
-          <img [src]="userType.image" [alt]="userType.title" />
+          <img [src]="userType.image_url" [alt]="userType.itsfor_title" />
         </div>
-        <h3 class="user-type-title highlight">{{ userType.title }}</h3>
-        <p class="user-type-description">{{ userType.description }}</p>
+        <h3 class="user-type-title highlight  text-start">{{ userType.itsfor_title }}</h3>
+        <p class="user-type-description  text-start">{{ userType.itsfor_subtitle }}</p>
       </div>
     </div>
   </div>
@@ -120,7 +96,7 @@
   <!-- Second CTA Banner -->
   <div class="cta-banner">
     <h2 class="cta-title">POST A JOB NOW</h2>
-    <button class="register-btn">Register Now</button>
+    <button class="register-btn" routerLink="/register">Register Now</button>
   </div>
 
   <!-- FAQ Section -->

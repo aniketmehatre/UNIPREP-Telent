@@ -1,12 +1,12 @@
-import {Component, HostListener, OnInit} from "@angular/core"
-import {LocationService} from "./location.service"
-import {environment} from "@env/environment"
-import {LocalStorageService} from "ngx-localstorage"
-import {NgxUiLoaderModule} from "ngx-ui-loader"
-import {ToastModule} from "primeng/toast"
-import {Router, RouterModule} from "@angular/router"
-import {MessageService} from "primeng/api"
-import {SeoManagerComponent} from "./components/seo-manager/seo-manager.component"
+import { Component, HostListener, OnInit } from "@angular/core"
+import { LocationService } from "./location.service"
+import { environment } from "@env/environment"
+import { LocalStorageService } from "ngx-localstorage"
+import { NgxUiLoaderModule } from "ngx-ui-loader"
+import { ToastModule } from "primeng/toast"
+import { Router, RouterModule } from "@angular/router"
+import { MessageService } from "primeng/api"
+import { SeoManagerComponent } from "./components/seo-manager/seo-manager.component"
 
 @Component({
 	selector: "app-root",
@@ -33,7 +33,7 @@ export class AppComponent implements OnInit {
 		this.domainNameCondition = window.location.hostname
 		this.domainname = this.isDomainMain() ? 'main' : 'sub'
 		if (this.domainname === 'sub') {
-			this.router.navigate(['/students'], { replaceUrl: true });
+			this.router.navigate(['/main'], { replaceUrl: true });
 		}
 		this.getImageWhitelabel()
 		document.addEventListener("visibilitychange", () => {
