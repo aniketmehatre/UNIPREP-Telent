@@ -16,7 +16,7 @@ import { SelectModule } from 'primeng/select';
 import { InputGroupModule } from 'primeng/inputgroup';
 import { InputTextModule } from 'primeng/inputtext';
 import { InputGroupAddonModule } from 'primeng/inputgroupaddon';
-import { TravelToolsService } from '../../travel-tools/travel-tools.service';
+import { PageFacadeService } from '../../page-facade.service';
 import { CommonType } from 'src/app/@Models/common-type';
 import { InputNumberModule } from 'primeng/inputnumber';
 import { Currencies } from 'src/app/@Models/currency.model';
@@ -57,7 +57,8 @@ export class EduLoanCompareComponent implements OnInit {
     private educationToolService: EducationToolsService,
     private router: Router,
     private sanitizer: DomSanitizer,
-    private promptService: PromptService
+    private promptService: PromptService,
+    private pageFacade: PageFacadeService,
   ) {
     this.form = this.fb.group({
       currency: ['', Validators.required],
@@ -203,5 +204,9 @@ export class EduLoanCompareComponent implements OnInit {
     else {
       this.resetRecommendation();
     }
+  }
+
+  openHowItWorksVideoPopup(videoLink: string) {
+    this.pageFacade.openHowitWorksVideoPopup(videoLink);
   }
 }

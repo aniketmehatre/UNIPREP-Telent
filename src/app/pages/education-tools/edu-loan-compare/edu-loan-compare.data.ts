@@ -2,12 +2,12 @@ export const eduloanRecommendations = [
     {
         id: 1,
         heading: 'Loan Details',
-        questions: ['What is your total loan amount?', 'What is the interest rate of your loan?', 'What is your loan tenure?', 'What is the duration of your course?']
+        questions: ['What is your total loan amount?', 'What is the rate of interest of your education loan?', 'What is the tenure of your education loan?', 'What is the duration of your course?']
     },
     {
         id: 2,
         heading: 'Loan Closure Details',
-        questions: ['Did your loan have a moratorium (Grace) period?', 'In how many years do you prefer to complete the loan repayment?']
+        questions: ['Did your loan have a moratorium (Grace) period?', 'What is your intended loan repayment period (in years)?']
     }
 ];
 

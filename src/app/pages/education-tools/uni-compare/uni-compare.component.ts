@@ -139,14 +139,14 @@ export class UniCompareComponent implements OnInit, OnDestroy {
       id: 1,
       question: {
         heading: 'University Details',
-        branches: ['Which country are you planning to study in', 'Which university are you applying to?', 'What is your chosen specialization or field of study?']
+        branches: ['Which country are you planning to study in?', 'Which university are you applying to?', 'What is your chosen specialization or field of study?']
       },
     },
     {
       id: 2,
       question: {
         heading: 'Addtional Details',
-        branches: ['What is the Overall tuition fee per year for your program?', 'What is your expected annual living expense?', 'How many months of stayback are allowed after graduation?']
+        branches: ['What is the overall tuition fees per year for the selected course?', 'What is your expected annual living expense?', 'How many months of stayback are allowed after graduation?']
       },
     },
   ];
@@ -263,11 +263,6 @@ export class UniCompareComponent implements OnInit, OnDestroy {
   clearRestriction() {
     this.restrict = false;
   }
-
-  openHowItWorksVideoPopup(videoLink: string) {
-    this.pageFacade.openHowitWorksVideoPopup(videoLink);
-  }
-
 
   getRecommendation() {
     this.submitted = false;
@@ -466,5 +461,7 @@ export class UniCompareComponent implements OnInit, OnDestroy {
     window.removeEventListener('resize', this.updatePanelStyle);
   }
 
-
+  openVideoPopup(videoLink: string) {
+		this.pageFacade.openHowitWorksVideoPopup(videoLink);
+	}
 }

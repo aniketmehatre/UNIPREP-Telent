@@ -19,6 +19,7 @@ import { SelectModule } from 'primeng/select';
 import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
 import { PromptService } from '../../prompt.service';
 import { SharedModule } from 'src/app/shared/shared.module';
+import { PageFacadeService } from '../../page-facade.service';
 @Component({
   selector: 'uni-trip-length-finder',
   templateUrl: './trip-length-finder.component.html',
@@ -34,11 +35,12 @@ export class TripLengthFinderComponent implements OnInit {
     private costOfLivingService: CostOfLivingService,
     private toast: MessageService,
     private sanitizer: DomSanitizer,
-    private prompt: PromptService
+    private prompt: PromptService,
+    private pageFacade: PageFacadeService
   ) { }
 
   recommendations: { id: number, question: string }[] = [
-    { id: 1, question: "Which Destination are you planning to visit?" }
+    { id: 1, question: "Which place are you planning to visit?" }
   ];
   isRecommendation: boolean = true;
   isResponsePage: boolean = false;
@@ -150,5 +152,8 @@ export class TripLengthFinderComponent implements OnInit {
   goBack() {
     this.router.navigateByUrl('/pages/travel-tools');
   }
-
+  
+  openVideoPopup(videoLink: string) {
+		this.pageFacade.openHowitWorksVideoPopup(videoLink);
+	}
 }

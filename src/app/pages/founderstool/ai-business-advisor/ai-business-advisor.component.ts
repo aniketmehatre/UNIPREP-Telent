@@ -17,7 +17,7 @@ import { SelectModule } from "primeng/select"
 import { InputGroupModule } from "primeng/inputgroup"
 import { InputTextModule } from "primeng/inputtext"
 import { InputGroupAddonModule } from "primeng/inputgroupaddon"
-import { DownloadRespose } from "src/app/@Models/travel-tools.model"
+import { PageFacadeService } from '../../page-facade.service';
 import { TravelToolsService } from "../../travel-tools/travel-tools.service"
 import { DomSanitizer, SafeHtml } from "@angular/platform-browser"
 import { PromptService } from "../../prompt.service"
@@ -63,7 +63,7 @@ export class AiBusinessAdvisorComponent implements OnInit {
 	isResponseSkeleton: boolean = false;
 	aiCreditCount:  number = 0;
 
-	constructor(private fb: FormBuilder, private foundersToolService: FounderstoolService, private router: Router, private toast: MessageService, private travelToolService: TravelToolsService, private sanitizer: DomSanitizer, private promptService: PromptService) {}
+	constructor( private foundersToolService: FounderstoolService, private router: Router, private toast: MessageService, private sanitizer: DomSanitizer, private promptService: PromptService,private pageFacade: PageFacadeService) {}
 
 	ngOnInit(): void {
 		this.getCurrenyandLocation()
@@ -96,6 +96,10 @@ export class AiBusinessAdvisorComponent implements OnInit {
 				if (this.selectedData[6].toString()?.length > 8) {
 					this.inValidClass = true
 					return
+				}
+				if(!this.selectedData[8]){
+					this.inValidClass = true
+					return;
 				}
 			}
 			if (this.activePageIndex < this.recommendations.length - 1) {
@@ -204,5 +208,9 @@ export class AiBusinessAdvisorComponent implements OnInit {
 			inputString: addingInput
 		};
 		this.promptService.responseBuilder(params);
+	}
+
+	openVideoPopup(videoLink: string) {
+		this.pageFacade.openHowitWorksVideoPopup(videoLink);
 	}
 }

@@ -38,7 +38,7 @@ export class CareerToolComponent implements OnInit {
       refLink: "https://novoresume.com/",
       mode: "cv-builder",
       launch_soon: false,
-      is_ai: false,
+      is_ai: true,
     },
     {
       id: 2,
@@ -47,7 +47,7 @@ export class CareerToolComponent implements OnInit {
       imageLink: `https://${environment.domain}/uniprepapi/storage/app/public/resources-coverimage/CoverLetter.svg`,
       refLink: "https://resumaker.ai/cover-letter/",
       mode: "coverletter-builder",
-      is_ai: false,
+      is_ai: true,
       launch_soon: false
     },
     {

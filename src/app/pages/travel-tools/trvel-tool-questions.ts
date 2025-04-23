@@ -1,15 +1,15 @@
 export const TravelCostEstimatorQuestionList = [
   {
     id: 1,
-    question: "What is your departure location?"
+    question: "Where will you be departing from?"
   },
   {
     id: 2,
-    question: "What is your destination location?"
+    question: "Which is your preferred travel location?"
   },
   {
     id: 3,
-    question: "How many days will your travel last?"
+    question: "How many days are you planning to travel for?"
   },
   {
     id: 4,

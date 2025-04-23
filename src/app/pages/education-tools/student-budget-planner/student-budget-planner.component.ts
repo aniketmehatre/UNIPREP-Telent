@@ -23,6 +23,7 @@ import { TooltipModule } from 'primeng/tooltip';
 import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
 import { PromptService } from '../../prompt.service';
 import { SharedModule } from 'src/app/shared/shared.module';
+import { PageFacadeService } from '../../page-facade.service';
 
 @Component({
   selector: 'uni-student-budget-planner',
@@ -39,7 +40,8 @@ export class StudentBudgetPlannerComponent implements OnInit {
     private router: Router,
     private toastr: MessageService,
     private sanitizer: DomSanitizer,
-    private promptService: PromptService
+    private promptService: PromptService,
+    private pageFacade: PageFacadeService
   ) { }
   recommendations: { id: number, question: string }[] = [
     {
@@ -178,7 +180,9 @@ export class StudentBudgetPlannerComponent implements OnInit {
   previous() {
     this.activePageIndex--;
   }
-
+  openVideoPopup(videoLink: string) {
+    this.pageFacade.openHowitWorksVideoPopup(videoLink);
+  }
   submit() {
     this.isOldResponse = true;
     Object.entries(this.selectedData).forEach(([key, value]) => {

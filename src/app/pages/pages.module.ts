@@ -61,19 +61,13 @@ import { StepsModule } from "primeng/steps"
 import { CheckboxModule } from "primeng/checkbox"
 import { RadioButtonModule } from "primeng/radiobutton"
 import { PitchDeskComponent } from "./pitch-desk/pitch-desk.component"
-
+import { InputNumberModule } from 'primeng/inputnumber';
 import { ExportCreditComponent } from "./export-credit/export-credit.component"
 import { MycertificateComponent } from "./mycertificate/mycertificate.component"
 import { CareerPlannerComponent } from "./career-planner/career-planner.component"
 import { CertificatesComponent } from "./certificates/certificates.component"
 import { CourseListComponent } from "./course-list/course-list.component"
 import { SkeletonModule } from "primeng/skeleton"
-import { NgxStripeModule } from "ngx-stripe"
-import { FounderstoolComponent } from "./founderstool/founderstool.component"
-import { FoundersacademyComponent } from "./founderstool/foundersacademy/foundersacademy.component"
-import { FounderstoollistComponent } from "./founderstool/founderstoollist/founderstoollist.component"
-import { InvestorpitchtrainingComponent } from "./founderstool/investorpitchtraining/investorpitchtraining.component"
-import { StartupglossaryComponent } from "./founderstool/startupglossary/startupglossary.component"
 import { CareerGrowthCheckerComponent } from "./career-growth-checker/career-growth-checker.component"
 import { AdvisorComponent } from "./advisor/advisor.component"
 import { NationalExamCategoriesComponent } from "./national-exam-categories/national-exam-categories.component"
@@ -88,14 +82,6 @@ import { AverageSalaryComponent } from "./averagesalaryestimator/averagesalaryes
 import { AverageSalaryPreparedListComponent } from "./averagesalaryestimator/preparedlist/preparedlist.component"
 import { JoboffercomparisontoolComponent } from "./job-tool/joboffercomparisontool/joboffercomparisontool.component"
 import { JobOfferPreparedListComponent } from "./job-tool/joboffercomparisontool/preparedlist/preparedlist.component"
-import { DropdownModule } from "primeng/dropdown";
-
-import { OverlayPanelModule } from "primeng/overlaypanel";
-
-
-
-import { GlobalRepositoryComponent } from './global-repository/global-repository.component';
-import { GlobalEmploymentComponent } from "./global-employment-insights/global-employment-insights.component";
 import {PdfViewerModule} from "ng2-pdf-viewer";
 
 @NgModule({
@@ -182,7 +168,8 @@ import {PdfViewerModule} from "ng2-pdf-viewer";
 		StepsModule,
 		RadioButtonModule,
 		PdfViewerModule,
-		SkeletonModule
+		SkeletonModule,
+		InputNumberModule
 	],
 	schemas: [CUSTOM_ELEMENTS_SCHEMA],
 })

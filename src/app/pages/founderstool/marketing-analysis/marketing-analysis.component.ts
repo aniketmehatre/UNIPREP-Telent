@@ -103,7 +103,7 @@ export class MarketingAnalysisComponent implements OnInit {
       budget: ['', Validators.required],
       revenueStreams: ['', Validators.required],
       competitorAnalysis: ['', Validators.required],
-      currencycode: [''],
+      currencycode: ['', Validators.required],
       forecast: ['', Validators.required]
     });
 
@@ -215,10 +215,6 @@ export class MarketingAnalysisComponent implements OnInit {
     this.restrict = false;
   }
 
-  openHowItWorksVideoPopup(videoLink: string) {
-    this.pageFacade.openHowitWorksVideoPopup(videoLink);
-  }
-
   checkUserRecommendation() {
     this.foundersToolsService.getRecommendations().subscribe(res => {
       if (res.status) {
@@ -234,7 +230,7 @@ export class MarketingAnalysisComponent implements OnInit {
     this.submitted = false;
     const formData = this.marketingForm.value;
     if (this.activePageIndex == 2) {
-      if (!formData.budget || !formData.revenueStreams || !formData.forecast || !formData.competitorAnalysis) {
+      if (!formData.budget || !formData.revenueStreams || !formData.forecast || !formData.competitorAnalysis || !formData.currencycode) {
         this.submitted = true;
         return;
       }
@@ -375,4 +371,8 @@ export class MarketingAnalysisComponent implements OnInit {
 		this.promptService.responseBuilder(params);
 	}
 
+  openVideoPopup(videoLink: string) {
+		this.pageFacade.openHowitWorksVideoPopup(videoLink);
+	}
+  
 }
