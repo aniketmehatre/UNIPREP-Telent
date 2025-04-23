@@ -48,7 +48,7 @@
 										<div class="text-center" [ngClass]="{ 'd-none': inValidClass === false }" style="color: red">Business Type is required</div>
 									</ng-container>
 									<ng-container *ngIf="recommendation.id == 2">
-										<p-select [(ngModel)]="selectedData[recommendation.id]" [options]="businessModelList" styleClass="w-100" optionLabel="businessModel" optionValue="businessModel" [appendTo]="'body'" placeholder="Select Business Model"> </p-select>
+										<p-select [(ngModel)]="selectedData[recommendation.id]" [options]="businessModelList" styleClass="w-100" optionLabel="businessModel" optionValue="businessModel" [appendTo]="'body'" placeholder="Please select business model"> </p-select>
 										<div class="text-center" [ngClass]="{ 'd-none': inValidClass === false }" style="color: red">Business model is required</div>
 									</ng-container>
 									<ng-container *ngIf="recommendation.id == 3">
@@ -56,7 +56,7 @@
 										<div class="text-center" [ngClass]="{ 'd-none': inValidClass === false }" style="color: red">Business strategy is required</div>
 									</ng-container>
 									<ng-container *ngIf="recommendation.id == 4">
-										<p-select [(ngModel)]="selectedData[recommendation.id]" [options]="keyRisksList" styleClass="w-100" optionLabel="keyRisks" optionValue="keyRisks" [appendTo]="'body'" placeholder="Select Risk"></p-select>
+										<p-select [(ngModel)]="selectedData[recommendation.id]" [options]="keyRisksList" styleClass="w-100" optionLabel="keyRisks" optionValue="keyRisks" [appendTo]="'body'" placeholder="Please select risk area"></p-select>
 										<div class="text-center" [ngClass]="{ 'd-none': inValidClass === false }" style="color: red">Business challenges is required</div>
 									</ng-container>
 									<ng-container *ngIf="recommendation.id == 5">
@@ -64,7 +64,7 @@
 										<div [ngClass]="{ 'd-none': inValidClass === false }" style="color: red" class="text-danger">Financial Situation is required</div>
 									</ng-container>
 									<ng-container *ngIf="recommendation.id == 6">
-										<p-select [(ngModel)]="selectedData[recommendation.id]" [options]="competitiveMarketList" styleClass="w-100" optionLabel="marketCompetition" optionValue="marketCompetition" [appendTo]="'body'" placeholder="Select Competation Level"> </p-select>
+										<p-select [(ngModel)]="selectedData[recommendation.id]" [options]="competitiveMarketList" styleClass="w-100" optionLabel="marketCompetition" optionValue="marketCompetition" [appendTo]="'body'" placeholder="Please select competition level"> </p-select>
 										<div class="text-center" [ngClass]="{ 'd-none': inValidClass === false }" style="color: red">Competitive market is required</div>
 									</ng-container>
 									<ng-container *ngIf="recommendation.id == 7">
@@ -219,7 +219,7 @@
 			<div class="row mb-0">
 				<div *ngFor="let item of recommadationSavedQuestionList; let i = index" class="col-lg-3 col-md-3 col-sm-4 col-xs-12 col-12 mb-3">
 					<div class="row w-100 m-0 justify-content-center h-100">
-						<div class="card subjectcard" role="button" (click)="showRecommandationData(item.response)">
+						<div class="card subjectcard" role="button" (click)="showRecommandationData(item.response, item.user_inputs)">
 							<div class="card-body text-start">
 								<h5 class="fw-bold mb-0">Start-up Risk Assessment {{ i + 1 }}</h5>
 								<p class="text-small"><b>Types of Business : </b>{{ item.industry }}</p>

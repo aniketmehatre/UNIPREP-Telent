@@ -17,7 +17,6 @@ import { SelectModule } from "primeng/select"
 import { InputGroupModule } from "primeng/inputgroup"
 import { InputTextModule } from "primeng/inputtext"
 import { InputGroupAddonModule } from "primeng/inputgroupaddon"
-import { TravelToolsService } from "../../travel-tools/travel-tools.service"
 import { DomSanitizer, SafeHtml } from "@angular/platform-browser"
 import { PromptService } from "../../prompt.service"
 import { SkeletonModule } from "primeng/skeleton"
@@ -37,11 +36,11 @@ interface DropDown {
 export class StartupRiskAssessmentComponent implements OnInit {
 	recommendations: { id: number; question: string }[] = [
 		{ id: 1, question: "What industry are you operating in?" },
-		{ id: 2, question: "Can you describe your business model?" },
+		{ id: 2, question: "What is the business model for your company?" },
 		{ id: 3, question: "What stage is your startup currently at?" },
-		{ id: 4, question: "What are the key risks your startup has identified?" },
+		{ id: 4, question: "What are the key risks your start up has identified?" },
 		{ id: 5, question: "What is the current financial status of your startup?" },
-		{ id: 6, question: "What is the competation in the market?" },
+		{ id: 6, question: "What is the competition for your business in the market?" },
 		{ id: 7, question: "Who is your target audience?" },
 		{ id: 8, question: "What is the budget of allocated across diffrent areas of your business?" },
 		{ id: 9, question: "What is the geographical focus of your startup?" },
@@ -70,6 +69,7 @@ export class StartupRiskAssessmentComponent implements OnInit {
 	currencyList: any = []
 	isResponseSkeleton: boolean = false;
 	aiCreditCount: number = 0;
+	userInputs: any;
 
 	constructor(private fb: FormBuilder, private founderToolService: FounderstoolService, private router: Router, private toast: MessageService, private sanitizer: DomSanitizer, private promptService: PromptService,private pageFacade: PageFacadeService) { }
 
@@ -151,6 +151,7 @@ export class StartupRiskAssessmentComponent implements OnInit {
 			currency: this.selectedData[10],
 			mode: "startup_risk_assessment",
 		}
+		this.userInputs = data;
 		this.isRecommendationQuestion = false
 		this.isRecommendationSavedData = false
 		this.isRecommendationData = true
@@ -191,12 +192,16 @@ export class StartupRiskAssessmentComponent implements OnInit {
 		}
 	}
 
-	showRecommandationData(data: string) {
+	showRecommandationData(data: string, userInputs: any) {
 		this.isRecommendationQuestion = false
 		this.isRecommendationData = true
 		this.isRecommendationSavedData = false
 		this.isFromSavedData = true
-		this.recommendationData = data
+		this.recommendationData = data;
+
+		const encodedJson = userInputs;
+		const decodedInput = JSON.parse(encodedJson);
+		this.userInputs = decodedInput;
 	}
 
 	goBack() {
@@ -211,18 +216,40 @@ export class StartupRiskAssessmentComponent implements OnInit {
 		let addingInput: string = '';
 		this.recommendations.forEach((item) => {
 			addingInput += `<p style="color: #3f4c83;"><strong>${item.question}</strong></p>`
-			let currentAnswer = ""
-			if (this.selectedData && this.selectedData[item.id]) {
-				if (item.id == 8) {
-					currentAnswer = this.selectedData[10] + " " + this.selectedData[item.id]
-				} else {
-					currentAnswer = this.selectedData[item.id]
+			let currentAnswer = "";
+			// if (this.selectedData && this.selectedData[item.id]) {
+				if(item.id == 1){
+					currentAnswer = this.userInputs.type
 				}
-			} else {
-				currentAnswer = "No answer provided"
-			}
+				else if (item.id == 2) {
+					currentAnswer = this.userInputs.model
+				} 
+				else if (item.id == 3) {
+					currentAnswer = this.userInputs.stage
+				} 
+				else if (item.id == 4) {
+					currentAnswer = this.userInputs.risks
+				} 
+				else if (item.id == 5) {
+					currentAnswer = this.userInputs.financial_status
+				} 
+				else if (item.id == 6) {
+					currentAnswer = this.userInputs.competitive_market
+				} 
+				else if (item.id == 7) {
+					currentAnswer = this.userInputs.customers
+				} 
+				else if (item.id == 8) {
+					currentAnswer = this.userInputs.currency+' '+this.userInputs.budget
+				} 
+				else if (item.id == 9) {
+					currentAnswer = this.userInputs.geographical_focus
+				} 
+			// } else {
+			// 	currentAnswer = "No answer provided"
+			// }
 			addingInput += `<p>${currentAnswer}</p><br>`
-		})
+		});
 		let params: any = {
 			module_name: "Startup Risk Assessment",
 			file_name: "startup_risk_assessment",

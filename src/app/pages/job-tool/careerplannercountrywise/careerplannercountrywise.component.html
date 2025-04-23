@@ -217,7 +217,7 @@
             <div *ngFor="let item of recommadationSavedQuestionList; let i=index;"
                 class="col-lg-3 col-md-3 col-sm-4 col-xs-12 col-12 mb-3">
                 <div class="row w-100 m-0 justify-content-center h-100">
-                    <div class="card subjectcard" role="button" (click)="showRecommandationData(item.response)">
+                    <div class="card subjectcard" role="button" (click)="showRecommandationData(item.response, item.user_inputs)">
                         <div class="card-body text-start">
                             <p class="text-medium"><b>Country : </b>{{item.country}}</p>
                             <p class="text-medium"><b>Specialization : </b>{{item.specialization_name}}</p>
