@@ -1,12 +1,12 @@
-import { Component, HostListener } from "@angular/core"
-import { LocationService } from "./location.service"
-import { environment } from "@env/environment"
-import { LocalStorageService } from "ngx-localstorage"
-import { NgxUiLoaderModule } from "ngx-ui-loader"
-import { ToastModule } from "primeng/toast"
-import { ActivatedRoute, Route, Router, RouterModule } from "@angular/router"
-import { MessageService } from "primeng/api"
-import { SeoManagerComponent } from "./components/seo-manager/seo-manager.component"
+import {Component, HostListener, OnInit} from "@angular/core"
+import {LocationService} from "./location.service"
+import {environment} from "@env/environment"
+import {LocalStorageService} from "ngx-localstorage"
+import {NgxUiLoaderModule} from "ngx-ui-loader"
+import {ToastModule} from "primeng/toast"
+import {Router, RouterModule} from "@angular/router"
+import {MessageService} from "primeng/api"
+import {SeoManagerComponent} from "./components/seo-manager/seo-manager.component"
 
 @Component({
 	selector: "app-root",
@@ -21,7 +21,7 @@ import { SeoManagerComponent } from "./components/seo-manager/seo-manager.compon
 		MessageService,
 	],
 })
-export class AppComponent {
+export class AppComponent implements OnInit {
 	constructor(private storage: LocalStorageService, private whitelabelservice: LocationService,
 		private router: Router,
 	) { }

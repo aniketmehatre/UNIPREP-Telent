@@ -87,15 +87,14 @@ export class CoBrandedComponent implements OnInit, OnDestroy {
   private isDomainMain(): boolean {
     return this.domainNameCondition === "dev-student.uniprep.ai" ||
       this.domainNameCondition === "*.uniprep.ai" ||
-      this.domainNameCondition === "uniprep.ai" ||
-      this.domainNameCondition === "localhost"
+      this.domainNameCondition === "uniprep.ai"
   }
 
   navigateTo(type: string) {
     if (type === 'login') {
-      this.route.navigate(['/login']);
+      this.route.navigate(['/students/login']);
     } else if (type === 'employer') {
-      window.location.href = 'https://dmu.uniprep.ai/institute/login';
+      window.location.href = '/institute/';
     }
   }
 
