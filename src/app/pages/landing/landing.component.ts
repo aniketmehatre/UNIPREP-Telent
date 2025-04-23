@@ -5,12 +5,8 @@ import { AuthService } from "../../Auth/auth.service"
 import { LocationService } from "../../location.service"
 import { environment } from "@env/environment"
 import { LocalStorageService } from "ngx-localstorage"
-import { Router, RouterModule } from "@angular/router"
-import { ScrollTop, ScrollTopModule } from "primeng/scrolltop"
-import { CommonModule } from "@angular/common"
-import { DialogModule } from "primeng/dialog"
-import { MessageService } from "primeng/api"
-import { LandingLanguageHubComponent } from "./landing-language-hub/landing-language-hub.component"
+import { Router } from "@angular/router"
+
 
 interface CareerCard {
 	id: number;
@@ -21,20 +17,9 @@ interface CareerCard {
 
 @Component({
 	selector: "uni-landing",
+	standalone: false,
 	templateUrl: "./landing.component.html",
 	styleUrls: ["./landing.component.scss"],
-	standalone: true,
-	imports: [
-		CommonModule,
-		FormsModule,
-		ReactiveFormsModule,
-		DialogModule,
-		RouterModule,
-		ScrollTop,
-		LandingLanguageHubComponent,
-		// Empty reducer configuration or actual reducers here
-	],
-	providers: [MessageService, AuthService],
 })
 export class LandingComponent implements OnInit {
 	@ViewChild("videoPlayer")
@@ -46,7 +31,7 @@ export class LandingComponent implements OnInit {
 	displaycancellationpolicy!: boolean
 	displaycontactform!: boolean;
 	displayLearningHubpage: boolean = false;
-	displayJobSeekerPage: boolean = false;
+	displayJobSeekerPage: boolean = true;
 	currentImage: string = "/uniprep-assets/images/feature1.webp"
 	contactForm: any
 	blogs: any

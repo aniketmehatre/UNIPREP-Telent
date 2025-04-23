@@ -1,13 +1,19 @@
-import { CommonModule } from '@angular/common';
-import { Component, OnInit } from '@angular/core';
+import { CommonModule, Location } from '@angular/common';
+import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
+import { ActivatedRoute, RouterModule } from '@angular/router';
 import { AccordionModule } from 'primeng/accordion';
 import { ButtonModule } from 'primeng/button';
+import { landingServices } from '../landing.service';
+import { Chooseuse, Faq, Howitswork, LandingPage, Whoitsfor } from 'src/app/@Models/landing-page.model';
+import { environment } from '@env/environment';
+
 
 @Component({
   selector: 'app-landing-language-hub',
   standalone: true,
   imports: [
     CommonModule,
+    RouterModule,
     AccordionModule,
     ButtonModule
   ],
@@ -15,87 +21,160 @@ import { ButtonModule } from 'primeng/button';
   styleUrls: ['./landing-language-hub.component.scss']
 })
 export class LandingLanguageHubComponent implements OnInit {
-  faqs = [
-    {
-      question: 'Are the certificates actually useful when applying for jobs?',
-      answer: '',
-      isOpen: false
-    },
-    {
-      question: 'Do I need any prior experience to start?',
-      answer: 'Not at all. The Learning Hub offers courses for all levels — whether you\'re a beginner or looking to upgrade your current skill set.',
-      isOpen: true
-    },
-    {
-      question: 'Can I learn at my own pace?',
-      answer: '',
-      isOpen: false
-    },
-    {
-      question: 'How do I know which course or specialization to choose?',
-      answer: '',
-      isOpen: false
-    }
-  ];
+  @ViewChild("videoPlayer")
+  videoPlayer!: ElementRef
+  isPlaying = false;
+  public environment = environment;
+  landingPageId: number = NaN;
+  selectedStep!: Howitswork;
+  faqs: Faq[] = [];
+  chooseUsList: Chooseuse[] = [];
+  howitsWorks: Howitswork[] = [];
+  whoItsFor: Whoitsfor[] = [];
+  landingPageData!: LandingPage;
+  // steps = [
+  //   {
+  //     number: 1,
+  //     title: 'Create Your Free Account',
+  //     icon: '📱'
+  //   },
+  //   {
+  //     number: 2,
+  //     title: 'Watch the Demo Video',
+  //     icon: '📹'
+  //   },
+  //   {
+  //     number: 3,
+  //     title: 'Pick a Course',
+  //     icon: '📋'
+  //   },
+  //   {
+  //     number: 4,
+  //     title: 'Start Learning',
+  //     icon: '📚'
+  //   },
+  //   {
+  //     number: 5,
+  //     title: 'Complete the Quiz & Earn Your Certificate',
+  //     icon: '🏆'
+  //   }
+  // ];
 
-  steps = [
-    {
-      number: 1,
-      title: 'Create Your Free Account',
-      icon: '📱'
-    },
-    {
-      number: 2,
-      title: 'Watch the Demo Video',
-      icon: '📹'
-    },
-    {
-      number: 3,
-      title: 'Pick a Course',
-      icon: '📋'
-    },
-    {
-      number: 4,
-      title: 'Start Learning',
-      icon: '📚'
-    },
-    {
-      number: 5,
-      title: 'Complete the Quiz & Earn Your Certificate',
-      icon: '🏆'
-    }
-  ];
-
-  userTypes = [
-    {
-      title: 'Students',
-      description: 'Get career-ready before graduation',
-      image: 'uniprep-assets/images/screenshot3.png'
-    },
-    {
-      title: 'Freshers',
-      description: 'Stand out in a competitive job market',
-      image: 'uniprep-assets/images/screenshot3.png'
-    },
-    {
-      title: 'Working Professionals',
-      description: 'Upskill or switch career paths',
-      image: 'uniprep-assets/images/screenshot3.png'
-    },
-    {
-      title: 'Institutions',
-      description: 'Support student success with practical learning tools',
-      image: 'uniprep-assets/images/screenshot3.png'
-    }
-  ];
+  // userTypes = [
+  //   {
+  //     title: 'Students',
+  //     description: 'Get career-ready before graduation',
+  //     image: 'uniprep-assets/images/screenshot3.png'
+  //   },
+  //   {
+  //     title: 'Freshers',
+  //     description: 'Stand out in a competitive job market',
+  //     image: 'uniprep-assets/images/screenshot3.png'
+  //   },
+  //   {
+  //     title: 'Working Professionals',
+  //     description: 'Upskill or switch career paths',
+  //     image: 'uniprep-assets/images/screenshot3.png'
+  //   },
+  //   {
+  //     title: 'Institutions',
+  //     description: 'Support student success with practical learning tools',
+  //     image: 'uniprep-assets/images/screenshot3.png'
+  //   }
+  // ];
 
   toggleFaq(faq: any): void {
     faq.isOpen = !faq.isOpen;
   }
 
-  constructor() { }
+  toggleVideo() {
+    const video: HTMLVideoElement = this.videoPlayer.nativeElement
+    if (video.paused) {
+      video.play()
+      this.isPlaying = true
+    } else {
+      video.pause()
+      this.isPlaying = false
+    }
+  }
+
+  goBack() {
+    this.location.back();
+  }
+
+  constructor(private route: ActivatedRoute, private landingPageService: landingServices, public location: Location) { }
 
   ngOnInit() {
+    this.route.params.subscribe(params => {
+      if (params?.['id']) {
+        this.landingPageId = params?.['id'];
+        this.getLandingPageChooseUs(this.landingPageId);
+        this.getLandingPageFAQs(this.landingPageId);
+        this.getLandingPageWhoItsFor(this.landingPageId);
+        this.getLandingPageHowItsWorks(this.landingPageId);
+        this.getLandingPageData(this.landingPageId);
+      }
+    });
+  }
+
+  getLandingPageChooseUs(landingPageId: number) {
+    this.landingPageService.getLandingPageChooseUs(landingPageId).subscribe({
+      next: response => {
+        this.chooseUsList = response.chooseuses?.chooseuses;
+      },
+      error: error => {
+        console.log(error);
+      }
+    });
+  }
+
+  getLandingPageHowItsWorks(category: number) {
+    this.landingPageService.getLandingPageHowItsWorks(category).subscribe({
+      next: response => {
+        // Store the career cards organized by step
+        this.howitsWorks = response?.howitsworks?.howitsworks;
+        if (this.howitsWorks)
+          this.selectedStep = this.howitsWorks[0];
+      },
+      error: error => {
+        console.log(error);
+      }
+    });
+  }
+
+  getLandingPageWhoItsFor(category: number) {
+    this.landingPageService.getLandingPageWhoItsFors(category).subscribe({
+      next: response => {
+        // Store the career cards organized by step
+        this.whoItsFor = response.whoitsfors.whoitsfors;
+
+      },
+      error: error => {
+        console.log(error);
+      }
+    });
+  }
+
+  getLandingPageFAQs(category: number) {
+    this.landingPageService.getLandingPageFAQ(category).subscribe({
+      next: response => {
+        this.faqs = response.faqs.faqs;
+      },
+      error: error => {
+        console.log(error);
+      }
+    });
+  }
+
+  getLandingPageData(landingPageId: number) {
+    this.landingPageService.getLandingPageData(landingPageId).subscribe({
+      next: response => {
+        this.landingPageData = response.landingpages;
+      },
+      error: error => {
+        console.log(error);
+      }
+    });
   }
 
 }

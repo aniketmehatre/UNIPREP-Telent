@@ -608,7 +608,12 @@ uni-chat {
 	}
 }
 
-uni-landing, uni-landing-new {
+uni-landing, uni-landing-new,  {
+	position: absolute;
+	width: 100%;
+}
+
+uni-landing-content {
 	position: absolute;
 	width: 100%;
 }
