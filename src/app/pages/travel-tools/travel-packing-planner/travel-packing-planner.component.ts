@@ -23,6 +23,7 @@ import { InputNumberModule } from "primeng/inputnumber"
 import { DomSanitizer, SafeHtml } from "@angular/platform-browser"
 import { PromptService } from "../../prompt.service"
 import { SharedModule } from "src/app/shared/shared.module"
+import { PageFacadeService } from '../../page-facade.service';
 
 @Component({
 	selector: "uni-travel-packing-planner",
@@ -69,7 +70,7 @@ export class TravelPackingPlannerComponent implements OnInit {
 	isFromSavedData: boolean = false;
 	isResponseSkeleton: boolean = false;
 	aiCreditCount: number = 0;
-	constructor(private travelToolsService: TravelToolsService, private router: Router, private costOfLivingService: CostOfLivingService, private toast: MessageService, private sanitizer: DomSanitizer, private promptService : PromptService) { }
+	constructor(private travelToolsService: TravelToolsService, private router: Router, private costOfLivingService: CostOfLivingService, private toast: MessageService, private sanitizer: DomSanitizer, private promptService : PromptService,private pageFacade: PageFacadeService) { }
 
 	ngOnInit(): void {
 		this.selectedData = { 4: 1 }
@@ -207,5 +208,9 @@ export class TravelPackingPlannerComponent implements OnInit {
 
 	goBack() {
 		this.router.navigateByUrl("/pages/travel-tools")
+	}
+
+	openVideoPopup(videoLink: string) {
+		this.pageFacade.openHowitWorksVideoPopup(videoLink);
 	}
 }

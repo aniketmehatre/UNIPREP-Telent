@@ -46,7 +46,14 @@
 																<p-inputGroupAddon>
 																	<i class="fa-regular fa-envelope"></i>
 																</p-inputGroupAddon>
-																<input type="email" pInputText id="emailAddress" placeholder="Enter Email Address" [readonly]="isEmailOTPSend" formControlName="emailAddress" [ngClass]="{ 'is-invalid': submitted && f.emailAddress.errors }" (keyup)="onChangeEmail($event)" />
+                                                                <input (keyup)="onChangeEmail($event)" [disabled]="isEmailOTPSend" [ngClass]="{ 'is-invalid': submitted && f.emailAddress.errors }"
+                                                                       [readonly]="isEmailOTPSend"
+                                                                       formControlName="emailAddress"
+                                                                       id="emailAddress"
+                                                                       pInputText
+                                                                       autocomplete="off"
+                                                                       placeholder="Enter Email Address"
+                                                                       type="email"/>
 															</p-inputGroup>
 															<div class="edit-button text-end" role="button" *ngIf="isEmailOTPSend && !isRemainingFieldVisible" (click)="editEmailAgain()">Edit</div>
 															<div *ngIf="submitted && f.emailAddress.errors" class="invalid-feedback">
@@ -93,6 +100,7 @@
                                                                         id="password"
 																		formControlName="password"
 																		placeholder="Enter Password"
+                                                                        autocomplete="off"
 																		[ngClass]="{
 																			'is-invalid': submitted && f.password.errors
 																		}" />
@@ -119,6 +127,7 @@
 																		pInputText
 																		placeholder=" Enter Confirm Password"
 																		id="confirmPassword"
+                                                                        autocomplete="off"
 																		formControlName="confirmPassword"
 																		[ngClass]="{
 																			'is-invalid': submitted && f.confirmPassword.errors

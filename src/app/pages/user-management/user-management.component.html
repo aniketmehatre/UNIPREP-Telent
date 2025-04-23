@@ -39,7 +39,7 @@
 									</div>
 									<div>
 										<small> Phone </small>
-										<p class="mb-0 fw-semibold">{{ PersonalInfo?.phone }}</p>
+										<p class="mb-0 fw-semibold">{{PersonalInfo?.country_code}}-{{ PersonalInfo?.phone }}</p>
 									</div>
 									<div>
 										<small> Email </small>
@@ -77,28 +77,32 @@
                                 </div> -->
 						</div>
 						<div *ngIf="!ShowPersonalInfo">
-							<div class="row">
-								<div class="col-md-4 col-6">
+							<div class="row custom-5-cols">
+								<div class="col">
 									<small>Full Name</small>
 									<p class="mb-0 fw-semibold">{{ PersonalInfo?.name }}</p>
 								</div>
-								<div class="col-md-4 col-6">
-									<small>Home Country</small>
+								<div class="col">
+									<small>Country</small>
 									<p class="mb-0 fw-semibold">{{ PersonalInfo?.home_country_name }}</p>
 								</div>
-								<div class="col-md-4 col-6 mt-3 mt-md-0">
+								<div class="col">
 									<small>Location(district)</small>
 									<p class="mb-0 fw-semibold">{{ PersonalInfo?.district }} , {{ PersonalInfo?.state }}</p>
 								</div>
-								<div class="col-md-4 col-6 mt-3">
+								<!-- <div class="col-md-4 col-6 mt-3">
 									<small>Intrested Country</small>
 									<p class="mb-0 fw-semibold">{{ PersonalInfo?.intrested_country || "-" }}</p>
+								</div> -->
+                                <div class="col">
+									<small>Current Education</small>
+									<p class="mb-0 fw-semibold">{{ PersonalInfo?.programlevel || "-" }}</p>
 								</div>
-								<div class="col-md-4 col-6 mt-3">
+								<div class="col">
 									<small>Last Degree Passing Year</small>
 									<p class="mb-0 fw-semibold">{{ PersonalInfo?.last_degree_passing_year || "-" }}</p>
 								</div>
-								<div class="col-md-4 col-6 mt-3">
+								<!-- <div class="col-md-4 col-6 mt-3">
 									<small>Intake Month</small>
 									<p class="mb-0 fw-semibold" *ngIf="PersonalInfo?.intake_month_looking || PersonalInfo?.intake_month_looking == 0; else noMonth">
 										{{ selectedDate | date : "MMM" || "-" }}
@@ -106,19 +110,15 @@
 									<ng-template #noMonth>
 										<p class="mb-0 fw-semibold">-</p>
 									</ng-template>
-								</div>
-								<div class="col-md-4 col-6 mt-3">
+								</div> -->
+								<!-- <div class="col-md-4 col-6 mt-3">
 									<small>Intake Year</small>
 									<p class="mb-0 fw-semibold">{{ PersonalInfo?.intake_year_looking || "-" }}</p>
-								</div>
-								<div class="col-md-4 col-6 mt-3">
-									<small>Current Education</small>
-									<p class="mb-0 fw-semibold">{{ PersonalInfo?.programlevel || "-" }}</p>
-								</div>
-								<div class="col-md-4 col-6 mt-3">
+								</div> -->
+								<!-- <div class="col-md-4 col-6 mt-3">
 									<small>Phone Number</small>
 									<p class="mb-0 fw-semibold">{{ PersonalInfo?.phone || "-" }}</p>
-								</div>
+								</div> -->
 							</div>
 						</div>
 						<div *ngIf="ShowPersonalInfo">

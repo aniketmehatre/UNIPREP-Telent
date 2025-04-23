@@ -22,8 +22,8 @@ export class TalentConnectService {
         return this.http.get<any>(environment.ApiUrl + `/getworldcitiescountry?search=${search ?? ''}`);
     }
 
-    getAiSummaryByMode(mode: string, data: string) {
-        return this.http.post<any>(environment.ApiUrl + `/yourprofileaigenerate`, { mode: mode, title: data });
+    getAiSummaryByMode(mode: string, data: any) {
+        return this.http.post<any>(environment.ApiUrl + `/yourprofileaigenerate`, { mode: mode, ...data });
     }
 
     getEasyApplyWorkLocationList() {

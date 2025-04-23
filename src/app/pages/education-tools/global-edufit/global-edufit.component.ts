@@ -15,7 +15,6 @@ import { PaginatorModule } from 'primeng/paginator';
 import { CarouselModule } from 'primeng/carousel';
 import { ButtonModule } from 'primeng/button';
 import { SelectModule } from 'primeng/select';
-import { DownloadRespose } from 'src/app/@Models/travel-tools.model';
 import { TravelToolsService } from '../../travel-tools/travel-tools.service';
 import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
 import { PromptService } from '../../prompt.service';
@@ -73,7 +72,6 @@ export class GlobalEdufitComponent implements OnInit {
     private authService: AuthService,
     private router: Router,
     private pageFacade: PageFacadeService,
-    private travelToolService: TravelToolsService,
     private sanitizer: DomSanitizer,
     private promptService: PromptService
   ) {
@@ -84,7 +82,7 @@ export class GlobalEdufitComponent implements OnInit {
       specialization: ['', Validators.required],
       degree: ['', Validators.required],
       duration: ['', Validators.required],
-      currency_code: [''],
+      currency_code: ['', Validators.required],
       fees: ['', Validators.required],
       cost_estimation: ['', Validators.required],
       period: ['', Validators.required],
@@ -204,12 +202,11 @@ export class GlobalEdufitComponent implements OnInit {
   openHowItWorksVideoPopup(videoLink: string) {
     this.pageFacade.openHowitWorksVideoPopup(videoLink);
   }
-
-
+  
   getRecommendation() {
     this.submitted = false;
     const formData = this.form.value;
-    if (!formData.fees || !formData.period || !formData.cost_estimation) {
+    if (!formData.fees || !formData.period || !formData.cost_estimation || !formData.currency_code) {
       this.submitted = true;
       return;
     }

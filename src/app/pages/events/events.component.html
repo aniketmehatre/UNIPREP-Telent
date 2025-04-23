@@ -243,7 +243,9 @@
 						<div class="col-12">
 							<div class="form-group">
 								<label class="fw-semibold h5">Filter by Country</label>
-								<p-select class="mt-2" placeholder="Select one or more countries" formControlName="country" [options]="countries" optionValue="id" optionLabel="country" styleClass="w-100" [filter]="true"></p-select>
+								<p-multiselect [options]="countries" class="mt-2" formControlName="country" optionValue="id" optionLabel="country" placeholder="Select Cities" styleClass="w-100" [filter]="true" />
+
+								<!-- <p-select class="mt-2" placeholder="Select one or more countries" formControlName="country" [options]="countries" optionValue="id" optionLabel="country" styleClass="w-100" [filter]="true"></p-select> -->
 							</div>
 						</div>
 					</div>
