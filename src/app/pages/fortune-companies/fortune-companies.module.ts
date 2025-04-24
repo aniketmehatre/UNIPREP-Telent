@@ -28,6 +28,7 @@ import { RouterModule } from "@angular/router";
 import { InputIconModule } from "primeng/inputicon";
 import { IconFieldModule } from 'primeng/iconfield';
 import { SelectModule } from "primeng/select";
+import { RestrictionDialogComponent } from "src/app/shared/restriction-dialog/restriction-dialog.component";
 @NgModule({
   declarations: [
     FortuneCompaniesComponent,
@@ -60,12 +61,13 @@ import { SelectModule } from "primeng/select";
     TooltipModule,
     SkeletonModule,
     AutoCompleteModule,
-	RouterModule,
-	IconFieldModule,
-	InputIconModule,
-	SelectModule
+    RouterModule,
+    IconFieldModule,
+    InputIconModule,
+    SelectModule,
+    RestrictionDialogComponent
   ],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
   providers: [ConfirmationService],
 })
-export class FortuneCompaniesModule {}
+export class FortuneCompaniesModule { }

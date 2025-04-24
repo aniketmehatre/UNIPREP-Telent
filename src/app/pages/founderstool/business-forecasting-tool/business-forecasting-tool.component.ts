@@ -24,13 +24,14 @@ import { DomSanitizer, SafeHtml } from "@angular/platform-browser"
 import { PromptService } from "../../prompt.service"
 import { SkeletonModule } from "primeng/skeleton"
 import { SharedModule } from "src/app/shared/shared.module"
+import { RestrictionDialogComponent } from "src/app/shared/restriction-dialog/restriction-dialog.component"
 
 @Component({
 	selector: "uni-business-forecasting-tool",
 	templateUrl: "./business-forecasting-tool.component.html",
 	styleUrls: ["./business-forecasting-tool.component.scss"],
 	standalone: true,
-	imports: [CommonModule, DialogModule, RouterModule, CardModule, PaginatorModule, FormsModule, ReactiveFormsModule, CarouselModule, ButtonModule, MultiSelectModule, SelectModule, InputGroupModule, InputTextModule, InputGroupAddonModule, SkeletonModule, SharedModule],
+	imports: [CommonModule, DialogModule, RouterModule, CardModule, PaginatorModule, FormsModule, ReactiveFormsModule, CarouselModule, ButtonModule, MultiSelectModule, SelectModule, InputGroupModule, InputTextModule, InputGroupAddonModule, SkeletonModule, SharedModule, RestrictionDialogComponent],
 })
 export class BusinessForecastingToolComponent implements OnInit {
 	industryList: any[] = businessForeCastData.Industry
@@ -129,11 +130,11 @@ export class BusinessForecastingToolComponent implements OnInit {
 		this.getCurrenyandLocation()
 		this.getAICreditCount();
 	}
-	getAICreditCount(){
+	getAICreditCount() {
 		this.promptService.getAicredits().subscribe({
-		  next: resp =>{
-			this.aiCreditCount = resp;
-		  }
+			next: resp => {
+				this.aiCreditCount = resp;
+			}
 		})
 	}
 	backtoMain() {
@@ -279,7 +280,7 @@ export class BusinessForecastingToolComponent implements OnInit {
 					this.isRecommendationSavedData = true
 					this.recommadationSavedQuestionList = response.data
 				},
-				error: (error) => {},
+				error: (error) => { },
 			})
 		}
 	}

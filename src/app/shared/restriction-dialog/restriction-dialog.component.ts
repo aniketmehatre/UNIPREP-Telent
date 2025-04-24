@@ -1,37 +1,46 @@
-import {Component, Input, OnInit} from '@angular/core';
-import {PlanService} from "../plan.service";
-import {Router, RouterModule} from "@angular/router";
 import { CommonModule } from '@angular/common';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { Router } from '@angular/router';
+import { ButtonModule } from 'primeng/button';
 import { DialogModule } from 'primeng/dialog';
-
+import { LocationService } from 'src/app/location.service';
 @Component({
-    selector: 'uni-restriction-dialog',
-    templateUrl: './restriction-dialog.component.html',
-    styleUrls: ['./restriction-dialog.component.scss'],
-    standalone: true,
-    imports: [CommonModule, RouterModule, DialogModule]
+  selector: 'uni-restriction-dialog',
+  templateUrl: './restriction-dialog.component.html',
+  styleUrls: ['./restriction-dialog.component.scss'],
+  standalone: true,
+  imports: [CommonModule, DialogModule, ButtonModule]
 })
 export class RestrictionDialogComponent implements OnInit {
-  @Input() isWhiteLabelVisible: boolean = false
-  @Input() orgName: any
-  @Input() restrict: boolean = false
-  @Input() planExpired: boolean = false
 
-  constructor(private planService: PlanService, private router: Router) {}
+  @Input() isShowRestrict: boolean = false;
+  @Output() closeRestrictModal: EventEmitter<boolean> = new EventEmitter<boolean>(false);
 
-  ngOnInit(): void {
-    // this.planService.checkPlanIsExpired().subscribe((isExpired) => {
-    //   this.planExpired = isExpired;
-    //   this.restrict = isExpired;
-    // });
+  isWhiteLabelVisible: boolean = false;
+  whiteLabelName: string = '';
+  orgName: string | null = '';
+  orgLogo: string | null = '';
+
+  constructor(private locationService: LocationService, private router: Router) { }
+
+  ngOnInit() {
+    this.locationService.getOrgName().subscribe((orgname) => {
+      this.orgName = orgname;
+    });
+    this.locationService.getImage().subscribe(imageUrl => {
+      this.orgLogo = imageUrl;
+    });
+    this.whiteLabelName = window.location.hostname;
+    if (this.whiteLabelName === "*.uniprep.ai" || this.whiteLabelName === "dev-student.uniprep.ai" || this.whiteLabelName === "uniprep.ai" || this.whiteLabelName === "localhost") {
+      this.isWhiteLabelVisible = false;
+    } else {
+      this.isWhiteLabelVisible = true;
+    }
   }
 
   upgradePlan(): void {
+    this.closeRestrictModal.emit(false);
     this.router.navigate(["/pages/subscriptions"]);
-  }
-
-  clearRestriction(): void {
-    this.restrict = false;
   }
 
 }

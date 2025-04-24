@@ -7,13 +7,18 @@
 				</div>
 				<div class="select-title d-flex justify-content-between align-items-center">
 					<div>
-						<h5 class="mb-0" tooltipPosition="top" pTooltip="Questions related to the application process are answered">Company Tracker<i class="questiontooltip fa-solid fa-circle-question"></i></h5>
+						<h5 class="mb-0" tooltipPosition="top"
+							pTooltip="Questions related to the application process are answered">Company Tracker<i
+								class="questiontooltip fa-solid fa-circle-question"></i></h5>
 					</div>
 					<div>
-						<button class="how-it-works-button" (click)="openVideoPopup(howItWorksVideoLink)">How it works?<i class="fa-solid fa-play d-md-block d-none"></i></button>
+						<button class="how-it-works-button" (click)="openVideoPopup(howItWorksVideoLink)">How it
+							works?<i class="fa-solid fa-play d-md-block d-none"></i></button>
 					</div>
 				</div>
-				<button type="button" title="Close Popup" class="btn btn-primary btn-lg rounded-3 shadow-sm px-4 text-normal" (click)="displayModal = true">Filter&nbsp;&nbsp;<i class="fa-solid fa-caret-down"></i></button>
+				<button type="button" title="Close Popup"
+					class="btn btn-primary btn-lg rounded-3 shadow-sm px-4 text-normal"
+					(click)="displayModal = true">Filter&nbsp;&nbsp;<i class="fa-solid fa-caret-down"></i></button>
 			</div>
 			<!-- <div class="col-md-3 mt-2 text-end desktop justify-content-end d-none d-md-flex"></div> -->
 		</div>
@@ -21,7 +26,8 @@
 			<!-- Centered Buttons -->
 			<div class="col-md-4">
 				<div class="d-flex gap-3 justify-content-center">
-					<button type="button" pButton class="btn border px-3 py-3 bg-white" routerLink="/pages/talent-connect/company-connect">Company Search</button>
+					<button type="button" pButton class="btn border px-3 py-3 bg-white"
+						routerLink="/pages/talent-connect/company-connect">Company Search</button>
 					<button type="button" pButton class="btn border btn-primary px-3 py-3">Company Tracker</button>
 				</div>
 			</div>
@@ -32,7 +38,8 @@
 		<div class="row h-100">
 			<!-- Sidebar with job list -->
 			<div class="col-lg-3 col-md-5 col-12 h-100">
-				<uni-company-list (companyTrackerEmit)="onClickJobId($event)" (triggerCloseFilter)="displayModal = false" [displayModal]="displayModal"></uni-company-list>
+				<uni-company-list (companyTrackerEmit)="onClickJobId($event)"
+					(triggerCloseFilter)="displayModal = false" [displayModal]="displayModal"></uni-company-list>
 			</div>
 
 			<!-- Main content with job details and chat -->
@@ -52,24 +59,12 @@
 					</div>
 				</ng-template>
 				<div class="h-100" *ngIf="selectedJobId; else showEmptyConainter">
-					<uni-company-detail (openChat)="toggleInfo()" [companyId]="selectedJobId" [showInfo]="showChat"></uni-company-detail>
+					<uni-company-detail (openChat)="toggleInfo()" [companyId]="selectedJobId"
+						[showInfo]="showChat"></uni-company-detail>
 				</div>
 			</div>
 		</div>
 	</div>
 	<!-- Responsive Upgrade Dialog -->
-	<p-dialog [(visible)]="restrict" [modal]="true" [style]="{ width: '30vw' }" [draggable]="false" [resizable]="false" class="restrictionDialog" [breakpoints]="{ '960px': '50vw', '768px': '70vw', '480px': '90vw' }" (onHide)="restrict = false">
-		<div *ngIf="ehitlabelIsShow" class="text-center my-4">
-			<img src="../../../uniprep-assets/images/smartloack.png" class="image" width="60" />
-			<h3 class="offer">Upgrade Required</h3>
-			<p>To access this exclusive module, please upgrade your plan now.</p>
-			<button pButton type="button" class="btn btn-warning text-white p-ripple p-button-rounded p-2" (click)="upgradePlan()">Upgrade Plan <i class="fa fa-arrow-right exhausted-plan-icon"></i></button>
-		</div>
-
-		<div *ngIf="!ehitlabelIsShow" class="text-center my-4">
-			<img src="../../../uniprep-assets/images/smartloack.png" class="image" width="60" />
-			<h3 class="offer">Upgrade Required</h3>
-			<p>Please contact {{ orgnamewhitlabel }} Company for access.</p>
-		</div>
-	</p-dialog>
+	<uni-restriction-dialog *ngIf="restrict" [isShowRestrict]="restrict" (closeRestrictModal)="restrict = false" />
 </div>

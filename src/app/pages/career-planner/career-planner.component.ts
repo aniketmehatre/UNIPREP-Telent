@@ -19,7 +19,8 @@ import { InputGroupModule } from "primeng/inputgroup"
 import { InputTextModule } from "primeng/inputtext"
 import { InputGroupAddonModule } from "primeng/inputgroupaddon"
 import { RadioButtonModule } from "primeng/radiobutton"
-import {PdfViewerModule} from "ng2-pdf-viewer";
+import { PdfViewerModule } from "ng2-pdf-viewer";
+import { RestrictionDialogComponent } from "src/app/shared/restriction-dialog/restriction-dialog.component"
 interface Specialisation {
 	id: number
 	subject_id: number
@@ -30,7 +31,7 @@ interface Specialisation {
 	templateUrl: "./career-planner.component.html",
 	styleUrls: ["./career-planner.component.scss"],
 	standalone: true,
-	imports: [CommonModule, DialogModule, RadioButtonModule, SidebarModule, PdfViewerModule, RouterModule, CardModule, PaginatorModule, FormsModule, ReactiveFormsModule, CarouselModule, ButtonModule, MultiSelectModule, SelectModule, InputGroupModule, InputTextModule, InputGroupAddonModule],
+	imports: [CommonModule, DialogModule, RadioButtonModule, SidebarModule, PdfViewerModule, RouterModule, CardModule, PaginatorModule, FormsModule, ReactiveFormsModule, CarouselModule, ButtonModule, MultiSelectModule, SelectModule, InputGroupModule, InputTextModule, InputGroupAddonModule, RestrictionDialogComponent],
 })
 export class CareerPlannerComponent implements OnInit {
 	products: any = [
@@ -149,7 +150,7 @@ export class CareerPlannerComponent implements OnInit {
 		wrkExpSpecilisation: [],
 	}
 
-	constructor(private careerPlannerService: CareerPlannerService, private pageFacade: PageFacadeService, private authService: AuthService, private router: Router, private locationService: LocationService) {}
+	constructor(private careerPlannerService: CareerPlannerService, private pageFacade: PageFacadeService, private authService: AuthService, private router: Router, private locationService: LocationService) { }
 
 	ngOnInit(): void {
 		this.checkCareerPlanExist()
@@ -157,15 +158,6 @@ export class CareerPlannerComponent implements OnInit {
 		this.locationService.getImage().subscribe((imageUrl) => {
 			this.orglogowhitelabel = imageUrl
 		})
-		this.locationService.getOrgName().subscribe((orgname) => {
-			this.orgnamewhitlabel = orgname
-		})
-		this.imagewhitlabeldomainname = window.location.hostname
-		if (this.imagewhitlabeldomainname === "*.uniprep.ai" || this.imagewhitlabeldomainname === "dev-student.uniprep.ai" || this.imagewhitlabeldomainname === "uniprep.ai" || this.imagewhitlabeldomainname === "localhost") {
-			this.ehitlabelIsShow = true
-		} else {
-			this.ehitlabelIsShow = false
-		}
 	}
 
 	toggleClass(buttonName: string) {

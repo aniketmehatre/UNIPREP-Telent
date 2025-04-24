@@ -21,13 +21,14 @@ import { InputTextModule } from "primeng/inputtext"
 import { InputGroupAddonModule } from "primeng/inputgroupaddon"
 import { DataService } from "src/app/data.service"
 import { SkeletonModule } from "primeng/skeleton"
+import { RestrictionDialogComponent } from "src/app/shared/restriction-dialog/restriction-dialog.component"
 
 @Component({
 	selector: "uni-careerhackslists",
 	templateUrl: "./careerlists.component.html",
 	styleUrls: ["./careerlists.component.scss"],
 	standalone: true,
-	imports: [CommonModule, DialogModule, SkeletonModule, RouterModule, CardModule, PaginatorModule, FormsModule, ReactiveFormsModule, CarouselModule, ButtonModule, MultiSelectModule, SelectModule, InputGroupModule, InputTextModule, InputGroupAddonModule],
+	imports: [CommonModule, DialogModule, SkeletonModule, RouterModule, CardModule, PaginatorModule, FormsModule, ReactiveFormsModule, CarouselModule, ButtonModule, MultiSelectModule, SelectModule, InputGroupModule, InputTextModule, InputGroupAddonModule, RestrictionDialogComponent],
 	providers: [DataService],
 })
 export class CareerListsComponent implements OnInit {
@@ -49,12 +50,10 @@ export class CareerListsComponent implements OnInit {
 	loopRange = Array.from({ length: 30 })
 		.fill(0)
 		.map((_, index) => index)
-	constructor(private location: Location, private route: ActivatedRoute, private toast: MessageService, private router: Router, private pageFacade: PageFacadeService, private authService: AuthService, private meta: Meta, private service: CareerJobHacksService, private dataService: DataService) {}
+	constructor(private location: Location, private route: ActivatedRoute, private toast: MessageService, private router: Router, private pageFacade: PageFacadeService, private authService: AuthService, private meta: Meta, private service: CareerJobHacksService, private dataService: DataService) { }
 	ngOnInit(): void {
 		this.gethackList()
 		this.checkPlanExpiry()
-		this.imagewhitlabeldomainname = window.location.hostname
-		this.ehitlabelIsShow = ["*.uniprep.ai","dev-student.uniprep.ai", "uniprep.ai", "localhost"].includes(this.imagewhitlabeldomainname)
 	}
 	onShowModal(value: any) {
 		let socialShare: any = document.getElementById("socialSharingList")
@@ -96,14 +95,6 @@ export class CareerListsComponent implements OnInit {
 				this.planExpired = false
 			}
 		})
-	}
-
-	upgradePlan(): void {
-		this.router.navigate(["/pages/subscriptions"])
-	}
-
-	clearRestriction() {
-		this.restrict = false
 	}
 
 	openVideoPopup(videoLink: string) {

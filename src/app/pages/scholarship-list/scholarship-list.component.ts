@@ -15,13 +15,14 @@ import { ButtonModule } from "primeng/button"
 import { SkeletonModule } from "primeng/skeleton"
 import { TooltipModule } from "primeng/tooltip"
 import { CarouselModule } from "primeng/carousel"
+import { RestrictionDialogComponent } from "src/app/shared/restriction-dialog/restriction-dialog.component"
 @Component({
 	selector: "uni-scholarship-list",
 	templateUrl: "./scholarship-list.component.html",
 
 	styleUrls: ["./scholarship-list.component.scss"],
 	standalone: true,
-	imports: [CommonModule, RouterModule, CarouselModule, DialogModule, MultiSelectModule, FormsModule, ReactiveFormsModule, SkeletonModule, TooltipModule, ButtonModule],
+	imports: [CommonModule, RouterModule, CarouselModule, DialogModule, MultiSelectModule, FormsModule, ReactiveFormsModule, SkeletonModule, TooltipModule, ButtonModule, RestrictionDialogComponent],
 })
 export class ScholarshipListComponent implements OnInit {
 	scholarshipData: any[] = []
@@ -425,7 +426,7 @@ export class ScholarshipListComponent implements OnInit {
 		this.isFilterVisible = true
 	}
 
-	exportTable() {}
+	exportTable() { }
 	getFilterUniversityList(value: any) {
 		this.scholarshipListService.getUniversity(value).subscribe((response) => {
 			this.filterUniversityList = response
@@ -499,7 +500,7 @@ export class ScholarshipListComponent implements OnInit {
 			this.totalScholarShipCount = this.allScholarshipCount
 		}
 	}
-	checkBoxopen() {}
+	checkBoxopen() { }
 	// sholarshipquestionid: number[] = [];
 	// selectedlistcount:number=0
 	// questionSelectedCheckBox(event: any, index: number, ticketques: any) {

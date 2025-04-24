@@ -28,16 +28,17 @@ import { TabViewModule } from "primeng/tabview"
 import { MessageService } from "primeng/api"
 import { InputGroupAddonModule } from "primeng/inputgroupaddon"
 import { SeoManagerComponent } from 'src/app/components/seo-manager/seo-manager.component';
+import { RestrictionDialogComponent } from 'src/app/shared/restriction-dialog/restriction-dialog.component';
 
 @Component({
 	selector: "uni-dashboard",
 	templateUrl: "./dashboard.component.html",
 	styleUrls: ["./dashboard.component.scss"],
 	standalone: true,
-	imports: [CommonModule, DialogModule, CarouselModule,InputGroupAddonModule,InputGroupModule, FormsModule, ButtonModule, TooltipModule, RouterModule, SelectModule,
-		CalendarModule, DatePickerModule, InputTextModule, TabViewModule, TableModule, AccordionModule, ReactiveFormsModule,
+	imports: [CommonModule, DialogModule, CarouselModule, InputGroupAddonModule, InputGroupModule, FormsModule, ButtonModule, TooltipModule, RouterModule, SelectModule,
+		CalendarModule, DatePickerModule, InputTextModule, TabViewModule, TableModule, AccordionModule, ReactiveFormsModule, RestrictionDialogComponent
 	],
-	providers: [DashboardService, AuthService, DataService, LocationService,SeoManagerComponent],
+	providers: [DashboardService, AuthService, DataService, LocationService, SeoManagerComponent],
 	changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class DashboardComponent implements OnInit, OnChanges, OnDestroy {
@@ -50,7 +51,7 @@ export class DashboardComponent implements OnInit, OnChanges, OnDestroy {
 	quizProgressings: any = []
 	continueReading = "none"
 	continueQuiz = "none"
-	sendInvite:any=""
+	sendInvite: any = ""
 	isVideoVisible: boolean = false
 	isShareWithSocialMedia: boolean = false
 	isViewMoreOrgVisible: boolean = false
@@ -68,10 +69,10 @@ export class DashboardComponent implements OnInit, OnChanges, OnDestroy {
 	groupedListFav: any[] = [];
 	groupedListFav2: any[] = [];
 	date: Date = new Date();
-	cvBuilderPercentage:number=0;
-	talentConnectPercentage:number=0;
-	totalPercentage:number=0;
-	isShowingCompletion:boolean=false;
+	cvBuilderPercentage: number = 0;
+	talentConnectPercentage: number = 0;
+	totalPercentage: number = 0;
+	isShowingCompletion: boolean = false;
 	university: any[] = [
 		{
 			image: "../../../uniprep-assets/images/icons/university1.svg",
@@ -101,7 +102,7 @@ export class DashboardComponent implements OnInit, OnChanges, OnDestroy {
 	monthName: string = '';
 	weekdays: string[] = ['S', 'M', 'T', 'W', 'T', 'F', 'S'];
 	firstDayIndex: number = 0;
-	isNoApplicationsData:boolean=true;
+	isNoApplicationsData: boolean = true;
 	constructor(private dashboardService: DashboardService, private service: AuthService, private router: Router,
 		private dataService: DataService, private authService: AuthService, private locationService: LocationService,
 		private cdr: ChangeDetectorRef, private storage: StorageService, private jobSearchService: JobSearchService,
@@ -158,10 +159,10 @@ export class DashboardComponent implements OnInit, OnChanges, OnDestroy {
 			next: (data: any) => {
 				this.recentJobApplication = data.jobs
 				this.groupedListFav2 = this.chunkArray(this.recentJobApplication, 2);
-				if(this.recentJobApplication.length==0){
-					this.isNoApplicationsData=true;
-				}else{
-					this.isNoApplicationsData=false;
+				if (this.recentJobApplication.length == 0) {
+					this.isNoApplicationsData = true;
+				} else {
+					this.isNoApplicationsData = false;
 				}
 				this.cdr.detectChanges();
 			},
@@ -182,12 +183,7 @@ export class DashboardComponent implements OnInit, OnChanges, OnDestroy {
 		this.selectedCountryId = Number(this.storage.get("countryId"));
 		this.storage.set("currentmodulenameforrecently", "");
 
-		// Load white label data
-		this.imagewhitlabeldomainname = window.location.hostname;
-		this.ehitlabelIsShow = this.imagewhitlabeldomainname === "*.uniprep.ai" ||
-			this.imagewhitlabeldomainname === "dev-student.uniprep.ai" ||
-			this.imagewhitlabeldomainname === "uniprep.ai" ||
-			this.imagewhitlabeldomainname === "localhost";
+
 		this.cdr.detectChanges();
 	}
 
@@ -459,11 +455,11 @@ export class DashboardComponent implements OnInit, OnChanges, OnDestroy {
 		this.isViewMoreOrgVisible = true;
 	}
 	viewMoreOpenJobApplication() {
-		if(this.recentJobApplication.length>0){
-			this.isViewMoreJobApplication=true;
-		}else{
-			this.isViewMoreJobApplication=false;
-			this.toastr.add({severity:'error', summary: '', detail: "No Recent Job Applications Yet"});
+		if (this.recentJobApplication.length > 0) {
+			this.isViewMoreJobApplication = true;
+		} else {
+			this.isViewMoreJobApplication = false;
+			this.toastr.add({ severity: 'error', summary: '', detail: "No Recent Job Applications Yet" });
 		}
 	}
 	quizpercentage: any = 0
@@ -564,7 +560,7 @@ export class DashboardComponent implements OnInit, OnChanges, OnDestroy {
 			"imageLink": "https://api.uniprep.ai/uniprepapi/storage/app/public/resources-coverimage/CV.png",
 			"mode": "cv-builder",
 			"url": "/pages/job-tool/cv-builder",
-			"module":"Career Tools"
+			"module": "Career Tools"
 		},
 		{
 			"id": 2,
@@ -574,7 +570,7 @@ export class DashboardComponent implements OnInit, OnChanges, OnDestroy {
 			"imageLink": "https://api.uniprep.ai/uniprepapi/storage/app/public/resources-coverimage/LearningHub.svg",
 			"mode": "cv-builder",
 			"url": "/pages/modules/learning-hub",
-			"module":""
+			"module": ""
 		},
 		{
 			"id": 3,
@@ -584,7 +580,7 @@ export class DashboardComponent implements OnInit, OnChanges, OnDestroy {
 			"imageLink": "https://api.uniprep.ai/uniprepapi/storage/app/public/resources-coverimage/JobPortal.svg",
 			"mode": "cv-builder",
 			"url": "/pages/job-portal/job-search",
-			"module":""
+			"module": ""
 		},
 		{
 			"id": 4,
@@ -594,7 +590,7 @@ export class DashboardComponent implements OnInit, OnChanges, OnDestroy {
 			"imageLink": "https://api.uniprep.ai/uniprepapi/storage/app/public/resources-coverimage/CareerPlanner.svg",
 			"mode": "cv-builder",
 			"url": "/pages/job-tool/careerplannerlist",
-			"module":"Career Tools"
+			"module": "Career Tools"
 		},
 		{
 			"id": 5,
@@ -604,7 +600,7 @@ export class DashboardComponent implements OnInit, OnChanges, OnDestroy {
 			"imageLink": "https://api.uniprep.ai/uniprepapi/storage/app/public/resources-coverimage/EmployerTest.svg",
 			"mode": "cv-builder",
 			"url": "/pages/job-tool/list/employer-test/13",
-			"module":""
+			"module": ""
 		},
 		{
 			"id": 6,
@@ -614,7 +610,7 @@ export class DashboardComponent implements OnInit, OnChanges, OnDestroy {
 			"imageLink": "https://api.uniprep.ai/uniprepapi/storage/app/public/resources-coverimage/Pitchdeck.svg",
 			"mode": "cv-builder",
 			"url": "/pages/pitch-deck",
-			"module":""
+			"module": ""
 		},
 		{
 			"id": 7,
@@ -624,7 +620,7 @@ export class DashboardComponent implements OnInit, OnChanges, OnDestroy {
 			"imageLink": "https://api.uniprep.ai/uniprepapi/storage/app/public/resources-coverimage/UNILEARN.svg",
 			"mode": "cv-builder",
 			"url": "/pages/unilearn/modules",
-			"module":""
+			"module": ""
 		},
 		{
 			"id": 8,
@@ -634,7 +630,7 @@ export class DashboardComponent implements OnInit, OnChanges, OnDestroy {
 			"imageLink": "https://api.uniprep.ai/uniprepapi/storage/app/public/resources-coverimage/UNIFINDER.svg",
 			"mode": "cv-builder",
 			"url": "/pages/course-list",
-			"module":""
+			"module": ""
 		},
 		{
 			"id": 9,
@@ -644,7 +640,7 @@ export class DashboardComponent implements OnInit, OnChanges, OnDestroy {
 			"imageLink": "https://api.uniprep.ai/uniprepapi/storage/app/public/resources-coverimage/UNISCHOLAR.svg",
 			"mode": "cv-builder",
 			"url": "/pages/scholarship-list",
-			"module":""
+			"module": ""
 		},
 		{
 			"id": 10,
@@ -654,7 +650,7 @@ export class DashboardComponent implements OnInit, OnChanges, OnDestroy {
 			"imageLink": "https://api.uniprep.ai/uniprepapi/storage/app/public/resources-coverimage/GlobalRepository.svg",
 			"mode": "cv-builder",
 			"url": "/pages/job-tool/cv-builder",
-			"module":""
+			"module": ""
 		},
 		{
 			"id": 11,
@@ -664,7 +660,7 @@ export class DashboardComponent implements OnInit, OnChanges, OnDestroy {
 			"imageLink": "https://api.uniprep.ai/uniprepapi/storage/app/public/resources-coverimage/AI Business Advisor.svg",
 			"mode": "cv-builder",
 			"url": "/pages/advisor",
-			"module":""
+			"module": ""
 		},
 		{
 			"id": 12,
@@ -674,7 +670,7 @@ export class DashboardComponent implements OnInit, OnChanges, OnDestroy {
 			"imageLink": "https://api.uniprep.ai/uniprepapi/storage/app/public/resources-coverimage/LanguageHub.svg",
 			"mode": "cv-builder",
 			"url": "/pages/language-hub/languages",
-			"module":""
+			"module": ""
 		}
 	]
 
@@ -685,7 +681,7 @@ export class DashboardComponent implements OnInit, OnChanges, OnDestroy {
 	redirectToCvBuilder() {
 		this.router.navigate(['/pages/job-tool/cv-builder']);
 	}
-	redirectToTalentConnect(){
+	redirectToTalentConnect() {
 		this.router.navigate(['/pages/talent-connect/my-profile']);
 	}
 	generateDays(): void {
@@ -723,26 +719,26 @@ export class DashboardComponent implements OnInit, OnChanges, OnDestroy {
 			}
 		});
 	}
-	sendInviteMail(){
-		var data={
-			email:this.sendInvite
+	sendInviteMail() {
+		var data = {
+			email: this.sendInvite
 		}
 		this.dashboardService.sentEmailForInviteUniPrep(data).subscribe({
 			next: (data: any) => {
-				this.toastr.add({severity:'success', summary: 'Success', detail: data.message});
-				this.sendInvite=""
+				this.toastr.add({ severity: 'success', summary: 'Success', detail: data.message });
+				this.sendInvite = ""
 			},
 			error: (error) => {
 				console.error('Error fetching job listings:', error);
 			}
 		});
 	}
-	profileCompletion(){
+	profileCompletion() {
 		this.dashboardService.profileCompletion().subscribe({
 			next: (data: any) => {
-				this.cvBuilderPercentage=data.cv_builder_completion
-				this.talentConnectPercentage=data.talent_connect_completion
-				this.totalPercentage=Math.floor((this.cvBuilderPercentage + this.talentConnectPercentage + this.progress) / 3);
+				this.cvBuilderPercentage = data.cv_builder_completion
+				this.talentConnectPercentage = data.talent_connect_completion
+				this.totalPercentage = Math.floor((this.cvBuilderPercentage + this.talentConnectPercentage + this.progress) / 3);
 				if (this.totalPercentage >= 60 && this.totalPercentage <= 99) {
 					this.isShowingCompletion = true;
 				} else {

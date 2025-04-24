@@ -21,13 +21,14 @@ import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
 import { PromptService } from "../../prompt.service";
 import { SkeletonModule } from "primeng/skeleton";
 import { SharedModule } from "src/app/shared/shared.module";
+import { RestrictionDialogComponent } from "src/app/shared/restriction-dialog/restriction-dialog.component";
 
 @Component({
   selector: "uni-aspreparedlist",
   templateUrl: "./preparedlist.component.html",
   styleUrls: ["./preparedlist.component.scss"],
   standalone: true,
-  imports: [CommonModule, DialogModule, PdfViewerModule, TabViewModule, RouterModule, CardModule, FormsModule, ReactiveFormsModule, CarouselModule, ButtonModule, MultiSelectModule, SelectModule, InputGroupModule, InputTextModule, InputGroupAddonModule, SkeletonModule, SharedModule],
+  imports: [CommonModule, DialogModule, PdfViewerModule, TabViewModule, RouterModule, CardModule, FormsModule, ReactiveFormsModule, CarouselModule, ButtonModule, MultiSelectModule, SelectModule, InputGroupModule, InputTextModule, InputGroupAddonModule, SkeletonModule, SharedModule, RestrictionDialogComponent],
   providers: [MessageService, AveragesalaryestimatorService]
 })
 export class AverageSalaryPreparedListComponent implements OnInit {
@@ -68,13 +69,7 @@ export class AverageSalaryPreparedListComponent implements OnInit {
     this.getEstimateResponse();
     this.getSavedResponse();
     this.checkPlanExpiry();
-    this.imagewhitlabeldomainname = window.location.hostname;
-    this.ehitlabelIsShow = [
-      "*.uniprep.ai",
-      "dev-student.uniprep.ai",
-      "uniprep.ai",
-      "localhost",
-    ].includes(this.imagewhitlabeldomainname);
+
   }
   saveRoleResponse() {
     this.service
@@ -88,9 +83,9 @@ export class AverageSalaryPreparedListComponent implements OnInit {
         this.totalDataCount = this.ListData.length;
       });
   }
-  getAICreditCount(){
+  getAICreditCount() {
     this.promptService.getAicredits().subscribe({
-      next: resp =>{
+      next: resp => {
         this.aiCreditCount = resp;
       }
     })
@@ -243,7 +238,7 @@ export class AverageSalaryPreparedListComponent implements OnInit {
     this.readResponse = true;
   }
 
-  saveRecommadation(){
+  saveRecommadation() {
     this.getSavedResponse();
     this.EstimateResponseVisibility = false;
   }

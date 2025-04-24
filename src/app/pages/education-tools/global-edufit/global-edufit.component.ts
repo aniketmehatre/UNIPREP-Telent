@@ -20,12 +20,13 @@ import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
 import { PromptService } from '../../prompt.service';
 import { SkeletonModule } from 'primeng/skeleton';
 import { SharedModule } from 'src/app/shared/shared.module';
+import { RestrictionDialogComponent } from 'src/app/shared/restriction-dialog/restriction-dialog.component';
 @Component({
   selector: 'uni-global-edufit',
   templateUrl: './global-edufit.component.html',
   styleUrls: ['./global-edufit.component.scss'],
   standalone: true,
-  imports: [CommonModule, SelectModule,RouterModule, DialogModule, CardModule, PaginatorModule,CarouselModule, ButtonModule, FormsModule, ReactiveFormsModule, SkeletonModule, SharedModule]
+  imports: [CommonModule, SelectModule, RouterModule, DialogModule, CardModule, PaginatorModule, CarouselModule, ButtonModule, FormsModule, ReactiveFormsModule, SkeletonModule, SharedModule, RestrictionDialogComponent]
 })
 export class GlobalEdufitComponent implements OnInit {
   universityList: any = [];
@@ -61,7 +62,7 @@ export class GlobalEdufitComponent implements OnInit {
   isRecommendationData: boolean = false;
   isRecommendationSavedData: boolean = false;
   recommendationData: SafeHtml;
-	isResponseSkeleton: boolean = false;
+  isResponseSkeleton: boolean = false;
   aiCreditCount: number = 0;
 
   constructor(
@@ -87,13 +88,13 @@ export class GlobalEdufitComponent implements OnInit {
       cost_estimation: ['', Validators.required],
       period: ['', Validators.required],
     });
-    this.form.controls['university'].valueChanges.subscribe(value =>{
-      if(value){
+    this.form.controls['university'].valueChanges.subscribe(value => {
+      if (value) {
         this.getCourseNameList(value.id);
       }
     })
-    this.form.controls['interested_country'].valueChanges.subscribe(value =>{
-      if(value){
+    this.form.controls['interested_country'].valueChanges.subscribe(value => {
+      if (value) {
         this.setCompareUniversityList(value.id);
       }
     })
@@ -106,7 +107,7 @@ export class GlobalEdufitComponent implements OnInit {
       id: 1,
       question: {
         heading: 'Basic Information',
-        branches: ["Which country are you planning to study in?", "Which university are you considering?","What Course are you interested in?"]
+        branches: ["Which country are you planning to study in?", "Which university are you considering?", "What Course are you interested in?"]
       },
     },
     {
@@ -124,25 +125,16 @@ export class GlobalEdufitComponent implements OnInit {
     this.locationService.getImage().subscribe(imageUrl => {
       this.orglogowhitelabel = imageUrl;
     });
-    this.locationService.getOrgName().subscribe(orgname => {
-      this.orgnamewhitlabel = orgname;
-    });
-    this.imagewhitlabeldomainname = window.location.hostname;
-    if (this.imagewhitlabeldomainname === "*.uniprep.ai" || this.imagewhitlabeldomainname === "dev-student.uniprep.ai" || this.imagewhitlabeldomainname === "uniprep.ai" || this.imagewhitlabeldomainname === "localhost") {
-      this.ehitlabelIsShow = true;
-    } else {
-      this.ehitlabelIsShow = false;
-    }
     this.getCurrenyandLocation();
     this.getAICreditCount();
   }
-  getAICreditCount(){
-		this.promptService.getAicredits().subscribe({
-		  next: resp =>{
-			this.aiCreditCount = resp;
-		  }
-		})
-	}
+  getAICreditCount() {
+    this.promptService.getAicredits().subscribe({
+      next: resp => {
+        this.aiCreditCount = resp;
+      }
+    })
+  }
   goBack() {
     this.router.navigateByUrl('/pages/education-tools');
   }
@@ -157,7 +149,7 @@ export class GlobalEdufitComponent implements OnInit {
       }
     });
     this.educationToolService.unifinderCountries().subscribe({
-      next: response =>{
+      next: response => {
         this.interestedCountryList = response;
       }
     });
@@ -192,17 +184,10 @@ export class GlobalEdufitComponent implements OnInit {
     });
   }
 
-  upgradePlan(): void {
-    this.router.navigate(["/pages/subscriptions"]);
-  }
-  clearRestriction() {
-    this.restrict = false;
-  }
-
   openHowItWorksVideoPopup(videoLink: string) {
     this.pageFacade.openHowitWorksVideoPopup(videoLink);
   }
-  
+
   getRecommendation() {
     this.submitted = false;
     const formData = this.form.value;
@@ -232,15 +217,15 @@ export class GlobalEdufitComponent implements OnInit {
     this.isRecommendationQuestion = false;
     this.isRecommendationSavedData = false;
     this.isRecommendationData = true;
-		this.isResponseSkeleton = true;
+    this.isResponseSkeleton = true;
     this.educationToolService.getChatgptRecommendations(data).subscribe({
       next: response => {
-				this.isResponseSkeleton = false;
-				this.recommendationData = this.sanitizer.bypassSecurityTrustHtml(response.response);
+        this.isResponseSkeleton = false;
+        this.recommendationData = this.sanitizer.bypassSecurityTrustHtml(response.response);
         this.getAICreditCount();
       },
       error: error => {
-				this.isResponseSkeleton = false;
+        this.isResponseSkeleton = false;
         this.isRecommendationData = false;
       }
     });
@@ -279,17 +264,17 @@ export class GlobalEdufitComponent implements OnInit {
 
   saveRecommadation() {
     // if (!this.isFromSavedData) {
-      this.educationToolService.getAnalysisList('global_edufit').subscribe({
-        next: response => {
-          this.isRecommendationQuestion = false;
-          this.isRecommendationData = false;
-          this.isRecommendationSavedData = true;
-          this.recommadationSavedQuestionList = response.data;
-          console.log(this.recommadationSavedQuestionList,"saved data");
-        },
-        error: error => {
-        }
-      });
+    this.educationToolService.getAnalysisList('global_edufit').subscribe({
+      next: response => {
+        this.isRecommendationQuestion = false;
+        this.isRecommendationData = false;
+        this.isRecommendationSavedData = true;
+        this.recommadationSavedQuestionList = response.data;
+        console.log(this.recommadationSavedQuestionList, "saved data");
+      },
+      error: error => {
+      }
+    });
     // }
   }
 
@@ -319,7 +304,7 @@ export class GlobalEdufitComponent implements OnInit {
   }
 
   downloadRecommadation() {
-		let addingInput: string = '';
+    let addingInput: string = '';
     const formValue = ['interested_country', 'university', 'specialization', 'fees', 'cost_estimation', 'period'];
     const formData = this.form.value;
     let formValueIndex = 0;
@@ -351,14 +336,14 @@ export class GlobalEdufitComponent implements OnInit {
       // Add spacing between categories
       addingInput += `<br>`;
     });
-		let params: any = {
-			module_name: "Global Edufit",
-			file_name: "global_edufit",
-			response: this.recommendationData,
-			inputString: addingInput
-		};
-		this.promptService.responseBuilder(params);
-	}
+    let params: any = {
+      module_name: "Global Edufit",
+      file_name: "global_edufit",
+      response: this.recommendationData,
+      inputString: addingInput
+    };
+    this.promptService.responseBuilder(params);
+  }
 
   setCompareUniversityList(id: string) {
     this.educationToolService.getUniverstityByCountry(id).subscribe(data => {
@@ -366,9 +351,9 @@ export class GlobalEdufitComponent implements OnInit {
     })
   }
 
-  getCourseNameList(universityId: number){
+  getCourseNameList(universityId: number) {
     this.educationToolService.courseNameList(universityId).subscribe({
-      next: response =>{
+      next: response => {
         this.specializationList = response;
       }
     })

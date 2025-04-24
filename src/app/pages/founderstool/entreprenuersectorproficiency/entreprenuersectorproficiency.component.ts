@@ -7,68 +7,58 @@ import { LocationService } from 'src/app/location.service';
 import { PageFacadeService } from '../../page-facade.service';
 import { CommonModule } from "@angular/common";
 import { DialogModule } from "primeng/dialog";
-import {StorageService} from "../../../storage.service";
+import { StorageService } from "../../../storage.service";
+import { RestrictionDialogComponent } from 'src/app/shared/restriction-dialog/restriction-dialog.component';
 @Component({
-    selector: 'uni-entreprenuersectorproficiency',
-    templateUrl: './entreprenuersectorproficiency.component.html',
-    styleUrls: ['./entreprenuersectorproficiency.component.scss'],
-    standalone: true,
-    imports: [CommonModule, DialogModule, RouterModule]
+  selector: 'uni-entreprenuersectorproficiency',
+  templateUrl: './entreprenuersectorproficiency.component.html',
+  styleUrls: ['./entreprenuersectorproficiency.component.scss'],
+  standalone: true,
+  imports: [CommonModule, DialogModule, RouterModule, RestrictionDialogComponent]
 })
 export class EntreprenuersectorproficiencyComponent implements OnInit {
-  categoryCount:number=0;
-  moduleID:number=18;
+  categoryCount: number = 0;
+  moduleID: number = 18;
   planExpired: boolean = false;
   restrict: boolean = false;
-  orgnamewhitlabel:any;
-  orglogowhitelabel:any;
-  imagewhitlabeldomainname:any
-  ehitlabelIsShow:boolean=true;
-  currentModuleSlug:any;
-  constructor(private service: FounderstoolService,private sanitizer: DomSanitizer,private router:Router, private authService: AuthService,
-    private locationService: LocationService,private pageFacade: PageFacadeService, private storage: StorageService
+  orgnamewhitlabel: any;
+  orglogowhitelabel: any;
+  imagewhitlabeldomainname: any
+  ehitlabelIsShow: boolean = true;
+  currentModuleSlug: any;
+  constructor(private service: FounderstoolService, private sanitizer: DomSanitizer, private router: Router, private authService: AuthService,
+    private locationService: LocationService, private pageFacade: PageFacadeService, private storage: StorageService
   ) { }
   ngOnInit(): void {
-    this.locationService.getImage().subscribe(imageUrl => {
-      this.orglogowhitelabel = imageUrl;
-    });
-    this.locationService.getOrgName().subscribe(orgname => {
-      this.orgnamewhitlabel = orgname;
-    });
-  this.imagewhitlabeldomainname=window.location.hostname;
-  if (this.imagewhitlabeldomainname === "*.uniprep.ai" || this.imagewhitlabeldomainname === "dev-student.uniprep.ai" || this.imagewhitlabeldomainname === "uniprep.ai" || this.imagewhitlabeldomainname === "localhost") {
-    this.ehitlabelIsShow=true;
-  }else{
-    this.ehitlabelIsShow=false;
-  }
-    var data={
-      page:1,
-      perpage:10000,
-      module_id :this.moduleID
+
+    var data = {
+      page: 1,
+      perpage: 10000,
+      module_id: this.moduleID
     }
     this.getEntreprenuer(data);
     this.checkplanExpire()
   }
   etreprenuertestlists: any[] = [];
-  getEntreprenuer(data:any){
+  getEntreprenuer(data: any) {
     this.service.getEntreprenuerTest(data).subscribe((response) => {
       this.etreprenuertestlists = [];
       this.etreprenuertestlists = response.data;
       this.categoryCount = response.count;
     });
   }
-  openQuiz(id:any,name:string){
-    if(this.planExpired){
-      this.restrict=true;
+  openQuiz(id: any, name: string) {
+    if (this.planExpired) {
+      this.restrict = true;
       return;
     }
-    this.storage.set('conditionrevieworquiz','0');
-    this.storage.set('entrpreneursubid',id);
-    this.storage.set('submodulename',name);
+    this.storage.set('conditionrevieworquiz', '0');
+    this.storage.set('entrpreneursubid', id);
+    this.storage.set('submodulename', name);
     this.currentModuleSlug = "entreprenuersectorproficiencytest"
     this.router.navigate([`/pages/founderstool/${this.currentModuleSlug}/entrpreneurquiz`]);
   }
-  goBack(){
+  goBack() {
     this.router.navigate(['/pages/founderstool/founderstoollist']);
   }
   checkplanExpire(): void {
@@ -88,11 +78,11 @@ export class EntreprenuersectorproficiencyComponent implements OnInit {
   clearRestriction() {
     this.restrict = false;
   }
-  review(id:any){
-    this.storage.set('conditionrevieworquiz','1')
-    this.storage.set('entrpreneursubid',id)
+  review(id: any) {
+    this.storage.set('conditionrevieworquiz', '1')
+    this.storage.set('entrpreneursubid', id)
     this.currentModuleSlug = "entreprenuersectorproficiencytest"
-    this.router.navigate([`/pages/founderstool/${this.currentModuleSlug}/entrpreneurquiz`]);  
+    this.router.navigate([`/pages/founderstool/${this.currentModuleSlug}/entrpreneurquiz`]);
   }
 
   openVideoPopup(videoLink: string) {

@@ -27,13 +27,14 @@ import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
 import { PromptService } from '../../prompt.service';
 import { SharedModule } from 'src/app/shared/shared.module';
 import { SkeletonModule } from 'primeng/skeleton';
+import { RestrictionDialogComponent } from 'src/app/shared/restriction-dialog/restriction-dialog.component';
 
 @Component({
   selector: 'uni-uni-compare',
   templateUrl: './uni-compare.component.html',
   styleUrls: ['./uni-compare.component.scss'],
   standalone: true,
-  imports: [CommonModule, RouterModule, DialogModule, CardModule, PaginatorModule, FormsModule, ReactiveFormsModule, CarouselModule, ButtonModule, CommonModule, RouterModule, DialogModule, MultiSelectModule, SelectModule, CardModule, InputGroupModule, InputTextModule, InputGroupAddonModule,SkeletonModule, SharedModule]
+  imports: [CommonModule, RouterModule, DialogModule, CardModule, PaginatorModule, FormsModule, ReactiveFormsModule, CarouselModule, ButtonModule, CommonModule, RouterModule, DialogModule, MultiSelectModule, SelectModule, CardModule, InputGroupModule, InputTextModule, InputGroupAddonModule, SkeletonModule, SharedModule, RestrictionDialogComponent]
 })
 export class UniCompareComponent implements OnInit, OnDestroy {
   panelStyle: { width: string } = { width: '360px' };
@@ -71,7 +72,7 @@ export class UniCompareComponent implements OnInit, OnDestroy {
   isRecommendationData: boolean = false;
   isRecommendationSavedData: boolean = false;
   recommendationData: SafeHtml = '';
-	isResponseSkeleton: boolean = false;
+  isResponseSkeleton: boolean = false;
   aiCreditCount: number = 0;
   constructor(
     private fb: FormBuilder,
@@ -107,26 +108,26 @@ export class UniCompareComponent implements OnInit, OnDestroy {
     });
     // this.form.get('compare_currency_code')?.disable();
     this.form.get('expense_currency_code')?.disable();
-    this.form.get('compare_expense_currency_code')?.disable(); 
+    this.form.get('compare_expense_currency_code')?.disable();
 
-    this.form.controls['country'].valueChanges.subscribe(value =>{
-      if(value){
+    this.form.controls['country'].valueChanges.subscribe(value => {
+      if (value) {
         this.getAndSetUniversity(value.id, "country");
       }
     })
-    this.form.controls['compare_country'].valueChanges.subscribe(value =>{
-      if(value){
+    this.form.controls['compare_country'].valueChanges.subscribe(value => {
+      if (value) {
         this.getAndSetUniversity(value.id, "compare_country");
       }
     })
 
-    this.form.controls['university'].valueChanges.subscribe(value =>{
-      if(value){
+    this.form.controls['university'].valueChanges.subscribe(value => {
+      if (value) {
         this.getAndSetCourseNameList(value.id, "university");
       }
     })
-    this.form.controls['compare_university'].valueChanges.subscribe(value =>{
-      if(value){
+    this.form.controls['compare_university'].valueChanges.subscribe(value => {
+      if (value) {
         this.getAndSetCourseNameList(value.id, "compare_university");
       }
     })
@@ -156,48 +157,37 @@ export class UniCompareComponent implements OnInit, OnDestroy {
   ngOnInit(): void {
     this.updatePanelStyle();
     window.addEventListener('resize', this.updatePanelStyle);
-    this.locationService.getImage().subscribe(imageUrl => {
-      this.orglogowhitelabel = imageUrl;
-    });
-    this.locationService.getOrgName().subscribe(orgname => {
-      this.orgnamewhitlabel = orgname;
-    });
-    this.imagewhitlabeldomainname = window.location.hostname;
-    if (this.imagewhitlabeldomainname === "*.uniprep.ai" || this.imagewhitlabeldomainname === "dev-student.uniprep.ai" || this.imagewhitlabeldomainname === "uniprep.ai" || this.imagewhitlabeldomainname === "localhost") {
-      this.ehitlabelIsShow = true;
-    } else {
-      this.ehitlabelIsShow = false;
-    }
+
     this.getCountryandSpecilizationList();
     this.getAICreditCount();
   }
-  getAICreditCount(){
-		this.promptService.getAicredits().subscribe({
-		  next: resp =>{
-			this.aiCreditCount = resp;
-		  }
-		})
-	}
-  getAndSetCourseNameList(universityId: number, mode: string){
+  getAICreditCount() {
+    this.promptService.getAicredits().subscribe({
+      next: resp => {
+        this.aiCreditCount = resp;
+      }
+    })
+  }
+  getAndSetCourseNameList(universityId: number, mode: string) {
     this.educationToolService.courseNameList(universityId).subscribe({
-      next: response =>{
-        if(mode == "university"){
+      next: response => {
+        if (mode == "university") {
           this.specializationList = response;
-        }else if(mode == "compare_university"){
+        } else if (mode == "compare_university") {
           this.compareSpecializationList = response;
         }
-        
+
       }
     })
   }
 
   getAndSetUniversity(id: string, mode: string) {
     this.educationToolService.getUniverstityByCountry(id).subscribe(data => {
-      if(mode == "country"){
+      if (mode == "country") {
         this.universityList = data;
-      }else if(mode == "compare_country"){
+      } else if (mode == "compare_country") {
         this.compareUniversityList = data;
-      }      
+      }
     })
   }
 
@@ -215,11 +205,11 @@ export class UniCompareComponent implements OnInit, OnDestroy {
     //   this.specializationList = data;
     // });
     this.educationToolService.unifinderCountries().subscribe({
-      next: response =>{
+      next: response => {
         this.universityCountryList = response;
       }
     });
-    
+
     this.educationToolService.getCurrencies().subscribe(data => {
       this.currenciesList = data;
     });
@@ -301,18 +291,18 @@ export class UniCompareComponent implements OnInit, OnDestroy {
     this.isRecommendationQuestion = false;
     this.isRecommendationSavedData = false;
     this.isRecommendationData = true;
-		this.isResponseSkeleton = true;
+    this.isResponseSkeleton = true;
     this.educationToolService.getChatgptRecommendations(data).subscribe({
       next: response => {
-				this.isResponseSkeleton = false;
-				this.recommendationData = this.sanitizer.bypassSecurityTrustHtml(response.response);
+        this.isResponseSkeleton = false;
+        this.recommendationData = this.sanitizer.bypassSecurityTrustHtml(response.response);
         this.getAICreditCount();
       },
       error: (error) => {
-				console.error(error);
-				this.isResponseSkeleton = false;
-				this.isRecommendationData = false;
-			}
+        console.error(error);
+        this.isResponseSkeleton = false;
+        this.isRecommendationData = false;
+      }
     });
   }
 
@@ -409,7 +399,7 @@ export class UniCompareComponent implements OnInit, OnDestroy {
   }
 
   downloadRecommadation() {
-		let addingInput: string = '';
+    let addingInput: string = '';
     const formValue = ['country', 'university', 'specialization', 'fees', 'expense', 'period'];
     const formData = this.form.value;
     formData['country'] = formData['country'].country;
@@ -444,14 +434,14 @@ export class UniCompareComponent implements OnInit, OnDestroy {
       // Add spacing between categories
       addingInput += `<br>`;
     });
-		let params: any = {
-			module_name: "Uni Compare",
-			file_name: "uni_compare",
-			response: this.recommendationData,
-			inputString: addingInput
-		};
-		this.promptService.responseBuilder(params);
-	}
+    let params: any = {
+      module_name: "Uni Compare",
+      file_name: "uni_compare",
+      response: this.recommendationData,
+      inputString: addingInput
+    };
+    this.promptService.responseBuilder(params);
+  }
 
   updatePanelStyle = () => {
     this.panelStyle = window.innerWidth > 990 ? { width: '370px' } : { width: '100%' };
@@ -462,6 +452,6 @@ export class UniCompareComponent implements OnInit, OnDestroy {
   }
 
   openVideoPopup(videoLink: string) {
-		this.pageFacade.openHowitWorksVideoPopup(videoLink);
-	}
+    this.pageFacade.openHowitWorksVideoPopup(videoLink);
+  }
 }

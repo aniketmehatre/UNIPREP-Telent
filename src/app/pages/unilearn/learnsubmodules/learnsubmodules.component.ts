@@ -9,14 +9,15 @@ import { Location } from "@angular/common"
 import { AuthService } from "src/app/Auth/auth.service"
 import { DialogModule } from "primeng/dialog"
 
-import {StorageService} from "../../../storage.service";
-import {PdfViewerModule} from "ng2-pdf-viewer";
+import { StorageService } from "../../../storage.service";
+import { PdfViewerModule } from "ng2-pdf-viewer";
+import { RestrictionDialogComponent } from "src/app/shared/restriction-dialog/restriction-dialog.component"
 
 @Component({
 	selector: "uni-learnsubmodules",
 	templateUrl: "./learnsubmodules.component.html",
 	styleUrls: ["./learnsubmodules.component.scss"],
-	imports: [DialogModule, CommonModule, PdfViewerModule, RouterModule],
+	imports: [DialogModule, CommonModule, PdfViewerModule, RouterModule, RestrictionDialogComponent],
 	standalone: true,
 })
 export class LearnsubModulesComponent implements OnInit, AfterViewInit {
@@ -35,9 +36,9 @@ export class LearnsubModulesComponent implements OnInit, AfterViewInit {
 	pdfLoadError: boolean = false
 
 	constructor(private pageFacade: PageFacadeService, private authService: AuthService,
-				private router: Router, private arrayHeaderService: ArrayHeaderService,
-				private learnService: UniLearnService, private route: ActivatedRoute,
-				private location: Location, private storage: StorageService) {}
+		private router: Router, private arrayHeaderService: ArrayHeaderService,
+		private learnService: UniLearnService, private route: ActivatedRoute,
+		private location: Location, private storage: StorageService) { }
 
 	ngOnInit(): void {
 		// Get query parameters
@@ -52,12 +53,7 @@ export class LearnsubModulesComponent implements OnInit, AfterViewInit {
 		})
 
 		this.checkplanExpire()
-		this.imagewhitlabeldomainname = window.location.hostname
-		if (this.imagewhitlabeldomainname === "*.uniprep.ai" || this.imagewhitlabeldomainname === "dev-student.uniprep.ai" || this.imagewhitlabeldomainname === "uniprep.ai" || this.imagewhitlabeldomainname === "localhost") {
-			this.ehitlabelIsShow = true
-		} else {
-			this.ehitlabelIsShow = false
-		}
+
 	}
 
 	ngAfterViewInit() {
@@ -68,7 +64,7 @@ export class LearnsubModulesComponent implements OnInit, AfterViewInit {
 	}
 
 	getFormattedValues(): string {
-		return this.arrayHeaderService.getItems().join( ` > `)
+		return this.arrayHeaderService.getItems().join(` > `)
 	}
 
 	getModules() {
@@ -114,7 +110,7 @@ export class LearnsubModulesComponent implements OnInit, AfterViewInit {
 				} else {
 					this.pdfURL = moduledata.attachment_filename
 				}
-				
+
 				// Configure PDF viewer after URL is set
 				setTimeout(() => {
 					if (this.pdfViewer) {

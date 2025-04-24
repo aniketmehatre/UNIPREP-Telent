@@ -22,6 +22,7 @@ import { InputGroupAddonModule } from "primeng/inputgroupaddon"
 import { PaginatorModule } from "primeng/paginator"
 import { PdfViewerModule } from "ng2-pdf-viewer"
 import { DomSanitizer } from "@angular/platform-browser"
+import { RestrictionDialogComponent } from "src/app/shared/restriction-dialog/restriction-dialog.component"
 // import {PdfJsViewerModule} from "ng2-pdfjs-viewer";
 
 @Component({
@@ -29,7 +30,7 @@ import { DomSanitizer } from "@angular/platform-browser"
 	templateUrl: "./pitch-desk.component.html",
 	styleUrls: ["./pitch-desk.component.scss"],
 	standalone: true,
-	imports: [CommonModule, InputGroupModule, InputGroupAddonModule, DialogModule, RouterModule, InputTextModule, SkeletonModule, TooltipModule, ButtonModule, MultiSelectModule, CarouselModule, FormsModule, ReactiveFormsModule, PaginatorModule, PdfViewerModule],
+	imports: [CommonModule, InputGroupModule, InputGroupAddonModule, DialogModule, RouterModule, InputTextModule, SkeletonModule, TooltipModule, ButtonModule, MultiSelectModule, CarouselModule, FormsModule, ReactiveFormsModule, PaginatorModule, PdfViewerModule, RestrictionDialogComponent],
 })
 export class PitchDeskComponent implements OnInit, OnDestroy, AfterViewInit {
 	@ViewChild("pdfViewer") pdfViewer: any
@@ -75,18 +76,6 @@ export class PitchDeskComponent implements OnInit, OnDestroy, AfterViewInit {
 	}
 
 	ngOnInit(): void {
-		this.locationService.getImage().subscribe((imageUrl) => {
-			this.orglogowhitelabel = imageUrl
-		})
-		this.locationService.getOrgName().subscribe((orgname) => {
-			this.orgnamewhitlabel = orgname
-		})
-		this.imagewhitlabeldomainname = window.location.hostname
-		if (this.imagewhitlabeldomainname === "*.uniprep.ai" || this.imagewhitlabeldomainname === "dev-student.uniprep.ai" || this.imagewhitlabeldomainname === "uniprep.ai" || this.imagewhitlabeldomainname === "localhost") {
-			this.ehitlabelIsShow = true
-		} else {
-			this.ehitlabelIsShow = false
-		}
 		this.checkplanExpire()
 		this.selectBoxValues()
 		this.GetPersonalProfileData()

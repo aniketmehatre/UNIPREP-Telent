@@ -1,17 +1,19 @@
-<p-dialog [(visible)]="restrict" [modal]="true" [style]="{ width: '30vw' }" [draggable]="false" [resizable]="false"
-          class="restrictionDialog" [breakpoints]="{ '960px': '30vw', '959px': '60vw', '425px': '90vw' }"
-          (onHide)="clearRestriction()">
-    <div *ngIf="!isWhiteLabelVisible" class="text-center mt-5 mb-4">
-        <img src="../../../uniprep-assets/images/smartloack.png" class="image" width="60"/>
+<p-dialog [(visible)]="isShowRestrict" [style]="{ width: '30vw' }" [modal]="true" [draggable]="false"
+    [resizable]="false" class="restrictionDialog" [breakpoints]="{ '960px': '30vw', '959px': '60vw', '425px': '90vw' }"
+    (onHide)="closeRestrictModal.emit(false)">
+    <div *ngIf="!isWhiteLabelVisible; else showOrg" class="text-center mt-5 mb-4">
+        <img src="uniprep-assets/images/smartloack.png" class="image" width="60" />
         <h3 class="offer">Upgrade Required</h3>
-        <p>To access this exclusive module,please upgrade your plan now</p>
-        <button pButton  pButton type="button"
-                class="text-white p-ripple p-button-rounded p-button-warning p-button p-component p-2 mt-2"
-                (click)="upgradePlan()">Upgrade Plan<i class="fa fa-arrow-right exhausted-plan-icon"></i></button>
+        <p>To access this exclusive module, please upgrade your plan now</p>
+        <button pButton pButton type="button"
+            class="text-white p-ripple p-button-rounded p-button-warning p-button p-component p-2"
+            (click)="upgradePlan()">Upgrade Plan<i class="fa fa-arrow-right exhausted-plan-icon"></i></button>
     </div>
-    <div *ngIf="isWhiteLabelVisible" class="text-center mt-5 mb-4">
-        <img src="../../../uniprep-assets/images/smartloack.png" class="image" width="60"/>
-        <h3 class="offer">Upgrade Required</h3>
-        <p>Please contact {{ orgName }} for access</p>
-    </div>
+    <ng-template #showOrg>
+        <div class="text-center mt-5 mb-4">
+            <img [src]="orgLogo" class="image" width="60" />
+            <h3 class="offer">Upgrade Required</h3>
+            <p>Please contact {{ orgName }} Company for access</p>
+        </div>
+    </ng-template>
 </p-dialog>

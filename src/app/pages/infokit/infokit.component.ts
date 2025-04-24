@@ -18,10 +18,11 @@ import { ButtonModule } from "primeng/button";
 import { PageFacadeService } from "../page-facade.service";
 import { LocationService } from "src/app/location.service";
 import { FormsModule } from "@angular/forms";
+import { RestrictionDialogComponent } from "src/app/shared/restriction-dialog/restriction-dialog.component";
 @Component({
   selector: "uni-infokit",
   standalone: true,
-  imports: [FormsModule,CommonModule, InputTextModule, TabViewModule, TableModule, AccordionModule,  ReactiveFormsModule, MultiSelectModule, PaginatorModule, TooltipModule, DialogModule, ButtonModule],
+  imports: [FormsModule, CommonModule, InputTextModule, TabViewModule, TableModule, AccordionModule, ReactiveFormsModule, MultiSelectModule, PaginatorModule, TooltipModule, DialogModule, ButtonModule, RestrictionDialogComponent],
   templateUrl: "./infokit.component.html",
   styleUrls: ["./infokit.component.scss"],
 })
@@ -55,18 +56,6 @@ export class InfoKitComponent implements OnInit {
   orgnamewhitlabel: any;
   orglogowhitelabel: any;
   ngOnInit() {
-    this.locationService.getImage().subscribe((imageUrl) => {
-      this.orglogowhitelabel = imageUrl;
-    });
-    this.locationService.getOrgName().subscribe((orgname) => {
-      this.orgnamewhitlabel = orgname;
-    });
-    this.imagewhitlabeldomainname = window.location.hostname;
-    if (this.imagewhitlabeldomainname === "*.uniprep.ai" || this.imagewhitlabeldomainname === "dev-student.uniprep.ai" || this.imagewhitlabeldomainname === "uniprep.ai" || this.imagewhitlabeldomainname === "localhost") {
-      this.ehitlabelIsShow = true;
-    } else {
-      this.ehitlabelIsShow = false;
-    }
     this.checkplanExpire();
     this.folderdata = {
       parent_id: 0,

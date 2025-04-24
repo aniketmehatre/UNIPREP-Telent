@@ -5,11 +5,15 @@
 				<div class="col-md-12 text-center d-flex gap-2">
 					<div class="select-title d-flex justify-content-between align-items-center">
 						<div class="d-flex gap-2">
-							<h5 routerLink="/pages/dashboard" role="button" class="mb-0" tooltipPosition="top" pTooltip=""><i class="fa-regular fa-home"></i></h5>
+							<h5 routerLink="/pages/dashboard" role="button" class="mb-0" tooltipPosition="top"
+								pTooltip=""><i class="fa-regular fa-home"></i></h5>
 							<span><i class="fa-solid fa-chevron-right"></i></span>
-							<h5 routerLink="/pages/founderstool/founderstoollist" role="button" class="mb-0" tooltipPosition="top">Founders Tool</h5>
+							<h5 routerLink="/pages/founderstool/founderstoollist" role="button" class="mb-0"
+								tooltipPosition="top">Founders Tool</h5>
 							<span><i class="fa-solid fa-chevron-right"></i></span>
-							<h5 role="button" class="mb-0" tooltipPosition="top" pTooltip="Access resources for starting your business, from ideation to execution.">Government Funding List</h5>
+							<h5 role="button" class="mb-0" tooltipPosition="top"
+								pTooltip="Access resources for starting your business, from ideation to execution.">
+								Government Funding List</h5>
 						</div>
 						<div>
 							<button class="how-it-works-button">
@@ -23,7 +27,8 @@
 		</div>
 		<div class="card-body text-center flex-fill overflow-y-auto">
 			<div class="container-fluid h-100">
-				<p-carousel [value]="recommendations" [numVisible]="1" [numScroll]="1" [circular]="false" [showNavigators]="false" [showIndicators]="false" [page]="activePageIndex" styleClass="h-100">
+				<p-carousel [value]="recommendations" [numVisible]="1" [numScroll]="1" [circular]="false"
+					[showNavigators]="false" [showIndicators]="false" [page]="activePageIndex" styleClass="h-100">
 					<ng-template let-recommendation let-i="index" pTemplate="item">
 						<div class="h-100 d-flex flex-column justify-content-between">
 							<div>&nbsp;</div>
@@ -33,12 +38,21 @@
 								</div>
 								<div class="col-md-6">
 									<ng-container *ngIf="recommendation.id == 1">
-										<p-select styleClass="w-100" placeholder="Select Your Country" [filter]="true" fiterBy="country" [options]="countryList" display="chip" optionLabel="country" optionValue="id" [(ngModel)]="selectedData[recommendation.id]" [appendTo]="'body'" (ngModelChange)="changeCountryId($event)"></p-select>
-										<p class="text-center" [ngClass]="{ 'd-none': invalidClass === false }" style="color: red">Please Choose Any one option</p>
+										<p-select styleClass="w-100" placeholder="Select Your Country" [filter]="true"
+											fiterBy="country" [options]="countryList" display="chip"
+											optionLabel="country" optionValue="id"
+											[(ngModel)]="selectedData[recommendation.id]" [appendTo]="'body'"
+											(ngModelChange)="changeCountryId($event)"></p-select>
+										<p class="text-center" [ngClass]="{ 'd-none': invalidClass === false }"
+											style="color: red">Please Choose Any one option</p>
 									</ng-container>
 									<ng-container *ngIf="recommendation.id == 2">
-										<p-multiSelect styleClass="w-100" placeholder="Select Your State" [options]="stateList" display="chip" optionLabel="state_name" optionValue="id" [(ngModel)]="selectedData[recommendation.id]" [appendTo]="'body'" (onChange)="onStateChange()"></p-multiSelect>
-										<p class="text-center" [ngClass]="{ 'd-none': invalidClass === false }" style="color: red">Please Choose Any one option</p>
+										<p-multiSelect styleClass="w-100" placeholder="Select Your State"
+											[options]="stateList" display="chip" optionLabel="state_name"
+											optionValue="id" [(ngModel)]="selectedData[recommendation.id]"
+											[appendTo]="'body'" (onChange)="onStateChange()"></p-multiSelect>
+										<p class="text-center" [ngClass]="{ 'd-none': invalidClass === false }"
+											style="color: red">Please Choose Any one option</p>
 									</ng-container>
 									<!-- <ng-container *ngIf="recommendation.id == 3">
 										<p-multiSelect styleClass="w-100" placeholder="Select Your Fund Type" [options]="fundTypeList" display="chip" optionLabel="funding_type_name" optionValue="id" [(ngModel)]="selectedData[recommendation.id]" [appendTo]="'body'"></p-multiSelect>
@@ -47,17 +61,26 @@
 								</div>
 							</div>
 							<div class="d-flex justify-content-between mt-2">
-								<button pButton type="button" class="btn btn-primary btn-rounded p-1 pe-4 text-nowrap d-flex align-items-center" [style.visibility]="recommendation.id == 1 ? 'hidden' : 'visible'" (click)="previous()">
-									<span class="btn-icon px-2 py-2"><i class="fa fa-arrow-left"></i></span> <span class="ms-2">Previous</span>
+								<button pButton type="button"
+									class="btn btn-primary btn-rounded p-1 pe-4 text-nowrap d-flex align-items-center"
+									[style.visibility]="recommendation.id == 1 ? 'hidden' : 'visible'"
+									(click)="previous()">
+									<span class="btn-icon px-2 py-2"><i class="fa fa-arrow-left"></i></span> <span
+										class="ms-2">Previous</span>
 								</button>
-								<button pButton type="button" (click)="next(recommendation.id)" *ngIf="recommendation.id != 2" class="btn btn-primary btn-rounded ps-4 text-nowrap d-flex align-items-center">
+								<button pButton type="button" (click)="next(recommendation.id)"
+									*ngIf="recommendation.id != 2"
+									class="btn btn-primary btn-rounded ps-4 text-nowrap d-flex align-items-center">
 									<span class="me-2">Next</span>
 									<span class="btn-icon px-2 py-2">
 										<i class="fa fa-arrow-right"></i>
 									</span>
 								</button>
-								<button pButton type="button" (click)="getRecommendation()" *ngIf="recommendation.id == 2" class="btn btn-success btn-rounded p-1 ps-4 d-flex align-items-center">
-									<span class="me-2">Get Recommendations</span><span class="btn-icon px-2 py-2"><i class="fa fa-check-circle"></i></span>
+								<button pButton type="button" (click)="getRecommendation()"
+									*ngIf="recommendation.id == 2"
+									class="btn btn-success btn-rounded p-1 ps-4 d-flex align-items-center">
+									<span class="me-2">Get Recommendations</span><span class="btn-icon px-2 py-2"><i
+											class="fa fa-check-circle"></i></span>
 								</button>
 							</div>
 						</div>
@@ -72,36 +95,50 @@
 				<div class="col-12">
 					<div class="select-title d-flex justify-content-between align-items-center">
 						<div class="d-flex gap-2">
-							<h5 routerLink="/pages/dashboard" role="button" class="mb-0" tooltipPosition="top" pTooltip=""><i class="fa-regular fa-home"></i></h5>
+							<h5 routerLink="/pages/dashboard" role="button" class="mb-0" tooltipPosition="top"
+								pTooltip=""><i class="fa-regular fa-home"></i></h5>
 							<span><i class="fa-solid fa-chevron-right"></i></span>
-							<h5 routerLink="/pages/founderstool/founderstoollist" role="button" class="mb-0" tooltipPosition="top">Founders Tool</h5>
+							<h5 routerLink="/pages/founderstool/founderstoollist" role="button" class="mb-0"
+								tooltipPosition="top">Founders Tool</h5>
 							<span><i class="fa-solid fa-chevron-right"></i></span>
-							<h5 role="button" class="mb-0" tooltipPosition="top" pTooltip="Access resources for starting your business, from ideation to execution.">Government Funding List</h5>
+							<h5 role="button" class="mb-0" tooltipPosition="top"
+								pTooltip="Access resources for starting your business, from ideation to execution.">
+								Government Funding List</h5>
 						</div>
 						<div>
-							<button class="how-it-works-button" (click)="openHowItWorksVideoPopup('https://www.youtube.com/embed/5B7AeCCKCKw?si=uUXSoWHIsi3fxJH2')">How it works?<i class="fa-solid fa-play d-md-block d-none"></i></button>
+							<button class="how-it-works-button"
+								(click)="openHowItWorksVideoPopup('https://www.youtube.com/embed/5B7AeCCKCKw?si=uUXSoWHIsi3fxJH2')">How
+								it works?<i class="fa-solid fa-play d-md-block d-none"></i></button>
 						</div>
 					</div>
 				</div>
 				<div class="col-12">
 					<div class="d-flex justify-content-between mt-2 gap-1">
-						<button *ngIf="ehitlabelIsShow" class="btn btn-secondary text-small btn-rounded flex-fill" (click)="buyCredits()" type="button">Buy Credits</button>
-						<button class="btn btn-outline-primary text-small btn-rounded d-flex gap-2 align-items-center flex-fill" (click)="exportData()" type="button">
+						<button *ngIf="ehitlabelIsShow" class="btn btn-secondary text-small btn-rounded flex-fill"
+							(click)="buyCredits()" type="button">Buy Credits</button>
+						<button
+							class="btn btn-outline-primary text-small btn-rounded d-flex gap-2 align-items-center flex-fill"
+							(click)="exportData()" type="button">
 							Export <span class="btn-icon text-white">{{ exportCreditCount }}</span>
 						</button>
-						<button class="btn btn-secondary text-small flex-fill" (click)="openReport()" type="button"><i class="fa-solid fa-circle-exclamation"></i></button>
-						<button class="btn btn-gray text-small flex-fill" (click)="scholarGuidlines()" type="button"><i class="fa-solid fa-graduation-cap"></i></button>
+						<button class="btn btn-secondary text-small flex-fill" (click)="openReport()" type="button"><i
+								class="fa-solid fa-circle-exclamation"></i></button>
+						<button class="btn btn-gray text-small flex-fill" (click)="scholarGuidlines()" type="button"><i
+								class="fa-solid fa-graduation-cap"></i></button>
 						<button class="btn btn-primary text-small flex-fill" (click)="viewFavourites()" type="button">
 							<i class="fa-solid fa-bookmark"></i><span class="ms-2">({{ favCount }})</span>
 						</button>
-						<button class="btn btn-primary text-small flex-fill" (click)="filterBy()" type="button"><i class="fa-solid fa-bars-filter"></i></button>
+						<button class="btn btn-primary text-small flex-fill" (click)="filterBy()" type="button"><i
+								class="fa-solid fa-bars-filter"></i></button>
 					</div>
 				</div>
 				<div class="col-12 mt-2">
 					<div class="d-flex justify-content-between align-items-center">
 						<div class="d-flex gap-2 align-items-center">
-							<input type="checkbox" class="me-0" [(ngModel)]="selectAllCheckboxes" (click)="selectAllCheckbox()" id="selectAllcheckbox" />
-							<label class="text-small fw-semibold" for="selectAllcheckbox" style="cursor: pointer">Select All</label>
+							<input type="checkbox" class="me-0" [(ngModel)]="selectAllCheckboxes"
+								(click)="selectAllCheckbox()" id="selectAllcheckbox" />
+							<label class="text-small fw-semibold" for="selectAllcheckbox" style="cursor: pointer">Select
+								All</label>
 							<span class="text-small fw-semibold">Selected : {{ selectedFund }}</span>
 						</div>
 						<span class="text-muted fw-semibold text-small">Total Funds: {{ totalFundCount || 0 }}</span>
@@ -111,25 +148,36 @@
 			<div class="row justify-content-center d-md-flex d-none">
 				<div class="col-12">
 					<div class="d-flex flex-md-row flex-column gap-2">
-						<div class="backIcon d-md-flex d-none h-100" routerLink="/pages/founderstool/founderstoollist" role="button">
+						<div class="backIcon d-md-flex d-none h-100" routerLink="/pages/founderstool/founderstoollist"
+							role="button">
 							<span class="fa-solid fa-chevron-left"></span>
 						</div>
 						<div class="select-title d-flex justify-content-between align-items-center">
 							<div class="d-flex gap-2">
-								<h5 routerLink="/pages/dashboard" role="button" class="mb-0" tooltipPosition="top" pTooltip=""><i class="fa-regular fa-home"></i></h5>
+								<h5 routerLink="/pages/dashboard" role="button" class="mb-0" tooltipPosition="top"
+									pTooltip=""><i class="fa-regular fa-home"></i></h5>
 								<span><i class="fa-solid fa-chevron-right"></i></span>
-								<h5 routerLink="/pages/founderstool/founderstoollist" role="button" class="mb-0" tooltipPosition="top">Founders Tool</h5>
+								<h5 routerLink="/pages/founderstool/founderstoollist" role="button" class="mb-0"
+									tooltipPosition="top">Founders Tool</h5>
 								<span><i class="fa-solid fa-chevron-right"></i></span>
-								<h5 role="button" class="mb-0" tooltipPosition="top" pTooltip="Access resources for starting your business, from ideation to execution.">Government Funding List</h5>
+								<h5 role="button" class="mb-0" tooltipPosition="top"
+									pTooltip="Access resources for starting your business, from ideation to execution.">
+									Government Funding List</h5>
 							</div>
 							<div>
-								<button class="how-it-works-button" (click)="openHowItWorksVideoPopup('https://www.youtube.com/embed/5B7AeCCKCKw?si=uUXSoWHIsi3fxJH2')">How it works?<i class="fa-solid fa-play d-md-block d-none"></i></button>
+								<button class="how-it-works-button"
+									(click)="openHowItWorksVideoPopup('https://www.youtube.com/embed/5B7AeCCKCKw?si=uUXSoWHIsi3fxJH2')">How
+									it works?<i class="fa-solid fa-play d-md-block d-none"></i></button>
 							</div>
 						</div>
 						<div class="d-flex justify-content-end gap-2">
-							<button class="btn btn-gray text-small btn-rounded" (click)="fundingGuidlines()" type="button">Fund Guidelines</button>
-							<button *ngIf="ehitlabelIsShow" class="btn btn-secondary text-small btn-rounded" (click)="buyCredits()" type="button">Buy Credits</button>
-							<button class="btn btn-outline-primary text-small btn-rounded d-flex gap-2 align-items-center" (click)="exportData()" type="button">
+							<button class="btn btn-gray text-small btn-rounded" (click)="fundingGuidlines()"
+								type="button">Fund Guidelines</button>
+							<button *ngIf="ehitlabelIsShow" class="btn btn-secondary text-small btn-rounded"
+								(click)="buyCredits()" type="button">Buy Credits</button>
+							<button
+								class="btn btn-outline-primary text-small btn-rounded d-flex gap-2 align-items-center"
+								(click)="exportData()" type="button">
 								Export <span class="btn-icon text-white">{{ exportCreditCount }}</span>
 							</button>
 						</div>
@@ -139,21 +187,26 @@
 					<div class="d-flex flex-md-row flex-column justify-content-between">
 						<div>
 							<span class="d-flex justify-content-start p-2">
-								<input type="checkbox" class="me-0" [(ngModel)]="selectAllCheckboxes" (click)="selectAllCheckbox()" id="selectAllcheckbox" />
-								<label class="p-2 fw-semibold" for="selectAllcheckbox" style="cursor: pointer">Select All</label>
+								<input type="checkbox" class="me-0" [(ngModel)]="selectAllCheckboxes"
+									(click)="selectAllCheckbox()" id="selectAllcheckbox" />
+								<label class="p-2 fw-semibold" for="selectAllcheckbox" style="cursor: pointer">Select
+									All</label>
 								<span class="p-2 fw-semibold">Selected : {{ selectedFund }}</span>
-								<button class="btn btn-primary text-small btn-rounded" (click)="viewFavourites()" type="button">
-									{{ viewFavouritesLabel }}<span class="ms-2" *ngIf="viewFavouritesLabel != 'View All'">({{ favCount }})</span>
+								<button class="btn btn-primary text-small btn-rounded" (click)="viewFavourites()"
+									type="button">
+									{{ viewFavouritesLabel }}<span class="ms-2"
+										*ngIf="viewFavouritesLabel != 'View All'">({{ favCount }})</span>
 								</button>
 							</span>
 						</div>
 						<div class="d-flex align-items-center justify-content-end gap-1 mt-3">
-							<button class="btn btn-secondary btn-rounded text-small" (click)="openReport()" type="button">Report</button>
-							<button class="btn btn-primary text-small btn-rounded" (click)="filterBy()" type="button">Filter by</button>
+							<button class="btn btn-secondary btn-rounded text-small" (click)="openReport()"
+								type="button">Report</button>
+							<button class="btn btn-primary text-small btn-rounded" (click)="filterBy()"
+								type="button">Filter by</button>
 							<div class="pe-2">
-								<span class="text-muted text-small"
-									><strong>Total Funds: {{ totalFundCount || 0 }}</strong></span
-								>
+								<span class="text-muted text-small"><strong>Total Funds: {{ totalFundCount || 0
+										}}</strong></span>
 							</div>
 						</div>
 					</div>
@@ -163,27 +216,35 @@
 		<div class="card-body text-center flex-fill overflow-y-auto">
 			<div class="container-fluid" *ngIf="!restrict">
 				<div class="row">
-					<div class="card-inside border border-black position-relative" *ngFor="let fundData of fundData; let index = index" class="col-xxl-3 col-xl-3 col-lg-4 col-md-4 col-sm-6 col-xs-12 col-12 mb-3 text-start">
+					<div class="card-inside border border-black position-relative"
+						*ngFor="let fundData of fundData; let index = index"
+						class="col-xxl-3 col-xl-3 col-lg-4 col-md-4 col-sm-6 col-xs-12 col-12 mb-3 text-start">
 						<div class="card-body border-primary h-100">
 							<div class="d-flex justify-content-between align-items-start">
-								<div class="flex gap-2 align-items-start" >
+								<div class="flex gap-2 align-items-start">
 									<a [href]="fundData?.website" target="_blank" #link></a>
-									<input type="checkbox" id="card1" class="mt-1" (change)="onCheckboxChange($event)" [(ngModel)]="fundData.isChecked">
-									<h5 class="card-title mb-4 pe-auto" (click)="link.click();" style="cursor: pointer;">
+									<input type="checkbox" id="card1" class="mt-1" (change)="onCheckboxChange($event)"
+										[(ngModel)]="fundData.isChecked">
+									<h5 class="card-title mb-4 pe-auto" (click)="link.click();"
+										style="cursor: pointer;">
 										{{fundData?.name}}
 									</h5>
 									<div class="mb-auto me-1">
-										<i class="fas fa-link" role="button" (click)="link.click()"><a [href]="fundData?.website" target="_blank" #link></a></i>
+										<i class="fas fa-link" role="button" (click)="link.click()"><a
+												[href]="fundData?.website" target="_blank" #link></a></i>
 									</div>
 								</div>
 								<div>
-									<i class="fa-star cursor-pointer fs-5 text-danger" style="cursor: pointer;" [ngClass]="fundData?.favourite ? 'fa-solid': 'fa-regular'" (click)="bookmarkQuestion(fundData?.id, fundData?.favourite);" ></i>
+									<i class="fa-star cursor-pointer fs-5 text-danger" style="cursor: pointer;"
+										[ngClass]="fundData?.favourite ? 'fa-solid': 'fa-regular'"
+										(click)="bookmarkQuestion(fundData?.id, fundData?.favourite);"></i>
 								</div>
 							</div>
 
 							<div class="row">
 								<div class="col-3 mb-3">
-									<img src="uniprep-assets/images/emblemofindia.svg" alt="India Emblem" class="img-fluid" />
+									<img src="uniprep-assets/images/emblemofindia.svg" alt="India Emblem"
+										class="img-fluid" />
 								</div>
 
 								<div class="col-9">
@@ -242,7 +303,8 @@
 					</div>
 				</div>
 			</div>
-			<div *ngIf="totalScholarShipCount == 0" class="d-flex justify-content-center align-items-center h-100 flex-column">
+			<div *ngIf="totalScholarShipCount == 0"
+				class="d-flex justify-content-center align-items-center h-100 flex-column">
 				<h3 class="primary-color">It seems we don't have any recommendations that</h3>
 				<h3 class="primary-color">match your current selection.</h3>
 				<br />
@@ -252,17 +314,23 @@
 			</div>
 		</div>
 		<div class="card-footer border-0 bg-transparent position-relative">
-			<button pButton type="button" style="bottom: 5rem; right: 1rem" class="btn btn-quit btn-rounded p-1 ps-3 text-small position-absolute d-flex d-md-none" (click)="resetRecommendation()">
+			<button pButton type="button" style="bottom: 5rem; right: 1rem"
+				class="btn btn-quit btn-rounded p-1 ps-3 text-small position-absolute d-flex d-md-none"
+				(click)="resetRecommendation()">
 				<span>Reset</span><span class="btn-icon"><i class="fa-solid fa-arrow-rotate-right"></i> </span>
 			</button>
 			<div class="row">
 				<div class="col-md-3 d-md-block d-none">&nbsp;</div>
 				<div class="col-md-6 col-11">
-					<p-paginator *ngIf="totalFundCount != 0" [rows]="pageSize" [totalRecords]="totalFundCount" (onPageChange)="pageChange($event)" [rowsPerPageOptions]="[100, 300, 500, 1000]"></p-paginator>
+					<p-paginator *ngIf="totalFundCount != 0" [rows]="pageSize" [totalRecords]="totalFundCount"
+						(onPageChange)="pageChange($event)" [rowsPerPageOptions]="[100, 300, 500, 1000]"></p-paginator>
 				</div>
 				<div class="col-md-3 d-none d-md-flex justify-content-end">
-					<button pButton type="button" class="btn ps-md-3 ps-0 btn-quit btn-rounded d-flex align-items-center" (click)="resetRecommendation()">
-						<span>Reset Recommendations</span><span class="btn-icon"><i class="fa-solid fa-arrow-rotate-right"></i> </span>
+					<button pButton type="button"
+						class="btn ps-md-3 ps-0 btn-quit btn-rounded d-flex align-items-center"
+						(click)="resetRecommendation()">
+						<span>Reset Recommendations</span><span class="btn-icon"><i
+								class="fa-solid fa-arrow-rotate-right"></i> </span>
 					</button>
 				</div>
 			</div>
@@ -270,19 +338,8 @@
 	</ng-container>
 </div>
 
-<p-dialog [(visible)]="restrict" [style]="{ width: '30vw' }" [draggable]="false" [resizable]="false" class="restrictionDialog" [breakpoints]="{ '960px': '30vw', '959px': '60vw', '425px': '90vw' }" (onHide)="clearRestriction()">
-	<div *ngIf="ehitlabelIsShow" class="text-center mt-5 mb-4">
-		<img src="../../../uniprep-assets/images/smartloack.png" class="image" width="60" />
-		<h3 class="offer">Upgrade Required</h3>
-		<p>To access this exclusive module,please upgrade your plan now</p>
-		<button pButton type="button" class="text-white p-ripple p-button-rounded p-button-warning p-button p-component p-2" (click)="upgradePlan()">Upgrade Plan<i class="fa fa-arrow-right exhausted-plan-icon"></i></button>
-	</div>
-	<div *ngIf="!ehitlabelIsShow" class="text-center mt-5 mb-4">
-		<img src="../../../uniprep-assets/images/smartloack.png" class="image" width="60" />
-		<h3 class="offer">Upgrade Required</h3>
-		<p>Please contact {{ orgnamewhitlabel }} Company for access</p>
-	</div>
-</p-dialog>
+<uni-restriction-dialog *ngIf="restrict" [isShowRestrict]="restrict" (closeRestrictModal)="restrict = false" />
+
 <div class="p-0">
 	<p-dialog header="Filter Fund" [(visible)]="isFilterVisible"
 		[breakpoints]="{ '2560px': '80vw', '1030px': '90vw', '850px': '85vw', '450px': '90vw' }" [draggable]="false"
@@ -292,28 +349,37 @@
 				<div class="col-md-12">
 					<div class="row align-items-center">
 						<div class="col-md-4">
-							<label class="form-label" style="font-size: medium; font-weight: 500">Filter by Country</label>
+							<label class="form-label" style="font-size: medium; font-weight: 500">Filter by
+								Country</label>
 							<div class="form-group">
 								<div class="mb-3">
-									<p-select [options]="countryList" [filter]="true" filterBy="country" styleClass="w-100" formControlName="country" (ngModelChange)="changeCountryId($event)"
-										optionValue="id" placeholder="Select  Country" optionLabel="country"
-										class="filterInput" [appendTo]="'body'"> </p-select>
+									<p-select [options]="countryList" [filter]="true" filterBy="country"
+										styleClass="w-100" formControlName="country"
+										(ngModelChange)="changeCountryId($event)" optionValue="id"
+										placeholder="Select  Country" optionLabel="country" class="filterInput"
+										[appendTo]="'body'"> </p-select>
 								</div>
 							</div>
 						</div>
 						<div class="col-md-4">
-							<label class="form-label" style="font-size: medium; font-weight: 500">Filter by State</label>
+							<label class="form-label" style="font-size: medium; font-weight: 500">Filter by
+								State</label>
 							<div class="form-group">
 								<div class="mb-3">
-									<p-multiSelect [options]="stateList" styleClass="w-100" formControlName="region" optionValue="id" placeholder="Select  State" optionLabel="state_name" class="filterInput" [appendTo]="'body'"></p-multiSelect>
+									<p-multiSelect [options]="stateList" styleClass="w-100" formControlName="region"
+										optionValue="id" placeholder="Select  State" optionLabel="state_name"
+										class="filterInput" [appendTo]="'body'"></p-multiSelect>
 								</div>
 							</div>
 						</div>
 						<div class="col-md-4">
-							<label class="form-label" style="font-size: medium; font-weight: 500">Filter by Fund Type</label>
+							<label class="form-label" style="font-size: medium; font-weight: 500">Filter by Fund
+								Type</label>
 							<div class="form-group">
 								<div class="mb-3">
-									<p-multiSelect [options]="fundTypeList" styleClass="w-100" formControlName="type" optionValue="id" placeholder="Select Fund Type" optionLabel="funding_type_name" class="filterInput" [appendTo]="'body'"> </p-multiSelect>
+									<p-multiSelect [options]="fundTypeList" styleClass="w-100" formControlName="type"
+										optionValue="id" placeholder="Select Fund Type" optionLabel="funding_type_name"
+										class="filterInput" [appendTo]="'body'"> </p-multiSelect>
 								</div>
 							</div>
 						</div>
@@ -323,9 +389,11 @@
 			</div>
 			<br />
 			<div class="row gap-3">
-				<div class="col-12"><button type="submit" class="btn btn-dark w-100" style="background-color: var(--uniprep-primary) !important">Apply Filter</button></div>
+				<div class="col-12"><button type="submit" class="btn btn-dark w-100"
+						style="background-color: var(--uniprep-primary) !important">Apply Filter</button></div>
 				<div class="col-12">
-					<button class="btn btn-danger ps-3 pe-3 pt-2 pb-2 w-100" (click)="clearFilter()" style="border-radius: 8px; color: #fff" type="button">Reset Filter</button>
+					<button class="btn btn-danger ps-3 pe-3 pt-2 pb-2 w-100" (click)="clearFilter()"
+						style="border-radius: 8px; color: #fff" type="button">Reset Filter</button>
 				</div>
 				<!-- <div class="col-12">
 					<button class="btn btn-danger ps-3 pe-3 pt-2 pb-2 w-100" (click)="resetFilter()" style="border-radius: 8px; color: #fff" type="button">Clear & Close Filter</button>
@@ -334,17 +402,3 @@
 		</form>
 	</p-dialog>
 </div>
-
-<p-dialog [(visible)]="restrict" [style]="{ width: '30vw' }" [draggable]="false" [resizable]="false" class="restrictionDialog" [breakpoints]="{ '960px': '30vw', '959px': '60vw', '425px': '90vw' }" (onHide)="clearRestriction()">
-	<div *ngIf="ehitlabelIsShow" class="text-center mt-5 mb-4">
-		<img src="../../../uniprep-assets/images/smartloack.png" class="image" width="60" />
-		<h3 class="offer">Upgrade Required</h3>
-		<p>To access this exclusive module,please upgrade your plan now</p>
-		<button pButton type="button" class="text-white p-ripple p-button-rounded p-button-warning p-button p-component p-2" (click)="upgradePlan()">Upgrade Plan<i class="fa fa-arrow-right exhausted-plan-icon"></i></button>
-	</div>
-	<div *ngIf="!ehitlabelIsShow" class="text-center mt-5 mb-4">
-		<img src="{{ orglogowhitelabel }}" class="image" width="60" />
-		<h3 class="offer">Upgrade Required</h3>
-		<p>Please contact {{ orgnamewhitlabel }} Company for access</p>
-	</div>
-</p-dialog>

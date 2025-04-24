@@ -19,6 +19,7 @@ import { SelectModule } from 'primeng/select';
 import { InputGroupModule } from 'primeng/inputgroup';
 import { InputTextModule } from 'primeng/inputtext';
 import { InputGroupAddonModule } from 'primeng/inputgroupaddon';
+import { RestrictionDialogComponent } from "src/app/shared/restriction-dialog/restriction-dialog.component"
 interface JobRole {
 	id: number
 	jobrole: string
@@ -61,10 +62,10 @@ interface Country {
 	templateUrl: "./career-growth-checker.component.html",
 	styleUrls: ["./career-growth-checker.component.scss"],
 	standalone: true,
-  imports: [CommonModule, DialogModule, RouterModule, CardModule, PaginatorModule, FormsModule, ReactiveFormsModule, CarouselModule, ButtonModule, MultiSelectModule, SelectModule, InputGroupModule, InputTextModule, InputGroupAddonModule]
+	imports: [CommonModule, DialogModule, RouterModule, CardModule, PaginatorModule, FormsModule, ReactiveFormsModule, CarouselModule, ButtonModule, MultiSelectModule, SelectModule, InputGroupModule, InputTextModule, InputGroupAddonModule, RestrictionDialogComponent]
 })
 export class CareerGrowthCheckerComponent implements OnInit {
-	constructor(private careerGrowthService: CareerGrowthService, private router: Router, private fb: FormBuilder, private authService: AuthService, private locationService: LocationService) {}
+	constructor(private careerGrowthService: CareerGrowthService, private router: Router, private fb: FormBuilder, private authService: AuthService, private locationService: LocationService) { }
 
 	options: JobRole[] = []
 	jobDetails: JobDetail[] = []
@@ -90,15 +91,7 @@ export class CareerGrowthCheckerComponent implements OnInit {
 		this.locationService.getImage().subscribe((imageUrl) => {
 			this.orglogowhitelabel = imageUrl
 		})
-		this.locationService.getOrgName().subscribe((orgname) => {
-			this.orgnamewhitlabel = orgname
-		})
-		this.imagewhitlabeldomainname = window.location.hostname
-		if (this.imagewhitlabeldomainname === "*.uniprep.ai" || this.imagewhitlabeldomainname === "dev-student.uniprep.ai" || this.imagewhitlabeldomainname === "uniprep.ai" || this.imagewhitlabeldomainname === "localhost") {
-			this.ehitlabelIsShow = true
-		} else {
-			this.ehitlabelIsShow = false
-		}
+
 		this.checkForm = this.fb.group({
 			jobSearch: [""],
 			country: [""],
@@ -232,7 +225,7 @@ export class CareerGrowthCheckerComponent implements OnInit {
 			this.invalidClassCountry = false
 			this.careerGrowthService.GetProgressionDetails(data).subscribe((res) => {
 
-			 
+
 				if (res.progressionNames != null) {
 					this.showSearch = false
 					this.showResult = true
@@ -290,10 +283,5 @@ export class CareerGrowthCheckerComponent implements OnInit {
 			}
 		})
 	}
-	upgradePlan(): void {
-		this.router.navigate(["/pages/subscriptions"])
-	}
-	clearRestriction() {
-		this.restrict = false
-	}
+
 }

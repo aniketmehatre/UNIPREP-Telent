@@ -8,21 +8,23 @@
 				<div class="select-title d-flex justify-content-between align-items-center">
 					<div>
 						<h5 class="w-100 mb-0" tooltipPosition="top"
-							pTooltip="Plan your career path by exploring job opportunities worldwide">Career Tools -> Career Planner<i
-								class="questiontooltip fa-solid fa-circle-question"></i></h5>
+							pTooltip="Plan your career path by exploring job opportunities worldwide">Career Tools ->
+							Career Planner<i class="questiontooltip fa-solid fa-circle-question"></i></h5>
 					</div>
 					<div>
-						<button pButton  class="how-it-works-button" severity="warn"  (click)="openVideoPopup('https://www.youtube.com/embed/jG3wFxF8zZI?si=2I3dijKIH-aEisoS')">How
+						<button pButton class="how-it-works-button" severity="warn"
+							(click)="openVideoPopup('https://www.youtube.com/embed/jG3wFxF8zZI?si=2I3dijKIH-aEisoS')">How
 							it works? <i class="fa-solid fa-play d-md-block d-none"></i></button>
 					</div>
 				</div>
-				<div class="flex-md-row flex-column d-flex gap-1 my-2 align-items-center justify-content-end" *ngIf="enableModule">
+				<div class="flex-md-row flex-column d-flex gap-1 my-2 align-items-center justify-content-end"
+					*ngIf="enableModule">
 					<label for="exportButton" class="text-small fw-semibold">Currency in</label>
 					<div class="d-flex align-items-center p-1 gap-1 btn-rounded" style="background-color: #ebedf2;">
-						<button pButton  class="btn btn-primary btn-rounded text-small"
+						<button pButton class="btn btn-primary btn-rounded text-small"
 							[ngClass]="{ inactiveButton: currencyButtonName == 'inr' }" (click)="toggleClass('Dollar')"
 							type="button">$ Dollar</button>
-						<button pButton  class="btn btn-primary text-small btn-rounded"
+						<button pButton class="btn btn-primary text-small btn-rounded"
 							[ngClass]="{ inactiveButton: currencyButtonName == 'Dollar' }" (click)="toggleClass('inr')"
 							type="button">₹ INR</button>
 					</div>
@@ -82,18 +84,20 @@
 							</div>
 						</div>
 						<div class="d-flex justify-content-between">
-							<button pButton  pButton type="button" [style.visibility]="product.id == 1 ? 'hidden' : 'visible'"
+							<button pButton pButton type="button"
+								[style.visibility]="product.id == 1 ? 'hidden' : 'visible'"
 								class="btn btn-primary btn-rounded p-1 pe-4" (click)="previous(product.id)">
 								<span class="btn-icon px-2 py-2"><i class="fa fa-arrow-left"></i></span><span
 									class="ms-2">Previous</span>
 							</button>
-							<button pButton  pButton type="button" *ngIf="product.id != 9 && !nxtOrRecommendBtn"
+							<button pButton pButton type="button" *ngIf="product.id != 9 && !nxtOrRecommendBtn"
 								class="btn btn-primary btn-rounded p-1 ps-4" (click)="next(product.id)">
 								<span class="me-2">Next</span><span class="btn-icon px-2 py-2"><i
 										class="fa fa-arrow-right"></i></span>
 							</button>
-							<button pButton  pButton type="button" *ngIf="product.id == 9 || nxtOrRecommendBtn"
-								class="btn btn-success btn-rounded p-1 ps-4" (click)="getRecommendation(product.id)" severity="success">
+							<button pButton pButton type="button" *ngIf="product.id == 9 || nxtOrRecommendBtn"
+								class="btn btn-success btn-rounded p-1 ps-4" (click)="getRecommendation(product.id)"
+								severity="success">
 								<span class="me-2">Get Recommendations</span><span class="btn-icon px-2 py-2"><i
 										class="fa fa-check-circle"></i></span>
 							</button>
@@ -135,8 +139,14 @@
 												<h5 class="text-center d-md-block d-none pt-2">{{ subItems.country_name
 													}}</h5>
 												<p class="fw-bold text-small">Average Salary</p>
-												<p class="fw-medium mb-2 text-wrap" [ngClass]="{ 'd-none': currencyButtonName == 'inr' }" [ngStyle]="{ 'font-size.px': subItems.salary.length > 19 ? 12 : 15, filter: planExpired ? 'blur(4px)' : 'blur(0px)' }">{{ subItems.salary }}</p>
-												<p class="fw-medium mb-2 text-wrap" [ngClass]="{ 'd-none': currencyButtonName == 'Dollar' }" [ngStyle]="{ 'font-size.px': subItems.salary.length > 19 ? 12 : 15, filter: planExpired ? 'blur(4px)' : 'blur(0px)' }">{{ subItems.inr_salary }}</p>
+												<p class="fw-medium mb-2 text-wrap"
+													[ngClass]="{ 'd-none': currencyButtonName == 'inr' }"
+													[ngStyle]="{ 'font-size.px': subItems.salary.length > 19 ? 12 : 15, filter: planExpired ? 'blur(4px)' : 'blur(0px)' }">
+													{{ subItems.salary }}</p>
+												<p class="fw-medium mb-2 text-wrap"
+													[ngClass]="{ 'd-none': currencyButtonName == 'Dollar' }"
+													[ngStyle]="{ 'font-size.px': subItems.salary.length > 19 ? 12 : 15, filter: planExpired ? 'blur(4px)' : 'blur(0px)' }">
+													{{ subItems.inr_salary }}</p>
 											</div>
 											<div>
 												<p class="fw-bold text-small">Top 4 Job Sites</p>
@@ -174,23 +184,11 @@
 					(onPageChange)="paginate($event)" dropdownAppendTo="body"></p-paginator>
 			</div>
 			<div class="col-md-3 text-end">
-				<button pButton  pButton type="button" class="btn btn-quit btn-rounded" (click)="resetRecommendation()">
+				<button pButton pButton type="button" class="btn btn-quit btn-rounded" (click)="resetRecommendation()">
 					Reset Recommendations<span class="btn-icon"><i class="fa-solid fa-arrow-rotate-right"></i> </span>
 				</button>
 			</div>
 		</div>
 	</div>
 </div>
-<p-dialog [(visible)]="restrict" [modal]="true" [style]="{ width: '30vw' }" [draggable]="false" [resizable]="false" class="restrictionDialog" [breakpoints]="{ '960px': '30vw', '959px': '60vw', '425px': '90vw' }" (onHide)="clearRestriction()">
-	<div *ngIf="ehitlabelIsShow" class="text-center mt-5 mb-4">
-		<img src="../../../uniprep-assets/images/smartloack.png" class="image" width="60" />
-		<h3 class="offer">Upgrade Required</h3>
-		<p>To access this exclusive module,please upgrade your plan now</p>
-		<button pButton  pButton type="button" class="text-white p-ripple p-button-rounded p-button-warning p-button p-component p-2" (click)="upgradePlan()">Upgrade Plan<i class="fa fa-arrow-right exhausted-plan-icon"></i></button>
-	</div>
-	<div *ngIf="!ehitlabelIsShow" class="text-center mt-5 mb-4">
-		<img src="../../../uniprep-assets/images/smartloack.png" class="image" width="60" />
-		<h3 class="offer">Upgrade Required</h3>
-		<p>Please contact {{ orgnamewhitlabel }} Company for access</p>
-	</div>
-</p-dialog>
+<uni-restriction-dialog *ngIf="restrict" [isShowRestrict]="restrict" (closeRestrictModal)="restrict = false" />

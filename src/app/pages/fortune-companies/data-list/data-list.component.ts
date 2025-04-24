@@ -47,25 +47,20 @@ export class FortuneCompaniesdataListsComponent implements OnInit {
     private authService: AuthService,
     private meta: Meta,
     private service: FortuneCompaniesService,
-        private dataService: DataService,
-  ) {}
+    private dataService: DataService,
+  ) { }
   SelectedCompany: any;
   ngOnInit(): void {
     this.SelectedCompany = this.prepData.companyName;
     this.getList();
     this.checkPlanExpiry();
-    this.imagewhitlabeldomainname = window.location.hostname;
-    this.ehitlabelIsShow = [
-      "dev-student.uniprep.ai",
-      "uniprep.ai",
-      "localhost",
-    ].includes(this.imagewhitlabeldomainname);
+
   }
   onShowModal(value: any) {
     let socialShare: any = document.getElementById("socialSharingList");
     socialShare.style.display = "none";
   }
-  module_id:any;
+  module_id: any;
   getList() {
     this.service
       .getfortunecompanyquestions({
@@ -75,7 +70,7 @@ export class FortuneCompaniesdataListsComponent implements OnInit {
       })
       .subscribe((response: any) => {
         this.ListData = response.data;
-        this.module_id=response.module_id;
+        this.module_id = response.module_id;
         this.totalDataCount = response.total_count;
         this.isSkeletonVisible = false;
       });
@@ -84,7 +79,7 @@ export class FortuneCompaniesdataListsComponent implements OnInit {
     this.isQuestionAnswerVisible = false;
   }
   backtoMain() {
-    this.windowChange.emit({ 
+    this.windowChange.emit({
       stage: 1,
       countryId: this.prepData.countryId,
       searchText: this.prepData.searchText
@@ -105,14 +100,6 @@ export class FortuneCompaniesdataListsComponent implements OnInit {
         this.planExpired = false;
       }
     });
-  }
-
-  upgradePlan(): void {
-    this.router.navigate(["/pages/subscriptions"]);
-  }
-
-  clearRestriction() {
-    this.restrict = false;
   }
 
   openVideoPopup(videoLink: string) {
@@ -220,7 +207,7 @@ export class FortuneCompaniesdataListsComponent implements OnInit {
       isVisible: true,
       moduleId: this.module_id,
       questionId: this.selectedQuestionData?.id,
-      countryId:this.selectedQuestionData.country_id,
+      countryId: this.selectedQuestionData.country_id,
     };
     this.dataService.openReportWindow(data);
   }

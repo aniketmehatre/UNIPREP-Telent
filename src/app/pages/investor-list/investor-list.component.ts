@@ -21,12 +21,13 @@ import { SelectModule } from 'primeng/select';
 import { InputGroupModule } from 'primeng/inputgroup';
 import { InputTextModule } from 'primeng/inputtext';
 import { InputGroupAddonModule } from 'primeng/inputgroupaddon';
+import { RestrictionDialogComponent } from 'src/app/shared/restriction-dialog/restriction-dialog.component';
 @Component({
-    selector: 'uni-investor-list',
-    templateUrl: './investor-list.component.html',
-    styleUrls: ['./investor-list.component.scss'],
-    standalone: true,
-    imports: [CommonModule, DialogModule,MultiSelectModule, FormsModule, ReactiveFormsModule, RouterModule, CardModule, PaginatorModule, CarouselModule, ButtonModule, SelectModule, InputGroupModule, InputTextModule, InputGroupAddonModule],
+  selector: 'uni-investor-list',
+  templateUrl: './investor-list.component.html',
+  styleUrls: ['./investor-list.component.scss'],
+  standalone: true,
+  imports: [CommonModule, DialogModule, MultiSelectModule, FormsModule, ReactiveFormsModule, RouterModule, CardModule, PaginatorModule, CarouselModule, ButtonModule, SelectModule, InputGroupModule, InputTextModule, InputGroupAddonModule, RestrictionDialogComponent],
 })
 export class InvestorListComponent implements OnInit {
   investorData: any[] = []
@@ -104,18 +105,6 @@ export class InvestorListComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.locationService.getImage().subscribe(imageUrl => {
-      this.orglogowhitelabel = imageUrl;
-    });
-    this.locationService.getOrgName().subscribe(orgname => {
-      this.orgnamewhitlabel = orgname;
-    });
-    this.imagewhitlabeldomainname = window.location.hostname;
-    if (this.imagewhitlabeldomainname === "*.uniprep.ai" || this.imagewhitlabeldomainname === "dev-student.uniprep.ai" || this.imagewhitlabeldomainname === "uniprep.ai" || this.imagewhitlabeldomainname === "localhost") {
-      this.ehitlabelIsShow = true;
-    } else {
-      this.ehitlabelIsShow = false;
-    }
     this.loadMultiSelectData();
     this.checkplanExpire();
     this.GetPersonalProfileData();
@@ -246,13 +235,13 @@ export class InvestorListComponent implements OnInit {
 
   loadInvestorData(isFavourite: number) {
     let data: any;
-    if(isFavourite == 1){
+    if (isFavourite == 1) {
       data = {
-        favourite : 1,
+        favourite: 1,
         page: this.page,
         perpage: this.pageSize,
       };
-    }else{
+    } else {
       data = {
         org_name: this.filterForm.value.org_name ? this.filterForm.value.org_name : '',
         org_type: this.filterForm.value.org_type ? this.filterForm.value.org_type : '',

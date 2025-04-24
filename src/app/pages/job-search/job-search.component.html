@@ -7,28 +7,32 @@
         </div>
         <div class="select-title d-flex justify-content-between align-items-center">
           <div>
-            <h5 class="w-100 mb-0" tooltipPosition="top" pTooltip="Connect with potential employers and browse job listings tailored to your skills and interests.">Job Portal<i class="questiontooltip fa-solid fa-circle-question"></i></h5>
+            <h5 class="w-100 mb-0" tooltipPosition="top"
+              pTooltip="Connect with potential employers and browse job listings tailored to your skills and interests.">
+              Job Portal<i class="questiontooltip fa-solid fa-circle-question"></i></h5>
           </div>
           <div>
-            <button pButton  (click)="openVideoPopup('https://www.youtube.com/embed/KGkYtkWJBco?si=zhZ7DLrsSycBZk-z')" class="how-it-works-button">How it works?<i class="fa-solid fa-play d-md-block d-none"></i></button>
+            <button pButton (click)="openVideoPopup('https://www.youtube.com/embed/KGkYtkWJBco?si=zhZ7DLrsSycBZk-z')"
+              class="how-it-works-button">How it works?<i class="fa-solid fa-play d-md-block d-none"></i></button>
           </div>
         </div>
         <div class="custom-button-container">
-          <button pButton  
-            class="btn btn-primary text-small btn-rounded p-3" 
-            type="submit" 
-            [ngStyle]="{ display: currentEndpoint === 'job-tracker' ? 'block' : 'none', padding: '5px' }" 
+          <button pButton class="btn btn-primary text-small btn-rounded p-3" type="submit"
+            [ngStyle]="{ display: currentEndpoint === 'job-tracker' ? 'block' : 'none', padding: '5px' }"
             (click)="onClickAddManually()">
             Add Manually <span class="searchIcon"><i class="fa-regular fa-add fw-bold"></i></span>
           </button>
         </div>
       </div>
-      
+
       <div class="col-md-3 text-start"></div>
       <div class="col-md-6 text-center">
         <div class="d-flex justify-content-center gap-2">
-          <button pButton  class="headerButtons" [ngClass]="{ active: currentEndpoint == 'job-search' || currentEndpoint == 'job-listing' }"  type="button" (click)="headerMenuClick('job-search')">Job Search</button>
-          <button pButton  class="headerButtons" [ngClass]="{ active: currentEndpoint == 'job-tracker' }" type="button" (click)="headerMenuClick('job-tracker')">Job Tracker</button>
+          <button pButton class="headerButtons"
+            [ngClass]="{ active: currentEndpoint == 'job-search' || currentEndpoint == 'job-listing' }" type="button"
+            (click)="headerMenuClick('job-search')">Job Search</button>
+          <button pButton class="headerButtons" [ngClass]="{ active: currentEndpoint == 'job-tracker' }" type="button"
+            (click)="headerMenuClick('job-tracker')">Job Tracker</button>
           <!-- <button pButton  class="headerButtons" [ngClass]="{ active: currentEndpoint == 'cv-builder' }" type="button" (click)="headerMenuClick('cv-builder')">CV Builder</button>
                     <button pButton  class="headerButtons" [ngClass]="{ active: currentEndpoint == 'coverletter-builder' }" type="button" (click)="headerMenuClick('coverletter-builder')">Cover Letter Builder</button> -->
         </div>
@@ -43,16 +47,4 @@
     </div>
   </div>
 </div>
-<p-dialog [(visible)]="restrict" [modal]="true" [style]="{ width: '30vw' }" [draggable]="false" [resizable]="false" class="restrictionDialog" [breakpoints]="{ '960px': '30vw', '959px': '60vw', '425px': '90vw' }" (onHide)="clearRestriction()">
-	<div *ngIf="ehitlabelIsShow" class="text-center mt-5 mb-4">
-		<img src="../../../uniprep-assets/images/smartloack.png" class="image" width="60" />
-		<h3 class="offer">Upgrade Required</h3>
-		<p>To access this exclusive module,please upgrade your plan now</p>
-		<button pButton  pButton type="button" class="text-white p-ripple p-button-rounded p-button-warning p-button p-component p-2" (click)="upgradePlan()">Upgrade Plan<i class="fa fa-arrow-right exhausted-plan-icon"></i></button>
-	</div>
-	<div *ngIf="!ehitlabelIsShow" class="text-center mt-5 mb-4">
-		<img src="../../../uniprep-assets/images/smartloack.png" class="image" width="60" />
-		<h3 class="offer">Upgrade Required</h3>
-		<p>Please contact {{ orgnamewhitlabel }} Company for access</p>
-	</div>
-</p-dialog>
+<uni-restriction-dialog *ngIf="restrict" [isShowRestrict]="restrict" (closeRestrictModal)="restrict = false" />

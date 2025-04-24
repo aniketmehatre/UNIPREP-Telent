@@ -7,12 +7,17 @@
 			<div class="col-md-12 d-flex gap-2 text-center">
 				<div class="select-title d-flex justify-content-between align-items-center">
 					<div class="d-flex gap-2">
-						<h5 routerLink="/pages/dashboard" role="button" class="mb-0" tooltipPosition="top" pTooltip=""><i class="fa-regular fa-home"></i></h5>
+						<h5 routerLink="/pages/dashboard" role="button" class="mb-0" tooltipPosition="top" pTooltip="">
+							<i class="fa-regular fa-home"></i></h5>
 						<span><i class="fa-solid fa-chevron-right"></i></span>
-						<h5 routerLink="/pages/events" role="button" class="mb-0" tooltipPosition="top" pTooltip="Within this section, you'll find information about future events hosted by international organisations.">Events</h5>
+						<h5 routerLink="/pages/events" role="button" class="mb-0" tooltipPosition="top"
+							pTooltip="Within this section, you'll find information about future events hosted by international organisations.">
+							Events</h5>
 					</div>
 					<div>
-						<button pButton class="how-it-works-button" severity="warn" (click)="openVideoPopup('https://www.youtube.com/embed/2cL3Av-rnKY?si=Ci76Usb2Hyq_BMlJ')">How it works?<i class="fa-solid fa-play d-md-block d-none"></i></button>
+						<button pButton class="how-it-works-button" severity="warn"
+							(click)="openVideoPopup('https://www.youtube.com/embed/2cL3Av-rnKY?si=Ci76Usb2Hyq_BMlJ')">How
+							it works?<i class="fa-solid fa-play d-md-block d-none"></i></button>
 					</div>
 				</div>
 			</div>
@@ -20,14 +25,17 @@
 		<div class="row justify-content-center align-items-center mt-2">
 			<div class="col-md-3 col-5 text-md-start">
 				<div class="d-flex gap-2 align-items-center">
-					<span (click)="filterPopUp()"><button pButton class="btn btn-primary text-small px-3 py-2" type="button">Filter by</button></span>
+					<span (click)="filterPopUp()"><button pButton class="btn btn-primary text-small px-3 py-2"
+							type="button">Filter by</button></span>
 					<p class="fw-seminold">Total Events - {{ activeButton == 1 ? totalcount : totalcountpost }}</p>
 				</div>
 			</div>
 			<div class="col-md-6 col-7 text-md-center text-end">
 				<div class="d-flex gap-2 justify-content-center">
-					<button pButton class="btn btn-outline-light theme-blue px-3 py-3" (click)="setActiveButton(1)" [ngStyle]="button1Style">Upcoming Events</button>
-					<button pButton class="btn btn-outline-light theme-blue px-3 py-3" (click)="setActiveButton(2)" [ngStyle]="button2Style">Past Events</button>
+					<button pButton class="btn btn-outline-light theme-blue px-3 py-3" (click)="setActiveButton(1)"
+						[ngStyle]="button1Style">Upcoming Events</button>
+					<button pButton class="btn btn-outline-light theme-blue px-3 py-3" (click)="setActiveButton(2)"
+						[ngStyle]="button2Style">Past Events</button>
 				</div>
 			</div>
 			<div class="col-md-3 col-12">
@@ -35,7 +43,9 @@
 					<p-inputGroupAddon>
 						<i class="fa-regular fa-search"></i>
 					</p-inputGroupAddon>
-					<input type="text" placeholder="Search Events Near You..." pInputText [(ngModel)]="valueNearYouFilter" (input)="performSearch($event)" (click)="searchClick()" id="searchInput" />
+					<input type="text" placeholder="Search Events Near You..." pInputText
+						[(ngModel)]="valueNearYouFilter" (input)="performSearch($event)" (click)="searchClick()"
+						id="searchInput" />
 				</p-inputGroup>
 			</div>
 		</div>
@@ -50,7 +60,8 @@
 						<div class="eventimage mb-3">
 							<img class="eventicon" src="{{ event.companylogo }}" alt="" />
 						</div>
-						<div class="d-flex mx-2 py-2 bg-primary gap-1 text-small text-white justify-content-center" style="border-radius: 10px 10px 0px 0px">
+						<div class="d-flex mx-2 py-2 bg-primary gap-1 text-small text-white justify-content-center"
+							style="border-radius: 10px 10px 0px 0px">
 							<span><i class="fa-regular fa-clock me-1"></i>{{ event.from }} - {{ event.to }}</span>
 							<span class="mx-2">|</span>
 							<span><i class="fa-regular fa-calendar me-1"></i>{{ event.date }}</span>
@@ -59,40 +70,52 @@
 
 					<div class="card-body d-flex flex-column justify-content-between">
 						<div class="row mt-1 align-items-center">
-							<h6 class="mb-4 fw-bold" tooltipPosition="top" [pTooltip]="event.eventname + '<br>Speaker - ' + event.speakername" [escape]="false">
+							<h6 class="mb-4 fw-bold" tooltipPosition="top"
+								[pTooltip]="event.eventname + '<br>Speaker - ' + event.speakername" [escape]="false">
 								{{ event.eventname.length > 27 ? event.eventname.slice(0, 100) : event.eventname }}
 							</h6>
 
 							<div class="mb-md-0 mb-2" [ngClass]="event.registered === 0 ? 'col-12' : 'col-6'">
 								<div class="d-flex align-items-center gap-2">
-									<div class="eventcountry"><img class="eventicon" src="{{ event.countrylog }}" alt="" /></div>
+									<div class="eventcountry"><img class="eventicon" src="{{ event.countrylog }}"
+											alt="" /></div>
 									<p class="small fw-semibold mb-0">{{ event.country }}</p>
 								</div>
 							</div>
 							<div class="col-6 mb-md-0 mb-2" *ngIf="event.registered === 0 ? false : true">
 								<a target="_blank">
 									<div (click)="goingEventLink(event.eventlink)">
-										<button pButton class="btn btn-primary text-small rounded-2 w-100" type="button"><i class="fa-regular fa-clock"></i>&nbsp;Event Link</button>
+										<button pButton class="btn btn-primary text-small rounded-2 w-100"
+											type="button"><i class="fa-regular fa-clock"></i>&nbsp;Event Link</button>
 									</div>
 								</a>
 							</div>
 							<div class="col-md-12 mt-3">
 								<ul class="fa-ul ms-4 mb-0 text-small">
 									<li class="py-1">
-										<span class="fa-li"><i class="fa-regular fa-users"></i></span><span>Registered Members-{{ event.registerusercount }}</span>
+										<span class="fa-li"><i class="fa-regular fa-users"></i></span><span>Registered
+											Members-{{ event.registerusercount }}</span>
 									</li>
 									<li class="py-1">
-										<span class="fa-li"><i class="fa-regular fa-microphone-stand"></i></span><span>Speaker- {{ event.speakername.length > 20 ? event.speakername.slice(0, 20) + "..." : event.speakername }}</span>
+										<span class="fa-li"><i
+												class="fa-regular fa-microphone-stand"></i></span><span>Speaker- {{
+											event.speakername.length > 20 ? event.speakername.slice(0, 20) + "..." :
+											event.speakername }}</span>
 									</li>
 									<li class="py-1">
-										<span class="fa-li"><i class="fa-regular fa-gauge-simple-min"></i></span><span>Available Slot - {{ event.registerusercount }} / {{ event.slotno }}</span>
+										<span class="fa-li"><i
+												class="fa-regular fa-gauge-simple-min"></i></span><span>Available Slot -
+											{{ event.registerusercount }} / {{ event.slotno }}</span>
 									</li>
 								</ul>
 							</div>
 						</div>
 						<div class="row">
 							<div class="col-md-12">
-								<button pButton (click)="registerButton(event)" [ngClass]="event.registered === 0 ? 'btn-primary' : 'btn-dark'" class="btn py-2 w-100 m-0" type="button"><i class="fa-solid fa-link me-2"></i>{{ event.registered === 0 ? "Register Now" : "Registered" }}</button>
+								<button pButton (click)="registerButton(event)"
+									[ngClass]="event.registered === 0 ? 'btn-primary' : 'btn-dark'"
+									class="btn py-2 w-100 m-0" type="button"><i class="fa-solid fa-link me-2"></i>{{
+									event.registered === 0 ? "Register Now" : "Registered" }}</button>
 							</div>
 						</div>
 						<!-- befor registration -->
@@ -129,25 +152,32 @@
 					</div>
 					<div class="card-body d-flex flex-column justify-content-between">
 						<div class="row mt-1 align-items-center">
-							<h6 class="mb-2 fw-bold" tooltipPosition="top" [pTooltip]="events.eventname + '<br>Speaker - ' + events.speakername" [escape]="false">
+							<h6 class="mb-2 fw-bold" tooltipPosition="top"
+								[pTooltip]="events.eventname + '<br>Speaker - ' + events.speakername" [escape]="false">
 								{{ events.eventname }}
 							</h6>
-							<p class="text-small mb-3">{{ events.eventdescription.length > 29 ? events.eventdescription.slice(0, 29) + "..." : events.eventdescription }}</p>
+							<p class="text-small mb-3">{{ events.eventdescription.length > 29 ?
+								events.eventdescription.slice(0, 29) + "..." : events.eventdescription }}</p>
 						</div>
 						<div class="row">
 							<div class="mb-md-0 mb-2 col-12">
 								<div class="d-flex align-items-center gap-2">
-									<div class="eventcountry"><img class="eventicon" src="{{ events.countrylog }}" alt="" /></div>
+									<div class="eventcountry"><img class="eventicon" src="{{ events.countrylog }}"
+											alt="" /></div>
 									<p class="small fw-semibold mb-0">{{ events.country }}</p>
 								</div>
 							</div>
 							<div class="col-md-12">
 								<ul class="fa-ul ms-4 mb-0 text-small">
 									<li class="py-1">
-										<span class="fa-li"><i class="fa-regular fa-users"></i></span><span>Registered Members-{{ events.registerusercount }}</span>
+										<span class="fa-li"><i class="fa-regular fa-users"></i></span><span>Registered
+											Members-{{ events.registerusercount }}</span>
 									</li>
 									<li class="py-1">
-										<span class="fa-li"><i class="fa-regular fa-microphone-stand"></i></span><span>Speaker- {{ events.speakername.length > 20 ? events.speakername.slice(0, 20) + "..." : events.speakername }}</span>
+										<span class="fa-li"><i
+												class="fa-regular fa-microphone-stand"></i></span><span>Speaker- {{
+											events.speakername.length > 20 ? events.speakername.slice(0, 20) + "..." :
+											events.speakername }}</span>
 									</li>
 								</ul>
 							</div>
@@ -164,19 +194,7 @@
               </div> -->
 		</div>
 	</div>
-	<p-dialog [(visible)]="restrict" [modal]="true" [style]="{ width: '30vw' }" [draggable]="false" [resizable]="false" class="restrictionDialog" [breakpoints]="{ '960px': '30vw', '959px': '60vw', '425px': '90vw' }" (onHide)="clearRestriction()">
-		<div *ngIf="ehitlabelIsShow" class="text-center mt-5 mb-4">
-			<img src="../../../uniprep-assets/images/smartloack.png" class="image" width="60" />
-			<h3 class="offer">Upgrade Required</h3>
-			<p>To access this exclusive module,please upgrade your plan now</p>
-			<button pButton pButton type="button" class="text-white p-ripple p-button-rounded p-button-warning p-button p-component p-2" (click)="upgradePlan()">Upgrade Plan<i class="fa fa-arrow-right exhausted-plan-icon"></i></button>
-		</div>
-		<div *ngIf="!ehitlabelIsShow" class="text-center mt-5 mb-4">
-			<img src="{{ orglogowhitelabel }}" class="image" width="60" />
-			<h3 class="offer">Upgrade Required</h3>
-			<p>Please contact {{ orgnamewhitlabel }} Company for access</p>
-		</div>
-	</p-dialog>
+	<uni-restriction-dialog *ngIf="restrict" [isShowRestrict]="restrict" (closeRestrictModal)="restrict = false" />
 	<!-- <div *ngIf="planExpired" class="event-expired">
 		<div class="row justify-content-center">
 			<div class="col-md-2 text-start"></div>
@@ -199,8 +217,10 @@
 		</div>
 	</div> -->
 	<div class="card-footer py-0 border-0 bg-transparent">
-		<p-paginator *ngIf="upcomingevent" [rows]="10" [totalRecords]="totalcount" (onPageChange)="paginate($event)" [rowsPerPageOptions]="[10, 50, 100, 200]" dropdownAppendTo="body"></p-paginator>
-		<p-paginator *ngIf="postevent" [rows]="10" [totalRecords]="totalcountpost" (onPageChange)="paginatepost($event)" [rowsPerPageOptions]="[10, 50, 100, 200]" dropdownAppendTo="body"></p-paginator>
+		<p-paginator *ngIf="upcomingevent" [rows]="10" [totalRecords]="totalcount" (onPageChange)="paginate($event)"
+			[rowsPerPageOptions]="[10, 50, 100, 200]" dropdownAppendTo="body"></p-paginator>
+		<p-paginator *ngIf="postevent" [rows]="10" [totalRecords]="totalcountpost" (onPageChange)="paginatepost($event)"
+			[rowsPerPageOptions]="[10, 50, 100, 200]" dropdownAppendTo="body"></p-paginator>
 	</div>
 </div>
 
@@ -211,7 +231,8 @@
 			<div class="modal-content" style="margin-top: 50% !important">
 				<div class="modal-header flex justify-content-between">
 					<h4 class="modal-title">Filter Events</h4>
-					<span style="cursor: pointer; color: #3f4c83"><i (click)="closenewfilePopup()" class="fa-solid fa-circle-xmark fa-2x"></i></span>
+					<span style="cursor: pointer; color: #3f4c83"><i (click)="closenewfilePopup()"
+							class="fa-solid fa-circle-xmark fa-2x"></i></span>
 				</div>
 				<div class="modal-body">
 					<div class="row">
@@ -221,7 +242,8 @@
 									<label class="fw-semibold h5">Filter by Date</label>
 									<div class="form-group">
 										<div class="mb-3">
-											<input placeholder="Start date" type="date" formControlName="from" class="form-control paddingfive w-100" />
+											<input placeholder="Start date" type="date" formControlName="from"
+												class="form-control paddingfive w-100" />
 										</div>
 									</div>
 								</div>
@@ -229,7 +251,8 @@
 									<div class="form-group">
 										<label class="form-label"></label>
 										<div class="mb-3">
-											<input placeholder="End date" type="date" formControlName="to" class="form-control paddingfive w-100" />
+											<input placeholder="End date" type="date" formControlName="to"
+												class="form-control paddingfive w-100" />
 											<div *ngIf="filterform.hasError('dateRange')" class="text-danger">
 												{{ filterform.getError("dateRange") }}
 											</div>
@@ -243,7 +266,9 @@
 						<div class="col-12">
 							<div class="form-group">
 								<label class="fw-semibold h5">Filter by Country</label>
-								<p-multiselect [options]="countries" class="mt-2" formControlName="country" optionValue="id" optionLabel="country" placeholder="Select Cities" styleClass="w-100" [filter]="true" />
+								<p-multiselect [options]="countries" class="mt-2" formControlName="country"
+									optionValue="id" optionLabel="country" placeholder="Select Cities"
+									styleClass="w-100" [filter]="true" />
 
 								<!-- <p-select class="mt-2" placeholder="Select one or more countries" formControlName="country" [options]="countries" optionValue="id" optionLabel="country" styleClass="w-100" [filter]="true"></p-select> -->
 							</div>
@@ -251,7 +276,8 @@
 					</div>
 					<div class="d-flex justify-content-center gap-2 mt-3">
 						<button pButton type="submit" class="btn btn-primary btn-rounded">Apply Filter</button>
-						<button pButton type="button" (click)="resetFilter()" class="btn btn-danger btn-rounded">Reset Filter</button>
+						<button pButton type="button" (click)="resetFilter()" class="btn btn-danger btn-rounded">Reset
+							Filter</button>
 					</div>
 				</div>
 			</div>

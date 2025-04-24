@@ -24,39 +24,41 @@ import { GlobalEmploymentComponent } from "./global-employment-insights.componen
 import { GlobalEmploymentDataListComponent } from "./data-list/data-list.component";
 import { GlobalEmploymentCountryListsComponent } from "./global-employment-insights-countries/global-employment-insights-countrylist.component";
 import { GlobalEmploymentRoutingModule } from "./global-employment-insights-routing.module";
+import { RestrictionDialogComponent } from "src/app/shared/restriction-dialog/restriction-dialog.component";
 @NgModule({
   declarations: [
     GlobalEmploymentComponent,
     GlobalEmploymentDataListComponent,
     GlobalEmploymentCountryListsComponent
-    ],
-    imports: [
-        CommonModule,
-        InputTextModule,
-        CarouselModule,
-        ButtonModule,
-        ReactiveFormsModule,
-        GlobalEmploymentRoutingModule,
-        FormsModule,
-        DropdownModule,
-        EditorModule,
-        SidebarModule,
-        CardModule,
-        SplitButtonModule,
-        ReactiveFormsModule,
-        PipesModule,
-        PaginatorModule,
-        SlickCarouselModule,
-        StepsModule,
-        PdfViewerModule,
-        ConfirmPopupModule,
-        DialogModule,
-        SharedModule,
-        TooltipModule,
-        SkeletonModule,
-        AutoCompleteModule,
-    ],
+  ],
+  imports: [
+    CommonModule,
+    InputTextModule,
+    CarouselModule,
+    ButtonModule,
+    ReactiveFormsModule,
+    GlobalEmploymentRoutingModule,
+    FormsModule,
+    DropdownModule,
+    EditorModule,
+    SidebarModule,
+    CardModule,
+    SplitButtonModule,
+    ReactiveFormsModule,
+    PipesModule,
+    PaginatorModule,
+    SlickCarouselModule,
+    StepsModule,
+    PdfViewerModule,
+    ConfirmPopupModule,
+    DialogModule,
+    SharedModule,
+    TooltipModule,
+    SkeletonModule,
+    AutoCompleteModule,
+    RestrictionDialogComponent
+  ],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
   providers: [ConfirmationService]
 })
-export class GlobalEmploymentModule{ }
+export class GlobalEmploymentModule { }

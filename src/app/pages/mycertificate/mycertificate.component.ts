@@ -10,12 +10,13 @@ import { LocationService } from "src/app/location.service"
 import { CommonModule } from "@angular/common"
 import { DialogModule } from "primeng/dialog"
 import { StorageService } from "../../storage.service"
+import { RestrictionDialogComponent } from "src/app/shared/restriction-dialog/restriction-dialog.component"
 @Component({
 	selector: "uni-mycertificate",
 	templateUrl: "./mycertificate.component.html",
 	styleUrls: ["./mycertificate.component.scss"],
 	standalone: true,
-	imports: [CommonModule, DialogModule, RouterModule],
+	imports: [CommonModule, DialogModule, RouterModule, RestrictionDialogComponent],
 })
 export class MycertificateComponent implements OnInit {
 	certificatesList: any[] = []
@@ -31,21 +32,9 @@ export class MycertificateComponent implements OnInit {
 	imagewhitlabeldomainname: any
 	orgnamewhitlabel: any
 	orglogowhitelabel: any
-	constructor(private service: MycertificateserviceService, private router: Router, private authService: AuthService, private dataService: DataService, private meta: Meta, private toast: MessageService, private route: ActivatedRoute, private pageFacade: PageFacadeService, private locationService: LocationService, private storage: StorageService) {}
+	constructor(private service: MycertificateserviceService, private router: Router, private authService: AuthService, private dataService: DataService, private meta: Meta, private toast: MessageService, private route: ActivatedRoute, private pageFacade: PageFacadeService, private locationService: LocationService, private storage: StorageService) { }
 
 	ngOnInit(): void {
-		this.locationService.getImage().subscribe((imageUrl) => {
-			this.orglogowhitelabel = imageUrl
-		})
-		this.locationService.getOrgName().subscribe((orgname) => {
-			this.orgnamewhitlabel = orgname
-		})
-		this.imagewhitlabeldomainname = window.location.hostname
-		if (this.imagewhitlabeldomainname === "*.uniprep.ai" || this.imagewhitlabeldomainname === "dev-student.uniprep.ai" || this.imagewhitlabeldomainname === "uniprep.ai" || this.imagewhitlabeldomainname === "localhost") {
-			this.ehitlabelIsShow = true
-		} else {
-			this.ehitlabelIsShow = false
-		}
 		this.dataService.countryNameSource.subscribe((data) => {
 			this.countryname = data
 		})

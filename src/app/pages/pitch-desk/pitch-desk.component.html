@@ -4,34 +4,47 @@
 			<div class="col-12">
 				<div class="select-title d-flex justify-content-between align-items-center">
 					<div class="d-flex gap-2">
-						<h5 routerLink="/pages/dashboard" role="button" class="mb-0" tooltipPosition="top" pTooltip=""><i class="fa-regular fa-home"></i></h5>
+						<h5 routerLink="/pages/dashboard" role="button" class="mb-0" tooltipPosition="top" pTooltip="">
+							<i class="fa-regular fa-home"></i></h5>
 						<span><i class="fa-solid fa-chevron-right"></i></span>
-						<h5 role="button" class="mb-0" tooltipPosition="top" pTooltip="Create compelling pitch presentations to attract investors and partners.">Pitch Deck</h5>
+						<h5 role="button" class="mb-0" tooltipPosition="top"
+							pTooltip="Create compelling pitch presentations to attract investors and partners.">Pitch
+							Deck</h5>
 					</div>
 					<div>
-						<button pButton class="how-it-works-button" severity="warn" (click)="openVideoPopup('https://www.youtube.com/embed/u70WnIHLx5s?si=AwnqCGqZEVwJ4ryL')">How it works?<i class="fa-solid fa-play d-md-block d-none"></i></button>
+						<button pButton class="how-it-works-button" severity="warn"
+							(click)="openVideoPopup('https://www.youtube.com/embed/u70WnIHLx5s?si=AwnqCGqZEVwJ4ryL')">How
+							it works?<i class="fa-solid fa-play d-md-block d-none"></i></button>
 					</div>
 				</div>
 			</div>
 			<div class="col-12">
 				<div class="d-flex justify-content-between mt-2 gap-1">
-					<button pButton *ngIf="ehitlabelIsShow" class="btn btn-secondary text-small btn-rounded flex-fill" (click)="buyCredits()" type="button">Buy Credits</button>
-					<button pButton class="btn btn-outline-primary text-small btn-rounded d-flex gap-2 align-items-center flex-fill" (click)="exportData()" type="button">
+					<button pButton *ngIf="ehitlabelIsShow" class="btn btn-secondary text-small btn-rounded flex-fill"
+						(click)="buyCredits()" type="button">Buy Credits</button>
+					<button pButton
+						class="btn btn-outline-primary text-small btn-rounded d-flex gap-2 align-items-center flex-fill"
+						(click)="exportData()" type="button">
 						Export <span class="btn-icon text-white">{{ exportCreditCount }}</span>
 					</button>
-					<button pButton class="btn btn-secondary text-small flex-fill" (click)="openReport()" type="button"><i class="fa-solid fa-circle-exclamation"></i></button>
-					<button pButton class="btn btn-gray text-small flex-fill" (click)="closeGuidelines()" type="button"><i class="fa-solid fa-graduation-cap"></i></button>
+					<button pButton class="btn btn-secondary text-small flex-fill" (click)="openReport()"
+						type="button"><i class="fa-solid fa-circle-exclamation"></i></button>
+					<button pButton class="btn btn-gray text-small flex-fill" (click)="closeGuidelines()"
+						type="button"><i class="fa-solid fa-graduation-cap"></i></button>
 					<button pButton class="btn btn-primary text-small flex-fill" (click)="viewFav()" type="button">
 						<i class="fa-solid fa-bookmark"></i><span class="ms-2">({{ favCount }})</span>
 					</button>
-					<button pButton class="btn btn-primary text-small flex-fill" (click)="filterBy()" type="button"><i class="fa-solid fa-bars-filter"></i></button>
+					<button pButton class="btn btn-primary text-small flex-fill" (click)="filterBy()" type="button"><i
+							class="fa-solid fa-bars-filter"></i></button>
 				</div>
 			</div>
 			<div class="col-12 mt-2">
 				<div class="d-flex justify-content-between align-items-center">
 					<div class="d-flex gap-2 align-items-center">
-						<input type="checkbox" class="me-0" [(ngModel)]="selectAllCheckboxes" (change)="selectAllCheckbox()" id="selectAllcheckbox" />
-						<label class="text-small fw-semibold" for="selectAllcheckbox" style="cursor: pointer">Select All</label>
+						<input type="checkbox" class="me-0" [(ngModel)]="selectAllCheckboxes"
+							(change)="selectAllCheckbox()" id="selectAllcheckbox" />
+						<label class="text-small fw-semibold" for="selectAllcheckbox" style="cursor: pointer">Select
+							All</label>
 						<span class="text-small fw-semibold">Selected : {{ selectedCheckboxCount }}</span>
 					</div>
 					<span class="text-muted fw-semibold text-small">Total Pitch Decks : {{ totalPitchDeckCount }}</span>
@@ -42,7 +55,8 @@
 					<p-inputgroup-addon>
 						<i class="fa fa-search"></i>
 					</p-inputgroup-addon>
-					<input pInputText type="text" placeholder="Search in Pitch Deck List" [(ngModel)]="valueNearYouFilter" (keyup)="performSearch()" />
+					<input pInputText type="text" placeholder="Search in Pitch Deck List"
+						[(ngModel)]="valueNearYouFilter" (keyup)="performSearch()" />
 				</p-inputgroup>
 			</div>
 		</div>
@@ -55,12 +69,17 @@
 			<div class="col-md-12 d-flex flex-md-row flex-column gap-2 text-center">
 				<div class="select-title d-flex justify-content-between align-items-center">
 					<div class="d-flex gap-2">
-						<h5 routerLink="/pages/dashboard" role="button" class="mb-0" tooltipPosition="top" pTooltip=""><i class="fa-regular fa-home"></i></h5>
+						<h5 routerLink="/pages/dashboard" role="button" class="mb-0" tooltipPosition="top" pTooltip="">
+							<i class="fa-regular fa-home"></i></h5>
 						<span><i class="fa-solid fa-chevron-right"></i></span>
-						<h5 role="button" class="mb-0" tooltipPosition="top" pTooltip="Create compelling pitch presentations to attract investors and partners.">Pitch Deck</h5>
+						<h5 role="button" class="mb-0" tooltipPosition="top"
+							pTooltip="Create compelling pitch presentations to attract investors and partners.">Pitch
+							Deck</h5>
 					</div>
 					<div>
-						<button pButton class="how-it-works-button" severity="warn" (click)="openVideoPopup('https://www.youtube.com/embed/u70WnIHLx5s?si=AwnqCGqZEVwJ4ryL')">How it works?<i class="fa-solid fa-play d-md-block d-none"></i></button>
+						<button pButton class="how-it-works-button" severity="warn"
+							(click)="openVideoPopup('https://www.youtube.com/embed/u70WnIHLx5s?si=AwnqCGqZEVwJ4ryL')">How
+							it works?<i class="fa-solid fa-play d-md-block d-none"></i></button>
 					</div>
 				</div>
 				<span class="d-flex justify-content-end align-items-center gap-2">
@@ -70,10 +89,17 @@
 						</p-inputgroup-addon>
 						<input pInputText type="text" placeholder="Search in Pitch Deck List" [(ngModel)]="valueNearYouFilter" (input)="performSearch()" />
 					</div> -->
-					<button pButton class="btn btn-primary text-small pitchdeck-guidlines" (click)="closeGuidelines()" type="button"><span class="d-md-block d-none">Pitch Deck Guidelines</span><i class="fa-solid fa-book d-md-none d-block"></i></button>
-					<button pButton *ngIf="ehitlabelIsShow" class="btn btn-primary text-small" (click)="buyCredits()" type="button"><span class="d-md-block d-none">Buy Credits</span><i class="fa-solid fa-dollar d-md-none d-block"></i></button>
-					<button pButton class="btn btn-primary text-small d-flex align-items-center exportButton" (click)="exportData()" type="button">
-						<span class="d-md-block d-none">Export</span><i class="fa-solid fa-file-export d-md-none d-block"></i> <span class="exportCount">{{ exportCreditCount }}</span>
+					<button pButton class="btn btn-primary text-small pitchdeck-guidlines" (click)="closeGuidelines()"
+						type="button"><span class="d-md-block d-none">Pitch Deck Guidelines</span><i
+							class="fa-solid fa-book d-md-none d-block"></i></button>
+					<button pButton *ngIf="ehitlabelIsShow" class="btn btn-primary text-small" (click)="buyCredits()"
+						type="button"><span class="d-md-block d-none">Buy Credits</span><i
+							class="fa-solid fa-dollar d-md-none d-block"></i></button>
+					<button pButton class="btn btn-primary text-small d-flex align-items-center exportButton"
+						(click)="exportData()" type="button">
+						<span class="d-md-block d-none">Export</span><i
+							class="fa-solid fa-file-export d-md-none d-block"></i> <span class="exportCount">{{
+							exportCreditCount }}</span>
 					</button>
 				</span>
 			</div>
@@ -85,24 +111,32 @@
 								<p-inputgroup-addon>
 									<i class="fa fa-search"></i>
 								</p-inputgroup-addon>
-								<input pInputText type="text" placeholder="Search in Pitch Deck List" [(ngModel)]="valueNearYouFilter" (keyup)="performSearch()" />
+								<input pInputText type="text" placeholder="Search in Pitch Deck List"
+									[(ngModel)]="valueNearYouFilter" (keyup)="performSearch()" />
 							</p-inputgroup>
 						</div>
 						<span class="d-flex justify-content-start p-2">
-							<input type="checkbox" [(ngModel)]="selectAllCheckboxes" (change)="selectAllCheckbox()" id="selectAllcheckbox" style="cursor: pointer" />
+							<input type="checkbox" [(ngModel)]="selectAllCheckboxes" (change)="selectAllCheckbox()"
+								id="selectAllcheckbox" style="cursor: pointer" />
 							<label class="p-2" for="selectAllcheckbox" style="cursor: pointer">Select All</label>
 							<span class="p-2">Selected : {{ selectedCheckboxCount }}</span>
 						</span>
-						<button pButton class="btn btn-primary text-small ps-3 pe-3 pt-2 pb-2 br-8 p-1" style="border-radius: 20px !important" (click)="viewFav()" type="button">{{ viewFavourites ? "Remove " : "View " }} Favourites ({{ favCount }})</button>
+						<button pButton class="btn btn-primary text-small ps-3 pe-3 pt-2 pb-2 br-8 p-1"
+							style="border-radius: 20px !important" (click)="viewFav()" type="button">{{ viewFavourites ?
+							"Remove " : "View " }} Favourites ({{ favCount }})</button>
 					</div>
 					<div class="d-flex gap-2 align-items-center">
-						<button pButton class="btn btn-primary text-small ps-3 pe-3 pt-2 pb-2 br-8 p-1" style="background-color: #ff9113 !important" (click)="openReport()" type="button"><span class="d-md-block d-none">Report</span><i class="fa-solid fa-circle-exclamation d-md-none d-block"></i></button>
+						<button pButton class="btn btn-primary text-small ps-3 pe-3 pt-2 pb-2 br-8 p-1"
+							style="background-color: #ff9113 !important" (click)="openReport()" type="button"><span
+								class="d-md-block d-none">Report</span><i
+								class="fa-solid fa-circle-exclamation d-md-none d-block"></i></button>
 						<div class="pe-2">
-							<span class="text-muted text-small"
-								><strong>Total Pitch Deck : {{ totalPitchDeckCount }}</strong></span
-							>
+							<span class="text-muted text-small"><strong>Total Pitch Deck : {{ totalPitchDeckCount
+									}}</strong></span>
 						</div>
-						<button pButton class="btn btn-primary text-small ps-3 pe-3 pt-2 pb-2 br-8 p-1" (click)="filterBy()" type="button"><span class="d-md-block d-none">Filter By</span><i class="fa-solid fa-filters d-md-none d-block"></i></button>
+						<button pButton class="btn btn-primary text-small ps-3 pe-3 pt-2 pb-2 br-8 p-1"
+							(click)="filterBy()" type="button"><span class="d-md-block d-none">Filter By</span><i
+								class="fa-solid fa-filters d-md-none d-block"></i></button>
 					</div>
 				</div>
 			</div>
@@ -112,7 +146,8 @@
 		<div class="container-fluid" *ngIf="!restrict">
 			<div class="row">
 				<div *ngFor="let pitchDeskListData of pitchDeskList" class="col-md-3 col-12 mb-3">
-					<div class="card deskcard text-start h-100" [ngClass]="{ selected: pitchDeskListData.isChecked === 1 }">
+					<div class="card deskcard text-start h-100"
+						[ngClass]="{ selected: pitchDeskListData.isChecked === 1 }">
 						<div class="card-body">
 							<div class="d-flex justify-content-between">
 								<div class="d-flex gap-2 justify-content-start align-items-center">
@@ -120,18 +155,24 @@
 										<img class="img-responsive" [src]="pitchDeskListData.image_name" />
 									</div>
 									<div class="d-flex flex-column overflow-hidden">
-										<a (click)="showPdf(pitchDeskListData.document_name, pitchDeskListData.pitchdeck_name)" style="cursor: pointer">
+										<a (click)="showPdf(pitchDeskListData.document_name, pitchDeskListData.pitchdeck_name)"
+											style="cursor: pointer">
 											<h5 class="mb-0 fw-bold text-truncate uniprep-primary position-relative">
 												{{ pitchDeskListData.pitchdeck_name }}
-												<span class="linkicon"><i class="fa-solid fa-arrow-up-right-from-square text-small"></i></span>
+												<span class="linkicon"><i
+														class="fa-solid fa-arrow-up-right-from-square text-small"></i></span>
 											</h5>
 										</a>
-										<h4 class="fw-bold mb-0 text-truncate">{{ pitchDeskListData.funding_amount }}</h4>
+										<h4 class="fw-bold mb-0 text-truncate">{{ pitchDeskListData.funding_amount }}
+										</h4>
 									</div>
 								</div>
 								<div class="d-flex justify-content-between align-items-center">
-									<i [class]="pitchDeskListData.favourite == 1 ? 'fa-solid fa-bookmark' : 'fa-regular fa-bookmark'" (click)="bookmarkQuestion(pitchDeskListData.id, pitchDeskListData.favourite)" style="color: #e90707" class="favIcon"></i>
-									<input type="checkbox" [checked]="pitchDeskListData.isChecked === 1" (change)="onCheckboxChange($event, pitchDeskListData)" />
+									<i [class]="pitchDeskListData.favourite == 1 ? 'fa-solid fa-bookmark' : 'fa-regular fa-bookmark'"
+										(click)="bookmarkQuestion(pitchDeskListData.id, pitchDeskListData.favourite)"
+										style="color: #e90707" class="favIcon"></i>
+									<input type="checkbox" [checked]="pitchDeskListData.isChecked === 1"
+										(change)="onCheckboxChange($event, pitchDeskListData)" />
 								</div>
 							</div>
 							<div class="d-flex justify-content-between mt-2 mb-1">
@@ -151,7 +192,8 @@
 							<div class="d-flex justify-content-between">
 								<div class="col text-nowrap">
 									<i class="fa-solid fa-location-dot text-small HeadQuartersColor"></i>
-									<span class="text-small"> {{ pitchDeskListData.country_name }}, {{ pitchDeskListData.head_quarters_name }}</span>
+									<span class="text-small"> {{ pitchDeskListData.country_name }}, {{
+										pitchDeskListData.head_quarters_name }}</span>
 								</div>
 							</div>
 						</div>
@@ -161,25 +203,32 @@
 		</div>
 		<!-- <p-paginator *ngIf="totalPitchDeckCount != 0" [rows]="pageSize" [totalRecords]="totalPitchDeckCount" (onPageChange)="pageChange($event)" [rowsPerPageOptions]="[50, 100, 300, 500, 1000]"></p-paginator> -->
 
-		<p-dialog header="Filter Pitch Deck" [(visible)]="isFilterVisible" [modal]="true" [style]="{ width: '60rem' }" [breakpoints]="{ '1199px': '75vw', '575px': '90vw' }" [ngStyle]="{ display: isFilterVisible }">
+		<p-dialog header="Filter Pitch Deck" [(visible)]="isFilterVisible" [modal]="true" [style]="{ width: '60rem' }"
+			[breakpoints]="{ '1199px': '75vw', '575px': '90vw' }" [ngStyle]="{ display: isFilterVisible }">
 			<div class="m-5">
 				<form role="form" [formGroup]="filterForm" (ngSubmit)="getPitchDeskList()">
 					<div class="row">
 						<div class="col-md-12">
 							<div class="row">
 								<div class="col-md-6">
-									<label class="form-label" style="font-size: medium; font-weight: 500">Filter by Pitch Deck Name</label>
+									<label class="form-label" style="font-size: medium; font-weight: 500">Filter by
+										Pitch Deck Name</label>
 									<div class="form-group">
 										<div class="mb-3">
-											<input class="w-100" type="text" placeholder="Search Pitch Deck Name" formControlName="pitchdeck_name" pInputText />
+											<input class="w-100" type="text" placeholder="Search Pitch Deck Name"
+												formControlName="pitchdeck_name" pInputText />
 										</div>
 									</div>
 								</div>
 								<div class="col-md-6">
-									<label class="form-label" style="font-size: medium; font-weight: 500">Filter by Country</label>
+									<label class="form-label" style="font-size: medium; font-weight: 500">Filter by
+										Country</label>
 									<div class="form-group">
 										<div class="mb-3">
-											<p-multiSelect [options]="countrySelectBox" styleClass="w-100" formControlName="country" optionValue="id" placeholder="Select Countries" optionLabel="country" #multiSelect [appendTo]="'body'">
+											<p-multiSelect [options]="countrySelectBox" styleClass="w-100"
+												formControlName="country" optionValue="id"
+												placeholder="Select Countries" optionLabel="country" #multiSelect
+												[appendTo]="'body'">
 												<ng-template pTemplate="selectedItems">
 													{{ multiSelect.defaultLabel }}
 												</ng-template>
@@ -194,10 +243,14 @@
 						<div class="col-md-12">
 							<div class="row">
 								<div class="col-md-6">
-									<label class="form-label" style="font-size: medium; font-weight: 500">Filter by Fund Type</label>
+									<label class="form-label" style="font-size: medium; font-weight: 500">Filter by Fund
+										Type</label>
 									<div class="form-group">
 										<div class="mb-3">
-											<p-multiSelect [options]="fundingTypeSelectBox" styleClass="w-100" formControlName="funding_type" optionValue="id" placeholder="Select Fund Type" optionLabel="funding_type_name" #FundType [appendTo]="'body'">
+											<p-multiSelect [options]="fundingTypeSelectBox" styleClass="w-100"
+												formControlName="funding_type" optionValue="id"
+												placeholder="Select Fund Type" optionLabel="funding_type_name" #FundType
+												[appendTo]="'body'">
 												<ng-template pTemplate="selectedItems">
 													{{ FundType.defaultLabel }}
 												</ng-template>
@@ -206,10 +259,13 @@
 									</div>
 								</div>
 								<div class="col-md-6">
-									<label class="form-label" style="font-size: medium; font-weight: 500">Filter by Sector</label>
+									<label class="form-label" style="font-size: medium; font-weight: 500">Filter by
+										Sector</label>
 									<div class="form-group">
 										<div class="mb-3">
-											<p-multiSelect [options]="sectorSelectBox" styleClass="w-100" formControlName="sector" optionValue="id" placeholder="Select Sector" optionLabel="sector_name" #Sector [appendTo]="'body'">
+											<p-multiSelect [options]="sectorSelectBox" styleClass="w-100"
+												formControlName="sector" optionValue="id" placeholder="Select Sector"
+												optionLabel="sector_name" #Sector [appendTo]="'body'">
 												<ng-template pTemplate="selectedItems">
 													{{ Sector.defaultLabel }}
 												</ng-template>
@@ -221,8 +277,11 @@
 						</div>
 					</div>
 					<div>
-						<button pButton type="submit" class="btn btn-dark w-100" style="background-color: var(--uniprep-primary); border: none">Apply Filter</button>
-						<button pButton class="btn btn-dark w-100" (click)="clearFilter()" style="background-color: white; border-radius: 8px; color: var(--uniprep-primary); border: none" type="button">Reset Filter</button>
+						<button pButton type="submit" class="btn btn-dark w-100"
+							style="background-color: var(--uniprep-primary); border: none">Apply Filter</button>
+						<button pButton class="btn btn-dark w-100" (click)="clearFilter()"
+							style="background-color: white; border-radius: 8px; color: var(--uniprep-primary); border: none"
+							type="button">Reset Filter</button>
 					</div>
 				</form>
 			</div>
@@ -230,7 +289,10 @@
 	</div>
 	<div class="card-footer border-0 bg-transparent">
 		<div class="row d-flex align-items-center justify-content-between">
-			<p-paginator *ngIf="totalPitchDeckCount != 0" [rows]="pageSize" [totalRecords]="totalPitchDeckCount" [first]="(page - 1) * pageSize" (onPageChange)="pageChange($event)" [rowsPerPageOptions]="[50, 100, 300, 500, 1000]" [disabled]="totalPitchDeckCount <= pageSize"> </p-paginator>
+			<p-paginator *ngIf="totalPitchDeckCount != 0" [rows]="pageSize" [totalRecords]="totalPitchDeckCount"
+				[first]="(page - 1) * pageSize" (onPageChange)="pageChange($event)"
+				[rowsPerPageOptions]="[50, 100, 300, 500, 1000]" [disabled]="totalPitchDeckCount <= pageSize">
+			</p-paginator>
 		</div>
 	</div>
 </div>
@@ -240,10 +302,12 @@
 		<div class="row justify-content-center">
 			<div class="col-md-2 text-start"></div>
 			<div class="col-md-8 text-center">
-				<h5 class="select-title mb-1 text-capitalize" tooltipPosition="top" pTooltip="Pitch Deck Guidlines">PITCH DECK GUIDELINES<i class="questiontooltip fa-solid fa-circle-question"></i></h5>
+				<h5 class="select-title mb-1 text-capitalize" tooltipPosition="top" pTooltip="Pitch Deck Guidlines">
+					PITCH DECK GUIDELINES<i class="questiontooltip fa-solid fa-circle-question"></i></h5>
 			</div>
 			<div class="col-md-2 text-end d-flex align-items-center justify-content-end">
-				<button pButton class="btn-rounded btn btn-primary" aria-label="Dismiss alert" type="button" data-close (click)="closeGuidelines()">
+				<button pButton class="btn-rounded btn btn-primary" aria-label="Dismiss alert" type="button" data-close
+					(click)="closeGuidelines()">
 					<span aria-hidden="true">X</span>
 				</button>
 			</div>
@@ -254,11 +318,16 @@
 			<div class="card-body">
 				<h5>Do's</h5>
 				<ol class="lh-lg ps-3">
-					<li><strong>Use as a Template:</strong> Treat the investor decks as templates or examples to guide you in preparing your own pitch deck for potential investors.</li>
-					<li><strong>Study Industry Trends:</strong> Analyze the pitch decks of companies in your industry or similar sectors to gain insights into effective strategies and presentation styles.</li>
-					<li><strong>Tailor Content:</strong> Customize the content of your pitch deck to accurately reflect your company's unique value proposition, market opportunity, and growth potential.</li>
-					<li><strong>Highlight Key Metrics:</strong> Focus on highlighting key metrics, achievements, and milestones that demonstrate the traction and potential of your business.</li>
-					<li><strong>Seek Feedback:</strong> Share your pitch deck with mentors, advisors, or peers for feedback and suggestions on how to improve clarity, effectiveness, and impact.</li>
+					<li><strong>Use as a Template:</strong> Treat the investor decks as templates or examples to guide
+						you in preparing your own pitch deck for potential investors.</li>
+					<li><strong>Study Industry Trends:</strong> Analyze the pitch decks of companies in your industry or
+						similar sectors to gain insights into effective strategies and presentation styles.</li>
+					<li><strong>Tailor Content:</strong> Customize the content of your pitch deck to accurately reflect
+						your company's unique value proposition, market opportunity, and growth potential.</li>
+					<li><strong>Highlight Key Metrics:</strong> Focus on highlighting key metrics, achievements, and
+						milestones that demonstrate the traction and potential of your business.</li>
+					<li><strong>Seek Feedback:</strong> Share your pitch deck with mentors, advisors, or peers for
+						feedback and suggestions on how to improve clarity, effectiveness, and impact.</li>
 				</ol>
 			</div>
 		</div>
@@ -266,30 +335,28 @@
 			<div class="card-body">
 				<h5>Dont's</h5>
 				<ol class="lh-lg ps-3">
-					<li><strong>Copy Directly:</strong> Avoid copying content directly from the investor decks of other companies; instead, use them as inspiration to develop original and compelling narratives for your own pitch deck.</li>
-					<li><strong>Overlook Differentiators:</strong> Ensure your pitch deck emphasizes the unique aspects and competitive advantages of your company to differentiate yourself from others in the industry.</li>
-					<li><strong>Neglect Customization:</strong> Resist the temptation to use a one-size-fits-all approach; tailor your pitch deck to suit the preferences and expectations of your target investors.</li>
-					<li><strong>Exaggerate or Mislead:</strong> Refrain from exaggerating achievements or making unrealistic projections in your pitch deck, as this can damage credibility and trust with potential investors.</li>
-					<li><strong>Misuse Data:</strong> Do not misuse or misrepresent any data obtained from the investor decks of other companies; ensure that all information is used ethically and appropriately in accordance with data privacy regulations.</li>
+					<li><strong>Copy Directly:</strong> Avoid copying content directly from the investor decks of other
+						companies; instead, use them as inspiration to develop original and compelling narratives for
+						your own pitch deck.</li>
+					<li><strong>Overlook Differentiators:</strong> Ensure your pitch deck emphasizes the unique aspects
+						and competitive advantages of your company to differentiate yourself from others in the
+						industry.</li>
+					<li><strong>Neglect Customization:</strong> Resist the temptation to use a one-size-fits-all
+						approach; tailor your pitch deck to suit the preferences and expectations of your target
+						investors.</li>
+					<li><strong>Exaggerate or Mislead:</strong> Refrain from exaggerating achievements or making
+						unrealistic projections in your pitch deck, as this can damage credibility and trust with
+						potential investors.</li>
+					<li><strong>Misuse Data:</strong> Do not misuse or misrepresent any data obtained from the investor
+						decks of other companies; ensure that all information is used ethically and appropriately in
+						accordance with data privacy regulations.</li>
 				</ol>
 			</div>
 		</div>
 	</div>
 </div>
 
-<p-dialog [(visible)]="restrict" [style]="{ width: '30vw' }" [draggable]="false" [resizable]="false" class="restrictionDialog" [breakpoints]="{ '960px': '30vw', '959px': '60vw', '425px': '90vw' }" (onHide)="clearRestriction()">
-	<div *ngIf="ehitlabelIsShow" class="text-center mt-5 mb-4">
-		<img src="../../../uniprep-assets/images/smartloack.png" class="image" width="60" />
-		<h3 class="offer">Upgrade Required</h3>
-		<p>To access this exclusive module,please upgrade your plan now</p>
-		<button pButton pButton type="button" class="text-white p-ripple p-button-rounded p-button-warning p-button p-component p-2" (click)="upgradePlan()">Upgrade Plan<i class="fa fa-arrow-right exhausted-plan-icon"></i></button>
-	</div>
-	<div *ngIf="!ehitlabelIsShow" class="text-center mt-5 mb-4">
-		<img src="../../../uniprep-assets/images/smartloack.png" class="image" width="60" />
-		<h3 class="offer">Upgrade Required</h3>
-		<p>Please contact {{ orgnamewhitlabel }} Company for access</p>
-	</div>
-</p-dialog>
+<uni-restriction-dialog *ngIf="restrict" [isShowRestrict]="restrict" (closeRestrictModal)="restrict = false" />
 <div class="card readingcard" *ngIf="isPdfLoaded">
 	<div class="card-header border-0 bg-transparent">
 		<div class="row justify-content-center">
@@ -300,19 +367,24 @@
 					</div>
 					<div class="select-title d-flex justify-content-between align-items-center">
 						<div>
-							<h6 class="mb-0" tooltipPosition="top" pTooltip="Prepare for standardized tests and improve academic skills with practice tests and learning modules.">
+							<h6 class="mb-0" tooltipPosition="top"
+								pTooltip="Prepare for standardized tests and improve academic skills with practice tests and learning modules.">
 								{{ pdname }}
 								<i class="questiontooltip fa-solid fa-circle-question"></i>
 							</h6>
 						</div>
 						<div>
-							<button pButton class="how-it-works-button" severity="warn" (click)="openVideoPopup('https://www.youtube.com/embed/u70WnIHLx5s?si=AwnqCGqZEVwJ4ryL')">How it works?<i class="fa-solid fa-play d-md-block d-none"></i></button>
+							<button pButton class="how-it-works-button" severity="warn"
+								(click)="openVideoPopup('https://www.youtube.com/embed/u70WnIHLx5s?si=AwnqCGqZEVwJ4ryL')">How
+								it works?<i class="fa-solid fa-play d-md-block d-none"></i></button>
 						</div>
 					</div>
 				</div>
 
 				<div>
-					<button pButton class="text-white p-ripple p-button-rounded p-button-warning p-button p-component p-2" *ngIf="isPdfDownloadOption" (click)="download()">Download PDF</button>
+					<button pButton
+						class="text-white p-ripple p-button-rounded p-button-warning p-button p-component p-2"
+						*ngIf="isPdfDownloadOption" (click)="download()">Download PDF</button>
 				</div>
 			</div>
 		</div>
@@ -320,22 +392,15 @@
 	<div class="card-body text-center flex-fill overflow-y-hidden flex-column">
 		<div class="row justify-content-center h-100">
 			<div class="col-md-12 overflow-hidden">
-                <pdf-viewer
-                        [src]="pdfURL"
-                        [original-size]="true"
-                        [show-all]="true"
-                        [fit-to-page]="true"
-                        [zoom]="1.0"
-                        [autoresize]="true"
-                        [render-text]="false"
-                        [external-link-target]="'blank'"
-                        style="width: 100%; height: 100%">
-                ></pdf-viewer>
-<!--                <ng2-pdfjs-viewer #pdfViewer [pdfSrc]="pdfURL" [viewerId]="'pdf-viewer'"-->
-<!--                                  [downloadFileName]="'document.pdf'" [externalWindow]="false" [openFile]="false"-->
-<!--                                  [viewBookmark]="false" [download]="false" [fullScreen]="true" [find]="true"-->
-<!--                                  [zoom]="'page-width'" [print]="true" [startPage]="1" style="width: 100%; height: 80vh"-->
-<!--                                  (error)="onError($event)"></ng2-pdfjs-viewer>-->
+				<pdf-viewer [src]="pdfURL" [original-size]="true" [show-all]="true" [fit-to-page]="true" [zoom]="1.0"
+					[autoresize]="true" [render-text]="false" [external-link-target]="'blank'"
+					style="width: 100%; height: 100%">
+					></pdf-viewer>
+				<!--                <ng2-pdfjs-viewer #pdfViewer [pdfSrc]="pdfURL" [viewerId]="'pdf-viewer'"-->
+				<!--                                  [downloadFileName]="'document.pdf'" [externalWindow]="false" [openFile]="false"-->
+				<!--                                  [viewBookmark]="false" [download]="false" [fullScreen]="true" [find]="true"-->
+				<!--                                  [zoom]="'page-width'" [print]="true" [startPage]="1" style="width: 100%; height: 80vh"-->
+				<!--                                  (error)="onError($event)"></ng2-pdfjs-viewer>-->
 				<div *ngIf="pdfLoadError" class="alert alert-danger mt-3">
 					<p>Error loading PDF. Please try downloading the file instead.</p>
 				</div>

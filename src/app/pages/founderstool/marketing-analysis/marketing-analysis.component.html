@@ -8,11 +8,15 @@
 					</div>
 					<div class="select-title d-flex justify-content-between align-items-center">
 						<div class="d-flex gap-2">
-							<h5 routerLink="/pages/dashboard" role="button" class="mb-0" tooltipPosition="top" pTooltip=""><i class="fa-regular fa-home"></i></h5>
+							<h5 routerLink="/pages/dashboard" role="button" class="mb-0" tooltipPosition="top"
+								pTooltip=""><i class="fa-regular fa-home"></i></h5>
 							<span><i class="fa-solid fa-chevron-right"></i></span>
-							<h5 routerLink="/pages/founderstool/founderstoollist" role="button" class="mb-0" tooltipPosition="top">Founders Tool</h5>
+							<h5 routerLink="/pages/founderstool/founderstoollist" role="button" class="mb-0"
+								tooltipPosition="top">Founders Tool</h5>
 							<span><i class="fa-solid fa-chevron-right"></i></span>
-							<h5 role="button" class="mb-0" tooltipPosition="top" pTooltip="Access resources for starting your business, from ideation to execution.">Market Analysis</h5>
+							<h5 role="button" class="mb-0" tooltipPosition="top"
+								pTooltip="Access resources for starting your business, from ideation to execution.">
+								Market Analysis</h5>
 						</div>
 						<div>
 							<button pButton class="how-it-works-button" severity="warn"
@@ -21,9 +25,11 @@
 						</div>
 					</div>
 					<div class="d-flex align-items-center gap-1">
-						<button pButton  class="btn btn-outline-primary text-small btn-rounded d-flex gap-2 align-items-center flex-fill" type="button">
+						<button pButton
+							class="btn btn-outline-primary text-small btn-rounded d-flex gap-2 align-items-center flex-fill"
+							type="button">
 							AI Credit <span class="btn-icon text-white">{{ aiCreditCount }}</span>
-						  </button>
+						</button>
 						<button pButton type="button" (click)="saveRecommadation()"
 							class="btn btn-primary btn-rounded py-2 px-4">
 							<span>History</span>
@@ -34,7 +40,8 @@
 		</div>
 		<div class="card-body text-center flex-fill overflow-y-auto">
 			<form [formGroup]="marketingForm" class="mt-4">
-				<p-carousel [value]="recommendations" [numVisible]="1" [numScroll]="1" [circular]="false" [showNavigators]="false" [showIndicators]="false" [page]="activePageIndex" styleClass="h-100">
+				<p-carousel [value]="recommendations" [numVisible]="1" [numScroll]="1" [circular]="false"
+					[showNavigators]="false" [showIndicators]="false" [page]="activePageIndex" styleClass="h-100">
 					<ng-template let-recommendation let-i="index" pTemplate="item">
 						<div class="row text-center">
 							<!-- ------------------ Basic Information View -------------------- -->
@@ -46,21 +53,30 @@
 									<h5 class="uniprep-primary fw-semibold mt-3 mb-1">
 										{{ recommendation.question.branches[0] }}
 									</h5>
-									<p-select styleClass="w-100" appendTo="body" [options]="industryList" [filter]="true" formControlName="industry" filterBy="Industry" optionLabel="Industry" optionValue="Industry" placeholder="Select Industry" [autoDisplayFirst]="false"> </p-select>
-									<p class="text-center" *ngIf="marketingForm.get('industry')?.errors?.required && submitted" style="color: red">Please enter the industry type</p>
+									<p-select styleClass="w-100" appendTo="body" [options]="industryList"
+										[filter]="true" formControlName="industry" filterBy="Industry"
+										optionLabel="Industry" optionValue="Industry" placeholder="Select Industry"
+										[autoDisplayFirst]="false"> </p-select>
+									<p class="text-center"
+										*ngIf="marketingForm.get('industry')?.errors?.required && submitted"
+										style="color: red">Please enter the industry type</p>
 								</div>
 								<div class="d-flex flex-column gap-2 mb-1">
 									<h5 class="uniprep-primary fw-semibold mt-3 mb-1">
 										{{ recommendation.question.branches[1] }}
 									</h5>
-									<p-select [options]="locationList" formControlName="location" [virtualScroll]="true" [virtualScrollItemSize]="50" [appendTo]="'body'" placeholder="Select Location" [filter]="true" filterBy="city_name,country_name" [showClear]="true" styleClass="w-100">
+									<p-select [options]="locationList" formControlName="location" [virtualScroll]="true"
+										[virtualScrollItemSize]="50" [appendTo]="'body'" placeholder="Select Location"
+										[filter]="true" filterBy="city_name,country_name" [showClear]="true"
+										styleClass="w-100">
 										<ng-template let-country pTemplate="item">
 											<div class="d-flex align-items-center gap-2">
 												<div class="dropdownimg">
 													<img [src]="country.flag" class="img-fluid" />
 												</div>
 												<div>
-													<span *ngIf="country.city_name !== null"> {{ country.city_name }}, </span>{{ country.country_name }}
+													<span *ngIf="country.city_name !== null"> {{ country.city_name }},
+													</span>{{ country.country_name }}
 												</div>
 											</div>
 										</ng-template>
@@ -70,7 +86,9 @@
 													<img [src]="selectedOption.flag" class="img-fluid" />
 												</div>
 												<div>
-													<span *ngIf="selectedOption.city_name !== null"> {{ selectedOption.city_name }}, </span>{{ selectedOption.country_name }}
+													<span *ngIf="selectedOption.city_name !== null"> {{
+														selectedOption.city_name }}, </span>{{
+													selectedOption.country_name }}
 												</div>
 											</div>
 										</ng-template>
@@ -103,21 +121,33 @@
                       </div>
                   </ng-template>
                   </p-select> -->
-									<p class="text-center" *ngIf="marketingForm.get('location')?.errors?.required && submitted" style="color: red">Please Choose Any one option</p>
+									<p class="text-center"
+										*ngIf="marketingForm.get('location')?.errors?.required && submitted"
+										style="color: red">Please Choose Any one option</p>
 								</div>
 								<div class="d-flex flex-column gap-2 mb-1">
 									<h5 class="uniprep-primary fw-semibold mt-3 mb-1">
 										{{ recommendation.question.branches[2] }}
 									</h5>
-									<p-select [options]="targetMarketList" styleClass="w-100" formControlName="targetMarket" optionLabel="Target Audience" [filter]="true" filterBy="Target Audience" optionValue="Target Audience" [appendTo]="'body'" placeholder="Select Target Audience"> </p-select>
-									<p class="text-center" *ngIf="marketingForm.get('targetMarket')?.errors?.required && submitted" style="color: red">Please Choose Any one option</p>
+									<p-select [options]="targetMarketList" styleClass="w-100"
+										formControlName="targetMarket" optionLabel="Target Audience" [filter]="true"
+										filterBy="Target Audience" optionValue="Target Audience" [appendTo]="'body'"
+										placeholder="Select Target Audience"> </p-select>
+									<p class="text-center"
+										*ngIf="marketingForm.get('targetMarket')?.errors?.required && submitted"
+										style="color: red">Please Choose Any one option</p>
 								</div>
 								<div class="d-flex flex-column gap-2 mb-1">
 									<h5 class="uniprep-primary fw-semibold mt-3 mb-1">
 										{{ recommendation.question.branches[3] }}
 									</h5>
-									<p-select styleClass="w-100" formControlName="productService" appendTo="body" [options]="productServiceList" [filter]="true" filterBy="Product/Service" placeholder="Select Your Service" optionLabel="Product/Service" optionValue="Product/Service" [autoDisplayFirst]="false"> </p-select>
-									<p class="text-center" *ngIf="marketingForm.get('productService')?.errors?.required && submitted" style="color: red">Please Choose Any one option</p>
+									<p-select styleClass="w-100" formControlName="productService" appendTo="body"
+										[options]="productServiceList" [filter]="true" filterBy="Product/Service"
+										placeholder="Select Your Service" optionLabel="Product/Service"
+										optionValue="Product/Service" [autoDisplayFirst]="false"> </p-select>
+									<p class="text-center"
+										*ngIf="marketingForm.get('productService')?.errors?.required && submitted"
+										style="color: red">Please Choose Any one option</p>
 								</div>
 							</div>
 
@@ -129,22 +159,36 @@
 									<h5 class="uniprep-primary fw-semibold mt-3 mb-1">
 										{{ recommendation.question.branches[0] }}
 									</h5>
-									<p-select styleClass="w-100" placeholder="Select Business Model" [options]="businessModelList" display="chip" optionLabel="Model" appendTo="body" optionValue="Model" formControlName="businessModel"> </p-select>
-									<p class="text-center" *ngIf="marketingForm.get('businessModel')?.errors?.required && submitted" style="color: red">Please Choose Any one option</p>
+									<p-select styleClass="w-100" placeholder="Select Business Model"
+										[options]="businessModelList" display="chip" optionLabel="Model" appendTo="body"
+										optionValue="Model" formControlName="businessModel"> </p-select>
+									<p class="text-center"
+										*ngIf="marketingForm.get('businessModel')?.errors?.required && submitted"
+										style="color: red">Please Choose Any one option</p>
 								</div>
 								<div>
 									<h5 class="uniprep-primary fw-semibold mt-3 mb-1">
 										{{ recommendation.question.branches[1] }}
 									</h5>
-									<p-select styleClass="w-100" appendTo="body" placeholder="Select Sales Channels" [options]="salesChannelsList" [filter]="true" filterBy="Sales Channel" display="chip" optionLabel="Sales Channel" optionValue="Sales Channel" formControlName="salesChannel"> </p-select>
-									<p class="text-center" *ngIf="marketingForm.get('salesChannel')?.errors?.required && submitted" style="color: red">Please Choose Any one option</p>
+									<p-select styleClass="w-100" appendTo="body" placeholder="Select Sales Channels"
+										[options]="salesChannelsList" [filter]="true" filterBy="Sales Channel"
+										display="chip" optionLabel="Sales Channel" optionValue="Sales Channel"
+										formControlName="salesChannel"> </p-select>
+									<p class="text-center"
+										*ngIf="marketingForm.get('salesChannel')?.errors?.required && submitted"
+										style="color: red">Please Choose Any one option</p>
 								</div>
 								<div>
 									<h5 class="uniprep-primary fw-semibold mt-3 mb-1">
 										{{ recommendation.question.branches[2] }}
 									</h5>
-									<p-select styleClass="w-100 h-100" appendTo="body" placeholder="Select Time Frame" [filter]="true" filterBy="Analysis Duration" [options]="timeFramesList" optionLabel="Analysis Duration" optionValue="Analysis Duration" formControlName="timeFrame"> </p-select>
-									<p class="text-center" *ngIf="marketingForm.get('timeFrame')?.errors?.required && submitted" style="color: red">Please Choose Any one option</p>
+									<p-select styleClass="w-100 h-100" appendTo="body" placeholder="Select Time Frame"
+										[filter]="true" filterBy="Analysis Duration" [options]="timeFramesList"
+										optionLabel="Analysis Duration" optionValue="Analysis Duration"
+										formControlName="timeFrame"> </p-select>
+									<p class="text-center"
+										*ngIf="marketingForm.get('timeFrame')?.errors?.required && submitted"
+										style="color: red">Please Choose Any one option</p>
 								</div>
 							</div>
 							<div *ngIf="recommendation.id == 3" class="col-md-6 offset-md-3">
@@ -157,13 +201,23 @@
 									</h5>
 									<div class="w-100 d-flex gap-2 flex-fill">
 										<div>
-											<p-select formControlName="currencycode" [options]="currenciesList" [filter]="true" filterBy="currency_symbol" placeholder=" Currency" optionLabel="currency_symbol" optionValue="currency_symbol" [autoDisplayFirst]="false"> </p-select>
-											<p class="text-center" *ngIf="marketingForm.get('currencycode')?.errors?.required && submitted" style="color: red">currency required</p>
+											<p-select formControlName="currencycode" [options]="currenciesList"
+												[filter]="true" filterBy="currency_symbol" placeholder=" Currency"
+												optionLabel="currency_symbol" optionValue="currency_symbol"
+												[autoDisplayFirst]="false"> </p-select>
+											<p class="text-center"
+												*ngIf="marketingForm.get('currencycode')?.errors?.required && submitted"
+												style="color: red">currency required</p>
 										</div>
 										<div class="w-100">
-											<input class="w-100 border border-gray rounded-3" pInputText type="text" placeholder=" Budget" formControlName="budget" />
-											<p class="text-center" *ngIf="marketingForm.get('budget')?.errors?.required && submitted" style="color: red">Please choose any one option</p>
-											<p class="text-center" *ngIf="marketingForm.get('budget')?.errors?.max && !marketingForm.get('budget')?.errors?.required && submitted" style="color: red">Please give above 6 digit number</p>
+											<input class="w-100 border border-gray rounded-3" pInputText type="text"
+												placeholder=" Budget" formControlName="budget" />
+											<p class="text-center"
+												*ngIf="marketingForm.get('budget')?.errors?.required && submitted"
+												style="color: red">Please choose any one option</p>
+											<p class="text-center"
+												*ngIf="marketingForm.get('budget')?.errors?.max && !marketingForm.get('budget')?.errors?.required && submitted"
+												style="color: red">Please give above 6 digit number</p>
 										</div>
 									</div>
 								</div>
@@ -171,22 +225,37 @@
 									<h5 class="uniprep-primary fw-semibold mt-3 mb-1">
 										{{ recommendation.question.branches[1] }}
 									</h5>
-									<p-select styleClass="w-100" placeholder="Select Revenue Streams" appendTo="body" [options]="revenueStreamsList" [filter]="true" filterBy="Revenue Streams" display="chip" optionLabel="Revenue Stream" optionValue="Revenue Stream" formControlName="revenueStreams"> </p-select>
-									<p class="text-center" *ngIf="marketingForm.get('revenueStreams')?.errors?.required && submitted" style="color: red">Please Choose Any one option</p>
+									<p-select styleClass="w-100" placeholder="Select Revenue Streams" appendTo="body"
+										[options]="revenueStreamsList" [filter]="true" filterBy="Revenue Streams"
+										display="chip" optionLabel="Revenue Stream" optionValue="Revenue Stream"
+										formControlName="revenueStreams"> </p-select>
+									<p class="text-center"
+										*ngIf="marketingForm.get('revenueStreams')?.errors?.required && submitted"
+										style="color: red">Please Choose Any one option</p>
 								</div>
 								<div>
 									<h5 class="uniprep-primary fw-semibold mt-3 mb-2">
 										{{ recommendation.question.branches[2] }}
 									</h5>
-									<p-select styleClass="w-100 h-100" placeholder="Select Competitor Analysis Focus" appendTo="body" [options]="competitorList" [filter]="true" filterBy="Focus" optionLabel="Focus" optionValue="Focus" formControlName="competitorAnalysis"> </p-select>
-									<p class="text-center" *ngIf="marketingForm.get('competitorAnalysis')?.errors?.required && submitted; submitted" style="color: red">Please Choose Any one option</p>
+									<p-select styleClass="w-100 h-100" placeholder="Select Competitor Analysis Focus"
+										appendTo="body" [options]="competitorList" [filter]="true" filterBy="Focus"
+										optionLabel="Focus" optionValue="Focus" formControlName="competitorAnalysis">
+									</p-select>
+									<p class="text-center"
+										*ngIf="marketingForm.get('competitorAnalysis')?.errors?.required && submitted; submitted"
+										style="color: red">Please Choose Any one option</p>
 								</div>
 								<div>
 									<h5 class="uniprep-primary fw-semibold mt-3 mb-2">
 										{{ recommendation.question.branches[3] }}
 									</h5>
-									<p-select styleClass="w-100 h-100" placeholder="Select Forecating Period" appendTo="body" [options]="forecastingList" [filter]="true" filterBy="Forecast" optionLabel="Forecast" optionValue="Forecast" formControlName="forecast"> </p-select>
-									<p class="text-center" *ngIf="marketingForm.get('forecast')?.errors?.required && submitted; submitted" style="color: red">Please Choose Any one option</p>
+									<p-select styleClass="w-100 h-100" placeholder="Select Forecating Period"
+										appendTo="body" [options]="forecastingList" [filter]="true" filterBy="Forecast"
+										optionLabel="Forecast" optionValue="Forecast" formControlName="forecast">
+									</p-select>
+									<p class="text-center"
+										*ngIf="marketingForm.get('forecast')?.errors?.required && submitted; submitted"
+										style="color: red">Please Choose Any one option</p>
 								</div>
 							</div>
 						</div>
@@ -196,15 +265,20 @@
 		</div>
 		<div class="card-footer bg-transparent border-0">
 			<div class="d-flex justify-content-between mt-2">
-				<button pButton pButton type="button" class="btn btn-primary btn-rounded p-1 pe-4" [style.visibility]="activePageIndex == 0 ? 'hidden' : 'visible'" (click)="previous()">
+				<button pButton pButton type="button" class="btn btn-primary btn-rounded p-1 pe-4"
+					[style.visibility]="activePageIndex == 0 ? 'hidden' : 'visible'" (click)="previous()">
 					<span class="btn-icon px-2 py-2"><i class="fa fa-arrow-left"></i></span>
 					<span class="ms-2">Previous</span>
 				</button>
-				<button pButton pButton type="button" (click)="next()" *ngIf="activePageIndex <= 1" class="btn btn-primary btn-rounded p-1 ps-4">
-					<span class="me-2">Next</span><span class="btn-icon px-2 py-2"><i class="fa fa-arrow-right"></i></span>
+				<button pButton pButton type="button" (click)="next()" *ngIf="activePageIndex <= 1"
+					class="btn btn-primary btn-rounded p-1 ps-4">
+					<span class="me-2">Next</span><span class="btn-icon px-2 py-2"><i
+							class="fa fa-arrow-right"></i></span>
 				</button>
-				<button pButton pButton type="button" (click)="getRecommendation()" severity="success" *ngIf="activePageIndex == 2" class="btn btn-success btn-rounded p-1 ps-4">
-					<span class="me-2">Get Recommendations</span><span class="btn-icon px-2 py-2"> <i class="fa fa-check-circle"></i></span>
+				<button pButton pButton type="button" (click)="getRecommendation()" severity="success"
+					*ngIf="activePageIndex == 2" class="btn btn-success btn-rounded p-1 ps-4">
+					<span class="me-2">Get Recommendations</span><span class="btn-icon px-2 py-2"> <i
+							class="fa fa-check-circle"></i></span>
 				</button>
 			</div>
 		</div>
@@ -219,11 +293,15 @@
 					</div>
 					<div class="select-title d-flex justify-content-between align-items-center">
 						<div class="d-flex gap-2">
-							<h5 routerLink="/pages/dashboard" role="button" class="mb-0" tooltipPosition="top" pTooltip=""><i class="fa-regular fa-home"></i></h5>
+							<h5 routerLink="/pages/dashboard" role="button" class="mb-0" tooltipPosition="top"
+								pTooltip=""><i class="fa-regular fa-home"></i></h5>
 							<span><i class="fa-solid fa-chevron-right"></i></span>
-							<h5 routerLink="/pages/founderstool/founderstoollist" role="button" class="mb-0" tooltipPosition="top">Founders Tool</h5>
+							<h5 routerLink="/pages/founderstool/founderstoollist" role="button" class="mb-0"
+								tooltipPosition="top">Founders Tool</h5>
 							<span><i class="fa-solid fa-chevron-right"></i></span>
-							<h5 role="button" class="mb-0" tooltipPosition="top" pTooltip="Access resources for starting your business, from ideation to execution.">Market Analysis</h5>
+							<h5 role="button" class="mb-0" tooltipPosition="top"
+								pTooltip="Access resources for starting your business, from ideation to execution.">
+								Market Analysis</h5>
 						</div>
 						<div>
 							<button pButton class="how-it-works-button" severity="warn"
@@ -232,9 +310,11 @@
 						</div>
 					</div>
 					<div class="d-flex align-items-center gap-1">
-						<button pButton  class="btn btn-outline-primary text-small btn-rounded d-flex gap-2 align-items-center flex-fill" type="button">
+						<button pButton
+							class="btn btn-outline-primary text-small btn-rounded d-flex gap-2 align-items-center flex-fill"
+							type="button">
 							AI Credit <span class="btn-icon text-white">{{ aiCreditCount }}</span>
-						  </button>
+						</button>
 						<button pButton type="button" (click)="saveRecommadation()"
 							class="btn btn-primary btn-rounded py-2 px-4">
 							<span>History</span>
@@ -248,11 +328,14 @@
 				<div class="col-md-2"></div>
 				<div class="col-md-8">
 					<div class="d-flex justify-content-end gap-3 mb-3">
-						<button pButton pButton type="button" (click)="downloadRecommadation()" class="btn btn-secondary btn-rounded p-1 ps-4">
-							<span class="me-2">Download</span><span class="btn-icon px-2 py-2"> <i class="fa-regular fa-download"></i></span>
+						<button pButton pButton type="button" (click)="downloadRecommadation()"
+							class="btn btn-secondary btn-rounded p-1 ps-4">
+							<span class="me-2">Download</span><span class="btn-icon px-2 py-2"> <i
+									class="fa-regular fa-download"></i></span>
 						</button>
 					</div>
-					<div *ngIf="isResponseSkeleton; else showResponseData" class="card p-3 chatgpt-response bg-white h-100 overflow-y-auto">
+					<div *ngIf="isResponseSkeleton; else showResponseData"
+						class="card p-3 chatgpt-response bg-white h-100 overflow-y-auto">
 						<p-skeleton width='30rem' height='2rem' styleClass="mb-2"></p-skeleton>
 						<p-skeleton width='100%' height='1rem' styleClass="mb-2"></p-skeleton>
 						<p-skeleton width='100%' height='1rem' styleClass="mb-2"></p-skeleton>
@@ -269,7 +352,8 @@
 						</div>
 					</div>
 					<ng-template #showResponseData>
-						<div class="card p-3 poppins-content chatgpt-response bg-white h-100 overflow-y-auto" [innerHtml]="recommendationData"></div>
+						<div class="card p-3 poppins-content chatgpt-response bg-white h-100 overflow-y-auto"
+							[innerHtml]="recommendationData"></div>
 					</ng-template>
 				</div>
 				<div class="col-md-2"></div>
@@ -277,7 +361,8 @@
 		</div>
 		<div class="card-footer bg-transparent border-0">
 			<div class="text-end">
-				<button pButton pButton type="button" class="btn ps-3 btn-quit btn-rounded" (click)="resetRecommendation()">
+				<button pButton pButton type="button" class="btn ps-3 btn-quit btn-rounded"
+					(click)="resetRecommendation()">
 					Reset Recommendations<span class="btn-icon"><i class="fa-solid fa-arrow-rotate-right"></i> </span>
 				</button>
 			</div>
@@ -294,11 +379,15 @@
 					</div>
 					<div class="select-title d-flex justify-content-between align-items-center">
 						<div class="d-flex gap-2">
-							<h5 routerLink="/pages/dashboard" role="button" class="mb-0" tooltipPosition="top" pTooltip=""><i class="fa-regular fa-home"></i></h5>
+							<h5 routerLink="/pages/dashboard" role="button" class="mb-0" tooltipPosition="top"
+								pTooltip=""><i class="fa-regular fa-home"></i></h5>
 							<span><i class="fa-solid fa-chevron-right"></i></span>
-							<h5 routerLink="/pages/founderstool/founderstoollist" role="button" class="mb-0" tooltipPosition="top">Founders Tool</h5>
+							<h5 routerLink="/pages/founderstool/founderstoollist" role="button" class="mb-0"
+								tooltipPosition="top">Founders Tool</h5>
 							<span><i class="fa-solid fa-chevron-right"></i></span>
-							<h5 role="button" class="mb-0" tooltipPosition="top" pTooltip="Access resources for starting your business, from ideation to execution.">Market Analysis</h5>
+							<h5 role="button" class="mb-0" tooltipPosition="top"
+								pTooltip="Access resources for starting your business, from ideation to execution.">
+								Market Analysis</h5>
 						</div>
 						<div>
 							<button pButton class="how-it-works-button" severity="warn"
@@ -307,9 +396,11 @@
 						</div>
 					</div>
 					<div class="d-flex align-items-center gap-1">
-						<button pButton  class="btn btn-outline-primary text-small btn-rounded d-flex gap-2 align-items-center flex-fill" type="button">
+						<button pButton
+							class="btn btn-outline-primary text-small btn-rounded d-flex gap-2 align-items-center flex-fill"
+							type="button">
 							AI Credit <span class="btn-icon text-white">{{ aiCreditCount }}</span>
-						  </button>
+						</button>
 						<button pButton type="button" (click)="saveRecommadation()"
 							class="btn btn-primary btn-rounded py-2 px-4">
 							<span>History</span>
@@ -320,9 +411,11 @@
 		</div>
 		<div class="card-body text-center flex-fill overflow-y-auto">
 			<div class="row mb-0">
-				<div *ngFor="let item of recommadationSavedQuestionList; let i = index" class="col-lg-3 col-md-3 col-sm-4 col-xs-12 col-12 mb-3">
+				<div *ngFor="let item of recommadationSavedQuestionList; let i = index"
+					class="col-lg-3 col-md-3 col-sm-4 col-xs-12 col-12 mb-3">
 					<div class="row w-100 m-0 justify-content-center h-100">
-						<div class="card subjectcard" role="button" (click)="showRecommandationData(item.response, item.user_inputs)">
+						<div class="card subjectcard" role="button"
+							(click)="showRecommandationData(item.response, item.user_inputs)">
 							<div class="card-body text-start">
 								<h5 class="fw-bold mb-0">Market Analysis {{ i + 1 }}</h5>
 								<p class="text-small"><b>Industry : </b>{{ item.industry }}</p>
@@ -336,7 +429,8 @@
 		</div>
 		<div class="card-footer bg-transparent border-0">
 			<div class="text-end">
-				<button pButton pButton type="button" class="btn ps-3 btn-quit btn-rounded" (click)="resetRecommendation()">
+				<button pButton pButton type="button" class="btn ps-3 btn-quit btn-rounded"
+					(click)="resetRecommendation()">
 					Reset Recommendations<span class="btn-icon"><i class="fa-solid fa-arrow-rotate-right"></i> </span>
 				</button>
 			</div>
@@ -344,30 +438,4 @@
 	</ng-container>
 </div>
 
-<p-dialog [(visible)]="restrict" [style]="{ width: '30vw' }" [draggable]="false" [resizable]="false" class="restrictionDialog" [breakpoints]="{ '960px': '30vw', '959px': '60vw', '425px': '90vw' }" (onHide)="clearRestriction()">
-	<div *ngIf="ehitlabelIsShow" class="text-center mt-5 mb-1">
-		<img src="../../../uniprep-assets/images/smartloack.png" class="image" width="60" />
-		<h3 class="offer">Upgrade Required</h3>
-		<p>To access this exclusive module,please upgrade your plan now</p>
-		<button pButton pButton type="button" class="text-white p-ripple p-button-rounded p-button-warning p-button p-component p-2" (click)="upgradePlan()">Upgrade Plan<i class="fa fa-arrow-right exhausted-plan-icon"></i></button>
-	</div>
-	<div *ngIf="!ehitlabelIsShow" class="text-center mt-5 mb-1">
-		<img src="../../../uniprep-assets/images/smartloack.png" class="image" width="60" />
-		<h3 class="offer">Upgrade Required</h3>
-		<p>Please contact {{ orgnamewhitlabel }} Company for access</p>
-	</div>
-</p-dialog>
-
-<p-dialog [(visible)]="restrict" [style]="{ width: '30vw' }" [draggable]="false" [resizable]="false" class="restrictionDialog" [breakpoints]="{ '960px': '30vw', '959px': '60vw', '425px': '90vw' }" (onHide)="clearRestriction()">
-	<div *ngIf="ehitlabelIsShow" class="text-center mt-5 mb-1">
-		<img src="../../../uniprep-assets/images/smartloack.png" class="image" width="60" />
-		<h3 class="offer">Upgrade Required</h3>
-		<p>To access this exclusive module,please upgrade your plan now</p>
-		<button pButton pButton type="button" class="text-white p-ripple p-button-rounded p-button-warning p-button p-component p-2" (click)="upgradePlan()">Upgrade Plan<i class="fa fa-arrow-right exhausted-plan-icon"></i></button>
-	</div>
-	<div *ngIf="!ehitlabelIsShow" class="text-center mt-5 mb-1">
-		<img src="{{ orglogowhitelabel }}" class="image" width="60" />
-		<h3 class="offer">Upgrade Required</h3>
-		<p>Please contact {{ orgnamewhitlabel }} Company for access</p>
-	</div>
-</p-dialog>
+<uni-restriction-dialog *ngIf="restrict" [isShowRestrict]="restrict" (closeRestrictModal)="restrict = false" />

@@ -8,10 +8,11 @@
 				<div class="select-title d-flex justify-content-between align-items-center" style="width: 100%">
 					<div class="d-flex gap-2">
 						<h5 routerLink="/pages/dashboard" role="button" class="mb-0" tooltipPosition="top" pTooltip="">
-							<i class="fa-regular fa-home"></i></h5>
+							<i class="fa-regular fa-home"></i>
+						</h5>
 						<span *ngIf="isHidGlobalRepository"><i class="fa-solid fa-chevron-right"></i></span>
-						<h5 *ngIf="isHidGlobalRepository" routerLink="/pages/global-repo" role="button" class="mb-0" tooltipPosition="top"
-							pTooltip="">Global Repository</h5>
+						<h5 *ngIf="isHidGlobalRepository" routerLink="/pages/global-repo" role="button" class="mb-0"
+							tooltipPosition="top" pTooltip="">Global Repository</h5>
 						<span><i class="fa-solid fa-chevron-right"></i></span>
 						<h5 *ngIf="currentModuleId == 8" class="mb-0" tooltipPosition="top" pTooltip="{{ tooltip }}">
 							<span class="desktop">{{ currentModuleName }} <span><i
@@ -280,7 +281,8 @@
 		<div class="row cutom-row p-4">
 			<div class="col-custom-4-5">
 				<div class="d-flex flex-column" *ngIf="videoLinks">
-					<h5 class="text-start mb-1" *ngIf="oneQuestionContent?.videolink?.length > 0">Recommended Videos</h5>
+					<h5 class="text-start mb-1" *ngIf="oneQuestionContent?.videolink?.length > 0">Recommended Videos
+					</h5>
 					<div class="d-flex align-items-center gap-2 pb-2">
 						<!-- Scrollable Video Links -->
 						<div class="scrollable-container" id="video-links-container" #videoLinksContainer>
@@ -293,9 +295,10 @@
 								</span>
 							</div>
 						</div>
-	
+
 						<!-- Right Arrow (Circular Scrolling) -->
-						<button class="scroll-btn-vedio  right" *ngIf="oneQuestionContent?.videolink?.length > 0"  (click)="scrollRight()" aria-label="Scroll Right">
+						<button class="scroll-btn-vedio  right" *ngIf="oneQuestionContent?.videolink?.length > 0"
+							(click)="scrollRight()" aria-label="Scroll Right">
 							<i class="fa-solid fa-chevron-right"></i>
 						</button>
 					</div>
@@ -316,10 +319,10 @@
 								</a>
 							</div>
 						</div>
-	
+
 						<!-- Right Arrow (Circular Scrolling) -->
 						<button class="scroll-btn-link right" *ngIf="oneQuestionContent?.reflink?.length > 0"
-                                (click)="scrollRightLinks()" aria-label="Scroll Right">
+							(click)="scrollRightLinks()" aria-label="Scroll Right">
 							<i class="fa-solid fa-chevron-right"></i>
 						</button>
 					</div>
@@ -327,7 +330,8 @@
 			</div>
 			<div class="col-custom-3">
 				<div class="align-items-center d-flex desktop">
-					<button style="background-color: #001731 !important;" class="btn w-100 btn-primary mx-0 px-5 py-2 align-items-center"
+					<button style="background-color: #001731 !important;"
+						class="btn w-100 btn-primary mx-0 px-5 py-2 align-items-center"
 						(click)="onClickAsk(oneQuestionContent?.question)">
 						<div class="row justify-content-center align-items-center">
 							<div class="col-12">
@@ -341,8 +345,8 @@
 					</button>
 				</div>
 			</div>
-	
-	
+
+
 		</div>
 	</ng-template>
 </p-dialog>
@@ -420,23 +424,8 @@
 		</div>
 	</div>
 </p-dialog> -->
-<p-dialog [(visible)]="restrict" [modal]="true" [style]="{ width: '30vw' }" [draggable]="false" [resizable]="false"
-	class="restrictionDialog" [breakpoints]="{ '960px': '30vw', '959px': '60vw', '425px': '90vw' }"
-	(onHide)="clearRestriction()">
-	<div *ngIf="ehitlabelIsShow" class="text-center mt-5 mb-4">
-		<img src="../../../uniprep-assets/images/smartloack.png" class="image" width="60" />
-		<h3 class="offer">Upgrade Required</h3>
-		<p>To access this exclusive module,please upgrade your plan now</p>
-		<button pButton pButton type="button"
-			class="text-white p-ripple p-button-rounded p-button-warning p-button p-component p-2"
-			(click)="upgradePlan()">Upgrade Plan<i class="fa fa-arrow-right exhausted-plan-icon"></i></button>
-	</div>
-	<div *ngIf="!ehitlabelIsShow" class="text-center mt-5 mb-4">
-		<img src="../../../uniprep-assets/images/smartloack.png" class="image" width="60" />
-		<h3 class="offer">Upgrade Required</h3>
-		<p>Please contact {{ orgnamewhitlabel }} Company for access</p>
-	</div>
-</p-dialog>
+
+<uni-restriction-dialog *ngIf="restrict" [isShowRestrict]="restrict" (closeRestrictModal)="restrict = false" />
 <!-- vedio pop up -->
 <div class="modal" tabindex="-1" role="dialog" [ngClass]="{ 'd-block': showVideoPopup }">
 	<div class="modal-dialog modal-xl modal-dialog-centered" role="document">

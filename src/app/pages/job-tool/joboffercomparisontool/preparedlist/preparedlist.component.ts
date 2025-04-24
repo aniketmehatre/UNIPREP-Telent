@@ -18,18 +18,19 @@ import { InputGroupModule } from "primeng/inputgroup"
 import { InputTextModule } from "primeng/inputtext"
 import { InputGroupAddonModule } from "primeng/inputgroupaddon"
 import { RadioButtonModule } from "primeng/radiobutton"
-import {PdfViewerModule} from "ng2-pdf-viewer";
+import { PdfViewerModule } from "ng2-pdf-viewer";
 import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
 import { DownloadRespose } from 'src/app/@Models/travel-tools.model';
 import { TravelToolsService } from "src/app/pages/travel-tools/travel-tools.service";
 import { PromptService } from "src/app/pages/prompt.service";
+import { RestrictionDialogComponent } from "src/app/shared/restriction-dialog/restriction-dialog.component";
 
 @Component({
   selector: "uni-jopreparedlist",
   templateUrl: "./preparedlist.component.html",
   styleUrls: ["./preparedlist.component.scss"],
   standalone: true,
-  imports: [CommonModule, DialogModule, SidebarModule, PdfViewerModule, CardModule, PaginatorModule, FormsModule, ReactiveFormsModule, CarouselModule, ButtonModule, MultiSelectModule, SelectModule, InputGroupModule, InputTextModule, InputGroupAddonModule, RadioButtonModule]
+  imports: [CommonModule, DialogModule, SidebarModule, PdfViewerModule, CardModule, PaginatorModule, FormsModule, ReactiveFormsModule, CarouselModule, ButtonModule, MultiSelectModule, SelectModule, InputGroupModule, InputTextModule, InputGroupAddonModule, RadioButtonModule, RestrictionDialogComponent]
 })
 export class JobOfferPreparedListComponent implements OnInit {
   isSkeletonVisible: boolean = true;
@@ -45,7 +46,7 @@ export class JobOfferPreparedListComponent implements OnInit {
   ListData: any = [];
   ComparisonResponse: SafeHtml;
   ComparisonResponseVisibility = true;
-  userAnswers:any = [];
+  userAnswers: any = [];
   @Input() prepData: any;
   @Output() windowChange = new EventEmitter<any>();
   loopRange = Array.from({ length: 30 })
@@ -60,7 +61,7 @@ export class JobOfferPreparedListComponent implements OnInit {
     private sanitizer: DomSanitizer,
     private travelService: TravelToolsService,
     private promptService: PromptService
-  ) {}
+  ) { }
   ngOnInit(): void {
     this.getjobofferResponse();
     this.getSavedResponse();
@@ -87,16 +88,16 @@ export class JobOfferPreparedListComponent implements OnInit {
   }
   selectedCompanies: any;
   getjobofferResponse() {
-    this.selectedCompanies=this.prepData.jobs.map((data:any)=>data.company).join(' and ');
+    this.selectedCompanies = this.prepData.jobs.map((data: any) => data.company).join(' and ');
     this.service.getcomparisonResponse(this.prepData).subscribe((response: any) => {
-				this.ComparisonResponse = this.sanitizer.bypassSecurityTrustHtml(response.response);
-        this.ComparisonResponseVisibility = true;
-        this.isSkeletonVisible = false;
-        this.userAnswers = this.sanitizer.bypassSecurityTrustHtml(response.questions);
-      }, (error: any) =>{
-        this.windowChange.emit("error_arrived");
-        console.log(error);
-      });
+      this.ComparisonResponse = this.sanitizer.bypassSecurityTrustHtml(response.response);
+      this.ComparisonResponseVisibility = true;
+      this.isSkeletonVisible = false;
+      this.userAnswers = this.sanitizer.bypassSecurityTrustHtml(response.questions);
+    }, (error: any) => {
+      this.windowChange.emit("error_arrived");
+      console.log(error);
+    });
   }
   getSavedResponse() {
     this.service.getavgsalarysavedresponse().subscribe((response: any) => {
@@ -126,16 +127,16 @@ export class JobOfferPreparedListComponent implements OnInit {
       }
     });
   }
-  
+
   downloadRecommadation() {
-		let params: any = {
-			module_name: "Job Offer Comparison Tool",
-			file_name: "job_offer_comparison_tool",
-			response: this.ComparisonResponse,
-			inputString: this.userAnswers
-		};
-		this.promptService.responseBuilder(params);
-	}
+    let params: any = {
+      module_name: "Job Offer Comparison Tool",
+      file_name: "job_offer_comparison_tool",
+      response: this.ComparisonResponse,
+      inputString: this.userAnswers
+    };
+    this.promptService.responseBuilder(params);
+  }
 
   upgradePlan(): void {
     this.router.navigate(["/pages/subscriptions"]);
@@ -199,7 +200,7 @@ export class JobOfferPreparedListComponent implements OnInit {
   }
   savedClick() {
     //this.getSavedResponse();
-    this.isSkeletonVisible=false;
+    this.isSkeletonVisible = false;
     this.ComparisonResponseVisibility = false;
   }
   readResponse = false;

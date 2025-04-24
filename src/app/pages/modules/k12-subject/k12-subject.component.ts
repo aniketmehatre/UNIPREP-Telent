@@ -1,27 +1,28 @@
 import { Component, OnInit } from '@angular/core';
-import {ConfirmationService, MenuItem} from "primeng/api";
-import {ModuleServiceService} from "../../module-store/module-service.service";
-import {ActivatedRoute, NavigationEnd, Router} from "@angular/router";
-import {DataService} from "../../../data.service";
-import {AuthService} from "../../../Auth/auth.service";
-import {LocationService} from "../../../location.service";
-import {NgxUiLoaderService} from "ngx-ui-loader";
-import {PageFacadeService} from "../../page-facade.service";
-import {Meta, Title} from "@angular/platform-browser";
-import {filter} from "rxjs";
+import { ConfirmationService, MenuItem } from "primeng/api";
+import { ModuleServiceService } from "../../module-store/module-service.service";
+import { ActivatedRoute, NavigationEnd, Router } from "@angular/router";
+import { DataService } from "../../../data.service";
+import { AuthService } from "../../../Auth/auth.service";
+import { LocationService } from "../../../location.service";
+import { NgxUiLoaderService } from "ngx-ui-loader";
+import { PageFacadeService } from "../../page-facade.service";
+import { Meta, Title } from "@angular/platform-browser";
+import { filter } from "rxjs";
 import { Location } from "@angular/common";
-import {state} from "@angular/animations";
+import { state } from "@angular/animations";
 import { CommonModule } from '@angular/common';
 import { DialogModule } from 'primeng/dialog';
 import { SkeletonModule } from 'primeng/skeleton';
-import {StorageService} from "../../../storage.service";
+import { StorageService } from "../../../storage.service";
+import { RestrictionDialogComponent } from 'src/app/shared/restriction-dialog/restriction-dialog.component';
 @Component({
-    selector: 'uni-k12-subject',
-    templateUrl: './k12-subject.component.html',
-    styleUrls: ['./k12-subject.component.scss'],
-    providers: [ConfirmationService],
-    standalone: true,
-    imports: [CommonModule, DialogModule, SkeletonModule]
+  selector: 'uni-k12-subject',
+  templateUrl: './k12-subject.component.html',
+  styleUrls: ['./k12-subject.component.scss'],
+  providers: [ConfirmationService],
+  standalone: true,
+  imports: [CommonModule, DialogModule, SkeletonModule, RestrictionDialogComponent]
 })
 export class K12SubjectComponent implements OnInit {
 
@@ -55,22 +56,22 @@ export class K12SubjectComponent implements OnInit {
   countryId: any;
   canShowQuestionList: boolean = false;
   howItWorksVideoLink: string = "";
-  quizmoduleselectcountryidsetzero:any=0;
-  selectSubmoduleName:string = "";
-  ehitlabelIsShow:boolean=true;
-  imagewhitlabeldomainname:any
-  orgnamewhitlabel:any;
-  orglogowhitelabel:any;
+  quizmoduleselectcountryidsetzero: any = 0;
+  selectSubmoduleName: string = "";
+  ehitlabelIsShow: boolean = true;
+  imagewhitlabeldomainname: any
+  orgnamewhitlabel: any;
+  orglogowhitelabel: any;
   classId: any;
   boardName: any;
   className: any;
   stateName: any;
   constructor(private moduleListService: ModuleServiceService, private router: Router, private dataService: DataService,
-              private authService: AuthService, private _location: Location,
-              private locationService: LocationService, private route: ActivatedRoute, private ngxService: NgxUiLoaderService,
-               private pageFacade: PageFacadeService,
-              private meta: Meta, private storage: StorageService,
-              private titleService: Title,) {
+    private authService: AuthService, private _location: Location,
+    private locationService: LocationService, private route: ActivatedRoute, private ngxService: NgxUiLoaderService,
+    private pageFacade: PageFacadeService,
+    private meta: Meta, private storage: StorageService,
+    private titleService: Title,) {
     this.countryId = Number(this.storage.get('countryId'));
     this.boardName = this.storage.get('board-name');
     this.stateName = this.storage.get('state-name');
@@ -100,26 +101,15 @@ export class K12SubjectComponent implements OnInit {
   loopRange = Array.from({ length: 24 }).fill(0).map((_, index) => index);
   ngOnInit() {
     this.router.events.pipe(
-        filter(event => event instanceof NavigationEnd)
+      filter(event => event instanceof NavigationEnd)
     ).subscribe(() => {
       this.updateMetaTags();
     });
 
     // Initial update
     this.updateMetaTags();
-    this.locationService.getImage().subscribe(imageUrl => {
-      this.orglogowhitelabel = imageUrl;
-    });
-    this.locationService.getOrgName().subscribe(orgname => {
-      this.orgnamewhitlabel = orgname;
-    });
-    this.imagewhitlabeldomainname=window.location.hostname;
-    if (this.imagewhitlabeldomainname === "*.uniprep.ai" || this.imagewhitlabeldomainname === "dev-student.uniprep.ai" || this.imagewhitlabeldomainname === "uniprep.ai" || this.imagewhitlabeldomainname === "localhost") {
-      this.ehitlabelIsShow=true;
-    }else{
-      this.ehitlabelIsShow=false;
-    }
-    this.storage.set("modalcountryid",this.quizmoduleselectcountryidsetzero);
+
+    this.storage.set("modalcountryid", this.quizmoduleselectcountryidsetzero);
     this.init();
     this.moduleListService.getSubmodulesAndSpecialization().subscribe((res: any) => {
       this.allSearchedResult = res
@@ -135,10 +125,10 @@ export class K12SubjectComponent implements OnInit {
     this.currentModuleName = 'K12 Academy';
     this.currentApiSlug = 'getcareertoolcategorylist';
     this.infoMessage = 'Upgrade to access the K12',
-        this.unlockMessage = 'Unlock the power of success with our exclusive k12!',
-        this.upgradePlanMsg = 'Upgrade your plan now to gain instant access.';
+      this.unlockMessage = 'Unlock the power of success with our exclusive k12!',
+      this.upgradePlanMsg = 'Upgrade your plan now to gain instant access.';
     this.aboutModule = 'Explore a vast database of Q&A about:',
-        this.moduleDetails = 'Scholarships, document checklist, Education loan, letter of Recommendation and many more!'
+      this.moduleDetails = 'Scholarships, document checklist, Education loan, letter of Recommendation and many more!'
     this.howItWorksVideoLink = "https://www.youtube.com/embed/n9ECpsB6IoI?si=4coiypva6WZfr3NL";
 
     /*FU
@@ -173,7 +163,7 @@ export class K12SubjectComponent implements OnInit {
 
   onSubModuleClick(id: any, submodule: any) {
     this.storage.set('subject-name', submodule.category)
-    this.router.navigate([`/pages/modules/k12-chapter/${submodule.category_id}` ]);
+    this.router.navigate([`/pages/modules/k12-chapter/${submodule.category_id}`]);
   }
 
   checkplanExpire(): void {

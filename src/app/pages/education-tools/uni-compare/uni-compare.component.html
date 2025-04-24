@@ -3,14 +3,17 @@
 		<div class="card-header border-0 bg-transparent">
 			<div class="row justify-content-center align-items-center">
 				<div class="col-md-12 d-flex gap-2">
-					<div class="backIcon d-md-flex d-none" role="button" routerLink="/pages/education-tools" style="height: auto">
+					<div class="backIcon d-md-flex d-none" role="button" routerLink="/pages/education-tools"
+						style="height: auto">
 						<span class="fa-solid fa-chevron-left"></span>
 					</div>
 					<div class="select-title d-flex justify-content-between align-items-center">
 						<div class="d-flex gap-2">
-							<h5 routerLink="/pages/dashboard" role="button" class="mb-0" tooltipPosition="top" pTooltip=""><i class="fa-regular fa-home"></i></h5>
+							<h5 routerLink="/pages/dashboard" role="button" class="mb-0" tooltipPosition="top"
+								pTooltip=""><i class="fa-regular fa-home"></i></h5>
 							<span><i class="fa-solid fa-chevron-right"></i></span>
-							<h5 routerLink="/pages/education-tools" role="button" class="mb-0" tooltipPosition="top" pTooltip="">Education Tools</h5>
+							<h5 routerLink="/pages/education-tools" role="button" class="mb-0" tooltipPosition="top"
+								pTooltip="">Education Tools</h5>
 							<span><i class="fa-solid fa-chevron-right"></i></span>
 							<h5 class="mb-0" tooltipPosition="top" pTooltip="">UNICOMPARE</h5>
 						</div>
@@ -21,10 +24,13 @@
 						</div>
 					</div>
 					<div class="d-flex align-items-center gap-1">
-						<button pButton  class="btn btn-outline-primary text-small btn-rounded d-flex gap-2 align-items-center flex-fill" type="button">
+						<button pButton
+							class="btn btn-outline-primary text-small btn-rounded d-flex gap-2 align-items-center flex-fill"
+							type="button">
 							AI Credit <span class="btn-icon text-white">{{ aiCreditCount }}</span>
-						  </button>
-						<button pButton type="button" (click)="saveRecommadation()" class="btn btn-primary btn-rounded py-2 px-4">
+						</button>
+						<button pButton type="button" (click)="saveRecommadation()"
+							class="btn btn-primary btn-rounded py-2 px-4">
 							<span>History</span>
 						</button>
 					</div>
@@ -33,7 +39,8 @@
 		</div>
 		<div class="card-body text-center flex-fill overflow-y-auto">
 			<form [formGroup]="form" class="mt-4">
-				<p-carousel [value]="recommendations" [numVisible]="1" [numScroll]="1" [circular]="false" [showNavigators]="false" [showIndicators]="false" [page]="activePageIndex" styleClass="h-100">
+				<p-carousel [value]="recommendations" [numVisible]="1" [numScroll]="1" [circular]="false"
+					[showNavigators]="false" [showIndicators]="false" [page]="activePageIndex" styleClass="h-100">
 					<ng-template let-recommendation let-i="index" pTemplate="item">
 						<div class="container-fluid py-4">
 							<div class="row justify-content-center">
@@ -47,47 +54,82 @@
 												<!-- Country Selection -->
 												<div class="row mb-3 align-items-center">
 													<div class="col-lg-4">
-														<label class="form-label uniprep-primary fw-bold">Which country are you planning to study in</label>
+														<label class="form-label uniprep-primary fw-bold">Which country
+															are you planning to study in</label>
 													</div>
 													<div class="col-lg-4 mb-2">
-														<p-select [options]="universityCountryList" optionLabel="country" [filter]="true" filterBy="country" formControlName="country" placeholder="Select Country" styleClass="w-100" appendTo="body"> </p-select>
+														<p-select [options]="universityCountryList"
+															optionLabel="country" [filter]="true" filterBy="country"
+															formControlName="country" placeholder="Select Country"
+															styleClass="w-100" appendTo="body"> </p-select>
 													</div>
 													<div class="col-lg-4 mb-2">
-														<p-select [options]="universityCountryList" optionLabel="country" [filter]="true" filterBy="country" formControlName="compare_country" placeholder="Select Country" styleClass="w-100" appendTo="body"> </p-select>
+														<p-select [options]="universityCountryList"
+															optionLabel="country" [filter]="true" filterBy="country"
+															formControlName="compare_country"
+															placeholder="Select Country" styleClass="w-100"
+															appendTo="body"> </p-select>
 													</div>
 												</div>
-												<div class="text-danger text-center small" *ngIf="(form.get('country')?.errors?.required || form.get('compare_country')?.errors?.required) && submitted">Please select both countries</div>
+												<div class="text-danger text-center small"
+													*ngIf="(form.get('country')?.errors?.required || form.get('compare_country')?.errors?.required) && submitted">
+													Please select both countries</div>
 
 												<!-- University Selection -->
 												<div class="row mb-3 align-items-center">
 													<div class="col-lg-4">
-														<label class="form-label uniprep-primary fw-bold">Which university you are applying? </label>
+														<label class="form-label uniprep-primary fw-bold">Which
+															university you are applying? </label>
 													</div>
 													<div class="col-lg-4 mb-2 university-dropdown">
-														<p-select [options]="universityList" optionLabel="university_name" filterBy="university_name" [filter]="true" formControlName="university" placeholder="Select University" styleClass="w-100" appendTo="body" [panelStyle]="panelStyle">
+														<p-select [options]="universityList"
+															optionLabel="university_name" filterBy="university_name"
+															[filter]="true" formControlName="university"
+															placeholder="Select University" styleClass="w-100"
+															appendTo="body" [panelStyle]="panelStyle">
 															<!-- Adjust width as needed -->
 														</p-select>
 													</div>
 
 													<div class="col-lg-4 mb-2 university-dropdown">
-														<p-select [options]="compareUniversityList" optionLabel="university_name" filterBy="university_name" [filter]="true" formControlName="compare_university" placeholder="Select University" styleClass="w-100" appendTo="body" [panelStyle]="panelStyle"> <!-- Adjust width as needed --> </p-select>
+														<p-select [options]="compareUniversityList"
+															optionLabel="university_name" filterBy="university_name"
+															[filter]="true" formControlName="compare_university"
+															placeholder="Select University" styleClass="w-100"
+															appendTo="body" [panelStyle]="panelStyle">
+															<!-- Adjust width as needed --> </p-select>
 													</div>
 												</div>
-												<div class="text-danger text-center small" *ngIf="(form.get('university')?.errors?.required || form.get('compare_university')?.errors?.required) && submitted">Please select both universities</div>
+												<div class="text-danger text-center small"
+													*ngIf="(form.get('university')?.errors?.required || form.get('compare_university')?.errors?.required) && submitted">
+													Please select both universities</div>
 
 												<!-- Specialization Selection -->
 												<div class="row mb-3 align-items-center">
 													<div class="col-lg-4">
-														<label class="form-label uniprep-primary fw-bold">What is your chosen Course or field of study? </label>
+														<label class="form-label uniprep-primary fw-bold">What is your
+															chosen Course or field of study? </label>
 													</div>
 													<div class="col-lg-4 mb-2">
-														<p-select [options]="specializationList" optionLabel="course_name" optionValue="course_name" [filter]="true" filterBy="course_name" formControlName="specialization" placeholder="Select Field of Study" styleClass="w-100" appendTo="body"> </p-select>
+														<p-select [options]="specializationList"
+															optionLabel="course_name" optionValue="course_name"
+															[filter]="true" filterBy="course_name"
+															formControlName="specialization"
+															placeholder="Select Field of Study" styleClass="w-100"
+															appendTo="body"> </p-select>
 													</div>
 													<div class="col-lg-4 mb-2">
-														<p-select [options]="compareSpecializationList" optionLabel="course_name" optionValue="course_name" [filter]="true" filterBy="course_name" formControlName="compare_specialization" placeholder="Select Field of Study" styleClass="w-100" appendTo="body"> </p-select>
+														<p-select [options]="compareSpecializationList"
+															optionLabel="course_name" optionValue="course_name"
+															[filter]="true" filterBy="course_name"
+															formControlName="compare_specialization"
+															placeholder="Select Field of Study" styleClass="w-100"
+															appendTo="body"> </p-select>
 													</div>
 												</div>
-												<div class="text-danger text-center small" *ngIf="(form.get('specialization')?.errors?.required || form.get('compare_specialization')?.errors?.required) && submitted">Please select both specializations</div>
+												<div class="text-danger text-center small"
+													*ngIf="(form.get('specialization')?.errors?.required || form.get('compare_specialization')?.errors?.required) && submitted">
+													Please select both specializations</div>
 											</div>
 										</div>
 
@@ -99,64 +141,121 @@
 												<div class="row mb-3 align-items-center">
 													<div class="col-lg-4"></div>
 													<div class="col-lg-4 mb-2 text-center">
-														<h5 style="color: var(--uniprep-secondary)">{{ form.get("university")?.value?.university_name }}</h5>
+														<h5 style="color: var(--uniprep-secondary)">{{
+															form.get("university")?.value?.university_name }}</h5>
 													</div>
 													<div class="col-lg-4 mb-2 text-center">
-														<h5 style="color: var(--uniprep-secondary)">{{ form.get("compare_university")?.value?.university_name }}</h5>
+														<h5 style="color: var(--uniprep-secondary)">{{
+															form.get("compare_university")?.value?.university_name }}
+														</h5>
 													</div>
 												</div>
 												<div class="row mb-3 align-items-center">
 													<div class="col-lg-4">
-														<label class="form-label uniprep-primary fw-bold">What is the Overall tuition fee per year for your program?</label>
+														<label class="form-label uniprep-primary fw-bold">What is the
+															Overall tuition fee per year for your program?</label>
 													</div>
 													<div class="col-lg-4 mb-2">
 														<div class="d-flex gap-2">
-															<p-select class="currency-dropdown" formControlName="currency_code" [options]="currenciesList" [filter]="true" filterBy="currency_symbol" placeholder="Currency" optionLabel="currency_symbol" optionValue="currency_symbol" [autoDisplayFirst]="false" (ngModelChange)="changeCurrencyInTution($event)"> </p-select>
-															<input type="number" class="form-control w-100 m-0" formControlName="fees" [max]="99999999" [placeholder]="form.get('currency_code').value ? 'Enter tuition fee in' + ' ' + form.get('currency_code').value + ' ' + '/year' : 'Enter tuition fee/year'" />
+															<p-select class="currency-dropdown"
+																formControlName="currency_code"
+																[options]="currenciesList" [filter]="true"
+																filterBy="currency_symbol" placeholder="Currency"
+																optionLabel="currency_symbol"
+																optionValue="currency_symbol" [autoDisplayFirst]="false"
+																(ngModelChange)="changeCurrencyInTution($event)">
+															</p-select>
+															<input type="number" class="form-control w-100 m-0"
+																formControlName="fees" [max]="99999999"
+																[placeholder]="form.get('currency_code').value ? 'Enter tuition fee in' + ' ' + form.get('currency_code').value + ' ' + '/year' : 'Enter tuition fee/year'" />
 														</div>
 													</div>
 													<div class="col-lg-4 mb-2">
 														<div class="d-flex gap-2">
-															<p-select class="currency-dropdown" formControlName="compare_currency_code" [options]="currenciesList" [filter]="true" filterBy="currency_symbol" placeholder="Currency" optionLabel="currency_symbol" optionValue="currency_symbol" [autoDisplayFirst]="false"> </p-select>
-															<input type="number" class="form-control w-100 m-0" formControlName="compare_fees" [max]="99999999" [placeholder]="form.get('compare_currency_code').value ? 'Enter tuition fee in' + ' ' + form.get('compare_currency_code').value + ' ' + '/year' : 'Enter tuition fee/year'" />
+															<p-select class="currency-dropdown"
+																formControlName="compare_currency_code"
+																[options]="currenciesList" [filter]="true"
+																filterBy="currency_symbol" placeholder="Currency"
+																optionLabel="currency_symbol"
+																optionValue="currency_symbol"
+																[autoDisplayFirst]="false"> </p-select>
+															<input type="number" class="form-control w-100 m-0"
+																formControlName="compare_fees" [max]="99999999"
+																[placeholder]="form.get('compare_currency_code').value ? 'Enter tuition fee in' + ' ' + form.get('compare_currency_code').value + ' ' + '/year' : 'Enter tuition fee/year'" />
 														</div>
 													</div>
 												</div>
-												<div class="text-danger text-center small" *ngIf="(form.get('fees')?.errors?.required || form.get('compare_fees')?.errors?.required || form.get('fees')?.errors?.max || form.get('compare_fees')?.errors?.max) && submitted">Please enter both tuition fees and both are maximum 8 digit only allowed</div>
+												<div class="text-danger text-center small"
+													*ngIf="(form.get('fees')?.errors?.required || form.get('compare_fees')?.errors?.required || form.get('fees')?.errors?.max || form.get('compare_fees')?.errors?.max) && submitted">
+													Please enter both tuition fees and both are maximum 8 digit only
+													allowed</div>
 
 												<!-- Annual Living Expense -->
 												<div class="row mb-3 align-items-center">
 													<div class="col-lg-4">
-														<label class="form-label uniprep-primary fw-bold">What is your expected annual living expense? </label>
+														<label class="form-label uniprep-primary fw-bold">What is your
+															expected annual living expense? </label>
 													</div>
 													<div class="col-lg-4 mb-2">
 														<div class="d-flex gap-2">
-															<p-select class="currency-dropdown" formControlName="expense_currency_code" [options]="currenciesList" [filter]="true" filterBy="currency_symbol" placeholder="Currency" optionLabel="currency_symbol" optionValue="currency_symbol" [autoDisplayFirst]="false"> </p-select>
-															<input type="number" styleClass="w-100" class="form-control w-100 m-0" [min]="100" formControlName="expense" [max]="99999999" [placeholder]="form.get('expense_currency_code').value ? 'Enter Expense Amount in' + ' ' + form.get('expense_currency_code').value : 'Enter Expense Amount'" />
+															<p-select class="currency-dropdown"
+																formControlName="expense_currency_code"
+																[options]="currenciesList" [filter]="true"
+																filterBy="currency_symbol" placeholder="Currency"
+																optionLabel="currency_symbol"
+																optionValue="currency_symbol"
+																[autoDisplayFirst]="false"> </p-select>
+															<input type="number" styleClass="w-100"
+																class="form-control w-100 m-0" [min]="100"
+																formControlName="expense" [max]="99999999"
+																[placeholder]="form.get('expense_currency_code').value ? 'Enter Expense Amount in' + ' ' + form.get('expense_currency_code').value : 'Enter Expense Amount'" />
 														</div>
 													</div>
 													<div class="col-lg-4 mb-2">
 														<div class="d-flex gap-2">
-															<p-select class="currency-dropdown" formControlName="compare_expense_currency_code" [options]="currenciesList" [filter]="true" filterBy="currency_symbol" placeholder="Currency" optionLabel="currency_symbol" optionValue="currency_symbol" [autoDisplayFirst]="false"> </p-select>
-															<input type="number" styleClass="w-100" class="form-control w-100 m-0" [min]="100" formControlName="compare_expenses" [max]="99999999" [placeholder]="form.get('compare_expense_currency_code').value ? 'Enter Expense Amount in' + ' ' + form.get('compare_expense_currency_code').value : 'Enter Expense Amount'" />
+															<p-select class="currency-dropdown"
+																formControlName="compare_expense_currency_code"
+																[options]="currenciesList" [filter]="true"
+																filterBy="currency_symbol" placeholder="Currency"
+																optionLabel="currency_symbol"
+																optionValue="currency_symbol"
+																[autoDisplayFirst]="false"> </p-select>
+															<input type="number" styleClass="w-100"
+																class="form-control w-100 m-0" [min]="100"
+																formControlName="compare_expenses" [max]="99999999"
+																[placeholder]="form.get('compare_expense_currency_code').value ? 'Enter Expense Amount in' + ' ' + form.get('compare_expense_currency_code').value : 'Enter Expense Amount'" />
 														</div>
 													</div>
 												</div>
-												<div class="text-danger text-center small" *ngIf="(form.get('expense')?.errors?.required || form.get('compare_expenses')?.errors?.required || form.get('expense')?.errors?.max || form.get('compare_expenses')?.errors?.max) && submitted">Please enter both living expenses and both are maximum 8 digit only allowed</div>
+												<div class="text-danger text-center small"
+													*ngIf="(form.get('expense')?.errors?.required || form.get('compare_expenses')?.errors?.required || form.get('expense')?.errors?.max || form.get('compare_expenses')?.errors?.max) && submitted">
+													Please enter both living expenses and both are maximum 8 digit only
+													allowed</div>
 
 												<!-- Stay Back Period -->
 												<div class="row mb-3 align-items-center">
 													<div class="col-lg-4">
-														<label class="form-label uniprep-primary fw-bold">How many months of stayback are allowed after graduation? </label>
+														<label class="form-label uniprep-primary fw-bold">How many
+															months of stayback are allowed after graduation? </label>
 													</div>
 													<div class="col-lg-4 mb-2">
-														<p-select [options]="stayBackAfterGraduations" optionLabel="name" optionValue="name" [filter]="true" filterBy="name" formControlName="period" placeholder="Select Months" styleClass="w-100" appendTo="body"> </p-select>
+														<p-select [options]="stayBackAfterGraduations"
+															optionLabel="name" optionValue="name" [filter]="true"
+															filterBy="name" formControlName="period"
+															placeholder="Select Months" styleClass="w-100"
+															appendTo="body"> </p-select>
 													</div>
 													<div class="col-lg-4 mb-2">
-														<p-select [options]="stayBackAfterGraduations" optionLabel="name" optionValue="name" [filter]="true" filterBy="name" formControlName="compare_period" placeholder="Select Months" styleClass="w-100" appendTo="body"> </p-select>
+														<p-select [options]="stayBackAfterGraduations"
+															optionLabel="name" optionValue="name" [filter]="true"
+															filterBy="name" formControlName="compare_period"
+															placeholder="Select Months" styleClass="w-100"
+															appendTo="body"> </p-select>
 													</div>
 												</div>
-												<div class="text-danger text-center small" *ngIf="(form.get('period')?.errors?.required || form.get('compare_period')?.errors?.required) && submitted">Please select both stay back periods</div>
+												<div class="text-danger text-center small"
+													*ngIf="(form.get('period')?.errors?.required || form.get('compare_period')?.errors?.required) && submitted">
+													Please select both stay back periods</div>
 											</div>
 										</div>
 									</form>
@@ -169,15 +268,20 @@
 		</div>
 		<div class="card-footer bg-transparent border-0">
 			<div class="d-flex justify-content-between mt-2">
-				<button pButton type="button" class="btn btn-primary btn-rounded p-1 pe-4" [style.visibility]="activePageIndex == 0 ? 'hidden' : 'visible'" (click)="previous()">
+				<button pButton type="button" class="btn btn-primary btn-rounded p-1 pe-4"
+					[style.visibility]="activePageIndex == 0 ? 'hidden' : 'visible'" (click)="previous()">
 					<span class="btn-icon px-2 py-2"><i class="fa fa-arrow-left"></i></span>
 					<span class="ms-2">Previous</span>
 				</button>
-				<button pButton type="button" (click)="next()" *ngIf="activePageIndex <= 0" class="btn btn-primary btn-rounded p-1 ps-4">
-					<span class="me-2">Next</span><span class="btn-icon px-2 py-2"><i class="fa fa-arrow-right"></i></span>
+				<button pButton type="button" (click)="next()" *ngIf="activePageIndex <= 0"
+					class="btn btn-primary btn-rounded p-1 ps-4">
+					<span class="me-2">Next</span><span class="btn-icon px-2 py-2"><i
+							class="fa fa-arrow-right"></i></span>
 				</button>
-				<button pButton type="button" (click)="getRecommendation()" *ngIf="activePageIndex == 1" class="btn btn-success btn-rounded p-1 ps-4">
-					<span class="me-2">Compare</span><span class="btn-icon px-2 py-2"> <i class="fa fa-check-circle"></i></span>
+				<button pButton type="button" (click)="getRecommendation()" *ngIf="activePageIndex == 1"
+					class="btn btn-success btn-rounded p-1 ps-4">
+					<span class="me-2">Compare</span><span class="btn-icon px-2 py-2"> <i
+							class="fa fa-check-circle"></i></span>
 				</button>
 			</div>
 		</div>
@@ -192,9 +296,11 @@
 					</div>
 					<div class="select-title d-flex justify-content-between align-items-center">
 						<div class="d-flex gap-2">
-							<h5 routerLink="/pages/dashboard" role="button" class="mb-0" tooltipPosition="top" pTooltip=""><i class="fa-regular fa-home"></i></h5>
+							<h5 routerLink="/pages/dashboard" role="button" class="mb-0" tooltipPosition="top"
+								pTooltip=""><i class="fa-regular fa-home"></i></h5>
 							<span><i class="fa-solid fa-chevron-right"></i></span>
-							<h5 routerLink="/pages/education-tools" role="button" class="mb-0" tooltipPosition="top" pTooltip="">Education Tools</h5>
+							<h5 routerLink="/pages/education-tools" role="button" class="mb-0" tooltipPosition="top"
+								pTooltip="">Education Tools</h5>
 							<span><i class="fa-solid fa-chevron-right"></i></span>
 							<h5 class="mb-0" tooltipPosition="top" pTooltip="">UNICOMPARE</h5>
 						</div>
@@ -205,10 +311,13 @@
 						</div>
 					</div>
 					<div class="d-flex align-items-center gap-1">
-						<button pButton  class="btn btn-outline-primary text-small btn-rounded d-flex gap-2 align-items-center flex-fill" type="button">
+						<button pButton
+							class="btn btn-outline-primary text-small btn-rounded d-flex gap-2 align-items-center flex-fill"
+							type="button">
 							AI Credit <span class="btn-icon text-white">{{ aiCreditCount }}</span>
-						  </button>
-						<button pButton type="button" (click)="saveRecommadation()" class="btn btn-primary btn-rounded py-2 px-4">
+						</button>
+						<button pButton type="button" (click)="saveRecommadation()"
+							class="btn btn-primary btn-rounded py-2 px-4">
 							<span>History</span>
 						</button>
 					</div>
@@ -220,11 +329,14 @@
 				<div class="col-md-2"></div>
 				<div class="col-md-8">
 					<div class="d-flex justify-content-end gap-3 mb-3">
-						<button pButton type="button" (click)="downloadRecommadation()" class="btn btn-secondary btn-rounded p-1 ps-4">
-							<span class="me-2">Download</span><span class="btn-icon px-2 py-2"> <i class="fa-regular fa-download"></i></span>
+						<button pButton type="button" (click)="downloadRecommadation()"
+							class="btn btn-secondary btn-rounded p-1 ps-4">
+							<span class="me-2">Download</span><span class="btn-icon px-2 py-2"> <i
+									class="fa-regular fa-download"></i></span>
 						</button>
 					</div>
-					<div *ngIf="isResponseSkeleton; else showResponseData" class="card p-3 chatgpt-response bg-white h-100 overflow-y-auto">
+					<div *ngIf="isResponseSkeleton; else showResponseData"
+						class="card p-3 chatgpt-response bg-white h-100 overflow-y-auto">
 						<p-skeleton width='30rem' height='2rem' styleClass="mb-2"></p-skeleton>
 						<p-skeleton width='100%' height='1rem' styleClass="mb-2"></p-skeleton>
 						<p-skeleton width='100%' height='1rem' styleClass="mb-2"></p-skeleton>
@@ -241,7 +353,8 @@
 						</div>
 					</div>
 					<ng-template #showResponseData>
-						<div class="card p-3 poppins-content chatgpt-response bg-white h-100 overflow-y-auto" [innerHtml]="recommendationData"></div>
+						<div class="card p-3 poppins-content chatgpt-response bg-white h-100 overflow-y-auto"
+							[innerHtml]="recommendationData"></div>
 					</ng-template>
 				</div>
 				<div class="col-md-2"></div>
@@ -266,9 +379,11 @@
 					</div>
 					<div class="select-title d-flex justify-content-between align-items-center">
 						<div class="d-flex gap-2">
-							<h5 routerLink="/pages/dashboard" role="button" class="mb-0" tooltipPosition="top" pTooltip=""><i class="fa-regular fa-home"></i></h5>
+							<h5 routerLink="/pages/dashboard" role="button" class="mb-0" tooltipPosition="top"
+								pTooltip=""><i class="fa-regular fa-home"></i></h5>
 							<span><i class="fa-solid fa-chevron-right"></i></span>
-							<h5 routerLink="/pages/education-tools" role="button" class="mb-0" tooltipPosition="top" pTooltip="">Education Tools</h5>
+							<h5 routerLink="/pages/education-tools" role="button" class="mb-0" tooltipPosition="top"
+								pTooltip="">Education Tools</h5>
 							<span><i class="fa-solid fa-chevron-right"></i></span>
 							<h5 class="mb-0" tooltipPosition="top" pTooltip="">UNICOMPARE</h5>
 						</div>
@@ -279,10 +394,13 @@
 						</div>
 					</div>
 					<div class="d-flex align-items-center gap-1">
-						<button pButton  class="btn btn-outline-primary text-small btn-rounded d-flex gap-2 align-items-center flex-fill" type="button">
+						<button pButton
+							class="btn btn-outline-primary text-small btn-rounded d-flex gap-2 align-items-center flex-fill"
+							type="button">
 							AI Credit <span class="btn-icon text-white">{{ aiCreditCount }}</span>
-						  </button>
-						<button pButton type="button" (click)="saveRecommadation()" class="btn btn-primary btn-rounded py-2 px-4">
+						</button>
+						<button pButton type="button" (click)="saveRecommadation()"
+							class="btn btn-primary btn-rounded py-2 px-4">
 							<span>History</span>
 						</button>
 					</div>
@@ -291,7 +409,8 @@
 		</div>
 		<div class="card-body text-center flex-fill overflow-y-auto">
 			<div class="row mb-0">
-				<div *ngFor="let item of recommadationSavedQuestionList; let i = index" class="col-lg-3 col-md-3 col-sm-4 col-xs-12 col-4 mb-3">
+				<div *ngFor="let item of recommadationSavedQuestionList; let i = index"
+					class="col-lg-3 col-md-3 col-sm-4 col-xs-12 col-4 mb-3">
 					<div class="row w-100 m-0 justify-content-center h-100">
 						<div class="card subjectcard" role="button" (click)="showRecommandationData(item.response)">
 							<div class="card-body text-start">
@@ -314,30 +433,4 @@
 	</ng-container>
 </div>
 
-<p-dialog [(visible)]="restrict" [style]="{ width: '30vw' }" [draggable]="false" [resizable]="false" class="restrictionDialog" [breakpoints]="{ '960px': '30vw', '959px': '60vw', '425px': '90vw' }" (onHide)="clearRestriction()">
-	<div *ngIf="ehitlabelIsShow" class="text-center mt-5 mb-1">
-		<img src="../../../uniprep-assets/images/smartloack.png" class="image" width="60" />
-		<h3 class="offer">Upgrade Required</h3>
-		<p>To access this exclusive module,please upgrade your plan now</p>
-		<button pButton type="button" class="text-white p-ripple p-button-rounded p-button-warning p-button p-component p-2" (click)="upgradePlan()">Upgrade Plan<i class="fa fa-arrow-right exhausted-plan-icon"></i></button>
-	</div>
-	<div *ngIf="!ehitlabelIsShow" class="text-center mt-5 mb-1">
-		<img src="../../../uniprep-assets/images/smartloack.png" class="image" width="60" />
-		<h3 class="offer">Upgrade Required</h3>
-		<p>Please contact {{ orgnamewhitlabel }} Company for access</p>
-	</div>
-</p-dialog>
-
-<p-dialog [(visible)]="restrict" [style]="{ width: '30vw' }" [draggable]="false" [resizable]="false" class="restrictionDialog" [breakpoints]="{ '960px': '30vw', '959px': '60vw', '425px': '90vw' }" (onHide)="clearRestriction()">
-	<div *ngIf="ehitlabelIsShow" class="text-center mt-5 mb-1">
-		<img src="../../../uniprep-assets/images/smartloack.png" class="image" width="60" />
-		<h3 class="offer">Upgrade Required</h3>
-		<p>To access this exclusive module,please upgrade your plan now</p>
-		<button pButton type="button" class="text-white p-ripple p-button-rounded p-button-warning p-button p-component p-2" (click)="upgradePlan()">Upgrade Plan<i class="fa fa-arrow-right exhausted-plan-icon"></i></button>
-	</div>
-	<div *ngIf="!ehitlabelIsShow" class="text-center mt-5 mb-1">
-		<img src="{{ orglogowhitelabel }}" class="image" width="60" />
-		<h3 class="offer">Upgrade Required</h3>
-		<p>Please contact {{ orgnamewhitlabel }} Company for access</p>
-	</div>
-</p-dialog>
+<uni-restriction-dialog *ngIf="restrict" [isShowRestrict]="restrict" (closeRestrictModal)="restrict = false" />

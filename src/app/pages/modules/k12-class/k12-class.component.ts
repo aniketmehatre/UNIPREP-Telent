@@ -1,26 +1,27 @@
-import {Component, OnInit} from '@angular/core';
-import {filter, Observable} from "rxjs";
-import {ConfirmationService, MenuItem} from "primeng/api";
-import {ModuleServiceService} from "../../module-store/module-service.service";
-import {ActivatedRoute, NavigationEnd, Router} from "@angular/router";
-import {DataService} from "../../../data.service";
-import {AuthService} from "../../../Auth/auth.service";
-import {LocationService} from "../../../location.service";
-import {NgxUiLoaderService} from "ngx-ui-loader";
-import {PageFacadeService} from "../../page-facade.service";
-import {Meta, Title} from "@angular/platform-browser";
+import { Component, OnInit } from '@angular/core';
+import { filter, Observable } from "rxjs";
+import { ConfirmationService, MenuItem } from "primeng/api";
+import { ModuleServiceService } from "../../module-store/module-service.service";
+import { ActivatedRoute, NavigationEnd, Router } from "@angular/router";
+import { DataService } from "../../../data.service";
+import { AuthService } from "../../../Auth/auth.service";
+import { LocationService } from "../../../location.service";
+import { NgxUiLoaderService } from "ngx-ui-loader";
+import { PageFacadeService } from "../../page-facade.service";
+import { Meta, Title } from "@angular/platform-browser";
 import { Location } from "@angular/common";
 import { CommonModule } from '@angular/common';
 import { DialogModule } from 'primeng/dialog';
 import { SkeletonModule } from 'primeng/skeleton';
-import {StorageService} from "../../../storage.service";
+import { StorageService } from "../../../storage.service";
+import { RestrictionDialogComponent } from 'src/app/shared/restriction-dialog/restriction-dialog.component';
 @Component({
     selector: 'uni-k12-class',
     templateUrl: './k12-class.component.html',
     styleUrls: ['./k12-class.component.scss'],
     providers: [ConfirmationService],
     standalone: true,
-    imports: [CommonModule, DialogModule, SkeletonModule]
+    imports: [CommonModule, DialogModule, SkeletonModule, RestrictionDialogComponent]
 })
 export class K12ClassComponent implements OnInit {
     subModuleList: any[] = [];
@@ -45,21 +46,21 @@ export class K12ClassComponent implements OnInit {
     isSkeletonVisible: boolean = true;
     countryId: any;
     howItWorksVideoLink: string = "";
-    quizmoduleselectcountryidsetzero:any=0;
-    selectSubmoduleName:string = "";
-    ehitlabelIsShow:boolean=true;
-    imagewhitlabeldomainname:any
-    orgnamewhitlabel:any;
-    orglogowhitelabel:any;
+    quizmoduleselectcountryidsetzero: any = 0;
+    selectSubmoduleName: string = "";
+    ehitlabelIsShow: boolean = true;
+    imagewhitlabeldomainname: any
+    orgnamewhitlabel: any;
+    orglogowhitelabel: any;
     boardId: any;
     boardName: any;
     stateName: any;
     constructor(private moduleListService: ModuleServiceService, private router: Router, private dataService: DataService, private authService: AuthService,
-                private locationService: LocationService, private route: ActivatedRoute, private ngxService: NgxUiLoaderService,
-                private confirmationService: ConfirmationService, private pageFacade: PageFacadeService,
-                private meta: Meta, private _location: Location,
-                private titleService: Title,
-                private activatedRoute: ActivatedRoute, private storage: StorageService) {
+        private locationService: LocationService, private route: ActivatedRoute, private ngxService: NgxUiLoaderService,
+        private confirmationService: ConfirmationService, private pageFacade: PageFacadeService,
+        private meta: Meta, private _location: Location,
+        private titleService: Title,
+        private activatedRoute: ActivatedRoute, private storage: StorageService) {
         this.countryId = Number(this.storage.get('countryId'));
         this.boardName = this.storage.get('board-name');
         this.stateName = this.storage.get('state-name');
@@ -95,19 +96,8 @@ export class K12ClassComponent implements OnInit {
 
         // Initial update
         this.updateMetaTags();
-        this.locationService.getImage().subscribe(imageUrl => {
-            this.orglogowhitelabel = imageUrl;
-        });
-        this.locationService.getOrgName().subscribe(orgname => {
-            this.orgnamewhitlabel = orgname;
-        });
-        this.imagewhitlabeldomainname=window.location.hostname;
-        if (this.imagewhitlabeldomainname === "*.uniprep.ai" || this.imagewhitlabeldomainname === "dev-student.uniprep.ai" || this.imagewhitlabeldomainname === "uniprep.ai" || this.imagewhitlabeldomainname === "localhost") {
-            this.ehitlabelIsShow=true;
-        }else{
-            this.ehitlabelIsShow=false;
-        }
-        this.storage.set("modalcountryid",this.quizmoduleselectcountryidsetzero);
+
+        this.storage.set("modalcountryid", this.quizmoduleselectcountryidsetzero);
         this.init();
         this.moduleListService.getSubmodulesAndSpecialization().subscribe((res: any) => {
             this.allSearchedResult = res
@@ -161,7 +151,7 @@ export class K12ClassComponent implements OnInit {
     onSubModuleClick(id: any, submodule: any) {
         this.storage.set('selectedClass', id)
         this.storage.set('class-name', submodule.category)
-        this.router.navigate([`/pages/modules/k12-subject/${submodule.category_id}` ]);
+        this.router.navigate([`/pages/modules/k12-subject/${submodule.category_id}`]);
     }
 
     checkplanExpire(): void {

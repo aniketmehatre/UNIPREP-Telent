@@ -14,6 +14,7 @@ import { InputGroupAddonModule } from "primeng/inputgroupaddon"
 import { InputTextModule } from "primeng/inputtext"
 import { SelectModule } from "primeng/select"
 import { MultiSelectModule } from 'primeng/multiselect';
+import { RestrictionDialogComponent } from "src/app/shared/restriction-dialog/restriction-dialog.component"
 
 interface country {
 	id: number
@@ -40,7 +41,7 @@ const dateRangeValidator: any = (control: FormGroup): ValidationErrors | null =>
 	templateUrl: "./events.component.html",
 	styleUrls: ["./events.component.scss"],
 	standalone: true,
-	imports: [CommonModule, RouterModule, DialogModule, FormsModule, ReactiveFormsModule, SelectModule,MultiSelectModule,InputGroupModule, InputGroupAddonModule, InputTextModule],
+	imports: [CommonModule, RouterModule, DialogModule, FormsModule, ReactiveFormsModule, SelectModule, MultiSelectModule, InputGroupModule, InputGroupAddonModule, InputTextModule, RestrictionDialogComponent],
 })
 export class EventsComponent implements OnInit {
 	activeButton: number = 1
@@ -74,18 +75,6 @@ export class EventsComponent implements OnInit {
 		)
 	}
 	ngOnInit(): void {
-		this.locationService.getImage().subscribe((imageUrl) => {
-			this.orglogowhitelabel = imageUrl
-		})
-		this.locationService.getOrgName().subscribe((orgname) => {
-			this.orgnamewhitlabel = orgname
-		})
-		this.imagewhitlabeldomainname = window.location.hostname
-		if (this.imagewhitlabeldomainname === "*.uniprep.ai" || this.imagewhitlabeldomainname === "dev-student.uniprep.ai" || this.imagewhitlabeldomainname === "uniprep.ai" || this.imagewhitlabeldomainname === "localhost") {
-			this.ehitlabelIsShow = true
-		} else {
-			this.ehitlabelIsShow = false
-		}
 		this.setActiveButton(this.activeButton)
 		this.locationService.getCountry().subscribe((response) => {
 			this.countries = response

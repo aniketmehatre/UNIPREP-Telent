@@ -17,12 +17,13 @@ import { CommonModule } from "@angular/common";
 import { DialogModule } from "primeng/dialog";
 import { CarouselModule } from "primeng/carousel";
 import { ButtonModule } from "primeng/button";
-import {PdfViewerModule} from "ng2-pdf-viewer";
+import { PdfViewerModule } from "ng2-pdf-viewer";
+import { RestrictionDialogComponent } from "src/app/shared/restriction-dialog/restriction-dialog.component";
 @Component({
   selector: "uni-academic-tools-quiz",
   templateUrl: "./academic-tools-quiz.component.html",
   styleUrls: ["./academic-tools-quiz.component.scss"],
-  imports: [PdfViewerModule, DialogModule, CommonModule, CarouselModule, ButtonModule],
+  imports: [PdfViewerModule, DialogModule, CommonModule, CarouselModule, ButtonModule, RestrictionDialogComponent],
   standalone: true,
 })
 export class AcademicToolsQuizComponent implements OnInit, AfterViewInit {
@@ -100,7 +101,7 @@ export class AcademicToolsQuizComponent implements OnInit, AfterViewInit {
   submoduleId: string = "";
   pdfLoadError: boolean = false;
 
-  constructor(private moduleListService: ModuleServiceService, private authService: AuthService, private router: Router, private dataService: DataService, private location: Location, private locationService: LocationService, private ngxService: NgxUiLoaderService, private toast: MessageService, private activatedRoute: ActivatedRoute, private sanitizer: DomSanitizer, private academicService: AcademicService) {}
+  constructor(private moduleListService: ModuleServiceService, private authService: AuthService, private router: Router, private dataService: DataService, private location: Location, private locationService: LocationService, private ngxService: NgxUiLoaderService, private toast: MessageService, private activatedRoute: ActivatedRoute, private sanitizer: DomSanitizer, private academicService: AcademicService) { }
 
   ngOnInit(): void {
     this.titleModule = ["Stream", "Recommendation", "Quiz"];
@@ -114,12 +115,7 @@ export class AcademicToolsQuizComponent implements OnInit, AfterViewInit {
       this.checkProgress();
       this.getList();
     });
-    this.imagewhitlabeldomainname = window.location.hostname;
-    if (this.imagewhitlabeldomainname === "*.uniprep.ai" || this.imagewhitlabeldomainname === "dev-student.uniprep.ai" || this.imagewhitlabeldomainname === "uniprep.ai" || this.imagewhitlabeldomainname === "localhost") {
-      this.ehitlabelIsShow = true;
-    } else {
-      this.ehitlabelIsShow = false;
-    }
+
     this.checkplanExpire();
   }
 

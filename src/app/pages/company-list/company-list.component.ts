@@ -14,19 +14,20 @@ import { DialogModule } from 'primeng/dialog';
 import { MultiSelectModule } from 'primeng/multiselect';
 import { RouterModule } from '@angular/router';
 import { CardModule } from 'primeng/card';
-import {Paginator, PaginatorModule} from 'primeng/paginator';
+import { Paginator, PaginatorModule } from 'primeng/paginator';
 import { CarouselModule } from 'primeng/carousel';
 import { ButtonModule } from 'primeng/button';
 import { SelectModule } from 'primeng/select';
 import { InputGroupModule } from 'primeng/inputgroup';
 import { InputTextModule } from 'primeng/inputtext';
 import { InputGroupAddonModule } from 'primeng/inputgroupaddon';
+import { RestrictionDialogComponent } from 'src/app/shared/restriction-dialog/restriction-dialog.component';
 @Component({
-    selector: 'uni-company-list',
-    templateUrl: './company-list.component.html',
-    styleUrls: ['./company-list.component.scss'],
-    standalone: true,
-  imports: [CommonModule, DialogModule, MultiSelectModule, FormsModule, ReactiveFormsModule, CarouselModule, ButtonModule, CommonModule, RouterModule, DialogModule, MultiSelectModule, CardModule, InputGroupModule, InputTextModule, InputGroupAddonModule, Paginator],
+  selector: 'uni-company-list',
+  templateUrl: './company-list.component.html',
+  styleUrls: ['./company-list.component.scss'],
+  standalone: true,
+  imports: [CommonModule, DialogModule, MultiSelectModule, FormsModule, ReactiveFormsModule, CarouselModule, ButtonModule, CommonModule, RouterModule, DialogModule, MultiSelectModule, CardModule, InputGroupModule, InputTextModule, InputGroupAddonModule, Paginator, RestrictionDialogComponent],
 })
 export class CompanyListComponent implements OnInit {
   companyListData: any[] = []
@@ -46,16 +47,16 @@ export class CompanyListComponent implements OnInit {
   PersonalInfo!: any;
   viewFavouritesLabel: string = "View Favourites";
   allCompanyList: any[] = [];
-  allCompanyCount:number=0;
-  selectedCompanies:number = 0;
+  allCompanyCount: number = 0;
+  selectedCompanies: number = 0;
   selectAllCheckboxes = false;
-  exportDataIds:any[] = [];
+  exportDataIds: any[] = [];
   exportCreditCount: number = 0;
-  favCount:number=0;
-  ehitlabelIsShow:boolean=true;
-  imagewhitlabeldomainname:any;
-  orgnamewhitlabel:any;
-  orglogowhitelabel:any;
+  favCount: number = 0;
+  ehitlabelIsShow: boolean = true;
+  imagewhitlabeldomainname: any;
+  orgnamewhitlabel: any;
+  orglogowhitelabel: any;
   enableModule: boolean = false;
   activePageIndex: number = 0;
   recommendations: any = [
@@ -85,7 +86,7 @@ export class CompanyListComponent implements OnInit {
     private userManagementService: UserManagementService,
     private toast: MessageService,
     private dataService: DataService,
-    private pageFacade:PageFacadeService,
+    private pageFacade: PageFacadeService,
     private locationService: LocationService,
   ) {
     this.filterForm = this.fb.group({
@@ -102,15 +103,6 @@ export class CompanyListComponent implements OnInit {
     this.locationService.getImage().subscribe(imageUrl => {
       this.orglogowhitelabel = imageUrl;
     });
-    this.locationService.getOrgName().subscribe(orgname => {
-      this.orgnamewhitlabel = orgname;
-    });
-    this.imagewhitlabeldomainname=window.location.hostname;
-    if (this.imagewhitlabeldomainname === "*.uniprep.ai" || this.imagewhitlabeldomainname === "dev-student.uniprep.ai" || this.imagewhitlabeldomainname === "uniprep.ai" || this.imagewhitlabeldomainname === "localhost") {
-      this.ehitlabelIsShow=true;
-    }else{
-      this.ehitlabelIsShow=false;
-    }
     this.loadMultiSelectData();
     this.checkplanExpire();
     this.GetPersonalProfileData();
@@ -175,13 +167,13 @@ export class CompanyListComponent implements OnInit {
   }
   loadCompanyData(isFavourite: number) {
     let data: any;
-    if(isFavourite==1){
+    if (isFavourite == 1) {
       data = {
         favourite: 1,
         page: this.page,
         perpage: this.pageSize
       }
-    }else{
+    } else {
       data = {
         company_name: this.filterForm.value.company_name ? this.filterForm.value.company_name : '',
         country: this.filterForm.value.country ? this.filterForm.value.country : '',
@@ -194,10 +186,10 @@ export class CompanyListComponent implements OnInit {
     }
     this.companyListService.getCompanyList(data).subscribe((response) => {
       this.companyListData = response.data;
-      this.favCount=response.favourite_count;
+      this.favCount = response.favourite_count;
       this.exportCreditCount = response.credit_count ? response.credit_count : 0;
       if (isFavourite != 1) {
-        this.allCompanyList=response.data;
+        this.allCompanyList = response.data;
         this.allCompanyCount = response.count;
       }
       this.totalCompanyCount = response.count;
@@ -273,7 +265,7 @@ export class CompanyListComponent implements OnInit {
   }
   bookmarkQuestion(companyId: any, isFav: any) {
     isFav = isFav != '1' ? true : false;
-    this.favCount=isFav == true ? this.favCount+1 : this.favCount-1;
+    this.favCount = isFav == true ? this.favCount + 1 : this.favCount - 1;
     this.companyListService.bookmarkCompanyData(companyId, this.PersonalInfo.user_id, isFav).subscribe((response) => {
       let companyData = this.companyListData.find(item => item.id == companyId);
       isFav == true ? companyData.favourite = 1 : companyData.favourite = null;
@@ -300,12 +292,12 @@ export class CompanyListComponent implements OnInit {
       let favouriteCompany = companyList.filter(company => company.favourite === 1);
       let nonFavouriteCompany = companyList.filter(company => company.favourite !== 1);
       this.companyListData = favouriteCompany.concat(nonFavouriteCompany);
-      this.totalCompanyCount=this.companyListData.length;
-      this.totalCompanyCount=this.allCompanyCount;
+      this.totalCompanyCount = this.companyListData.length;
+      this.totalCompanyCount = this.allCompanyCount;
     }
   }
 
-  buyCredits(): void{
+  buyCredits(): void {
     if (this.planExpired) {
       this.restrict = true;
       return;
@@ -313,96 +305,96 @@ export class CompanyListComponent implements OnInit {
     this.router.navigate(["/pages/export-credit"]);
   }
 
-  selectAllCheckbox(){
+  selectAllCheckbox() {
     this.selectedCompanies = 0;
     this.selectAllCheckboxes = !this.selectAllCheckboxes;
-    if(this.selectAllCheckboxes){
-      this.companyListData.forEach(item=>{
+    if (this.selectAllCheckboxes) {
+      this.companyListData.forEach(item => {
         item.isChecked = 1;
         this.selectedCompanies += 1;
       })
-    }else{
-      this.companyListData.forEach(item=>{
+    } else {
+      this.companyListData.forEach(item => {
         item.isChecked = 0;
       });
     }
   }
 
-  onCheckboxChange(event: any){
+  onCheckboxChange(event: any) {
     const isChecked = (event.target as HTMLInputElement).checked;
     this.selectedCompanies = isChecked ? this.selectedCompanies + 1 : this.selectedCompanies - 1;
 
-    if(isChecked == false){
-      if(this.selectedCompanies){
+    if (isChecked == false) {
+      if (this.selectedCompanies) {
         this.selectAllCheckboxes = false;
       }
-    }else{
-      if(this.companyListData.length == this.selectedCompanies){
+    } else {
+      if (this.companyListData.length == this.selectedCompanies) {
         this.selectAllCheckboxes = true;
       }
     }
   }
 
-  exportData(){
+  exportData() {
     if (this.planExpired) {
       this.restrict = true;
       return;
-    }else if(this.exportCreditCount != 0){
+    } else if (this.exportCreditCount != 0) {
       this.exportDataIds = [];
-      this.companyListData.forEach(item=>{
-        if(item.isChecked == 1){
+      this.companyListData.forEach(item => {
+        if (item.isChecked == 1) {
           this.exportDataIds.push(item.id);
         }
       })
-      if(this.exportDataIds.length == 0){
-        this.toast.add({severity: "error",summary: "error",detail: "Select Some data for export!.",});
+      if (this.exportDataIds.length == 0) {
+        this.toast.add({ severity: "error", summary: "error", detail: "Select Some data for export!.", });
         return;
       }
 
       if (this.imagewhitlabeldomainname === "*.uniprep.ai" || this.imagewhitlabeldomainname === "dev-student.uniprep.ai" || this.imagewhitlabeldomainname === "uniprep.ai" || this.imagewhitlabeldomainname === "localhost") {
-        if(this.exportCreditCount < this.exportDataIds.length){
-          this.toast.add({severity: "error",summary: "error",detail: "insufficient credits.Please Buy Some Credits.",});
+        if (this.exportCreditCount < this.exportDataIds.length) {
+          this.toast.add({ severity: "error", summary: "error", detail: "insufficient credits.Please Buy Some Credits.", });
           this.router.navigate(["/pages/export-credit"]);
           return;
         }
-      }else{
-        if(this.exportCreditCount < this.exportDataIds.length){
-        this.toast.add({severity: "error",summary: "error",detail: "To download additional data beyond your free credits, please upgrade your plan.",});
-        this.restrict = true;
-        return;
+      } else {
+        if (this.exportCreditCount < this.exportDataIds.length) {
+          this.toast.add({ severity: "error", summary: "error", detail: "To download additional data beyond your free credits, please upgrade your plan.", });
+          this.restrict = true;
+          return;
+        }
       }
-    }
-      let data={
+      let data = {
         module_id: 2,
         export_id: this.exportDataIds
       };
-      this.companyListService.exportSelectedData(data).subscribe((response)=>{
+      this.companyListService.exportSelectedData(data).subscribe((response) => {
         window.open(response.link, '_blank');
         this.selectAllCheckboxes = false;
         this.selectedCompanies = 0;
         this.loadCompanyData(0);
       })
-    }else if(this.exportCreditCount == 0){
+    } else if (this.exportCreditCount == 0) {
       if (this.imagewhitlabeldomainname === "*.uniprep.ai" || this.imagewhitlabeldomainname === "dev-student.uniprep.ai" || this.imagewhitlabeldomainname === "uniprep.ai" || this.imagewhitlabeldomainname === "localhost") {
-        this.toast.add({severity: "error",summary: "error",detail: "Please Buy Some Credits.",});
+        this.toast.add({ severity: "error", summary: "error", detail: "Please Buy Some Credits.", });
         this.router.navigate(["/pages/export-credit"]);
-      }else{
+      } else {
         this.restrict = true;
       }
     }
-    
+
   }
 
-  openReport(){
-    
+  openReport() {
+
     let data = {
       isVisible: true,
-      reporttype:6,
-      moduleId:6,
+      reporttype: 6,
+      moduleId: 6,
       report_mode: "other_module"
     };
     this.dataService.openReportWindow(data);
-    
+
   }
 
   openVideoPopup(videoLink: string) {
@@ -428,8 +420,8 @@ export class CompanyListComponent implements OnInit {
   }
   getRecommendation() {
     this.enableModule = true;
-    let keyMapping: any = {"1": "industry_interested","2": "country","3": "head_quarters"};
-    
+    let keyMapping: any = { "1": "industry_interested", "2": "country", "3": "head_quarters" };
+
     let newData = Object.fromEntries(Object.entries(this.selectedData).map(([key, value]) => {
       let mappedKey = keyMapping[key] || key;
       if (Array.isArray(value)) {
@@ -441,13 +433,13 @@ export class CompanyListComponent implements OnInit {
     this.setRecommendationToForm(newData);
   }
 
-  setRecommendationToForm(data: any){
+  setRecommendationToForm(data: any) {
     this.filterForm.patchValue(data);
     this.loadCompanyData(0);
 
   }
-  resetRecommendation(){
-    this.companyListService.resetRecommendation().subscribe(res =>{
+  resetRecommendation() {
+    this.companyListService.resetRecommendation().subscribe(res => {
       this.activePageIndex = 0;
       this.enableModule = false;
       this.selectedData = {};
@@ -455,18 +447,18 @@ export class CompanyListComponent implements OnInit {
     });
   }
 
-  checkRecommendation(){
-    this.companyListService.getStoredRecommendation().subscribe(res =>{
-      if(res.status){
+  checkRecommendation() {
+    this.companyListService.getStoredRecommendation().subscribe(res => {
+      if (res.status) {
         this.enableModule = true;
         this.setRecommendationToForm(res.data);
-      }else{
+      } else {
         this.enableModule = false;
       }
     });
   }
 
-  goBack(){
+  goBack() {
     this.router.navigate(['/pages/job-tool/career-tool']);
   }
 }

@@ -57,22 +57,27 @@
           <li>You must achieve at least 90% correct answers to qualify and complete the quiz.</li>
         </ul>
       </div>
-            <!-- university -->
-            <div class="col-md-12 text-start" *ngIf="currentModuleId==5">
-              <p><b>Welcome to the {{currentModuleName}} Quiz! Please follow these instructions carefully to ensure a smooth
-                  quiz experience:</b></p>
-              <ul class="font-secondarycolor fw-medium lh-md instructionlist mt-4">
-                <li>The total duration of the quiz is {{ quizcount }} minutes.</li>
-                <li>You must answer all questions; skipping questions is not allowed</li>
-                <li>Access to other screens or applications is not permitted during the quiz to maintain focus and integrity.</li>
-                <li>Navigate through the quiz using the "Next" and "Previous" buttons. Do not use your browser's back or forward buttons as this may lead to accidentally exiting the quiz.</li>
-                <li>Review all your answers before submitting the quiz. You have the option to return to any question and modify your responses if necessary.</li>
-                <li>Once you begin, you cannot save your progress to submit later. Make sure you are prepared to complete the quiz in one sitting</li>
-                <li>Selecting "Restart" will refresh your quiz and present a new set of questions.</li>
-                <li>Upon successful completion of the quiz, you will receive a certificate that is accredited by prominent bodies.</li>
-                <li>You must achieve at least 90% correct answers to qualify and complete the quiz.</li>
-              </ul>
-            </div>
+      <!-- university -->
+      <div class="col-md-12 text-start" *ngIf="currentModuleId==5">
+        <p><b>Welcome to the {{currentModuleName}} Quiz! Please follow these instructions carefully to ensure a smooth
+            quiz experience:</b></p>
+        <ul class="font-secondarycolor fw-medium lh-md instructionlist mt-4">
+          <li>The total duration of the quiz is {{ quizcount }} minutes.</li>
+          <li>You must answer all questions; skipping questions is not allowed</li>
+          <li>Access to other screens or applications is not permitted during the quiz to maintain focus and integrity.
+          </li>
+          <li>Navigate through the quiz using the "Next" and "Previous" buttons. Do not use your browser's back or
+            forward buttons as this may lead to accidentally exiting the quiz.</li>
+          <li>Review all your answers before submitting the quiz. You have the option to return to any question and
+            modify your responses if necessary.</li>
+          <li>Once you begin, you cannot save your progress to submit later. Make sure you are prepared to complete the
+            quiz in one sitting</li>
+          <li>Selecting "Restart" will refresh your quiz and present a new set of questions.</li>
+          <li>Upon successful completion of the quiz, you will receive a certificate that is accredited by prominent
+            bodies.</li>
+          <li>You must achieve at least 90% correct answers to qualify and complete the quiz.</li>
+        </ul>
+      </div>
     </div>
   </div>
   <div class="card-footer bg-transparent">
@@ -81,7 +86,7 @@
         <h4 class="uniprep-primary">ALL THE BEST!</h4>
       </div>
       <div class="col-md-6 col-6 text-end">
-        <button pButton  (click)="runQuiz()" class="btn btn-start btn-rounded m-0 px-2 py-2"
+        <button pButton (click)="runQuiz()" class="btn btn-start btn-rounded m-0 px-2 py-2"
           [disabled]="this.quizData.length == 0">
           <div class="d-flex align-items-center">
             <span class="fw-normal h6 mb-0 ps-3 pe-2">Start</span>
@@ -100,10 +105,11 @@
         <h5 class="fw-bold">{{ selectedQuiz }}/{{ quizcount }} Question Left</h5>
       </div>
       <div class="col-md-8 col-12 order-1 order-md-2 text-center">
-        <h5 class="select-title mb-1">{{ currentModuleName }} Quiz  {{ quizModuleName ? ' - '+ quizModuleName : '' }}</h5>
+        <h5 class="select-title mb-1">{{ currentModuleName }} Quiz {{ quizModuleName ? ' - '+ quizModuleName : '' }}
+        </h5>
       </div>
       <div class="col-md-2 col-6 order-3 order-md-3 text-end">
-        <button pButton  (click)="closeQuiz()" class="btn btn-quit btn-rounded px-2 py-2">
+        <button pButton (click)="closeQuiz()" class="btn btn-quit btn-rounded px-2 py-2">
           <div class="d-flex align-items-center">
             <span class="fw-normal h6 mb-0 ps-3 pe-2">Quit</span>
             <div class="btn-icon"><i class="fa-solid fa-power-off"></i></div>
@@ -122,8 +128,9 @@
     <div class="container-fluid">
       <div class="row justify-content-center">
         <div class="col-md-12">
-          <p-carousel #carouselQuiz (onPage)="setPage($event)" [showIndicators]="false" [showNavigators]="false" [circular]="true" [numScroll]="1" [numVisible]="1"
-            [page]="selectedQuiz - 1" [responsiveOptions]="responsiveOptions" [value]="quizData" class="text-center">
+          <p-carousel #carouselQuiz (onPage)="setPage($event)" [showIndicators]="false" [showNavigators]="false"
+            [circular]="true" [numScroll]="1" [numVisible]="1" [page]="selectedQuiz - 1"
+            [responsiveOptions]="responsiveOptions" [value]="quizData" class="text-center">
             <ng-template [ngForOf]="quizData" let-i="index" let-val ngFor pTemplate="item">
               <div class="row text-center">
                 <div class="col-12 mb-4">
@@ -198,21 +205,21 @@
         </div>
       </div>
       <div class="col-md-4 text-end">
-        <button pButton  (click)="clickPreviousQuiz(carouselQuiz, $event)" *ngIf="selectedQuiz != 1"
+        <button pButton (click)="clickPreviousQuiz(carouselQuiz, $event)" *ngIf="selectedQuiz != 1"
           class="btn btn-back btn-rounded me-3 px-2 py-2">
           <div class="d-flex align-items-center">
             <span class="fw-normal h6 mb-0 ps-3 pe-2">Previous</span>
             <div class="btn-icon"><i class="fa-solid fa-arrow-left"></i></div>
           </div>
         </button>
-        <button pButton  *ngIf="this.quizData.length > this.selectedQuiz" (click)="clickNextQuiz(carouselQuiz, $event)"
+        <button pButton *ngIf="this.quizData.length > this.selectedQuiz" (click)="clickNextQuiz(carouselQuiz, $event)"
           [disabled]="answerOptionClicked" class="btn btn-start btn-rounded m-0 px-2 py-2">
           <div class="d-flex align-items-center">
             <span class="fw-normal h6 mb-0 ps-3 pe-2">Next</span>
             <div class="btn-icon"><i class="fa-solid fa-arrow-right"></i></div>
           </div>
         </button>&nbsp;
-        <button pButton  [disabled]="answerOptionClicked" *ngIf="this.quizData.length <= this.selectedQuiz"
+        <button pButton [disabled]="answerOptionClicked" *ngIf="this.quizData.length <= this.selectedQuiz"
           (click)="clickSubmitQuiz()" class="btn btn-start btn-rounded m-0 px-2 py-2">
           <div class="d-flex align-items-center">
             <span class="fw-normal h6 mb-0 ps-3 pe-2">Submit</span>
@@ -234,7 +241,8 @@
         <h5 class="select-title">{{ currentModuleName }} Quiz</h5>
       </div>
       <div class="col-md-2 col-2 text-end">
-        <button pButton  [disabled]="quizpercentage >= 90" (click)="retryQuiz()" class="btn btn-quit btn-rounded mt-2 px-2 py-2">
+        <button pButton [disabled]="quizpercentage >= 90" (click)="retryQuiz()"
+          class="btn btn-quit btn-rounded mt-2 px-2 py-2">
           <div class="d-flex align-items-center">
             <span class="fw-normal h6 mb-0">Retry</span>
             <div class="btn-icon"><i class="fa-solid fa-arrow-rotate-right"></i></div>
@@ -257,20 +265,20 @@
           currentModuleName }} module</p>
         <p *ngIf="totalPercentage <= 89" class="text-center mb-2 fw-medium">Completion of this module requires<br />a
           minimum score of 90%</p>
-        <button pButton  *ngIf="totalPercentage >= 90" style="background-color: #98b73f !important" (click)="openCertificate()"
-          class="btn btn-back btn-rounded px-2 py-2">
+        <button pButton *ngIf="totalPercentage >= 90" style="background-color: #98b73f !important"
+          (click)="openCertificate()" class="btn btn-back btn-rounded px-2 py-2">
           <div class="d-flex align-items-center">
             <span class="fw-normal h6 mb-0">View Certificate</span>
             <div class="btn-icon" style="background-color: #7e963e"><i class="fa fa-file" aria-hidden="true"></i></div>
           </div>
         </button>&nbsp;
-        <button pButton  (click)="takeAnotherquiz()" class="btn btn-back btn-rounded px-2 py-2">
+        <button pButton (click)="takeAnotherquiz()" class="btn btn-back btn-rounded px-2 py-2">
           <div class="d-flex align-items-center">
             <span class="fw-normal h6 mb-0">Take Another Quiz</span>
             <div class="btn-icon"><i class="fa fa-home" aria-hidden="true"></i></div>
           </div>
         </button>&nbsp;
-        <button pButton  (click)="openReviewPopup()" class="btn btn-back btn-rounded px-2 py-2">
+        <button pButton (click)="openReviewPopup()" class="btn btn-back btn-rounded px-2 py-2">
           <div class="d-flex align-items-center">
             <span class="fw-normal h6 mb-0">Review</span>
             <div class="btn-icon"><i class="fa-solid fa-list-check"></i></div>
@@ -300,7 +308,8 @@
         <h5 class="select-title">Your Quiz Review</h5>
       </div>
       <div class="col-md-2 col-2 text-end">
-        <button pButton  [disabled]="quizpercentage >= 90" (click)="retryQuiz()" class="btn btn-quit btn-rounded me-2 px-2 py-2">
+        <button pButton [disabled]="quizpercentage >= 90" (click)="retryQuiz()"
+          class="btn btn-quit btn-rounded me-2 px-2 py-2">
           <div class="d-flex align-items-center">
             <span class="fw-normal h6 mb-0 ps-3 pe-2">Retry</span>
             <div class="btn-icon"><i class="fa-solid fa-arrow-rotate-right"></i></div>
@@ -312,8 +321,9 @@
   <div class="card-body flex-fill overflow-y-auto">
     <div class="row justify-content-center">
       <div class="col-md-12">
-        <p-carousel  [showIndicators]="false" [showNavigators]="false" #carouselQuiz (onPage)="setPage($event)" [circular]="true" [numScroll]="1" [numVisible]="1"
-          [page]="selectedQuiz - 1" [responsiveOptions]="responsiveOptions" [value]="quizData" class="text-center">
+        <p-carousel [showIndicators]="false" [showNavigators]="false" #carouselQuiz (onPage)="setPage($event)"
+          [circular]="true" [numScroll]="1" [numVisible]="1" [page]="selectedQuiz - 1"
+          [responsiveOptions]="responsiveOptions" [value]="quizData" class="text-center">
           <ng-template [ngForOf]="quizData" let-i="index" let-val ngFor pTemplate="item">
             <div class="row text-center">
               <div class="col-12 mt-3 mb-4">
@@ -376,7 +386,8 @@
               <!-- <p class="mb-0 fw-semibold">Reference</p>
                             <p-breadcrumb [model]="breadCrumb" class="max-w-100 quizreference"></p-breadcrumb> -->
               <span *ngIf="currentModuleId !== 10" class="h5 mb-0">Source</span>
-              <button pButton  *ngIf="currentModuleId !== 10" (click)="openReferAnswer(val.faqquestion_link)" class="btn btn-back btn-rounded px-2 py-2">
+              <button pButton *ngIf="currentModuleId !== 10" (click)="openReferAnswer(val.faqquestion_link)"
+                class="btn btn-back btn-rounded px-2 py-2">
                 <p class="mb-0 px-2">Refer Answer2 <i class="fa-solid fa-paperclip"></i></p>
               </button>
             </div>
@@ -392,14 +403,14 @@
                 <p-breadcrumb [model]="breadCrumb" class="max-w-100 quizreference"></p-breadcrumb> -->
       </div>
       <div class="col-md-6 text-end">
-        <button pButton  *ngIf="selectedQuiz != 1" (click)="clickPreviousQuiz(carouselQuiz, $event)"
+        <button pButton *ngIf="selectedQuiz != 1" (click)="clickPreviousQuiz(carouselQuiz, $event)"
           class="btn btn-back btn-rounded px-2 py-2">
           <div class="d-flex align-items-center">
             <span class="fw-normal h6 mb-0 ps-3 pe-2">Previous</span>
             <div class="btn-icon"><i class="fa-solid fa-arrow-left"></i></div>
           </div>
         </button>&nbsp;
-        <button pButton  *ngIf="this.quizData.length > this.selectedQuiz" (click)="clickNextQuiz(carouselQuiz, $event)"
+        <button pButton *ngIf="this.quizData.length > this.selectedQuiz" (click)="clickNextQuiz(carouselQuiz, $event)"
           class="btn btn-start btn-rounded m-0 px-2 py-2">
           <div class="d-flex align-items-center">
             <span class="fw-normal h6 mb-0 ps-3 pe-2">Next</span>
@@ -417,23 +428,8 @@
     <h3 class="uniprep-secondary">Time's Up!</h3>
     <p class="mb-2">You have run out of time for this quiz. Unfortunately,this means the quiz is marked as failed.try
       the quiz again."</p>
-    <button pButton  pButton type="button" class="btn btn-secondary btn-rounded text-center" (click)="timeIsOver()"><i
+    <button pButton pButton type="button" class="btn btn-secondary btn-rounded text-center" (click)="timeIsOver()"><i
         class="fa fa-arrow-right"></i></button>
   </div>
 </p-dialog>
-<p-dialog [(visible)]="restrict1" [modal]="true" [style]="{ width: '30vw' }" [draggable]="false" [resizable]="false"
-  class="restrictionDialog" [breakpoints]="{ '960px': '30vw', '959px': '60vw', '425px': '90vw' }"
-  (onHide)="clearRestriction()">
-  <div *ngIf="ehitlabelIsShow" class="text-center mt-5 mb-4">
-    <img src="../../../uniprep-assets/images/smartloack.png" class="image" width="60" />
-    <h3 class="uniprep-secondary">Upgrade Required</h3>
-    <p>To access this exclusive module,please upgrade your plan now</p>
-    <button pButton  pButton type="button" class="text-white p-ripple p-button-rounded p-button-warning p-button p-component p-2"
-      (click)="upgradePlan()">Upgrade Plan<i class="fa fa-arrow-right exhausted-plan-icon"></i></button>
-  </div>
-  <div *ngIf="!ehitlabelIsShow" class="text-center mt-5 mb-4">
-    <img src="../../../uniprep-assets/images/smartloack.png" class="image" width="60" />
-    <h3 class="uniprep-secondary">Upgrade Required</h3>
-    <p>Please contact {{ orgnamewhitlabel }} Company for access</p>
-  </div>
-</p-dialog>
+<uni-restriction-dialog *ngIf="restrict1" [isShowRestrict]="restrict1" (closeRestrictModal)="restrict1 = false" />

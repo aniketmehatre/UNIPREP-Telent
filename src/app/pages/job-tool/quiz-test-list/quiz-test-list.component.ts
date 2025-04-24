@@ -6,13 +6,14 @@ import { AuthService } from "src/app/Auth/auth.service";
 import { LocationService } from "src/app/location.service";
 import { CommonModule } from "@angular/common";
 import { DialogModule } from "primeng/dialog";
-import {StorageService} from "../../../storage.service";
+import { StorageService } from "../../../storage.service";
+import { RestrictionDialogComponent } from "src/app/shared/restriction-dialog/restriction-dialog.component";
 @Component({
   selector: "uni-quiz-test-list",
   templateUrl: "./quiz-test-list.component.html",
   styleUrls: ["./quiz-test-list.component.scss"],
   standalone: true,
-  imports: [CommonModule, DialogModule],
+  imports: [CommonModule, DialogModule, RestrictionDialogComponent],
 })
 export class QuizTestListComponent implements OnInit {
   quizlist: any = [];
@@ -21,8 +22,8 @@ export class QuizTestListComponent implements OnInit {
   moduleId: string = "";
   count: number = 0;
   constructor(private testQuizService: TestQuizService, private activatedRoute: ActivatedRoute,
-              private authService: AuthService, private router: Router, private locationService: LocationService,
-              private storage: StorageService) {}
+    private authService: AuthService, private router: Router, private locationService: LocationService,
+    private storage: StorageService) { }
 
   ngOnInit(): void {
     this.activatedRoute.params.subscribe((params: Params) => {
@@ -32,18 +33,6 @@ export class QuizTestListComponent implements OnInit {
       this.quizlistData();
     });
     this.checkplanExpire();
-    this.locationService.getImage().subscribe((imageUrl) => {
-      this.orglogowhitelabel = imageUrl;
-    });
-    this.locationService.getOrgName().subscribe((orgname) => {
-      this.orgnamewhitlabel = orgname;
-    });
-    this.imagewhitlabeldomainname = window.location.hostname;
-    if (this.imagewhitlabeldomainname === "*.uniprep.ai" || this.imagewhitlabeldomainname === "dev-student.uniprep.ai" || this.imagewhitlabeldomainname === "uniprep.ai" || this.imagewhitlabeldomainname === "localhost") {
-      this.ehitlabelIsShow = true;
-    } else {
-      this.ehitlabelIsShow = false;
-    }
   }
   quizlistData() {
     const params: GetQuizPayload = {
@@ -62,8 +51,8 @@ export class QuizTestListComponent implements OnInit {
     this.storage.set("learninghubsubmoduleid", subModuleId.toString());
     havequeryParam
       ? this.router.navigate(["/pages/modules", currentModule, careertoolquiz], {
-          queryParams: { showReview: "true" },
-        })
+        queryParams: { showReview: "true" },
+      })
       : this.router.navigate(["/pages/modules", currentModule, careertoolquiz]);
   }
   planExpired: boolean = false;

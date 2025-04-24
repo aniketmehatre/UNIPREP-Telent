@@ -9,10 +9,14 @@
       <div class="col-md-12 d-flex gap-2 text-center">
         <div class="select-title d-flex justify-content-between align-items-center">
           <div>
-            <h5 class="mb-0 text-uppercase" tooltipPosition="top" pTooltip="Get essential tools and resources to help launch and manage your startup effectively.">Startup Kit<i class="questiontooltip fa-solid fa-circle-question"></i></h5>
+            <h5 class="mb-0 text-uppercase" tooltipPosition="top"
+              pTooltip="Get essential tools and resources to help launch and manage your startup effectively.">Startup
+              Kit<i class="questiontooltip fa-solid fa-circle-question"></i></h5>
           </div>
           <div>
-            <button pButton  class="how-it-works-button" severity="warn" (click)="openVideoPopup('https://www.youtube.com/embed/0GPqTLDwvjw?si=wtswTStADDrP0Iom')">How it works?<i class="fa-solid fa-play d-md-block d-none"></i></button>
+            <button pButton class="how-it-works-button" severity="warn"
+              (click)="openVideoPopup('https://www.youtube.com/embed/0GPqTLDwvjw?si=wtswTStADDrP0Iom')">How it works?<i
+                class="fa-solid fa-play d-md-block d-none"></i></button>
           </div>
         </div>
       </div>
@@ -25,15 +29,18 @@
           <div class="card-body d-flex gap-2 text-small">
             <span (click)="redirectTo('dashboard', -1)" role="button"><i class="fa-regular fa-home"></i></span>
             <span><i class="fa-solid fa-chevron-right"></i></span>
-            <span class="uniprep-primary fw-semibold" (click)="redirectTo('startup', -1)" role="button">Startup Kit</span>
-            <span class="fw-semibold uniprep-primary" role="button" *ngFor="let data of routedata; let i = index; let isLast = last" (click)="redirectTo(data, i)" [ngClass]="isLast ? 'fontcolor' : ''"
-              ><span><i class="fa-solid fa-chevron-right"></i></span> {{ data.name }}</span
-            >
+            <span class="uniprep-primary fw-semibold" (click)="redirectTo('startup', -1)" role="button">Startup
+              Kit</span>
+            <span class="fw-semibold uniprep-primary" role="button"
+              *ngFor="let data of routedata; let i = index; let isLast = last" (click)="redirectTo(data, i)"
+              [ngClass]="isLast ? 'fontcolor' : ''"><span><i class="fa-solid fa-chevron-right"></i></span> {{ data.name
+              }}</span>
           </div>
         </div>
       </div>
       <div class="col-md-3">
-        <input type="text" class="w-100 searchinput" placeholder="Search Files" [(ngModel)]="searchText" (input)="filterLists()" pInputText />
+        <input type="text" class="w-100 searchinput" placeholder="Search Files" [(ngModel)]="searchText"
+          (input)="filterLists()" pInputText />
         <ul *ngIf="filteredFiles.length > 0" class="dropdown-list">
           <li *ngFor="let files of filteredFiles">
             <div *ngIf="files.isFolder == 2; else nonFolderTemplate">
@@ -66,7 +73,8 @@
     </div>
     <div class="row mt-3">
       <p class="fw-semibold mb-0 uniprep-primary text-start" *ngIf="parentfolderlists.length > 0">Folders</p>
-      <div class="col-lg-3 col-md-4 col-sm-6 col-12" *ngFor="let folder of parentfolderlists" [appendTo]="'body'" [pTooltip]="folder?.name">
+      <div class="col-lg-3 col-md-4 col-sm-6 col-12" *ngFor="let folder of parentfolderlists" [appendTo]="'body'"
+        [pTooltip]="folder?.name">
         <div class="card startupkitcard my-2 text-start" role="button">
           <div class="card-body">
             <div class="d-flex gap-3 justify-content-start align-items-center" (click)="getchildinfo(folder)">
@@ -86,7 +94,8 @@
     </div>
     <div class="row mt-3">
       <p class="fw-semibold mb-0 uniprep-primary text-start" *ngIf="parentfilelists.length > 0">Files</p>
-      <div class="col-lg-3 col-md-4 col-sm-6 col-12" *ngFor="let folder of parentfilelists" [appendTo]="'body'" [pTooltip]="folder?.name">
+      <div class="col-lg-3 col-md-4 col-sm-6 col-12" *ngFor="let folder of parentfilelists" [appendTo]="'body'"
+        [pTooltip]="folder?.name">
         <a (click)="openFile(folder.img_path)">
           <div class="card startupkitcard my-2 text-start" role="button">
             <div class="card-body">
@@ -108,23 +117,13 @@
     </div>
   </div>
   <div class="card-footer py-0 border-0 bg-transparent">
-    <p-paginator dropdownAppendTo="body" appendTo="body" [rows]="folderdata.dataperpage" [totalRecords]="totalcount" (onPageChange)="pageChange($event)" [rowsPerPageOptions]="[10, 25, 50, 100]"></p-paginator>
+    <p-paginator dropdownAppendTo="body" appendTo="body" [rows]="folderdata.dataperpage" [totalRecords]="totalcount"
+      (onPageChange)="pageChange($event)" [rowsPerPageOptions]="[10, 25, 50, 100]"></p-paginator>
   </div>
 </div>
 
-<p-dialog [(visible)]="restrict" [modal]="true" [style]="{ width: '30vw' }" [draggable]="false" [resizable]="false" class="restrictionDialog" [breakpoints]="{ '960px': '30vw', '959px': '60vw', '425px': '90vw' }" (onHide)="clearRestriction()">
-  <div *ngIf="ehitlabelIsShow" class="text-center mt-5 mb-4">
-		<img src="../../../uniprep-assets/images/smartloack.png" class="image" width="60" />
-		<h3 class="offer">Upgrade Required</h3>
-		<p>To access this exclusive module,please upgrade your plan now</p>
-		<button pButton  pButton type="button" class="text-white p-ripple p-button-rounded p-button-warning p-button p-component p-2" (click)="upgradePlan()">Upgrade Plan<i class="fa fa-arrow-right exhausted-plan-icon"></i></button>
-	</div>
-	<div *ngIf="!ehitlabelIsShow" class="text-center mt-5 mb-4">
-		<img src="{{ orglogowhitelabel }}" class="image" width="60" />
-		<h3 class="offer">Upgrade Required</h3>
-		<p>Please contact {{ orgnamewhitlabel }} Company for access</p>
-	</div>
-</p-dialog>
+<uni-restriction-dialog *ngIf="restrict" [isShowRestrict]="restrict" (closeRestrictModal)="restrict = false" />
+
 <!-- <div *ngIf="planExpired" class="startup-expired readingcard">
   <div class="row">
     <div class="col-md-2 text-start"></div>

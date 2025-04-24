@@ -25,15 +25,16 @@ import { InputGroupAddonModule } from "primeng/inputgroupaddon"
 import { TextareaModule } from "primeng/textarea"
 import { EditorModule } from "primeng/editor"
 import { SkeletonModule } from "primeng/skeleton"
-import {PdfViewerModule} from "ng2-pdf-viewer";
-import {ConfirmPopup} from "primeng/confirmpopup";
+import { PdfViewerModule } from "ng2-pdf-viewer";
+import { ConfirmPopup } from "primeng/confirmpopup";
+import { RestrictionDialogComponent } from "src/app/shared/restriction-dialog/restriction-dialog.component"
 
 declare const pdfjsLib: any;
 
 interface ResumeHistory {
-    id: number;
-    pdf_name: string;
-    created_time: string;
+	id: number;
+	pdf_name: string;
+	created_time: string;
 }
 
 interface City {
@@ -49,7 +50,7 @@ interface City {
 	templateUrl: "./cover-letter-builder.component.html",
 	styleUrls: ["./cover-letter-builder.component.scss"],
 	standalone: true,
-	imports: [CommonModule,ConfirmPopup, EditorModule, DialogModule, SidebarModule, SkeletonModule, PdfViewerModule, RouterModule, CardModule, PaginatorModule, FormsModule, ReactiveFormsModule, CarouselModule, ButtonModule, MultiSelectModule, SelectModule, InputGroupModule, InputTextModule, InputGroupAddonModule, TextareaModule],
+	imports: [CommonModule, ConfirmPopup, EditorModule, DialogModule, SidebarModule, SkeletonModule, PdfViewerModule, RouterModule, CardModule, PaginatorModule, FormsModule, ReactiveFormsModule, CarouselModule, ButtonModule, MultiSelectModule, SelectModule, InputGroupModule, InputTextModule, InputGroupAddonModule, TextareaModule, RestrictionDialogComponent],
 	providers: [CvBuilderService, ConfirmationService, MessageService, TooltipModule],
 })
 export class CoverLetterBuilderComponent implements OnInit, AfterViewInit {
@@ -81,7 +82,7 @@ export class CoverLetterBuilderComponent implements OnInit, AfterViewInit {
 	resumeHistory: any = [];
 	pdfThumbnails: { [key: string]: string } = {};
 	filteredLocations: any = [];
-	orgLocation:any = [];
+	orgLocation: any = [];
 	cities: City[] = [];
 	resumeSlider: any = [
 		{
@@ -239,7 +240,7 @@ export class CoverLetterBuilderComponent implements OnInit, AfterViewInit {
 	swiper!: Swiper
 	pdfLoadError: boolean = false
 	pdfUrl: string = ""
-	countryCodeList:any[] = [];
+	countryCodeList: any[] = [];
 	constructor(private toaster: MessageService, private fb: FormBuilder, private resumeService: CourseListService, private locationService: LocationService, private authService: AuthService, private router: Router, private confirmService: ConfirmationService, private cvBuilderService: CvBuilderService) {
 		this.resumeFormInfoData = this.fb.group({
 			// user_name: ['Vivek Kaliyaperumal', [Validators.required]],
@@ -321,20 +322,20 @@ export class CoverLetterBuilderComponent implements OnInit, AfterViewInit {
 
 	searchLocation(event: any, mode: string) {
 		const query = event.target.value.toLowerCase();
-		if(mode === "user_location"){
+		if (mode === "user_location") {
 			if (query.length > 3) {
 				this.filteredLocations = this.getFilteredLocations(query);
 			} else if (query.length < 2) {
 				this.filteredLocations = [];
 			}
-		}else{
+		} else {
 			if (query.length > 3) {
 				this.orgLocation = this.getFilteredLocations(query);
 			} else if (query.length < 2) {
 				this.orgLocation = [];
 			}
 		}
-		
+
 	}
 
 	getLocationsList() {
@@ -345,25 +346,25 @@ export class CoverLetterBuilderComponent implements OnInit, AfterViewInit {
 
 	getFilteredLocations(query: string) {
 		const mockLocations = this.cities;
-	
+
 		return mockLocations.filter((city: any) => city.country_name.toLowerCase().includes(query.toLowerCase()));
 	}
-	
+
 	onFocusOut() {
 		setTimeout(() => {
-		  this.filteredLocations = [];
-		  this.orgLocation = [];
+			this.filteredLocations = [];
+			this.orgLocation = [];
 		}, 200); // Delay clearing the dropdown by 200 milliseconds
 	}
 
 
 	selectLocation(city: any, mode: string) {
-		if(mode === "user_location"){
+		if (mode === "user_location") {
 			this.resumeFormInfoData.patchValue({
 				user_location: city.country_name,
 			});
 			this.filteredLocations = [];
-		}else if(mode === "org_location"){
+		} else if (mode === "org_location") {
 			this.resumeFormInfoData.patchValue({
 				org_location: city.country_name,
 			});
@@ -390,7 +391,7 @@ export class CoverLetterBuilderComponent implements OnInit, AfterViewInit {
 
 	ngOnInit(): void {
 		let userDetails = this.authService._user;
-		let location = userDetails?.district+', '+ userDetails?.state;
+		let location = userDetails?.district + ', ' + userDetails?.state;
 		this.resumeFormInfoData.patchValue({
 			user_name: userDetails?.name,
 			user_email: userDetails?.email,
@@ -428,23 +429,11 @@ export class CoverLetterBuilderComponent implements OnInit, AfterViewInit {
 		// this.hideHeader()
 		this.getCountryCodeList();
 		this.getLocationsList();
-		this.locationService.getImage().subscribe((imageUrl) => {
-			this.orglogowhitelabel = imageUrl
-		})
-		this.locationService.getOrgName().subscribe((orgname) => {
-			this.orgnamewhitlabel = orgname
-		})
-		this.imagewhitlabeldomainname = window.location.hostname
-		if (this.imagewhitlabeldomainname === "*.uniprep.ai" || this.imagewhitlabeldomainname === "dev-student.uniprep.ai" || this.imagewhitlabeldomainname === "uniprep.ai" || this.imagewhitlabeldomainname === "localhost") {
-			this.ehitlabelIsShow = true
-		} else {
-			this.ehitlabelIsShow = false
-		}
 	}
 
-	getCountryCodeList(){
+	getCountryCodeList() {
 		this.cvBuilderService.getCountryCodes().subscribe({
-			next: response =>{
+			next: response => {
 				this.countryCodeList = response;
 			}
 		})
@@ -623,7 +612,7 @@ export class CoverLetterBuilderComponent implements OnInit, AfterViewInit {
 		let formData = this.resumeFormInfoData.value
 		const userSummary = formData.user_summary;
 		//this user summary contains &nbsp; when we edit the content so removed the &nbsp; manually.
-		const cleanedContent = cleanHtmlContent(userSummary); 
+		const cleanedContent = cleanHtmlContent(userSummary);
 
 		function cleanHtmlContent(html: string): string {
 			return html
@@ -656,26 +645,26 @@ export class CoverLetterBuilderComponent implements OnInit, AfterViewInit {
 		formData.mode = "cover_letter"
 		formData.inner_mode = mode
 		formData.max_tokens = 1500
-		if(mode == 'generate_description'){
+		if (mode == 'generate_description') {
 			this.resumeFormInfoData.patchValue({
 				job_description: "",
 			})
 			this.rephraseDesBtnDisable = true;
-			this.generateDesBtnDisable=false;
-		}else if(mode == 'rephrase_description'){
+			this.generateDesBtnDisable = false;
+		} else if (mode == 'rephrase_description') {
 			this.rephraseDesBtnDisable = false;
-			this.generateDesBtnDisable=true;
-		}else if(mode == 'generate_summary'){
+			this.generateDesBtnDisable = true;
+		} else if (mode == 'generate_summary') {
 			this.resumeFormInfoData.patchValue({
 				user_summary: "",
 			})
 			this.generateConBtnDisable = false;
 			this.rephraseconBtnDisable = true;
-		}else if(mode == 'rephrase_summary'){
+		} else if (mode == 'rephrase_summary') {
 			this.generateConBtnDisable = true;
 			this.rephraseconBtnDisable = false;
 		}
-		
+
 
 		this.cvBuilderService.openAiIntegration(formData).subscribe((res) => {
 			if (res.response && res.response.length > 0) {
@@ -685,11 +674,11 @@ export class CoverLetterBuilderComponent implements OnInit, AfterViewInit {
 					.map((part: any) => part + "</p><br>")
 					.join("")
 
-				if(mode == 'generate_description' || mode == 'rephrase_description'){
+				if (mode == 'generate_description' || mode == 'rephrase_description') {
 					this.resumeFormInfoData.patchValue({
 						job_description: GPTResponse,
 					})
-				}else if(mode == 'generate_summary' || mode == 'rephrase_summary'){
+				} else if (mode == 'generate_summary' || mode == 'rephrase_summary') {
 					this.resumeFormInfoData.patchValue({
 						user_summary: GPTResponse,
 					})

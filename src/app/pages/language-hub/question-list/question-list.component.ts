@@ -16,20 +16,21 @@ import { ReadQuestion } from "../../../@Models/read-question.model";
 import { LanguageArrayGlobalService } from "../language-array-global.service";
 import { DialogModule } from "primeng/dialog";
 import { PaginatorModule } from "primeng/paginator";
-import { SkeletonModule } from "primeng/skeleton";  
+import { SkeletonModule } from "primeng/skeleton";
 import { TooltipModule } from "primeng/tooltip";
 import { ButtonModule } from "primeng/button";
 import { MultiSelectModule } from "primeng/multiselect";
 import { CarouselModule } from "primeng/carousel";
 import { InputGroupModule } from "primeng/inputgroup";
 import { InputGroupAddonModule } from "primeng/inputgroupaddon";
-import {StorageService} from "../../../storage.service";
+import { StorageService } from "../../../storage.service";
+import { RestrictionDialogComponent } from "src/app/shared/restriction-dialog/restriction-dialog.component";
 @Component({
   selector: "uni-question-list",
   templateUrl: "./question-list.component.html",
   styleUrls: ["./question-list.component.scss"],
   standalone: true,
-  imports: [CommonModule,RouterModule, DialogModule, PaginatorModule, SkeletonModule, TooltipModule, ButtonModule, MultiSelectModule, CarouselModule, InputGroupModule, InputGroupAddonModule],
+  imports: [CommonModule, RouterModule, DialogModule, PaginatorModule, SkeletonModule, TooltipModule, ButtonModule, MultiSelectModule, CarouselModule, InputGroupModule, InputGroupAddonModule, RestrictionDialogComponent],
 })
 export class QuestionListComponent implements OnInit {
   jsonData: any = [
@@ -595,10 +596,10 @@ export class QuestionListComponent implements OnInit {
   orgnamewhitlabel: any;
   orglogowhitelabel: any;
   constructor(private languageHubService: LanguageHubService, private lhs: LanguageHubDataService,
-              private location: Location, private route: ActivatedRoute, private toast: MessageService,
-              private deviceService: DeviceDetectorService, private authService: AuthService, private router: Router,
-              private pageFacade: PageFacadeService, private languageArrayGlobalService: LanguageArrayGlobalService,
-              private moduleListService: ModuleServiceService, private storage: StorageService) {
+    private location: Location, private route: ActivatedRoute, private toast: MessageService,
+    private deviceService: DeviceDetectorService, private authService: AuthService, private router: Router,
+    private pageFacade: PageFacadeService, private languageArrayGlobalService: LanguageArrayGlobalService,
+    private moduleListService: ModuleServiceService, private storage: StorageService) {
     this.lhs.data$.subscribe((data) => {
       this.selectedLanguageId = data;
     });
@@ -624,12 +625,7 @@ export class QuestionListComponent implements OnInit {
 
   ngOnInit(): void {
     this.checkPlanExpiry();
-    this.imagewhitlabeldomainname = window.location.hostname;
-    if (this.imagewhitlabeldomainname === "*.uniprep.ai" || this.imagewhitlabeldomainname === "dev-student.uniprep.ai" || this.imagewhitlabeldomainname === "uniprep.ai" || this.imagewhitlabeldomainname === "localhost") {
-      this.ehitlabelIsShow = true;
-    } else {
-      this.ehitlabelIsShow = false;
-    }
+
     this.heading = this.selectedLanguageName;
     this.speech = new Speech();
     if (this.speech.hasBrowserSupport()) {
@@ -715,9 +711,9 @@ export class QuestionListComponent implements OnInit {
     this.location.back();
   }
 
-  gotoLanguageHubMain() {}
+  gotoLanguageHubMain() { }
 
-  goToHomebreadcrump() {}
+  goToHomebreadcrump() { }
 
   viewOneQuestion(data: any) {
     if (this.planExpired) {
@@ -733,7 +729,7 @@ export class QuestionListComponent implements OnInit {
     this.oneQuestionContent = data;
   }
 
-  onShowModal(event: any) {}
+  onShowModal(event: any) { }
 
   voiceOverEnglish(id: string, text: string) {
     if (this.currentId === id) {
@@ -853,7 +849,7 @@ export class QuestionListComponent implements OnInit {
     this.router.navigateByUrl(`/pages/chat`);
   }
 
-  reviewBy() {}
+  reviewBy() { }
 
   paginate(event: any) {
     this.page = event.page + 1;

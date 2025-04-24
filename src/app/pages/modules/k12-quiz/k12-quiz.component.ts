@@ -1,24 +1,25 @@
 import { Component, OnInit } from '@angular/core';
-import {interval, Observable, Subscription, takeWhile} from "rxjs";
-import {MenuItem, MessageService} from "primeng/api";
-import {ModuleServiceService} from "../../module-store/module-service.service";
-import {AuthService} from "../../../Auth/auth.service";
-import {ActivatedRoute, Params, Router} from "@angular/router";
-import {DataService} from "../../../data.service";
-import {Location} from "@angular/common";
-import {LocationService} from "../../../location.service";
-import {NgxUiLoaderService} from "ngx-ui-loader";
+import { interval, Observable, Subscription, takeWhile } from "rxjs";
+import { MenuItem, MessageService } from "primeng/api";
+import { ModuleServiceService } from "../../module-store/module-service.service";
+import { AuthService } from "../../../Auth/auth.service";
+import { ActivatedRoute, Params, Router } from "@angular/router";
+import { DataService } from "../../../data.service";
+import { Location } from "@angular/common";
+import { LocationService } from "../../../location.service";
+import { NgxUiLoaderService } from "ngx-ui-loader";
 import { CommonModule } from '@angular/common';
 import { DialogModule } from 'primeng/dialog';
 import { CarouselModule } from 'primeng/carousel';
 import { ButtonModule } from 'primeng/button';
-import {StorageService} from "../../../storage.service";
+import { StorageService } from "../../../storage.service";
+import { RestrictionDialogComponent } from 'src/app/shared/restriction-dialog/restriction-dialog.component';
 @Component({
-    selector: 'uni-k12-quiz',
-    templateUrl: './k12-quiz.component.html',
-    styleUrls: ['./k12-quiz.component.scss'],
-    standalone: true,
-    imports: [CommonModule, DialogModule, CarouselModule, ButtonModule]
+  selector: 'uni-k12-quiz',
+  templateUrl: './k12-quiz.component.html',
+  styleUrls: ['./k12-quiz.component.scss'],
+  standalone: true,
+  imports: [CommonModule, DialogModule, CarouselModule, ButtonModule, RestrictionDialogComponent]
 })
 export class K12QuizComponent implements OnInit {
   quizData: any[] = [];
@@ -69,22 +70,10 @@ export class K12QuizComponent implements OnInit {
   orgnamewhitlabel: any;
   orglogowhitelabel: any;
   constructor(private moduleListService: ModuleServiceService, private authService: AuthService, private router: Router, private dataService: DataService,
-              private location: Location, private locationService: LocationService, private ngxService: NgxUiLoaderService,
-              private toast: MessageService, private activatedRoute: ActivatedRoute, private storage: StorageService) { }
+    private location: Location, private locationService: LocationService, private ngxService: NgxUiLoaderService,
+    private toast: MessageService, private activatedRoute: ActivatedRoute, private storage: StorageService) { }
 
   ngOnInit(): void {
-    this.locationService.getImage().subscribe(imageUrl => {
-      this.orglogowhitelabel = imageUrl;
-    });
-    this.locationService.getOrgName().subscribe(orgname => {
-      this.orgnamewhitlabel = orgname;
-    });
-    this.imagewhitlabeldomainname = window.location.hostname;
-    if (this.imagewhitlabeldomainname === "*.uniprep.ai" || this.imagewhitlabeldomainname === "dev-student.uniprep.ai" || this.imagewhitlabeldomainname === "uniprep.ai" || this.imagewhitlabeldomainname === "localhost") {
-      this.ehitlabelIsShow = true;
-    } else {
-      this.ehitlabelIsShow = false;
-    }
     this.init();
     this.checkplanExpire();
   }
@@ -137,7 +126,7 @@ export class K12QuizComponent implements OnInit {
       let showReview = params['showReview'];
       if (showReview === 'true') {
         this.openReviewPopup();
-        this.isInstructionVisible=false;
+        this.isInstructionVisible = false;
       }
     });
   }
@@ -153,7 +142,7 @@ export class K12QuizComponent implements OnInit {
       let data = res.time_left;
       let subscription_exists_status = res.subscription_details;
       if (data.plan === "expired" || data.plan === 'subscription_expired' ||
-          subscription_exists_status?.subscription_plan === "free_trail") {
+        subscription_exists_status?.subscription_plan === "free_trail") {
         this.planExpired = true;
       } else {
         this.planExpired = false;
@@ -191,7 +180,7 @@ export class K12QuizComponent implements OnInit {
       cName = countryName;
     });
     this.breadCrumb = [{ label: cName }, { label: this.quizData[0]!.module_name },
-      { label: this.quizData[0]!.sub_module_name }];
+    { label: this.quizData[0]!.sub_module_name }];
     this.startTimer();
   }
 
@@ -265,7 +254,7 @@ export class K12QuizComponent implements OnInit {
       cName = countryName;
     });
     this.breadCrumb = [{ label: cName }, { label: singleQuizData.module_name },
-      { label: singleQuizData.sub_module_name }];
+    { label: singleQuizData.sub_module_name }];
     carouselQuiz.navBackward(event, this.selectedQuiz);
   }
 
@@ -305,7 +294,7 @@ export class K12QuizComponent implements OnInit {
     });
 
     this.breadCrumb = [{ label: cName }, { label: singleQuizData.module_name },
-      { label: singleQuizData.sub_module_name }];
+    { label: singleQuizData.sub_module_name }];
     carouselQuiz.navForward(event, this.selectedQuiz);
   }
   certificatesurl: any = ""
@@ -442,7 +431,7 @@ export class K12QuizComponent implements OnInit {
     if (this.currentModuleId < 10) {
       this.timer = 0;
       this.timerSubscription = interval(1000).pipe(
-          takeWhile(() => this.timer < (this.quizcount * 60))
+        takeWhile(() => this.timer < (this.quizcount * 60))
       ).subscribe(() => {
         this.timer++;
         // console.log(`Timer: ${this.timer} seconds`);
@@ -453,7 +442,7 @@ export class K12QuizComponent implements OnInit {
     } else {
       this.timer = this.totalquiztime;
       this.timerSubscription = interval(1000).pipe(
-          takeWhile(() => this.timer > 0)
+        takeWhile(() => this.timer > 0)
       ).subscribe(() => {
         this.timer--;
         // console.log(`Timer: ${this.timer} seconds`);

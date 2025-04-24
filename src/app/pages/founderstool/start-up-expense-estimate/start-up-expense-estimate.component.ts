@@ -27,6 +27,7 @@ import { DomSanitizer, SafeHtml } from "@angular/platform-browser"
 import { PromptService } from "../../prompt.service"
 import { SkeletonModule } from "primeng/skeleton"
 import { SharedModule } from "src/app/shared/shared.module"
+import { RestrictionDialogComponent } from "src/app/shared/restriction-dialog/restriction-dialog.component"
 
 interface selectList {
 	name: string
@@ -36,7 +37,7 @@ interface selectList {
 	templateUrl: "./start-up-expense-estimate.component.html",
 	styleUrls: ["./start-up-expense-estimate.component.scss"],
 	standalone: true,
-	imports: [CommonModule, DialogModule, RouterModule, CardModule, PaginatorModule, FormsModule, ReactiveFormsModule, CarouselModule, ButtonModule, MultiSelectModule, InputGroupModule, InputTextModule, InputGroupAddonModule, SelectModule, SkeletonModule, SharedModule],
+	imports: [CommonModule, DialogModule, RouterModule, CardModule, PaginatorModule, FormsModule, ReactiveFormsModule, CarouselModule, ButtonModule, MultiSelectModule, InputGroupModule, InputTextModule, InputGroupAddonModule, SelectModule, SkeletonModule, SharedModule, RestrictionDialogComponent],
 })
 export class StartUpExpenseEstimateComponent implements OnInit {
 	locationList: any[]
@@ -137,26 +138,14 @@ export class StartUpExpenseEstimateComponent implements OnInit {
 	selectedData: { [key: string]: any } = {}
 
 	ngOnInit(): void {
-		this.locationService.getImage().subscribe((imageUrl) => {
-			this.orglogowhitelabel = imageUrl
-		})
-		this.locationService.getOrgName().subscribe((orgname) => {
-			this.orgnamewhitlabel = orgname
-		})
-		this.imagewhitlabeldomainname = window.location.hostname
-		if (this.imagewhitlabeldomainname === "*.uniprep.ai" || this.imagewhitlabeldomainname === "dev-student.uniprep.ai" || this.imagewhitlabeldomainname === "uniprep.ai" || this.imagewhitlabeldomainname === "localhost") {
-			this.ehitlabelIsShow = true
-		} else {
-			this.ehitlabelIsShow = false
-		}
 		this.getCurrenyandLocation()
 		this.getAICreditCount();
 	}
-	getAICreditCount(){
+	getAICreditCount() {
 		this.promptService.getAicredits().subscribe({
-		  next: resp =>{
-			this.aiCreditCount = resp;
-		  }
+			next: resp => {
+				this.aiCreditCount = resp;
+			}
 		})
 	}
 	goBack() {
@@ -296,7 +285,7 @@ export class StartUpExpenseEstimateComponent implements OnInit {
 					this.isRecommendationSavedData = true
 					this.recommadationSavedQuestionList = response.data
 				},
-				error: (error) => {},
+				error: (error) => { },
 			})
 		}
 	}

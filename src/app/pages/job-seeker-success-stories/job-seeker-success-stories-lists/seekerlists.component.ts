@@ -12,12 +12,13 @@ import { DialogModule } from "primeng/dialog";
 import { PaginatorModule } from "primeng/paginator";
 import { DataService } from "src/app/data.service";
 import { SkeletonModule } from "primeng/skeleton";
+import { RestrictionDialogComponent } from "src/app/shared/restriction-dialog/restriction-dialog.component";
 @Component({
   selector: "uni-seekerlists",
   templateUrl: "./seekerlists.component.html",
   styleUrls: ["./seekerlists.component.scss"],
   standalone: true,
-  imports: [CommonModule, CardModule, DialogModule, PaginatorModule, SkeletonModule],
+  imports: [CommonModule, CardModule, DialogModule, PaginatorModule, SkeletonModule, RestrictionDialogComponent],
 })
 export class SeekerListsComponent implements OnInit {
   isSkeletonVisible: boolean = true;
@@ -48,12 +49,10 @@ export class SeekerListsComponent implements OnInit {
     private meta: Meta,
     private service: JobseekerSuccessStoriesService,
     private dataService: DataService
-  ) {}
+  ) { }
   ngOnInit(): void {
     this.getList();
     this.checkPlanExpiry();
-    this.imagewhitlabeldomainname = window.location.hostname;
-    this.ehitlabelIsShow = ["*.uniprep.ai","dev-student.uniprep.ai", "uniprep.ai", "localhost"].includes(this.imagewhitlabeldomainname);
   }
   onShowModal(value: any) {
     let socialShare: any = document.getElementById("socialSharingList");

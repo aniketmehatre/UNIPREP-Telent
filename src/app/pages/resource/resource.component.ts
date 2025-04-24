@@ -10,6 +10,7 @@ import { CommonModule } from "@angular/common"
 import { MultiSelectModule } from "primeng/multiselect"
 import { DialogModule } from "primeng/dialog"
 import { SkeletonModule } from "primeng/skeleton"
+import { RestrictionDialogComponent } from "src/app/shared/restriction-dialog/restriction-dialog.component"
 interface country {
 	id: number
 	country: string
@@ -24,7 +25,7 @@ interface country {
 	templateUrl: "./resource.component.html",
 	styleUrls: ["./resource.component.scss"],
 	standalone: true,
-	imports: [CommonModule, ReactiveFormsModule, MultiSelectModule, DialogModule, SkeletonModule  ],
+	imports: [CommonModule, ReactiveFormsModule, MultiSelectModule, DialogModule, SkeletonModule, RestrictionDialogComponent],
 })
 export class ResourceComponent implements OnInit {
 	filterform: FormGroup
@@ -51,18 +52,7 @@ export class ResourceComponent implements OnInit {
 		.map((_, index) => index)
 
 	ngOnInit(): void {
-		this.locationService.getImage().subscribe((imageUrl) => {
-			this.orglogowhitelabel = imageUrl
-		})
-		this.locationService.getOrgName().subscribe((orgname) => {
-			this.orgnamewhitlabel = orgname
-		})
-		this.imagewhitlabeldomainname = window.location.hostname
-		if (this.imagewhitlabeldomainname === "*.uniprep.ai" || this.imagewhitlabeldomainname === "dev-student.uniprep.ai" || this.imagewhitlabeldomainname === "uniprep.ai" || this.imagewhitlabeldomainname === "localhost") {
-			this.ehitlabelIsShow = true
-		} else {
-			this.ehitlabelIsShow = false
-		}
+
 		this.locationService.getCountry().subscribe((response) => {
 			this.countries = response
 		})
