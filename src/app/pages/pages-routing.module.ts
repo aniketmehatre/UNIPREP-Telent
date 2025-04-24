@@ -45,6 +45,7 @@ import { FundListGuidlinesComponent } from './fund-list-guidelines/fund-list-gui
 import { JoboffercomparisontoolComponent } from './job-tool/joboffercomparisontool/joboffercomparisontool.component';
 import { GlobalRepositoryComponent } from './global-repository/global-repository.component';
 import { GlobalWorkVisaComponent } from './global-work-visa/global-work-visa.component';
+import { ManagementTeamComponent } from './landing/management-team/management-team.component';
 
 const routes: Routes = [
     {

@@ -6,13 +6,14 @@ const dev_uniapplyb2c_url = 'http://uniapplyb2c.uniabroad.io/auth/login?redirect
 const prod_uniapplyb2c_url = 'http://uniapply.ai/auth/login?redirect=/pages/applications'
 const dev_uniapply_student = 'http://74.225.142.9/uniapplyStudents/public/api'
 const prod_uniapply_student = 'https://apply.uniabroad.io/uniapplyStudents/public/api'
-
+const employerdevUrl = 'https://dev-employer.uniprep.ai';
 export const environment = {
   domain: dev_domain,
   maintenanceMode: false,
   production: false,
   ApiUrl: dev_url,
   ApiUrlEmployer: dev_url + '/employer',
+  employerDomain: employerdevUrl,
   tokenKey: 'token',
   secretKeySalt: 'WaterMelonTea',
   facebookAppId: '892925195633254',

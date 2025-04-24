@@ -318,4 +318,8 @@ export class LandingComponent implements OnInit {
 			dropdownMenu.classList.add('show');
 		}
 	}
+
+	navigateConnectUrl() {
+		window.open(environment.employerDomain, '_blank');
+	}
 }
