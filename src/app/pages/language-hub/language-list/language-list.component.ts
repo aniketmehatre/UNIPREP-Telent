@@ -29,7 +29,7 @@ export class LanguageListComponent implements OnInit {
 	page: number = 1
 	perpage: number = 25
 
-	constructor(private languageHubService: LanguageHubService, private lhs: LanguageHubDataService, private languageArrayGlobalService: LanguageArrayGlobalService, private router: Router, private pageFacade: PageFacadeService, public authService: AuthService) {}
+	constructor(private languageHubService: LanguageHubService, private lhs: LanguageHubDataService, private languageArrayGlobalService: LanguageArrayGlobalService, private router: Router, private pageFacade: PageFacadeService, public authService: AuthService) { }
 
 	loopRange = Array.from({ length: 30 })
 		.fill(0)

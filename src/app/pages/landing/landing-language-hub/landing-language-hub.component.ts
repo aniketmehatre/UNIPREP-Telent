@@ -9,7 +9,7 @@ import { environment } from '@env/environment';
 
 
 @Component({
-  selector: 'app-landing-language-hub',
+  selector: 'uni-landing-language-hub',
   standalone: true,
   imports: [
     CommonModule,

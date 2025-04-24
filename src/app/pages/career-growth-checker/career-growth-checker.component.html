@@ -1,26 +1,32 @@
 <div class="search-page" *ngIf="showSearch">
 	<div class="row h-100 justify-content-center align-items-center">
 		<div class="col-md-8">
-			<h3 class="text-center uniprep-primary">Apply to millions of job opportunities across top companies, industries and locations</h3>
+			<h3 class="text-center uniprep-primary">Apply to millions of job opportunities across top companies,
+				industries and locations</h3>
 			<form [formGroup]="checkForm" (ngSubmit)="search()">
 				<div class="form-group row align-items-center">
 					<div class="col-md-7 position-relative mb-3 mb-md-0">
 						<div class="position-relative">
 							<span class="search-icon"><i class="fas fa-search search-icon"></i></span>
-							<input type="text" id="jobSearch" placeholder="Search for a Job" class="ps-5 w-100 rounded-pill border-secondary" formControlName="jobSearch" />
+							<input type="text" id="jobSearch" placeholder="Search for a Job"
+								class="ps-5 w-100 rounded-pill border-secondary" formControlName="jobSearch" />
 						</div>
 
 						<div class="dropdown-list-container" *ngIf="hasFilteredOptions && filteredOptions.length > 0">
 							<ul class="dropdown-list">
-								<li *ngFor="let option of filteredOptions" role="button" (click)="selectOption(option)" [id]="option.id">
+								<li *ngFor="let option of filteredOptions" role="button" (click)="selectOption(option)"
+									[id]="option.id">
 									{{ option.jobrole }}
 								</li>
 							</ul>
 						</div>
 					</div>
 					<div class="col-md-3 mb-3 mb-md-0">
-						<p-select [options]="countries" styleClass="w-100 rounded-pill border-primary" formControlName="country" optionValue="id" optionLabel="country" placeholder="Select Country" [filter]="true" [showClear]="true"> </p-select>
-						<div *ngIf="invalidClassCountry" class="error-message text-danger mt-2">Please Choose Any one option</div>
+						<p-select [options]="countries" styleClass="w-100 rounded-pill border-primary"
+							formControlName="country" optionValue="id" optionLabel="country"
+							placeholder="Select Country" [filter]="true" [showClear]="true"> </p-select>
+						<div *ngIf="invalidClassCountry" class="error-message text-danger mt-2">Please Choose Any one
+							option</div>
 					</div>
 					<div class="col-md-2 text-center">
 						<button pButton pButton type="submit" class="btn btn-primary btn-rounded p-2">
@@ -37,7 +43,8 @@
 	<div class="fixed-header pb-2">
 		<h3 class="uniprep-primary text-center">Current Role : {{ currentrole }}</h3>
 		<div class="role-details-box">
-			<div *ngFor="let detail of roleDetails; let i = index" class="role-detail" [ngClass]="'detail-' + (i + 1)" (click)="scrollToCareerProgression(i)">
+			<div *ngFor="let detail of roleDetails; let i = index" class="role-detail" [ngClass]="'detail-' + (i + 1)"
+				(click)="scrollToCareerProgression(i)">
 				<span>{{ i + 1 }}. {{ detail }}</span>
 			</div>
 		</div>
@@ -105,16 +112,4 @@
 		</div>
 	</div>
 </div>
-<p-dialog [(visible)]="restrict" [modal]="true" [style]="{ width: '30vw' }" [draggable]="false" [resizable]="false" class="restrictionDialog" [breakpoints]="{ '960px': '30vw', '959px': '60vw', '425px': '90vw' }" (onHide)="clearRestriction()">
-	<div *ngIf="ehitlabelIsShow" class="text-center mt-5 mb-4">
-		<img src="../../../uniprep-assets/images/smartloack.png" class="image" width="60" />
-		<h3 class="offer">Upgrade Required</h3>
-		<p>To access this exclusive module,please upgrade your plan now</p>
-		<button pButton pButton type="button" class="text-white p-ripple p-button-rounded p-button-warning p-button p-component p-2" (click)="upgradePlan()">Upgrade Plan<i class="fa fa-arrow-right exhausted-plan-icon"></i></button>
-	</div>
-	<div *ngIf="!ehitlabelIsShow" class="text-center mt-5 mb-4">
-		<img src="../../../uniprep-assets/images/smartloack.png" class="image" width="60" />
-		<h3 class="offer">Upgrade Required</h3>
-		<p>Please contact {{ orgnamewhitlabel }} Company for access</p>
-	</div>
-</p-dialog>
+<uni-restriction-dialog *ngIf="restrict" [isShowRestrict]="restrict" (closeRestrictModal)="restrict = false" />

@@ -10,13 +10,14 @@ import { CommonModule } from '@angular/common';
 
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { SelectModule } from 'primeng/select';
-import {StorageService} from "../../storage.service";
+import { StorageService } from "../../storage.service";
+import { RestrictionDialogComponent } from 'src/app/shared/restriction-dialog/restriction-dialog.component';
 @Component({
-    selector: 'uni-quizmenu',
-    templateUrl: './quizmenu.component.html',
-    styleUrls: ['./quizmenu.component.scss'],
-    standalone: true,
-    imports: [CommonModule, DialogModule,  FormsModule, ReactiveFormsModule, SelectModule],
+  selector: 'uni-quizmenu',
+  templateUrl: './quizmenu.component.html',
+  styleUrls: ['./quizmenu.component.scss'],
+  standalone: true,
+  imports: [CommonModule, DialogModule, FormsModule, ReactiveFormsModule, SelectModule, RestrictionDialogComponent],
 
 })
 export class QuizmenuComponent implements OnInit {
@@ -65,22 +66,9 @@ export class QuizmenuComponent implements OnInit {
   orglogowhitelabel: any;
   constructor(private moduleListService: ModuleServiceService, private router: Router, private dataService: DataService,
     private locationService: LocationService, private authService: AuthService, private pageFacade: PageFacadeService,
-              private storage: StorageService) { }
+    private storage: StorageService) { }
 
   ngOnInit(): void {
-    this.storage.set('QuizModuleName', '')
-    this.locationService.getImage().subscribe(imageUrl => {
-      this.orglogowhitelabel = imageUrl;
-    });
-    this.locationService.getOrgName().subscribe(orgname => {
-      this.orgnamewhitlabel = orgname;
-    });
-    this.imagewhitlabeldomainname = window.location.hostname;
-    if (this.imagewhitlabeldomainname === "*.uniprep.ai" || this.imagewhitlabeldomainname === "dev-student.uniprep.ai" || this.imagewhitlabeldomainname === "uniprep.ai" || this.imagewhitlabeldomainname === "localhost") {
-      this.ehitlabelIsShow = true;
-    } else {
-      this.ehitlabelIsShow = false;
-    }
     this.dataService.countryNameSource.subscribe((data) => {
       this.countryName = data;
       this.countryId = Number(this.storage.get('countryId'));
@@ -234,10 +222,10 @@ export class QuizmenuComponent implements OnInit {
       this.storage.set("modalcountryid", this.postadmiisioncontrydropdownid)
     } else if (moduleid == 4) {
       this.currentModuleSlug = "career-hub"
-      this.storage.set("modalcountryid",this.careerhubcontrydropdownid)
+      this.storage.set("modalcountryid", this.careerhubcontrydropdownid)
     } else if (moduleid == 6) {
       this.currentModuleSlug = "life-at-country"
-      this.storage.set("modalcountryid", this.lifeatcontrydropdownid )
+      this.storage.set("modalcountryid", this.lifeatcontrydropdownid)
     }
     this.router.navigate([`/pages/modules/${this.currentModuleSlug}/quiz`]);
   }
@@ -269,7 +257,7 @@ export class QuizmenuComponent implements OnInit {
   }
   quizpercentage: number = 0
   specializationdata(event: any) {
-    this.storage.set('QuizModuleName',  this.storage.get('QuizModuleName') + ' -> '+event.value.submodule_name)
+    this.storage.set('QuizModuleName', this.storage.get('QuizModuleName') + ' -> ' + event.value.submodule_name)
     var data = {
       moduleid: 8,
       countryid: 0,
@@ -319,7 +307,7 @@ export class QuizmenuComponent implements OnInit {
     this.getLaguageListType()
   }
   languagrTypeId(event: any) {
-    this.storage.set('QuizModuleName',  this.storage.get('QuizModuleName') +' -> '+ event.value.type)
+    this.storage.set('QuizModuleName', this.storage.get('QuizModuleName') + ' -> ' + event.value.type)
     this.storage.set("languagetypeidforquiz", this.laguagetypeid.id)
     this.languageselecttypedrpodown = 1;
     if (this.languageselectdrpodown == this.languageselecttypedrpodown) {

@@ -26,11 +26,15 @@
   <div>&nbsp;</div>
   <div class="row justify-content-center" [ngClass]="{ 'd-flex flex-grow-1': isPPPCardVisible }">
     <div class="col-md-6 col-12">
-      <h3 class="text-center uniprep-primary">Compare your earnings across different countries with professional tax rates.</h3>
+      <h3 class="text-center uniprep-primary">Compare your earnings across different countries with professional tax
+        rates.</h3>
       <div class="dropdown-container">
         <div class="form-group">
           <div class="mb-3">
-            <p-select id="fromCountry" styleClass="w-100 border-secondary" [(ngModel)]="fromCountry" [options]="sourceCountries" [filter]="true" filterBy="countryName" [showClear]="true" optionLabel="countryName" (onChange)="onCountryChange($event)" (onClear)="onClearCountry($event, 'source')" placeholder="Source Country" appendTo="body">
+            <p-select id="fromCountry" styleClass="w-100 border-secondary" [(ngModel)]="fromCountry"
+              [options]="sourceCountries" [filter]="true" filterBy="countryName" [showClear]="true"
+              optionLabel="countryName" (onChange)="onCountryChange($event)"
+              (onClear)="onClearCountry($event, 'source')" placeholder="Source Country" appendTo="body">
               <ng-template pTemplate="selectedItem">
                 <div class="d-flex align-items-center gap-2" *ngIf="fromCountry">
                   <div class="dropdownimg"><img [src]="fromCountry.flag" class="img-fluid" /></div>
@@ -53,7 +57,9 @@
 
         <div class="form-group">
           <div class="mb-3">
-            <p-inputNumber id="salary" [(ngModel)]="salary" prefix="{{ selectedCurrencyCode }}&nbsp;" placeholder="Amount in source country's local currency" class="w-100 border-primary rounded-3"></p-inputNumber>
+            <p-inputNumber id="salary" [(ngModel)]="salary" prefix="{{ selectedCurrencyCode }}&nbsp;"
+              placeholder="Amount in source country's local currency"
+              class="w-100 border-primary rounded-3"></p-inputNumber>
           </div>
         </div>
 
@@ -62,7 +68,10 @@
             <!-- <p-select id="toCountry" styleClass="w-100" [(ngModel)]="toCountry" [options]="countries"
                                 optionLabel="countryName" [filter]="true" filterBy="countryName" [showClear]="true"
                                 (onChange)="onCountryToChange($event)" placeholder="Target Country"></p-select> -->
-            <p-select id="toCountry" styleClass="w-100 border-primary" [(ngModel)]="toCountry" [options]="targetCountries" [filter]="true" filterBy="countryName" [showClear]="true" optionLabel="countryName" (onChange)="onCountryToChange($event)" (onClear)="onClearCountry($event, 'target')" placeholder="Target Country" appendTo="body">
+            <p-select id="toCountry" styleClass="w-100 border-primary" [(ngModel)]="toCountry"
+              [options]="targetCountries" [filter]="true" filterBy="countryName" [showClear]="true"
+              optionLabel="countryName" (onChange)="onCountryToChange($event)"
+              (onClear)="onClearCountry($event, 'target')" placeholder="Target Country" appendTo="body">
               <ng-template pTemplate="selectedItem">
                 <div class="d-flex align-items-center gap-2" *ngIf="toCountry">
                   <div class="dropdownimg"><img [src]="toCountry.flag" class="img-fluid" /></div>
@@ -83,7 +92,7 @@
           </div>
         </div>
         <div class="d-flex justify-content-center">
-          <button pButton  pButton type="button" class="btn btn-rounded btn-primary" (click)="convert()">
+          <button pButton pButton type="button" class="btn btn-rounded btn-primary" (click)="convert()">
             Compare <span class="btn-icon ms-2"><i class="fa-solid fa-refresh"></i></span>
           </button>
         </div>
@@ -108,8 +117,7 @@
                           <th class="px-1">
                             <div class="d-flex justify-content-center gap-1">
                               <div>Tax Type</div>
-                              <div
-                                class="round-info-icon"
+                              <div class="round-info-icon"
                                 pTooltip="In a non-cumulative tax system, each portion of income is taxed independently at the rate applicable to that specific portion without progressive accumulation.
                                 In a cumulative tax system, the taxpayer's income is divided into brackets, and each portion of income is taxed at the rate applicable to that bracket. The total tax liability is the sum of the taxes calculated for each bracket."
                                 tooltipPosition="top">
@@ -170,8 +178,7 @@
                           <th class="px-1">
                             <div class="d-flex justify-content-center gap-2">
                               <div>Tax Type</div>
-                              <div
-                                class="round-info-icon"
+                              <div class="round-info-icon"
                                 pTooltip="In a non-cumulative tax system, each portion of income is taxed independently at the rate applicable to that specific portion without progressive accumulation.
                                     In a cumulative tax system, the taxpayer's income is divided into brackets, and each portion of income is taxed at the rate applicable to that bracket. The total tax liability is the sum of the taxes calculated for each bracket.">
                                 <i class="fa-solid fa-circle-info"></i>
@@ -199,7 +206,8 @@
   </div>
   <div *ngIf="!isPPPCardVisible">
     <div class="uniprep-primary h2 text-center fw-bold">Did you know ?</div>
-    <p-carousel [value]="salaries" [numVisible]="3" [autoplayInterval]="5000" [circular]="true" [showNavigators]="false" [showIndicators]="false" [responsiveOptions]="responsiveOptions">
+    <p-carousel [value]="salaries" [numVisible]="3" [autoplayInterval]="5000" [circular]="true" [showNavigators]="false"
+      [showIndicators]="false" [responsiveOptions]="responsiveOptions">
       <ng-template let-salary pTemplate="item">
         <div class="card h-100 costofliving-card m-2">
           <div class="card-body">
@@ -220,22 +228,4 @@
 
 <!--    </div>-->
 <!--</div>-->
-<p-dialog [(visible)]="restrict" [modal]="true" [style]="{ width: '30vw' }" [draggable]="false" [resizable]="false" class="restrictionDialog" [breakpoints]="{ '960px': '30vw', '959px': '60vw', '425px': '90vw' }" (onHide)="clearRestriction()">
-  <div *ngIf="ehitlabelIsShow" class="text-center mt-5 mb-4">
-    <img src="../../../uniprep-assets/images/smartloack.png" class="image" width="60" />
-    <h3 class="offer">Upgrade Required</h3>
-    <p>To access this exclusive module,please upgrade your plan now</p>
-    <button pButton  pButton type="button" class="text-white p-ripple p-button-rounded p-button-warning p-button p-component p-2" (click)="upgradePlan()">Upgrade Plan<i class="fa fa-arrow-right exhausted-plan-icon"></i></button>
-  </div>
-  <div *ngIf="!ehitlabelIsShow" class="text-center mt-5 mb-4">
-    <img src="../../../uniprep-assets/images/smartloack.png" class="image" width="60" />
-    <h3 class="offer">Upgrade Required</h3>
-    <p>Please contact {{ orgnamewhitlabel }} Company for access</p>
-  </div>
-</p-dialog>
-<!--<uni-restriction-dialog *ngIf="isShowPlanExpiredDialog"-->
-<!--        [isWhiteLabelVisible]="ehitlabelIsShow"-->
-<!--        [orgName]="orgnamewhitlabel"-->
-<!--        [restrict]="restrict"-->
-<!--        [planExpired]="planExpired">-->
-<!--</uni-restriction-dialog>-->
+<uni-restriction-dialog *ngIf="restrict" [isShowRestrict]="restrict" (closeRestrictModal)="restrict = false" />

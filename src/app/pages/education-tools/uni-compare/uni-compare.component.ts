@@ -3,7 +3,6 @@ import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { MessageService } from 'primeng/api';
 import { AuthService } from 'src/app/Auth/auth.service';
-import { DataService } from 'src/app/data.service';
 import { LocationService } from 'src/app/location.service';
 import { PageFacadeService } from '../../page-facade.service';
 import { EducationToolsService } from '../education-tools.service';
@@ -21,19 +20,18 @@ import { InputGroupModule } from 'primeng/inputgroup';
 import { InputTextModule } from 'primeng/inputtext';
 import { InputGroupAddonModule } from 'primeng/inputgroupaddon';
 import { uniCompareOptions } from './uni-compare.data';
-import { DownloadRespose } from 'src/app/@Models/travel-tools.model';
-import { TravelToolsService } from '../../travel-tools/travel-tools.service';
 import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
 import { PromptService } from '../../prompt.service';
 import { SharedModule } from 'src/app/shared/shared.module';
 import { SkeletonModule } from 'primeng/skeleton';
+import { RestrictionDialogComponent } from 'src/app/shared/restriction-dialog/restriction-dialog.component';
 
 @Component({
   selector: 'uni-uni-compare',
   templateUrl: './uni-compare.component.html',
   styleUrls: ['./uni-compare.component.scss'],
   standalone: true,
-  imports: [CommonModule, RouterModule, DialogModule, CardModule, PaginatorModule, FormsModule, ReactiveFormsModule, CarouselModule, ButtonModule, CommonModule, RouterModule, DialogModule, MultiSelectModule, SelectModule, CardModule, InputGroupModule, InputTextModule, InputGroupAddonModule,SkeletonModule, SharedModule]
+  imports: [CommonModule, RouterModule, DialogModule, CardModule, PaginatorModule, FormsModule, ReactiveFormsModule, CarouselModule, ButtonModule, CommonModule, RouterModule, DialogModule, MultiSelectModule, SelectModule, CardModule, InputGroupModule, InputTextModule, InputGroupAddonModule, SkeletonModule, SharedModule, RestrictionDialogComponent]
 })
 export class UniCompareComponent implements OnInit, OnDestroy {
   panelStyle: { width: string } = { width: '360px' };
@@ -71,7 +69,7 @@ export class UniCompareComponent implements OnInit, OnDestroy {
   isRecommendationData: boolean = false;
   isRecommendationSavedData: boolean = false;
   recommendationData: SafeHtml = '';
-	isResponseSkeleton: boolean = false;
+  isResponseSkeleton: boolean = false;
   aiCreditCount: number = 0;
   constructor(
     private fb: FormBuilder,
@@ -80,9 +78,7 @@ export class UniCompareComponent implements OnInit, OnDestroy {
     private toast: MessageService,
     private authService: AuthService,
     private router: Router,
-    private dataService: DataService,
     private pageFacade: PageFacadeService,
-    private travelToolService: TravelToolsService,
     private sanitizer: DomSanitizer,
     private promptService: PromptService
 
@@ -107,26 +103,26 @@ export class UniCompareComponent implements OnInit, OnDestroy {
     });
     // this.form.get('compare_currency_code')?.disable();
     this.form.get('expense_currency_code')?.disable();
-    this.form.get('compare_expense_currency_code')?.disable(); 
+    this.form.get('compare_expense_currency_code')?.disable();
 
-    this.form.controls['country'].valueChanges.subscribe(value =>{
-      if(value){
+    this.form.controls['country'].valueChanges.subscribe(value => {
+      if (value) {
         this.getAndSetUniversity(value.id, "country");
       }
     })
-    this.form.controls['compare_country'].valueChanges.subscribe(value =>{
-      if(value){
+    this.form.controls['compare_country'].valueChanges.subscribe(value => {
+      if (value) {
         this.getAndSetUniversity(value.id, "compare_country");
       }
     })
 
-    this.form.controls['university'].valueChanges.subscribe(value =>{
-      if(value){
+    this.form.controls['university'].valueChanges.subscribe(value => {
+      if (value) {
         this.getAndSetCourseNameList(value.id, "university");
       }
     })
-    this.form.controls['compare_university'].valueChanges.subscribe(value =>{
-      if(value){
+    this.form.controls['compare_university'].valueChanges.subscribe(value => {
+      if (value) {
         this.getAndSetCourseNameList(value.id, "compare_university");
       }
     })
@@ -152,52 +148,42 @@ export class UniCompareComponent implements OnInit, OnDestroy {
   ];
   invalidClass: boolean = false;
   selectedData: { [key: string]: any } = {};
+  userInputs: any;
 
   ngOnInit(): void {
     this.updatePanelStyle();
     window.addEventListener('resize', this.updatePanelStyle);
-    this.locationService.getImage().subscribe(imageUrl => {
-      this.orglogowhitelabel = imageUrl;
-    });
-    this.locationService.getOrgName().subscribe(orgname => {
-      this.orgnamewhitlabel = orgname;
-    });
-    this.imagewhitlabeldomainname = window.location.hostname;
-    if (this.imagewhitlabeldomainname === "*.uniprep.ai" || this.imagewhitlabeldomainname === "dev-student.uniprep.ai" || this.imagewhitlabeldomainname === "uniprep.ai" || this.imagewhitlabeldomainname === "localhost") {
-      this.ehitlabelIsShow = true;
-    } else {
-      this.ehitlabelIsShow = false;
-    }
+
     this.getCountryandSpecilizationList();
     this.getAICreditCount();
   }
-  getAICreditCount(){
-		this.promptService.getAicredits().subscribe({
-		  next: resp =>{
-			this.aiCreditCount = resp;
-		  }
-		})
-	}
-  getAndSetCourseNameList(universityId: number, mode: string){
+  getAICreditCount() {
+    this.promptService.getAicredits().subscribe({
+      next: resp => {
+        this.aiCreditCount = resp;
+      }
+    })
+  }
+  getAndSetCourseNameList(universityId: number, mode: string) {
     this.educationToolService.courseNameList(universityId).subscribe({
-      next: response =>{
-        if(mode == "university"){
+      next: response => {
+        if (mode == "university") {
           this.specializationList = response;
-        }else if(mode == "compare_university"){
+        } else if (mode == "compare_university") {
           this.compareSpecializationList = response;
         }
-        
+
       }
     })
   }
 
   getAndSetUniversity(id: string, mode: string) {
     this.educationToolService.getUniverstityByCountry(id).subscribe(data => {
-      if(mode == "country"){
+      if (mode == "country") {
         this.universityList = data;
-      }else if(mode == "compare_country"){
+      } else if (mode == "compare_country") {
         this.compareUniversityList = data;
-      }      
+      }
     })
   }
 
@@ -215,11 +201,11 @@ export class UniCompareComponent implements OnInit, OnDestroy {
     //   this.specializationList = data;
     // });
     this.educationToolService.unifinderCountries().subscribe({
-      next: response =>{
+      next: response => {
         this.universityCountryList = response;
       }
     });
-    
+
     this.educationToolService.getCurrencies().subscribe(data => {
       this.currenciesList = data;
     });
@@ -298,21 +284,23 @@ export class UniCompareComponent implements OnInit, OnDestroy {
       university: formData.university.university_name,
       compare_university: formData.compare_university.university_name,
     }
+    this.userInputs = data;
+    console.log(this.userInputs, "this.userInputs current input");
     this.isRecommendationQuestion = false;
     this.isRecommendationSavedData = false;
     this.isRecommendationData = true;
-		this.isResponseSkeleton = true;
+    this.isResponseSkeleton = true;
     this.educationToolService.getChatgptRecommendations(data).subscribe({
       next: response => {
-				this.isResponseSkeleton = false;
-				this.recommendationData = this.sanitizer.bypassSecurityTrustHtml(response.response);
+        this.isResponseSkeleton = false;
+        this.recommendationData = this.sanitizer.bypassSecurityTrustHtml(response.response);
         this.getAICreditCount();
       },
       error: (error) => {
-				console.error(error);
-				this.isResponseSkeleton = false;
-				this.isRecommendationData = false;
-			}
+        console.error(error);
+        this.isResponseSkeleton = false;
+        this.isRecommendationData = false;
+      }
     });
   }
 
@@ -357,12 +345,16 @@ export class UniCompareComponent implements OnInit, OnDestroy {
   }
 
 
-  showRecommandationData(data: string) {
+  showRecommandationData(data: string, userInputs: any) {
     this.isRecommendationQuestion = false;
     this.isRecommendationData = true;
     this.isRecommendationSavedData = false;
     this.isFromSavedData = true;
     this.recommendationData = data;
+
+    const encodedJson = userInputs;
+		const decodedInput = JSON.parse(encodedJson);
+		this.userInputs = decodedInput;
   }
 
   resetRecommendation() {
@@ -380,42 +372,19 @@ export class UniCompareComponent implements OnInit, OnDestroy {
     });
   }
 
-  // setUniversityList(name: string) {
-  //   const selected = this.universityCountryList.find((c: any) => c.country === name);
-  //   if (selected) {
-  //     this.universityList = this.allUniversityList.filter((item: any) =>
-  //       selected.id === item.country_id
-  //     );
-  //   } else {
-  //     this.universityList = this.allUniversityList;
-  //   }
-  // }
-
-  // setCompareUniversityList(name: string) {
-  //   const selected = this.universityCountryList.find((c: any) => c.country === name);
-  //   if (selected) {
-  //     this.compareUniversityList = this.allUniversityList.filter((item: any) =>
-  //       selected.id === item.country_id
-  //     );
-  //   } else {
-  //     this.compareUniversityList = this.allUniversityList;
-  //   }
-  // }
-
-
-
   onSaveRes() {
     this.toast.add({ severity: "success", summary: "Success", detail: "Response saved successfully" });
   }
 
   downloadRecommadation() {
-		let addingInput: string = '';
+    let addingInput: string = '';
     const formValue = ['country', 'university', 'specialization', 'fees', 'expense', 'period'];
-    const formData = this.form.value;
-    formData['country'] = formData['country'].country;
-    formData['compare_country'] = formData['compare_country'].country;
-    formData['university'] = formData['university'].university_name;
-    formData['compare_university'] = formData['compare_university'].university_name;
+    // const formData = this.form.value;
+    // formData['country'] = formData['country'].country;
+    // formData['compare_country'] = formData['compare_country'].country;
+    // formData['university'] = formData['university'].university_name;
+    // formData['compare_university'] = formData['compare_university'].university_name;
+
     let formValueIndex = 0;
     this.recommendations.forEach((category: any) => {
       addingInput += `<p><strong>${category.question.heading}</strong></p>`;
@@ -423,16 +392,16 @@ export class UniCompareComponent implements OnInit, OnDestroy {
         addingInput += `<p style="color: #3f4c83;"><strong>${branchQuestion}</strong></p>`;
         let currentAnswer = "";
         const currentFormField = formValue[formValueIndex];
-        if (formData && formData[currentFormField]) {
+        if (this.userInputs[currentFormField]) {
           switch (currentFormField) {
             case 'fees':
-              currentAnswer = `1. ${formData['currency_code']} ${formData[currentFormField]}   2. ${formData['compare_currency_code']} ${formData['compare_' + currentFormField]}`;
+              currentAnswer = `1. ${this.userInputs['currency_code']} ${this.userInputs[currentFormField]}   2. ${this.userInputs['compare_currency_code']} ${this.userInputs['compare_' + currentFormField]}`;
               break;
             case 'expense':
-              currentAnswer = `1. ${formData['currency_code']} ${formData[currentFormField]}   2. ${formData['currency_code']} ${formData['compare_expenses']}`;
+              currentAnswer = `1. ${this.userInputs['currency_code']} ${this.userInputs[currentFormField]}   2. ${this.userInputs['currency_code']} ${this.userInputs['compare_expenses']}`;
               break;
             default:
-              currentAnswer = `1. ${formData[currentFormField]}   2. ${formData['compare_' + currentFormField]} `;
+              currentAnswer = `1. ${this.userInputs[currentFormField]}   2. ${this.userInputs['compare_' + currentFormField]} `;
               break;
           }
         } else {
@@ -444,14 +413,14 @@ export class UniCompareComponent implements OnInit, OnDestroy {
       // Add spacing between categories
       addingInput += `<br>`;
     });
-		let params: any = {
-			module_name: "Uni Compare",
-			file_name: "uni_compare",
-			response: this.recommendationData,
-			inputString: addingInput
-		};
-		this.promptService.responseBuilder(params);
-	}
+    let params: any = {
+      module_name: "Uni Compare",
+      file_name: "uni_compare",
+      response: this.recommendationData,
+      inputString: addingInput
+    };
+    this.promptService.responseBuilder(params);
+  }
 
   updatePanelStyle = () => {
     this.panelStyle = window.innerWidth > 990 ? { width: '370px' } : { width: '100%' };
@@ -462,6 +431,6 @@ export class UniCompareComponent implements OnInit, OnDestroy {
   }
 
   openVideoPopup(videoLink: string) {
-		this.pageFacade.openHowitWorksVideoPopup(videoLink);
-	}
+    this.pageFacade.openHowitWorksVideoPopup(videoLink);
+  }
 }

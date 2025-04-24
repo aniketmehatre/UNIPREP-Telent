@@ -8,12 +8,13 @@ import { CommonModule } from "@angular/common";
 import { DialogModule } from "primeng/dialog";
 import { SharedModule } from 'src/app/shared/shared.module';
 import { StorageService } from 'src/app/storage.service';
+import { RestrictionDialogComponent } from 'src/app/shared/restriction-dialog/restriction-dialog.component';
 @Component({
   selector: 'uni-founderstoollist',
   templateUrl: './founderstoollist.component.html',
   styleUrls: ['./founderstoollist.component.scss'],
   standalone: true,
-  imports: [CommonModule, DialogModule, RouterModule, SharedModule]
+  imports: [CommonModule, DialogModule, RouterModule, SharedModule, RestrictionDialogComponent]
 })
 export class FounderstoollistComponent implements OnInit {
   founderToolsList = FoundersToolsData;
@@ -29,18 +30,6 @@ export class FounderstoollistComponent implements OnInit {
 
   ngOnInit(): void {
     this.checkplanExpire()
-    this.locationService.getImage().subscribe(imageUrl => {
-      this.orglogowhitelabel = imageUrl;
-    });
-    this.locationService.getOrgName().subscribe(orgname => {
-      this.orgnamewhitlabel = orgname;
-    });
-    this.imagewhitlabeldomainname = window.location.hostname;
-    if (this.imagewhitlabeldomainname === "*.uniprep.ai" || this.imagewhitlabeldomainname === "dev-student.uniprep.ai" || this.imagewhitlabeldomainname === "uniprep.ai" || this.imagewhitlabeldomainname === "localhost") {
-      this.ehitlabelIsShow = true;
-    } else {
-      this.ehitlabelIsShow = false;
-    }
   }
 
   get filteredFoundersTool(): any[] {

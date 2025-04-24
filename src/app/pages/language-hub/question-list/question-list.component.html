@@ -7,14 +7,19 @@
 				</div>
 				<div class="select-title d-flex justify-content-between align-items-center">
 					<div class="d-flex gap-2">
-						<h5 routerLink="/pages/dashboard" role="button" class="mb-0" tooltipPosition="top" pTooltip=""><i class="fa-regular fa-home"></i></h5>
+						<h5 routerLink="/pages/dashboard" role="button" class="mb-0" tooltipPosition="top" pTooltip="">
+							<i class="fa-regular fa-home"></i></h5>
 						<span><i class="fa-solid fa-chevron-right"></i></span>
-						<h5 routerLink="/pages/language-hub/languages" role="button" class="mb-0" tooltipPosition="top" pTooltip="">Language Hub</h5>
+						<h5 routerLink="/pages/language-hub/languages" role="button" class="mb-0" tooltipPosition="top"
+							pTooltip="">Language Hub</h5>
 						<span><i class="fa-solid fa-chevron-right"></i></span>
 						<h5 role="button" class="mb-0" tooltipPosition="top" pTooltip="">{{getFormattedValues()}}</h5>
-					  </div>
+					</div>
 					<div>
-						<button pButton (click)="openVideoPopup('https://www.youtube.com/embed/01xivveciUI?si=Cdi3e7ycApMa8sWO')" class="how-it-works-button">How it works?<i class="fa-solid fa-play d-md-block d-none"></i></button>
+						<button pButton
+							(click)="openVideoPopup('https://www.youtube.com/embed/01xivveciUI?si=Cdi3e7ycApMa8sWO')"
+							class="how-it-works-button">How it works?<i
+								class="fa-solid fa-play d-md-block d-none"></i></button>
 					</div>
 				</div>
 			</div>
@@ -23,7 +28,8 @@
 	<div class="card-body text-center flex-fill overflow-y-auto">
 		<div *ngIf="isSkeletonVisible">
 			<div class="row">
-				<div *ngFor="let index of loopRange" class="col-xxl-2 col-xl-3 col-lg-3 col-md-4 col-sm-6 col-xs-12 col-12">
+				<div *ngFor="let index of loopRange"
+					class="col-xxl-2 col-xl-3 col-lg-3 col-md-4 col-sm-6 col-xs-12 col-12">
 					<div class="card my-2">
 						<div class="card-body">
 							<div class="row align-items-center">
@@ -42,10 +48,13 @@
 			</div>
 		</div>
 		<div *ngIf="!isSkeletonVisible" class="row">
-			<div *ngFor="let sub of questionListData; let i = index" class="col-xxl-2 col-xl-3 col-lg-3 col-md-4 col-sm-6 col-xs-12 col-12 my-2">
+			<div *ngFor="let sub of questionListData; let i = index"
+				class="col-xxl-2 col-xl-3 col-lg-3 col-md-4 col-sm-6 col-xs-12 col-12 my-2">
 				<div class="row w-100 h-100 m-0 justify-content-center">
-					<div (click)="viewOneQuestion(sub)" class="card questioncard {{ sub.read == 1 ? 'questionread' : '' }}">
-						<div class="card-body d-flex flex-sm-column flex-row justify-content-sm-between align-items-center gap-2 gap-md-0">
+					<div (click)="viewOneQuestion(sub)"
+						class="card questioncard {{ sub.read == 1 ? 'questionread' : '' }}">
+						<div
+							class="card-body d-flex flex-sm-column flex-row justify-content-sm-between align-items-center gap-2 gap-md-0">
 							<div class="row justify-content-center w-100">
 								<div class="col">
 									<p class="text-start fw-bold questiontext mb-0 mb-md-2">{{ sub.english }}</p>
@@ -53,8 +62,10 @@
 								<!--<div class="col-md-4 text-center">
                                             <p class="mb-3 circle text-center">{{i+1}}</p>
                                         </div> -->
-								<div *ngIf="sub.favourite == 1" class="col-2 d-flex align-items-center justify-content-center text-end">
-									<i class="pi pi-star-fill text-danger" pTooltip="Most Popular Question" style="font-size: 1.2rem" tooltipPosition="right"></i>
+								<div *ngIf="sub.favourite == 1"
+									class="col-2 d-flex align-items-center justify-content-center text-end">
+									<i class="pi pi-star-fill text-danger" pTooltip="Most Popular Question"
+										style="font-size: 1.2rem" tooltipPosition="right"></i>
 								</div>
 							</div>
 							<!-- <button
@@ -80,19 +91,8 @@
 		</div>
 	</div>
 	<div class="card-footer border-0 bg-transparent">
-		<p-paginator (onPageChange)="paginate($event)" [rowsPerPageOptions]="[25, 50, 100, 200]" [rows]="perpage" [totalRecords]="totalQuestionCount" dropdownAppendTo="body"></p-paginator>
+		<p-paginator (onPageChange)="paginate($event)" [rowsPerPageOptions]="[25, 50, 100, 200]" [rows]="perpage"
+			[totalRecords]="totalQuestionCount" dropdownAppendTo="body"></p-paginator>
 	</div>
 </div>
-<p-dialog [(visible)]="restrict" [modal]="true" [style]="{ width: '30vw' }" [draggable]="false" [resizable]="false" class="restrictionDialog" [breakpoints]="{ '960px': '30vw', '959px': '60vw', '425px': '90vw' }" (onHide)="clearRestriction()">
-	<div *ngIf="ehitlabelIsShow" class="text-center mt-5 mb-4">
-		<img src="../../../uniprep-assets/images/smartloack.png" class="image" width="60" />
-		<h3 class="offer">Upgrade Required</h3>
-		<p>To access this exclusive module,please upgrade your plan now</p>
-		<button pButton pButton type="button" class="text-white p-ripple p-button-rounded p-button-warning p-button p-component p-2" (click)="upgradePlan()">Upgrade Plan<i class="fa fa-arrow-right exhausted-plan-icon"></i></button>
-	</div>
-	<div *ngIf="!ehitlabelIsShow" class="text-center mt-5 mb-4">
-		<img src="{{ orglogowhitelabel }}" class="image" width="60" />
-		<h3 class="offer">Upgrade Required</h3>
-		<p>Please contact {{ orgnamewhitlabel }} Company for access</p>
-	</div>
-</p-dialog>
+<uni-restriction-dialog *ngIf="restrict" [isShowRestrict]="restrict" (closeRestrictModal)="restrict = false" />

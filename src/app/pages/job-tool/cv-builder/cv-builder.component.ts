@@ -27,12 +27,13 @@ import { TextareaModule } from 'primeng/textarea';
 import { PdfViewerModule } from "ng2-pdf-viewer";
 import { ConfirmPopup } from "primeng/confirmpopup";
 import { ToastModule } from 'primeng/toast';
+import { RestrictionDialogComponent } from "src/app/shared/restriction-dialog/restriction-dialog.component";
 declare const pdfjsLib: any;
 
 interface ResumeHistory {
-    id: number;
-    pdf_name: string;
-    created_time: string;
+  id: number;
+  pdf_name: string;
+  created_time: string;
 }
 
 @Component({
@@ -40,8 +41,8 @@ interface ResumeHistory {
   templateUrl: "./cv-builder.component.html",
   styleUrls: ["./cv-builder.component.scss"],
   standalone: true,
-  imports: [CommonModule, DialogModule, TextareaModule, SidebarModule, PdfViewerModule, RouterModule, CardModule, PaginatorModule, FormsModule, ReactiveFormsModule, CarouselModule, ButtonModule, MultiSelectModule, SelectModule, InputGroupModule, InputTextModule, InputGroupAddonModule, ConfirmPopup, TooltipModule,ToastModule],
-  providers: [CvBuilderService,ConfirmationService,MessageService]
+  imports: [CommonModule, DialogModule, TextareaModule, SidebarModule, PdfViewerModule, RouterModule, CardModule, PaginatorModule, FormsModule, ReactiveFormsModule, CarouselModule, ButtonModule, MultiSelectModule, SelectModule, InputGroupModule, InputTextModule, InputGroupAddonModule, ConfirmPopup, TooltipModule, ToastModule, RestrictionDialogComponent],
+  providers: [CvBuilderService, ConfirmationService, MessageService]
 })
 export class CvBuilderComponent implements OnInit, AfterViewInit {
   @ViewChild('pdfViewer') pdfViewer: any;
@@ -336,16 +337,16 @@ export class CvBuilderComponent implements OnInit, AfterViewInit {
     }
   }
 
-  getUserDetails(){
+  getUserDetails() {
     let userDetails = this.authService._user;
-		let location = userDetails?.district+', '+ userDetails?.state;
-		this.resumeFormInfoData.patchValue({
-			user_name: userDetails?.name,
-			user_email: userDetails?.email,
-			user_location: location,
-			user_phone: userDetails?.phone,
-			country_code: userDetails?.country_code,
-		});
+    let location = userDetails?.district + ', ' + userDetails?.state;
+    this.resumeFormInfoData.patchValue({
+      user_name: userDetails?.name,
+      user_email: userDetails?.email,
+      user_location: location,
+      user_phone: userDetails?.phone,
+      country_code: userDetails?.country_code,
+    });
   }
 
   ngOnInit(): void {
@@ -381,18 +382,6 @@ export class CvBuilderComponent implements OnInit, AfterViewInit {
       this.yearsList.push({ year: i });
     }
     this.getOccupationList();
-    this.locationService.getImage().subscribe((imageUrl) => {
-      this.orglogowhitelabel = imageUrl;
-    });
-    this.locationService.getOrgName().subscribe((orgname) => {
-      this.orgnamewhitlabel = orgname;
-    });
-    this.imagewhitlabeldomainname = window.location.hostname;
-    if (this.imagewhitlabeldomainname === "*.uniprep.ai" || this.imagewhitlabeldomainname === "dev-student.uniprep.ai" || this.imagewhitlabeldomainname === "uniprep.ai" || this.imagewhitlabeldomainname === "localhost") {
-      this.ehitlabelIsShow = true;
-    } else {
-      this.ehitlabelIsShow = false;
-    }
 
     // Load PDF.js library
     if (!document.getElementById('pdfjs-script')) {
@@ -607,7 +596,7 @@ export class CvBuilderComponent implements OnInit, AfterViewInit {
           });
           this.filledFields.push("language_known");
         }
-      }else{
+      } else {
         this.getUserDetails();
       }
     });
@@ -955,7 +944,7 @@ export class CvBuilderComponent implements OnInit, AfterViewInit {
     }
     this.activePageIndex++;
     console.log(this.activePageIndex);
-    
+
     if (this.activePageIndex == 4) {
       if (this.clickedDownloadButton) {
         //if the user not donwload the resume,in the presently created resume is not visible in the resume history page.
@@ -975,13 +964,13 @@ export class CvBuilderComponent implements OnInit, AfterViewInit {
 
   previousResumes() {
     this.resumeService.getAlreadyCreatedResumes().subscribe((res: ResumeHistory[]) => {
-        this.resumeHistory = res;
-        // Load thumbnails for all PDFs immediately
-        this.resumeHistory.forEach((resume: ResumeHistory) => {
-            if (resume.pdf_name) {
-                this.loadPdfThumbnail(resume.pdf_name);
-            }
-        });
+      this.resumeHistory = res;
+      // Load thumbnails for all PDFs immediately
+      this.resumeHistory.forEach((resume: ResumeHistory) => {
+        if (resume.pdf_name) {
+          this.loadPdfThumbnail(resume.pdf_name);
+        }
+      });
     });
   }
 
@@ -1280,18 +1269,18 @@ export class CvBuilderComponent implements OnInit, AfterViewInit {
       // this.genreateButtonDisabled[iteration] = true;
       const work_designation = this.getWorkExpArray.value[iteration].work_designation;
       parameters.work_designation = work_designation;
-    } else if(fieldName == "rephrase_summary"){
+    } else if (fieldName == "rephrase_summary") {
       if (!formData.user_summary) {
         this.toaster.add({ severity: "error", summary: "Error", detail: "Please provide user summary..!" });
         return;
-      }else{
+      } else {
         parameters.user_summary = formData.user_summary
       }
-    }else if(fieldName == "rephrase_job_description"){
+    } else if (fieldName == "rephrase_job_description") {
       if (!this.getWorkExpArray.value[iteration].work_job_description) {
         this.toaster.add({ severity: "error", summary: "Error", detail: "Please provide job description..!" });
         return;
-      }else{
+      } else {
         parameters.work_job_description = this.getWorkExpArray.value[iteration].work_job_description
       }
     }
@@ -1515,40 +1504,40 @@ export class CvBuilderComponent implements OnInit, AfterViewInit {
 
   loadPdfThumbnail(pdfUrl: string): void {
     if (this.pdfThumbnails[pdfUrl]) {
-        return; // Already loaded
+      return; // Already loaded
     }
 
     // Create canvas and load PDF
     const canvas = document.createElement('canvas');
     const context = canvas.getContext('2d');
     if (!context) {
-        console.error('Could not get canvas context');
-        return;
+      console.error('Could not get canvas context');
+      return;
     }
 
     // Load the PDF document
     pdfjsLib.getDocument(pdfUrl).promise.then((pdf: any) => {
-        pdf.getPage(1).then((page: any) => {
-            const viewport = page.getViewport({ scale: 0.5 });
-            canvas.height = viewport.height;
-            canvas.width = viewport.width;
+      pdf.getPage(1).then((page: any) => {
+        const viewport = page.getViewport({ scale: 0.5 });
+        canvas.height = viewport.height;
+        canvas.width = viewport.width;
 
-            page.render({
-                canvasContext: context,
-                viewport: viewport
-            }).promise.then(() => {
-                this.pdfThumbnails[pdfUrl] = canvas.toDataURL('image/jpeg');
-            }).catch((error: Error) => {
-                console.error('Error rendering PDF page:', error);
-                this.pdfLoadError = true;
-            });
+        page.render({
+          canvasContext: context,
+          viewport: viewport
+        }).promise.then(() => {
+          this.pdfThumbnails[pdfUrl] = canvas.toDataURL('image/jpeg');
         }).catch((error: Error) => {
-            console.error('Error getting PDF page:', error);
-            this.pdfLoadError = true;
+          console.error('Error rendering PDF page:', error);
+          this.pdfLoadError = true;
         });
-    }).catch((error: Error) => {
-        console.error('Error loading PDF:', error);
+      }).catch((error: Error) => {
+        console.error('Error getting PDF page:', error);
         this.pdfLoadError = true;
+      });
+    }).catch((error: Error) => {
+      console.error('Error loading PDF:', error);
+      this.pdfLoadError = true;
     });
   }
 }

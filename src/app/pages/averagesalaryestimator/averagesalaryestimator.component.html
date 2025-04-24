@@ -190,7 +190,7 @@
 										<h3 class="primary-color mb-4">
 											{{ savedresponseData.jobrole }}
 										</h3>
-										<button pButton pButton type="button" (click)="downloadRecommadation()" class="btn btn-secondary btn-rounded p-1 ps-4">
+										<button pButton type="button" (click)="downloadRecommadation()"  *ngIf="savedresponseData.answer" class="btn btn-secondary btn-rounded p-1 ps-4">
 											<span class="me-2">Download</span><span class="btn-icon px-2 py-2"> <i class="fa-regular fa-download"></i></span>
 										</button>
 									</div>

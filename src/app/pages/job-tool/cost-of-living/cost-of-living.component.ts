@@ -17,12 +17,13 @@ import { InputTextModule } from 'primeng/inputtext';
 import { InputGroupAddonModule } from 'primeng/inputgroupaddon';
 import { SelectModule } from 'primeng/select';
 import { ComparisionComponent } from './comparision/comparision.component';
+import { RestrictionDialogComponent } from 'src/app/shared/restriction-dialog/restriction-dialog.component';
 @Component({
   selector: 'uni-cost-of-living',
   templateUrl: './cost-of-living.component.html',
   styleUrls: ['./cost-of-living.component.scss'],
   standalone: true,
-  imports: [CommonModule, DialogModule, FormsModule, ReactiveFormsModule, SelectModule, CarouselModule, ButtonModule, CommonModule, RouterModule, DialogModule, MultiSelectModule, CardModule, InputGroupModule, InputTextModule, InputGroupAddonModule, ComparisionComponent],
+  imports: [CommonModule, DialogModule, FormsModule, ReactiveFormsModule, SelectModule, CarouselModule, ButtonModule, CommonModule, RouterModule, DialogModule, MultiSelectModule, CardModule, InputGroupModule, InputTextModule, InputGroupAddonModule, ComparisionComponent, RestrictionDialogComponent],
 
 })
 export class CostOfLivingComponent implements OnInit {
@@ -171,7 +172,7 @@ export class CostOfLivingComponent implements OnInit {
     this.authService.getNewUserTimeLeft().subscribe((res) => {
       let data = res.time_left;
       let subscription_exists_status = res.subscription_details;
-      if (data.plan === "expired" || data.plan === 'subscription_expired'  ) {
+      if (data.plan === "expired" || data.plan === 'subscription_expired') {
         this.planExpired = true;
       } else {
         this.planExpired = false;

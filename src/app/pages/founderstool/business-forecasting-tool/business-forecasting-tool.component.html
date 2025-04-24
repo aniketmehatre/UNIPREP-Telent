@@ -3,16 +3,21 @@
 		<div class="card-header border-0 bg-transparent">
 			<div class="row justify-content-center">
 				<div class="col-md-12 d-flex gap-2">
-					<div class="backIcon d-md-flex d-none" role="button" (click)="isGoBackNavigation()" style="height: auto">
+					<div class="backIcon d-md-flex d-none" role="button" (click)="isGoBackNavigation()"
+						style="height: auto">
 						<span class="fa-solid fa-chevron-left"></span>
 					</div>
 					<div class="select-title d-flex justify-content-between align-items-center">
 						<div class="d-flex gap-2">
-							<h5 routerLink="/pages/dashboard" role="button" class="mb-0" tooltipPosition="top" pTooltip=""><i class="fa-regular fa-home"></i></h5>
+							<h5 routerLink="/pages/dashboard" role="button" class="mb-0" tooltipPosition="top"
+								pTooltip=""><i class="fa-regular fa-home"></i></h5>
 							<span><i class="fa-solid fa-chevron-right"></i></span>
-							<h5 routerLink="/pages/founderstool/founderstoollist" role="button" class="mb-0" tooltipPosition="top">Founders Tool</h5>
+							<h5 routerLink="/pages/founderstool/founderstoollist" role="button" class="mb-0"
+								tooltipPosition="top">Founders Tool</h5>
 							<span><i class="fa-solid fa-chevron-right"></i></span>
-							<h5 role="button" class="mb-0" tooltipPosition="top" pTooltip="Access resources for starting your business, from ideation to execution.">Revenue Forecasting Tool</h5>
+							<h5 role="button" class="mb-0" tooltipPosition="top"
+								pTooltip="Access resources for starting your business, from ideation to execution.">
+								Revenue Forecasting Tool</h5>
 						</div>
 						<div>
 							<button pButton class="how-it-works-button" severity="warn"
@@ -21,9 +26,11 @@
 						</div>
 					</div>
 					<div class="d-flex align-items-center gap-1">
-						<button pButton  class="btn btn-outline-primary text-small btn-rounded d-flex gap-2 align-items-center flex-fill" type="button">
+						<button pButton
+							class="btn btn-outline-primary text-small btn-rounded d-flex gap-2 align-items-center flex-fill"
+							type="button">
 							AI Credit <span class="btn-icon text-white">{{ aiCreditCount }}</span>
-						  </button>
+						</button>
 						<button pButton type="button" (click)="saveRecommadation()"
 							class="btn btn-primary btn-rounded py-2 px-4">
 							<span>History</span>
@@ -34,7 +41,8 @@
 		</div>
 		<div class="card-body text-center flex-fill overflow-y-auto d-flex justify-content-center align-items-center">
 			<form [formGroup]="form" class="mt-4">
-				<p-carousel [value]="recommendations" [numVisible]="1" [numScroll]="1" [circular]="false" [showNavigators]="false" [showIndicators]="false" [page]="activePageIndex" styleClass="h-100">
+				<p-carousel [value]="recommendations" [numVisible]="1" [numScroll]="1" [circular]="false"
+					[showNavigators]="false" [showIndicators]="false" [page]="activePageIndex" styleClass="h-100">
 					<ng-template let-recommendation let-i="index" pTemplate="item">
 						<div class="row text-center">
 							<!-- ------------------ Basic Information View -------------------- -->
@@ -46,51 +54,50 @@
 									<h5 class="uniprep-primary fw-semibold mt-3 mb-1">
 										{{ recommendation.question.branches[0] }}
 									</h5>
-									<p-select styleClass="w-100" class="w-100" formControlName="industry" appendTo="body" [options]="industryList" [filter]="true" filterBy="Industry" placeholder="Select Industry" optionLabel="Industry" optionValue="Industry" [autoDisplayFirst]="false"> </p-select>
-									<p class="text-center" *ngIf="form.get('industry')?.errors?.required && submitted" style="color: red">Please enter the industry type</p>
+									<p-select styleClass="w-100" class="w-100" formControlName="industry"
+										appendTo="body" [options]="industryList" [filter]="true" filterBy="Industry"
+										placeholder="Select Industry" optionLabel="Industry" optionValue="Industry"
+										[autoDisplayFirst]="false"> </p-select>
+									<p class="text-center" *ngIf="form.get('industry')?.errors?.required && submitted"
+										style="color: red">Please enter the industry type</p>
 								</div>
 								<div class="d-flex flex-column gap-2 mb-2">
 									<h5 class="uniprep-primary fw-semibold mt-3 mb-1">
 										{{ recommendation.question.branches[1] }}
 									</h5>
 									<div class="d-flex justify-content-center align-items-center gap-4 mb-2">
-										<button
-											pButton
-											type="button"
-											(click)="onEnableDisableSeason(true)"
-											[ngClass]="{
+										<button pButton type="button" (click)="onEnableDisableSeason(true)" [ngClass]="{
 												'active-btn': this.form.get('seasonalfunctionality')?.value
-											}"
-											class="btn p-4 btn-primary-border"
-											style="padding-inline: 6rem !important">
+											}" class="btn p-4 btn-primary-border" style="padding-inline: 6rem !important">
 											Yes
 										</button>
-										<button
-											pButton
-											type="button"
-											(click)="onEnableDisableSeason(false)"
-											[ngClass]="{
+										<button pButton type="button" (click)="onEnableDisableSeason(false)" [ngClass]="{
 												'active-btn': !this.form.get('seasonalfunctionality')?.value
-											}"
-											class="btn rounded-1 p-4 btn-primary-border"
-											style="padding-inline: 6rem !important">
+											}" class="btn rounded-1 p-4 btn-primary-border" style="padding-inline: 6rem !important">
 											No
 										</button>
 									</div>
 								</div>
-								<div class="d-flex flex-column gap-2 mb-1" *ngIf="this.form.get('seasonalfunctionality')?.value">
+								<div class="d-flex flex-column gap-2 mb-1"
+									*ngIf="this.form.get('seasonalfunctionality')?.value">
 									<h5 class="uniprep-primary fw-semibold mt-3 mb-1">
 										{{ recommendation.question.branches[2] }}
 									</h5>
-									<p-multiSelect [options]="seasonsList" styleClass="w-100" formControlName="seasons" optionLabel="name" optionValue="name" [appendTo]="'body'" placeholder="Select Seasons"> </p-multiSelect>
-									<p class="text-center" *ngIf="form.get('seasons')?.errors?.required && submitted" style="color: red">Please Choose Any one option</p>
+									<p-multiSelect [options]="seasonsList" styleClass="w-100" formControlName="seasons"
+										optionLabel="name" optionValue="name" [appendTo]="'body'"
+										placeholder="Select Seasons"> </p-multiSelect>
+									<p class="text-center" *ngIf="form.get('seasons')?.errors?.required && submitted"
+										style="color: red">Please Choose Any one option</p>
 								</div>
 								<div class="d-flex flex-column gap-2 mb-1">
 									<h5 class="uniprep-primary fw-semibold mt-3 mb-1">
 										{{ recommendation.question.branches[3] }}
 									</h5>
-									<p-multiSelect [options]="factorsList" styleClass="w-100" formControlName="factors" optionLabel="name" optionValue="name" [appendTo]="'body'" placeholder="Select Revenue drivers"> </p-multiSelect>
-									<p class="text-center" *ngIf="form.get('factors')?.errors?.required && submitted" style="color: red">Please Choose Any one option</p>
+									<p-multiSelect [options]="factorsList" styleClass="w-100" formControlName="factors"
+										optionLabel="name" optionValue="name" [appendTo]="'body'"
+										placeholder="Select Revenue drivers"> </p-multiSelect>
+									<p class="text-center" *ngIf="form.get('factors')?.errors?.required && submitted"
+										style="color: red">Please Choose Any one option</p>
 								</div>
 							</div>
 							<div *ngIf="recommendation.id == 2" class="col-md-6 offset-md-3">
@@ -101,15 +108,25 @@
 									<h5 class="uniprep-primary fw-semibold mt-3 mb-1">
 										{{ recommendation.question.branches[0] }}
 									</h5>
-									<p-multiSelect styleClass="w-100" [appendTo]="'body'" placeholder="Select Target Audience" [options]="targetAudienceList" optionLabel="name" optionValue="name" formControlName="target_audience"> </p-multiSelect>
-									<p class="text-center" *ngIf="form.get('target_audience')?.errors?.required && submitted" style="color: red">Please Choose Any one option</p>
+									<p-multiSelect styleClass="w-100" [appendTo]="'body'"
+										placeholder="Select Target Audience" [options]="targetAudienceList"
+										optionLabel="name" optionValue="name" formControlName="target_audience">
+									</p-multiSelect>
+									<p class="text-center"
+										*ngIf="form.get('target_audience')?.errors?.required && submitted"
+										style="color: red">Please Choose Any one option</p>
 								</div>
 								<div>
 									<h5 class="uniprep-primary fw-semibold mt-3 mb-1">
 										{{ recommendation.question.branches[1] }}
 									</h5>
-									<p-multiSelect styleClass="w-100" [appendTo]="'body'" placeholder="Select Growth Assumptions" [options]="assumptionsList" optionLabel="name" optionValue="name" formControlName="assumptions"> </p-multiSelect>
-									<p class="text-center" *ngIf="form.get('assumptions')?.errors?.required && submitted" style="color: red">Please Choose Any one option</p>
+									<p-multiSelect styleClass="w-100" [appendTo]="'body'"
+										placeholder="Select Growth Assumptions" [options]="assumptionsList"
+										optionLabel="name" optionValue="name" formControlName="assumptions">
+									</p-multiSelect>
+									<p class="text-center"
+										*ngIf="form.get('assumptions')?.errors?.required && submitted"
+										style="color: red">Please Choose Any one option</p>
 								</div>
 							</div>
 							<div *ngIf="recommendation.id == 3" class="col-md-6 offset-md-3">
@@ -121,16 +138,24 @@
 										{{ recommendation.question.branches[0] }}
 									</h5>
 									<div class="w-100 d-flex gap-2 flex-fill">
-										<p-select styleClass="w-100" class="w-100" formControlName="forecast_peroid" appendTo="body" [options]="durationList" [filter]="true" filterBy="name" placeholder="Select Duration" optionLabel="name" optionValue="name" [autoDisplayFirst]="false"> </p-select>
+										<p-select styleClass="w-100" class="w-100" formControlName="forecast_peroid"
+											appendTo="body" [options]="durationList" [filter]="true" filterBy="name"
+											placeholder="Select Duration" optionLabel="name" optionValue="name"
+											[autoDisplayFirst]="false"> </p-select>
 									</div>
-									<p class="text-center" *ngIf="form.get('forecast_peroid')?.errors?.required && submitted" style="color: red">Please Choose Any one option</p>
+									<p class="text-center"
+										*ngIf="form.get('forecast_peroid')?.errors?.required && submitted"
+										style="color: red">Please Choose Any one option</p>
 								</div>
 								<div>
 									<h5 class="uniprep-primary fw-semibold mt-3 mb-2">
 										{{ recommendation.question.branches[1] }}
 									</h5>
-									<p-multiSelect styleClass="w-100" placeholder="Select Goals" [options]="goalList" optionLabel="value" optionValue="value" formControlName="goals"> </p-multiSelect>
-									<p class="text-center" *ngIf="form.get('goals')?.errors?.required && submitted" style="color: red">Please Choose Any one option</p>
+									<p-multiSelect styleClass="w-100" placeholder="Select Goals" [options]="goalList"
+										optionLabel="value" optionValue="value" formControlName="goals">
+									</p-multiSelect>
+									<p class="text-center" *ngIf="form.get('goals')?.errors?.required && submitted"
+										style="color: red">Please Choose Any one option</p>
 								</div>
 							</div>
 						</div>
@@ -140,15 +165,20 @@
 		</div>
 		<div class="card-footer bg-transparent border-0">
 			<div class="d-flex justify-content-between mt-2">
-				<button pButton pButton type="button" class="btn btn-primary btn-rounded p-1 pe-4" [style.visibility]="activePageIndex == 0 ? 'hidden' : 'visible'" (click)="previous()">
+				<button pButton pButton type="button" class="btn btn-primary btn-rounded p-1 pe-4"
+					[style.visibility]="activePageIndex == 0 ? 'hidden' : 'visible'" (click)="previous()">
 					<span class="btn-icon px-2 py-2"><i class="fa fa-arrow-left"></i></span>
 					<span class="ms-2">Previous</span>
 				</button>
-				<button pButton pButton type="button" (click)="next()" *ngIf="activePageIndex <= 1" class="btn btn-primary btn-rounded p-1 ps-4">
-					<span class="me-2">Next</span><span class="btn-icon px-2 py-2"><i class="fa fa-arrow-right"></i></span>
+				<button pButton pButton type="button" (click)="next()" *ngIf="activePageIndex <= 1"
+					class="btn btn-primary btn-rounded p-1 ps-4">
+					<span class="me-2">Next</span><span class="btn-icon px-2 py-2"><i
+							class="fa fa-arrow-right"></i></span>
 				</button>
-				<button pButton pButton type="button" (click)="getRecommendation()" severity="success" *ngIf="activePageIndex == 2" class="btn btn-success btn-rounded p-1 ps-4">
-					<span class="me-2">Get Recommendations</span><span class="btn-icon px-2 py-2"> <i class="fa fa-check-circle"></i></span>
+				<button pButton pButton type="button" (click)="getRecommendation()" severity="success"
+					*ngIf="activePageIndex == 2" class="btn btn-success btn-rounded p-1 ps-4">
+					<span class="me-2">Get Recommendations</span><span class="btn-icon px-2 py-2"> <i
+							class="fa fa-check-circle"></i></span>
 				</button>
 			</div>
 		</div>
@@ -158,16 +188,21 @@
 		<div class="card-header border-0 bg-transparent">
 			<div class="row justify-content-center align-items-center">
 				<div class="col-md-12 d-flex gap-4">
-					<div class="backIcon d-md-flex d-none" role="button" (click)="isGoBackNavigation()" style="height: auto">
+					<div class="backIcon d-md-flex d-none" role="button" (click)="isGoBackNavigation()"
+						style="height: auto">
 						<span class="fa-solid fa-chevron-left"></span>
 					</div>
 					<div class="select-title d-flex justify-content-between align-items-center">
 						<div class="d-flex gap-2">
-							<h5 routerLink="/pages/dashboard" role="button" class="mb-0" tooltipPosition="top" pTooltip=""><i class="fa-regular fa-home"></i></h5>
+							<h5 routerLink="/pages/dashboard" role="button" class="mb-0" tooltipPosition="top"
+								pTooltip=""><i class="fa-regular fa-home"></i></h5>
 							<span><i class="fa-solid fa-chevron-right"></i></span>
-							<h5 routerLink="/pages/founderstool/founderstoollist" role="button" class="mb-0" tooltipPosition="top">Founders Tool</h5>
+							<h5 routerLink="/pages/founderstool/founderstoollist" role="button" class="mb-0"
+								tooltipPosition="top">Founders Tool</h5>
 							<span><i class="fa-solid fa-chevron-right"></i></span>
-							<h5 role="button" class="mb-0" tooltipPosition="top" pTooltip="Access resources for starting your business, from ideation to execution.">Revenue Forecasting Tool</h5>
+							<h5 role="button" class="mb-0" tooltipPosition="top"
+								pTooltip="Access resources for starting your business, from ideation to execution.">
+								Revenue Forecasting Tool</h5>
 						</div>
 						<div>
 							<button pButton class="how-it-works-button" severity="warn"
@@ -176,9 +211,11 @@
 						</div>
 					</div>
 					<div class="d-flex align-items-center gap-1">
-						<button pButton  class="btn btn-outline-primary text-small btn-rounded d-flex gap-2 align-items-center flex-fill" type="button">
+						<button pButton
+							class="btn btn-outline-primary text-small btn-rounded d-flex gap-2 align-items-center flex-fill"
+							type="button">
 							AI Credit <span class="btn-icon text-white">{{ aiCreditCount }}</span>
-						  </button>
+						</button>
 						<button pButton type="button" (click)="saveRecommadation()"
 							class="btn btn-primary btn-rounded py-2 px-4">
 							<span>History</span>
@@ -192,11 +229,14 @@
 				<div class="col-md-2"></div>
 				<div class="col-md-8">
 					<div class="d-flex justify-content-end gap-3 mb-3">
-						<button pButton pButton type="button" (click)="downloadRecommadation()" class="btn btn-secondary btn-rounded p-1 ps-4">
-							<span class="me-2">Download</span><span class="btn-icon px-2 py-2"> <i class="fa-regular fa-download"></i></span>
+						<button pButton pButton type="button" (click)="downloadRecommadation()"
+							class="btn btn-secondary btn-rounded p-1 ps-4">
+							<span class="me-2">Download</span><span class="btn-icon px-2 py-2"> <i
+									class="fa-regular fa-download"></i></span>
 						</button>
 					</div>
-					<div *ngIf="isResponseSkeleton; else showResponseData" class="card p-3 chatgpt-response bg-white h-100 overflow-y-auto">
+					<div *ngIf="isResponseSkeleton; else showResponseData"
+						class="card p-3 chatgpt-response bg-white h-100 overflow-y-auto">
 						<p-skeleton width='30rem' height='2rem' styleClass="mb-2"></p-skeleton>
 						<p-skeleton width='100%' height='1rem' styleClass="mb-2"></p-skeleton>
 						<p-skeleton width='100%' height='1rem' styleClass="mb-2"></p-skeleton>
@@ -213,7 +253,8 @@
 						</div>
 					</div>
 					<ng-template #showResponseData>
-						<div class="card p-3 poppins-content chatgpt-response bg-white h-100 overflow-y-auto" [innerHtml]="recommendationData"></div>
+						<div class="card p-3 poppins-content chatgpt-response bg-white h-100 overflow-y-auto"
+							[innerHtml]="recommendationData"></div>
 					</ng-template>
 				</div>
 				<div class="col-md-2"></div>
@@ -221,7 +262,8 @@
 		</div>
 		<div class="card-footer bg-transparent border-0">
 			<div class="text-end">
-				<button pButton pButton type="button" class="btn ps-3 btn-quit btn-rounded" (click)="resetRecommendation()">
+				<button pButton pButton type="button" class="btn ps-3 btn-quit btn-rounded"
+					(click)="resetRecommendation()">
 					Reset Recommendations<span class="btn-icon"><i class="fa-solid fa-arrow-rotate-right"></i> </span>
 				</button>
 			</div>
@@ -233,16 +275,21 @@
 		<div class="card-header border-0 bg-transparent">
 			<div class="row justify-content-center align-items-center">
 				<div class="col-md-12 d-flex gap-4">
-					<div class="backIcon d-md-flex d-none" role="button" (click)="isGoBackNavigation()" style="height: auto">
+					<div class="backIcon d-md-flex d-none" role="button" (click)="isGoBackNavigation()"
+						style="height: auto">
 						<span class="fa-solid fa-chevron-left"></span>
 					</div>
 					<div class="select-title d-flex justify-content-between align-items-center">
 						<div class="d-flex gap-2">
-							<h5 routerLink="/pages/dashboard" role="button" class="mb-0" tooltipPosition="top" pTooltip=""><i class="fa-regular fa-home"></i></h5>
+							<h5 routerLink="/pages/dashboard" role="button" class="mb-0" tooltipPosition="top"
+								pTooltip=""><i class="fa-regular fa-home"></i></h5>
 							<span><i class="fa-solid fa-chevron-right"></i></span>
-							<h5 routerLink="/pages/founderstool/founderstoollist" role="button" class="mb-0" tooltipPosition="top">Founders Tool</h5>
+							<h5 routerLink="/pages/founderstool/founderstoollist" role="button" class="mb-0"
+								tooltipPosition="top">Founders Tool</h5>
 							<span><i class="fa-solid fa-chevron-right"></i></span>
-							<h5 role="button" class="mb-0" tooltipPosition="top" pTooltip="Access resources for starting your business, from ideation to execution.">Revenue Forecasting Tool</h5>
+							<h5 role="button" class="mb-0" tooltipPosition="top"
+								pTooltip="Access resources for starting your business, from ideation to execution.">
+								Revenue Forecasting Tool</h5>
 						</div>
 						<div>
 							<button pButton class="how-it-works-button" severity="warn"
@@ -251,9 +298,11 @@
 						</div>
 					</div>
 					<div class="d-flex align-items-center gap-1">
-						<button pButton  class="btn btn-outline-primary text-small btn-rounded d-flex gap-2 align-items-center flex-fill" type="button">
+						<button pButton
+							class="btn btn-outline-primary text-small btn-rounded d-flex gap-2 align-items-center flex-fill"
+							type="button">
 							AI Credit <span class="btn-icon text-white">{{ aiCreditCount }}</span>
-						  </button>
+						</button>
 						<button pButton type="button" (click)="saveRecommadation()"
 							class="btn btn-primary btn-rounded py-2 px-4">
 							<span>History</span>
@@ -264,9 +313,10 @@
 		</div>
 		<div class="card-body text-center flex-fill overflow-y-auto">
 			<div class="row mb-0">
-				<div *ngFor="let item of recommadationSavedQuestionList; let i = index" class="col-lg-3 col-md-3 col-sm-4 col-xs-12 col-12 mb-3">
+				<div *ngFor="let item of recommadationSavedQuestionList; let i = index"
+					class="col-lg-3 col-md-3 col-sm-4 col-xs-12 col-12 mb-3">
 					<div class="row w-100 m-0 justify-content-center h-100">
-						<div class="card subjectcard" role="button" (click)="showRecommandationData(item.response)">
+						<div class="card subjectcard" role="button" (click)="showRecommandationData(item.response, item.user_inputs)">
 							<div class="card-body text-start">
 								<h5 class="fw-bold mb-0">Business Forecast {{ i + 1 }}</h5>
 								<p class="text-small"><b>Industry : </b>{{ item.industry }}</p>
@@ -278,7 +328,8 @@
 		</div>
 		<div class="card-footer bg-transparent border-0">
 			<div class="text-end">
-				<button pButton pButton type="button" class="btn ps-3 btn-quit btn-rounded" (click)="resetRecommendation()">
+				<button pButton pButton type="button" class="btn ps-3 btn-quit btn-rounded"
+					(click)="resetRecommendation()">
 					Reset Recommendations<span class="btn-icon"><i class="fa-solid fa-arrow-rotate-right"></i> </span>
 				</button>
 			</div>
@@ -286,30 +337,4 @@
 	</ng-container>
 </div>
 
-<p-dialog [(visible)]="restrict" [style]="{ width: '30vw' }" [draggable]="false" [resizable]="false" class="restrictionDialog" [breakpoints]="{ '960px': '30vw', '959px': '60vw', '425px': '90vw' }" (onHide)="clearRestriction()">
-	<div *ngIf="ehitlabelIsShow" class="text-center mt-5 mb-1">
-		<img src="../../../uniprep-assets/images/smartloack.png" class="image" width="60" />
-		<h3 class="offer">Upgrade Required</h3>
-		<p>To access this exclusive module,please upgrade your plan now</p>
-		<button pButton pButton type="button" class="text-white p-ripple p-button-rounded p-button-warning p-button p-component p-2" (click)="upgradePlan()">Upgrade Plan<i class="fa fa-arrow-right exhausted-plan-icon"></i></button>
-	</div>
-	<div *ngIf="!ehitlabelIsShow" class="text-center mt-5 mb-1">
-		<img src="../../../uniprep-assets/images/smartloack.png" class="image" width="60" />
-		<h3 class="offer">Upgrade Required</h3>
-		<p>Please contact {{ orgnamewhitlabel }} Company for access</p>
-	</div>
-</p-dialog>
-
-<p-dialog [(visible)]="restrict" [style]="{ width: '30vw' }" [draggable]="false" [resizable]="false" class="restrictionDialog" [breakpoints]="{ '960px': '30vw', '959px': '60vw', '425px': '90vw' }" (onHide)="clearRestriction()">
-	<div *ngIf="ehitlabelIsShow" class="text-center mt-5 mb-1">
-		<img src="../../../uniprep-assets/images/smartloack.png" class="image" width="60" />
-		<h3 class="offer">Upgrade Required</h3>
-		<p>To access this exclusive module,please upgrade your plan now</p>
-		<button pButton pButton type="button" class="text-white p-ripple p-button-rounded p-button-warning p-button p-component p-2" (click)="upgradePlan()">Upgrade Plan<i class="fa fa-arrow-right exhausted-plan-icon"></i></button>
-	</div>
-	<div *ngIf="!ehitlabelIsShow" class="text-center mt-5 mb-1">
-		<img src="{{ orglogowhitelabel }}" class="image" width="60" />
-		<h3 class="offer">Upgrade Required</h3>
-		<p>Please contact {{ orgnamewhitlabel }} Company for access</p>
-	</div>
-</p-dialog>
+<uni-restriction-dialog *ngIf="restrict" [isShowRestrict]="restrict" (closeRestrictModal)="restrict = false" />

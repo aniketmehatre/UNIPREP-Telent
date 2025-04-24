@@ -1,13 +1,13 @@
 import { CommonModule } from '@angular/common';
-import {Component, EventEmitter, Output} from '@angular/core';
-import { Dialog } from 'primeng/dialog';
+import { Component, EventEmitter, Output } from '@angular/core';
+import { DialogModule } from 'primeng/dialog';
 import { CompanyDetailComponent } from './company-detail/company-detail.component';
 import { CompanyListsComponent } from './company-list/company-list.component';
 import { RouterLink } from '@angular/router';
-import {TalentConnectService} from "../talent-connect.service";
-import {FormBuilder, FormGroup} from "@angular/forms";
-import {forkJoin} from "rxjs";
-import { CompanyFilterComponent } from "../company-connect/company-filter/company-filter.component";
+import { TalentConnectService } from "../talent-connect.service";
+import { FormBuilder, FormGroup } from "@angular/forms";
+import { forkJoin } from "rxjs";
+import { RestrictionDialogComponent } from 'src/app/shared/restriction-dialog/restriction-dialog.component';
 
 interface DropdownOption {
   label: string;
@@ -18,7 +18,7 @@ interface DropdownOption {
   templateUrl: './company-tracker.component.html',
   styleUrls: ['./company-tracker.component.scss'],
   standalone: true,
-  imports: [CommonModule, Dialog, CompanyListsComponent, CompanyDetailComponent, RouterLink]
+  imports: [CommonModule, DialogModule, CompanyListsComponent, CompanyDetailComponent, RouterLink, RestrictionDialogComponent]
 })
 export class CompanyTracker1Component {
   @Output() companyTrackerEmit: EventEmitter<number> = new EventEmitter();

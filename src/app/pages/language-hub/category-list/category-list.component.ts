@@ -19,12 +19,13 @@ import { CarouselModule } from "primeng/carousel"
 import { InputGroupModule } from "primeng/inputgroup"
 import { InputGroupAddonModule } from "primeng/inputgroupaddon"
 import { StorageService } from "../../../storage.service"
+import { RestrictionDialogComponent } from "src/app/shared/restriction-dialog/restriction-dialog.component"
 @Component({
 	selector: "uni-category-list",
 	templateUrl: "./category-list.component.html",
 	styleUrls: ["./category-list.component.scss"],
 	standalone: true,
-	imports: [CommonModule, DialogModule,RouterModule, PaginatorModule, SkeletonModule, TooltipModule, ButtonModule, MultiSelectModule, CarouselModule, InputGroupModule, InputGroupAddonModule],
+	imports: [CommonModule, DialogModule, RouterModule, PaginatorModule, SkeletonModule, TooltipModule, ButtonModule, MultiSelectModule, CarouselModule, InputGroupModule, InputGroupAddonModule, RestrictionDialogComponent],
 })
 export class CategoryListComponent implements OnInit {
 	isSkeletonVisible: boolean = true
@@ -60,18 +61,6 @@ export class CategoryListComponent implements OnInit {
 		.map((_, index) => index)
 
 	ngOnInit(): void {
-		this.locationService.getImage().subscribe((imageUrl) => {
-			this.orglogowhitelabel = imageUrl
-		})
-		this.locationService.getOrgName().subscribe((orgname) => {
-			this.orgnamewhitlabel = orgname
-		})
-		this.imagewhitlabeldomainname = window.location.hostname
-		if (this.imagewhitlabeldomainname === "*.uniprep.ai" || this.imagewhitlabeldomainname === "dev-student.uniprep.ai" || this.imagewhitlabeldomainname === "uniprep.ai" || this.imagewhitlabeldomainname === "localhost") {
-			this.ehitlabelIsShow = true
-		} else {
-			this.ehitlabelIsShow = false
-		}
 		if (!this.selectedLanguageId || !this.selectedLanguageType) {
 			this.toast.add({ severity: "info", summary: "Info", detail: "No Data Found" })
 			this.location.back()

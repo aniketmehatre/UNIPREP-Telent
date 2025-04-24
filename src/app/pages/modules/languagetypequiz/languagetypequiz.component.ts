@@ -14,13 +14,14 @@ import { CommonModule } from '@angular/common';
 import { DialogModule } from 'primeng/dialog';
 import { CarouselModule } from 'primeng/carousel';
 import { ButtonModule } from 'primeng/button';
-import {StorageService} from "../../../storage.service";
+import { StorageService } from "../../../storage.service";
+import { RestrictionDialogComponent } from 'src/app/shared/restriction-dialog/restriction-dialog.component';
 @Component({
-    selector: 'uni-languagetypequiz',
-    templateUrl: './languagetypequiz.component.html',
-    styleUrls: ['./languagetypequiz.component.scss'],
-    standalone: true,
-    imports: [CommonModule, DialogModule, CarouselModule, ButtonModule],
+  selector: 'uni-languagetypequiz',
+  templateUrl: './languagetypequiz.component.html',
+  styleUrls: ['./languagetypequiz.component.scss'],
+  standalone: true,
+  imports: [CommonModule, DialogModule, CarouselModule, ButtonModule, RestrictionDialogComponent],
 })
 export class LanguagetypequizComponent implements OnInit {
 
@@ -73,28 +74,16 @@ export class LanguagetypequizComponent implements OnInit {
   orglogowhitelabel: any;
   menuView: any
   constructor(private moduleListService: ModuleServiceService, private authService: AuthService,
-     private router: Router, private dataService: DataService,private location: Location,
+    private router: Router, private dataService: DataService, private location: Location,
     private locationService: LocationService, private ngxService: NgxUiLoaderService,
-     private toast: MessageService, private lAGS: LanguageArrayGlobalService, private storage: StorageService) { }
+    private toast: MessageService, private lAGS: LanguageArrayGlobalService, private storage: StorageService) { }
 
-     getFormattedValues(): string {
-      return this.lAGS.getItems().join(' -> ');
+  getFormattedValues(): string {
+    return this.lAGS.getItems().join(' -> ');
   }
 
   ngOnInit(): void {
     this.menuView = this.storage.get('QuizModuleName');
-    this.locationService.getImage().subscribe(imageUrl => {
-      this.orglogowhitelabel = imageUrl;
-    });
-    this.locationService.getOrgName().subscribe(orgname => {
-      this.orgnamewhitlabel = orgname;
-    });
-    this.imagewhitlabeldomainname = window.location.hostname;
-    if (this.imagewhitlabeldomainname === "*.uniprep.ai" || this.imagewhitlabeldomainname === "dev-student.uniprep.ai" || this.imagewhitlabeldomainname === "uniprep.ai" || this.imagewhitlabeldomainname === "localhost") {
-      this.ehitlabelIsShow = true;
-    } else {
-      this.ehitlabelIsShow = false;
-    }
     this.init();
     this.checkplanExpire();
   }
@@ -433,9 +422,9 @@ export class LanguagetypequizComponent implements OnInit {
     );
     window.open(url, '_blank');
   }
-  timeover:number=0;
+  timeover: number = 0;
   startTimer(): void {
-    this.timeover=0;
+    this.timeover = 0;
     this.timer = this.quizcount * 60;
     this.totalquiztime = this.quizcount * 60;
     if (this.timerSubscription) {

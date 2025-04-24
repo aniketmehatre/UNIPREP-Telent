@@ -1,20 +1,21 @@
-import {Component, OnInit} from '@angular/core';
-import {FormControl, FormGroup, Validators, FormsModule, ReactiveFormsModule} from '@angular/forms';
-import {ActivatedRoute, Params, Router} from "@angular/router";
-import {DataService} from 'src/app/data.service';
-import {MessageService} from "primeng/api";
-import {City} from "../../../@Models/cost-of-living";
-import {JobSearchService} from "../job-search.service";
+import { Component, OnInit } from '@angular/core';
+import { FormControl, FormGroup, Validators, FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { ActivatedRoute, Params, Router } from "@angular/router";
+import { DataService } from 'src/app/data.service';
+import { MessageService } from "primeng/api";
+import { City } from "../../../@Models/cost-of-living";
+import { JobSearchService } from "../job-search.service";
 import { AuthService } from "src/app/Auth/auth.service";
 import { CommonModule } from '@angular/common';
 import { DialogModule } from 'primeng/dialog';
-import {StorageService} from "../../../storage.service";
+import { StorageService } from "../../../storage.service";
+import { RestrictionDialogComponent } from 'src/app/shared/restriction-dialog/restriction-dialog.component';
 @Component({
-    selector: 'uni-job-hunt',
-    templateUrl: './job-hunt.component.html',
-    styleUrls: ['./job-hunt.component.scss'],
-    standalone: true,
-    imports: [CommonModule, DialogModule, FormsModule, ReactiveFormsModule],
+  selector: 'uni-job-hunt',
+  templateUrl: './job-hunt.component.html',
+  styleUrls: ['./job-hunt.component.scss'],
+  standalone: true,
+  imports: [CommonModule, DialogModule, FormsModule, ReactiveFormsModule, RestrictionDialogComponent],
 })
 export class JobHuntComponent implements OnInit {
   fG: FormGroup;
@@ -26,7 +27,7 @@ export class JobHuntComponent implements OnInit {
   formFields: any = [];
 
   constructor(private router: Router, private authService: AuthService, private dataService: DataService, private toastr: MessageService,
-              private jobService: JobSearchService, private storage: StorageService) {
+    private jobService: JobSearchService, private storage: StorageService) {
     this.countryCodes = [
       { "name": "Austria", "code": "at", "flag": "https://flagcdn.com/at.svg" },
       { "name": "Australia", "code": "au", "flag": "https://flagcdn.com/au.svg" },
@@ -63,7 +64,7 @@ export class JobHuntComponent implements OnInit {
   imagewhitlabeldomainname: any
   ngOnInit(): void {
     // this.jobService.getCities().subscribe((res: City[]) => {
-      
+
     //   this.cities = res;
     //   let LocationsList: any = [];
     //   this.cities.forEach((element:any, index: number) => {
@@ -71,47 +72,41 @@ export class JobHuntComponent implements OnInit {
     //       LocationsList[index]['location_name'] = element.city_name + " , "+ element.country_name;
     //     }
     //   });
-      // this.cities = res.filter(city => {
-      //   return this.countryCodes.some((country: any) => country.name === city.country_name);
-      // }).map(city => {
-      //   const matchedCountry = this.countryCodes.find((country: any) => country.name === city.country_name);
-      //   return {
-      //     ...city,
-      //     name: !city.city_name ? city.country_name : city.city_name,
-      //     country_code: matchedCountry ? matchedCountry.code : null,
-      //     flag: matchedCountry ? matchedCountry.flag : city.flag // Use the flag from countryCodes if matched, otherwise keep original
-      //   };
-      // });
+    // this.cities = res.filter(city => {
+    //   return this.countryCodes.some((country: any) => country.name === city.country_name);
+    // }).map(city => {
+    //   const matchedCountry = this.countryCodes.find((country: any) => country.name === city.country_name);
+    //   return {
+    //     ...city,
+    //     name: !city.city_name ? city.country_name : city.city_name,
+    //     country_code: matchedCountry ? matchedCountry.code : null,
+    //     flag: matchedCountry ? matchedCountry.flag : city.flag // Use the flag from countryCodes if matched, otherwise keep original
+    //   };
+    // });
     // });
 
     this.jobService.getCities().subscribe((res: City[]) => {
       this.cities = res;
-      let LocationsList: any[] = []; 
+      let LocationsList: any[] = [];
       this.cities.forEach((element: any, index: number) => {
-          LocationsList[index] = {};
-          // LocationsList[index]['city_name'] = element.city_name;
-          LocationsList[index]['flag'] = element.flag;
-          LocationsList[index]['country_name_code'] = element.country_name_code;
-          if (element.city_name && element.country_name) {
-              LocationsList[index]['location_name'] = element.city_name + ", " + element.country_name;
-          }else{
-              LocationsList[index]['location_name'] = element.country_name;
-          }
+        LocationsList[index] = {};
+        // LocationsList[index]['city_name'] = element.city_name;
+        LocationsList[index]['flag'] = element.flag;
+        LocationsList[index]['country_name_code'] = element.country_name_code;
+        if (element.city_name && element.country_name) {
+          LocationsList[index]['location_name'] = element.city_name + ", " + element.country_name;
+        } else {
+          LocationsList[index]['location_name'] = element.country_name;
+        }
       });
       this.cities = LocationsList;
     });
     this.getJobRoles();
     this.checkplanExpire();
-    this.imagewhitlabeldomainname = window.location.hostname;
-    if (this.imagewhitlabeldomainname === "*.uniprep.ai" || this.imagewhitlabeldomainname === "dev-student.uniprep.ai" || this.imagewhitlabeldomainname === "uniprep.ai" || this.imagewhitlabeldomainname === "localhost") {
-      this.ehitlabelIsShow = true;
-    } else {
-      this.ehitlabelIsShow = false;
-    }
   }
 
-  getJobRoles(){
-    this.jobService.getJobRoles().subscribe(res =>{
+  getJobRoles() {
+    this.jobService.getJobRoles().subscribe(res => {
       this.jobTitle = res;
     })
   }
@@ -130,8 +125,8 @@ export class JobHuntComponent implements OnInit {
       this.dataService.changeData(this.formFields)
       this.saveFilterData(this.formFields)
       this.router.navigateByUrl(`/pages/job-portal/job-listing`);
-    }else{
-      this.toastr.add({severity:'error', summary: 'Error', detail: "Fill required Filed"});
+    } else {
+      this.toastr.add({ severity: 'error', summary: 'Error', detail: "Fill required Filed" });
     }
   }
 
@@ -144,13 +139,13 @@ export class JobHuntComponent implements OnInit {
     this.storage.set('filterFormData', '');
   }
 
-  searchLocation(event: Event) :void{
+  searchLocation(event: Event): void {
     const input = event.target as HTMLInputElement;
     const query = input.value.toLowerCase();
-    if(query && query.length > 3){
+    if (query && query.length > 3) {
       const mockJobs = this.cities;
-      this.filteredCity =  mockJobs.filter((city: any) => city.location_name.toLowerCase().includes(query));
-    }else if(query.length < 1){
+      this.filteredCity = mockJobs.filter((city: any) => city.location_name.toLowerCase().includes(query));
+    } else if (query.length < 1) {
       this.filteredCity = [];
     }
   }
@@ -186,14 +181,14 @@ export class JobHuntComponent implements OnInit {
     }
   }
 
-  setJobtitle(jobRole: string){
+  setJobtitle(jobRole: string) {
     this.fG.patchValue({
       what_and: jobRole
     });
     this.filterJobTitle = [];
   }
 
-  setLocation(city: any){
+  setLocation(city: any) {
     let formData = {
       // country_name: city.city_name,
       country_name_code: city.country_name_code,
@@ -206,14 +201,14 @@ export class JobHuntComponent implements OnInit {
     this.fG.patchValue({
       countryCode: city.location_name
     });
-    
+
     this.filteredCity = [];
   }
   checkplanExpire(): void {
     this.authService.getNewUserTimeLeft().subscribe((res) => {
       let data = res.time_left;
       let subscription_exists_status = res.subscription_details;
-      if (data.plan === "expired" || data.plan === 'subscription_expired' || subscription_exists_status.subscription_plan=="Student") {
+      if (data.plan === "expired" || data.plan === 'subscription_expired' || subscription_exists_status.subscription_plan == "Student") {
         this.planExpired = true;
       } else {
         this.planExpired = false;

@@ -1,4 +1,4 @@
-import { Component, OnInit } from "@angular/core"
+	import { Component, OnInit } from "@angular/core"
 import { FormGroup, FormBuilder, Validators } from "@angular/forms"
 import { Router, RouterModule } from "@angular/router"
 import { MessageService } from "primeng/api"
@@ -24,13 +24,14 @@ import { DomSanitizer, SafeHtml } from "@angular/platform-browser"
 import { PromptService } from "../../prompt.service"
 import { SkeletonModule } from "primeng/skeleton"
 import { SharedModule } from "src/app/shared/shared.module"
+import { RestrictionDialogComponent } from "src/app/shared/restriction-dialog/restriction-dialog.component"
 
 @Component({
 	selector: "uni-business-forecasting-tool",
 	templateUrl: "./business-forecasting-tool.component.html",
 	styleUrls: ["./business-forecasting-tool.component.scss"],
 	standalone: true,
-	imports: [CommonModule, DialogModule, RouterModule, CardModule, PaginatorModule, FormsModule, ReactiveFormsModule, CarouselModule, ButtonModule, MultiSelectModule, SelectModule, InputGroupModule, InputTextModule, InputGroupAddonModule, SkeletonModule, SharedModule],
+	imports: [CommonModule, DialogModule, RouterModule, CardModule, PaginatorModule, FormsModule, ReactiveFormsModule, CarouselModule, ButtonModule, MultiSelectModule, SelectModule, InputGroupModule, InputTextModule, InputGroupAddonModule, SkeletonModule, SharedModule, RestrictionDialogComponent],
 })
 export class BusinessForecastingToolComponent implements OnInit {
 	industryList: any[] = businessForeCastData.Industry
@@ -97,6 +98,7 @@ export class BusinessForecastingToolComponent implements OnInit {
 	selectedData: { [key: string]: any } = {}
 	isResponseSkeleton: boolean = false;
 	aiCreditCount: number = 0;
+	userInputs: any;
 
 	constructor(private fb: FormBuilder, private foundersToolsService: FounderstoolService, private locationService: LocationService, private authService: AuthService, private router: Router, private pageFacade: PageFacadeService, private toast: MessageService, private travelToolService: TravelToolsService, private sanitizer: DomSanitizer, private promptService: PromptService) {
 		this.form = this.fb.group({
@@ -129,11 +131,11 @@ export class BusinessForecastingToolComponent implements OnInit {
 		this.getCurrenyandLocation()
 		this.getAICreditCount();
 	}
-	getAICreditCount(){
+	getAICreditCount() {
 		this.promptService.getAicredits().subscribe({
-		  next: resp =>{
-			this.aiCreditCount = resp;
-		  }
+			next: resp => {
+				this.aiCreditCount = resp;
+			}
 		})
 	}
 	backtoMain() {
@@ -221,6 +223,8 @@ export class BusinessForecastingToolComponent implements OnInit {
 			...this.form.value,
 			mode: "revenue_forescasting_tool",
 		}
+		//when the user clicks the history on that time the user inputs won't be there.so we stored the inputs and using the this(userInputs) for both. current user input and history also.
+		this.userInputs = data; 
 		this.isRecommendationQuestion = false
 		this.isRecommendationSavedData = false
 		this.isRecommendationData = true
@@ -279,17 +283,21 @@ export class BusinessForecastingToolComponent implements OnInit {
 					this.isRecommendationSavedData = true
 					this.recommadationSavedQuestionList = response.data
 				},
-				error: (error) => {},
+				error: (error) => { },
 			})
 		}
 	}
 
-	showRecommandationData(data: string) {
+	showRecommandationData(data: string, userInputs: any) {
 		this.isRecommendationQuestion = false
 		this.isRecommendationData = true
 		this.isRecommendationSavedData = false
 		this.isFromSavedData = true
 		this.recommendationData = data
+
+		const encodedJson = userInputs;
+		const decodedInput = JSON.parse(encodedJson);
+		this.userInputs = decodedInput;
 	}
 
 	onEnableDisableSeason(isSeasonEnable: boolean) {
@@ -323,7 +331,7 @@ export class BusinessForecastingToolComponent implements OnInit {
 	downloadRecommadation() {
 		let addingInput: string = '';
 		const formValue = ["industry", "seasonalfunctionality", "seasons", "factors", "target_audience", "assumptions", "forecast_peroid", "goals"]
-		const formData = this.form.value
+		// const formData = this.form.value
 		let formValueIndex = 0
 		this.recommendations.forEach((category: any) => {
 			addingInput += `<p><strong>${category.question.heading}</strong></p>`
@@ -331,11 +339,11 @@ export class BusinessForecastingToolComponent implements OnInit {
 				addingInput += `<p style="color: #3f4c83;><strong>${branchQuestion}</strong></p>`
 				let currentAnswer = ""
 				const currentFormField = formValue[formValueIndex]
-				if (formData && formData[currentFormField]) {
+				if (this.userInputs[currentFormField]) {
 					if (currentFormField == "seasonalfunctionality") {
-						currentAnswer = formData[currentFormField] ? "Yes" : "No"
+						currentAnswer = this.userInputs[currentFormField] ? "Yes" : "No"
 					} else {
-						currentAnswer = formData[currentFormField]
+						currentAnswer = this.userInputs[currentFormField]
 					}
 				} else {
 					currentAnswer = "No answer provided"

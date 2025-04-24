@@ -127,7 +127,7 @@ export class CareerToolComponent implements OnInit {
       imageLink: `https://${environment.domain}/uniprepapi/storage/app//public/icon/modules/job-interview.svg`,
       refLink: "",
       mode: "job-role",
-      is_ai: false,
+      is_ai: true,
       launch_soon: false
     },
     {

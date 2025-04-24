@@ -16,14 +16,15 @@ import { MultiSelectModule } from "primeng/multiselect";
 import { FormsModule, ReactiveFormsModule } from "@angular/forms";
 import { Carousel } from "primeng/carousel";
 import { ButtonModule } from 'primeng/button';
-import {Paginator} from "primeng/paginator";
+import { Paginator } from "primeng/paginator";
+import { RestrictionDialogComponent } from "src/app/shared/restriction-dialog/restriction-dialog.component";
 
 @Component({
-  selector: "uni-goverment-funding-opportunity",
-  templateUrl: "./goverment-funding-opportunity.component.html",
-  styleUrls: ["./goverment-funding-opportunity.component.scss"],
-  standalone: true,
-	imports: [CommonModule, RouterModule, DialogModule, SelectModule, MultiSelectModule, FormsModule, ReactiveFormsModule, Carousel, ButtonModule, Paginator],
+	selector: "uni-goverment-funding-opportunity",
+	templateUrl: "./goverment-funding-opportunity.component.html",
+	styleUrls: ["./goverment-funding-opportunity.component.scss"],
+	standalone: true,
+	imports: [CommonModule, RouterModule, DialogModule, SelectModule, MultiSelectModule, FormsModule, ReactiveFormsModule, Carousel, ButtonModule, Paginator, RestrictionDialogComponent],
 })
 export class GovermentFundingOppurtunityComponent implements OnInit {
 	fundData: any[] = []
@@ -93,18 +94,6 @@ export class GovermentFundingOppurtunityComponent implements OnInit {
 	selectedData: { [key: string]: any } = {}
 
 	ngOnInit(): void {
-		this.locationService.getImage().subscribe((imageUrl) => {
-			this.orglogowhitelabel = imageUrl
-		})
-		this.locationService.getOrgName().subscribe((orgname) => {
-			this.orgnamewhitlabel = orgname
-		})
-		this.imagewhitlabeldomainname = window.location.hostname
-		if (this.imagewhitlabeldomainname === "*.uniprep.ai" || this.imagewhitlabeldomainname === "dev-student.uniprep.ai" || this.imagewhitlabeldomainname === "uniprep.ai" || this.imagewhitlabeldomainname === "localhost") {
-			this.ehitlabelIsShow = true
-		} else {
-			this.ehitlabelIsShow = false
-		}
 		this.checkUserRecommendation()
 		this.getFundCountry()
 		this.checkplanExpire()
@@ -255,7 +244,7 @@ export class GovermentFundingOppurtunityComponent implements OnInit {
 		this.isFilterVisible = true
 	}
 
-	exportTable() {}
+	exportTable() { }
 
 	checkplanExpire(): void {
 		this.authService.getNewUserTimeLeft().subscribe((res) => {

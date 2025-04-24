@@ -23,7 +23,8 @@
 					<div class="card-body d-flex gap-2 text-small">
 						<span (click)="redirectTo('dashboard')" role="button"><i class="fa-regular fa-home"></i></span>
 						<span><i class="fa-solid fa-chevron-right"></i></span>
-						<span class="uniprep-primary fw-semibold" (click)="redirectTo('academic-tools')" role="button">Academic Tools</span>
+						<span class="uniprep-primary fw-semibold" (click)="redirectTo('academic-tools')"
+							role="button">Academic Tools</span>
 						<span><i class="fa-solid fa-chevron-right"></i></span>
 						<span class="uniprep-primary fw-semibold" role="button">{{ currentModuleName }}</span>
 					</div>
@@ -54,28 +55,34 @@
 		<div class="row mb-0" *ngIf="!isSkeletonVisible">
 			<div *ngFor="let modules of modulesList" class="col-lg-2 col-md-3 col-sm-4 col-xs-12 col-12 mb-3">
 				<div class="row w-100 m-0 justify-content-center h-100">
-					<div (click)="navigateToQuiz(modules.id, modules.academic_category_type_id)"  class="card subjectcard" role="button">
-						<div class="card-body d-flex flex-md-column flex-row justify-content-md-between align-items-center gap-md-0 gap-4">
+					<div (click)="navigateToQuiz(modules.id, modules.academic_category_type_id)"
+						class="card subjectcard" role="button">
+						<div
+							class="card-body d-flex flex-md-column flex-row justify-content-md-between align-items-center gap-md-0 gap-4">
 							<div>
 								<div class="submoduleicon">
 									<img class="selectimage" [src]="modules?.icon" />
 								</div>
-								<h5 class="text-center mt-3 fw-bold d-md-block d-none mb-3">{{ modules?.submodule_name }}</h5>
+								<h5 class="text-center mt-3 fw-bold d-md-block d-none mb-3">{{ modules?.submodule_name
+									}}</h5>
 							</div>
 							<div class="d-flex flex-column text-start text-md-center">
 								<h5 class="mt-3 fw-bold d-md-none d-block mb-3">{{ modules?.submodule_name }}</h5>
-								<div class="my-2 w-100" *ngIf="modules?.retry === 1 && modules?.academic_category_type_id === 1 && modules?.category_name === 'Stream'">
+								<div class="my-2 w-100"
+									*ngIf="modules?.retry === 1 && modules?.academic_category_type_id === 1 && modules?.category_name === 'Stream'">
 									<div class="btn bg-white btn-rounded w-100 text-small uniprep-secondary">
-										<span
-											>Recommended : <span>{{ modules?.recommended }}</span>
+										<span>Recommended : <span>{{ modules?.recommended }}</span>
 										</span>
 									</div>
 								</div>
-								<button pButton  class="d-flex justify-content-center btn btn-rounded w-100" [ngClass]="modules?.retry === 0 ? 'btn-secondary' : (modules?.retry > 0 && modules?.retry < 3) || (modules?.academic_category_type_id === 3 && modules?.retry > 3) ? 'btn-primary' : 'btn-danger'">
-									{{ modules?.retry === 0 ? "Start Test" : (modules?.retry > 0 && modules?.retry < 3) || (modules?.academic_category_type_id === 3 && modules?.retry > 3) ? "Retake Test" : "Retake exceeded" }}
+								<button pButton class="d-flex justify-content-center btn btn-rounded w-100"
+									[ngClass]="modules?.retry === 0 ? 'btn-secondary' : (modules?.retry > 0 && modules?.retry < 3) || (modules?.academic_category_type_id === 3 && modules?.retry > 3) ? 'btn-primary' : 'btn-danger'">
+									{{ modules?.retry === 0 ? "Start Test" : (modules?.retry > 0 && modules?.retry < 3)
+										|| (modules?.academic_category_type_id===3 && modules?.retry> 3) ? "Retake Test"
+										: "Retake exceeded" }}
 								</button>
 							</div>
-							
+
 						</div>
 					</div>
 				</div>
@@ -83,16 +90,4 @@
 		</div>
 	</div>
 </div>
-<p-dialog [(visible)]="restrict" [modal]="true" [style]="{ width: '30vw' }" [draggable]="false" [resizable]="false" class="restrictionDialog" [breakpoints]="{ '960px': '30vw', '959px': '60vw', '425px': '90vw' }" (onHide)="clearRestriction()">
-	<div *ngIf="ehitlabelIsShow" class="text-center mt-5 mb-4">
-		<img src="../../../uniprep-assets/images/smartloack.png" class="image" width="60" />
-		<h3 class="offer">Upgrade Required</h3>
-		<p>To access this exclusive module,please upgrade your plan now</p>
-		<button pButton  pButton type="button" class="text-white p-ripple p-button-rounded p-button-warning p-button p-component p-2" (click)="upgradePlan()">Upgrade Plan<i class="fa fa-arrow-right exhausted-plan-icon"></i></button>
-	</div>
-	<div *ngIf="!ehitlabelIsShow" class="text-center mt-5 mb-4">
-		<img src="../../../uniprep-assets/images/smartloack.png" class="image" width="60" />
-		<h3 class="offer">Upgrade Required</h3>
-		<p>Please contact {{ orgnamewhitlabel }} Company for access</p>
-	</div>
-</p-dialog>
+<uni-restriction-dialog *ngIf="restrict" [isShowRestrict]="restrict" (closeRestrictModal)="restrict = false" />

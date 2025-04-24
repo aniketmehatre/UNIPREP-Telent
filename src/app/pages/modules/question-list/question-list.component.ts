@@ -1,29 +1,30 @@
-import {Component, ElementRef, HostListener, OnInit, Pipe, PipeTransform, ViewChild} from "@angular/core"
-import {Observable} from "rxjs"
-import {ReadQuestion} from "../../../@Models/read-question.model"
-import {MenuItem, MessageService} from "primeng/api"
-import {ModuleServiceService} from "../../module-store/module-service.service"
-import {ModuleStoreService} from "../../module-store/module-store.service"
-import {DataService} from "../../../data.service"
-import {ActivatedRoute, Router, RouterModule} from "@angular/router"
-import {CommonModule, Location} from "@angular/common"
-import {DomSanitizer, Meta, SafeResourceUrl, Title} from "@angular/platform-browser"
-import {Carousel, CarouselModule} from "primeng/carousel"
-import {AuthService} from "src/app/Auth/auth.service"
-import {NgxUiLoaderService} from "ngx-ui-loader"
-import {PageFacadeService} from "../../page-facade.service"
-import {LocationService} from "src/app/location.service"
-import {MarkdownService} from "ngx-markdown"
-import {DialogModule} from "primeng/dialog"
-import {CardModule} from "primeng/card"
-import {PaginatorModule} from "primeng/paginator"
-import {SkeletonModule} from "primeng/skeleton"
-import {TooltipModule} from "primeng/tooltip"
-import {ButtonModule} from "primeng/button"
-import {MultiSelectModule} from "primeng/multiselect"
-import {InputGroupModule} from "primeng/inputgroup"
-import {InputGroupAddonModule} from "primeng/inputgroupaddon"
-import {StorageService} from "../../../storage.service";
+import { Component, ElementRef, HostListener, OnInit, Pipe, PipeTransform, ViewChild } from "@angular/core"
+import { Observable } from "rxjs"
+import { ReadQuestion } from "../../../@Models/read-question.model"
+import { MenuItem, MessageService } from "primeng/api"
+import { ModuleServiceService } from "../../module-store/module-service.service"
+import { ModuleStoreService } from "../../module-store/module-store.service"
+import { DataService } from "../../../data.service"
+import { ActivatedRoute, Router, RouterModule } from "@angular/router"
+import { CommonModule, Location } from "@angular/common"
+import { DomSanitizer, Meta, SafeResourceUrl, Title } from "@angular/platform-browser"
+import { Carousel, CarouselModule } from "primeng/carousel"
+import { AuthService } from "src/app/Auth/auth.service"
+import { NgxUiLoaderService } from "ngx-ui-loader"
+import { PageFacadeService } from "../../page-facade.service"
+import { LocationService } from "src/app/location.service"
+import { MarkdownService } from "ngx-markdown"
+import { DialogModule } from "primeng/dialog"
+import { CardModule } from "primeng/card"
+import { PaginatorModule } from "primeng/paginator"
+import { SkeletonModule } from "primeng/skeleton"
+import { TooltipModule } from "primeng/tooltip"
+import { ButtonModule } from "primeng/button"
+import { MultiSelectModule } from "primeng/multiselect"
+import { InputGroupModule } from "primeng/inputgroup"
+import { InputGroupAddonModule } from "primeng/inputgroupaddon"
+import { StorageService } from "../../../storage.service";
+import { RestrictionDialogComponent } from "src/app/shared/restriction-dialog/restriction-dialog.component"
 
 @Component({
 	selector: "uni-question-list",
@@ -31,8 +32,8 @@ import {StorageService} from "../../../storage.service";
 	styleUrls: ["./question-list.component.scss"],
 	providers: [MarkdownService],
 	standalone: true,
-	imports: [CommonModule,RouterModule, DialogModule, CardModule, PaginatorModule, SkeletonModule, TooltipModule,
-		ButtonModule, MultiSelectModule, CarouselModule, InputGroupModule, InputGroupAddonModule],
+	imports: [CommonModule, RouterModule, DialogModule, CardModule, PaginatorModule, SkeletonModule, TooltipModule,
+		ButtonModule, MultiSelectModule, CarouselModule, InputGroupModule, InputGroupAddonModule, RestrictionDialogComponent],
 })
 export class QuestionListComponent implements OnInit {
 	@ViewChild("carouselVideoElm") carouselVideoElm: any
@@ -98,37 +99,25 @@ export class QuestionListComponent implements OnInit {
 	learningHubQuizBreadCrumb: any
 	@ViewChild('scrollContainer') scrollContainer!: ElementRef;
 	@ViewChild('scrollContainerlink') scrollContainerlink!: ElementRef;
-	vediolink:any[]=[];
-	weblink:any[]=[];
-	isHidGlobalRepository:boolean=true;
+	vediolink: any[] = [];
+	weblink: any[] = [];
+	isHidGlobalRepository: boolean = true;
 	private scrollInterval: any;
 	constructor(private moduleListService: ModuleServiceService, private mService: ModuleServiceService,
-				private moduleStoreService: ModuleStoreService, private dataService: DataService,
-				private route: ActivatedRoute, private _location: Location, private _sanitizer: DomSanitizer,
-				private router: Router, private ngxService: NgxUiLoaderService, private authService: AuthService,
-				private sanitizer: DomSanitizer, private meta: Meta, private toast: MessageService,
-				private pageFacade: PageFacadeService, private locationService: LocationService,
-				private title: Title, private storage: StorageService) {
-		Carousel.prototype.changePageOnTouch = (e, diff) => {}
-		Carousel.prototype.onTouchMove = () => {}
+		private moduleStoreService: ModuleStoreService, private dataService: DataService,
+		private route: ActivatedRoute, private _location: Location, private _sanitizer: DomSanitizer,
+		private router: Router, private ngxService: NgxUiLoaderService, private authService: AuthService,
+		private sanitizer: DomSanitizer, private meta: Meta, private toast: MessageService,
+		private pageFacade: PageFacadeService, private locationService: LocationService,
+		private title: Title, private storage: StorageService) {
+		Carousel.prototype.changePageOnTouch = (e, diff) => { }
+		Carousel.prototype.onTouchMove = () => { }
 	}
 
 	loopRange = Array.from({ length: 24 })
 		.fill(0)
 		.map((_, index) => index)
 	ngOnInit(): void {
-		this.locationService.getImage().subscribe((imageUrl) => {
-			this.orglogowhitelabel = imageUrl
-		})
-		this.locationService.getOrgName().subscribe((orgname) => {
-			this.orgnamewhitlabel = orgname
-		})
-		this.imagewhitlabeldomainname = window.location.hostname
-		if (this.imagewhitlabeldomainname === "*.uniprep.ai" || this.imagewhitlabeldomainname === "dev-student.uniprep.ai" || this.imagewhitlabeldomainname === "uniprep.ai" || this.imagewhitlabeldomainname === "localhost") {
-			this.ehitlabelIsShow = true
-		} else {
-			this.ehitlabelIsShow = false
-		}
 
 		this.storage.set("modalcountryid", this.quizmoduleselectcountryidsetzero)
 		this.countryId = Number(this.storage.get("countryId"))
@@ -289,7 +278,7 @@ export class QuestionListComponent implements OnInit {
 				this.currentApiSlug = "getlearninghubsubmoduleqcount"
 				this.howItWorksVideoLink = "https://www.youtube.com/embed/prvvJsgnya8?si=QSAeOB9qPMF-ya-D"
 				this.currentModuleSlug = "learning-hub"
-				this.isHidGlobalRepository=false;
+				this.isHidGlobalRepository = false;
 				break
 			case "skill-mastery":
 				this.currentModuleId = 10
@@ -297,7 +286,7 @@ export class QuestionListComponent implements OnInit {
 				this.currentApiSlug = "getskillmasterysubmoduleqcount"
 				this.howItWorksVideoLink = "https://www.youtube.com/embed/mzyfeeL1b4Y?si=SYUFI6bW4xU-QZbT"
 				this.currentModuleSlug = "skill-mastery"
-				this.isHidGlobalRepository=false;
+				this.isHidGlobalRepository = false;
 				break
 			case "k12-category":
 				this.currentModuleId = 14
@@ -668,8 +657,8 @@ export class QuestionListComponent implements OnInit {
 		// this.cdRef.markForCheck();
 		this.oneQuestionContent = questionData
 		this.isQuestionAnswerVisible = true
-		this.vediolink=this.oneQuestionContent.videolink
-		this.weblink=this.oneQuestionContent.reflink
+		this.vediolink = this.oneQuestionContent.videolink
+		this.weblink = this.oneQuestionContent.reflink
 		// this.getSubmoduleName(questionData.country_id)
 		this.breadCrumb = [
 			{
@@ -846,16 +835,16 @@ export class QuestionListComponent implements OnInit {
 	}
 	// scroll code
 	// scrollRightLinks() {
-    //     if (this.scrollContainerlink) {
-    //         let container = this.scrollContainerlink.nativeElement;
-    //         container.scrollBy({ left: 200, behavior: 'smooth' });
+	//     if (this.scrollContainerlink) {
+	//         let container = this.scrollContainerlink.nativeElement;
+	//         container.scrollBy({ left: 200, behavior: 'smooth' });
 
-    //     }
-    // }
-    ngAfterViewInit() {
-        this.scrollRightLinks();
+	//     }
+	// }
+	ngAfterViewInit() {
+		this.scrollRightLinks();
 		this.scrollRight();
-    }
+	}
 	scrollRight() {
 		let container = this.scrollContainer.nativeElement;
 
@@ -868,26 +857,26 @@ export class QuestionListComponent implements OnInit {
 				container.scrollBy({ left: 2, behavior: 'smooth' }); // Adjust speed by changing "left" value
 			}
 		}, 0);
-}
-    scrollRightLinks() {
-        const container = this.scrollContainerlink.nativeElement;
-        this.scrollInterval = setInterval(() => {
-            if (container.scrollLeft + container.clientWidth >= container.scrollWidth) {
-                // Reset to the start when reaching the end
-                container.scrollTo({ left: 0, behavior: 'instant' });
-            } else {
-                // Scroll right smoothly
-                container.scrollBy({ left: 2, behavior: 'smooth' }); // Adjust speed by changing "left" value
-            }
-        }, 0); // Adjust speed by changing interval time
-    }
+	}
+	scrollRightLinks() {
+		const container = this.scrollContainerlink.nativeElement;
+		this.scrollInterval = setInterval(() => {
+			if (container.scrollLeft + container.clientWidth >= container.scrollWidth) {
+				// Reset to the start when reaching the end
+				container.scrollTo({ left: 0, behavior: 'instant' });
+			} else {
+				// Scroll right smoothly
+				container.scrollBy({ left: 2, behavior: 'smooth' }); // Adjust speed by changing "left" value
+			}
+		}, 0); // Adjust speed by changing interval time
+	}
 }
 @Pipe({
 	name: "safe",
 	standalone: false,
 })
 export class SafePipe implements PipeTransform {
-	constructor(private sanitizer: DomSanitizer) {}
+	constructor(private sanitizer: DomSanitizer) { }
 
 	transform(url: string): SafeResourceUrl {
 		return this.sanitizer.bypassSecurityTrustResourceUrl(url)

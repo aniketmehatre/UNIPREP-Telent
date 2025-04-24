@@ -13,12 +13,13 @@ import { DialogModule } from "primeng/dialog"
 import { MultiSelectModule } from "primeng/multiselect"
 import { CarouselModule } from "primeng/carousel"
 import { ButtonModule } from "primeng/button"
+import { RestrictionDialogComponent } from "src/app/shared/restriction-dialog/restriction-dialog.component"
 @Component({
 	selector: "uni-course-list",
 	templateUrl: "./course-list.component.html",
 	styleUrls: ["./course-list.component.scss"],
 	standalone: true,
-	imports: [CommonModule, DialogModule, MultiSelectModule, FormsModule, ReactiveFormsModule, CarouselModule, ButtonModule, RouterModule],
+	imports: [CommonModule, DialogModule, MultiSelectModule, FormsModule, ReactiveFormsModule, CarouselModule, ButtonModule, RouterModule, RestrictionDialogComponent],
 })
 export class CourseListComponent implements OnInit {
 	page: number = 1
@@ -106,7 +107,7 @@ export class CourseListComponent implements OnInit {
 		{
 			id: 6,
 			question: "What is your preferred university's world rank?",
-		}, 
+		},
 	]
 	invalidClass: boolean = false
 	selectedData: { [key: string]: any } = {}
@@ -149,15 +150,6 @@ export class CourseListComponent implements OnInit {
 		this.locationService.getImage().subscribe((imageUrl) => {
 			this.orglogowhitelabel = imageUrl
 		})
-		this.locationService.getOrgName().subscribe((orgname) => {
-			this.orgnamewhitlabel = orgname
-		})
-		this.imagewhitlabeldomainname = window.location.hostname
-		if (this.imagewhitlabeldomainname === "*.uniprep.ai" || this.imagewhitlabeldomainname === "dev-student.uniprep.ai" || this.imagewhitlabeldomainname === "uniprep.ai" || this.imagewhitlabeldomainname === "localhost") {
-			this.ehitlabelIsShow = true
-		} else {
-			this.ehitlabelIsShow = false
-		}
 		this.checkplanExpire()
 		// this.getCourseLists();
 		this.getRecommendationList()

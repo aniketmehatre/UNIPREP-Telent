@@ -3,7 +3,8 @@
     <div class="card-body">
       <div class="row justify-content-center align-items-center">
         <div class="col-md-1 col-1 text-start">
-          <p-button (click)="goBack()" icon="fa-solid fa-chevron-left" styleClass="p-button-rounded p-button-text text-dark"></p-button>
+          <p-button (click)="goBack()" icon="fa-solid fa-chevron-left"
+            styleClass="p-button-rounded p-button-text text-dark"></p-button>
         </div>
         <div class="col-md-10 col-10 text-center">
           <h3 class="text-center uniprep-primary">Personal Global Advisor</h3>
@@ -13,7 +14,7 @@
       <h5 class="mb-0 uniprep-primary text-center">Hello {{ username }}.</h5>
       <div class="row">
         <div class="col-md-3 col-8 order-md-1 order-2">
-          <button pButton  class="btn guidebutton" routerLink="/pages/guideline">Chat Guidelines</button>
+          <button pButton class="btn guidebutton" routerLink="/pages/guideline">Chat Guidelines</button>
         </div>
         <div class="col-md-6 col-12 order-md-2 order-1">
           <p class="text-center">
@@ -21,7 +22,7 @@
           </p>
         </div>
         <div class="col-md-3 col-4 order-md-3 order-3 text-end">
-          <button pButton  class="btn reportbutton" (click)="op?.toggle($event)">Report</button>
+          <button pButton class="btn reportbutton" (click)="op?.toggle($event)">Report</button>
         </div>
       </div>
       <hr class="mb-0" />
@@ -43,8 +44,10 @@
             </div>
             <div class="msg left-msg" *ngIf="message.admin_message != 0">
               <div class="">
-                <div class="worksans fw-semibold replyfield mb-2" [innerHtml]="getData(message.answerForQuestion)"></div>
-                <div class="worksans fw-medium" *ngIf="message.message != 'undefined' && message.message != undefined" [innerHTML]="message.message"></div>
+                <div class="worksans fw-semibold replyfield mb-2" [innerHtml]="getData(message.answerForQuestion)">
+                </div>
+                <div class="worksans fw-medium" *ngIf="message.message != 'undefined' && message.message != undefined"
+                  [innerHTML]="message.message"></div>
                 <!-- <div class="folder-card" *ngIf="message.attachment" (click)="openAttachment(message.attachment)">
 								<div class="d-flex folder">
 									<div class="me-2 d-flex align-items-center">
@@ -73,7 +76,8 @@
             </div>
             <div class="msg left-msg" *ngIf="message.admin_message == 0">
               <div class="msg-bubble">
-                <div class="worksans fw-medium" *ngIf="message.message != 'undefined' && message.message != undefined" [innerHTML]="message.message"></div>
+                <div class="worksans fw-medium" *ngIf="message.message != 'undefined' && message.message != undefined"
+                  [innerHTML]="message.message"></div>
               </div>
             </div>
           </div>
@@ -86,7 +90,9 @@
     <div class="card-body">
       <div class="row" *ngIf="!textareavisbility" (click)="canChangeChat()">
         <div class="d-flex justify-content-between align-items-center chatbox py-1 pe-1 ps-3">
-          <div><p class="fw-semibold">Please ask your question...</p></div>
+          <div>
+            <p class="fw-semibold">Please ask your question...</p>
+          </div>
           <div class="btn creditsbtn btn-rounded">
             Credits
             <span class="credits px-3 py-1 ms-1">{{ totalcredits }}</span>
@@ -100,13 +106,16 @@
             <span class="credits px-3 py-1 ms-1">{{ totalcredits }}</span>
           </div>
         </div>
-        <p-editor class="chattextarea rounded-4" *ngIf="textareavisbility" [(ngModel)]="textMessage" [modules]="modules">
+        <p-editor class="chattextarea rounded-4" *ngIf="textareavisbility" [(ngModel)]="textMessage"
+          [modules]="modules">
           <ng-template pTemplate="header"></ng-template>
         </p-editor>
       </div>
       <div class="d-flex justify-content-end sendbtn mt-2">
-        <button pButton  *ngIf="btnsendmessage == 1" (click)="confirm($event)" class="btn btn-primary btn-rounded text-small px-4 py-2 h5 m-0">Send Message</button>
-        <button pButton  *ngIf="btnsendmessage == 2" (click)="content.toggle($event)" class="btn btn-primary btn-rounded text-small px-4 py-2 h5 m-0">Send Message</button>
+        <button pButton *ngIf="btnsendmessage == 1" (click)="confirm($event)"
+          class="btn btn-primary btn-rounded text-small px-4 py-2 h5 m-0">Send Message</button>
+        <button pButton *ngIf="btnsendmessage == 2" (click)="content.toggle($event)"
+          class="btn btn-primary btn-rounded text-small px-4 py-2 h5 m-0">Send Message</button>
         <!-- <button pButton  *ngIf="btnsendmessage == 3" class="btn btn-primary btn-rounded text-small px-4 py-2 h5 m-0">Send Message</button> -->
       </div>
       <div class="text-end">
@@ -127,7 +136,8 @@
       <div class="form-group">
         <label>Report Issues<span style="color: red; font-weight: bold">*</span></label>
         <div>
-          <p-select formControlName="reportOption" optionValue="id" optionLabel="reportoption_name" styleClass="w-100" [options]="reportOptions"></p-select>
+          <p-select formControlName="reportOption" optionValue="id" optionLabel="reportoption_name" styleClass="w-100"
+            [options]="reportOptions"></p-select>
         </div>
       </div>
     </div>
@@ -138,17 +148,23 @@
       </div>
     </div>
     <div class="row mt-3 mt-1">
-      <button pButton  class="ps-3 pe-3 pt-2 pb-2" pButton type="submit" style="background-color: var(--uniprep-primary); border-radius: 8px; border: aliceblue; color: #fff" label="SUBMIT"></button>
+      <button pButton class="ps-3 pe-3 pt-2 pb-2" pButton type="submit"
+        style="background-color: var(--uniprep-primary); border-radius: 8px; border: aliceblue; color: #fff"
+        label="SUBMIT"></button>
     </div>
   </form>
 </p-popover>
 <p-dialog [visible]="visibility" [closable]="false" [modal]="true">
-  <div style="background: var(--uniprep-primary) !important; border-radius: 50% !important; height: 25px !important; width: 25px !important; position: absolute; right: -10px; top: -10px; text-align: center; cursor: pointer" (click)="visibility = !visibility">
+  <div
+    style="background: var(--uniprep-primary) !important; border-radius: 50% !important; height: 25px !important; width: 25px !important; position: absolute; right: -10px; top: -10px; text-align: center; cursor: pointer"
+    (click)="visibility = !visibility">
     <i style="color: #fff" class="fa fa-close"></i>
   </div>
   <div class="row mt-1">
     <div class="col-2" style="margin: auto; padding: 1.5rem">
-      <span style="color: white; text-align: center; vertical-align: middle; background-color: var(--uniprep-primary); border-radius: 50%"><i style="height: 20px; width: 20px" class="fa fa-info"></i></span>
+      <span
+        style="color: white; text-align: center; vertical-align: middle; background-color: var(--uniprep-primary); border-radius: 50%"><i
+          style="height: 20px; width: 20px" class="fa fa-info"></i></span>
     </div>
     <div class="col-10 mb-4" style="margin: auto; padding: 1rem">
       <b>Thank you for reaching out to us.<br />Please anticipate a response within<br />8 working hours.</b>
@@ -156,17 +172,23 @@
   </div>
 </p-dialog>
 <p-dialog [visible]="creditspopupVisibility" [closable]="false" [modal]="true" [style]="{ width: '20vw' }">
-  <div style="background: var(--uniprep-primary) !important; border-radius: 50% !important; height: 25px !important; width: 25px !important; position: absolute; right: -10px; top: -10px; text-align: center; cursor: pointer" (click)="creditspopupVisibility = !creditspopupVisibility">
+  <div
+    style="background: var(--uniprep-primary) !important; border-radius: 50% !important; height: 25px !important; width: 25px !important; position: absolute; right: -10px; top: -10px; text-align: center; cursor: pointer"
+    (click)="creditspopupVisibility = !creditspopupVisibility">
     <i style="color: #fff" class="fa fa-close"></i>
   </div>
   <div class="row mt-1">
     <div class="col-2" style="margin: auto; padding: 1.5rem">
-      <span style="color: white; text-align: center; vertical-align: middle; background-color: var(--uniprep-secondary); border-radius: 50%"><i style="height: 20px; width: 20px" class="fa fa-info"></i></span>
+      <span
+        style="color: white; text-align: center; vertical-align: middle; background-color: var(--uniprep-secondary); border-radius: 50%"><i
+          style="height: 20px; width: 20px" class="fa fa-info"></i></span>
     </div>
-    <div class="col-10" style="margin: auto; padding: 1rem">Your question credits are exhausted! Additional credits will be available at 12:00 AM tommorow.</div>
+    <div class="col-10" style="margin: auto; padding: 1rem">Your question credits are exhausted! Additional credits will
+      be available at 12:00 AM tommorow.</div>
   </div>
 </p-dialog>
-<p-dialog class="thankyoupopup" [modal]="true" header="Header" [(visible)]="showReportSuccess" [breakpoints]="{ '960px': '75vw' }" [style]="{ width: 'auto' }" [draggable]="false" [resizable]="false">
+<p-dialog class="thankyoupopup" [modal]="true" header="Header" [(visible)]="showReportSuccess"
+  [breakpoints]="{ '960px': '75vw' }" [style]="{ width: 'auto' }" [draggable]="false" [resizable]="false">
   <ng-template pTemplate="header">
     <span class="text-xl font-bold"></span>
   </ng-template>
@@ -178,11 +200,5 @@
     </div>
   </div>
 </p-dialog>
-<p-dialog [(visible)]="restrict" [modal]="true" [style]="{ width: '30vw' }" [draggable]="false" [resizable]="false" class="restrictionDialog" [breakpoints]="{ '960px': '30vw', '959px': '60vw', '425px': '90vw' }" (onHide)="clearRestriction()">
-  <div class="text-center mt-5 mb-4">
-    <img src="../../../uniprep-assets/images/smartloack.png" class="image" width="60" />
-    <h3 class="offer">Upgrade Required</h3>
-    <p>To access this exclusive module,please upgrade your plan now</p>
-    <button pButton  pButton type="button" class="text-white p-ripple p-button-rounded p-button-warning p-button p-component p-2" (click)="upgradePlan()">Upgrade Plan<i class="fa fa-arrow-right exhausted-plan-icon"></i></button>
-  </div>
-</p-dialog>
+
+<uni-restriction-dialog *ngIf="restrict" [isShowRestrict]="restrict" (closeRestrictModal)="restrict = false" />

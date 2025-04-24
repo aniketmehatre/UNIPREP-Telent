@@ -4,10 +4,14 @@
       <div class="col-md-12 d-flex gap-2 text-center">
         <div class="select-title d-flex justify-content-between align-items-center">
           <div>
-            <h5 class="w-100 mb-0" tooltipPosition="top" pTooltip="Test your knowledge across various subjects with quizzes to enhance learning and retention.">QUIZ<i class="questiontooltip fa-solid fa-circle-question"></i></h5>
+            <h5 class="w-100 mb-0" tooltipPosition="top"
+              pTooltip="Test your knowledge across various subjects with quizzes to enhance learning and retention.">
+              QUIZ<i class="questiontooltip fa-solid fa-circle-question"></i></h5>
           </div>
           <div>
-            <button pButton  class="how-it-works-button" severity="warn" (click)="openVideoPopup('https://www.youtube.com/embed/FSmFmyWhW4w?si=kb0k86wIKU0dBOYd')">How it works?<i class="fa-solid fa-play d-md-block d-none"></i></button>
+            <button pButton class="how-it-works-button" severity="warn"
+              (click)="openVideoPopup('https://www.youtube.com/embed/FSmFmyWhW4w?si=kb0k86wIKU0dBOYd')">How it works?<i
+                class="fa-solid fa-play d-md-block d-none"></i></button>
           </div>
         </div>
       </div>
@@ -20,14 +24,15 @@
         <!-- Pre Admission -->
         <div class="card responsivecard">
           <div class="card-body text-center">
-            <img height="60" width="60" src="../../../uniprep-assets/images/icons/preadmission.png" alt="Pre Admission" />
+            <img height="60" width="60" src="../../../uniprep-assets/images/icons/preadmission.png"
+              alt="Pre Admission" />
             <h4>Pre Admission</h4>
             <div class="row" style="width: -webkit-fill-available !important">
               <div class="col-12 mt-1">
-                <p-select dropdownAppendTo="body" [virtualScroll]="true" [virtualScrollItemSize]="30" (onChange)="preAdmissionCountryListId($event.value)"
-                            [(ngModel)]="preaddimissioncontrydropdownid" placeholder="Select the country"
-                            [options]="countrydropdownlist" optionValue="id" optionLabel="country"
-                            styleClass="w-100 flex-fill" [filter]="true">
+                <p-select dropdownAppendTo="body" [virtualScroll]="true" [virtualScrollItemSize]="30"
+                  (onChange)="preAdmissionCountryListId($event.value)" [(ngModel)]="preaddimissioncontrydropdownid"
+                  placeholder="Select the country" [options]="countrydropdownlist" optionValue="id"
+                  optionLabel="country" styleClass="w-100 flex-fill" [filter]="true">
                   <ng-template let-countryOption pTemplate="selectedItem">
                     <div class="d-flex gap-1 align-items-center countrydropdown">
                       <img class="countryicon" src="{{ countryOption.flag }}" alt="{{ countryOption.country }}" />
@@ -44,7 +49,8 @@
               </div>
             </div>
             <div class="mt-2" style="text-align: center">
-              <button pButton  style="padding: 8px; font-size: small" [disabled]="preadmissionpercentage >= 90" (click)="startModulule(1)" type="button" class="quizbtn">
+              <button pButton style="padding: 8px; font-size: small" [disabled]="preadmissionpercentage >= 90"
+                (click)="startModulule(1)" type="button" class="quizbtn">
                 <span>{{ preadmissionpercentage >= 90 ? "Completed" : "Start Quiz" }}</span>
                 <span *ngIf="preadmissionpercentage <= 89">
                   <i class="fas fa-arrow-right"></i>
@@ -57,11 +63,15 @@
         <!-- Post Admission -->
         <div class="card responsivecard">
           <div class="card-body text-center">
-            <img height="60" width="60" src="../../../uniprep-assets/images/icons/postadmission.png" alt="Post Admission" />
+            <img height="60" width="60" src="../../../uniprep-assets/images/icons/postadmission.png"
+              alt="Post Admission" />
             <h4>Post Admission</h4>
             <div class="row" style="width: -webkit-fill-available !important">
               <div class="col-12 mt-1">
-                <p-select dropdownAppendTo="body" [virtualScroll]="true" [virtualScrollItemSize]="30" (onChange)="postAdmissionCountryListId($event.value)" [(ngModel)]="postadmiisioncontrydropdownid" placeholder="Select the country" [options]="countrydropdownlist" optionValue="id" optionLabel="country" styleClass="w-100 flex-fill" [filter]="true">
+                <p-select dropdownAppendTo="body" [virtualScroll]="true" [virtualScrollItemSize]="30"
+                  (onChange)="postAdmissionCountryListId($event.value)" [(ngModel)]="postadmiisioncontrydropdownid"
+                  placeholder="Select the country" [options]="countrydropdownlist" optionValue="id"
+                  optionLabel="country" styleClass="w-100 flex-fill" [filter]="true">
                   <ng-template let-countryOption pTemplate="selectedItem">
                     <div class="d-flex gap-1 align-items-center countrydropdown">
                       <img class="countryicon" src="{{ countryOption.flag }}" alt="{{ countryOption.country }}" />
@@ -78,7 +88,8 @@
               </div>
             </div>
             <div class="mt-2" style="text-align: center">
-              <button pButton  style="padding: 8px; font-size: small" [disabled]="postadmissionpercentage >= 90" (click)="startModulule(3)" type="button" class="quizbtn">
+              <button pButton style="padding: 8px; font-size: small" [disabled]="postadmissionpercentage >= 90"
+                (click)="startModulule(3)" type="button" class="quizbtn">
                 <span>{{ postadmissionpercentage >= 90 ? "Completed" : "Start Quiz" }}</span>
                 <span *ngIf="postadmissionpercentage <= 89">
                   <i class="fas fa-arrow-right"></i>
@@ -94,7 +105,10 @@
             <h4>Life at Country</h4>
             <div class="row" style="width: -webkit-fill-available !important">
               <div class="col-12 mt-1">
-                <p-select dropdownAppendTo="body" [virtualScroll]="true" [virtualScrollItemSize]="30" (onChange)="lifeAtCountryListId($event.value)" [(ngModel)]="lifeatcontrydropdownid" placeholder="Select the country" [options]="countrydropdownlist" optionValue="id" optionLabel="country" styleClass="w-100 flex-fill" [filter]="true">
+                <p-select dropdownAppendTo="body" [virtualScroll]="true" [virtualScrollItemSize]="30"
+                  (onChange)="lifeAtCountryListId($event.value)" [(ngModel)]="lifeatcontrydropdownid"
+                  placeholder="Select the country" [options]="countrydropdownlist" optionValue="id"
+                  optionLabel="country" styleClass="w-100 flex-fill" [filter]="true">
                   <ng-template let-countryOption pTemplate="selectedItem">
                     <div class="d-flex gap-1 align-items-center countrydropdown">
                       <img class="countryicon" src="{{ countryOption.flag }}" alt="{{ countryOption.country }}" />
@@ -111,7 +125,8 @@
               </div>
             </div>
             <div class="mt-2" style="text-align: center">
-              <button pButton  style="padding: 8px; font-size: small" [disabled]="lifeatcountrypercentage >= 90" (click)="startModulule(6)" type="button" class="quizbtn">
+              <button pButton style="padding: 8px; font-size: small" [disabled]="lifeatcountrypercentage >= 90"
+                (click)="startModulule(6)" type="button" class="quizbtn">
                 <span>{{ lifeatcountrypercentage >= 90 ? "Completed" : "Start Quiz" }}</span>
                 <span *ngIf="lifeatcountrypercentage <= 89">
                   <i class="fas fa-arrow-right"></i>
@@ -128,7 +143,10 @@
             <h4>Career Hub</h4>
             <div class="row" style="width: -webkit-fill-available !important">
               <div class="col-12 mt-1">
-                <p-select dropdownAppendTo="body" [virtualScroll]="true" [virtualScrollItemSize]="30" (onChange)="careerHubCountryListId($event.value)" [(ngModel)]="careerhubcontrydropdownid" placeholder="Select the country" [options]="countrydropdownlist" optionValue="id" optionLabel="country" styleClass="w-100 flex-fill" [filter]="true">
+                <p-select dropdownAppendTo="body" [virtualScroll]="true" [virtualScrollItemSize]="30"
+                  (onChange)="careerHubCountryListId($event.value)" [(ngModel)]="careerhubcontrydropdownid"
+                  placeholder="Select the country" [options]="countrydropdownlist" optionValue="id"
+                  optionLabel="country" styleClass="w-100 flex-fill" [filter]="true">
                   <ng-template let-countryOption pTemplate="selectedItem">
                     <div class="d-flex gap-1 align-items-center countrydropdown">
                       <img class="countryicon" src="{{ countryOption.flag }}" alt="{{ countryOption.country }}" />
@@ -145,7 +163,8 @@
               </div>
             </div>
             <div class="mt-2" style="text-align: center">
-              <button pButton  style="padding: 8px; font-size: small" [disabled]="careerhubpercentage >= 90" (click)="startModulule(4)" type="button" class="quizbtn">
+              <button pButton style="padding: 8px; font-size: small" [disabled]="careerhubpercentage >= 90"
+                (click)="startModulule(4)" type="button" class="quizbtn">
                 <span>{{ careerhubpercentage >= 90 ? "Completed" : "Start Quiz" }}</span>
                 <span *ngIf="careerhubpercentage <= 89">
                   <i class="fas fa-arrow-right"></i>
@@ -158,15 +177,20 @@
         <!-- skill Mastery -->
         <div class="card responsivecard">
           <div class="card-body text-center">
-            <img height="60" width="60" src="../../../uniprep-assets/images/icons/preadmission.png" alt="Pre Admission" />
+            <img height="60" width="60" src="../../../uniprep-assets/images/icons/preadmission.png"
+              alt="Pre Admission" />
             <h4>Skill Mastery Quiz</h4>
             <div class="row" style="width: -webkit-fill-available !important">
               <div class="col-12 mt-1">
-                <p-select dropdownAppendTo="body" [virtualScroll]="true" [virtualScrollItemSize]="30" (onChange)="skillMasteryButtonVisible($event)" [(ngModel)]="skillsmasteryId" placeholder="Select" [options]="skillsmasteryList"  optionLabel="submodule_name" styleClass="w-100" [filter]="true"></p-select>
+                <p-select dropdownAppendTo="body" [virtualScroll]="true" [virtualScrollItemSize]="30"
+                  (onChange)="skillMasteryButtonVisible($event)" [(ngModel)]="skillsmasteryId" placeholder="Select"
+                  [options]="skillsmasteryList" optionLabel="submodule_name" styleClass="w-100"
+                  [filter]="true"></p-select>
               </div>
             </div>
             <div class="mt-2" style="text-align: center">
-              <button pButton  style="padding: 8px; font-size: small" [disabled]="skillunivertybutton" (click)="startModululeSkillmastery()" type="button" class="quizbtn">
+              <button pButton style="padding: 8px; font-size: small" [disabled]="skillunivertybutton"
+                (click)="startModululeSkillmastery()" type="button" class="quizbtn">
                 <span>{{ skillmasteryquizpercentage >= 90 ? "Completed" : "Start Quiz" }}</span>
                 <span *ngIf="skillmasteryquizpercentage <= 89">
                   <i class="fas fa-arrow-right"></i>
@@ -181,31 +205,43 @@
         <!-- unversity -->
         <div class="card responsivecard">
           <div class="card-body text-center">
-            <img height="60" width="60" src="../../../uniprep-assets/images/icons/Universities.png" alt="Pre Admission" />
+            <img height="60" width="60" src="../../../uniprep-assets/images/icons/Universities.png"
+              alt="Pre Admission" />
             <h4>Universty</h4>
             <div class="row" style="width: -webkit-fill-available !important">
               <div class="col-12 mt-1">
-                <p-select dropdownAppendTo="body" [virtualScroll]="true" [virtualScrollItemSize]="30" style="background-color: #ebedf2 !important" class="mt-2" [(ngModel)]="unversitycontrydropdownid" placeholder="Select the country" [options]="countrydropdownlist" optionValue="id" optionLabel="country" styleClass="w-100" [filter]="true" (ngModelChange)="getFilterUniversityList($event);">
+                <p-select dropdownAppendTo="body" [virtualScroll]="true" [virtualScrollItemSize]="30"
+                  style="background-color: #ebedf2 !important" class="mt-2" [(ngModel)]="unversitycontrydropdownid"
+                  placeholder="Select the country" [options]="countrydropdownlist" optionValue="id"
+                  optionLabel="country" styleClass="w-100" [filter]="true"
+                  (ngModelChange)="getFilterUniversityList($event);">
                   <ng-template let-countryOption pTemplate="selectedItem" style="border-radius: 20px !important">
                     <div class="d-flex align-items-center">
-                      <img src="{{ countryOption.flag }}" alt="{{ countryOption.country }}" class="mr-2" style="width: 24px; height: 24px; padding-left: 5px" />
+                      <img src="{{ countryOption.flag }}" alt="{{ countryOption.country }}" class="mr-2"
+                        style="width: 24px; height: 24px; padding-left: 5px" />
                       <span style="padding-left: 10px">{{ countryOption.country }}</span>
                     </div>
                   </ng-template>
                   <ng-template let-countryOption pTemplate="item">
                     <div class="d-flex align-items-center">
-                      <img src="{{ countryOption.flag }}" alt="{{ countryOption.country }}" class="mr-2" style="width: 24px; height: 24px" />
+                      <img src="{{ countryOption.flag }}" alt="{{ countryOption.country }}" class="mr-2"
+                        style="width: 24px; height: 24px" />
                       <span>{{ countryOption.country }}</span>
                     </div>
                   </ng-template>
                 </p-select>
               </div>
               <div class="col-12 mt-2">
-                <p-select dropdownAppendTo="body" [virtualScroll]="true" [virtualScrollItemSize]="30" class="mt-2" (onChange)="universityButtonVisible($event)" [(ngModel)]="universityId" placeholder="Select your university" [options]="filterUniversityList" optionLabel="submodule_name" styleClass="w-100" [filter]="true"></p-select>
+                <p-select dropdownAppendTo="body" [virtualScroll]="true" [virtualScrollItemSize]="30" class="mt-2"
+                  (onChange)="universityButtonVisible($event)" [(ngModel)]="universityId"
+                  placeholder="Select your university" [options]="filterUniversityList" optionLabel="submodule_name"
+                  styleClass="w-100" [filter]="true"></p-select>
               </div>
             </div>
             <div class="mt-2" style="text-align: center">
-              <button pButton  style="padding: 8px; font-size: small" [disabled]="universityquizbutton" (click)="startQuizUniversity()" type="button" class="w-100 h-100 btn btn-primary btn-rounded text-white">
+              <button pButton style="padding: 8px; font-size: small" [disabled]="universityquizbutton"
+                (click)="startQuizUniversity()" type="button"
+                class="w-100 h-100 btn btn-primary btn-rounded text-white">
                 <span class="me-1">{{ universityquizpercentagecompletion >= 90 ? "Completed" : "Start Quiz" }}</span>
                 <span *ngIf="universityquizpercentagecompletion <= 89">
                   <i class="fas fa-arrow-right"></i>
@@ -218,18 +254,26 @@
         <!-- learning hub -->
         <div class="card responsivecard">
           <div class="card-body text-center">
-            <img height="60" width="60" src="../../../uniprep-assets/images/icons/Learning Hub Quiz.png" alt="Pre Admission" />
+            <img height="60" width="60" src="../../../uniprep-assets/images/icons/Learning Hub Quiz.png"
+              alt="Pre Admission" />
             <h4>Learning Hub Quiz</h4>
             <div class="row" style="width: -webkit-fill-available !important">
               <div class="col-12 mt-1">
-                <p-select dropdownAppendTo="body" [virtualScroll]="true" [virtualScrollItemSize]="30" class="mt-2" (onChange)="specializationList($event)" [(ngModel)]="subjectid" placeholder="Select a subject" [options]="subjectlistdropdown" optionLabel="category" styleClass="w-100" [filter]="true"></p-select>
+                <p-select dropdownAppendTo="body" [virtualScroll]="true" [virtualScrollItemSize]="30" class="mt-2"
+                  (onChange)="specializationList($event)" [(ngModel)]="subjectid" placeholder="Select a subject"
+                  [options]="subjectlistdropdown" optionLabel="category" styleClass="w-100" [filter]="true"></p-select>
               </div>
               <div class="col-12 mt-2">
-                <p-select dropdownAppendTo="body" [virtualScroll]="true" [virtualScrollItemSize]="30" class="mt-2" (onChange)="specializationdata($event)" [(ngModel)]="specializationid" placeholder="Select a specialization" [options]="specializationlist" optionLabel="submodule_name" styleClass="w-100" [filter]="true"></p-select>
+                <p-select dropdownAppendTo="body" [virtualScroll]="true" [virtualScrollItemSize]="30" class="mt-2"
+                  (onChange)="specializationdata($event)" [(ngModel)]="specializationid"
+                  placeholder="Select a specialization" [options]="specializationlist" optionLabel="submodule_name"
+                  styleClass="w-100" [filter]="true"></p-select>
               </div>
             </div>
             <div class="mt-2" style="text-align: center">
-              <button pButton  style="padding: 8px; font-size: small" [disabled]="quizpercentage >= 90"  (click)="StartLearningHubQuiz()" type="button" class="w-100 h-100 btn btn-primary btn-rounded text-white">
+              <button pButton style="padding: 8px; font-size: small" [disabled]="quizpercentage >= 90"
+                (click)="StartLearningHubQuiz()" type="button"
+                class="w-100 h-100 btn btn-primary btn-rounded text-white">
                 <span class="me-1">{{ quizpercentage >= 90 ? "Completed" : "Start Quiz" }}</span>
                 <span *ngIf="quizpercentage <= 89">
                   <i class="fas fa-arrow-right"></i>
@@ -242,18 +286,25 @@
         <!-- Language hub -->
         <div class="card responsivecard">
           <div class="card-body text-center">
-            <img height="60" width="60" src="../../../uniprep-assets/images/icons/Language Hub.png" alt="Pre Admission" />
+            <img height="60" width="60" src="../../../uniprep-assets/images/icons/Language Hub.png"
+              alt="Pre Admission" />
             <h4>Language Hub Quiz</h4>
             <div class="row" style="width: -webkit-fill-available !important">
               <div class="col-12 mt-1">
-                <p-select dropdownAppendTo="body" [virtualScroll]="true" [virtualScrollItemSize]="30" class="mt-2" (onChange)="languageListId($event)" [(ngModel)]="laguageid" placeholder="Select the language" [options]="languagedropdownlist"  optionLabel="language" styleClass="w-100" [filter]="true"></p-select>
+                <p-select dropdownAppendTo="body" [virtualScroll]="true" [virtualScrollItemSize]="30" class="mt-2"
+                  (onChange)="languageListId($event)" [(ngModel)]="laguageid" placeholder="Select the language"
+                  [options]="languagedropdownlist" optionLabel="language" styleClass="w-100" [filter]="true"></p-select>
               </div>
               <div class="col-12 mt-2">
-                <p-select dropdownAppendTo="body" [virtualScroll]="true" [virtualScrollItemSize]="30" class="mt-2" (onChange)="languagrTypeId($event)" [(ngModel)]="laguagetypeid" placeholder="Select proficiency level" [options]="languagedropdownlisttype"  optionLabel="type" styleClass="w-100" [filter]="true"></p-select>
+                <p-select dropdownAppendTo="body" [virtualScroll]="true" [virtualScrollItemSize]="30" class="mt-2"
+                  (onChange)="languagrTypeId($event)" [(ngModel)]="laguagetypeid" placeholder="Select proficiency level"
+                  [options]="languagedropdownlisttype" optionLabel="type" styleClass="w-100" [filter]="true"></p-select>
               </div>
             </div>
             <div class="mt-2" style="text-align: center">
-              <button pButton  style="padding: 8px; font-size: small" [disabled]="languageHubQuiz" (click)="StartLanguageHubQuiz()" type="button" class="w-100 h-100 btn btn-primary btn-rounded text-white">
+              <button pButton style="padding: 8px; font-size: small" [disabled]="languageHubQuiz"
+                (click)="StartLanguageHubQuiz()" type="button"
+                class="w-100 h-100 btn btn-primary btn-rounded text-white">
                 <span class="me-1">{{ quizlanguguageprogress >= 90 ? "Completed" : "Start Quiz" }}</span>
                 <span *ngIf="quizlanguguageprogress <= 89">
                   <i class="fas fa-arrow-right"></i>
@@ -268,16 +319,4 @@
   </div>
 </div>
 
-<p-dialog [(visible)]="restrict" [modal]="true" [style]="{ width: '30vw' }" [draggable]="false" [resizable]="false" class="restrictionDialog" [breakpoints]="{ '960px': '30vw', '959px': '60vw', '425px': '90vw' }" (onHide)="clearRestriction()">
-  <div *ngIf="ehitlabelIsShow" class="text-center mt-5 mb-4">
-    <img src="../../../uniprep-assets/images/smartloack.png" class="image" width="60" />
-    <h3 class="offer">Upgrade Required</h3>
-    <p>To access this exclusive module,please upgrade your plan now</p>
-    <button pButton  pButton type="button" class="text-white p-ripple p-button-rounded p-button-warning p-button p-component p-2" (click)="upgradePlan()">Upgrade Plan<i class="fa fa-arrow-right exhausted-plan-icon"></i></button>
-  </div>
-  <div *ngIf="!ehitlabelIsShow" class="text-center mt-5 mb-4">
-    <img src="{{ orglogowhitelabel }}" class="image" width="60" />
-    <h3 class="offer">Upgrade Required</h3>
-    <p>Please contact {{ orgnamewhitlabel }} Company for access</p>
-  </div>
-</p-dialog>
+<uni-restriction-dialog *ngIf="restrict" [isShowRestrict]="restrict" (closeRestrictModal)="restrict = false" />

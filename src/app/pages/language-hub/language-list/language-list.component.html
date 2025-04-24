@@ -4,12 +4,16 @@
 			<div class="col-md-12 text-center">
 				<div class="select-title d-flex justify-content-between align-items-center">
 					<div class="d-flex gap-2">
-						<h5 routerLink="/pages/dashboard" role="button" class="mb-0" tooltipPosition="top" pTooltip=""><i class="fa-regular fa-home"></i></h5>
+						<h5 routerLink="/pages/dashboard" role="button" class="mb-0" tooltipPosition="top" pTooltip="">
+							<i class="fa-regular fa-home"></i></h5>
 						<span><i class="fa-solid fa-chevron-right"></i></span>
-						<h5 routerLink="/pages/language-hub/languages" role="button" class="mb-0" tooltipPosition="top" pTooltip="">Language Hub</h5>
-					  </div>
+						<h5 routerLink="/pages/language-hub/languages" role="button" class="mb-0" tooltipPosition="top"
+							pTooltip="">Language Hub</h5>
+					</div>
 					<div>
-						<button pButton class="how-it-works-button" severity="warn" (click)="openVideoPopup('https://www.youtube.com/embed/01xivveciUI?si=Cdi3e7ycApMa8sWO')">How it works?<i class="fa-solid fa-play d-md-block d-none"></i></button>
+						<button pButton class="how-it-works-button" severity="warn"
+							(click)="openVideoPopup('https://www.youtube.com/embed/01xivveciUI?si=Cdi3e7ycApMa8sWO')">How
+							it works?<i class="fa-solid fa-play d-md-block d-none"></i></button>
 					</div>
 				</div>
 			</div>
@@ -39,13 +43,16 @@
 			<div *ngFor="let sub of languageList" class="col-lg-2 col-md-3 col-sm-4 col-xs-12 col-12 mb-3">
 				<div class="row w-100 m-0 justify-content-center h-100">
 					<div (click)="onLanguageClick(sub)" class="card subjectcard position-relative" role="button">
-						<div *ngIf="sub.is_assessment && authService._user?.student_type_id == 2" class="assessment-tag" style="background-color: var(--uniprep-skyblue)">Assessment</div>
-						<div class="card-body d-flex flex-md-column flex-row justify-content-md-between align-items-center px-0 py-2">
+						<div *ngIf="sub.is_assessment && authService._user?.student_type_id == 2" class="assessment-tag"
+							style="background-color: var(--uniprep-skyblue)">Assessment</div>
+						<div
+							class="card-body d-flex flex-md-column flex-row justify-content-md-between align-items-center px-0 py-2">
 							<div>
 								<div class="submoduleicon">
 									<img alt="{{ sub.language }}" class="selectimage" src="{{ sub.icon }}" />
 								</div>
-								<h5 class="text-center subjecttitle d-md-block d-none fw-bold pt-2 mb-0 mt-3">{{ sub.language }}</h5>
+								<h5 class="text-center subjecttitle d-md-block d-none fw-bold pt-2 mb-0 mt-3">{{
+									sub.language }}</h5>
 							</div>
 							<div class="text-start text-md-center">
 								<h6 class="subjecttitle fw-bold d-md-none d-block">{{ sub.language }}</h6>
@@ -58,7 +65,8 @@
 		</div>
 	</div>
 	<div class="card-footer border-0 bg-transparent">
-		<p-paginator [rows]="perpage" [totalRecords]="totalQuestionCount" (onPageChange)="paginatePost($event)" [rowsPerPageOptions]="[25, 50, 100, 200]" dropdownAppendTo="body"></p-paginator>
+		<p-paginator [rows]="perpage" [totalRecords]="totalQuestionCount" (onPageChange)="paginatePost($event)"
+			[rowsPerPageOptions]="[25, 50, 100, 200]" dropdownAppendTo="body"></p-paginator>
 	</div>
 </div>
 <!--<p-dialog class="quizmodal" header="Header" footer="Footer" [draggable]="false" [modal]="true" [(visible)]="isStartQuiz" [style]="{ width: '70vw' }" [closable]="false">-->
@@ -397,11 +405,3 @@
         </div>
     </ng-template>
 </p-confirmDialog> -->
-<!--<p-dialog [(visible)]="restrict" [modal]="true" [style]="{ width: '30vw' }" [draggable]="false" [resizable]="false" class="restrictionDialog" [breakpoints]="{ '960px': '30vw', '959px': '60vw', '425px': '90vw' }" (onHide)="clearRestriction()">-->
-<!--    <div class="text-center mt-5 mb-4">-->
-<!--        <img src="../../../uniprep-assets/images/smartloack.png" class="image" width="60" />-->
-<!--        <h3 class="offer">Upgrade Required</h3>-->
-<!--        <p>To access this exclusive module,please upgrade your plan now</p>-->
-<!--        <button pButton  pButton type="button" class="text-white p-ripple p-button-rounded p-button-warning p-button p-component p-2" (click)="upgradePlan()">Upgrade Plan<i class="fa fa-arrow-right exhausted-plan-icon"></i></button>-->
-<!--    </div>-->
-<!--</p-dialog>-->

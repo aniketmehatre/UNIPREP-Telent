@@ -28,6 +28,7 @@ import { TabViewModule } from "primeng/tabview"
 import { MessageService } from "primeng/api"
 import { InputGroupAddonModule } from "primeng/inputgroupaddon"
 import { SeoManagerComponent } from 'src/app/components/seo-manager/seo-manager.component';
+import { RestrictionDialogComponent } from 'src/app/shared/restriction-dialog/restriction-dialog.component';
 
 @Component({
 	selector: "uni-dashboard",
@@ -35,7 +36,7 @@ import { SeoManagerComponent } from 'src/app/components/seo-manager/seo-manager.
 	styleUrls: ["./dashboard.component.scss"],
 	standalone: true,
 	imports: [CommonModule, DialogModule, CarouselModule, InputGroupAddonModule, InputGroupModule, FormsModule, ButtonModule, TooltipModule, RouterModule, SelectModule,
-		CalendarModule, DatePickerModule, InputTextModule, TabViewModule, TableModule, AccordionModule, ReactiveFormsModule,
+		CalendarModule, DatePickerModule, InputTextModule, TabViewModule, TableModule, AccordionModule, ReactiveFormsModule, RestrictionDialogComponent
 	],
 	providers: [DashboardService, AuthService, DataService, LocationService, SeoManagerComponent],
 	changeDetection: ChangeDetectionStrategy.OnPush
@@ -182,12 +183,7 @@ export class DashboardComponent implements OnInit, OnChanges, OnDestroy {
 		this.selectedCountryId = Number(this.storage.get("countryId"));
 		this.storage.set("currentmodulenameforrecently", "");
 
-		// Load white label data
-		this.imagewhitlabeldomainname = window.location.hostname;
-		this.ehitlabelIsShow = this.imagewhitlabeldomainname === "*.uniprep.ai" ||
-			this.imagewhitlabeldomainname === "dev-student.uniprep.ai" ||
-			this.imagewhitlabeldomainname === "uniprep.ai" ||
-			this.imagewhitlabeldomainname === "localhost";
+
 		this.cdr.detectChanges();
 	}
 

@@ -1,0 +1,32 @@
+<div class="management-team-container">
+  <div class="content">
+    <div class="navigation">
+      <button class="back-button" (click)="goBack()">
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M19 12H5M12 19l-7-7 7-7"/>
+        </svg>
+      </button>
+      <span class="section-title">{{ pageTitle }}</span>
+    </div>
+
+    <div class="hero-section">
+      <h1 class="main-heading">{{ mainHeading }}</h1>
+      <p class="description">{{ description }}</p>
+    </div>
+
+    <div class="team-grid">
+      <div class="team-card" *ngFor="let member of teamMembers">
+        <div class="member-image-container">
+          <img [src]="member.image" [alt]="member.name" class="member-image">
+        </div>
+        <div class="member-info">
+          <h3 class="member-name">{{ member.name }}</h3>
+          <p class="member-position">{{ member.designation }}</p>
+          <a [href]="member.linkedin_url" target="_blank" class="linkedin-link">
+            LinkedIn <span class="linkedin-icon">in</span>
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

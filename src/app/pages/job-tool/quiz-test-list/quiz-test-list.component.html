@@ -2,9 +2,11 @@
   <div *ngFor="let quiz of quizlist" class="col-lg-2 col-md-3 col-sm-4 col-xs-12 col-12 mb-3">
     <div class="row w-100 m-0 justify-content-center h-100">
       <div class="card resourcecard position-relative" role="button">
-      <div *ngIf="quiz.is_assessment && authService._user?.student_type_id == 2" class="assessment-tag" style="background-color: var(--uniprep-skyblue);">Assessment</div>
+        <div *ngIf="quiz.is_assessment && authService._user?.student_type_id == 2" class="assessment-tag"
+          style="background-color: var(--uniprep-skyblue);">Assessment</div>
         <div *ngIf="quiz?.level" class="d-flex justify-content-end mt-1">
-          <span [ngSwitch]="quiz?.level" [ngClass]="{ basicLevelTag: quiz.level === 1, intLevelTag: quiz.level === 2, advLevelTag: quiz.level === 3 }">
+          <span [ngSwitch]="quiz?.level"
+            [ngClass]="{ basicLevelTag: quiz.level === 1, intLevelTag: quiz.level === 2, advLevelTag: quiz.level === 3 }">
             <ng-container *ngSwitchCase="1">Basic</ng-container>
             <ng-container *ngSwitchCase="2">Intermediate</ng-container>
             <ng-container *ngSwitchDefault>Advanced</ng-container>
@@ -12,33 +14,26 @@
         </div>
         <div class="card-body">
           <div class="text-center">
-              <h5 class="fw-bold mb-3">{{ quiz.submodule_name }}</h5>
-              <div class="d-flex justify-content-center flex-wrap">
-                  <button pButton  class="quiz-button" [ngClass]="quiz.progress === 0 ? 'how-it-works-button' : quiz.progress > 0 && quiz.progress < 90 ? 'retry' : 'completed'" [disabled]="quiz.progress > 89" (click)="showQuizQuestions(quiz.id, currentModule, 'careertoolquiz', false)">
-                      {{ quiz.progress === 0 ? 'Start Quiz' : quiz.progress > 0 && quiz.progress < 90 ? 'Retry' : 'Completed' }} <span *ngIf="quiz.progress == 0"><i class="fa-solid fa-alarm-clock"></i></span>
-                  </button>
-                  <button pButton  class="quiz-button how-it-works-button" *ngIf="quiz.progress > 89" (click)="showQuizQuestions(quiz.id, currentModule, 'careertoolquiz', true)">
-                      Review <span><i class="fa-solid fa-list-check"></i></span>
-                  </button>
-              </div>
+            <h5 class="fw-bold mb-3">{{ quiz.submodule_name }}</h5>
+            <div class="d-flex justify-content-center flex-wrap">
+              <button pButton class="quiz-button"
+                [ngClass]="quiz.progress === 0 ? 'how-it-works-button' : quiz.progress > 0 && quiz.progress < 90 ? 'retry' : 'completed'"
+                [disabled]="quiz.progress > 89"
+                (click)="showQuizQuestions(quiz.id, currentModule, 'careertoolquiz', false)">
+                {{ quiz.progress === 0 ? 'Start Quiz' : quiz.progress > 0 && quiz.progress < 90 ? 'Retry' : 'Completed'
+                  }} <span *ngIf="quiz.progress == 0"><i class="fa-solid fa-alarm-clock"></i></span>
+              </button>
+              <button pButton class="quiz-button how-it-works-button" *ngIf="quiz.progress > 89"
+                (click)="showQuizQuestions(quiz.id, currentModule, 'careertoolquiz', true)">
+                Review <span><i class="fa-solid fa-list-check"></i></span>
+              </button>
+            </div>
           </div>
-      </div>
-      
-      
+        </div>
+
+
       </div>
     </div>
   </div>
 </div>
-<p-dialog [(visible)]="restrict" [modal]="true" [style]="{ width: '30vw' }" [draggable]="false" [resizable]="false" class="restrictionDialog" [breakpoints]="{ '960px': '30vw', '959px': '60vw', '425px': '90vw' }" (onHide)="clearRestriction()">
-	<div *ngIf="ehitlabelIsShow" class="text-center mt-5 mb-4">
-		<img src="../../../uniprep-assets/images/smartloack.png" class="image" width="60" />
-		<h3 class="offer">Upgrade Required</h3>
-		<p>To access this exclusive module,please upgrade your plan now</p>
-		<button pButton  pButton type="button" class="text-white p-ripple p-button-rounded p-button-warning p-button p-component p-2" (click)="upgradePlan()">Upgrade Plan<i class="fa fa-arrow-right exhausted-plan-icon"></i></button>
-	</div>
-	<div *ngIf="!ehitlabelIsShow" class="text-center mt-5 mb-4">
-		<img src="../../../uniprep-assets/images/smartloack.png" class="image" width="60" />
-		<h3 class="offer">Upgrade Required</h3>
-		<p>Please contact {{ orgnamewhitlabel }} Company for access</p>
-	</div>
-</p-dialog>
+<uni-restriction-dialog *ngIf="restrict" [isShowRestrict]="restrict" (closeRestrictModal)="restrict = false" />

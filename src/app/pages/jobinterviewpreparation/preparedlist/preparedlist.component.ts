@@ -22,12 +22,13 @@ import { Meta } from "@angular/platform-browser";
 import { SkeletonModule } from "primeng/skeleton";
 import { SharedModule } from "src/app/shared/shared.module";
 import { SavedJobInterviewQuestion } from "src/app/@Models/job-interview.model";
+import { RestrictionDialogComponent } from "src/app/shared/restriction-dialog/restriction-dialog.component";
 @Component({
   selector: "uni-preparedlist",
   templateUrl: "./preparedlist.component.html",
   styleUrls: ["./preparedlist.component.scss"],
   standalone: true,
-  imports: [CommonModule, PaginatorModule, DialogModule, TabsModule, RouterModule, CardModule, FormsModule, ReactiveFormsModule, CarouselModule, ButtonModule, MultiSelectModule, SelectModule, InputGroupModule, InputTextModule, InputGroupAddonModule, SkeletonModule, SharedModule],
+  imports: [CommonModule, PaginatorModule, DialogModule, TabsModule, RouterModule, CardModule, FormsModule, ReactiveFormsModule, CarouselModule, ButtonModule, MultiSelectModule, SelectModule, InputGroupModule, InputTextModule, InputGroupAddonModule, SkeletonModule, SharedModule, RestrictionDialogComponent],
   providers: [InterviewPreparationService]
 })
 export class JobPreparedListComponent implements OnInit {
@@ -67,8 +68,6 @@ export class JobPreparedListComponent implements OnInit {
     this.getDefaultQuestions();
     this.getSavedQuestion();
     this.checkPlanExpiry();
-    this.imagewhitlabeldomainname = window.location.hostname;
-    this.ehitlabelIsShow = ["*.uniprep.ai", "dev-student.uniprep.ai", "uniprep.ai", "localhost"].includes(this.imagewhitlabeldomainname);
   }
 
   getDefaultQuestions() {

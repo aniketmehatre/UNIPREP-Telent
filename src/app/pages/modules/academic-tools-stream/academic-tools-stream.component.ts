@@ -9,12 +9,13 @@ import { CommonModule } from "@angular/common"
 import { DialogModule } from "primeng/dialog"
 import { TooltipModule } from "primeng/tooltip"
 import { SkeletonModule } from "primeng/skeleton";
+import { RestrictionDialogComponent } from "src/app/shared/restriction-dialog/restriction-dialog.component"
 @Component({
 	selector: "uni-academic-tools-stream",
 	templateUrl: "./academic-tools-stream.component.html",
 	styleUrls: ["./academic-tools-stream.component.scss"],
 	standalone: true,
-	imports: [CommonModule, DialogModule, TooltipModule, SkeletonModule],
+	imports: [CommonModule, DialogModule, TooltipModule, SkeletonModule, RestrictionDialogComponent],
 })
 export class AcademicToolsStreamComponent implements OnInit {
 	modulesList: any[] = []
@@ -32,7 +33,7 @@ export class AcademicToolsStreamComponent implements OnInit {
 	orgnamewhitlabel: any
 	orglogowhitelabel: any
 	imagewhitlabeldomainname: any
-	constructor(private activatedRoute: ActivatedRoute, private location: Location, private router: Router, private academicService: AcademicService, private route: Router, private authService: AuthService) {}
+	constructor(private activatedRoute: ActivatedRoute, private location: Location, private router: Router, private academicService: AcademicService, private route: Router, private authService: AuthService) { }
 
 	ngOnInit(): void {
 		this.activatedRoute.params.subscribe((response) => {

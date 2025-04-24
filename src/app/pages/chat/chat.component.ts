@@ -15,13 +15,14 @@ import { PopoverModule } from 'primeng/popover';
 import { ConfirmPopupModule } from "primeng/confirmpopup";
 import { ButtonModule } from "primeng/button";
 import { SelectModule } from "primeng/select";
-import {StorageService} from "../../storage.service";
+import { StorageService } from "../../storage.service";
+import { RestrictionDialogComponent } from "src/app/shared/restriction-dialog/restriction-dialog.component";
 @Component({
   selector: "uni-chat",
   templateUrl: "./chat.component.html",
   styleUrls: ["./chat.component.scss"],
   standalone: true,
-  imports: [CommonModule, DialogModule,  FormsModule, ReactiveFormsModule, PopoverModule , ConfirmPopupModule, ButtonModule, SelectModule],
+  imports: [CommonModule, DialogModule, FormsModule, ReactiveFormsModule, PopoverModule, ConfirmPopupModule, ButtonModule, SelectModule, RestrictionDialogComponent],
   providers: [ConfirmationService],
 })
 export class ChatComponent implements OnInit {
@@ -45,8 +46,8 @@ export class ChatComponent implements OnInit {
   restrict: boolean = false;
   subtext: string = "";
   constructor(private service: ChathistoryService, private authService: AuthService, private toast: MessageService,
-              private fb: FormBuilder, private pageService: PageFacadeService, private confirmationService: ConfirmationService,
-              private route: Router, private location: Location, private storage: StorageService) {
+    private fb: FormBuilder, private pageService: PageFacadeService, private confirmationService: ConfirmationService,
+    private route: Router, private location: Location, private storage: StorageService) {
     this.reportForm = fb.group({
       reportOption: ["", Validators.required],
       comment: ["", Validators.required],
@@ -118,7 +119,7 @@ export class ChatComponent implements OnInit {
           ["fullscreen"],
         ],
         handlers: {
-          emoji: function () {},
+          emoji: function () { },
           fullscreen: () => {
             if (screenfull.isEnabled) {
               this.fullscreen = this.fullscreen ? "" : "fullscreen";
@@ -236,7 +237,7 @@ export class ChatComponent implements OnInit {
       this.totalquestionsanswered = response?.totalquestionsanswered;
       this.questionsleft = response?.questionsleft;
     });
-    
+
     this.authService.getMe().subscribe(async (response) => {
       const encryptedData = this.storage.get("questions_left");
       if (encryptedData) {
@@ -315,7 +316,7 @@ export class ChatComponent implements OnInit {
       accept: () => {
         this.sendMessage();
       },
-      reject: () => {},
+      reject: () => { },
     });
   }
   showReportSuccess = false;
@@ -327,7 +328,7 @@ export class ChatComponent implements OnInit {
         this.reportForm.reset();
         op.hide();
       },
-      (error) => {}
+      (error) => { }
     );
   }
   getData(questionNumber: any): string {

@@ -14,13 +14,14 @@ import { CommonModule } from '@angular/common';
 import { DialogModule } from 'primeng/dialog';
 import { CarouselModule } from 'primeng/carousel';
 import { ButtonModule } from 'primeng/button';
-import {StorageService} from "../../../storage.service";
+import { StorageService } from "../../../storage.service";
+import { RestrictionDialogComponent } from 'src/app/shared/restriction-dialog/restriction-dialog.component';
 @Component({
-    selector: 'uni-learninghubquiz',
-    templateUrl: './learninghubquiz.component.html',
-    styleUrls: ['./learninghubquiz.component.scss'],
-    standalone: true,
-    imports: [CommonModule, DialogModule, CarouselModule, ButtonModule],
+  selector: 'uni-learninghubquiz',
+  templateUrl: './learninghubquiz.component.html',
+  styleUrls: ['./learninghubquiz.component.scss'],
+  standalone: true,
+  imports: [CommonModule, DialogModule, CarouselModule, ButtonModule, RestrictionDialogComponent],
 })
 export class LearninghubquizComponent implements OnInit {
   quizData: any[] = [];
@@ -74,22 +75,10 @@ export class LearninghubquizComponent implements OnInit {
   mainTitle: any
   constructor(private moduleListService: ModuleServiceService, private authService: AuthService, private router: Router, private dataService: DataService,
     private location: Location, private locationService: LocationService, private ngxService: NgxUiLoaderService,
-     private toast: MessageService, private activatedRoute: ActivatedRoute, private employerGlobalService: EmployerGlobalService,
-              private storage: StorageService) { }
+    private toast: MessageService, private activatedRoute: ActivatedRoute, private employerGlobalService: EmployerGlobalService,
+    private storage: StorageService) { }
 
   ngOnInit(): void {
-    this.locationService.getImage().subscribe(imageUrl => {
-      this.orglogowhitelabel = imageUrl;
-    });
-    this.locationService.getOrgName().subscribe(orgname => {
-      this.orgnamewhitlabel = orgname;
-    });
-    this.imagewhitlabeldomainname = window.location.hostname;
-    if (this.imagewhitlabeldomainname === "*.uniprep.ai" || this.imagewhitlabeldomainname === "dev-student.uniprep.ai" || this.imagewhitlabeldomainname === "uniprep.ai" || this.imagewhitlabeldomainname === "localhost") {
-      this.ehitlabelIsShow = true;
-    } else {
-      this.ehitlabelIsShow = false;
-    }
     this.init();
     this.checkplanExpire();
   }
@@ -150,8 +139,8 @@ export class LearninghubquizComponent implements OnInit {
           this.upgradePlanMsg = 'Upgrade your plan now to gain instant access.';
         this.aboutModule = 'Explore a vast database of Q&A about:',
           this.moduleDetails = ' Arrival, student discounts, banking, full time jobs, post study work and many more!'
-          this.mainTitle = this.storage.get('QuizModuleName') ?
-              this.storage.get('QuizModuleName') : this.storage.get('learningHubQuizBreadCrumb')
+        this.mainTitle = this.storage.get('QuizModuleName') ?
+          this.storage.get('QuizModuleName') : this.storage.get('learningHubQuizBreadCrumb')
         break;
     }
     this.responsiveOptions = [
@@ -483,9 +472,9 @@ export class LearninghubquizComponent implements OnInit {
   openReferAnswer(link: any) {
     window.open(link, '_blank');
   }
-  timeover:number=0;
+  timeover: number = 0;
   startTimer(): void {
-    this.timeover=0;
+    this.timeover = 0;
     this.timer = this.quizcount * 60;
     this.totalquiztime = this.quizcount * 60;
     if (this.timerSubscription) {

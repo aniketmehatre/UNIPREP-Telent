@@ -13,13 +13,14 @@ import { InputNumberModule } from "primeng/inputnumber"
 import { CarouselModule } from "primeng/carousel"
 import { ButtonModule } from "primeng/button"
 import { SelectModule } from "primeng/select"
+import { RestrictionDialogComponent } from "src/app/shared/restriction-dialog/restriction-dialog.component"
 
 @Component({
 	selector: "uni-salary-converter",
 	templateUrl: "./salary-converter.component.html",
 	styleUrls: ["./salary-converter.component.scss"],
 	standalone: true,
-	imports: [CommonModule, ButtonModule, CarouselModule, DialogModule, FormsModule, InputNumberModule, SelectModule],
+	imports: [CommonModule, ButtonModule, CarouselModule, DialogModule, FormsModule, InputNumberModule, SelectModule, RestrictionDialogComponent],
 	encapsulation: ViewEncapsulation.None,
 })
 export class SalaryConverterComponent implements OnInit {
@@ -76,18 +77,6 @@ export class SalaryConverterComponent implements OnInit {
 	}
 
 	ngOnInit(): void {
-		this.locationService.getImage().subscribe((imageUrl) => {
-			this.orglogowhitelabel = imageUrl
-		})
-		this.locationService.getOrgName().subscribe((orgname) => {
-			this.orgnamewhitlabel = orgname
-		})
-		this.imagewhitlabeldomainname = window.location.hostname
-		if (this.imagewhitlabeldomainname === "*.uniprep.ai" || this.imagewhitlabeldomainname === "dev-student.uniprep.ai" || this.imagewhitlabeldomainname === "uniprep.ai" || this.imagewhitlabeldomainname === "localhost") {
-			this.ehitlabelIsShow = true
-		} else {
-			this.ehitlabelIsShow = false
-		}
 		this.checkplanExpire()
 		this.salaryConverterService.getCountries().subscribe((data) => {
 			this.countries = data

@@ -25,17 +25,17 @@ export interface selectList {
   name: string;
 }
 import { marketingAnalysisData } from './marketing-analysis.data';
-import { TravelToolsService } from '../../travel-tools/travel-tools.service';
 import { PromptService } from '../../prompt.service';
 import { SkeletonModule } from 'primeng/skeleton';
 import { SharedModule } from 'src/app/shared/shared.module';
+import { RestrictionDialogComponent } from 'src/app/shared/restriction-dialog/restriction-dialog.component';
 
 @Component({
-    selector: 'uni-marketing-analysis',
-    templateUrl: './marketing-analysis.component.html',
-    styleUrls: ['./marketing-analysis.component.scss'],
-    standalone: true,
-    imports: [CommonModule, DialogModule, CardModule,RouterModule, PaginatorModule, FormsModule, ReactiveFormsModule, CarouselModule, ButtonModule, MultiSelectModule, SelectModule, InputGroupModule, InputTextModule, InputGroupAddonModule, SkeletonModule, SharedModule]
+  selector: 'uni-marketing-analysis',
+  templateUrl: './marketing-analysis.component.html',
+  styleUrls: ['./marketing-analysis.component.scss'],
+  standalone: true,
+  imports: [CommonModule, DialogModule, CardModule, RouterModule, PaginatorModule, FormsModule, ReactiveFormsModule, CarouselModule, ButtonModule, MultiSelectModule, SelectModule, InputGroupModule, InputTextModule, InputGroupAddonModule, SkeletonModule, SharedModule, RestrictionDialogComponent]
 })
 export class MarketingAnalysisComponent implements OnInit {
   locationList: any[] = [];
@@ -74,7 +74,7 @@ export class MarketingAnalysisComponent implements OnInit {
   isRecommendationData: boolean = false;
   isRecommendationSavedData: boolean = false;
   recommendationData: SafeHtml;
-	isResponseSkeleton: boolean = false;
+  isResponseSkeleton: boolean = false;
   aiCreditCount: number = 0;
   userInputs: any;
 
@@ -89,7 +89,7 @@ export class MarketingAnalysisComponent implements OnInit {
     private costOfLivingService: CostOfLivingService,
     private sanitizer: DomSanitizer,
     private promptService: PromptService
-    
+
   ) {
     this.marketingForm = this.fb.group({
       industry: ['', Validators.required],
@@ -136,29 +136,17 @@ export class MarketingAnalysisComponent implements OnInit {
   selectedData: { [key: string]: any } = {};
 
   ngOnInit(): void {
-    this.locationService.getImage().subscribe(imageUrl => {
-      this.orglogowhitelabel = imageUrl;
-    });
-    this.locationService.getOrgName().subscribe(orgname => {
-      this.orgnamewhitlabel = orgname;
-    });
-    this.imagewhitlabeldomainname = window.location.hostname;
-    if (this.imagewhitlabeldomainname === "*.uniprep.ai" || this.imagewhitlabeldomainname === "dev-student.uniprep.ai" || this.imagewhitlabeldomainname === "uniprep.ai" || this.imagewhitlabeldomainname === "localhost") {
-      this.ehitlabelIsShow = true;
-    } else {
-      this.ehitlabelIsShow = false;
-    }
     this.getCityList();
     this.getCurrenyandLocation();
     this.getAICreditCount();
-	}
-	getAICreditCount(){
-		this.promptService.getAicredits().subscribe({
-		  next: resp =>{
-			this.aiCreditCount = resp;
-		  }
-		})
-	}
+  }
+  getAICreditCount() {
+    this.promptService.getAicredits().subscribe({
+      next: resp => {
+        this.aiCreditCount = resp;
+      }
+    })
+  }
 
   goBack() {
     this.router.navigateByUrl('/pages/founderstool/founderstoollist');
@@ -177,12 +165,12 @@ export class MarketingAnalysisComponent implements OnInit {
   }
 
   getCityList() {
-		this.costOfLivingService.getCities().subscribe({
-			next: response => {
-				this.locationList = response;
-			}
-		});
-	}
+    this.costOfLivingService.getCities().subscribe({
+      next: response => {
+        this.locationList = response;
+      }
+    });
+  }
 
   checkplanExpire(): void {
     this.authService.getNewUserTimeLeft().subscribe((res) => {
@@ -241,7 +229,7 @@ export class MarketingAnalysisComponent implements OnInit {
     let data: any = {
       ...this.marketingForm.value,
       mode: 'market_analysis',
-      location: formData.location.city_name+', '+formData.location.country_name
+      location: formData.location.city_name + ', ' + formData.location.country_name
     }
     this.userInputs = data;
     this.isRecommendationQuestion = false;
@@ -250,15 +238,15 @@ export class MarketingAnalysisComponent implements OnInit {
     this.isResponseSkeleton = true;
     this.foundersToolsService.getChatgptRecommendations(data).subscribe({
       next: response => {
-				this.isResponseSkeleton = false;
-				this.recommendationData = this.sanitizer.bypassSecurityTrustHtml(response.response);
+        this.isResponseSkeleton = false;
+        this.recommendationData = this.sanitizer.bypassSecurityTrustHtml(response.response);
         this.getAICreditCount();
       },
       error: (error) => {
-				console.error(error);
-				this.isResponseSkeleton = false;
-				this.isRecommendationData = false;
-			}
+        console.error(error);
+        this.isResponseSkeleton = false;
+        this.isRecommendationData = false;
+      }
     });
   }
 
@@ -315,9 +303,9 @@ export class MarketingAnalysisComponent implements OnInit {
     this.isFromSavedData = true;
     this.recommendationData = data;
 
-		const encodedJson = userInputs;
-		const decodedInput = JSON.parse(encodedJson);
-		this.userInputs = decodedInput;
+    const encodedJson = userInputs;
+    const decodedInput = JSON.parse(encodedJson);
+    this.userInputs = decodedInput;
   }
 
   resetRecommendation() {
@@ -336,7 +324,7 @@ export class MarketingAnalysisComponent implements OnInit {
   }
 
   downloadRecommadation() {
-		let addingInput: string = '';
+    let addingInput: string = '';
     const formValue = ['industry', 'location', 'targetMarket', 'productService', 'businessModel', 'salesChannel', 'timeFrame', 'budget', 'revenueStreams', 'competitorAnalysis', 'forecast'];
     // Keep track of which formValue index we're currently using
     let formValueIndex = 0;
@@ -362,17 +350,17 @@ export class MarketingAnalysisComponent implements OnInit {
       addingInput += `<br>`;
     });
 
-		let params: any = {
-			module_name: "Marketing Analysis",
-			file_name: "marketing_analysis",
-			response: this.recommendationData,
-			inputString: addingInput
-		};
-		this.promptService.responseBuilder(params);
-	}
+    let params: any = {
+      module_name: "Marketing Analysis",
+      file_name: "marketing_analysis",
+      response: this.recommendationData,
+      inputString: addingInput
+    };
+    this.promptService.responseBuilder(params);
+  }
 
   openVideoPopup(videoLink: string) {
-		this.pageFacade.openHowitWorksVideoPopup(videoLink);
-	}
-  
+    this.pageFacade.openHowitWorksVideoPopup(videoLink);
+  }
+
 }

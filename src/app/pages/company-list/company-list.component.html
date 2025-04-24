@@ -8,10 +8,14 @@
           </div>
           <div class="select-title d-flex justify-content-between align-items-center">
             <div>
-              <h5 class="w-100 mb-0" tooltipPosition="top" pTooltip="Access a curated list of companies by industry and location to target your job search effectively.">Career Tools -> Company List<i class="questiontooltip fa-solid fa-circle-question"></i></h5>
+              <h5 class="w-100 mb-0" tooltipPosition="top"
+                pTooltip="Access a curated list of companies by industry and location to target your job search effectively.">
+                Career Tools -> Company List<i class="questiontooltip fa-solid fa-circle-question"></i></h5>
             </div>
             <div>
-              <button pButton  class="how-it-works-button" severity="warn" (click)="openVideoPopup('https://www.youtube.com/embed/uihpCF4rvB4?si=bBNT7iH_WigFZzoN')">How it works?<i class="fa-solid fa-play d-md-block d-none"></i></button>
+              <button pButton class="how-it-works-button" severity="warn"
+                (click)="openVideoPopup('https://www.youtube.com/embed/uihpCF4rvB4?si=bBNT7iH_WigFZzoN')">How it
+                works?<i class="fa-solid fa-play d-md-block d-none"></i></button>
             </div>
           </div>
         </div>
@@ -19,41 +23,58 @@
     </div>
     <div class="card-body">
       <div class="container-fluid h-100">
-        <p-carousel [value]="recommendations" [numVisible]="1" [numScroll]="1" [circular]="false" [showNavigators]="false" [showIndicators]="false" [page]="activePageIndex" styleClass="h-100">
+        <p-carousel [value]="recommendations" [numVisible]="1" [numScroll]="1" [circular]="false"
+          [showNavigators]="false" [showIndicators]="false" [page]="activePageIndex" styleClass="h-100">
           <ng-template let-recommendation let-i="index" pTemplate="item">
             <div class="h-100 d-flex flex-column justify-content-between">
               <div>&nbsp;</div>
               <div class="row justify-content-center text-start">
                 <div class="col-md-12 mb-4">
-                 <!-- <h5 class="text-center uniprep-primary fw-semibold mb-0">Question Number1 {{ recommendation.id }}</h5> -->
+                  <!-- <h5 class="text-center uniprep-primary fw-semibold mb-0">Question Number1 {{ recommendation.id }}</h5> -->
                   <h2 class="fw-bold mb-0 text-center">{{ recommendation.question }}</h2>
                 </div>
                 <div class="col-md-6">
                   <div class="recommendationinput d-flex flex-column justify-content-center gap-3">
                     <ng-container *ngIf="recommendation.id == 1">
-                      <p-multiSelect styleClass="w-100" placeholder="Industry Type" [options]="industryInterested" display="chip" optionLabel="industry_name" optionValue="id" [(ngModel)]="selectedData[recommendation.id]" [appendTo]="'body'"></p-multiSelect>
-                      <p class="text-center" [ngClass]="{ 'd-none': invalidClass === false }" style="color: red">Please Choose Any one option</p>
+                      <p-multiSelect styleClass="w-100" placeholder="Industry Type" [options]="industryInterested"
+                        display="chip" optionLabel="industry_name" optionValue="id"
+                        [(ngModel)]="selectedData[recommendation.id]" [appendTo]="'body'"></p-multiSelect>
+                      <p class="text-center" [ngClass]="{ 'd-none': invalidClass === false }" style="color: red">Please
+                        Choose Any one option</p>
                     </ng-container>
                     <ng-container *ngIf="recommendation.id == 2">
-                      <p-multiSelect styleClass="w-100" placeholder="Company Country" [options]="countryList" display="chip" optionLabel="country" optionValue="id" [(ngModel)]="selectedData[recommendation.id]" [appendTo]="'body'" (onChange)="loadHeadQuartersData($event)"></p-multiSelect>
-                      <p class="text-center" [ngClass]="{ 'd-none': invalidClass === false }" style="color: red">Please Choose Any one option</p>
+                      <p-multiSelect styleClass="w-100" placeholder="Company Country" [options]="countryList"
+                        display="chip" optionLabel="country" optionValue="id"
+                        [(ngModel)]="selectedData[recommendation.id]" [appendTo]="'body'"
+                        (onChange)="loadHeadQuartersData($event)"></p-multiSelect>
+                      <p class="text-center" [ngClass]="{ 'd-none': invalidClass === false }" style="color: red">Please
+                        Choose Any one option</p>
                     </ng-container>
                     <ng-container *ngIf="recommendation.id == 3">
-                      <p-multiSelect styleClass="w-100" placeholder="Headquarters Location" [options]="headQuartersList" display="chip" optionLabel="head_quarters_name" optionValue="id" [(ngModel)]="selectedData[recommendation.id]" [appendTo]="'body'"></p-multiSelect>
-                      <p class="text-center" [ngClass]="{ 'd-none': invalidClass === false }" style="color: red">Please Choose Any one option</p>
+                      <p-multiSelect styleClass="w-100" placeholder="Headquarters Location" [options]="headQuartersList"
+                        display="chip" optionLabel="head_quarters_name" optionValue="id"
+                        [(ngModel)]="selectedData[recommendation.id]" [appendTo]="'body'"></p-multiSelect>
+                      <p class="text-center" [ngClass]="{ 'd-none': invalidClass === false }" style="color: red">Please
+                        Choose Any one option</p>
                     </ng-container>
                   </div>
                 </div>
               </div>
               <div class="d-flex justify-content-between mt-2">
-                <button pButton type="button" class="btn btn-primary btn-rounded p-1 pe-4" [style.visibility]="recommendation.id == 1 ? 'hidden' : 'visible'" (click)="previous()">
-                  <span class="btn-icon px-2 py-2"><i class="fa fa-arrow-left"></i></span> <span class="ms-2">Previous</span>
+                <button pButton type="button" class="btn btn-primary btn-rounded p-1 pe-4"
+                  [style.visibility]="recommendation.id == 1 ? 'hidden' : 'visible'" (click)="previous()">
+                  <span class="btn-icon px-2 py-2"><i class="fa fa-arrow-left"></i></span> <span
+                    class="ms-2">Previous</span>
                 </button>
-                <button pButton type="button" (click)="next(recommendation.id)" *ngIf="recommendation.id != 3" class="btn btn-primary btn-rounded p-1 ps-4">
-                  <span class="me-2">Next</span><span class="btn-icon px-2 py-2"><i class="fa fa-arrow-right"></i></span>
+                <button pButton type="button" (click)="next(recommendation.id)" *ngIf="recommendation.id != 3"
+                  class="btn btn-primary btn-rounded p-1 ps-4">
+                  <span class="me-2">Next</span><span class="btn-icon px-2 py-2"><i
+                      class="fa fa-arrow-right"></i></span>
                 </button>
-                <button pButton type="button" (click)="getRecommendation()" severity="success" *ngIf="recommendation.id == 3" class="btn btn-success btn-rounded p-1 ps-4">
-                  <span class="me-2">Get Recommendations</span><span class="btn-icon px-2 py-2"><i class="fa fa-check-circle"></i></span>
+                <button pButton type="button" (click)="getRecommendation()" severity="success"
+                  *ngIf="recommendation.id == 3" class="btn btn-success btn-rounded p-1 ps-4">
+                  <span class="me-2">Get Recommendations</span><span class="btn-icon px-2 py-2"><i
+                      class="fa fa-check-circle"></i></span>
                 </button>
               </div>
             </div>
@@ -68,30 +89,41 @@
         <div class="col-12">
           <div class="select-title d-flex justify-content-between align-items-center">
             <div>
-              <h6 class="w-100 mb-0" tooltipPosition="top" pTooltip="Company List">Career Tools -> Company List<i class="questiontooltip fa-solid fa-circle-question"></i></h6>
+              <h6 class="w-100 mb-0" tooltipPosition="top" pTooltip="Company List">Career Tools -> Company List<i
+                  class="questiontooltip fa-solid fa-circle-question"></i></h6>
             </div>
             <div>
-              <button pButton  class="how-it-works-button" severity="warn" (click)="openVideoPopup('https://www.youtube.com/embed/uihpCF4rvB4?si=bBNT7iH_WigFZzoN')">How it works?<i class="fa-solid fa-play d-md-block d-none"></i></button>
+              <button pButton class="how-it-works-button" severity="warn"
+                (click)="openVideoPopup('https://www.youtube.com/embed/uihpCF4rvB4?si=bBNT7iH_WigFZzoN')">How it
+                works?<i class="fa-solid fa-play d-md-block d-none"></i></button>
             </div>
           </div>
         </div>
         <div class="col-12">
           <div class="d-flex justify-content-between mt-2 gap-1">
-            <button pButton  *ngIf="ehitlabelIsShow" class="btn btn-secondary text-small btn-rounded flex-fill" (click)="buyCredits()" type="button">Buy Credits</button>
-            <button pButton  class="btn btn-outline-primary text-small btn-rounded d-flex gap-2 align-items-center flex-fill" (click)="exportData()" type="button">
+            <button pButton *ngIf="ehitlabelIsShow" class="btn btn-secondary text-small btn-rounded flex-fill"
+              (click)="buyCredits()" type="button">Buy Credits</button>
+            <button pButton
+              class="btn btn-outline-primary text-small btn-rounded d-flex gap-2 align-items-center flex-fill"
+              (click)="exportData()" type="button">
               Export <span class="btn-icon text-white">{{ exportCreditCount }}</span>
             </button>
-            <button pButton  class="btn btn-secondary text-small flex-fill" (click)="openReport()" type="button"><i class="fa-solid fa-circle-exclamation"></i></button>
-            <button pButton  class="btn btn-gray text-small flex-fill" (click)="companyGuidlines()" type="button"><i class="fa-solid fa-graduation-cap"></i></button>
-            <button pButton  class="btn btn-primary text-small flex-fill" (click)="viewFavourites()" type="button"><i class="fa-solid fa-bookmark"></i><span class="ms-2">({{ favCount }})</span>
+            <button pButton class="btn btn-secondary text-small flex-fill" (click)="openReport()" type="button"><i
+                class="fa-solid fa-circle-exclamation"></i></button>
+            <button pButton class="btn btn-gray text-small flex-fill" (click)="companyGuidlines()" type="button"><i
+                class="fa-solid fa-graduation-cap"></i></button>
+            <button pButton class="btn btn-primary text-small flex-fill" (click)="viewFavourites()" type="button"><i
+                class="fa-solid fa-bookmark"></i><span class="ms-2">({{ favCount }})</span>
             </button>
-            <button pButton  class="btn btn-primary text-small flex-fill" (click)="filterBy()" type="button"><i class="fa-solid fa-bars-filter"></i></button>
+            <button pButton class="btn btn-primary text-small flex-fill" (click)="filterBy()" type="button"><i
+                class="fa-solid fa-bars-filter"></i></button>
           </div>
         </div>
         <div class="col-12 mt-2">
           <div class="d-flex justify-content-between align-items-center">
             <div class="d-flex gap-2 align-items-center">
-              <input type="checkbox" class="me-0" [(ngModel)]="selectAllCheckboxes" (click)="selectAllCheckbox()" id="selectAllcheckbox" />
+              <input type="checkbox" class="me-0" [(ngModel)]="selectAllCheckboxes" (click)="selectAllCheckbox()"
+                id="selectAllcheckbox" />
               <label class="text-small fw-semibold" for="selectAllcheckbox" style="cursor: pointer">Select All</label>
               <span class="text-small fw-semibold">Selected : {{ selectedCompanies }}</span>
             </div>
@@ -117,16 +149,21 @@
           </div>
           <div class="select-title d-flex justify-content-between align-items-center">
             <div>
-              <h5 class="w-100 mb-0" tooltipPosition="top" pTooltip="Company List">Career Tools -> Company List<i class="questiontooltip fa-solid fa-circle-question"></i></h5>
+              <h5 class="w-100 mb-0" tooltipPosition="top" pTooltip="Company List">Career Tools -> Company List<i
+                  class="questiontooltip fa-solid fa-circle-question"></i></h5>
             </div>
             <div>
-              <button pButton  class="how-it-works-button" severity="warn" (click)="openVideoPopup('https://www.youtube.com/embed/uihpCF4rvB4?si=bBNT7iH_WigFZzoN')">How it works?<i class="fa-solid fa-play d-md-block d-none"></i></button>
+              <button pButton class="how-it-works-button" severity="warn"
+                (click)="openVideoPopup('https://www.youtube.com/embed/uihpCF4rvB4?si=bBNT7iH_WigFZzoN')">How it
+                works?<i class="fa-solid fa-play d-md-block d-none"></i></button>
             </div>
           </div>
           <span class="d-flex justify-content-end gap-2">
-            <button pButton  class="btn btn-primary text-small company-guidlines" (click)="companyGuidlines()" type="button">Company Guidlines</button>
-            <button pButton  *ngIf="ehitlabelIsShow" class="btn btn-primary text-small company-guidlines" (click)="buyCredits()" type="button">Buy Credits</button>
-            <button pButton  class="btn btn-primary text-small exportButton" (click)="exportData()" type="button">
+            <button pButton class="btn btn-primary text-small company-guidlines" (click)="companyGuidlines()"
+              type="button">Company Guidlines</button>
+            <button pButton *ngIf="ehitlabelIsShow" class="btn btn-primary text-small company-guidlines"
+              (click)="buyCredits()" type="button">Buy Credits</button>
+            <button pButton class="btn btn-primary text-small exportButton" (click)="exportData()" type="button">
               Export <span class="exportCount">{{ exportCreditCount }}</span>
             </button>
           </span>
@@ -135,21 +172,24 @@
           <div class="d-flex justify-content-between">
             <div>
               <span class="d-flex justify-content-start p-2">
-                <input type="checkbox" class="me-0" style="zoom:1.5; cursor: pointer" [(ngModel)]="selectAllCheckboxes" (click)="selectAllCheckbox()" id="selectAllcheckbox" />
+                <input type="checkbox" class="me-0" style="zoom:1.5; cursor: pointer" [(ngModel)]="selectAllCheckboxes"
+                  (click)="selectAllCheckbox()" id="selectAllcheckbox" />
                 <label class="p-2" for="selectAllcheckbox" style="cursor: pointer">Select All</label>
                 <span class="p-2">Selected : {{ selectedCompanies }}</span>
-                <button pButton  class="btn btn-primary text-small" (click)="viewFavourites()" type="button" style="font-size: small;">
-                  {{ viewFavouritesLabel }}<span class="favCount" *ngIf="viewFavouritesLabel != 'View All'">{{ favCount }}</span>
+                <button pButton class="btn btn-primary text-small" (click)="viewFavourites()" type="button"
+                  style="font-size: small;">
+                  {{ viewFavouritesLabel }}<span class="favCount" *ngIf="viewFavouritesLabel != 'View All'">{{ favCount
+                    }}</span>
                 </button>
               </span>
             </div>
             <div class="d-flex align-items-center justify-content-end gap-2 mt-3">
-              <button pButton  class="btn btn-primary text-small ps-3 pe-3 pt-2 pb-2 br-8 p-1" style="background-color: #ff9113 !important" (click)="openReport()" type="button">Report</button>
-              <button pButton  class="btn btn-primary text-small ps-3 pe-3 pt-2 pb-2 br-8" (click)="filterBy()" type="button">Filter by</button>
+              <button pButton class="btn btn-primary text-small ps-3 pe-3 pt-2 pb-2 br-8 p-1"
+                style="background-color: #ff9113 !important" (click)="openReport()" type="button">Report</button>
+              <button pButton class="btn btn-primary text-small ps-3 pe-3 pt-2 pb-2 br-8" (click)="filterBy()"
+                type="button">Filter by</button>
               <div class="pe-2">
-                <span class="text-muted text-small"
-                  ><strong>Total Companies : {{ totalCompanyCount }}</strong></span
-                >
+                <span class="text-muted text-small"><strong>Total Companies : {{ totalCompanyCount }}</strong></span>
               </div>
             </div>
           </div>
@@ -164,10 +204,12 @@
               <div>
                 <div class="d-flex justify-content-between" title="Company Name">
                   <div class="d-flex gap-2 align-items-start">
-                    <input type="checkbox" (change)="onCheckboxChange($event)" class="mt-1" style="zoom:1.5;" [(ngModel)]="companyData.isChecked" />
+                    <input type="checkbox" (change)="onCheckboxChange($event)" class="mt-1" style="zoom:1.5;"
+                      [(ngModel)]="companyData.isChecked" />
                     <h5 class="uniprep-primary text-wrap text-start">{{ companyData.company_name }}</h5>
                   </div>
-                  <i [class]="companyData.favourite == 1 ? 'fa-solid fa-bookmark' : 'fa-regular fa-bookmark'" style="color: #e90707" (click)="bookmarkQuestion(companyData.id, companyData.favourite)"></i>
+                  <i [class]="companyData.favourite == 1 ? 'fa-solid fa-bookmark' : 'fa-regular fa-bookmark'"
+                    style="color: #e90707" (click)="bookmarkQuestion(companyData.id, companyData.favourite)"></i>
                 </div>
                 <div class="d-flex mt-2 gap-5 align-items-center" title="Country Name">
                   <div class="d-flex gap-2 align-items-center">
@@ -182,7 +224,8 @@
                 <div class="d-flex mt-2 gap-5" title="Industry Interested">
                   <div class="d-flex gap-2 align-items-start">
                     <i class="fa-solid fa-industry industryicon"></i>
-                    <p class="text-start text-wrap line-break text-small mb-0">{{ companyData.industry_interested_name }}</p>
+                    <p class="text-start text-wrap line-break text-small mb-0">{{ companyData.industry_interested_name
+                      }}</p>
                   </div>
                 </div>
               </div>
@@ -191,7 +234,8 @@
                   <a target="_blank" href="{{ companyData.website }}"><i class="fa-solid fa-globe"></i></a>
                 </div>
                 <div *ngIf="companyData.linked_in && companyData.linked_in.trim() !== ''" title="Company LinkedIn">
-                  <a target="_blank" href="{{ companyData.linked_in }}"><i class="fa-brands fa-linkedin uniprep-primary"></i></a>
+                  <a target="_blank" href="{{ companyData.linked_in }}"><i
+                      class="fa-brands fa-linkedin uniprep-primary"></i></a>
                 </div>
               </div>
             </div>
@@ -215,16 +259,20 @@
       </div>
     </div>
     <div class="card-footer border-0 bg-transparent">
-      <button pButton type="button" style="bottom:5rem;right:1rem" class="btn btn-quit btn-rounded p-1 ps-3 text-small position-absolute d-flex d-md-none " (click)="resetRecommendation()">
+      <button pButton type="button" style="bottom:5rem;right:1rem"
+        class="btn btn-quit btn-rounded p-1 ps-3 text-small position-absolute d-flex d-md-none "
+        (click)="resetRecommendation()">
         <span>Reset</span><span class="btn-icon"><i class="fa-solid fa-arrow-rotate-right"></i> </span>
       </button>
       <div class="row">
         <div class="col-md-3"></div>
         <div class="col-md-6">
-          <p-paginator *ngIf="totalCompanyCount != 0" [rows]="pageSize" [totalRecords]="totalCompanyCount" (onPageChange)="pageChange($event)" [rowsPerPageOptions]="[50, 100, 300, 500, 1000]"></p-paginator>
+          <p-paginator *ngIf="totalCompanyCount != 0" [rows]="pageSize" [totalRecords]="totalCompanyCount"
+            (onPageChange)="pageChange($event)" [rowsPerPageOptions]="[50, 100, 300, 500, 1000]"></p-paginator>
         </div>
         <div class="col-md-2 d-md-block d-none text-end">
-          <button pButton type="button" style="white-space: nowrap;" class="btn btn-quit ps-3 btn-rounded" (click)="resetRecommendation()">
+          <button pButton type="button" style="white-space: nowrap;" class="btn btn-quit ps-3 btn-rounded"
+            (click)="resetRecommendation()">
             Reset Recommendations<span class="btn-icon"><i class="fa-solid fa-arrow-rotate-right"></i> </span>
           </button>
         </div>
@@ -260,7 +308,8 @@
   </ng-container>
 </div>
 
-<p-dialog header="Filter Companies" [(visible)]="isFilterVisible" [modal]="true" [style]="{ width: '60rem' }" [breakpoints]="{ '1199px': '75vw', '575px': '90vw' }" [ngStyle]="{ display: isFilterVisible }" class="filterDialog">
+<p-dialog header="Filter Companies" [(visible)]="isFilterVisible" [modal]="true" [style]="{ width: '60rem' }"
+  [breakpoints]="{ '1199px': '75vw', '575px': '90vw' }" [ngStyle]="{ display: isFilterVisible }" class="filterDialog">
   <div class="m-5">
     <form role="form" [formGroup]="filterForm" (ngSubmit)="loadCompanyData(0)">
       <div class="row">
@@ -270,7 +319,8 @@
               <label class="form-label" style="font-size: medium; font-weight: 500">Filter by Company Name</label>
               <div class="form-group">
                 <div class="mb-3">
-                  <input class="w-100 px-5 py-2" style="height: 45px" type="text" formControlName="company_name" placeholder="Search in Company Name" pInputText />
+                  <input class="w-100 px-5 py-2" style="height: 45px" type="text" formControlName="company_name"
+                    placeholder="Search in Company Name" pInputText />
                 </div>
               </div>
             </div>
@@ -278,7 +328,9 @@
               <label class="form-label" style="font-size: medium; font-weight: 500">Filter by Industry</label>
               <div class="form-group">
                 <div class="mb-3">
-                  <p-multiSelect [options]="industryInterested" styleClass="w-100" formControlName="industry_interested" defaultLabel="Select Industry" optionValue="id" optionLabel="industry_name" #IndustriesMultiSelect [appendTo]="'body'">
+                  <p-multiSelect [options]="industryInterested" styleClass="w-100" formControlName="industry_interested"
+                    defaultLabel="Select Industry" optionValue="id" optionLabel="industry_name" #IndustriesMultiSelect
+                    [appendTo]="'body'">
                     <ng-template pTemplate="selectedItems">
                       {{ IndustriesMultiSelect.defaultLabel }}
                     </ng-template>
@@ -290,7 +342,9 @@
               <label class="form-label" style="font-size: medium; font-weight: 500">Filter by Country</label>
               <div class="form-group">
                 <div class="mb-3">
-                  <p-multiSelect [options]="countryList" styleClass="w-100" formControlName="country" optionValue="id" (onChange)="loadHeadQuartersData($event)" defaultLabel="Select Countries" optionLabel="country" #multiSelect [appendTo]="'body'"> </p-multiSelect>
+                  <p-multiSelect [options]="countryList" styleClass="w-100" formControlName="country" optionValue="id"
+                    (onChange)="loadHeadQuartersData($event)" defaultLabel="Select Countries" optionLabel="country"
+                    #multiSelect [appendTo]="'body'"> </p-multiSelect>
                   <div *ngIf="filterForm.hasError('org_name')" class="text-danger">
                     {{ filterForm.getError("org_name") }}
                   </div>
@@ -301,7 +355,9 @@
               <label class="form-label" style="font-size: medium; font-weight: 500">Filter by Head Quarters</label>
               <div class="form-group">
                 <div class="mb-3">
-                  <p-multiSelect [options]="headQuartersList" styleClass="w-100" formControlName="head_quarters" defaultLabel="Select Head Quarters" optionValue="id" optionLabel="head_quarters_name" #HeadMultiSelect [appendTo]="'body'">
+                  <p-multiSelect [options]="headQuartersList" styleClass="w-100" formControlName="head_quarters"
+                    defaultLabel="Select Head Quarters" optionValue="id" optionLabel="head_quarters_name"
+                    #HeadMultiSelect [appendTo]="'body'">
                     <ng-template pTemplate="selectedItems">
                       {{ HeadMultiSelect.defaultLabel }}
                     </ng-template>
@@ -313,22 +369,14 @@
         </div>
       </div>
       <div>
-        <button pButton  type="submit" class="btn btn-dark w-100" style="background-color: var(--uniprep-primary); border: none">Apply Filter</button>
-        <button pButton  class="btn btn-dark w-100" (click)="clearFilter()" style="background-color: white; border-radius: 8px; color: var(--uniprep-primary); border: none" type="button">Reset Filter</button>
+        <button pButton type="submit" class="btn btn-dark w-100"
+          style="background-color: var(--uniprep-primary); border: none">Apply Filter</button>
+        <button pButton class="btn btn-dark w-100" (click)="clearFilter()"
+          style="background-color: white; border-radius: 8px; color: var(--uniprep-primary); border: none"
+          type="button">Reset Filter</button>
       </div>
     </form>
   </div>
 </p-dialog>
-<p-dialog [(visible)]="restrict" [modal]="true" [style]="{ width: '30vw' }" [draggable]="false" [resizable]="false" class="restrictionDialog" [breakpoints]="{ '960px': '30vw', '959px': '60vw', '425px': '90vw' }" (onHide)="clearRestriction()">
-  <div *ngIf="ehitlabelIsShow" class="text-center mt-5 mb-4">
-    <img src="../../../uniprep-assets/images/smartloack.png" class="image" width="60" />
-    <h3 class="offer">Upgrade Required</h3>
-    <p>To access this exclusive module,please upgrade your plan now</p>
-    <button pButton type="button" class="text-white p-ripple p-button-rounded p-button-warning p-button p-component p-2" (click)="upgradePlan()">Upgrade Plan<i class="fa fa-arrow-right exhausted-plan-icon"></i></button>
-  </div>
-  <div *ngIf="!ehitlabelIsShow" class="text-center mt-5 mb-4">
-    <img src="../../../uniprep-assets/images/smartloack.png" class="image" width="60" />
-    <h3 class="offer">Upgrade Required</h3>
-    <p>Please contact {{ orgnamewhitlabel }} Company for access</p>
-  </div>
-</p-dialog>
+
+<uni-restriction-dialog *ngIf="restrict" [isShowRestrict]="restrict" (closeRestrictModal)="restrict = false" />

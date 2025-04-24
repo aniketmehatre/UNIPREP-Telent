@@ -1,7 +1,9 @@
 <div class="row">
   <div class="col-lg-2 col-md-3 col-sm-4 col-xs-12 col-12 mb-3" *ngFor="let category of subCategories">
-    <div class="card resourcecard text-black h-100 position-relative" role="button" (click)="navigateToQuiz(category, category.sub_category_id)">
-      <div *ngIf="category.is_assessment && authService._user?.student_type_id == 2" class="assessment-tag" style="background-color: var(--uniprep-skyblue);">Assessment</div>
+    <div class="card resourcecard text-black h-100 position-relative" role="button"
+      (click)="navigateToQuiz(category, category.sub_category_id)">
+      <div *ngIf="category.is_assessment && authService._user?.student_type_id == 2" class="assessment-tag"
+        style="background-color: var(--uniprep-skyblue);">Assessment</div>
       <div class="card-body d-flex justify-content-center">
         <div class="h-100" id="resourceLink">
           <div class="d-flex flex-column align-items-center">
@@ -13,16 +15,4 @@
     </div>
   </div>
 </div>
-<p-dialog [(visible)]="restrict" [modal]="true" [style]="{ width: '30vw' }" [draggable]="false" [resizable]="false" class="restrictionDialog" [breakpoints]="{ '960px': '30vw', '959px': '60vw', '425px': '90vw' }" (onHide)="clearRestriction()">
-	<div *ngIf="ehitlabelIsShow" class="text-center mt-5 mb-4">
-		<img src="../../../uniprep-assets/images/smartloack.png" class="image" width="60" />
-		<h3 class="offer">Upgrade Required</h3>
-		<p>To access this exclusive module,please upgrade your plan now</p>
-		<button pButton  pButton type="button" class="text-white p-ripple p-button-rounded p-button-warning p-button p-component p-2" (click)="upgradePlan()">Upgrade Plan<i class="fa fa-arrow-right exhausted-plan-icon"></i></button>
-	</div>
-	<div *ngIf="!ehitlabelIsShow" class="text-center mt-5 mb-4">
-		<img src="../../../uniprep-assets/images/smartloack.png" class="image" width="60" />
-		<h3 class="offer">Upgrade Required</h3>
-		<p>Please contact {{ orgnamewhitlabel }} Company for access</p>
-	</div>
-</p-dialog>
+<uni-restriction-dialog *ngIf="restrict" [isShowRestrict]="restrict" (closeRestrictModal)="restrict = false" />

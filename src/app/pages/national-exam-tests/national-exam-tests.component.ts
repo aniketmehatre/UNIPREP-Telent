@@ -5,13 +5,14 @@ import { Location } from "@angular/common"
 import { AuthService } from "src/app/Auth/auth.service";
 import { CommonModule } from "@angular/common";
 import { DialogModule } from "primeng/dialog";
-import {StorageService} from "../../storage.service";
+import { StorageService } from "../../storage.service";
+import { RestrictionDialogComponent } from "src/app/shared/restriction-dialog/restriction-dialog.component";
 @Component({
-    selector: "uni-national-exam-tests",
-    templateUrl: "./national-exam-tests.component.html",
-    styleUrls: ["./national-exam-tests.component.scss"],
-    standalone: true,
-	imports: [CommonModule, DialogModule],
+	selector: "uni-national-exam-tests",
+	templateUrl: "./national-exam-tests.component.html",
+	styleUrls: ["./national-exam-tests.component.scss"],
+	standalone: true,
+	imports: [CommonModule, DialogModule, RestrictionDialogComponent],
 })
 export class NationalExamTestsComponent implements OnInit {
 	tests: any
@@ -26,7 +27,7 @@ export class NationalExamTestsComponent implements OnInit {
 	nCategory: string = '';
 
 	constructor(private service: NationalExamService, private authService: AuthService, private route: ActivatedRoute,
-				private location: Location ,private router: Router, private storage: StorageService) {}
+		private location: Location, private router: Router, private storage: StorageService) { }
 
 	ngOnInit() {
 		this.category_id = this.route.snapshot.paramMap.get("slug");
@@ -38,40 +39,34 @@ export class NationalExamTestsComponent implements OnInit {
 			this.tests = response
 		})
 		this.checkplanExpire();
-		this.imagewhitlabeldomainname = window.location.hostname;
-		if (this.imagewhitlabeldomainname === "*.uniprep.ai" || this.imagewhitlabeldomainname === "dev-student.uniprep.ai" || this.imagewhitlabeldomainname === "uniprep.ai" || this.imagewhitlabeldomainname === "localhost") {
-		  this.ehitlabelIsShow = true;
-		} else {
-		  this.ehitlabelIsShow = false;
-		}
 	}
 
 	goToHome(event: any) {
 		this.location.back()
 	}
 
-	goToTest(testid:any){
+	goToTest(testid: any) {
 		if (this.planExpired) {
 			this.restrict = true;
 			return;
-		  }
+		}
 		this.router.navigate([`/pages/national-exams/${this.category_id}/questions/${testid}`]);
 	}
 	checkplanExpire(): void {
 		this.authService.getNewUserTimeLeft().subscribe((res) => {
-		  let data = res.time_left;
-		  let subscription_exists_status = res.subscription_details;
-		  if (data.plan === "expired" || data.plan === 'subscription_expired' ) {
-			this.planExpired = true;
-		  } else {
-			this.planExpired = false;
-		  }
+			let data = res.time_left;
+			let subscription_exists_status = res.subscription_details;
+			if (data.plan === "expired" || data.plan === 'subscription_expired') {
+				this.planExpired = true;
+			} else {
+				this.planExpired = false;
+			}
 		})
-	  }
-	  upgradePlan(): void {
+	}
+	upgradePlan(): void {
 		this.router.navigate(["/pages/subscriptions"]);
-	  }
-	  clearRestriction() {
+	}
+	clearRestriction() {
 		this.restrict = false;
-	  }
+	}
 }

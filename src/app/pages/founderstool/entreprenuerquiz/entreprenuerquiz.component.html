@@ -8,7 +8,7 @@
         <h5 class="mb-3 mt-3" style="font-size: 18px;">{{ quizcount }}/{{ quizcount }} Questions
           Left</h5>
       </div>
-      <div class="col-md-7 text-center">  
+      <div class="col-md-7 text-center">
         <h5 class="select-title mb-3">Quiz Instructions</h5>
       </div>
     </div>
@@ -34,7 +34,7 @@
       <h4 class="font-primarycolor">ALL THE BEST!</h4>
     </div>
     <div class="col-md-6 text-end">
-      <button pButton  (click)="runQuiz()" class="btn btn-start btn-rounded m-0 px-2 py-2"
+      <button pButton (click)="runQuiz()" class="btn btn-start btn-rounded m-0 px-2 py-2"
         [disabled]="this.quizData.length == 0">
         <div class="d-flex align-items-center">
           <span class="fw-normal h6 mb-0 ps-3 pe-2">Start</span>
@@ -171,7 +171,7 @@
         </h5>
       </div>
       <div class="col-md-2 col-2 text-end">
-        <button pButton  (click)="closeQuiz()" class="btn btn-quit btn-rounded m-0 px-2 py-2">
+        <button pButton (click)="closeQuiz()" class="btn btn-quit btn-rounded m-0 px-2 py-2">
           <div class="d-flex align-items-center">
             <span class="fw-normal h6 mb-0 ps-3 pe-2">Quit</span>
             <div class="btn-icon"><i class="fa-solid fa-power-off"></i></div>
@@ -189,8 +189,9 @@
       </div>
       <div class="row justify-content-center">
         <div class="col-md-12">
-          <p-carousel #carouselQuiz [showIndicators]="false" [showNavigators]="false" (onPage)="setPage($event)" [circular]="true" [numScroll]="1" [numVisible]="1"
-            [page]="selectedQuiz - 1" [responsiveOptions]="responsiveOptions" [value]="quizData" class="text-center">
+          <p-carousel #carouselQuiz [showIndicators]="false" [showNavigators]="false" (onPage)="setPage($event)"
+            [circular]="true" [numScroll]="1" [numVisible]="1" [page]="selectedQuiz - 1"
+            [responsiveOptions]="responsiveOptions" [value]="quizData" class="text-center">
             <ng-template [ngForOf]="quizData" let-i="index" let-val ngFor pTemplate="item">
               <div class="row text-center">
                 <div class="col-12 mt-3 mb-4">
@@ -268,21 +269,21 @@
         </div>
       </div>
       <div class="col-md-4 text-end">
-        <button pButton  (click)="clickPreviousQuiz(carouselQuiz, $event)" *ngIf="selectedQuiz != 1"
+        <button pButton (click)="clickPreviousQuiz(carouselQuiz, $event)" *ngIf="selectedQuiz != 1"
           class="btn btn-back btn-rounded me-3 px-2 py-2">
           <div class="d-flex align-items-center">
             <span class="fw-normal h6 mb-0 ps-3 pe-2">Previous</span>
             <div class="btn-icon"><i class="fa-solid fa-arrow-left"></i></div>
           </div>
         </button>
-        <button pButton  *ngIf="this.quizData.length > this.selectedQuiz" (click)="clickNextQuiz(carouselQuiz, $event)"
+        <button pButton *ngIf="this.quizData.length > this.selectedQuiz" (click)="clickNextQuiz(carouselQuiz, $event)"
           [disabled]="answerOptionClicked" class="btn btn-start btn-rounded m-0 px-2 py-2">
           <div class="d-flex align-items-center">
             <span class="fw-normal h6 mb-0 ps-3 pe-2">Next</span>
             <div class="btn-icon"><i class="fa-solid fa-arrow-right"></i></div>
           </div>
         </button>&nbsp;
-        <button pButton  [disabled]="answerOptionClicked" *ngIf="this.quizData.length <= this.selectedQuiz"
+        <button pButton [disabled]="answerOptionClicked" *ngIf="this.quizData.length <= this.selectedQuiz"
           (click)="clickSubmitQuiz()" class="btn btn-start btn-rounded m-0 px-2 py-2">
           <div class="d-flex align-items-center">
             <span class="fw-normal h6 mb-0 ps-3 pe-2">Submit</span>
@@ -307,7 +308,8 @@
         </h5>
       </div>
       <div class="col-md-2 col-2 text-end">
-        <button pButton  *ngIf="totalPercentage <= 89" (click)="retryQuiz()" class="btn btn-quit btn-rounded me-2 px-2 py-2">
+        <button pButton *ngIf="totalPercentage <= 89" (click)="retryQuiz()"
+          class="btn btn-quit btn-rounded me-2 px-2 py-2">
           <div class="d-flex align-items-center">
             <span class="fw-normal h6 mb-0">Retry</span>
             <div class="btn-icon"><i class="fa-solid fa-arrow-rotate-right"></i></div>
@@ -338,13 +340,13 @@
                         <div class="btn-icon" style="background-color: #7e963e;"><i class="fa fa-file" aria-hidden="true"></i></div>
                     </div>
                 </button>&nbsp; -->
-        <button pButton  (click)="takeAnotherquiz()" class="btn btn-back btn-rounded px-2 py-2">
+        <button pButton (click)="takeAnotherquiz()" class="btn btn-back btn-rounded px-2 py-2">
           <div class="d-flex align-items-center">
             <span class="fw-normal h6 mb-0">Take Another Quiz</span>
             <div class="btn-icon"><i class="fa fa-home" aria-hidden="true"></i></div>
           </div>
         </button>&nbsp;
-        <button pButton  (click)="openReviewPopup()" class="btn btn-back btn-rounded px-2 py-2">
+        <button pButton (click)="openReviewPopup()" class="btn btn-back btn-rounded px-2 py-2">
           <div class="d-flex align-items-center">
             <span class="fw-normal h6 mb-0">Review</span>
             <div class="btn-icon"><i class="fa-solid fa-list-check"></i></div>
@@ -375,7 +377,8 @@
         <h5 class="select-title">Your Quiz Review</h5>
       </div>
       <div class="col-md-2 col-2 text-end">
-        <button pButton  *ngIf="quizpercentage <= 89" (click)="retryQuiz()" class="btn btn-quit btn-rounded me-2 px-2 py-2">
+        <button pButton *ngIf="quizpercentage <= 89" (click)="retryQuiz()"
+          class="btn btn-quit btn-rounded me-2 px-2 py-2">
           <div class="d-flex align-items-center">
             <span class="fw-normal h6 mb-0 ps-3 pe-2">Retry</span>
             <div class="btn-icon"><i class="fa-solid fa-arrow-rotate-right"></i></div>
@@ -385,8 +388,9 @@
     </div>
     <div class="row justify-content-center">
       <div class="col-md-12">
-        <p-carousel #carouselQuiz [showIndicators]="false" [showNavigators]="false"  (onPage)="setPage($event)" [circular]="true" [numScroll]="1" [numVisible]="1"
-          [page]="selectedQuiz - 1" [responsiveOptions]="responsiveOptions" [value]="quizData" class="text-center">
+        <p-carousel #carouselQuiz [showIndicators]="false" [showNavigators]="false" (onPage)="setPage($event)"
+          [circular]="true" [numScroll]="1" [numVisible]="1" [page]="selectedQuiz - 1"
+          [responsiveOptions]="responsiveOptions" [value]="quizData" class="text-center">
           <ng-template [ngForOf]="quizData" let-i="index" let-val ngFor pTemplate="item">
             <div class="row text-center">
               <div class="col-12 mt-3 mb-4">
@@ -464,14 +468,14 @@
                 <p-breadcrumb [model]="breadCrumb" class="max-w-100 quizreference"></p-breadcrumb> -->
       </div>
       <div class="col-md-6 text-end">
-        <button pButton  *ngIf="selectedQuiz != 1" (click)="clickPreviousQuiz(carouselQuiz, $event)"
+        <button pButton *ngIf="selectedQuiz != 1" (click)="clickPreviousQuiz(carouselQuiz, $event)"
           class="btn btn-back btn-rounded px-2 py-2">
           <div class="d-flex align-items-center">
             <span class="fw-normal h6 mb-0 ps-3 pe-2">Previous</span>
             <div class="btn-icon"><i class="fa-solid fa-arrow-left"></i></div>
           </div>
         </button>&nbsp;
-        <button pButton  *ngIf="this.quizData.length > this.selectedQuiz" (click)="clickNextQuiz(carouselQuiz, $event)"
+        <button pButton *ngIf="this.quizData.length > this.selectedQuiz" (click)="clickNextQuiz(carouselQuiz, $event)"
           class="btn btn-start btn-rounded m-0 px-2 py-2">
           <div class="d-flex align-items-center">
             <span class="fw-normal h6 mb-0 ps-3 pe-2">Next</span>
@@ -489,24 +493,9 @@
     <h3 class="offer">Time's Up!</h3>
     <p>You have run out of time for this quiz. Unfortunately,this means the quiz is marked as failed.try the quiz
       again."</p>
-    <button pButton  pButton type="button"
+    <button pButton pButton type="button"
       class="text-white p-ripple p-button-rounded p-button-warning p-button p-component p-2 mt-2"
       (click)="timeIsOver()"><i class="fa fa-arrow-right exhausted-plan-icon"></i></button>
   </div>
 </p-dialog>
-<p-dialog [(visible)]="restrict1" [modal]="true" [style]="{ width: '30vw' }" [draggable]="false" [resizable]="false"
-  class="restrictionDialog" [breakpoints]="{ '960px': '30vw', '959px': '60vw', '425px': '90vw' }"
-  (onHide)="clearRestriction()">
-  <div *ngIf="ehitlabelIsShow" class="text-center mt-5 mb-4">
-    <img src="../../../uniprep-assets/images/smartloack.png" class="image" width="60" />
-    <h3 class="offer">Upgrade Required</h3>
-    <p>To access this exclusive module,please upgrade your plan now</p>
-    <button pButton  pButton type="button" class="text-white p-ripple p-button-rounded p-button-warning p-button p-component p-2"
-      (click)="upgradePlan()">Upgrade Plan<i class="fa fa-arrow-right exhausted-plan-icon"></i></button>
-  </div>
-  <div *ngIf="!ehitlabelIsShow" class="text-center mt-5 mb-4">
-    <img src="../../../uniprep-assets/images/smartloack.png" class="image" width="60" />
-    <h3 class="offer">Upgrade Required</h3>
-    <p>Please contact {{ orgnamewhitlabel }} Company for access</p>
-  </div>
-</p-dialog>
+<uni-restriction-dialog *ngIf="restrict1" [isShowRestrict]="restrict1" (closeRestrictModal)="restrict1 = false" />

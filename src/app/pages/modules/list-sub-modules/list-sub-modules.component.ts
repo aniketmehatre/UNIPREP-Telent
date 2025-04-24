@@ -23,17 +23,18 @@ import { SelectModule } from "primeng/select"
 import { StorageService } from "../../../storage.service"
 import { InputTextModule } from "primeng/inputtext"
 import { FormsModule, ReactiveFormsModule } from "@angular/forms"
-import {ProgressBar} from "primeng/progressbar";
-import {Breadcrumb} from "primeng/breadcrumb";
+import { ProgressBar } from "primeng/progressbar";
+import { Breadcrumb } from "primeng/breadcrumb";
+import { RestrictionDialogComponent } from "src/app/shared/restriction-dialog/restriction-dialog.component"
 @Component({
 	selector: "uni-list-sub-modules",
 	templateUrl: "./list-sub-modules.component.html",
 	styleUrls: ["./list-sub-modules.component.scss"],
 	providers: [ConfirmationService],
 	standalone: true,
-	imports: [CommonModule,RouterModule, DialogModule, FormsModule, ReactiveFormsModule, InputTextModule,
+	imports: [CommonModule, RouterModule, DialogModule, FormsModule, ReactiveFormsModule, InputTextModule,
 		CarouselModule, TooltipModule, SkeletonModule, ButtonModule, MultiSelectModule, InputGroupModule,
-		InputGroupAddonModule, SelectModule, ProgressBar, Breadcrumb],
+		InputGroupAddonModule, SelectModule, ProgressBar, Breadcrumb, RestrictionDialogComponent],
 })
 export class ListSubModulesComponent implements OnInit {
 	subModules$!: Observable<ModuleListSub[]>
@@ -93,10 +94,10 @@ export class ListSubModulesComponent implements OnInit {
 	selectedCountryName: any
 
 	constructor(private moduleListService: ModuleServiceService, private router: Router, private dataService: DataService,
-		 public authService: AuthService, private locationService: LocationService, private route: ActivatedRoute,
-		  private ngxService: NgxUiLoaderService, private confirmationService: ConfirmationService,
-		   private pageFacade: PageFacadeService, private meta: Meta, private cdRef: ChangeDetectorRef,
-		    private titleService: Title, private storage: StorageService, private location: Location,) {
+		public authService: AuthService, private locationService: LocationService, private route: ActivatedRoute,
+		private ngxService: NgxUiLoaderService, private confirmationService: ConfirmationService,
+		private pageFacade: PageFacadeService, private meta: Meta, private cdRef: ChangeDetectorRef,
+		private titleService: Title, private storage: StorageService, private location: Location,) {
 		this.countryId = Number(this.storage.get("countryId"))
 
 		this.dataService.countryIdSource.subscribe((data) => {
@@ -162,18 +163,6 @@ export class ListSubModulesComponent implements OnInit {
 
 		// Initial update
 		this.updateMetaTags()
-		this.locationService.getImage().subscribe((imageUrl) => {
-			this.orglogowhitelabel = imageUrl
-		})
-		this.locationService.getOrgName().subscribe((orgname) => {
-			this.orgnamewhitlabel = orgname
-		})
-		this.imagewhitlabeldomainname = window.location.hostname
-		if (this.imagewhitlabeldomainname === "dev-student.uniprep.ai" || this.imagewhitlabeldomainname === "uniprep.ai" || this.imagewhitlabeldomainname === "localhost") {
-			this.ehitlabelIsShow = true
-		} else {
-			this.ehitlabelIsShow = false
-		}
 		this.storage.set("modalcountryid", this.quizmoduleselectcountryidsetzero)
 		this.init()
 		this.moduleListService.getSubmodulesAndSpecialization().subscribe((res: any) => {
@@ -212,8 +201,8 @@ export class ListSubModulesComponent implements OnInit {
 				this.currentModuleId = 1
 				this.currentModuleName = "Pre-Admission"
 				this.currentApiSlug = "SubmoduleListForStudents"
-				;(this.infoMessage = "Upgrade to access the Pre-admission section"), (this.unlockMessage = "Unlock the power of success with our exclusive Pre-admission!"), (this.upgradePlanMsg = "Upgrade your plan now to gain instant access.")
-				;(this.aboutModule = "Explore a vast database of Q&A about:"), (this.moduleDetails = "Scholarships, document checklist, Education loan, letter of Recommendation and many more!")
+					; (this.infoMessage = "Upgrade to access the Pre-admission section"), (this.unlockMessage = "Unlock the power of success with our exclusive Pre-admission!"), (this.upgradePlanMsg = "Upgrade your plan now to gain instant access.")
+					; (this.aboutModule = "Explore a vast database of Q&A about:"), (this.moduleDetails = "Scholarships, document checklist, Education loan, letter of Recommendation and many more!")
 				this.howItWorksVideoLink = "https://www.youtube.com/embed/aR06d8kMeio?si=-5Ivte_5ZgdcndS-"
 				this.description = "Prepare effectively for college with information on entrance requirements, application tips, and more."
 				break
@@ -221,8 +210,8 @@ export class ListSubModulesComponent implements OnInit {
 				this.currentModuleId = 7
 				this.currentModuleName = "Travel-and-Tourism"
 				this.currentApiSlug = "SubmoduleListForStudents"
-				;(this.infoMessage = "Upgrade to access the travel-and-tourism"), (this.unlockMessage = "Unlock the power of success with our exclusive travel-and-tourism!"), (this.upgradePlanMsg = "Upgrade your plan now to gain instant access.")
-				;(this.aboutModule = "Explore a vast database of Q&A about:"), (this.moduleDetails = "Visa, departure, healthcare, tuition fees and many more!")
+					; (this.infoMessage = "Upgrade to access the travel-and-tourism"), (this.unlockMessage = "Unlock the power of success with our exclusive travel-and-tourism!"), (this.upgradePlanMsg = "Upgrade your plan now to gain instant access.")
+					; (this.aboutModule = "Explore a vast database of Q&A about:"), (this.moduleDetails = "Visa, departure, healthcare, tuition fees and many more!")
 				this.howItWorksVideoLink = "https://www.youtube.com/embed/PZERtrH1zh8?si=zKQ80B27zz6V9-mk"
 				this.description = "Discover travel destinations, tips, and essential travel information."
 				break
@@ -230,8 +219,8 @@ export class ListSubModulesComponent implements OnInit {
 				this.currentModuleId = 3
 				this.currentModuleName = "Post-Admission"
 				this.currentApiSlug = "SubmoduleListForStudents"
-				;(this.infoMessage = "Upgrade to access the post-admission"), (this.unlockMessage = "Unlock the power of success with our exclusive post-admission!"), (this.upgradePlanMsg = "Upgrade your plan now to gain instant access.")
-				;(this.aboutModule = "Post-admission offers information about:"), (this.moduleDetails = " Arrival, student discounts, banking, full time jobs, post study work and many more!")
+					; (this.infoMessage = "Upgrade to access the post-admission"), (this.unlockMessage = "Unlock the power of success with our exclusive post-admission!"), (this.upgradePlanMsg = "Upgrade your plan now to gain instant access.")
+					; (this.aboutModule = "Post-admission offers information about:"), (this.moduleDetails = " Arrival, student discounts, banking, full time jobs, post study work and many more!")
 				this.howItWorksVideoLink = "https://www.youtube.com/embed/g_KWlnmOEtc?si=KFpkpjdYMwkCIOV1"
 				this.description = "Find guidance on navigating your new academic environment after securing admission."
 				break
@@ -239,8 +228,8 @@ export class ListSubModulesComponent implements OnInit {
 				this.currentModuleId = 4
 				this.currentModuleName = "Career Hub"
 				this.currentApiSlug = "SubmoduleListForStudents"
-				;(this.infoMessage = "Upgrade to access the Career Hub"), (this.unlockMessage = ""), (this.upgradePlanMsg = "Upgrade your plan now to gain instant access.")
-				;(this.aboutModule = "Explore a vast database of Q&A about:"), (this.moduleDetails = " Arrival, student discounts, banking, full time jobs, post study work and many more!")
+					; (this.infoMessage = "Upgrade to access the Career Hub"), (this.unlockMessage = ""), (this.upgradePlanMsg = "Upgrade your plan now to gain instant access.")
+					; (this.aboutModule = "Explore a vast database of Q&A about:"), (this.moduleDetails = " Arrival, student discounts, banking, full time jobs, post study work and many more!")
 				this.howItWorksVideoLink = "https://www.youtube.com/embed/dBNASRavBk0?si=M2WtoOTl3ahORz8V"
 				this.description = "Discover career opportunities and get resources to help you plan your professional path."
 				break
@@ -256,8 +245,8 @@ export class ListSubModulesComponent implements OnInit {
 				this.currentModuleId = 10
 				this.currentModuleName = "Skill Mastery"
 				this.currentApiSlug = "SubmoduleListForStudents"
-				;(this.infoMessage = "Upgrade to access the Skill Mastery"), (this.unlockMessage = " "), (this.upgradePlanMsg = "Upgrade your plan now to gain instant access.")
-				;(this.aboutModule = "Explore a vast database of Q&A about:"), (this.moduleDetails = " Arrival, student discounts, banking, full time jobs, post study work and many more!")
+					; (this.infoMessage = "Upgrade to access the Skill Mastery"), (this.unlockMessage = " "), (this.upgradePlanMsg = "Upgrade your plan now to gain instant access.")
+					; (this.aboutModule = "Explore a vast database of Q&A about:"), (this.moduleDetails = " Arrival, student discounts, banking, full time jobs, post study work and many more!")
 				this.howItWorksVideoLink = "https://www.youtube.com/embed/mzyfeeL1b4Y?si=SYUFI6bW4xU-QZbT"
 				this.description = "Enhance your expertise in soft skills through targeted courses and assessments."
 				break
@@ -265,8 +254,8 @@ export class ListSubModulesComponent implements OnInit {
 				this.currentModuleId = 8
 				this.currentModuleName = "Learning Hub"
 				this.currentApiSlug = "SubmoduleListForStudents"
-				;(this.infoMessage = "Upgrade to access the Learning Hub"), (this.unlockMessage = "Unlock the power of success with our exclusive Learning Hub!"), (this.upgradePlanMsg = "Upgrade your plan now to gain instant access.")
-				;(this.aboutModule = "Explore a vast database of Q&A about:"), (this.moduleDetails = "Scholarships, document checklist, Education loan, letter of Recommendation and many more!")
+					; (this.infoMessage = "Upgrade to access the Learning Hub"), (this.unlockMessage = "Unlock the power of success with our exclusive Learning Hub!"), (this.upgradePlanMsg = "Upgrade your plan now to gain instant access.")
+					; (this.aboutModule = "Explore a vast database of Q&A about:"), (this.moduleDetails = "Scholarships, document checklist, Education loan, letter of Recommendation and many more!")
 				this.howItWorksVideoLink = "https://www.youtube.com/embed/prvvJsgnya8?si=QSAeOB9qPMF-ya-D"
 				this.description = "Upskill with over 1000 specializations across various industries"
 				break
@@ -274,8 +263,8 @@ export class ListSubModulesComponent implements OnInit {
 				this.currentModuleId = 14
 				this.currentModuleName = "K12"
 				this.currentApiSlug = "SubmoduleListForStudents"
-				;(this.infoMessage = "Upgrade to access the K12"), (this.unlockMessage = "Unlock the power of success with our exclusive k12!"), (this.upgradePlanMsg = "Upgrade your plan now to gain instant access.")
-				;(this.aboutModule = "Explore a vast database of Q&A about:"), (this.moduleDetails = "Scholarships, document checklist, Education loan, letter of Recommendation and many more!")
+					; (this.infoMessage = "Upgrade to access the K12"), (this.unlockMessage = "Unlock the power of success with our exclusive k12!"), (this.upgradePlanMsg = "Upgrade your plan now to gain instant access.")
+					; (this.aboutModule = "Explore a vast database of Q&A about:"), (this.moduleDetails = "Scholarships, document checklist, Education loan, letter of Recommendation and many more!")
 				this.howItWorksVideoLink = "https://www.youtube.com/embed/Zh4pPEZ160c?si=i8vkRTgh70TuoqDn"
 				this.description = "Explore curriculum-focused content and resources for students in Grades 9 through 12."
 				break
@@ -283,16 +272,16 @@ export class ListSubModulesComponent implements OnInit {
 				this.currentModuleId = 6
 				this.currentModuleName = "Life In " + this.countryName
 				this.currentApiSlug = "SubmoduleListForStudents"
-				;(this.infoMessage = "Upgrade to access information about life in your chosen destination"), (this.unlockMessage = "Unlock the power of success with our exclusive destination"), (this.upgradePlanMsg = "Upgrade your plan now to gain instant access.")
-				;(this.aboutModule = "Explore a vast database of Q&A about:"), (this.moduleDetails = "Festivals, events, currency, budget, housing and many more!"), (this.selectedModule = "life-at-country")
+					; (this.infoMessage = "Upgrade to access information about life in your chosen destination"), (this.unlockMessage = "Unlock the power of success with our exclusive destination"), (this.upgradePlanMsg = "Upgrade your plan now to gain instant access.")
+					; (this.aboutModule = "Explore a vast database of Q&A about:"), (this.moduleDetails = "Festivals, events, currency, budget, housing and many more!"), (this.selectedModule = "life-at-country")
 				this.howItWorksVideoLink = "https://www.youtube.com/embed/7VFZp47tfLU?si=GPLVjR5vKlNno-cZ"
 				this.description = `Explore insights and tips about daily life and cultural nuances in ${this.countryName}`
 				break
 		}
 		/*FU
-        // if (this.currentModuleId == 5) {
-        //   return; 
-        // } */
+		// if (this.currentModuleId == 5) {
+		//   return; 
+		// } */
 		this.storage.set("currentmodulenameforrecently", this.currentModuleName)
 		this.loadModuleAndSubModule()
 		if (this.route.snapshot.paramMap.get("id") == "2") {
@@ -628,7 +617,7 @@ export class ListSubModulesComponent implements OnInit {
 		this.canShowQuestionList = false
 	}
 
-	goBackNew(){
+	goBackNew() {
 		this.router.navigateByUrl('pages/global-repo')
 	}
 

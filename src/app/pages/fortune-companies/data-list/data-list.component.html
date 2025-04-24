@@ -7,11 +7,14 @@
 				</div>
 				<div class="select-title d-flex justify-content-between align-items-center">
 					<div class="d-flex gap-2">
-						<h5 routerLink="/pages/dashboard" role="button" class="mb-0" tooltipPosition="top" pTooltip=""><i class="fa-regular fa-home"></i></h5>
+						<h5 routerLink="/pages/dashboard" role="button" class="mb-0" tooltipPosition="top" pTooltip="">
+							<i class="fa-regular fa-home"></i></h5>
 						<span><i class="fa-solid fa-chevron-right"></i></span>
-						<h5 routerLink="/pages/job-tool/career-tool" role="button" class="mb-0" tooltipPosition="top" pTooltip="">Career Tools</h5>
+						<h5 routerLink="/pages/job-tool/career-tool" role="button" class="mb-0" tooltipPosition="top"
+							pTooltip="">Career Tools</h5>
 						<span><i class="fa-solid fa-chevron-right"></i></span>
-						<h5 class="mb-0" tooltipPosition="top" pTooltip="Questions related to the application process are answered">Fortune Companies</h5>
+						<h5 class="mb-0" tooltipPosition="top"
+							pTooltip="Questions related to the application process are answered">Fortune Companies</h5>
 						<span><i class="fa-solid fa-chevron-right"></i></span>
 						<h5 class="mb-0" tooltipPosition="top" pTooltip="">{{prepData.companyName}}</h5>
 					</div>
@@ -31,7 +34,8 @@
 	<div class="card-body text-center flex-fill overflow-y-auto">
 		<div *ngIf="isSkeletonVisible">
 			<div class="row">
-				<div *ngFor="let index of loopRange" class="col-xxl-2 col-xl-3 col-lg-3 col-md-4 col-sm-6 col-xs-12 col-12">
+				<div *ngFor="let index of loopRange"
+					class="col-xxl-2 col-xl-3 col-lg-3 col-md-4 col-sm-6 col-xs-12 col-12">
 					<div class="card my-2">
 						<div class="card-body">
 							<div class="row align-items-center">
@@ -69,24 +73,13 @@
 		<div class="row">
 			<div class="col-md-3">&nbsp;</div>
 			<div class="col-md-6">
-				<p-paginator [rows]="perpage" [totalRecords]="totalDataCount" (onPageChange)="paginate($event)" [rowsPerPageOptions]="[50, 100, 300, 500, 1000]"></p-paginator>
+				<p-paginator [rows]="perpage" [totalRecords]="totalDataCount" (onPageChange)="paginate($event)"
+					[rowsPerPageOptions]="[50, 100, 300, 500, 1000]"></p-paginator>
 			</div>
 		</div>
 	</div>
 </div>
-<p-dialog [(visible)]="restrict" [modal]="true" [style]="{ width: '30vw' }" [draggable]="false" [resizable]="false" class="restrictionDialog" [breakpoints]="{ '960px': '30vw', '959px': '60vw', '425px': '90vw' }" (onHide)="clearRestriction()">
-	<div *ngIf="ehitlabelIsShow" class="text-center mt-5 mb-4">
-		<img src="../../../uniprep-assets/images/smartloack.png" class="image" width="60" />
-		<h3 class="offer">Upgrade Required</h3>
-		<p>To access this exclusive module,please upgrade your plan now</p>
-		<button pButton type="button" class="text-white p-ripple p-button-rounded p-button-warning p-button p-component p-2" (click)="upgradePlan()">Upgrade Plan<i class="fa fa-arrow-right exhausted-plan-icon"></i></button>
-	</div>
-	<div *ngIf="!ehitlabelIsShow" class="text-center mt-5 mb-4">
-		<img src="{{ orglogowhitelabel }}" class="image" width="60" />
-		<h3 class="offer">Upgrade Required</h3>
-		<p>Please contact {{ orgnamewhitlabel }} Company for access</p>
-	</div>
-</p-dialog>
+<uni-restriction-dialog *ngIf="restrict" [isShowRestrict]="restrict" (closeRestrictModal)="restrict = false" />
 
 <p-dialog #dialogContent [(visible)]="isQuestionAnswerVisible" [draggable]="false" [modal]="true"
 	class="questionmodal custom-quiz-modal" header="Header" [closable]="false" (onShow)="onShowModal($event)">
@@ -95,17 +88,20 @@
 			<div class="row justify-content-center">
 				<div class="col-md-12 d-flex gap-2 text-center">
 					<div class="career-homeIcon px-3" role="button" (click)="backtoMain()"><span
-						class="fa-solid fa-home me-2"></span>Home</div>
+							class="fa-solid fa-home me-2"></span>Home</div>
 					<div class="select-title d-flex flex-fill gap-2 align-items-center w-100">
-						<h5 routerLink="/pages/job-tool/career-tool" role="button" class="mb-0" tooltipPosition="top" pTooltip="">Career Tools</h5>
+						<h5 routerLink="/pages/job-tool/career-tool" role="button" class="mb-0" tooltipPosition="top"
+							pTooltip="">Career Tools</h5>
 						<span><i class="fa-solid fa-chevron-right"></i></span>
-						<h5 class="mb-0" tooltipPosition="top" pTooltip="Questions related to the application process are answered">Fortune Companies</h5>
+						<h5 class="mb-0" tooltipPosition="top"
+							pTooltip="Questions related to the application process are answered">Fortune Companies</h5>
 						<span><i class="fa-solid fa-chevron-right"></i></span>
 						<h5 class="mb-0" tooltipPosition="top" pTooltip="">{{prepData.companyName}}</h5>
 					</div>
 					<div class="career-reportIcon px-3" role="button" (click)="openReport()"><span
 							class="fa-solid fa-file me-2"></span>Report</div>
-					<div class="career-closeIcon" role="button" (click)="isQuestionAnswerVisible = !isQuestionAnswerVisible">
+					<div class="career-closeIcon" role="button"
+						(click)="isQuestionAnswerVisible = !isQuestionAnswerVisible">
 						<span class="fa-solid fa-close"></span>
 					</div>
 				</div>

@@ -4,71 +4,85 @@
 			<div class="col-md-12 d-flex gap-2 text-center">
 				<div class="select-title d-flex justify-content-between align-items-center" style="width: 100%">
 					<div class="d-flex gap-2">
-						<h5 routerLink="/pages/dashboard" role="button" class="mb-0" tooltipPosition="top" pTooltip=""><i class="fa-regular fa-home"></i></h5>
+						<h5 routerLink="/pages/dashboard" role="button" class="mb-0" tooltipPosition="top" pTooltip="">
+							<i class="fa-regular fa-home"></i></h5>
 						<span><i class="fa-solid fa-chevron-right"></i></span>
-						<h5 routerLink="/pages/mycertificate" role="button" class="mb-0" tooltipPosition="top">My Certificates</h5>
+						<h5 routerLink="/pages/mycertificate" role="button" class="mb-0" tooltipPosition="top">My
+							Certificates</h5>
 					</div>
 					<div>
-						<button pButton (click)="openVideoPopup('https://www.youtube.com/embed/-OTCl3QMdL0?si=zny9m5NZkWSBDPdp')" class="how-it-works-button">How it works?<i class="fa-solid fa-play d-md-block d-none"></i></button>
+						<button pButton
+							(click)="openVideoPopup('https://www.youtube.com/embed/-OTCl3QMdL0?si=zny9m5NZkWSBDPdp')"
+							class="how-it-works-button">How it works?<i
+								class="fa-solid fa-play d-md-block d-none"></i></button>
 					</div>
 				</div>
-				<button pButton (click)="redirectCertificateTraker()" class="how-it-works-button p-2">Certificate Tracker</button>
+				<button pButton (click)="redirectCertificateTraker()" class="how-it-works-button p-2">Certificate
+					Tracker</button>
 			</div>
 		</div>
 	</div>
 	<div class="card-body text-center flex-fill overflow-y-auto">
 		<div class="container-fluid">
 			<div class="row">
-				<div class="col-xxl-3 col-xl-3 col-lg-4 col-md-4 col-sm-6 col-xs-12 col-12 mt-3" *ngFor="let list of totalmodulecirtficatelist; let i = index">
+				<div class="col-xxl-3 col-xl-3 col-lg-4 col-md-4 col-sm-6 col-xs-12 col-12 mt-3"
+					*ngFor="let list of totalmodulecirtficatelist; let i = index">
 					<div class="card resourcecard justify-content-center text-black h-100">
 						<div class="card-body h-100 position-relative">
 							<div class="mb-1" id="resourceLink">
 								<div class="d-flex gap-3 align-items-center h-100">
 									<div class="resourceimg"><img src="{{ list.module_image }}" alt="" /></div>
 									<div class="text-start" *ngIf="list.module_id == 9 || list.module_id == 8">
-										<span style="font-size: 1rem" title="{{ list.module_name }}"
-											><b>{{ list.module_name }}</b></span
-										><br />
-										<span style="font-size: 1rem" *ngIf="list.module_id == 1 || list.module_id == 7 || list.module_id == 3 || list.module_id == 4 || list.module_id == 6"
-											><b>{{ list.country_name }}</b></span
-										>
+										<span style="font-size: 1rem" title="{{ list.module_name }}"><b>{{
+												list.module_name }}</b></span><br />
 										<span style="font-size: 1rem"
-											><b
-												>{{ list.submodule_name }} <span *ngIf="list.module_id == 9 || list.module_id == 8">{{ "-" + list.category_name }}</span></b
-											></span
-										>
+											*ngIf="list.module_id == 1 || list.module_id == 7 || list.module_id == 3 || list.module_id == 4 || list.module_id == 6"><b>{{
+												list.country_name }}</b></span>
+										<span style="font-size: 1rem"><b>{{ list.submodule_name }} <span
+													*ngIf="list.module_id == 9 || list.module_id == 8">{{ "-" +
+													list.category_name }}</span></b></span>
 										<h6>ID: {{ list.certificateID }}</h6>
 									</div>
 									<div class="text-start" *ngIf="!(list.module_id == 9 || list.module_id == 8)">
-										<span style="font-size: 1rem" title="{{ list.module_name }}"
-											><b>{{ list.module_name }}</b></span
-										><br />
-										<span><img width="20" height="20" src="{{ list.country_flag }}" alt="" /> </span>&nbsp;
-										<span style="font-size: 1rem" *ngIf="list.module_id == 1 || list.module_id == 7 || list.module_id == 3 || list.module_id == 4 || list.module_id == 6"
-											><b>{{ list.country_name }}</b></span
-										>
+										<span style="font-size: 1rem" title="{{ list.module_name }}"><b>{{
+												list.module_name }}</b></span><br />
+										<span><img width="20" height="20" src="{{ list.country_flag }}" alt="" />
+										</span>&nbsp;
 										<span style="font-size: 1rem"
-											><b
-												>{{ list.submodule_name }} <span *ngIf="list.module_id == 9 || list.module_id == 8">{{ "-" + list.category_name }}</span></b
-											></span
-										>
+											*ngIf="list.module_id == 1 || list.module_id == 7 || list.module_id == 3 || list.module_id == 4 || list.module_id == 6"><b>{{
+												list.country_name }}</b></span>
+										<span style="font-size: 1rem"><b>{{ list.submodule_name }} <span
+													*ngIf="list.module_id == 9 || list.module_id == 8">{{ "-" +
+													list.category_name }}</span></b></span>
 										<h6>ID: {{ list.certificateID }}</h6>
 									</div>
 								</div>
 							</div>
 							<div id="resourceLink">
 								<div class="d-flex justify-content-between gap-2">
-									<button pButton type="button" (click)="downloadCertificate(list.certificate_link, list.module_id)" class="btn btn-primary btn-rounded w-100 text-center">Download</button>
-									<button pButton class="btn btn-primary socialShareBtn" (click)="showSocialSharingList(i, list.module_id)"><i class="fa-light fa-share-nodes"></i></button>
-									<p-card id="socialSharingList{{ i }}" class="socialSharingList" [ngClass]="{ show: selectedIndex === i }">
+									<button pButton type="button"
+										(click)="downloadCertificate(list.certificate_link, list.module_id)"
+										class="btn btn-primary btn-rounded w-100 text-center">Download</button>
+									<button pButton class="btn btn-primary socialShareBtn"
+										(click)="showSocialSharingList(i, list.module_id)"><i
+											class="fa-light fa-share-nodes"></i></button>
+									<p-card id="socialSharingList{{ i }}" class="socialSharingList"
+										[ngClass]="{ show: selectedIndex === i }">
 										<ul class="list-unstyled">
-											<li (click)="shareViaWhatsapp(list.certificate_link)"><i class="pi pi-whatsapp"></i>Whatsapp</li>
-											<li (click)="shareViaMail(list.certificate_link)"><i class="pi pi-envelope"></i>Email</li>
-											<li (click)="shareViaFacebook(list.certificate_link)"><i class="pi pi-facebook"></i>Facebook</li>
-											<li (click)="shareViaTwitter(list.certificate_link)"><i class="pi pi-twitter"></i>Twitter</li>
-											<li (click)="shareViaInstagram(list.certificate_link)"><i class="pi pi-instagram"></i>Instagram</li>
-											<li (click)="shareViaLinkedIn(list.certificate_link)"><i class="pi pi-linkedin"></i>LinkedIn</li>
-											<li (click)="copyLink(list.certificate_link)"><i class="pi pi-link"></i>Copy Link</li>
+											<li (click)="shareViaWhatsapp(list.certificate_link)"><i
+													class="pi pi-whatsapp"></i>Whatsapp</li>
+											<li (click)="shareViaMail(list.certificate_link)"><i
+													class="pi pi-envelope"></i>Email</li>
+											<li (click)="shareViaFacebook(list.certificate_link)"><i
+													class="pi pi-facebook"></i>Facebook</li>
+											<li (click)="shareViaTwitter(list.certificate_link)"><i
+													class="pi pi-twitter"></i>Twitter</li>
+											<li (click)="shareViaInstagram(list.certificate_link)"><i
+													class="pi pi-instagram"></i>Instagram</li>
+											<li (click)="shareViaLinkedIn(list.certificate_link)"><i
+													class="pi pi-linkedin"></i>LinkedIn</li>
+											<li (click)="copyLink(list.certificate_link)"><i class="pi pi-link"></i>Copy
+												Link</li>
 										</ul>
 									</p-card>
 								</div>
@@ -83,16 +97,4 @@
 		<p>You have unlocked more certificates in {{ othercirtificatecountrylist }}</p> 
 	</div>  -->
 </div>
-<p-dialog [(visible)]="restrict" [modal]="true" [style]="{ width: '30vw' }" [draggable]="false" [resizable]="false" class="restrictionDialog" [breakpoints]="{ '960px': '30vw', '959px': '60vw', '425px': '90vw' }" (onHide)="clearRestriction()">
-	<div *ngIf="ehitlabelIsShow" class="text-center mt-5 mb-4">
-		<img src="../../../uniprep-assets/images/smartloack.png" class="image" width="60" />
-		<h3 class="offer">Upgrade Required</h3>
-		<p>To access this exclusive module,please upgrade your plan now</p>
-		<button pButton pButton type="button" class="text-white p-ripple p-button-rounded p-button-warning p-button p-component p-2" (click)="upgradePlan()">Upgrade Plan<i class="fa fa-arrow-right exhausted-plan-icon"></i></button>
-	</div>
-	<div *ngIf="!ehitlabelIsShow" class="text-center mt-5 mb-4">
-		<img src="{{ orglogowhitelabel }}" class="image" width="60" />
-		<h3 class="offer">Upgrade Required</h3>
-		<p>Please contact {{ orgnamewhitlabel }} Company for access</p>
-	</div>
-</p-dialog>
+<uni-restriction-dialog *ngIf="restrict" [isShowRestrict]="restrict" (closeRestrictModal)="restrict = false" />

@@ -16,13 +16,14 @@ import { TextareaModule } from "primeng/textarea"
 import { ButtonModule } from "primeng/button"
 import { SkeletonModule } from "primeng/skeleton"
 import { CarouselModule } from "primeng/carousel"
+import { RestrictionDialogComponent } from "src/app/shared/restriction-dialog/restriction-dialog.component"
 @Component({
 	selector: "uni-advisor",
 	templateUrl: "./advisor.component.html",
 	styleUrls: ["./advisor.component.scss"],
 	encapsulation: ViewEncapsulation.None,
 	standalone: true,
-	imports: [CommonModule, RouterModule, DialogModule, FormsModule, ReactiveFormsModule, InputTextModule, InputGroupModule, InputGroupAddonModule, TextareaModule, ButtonModule, SkeletonModule, CarouselModule],
+	imports: [CommonModule, RouterModule, DialogModule, FormsModule, ReactiveFormsModule, InputTextModule, InputGroupModule, InputGroupAddonModule, TextareaModule, ButtonModule, SkeletonModule, CarouselModule, RestrictionDialogComponent],
 })
 export class AdvisorComponent implements OnInit {
 	@ViewChild("chatContainer") private chatContainer: ElementRef
@@ -43,28 +44,16 @@ export class AdvisorComponent implements OnInit {
 	planExpired!: boolean
 	restrict: boolean = false
 	// currentPlan: string = "";
-	imagewhitlabeldomainname: any
-	orgnamewhitlabel: any
 	orglogowhitelabel: any
-	ehitlabelIsShow: boolean = true
 	// isQuestionEmpty: boolean = false;
 
-	constructor(private service: AdvisorService, private ngxService: NgxUiLoaderService, private route: ActivatedRoute, private pageFacade: PageFacadeService, private authService: AuthService, private locationService: LocationService, private router: Router, private messageService: MessageService) {}
+	constructor(private service: AdvisorService, private ngxService: NgxUiLoaderService, private route: ActivatedRoute, private pageFacade: PageFacadeService, private authService: AuthService, private locationService: LocationService, private router: Router, private messageService: MessageService) { }
 
 	ngOnInit() {
 		this.checkplanExpire()
 		this.locationService.getImage().subscribe((imageUrl) => {
 			this.orglogowhitelabel = imageUrl
 		})
-		this.locationService.getOrgName().subscribe((orgname) => {
-			this.orgnamewhitlabel = orgname
-		})
-		this.imagewhitlabeldomainname = window.location.hostname
-		if (this.imagewhitlabeldomainname === "*.uniprep.ai" || this.imagewhitlabeldomainname === "dev-student.uniprep.ai" || this.imagewhitlabeldomainname === "uniprep.ai" || this.imagewhitlabeldomainname === "localhost") {
-			this.ehitlabelIsShow = true
-		} else {
-			this.ehitlabelIsShow = false
-		}
 
 		this.questions = [
 			{ question: "Must visit places in Milan.", icons: "fa-earth-americas" },
@@ -218,7 +207,7 @@ export class AdvisorComponent implements OnInit {
 			if (data.plan === "expired" || data.plan === "subscription_expired") {
 				this.planExpired = true
 			} else {
-				this.planExpired = false
+				this.planExpired = true
 			}
 		})
 	}

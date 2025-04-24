@@ -11,7 +11,7 @@ import { DialogModule } from 'primeng/dialog';
 import { ScrollTopModule } from 'primeng/scrolltop';
 
 @Component({
-  selector: 'app-landing-content',
+  selector: 'uni-landing-content',
   imports: [
           CommonModule,
           FormsModule,

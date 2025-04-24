@@ -21,84 +21,79 @@ import { InputTextModule } from "primeng/inputtext"
 import { InputGroupAddonModule } from "primeng/inputgroupaddon"
 import { DataService } from "src/app/data.service";
 import { SkeletonModule } from "primeng/skeleton";
+import { RestrictionDialogComponent } from "src/app/shared/restriction-dialog/restriction-dialog.component"
 @Component({
 	selector: "uni-salaryhackslists",
 	templateUrl: "./salaryhackslists.component.html",
 	styleUrls: ["./salaryhackslists.component.scss"],
 	standalone: true,
-	imports: [CommonModule, DialogModule, RouterModule, CardModule, PaginatorModule, FormsModule, ReactiveFormsModule, CarouselModule, ButtonModule, MultiSelectModule, SelectModule, InputGroupModule, InputTextModule, InputGroupAddonModule, SkeletonModule],
+	imports: [CommonModule, DialogModule, RouterModule, CardModule, PaginatorModule, FormsModule, ReactiveFormsModule, CarouselModule, ButtonModule, MultiSelectModule, SelectModule, InputGroupModule, InputTextModule, InputGroupAddonModule, SkeletonModule, RestrictionDialogComponent],
 	providers: [MessageService]
 })
 export class SalaryhacksListsComponent {
-  isSkeletonVisible: boolean = true;
-  isQuestionAnswerVisible: boolean = false;
-  planExpired: boolean = false;
-  restrict: boolean = false;
-  page: number = 1;
-  perpage: number = 50;
-  ehitlabelIsShow: boolean = true;
-  imagewhitlabeldomainname: any;
-  orgnamewhitlabel: any;
-  orglogowhitelabel: any;
-  totalDataCount: any = 0;
-  ListData: any = [];
-  selectedQuestionData: any;
-  @Input() prepData: any;
-  @Output() windowChange = new EventEmitter();
-  loopRange = Array.from({ length: 30 })
-    .fill(0)
-    .map((_, index) => index);
-  constructor(
-    private location: Location,
-    private route: ActivatedRoute,
-    private toast: MessageService,
-    private router: Router,
-    private pageFacade: PageFacadeService,
-    private authService: AuthService,
-    private meta: Meta,
-    private service: SalaryHacksService,
-        private dataService: DataService,
-  ) {}
-  ngOnInit(): void {
-    this.gethackList();
-    this.checkPlanExpiry();
-    this.imagewhitlabeldomainname = window.location.hostname;
-    this.ehitlabelIsShow = [
-      "dev-student.uniprep.ai",
-      "uniprep.ai",
-      "localhost",
-    ].includes(this.imagewhitlabeldomainname);
-  }
-  onShowModal(value: any) {
-    let socialShare: any = document.getElementById("socialSharingList");
-    socialShare.style.display = "none";
-  }
-  module_id:any;
-  gethackList() {
-    this.service
-      .getSalaryegotitationhacks({
-        country_id: this.prepData.country_id,
-        page: this.page,
-        perpage: this.perpage,
-      })
-      .subscribe((response: any) => {
-        this.ListData = response.data;
-        this.module_id=response.module_id;
-        this.totalDataCount = response.totalcount;
-        this.isSkeletonVisible = false;
-      });
-  }
-  goToHome(event: any) {
-    this.isQuestionAnswerVisible = false;
-  }
-  backtoMain() {
-    this.windowChange.emit({ stage: 1 });
-  }
-  paginate(event: any) {
-    this.page = event.page + 1;
-    this.perpage = event.rows;
-    this.gethackList();
-  }
+	isSkeletonVisible: boolean = true;
+	isQuestionAnswerVisible: boolean = false;
+	planExpired: boolean = false;
+	restrict: boolean = false;
+	page: number = 1;
+	perpage: number = 50;
+	ehitlabelIsShow: boolean = true;
+	imagewhitlabeldomainname: any;
+	orgnamewhitlabel: any;
+	orglogowhitelabel: any;
+	totalDataCount: any = 0;
+	ListData: any = [];
+	selectedQuestionData: any;
+	@Input() prepData: any;
+	@Output() windowChange = new EventEmitter();
+	loopRange = Array.from({ length: 30 })
+		.fill(0)
+		.map((_, index) => index);
+	constructor(
+		private location: Location,
+		private route: ActivatedRoute,
+		private toast: MessageService,
+		private router: Router,
+		private pageFacade: PageFacadeService,
+		private authService: AuthService,
+		private meta: Meta,
+		private service: SalaryHacksService,
+		private dataService: DataService,
+	) { }
+	ngOnInit(): void {
+		this.gethackList();
+		this.checkPlanExpiry();
+	}
+	onShowModal(value: any) {
+		let socialShare: any = document.getElementById("socialSharingList");
+		socialShare.style.display = "none";
+	}
+	module_id: any;
+	gethackList() {
+		this.service
+			.getSalaryegotitationhacks({
+				country_id: this.prepData.country_id,
+				page: this.page,
+				perpage: this.perpage,
+			})
+			.subscribe((response: any) => {
+				this.ListData = response.data;
+				this.module_id = response.module_id;
+				this.totalDataCount = response.totalcount;
+				this.isSkeletonVisible = false;
+			});
+	}
+	goToHome(event: any) {
+		this.isQuestionAnswerVisible = false;
+	}
+	backtoMain() {
+		this.windowChange.emit({ stage: 1 });
+	}
+	paginate(event: any) {
+		this.page = event.page + 1;
+		this.perpage = event.rows;
+		this.gethackList();
+	}
 
 	ngOnChanges() {
 		if (this.prepData?.country_id) {
@@ -215,14 +210,14 @@ export class SalaryhacksListsComponent {
 	getContentPreview(content: string): string {
 		const plainText = content.replace(/<[^>]*>/g, "")
 		return plainText.length > 75 ? plainText.slice(0, 75) + " ..." : plainText
-	} 
+	}
 	openReport() {
-    let data: any = {
-      isVisible: true,
-      moduleId: this.module_id,
-      questionId: this.selectedQuestionData?.id,
-      countryId:this.selectedQuestionData.country_id,
-    };
-    this.dataService.openReportWindow(data);
-  }
-  }
+		let data: any = {
+			isVisible: true,
+			moduleId: this.module_id,
+			questionId: this.selectedQuestionData?.id,
+			countryId: this.selectedQuestionData.country_id,
+		};
+		this.dataService.openReportWindow(data);
+	}
+}
