@@ -228,8 +228,8 @@
 														<ng-template #footer>
 															<div class="p-2">
 																<p-inputgroup>
-																<input pInputText placeholder="Custom Value" #jobtitleExp (click)="focusInput(jobtitleExp)"/>
-																<p-button label="Add New" fluid severity="secondary" text size="small" icon="pi pi-plus"(click)="addCustomJobTitle(jobtitleExp.value, experience.get('work_experience_job_title'));"/>
+																<input pInputText placeholder="Custom Value" #jobTitleExp (click)="focusInput(jobTitleExp)"/>
+																<p-button label="Add New" fluid severity="secondary" text size="small" icon="pi pi-plus"(click)="addCustomJobTitle(jobTitleExp.value, experience.get('work_experience_job_title')); jobTitleExp.value = '';"/>
 																</p-inputgroup>
 															</div>
 														</ng-template>
