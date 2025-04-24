@@ -107,6 +107,10 @@ export class TravelCostEstimatorComponent implements OnInit {
 	}
 
 	getRecommendation() {
+		if(this.aiCreditCount == 0){
+			this.toast.add({ severity: "error", summary: "Error", detail: "Free AI Credits Over.Please Buy Some Credits..!" });
+			return;
+		}
 		let data: any = {
 			country: this.selectedData[1].city_name + ", " + this.selectedData[1].country_name,
 			destination: this.selectedData[2].city_name + ", " + this.selectedData[2].country_name,

@@ -572,16 +572,16 @@ export class DashboardComponent implements OnInit, OnChanges, OnDestroy {
 			"url": "/pages/modules/learning-hub",
 			"module": ""
 		},
-		{
-			"id": 3,
-			"moduleName": "Job Portal",
-			"Description": "Craft a standout CV that highlights your skills and experience, ready for any job application.",
-			"tooltip": "Craft a standout CV that highlights your skills and experience, ready for any job application.",
-			"imageLink": "https://api.uniprep.ai/uniprepapi/storage/app/public/resources-coverimage/JobPortal.svg",
-			"mode": "cv-builder",
-			"url": "/pages/job-portal/job-search",
-			"module": ""
-		},
+		// {
+		// 	"id": 3,
+		// 	"moduleName": "Job Portal",
+		// 	"Description": "Craft a standout CV that highlights your skills and experience, ready for any job application.",
+		// 	"tooltip": "Craft a standout CV that highlights your skills and experience, ready for any job application.",
+		// 	"imageLink": "https://api.uniprep.ai/uniprepapi/storage/app/public/resources-coverimage/JobPortal.svg",
+		// 	"mode": "cv-builder",
+		// 	"url": "/pages/job-portal/job-search",
+		// 	"module":""
+		// },
 		{
 			"id": 4,
 			"moduleName": "Career Planner",

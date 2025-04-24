@@ -11,7 +11,8 @@
 			</uni-sidenav>
 		</div>
 		<div (scroll)="onWindowScroll($event)" id="page">
-			<uni-header (togleSidebar)="togleSidebar()" [expandicon]="expandicon" [ngClass]="{ sticky: stickHeader }"> </uni-header>
+			<uni-header (togleSidebar)="togleSidebar()" [expandicon]="expandicon" [ngClass]="{ sticky: stickHeader }">
+			</uni-header>
 			<div id="page-container">
 				<uni-header-search *ngIf="showSearch"></uni-header-search>
 				<router-outlet></router-outlet>
@@ -22,23 +23,28 @@
 				<div class="container-fluid py-2">
 					<div class="row align-items-center">
 						<div class="col-md-6 text-md-start text-center">
-							<p  *ngIf="footerIsShow" class="mb-0 fw-semibold small">2024 &#169; All rights reserved by UNIABROAD Technology Ltd.</p>
+							<p *ngIf="footerIsShow" class="mb-0 fw-semibold small">2024 &#169; All rights reserved by
+								UNIABROAD Technology Ltd.</p>
 						</div>
 						<ul class="nav justify-content-md-end justify-content-center col-md-6 small">
 							<li class="nav-item">
-								<a href="/pages/termsandcondition" style="cursor: pointer" class="nav-link px-2 py-0 text-body-secondary">Terms & Conditions</a>
+								<a href="/pages/termsandcondition" style="cursor: pointer"
+									class="nav-link px-2 py-0 text-body-secondary">Terms & Conditions</a>
 							</li>
 							<li class="nav-item">|</li>
 							<li class="nav-item">
-								<a href="/pages/privacypolicy" style="cursor: pointer" class="nav-link px-2 py-0 text-body-secondary">Privacy Policy</a>
+								<a href="/pages/privacypolicy" style="cursor: pointer"
+									class="nav-link px-2 py-0 text-body-secondary">Privacy Policy</a>
 							</li>
 							<li class="nav-item">|</li>
 							<li class="nav-item">
-								<a href="/pages/refundpolicy" style="cursor: pointer" class="nav-link px-2 py-0 text-body-secondary">Refund Policy</a>
+								<a href="/pages/refundpolicy" style="cursor: pointer"
+									class="nav-link px-2 py-0 text-body-secondary">Refund Policy</a>
 							</li>
 							<li class="nav-item">|</li>
 							<li class="nav-item">
-								<a href="/pages/cancellationpolicy" style="cursor: pointer" class="nav-link px-2 py-0 text-body-secondary">Cancellation Policy</a>
+								<a href="/pages/cancellationpolicy" style="cursor: pointer"
+									class="nav-link px-2 py-0 text-body-secondary">Cancellation Policy</a>
 							</li>
 							<!-- <li class="nav-item">|</li>
 						<li class="nav-item"><a href="/#about" class="nav-link px-2 py-0 text-body-secondary">About Us</a></li> -->
@@ -46,15 +52,18 @@
 					</div>
 				</div>
 			</footer>
-			<p-dialog class="thankyoupopup" [modal]="true" header="Header" [(visible)]="showReportSuccess" [breakpoints]="{ '960px': '75vw' }" [style]="{ width: 'auto' }" [draggable]="false" [resizable]="false">
+			<p-dialog class="thankyoupopup" [modal]="true" header="Header" [(visible)]="showReportSuccess"
+				[breakpoints]="{ '960px': '75vw' }" [style]="{ width: 'auto' }" [draggable]="false" [resizable]="false">
 				<ng-template pTemplate="header">
 					<span class="text-xl font-bold"></span>
 				</ng-template>
 				<div class="px-3 pb-3 pt-2 bg-white">
 					<div class="justify-content-center text-center bg-white">
-						<h4 class="text-center mb-2">We have noted your feedback.<br />Our team will get back to you shortly.</h4>
+						<h4 class="text-center mb-2">We have noted your feedback.<br />Our team will get back to you
+							shortly.</h4>
 						<h3 class="text-center mb-2 text-green">Thank You</h3>
-						<img class="pb-5" src="../../../uniprep-assets/images/icons/thumbsup.webp" width="auto" alt="thumbs up" />
+						<img class="pb-5" src="../../../uniprep-assets/images/icons/thumbsup.webp" width="auto"
+							alt="thumbs up" />
 					</div>
 				</div>
 			</p-dialog>
@@ -95,7 +104,8 @@
 		</div>
 	</section>
 
-	<div [ngStyle]="{ display: visibleExhasted ? 'block' : 'none' }" class="modal modal-bg subscriptionExhausted" role="dialog" tabindex="-1">
+	<div [ngStyle]="{ display: visibleExhasted ? 'block' : 'none' }" class="modal modal-bg subscriptionExhausted"
+		role="dialog" tabindex="-1">
 		<div class="modal-dialog modal-dialog-scrollable modal-dialog-centered" role="document">
 			<div class="modal-content card bg-light">
 				<div class="text-right-close">
@@ -109,7 +119,8 @@
 							<div *ngIf="ehitlabelIsShow" class="col-md-12 px-4">
 								<div class="d-flex flex-column">
 									<div class="icon-container mb-3 mt-3">
-										<img src="../../../uniprep-assets/images/TrialExpire.png" alt="clock" width="100" />
+										<img src="../../../uniprep-assets/images/TrialExpire.png" alt="clock"
+											width="100" />
 									</div>
 									<div class="mt-3 mb-1">
 										<span>
@@ -121,15 +132,19 @@
 									<div class="mt-1 text-center">
 										<span>
 											<strong class="firsttimelogin">
-												<h2 style="color: #f0780e; margin-bottom: 0">Subscribe now to continue using the platform.</h2>
+												<h2 style="color: #f0780e; margin-bottom: 0">Subscribe now to continue
+													using the platform.</h2>
 											</strong>
 										</span>
 									</div>
 									<div class="icon-container mt-1 d-flex justify-content-center mb-1">
-										<h6 style="color: rgb(63 76 131)">Enjoy complete access to <strong>UNIPREP</strong> V 1.0</h6>
+										<h6 style="color: rgb(63 76 131)">Enjoy complete access to
+											<strong>UNIPREP</strong> V 1.0
+										</h6>
 									</div>
 									<div class="d-flex justify-content-center">
-										<button pButton  class="btn btn-primary btn-rounded me-2 ms-0 my-0" (click)="onClickSubscribedUser()" alt="chat with notification">
+										<button pButton class="btn btn-primary btn-rounded me-2 ms-0 my-0"
+											(click)="onClickSubscribedUser()" alt="chat with notification">
 											<span class="text-small fw-normal px-3">Subscribe Now</span>
 										</button>
 									</div>
@@ -138,7 +153,8 @@
 							<div *ngIf="!ehitlabelIsShow" class="col-md-12 px-4">
 								<div class="d-flex flex-column">
 									<div class="icon-container mb-3 mt-3">
-										<img src="../../../uniprep-assets/images/TrialExpire.png" alt="clock" width="100" />
+										<img src="../../../uniprep-assets/images/TrialExpire.png" alt="clock"
+											width="100" />
 									</div>
 									<div class="mt-4 mb-1">
 										<span>
@@ -148,7 +164,8 @@
 										</span>
 									</div>
 									<div class="icon-container mt-1 d-flex justify-content-center mb-1">
-										<h6 style="color: rgb(63 76 131)">Please contact {{orgnamewhitlabel}} Company for access</h6>
+										<h6 style="color: rgb(63 76 131)">Please contact {{orgnamewhitlabel}} Company
+											for access</h6>
 									</div>
 								</div>
 							</div>
@@ -158,7 +175,8 @@
 			</div>
 		</div>
 	</div>
-	<div [ngStyle]="{ display: visibleExhastedUser ? 'block' : 'none' }" class="modal modal-bg subscriptionExhausted" role="dialog" tabindex="-1">
+	<div [ngStyle]="{ display: visibleExhastedUser ? 'block' : 'none' }" class="modal modal-bg subscriptionExhausted"
+		role="dialog" tabindex="-1">
 		<div class="modal-dialog modal-dialog-scrollable modal-dialog-centered" role="document">
 			<div class="modal-content card bg-light">
 				<div class="text-right-close">
@@ -172,27 +190,33 @@
 							<div *ngIf="ehitlabelIsShow" class="col-md-12 px-4">
 								<div class="d-flex flex-column">
 									<div class="icon-container mb-3 p-5 mt-3">
-										<img src="../../../uniprep-assets/images/TrialExpire.png" alt="clock" width="100" />
+										<img src="../../../uniprep-assets/images/TrialExpire.png" alt="clock"
+											width="100" />
 									</div>
 									<div class="mt-3 mb-1">
 										<span>
 											<strong class="firsttimelogin">
-												<h5 style="color: rgb(63 76 131)">Oops! Your Subscription has exhausted</h5>
+												<h5 style="color: rgb(63 76 131)">Oops! Your Subscription has exhausted
+												</h5>
 											</strong>
 										</span>
 									</div>
 									<div class="mt-1 text-center">
 										<span>
 											<strong class="firsttimelogin">
-												<h2 style="color: #f0780e; margin-bottom: 0">Subscribe now to continue using the platform.</h2>
+												<h2 style="color: #f0780e; margin-bottom: 0">Subscribe now to continue
+													using the platform.</h2>
 											</strong>
 										</span>
 									</div>
 									<div class="icon-container mt-1 d-flex justify-content-center mb-1">
-										<h6 style="color: rgb(63 76 131)">Enjoy complete access to <strong>UNIPREP</strong> V 1.0</h6>
+										<h6 style="color: rgb(63 76 131)">Enjoy complete access to
+											<strong>UNIPREP</strong> V 1.0
+										</h6>
 									</div>
 									<div class="d-flex justify-content-center">
-										<button pButton  class="btn btn-primary btn-rounded me-2 ms-0 my-0" (click)="onClickSubscribedUser()" alt="chat with notification">
+										<button pButton class="btn btn-primary btn-rounded me-2 ms-0 my-0"
+											(click)="onClickSubscribedUser()" alt="chat with notification">
 											<span class="text-small fw-normal px-3">Subscribe Now</span>
 										</button>
 									</div>
@@ -201,17 +225,20 @@
 							<div *ngIf="!ehitlabelIsShow" class="col-md-12 px-4">
 								<div class="d-flex flex-column">
 									<div class="icon-container mb-3 mt-3">
-										<img src="../../../uniprep-assets/images/TrialExpire.png" alt="clock" width="100" />
+										<img src="../../../uniprep-assets/images/TrialExpire.png" alt="clock"
+											width="100" />
 									</div>
 									<div class="mt-4 mb-1">
 										<span>
 											<strong class="firsttimelogin">
-												<h5 style="color: rgb(63 76 131)">Oops! Your Subscription has exhausted</h5>
+												<h5 style="color: rgb(63 76 131)">Oops! Your Subscription has exhausted
+												</h5>
 											</strong>
 										</span>
 									</div>
 									<div class="icon-container mt-1 d-flex justify-content-center mb-1">
-										<h6 style="color: rgb(63 76 131)">Please contact {{orgnamewhitlabel}} Company for access</h6>
+										<h6 style="color: rgb(63 76 131)">Please contact {{orgnamewhitlabel}} Company
+											for access</h6>
 									</div>
 								</div>
 							</div>
@@ -223,7 +250,8 @@
 	</div>
 </div>
 
-<div *ngIf="!isDeviceStatusPopupView" [ngStyle]="{ display: isDeviceStatus }" class="modal modal-bg multiDeviceLogoutPopup" role="dialog" tabindex="-1">
+<div *ngIf="!isDeviceStatusPopupView" [ngStyle]="{ display: isDeviceStatus }"
+	class="modal modal-bg multiDeviceLogoutPopup" role="dialog" tabindex="-1">
 	<div class="modal-dialog modal-dialog-scrollable modal-dialog-centered" role="document">
 		<div class="modal-content card bg-light">
 			<div class="modal-body card-body">
@@ -237,7 +265,8 @@
 								<div class="mt-3">
 									<span>
 										<strong class="thatDevice">
-											<img src="../../uniprep-assets/images/desktop-computer.svg" class="img-fluid" />
+											<img src="../../uniprep-assets/images/desktop-computer.svg"
+												class="img-fluid" />
 										</strong>
 										<strong class="thatDevice text-center">
 											<h4>
@@ -252,15 +281,17 @@
 								</div>
 								<div class="mt-3">
 									<span style="text-align: center">
-										<p>Please note the Q&A, scholarship,investor,company lists, and startup kit documents on mobile devices may not be as optimal as the desktop view</p>
+										<p>Please note the Q&A, scholarship,investor,company lists, and startup kit
+											documents on mobile devices may not be as optimal as the desktop view</p>
 									</span>
 								</div>
 								<div class="icon-container mt-3 text-center">
-									<button pButton  class="btn btn-secondary btncontinue btn-rounded me-2 ms-0 my-0 text-center" (click)="moveToDesktop()" alt="reports">
+									<button pButton
+										class="btn btn-secondary btncontinue btn-rounded me-2 ms-0 my-0 text-center"
+										(click)="moveToDesktop()" alt="reports">
 										<span class="text-medium fw-normal px-4">
 											Continue Anyway
-											<span class="btnarrowspan"><i class="pi pi-arrow-right"></i></span
-										></span>
+											<span class="btnarrowspan"><i class="pi pi-arrow-right"></i></span></span>
 									</button>
 								</div>
 							</div>
@@ -272,59 +303,46 @@
 	</div>
 </div>
 
-<div [ngStyle]="{ display: isLoggedInAnotherDevice }" class="modal modal-bg multiDeviceLogoutPopup" role="dialog" tabindex="-1">
+<div [ngStyle]="{ display: isLoggedInAnotherDevice }" class="modal modal-bg multiDeviceLogoutPopup" role="dialog"
+	tabindex="-1">
 	<div class="modal-dialog modal-dialog-scrollable modal-dialog-centered" role="document">
 		<div class="modal-content card bg-light">
 			<div class="modal-body card-body">
 				<div class="container">
 					<div class="row mb-2">
 						<div class="col-md-12 px-4 text-center">
-                <i class="fa-solid fa-triangle-exclamation dangericon mb-2"></i>
-                <h4 class="text-center">You have logged into the portal<br>from another device</h4>
-                <h6 class="text-center">You will be automatically logged out from this device</h6>
-                <p class="notesize">Note: Please log back in from this device to use the portal again.</p>
-							</div>
+							<i class="fa-solid fa-triangle-exclamation dangericon mb-2"></i>
+							<h4 class="text-center">You have logged into the portal<br>from another device</h4>
+							<h6 class="text-center">You will be automatically logged out from this device</h6>
+							<p class="notesize">Note: Please log back in from this device to use the portal again.</p>
 						</div>
 					</div>
 				</div>
 			</div>
 		</div>
 	</div>
+</div>
 
 <!-- module how it works vedio pop up -->
-<p-dialog 
-    [(visible)]="howItWorksVideoModal"
-    [modal]="true"
-    [draggable]="false"
-    [resizable]="false"
-    [style]="{width: '90vw'}"
-    [contentStyle]="{padding: '0'}"
-    header="Video"
-    class="video-dialog">
-    <div class="video-wrapper">
-        <div class="video-container">
-            <iframe 
-                #videoFrame
-                *ngIf="howItWorksVideoLink"
-                [src]="howItWorksVideoLink"
-                width="100%"
-                height="100%"
-                frameborder="0"
-                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                allowfullscreen>
-            </iframe>
-        </div>
-    </div>
-    <ng-template pTemplate="footer">
-        <div class="flex justify-content-end gap-2">
-            <button pButton  pButton (click)="closeVideoPopup()" label="Close" class="p-button-text"></button>
-            <button pButton  pButton *ngIf="isYoutubeVideoLink(howItWorksVideoLink?.toString() || '')" 
-                    (click)="openVideoInYoutube()" 
-                    label="Open in YouTube" 
-                    class="p-button-text">
-            </button>
-        </div>
-    </ng-template>
+<p-dialog [(visible)]="howItWorksVideoModal" [modal]="true" [draggable]="false" [resizable]="false"
+	[style]="{width: '90vw'}" [contentStyle]="{padding: '0'}" header="Video" class="video-dialog">
+	<div class="video-wrapper">
+		<div class="video-container">
+			<iframe #videoFrame *ngIf="howItWorksVideoLink" [src]="howItWorksVideoLink" width="100%" height="100%"
+				frameborder="0"
+				allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+				allowfullscreen>
+			</iframe>
+		</div>
+	</div>
+	<ng-template pTemplate="footer">
+		<div class="flex justify-content-end gap-2">
+			<button pButton pButton (click)="closeVideoPopup()" label="Close" class="p-button-text"></button>
+			<button pButton pButton *ngIf="isYoutubeVideoLink(howItWorksVideoLink?.toString() || '')"
+				(click)="openVideoInYoutube()" label="Open in YouTube" class="p-button-text">
+			</button>
+		</div>
+	</ng-template>
 </p-dialog>
 <!-- <div class="modal" tabindex="-1" role="dialog" [ngClass]="{ 'd-block': howItWorksVideoModal }">
 	<div class="modal-dialog modal-xl modal-dialog-centered" role="document">
@@ -342,3 +360,22 @@
 		</div>
 	</div>
 </div> -->
+<div class="floating-buttons">
+	<!-- AI Button -->
+	<div class="floating-btn ai" (mouseenter)="hovered = 'ai'" (mouseleave)="hovered = null"
+		routerLink="/pages/advisor">
+		<div class="btn-content" [class.expanded]="hovered === 'ai'">
+			<i class="fa-regular fa-microchip-ai icon"> </i> &nbsp;
+			<span *ngIf="hovered === 'ai'" class="label"> AI Advisor </span>
+		</div>
+	</div>
+</div>
+<div class="floating-buttons1">
+	<!-- WhatsApp Button -->
+	<div class="floating-btn1 whatsapp" (mouseenter)="hovered1 = 'wa'" (mouseleave)="hovered1 = null">
+		<div class="btn-content1" [class.expanded1]="hovered1 === 'wa'">
+			<i class="fa-brands fa-whatsapp icon1"> </i> &nbsp;
+			<span *ngIf="hovered1 === 'wa'" class="label1"> 24/7 Support </span>
+		</div>
+	</div>
+</div>

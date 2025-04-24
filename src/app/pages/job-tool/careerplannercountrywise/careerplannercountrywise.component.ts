@@ -97,6 +97,10 @@ export class CareerplannercountrywiseComponent implements OnInit {
       this.restrict = true
       return
     }
+    if(this.aiCreditCount == 0){
+      this.toast.add({ severity: "error", summary: "Error", detail: "Free AI Credits Over.Please Buy Some Credits..!" });
+      return;
+    }
     this.submitted = true;
     if (this.form.valid) {
       var data = {
@@ -161,8 +165,6 @@ export class CareerplannercountrywiseComponent implements OnInit {
     }
   }
   showRecommandationData(data: any, userInputs: any) {
-    console.log(data);
-
     this.recommendationData = data
     this.isFormVisible = false;
     this.isFormChatgptresponse = true;

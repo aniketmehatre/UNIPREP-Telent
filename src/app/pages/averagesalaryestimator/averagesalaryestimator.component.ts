@@ -3,6 +3,7 @@ import { Router, RouterModule } from "@angular/router";
 import { PageFacadeService } from "../page-facade.service";
 import { AveragesalaryestimatorService } from "./averagesalaryestimator.service";
 import { CommonModule } from "@angular/common"
+import { MessageService } from 'primeng/api'
 import { DialogModule } from "primeng/dialog"
 import { SidebarModule } from "primeng/sidebar"
 import { PromptService } from "../prompt.service";
@@ -37,7 +38,8 @@ export class AverageSalaryComponent implements OnInit {
     private pageFacade: PageFacadeService,
     private service: AveragesalaryestimatorService,
     private educationService: EducationToolsService,
-    private promptService: PromptService
+    private promptService: PromptService,
+    private toast: MessageService
   ) {
     this.getJobRoles();
   }
@@ -176,6 +178,10 @@ export class AverageSalaryComponent implements OnInit {
     this.invalidClass = false;
     if (this.selectedData[5] == null) {
       this.invalidClass = true;
+      return;
+    }
+    if(this.aiCreditCount == 0){
+      this.toast.add({ severity: "error", summary: "Error", detail: "Free AI Credits Over.Please Buy Some Credits..!" });
       return;
     }
     this.preparedvisibility = true;

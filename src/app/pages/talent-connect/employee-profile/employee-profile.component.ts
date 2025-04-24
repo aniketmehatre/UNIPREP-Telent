@@ -1008,7 +1008,8 @@ export class EmployeeProfileComponent implements OnInit {
         softSkills: this.softSkills,
         fieldsOfStudy: this.fieldsOfStudy,
         graduationYears: this.graduationYears,
-        nationalityList: this.nationalityList
+        nationalityList: this.nationalityList,
+        uploadFiles: this.uploadedFiles
       },
       styleClass: 'employee-profile-dialog'
     });
@@ -1258,7 +1259,7 @@ export class EmployeeProfileComponent implements OnInit {
           education_field_id: [edu.field_id || '', Validators.required],
           education_course_name: [edu.course_name || '', Validators.required],
           education_graduation_year_id: [edu.graduation_year_id || '', Validators.required],
-          education_gpa_percentage: [edu.gpa_percentage || '']
+          education_gpa_percentage: [edu.gpa_percentage || null]
         }));
       });
     } 
@@ -1460,6 +1461,12 @@ export class EmployeeProfileComponent implements OnInit {
       .filter(value => value !== null && value !== undefined);
   }
 
+  focusInput(input: HTMLInputElement) {
+    setTimeout(() => {
+      input.focus();
+    }, 0);
+  }
+
   removeSelectedSocialMedia(value: string) {
     this.selectedSocialMedias = this.selectedSocialMedias.filter((item) => item !== value);
   }
@@ -1499,6 +1506,7 @@ export class EmployeeProfileComponent implements OnInit {
       this.jobTitles = [...this.jobTitles, { id: null, job_title: customValue }];
       control?.setValue(customValue);
     }
+
   }
 
   getWordCountUsingControl(control: FormControl) {
@@ -1510,4 +1518,16 @@ export class EmployeeProfileComponent implements OnInit {
     return wordCount;
   }
 
+
+  isNotEmptyHtml(value: string): boolean {
+    const val = value || '';
+    return !!(
+      val &&
+      val.trim() !== '' &&
+      val !== '<p></p>' &&
+      val !== '<p>&nbsp;</p>' &&
+      val.replace(/<[^>]*>/g, '').trim() !== ''
+    );
+  }
 }
+
