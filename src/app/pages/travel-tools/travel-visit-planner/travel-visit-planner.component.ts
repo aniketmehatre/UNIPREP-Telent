@@ -92,6 +92,10 @@ export class TravelVisitPlannerComponent implements OnInit {
 	getRecommendation(productId: number) {
 		this.hideWarning(productId)
 		if (!this.invalidClass) {
+			if(this.aiCreditCount == 0){
+				this.toast.add({ severity: "error", summary: "Error", detail: "Free AI Credits Over.Please Buy Some Credits..!" });
+				return;
+			}
 			let data = {
 				destination: this.selectedData[1].city_name + ', ' + this.selectedData[1].country_name,
 				trip_duration: this.selectedData[2] + " days",

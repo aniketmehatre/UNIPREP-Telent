@@ -4,6 +4,7 @@ import { Router } from '@angular/router';
 import { EducationToolsService } from '../education-tools.service';
 import { eduloanRecommendations, loanTensureMonths, moratoriumPeriods, repaymentYears, courseDuration } from './edu-loan-compare.data';
 import { CommonModule } from '@angular/common';
+import { MessageService } from 'primeng/api'
 import { RouterModule } from '@angular/router';
 import { DialogModule } from 'primeng/dialog';
 import { CardModule } from 'primeng/card';
@@ -60,6 +61,7 @@ export class EduLoanCompareComponent implements OnInit {
     private sanitizer: DomSanitizer,
     private promptService: PromptService,
     private pageFacade: PageFacadeService,
+    private toast: MessageService
   ) {
     this.form = this.fb.group({
       currency: ['', Validators.required],
@@ -115,6 +117,10 @@ export class EduLoanCompareComponent implements OnInit {
   }
 
   getRecommendation() {
+    if(this.aiCreditCount == 0){
+      this.toast.add({ severity: "error", summary: "Error", detail: "Free AI Credits Over.Please Buy Some Credits..!" });
+      return;
+    }
     let data: any = {
       ...this.form.value,
       mode: 'loan_comparison_tool'

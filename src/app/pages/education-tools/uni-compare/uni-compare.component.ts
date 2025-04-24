@@ -273,6 +273,10 @@ export class UniCompareComponent implements OnInit, OnDestroy {
       this.restrict = true;
       return;
     }
+    if(this.aiCreditCount == 0){
+      this.toast.add({ severity: "error", summary: "Error", detail: "Free AI Credits Over.Please Buy Some Credits..!" });
+      return;
+    }
     let data: any = {
       ...this.form.value,
       mode: 'uni_compare',
@@ -285,7 +289,6 @@ export class UniCompareComponent implements OnInit, OnDestroy {
       compare_university: formData.compare_university.university_name,
     }
     this.userInputs = data;
-    console.log(this.userInputs, "this.userInputs current input");
     this.isRecommendationQuestion = false;
     this.isRecommendationSavedData = false;
     this.isRecommendationData = true;

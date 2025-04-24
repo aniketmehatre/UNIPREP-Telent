@@ -78,6 +78,10 @@ export class TripLengthFinderComponent implements OnInit {
   getRecommendation(productId: number) {
     this.hideWarning(productId);
     if (!this.invalidClass) {
+      if(this.aiCreditCount == 0){
+        this.toast.add({ severity: "error", summary: "Error", detail: "Free AI Credits Over.Please Buy Some Credits..!" });
+        return;
+      }
       let data = {
         country: this.selectedData[1].city_name + ', ' + this.selectedData[1].country_name,
         mode: "trip_length_finder"
