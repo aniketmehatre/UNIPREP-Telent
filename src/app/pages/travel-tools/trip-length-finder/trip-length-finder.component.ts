@@ -53,6 +53,8 @@ export class TripLengthFinderComponent implements OnInit {
   destinationLocationList: City[] = [];
   isResponseSkeleton: boolean = false;
   aiCreditCount: number = 0;
+  userInputs: any;
+
   ngOnInit(): void {
     this.getCityList();
     this.getAICreditCount();
@@ -80,6 +82,7 @@ export class TripLengthFinderComponent implements OnInit {
         country: this.selectedData[1].city_name + ', ' + this.selectedData[1].country_name,
         mode: "trip_length_finder"
       };
+      this.userInputs = data;
       this.isResponsePage = true;
       this.isRecommendation = false;
       this.isResponseSkeleton = true;
@@ -124,11 +127,15 @@ export class TripLengthFinderComponent implements OnInit {
     })
   }
 
-  clickRecommendation(response: any) {
+  clickRecommendation(response: any, userInputs: any) {
     this.isRecommendation = false;
     this.isResponsePage = true;
     this.isSavedPage = false;
     this.recommendationData = response;
+
+    const encodedJson = userInputs;
+		const decodedInput = JSON.parse(encodedJson);
+		this.userInputs = decodedInput;
   }
 
   onSaveRes() {
@@ -136,10 +143,10 @@ export class TripLengthFinderComponent implements OnInit {
   }
 
   downloadRecommadation() {
-    let selectedCityAndCountry = this.selectedData[1].city_name + ', ' + this.selectedData[1].country_name;
+    // let selectedCityAndCountry = this.selectedData[1].city_name + ', ' + this.selectedData[1].country_name;
     let addingInput: string = `
       <p style="color: #3f4c83;"><strong>Which Destination are you planning to visit?</strong></p>
-      <p>${selectedCityAndCountry}</p>`;
+      <p>${this.userInputs.country}</p>`;
     let params: any = {
       module_name: "Trip Length Finder",
       file_name: "trip_length_finder",

@@ -51,6 +51,8 @@ export class TravelVisitPlannerComponent implements OnInit {
 	destinationLocationList: City[] = []
 	isResponseSkeleton: boolean = false;
 	aiCreditCount: number = 0;
+	userInputs: any;
+
 	ngOnInit(): void {
 		this.selectedData[2] = 1 //second page i need to show the days count so manually i enter the day.
 		this.getCityList();
@@ -96,6 +98,7 @@ export class TravelVisitPlannerComponent implements OnInit {
 				season: this.selectedData[3],
 				mode: "travel_visit_planner",
 			}
+			this.userInputs = data;
 			this.isRecommendation = false;
 			this.isResponsePage = true;
 			this.isResponseSkeleton = true;
@@ -139,11 +142,15 @@ export class TravelVisitPlannerComponent implements OnInit {
 			this.savedResponse = response.data
 		})
 	}
-	clickRecommendation(response: any) {
+	clickRecommendation(response: any, userInputs: any) {
 		this.isRecommendation = false
 		this.isResponsePage = true
 		this.isSavedPage = false
 		this.recommendationData = response
+
+		const encodedJson = userInputs;
+		const decodedInput = JSON.parse(encodedJson);
+		this.userInputs = decodedInput;
 	}
 
 	onSaveRes() {
@@ -152,16 +159,15 @@ export class TravelVisitPlannerComponent implements OnInit {
 
 	downloadRecommadation() {
 		let addingInput: string = '';
-		let selectedCityAndCountry = this.selectedData[1].city_name + ", " + this.selectedData[1].country_name;
 		this.recommendations.forEach((values) => {
 			addingInput += `<p style="color: #3f4c83;"><strong>${values.question}</strong></p>`
 			let currentAnswer = ""
 			if (values.id == 1) {
-				currentAnswer = selectedCityAndCountry
+				currentAnswer = this.userInputs.destination
 			} else if (values.id == 2) {
-				currentAnswer = `${this.selectedData[2]} Days `
+				currentAnswer = `${this.userInputs.trip_duration} Days `
 			} else if (values.id == 3) {
-				currentAnswer = `${this.selectedData[3]} Season`
+				currentAnswer = `${this.userInputs.season} Season`
 			}
 			addingInput += `<p>${currentAnswer}</p><br>`
 		});

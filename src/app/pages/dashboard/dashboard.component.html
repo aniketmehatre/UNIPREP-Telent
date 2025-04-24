@@ -257,11 +257,13 @@
 					<h5 class="mb-0 p-2 text-start"><span class="emoji">🌱</span> Trusted by 1000+ Educational Partners</h5>
 					<button class="btn btn-rounded text-small px-4 py-2 m-0 mb-2 bg-white" style="border: 1px solid rgb(161, 154, 154)" (click)="openViewMoreOrg()">View All</button>
 				</div>
-				<p-carousel [numScroll]="6" [numVisible]="6" [autoplayInterval]="3000" [circular]="true" [responsiveOptions]="responsiveOptions" [showIndicators]="true" [value]="partnerTrusterLogo" class="text-center" [indicatorStyle]="{ width: '10px', height: '10px', borderRadius: '50%' }">
-					<ng-template let-uni pTemplate="item">
-						<img alt="{{ uni.logo }}" class="trustedbylogo" src="{{ uni.logo }}" />
-					</ng-template>
-				</p-carousel>
+				<div class="mb-4">
+					<p-carousel [numScroll]="6" [numVisible]="6" [autoplayInterval]="3000" [circular]="true" [responsiveOptions]="responsiveOptions" [showIndicators]="false" [value]="partnerTrusterLogo" class="text-center" [indicatorStyle]="{ width: '10px', height: '10px', borderRadius: '50%' }">
+						<ng-template let-uni pTemplate="item">
+							<img alt="{{ uni.logo }}" class="trustedbylogo" src="{{ uni.logo }}" />
+						</ng-template>
+					</p-carousel>
+				</div>
 			</div>
 		</div>
 	</div>

@@ -3,7 +3,6 @@ import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { MessageService } from 'primeng/api';
 import { AuthService } from 'src/app/Auth/auth.service';
-import { DataService } from 'src/app/data.service';
 import { LocationService } from 'src/app/location.service';
 import { PageFacadeService } from '../../page-facade.service';
 import { EducationToolsService } from '../education-tools.service';
@@ -21,8 +20,6 @@ import { InputGroupModule } from 'primeng/inputgroup';
 import { InputTextModule } from 'primeng/inputtext';
 import { InputGroupAddonModule } from 'primeng/inputgroupaddon';
 import { uniCompareOptions } from './uni-compare.data';
-import { DownloadRespose } from 'src/app/@Models/travel-tools.model';
-import { TravelToolsService } from '../../travel-tools/travel-tools.service';
 import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
 import { PromptService } from '../../prompt.service';
 import { SharedModule } from 'src/app/shared/shared.module';
@@ -80,9 +77,7 @@ export class UniCompareComponent implements OnInit, OnDestroy {
     private toast: MessageService,
     private authService: AuthService,
     private router: Router,
-    private dataService: DataService,
     private pageFacade: PageFacadeService,
-    private travelToolService: TravelToolsService,
     private sanitizer: DomSanitizer,
     private promptService: PromptService
 
@@ -152,6 +147,7 @@ export class UniCompareComponent implements OnInit, OnDestroy {
   ];
   invalidClass: boolean = false;
   selectedData: { [key: string]: any } = {};
+  userInputs: any;
 
   ngOnInit(): void {
     this.updatePanelStyle();
@@ -298,6 +294,8 @@ export class UniCompareComponent implements OnInit, OnDestroy {
       university: formData.university.university_name,
       compare_university: formData.compare_university.university_name,
     }
+    this.userInputs = data;
+    console.log(this.userInputs, "this.userInputs current input");
     this.isRecommendationQuestion = false;
     this.isRecommendationSavedData = false;
     this.isRecommendationData = true;
@@ -357,12 +355,16 @@ export class UniCompareComponent implements OnInit, OnDestroy {
   }
 
 
-  showRecommandationData(data: string) {
+  showRecommandationData(data: string, userInputs: any) {
     this.isRecommendationQuestion = false;
     this.isRecommendationData = true;
     this.isRecommendationSavedData = false;
     this.isFromSavedData = true;
     this.recommendationData = data;
+
+    const encodedJson = userInputs;
+		const decodedInput = JSON.parse(encodedJson);
+		this.userInputs = decodedInput;
   }
 
   resetRecommendation() {
@@ -380,30 +382,6 @@ export class UniCompareComponent implements OnInit, OnDestroy {
     });
   }
 
-  // setUniversityList(name: string) {
-  //   const selected = this.universityCountryList.find((c: any) => c.country === name);
-  //   if (selected) {
-  //     this.universityList = this.allUniversityList.filter((item: any) =>
-  //       selected.id === item.country_id
-  //     );
-  //   } else {
-  //     this.universityList = this.allUniversityList;
-  //   }
-  // }
-
-  // setCompareUniversityList(name: string) {
-  //   const selected = this.universityCountryList.find((c: any) => c.country === name);
-  //   if (selected) {
-  //     this.compareUniversityList = this.allUniversityList.filter((item: any) =>
-  //       selected.id === item.country_id
-  //     );
-  //   } else {
-  //     this.compareUniversityList = this.allUniversityList;
-  //   }
-  // }
-
-
-
   onSaveRes() {
     this.toast.add({ severity: "success", summary: "Success", detail: "Response saved successfully" });
   }
@@ -411,11 +389,12 @@ export class UniCompareComponent implements OnInit, OnDestroy {
   downloadRecommadation() {
 		let addingInput: string = '';
     const formValue = ['country', 'university', 'specialization', 'fees', 'expense', 'period'];
-    const formData = this.form.value;
-    formData['country'] = formData['country'].country;
-    formData['compare_country'] = formData['compare_country'].country;
-    formData['university'] = formData['university'].university_name;
-    formData['compare_university'] = formData['compare_university'].university_name;
+    // const formData = this.form.value;
+    // formData['country'] = formData['country'].country;
+    // formData['compare_country'] = formData['compare_country'].country;
+    // formData['university'] = formData['university'].university_name;
+    // formData['compare_university'] = formData['compare_university'].university_name;
+
     let formValueIndex = 0;
     this.recommendations.forEach((category: any) => {
       addingInput += `<p><strong>${category.question.heading}</strong></p>`;
@@ -423,16 +402,16 @@ export class UniCompareComponent implements OnInit, OnDestroy {
         addingInput += `<p style="color: #3f4c83;"><strong>${branchQuestion}</strong></p>`;
         let currentAnswer = "";
         const currentFormField = formValue[formValueIndex];
-        if (formData && formData[currentFormField]) {
+        if (this.userInputs[currentFormField]) {
           switch (currentFormField) {
             case 'fees':
-              currentAnswer = `1. ${formData['currency_code']} ${formData[currentFormField]}   2. ${formData['compare_currency_code']} ${formData['compare_' + currentFormField]}`;
+              currentAnswer = `1. ${this.userInputs['currency_code']} ${this.userInputs[currentFormField]}   2. ${this.userInputs['compare_currency_code']} ${this.userInputs['compare_' + currentFormField]}`;
               break;
             case 'expense':
-              currentAnswer = `1. ${formData['currency_code']} ${formData[currentFormField]}   2. ${formData['currency_code']} ${formData['compare_expenses']}`;
+              currentAnswer = `1. ${this.userInputs['currency_code']} ${this.userInputs[currentFormField]}   2. ${this.userInputs['currency_code']} ${this.userInputs['compare_expenses']}`;
               break;
             default:
-              currentAnswer = `1. ${formData[currentFormField]}   2. ${formData['compare_' + currentFormField]} `;
+              currentAnswer = `1. ${this.userInputs[currentFormField]}   2. ${this.userInputs['compare_' + currentFormField]} `;
               break;
           }
         } else {
