@@ -45,25 +45,29 @@
 								<span class="timertext text-uppercase">Months</span>
 							</div>
 							<div class="d-flex flex-column align-items-center justify-content-center">
-								<span>:</span><span class="timertext">&nbsp;</span></div>
+								<span>:</span><span class="timertext">&nbsp;</span>
+							</div>
 							<div class="col d-flex flex-column align-items-center px-1">
 								<div class="boxView fw-semibold text-green">{{ day$ ? day$ : "0" + "" }}</div>
 								<span class="timertext text-uppercase">Days</span>
 							</div>
 							<div class="d-flex flex-column align-items-center justify-content-center">
-								<span>:</span><span class="timertext">&nbsp;</span></div>
+								<span>:</span><span class="timertext">&nbsp;</span>
+							</div>
 							<div class="col d-flex flex-column align-items-center px-1">
 								<div class="boxView fw-semibold text-green">{{ hrs$ ? hrs$ : "0" + "" }}</div>
 								<span class="timertext text-uppercase">Hrs</span>
 							</div>
 							<div class="d-flex flex-column align-items-center justify-content-center">
-								<span>:</span><span class="timertext">&nbsp;</span></div>
+								<span>:</span><span class="timertext">&nbsp;</span>
+							</div>
 							<div class="col d-flex flex-column align-items-center px-1">
 								<div class="boxView fw-semibold text-green">{{ min$ ? min$ : "0" + "" }}</div>
 								<span class="timertext text-uppercase">Mins</span>
 							</div>
 							<div class="d-flex flex-column align-items-center justify-content-center">
-								<span>:</span><span class="timertext">&nbsp;</span></div>
+								<span>:</span><span class="timertext">&nbsp;</span>
+							</div>
 							<div class="col d-flex flex-column align-items-center px-1">
 								<div class="boxView fw-semibold text-green">{{ sec$ ? sec$ : "0" + "" }}</div>
 								<span class="timertext text-uppercase">Sec</span>
@@ -147,22 +151,28 @@
 							<i class="ps-1 pe-2 fa-solid fa-hourglass-end h4 mb-0 uniprep-secondary"></i>
 						</div>
 						<div class="d-flex me-2">
-							<!--							<div class="col d-flex flex-column align-items-center px-1">-->
-							<!--								<div class="boxView fw-semibold text-green">{{ day + "" }}</div>-->
-							<!--								<span class="timertext text-uppercase">Days</span>-->
-							<!--							</div>-->
+							<div class="col d-flex flex-column align-items-center px-1">
+								<div class="boxView fw-semibold text-green">{{ month$ ? month$ : "0" + "" }}</div>
+								<span class="timertext text-uppercase">Month</span>
+							</div>
+							<div class="col d-flex flex-column align-items-center px-1">
+								<div class="boxView fw-semibold text-green">{{ day$ ? day$ : "0" + "" }}</div>
+								<span class="timertext text-uppercase">Days</span>
+							</div>
 							<div class="col d-flex flex-column align-items-center px-1">
 								<div class="boxView fw-semibold text-green">{{ hrs$ ? hrs$ : "0" + "" }}</div>
 								<span class="timertext text-uppercase">Hrs</span>
 							</div>
 							<div class="d-flex flex-column align-items-center justify-content-center">
-								<span>:</span><span class="timertext">&nbsp;</span></div>
+								<span>:</span><span class="timertext">&nbsp;</span>
+							</div>
 							<div class="col d-flex flex-column align-items-center px-1">
 								<div class="boxView fw-semibold text-green">{{ min$ ? min$ : "0" + "" }}</div>
 								<span class="timertext text-uppercase">Mins</span>
 							</div>
 							<div class="d-flex flex-column align-items-center justify-content-center">
-								<span>:</span><span class="timertext">&nbsp;</span></div>
+								<span>:</span><span class="timertext">&nbsp;</span>
+							</div>
 							<div class="col d-flex flex-column align-items-center px-1">
 								<div class="boxView fw-semibold text-green">{{ sec$ ? sec$ : "0" + "" }}</div>
 								<span class="timertext text-uppercase">Sec</span>
@@ -515,8 +525,7 @@
 							<p class="centertitle mt-2">Enter your Whatsapp number to continue the experinence</p>
 							<div class="otp-container m-4">
 								<input *ngFor="let digit of otpArray; let i = index" type="text" maxlength="1"
-									class="otp-box" [id]="'otp-' + i" [(ngModel)]="otp[i]"
-									formControlName="otp"
+									class="otp-box" [id]="'otp-' + i" [(ngModel)]="otp[i]" formControlName="otp"
 									(input)="onInputOTP($event, i)" (keydown)="onKeydownOPT($event, i)" />
 							</div>
 							<div class="d-flex justify-content-center m-3 gap-3">
@@ -567,22 +576,18 @@
 						<div class="w-100 phonenumberblock d-none" *ngIf="formvisbility">
 							<p class="m-1">Enter your number to continue the experience</p>
 							<ngx-intl-tel-input class="intel-input w-100"
-                                [cssClass]="isPhoneDisabled ? 'custom disabled' : 'custom'"
+								[cssClass]="isPhoneDisabled ? 'custom disabled' : 'custom'"
 								[preferredCountries]="['in', 'gb']" [enableAutoCountrySelect]="true"
 								[enablePlaceholder]="true" [searchCountryFlag]="true" [maxLength]="15"
 								[searchCountryField]="[SearchCountryField.Iso2, SearchCountryField.Name]"
 								[phoneValidation]="true" [selectedCountryISO]="preferredCountry"
-                                                [(ngModel)]="phoneNumber"
-                                                [disabled]="isPhoneDisabled"
-                                                [attr.disabled]="isPhoneDisabled"
-                                                customPlaceholder="Enter Contact Number"
-                                                formControlName="phone"></ngx-intl-tel-input>
+								[(ngModel)]="phoneNumber" [disabled]="isPhoneDisabled" [attr.disabled]="isPhoneDisabled"
+								customPlaceholder="Enter Contact Number" formControlName="phone"></ngx-intl-tel-input>
 						</div>
 						<div class="w-100 phonenumberblock mt-2" *ngIf="formvisbility">
 							<p class="m-1">Select Your Home Country</p>
 							<p-select class="w-100" formControlName="home_country" appendTo="body"
-								[options]="indiaHomeCountry" [filter]="true" placeholder="Country"
-                                      [autofocus]="true"
+								[options]="indiaHomeCountry" [filter]="true" placeholder="Country" [autofocus]="true"
 								(onChange)="changeLocation($event)" filterBy="country" optionLabel="country"
 								optionValue="id" [autoDisplayFirst]="false" styleClass="custom-dropdown"></p-select>
 						</div>
