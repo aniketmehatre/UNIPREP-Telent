@@ -85,7 +85,6 @@ interface ProfileData {
   }>;
   additionalInfo: string;
 }
-
 @Component({
   selector: 'uni-view-profile',
   standalone: true,
@@ -118,6 +117,8 @@ export class ViewProfileComponent implements OnInit {
   softSkills: any[] = [];
   nationalityList: any[] = [];
   logo: any;
+  files: Record<string, any> = {};
+
   // Define a single profile data object
   profileData: ProfileData = {
     personalInfo: {
@@ -236,7 +237,7 @@ export class ViewProfileComponent implements OnInit {
         this.fieldsOfStudy = data?.fieldsOfStudy,
         this.graduationYears = data?.graduationYears,
         this.nationalityList = data?.nationalityList
-
+      this.files = data?.uploadFiles
       this.profileData = this.mapToProfileData(this.config.data.profileData);
     }
 
@@ -247,9 +248,7 @@ export class ViewProfileComponent implements OnInit {
     );
   }
 
-  downloadFile(filename: string): void {
-    window.open(filename, '_blank');
-  }
+
 
   public getListValue(list: any[], id: number | number[], key: string): string {
     if (!list) return ""; // Return empty string if list is null/undefined
