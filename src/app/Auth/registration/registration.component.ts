@@ -1,26 +1,26 @@
-import {Component, CUSTOM_ELEMENTS_SCHEMA, ElementRef, OnInit, ViewChild} from "@angular/core"
-import {FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators} from "@angular/forms"
-import {Router, RouterModule} from "@angular/router"
-import {matchValidator} from "src/app/@Supports/matchvalidator"
-import {LocationService} from "src/app/location.service"
-import {AuthService} from "../auth.service"
-import {MessageService} from "primeng/api"
-import {CountryISO, NgxIntlTelInputModule, SearchCountryField} from "ngx-intl-tel-input"
-import {environment} from "@env/environment"
-import {LocalStorageService} from "ngx-localstorage"
-import {SubSink} from "subsink"
-import {FluidModule} from "primeng/fluid"
-import {CommonModule} from "@angular/common"
-import {PasswordModule} from "primeng/password"
-import {InputTextModule} from "primeng/inputtext"
-import {InputIconModule} from "primeng/inputicon"
-import {InputGroupModule} from "primeng/inputgroup"
-import {InputGroupAddonModule} from "primeng/inputgroupaddon"
-import {InputOtpModule} from "primeng/inputotp"
-import {ToastModule} from "primeng/toast"
-import {SelectModule} from "primeng/select"
-import {GoogleSigninButtonModule, SocialAuthService, SocialLoginModule,} from '@abacritt/angularx-social-login';
-import {ButtonDirective} from "primeng/button";
+import { Component, CUSTOM_ELEMENTS_SCHEMA, ElementRef, OnInit, ViewChild } from "@angular/core"
+import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators } from "@angular/forms"
+import { Router, RouterModule } from "@angular/router"
+import { matchValidator } from "src/app/@Supports/matchvalidator"
+import { LocationService } from "src/app/location.service"
+import { AuthService } from "../auth.service"
+import { MessageService } from "primeng/api"
+import { CountryISO, NgxIntlTelInputModule, SearchCountryField } from "ngx-intl-tel-input"
+import { environment } from "@env/environment"
+import { LocalStorageService } from "ngx-localstorage"
+import { SubSink } from "subsink"
+import { FluidModule } from "primeng/fluid"
+import { CommonModule } from "@angular/common"
+import { PasswordModule } from "primeng/password"
+import { InputTextModule } from "primeng/inputtext"
+import { InputIconModule } from "primeng/inputicon"
+import { InputGroupModule } from "primeng/inputgroup"
+import { InputGroupAddonModule } from "primeng/inputgroupaddon"
+import { InputOtpModule } from "primeng/inputotp"
+import { ToastModule } from "primeng/toast"
+import { SelectModule } from "primeng/select"
+import { GoogleSigninButtonModule, SocialAuthService, SocialLoginModule, } from '@abacritt/angularx-social-login';
+import { ButtonDirective } from "primeng/button";
 
 @Component({
 	selector: "app-registration",
@@ -103,7 +103,7 @@ export class RegistrationComponent implements OnInit {
 		// private fb: FacebookService,
 		private authService: SocialAuthService,
 		private storage: LocalStorageService
-	) {}
+	) { }
 
 	dateTime = new Date()
 	private subs = new SubSink()
@@ -147,7 +147,7 @@ export class RegistrationComponent implements OnInit {
 
 		this.password = "password"
 		this.registrationForm = this.formBuilder.group({
-			fullName: ["", [Validators.required]],
+			fullName: ["", [Validators.required, Validators.pattern(/^[a-zA-Z ]+$/)]],
 			emailAddress: ["", [Validators.required, Validators.email]],
 			password: ["", [Validators.required, Validators.minLength(8), matchValidator("confirmPassword", true)]],
 			confirmPassword: ["", [Validators.required, matchValidator("password")]],
@@ -392,23 +392,38 @@ export class RegistrationComponent implements OnInit {
 	}
 
 	sendEmailOTP() {
-		const data = {
-			name: this.registrationForm.value.fullName,
-			email: this.registrationForm.value.emailAddress,
+		const name = this.registrationForm.value.fullName;
+		const email = this.registrationForm.value.emailAddress;
+		if (name && email) {
+			const nameRegex = /^[a-zA-Z\s]+$/;
+			if (!nameRegex.test(name)) {
+				this.toastr.add({
+					severity: "error",
+					summary: "Invalid Name",
+					detail: "Name should not contain special characters or numbers."
+				});
+				return;
+			}
+			const data = {
+				name: this.registrationForm.value.fullName,
+				email: this.registrationForm.value.emailAddress,
+			}
+			this.service.sendOtp(data).subscribe(
+				(res) => {
+					this.isEmailOTPSend = true
+					this.registrationForm.controls["emailAddress"].readonly = true
+					this.toastr.add({ severity: "success", summary: "Success", detail: "OTP sent to your email." })
+				},
+				(error) => {
+					const errorMessage = error?.error?.message || "Failed to send OTP.";
+					this.toastr.add({ severity: "error", summary: "Error", detail: errorMessage });
+					//this.toastr.add({ severity: "error", summary: "Error", detail: error.message || "Failed to send OTP." || "This email has already been taken."})
+				}
+			)
+		} else {
+			this.toastr.add({ severity: "error", summary: "Error", detail: 'Fill required fields' });
 		}
 
-		this.service.sendOtp(data).subscribe(
-			(res) => {
-				this.isEmailOTPSend = true
-				this.registrationForm.controls["emailAddress"].readonly = true
-				this.toastr.add({ severity: "success", summary: "Success", detail: "OTP sent to your email." })
-			},
-			(error) => {
-				const errorMessage = error?.error?.message || "Failed to send OTP.";
-				this.toastr.add({ severity: "error", summary: "Error", detail: errorMessage });
-				//this.toastr.add({ severity: "error", summary: "Error", detail: error.message || "Failed to send OTP." || "This email has already been taken."})
-			}
-		)
 	}
 
 	onValidateEmailOTP() {
