@@ -1,6 +1,14 @@
 :host {
     display: block;
-    font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+    // font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+  }
+
+  body {
+    font-family: "Poppins", sans-serif !important;
+    overflow: auto !important;
+  }
+  .poppins {
+    font-family: "Poppins", sans-serif !important;
   }
   
   .learning-hub-container {
@@ -101,6 +109,9 @@
       width: 100%;
       border-radius: 10px;
       box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+      height: auto;
+      max-height: 500px;
+      object-fit: fill;
     }
   }
   
@@ -200,10 +211,11 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
-	border-radius: 1.5rem;
-	border: 1px solid #e6ddfe08;
-	background: linear-gradient(0deg, rgba(255, 255, 255, 0) 0%, rgba(255, 255, 255, 0.05) 100%);
-	box-shadow: 0px 10px 25px 0px rgba(230, 221, 254, 0.1) inset;
+    position: relative;
+	  border-radius: 1.5rem;
+	  border: 1px solid #e6ddfe08;
+	  background: linear-gradient(0deg, rgba(255, 255, 255, 0) 0%, rgba(255, 255, 255, 0.05) 100%);
+	  box-shadow: 0px 10px 25px 0px rgba(230, 221, 254, 0.1) inset;
     padding: 1.5rem;
     margin-bottom: 1rem;
   }
@@ -225,6 +237,7 @@
   
   .steps-image {
     flex: 1;
+    // padding: 40px;
     img {
       width: 100%;
       border-radius: 10px;
@@ -385,4 +398,41 @@
     right: 0;
     height: 200px; /* Adjust this value to change the height of the gradient */
     // background: linear-gradient(to top, #07070b, transparent);
+  }
+
+  // .designedicon {
+  //   width: 60px;
+  //   height: 60px;
+  //   display: flex;
+  //   justify-content: center;
+  //   align-items: center;
+  //   background-color: #41230b;
+  //   border: 1px solid #723b0b;
+  //   border-radius: 100px;
+  // }
+  // .numbericon {
+  //   width: 50px;
+  //   text-align: center;
+  //   z-index: 1;
+  //   position: absolute;
+  //   right: 6rem;
+  //   top: 50%;
+  //   transform: translateY(-50%);
+  //   opacity: 0.1;
+  // }
+  // .featureimage {
+  //   border-radius: 10px;
+  //   overflow: hidden;
+  //   border: 1px solid #07070b;
+  // }
+
+  .numbericon {
+    width: 50px;
+    text-align: center;
+    z-index: 1;
+    position: absolute;
+    right: 6rem;
+    top: 50%;
+    transform: translateY(-50%);
+    opacity: 0.1;
   }

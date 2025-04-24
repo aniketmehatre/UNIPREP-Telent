@@ -30,7 +30,7 @@
           <source [src]="'https://'+environment.domain+'/uniprepapi/storage/app/public/Landing/welcome.mp4'" type="video/mp4" />
         </video>
       </div> -->
-      <img [src]="landingPageData?.herocover.video_cover_image ?? 'uniprep-assets/images/screenshot.png'" alt="Learning Hub Dashboard" />
+      <img [src]="landingPageData?.herocover.image_url ?? 'uniprep-assets/images/screenshot.png'" alt="Learning Hub Dashboard" />
     </div>
   </div>
 
@@ -62,17 +62,18 @@
     <h2 class="section-title">How it Works?</h2>
     
     <div class="row gap-2">
-      <div class="col-md-4">
+      <div class="col-md-5">
         <div *ngFor="let step of howitsWorks" class="step-item" (click)="selectedStep = step;">
           <div class="step-content">
             <h3 class="step-title">Step {{ step.step }}</h3>
             <p class="step-description">{{ step.itswork_title }}</p>
           </div>
           <!-- <div class="step-icon">{{ step.icon }}</div> -->
+          <h1 class="numbericon">{{ step.step }}</h1>
         </div>
       </div>
       
-      <div class="steps-image col-md-9" *ngIf="selectedStep">
+      <div class="steps-image col-md-8" *ngIf="selectedStep">
         <img [src]="selectedStep?.feature_image_url" alt="Platform Preview" />
       </div>
     </div>

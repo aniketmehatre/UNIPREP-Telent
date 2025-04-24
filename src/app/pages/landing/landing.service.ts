@@ -39,4 +39,8 @@ export class landingServices {
     getLandingPageData(val: any){
       return this.http.post<any>(`${environment.ApiUrl}/landingpageedit`, {id: val});
     }
+
+  getManagementTeamMembersList(data: any) {
+    return this.http.post<any>(`${environment.ApiUrl}/landingpageactivemanagement`, data);
+  }
 }
