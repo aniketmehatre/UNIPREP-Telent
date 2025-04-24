@@ -47,6 +47,8 @@ export class AverageSalaryPreparedListComponent implements OnInit {
   EstimateResponseVisibility = true;
   selectedJobRole: any;
   aiCreditCount: number = 0;
+  userInputs: any;
+
   @Input() prepData: any;
   @Input() recommendationsData: { id: number, question: string }[];
   @Output() windowChange = new EventEmitter();
@@ -64,6 +66,13 @@ export class AverageSalaryPreparedListComponent implements OnInit {
     private promptService: PromptService
   ) { }
   ngOnInit(): void {
+    this.userInputs = {
+      role: this?.prepData?.role,
+      location_name: this?.prepData?.location_name,
+      workplace_type_name: this?.prepData?.workplace_type_name,
+      worktype_name: this?.prepData?.worktype_name,
+      experience: this?.prepData?.experience,
+    }
     this.selectedJobRole = this?.prepData?.role;
     this.aiCreditCount = this.prepData.aiCredit;
     this.getEstimateResponse();
@@ -96,21 +105,21 @@ export class AverageSalaryPreparedListComponent implements OnInit {
       addingInput += `<p style="color: #3f4c83;"><strong>${values.question}</strong></p>`;
       let currentAnswer = "";
       if (values.id == 1) {
-        currentAnswer = this.prepData.role;
+        currentAnswer = this.userInputs.role;
       } else if (values.id == 2) {
-        if (this.prepData.experience === 1) {
+        if (this.userInputs.experience === 1) {
           currentAnswer = " Fresher";
         } else {
-          currentAnswer = `${this.prepData.experience} ${this.prepData.experience === 1 ? "Year" : "Years"}`;
+          currentAnswer = `${this.userInputs.experience} ${this.userInputs.experience === 1 ? "Year" : "Years"}`;
         }
       } else if (values.id == 3) {
-        currentAnswer = this.prepData.worktype_name;
+        currentAnswer = this.userInputs.worktype_name;
       } else if (values.id == 4) {
-        currentAnswer = this.prepData.location_name;
+        currentAnswer = this.userInputs.location_name;
       } else if (values.id == 5) {
-        currentAnswer = this.prepData.workplace_type_name;
+        currentAnswer = this.userInputs.workplace_type_name;
       } else if (values.id == 6) {
-        currentAnswer = this.prepData.currency;
+        currentAnswer = this.userInputs.currency;
       }
       addingInput += `<p>${currentAnswer}</p><br>`;
     });
@@ -221,20 +230,15 @@ export class AverageSalaryPreparedListComponent implements OnInit {
       }
     );
   }
-  // changeType(event: any) {
-  //   let tabIndex = event.index;
-  //   if (tabIndex == 0) {
-  //     this.getEstimateResponse();
-  //     this.EstimateResponseVisibility = true;
-  //   } else {
-  //     this.getSavedResponse();
-  //     this.EstimateResponseVisibility = false;
-  //   }
-  // }
+
   readResponse = false;
   savedresponseData: any;
   readSavedResponse(savedResponse: any) {
+    const encodedJson = savedResponse.user_inputs;
+		const decodedInput = JSON.parse(encodedJson);
+		this.userInputs = decodedInput;
     this.savedresponseData = savedResponse;
+    this.EstimateResponse = savedResponse.answer;
     this.readResponse = true;
   }
 

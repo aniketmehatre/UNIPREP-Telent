@@ -25,7 +25,6 @@ export interface selectList {
   name: string;
 }
 import { marketingAnalysisData } from './marketing-analysis.data';
-import { TravelToolsService } from '../../travel-tools/travel-tools.service';
 import { PromptService } from '../../prompt.service';
 import { SkeletonModule } from 'primeng/skeleton';
 import { SharedModule } from 'src/app/shared/shared.module';

@@ -25,6 +25,7 @@ import { TooltipModule } from "primeng/tooltip"
 import { DomSanitizer, SafeHtml } from "@angular/platform-browser"
 import { PromptService } from "../../prompt.service"
 import { SharedModule } from "src/app/shared/shared.module"
+import { log } from "node:console"
 
 @Component({
 	selector: "uni-travel-cost-estimator",
@@ -62,6 +63,8 @@ export class TravelCostEstimatorComponent implements OnInit {
 		this.selectedData = { 3: 1 }
 		this.getCityList();
 		this.getAICreditCount();
+		console.log(this.recommendationData, "recommendation data");
+		
 	}
 
 	getCityList() {

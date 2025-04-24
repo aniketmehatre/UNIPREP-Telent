@@ -64,6 +64,7 @@ export class GlobalEdufitComponent implements OnInit {
   recommendationData: SafeHtml;
   isResponseSkeleton: boolean = false;
   aiCreditCount: number = 0;
+  userInputs: any;
 
   constructor(
     private fb: FormBuilder,
@@ -214,6 +215,8 @@ export class GlobalEdufitComponent implements OnInit {
       interested_country: formData.interested_country.country,
       mode: 'global_edufit'
     }
+    this.userInputs = data;
+    console.log(this.userInputs, "current user inputs");
     this.isRecommendationQuestion = false;
     this.isRecommendationSavedData = false;
     this.isRecommendationData = true;
@@ -278,12 +281,16 @@ export class GlobalEdufitComponent implements OnInit {
     // }
   }
 
-  showRecommandationData(data: string) {
+  showRecommandationData(data: string, userInputs: any) {
     this.isRecommendationQuestion = false;
     this.isRecommendationData = true;
     this.isRecommendationSavedData = false;
     this.isFromSavedData = true;
     this.recommendationData = data;
+
+    const encodedJson = userInputs;
+		const decodedInput = JSON.parse(encodedJson);
+		this.userInputs = decodedInput;
   }
 
   resetRecommendation() {
@@ -306,7 +313,7 @@ export class GlobalEdufitComponent implements OnInit {
   downloadRecommadation() {
     let addingInput: string = '';
     const formValue = ['interested_country', 'university', 'specialization', 'fees', 'cost_estimation', 'period'];
-    const formData = this.form.value;
+    // const formData = this.form.value;
     let formValueIndex = 0;
     this.recommendations.forEach((category: any) => {
       addingInput += `<p><strong>${category.question.heading}</strong></p>`;
@@ -314,18 +321,20 @@ export class GlobalEdufitComponent implements OnInit {
         addingInput += `<p style="color: #3f4c83;"><strong>${branchQuestion}</strong></p>`;
         let currentAnswer = "";
         const currentFormField = formValue[formValueIndex];
-        if (formData && formData[currentFormField]) {
+        if (this.userInputs[currentFormField]) {
           if (currentFormField == 'fees' || currentFormField == 'cost_estimation') {
-            currentAnswer = formData['currency_code'] + ' ' + formData[currentFormField];
+            currentAnswer = this.userInputs['currency_code'] + ' ' + this.userInputs[currentFormField];
           }
           else if (currentFormField == 'interested_country') {
-            currentAnswer = formData['interested_country'].country
+            // currentAnswer = this.userInputs['interested_country']?.country
+            currentAnswer = this.userInputs['interested_country']
           }
           else if (currentFormField == 'university') {
-            currentAnswer = formData['university'].university_name
+            // currentAnswer = this.userInputs['university']?.university_name
+            currentAnswer = this.userInputs['university']
           }
           else {
-            currentAnswer = formData[currentFormField];
+            currentAnswer = this.userInputs[currentFormField];
           }
         } else {
           currentAnswer = "No answer provided";
