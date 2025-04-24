@@ -76,6 +76,10 @@
 					</div>
 				</div>
 			</div>
+			<div class="" style="overflow-y: auto; text-align: end;">
+				<button pButton class="history-Button" (click)="historyPage()">History
+					</button>
+			</div>
 		</div>
 	</div>
 </div>
@@ -119,6 +123,9 @@
 				<div class="d-flex justify-content-center align-items-center">
 					<button pButton class="downloadButton" (click)="downloadResume()">Download &nbsp;&nbsp;&nbsp;<i
 							class="fa-solid fa-download tickIcon"></i></button>
+					<button pButton class="history-Button2" (click)="historyPage()">History
+					</button>
+				
 				</div>
 			</div>
 			<div class="col-md-12 d-flex justify-content-center" style="height: 80%">
@@ -367,15 +374,7 @@
 									</div>
 									<div class="form-group">
 										<div class="mb-3">
-											<!-- <div *ngIf="isResponseSkeleton;" class="card p-3 chatgpt-response bg-white h-100 overflow-y-auto">
-												<p-skeleton width='30rem' height='2rem' styleClass="mb-2"></p-skeleton>
-												<p-skeleton width='100%' height='1rem' styleClass="mb-2"></p-skeleton>
-												<p-skeleton width='100%' height='1rem' styleClass="mb-2"></p-skeleton>
-												<div class="d-flex justify-content-end">
-													<uni-percentage-loader />
-												</div>
-											</div> -->
-											<p-editor #editorRef [style]="{ height: 'auto' }" class="mt-2"
+											<p-editor [style]="{ height: 'auto' }" class="mt-2"
 												formControlName="job_description" placeholder="Job Description"
 												[modules]="editorModules"></p-editor>
 											<div *ngIf="submitted && f['job_description'].errors"
