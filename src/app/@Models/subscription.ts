@@ -31,24 +31,24 @@ export interface SubscriptionPlanResponse {
 export interface PlaceOrderResponse {
     orderid: string;
 }
-export interface PlaceCustomOrderResponse{
-    orderid:string;
+export interface PlaceCustomOrderResponse {
+    orderid: string;
 }
 
 export interface SubscriptionDetailResponse {
-    billinginfo:  Billinginfo;
+    billinginfo: Billinginfo;
     subscription: Subscription;
     orderHistory: OrderHistory[];
 }
 
 export interface Billinginfo {
-    name:     string;
-    mobile:   string;
-    email:    string;
-    country:  string;
+    name: string;
+    mobile: string;
+    email: string;
+    country: string;
     location: string;
 }
-export interface customsopSubscriptionplans{
+export interface customsopSubscriptionplans {
 
     id: number;
     subscription: string;
@@ -77,20 +77,20 @@ export interface customsopSubscriptionplans{
 }
 export interface OrderHistory {
     subscriptionName: string;
-    refrence:         string;
-    created_at:       Date;
-    amount:           string;
-    payment:          number;
-    id:               number;
-    date:             string;
-    orderId:          number;
+    refrence: string;
+    created_at: Date;
+    amount: string;
+    payment: number;
+    id: number;
+    date: string;
+    orderId: number;
 }
 
 export interface Subscription {
-    name:       string;
-    checks:     number;
-    price:      string;
-    desc:       string[];
+    name: string;
+    checks: number;
+    price: string;
+    desc: string[];
     checksLeft: number;
 }
 
@@ -109,7 +109,7 @@ export interface SubscriptionTopup {
     success: boolean;
     topups: Topup[];
 }
-  
+
 export interface Topup {
     id: number;
     name: string;
@@ -123,4 +123,28 @@ export interface Topup {
     created_at: any;
     updated_at: any;
     countryNames: string;
+}
+
+
+export interface SubscriptionResponse {
+    enterprise_subscription_plan: string
+    enterprise_subscription_link: string
+    success: boolean
+    subscription_details: SubscriptionDetails
+    time_left: TimeLeft
+}
+
+export interface SubscriptionDetails {
+    subscription_id: number
+    subscription_plan: string
+}
+
+export interface TimeLeft {
+    years: number
+    months: number
+    days: number
+    hours: number
+    minutes: number
+    seconds: number
+    plan: string
 }

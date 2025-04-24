@@ -198,23 +198,15 @@ export class AdvisorComponent implements OnInit {
 	openVideoPopup(videoLink: string) {
 		this.pageFacade.openHowitWorksVideoPopup(videoLink)
 	}
+
 	checkplanExpire() {
-		this.authService.getNewUserTimeLeft().subscribe((res) => {
-			let data = res.time_left
-			// let subscription_exists_status = res.subscription_details;
-			// this.currentPlan = subscription_exists_status.subscription_plan;
-			//subscription_exists_status.subscription_plan === 'free_trail' //checking if the free trail is there or not.
-			if (data.plan === "expired" || data.plan === "subscription_expired") {
-				this.planExpired = true
-			} else {
-				this.planExpired = true
-			}
-		})
+		if (this.authService._userSubscrition.time_left.plan === "expired" ||
+			this.authService._userSubscrition.time_left.plan === "subscription_expired") {
+			this.planExpired = true
+		}
+		else {
+			this.planExpired = false
+		}
 	}
-	upgradePlan() {
-		this.router.navigate(["/pages/subscriptions"])
-	}
-	clearRestriction() {
-		this.restrict = false
-	}
+
 }

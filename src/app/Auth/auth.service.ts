@@ -14,6 +14,7 @@ import { authFeature } from "./store/reducer";
 import { NGX_LOCAL_STORAGE_CONFIG } from "ngx-localstorage";
 import { AuthTokenService } from "../core/services/auth-token.service";
 import { StorageService } from "../storage.service";
+import { SubscriptionResponse } from "../@Models/subscription";
 const ngxLocalstorageConfiguration = NGX_LOCAL_STORAGE_CONFIG as unknown as { prefix: string, delimiter: string };
 
 @Injectable({
@@ -35,6 +36,7 @@ export class AuthService {
   // Add cache for getMe
   private getMeCache$: Observable<any> | null = null;
   private readonly CACHE_DURATION = 300000; // 5 minutes cache duration
+  _userSubscrition!: SubscriptionResponse;
 
   constructor(
     private http: HttpClient,
@@ -452,13 +454,14 @@ export class AuthService {
   //         headers: headers,
   //     });
   // }
-
   private dataCache$: Observable<any> | null = null;
   getNewUserTimeLeft(): Observable<any> {
     const headers = new HttpHeaders().set("Accept", "application/json");
     if (!this.dataCache$) {
-      this.dataCache$ = this.http.post<any>(environment.ApiUrl + "/getsubscriptiontimeleft", { headers: headers }).pipe(
-        tap((data) => { }),
+      this.dataCache$ = this.http.post<SubscriptionResponse>(environment.ApiUrl + "/getsubscriptiontimeleft", { headers: headers }).pipe(
+        tap((data) => {
+          this._userSubscrition = data;
+        }),
         shareReplay(1)
       );
     }
