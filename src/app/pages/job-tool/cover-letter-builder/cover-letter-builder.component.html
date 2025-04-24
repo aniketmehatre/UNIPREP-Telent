@@ -257,6 +257,10 @@
 												[filterBy]="'name'" placeholder="Select Country Code"
 												formControlName="country_code" optionLabel="name"
 												optionValue="code"></p-select>
+											<div *ngIf="submitted && f['country_code'].errors"
+												class="text-danger text-xs">
+												<div *ngIf="f['country_code'].errors">Country Code Required</div>
+											</div>
 										</div>
 									</div>
 								</div>

@@ -51,7 +51,7 @@ interface City {
 	styleUrls: ["./cover-letter-builder.component.scss"],
 	standalone: true,
 	imports: [CommonModule,ConfirmPopup, EditorModule, DialogModule, SidebarModule, SkeletonModule, PdfViewerModule, RouterModule, CardModule, PaginatorModule, FormsModule, ReactiveFormsModule, CarouselModule, ButtonModule, MultiSelectModule, SelectModule, InputGroupModule, InputTextModule, InputGroupAddonModule, TextareaModule],
-	providers: [CvBuilderService, ConfirmationService, TooltipModule,SkeletonModule],
+	providers: [CvBuilderService, ConfirmationService, TooltipModule],
 })
 export class CoverLetterBuilderComponent implements OnInit, AfterViewInit {
 	@ViewChild("pdfViewer") pdfViewer: any
