@@ -219,6 +219,10 @@ export class BusinessForecastingToolComponent implements OnInit {
 			this.restrict = true
 			return
 		}
+		if(this.aiCreditCount == 0){
+			this.toast.add({ severity: "error", summary: "Error", detail: "Free AI Credits Over.Please Buy Some Credits..!" });
+			return;
+		}
 		let data: any = {
 			...this.form.value,
 			mode: "revenue_forescasting_tool",

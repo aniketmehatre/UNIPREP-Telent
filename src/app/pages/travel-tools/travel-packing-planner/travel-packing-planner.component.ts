@@ -115,6 +115,10 @@ export class TravelPackingPlannerComponent implements OnInit {
 	}
 
 	getRecommendation() {
+		if(this.aiCreditCount == 0){
+			this.toast.add({ severity: "error", summary: "Error", detail: "Free AI Credits Over.Please Buy Some Credits..!" });
+			return;
+		  }
 		let data: any = {
 			destination: this.selectedData[1].city_name + ", " + this.selectedData[1].country_name,
 			travel_type: this.selectedData[2],

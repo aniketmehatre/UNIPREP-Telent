@@ -185,6 +185,10 @@ export class StudentBudgetPlannerComponent implements OnInit {
     this.pageFacade.openHowitWorksVideoPopup(videoLink);
   }
   submit() {
+    if(this.aiCreditCount == 0){
+      this.toastr.add({ severity: "error", summary: "Error", detail: "Free AI Credits Over.Please Buy Some Credits..!" });
+      return;
+    }
     this.isOldResponse = true;
     Object.entries(this.selectedData).forEach(([key, value]) => {
       if (key === 'country') {
