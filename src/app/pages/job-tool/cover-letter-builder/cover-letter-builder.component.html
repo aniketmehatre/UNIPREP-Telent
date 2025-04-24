@@ -78,7 +78,7 @@
 			</div>
 			<div class="" style="overflow-y: auto; text-align: end;">
 				<button pButton class="history-Button" (click)="historyPage()">History
-					</button>
+				</button>
 			</div>
 		</div>
 	</div>
@@ -125,7 +125,7 @@
 							class="fa-solid fa-download tickIcon"></i></button>
 					<button pButton class="history-Button2" (click)="historyPage()">History
 					</button>
-				
+
 				</div>
 			</div>
 			<div class="col-md-12 d-flex justify-content-center" style="height: 80%">
@@ -367,11 +367,12 @@
 											<label class="uniprep-primarydark fw-bold h6 mb-0">Job Description</label>
 										</div>
 										<div>
-											<button *ngIf="generateDesBtnDisable" pButton type="button"
-												class="deleteDivButton m-2 p-2"
+											<button pButton *ngIf="generateDesBtnDisable" type="button" class="deleteDivButton m-2 p-2"
+												[loading]="chatGptButtonLoader"
 												(click)="chatGPTIntegration('generate_description')"
 												style="background-color: #9bc329">AI Generate</button>
 											<button *ngIf="rephraseDesBtnDisable" pButton type="button"
+												[loading]="chatGptButtonLoader"
 												class="deleteDivButton m-2 p-2 bg-secondary"
 												(click)="chatGPTIntegration('rephrase_description')">Rephrase</button>
 										</div>
@@ -401,11 +402,11 @@
 										</div>
 										<div>
 											<button pButton *ngIf="generateConBtnDisable" type="button"
-												class="deleteDivButton m-2 p-2"
+												class="deleteDivButton m-2 p-2" [loading]="chatGptButtonLoaderSummary"
 												(click)="chatGPTIntegration('generate_summary')"
 												style="background-color: #9bc329">AI Generate</button>
 											<button pButton *ngIf="rephraseconBtnDisable" type="button"
-												class="deleteDivButton m-2 p-2 bg-secondary"
+												class="deleteDivButton m-2 p-2 bg-secondary" [loading]="chatGptButtonLoaderSummary"
 												(click)="chatGPTIntegration('rephrase_summary')">Rephrase</button>
 										</div>
 									</div>

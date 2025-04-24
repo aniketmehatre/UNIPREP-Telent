@@ -244,6 +244,8 @@ export class CoverLetterBuilderComponent implements OnInit, AfterViewInit {
 	pdfUrl: string = ""
 	countryCodeList:any[] = [];
 	jobTitleList:any[]=[];
+	chatGptButtonLoader:boolean=false;
+	chatGptButtonLoaderSummary:boolean=false;
 	constructor(private toaster: MessageService, private fb: FormBuilder, private resumeService: CourseListService, private locationService: LocationService, private authService: AuthService, private router: Router, private confirmService: ConfirmationService, private cvBuilderService: CvBuilderService,	private service: AveragesalaryestimatorService,
 	) {
 		this.resumeFormInfoData = this.fb.group({
@@ -700,18 +702,22 @@ export class CoverLetterBuilderComponent implements OnInit, AfterViewInit {
 			})
 			this.rephraseDesBtnDisable = true;
 			this.generateDesBtnDisable=false;
+			this.chatGptButtonLoader=true;
 		}else if(mode == 'rephrase_description'){
 			this.rephraseDesBtnDisable = false;
 			this.generateDesBtnDisable=true;
+			this.chatGptButtonLoader=true;
 		}else if(mode == 'generate_summary'){
 			this.resumeFormInfoData.patchValue({
 				user_summary: "",
 			})
 			this.generateConBtnDisable = false;
 			this.rephraseconBtnDisable = true;
+			this.chatGptButtonLoaderSummary=true;
 		}else if(mode == 'rephrase_summary'){
 			this.generateConBtnDisable = true;
 			this.rephraseconBtnDisable = false;
+			this.chatGptButtonLoaderSummary=true;
 		}
 		this.cvBuilderService.openAiIntegration(formData).subscribe((res) => {
 			if (res.response && res.response.length > 0) {
@@ -730,6 +736,8 @@ export class CoverLetterBuilderComponent implements OnInit, AfterViewInit {
 						user_summary: GPTResponse,
 					})
 				}
+				this.chatGptButtonLoader=false;
+				this.chatGptButtonLoaderSummary=false;
 			} else {
 				console.error("Unexpected response structure:", res)
 			}
