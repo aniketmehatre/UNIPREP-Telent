@@ -177,13 +177,27 @@
 									<label class="uniprep-primarydark fw-bold h6">Job Title</label>
 									<div class="form-group">
 										<div class="mb-3">
-											<input class="w-100" type="text" placeholder="Previous Your Job Title"
-												formControlName="user_job_title" pInputText />
+											<!-- <input class="w-100" type="text" placeholder="Previous Your Job Title" formControlName="user_job_title" pInputText />
+											<div *ngIf="submitted && f['user_job_title'].errors" class="text-danger text-xs">
+												<div style="margin-left: 10px" *ngIf="f['user_job_title'].errors">Your Job Title Required</div>
+											</div> -->
+											<input type="text" formControlName="user_job_title"
+												(input)="searchJob($event)"
+												class="form-control w-100 rounded-5 border-primary inputHeight pr-5"
+												placeholder="Search by Job Role"
+												style="border-radius: 10px !important;" />
 											<div *ngIf="submitted && f['user_job_title'].errors"
 												class="text-danger text-xs">
 												<div style="margin-left: 10px" *ngIf="f['user_job_title'].errors">Your
 													Job Title Required</div>
 											</div>
+
+											<ul *ngIf="filterJobRole.length > 0" class="dropdown-list">
+												<li *ngFor="let job of filterJobRole"
+													(click)="setJobtitle(job.id, job.jobrole)">
+													{{ job.jobrole }}
+												</li>
+											</ul>
 										</div>
 									</div>
 								</div>
@@ -259,7 +273,7 @@
 								</div>
 							</div>
 						</ng-container>
-						<ng-container *ngIf="moduleActiveIndex == 1">
+						<ng-container>
 							<h4 class="p-mb-1 PageTitle">Enter Organization Details</h4>
 							<div class="row">
 								<div class="col-md-6">
@@ -289,7 +303,7 @@
 									</div>
 								</div> -->
 								<div class="col-md-6">
-									<label class="uniprep-primarydark fw-bold h6">Organization Location</label>
+									<label class="uniprep-primarydark fw-bold h6">Location</label>
 									<div class="form-group">
 										<div class="mb-3">
 											<div class="input-wrapper">
@@ -312,16 +326,27 @@
 									</div>
 								</div>
 								<div class="col-md-6">
-									<label class="uniprep-primarydark fw-bold h6">Position Applied</label>
+									<label class="uniprep-primarydark fw-bold h6">Job Position</label>
 									<div class="form-group">
 										<div class="mb-3">
-											<input class="w-100" type="text" placeholder="Your Job Position"
-												formControlName="jobposition" pInputText />
+											<!-- <input class="w-100" type="text" placeholder="Your Job Position" formControlName="jobposition" pInputText /> -->
+
+											<input type="text" formControlName="jobposition"
+												(input)="searchJobPosition($event)"
+												class="form-control w-100 rounded-5 border-primary inputHeight pr-5"
+												placeholder="Search by Job Role"
+												style="border-radius: 10px !important;" />
 											<div *ngIf="submitted && f['jobposition'].errors"
 												class="text-danger text-xs">
 												<div style="margin-left: 10px" *ngIf="f['jobposition'].errors">Your Job
 													Position Required</div>
 											</div>
+											<ul *ngIf="filterJobRolePostionApplied.length > 0" class="dropdown-list">
+												<li *ngFor="let job of filterJobRolePostionApplied"
+													(click)="setJobtitlePositiApplied(job.id, job.jobrole)">
+													{{ job.jobrole }}
+												</li>
+											</ul>
 										</div>
 									</div>
 								</div>
@@ -342,7 +367,15 @@
 									</div>
 									<div class="form-group">
 										<div class="mb-3">
-											<p-editor [style]="{ height: 'auto' }" class="mt-2"
+											<!-- <div *ngIf="isResponseSkeleton;" class="card p-3 chatgpt-response bg-white h-100 overflow-y-auto">
+												<p-skeleton width='30rem' height='2rem' styleClass="mb-2"></p-skeleton>
+												<p-skeleton width='100%' height='1rem' styleClass="mb-2"></p-skeleton>
+												<p-skeleton width='100%' height='1rem' styleClass="mb-2"></p-skeleton>
+												<div class="d-flex justify-content-end">
+													<uni-percentage-loader />
+												</div>
+											</div> -->
+											<p-editor #editorRef [style]="{ height: 'auto' }" class="mt-2"
 												formControlName="job_description" placeholder="Job Description"
 												[modules]="editorModules"></p-editor>
 											<div *ngIf="submitted && f['job_description'].errors"
@@ -355,7 +388,7 @@
 								</div>
 							</div>
 						</ng-container>
-						<ng-container *ngIf="moduleActiveIndex == 2">
+						<ng-container>
 							<div class="row">
 								<div class="col-md-12">
 									<div class="d-flex justify-content-between align-items-center">
@@ -392,17 +425,13 @@
 				</form>
 			</div>
 			<div class="d-flex justify-content-between">
-				<button pButton pButton type="button" (click)="prevStage()"
-					class="btn btn-primary btn-rounded p-1 pe-4">
-					<span class="btn-icon px-2 py-2"><i class="fa-solid fa-arrow-left"></i></span> <span
-						class="ms-2">Previous</span>
+				<!-- <button pButton pButton type="button" (click)="prevStage()" class="btn btn-primary btn-rounded p-1 pe-4">
+					<span class="btn-icon px-2 py-2"><i class="fa-solid fa-arrow-left"></i></span> <span class="ms-2">Previous</span>
 				</button>
-				<button pButton pButton type="button" (click)="resumeFormSubmit()" *ngIf="moduleActiveIndex != 2"
-					class="btn btn-primary btn-rounded p-1 ps-4">
-					<span class="me-2">Next</span><span class="btn-icon px-2 py-2"><i
-							class="fa-solid fa-arrow-right"></i></span>
-				</button>
-				<button pButton pButton type="button" (click)="resumeFormSubmit()" *ngIf="moduleActiveIndex == 2"
+				<button pButton pButton type="button" (click)="resumeFormSubmit()" *ngIf="moduleActiveIndex != 2" class="btn btn-primary btn-rounded p-1 ps-4">
+					<span class="me-2">Next</span><span class="btn-icon px-2 py-2"><i class="fa-solid fa-arrow-right"></i></span>
+				</button> -->
+				<button pButton pButton type="button" (click)="resumeFormSubmit()" *ngIf="moduleActiveIndex == 0"
 					class="btn btn-success btn-rounded p-1 ps-4">
 					<span class="me-2">Create</span><span class="btn-icon px-2 py-2"><i
 							class="fa-solid fa-check"></i></span>
@@ -568,12 +597,13 @@
 					</div>
 					<div class="col-12 content-font-size">
 						<div class="row pt-2 pb-2 mb-3 flex-fill gap-1">
-							<div>{{ f["managername"].value }}</div>
+							<div>To</div>
+							<div>Hiring Manager </div>
 							<div>{{ f["org_name"].value }}</div>
 							<div>{{ f["org_location"].value }}</div>
-							<div>{{ currentDate | date : "dd-MM-yyyy" }}</div>
+							<!-- <div>{{ currentDate | date : "dd-MM-yyyy" }}</div> -->
 						</div>
-						<p class="mb-2">Dear Hiring Manager,</p>
+						<p class="mb-2">Dear Sir/Madam,</p>
 						<p class="centered-paragraph">
 							<span class="UserSummary" [innerHTML]="f['user_summary'].value"></span>
 						</p>
@@ -611,11 +641,13 @@
 					<div class="col-12 content-font-size">
 						<div class="row pt-2 pb-2 mb-3 flex-fill gap-1">
 							<!-- <div>{{ f["managername"].value }}</div> -->
+							<div>To</div>
+							<div>Hiring Manager </div>
 							<div>{{ f["org_name"].value }}</div>
 							<div>{{ f["org_location"].value }}</div>
-							<div>{{ currentDate | date : "dd-MM-yyyy" }}</div>
+							<!-- <div>{{ currentDate | date : "dd-MM-yyyy" }}</div> -->
 						</div>
-						<p class="mb-2">Dear Hiring Manager,</p>
+						<p class="mb-2">Dear Sir/Madam,</p>
 						<p class="centered-paragraph">
 							<span class="UserSummary" [innerHTML]="f['user_summary'].value"></span>
 						</p>
@@ -651,11 +683,13 @@
 					<div class="col-12 content-font-size">
 						<div class="row pt-2 pb-2 mb-3 flex-fill gap-1">
 							<!-- <div>{{ f["managername"].value }}</div> -->
+							<div>To</div>
+							<div>Hiring Manager </div>
 							<div>{{ f["org_name"].value }}</div>
 							<div>{{ f["org_location"].value }}</div>
-							<div>{{ currentDate | date : "dd-MM-yyyy" }}</div>
+							<!-- <div>{{ currentDate | date : "dd-MM-yyyy" }}</div> -->
 						</div>
-						<p class="mb-2">Dear Hiring Manager,</p>
+						<p class="mb-2">Dear Sir/Madam,</p>
 						<p class="centered-paragraph">
 							<span class="UserSummary" [innerHTML]="f['user_summary'].value"></span>
 						</p>
@@ -691,11 +725,13 @@
 					<div class="col-12 mt-4 content-font-size">
 						<div class="row pt-2 pb-2 mb-3 flex-fill gap-1">
 							<!-- <div>{{ f["managername"].value }}</div> -->
+							<div>To</div>
+							<div>Hiring Manager </div>
 							<div>{{ f["org_name"].value }}</div>
 							<div>{{ f["org_location"].value }}</div>
-							<div>{{ currentDate | date : "dd-MM-yyyy" }}</div>
+							<!-- <div>{{ currentDate | date : "dd-MM-yyyy" }}</div> -->
 						</div>
-						<p class="mb-2">Dear Hiring Manager,</p>
+						<p class="mb-2">Dear Sir/Madam,</p>
 						<p class="centered-paragraph">
 							<span class="UserSummary" [innerHTML]="f['user_summary'].value"></span>
 						</p>
@@ -729,12 +765,14 @@
 				<div class="row px-3">
 					<div class="row pt-2 pb-2 mb-3 flex-fill gap-1 content-font-size">
 						<!-- <div>{{ f["managername"].value }}</div> -->
+						<div>To</div>
+						<div>Hiring Manager </div>
 						<div>{{ f["org_name"].value }}</div>
 						<div>{{ f["org_location"].value }}</div>
-						<div>{{ currentDate | date : "dd-MM-yyyy" }}</div>
+						<!-- <div>{{ currentDate | date : "dd-MM-yyyy" }}</div> -->
 					</div>
 					<div class="col-12 content-font-size">
-						<p class="mb-2">Dear Hiring Manager,</p>
+						<p class="mb-2">Dear Sir/Madam,</p>
 						<p class="centered-paragraph">
 							<span class="UserSummary" [innerHTML]="f['user_summary'].value"></span>
 						</p>

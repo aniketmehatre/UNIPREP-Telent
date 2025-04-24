@@ -1238,3 +1238,32 @@ body {
   :host ::ng-deep.p-editor .p-editor-content.ql-snow{
 	border: 2px solid #ccc !important;
   } 
+  .dropdown-list {
+	overflow-y: auto;
+	position: relative;
+	list-style: none;
+	padding: 0.25rem;
+	border-radius: 10px;
+	width: auto;
+	text-align: left;
+	margin: 0;
+  }
+  
+  .dropdown-list li {
+	padding: 8px;
+	cursor: pointer;
+  }
+  
+  .dropdown-list li:hover {
+	background-color: #f0f0f0;
+  }
+  
+  .dropdown-list li {
+	padding: 8px;
+	cursor: pointer;
+  }
+  
+  .dropdown-list li:hover {
+	background-color: #f0f0f0;
+  }
+  
