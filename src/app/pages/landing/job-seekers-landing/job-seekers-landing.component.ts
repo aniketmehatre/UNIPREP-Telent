@@ -42,7 +42,8 @@ export class JobSeekersLandingComponent implements OnInit {
 	categorySlug: string = '';
 	categoryName: string = '';
 	careerCards: { [key: string]: CareerCard[] } = {};
-
+	categoryTitle: string = '';
+	categoryDescription: string = '';
 	benefits = [
 		{
 			title: 'Learn smart',
@@ -114,6 +115,7 @@ export class JobSeekersLandingComponent implements OnInit {
 						break;
 				}
 				this.getLandingPageDetailBasedOnCategory(this.category);
+				this.getCategoryCards();	
 			}
 		});
 
@@ -135,6 +137,22 @@ export class JobSeekersLandingComponent implements OnInit {
 			}
 		});
 	}
+
+	getCategoryCards() {
+		this.landingService.getLandingCategories(this.category).subscribe({
+			next: response => {
+				if (response.success) {
+					this.categoryTitle = response.category.page_title;
+					this.categoryDescription = response.category.page_description;
+				}
+			},
+			error: error => {
+				console.log(error);
+			}
+		});
+	}
+
+
 
 	getCardsForStep(stepId: number): CareerCard[] {
 		const stepKey = `Step ${stepId}`;
