@@ -1,5 +1,5 @@
-import {SocialAuthService} from "@abacritt/angularx-social-login"
-import {CommonModule} from "@angular/common"
+import { SocialAuthService } from "@abacritt/angularx-social-login"
+import { CommonModule } from "@angular/common"
 import {
 	Component,
 	ElementRef,
@@ -11,37 +11,37 @@ import {
 	ViewChild,
 	ViewEncapsulation
 } from "@angular/core"
-import {AbstractControl, FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators} from "@angular/forms"
-import {ActivatedRoute, NavigationEnd, Router, RouterModule} from "@angular/router"
-import {MenuItem, MessageService} from "primeng/api"
-import {AuthService} from "../../../Auth/auth.service"
-import {SubSink} from "subsink"
-import {LocationService} from "../../../location.service"
-import {DataService} from "src/app/data.service"
-import {ThemeService} from "../../../theme.service"
-import {DashboardService} from "src/app/pages/dashboard/dashboard.service"
-import {catchError, count, EMPTY, finalize, forkJoin, Observable, of, timeout} from "rxjs"
-import {CountryISO, NgxIntlTelInputModule, SearchCountryField} from "ngx-intl-tel-input"
-import {environment} from "@env/environment"
-import {DialogModule} from "primeng/dialog"
-import {PopoverModule} from "primeng/popover"
-import {TabsModule} from "primeng/tabs"
-import {ILearnChallengeData} from "src/app/@Models/ilearn-challenge.model"
-import {AssessmentService} from "src/app/pages/assessment/assessment.service"
-import {ModuleServiceService} from "src/app/pages/module-store/module-service.service"
-import {AvatarModule} from "primeng/avatar"
-import {InputTextModule} from "primeng/inputtext"
-import {take} from "rxjs/operators"
-import {SelectModule} from "primeng/select"
-import {TabViewModule} from "primeng/tabview"
-import {InputGroupModule} from "primeng/inputgroup"
-import {InputGroupAddonModule} from "primeng/inputgroupaddon"
-import {TextareaModule} from 'primeng/textarea'
-import {AuthTokenService} from 'src/app/core/services/auth-token.service'
-import {AvatarGroupModule} from 'primeng/avatargroup';
-import {StorageService} from "../../../storage.service";
-import {DropdownModule} from "primeng/dropdown";
-import {AutoFocus} from "primeng/autofocus";
+import { AbstractControl, FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators } from "@angular/forms"
+import { ActivatedRoute, NavigationEnd, Router, RouterModule } from "@angular/router"
+import { MenuItem, MessageService } from "primeng/api"
+import { AuthService } from "../../../Auth/auth.service"
+import { SubSink } from "subsink"
+import { LocationService } from "../../../location.service"
+import { DataService } from "src/app/data.service"
+import { ThemeService } from "../../../theme.service"
+import { DashboardService } from "src/app/pages/dashboard/dashboard.service"
+import { catchError, count, EMPTY, finalize, forkJoin, Observable, of, timeout } from "rxjs"
+import { CountryISO, NgxIntlTelInputModule, SearchCountryField } from "ngx-intl-tel-input"
+import { environment } from "@env/environment"
+import { DialogModule } from "primeng/dialog"
+import { PopoverModule } from "primeng/popover"
+import { TabsModule } from "primeng/tabs"
+import { ILearnChallengeData } from "src/app/@Models/ilearn-challenge.model"
+import { AssessmentService } from "src/app/pages/assessment/assessment.service"
+import { ModuleServiceService } from "src/app/pages/module-store/module-service.service"
+import { AvatarModule } from "primeng/avatar"
+import { InputTextModule } from "primeng/inputtext"
+import { take } from "rxjs/operators"
+import { SelectModule } from "primeng/select"
+import { TabViewModule } from "primeng/tabview"
+import { InputGroupModule } from "primeng/inputgroup"
+import { InputGroupAddonModule } from "primeng/inputgroupaddon"
+import { TextareaModule } from 'primeng/textarea'
+import { AuthTokenService } from 'src/app/core/services/auth-token.service'
+import { AvatarGroupModule } from 'primeng/avatargroup';
+import { StorageService } from "../../../storage.service";
+import { DropdownModule } from "primeng/dropdown";
+import { AutoFocus } from "primeng/autofocus";
 
 // import { SocialAuthService } from "@abacritt/angularx-social-login";
 
@@ -616,6 +616,8 @@ export class HeaderComponent implements OnInit, OnDestroy {
 		await this.handlePhoneVerification();
 
 		// Check subscription status
+		console.log(this.service._checkExistsSubscription);
+
 		if (this.service._checkExistsSubscription === 0) {
 			this.checkNewUser();
 		} else {
@@ -1175,6 +1177,16 @@ export class HeaderComponent implements OnInit, OnDestroy {
 				this.userLoginTimeLeftCount = false;
 				this.timer(data.minutes, data.seconds, data.hours);
 			}
+			if (data.plan === "subscription_inprogress") {
+				this.userLoginTimeLeftCount = false;
+				this.getTimer(
+					data.minutes,
+					data.seconds,
+					data.hours,
+					data.days,
+					data.months
+				);
+			}
 		});
 	}
 
@@ -1210,7 +1222,6 @@ export class HeaderComponent implements OnInit, OnDestroy {
 			//   this.timeLeftMins = textMin;
 			//   this.timeLeftSecs = textSec;
 			// }
-			console.log(minutesLeft)
 			if (
 				minutesLeft <= 0 &&
 				this.timeHours <= 0 &&
@@ -1341,6 +1352,8 @@ export class HeaderComponent implements OnInit, OnDestroy {
 	}
 	onClickSubscribedUser(): void {
 		this.imagewhitlabeldomainname = window.location.hostname
+		console.log(this.imagewhitlabeldomainname);
+
 		if (this.imagewhitlabeldomainname === "*.uniprep.ai" || this.imagewhitlabeldomainname === "dev-student.uniprep.ai" || this.imagewhitlabeldomainname === "uniprep.ai" || this.imagewhitlabeldomainname === "localhost") {
 			this.visibleExhastedUser = false
 			let data: any = {}
