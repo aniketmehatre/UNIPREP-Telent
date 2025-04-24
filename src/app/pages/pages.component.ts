@@ -35,6 +35,8 @@ import { StorageService } from "../storage.service";
 })
 export class PagesComponent implements OnInit, OnDestroy {
   @ViewChild("videoFrame") videoFrame: ElementRef | undefined;
+  hovered: 'ai' | null = null;
+  hovered1: 'wa' | null = null;
 
   sidebarClass = "";
   stickHeader = false;
@@ -83,11 +85,11 @@ export class PagesComponent implements OnInit, OnDestroy {
     this.deviceCheck();
     router.events.subscribe((val) => {
       if (val instanceof NavigationEnd) {
-        if (val.url.includes("subscriptions") || val.url.includes("dashboard") || val.url.includes("userguide") 
-          || val.url.includes("support-help") || val.url.includes("usermanagement") || val.url.includes("chat") 
-        || val.url.includes("guideline") || val.url.includes("termsandcondition") || val.url.includes("privacypolicy") 
-        || val.url.includes("refundpolicy") || val.url.includes("cancellationpolicy") || val.url.includes("export-credit") 
-        || val.url.includes("cv-builder") || val.url.includes("coverletter-builder") || val.url.includes("talent-connect")) {
+        if (val.url.includes("subscriptions") || val.url.includes("dashboard") || val.url.includes("userguide")
+          || val.url.includes("support-help") || val.url.includes("usermanagement") || val.url.includes("chat")
+          || val.url.includes("guideline") || val.url.includes("termsandcondition") || val.url.includes("privacypolicy")
+          || val.url.includes("refundpolicy") || val.url.includes("cancellationpolicy") || val.url.includes("export-credit")
+          || val.url.includes("cv-builder") || val.url.includes("coverletter-builder") || val.url.includes("talent-connect")) {
           this.showSearch = false;
           //this.isFooterBoxVisible = false;
         } else {
