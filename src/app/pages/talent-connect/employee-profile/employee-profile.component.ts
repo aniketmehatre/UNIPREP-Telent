@@ -1008,7 +1008,8 @@ export class EmployeeProfileComponent implements OnInit {
         softSkills: this.softSkills,
         fieldsOfStudy: this.fieldsOfStudy,
         graduationYears: this.graduationYears,
-        nationalityList: this.nationalityList
+        nationalityList: this.nationalityList,
+        uploadFiles: this.uploadedFiles
       },
       styleClass: 'employee-profile-dialog'
     });
@@ -1505,6 +1506,7 @@ export class EmployeeProfileComponent implements OnInit {
       this.jobTitles = [...this.jobTitles, { id: null, job_title: customValue }];
       control?.setValue(customValue);
     }
+
   }
 
   getWordCountUsingControl(control: FormControl) {
