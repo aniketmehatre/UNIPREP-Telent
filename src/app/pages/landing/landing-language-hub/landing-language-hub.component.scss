@@ -10,6 +10,23 @@
   .poppins {
     font-family: "Poppins", sans-serif !important;
   }
+
+  .card {
+    border-radius: 1.5rem;
+    border: 1px solid #e6ddfe08;
+    background: linear-gradient(0deg, rgba(255, 255, 255, 0) 0%, rgba(255, 255, 255, 0.05) 100%);
+    box-shadow: 0px 10px 25px 0px rgba(230, 221, 254, 0.1) inset;
+    color: white;
+    &:hover {
+      .card-title {
+        color: var(--uniprep-secondary);
+      }
+      .cardicon {
+        font-weight: 700;
+      }
+    }
+  }
+
   
   .learning-hub-container {
     background-color: #000;
@@ -118,7 +135,7 @@
   // Section Styles
   .section-title {
     font-size: 2.5rem;
-    font-weight: 700;
+    font-weight: 300;
     margin-bottom: 2.5rem;
   }
   
@@ -221,13 +238,13 @@
   }
   
   .step-title {
-    font-size: 1.2rem;
+    font-size: 1.5rem;
     font-weight: 600;
     margin-bottom: 0.25rem;
   }
   
   .step-description {
-    font-size: 0.9rem;
+    font-size: 1.2rem;
     opacity: 0.8;
   }
   
@@ -245,6 +262,18 @@
       height: auto;
       max-height: 500px;
       object-fit: fill;
+    }
+  }
+
+  .cardstep-image {
+    flex: 1;
+    padding: 40px;
+    img {
+      width: 100%;
+      border-radius: 10px;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+      height: 40px !important;
+      object-fit: contain;
     }
   }
   
@@ -400,39 +429,30 @@
     // background: linear-gradient(to top, #07070b, transparent);
   }
 
-  // .designedicon {
-  //   width: 60px;
-  //   height: 60px;
-  //   display: flex;
-  //   justify-content: center;
-  //   align-items: center;
-  //   background-color: #41230b;
-  //   border: 1px solid #723b0b;
-  //   border-radius: 100px;
-  // }
-  // .numbericon {
-  //   width: 50px;
-  //   text-align: center;
-  //   z-index: 1;
-  //   position: absolute;
-  //   right: 6rem;
-  //   top: 50%;
-  //   transform: translateY(-50%);
-  //   opacity: 0.1;
-  // }
+  .designedicon {
+    width: 60px;
+    height: 60px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #41230b;
+    border: 1px solid #723b0b;
+    border-radius: 100px;
+  }
+  .numbericon {
+    width: 60px;
+    text-align: center;
+    z-index: 1;
+    position: absolute;
+    right: 4.3rem;
+    top: 50%;
+    transform: translateY(-50%);
+    opacity: 0.1;
+    font-size: 5rem;
+    background: linear-gradient(0deg, rgba(255, 255, 255, 0) 0%, rgba(255, 255, 255, 0.05) 100%);
+  }
   // .featureimage {
   //   border-radius: 10px;
   //   overflow: hidden;
   //   border: 1px solid #07070b;
   // }
-
-  .numbericon {
-    width: 50px;
-    text-align: center;
-    z-index: 1;
-    position: absolute;
-    right: 6rem;
-    top: 50%;
-    transform: translateY(-50%);
-    opacity: 0.1;
-  }
