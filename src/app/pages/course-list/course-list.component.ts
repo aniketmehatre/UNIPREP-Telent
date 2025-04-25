@@ -84,11 +84,11 @@ export class CourseListComponent implements OnInit {
 	recommendations: any = [
 		{
 			id: 1,
-			question: "Which country are you interested in studying?",
+			question: "Which country would you like to study in?",
 		},
 		{
 			id: 2,
-			question: "What are the subjects of your interest?",
+			question: "What are the subjects you're interested in studying?",
 		},
 		{
 			id: 3,
@@ -96,11 +96,11 @@ export class CourseListComponent implements OnInit {
 		},
 		{
 			id: 4,
-			question: "Which is your preferred intake month?",
+			question: "When would you prefer to start your studies?",
 		},
 		{
 			id: 5,
-			question: "Which pre requisite test would you appear for?",
+			question: "Which pre-requisite exam are you planning to take?",
 		},
 		{
 			id: 6,

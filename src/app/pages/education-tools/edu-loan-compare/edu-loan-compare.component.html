@@ -50,7 +50,7 @@
 												</h5>
 												<div class="d-flex gap-2">
 													<p-select formControlName="currency" [options]="currenciesList" optionLabel="currency_symbol" optionValue="currency_symbol" [filter]="true" filterBy="currency_symbol" placeholder="Select Currency" style="width: 35%"> </p-select>
-													<p-inputnumber formControlName="loan_amount" placeholder="Enter Amount" class="w-100" />
+													<p-inputnumber formControlName="loan_amount" placeholder="Enter the total amount of your loan" class="w-100" />
 												</div>
 												<div *ngIf="(form.get('currency')?.errors?.required || form.get('loan_amount')?.errors?.required) && submitted" class="text-center text-danger">Currency and Loan amount is required.</div>
 											</div>
@@ -58,21 +58,21 @@
 												<h5 class="text-center uniprep-primary fw-semibold mb-0">
 													{{ recommendation.questions[1] }}
 												</h5>
-												<p-inputnumber formControlName="interest_rate" placeholder="Enter interest rate in %" inputId="minmaxfraction" mode="decimal" [minFractionDigits]="2" [maxFractionDigits]="2" suffix=" %" class="w-100" />
+												<p-inputnumber formControlName="interest_rate" placeholder="Enter the interest rate of your loan" inputId="minmaxfraction" mode="decimal" [minFractionDigits]="2" [maxFractionDigits]="2" suffix=" %" class="w-100" />
 												<div *ngIf="form.get('interest_rate')?.errors?.required && submitted" class="text-center text-danger">Interest rate is required.</div>
 											</div>
 											<div class="d-flex flex-column justify-content-center gap-2">
 												<h5 class="text-center uniprep-primary fw-semibold mb-0">
 													{{ recommendation.questions[2] }}
 												</h5>
-												<p-select formControlName="loan_tenure" [options]="loanTensureMonthList" [filter]="true" filterBy="value" optionLabel="value" optionValue="value" placeholder="Select number of months"> </p-select>
+												<p-select formControlName="loan_tenure" [options]="loanTensureMonthList" [filter]="true" filterBy="value" optionLabel="value" optionValue="value" placeholder="Specify the duration of your loan repayment period"> </p-select>
 												<div *ngIf="form.get('loan_tenure')?.errors?.required && submitted" class="text-center text-danger">Loan tenure is required.</div>
 											</div>
 											<div class="d-flex flex-column justify-content-center gap-2">
 												<h5 class="text-center uniprep-primary fw-semibold mb-0">
 													{{ recommendation.questions[3] }}
 												</h5>
-												<p-select formControlName="course_duration" [options]="courseDurationList" [filter]="true" filterBy="value" optionLabel="value" optionValue="value" placeholder="Select Course Duration"> </p-select>
+												<p-select formControlName="course_duration" [options]="courseDurationList" [filter]="true" filterBy="value" optionLabel="value" optionValue="value" placeholder="Select the length of your course"> </p-select>
 												<div *ngIf="form.get('course_duration')?.errors?.required && submitted" class="text-center text-danger">Course Duration is required.</div>
 											</div>
 										</div>
@@ -81,14 +81,14 @@
 												<h5 class="text-center uniprep-primary fw-semibold mb-0">
 													{{ recommendation.questions[0] }}
 												</h5>
-												<p-select formControlName="moratorium_period" [options]="moratoriumPeriodList" optionLabel="value" optionValue="value" [filter]="true" filterBy="value" placeholder="Select Moratorium Period"> </p-select>
+												<p-select formControlName="moratorium_period" [options]="moratoriumPeriodList" optionLabel="value" optionValue="value" [filter]="true" filterBy="value" placeholder="Select if your loan has a moratorium period"> </p-select>
 												<div *ngIf="form.get('moratorium_period')?.errors?.required && submitted" class="text-center text-danger">Moratorium period is required.</div>
 											</div>
 											<div class="d-flex flex-column justify-content-center gap-2">
 												<h5 class="text-center uniprep-primary fw-semibold mb-0">
 													{{ recommendation.questions[1] }}
 												</h5>
-												<p-select formControlName="repayment_year" [options]="repaymentYearList" optionLabel="value" optionValue="value" placeholder="Select years"> </p-select>
+												<p-select formControlName="repayment_year" [options]="repaymentYearList" optionLabel="value" optionValue="value" placeholder="Select the preferred duration to complete your loan repayment"> </p-select>
 												<div *ngIf="form.get('repayment_year')?.errors?.required && submitted" class="text-center text-danger">Repayment year is required.</div>
 											</div>
 										</div>

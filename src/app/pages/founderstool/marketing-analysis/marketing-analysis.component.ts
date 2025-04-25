@@ -107,7 +107,7 @@ export class MarketingAnalysisComponent implements OnInit {
       id: 1,
       question: {
         heading: 'Basic Information',
-        branches: ["What industry does your business operate in?", "Where is you business established?", "What is the age group of your target audience?", "What products or services does your business offer?"]
+        branches: ["What industry does your business operate in?", "Where is you business established?", "What is the age group of your target audience?", " What products or services does your business provide?"]
       },
     },
     {

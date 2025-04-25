@@ -69,7 +69,7 @@ export class BusinessForecastingToolComponent implements OnInit {
 			id: 1,
 			question: {
 				heading: "Basic Information",
-				branches: ["What industry is your start up in?", "Does your business have seasonal functionalities?", "If yes, please specify the peak seasons", "What are the key revenue drivers for your business?"],
+				branches: ["What industry is your start up in?", "Does your business experience seasonal variations in its operations?", "If yes, please specify the peak seasons", "What are the key revenue drivers for your business?"],
 			},
 		},
 		{

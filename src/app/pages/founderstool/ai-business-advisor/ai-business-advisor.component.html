@@ -47,23 +47,23 @@
 								</div>
 								<div class="col-md-6">
 									<ng-container *ngIf="recommendation.id == 1">
-										<p-select [(ngModel)]="selectedData[recommendation.id]" [options]="industryList" [filter]="true" filterBy="Industry" styleClass="w-100" optionLabel="Industry" optionValue="Industry" [appendTo]="'body'" placeholder="Select Industry"> </p-select>
+										<p-select [(ngModel)]="selectedData[recommendation.id]" [options]="industryList" [filter]="true" filterBy="Industry" styleClass="w-100" optionLabel="Industry" optionValue="Industry" [appendTo]="'body'" placeholder="Select the industry your business is part of"> </p-select>
 										<div class="text-center" [ngClass]="{ 'd-none': inValidClass === false }" style="color: red">Business Type is required</div>
 									</ng-container>
 									<ng-container *ngIf="recommendation.id == 2">
-										<p-select [(ngModel)]="selectedData[recommendation.id]" [options]="businessGoalsList" [filter]="true" filterBy="goal" styleClass="w-100" optionLabel="goal" optionValue="goal" [appendTo]="'body'" placeholder="Select Goal"> </p-select>
+										<p-select [(ngModel)]="selectedData[recommendation.id]" [options]="businessGoalsList" [filter]="true" filterBy="goal" styleClass="w-100" optionLabel="goal" optionValue="goal" [appendTo]="'body'" placeholder="Select the key goals you want to achieve"> </p-select>
 										<div class="text-center" [ngClass]="{ 'd-none': inValidClass === false }" style="color: red">Business Primary Goal is required</div>
 									</ng-container>
 									<ng-container *ngIf="recommendation.id == 3">
-										<p-select [(ngModel)]="selectedData[recommendation.id]" [options]="durationList" [filter]="true" filterBy="duration" styleClass="w-100" optionLabel="duration" optionValue="duration" [appendTo]="'body'" placeholder="Months"> </p-select>
+										<p-select [(ngModel)]="selectedData[recommendation.id]" [options]="durationList" [filter]="true" filterBy="duration" styleClass="w-100" optionLabel="duration" optionValue="duration" [appendTo]="'body'" placeholder="Specify the timeframe within which you aim to reach your goals"> </p-select>
 										<div class="text-center" [ngClass]="{ 'd-none': inValidClass === false }" style="color: red">Business Duration is required</div>
 									</ng-container>
 									<ng-container *ngIf="recommendation.id == 4">
-										<p-select [(ngModel)]="selectedData[recommendation.id]" [options]="challengeList" [filter]="true" filterBy="challenge" styleClass="w-100" optionLabel="challenge" optionValue="challenge" [appendTo]="'body'" placeholder="Select Challenge"> </p-select>
+										<p-select [(ngModel)]="selectedData[recommendation.id]" [options]="challengeList" [filter]="true" filterBy="challenge" styleClass="w-100" optionLabel="challenge" optionValue="challenge" [appendTo]="'body'" placeholder="Select the challenges or obstacles your business is dealing with"> </p-select>
 										<div class="text-center" [ngClass]="{ 'd-none': inValidClass === false }" style="color: red">Challenges are required</div>
 									</ng-container>
 									<ng-container *ngIf="recommendation.id == 5">
-										<p-select [(ngModel)]="selectedData[recommendation.id]" [options]="targetAudienceList" [filter]="true" filterBy="audience" styleClass="w-100" optionLabel="audience" optionValue="audience" [appendTo]="'body'" placeholder="Select Target Audience"> </p-select>
+										<p-select [(ngModel)]="selectedData[recommendation.id]" [options]="targetAudienceList" [filter]="true" filterBy="audience" styleClass="w-100" optionLabel="audience" optionValue="audience" [appendTo]="'body'" placeholder="Select the demographic or market segment you are targeting"> </p-select>
 										<div [ngClass]="{ 'd-none': inValidClass === false }" style="color: red" class="text-danger">Ideal customers is required</div>
 									</ng-container>
 									<ng-container *ngIf="recommendation.id == 6">
@@ -80,7 +80,7 @@
 										</div>
 									</ng-container>
 									<ng-container *ngIf="recommendation.id == 7">
-										<p-select [(ngModel)]="selectedData[recommendation.id]" [filter]="true" filterBy="strategy" [options]="strategyBusinessList" styleClass="w-100" optionLabel="strategy" optionValue="strategy" [appendTo]="'body'" placeholder="Strategy"> </p-select>
+										<p-select [(ngModel)]="selectedData[recommendation.id]" [filter]="true" filterBy="strategy" [options]="strategyBusinessList" styleClass="w-100" optionLabel="strategy" optionValue="strategy" [appendTo]="'body'" placeholder="Select the strategy you plan to adopt"> </p-select>
 										<div class="text-center" [ngClass]="{ 'd-none': inValidClass === false }" style="color: red">Strategy is required</div>
 									</ng-container>
 								</div>

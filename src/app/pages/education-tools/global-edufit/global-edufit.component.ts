@@ -197,7 +197,6 @@ export class GlobalEdufitComponent implements OnInit {
       mode: 'global_edufit'
     }
     this.userInputs = data;
-    console.log(this.userInputs, "current user inputs");
     this.isRecommendationQuestion = false;
     this.isRecommendationSavedData = false;
     this.isRecommendationData = true;
