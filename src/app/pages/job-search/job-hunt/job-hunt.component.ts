@@ -9,13 +9,12 @@ import { AuthService } from "src/app/Auth/auth.service";
 import { CommonModule } from '@angular/common';
 import { DialogModule } from 'primeng/dialog';
 import { StorageService } from "../../../storage.service";
-import { RestrictionDialogComponent } from 'src/app/shared/restriction-dialog/restriction-dialog.component';
 @Component({
   selector: 'uni-job-hunt',
   templateUrl: './job-hunt.component.html',
   styleUrls: ['./job-hunt.component.scss'],
   standalone: true,
-  imports: [CommonModule, DialogModule, FormsModule, ReactiveFormsModule, RestrictionDialogComponent],
+  imports: [CommonModule, DialogModule, FormsModule, ReactiveFormsModule],
 })
 export class JobHuntComponent implements OnInit {
   fG: FormGroup;
@@ -57,11 +56,7 @@ export class JobHuntComponent implements OnInit {
 
   }
   planExpired: boolean = false;
-  restrict: boolean = false;
-  ehitlabelIsShow: boolean = true;
-  orgnamewhitlabel: any;
-  orglogowhitelabel: any;
-  imagewhitlabeldomainname: any
+
   ngOnInit(): void {
     // this.jobService.getCities().subscribe((res: City[]) => {
 
@@ -118,7 +113,7 @@ export class JobHuntComponent implements OnInit {
 
   onSubmit() {
     if (this.planExpired) {
-      this.restrict = true;
+      this.authService.hasUserSubscription$.next(true);
       return;
     }
     if (this.fG.valid) {
@@ -205,20 +200,14 @@ export class JobHuntComponent implements OnInit {
     this.filteredCity = [];
   }
   checkplanExpire(): void {
-    this.authService.getNewUserTimeLeft().subscribe((res) => {
-      let data = res.time_left;
-      let subscription_exists_status = res.subscription_details;
-      if (data.plan === "expired" || data.plan === 'subscription_expired' || subscription_exists_status.subscription_plan == "Student") {
-        this.planExpired = true;
-      } else {
-        this.planExpired = false;
-      }
-    })
+    if (this.authService._userSubscrition.time_left.plan === "expired" ||
+      this.authService._userSubscrition.time_left.plan === "subscription_expired" ||
+      this.authService._userSubscrition.subscription_details.subscription_plan === "Student") {
+      this.planExpired = true;
+    }
+    else {
+      this.planExpired = false;
+    }
   }
-  upgradePlan(): void {
-    this.router.navigate(["/pages/subscriptions"]);
-  }
-  clearRestriction() {
-    this.restrict = false;
-  }
+
 }

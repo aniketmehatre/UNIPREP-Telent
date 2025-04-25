@@ -11,13 +11,12 @@ import { CommonModule } from '@angular/common';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { SelectModule } from 'primeng/select';
 import { StorageService } from "../../storage.service";
-import { RestrictionDialogComponent } from 'src/app/shared/restriction-dialog/restriction-dialog.component';
 @Component({
   selector: 'uni-quizmenu',
   templateUrl: './quizmenu.component.html',
   styleUrls: ['./quizmenu.component.scss'],
   standalone: true,
-  imports: [CommonModule, DialogModule, FormsModule, ReactiveFormsModule, SelectModule, RestrictionDialogComponent],
+  imports: [CommonModule, DialogModule, FormsModule, ReactiveFormsModule, SelectModule],
 
 })
 export class QuizmenuComponent implements OnInit {
@@ -49,7 +48,6 @@ export class QuizmenuComponent implements OnInit {
   learningHubQuiz: boolean = true;
   languageHubQuiz: boolean = true;
   readingmodulestartbutton: boolean = true;
-  restrict: boolean = false;
   planExpired: boolean = false;
   StudentplanRestrict: boolean = false;
   certificatesList: any[] = []
@@ -60,10 +58,6 @@ export class QuizmenuComponent implements OnInit {
   skillMasteryCirtificates: any[] = [];
   countrydropdownlist: any[] = [];
   skillsmasteryId: any = null;
-  ehitlabelIsShow: boolean = true;
-  imagewhitlabeldomainname: any
-  orgnamewhitlabel: any;
-  orglogowhitelabel: any;
   constructor(private moduleListService: ModuleServiceService, private router: Router, private dataService: DataService,
     private locationService: LocationService, private authService: AuthService, private pageFacade: PageFacadeService,
     private storage: StorageService) { }
@@ -136,7 +130,7 @@ export class QuizmenuComponent implements OnInit {
 
   startModululeSkillmastery() {
     if (this.StudentplanRestrict) {
-      this.restrict = true;
+      this.authService.hasUserSubscription$.next(true);
       return;
     }
     //this.storage.set('QuizModuleName', '')
@@ -163,7 +157,7 @@ export class QuizmenuComponent implements OnInit {
   // }
   startQuizUniversity() {
     if (this.planExpired) {
-      this.restrict = true;
+      this.authService.hasUserSubscription$.next(true);
       return;
     }
     this.storage.set("modalcountryid", this.unversitycontrydropdownid)
@@ -171,27 +165,24 @@ export class QuizmenuComponent implements OnInit {
     this.router.navigate([`/pages/modules/${this.currentModuleSlug}/quiz`]);
   }
   checkplanExpire(): void {
-    this.authService.getNewUserTimeLeft().subscribe((res) => {
-      let data = res.time_left;
-      let subscription_exists_status = res.subscription_details;
-      if (data.plan === "expired" || data.plan === 'subscription_expired') {
-        this.planExpired = true;
-      } else {
-        this.planExpired = false;
-      }
-      if (data.plan === "expired" || data.plan === 'subscription_expired' || subscription_exists_status.subscription_plan == 'Student') {
-        this.StudentplanRestrict = true;
-      } else {
-        this.StudentplanRestrict = false;
-      }
-    })
+    if (this.authService._userSubscrition.time_left.plan === "expired" ||
+      this.authService._userSubscrition.time_left.plan === "subscription_expired") {
+      this.planExpired = true;
+    }
+    else {
+      this.planExpired = false;
+    }
+    if (this.authService._userSubscrition.time_left.plan === "expired" ||
+      this.authService._userSubscrition.time_left.plan === "subscription_expired" ||
+      this.authService._userSubscrition.subscription_details.subscription_plan === "Student") {
+      this.StudentplanRestrict = true;
+    }
+    else {
+      this.StudentplanRestrict = false;
+    }
+
   }
-  upgradePlan(): void {
-    this.router.navigate(["/pages/subscriptions"]);
-  }
-  clearRestriction() {
-    this.restrict = false;
-  }
+
   // readingmoduleid:number=0;
   // moduleprogress:number=0;
   // arrow:boolean=true;
@@ -211,7 +202,7 @@ export class QuizmenuComponent implements OnInit {
   }
   startQuiz(moduleid: any) {
     if (this.planExpired) {
-      this.restrict = true;
+      this.authService.hasUserSubscription$.next(true);
       return;
     }
     if (moduleid == 1) {
@@ -231,7 +222,7 @@ export class QuizmenuComponent implements OnInit {
   }
   downloadCertificate(link: any) {
     if (this.planExpired) {
-      this.restrict = true;
+      this.authService.hasUserSubscription$.next(true);
       return;
     }
     window.open(link, '_blank');
@@ -275,7 +266,7 @@ export class QuizmenuComponent implements OnInit {
   }
   StartLearningHubQuiz() {
     if (this.StudentplanRestrict) {
-      this.restrict = true;
+      this.authService.hasUserSubscription$.next(true);
       return;
     }
     console.log(this.storage.get('QuizModuleName'))
@@ -329,7 +320,7 @@ export class QuizmenuComponent implements OnInit {
   }
   StartLanguageHubQuiz() {
     if (this.planExpired) {
-      this.restrict = true;
+      this.authService.hasUserSubscription$.next(true);
       return;
     }
     this.currentModuleSlug = "language-hub"

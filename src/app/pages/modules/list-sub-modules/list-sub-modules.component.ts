@@ -25,7 +25,6 @@ import { InputTextModule } from "primeng/inputtext"
 import { FormsModule, ReactiveFormsModule } from "@angular/forms"
 import { ProgressBar } from "primeng/progressbar";
 import { Breadcrumb } from "primeng/breadcrumb";
-import { RestrictionDialogComponent } from "src/app/shared/restriction-dialog/restriction-dialog.component"
 @Component({
 	selector: "uni-list-sub-modules",
 	templateUrl: "./list-sub-modules.component.html",
@@ -34,7 +33,7 @@ import { RestrictionDialogComponent } from "src/app/shared/restriction-dialog/re
 	standalone: true,
 	imports: [CommonModule, RouterModule, DialogModule, FormsModule, ReactiveFormsModule, InputTextModule,
 		CarouselModule, TooltipModule, SkeletonModule, ButtonModule, MultiSelectModule, InputGroupModule,
-		InputGroupAddonModule, SelectModule, ProgressBar, Breadcrumb, RestrictionDialogComponent],
+		InputGroupAddonModule, SelectModule, ProgressBar, Breadcrumb],
 })
 export class ListSubModulesComponent implements OnInit {
 	subModules$!: Observable<ModuleListSub[]>
@@ -78,10 +77,6 @@ export class ListSubModulesComponent implements OnInit {
 	howItWorksVideoLink: string = ""
 	quizmoduleselectcountryidsetzero: any = 0
 	selectSubmoduleName: string = ""
-	ehitlabelIsShow: boolean = true
-	imagewhitlabeldomainname: any
-	orgnamewhitlabel: any
-	orglogowhitelabel: any
 	learningModuleHeading: string = ""
 	description: any
 	allSearchedResult: any[] = []
@@ -440,8 +435,6 @@ export class ListSubModulesComponent implements OnInit {
 		carouselQuiz.navForward(event, this.selectedQuiz)
 	}
 
-	restrict = false
-
 	clickSubmitQuiz() {
 		this.quizData.forEach((data) => {
 			if (data.answer == data.user_answered) {
@@ -483,7 +476,7 @@ export class ListSubModulesComponent implements OnInit {
 
 	startQuiz() {
 		if (this.planExpired) {
-			this.restrict = true
+			this.authService.hasUserSubscription$.next(true);
 			return
 		}
 		this.router.navigate([`/pages/modules/${this.currentModuleSlug}/quiz`])
@@ -511,10 +504,6 @@ export class ListSubModulesComponent implements OnInit {
 
 	onSubModuleClick(id: any, submodule: any) {
 		this.selectSubmoduleName = submodule.submodule_name
-		// if(this.planExpired){
-		//   this.restrict=true;
-		//   return;
-		// }
 		if (this.currentModuleId == 5) {
 			this.storage.set("QuizModuleName", submodule.submodule_name)
 		}
@@ -619,10 +608,6 @@ export class ListSubModulesComponent implements OnInit {
 
 	goBackNew() {
 		this.router.navigateByUrl('pages/global-repo')
-	}
-
-	clearRestriction() {
-		this.restrict = false
 	}
 
 	quizpercentage: any = 0

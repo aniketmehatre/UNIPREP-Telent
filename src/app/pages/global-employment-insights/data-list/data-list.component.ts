@@ -21,10 +21,6 @@ export class GlobalEmploymentDataListComponent implements OnInit {
   restrict: boolean = false;
   page: number = 1;
   perpage: number = 50;
-  ehitlabelIsShow: boolean = true;
-  imagewhitlabeldomainname: any;
-  orgnamewhitlabel: any;
-  orglogowhitelabel: any;
   totalDataCount: any = 0;
   ListData: any = [];
   selectedQuestionData: any;
@@ -43,24 +39,19 @@ export class GlobalEmploymentDataListComponent implements OnInit {
     private meta: Meta,
     private service: GlobalEmploymentService,
     private dataService: DataService,
-  ) {}
+  ) { }
   SelectedCompany: any;
   ngOnInit(): void {
     this.SelectedCompany = this.prepData.companyName;
     this.getList();
     this.checkPlanExpiry();
-    this.imagewhitlabeldomainname = window.location.hostname;
-    this.ehitlabelIsShow = [
-      "dev-student.uniprep.ai",
-      "uniprep.ai",
-      "localhost",
-    ].includes(this.imagewhitlabeldomainname);
+
   }
   onShowModal(value: any) {
     let socialShare: any = document.getElementById("socialSharingList");
     socialShare.style.display = "none";
   }
-  module_id:any;
+  module_id: any;
   getList() {
     this.service
       .getdata({
@@ -70,7 +61,7 @@ export class GlobalEmploymentDataListComponent implements OnInit {
       })
       .subscribe((response: any) => {
         this.ListData = response.data;
-        this.module_id=response.module_id;
+        this.module_id = response.module_id;
         this.totalDataCount = response.totalcount;
         this.isSkeletonVisible = false;
       });
@@ -88,22 +79,13 @@ export class GlobalEmploymentDataListComponent implements OnInit {
   }
 
   checkPlanExpiry(): void {
-    this.authService.getNewUserTimeLeft().subscribe((res) => {
-      const data = res.time_left;
-      if (data.plan === "expired" || data.plan === "subscription_expired") {
-        this.planExpired = true;
-      } else {
-        this.planExpired = false;
-      }
-    });
-  }
-
-  upgradePlan(): void {
-    this.router.navigate(["/pages/subscriptions"]);
-  }
-
-  clearRestriction() {
-    this.restrict = false;
+    if (this.authService._userSubscrition.time_left.plan === "expired" ||
+      this.authService._userSubscrition.time_left.plan === "subscription_expired") {
+      this.planExpired = true;
+    }
+    else {
+      this.planExpired = false;
+    }
   }
 
   openVideoPopup(videoLink: string) {
@@ -205,7 +187,7 @@ export class GlobalEmploymentDataListComponent implements OnInit {
       isVisible: true,
       moduleId: this.module_id,
       questionId: this.selectedQuestionData?.id,
-      countryId:this.selectedQuestionData.country_id,
+      countryId: this.selectedQuestionData.country_id,
     };
     this.dataService.openReportWindow(data);
   }

@@ -21,16 +21,13 @@ import { InputGroupModule } from "primeng/inputgroup"
 import { InputGroupAddonModule } from "primeng/inputgroupaddon"
 import { PaginatorModule } from "primeng/paginator"
 import { PdfViewerModule } from "ng2-pdf-viewer"
-import { DomSanitizer } from "@angular/platform-browser"
-import { RestrictionDialogComponent } from "src/app/shared/restriction-dialog/restriction-dialog.component"
-// import {PdfJsViewerModule} from "ng2-pdfjs-viewer";
 
 @Component({
 	selector: "uni-pitch-desk",
 	templateUrl: "./pitch-desk.component.html",
 	styleUrls: ["./pitch-desk.component.scss"],
 	standalone: true,
-	imports: [CommonModule, InputGroupModule, InputGroupAddonModule, DialogModule, RouterModule, InputTextModule, SkeletonModule, TooltipModule, ButtonModule, MultiSelectModule, CarouselModule, FormsModule, ReactiveFormsModule, PaginatorModule, PdfViewerModule, RestrictionDialogComponent],
+	imports: [CommonModule, InputGroupModule, InputGroupAddonModule, DialogModule, RouterModule, InputTextModule, SkeletonModule, TooltipModule, ButtonModule, MultiSelectModule, CarouselModule, FormsModule, ReactiveFormsModule, PaginatorModule, PdfViewerModule],
 })
 export class PitchDeskComponent implements OnInit, OnDestroy, AfterViewInit {
 	@ViewChild("pdfViewer") pdfViewer: any
@@ -45,7 +42,6 @@ export class PitchDeskComponent implements OnInit, OnDestroy, AfterViewInit {
 	sectorSelectBox: any = []
 	valueNearYouFilter: string = ""
 	showDiv: boolean = true
-	restrict: boolean = false
 	planExpired: boolean = false
 	currentPlan: string = ""
 	selectAllCheckboxes: boolean = false
@@ -56,10 +52,7 @@ export class PitchDeskComponent implements OnInit, OnDestroy, AfterViewInit {
 	favCount: number = 0
 	PersonalInfo!: any
 	viewFavourites: boolean = false
-	ehitlabelIsShow: boolean = true
 	imagewhitlabeldomainname: any
-	orgnamewhitlabel: any
-	orglogowhitelabel: any
 	pdname: any
 	private allPitchDeskData: any[] = []
 	pdfURL: any
@@ -79,6 +72,7 @@ export class PitchDeskComponent implements OnInit, OnDestroy, AfterViewInit {
 		this.checkplanExpire()
 		this.selectBoxValues()
 		this.GetPersonalProfileData()
+		this.imagewhitlabeldomainname = window.location.hostname;
 	}
 
 	ngOnDestroy(): void {
@@ -103,7 +97,7 @@ export class PitchDeskComponent implements OnInit, OnDestroy, AfterViewInit {
 
 	bookmarkQuestion(courseId: any, isFav: any) {
 		if (this.planExpired) {
-			this.restrict = true
+			this.authService.hasUserSubscription$.next(true);
 			return
 		}
 		isFav = isFav != "1" ? true : false
@@ -176,7 +170,7 @@ export class PitchDeskComponent implements OnInit, OnDestroy, AfterViewInit {
 
 	pageChange(event: any) {
 		if (this.planExpired) {
-			this.restrict = true
+			this.authService.hasUserSubscription$.next(true);
 			return
 		}
 		this.selectAllCheckboxes = false
@@ -188,7 +182,7 @@ export class PitchDeskComponent implements OnInit, OnDestroy, AfterViewInit {
 
 	filterBy() {
 		if (this.planExpired) {
-			this.restrict = true
+			this.authService.hasUserSubscription$.next(true);
 			return
 		}
 		this.isFilterVisible = "block"
@@ -314,33 +308,23 @@ export class PitchDeskComponent implements OnInit, OnDestroy, AfterViewInit {
 		this.isPdfLoaded = false
 	}
 
-	clearRestriction() {
-		this.restrict = false
-	}
-
-	upgradePlan(): void {
-		this.router.navigate(["/pages/subscriptions"])
-	}
-
 	checkplanExpire(): void {
-		this.authService.getNewUserTimeLeft().subscribe((res) => {
-			let data = res.time_left
-			let subscription_exists_status = res.subscription_details
-			this.currentPlan = subscription_exists_status.subscription_plan
-			if (data.plan === "expired" || data.plan === "subscription_expired" || subscription_exists_status.subscription_plan === "free_trail" || subscription_exists_status.subscription_plan === "Student" || subscription_exists_status.subscription_plan === "Career") {
-				this.planExpired = true
-				//this.restrict = true;
-			} else {
-				this.planExpired = false
-				//this.restrict = false;
-			}
-			this.getPitchDeskList()
-		})
+		if (this.authService._userSubscrition.time_left.plan === "expired" ||
+			this.authService._userSubscrition.time_left.plan === "subscription_expired" ||
+			this.authService._userSubscrition.subscription_details.subscription_plan === "Student" ||
+			this.authService._userSubscrition.subscription_details.subscription_plan === "Career") {
+			this.planExpired = true;
+		}
+		else {
+			this.planExpired = false;
+		}
+		this.getPitchDeskList()
+
 	}
 
 	buyCredits(): void {
 		if (this.planExpired) {
-			this.restrict = true
+			this.authService.hasUserSubscription$.next(true);
 			return
 		}
 		this.router.navigate(["/pages/export-credit"])
@@ -348,7 +332,7 @@ export class PitchDeskComponent implements OnInit, OnDestroy, AfterViewInit {
 
 	onCheckboxChange(event: any, item: any) {
 		if (this.planExpired) {
-			this.restrict = true
+			this.authService.hasUserSubscription$.next(true);
 			return
 		}
 
@@ -371,7 +355,7 @@ export class PitchDeskComponent implements OnInit, OnDestroy, AfterViewInit {
 
 	selectAllCheckbox() {
 		if (this.planExpired) {
-			this.restrict = true
+			this.authService.hasUserSubscription$.next(true);
 			return
 		}
 
@@ -387,7 +371,7 @@ export class PitchDeskComponent implements OnInit, OnDestroy, AfterViewInit {
 
 	exportData() {
 		if (this.planExpired) {
-			this.restrict = true
+			this.authService.hasUserSubscription$.next(true);
 			return
 		} else if (this.exportCreditCount != 0) {
 			this.exportDataIds = []
@@ -409,7 +393,7 @@ export class PitchDeskComponent implements OnInit, OnDestroy, AfterViewInit {
 			} else {
 				if (this.exportCreditCount < this.exportDataIds.length) {
 					this.toast.add({ severity: "error", summary: "error", detail: "To download additional data beyond your free credits, please upgrade your plan." })
-					this.restrict = true
+					this.authService.hasUserSubscription$.next(true);
 					return
 				}
 			}
@@ -428,7 +412,7 @@ export class PitchDeskComponent implements OnInit, OnDestroy, AfterViewInit {
 				this.toast.add({ severity: "error", summary: "error", detail: "Please Buy Some Credits." })
 				this.router.navigate(["/pages/export-credit"])
 			} else {
-				this.restrict = true
+				this.authService.hasUserSubscription$.next(true);
 			}
 		}
 	}

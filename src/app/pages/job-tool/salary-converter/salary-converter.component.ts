@@ -13,14 +13,13 @@ import { InputNumberModule } from "primeng/inputnumber"
 import { CarouselModule } from "primeng/carousel"
 import { ButtonModule } from "primeng/button"
 import { SelectModule } from "primeng/select"
-import { RestrictionDialogComponent } from "src/app/shared/restriction-dialog/restriction-dialog.component"
 
 @Component({
 	selector: "uni-salary-converter",
 	templateUrl: "./salary-converter.component.html",
 	styleUrls: ["./salary-converter.component.scss"],
 	standalone: true,
-	imports: [CommonModule, ButtonModule, CarouselModule, DialogModule, FormsModule, InputNumberModule, SelectModule, RestrictionDialogComponent],
+	imports: [CommonModule, ButtonModule, CarouselModule, DialogModule, FormsModule, InputNumberModule, SelectModule],
 	encapsulation: ViewEncapsulation.None,
 })
 export class SalaryConverterComponent implements OnInit {
@@ -42,11 +41,6 @@ export class SalaryConverterComponent implements OnInit {
 	inHomeCurrency: any
 	isPPPCardVisible: boolean = false
 	planExpired: boolean = false
-	restrict: boolean = false
-	ehitlabelIsShow: boolean = true
-	imagewhitlabeldomainname: any
-	orgnamewhitlabel: any
-	orglogowhitelabel: any
 	salaries: { satement: string }[] = [{ satement: "Earning INR 50,000 in the India is equivalent to earning INR 1,78,571.43 in the United Arab Emirates." }, { satement: "Earning INR 70,000 in the India is equivalent to earning INR 2,12,500 in the United Kingdom." }, { satement: "Earning INR 50,000 the India is equivalent to earning INR 16,071.43 in the Canada." }, { satement: "Earning INR 70,000 in the India is equivalent to earning INR 1,90,000 in the France." }, { satement: "Earning INR 1,00,000 in the India is equivalent to earning INR 3,57,142.86 in the United States." }]
 	responsiveOptions: { breakpoint: string; numVisible: number; numScroll: number }[]
 	get fromValue() {
@@ -87,19 +81,9 @@ export class SalaryConverterComponent implements OnInit {
 
 	isShowPlanExpiredDialog: boolean = false
 	convert(): void {
-		// this.planService.checkPlanIsExpired().subscribe((isExpired) => {
-		//   if (isExpired) {
-		//     this.planExpired = isExpired;
-		//     this.restrict = isExpired;
-		//     this.isShowPlanExpiredDialog = true
-		//     this.cdr.detectChanges();
-		//     return;
-		//   } else {
-		//
-		//   }
-		// });
+
 		if (this.planExpired) {
-			this.restrict = true
+			this.authService.hasUserSubscription$.next(true);
 			return
 		}
 		this.isShowPlanExpiredDialog = false
@@ -155,21 +139,14 @@ export class SalaryConverterComponent implements OnInit {
 		this._location.back()
 	}
 	checkplanExpire(): void {
-		this.authService.getNewUserTimeLeft().subscribe((res) => {
-			let data = res.time_left
-			let subscription_exists_status = res.subscription_details
-			if (data.plan === "expired" || data.plan === "subscription_expired" || subscription_exists_status.subscription_plan == "Student") {
-				this.planExpired = true
-			} else {
-				this.planExpired = false
-			}
-		})
-	}
-	upgradePlan(): void {
-		this.router.navigate(["/pages/subscriptions"])
+		if (this.authService._userSubscrition.time_left.plan === "expired" ||
+			this.authService._userSubscrition.time_left.plan === "subscription_expired" ||
+			this.authService._userSubscrition.subscription_details.subscription_plan === "Student") {
+			this.planExpired = true;
+		}
+		else {
+			this.planExpired = false;
+		}
 	}
 
-	clearRestriction() {
-		this.restrict = false
-	}
 }

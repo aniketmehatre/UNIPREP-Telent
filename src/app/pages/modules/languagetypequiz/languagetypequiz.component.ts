@@ -15,13 +15,12 @@ import { DialogModule } from 'primeng/dialog';
 import { CarouselModule } from 'primeng/carousel';
 import { ButtonModule } from 'primeng/button';
 import { StorageService } from "../../../storage.service";
-import { RestrictionDialogComponent } from 'src/app/shared/restriction-dialog/restriction-dialog.component';
 @Component({
   selector: 'uni-languagetypequiz',
   templateUrl: './languagetypequiz.component.html',
   styleUrls: ['./languagetypequiz.component.scss'],
   standalone: true,
-  imports: [CommonModule, DialogModule, CarouselModule, ButtonModule, RestrictionDialogComponent],
+  imports: [CommonModule, DialogModule, CarouselModule, ButtonModule],
 })
 export class LanguagetypequizComponent implements OnInit {
 
@@ -66,12 +65,7 @@ export class LanguagetypequizComponent implements OnInit {
   restrict: boolean = false;
   selectedQuizArrayForTimer: any[] = [];
   totalquiztime: any = 0;
-  restrict1: boolean = false;
   planExpired: boolean = false;
-  ehitlabelIsShow: boolean = true;
-  imagewhitlabeldomainname: any
-  orgnamewhitlabel: any;
-  orglogowhitelabel: any;
   menuView: any
   constructor(private moduleListService: ModuleServiceService, private authService: AuthService,
     private router: Router, private dataService: DataService, private location: Location,
@@ -140,24 +134,14 @@ export class LanguagetypequizComponent implements OnInit {
     this.checkquizquestioncount()
   }
 
-
-  upgradePlan(): void {
-    this.router.navigate(["/pages/subscriptions"]);
-  }
-  clearRestriction() {
-    this.restrict1 = false;
-  }
   checkplanExpire(): void {
-    this.authService.getNewUserTimeLeft().subscribe((res) => {
-      let data = res.time_left;
-      let subscription_exists_status = res.subscription_details;
-      if (data.plan === "expired" || data.plan === 'subscription_expired' ||
-        subscription_exists_status?.subscription_plan === "free_trail") {
-        this.planExpired = true;
-      } else {
-        this.planExpired = false;
-      }
-    })
+    if (this.authService._userSubscrition.time_left.plan === "expired" ||
+      this.authService._userSubscrition.time_left.plan === "subscription_expired") {
+      this.planExpired = true;
+    }
+    else {
+      this.planExpired = false;
+    }
   }
 
   loadModuleAndSubModule() {
@@ -407,7 +391,7 @@ export class LanguagetypequizComponent implements OnInit {
   }
   openCertificate() {
     if (this.planExpired) {
-      this.restrict1 = true;
+      this.authService.hasUserSubscription$.next(true);
       return;
     }
     window.open(this.certificatesurl, '_blank');

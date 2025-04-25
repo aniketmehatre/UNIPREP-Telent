@@ -17,13 +17,12 @@ import { InputTextModule } from 'primeng/inputtext';
 import { InputGroupAddonModule } from 'primeng/inputgroupaddon';
 import { SelectModule } from 'primeng/select';
 import { ComparisionComponent } from './comparision/comparision.component';
-import { RestrictionDialogComponent } from 'src/app/shared/restriction-dialog/restriction-dialog.component';
 @Component({
   selector: 'uni-cost-of-living',
   templateUrl: './cost-of-living.component.html',
   styleUrls: ['./cost-of-living.component.scss'],
   standalone: true,
-  imports: [CommonModule, DialogModule, FormsModule, ReactiveFormsModule, SelectModule, CarouselModule, ButtonModule, CommonModule, RouterModule, DialogModule, MultiSelectModule, CardModule, InputGroupModule, InputTextModule, InputGroupAddonModule, ComparisionComponent, RestrictionDialogComponent],
+  imports: [CommonModule, DialogModule, FormsModule, ReactiveFormsModule, SelectModule, CarouselModule, ButtonModule, CommonModule, RouterModule, DialogModule, MultiSelectModule, CardModule, InputGroupModule, InputTextModule, InputGroupAddonModule, ComparisionComponent],
 
 })
 export class CostOfLivingComponent implements OnInit {
@@ -33,11 +32,6 @@ export class CostOfLivingComponent implements OnInit {
   targetCities: City[] = [];
   form!: FormGroup;
   planExpired: boolean = false
-  restrict: boolean = false
-  ehitlabelIsShow: boolean = true;
-  imagewhitlabeldomainname: any
-  orgnamewhitlabel: any;
-  orglogowhitelabel: any;
   canShowComparision: boolean = false;
   sourceCountryPrices!: CostOfLiving;
   targetCountryPrices!: CostOfLiving;
@@ -70,12 +64,6 @@ export class CostOfLivingComponent implements OnInit {
   ngOnInit() {
     this.checkplanExpire()
     this.getCurrencyConvertions('United States,India');
-    this.locationService.getImage().subscribe((imageUrl: any) => {
-      this.orglogowhitelabel = imageUrl;
-    });
-    this.locationService.getOrgName().subscribe((orgname: any) => {
-      this.orgnamewhitlabel = orgname;
-    });
     this.responsiveOptions = [
       {
         breakpoint: '1199px',
@@ -93,12 +81,6 @@ export class CostOfLivingComponent implements OnInit {
         numScroll: 1,
       }
     ];
-    this.imagewhitlabeldomainname = window.location.hostname;
-    if (this.imagewhitlabeldomainname === "*.uniprep.ai" || this.imagewhitlabeldomainname === "dev-student.uniprep.ai" || this.imagewhitlabeldomainname === "uniprep.ai" || this.imagewhitlabeldomainname === "localhost") {
-      this.ehitlabelIsShow = true;
-    } else {
-      this.ehitlabelIsShow = false;
-    }
     this.costOfLivingService.getCities().subscribe((res: City[]) => {
       this.cities = res;
       this.sourceCities = this.cities;
@@ -108,7 +90,7 @@ export class CostOfLivingComponent implements OnInit {
 
   compare() {
     if (this.planExpired) {
-      this.restrict = true;
+      this.authService.hasUserSubscription$.next(true);
       return;
     }
     this.sourcecountryName = this.form.value.sourceCity.country_name;
@@ -169,23 +151,13 @@ export class CostOfLivingComponent implements OnInit {
     );
   }
   checkplanExpire(): void {
-    this.authService.getNewUserTimeLeft().subscribe((res) => {
-      let data = res.time_left;
-      let subscription_exists_status = res.subscription_details;
-      if (data.plan === "expired" || data.plan === 'subscription_expired') {
-        this.planExpired = true;
-      } else {
-        this.planExpired = false;
-      }
-    })
-  }
-
-  upgradePlan(): void {
-    this.router.navigate(["/pages/subscriptions"]);
-  }
-
-  clearRestriction() {
-    this.restrict = false;
+    if (this.authService._userSubscrition.time_left.plan === "expired" ||
+      this.authService._userSubscrition.time_left.plan === "subscription_expired") {
+      this.planExpired = true;
+    }
+    else {
+      this.planExpired = false;
+    }
   }
 
 }

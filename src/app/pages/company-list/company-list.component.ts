@@ -21,13 +21,12 @@ import { SelectModule } from 'primeng/select';
 import { InputGroupModule } from 'primeng/inputgroup';
 import { InputTextModule } from 'primeng/inputtext';
 import { InputGroupAddonModule } from 'primeng/inputgroupaddon';
-import { RestrictionDialogComponent } from 'src/app/shared/restriction-dialog/restriction-dialog.component';
 @Component({
   selector: 'uni-company-list',
   templateUrl: './company-list.component.html',
   styleUrls: ['./company-list.component.scss'],
   standalone: true,
-  imports: [CommonModule, DialogModule, MultiSelectModule, FormsModule, ReactiveFormsModule, CarouselModule, ButtonModule, CommonModule, RouterModule, DialogModule, MultiSelectModule, CardModule, InputGroupModule, InputTextModule, InputGroupAddonModule, Paginator, RestrictionDialogComponent],
+  imports: [CommonModule, DialogModule, MultiSelectModule, FormsModule, ReactiveFormsModule, CarouselModule, ButtonModule, CommonModule, RouterModule, DialogModule, MultiSelectModule, CardModule, InputGroupModule, InputTextModule, InputGroupAddonModule, Paginator],
 })
 export class CompanyListComponent implements OnInit {
   companyListData: any[] = []
@@ -53,10 +52,7 @@ export class CompanyListComponent implements OnInit {
   exportDataIds: any[] = [];
   exportCreditCount: number = 0;
   favCount: number = 0;
-  ehitlabelIsShow: boolean = true;
   imagewhitlabeldomainname: any;
-  orgnamewhitlabel: any;
-  orglogowhitelabel: any;
   enableModule: boolean = false;
   activePageIndex: number = 0;
   recommendations: any = [
@@ -100,9 +96,6 @@ export class CompanyListComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.locationService.getImage().subscribe(imageUrl => {
-      this.orglogowhitelabel = imageUrl;
-    });
     this.loadMultiSelectData();
     this.checkplanExpire();
     this.GetPersonalProfileData();
@@ -115,7 +108,7 @@ export class CompanyListComponent implements OnInit {
 
   performSearch(events: any) {
     if (this.planExpired) {
-      this.restrict = true;
+      this.authService.hasUserSubscription$.next(true);
       this.valueNearYouFilter = "";
       return;
     }
@@ -134,7 +127,7 @@ export class CompanyListComponent implements OnInit {
 
   searchClick() {
     if (this.planExpired) {
-      this.restrict = true;
+      this.authService.hasUserSubscription$.next(true);
       this.valueNearYouFilter = "";
       let searchInput = document.getElementById("searchInput") as HTMLInputElement;;
       if (searchInput !== null) {
@@ -158,13 +151,7 @@ export class CompanyListComponent implements OnInit {
     this.filterForm.reset();
     this.loadCompanyData(0);
   }
-  clearRestriction() {
-    this.restrict = false;
-    let searchInput = document.getElementById("searchInput") as HTMLInputElement;;
-    if (searchInput !== null) {
-      searchInput.disabled = false;
-    }
-  }
+
   loadCompanyData(isFavourite: number) {
     let data: any;
     if (isFavourite == 1) {
@@ -199,7 +186,7 @@ export class CompanyListComponent implements OnInit {
 
   pageChange(event: any) {
     if (this.planExpired) {
-      this.restrict = true;
+      this.authService.hasUserSubscription$.next(true);
       return;
     }
     this.selectAllCheckboxes = false;
@@ -216,7 +203,7 @@ export class CompanyListComponent implements OnInit {
 
   filterBy() {
     if (this.planExpired) {
-      this.restrict = true;
+      this.authService.hasUserSubscription$.next(true);
       return;
     }
     this.isFilterVisible = 'block';
@@ -229,17 +216,15 @@ export class CompanyListComponent implements OnInit {
   }
 
   checkplanExpire(): void {
-    this.authService.getNewUserTimeLeft().subscribe((res) => {
-      let data = res.time_left;
-      let subscription_exists_status = res.subscription_details;
-      this.currentPlan = subscription_exists_status.subscription_plan;
-      if (data.plan === "expired" || data.plan === 'subscription_expired' || subscription_exists_status.subscription_plan === 'free_trail' || subscription_exists_status.subscription_plan === 'Student') {
-        this.planExpired = true;
-      } else {
-        this.planExpired = false;
-      }
-      // this.loadCompanyData(0);
-    })
+    if (this.authService._userSubscrition.time_left.plan === "expired" ||
+      this.authService._userSubscrition.time_left.plan === "subscription_expired" ||
+      this.authService._userSubscrition.subscription_details.subscription_plan === 'free_trail' ||
+      this.authService._userSubscrition.subscription_details.subscription_plan === 'Student') {
+      this.planExpired = true;
+    }
+    else {
+      this.planExpired = true;
+    }
   }
 
   companyGuidlines(): void {
@@ -299,7 +284,7 @@ export class CompanyListComponent implements OnInit {
 
   buyCredits(): void {
     if (this.planExpired) {
-      this.restrict = true;
+      this.authService.hasUserSubscription$.next(true);
       return;
     }
     this.router.navigate(["/pages/export-credit"]);
@@ -337,7 +322,7 @@ export class CompanyListComponent implements OnInit {
 
   exportData() {
     if (this.planExpired) {
-      this.restrict = true;
+      this.authService.hasUserSubscription$.next(true);
       return;
     } else if (this.exportCreditCount != 0) {
       this.exportDataIds = [];
@@ -360,7 +345,7 @@ export class CompanyListComponent implements OnInit {
       } else {
         if (this.exportCreditCount < this.exportDataIds.length) {
           this.toast.add({ severity: "error", summary: "error", detail: "To download additional data beyond your free credits, please upgrade your plan.", });
-          this.restrict = true;
+          this.authService.hasUserSubscription$.next(true);
           return;
         }
       }
@@ -379,7 +364,7 @@ export class CompanyListComponent implements OnInit {
         this.toast.add({ severity: "error", summary: "error", detail: "Please Buy Some Credits.", });
         this.router.navigate(["/pages/export-credit"]);
       } else {
-        this.restrict = true;
+        this.authService.hasUserSubscription$.next(true);
       }
     }
 

@@ -6,24 +6,18 @@ import { AuthService } from "src/app/Auth/auth.service";
 import { CommonModule } from "@angular/common";
 import { DialogModule } from "primeng/dialog";
 import { StorageService } from "../../storage.service";
-import { RestrictionDialogComponent } from "src/app/shared/restriction-dialog/restriction-dialog.component";
 @Component({
 	selector: "uni-national-exam-tests",
 	templateUrl: "./national-exam-tests.component.html",
 	styleUrls: ["./national-exam-tests.component.scss"],
 	standalone: true,
-	imports: [CommonModule, DialogModule, RestrictionDialogComponent],
+	imports: [CommonModule, DialogModule],
 })
 export class NationalExamTestsComponent implements OnInit {
 	tests: any
 	count: number = 1
 	category_id: any | null
 	planExpired: boolean = false;
-	restrict: boolean = false;
-	ehitlabelIsShow: boolean = true;
-	orgnamewhitlabel: any;
-	orglogowhitelabel: any;
-	imagewhitlabeldomainname: any;
 	nCategory: string = '';
 
 	constructor(private service: NationalExamService, private authService: AuthService, private route: ActivatedRoute,
@@ -47,26 +41,19 @@ export class NationalExamTestsComponent implements OnInit {
 
 	goToTest(testid: any) {
 		if (this.planExpired) {
-			this.restrict = true;
+			this.authService.hasUserSubscription$.next(true);
 			return;
 		}
 		this.router.navigate([`/pages/national-exams/${this.category_id}/questions/${testid}`]);
 	}
 	checkplanExpire(): void {
-		this.authService.getNewUserTimeLeft().subscribe((res) => {
-			let data = res.time_left;
-			let subscription_exists_status = res.subscription_details;
-			if (data.plan === "expired" || data.plan === 'subscription_expired') {
-				this.planExpired = true;
-			} else {
-				this.planExpired = false;
-			}
-		})
+		if (this.authService._userSubscrition.time_left.plan === "expired" ||
+			this.authService._userSubscrition.time_left.plan === "subscription_expired") {
+			this.planExpired = true;
+		}
+		else {
+			this.planExpired = false;
+		}
 	}
-	upgradePlan(): void {
-		this.router.navigate(["/pages/subscriptions"]);
-	}
-	clearRestriction() {
-		this.restrict = false;
-	}
+
 }

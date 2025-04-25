@@ -19,7 +19,6 @@ import { SelectModule } from 'primeng/select';
 import { InputGroupModule } from 'primeng/inputgroup';
 import { InputTextModule } from 'primeng/inputtext';
 import { InputGroupAddonModule } from 'primeng/inputgroupaddon';
-import { RestrictionDialogComponent } from "src/app/shared/restriction-dialog/restriction-dialog.component"
 interface JobRole {
 	id: number
 	jobrole: string
@@ -62,7 +61,7 @@ interface Country {
 	templateUrl: "./career-growth-checker.component.html",
 	styleUrls: ["./career-growth-checker.component.scss"],
 	standalone: true,
-	imports: [CommonModule, DialogModule, RouterModule, CardModule, PaginatorModule, FormsModule, ReactiveFormsModule, CarouselModule, ButtonModule, MultiSelectModule, SelectModule, InputGroupModule, InputTextModule, InputGroupAddonModule, RestrictionDialogComponent]
+	imports: [CommonModule, DialogModule, RouterModule, CardModule, PaginatorModule, FormsModule, ReactiveFormsModule, CarouselModule, ButtonModule, MultiSelectModule, SelectModule, InputGroupModule, InputTextModule, InputGroupAddonModule]
 })
 export class CareerGrowthCheckerComponent implements OnInit {
 	constructor(private careerGrowthService: CareerGrowthService, private router: Router, private fb: FormBuilder, private authService: AuthService, private locationService: LocationService) { }
@@ -86,12 +85,9 @@ export class CareerGrowthCheckerComponent implements OnInit {
 	invalidClassCountry: boolean = false
 	hasFilteredOptions: boolean = false
 	isSelecting: boolean = false
+	planExpired: boolean = false
 
 	ngOnInit(): void {
-		this.locationService.getImage().subscribe((imageUrl) => {
-			this.orglogowhitelabel = imageUrl
-		})
-
 		this.checkForm = this.fb.group({
 			jobSearch: [""],
 			country: [""],
@@ -201,7 +197,7 @@ export class CareerGrowthCheckerComponent implements OnInit {
 
 	search() {
 		if (this.planExpired) {
-			this.restrict = true
+			this.authService.hasUserSubscription$.next(true);
 			return
 		}
 		const jobSearchValue = this.checkForm.value.jobSearch
@@ -266,22 +262,17 @@ export class CareerGrowthCheckerComponent implements OnInit {
 
 		element.scrollIntoView({ behavior: "smooth", block: "end" })
 	}
-	ehitlabelIsShow: boolean = true
-	imagewhitlabeldomainname: any
-	orgnamewhitlabel: any
-	orglogowhitelabel: any
-	planExpired: boolean = false
-	restrict: boolean = false
+
 	checkplanExpire(): void {
-		this.authService.getNewUserTimeLeft().subscribe((res) => {
-			let data = res.time_left
-			let subscription_exists_status = res.subscription_details
-			if (data.plan === "expired" || data.plan === "subscription_expired" || subscription_exists_status.subscription_plan == "Student") {
-				this.planExpired = true
-			} else {
-				this.planExpired = false
-			}
-		})
+		if (this.authService._userSubscrition.time_left.plan === "expired" ||
+			this.authService._userSubscrition.time_left.plan === "subscription_expired" ||
+			this.authService._userSubscrition.subscription_details.subscription_plan === "Student"
+		) {
+			this.planExpired = true;
+		}
+		else {
+			this.planExpired = false;
+		}
 	}
 
 }

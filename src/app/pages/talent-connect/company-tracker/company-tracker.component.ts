@@ -7,7 +7,6 @@ import { RouterLink } from '@angular/router';
 import { TalentConnectService } from "../talent-connect.service";
 import { FormBuilder, FormGroup } from "@angular/forms";
 import { forkJoin } from "rxjs";
-import { RestrictionDialogComponent } from 'src/app/shared/restriction-dialog/restriction-dialog.component';
 
 interface DropdownOption {
   label: string;
@@ -18,14 +17,12 @@ interface DropdownOption {
   templateUrl: './company-tracker.component.html',
   styleUrls: ['./company-tracker.component.scss'],
   standalone: true,
-  imports: [CommonModule, DialogModule, CompanyListsComponent, CompanyDetailComponent, RouterLink, RestrictionDialogComponent]
+  imports: [CommonModule, DialogModule, CompanyListsComponent, CompanyDetailComponent, RouterLink]
 })
 export class CompanyTracker1Component {
   @Output() companyTrackerEmit: EventEmitter<number> = new EventEmitter();
   @Output() triggerApplyFilter: EventEmitter<any> = new EventEmitter();
   isSkeletonVisible: boolean = false;
-  ehitlabelIsShow: boolean = false;
-  restrict: boolean = false;
   howItWorksVideoLink: string = '';
   selectedJobId: number | null = null;
   displayModal: boolean = false;

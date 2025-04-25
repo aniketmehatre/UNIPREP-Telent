@@ -40,12 +40,10 @@ export class AdvisorComponent implements OnInit {
 	requestButton: string
 	smallquestion: boolean = true
 	responsiveOptions: any[] = []
-	planExpired!: boolean
 
 	constructor(private service: AdvisorService, private ngxService: NgxUiLoaderService, private route: ActivatedRoute, private pageFacade: PageFacadeService, private authService: AuthService, private locationService: LocationService, private router: Router, private messageService: MessageService) { }
 
 	ngOnInit() {
-		this.checkplanExpire()
 		this.questions = [
 			{ question: "Must visit places in Milan.", icons: "fa-earth-americas" },
 			{ question: "Top 10 fully funded scholarships for international students in the UK.", icons: "fa-diploma" },
@@ -101,7 +99,7 @@ export class AdvisorComponent implements OnInit {
 	}
 
 	getChatHistory() {
-		if (this.planExpired) {
+		if (this.authService.isInvalidSubscription('ai_global_advisor')) {
 			this.authService.hasUserSubscription$.next(true);
 			return;
 		}
@@ -118,7 +116,7 @@ export class AdvisorComponent implements OnInit {
 	}
 
 	getAns() {
-		if (this.planExpired) {
+		if (this.authService.isInvalidSubscription('ai_global_advisor')) {
 			this.authService.hasUserSubscription$.next(true);
 			return;
 		}
@@ -188,16 +186,6 @@ export class AdvisorComponent implements OnInit {
 
 	openVideoPopup(videoLink: string) {
 		this.pageFacade.openHowitWorksVideoPopup(videoLink)
-	}
-
-	checkplanExpire() {
-		if (this.authService._userSubscrition.time_left.plan === "expired" ||
-			this.authService._userSubscrition.time_left.plan === "subscription_expired") {
-			this.planExpired = true;
-		}
-		else {
-			this.planExpired = false;
-		}
 	}
 
 }

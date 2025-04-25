@@ -21,13 +21,12 @@ import { SelectModule } from 'primeng/select';
 import { InputGroupModule } from 'primeng/inputgroup';
 import { InputTextModule } from 'primeng/inputtext';
 import { InputGroupAddonModule } from 'primeng/inputgroupaddon';
-import { RestrictionDialogComponent } from 'src/app/shared/restriction-dialog/restriction-dialog.component';
 @Component({
   selector: 'uni-investor-list',
   templateUrl: './investor-list.component.html',
   styleUrls: ['./investor-list.component.scss'],
   standalone: true,
-  imports: [CommonModule, DialogModule, MultiSelectModule, FormsModule, ReactiveFormsModule, RouterModule, CardModule, PaginatorModule, CarouselModule, ButtonModule, SelectModule, InputGroupModule, InputTextModule, InputGroupAddonModule, RestrictionDialogComponent],
+  imports: [CommonModule, DialogModule, MultiSelectModule, FormsModule, ReactiveFormsModule, RouterModule, CardModule, PaginatorModule, CarouselModule, ButtonModule, SelectModule, InputGroupModule, InputTextModule, InputGroupAddonModule],
 })
 export class InvestorListComponent implements OnInit {
   investorData: any[] = []
@@ -45,8 +44,6 @@ export class InvestorListComponent implements OnInit {
   isFilterVisible: string = 'none';
   filterForm: FormGroup;
   planExpired!: boolean;
-  recommendRestrict!: boolean;
-  restrict: boolean = false;
   currentPlan: string = "";
   isBookmarked: boolean = false;
   PersonalInfo!: any;
@@ -58,10 +55,7 @@ export class InvestorListComponent implements OnInit {
   exportDataIds: any[] = [];
   exportCreditCount: number = 0;
   favCount: number = 0;
-  ehitlabelIsShow: boolean = true;
   imagewhitlabeldomainname: any;
-  orgnamewhitlabel: any;
-  orglogowhitelabel: any;
   enableModule: boolean = false;
   activePageIndex: number = 0;
   recommendations: any = [
@@ -227,7 +221,7 @@ export class InvestorListComponent implements OnInit {
 
   buyCredits(): void {
     if (this.planExpired) {
-      this.restrict = true;
+      this.authService.hasUserSubscription$.next(true);
       return;
     }
     this.router.navigate(["/pages/export-credit"]);
@@ -269,7 +263,7 @@ export class InvestorListComponent implements OnInit {
 
   pageChange(event: any) {
     if (this.planExpired) {
-      this.restrict = true;
+      this.authService.hasUserSubscription$.next(true);
       return;
     }
     this.selectAllCheckboxes = false;
@@ -286,7 +280,7 @@ export class InvestorListComponent implements OnInit {
 
   filterBy() {
     if (this.planExpired) {
-      this.restrict = true;
+      this.authService.hasUserSubscription$.next(true);
       return;
     }
     this.isFilterVisible = 'block';
@@ -299,32 +293,15 @@ export class InvestorListComponent implements OnInit {
   }
 
   checkplanExpire(): void {
-    this.authService.getNewUserTimeLeft().subscribe((res) => {
-      let data = res.time_left;
-      let subscription_exists_status = res.subscription_details;
-      this.currentPlan = subscription_exists_status.subscription_plan;
-      if (data.plan === "expired" || data.plan === 'subscription_expired' ||
-        subscription_exists_status.subscription_plan === 'free_trail' ||
-        subscription_exists_status.subscription_plan === 'Student' ||
-        subscription_exists_status.subscription_plan === 'Career') {
-        this.planExpired = true;
-      } else {
-        this.planExpired = false;
-      }
-      if (data.plan === "expired" || data.plan === 'subscription_expired' ||
-        subscription_exists_status.subscription_plan === 'Student' ||
-        subscription_exists_status.subscription_plan === 'Career') {
-        this.recommendRestrict = true;
-      } else {
-        this.recommendRestrict = false;
-      }
-
-      // this.loadInvestorData(0);  
-    })
-  }
-
-  upgradePlan(): void {
-    this.router.navigate(["/pages/subscriptions"]);
+    if (this.authService._userSubscrition.time_left.plan === "expired" ||
+      this.authService._userSubscrition.time_left.plan === "subscription_expired" ||
+      this.authService._userSubscrition.subscription_details.subscription_plan === "Student" ||
+      this.authService._userSubscrition.subscription_details.subscription_plan === "Career") {
+      this.planExpired = true;
+    }
+    else {
+      this.planExpired = false;
+    }
   }
 
   loadHeadQuartersData(event: any) {
@@ -335,9 +312,7 @@ export class InvestorListComponent implements OnInit {
       // this.anyHeadquartersList.unshift(anyCountryArray);
     });
   }
-  clearRestriction() {
-    this.restrict = false;
-  }
+
   GetPersonalProfileData() {
     this.userManagementService.GetUserPersonalInfo().subscribe(data => {
       this.PersonalInfo = data;
@@ -378,7 +353,7 @@ export class InvestorListComponent implements OnInit {
 
   exportData() {
     if (this.planExpired) {
-      this.restrict = true;
+      this.authService.hasUserSubscription$.next(true);
       return;
     } else if (this.exportCreditCount != 0) {
       this.exportDataIds = [];
@@ -401,7 +376,7 @@ export class InvestorListComponent implements OnInit {
       } else {
         if (this.exportCreditCount < this.exportDataIds.length) {
           this.toast.add({ severity: "error", summary: "error", detail: "To download additional data beyond your free credits, please upgrade your plan.", });
-          this.restrict = true;
+          this.authService.hasUserSubscription$.next(true);
           return;
         }
       }
@@ -420,7 +395,7 @@ export class InvestorListComponent implements OnInit {
         this.toast.add({ severity: "error", summary: "error", detail: "Please Buy Some Credits.", });
         this.router.navigate(["/pages/export-credit"]);
       } else {
-        this.restrict = true;
+        this.authService.hasUserSubscription$.next(true);
       }
     }
 
@@ -458,8 +433,8 @@ export class InvestorListComponent implements OnInit {
     }
   }
   getRecommendation() {
-    if (this.recommendRestrict) {
-      this.restrict = true;
+    if (this.planExpired) {
+      this.authService.hasUserSubscription$.next(true);
       return;
     }
     this.enableModule = true;

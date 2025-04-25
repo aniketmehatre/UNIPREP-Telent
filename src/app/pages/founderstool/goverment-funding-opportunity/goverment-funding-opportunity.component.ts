@@ -17,14 +17,13 @@ import { FormsModule, ReactiveFormsModule } from "@angular/forms";
 import { Carousel } from "primeng/carousel";
 import { ButtonModule } from 'primeng/button';
 import { Paginator } from "primeng/paginator";
-import { RestrictionDialogComponent } from "src/app/shared/restriction-dialog/restriction-dialog.component";
 
 @Component({
 	selector: "uni-goverment-funding-opportunity",
 	templateUrl: "./goverment-funding-opportunity.component.html",
 	styleUrls: ["./goverment-funding-opportunity.component.scss"],
 	standalone: true,
-	imports: [CommonModule, RouterModule, DialogModule, SelectModule, MultiSelectModule, FormsModule, ReactiveFormsModule, Carousel, ButtonModule, Paginator, RestrictionDialogComponent],
+	imports: [CommonModule, RouterModule, DialogModule, SelectModule, MultiSelectModule, FormsModule, ReactiveFormsModule, Carousel, ButtonModule, Paginator],
 })
 export class GovermentFundingOppurtunityComponent implements OnInit {
 	fundData: any[] = []
@@ -38,7 +37,6 @@ export class GovermentFundingOppurtunityComponent implements OnInit {
 	isFilterVisible: boolean = false
 	filterForm: FormGroup
 	planExpired!: boolean
-	recommendRestrict!: boolean
 	fundTypeList: any[] = [
 		{
 			id: 31,
@@ -48,7 +46,6 @@ export class GovermentFundingOppurtunityComponent implements OnInit {
 		},
 	]
 	anyFundTypeList: any[] = []
-	restrict: boolean = false
 	currentPlan: string = ""
 	PersonalInfo!: any
 	viewFavouritesLabel: string = "View Favourites"
@@ -59,10 +56,7 @@ export class GovermentFundingOppurtunityComponent implements OnInit {
 	exportDataIds: any = []
 	selectedFund: number = 0
 	favCount: number = 0
-	ehitlabelIsShow: boolean = true
 	imagewhitlabeldomainname: any
-	orglogowhitelabel: any
-	orgnamewhitlabel: any
 	data: any = {
 		page: this.page,
 		perpage: this.pageSize,
@@ -219,7 +213,7 @@ export class GovermentFundingOppurtunityComponent implements OnInit {
 
 	pageChange(event: any) {
 		if (this.planExpired) {
-			this.restrict = true
+			this.authService.hasUserSubscription$.next(true);
 			return
 		}
 		this.selectAllCheckboxes = false
@@ -238,7 +232,7 @@ export class GovermentFundingOppurtunityComponent implements OnInit {
 
 	filterBy() {
 		if (this.planExpired) {
-			this.restrict = true
+			this.authService.hasUserSubscription$.next(true);
 			return
 		}
 		this.isFilterVisible = true
@@ -247,29 +241,16 @@ export class GovermentFundingOppurtunityComponent implements OnInit {
 	exportTable() { }
 
 	checkplanExpire(): void {
-		this.authService.getNewUserTimeLeft().subscribe((res) => {
-			let data = res.time_left
-			let subscription_exists_status = res.subscription_details
-			this.currentPlan = subscription_exists_status?.subscription_plan
-			if (data.plan === "expired" || data.plan === "subscription_expired" || subscription_exists_status?.subscription_plan === "free_trail") {
-				this.planExpired = true
-			} else {
-				this.planExpired = false
-			}
-			if (data.plan === "expired" || data.plan === "subscription_expired") {
-				this.recommendRestrict = true
-			} else {
-				this.recommendRestrict = false
-			}
-			this.loadFundData(0, this.selectedData)
-		})
-	}
-
-	upgradePlan(): void {
-		this.router.navigate(["/pages/subscriptions"])
-	}
-	clearRestriction() {
-		this.restrict = false
+		if (this.authService._userSubscrition.time_left.plan === "expired" ||
+			this.authService._userSubscrition.time_left.plan === "subscription_expired" ||
+			this.authService._userSubscrition.subscription_details.subscription_plan === "Student" ||
+			this.authService._userSubscrition.subscription_details.subscription_plan === "Career") {
+			this.planExpired = true;
+		}
+		else {
+			this.planExpired = false;
+		}
+		this.loadFundData(0, this.selectedData)
 	}
 
 	fundingGuidlines(): void {
@@ -340,7 +321,7 @@ export class GovermentFundingOppurtunityComponent implements OnInit {
 
 	buyCredits(): void {
 		if (this.planExpired) {
-			this.restrict = true
+			this.authService.hasUserSubscription$.next(true);
 			return
 		}
 		this.router.navigate(["/pages/export-credit"])
@@ -363,7 +344,7 @@ export class GovermentFundingOppurtunityComponent implements OnInit {
 
 	exportData() {
 		if (this.planExpired) {
-			this.restrict = true
+			this.authService.hasUserSubscription$.next(true);
 			return
 		} else if (this.exportCreditCount != 0) {
 			this.exportDataIds = []
@@ -385,7 +366,7 @@ export class GovermentFundingOppurtunityComponent implements OnInit {
 			} else {
 				if (this.exportCreditCount < this.exportDataIds.length) {
 					this.toast.add({ severity: "error", summary: "error", detail: "To download additional data beyond your free credits, please upgrade your plan." })
-					this.restrict = true
+					this.authService.hasUserSubscription$.next(true);
 					return
 				}
 			}
@@ -405,7 +386,7 @@ export class GovermentFundingOppurtunityComponent implements OnInit {
 				this.toast.add({ severity: "error", summary: "error", detail: "Please Buy Some Credits." })
 				this.router.navigate(["/pages/export-credit"])
 			} else {
-				this.restrict = true
+				this.authService.hasUserSubscription$.next(true);
 			}
 		}
 	}
@@ -453,8 +434,8 @@ export class GovermentFundingOppurtunityComponent implements OnInit {
 	}
 
 	getRecommendation() {
-		if (this.recommendRestrict) {
-			this.restrict = true
+		if (this.planExpired) {
+			this.authService.hasUserSubscription$.next(true);
 			return
 		}
 		let keyMapping: any = { "1": "country", "2": "region", "3": "type" }

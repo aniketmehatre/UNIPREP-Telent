@@ -28,7 +28,6 @@ import { TabViewModule } from "primeng/tabview"
 import { MessageService } from "primeng/api"
 import { InputGroupAddonModule } from "primeng/inputgroupaddon"
 import { SeoManagerComponent } from 'src/app/components/seo-manager/seo-manager.component';
-import { RestrictionDialogComponent } from 'src/app/shared/restriction-dialog/restriction-dialog.component';
 
 @Component({
 	selector: "uni-dashboard",
@@ -36,7 +35,7 @@ import { RestrictionDialogComponent } from 'src/app/shared/restriction-dialog/re
 	styleUrls: ["./dashboard.component.scss"],
 	standalone: true,
 	imports: [CommonModule, DialogModule, CarouselModule, InputGroupAddonModule, InputGroupModule, FormsModule, ButtonModule, TooltipModule, RouterModule, SelectModule,
-		CalendarModule, DatePickerModule, InputTextModule, TabViewModule, TableModule, AccordionModule, ReactiveFormsModule, RestrictionDialogComponent
+		CalendarModule, DatePickerModule, InputTextModule, TabViewModule, TableModule, AccordionModule, ReactiveFormsModule
 	],
 	providers: [DashboardService, AuthService, DataService, LocationService, SeoManagerComponent],
 	changeDetection: ChangeDetectionStrategy.OnPush
@@ -58,7 +57,6 @@ export class DashboardComponent implements OnInit, OnChanges, OnDestroy {
 	isViewMoreJobApplication: boolean = false;
 	partnerTrusterLogo: any
 	enableReading!: boolean
-	restrict: boolean = false
 	showSkeleton: boolean = false
 	planExpired: boolean = false
 	ehitlabelIsShow: boolean = true
@@ -340,7 +338,7 @@ export class DashboardComponent implements OnInit, OnChanges, OnDestroy {
 	openQuiz(): void {
 		// dont remove comments
 		if (this.planExpired) {
-			this.restrict = true
+			this.authService.hasUserSubscription$.next(true);
 			return
 		}
 
@@ -487,21 +485,13 @@ export class DashboardComponent implements OnInit, OnChanges, OnDestroy {
 		this.router.navigate([`/pages/modules/${this.currentModuleSlug}/quiz`])
 	}
 	checkplanExpire(): void {
-		this.authService.getNewUserTimeLeft().subscribe((res) => {
-			let data = res.time_left
-			let subscription_exists_status = res.subscription_details
-			if (data.plan === "expired" || data.plan === "subscription_expired") {
-				this.planExpired = true
-			} else {
-				this.planExpired = false
-			}
-		})
-	}
-	upgradePlan(): void {
-		this.router.navigate(["/pages/subscriptions"])
-	}
-	clearRestriction() {
-		this.restrict = false
+		if (this.authService._userSubscrition.time_left.plan === "expired" ||
+			this.authService._userSubscrition.time_left.plan === "subscription_expired") {
+			this.planExpired = true;
+		}
+		else {
+			this.planExpired = false;
+		}
 	}
 
 	openMyProfile() {

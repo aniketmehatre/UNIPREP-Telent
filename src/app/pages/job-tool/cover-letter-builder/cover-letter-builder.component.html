@@ -367,8 +367,8 @@
 											<label class="uniprep-primarydark fw-bold h6 mb-0">Job Description</label>
 										</div>
 										<div>
-											<button pButton *ngIf="generateDesBtnDisable" type="button" class="deleteDivButton m-2 p-2"
-												[loading]="chatGptButtonLoader"
+											<button pButton *ngIf="generateDesBtnDisable" type="button"
+												class="deleteDivButton m-2 p-2" [loading]="chatGptButtonLoader"
 												(click)="chatGPTIntegration('generate_description')"
 												style="background-color: #9bc329">AI Generate</button>
 											<button *ngIf="rephraseDesBtnDisable" pButton type="button"
@@ -406,7 +406,8 @@
 												(click)="chatGPTIntegration('generate_summary')"
 												style="background-color: #9bc329">AI Generate</button>
 											<button pButton *ngIf="rephraseconBtnDisable" type="button"
-												class="deleteDivButton m-2 p-2 bg-secondary" [loading]="chatGptButtonLoaderSummary"
+												class="deleteDivButton m-2 p-2 bg-secondary"
+												[loading]="chatGptButtonLoaderSummary"
 												(click)="chatGPTIntegration('rephrase_summary')">Rephrase</button>
 										</div>
 									</div>
@@ -788,4 +789,3 @@
 		</div>
 	</div>
 </ng-template>
-<uni-restriction-dialog *ngIf="restrict" [isShowRestrict]="restrict" (closeRestrictModal)="restrict = false" />

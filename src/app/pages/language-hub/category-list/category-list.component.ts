@@ -19,18 +19,16 @@ import { CarouselModule } from "primeng/carousel"
 import { InputGroupModule } from "primeng/inputgroup"
 import { InputGroupAddonModule } from "primeng/inputgroupaddon"
 import { StorageService } from "../../../storage.service"
-import { RestrictionDialogComponent } from "src/app/shared/restriction-dialog/restriction-dialog.component"
 @Component({
 	selector: "uni-category-list",
 	templateUrl: "./category-list.component.html",
 	styleUrls: ["./category-list.component.scss"],
 	standalone: true,
-	imports: [CommonModule, DialogModule, RouterModule, PaginatorModule, SkeletonModule, TooltipModule, ButtonModule, MultiSelectModule, CarouselModule, InputGroupModule, InputGroupAddonModule, RestrictionDialogComponent],
+	imports: [CommonModule, DialogModule, RouterModule, PaginatorModule, SkeletonModule, TooltipModule, ButtonModule, MultiSelectModule, CarouselModule, InputGroupModule, InputGroupAddonModule],
 })
 export class CategoryListComponent implements OnInit {
 	isSkeletonVisible: boolean = true
 	categoryList: any
-	restrict = false
 	totalQuestionCount: any
 	selectedLanguageId: any
 	selectedLanguageType: any
@@ -40,10 +38,7 @@ export class CategoryListComponent implements OnInit {
 	perpage: number = 25
 	planExpired: boolean = false
 	selectedLevelName: string = ""
-	ehitlabelIsShow: boolean = true
-	imagewhitlabeldomainname: any
-	orgnamewhitlabel: any
-	orglogowhitelabel: any
+
 	constructor(private languageHubService: LanguageHubService, private lhs: LanguageHubDataService, private router: Router, private toast: MessageService, private languageArrayGlobalService: LanguageArrayGlobalService, private location: Location, private pageFacade: PageFacadeService, private authService: AuthService, private locationService: LocationService, private storage: StorageService) {
 		this.lhs.data$.subscribe((data) => {
 			this.selectedLanguageId = data
@@ -120,7 +115,7 @@ export class CategoryListComponent implements OnInit {
 
 	startQuiz() {
 		if (this.planExpired) {
-			this.restrict = true
+			this.authService.hasUserSubscription$.next(true);
 			return
 		}
 		this.storage.set("languagetypeidforquiz", this.selectedLanguageType)
@@ -138,21 +133,14 @@ export class CategoryListComponent implements OnInit {
 	openVideoPopup(videoLink: string) {
 		this.pageFacade.openHowitWorksVideoPopup(videoLink)
 	}
-	clearRestriction() {
-		this.restrict = false
-	}
-	upgradePlan(): void {
-		this.router.navigate(["/pages/subscriptions"])
-	}
+
 	checkplanExpire(): void {
-		this.authService.getNewUserTimeLeft().subscribe((res) => {
-			let data = res.time_left
-			let subscription_exists_status = res.subscription_details
-			if (data.plan === "expired" || data.plan === "subscription_expired") {
-				this.planExpired = true
-			} else {
-				this.planExpired = false
-			}
-		})
+		if (this.authService._userSubscrition.time_left.plan === "expired" ||
+			this.authService._userSubscrition.time_left.plan === "subscription_expired") {
+			this.planExpired = true;
+		}
+		else {
+			this.planExpired = false;
+		}
 	}
 }
