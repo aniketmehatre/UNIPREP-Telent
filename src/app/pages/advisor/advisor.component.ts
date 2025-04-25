@@ -16,14 +16,13 @@ import { TextareaModule } from "primeng/textarea"
 import { ButtonModule } from "primeng/button"
 import { SkeletonModule } from "primeng/skeleton"
 import { CarouselModule } from "primeng/carousel"
-import { RestrictionDialogComponent } from "src/app/shared/restriction-dialog/restriction-dialog.component"
 @Component({
 	selector: "uni-advisor",
 	templateUrl: "./advisor.component.html",
 	styleUrls: ["./advisor.component.scss"],
 	encapsulation: ViewEncapsulation.None,
 	standalone: true,
-	imports: [CommonModule, RouterModule, DialogModule, FormsModule, ReactiveFormsModule, InputTextModule, InputGroupModule, InputGroupAddonModule, TextareaModule, ButtonModule, SkeletonModule, CarouselModule, RestrictionDialogComponent],
+	imports: [CommonModule, RouterModule, DialogModule, FormsModule, ReactiveFormsModule, InputTextModule, InputGroupModule, InputGroupAddonModule, TextareaModule, ButtonModule, SkeletonModule, CarouselModule],
 })
 export class AdvisorComponent implements OnInit {
 	@ViewChild("chatContainer") private chatContainer: ElementRef
@@ -42,19 +41,11 @@ export class AdvisorComponent implements OnInit {
 	smallquestion: boolean = true
 	responsiveOptions: any[] = []
 	planExpired!: boolean
-	restrict: boolean = false
-	// currentPlan: string = "";
-	orglogowhitelabel: any
-	// isQuestionEmpty: boolean = false;
 
 	constructor(private service: AdvisorService, private ngxService: NgxUiLoaderService, private route: ActivatedRoute, private pageFacade: PageFacadeService, private authService: AuthService, private locationService: LocationService, private router: Router, private messageService: MessageService) { }
 
 	ngOnInit() {
 		this.checkplanExpire()
-		this.locationService.getImage().subscribe((imageUrl) => {
-			this.orglogowhitelabel = imageUrl
-		})
-
 		this.questions = [
 			{ question: "Must visit places in Milan.", icons: "fa-earth-americas" },
 			{ question: "Top 10 fully funded scholarships for international students in the UK.", icons: "fa-diploma" },
@@ -111,8 +102,8 @@ export class AdvisorComponent implements OnInit {
 
 	getChatHistory() {
 		if (this.planExpired) {
-			this.restrict = true
-			return
+			this.authService.hasUserSubscription$.next(true);
+			return;
 		}
 		this.isQuestionAsked = true
 		this.showSkeleton = true
@@ -128,11 +119,11 @@ export class AdvisorComponent implements OnInit {
 
 	getAns() {
 		if (this.planExpired) {
-			this.restrict = true
-			return
+			this.authService.hasUserSubscription$.next(true);
+			return;
 		}
 		if (this.userQuestion && this.userQuestion.trim() === "") {
-			return
+			return;
 		}
 		if (!this.smallquestion) {
 			if (this.askExpertResponse == 0) {
@@ -198,23 +189,15 @@ export class AdvisorComponent implements OnInit {
 	openVideoPopup(videoLink: string) {
 		this.pageFacade.openHowitWorksVideoPopup(videoLink)
 	}
+
 	checkplanExpire() {
-		this.authService.getNewUserTimeLeft().subscribe((res) => {
-			let data = res.time_left
-			// let subscription_exists_status = res.subscription_details;
-			// this.currentPlan = subscription_exists_status.subscription_plan;
-			//subscription_exists_status.subscription_plan === 'free_trail' //checking if the free trail is there or not.
-			if (data.plan === "expired" || data.plan === "subscription_expired") {
-				this.planExpired = true
-			} else {
-				this.planExpired = true
-			}
-		})
+		if (this.authService._userSubscrition.time_left.plan === "expired" ||
+			this.authService._userSubscrition.time_left.plan === "subscription_expired") {
+			this.planExpired = true;
+		}
+		else {
+			this.planExpired = false;
+		}
 	}
-	upgradePlan() {
-		this.router.navigate(["/pages/subscriptions"])
-	}
-	clearRestriction() {
-		this.restrict = false
-	}
+
 }
