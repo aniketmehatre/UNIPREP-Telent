@@ -20,6 +20,8 @@ import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
 import { PromptService } from '../../prompt.service';
 import { SharedModule } from 'src/app/shared/shared.module';
 import { PageFacadeService } from '../../page-facade.service';
+import { AuthService } from 'src/app/Auth/auth.service';
+
 @Component({
   selector: 'uni-trip-length-finder',
   templateUrl: './trip-length-finder.component.html',
@@ -36,7 +38,8 @@ export class TripLengthFinderComponent implements OnInit {
     private toast: MessageService,
     private sanitizer: DomSanitizer,
     private prompt: PromptService,
-    private pageFacade: PageFacadeService
+    private pageFacade: PageFacadeService,
+    private authService: AuthService
   ) { }
 
   recommendations: { id: number, question: string }[] = [
@@ -58,7 +61,9 @@ export class TripLengthFinderComponent implements OnInit {
   ngOnInit(): void {
     this.getCityList();
     this.getAICreditCount();
+    console.log(this.authService._userSubscrition, "user subscription details");
 	}
+
 	getAICreditCount(){
 		this.prompt.getAicredits().subscribe({
 		  next: resp =>{
@@ -80,6 +85,7 @@ export class TripLengthFinderComponent implements OnInit {
     if (!this.invalidClass) {
       if(this.aiCreditCount == 0){
         this.toast.add({ severity: "error", summary: "Error", detail: "Free AI Credits Over.Please Buy Some Credits..!" });
+        this.buyCredits();
         return;
       }
       let data = {
@@ -103,6 +109,14 @@ export class TripLengthFinderComponent implements OnInit {
       })
     }
   }
+
+	buyCredits(){
+		if(this.authService.isSubscription('travel_tools')){
+			this.authService.hasUserSubscription$.next(true);
+		}else{
+			this.router.navigate(["/pages/export-credit"]);
+		}
+	}
 
   hideWarning(productId: number) {
     if (productId in this.selectedData) {

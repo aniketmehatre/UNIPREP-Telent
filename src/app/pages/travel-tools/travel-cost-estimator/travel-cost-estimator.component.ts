@@ -25,7 +25,7 @@ import { TooltipModule } from "primeng/tooltip"
 import { DomSanitizer, SafeHtml } from "@angular/platform-browser"
 import { PromptService } from "../../prompt.service"
 import { SharedModule } from "src/app/shared/shared.module"
-import { log } from "node:console"
+import { AuthService } from "src/app/Auth/auth.service";
 
 @Component({
 	selector: "uni-travel-cost-estimator",
@@ -57,14 +57,20 @@ export class TravelCostEstimatorComponent implements OnInit {
 	aiCreditCount: number = 0;
 	userInputs: any= [];
 
-	constructor(private travelToolsService: TravelToolsService, private router: Router, private costOfLivingService: CostOfLivingService, private toast: MessageService, private sanitizer: DomSanitizer, private promptService: PromptService,private pageFacade: PageFacadeService,) { }
+	constructor(private travelToolsService: TravelToolsService, private router: Router, private costOfLivingService: CostOfLivingService, private toast: MessageService, private sanitizer: DomSanitizer, private promptService: PromptService,private pageFacade: PageFacadeService, private authService: AuthService) { }
 
 	ngOnInit(): void {
 		this.selectedData = { 3: 1 }
 		this.getCityList();
 		this.getAICreditCount();
-		console.log(this.recommendationData, "recommendation data");
-		
+	}
+
+	buyCredits(){
+		if(this.authService.isSubscription('travel_tools')){
+			this.authService.hasUserSubscription$.next(true);
+		}else{
+			this.router.navigate(["/pages/export-credit"]);
+		}
 	}
 
 	getCityList() {
@@ -109,6 +115,7 @@ export class TravelCostEstimatorComponent implements OnInit {
 	getRecommendation() {
 		if(this.aiCreditCount == 0){
 			this.toast.add({ severity: "error", summary: "Error", detail: "Free AI Credits Over.Please Buy Some Credits..!" });
+			this.buyCredits();
 			return;
 		}
 		let data: any = {
