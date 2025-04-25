@@ -357,42 +357,8 @@
     align-items: center;
     justify-content: center;
   }
-  
-  // Responsive styles
-  @media (max-width: 992px) {
-    .hero-section, .steps-container {
-      flex-direction: column;
-    }
-    
-    .hero-title {
-      font-size: 2.5rem;
-    }
-    
-    .section-title {
-      font-size: 2rem;
-    }
-    
-    .cta-title {
-      font-size: 2rem;
-    }
-  }
-  
-  @media (max-width: 768px) {
-    .features-grid, .user-types-grid {
-      grid-template-columns: 1fr;
-    }
-    
-    .hero-title {
-      font-size: 2rem;
-    }
-    
-    .cta-banner {
-      flex-direction: column;
-      gap: 1.5rem;
-      text-align: center;
-    }
-  }
 
+  
   video::-webkit-media-controls-panel {
     background-image: none !important;
   }
@@ -451,6 +417,52 @@
     font-size: 5rem;
     background: linear-gradient(0deg, rgba(255, 255, 255, 0) 0%, rgba(255, 255, 255, 0.05) 100%);
   }
+  
+  // Responsive styles
+  @media (max-width: 992px) {
+    .hero-section, .steps-container {
+      flex-direction: column;
+    }
+    
+    .hero-title {
+      font-size: 2.5rem;
+    }
+    
+    .section-title {
+      font-size: 2rem;
+    }
+
+    .hero-section {
+      padding: 10px;
+    }
+    
+    .cta-title {
+      font-size: 2rem;
+    }
+  }
+  
+  @media (max-width: 768px) {
+    .features-grid, .user-types-grid {
+      grid-template-columns: 1fr;
+    }
+    .hero-section {
+      padding: 10px;
+    }
+    .hero-title {
+      font-size: 2rem;
+    }
+    
+    .cta-banner {
+      flex-direction: column;
+      gap: 1.5rem;
+      text-align: center;
+    }
+
+    .learning-hub-container {
+      padding: 10px;
+    }
+  }
+
   // .featureimage {
   //   border-radius: 10px;
   //   overflow: hidden;
