@@ -1432,6 +1432,7 @@ h5 {
   
   // Responsive adjustments
   @media (max-width: 768px) {
+
 	.hero .title {
 	  font-size: 2rem;
 	}
@@ -1452,6 +1453,10 @@ h5 {
 	
 	.benefits-grid {
 	  grid-template-columns: 1fr;
+	}
+
+	.career-dashboard {
+		padding: 10px;
 	}
   }
 

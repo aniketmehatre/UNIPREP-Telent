@@ -41,30 +41,12 @@ export class JobSeekersLandingComponent implements OnInit {
 	category: number = NaN;
 	categorySlug: string = '';
 	categoryName: string = '';
+	pageTitle: string = '';
+	pageDescription: string = '';
 	careerCards: { [key: string]: CareerCard[] } = {};
-
-	benefits = [
-		{
-			title: 'Learn smart',
-			description: 'Master skills that matter with interactive learning and real certifications.',
-			icon: 'search'
-		},
-		{
-			title: 'Apply smart',
-			description: 'Use AI-driven tools to personalize applications and compare job opportunities.',
-			icon: 'user'
-		},
-		{
-			title: 'Grow smart',
-			description: 'Visualize long-term career trajectories with growth mapping and employer insights.',
-			icon: 'trophy'
-		},
-		{
-			title: 'Win with confidence',
-			description: 'From CV to visa, from interview prep to final offer — we\'re with you every step of the way.',
-			icon: 'user'
-		}
-	];
+	categoryTitle: string = '';
+	categoryDescription: string = '';
+	benefits: any = [];
 
 	constructor(private landingService: landingServices, private route: ActivatedRoute) { }
 
@@ -114,6 +96,9 @@ export class JobSeekersLandingComponent implements OnInit {
 						break;
 				}
 				this.getLandingPageDetailBasedOnCategory(this.category);
+				this.getCategoryCards();
+				this.getCategoryDetails();
+				this.getCategoryTags();
 			}
 		});
 
@@ -136,9 +121,53 @@ export class JobSeekersLandingComponent implements OnInit {
 		});
 	}
 
-	getCardsForStep(stepId: number): CareerCard[] {
-		const stepKey = `Step ${stepId}`;
-		return this.careerCards[stepKey] || [];
+	getCategoryDetails() {
+		this.landingService.getLandingCategories(this.category).subscribe({
+			next: response => {
+				if (response.success) {
+					this.pageTitle = response.category.page_title;
+					this.pageDescription = response.category.page_description;
+					this.categoryTitle = response.category.category_title;
+					this.categoryDescription = response.category.category_description;
+				}
+			},
+			error: error => {
+				console.log(error);
+			}
+		});
+	}
+
+
+	getCategoryCards() {
+		this.landingService.getLandingCategoryCards(this.category).subscribe({
+			next: response => {
+				if (response.success) {
+					this.benefits = response.cards;
+				}
+			},
+			error: error => {
+				console.log(error);
+			}
+		});
+	}
+
+	getCategoryTags() {
+		this.landingService.getLandingCategoryTags(this.category).subscribe({
+			next: response => {
+				if (response.success) {
+					this.steps = response.tags;
+				}
+			},
+			error: error => {
+				console.log(error);
+			}
+		});
+	}
+
+
+
+	getCardsForStep(step: string): CareerCard[] {
+		return this.careerCards[step] || [];
   }
 
 }

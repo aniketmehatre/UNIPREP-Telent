@@ -6,6 +6,7 @@ import { ButtonModule } from 'primeng/button';
 import { landingServices } from '../landing.service';
 import { Chooseuse, Faq, Howitswork, LandingPage, Whoitsfor } from 'src/app/@Models/landing-page.model';
 import { environment } from '@env/environment';
+import { AvatarModule } from 'primeng/avatar';
 
 
 @Component({
@@ -15,7 +16,8 @@ import { environment } from '@env/environment';
     CommonModule,
     RouterModule,
     AccordionModule,
-    ButtonModule
+    ButtonModule,
+    AvatarModule
   ],
   templateUrl: './landing-language-hub.component.html',
   styleUrls: ['./landing-language-hub.component.scss']

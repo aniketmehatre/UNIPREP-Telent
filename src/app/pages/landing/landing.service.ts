@@ -40,6 +40,24 @@ export class landingServices {
       return this.http.post<any>(`${environment.ApiUrl}/landingpageedit`, {id: val});
     }
 
+  getLandingCategories(id: number) {
+    return this.http.post<any>(environment.ApiUrl + "/showCategory", { id: id }, {
+      headers: this.headers
+    });
+  }
+
+  getLandingCategoryTags(id: number) {
+    return this.http.post<any>(environment.ApiUrl + "/Categorytags", { id: id }, {
+      headers: this.headers
+    });
+  }
+
+  getLandingCategoryCards(id: number) {
+    return this.http.post<any>(environment.ApiUrl + "/Categorycards", { id: id }, {
+      headers: this.headers
+    });
+  }
+
   getManagementTeamMembersList(data: any) {
     return this.http.post<any>(`${environment.ApiUrl}/landingpageactivemanagement`, data);
   }
