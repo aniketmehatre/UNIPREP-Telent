@@ -9,7 +9,34 @@ import { DynamicDialogRef, DynamicDialogConfig } from 'primeng/dynamicdialog';
 import { TooltipModule } from 'primeng/tooltip';
 import { formatDate } from '@angular/common';
 
-// Simplified interfaces
+// Process academic references
+interface AcademicReference {
+  collegeName: string;
+  name: string;
+  designation: string;
+  email: string;
+}
+
+interface ProfessionalReference {
+  companyName: string;
+  name: string;
+  designation: string;
+  email: string;
+}
+
+interface UserAchievement {
+  name: string;
+  file: string;
+}
+interface Certification {
+  name: string;
+  file: string;
+}
+interface SocialMedia {
+  media: string;
+  link: string;
+}
+
 interface ProfileData {
   personalInfo: {
     fullName: string;
@@ -25,11 +52,11 @@ interface ProfileData {
     university: string;
     fieldOfStudy: string;
     courseName: string;
-    graduationYear: number;
+    graduationYear: number | string;
     gpa: string;
-  }>;
+  }> | null;
   workExperience: Array<{
-    totalExperience: number;
+    totalExperience: number | string;
     companyName: string;
     jobTitle: string;
     duration: string;
@@ -38,7 +65,7 @@ interface ProfileData {
     responsibilities: string;
     experienceLetter: { name: string; file: string };
     exp_currency: string;
-  }>;
+  }> | null;
   careerPreferences: {
     careerStatus: string;
     careerInterest: string;
@@ -49,42 +76,44 @@ interface ProfileData {
     willingToRelocate: string;
     salaryRange: string;
     currency: string;
-  };
-  certifications: Array<{ name: string; file: string }>;
-  userAchievements: Array<{ name: string; file: string }>;
+  } | null;
+  certifications: Array<{ name: string; file: string }> | null;
+  userAchievements: Array<{ name: string; file: string }> | null;
   additionalDetails: {
     languagesKnown: string[];
     hobbiesAndInterests: string;
-  };
+  } | null;
   keyStrengths: {
-    industryDifferentiators: string[];
+    industryDifferentiators: string | string[];
     topProfessionalStrength: string;
     solvedRealWorldChallenge: string;
     leadershipRoles: string;
     mostAdmiredQuality: string;
-  };
+  } | null;
   networking: {
     linkedinProfile: string;
-    socialMedia: { media: string, link: string }[];
+    socialMedia: Array<{ media: string, link: string }> | null;
     personalWebsite: string;
-  };
-  attachments: Array<{ name: string; type: string }>;
+  } | null;
+  attachments: Array<{ name: string; type: string }> | null;
   academicReference: Array<{
     collegeName?: string;
     name: string;
     designation: string;
-    phoneNumber: string;
+    phoneNumber?: string;
     email: string;
-  }>;
+  }> | null;
   professionalReference: Array<{
     companyName?: string;
     name: string;
     designation: string;
-    phoneNumber: string;
+    phoneNumber?: string;
     email: string;
-  }>;
+  }> | null;
   additionalInfo: string;
 }
+
+
 @Component({
   selector: 'uni-view-profile',
   standalone: true,
@@ -270,7 +299,153 @@ export class ViewProfileComponent implements OnInit {
 
   // Simplified data mapping function
   private mapToProfileData(formData: any): ProfileData {
-    return {
+    const hasValidContent = (arr: any[]): boolean => {
+      if (!arr || !Array.isArray(arr) || arr.length === 0) return false;
+
+      // Check if array has at least one object with a non-empty value
+      return arr.some(item =>
+        Object.values(item).some(val =>
+          val !== null &&
+          val !== undefined &&
+          val !== '' &&
+          (typeof val !== 'object' || Object.keys(val).length > 0)
+        )
+      );
+    };
+
+    // Helper function to check if an object has meaningful content
+    const hasObjectContent = (obj: any): boolean => {
+      if (!obj || typeof obj !== 'object') return false;
+
+      return Object.values(obj).some(val =>
+        val !== null &&
+        val !== undefined &&
+        val !== '' &&
+        (typeof val !== 'string' || val.trim() !== '') &&
+        (typeof val !== 'object' || (Array.isArray(val) ? hasValidContent(val) : Object.keys(val).length > 0))
+      );
+    };
+
+    // Process education details
+    const educationDetails = (formData.educationDetails || [])
+      .sort((a: any, b: any) => b.education_qualification_id - a.education_qualification_id)
+      .map((edu: any) => ({
+        highestQualification: this.getListValue(this.qualifications, edu.education_qualification_id, 'qualification_name') || '',
+        university: edu.education_university_name || '',
+        fieldOfStudy: this.getListValue(this.fieldsOfStudy, edu.education_field_id, 'field_name') || '',
+        courseName: edu.education_course_name || '',
+        graduationYear: this.getListValue(this.graduationYears, edu.education_graduation_year_id, 'graduation_year_name') || '',
+        gpa: edu.education_gpa_percentage ? `${edu.education_gpa_percentage} %` : ''
+      }));
+
+    // Process work experience
+    const workExperience = (formData.work_experience || []).map((exp: any) => ({
+      totalExperience: exp.years_of_experience || '',
+      companyName: exp.work_experience_company_name || '',
+      jobTitle: exp.work_experience_job_title || '',
+      employmentType: exp.work_experience_employment_type || '',
+      duration: (exp.work_experience_duration_from && exp.work_experience_duration_to) ?
+        formatDate(new Date(exp.work_experience_duration_from), 'MMM,dd,yyyy', 'en-US') + '-' +
+        formatDate(new Date(exp.work_experience_duration_to), 'MMM,dd,yyyy', 'en-US') : '',
+      salary: exp.work_experience_salary_per_month || '',
+      responsibilities: exp.work_experience_job_responsibilities || '',
+      experienceLetter: {
+        name: exp.work_experience_experience_letter || '',
+        file: exp.work_experience_experience_letter || ''
+      },
+      exp_currency: exp.work_experience_currency_id || ''
+    }));
+
+
+    const certifications: Certification[] = (formData.certifications || []).map((cert: any): Certification => ({
+      name: cert.certifications_certificate_name || '',
+      file: cert.certifications_certificate_file || ''
+    })).filter((cert: Certification) => cert.name || cert.file);
+
+
+    const userAchievements: UserAchievement[] = (formData.acheivements || []).map((ach: any): UserAchievement => ({
+      name: ach.certifications_achievement_name || '',
+      file: ach.certifications_achievement_file || ''
+    })).filter((ach: UserAchievement) => ach.name || ach.file);
+
+    // Process languages
+    const languagesKnown = (formData.languages || [])
+      .map((lang: any) => {
+        const language = this.getListValue(this.languagelist, lang.languages_language_id, 'language') || '';
+        const proficiency = lang.languages_proficiency || '';
+        return language ? `${language}${proficiency ? `(${proficiency})` : ''}` : '';
+      })
+      .filter(Boolean);
+
+    // Process hobbies
+    const hobbiesAndInterests = Array.isArray(formData.languages_hobby_id) ?
+      (formData.languages_hobby_id || [])
+        .map((id: number) => this.getListValue(this.hobbies, id, 'hobby'))
+        .filter(Boolean)
+        .join(', ') :
+      formData.languages_hobby_id || '';
+
+    // Process social media
+    const socialMedia: SocialMedia[] = (formData.networking_social_media || [])
+      .map((media: any): SocialMedia => ({
+        media: media.networking_social_media || '',
+        link: media.networking_social_media_link || ''
+      }))
+      .filter((media: SocialMedia) => media.media || media.link);
+
+    // Process attachments
+    const attachments = [
+      { name: formData.career_preference_cv_filename || '', type: 'document' },
+      { name: formData.career_preference_portfolio_upload_link || '', type: 'link' },
+      { name: formData.career_preference_video_link || '', type: 'video' }
+    ].filter(att => att.name);
+
+
+    const academicReference: AcademicReference[] = (formData.academicReferences || []).map((ref: any): AcademicReference => ({
+      collegeName: ref.references_college_name || '',
+      name: ref.references_reference_name || '',
+      designation: ref.references_designation || '',
+      email: ref.references_email || ''
+    })).filter((ref: AcademicReference) => ref.collegeName || ref.name || ref.designation || ref.email);
+
+    // Process professional references
+    const professionalReference: ProfessionalReference[] = (formData.professional_references || []).map((ref: any): ProfessionalReference => ({
+      companyName: ref.references_company_name || '',
+      name: ref.references_reference_name || '',
+      designation: ref.references_designation || '',
+      email: ref.references_email || ''
+    })).filter((ref: ProfessionalReference) => ref.companyName || ref.name || ref.designation || ref.email);
+
+    // Career preferences object
+    const careerPreferences = {
+      careerStatus: formData.career_preference_career_status || '',
+      careerInterest: this.getListValue(this.careerInterests, formData.career_preference_career_interest_id, 'interest') || '',
+      jobTitle: formData.career_preference_job_title_id || '',
+      preferredWorkLocation: this.getListValue(this.locations, formData.career_preference_preferred_work_location_id, 'work_location') || '',
+      preferredEmploymentType: formData.career_preference_preferred_employment_type || '',
+      preferredWorkplaceType: formData.career_preference_preferred_workplace_type || '',
+      willingToRelocate: formData.career_preference_willingness_to_relocate || '',
+      salaryRange: formData.career_preference_expected_salary || '',
+      currency: formData.career_preference_currency_id || ''
+    };
+
+    // Key strengths object
+    const keyStrengths = {
+      industryDifferentiators: formData.career_preference_set_industry_apart || '',
+      topProfessionalStrength: this.getListValue(this.professionalStrengths, formData.career_preference_professional_strength_id, 'strength') || '',
+      solvedRealWorldChallenge: formData.career_preference_real_world_challenge || '',
+      leadershipRoles: formData.career_preference_leadership_experience || '',
+      mostAdmiredQuality: formData.career_preference_admired_quality || ''
+    };
+
+    // Networking object
+    const networking = {
+      linkedinProfile: formData.networking_linkedin_profile || '',
+      socialMedia: hasValidContent(socialMedia) ? socialMedia : null,
+      personalWebsite: formData.networking_personal_website || ''
+    };
+
+    const profileData = {
       personalInfo: {
         fullName: formData.full_name || '',
         dateOfBirth: formData.date_of_birth ? new Date(formData.date_of_birth).toISOString() : '',
@@ -280,88 +455,24 @@ export class ViewProfileComponent implements OnInit {
         logo: formData.profile_image || null,
         total_years_of_experience: formData.total_years_of_experience || 0,
       },
-      educationDetails: (formData.educationDetails || [])
-        .sort((a: any, b: any) => b.education_qualification_id - a.education_qualification_id)
-        .map((edu: any) => ({
-        highestQualification: this.getListValue(this.qualifications, edu.education_qualification_id, 'qualification_name') || '',
-        university: edu.education_university_name || '',
-        fieldOfStudy: this.getListValue(this.fieldsOfStudy, edu.education_field_id, 'field_name') || '',
-        courseName: edu.education_course_name || '',
-        graduationYear: this.getListValue(this.graduationYears, edu.education_graduation_year_id, 'graduation_year_name') || '',
-        gpa: edu.education_gpa_percentage ? `${edu.education_gpa_percentage} %` : ''
-      })),
-      workExperience: (formData.work_experience || []).map((exp: any) => ({
-        totalExperience: exp.years_of_experience || '',
-        companyName: exp.work_experience_company_name || '',
-        jobTitle: exp.work_experience_job_title || '',
-        employmentType: exp.work_experience_employment_type || '',
-        duration: (exp.work_experience_duration_from && exp.work_experience_duration_from) ? formatDate(new Date(exp.work_experience_duration_from), 'MMM,dd,yyyy', 'en-US') + '-' + formatDate(new Date(exp.work_experience_duration_to), 'MMM,dd,yyyy', 'en-US') : '',
-        salary: exp.work_experience_salary_per_month || '',
-        responsibilities: exp.work_experience_job_responsibilities || '',
-        experienceLetter: { name: exp.work_experience_experience_letter, file: exp.work_experience_experience_letter },
-        exp_currency: exp.work_experience_currency_id || ''
-      })),
-      careerPreferences: {
-        careerStatus: formData.career_preference_career_status || '',
-        careerInterest: this.getListValue(this.careerInterests, formData.career_preference_career_interest_id, 'interest') || '',
-        jobTitle: formData.career_preference_job_title_id || '',
-        preferredWorkLocation: this.getListValue(this.locations, formData.career_preference_preferred_work_location_id, 'work_location') || '',
-        preferredEmploymentType: formData.career_preference_preferred_employment_type || '',
-        preferredWorkplaceType: formData.career_preference_preferred_workplace_type || '',
-        willingToRelocate: formData.career_preference_willingness_to_relocate || '',
-        salaryRange: formData.career_preference_expected_salary || '',
-        currency: formData.career_preference_currency_id || ''
-      },
-      certifications: (formData.certifications || []).map((cert: any) => ({
-        name: cert.certifications_certificate_name || '',
-        file: cert.certifications_certificate_file || ''
-      })),
-      userAchievements: (formData.acheivements || []).map((ach: any) => ({
-        name: ach.certifications_achievement_name || '',
-        file: ach.certifications_achievement_file || ''
-      })),
-      additionalDetails: {
-        languagesKnown: (formData.languages || []).map((lang: any) =>
-          `${this.getListValue(this.languagelist, lang.languages_language_id, 'language') || ''}(${lang.languages_proficiency || ''})`),
-        hobbiesAndInterests: Array.isArray(formData.languages_hobby_id) ? (formData.languages_hobby_id || [])
-          .map((id: number) => this.getListValue(this.hobbies, id, 'hobby'))
-          .filter(Boolean)
-          .join(', ') : formData.languages_hobby_id
-      },      
-      keyStrengths: {
-        industryDifferentiators: formData.career_preference_set_industry_apart ?
-          formData.career_preference_set_industry_apart.split(',') : [],
-        topProfessionalStrength: this.getListValue(this.professionalStrengths, formData.career_preference_professional_strength_id, 'strength') || '',
-        solvedRealWorldChallenge: formData.career_preference_real_world_challenge || '',
-        leadershipRoles: formData.career_preference_leadership_experience || '',
-        mostAdmiredQuality: formData.career_preference_admired_quality || ''
-      },
-      networking: {
-        linkedinProfile: formData.networking_linkedin_profile || '',
-        socialMedia: [{ media: formData.networking_social_media?.map((media: any) => media.networking_social_media), link: formData.networking_social_media?.map((media: any) => media.networking_social_media_link) }],
-        personalWebsite: formData.networking_personal_website || ''
-      },
-      attachments: [
-        { name: formData.career_preference_cv_filename || '', type: 'document' },
-        { name: formData.career_preference_portfolio_upload_link || '', type: 'link' },
-        { name: formData.career_preference_video_link || '', type: 'video' }
-      ].filter(att => att.name),
-      academicReference: (formData.academicReferences || []).map((ref: any) => ({
-        collegeName: ref.references_college_name || '',
-        name: ref.references_reference_name || '',
-        designation: ref.references_designation || '',
-        // phoneNumber: ref.references_phone_number || '',
-        email: ref.references_email || ''
-      })),
-      professionalReference: (formData.professional_references || []).map((ref: any) => ({
-        companyName: ref.references_company_name || '',
-        name: ref.references_reference_name || '',
-        designation: ref.references_designation || '',
-        // phoneNumber: ref.references_phone_number || '',
-        email: ref.references_email || ''
-      })),
-      additionalInfo: formData.additional_notes
+      educationDetails: hasValidContent(educationDetails) ? educationDetails : null,
+      workExperience: hasValidContent(workExperience) ? workExperience : null,
+      careerPreferences: hasObjectContent(careerPreferences) ? careerPreferences : null,
+      certifications: hasValidContent(certifications) ? certifications : null,
+      userAchievements: hasValidContent(userAchievements) ? userAchievements : null,
+      additionalDetails: (languagesKnown.length > 0 || hobbiesAndInterests) ? {
+        languagesKnown: languagesKnown,
+        hobbiesAndInterests: hobbiesAndInterests
+      } : null,
+      keyStrengths: hasObjectContent(keyStrengths) ? keyStrengths : null,
+      networking: hasObjectContent(networking) ? networking : null,
+      attachments: hasValidContent(attachments) ? attachments : null,
+      academicReference: hasValidContent(academicReference) ? academicReference : null,
+      professionalReference: hasValidContent(professionalReference) ? professionalReference : null,
+      additionalInfo: formData.additional_notes || ''
     };
+
+    return profileData;
   }
 
   extractLastName(url: string): string {

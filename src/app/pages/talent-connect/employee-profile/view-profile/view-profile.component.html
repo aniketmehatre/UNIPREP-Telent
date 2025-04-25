@@ -68,11 +68,11 @@
       </section>
 
       <!-- Education Details Section -->
-      <section class="card-inside mb-4" *ngIf="profileData.educationDetails?.length">
+      <section class="card-inside mb-4">
         <div class="card-header">
           <h3>Education Details</h3>
         </div>
-        <div class="card-body">
+        <div class="card-body"  *ngIf="profileData.educationDetails">
           <div class="row mb-3" *ngFor="
               let education of profileData.educationDetails;
               let last = last
@@ -105,12 +105,10 @@
           </div>
         </div>
       </section>
-      <hr *ngIf="profileData.educationDetails?.length">
-      <!-- Work Experience Section -->
+    <!-- Work Experience Section -->
       <section class="card-inside mb-4" *ngIf="
-          profileData.workExperience?.length ||
-          profileData.personalInfo?.total_years_of_experience
-        ">
+          profileData.workExperience ||
+          profileData.personalInfo?.total_years_of_experience">
         <div class="card-header">
           <h3>Work Experience & Internships</h3>
         </div>
@@ -185,16 +183,13 @@
           </div>
         </div>
       </section>
-      <hr *ngIf="
-      profileData.workExperience?.length ||
-      profileData.personalInfo?.total_years_of_experience
-    ">
+
       <!-- Career Preferences Section -->
-      <section class="card-inside mb-4" *ngIf="profileData.careerPreferences">
+      <section class="card-inside mb-4" >
         <div class="card-header">
           <h3>Career Preferences & Aspirations</h3>
         </div>
-        <div class="card-body">
+        <div class="card-body" *ngIf="profileData.careerPreferences">
           <div class="row">
             <div class="col-md-6" *ngIf="profileData.careerPreferences.careerStatus">
               <h5>Career Status</h5>
@@ -244,61 +239,65 @@
           </div>
         </div>
       </section>
-      <hr *ngIf="profileData.careerPreferences">
+      <hr *ngIf="profileData.certifications">
 
       <!-- Certifications Section -->
-      <section class="card-inside mb-4 cerfiticates" *ngIf="profileData.certifications?.length">
+      <section class="card-inside mb-4 cerfiticates" >
         <div class="card-header">
           <h3>Certifications & Achievements</h3>
         </div>
-        <h5>Professional / Online Certifications</h5>
-        <div class="row g-2">
-          <div class="col-md-12" *ngFor="let cert of profileData.certifications">
-            <div class="d-flex justify-content-between align-items-center">
-              <p class="fw-bold">{{ cert.name }}</p>
-              <div>
-                <div *ngIf="cert.file"
-                class="border p-3 rounded bg-light d-flex justify-content-between align-items-center">
-                <span class="fw-bold fs-6">{{
-                  extractLastName(cert.file)
-                  }}</span>
-                <i class="fa-solid fa-download fa-xl cursor-pointer" (click)="downloadFile(cert.file)"></i>
-              </div>
-              </div>
-            </div>
-          </div>
-        </div>
-        <h5 *ngIf="profileData.userAchievements.length > 0">
-          Achievements Name
-        </h5>
-        <div class="row g-2">
-          <div class="col-md-12" *ngFor="let cert of profileData.userAchievements">
-            <div class="d-flex justify-content-between align-items-center">
-              <p class="fw-bold">{{ cert.name }}</p>
-                <div *ngIf="cert.file"
-                class="border p-3 rounded bg-light d-flex justify-content-between align-items-center">
-                <span class="fw-bold fs-6">{{
-                 cert.file
-                  }}</span>
-                <i class="fa-solid fa-download fa-xl cursor-pointer" (click)="downloadFile(cert.file)"></i>
+        <ng-container *ngIf="profileData.certifications">
+          <h5>Professional / Online Certifications</h5>
+          <div class="row g-2">
+            <div class="col-md-12" *ngFor="let cert of profileData.certifications">
+              <div class="d-flex justify-content-between align-items-center">
+                <p class="fw-bold">{{ cert.name }}</p>
+                <div>
+                  <div *ngIf="cert.file"
+                  class="border p-3 rounded bg-light d-flex justify-content-between align-items-center">
+                  <span class="fw-bold fs-6">{{
+                    extractLastName(cert.file)
+                    }}</span>
+                  <i class="fa-solid fa-download fa-xl cursor-pointer" (click)="downloadFile(cert.file)"></i>
+                </div>
+                </div>
               </div>
             </div>
           </div>
-        </div>
+          <h5 *ngIf="profileData.userAchievements">
+            Achievements Name
+          </h5>
+          <div class="row g-2">
+            <div class="col-md-12" *ngFor="let cert of profileData.userAchievements">
+              <div class="d-flex justify-content-between align-items-center">
+                <p class="fw-bold">{{ cert.name }}</p>
+                  <div *ngIf="cert.file"
+                  class="border p-3 rounded bg-light d-flex justify-content-between align-items-center">
+                  <span class="fw-bold fs-6">{{
+                   cert.file
+                    }}</span>
+                  <i class="fa-solid fa-download fa-xl cursor-pointer" (click)="downloadFile(cert.file)"></i>
+                </div>
+              </div>
+            </div>
+          </div>
+        </ng-container>
       </section>
-      <hr *ngIf="profileData.certifications?.length">
+      <hr *ngIf="
+      profileData.additionalDetails?.languagesKnown ||
+      profileData.additionalDetails?.hobbiesAndInterests
+    ">
 
       <!-- Additional Details Section -->
-      <section class="card-inside mb-4" *ngIf="
-          profileData.additionalDetails?.languagesKnown?.length ||
-          profileData.additionalDetails?.hobbiesAndInterests
-        ">
+      <section class="card-inside mb-4">
         <div class="card-header">
           <h3>Additional Details</h3>
         </div>
-        <div class="card-body">
+        <div class="card-body" *ngIf="
+        profileData.additionalDetails?.languagesKnown ||
+        profileData.additionalDetails?.hobbiesAndInterests">
           <div class="row">
-            <div class="col-md-6" *ngIf="profileData.additionalDetails?.languagesKnown?.length">
+            <div class="col-md-6" *ngIf="profileData.additionalDetails?.languagesKnown">
               <h5>Languages Known</h5>
               <p>
                 {{ profileData.additionalDetails.languagesKnown.join(", ") }}
@@ -311,14 +310,14 @@
           </div>
         </div>
       </section>
-      <hr>
+      <hr *ngIf="profileData.keyStrengths">
 
       <!-- Key Strengths Section -->
-      <section class="card-inside mb-4" *ngIf="profileData.keyStrengths">
+      <section class="card-inside mb-4">
         <div class="card-header">
           <h3>Key Strengths & Professional Traits</h3>
         </div>
-        <div class="card-body">
+        <div class="card-body"  *ngIf="profileData.keyStrengths">
           <div class="row">
             <div class="col-md-12 text-wrap" *ngIf="profileData.keyStrengths.industryDifferentiators">
               <h5>What Sets You Apart in Your Industry?</h5>
@@ -343,19 +342,21 @@
           </div>
         </div>
       </section>
-      <hr *ngIf="profileData.keyStrengths">
-
+      <hr  *ngIf="
+      profileData.networking?.linkedinProfile ||
+      profileData.networking?.socialMedia  ||
+      profileData.networking?.personalWebsite
+    ">
       <!-- Professional Networking Section -->
-      <section class="card-inside mb-4" *ngIf="
-          profileData.networking?.linkedinProfile ||
-          (profileData.networking?.socialMedia &&
-            profileData.networking.socialMedia.length) ||
-          profileData.networking?.personalWebsite
-        ">
+      <section class="card-inside mb-4">
         <div class="card-header">
           <h3>Professional Networking & Online Presence</h3>
         </div>
-        <div class="card-body">
+        <div class="card-body"  *ngIf="
+        profileData.networking?.linkedinProfile ||
+        (profileData.networking?.socialMedia) ||
+        profileData.networking?.personalWebsite
+      ">
           <div class="row g-2">
             <div class="col-md-6" *ngIf="profileData.networking?.linkedinProfile">
               <h5>LinkedIn Profile</h5>
@@ -364,9 +365,7 @@
               </a>
             </div>
             <div class="col-md-6" *ngIf="
-                profileData.networking?.socialMedia &&
-                profileData.networking.socialMedia.length
-              ">
+                profileData.networking?.socialMedia">
               <h5>Social Media</h5>
               <ng-container *ngFor="let media of profileData.networking.socialMedia">
                 <a [href]="media.link" target="_blank">
@@ -384,19 +383,15 @@
           </div>
         </div>
       </section>
-      <hr  *ngIf="
-      profileData.networking?.linkedinProfile ||
-      (profileData.networking?.socialMedia &&
-        profileData.networking.socialMedia.length) ||
-      profileData.networking?.personalWebsite
-    ">
+      <hr *ngIf="profileData.attachments">
+
 
       <!-- Attachments Section -->
-      <section class="card-inside mb-4" *ngIf="profileData.attachments?.length">
+      <section class="card-inside mb-4">
         <div class="card-header">
           <h3>Attachments & Media</h3>
         </div>
-        <div class="card-body">
+        <div class="card-body" *ngIf="profileData.attachments">
           <div class="row g-3">
             <div *ngFor="let attachment of profileData.attachments" class="col-12">
               <!-- Document Type -->
@@ -421,19 +416,21 @@
           </div>
         </div>
       </section>
-      <hr *ngIf="profileData.attachments?.length">
+      <hr *ngIf="
+      profileData.academicReference ||
+      profileData.professionalReference">
 
       <!-- References Section -->
-      <section class="card-inside" *ngIf="
-          profileData.academicReference?.length ||
-          profileData.professionalReference?.length
-        ">
+      <section class="card-inside" >
         <div class="card-header">
           <h3>References & Endorsements</h3>
         </div>
-        <div class="card-body">
+        <div class="card-body" *ngIf="
+        profileData.academicReference ||
+        profileData.professionalReference
+      ">
           <!-- Academic References -->
-          <div *ngIf="profileData.academicReference?.length">
+          <div *ngIf="profileData.academicReference">
             <h4 class="text-dark fw-bold mb-3">Academic Reference</h4>
             <div class="row g-3 mb-4" *ngFor="
                 let reference of profileData.academicReference;
@@ -460,7 +457,7 @@
           </div>
 
           <!-- Professional References -->
-          <div *ngIf="profileData.professionalReference?.length">
+          <div *ngIf="profileData.professionalReference">
             <h4 class="text-dark fw-bold my-3">Professional Reference</h4>
             <div class="row g-3" *ngFor="
                 let reference of profileData.professionalReference;
@@ -487,10 +484,6 @@
           </div>
         </div>
       </section>
-      <hr *ngIf="
-      profileData.academicReference?.length ||
-      profileData.professionalReference?.length
-    ">
 
       <section class="card-inside mt-3" *ngIf="profileData.additionalInfo">
         <h4 class="text-dark fw-bold mb-3">Additional Notes</h4>
