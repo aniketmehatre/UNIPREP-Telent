@@ -231,14 +231,14 @@ export class LandingComponent implements OnInit, OnDestroy {
 	scrollToSection(event: Event, sectionId: string): void {
 		// Prevent the default anchor link behavior
 		event.preventDefault()
-
-		// Find the element with the given section ID
-		const section = document.querySelector(`#${sectionId}`)
-
-		// If the section exists, scroll to it smoothly
-		if (section) {
-			section.scrollIntoView({ behavior: "smooth" })
-		}
+		this.router.navigate([`/`]).then(() => {
+			setTimeout(() => {
+				const section = document.querySelector(`#${sectionId}`)
+				if (section) {
+					section.scrollIntoView({ behavior: "smooth" })
+				}			
+			}, 0)
+		});
 	}
 	timeLeftInfoCard: any
 	ngOnInit() {
