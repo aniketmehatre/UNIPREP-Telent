@@ -1,78 +1,98 @@
-<div class="career-dashboard">
-  <!-- Header Section -->
-  <div class="header">
-    <div class="navigation">
-    <button class="back-button" routerLink="/landing">
-      <i class="arrow-left"></i>
-    </button>
-    <button class="job-seekers-button">{{categoryName}}</button>
-    </div>
-  
-    <div class="hero">
-    <h1 class="title">{{pageTitle}}</h1>
-    <p class="subtitle">
-      {{categoryDescription}}
-    </p>
-    </div>
-  </div>
-  
-<!-- Steps Sections -->
-<div *ngFor="let step of steps" class="step-section">
-  <ng-container *ngIf="getCardsForStep(step.tag_title).length">
-    <div class="row">
-      <div class="col-md-3">
-        <div class="step-header">
-          <div class="step-icon">
-            <span class="fs-5">{{step.tag_icon}}</span>
-          </div>
-          <div class="step-info">
-            <h2 class="step-title">{{step.tag_title}}</h2>
-            <p class="step-subtitle">{{step.tag_subtitle}}</p>
-          </div>
-        </div>
-      </div>
-      <div class="col-md-9">
-        <div class="cards-grid">
-          <div *ngFor="let card of getCardsForStep(step.tag_title)" class="card">
-            <div class="card-header" style="padding-left: 0px">
-              <div class="card-icon fs-2">{{card.icon}}</div>
-              <div class="card-number">{{card.order_no}}</div>
-            </div>
-            <div class="card-content" [routerLink]="['/landing/explore',categorySlug, card.id]">
-              <h3 class="card-title">
-                {{card.feature_name}}
-                <i class="fa-solid fa-arrow-up-right-from-square"></i>
-              </h3>
-              <p class="card-description">{{card.description}}</p>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </ng-container>
-</div>
-
-<!-- CTA Banner -->
-<div class="cta-banner">
-  <div class="cta-content">
-    <h2 class="cta-title">UNIPREP IS YOUR CAREER CO-PILOT</h2>
-    <p class="cta-subtitle">READY WHEN YOU ARE.</p>
-  </div>
-  <button class="register-button" routerLink="/register">Register Now</button>
-</div>
-  <!-- Why UNIPREP Section -->
-  <div class="why-section">
-    <h2 class="why-title">{{categoryTitle}}</h2>
-    <p class="why-subtitle">{{categoryDescription}}</p>
-    
-    <div class="benefits-grid">
-    <div *ngFor="let benefit of benefits" class="benefit-card">
-      <div class="benefit-icon fs-4">{{ benefit.category_icon}}</div>
-      <div class="benefit-content">
-      <h3 class="benefit-title">{{benefit.category_title}}</h3>
-      <p class="benefit-description">{{benefit.category_subtitle}}</p>
-      </div>
-    </div>
-    </div>
-  </div>
-  </div>
+<section class="pb-5 pt-5 py-md-4 darksection" id="our-management">
+	<div class="container-fluid py-5">
+		<div class="row justify-content-center">
+			<div class="col-md-8">
+				<div class="row">
+					<div class="col-md-12">
+						<div class="d-flex gap-2 align-items-center mb-2">
+							<button class="back-button" routerLink="/landing">
+								<i class="text-white fa-solid fa-arrow-left"></i>
+							</button>
+							<span class="text-white pagetitle px-3">{{ pageTitle }}</span>
+						</div>
+					</div>
+					<div class="col-md-12">
+						<h1 class="text-white fw-light">{{ pageTitle }}</h1>
+						<p class="mb-4">{{ categoryDescription }}</p>
+					</div>
+					<div class="col-md-12" *ngFor="let step of steps">
+						<ng-container *ngIf="getCardsForStep(step.tag_title).length">
+							<div class="row">
+								<div class="col-md-3">
+									<div>
+										<span class="emoji h3 mb-2">{{ step.tag_icon }}</span>
+										<h2 class="uniprep-secondary mb-0">{{ step.tag_title }}</h2>
+										<p>{{ step.tag_subtitle }}</p>
+									</div>
+								</div>
+								<div class="col-md-9">
+									<div class="row">
+										<div class="col-xxl-4 col-xl-4 col-lg-4 col-md-6 col-sm-6 col-6 mb-3" *ngFor="let card of getCardsForStep(step.tag_title)">
+											<div class="card h-100" role="button" [routerLink]="['/landing/explore', categorySlug, card.id]">
+												<div class="card-body">
+													<div class="emoji h3 mb-2">{{ card.icon }}</div>
+													<h4 class="card-title">{{ card.feature_name }} <i class="fa-solid fa-arrow-up-right-from-square"></i></h4>
+													<p class="text-muted">{{ card.description }}</p>
+												</div>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+						</ng-container>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</section>
+<section class="pt-5 pb-5 cta-field darksection">
+	<div class="container-fluid">
+		<div class="row justify-content-center">
+			<div class="col-md-8">
+				<div class="card py-4 px-4">
+					<div class="card-body">
+						<div class="row align-items-center justify-content-center">
+							<div class="col-md-10">
+								<h2 class="fw-bold text-white">UNIPREP IS YOUR CAREER CO-PILOT</h2>
+								<p class="cta-subtitle">READY WHEN YOU ARE.</p>
+							</div>
+							<div class="col-md-2 col-7">
+								<a href="/register" class="btn cta-btn m-0 h5 py-4">REGISTER NOW</a>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</section>
+<section class="pb-5 pt-5 py-md-4 darksection" id="our-management">
+	<div class="container-fluid py-5">
+		<div class="row justify-content-center">
+			<div class="col-md-8">
+				<div class="row">
+					<div class="col-md-12">
+						<h1 class="text-white fw-light">{{ categoryTitle }}</h1>
+						<p class="mb-4">{{ categoryDescription }}</p>
+					</div>
+					<div class="col-md-12">
+						<div class="row">
+							<div class="col-xxl-4 col-xl-4 col-lg-4 col-md-6 col-sm-6 col-6 mb-3" *ngFor="let benefit of benefits">
+								<div class="card">
+									<div class="card-body d-flex aling-items-center gap-3">
+										<div class="emoji h3 d-flex align-items-center">{{ benefit.category_icon }}</div>
+										<div>
+											<h4 class="card-title">{{ benefit.category_title }}</h4>
+											<p class="text-muted">{{ benefit.category_subtitle }}</p>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</section>
