@@ -8,23 +8,17 @@ import { PageFacadeService } from '../../page-facade.service';
 import { CommonModule } from "@angular/common";
 import { DialogModule } from "primeng/dialog";
 import { StorageService } from "../../../storage.service";
-import { RestrictionDialogComponent } from 'src/app/shared/restriction-dialog/restriction-dialog.component';
 @Component({
   selector: 'uni-entreprenuersectorproficiency',
   templateUrl: './entreprenuersectorproficiency.component.html',
   styleUrls: ['./entreprenuersectorproficiency.component.scss'],
   standalone: true,
-  imports: [CommonModule, DialogModule, RouterModule, RestrictionDialogComponent]
+  imports: [CommonModule, DialogModule, RouterModule]
 })
 export class EntreprenuersectorproficiencyComponent implements OnInit {
   categoryCount: number = 0;
   moduleID: number = 18;
   planExpired: boolean = false;
-  restrict: boolean = false;
-  orgnamewhitlabel: any;
-  orglogowhitelabel: any;
-  imagewhitlabeldomainname: any
-  ehitlabelIsShow: boolean = true;
   currentModuleSlug: any;
   constructor(private service: FounderstoolService, private sanitizer: DomSanitizer, private router: Router, private authService: AuthService,
     private locationService: LocationService, private pageFacade: PageFacadeService, private storage: StorageService
@@ -49,7 +43,7 @@ export class EntreprenuersectorproficiencyComponent implements OnInit {
   }
   openQuiz(id: any, name: string) {
     if (this.planExpired) {
-      this.restrict = true;
+      this.authService.hasUserSubscription$.next(true);
       return;
     }
     this.storage.set('conditionrevieworquiz', '0');
@@ -62,22 +56,15 @@ export class EntreprenuersectorproficiencyComponent implements OnInit {
     this.router.navigate(['/pages/founderstool/founderstoollist']);
   }
   checkplanExpire(): void {
-    this.authService.getNewUserTimeLeft().subscribe((res) => {
-      let data = res.time_left;
-      let subscription_exists_status = res.subscription_details;
-      if (data.plan === "expired" || data.plan === 'subscription_expired') {
-        this.planExpired = true;
-      } else {
-        this.planExpired = false;
-      }
-    })
+    if (this.authService._userSubscrition.time_left.plan === "expired" ||
+      this.authService._userSubscrition.time_left.plan === "subscription_expired") {
+      this.planExpired = true;
+    }
+    else {
+      this.planExpired = false;
+    }
   }
-  upgradePlan(): void {
-    this.router.navigate(["/pages/subscriptions"]);
-  }
-  clearRestriction() {
-    this.restrict = false;
-  }
+
   review(id: any) {
     this.storage.set('conditionrevieworquiz', '1')
     this.storage.set('entrpreneursubid', id)

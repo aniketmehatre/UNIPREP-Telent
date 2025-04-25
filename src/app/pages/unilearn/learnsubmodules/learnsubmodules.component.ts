@@ -11,13 +11,12 @@ import { DialogModule } from "primeng/dialog"
 
 import { StorageService } from "../../../storage.service";
 import { PdfViewerModule } from "ng2-pdf-viewer";
-import { RestrictionDialogComponent } from "src/app/shared/restriction-dialog/restriction-dialog.component"
 
 @Component({
 	selector: "uni-learnsubmodules",
 	templateUrl: "./learnsubmodules.component.html",
 	styleUrls: ["./learnsubmodules.component.scss"],
-	imports: [DialogModule, CommonModule, PdfViewerModule, RouterModule, RestrictionDialogComponent],
+	imports: [DialogModule, CommonModule, PdfViewerModule, RouterModule],
 	standalone: true,
 })
 export class LearnsubModulesComponent implements OnInit, AfterViewInit {
@@ -26,13 +25,10 @@ export class LearnsubModulesComponent implements OnInit, AfterViewInit {
 	submoduleList: any
 	paramData: any
 	planExpired: boolean = false
-	restrict: boolean = false
-	ehitlabelIsShow: boolean = true
 	pdfURL: string = ""
 	pdfvisibility = false
 	moduleId: number
 	moduleName: string
-	imagewhitlabeldomainname: any
 	pdfLoadError: boolean = false
 
 	constructor(private pageFacade: PageFacadeService, private authService: AuthService,
@@ -156,29 +152,20 @@ export class LearnsubModulesComponent implements OnInit, AfterViewInit {
 
 	download() {
 		if (this.planExpired) {
-			this.restrict = true
+			this.authService.hasUserSubscription$.next(true);
 			return
 		}
 		window.open(this.pdfURL, "_blank")
 	}
 
 	checkplanExpire(): void {
-		this.authService.getNewUserTimeLeft().subscribe((res) => {
-			let data = res.time_left
-			let subscription_exists_status = res.subscription_details
-			if (data.plan === "expired" || data.plan === "subscription_expired") {
-				this.planExpired = true
-			} else {
-				this.planExpired = false
-			}
-		})
+		if (this.authService._userSubscrition.time_left.plan === "expired" ||
+			this.authService._userSubscrition.time_left.plan === "subscription_expired") {
+			this.planExpired = true;
+		}
+		else {
+			this.planExpired = false;
+		}
 	}
 
-	upgradePlan(): void {
-		this.router.navigate(["/pages/subscriptions"])
-	}
-
-	clearRestriction() {
-		this.restrict = false
-	}
 }

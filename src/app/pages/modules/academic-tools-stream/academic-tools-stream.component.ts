@@ -9,13 +9,12 @@ import { CommonModule } from "@angular/common"
 import { DialogModule } from "primeng/dialog"
 import { TooltipModule } from "primeng/tooltip"
 import { SkeletonModule } from "primeng/skeleton";
-import { RestrictionDialogComponent } from "src/app/shared/restriction-dialog/restriction-dialog.component"
 @Component({
 	selector: "uni-academic-tools-stream",
 	templateUrl: "./academic-tools-stream.component.html",
 	styleUrls: ["./academic-tools-stream.component.scss"],
 	standalone: true,
-	imports: [CommonModule, DialogModule, TooltipModule, SkeletonModule, RestrictionDialogComponent],
+	imports: [CommonModule, DialogModule, TooltipModule, SkeletonModule],
 })
 export class AcademicToolsStreamComponent implements OnInit {
 	modulesList: any[] = []
@@ -28,11 +27,6 @@ export class AcademicToolsStreamComponent implements OnInit {
 	tooltip: string = ""
 	submoduleId: string = ""
 	planExpired: boolean = false
-	restrict: boolean = false
-	ehitlabelIsShow: boolean = true
-	orgnamewhitlabel: any
-	orglogowhitelabel: any
-	imagewhitlabeldomainname: any
 	constructor(private activatedRoute: ActivatedRoute, private location: Location, private router: Router, private academicService: AcademicService, private route: Router, private authService: AuthService) { }
 
 	ngOnInit(): void {
@@ -41,17 +35,11 @@ export class AcademicToolsStreamComponent implements OnInit {
 			this.getList()
 			this.getAcademicToolList()
 			this.checkplanExpire()
-			this.imagewhitlabeldomainname = window.location.hostname
-			if (this.imagewhitlabeldomainname === "*.uniprep.ai" || this.imagewhitlabeldomainname === "dev-student.uniprep.ai" || this.imagewhitlabeldomainname === "uniprep.ai" || this.imagewhitlabeldomainname === "localhost") {
-				this.ehitlabelIsShow = true
-			} else {
-				this.ehitlabelIsShow = false
-			}
 		})
 	}
 	navigateToQuiz(moduleId: number, academicCategoryId: number): void {
 		if (this.planExpired) {
-			this.restrict = true
+			this.authService.hasUserSubscription$.next(true);
 			return
 		}
 		// Navigate to the quiz route
@@ -93,20 +81,13 @@ export class AcademicToolsStreamComponent implements OnInit {
 		})
 	}
 	checkplanExpire(): void {
-		this.authService.getNewUserTimeLeft().subscribe((res) => {
-			let data = res.time_left
-			let subscription_exists_status = res.subscription_details
-			if (data.plan === "expired" || data.plan === "subscription_expired") {
-				this.planExpired = true
-			} else {
-				this.planExpired = false
-			}
-		})
+		if (this.authService._userSubscrition.time_left.plan === "expired" ||
+			this.authService._userSubscrition.time_left.plan === "subscription_expired") {
+			this.planExpired = true;
+		}
+		else {
+			this.planExpired = false;
+		}
 	}
-	upgradePlan(): void {
-		this.router.navigate(["/pages/subscriptions"])
-	}
-	clearRestriction() {
-		this.restrict = false
-	}
+
 }

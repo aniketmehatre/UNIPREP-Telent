@@ -10,7 +10,6 @@ import { CommonModule } from "@angular/common"
 import { MultiSelectModule } from "primeng/multiselect"
 import { DialogModule } from "primeng/dialog"
 import { SkeletonModule } from "primeng/skeleton"
-import { RestrictionDialogComponent } from "src/app/shared/restriction-dialog/restriction-dialog.component"
 interface country {
 	id: number
 	country: string
@@ -25,19 +24,15 @@ interface country {
 	templateUrl: "./resource.component.html",
 	styleUrls: ["./resource.component.scss"],
 	standalone: true,
-	imports: [CommonModule, ReactiveFormsModule, MultiSelectModule, DialogModule, SkeletonModule, RestrictionDialogComponent],
+	imports: [CommonModule, ReactiveFormsModule, MultiSelectModule, DialogModule, SkeletonModule],
 })
 export class ResourceComponent implements OnInit {
 	filterform: FormGroup
 	newfile = "none"
 	countries: country[] = []
 	planExpired!: boolean
-	restrict: boolean = false
 	showSkeleton: boolean = false
-	ehitlabelIsShow: boolean = true
-	imagewhitlabeldomainname: any
-	orgnamewhitlabel: any
-	orglogowhitelabel: any
+
 	constructor(private fb: FormBuilder, private resourceService: ResourceService, private toast: MessageService, private locationService: LocationService, private authService: AuthService, private pageFacade: PageFacadeService, private router: Router) {
 		this.filterform = this.fb.group({
 			coutryname: [""],
@@ -96,7 +91,7 @@ export class ResourceComponent implements OnInit {
 	// filterpop-up
 	filterPopUp() {
 		if (this.planExpired) {
-			this.restrict = true
+			this.authService.hasUserSubscription$.next(true);
 			return
 		}
 		this.newfile = "block"
@@ -108,25 +103,18 @@ export class ResourceComponent implements OnInit {
 		}
 	}
 	checkplanExpire(): void {
-		this.authService.getNewUserTimeLeft().subscribe((res) => {
-			let data = res.time_left
-			let subscription_exists_status = res.subscription_details
-			if (data.plan === "expired" || data.plan === "subscription_expired" || subscription_exists_status.subscription_plan === "free_trail") {
-				this.planExpired = true
-			} else {
-				this.planExpired = false
-			}
-		})
+		if (this.authService._userSubscrition.time_left.plan === "expired" ||
+			this.authService._userSubscrition.time_left.plan === "subscription_expired") {
+			this.planExpired = true;
+		}
+		else {
+			this.planExpired = false;
+		}
 	}
-	upgradePlan(): void {
-		this.router.navigate(["/pages/subscriptions"])
-	}
-	clearRestriction() {
-		this.restrict = false
-	}
+
 	canSeeResources() {
 		if (this.planExpired) {
-			this.restrict = true
+			this.authService.hasUserSubscription$.next(true);
 			return
 		}
 	}

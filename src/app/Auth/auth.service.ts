@@ -612,22 +612,21 @@ export class AuthService {
     return this.http.post<any>(environment.ApiUrl + "/login", req, { headers: headers });
   }
 
-  isSubscription(module: string): boolean {
+  isInvalidSubscription(module: string): boolean {
     let planExpired: boolean = false;
-    if (module == 'ai_global_advisor' || module == 'travel_tools') { //student plan
+    if (module === 'ai_global_advisor' || module === 'education_tools') {
       if (this._userSubscrition.time_left.plan === "expired" ||
         this._userSubscrition.time_left.plan === "subscription_expired") {
         planExpired = true;
       }
     }
-    // else if(module == 'travel_tools'){ 
-    //   if (this._userSubscrition.time_left.plan === "expired" 
-    //     ||this._userSubscrition.time_left.plan === "subscription_expired"
-    //     || this._userSubscrition.subscription_details.subscription_plan === "student"
-    //   ) {
-    //     planExpired = true;
-    //   }
-    // }
+    else if (module === 'events') {
+      if (this._userSubscrition.time_left.plan === "expired" ||
+        this._userSubscrition.time_left.plan === "subscription_expired" ||
+        this._userSubscrition.subscription_details.subscription_plan === "free_trail") {
+        planExpired = true;
+      }
+    }
     return planExpired;
   }
 }

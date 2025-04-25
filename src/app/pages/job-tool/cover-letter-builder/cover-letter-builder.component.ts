@@ -25,16 +25,16 @@ import { InputGroupAddonModule } from "primeng/inputgroupaddon"
 import { TextareaModule } from "primeng/textarea"
 import { EditorModule } from "primeng/editor"
 import { SkeletonModule } from "primeng/skeleton"
-import {PdfViewerModule} from "ng2-pdf-viewer";
-import {ConfirmPopup} from "primeng/confirmpopup";
+import { PdfViewerModule } from "ng2-pdf-viewer";
+import { ConfirmPopup } from "primeng/confirmpopup";
 import { AveragesalaryestimatorService } from "../../averagesalaryestimator/averagesalaryestimator.service"
 
 declare const pdfjsLib: any;
 
 interface ResumeHistory {
-    id: number;
-    pdf_name: string;
-    created_time: string;
+	id: number;
+	pdf_name: string;
+	created_time: string;
 }
 
 interface City {
@@ -50,7 +50,7 @@ interface City {
 	templateUrl: "./cover-letter-builder.component.html",
 	styleUrls: ["./cover-letter-builder.component.scss"],
 	standalone: true,
-	imports: [CommonModule,ConfirmPopup, EditorModule, DialogModule, SidebarModule, SkeletonModule, PdfViewerModule, RouterModule, CardModule, PaginatorModule, FormsModule, ReactiveFormsModule, CarouselModule, ButtonModule, MultiSelectModule, SelectModule, InputGroupModule, InputTextModule, InputGroupAddonModule, TextareaModule],
+	imports: [CommonModule, ConfirmPopup, EditorModule, DialogModule, SidebarModule, SkeletonModule, PdfViewerModule, RouterModule, CardModule, PaginatorModule, FormsModule, ReactiveFormsModule, CarouselModule, ButtonModule, MultiSelectModule, SelectModule, InputGroupModule, InputTextModule, InputGroupAddonModule, TextareaModule],
 	providers: [CvBuilderService, ConfirmationService, TooltipModule],
 })
 export class CoverLetterBuilderComponent implements OnInit, AfterViewInit {
@@ -66,11 +66,6 @@ export class CoverLetterBuilderComponent implements OnInit, AfterViewInit {
 	selectedThemeColor: string = "#172a99"
 	selectedColorCode: number = 1
 	planExpired: boolean = false
-	restrict: boolean = false
-	ehitlabelIsShow: boolean = true
-	imagewhitlabeldomainname: any
-	orgnamewhitlabel: any
-	orglogowhitelabel: any
 	previewImage: string = ""
 	coverHistories: any = []
 	currentDate: Date = new Date()
@@ -82,7 +77,7 @@ export class CoverLetterBuilderComponent implements OnInit, AfterViewInit {
 	resumeHistory: any = [];
 	pdfThumbnails: { [key: string]: string } = {};
 	filteredLocations: any = [];
-	orgLocation:any = [];
+	orgLocation: any = [];
 	cities: City[] = [];
 	filterJobRole: any[] = [];
 	filterJobRolePostionApplied: any[] = [];
@@ -242,11 +237,11 @@ export class CoverLetterBuilderComponent implements OnInit, AfterViewInit {
 	swiper!: Swiper
 	pdfLoadError: boolean = false
 	pdfUrl: string = ""
-	countryCodeList:any[] = [];
-	jobTitleList:any[]=[];
-	chatGptButtonLoader:boolean=false;
-	chatGptButtonLoaderSummary:boolean=false;
-	constructor(private toaster: MessageService, private fb: FormBuilder, private resumeService: CourseListService, private locationService: LocationService, private authService: AuthService, private router: Router, private confirmService: ConfirmationService, private cvBuilderService: CvBuilderService,	private service: AveragesalaryestimatorService,
+	countryCodeList: any[] = [];
+	jobTitleList: any[] = [];
+	chatGptButtonLoader: boolean = false;
+	chatGptButtonLoaderSummary: boolean = false;
+	constructor(private toaster: MessageService, private fb: FormBuilder, private resumeService: CourseListService, private locationService: LocationService, private authService: AuthService, private router: Router, private confirmService: ConfirmationService, private cvBuilderService: CvBuilderService, private service: AveragesalaryestimatorService,
 	) {
 		this.resumeFormInfoData = this.fb.group({
 			// user_name: ['Vivek Kaliyaperumal', [Validators.required]],
@@ -329,20 +324,20 @@ export class CoverLetterBuilderComponent implements OnInit, AfterViewInit {
 
 	searchLocation(event: any, mode: string) {
 		const query = event.target.value.toLowerCase();
-		if(mode === "user_location"){
+		if (mode === "user_location") {
 			if (query.length > 3) {
 				this.filteredLocations = this.getFilteredLocations(query);
 			} else if (query.length < 2) {
 				this.filteredLocations = [];
 			}
-		}else{
+		} else {
 			if (query.length > 3) {
 				this.orgLocation = this.getFilteredLocations(query);
 			} else if (query.length < 2) {
 				this.orgLocation = [];
 			}
 		}
-		
+
 	}
 
 	getLocationsList() {
@@ -353,25 +348,25 @@ export class CoverLetterBuilderComponent implements OnInit, AfterViewInit {
 
 	getFilteredLocations(query: string) {
 		const mockLocations = this.cities;
-	
+
 		return mockLocations.filter((city: any) => city.country_name.toLowerCase().includes(query.toLowerCase()));
 	}
-	
+
 	onFocusOut() {
 		setTimeout(() => {
-		  this.filteredLocations = [];
-		  this.orgLocation = [];
+			this.filteredLocations = [];
+			this.orgLocation = [];
 		}, 200); // Delay clearing the dropdown by 200 milliseconds
 	}
 
 
 	selectLocation(city: any, mode: string) {
-		if(mode === "user_location"){
+		if (mode === "user_location") {
 			this.resumeFormInfoData.patchValue({
 				user_location: city.country_name,
 			});
 			this.filteredLocations = [];
-		}else if(mode === "org_location"){
+		} else if (mode === "org_location") {
 			this.resumeFormInfoData.patchValue({
 				org_location: city.country_name,
 			});
@@ -398,7 +393,7 @@ export class CoverLetterBuilderComponent implements OnInit, AfterViewInit {
 
 	ngOnInit(): void {
 		let userDetails = this.authService._user;
-		let location = userDetails?.district+', '+ userDetails?.state;
+		let location = userDetails?.district + ', ' + userDetails?.state;
 		this.resumeFormInfoData.patchValue({
 			user_name: userDetails?.name,
 			user_email: userDetails?.email,
@@ -436,23 +431,11 @@ export class CoverLetterBuilderComponent implements OnInit, AfterViewInit {
 		// this.hideHeader()
 		this.getCountryCodeList();
 		this.getLocationsList();
-		this.locationService.getImage().subscribe((imageUrl) => {
-			this.orglogowhitelabel = imageUrl
-		})
-		this.locationService.getOrgName().subscribe((orgname) => {
-			this.orgnamewhitlabel = orgname
-		})
-		this.imagewhitlabeldomainname = window.location.hostname
-		if (this.imagewhitlabeldomainname === "*.uniprep.ai" || this.imagewhitlabeldomainname === "dev-student.uniprep.ai" || this.imagewhitlabeldomainname === "uniprep.ai" || this.imagewhitlabeldomainname === "localhost") {
-			this.ehitlabelIsShow = true
-		} else {
-			this.ehitlabelIsShow = false
-		}
 	}
 
-	getCountryCodeList(){
+	getCountryCodeList() {
 		this.cvBuilderService.getCountryCodes().subscribe({
-			next: response =>{
+			next: response => {
 				this.countryCodeList = response;
 			}
 		})
@@ -557,8 +540,8 @@ export class CoverLetterBuilderComponent implements OnInit, AfterViewInit {
 		const controls: AbstractControl[] = []
 		let controlNames: any = []
 		if (this.moduleActiveIndex === 0) {
-			controlNames = ["user_name", "user_job_title", "user_email", "user_location", "user_phone","org_name", "org_location", "jobposition","user_summary"]
-		} 
+			controlNames = ["user_name", "user_job_title", "user_email", "user_location", "user_phone", "org_name", "org_location", "jobposition", "user_summary"]
+		}
 		// else if (this.moduleActiveIndex === 1) {
 		// 	controlNames = ["org_name", "org_location", "jobposition"]
 		// } else if (this.moduleActiveIndex === 2) {
@@ -627,13 +610,13 @@ export class CoverLetterBuilderComponent implements OnInit, AfterViewInit {
 
 	downloadResume() {
 		if (this.planExpired) {
-			this.restrict = true
+			this.authService.hasUserSubscription$.next(true);
 			return
 		}
 		let formData = this.resumeFormInfoData.value
 		const userSummary = formData.user_summary;
 		//this user summary contains &nbsp; when we edit the content so removed the &nbsp; manually.
-		const cleanedContent = cleanHtmlContent(userSummary); 
+		const cleanedContent = cleanHtmlContent(userSummary);
 
 		function cleanHtmlContent(html: string): string {
 			return html
@@ -660,15 +643,15 @@ export class CoverLetterBuilderComponent implements OnInit, AfterViewInit {
 			this.selectedResumeLevel = ""
 		})
 	}
-	getVisibleFormControlsChatGptRespons(mode:any): AbstractControl[] {
+	getVisibleFormControlsChatGptRespons(mode: any): AbstractControl[] {
 		// form validation
 		const controls: AbstractControl[] = []
 		let controlNames: any = []
-		if(mode == 'generate_description'){
+		if (mode == 'generate_description') {
 			controlNames = ["user_job_title"]
 		}
-		if(mode == 'generate_summary'){
-			controlNames = ["user_name", "user_job_title", "user_email", "user_location", "user_phone","org_name", "org_location", "jobposition"]
+		if (mode == 'generate_summary') {
+			controlNames = ["user_name", "user_job_title", "user_email", "user_location", "user_phone", "org_name", "org_location", "jobposition"]
 		}
 		controlNames.forEach((controlName: any) => {
 			const control = this.resumeFormInfoData.get(controlName)
@@ -683,86 +666,77 @@ export class CoverLetterBuilderComponent implements OnInit, AfterViewInit {
 		const visibleFormControls = this.getVisibleFormControlsChatGptRespons(mode);
 		// condition for required field for chatgpt
 		if (!visibleFormControls.every((control) => control.valid)) {
-			if(mode == 'generate_description'){
+			if (mode == 'generate_description') {
 				this.submitted = false;
 				this.toaster.add({ severity: "error", summary: "Errorr", detail: "Your Job Title Required." })
-			}else{
+			} else {
 				this.submitted = true
 				this.toaster.add({ severity: "error", summary: "Error", detail: "Please fill all the required fields." })
 			}
 			visibleFormControls.forEach((control) => control.markAsTouched())
-		}else{
-		const formData = this.resumeFormInfoData.value
-		formData.mode = "cover_letter"
-		formData.inner_mode = mode
-		formData.max_tokens = 1500
-		if(mode == 'generate_description'){
-			this.resumeFormInfoData.patchValue({
-				job_description: "",
-			})
-			this.rephraseDesBtnDisable = true;
-			this.generateDesBtnDisable=false;
-			this.chatGptButtonLoader=true;
-		}else if(mode == 'rephrase_description'){
-			this.rephraseDesBtnDisable = false;
-			this.generateDesBtnDisable=true;
-			this.chatGptButtonLoader=true;
-		}else if(mode == 'generate_summary'){
-			this.resumeFormInfoData.patchValue({
-				user_summary: "",
-			})
-			this.generateConBtnDisable = false;
-			this.rephraseconBtnDisable = true;
-			this.chatGptButtonLoaderSummary=true;
-		}else if(mode == 'rephrase_summary'){
-			this.generateConBtnDisable = true;
-			this.rephraseconBtnDisable = false;
-			this.chatGptButtonLoaderSummary=true;
-		}
-		this.cvBuilderService.openAiIntegration(formData).subscribe((res) => {
-			if (res.response && res.response.length > 0) {
-				let GPTResponse = res.response.trim()
-				GPTResponse = GPTResponse.split("</p>")
-					.filter((part: any) => part.trim() !== "")
-					.map((part: any) => part + "</p><br>")
-					.join("")
-
-				if(mode == 'generate_description' || mode == 'rephrase_description'){
-					this.resumeFormInfoData.patchValue({
-						job_description: GPTResponse,
-					})
-				}else if(mode == 'generate_summary' || mode == 'rephrase_summary'){
-					this.resumeFormInfoData.patchValue({
-						user_summary: GPTResponse,
-					})
-				}
-				this.chatGptButtonLoader=false;
-				this.chatGptButtonLoaderSummary=false;
-			} else {
-				console.error("Unexpected response structure:", res)
+		} else {
+			const formData = this.resumeFormInfoData.value
+			formData.mode = "cover_letter"
+			formData.inner_mode = mode
+			formData.max_tokens = 1500
+			if (mode == 'generate_description') {
+				this.resumeFormInfoData.patchValue({
+					job_description: "",
+				})
+				this.rephraseDesBtnDisable = true;
+				this.generateDesBtnDisable = false;
+				this.chatGptButtonLoader = true;
+			} else if (mode == 'rephrase_description') {
+				this.rephraseDesBtnDisable = false;
+				this.generateDesBtnDisable = true;
+				this.chatGptButtonLoader = true;
+			} else if (mode == 'generate_summary') {
+				this.resumeFormInfoData.patchValue({
+					user_summary: "",
+				})
+				this.generateConBtnDisable = false;
+				this.rephraseconBtnDisable = true;
+				this.chatGptButtonLoaderSummary = true;
+			} else if (mode == 'rephrase_summary') {
+				this.generateConBtnDisable = true;
+				this.rephraseconBtnDisable = false;
+				this.chatGptButtonLoaderSummary = true;
 			}
-		})
-	}
+			this.cvBuilderService.openAiIntegration(formData).subscribe((res) => {
+				if (res.response && res.response.length > 0) {
+					let GPTResponse = res.response.trim()
+					GPTResponse = GPTResponse.split("</p>")
+						.filter((part: any) => part.trim() !== "")
+						.map((part: any) => part + "</p><br>")
+						.join("")
+
+					if (mode == 'generate_description' || mode == 'rephrase_description') {
+						this.resumeFormInfoData.patchValue({
+							job_description: GPTResponse,
+						})
+					} else if (mode == 'generate_summary' || mode == 'rephrase_summary') {
+						this.resumeFormInfoData.patchValue({
+							user_summary: GPTResponse,
+						})
+					}
+					this.chatGptButtonLoader = false;
+					this.chatGptButtonLoaderSummary = false;
+				} else {
+					console.error("Unexpected response structure:", res)
+				}
+			})
+		}
 	}
 
 	checkplanExpire(): void {
-		this.authService.getNewUserTimeLeft().subscribe((res) => {
-			let data = res.time_left
-			let subscription_exists_status = res.subscription_details
-			if (data.plan === "expired" || data.plan === "subscription_expired" || subscription_exists_status.subscription_plan == "Student" || subscription_exists_status.subscription_plan == "free_trail") {
-				this.planExpired = true
-			} else {
-				this.planExpired = false
-			}
-		})
-	}
+		if (this.authService._userSubscrition.time_left.plan === "expired" ||
+			this.authService._userSubscrition.time_left.plan === "subscription_expired") {
+			this.planExpired = true;
+		}
+		else {
+			this.planExpired = false;
+		}
 
-	upgradePlan(): void {
-		this.router.navigate(["/pages/subscriptions"])
-	}
-
-	clearRestriction() {
-		this.restrict = false
 	}
 
 	selectResumeTemplate(templateName: string) {
@@ -780,86 +754,86 @@ export class CoverLetterBuilderComponent implements OnInit, AfterViewInit {
 		const input = event.target as HTMLInputElement;
 		const query = input.value.toLowerCase().trim();
 		if (query && query.length > 3) {
-		  const mockJobs = this.jobRoles;
-	
-		  // Filter jobs that include the query
-		  this.filterJobRole = mockJobs.filter((job: any) =>
-			job.jobrole.toLowerCase().includes(query)
-		  );
-	
-		  // Sort the filtered jobs to prioritize exact matches
-		  this.filterJobRole.sort((a: any, b: any) => {
-			const aJob = a.jobrole.toLowerCase();
-			const bJob = b.jobrole.toLowerCase();
-	
-			if (aJob === query && bJob !== query) {
-			  return -1; // a comes first
-			} else if (aJob !== query && bJob === query) {
-			  return 1; // b comes first
-			} else if (aJob.startsWith(query) && !bJob.startsWith(query)) {
-			  return -1; // a comes first if it starts with the query
-			} else if (!aJob.startsWith(query) && bJob.startsWith(query)) {
-			  return 1; // b comes first if it starts with the query
-			} else {
-			  return 0; // Keep original order for other cases
-			}
-		  });
+			const mockJobs = this.jobRoles;
+
+			// Filter jobs that include the query
+			this.filterJobRole = mockJobs.filter((job: any) =>
+				job.jobrole.toLowerCase().includes(query)
+			);
+
+			// Sort the filtered jobs to prioritize exact matches
+			this.filterJobRole.sort((a: any, b: any) => {
+				const aJob = a.jobrole.toLowerCase();
+				const bJob = b.jobrole.toLowerCase();
+
+				if (aJob === query && bJob !== query) {
+					return -1; // a comes first
+				} else if (aJob !== query && bJob === query) {
+					return 1; // b comes first
+				} else if (aJob.startsWith(query) && !bJob.startsWith(query)) {
+					return -1; // a comes first if it starts with the query
+				} else if (!aJob.startsWith(query) && bJob.startsWith(query)) {
+					return 1; // b comes first if it starts with the query
+				} else {
+					return 0; // Keep original order for other cases
+				}
+			});
 		} else if (query.length < 1) {
-		  this.filterJobRole = [];
+			this.filterJobRole = [];
 		}
-	  }
-	  jobRoles = [];
-	  getJobRoles() {
+	}
+	jobRoles = [];
+	getJobRoles() {
 		this.service.getJobRoles().subscribe((response: any) => {
-		  this.jobRoles = response;
+			this.jobRoles = response;
 		});
-	  }
-	  setJobtitle(jobRoleId: number, jobRoleLabel: string) {
+	}
+	setJobtitle(jobRoleId: number, jobRoleLabel: string) {
 		// this.selectedData[1] = jobRoleId;
 		this.resumeFormInfoData.patchValue({
-			user_job_title:jobRoleLabel
+			user_job_title: jobRoleLabel
 		})
 		this.filterJobRole = [];
-	  }
-	  searchJobPosition(event: Event): void {
+	}
+	searchJobPosition(event: Event): void {
 		const input = event.target as HTMLInputElement;
 		const query = input.value.toLowerCase().trim();
 		if (query && query.length > 3) {
-		  const mockJobs = this.jobRoles;
-	
-		  // Filter jobs that include the query
-		  this.filterJobRolePostionApplied = mockJobs.filter((job: any) =>
-			job.jobrole.toLowerCase().includes(query)
-		  );
-	
-		  // Sort the filtered jobs to prioritize exact matches
-		  this.filterJobRolePostionApplied.sort((a: any, b: any) => {
-			const aJob = a.jobrole.toLowerCase();
-			const bJob = b.jobrole.toLowerCase();
-	
-			if (aJob === query && bJob !== query) {
-			  return -1; // a comes first
-			} else if (aJob !== query && bJob === query) {
-			  return 1; // b comes first
-			} else if (aJob.startsWith(query) && !bJob.startsWith(query)) {
-			  return -1; // a comes first if it starts with the query
-			} else if (!aJob.startsWith(query) && bJob.startsWith(query)) {
-			  return 1; // b comes first if it starts with the query
-			} else {
-			  return 0; // Keep original order for other cases
-			}
-		  });
+			const mockJobs = this.jobRoles;
+
+			// Filter jobs that include the query
+			this.filterJobRolePostionApplied = mockJobs.filter((job: any) =>
+				job.jobrole.toLowerCase().includes(query)
+			);
+
+			// Sort the filtered jobs to prioritize exact matches
+			this.filterJobRolePostionApplied.sort((a: any, b: any) => {
+				const aJob = a.jobrole.toLowerCase();
+				const bJob = b.jobrole.toLowerCase();
+
+				if (aJob === query && bJob !== query) {
+					return -1; // a comes first
+				} else if (aJob !== query && bJob === query) {
+					return 1; // b comes first
+				} else if (aJob.startsWith(query) && !bJob.startsWith(query)) {
+					return -1; // a comes first if it starts with the query
+				} else if (!aJob.startsWith(query) && bJob.startsWith(query)) {
+					return 1; // b comes first if it starts with the query
+				} else {
+					return 0; // Keep original order for other cases
+				}
+			});
 		} else if (query.length < 1) {
-		  this.filterJobRolePostionApplied = [];
+			this.filterJobRolePostionApplied = [];
 		}
-	  }
-	  setJobtitlePositiApplied(jobRoleId: number, jobRoleLabel: string) {
+	}
+	setJobtitlePositiApplied(jobRoleId: number, jobRoleLabel: string) {
 		this.resumeFormInfoData.patchValue({
-			jobposition:jobRoleLabel
+			jobposition: jobRoleLabel
 		})
 		this.filterJobRolePostionApplied = [];
-	  }
-	  historyPage(){
-		this.activePageIndex=0;
-	  }
+	}
+	historyPage() {
+		this.activePageIndex = 0;
+	}
 }

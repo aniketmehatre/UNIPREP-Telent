@@ -24,14 +24,13 @@ import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
 import { PromptService } from '../../prompt.service';
 import { SharedModule } from 'src/app/shared/shared.module';
 import { SkeletonModule } from 'primeng/skeleton';
-import { RestrictionDialogComponent } from 'src/app/shared/restriction-dialog/restriction-dialog.component';
 
 @Component({
   selector: 'uni-uni-compare',
   templateUrl: './uni-compare.component.html',
   styleUrls: ['./uni-compare.component.scss'],
   standalone: true,
-  imports: [CommonModule, RouterModule, DialogModule, CardModule, PaginatorModule, FormsModule, ReactiveFormsModule, CarouselModule, ButtonModule, CommonModule, RouterModule, DialogModule, MultiSelectModule, SelectModule, CardModule, InputGroupModule, InputTextModule, InputGroupAddonModule, SkeletonModule, SharedModule, RestrictionDialogComponent]
+  imports: [CommonModule, RouterModule, DialogModule, CardModule, PaginatorModule, FormsModule, ReactiveFormsModule, CarouselModule, ButtonModule, CommonModule, RouterModule, DialogModule, MultiSelectModule, SelectModule, CardModule, InputGroupModule, InputTextModule, InputGroupAddonModule, SkeletonModule, SharedModule]
 })
 export class UniCompareComponent implements OnInit, OnDestroy {
   panelStyle: { width: string } = { width: '360px' };
@@ -51,12 +50,7 @@ export class UniCompareComponent implements OnInit, OnDestroy {
   planExpired!: boolean;
   recommendRestrict: boolean = false;
   form: FormGroup = new FormGroup({});
-  restrict: boolean = false;
   currentPlan: string = "";
-  ehitlabelIsShow: boolean = true;
-  imagewhitlabeldomainname: any;
-  orglogowhitelabel: any;
-  orgnamewhitlabel: any;
   locationName: string = '';
   submitted: boolean = false;
   data: any = {
@@ -219,37 +213,6 @@ export class UniCompareComponent implements OnInit, OnDestroy {
     });
   }
 
-
-  checkplanExpire(): void {
-    this.authService.getNewUserTimeLeft().subscribe((res) => {
-      let data = res.time_left;
-      let subscription_exists_status = res.subscription_details;
-      this.currentPlan = subscription_exists_status?.subscription_plan;
-      if (
-        data.plan === "expired" || data.plan === 'subscription_expired' ||
-        subscription_exists_status?.subscription_plan === "free_trail"
-      ) {
-        this.planExpired = true;
-      } else {
-        this.planExpired = false;
-      }
-      if (
-        data.plan === "expired" || data.plan === 'subscription_expired'
-      ) {
-        this.recommendRestrict = true;
-      } else {
-        this.recommendRestrict = false;
-      }
-    });
-  }
-
-  upgradePlan(): void {
-    this.router.navigate(["/pages/subscriptions"]);
-  }
-  clearRestriction() {
-    this.restrict = false;
-  }
-
   getRecommendation() {
     this.submitted = false;
     const formData = this.form.value;
@@ -269,11 +232,11 @@ export class UniCompareComponent implements OnInit, OnDestroy {
         return;
       }
     }
-    if (this.recommendRestrict) {
-      this.restrict = true;
+    if (this.authService.isInvalidSubscription('education_tools')) {
+      this.authService.hasUserSubscription$.next(true);
       return;
     }
-    if(this.aiCreditCount == 0){
+    if (this.aiCreditCount == 0) {
       this.toast.add({ severity: "error", summary: "Error", detail: "Free AI Credits Over.Please Buy Some Credits..!" });
       return;
     }
@@ -356,8 +319,8 @@ export class UniCompareComponent implements OnInit, OnDestroy {
     this.recommendationData = data;
 
     const encodedJson = userInputs;
-		const decodedInput = JSON.parse(encodedJson);
-		this.userInputs = decodedInput;
+    const decodedInput = JSON.parse(encodedJson);
+    this.userInputs = decodedInput;
   }
 
   resetRecommendation() {

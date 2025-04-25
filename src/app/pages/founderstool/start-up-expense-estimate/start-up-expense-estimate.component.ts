@@ -27,7 +27,6 @@ import { DomSanitizer, SafeHtml } from "@angular/platform-browser"
 import { PromptService } from "../../prompt.service"
 import { SkeletonModule } from "primeng/skeleton"
 import { SharedModule } from "src/app/shared/shared.module"
-import { RestrictionDialogComponent } from "src/app/shared/restriction-dialog/restriction-dialog.component"
 
 interface selectList {
 	name: string
@@ -37,7 +36,7 @@ interface selectList {
 	templateUrl: "./start-up-expense-estimate.component.html",
 	styleUrls: ["./start-up-expense-estimate.component.scss"],
 	standalone: true,
-	imports: [CommonModule, DialogModule, RouterModule, CardModule, PaginatorModule, FormsModule, ReactiveFormsModule, CarouselModule, ButtonModule, MultiSelectModule, InputGroupModule, InputTextModule, InputGroupAddonModule, SelectModule, SkeletonModule, SharedModule, RestrictionDialogComponent],
+	imports: [CommonModule, DialogModule, RouterModule, CardModule, PaginatorModule, FormsModule, ReactiveFormsModule, CarouselModule, ButtonModule, MultiSelectModule, InputGroupModule, InputTextModule, InputGroupAddonModule, SelectModule, SkeletonModule, SharedModule],
 })
 export class StartUpExpenseEstimateComponent implements OnInit {
 	locationList: any[]
@@ -55,14 +54,8 @@ export class StartUpExpenseEstimateComponent implements OnInit {
 	pageSize = 25
 	first: number = 0
 	planExpired!: boolean
-	recommendRestrict: boolean = false
 	marketingForm: FormGroup = new FormGroup({})
-	restrict: boolean = false
 	currentPlan: string = ""
-	ehitlabelIsShow: boolean = true
-	imagewhitlabeldomainname: any
-	orglogowhitelabel: any
-	orgnamewhitlabel: any
 	locationName: string = ""
 	submitted: boolean = false
 	data: any = {
@@ -165,28 +158,13 @@ export class StartUpExpenseEstimateComponent implements OnInit {
 	}
 
 	checkplanExpire(): void {
-		this.authService.getNewUserTimeLeft().subscribe((res) => {
-			let data = res.time_left
-			let subscription_exists_status = res.subscription_details
-			this.currentPlan = subscription_exists_status?.subscription_plan
-			if (data.plan === "expired" || data.plan === "subscription_expired" || subscription_exists_status?.subscription_plan === "free_trail") {
-				this.planExpired = true
-			} else {
-				this.planExpired = false
-			}
-			if (data.plan === "expired" || data.plan === "subscription_expired") {
-				this.recommendRestrict = true
-			} else {
-				this.recommendRestrict = false
-			}
-		})
-	}
-
-	upgradePlan(): void {
-		this.router.navigate(["/pages/subscriptions"])
-	}
-	clearRestriction() {
-		this.restrict = false
+		if (this.authService._userSubscrition.time_left.plan === "expired" ||
+			this.authService._userSubscrition.time_left.plan === "subscription_expired") {
+			this.planExpired = true;
+		}
+		else {
+			this.planExpired = false;
+		}
 	}
 
 	openHowItWorksVideoPopup(videoLink: string) {
@@ -213,8 +191,8 @@ export class StartUpExpenseEstimateComponent implements OnInit {
 				return
 			}
 		}
-		if (this.recommendRestrict) {
-			this.restrict = true
+		if (this.planExpired) {
+			this.authService.hasUserSubscription$.next(true);
 			return
 		}
 		let data: any = {

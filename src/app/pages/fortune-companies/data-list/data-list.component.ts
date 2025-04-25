@@ -1,16 +1,9 @@
 import { Component, EventEmitter, Input, OnInit, Output } from "@angular/core";
-import { Location } from "@angular/common";
-import { MenuItem, MessageService } from "primeng/api";
-import { ActivatedRoute, Router } from "@angular/router";
+import { MessageService } from "primeng/api";
 import { PageFacadeService } from "../../page-facade.service";
 import { AuthService } from "src/app/Auth/auth.service";
 import { Meta } from "@angular/platform-browser";
 import { FortuneCompaniesService } from "../fortune-companies.service";
-import { CommonModule } from "@angular/common";
-import { RouterModule } from "@angular/router";
-import { DialogModule } from "primeng/dialog";
-import { CardModule } from "primeng/card";
-import { PaginatorModule } from "primeng/paginator";
 import { DataService } from "src/app/data.service";
 
 @Component({
@@ -26,10 +19,6 @@ export class FortuneCompaniesdataListsComponent implements OnInit {
   restrict: boolean = false;
   page: number = 1;
   perpage: number = 50;
-  ehitlabelIsShow: boolean = true;
-  imagewhitlabeldomainname: any;
-  orgnamewhitlabel: any;
-  orglogowhitelabel: any;
   totalDataCount: any = 0;
   ListData: any = [];
   selectedQuestionData: any;
@@ -39,10 +28,7 @@ export class FortuneCompaniesdataListsComponent implements OnInit {
     .fill(0)
     .map((_, index) => index);
   constructor(
-    private location: Location,
-    private route: ActivatedRoute,
     private toast: MessageService,
-    private router: Router,
     private pageFacade: PageFacadeService,
     private authService: AuthService,
     private meta: Meta,
@@ -92,14 +78,13 @@ export class FortuneCompaniesdataListsComponent implements OnInit {
   }
 
   checkPlanExpiry(): void {
-    this.authService.getNewUserTimeLeft().subscribe((res) => {
-      const data = res.time_left;
-      if (data.plan === "expired" || data.plan === "subscription_expired") {
-        this.planExpired = true;
-      } else {
-        this.planExpired = false;
-      }
-    });
+    if (this.authService._userSubscrition.time_left.plan === "expired" ||
+      this.authService._userSubscrition.time_left.plan === "subscription_expired") {
+      this.planExpired = true;
+    }
+    else {
+      this.planExpired = false;
+    }
   }
 
   openVideoPopup(videoLink: string) {

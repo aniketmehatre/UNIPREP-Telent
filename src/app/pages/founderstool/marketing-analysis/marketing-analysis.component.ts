@@ -28,14 +28,13 @@ import { marketingAnalysisData } from './marketing-analysis.data';
 import { PromptService } from '../../prompt.service';
 import { SkeletonModule } from 'primeng/skeleton';
 import { SharedModule } from 'src/app/shared/shared.module';
-import { RestrictionDialogComponent } from 'src/app/shared/restriction-dialog/restriction-dialog.component';
 
 @Component({
   selector: 'uni-marketing-analysis',
   templateUrl: './marketing-analysis.component.html',
   styleUrls: ['./marketing-analysis.component.scss'],
   standalone: true,
-  imports: [CommonModule, DialogModule, CardModule, RouterModule, PaginatorModule, FormsModule, ReactiveFormsModule, CarouselModule, ButtonModule, MultiSelectModule, SelectModule, InputGroupModule, InputTextModule, InputGroupAddonModule, SkeletonModule, SharedModule, RestrictionDialogComponent]
+  imports: [CommonModule, DialogModule, CardModule, RouterModule, PaginatorModule, FormsModule, ReactiveFormsModule, CarouselModule, ButtonModule, MultiSelectModule, SelectModule, InputGroupModule, InputTextModule, InputGroupAddonModule, SkeletonModule, SharedModule]
 })
 export class MarketingAnalysisComponent implements OnInit {
   locationList: any[] = [];
@@ -54,14 +53,8 @@ export class MarketingAnalysisComponent implements OnInit {
   pageSize = 25;
   first: number = 0;
   planExpired!: boolean;
-  recommendRestrict: boolean = false;
   marketingForm: FormGroup = new FormGroup({});
-  restrict: boolean = false;
   currentPlan: string = "";
-  ehitlabelIsShow: boolean = true;
-  imagewhitlabeldomainname: any;
-  orglogowhitelabel: any;
-  orgnamewhitlabel: any;
   locationName: string = '';
   submitted: boolean = false;
   data: any = {
@@ -173,34 +166,15 @@ export class MarketingAnalysisComponent implements OnInit {
   }
 
   checkplanExpire(): void {
-    this.authService.getNewUserTimeLeft().subscribe((res) => {
-      let data = res.time_left;
-      let subscription_exists_status = res.subscription_details;
-      this.currentPlan = subscription_exists_status?.subscription_plan;
-      if (
-        data.plan === "expired" || data.plan === 'subscription_expired' ||
-        subscription_exists_status?.subscription_plan === "free_trail"
-      ) {
-        this.planExpired = true;
-      } else {
-        this.planExpired = false;
-      }
-      if (
-        data.plan === "expired" || data.plan === 'subscription_expired'
-      ) {
-        this.recommendRestrict = true;
-      } else {
-        this.recommendRestrict = false;
-      }
-    });
+    if (this.authService._userSubscrition.time_left.plan === "expired" ||
+      this.authService._userSubscrition.time_left.plan === "subscription_expired") {
+      this.planExpired = true;
+    }
+    else {
+      this.planExpired = false;
+    }
   }
 
-  upgradePlan(): void {
-    this.router.navigate(["/pages/subscriptions"]);
-  }
-  clearRestriction() {
-    this.restrict = false;
-  }
 
   checkUserRecommendation() {
     this.foundersToolsService.getRecommendations().subscribe(res => {
@@ -222,11 +196,11 @@ export class MarketingAnalysisComponent implements OnInit {
         return;
       }
     }
-    if (this.recommendRestrict) {
-      this.restrict = true;
+    if (this.planExpired) {
+      this.authService.hasUserSubscription$.next(true);
       return;
     }
-    if(this.aiCreditCount == 0){
+    if (this.aiCreditCount == 0) {
       this.toast.add({ severity: "error", summary: "Error", detail: "Free AI Credits Over.Please Buy Some Credits..!" });
       return;
     }

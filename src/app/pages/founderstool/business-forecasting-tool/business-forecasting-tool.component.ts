@@ -1,4 +1,4 @@
-	import { Component, OnInit } from "@angular/core"
+import { Component, OnInit } from "@angular/core"
 import { FormGroup, FormBuilder, Validators } from "@angular/forms"
 import { Router, RouterModule } from "@angular/router"
 import { MessageService } from "primeng/api"
@@ -24,14 +24,13 @@ import { DomSanitizer, SafeHtml } from "@angular/platform-browser"
 import { PromptService } from "../../prompt.service"
 import { SkeletonModule } from "primeng/skeleton"
 import { SharedModule } from "src/app/shared/shared.module"
-import { RestrictionDialogComponent } from "src/app/shared/restriction-dialog/restriction-dialog.component"
 
 @Component({
 	selector: "uni-business-forecasting-tool",
 	templateUrl: "./business-forecasting-tool.component.html",
 	styleUrls: ["./business-forecasting-tool.component.scss"],
 	standalone: true,
-	imports: [CommonModule, DialogModule, RouterModule, CardModule, PaginatorModule, FormsModule, ReactiveFormsModule, CarouselModule, ButtonModule, MultiSelectModule, SelectModule, InputGroupModule, InputTextModule, InputGroupAddonModule, SkeletonModule, SharedModule, RestrictionDialogComponent],
+	imports: [CommonModule, DialogModule, RouterModule, CardModule, PaginatorModule, FormsModule, ReactiveFormsModule, CarouselModule, ButtonModule, MultiSelectModule, SelectModule, InputGroupModule, InputTextModule, InputGroupAddonModule, SkeletonModule, SharedModule],
 })
 export class BusinessForecastingToolComponent implements OnInit {
 	industryList: any[] = businessForeCastData.Industry
@@ -48,14 +47,8 @@ export class BusinessForecastingToolComponent implements OnInit {
 	pageSize = 25
 	first: number = 0
 	planExpired!: boolean
-	recommendRestrict: boolean = false
 	form: FormGroup = new FormGroup({})
-	restrict: boolean = false
 	currentPlan: string = ""
-	ehitlabelIsShow: boolean = true
-	imagewhitlabeldomainname: any
-	orglogowhitelabel: any
-	orgnamewhitlabel: any
 	locationName: string = ""
 	currencyList: any
 	goalList: any
@@ -115,18 +108,6 @@ export class BusinessForecastingToolComponent implements OnInit {
 	}
 
 	ngOnInit(): void {
-		this.locationService.getImage().subscribe((imageUrl) => {
-			this.orglogowhitelabel = imageUrl
-		})
-		this.locationService.getOrgName().subscribe((orgname) => {
-			this.orgnamewhitlabel = orgname
-		})
-		this.imagewhitlabeldomainname = window.location.hostname
-		if (this.imagewhitlabeldomainname === "*.uniprep.ai" || this.imagewhitlabeldomainname === "dev-student.uniprep.ai" || this.imagewhitlabeldomainname === "uniprep.ai" || this.imagewhitlabeldomainname === "localhost") {
-			this.ehitlabelIsShow = true
-		} else {
-			this.ehitlabelIsShow = false
-		}
 		this.getForeCastingOptionLists()
 		this.getCurrenyandLocation()
 		this.getAICreditCount();
@@ -168,29 +149,13 @@ export class BusinessForecastingToolComponent implements OnInit {
 	}
 
 	checkplanExpire(): void {
-		this.authService.getNewUserTimeLeft().subscribe((res) => {
-			let data = res.time_left
-			let subscription_exists_status = res.subscription_details
-			this.currentPlan = subscription_exists_status?.subscription_plan
-			if (data.plan === "expired" || data.plan === "subscription_expired" || subscription_exists_status?.subscription_plan === "free_trail") {
-				this.planExpired = true
-			} else {
-				this.planExpired = false
-			}
-			if (data.plan === "expired" || data.plan === "subscription_expired") {
-				this.recommendRestrict = true
-			} else {
-				this.recommendRestrict = false
-			}
-		})
-	}
-
-	upgradePlan(): void {
-		this.router.navigate(["/pages/subscriptions"])
-	}
-
-	clearRestriction() {
-		this.restrict = false
+		if (this.authService._userSubscrition.time_left.plan === "expired" ||
+			this.authService._userSubscrition.time_left.plan === "subscription_expired") {
+			this.planExpired = true;
+		}
+		else {
+			this.planExpired = false;
+		}
 	}
 
 	openHowItWorksVideoPopup(videoLink: string) {
@@ -215,11 +180,11 @@ export class BusinessForecastingToolComponent implements OnInit {
 			this.submitted = true
 			return
 		}
-		if (this.recommendRestrict) {
-			this.restrict = true
+		if (this.planExpired) {
+			this.authService.hasUserSubscription$.next(true);
 			return
 		}
-		if(this.aiCreditCount == 0){
+		if (this.aiCreditCount == 0) {
 			this.toast.add({ severity: "error", summary: "Error", detail: "Free AI Credits Over.Please Buy Some Credits..!" });
 			return;
 		}
@@ -228,7 +193,7 @@ export class BusinessForecastingToolComponent implements OnInit {
 			mode: "revenue_forescasting_tool",
 		}
 		//when the user clicks the history on that time the user inputs won't be there.so we stored the inputs and using the this(userInputs) for both. current user input and history also.
-		this.userInputs = data; 
+		this.userInputs = data;
 		this.isRecommendationQuestion = false
 		this.isRecommendationSavedData = false
 		this.isRecommendationData = true

@@ -1,8 +1,7 @@
 import {NgModule} from "@angular/core";
 import {RouterModule, Routes} from "@angular/router";
 import {AuthGuard} from "./Auth/auth.guard";
-import {UserResolver} from "./resolvers/user.resolver";
-import {LandingComponent} from "./pages/landing/landing.component";
+import { UserResolver } from "./resolvers/user.resolver";
 import {PrivacyComponent} from "./pages/privacy/privacy.component";
 import {CertificatesComponent} from "./pages/certificates/certificates.component";
 import {EnterpriseSubscriptionComponent} from "./components/enterprise-subscription/enterprise-subscription.component";
@@ -25,7 +24,7 @@ if (environment.maintenanceMode) {
   },
       {
         path: 'home',
-        component: LandingComponent,
+        loadChildren: () => import('./pages/landing/landing.module').then((m) => m.LandingModule),
         canActivate: [DomainwhitlabelGuard]
       },
       {

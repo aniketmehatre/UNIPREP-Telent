@@ -27,7 +27,6 @@ import { TextareaModule } from 'primeng/textarea';
 import { PdfViewerModule } from "ng2-pdf-viewer";
 import { ConfirmPopup } from "primeng/confirmpopup";
 import { ToastModule } from 'primeng/toast';
-import { RestrictionDialogComponent } from "src/app/shared/restriction-dialog/restriction-dialog.component";
 declare const pdfjsLib: any;
 
 interface ResumeHistory {
@@ -41,7 +40,7 @@ interface ResumeHistory {
   templateUrl: "./cv-builder.component.html",
   styleUrls: ["./cv-builder.component.scss"],
   standalone: true,
-  imports: [CommonModule, DialogModule, TextareaModule, SidebarModule, PdfViewerModule, RouterModule, CardModule, PaginatorModule, FormsModule, ReactiveFormsModule, CarouselModule, ButtonModule, MultiSelectModule, SelectModule, InputGroupModule, InputTextModule, InputGroupAddonModule, ConfirmPopup, TooltipModule, ToastModule, RestrictionDialogComponent],
+  imports: [CommonModule, DialogModule, TextareaModule, SidebarModule, PdfViewerModule, RouterModule, CardModule, PaginatorModule, FormsModule, ReactiveFormsModule, CarouselModule, ButtonModule, MultiSelectModule, SelectModule, InputGroupModule, InputTextModule, InputGroupAddonModule, ConfirmPopup, TooltipModule, ToastModule],
   providers: [CvBuilderService, ConfirmationService, MessageService]
 })
 export class CvBuilderComponent implements OnInit, AfterViewInit {
@@ -206,11 +205,6 @@ export class CvBuilderComponent implements OnInit, AfterViewInit {
 
   editorModules: any;
   planExpired: boolean = false;
-  restrict: boolean = false;
-  ehitlabelIsShow: boolean = true;
-  imagewhitlabeldomainname: any;
-  orgnamewhitlabel: any;
-  orglogowhitelabel: any;
   hidingHeaders: string[] = ["project_details"];
   swiper!: Swiper;
   pdfLoadError: boolean = false;
@@ -360,13 +354,6 @@ export class CvBuilderComponent implements OnInit, AfterViewInit {
       ],
     };
     this.checkplanExpire();
-    this.locationService.getImage().subscribe((imageUrl) => {
-      this.orglogowhitelabel = imageUrl;
-    });
-    this.locationService.getOrgName().subscribe((orgname) => {
-      this.orgnamewhitlabel = orgname;
-    });
-    this.imagewhitlabeldomainname = window.location.hostname;
     this.previousResumes();
     let currentuserName = this.resumeFormInfoData.value.user_name;
     this.splitUserName(currentuserName); // it calls when the page refresh
@@ -1209,7 +1196,7 @@ export class CvBuilderComponent implements OnInit, AfterViewInit {
 
   downloadResume() {
     if (this.planExpired) {
-      this.restrict = true;
+      this.authService.hasUserSubscription$.next(true);
       return;
     }
     this.clickedDownloadButton = true;
@@ -1419,23 +1406,15 @@ export class CvBuilderComponent implements OnInit, AfterViewInit {
     }
   }
   checkplanExpire(): void {
-    this.authService.getNewUserTimeLeft().subscribe((res) => {
-      let data = res.time_left;
-      let subscription_exists_status = res.subscription_details;
-      if (data.plan === "expired" || data.plan === "subscription_expired" || subscription_exists_status.subscription_plan == "Student" || subscription_exists_status.subscription_plan == "free_trail") {
-        this.planExpired = true;
-      } else {
-        this.planExpired = false;
-      }
-    });
-  }
+    if (this.authService._userSubscrition.time_left.plan === "expired" ||
+      this.authService._userSubscrition.time_left.plan === "subscription_expired" ||
+      this.authService._userSubscrition.subscription_details.subscription_plan === "Student") {
+      this.planExpired = true;
+    }
+    else {
+      this.planExpired = false;
+    }
 
-  upgradePlan(): void {
-    this.router.navigate(["/pages/subscriptions"]);
-  }
-
-  clearRestriction() {
-    this.restrict = false;
   }
 
   //Validation for start year and end year for Work experience field

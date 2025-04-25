@@ -18,32 +18,20 @@ import { ButtonModule } from "primeng/button";
 import { PageFacadeService } from "../page-facade.service";
 import { LocationService } from "src/app/location.service";
 import { FormsModule } from "@angular/forms";
-import { RestrictionDialogComponent } from "src/app/shared/restriction-dialog/restriction-dialog.component";
 @Component({
   selector: "uni-infokit",
   standalone: true,
-  imports: [FormsModule, CommonModule, InputTextModule, TabViewModule, TableModule, AccordionModule, ReactiveFormsModule, MultiSelectModule, PaginatorModule, TooltipModule, DialogModule, ButtonModule, RestrictionDialogComponent],
+  imports: [FormsModule, CommonModule, InputTextModule, TabViewModule, TableModule, AccordionModule, ReactiveFormsModule, MultiSelectModule, PaginatorModule, TooltipModule, DialogModule, ButtonModule],
   templateUrl: "./infokit.component.html",
   styleUrls: ["./infokit.component.scss"],
 })
 export class InfoKitComponent implements OnInit {
   planExpired!: boolean;
-  restrict: boolean = false;
   searchText: any;
-  // originalFolderLists: any[] = [];
-  // originalFileLists: any[];
   allFoldersAndFiles: any[] = [];
   filteredFiles: any[] = [];
   constructor(private fb: FormBuilder, private service: InformationService, private toastr: MessageService, private route: Router, private authService: AuthService, private pageFacade: PageFacadeService, private locationService: LocationService) {
-    this.authService.getNewUserTimeLeft().subscribe((res) => {
-      let data = res.time_left;
-      let subscription_exists_status = res.subscription_details;
-      if (data.plan === "expired" || subscription_exists_status.subscription_plan === "free_trail" || subscription_exists_status.subscription_plan === "Student" || subscription_exists_status.subscription_plan === "Career" || data.plan === "subscription_expired") {
-        this.planExpired = true;
-      } else {
-        this.planExpired = false;
-      }
-    });
+
   }
   titletext = "STARTUP KIT";
   folderdata: any = {};
@@ -51,10 +39,6 @@ export class InfoKitComponent implements OnInit {
   parentfolderlists: any = [];
   parentfilelists: any = [];
   totalcount = 0;
-  ehitlabelIsShow: boolean = true;
-  imagewhitlabeldomainname: any;
-  orgnamewhitlabel: any;
-  orglogowhitelabel: any;
   ngOnInit() {
     this.checkplanExpire();
     this.folderdata = {
@@ -98,7 +82,7 @@ export class InfoKitComponent implements OnInit {
   }
   pageChange(event: any) {
     if (this.planExpired) {
-      this.restrict = true;
+      this.authService.hasUserSubscription$.next(true);
       return;
     }
     this.folderdata.page = event.page + 1;
@@ -173,7 +157,7 @@ export class InfoKitComponent implements OnInit {
   }
   openFile(url: any) {
     if (this.planExpired) {
-      this.restrict = true;
+      this.authService.hasUserSubscription$.next(true);
       return;
     }
     window.open(url, "_blank");
@@ -181,25 +165,19 @@ export class InfoKitComponent implements OnInit {
     this.searchText = "";
   }
 
-  upgradePlan(): void {
-    this.route.navigate(["/pages/subscriptions"]);
-  }
-  clearRestriction() {
-    this.restrict = false;
-  }
   checkplanExpire(): void {
-    this.authService.getNewUserTimeLeft().subscribe((res) => {
-      let data = res.time_left;
-      let subscription_exists_status = res.subscription_details;
-      if (data.plan === "expired" || data.plan === "subscription_expired" || subscription_exists_status.subscription_plan == "free_trail" || subscription_exists_status.subscription_plan == "Student" || subscription_exists_status.subscription_plan == "Career") {
-        this.planExpired = true;
-        // this.restrict = true;
-      } else {
-        this.planExpired = false;
-        // this.restrict = false;
-      }
-    });
+    if (this.authService._userSubscrition.time_left.plan === "expired" ||
+      this.authService._userSubscrition.time_left.plan === "subscription_expired" ||
+      this.authService._userSubscrition.subscription_details.subscription_plan === "free_trail" ||
+      this.authService._userSubscrition.subscription_details.subscription_plan === "Student" ||
+      this.authService._userSubscrition.subscription_details.subscription_plan === "Career") {
+      this.planExpired = true;
+    }
+    else {
+      this.planExpired = false;
+    }
   }
+
   openVideoPopup(videoLink: string) {
     this.pageFacade.openHowitWorksVideoPopup(videoLink);
   }

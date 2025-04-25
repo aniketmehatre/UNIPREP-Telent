@@ -10,13 +10,12 @@ import { LocationService } from "src/app/location.service"
 import { CommonModule } from "@angular/common"
 import { DialogModule } from "primeng/dialog"
 import { StorageService } from "../../storage.service"
-import { RestrictionDialogComponent } from "src/app/shared/restriction-dialog/restriction-dialog.component"
 @Component({
 	selector: "uni-mycertificate",
 	templateUrl: "./mycertificate.component.html",
 	styleUrls: ["./mycertificate.component.scss"],
 	standalone: true,
-	imports: [CommonModule, DialogModule, RouterModule, RestrictionDialogComponent],
+	imports: [CommonModule, DialogModule, RouterModule],
 })
 export class MycertificateComponent implements OnInit {
 	certificatesList: any[] = []
@@ -25,13 +24,9 @@ export class MycertificateComponent implements OnInit {
 	laguageCertificate: any[] = []
 	othercirtificatecountrylist: any = ""
 	countryname: any
-	restrict: boolean = false
 	planExpired: boolean = false
 	studentplanRestrict: boolean = false
-	ehitlabelIsShow: boolean = true
-	imagewhitlabeldomainname: any
-	orgnamewhitlabel: any
-	orglogowhitelabel: any
+
 	constructor(private service: MycertificateserviceService, private router: Router, private authService: AuthService, private dataService: DataService, private meta: Meta, private toast: MessageService, private route: ActivatedRoute, private pageFacade: PageFacadeService, private locationService: LocationService, private storage: StorageService) { }
 
 	ngOnInit(): void {
@@ -93,49 +88,45 @@ export class MycertificateComponent implements OnInit {
 	downloadCertificate(link: any, module_id: any) {
 		if (module_id == 8 || module_id == 10) {
 			if (this.studentplanRestrict) {
-				this.restrict = true
+				this.authService.hasUserSubscription$.next(true);
 				return
 			}
 		} else {
 			if (this.planExpired) {
-				this.restrict = true
+				this.authService.hasUserSubscription$.next(true);
 				return
 			}
 		}
 		window.open(link, "_blank")
 	}
-	upgradePlan(): void {
-		this.router.navigate(["/pages/subscriptions"])
-	}
-	clearRestriction() {
-		this.restrict = false
-	}
+
 	checkplanExpire(): void {
-		this.authService.getNewUserTimeLeft().subscribe((res) => {
-			let data = res.time_left
-			let subscription_exists_status = res.subscription_details
-			if (data.plan === "expired" || data.plan === "subscription_expired" || subscription_exists_status?.subscription_plan === "free_trail") {
-				this.planExpired = true
-			} else {
-				this.planExpired = false
-			}
-			if (data.plan === "expired" || data.plan === "subscription_expired" || subscription_exists_status?.subscription_plan === "free_trail" || subscription_exists_status?.subscription_plan === "Student") {
-				this.studentplanRestrict = true
-			} else {
-				this.studentplanRestrict = false
-			}
-		})
+		if (this.authService._userSubscrition.time_left.plan === "expired" ||
+			this.authService._userSubscrition.time_left.plan === "subscription_expired") {
+			this.planExpired = true;
+		}
+		else {
+			this.planExpired = false;
+		}
+		if (this.authService._userSubscrition.time_left.plan === "expired" ||
+			this.authService._userSubscrition.time_left.plan === "subscription_expired" ||
+			this.authService._userSubscrition.subscription_details.subscription_plan === "Student") {
+			this.studentplanRestrict = true;
+		}
+		else {
+			this.studentplanRestrict = false;
+		}
 	}
 	selectedIndex: any = null
 	showSocialSharingList(index: any, module_id: any) {
 		if (module_id == 8 || module_id == 10) {
 			if (this.studentplanRestrict) {
-				this.restrict = true
+				this.authService.hasUserSubscription$.next(true);
 				return
 			}
 		} else {
 			if (this.planExpired) {
-				this.restrict = true
+				this.authService.hasUserSubscription$.next(true);
 				return
 			}
 		}

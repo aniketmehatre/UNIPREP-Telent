@@ -24,7 +24,6 @@ import { MultiSelectModule } from "primeng/multiselect"
 import { InputGroupModule } from "primeng/inputgroup"
 import { InputGroupAddonModule } from "primeng/inputgroupaddon"
 import { StorageService } from "../../../storage.service";
-import { RestrictionDialogComponent } from "src/app/shared/restriction-dialog/restriction-dialog.component"
 
 @Component({
 	selector: "uni-question-list",
@@ -33,7 +32,7 @@ import { RestrictionDialogComponent } from "src/app/shared/restriction-dialog/re
 	providers: [MarkdownService],
 	standalone: true,
 	imports: [CommonModule, RouterModule, DialogModule, CardModule, PaginatorModule, SkeletonModule, TooltipModule,
-		ButtonModule, MultiSelectModule, CarouselModule, InputGroupModule, InputGroupAddonModule, RestrictionDialogComponent],
+		ButtonModule, MultiSelectModule, CarouselModule, InputGroupModule, InputGroupAddonModule],
 })
 export class QuestionListComponent implements OnInit {
 	@ViewChild("carouselVideoElm") carouselVideoElm: any
@@ -77,7 +76,6 @@ export class QuestionListComponent implements OnInit {
 	perpage: number = 25
 	totalQuestionCount: any
 	oneQuestionContent: any
-	restrict: boolean = false
 	planExpired: boolean = false
 	isSkeletonVisible: boolean = true
 	showVideoPopup: boolean = false
@@ -90,10 +88,6 @@ export class QuestionListComponent implements OnInit {
 	howItWorksVideoLink: string = ""
 	quizmoduleselectcountryidsetzero: any = 0
 	@ViewChild("op", { static: false, read: ElementRef }) elRef: any
-	ehitlabelIsShow: boolean = true
-	imagewhitlabeldomainname: any
-	orgnamewhitlabel: any
-	orglogowhitelabel: any
 	homeCountryLogo: any
 	learningHubMainModuleName: any
 	learningHubQuizBreadCrumb: any
@@ -392,24 +386,25 @@ export class QuestionListComponent implements OnInit {
 		})
 	}
 	checkplanExpire(): void {
-		this.authService.getNewUserTimeLeft().subscribe((res) => {
-			let data = res.time_left
-			let subscription_exists_status = res.subscription_details
-			if (this.currentModuleId == 8 || this.currentModuleId == 10) {
-				//learning hub restriction
-				if (data.plan === "expired" || data.plan === "subscription_expired" || subscription_exists_status.subscription_plan == "Student") {
-					this.planExpired = true
-				} else {
-					this.planExpired = false
-				}
-			} else {
-				if (data.plan === "expired" || data.plan === "subscription_expired") {
-					this.planExpired = true
-				} else {
-					this.planExpired = false
-				}
+		if (this.currentModuleId == 8 || this.currentModuleId == 10) {
+			if (this.authService._userSubscrition.time_left.plan === "expired" ||
+				this.authService._userSubscrition.time_left.plan === "subscription_expired" ||
+				this.authService._userSubscrition.subscription_details.subscription_plan === "Student") {
+				this.planExpired = true;
 			}
-		})
+			else {
+				this.planExpired = false;
+			}
+		}
+		else {
+			if (this.authService._userSubscrition.time_left.plan === "expired" ||
+				this.authService._userSubscrition.time_left.plan === "subscription_expired") {
+				this.planExpired = true;
+			}
+			else {
+				this.planExpired = false;
+			}
+		}
 	}
 	goBack() {
 		if (this.route.snapshot.paramMap.get("id")) {
@@ -588,7 +583,7 @@ export class QuestionListComponent implements OnInit {
 
 	paginatepost(event: any) {
 		if (this.planExpired) {
-			this.restrict = true
+			this.authService.hasUserSubscription$.next(true);
 			return
 		}
 		this.pageno = event.page + 1
@@ -611,7 +606,7 @@ export class QuestionListComponent implements OnInit {
 	selectedQuestionName: any
 	viewOneQuestion(question: any) {
 		if (this.planExpired) {
-			this.restrict = true
+			this.authService.hasUserSubscription$.next(true);
 			return
 		}
 
@@ -677,12 +672,7 @@ export class QuestionListComponent implements OnInit {
 		this.readQuestion(data)
 		this.selectedQuestionData = questionData
 	}
-	clearRestriction() {
-		this.restrict = false
-	}
-	upgradePlan(): void {
-		this.router.navigate(["/pages/subscriptions"])
-	}
+
 	showSocialSharingList() {
 		let socialShare: any = document.getElementById("socialSharingList")
 		if (socialShare.style.display == "") {
@@ -814,7 +804,7 @@ export class QuestionListComponent implements OnInit {
 	}
 	startQuiz() {
 		if (this.planExpired) {
-			this.restrict = true
+			this.authService.hasUserSubscription$.next(true);
 			return
 		}
 		this.storage.set("learninghubsubmoduleid", this.subModuleId)
