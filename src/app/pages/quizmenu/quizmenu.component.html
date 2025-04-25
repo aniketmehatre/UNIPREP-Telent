@@ -8,7 +8,7 @@
               pTooltip="Test your knowledge across various subjects with quizzes to enhance learning and retention.">
               QUIZ<i class="questiontooltip fa-solid fa-circle-question"></i></h5>
           </div>
-          <div>
+          <div> 
             <button pButton class="how-it-works-button" severity="warn"
               (click)="openVideoPopup('https://www.youtube.com/embed/FSmFmyWhW4w?si=kb0k86wIKU0dBOYd')">How it works?<i
                 class="fa-solid fa-play d-md-block d-none"></i></button>
@@ -271,10 +271,10 @@
               </div>
             </div>
             <div class="mt-2" style="text-align: center">
-              <button pButton style="padding: 8px; font-size: small" [disabled]="quizpercentage >= 90"
+              <button pButton style="padding: 8px; font-size: small" [disabled]="learningHubQuiz"
                 (click)="StartLearningHubQuiz()" type="button"
                 class="w-100 h-100 btn btn-primary btn-rounded text-white">
-                <span class="me-1">{{ quizpercentage >= 90 ? "Completed" : "Start Quiz" }}</span>
+                <span class="me-1">{{ quizpercentage >= 90 ? "Completed" :  "Start Quiz" }} </span>
                 <span *ngIf="quizpercentage <= 89">
                   <i class="fas fa-arrow-right"></i>
                 </span>
