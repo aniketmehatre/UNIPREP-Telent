@@ -17,6 +17,7 @@ import { DialogModule } from 'primeng/dialog';
 import { ButtonModule } from 'primeng/button';
 import { HeaderSearchComponent } from "./header-search/header-search.component"
 import { StorageService } from "../storage.service";
+import { RestrictionDialogComponent } from "../shared/restriction-dialog/restriction-dialog.component";
 
 @Component({
   selector: "uni-pages",
@@ -30,7 +31,8 @@ import { StorageService } from "../storage.service";
     ButtonModule,
     HeaderComponent,
     SidenavComponent,
-    HeaderSearchComponent
+    HeaderSearchComponent,
+    RestrictionDialogComponent
   ],
 })
 export class PagesComponent implements OnInit, OnDestroy {
@@ -64,6 +66,8 @@ export class PagesComponent implements OnInit, OnDestroy {
   @Output() expandicon = !this.sidebarClass ? "pi-align-right" : "pi-align-justify";
   private subs = new SubSink();
   visibleExhastedUser!: boolean;
+  restrict: boolean = false;
+
   constructor(private pageFacade: PageFacadeService, private router: Router, private dataService: DataService,
     public meta: Meta, private locationService: LocationService,
     private service: AuthService, private deviceService: DeviceDetectorService,
@@ -103,6 +107,9 @@ export class PagesComponent implements OnInit, OnDestroy {
           this.isFooterBoxVisible = false;
         }
       }
+    });
+    this.service.hasUserSubscription$.subscribe(value => {
+      this.restrict = value;
     });
   }
 

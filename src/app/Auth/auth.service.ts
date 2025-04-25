@@ -37,6 +37,7 @@ export class AuthService {
   private getMeCache$: Observable<any> | null = null;
   private readonly CACHE_DURATION = 300000; // 5 minutes cache duration
   _userSubscrition!: SubscriptionResponse;
+  public hasUserSubscription$ = new BehaviorSubject<boolean>(false);
 
   constructor(
     private http: HttpClient,
