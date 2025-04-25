@@ -66,7 +66,7 @@ export class TravelCostEstimatorComponent implements OnInit {
 	}
 
 	buyCredits(){
-		if(this.authService.isSubscription('travel_tools')){
+		if(this.authService.isInvalidSubscription('travel_tools')){
 			this.authService.hasUserSubscription$.next(true);
 		}else{
 			this.router.navigate(["/pages/export-credit"]);
