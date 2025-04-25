@@ -614,7 +614,7 @@ export class AuthService {
 
   isInvalidSubscription(module: string): boolean {
     let planExpired: boolean = false;
-    if (module === 'ai_global_advisor' || module === 'education_tools') {
+    if (module === 'ai_global_advisor' || module === 'education_tools' || module === 'travel_tools') {
       if (this._userSubscrition.time_left.plan === "expired" ||
         this._userSubscrition.time_left.plan === "subscription_expired") {
         planExpired = true;
