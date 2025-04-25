@@ -29,6 +29,11 @@ const routes: Routes = [
       {
         path: 'explore/:category/:id',
         loadComponent: () => import('./landing-language-hub/landing-language-hub.component').then(m => m.LandingLanguageHubComponent),
+      },
+      {
+        path: '',
+        redirectTo: '',
+        pathMatch: 'full'
       }
     ]
   }
