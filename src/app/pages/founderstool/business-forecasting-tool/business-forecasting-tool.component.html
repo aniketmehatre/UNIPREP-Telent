@@ -56,7 +56,7 @@
 									</h5>
 									<p-select styleClass="w-100" class="w-100" formControlName="industry"
 										appendTo="body" [options]="industryList" [filter]="true" filterBy="Industry"
-										placeholder="Select Industry" optionLabel="Industry" optionValue="Industry"
+										placeholder="Select the industry your startup operates in" optionLabel="Industry" optionValue="Industry"
 										[autoDisplayFirst]="false"> </p-select>
 									<p class="text-center" *ngIf="form.get('industry')?.errors?.required && submitted"
 										style="color: red">Please enter the industry type</p>
@@ -95,7 +95,7 @@
 									</h5>
 									<p-multiSelect [options]="factorsList" styleClass="w-100" formControlName="factors"
 										optionLabel="name" optionValue="name" [appendTo]="'body'"
-										placeholder="Select Revenue drivers"> </p-multiSelect>
+										placeholder="Select the primary sources of revenue for your business"> </p-multiSelect>
 									<p class="text-center" *ngIf="form.get('factors')?.errors?.required && submitted"
 										style="color: red">Please Choose Any one option</p>
 								</div>
@@ -109,7 +109,7 @@
 										{{ recommendation.question.branches[0] }}
 									</h5>
 									<p-multiSelect styleClass="w-100" [appendTo]="'body'"
-										placeholder="Select Target Audience" [options]="targetAudienceList"
+										placeholder="Select the timeframe for your revenue forecast" [options]="targetAudienceList"
 										optionLabel="name" optionValue="name" formControlName="target_audience">
 									</p-multiSelect>
 									<p class="text-center"
@@ -121,7 +121,7 @@
 										{{ recommendation.question.branches[1] }}
 									</h5>
 									<p-multiSelect styleClass="w-100" [appendTo]="'body'"
-										placeholder="Select Growth Assumptions" [options]="assumptionsList"
+										placeholder="Select your revenue goals for the forecast period" [options]="assumptionsList"
 										optionLabel="name" optionValue="name" formControlName="assumptions">
 									</p-multiSelect>
 									<p class="text-center"

@@ -35,9 +35,9 @@ export class TravelVisitPlannerComponent implements OnInit {
 	constructor(private travelToolService: TravelToolsService, private router: Router, private costOfLivingService: CostOfLivingService, private toast: MessageService, private sanitizer: DomSanitizer, private promptService: PromptService,private pageFacade: PageFacadeService, private authService: AuthService) { }
 
 	recommendations: { id: number; question: string }[] = [
-		{ id: 1, question: "What is your travel destination?" },
-		{ id: 2, question: "How many days will your trip last?" },
-		{ id: 3, question: "During which season do you want to travel?" },
+		{ id: 1, question: "Where are you traveling to?" },
+		{ id: 2, question: "How long do you plan to stay on your trip?" },
+		{ id: 3, question: "Which season would you prefer to travel in?" },
 	]
 	seasons: { value: string }[] = [{ value: "Summer" }, { value: "Winter" }, { value: "Fall" }, { value: "Spring" }, { value: "Rainy" }]
 	isRecommendation: boolean = true

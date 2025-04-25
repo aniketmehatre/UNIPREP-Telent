@@ -44,31 +44,31 @@
 								</div>
 								<div class="col-md-6">
 									<ng-container *ngIf="recommendation.id == 1">
-										<p-select [(ngModel)]="selectedData[recommendation.id]" [filter]="true" filterBy="Industry" [options]="industryList" styleClass="w-100" optionLabel="Industry" optionValue="Industry" [appendTo]="'body'" placeholder="Select Industry"> </p-select>
+										<p-select [(ngModel)]="selectedData[recommendation.id]" [filter]="true" filterBy="Industry" [options]="industryList" styleClass="w-100" optionLabel="Industry" optionValue="Industry" [appendTo]="'body'" placeholder="Select the industry your startup is involved in"> </p-select>
 										<div class="text-center" [ngClass]="{ 'd-none': inValidClass === false }" style="color: red">Business Type is required</div>
 									</ng-container>
 									<ng-container *ngIf="recommendation.id == 2">
-										<p-select [(ngModel)]="selectedData[recommendation.id]" [options]="businessModelList" styleClass="w-100" optionLabel="businessModel" optionValue="businessModel" [appendTo]="'body'" placeholder="Please select business model"> </p-select>
+										<p-select [(ngModel)]="selectedData[recommendation.id]" [options]="businessModelList" styleClass="w-100" optionLabel="businessModel" optionValue="businessModel" [appendTo]="'body'" placeholder="Select your business model"> </p-select>
 										<div class="text-center" [ngClass]="{ 'd-none': inValidClass === false }" style="color: red">Business model is required</div>
 									</ng-container>
 									<ng-container *ngIf="recommendation.id == 3">
-										<p-select [(ngModel)]="selectedData[recommendation.id]" [options]="startupStageList" styleClass="w-100" optionLabel="startupStage" optionValue="startupStage" [appendTo]="'body'" placeholder="Select Startup Stage"> </p-select>
+										<p-select [(ngModel)]="selectedData[recommendation.id]" [options]="startupStageList" styleClass="w-100" optionLabel="startupStage" optionValue="startupStage" [appendTo]="'body'" placeholder="Select the current stage of your startup"> </p-select>
 										<div class="text-center" [ngClass]="{ 'd-none': inValidClass === false }" style="color: red">Business strategy is required</div>
 									</ng-container>
 									<ng-container *ngIf="recommendation.id == 4">
-										<p-select [(ngModel)]="selectedData[recommendation.id]" [options]="keyRisksList" styleClass="w-100" optionLabel="keyRisks" optionValue="keyRisks" [appendTo]="'body'" placeholder="Please select risk area"></p-select>
+										<p-select [(ngModel)]="selectedData[recommendation.id]" [options]="keyRisksList" styleClass="w-100" optionLabel="keyRisks" optionValue="keyRisks" [appendTo]="'body'" placeholder="List the main risks your startup faces"></p-select>
 										<div class="text-center" [ngClass]="{ 'd-none': inValidClass === false }" style="color: red">Business challenges is required</div>
 									</ng-container>
 									<ng-container *ngIf="recommendation.id == 5">
-										<p-select [(ngModel)]="selectedData[recommendation.id]" [options]="financialStatusList" styleClass="w-100" optionLabel="financialSituation" optionValue="financialSituation" [appendTo]="'body'" placeholder="Select Financial Status"> </p-select>
+										<p-select [(ngModel)]="selectedData[recommendation.id]" [options]="financialStatusList" styleClass="w-100" optionLabel="financialSituation" optionValue="financialSituation" [appendTo]="'body'" placeholder="Select the financial health of your startup"> </p-select>
 										<div [ngClass]="{ 'd-none': inValidClass === false }" style="color: red" class="text-danger">Financial Situation is required</div>
 									</ng-container>
 									<ng-container *ngIf="recommendation.id == 6">
-										<p-select [(ngModel)]="selectedData[recommendation.id]" [options]="competitiveMarketList" styleClass="w-100" optionLabel="marketCompetition" optionValue="marketCompetition" [appendTo]="'body'" placeholder="Please select competition level"> </p-select>
+										<p-select [(ngModel)]="selectedData[recommendation.id]" [options]="competitiveMarketList" styleClass="w-100" optionLabel="marketCompetition" optionValue="marketCompetition" [appendTo]="'body'" placeholder="Select the level of competition in your market"> </p-select>
 										<div class="text-center" [ngClass]="{ 'd-none': inValidClass === false }" style="color: red">Competitive market is required</div>
 									</ng-container>
 									<ng-container *ngIf="recommendation.id == 7">
-										<p-select [(ngModel)]="selectedData[recommendation.id]" [options]="targetAudienceList" [filter]="true" filterBy="targetAudience" styleClass="w-100" optionLabel="targetAudience" optionValue="targetAudience" [appendTo]="'body'" placeholder="Select Target Audience"> </p-select>
+										<p-select [(ngModel)]="selectedData[recommendation.id]" [options]="targetAudienceList" [filter]="true" filterBy="targetAudience" styleClass="w-100" optionLabel="targetAudience" optionValue="targetAudience" [appendTo]="'body'" placeholder="Select the demographic or type of customers you are targeting"> </p-select>
 										<div class="text-center" [ngClass]="{ 'd-none': inValidClass === false }" style="color: red">Target Audience is required</div>
 									</ng-container>
 									<ng-container *ngIf="recommendation.id == 8">
@@ -85,7 +85,7 @@
 										</div>
 									</ng-container>
 									<ng-container *ngIf="recommendation.id == 9">
-										<p-select [(ngModel)]="selectedData[recommendation.id]" [options]="geographicalList" styleClass="w-100" optionLabel="geographicalFocus" optionValue="geographicalFocus" [appendTo]="'body'" placeholder="Select Geographical Focus"> </p-select>
+										<p-select [(ngModel)]="selectedData[recommendation.id]" [options]="geographicalList" styleClass="w-100" optionLabel="geographicalFocus" optionValue="geographicalFocus" [appendTo]="'body'" placeholder="Select the geographic region your startup focuses on"> </p-select>
 										<div class="text-center" [ngClass]="{ 'd-none': inValidClass === false }" style="color: red">Geographical is required</div>
 									</ng-container>
 								</div>

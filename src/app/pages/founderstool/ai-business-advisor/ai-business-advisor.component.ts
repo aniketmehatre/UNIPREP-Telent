@@ -42,11 +42,11 @@ export class AiBusinessAdvisorComponent implements OnInit {
 	recommendations: { id: number; question: string }[] = [
 		{ id: 1, question: "What industry are you operating in?" },
 		{ id: 2, question: "What are your primary business goals for the specified duration?" },
-		{ id: 3, question: "What is the duration in which you want to achieve your goals?" },
-		{ id: 4, question: "What challenges your business is currently facing?" },
+		{ id: 3, question: "What is the timeframe in which you want to achieve your goals?" },
+		{ id: 4, question: "What challenges is your business currently facing?" },
 		{ id: 5, question: "Who is your target audience?" },
-		{ id: 6, question: "What is your budget for business goals?" },
-		{ id: 7, question: "What is the overall strategy you want to align with?" },
+		{ id: 6, question: "What is your allocated budget for your business goals?" },
+		{ id: 7, question: "What overall strategy do you want to align with?" },
 	]
 	isRecommendationQuestion: boolean = true
 	isRecommendationData: boolean = false
