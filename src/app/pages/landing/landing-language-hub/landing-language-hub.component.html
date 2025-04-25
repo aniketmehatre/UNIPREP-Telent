@@ -57,30 +57,30 @@
     <button class="register-btn" routerLink="/register">Register Now</button>
   </div>
 
-  <!-- How it Works Section -->
-  <div class="how-it-works-section">
-    <h2 class="section-title">How it Works?</h2>
-    
-    <div class="row gap-2">
-      <div class="col-md-5">
-        <div *ngFor="let step of howitsWorks" class="step-item" (click)="selectedStep = step;">
-          <div class="step-content">
-            <h2 class="step-title">Step {{ step.step }}</h2>
-            <p class="step-description">{{ step.itswork_title }}</p>
-          </div>
-          <div class="position-relative" style="max-width: 100px; z-index: 2">
-          <p-avatar [image]="step.itswork_cardimage_url" size="xlarge"></p-avatar>
-          </div>
-          <h1 class="numbericon">{{ step.step }}</h1>
+    <!-- How it Works Section -->
+    <div class="how-it-works-section">
+      <h2 class="section-title">How it Works?</h2>
+      
+      <div class="row gap-2 align-items-center">
+        <div class="col-md-5">
+          <div *ngFor="let step of howitsWorks" class="step-item" (click)="selectedStep = step;">
+            <div class="step-content">
+              <h2 class="step-title">Step {{ step.step }}</h2>
+              <p class="step-description">{{ step.itswork_title }}</p>
+            </div>
+            <div class="position-relative" style="max-width: 100px; z-index: 2">
+            <p-avatar [image]="step.itswork_cardimage_url" size="xlarge"></p-avatar>
+            </div>
+            <h1 class="numbericon">{{ step.step }}</h1>
 
+          </div>
+        </div>
+        
+        <div class="steps-image d-flex align-items-center col-md-8" *ngIf="selectedStep">
+          <img [src]="selectedStep?.feature_image_url" alt="Platform Preview" />
         </div>
       </div>
-      
-      <div class="steps-image col-md-8" *ngIf="selectedStep">
-        <img [src]="selectedStep?.feature_image_url" alt="Platform Preview" />
-      </div>
     </div>
-  </div>
 
   <!-- Who It's For Section -->
   <div class="who-its-for-section">
