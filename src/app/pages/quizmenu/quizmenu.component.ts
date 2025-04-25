@@ -149,6 +149,7 @@ export class QuizmenuComponent implements OnInit {
     }
     this.moduleListService.getUniversity(data).subscribe((response) => {
       this.filterUniversityList = response;
+      this.universityquizbutton = true;
     });
   }
   // checkquizquestionmodule() {
@@ -253,6 +254,7 @@ export class QuizmenuComponent implements OnInit {
     this.storage.set("learningsubjectidforquiz", this.subjectid.category_id);
     this.moduleListService.getSpecializationLists(data).subscribe((response) => {
       this.specializationlist = response.data;
+      this.learningHubQuiz = true;
     });
   }
   quizpercentage: number = 0
@@ -295,6 +297,7 @@ export class QuizmenuComponent implements OnInit {
     }
     this.moduleListService.getLanguageistType(data).subscribe((response) => {
       this.languagedropdownlisttype = response.data;
+      this.languageHubQuiz = true;
     });
   }
   languageselectdrpodown: number = 0;
