@@ -47,7 +47,7 @@
                     <div class="form-group">
                         <h3>Which country are you interested in pursuing your career?</h3>
                         <p-select [options]="countries" styleClass="w-100 border-primary" formControlName="country"
-                            optionValue="country" optionLabel="country" placeholder="Select Country" [filter]="true"
+                            optionValue="country" optionLabel="country" placeholder="Select the country where you wish to pursue your career" [filter]="true"
                             [showClear]="true"> </p-select>
                         <div *ngIf="submitted && form.get('country')?.hasError('required')" style="color: red;">
                             Country is required.
@@ -59,7 +59,7 @@
                         <h3>Select Your Specialization</h3>
                         <p-select [options]="specializationList" styleClass="w-100 border-primary"
                             formControlName="specialization_name" optionValue="specialization_name"
-                            optionLabel="specialization_name" placeholder="Select Specialization" [filter]="true"
+                            optionLabel="specialization_name" placeholder="Choose the field or specialization you are interested in" [filter]="true"
                             [showClear]="true">
                         </p-select>
                         <div *ngIf="submitted && form.get('specialization_name')?.hasError('required')"

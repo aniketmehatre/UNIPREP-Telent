@@ -54,7 +54,7 @@
 									<p-select styleClass="w-100" appendTo="body" [options]="interestedCountryList"
 										[filter]="true" formControlName="interested_country" filterBy="country"
 										optionLabel="country" [autoDisplayFirst]="false"
-										placeholder="Select the interested country"> </p-select>
+										placeholder="Select the country where you plan to pursue your studies"> </p-select>
 									<!-- (ngModelChange)="setCompareUniversityList($event);" -->
 									<p class="text-center"
 										*ngIf="form.get('interested_country')?.errors?.required && submitted"
@@ -67,7 +67,7 @@
 									<p-select styleClass="w-100" appendTo="body" [options]="universityList"
 										[filter]="true" formControlName="university" filterBy="university_name"
 										optionLabel="university_name" [autoDisplayFirst]="false"
-										placeholder="Select the univesity"> </p-select>
+										placeholder="Select the name of the university you are considering"> </p-select>
 									<p class="text-center" *ngIf="form.get('university')?.errors?.required && submitted"
 										style="color: red">Please Choose Any one option</p>
 								</div>
@@ -78,7 +78,7 @@
 									<p-select styleClass="w-100" appendTo="body" [options]="specializationList"
 										[filter]="true" formControlName="specialization" filterBy="course_name"
 										optionLabel="course_name" optionValue="course_name" [autoDisplayFirst]="false"
-										placeholder="Select the Course"> </p-select>
+										placeholder="Select the course or program you are interested in"> </p-select>
 									<p class="text-center"
 										*ngIf="form.get('specialization')?.errors?.required && submitted"
 										style="color: red">Please Choose Any one option</p>
@@ -155,7 +155,7 @@
 										</div>
 										<div class="w-100">
 											<input class="w-100 pl-4 border border-gray rounded-3" type="number"
-												pInputText placeholder="Fees" formControlName="fees" [max]="99999999" />
+												pInputText placeholder="Fees" formControlName="Select the total tuition fee for your program" [max]="99999999" />
 											<p class="text-center"
 												*ngIf="(form.get('fees')?.errors?.required || form.get('fees')?.errors?.max) && submitted"
 												style="color: red">Please Enter this amount and max 8 digit only allowed
@@ -171,7 +171,7 @@
 										<div class="border border-gray rounded-3 d-flex align-items-center justify-content-center bg-white"
 											style="width: 50px">{{ form.get("currency_code").value || "" }}</div>
 										<input class="w-100 border border-gray rounded-3" type="number" pInputText
-											placeholder="Enter Amount" formControlName="cost_estimation"
+											placeholder="Select the estimated yearly living expenses" formControlName="cost_estimation"
 											[max]="99999999" />
 									</div>
 									<p class="text-center"
@@ -184,7 +184,7 @@
 									</h5>
 									<p-select styleClass="w-100" formControlName="period" appendTo="body"
 										[options]="periodsList" [filter]="true" filterBy="name"
-										placeholder="Select Stayback Period" optionLabel="name" optionValue="name"
+										placeholder="Select the duration allowed for stay-back after graduation" optionLabel="name" optionValue="name"
 										[autoDisplayFirst]="false"> </p-select>
 									<p class="text-center" *ngIf="form.get('period')?.errors?.required && submitted"
 										style="color: red">Please Choose Any one option</p>

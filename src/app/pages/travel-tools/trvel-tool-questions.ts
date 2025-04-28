@@ -20,22 +20,22 @@ export const TravelCostEstimatorQuestionList = [
 export const TravelPackingPlannerQuestionList = [
   {
     id: 1,
-    question: "What is your travel destination?",
+    question: "What is your intended travel destination?",
   },
   {
     id: 2,
-    question: "What type of trip are you planning?"
+    question: "What type of trip are you planning to take?"
   },
   {
     id: 3,
-    question: "What mode of transportation will you be using at your destination?"
+    question: "What mode of transport will you use at your destination?"
   },
   {
     id: 4,
-    question: "How many days will your trip last?"
+    question: "How long will your trip be?"
   },
   {
     id: 5,
-    question: "In which month are you planning to travel?"
+    question: "Which month are you planning to travel in?"
   },
 ];

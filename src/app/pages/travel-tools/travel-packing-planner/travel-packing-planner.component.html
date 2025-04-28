@@ -21,6 +21,7 @@
                     </div>
 				</div>
 				<div class="d-flex align-items-center gap-1">
+					<button pButton class="btn btn-secondary text-small btn-rounded flex-fill" (click)="buyCredits()" type="button">Buy Credits</button>
                     <button pButton  class="btn btn-outline-primary text-small btn-rounded d-flex gap-2 align-items-center flex-fill" type="button">
                         AI Credit <span class="btn-icon text-white">{{ aiCreditCount }}</span>
                       </button>
@@ -47,7 +48,7 @@
 							<div class="col-md-6">
 								<div class="recommendationinput d-flex flex-column justify-content-center gap-3">
 									<ng-container *ngIf="recommendation.id == 1">
-										<p-select [options]="destinationLocationList" [(ngModel)]="selectedData[recommendation.id]" [virtualScroll]="true" [virtualScrollItemSize]="50" [appendTo]="'body'" placeholder="Select Destination" [filter]="true" filterBy="city_name,country_name" [showClear]="true" styleClass="w-100">
+										<p-select [options]="destinationLocationList" [(ngModel)]="selectedData[recommendation.id]" [virtualScroll]="true" [virtualScrollItemSize]="50" [appendTo]="'body'" placeholder="Select your travel destination" [filter]="true" filterBy="city_name,country_name" [showClear]="true" styleClass="w-100">
 											<ng-template let-country pTemplate="item">
 												<div class="d-flex align-items-center gap-2">
 													<div class="dropdownimg">
@@ -72,11 +73,11 @@
 										<p class="text-center" [ngClass]="{ 'd-none': invalidClass === false }" style="color: red">Please Choose Any one option</p>
 									</ng-container>
 									<ng-container *ngIf="recommendation.id == 2">
-										<p-select [options]="travelTypeList" styleClass="w-100" [(ngModel)]="selectedData[recommendation.id]" optionLabel="name" optionValue="name" [appendTo]="'body'" placeholder="Travel type"> </p-select>
+										<p-select [options]="travelTypeList" styleClass="w-100" [(ngModel)]="selectedData[recommendation.id]" optionLabel="name" optionValue="name" [appendTo]="'body'" placeholder="Select the type of trip you are planning"> </p-select>
 										<p class="text-center" [ngClass]="{ 'd-none': invalidClass === false }" style="color: red">Please Choose Any one option</p>
 									</ng-container>
 									<ng-container *ngIf="recommendation.id == 3">
-										<p-multiSelect [options]="transportationModeList" styleClass="w-100" [(ngModel)]="selectedData[recommendation.id]" optionLabel="name" optionValue="name" [appendTo]="'body'" placeholder="Select Mode of transportation"> </p-multiSelect>
+										<p-multiSelect [options]="transportationModeList" styleClass="w-100" [(ngModel)]="selectedData[recommendation.id]" optionLabel="name" optionValue="name" [appendTo]="'body'" placeholder="Select your mode of transportation"> </p-multiSelect>
 										<p class="text-center" [ngClass]="{ 'd-none': invalidClass === false }" style="color: red">Please Choose Any one option</p>
 									</ng-container>
 									<ng-container *ngIf="recommendation.id == 4">
@@ -84,7 +85,7 @@
 										<p class="text-center" [ngClass]="{ 'd-none': invalidClass === false }" style="color: red">Please Choose Any one option</p>
 									</ng-container>
 									<ng-container *ngIf="recommendation.id == 5">
-										<p-select [options]="monthList" styleClass="w-100" [(ngModel)]="selectedData[recommendation.id]" optionLabel="name" optionValue="name" [appendTo]="'body'" placeholder="Select month"> </p-select>
+										<p-select [options]="monthList" styleClass="w-100" [(ngModel)]="selectedData[recommendation.id]" optionLabel="name" optionValue="name" [appendTo]="'body'" placeholder="Select the month you plan to travel"> </p-select>
 										<p class="text-center" [ngClass]="{ 'd-none': invalidClass === false }" style="color: red">Please Choose Any one option</p>
 									</ng-container>
 								</div>
@@ -137,6 +138,7 @@
                     </div>
 				</div>
 				<div class="d-flex align-items-center gap-1">
+					<button pButton class="btn btn-secondary text-small btn-rounded flex-fill" (click)="buyCredits()" type="button">Buy Credits</button>
                     <button pButton  class="btn btn-outline-primary text-small btn-rounded d-flex gap-2 align-items-center flex-fill" type="button">
                         AI Credit <span class="btn-icon text-white">{{ aiCreditCount }}</span>
                       </button>
@@ -220,6 +222,7 @@
                     </div>
 				</div>
 				<div class="d-flex align-items-center gap-1">
+					<button pButton class="btn btn-secondary text-small btn-rounded flex-fill" (click)="buyCredits()" type="button">Buy Credits</button>
                     <button pButton  class="btn btn-outline-primary text-small btn-rounded d-flex gap-2 align-items-center flex-fill" type="button">
                         AI Credit <span class="btn-icon text-white">{{ aiCreditCount }}</span>
                       </button>
