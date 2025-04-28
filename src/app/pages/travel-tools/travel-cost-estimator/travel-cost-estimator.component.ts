@@ -26,6 +26,7 @@ import { DomSanitizer, SafeHtml } from "@angular/platform-browser"
 import { PromptService } from "../../prompt.service"
 import { SharedModule } from "src/app/shared/shared.module"
 import { AuthService } from "src/app/Auth/auth.service";
+import { removeExtraResponse } from "../../prompt"
 
 @Component({
 	selector: "uni-travel-cost-estimator",
@@ -173,12 +174,13 @@ export class TravelCostEstimatorComponent implements OnInit {
 	}
 
 	showRecommandationData(data: string, userInputs: any) {
-		console.log(userInputs);
+		// console.log(userInputs);
 		this.isRecommendationQuestion = false
 		this.isRecommendationData = true
 		this.isRecommendationSavedData = false
 		this.isFromSavedData = true
-		this.recommendationData = data
+		// this.recommendationData = data
+		this.recommendationData = removeExtraResponse(data);
 
 		const encodedJson = userInputs;
 		const decodedInput = JSON.parse(encodedJson);

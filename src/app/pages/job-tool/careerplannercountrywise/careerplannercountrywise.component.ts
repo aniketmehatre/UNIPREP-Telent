@@ -26,6 +26,7 @@ import { SkeletonModule } from 'primeng/skeleton';
 import { SharedModule } from 'src/app/shared/shared.module';
 import { AuthService } from 'src/app/Auth/auth.service';
 import { LocationService } from 'src/app/location.service';
+import { removeExtraResponse } from '../../prompt';
 @Component({
   selector: 'uni-careerplannercountrywise',
   templateUrl: './careerplannercountrywise.component.html',
@@ -159,7 +160,8 @@ export class CareerplannercountrywiseComponent implements OnInit {
     }
   }
   showRecommandationData(data: any, userInputs: any) {
-    this.recommendationData = data
+    // this.recommendationData = data
+    this.recommendationData = removeExtraResponse(data);
     this.isFormVisible = false;
     this.isFormChatgptresponse = true;
     this.isSavedResponse = false;

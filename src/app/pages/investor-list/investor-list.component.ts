@@ -8,7 +8,6 @@ import { UserManagementService } from '../user-management/user-management.servic
 import { MessageService } from 'primeng/api';
 import { DataService } from 'src/app/data.service';
 import { PageFacadeService } from '../page-facade.service';
-import { LocationService } from 'src/app/location.service';
 import { CommonModule } from '@angular/common';
 import { DialogModule } from 'primeng/dialog';
 import { MultiSelectModule } from 'primeng/multiselect';
@@ -87,7 +86,6 @@ export class InvestorListComponent implements OnInit {
     private toast: MessageService,
     private dataService: DataService,
     private pageFacade: PageFacadeService,
-    private locationService: LocationService,
   ) {
     this.filterForm = this.fb.group({
       org_name: [''],
@@ -432,7 +430,15 @@ export class InvestorListComponent implements OnInit {
       this.invalidClass = true;
     }
   }
+  
   getRecommendation() {
+    if (3 in this.selectedData) {
+      this.invalidClass = false;
+    }else{
+      this.invalidClass = true;
+      return;
+    }
+
     if (this.planExpired) {
       this.authService.hasUserSubscription$.next(true);
       return;

@@ -15,13 +15,14 @@ import { ButtonModule } from "primeng/button"
 import { SkeletonModule } from "primeng/skeleton"
 import { TooltipModule } from "primeng/tooltip"
 import { CarouselModule } from "primeng/carousel"
+import { PaginatorModule } from "primeng/paginator"
 @Component({
 	selector: "uni-scholarship-list",
 	templateUrl: "./scholarship-list.component.html",
 
 	styleUrls: ["./scholarship-list.component.scss"],
 	standalone: true,
-	imports: [CommonModule, RouterModule, CarouselModule, DialogModule, MultiSelectModule, FormsModule, ReactiveFormsModule, SkeletonModule, TooltipModule, ButtonModule],
+	imports: [CommonModule, RouterModule, CarouselModule, DialogModule, MultiSelectModule, FormsModule, ReactiveFormsModule, SkeletonModule, TooltipModule, ButtonModule, PaginatorModule],
 })
 export class ScholarshipListComponent implements OnInit {
 	scholarshipData: any[] = []

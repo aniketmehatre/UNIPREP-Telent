@@ -24,7 +24,7 @@ import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
 import { PromptService } from '../../prompt.service';
 import { SharedModule } from 'src/app/shared/shared.module';
 import { SkeletonModule } from 'primeng/skeleton';
-
+import { removeExtraResponse } from "../../prompt"
 @Component({
   selector: 'uni-uni-compare',
   templateUrl: './uni-compare.component.html',
@@ -316,8 +316,8 @@ export class UniCompareComponent implements OnInit, OnDestroy {
     this.isRecommendationData = true;
     this.isRecommendationSavedData = false;
     this.isFromSavedData = true;
-    this.recommendationData = data;
-
+    // this.recommendationData = data;
+    this.recommendationData = removeExtraResponse(data);
     const encodedJson = userInputs;
     const decodedInput = JSON.parse(encodedJson);
     this.userInputs = decodedInput;
