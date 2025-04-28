@@ -8,6 +8,8 @@ import { DialogModule } from 'primeng/dialog';
 import { DynamicDialogRef, DynamicDialogConfig } from 'primeng/dynamicdialog';
 import { TooltipModule } from 'primeng/tooltip';
 import { formatDate } from '@angular/common';
+import { ProgressBarModule } from 'primeng/progressbar';
+import { RatingModule } from 'primeng/rating';
 
 // Process academic references
 interface AcademicReference {
@@ -125,7 +127,10 @@ interface ProfileData {
     CardModule,
     ButtonModule,
     TooltipModule,
-    AvatarModule
+    AvatarModule,
+    ProgressBarModule,
+    RatingModule
+
   ],
   templateUrl: './view-profile.component.html',
   styleUrl: './view-profile.component.scss'
@@ -147,7 +152,8 @@ export class ViewProfileComponent implements OnInit {
   nationalityList: any[] = [];
   logo: any;
   files: Record<string, any> = {};
-
+  profileCompletionPercentage: number = 0;
+  updatedAtDate: Date | null = null;
   // Define a single profile data object
   profileData: ProfileData = {
     personalInfo: {
@@ -269,7 +275,8 @@ export class ViewProfileComponent implements OnInit {
       this.files = data?.uploadFiles
       this.profileData = this.mapToProfileData(this.config.data.profileData);
     }
-
+    this.profileCompletionPercentage = data?.profileCompletionPercentage || 0;
+    this.updatedAtDate = data?.updatedAt || new Date().toISOString();
     // Set theme color based on profile type
     document.documentElement.style.setProperty(
       '--dynamic-heading-color',
@@ -295,6 +302,28 @@ export class ViewProfileComponent implements OnInit {
   closeDialog() {
     this.ref.close();
     this.display = false;
+  }
+
+  getProficiencyRating(proficiency: string): number {
+    // Convert proficiency text to a rating number
+    switch (proficiency) {
+      case "Beginner":
+        return 1
+      case "Elementary":
+        return 2
+      case "Intermediate":
+        return 3
+      case "Advanced":
+        return 4
+      case "Fluent":
+        return 5
+      default:
+        return 3 // Default to intermediate
+    }
+  }
+
+  openView(url: string) {
+    window.open(url, '_blank');
   }
 
   // Simplified data mapping function

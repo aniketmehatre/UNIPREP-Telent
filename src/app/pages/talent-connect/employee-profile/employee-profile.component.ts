@@ -946,6 +946,11 @@ export class EmployeeProfileComponent implements OnInit {
     valueTransform?: (value: any) => any
   ) {
     let currentValue = this.personalInfoForm.get(fieldName)?.value;
+
+    if (currentValue === null || currentValue === undefined) {
+      return; // Skip appending if value is null or undefined
+    }
+
     const transformedValue = valueTransform
       ? valueTransform(currentValue)
       : currentValue || '';
@@ -1009,7 +1014,8 @@ export class EmployeeProfileComponent implements OnInit {
         fieldsOfStudy: this.fieldsOfStudy,
         graduationYears: this.graduationYears,
         nationalityList: this.nationalityList,
-        uploadFiles: this.uploadedFiles
+        uploadFiles: this.uploadedFiles,
+        profileCompletionPercentage: this.profileCompletion,
       },
       styleClass: 'employee-profile-dialog'
     });
