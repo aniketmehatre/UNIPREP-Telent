@@ -1164,6 +1164,7 @@ export class EmployeeProfileComponent implements OnInit {
       next: response => {
         this.preferredLocationsList = response.worklocations;
         this.locations = response.worklocations;
+        this.preferredLocationsList.push({ id: 0, work_location: 'Any' })
       }
     });
   }

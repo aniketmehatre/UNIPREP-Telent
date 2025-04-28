@@ -1,5 +1,13 @@
 
-  
+p-editor ::ng-deep .p-editor-toolbar.ql-snow {
+  border: gray 1px solid;
+}
+
+p-editor ::ng-deep .ql-editor {
+  border: gray 1px solid;
+}
+
+
   .card {
     border-radius: 12px;
     background: #fff;
@@ -131,74 +139,23 @@ label {
   left: 0;
   width: 100vw;
   height: 100vh;
-  background: transparent; /* optional: semi-transparent background */
   display: flex;
   justify-content: center;
   align-items: center;
+  background: rgba(255, 255, 255, 0.5);
   z-index: 9999; /* make sure it's on top */
 }
 
 
 .loader {
-  --dim: 3rem;
+  --dim: 4rem;
   margin: auto;
   width: var(--dim);
   height: var(--dim);
   position: absolute;
   text-align: center;
   z-index: 3;
-  animation: spin988 2s linear infinite;
 }
 
-.loader .circle {
-  --color: var(--uniprep-primary);
-  --dim: 1.2rem;
-  width: var(--dim);
-  height: var(--dim);
-  background-color: var(--color);
-  border-radius: 50%;
-  position: absolute;
-}
 
-.loader .circle:nth-child(1) {
-  top: 0;
-  left: 0;
-}
-
-.loader .circle:nth-child(2) {
-  top: 0;
-  right: 0;
-}
-
-.loader .circle:nth-child(3) {
-  bottom: 0;
-  left: 0;
-}
-
-.loader .circle:nth-child(4) {
-  bottom: 0;
-  right: 0;
-}
-
-@keyframes spin988 {
-  0% {
-    transform: scale(1) rotate(0);
-  }
-
-  20%, 25% {
-    transform: scale(1.3) rotate(90deg);
-  }
-
-  45%, 50% {
-    transform: scale(1) rotate(180deg);
-  }
-
-  70%, 75% {
-    transform: scale(1.3) rotate(270deg);
-  }
-
-  95%, 100% {
-    transform: scale(1) rotate(360deg);
-  }
-}
   

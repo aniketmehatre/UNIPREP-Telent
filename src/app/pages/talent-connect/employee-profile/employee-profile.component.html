@@ -1,9 +1,6 @@
 <div class="loader-overlay" *ngIf="isLoadingAiSummary">
 	<div class="loader">
-		<div class="circle"></div>
-		<div class="circle"></div>
-		<div class="circle"></div>
-		<div class="circle"></div>
+		<uni-percentage-loader />
 	</div>
 </div>
 <div class="card readingcard h-100">
@@ -225,11 +222,11 @@
 												<div class="col-md-6">
 													<label for="fieldOfStudy" class="form-label">Job Title</label>
 													<p-select id="highestQualification" [virtualScroll]="true" [virtualScrollItemSize]="50" formControlName="work_experience_job_title" [options]="jobTitles" placeholder="Select Job Title" styleClass="w-100" optionLabel="job_title" optionValue="job_title" [filter]="true" filterBy="job_title" (focusout)="resetMessageBox()" [disabled]="experience.get('years_of_experience')?.value == 'Fresher'" (onFocus)="updateMessageBox('work_experience_job_title')">
-														<ng-template #footer>
+														<ng-template #header>
 															<div class="p-2">
 																<p-inputgroup>
-																<input pInputText placeholder="Custom Value" #jobTitleExp (click)="focusInput(jobTitleExp)"/>
-																<p-button label="Add New" fluid severity="secondary" text size="small" icon="pi pi-plus"(click)="addCustomJobTitle(jobTitleExp.value, experience.get('work_experience_job_title')); jobTitleExp.value = '';"/>
+																<input pInputText class="rounded-end-2 me-1" placeholder="Custom Job Title" #jobTitleExp (click)="focusInput(jobTitleExp)"/>
+																<button class="w-full btn btn-primary" (click)="addCustomJobTitle(jobTitleExp.value, experience.get('work_experience_job_title')); jobTitleExp.value = '';"><i class="fa fa-plus"></i>&nbsp;Add New</button>
 																</p-inputgroup>
 															</div>
 														</ng-template>
@@ -281,7 +278,7 @@
 															<button *ngIf="isNotEmptyHtml(experience?.get('work_experience_job_responsibilities')?.value)" class="text-small btn btn-danger btn-rounded d-flex align-items-center gap-2" style="width: fit-content" (click)="generateAiSummary('joboverview', {title: experience?.get('work_experience_job_title')?.value, company_name: experience?.get('work_experience_company_name')?.value}, experience?.get('work_experience_job_responsibilities'))">RePhrase</button>
 														</div>
 													</div>
-													<p-editor #editor [style]="{ height: '150px', maxHeight: 'auto' }" formControlName="work_experience_job_responsibilities" placeholder="Enter your Job Responsibilities & Key Achievements" (onFocus)="updateMessageBox('work_experience_job_responsibilities')" (focusout)="resetMessageBox()" (ngModelChange)="checkMaximumWordsInFields(experience.get('work_experience_job_responsibilities'), 150)"/>
+													<p-editor #editor [style]="{ height: '150px', maxHeight: 'auto'}" formControlName="work_experience_job_responsibilities" placeholder="Enter your Job Responsibilities & Key Achievements" (onFocus)="updateMessageBox('work_experience_job_responsibilities')" (focusout)="resetMessageBox()" (ngModelChange)="checkMaximumWordsInFields(experience.get('work_experience_job_responsibilities'), 150)"/>
 													<!-- <textarea pTextarea id="responsibilities" class="form-control w-100" placeholder="Enter your Job Responsibilities & Key Achievements" rows="5" maxlength="4000" formControlName="work_experience_job_responsibilities" (focusout)="resetMessageBox()" (onFocus)="updateMessageBox('work_experience_job_responsibilities')" #jobRepo></textarea> -->
 														<small class="text-danger text-start" *ngIf="getWordCountUsingControl(experience.get('work_experience_job_responsibilities')) > 150">This field exceed the maximum length</small>
 														<small class="text-muted d-block text-end">{{ getWordCountUsingControl(experience.get('work_experience_job_responsibilities'))}}/150</small>
@@ -324,11 +321,11 @@
 											<div class="col-md-6">
 												<label for="highestQualification" class="form-label">Job Title<span class="text-danger">*</span></label>
 												<p-select id="highestQualification" pTooltip="Not able to find please type in this field" [virtualScroll]="true" [virtualScrollItemSize]="50"  formControlName="career_preference_job_title_id" [options]="jobTitles" placeholder="Select Job Title" styleClass="w-100" optionLabel="job_title" optionValue="job_title" [filter]="true" filterBy="job_title" (focusout)="resetMessageBox()" (onFocus)="updateMessageBox('career_preference_job_title_id')">
-													<ng-template #footer>
+													<ng-template #header>
 														<div class="p-2">
 															<p-inputgroup>
-															<input pInputText placeholder="Custom Value" #jobtitleExp (click)="focusInput(jobtitleExp)"/>
-															<p-button label="Add New" fluid severity="secondary" text size="small" icon="pi pi-plus"(click)="addCustomJobTitle(jobtitleExp.value, personalInfoForm.get('career_preference_job_title_id'));"/>
+															<input pInputText class="rounded-end-2 me-1" placeholder="Custom Job Title" #jobTitleExp (click)="focusInput(jobTitleExp)"/>
+															<button class="w-full btn btn-primary" (click)="addCustomJobTitle(jobTitleExp.value, personalInfoForm.get('career_preference_job_title_id'));"><i class="fa fa-plus"></i>&nbsp;Add New</button>
 															</p-inputgroup>
 														</div>
 													</ng-template>
