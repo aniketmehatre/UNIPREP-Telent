@@ -41,9 +41,7 @@ export class GlobalEdufitComponent implements OnInit {
   page = 1;
   pageSize = 25;
   first: number = 0;
-  planExpired!: boolean;
   form: FormGroup = new FormGroup({});
-  currentPlan: string = "";
   locationName: string = '';
   submitted: boolean = false;
   data: any = {
@@ -152,15 +150,6 @@ export class GlobalEdufitComponent implements OnInit {
     });
   }
 
-  checkplanExpire(): void {
-    if (this.authService._userSubscrition.time_left.plan === "expired" ||
-      this.authService._userSubscrition.time_left.plan === "subscription_expired") {
-      this.planExpired = true;
-    }
-    else {
-      this.planExpired = false;
-    }
-  }
 
   openHowItWorksVideoPopup(videoLink: string) {
     this.pageFacade.openHowitWorksVideoPopup(videoLink);
@@ -180,10 +169,6 @@ export class GlobalEdufitComponent implements OnInit {
     };
     if (!isValidEightAmount(formData.fees) || !isValidEightAmount(formData.cost_estimation)) {
       this.submitted = true;
-      return;
-    }
-    if (this.planExpired) {
-      this.authService.hasUserSubscription$.next(true);
       return;
     }
     if (this.aiCreditCount == 0) {
@@ -222,6 +207,10 @@ export class GlobalEdufitComponent implements OnInit {
   }
 
   next() {
+    if (this.authService.isInvalidSubscription('education_tools')) {
+      this.authService.hasUserSubscription$.next(true);
+      return;
+    }
     this.submitted = false;
     const formData = this.form.value;
     if (this.activePageIndex == 0) {
@@ -246,6 +235,10 @@ export class GlobalEdufitComponent implements OnInit {
   }
 
   saveRecommadation() {
+    if (this.authService.isInvalidSubscription('education_tools')) {
+      this.authService.hasUserSubscription$.next(true);
+      return;
+    }
     // if (!this.isFromSavedData) {
     this.educationToolService.getAnalysisList('global_edufit').subscribe({
       next: response => {

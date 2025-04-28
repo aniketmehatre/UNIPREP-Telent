@@ -73,7 +73,7 @@ export class TravelPackingPlannerComponent implements OnInit {
 	aiCreditCount: number = 0;
 	userInputs: any;
 
-	constructor(private travelToolsService: TravelToolsService, private router: Router, private costOfLivingService: CostOfLivingService, private toast: MessageService, private sanitizer: DomSanitizer, private promptService : PromptService,private pageFacade: PageFacadeService, private authService:AuthService) { }
+	constructor(private travelToolsService: TravelToolsService, private router: Router, private costOfLivingService: CostOfLivingService, private toast: MessageService, private sanitizer: DomSanitizer, private promptService: PromptService, private pageFacade: PageFacadeService, private authService: AuthService) { }
 
 	ngOnInit(): void {
 		this.selectedData = { 4: 1 }
@@ -81,18 +81,18 @@ export class TravelPackingPlannerComponent implements OnInit {
 		this.getAICreditCount();
 	}
 
-	getAICreditCount(){
+	getAICreditCount() {
 		this.promptService.getAicredits().subscribe({
-		  next: resp =>{
-			this.aiCreditCount = resp;
-		  }
+			next: resp => {
+				this.aiCreditCount = resp;
+			}
 		})
 	}
 
-	buyCredits(){
-		if(this.authService.isInvalidSubscription('travel_tools')){
+	buyCredits() {
+		if (this.authService.isInvalidSubscription('travel_tools')) {
 			this.authService.hasUserSubscription$.next(true);
-		}else{
+		} else {
 			this.router.navigate(["/pages/export-credit"]);
 		}
 	}
@@ -113,6 +113,10 @@ export class TravelPackingPlannerComponent implements OnInit {
 	}
 
 	next(itemId: number) {
+		if (this.authService.isInvalidSubscription('travel_tools')) {
+			this.authService.hasUserSubscription$.next(true);
+			return;
+		}
 		this.invalidClass = false
 		if (itemId in this.selectedData) {
 			if (this.activePageIndex < this.recommendations.length - 1) {
@@ -124,7 +128,7 @@ export class TravelPackingPlannerComponent implements OnInit {
 	}
 
 	getRecommendation() {
-		if(this.aiCreditCount == 0){
+		if (this.aiCreditCount == 0) {
 			this.toast.add({ severity: "error", summary: "Error", detail: "Free AI Credits Over.Please Buy Some Credits..!" });
 			this.buyCredits();
 			return;
@@ -166,6 +170,10 @@ export class TravelPackingPlannerComponent implements OnInit {
 	}
 
 	saveRecommadation() {
+		if (this.authService.isInvalidSubscription('travel_tools')) {
+			this.authService.hasUserSubscription$.next(true);
+			return;
+		}
 		if (!this.isFromSavedData) {
 			this.travelToolsService.getTripList("travel_packaging_planner").subscribe({
 				next: (response) => {
@@ -189,7 +197,7 @@ export class TravelPackingPlannerComponent implements OnInit {
 		this.isRecommendationSavedData = false
 		this.isFromSavedData = true
 		this.recommendationData = data;
-		
+
 		const encodedJson = userInputs;
 		const decodedInput = JSON.parse(encodedJson);
 		this.userInputs = decodedInput;

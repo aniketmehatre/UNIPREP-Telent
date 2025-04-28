@@ -46,7 +46,6 @@ export class CareerplannercountrywiseComponent implements OnInit {
   specializationList: any = [];
   isResponseSkeleton: boolean = false;
   aiCreditCount: number = 0;
-  planExpired: boolean = false
   currentPlan: string = ""
   userInputs: any;
 
@@ -70,7 +69,6 @@ export class CareerplannercountrywiseComponent implements OnInit {
         this.specializationList = response;
       }
     });
-    this.checkplanExpire();
     this.getAICreditCount();
 
   }
@@ -87,9 +85,9 @@ export class CareerplannercountrywiseComponent implements OnInit {
     return this.form.controls;
   }
   formSubmit() {
-    if (this.planExpired) {
+    if (this.authService.isInvalidSubscription('career_tools')) {
       this.authService.hasUserSubscription$.next(true);
-      return
+      return;
     }
     if (this.aiCreditCount == 0) {
       this.toast.add({ severity: "error", summary: "Error", detail: "Free AI Credits Over.Please Buy Some Credits..!" });
@@ -131,6 +129,10 @@ export class CareerplannercountrywiseComponent implements OnInit {
     this.form.reset();
   }
   saveRecommadation() {
+    if (this.authService.isInvalidSubscription('career_tools')) {
+      this.authService.hasUserSubscription$.next(true);
+      return;
+    }
     this.service.getTripList('careerplanner').subscribe({
       next: response => {
         this.isFormVisible = false;
@@ -195,21 +197,11 @@ export class CareerplannercountrywiseComponent implements OnInit {
     this.promptService.responseBuilder(params);
   }
   buyCredits(): void {
-    if (this.planExpired) {
+    if (this.authService.isInvalidSubscription('career_tools')) {
       this.authService.hasUserSubscription$.next(true);
-      return
+      return;
     }
     this.router.navigate(["/pages/export-credit"])
-  }
-  checkplanExpire(): void {
-    if (this.authService._userSubscrition.time_left.plan === "expired" ||
-      this.authService._userSubscrition.time_left.plan === "subscription_expired" ||
-      this.authService._userSubscrition.subscription_details.subscription_plan === "Student") {
-      this.planExpired = true;
-    }
-    else {
-      this.planExpired = false;
-    }
   }
 
 }

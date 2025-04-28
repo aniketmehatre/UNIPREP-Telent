@@ -18,7 +18,6 @@ import { StorageService } from "../../../storage.service";
 export class EntreprenuersectorproficiencyComponent implements OnInit {
   categoryCount: number = 0;
   moduleID: number = 18;
-  planExpired: boolean = false;
   currentModuleSlug: any;
   constructor(private service: FounderstoolService, private sanitizer: DomSanitizer, private router: Router, private authService: AuthService,
     private locationService: LocationService, private pageFacade: PageFacadeService, private storage: StorageService
@@ -31,7 +30,6 @@ export class EntreprenuersectorproficiencyComponent implements OnInit {
       module_id: this.moduleID
     }
     this.getEntreprenuer(data);
-    this.checkplanExpire()
   }
   etreprenuertestlists: any[] = [];
   getEntreprenuer(data: any) {
@@ -42,7 +40,7 @@ export class EntreprenuersectorproficiencyComponent implements OnInit {
     });
   }
   openQuiz(id: any, name: string) {
-    if (this.planExpired) {
+    if (this.authService.isInvalidSubscription('founders_tools')) {
       this.authService.hasUserSubscription$.next(true);
       return;
     }
@@ -54,15 +52,6 @@ export class EntreprenuersectorproficiencyComponent implements OnInit {
   }
   goBack() {
     this.router.navigate(['/pages/founderstool/founderstoollist']);
-  }
-  checkplanExpire(): void {
-    if (this.authService._userSubscrition.time_left.plan === "expired" ||
-      this.authService._userSubscrition.time_left.plan === "subscription_expired") {
-      this.planExpired = true;
-    }
-    else {
-      this.planExpired = false;
-    }
   }
 
   review(id: any) {

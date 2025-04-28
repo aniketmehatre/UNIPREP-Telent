@@ -47,10 +47,8 @@ export class UniCompareComponent implements OnInit, OnDestroy {
   page = 1;
   pageSize = 25;
   first: number = 0;
-  planExpired!: boolean;
   recommendRestrict: boolean = false;
   form: FormGroup = new FormGroup({});
-  currentPlan: string = "";
   locationName: string = '';
   submitted: boolean = false;
   data: any = {
@@ -232,10 +230,6 @@ export class UniCompareComponent implements OnInit, OnDestroy {
         return;
       }
     }
-    if (this.authService.isInvalidSubscription('education_tools')) {
-      this.authService.hasUserSubscription$.next(true);
-      return;
-    }
     if (this.aiCreditCount == 0) {
       this.toast.add({ severity: "error", summary: "Error", detail: "Free AI Credits Over.Please Buy Some Credits..!" });
       return;
@@ -278,6 +272,10 @@ export class UniCompareComponent implements OnInit, OnDestroy {
   }
 
   next() {
+    if (this.authService.isInvalidSubscription('education_tools')) {
+      this.authService.hasUserSubscription$.next(true);
+      return;
+    }
     this.submitted = false;
     const formData = this.form.value;
     if (this.activePageIndex == 0) {
@@ -296,6 +294,10 @@ export class UniCompareComponent implements OnInit, OnDestroy {
   }
 
   saveRecommadation() {
+    if (this.authService.isInvalidSubscription('education_tools')) {
+      this.authService.hasUserSubscription$.next(true);
+      return;
+    }
     if (!this.isFromSavedData) {
       this.educationToolService.getAnalysisList('uni_compare').subscribe({
         next: response => {

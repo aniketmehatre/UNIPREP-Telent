@@ -136,7 +136,6 @@ export class CareerPlannerComponent implements OnInit {
 	perPage = 30
 	currencyButtonName: string = "Dollar"
 	currentPlan: string = ""
-	planExpired!: boolean
 	arrayMap: any = {
 		highLevelStudy: this.highLevelStudy,
 		YesOrNo: this.YesOrNo,
@@ -150,7 +149,6 @@ export class CareerPlannerComponent implements OnInit {
 
 	ngOnInit(): void {
 		this.checkCareerPlanExist()
-		this.checkplanExpire()
 	}
 
 	toggleClass(buttonName: string) {
@@ -224,6 +222,10 @@ export class CareerPlannerComponent implements OnInit {
 	}
 
 	next(productId: number): void {
+		if (this.authService.isInvalidSubscription('career_tools')) {
+			this.authService.hasUserSubscription$.next(true);
+			return;
+		}
 		this.invalidClass = false
 		if (productId in this.selectedData) {
 			if (this.activePageIndex < this.products.length - 1) {
@@ -323,21 +325,13 @@ export class CareerPlannerComponent implements OnInit {
 	}
 
 	paginate(event: any) {
-		if (this.planExpired) {
-			this.authService.hasUserSubscription$.next(true);
-			return
-		}
-
 		this.page = event.page + 1
 		this.perPage = event.rows
 		this.listPageDataLoading()
 	}
 
 	handleClick(event: Event) {
-		if (this.planExpired) {
-			this.authService.hasUserSubscription$.next(true);
-			event.preventDefault() // Prevent the default action of the anchor tag
-		}
+		event.preventDefault()
 	}
 
 	getHref(jobSiteURL: string): string {
@@ -359,17 +353,6 @@ export class CareerPlannerComponent implements OnInit {
 
 	openVideoPopup(videoLink: string) {
 		this.pageFacade.openHowitWorksVideoPopup(videoLink)
-	}
-
-	checkplanExpire(): void {
-		if (this.authService._userSubscrition.time_left.plan === "expired" ||
-			this.authService._userSubscrition.time_left.plan === "subscription_expired" ||
-			this.authService._userSubscrition.subscription_details.subscription_plan === "Student") {
-			this.planExpired = true;
-		}
-		else {
-			this.planExpired = false;
-		}
 	}
 
 	goBack() {

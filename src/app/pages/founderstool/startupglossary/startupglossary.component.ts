@@ -16,12 +16,13 @@ import { SelectModule } from 'primeng/select';
 import { InputGroupModule } from 'primeng/inputgroup';
 import { InputTextModule } from 'primeng/inputtext';
 import { InputGroupAddonModule } from 'primeng/inputgroupaddon';
+import { AuthService } from 'src/app/Auth/auth.service';
 @Component({
-    selector: 'uni-startupglossary',
-    templateUrl: './startupglossary.component.html',
-    styleUrls: ['./startupglossary.component.scss'],
-    standalone: true,
-    imports: [CommonModule, RouterModule, DialogModule, CardModule, PaginatorModule, FormsModule, ReactiveFormsModule, CarouselModule, ButtonModule, MultiSelectModule, SelectModule, InputGroupModule, InputTextModule, InputGroupAddonModule]
+  selector: 'uni-startupglossary',
+  templateUrl: './startupglossary.component.html',
+  styleUrls: ['./startupglossary.component.scss'],
+  standalone: true,
+  imports: [CommonModule, RouterModule, DialogModule, CardModule, PaginatorModule, FormsModule, ReactiveFormsModule, CarouselModule, ButtonModule, MultiSelectModule, SelectModule, InputGroupModule, InputTextModule, InputGroupAddonModule]
 })
 export class StartupglossaryComponent implements OnInit {
   category_dropdown: { id: any, name: string }[] = [];
@@ -29,7 +30,8 @@ export class StartupglossaryComponent implements OnInit {
   startupglossarylists: any[] = [];
   groupedTerms: { [key: string]: any[] } = {};
   valueNearYouFilter: string = '';
-  constructor(private service: FounderstoolService, private sanitizer: DomSanitizer, private router: Router,private pageFacade: PageFacadeService) { }
+  constructor(private service: FounderstoolService, private sanitizer: DomSanitizer, private router: Router,
+    private pageFacade: PageFacadeService, private authService: AuthService) { }
   ngOnInit(): void {
     this.category_dropdown = [
       { id: null, name: "All" },
@@ -76,6 +78,12 @@ export class StartupglossaryComponent implements OnInit {
     this.getStartUpGlossary(id);
   }
   getStartUpGlossary(data: any) {
+    if (data) {
+      if (this.authService.isInvalidSubscription('founders_tools')) {
+        this.authService.hasUserSubscription$.next(true);
+        return;
+      }
+    }
     var val = {
       alphabet: data
     }
@@ -88,7 +96,7 @@ export class StartupglossaryComponent implements OnInit {
           this.groupedTerms[item.alphabet] = [];
         }
         this.groupedTerms[item.alphabet].push(item);
-        this.performSearch();
+        this.performSearch("init");
       });
 
     });
@@ -96,49 +104,55 @@ export class StartupglossaryComponent implements OnInit {
   goBack() {
     this.router.navigate(['/pages/founderstool/founderstoollist']);
   }
-  performSearch() {
+  performSearch(from?: string) {
+    if (!from) {
+      if (this.authService.isInvalidSubscription('founders_tools')) {
+        this.authService.hasUserSubscription$.next(true);
+        return;
+      }
+    }
     // highlights the words
-     const search = this.valueNearYouFilter?.trim();
-     if (!search) {
-       this.resetHighlights(); // Optional: show full terms without highlights
-       return;
-     }
-     
-     const highlight = (text: string) =>
-       text.split(new RegExp(`(${search})`, 'gi')).map(part => ({
-       word: part,
-       highlight: part.toLowerCase() === search.toLowerCase()
-       }));
-     
-     for (const key in this.groupedTerms) {
-       this.groupedTerms[key].forEach(term => {
-       term.glossarytermParts = highlight(term.glossaryterm);
-       term.summaryParts = highlight(term.summary);
-       });
-     }
-     // normal searcth code
-     const searchValue = this.valueNearYouFilter.toLowerCase()
-     const filteredData = this.startupglossarylists.filter((item: any) => {
-     return item.glossaryterm?.toLowerCase().includes(searchValue) || item.summary?.toLowerCase().includes(searchValue) || item.key?.toLowerCase().includes(searchValue)
-       
-     })
-     this.groupedTerms = {}
-     filteredData.forEach((item) => {
-       if (!this.groupedTerms[item.alphabet]) {
-         this.groupedTerms[item.alphabet] = []
-       }
-       this.groupedTerms[item.alphabet].push(item)
-     })
-   }
+    const search = this.valueNearYouFilter?.trim();
+    if (!search) {
+      this.resetHighlights(); // Optional: show full terms without highlights
+      return;
+    }
+
+    const highlight = (text: string) =>
+      text.split(new RegExp(`(${search})`, 'gi')).map(part => ({
+        word: part,
+        highlight: part.toLowerCase() === search.toLowerCase()
+      }));
+
+    for (const key in this.groupedTerms) {
+      this.groupedTerms[key].forEach(term => {
+        term.glossarytermParts = highlight(term.glossaryterm);
+        term.summaryParts = highlight(term.summary);
+      });
+    }
+    // normal searcth code
+    const searchValue = this.valueNearYouFilter.toLowerCase()
+    const filteredData = this.startupglossarylists.filter((item: any) => {
+      return item.glossaryterm?.toLowerCase().includes(searchValue) || item.summary?.toLowerCase().includes(searchValue) || item.key?.toLowerCase().includes(searchValue)
+
+    })
+    this.groupedTerms = {}
+    filteredData.forEach((item) => {
+      if (!this.groupedTerms[item.alphabet]) {
+        this.groupedTerms[item.alphabet] = []
+      }
+      this.groupedTerms[item.alphabet].push(item)
+    })
+  }
   isObjectEmpty(obj: object): boolean {
     return Object.keys(obj).length === 0;
   }
   resetHighlights() {
-		for (const key in this.groupedTerms) {
-		  this.groupedTerms[key].forEach(term => {
-			term.glossarytermParts = [{ word: term.glossaryterm, highlight: false }];
-			term.summaryParts = [{ word: term.summary, highlight: false }];
-		  });
-		}
-	}
+    for (const key in this.groupedTerms) {
+      this.groupedTerms[key].forEach(term => {
+        term.glossarytermParts = [{ word: term.glossaryterm, highlight: false }];
+        term.summaryParts = [{ word: term.summary, highlight: false }];
+      });
+    }
+  }
 }

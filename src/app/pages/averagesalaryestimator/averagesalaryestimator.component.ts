@@ -20,15 +20,16 @@ import { InputGroupAddonModule } from "primeng/inputgroupaddon"
 import { RadioButtonModule } from "primeng/radiobutton"
 import { City } from "src/app/@Models/cost-of-living";
 import { EducationToolsService } from "../education-tools/education-tools.service";
-import {AverageSalaryPreparedListComponent} from "./preparedlist/preparedlist.component";
-import {PdfViewerModule} from "ng2-pdf-viewer";
+import { AverageSalaryPreparedListComponent } from "./preparedlist/preparedlist.component";
+import { PdfViewerModule } from "ng2-pdf-viewer";
+import { AuthService } from "src/app/Auth/auth.service";
 
 @Component({
   selector: "uni-averagesalaryestimator",
   templateUrl: "./averagesalaryestimator.component.html",
   styleUrls: ["./averagesalaryestimator.component.scss"],
   standalone: true,
-    imports: [CommonModule, DialogModule, RadioButtonModule, SidebarModule, PdfViewerModule, RouterModule, CardModule, PaginatorModule, FormsModule, ReactiveFormsModule, CarouselModule, ButtonModule, MultiSelectModule, SelectModule, InputGroupModule, InputTextModule, InputGroupAddonModule, AverageSalaryPreparedListComponent],
+  imports: [CommonModule, DialogModule, RadioButtonModule, SidebarModule, PdfViewerModule, RouterModule, CardModule, PaginatorModule, FormsModule, ReactiveFormsModule, CarouselModule, ButtonModule, MultiSelectModule, SelectModule, InputGroupModule, InputTextModule, InputGroupAddonModule, AverageSalaryPreparedListComponent],
 })
 export class AverageSalaryComponent implements OnInit {
   @ViewChild("jobRoleInput") JobRoleInput: ElementRef;
@@ -39,7 +40,8 @@ export class AverageSalaryComponent implements OnInit {
     private service: AveragesalaryestimatorService,
     private educationService: EducationToolsService,
     private promptService: PromptService,
-    private toast: MessageService
+    private toast: MessageService,
+    private authService: AuthService
   ) {
     this.getJobRoles();
   }
@@ -50,7 +52,7 @@ export class AverageSalaryComponent implements OnInit {
   selectedData: { [key: string]: any } = {};
   filterJobRole: any[] = [];
   aiCreditCount: number = 0;
-  recommendations: { id: number , question: string}[] = [
+  recommendations: { id: number, question: string }[] = [
     {
       id: 1,
       question: "What is your Job Role",
@@ -90,9 +92,9 @@ export class AverageSalaryComponent implements OnInit {
     this.getAICreditCount();
   }
 
-  getAICreditCount(){
+  getAICreditCount() {
     this.promptService.getAicredits().subscribe({
-      next: resp =>{
+      next: resp => {
         this.aiCreditCount = resp;
       }
     })
@@ -160,6 +162,10 @@ export class AverageSalaryComponent implements OnInit {
   }
 
   next(selectedId: number): void {
+    if (this.authService.isInvalidSubscription('career_tools')) {
+      this.authService.hasUserSubscription$.next(true);
+      return;
+    }
     this.invalidClass = false;
     if (this.selectedData[selectedId]?.length == 0) {
       this.invalidClass = true;
@@ -180,7 +186,7 @@ export class AverageSalaryComponent implements OnInit {
       this.invalidClass = true;
       return;
     }
-    if(this.aiCreditCount == 0){
+    if (this.aiCreditCount == 0) {
       this.toast.add({ severity: "error", summary: "Error", detail: "Free AI Credits Over.Please Buy Some Credits..!" });
       return;
     }
@@ -198,7 +204,7 @@ export class AverageSalaryComponent implements OnInit {
       workplace_type: this.selectedData[5],
       workplace_type_name: findWrkModeType.name,
       locationid: this.selectedData[4]?.city_id,
-      location_name: this.selectedData[4]?.city_name+', '+this.selectedData[4]?.country_name,
+      location_name: this.selectedData[4]?.city_name + ', ' + this.selectedData[4]?.country_name,
       experience: this.selectedData[2],
       aiCredit: this.aiCreditCount
       // currency: this.selectedData[6],
@@ -213,9 +219,9 @@ export class AverageSalaryComponent implements OnInit {
     this.pageFacade.openHowitWorksVideoPopup(videoLink);
   }
   goBack() {
-    if(this.preparedvisibility){
+    if (this.preparedvisibility) {
       this.router.navigate(["/pages/average-salary-estimator"]);
-    }else{
+    } else {
       this.router.navigate(["/pages/job-tool/career-tool"]);
     }
   }
@@ -257,11 +263,15 @@ export class AverageSalaryComponent implements OnInit {
     this.filterJobRole = [];
   }
 
-  showHistoryList:boolean = false;
-  readResponse:boolean = false;
+  showHistoryList: boolean = false;
+  readResponse: boolean = false;
   ListData: any;
   totalDataCount: number = 0;
-  saveRecommadation(){
+  saveRecommadation() {
+    if (this.authService.isInvalidSubscription('career_tools')) {
+      this.authService.hasUserSubscription$.next(true);
+      return;
+    }
     this.service.getavgsalarysavedresponse().subscribe((response: any) => {
       this.ListData = response;
       this.totalDataCount = this.ListData.length;
@@ -272,8 +282,8 @@ export class AverageSalaryComponent implements OnInit {
   savedresponseData: any = [];
   readSavedResponse(savedResponse: any) {
     const encodedJson = savedResponse.user_inputs;
-		const decodedInput = JSON.parse(encodedJson);
-		this.userInputs = decodedInput;
+    const decodedInput = JSON.parse(encodedJson);
+    this.userInputs = decodedInput;
     this.savedresponseData = savedResponse;
     this.readResponse = true;
   }

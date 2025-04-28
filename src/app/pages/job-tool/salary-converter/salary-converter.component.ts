@@ -40,7 +40,6 @@ export class SalaryConverterComponent implements OnInit {
 	statementText: any
 	inHomeCurrency: any
 	isPPPCardVisible: boolean = false
-	planExpired: boolean = false
 	salaries: { satement: string }[] = [{ satement: "Earning INR 50,000 in the India is equivalent to earning INR 1,78,571.43 in the United Arab Emirates." }, { satement: "Earning INR 70,000 in the India is equivalent to earning INR 2,12,500 in the United Kingdom." }, { satement: "Earning INR 50,000 the India is equivalent to earning INR 16,071.43 in the Canada." }, { satement: "Earning INR 70,000 in the India is equivalent to earning INR 1,90,000 in the France." }, { satement: "Earning INR 1,00,000 in the India is equivalent to earning INR 3,57,142.86 in the United States." }]
 	responsiveOptions: { breakpoint: string; numVisible: number; numScroll: number }[]
 	get fromValue() {
@@ -71,7 +70,6 @@ export class SalaryConverterComponent implements OnInit {
 	}
 
 	ngOnInit(): void {
-		this.checkplanExpire()
 		this.salaryConverterService.getCountries().subscribe((data) => {
 			this.countries = data
 			this.sourceCountries = data
@@ -79,14 +77,11 @@ export class SalaryConverterComponent implements OnInit {
 		})
 	}
 
-	isShowPlanExpiredDialog: boolean = false
 	convert(): void {
-
-		if (this.planExpired) {
+		if (this.authService.isInvalidSubscription('career_tools')) {
 			this.authService.hasUserSubscription$.next(true);
-			return
+			return;
 		}
-		this.isShowPlanExpiredDialog = false
 		if (this.fromCountry && this.toCountry && this.salary) {
 			const fromPpp = this.selectedCountryCode
 			const toPpp = this.selectedToCountryCode
@@ -137,16 +132,6 @@ export class SalaryConverterComponent implements OnInit {
 
 	goBack() {
 		this._location.back()
-	}
-	checkplanExpire(): void {
-		if (this.authService._userSubscrition.time_left.plan === "expired" ||
-			this.authService._userSubscrition.time_left.plan === "subscription_expired" ||
-			this.authService._userSubscrition.subscription_details.subscription_plan === "Student") {
-			this.planExpired = true;
-		}
-		else {
-			this.planExpired = false;
-		}
 	}
 
 }

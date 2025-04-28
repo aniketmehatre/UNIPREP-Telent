@@ -5,14 +5,15 @@ import { CategoryResponse, GetCategoriesPayload } from 'src/app/@Models/career-t
 import { EmployerGlobalService } from '../employer-global.service';
 import { AuthService } from 'src/app/Auth/auth.service';
 import { CommonModule } from '@angular/common';
-import {StorageService} from "../../../storage.service";
+import { StorageService } from "../../../storage.service";
+import { PaginatorModule } from 'primeng/paginator';
 
 @Component({
-    selector: 'uni-career-category-list',
-    templateUrl: './career-category-list.component.html',
-    styleUrls: ['./career-category-list.component.scss'],
-    standalone: true,
-    imports: [CommonModule]
+  selector: 'uni-career-category-list',
+  templateUrl: './career-category-list.component.html',
+  styleUrls: ['./career-category-list.component.scss'],
+  standalone: true,
+  imports: [CommonModule, PaginatorModule]
 })
 export class CareerCategoryListComponent implements OnInit {
   categories: any = [];
@@ -34,7 +35,7 @@ export class CareerCategoryListComponent implements OnInit {
   ngOnInit(): void {
     this.employerGlobalService.clearAll();
     this.activatedRoute.params.subscribe((params: Params) => {
-        this.storage.set('MainTitleCareerTool', "");
+      this.storage.set('MainTitleCareerTool', "");
       this.module_id = params['id'];
       this.getCategoryList();
     });
@@ -54,6 +55,10 @@ export class CareerCategoryListComponent implements OnInit {
     });
   }
   navigate(category: any, category_id: number) {
+    if (this.authService.isInvalidSubscription('career_tools')) {
+      this.authService.hasUserSubscription$.next(true);
+      return;
+    }
     let moduleUrl = "";
     switch (this.module_id) {
       case '11':
@@ -76,6 +81,10 @@ export class CareerCategoryListComponent implements OnInit {
     }
   }
   pageChange(event: any) {
+    if (this.authService.isInvalidSubscription('career_tools')) {
+      this.authService.hasUserSubscription$.next(true);
+      return;
+    }
     this.first = event.page;
     if (this.module_id === '13') {
       this.page = event.page + 1;

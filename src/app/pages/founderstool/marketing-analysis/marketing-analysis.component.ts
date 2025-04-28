@@ -52,7 +52,6 @@ export class MarketingAnalysisComponent implements OnInit {
   page = 1;
   pageSize = 25;
   first: number = 0;
-  planExpired!: boolean;
   marketingForm: FormGroup = new FormGroup({});
   currentPlan: string = "";
   locationName: string = '';
@@ -165,17 +164,6 @@ export class MarketingAnalysisComponent implements OnInit {
     });
   }
 
-  checkplanExpire(): void {
-    if (this.authService._userSubscrition.time_left.plan === "expired" ||
-      this.authService._userSubscrition.time_left.plan === "subscription_expired") {
-      this.planExpired = true;
-    }
-    else {
-      this.planExpired = false;
-    }
-  }
-
-
   checkUserRecommendation() {
     this.foundersToolsService.getRecommendations().subscribe(res => {
       if (res.status) {
@@ -195,10 +183,6 @@ export class MarketingAnalysisComponent implements OnInit {
         this.submitted = true;
         return;
       }
-    }
-    if (this.planExpired) {
-      this.authService.hasUserSubscription$.next(true);
-      return;
     }
     if (this.aiCreditCount == 0) {
       this.toast.add({ severity: "error", summary: "Error", detail: "Free AI Credits Over.Please Buy Some Credits..!" });
@@ -236,6 +220,10 @@ export class MarketingAnalysisComponent implements OnInit {
   }
 
   next() {
+    if (this.authService.isInvalidSubscription('founders_tools')) {
+      this.authService.hasUserSubscription$.next(true);
+      return;
+    }
     this.submitted = false;
     const formData = this.marketingForm.value;
     if (this.activePageIndex == 0) {
@@ -260,6 +248,10 @@ export class MarketingAnalysisComponent implements OnInit {
   }
 
   saveRecommadation() {
+    if (this.authService.isInvalidSubscription('founders_tools')) {
+      this.authService.hasUserSubscription$.next(true);
+      return;
+    }
     if (!this.isFromSavedData) {
       this.foundersToolsService.getAnalysisList('market_analysis').subscribe({
         next: response => {

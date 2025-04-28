@@ -13,6 +13,7 @@ import { InputGroupModule } from 'primeng/inputgroup';
 import { InputGroupAddonModule } from 'primeng/inputgroupaddon';
 import { InputTextModule } from 'primeng/inputtext';
 import { debounceTime, Subject } from 'rxjs';
+import { AuthService } from 'src/app/Auth/auth.service';
 @Component({
   selector: 'uni-wealthleaderslist',
   templateUrl: './wealthleaderslist.component.html',
@@ -33,7 +34,7 @@ export class WealthleaderslistComponent implements OnInit {
 
   constructor(private router: Router, private pageFacade: PageFacadeService, private service: FounderstoolService,
     private storage: StorageService, private sanitizer: DomSanitizer, private route: ActivatedRoute,
-    private fb: FormBuilder,
+    private fb: FormBuilder, private authService: AuthService
   ) {
     this.filterForm = this.fb.group({
       country: [null],
@@ -66,6 +67,10 @@ export class WealthleaderslistComponent implements OnInit {
     this.pageFacade.openHowitWorksVideoPopup(videoLink);
   }
   performSearch() {
+    if (this.authService.isInvalidSubscription('education_tools')) {
+      this.authService.hasUserSubscription$.next(true);
+      return;
+    }
     this.searchSubject.next(this.valueNearYouFilter);
   }
   getWealthLeaders() {
@@ -82,6 +87,10 @@ export class WealthleaderslistComponent implements OnInit {
     })
   }
   filterPopUp() {
+    if (this.authService.isInvalidSubscription('education_tools')) {
+      this.authService.hasUserSubscription$.next(true);
+      return;
+    }
     this.newfile = "block";
   }
   resetFilter() {
@@ -95,11 +104,19 @@ export class WealthleaderslistComponent implements OnInit {
     this.newfile = "none";
   }
   paginate(event: any) {
+    if (this.authService.isInvalidSubscription('education_tools')) {
+      this.authService.hasUserSubscription$.next(true);
+      return;
+    }
     this.pageno = event.page + 1;
     this.perpage = event.rows;
     this.getWealthLeaders();
   }
   viewReadAns(id: any, name: any) {
+    if (this.authService.isInvalidSubscription('education_tools')) {
+      this.authService.hasUserSubscription$.next(true);
+      return;
+    }
     this.storage.set("wealthleadersname", name)
     this.router.navigate(['/pages/education-tools/wealthleaderreadanswer', id], { queryParams: { country: this.filterForm.value.country, search: this.valueNearYouFilter } });
   }

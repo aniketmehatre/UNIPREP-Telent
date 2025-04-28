@@ -17,6 +17,7 @@ import { InputGroupModule } from 'primeng/inputgroup';
 import { InputTextModule } from 'primeng/inputtext';
 import { InputGroupAddonModule } from 'primeng/inputgroupaddon';
 import { JobPreparedListComponent } from './preparedlist/preparedlist.component';
+import { AuthService } from "src/app/Auth/auth.service";
 @Component({
   selector: "uni-job-prep",
   templateUrl: "./interviewpreparation.component.html",
@@ -31,9 +32,10 @@ export class JobPreparationComponent implements OnInit {
     private router: Router,
     private pageFacade: PageFacadeService,
     private service: InterviewPreparationService,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    private authService: AuthService
   ) {
-   
+
   }
   @Input() prepData: any;
   enableModule: boolean = false;
@@ -75,7 +77,7 @@ export class JobPreparationComponent implements OnInit {
   ngOnInit() {
     if (this.route.snapshot.queryParamMap.get('questionid')) { //Question share
       this.prepData = {
-        questionid:this.route.snapshot.queryParamMap.get('questionid'),
+        questionid: this.route.snapshot.queryParamMap.get('questionid'),
         role: this.route.snapshot.queryParamMap.get('role'),
         jobrole: this.route.snapshot.queryParamMap.get('jobrole'),
         softskill: this.route.snapshot.queryParamMap.get('softskill'),
@@ -83,14 +85,14 @@ export class JobPreparationComponent implements OnInit {
         experience: this.route.snapshot.queryParamMap.get('experience'),
         reason: this.route.snapshot.queryParamMap.get('reason'),
         job_preference: this.route.snapshot.queryParamMap.get('job_preference'),
-        industry:this.route.snapshot.queryParamMap.get('industry')
+        industry: this.route.snapshot.queryParamMap.get('industry')
       }
       this.preparedvisibility = true;
       return;
     }
-    this.selectedData={};
-    this.activePageIndex=0;
-    this.selectedCardIndex=null;
+    this.selectedData = {};
+    this.activePageIndex = 0;
+    this.selectedCardIndex = null;
     this.getJobRoles();
     this.getsoftSkills();
     this.getJobExperience();
@@ -155,6 +157,10 @@ export class JobPreparationComponent implements OnInit {
   }
 
   next(productId: number): void {
+    if (this.authService.isInvalidSubscription('career_tools')) {
+      this.authService.hasUserSubscription$.next(true);
+      return;
+    }
     if (productId == 2) {
       this.gethardSkills(this.selectedData[1]);
     }
@@ -194,7 +200,7 @@ export class JobPreparationComponent implements OnInit {
       experience: this.selectedData[4],
       reason: this.selectedData[5],
       job_preference: this.selectedCardIndex + 1,
-      industry:this.selectedData[6]
+      industry: this.selectedData[6]
     };
     this.prepData = processedData;
   }
@@ -209,9 +215,9 @@ export class JobPreparationComponent implements OnInit {
       this.getIndustries();
     }
     this.preparedvisibility = data;
-    this.selectedData={};
-    this.activePageIndex=0;
-    this.selectedCardIndex=null;
+    this.selectedData = {};
+    this.activePageIndex = 0;
+    this.selectedCardIndex = null;
   }
   openVideoPopup(videoLink: string) {
     this.pageFacade.openHowitWorksVideoPopup(videoLink);
@@ -249,7 +255,7 @@ export class JobPreparationComponent implements OnInit {
       this.filterJobRole = [];
     }
   }
-  setJobtitle(jobRoleId: number, jobRoleLabel: string){
+  setJobtitle(jobRoleId: number, jobRoleLabel: string) {
     this.selectedData[1] = jobRoleId;
     this.JobRoleInput.nativeElement.value = jobRoleLabel;
     this.filterJobRole = [];

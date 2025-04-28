@@ -22,6 +22,7 @@ import { DomSanitizer, SafeHtml } from "@angular/platform-browser"
 import { PromptService } from "../../prompt.service"
 import { SkeletonModule } from "primeng/skeleton"
 import { SharedModule } from "src/app/shared/shared.module"
+import { AuthService } from "src/app/Auth/auth.service"
 @Component({
 	selector: "uni-ai-business-advisor",
 	templateUrl: "./ai-business-advisor.component.html",
@@ -60,20 +61,22 @@ export class AiBusinessAdvisorComponent implements OnInit {
 	isFromSavedData: boolean = false
 	currencyList: any = []
 	isResponseSkeleton: boolean = false;
-	aiCreditCount:  number = 0;
+	aiCreditCount: number = 0;
 	userInputs: any;
 
-	constructor( private foundersToolService: FounderstoolService, private router: Router, private toast: MessageService, private sanitizer: DomSanitizer, private promptService: PromptService,private pageFacade: PageFacadeService) {}
+	constructor(private foundersToolService: FounderstoolService, private router: Router, private toast: MessageService,
+		private sanitizer: DomSanitizer, private promptService: PromptService, private pageFacade: PageFacadeService,
+		private authService: AuthService) { }
 
 	ngOnInit(): void {
 		this.getCurrenyandLocation()
 		this.getAICreditCount();
 	}
-	getAICreditCount(){
+	getAICreditCount() {
 		this.promptService.getAicredits().subscribe({
-		  next: resp =>{
-			this.aiCreditCount = resp;
-		  }
+			next: resp => {
+				this.aiCreditCount = resp;
+			}
 		})
 	}
 	getCurrenyandLocation() {
@@ -90,6 +93,10 @@ export class AiBusinessAdvisorComponent implements OnInit {
 	}
 
 	next(productId: number): void {
+		if (this.authService.isInvalidSubscription('founders_tools')) {
+			this.authService.hasUserSubscription$.next(true);
+			return;
+		}
 		this.inValidClass = false
 		if (productId in this.selectedData) {
 			if (productId == 6) {
@@ -97,7 +104,7 @@ export class AiBusinessAdvisorComponent implements OnInit {
 					this.inValidClass = true
 					return
 				}
-				if(!this.selectedData[8]){
+				if (!this.selectedData[8]) {
 					this.inValidClass = true
 					return;
 				}
@@ -116,7 +123,7 @@ export class AiBusinessAdvisorComponent implements OnInit {
 			this.inValidClass = true
 			return
 		}
-		if(this.aiCreditCount == 0){
+		if (this.aiCreditCount == 0) {
 			this.toast.add({ severity: "error", summary: "Error", detail: "Free AI Credits Over.Please Buy Some Credits..!" });
 			return;
 		}
@@ -159,6 +166,10 @@ export class AiBusinessAdvisorComponent implements OnInit {
 	}
 
 	saveRecommadation() {
+		if (this.authService.isInvalidSubscription('founders_tools')) {
+			this.authService.hasUserSubscription$.next(true);
+			return;
+		}
 		if (!this.isFromSavedData) {
 			this.foundersToolService.getAnalysisList("business_advisor").subscribe({
 				next: (response) => {
@@ -167,7 +178,7 @@ export class AiBusinessAdvisorComponent implements OnInit {
 					this.isRecommendationSavedData = true
 					this.recommadationSavedQuestionList = response.data
 				},
-				error: (error) => {},
+				error: (error) => { },
 			})
 		}
 	}
@@ -197,28 +208,28 @@ export class AiBusinessAdvisorComponent implements OnInit {
 		this.recommendations.forEach((item) => {
 			addingInput += `<p style="color: #3f4c83;"><strong>${item.question}</strong></p>`
 			let currentAnswer = ""
-			if(item.id == 1){
+			if (item.id == 1) {
 				currentAnswer = this.userInputs.type
 			}
-			else if(item.id == 2){
+			else if (item.id == 2) {
 				currentAnswer = this.userInputs.goals
 			}
-			else if(item.id == 3){
+			else if (item.id == 3) {
 				currentAnswer = `${this.userInputs.duration} Months`
 			}
-			else if(item.id == 4){
+			else if (item.id == 4) {
 				currentAnswer = this.userInputs.challenges
 			}
-			else if(item.id == 5){
+			else if (item.id == 5) {
 				currentAnswer = this.userInputs.customers
 			}
-			else if(item.id == 6){
-				currentAnswer = this.userInputs.currency +' '+this.userInputs.budget
+			else if (item.id == 6) {
+				currentAnswer = this.userInputs.currency + ' ' + this.userInputs.budget
 			}
-			else if(item.id == 7){
+			else if (item.id == 7) {
 				currentAnswer = this.userInputs.strategy
 			}
-			else if(item.id == 8){
+			else if (item.id == 8) {
 				currentAnswer = this.userInputs.currency
 			}
 			else {

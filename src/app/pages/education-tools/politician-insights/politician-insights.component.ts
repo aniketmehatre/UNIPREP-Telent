@@ -35,10 +35,10 @@ export interface Politician {
 }
 
 @Component({
-    selector: 'uni-politician-insights',
-    templateUrl: './politician-insights.component.html',
-    styleUrls: ['./politician-insights.component.scss'],
-    standalone: true,
+  selector: 'uni-politician-insights',
+  templateUrl: './politician-insights.component.html',
+  styleUrls: ['./politician-insights.component.scss'],
+  standalone: true,
   imports: [PaginatorModule, SkeletonModule, FormsModule, ReactiveFormsModule, CarouselModule, ButtonModule, CommonModule, RouterModule, DialogModule, MultiSelectModule, SelectModule, CardModule, InputGroupModule, InputTextModule, InputGroupAddonModule]
 })
 export class PoliticianInsightsComponent implements OnInit, OnDestroy {
@@ -74,7 +74,8 @@ export class PoliticianInsightsComponent implements OnInit, OnDestroy {
     private router: Router,
     private educationToolService: EducationToolsService,
     private locationService: LocationService,
-    private location: Location
+    private location: Location,
+    private authService: AuthService
   ) { }
 
   ngOnInit(): void {
@@ -128,6 +129,10 @@ export class PoliticianInsightsComponent implements OnInit, OnDestroy {
   }
 
   showDatas(data: any) {
+    if (this.authService.isInvalidSubscription('education_tools')) {
+      this.authService.hasUserSubscription$.next(true);
+      return;
+    }
     this.countryName = data?.country;
     this.politicians = [];
     this.router.navigate(['/pages/education-tools/politician-insights', data.id]);
