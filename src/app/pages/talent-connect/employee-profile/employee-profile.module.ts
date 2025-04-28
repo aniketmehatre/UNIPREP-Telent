@@ -26,6 +26,7 @@ import { ConfirmDialogModule } from 'primeng/confirmdialog';
 import { ConfirmationService } from 'primeng/api';
 import { InputGroupAddonModule } from 'primeng/inputgroupaddon';
 import { InputGroupModule } from 'primeng/inputgroup';
+import { SharedModule } from "../../../shared/shared.module";
 
 const routes: Routes = [
   {
@@ -45,15 +46,15 @@ const routes: Routes = [
   imports: [
     CommonModule,
     RouterModule.forChild(routes),
-    FormsModule, 
+    FormsModule,
     FluidModule,
     ReactiveFormsModule,
     InputTextModule,
-    DropdownModule, 
-    ButtonModule, 
-    CardModule, 
+    DropdownModule,
+    ButtonModule,
+    CardModule,
     ProgressBarModule,
-    FileUploadModule ,
+    FileUploadModule,
     InputNumberModule,
     DialogModule,
     BadgeModule,
@@ -65,7 +66,8 @@ const routes: Routes = [
     TooltipModule,
     ConfirmDialogModule,
     InputGroupAddonModule,
-    InputGroupModule
+    InputGroupModule,
+    SharedModule
   ]
 })
 export class EmployeeProfileModule { }

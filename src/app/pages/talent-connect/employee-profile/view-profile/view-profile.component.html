@@ -11,485 +11,489 @@
     </h5>
     <i class="fa-solid fa-circle-xmark fs-2 cursor-pointer" style="color: white" (click)="closeDialog()"></i>
   </div>
-
-  <!-- Main Content Area with Scrolling -->
-  <div class="profile-dialog-content h-100 overflow-y-auto text-wrap" style="padding-bottom: 100px">
-    <div class="container-fluid profile-container">
-      <!-- Personal Information Section -->
-      <section class="card-inside mb-4">
-        <div class="card-body">
-          <div class="row">
-            <div class="col-md-4 text-center">
-              <div class="d-flex justify-content-center align-items-center border border-black p-4 rounded-3">
-                <div class="bg-secondary-subtle w-100 d-flex justify-content-center align-items-center rounded-3"
-                  style="border: 1px dashed">
-                  <img (error)="
-                      $event.target.src = '/uniprep-assets/images/avatar.webp'" [src]="
-                      profileData.personalInfo.logo ?? 'uniprep-assets/images/avatar.png'" class="rounded-circle p-4" alt="Profile Photo" width="200" height="200" />
+  <div class="container-fluid student-details overflow-y-auto h-100" style="padding-bottom: 100px;">
+    <div class="card mb-4 mt-4">
+      <div class="card-body">
+        <div class="row g-4">
+          <div class="col-md-3 col-lg-3" style="max-width: 230px; max-height: 230px;">
+            <img [src]="profileData.personalInfo.logo || 'uniprep-assets/images/avatar.webp'" alt="Profile Photo" class="img-fluid rounded" style="object-fit: cover; height: 100%;"/>
+          </div>
+          <div class="col-md-6 col-lg-6">
+            <h2 class="fw-bold">{{profileData.personalInfo.fullName}}</h2>
+            <p class="text-muted">Profile Updated On: {{isSample ? '28-04-2025': (this.updatedAtDate  | date: 'dd-MM-yyyy')}}</p>         
+            <div class="row g-2 g-2 mt-2">
+              <div class="col-md-3">
+                <div class="d-flex align-items-center">
+                  <i class="fa fa-calendar text-primary me-2"></i>
+                  <div>
+                    <div class="text-muted small">Date of Birth</div>
+                    <div>{{ isSample ? profileData.personalInfo.dateOfBirth : (profileData.personalInfo.dateOfBirth | date: 'dd-mm-yyyy')}}</div>
+                  </div>
+                </div>
+              </div>
+              <div class="col-md-3">
+                <div class="d-flex align-items-center">
+                  <i class="fa fa-venus-mars text-danger me-2"></i>
+                  <div>
+                    <div class="text-muted small">Gender</div>
+                    <div>{{profileData.personalInfo.gender}}</div>
+                  </div>
+                </div>
+              </div>
+              <div class="col-md-3">
+                <div class="d-flex align-items-center">
+                  <i class="fas fa-earth-asia text-primary me-2"></i>
+                  <div>
+                    <div class="text-muted small">Nationality</div>
+                    <div>{{profileData.personalInfo.nationality}}</div>
+                  </div>
+                </div>
+              </div>
+              <div class="col-md-3">
+                <div class="d-flex align-items-center">
+                  <i class="fa fa-location-crosshairs text-warning me-2"></i>
+                  <div>
+                    <div class="text-muted small">Current Location</div>
+                    <div>{{profileData.personalInfo.location}}</div>
+                  </div>
                 </div>
               </div>
             </div>
-            <div class="col-md-8">
-              <div class="card-header">
-                <h3>Personal Information</h3>
+            
+            <div class="mt-3">
+              <div class="text-muted small mb-1">Profile Completion: {{isSample ? 85 : (profileCompletionPercentage || 0)}}%</div>
+              <p-progressBar [style]="{ height: '10px', color: 'orange' }" styleClass="text-secondary mb-3" [value]="isSample ? 85 : (profileCompletionPercentage || 0)" [showValue]="false"></p-progressBar>
+            </div>
+          </div>
+          <div class="col-md-3 col-lg-3 d-flex flex-column gap-2 align-items-end">
+            <button pButton label="Edit Profile" icon="pi pi-pencil" class="p-button-outlined" routerLink="/pages/talent-connect/my-profile"></button>
+          </div>
+        </div>
+      </div>
+    </div>
+  
+    <!-- Education Details Section -->
+    <div class="card mb-4" *ngIf="profileData.educationDetails && profileData.educationDetails.length > 0">
+      <div class="card-body">
+        <div class="row g-2">
+          <div class="col-md-3">
+            <h3 class="fw-bold text-navy">Education Details</h3>
+          </div>
+          <div class="col-md-9">
+            <div class="row g-2" *ngFor="let edu of profileData.educationDetails">
+              <div class="col-md-4 mb-3">
+                <div class="text-primary fw-bold">Highest Qualification</div>
+                <div>{{edu.highestQualification}}</div>
               </div>
-              <div class="row">
-                <div class="col-md-6" *ngIf="profileData.personalInfo?.fullName">
-                  <h5>Full Name</h5>
-                  <p>{{ profileData.personalInfo.fullName }}</p>
-                </div>
-                <div class="col-md-6" *ngIf="profileData.personalInfo?.dateOfBirth">
-                  <h5>Date of Birth</h5>
-                  <p>
-                    {{
-                    isSample
-                    ? profileData.personalInfo.dateOfBirth
-                    : (profileData.personalInfo.dateOfBirth
-                    | date : "dd-MM-yyyy")
-                    }}
-                  </p>
-                </div>
-                <div class="col-md-6" *ngIf="profileData.personalInfo?.gender">
-                  <h5>Gender</h5>
-                  <p>{{ profileData.personalInfo.gender }}</p>
-                </div>
-                <div class="col-md-6" *ngIf="profileData.personalInfo?.nationality">
-                  <h5>Nationality</h5>
-                  <p>{{ profileData.personalInfo.nationality }}</p>
-                </div>
-                <div class="col-md-12" *ngIf="profileData.personalInfo?.location">
-                  <h5>Current Location</h5>
-                  <p>{{ profileData.personalInfo.location }}</p>
-                </div>
+              <div class="col-md-4 mb-3">
+                <div class="text-primary fw-bold">University / Institution Name</div>
+                <div>{{edu.university}}</div>
+              </div>
+              <div class="col-md-4 mb-3">
+                <div class="text-primary fw-bold">Field of Study / Major</div>
+                <div>{{edu.fieldOfStudy || 'Not specified'}}</div>
+              </div>
+              <div class="col-md-4 mb-3">
+                <div class="text-primary fw-bold">Course Name</div>
+                <div>{{edu.courseName}}</div>
+              </div>
+              <div class="col-md-4 mb-3">
+                <div class="text-primary fw-bold">Graduation Year</div>
+                <div>{{edu.graduationYear}}</div>
+              </div>
+              <div class="col-md-4 mb-3">
+                <div class="text-primary fw-bold">GPA / Percentage</div>
+                <div>{{edu.gpa}}</div>
               </div>
             </div>
           </div>
         </div>
-      </section>
-
-      <!-- Education Details Section -->
-      <section class="card-inside mb-4">
-        <div class="card-header">
-          <h3>Education Details</h3>
-        </div>
-        <div class="card-body"  *ngIf="profileData.educationDetails">
-          <div class="row mb-3" *ngFor="
-              let education of profileData.educationDetails;
-              let last = last
-            ">
-            <div class="col-md-6" *ngIf="education.highestQualification">
-              <h5>Highest Qualification</h5>
-              <p>{{ education.highestQualification }}</p>
-            </div>
-            <div class="col-md-6" *ngIf="education.university">
-              <h5>University</h5>
-              <p>{{ education.university }}</p>
-            </div>
-            <div class="col-md-6" *ngIf="education.fieldOfStudy">
-              <h5>Field of Study</h5>
-              <p>{{ education.fieldOfStudy }}</p>
-            </div>
-            <div class="col-md-6" *ngIf="education.courseName">
-              <h5>Course Name</h5>
-              <p>{{ education.courseName }}</p>
-            </div>
-            <div class="col-md-6" *ngIf="education.graduationYear">
-              <h5>Graduation Year</h5>
-              <p>{{ education.graduationYear }}</p>
-            </div>
-            <div class="col-md-6" *ngIf="education.gpa">
-              <h5>GPA</h5>
-              <p>{{ education.gpa }}</p>
-            </div>
-            <hr *ngIf="!last" class="mt-3" />
-          </div>
-        </div>
-      </section>
+      </div>
+    </div>
+  
     <!-- Work Experience Section -->
-      <section class="card-inside mb-4" *ngIf="
-          profileData.workExperience ||
-          profileData.personalInfo?.total_years_of_experience">
-        <div class="card-header">
-          <h3>Work Experience & Internships</h3>
-        </div>
-        <div class="card-body">
-          <div class="row" *ngIf="profileData.personalInfo?.total_years_of_experience">
-            <div class="col-12 mb-3">
-              <h5>Total Years of Experience</h5>
-              <p>
-                {{ profileData.personalInfo.total_years_of_experience }} Years
-              </p>
-            </div>
+    <div class="card mb-4">
+      <div class="card-body">
+        <div class="row g-2">
+          <div class="col-md-3">
+            <h3 class="fw-bold text-navy">Work Experience & Internships</h3>
           </div>
-          <div class="experience-item mb-4" *ngFor="
-              let experience of profileData.workExperience;
-              let last = last
-            ">
-            <div class="row">
-              <div class="col-md-6" *ngIf="experience.totalExperience">
-                <h5>Years of Experience</h5>
-                <p>{{ experience.totalExperience }} Years</p>
-              </div>
-              <div class="col-md-6" *ngIf="experience.companyName">
-                <h5>Company Name</h5>
-                <p>{{ experience.companyName }}</p>
-              </div>
-              <div class="col-md-6" *ngIf="experience.jobTitle">
-                <h5>Job Title</h5>
-                <p>{{ experience.jobTitle }}</p>
-              </div>
-              <div class="col-md-6" *ngIf="experience.duration">
-                <h5>Duration</h5>
-                <p>{{ experience.duration }}</p>
-              </div>
-              <div class="col-md-6" *ngIf="experience.employmentType">
-                <h5>Employment Type</h5>
-                <p>{{ experience.employmentType }}</p>
-              </div>
-              <div class="col-md-6" *ngIf="experience.salary">
-                <h5>Salary</h5>
-                <p>
-                  {{
-                  getListValue(
-                  this.currencies,
-                  experience.exp_currency,
-                  "currency_code"
-                  )
-                  }}
-                  {{ experience.salary }}/ Month
-                </p>
-              </div>
-              <div class="col-md-12 text-wrap" *ngIf="experience.responsibilities">
-                <h5>Job Responsibilities</h5>
-                <div [innerHTML]="experience.responsibilities"></div>
-              </div>
-              <div class="col-md-6" *ngIf="experience.experienceLetter?.name">
-                <h5>Experience letter</h5>
-                <div class="d-flex justify-content-between align-items-center border p-2 rounded bg-secondary-subtle">
-                  <span>{{
-                    extractLastName(experience.experienceLetter.name)
-                    }}</span>
-                  <button class="btn btn-outline-primary btn-sm" (click)="
-                      experience.experienceLetter.file.includes('http')
-                        ? downloadFile(experience.experienceLetter.file)
-                        : downloadFile(experience.experienceLetter.file.path)
-                    ">
-                    <i class="fa-solid fa-download"></i>
-                  </button>
+          <div class="col-md-9">
+            <div class="mb-4">
+              <div class="text-primary fw-bold">Total Years of Experience</div>
+              <div>{{profileData.personalInfo.total_years_of_experience}}</div>
+            </div>
+            
+            <div class="fw-bold fs-5 mb-3" *ngIf="profileData.workExperience && profileData.workExperience.length > 0">Work Experience Details</div>
+            
+            <div class="row g-2" *ngIf="profileData.workExperience && profileData.workExperience.length > 0">
+              <ng-container *ngFor="let exp of profileData.workExperience">
+                <div class="col-md-4 mb-3">
+                  <div class="text-primary fw-bold">Years of Experience</div>
+                  <div>{{exp.totalExperience || 'Not specified'}}</div>
                 </div>
+                <div class="col-md-4 mb-3">
+                  <div class="text-primary fw-bold">Company Name</div>
+                  <div>{{exp.companyName || 'Not specified'}}</div>
+                </div>
+                <div class="col-md-4 mb-3">
+                  <div class="text-primary fw-bold">Job Title</div>
+                  <div>{{exp.jobTitle || 'Not specified'}}</div>
+                </div>
+                <div class="col-md-4 mb-3">
+                  <div class="text-primary fw-bold">Employment Type</div>
+                  <div>{{exp.employmentType || 'Not specified'}}</div>
+                </div>
+                <div class="col-md-4 mb-3">
+                  <div class="text-primary fw-bold">Duration</div>
+                  <div>{{exp.duration || 'Not specified'}}</div>
+                </div>
+                <div class="col-md-4 mb-3">
+                  <div class="text-primary fw-bold">Salary</div>
+                  <div>{{exp.salary ? (exp.salary + ' ' + exp.exp_currency) : 'Not specified'}}</div>
+                </div>
+              </ng-container>
+            </div>
+            
+            <div *ngIf="!profileData.workExperience || profileData.workExperience.length === 0" class="text-muted">
+              No work experience details available
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  
+    <!-- Career Preferences Section -->
+    <div class="card mb-4" *ngIf="profileData.careerPreferences">
+      <div class="card-body">
+        <div class="row g-2">
+          <div class="col-md-3">
+            <h3 class="fw-bold text-navy">Career Preferences & Aspirations</h3>
+            <div class="mt-3 text-warning">Confused about your career?</div>
+            <button pButton label="Click here to plan now!" class="p-button-outlined p-button-warning mt-2"></button>
+          </div>
+          <div class="col-md-9">
+            <div class="row g-2">
+              <div class="col-md-4 mb-3">
+                <div class="text-primary fw-bold">Career Status</div>
+                <div>{{profileData.careerPreferences.careerStatus}}</div>
+              </div>
+              <div class="col-md-4 mb-3">
+                <div class="text-primary fw-bold">Preferred Work Location</div>
+                <div>{{profileData.careerPreferences.preferredWorkLocation || 'Not specified'}}</div>
+              </div>
+              <div class="col-md-4 mb-3">
+                <div class="text-primary fw-bold">Willingness to Relocate?</div>
+                <div>{{profileData.careerPreferences.willingToRelocate}}</div>
+              </div>
+              <div class="col-md-4 mb-3">
+                <div class="text-primary fw-bold">Job Title</div>
+                <div>{{profileData.careerPreferences.jobTitle || 'Not specified'}}</div>
+              </div>
+              <div class="col-md-4 mb-3">
+                <div class="text-primary fw-bold">Preferred Employment Type</div>
+                <div>{{profileData.careerPreferences.preferredEmploymentType}}</div>
+              </div>
+              <div class="col-md-4 mb-3">
+                <div class="text-primary fw-bold">Salary Range</div>
+                <div>{{profileData.careerPreferences.salaryRange}} {{profileData.careerPreferences.currency}}</div>
+              </div>
+              <div class="col-md-4 mb-3">
+                <div class="text-primary fw-bold">Career Interest / Industry</div>
+                <div>{{profileData.careerPreferences.careerInterest || 'Not specified'}}</div>
+              </div>
+              <div class="col-md-4 mb-3">
+                <div class="text-primary fw-bold">Preferred Workplace Type</div>
+                <div>{{profileData.careerPreferences.preferredWorkplaceType}}</div>
               </div>
             </div>
-            <hr *ngIf="!last" class="mt-3" />
           </div>
         </div>
-      </section>
-
-      <!-- Career Preferences Section -->
-      <section class="card-inside mb-4" >
-        <div class="card-header">
-          <h3>Career Preferences & Aspirations</h3>
-        </div>
-        <div class="card-body" *ngIf="profileData.careerPreferences">
-          <div class="row">
-            <div class="col-md-6" *ngIf="profileData.careerPreferences.careerStatus">
-              <h5>Career Status</h5>
-              <p>{{ profileData.careerPreferences.careerStatus }}</p>
-            </div>
-            <div class="col-md-6" *ngIf="profileData.careerPreferences.jobTitle">
-              <h5>Job Title</h5>
-              <p>{{ profileData.careerPreferences.jobTitle }}</p>
-            </div>
-            <div class="col-md-6" *ngIf="profileData.careerPreferences.careerInterest.length">
-              <h5>Career Interest/Industry</h5>
-              <p>{{ profileData.careerPreferences.careerInterest }}</p>
-            </div>
-            <div class="col-md-6" *ngIf="profileData.careerPreferences.preferredWorkLocation.length">
-              <h5>Preferred Work Location</h5>
-              <p>{{ profileData.careerPreferences.preferredWorkLocation }}</p>
-            </div>
-            <div class="col-md-6" *ngIf="
-                profileData.careerPreferences.preferredEmploymentType.length
-              ">
-              <h5>Preferred Employment Type</h5>
-              <p>{{ profileData.careerPreferences.preferredEmploymentType }}</p>
-            </div>
-            <div class="col-md-6" *ngIf="
-                profileData.careerPreferences.preferredWorkplaceType.length
-              ">
-              <h5>Preferred Workplace Type</h5>
-              <p>{{ profileData.careerPreferences.preferredWorkplaceType }}</p>
-            </div>
-            <div class="col-md-6" *ngIf="profileData.careerPreferences.willingToRelocate">
-              <h5>Willingness to Relocate</h5>
-              <p>{{ profileData.careerPreferences.willingToRelocate }}</p>
-            </div>
-            <div class="col-md-6" *ngIf="profileData.careerPreferences.salaryRange">
-              <h5>Salary Range</h5>
-              <p>
-                {{
-                getListValue(
-                this.currencies,
-                profileData.careerPreferences.currency,
-                "currency_code"
-                )
-                }}
-                {{ profileData.careerPreferences.salaryRange }} / Month
-              </p>
-            </div>
+      </div>
+    </div>
+  
+    <!-- Certifications Section -->
+    <div class="card mb-4" *ngIf="profileData.certifications && profileData.certifications.length > 0">
+      <div class="card-body">
+        <div class="row g-2">
+          <div class="col-md-3">
+            <h3 class="fw-bold text-navy">Certifications & Achievements</h3>
+            <div class="mt-3 text-warning">Want to add more skills?</div>
+            <button pButton label="Click here to add more to your list!" class="p-button-outlined p-button-warning mt-2"></button>
           </div>
-        </div>
-      </section>
-      <hr *ngIf="profileData.certifications">
-
-      <!-- Certifications Section -->
-      <section class="card-inside mb-4 cerfiticates" >
-        <div class="card-header">
-          <h3>Certifications & Achievements</h3>
-        </div>
-        <ng-container *ngIf="profileData.certifications">
-          <h5>Professional / Online Certifications</h5>
-          <div class="row g-2">
-            <div class="col-md-12" *ngFor="let cert of profileData.certifications">
-              <div class="d-flex justify-content-between align-items-center">
-                <p class="fw-bold">{{ cert.name }}</p>
-                <div>
-                  <div *ngIf="cert.file"
+          <div class="col-md-9">
+            <div class="row g-2">
+              <div class="col-md-8">
+                <ng-container *ngFor="let cert of profileData.certifications">
+                  <div class="mb-3">
+                    <div class="text-primary fw-bold">Professional / online Certifications</div>
+                    <div>{{cert.name || 'Not specified'}}</div>
+                  </div>
+                </ng-container>
+                
+                <ng-container *ngIf="profileData.userAchievements && profileData.userAchievements.length > 0">
+                  <ng-container *ngFor="let ach of profileData.userAchievements">
+                    <div class="mb-3">
+                      <div class="text-primary fw-bold">Achievement Name</div>
+                      <div>{{ach.name || 'Not specified'}}</div>
+                    </div>
+                  </ng-container>
+                </ng-container>
+              </div>
+              <div class="col-md-4">
+                <ng-container *ngFor="let cert of profileData.certifications">
+                  <div *ngIf="cert.file else noAvaliable"
                   class="border p-3 rounded bg-light d-flex justify-content-between align-items-center">
                   <span class="fw-bold fs-6">{{
                     extractLastName(cert.file)
                     }}</span>
-                  <i class="fa-solid fa-download fa-xl cursor-pointer" (click)="downloadFile(cert.file)"></i>
+                  <i class="fa-solid fa-download fa-xl cursor-pointer" (click)="openView(cert.file)"></i>
                 </div>
-                </div>
+                </ng-container>
+                <ng-container *ngIf="(profileData.userAchievements && profileData.userAchievements.length > 0)">
+                  <ng-container *ngFor="let ach of profileData.userAchievements">
+                    <div *ngIf="ach.file else noAvaliable"
+                    class="border p-3 rounded bg-light d-flex justify-content-between align-items-center">
+                    <span class="fw-bold fs-6">{{
+                      extractLastName(ach.file)
+                      }}</span>
+                    <i class="fa-solid fa-download fa-xl cursor-pointer" (click)="openView(ach.file)"></i>
+                  </div>                  
+                </ng-container>
+                </ng-container>
+                <ng-template #noAvaliable>
+                  <div  class="text-muted">
+                    No certification files available
+                  </div>
+                </ng-template>
               </div>
             </div>
           </div>
-          <h5 *ngIf="profileData.userAchievements">
-            Achievements Name
-          </h5>
-          <div class="row g-2">
-            <div class="col-md-12" *ngFor="let cert of profileData.userAchievements">
-              <div class="d-flex justify-content-between align-items-center">
-                <p class="fw-bold">{{ cert.name }}</p>
-                  <div *ngIf="cert.file"
+        </div>
+      </div>
+    </div>
+  
+    <!-- Additional Details Section -->
+    <div class="card mb-4" *ngIf="profileData.additionalDetails && profileData.additionalDetails.languagesKnown && profileData.additionalDetails.languagesKnown.length > 0">
+      <div class="card-body">
+        <div class="row g-2">
+          <div class="col-md-3">
+            <h3 class="fw-bold text-navy">Additional Details</h3>
+            <div class="mt-3 text-warning">Looking to add more languages?</div>
+            <button pButton label="Click here to start learning!" class="p-button-outlined p-button-warning mt-2"></button>
+          </div>
+          <div class="col-md-9">
+            <div class="row g-2 mb-4">
+              <div class="col-12">
+                <div class="text-primary fw-bold mb-2">Languages Known</div>
+                <ng-container *ngFor="let lang of profileData.additionalDetails.languagesKnown">
+                  <div class="mb-2">
+                    <div class="d-flex align-items-center">
+                      <span class="me-2" style="width: 100px;">{{lang}}</span>
+                      <p-rating [ngModel]="3" [readonly]="true"></p-rating>
+                    </div>
+                  </div>
+                </ng-container>
+              </div>
+              
+              <div *ngIf="profileData.additionalDetails.hobbiesAndInterests" class="col-12 mt-3">
+                <div class="text-primary fw-bold mb-2">Hobbies & Interests</div>
+                <div>{{profileData.additionalDetails.hobbiesAndInterests}}</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  
+    <!-- Key Strengths Section -->
+    <div class="card mb-4" *ngIf="profileData.keyStrengths">
+      <div class="card-body">
+        <div class="row g-2">
+          <div class="col-md-3">
+            <h3 class="fw-bold text-navy">Key Strengths & Professional Traits</h3>
+            <div class="mt-3 text-warning">Want to add more skills?</div>
+            <button pButton label="Click here to add more to your list!" class="p-button-outlined p-button-warning mt-2"></button>
+          </div>
+          <div class="col-md-9">
+            <div class="mb-4">
+              <div class="text-primary fw-bold">What sets you apart in your industry?</div>
+              <p [innerHTML]="profileData.keyStrengths.industryDifferentiators || 'Not specified'"></p>
+            </div>
+            
+            <div class="row g-2">
+              <div class="col-md-6 mb-3">
+                <div class="text-primary fw-bold">Have you solved a real-world challenge in your field?</div>
+                <div>{{profileData.keyStrengths.solvedRealWorldChallenge || 'Not specified'}}</div>
+              </div>
+              <div class="col-md-6 mb-3">
+                <div class="text-primary fw-bold">Your top professional strength</div>
+                <div>{{profileData.keyStrengths.topProfessionalStrength || 'Not specified'}}</div>
+              </div>
+            </div>
+            
+            <div class="row g-2">
+              <div class="col-md-6 mb-3">
+                <div class="text-primary fw-bold">Have you taken on leadership roles?</div>
+                <div>{{profileData.keyStrengths.leadershipRoles || 'Not specified'}}</div>
+              </div>
+              <div class="col-md-6 mb-3">
+                <div class="text-primary fw-bold">One quality others admire most about you</div>
+                <div>{{profileData.keyStrengths.mostAdmiredQuality || 'Not specified'}}</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  
+    <!-- Professional Networking Section -->
+    <div class="card mb-4" *ngIf="profileData.networking">
+      <div class="card-body">
+        <div class="row g-2">
+          <div class="col-md-3">
+            <h3 class="fw-bold text-navy">Professional Networking & Online Presence</h3>
+          </div>
+          <div class="col-md-9">
+            <div class="row g-2">
+              <div class="col-md-4 mb-3">
+                <div class="text-primary fw-bold">LinkedIn Profile</div>
+                <a [href]="profileData.networking.linkedinProfile" target="_blank" class="text-break" *ngIf="profileData.networking.linkedinProfile">
+                  {{profileData.networking.linkedinProfile}}
+                </a>
+                <div *ngIf="!profileData.networking.linkedinProfile" class="text-muted">Not specified</div>
+              </div>
+              <div class="col-md-4 mb-3">
+                <div class="text-primary fw-bold">Personal Website</div>
+                <a [href]="profileData.networking.personalWebsite" target="_blank" class="text-break" *ngIf="profileData.networking.personalWebsite">
+                  {{profileData.networking.personalWebsite}}
+                </a>
+                <div *ngIf="!profileData.networking.personalWebsite" class="text-muted">Not specified</div>
+              </div>
+              
+              <div class="col-md-4 mb-3" *ngIf="profileData.networking.socialMedia && profileData.networking.socialMedia.length > 0">
+                <div class="text-primary fw-bold">Other Social Media</div>
+                <ng-container *ngFor="let social of profileData.networking.socialMedia">
+                  <div>
+                    <a [href]="social.link" target="_blank" class="text-break" *ngIf="social.link">
+                      {{social.media}}: {{social.link}}
+                    </a>
+                  </div>
+                </ng-container>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  
+    <!-- Attachments Section -->
+    <div class="card mb-4" *ngIf="profileData.attachments && profileData.attachments.length > 0">
+      <div class="card-body">
+        <div class="row g-2">
+          <div class="col-md-3">
+            <h3 class="fw-bold text-navy">Attachments & Media</h3>
+            <div class="mt-3 text-warning">Want to update your CV?</div>
+            <button pButton label="Click here to create or edit your resume!" class="p-button-outlined p-button-warning mt-2"></button>
+          </div>
+          <div class="col-md-9">
+            <div class="row g-2">
+              <ng-container *ngFor="let attachment of profileData.attachments">
+                <div class="col-md-4 mb-3" *ngIf="attachment.type === 'video'">
+                  <div class="text-primary fw-bold">Introduction Video</div>
+                  <a [href]="attachment.name" target="_blank">{{attachment.name || 'Not specified'}}</a>
+                </div>
+                <div class="col-md-4 mb-3" *ngIf="attachment.type === 'link'">
+                  <div class="text-primary fw-bold">Portfolio</div>
+                  <a [href]="attachment.name" target="_blank">{{attachment.name || 'Not specified'}}</a>
+                </div>
+                <div class="col-md-12 mb-3" *ngIf="attachment.type === 'document'">
+                  <div class="text-primary fw-bold">Upload CV / Resume</div>
+                  <div *ngIf="attachment.name"
                   class="border p-3 rounded bg-light d-flex justify-content-between align-items-center">
                   <span class="fw-bold fs-6">{{
-                   cert.file
+                    extractLastName(attachment.name)
                     }}</span>
-                  <i class="fa-solid fa-download fa-xl cursor-pointer" (click)="downloadFile(cert.file)"></i>
+                  <i class="fa-solid fa-download fa-xl cursor-pointer" (click)="openView(attachment.name)"></i>
+                </div>
+                  <div *ngIf="!attachment.name" class="text-muted">No CV uploaded</div>
+                </div>
+              </ng-container>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  
+    <!-- References Section -->
+    <div class="card mb-4" *ngIf="(profileData.academicReference && profileData.academicReference.length > 0) || 
+                                (profileData.professionalReference && profileData.professionalReference.length > 0)">
+      <div class="card-body">
+        <div class="row g-2">
+          <div class="col-md-3">
+            <h3 class="fw-bold text-navy">References & Endorsements</h3>
+          </div>
+          <div class="col-md-9">
+            <div class="mb-4" *ngIf="profileData.academicReference && profileData.academicReference.length > 0">
+              <div class="fw-bold fs-5 mb-3">Academic Reference</div>
+              <div class="row g-2" *ngFor="let ref of profileData.academicReference">
+                <div class="col-md-4 mb-3">
+                  <div class="text-primary fw-bold">College Name</div>
+                  <div>{{ref.collegeName || 'Not specified'}}</div>
+                </div>
+                <div class="col-md-4 mb-3">
+                  <div class="text-primary fw-bold">Reference Name</div>
+                  <div>{{ref.name || 'Not specified'}}</div>
+                </div>
+                <div class="col-md-4 mb-3">
+                  <div class="text-primary fw-bold">Designation</div>
+                  <div>{{ref.designation || 'Not specified'}}</div>
+                </div>
+                <div class="col-md-4 mb-3">
+                  <div class="text-primary fw-bold">Email</div>
+                  <div>{{ref.email || 'Not specified'}}</div>
+                </div>
+              </div>
+            </div>
+            
+            <div *ngIf="profileData.professionalReference && profileData.professionalReference.length > 0">
+              <div class="fw-bold fs-5 mb-3">Professional Reference</div>
+              <div class="row g-2" *ngFor="let ref of profileData.professionalReference">
+                <div class="col-md-4 mb-3">
+                  <div class="text-primary fw-bold">Organization Name</div>
+                  <div>{{ref.companyName || 'Not specified'}}</div>
+                </div>
+                <div class="col-md-4 mb-3">
+                  <div class="text-primary fw-bold">Reference Name</div>
+                  <div>{{ref.name || 'Not specified'}}</div>
+                </div>
+                <div class="col-md-4 mb-3">
+                  <div class="text-primary fw-bold">Designation</div>
+                  <div>{{ref.designation || 'Not specified'}}</div>
+                </div>
+                <div class="col-md-4 mb-3">
+                  <div class="text-primary fw-bold">Email</div>
+                  <div>{{ref.email || 'Not specified'}}</div>
                 </div>
               </div>
             </div>
           </div>
-        </ng-container>
-      </section>
-      <hr *ngIf="
-      profileData.additionalDetails?.languagesKnown ||
-      profileData.additionalDetails?.hobbiesAndInterests
-    ">
-
-      <!-- Additional Details Section -->
-      <section class="card-inside mb-4">
-        <div class="card-header">
-          <h3>Additional Details</h3>
         </div>
-        <div class="card-body" *ngIf="
-        profileData.additionalDetails?.languagesKnown ||
-        profileData.additionalDetails?.hobbiesAndInterests">
-          <div class="row">
-            <div class="col-md-6" *ngIf="profileData.additionalDetails?.languagesKnown">
-              <h5>Languages Known</h5>
-              <p>
-                {{ profileData.additionalDetails.languagesKnown.join(", ") }}
-              </p>
-            </div>
-            <div class="col-md-6" *ngIf="profileData.additionalDetails?.hobbiesAndInterests">
-              <h5>Hobbies & Interests</h5>
-              <p>{{ profileData.additionalDetails.hobbiesAndInterests }}</p>
-            </div>
+      </div>
+    </div>
+    
+    <!-- Additional Info Section if needed -->
+    <div class="card mb-4"  *ngIf="profileData.additionalInfo">
+      <div class="card-body">
+        <div class="row g-2">
+          <div class="col-md-3">
+            <h3 class="fw-bold text-navy">Additional Information</h3>
+          </div>
+          <div class="col-md-9">
+            <p>{{profileData.additionalInfo}}</p>
           </div>
         </div>
-      </section>
-      <hr *ngIf="profileData.keyStrengths">
-
-      <!-- Key Strengths Section -->
-      <section class="card-inside mb-4">
-        <div class="card-header">
-          <h3>Key Strengths & Professional Traits</h3>
-        </div>
-        <div class="card-body"  *ngIf="profileData.keyStrengths">
-          <div class="row">
-            <div class="col-md-12 text-wrap" *ngIf="profileData.keyStrengths.industryDifferentiators">
-              <h5>What Sets You Apart in Your Industry?</h5>
-              <p [innerHTML]="profileData.keyStrengths.industryDifferentiators"></p>
-            </div>
-            <div class="col-md-6" *ngIf="profileData.keyStrengths.topProfessionalStrength">
-              <h5>Top Professional Strength</h5>
-              <p>{{ profileData.keyStrengths.topProfessionalStrength }}</p>
-            </div>
-            <div class="col-md-6" *ngIf="profileData.keyStrengths.solvedRealWorldChallenge">
-              <h5>Solved a Real-World Challenge?</h5>
-              <p>{{ profileData.keyStrengths.solvedRealWorldChallenge }}</p>
-            </div>
-            <div class="col-md-6" *ngIf="profileData.keyStrengths.leadershipRoles">
-              <h5>Taken Leadership Roles?</h5>
-              <p>{{ profileData.keyStrengths.leadershipRoles }}</p>
-            </div>
-            <div class="col-md-12" *ngIf="profileData.keyStrengths.mostAdmiredQuality">
-              <h5>One Quality Others Admire Most About You</h5>
-              <p>{{ profileData.keyStrengths.mostAdmiredQuality }}</p>
-            </div>
-          </div>
-        </div>
-      </section>
-      <hr  *ngIf="
-      profileData.networking?.linkedinProfile ||
-      profileData.networking?.socialMedia  ||
-      profileData.networking?.personalWebsite
-    ">
-      <!-- Professional Networking Section -->
-      <section class="card-inside mb-4">
-        <div class="card-header">
-          <h3>Professional Networking & Online Presence</h3>
-        </div>
-        <div class="card-body"  *ngIf="
-        profileData.networking?.linkedinProfile ||
-        (profileData.networking?.socialMedia) ||
-        profileData.networking?.personalWebsite
-      ">
-          <div class="row g-2">
-            <div class="col-md-6" *ngIf="profileData.networking?.linkedinProfile">
-              <h5>LinkedIn Profile</h5>
-              <a [href]="profileData.networking.linkedinProfile" target="_blank">
-                {{ profileData.networking.linkedinProfile }}
-              </a>
-            </div>
-            <div class="col-md-6" *ngIf="
-                profileData.networking?.socialMedia">
-              <h5>Social Media</h5>
-              <ng-container *ngFor="let media of profileData.networking.socialMedia">
-                <a [href]="media.link" target="_blank">
-                  {{ media.media }}
-                </a>
-                <br />
-              </ng-container>
-            </div>
-            <div class="col-md-6" *ngIf="profileData.networking?.personalWebsite">
-              <h5>Personal Website</h5>
-              <a [href]="profileData.networking.personalWebsite" target="_blank">
-                {{ profileData.networking.personalWebsite }}
-              </a>
-            </div>
-          </div>
-        </div>
-      </section>
-      <hr *ngIf="profileData.attachments">
-
-
-      <!-- Attachments Section -->
-      <section class="card-inside mb-4">
-        <div class="card-header">
-          <h3>Attachments & Media</h3>
-        </div>
-        <div class="card-body" *ngIf="profileData.attachments">
-          <div class="row g-3">
-            <div *ngFor="let attachment of profileData.attachments" class="col-12">
-              <!-- Document Type -->
-              <div *ngIf="attachment.type === 'document'"
-                class="border p-3 rounded bg-light d-flex justify-content-between align-items-center">
-                <span class="fw-bold fs-6">{{
-                  extractLastName(attachment.name)
-                  }}</span>
-                <i class="fa-solid fa-download fa-xl cursor-pointer" (click)="downloadFile(attachment.name)"></i>
-              </div>
-
-              <!-- Other Media (non-document) -->
-              <div *ngIf="attachment.type !== 'document'"
-                class="border p-3 rounded bg-secondary-subtle d-flex justify-content-between align-items-center cursor-pointer"
-                (click)="attachmentLink.click()">
-                <span class="fw-bold fs-6">{{ attachment.name }}</span>
-                <i class="fa-solid fa-link fa-xl">
-                  <a [href]="attachment.name" target="_blank" #attachmentLink></a>
-                </i>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-      <hr *ngIf="
-      profileData.academicReference ||
-      profileData.professionalReference">
-
-      <!-- References Section -->
-      <section class="card-inside" >
-        <div class="card-header">
-          <h3>References & Endorsements</h3>
-        </div>
-        <div class="card-body" *ngIf="
-        profileData.academicReference ||
-        profileData.professionalReference
-      ">
-          <!-- Academic References -->
-          <div *ngIf="profileData.academicReference">
-            <h4 class="text-dark fw-bold mb-3">Academic Reference</h4>
-            <div class="row g-3 mb-4" *ngFor="
-                let reference of profileData.academicReference;
-                let last = last
-              ">
-              <div class="col-md-4" *ngIf="reference.collegeName">
-                <h5>College Name</h5>
-                <p>{{ reference.collegeName }}</p>
-              </div>
-              <div class="col-md-4" *ngIf="reference.name">
-                <h5>Name</h5>
-                <p>{{ reference.name }}</p>
-              </div>
-              <div class="col-md-4" *ngIf="reference.email">
-                <h5>Email</h5>
-                <p>{{ reference.email }}</p>
-              </div>
-              <div class="col-md-4" *ngIf="reference.designation">
-                <h5>Designation</h5>
-                <p>{{ reference.designation }}</p>
-              </div>
-              <hr *ngIf="!last" class="col-12 mt-2" />
-            </div>
-          </div>
-
-          <!-- Professional References -->
-          <div *ngIf="profileData.professionalReference">
-            <h4 class="text-dark fw-bold my-3">Professional Reference</h4>
-            <div class="row g-3" *ngFor="
-                let reference of profileData.professionalReference;
-                let last = last
-              ">
-              <div class="col-md-4" *ngIf="reference.companyName">
-                <h5>Company Name</h5>
-                <p>{{ reference.companyName }}</p>
-              </div>
-              <div class="col-md-4" *ngIf="reference.name">
-                <h5>Name</h5>
-                <p>{{ reference.name }}</p>
-              </div>
-              <div class="col-md-4" *ngIf="reference.email">
-                <h5>Email</h5>
-                <p>{{ reference.email }}</p>
-              </div>
-              <div class="col-md-4" *ngIf="reference.designation">
-                <h5>Designation</h5>
-                <p>{{ reference.designation }}</p>
-              </div>
-              <hr *ngIf="!last" class="col-12 mt-2" />
-            </div>
-          </div>
-        </div>
-      </section>
-
-      <section class="card-inside mt-3" *ngIf="profileData.additionalInfo">
-        <h4 class="text-dark fw-bold mb-3">Additional Notes</h4>
-        <p [innerHTML]="profileData.additionalInfo"></p>
-      </section>
-
+      </div>
     </div>
   </div>
 </div>
