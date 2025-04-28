@@ -14,7 +14,10 @@
 					<div class="col-md-12">
 						<div class="row align-items-center">
 							<div class="col-md-6 mb-md-0 mb-4">
-								<h1 class="fw-normal text-white">{{ landingPageData?.herocover?.hero_title }}</h1>
+								<h1 class="fw-normal text-white">
+									<span class="fw-bold uniprep-secondary">{{ landingPageData?.herocover?.hero_title?.split('.')[0] }}.</span>
+									{{ landingPageData?.herocover?.hero_title?.split('.').slice(1).join('.') }}
+								</h1>
 								<p class="mb-4">{{ landingPageData?.herocover?.hero_description }}</p>
 								<div class="d-flex gap-2">
 									<button class="btn btn-outline-light rounded px-4 py-3" (click)="scrollToSection($event, 'why-choose-us')">Learn More</button>
