@@ -309,15 +309,7 @@ export class PitchDeskComponent implements OnInit, OnDestroy, AfterViewInit {
 	}
 
 	checkplanExpire(): void {
-		if (this.authService._userSubscrition.time_left.plan === "expired" ||
-			this.authService._userSubscrition.time_left.plan === "subscription_expired" ||
-			this.authService._userSubscrition.subscription_details.subscription_plan === "Student" ||
-			this.authService._userSubscrition.subscription_details.subscription_plan === "Career") {
-			this.planExpired = true;
-		}
-		else {
-			this.planExpired = false;
-		}
+		this.planExpired = this.authService.isInvalidSubscription('pitch_desk');
 		this.getPitchDeskList()
 
 	}

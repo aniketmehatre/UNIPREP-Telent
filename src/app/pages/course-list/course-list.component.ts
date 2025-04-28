@@ -13,12 +13,13 @@ import { DialogModule } from "primeng/dialog"
 import { MultiSelectModule } from "primeng/multiselect"
 import { CarouselModule } from "primeng/carousel"
 import { ButtonModule } from "primeng/button"
+import { PaginatorModule } from "primeng/paginator"
 @Component({
 	selector: "uni-course-list",
 	templateUrl: "./course-list.component.html",
 	styleUrls: ["./course-list.component.scss"],
 	standalone: true,
-	imports: [CommonModule, DialogModule, MultiSelectModule, FormsModule, ReactiveFormsModule, CarouselModule, ButtonModule, RouterModule],
+	imports: [CommonModule, DialogModule, MultiSelectModule, FormsModule, ReactiveFormsModule, CarouselModule, ButtonModule, RouterModule, PaginatorModule],
 })
 export class CourseListComponent implements OnInit {
 	page: number = 1

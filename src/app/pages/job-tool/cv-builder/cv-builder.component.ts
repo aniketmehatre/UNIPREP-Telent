@@ -204,7 +204,6 @@ export class CvBuilderComponent implements OnInit, AfterViewInit {
   ];
 
   editorModules: any;
-  planExpired: boolean = false;
   hidingHeaders: string[] = ["project_details"];
   swiper!: Swiper;
   pdfLoadError: boolean = false;
@@ -353,7 +352,6 @@ export class CvBuilderComponent implements OnInit, AfterViewInit {
         ["clean"], // Clear formatting button
       ],
     };
-    this.checkplanExpire();
     this.previousResumes();
     let currentuserName = this.resumeFormInfoData.value.user_name;
     this.splitUserName(currentuserName); // it calls when the page refresh
@@ -926,6 +924,10 @@ export class CvBuilderComponent implements OnInit, AfterViewInit {
   }
 
   next() {
+    if (this.authService.isInvalidSubscription('career_tools')) {
+      this.authService.hasUserSubscription$.next(true);
+      return;
+    }
     if (this.activePageIndex == 0) {
       this.ngAfterViewInit();
     }
@@ -1195,10 +1197,6 @@ export class CvBuilderComponent implements OnInit, AfterViewInit {
   }
 
   downloadResume() {
-    if (this.planExpired) {
-      this.authService.hasUserSubscription$.next(true);
-      return;
-    }
     this.clickedDownloadButton = true;
     let formData = this.resumeFormInfoData.value;
     let data = {
@@ -1404,17 +1402,6 @@ export class CvBuilderComponent implements OnInit, AfterViewInit {
     if (control && control.value) {
       control.setValue("");
     }
-  }
-  checkplanExpire(): void {
-    if (this.authService._userSubscrition.time_left.plan === "expired" ||
-      this.authService._userSubscrition.time_left.plan === "subscription_expired" ||
-      this.authService._userSubscrition.subscription_details.subscription_plan === "Student") {
-      this.planExpired = true;
-    }
-    else {
-      this.planExpired = false;
-    }
-
   }
 
   //Validation for start year and end year for Work experience field

@@ -11,6 +11,7 @@ import { Dialog, DialogModule } from "primeng/dialog";
 import { Card } from "primeng/card";
 import { FormsModule, ReactiveFormsModule } from "@angular/forms";
 import { ButtonModule } from "primeng/button";
+import { AuthService } from "src/app/Auth/auth.service";
 
 @Component({
   selector: "uni-global-work-visa",
@@ -65,8 +66,9 @@ export class GlobalWorkVisaComponent implements OnInit {
     private router: Router,
     private meta: Meta,
     private toast: MessageService,
-    private dataService: DataService
-  ) {}
+    private dataService: DataService,
+    private authService: AuthService
+  ) { }
 
   ngOnInit(): void {
     this.getCountriesList();
@@ -90,6 +92,10 @@ export class GlobalWorkVisaComponent implements OnInit {
   }
 
   next(itemId: number) {
+    if (this.authService.isInvalidSubscription('career_tools')) {
+      this.authService.hasUserSubscription$.next(true);
+      return;
+    }
     this.invalidClass = !(itemId in this.selectedData);
     if (!this.invalidClass) {
       this.activePageIndex < this.recommendations.length - 1
@@ -133,7 +139,7 @@ export class GlobalWorkVisaComponent implements OnInit {
           const visa = this.recomendationData.find(
             (item) => item.visa_name === visa_name
           );
-          return { id: visa.id, visa_name, icon : visa.icon };
+          return { id: visa.id, visa_name, icon: visa.icon };
         });
         this.recommendationDataList = uniqueVisaData;
       },

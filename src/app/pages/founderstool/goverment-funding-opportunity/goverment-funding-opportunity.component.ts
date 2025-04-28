@@ -90,9 +90,9 @@ export class GovermentFundingOppurtunityComponent implements OnInit {
 	ngOnInit(): void {
 		this.checkUserRecommendation()
 		this.getFundCountry()
-		this.checkplanExpire()
 		this.getFundType()
 		this.GetPersonalProfileData()
+		this.loadFundData(0, this.selectedData)
 	}
 
 	performSearch() {
@@ -212,10 +212,6 @@ export class GovermentFundingOppurtunityComponent implements OnInit {
 	}
 
 	pageChange(event: any) {
-		if (this.planExpired) {
-			this.authService.hasUserSubscription$.next(true);
-			return
-		}
 		this.selectAllCheckboxes = false
 		this.selectedFund = 0
 		this.page = event.first / this.pageSize + 1
@@ -231,27 +227,10 @@ export class GovermentFundingOppurtunityComponent implements OnInit {
 	}
 
 	filterBy() {
-		if (this.planExpired) {
-			this.authService.hasUserSubscription$.next(true);
-			return
-		}
 		this.isFilterVisible = true
 	}
 
 	exportTable() { }
-
-	checkplanExpire(): void {
-		if (this.authService._userSubscrition.time_left.plan === "expired" ||
-			this.authService._userSubscrition.time_left.plan === "subscription_expired" ||
-			this.authService._userSubscrition.subscription_details.subscription_plan === "Student" ||
-			this.authService._userSubscrition.subscription_details.subscription_plan === "Career") {
-			this.planExpired = true;
-		}
-		else {
-			this.planExpired = false;
-		}
-		this.loadFundData(0, this.selectedData)
-	}
 
 	fundingGuidlines(): void {
 		this.router.navigate(["/pages/funding-guidlines"])
@@ -320,10 +299,6 @@ export class GovermentFundingOppurtunityComponent implements OnInit {
 	}
 
 	buyCredits(): void {
-		if (this.planExpired) {
-			this.authService.hasUserSubscription$.next(true);
-			return
-		}
 		this.router.navigate(["/pages/export-credit"])
 	}
 
@@ -343,10 +318,7 @@ export class GovermentFundingOppurtunityComponent implements OnInit {
 	}
 
 	exportData() {
-		if (this.planExpired) {
-			this.authService.hasUserSubscription$.next(true);
-			return
-		} else if (this.exportCreditCount != 0) {
+		if (this.exportCreditCount != 0) {
 			this.exportDataIds = []
 			this.fundData.forEach((item) => {
 				if (item.isChecked == 1) {
@@ -434,10 +406,6 @@ export class GovermentFundingOppurtunityComponent implements OnInit {
 	}
 
 	getRecommendation() {
-		if (this.planExpired) {
-			this.authService.hasUserSubscription$.next(true);
-			return
-		}
 		let keyMapping: any = { "1": "country", "2": "region", "3": "type" }
 		let newData = Object.fromEntries(
 			Object.entries(this.selectedData).map(([key, value]) => {
@@ -461,6 +429,10 @@ export class GovermentFundingOppurtunityComponent implements OnInit {
 	}
 
 	next(productId: number): void {
+		if (this.authService.isInvalidSubscription('founders_tools')) {
+			this.authService.hasUserSubscription$.next(true);
+			return;
+		}
 		this.invalidClass = false
 		if (productId in this.selectedData) {
 			if (this.activePageIndex < this.recommendations.length - 1) {

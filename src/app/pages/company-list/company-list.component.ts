@@ -40,7 +40,6 @@ export class CompanyListComponent implements OnInit {
   totalCompanyCount: any;
   isFilterVisible: string = 'none';
   filterForm: FormGroup;
-  planExpired!: boolean;
   restrict: boolean = false;
   currentPlan: string = "";
   PersonalInfo!: any;
@@ -97,7 +96,6 @@ export class CompanyListComponent implements OnInit {
 
   ngOnInit(): void {
     this.loadMultiSelectData();
-    this.checkplanExpire();
     this.GetPersonalProfileData();
     this.checkRecommendation();
   }
@@ -107,11 +105,6 @@ export class CompanyListComponent implements OnInit {
   // }
 
   performSearch(events: any) {
-    if (this.planExpired) {
-      this.authService.hasUserSubscription$.next(true);
-      this.valueNearYouFilter = "";
-      return;
-    }
     if (this.valueNearYouFilter == "") {
       this.loadCompanyData(0);
       return;
@@ -126,13 +119,10 @@ export class CompanyListComponent implements OnInit {
   }
 
   searchClick() {
-    if (this.planExpired) {
-      this.authService.hasUserSubscription$.next(true);
-      this.valueNearYouFilter = "";
-      let searchInput = document.getElementById("searchInput") as HTMLInputElement;;
-      if (searchInput !== null) {
-        searchInput.disabled = true;
-      }
+    this.valueNearYouFilter = "";
+    let searchInput = document.getElementById("searchInput") as HTMLInputElement;;
+    if (searchInput !== null) {
+      searchInput.disabled = true;
     }
   }
   loadMultiSelectData() {
@@ -185,10 +175,6 @@ export class CompanyListComponent implements OnInit {
   }
 
   pageChange(event: any) {
-    if (this.planExpired) {
-      this.authService.hasUserSubscription$.next(true);
-      return;
-    }
     this.selectAllCheckboxes = false;
     this.selectedCompanies = 0;
     this.page = event.page + 1;
@@ -202,10 +188,6 @@ export class CompanyListComponent implements OnInit {
   }
 
   filterBy() {
-    if (this.planExpired) {
-      this.authService.hasUserSubscription$.next(true);
-      return;
-    }
     this.isFilterVisible = 'block';
   }
 
@@ -213,18 +195,6 @@ export class CompanyListComponent implements OnInit {
     this.companyListService.export().subscribe((response) => {
       window.open(response.link, '_blank');
     });
-  }
-
-  checkplanExpire(): void {
-    if (this.authService._userSubscrition.time_left.plan === "expired" ||
-      this.authService._userSubscrition.time_left.plan === "subscription_expired" ||
-      this.authService._userSubscrition.subscription_details.subscription_plan === 'free_trail' ||
-      this.authService._userSubscrition.subscription_details.subscription_plan === 'Student') {
-      this.planExpired = true;
-    }
-    else {
-      this.planExpired = true;
-    }
   }
 
   companyGuidlines(): void {
@@ -283,7 +253,7 @@ export class CompanyListComponent implements OnInit {
   }
 
   buyCredits(): void {
-    if (this.planExpired) {
+    if (this.authService.isInvalidSubscription('career_tools')) {
       this.authService.hasUserSubscription$.next(true);
       return;
     }
@@ -321,10 +291,11 @@ export class CompanyListComponent implements OnInit {
   }
 
   exportData() {
-    if (this.planExpired) {
+    if (this.authService.isInvalidSubscription('career_tools')) {
       this.authService.hasUserSubscription$.next(true);
       return;
-    } else if (this.exportCreditCount != 0) {
+    }
+    else if (this.exportCreditCount != 0) {
       this.exportDataIds = [];
       this.companyListData.forEach(item => {
         if (item.isChecked == 1) {
@@ -394,6 +365,10 @@ export class CompanyListComponent implements OnInit {
   }
 
   next(productId: number): void {
+    if (this.authService.isInvalidSubscription('career_tools')) {
+      this.authService.hasUserSubscription$.next(true);
+      return;
+    }
     this.invalidClass = false;
     if (productId in this.selectedData) {
       if (this.activePageIndex < this.recommendations.length - 1) {

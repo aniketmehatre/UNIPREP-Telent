@@ -19,6 +19,7 @@ import { FormsModule, ReactiveFormsModule } from "@angular/forms"
 import { InputGroupModule } from "primeng/inputgroup"
 import { SelectModule } from "primeng/select"
 import { environment } from "@env/environment"
+import { AuthService } from "src/app/Auth/auth.service"
 
 @Component({
 	selector: "uni-global-travel-visa",
@@ -52,9 +53,9 @@ export class GlobalTravelVisaComponent implements OnInit {
 	modeName: any
 	moduleId: any
 	moduleTitile: string = ""
-  countryNameTitle:any=""
-  visaNameTite:any=""
-  visaCategoryTitle:any=""
+	countryNameTitle: any = ""
+	visaNameTite: any = ""
+	visaCategoryTitle: any = ""
 	visaCategoryList: any[] = [
 		{
 			id: 1,
@@ -64,12 +65,14 @@ export class GlobalTravelVisaComponent implements OnInit {
 	]
 	visaCategoryQuestionList: any[] = []
 	eachVisaNameCategory: any[] = [];
-	eachVisaCategoryAllList:any[]=[];
+	eachVisaCategoryAllList: any[] = [];
 	isQuestionAnswerVisible: boolean = false
 	selectedQuestionData: any
 	isNotSelectingDropdown: boolean = false
-	imageUrl: any = `https://${environment.domain}/uniprepapi/storage/app/public/ToolIcons/travel-tools/`
-	constructor(private travelToolService: TravelToolsService, private router: Router, private meta: Meta, private toast: MessageService, private dataService: DataService) {}
+	imageUrl: any = `https://${environment.domain}/uniprepapi/storage/app/public/ToolIcons/travel-tools/`;
+
+	constructor(private travelToolService: TravelToolsService, private router: Router, private meta: Meta,
+		private toast: MessageService, private dataService: DataService, private authService: AuthService) { }
 
 	ngOnInit(): void {
 		this.getCurrentModule()
@@ -130,6 +133,24 @@ export class GlobalTravelVisaComponent implements OnInit {
 	}
 
 	next(itemId: number) {
+		if (this.title == "Global Study Visa") {
+			if (this.authService.isInvalidSubscription('education_tools')) {
+				this.authService.hasUserSubscription$.next(true);
+				return;
+			}
+		}
+		else if (this.title == "Global Entrepreneur Visa") {
+			if (this.authService.isInvalidSubscription('founders_tools')) {
+				this.authService.hasUserSubscription$.next(true);
+				return;
+			}
+		}
+		else if (this.title == "Global Travel Visa") {
+			if (this.authService.isInvalidSubscription('travel_tools')) {
+				this.authService.hasUserSubscription$.next(true);
+				return;
+			}
+		}
 		if (itemId == 1) {
 			this.invalidClass = !(itemId in { 1: 122 })
 		} else {
@@ -170,10 +191,10 @@ export class GlobalTravelVisaComponent implements OnInit {
 				this.recomendationData = response.Data
 				const uniqueVisaData = Array.from(
 					new Map(
-					  this.recomendationData.map((item) => [item.visa_name, { visa_name: item.visa_name, visa_icons: item.visa_icons }])
+						this.recomendationData.map((item) => [item.visa_name, { visa_name: item.visa_name, visa_icons: item.visa_icons }])
 					).values()
-				  );
-				this.recommendationDataList = uniqueVisaData								
+				);
+				this.recommendationDataList = uniqueVisaData
 			},
 			error: (error) => {
 				this.isRecommendationData = false
@@ -182,25 +203,25 @@ export class GlobalTravelVisaComponent implements OnInit {
 	}
 
 	getVisaCategoryList(name: any) {
-    this.visaNameTite=name;
+		this.visaNameTite = name;
 		this.isRecommendationQuestion = false
 		this.isRecommendationData = false
 		this.isRecommendationSavedData = false
 		this.isRecommendationEachVisaNameData = true
 		this.eachVisaNameCategory = [];
-		this.eachVisaCategoryAllList=[];
+		this.eachVisaCategoryAllList = [];
 		const bridgingVisaData = this.recomendationData.filter((item) => item.visa_name === name)
 		const uniqueVisaCategory = Array.from(
 			new Set(bridgingVisaData.map((item) => item.question_category)) // Extract unique visa category names
 		).map((question_category) => ({ question_category }))
 		this.eachVisaNameCategory = uniqueVisaCategory;
-		this.eachVisaCategoryAllList=bridgingVisaData;
+		this.eachVisaCategoryAllList = bridgingVisaData;
 	}
 
 	viewOneQuestion(data: any) {
 		this.isQuestionAnswerVisible = true
 		console.log(data);
-		
+
 		this.selectedQuestionData = data
 	}
 
@@ -278,14 +299,14 @@ export class GlobalTravelVisaComponent implements OnInit {
 		}
 	}
 	viewQuestions(category: any) {
-    this.visaCategoryTitle=category;
+		this.visaCategoryTitle = category;
 		this.visaCategoryQuestionList = []
 		this.isRecommendationQuestion = false
 		this.isRecommendationData = false
 		this.isRecommendationSavedData = true
 		this.isRecommendationEachVisaNameData = false
 		const bridgingVisaData = this.eachVisaCategoryAllList.filter((item) => item.question_category === category)
-		this.visaCategoryQuestionList = bridgingVisaData		
+		this.visaCategoryQuestionList = bridgingVisaData
 	}
 	openReport() {
 		let data: any = {
@@ -343,7 +364,7 @@ export class GlobalTravelVisaComponent implements OnInit {
 		}
 		return image
 	}
-  onChangeCountry(eve:any){
-    this.countryNameTitle=eve.value.country
-  }
+	onChangeCountry(eve: any) {
+		this.countryNameTitle = eve.value.country
+	}
 }

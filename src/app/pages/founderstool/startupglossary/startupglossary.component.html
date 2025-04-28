@@ -7,21 +7,29 @@
 				</div>
 				<div class="select-title d-flex justify-content-between align-items-center">
 					<div class="d-flex gap-2">
-						<h5 routerLink="/pages/dashboard" role="button" class="mb-0" tooltipPosition="top" pTooltip=""><i class="fa-regular fa-home"></i></h5>
+						<h5 routerLink="/pages/dashboard" role="button" class="mb-0" tooltipPosition="top" pTooltip="">
+							<i class="fa-regular fa-home"></i></h5>
 						<span><i class="fa-solid fa-chevron-right"></i></span>
-						<h5 routerLink="/pages/founderstool/founderstoollist" role="button" class="mb-0" tooltipPosition="top">Founders Tool</h5>
+						<h5 routerLink="/pages/founderstool/founderstoollist" role="button" class="mb-0"
+							tooltipPosition="top">Founders Tool</h5>
 						<span><i class="fa-solid fa-chevron-right"></i></span>
-						<h5 role="button" class="mb-0" tooltipPosition="top" pTooltip="Access resources for starting your business, from ideation to execution.">Startup Glossary</h5>
+						<h5 role="button" class="mb-0" tooltipPosition="top"
+							pTooltip="Access resources for starting your business, from ideation to execution.">Startup
+							Glossary</h5>
 					</div>
 					<div>
-						<button pButton (click)="openVideoPopup('https://www.youtube.com/embed/aMS2fbZFaq8?si=SmPbHVer5ValUrr0')" class="how-it-works-button">How it works?<i class="fa-solid fa-play d-md-block d-none"></i></button>
+						<button pButton
+							(click)="openVideoPopup('https://www.youtube.com/embed/aMS2fbZFaq8?si=SmPbHVer5ValUrr0')"
+							class="how-it-works-button">How it works?<i
+								class="fa-solid fa-play d-md-block d-none"></i></button>
 					</div>
 				</div>
 			</div>
 		</div>
 		<div class="row mt-2 align-items-center">
 			<div class="col-md-8 col-12 d-flex align-items-center overflow-x-auto order-md-1 order-2 gap-3">
-				<h5 class="fw-medium mb-0" *ngFor="let cat of category_dropdown" [ngClass]="{ 'selected-category': isSelected(cat.id) }" (click)="filterCat(cat.id)">
+				<h5 class="fw-medium mb-0" *ngFor="let cat of category_dropdown"
+					[ngClass]="{ 'selected-category': isSelected(cat.id) }" (click)="filterCat(cat.id)">
 					<span style="cursor: pointer">{{ cat.name }}</span>
 				</h5>
 			</div>
@@ -30,7 +38,8 @@
 					<p-inputgroup-addon>
 						<i class="fa-solid fa-search"></i>
 					</p-inputgroup-addon>
-					<input type="text" placeholder="Search for a term" pInputText [(ngModel)]="valueNearYouFilter" (input)="performSearch()" />
+					<input type="text" placeholder="Search for a term" pInputText [(ngModel)]="valueNearYouFilter"
+						(ngModelChange)="performSearch()" />
 				</p-inputgroup>
 			</div>
 		</div>
@@ -51,20 +60,21 @@
 					<h2 *ngIf="alphabet.key" class="uniprep-secondary">{{ alphabet.key }}</h2>
 					<hr />
 					<div *ngFor="let term of alphabet.value">
-					  <h5 style="color: #3f4c83">
-						<ng-container *ngFor="let part of term.glossarytermParts">
-						  <span [ngClass]="{ 'highlight': part.highlight }">{{ part.word }}</span>
-						</ng-container>
-					  </h5>
-					  <h6 style="font-size: 0.9rem">
-						<ng-container *ngFor="let part of term.summaryParts">
-						  <span [ngClass]="{ 'highlight': part.highlight }">{{ part.word }}</span>
-						</ng-container>
-					  </h6>
-					  <hr />
+						<h5 style="color: #3f4c83">
+							<ng-container *ngFor="let part of term.glossarytermParts">
+								<span [ngClass]="{ 'highlight': part.highlight }">{{ part.word }}</span>
+							</ng-container>
+						</h5>
+						<h6 style="font-size: 0.9rem">
+							<ng-container *ngFor="let part of term.summaryParts">
+								<span [ngClass]="{ 'highlight': part.highlight }">{{ part.word }}</span>
+							</ng-container>
+						</h6>
+						<hr />
 					</div>
-				  </div>
-				<div *ngIf="startupglossarylists && startupglossarylists.length > 0 && isObjectEmpty(groupedTerms)" class="d-flex justify-content-center centerDiv">
+				</div>
+				<div *ngIf="startupglossarylists && startupglossarylists.length > 0 && isObjectEmpty(groupedTerms)"
+					class="d-flex justify-content-center centerDiv">
 					<h3>No results found</h3>
 				</div>
 			</div>

@@ -24,7 +24,8 @@ import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
 import { PromptService } from '../../prompt.service';
 import { SharedModule } from 'src/app/shared/shared.module';
 import { PageFacadeService } from '../../page-facade.service';
-
+import { AuthService } from 'src/app/Auth/auth.service';
+import { removeExtraResponse } from "../../prompt"
 @Component({
   selector: 'uni-student-budget-planner',
   templateUrl: './student-budget-planner.component.html',
@@ -41,7 +42,8 @@ export class StudentBudgetPlannerComponent implements OnInit {
     private toastr: MessageService,
     private sanitizer: DomSanitizer,
     private promptService: PromptService,
-    private pageFacade: PageFacadeService
+    private pageFacade: PageFacadeService,
+    private authService: AuthService
   ) { }
   recommendations: { id: number, question: string }[] = [
     {
@@ -120,19 +122,19 @@ export class StudentBudgetPlannerComponent implements OnInit {
     { value: 'Upto 60 Months' },
   ]
   notfilledArray: string[] = [];
-	isResponseSkeleton: boolean = false;
+  isResponseSkeleton: boolean = false;
 
   ngOnInit(): void {
     this.dropdownValues();
     this.getAICreditCount();
   }
-  getAICreditCount(){
-		this.promptService.getAicredits().subscribe({
-		  next: resp =>{
-			this.aiCreditCount = resp;
-		  }
-		})
-	}
+  getAICreditCount() {
+    this.promptService.getAicredits().subscribe({
+      next: resp => {
+        this.aiCreditCount = resp;
+      }
+    })
+  }
   dropdownValues() {
     this.educationService.getDropdownValues().subscribe({
       next: response => {
@@ -153,6 +155,10 @@ export class StudentBudgetPlannerComponent implements OnInit {
   }
 
   next(productId: number): void {
+    if (this.authService.isInvalidSubscription('education_tools')) {
+      this.authService.hasUserSubscription$.next(true);
+      return;
+    }
     this.isSubmitted = true;
     let fillables: any = [];
     this.notfilledArray = [];
@@ -185,7 +191,7 @@ export class StudentBudgetPlannerComponent implements OnInit {
     this.pageFacade.openHowitWorksVideoPopup(videoLink);
   }
   submit() {
-    if(this.aiCreditCount == 0){
+    if (this.aiCreditCount == 0) {
       this.toastr.add({ severity: "error", summary: "Error", detail: "Free AI Credits Over.Please Buy Some Credits..!" });
       return;
     }
@@ -202,7 +208,7 @@ export class StudentBudgetPlannerComponent implements OnInit {
     this.isSavedResponse = false;
     this.isOldResponse = false;
     this.isResponsePage = true;
-		this.isResponseSkeleton = true;
+    this.isResponseSkeleton = true;
     this.travelService.getChatgptRecommendations(this.selectedData).subscribe({
       next: response => {
         this.isResponseSkeleton = false;
@@ -210,9 +216,9 @@ export class StudentBudgetPlannerComponent implements OnInit {
         this.getAICreditCount();
       },
       error: (error) => {
-				console.error(error);
-				this.isResponseSkeleton = false;
-			}
+        console.error(error);
+        this.isResponseSkeleton = false;
+      }
     })
   }
 
@@ -246,6 +252,10 @@ export class StudentBudgetPlannerComponent implements OnInit {
   }
 
   listOfSavedResponse() {
+    if (this.authService.isInvalidSubscription('education_tools')) {
+      this.authService.hasUserSubscription$.next(true);
+      return;
+    }
     this.educationService.getSavedRes().subscribe({
       next: response => {
         this.recommadationSavedQuestionList = response.data;
@@ -257,16 +267,14 @@ export class StudentBudgetPlannerComponent implements OnInit {
   }
 
   showRecommandationData(response: string, userInputs: any) {
-    this.recommendationData = response;
+    this.recommendationData = removeExtraResponse(response);
     this.isSavedResponse = false;
     this.isRecommendation = false;
     this.isResponsePage = true;
     this.isOldResponse = true;
-
-    
-		const encodedJson = userInputs;
-		const decodedInput = JSON.parse(encodedJson);
-		this.userInputs = decodedInput;
+    const encodedJson = userInputs;
+    const decodedInput = JSON.parse(encodedJson);
+    this.userInputs = decodedInput;
   }
 
   resetRecommendation() {
@@ -282,7 +290,7 @@ export class StudentBudgetPlannerComponent implements OnInit {
 
   downloadRecommadation() {
     let currentCurrency = this.selectedCurrency;
-    if(!currentCurrency){
+    if (!currentCurrency) {
       let getCurrencyName = this.countriesList.find(u => u.id === this.userInputs.country_id);
       currentCurrency = getCurrencyName?.currency || '';  // Default to empty string
     }

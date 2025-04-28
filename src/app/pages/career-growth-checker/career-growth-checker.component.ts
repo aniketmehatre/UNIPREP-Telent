@@ -85,7 +85,6 @@ export class CareerGrowthCheckerComponent implements OnInit {
 	invalidClassCountry: boolean = false
 	hasFilteredOptions: boolean = false
 	isSelecting: boolean = false
-	planExpired: boolean = false
 
 	ngOnInit(): void {
 		this.checkForm = this.fb.group({
@@ -158,7 +157,6 @@ export class CareerGrowthCheckerComponent implements OnInit {
 					this.hasFilteredOptions = false
 				}
 			)
-		this.checkplanExpire()
 	}
 
 	fetchJobRoles(searchTerm: string): Observable<any[]> {
@@ -196,9 +194,9 @@ export class CareerGrowthCheckerComponent implements OnInit {
 	// }
 
 	search() {
-		if (this.planExpired) {
+		if (this.authService.isInvalidSubscription('career_tools')) {
 			this.authService.hasUserSubscription$.next(true);
-			return
+			return;
 		}
 		const jobSearchValue = this.checkForm.value.jobSearch
 
@@ -261,18 +259,6 @@ export class CareerGrowthCheckerComponent implements OnInit {
 		const headerOffset = document.querySelector(".fixed-header")?.clientHeight || 0
 
 		element.scrollIntoView({ behavior: "smooth", block: "end" })
-	}
-
-	checkplanExpire(): void {
-		if (this.authService._userSubscrition.time_left.plan === "expired" ||
-			this.authService._userSubscrition.time_left.plan === "subscription_expired" ||
-			this.authService._userSubscrition.subscription_details.subscription_plan === "Student"
-		) {
-			this.planExpired = true;
-		}
-		else {
-			this.planExpired = false;
-		}
 	}
 
 }

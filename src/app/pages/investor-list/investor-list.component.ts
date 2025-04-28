@@ -8,7 +8,6 @@ import { UserManagementService } from '../user-management/user-management.servic
 import { MessageService } from 'primeng/api';
 import { DataService } from 'src/app/data.service';
 import { PageFacadeService } from '../page-facade.service';
-import { LocationService } from 'src/app/location.service';
 import { CommonModule } from '@angular/common';
 import { DialogModule } from 'primeng/dialog';
 import { MultiSelectModule } from 'primeng/multiselect';
@@ -43,7 +42,6 @@ export class InvestorListComponent implements OnInit {
   totalInvestorsCount: any;
   isFilterVisible: string = 'none';
   filterForm: FormGroup;
-  planExpired!: boolean;
   currentPlan: string = "";
   isBookmarked: boolean = false;
   PersonalInfo!: any;
@@ -87,7 +85,6 @@ export class InvestorListComponent implements OnInit {
     private toast: MessageService,
     private dataService: DataService,
     private pageFacade: PageFacadeService,
-    private locationService: LocationService,
   ) {
     this.filterForm = this.fb.group({
       org_name: [''],
@@ -100,7 +97,6 @@ export class InvestorListComponent implements OnInit {
 
   ngOnInit(): void {
     this.loadMultiSelectData();
-    this.checkplanExpire();
     this.GetPersonalProfileData();
     this.getStoredRecommendation();
   }
@@ -220,10 +216,6 @@ export class InvestorListComponent implements OnInit {
   }
 
   buyCredits(): void {
-    if (this.planExpired) {
-      this.authService.hasUserSubscription$.next(true);
-      return;
-    }
     this.router.navigate(["/pages/export-credit"]);
   }
 
@@ -262,10 +254,6 @@ export class InvestorListComponent implements OnInit {
   }
 
   pageChange(event: any) {
-    if (this.planExpired) {
-      this.authService.hasUserSubscription$.next(true);
-      return;
-    }
     this.selectAllCheckboxes = false;
     this.selectedInvestors = 0;
     this.page = event.page + 1;
@@ -279,10 +267,6 @@ export class InvestorListComponent implements OnInit {
   }
 
   filterBy() {
-    if (this.planExpired) {
-      this.authService.hasUserSubscription$.next(true);
-      return;
-    }
     this.isFilterVisible = 'block';
   }
 
@@ -290,18 +274,6 @@ export class InvestorListComponent implements OnInit {
     this.investorList.export().subscribe((response) => {
       window.open(response.link, '_blank');
     });
-  }
-
-  checkplanExpire(): void {
-    if (this.authService._userSubscrition.time_left.plan === "expired" ||
-      this.authService._userSubscrition.time_left.plan === "subscription_expired" ||
-      this.authService._userSubscrition.subscription_details.subscription_plan === "Student" ||
-      this.authService._userSubscrition.subscription_details.subscription_plan === "Career") {
-      this.planExpired = true;
-    }
-    else {
-      this.planExpired = false;
-    }
   }
 
   loadHeadQuartersData(event: any) {
@@ -352,10 +324,7 @@ export class InvestorListComponent implements OnInit {
   }
 
   exportData() {
-    if (this.planExpired) {
-      this.authService.hasUserSubscription$.next(true);
-      return;
-    } else if (this.exportCreditCount != 0) {
+    if (this.exportCreditCount != 0) {
       this.exportDataIds = [];
       this.investorData.forEach(item => {
         if (item.isChecked == 1) {
@@ -423,6 +392,10 @@ export class InvestorListComponent implements OnInit {
   }
 
   next(productId: number): void {
+    if (this.authService.isInvalidSubscription('founders_tools')) {
+      this.authService.hasUserSubscription$.next(true);
+      return;
+    }
     this.invalidClass = false;
     if (productId in this.selectedData) {
       if (this.activePageIndex < this.recommendations.length - 1) {
@@ -432,9 +405,12 @@ export class InvestorListComponent implements OnInit {
       this.invalidClass = true;
     }
   }
+
   getRecommendation() {
-    if (this.planExpired) {
-      this.authService.hasUserSubscription$.next(true);
+    if (3 in this.selectedData) {
+      this.invalidClass = false;
+    } else {
+      this.invalidClass = true;
       return;
     }
     this.enableModule = true;

@@ -614,16 +614,24 @@ export class AuthService {
 
   isInvalidSubscription(module: string): boolean {
     let planExpired: boolean = false;
-    if (module === 'ai_global_advisor' || module === 'education_tools' || module === 'travel_tools') {
-      if (this._userSubscrition.time_left.plan === "expired" ||
-        this._userSubscrition.time_left.plan === "subscription_expired") {
+    if (module === 'ai_global_advisor' || module === 'education_tools' || module === 'travel_tools' || module === 'events') {
+      if (this._userSubscrition?.time_left?.plan === "expired" ||
+        this._userSubscrition?.time_left?.plan === "subscription_expired") {
         planExpired = true;
       }
     }
-    else if (module === 'events') {
-      if (this._userSubscrition.time_left.plan === "expired" ||
-        this._userSubscrition.time_left.plan === "subscription_expired" ||
-        this._userSubscrition.subscription_details.subscription_plan === "free_trail") {
+    else if (module === 'career_tools' || module === 'employer_connect' || module === 'learning_hub') {
+      if (this._userSubscrition?.time_left?.plan === "expired" ||
+        this._userSubscrition?.time_left?.plan === "subscription_expired" ||
+        this._userSubscrition?.subscription_details?.subscription_plan === "Student") {
+        planExpired = true;
+      }
+    }
+    else if (module === 'founders_tools' || module === 'pitch_desk') {
+      if (this._userSubscrition?.time_left?.plan === "expired" ||
+        this._userSubscrition?.time_left?.plan === "subscription_expired" ||
+        this._userSubscrition?.subscription_details?.subscription_plan === "Student" ||
+        this._userSubscrition?.subscription_details?.subscription_plan === "Career") {
         planExpired = true;
       }
     }

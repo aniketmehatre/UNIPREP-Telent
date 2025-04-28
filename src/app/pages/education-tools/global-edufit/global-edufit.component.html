@@ -155,7 +155,7 @@
 										</div>
 										<div class="w-100">
 											<input class="w-100 pl-4 border border-gray rounded-3" type="number"
-												pInputText placeholder="Fees" formControlName="Select the total tuition fee for your program" [max]="99999999" />
+												pInputText placeholder="Select the total tuition fee for your program" formControlName="fees" [max]="99999999" />
 											<p class="text-center"
 												*ngIf="(form.get('fees')?.errors?.required || form.get('fees')?.errors?.max) && submitted"
 												style="color: red">Please Enter this amount and max 8 digit only allowed

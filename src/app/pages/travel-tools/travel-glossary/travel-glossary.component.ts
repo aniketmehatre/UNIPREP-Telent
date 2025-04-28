@@ -18,6 +18,7 @@ import { FormsModule, ReactiveFormsModule } from "@angular/forms"
 import { SelectModule } from "primeng/select"
 import { DialogModule } from "primeng/dialog"
 import { CardModule } from "primeng/card"
+import { AuthService } from "src/app/Auth/auth.service"
 
 @Component({
 	selector: "uni-travel-glossary",
@@ -32,7 +33,11 @@ export class TravelGlossaryComponent implements OnInit {
 	travelglossarylists: any[] = []
 	groupedTerms: { [key: string]: any[] } = {}
 	valueNearYouFilter: string = ""
-	constructor(private sanitizer: DomSanitizer, private router: Router, private pageFacade: PageFacadeService, private service: TravelToolsService) {}
+
+	constructor(private sanitizer: DomSanitizer, private router: Router, private pageFacade: PageFacadeService,
+		private service: TravelToolsService, private authService: AuthService
+	) { }
+
 	ngOnInit(): void {
 		this.category_dropdown = [
 			{ id: null, name: "All" },
@@ -74,6 +79,10 @@ export class TravelGlossaryComponent implements OnInit {
 		return this.selectedCategoryId === id // Check if this category is selected
 	}
 	filterCat(id: any) {
+		if (this.authService.isInvalidSubscription('travel_tools')) {
+			this.authService.hasUserSubscription$.next(true);
+			return;
+		}
 		this.selectedCategoryId = id
 		this.getStartUpGlossary(id)
 	}
@@ -90,50 +99,45 @@ export class TravelGlossaryComponent implements OnInit {
 					this.groupedTerms[item.alphabet] = []
 				}
 				this.groupedTerms[item.alphabet].push(item)
-				this.performSearch();
+				this.performSearch("init");
 			})
 		})
 	}
 	goBack() {
 		this.router.navigate(["/pages/travel-tools"])
 	}
-	// performSearch() {
-	//   const filteredData = this.travelglossarylists.filter((item: any) => {
-	//     return item.glossaryterm.toLowerCase().includes(this.valueNearYouFilter.toLowerCase());
-	//   });
-	//   this.groupedTerms = {};
-	//   filteredData.forEach(item => {
-	//     if (!this.groupedTerms[item.alphabet]) {
-	//       this.groupedTerms[item.alphabet] = [];
-	//     }
-	//     this.groupedTerms[item.alphabet].push(item);
-	//   });
-	// }
-	performSearch() {
-	 // highlights the words
+
+	performSearch(from?: string) {
+		if (!from) {
+			if (this.authService.isInvalidSubscription('travel_tools')) {
+				this.authService.hasUserSubscription$.next(true);
+				return;
+			}
+		}
+		// highlights the words
 		const search = this.valueNearYouFilter?.trim();
 		if (!search) {
-		  this.resetHighlights(); // Optional: show full terms without highlights
-		  return;
+			this.resetHighlights(); // Optional: show full terms without highlights
+			return;
 		}
-	  
+
 		const highlight = (text: string) =>
-		  text.split(new RegExp(`(${search})`, 'gi')).map(part => ({
-			word: part,
-			highlight: part.toLowerCase() === search.toLowerCase()
-		  }));
-	  
+			text.split(new RegExp(`(${search})`, 'gi')).map(part => ({
+				word: part,
+				highlight: part.toLowerCase() === search.toLowerCase()
+			}));
+
 		for (const key in this.groupedTerms) {
-		  this.groupedTerms[key].forEach(term => {
-			term.glossarytermParts = highlight(term.glossaryterm);
-			term.summaryParts = highlight(term.summary);
-		  });
+			this.groupedTerms[key].forEach(term => {
+				term.glossarytermParts = highlight(term.glossaryterm);
+				term.summaryParts = highlight(term.summary);
+			});
 		}
 		// normal searcth code
 		const searchValue = this.valueNearYouFilter.toLowerCase()
 		const filteredData = this.travelglossarylists.filter((item: any) => {
-		return item.glossaryterm?.toLowerCase().includes(searchValue) || item.summary?.toLowerCase().includes(searchValue) || item.key?.toLowerCase().includes(searchValue)
-			
+			return item.glossaryterm?.toLowerCase().includes(searchValue) || item.summary?.toLowerCase().includes(searchValue) || item.key?.toLowerCase().includes(searchValue)
+
 		})
 		this.groupedTerms = {}
 		filteredData.forEach((item) => {
@@ -145,10 +149,10 @@ export class TravelGlossaryComponent implements OnInit {
 	}
 	resetHighlights() {
 		for (const key in this.groupedTerms) {
-		  this.groupedTerms[key].forEach(term => {
-			term.glossarytermParts = [{ word: term.glossaryterm, highlight: false }];
-			term.summaryParts = [{ word: term.summary, highlight: false }];
-		  });
+			this.groupedTerms[key].forEach(term => {
+				term.glossarytermParts = [{ word: term.glossaryterm, highlight: false }];
+				term.summaryParts = [{ word: term.summary, highlight: false }];
+			});
 		}
 	}
 	isObjectEmpty(obj: object): boolean {

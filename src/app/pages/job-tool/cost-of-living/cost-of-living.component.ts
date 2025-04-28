@@ -31,7 +31,6 @@ export class CostOfLivingComponent implements OnInit {
   sourceCities: City[] = [];
   targetCities: City[] = [];
   form!: FormGroup;
-  planExpired: boolean = false
   canShowComparision: boolean = false;
   sourceCountryPrices!: CostOfLiving;
   targetCountryPrices!: CostOfLiving;
@@ -62,7 +61,6 @@ export class CostOfLivingComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.checkplanExpire()
     this.getCurrencyConvertions('United States,India');
     this.responsiveOptions = [
       {
@@ -89,7 +87,7 @@ export class CostOfLivingComponent implements OnInit {
   }
 
   compare() {
-    if (this.planExpired) {
+    if (this.authService.isInvalidSubscription('travel_tools')) {
       this.authService.hasUserSubscription$.next(true);
       return;
     }
@@ -149,15 +147,6 @@ export class CostOfLivingComponent implements OnInit {
         }
       }
     );
-  }
-  checkplanExpire(): void {
-    if (this.authService._userSubscrition.time_left.plan === "expired" ||
-      this.authService._userSubscrition.time_left.plan === "subscription_expired") {
-      this.planExpired = true;
-    }
-    else {
-      this.planExpired = false;
-    }
   }
 
 }

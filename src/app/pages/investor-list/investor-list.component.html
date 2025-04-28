@@ -39,7 +39,7 @@
 									<!-- <h5 class="text-center uniprep-primary fw-semibold mb-0">Question Number {{ recommendation.id }}</h5> -->
 									<h2 class="fw-bold mb-0 text-center">{{ recommendation.question }}</h2>
 								</div>
-								<div class="col-md-9 d-flex justify-content-center">
+								<div class="col-md-9 d-flex justify-content-center flex-column">
 									<ng-container *ngIf="recommendation.id == 1">
 										<div class="cube-container gap-3">
 											<div *ngFor="let cube of investorType" class="cube"
@@ -50,7 +50,7 @@
 													*ngIf="selectedData[1]?.includes(cube.id)"></i>
 											</div>
 										</div>
-										<p class="text-center" [ngClass]="{ 'd-none': invalidClass === false }"
+										<p class="text-center mt-2" [ngClass]="{ 'd-none': invalidClass === false }"
 											style="color: red">Please Choose Any one option</p>
 										<p></p>
 									</ng-container>
@@ -62,7 +62,7 @@
 											optionLabel="country" optionValue="id"
 											[(ngModel)]="selectedData[recommendation.id]"
 											[appendTo]="'body'"></p-multiSelect>
-										<p class="text-center" [ngClass]="{ 'd-none': invalidClass === false }"
+										<p class="text-center mt-2" [ngClass]="{ 'd-none': invalidClass === false }"
 											style="color: red">Please Choose Any one option</p>
 									</ng-container>
 									<ng-container *ngIf="recommendation.id == 3">
@@ -71,7 +71,7 @@
 											[options]="headQuartersList" display="chip" optionLabel="head_quarters_name"
 											optionValue="id" [(ngModel)]="selectedData[recommendation.id]"
 											[appendTo]="'body'"></p-multiSelect>
-										<p class="text-center" [ngClass]="{ 'd-none': invalidClass === false }"
+										<p class="text-center mt-2" [ngClass]="{ 'd-none': invalidClass === false }"
 											style="color: red">Please Choose Any one option</p>
 									</ng-container>
 								</div>

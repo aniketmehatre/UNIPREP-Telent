@@ -4,6 +4,7 @@ import { GlobalEmploymentService } from "../global-employment-insights.service";
 import { PageFacadeService } from "../../page-facade.service";
 import { Router } from "@angular/router";
 import { count } from "console";
+import { AuthService } from "src/app/Auth/auth.service";
 
 @Component({
   selector: "uni-global-employment-country-lists",
@@ -16,8 +17,9 @@ export class GlobalEmploymentCountryListsComponent implements OnInit {
     private router: Router,
     private arrayHeaderService: ArrayHeaderService,
     private service: GlobalEmploymentService,
-    private pageFacade: PageFacadeService
-  ) {}
+    private pageFacade: PageFacadeService,
+    private authService: AuthService
+  ) { }
   isSkeletonVisible: boolean = true;
   moduleList: any;
   @Input() prepData: any;
@@ -51,14 +53,18 @@ export class GlobalEmploymentCountryListsComponent implements OnInit {
     this.pageFacade.openHowitWorksVideoPopup(videoLink);
   }
   onModuleClick(moduledata: any) {
-    this.prepData={
-      country:moduledata.country,
-      country_id:moduledata.id,
+    if (this.authService.isInvalidSubscription('career_tools')) {
+      this.authService.hasUserSubscription$.next(true);
+      return;
+    }
+    this.prepData = {
+      country: moduledata.country,
+      country_id: moduledata.id,
       stage: 2,
     }
     this.windowChange.emit({
-      country:moduledata.country,
-      country_id:moduledata.id,
+      country: moduledata.country,
+      country_id: moduledata.id,
       stage: 2,
     });
   }

@@ -25,13 +25,15 @@ import { DomSanitizer } from '@angular/platform-browser';
 import { PromptService } from '../../prompt.service';
 import { SharedModule } from 'src/app/shared/shared.module';
 import { SkeletonModule } from 'primeng/skeleton';
+import { AuthService } from 'src/app/Auth/auth.service';
+import { removeExtraResponse } from '../../prompt';
 
 @Component({
   selector: 'uni-edu-loan-compare',
   templateUrl: './edu-loan-compare.component.html',
   styleUrls: ['./edu-loan-compare.component.scss'],
   standalone: true,
-  imports: [CommonModule, RouterModule, DialogModule, CardModule, PaginatorModule, FormsModule, ReactiveFormsModule, CarouselModule, ButtonModule, CommonModule, RouterModule, DialogModule, MultiSelectModule, SelectModule, CardModule, InputGroupModule, InputTextModule, InputGroupAddonModule, InputNumberModule,SkeletonModule, SharedModule]
+  imports: [CommonModule, RouterModule, DialogModule, CardModule, PaginatorModule, FormsModule, ReactiveFormsModule, CarouselModule, ButtonModule, CommonModule, RouterModule, DialogModule, MultiSelectModule, SelectModule, CardModule, InputGroupModule, InputTextModule, InputGroupAddonModule, InputNumberModule, SkeletonModule, SharedModule]
 })
 export class EduLoanCompareComponent implements OnInit {
 
@@ -61,7 +63,8 @@ export class EduLoanCompareComponent implements OnInit {
     private sanitizer: DomSanitizer,
     private promptService: PromptService,
     private pageFacade: PageFacadeService,
-    private toast: MessageService
+    private toast: MessageService,
+    private authService: AuthService
   ) {
     this.form = this.fb.group({
       currency: ['', Validators.required],
@@ -78,13 +81,13 @@ export class EduLoanCompareComponent implements OnInit {
     this.getCountryList();
     this.getAICreditCount();
   }
-  getAICreditCount(){
-		this.promptService.getAicredits().subscribe({
-		  next: resp =>{
-			this.aiCreditCount = resp;
-		  }
-		})
-	}
+  getAICreditCount() {
+    this.promptService.getAicredits().subscribe({
+      next: resp => {
+        this.aiCreditCount = resp;
+      }
+    })
+  }
   getCountryList() {
     this.educationToolService.getCurrencies().subscribe(data => {
       this.currenciesList = data;
@@ -98,6 +101,10 @@ export class EduLoanCompareComponent implements OnInit {
   }
 
   next() {
+    if (this.authService.isInvalidSubscription('education_tools')) {
+      this.authService.hasUserSubscription$.next(true);
+      return;
+    }
     this.submitted = false;
     const formData = this.form.value;
     if (this.activePageIndex == 0) {
@@ -117,7 +124,7 @@ export class EduLoanCompareComponent implements OnInit {
   }
 
   getRecommendation() {
-    if(this.aiCreditCount == 0){
+    if (this.aiCreditCount == 0) {
       this.toast.add({ severity: "error", summary: "Error", detail: "Free AI Credits Over.Please Buy Some Credits..!" });
       return;
     }
@@ -146,6 +153,10 @@ export class EduLoanCompareComponent implements OnInit {
   }
 
   saveRecommadation(type?: string) {
+    if (this.authService.isInvalidSubscription('education_tools')) {
+      this.authService.hasUserSubscription$.next(true);
+      return;
+    }
     if (!this.isFromSavedData) {
       this.educationToolService.getAnalysisList('loan_comparison_tool').subscribe({
         next: response => {
@@ -172,11 +183,12 @@ export class EduLoanCompareComponent implements OnInit {
     this.isRecommendationQuestion = false;
     this.isRecommendationData = true;
     this.isRecommendationSavedData = false;
-    this.recommendationData = this.sanitizer.bypassSecurityTrustHtml(data) as string;
+    // this.recommendationData = data;
+    this.recommendationData = removeExtraResponse(data);
 
     const encodedJson = userInputs;
-		const decodedInput = JSON.parse(encodedJson);
-		this.userInputs = decodedInput;
+    const decodedInput = JSON.parse(encodedJson);
+    this.userInputs = decodedInput;
   }
 
   resetRecommendation() {

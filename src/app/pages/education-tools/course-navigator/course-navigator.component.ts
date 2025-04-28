@@ -19,6 +19,7 @@ import { InputGroupAddonModule } from 'primeng/inputgroupaddon';
 import { environment } from '@env/environment';
 import { IconFieldModule } from 'primeng/iconfield';
 import { InputIconModule } from 'primeng/inputicon';
+import { AuthService } from 'src/app/Auth/auth.service';
 
 @Component({
   selector: 'uni-course-navigator',
@@ -88,6 +89,7 @@ export class CourseNavigatorComponent implements OnInit {
     private meta: Meta,
     private toast: MessageService,
     private route: ActivatedRoute,
+    private authService: AuthService
 
   ) { }
 
@@ -114,6 +116,10 @@ export class CourseNavigatorComponent implements OnInit {
   }
 
   performSearch(type: string) {
+    if (this.authService.isInvalidSubscription('education_tools')) {
+      this.authService.hasUserSubscription$.next(true);
+      return;
+    }
     if (type == 'specialization') {
       const searchValue = this.specializationFilter.toLowerCase();
       this.specializationList = this.specializations.filter((item) => {
@@ -129,6 +135,10 @@ export class CourseNavigatorComponent implements OnInit {
   }
 
   getCourseList(value: CurrentSpecialization) {
+    if (this.authService.isInvalidSubscription('education_tools')) {
+      this.authService.hasUserSubscription$.next(true);
+      return;
+    }
     this.selectedSpecialization = value.specialization_name;
     let data = {
       spec_id: value.id,

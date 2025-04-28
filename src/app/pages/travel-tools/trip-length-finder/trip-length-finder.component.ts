@@ -61,16 +61,15 @@ export class TripLengthFinderComponent implements OnInit {
   ngOnInit(): void {
     this.getCityList();
     this.getAICreditCount();
-    console.log(this.authService._userSubscrition, "user subscription details");
-	}
+  }
 
-	getAICreditCount(){
-		this.prompt.getAicredits().subscribe({
-		  next: resp =>{
-			this.aiCreditCount = resp;
-		  }
-		})
-	}
+  getAICreditCount() {
+    this.prompt.getAicredits().subscribe({
+      next: resp => {
+        this.aiCreditCount = resp;
+      }
+    })
+  }
 
   getCityList() {
     this.costOfLivingService.getCities().subscribe({
@@ -81,9 +80,13 @@ export class TripLengthFinderComponent implements OnInit {
   }
 
   getRecommendation(productId: number) {
+    if (this.authService.isInvalidSubscription('travel_tools')) {
+      this.authService.hasUserSubscription$.next(true);
+      return;
+    }
     this.hideWarning(productId);
     if (!this.invalidClass) {
-      if(this.aiCreditCount == 0){
+      if (this.aiCreditCount == 0) {
         this.toast.add({ severity: "error", summary: "Error", detail: "Free AI Credits Over.Please Buy Some Credits..!" });
         this.buyCredits();
         return;
@@ -110,13 +113,13 @@ export class TripLengthFinderComponent implements OnInit {
     }
   }
 
-	buyCredits(){
-		if(this.authService.isInvalidSubscription('travel_tools')){
-			this.authService.hasUserSubscription$.next(true);
-		}else{
-			this.router.navigate(["/pages/export-credit"]);
-		}
-	}
+  buyCredits() {
+    if (this.authService.isInvalidSubscription('travel_tools')) {
+      this.authService.hasUserSubscription$.next(true);
+    } else {
+      this.router.navigate(["/pages/export-credit"]);
+    }
+  }
 
   hideWarning(productId: number) {
     if (productId in this.selectedData) {
@@ -136,6 +139,10 @@ export class TripLengthFinderComponent implements OnInit {
   }
 
   savedRecommendations() {
+    if (this.authService.isInvalidSubscription('travel_tools')) {
+      this.authService.hasUserSubscription$.next(true);
+      return;
+    }
     this.isRecommendation = false;
     this.isResponsePage = false;
     this.isSavedPage = true;
@@ -152,8 +159,8 @@ export class TripLengthFinderComponent implements OnInit {
     this.recommendationData = response;
 
     const encodedJson = userInputs;
-		const decodedInput = JSON.parse(encodedJson);
-		this.userInputs = decodedInput;
+    const decodedInput = JSON.parse(encodedJson);
+    this.userInputs = decodedInput;
   }
 
   onSaveRes() {
@@ -177,8 +184,8 @@ export class TripLengthFinderComponent implements OnInit {
   goBack() {
     this.router.navigateByUrl('/pages/travel-tools');
   }
-  
+
   openVideoPopup(videoLink: string) {
-		this.pageFacade.openHowitWorksVideoPopup(videoLink);
-	}
+    this.pageFacade.openHowitWorksVideoPopup(videoLink);
+  }
 }

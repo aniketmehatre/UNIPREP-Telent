@@ -3,6 +3,8 @@ import { Injectable } from '@angular/core';
 import { environment } from '@env/environment';
 import { Observable } from 'rxjs';
 import { ChatGPTResponse } from 'src/app/@Models/chat-gpt.model';
+import { map } from 'rxjs';
+import { removeExtraResponse } from '../prompt';
 
 @Injectable({
   providedIn: 'root'
@@ -188,7 +190,9 @@ export class FounderstoolService {
   getChatgptRecommendations(data: any) {
     return this.http.post<{ response: string }>(environment.ApiUrl + "/getIntegratedRecom", data, {
       headers: this.headers,
-    });
+    }).pipe(
+      map(res => ({ response: removeExtraResponse(res.response) })) // Process response before returning
+    );
   }
 
   getCountriesList() {

@@ -22,6 +22,8 @@ import { PromptService } from "../../prompt.service"
 import { SkeletonModule } from "primeng/skeleton"
 import { SharedModule } from "src/app/shared/shared.module"
 import { PageFacadeService } from '../../page-facade.service';
+import { AuthService } from "src/app/Auth/auth.service"
+import { removeExtraResponse } from "../../prompt"
 interface DropDown {
 	[key: string]: string
 }
@@ -71,7 +73,9 @@ export class StartupRiskAssessmentComponent implements OnInit {
 	aiCreditCount: number = 0;
 	userInputs: any;
 
-	constructor(private fb: FormBuilder, private founderToolService: FounderstoolService, private router: Router, private toast: MessageService, private sanitizer: DomSanitizer, private promptService: PromptService,private pageFacade: PageFacadeService) { }
+	constructor(private fb: FormBuilder, private founderToolService: FounderstoolService, private router: Router,
+		private toast: MessageService, private sanitizer: DomSanitizer, private promptService: PromptService,
+		private pageFacade: PageFacadeService, private authService: AuthService) { }
 
 	ngOnInit(): void {
 		this.getCurrenyandLocation()
@@ -79,11 +83,11 @@ export class StartupRiskAssessmentComponent implements OnInit {
 		this.getAICreditCount();
 	}
 
-	getAICreditCount(){
+	getAICreditCount() {
 		this.promptService.getAicredits().subscribe({
-		  next: resp =>{
-			this.aiCreditCount = resp;
-		  }
+			next: resp => {
+				this.aiCreditCount = resp;
+			}
 		})
 	}
 
@@ -111,10 +115,14 @@ export class StartupRiskAssessmentComponent implements OnInit {
 	}
 
 	next(productId: number): void {
+		if (this.authService.isInvalidSubscription('founders_tools')) {
+			this.authService.hasUserSubscription$.next(true);
+			return;
+		}
 		this.inValidClass = false
 		if (productId in this.selectedData) {
 			if (productId == 8) {
-				if(!this.selectedData[10]){
+				if (!this.selectedData[10]) {
 					this.inValidClass = true
 					return;
 				}
@@ -138,7 +146,7 @@ export class StartupRiskAssessmentComponent implements OnInit {
 			this.inValidClass = true
 			return
 		}
-		if(this.aiCreditCount == 0){
+		if (this.aiCreditCount == 0) {
 			this.toast.add({ severity: "error", summary: "Error", detail: "Free AI Credits Over.Please Buy Some Credits..!" });
 			return;
 		}
@@ -183,6 +191,10 @@ export class StartupRiskAssessmentComponent implements OnInit {
 	}
 
 	saveRecommadation() {
+		if (this.authService.isInvalidSubscription('founders_tools')) {
+			this.authService.hasUserSubscription$.next(true);
+			return;
+		}
 		if (!this.isFromSavedData) {
 			this.founderToolService.getAnalysisList("startup_risk_assessment").subscribe({
 				next: (response) => {
@@ -201,8 +213,8 @@ export class StartupRiskAssessmentComponent implements OnInit {
 		this.isRecommendationData = true
 		this.isRecommendationSavedData = false
 		this.isFromSavedData = true
-		this.recommendationData = data;
-
+		// this.recommendationData = data;
+		this.recommendationData = removeExtraResponse(data);
 		const encodedJson = userInputs;
 		const decodedInput = JSON.parse(encodedJson);
 		this.userInputs = decodedInput;
@@ -222,33 +234,33 @@ export class StartupRiskAssessmentComponent implements OnInit {
 			addingInput += `<p style="color: #3f4c83;"><strong>${item.question}</strong></p>`
 			let currentAnswer = "";
 			// if (this.selectedData && this.selectedData[item.id]) {
-				if(item.id == 1){
-					currentAnswer = this.userInputs.type
-				}
-				else if (item.id == 2) {
-					currentAnswer = this.userInputs.model
-				} 
-				else if (item.id == 3) {
-					currentAnswer = this.userInputs.stage
-				} 
-				else if (item.id == 4) {
-					currentAnswer = this.userInputs.risks
-				} 
-				else if (item.id == 5) {
-					currentAnswer = this.userInputs.financial_status
-				} 
-				else if (item.id == 6) {
-					currentAnswer = this.userInputs.competitive_market
-				} 
-				else if (item.id == 7) {
-					currentAnswer = this.userInputs.customers
-				} 
-				else if (item.id == 8) {
-					currentAnswer = this.userInputs.currency+' '+this.userInputs.budget
-				} 
-				else if (item.id == 9) {
-					currentAnswer = this.userInputs.geographical_focus
-				} 
+			if (item.id == 1) {
+				currentAnswer = this.userInputs.type
+			}
+			else if (item.id == 2) {
+				currentAnswer = this.userInputs.model
+			}
+			else if (item.id == 3) {
+				currentAnswer = this.userInputs.stage
+			}
+			else if (item.id == 4) {
+				currentAnswer = this.userInputs.risks
+			}
+			else if (item.id == 5) {
+				currentAnswer = this.userInputs.financial_status
+			}
+			else if (item.id == 6) {
+				currentAnswer = this.userInputs.competitive_market
+			}
+			else if (item.id == 7) {
+				currentAnswer = this.userInputs.customers
+			}
+			else if (item.id == 8) {
+				currentAnswer = this.userInputs.currency + ' ' + this.userInputs.budget
+			}
+			else if (item.id == 9) {
+				currentAnswer = this.userInputs.geographical_focus
+			}
 			// } else {
 			// 	currentAnswer = "No answer provided"
 			// }
@@ -265,5 +277,5 @@ export class StartupRiskAssessmentComponent implements OnInit {
 
 	openVideoPopup(videoLink: string) {
 		this.pageFacade.openHowitWorksVideoPopup(videoLink);
-	  }
+	}
 }
