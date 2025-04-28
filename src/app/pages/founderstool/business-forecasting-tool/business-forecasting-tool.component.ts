@@ -24,6 +24,7 @@ import { DomSanitizer, SafeHtml } from "@angular/platform-browser"
 import { PromptService } from "../../prompt.service"
 import { SkeletonModule } from "primeng/skeleton"
 import { SharedModule } from "src/app/shared/shared.module"
+import { removeExtraResponse } from "../../prompt"
 
 @Component({
 	selector: "uni-business-forecasting-tool",
@@ -255,7 +256,8 @@ export class BusinessForecastingToolComponent implements OnInit {
 		this.isRecommendationData = true
 		this.isRecommendationSavedData = false
 		this.isFromSavedData = true
-		this.recommendationData = data
+		// this.recommendationData = data
+		this.recommendationData = removeExtraResponse(data);
 
 		const encodedJson = userInputs;
 		const decodedInput = JSON.parse(encodedJson);

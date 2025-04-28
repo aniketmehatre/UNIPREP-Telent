@@ -12,7 +12,7 @@
 							<span><i class="fa-solid fa-chevron-right"></i></span>
 							<h5 routerLink="/pages/founderstool/founderstoollist" role="button" class="mb-0" tooltipPosition="top">Founders Tool</h5>
 							<span><i class="fa-solid fa-chevron-right"></i></span>
-							<h5 role="button" class="mb-0" tooltipPosition="top" pTooltip="Access resources for starting your business, from ideation to execution.">AI Business Advisor</h5>
+							<h5 role="button" class="mb-0" tooltipPosition="top" pTooltip="Access resources for starting your business, from ideation to execution.">Business Advisor</h5>
 						</div>
 						<div>
 							<button pButton class="how-it-works-button" severity="warn"
@@ -59,11 +59,20 @@
 										<div class="text-center" [ngClass]="{ 'd-none': inValidClass === false }" style="color: red">Business Duration is required</div>
 									</ng-container>
 									<ng-container *ngIf="recommendation.id == 4">
-										<p-select [(ngModel)]="selectedData[recommendation.id]" [options]="challengeList" [filter]="true" filterBy="challenge" styleClass="w-100" optionLabel="challenge" optionValue="challenge" [appendTo]="'body'" placeholder="Select the challenges or obstacles your business is dealing with"> </p-select>
+										<!-- <p-select [(ngModel)]="selectedData[recommendation.id]" [options]="challengeList" [filter]="true" filterBy="challenge" styleClass="w-100" optionLabel="challenge" optionValue="challenge" [appendTo]="'body'" placeholder="Select the challenges or obstacles your business is dealing with"> </p-select> -->
+
+										<p-multiSelect [options]="challengeList" styleClass="w-100" [(ngModel)]="selectedData[recommendation.id]"
+										optionLabel="challenge" optionValue="challenge" [appendTo]="'body'" [filter]="true" filterBy="challenge" 
+										placeholder="Select the challenges or obstacles your business is dealing with"> </p-multiSelect>
+
 										<div class="text-center" [ngClass]="{ 'd-none': inValidClass === false }" style="color: red">Challenges are required</div>
 									</ng-container>
 									<ng-container *ngIf="recommendation.id == 5">
-										<p-select [(ngModel)]="selectedData[recommendation.id]" [options]="targetAudienceList" [filter]="true" filterBy="audience" styleClass="w-100" optionLabel="audience" optionValue="audience" [appendTo]="'body'" placeholder="Select the demographic or market segment you are targeting"> </p-select>
+										<p-multiSelect [options]="targetAudienceList" styleClass="w-100" [(ngModel)]="selectedData[recommendation.id]"
+										optionLabel="audience" optionValue="audience" [appendTo]="'body'" [filter]="true" filterBy="challenge" 
+										placeholder="Select the demographic or market segment you are targeting"> </p-multiSelect>
+
+										<!-- <p-select [(ngModel)]="selectedData[recommendation.id]" [options]="targetAudienceList" [filter]="true" filterBy="audience" styleClass="w-100" optionLabel="audience" optionValue="audience" [appendTo]="'body'" placeholder="Select the demographic or market segment you are targeting"> </p-select> -->
 										<div [ngClass]="{ 'd-none': inValidClass === false }" style="color: red" class="text-danger">Ideal customers is required</div>
 									</ng-container>
 									<ng-container *ngIf="recommendation.id == 6">
@@ -116,7 +125,7 @@
 							<span><i class="fa-solid fa-chevron-right"></i></span>
 							<h5 routerLink="/pages/founderstool/founderstoollist" role="button" class="mb-0" tooltipPosition="top">Founders Tool</h5>
 							<span><i class="fa-solid fa-chevron-right"></i></span>
-							<h5 role="button" class="mb-0" tooltipPosition="top" pTooltip="Access resources for starting your business, from ideation to execution.">AI Business Advisor</h5>
+							<h5 role="button" class="mb-0" tooltipPosition="top" pTooltip="Access resources for starting your business, from ideation to execution.">Business Advisor</h5>
 						</div>
 						<div>
 							<button pButton class="how-it-works-button" severity="warn"
@@ -191,7 +200,7 @@
 							<span><i class="fa-solid fa-chevron-right"></i></span>
 							<h5 routerLink="/pages/founderstool/founderstoollist" role="button" class="mb-0" tooltipPosition="top">Founders Tool</h5>
 							<span><i class="fa-solid fa-chevron-right"></i></span>
-							<h5 role="button" class="mb-0" tooltipPosition="top" pTooltip="Access resources for starting your business, from ideation to execution.">AI Business Advisor</h5>
+							<h5 role="button" class="mb-0" tooltipPosition="top" pTooltip="Access resources for starting your business, from ideation to execution.">Business Advisor</h5>
 						</div>
 						<div>
 							<button pButton class="how-it-works-button" severity="warn"

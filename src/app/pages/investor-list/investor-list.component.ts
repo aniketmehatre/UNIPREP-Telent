@@ -8,7 +8,6 @@ import { UserManagementService } from '../user-management/user-management.servic
 import { MessageService } from 'primeng/api';
 import { DataService } from 'src/app/data.service';
 import { PageFacadeService } from '../page-facade.service';
-import { LocationService } from 'src/app/location.service';
 import { CommonModule } from '@angular/common';
 import { DialogModule } from 'primeng/dialog';
 import { MultiSelectModule } from 'primeng/multiselect';
@@ -406,7 +405,14 @@ export class InvestorListComponent implements OnInit {
       this.invalidClass = true;
     }
   }
+
   getRecommendation() {
+    if (3 in this.selectedData) {
+      this.invalidClass = false;
+    } else {
+      this.invalidClass = true;
+      return;
+    }
     this.enableModule = true;
     let keyMapping: any = { "1": "investor_type", "2": "country", "3": "head_quarters" };
     let newData = Object.fromEntries(Object.entries(this.selectedData).map(([key, value]) => {

@@ -25,7 +25,7 @@ import { PromptService } from '../../prompt.service';
 import { SharedModule } from 'src/app/shared/shared.module';
 import { PageFacadeService } from '../../page-facade.service';
 import { AuthService } from 'src/app/Auth/auth.service';
-
+import { removeExtraResponse } from "../../prompt"
 @Component({
   selector: 'uni-student-budget-planner',
   templateUrl: './student-budget-planner.component.html',
@@ -267,13 +267,11 @@ export class StudentBudgetPlannerComponent implements OnInit {
   }
 
   showRecommandationData(response: string, userInputs: any) {
-    this.recommendationData = response;
+    this.recommendationData = removeExtraResponse(response);
     this.isSavedResponse = false;
     this.isRecommendation = false;
     this.isResponsePage = true;
     this.isOldResponse = true;
-
-
     const encodedJson = userInputs;
     const decodedInput = JSON.parse(encodedJson);
     this.userInputs = decodedInput;

@@ -23,6 +23,7 @@ import { PromptService } from "../../prompt.service"
 import { SkeletonModule } from "primeng/skeleton"
 import { SharedModule } from "src/app/shared/shared.module"
 import { AuthService } from "src/app/Auth/auth.service"
+import { removeExtraResponse } from "../../prompt"
 @Component({
 	selector: "uni-ai-business-advisor",
 	templateUrl: "./ai-business-advisor.component.html",
@@ -188,7 +189,7 @@ export class AiBusinessAdvisorComponent implements OnInit {
 		this.isRecommendationData = true
 		this.isRecommendationSavedData = false
 		this.isFromSavedData = true
-		this.recommendationData = data
+		this.recommendationData = removeExtraResponse(data);
 
 		const encodedJson = userInputs;
 		const decodedInput = JSON.parse(encodedJson);

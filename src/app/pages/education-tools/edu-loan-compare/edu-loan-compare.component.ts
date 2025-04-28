@@ -26,6 +26,7 @@ import { PromptService } from '../../prompt.service';
 import { SharedModule } from 'src/app/shared/shared.module';
 import { SkeletonModule } from 'primeng/skeleton';
 import { AuthService } from 'src/app/Auth/auth.service';
+import { removeExtraResponse } from '../../prompt';
 
 @Component({
   selector: 'uni-edu-loan-compare',
@@ -182,7 +183,8 @@ export class EduLoanCompareComponent implements OnInit {
     this.isRecommendationQuestion = false;
     this.isRecommendationData = true;
     this.isRecommendationSavedData = false;
-    this.recommendationData = this.sanitizer.bypassSecurityTrustHtml(data) as string;
+    // this.recommendationData = data;
+    this.recommendationData = removeExtraResponse(data);
 
     const encodedJson = userInputs;
     const decodedInput = JSON.parse(encodedJson);

@@ -3,9 +3,11 @@ import { Injectable } from '@angular/core';
 import { environment } from '@env/environment';
 import { Observable } from 'rxjs';
 import { ChatGPTResponse } from 'src/app/@Models/chat-gpt.model';
-import { CountryInsight, CountryInsightPayload, CountryInsightsResponse, QuestionListSuccess, QuestionsListPayLoad } from 'src/app/@Models/country-insights.model';
+import { CountryInsightPayload, CountryInsightsResponse, QuestionListSuccess, QuestionsListPayLoad } from 'src/app/@Models/country-insights.model';
 import { EducatiionsRec,CourseNavigator } from 'src/app/@Models/course-navigator.model';
 import { CountryAndUniversity } from 'src/app/@Models/education-tools.model';
+import { map } from 'rxjs';
+import { removeExtraResponse } from '../prompt';
 
 @Injectable({
   providedIn: 'root'
@@ -173,7 +175,9 @@ export class EducationToolsService {
   getChatgptRecommendations(data: any) {
     return this.http.post<{ response: string }>(environment.ApiUrl + "/getIntegratedRecom", data, {
       headers: this.headers,
-    });
+    }).pipe(
+      map(res => ({ response: removeExtraResponse(res.response) })) // Process response before returning
+    );
   }
 
   getAnalysisList(type: string) {

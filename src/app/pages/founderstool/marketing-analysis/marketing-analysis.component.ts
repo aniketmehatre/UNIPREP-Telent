@@ -21,14 +21,14 @@ import { InputTextModule } from 'primeng/inputtext';
 import { InputGroupAddonModule } from 'primeng/inputgroupaddon';
 import { CostOfLivingService } from '../../job-tool/cost-of-living/cost-of-living.service';
 import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
-export interface selectList {
-  name: string;
-}
 import { marketingAnalysisData } from './marketing-analysis.data';
 import { PromptService } from '../../prompt.service';
 import { SkeletonModule } from 'primeng/skeleton';
 import { SharedModule } from 'src/app/shared/shared.module';
-
+import { removeExtraResponse } from '../../prompt';
+export interface selectList {
+  name: string;
+}
 @Component({
   selector: 'uni-marketing-analysis',
   templateUrl: './marketing-analysis.component.html',
@@ -271,7 +271,8 @@ export class MarketingAnalysisComponent implements OnInit {
     this.isRecommendationData = true;
     this.isRecommendationSavedData = false;
     this.isFromSavedData = true;
-    this.recommendationData = data;
+    // this.recommendationData = data;
+    this.recommendationData = removeExtraResponse(data);
 
     const encodedJson = userInputs;
     const decodedInput = JSON.parse(encodedJson);

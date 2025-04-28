@@ -23,6 +23,7 @@ import { SkeletonModule } from "primeng/skeleton"
 import { SharedModule } from "src/app/shared/shared.module"
 import { PageFacadeService } from '../../page-facade.service';
 import { AuthService } from "src/app/Auth/auth.service"
+import { removeExtraResponse } from "../../prompt"
 interface DropDown {
 	[key: string]: string
 }
@@ -212,8 +213,8 @@ export class StartupRiskAssessmentComponent implements OnInit {
 		this.isRecommendationData = true
 		this.isRecommendationSavedData = false
 		this.isFromSavedData = true
-		this.recommendationData = data;
-
+		// this.recommendationData = data;
+		this.recommendationData = removeExtraResponse(data);
 		const encodedJson = userInputs;
 		const decodedInput = JSON.parse(encodedJson);
 		this.userInputs = decodedInput;

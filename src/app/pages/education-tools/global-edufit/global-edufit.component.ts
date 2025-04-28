@@ -15,11 +15,11 @@ import { PaginatorModule } from 'primeng/paginator';
 import { CarouselModule } from 'primeng/carousel';
 import { ButtonModule } from 'primeng/button';
 import { SelectModule } from 'primeng/select';
-import { TravelToolsService } from '../../travel-tools/travel-tools.service';
 import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
 import { PromptService } from '../../prompt.service';
 import { SkeletonModule } from 'primeng/skeleton';
 import { SharedModule } from 'src/app/shared/shared.module';
+import { removeExtraResponse } from "../../prompt"
 @Component({
   selector: 'uni-global-edufit',
   templateUrl: './global-edufit.component.html',
@@ -259,8 +259,8 @@ export class GlobalEdufitComponent implements OnInit {
     this.isRecommendationData = true;
     this.isRecommendationSavedData = false;
     this.isFromSavedData = true;
-    this.recommendationData = data;
-
+    // this.recommendationData = data;
+    this.recommendationData = removeExtraResponse(data);
     const encodedJson = userInputs;
     const decodedInput = JSON.parse(encodedJson);
     this.userInputs = decodedInput;
