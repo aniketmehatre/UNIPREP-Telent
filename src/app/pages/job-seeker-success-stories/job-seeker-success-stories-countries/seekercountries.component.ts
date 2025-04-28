@@ -17,6 +17,7 @@ import { InputGroupModule } from 'primeng/inputgroup';
 import { InputTextModule } from 'primeng/inputtext';
 import { InputGroupAddonModule } from 'primeng/inputgroupaddon';
 import { SkeletonModule } from 'primeng/skeleton';
+import { AuthService } from "src/app/Auth/auth.service";
 
 @Component({
   selector: "uni-seekercountries",
@@ -24,19 +25,19 @@ import { SkeletonModule } from 'primeng/skeleton';
   styleUrls: ["./seekercountries.component.scss"],
   standalone: true,
   imports: [
-    CommonModule, 
-    DialogModule, 
-    RouterModule, 
-    CardModule, 
-    PaginatorModule, 
-    FormsModule, 
-    ReactiveFormsModule, 
-    CarouselModule, 
-    ButtonModule, 
-    MultiSelectModule, 
-    SelectModule, 
-    InputGroupModule, 
-    InputTextModule, 
+    CommonModule,
+    DialogModule,
+    RouterModule,
+    CardModule,
+    PaginatorModule,
+    FormsModule,
+    ReactiveFormsModule,
+    CarouselModule,
+    ButtonModule,
+    MultiSelectModule,
+    SelectModule,
+    InputGroupModule,
+    InputTextModule,
     InputGroupAddonModule,
     SkeletonModule
   ]
@@ -46,8 +47,9 @@ export class SeekercountriesComponent implements OnInit {
     private router: Router,
     private arrayHeaderService: ArrayHeaderService,
     private service: JobseekerSuccessStoriesService,
-    private pageFacade: PageFacadeService
-  ) {}
+    private pageFacade: PageFacadeService,
+    private authService: AuthService
+  ) { }
 
   isSkeletonVisible: boolean = true;
   moduleList: any[] = [];
@@ -85,10 +87,13 @@ export class SeekercountriesComponent implements OnInit {
   }
 
   onModuleClick(moduledata: any) {
-    console.log('Module clicked:', moduledata);
+    if (this.authService.isInvalidSubscription('career_tools')) {
+      this.authService.hasUserSubscription$.next(true);
+      return;
+    }
     const data = {
       country_id: moduledata.id,
-			countryName: moduledata.country,
+      countryName: moduledata.country,
       stage: 2,
     };
     this.prepData = data;

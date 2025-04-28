@@ -18,14 +18,15 @@ import { InputGroupModule } from "primeng/inputgroup"
 import { InputTextModule } from "primeng/inputtext"
 import { InputGroupAddonModule } from "primeng/inputgroupaddon"
 import { RadioButtonModule } from "primeng/radiobutton"
-import {PdfViewerModule} from "ng2-pdf-viewer";
+import { PdfViewerModule } from "ng2-pdf-viewer";
 import { JobOfferPreparedListComponent } from "./preparedlist/preparedlist.component";
+import { AuthService } from "src/app/Auth/auth.service";
 @Component({
   selector: "uni-joboffercomparisontool",
   templateUrl: "./joboffercomparisontool.component.html",
   styleUrls: ["./joboffercomparisontool.component.scss"],
   standalone: true,
-  imports: [CommonModule,RouterModule, DialogModule, SidebarModule, PdfViewerModule, CardModule, PaginatorModule, FormsModule, ReactiveFormsModule, CarouselModule, ButtonModule, MultiSelectModule, SelectModule, InputGroupModule, InputTextModule, InputGroupAddonModule, RadioButtonModule, JobOfferPreparedListComponent]
+  imports: [CommonModule, RouterModule, DialogModule, SidebarModule, PdfViewerModule, CardModule, PaginatorModule, FormsModule, ReactiveFormsModule, CarouselModule, ButtonModule, MultiSelectModule, SelectModule, InputGroupModule, InputTextModule, InputGroupAddonModule, RadioButtonModule, JobOfferPreparedListComponent]
 })
 
 export class JoboffercomparisontoolComponent implements OnInit {
@@ -40,7 +41,8 @@ export class JoboffercomparisontoolComponent implements OnInit {
     private pageFacade: PageFacadeService,
     private avgestservice: AveragesalaryestimatorService,
     private service: JobOfferComparisionService,
-    private fb: FormBuilder
+    private fb: FormBuilder,
+    private authService: AuthService
   ) {
     this.basicInformationForm = this.fb.group({
       basicInformation: this.fb.array([
@@ -248,6 +250,10 @@ export class JoboffercomparisontoolComponent implements OnInit {
   }
 
   next(selectedId: number): void {
+    if (this.authService.isInvalidSubscription('career_tools')) {
+      this.authService.hasUserSubscription$.next(true);
+      return;
+    }
     if (selectedId == 1) {
       if (this.basicInformationForm.invalid) {
         this.basicInformationForm.markAllAsTouched();
@@ -330,16 +336,16 @@ export class JoboffercomparisontoolComponent implements OnInit {
     this.pageFacade.openHowitWorksVideoPopup(videoLink);
   }
   goBack() {
-    if(this.preparedvisibility){
+    if (this.preparedvisibility) {
       this.router.navigate(["/pages/job-offer-comparison"]);
-    }else{
+    } else {
       this.router.navigate(["/pages/job-tool/career-tool"]);
     }
   }
   windowChange(data: any) {
-    if(data == "error_arrived"){
+    if (data == "error_arrived") {
       this.preparedvisibility = false;
-    }else{
+    } else {
       this.preparedvisibility = data;
       this.activePageIndex = 0;
       this.basicInformationForm.reset();

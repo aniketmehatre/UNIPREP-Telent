@@ -53,7 +53,6 @@ export class StartUpExpenseEstimateComponent implements OnInit {
 	page = 1
 	pageSize = 25
 	first: number = 0
-	planExpired!: boolean
 	marketingForm: FormGroup = new FormGroup({})
 	currentPlan: string = ""
 	locationName: string = ""
@@ -157,16 +156,6 @@ export class StartUpExpenseEstimateComponent implements OnInit {
 		})
 	}
 
-	checkplanExpire(): void {
-		if (this.authService._userSubscrition.time_left.plan === "expired" ||
-			this.authService._userSubscrition.time_left.plan === "subscription_expired") {
-			this.planExpired = true;
-		}
-		else {
-			this.planExpired = false;
-		}
-	}
-
 	openHowItWorksVideoPopup(videoLink: string) {
 		this.pageFacade.openHowitWorksVideoPopup(videoLink)
 	}
@@ -190,10 +179,6 @@ export class StartUpExpenseEstimateComponent implements OnInit {
 				this.submitted = true
 				return
 			}
-		}
-		if (this.planExpired) {
-			this.authService.hasUserSubscription$.next(true);
-			return
 		}
 		let data: any = {
 			...this.marketingForm.value,
@@ -231,6 +216,10 @@ export class StartUpExpenseEstimateComponent implements OnInit {
 	}
 
 	next() {
+		if (this.authService.isInvalidSubscription('founders_tools')) {
+			this.authService.hasUserSubscription$.next(true);
+			return;
+		}
 		this.submitted = false
 		const formData = this.marketingForm.value
 		if (this.activePageIndex == 0) {
@@ -255,6 +244,10 @@ export class StartUpExpenseEstimateComponent implements OnInit {
 	}
 
 	saveRecommadation() {
+		if (this.authService.isInvalidSubscription('founders_tools')) {
+			this.authService.hasUserSubscription$.next(true);
+			return;
+		}
 		if (!this.isFromSavedData) {
 			this.foundersToolsService.getAnalysisList("startup_expense_estimator").subscribe({
 				next: (response) => {

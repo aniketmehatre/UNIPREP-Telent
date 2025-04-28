@@ -26,6 +26,7 @@ import { DomSanitizer, SafeHtml } from "@angular/platform-browser"
 import { PromptService } from "../../prompt.service"
 import { SharedModule } from "src/app/shared/shared.module"
 import { AuthService } from "src/app/Auth/auth.service";
+import { removeExtraResponse } from "../../prompt"
 
 @Component({
 	selector: "uni-travel-cost-estimator",
@@ -55,9 +56,9 @@ export class TravelCostEstimatorComponent implements OnInit {
 	isFromSavedData: boolean = false
 	isResponseSkeleton: boolean = false;
 	aiCreditCount: number = 0;
-	userInputs: any= [];
+	userInputs: any = [];
 
-	constructor(private travelToolsService: TravelToolsService, private router: Router, private costOfLivingService: CostOfLivingService, private toast: MessageService, private sanitizer: DomSanitizer, private promptService: PromptService,private pageFacade: PageFacadeService, private authService: AuthService) { }
+	constructor(private travelToolsService: TravelToolsService, private router: Router, private costOfLivingService: CostOfLivingService, private toast: MessageService, private sanitizer: DomSanitizer, private promptService: PromptService, private pageFacade: PageFacadeService, private authService: AuthService) { }
 
 	ngOnInit(): void {
 		this.selectedData = { 3: 1 }
@@ -65,10 +66,10 @@ export class TravelCostEstimatorComponent implements OnInit {
 		this.getAICreditCount();
 	}
 
-	buyCredits(){
-		if(this.authService.isInvalidSubscription('travel_tools')){
+	buyCredits() {
+		if (this.authService.isInvalidSubscription('travel_tools')) {
 			this.authService.hasUserSubscription$.next(true);
-		}else{
+		} else {
 			this.router.navigate(["/pages/export-credit"]);
 		}
 	}
@@ -86,11 +87,11 @@ export class TravelCostEstimatorComponent implements OnInit {
 		this.pageFacade.openHowitWorksVideoPopup(videoLink);
 	}
 
-	getAICreditCount(){
+	getAICreditCount() {
 		this.promptService.getAicredits().subscribe({
-		  next: resp =>{
-			this.aiCreditCount = resp;
-		  }
+			next: resp => {
+				this.aiCreditCount = resp;
+			}
 		})
 	}
 
@@ -102,6 +103,10 @@ export class TravelCostEstimatorComponent implements OnInit {
 	}
 
 	next(itemId: number) {
+		if (this.authService.isInvalidSubscription('travel_tools')) {
+			this.authService.hasUserSubscription$.next(true);
+			return;
+		}
 		this.invalidClass = false
 		if (itemId in this.selectedData) {
 			if (this.activePageIndex < this.recommendations.length - 1) {
@@ -113,7 +118,7 @@ export class TravelCostEstimatorComponent implements OnInit {
 	}
 
 	getRecommendation() {
-		if(this.aiCreditCount == 0){
+		if (this.aiCreditCount == 0) {
 			this.toast.add({ severity: "error", summary: "Error", detail: "Free AI Credits Over.Please Buy Some Credits..!" });
 			this.buyCredits();
 			return;
@@ -126,7 +131,7 @@ export class TravelCostEstimatorComponent implements OnInit {
 			currency: this.selectedData[1].currencycode,
 			mode: "travelcostestimator",
 		}
-		this.userInputs = data; 
+		this.userInputs = data;
 		this.isRecommendationQuestion = false
 		this.isRecommendationSavedData = false
 		this.isRecommendationData = true
@@ -155,6 +160,10 @@ export class TravelCostEstimatorComponent implements OnInit {
 	}
 
 	saveRecommadation() {
+		if (this.authService.isInvalidSubscription('travel_tools')) {
+			this.authService.hasUserSubscription$.next(true);
+			return;
+		}
 		if (!this.isFromSavedData) {
 			this.travelToolsService.getTripList("travelcostestimator").subscribe({
 				next: (response) => {
@@ -173,12 +182,13 @@ export class TravelCostEstimatorComponent implements OnInit {
 	}
 
 	showRecommandationData(data: string, userInputs: any) {
-		console.log(userInputs);
+		// console.log(userInputs);
 		this.isRecommendationQuestion = false
 		this.isRecommendationData = true
 		this.isRecommendationSavedData = false
 		this.isFromSavedData = true
-		this.recommendationData = data
+		// this.recommendationData = data
+		this.recommendationData = removeExtraResponse(data);
 
 		const encodedJson = userInputs;
 		const decodedInput = JSON.parse(encodedJson);

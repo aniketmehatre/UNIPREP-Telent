@@ -602,6 +602,10 @@ export class CoverLetterBuilderComponent implements OnInit, AfterViewInit {
 	}
 
 	next() {
+		if (this.authService.isInvalidSubscription('career_tools')) {
+			this.authService.hasUserSubscription$.next(true);
+			return;
+		}
 		this.activePageIndex++
 		if (this.activePageIndex == 1) {
 			this.ngAfterViewInit()

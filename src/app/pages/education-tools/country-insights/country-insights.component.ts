@@ -13,13 +13,14 @@ import { CardModule } from 'primeng/card';
 import { InputGroupModule } from 'primeng/inputgroup';
 import { InputTextModule } from 'primeng/inputtext';
 import { InputGroupAddonModule } from 'primeng/inputgroupaddon';
-import {StorageService} from "../../../storage.service";
+import { StorageService } from "../../../storage.service";
 import { Paginator, PaginatorModule } from 'primeng/paginator';
+import { AuthService } from 'src/app/Auth/auth.service';
 @Component({
-    selector: 'uni-country-insights',
-    templateUrl: './country-insights.component.html',
-    styleUrls: ['./country-insights.component.scss'],
-    standalone: true,
+  selector: 'uni-country-insights',
+  templateUrl: './country-insights.component.html',
+  styleUrls: ['./country-insights.component.scss'],
+  standalone: true,
   imports: [FormsModule, ReactiveFormsModule, CarouselModule, ButtonModule, CommonModule, RouterModule, DialogModule, MultiSelectModule, SelectModule, CardModule, InputGroupModule, InputTextModule, PaginatorModule, InputGroupAddonModule]
 })
 export class CountryInsightsComponent implements OnInit {
@@ -34,13 +35,13 @@ export class CountryInsightsComponent implements OnInit {
     perpage: this.pageSize,
   };
   constructor(private educationtoolService: EducationToolsService, private router: Router,
-              private storage: StorageService) { }
+    private storage: StorageService, private authService: AuthService) { }
 
   ngOnInit(): void {
     this.getList();
   }
 
-  getList() { 
+  getList() {
     this.isSkeletonVisible = true;
     this.educationtoolService.getCountryInsightsList(this.data).subscribe((response) => {
       this.isSkeletonVisible = false;
@@ -50,7 +51,10 @@ export class CountryInsightsComponent implements OnInit {
   }
 
   onClickSubModule(countryId: string, id: string, countryname: string) {
-    console.log(id);
+    if (this.authService.isInvalidSubscription('education_tools')) {
+      this.authService.hasUserSubscription$.next(true);
+      return;
+    }
     // this.storage.set('country_name', countryname);
     // this.storage.set('country_insights_country', countryId);
     this.storage.set('country_insights_country_name', countryname);
@@ -59,7 +63,10 @@ export class CountryInsightsComponent implements OnInit {
   }
 
   paginate(event: any) {
-    console.log(event);
+    if (this.authService.isInvalidSubscription('education_tools')) {
+      this.authService.hasUserSubscription$.next(true);
+      return;
+    }
     this.data.page = event.page + 1;
     this.data.pageSize = event.rows;
     this.getList();

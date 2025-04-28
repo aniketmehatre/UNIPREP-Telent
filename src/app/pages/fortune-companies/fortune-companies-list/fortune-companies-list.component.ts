@@ -10,6 +10,7 @@ import { FortuneCompaniesService } from "../fortune-companies.service";
 import { PageFacadeService } from "../../page-facade.service";
 import { Router } from "@angular/router";
 import { debounceTime, Subject } from "rxjs";
+import { AuthService } from "src/app/Auth/auth.service";
 
 @Component({
   selector: "uni-fortune-companies-lists",
@@ -37,6 +38,7 @@ export class FortuneCompaniesListsComponent implements OnInit {
     private arrayHeaderService: ArrayHeaderService,
     private service: FortuneCompaniesService,
     private pageFacade: PageFacadeService,
+    private authService: AuthService
   ) {
     this.searchSubject.pipe(debounceTime(1000)).subscribe(() => {
       this.getFortuneCompanyList();
@@ -76,20 +78,36 @@ export class FortuneCompaniesListsComponent implements OnInit {
   }
 
   selectCountry(selectedId: any): void {
+    if (this.authService.isInvalidSubscription('career_tools')) {
+      this.authService.hasUserSubscription$.next(true);
+      return;
+    }
     this.getFortuneCompanyList();
   }
 
   performSearch() {
+    if (this.authService.isInvalidSubscription('career_tools')) {
+      this.authService.hasUserSubscription$.next(true);
+      return;
+    }
     this.searchSubject.next(this.valueNearYouFilter);
   }
 
   paginate(event: any) {
+    if (this.authService.isInvalidSubscription('career_tools')) {
+      this.authService.hasUserSubscription$.next(true);
+      return;
+    }
     this.page = event.page + 1;
     this.perpage = event.rows;
     this.getFortuneCompanyList();
   }
 
   onClear(event: Event) {
+    if (this.authService.isInvalidSubscription('career_tools')) {
+      this.authService.hasUserSubscription$.next(true);
+      return;
+    }
     this.selectedCountryId = null;
     this.getFortuneCompanyList();
   }
@@ -103,6 +121,10 @@ export class FortuneCompaniesListsComponent implements OnInit {
   }
 
   onModuleClick(moduledata: any) {
+    if (this.authService.isInvalidSubscription('career_tools')) {
+      this.authService.hasUserSubscription$.next(true);
+      return;
+    }
     this.prepData = {
       fortune_company_id: moduledata.id,
       companyName: moduledata.company_name,

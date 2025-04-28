@@ -16,17 +16,19 @@ import { SelectModule } from 'primeng/select';
 import { InputGroupModule } from 'primeng/inputgroup';
 import { InputTextModule } from 'primeng/inputtext';
 import { InputGroupAddonModule } from 'primeng/inputgroupaddon';
+import { AuthService } from 'src/app/Auth/auth.service';
 @Component({
-    selector: 'uni-investorpitchtraining',
-    templateUrl: './investorpitchtraining.component.html',
-    styleUrls: ['./investorpitchtraining.component.scss'],
-    standalone: true,
-    imports: [CommonModule, RouterModule, DialogModule, CardModule, PaginatorModule, FormsModule, ReactiveFormsModule, CarouselModule, ButtonModule, MultiSelectModule, SelectModule, InputGroupModule, InputTextModule, InputGroupAddonModule]
+  selector: 'uni-investorpitchtraining',
+  templateUrl: './investorpitchtraining.component.html',
+  styleUrls: ['./investorpitchtraining.component.scss'],
+  standalone: true,
+  imports: [CommonModule, RouterModule, DialogModule, CardModule, PaginatorModule, FormsModule, ReactiveFormsModule, CarouselModule, ButtonModule, MultiSelectModule, SelectModule, InputGroupModule, InputTextModule, InputGroupAddonModule]
 })
 export class InvestorpitchtrainingComponent implements OnInit {
-  investorlists:any[]=[];
+  investorlists: any[] = [];
   currentIndex = 0;
-  constructor(private service: FounderstoolService,private sanitizer: DomSanitizer,private router:Router,private pageFacade: PageFacadeService) { }
+  constructor(private service: FounderstoolService, private sanitizer: DomSanitizer, private router: Router,
+    private pageFacade: PageFacadeService, private authService: AuthService) { }
 
   ngOnInit(): void {
     this.service.getAInvestorTraining().subscribe((response) => {
@@ -41,6 +43,10 @@ export class InvestorpitchtrainingComponent implements OnInit {
   }
 
   nextQuestion() {
+    if (this.authService.isInvalidSubscription('founders_tools')) {
+      this.authService.hasUserSubscription$.next(true);
+      return;
+    }
     if (this.currentIndex < this.investorlists.length - 1) {
       this.currentIndex++;
       // this.updateCard();
@@ -50,7 +56,7 @@ export class InvestorpitchtrainingComponent implements OnInit {
       // this.updateCard();
     }
   }
-  goBack(){
+  goBack() {
     this.router.navigate(['/pages/founderstool/founderstoollist']);
   }
 

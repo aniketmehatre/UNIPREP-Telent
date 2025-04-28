@@ -24,6 +24,7 @@ import { DomSanitizer, SafeHtml } from "@angular/platform-browser"
 import { PromptService } from "../../prompt.service"
 import { SkeletonModule } from "primeng/skeleton"
 import { SharedModule } from "src/app/shared/shared.module"
+import { removeExtraResponse } from "../../prompt"
 
 @Component({
 	selector: "uni-business-forecasting-tool",
@@ -46,7 +47,6 @@ export class BusinessForecastingToolComponent implements OnInit {
 	page = 1
 	pageSize = 25
 	first: number = 0
-	planExpired!: boolean
 	form: FormGroup = new FormGroup({})
 	currentPlan: string = ""
 	locationName: string = ""
@@ -148,16 +148,6 @@ export class BusinessForecastingToolComponent implements OnInit {
 		})
 	}
 
-	checkplanExpire(): void {
-		if (this.authService._userSubscrition.time_left.plan === "expired" ||
-			this.authService._userSubscrition.time_left.plan === "subscription_expired") {
-			this.planExpired = true;
-		}
-		else {
-			this.planExpired = false;
-		}
-	}
-
 	openHowItWorksVideoPopup(videoLink: string) {
 		this.pageFacade.openHowitWorksVideoPopup(videoLink)
 	}
@@ -178,10 +168,6 @@ export class BusinessForecastingToolComponent implements OnInit {
 		const formData = this.form.value
 		if (!formData.forecast_peroid || !formData.goals) {
 			this.submitted = true
-			return
-		}
-		if (this.planExpired) {
-			this.authService.hasUserSubscription$.next(true);
 			return
 		}
 		if (this.aiCreditCount == 0) {
@@ -220,6 +206,10 @@ export class BusinessForecastingToolComponent implements OnInit {
 	}
 
 	next() {
+		if (this.authService.isInvalidSubscription('founders_tools')) {
+			this.authService.hasUserSubscription$.next(true);
+			return;
+		}
 		this.submitted = false
 		const formData = this.form.value
 		if (this.activePageIndex == 0) {
@@ -244,6 +234,10 @@ export class BusinessForecastingToolComponent implements OnInit {
 	}
 
 	saveRecommadation() {
+		if (this.authService.isInvalidSubscription('founders_tools')) {
+			this.authService.hasUserSubscription$.next(true);
+			return;
+		}
 		if (!this.isFromSavedData) {
 			this.foundersToolsService.getAnalysisList("revenue_forescasting_tool").subscribe({
 				next: (response) => {
@@ -262,7 +256,8 @@ export class BusinessForecastingToolComponent implements OnInit {
 		this.isRecommendationData = true
 		this.isRecommendationSavedData = false
 		this.isFromSavedData = true
-		this.recommendationData = data
+		// this.recommendationData = data
+		this.recommendationData = removeExtraResponse(data);
 
 		const encodedJson = userInputs;
 		const decodedInput = JSON.parse(encodedJson);

@@ -32,7 +32,7 @@ import { AuthService } from "src/app/Auth/auth.service"
 	imports: [CommonModule, RouterModule, SkeletonModule, FluidModule, InputTextModule, TooltipModule, ButtonModule, MultiSelectModule, CarouselModule, InputGroupModule, InputGroupAddonModule, FormsModule, ReactiveFormsModule, InputTextModule, SelectModule, DialogModule, CardModule, InputNumberModule, SharedModule],
 })
 export class TravelVisitPlannerComponent implements OnInit {
-	constructor(private travelToolService: TravelToolsService, private router: Router, private costOfLivingService: CostOfLivingService, private toast: MessageService, private sanitizer: DomSanitizer, private promptService: PromptService,private pageFacade: PageFacadeService, private authService: AuthService) { }
+	constructor(private travelToolService: TravelToolsService, private router: Router, private costOfLivingService: CostOfLivingService, private toast: MessageService, private sanitizer: DomSanitizer, private promptService: PromptService, private pageFacade: PageFacadeService, private authService: AuthService) { }
 
 	recommendations: { id: number; question: string }[] = [
 		{ id: 1, question: "Where are you traveling to?" },
@@ -59,11 +59,11 @@ export class TravelVisitPlannerComponent implements OnInit {
 		this.getCityList();
 		this.getAICreditCount();
 	}
-	getAICreditCount(){
+	getAICreditCount() {
 		this.promptService.getAicredits().subscribe({
-		  next: resp =>{
-			this.aiCreditCount = resp;
-		  }
+			next: resp => {
+				this.aiCreditCount = resp;
+			}
 		})
 	}
 	getCityList() {
@@ -74,10 +74,10 @@ export class TravelVisitPlannerComponent implements OnInit {
 		})
 	}
 
-	buyCredits(){
-		if(this.authService.isInvalidSubscription('travel_tools')){
+	buyCredits() {
+		if (this.authService.isInvalidSubscription('travel_tools')) {
 			this.authService.hasUserSubscription$.next(true);
-		}else{
+		} else {
 			this.router.navigate(["/pages/export-credit"]);
 		}
 	}
@@ -90,6 +90,10 @@ export class TravelVisitPlannerComponent implements OnInit {
 	}
 
 	next(productId: number) {
+		if (this.authService.isInvalidSubscription('travel_tools')) {
+			this.authService.hasUserSubscription$.next(true);
+			return;
+		}
 		this.hideWarning(productId)
 		if (!this.invalidClass) {
 			if (this.activePageIndex < this.recommendations.length - 1) {
@@ -101,7 +105,7 @@ export class TravelVisitPlannerComponent implements OnInit {
 	getRecommendation(productId: number) {
 		this.hideWarning(productId)
 		if (!this.invalidClass) {
-			if(this.aiCreditCount == 0){
+			if (this.aiCreditCount == 0) {
 				this.toast.add({ severity: "error", summary: "Error", detail: "Free AI Credits Over.Please Buy Some Credits..!" });
 				this.buyCredits();
 				return;
@@ -149,6 +153,10 @@ export class TravelVisitPlannerComponent implements OnInit {
 	}
 
 	savedRecommendations() {
+		if (this.authService.isInvalidSubscription('travel_tools')) {
+			this.authService.hasUserSubscription$.next(true);
+			return;
+		}
 		this.isRecommendation = false
 		this.isResponsePage = false
 		this.isSavedPage = true
