@@ -58,3 +58,8 @@
 		padding: 0.8rem;
 	}
 }
+.sticky-sidebar {
+	position: sticky;
+	top: 100px; /* Adjust this value based on your header height */
+	z-index: 1;
+  }
