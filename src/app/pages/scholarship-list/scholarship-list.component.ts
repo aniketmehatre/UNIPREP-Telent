@@ -15,14 +15,13 @@ import { ButtonModule } from "primeng/button"
 import { SkeletonModule } from "primeng/skeleton"
 import { TooltipModule } from "primeng/tooltip"
 import { CarouselModule } from "primeng/carousel"
-import { RestrictionDialogComponent } from "src/app/shared/restriction-dialog/restriction-dialog.component"
 @Component({
 	selector: "uni-scholarship-list",
 	templateUrl: "./scholarship-list.component.html",
 
 	styleUrls: ["./scholarship-list.component.scss"],
 	standalone: true,
-	imports: [CommonModule, RouterModule, CarouselModule, DialogModule, MultiSelectModule, FormsModule, ReactiveFormsModule, SkeletonModule, TooltipModule, ButtonModule, RestrictionDialogComponent],
+	imports: [CommonModule, RouterModule, CarouselModule, DialogModule, MultiSelectModule, FormsModule, ReactiveFormsModule, SkeletonModule, TooltipModule, ButtonModule],
 })
 export class ScholarshipListComponent implements OnInit {
 	scholarshipData: any[] = []
@@ -45,12 +44,11 @@ export class ScholarshipListComponent implements OnInit {
 	regionList: any[] = []
 	filterUniversityList: any[] = []
 	planExpired!: boolean
-	recommendRestrict!: boolean
 	scholarshipTypeList: any[] = []
 	anyScholarshipTypeList: any[] = []
 	coverList: any[] = []
 	anyCoverList: any[] = []
-	restrict: boolean = false
+	imagewhitlabeldomainname: any;
 	currentPlan: string = ""
 	PersonalInfo: any = {
 		usertype_id: null,
@@ -69,10 +67,7 @@ export class ScholarshipListComponent implements OnInit {
 	exportDataIds: any = []
 	selectedScholarship: number = 0
 	favCount: number = 0
-	ehitlabelIsShow: boolean = true
-	imagewhitlabeldomainname: any
-	orglogowhitelabel: any
-	orgnamewhitlabel: any
+
 	constructor(private fb: FormBuilder, private scholarshipListService: ScholarshipListService, private locationService: LocationService, private toast: MessageService, private authService: AuthService, private router: Router, private userManagementService: UserManagementService, private dataService: DataService, private pageFacade: PageFacadeService) {
 		// Initialize form with empty arrays for MultiSelect controls
 		this.filterForm = this.fb.group({
@@ -114,18 +109,6 @@ export class ScholarshipListComponent implements OnInit {
 	]
 
 	ngOnInit(): void {
-		this.locationService.getImage().subscribe((imageUrl) => {
-			this.orglogowhitelabel = imageUrl
-		})
-		this.locationService.getOrgName().subscribe((orgname) => {
-			this.orgnamewhitlabel = orgname
-		})
-		this.imagewhitlabeldomainname = window.location.hostname
-		if (this.imagewhitlabeldomainname === "*.uniprep.ai" || this.imagewhitlabeldomainname === "dev-student.uniprep.ai" || this.imagewhitlabeldomainname === "uniprep.ai" || this.imagewhitlabeldomainname === "localhost") {
-			this.ehitlabelIsShow = true
-		} else {
-			this.ehitlabelIsShow = false
-		}
 		this.checkUserRecommendation()
 		this.getScholarshipCountry()
 		this.gethomeCountryList()
@@ -401,7 +384,7 @@ export class ScholarshipListComponent implements OnInit {
 	}
 	pageChange(event: any) {
 		if (this.planExpired) {
-			this.restrict = true
+			this.authService.hasUserSubscription$.next(true);
 			return
 		}
 		this.selectAllCheckboxes = false
@@ -420,7 +403,7 @@ export class ScholarshipListComponent implements OnInit {
 
 	filterBy() {
 		if (this.planExpired) {
-			this.restrict = true
+			this.authService.hasUserSubscription$.next(true);
 			return
 		}
 		this.isFilterVisible = true
@@ -434,30 +417,14 @@ export class ScholarshipListComponent implements OnInit {
 	}
 
 	checkplanExpire(): void {
-		this.authService.getNewUserTimeLeft().subscribe((res) => {
-			let data = res.time_left
-			let subscription_exists_status = res.subscription_details
-			this.currentPlan = subscription_exists_status?.subscription_plan
-			if (data.plan === "expired" || data.plan === "subscription_expired" || subscription_exists_status?.subscription_plan === "free_trail") {
-				this.planExpired = true
-			} else {
-				this.planExpired = false
-			}
-			if (data.plan === "expired" || data.plan === "subscription_expired") {
-				this.recommendRestrict = true
-			} else {
-				this.recommendRestrict = false
-			}
-
-			this.loadScholarShipData(0)
-		})
-	}
-
-	upgradePlan(): void {
-		this.router.navigate(["/pages/subscriptions"])
-	}
-	clearRestriction() {
-		this.restrict = false
+		if (this.authService._userSubscrition.time_left.plan === "expired" ||
+			this.authService._userSubscrition.time_left.plan === "subscription_expired") {
+			this.planExpired = true;
+		}
+		else {
+			this.planExpired = false;
+		}
+		this.loadScholarShipData(0)
 	}
 
 	scholarGuidlines(): void {
@@ -534,7 +501,7 @@ export class ScholarshipListComponent implements OnInit {
 
 	buyCredits(): void {
 		if (this.planExpired) {
-			this.restrict = true
+			this.authService.hasUserSubscription$.next(true);
 			return
 		}
 		this.router.navigate(["/pages/export-credit"])
@@ -557,7 +524,7 @@ export class ScholarshipListComponent implements OnInit {
 
 	exportData() {
 		if (this.planExpired) {
-			this.restrict = true
+			this.authService.hasUserSubscription$.next(true);
 			return
 		} else if (this.exportCreditCount != 0) {
 			this.exportDataIds = []
@@ -579,7 +546,7 @@ export class ScholarshipListComponent implements OnInit {
 			} else {
 				if (this.exportCreditCount < this.exportDataIds.length) {
 					this.toast.add({ severity: "error", summary: "error", detail: "To download additional data beyond your free credits, please upgrade your plan." })
-					this.restrict = true
+					this.authService.hasUserSubscription$.next(true);
 					return
 				}
 			}
@@ -599,7 +566,7 @@ export class ScholarshipListComponent implements OnInit {
 				this.toast.add({ severity: "error", summary: "error", detail: "Please Buy Some Credits." })
 				this.router.navigate(["/pages/export-credit"])
 			} else {
-				this.restrict = true
+				this.authService.hasUserSubscription$.next(true);
 			}
 		}
 	}
@@ -652,8 +619,8 @@ export class ScholarshipListComponent implements OnInit {
 	}
 
 	getRecommendation() {
-		if (this.recommendRestrict) {
-			this.restrict = true
+		if (this.planExpired) {
+			this.authService.hasUserSubscription$.next(true);
 			return
 		}
 		let keyMapping: any = { "1": "country", "2": "study_level", "3": "type", "4": "cover_id" }

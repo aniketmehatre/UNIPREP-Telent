@@ -256,7 +256,8 @@
 					<h3 class="text-center mb-2" *ngIf="totalPercentage <= 89">Better Luck Next Time<br />{{
 						totalanswercorret }}/{{ totalanswerquistionaftersubmited }}</h3>
 					<p *ngIf="totalPercentage >= 90" class="text-center mb-2 fw-medium">You have completed the quiz on
-						<br />{{ titleModule[categoryId - 1] }} module</p>
+						<br />{{ titleModule[categoryId - 1] }} module
+					</p>
 					<p *ngIf="totalPercentage <= 89" class="text-center mb-2 fw-medium">Completion of this module
 						requires<br />a minimum score of 90%</p>
 					<button pButton (click)="openReviewPopup()" class="btn btn-back btn-rounded px-2 py-2">
@@ -510,7 +511,6 @@
 			(click)="timeIsOver()"><i class="fa fa-arrow-right exhausted-plan-icon"></i></button>
 	</div>
 </p-dialog>
-<uni-restriction-dialog *ngIf="restrict1" [isShowRestrict]="restrict1" (closeRestrictModal)="restrict1 = false" />
 <div class="la-square-jelly-box la-2x overlay" *ngIf="showLoading">
 	<div></div>
 	<div></div>

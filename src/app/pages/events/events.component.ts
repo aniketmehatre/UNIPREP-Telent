@@ -14,7 +14,6 @@ import { InputGroupAddonModule } from "primeng/inputgroupaddon"
 import { InputTextModule } from "primeng/inputtext"
 import { SelectModule } from "primeng/select"
 import { MultiSelectModule } from 'primeng/multiselect';
-import { RestrictionDialogComponent } from "src/app/shared/restriction-dialog/restriction-dialog.component"
 
 interface country {
 	id: number
@@ -41,7 +40,7 @@ const dateRangeValidator: any = (control: FormGroup): ValidationErrors | null =>
 	templateUrl: "./events.component.html",
 	styleUrls: ["./events.component.scss"],
 	standalone: true,
-	imports: [CommonModule, RouterModule, DialogModule, FormsModule, ReactiveFormsModule, SelectModule, MultiSelectModule, InputGroupModule, InputGroupAddonModule, InputTextModule, RestrictionDialogComponent],
+	imports: [CommonModule, RouterModule, DialogModule, FormsModule, ReactiveFormsModule, SelectModule, MultiSelectModule, InputGroupModule, InputGroupAddonModule, InputTextModule],
 })
 export class EventsComponent implements OnInit {
 	activeButton: number = 1
@@ -58,12 +57,7 @@ export class EventsComponent implements OnInit {
 	postevetdetaisl: any[] = []
 	valueNearYouFilter: string | undefined
 	selectedCountryId: any
-	planExpired!: boolean
-	restrict: boolean = false
-	ehitlabelIsShow: boolean = true
-	imagewhitlabeldomainname: any
-	orgnamewhitlabel: any
-	orglogowhitelabel: any
+
 	constructor(private fb: FormBuilder, private service: EventsService, private datePipe: DatePipe, private toast: MessageService, private authService: AuthService, private router: Router, private pageFacade: PageFacadeService, private locationService: LocationService) {
 		this.filterform = this.fb.group(
 			{
@@ -89,7 +83,6 @@ export class EventsComponent implements OnInit {
 			page: 1,
 		}
 		this.getPostEvent(postdata)
-		this.checkplanExpire()
 	}
 
 	// Button styles
@@ -149,15 +142,15 @@ export class EventsComponent implements OnInit {
 	// filterpop-up
 	filterPopUp() {
 		// this.setActiveButton(1)
-		if (this.planExpired) {
-			this.restrict = true
+		if (this.authService.isInvalidSubscription('events')) {
+			this.authService.hasUserSubscription$.next(true);
 			return
 		}
 		this.newfile = "block"
 	}
 	paginate(event: any) {
-		if (this.planExpired) {
-			this.restrict = true
+		if (this.authService.isInvalidSubscription('events')) {
+			this.authService.hasUserSubscription$.next(true);
 			return
 		}
 		this.pageno = event.page + 1
@@ -173,8 +166,8 @@ export class EventsComponent implements OnInit {
 		this.getEventUpComming(data)
 	}
 	paginatepost(event: any) {
-		if (this.planExpired) {
-			this.restrict = true
+		if (this.authService.isInvalidSubscription('events')) {
+			this.authService.hasUserSubscription$.next(true);
 			return
 		}
 		this.pageno = event.page + 1
@@ -274,8 +267,8 @@ export class EventsComponent implements OnInit {
 	}
 
 	performSearch(events: any) {
-		if (this.planExpired) {
-			this.restrict = true
+		if (this.authService.isInvalidSubscription('events')) {
+			this.authService.hasUserSubscription$.next(true);
 			this.valueNearYouFilter = ""
 			return
 		}
@@ -286,8 +279,8 @@ export class EventsComponent implements OnInit {
 		this.getPostEvent(data)
 	}
 	registerButton(event: any) {
-		if (this.planExpired) {
-			this.restrict = true
+		if (this.authService.isInvalidSubscription('events')) {
+			this.authService.hasUserSubscription$.next(true);
 			return
 		}
 		if (event.registered == 1) {
@@ -311,31 +304,9 @@ export class EventsComponent implements OnInit {
 		window.open(eventlink)
 	}
 
-	checkplanExpire(): void {
-		this.authService.getNewUserTimeLeft().subscribe((res) => {
-			let data = res.time_left
-			let subscription_exists_status = res.subscription_details
-			if (data.plan === "expired" || data.plan === "subscription_expired" || subscription_exists_status.subscription_plan === "free_trail") {
-				this.planExpired = true
-			} else {
-				this.planExpired = false
-			}
-		})
-	}
-
-	upgradePlan(): void {
-		this.router.navigate(["/pages/subscriptions"])
-	}
-	clearRestriction() {
-		this.restrict = false
-		let searchInput = document.getElementById("searchInput") as HTMLInputElement
-		if (searchInput !== null) {
-			searchInput.disabled = false
-		}
-	}
 	searchClick() {
-		if (this.planExpired) {
-			this.restrict = true
+		if (this.authService.isInvalidSubscription('events')) {
+			this.authService.hasUserSubscription$.next(true);
 			this.valueNearYouFilter = ""
 			let searchInput = document.getElementById("searchInput") as HTMLInputElement
 			if (searchInput !== null) {

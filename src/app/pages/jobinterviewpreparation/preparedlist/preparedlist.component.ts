@@ -22,13 +22,12 @@ import { Meta } from "@angular/platform-browser";
 import { SkeletonModule } from "primeng/skeleton";
 import { SharedModule } from "src/app/shared/shared.module";
 import { SavedJobInterviewQuestion } from "src/app/@Models/job-interview.model";
-import { RestrictionDialogComponent } from "src/app/shared/restriction-dialog/restriction-dialog.component";
 @Component({
   selector: "uni-preparedlist",
   templateUrl: "./preparedlist.component.html",
   styleUrls: ["./preparedlist.component.scss"],
   standalone: true,
-  imports: [CommonModule, PaginatorModule, DialogModule, TabsModule, RouterModule, CardModule, FormsModule, ReactiveFormsModule, CarouselModule, ButtonModule, MultiSelectModule, SelectModule, InputGroupModule, InputTextModule, InputGroupAddonModule, SkeletonModule, SharedModule, RestrictionDialogComponent],
+  imports: [CommonModule, PaginatorModule, DialogModule, TabsModule, RouterModule, CardModule, FormsModule, ReactiveFormsModule, CarouselModule, ButtonModule, MultiSelectModule, SelectModule, InputGroupModule, InputTextModule, InputGroupAddonModule, SkeletonModule, SharedModule],
   providers: [InterviewPreparationService]
 })
 export class JobPreparedListComponent implements OnInit {
@@ -38,13 +37,8 @@ export class JobPreparedListComponent implements OnInit {
 
   isSkeletonVisible: boolean = true;
   planExpired: boolean = false;
-  restrict: boolean = false;
   page: number = 1;
   perpage: number = 25;
-  ehitlabelIsShow: boolean = true;
-  imagewhitlabeldomainname: any;
-  orgnamewhitlabel: any;
-  orglogowhitelabel: any;
   totalDataCount: any;
   ListData: any[] = [];
   defaultListData: any[] = [];
@@ -100,22 +94,13 @@ export class JobPreparedListComponent implements OnInit {
   }
 
   checkPlanExpiry(): void {
-    this.authService.getNewUserTimeLeft().subscribe((res) => {
-      const data = res.time_left;
-      if (data.plan === "expired" || data.plan === "subscription_expired") {
-        this.planExpired = true;
-      } else {
-        this.planExpired = false;
-      }
-    });
-  }
-
-  upgradePlan(): void {
-    this.router.navigate(["/pages/subscriptions"]);
-  }
-
-  clearRestriction() {
-    this.restrict = false;
+    if (this.authService._userSubscrition.time_left.plan === "expired" ||
+      this.authService._userSubscrition.time_left.plan === "subscription_expired") {
+      this.planExpired = true;
+    }
+    else {
+      this.planExpired = false;
+    }
   }
 
   openVideoPopup(videoLink: string) {

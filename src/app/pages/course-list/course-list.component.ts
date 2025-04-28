@@ -13,13 +13,12 @@ import { DialogModule } from "primeng/dialog"
 import { MultiSelectModule } from "primeng/multiselect"
 import { CarouselModule } from "primeng/carousel"
 import { ButtonModule } from "primeng/button"
-import { RestrictionDialogComponent } from "src/app/shared/restriction-dialog/restriction-dialog.component"
 @Component({
 	selector: "uni-course-list",
 	templateUrl: "./course-list.component.html",
 	styleUrls: ["./course-list.component.scss"],
 	standalone: true,
-	imports: [CommonModule, DialogModule, MultiSelectModule, FormsModule, ReactiveFormsModule, CarouselModule, ButtonModule, RouterModule, RestrictionDialogComponent],
+	imports: [CommonModule, DialogModule, MultiSelectModule, FormsModule, ReactiveFormsModule, CarouselModule, ButtonModule, RouterModule],
 })
 export class CourseListComponent implements OnInit {
 	page: number = 1
@@ -73,7 +72,6 @@ export class CourseListComponent implements OnInit {
 	exportDataIds: any = []
 	currentPlan: string = ""
 	planExpired!: boolean
-	restrict: boolean = false
 	stayBackList: any = []
 	PersonalInfo!: any
 	ehitlabelIsShow: boolean = true
@@ -147,9 +145,6 @@ export class CourseListComponent implements OnInit {
 	}
 
 	ngOnInit(): void {
-		this.locationService.getImage().subscribe((imageUrl) => {
-			this.orglogowhitelabel = imageUrl
-		})
 		this.checkplanExpire()
 		// this.getCourseLists();
 		this.getRecommendationList()
@@ -291,7 +286,7 @@ export class CourseListComponent implements OnInit {
 
 	pageChange(event: any) {
 		if (this.planExpired) {
-			this.restrict = true
+			this.authService.hasUserSubscription$.next(true);
 			return
 		}
 		this.selectAllCheckboxes = false
@@ -307,7 +302,7 @@ export class CourseListComponent implements OnInit {
 
 	exportData() {
 		if (this.planExpired) {
-			this.restrict = true
+			this.authService.hasUserSubscription$.next(true);
 			return
 		}
 
@@ -318,7 +313,7 @@ export class CourseListComponent implements OnInit {
 					this.router.navigate(["/pages/export-credit"])
 				}, 300)
 			} else {
-				this.restrict = true
+				this.authService.hasUserSubscription$.next(true);
 			}
 		} else {
 			this.exportDataIds = []
@@ -343,7 +338,7 @@ export class CourseListComponent implements OnInit {
 			} else {
 				if (this.buyCreditsCount < this.exportDataIds.length) {
 					this.toastr.add({ severity: "error", summary: "error", detail: "To download additional data beyond your free credits, please upgrade your plan." })
-					this.restrict = true
+					this.authService.hasUserSubscription$.next(true);
 					return
 				}
 			}
@@ -363,7 +358,7 @@ export class CourseListComponent implements OnInit {
 
 	filterBy() {
 		if (this.planExpired) {
-			this.restrict = true
+			this.authService.hasUserSubscription$.next(true);
 			return
 		}
 		this.isFilterVisible = "block"
@@ -371,14 +366,14 @@ export class CourseListComponent implements OnInit {
 
 	handleClick(event: Event) {
 		if (this.planExpired) {
-			this.restrict = true
+			this.authService.hasUserSubscription$.next(true);
 			event.preventDefault() // Prevent the default action of the anchor tag
 		}
 	}
 
 	buyCredits() {
 		if (this.planExpired) {
-			this.restrict = true
+			this.authService.hasUserSubscription$.next(true);
 			return
 		}
 		this.router.navigate(["/pages/export-credit"])
@@ -429,7 +424,7 @@ export class CourseListComponent implements OnInit {
 
 	viewFav() {
 		if (this.planExpired) {
-			this.restrict = true
+			this.authService.hasUserSubscription$.next(true);
 			return
 		}
 
@@ -438,16 +433,13 @@ export class CourseListComponent implements OnInit {
 	}
 
 	checkplanExpire(): void {
-		this.authService.getNewUserTimeLeft().subscribe((res) => {
-			let data = res.time_left
-			let subscription_exists_status = res.subscription_details
-			this.currentPlan = subscription_exists_status.subscription_plan
-			if (data.plan === "expired" || data.plan === "subscription_expired") {
-				this.planExpired = true
-			} else {
-				this.planExpired = false
-			}
-		})
+		if (this.authService._userSubscrition.time_left.plan === "expired" ||
+			this.authService._userSubscrition.time_left.plan === "subscription_expired") {
+			this.planExpired = true;
+		}
+		else {
+			this.planExpired = false;
+		}
 	}
 
 	previous(): void {
@@ -492,7 +484,7 @@ export class CourseListComponent implements OnInit {
 
 	getRecommendation() {
 		if (this.planExpired) {
-			this.restrict = true
+			this.authService.hasUserSubscription$.next(true);
 			return
 		}
 		let keyMapping: any = { "1": "country", "2": "subject", "3": "study_level", "4": "intake_months", "5": "pre_requisite", "6": "world_rank" }

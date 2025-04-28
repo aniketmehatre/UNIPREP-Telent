@@ -18,12 +18,11 @@ import { DialogModule } from "primeng/dialog";
 import { CarouselModule } from "primeng/carousel";
 import { ButtonModule } from "primeng/button";
 import { PdfViewerModule } from "ng2-pdf-viewer";
-import { RestrictionDialogComponent } from "src/app/shared/restriction-dialog/restriction-dialog.component";
 @Component({
   selector: "uni-academic-tools-quiz",
   templateUrl: "./academic-tools-quiz.component.html",
   styleUrls: ["./academic-tools-quiz.component.scss"],
-  imports: [PdfViewerModule, DialogModule, CommonModule, CarouselModule, ButtonModule, RestrictionDialogComponent],
+  imports: [PdfViewerModule, DialogModule, CommonModule, CarouselModule, ButtonModule],
   standalone: true,
 })
 export class AcademicToolsQuizComponent implements OnInit, AfterViewInit {
@@ -73,13 +72,9 @@ export class AcademicToolsQuizComponent implements OnInit, AfterViewInit {
   timer: number = 0;
   timerSubscription: Subscription | null = null;
   restrict: boolean = false;
-  restrict1: boolean = false;
   planExpired: boolean = false;
   selectedQuizArrayForTimer: any[] = [];
   totalquiztime: any = 0;
-  ehitlabelIsShow: boolean = true;
-  imagewhitlabeldomainname: any;
-  orgnamewhitlabel: any;
   quizId: string = "";
   pieChartColors = [
     {
@@ -105,9 +100,6 @@ export class AcademicToolsQuizComponent implements OnInit, AfterViewInit {
 
   ngOnInit(): void {
     this.titleModule = ["Stream", "Recommendation", "Quiz"];
-    this.locationService.getOrgName().subscribe((orgname) => {
-      this.orgnamewhitlabel = orgname;
-    });
     this.activatedRoute.params.subscribe((res) => {
       this.submoduleId = res["id"];
       this.quizId = res["submoduleId"];
@@ -153,22 +145,14 @@ export class AcademicToolsQuizComponent implements OnInit, AfterViewInit {
     this.checkquizquestioncount();
   }
 
-  upgradePlan(): void {
-    this.router.navigate(["/pages/subscriptions"]);
-  }
-  clearRestriction() {
-    this.restrict1 = false;
-  }
   checkplanExpire(): void {
-    this.authService.getNewUserTimeLeft().subscribe((res) => {
-      let data = res.time_left;
-      let subscription_exists_status = res.subscription_details;
-      if (data.plan === "expired" || data.plan === "subscription_expired" || subscription_exists_status?.subscription_plan === "free_trail") {
-        this.planExpired = true;
-      } else {
-        this.planExpired = false;
-      }
-    });
+    if (this.authService._userSubscrition.time_left.plan === "expired" ||
+      this.authService._userSubscrition.time_left.plan === "subscription_expired") {
+      this.planExpired = true;
+    }
+    else {
+      this.planExpired = false;
+    }
   }
 
   runQuiz() {

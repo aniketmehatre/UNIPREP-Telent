@@ -23,25 +23,19 @@ import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
 import { DownloadRespose } from 'src/app/@Models/travel-tools.model';
 import { TravelToolsService } from "src/app/pages/travel-tools/travel-tools.service";
 import { PromptService } from "src/app/pages/prompt.service";
-import { RestrictionDialogComponent } from "src/app/shared/restriction-dialog/restriction-dialog.component";
 
 @Component({
   selector: "uni-jopreparedlist",
   templateUrl: "./preparedlist.component.html",
   styleUrls: ["./preparedlist.component.scss"],
   standalone: true,
-  imports: [CommonModule, DialogModule, SidebarModule, PdfViewerModule, CardModule, PaginatorModule, FormsModule, ReactiveFormsModule, CarouselModule, ButtonModule, MultiSelectModule, SelectModule, InputGroupModule, InputTextModule, InputGroupAddonModule, RadioButtonModule, RestrictionDialogComponent]
+  imports: [CommonModule, DialogModule, SidebarModule, PdfViewerModule, CardModule, PaginatorModule, FormsModule, ReactiveFormsModule, CarouselModule, ButtonModule, MultiSelectModule, SelectModule, InputGroupModule, InputTextModule, InputGroupAddonModule, RadioButtonModule]
 })
 export class JobOfferPreparedListComponent implements OnInit {
   isSkeletonVisible: boolean = true;
   planExpired: boolean = false;
-  restrict: boolean = false;
   page: number = 1;
   perpage: number = 25;
-  ehitlabelIsShow: boolean = true;
-  imagewhitlabeldomainname: any;
-  orgnamewhitlabel: any;
-  orglogowhitelabel: any;
   totalDataCount: any = 0;
   ListData: any = [];
   ComparisonResponse: SafeHtml;
@@ -66,13 +60,6 @@ export class JobOfferPreparedListComponent implements OnInit {
     this.getjobofferResponse();
     this.getSavedResponse();
     this.checkPlanExpiry();
-    this.imagewhitlabeldomainname = window.location.hostname;
-    this.ehitlabelIsShow = [
-      "*.uniprep.ai",
-      "dev-student.uniprep.ai",
-      "uniprep.ai",
-      "localhost",
-    ].includes(this.imagewhitlabeldomainname);
   }
   saveRoleResponse() {
     this.service
@@ -118,14 +105,14 @@ export class JobOfferPreparedListComponent implements OnInit {
   }
 
   checkPlanExpiry(): void {
-    this.authService.getNewUserTimeLeft().subscribe((res) => {
-      const data = res.time_left;
-      if (data.plan === "expired" || data.plan === "subscription_expired") {
-        this.planExpired = true;
-      } else {
-        this.planExpired = false;
-      }
-    });
+    if (this.authService._userSubscrition.time_left.plan === "expired" ||
+      this.authService._userSubscrition.time_left.plan === "subscription_expired") {
+      this.planExpired = true;
+    }
+    else {
+      this.planExpired = false;
+    }
+
   }
 
   downloadRecommadation() {
@@ -138,13 +125,6 @@ export class JobOfferPreparedListComponent implements OnInit {
     this.promptService.responseBuilder(params);
   }
 
-  upgradePlan(): void {
-    this.router.navigate(["/pages/subscriptions"]);
-  }
-
-  clearRestriction() {
-    this.restrict = false;
-  }
 
   openVideoPopup(videoLink: string) {
     this.pageFacade.openHowitWorksVideoPopup(videoLink);

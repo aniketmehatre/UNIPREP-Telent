@@ -103,8 +103,10 @@
 								<h3 class="primary-color mb-4">
 									{{ savedresponseData.jobrole }}
 								</h3>
-								<button pButton pButton type="button" (click)="downloadRecommadation()"  *ngIf="savedresponseData.answer" class="btn btn-secondary btn-rounded p-1 ps-4">
-									<span class="me-2">Download</span><span class="btn-icon px-2 py-2"> <i class="fa-regular fa-download"></i></span>
+								<button pButton pButton type="button" (click)="downloadRecommadation()"
+									*ngIf="savedresponseData.answer" class="btn btn-secondary btn-rounded p-1 ps-4">
+									<span class="me-2">Download</span><span class="btn-icon px-2 py-2"> <i
+											class="fa-regular fa-download"></i></span>
 								</button>
 							</div>
 							<div class="card p-3 poppins-content chatgpt-response bg-white h-100 overflow-y-auto"
@@ -160,7 +162,6 @@
 		</div>
 	</div>
 </div>
-<uni-restriction-dialog *ngIf="restrict" [isShowRestrict]="restrict" (closeRestrictModal)="restrict = false" />
 
 <p-dialog [(visible)]="readanswerpopubVisibility" [modal]="true" [header]="'headerTitle'"
 	[style]="{ width: '90vw', height: '90vh' }" [closable]="true" [draggable]="false" id="preparedlist">

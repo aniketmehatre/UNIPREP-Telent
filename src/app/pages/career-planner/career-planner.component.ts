@@ -20,7 +20,6 @@ import { InputTextModule } from "primeng/inputtext"
 import { InputGroupAddonModule } from "primeng/inputgroupaddon"
 import { RadioButtonModule } from "primeng/radiobutton"
 import { PdfViewerModule } from "ng2-pdf-viewer";
-import { RestrictionDialogComponent } from "src/app/shared/restriction-dialog/restriction-dialog.component"
 interface Specialisation {
 	id: number
 	subject_id: number
@@ -31,7 +30,7 @@ interface Specialisation {
 	templateUrl: "./career-planner.component.html",
 	styleUrls: ["./career-planner.component.scss"],
 	standalone: true,
-	imports: [CommonModule, DialogModule, RadioButtonModule, SidebarModule, PdfViewerModule, RouterModule, CardModule, PaginatorModule, FormsModule, ReactiveFormsModule, CarouselModule, ButtonModule, MultiSelectModule, SelectModule, InputGroupModule, InputTextModule, InputGroupAddonModule, RestrictionDialogComponent],
+	imports: [CommonModule, DialogModule, RadioButtonModule, SidebarModule, PdfViewerModule, RouterModule, CardModule, PaginatorModule, FormsModule, ReactiveFormsModule, CarouselModule, ButtonModule, MultiSelectModule, SelectModule, InputGroupModule, InputTextModule, InputGroupAddonModule],
 })
 export class CareerPlannerComponent implements OnInit {
 	products: any = [
@@ -124,7 +123,6 @@ export class CareerPlannerComponent implements OnInit {
 			value: "No",
 		},
 	]
-
 	selectedData: { [key: string]: any } = {}
 	enableModule!: boolean
 	activePageIndex: number = 0
@@ -139,8 +137,6 @@ export class CareerPlannerComponent implements OnInit {
 	currencyButtonName: string = "Dollar"
 	currentPlan: string = ""
 	planExpired!: boolean
-	restrict: boolean = false
-
 	arrayMap: any = {
 		highLevelStudy: this.highLevelStudy,
 		YesOrNo: this.YesOrNo,
@@ -155,9 +151,6 @@ export class CareerPlannerComponent implements OnInit {
 	ngOnInit(): void {
 		this.checkCareerPlanExist()
 		this.checkplanExpire()
-		this.locationService.getImage().subscribe((imageUrl) => {
-			this.orglogowhitelabel = imageUrl
-		})
 	}
 
 	toggleClass(buttonName: string) {
@@ -331,7 +324,7 @@ export class CareerPlannerComponent implements OnInit {
 
 	paginate(event: any) {
 		if (this.planExpired) {
-			this.restrict = true
+			this.authService.hasUserSubscription$.next(true);
 			return
 		}
 
@@ -342,7 +335,7 @@ export class CareerPlannerComponent implements OnInit {
 
 	handleClick(event: Event) {
 		if (this.planExpired) {
-			this.restrict = true
+			this.authService.hasUserSubscription$.next(true);
 			event.preventDefault() // Prevent the default action of the anchor tag
 		}
 	}
@@ -368,27 +361,15 @@ export class CareerPlannerComponent implements OnInit {
 		this.pageFacade.openHowitWorksVideoPopup(videoLink)
 	}
 
-	ehitlabelIsShow: boolean = true
-	imagewhitlabeldomainname: any
-	orgnamewhitlabel: any
-	orglogowhitelabel: any
 	checkplanExpire(): void {
-		this.authService.getNewUserTimeLeft().subscribe((res) => {
-			let data = res.time_left
-			let subscription_exists_status = res.subscription_details
-			if (data.plan === "expired" || data.plan === "subscription_expired" || subscription_exists_status.subscription_plan == "Student") {
-				this.planExpired = true
-			} else {
-				this.planExpired = false
-			}
-		})
-	}
-
-	upgradePlan(): void {
-		this.router.navigate(["/pages/subscriptions"])
-	}
-	clearRestriction() {
-		this.restrict = false
+		if (this.authService._userSubscrition.time_left.plan === "expired" ||
+			this.authService._userSubscrition.time_left.plan === "subscription_expired" ||
+			this.authService._userSubscrition.subscription_details.subscription_plan === "Student") {
+			this.planExpired = true;
+		}
+		else {
+			this.planExpired = false;
+		}
 	}
 
 	goBack() {

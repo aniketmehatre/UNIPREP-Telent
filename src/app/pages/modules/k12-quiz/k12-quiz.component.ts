@@ -13,13 +13,12 @@ import { DialogModule } from 'primeng/dialog';
 import { CarouselModule } from 'primeng/carousel';
 import { ButtonModule } from 'primeng/button';
 import { StorageService } from "../../../storage.service";
-import { RestrictionDialogComponent } from 'src/app/shared/restriction-dialog/restriction-dialog.component';
 @Component({
   selector: 'uni-k12-quiz',
   templateUrl: './k12-quiz.component.html',
   styleUrls: ['./k12-quiz.component.scss'],
   standalone: true,
-  imports: [CommonModule, DialogModule, CarouselModule, ButtonModule, RestrictionDialogComponent]
+  imports: [CommonModule, DialogModule, CarouselModule, ButtonModule]
 })
 export class K12QuizComponent implements OnInit {
   quizData: any[] = [];
@@ -61,14 +60,10 @@ export class K12QuizComponent implements OnInit {
   timer: number = 0;
   timerSubscription: Subscription | null = null;
   restrict: boolean = false;
-  restrict1: boolean = false;
   planExpired: boolean = false;
   selectedQuizArrayForTimer: any[] = [];
   totalquiztime: any = 0;
-  ehitlabelIsShow: boolean = true;
-  imagewhitlabeldomainname: any
-  orgnamewhitlabel: any;
-  orglogowhitelabel: any;
+
   constructor(private moduleListService: ModuleServiceService, private authService: AuthService, private router: Router, private dataService: DataService,
     private location: Location, private locationService: LocationService, private ngxService: NgxUiLoaderService,
     private toast: MessageService, private activatedRoute: ActivatedRoute, private storage: StorageService) { }
@@ -131,23 +126,15 @@ export class K12QuizComponent implements OnInit {
     });
   }
 
-  upgradePlan(): void {
-    this.router.navigate(["/pages/subscriptions"]);
-  }
-  clearRestriction() {
-    this.restrict1 = false;
-  }
   checkplanExpire(): void {
-    this.authService.getNewUserTimeLeft().subscribe((res) => {
-      let data = res.time_left;
-      let subscription_exists_status = res.subscription_details;
-      if (data.plan === "expired" || data.plan === 'subscription_expired' ||
-        subscription_exists_status?.subscription_plan === "free_trail") {
-        this.planExpired = true;
-      } else {
-        this.planExpired = false;
-      }
-    })
+    if (this.authService._userSubscrition.time_left.plan === "expired" ||
+      this.authService._userSubscrition.time_left.plan === "subscription_expired") {
+      this.planExpired = true;
+    }
+    else {
+      this.planExpired = false;
+    }
+
   }
 
   loadModuleAndSubModule() {
@@ -405,7 +392,7 @@ export class K12QuizComponent implements OnInit {
   }
   openCertificate() {
     if (this.planExpired) {
-      this.restrict1 = true;
+      this.authService.hasUserSubscription$.next(true);
       return;
     }
     window.open(this.certificatesurl, '_blank');

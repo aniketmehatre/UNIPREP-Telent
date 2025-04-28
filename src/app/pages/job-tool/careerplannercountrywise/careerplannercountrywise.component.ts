@@ -26,13 +26,12 @@ import { SkeletonModule } from 'primeng/skeleton';
 import { SharedModule } from 'src/app/shared/shared.module';
 import { AuthService } from 'src/app/Auth/auth.service';
 import { LocationService } from 'src/app/location.service';
-import { RestrictionDialogComponent } from 'src/app/shared/restriction-dialog/restriction-dialog.component';
 @Component({
   selector: 'uni-careerplannercountrywise',
   templateUrl: './careerplannercountrywise.component.html',
   styleUrls: ['./careerplannercountrywise.component.scss'],
   standalone: true,
-  imports: [CommonModule, DialogModule, SidebarModule, PdfViewerModule, RouterModule, CardModule, PaginatorModule, FormsModule, ReactiveFormsModule, CarouselModule, ButtonModule, MultiSelectModule, SelectModule, InputGroupModule, InputTextModule, InputGroupAddonModule, SkeletonModule, SharedModule, RestrictionDialogComponent]
+  imports: [CommonModule, DialogModule, SidebarModule, PdfViewerModule, RouterModule, CardModule, PaginatorModule, FormsModule, ReactiveFormsModule, CarouselModule, ButtonModule, MultiSelectModule, SelectModule, InputGroupModule, InputTextModule, InputGroupAddonModule, SkeletonModule, SharedModule]
 })
 
 export class CareerplannercountrywiseComponent implements OnInit {
@@ -49,11 +48,6 @@ export class CareerplannercountrywiseComponent implements OnInit {
   aiCreditCount: number = 0;
   planExpired: boolean = false
   currentPlan: string = ""
-  restrict: boolean = false;
-  ehitlabelIsShow: boolean = true;
-  imagewhitlabeldomainname: any
-  orgnamewhitlabel: any
-  orglogowhitelabel: any
   userInputs: any;
 
   constructor(private router: Router, private service: JobSearchService, private fb: FormBuilder, private pageFacade: PageFacadeService,
@@ -94,10 +88,10 @@ export class CareerplannercountrywiseComponent implements OnInit {
   }
   formSubmit() {
     if (this.planExpired) {
-      this.restrict = true
+      this.authService.hasUserSubscription$.next(true);
       return
     }
-    if(this.aiCreditCount == 0){
+    if (this.aiCreditCount == 0) {
       this.toast.add({ severity: "error", summary: "Error", detail: "Free AI Credits Over.Please Buy Some Credits..!" });
       return;
     }
@@ -202,30 +196,20 @@ export class CareerplannercountrywiseComponent implements OnInit {
   }
   buyCredits(): void {
     if (this.planExpired) {
-      this.restrict = true
+      this.authService.hasUserSubscription$.next(true);
       return
     }
     this.router.navigate(["/pages/export-credit"])
   }
   checkplanExpire(): void {
-    this.authService.getNewUserTimeLeft().subscribe((res) => {
-      let data = res.time_left
-      let subscription_exists_status = res.subscription_details
-      this.currentPlan = subscription_exists_status.subscription_plan
-      if (data.plan === "expired" || data.plan === "subscription_expired" || subscription_exists_status.subscription_plan === "free_trail" || subscription_exists_status.subscription_plan === "Student") {
-        this.planExpired = true
-        //this.restrict = true;
-      } else {
-        this.planExpired = false
-        //this.restrict = false;
-      }
-    })
-  }
-  clearRestriction() {
-    this.restrict = false
+    if (this.authService._userSubscrition.time_left.plan === "expired" ||
+      this.authService._userSubscrition.time_left.plan === "subscription_expired" ||
+      this.authService._userSubscrition.subscription_details.subscription_plan === "Student") {
+      this.planExpired = true;
+    }
+    else {
+      this.planExpired = false;
+    }
   }
 
-  upgradePlan(): void {
-    this.router.navigate(["/pages/subscriptions"])
-  }
 }

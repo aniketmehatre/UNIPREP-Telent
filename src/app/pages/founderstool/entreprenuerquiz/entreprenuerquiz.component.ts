@@ -23,13 +23,12 @@ import { InputGroupModule } from 'primeng/inputgroup';
 import { InputTextModule } from 'primeng/inputtext';
 import { InputGroupAddonModule } from 'primeng/inputgroupaddon';
 import { StorageService } from "../../../storage.service";
-import { RestrictionDialogComponent } from 'src/app/shared/restriction-dialog/restriction-dialog.component';
 @Component({
   selector: 'uni-entreprenuerquiz',
   templateUrl: './entreprenuerquiz.component.html',
   styleUrls: ['./entreprenuerquiz.component.scss'],
   standalone: true,
-  imports: [CommonModule, DialogModule, CardModule, PaginatorModule, FormsModule, ReactiveFormsModule, CarouselModule, ButtonModule, MultiSelectModule, SelectModule, InputGroupModule, InputTextModule, InputGroupAddonModule, RestrictionDialogComponent]
+  imports: [CommonModule, DialogModule, CardModule, PaginatorModule, FormsModule, ReactiveFormsModule, CarouselModule, ButtonModule, MultiSelectModule, SelectModule, InputGroupModule, InputTextModule, InputGroupAddonModule]
 })
 export class EntreprenuerquizComponent implements OnInit {
   quizData: any[] = [];
@@ -74,12 +73,7 @@ export class EntreprenuerquizComponent implements OnInit {
   restrict: boolean = false;
   selectedQuizArrayForTimer: any[] = [];
   totalquiztime: any = 0;
-  restrict1: boolean = false;
   planExpired: boolean = false;
-  ehitlabelIsShow: boolean = true;
-  imagewhitlabeldomainname: any
-  orgnamewhitlabel: any;
-  orglogowhitelabel: any;
   submoduleidquiz: any;
   subModuleName: string = '';
   constructor(private moduleListService: ModuleServiceService, private authService: AuthService, private router: Router, private dataService: DataService,
@@ -200,23 +194,15 @@ export class EntreprenuerquizComponent implements OnInit {
     this.checkquizquestioncount()
   }
 
-  upgradePlan(): void {
-    this.router.navigate(["/pages/subscriptions"]);
-  }
-  clearRestriction() {
-    this.restrict1 = false;
-  }
   checkplanExpire(): void {
-    this.authService.getNewUserTimeLeft().subscribe((res) => {
-      let data = res.time_left;
-      let subscription_exists_status = res.subscription_details;
-      if (data.plan === "expired" || data.plan === 'subscription_expired' ||
-        subscription_exists_status?.subscription_plan === "free_trail") {
-        this.planExpired = true;
-      } else {
-        this.planExpired = false;
-      }
-    })
+    if (this.authService._userSubscrition.time_left.plan === "expired" ||
+      this.authService._userSubscrition.time_left.plan === "subscription_expired" ||
+      this.authService._userSubscrition.subscription_details.subscription_plan === "free_trail") {
+      this.planExpired = true;
+    }
+    else {
+      this.planExpired = false;
+    }
   }
 
   loadModuleAndSubModule() {
@@ -462,7 +448,7 @@ export class EntreprenuerquizComponent implements OnInit {
   openCertificate() {
     this.stopTimer();
     if (this.planExpired) {
-      this.restrict1 = true;
+      this.authService.hasUserSubscription$.next(true);
       return;
     }
     window.open(this.certificatesurl, '_blank');

@@ -14,14 +14,13 @@ import { CommonModule } from '@angular/common';
 import { DialogModule } from 'primeng/dialog';
 import { SkeletonModule } from 'primeng/skeleton';
 import { StorageService } from "../../../storage.service";
-import { RestrictionDialogComponent } from 'src/app/shared/restriction-dialog/restriction-dialog.component';
 @Component({
     selector: 'uni-k12-chapter',
     templateUrl: './k12-chapter.component.html',
     styleUrls: ['./k12-chapter.component.scss'],
     providers: [ConfirmationService],
     standalone: true,
-    imports: [CommonModule, DialogModule, SkeletonModule, RestrictionDialogComponent]
+    imports: [CommonModule, DialogModule, SkeletonModule]
 })
 export class K12ChapterComponent implements OnInit {
     answeredCorrect: number = 0;
@@ -56,14 +55,9 @@ export class K12ChapterComponent implements OnInit {
     howItWorksVideoLink: string = "";
     quizmoduleselectcountryidsetzero: any = 0;
     selectSubmoduleName: string = "";
-    ehitlabelIsShow: boolean = true;
-    imagewhitlabeldomainname: any
-    orgnamewhitlabel: any;
-    orglogowhitelabel: any;
     subjectId: any;
     allSearchedResult: any[] = []
     loopRange = Array.from({ length: 24 }).fill(0).map((_, index) => index);
-    restrict = false;
     quizpercentage: any = 0
     subName: any
     boardName: any
@@ -170,26 +164,18 @@ export class K12ChapterComponent implements OnInit {
     }
 
     checkplanExpire(): void {
-        this.authService.getNewUserTimeLeft().subscribe((res) => {
-            let data = res.time_left;
-            if (data.plan === "expired" || data.plan === 'subscription_expired') {
-                this.planExpired = true;
-            } else {
-                this.planExpired = false;
-            }
-        })
-    }
+        if (this.authService._userSubscrition.time_left.plan === "expired" ||
+            this.authService._userSubscrition.time_left.plan === "subscription_expired") {
+            this.planExpired = true;
+        }
+        else {
+            this.planExpired = false;
+        }
 
-    upgradePlan(): void {
-        this.router.navigate(["/pages/subscriptions"]);
     }
 
     goBack() {
         this._location.back();
-    }
-
-    clearRestriction() {
-        this.restrict = false;
     }
 
     checkquizquestionmodule() {

@@ -16,13 +16,12 @@ import { ConfirmPopupModule } from "primeng/confirmpopup";
 import { ButtonModule } from "primeng/button";
 import { SelectModule } from "primeng/select";
 import { StorageService } from "../../storage.service";
-import { RestrictionDialogComponent } from "src/app/shared/restriction-dialog/restriction-dialog.component";
 @Component({
   selector: "uni-chat",
   templateUrl: "./chat.component.html",
   styleUrls: ["./chat.component.scss"],
   standalone: true,
-  imports: [CommonModule, DialogModule, FormsModule, ReactiveFormsModule, PopoverModule, ConfirmPopupModule, ButtonModule, SelectModule, RestrictionDialogComponent],
+  imports: [CommonModule, DialogModule, FormsModule, ReactiveFormsModule, PopoverModule, ConfirmPopupModule, ButtonModule, SelectModule],
   providers: [ConfirmationService],
 })
 export class ChatComponent implements OnInit {
@@ -201,21 +200,20 @@ export class ChatComponent implements OnInit {
     this.checkplanExpire();
   }
   checkplanExpire(): void {
-    this.authService.getNewUserTimeLeft().subscribe((res) => {
-      let data = res.time_left;
-      let subscription_exists_status = res.subscription_details;
-      if (data.plan === "expired" || data.plan === "subscription_expired") {
-        this.planExpired = true;
-        this.subtext = "Welcome to UNIPREP. You have 1 free question credit. Your personalised questions will be answered by the experts. Each message will be considered as 1 credit.";
-      } else {
-        this.planExpired = false;
-        this.subtext = "Welcome to UNIPREP.You have 2 question credits.Your personalised questions will be answered by the experts.Each message will be considered as 1 credit.";
-      }
-      if (subscription_exists_status.subscription_plan == "free_trail") {
-        this.subtext = "Welcome to UNIPREP. You have 1 free question credit. Your personalised questions will be answered by the experts. Each message will be considered as 1 credit.";
-      }
-    });
+    if (this.authService._userSubscrition.time_left.plan === "expired" ||
+      this.authService._userSubscrition.time_left.plan === "subscription_expired") {
+      this.planExpired = true;
+      this.subtext = "Welcome to UNIPREP. You have 1 free question credit. Your personalised questions will be answered by the experts. Each message will be considered as 1 credit.";
+    }
+    else {
+      this.planExpired = false;
+      this.subtext = "Welcome to UNIPREP.You have 2 question credits.Your personalised questions will be answered by the experts.Each message will be considered as 1 credit.";
+    }
+    if (this.authService._userSubscrition.subscription_details.subscription_plan == "free_trail") {
+      this.subtext = "Welcome to UNIPREP. You have 1 free question credit. Your personalised questions will be answered by the experts. Each message will be considered as 1 credit.";
+    }
   }
+
   getOptions() {
     this.service.getReportoption().subscribe((response) => {
       this.reportOptions = [];
@@ -341,17 +339,12 @@ export class ChatComponent implements OnInit {
   }
   canChangeChat() {
     if (this.planExpired) {
-      this.restrict = true;
+      this.authService.hasUserSubscription$.next(true);
       return;
     }
     this.textareavisbility = !this.textareavisbility;
   }
-  clearRestriction() {
-    this.restrict = false;
-  }
-  upgradePlan(): void {
-    this.route.navigate(["/pages/subscriptions"]);
-  }
+
   goBack() {
     this.location.back();
   }

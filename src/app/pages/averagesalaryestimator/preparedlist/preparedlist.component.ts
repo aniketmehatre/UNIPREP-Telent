@@ -21,20 +21,18 @@ import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
 import { PromptService } from "../../prompt.service";
 import { SkeletonModule } from "primeng/skeleton";
 import { SharedModule } from "src/app/shared/shared.module";
-import { RestrictionDialogComponent } from "src/app/shared/restriction-dialog/restriction-dialog.component";
 
 @Component({
   selector: "uni-aspreparedlist",
   templateUrl: "./preparedlist.component.html",
   styleUrls: ["./preparedlist.component.scss"],
   standalone: true,
-  imports: [CommonModule, DialogModule, PdfViewerModule, TabViewModule, RouterModule, CardModule, FormsModule, ReactiveFormsModule, CarouselModule, ButtonModule, MultiSelectModule, SelectModule, InputGroupModule, InputTextModule, InputGroupAddonModule, SkeletonModule, SharedModule, RestrictionDialogComponent],
+  imports: [CommonModule, DialogModule, PdfViewerModule, TabViewModule, RouterModule, CardModule, FormsModule, ReactiveFormsModule, CarouselModule, ButtonModule, MultiSelectModule, SelectModule, InputGroupModule, InputTextModule, InputGroupAddonModule, SkeletonModule, SharedModule],
   providers: [MessageService, AveragesalaryestimatorService]
 })
 export class AverageSalaryPreparedListComponent implements OnInit {
   isSkeletonVisible: boolean = true;
   planExpired: boolean = false;
-  restrict: boolean = false;
   page: number = 1;
   perpage: number = 25;
   ehitlabelIsShow: boolean = true;
@@ -159,22 +157,13 @@ export class AverageSalaryPreparedListComponent implements OnInit {
   }
 
   checkPlanExpiry(): void {
-    this.authService.getNewUserTimeLeft().subscribe((res) => {
-      const data = res.time_left;
-      if (data.plan === "expired" || data.plan === "subscription_expired") {
-        this.planExpired = true;
-      } else {
-        this.planExpired = false;
-      }
-    });
-  }
-
-  upgradePlan(): void {
-    this.router.navigate(["/pages/subscriptions"]);
-  }
-
-  clearRestriction() {
-    this.restrict = false;
+    if (this.authService._userSubscrition.time_left.plan === "expired" ||
+      this.authService._userSubscrition.time_left.plan === "subscription_expired") {
+      this.planExpired = true;
+    }
+    else {
+      this.planExpired = false;
+    }
   }
 
   openVideoPopup(videoLink: string) {
@@ -235,8 +224,8 @@ export class AverageSalaryPreparedListComponent implements OnInit {
   savedresponseData: any;
   readSavedResponse(savedResponse: any) {
     const encodedJson = savedResponse.user_inputs;
-		const decodedInput = JSON.parse(encodedJson);
-		this.userInputs = decodedInput;
+    const decodedInput = JSON.parse(encodedJson);
+    this.userInputs = decodedInput;
     this.savedresponseData = savedResponse;
     this.EstimateResponse = savedResponse.answer;
     this.readResponse = true;

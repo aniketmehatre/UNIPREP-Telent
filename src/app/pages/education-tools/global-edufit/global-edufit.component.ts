@@ -20,13 +20,12 @@ import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
 import { PromptService } from '../../prompt.service';
 import { SkeletonModule } from 'primeng/skeleton';
 import { SharedModule } from 'src/app/shared/shared.module';
-import { RestrictionDialogComponent } from 'src/app/shared/restriction-dialog/restriction-dialog.component';
 @Component({
   selector: 'uni-global-edufit',
   templateUrl: './global-edufit.component.html',
   styleUrls: ['./global-edufit.component.scss'],
   standalone: true,
-  imports: [CommonModule, SelectModule, RouterModule, DialogModule, CardModule, PaginatorModule, CarouselModule, ButtonModule, FormsModule, ReactiveFormsModule, SkeletonModule, SharedModule, RestrictionDialogComponent]
+  imports: [CommonModule, SelectModule, RouterModule, DialogModule, CardModule, PaginatorModule, CarouselModule, ButtonModule, FormsModule, ReactiveFormsModule, SkeletonModule, SharedModule]
 })
 export class GlobalEdufitComponent implements OnInit {
   universityList: any = [];
@@ -43,14 +42,8 @@ export class GlobalEdufitComponent implements OnInit {
   pageSize = 25;
   first: number = 0;
   planExpired!: boolean;
-  recommendRestrict: boolean = false;
   form: FormGroup = new FormGroup({});
-  restrict: boolean = false;
   currentPlan: string = "";
-  ehitlabelIsShow: boolean = true;
-  imagewhitlabeldomainname: any;
-  orglogowhitelabel: any;
-  orgnamewhitlabel: any;
   locationName: string = '';
   submitted: boolean = false;
   data: any = {
@@ -123,9 +116,6 @@ export class GlobalEdufitComponent implements OnInit {
   selectedData: { [key: string]: any } = {};
 
   ngOnInit(): void {
-    this.locationService.getImage().subscribe(imageUrl => {
-      this.orglogowhitelabel = imageUrl;
-    });
     this.getCurrenyandLocation();
     this.getAICreditCount();
   }
@@ -163,26 +153,13 @@ export class GlobalEdufitComponent implements OnInit {
   }
 
   checkplanExpire(): void {
-    this.authService.getNewUserTimeLeft().subscribe((res) => {
-      let data = res.time_left;
-      let subscription_exists_status = res.subscription_details;
-      this.currentPlan = subscription_exists_status?.subscription_plan;
-      if (
-        data.plan === "expired" || data.plan === 'subscription_expired' ||
-        subscription_exists_status?.subscription_plan === "free_trail"
-      ) {
-        this.planExpired = true;
-      } else {
-        this.planExpired = false;
-      }
-      if (
-        data.plan === "expired" || data.plan === 'subscription_expired'
-      ) {
-        this.recommendRestrict = true;
-      } else {
-        this.recommendRestrict = false;
-      }
-    });
+    if (this.authService._userSubscrition.time_left.plan === "expired" ||
+      this.authService._userSubscrition.time_left.plan === "subscription_expired") {
+      this.planExpired = true;
+    }
+    else {
+      this.planExpired = false;
+    }
   }
 
   openHowItWorksVideoPopup(videoLink: string) {
@@ -205,11 +182,11 @@ export class GlobalEdufitComponent implements OnInit {
       this.submitted = true;
       return;
     }
-    if (this.recommendRestrict) {
-      this.restrict = true;
+    if (this.planExpired) {
+      this.authService.hasUserSubscription$.next(true);
       return;
     }
-    if(this.aiCreditCount == 0){
+    if (this.aiCreditCount == 0) {
       this.toast.add({ severity: "error", summary: "Error", detail: "Free AI Credits Over.Please Buy Some Credits..!" });
       return;
     }
@@ -293,8 +270,8 @@ export class GlobalEdufitComponent implements OnInit {
     this.recommendationData = data;
 
     const encodedJson = userInputs;
-		const decodedInput = JSON.parse(encodedJson);
-		this.userInputs = decodedInput;
+    const decodedInput = JSON.parse(encodedJson);
+    this.userInputs = decodedInput;
   }
 
   resetRecommendation() {

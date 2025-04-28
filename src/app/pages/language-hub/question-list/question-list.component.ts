@@ -24,13 +24,12 @@ import { CarouselModule } from "primeng/carousel";
 import { InputGroupModule } from "primeng/inputgroup";
 import { InputGroupAddonModule } from "primeng/inputgroupaddon";
 import { StorageService } from "../../../storage.service";
-import { RestrictionDialogComponent } from "src/app/shared/restriction-dialog/restriction-dialog.component";
 @Component({
   selector: "uni-question-list",
   templateUrl: "./question-list.component.html",
   styleUrls: ["./question-list.component.scss"],
   standalone: true,
-  imports: [CommonModule, RouterModule, DialogModule, PaginatorModule, SkeletonModule, TooltipModule, ButtonModule, MultiSelectModule, CarouselModule, InputGroupModule, InputGroupAddonModule, RestrictionDialogComponent],
+  imports: [CommonModule, RouterModule, DialogModule, PaginatorModule, SkeletonModule, TooltipModule, ButtonModule, MultiSelectModule, CarouselModule, InputGroupModule, InputGroupAddonModule],
 })
 export class QuestionListComponent implements OnInit {
   jsonData: any = [
@@ -577,7 +576,6 @@ export class QuestionListComponent implements OnInit {
   page: number = 1;
   perpage: number = 25;
   planExpired: boolean = false;
-  restrict: boolean = false;
   readQue$!: Observable<ReadQuestion[]>;
   loopRange = Array.from({ length: 30 })
     .fill(0)
@@ -591,10 +589,6 @@ export class QuestionListComponent implements OnInit {
   isPaused = false;
   currentText: string | null = null;
   currentId: string | null = null;
-  ehitlabelIsShow: boolean = true;
-  imagewhitlabeldomainname: any;
-  orgnamewhitlabel: any;
-  orglogowhitelabel: any;
   constructor(private languageHubService: LanguageHubService, private lhs: LanguageHubDataService,
     private location: Location, private route: ActivatedRoute, private toast: MessageService,
     private deviceService: DeviceDetectorService, private authService: AuthService, private router: Router,
@@ -717,7 +711,7 @@ export class QuestionListComponent implements OnInit {
 
   viewOneQuestion(data: any) {
     if (this.planExpired) {
-      this.restrict = true;
+      this.authService.hasUserSubscription$.next(true);
       return;
     }
     this.storage.set("languageHubData", JSON.stringify(data));
@@ -858,23 +852,13 @@ export class QuestionListComponent implements OnInit {
   }
 
   checkPlanExpiry(): void {
-    this.authService.getNewUserTimeLeft().subscribe((res) => {
-      let data = res.time_left;
-      let subscription_exists_status = res.subscription_details;
-      if (data.plan === "expired" || data.plan === "subscription_expired") {
-        this.planExpired = true;
-      } else {
-        this.planExpired = false;
-      }
-    });
-  }
-
-  upgradePlan(): void {
-    this.router.navigate(["/pages/subscriptions"]);
-  }
-
-  clearRestriction() {
-    this.restrict = false;
+    if (this.authService._userSubscrition.time_left.plan === "expired" ||
+      this.authService._userSubscrition.time_left.plan === "subscription_expired") {
+      this.planExpired = true;
+    }
+    else {
+      this.planExpired = false;
+    }
   }
 
   openVideoPopup(videoLink: string) {

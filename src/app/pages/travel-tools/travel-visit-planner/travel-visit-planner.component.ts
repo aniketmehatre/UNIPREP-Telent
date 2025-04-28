@@ -23,6 +23,7 @@ import { PageFacadeService } from '../../page-facade.service';
 import { DomSanitizer, SafeHtml } from "@angular/platform-browser"
 import { PromptService } from "../../prompt.service"
 import { SharedModule } from "src/app/shared/shared.module"
+import { AuthService } from "src/app/Auth/auth.service"
 @Component({
 	selector: "uni-travel-visit-planner",
 	templateUrl: "./travel-visit-planner.component.html",
@@ -31,7 +32,7 @@ import { SharedModule } from "src/app/shared/shared.module"
 	imports: [CommonModule, RouterModule, SkeletonModule, FluidModule, InputTextModule, TooltipModule, ButtonModule, MultiSelectModule, CarouselModule, InputGroupModule, InputGroupAddonModule, FormsModule, ReactiveFormsModule, InputTextModule, SelectModule, DialogModule, CardModule, InputNumberModule, SharedModule],
 })
 export class TravelVisitPlannerComponent implements OnInit {
-	constructor(private travelToolService: TravelToolsService, private router: Router, private costOfLivingService: CostOfLivingService, private toast: MessageService, private sanitizer: DomSanitizer, private promptService: PromptService,private pageFacade: PageFacadeService) { }
+	constructor(private travelToolService: TravelToolsService, private router: Router, private costOfLivingService: CostOfLivingService, private toast: MessageService, private sanitizer: DomSanitizer, private promptService: PromptService,private pageFacade: PageFacadeService, private authService: AuthService) { }
 
 	recommendations: { id: number; question: string }[] = [
 		{ id: 1, question: "What is your travel destination?" },
@@ -73,6 +74,14 @@ export class TravelVisitPlannerComponent implements OnInit {
 		})
 	}
 
+	buyCredits(){
+		if(this.authService.isInvalidSubscription('travel_tools')){
+			this.authService.hasUserSubscription$.next(true);
+		}else{
+			this.router.navigate(["/pages/export-credit"]);
+		}
+	}
+
 	previous() {
 		this.invalidClass = false
 		if (this.activePageIndex > 0) {
@@ -94,6 +103,7 @@ export class TravelVisitPlannerComponent implements OnInit {
 		if (!this.invalidClass) {
 			if(this.aiCreditCount == 0){
 				this.toast.add({ severity: "error", summary: "Error", detail: "Free AI Credits Over.Please Buy Some Credits..!" });
+				this.buyCredits();
 				return;
 			}
 			let data = {

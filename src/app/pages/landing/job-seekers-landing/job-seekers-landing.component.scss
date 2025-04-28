@@ -1,62 +1,70 @@
 .back-button {
-	width: 35px;
-	height: 35px;
-	display: flex;
-	border-radius: 100%;
-	align-items: center;
-	justify-content: center;
-	color: white;
-	border: 1px solid white;
-	background: transparent;
+  width: 35px;
+  height: 35px;
+  display: flex;
+  border-radius: 100%;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  border: 1px solid white;
+  background: transparent;
 }
 
 .pagetitle {
-	background-color: transparent;
-	border: 1px solid white;
-	border-radius: 100px;
-	height: 35px;
-	display: flex;
-	justify-content: center;
-	align-items: center;
+  background-color: transparent;
+  border: 1px solid white;
+  border-radius: 100px;
+  height: 35px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 .darksection {
-	background-color: #07070b;
-	p {
-		color: #fff !important;
-	}
+  background-color: #07070b;
+  p {
+    color: #fff !important;
+  }
 }
 .card {
-	border-radius: 1.5rem;
-	border: 1px solid #e6ddfe08;
-	background: linear-gradient(0deg, rgba(255, 255, 255, 0) 0%, rgba(255, 255, 255, 0.05) 100%);
-	box-shadow: 0px 10px 25px 0px rgba(230, 221, 254, 0.1) inset;
-	.card-title {
-		color: white;
-	}
-	p {
-		color: #aaaaaa !important;
-	}
-	&:hover {
-		.card-title {
-			color: var(--uniprep-secondary);
-		}
-		p {
-			color: white !important;
-		}
-	}
+  border-radius: 1.5rem;
+  border: 1px solid #e6ddfe08;
+  background: linear-gradient(
+    0deg,
+    rgba(255, 255, 255, 0) 0%,
+    rgba(255, 255, 255, 0.05) 100%
+  );
+  box-shadow: 0px 10px 25px 0px rgba(230, 221, 254, 0.1) inset;
+  .card-title {
+    color: white;
+  }
+  p {
+    color: #aaaaaa !important;
+  }
+  &:hover {
+    .card-title {
+      color: var(--uniprep-secondary);
+    }
+    p {
+      color: white !important;
+    }
+  }
 }
 .cta-field {
-	.card {
-		background: rgb(219, 83, 175);
-		background: linear-gradient(145deg, rgba(24, 34, 79, 1) 0%, rgba(220, 122, 86, 1) 100%);
-		border: none;
-	}
-	.cta-btn {
-		background: black;
-		color: white;
-		padding: 0.8rem;
-	}
+  .card {
+    background: rgb(219, 83, 175);
+    background: linear-gradient(
+      145deg,
+      rgba(24, 34, 79, 1) 0%,
+      rgba(220, 122, 86, 1) 100%
+    );
+    border: none;
+  }
+  .cta-btn {
+    background: black;
+    color: white;
+    padding: 0.8rem;
+  }
 }
 .sticky-sidebar {
 	position: sticky;

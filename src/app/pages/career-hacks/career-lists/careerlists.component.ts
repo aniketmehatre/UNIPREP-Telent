@@ -21,27 +21,21 @@ import { InputTextModule } from "primeng/inputtext"
 import { InputGroupAddonModule } from "primeng/inputgroupaddon"
 import { DataService } from "src/app/data.service"
 import { SkeletonModule } from "primeng/skeleton"
-import { RestrictionDialogComponent } from "src/app/shared/restriction-dialog/restriction-dialog.component"
 
 @Component({
 	selector: "uni-careerhackslists",
 	templateUrl: "./careerlists.component.html",
 	styleUrls: ["./careerlists.component.scss"],
 	standalone: true,
-	imports: [CommonModule, DialogModule, SkeletonModule, RouterModule, CardModule, PaginatorModule, FormsModule, ReactiveFormsModule, CarouselModule, ButtonModule, MultiSelectModule, SelectModule, InputGroupModule, InputTextModule, InputGroupAddonModule, RestrictionDialogComponent],
+	imports: [CommonModule, DialogModule, SkeletonModule, RouterModule, CardModule, PaginatorModule, FormsModule, ReactiveFormsModule, CarouselModule, ButtonModule, MultiSelectModule, SelectModule, InputGroupModule, InputTextModule, InputGroupAddonModule],
 	providers: [DataService],
 })
 export class CareerListsComponent implements OnInit {
 	isSkeletonVisible: boolean = true
 	isQuestionAnswerVisible: boolean = false
 	planExpired: boolean = false
-	restrict: boolean = false
 	page: number = 1
 	perpage: number = 50
-	ehitlabelIsShow: boolean = true
-	imagewhitlabeldomainname: any
-	orgnamewhitlabel: any
-	orglogowhitelabel: any
 	totalDataCount: any = 0
 	ListData: any = []
 	selectedQuestionData: any
@@ -87,14 +81,13 @@ export class CareerListsComponent implements OnInit {
 	}
 
 	checkPlanExpiry(): void {
-		this.authService.getNewUserTimeLeft().subscribe((res) => {
-			const data = res.time_left
-			if (data.plan === "expired" || data.plan === "subscription_expired") {
-				this.planExpired = true
-			} else {
-				this.planExpired = false
-			}
-		})
+		if (this.authService._userSubscrition.time_left.plan === "expired" ||
+			this.authService._userSubscrition.time_left.plan === "subscription_expired") {
+			this.planExpired = true;
+		}
+		else {
+			this.planExpired = false;
+		}
 	}
 
 	openVideoPopup(videoLink: string) {
