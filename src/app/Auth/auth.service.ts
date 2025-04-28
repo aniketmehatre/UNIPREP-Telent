@@ -620,7 +620,11 @@ export class AuthService {
         planExpired = true;
       }
     }
-    else if (module === 'career_tools' || module === 'employer_connect' || module === 'learning_hub') {
+    else if (
+      module === 'career_tools' ||
+      // module === 'employer_connect' ||
+      module === 'learning_hub'
+    ) {
       if (this._userSubscrition?.time_left?.plan === "expired" ||
         this._userSubscrition?.time_left?.plan === "subscription_expired" ||
         this._userSubscrition?.subscription_details?.subscription_plan === "Student") {
