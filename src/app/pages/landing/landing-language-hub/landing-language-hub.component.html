@@ -17,7 +17,7 @@
 								<h1 class="fw-normal text-white">{{ landingPageData?.herocover?.hero_title }}</h1>
 								<p class="mb-4">{{ landingPageData?.herocover?.hero_description }}</p>
 								<div class="d-flex gap-2">
-									<button class="btn btn-outline-light rounded px-4 py-3">Learn More</button>
+									<button class="btn btn-outline-light rounded px-4 py-3" (click)="scrollToSection($event, 'why-choose-us')">Learn More</button>
 									<button class="btn btn-secondary rounded px-4 py-3" routerLink="/login">Try for Free!</button>
 								</div>
 							</div>

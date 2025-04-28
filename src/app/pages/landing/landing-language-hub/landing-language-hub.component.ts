@@ -118,7 +118,19 @@ export class LandingLanguageHubComponent implements OnInit {
       }
     });
   }
+  
+  scrollToSection(event: Event, sectionId: string): void {
+    // Prevent the default anchor link behavior
+    event.preventDefault()
 
+    // Find the element with the given section ID
+    const section = document.querySelector(`#${sectionId}`)
+
+    // If the section exists, scroll to it smoothly
+    if (section) {
+      section.scrollIntoView({ behavior: "smooth" })
+    }
+  }
   getLandingPageChooseUs(landingPageId: number) {
     this.landingPageService.getLandingPageChooseUs(landingPageId).subscribe({
       next: response => {
