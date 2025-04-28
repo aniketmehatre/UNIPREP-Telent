@@ -260,7 +260,7 @@ export class LandingContentComponent implements OnInit {
       // });
   
       this.service.getFeatBlogs().subscribe((response) => {
-        this.blogs = response.slice(0, 6)
+        this.blogs = response.slice(0, 8)
       })
   
       this.timeLeftInfoCard = "24 Hours"
