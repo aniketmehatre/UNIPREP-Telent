@@ -58,7 +58,7 @@
 
 											<div class="d-flex justify-content-center gap-2 mb-2">
 												<input name="image" type="file" (change)="onUploadPhoto($event)" accept="image/*" #fileUploadImage style="display: none" />
-												<p-button label="Upload Photo" icon="pi pi-upload" styleClass="p-button-sm" (click)="fileUploadImage.click()" (onFocus)="updateMessageBox('profile_image')" (focusout)="resetMessageBox()"></p-button>
+												<p-button label="{{this.logo ? 'Change Photo' : 'Upload Photo'}}" icon="pi pi-upload" styleClass="p-button-sm" (click)="fileUploadImage.click()" (onFocus)="updateMessageBox('profile_image')" (focusout)="resetMessageBox()"></p-button>
 												<p-button label="Remove Photo" icon="pi pi-times" (onClick)="onRemovePhoto()" styleClass="p-button-sm p-button-outlined"></p-button>
 											</div>
 										</div>
@@ -908,7 +908,7 @@
 												</div>
 
 												<div class="overflow-hidden">
-													<p class="text-muted text-small">Expected Salary</p>
+													<p class="text-muted text-small">Expected Salary Per Month</p>
 													<p class=" text-small text-truncate">
 														{{ personalInfoForm?.get("career_preference_expected_salary")?.value ? getListValue(currencies, personalInfoForm?.get("career_preference_currency_id")?.value, "currency_code") + " " + personalInfoForm?.get("career_preference_expected_salary")?.value + "/Month" : "-" }}
 													</p>
