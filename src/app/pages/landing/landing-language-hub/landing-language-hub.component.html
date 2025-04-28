@@ -13,23 +13,26 @@
 					</div>
 					<div class="col-md-12">
 						<div class="row align-items-center">
-							<div class="col-md-6">
-								<h1 class="fw-normal text-white">{{ landingPageData?.herocover?.hero_title }}</h1>
+							<div class="col-md-6 mb-md-0 mb-4">
+								<h1 class="fw-normal text-white">
+									<span class="fw-bold uniprep-secondary">{{ landingPageData?.herocover?.hero_title?.split('.')[0] }}.</span>
+									{{ landingPageData?.herocover?.hero_title?.split('.').slice(1).join('.') }}
+								</h1>
 								<p class="mb-4">{{ landingPageData?.herocover?.hero_description }}</p>
 								<div class="d-flex gap-2">
-									<button class="btn btn-outline-light rounded px-4 py-3">Learn More</button>
+									<button class="btn btn-outline-light rounded px-4 py-3" (click)="scrollToSection($event, 'why-choose-us')">Learn More</button>
 									<button class="btn btn-secondary rounded px-4 py-3" routerLink="/login">Try for Free!</button>
 								</div>
 							</div>
 							<div class="col-md-6">
-								<div class="hero-image">
+								<div class="w-100 overflow-hidden">
 									<!-- <div class="video-container" (click)="toggleVideo()">
                     <i class="fa-solid fa-circle-play uniprep-secondary fa-beat" role="button" *ngIf="!isPlaying"></i>
                     <video class="rounded-4" #videoPlayer width="100%" height="100%" preload="none" [poster]='landingPageData?.herocover.video_cover_image'>
                       <source [src]="'https://'+environment.domain+'/uniprepapi/storage/app/public/Landing/welcome.mp4'" type="video/mp4" />
                     </video>
                   </div> -->
-									<img [src]="landingPageData?.herocover.image_url ?? 'uniprep-assets/images/screenshot.png'" alt="Learning Hub Dashboard" />
+									<img class="w-100" [src]="landingPageData?.herocover.image_url ?? 'uniprep-assets/images/screenshot.png'" alt="Learning Hub Dashboard" />
 								</div>
 							</div>
 						</div>
@@ -77,10 +80,10 @@
 				<div class="card py-4 px-4">
 					<div class="card-body">
 						<div class="row align-items-center justify-content-center">
-							<div class="col-md-10">
+							<div class="col-md-10  text-md-start text-center">
 								<h2 class="fw-semibold text-white mb-0">Post a Job Now</h2>
 							</div>
-							<div class="col-md-2 col-7">
+							<div class="col-md-2  text-md-end text-center">
 								<a href="/register" class="btn cta-btn m-0 h5 py-4">Register Now</a>
 							</div>
 						</div>
@@ -164,10 +167,10 @@
 				<div class="card py-4 px-4">
 					<div class="card-body">
 						<div class="row align-items-center justify-content-center">
-							<div class="col-md-10">
+							<div class="col-md-10  text-md-start text-center">
 								<h2 class="fw-semibold text-white mb-0">Post a Job Now</h2>
 							</div>
-							<div class="col-md-2 col-7">
+							<div class="col-md-2  text-md-end text-center">
 								<a href="/register" class="btn cta-btn m-0 h5 py-4">Register Now</a>
 							</div>
 						</div>
