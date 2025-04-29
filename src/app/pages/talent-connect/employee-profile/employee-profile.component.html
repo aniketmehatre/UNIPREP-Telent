@@ -206,14 +206,15 @@
 											<div class="row mb-3">
 												<div class="col-md-6">
 													<label for="highestQualification" class="form-label">Years of Experience</label><br />
-													<p-select id="highestQualification" formControlName="years_of_experience" [options]="totalYearExperienceList" placeholder="Select total experience" styleClass="w-100" (focusout)="resetMessageBox()" (onFocus)="updateMessageBox('years_of_experience')" (ngModelChange)="disableFieldsWhenClickFresher(experience, experience.get('years_of_experience')?.value == 'Fresher')"></p-select>
+													<!-- <p-select id="highestQualification" formControlName="years_of_experience" [options]="totalYearExperienceList" placeholder="Select total experience" styleClass="w-100" (focusout)="resetMessageBox()" (onFocus)="updateMessageBox('years_of_experience')" (ngModelChange)="disableFieldsWhenClickFresher(experience, experience.get('years_of_experience')?.value == 'Fresher')"></p-select> -->
+													<input pInputText fluid id="university" formControlName="years_of_experience"  placeholder="Years of experience" class="form-control" (focusout)="resetMessageBox()" (focus)="updateMessageBox('years_of_experience')" />
 												</div>
 
 												<!-- University/Institution Name -->
 												<div class="col-md-6">
 													<label for="university" class="form-label">Company Name</label>
 													<div class="p-inputgroup">
-														<input pInputText fluid id="university" formControlName="work_experience_company_name" placeholder="Enter your company" class="form-control" [disabled]="experience.get('years_of_experience')?.value == 'Fresher'" (focusout)="resetMessageBox()" (focus)="updateMessageBox('work_experience_company_name')" />
+														<input pInputText fluid id="university" formControlName="work_experience_company_name" placeholder="Enter your company" class="form-control" (focusout)="resetMessageBox()" (focus)="updateMessageBox('work_experience_company_name')" />
 													</div>
 												</div>
 											</div>
@@ -246,8 +247,8 @@
 												<div class="col-md-6 mb-3">
 													<label for="duration" class="form-label">Duration</label>
 													<div class="d-block d-md-flex gap-2 w-full">
-														<p-datepicker formControlName="work_experience_duration_from" size="small" placeholder="From Date" dateFormat="dd-mm-yy" [maxDate]="today"  inputId="icondisplay" [readonlyInput]="true"/> 
-														<p-datepicker formControlName="work_experience_duration_to" size="small" placeholder="To Date" dateFormat="dd-mm-yy" inputId="icondisplay" [minDate]="experience.get('work_experience_duration_from')?.value" [readonlyInput]="true"/>
+														<p-datepicker formControlName="work_experience_duration_from" size="small" placeholder="From Date" dateFormat="dd-mm-yy" [maxDate]="today"  inputId="icondisplay" [readonlyInput]="true" (onSelect)="updateExperienceDate(experience.get('work_experience_duration_from'), experience.get('work_experience_duration_to'), experience.get('years_of_experience'));"/> 
+														<p-datepicker formControlName="work_experience_duration_to" size="small" placeholder="To Date" dateFormat="dd-mm-yy" inputId="icondisplay" [minDate]="experience.get('work_experience_duration_from')?.value" [maxDate]="today" [readonlyInput]="true" (onSelect)="updateExperienceDate(experience.get('work_experience_duration_from'), experience.get('work_experience_duration_to'), experience.get('years_of_experience'));"/>
 													</div>
 													<div
 													*ngIf="(experience.get('work_experience_duration_from')?.value && !experience.get('work_experience_duration_to')?.value) 
