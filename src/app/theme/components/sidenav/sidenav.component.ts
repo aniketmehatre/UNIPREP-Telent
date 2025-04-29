@@ -223,11 +223,11 @@ export class SidenavComponent {
       url: "",
       image: "",
     },
-    {
-      title: "Assessment",
-      url: "/pages/assessment/ilearn-challenge",
-      image: "fa-regular fa-badge-check",
-    },
+    // {
+    //   title: "Assessment",
+    //   url: "/pages/assessment/ilearn-challenge",
+    //   image: "fa-regular fa-badge-check",
+    // },
     {
       title: "AI Global Advisor",
       url: "/pages/advisor",

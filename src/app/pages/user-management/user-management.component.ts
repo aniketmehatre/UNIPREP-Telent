@@ -408,4 +408,13 @@ export class UserManagementComponent implements OnInit {
 		}
 		this.GetLocationList()
 	}
+
+	formatPhoneNumber(countryCode: string, phone: string): string {
+		if (!countryCode || !phone) return '';
+
+		// Ensure country code starts with +
+		let formattedCode = countryCode.startsWith('+') ? countryCode : '+' + countryCode;
+
+		return `${formattedCode} ${phone}`;  // Space between country code and number
+	}
 }
