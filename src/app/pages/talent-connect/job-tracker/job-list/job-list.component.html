@@ -40,78 +40,74 @@
 <div>
 	<p-dialog header="Filter" [(visible)]="displayModal" [modal]="true" [style]="{ width: '80%' }" [baseZIndex]="10000" [draggable]="false" [resizable]="false" (onHide)="displayModal = false; closeFilter.emit(false)" styleClass="container">
 		<form [formGroup]="filterForm" class="p-3">
-			<div class="mb-4">
-				<label class="form-label fw-bold">Search</label>
-				<div class="p-inputgroup">
-					<input type="text" pInputText formControlName="keyword" placeholder="Search by Keyword" class="form-control" />
-				</div>
-			</div>
-
-			<div class="row mb-4">
+			<div class="row g-3">
 				<div class="col-md-4">
-					<label class="form-label fw-bold">Position Title</label>
+					<label class="form-label fw-bold">Search</label>
 					<div class="p-inputgroup">
-						<input type="text" pInputText formControlName="position" placeholder="Enter position title" class="form-control w-100" />
+						<input type="text" pInputText formControlName="keyword" placeholder="Search by Keyword" class="form-control" />
 					</div>
 				</div>
-
-				<div class="col-md-4">
-					<label class="form-label fw-bold">Industry </label>
-					<p-multiSelect [options]="industries" formControlName="industry" placeholder="Select industry" optionLabel="industry_name" optionValue="id" display="chip" class="w-100"> </p-multiSelect>
-				</div>
-
-				<div class="col-md-4">
-					<label class="form-label fw-bold">Work Location </label>
-					<p-multiSelect [options]="locations" formControlName="worklocation" placeholder="Select work location" optionLabel="work_location" optionValue="id" display="chip" [virtualScroll]="true" [virtualScrollItemSize]="50" [filter]="true" filterBy="work_location" class="w-100"> </p-multiSelect>
-				</div>
-			</div>
-
-			<div class="row mb-4">
-				<div class="col-md-4">
-					<label class="form-label fw-bold">Work mode </label>
-					<p-multiSelect [options]="workModes" formControlName="work_mode" placeholder="Select work type" optionLabel="work_mode" optionValue="id" display="chip" class="w-100"> </p-multiSelect>
-				</div>
-
-				<div class="col-md-4">
-					<label class="form-label fw-bold">Employment Type </label>
-					<p-multiSelect [options]="employmentTypes" formControlName="employment_type" placeholder="Select employment type" optionLabel="employment_type" optionValue="id" display="chip" class="w-100"> </p-multiSelect>
-				</div>
-
-				<div class="col-md-4">
-					<label class="form-label fw-bold">Currency display for salaries</label>
-					<p-select [options]="currencies" formControlName="currency" optionLabel="currency_code" optionId="id" [filter]="true" appendTo="body" filterBy="currency_code" class="w-100"> </p-select>
-				</div>
-			</div>
-
-			<div class="row mb-4">
-				<div class="col-md-4">
-					<label class="form-label fw-bold">Salary offered</label>
-					<div class="d-flex w-100 gap-2">
-						<p-select [options]="currencies" styleClass="p-select p-component" optionLabel="currency_code" optionValue="id" placeholder="Select" formControlName="currency" [style]="{ width: '80px' }"> </p-select>
-						<div class="flex-grow-1 me-2">
-							<p-inputNumber id="salary" placeholder="Enter your salary/month" styleClass="p-inputtext w-100" [showButtons]="false" class="w-100" formControlName="salary"></p-inputNumber>
+	
+					<div class="col-md-4">
+						<label class="form-label fw-bold">Position Title</label>
+						<div class="p-inputgroup">
+							<input type="text" pInputText formControlName="position" placeholder="Enter position title" class="form-control w-100" />
 						</div>
 					</div>
-				</div>
-
-				<div class="col-md-4">
-					<label class="form-label fw-bold">Experience Level </label>
-					<p-multiSelect [options]="experienceLevels" formControlName="experienceLevel" optionLabel="label" optionValue="id" display="chip" class="w-100"> </p-multiSelect>
-				</div>
-				<div class="col-md-4">
-					<label class="form-label fw-bold">Status</label>
-					<p-select
-						[options]="[
-							{ label: 'Active', value: 1 },
-							{ label: 'IN Active', value: 0 }
-						]"
-						formControlName="status"
-						display="chip"
-						optionLabel="label"
-						optionValue="value"
-						class="w-100">
-					</p-select>
-				</div>
+	
+					<div class="col-md-4">
+						<label class="form-label fw-bold">Industry </label>
+						<p-multiSelect [options]="industries" formControlName="industry" placeholder="Select industry" optionLabel="industry_name" optionValue="id" display="chip" class="w-100"> </p-multiSelect>
+					</div>
+	
+					<div class="col-md-4">
+						<label class="form-label fw-bold">Work Location </label>
+						<p-multiSelect [options]="locations" formControlName="worklocation" placeholder="Select work location" optionLabel="work_location" optionValue="id" display="chip" [virtualScroll]="true" [virtualScrollItemSize]="50" [filter]="true" filterBy="work_location" class="w-100"> </p-multiSelect>
+					</div>
+	
+					<div class="col-md-4">
+						<label class="form-label fw-bold">Work mode </label>
+						<p-multiSelect [options]="workModes" formControlName="work_mode" placeholder="Select work type" optionLabel="work_mode" optionValue="id" display="chip" class="w-100"> </p-multiSelect>
+					</div>
+	
+					<div class="col-md-4">
+						<label class="form-label fw-bold">Employment Type </label>
+						<p-multiSelect [options]="employmentTypes" formControlName="employment_type" placeholder="Select employment type" optionLabel="employment_type" optionValue="id" display="chip" class="w-100"> </p-multiSelect>
+					</div>
+	
+					<div class="col-md-4">
+						<label class="form-label fw-bold">Currency display for salaries</label>
+						<p-select [options]="currencies" formControlName="currency" optionLabel="currency_code" optionId="id" [filter]="true" appendTo="body" filterBy="currency_code" class="w-100" placeholder="Select your currency"> </p-select>
+					</div>
+	
+					<div class="col-md-4">
+						<label class="form-label fw-bold">Salary offered</label>
+						<div class="d-flex w-100 gap-2">
+							<p-select [options]="currencies" styleClass="p-select p-component" optionLabel="currency_code" optionValue="id" placeholder="Select" formControlName="currency" [style]="{ width: '80px' }"> </p-select>
+							<div class="flex-grow-1 me-2">
+								<p-inputNumber id="salary" placeholder="Enter your salary/month" styleClass="p-inputtext w-100" [showButtons]="false" class="w-100" formControlName="salary"></p-inputNumber>
+							</div>
+						</div>
+					</div>
+	
+					<div class="col-md-4">
+						<label class="form-label fw-bold">Experience Level </label>
+						<p-multiSelect [options]="experienceLevels" formControlName="experienceLevel" optionLabel="label" optionValue="id" display="chip" class="w-100"> </p-multiSelect>
+					</div>
+					<div class="col-md-4">
+						<label class="form-label fw-bold">Status</label>
+						<p-select
+							[options]="[
+								{ label: 'Active', value: 1 },
+								{ label: 'IN Active', value: 0 }
+							]"
+							formControlName="status"
+							display="chip"
+							optionLabel="label"
+							optionValue="value"
+							class="w-100">
+						</p-select>
+					</div>
 			</div>
 		</form>
 

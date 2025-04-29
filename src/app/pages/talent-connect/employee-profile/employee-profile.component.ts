@@ -1823,8 +1823,8 @@ export class EmployeeProfileComponent implements OnInit {
         summary: "Required",
         detail:
           mode == "joboverview"
-            ? "Please fill job_title and company_name fields before generating summary."
-            : "Please fill industry type and career status fields before generating summary.",
+            ? "Please fill{ job_title} and {company_name} fields before generating summary."
+            : "Please fill {industry type} and {career status} and {job title} fields before generating summary.",
       })
     }
   }
@@ -1977,7 +1977,7 @@ export class EmployeeProfileComponent implements OnInit {
 
       const duration = intervalToDuration({ start: fromDate, end: toDate });
 
-      const result = formatDuration(duration, { format: ['years', 'months', 'days'] });
+      const result = formatDuration(duration, { format: ['years', 'months'] });
       yearsExpControl.setValue(result);
 
       this.validateTotalExperience();

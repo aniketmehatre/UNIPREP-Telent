@@ -17,7 +17,7 @@
           <div class="col-md-3 col-lg-3" style="max-width: 230px; max-height: 230px;">
             <img [src]="profileData.personalInfo.logo || 'uniprep-assets/images/avatar.webp'" alt="Profile Photo" class="img-fluid rounded" style="object-fit: cover; height: 100%;"/>
           </div>
-          <div class="col-md-6 col-lg-6">
+          <div class="col-md-9 col-lg-9">
             <h2 class="fw-bold">{{profileData.personalInfo.fullName}}</h2>
             <p class="text-muted">Profile Updated On: {{isSample ? '28-04-2025': (this.updatedAtDate  | date: 'dd-MM-yyyy')}}</p>         
             <div class="row g-2 g-2 mt-2">
@@ -63,9 +63,6 @@
               <div class="text-muted small mb-1">Profile Completion: {{isSample ? 85 : (profileCompletionPercentage || 0)}}%</div>
               <p-progressBar [style]="{ height: '10px', color: 'orange' }" styleClass="text-secondary mb-3" [value]="isSample ? 85 : (profileCompletionPercentage || 0)" [showValue]="false"></p-progressBar>
             </div>
-          </div>
-          <div class="col-md-3 col-lg-3 d-flex flex-column gap-2 align-items-end">
-            <button pButton label="Edit Profile" icon="pi pi-pencil" class="p-button-outlined" routerLink="/pages/talent-connect/my-profile"></button>
           </div>
         </div>
       </div>
@@ -288,8 +285,8 @@
                 <ng-container *ngFor="let lang of profileData.additionalDetails.languagesKnown">
                   <div class="mb-2">
                     <div class="d-flex align-items-center">
-                      <span class="me-2" style="width: 100px;">{{lang}}</span>
-                      <p-rating [ngModel]="3" [readonly]="true"></p-rating>
+                      <span class="me-2" style="width: 100px;">{{lang.lang}}</span>
+                      <p-rating *ngIf="lang.prof" style="font-size: large;" [ngModel]="getProficiencyRating(lang.prof)" [readonly]="true" ></p-rating>
                     </div>
                   </div>
                 </ng-container>
