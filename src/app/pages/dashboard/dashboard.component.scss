@@ -587,12 +587,6 @@ Due to the split circle of progress-left and progress right, we must use the ani
 	align-items: center; /* Center the content vertically */
 }
 
-.trustedbylogo {
-	max-height: 60px; /* Ensure logos are consistent in size */
-	max-width: 100%;
-	margin: 0 auto;
-}
-
 @media (max-width: 1200px) {
 	.trustedcard {
 		height: auto; /* Allow auto height on large screens */
