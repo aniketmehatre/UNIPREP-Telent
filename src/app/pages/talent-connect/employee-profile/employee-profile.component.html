@@ -24,14 +24,17 @@
 	</div>
 	<div class="card-body flex-fill overflow-y-auto">
 		<div class="row h-100">
-			<div class="col-md-8 col-8-5 col-sm-7 mb-2 d-flex flex-fill h-100" >
+			<div class="col-xxl-9 col-xl-8 col-lg-8 col-md-7 col-sm-7 col-12 mb-2 d-flex flex-fill h-100">
 				<div class="card overflow-y-hidden w-100">
 					<div class="card-header bg-primary">
 						<div class="rounded-top-4 text-start d-flex justify-content-between align-items-center">
-							<h5 class="text-white mb-0 fw-medium">{{isShowAiEvaluation ? 'Career Profile Evaluation':'Edit your Profile'}}</h5>
+							<div class="d-flex gap-2 align-items-center">
+								<h5 class="text-white mb-0 fw-medium">{{ isShowAiEvaluation ? "Career Profile Evaluation" : "Edit your Profile" }}</h5>
+								<button class="btn btn-secondary btn-rounded" pButton (click)="openProfileDialog(true)">Profile Sample</button>
+							</div>
 							<div class="d-flex gap-2" *ngIf="!isShowAiEvaluation">
-								<button class="btn btn-secondary btn-rounded px-3 py-1" (click)="openProfileDialog(true)">Profile Sample</button>
-								<button class="button-profile-top rounded-pill px-3 py-1" (click)="openProfileDialog(false)">Profile Preview</button>
+								<button class="button-profile-top rounded-pill" pButton (click)="openProfileDialog(false)">Profile Preview</button>
+								<button class="d-md-none d-block btn btn-rounded btn-primary" pButton (click)="visible = true"><i class="fa-solid fa-circle-info"></i></button>
 							</div>
 						</div>
 					</div>
@@ -47,7 +50,7 @@
 													<img [src]="logo" styleClass="shadow-lg object-fit" style="width: 120px; height: 120px; object-fit: cover" class="rounded-circle" />
 												</ng-container>
 												<ng-template #showSample>
-													<div class="bg-secondary rounded-pill overflow-hidden d-flex justify-content-center align-items-center rounded-circle" style="width: 120px; height: 120px; margin: auto;">
+													<div class="bg-secondary rounded-pill overflow-hidden d-flex justify-content-center align-items-center rounded-circle" style="width: 120px; height: 120px; margin: auto">
 														<img src="uniprep-assets/images/avatar.webp" class="w-100 h-100" />
 													</div>
 												</ng-template>
@@ -55,7 +58,7 @@
 
 											<div class="d-flex justify-content-center gap-2 mb-2">
 												<input name="image" type="file" (change)="onUploadPhoto($event)" accept="image/*" #fileUploadImage style="display: none" />
-												<p-button label="{{this.logo ? 'Change Photo' : 'Upload Photo'}}" icon="pi pi-upload" styleClass="p-button-sm" (click)="fileUploadImage.click()" (onFocus)="updateMessageBox('profile_image')" (focusout)="resetMessageBox()"></p-button>
+												<p-button label="{{ this.logo ? 'Change Photo' : 'Upload Photo' }}" icon="pi pi-upload" styleClass="p-button-sm" (click)="fileUploadImage.click()" (onFocus)="updateMessageBox('profile_image')" (focusout)="resetMessageBox()"></p-button>
 												<p-button label="Remove Photo" icon="pi pi-times" (onClick)="onRemovePhoto()" styleClass="p-button-sm p-button-outlined"></p-button>
 											</div>
 										</div>
@@ -140,7 +143,7 @@
 											</div>
 											<div class="row mb-3">
 												<!-- Field of Study / Major -->
-												<div class="col-md-6">	
+												<div class="col-md-6">
 													<label for="fieldOfStudy" class="form-label">Major <span class="text-danger">*</span></label>
 													<p-select id="highestQualification" formControlName="education_field_id" [options]="fieldsOfStudy" placeholder="Select Major" styleClass="w-100" optionLabel="field_name" optionValue="id" [filter]="true" filterBy="field_name" (focusout)="resetMessageBox()" (onFocus)="updateMessageBox('education_field_id')"></p-select>
 													<small class="text-danger" *ngIf="education.get('education_field_id')?.invalid && education.get('education_field_id')?.touched"> This field is mandatory </small>
@@ -170,10 +173,10 @@
 													<label for="courseName" class="form-label">Percentage</label>
 													<div class="p-inputgroup">
 														<p-inputgroup>
-														<p-input-number id="courseName" formControlName="education_gpa_percentage" mode="decimal" placeholder="Enter your GPA" class="w-100" [maxFractionDigits]="2" [min]="0" [max]="100" (focusout)="resetMessageBox()" (onFocus)="updateMessageBox('education_gpa_percentage')" />
-														<p-inputgroup-addon>
-															<i class="pi pi-percentage"></i>
-														</p-inputgroup-addon>
+															<p-input-number id="courseName" formControlName="education_gpa_percentage" mode="decimal" placeholder="Enter your GPA" class="w-100" [maxFractionDigits]="2" [min]="0" [max]="100" (focusout)="resetMessageBox()" (onFocus)="updateMessageBox('education_gpa_percentage')" />
+															<p-inputgroup-addon>
+																<i class="pi pi-percentage"></i>
+															</p-inputgroup-addon>
 														</p-inputgroup>
 														<small class="text-danger" *ngIf="education.get('education_graduation_year_id')?.invalid && education.get('education_gpa_percentage')?.touched">This field need min 0 to max 100 </small>
 													</div>
@@ -225,8 +228,8 @@
 														<ng-template #header>
 															<div class="p-2">
 																<p-inputgroup>
-																<input pInputText class="rounded-end-2 me-1" placeholder="Custom Job Title" #jobTitleExp (click)="focusInput(jobTitleExp)"/>
-																<button class="w-full btn btn-primary" (click)="addCustomJobTitle(jobTitleExp.value, experience.get('work_experience_job_title')); jobTitleExp.value = '';"><i class="fa fa-plus"></i>&nbsp;Add New</button>
+																	<input pInputText class="rounded-end-2 me-1" placeholder="Custom Job Title" #jobTitleExp (click)="focusInput(jobTitleExp)" />
+																	<button class="w-full btn btn-primary" (click)="addCustomJobTitle(jobTitleExp.value, experience.get('work_experience_job_title')); jobTitleExp.value = ''"><i class="fa fa-plus"></i>&nbsp;Add New</button>
 																</p-inputgroup>
 															</div>
 														</ng-template>
@@ -246,15 +249,11 @@
 												<div class="col-md-6 mb-3">
 													<label for="duration" class="form-label">Duration</label>
 													<div class="d-block d-md-flex gap-2 w-full">
-														<p-datepicker formControlName="work_experience_duration_from" size="small" placeholder="From Date" dateFormat="dd-mm-yy" [maxDate]="today"  inputId="icondisplay" [readonlyInput]="true"/> 
-														<p-datepicker formControlName="work_experience_duration_to" size="small" placeholder="To Date" dateFormat="dd-mm-yy" inputId="icondisplay" [minDate]="experience.get('work_experience_duration_from')?.value" [readonlyInput]="true"/>
+														<p-datepicker formControlName="work_experience_duration_from" size="small" placeholder="From Date" dateFormat="dd-mm-yy" [maxDate]="today" inputId="icondisplay" [readonlyInput]="true" />
+														<p-datepicker formControlName="work_experience_duration_to" size="small" placeholder="To Date" dateFormat="dd-mm-yy" inputId="icondisplay" [minDate]="experience.get('work_experience_duration_from')?.value" [readonlyInput]="true" />
 													</div>
-													<div
-													*ngIf="(experience.get('work_experience_duration_from')?.value && !experience.get('work_experience_duration_to')?.value) 
-														 || (!experience.get('work_experience_duration_from')?.value && experience.get('work_experience_duration_to')?.value)"
-													class="text-danger">
-													Please select both from and to values.
-												  </div>												</div>
+													<div *ngIf="(experience.get('work_experience_duration_from')?.value && !experience.get('work_experience_duration_to')?.value) || (!experience.get('work_experience_duration_from')?.value && experience.get('work_experience_duration_to')?.value)" class="text-danger">Please select both from and to values.</div>
+												</div>
 
 												<!-- Salary Field -->
 												<div class="col-md-6 mb-3">
@@ -274,14 +273,14 @@
 														<label for="responsibilities" class="form-label">Job Responsibilities</label>
 														<div class="d-flex gap-2">
 															<!-- <p-button type="button" icon="pi pi-refresh" (click)="experience.get('work_experience_job_responsibilities')?.setValue(null);"></p-button> -->
-															<button *ngIf="!isNotEmptyHtml(experience?.get('work_experience_job_responsibilities')?.value)" class="text-small btn btn-success btn-rounded d-flex align-items-center gap-2" style="width: fit-content" (click)="generateAiSummary('joboverview', {title: experience?.get('work_experience_job_title')?.value, company_name: experience?.get('work_experience_company_name')?.value}, experience?.get('work_experience_job_responsibilities'))"><i class="fa-solid fa-stars"></i>AI Generate</button>
-															<button *ngIf="isNotEmptyHtml(experience?.get('work_experience_job_responsibilities')?.value)" class="text-small btn btn-danger btn-rounded d-flex align-items-center gap-2" style="width: fit-content" (click)="generateAiSummary('joboverview', {title: experience?.get('work_experience_job_title')?.value, company_name: experience?.get('work_experience_company_name')?.value}, experience?.get('work_experience_job_responsibilities'))">RePhrase</button>
+															<button *ngIf="!isNotEmptyHtml(experience?.get('work_experience_job_responsibilities')?.value)" class="text-small btn btn-success btn-rounded d-flex align-items-center gap-2" style="width: fit-content" (click)="generateAiSummary('joboverview', { title: experience?.get('work_experience_job_title')?.value, company_name: experience?.get('work_experience_company_name')?.value }, experience?.get('work_experience_job_responsibilities'))"><i class="fa-solid fa-stars"></i>AI Generate</button>
+															<button *ngIf="isNotEmptyHtml(experience?.get('work_experience_job_responsibilities')?.value)" class="text-small btn btn-danger btn-rounded d-flex align-items-center gap-2" style="width: fit-content" (click)="generateAiSummary('joboverview', { title: experience?.get('work_experience_job_title')?.value, company_name: experience?.get('work_experience_company_name')?.value }, experience?.get('work_experience_job_responsibilities'))">RePhrase</button>
 														</div>
 													</div>
-													<p-editor #editor [style]="{ height: '150px', maxHeight: 'auto'}" formControlName="work_experience_job_responsibilities" placeholder="Enter your Job Responsibilities & Key Achievements" (onFocus)="updateMessageBox('work_experience_job_responsibilities')" (focusout)="resetMessageBox()" (ngModelChange)="checkMaximumWordsInFields(experience.get('work_experience_job_responsibilities'), 150)"/>
+													<p-editor #editor [style]="{ height: '150px', maxHeight: 'auto' }" formControlName="work_experience_job_responsibilities" placeholder="Enter your Job Responsibilities & Key Achievements" (onFocus)="updateMessageBox('work_experience_job_responsibilities')" (focusout)="resetMessageBox()" (ngModelChange)="checkMaximumWordsInFields(experience.get('work_experience_job_responsibilities'), 150)" />
 													<!-- <textarea pTextarea id="responsibilities" class="form-control w-100" placeholder="Enter your Job Responsibilities & Key Achievements" rows="5" maxlength="4000" formControlName="work_experience_job_responsibilities" (focusout)="resetMessageBox()" (onFocus)="updateMessageBox('work_experience_job_responsibilities')" #jobRepo></textarea> -->
-														<small class="text-danger text-start" *ngIf="getWordCountUsingControl(experience.get('work_experience_job_responsibilities')) > 150">This field exceed the maximum length</small>
-														<small class="text-muted d-block text-end">{{ getWordCountUsingControl(experience.get('work_experience_job_responsibilities'))}}/150</small>
+													<small class="text-danger text-start" *ngIf="getWordCountUsingControl(experience.get('work_experience_job_responsibilities')) > 150">This field exceed the maximum length</small>
+													<small class="text-muted d-block text-end">{{ getWordCountUsingControl(experience.get("work_experience_job_responsibilities")) }}/150</small>
 												</div>
 
 												<!-- Experience Letter Upload -->
@@ -320,12 +319,12 @@
 											</div>
 											<div class="col-md-6">
 												<label for="highestQualification" class="form-label">Job Title<span class="text-danger">*</span></label>
-												<p-select id="highestQualification" pTooltip="Not able to find please type in this field" [virtualScroll]="true" [virtualScrollItemSize]="50"  formControlName="career_preference_job_title_id" [options]="jobTitles" placeholder="Select Job Title" styleClass="w-100" optionLabel="job_title" optionValue="job_title" [filter]="true" filterBy="job_title" (focusout)="resetMessageBox()" (onFocus)="updateMessageBox('career_preference_job_title_id')">
+												<p-select id="highestQualification" pTooltip="Not able to find please type in this field" [virtualScroll]="true" [virtualScrollItemSize]="50" formControlName="career_preference_job_title_id" [options]="jobTitles" placeholder="Select Job Title" styleClass="w-100" optionLabel="job_title" optionValue="job_title" [filter]="true" filterBy="job_title" (focusout)="resetMessageBox()" (onFocus)="updateMessageBox('career_preference_job_title_id')">
 													<ng-template #header>
 														<div class="p-2">
 															<p-inputgroup>
-															<input pInputText class="rounded-end-2 me-1" placeholder="Custom Job Title" #jobTitleExp (click)="focusInput(jobTitleExp)"/>
-															<button class="w-full btn btn-primary" (click)="addCustomJobTitle(jobTitleExp.value, personalInfoForm.get('career_preference_job_title_id'));"><i class="fa fa-plus"></i>&nbsp;Add New</button>
+																<input pInputText class="rounded-end-2 me-1" placeholder="Custom Job Title" #jobTitleExp (click)="focusInput(jobTitleExp)" />
+																<button class="w-full btn btn-primary" (click)="addCustomJobTitle(jobTitleExp.value, personalInfoForm.get('career_preference_job_title_id'))"><i class="fa fa-plus"></i>&nbsp;Add New</button>
 															</p-inputgroup>
 														</div>
 													</ng-template>
@@ -344,7 +343,7 @@
 											<div class="col-md-6">
 												<label for="university" class="form-label">Preferred Work Location<span class="text-danger">*</span></label>
 												<div class="p-inputgroup">
-													<p-multiSelect id="highestQualification" formControlName="career_preference_preferred_work_location_id" [options]="locations" [virtualScroll]="true" [virtualScrollItemSize]="50" placeholder="Select Your Location" styleClass="w-100" optionLabel="work_location" optionValue="id" [filter]="true" filterBy="work_location" [appendTo]="'body'"  (focusout)="resetMessageBox()" (onFocus)="updateMessageBox('career_preference_preferred_work_location_id')"></p-multiSelect>
+													<p-multiSelect id="highestQualification" formControlName="career_preference_preferred_work_location_id" [options]="locations" [virtualScroll]="true" [virtualScrollItemSize]="50" placeholder="Select Your Location" styleClass="w-100" optionLabel="work_location" optionValue="id" [filter]="true" filterBy="work_location" [appendTo]="'body'" (focusout)="resetMessageBox()" (onFocus)="updateMessageBox('career_preference_preferred_work_location_id')"></p-multiSelect>
 												</div>
 												<small class="text-danger" *ngIf="personalInfoForm.get('career_preference_preferred_work_location_id')?.invalid && personalInfoForm.get('career_preference_preferred_work_location_id')?.touched"> This field is mandatory </small>
 											</div>
@@ -527,14 +526,14 @@
 													<label for="highestQualification" class="form-label">What sets you apart in your industry?</label>
 													<div class="d-flex gap-2 mb-2">
 														<!-- <p-button type="button" icon="pi pi-refresh" (click)="this.personalInfoForm.get('career_preference_set_industry_apart')?.setValue(null);"></p-button> -->
-														<button *ngIf="!isNotEmptyHtml(this.personalInfoForm.get('career_preference_set_industry_apart')?.value)" class="text-small btn btn-success btn-rounded d-flex align-items-center gap-2" style="width: fit-content" (click)="generateAiSummary('Key_strength', {career_status: personalInfoForm?.get('career_preference_career_status')?.value, industry_type: getListValue(careerInterests, personalInfoForm?.get('career_preference_career_interest_id')?.value, 'interest'), title: personalInfoForm?.get('career_preference_job_title_id')?.value}, personalInfoForm?.get('career_preference_set_industry_apart'))"><i class="fa-solid fa-stars"></i>AI Generate</button>
-														<button *ngIf="isNotEmptyHtml(this.personalInfoForm.get('career_preference_set_industry_apart')?.value)" class="text-small btn btn-danger btn-rounded d-flex align-items-center gap-2" style="width: fit-content" (click)="generateAiSummary('Key_strength', {career_status: personalInfoForm?.get('career_preference_career_status')?.value, industry_type: getListValue(careerInterests, personalInfoForm?.get('career_preference_career_interest_id')?.value, 'interest'), title: personalInfoForm?.get('career_preference_job_title_id')?.value}, personalInfoForm?.get('career_preference_set_industry_apart'))">RePhrase</button>
+														<button *ngIf="!isNotEmptyHtml(this.personalInfoForm.get('career_preference_set_industry_apart')?.value)" class="text-small btn btn-success btn-rounded d-flex align-items-center gap-2" style="width: fit-content" (click)="generateAiSummary('Key_strength', { career_status: personalInfoForm?.get('career_preference_career_status')?.value, industry_type: getListValue(careerInterests, personalInfoForm?.get('career_preference_career_interest_id')?.value, 'interest'), title: personalInfoForm?.get('career_preference_job_title_id')?.value }, personalInfoForm?.get('career_preference_set_industry_apart'))"><i class="fa-solid fa-stars"></i>AI Generate</button>
+														<button *ngIf="isNotEmptyHtml(this.personalInfoForm.get('career_preference_set_industry_apart')?.value)" class="text-small btn btn-danger btn-rounded d-flex align-items-center gap-2" style="width: fit-content" (click)="generateAiSummary('Key_strength', { career_status: personalInfoForm?.get('career_preference_career_status')?.value, industry_type: getListValue(careerInterests, personalInfoForm?.get('career_preference_career_interest_id')?.value, 'interest'), title: personalInfoForm?.get('career_preference_job_title_id')?.value }, personalInfoForm?.get('career_preference_set_industry_apart'))">RePhrase</button>
 													</div>
 												</div>
 												<div class="position-relative">
-													<p-editor #editor [style]="{ height: '150px', maxHeight: 'auto' }" formControlName="career_preference_set_industry_apart" placeholder="Enter your sets you apart in your industry" (focusout)="resetMessageBox()" (onFocus)="updateMessageBox('career_preference_set_industry_apart')" (ngModelChange)="checkMaximumWordsInFields(personalInfoForm.get('career_preference_set_industry_apart'), 150)"/>
+													<p-editor #editor [style]="{ height: '150px', maxHeight: 'auto' }" formControlName="career_preference_set_industry_apart" placeholder="Enter your sets you apart in your industry" (focusout)="resetMessageBox()" (onFocus)="updateMessageBox('career_preference_set_industry_apart')" (ngModelChange)="checkMaximumWordsInFields(personalInfoForm.get('career_preference_set_industry_apart'), 150)" />
 													<small class="text-danger text-start" *ngIf="getWordCountUsingControl(personalInfoForm.get('career_preference_set_industry_apart')) > 150">This field exceed the maximum length</small>
-													<small class="text-muted d-block text-end">{{ getWordCountUsingControl(personalInfoForm.get('career_preference_set_industry_apart')) }}/150</small>
+													<small class="text-muted d-block text-end">{{ getWordCountUsingControl(personalInfoForm.get("career_preference_set_industry_apart")) }}/150</small>
 												</div>
 											</div>
 										</div>
@@ -552,16 +551,16 @@
 											<div class="col-md-6">
 												<label for="highestQualification" class="form-label">Have a you solved a real-world challenge in your feilds?</label>
 												<div class="position-relative">
-													<textarea pTextarea id="university" formControlName="career_preference_real_world_challenge" placeholder="Have a you solved a real-world challenge?" rows="5"  class="form-control w-100" (focusout)="resetMessageBox()" (onFocus)="updateMessageBox('career_preference_real_world_challenge')" (ngModelChange)="checkMaximumWordsInFields(personalInfoForm.get('career_preference_real_world_challenge'), 150)"></textarea>
+													<textarea pTextarea id="university" formControlName="career_preference_real_world_challenge" placeholder="Have a you solved a real-world challenge?" rows="5" class="form-control w-100" (focusout)="resetMessageBox()" (onFocus)="updateMessageBox('career_preference_real_world_challenge')" (ngModelChange)="checkMaximumWordsInFields(personalInfoForm.get('career_preference_real_world_challenge'), 150)"></textarea>
 													<small class="text-danger text-start" *ngIf="getWordCountUsingControl(personalInfoForm.get('career_preference_real_world_challenge')) > 150">This field exceed the maximum length</small>
-													<small class="text-muted d-block text-end">{{ getWordCountUsingControl(personalInfoForm.get('career_preference_real_world_challenge')) }}/150</small>
+													<small class="text-muted d-block text-end">{{ getWordCountUsingControl(personalInfoForm.get("career_preference_real_world_challenge")) }}/150</small>
 												</div>
 											</div>
 											<div class="col-md-6">
 												<label for="highestQualification" class="form-label">Have you taken on leadership roles?</label>
 												<textarea pTextarea id="university" formControlName="career_preference_leadership_experience" placeholder="Have you taken on leadership roles?" class="form-control w-100" (focusout)="resetMessageBox()" rows="5" (onFocus)="updateMessageBox('career_preference_leadership_experience')" (ngModelChange)="checkMaximumWordsInFields(personalInfoForm.get('career_preference_leadership_experience'), 150)"></textarea>
 												<small class="text-danger text-start" *ngIf="getWordCountUsingControl(personalInfoForm.get('career_preference_real_world_challenge')) > 150">This field exceed the maximum length</small>
-												<small class="text-muted d-block text-end">{{ getWordCountUsingControl(personalInfoForm.get('career_preference_leadership_experience')) }}/150</small>											
+												<small class="text-muted d-block text-end">{{ getWordCountUsingControl(personalInfoForm.get("career_preference_leadership_experience")) }}/150</small>
 											</div>
 										</div>
 										<div class="row mb-3">
@@ -570,7 +569,7 @@
 												<div class="position-relative">
 													<textarea pTextarea id="responsibilities" formControlName="career_preference_admired_quality" class="form-control w-100" placeholder="Enter one quality others admire most about you" rows="4" (focusout)="resetMessageBox()" (onFocus)="updateMessageBox('career_preference_admired_quality')" (ngModelChange)="checkMaximumWordsInFields(personalInfoForm.get('career_preference_admired_quality'), 150)"></textarea>
 													<small class="text-danger text-start" *ngIf="getWordCountUsingControl(personalInfoForm.get('career_preference_admired_quality')) > 150">This field exceed the maximum length</small>
-													<small class="text-muted d-block text-end">{{ getWordCountUsingControl(personalInfoForm.get('career_preference_admired_quality')) }}/150</small>													
+													<small class="text-muted d-block text-end">{{ getWordCountUsingControl(personalInfoForm.get("career_preference_admired_quality")) }}/150</small>
 												</div>
 											</div>
 										</div>
@@ -773,28 +772,28 @@
 									<h5 class="card-title my-3">Add Note</h5>
 									<div class="row mb-3">
 										<div class="position-relative">
-											<p-editor  #editor [style]="{ height: '150px', maxHeight: 'auto' }" formControlName="additional_notes" placeholder="Additional Information"/>
+											<p-editor #editor [style]="{ height: '150px', maxHeight: 'auto' }" formControlName="additional_notes" placeholder="Additional Information" />
 											<!-- <textarea pTextarea id="responsibilities" formControlName="additional_notes" class="form-control w-100" placeholder="Additional Information if any" rows="5" maxlength="500" #additionalNotes></textarea> -->
-											<small class="text-muted d-block text-end">{{ personalInfoForm.get('additional_notes')?.value?.length }}/5000</small>
+											<small class="text-muted d-block text-end">{{ personalInfoForm.get("additional_notes")?.value?.length }}/5000</small>
 										</div>
 									</div>
 								</div>
 							</div>
 						</form>
 					</div>
-					<div class="card-body h-100 overflow-y-auto"  *ngIf="isShowAiEvaluation">
+					<div class="card-body h-100 overflow-y-auto" *ngIf="isShowAiEvaluation">
 						<div [innerHTML]="aiEvaluationContent"></div>
 					</div>
 				</div>
 			</div>
-			<div class="col-md-4 col-3-5 col-sm-5 d-flex flex-fill h-100">
+			<div class="col-xxl-3 col-xl-4 col-lg-4 col-md-5 col-sm-5 col-12 d-md-flex d-none flex-fill h-100">
 				<div class="card border-secondary">
 					<div class="card-body d-flex flex-column justify-content-between overflow-y-auto">
-						<div class="d-flex gap-2" style="max-height: 50%;">
+						<div class="d-flex gap-2" style="max-height: 50%">
 							<div>
 								<img src="uniprep-assets/images/mascot.webp" width="50" alt="icon" />
 							</div>
-							<div class="message-box d-flex text-start text-truncate text-wrap overflow-y-auto" style="max-height: 100%;">
+							<div class="message-box d-flex text-start text-truncate text-wrap overflow-y-auto" style="max-height: 100%">
 								<p class="mb-0 fw-medium">
 									{{ currentMessage }}
 								</p>
@@ -806,7 +805,7 @@
 									<div class="row mb-3">
 										<div class="col-xl-3 col-lg-3 col-md-3 col-sm-12 col-12 d-flex align-items-center">
 											<div class="w-100 h-100">
-												<img [src]="logo ? logo : 'uniprep-assets/images/avatar.webp'" alt="Profile Image" class="rounded-3" style="object-fit: fill; width: 100%; height: 100%;"/>
+												<img [src]="logo ? logo : 'uniprep-assets/images/avatar.webp'" alt="Profile Image" class="rounded-3" style="object-fit: fill; width: 100%; height: 100%" />
 											</div>
 										</div>
 										<div class="col-9 text-start">
@@ -841,7 +840,7 @@
 												</div>
 												<div class="overflow-hidden">
 													<p class="text-muted text-small">Desired Job Title</p>
-													<p class=" text-small text-truncate">
+													<p class="text-small text-truncate">
 														{{ personalInfoForm?.get("career_preference_job_title_id")?.value || "-" }}
 													</p>
 												</div>
@@ -854,7 +853,7 @@
 												</div>
 												<div class="overflow-hidden">
 													<p class="text-muted text-small">Employment Type</p>
-													<p class=" text-small text-truncate">
+													<p class="text-small text-truncate">
 														{{ personalInfoForm?.get("career_preference_preferred_employment_type")?.value ? personalInfoForm?.get("career_preference_preferred_employment_type")?.value : "-" }}
 													</p>
 												</div>
@@ -867,7 +866,7 @@
 												</div>
 												<div class="overflow-hidden">
 													<p class="text-muted text-small">Work Arrangement</p>
-													<p class=" text-small text-truncate">
+													<p class="text-small text-truncate">
 														{{ personalInfoForm?.get("career_preference_preferred_workplace_type")?.value ? personalInfoForm?.get("career_preference_preferred_workplace_type")?.value : "-" }}
 													</p>
 												</div>
@@ -880,7 +879,7 @@
 												</div>
 												<div class="overflow-hidden">
 													<p class="text-muted text-small">Current Location</p>
-													<p class=" text-small text-truncate">{{ personalInfoForm?.get("location_id")?.value ? getListValue(locations, personalInfoForm?.get("location_id")?.value, "work_location") : "-" }}</p>
+													<p class="text-small text-truncate">{{ personalInfoForm?.get("location_id")?.value ? getListValue(locations, personalInfoForm?.get("location_id")?.value, "work_location") : "-" }}</p>
 												</div>
 											</div>
 										</div>
@@ -892,7 +891,7 @@
 												</div>
 												<div class="overflow-hidden">
 													<p class="text-muted text-small">Interested Industry</p>
-													<p class=" text-small text-truncate">
+													<p class="text-small text-truncate">
 														{{ personalInfoForm?.get("career_preference_career_interest_id")?.value ? getListValue(careerInterests, personalInfoForm?.get("career_preference_career_interest_id")?.value, "interest") : "-" }}
 													</p>
 												</div>
@@ -906,7 +905,7 @@
 
 												<div class="overflow-hidden">
 													<p class="text-muted text-small">Expected Salary Per Month</p>
-													<p class=" text-small text-truncate">
+													<p class="text-small text-truncate">
 														{{ personalInfoForm?.get("career_preference_expected_salary")?.value ? getListValue(currencies, personalInfoForm?.get("career_preference_currency_id")?.value, "currency_code") + " " + personalInfoForm?.get("career_preference_expected_salary")?.value + "/Month" : "-" }}
 													</p>
 												</div>
@@ -920,7 +919,7 @@
 
 												<div class="overflow-hidden">
 													<p class="text-muted text-small">Total Experience</p>
-													<p class=" text-small text-truncate">
+													<p class="text-small text-truncate">
 														{{ personalInfoForm?.get("total_years_of_experience")?.value ? personalInfoForm?.get("total_years_of_experience")?.value : "-" }}
 													</p>
 												</div>
@@ -929,16 +928,163 @@
 									</div>
 								</div>
 							</div>
-							<p class="text-center text-muted text-small  mt-2">Your profile card as viewed by a company</p>
+							<p class="text-center text-muted text-small mt-2">Your profile card as viewed by a company</p>
 						</div>
 					</div>
 				</div>
 			</div>
+			<p-drawer #drawerRef [(visible)]="visible" position="right" [style]="{ width: '80vw' }">
+				<ng-template #headless>
+					<div class="h-100">
+						<div class="p-2 d-flex h-100 flex-column justify-content-between overflow-y-auto">
+							<div class="d-flex gap-2" style="max-height: 50%">
+								<div>
+									<img src="uniprep-assets/images/mascot.webp" width="50" alt="icon" />
+								</div>
+								<div class="message-box d-flex text-start text-truncate text-wrap overflow-y-auto" style="max-height: 100%">
+									<p class="mb-0 fw-medium">
+										{{ currentMessage }}
+									</p>
+								</div>
+							</div>
+							<div>
+								<div class="card card-inside" style="border-radius: 10px; transition: transform 0.3s; border: 1px solid #e9ecef" [style.border]="true ? '1px solid #FDA172' : '1px solid #e9ecef'">
+									<div class="card-body">
+										<div class="row mb-3">
+											<div class="col-xxl-1 col-xl-1 col-lg-2 col-md-3 col-sm-3 col-3 d-flex align-items-center">
+												<img [src]="logo ? logo : 'uniprep-assets/images/avatar.webp'" alt="Profile Image" class="rounded-3 img-fluid" style="max-width: 100px;width: 100%;"/>
+											</div>
+											<div class="col-xxl-11 col-xl-11 col-lg-10 col-md-9 col-sm-9 col-9 text-start">
+												<div class="d-flex justify-content-between text-start">
+													<div (onFocus)="updateMessageBox('full_name')" (focusout)="resetMessageBox()">
+														<span class="fw-bold">{{ personalInfoForm.get("full_name")?.value || "-" }}</span>
+														<i *ngIf="true" class="fas fa-check-circle ms-1" style="color: #4285f4"></i>
+													</div>
+													<a style="color: #fda172">
+														<i class="fa-regular fa-share-alt"></i>
+													</a>
+												</div>
+												<div style="font-size: 12px" class="text-start">Profile Updated On 18-02-2025</div>
+												<div class="mt-2 text-start d-flex justify-content-between align-items-center">
+													<div>
+														<small>Profile Completion: {{ profileCompletion }}%</small>
+														<p-progressBar [value]="profileCompletion" [showValue]="false" [style]="{ height: '6px', color: 'var(--uniprep-secondary)' }" styleClass="text-secondary"></p-progressBar>
+													</div>
+													<button class="btn btn-sm" style="background-color: #94c973; color: white; font-size: 0.8rem; border-radius: 20px">
+														{{ true ? "Shortlisted" : "Shortlist" }}
+													</button>
+												</div>
+											</div>
+										</div>
+
+										<!-- Open Positions -->
+										<div class="row text-start content-card">
+											<div class="col-12 mb-3">
+												<div class="d-flex align-items-start gap-2">
+													<div style="max-width: 20px; width: 100%">
+														<i class="fa-solid fa-briefcase" style="color: #0052b4"></i>
+													</div>
+													<div class="overflow-hidden">
+														<p class="text-muted text-small">Desired Job Title</p>
+														<p class="text-small text-truncate">
+															{{ personalInfoForm?.get("career_preference_job_title_id")?.value || "-" }}
+														</p>
+													</div>
+												</div>
+											</div>
+											<div class="col-6 mb-3">
+												<div class="d-flex align-items-start gap-2">
+													<div style="max-width: 20px; width: 100%">
+														<i class="fa-solid fa-person-walking-luggage" style="color: #f0780e"></i>
+													</div>
+													<div class="overflow-hidden">
+														<p class="text-muted text-small">Employment Type</p>
+														<p class="text-small text-truncate">
+															{{ personalInfoForm?.get("career_preference_preferred_employment_type")?.value ? personalInfoForm?.get("career_preference_preferred_employment_type")?.value : "-" }}
+														</p>
+													</div>
+												</div>
+											</div>
+											<div class="col-6 mb-3">
+												<div class="d-flex align-items-start gap-2">
+													<div style="max-width: 20px; width: 100%">
+														<i class="fa-solid fa-car-building me-2" style="color: #000000"></i>
+													</div>
+													<div class="overflow-hidden">
+														<p class="text-muted text-small">Work Arrangement</p>
+														<p class="text-small text-truncate">
+															{{ personalInfoForm?.get("career_preference_preferred_workplace_type")?.value ? personalInfoForm?.get("career_preference_preferred_workplace_type")?.value : "-" }}
+														</p>
+													</div>
+												</div>
+											</div>
+											<div class="col-6 mb-3">
+												<div class="d-flex align-items-center gap-2">
+													<div style="max-width: 20px; width: 100%">
+														<i class="fa-solid fa-location-dot" style="color: #9bc329"></i>
+													</div>
+													<div class="overflow-hidden">
+														<p class="text-muted text-small">Current Location</p>
+														<p class="text-small text-truncate">{{ personalInfoForm?.get("location_id")?.value ? getListValue(locations, personalInfoForm?.get("location_id")?.value, "work_location") : "-" }}</p>
+													</div>
+												</div>
+											</div>
+
+											<div class="col-6 mb-3">
+												<div class="d-flex align-items-start gap-2">
+													<div style="max-width: 20px; width: 100%">
+														<i class="fa-solid fa-industry" style="color: #3f4c83"></i>
+													</div>
+													<div class="overflow-hidden">
+														<p class="text-muted text-small">Interested Industry</p>
+														<p class="text-small text-truncate">
+															{{ personalInfoForm?.get("career_preference_career_interest_id")?.value ? getListValue(careerInterests, personalInfoForm?.get("career_preference_career_interest_id")?.value, "interest") : "-" }}
+														</p>
+													</div>
+												</div>
+											</div>
+											<div class="col-6">
+												<div class="d-flex align-items-start gap-2">
+													<div style="max-width: 20px; width: 100%">
+														<i class="fa-solid fa-money-bill" style="color: #c8b100"></i>
+													</div>
+
+													<div class="overflow-hidden">
+														<p class="text-muted text-small">Expected Salary Per Month</p>
+														<p class="text-small text-truncate">
+															{{ personalInfoForm?.get("career_preference_expected_salary")?.value ? getListValue(currencies, personalInfoForm?.get("career_preference_currency_id")?.value, "currency_code") + " " + personalInfoForm?.get("career_preference_expected_salary")?.value + "/Month" : "-" }}
+														</p>
+													</div>
+												</div>
+											</div>
+											<div class="col-6">
+												<div class="d-flex align-items-start gap-2">
+													<div style="max-width: 20px; width: 100%">
+														<i class="fa-solid fa-file-check" style="color: #707070"></i>
+													</div>
+
+													<div class="overflow-hidden">
+														<p class="text-muted text-small">Total Experience</p>
+														<p class="text-small text-truncate">
+															{{ personalInfoForm?.get("total_years_of_experience")?.value ? personalInfoForm?.get("total_years_of_experience")?.value : "-" }}
+														</p>
+													</div>
+												</div>
+											</div>
+										</div>
+									</div>
+								</div>
+								<p class="text-center text-muted text-small mt-2">Your profile card as viewed by a company</p>
+							</div>
+						</div>
+					</div>
+				</ng-template>
+			</p-drawer>
 		</div>
 	</div>
 	<div class="card-footer bg-white">
 		<div class="row align-items-center">
-			<div  [ngClass]="isShowAiEvaluation ? 'col-md-8': 'col-md-10' ">
+			<div class="col-8" [ngClass]="isShowAiEvaluation ? 'col-md-8' : 'col-md-10'">
 				<div class="d-flex align-items-center gap-2">
 					<span class="h6 mb-0 flex-shrink-0 uniprep-secondary fw-bold">Profile: {{ profileCompletion }}%</span>
 					<div class="w-100">
@@ -946,21 +1092,18 @@
 					</div>
 				</div>
 			</div>
-			<div class="d-flex justify-content-end" [ngClass]="isShowAiEvaluation ? 'col-md-4': 'col-md-2' ">
+			<div class="col-4 col-md-2 text-end" [ngClass]="isShowAiEvaluation ? 'col-md-4' : 'col-md-2'">
 				<ng-container *ngIf="!isShowAiEvaluation">
 					<button pButton type="button" (click)="onCallAIEvaluation()" class="btn btn-primary btn-rounded p-1 ps-4 mt-1">
-						<span class="me-2">Review Profile</span
-						><span class="btn-icon px-2 py-2"><i class="pi pi-check text-white"></i></span>
+						<span class="me-2">Review Profile</span><span class="btn-icon px-2 py-2"><i class="pi pi-check text-white"></i></span>
 					</button>
 				</ng-container>
 				<ng-container *ngIf="isShowAiEvaluation">
-					<button pButton type="button" (click)="isShowAiEvaluation = false; aiEvaluationContent = '';" class="btn btn-primary btn-rounded p-1 ps-4 mt-1 me-1">
-						<span class="me-2">Edit Profile</span
-						><span class="btn-icon px-2 py-2"><i class="pi pi-check text-white"></i></span>
+					<button pButton type="button" (click)="isShowAiEvaluation = false; aiEvaluationContent = ''" class="btn btn-primary btn-rounded p-1 ps-4 mt-1 me-1">
+						<span class="me-2">Edit Profile</span><span class="btn-icon px-2 py-2"><i class="pi pi-check text-white"></i></span>
 					</button>
 					<button pButton type="button" (click)="onSubmit()" class="btn btn-success btn-rounded p-1 ps-4 mt-1">
-						<span class="me-2">Complete Your Profile</span
-						><span class="btn-icon px-2 py-2"><i class="pi pi-check text-white"></i></span>
+						<span class="me-2">Complete Your Profile</span><span class="btn-icon px-2 py-2"><i class="pi pi-check text-white"></i></span>
 					</button>
 				</ng-container>
 			</div>
@@ -968,15 +1111,15 @@
 	</div>
 </div>
 <p-confirmdialog id="confirm-dialog" styleClass="p-3 w-25" [visible]="isShowCreatedSuccessfullyPopup" [closable]="false">
-    <ng-template #message let-message>
-        <div class="d-flex flex-column align-items-center w-100 gap-4 mt-1">
-            <i class="text-success fa-solid fa-check-circle" style="font-size: 50px;"></i>
-            <p>Created your profile successfully</p>
-        </div>
-    </ng-template>
+	<ng-template #message let-message>
+		<div class="d-flex flex-column align-items-center w-100 gap-4 mt-1">
+			<i class="text-success fa-solid fa-check-circle" style="font-size: 50px"></i>
+			<p>Created your profile successfully</p>
+		</div>
+	</ng-template>
 	<ng-template #footer>
 		<div class="text-center w-100 mt-2">
-			<button class="btn btn-secondary px-4" [routerLink]="['/pages/talent-connect/my-profile',this.profileId]">My Profile</button>
+			<button class="btn btn-secondary px-4" [routerLink]="['/pages/talent-connect/my-profile', this.profileId]">My Profile</button>
 		</div>
 	</ng-template>
 </p-confirmdialog>

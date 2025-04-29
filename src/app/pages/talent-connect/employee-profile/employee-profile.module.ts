@@ -27,6 +27,7 @@ import { ConfirmationService } from 'primeng/api';
 import { InputGroupAddonModule } from 'primeng/inputgroupaddon';
 import { InputGroupModule } from 'primeng/inputgroup';
 import { SharedModule } from "../../../shared/shared.module";
+import { DrawerModule } from 'primeng/drawer';
 
 const routes: Routes = [
   {
@@ -51,6 +52,7 @@ const routes: Routes = [
     ReactiveFormsModule,
     InputTextModule,
     DropdownModule,
+    DrawerModule,
     ButtonModule,
     CardModule,
     ProgressBarModule,
