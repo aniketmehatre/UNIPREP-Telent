@@ -190,17 +190,17 @@
 
 					</div>
 					<div class="d-none d-md-flex gap-2 align-items-center">
-						<button *ngIf="service._user?.student_type_id == 2" class="btn btn-ilearn"
-							(click)="navigateILearnChallenge()">
-							<span *ngIf="!iLearnChallengeData.isILearn; else showRank"
-								class="text-small fw-normal">iLearn Challenge</span>
-							<ng-template #showRank>
-								<span class="text-small fw-normal ilearn-sec">
-									<span class="rank">{{ iLearnChallengeData.overAllParticipants }} out of 100</span>
-									<span class="participants">Participants</span>
-								</span>
-							</ng-template>
-						</button>
+<!--						<button *ngIf="service._user?.student_type_id == 2" class="btn btn-ilearn"-->
+<!--							(click)="navigateILearnChallenge()">-->
+<!--							<span *ngIf="!iLearnChallengeData.isILearn; else showRank"-->
+<!--								class="text-small fw-normal">iLearn Challenge</span>-->
+<!--							<ng-template #showRank>-->
+<!--								<span class="text-small fw-normal ilearn-sec">-->
+<!--									<span class="rank">{{ iLearnChallengeData.overAllParticipants }} out of 100</span>-->
+<!--									<span class="participants">Participants</span>-->
+<!--								</span>-->
+<!--							</ng-template>-->
+<!--						</button>-->
 						<button *ngIf="whiteLabelIsNotShow"
 							class="btn btn-primary btn-rounded d-flex flex-column align-items-center"
 							alt="chat with notification" (click)="onClickSubscribe()">
