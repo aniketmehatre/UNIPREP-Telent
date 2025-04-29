@@ -9,8 +9,9 @@ import { SkeletonModule } from "primeng/skeleton";
 import { TooltipModule } from "primeng/tooltip";
 import { SelectModule } from "primeng/select";
 import { FormControl, FormGroup, FormsModule } from "@angular/forms";
-import {StorageService} from "../../storage.service";
-import {Carousel} from "primeng/carousel";
+import { StorageService } from "../../storage.service";
+import { Carousel } from "primeng/carousel";
+import { AuthService } from "src/app/Auth/auth.service";
 @Component({
   selector: "uni-global-repository",
   templateUrl: "./global-repository.component.html",
@@ -45,9 +46,10 @@ export class GlobalRepositoryComponent implements OnInit {
     private router: Router,
     private dataService: DataService,
     private locationService: LocationService,
-    private cdRef: ChangeDetectorRef, private storage: StorageService
+    private cdRef: ChangeDetectorRef,
+    private storage: StorageService,
+    private authService: AuthService
   ) {
-    console.log(this.storage.get("countryId"))
     this.selectedCountryId = this.storage.get("countryId")
     this.dataService.countryNameSource.subscribe((countryName) => {
       this.updatedMenuNameLifeAt = countryName;
@@ -117,7 +119,7 @@ export class GlobalRepositoryComponent implements OnInit {
         const storedCountryId = Number(this.storage.get("countryId")) || 0;
         // Set the selectedCountryId after the API call
         this.selectedCountryId = storedCountryId;
-        let currentSelectedCountry = this.countryLists.find((element:any) => storedCountryId == element.id)
+        let currentSelectedCountry = this.countryLists.find((element: any) => storedCountryId == element.id)
         this.selectedCountryName = currentSelectedCountry.country;
         // To make sure the dropdown updates, you might need to manually trigger change detection
         this.cdRef.detectChanges();
@@ -125,6 +127,10 @@ export class GlobalRepositoryComponent implements OnInit {
   }
 
   selectCountry(selectedId: any) {
+    if (this.authService.isInvalidSubscription('global_repository')) {
+      this.authService.hasUserSubscription$.next(true);
+      return;
+    }
     this.countryLists.forEach((element: any) => {
       if (element.id === selectedId) {
         this.selectedCountryName = element.country;
@@ -144,11 +150,15 @@ export class GlobalRepositoryComponent implements OnInit {
     });
   }
 
-  openVideoPopup(videoUrl: any) {}
+  openVideoPopup(videoUrl: any) { }
 
-  goBack() {}
+  goBack() { }
 
   onSubModuleClick(data: any) {
+    if (this.authService.isInvalidSubscription('global_repository')) {
+      this.authService.hasUserSubscription$.next(true);
+      return;
+    }
     this.router.navigateByUrl(data.url);
   }
 

@@ -7,7 +7,8 @@ import { CommonModule } from "@angular/common"
 import { SkeletonModule } from "primeng/skeleton"
 import { TooltipModule } from "primeng/tooltip"
 import { RouterModule, Router } from "@angular/router"
-import {StorageService} from "../../../storage.service";
+import { StorageService } from "../../../storage.service";
+import { AuthService } from "src/app/Auth/auth.service"
 
 @Component({
 	selector: "uni-learnmodules",
@@ -22,8 +23,9 @@ export class LearnModulesComponent implements OnInit {
 		private pageFacade: PageFacadeService,
 		private learnService: UniLearnService,
 		private arrayHeaderService: ArrayHeaderService,
-		private router: Router, private storage: StorageService
-	) {}
+		private router: Router, private storage: StorageService,
+		private authService: AuthService
+	) { }
 
 	isSkeletonVisible: boolean = true
 	moduleList: any
@@ -48,6 +50,10 @@ export class LearnModulesComponent implements OnInit {
 	}
 
 	onModuleClick(moduledata: learnModules) {
+		if (this.authService.isInvalidSubscription('uni_learn')) {
+			this.authService.hasUserSubscription$.next(true);
+			return;
+		}
 		this.arrayHeaderService.addItem(moduledata.module_name)
 		this.storage.set("module_id", String(moduledata.id))
 		// Navigate to submodules with query parameters using absolute path
