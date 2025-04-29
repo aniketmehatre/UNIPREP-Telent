@@ -327,8 +327,10 @@ export class CoverLetterBuilderComponent implements OnInit, AfterViewInit {
 		if (mode === "user_location") {
 			if (query.length > 3) {
 				this.filteredLocations = this.getFilteredLocations(query);
+				this.inputValuesEditOrNot();
 			} else if (query.length < 2) {
 				this.filteredLocations = [];
+				this.inputValuesEditOrNot();
 			}
 		} else {
 			if (query.length > 3) {
@@ -666,7 +668,7 @@ export class CoverLetterBuilderComponent implements OnInit, AfterViewInit {
 		return controls
 	}
 	// 1st chatgpt response after convert into refrase button , then any changes will in inuput or dropdown that button need to change ai genarate,That why save 1st response for checking
-	chatGptValueSave:any
+	chatGptValueSave: any
 	chatGPTIntegration(mode: string) {
 		const visibleFormControls = this.getVisibleFormControlsChatGptRespons(mode);
 		// condition for required field for chatgpt
@@ -707,9 +709,6 @@ export class CoverLetterBuilderComponent implements OnInit, AfterViewInit {
 				this.rephraseconBtnDisable = false;
 				this.chatGptButtonLoaderSummary = true;
 			}
-			this.chatGptValueSave=this.resumeFormInfoData.value
-			console.log(this.chatGptValueSave);
-			
 			this.cvBuilderService.openAiIntegration(formData).subscribe((res) => {
 				if (res.response && res.response.length > 0) {
 					let GPTResponse = res.response.trim()
@@ -726,6 +725,7 @@ export class CoverLetterBuilderComponent implements OnInit, AfterViewInit {
 						this.resumeFormInfoData.patchValue({
 							user_summary: GPTResponse,
 						})
+						this.chatGptValueSave = this.cleanObject(this.resumeFormInfoData.value);
 					}
 					this.chatGptButtonLoader = false;
 					this.chatGptButtonLoaderSummary = false;
@@ -773,7 +773,7 @@ export class CoverLetterBuilderComponent implements OnInit, AfterViewInit {
 			this.filterJobRole.sort((a: any, b: any) => {
 				const aJob = a.jobrole.toLowerCase();
 				const bJob = b.jobrole.toLowerCase();
-
+				this.inputValuesEditOrNot();
 				if (aJob === query && bJob !== query) {
 					return -1; // a comes first
 				} else if (aJob !== query && bJob === query) {
@@ -818,7 +818,7 @@ export class CoverLetterBuilderComponent implements OnInit, AfterViewInit {
 			this.filterJobRolePostionApplied.sort((a: any, b: any) => {
 				const aJob = a.jobrole.toLowerCase();
 				const bJob = b.jobrole.toLowerCase();
-
+				this.inputValuesEditOrNot();
 				if (aJob === query && bJob !== query) {
 					return -1; // a comes first
 				} else if (aJob !== query && bJob === query) {
@@ -843,5 +843,36 @@ export class CoverLetterBuilderComponent implements OnInit, AfterViewInit {
 	}
 	historyPage() {
 		this.activePageIndex = 0;
+	}
+	// fuction for check input values edit or not
+	inputValuesEditOrNot() {
+		if (this.isFormChanged()) {
+			this.generateConBtnDisable = false;
+			this.rephraseconBtnDisable = true;
+		} else {
+			this.generateConBtnDisable = true;
+			this.rephraseconBtnDisable = false;
+		}
+	}
+
+	isFormChanged(): boolean {
+		const current = this.cleanObject(this.resumeFormInfoData.value);
+		const saved = this.cleanObject(this.chatGptValueSave);
+		return JSON.stringify(current) === JSON.stringify(saved);
+	}
+
+	cleanObject(obj: any): any {
+		const cleaned: any = {};
+		Object.keys(obj).forEach(key => {
+			let val = obj[key];
+			if (typeof val === 'string') {
+				val = val.trim();
+			}
+			if (val !== undefined) {
+				cleaned[key] = val;
+			}
+		});
+
+		return cleaned;
 	}
 }

@@ -171,7 +171,7 @@
 									<label class="uniprep-primarydark fw-bold h6">Your Name</label>
 									<div class="form-group">
 										<div class="mb-3">
-											<input class="w-100" type="text" placeholder="Full Name"
+											<input class="w-100" (input)="inputValuesEditOrNot()" type="text" placeholder="Full Name"
 												formControlName="user_name" pInputText />
 											<div *ngIf="submitted && f['user_name'].errors" class="text-danger text-xs">
 												<div style="margin-left: 10px" *ngIf="f['user_name'].errors">Full Name
@@ -212,7 +212,7 @@
 									<label class="uniprep-primarydark fw-bold h6">Your Email</label>
 									<div class="form-group">
 										<div class="mb-3">
-											<input class="w-100" type="text" placeholder="Email Address"
+											<input (input)="inputValuesEditOrNot()" class="w-100" type="text" placeholder="Email Address"
 												formControlName="user_email" pInputText />
 											<div *ngIf="submitted && f['user_email'].errors"
 												class="text-danger text-xs">
@@ -254,7 +254,7 @@
 									<div class="form-group">
 										<div class="mb-3">
 											<p-select [options]="countryCodeList" styleClass="w-100" [filter]="true"
-												[filterBy]="'name'" placeholder="Select Country Code"
+												[filterBy]="'name'"  (onChange)="inputValuesEditOrNot()" placeholder="Select Country Code"
 												formControlName="country_code" optionLabel="name"
 												optionValue="code"></p-select>
 											<div *ngIf="submitted && f['country_code'].errors"
@@ -268,7 +268,7 @@
 									<label class="uniprep-primarydark fw-bold h6">Phone Number</label>
 									<div class="form-group">
 										<div class="mb-3">
-											<input class="w-100" type="text" placeholder="Phone Number"
+											<input (input)="inputValuesEditOrNot()" class="w-100" type="text" placeholder="Phone Number"
 												formControlName="user_phone" pInputText />
 											<div *ngIf="f['user_phone'].invalid && (f['user_phone'].dirty || f['user_phone'].touched)"
 												class="text-danger text-xs">
@@ -291,7 +291,7 @@
 									<label class="uniprep-primarydark fw-bold h6">Organization Name</label>
 									<div class="form-group">
 										<div class="mb-3">
-											<input class="w-100" type="text" placeholder="Organization Name"
+											<input (input)="inputValuesEditOrNot()" class="w-100" type="text" placeholder="Organization Name"
 												formControlName="org_name" pInputText />
 											<div *ngIf="submitted && f['org_name'].errors" class="text-danger text-xs">
 												<div style="margin-left: 10px" *ngIf="f['org_name'].errors">Organization
