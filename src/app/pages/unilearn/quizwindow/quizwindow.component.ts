@@ -13,8 +13,7 @@ import { ReactiveFormsModule } from "@angular/forms";
   selector: "uni-quizwindow",
   templateUrl: "./quizwindow.component.html",
   styleUrls: ["./quizwindow.component.scss"],
-  imports: [CommonModule,ReactiveFormsModule], 
-  standalone: true,
+  standalone: false,
 })
 export class QuizwindowComponent implements OnInit {
   @Input() parentid: number;

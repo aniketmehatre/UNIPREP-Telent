@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component,Input } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ArrayHeaderService } from "./array-header.service";
 import { SkeletonModule } from "primeng/skeleton";
@@ -7,18 +7,17 @@ import { RouterModule } from "@angular/router";
 @Component({
   selector: 'uni-learn',
   templateUrl: './unilearn.component.html',
-  standalone: true,
-  imports: [CommonModule, SkeletonModule, TooltipModule, RouterModule]
+  standalone: false,
 })
 
 export class UniLearnComponent {
   constructor(private arrayHeaderService: ArrayHeaderService) {}
   stage = 1;
-  parentid: number;
-  moduleid: number;
-  totalquestion: number;
-  selected_module: string;
-  _contentalignment: boolean;
+  @Input() parentid:number;
+  @Input() moduleid:number;  
+  @Input() totalquestion: number;
+  @Input() selected_module: string;
+  @Input() _contentalignment:boolean;
   moduleChange(data: any) {
     if (data.isfromquizinfo) {
       this._contentalignment = true;
