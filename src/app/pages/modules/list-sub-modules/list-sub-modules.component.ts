@@ -503,6 +503,12 @@ export class ListSubModulesComponent implements OnInit {
 	}
 
 	onSubModuleClick(id: any, submodule: any) {
+		if (this.currentModuleName == 'Learning Hub') {
+			if (this.authService.isInvalidSubscription('learning_hub')) {
+				this.authService.hasUserSubscription$.next(true);
+				return;
+			}
+		}
 		this.selectSubmoduleName = submodule.submodule_name
 		if (this.currentModuleId == 5) {
 			this.storage.set("QuizModuleName", submodule.submodule_name)
@@ -631,6 +637,12 @@ export class ListSubModulesComponent implements OnInit {
 	filteredData: any[] = []
 
 	performSearch() {
+		if (this.currentModuleName == 'Learning Hub') {
+			if (this.authService.isInvalidSubscription('learning_hub')) {
+				this.authService.hasUserSubscription$.next(true);
+				return;
+			}
+		}
 		if (this.searchLearning) {
 			this.filteredData = this.allSearchedResult
 				.filter((item: any) => item.submodule_name.toLowerCase().includes(this.searchLearning.toLowerCase()) || item.category_name.toLowerCase().includes(this.searchLearning.toLowerCase()))

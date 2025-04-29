@@ -323,4 +323,8 @@ export class PagesComponent implements OnInit, OnDestroy {
 
     return null;
   }
+
+  onCloseRestrictModal(event: boolean) {
+    this.service.hasUserSubscription$.next(event);
+  }
 }
