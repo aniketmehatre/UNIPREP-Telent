@@ -6,7 +6,6 @@ import { TalentConnectService } from '../talent-connect.service';
 import { MessageService } from 'primeng/api';
 import { maxWordsValidator } from 'src/app/shared/directives/maxwordValidators.directive';
 
-
 export enum FileType {
   CERTIFICATIONS = 'Certificates',
   ACHIEVEMENTS = 'Achievements',
@@ -28,6 +27,7 @@ export class EmployeeProfileComponent implements OnInit {
   isLoadingAiSummary: boolean = false;
   selectedSocialMedias: string[] = [];
   isShowCreatedSuccessfullyPopup: boolean = false;
+  visible: boolean = false;
   isShowAiEvaluation: boolean = false;
   aiEvaluationContent: string = `<div class="resume-evaluation p-4 bg-white rounded-xl shadow-md max-w-xl mx-auto">
   <h2 class="text-2xl font-bold mb-4 text-gray-800">AI Resume Evaluation</h2>
