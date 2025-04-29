@@ -327,10 +327,8 @@ export class CoverLetterBuilderComponent implements OnInit, AfterViewInit {
 		if (mode === "user_location") {
 			if (query.length > 3) {
 				this.filteredLocations = this.getFilteredLocations(query);
-				this.inputValuesEditOrNot();
 			} else if (query.length < 2) {
 				this.filteredLocations = [];
-				this.inputValuesEditOrNot();
 			}
 		} else {
 			if (query.length > 3) {
@@ -355,12 +353,15 @@ export class CoverLetterBuilderComponent implements OnInit, AfterViewInit {
 	}
 
 	onFocusOut() {
+		this.inputValuesEditOrNot();
 		setTimeout(() => {
 			this.filteredLocations = [];
 			this.orgLocation = [];
 		}, 200); // Delay clearing the dropdown by 200 milliseconds
 	}
-
+	onFocusOutJob(){
+		this.inputValuesEditOrNot();
+	}
 
 	selectLocation(city: any, mode: string) {
 		if (mode === "user_location") {
@@ -773,7 +774,6 @@ export class CoverLetterBuilderComponent implements OnInit, AfterViewInit {
 			this.filterJobRole.sort((a: any, b: any) => {
 				const aJob = a.jobrole.toLowerCase();
 				const bJob = b.jobrole.toLowerCase();
-				this.inputValuesEditOrNot();
 				if (aJob === query && bJob !== query) {
 					return -1; // a comes first
 				} else if (aJob !== query && bJob === query) {
@@ -818,7 +818,6 @@ export class CoverLetterBuilderComponent implements OnInit, AfterViewInit {
 			this.filterJobRolePostionApplied.sort((a: any, b: any) => {
 				const aJob = a.jobrole.toLowerCase();
 				const bJob = b.jobrole.toLowerCase();
-				this.inputValuesEditOrNot();
 				if (aJob === query && bJob !== query) {
 					return -1; // a comes first
 				} else if (aJob !== query && bJob === query) {

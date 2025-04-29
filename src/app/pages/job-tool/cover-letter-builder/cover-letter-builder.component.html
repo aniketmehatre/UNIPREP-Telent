@@ -189,7 +189,7 @@
 												<div style="margin-left: 10px" *ngIf="f['user_job_title'].errors">Your Job Title Required</div>
 											</div> -->
 											<input type="text" formControlName="user_job_title"
-												(input)="searchJob($event)"
+												(input)="searchJob($event)" (focusout)="onFocusOutJob()"
 												class="form-control w-100 rounded-5 border-primary inputHeight pr-5"
 												placeholder="Search by Job Role"
 												style="border-radius: 10px !important;" />
@@ -343,10 +343,10 @@
 											<!-- <input class="w-100" type="text" placeholder="Your Job Position" formControlName="jobposition" pInputText /> -->
 
 											<input type="text" formControlName="jobposition"
-												(input)="searchJobPosition($event)"
+												(input)="searchJobPosition($event)" (focusout)="onFocusOutJob()"
 												class="form-control w-100 rounded-5 border-primary inputHeight pr-5"
 												placeholder="Search by Job Role"
-												style="border-radius: 10px !important;" />
+												style="border-radius: 10px !important;"/>
 											<div *ngIf="submitted && f['jobposition'].errors"
 												class="text-danger text-xs">
 												<div style="margin-left: 10px" *ngIf="f['jobposition'].errors">Your Job
