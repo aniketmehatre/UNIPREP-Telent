@@ -19,10 +19,10 @@
 		</div>
 		<div class="row mt-2 align-items-center">
 			<!-- Left Spacer (Keeps Buttons Centered) -->
-			<div class="col-md-4"></div>
+			<div class="col-md-4 d-none d-md-block"></div>
 
 			<!-- Centered Buttons -->
-			<div class="col-md-4">
+			<div class="col-md-4 col-12 mb-md-0 mb-2">
 				<div class="d-flex gap-3 justify-content-center">
 					<button type="button" pButton class="btn border btn-primary px-3 py-3">Company Search</button>
 					<button type="button" style="color: var(--uniprep-primary)" pButton class="btn border px-3 py-3 bg-white" routerLink="/pages/talent-connect/company-tracker">Company Tracker</button>
@@ -30,8 +30,8 @@
 			</div>
 
 			<!-- Right Section: Chips / Badges -->
-			<div class="col-md-4">
-				<div class="d-flex gap-2 justify-content-end">
+			<div class="col-md-4 col-12">
+				<div class="d-flex gap-2 justify-content-md-end justify-content-center">
 					<p-tag [style]="{ border: '2px solid var(--uniprep-secondary)', color: 'var(--text-color)' }" [rounded]="true" severity="danger">Total Companies : {{ this.totalCount }} </p-tag>
 					<p-tag [style]="{ border: '2px solid var(--uniprep-primary)', color: 'var(--text-color)' }" [rounded]="true" severity="info">Total Jobs : {{ this.totalJob }} </p-tag>
 					<p-tag [style]="{ border: '2px solid green', color: 'var(--text-color)' }" [rounded]="true" severity="success">Total Vacancies : {{ this.totalVacancies }} </p-tag>
@@ -41,7 +41,7 @@
 	</div>
 	<div class="card-body flex-fill overflow-y-auto">
 		<div class="row">
-			<div class="col-12 col-md-3 col-lg-3 mb-3" *ngFor="let company of companyDataList">
+			<div class="col-xxl-3 col-xl-4 col-lg-4 col-md-6 col-sm-6 col-12 mb-2" *ngFor="let company of companyDataList">
 				<div class="card h-100 card-inside" role="button" (click)="onClickCompany(company.id)" style="transition: transform 0.3s; border: 1px solid #fda172" [style.border]="company.verified ? '1px solid #FFA500' : '1px solid #fda172'">
 					<div class="card-body">
 						<div class="row mb-3">
