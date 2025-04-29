@@ -7,29 +7,20 @@ import { TestModulesComponent } from "./testmodule/testmodule.component";
 
 const routes: Routes = [
     {
-        path: '', 
-        component: UniLearnComponent,
+        path: '', component: UniLearnComponent,
         children: [
             {
-                path: 'modules', 
-                component: LearnModulesComponent,
+                path: 'modules', component: LearnModulesComponent,
             },
             {
-                path: 'submodules', 
-                component: LearnsubModulesComponent,
+                path: 'submodules', component: LearnsubModulesComponent,
             },
             {
-                path: 'test',
-                component: TestModulesComponent,
+                path: '', redirectTo: 'languages', pathMatch: 'full'
             },
-            {
-                path: '', 
-                component: LearnModulesComponent,
-                pathMatch: 'full'
-            }
         ]
-    }
-];
+    }];
+
 
 @NgModule({
     imports: [RouterModule.forChild(routes)],
