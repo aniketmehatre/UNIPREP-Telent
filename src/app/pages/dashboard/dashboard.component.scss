@@ -627,16 +627,6 @@ Due to the split circle of progress-left and progress right, we must use the ani
 	justify-content: space-between;
 	flex-grow: 1; /* Ensures content stretches evenly */
 }
-
-@media (max-width: 768px) {
-	.row {
-		flex-direction: column; /* Stack items on smaller screens */
-	}
-
-	.card {
-		height: auto; /* Let cards adjust height for smaller screens */
-	}
-}
 // active picker
 // .calendar-container {
 //   text-align: center;
