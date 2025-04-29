@@ -129,7 +129,7 @@ export class RegistrationComponent implements OnInit {
 					this.toastr.add({
 						severity: "error",
 						summary: "Error",
-						detail: error,
+						detail: error?.error?.message || error?.message || "An unexpected error occurred, please contact the team",
 					})
 				}
 			)

@@ -145,7 +145,7 @@ export class LoginComponent implements OnInit, OnDestroy {
 			})
 		).subscribe({
 			next: (response) => {
-				if (response.status === "error") {
+				if ( response.status === "false") {
 					this.toast.add({
 						severity: "error",
 						summary: "Error",
@@ -156,10 +156,18 @@ export class LoginComponent implements OnInit, OnDestroy {
 				this.handleSuccessfulLogin(response.token)
 			},
 			error: (error) => {
+				let message = 'Social login failed'
+			
+				if (error?.error?.message) {
+					message = error.error.message
+				} else if (error?.message) {
+					message = error.message
+				}
+			
 				this.toast.add({
 					severity: "error",
 					summary: "Error",
-					detail: error.message || 'Social login failed'
+					detail: message
 				})
 			}
 		})
