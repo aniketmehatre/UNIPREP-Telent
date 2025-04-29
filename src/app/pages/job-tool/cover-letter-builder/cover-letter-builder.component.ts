@@ -265,7 +265,7 @@ export class CoverLetterBuilderComponent implements OnInit, AfterViewInit {
 			org_name: ["", [Validators.required]],
 			org_location: ["", [Validators.required]],
 			jobposition: ["", [Validators.required]],
-			job_description: ["", [Validators.required]],
+			// job_description: ["", [Validators.required]],
 		})
 		this.getJobRoles();
 	}
@@ -665,7 +665,8 @@ export class CoverLetterBuilderComponent implements OnInit, AfterViewInit {
 		})
 		return controls
 	}
-
+	// 1st chatgpt response after convert into refrase button , then any changes will in inuput or dropdown that button need to change ai genarate,That why save 1st response for checking
+	chatGptValueSave:any
 	chatGPTIntegration(mode: string) {
 		const visibleFormControls = this.getVisibleFormControlsChatGptRespons(mode);
 		// condition for required field for chatgpt
@@ -684,9 +685,9 @@ export class CoverLetterBuilderComponent implements OnInit, AfterViewInit {
 			formData.inner_mode = mode
 			formData.max_tokens = 1500
 			if (mode == 'generate_description') {
-				this.resumeFormInfoData.patchValue({
-					job_description: "",
-				})
+				// this.resumeFormInfoData.patchValue({
+				// 	job_description: "",
+				// })
 				this.rephraseDesBtnDisable = true;
 				this.generateDesBtnDisable = false;
 				this.chatGptButtonLoader = true;
@@ -706,6 +707,9 @@ export class CoverLetterBuilderComponent implements OnInit, AfterViewInit {
 				this.rephraseconBtnDisable = false;
 				this.chatGptButtonLoaderSummary = true;
 			}
+			this.chatGptValueSave=this.resumeFormInfoData.value
+			console.log(this.chatGptValueSave);
+			
 			this.cvBuilderService.openAiIntegration(formData).subscribe((res) => {
 				if (res.response && res.response.length > 0) {
 					let GPTResponse = res.response.trim()
@@ -715,9 +719,9 @@ export class CoverLetterBuilderComponent implements OnInit, AfterViewInit {
 						.join("")
 
 					if (mode == 'generate_description' || mode == 'rephrase_description') {
-						this.resumeFormInfoData.patchValue({
-							job_description: GPTResponse,
-						})
+						// this.resumeFormInfoData.patchValue({
+						// 	job_description: GPTResponse,
+						// })
 					} else if (mode == 'generate_summary' || mode == 'rephrase_summary') {
 						this.resumeFormInfoData.patchValue({
 							user_summary: GPTResponse,
