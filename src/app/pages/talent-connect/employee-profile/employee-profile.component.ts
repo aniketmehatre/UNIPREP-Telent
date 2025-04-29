@@ -44,6 +44,7 @@ export class EmployeeProfileComponent implements OnInit {
   selectedSocialMedias: string[] = []
   isShowCreatedSuccessfullyPopup = false
   isShowAiEvaluation = false
+  visible: boolean = false
   aiEvaluationContent = `<div class="resume-evaluation p-4 bg-white rounded-xl shadow-md max-w-xl mx-auto">
   <h2 class="text-2xl font-bold mb-4 text-gray-800">AI Resume Evaluation</h2>
 
