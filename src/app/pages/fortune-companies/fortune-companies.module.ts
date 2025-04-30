@@ -29,6 +29,8 @@ import { InputIconModule } from "primeng/inputicon";
 import { IconFieldModule } from 'primeng/iconfield';
 import { SelectModule } from "primeng/select";
 import { RestrictionDialogComponent } from "src/app/shared/restriction-dialog/restriction-dialog.component";
+import { MultiSelectModule } from "primeng/multiselect";
+import { CalendarModule } from "primeng/calendar";
 @NgModule({
   declarations: [
     FortuneCompaniesComponent,
@@ -65,7 +67,9 @@ import { RestrictionDialogComponent } from "src/app/shared/restriction-dialog/re
     IconFieldModule,
     InputIconModule,
     SelectModule,
-    RestrictionDialogComponent
+    RestrictionDialogComponent,
+    MultiSelectModule ,
+    CalendarModule 
   ],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
   providers: [ConfirmationService],
