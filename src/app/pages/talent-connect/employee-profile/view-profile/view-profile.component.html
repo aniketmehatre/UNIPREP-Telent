@@ -62,7 +62,6 @@
                 </div>
               </div>
             </div>
-            
             <div class="mt-3">
               <div class="text-muted small mb-1">Profile Completion: {{isSample ? 85 : (profileCompletionPercentage || 0)}}%</div>
               <p-progressBar [style]="{ height: '10px', color: 'orange' }" styleClass="text-secondary mb-3" [value]="isSample ? 85 : (profileCompletionPercentage || 0)" [showValue]="false"></p-progressBar>
@@ -149,7 +148,7 @@
                   <div>{{exp.duration || 'Not specified'}}</div>
                 </div>
                 <div class="col-md-4 mb-3">
-                  <div class="text-primary fw-bold">Salary</div>
+                  <div class="text-primary fw-bold">Salary / Month</div>
                   <div>{{exp.salary ? (exp.salary + ' ' + exp.exp_currency) : 'Not specified'}}</div>
                 </div>
               </ng-container>

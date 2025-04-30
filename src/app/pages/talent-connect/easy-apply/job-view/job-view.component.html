@@ -66,7 +66,7 @@
 													{{ jobDetails.matching_skills }}
 												</p>
 												<div class="d-flex flex-wrap gap-1 overflow-y-auto" style="max-height: 4rem">
-													<span *ngFor="let skill of jobDetails?.soft_skills" class="badge bg-badge-color text-white">{{ skill }}</span>
+													<span *ngFor="let skill of jobDetails?.jobsoftskills" [ngClass]="{'bg-badge-color text-white': skill.ismatch}" class="badge border border-secondary text-warn">{{ skill.softskill }}</span>
 												</div>
 											</div>
 										</div>

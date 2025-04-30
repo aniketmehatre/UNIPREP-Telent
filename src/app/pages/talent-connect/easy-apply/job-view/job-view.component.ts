@@ -41,6 +41,13 @@ export interface Job {
   matching_skills: string;
   stage: string | null;
   company_logo?: string;
+  jobsoftskills: JobSoftSkills[];
+}
+
+export interface JobSoftSkills {
+  id: number
+  softskill: string
+  ismatch: number
 }
 
 interface Message {

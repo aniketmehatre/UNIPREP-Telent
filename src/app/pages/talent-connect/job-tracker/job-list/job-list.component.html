@@ -7,7 +7,7 @@
 		<p-tabView [(activeIndex)]="activeIndex" [scrollable]="true" styleClass="p-0" (activeIndexChange)="selectTab($event)">
 			<p-tabPanel *ngFor="let tab of tabs" [header]="tab.label" class="p-0 h-100">
 				<div class="card mb-2" role="button" (click)="onClickJobCard(job.id)" *ngFor="let job of filteredAppliedJob">
-					<div class="card-body text-start">
+					<div class="card-body text-start position-relative">
 						<div class="d-flex align-items-center gap-2">
 							<div class="company-logo">
 								<img (error)="$event.target.src = '/uniprep-assets/images/job.webp'" [src]="job.company_logo" alt="Company Logo" />
@@ -23,6 +23,9 @@
 								<span class="status-badge" [style.color]="'white'" [style.backgroundColor]="job.color_code">{{ job.hiringstage }}</span>
 							</div>
 						</div>
+						<span class="notification-badge position-absolute top-0 right-0" [ngClass]="{ 'bg-secondary-subtle text-white': !(job.unreadmessageCount > 0) }">
+							{{ job.unreadmessageCount }}
+						</span>
 					</div>
 				</div>
 			</p-tabPanel>
