@@ -265,7 +265,7 @@ export class CoverLetterBuilderComponent implements OnInit, AfterViewInit {
 			org_name: ["", [Validators.required]],
 			org_location: ["", [Validators.required]],
 			jobposition: ["", [Validators.required]],
-			job_description: ["", [Validators.required]],
+			// job_description: ["", [Validators.required]],
 		})
 		this.getJobRoles();
 	}
@@ -353,12 +353,15 @@ export class CoverLetterBuilderComponent implements OnInit, AfterViewInit {
 	}
 
 	onFocusOut() {
+		this.inputValuesEditOrNot();
 		setTimeout(() => {
 			this.filteredLocations = [];
 			this.orgLocation = [];
 		}, 200); // Delay clearing the dropdown by 200 milliseconds
 	}
-
+	onFocusOutJob(){
+		this.inputValuesEditOrNot();
+	}
 
 	selectLocation(city: any, mode: string) {
 		if (mode === "user_location") {
@@ -665,7 +668,8 @@ export class CoverLetterBuilderComponent implements OnInit, AfterViewInit {
 		})
 		return controls
 	}
-
+	// 1st chatgpt response after convert into refrase button , then any changes will in inuput or dropdown that button need to change ai genarate,That why save 1st response for checking
+	chatGptValueSave: any
 	chatGPTIntegration(mode: string) {
 		const visibleFormControls = this.getVisibleFormControlsChatGptRespons(mode);
 		// condition for required field for chatgpt
@@ -684,9 +688,9 @@ export class CoverLetterBuilderComponent implements OnInit, AfterViewInit {
 			formData.inner_mode = mode
 			formData.max_tokens = 1500
 			if (mode == 'generate_description') {
-				this.resumeFormInfoData.patchValue({
-					job_description: "",
-				})
+				// this.resumeFormInfoData.patchValue({
+				// 	job_description: "",
+				// })
 				this.rephraseDesBtnDisable = true;
 				this.generateDesBtnDisable = false;
 				this.chatGptButtonLoader = true;
@@ -715,13 +719,14 @@ export class CoverLetterBuilderComponent implements OnInit, AfterViewInit {
 						.join("")
 
 					if (mode == 'generate_description' || mode == 'rephrase_description') {
-						this.resumeFormInfoData.patchValue({
-							job_description: GPTResponse,
-						})
+						// this.resumeFormInfoData.patchValue({
+						// 	job_description: GPTResponse,
+						// })
 					} else if (mode == 'generate_summary' || mode == 'rephrase_summary') {
 						this.resumeFormInfoData.patchValue({
 							user_summary: GPTResponse,
 						})
+						this.chatGptValueSave = this.cleanObject(this.resumeFormInfoData.value);
 					}
 					this.chatGptButtonLoader = false;
 					this.chatGptButtonLoaderSummary = false;
@@ -769,7 +774,6 @@ export class CoverLetterBuilderComponent implements OnInit, AfterViewInit {
 			this.filterJobRole.sort((a: any, b: any) => {
 				const aJob = a.jobrole.toLowerCase();
 				const bJob = b.jobrole.toLowerCase();
-
 				if (aJob === query && bJob !== query) {
 					return -1; // a comes first
 				} else if (aJob !== query && bJob === query) {
@@ -814,7 +818,6 @@ export class CoverLetterBuilderComponent implements OnInit, AfterViewInit {
 			this.filterJobRolePostionApplied.sort((a: any, b: any) => {
 				const aJob = a.jobrole.toLowerCase();
 				const bJob = b.jobrole.toLowerCase();
-
 				if (aJob === query && bJob !== query) {
 					return -1; // a comes first
 				} else if (aJob !== query && bJob === query) {
@@ -839,5 +842,36 @@ export class CoverLetterBuilderComponent implements OnInit, AfterViewInit {
 	}
 	historyPage() {
 		this.activePageIndex = 0;
+	}
+	// fuction for check input values edit or not
+	inputValuesEditOrNot() {
+		if (this.isFormChanged()) {
+			this.generateConBtnDisable = false;
+			this.rephraseconBtnDisable = true;
+		} else {
+			this.generateConBtnDisable = true;
+			this.rephraseconBtnDisable = false;
+		}
+	}
+
+	isFormChanged(): boolean {
+		const current = this.cleanObject(this.resumeFormInfoData.value);
+		const saved = this.cleanObject(this.chatGptValueSave);
+		return JSON.stringify(current) === JSON.stringify(saved);
+	}
+
+	cleanObject(obj: any): any {
+		const cleaned: any = {};
+		Object.keys(obj).forEach(key => {
+			let val = obj[key];
+			if (typeof val === 'string') {
+				val = val.trim();
+			}
+			if (val !== undefined) {
+				cleaned[key] = val;
+			}
+		});
+
+		return cleaned;
 	}
 }

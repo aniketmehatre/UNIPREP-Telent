@@ -121,18 +121,6 @@ label {
     }
   }
 
-  
-/* Custom column widths */
-.col-8-5 {
-  flex: 0 0 auto;
-  width: 72.833%; /* 8.5/12 = 70.833% */
-}
-
-.col-3-5 {
-  flex: 0 0 auto;
-  width: 27.167%; /* 3.5/12 = 29.167% */
-}
-
 .loader-overlay {
   position: fixed;
   top: 0;

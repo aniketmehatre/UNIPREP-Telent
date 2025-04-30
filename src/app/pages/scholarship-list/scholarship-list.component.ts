@@ -44,7 +44,6 @@ export class ScholarshipListComponent implements OnInit {
 	anyStudyLevelList: any[] = []
 	regionList: any[] = []
 	filterUniversityList: any[] = []
-	planExpired!: boolean
 	scholarshipTypeList: any[] = []
 	anyScholarshipTypeList: any[] = []
 	coverList: any[] = []
@@ -115,7 +114,7 @@ export class ScholarshipListComponent implements OnInit {
 		this.gethomeCountryList()
 		this.getStudyLevel()
 		this.getFilterUniversityList("")
-		this.checkplanExpire()
+		this.loadScholarShipData(0)
 		this.getScholarshipType()
 		this.getRegionList()
 		this.getCovers()
@@ -384,9 +383,9 @@ export class ScholarshipListComponent implements OnInit {
 		perpage: this.pageSize,
 	}
 	pageChange(event: any) {
-		if (this.planExpired) {
+		if (this.authService.isInvalidSubscription('uni_scholar')) {
 			this.authService.hasUserSubscription$.next(true);
-			return
+			return;
 		}
 		this.selectAllCheckboxes = false
 		this.selectedScholarship = 0
@@ -403,9 +402,9 @@ export class ScholarshipListComponent implements OnInit {
 	}
 
 	filterBy() {
-		if (this.planExpired) {
+		if (this.authService.isInvalidSubscription('uni_scholar')) {
 			this.authService.hasUserSubscription$.next(true);
-			return
+			return;
 		}
 		this.isFilterVisible = true
 	}
@@ -415,17 +414,6 @@ export class ScholarshipListComponent implements OnInit {
 		this.scholarshipListService.getUniversity(value).subscribe((response) => {
 			this.filterUniversityList = response
 		})
-	}
-
-	checkplanExpire(): void {
-		if (this.authService._userSubscrition.time_left.plan === "expired" ||
-			this.authService._userSubscrition.time_left.plan === "subscription_expired") {
-			this.planExpired = true;
-		}
-		else {
-			this.planExpired = false;
-		}
-		this.loadScholarShipData(0)
 	}
 
 	scholarGuidlines(): void {
@@ -451,6 +439,10 @@ export class ScholarshipListComponent implements OnInit {
 		})
 	}
 	viewFavourites() {
+		if (this.authService.isInvalidSubscription('uni_scholar')) {
+			this.authService.hasUserSubscription$.next(true);
+			return;
+		}
 		this.viewFavouritesLabel = this.viewFavouritesLabel == "View Favourites" ? "View All" : "View Favourites"
 		if (this.viewFavouritesLabel == "View All") {
 			this.loadScholarShipData(1)
@@ -501,9 +493,9 @@ export class ScholarshipListComponent implements OnInit {
 	}
 
 	buyCredits(): void {
-		if (this.planExpired) {
+		if (this.authService.isInvalidSubscription('uni_scholar')) {
 			this.authService.hasUserSubscription$.next(true);
-			return
+			return;
 		}
 		this.router.navigate(["/pages/export-credit"])
 	}
@@ -524,9 +516,9 @@ export class ScholarshipListComponent implements OnInit {
 	}
 
 	exportData() {
-		if (this.planExpired) {
+		if (this.authService.isInvalidSubscription('uni_scholar')) {
 			this.authService.hasUserSubscription$.next(true);
-			return
+			return;
 		} else if (this.exportCreditCount != 0) {
 			this.exportDataIds = []
 			this.scholarshipData.forEach((item) => {
@@ -573,6 +565,10 @@ export class ScholarshipListComponent implements OnInit {
 	}
 
 	onCheckboxChange(event: any) {
+		if (this.authService.isInvalidSubscription('uni_scholar')) {
+			this.authService.hasUserSubscription$.next(true);
+			return;
+		}
 		const isChecked = (event.target as HTMLInputElement).checked
 		this.selectedScholarship = isChecked ? this.selectedScholarship + 1 : this.selectedScholarship - 1
 		if (isChecked == false) {
@@ -620,10 +616,6 @@ export class ScholarshipListComponent implements OnInit {
 	}
 
 	getRecommendation() {
-		if (this.planExpired) {
-			this.authService.hasUserSubscription$.next(true);
-			return
-		}
 		let keyMapping: any = { "1": "country", "2": "study_level", "3": "type", "4": "cover_id" }
 
 		let newData = Object.fromEntries(
@@ -648,6 +640,10 @@ export class ScholarshipListComponent implements OnInit {
 	}
 
 	next(productId: number): void {
+		if (this.authService.isInvalidSubscription('uni_scholar')) {
+			this.authService.hasUserSubscription$.next(true);
+			return;
+		}
 		this.invalidClass = false
 		if (productId in this.selectedData) {
 			if (this.activePageIndex < this.recommendations.length - 1) {

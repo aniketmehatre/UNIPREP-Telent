@@ -14,8 +14,7 @@ import { StorageService } from "../../../storage.service"
 	templateUrl: "./testmodule.component.html",
 
 	styleUrls: ["./testmodule.component.scss"],
-  standalone: true,
-  imports: [CommonModule, SkeletonModule, TooltipModule, RouterModule]
+  standalone: false,
 })
 
 export class TestModulesComponent implements OnInit {

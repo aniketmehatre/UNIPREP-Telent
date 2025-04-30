@@ -12,8 +12,7 @@ import {StorageService} from "../../../storage.service";
 	selector: "uni-quizinfowindow",
 	templateUrl: "./quizinfowindow.component.html",
 	styleUrls: ["./quizinfowindow.component.scss"],
-	standalone: true,
-  imports: [CommonModule, ButtonModule, SkeletonModule, TooltipModule, RouterModule ]
+	standalone: false,
 })
 export class QuizinfowindowComponent implements OnInit {
 	@Input() parentid: number

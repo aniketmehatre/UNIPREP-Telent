@@ -83,6 +83,7 @@ import { AverageSalaryPreparedListComponent } from "./averagesalaryestimator/pre
 import { JoboffercomparisontoolComponent } from "./job-tool/joboffercomparisontool/joboffercomparisontool.component"
 import { JobOfferPreparedListComponent } from "./job-tool/joboffercomparisontool/preparedlist/preparedlist.component"
 import {PdfViewerModule} from "ng2-pdf-viewer";
+import { UniLearnModule } from "./unilearn/unilearn.module"
 
 @NgModule({
 	declarations: [
@@ -169,7 +170,8 @@ import {PdfViewerModule} from "ng2-pdf-viewer";
 		RadioButtonModule,
 		PdfViewerModule,
 		SkeletonModule,
-		InputNumberModule
+		InputNumberModule,
+		UniLearnModule
 	],
 	schemas: [CUSTOM_ELEMENTS_SCHEMA],
 })
