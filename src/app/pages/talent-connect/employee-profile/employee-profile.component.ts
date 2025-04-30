@@ -1860,6 +1860,7 @@ export class EmployeeProfileComponent implements OnInit, OnDestroy {
   }
 
   aiRePhraseSummary(mode: string, content: Record<string, any>, formControl: FormControl) {
+    this.isLoadingAiSummary = true;
     this.talentConnectService.getAiSummaryByMode(mode, content).subscribe({
       next: (response) => {
         this.isLoadingAiSummary = false;
