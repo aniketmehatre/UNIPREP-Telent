@@ -116,15 +116,18 @@ export const riskAssessment = {
         { "Industry": "Water Purification" },
         { "Industry": "Finland" }
     ],    
-    "businessModel": [
-        { "businessModel": "Subscription-based" },
-        { "businessModel": "Freemium" },
-        { "businessModel": "Direct Sales" },
-        { "businessModel": "Marketplace" },
-        { "businessModel": "Advertising-based" },
-        { "businessModel": "On-demand" },
-        { "businessModel": "Licensing" },
-        { "businessModel": "Franchise" }
+  "businessModel": [
+        { "businessModel": "B2B (Business-to-Business)" },
+        { "businessModel": "B2C (Business-to-Consumer)" },
+        { "businessModel": "B2B2C (Business-to-Business-to-Consumer)" },
+        { "businessModel": "C2C (Consumer-to-Consumer)" },
+        { "businessModel": "C2B (Consumer-to-Business)" },
+        { "businessModel": "P2P (Peer-to-Peer)" },
+        { "businessModel": "DTC (Direct-to-Consumer)" },
+        { "businessModel": "B2G (Business-to-Government)" },
+        { "businessModel": "G2B (Government-to-Business)" },
+        { "businessModel": "G2C (Government-to-Consumer)" },
+        { "businessModel": "C2G (Consumer-to-Government)" }
     ],
     "startupStage": [
         { "startupStage": "Ideation Stage" },

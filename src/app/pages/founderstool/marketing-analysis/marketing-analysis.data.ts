@@ -113,8 +113,7 @@ export const marketingAnalysisData = {
         { "Industry": "Virtual Reality" },
         { "Industry": "Waste Management" },
         { "Industry": "Recycling" },
-        { "Industry": "Water Purification" },
-        { "Industry": "Finland" }
+        { "Industry": "Water Purification" }
     ],
 
     "Target Audience": [
@@ -128,21 +127,21 @@ export const marketingAnalysisData = {
 
     "Analysis Duration": [
         { "Analysis Duration": "1 Month" },
-        { "Analysis Duration": "3 Months (Quarterly)" },
-        { "Analysis Duration": "6 Months (Half-Yearly / Semi-Annual)" },
+        { "Analysis Duration": "3 Months" },
+        { "Analysis Duration": "6 Months" },
         { "Analysis Duration": "9 Months" },
-        { "Analysis Duration": "12 Months (Annual / Yearly)" },
-        { "Analysis Duration": "18 Months (1.5 Years)" },
-        { "Analysis Duration": "24 Months (2 Years)" },
-        { "Analysis Duration": "30 Months (2.5 Years)" },
-        { "Analysis Duration": "36 Months (3 Years)" },
-        { "Analysis Duration": "48 Months (4 Years)" },
-        { "Analysis Duration": "60 Months (5 Years)" },
-        { "Analysis Duration": "72 Months (6 Years)" },
-        { "Analysis Duration": "84 Months (7 Years)" },
-        { "Analysis Duration": "96 Months (8 Years)" },
-        { "Analysis Duration": "108 Months (9 Years)" },
-        { "Analysis Duration": "120 Months (10 Years)" }
+        { "Analysis Duration": "12 Months" },
+        { "Analysis Duration": "18 Months" },
+        { "Analysis Duration": "24 Months" },
+        { "Analysis Duration": "30 Months" },
+        { "Analysis Duration": "36 Months" },
+        { "Analysis Duration": "48 Months" },
+        { "Analysis Duration": "60 Months" },
+        { "Analysis Duration": "72 Months" },
+        { "Analysis Duration": "84 Months" },
+        { "Analysis Duration": "96 Months" },
+        { "Analysis Duration": "108 Months" },
+        { "Analysis Duration": "120 Months" }
     ],
 
     "Product/Service": [
@@ -375,10 +374,10 @@ export const marketingAnalysisData = {
         { "Forecast": "Bi-Weekly" },
         { "Forecast": "Monthly" },
         { "Forecast": "Quarterly" },
-        { "Forecast": "Semi-Annual (Half-Yearly)" },
-        { "Forecast": "Annual (Yearly)" },
-        { "Forecast": "Biennial (Every 2 Years)" },
-        { "Forecast": "Triennial (Every 3 Years)" },
+        { "Forecast": "Half-Yearly" },
+        { "Forecast": "Annual" },
+        { "Forecast": "Biennial" },
+        { "Forecast": "Triennial" },
         { "Forecast": "Five-Year Forecast" },
         { "Forecast": "Ten-Year Forecast" },
         { "Forecast": "Short-Term (0-6 Months)" },
