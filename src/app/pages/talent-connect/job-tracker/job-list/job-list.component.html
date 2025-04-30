@@ -3,27 +3,29 @@
 		<h4 class="m-0">All</h4>
 		<span class="text-muted">Total Jobs : {{ totalAppliedJobs }}</span>
 	</div>
-	<div class="card-body overflow-y-auto p-0">
+	<div class="card-body overflow-y-auto p-0 h-100">
 		<p-tabView [(activeIndex)]="activeIndex" [scrollable]="true" styleClass="p-0" (activeIndexChange)="selectTab($event)">
 			<p-tabPanel *ngFor="let tab of tabs" [header]="tab.label" class="p-0 h-100">
 				<div class="card mb-2" role="button" (click)="onClickJobCard(job.id)" *ngFor="let job of filteredAppliedJob">
 					<div class="card-body text-start position-relative">
-						<div class="d-flex align-items-center gap-2">
-							<div class="company-logo">
-								<img (error)="$event.target.src = '/uniprep-assets/images/job.webp'" [src]="job.company_logo" alt="Company Logo" />
+						<div class="row">
+							<div class="col-xxl-2 col-xl-2 col-lg-2 col-md-2 col-sm-3 col-3">
+								<div class="rounded-2 border overflow-hidden">
+									<img class="company-logo" (error)="$event.target.src = '/uniprep-assets/images/job.webp'" [src]="job.company_logo" alt="Company Logo" />
+								</div>
 							</div>
-							<div class="d-flex flex-column gap-1 justify-content-start align-items-start">
-								<h4 class="mb-0">{{ job.position }}</h4>
-								<p class="text-muted fw-medium">{{ job.company_name }}</p>
+							<div class="col-xxl-10 col-xl-10 col-lg-10 col-md-10 col-sm-9 col-9">
+								<h5 class="mb-0">{{ job.position }}</h5>
+								<p class="text-muted text-small fw-medium">{{ job.company_name }}</p>
 								<!-- <p class="job-status mb-1 ">Status {{ job.status }}</p> -->
-								<p class="d-flex gap-2 align-items-center">
-									<span><i class="fa-solid fa-location-dot" style="color:#9bc329;"></i></span><span>{{ job.worklocation }}</span>
+								<p class="d-flex gap-2 align-items-center text-small">
+									<span><i class="fa-solid fa-location-dot" style="color: #9bc329"></i></span><span>{{ job.worklocation }}</span>
 								</p>
 								<p class="uniprep-secondary" style="font-size: 10px">{{ job.matching_skills }}</p>
 								<span class="status-badge" [style.color]="'white'" [style.backgroundColor]="job.color_code">{{ job.hiringstage }}</span>
 							</div>
 						</div>
-						<span class="notification-badge position-absolute top-0 right-0" [ngClass]="{ 'bg-secondary-subtle text-white': !(job.unreadmessageCount > 0) }">
+						<span class="notification-badge" [ngClass]="{ 'bg-secondary-subtle text-white': !(job.unreadmessageCount > 0) }">
 							{{ job.unreadmessageCount }}
 						</span>
 					</div>
@@ -50,67 +52,67 @@
 						<input type="text" pInputText formControlName="keyword" placeholder="Search by Keyword" class="form-control" />
 					</div>
 				</div>
-	
-					<div class="col-md-4">
-						<label class="form-label fw-bold">Position Title</label>
-						<div class="p-inputgroup">
-							<input type="text" pInputText formControlName="position" placeholder="Enter position title" class="form-control w-100" />
+
+				<div class="col-md-4">
+					<label class="form-label fw-bold">Position Title</label>
+					<div class="p-inputgroup">
+						<input type="text" pInputText formControlName="position" placeholder="Enter position title" class="form-control w-100" />
+					</div>
+				</div>
+
+				<div class="col-md-4">
+					<label class="form-label fw-bold">Industry </label>
+					<p-multiSelect [options]="industries" formControlName="industry" placeholder="Select industry" optionLabel="industry_name" optionValue="id" display="chip" class="w-100"> </p-multiSelect>
+				</div>
+
+				<div class="col-md-4">
+					<label class="form-label fw-bold">Work Location </label>
+					<p-multiSelect [options]="locations" formControlName="worklocation" placeholder="Select work location" optionLabel="work_location" optionValue="id" display="chip" [virtualScroll]="true" [virtualScrollItemSize]="50" [filter]="true" filterBy="work_location" class="w-100"> </p-multiSelect>
+				</div>
+
+				<div class="col-md-4">
+					<label class="form-label fw-bold">Work mode </label>
+					<p-multiSelect [options]="workModes" formControlName="work_mode" placeholder="Select work type" optionLabel="work_mode" optionValue="id" display="chip" class="w-100"> </p-multiSelect>
+				</div>
+
+				<div class="col-md-4">
+					<label class="form-label fw-bold">Employment Type </label>
+					<p-multiSelect [options]="employmentTypes" formControlName="employment_type" placeholder="Select employment type" optionLabel="employment_type" optionValue="id" display="chip" class="w-100"> </p-multiSelect>
+				</div>
+
+				<div class="col-md-4">
+					<label class="form-label fw-bold">Currency display for salaries</label>
+					<p-select [options]="currencies" formControlName="currency" optionLabel="currency_code" optionId="id" [filter]="true" appendTo="body" filterBy="currency_code" class="w-100" placeholder="Select your currency"> </p-select>
+				</div>
+
+				<div class="col-md-4">
+					<label class="form-label fw-bold">Salary offered</label>
+					<div class="d-flex w-100 gap-2">
+						<p-select [options]="currencies" styleClass="p-select p-component" optionLabel="currency_code" optionValue="id" placeholder="Select" formControlName="currency" [style]="{ width: '80px' }"> </p-select>
+						<div class="flex-grow-1 me-2">
+							<p-inputNumber id="salary" placeholder="Enter your salary/month" styleClass="p-inputtext w-100" [showButtons]="false" class="w-100" formControlName="salary"></p-inputNumber>
 						</div>
 					</div>
-	
-					<div class="col-md-4">
-						<label class="form-label fw-bold">Industry </label>
-						<p-multiSelect [options]="industries" formControlName="industry" placeholder="Select industry" optionLabel="industry_name" optionValue="id" display="chip" class="w-100"> </p-multiSelect>
-					</div>
-	
-					<div class="col-md-4">
-						<label class="form-label fw-bold">Work Location </label>
-						<p-multiSelect [options]="locations" formControlName="worklocation" placeholder="Select work location" optionLabel="work_location" optionValue="id" display="chip" [virtualScroll]="true" [virtualScrollItemSize]="50" [filter]="true" filterBy="work_location" class="w-100"> </p-multiSelect>
-					</div>
-	
-					<div class="col-md-4">
-						<label class="form-label fw-bold">Work mode </label>
-						<p-multiSelect [options]="workModes" formControlName="work_mode" placeholder="Select work type" optionLabel="work_mode" optionValue="id" display="chip" class="w-100"> </p-multiSelect>
-					</div>
-	
-					<div class="col-md-4">
-						<label class="form-label fw-bold">Employment Type </label>
-						<p-multiSelect [options]="employmentTypes" formControlName="employment_type" placeholder="Select employment type" optionLabel="employment_type" optionValue="id" display="chip" class="w-100"> </p-multiSelect>
-					</div>
-	
-					<div class="col-md-4">
-						<label class="form-label fw-bold">Currency display for salaries</label>
-						<p-select [options]="currencies" formControlName="currency" optionLabel="currency_code" optionId="id" [filter]="true" appendTo="body" filterBy="currency_code" class="w-100" placeholder="Select your currency"> </p-select>
-					</div>
-	
-					<div class="col-md-4">
-						<label class="form-label fw-bold">Salary offered</label>
-						<div class="d-flex w-100 gap-2">
-							<p-select [options]="currencies" styleClass="p-select p-component" optionLabel="currency_code" optionValue="id" placeholder="Select" formControlName="currency" [style]="{ width: '80px' }"> </p-select>
-							<div class="flex-grow-1 me-2">
-								<p-inputNumber id="salary" placeholder="Enter your salary/month" styleClass="p-inputtext w-100" [showButtons]="false" class="w-100" formControlName="salary"></p-inputNumber>
-							</div>
-						</div>
-					</div>
-	
-					<div class="col-md-4">
-						<label class="form-label fw-bold">Experience Level </label>
-						<p-multiSelect [options]="experienceLevels" formControlName="experienceLevel" optionLabel="label" optionValue="id" display="chip" class="w-100"> </p-multiSelect>
-					</div>
-					<div class="col-md-4">
-						<label class="form-label fw-bold">Status</label>
-						<p-select
-							[options]="[
-								{ label: 'Active', value: 1 },
-								{ label: 'IN Active', value: 0 }
-							]"
-							formControlName="status"
-							display="chip"
-							optionLabel="label"
-							optionValue="value"
-							class="w-100">
-						</p-select>
-					</div>
+				</div>
+
+				<div class="col-md-4">
+					<label class="form-label fw-bold">Experience Level </label>
+					<p-multiSelect [options]="experienceLevels" formControlName="experienceLevel" optionLabel="label" optionValue="id" display="chip" class="w-100"> </p-multiSelect>
+				</div>
+				<div class="col-md-4">
+					<label class="form-label fw-bold">Status</label>
+					<p-select
+						[options]="[
+							{ label: 'Active', value: 1 },
+							{ label: 'IN Active', value: 0 }
+						]"
+						formControlName="status"
+						display="chip"
+						optionLabel="label"
+						optionValue="value"
+						class="w-100">
+					</p-select>
+				</div>
 			</div>
 		</form>
 
