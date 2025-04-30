@@ -42,6 +42,8 @@ export class EasyApplyComponent {
   experienceLevels: any[] = [];
   totalJobs: number = 4;
   currencies: any[] = [];
+  hiringStatuses: { id: string, name: string }[] = [{ id: 'Active', name: 'Actively Hiring' }, { id: 'InActive', name: 'Actively Not Hiring' }];
+  introductionVideoTypes: { id: string, name: string }[] = [{ id: 'Yes', name: 'Mandatory' }, { id: 'No', name: 'Not Mandatory' }];
   page: number = 1;
   pageSize: number = 8;
   displayModal: boolean = false;
@@ -66,7 +68,9 @@ export class EasyApplyComponent {
       currency: [],
       salary: [''],
       experienceLevel: [null],
-      salary_currency: [null]
+      salary_currency: [null],
+      hiringStatus: [null],
+      intro: [null],
     });
   }
 

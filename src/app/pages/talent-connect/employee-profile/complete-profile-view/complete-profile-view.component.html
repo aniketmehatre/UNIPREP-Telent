@@ -24,7 +24,11 @@
         </div>
         <div class="col-md-6 col-lg-7">
           <h2 class="fw-bold">{{profileData?.full_name}}</h2>
-          <p class="text-muted">Profile Updated On: {{profileData?.updated_at | date: 'dd-MM-yyyy'}}</p>         
+          <p class="text-muted">Profile Updated On: {{profileData?.updated_at | date: 'dd-MM-yyyy'}}</p>       
+          <div class="mt-2">
+            <button class="py-2 px-4 btn-success" *ngIf="profileData?.careerPreference?.video_link"><a [href]="introductionVideo" target="_blank" role="button" class="text-decoration-none text-white">Introduction Video Uploaded&nbsp; <i class="fa fa-video"></i></a></button>
+            <button class="py-2 px-4 btn btn-danger" *ngIf="!profileData?.careerPreference?.video_link">Introduction Video Not Uploaded&nbsp; <i class="fa fa-video"></i></button>
+          </div>      
           <div class="row g-2 mt-2">
             <div class="col-md-3">
               <div class="d-flex align-items-center">
@@ -294,7 +298,7 @@
         <div class="col-md-9">
           <div class="mb-4">
             <div class="text-primary fw-bold">What sets you apart in your industry?</div>
-            <p>{{profileData.careerPreference.set_industry_apart || 'Not specified'}}</p>
+            <p [innerHTML]="profileData.careerPreference.set_industry_apart || 'Not specified'"></p>
           </div>
           
           <div class="row">
