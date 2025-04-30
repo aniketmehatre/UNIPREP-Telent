@@ -18,7 +18,7 @@ import {SharedModule} from "../../shared/shared.module";
 import {DropdownModule} from 'primeng/dropdown';
 import {PaginatorModule} from 'primeng/paginator';
 import { MainListComponent } from './main-list/main-list.component';
-
+import { DrawerModule } from 'primeng/drawer';
 @NgModule({
   declarations: [
     MainListComponent,
@@ -32,6 +32,7 @@ import { MainListComponent } from './main-list/main-list.component';
     TagModule,
     TableModule,
     ButtonModule,
+    DrawerModule,
     CardModule,
     TabViewModule,
     InputTextModule,

@@ -53,7 +53,6 @@ export class JobDetailsComponent implements OnInit, OnChanges {
   @Input() showInfo: boolean = false;
   @Input() jobDetails: Job = {} as Job;
   @Input() showChat: boolean = false;
-
   activeIndex: number = 0;
   steps: MenuItem[] = [];
   activeStepIndex: number = 0; // Changed to start from 0
