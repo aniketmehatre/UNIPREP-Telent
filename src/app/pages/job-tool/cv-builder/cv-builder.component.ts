@@ -742,6 +742,8 @@ export class CvBuilderComponent implements OnInit, AfterViewInit {
 
   resumeFormSubmit() {
     const visibleFormControls = this.getVisibleFormControls();
+    console.log(visibleFormControls);
+    
     this.submitted = true;
     if (!visibleFormControls.every((control) => control.valid)) {
       this.toaster.add({ severity: "error", summary: "Error", detail: "Please fill all the required fields." });
@@ -754,7 +756,7 @@ export class CvBuilderComponent implements OnInit, AfterViewInit {
   fieldNextButton() {
     this.storeUserFilledData();
     this.moduleActiveIndex++;
-    if (this.moduleActiveIndex > 4) {
+    if (this.moduleActiveIndex > 0) {
       this.moduleActiveIndex--;
       this.activePageIndex++;
       this.filledFields.push("skills", "language_known");
@@ -835,9 +837,11 @@ export class CvBuilderComponent implements OnInit, AfterViewInit {
   getVisibleFormControls(): AbstractControl[] {
     const controls: AbstractControl[] = [];
     if (this.moduleActiveIndex === 0) {
+      // const controlNames = ["selected_exp_level", "user_name", "user_email", "user_job_title", "user_location", "user_phone", "user_summary"];
       const controlNames = ["selected_exp_level", "user_name", "user_email", "user_job_title", "user_location", "user_phone", "user_summary"];
       controlNames.forEach((controlName) => {
         const control = this.resumeFormInfoData.get(controlName);
+        console.log(control);
         if (control) {
           controls.push(control);
         }
@@ -1253,7 +1257,9 @@ export class CvBuilderComponent implements OnInit, AfterViewInit {
       // parameters.mode =  "work_job_description";
       // this.genreateButtonDisabled[iteration] = true;
       const work_designation = this.getWorkExpArray.value[iteration].work_designation;
+      const work_organizationname = this.getWorkExpArray.value[iteration].work_org_name;
       parameters.work_designation = work_designation;
+      parameters.Company_Name = work_organizationname;
     } else if (fieldName == "rephrase_summary") {
       if (!formData.user_summary) {
         this.toaster.add({ severity: "error", summary: "Error", detail: "Please provide user summary..!" });
