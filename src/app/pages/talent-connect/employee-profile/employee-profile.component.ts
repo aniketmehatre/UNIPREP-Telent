@@ -2,6 +2,7 @@ import {
   ChangeDetectorRef,
   Component,
   ElementRef,
+  OnDestroy,
   OnInit,
   TemplateRef,
   ViewChild,
@@ -34,7 +35,7 @@ export enum FileType {
   templateUrl: "./employee-profile.component.html",
   styleUrl: "./employee-profile.component.scss",
 })
-export class EmployeeProfileComponent implements OnInit {
+export class EmployeeProfileComponent implements OnInit, OnDestroy {
   @ViewChild("fileUploadImage") fileInput: ElementRef
   @ViewChild("header", { static: true }) headerTemplate!: TemplateRef<any>
   today: Date = new Date();
@@ -525,12 +526,12 @@ export class EmployeeProfileComponent implements OnInit {
     const previewUrl = ""
     const file: File = event.target.files[0]
     if (!file) return
-    debugger
     // Store the file in uploadedFiles with a unique key
     const fileId = `${type}_${index}`
-    this.uploadedFiles[fileId] = file
+    this.uploadedFiles[fileId] = file;
     const reader = new FileReader()
-    reader.readAsDataURL(file)
+    reader.readAsDataURL(file);
+    sessionStorage.setItem(file.name, fileId);
     switch (type) {
       case FileType.CERTIFICATIONS:
         ; (this.certifications.at(index) as FormGroup).get("certifications_certificate_file")?.setValue(file.name)
@@ -1295,9 +1296,9 @@ export class EmployeeProfileComponent implements OnInit {
   ) {
     const currentValue = this.personalInfoForm.get(fieldName)?.value
 
-    if (currentValue === null || currentValue === undefined) {
-      return // Skip appending if value is null or undefined
-    }
+    // if (currentValue === null || currentValue === undefined) {
+    //   return // Skip appending if value is null or undefined
+    // }
 
     const transformedValue = valueTransform ? valueTransform(currentValue) : currentValue || ""
 
@@ -1602,7 +1603,7 @@ export class EmployeeProfileComponent implements OnInit {
       career_preference_admired_quality: response.careerPreference?.admired_quality,
       networking_linkedin_profile: response.linkedin_profile || "",
       networking_personal_website: response.personal_website || "",
-    })
+    });
 
     // Patch Education Details
     if (response.education && response.education.length > 0) {
@@ -1735,7 +1736,7 @@ export class EmployeeProfileComponent implements OnInit {
             references_company_name: [ref.college_name],
             references_reference_name: [ref.reference_name],
             references_designation: [ref.designation],
-        // references_phone_number: [ref.phone_number, Validators.max(9999999999)],
+            // references_phone_number: [ref.phone_number, Validators.max(9999999999)],
             references_email: [ref.email, [Validators.email]],
           }),
         )
@@ -2002,5 +2003,18 @@ export class EmployeeProfileComponent implements OnInit {
 
     // Convert total months to years with one decimal place
     return parseFloat((totalMonths / 12).toFixed(1));
+  }
+
+  clearStoredFiles(): void {
+    // Clear the sessionStorage entries related to files
+    Object.keys(sessionStorage).forEach(key => {
+      if (key.includes('FileType.')) {
+        sessionStorage.removeItem(key);
+      }
+    });
+  }
+
+  ngOnDestroy(): void {
+    this.clearStoredFiles();
   }
 }

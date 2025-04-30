@@ -10,6 +10,7 @@ import { TooltipModule } from 'primeng/tooltip';
 import { formatDate } from '@angular/common';
 import { ProgressBarModule } from 'primeng/progressbar';
 import { RatingModule } from 'primeng/rating';
+import { RouterModule } from '@angular/router';
 
 // Process academic references
 interface AcademicReference {
@@ -129,8 +130,8 @@ interface ProfileData {
     TooltipModule,
     AvatarModule,
     ProgressBarModule,
-    RatingModule
-
+    RatingModule,
+    RouterModule
   ],
   templateUrl: './view-profile.component.html',
   styleUrl: './view-profile.component.scss'
@@ -153,6 +154,7 @@ export class ViewProfileComponent implements OnInit {
   logo: any;
   files: Record<string, any> = {};
   profileCompletionPercentage: number = 0;
+  introductionVideo: string = '';
   updatedAtDate: Date | null = null;
   // Define a single profile data object
   profileData: ProfileData = {
@@ -242,15 +244,14 @@ export class ViewProfileComponent implements OnInit {
 
   constructor(
     private ref: DynamicDialogRef,
-    private config: DynamicDialogConfig
+    public config: DynamicDialogConfig
   ) { }
 
   ngOnInit(): void {
     const data = this.config.data
     // Set theme color based on sample or real profile
     this.isSample = data?.isSample ?? true;
-    // If we have real profile data, use it
-    console.log(data);
+
     if (!this.isSample && data?.profileData) {
       this.careerInterests = data?.careerInterests;
       this.currencies = data?.currencies,
@@ -316,7 +317,24 @@ export class ViewProfileComponent implements OnInit {
   }
 
   openView(url: string) {
-    window.open(url, '_blank');
+    const fileName = sessionStorage.getItem(url);
+    if (fileName) {
+      const file = this.files[fileName];
+      if (file) {
+        const objectUrl = URL.createObjectURL(file);
+        window.open(objectUrl, '_blank');
+        setTimeout(() => URL.revokeObjectURL(objectUrl), 1000);
+      } else {
+        console.error('File URL not found in session storage:', fileName);
+        return;
+      }
+    } else {
+      window.open(url, '_blank');
+    }
+  }
+
+  getFile(fileId: string): File | null {
+    return this.files[fileId] || null;
   }
 
   // Simplified data mapping function
@@ -421,7 +439,7 @@ export class ViewProfileComponent implements OnInit {
       { name: formData.career_preference_portfolio_upload_link || '', type: 'link' },
       { name: formData.career_preference_video_link || '', type: 'video' }
     ].filter(att => att.name);
-
+    this.introductionVideo = formData.career_preference_video_link || '';
 
     const academicReference: AcademicReference[] = (formData.academicReferences || []).map((ref: any): AcademicReference => ({
       collegeName: ref.references_college_name || '',
