@@ -103,6 +103,7 @@ label {
 
 /* For the dialog content */
 .employee-profile-dialog {
+  padding: 0px;
     overflow: hidden !important; /* Prevent scroll inside the dialog */
   }
   
@@ -148,4 +149,7 @@ label {
 .h-fit-content {
   height: fit-content;
 }
-  
+
+::ng-deep .p-dialog-content {
+  padding: 0 !important;
+}
