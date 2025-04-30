@@ -1,0 +1,92 @@
+:host {
+  background-color: #07070b;
+  display: block;
+}
+.table-bordered-orange {
+  border: 1px solid orange;
+  th {
+    background-color: #8B4513;
+    vertical-align: middle;
+    padding: 20px;
+    border-bottom: 1px solid orange;
+  }
+  td {
+    background-color: transparent;
+    color: white;
+    padding: 20px;
+  }
+}
+td.avail {
+  text-align: center;
+  svg {
+    height: 20px;
+    width: 20px;
+  }
+}
+td.img {
+  text-align: center;
+  svg {
+    height: 80px;
+    width: 80px;
+  }
+}
+.toggle-switch {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.label-active {
+  color: #f57c00;
+  font-weight: 600;
+}
+
+.label-inactive {
+  color: #aaa;
+}
+
+.switch {
+  width: 50px;
+  height: 26px;
+  background-color: #f57c00;
+  border-radius: 50px;
+  position: relative;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.switch::before {
+  content: "";
+  position: absolute;
+  top: 3px;
+  left: 3px;
+  width: 20px;
+  height: 20px;
+  background-color: white;
+  border-radius: 50%;
+  transition: left 0.3s;
+}
+
+.switch.active::before {
+  left: 27px;
+}
+.card {
+  border-radius: 1.5rem;
+  border: 1px solid #e6ddfe08;
+  background: linear-gradient(0deg, rgba(255, 255, 255, 0) 0%, rgba(255, 255, 255, 0.05) 100%);
+  box-shadow: 0px 10px 25px 0px rgba(230, 221, 254, 0.1) inset;
+  color: white;
+  &:hover {
+    .card-title {
+      color: var(--uniprep-secondary);
+    }
+    .cardicon {
+      font-weight: 700;
+    }
+  }
+}
+.cardsItem {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: 10px;
+}
