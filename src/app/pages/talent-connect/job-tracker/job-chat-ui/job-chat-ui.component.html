@@ -2,7 +2,7 @@
 	<div class="card-header bg-transparent d-flex justify-content-between align-items-center">
 		<div class="d-flex align-items-center gap-2">
 			<button *ngIf="!showInfo" pButton icon="pi pi-info-circle" label="Open Info" class="btn-primary text-dark me-1" (click)="openInfo.emit(true)"></button>
-				<p-avatar [image]="jobDetails?.company_logo_url ?? 'https://primefaces.org/cdn/primeng/images/demo/avatar/amyelsner.png'" size="large" shape="circle" />
+				<p-avatar [image]="jobDetails?.company_logo_url ?? 'uniprep-assets/images/avatar.webp'" size="large" shape="circle" />
 			<div>
 				<h5 class="mb-0 fw-bold">{{ jobDetails?.company_name }}</h5>
 				<p class="small text-muted mb-0 text-start">Active</p>
@@ -41,14 +41,14 @@
 						<!-- Fix alignment based on boolean sender -->
 						<div class="d-flex mb-2" [ngClass]="{ 'justify-content-start': !message.sender, 'justify-content-end': message.sender }">
 							<div class="avatar me-1" *ngIf="!message.sender">
-								<p-avatar [image]="jobDetails?.company_logo_url ?? 'https://primefaces.org/cdn/primeng/images/demo/avatar/amyelsner.png'" shape="circle" />
+								<p-avatar [image]="jobDetails?.company_logo_url ?? 'uniprep-assets/images/avatar.webp'" shape="circle" />
 							</div>
 							<!-- Text Message -->
 							<div *ngIf="message.type === 'text'" class="message-content text-start" [ngClass]="{ 'bg-secondary text-white': !message.sender, 'bg-secondary-subtle': message.sender }" [ngStyle]="{ 'max-width': '75%' }">
 								<p>{{ message.content }}</p>
 								<div class="d-flex justify-content-between align-items-center flex-row-reverse">
-									<div>
-										<span *ngIf="message.sender" class="ms-2 text-white-50"> <i class="fa-solid fa-check" [style.color]="message.markAsRead ? 'skyblue' : 'lightgray'"></i><i class="fa-solid fa-check" [style.color]="message.markAsRead ? 'skyblue' : 'lightgray'"></i> </span>
+									<div class="ms-1">
+										<i class="fa-solid fa-check-double" [style.color]="message.markAsRead ? 'skyblue' : 'lightgray'"></i>
 									</div>
 									<small class="message-time text-end" [ngClass]="{ 'text-muted': !message.sender, 'text-black': message.sender }">
 										{{ message.time }}
@@ -56,9 +56,16 @@
 								</div>
 							</div>
 							<!-- File Attachment -->
+
 							<div *ngIf="message.type === 'file'" class="message-content file-message text-start" style="min-width: 50%">
-								<a [href]="message.attachment_url" target="_blank" class="text-black">{{ message.attachment }}</a
-								><br />
+								<div class="file-wrapper">
+									<a [href]="message.attachment_url" target="_blank" class="text-black text-decoration-none d-flex align-items-center"
+										download>
+										<i class="fas fa-file-pdf fa-large me-2"></i>
+										{{ message.attachment_name || 'File' }}
+									</a>
+								</div>
+								<div class="">{{ message.content }}</div>
 								<small class="message-time text-muted text-start">{{ message.time }}</small>
 							</div>
 
@@ -75,7 +82,7 @@
 								</button>
 							</div>
 							<div class="avatar ms-2" *ngIf="message.sender">
-								<p-avatar [image]="message.profile_image ?? 'https://primefaces.org/cdn/primeng/images/demo/avatar/amyelsner.png'" shape="circle" />
+								<p-avatar [image]="message.profile_image ?? 'uniprep-assets/images/avatar.webp'" shape="circle" />
 							</div>
 						</div>
 					</ng-container>
@@ -84,6 +91,11 @@
 		</div>
 	</div>
     <div class="card-footer bg-white p-2 border-0">
+		<div class="w-100 mb-1 text-end bg-transparent" *ngIf="">
+			<button class="text-small text-end btn btn-danger btn-rounded d-flex align-items-center gap-2"
+				[disabled]="isLoadingAiSummary" style="width: fit-content"
+				(click)="aiRePhraseSummary('student', { content: messageInput.value }, messageInput)">RePhrase</button>
+		</div>
 		<input type="file" class="d-none" accept=".doc,.docx,.pdf, application/msword,application/vnd.openxmlformats-officedocument.wordprocessingml.document" #fileAttachment (change)="uploadFilesChat($event);">
 		<div *ngIf="attachmentFile" class="border d-flex justify-content-between align-items-center p-2">
 		  <div>{{attachmentFile.name}}</div>
@@ -99,12 +111,13 @@
 			(input)="autoGrow($event.target)"
 			(keyup.enter)="sendMessage(messageInput.value); messageInput.value = ''; autoGrow(messageInput);">
 		  </textarea>
-		  <span class="input-group-text border-0 bg-white" (click)="fileAttachment.click();">
-			<i class="pi pi-paperclip"></i>
-		  </span>
-		  <span class="input-group-text border-0 bg-white" (click)="sendMessage(messageInput.value); messageInput.value = ''; autoGrow(messageInput);">
-			<i class="pi pi-send" style="color: var(--uniprep-secondary);"></i>
-		  </span>
+		<button class="input-group-text border-0 bg-white" (click)="fileAttachment.click();">
+			<i class="fa-solid fa-paperclip"></i>
+		</button>
+		<button class="input-group-text border-0 bg-white"
+			(click)="sendMessage(messageInput.value); messageInput.value = ''; autoGrow(messageInput);">
+			<i class="fas fa-paper-plane" style="color: var(--uniprep-secondary);"></i>
+		</button>
 		</div>
 	  </div>
 </div>

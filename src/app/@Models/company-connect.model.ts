@@ -32,7 +32,8 @@ export interface Company {
     timeframe: string
     format: string
     shortlisted: number
-    followed: number
+  followed: number;
+  notification_count?: number;
   }
   
   export interface CompanyType {

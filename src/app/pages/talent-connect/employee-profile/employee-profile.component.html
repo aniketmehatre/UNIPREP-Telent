@@ -457,7 +457,7 @@
 																*ngIf="isNotEmptyHtml(experience?.get('work_experience_job_responsibilities')?.value)"
 																class="text-small btn btn-danger btn-rounded d-flex align-items-center gap-2"
 																style="width: fit-content"
-																(click)="generateAiSummary('joboverview', { title: experience?.get('work_experience_job_title')?.value, company_name: experience?.get('work_experience_company_name')?.value }, experience?.get('work_experience_job_responsibilities'))">RePhrase</button>
+																(click)="aiRePhraseSummary('joboverview', {  rephrase_content: experience?.get('work_experience_job_responsibilities')?.value }, experience?.get('work_experience_job_responsibilities'))">RePhrase</button>
 														</div>
 													</div>
 													<p-editor #editor [style]="{ height: '150px', maxHeight: 'auto' }"
@@ -879,7 +879,7 @@
 															*ngIf="isNotEmptyHtml(this.personalInfoForm.get('career_preference_set_industry_apart')?.value)"
 															class="text-small btn btn-danger btn-rounded d-flex align-items-center gap-2"
 															style="width: fit-content"
-															(click)="generateAiSummary('Key_strength', { career_status: personalInfoForm?.get('career_preference_career_status')?.value, industry_type: getListValue(careerInterests, personalInfoForm?.get('career_preference_career_interest_id')?.value, 'interest'), title: personalInfoForm?.get('career_preference_job_title_id')?.value }, personalInfoForm?.get('career_preference_set_industry_apart'))">RePhrase</button>
+															(click)="aiRePhraseSummary('Key_strength', { rephrase_content: personalInfoForm?.get('career_preference_set_industry_apart')?.value }, personalInfoForm?.get('career_preference_set_industry_apart'))">RePhrase</button>
 													</div>
 												</div>
 												<div class="position-relative">
@@ -893,8 +893,7 @@
 														*ngIf="getWordCountUsingControl(personalInfoForm.get('career_preference_set_industry_apart')) > 150">This
 														field exceed the maximum length</small>
 													<small class="text-muted d-block text-end">{{
-														getWordCountUsingControl(personalInfoForm.get("career_preference_set_industry_apart"))
-														}}/150</small>
+														getWordCountUsingControl(personalInfoForm.get("career_preference_set_industry_apart"))}}/150</small>
 												</div>
 											</div>
 										</div>
@@ -939,8 +938,15 @@
 												</div>
 											</div>
 											<div class="col-md-6">
-												<label for="highestQualification" class="form-label">Have you taken on
-													leadership roles?</label>
+												<div class="d-flex justify-content-between mb-1">
+													<label for="highestQualification" class="form-label">Have you taken on
+														leadership roles?</label>
+														<div>
+															<button *ngIf="this.personalInfoForm.get('career_preference_leadership_experience')?.value"
+																class="text-small btn btn-danger btn-rounded d-flex align-items-center gap-2" style="width: fit-content"
+																(click)="aiRePhraseSummary('leadership_roles', { rephrase_content: personalInfoForm?.get('career_preference_leadership_experience')?.value }, personalInfoForm?.get('career_preference_leadership_experience'))">RePhrase</button>
+														</div>
+														</div>
 												<textarea pTextarea id="university"
 													formControlName="career_preference_leadership_experience"
 													placeholder="Have you taken on leadership roles?"
@@ -957,8 +963,15 @@
 										</div>
 										<div class="row mb-3">
 											<div class="col-md-12">
-												<label for="highestQualification" class="form-label">One quality others
-													admire most about you?</label>
+												<div class="d-flex justify-content-between mb-1">
+													<label for="highestQualification" class="form-label">One quality others
+														admire most about you?</label>
+														<div>
+															<button *ngIf="this.personalInfoForm.get('career_preference_admired_quality')?.value"
+																class="text-small btn btn-danger btn-rounded d-flex align-items-center gap-2" style="width: fit-content"
+																(click)="aiRePhraseSummary('admired_quality', { rephrase_content: personalInfoForm?.get('career_preference_admired_quality')?.value }, personalInfoForm?.get('career_preference_admired_quality'))">RePhrase</button>
+														</div>
+														</div>
 												<div class="position-relative">
 													<textarea pTextarea id="responsibilities"
 														formControlName="career_preference_admired_quality"
@@ -1286,7 +1299,15 @@
 													class="fa fa-plus"></i></button>
 										</div>
 									</ng-container>
-									<h5 class="card-title my-3">Add Note</h5>
+									<div class="d-flex justify-content-between mb-1">
+										<h5 class="card-title my-3">Add Note</h5>
+										<div>
+											<button *ngIf="isNotEmptyHtml(this.personalInfoForm.get('additional_notes')?.value)"
+												class="text-small btn btn-danger btn-rounded d-flex align-items-center gap-2 h-fit-content"
+												style="width: fit-content"
+												(click)="aiRePhraseSummary('add_note', { rephrase_content: personalInfoForm?.get('additional_notes')?.value }, personalInfoForm?.get('additional_notes'))">RePhrase</button>
+										</div>
+										</div>
 									<div class="row mb-3">
 										<div class="position-relative">
 											<p-editor #editor [style]="{ height: '150px', maxHeight: 'auto' }"
