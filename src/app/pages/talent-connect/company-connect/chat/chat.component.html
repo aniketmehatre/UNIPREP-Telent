@@ -49,9 +49,9 @@
                             <div class="d-flex justify-content-between align-items-center flex-row-reverse">
                                 <div>
                                     <span *ngIf="message.added_by == 'Student'" class="ms-2 text-white-50"> <i
-                                            class="fa-solid fa-check"
+                                            class="fa fa-check"
                                             [style.color]="message?.markAsRead ? 'skyblue' : 'lightgray'"></i><i
-                                            class="fa-solid fa-check"
+                                            class="fa fa-check"
                                             [style.color]="message?.markAsRead ? 'skyblue' : 'lightgray'"></i>
                                     </span>
                                 </div>
@@ -72,6 +72,11 @@
         </div>
     </div>
     <div class="card-footer bg-transparent border-0">
+        <div class="w-100 mb-1 text-end bg-transparent">
+            <button class="text-small text-end btn btn-danger btn-rounded d-flex align-items-center gap-2"
+                [disabled]="isLoadingAiSummary" style="width: fit-content"
+                (click)="aiRePhraseSummary('student', { content: messageInput.value }, messageInput)">RePhrase</button>
+        </div>
         <input type="file" class="d-none"
             accept=".doc,.docx,.pdf, application/msword,application/vnd.openxmlformats-officedocument.wordprocessingml.document"
             #fileAttachment (change)="uploadFilesChat($event)" />
@@ -80,13 +85,15 @@
             <i class="fas fa-xmark" (click)="attachmentFile = null; attachmentFileName = null"></i>
         </div>
         <div class="input-group rounded-4 p-1 h-auto" style="border: 1px solid #E8E8E8">
-            <input type="text" class="form-control border-0 h-auto" [placeholder]="'Text with ... ' + companyDetails?.company_name" #messageInput
-                (keyup.enter)="sendMessage(messageInput.value); messageInput.value = ''" />
+            <textarea class="form-control border-0 overflow-hidden" [placeholder]="'Text with ... '+ companyDetails?.company_name"
+                #messageInput rows="1" style="resize: none; min-height: 38px; max-height: 200px;" (input)="autoGrow($event.target)"
+                (keyup.enter)="sendMessage(messageInput.value); messageInput.value = ''; autoGrow(messageInput);">
+                                                                        </textarea>
             <span role="button" class="input-group-text border-0 bg-white" (click)="fileAttachment.click()">
                 <i class="fa-solid fa-paperclip"></i>
             </span>
             <span role="button" class="input-group-text border-0 bg-white"
-                (click)="sendMessage(messageInput.value); messageInput.value = ''">
+                (click)="sendMessage(messageInput.value); messageInput.value = '';  autoGrow(messageInput);">
                 <i class="fa-solid fa-paper-plane-top" style="color: var(--uniprep-secondary)"></i>
             </span>
         </div>

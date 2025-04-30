@@ -110,6 +110,12 @@ export class TalentConnectService {
         return this.http.post(`${environment.ApiUrl}/updatestudentprofile `, formData);
     }
 
+    getJobAiSummary(data: any) {
+        return this.http.post<any>(
+            environment.ApiUrl + "/jobChatAiGenerate", data,
+            { headers: this.headers });
+    }
+
 
 
     // short list company
@@ -230,7 +236,7 @@ export class TalentConnectService {
             environment.ApiUrl + "/getstudentprofilesusingid", { params },);
     }
 
-    getAiEvaluationSummary() {
+    getAiEvaluationSummary(formData: any) {
         return this.http.post<any>(
             environment.ApiUrl + "/getcountryandcurrency",
             { headers: this.headers });

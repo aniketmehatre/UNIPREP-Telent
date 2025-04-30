@@ -71,7 +71,16 @@
 													</div>
 												</div>
 											</div>
-											<div class="col-md-8 col-12">
+											<div class="col-md-2 col-6">
+												<div class="d-flex align-items-center gap-3">
+													<span><i class="fa-solid fa-video fa-lg" style="color: #cc660a"></i></span>
+													<div>
+														<p class="text-muted text-small mb-0">Introduction Video</p>
+														<h6 class="mb-0 fw-bold">{{ jobDetails.intro == 'No' ? 'Not Mandatory' : 'Mandatory' }}</h6>
+													</div>
+												</div>
+											</div>
+											<div class="col-md-6 col-12">
 												<p class="text-primary text-small fw-medium text-muted">
 													{{ jobDetails.matching_skills }}
 												</p>

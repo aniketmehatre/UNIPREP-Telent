@@ -42,6 +42,7 @@ export class JobChatUiComponent implements OnChanges {
   @Output() openInfo: EventEmitter<boolean> = new EventEmitter<boolean>(true);
   @Output() closeChat: EventEmitter<boolean> = new EventEmitter<boolean>(true);
   @Input() showInfo: boolean = true;
+  isLoadingAiSummary: boolean = false;
   currentStage: number = 2;
   id: number = NaN;
   stages: Array<{number: number, name: string, completed: boolean}> = [
@@ -118,7 +119,7 @@ export class JobChatUiComponent implements OnChanges {
             content: message,
             time: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }),
             type: this.attachmentFile ? 'file' : 'text',
-            attachment_url: this.attachmentFile ? this.attachmentFile : null,
+            attachment_url: this.attachmentFile ? URL.createObjectURL(this.attachmentFile) : null,
             attachment: this.attachmentFile ? this.attachmentFile.name : null
           });
         }
@@ -133,5 +134,22 @@ export class JobChatUiComponent implements OnChanges {
   autoGrow(element: HTMLTextAreaElement): void {
     element.style.height = 'auto';
     element.style.height = (element.scrollHeight) + 'px';
+  }
+
+  aiRePhraseSummary(mode: string, content: Record<string, any>, element: HTMLTextAreaElement) {
+    this.isLoadingAiSummary = true;
+    this.talentConnectService.getJobAiSummary({ mode: mode, ...content }).subscribe({
+      next: (response) => {
+        this.isLoadingAiSummary = false;
+        if (response) {
+          element.innerHTML = response?.summary;
+        }
+      },
+      error: (error) => {
+        this.isLoadingAiSummary = false;
+        console.error(error)
+      },
+    })
+
   }
 }
