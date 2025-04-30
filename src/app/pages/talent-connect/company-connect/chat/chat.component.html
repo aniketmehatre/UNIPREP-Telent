@@ -80,8 +80,7 @@
             <i class="fas fa-xmark" (click)="attachmentFile = null; attachmentFileName = null"></i>
         </div>
         <div class="input-group rounded-4 p-1 h-auto" style="border: 1px solid #E8E8E8">
-            <input type="text" class="form-control border-0 h-auto"
-                [placeholder]="'Text with ... ' + companyDetails?.company_name" #messageInput
+            <input type="text" class="form-control border-0 h-auto" [placeholder]="'Text with ... ' + companyDetails?.company_name" #messageInput
                 (keyup.enter)="sendMessage(messageInput.value); messageInput.value = ''" />
             <span role="button" class="input-group-text border-0 bg-white" (click)="fileAttachment.click()">
                 <i class="fa-solid fa-paperclip"></i>
