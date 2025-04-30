@@ -176,6 +176,7 @@ export class MarketingAnalysisComponent implements OnInit {
   }
 
   getRecommendation() {
+    this.recommendationData = "";
     this.submitted = false;
     const formData = this.marketingForm.value;
     if (this.activePageIndex == 2) {

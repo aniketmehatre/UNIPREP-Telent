@@ -68,6 +68,17 @@
                         </div>
                     </div>
                 </div>
+                <div class="col-12 p-2">
+                    <div class="form-group">
+                        <h3>How many years of experience do you have?</h3>
+                        <p-select [options]="experienceArray" styleClass="w-100 border-primary" formControlName="experience"
+                            optionValue="value" optionLabel="label" placeholder="Select your years of experience" [filter]="true"
+                            [showClear]="true"> </p-select>
+                        <div *ngIf="submitted && form.get('experience')?.hasError('required')" style="color: red;">
+                            Experience is required.
+                        </div>
+                    </div>
+                </div>
                 <!-- <div class="col-12 mt-4 p-2">
                     <div class="form-group">
                         <h3>Select Your Preferred Currency</h3>

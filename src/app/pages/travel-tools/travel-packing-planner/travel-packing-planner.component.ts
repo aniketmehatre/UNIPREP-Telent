@@ -49,6 +49,8 @@ export class TravelPackingPlannerComponent implements OnInit {
 		{ id: 1, name: "Metro" },
 		{ id: 2, name: "Train" },
 		{ id: 3, name: "Bus" },
+		{ id: 3, name: "Taxi/Car" },
+		{ id: 3, name: "Walk" },
 	]
 	monthList: { id: number; name: string }[] = [
 		{ id: 1, name: "January" },

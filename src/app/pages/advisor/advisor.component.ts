@@ -1,10 +1,9 @@
 import { Component, ElementRef, OnInit, ViewChild, ViewEncapsulation } from "@angular/core"
 import { AdvisorService } from "./advisor.service"
 import { NgxUiLoaderService } from "ngx-ui-loader"
-import { ActivatedRoute, Router, RouterModule } from "@angular/router"
+import { ActivatedRoute, RouterModule } from "@angular/router"
 import { PageFacadeService } from "../page-facade.service"
 import { AuthService } from "src/app/Auth/auth.service"
-import { LocationService } from "src/app/location.service"
 import { MessageService } from "primeng/api"
 import { CommonModule } from "@angular/common"
 import { DialogModule } from "primeng/dialog"
@@ -41,7 +40,7 @@ export class AdvisorComponent implements OnInit {
 	smallquestion: boolean = true
 	responsiveOptions: any[] = []
 
-	constructor(private service: AdvisorService, private ngxService: NgxUiLoaderService, private route: ActivatedRoute, private pageFacade: PageFacadeService, private authService: AuthService, private locationService: LocationService, private router: Router, private messageService: MessageService) { }
+	constructor(private service: AdvisorService, private ngxService: NgxUiLoaderService, private route: ActivatedRoute, private pageFacade: PageFacadeService, private authService: AuthService, private messageService: MessageService) { }
 
 	ngOnInit() {
 		this.questions = [

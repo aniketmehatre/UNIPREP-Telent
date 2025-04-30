@@ -164,6 +164,7 @@ export class BusinessForecastingToolComponent implements OnInit {
 	}
 
 	getRecommendation() {
+		this.recommendationData ="";
 		this.submitted = false
 		const formData = this.form.value
 		if (!formData.forecast_peroid || !formData.goals) {
