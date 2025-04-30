@@ -28,37 +28,38 @@
 				</div>
 			</div>
 		</div>
-		<div class="uniprep-lightgray mt-2">Wealth Leaders count : {{totalcount}}</div>
+		<div class="uniprep-lightgray mt-2 text-md-end text-center">Wealth Leaders count : {{ totalcount }}</div>
 	</div>
 	<div class="card-body">
 		<div class="row">
 			<div class="col-12 col-md-4 col-lg-3 mt-2" *ngFor="let data of wealthleaderlist">
-				<div class="card p-2 custom-card" role="button" (click)="viewReadAns(data.id, data.name)">
-					<div class="row align-items-center">
-						<div class="col-5">
-							<img [src]="data.leader_image" alt="Profile Image" class="leader-img" />
-							<!-- <div class="image-label">Billionaire</div> -->
-						</div>
-						<div class="col-7">
-							<h5 class="fw-bold text-truncate" title="{{ data.name }}">{{ data.name }}</h5>
-							<div class="d-flex gap-2 align-items-center">
-								<div class="rounded-circle overflow-hidden"><img [src]="data.flag" width="20" height="20" alt="" /></div>
-								<h6 class="mb-0 text-small">{{ data.country }}</h6>
+				<div class="card subjectcard" role="button" (click)="viewReadAns(data.id, data.name)">
+					<div class="card-body">
+						<div class="row align-items-center">
+							<div class="col-4">
+								<img [src]="data.leader_image" alt="Profile Image" class="leader-img" />
+								<!-- <div class="image-label">Billionaire</div> -->
 							</div>
-
-							<div class="d-flex justify-content-start align-items-center gap-2 mt-3">
-								<span class="uniprep-primaryhighlight text-center" style="min-width: 25px"><i class="fa-solid fa-clock fa-xl"></i> </span>
-								<h6 class="mt-1" style="font-size: xx-small">
-									<span style="color: #cbced5">Age :</span> <br />
-									<span class="fw-semibold h6">{{ data.age }} Years old</span>
-								</h6>
-							</div>
-							<div class="d-flex justify-content-start align-items-center gap-2 mt-2">
-								<span class="text-center" style="color: #00c083; min-width: 25px"><i class="fa-solid fa-dollar-sign fa-xl"></i> </span>
-								<h6 class="mt-1" style="font-size: xx-small">
-									<span style="color: #cbced5">Net Worth :</span> <br />
-									<span class="fw-semibold h6">{{ data.networth }}</span>
-								</h6>
+							<div class="col-8">
+								<h5 class="fw-bold text-truncate" title="{{ data.name }}">{{ data.name }}</h5>
+								<div class="d-flex gap-2 align-items-center">
+									<div class="rounded-circle overflow-hidden"><img [src]="data.flag" width="20" height="20" alt="" /></div>
+									<h6 class="mb-0 text-small">{{ data.country }}</h6>
+								</div>
+								<div class="d-flex justify-content-start align-items-center gap-2 mt-1">
+									<span class="uniprep-primaryhighlight text-start" style="min-width: 20px"><i class="fa-solid fa-clock fa-xl"></i> </span>
+									<div style="font-size: xx-small">
+										<p class="text-small" style="color: #cbced5">Age :</p>
+										<h6 class="fw-semibold h6 mb-0">{{ data.age }} Years old</h6>
+									</div>
+								</div>
+								<div class="d-flex justify-content-start align-items-center gap-2 mt-1">
+									<span class="text-start" style="color: #00c083; min-width: 20px"><i class="fa-solid fa-dollar-sign fa-xl"></i> </span>
+									<div>
+										<p class="text-small" style="color: #cbced5">Net Worth :</p>
+										<h6 class="fw-semibold h6 mb-0">{{ data.networth }}</h6>
+									</div>
+								</div>
 							</div>
 						</div>
 					</div>
