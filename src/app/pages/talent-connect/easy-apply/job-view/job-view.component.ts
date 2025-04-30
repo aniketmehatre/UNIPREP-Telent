@@ -7,6 +7,7 @@ import { TooltipModule } from 'primeng/tooltip';
 import { FormsModule } from '@angular/forms';
 import { JobChatUiComponent } from '../../job-tracker/job-chat-ui/job-chat-ui.component';
 import { MessageService } from 'primeng/api';
+import { RatingModule } from 'primeng/rating';
 
 export interface Job {
   isChecked: number;
@@ -40,6 +41,13 @@ export interface Job {
   matching_skills: string;
   stage: string | null;
   company_logo?: string;
+  jobsoftskills: JobSoftSkills[];
+}
+
+export interface JobSoftSkills {
+  id: number
+  softskill: string
+  ismatch: number
 }
 
 interface Message {
@@ -58,7 +66,7 @@ interface Message {
   templateUrl: './job-view.component.html',
   styleUrls: ['./job-view.component.scss'],
   standalone: true,
-  imports: [CommonModule, ButtonModule, TooltipModule, FormsModule, JobChatUiComponent, RouterLink]
+  imports: [CommonModule, ButtonModule, TooltipModule, FormsModule, JobChatUiComponent, RouterLink, RatingModule]
 })
 export class JobViewComponent implements OnInit {
   id!: number;
@@ -94,14 +102,14 @@ export class JobViewComponent implements OnInit {
         // Process the response data to match our Job interface
         if (response.job && response.job[0]) {
           const jobData = response.job[0];
-
+          console.log(jobData);
           // Parse string arrays if they come as comma-separated strings
           this.jobDetails = {
             ...jobData,
             interview_format: Array.isArray(jobData.interview_format) ?
               jobData.interview_format : [jobData.interview_format],
             technical_proficiency: this.parseArrayData(jobData.technical_proficiency),
-            key_responsibilities: this.parseArrayData(jobData.key_responsibilities),
+            key_responsibilities: jobData.key_responsibilities, // ✅ keep as-is since it's HTML
             language_proficiency: this.parseLanguageProficiency(jobData.language_proficiency),
             compensation_structure: Array.isArray(jobData.compensation_structure) ?
               jobData.compensation_structure : [jobData.compensation_structure],
@@ -115,7 +123,8 @@ export class JobViewComponent implements OnInit {
               jobData.soft_skills : [jobData.soft_skills],
             hiring_stages: Array.isArray(jobData.hiring_stages) ?
               jobData.hiring_stages : [jobData.hiring_stages],
-            company_name: jobData.company_name || jobData.comapany_name,
+            company_name: jobData.company_name || jobData.company_name,
+            company_logo: jobData.company_logo_url || jobData.company_logo,
             work_location: jobData.work_location || jobData.worklocation
           };
           if (response?.applied_jobid) {
@@ -141,7 +150,7 @@ export class JobViewComponent implements OnInit {
     } else if (typeof data === 'string') {
       return data.split(',').map(item => item.trim());
     }
-    return [data.toString()];
+    return [data?.toString()];
   }
 
   // Helper method to parse language proficiency data
@@ -192,6 +201,24 @@ export class JobViewComponent implements OnInit {
   uploadFilesChat($event: any) {
     this.attachmentFile = $event.target.files[0];
     this.attachmentFileName = $event.target.files[0]?.name;
+  }
+
+  getProficiencyRating(proficiency: string): number {
+    // Convert proficiency text to a rating number
+    switch (proficiency) {
+      case "Beginner":
+        return 1
+      case "Elementary":
+        return 2
+      case "Intermediate":
+        return 3
+      case "Advanced":
+        return 4
+      case "Fluent":
+        return 5
+      default:
+        return 3 // Default to intermediate
+    }
   }
 
   getMessages(job_id: number) {

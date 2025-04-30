@@ -23,7 +23,7 @@ export const courseDuration = Array.from({ length: 10 }, (_, i) => {
 
 export const moratoriumPeriods = [
     { id: 1, value: "Course Duration + 6 Months" },
-    { id: 2, value: "Course Duration + 1 year" },
+    { id: 2, value: "Course Duration + 12 Months" },
     { id: 4, value: "No moratorium" }
 ];
 

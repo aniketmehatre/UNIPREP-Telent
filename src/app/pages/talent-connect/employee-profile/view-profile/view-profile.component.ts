@@ -10,6 +10,7 @@ import { TooltipModule } from 'primeng/tooltip';
 import { formatDate } from '@angular/common';
 import { ProgressBarModule } from 'primeng/progressbar';
 import { RatingModule } from 'primeng/rating';
+import { RouterModule } from '@angular/router';
 
 // Process academic references
 interface AcademicReference {
@@ -65,7 +66,7 @@ interface ProfileData {
     salary: string;
     employmentType: string;
     responsibilities: string;
-    experienceLetter: { name: string; file: string };
+    experienceLetter: { name: string; file: string | null };
     exp_currency: string;
   }> | null;
   careerPreferences: {
@@ -79,10 +80,10 @@ interface ProfileData {
     salaryRange: string;
     currency: string;
   } | null;
-  certifications: Array<{ name: string; file: string }> | null;
-  userAchievements: Array<{ name: string; file: string }> | null;
+  certifications: Array<{ name: string; file: string | null }> | null;
+  userAchievements: Array<{ name: string; file: string | null }> | null;
   additionalDetails: {
-    languagesKnown: string[];
+    languagesKnown: { lang: string, prof: string }[];
     hobbiesAndInterests: string;
   } | null;
   keyStrengths: {
@@ -129,8 +130,8 @@ interface ProfileData {
     TooltipModule,
     AvatarModule,
     ProgressBarModule,
-    RatingModule
-
+    RatingModule,
+    RouterModule
   ],
   templateUrl: './view-profile.component.html',
   styleUrl: './view-profile.component.scss'
@@ -153,36 +154,37 @@ export class ViewProfileComponent implements OnInit {
   logo: any;
   files: Record<string, any> = {};
   profileCompletionPercentage: number = 0;
+  introductionVideo: string = '';
   updatedAtDate: Date | null = null;
   // Define a single profile data object
   profileData: ProfileData = {
     personalInfo: {
-      fullName: 'Alexanne Stant',
-      dateOfBirth: '16/01/1999',
+      fullName: 'Darshan Mandanna',
+      dateOfBirth: '30/03/1995',
       gender: 'Male',
       nationality: 'Indian',
-      location: 'Bangalore, India',
-      logo: null,
-      total_years_of_experience: 1,
+      location: 'Mysore, India',
+      logo: 'uniprep-assets/images/dharshana-madanna.png',
+      total_years_of_experience: 10,
     },
     educationDetails: [{
-      highestQualification: 'Msc in UI/UX Designing',
+      highestQualification: 'BSc in Designing',
       university: 'Jain University',
       fieldOfStudy: 'UI Designing',
       courseName: 'UI/UX Designing',
-      graduationYear: 2022,
+      graduationYear: 2014,
       gpa: '8.9 GPA'
     }],
     workExperience: [{
-      totalExperience: 2,
+      totalExperience: 10,
       companyName: 'UNIABROAD Technology Pvt Ltd',
       jobTitle: 'Senior UI/UX Designer',
-      duration: '1 Year',
-      salary: '1,00,000',
-      employmentType: 'Full Type',
-      responsibilities: 'Designed intuitive and visually appealing user interfaces for web and mobile applications',
-      experienceLetter: { name: 'Experience letter', file: 'document' },
-      exp_currency: 'INR'
+      employmentType: 'Full Time',
+      duration: '10-01-2023 - Currently Employed',
+      salary: '1,00,000 per annum',
+      responsibilities: 'Conduct user research to understand needs and behaviors.',
+      exp_currency: 'INR',
+      experienceLetter: { name: 'ExperienceLetter.pdf', file: null },
     }],
     careerPreferences: {
       careerStatus: 'Full Time',
@@ -192,72 +194,64 @@ export class ViewProfileComponent implements OnInit {
       preferredEmploymentType: 'Full Time',
       preferredWorkplaceType: 'Collaborative',
       willingToRelocate: 'Yes',
-      salaryRange: '3 LPA',
+      salaryRange: '8 LPA',
       currency: 'INR'
     },
     certifications: [
-      { name: 'Udemy UI/UX Course', file: 'UdemyCertificate.pdf' },
-      { name: 'Best Performer', file: 'BestPerformer.jpeg' }
+      { name: 'UNIPREP UI/UX Course', file: null }
     ],
     userAchievements: [
-      { name: 'Udemy UI/UX Course', file: 'UdemyCertificate.pdf' },
-      { name: 'Best Performer', file: 'BestPerformer.jpeg' }
+      { name: 'Best Performer', file: null }
     ],
     additionalDetails: {
-      languagesKnown: ['English', 'Kannada', 'Telugu'],
-      hobbiesAndInterests: 'Travelling, Reading Books'
+      languagesKnown: [
+        { lang: 'English', prof: '3/5' },
+        { lang: 'Kannada', prof: '4/5' },
+        { lang: 'Coorgi', prof: '5/5' }
+      ],
+      hobbiesAndInterests: 'Travelling, Gaming, Designing, Sketching'
     },
     keyStrengths: {
-      industryDifferentiators: [
-        'Creative thinker', 'detail-oriented', 'problem solver',
-        'user-focused', 'adaptive', 'innovative', 'collaborative',
-        'efficient', 'empathetic', 'tech-savvy', 'analytical',
-        'strategic', 'organized', 'communicative', 'visionary',
-        'resourceful', 'passionate', 'agile', 'proactive', 'deadline-driven'
-      ],
-      topProfessionalStrength: 'User-Centered Design Thinking',
-      solvedRealWorldChallenge: 'No',
-      leadershipRoles: 'No',
+      industryDifferentiators: 'I stand out by blending creativity with user-focused problem-solving. With a keen eye for aesthetics and functionality, I craft intuitive designs backed by research. Staying updated on trends, I ensure innovation. My collaborative approach and adaptability help create impactful, seamless experiences that enhance both user satisfaction and business success.',
+      topProfessionalStrength: 'Designing, Sketching',
+      solvedRealWorldChallenge: 'Yes',
+      leadershipRoles: 'Yes',
       mostAdmiredQuality: 'Others admire my ability to think outside the box and design visually stunning, user-friendly interfaces that enhance user experiences.'
     },
     networking: {
-      linkedinProfile: 'https://www.linkedin.com/in/johnsmithdesign/',
-      socialMedia: [{ media: 'instagram', link: 'https://www.instagram.com/johnsmithdesign/' }],
-      personalWebsite: 'https://www.behance.net/johnsmidesign/'
+      linkedinProfile: 'https://www.linkedin.com/in/darshanmandanna-ui-ux-designer-bangalore',
+      socialMedia: [{ media: 'instagram', link: 'https://www.instagram.com/darshandesign/' }],
+      personalWebsite: 'https://www.behance.net/darshandesign/'
     },
     attachments: [
-      { name: 'BestPerformer.jpeg', type: 'image' },
-      { name: 'Portfolio.doc', type: 'document' },
-      { name: 'Introduction Video.mp4', type: 'video' }
+      { name: 'CV.pdf', type: 'document' },
+      { name: 'IntroductionVideo.mp4', type: 'video' }
     ],
     academicReference: [{
-      collegeName: 'Christ University',
+      collegeName: 'Jain University',
       name: 'John G',
       designation: 'Head of the Department',
-      phoneNumber: '+91 - 7660987651',
       email: 'johng@gmail.com'
     }],
     professionalReference: [{
-      companyName: 'UNIABROAD Technology',
-      name: 'Michael',
-      designation: 'Human Resource',
-      phoneNumber: '+91 - 7660987651',
-      email: 'michael@uniabroad.co.in'
+      companyName: 'UNIABROAD Technology Pvt Ltd',
+      name: 'John Doe',
+      designation: 'Manager',
+      email: ''
     }],
-    additionalInfo: 'Sample of addtional Info'
+    additionalInfo: 'Nothing to give'
   };
 
   constructor(
     private ref: DynamicDialogRef,
-    private config: DynamicDialogConfig
+    public config: DynamicDialogConfig
   ) { }
 
   ngOnInit(): void {
     const data = this.config.data
     // Set theme color based on sample or real profile
     this.isSample = data?.isSample ?? true;
-    // If we have real profile data, use it
-    console.log(data);
+
     if (!this.isSample && data?.profileData) {
       this.careerInterests = data?.careerInterests;
       this.currencies = data?.currencies,
@@ -323,7 +317,24 @@ export class ViewProfileComponent implements OnInit {
   }
 
   openView(url: string) {
-    window.open(url, '_blank');
+    const fileName = sessionStorage.getItem(url);
+    if (fileName) {
+      const file = this.files[fileName];
+      if (file) {
+        const objectUrl = URL.createObjectURL(file);
+        window.open(objectUrl, '_blank');
+        setTimeout(() => URL.revokeObjectURL(objectUrl), 1000);
+      } else {
+        console.error('File URL not found in session storage:', fileName);
+        return;
+      }
+    } else {
+      window.open(url, '_blank');
+    }
+  }
+
+  getFile(fileId: string): File | null {
+    return this.files[fileId] || null;
   }
 
   // Simplified data mapping function
@@ -402,7 +413,7 @@ export class ViewProfileComponent implements OnInit {
       .map((lang: any) => {
         const language = this.getListValue(this.languagelist, lang.languages_language_id, 'language') || '';
         const proficiency = lang.languages_proficiency || '';
-        return language ? `${language}${proficiency ? `(${proficiency})` : ''}` : '';
+        return { lang: language, prof: proficiency };
       })
       .filter(Boolean);
 
@@ -428,7 +439,7 @@ export class ViewProfileComponent implements OnInit {
       { name: formData.career_preference_portfolio_upload_link || '', type: 'link' },
       { name: formData.career_preference_video_link || '', type: 'video' }
     ].filter(att => att.name);
-
+    this.introductionVideo = formData.career_preference_video_link || '';
 
     const academicReference: AcademicReference[] = (formData.academicReferences || []).map((ref: any): AcademicReference => ({
       collegeName: ref.references_college_name || '',

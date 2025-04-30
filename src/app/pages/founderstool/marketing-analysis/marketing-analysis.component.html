@@ -66,7 +66,7 @@
 										{{ recommendation.question.branches[1] }}
 									</h5>
 									<p-select [options]="locationList" formControlName="location" [virtualScroll]="true"
-										[virtualScrollItemSize]="50" [appendTo]="'body'" placeholder="Select the location of your business"
+										[virtualScrollItemSize]="50" appendTo="body" placeholder="Select the location of your business"
 										[filter]="true" filterBy="city_name,country_name" [showClear]="true"
 										styleClass="w-100">
 										<ng-template let-country pTemplate="item">
@@ -129,10 +129,9 @@
 									<h5 class="uniprep-primary fw-semibold mt-3 mb-1">
 										{{ recommendation.question.branches[2] }}
 									</h5>
-									<p-select [options]="targetMarketList" styleClass="w-100"
-										formControlName="targetMarket" optionLabel="Target Audience" [filter]="true"
-										filterBy="Target Audience" optionValue="Target Audience" [appendTo]="'body'"
-										placeholder="Select the demographic or type of customers you are targeting"> </p-select>
+									<p-multiSelect [options]="targetMarketList" styleClass="w-100" formControlName="targetMarket" 
+										optionLabel="Target Audience" optionValue="Target Audience" appendTo="body" [filter]="true" filterBy="Target Audience" 
+										placeholder="Select the demographic or type of customers you are targeting"> </p-multiSelect>
 									<p class="text-center"
 										*ngIf="marketingForm.get('targetMarket')?.errors?.required && submitted"
 										style="color: red">Please Choose Any one option</p>
@@ -141,10 +140,15 @@
 									<h5 class="uniprep-primary fw-semibold mt-3 mb-1">
 										{{ recommendation.question.branches[3] }}
 									</h5>
-									<p-select styleClass="w-100" formControlName="productService" appendTo="body"
+
+									<p-multiSelect [options]="productServiceList" styleClass="w-100" formControlName="productService" 
+										optionLabel="Product/Service" optionValue="Product/Service" appendTo="body" [filter]="true" filterBy="Product/Service" 
+										placeholder="Select the products or services your business provides" [autoDisplayFirst]="false"> </p-multiSelect>
+
+									<!-- <p-select styleClass="w-100" formControlName="productService" appendTo="body"
 										[options]="productServiceList" [filter]="true" filterBy="Product/Service"
 										placeholder="Select the products or services your business provides" optionLabel="Product/Service"
-										optionValue="Product/Service" [autoDisplayFirst]="false"> </p-select>
+										optionValue="Product/Service" [autoDisplayFirst]="false"> </p-select> -->
 									<p class="text-center"
 										*ngIf="marketingForm.get('productService')?.errors?.required && submitted"
 										style="color: red">Please Choose Any one option</p>
@@ -159,9 +163,13 @@
 									<h5 class="uniprep-primary fw-semibold mt-3 mb-1">
 										{{ recommendation.question.branches[0] }}
 									</h5>
-									<p-select styleClass="w-100" placeholder="Select your business model"
+									<p-multiSelect [options]="businessModelList" styleClass="w-100" formControlName="businessModel" 
+										optionLabel="Model" optionValue="Model" appendTo="body" [filter]="true" filterBy="Model" 
+										placeholder="Select your business model" > </p-multiSelect>
+
+									<!-- <p-select styleClass="w-100" placeholder="Select your business model"
 										[options]="businessModelList" display="chip" optionLabel="Model" appendTo="body"
-										optionValue="Model" formControlName="businessModel"> </p-select>
+										optionValue="Model" formControlName="businessModel"> </p-select> -->
 									<p class="text-center"
 										*ngIf="marketingForm.get('businessModel')?.errors?.required && submitted"
 										style="color: red">Please Choose Any one option</p>
@@ -170,10 +178,15 @@
 									<h5 class="uniprep-primary fw-semibold mt-3 mb-1">
 										{{ recommendation.question.branches[1] }}
 									</h5>
-									<p-select styleClass="w-100" appendTo="body" placeholder="Specify your sales channels"
+
+									<p-multiSelect [options]="salesChannelsList" styleClass="w-100" formControlName="salesChannel" 
+										optionLabel="Sales Channel" optionValue="Sales Channel" appendTo="body" [filter]="true" filterBy="Sales Channel" 
+										placeholder="Specify your sales channels" > </p-multiSelect>
+
+									<!-- <p-select styleClass="w-100" appendTo="body" placeholder="Specify your sales channels"
 										[options]="salesChannelsList" [filter]="true" filterBy="Sales Channel"
 										display="chip" optionLabel="Sales Channel" optionValue="Sales Channel"
-										formControlName="salesChannel"> </p-select>
+										formControlName="salesChannel"> </p-select> -->
 									<p class="text-center"
 										*ngIf="marketingForm.get('salesChannel')?.errors?.required && submitted"
 										style="color: red">Please Choose Any one option</p>
@@ -225,10 +238,14 @@
 									<h5 class="uniprep-primary fw-semibold mt-3 mb-1">
 										{{ recommendation.question.branches[1] }}
 									</h5>
-									<p-select styleClass="w-100" placeholder="Specify your main sources of revenue" appendTo="body"
+									<p-multiSelect [options]="revenueStreamsList" styleClass="w-100" formControlName="revenueStreams" 
+										optionLabel="Revenue Stream" optionValue="Revenue Stream" appendTo="body" [filter]="true" filterBy="Revenue Stream" 
+										placeholder="Specify your main sources of revenue" > </p-multiSelect>
+
+									<!-- <p-select styleClass="w-100" placeholder="Specify your main sources of revenue" appendTo="body"
 										[options]="revenueStreamsList" [filter]="true" filterBy="Revenue Streams"
 										display="chip" optionLabel="Revenue Stream" optionValue="Revenue Stream"
-										formControlName="revenueStreams"> </p-select>
+										formControlName="revenueStreams"> </p-select> -->
 									<p class="text-center"
 										*ngIf="marketingForm.get('revenueStreams')?.errors?.required && submitted"
 										style="color: red">Please Choose Any one option</p>
@@ -249,7 +266,7 @@
 									<h5 class="uniprep-primary fw-semibold mt-3 mb-2">
 										{{ recommendation.question.branches[3] }}
 									</h5>
-									<p-select styleClass="w-100 h-100" placeholder="Select Forecating Period"
+									<p-select styleClass="w-100 h-100" placeholder="Select Forecasting Period"
 										appendTo="body" [options]="forecastingList" [filter]="true" filterBy="Forecast"
 										optionLabel="Forecast" optionValue="Forecast" formControlName="forecast">
 									</p-select>

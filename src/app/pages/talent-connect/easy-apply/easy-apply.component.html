@@ -108,7 +108,7 @@
 										<i class="fas fa-calendar-alt"></i>
 									</div>
 									<div class="overflow-hidden">
-										<p class="text-muted mb-0 text-small">Due Date</p>
+										<p class="text-muted mb-0 text-small">Application Deadline</p>
 										<p class="mb-0 fw-medium text-truncate">{{ job.due_date }}</p>
 									</div>
 								</div>
@@ -153,11 +153,11 @@
 							<div class="col-md-6 col-6">
 								<div class="d-flex align-items-center">
 									<div class="me-2 text-success">
-										<i class="fas fa-users"></i>
+										<i class="fas fa-dollar-sign"></i>
 									</div>
 									<div class="overflow-hidden">
-										<p class="text-muted mb-0 text-small">Company Size</p>
-										<p class="mb-0 fw-medium text-truncate">{{ job.company_size }}</p>
+										<p class="text-muted mb-0 text-small">Introduction Video</p>
+										<p class="mb-0 fw-medium text-truncate">{{job.intro == 'Yes' ? 'Mandatory': 'Non Mandatory'}}</p>
 									</div>
 								</div>
 							</div>
@@ -178,14 +178,14 @@
 	<div>
 		<p-dialog header="Filter" [(visible)]="displayModal" [modal]="true" [style]="{ width: '80%' }" [baseZIndex]="10000" [draggable]="false" [resizable]="false" styleClass="container">
 			<form [formGroup]="filterForm" class="p-3">
-				<div class="mb-4">
+				<div class="row g-4">
+					<div class="col-md-12">
 					<label class="form-label fw-bold">Search</label>
 					<div class="p-inputgroup">
 						<input type="text" pInputText placeholder="Search by Keyword" class="form-control" formControlName="keyword" />
 					</div>
 				</div>
 
-				<div class="row mb-4">
 					<div class="col-md-4">
 						<label class="form-label fw-bold">Position Title</label>
 						<div class="p-inputgroup">
@@ -202,9 +202,7 @@
 						<label class="form-label fw-bold">Work Location </label>
 						<p-multiSelect [options]="locations" formControlName="worklocation" [virtualScroll]="true" [virtualScrollItemSize]="50" placeholder="Select work location" optionLabel="work_location" optionValue="id" display="chip" appendTo="body" class="w-100"> </p-multiSelect>
 					</div>
-				</div>
 
-				<div class="row mb-4">
 					<div class="col-md-4">
 						<label class="form-label fw-bold">Work mode </label>
 						<p-multiSelect [options]="workModes" formControlName="work_mode" placeholder="Select work type" optionLabel="work_mode" optionValue="id" appendTo="body" display="chip" class="w-100"> </p-multiSelect>
@@ -219,9 +217,7 @@
 						<label class="form-label fw-bold">Currency display for salaries</label>
 						<p-select [options]="currencies" formControlName="currency" optionLabel="currency_code" optionValue="currency_code" appendTo="body" [filter]="true" filterBy="currency_code" class="w-100"> </p-select>
 					</div>
-				</div>
 
-				<div class="row mb-4">
 					<div class="col-md-4">
 						<label class="form-label fw-bold">Salary offered</label>
 						<div class="d-flex w-100 gap-2">
@@ -236,10 +232,18 @@
 						<label class="form-label fw-bold">Experience Level </label>
 						<p-multiSelect [options]="experienceLevels" formControlName="experienceLevel" optionLabel="experienceLevel" optionValue="experienceLevel" appendTo="body" display="chip" class="w-100"> </p-multiSelect>
 					</div>
-					<div class="col-md-4 h-full mt-auto">
+					<div class="col-md-4">
+						<label class="form-label fw-bold">Hiring Status</label>
+						<p-multiSelect [options]="hiringStatuses" formControlName="hiringStatus" optionLabel="name" optionValue="id" appendTo="body" display="chip" class="w-100"> </p-multiSelect>
+					</div>
+					<div class="col-md-6">
+						<label class="form-label fw-bold">Introduction Video </label>
+						<p-multiSelect [options]="introductionVideoTypes" formControlName="intro" optionLabel="name" optionValue="id" appendTo="body" display="chip" class="w-100"> </p-multiSelect>
+					</div>
+					<div class="col-md-6 h-full mt-auto">
 						<button pButton label="Apply Filter" (click)="applyFilter()" class="btn-primary w-100 p-2"></button>
 					</div>
-				</div>
+					</div>
 			</form>
 
 			<div class="dialog-footer p-3 d-flex justify-content-center">
