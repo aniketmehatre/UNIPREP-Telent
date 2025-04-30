@@ -754,7 +754,7 @@ export class CvBuilderComponent implements OnInit, AfterViewInit {
   fieldNextButton() {
     this.storeUserFilledData();
     this.moduleActiveIndex++;
-    if (this.moduleActiveIndex > 4) {
+    if (this.moduleActiveIndex > 0) {
       this.moduleActiveIndex--;
       this.activePageIndex++;
       this.filledFields.push("skills", "language_known");
