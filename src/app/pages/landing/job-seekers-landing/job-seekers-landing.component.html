@@ -13,7 +13,7 @@
 					</div>
 					<div class="col-md-12">
 						<h1 class="text-white fw-light">{{ pageTitle }}</h1>
-						<p class="mb-4">{{ categoryDescription }}</p>
+						<p class="mb-4">{{ pageDescription }}</p>
 					</div>
 					<div class="col-md-12" *ngFor="let step of steps">
 						<ng-container *ngIf="getCardsForStep(step.tag_title).length">
