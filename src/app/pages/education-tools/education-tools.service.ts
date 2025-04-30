@@ -21,7 +21,7 @@ export class EducationToolsService {
   ) { }
 
   getCurrentSpecializations() { // course navigator module service
-    return this.http.get<{ id: number, specialization_name: string }[]>(environment.ApiUrl + "/getcurrentspecialization", {
+    return this.http.get<{ id: number, specialization_name: string, icon: string }[]>(environment.ApiUrl + "/getSpecialization", {
       headers: this.headers,
     });
   }

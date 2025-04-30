@@ -1,105 +1,96 @@
-import { Component, Output, EventEmitter } from '@angular/core';
-import { Dialog } from 'primeng/dialog';
-import { Select } from 'primeng/select';
-import { JobListComponent } from './job-list/job-list.component';
-import { CommonModule } from '@angular/common';
-import { TalentConnectService } from '../talent-connect.service';
-import { Job } from '../easy-apply/job-view/job-view.component';
-import { RouterModule } from '@angular/router';
-import { JobDetailsComponent } from './job-details/job-details.component';
-import { JobChatUiComponent } from './job-chat-ui/job-chat-ui.component';
-import { MultiSelectModule } from 'primeng/multiselect';
-import { InputNumberModule } from 'primeng/inputnumber';
-import { FormGroup, ReactiveFormsModule } from '@angular/forms';
+import { Component, Output, EventEmitter } from "@angular/core";
+import { Dialog } from "primeng/dialog";
+import { Select } from "primeng/select";
+import { JobListComponent } from "./job-list/job-list.component";
+import { CommonModule } from "@angular/common";
+import { TalentConnectService } from "../talent-connect.service";
+import { Job } from "../easy-apply/job-view/job-view.component";
+import { RouterModule } from "@angular/router";
+import { JobDetailsComponent } from "./job-details/job-details.component";
+import { JobChatUiComponent } from "./job-chat-ui/job-chat-ui.component";
+import { MultiSelectModule } from "primeng/multiselect";
+import { InputNumberModule } from "primeng/inputnumber";
+import { FormGroup, ReactiveFormsModule } from "@angular/forms";
+import { DrawerModule } from "primeng/drawer";
 interface DropdownOption {
-  label: string;
-  value: string;
+	label: string;
+	value: string;
 }
 interface ChatMessage {
-  id: number;
-  sender: string;
-  senderAvatar?: string;
-  message: string;
-  time: string;
-  isUser: boolean;
+	id: number;
+	sender: string;
+	senderAvatar?: string;
+	message: string;
+	time: string;
+	isUser: boolean;
 }
 
 @Component({
-  selector: 'uni-job-tracker',
-  templateUrl: './job-tracker.component.html',
-  styleUrls: ['./job-tracker.component.scss'],
-  standalone: true,
-  imports: [ReactiveFormsModule, JobListComponent, JobDetailsComponent, JobChatUiComponent, InputNumberModule, MultiSelectModule, CommonModule, RouterModule]
+	selector: "uni-job-tracker",
+	templateUrl: "./job-tracker.component.html",
+	styleUrls: ["./job-tracker.component.scss"],
+	standalone: true,
+	imports: [ReactiveFormsModule, JobListComponent, DrawerModule, JobDetailsComponent, JobChatUiComponent, InputNumberModule, MultiSelectModule, CommonModule, RouterModule],
 })
 export class JobTrackerComponent {
-  orgnamewhitlabel: any
-  displayModal: boolean = false;
-  constructor(private talentConnectService: TalentConnectService) { }
+	orgnamewhitlabel: any;
+	displayModal: boolean = false;
+	constructor(private talentConnectService: TalentConnectService) {}
 
-  ngOnInit() { }
+	ngOnInit() {}
+	visible: boolean = false;
+  visiblechat: boolean = false;
+	isSkeletonVisible: boolean = false;
+	ehitlabelIsShow: boolean = false;
+	restrict: boolean = false;
+	howItWorksVideoLink: string = "";
+	selectedJobId: number | null = null;
+	openVideoPopup(link: string) {}
 
-  isSkeletonVisible: boolean = false;
-  ehitlabelIsShow: boolean = false;
-  restrict: boolean = false;
-  howItWorksVideoLink: string = '';
-  selectedJobId: number | null = null;
-  openVideoPopup(link: string) {
+	totalJobs: number = 100; // As shown in the UI
 
-  }
+	activeTab: string = "All Jobs";
+	tabs = ["All Jobs", "Job Applied", "Application Received", "Shortlisted"];
+	currentPage: number = 1;
+	itemsPerPage: number = 10;
 
-  totalJobs: number = 100; // As shown in the UI
+	steps = [{ label: "Initial Round" }, { label: "HR Round" }, { label: "Selected" }];
 
-  activeTab: string = 'All Jobs';
-  tabs = ['All Jobs', 'Job Applied', 'Application Received', 'Shortlisted'];
-  currentPage: number = 1;
-  itemsPerPage: number = 10;
+	showInfo: boolean = false;
+	showChat: boolean = false;
+	messages: ChatMessage[] = [];
+	newMessage: string = "";
+	jobDetails: Job;
 
-  steps = [
-    { label: 'Initial Round' },
-    { label: 'HR Round' },
-    { label: 'Selected' }
-  ];
+	toggleInfo(): void {
+		this.showInfo = !this.showInfo;
+	}
 
-  showInfo: boolean = false;
-  showChat: boolean = false;
-  messages: ChatMessage[] = [];
-  newMessage: string = '';
-  jobDetails: Job;
+	onClickJobId(event: number) {
+		if (event) {
+			this.selectedJobId = event;
+			this.getJobTrackDetails(this.selectedJobId);
+		} else {
+			this.showChat = false;
+			this.showInfo = false;
+		}
+	}
 
-  toggleInfo(): void {
-    this.showInfo = !this.showInfo;
-  }
+	getJobTrackDetails(id: number) {
+		this.talentConnectService.getJobTrackerDetail(id).subscribe({
+			next: (response) => {
+				this.jobDetails = response.job[0];
+				this.showInfo = true;
+			},
+			error: (error) => {
+				console.log(error);
+			},
+		});
+	}
 
-  onClickJobId(event: number) {
-    if (event) {
-      this.selectedJobId = event;
-      this.getJobTrackDetails(this.selectedJobId);
-    } else {
-      this.showChat = false;
-      this.showInfo = false;
-    }
-  }
+	showFilterModal() {
+		this.displayModal = true;
+	}
 
-  getJobTrackDetails(id: number) {
-    this.talentConnectService.getJobTrackerDetail(id).subscribe({
-      next: response => {
-        this.jobDetails = response.job[0];
-        this.showInfo = true;
-      },
-      error: error => {
-        console.log(error);
-      }
-    });
-  }
-
-  showFilterModal() {
-    this.displayModal = true;
-  }
-
-
-
-
-  upgradePlan(){
-
-  }
+	upgradePlan() {}
 }

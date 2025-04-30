@@ -48,16 +48,7 @@ export class StudentBudgetPlannerComponent implements OnInit {
   recommendations: { id: number, question: string }[] = [
     {
       id: 1, question: 'Student Information'
-    },
-    {
-      id: 2, question: 'Student Expenses'
-    },
-    // {
-    //   id: 3, question: 'Financials'
-    // },
-    // {
-    //   id: 4, question: 'Project Income'
-    // }
+    }
   ];
   activePageIndex: number = 0;
   countriesList: AllCountryRes[] = [];
@@ -79,17 +70,6 @@ export class StudentBudgetPlannerComponent implements OnInit {
     course_duration: null,
     stay_back: null,
     tution: null,
-    accommodation: null,
-    travel_expense: null,
-    food_and_grocery: null,
-    miscellaneous: null,
-    // education_loan: null,
-    // family_loan: null,
-    // monthly_payment: null,
-    // repayment_period: null,
-    // part_time_income: null,
-    // full_time_income: null,
-    // other_income: null,
     mode: 'student_budget_planner',
   }
   selectedData: any = { ...this.selectedDataArray }
@@ -154,35 +134,33 @@ export class StudentBudgetPlannerComponent implements OnInit {
     this.selectedData['countryName'] = getCurrencyName?.country;
   }
 
-  next(productId: number): void {
-    if (this.authService.isInvalidSubscription('education_tools')) {
-      this.authService.hasUserSubscription$.next(true);
-      return;
-    }
-    this.isSubmitted = true;
-    let fillables: any = [];
-    this.notfilledArray = [];
-    let isAllFieldsFields: boolean = true;
+  // next(productId: number): void {
+  //   if (this.authService.isInvalidSubscription('education_tools')) {
+  //     this.authService.hasUserSubscription$.next(true);
+  //     return;
+  //   }
+  //   this.isSubmitted = true;
+  //   let fillables: any = [];
+  //   this.notfilledArray = [];
+  //   let isAllFieldsFields: boolean = true;
 
-    if (productId === 1) {
-      fillables = ['country', 'university', 'course_duration', 'stay_back'];
-    } else if (productId === 2) {
-      fillables = ['tution', 'accommodation', 'travel_expense', 'food_and_grocery', 'miscellaneous'];
-    }
+  //   if (productId === 1) {
+  //     fillables = ['country', 'university', 'course_duration', 'stay_back', 'tution'];
+  //   }
 
-    fillables.forEach((element: any) => {
-      if (!this.selectedData[element] || this.selectedData[element] === '') {
-        isAllFieldsFields = false;
-        this.notfilledArray.push(element);
-      }
-    });
+  //   fillables.forEach((element: any) => {
+  //     if (!this.selectedData[element] || this.selectedData[element] === '') {
+  //       isAllFieldsFields = false;
+  //       this.notfilledArray.push(element);
+  //     }
+  //   });
 
-    if (isAllFieldsFields) {
-      this.activePageIndex++;
-      this.isSubmitted = false;
-      this.notfilledArray = [];
-    }
-  }
+  //   if (isAllFieldsFields) {
+  //     this.activePageIndex++;
+  //     this.isSubmitted = false;
+  //     this.notfilledArray = [];
+  //   }
+  // }
 
   previous() {
     this.activePageIndex--;
@@ -191,8 +169,24 @@ export class StudentBudgetPlannerComponent implements OnInit {
     this.pageFacade.openHowitWorksVideoPopup(videoLink);
   }
   submit() {
+    this.notfilledArray = [];
+    if (this.authService.isInvalidSubscription('education_tools')) {
+      this.authService.hasUserSubscription$.next(true);
+      return;
+    }
     if (this.aiCreditCount == 0) {
       this.toastr.add({ severity: "error", summary: "Error", detail: "Free AI Credits Over.Please Buy Some Credits..!" });
+      return;
+    }
+    let fillables: any = ['country', 'university', 'course_duration', 'stay_back', 'tution'];
+    
+    fillables.forEach((element: any) => {
+      console.log(this.selectedData[element], element);
+      if (!this.selectedData[element] || this.selectedData[element] === '') {
+        this.notfilledArray.push(element);
+      }
+    });
+    if(this.notfilledArray.length){
       return;
     }
     this.isOldResponse = true;
@@ -305,14 +299,6 @@ export class StudentBudgetPlannerComponent implements OnInit {
       <p>${this.userInputs.stay_back}</p><br>
       <p style="color: #3f4c83;"><strong>What is the net tuition fee for your entire course?</strong></p>
       <p>${this.userInputs.tution} in ${currentCurrency}</p><br>
-      <p style="color: #3f4c83;"><strong>How much do you expect to spend on accommodation per month?</strong></p>
-      <p>${this.userInputs.accommodation} / Month in ${currentCurrency}</p><br>
-      <p style="color: #3f4c83;"><strong>What are your estimated travel expenses per month?</strong></p>
-      <p>${this.userInputs.travel_expense} / Month in ${currentCurrency}</p><br>
-      <p style="color: #3f4c83;"><strong>How much do you plan to spend on food and groceries each month?</strong></p>
-      <p>${this.userInputs.food_and_grocery} / Month in ${currentCurrency}</p><br>
-      <p style="color: #3f4c83;"><strong>What are your anticipated miscellaneous expenses per month?</strong></p>
-      <p>${this.userInputs.miscellaneous} / Month in ${currentCurrency}</p><br>
     `;
 
     let params: any = {

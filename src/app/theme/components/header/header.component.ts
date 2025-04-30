@@ -41,7 +41,6 @@ import { AuthTokenService } from 'src/app/core/services/auth-token.service'
 import { AvatarGroupModule } from 'primeng/avatargroup';
 import { StorageService } from "../../../storage.service";
 import { DropdownModule } from "primeng/dropdown";
-import { AutoFocus } from "primeng/autofocus";
 
 // import { SocialAuthService } from "@abacritt/angularx-social-login";
 
