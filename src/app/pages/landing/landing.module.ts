@@ -19,6 +19,18 @@ const routes: Routes = [
         loadComponent: () => import('./landing-content/landing-content.component').then(m => m.LandingContentComponent),
       },
       {
+        path: 'international-sub',
+        loadComponent: () => import('../international-subscription/international-subscription.component').then(c => c.InternationalSubscriptionComponent)
+      },
+      {
+        path: 'compare-uni',
+        loadComponent: () => import('../compare-uni/compare-uni.component').then(c => c.CompareUniComponent)
+      },
+      {
+        path: 'landing-new',
+        loadComponent: () => import('../landing-new/landing-new.component').then(c => c.LandingNewComponent)
+      },
+      {
         path: 'about/management',
         loadComponent: () => import('./management-team/management-team.component').then(m => m.ManagementTeamComponent),
       },
