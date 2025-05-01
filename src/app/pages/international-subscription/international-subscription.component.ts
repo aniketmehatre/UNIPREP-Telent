@@ -6,7 +6,7 @@ import {environment} from "@env/environment";
 @Component({
   selector: 'uni-international-subscription',
   standalone: true,
-  imports: [CommonModule, RouterLink],
+  imports: [CommonModule],
   templateUrl: './international-subscription.component.html',
   styleUrl: './international-subscription.component.scss'
 })
