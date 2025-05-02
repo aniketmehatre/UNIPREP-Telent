@@ -264,11 +264,11 @@ export class RegistrationComponent implements OnInit {
 					this.storage.set(environment.tokenKey, res?.authorisation?.token)
 
 				}
-				this.toastr.add({
-					severity: "success",
-					summary: "Success",
-					detail: "Login Successful"
-				})
+				// this.toastr.add({
+				// 	severity: "success",
+				// 	summary: "Success",
+				// 	detail: "Login Successful"
+				// })
 				this.router.navigate(["/pages/dashboard"], { replaceUrl: true })
 			},
 			(error) => {
