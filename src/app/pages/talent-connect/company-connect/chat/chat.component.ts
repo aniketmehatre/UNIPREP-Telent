@@ -105,9 +105,9 @@ export class ChatComponent implements OnInit, OnChanges {
     element.style.height = (element.scrollHeight) + 'px';
   }
 
-  aiRePhraseSummary(mode: string, content: Record<string, any>, element: HTMLTextAreaElement) {
+  aiRePhraseSummary(content: Record<string, any>, element: HTMLTextAreaElement) {
     this.isLoadingAiSummary = true;
-    this.talentConnectService.getJobAiSummary({ mode: mode, ...content }).subscribe({
+    this.talentConnectService.getCompanyChatAiSummary(content).subscribe({
       next: (response) => {
         this.isLoadingAiSummary = false;
         if (response) {

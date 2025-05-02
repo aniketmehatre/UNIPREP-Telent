@@ -20,6 +20,14 @@ interface ChatMessage {
   attachment?: string | null;
 }
 
+interface AiGenerateChatDetails {
+  job_id: number;
+  companyName: string;
+  positionName: string;
+  studentName: string;
+  createdAt: string;
+}
+
 @Component({
   selector: 'uni-job-chat-ui',
   templateUrl: './job-chat-ui.component.html',
@@ -44,6 +52,7 @@ export class JobChatUiComponent implements OnChanges {
   @Input() showInfo: boolean = true;
   isLoadingAiSummary: boolean = false;
   currentStage: number = 2;
+  aiGenerateChatDetails!: AiGenerateChatDetails;
   id: number = NaN;
   stages: Array<{number: number, name: string, completed: boolean}> = [
     { number: 1, name: 'Initial Round', completed: true },
@@ -73,7 +82,6 @@ export class JobChatUiComponent implements OnChanges {
     this.talentConnectService.getMessage({ job_id: job_id }).subscribe({
       next: response => {
         if (Array.isArray(response?.messages)) {
-          // Handle array response
           this.messages = response?.messages.map((item: any) => {
             return {
               sender: item.employer == 0 ? false : true,
@@ -87,10 +95,14 @@ export class JobChatUiComponent implements OnChanges {
               profile_image: item.profile_image ?? null,
             };
           });
-        } else {
-          // Handle object response
-          console.log('Message response:', response);
-        }
+          this.aiGenerateChatDetails = {
+            job_id: job_id,
+            companyName: this.jobDetails?.company_name,
+            positionName: this.jobDetails?.position,
+            studentName: response?.messages[0]?.userName,
+            createdAt: this.jobDetails.created_at
+          };
+        } 
       },
       error: error => {
         console.log(error);
@@ -136,7 +148,7 @@ export class JobChatUiComponent implements OnChanges {
     element.style.height = (element.scrollHeight) + 'px';
   }
 
-  aiRePhraseSummary(mode: string, content: Record<string, any>, element: HTMLTextAreaElement) {
+  aiGenerateSummary(mode: string, content: Record<string, any>, element: HTMLTextAreaElement, type: string) {
     this.isLoadingAiSummary = true;
     this.talentConnectService.getJobAiSummary({ mode: mode, ...content }).subscribe({
       next: (response) => {

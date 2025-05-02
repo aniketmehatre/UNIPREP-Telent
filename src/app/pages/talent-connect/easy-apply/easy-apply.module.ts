@@ -16,6 +16,7 @@ import { InputTextModule } from 'primeng/inputtext';
 import { SelectModule } from 'primeng/select';
 import { InputNumberModule } from 'primeng/inputnumber';
 import { TooltipModule } from 'primeng/tooltip';
+import { PipesModule } from '@pipes/pipes.module';
 
 const routes: Routes = [
   {
@@ -47,7 +48,8 @@ const routes: Routes = [
     ReactiveFormsModule,
     SelectModule,
     InputNumberModule,
-    TooltipModule
+    TooltipModule,
+    PipesModule
   ]
 })
 export class EasyApplyModule { }

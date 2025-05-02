@@ -52,7 +52,14 @@
 								<p class="mb-0 text-warning fw-medium" style="font-size: 0.7rem">
 									{{ job.matching_skills }}
 								</p>
-								<button pButton class="btn btn-rounded btn-success w-100 text-nowrap py-1"><i class="fa-solid fa-check"></i>Actively Hiring</button>
+								<button *ngIf="((job.start_date | dateDiffInMonths) > 4)" pButton
+									class="btn btn-rounded btn-primary text-nowrap !fs-6 py-1">
+									<i class="fa-solid fa-clock"></i>Future Hiring
+								</button>
+								<button *ngIf="!((job.start_date | dateDiffInMonths) > 4)" pButton
+									class="btn btn-rounded btn-success text-nowrap !fs-6 py-1">
+									<i class="fa-solid fa-check"></i>Actively Hiring
+								</button>
 							</div>
 						</div>
 						<hr class="my-2" />

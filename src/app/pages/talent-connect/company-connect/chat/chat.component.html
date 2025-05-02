@@ -5,7 +5,7 @@
                 class="btn-primary text-dark me-1" (click)="openInfo.emit(true)"></button>
             <div class="uniabroad-icon me-2">
                 <p-avatar
-                    [image]="companyDetails?.company_logo ?? 'https://primefaces.org/cdn/primeng/images/demo/avatar/amyelsner.png'"
+                    [image]="companyDetails?.company_logo ?? 'uniprep-assets/images/avatar.webp'"
                     size="large" shape="circle" />
             </div>
             <div>
@@ -72,10 +72,10 @@
         </div>
     </div>
     <div class="card-footer bg-transparent border-0">
-        <div class="w-100 mb-1 text-end bg-transparent">
-            <button class="text-small text-end btn btn-danger btn-rounded d-flex align-items-center gap-2"
+        <div class="w-100 mb-1 text-end bg-transparent" *ngIf="messageInput.value">
+            <!-- <button class="text-small text-end btn btn-danger btn-rounded d-flex align-items-center gap-2"
                 [disabled]="isLoadingAiSummary" style="width: fit-content"
-                (click)="aiRePhraseSummary('student', { content: messageInput.value }, messageInput)">RePhrase</button>
+                (click)="aiRePhraseSummary({ content: messageInput.value }, messageInput)">RePhrase</button> -->
         </div>
         <input type="file" class="d-none"
             accept=".doc,.docx,.pdf, application/msword,application/vnd.openxmlformats-officedocument.wordprocessingml.document"

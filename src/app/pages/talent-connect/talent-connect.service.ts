@@ -116,6 +116,12 @@ export class TalentConnectService {
             { headers: this.headers });
     }
 
+    getCompanyChatAiSummary(data: any) {
+        return this.http.post<any>(
+            environment.ApiUrl + "/airephrase", data,
+            { headers: this.headers });
+    }
+
 
 
     // short list company
