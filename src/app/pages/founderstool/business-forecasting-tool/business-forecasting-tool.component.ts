@@ -90,7 +90,7 @@ export class BusinessForecastingToolComponent implements OnInit {
 	invalidClass: boolean = false
 	selectedData: { [key: string]: any } = {}
 	isResponseSkeleton: boolean = false;
-	aiCreditCount: number = 0;
+	
 	userInputs: any;
 
 	constructor(private fb: FormBuilder, private foundersToolsService: FounderstoolService, private locationService: LocationService, private authService: AuthService, private router: Router, private pageFacade: PageFacadeService, private toast: MessageService, private travelToolService: TravelToolsService, private sanitizer: DomSanitizer, private promptService: PromptService) {
@@ -110,15 +110,9 @@ export class BusinessForecastingToolComponent implements OnInit {
 	ngOnInit(): void {
 		this.getForeCastingOptionLists()
 		this.getCurrenyandLocation()
-		this.getAICreditCount();
+		
 	}
-	getAICreditCount() {
-		this.promptService.getAicredits().subscribe({
-			next: resp => {
-				this.aiCreditCount = resp;
-			}
-		})
-	}
+
 	backtoMain() {
 		this.router.navigateByUrl("/pages/founderstool")
 	}
@@ -171,10 +165,7 @@ export class BusinessForecastingToolComponent implements OnInit {
 			this.submitted = true
 			return
 		}
-		if (this.aiCreditCount == 0) {
-			this.toast.add({ severity: "error", summary: "Error", detail: "Free AI Credits Over.Please Buy Some Credits..!" });
-			return;
-		}
+		
 		let data: any = {
 			...this.form.value,
 			mode: "revenue_forescasting_tool",
@@ -189,7 +180,7 @@ export class BusinessForecastingToolComponent implements OnInit {
 			next: (response) => {
 				this.isResponseSkeleton = false;
 				this.recommendationData = this.sanitizer.bypassSecurityTrustHtml(response.response)
-				this.getAICreditCount();
+				this.authService.aiCreditCount$.next(true);
 			},
 			error: (error) => {
 				this.isResponseSkeleton = false;

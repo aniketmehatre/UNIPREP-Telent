@@ -62,7 +62,7 @@ export class UniCompareComponent implements OnInit, OnDestroy {
   isRecommendationSavedData: boolean = false;
   recommendationData: SafeHtml = '';
   isResponseSkeleton: boolean = false;
-  aiCreditCount: number = 0;
+  
   constructor(
     private fb: FormBuilder,
     private educationToolService: EducationToolsService,
@@ -147,15 +147,9 @@ export class UniCompareComponent implements OnInit, OnDestroy {
     window.addEventListener('resize', this.updatePanelStyle);
 
     this.getCountryandSpecilizationList();
-    this.getAICreditCount();
+    
   }
-  getAICreditCount() {
-    this.promptService.getAicredits().subscribe({
-      next: resp => {
-        this.aiCreditCount = resp;
-      }
-    })
-  }
+
   getAndSetCourseNameList(universityId: number, mode: string) {
     this.educationToolService.courseNameList(universityId).subscribe({
       next: response => {
@@ -212,6 +206,7 @@ export class UniCompareComponent implements OnInit, OnDestroy {
   }
 
   getRecommendation() {
+    this.recommendationData = "";
     this.submitted = false;
     const formData = this.form.value;
     if (this.activePageIndex == 1) {
@@ -228,10 +223,7 @@ export class UniCompareComponent implements OnInit, OnDestroy {
         return;
       }
     }
-    if (this.aiCreditCount == 0) {
-      this.toast.add({ severity: "error", summary: "Error", detail: "Free AI Credits Over.Please Buy Some Credits..!" });
-      return;
-    }
+
     let data: any = {
       ...this.form.value,
       mode: 'uni_compare',
@@ -252,7 +244,7 @@ export class UniCompareComponent implements OnInit, OnDestroy {
       next: response => {
         this.isResponseSkeleton = false;
         this.recommendationData = this.sanitizer.bypassSecurityTrustHtml(response.response);
-        this.getAICreditCount();
+        this.authService.aiCreditCount$.next(true);
       },
       error: (error) => {
         console.error(error);

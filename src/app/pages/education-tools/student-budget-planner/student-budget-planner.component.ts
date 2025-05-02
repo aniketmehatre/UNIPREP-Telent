@@ -73,7 +73,7 @@ export class StudentBudgetPlannerComponent implements OnInit {
     mode: 'student_budget_planner',
   }
   selectedData: any = { ...this.selectedDataArray }
-  aiCreditCount: number = 0;
+  
   userInputs: any;
 
   courseDurationList: { value: string }[] = [
@@ -106,15 +106,9 @@ export class StudentBudgetPlannerComponent implements OnInit {
 
   ngOnInit(): void {
     this.dropdownValues();
-    this.getAICreditCount();
+    
   }
-  getAICreditCount() {
-    this.promptService.getAicredits().subscribe({
-      next: resp => {
-        this.aiCreditCount = resp;
-      }
-    })
-  }
+
   dropdownValues() {
     this.educationService.getDropdownValues().subscribe({
       next: response => {
@@ -169,13 +163,10 @@ export class StudentBudgetPlannerComponent implements OnInit {
     this.pageFacade.openHowitWorksVideoPopup(videoLink);
   }
   submit() {
+    this.recommendationData = "";
     this.notfilledArray = [];
     if (this.authService.isInvalidSubscription('education_tools')) {
       this.authService.hasUserSubscription$.next(true);
-      return;
-    }
-    if (this.aiCreditCount == 0) {
-      this.toastr.add({ severity: "error", summary: "Error", detail: "Free AI Credits Over.Please Buy Some Credits..!" });
       return;
     }
     let fillables: any = ['country', 'university', 'course_duration', 'stay_back', 'tution'];
@@ -207,7 +198,7 @@ export class StudentBudgetPlannerComponent implements OnInit {
       next: response => {
         this.isResponseSkeleton = false;
         this.recommendationData = this.sanitizer.bypassSecurityTrustHtml(response.response);
-        this.getAICreditCount();
+        this.authService.aiCreditCount$.next(true);
       },
       error: (error) => {
         console.error(error);

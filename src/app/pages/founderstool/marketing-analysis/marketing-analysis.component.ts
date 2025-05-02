@@ -67,7 +67,7 @@ export class MarketingAnalysisComponent implements OnInit {
   isRecommendationSavedData: boolean = false;
   recommendationData: SafeHtml;
   isResponseSkeleton: boolean = false;
-  aiCreditCount: number = 0;
+  
   userInputs: any;
 
   constructor(
@@ -130,15 +130,9 @@ export class MarketingAnalysisComponent implements OnInit {
   ngOnInit(): void {
     this.getCityList();
     this.getCurrenyandLocation();
-    this.getAICreditCount();
+    
   }
-  getAICreditCount() {
-    this.promptService.getAicredits().subscribe({
-      next: resp => {
-        this.aiCreditCount = resp;
-      }
-    })
-  }
+
 
   goBack() {
     this.router.navigateByUrl('/pages/founderstool/founderstoollist');
@@ -185,10 +179,7 @@ export class MarketingAnalysisComponent implements OnInit {
         return;
       }
     }
-    if (this.aiCreditCount == 0) {
-      this.toast.add({ severity: "error", summary: "Error", detail: "Free AI Credits Over.Please Buy Some Credits..!" });
-      return;
-    }
+
     let data: any = {
       ...this.marketingForm.value,
       mode: 'market_analysis',
@@ -203,7 +194,7 @@ export class MarketingAnalysisComponent implements OnInit {
       next: response => {
         this.isResponseSkeleton = false;
         this.recommendationData = this.sanitizer.bypassSecurityTrustHtml(response.response);
-        this.getAICreditCount();
+        this.authService.aiCreditCount$.next(true);
       },
       error: (error) => {
         console.error(error);

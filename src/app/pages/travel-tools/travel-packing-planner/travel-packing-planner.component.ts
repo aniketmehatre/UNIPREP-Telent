@@ -73,7 +73,7 @@ export class TravelPackingPlannerComponent implements OnInit {
 	recommadationSavedQuestionList: any[] = [];
 	isFromSavedData: boolean = false;
 	isResponseSkeleton: boolean = false;
-	aiCreditCount: number = 0;
+	
 	userInputs: any;
 
 	constructor(private travelToolsService: TravelToolsService, private router: Router, private costOfLivingService: CostOfLivingService, private toast: MessageService, private sanitizer: DomSanitizer, private promptService: PromptService, private pageFacade: PageFacadeService, private authService: AuthService) { }
@@ -81,16 +81,10 @@ export class TravelPackingPlannerComponent implements OnInit {
 	ngOnInit(): void {
 		this.selectedData = { 4: 1 }
 		this.getCityList();
-		this.getAICreditCount();
+		
 	}
 
-	getAICreditCount() {
-		this.promptService.getAicredits().subscribe({
-			next: resp => {
-				this.aiCreditCount = resp;
-			}
-		})
-	}
+	
 
 	buyCredits() {
 		if (this.authService.isInvalidSubscription('travel_tools')) {
@@ -131,11 +125,7 @@ export class TravelPackingPlannerComponent implements OnInit {
 	}
 
 	getRecommendation() {
-		if (this.aiCreditCount == 0) {
-			this.toast.add({ severity: "error", summary: "Error", detail: "Free AI Credits Over.Please Buy Some Credits..!" });
-			this.buyCredits();
-			return;
-		}
+		this.recommendationData = "";
 		let data: any = {
 			destination: this.selectedData[1].city_name + ", " + this.selectedData[1].country_name,
 			travel_type: this.selectedData[2],
@@ -153,7 +143,7 @@ export class TravelPackingPlannerComponent implements OnInit {
 			next: (response) => {
 				this.isResponseSkeleton = false;
 				this.recommendationData = this.sanitizer.bypassSecurityTrustHtml(response.response);
-				this.getAICreditCount();
+				this.authService.aiCreditCount$.next(true);
 			},
 			error: (error) => {
 				console.error(error);

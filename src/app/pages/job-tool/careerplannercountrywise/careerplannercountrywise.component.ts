@@ -46,7 +46,7 @@ export class CareerplannercountrywiseComponent implements OnInit {
   recommadationSavedQuestionList: any[] = [];
   specializationList: any = [];
   isResponseSkeleton: boolean = false;
-  aiCreditCount: number = 0;
+  
   currentPlan: string = ""
   userInputs: any;
   experienceArray = [
@@ -85,30 +85,21 @@ export class CareerplannercountrywiseComponent implements OnInit {
         this.specializationList = response;
       }
     });
-    this.getAICreditCount();
+    
 
   }
 
-  getAICreditCount() {
-    this.promptService.getAicredits().subscribe({
-      next: resp => {
-        this.aiCreditCount = resp;
-      }
-    })
-  }
 
   get f() {
     return this.form.controls;
   }
   formSubmit() {
+    this.recommendationData = "";
     if (this.authService.isInvalidSubscription('career_tools')) {
       this.authService.hasUserSubscription$.next(true);
       return;
     }
-    if (this.aiCreditCount == 0) {
-      this.toast.add({ severity: "error", summary: "Error", detail: "Free AI Credits Over.Please Buy Some Credits..!" });
-      return;
-    }
+
     this.submitted = true;
     if (this.form.valid) {
       var data = {
@@ -123,12 +114,12 @@ export class CareerplannercountrywiseComponent implements OnInit {
       this.isResponseSkeleton = true;
       this.service.getCountryCurrencyChatGptOutput(data).subscribe({
         next: (res: any) => {
-          this.getAICreditCount();
+          
           this.isResponseSkeleton = false;
           this.recommendationData = this.sanitizer.bypassSecurityTrustHtml(res.response);
           this.submitted = false
           this.isSavedResponse = false;
-
+          this.authService.aiCreditCount$.next(true);
         },
         error: (error) => {
           console.error(error);

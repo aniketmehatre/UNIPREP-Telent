@@ -53,7 +53,7 @@ export class EduLoanCompareComponent implements OnInit {
   recommendationData: string = '';
   activePageIndex: number = 0;
   isResponseSkeleton: boolean = false;
-  aiCreditCount: number = 0;
+  
   userInputs: any;
 
   constructor(
@@ -79,15 +79,9 @@ export class EduLoanCompareComponent implements OnInit {
 
   ngOnInit(): void {
     this.getCountryList();
-    this.getAICreditCount();
+    
   }
-  getAICreditCount() {
-    this.promptService.getAicredits().subscribe({
-      next: resp => {
-        this.aiCreditCount = resp;
-      }
-    })
-  }
+
   getCountryList() {
     this.educationToolService.getCurrencies().subscribe(data => {
       this.currenciesList = data;
@@ -124,10 +118,7 @@ export class EduLoanCompareComponent implements OnInit {
   }
 
   getRecommendation() {
-    if (this.aiCreditCount == 0) {
-      this.toast.add({ severity: "error", summary: "Error", detail: "Free AI Credits Over.Please Buy Some Credits..!" });
-      return;
-    }
+    this.recommendationData = "";
     let data: any = {
       ...this.form.value,
       mode: 'loan_comparison_tool'
@@ -141,9 +132,10 @@ export class EduLoanCompareComponent implements OnInit {
       next: response => {
         this.isResponseSkeleton = false;
         this.recommendationData = this.sanitizer.bypassSecurityTrustHtml(response.response) as string;
+        this.authService.aiCreditCount$.next(true);
         this.isFromSavedData = false;
         this.saveRecommadation('getAllHistory');
-        this.getAICreditCount();
+        
       },
       error: error => {
         this.isResponseSkeleton = false;
