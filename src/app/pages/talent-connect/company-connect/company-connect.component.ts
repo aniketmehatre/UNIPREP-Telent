@@ -10,6 +10,7 @@ import {CommonModule, NgClass} from "@angular/common";
 import {TagModule} from "primeng/tag";
 import { forkJoin } from 'rxjs';
 import { CompanyFilterComponent } from "./company-filter/company-filter.component";
+import { MessageService } from 'primeng/api';
 
 interface DropdownOption {
     label: string;
@@ -51,7 +52,7 @@ export class CompanyConnect1Component implements OnInit {
 
 
     constructor(private talentConnectService: TalentConnectService, private fb: FormBuilder,
-        private router: Router) {
+        private router: Router, private messageService: MessageService) {
     }
 
     ngOnInit() {
@@ -84,7 +85,7 @@ export class CompanyConnect1Component implements OnInit {
     }
 
     applyFilter() {
-        console.log(this.companyForm.value)
+        console.log(this.companyForm.value);
     }
 
     clearFilter() {
@@ -107,7 +108,8 @@ export class CompanyConnect1Component implements OnInit {
                 this.listCompanyData()
             },
             error: err => {
-
+                this.messageService.add({ severity: 'error', summary: 'Error', detail: 'Failed to shortlist company' });
+                console.log(err.error.message);
             }
         })
     }
