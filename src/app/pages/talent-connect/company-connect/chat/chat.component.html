@@ -32,7 +32,7 @@
                 <div class="d-flex mb-2">
                     <div class="avatar me-1" *ngIf="message.added_by != 'Student'">
                         <p-avatar
-                            [image]="companyDetails?.company_logo ?? 'https://primefaces.org/cdn/primeng/images/demo/avatar/amyelsner.png'"
+                            [image]="companyDetails?.company_logo ?? 'uniprep-assets/images/avatar.webp'"
                             shape="circle" />
                     </div>
                     <div class="w-100 d-flex flex-column align-items-end"
@@ -64,7 +64,7 @@
                     </div>
                     <div class="avatar ms-2" *ngIf="message.added_by == 'Student'">
                         <p-avatar
-                            [image]="message.icon ?? 'https://primefaces.org/cdn/primeng/images/demo/avatar/amyelsner.png'"
+                            [image]="message.icon ?? 'uniprep-assets/images/avatar.webp'"
                             shape="circle" />
                     </div>
                 </div>
