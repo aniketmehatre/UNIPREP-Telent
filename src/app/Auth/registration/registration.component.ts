@@ -262,8 +262,14 @@ export class RegistrationComponent implements OnInit {
 					this.storage.set(environment.tokenKey, res.token)
 				} else {
 					this.storage.set(environment.tokenKey, res?.authorisation?.token)
+
 				}
-				this.router.navigate(["/pages/dashboard"])
+				this.toastr.add({
+					severity: "success",
+					summary: "Success",
+					detail: "Login Successful"
+				})
+				this.router.navigate(["/pages/dashboard"], { replaceUrl: true })
 			},
 			(error) => {
 				const message = error.error?.message != undefined ? error.error?.message : error?.message

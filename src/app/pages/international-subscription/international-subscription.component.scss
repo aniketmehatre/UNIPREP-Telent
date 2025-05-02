@@ -1,0 +1,70 @@
+:host {
+  background-color: #07070b;
+  display: block;
+}
+.table-bordered-orange {
+  border: 1px solid orange;
+  th {
+    background-color: #8B4513;
+    vertical-align: middle;
+    padding: 20px;
+    border-bottom: 1px solid orange;
+  }
+  td {
+    background-color: transparent;
+    color: white;
+    padding: 20px;
+  }
+}
+.back-button {
+  width: 35px;
+  height: 35px;
+  display: flex
+;
+  border-radius: 100%;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  border: 1px solid white;
+  background: transparent;
+}
+.pagetitle {
+  background-color: transparent;
+  border: 1px solid white;
+  border-radius: 100px;
+  height: 35px;
+  display: flex
+;
+  justify-content: center;
+  align-items: center;
+}
+.cta-field {
+  background: linear-gradient(145deg, rgb(24, 34, 79) 0%, rgb(220, 122, 86) 100%);
+  border: none;
+  color: white;
+}
+.cta-field .cta-btn {
+  background: black;
+  color: white;
+  padding: 0.8rem;
+}
+.accordion-item, .accordion-button {
+  background: #18181d;
+  border: 0 solid white;
+}
+.accordion-item {
+  margin-bottom: 10px;
+}
+.accordion-button {
+  box-shadow: none;
+  &::after {
+    background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16' fill='%23ffffff'%3e%3cpath fill-rule='evenodd' d='M1.646 4.646a.5.5 0 0 1 .708 0L8 10.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708z'/%3e%3c/svg%3e");
+  }
+}
+.accordion-body {
+  padding-top: 1px;
+  padding-bottom: 10px;
+  p {
+    margin-bottom: 5px;
+  }
+}

@@ -2,108 +2,114 @@
 // // @import "../../../uniprep-assets/cards";
 
 .countrycard {
-	.card-header {
-		background: transparent;
-		text-align: center;
-	}
+  .card-header {
+    background: transparent;
+    text-align: center;
+  }
 
-	.card-body {
-		.p-carousel .p-carousel-indicators .p-carousel-indicator.p-highlight button {
-			background-color: #001631;
-			height: 5px;
-		}
-	}
+  .card-body {
+    .p-carousel
+      .p-carousel-indicators
+      .p-carousel-indicator.p-highlight
+      button {
+      background-color: #001631;
+      height: 5px;
+    }
+  }
 
-	.card-footer {
-		background: transparent;
-		text-align: center;
-		padding-bottom: 0;
-		border-top: none;
-	}
+  .card-footer {
+    background: transparent;
+    text-align: center;
+    padding-bottom: 0;
+    border-top: none;
+  }
 
-	.countryicon {
-		max-width: 50px;
-		width: 100%;
-		object-fit: contain;
-	}
+  .countryicon {
+    max-width: 50px;
+    width: 100%;
+    object-fit: contain;
+  }
 
-	.bottom-text {
-		width: auto;
-		font-size: 0.9rem;
-		font-weight: normal;
-		padding: 15px 30px;
-		border-radius: 10px 10px 0px 0px;
-	}
+  .bottom-text {
+    width: auto;
+    font-size: 0.9rem;
+    font-weight: normal;
+    padding: 15px 30px;
+    border-radius: 10px 10px 0px 0px;
+  }
 
-	.country-text {
-		color: var(--uniprep-primary);
-		font-weight: 600;
-		font-size: 1rem;
-	}
+  .country-text {
+    color: var(--uniprep-primary);
+    font-weight: 600;
+    font-size: 1rem;
+  }
 
-	.country-text-small {
-		color: #001631;
-		font-weight: 600;
-		font-size: 1rem;
-	}
+  .country-text-small {
+    color: #001631;
+    font-weight: 600;
+    font-size: 1rem;
+  }
 
-	.country-border {
-		border: 2px solid var(--uniprep-primary);
-		border-radius: 10px;
-		background: var(--uniprep-primaryop10);
-	}
+  .country-border {
+    border: 2px solid var(--uniprep-primary);
+    border-radius: 10px;
+    background: var(--uniprep-primaryop10);
+  }
 }
 .fav-card {
-	.card-header {
-		background: transparent;
-		text-align: center;
-	}
+  .card-header {
+    background: transparent;
+    text-align: center;
+  }
 
-	.card-body {
-		.p-carousel .p-carousel-indicators .p-carousel-indicator.p-highlight button {
-			background-color: var(--uniprep-primary);
-			height: 5px;
-		}
-	}
+  .card-body {
+    .p-carousel
+      .p-carousel-indicators
+      .p-carousel-indicator.p-highlight
+      button {
+      background-color: var(--uniprep-primary);
+      height: 5px;
+    }
+  }
 
-	.card-footer {
-		background: transparent;
-		text-align: center;
-		padding-bottom: 0;
-		border-top: none;
-	}
+  .card-footer {
+    background: transparent;
+    text-align: center;
+    padding-bottom: 0;
+    border-top: none;
+  }
 
-	.countryicon {
-		max-width: 50px;
-		width: 100%;
-		object-fit: contain;
-	}
+  .countryicon {
+    max-width: 50px;
+    width: 100%;
+    object-fit: contain;
+  }
 
-	.bottom-text {
-		width: auto;
-		font-size: 0.9rem;
-		font-weight: normal;
-		padding: 15px 30px;
-		border-radius: 10px 10px 0px 0px;
-	}
+  .bottom-text {
+    width: auto;
+    font-size: 0.9rem;
+    font-weight: normal;
+    padding: 15px 30px;
+    border-radius: 10px 10px 0px 0px;
+  }
 
-	.country-text {
-		color: var(--uniprep-primaryop30);
-		font-weight: 600;
-		font-size: 1rem;
-	}
+  .country-text {
+    color: var(--uniprep-primaryop30);
+    font-weight: 600;
+    font-size: 1rem;
+  }
 
-	.country-text-small {
-		color: #001631;
-		font-weight: 600;
-		font-size: 1rem;
-	}
+  .country-text-small {
+    color: #001631;
+    font-weight: 600;
+    font-size: 1rem;
+  }
 
-	.country-border {
-		border: 1px solid var(--uniprep-primaryop30);
-		border-radius: 10px;
-		display: flex;
-	}
+  .country-border {
+    border: 1px solid var(--uniprep-primaryop30);
+    border-radius: 10px;
+    display: flex;
+  }
 }
 // small progress
 $borderWidth: 10px;
@@ -114,148 +120,156 @@ $size: 100px;
 $howManySteps: 100; //this needs to be even.
 
 .progress1 {
-	width: $size;
-	height: $size;
-	line-height: $size;
-	background: none;
-	margin: 0 auto;
-	box-shadow: none;
-	position: relative;
+  width: $size;
+  height: $size;
+  line-height: $size;
+  background: none;
+  margin: 0 auto;
+  box-shadow: none;
+  position: relative;
 
-	&:after {
-		content: "";
-		width: 100%;
-		height: 100%;
-		border-radius: 50%;
-		border: $borderWidth solid $border-color-default;
-		position: absolute;
-		top: 0;
-		left: 0;
-	}
+  &:after {
+    content: "";
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+    border: $borderWidth solid $border-color-default;
+    position: absolute;
+    top: 0;
+    left: 0;
+  }
 
-	> span {
-		width: 50%;
-		height: 100%;
-		overflow: hidden;
-		position: absolute;
-		top: 0;
-		z-index: 1;
-	}
+  > span {
+    width: 50%;
+    height: 100%;
+    overflow: hidden;
+    position: absolute;
+    top: 0;
+    z-index: 1;
+  }
 
-	.progress1-left {
-		left: 0;
-	}
+  .progress1-left {
+    left: 0;
+  }
 
-	.progress1-bar {
-		width: 100%;
-		height: 100%;
-		background: none;
-		border-width: $borderWidth;
-		border-style: solid;
-		position: absolute;
-		top: 0;
-		border-color: $border-color-fill;
-	}
+  .progress1-bar {
+    width: 100%;
+    height: 100%;
+    background: none;
+    border-width: $borderWidth;
+    border-style: solid;
+    position: absolute;
+    top: 0;
+    border-color: $border-color-fill;
+  }
 
-	.progress1-left .progress1-bar {
-		left: 100%;
-		border-top-right-radius: ($size/2);
-		border-bottom-right-radius: ($size/2);
-		border-left: 0;
-		-webkit-transform-origin: center left;
-		transform-origin: center left;
-		//animation: loading-2 1.5s linear forwards 1.8s;
-	}
+  .progress1-left .progress1-bar {
+    left: 100%;
+    border-top-right-radius: ($size/2);
+    border-bottom-right-radius: ($size/2);
+    border-left: 0;
+    -webkit-transform-origin: center left;
+    transform-origin: center left;
+    //animation: loading-2 1.5s linear forwards 1.8s;
+  }
 
-	.progress1-right {
-		right: 0;
+  .progress1-right {
+    right: 0;
 
-		.progress1-bar {
-			left: -100%;
-			border-top-left-radius: ($size/2);
-			border-bottom-left-radius: ($size/2);
-			border-right: 0;
-			-webkit-transform-origin: center right;
-			transform-origin: center right;
-			animation: loading-1 1.8s linear forwards;
-		}
-	}
+    .progress1-bar {
+      left: -100%;
+      border-top-left-radius: ($size/2);
+      border-bottom-left-radius: ($size/2);
+      border-right: 0;
+      -webkit-transform-origin: center right;
+      transform-origin: center right;
+      animation: loading-1 1.8s linear forwards;
+    }
+  }
 
-	.progress1-value {
-		display: flex;
-		border-radius: 50%;
-		font-size: 1rem;
-		text-align: center;
-		line-height: 20px;
-		align-items: center;
-		justify-content: center;
-		height: 100%;
-		width: 100%;
-		background-color: #fff;
-		font-weight: 300;
+  .progress1-value {
+    display: flex;
+    border-radius: 50%;
+    font-size: 1rem;
+    text-align: center;
+    line-height: 20px;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+    width: 100%;
+    background-color: #fff;
+    font-weight: 300;
 
-		div {
-			//margin-top: 10px;
-			background-color: var(--uniprep-primary);
-			border-radius: 100%;
-			padding: 10px;
-			color: white;
-		}
+    div {
+      //margin-top: 10px;
+      background-color: var(--uniprep-primary);
+      border-radius: 100%;
+      padding: 10px;
+      color: white;
+    }
 
-		span {
-			font-size: 12px;
-			padding: 20px;
-			text-transform: uppercase;
-		}
-	}
+    span {
+      font-size: 12px;
+      padding: 20px;
+      text-transform: uppercase;
+    }
+  }
 }
 
 /* This for loop creates the necessary css animation names
 Due to the split circle of progress-left and progress right, we must use the animations on each side.
 */
 @for $i from 1 through $howManySteps {
-	$stepName: ($i * (100 / $howManySteps));
-	//animation only the left side if below 50%
-	@if $i <= ($howManySteps/2) {
-		.progress1[data-percentage="#{$stepName}"] {
-			.progress1-right .progress1-bar {
-				animation: loading-#{$i} $animationTime linear forwards;
-			}
+  $stepName: ($i * (100 / $howManySteps));
+  //animation only the left side if below 50%
+  @if $i <= ($howManySteps/2) {
+    .progress1[data-percentage="#{$stepName}"] {
+      .progress1-right .progress1-bar {
+        animation: loading-#{$i} $animationTime linear forwards;
+      }
 
-			.progress1-left .progress1-bar {
-				animation: 0;
-			}
-		}
-	}
-	//animation only the right side if above 50%
-	@if $i > ($howManySteps/2) {
-		.progress1[data-percentage="#{$stepName}"] {
-			.progress1-right .progress1-bar {
-				animation: loading-#{($howManySteps/2)} $animationTime linear forwards; //set the animation to longest animation
-			}
+      .progress1-left .progress1-bar {
+        animation: 0;
+      }
+    }
+  }
+  //animation only the right side if above 50%
+  @if $i > ($howManySteps/2) {
+    .progress1[data-percentage="#{$stepName}"] {
+      .progress1-right .progress1-bar {
+        animation: loading-#{($howManySteps/2)}
+          $animationTime
+          linear
+          forwards; //set the animation to longest animation
+      }
 
-			.progress1-left .progress1-bar {
-				animation: loading-#{$i - ($howManySteps/2)} $animationTime linear forwards $animationTime;
-			}
-		}
-	}
+      .progress1-left .progress1-bar {
+        animation: loading-#{$i -
+          ($howManySteps/2)}
+          $animationTime
+          linear
+          forwards
+          $animationTime;
+      }
+    }
+  }
 }
 
 .trustedbylogo {
-	width: 100%;
-	object-fit: contain;
-	height: 100%;
-	padding: 0.5rem 1.5rem;
+  width: 100%;
+  object-fit: contain;
+  height: 100%;
+  padding: 0.5rem 1.5rem;
 }
 
 .certificatelock {
-	background-image: url(../../../uniprep-assets/images/uniprepcertificate.webp);
-	background-size: cover;
-	background-repeat: no-repeat;
-	filter: grayscale(1);
-	background-position: center;
-	border: 1px solid #343a40;
-	height: 100px;
+  background-image: url(../../../uniprep-assets/images/uniprepcertificate.webp);
+  background-size: cover;
+  background-repeat: no-repeat;
+  filter: grayscale(1);
+  background-position: center;
+  border: 1px solid #343a40;
+  height: 100px;
 }
 
 //.homecardbtn {
@@ -265,367 +279,367 @@ Due to the split circle of progress-left and progress right, we must use the ani
 //}
 
 .homecardbtnquiz {
-	background-color: #f0780e;
-	color: white;
+  background-color: #f0780e;
+  color: white;
 }
 
 .ellipse-button {
-	width: auto;
-	padding: 10px 35px;
-	height: auto;
-	//background-color: #f0780e;
-	background-color: #000;
-	border-radius: 50px;
-	display: flex;
-	justify-content: center;
-	align-items: center;
-	cursor: not-allowed;
-	font-size: 14px;
+  width: auto;
+  padding: 10px 35px;
+  height: auto;
+  //background-color: #f0780e;
+  background-color: #000;
+  border-radius: 50px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: not-allowed;
+  font-size: 14px;
 }
 
 @media (min-width: 992px) {
-	.row .col-lg-5 {
-		flex: 0 0 auto;
-		width: 20%;
-	}
+  .row .col-lg-5 {
+    flex: 0 0 auto;
+    width: 20%;
+  }
 }
 
 .progress-circle {
-	position: relative;
-	width: 100px;
-	height: 100px;
+  position: relative;
+  width: 100px;
+  height: 100px;
 }
 
 .progress-ring {
-	transform: rotate(-90deg);
+  transform: rotate(-90deg);
 }
 
 .progress-ring__circle {
-	transition: 0.35s stroke-dasharray;
-	transform-origin: 50% 50%;
-	stroke-dasharray: 283; /* Circumference of the circle (2 * PI * radius) */
-	stroke-dashoffset: 283; /* Circumference of the circle */
+  transition: 0.35s stroke-dasharray;
+  transform-origin: 50% 50%;
+  stroke-dasharray: 283; /* Circumference of the circle (2 * PI * radius) */
+  stroke-dashoffset: 283; /* Circumference of the circle */
 }
 
 .progress-ring__background {
-	stroke-dasharray: 283; /* Circumference of the circle */
+  stroke-dasharray: 283; /* Circumference of the circle */
 }
 
 .progress-text {
-	position: absolute;
-	top: 30%;
-	left: 50%;
-	transform: translate(-50%, -50%);
-	font-size: 20px;
-	color: black;
+  position: absolute;
+  top: 30%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-size: 20px;
+  color: black;
 }
 
 .progress1-circle {
-	position: relative;
-	width: 100px;
-	height: 100px;
+  position: relative;
+  width: 100px;
+  height: 100px;
 }
 
 .progress1-ring {
-	transform: rotate(-90deg);
+  transform: rotate(-90deg);
 }
 
 .progress1-ring__circle {
-	transition: 0.35s stroke-dasharray;
-	transform-origin: 50% 50%;
-	stroke-dasharray: 283; /* Circumference of the circle (2 * PI * radius) */
-	stroke-dashoffset: 283; /* Circumference of the circle */
+  transition: 0.35s stroke-dasharray;
+  transform-origin: 50% 50%;
+  stroke-dasharray: 283; /* Circumference of the circle (2 * PI * radius) */
+  stroke-dashoffset: 283; /* Circumference of the circle */
 }
 
 .progress1-ring__background {
-	stroke-dasharray: 283; /* Circumference of the circle */
+  stroke-dasharray: 283; /* Circumference of the circle */
 }
 
 .progress1-text {
-	position: absolute;
-	top: 30%;
-	left: 50%;
-	transform: translate(-50%, -50%);
-	font-size: 20px;
-	color: var(--uniprep-primary);
+  position: absolute;
+  top: 30%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-size: 20px;
+  color: var(--uniprep-primary);
 }
 
 // new ui
 .notification-badge {
-	background-color: #ff913b;
-	color: white;
-	width: 20px;
-	height: 20px;
-	display: flex;
-	align-items: center;
-	justify-content: center;
-	border-radius: 50%;
+  background-color: #ff913b;
+  color: white;
+  width: 20px;
+  height: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
 }
 .grid-container {
-	display: grid;
-	grid-template-columns: repeat(2, 1fr); /* 2 columns */
-	grid-template-rows: repeat(2, auto); /* 2 rows */
-	gap: 10px; /* Space between items */
-	// padding: 10px;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr); /* 2 columns */
+  grid-template-rows: repeat(2, auto); /* 2 rows */
+  gap: 10px; /* Space between items */
+  // padding: 10px;
 }
 .fav-item {
-	display: flex;
-	justify-content: center;
-	align-items: center;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 // button
 .progress-bar-container {
-	width: 100%;
-	background-color: #f3f3f3;
-	border-radius: 5px;
+  width: 100%;
+  background-color: #f3f3f3;
+  border-radius: 5px;
 }
 
 .progress-bar {
-	height: 8px;
-	background-color: #ff7000; /* Orange progress color */
-	border-radius: 5px;
-	transition: width 0.5s ease-in-out;
+  height: 8px;
+  background-color: #ff7000; /* Orange progress color */
+  border-radius: 5px;
+  transition: width 0.5s ease-in-out;
 }
 .progress-bar2 {
-	height: 8px;
-	background-color: #394d83; /* Green color for progress */
-	border-radius: 5px;
-	transition: width 0.3s ease-in-out;
+  height: 8px;
+  background-color: #394d83; /* Green color for progress */
+  border-radius: 5px;
+  transition: width 0.3s ease-in-out;
 }
 .progress-bar3 {
-	height: 8px;
-	background-color: #c8cfe5; /* Green color for progress */
-	border-radius: 5px;
-	transition: width 0.3s ease-in-out;
+  height: 8px;
+  background-color: #c8cfe5; /* Green color for progress */
+  border-radius: 5px;
+  transition: width 0.3s ease-in-out;
 }
 .input-container {
-	position: relative;
-	display: flex;
-	align-items: center;
-	width: 100%;
-	max-width: 300px; /* Adjust as needed */
+  position: relative;
+  display: flex;
+  align-items: center;
+  width: 100%;
+  max-width: 300px; /* Adjust as needed */
 }
 
 .input-container i {
-	position: absolute;
-	left: 10px; /* Adjust icon position */
-	color: #555; /* Icon color */
+  position: absolute;
+  left: 10px; /* Adjust icon position */
+  color: #555; /* Icon color */
 }
 
 .input-container input {
-	width: 100%;
-	padding: 5px 5px 5px 35px;
-	border: 1px solid #c8cfe5;
-	border-radius: 5px;
-	outline: none;
+  width: 100%;
+  padding: 5px 5px 5px 35px;
+  border: 1px solid #c8cfe5;
+  border-radius: 5px;
+  outline: none;
 }
 .input-container input::-webkit-input-placeholder {
-	font-size: 10px;
+  font-size: 10px;
 }
 @media (max-width: 600px) {
-	.input-container {
-		max-width: 100%;
-	}
+  .input-container {
+    max-width: 100%;
+  }
 
-	.input-container i {
-		left: 8px;
-	}
+  .input-container i {
+    left: 8px;
+  }
 
-	.input-container input {
-		padding: 5px 5px 5px 30px;
-	}
+  .input-container input {
+    padding: 5px 5px 5px 30px;
+  }
 }
 
 /* For screens smaller than 400px */
 @media (max-width: 400px) {
-	.input-container i {
-		left: 6px;
-	}
+  .input-container i {
+    left: 6px;
+  }
 
-	.input-container input {
-		padding: 5px 5px 5px 25px;
-	}
+  .input-container input {
+    padding: 5px 5px 5px 25px;
+  }
 }
 // responsive code
 /* Container for the whole section */
 .header-container {
-	display: flex;
-	justify-content: space-between;
-	align-items: center;
-	width: 100%;
-	flex-wrap: wrap; /* Allows wrapping on small screens */
-	padding: 10px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  flex-wrap: wrap; /* Allows wrapping on small screens */
+  padding: 10px;
 }
 
 /* Left-side text */
 .text-container {
-	max-width: 60%; /* Prevents text from taking too much space */
+  max-width: 60%; /* Prevents text from taking too much space */
 }
 
 /* Highlighted text */
 .highlight-text {
-	color: #ff913b;
+  color: #ff913b;
 }
 
 /* Right-side buttons */
 .button-container {
-	display: flex;
-	gap: 10px;
-	align-items: center;
+  display: flex;
+  gap: 10px;
+  align-items: center;
 }
 
 /* Buttons */
 .action-button {
-	display: flex;
-	align-items: center;
-	gap: 8px;
-	padding: 8px 16px;
-	background-color: white;
-	border: 1px solid #ddd;
-	border-radius: 8px;
-	box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-	cursor: pointer;
-	font-size: 14px;
-	position: relative;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 16px;
+  background-color: white;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  cursor: pointer;
+  font-size: 14px;
+  position: relative;
 }
 
 /* Notification Badge */
 .notification-badge {
-	background-color: orange;
-	color: white;
-	border-radius: 50%;
-	font-size: 12px;
-	width: 18px;
-	height: 18px;
-	display: flex;
-	justify-content: center;
-	align-items: center;
-	position: absolute;
-	top: -5px;
-	right: -5px;
+  background-color: orange;
+  color: white;
+  border-radius: 50%;
+  font-size: 12px;
+  width: 18px;
+  height: 18px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: absolute;
+  top: -5px;
+  right: -5px;
 }
 
 /* Media Queries for Responsiveness */
 @media (max-width: 768px) {
-	.header-container {
-		flex-direction: column;
-		text-align: center;
-	}
+  .header-container {
+    flex-direction: column;
+    text-align: center;
+  }
 
-	.text-container {
-		max-width: 100%;
-		margin-bottom: 10px;
-	}
+  .text-container {
+    max-width: 100%;
+    margin-bottom: 10px;
+  }
 
-	.button-container {
-		flex-direction: row;
-		justify-content: center;
-		width: 100%;
-	}
+  .button-container {
+    flex-direction: row;
+    justify-content: center;
+    width: 100%;
+  }
 
-	.action-button {
-		font-size: 12px;
-		padding: 6px 12px;
-	}
+  .action-button {
+    font-size: 12px;
+    padding: 6px 12px;
+  }
 
-	.notification-badge {
-		width: 15px;
-		height: 15px;
-		font-size: 10px;
-	}
+  .notification-badge {
+    width: 15px;
+    height: 15px;
+    font-size: 10px;
+  }
 }
 
 @media (max-width: 480px) {
-	.button-container {
-		flex-direction: column;
-		gap: 5px;
-	}
+  .button-container {
+    flex-direction: column;
+    gap: 5px;
+  }
 
-	.action-button {
-		width: 100%;
-		justify-content: center;
-	}
+  .action-button {
+    width: 100%;
+    justify-content: center;
+  }
 }
 @media (max-width: 1024px) {
-	.fav-card .p-carousel .p-carousel-item {
-		display: flex;
-		justify-content: center;
-	}
+  .fav-card .p-carousel .p-carousel-item {
+    display: flex;
+    justify-content: center;
+  }
 
-	.fav-card .p-carousel .p-carousel-item img {
-		max-width: 100%; /* Ensure images scale on smaller screens */
-	}
+  .fav-card .p-carousel .p-carousel-item img {
+    max-width: 100%; /* Ensure images scale on smaller screens */
+  }
 }
 
 @media (max-width: 768px) {
-	.fav-card .p-carousel .p-carousel-item img {
-		max-width: 100%;
-	}
+  .fav-card .p-carousel .p-carousel-item img {
+    max-width: 100%;
+  }
 }
 
 @media (max-width: 560px) {
-	.fav-card .p-carousel .p-carousel-item {
-		padding: 10px;
-	}
+  .fav-card .p-carousel .p-carousel-item {
+    padding: 10px;
+  }
 }
 .trustedcard {
-	display: flex;
-	flex-direction: column;
-	height: 100%; /* Ensures that the card fills the container */
+  display: flex;
+  flex-direction: column;
+  height: 100%; /* Ensures that the card fills the container */
 }
 
 .card-body {
-	display: flex;
-	flex-direction: column;
-	justify-content: space-between;
-	height: 100%; /* Makes the content inside the card fill the height */
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  height: 100%; /* Makes the content inside the card fill the height */
 }
 
 .flex {
-	display: flex;
-	justify-content: space-between;
-	align-items: center; /* Center the content vertically */
+  display: flex;
+  justify-content: space-between;
+  align-items: center; /* Center the content vertically */
 }
 
 @media (max-width: 1200px) {
-	.trustedcard {
-		height: auto; /* Allow auto height on large screens */
-	}
-	.bodyclass {
-		padding-bottom: 20px;
-	}
+  .trustedcard {
+    height: auto; /* Allow auto height on large screens */
+  }
+  .bodyclass {
+    padding-bottom: 20px;
+  }
 }
 
 @media (max-width: 768px) {
-	.trustedcard {
-		height: auto; /* Allow auto height on smaller screens */
-	}
-	.bodyclass {
-		padding-bottom: 20px;
-	}
+  .trustedcard {
+    height: auto; /* Allow auto height on smaller screens */
+  }
+  .bodyclass {
+    padding-bottom: 20px;
+  }
 }
 
 @media (max-width: 576px) {
-	.trustedcard {
-		height: auto; /* Allow auto height on very small screens */
-	}
+  .trustedcard {
+    height: auto; /* Allow auto height on very small screens */
+  }
 }
 .row {
-	display: flex;
-	flex-wrap: wrap;
+  display: flex;
+  flex-wrap: wrap;
 }
 
 .card {
-	display: flex;
-	flex-direction: column;
-	height: 100%; /* Makes all cards equal in height */
+  display: flex;
+  flex-direction: column;
+  height: 100%; /* Makes all cards equal in height */
 }
 
 .card-body {
-	display: flex;
-	flex-direction: column;
-	justify-content: space-between;
-	flex-grow: 1; /* Ensures content stretches evenly */
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  flex-grow: 1; /* Ensures content stretches evenly */
 }
 // active picker
 // .calendar-container {
@@ -635,80 +649,83 @@ Due to the split circle of progress-left and progress right, we must use the ani
 // }
 
 .calendar-grid {
-	display: grid;
-	grid-template-columns: repeat(7, 1fr);
-	gap: 10px;
-	justify-content: center;
-	align-items: center;
-	justify-items: center;
-	align-content: center;
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  gap: 10px;
+  justify-content: center;
+  align-items: center;
+  justify-items: center;
+  align-content: center;
 }
 
 .day-box {
-	width: 25px;
-	height: 25px;
-	line-height: 30px;
-	text-align: center;
-	border-radius: 50%;
-	cursor: pointer;
-	font-weight: bold;
+  width: 25px;
+  height: 25px;
+  line-height: 30px;
+  text-align: center;
+  border-radius: 50%;
+  cursor: pointer;
+  font-weight: bold;
 }
 
 .high {
-	color: white;
-	border: 6px solid #ff881e;
+  color: white;
+  border: 6px solid #ff881e;
 }
 .medium {
-	color: white;
-	border: 6px solid #455c9e;
+  color: white;
+  border: 6px solid #455c9e;
 }
 .low {
-	color: black;
-	border: 6px solid #c8cfe5;
+  color: black;
+  border: 6px solid #c8cfe5;
 }
 .nostatus {
-	background-color: #ecedf3;
+  background-color: #ecedf3;
 }
 
 .legend {
-	display: flex;
-	gap: 10px;
-	font-size: 14px;
-	margin-top: 10px;
-	font-size: x-small;
+  display: flex;
+  gap: 10px;
+  font-size: 14px;
+  margin-top: 10px;
+  font-size: x-small;
 }
 // n
 /* Weekday Row */
 .weekdays {
-	display: grid;
-	grid-template-columns: repeat(7, 1fr);
-	gap: 10px;
-	justify-content: center;
-	align-items: center;
-	justify-items: center;
-	align-content: center;
-	font-weight: bold;
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  gap: 10px;
+  justify-content: center;
+  align-items: center;
+  justify-items: center;
+  align-content: center;
+  font-weight: bold;
 }
 
 .weekday {
-	text-align: center;
-	padding: 5px;
+  text-align: center;
+  padding: 5px;
 }
 
 /* Empty cells for first week alignment */
 .empty {
-	width: 25px;
-	height: 25px;
+  width: 25px;
+  height: 25px;
 }
 
 .usage-info {
-	position: relative;
-	width: 100%;
-	height: 100%;
-	.dot {
-		position: absolute;
-		top: 50%;
-		transform: translateY(-50%) translateX(-50%);
-		left: 50%;
-	}
+  position: relative;
+  width: 100%;
+  height: 100%;
+  .dot {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%) translateX(-50%);
+    left: 50%;
+  }
+}
+.reportwidthfix {
+  max-width: 400px;
 }

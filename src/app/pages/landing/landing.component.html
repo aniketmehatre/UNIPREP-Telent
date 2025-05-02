@@ -31,22 +31,22 @@
 							routerLink="/landing/about/management">Management Team</a></li>
 				</ul>
 			</li>
-			<li class="nav-item dropdown">
-				<a class="nav-link text-white fw-regular dropdown-toggle" href="/#feature" id="exploreDropdown"
-					role="button" data-bs-toggle="dropdown" aria-expanded="false">
-					Feature
-				</a>
-				<ul class="dropdown-menu bg-dark" aria-labelledby="exploreDropdown">
-					<li><a class="dropdown-item text-white hover-black" routerLink="/landing/explore/job-seekers">For
-							Job Seekers</a></li>
-					<li><a class="dropdown-item text-white hover-black"
-							routerLink="/landing/explore/international-students">For International Students</a></li>
-					<li><a class="dropdown-item text-white hover-black"
-							routerLink="/landing/explore/global-travellers">For Global Travellers</a></li>
-					<li><a class="dropdown-item text-white hover-black" routerLink="/landing/explore/entrepreneurs">For
-							Entrepreneurs</a></li>
-				</ul>
-			</li>
+<!--			<li class="nav-item dropdown">-->
+<!--				<a class="nav-link text-white fw-regular dropdown-toggle" href="/#feature" id="exploreDropdown"-->
+<!--					role="button" data-bs-toggle="dropdown" aria-expanded="false">-->
+<!--					Feature-->
+<!--				</a>-->
+<!--				<ul class="dropdown-menu bg-dark" aria-labelledby="exploreDropdown">-->
+<!--					<li><a class="dropdown-item text-white hover-black" routerLink="/landing/explore/job-seekers">For-->
+<!--							Job Seekers</a></li>-->
+<!--					<li><a class="dropdown-item text-white hover-black"-->
+<!--							routerLink="/landing/explore/international-students">For International Students</a></li>-->
+<!--					<li><a class="dropdown-item text-white hover-black"-->
+<!--							routerLink="/landing/explore/global-travellers">For Global Travellers</a></li>-->
+<!--					<li><a class="dropdown-item text-white hover-black" routerLink="/landing/explore/entrepreneurs">For-->
+<!--							Entrepreneurs</a></li>-->
+<!--				</ul>-->
+<!--			</li>-->
 			<li class="nav-item dropdown">
 				<a class="nav-link text-white fw-regular dropdown-toggle" href="#explore" id="exploreDropdown"
 					role="button" data-bs-toggle="dropdown" aria-expanded="false">
@@ -59,17 +59,29 @@
 							routerLink="/landing/explore/international-students">Talent Connect</a></li>
 				</ul>
 			</li>
-			<li class="nav-item">
-				<a class="nav-link text-white fw-regular" aria-label="Key Features" href="#keyfeatures"
-					(click)="scrollToSection($event, 'keyfeatures')">Key Features</a>
-			</li>
-			<li class="nav-item">
-				<a class="nav-link text-white fw-regular" aria-label="Certificates"
-					href="/certificates">Certificates</a>
-			</li>
-			<li class="nav-item">
-				<a class="nav-link text-white fw-regular" aria-label="Blogs" href="/blogs">Blogs</a>
-			</li>
+            <li class="nav-item dropdown">
+                <a class="nav-link text-white fw-regular dropdown-toggle" id="exploreDropdown"
+                   role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                    Resources
+                </a>
+                <ul class="dropdown-menu bg-dark" aria-labelledby="exploreDropdown">
+                    <li><a class="dropdown-item text-white hover-black"
+                           href="/certificates">Certificates</a></li>
+                    <li><a class="dropdown-item text-white hover-black"
+                           href="/blogs">Blogs</a></li>
+                </ul>
+            </li>
+<!--			<li class="nav-item">-->
+<!--				<a class="nav-link text-white fw-regular" aria-label="Key Features" href="#keyfeatures"-->
+<!--					(click)="scrollToSection($event, 'keyfeatures')">Key Features</a>-->
+<!--			</li>-->
+<!--			<li class="nav-item">-->
+<!--				<a class="nav-link text-white fw-regular" aria-label="Certificates"-->
+<!--					href="/certificates">Certificates</a>-->
+<!--			</li>-->
+<!--			<li class="nav-item">-->
+<!--				<a class="nav-link text-white fw-regular" aria-label="Blogs" href="/blogs">Blogs</a>-->
+<!--			</li>-->
 			<li class="nav-item">
 				<a class="nav-link text-white fw-regular" aria-label="FAQ" href="#faq"
 					(click)="scrollToSection($event, 'faq')">F.A.Q</a>

@@ -41,7 +41,7 @@ import { AuthTokenService } from 'src/app/core/services/auth-token.service'
 import { AvatarGroupModule } from 'primeng/avatargroup';
 import { StorageService } from "../../../storage.service";
 import { DropdownModule } from "primeng/dropdown";
-
+import { PromptService } from "src/app/pages/prompt.service"
 // import { SocialAuthService } from "@abacritt/angularx-social-login";
 
 @Component({
@@ -203,7 +203,15 @@ export class HeaderComponent implements OnInit, OnDestroy {
 		private moduleListService: ModuleServiceService,
 		private authTokenService: AuthTokenService,
 		private storage: StorageService,
+		private promptService: PromptService
 	) {
+
+		this.dataService.openReportWindowSource.subscribe({
+			next: (data) => {
+				console.log('data', data);
+			},
+			error: (error) => console.error("Error in report window subscription:", error),
+		})
 		// Initialize forms in constructor
 		this.reportSubmitForm = this.formBuilder.group({
 			general: [1, [Validators.required]],
@@ -640,7 +648,15 @@ export class HeaderComponent implements OnInit, OnDestroy {
 			},
 			error: (error) => console.error('Error in dashboard country subscription:', error)
 		});
-
+		this.getAICreditCount();
+	}
+	aiCreditCount: number = 0;
+	getAICreditCount() {
+		this.promptService.getAicredits().subscribe({
+			next: resp => {
+				this.aiCreditCount = resp;
+			}
+		})
 	}
 
 	private initializeForms() {
@@ -783,6 +799,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
 	}
 
 	private handleReportWindowData(data: any) {
+		console.log('varuthu')
 		this.moduleQuestionReport = data
 		this.moduleList = []
 		this.subModuleList = []
@@ -907,6 +924,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
 		this.isQuestionVisible = true
 		this.isVisibleModulesMenu = false
 		// this.dataService.openReportWindowSource.subscribe((data) => {
+		// 	console.log('data', data)
 		// 	if (data.from == 'module') {
 		// 		this.isQuestionVisible = false
 		// 	} else {

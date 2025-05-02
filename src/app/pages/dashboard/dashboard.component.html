@@ -1,33 +1,46 @@
 <!-- new design -->
 <div class="header-container" role="banner">
 	<div class="text-container">
-		<h4 class="fw-semibold mb-0">Hello, {{ userName }} <span class="emoji" aria-label="clapping hands">👏</span></h4>
+		<h4 class="fw-semibold mb-0">Hello, {{ userName }} <span class="emoji" aria-label="clapping hands">👏</span>
+		</h4>
 		<h6 class="fw-normal lh-base mb-2 mb-md-0">
-			Welcome to <span class="highlight-text"><b>UNIPREP</b></span
-			>! Let's get started on your journey to a brighter future!
+			Welcome to <span class="highlight-text"><b>UNIPREP</b></span>! Let's get started on your journey to a
+			brighter future!
 		</h6>
 	</div>
 
-	<!-- <div class="button-container">
-        <button class="action-button">
-            <i class="fa-regular fa-bell"></i>
-            <span>Notifications</span>
-            <span class="notification-badge">3</span>
-        </button>
+	<div class="button-container text-end">
+		<!--        <button class="action-button">-->
+		<!--            <i class="fa-regular fa-bell"></i>-->
+		<!--            <span>Notifications</span>-->
+		<!--            <span class="notification-badge">3</span>-->
+		<!--        </button>-->
+		<div class="row">
+			<h3><strong>Missing Something?</strong></h3>
+			<p><span class="text-decoration-underline" (click)="openReportModal(op, $event)">let us know </span>
+				<span>and we will build the feature you need in 15 days!</span>
+			</p>
+		</div>
 
-        <button class="action-button">
-            <i class="fa-regular fa-envelope"></i>
-            <span>Messages</span>
-            <span class="notification-badge">3</span>
-        </button>
-    </div> -->
+		<!--        <button class="action-button">-->
+		<!--            <i class="fa-regular fa-envelope"></i>-->
+		<!--            <span>Messages</span>-->
+		<!--            <span>Messages</span>-->
+		<!--&lt;!&ndash;            <span class="notification-badge">3</span>&ndash;&gt;-->
+		<!--        </button>-->
+	</div>
 </div>
 <div class="row" role="main">
 	<div class="col-lg-3 col-md-6 col-sm-12">
 		<div class="card mt-2 bg-white" style="height: 100%">
 			<div class="card-body">
-				<h5 class="mb-2 text-start"><span class="emoji" aria-label="video camera">🎥</span> Introduction to UNIPREP</h5>
-				<iframe width="100%" height="100%" style="border-radius: 15px" src="https://www.youtube.com/embed/Sv8EyWriqV0?si=S3wZ7jT4B7y8o-zX" title="UNIPREP Introduction Video" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen aria-label="UNIPREP Introduction Video"> </iframe>
+				<h5 class="mb-2 text-start"><span class="emoji" aria-label="video camera">🎥</span> Introduction to
+					UNIPREP</h5>
+				<iframe width="100%" height="100%" style="border-radius: 15px"
+					src="https://www.youtube.com/embed/Sv8EyWriqV0?si=S3wZ7jT4B7y8o-zX"
+					title="UNIPREP Introduction Video" frameborder="0"
+					allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+					allowfullscreen aria-label="UNIPREP Introduction Video"> </iframe>
 			</div>
 		</div>
 	</div>
@@ -41,44 +54,65 @@
 					</div>
 					<div class="col-6 mb-4">
 						<div style="display: flex; justify-content: space-between">
-							<div style="font-size: 3rem" aria-label="Profile completion percentage">{{ totalPercentage }}%</div>
+							<div style="font-size: 3rem" aria-label="Profile completion percentage">{{ totalPercentage
+								}}%</div>
 						</div>
 					</div>
 					<div class="col-6">
-						<button *ngIf="isShowingCompletion" class="justify-content-center gap-2 px-4 py-2 border-0 rounded-lg shadow-md w-100" style="border-radius: 15px; font-size: 10px" aria-label="Profile completion status">
+						<button *ngIf="isShowingCompletion"
+							class="justify-content-center gap-2 px-4 py-2 border-0 rounded-lg shadow-md w-100"
+							style="border-radius: 15px; font-size: 10px" aria-label="Profile completion status">
 							<span class="text-gray-700 uniprep-primary fw-semibold">You are almost there!</span>
 						</button>
 					</div>
 					<div class="col-6">
-						<div class="progress-bar-container" role="progressbar" [attr.aria-valuenow]="progress" [attr.aria-valuemin]="0" [attr.aria-valuemax]="100">
+						<div class="progress-bar-container" role="progressbar" [attr.aria-valuenow]="progress"
+							[attr.aria-valuemin]="0" [attr.aria-valuemax]="100">
 							<div class="progress-bar" [style.width.%]="progress"></div>
 						</div>
-						<span pTooltip="{{ progress }}% " tooltipPosition="top" class="text-gray-700" style="font-size: 9px">Basic Details</span>
+						<span pTooltip="{{ progress }}% " tooltipPosition="top" class="text-gray-700"
+							style="font-size: 9px">Basic Details</span>
 					</div>
 					<div class="col-3">
-						<div class="progress-bar-container" role="progressbar" [attr.aria-valuenow]="talentConnectPercentage" [attr.aria-valuemin]="0" [attr.aria-valuemax]="100">
+						<div class="progress-bar-container" role="progressbar"
+							[attr.aria-valuenow]="talentConnectPercentage" [attr.aria-valuemin]="0"
+							[attr.aria-valuemax]="100">
 							<div class="progress-bar2" [style.width.%]="talentConnectPercentage"></div>
 						</div>
-						<span pTooltip="{{ talentConnectPercentage }}% " tooltipPosition="top" class="text-gray-700" style="font-size: 9px">Job Profile</span>
+						<span pTooltip="{{ talentConnectPercentage }}% " tooltipPosition="top" class="text-gray-700"
+							style="font-size: 9px">Job Profile</span>
 					</div>
 					<div class="col-3">
-						<div class="progress-bar-container" role="progressbar" [attr.aria-valuenow]="cvBuilderPercentage" [attr.aria-valuemin]="0" [attr.aria-valuemax]="100">
+						<div class="progress-bar-container" role="progressbar"
+							[attr.aria-valuenow]="cvBuilderPercentage" [attr.aria-valuemin]="0"
+							[attr.aria-valuemax]="100">
 							<div class="progress-bar3" [style.width.%]="cvBuilderPercentage"></div>
 						</div>
-						<span pTooltip="{{ cvBuilderPercentage }}% " tooltipPosition="top" class="text-gray-700" style="font-size: 9px">CV Details</span>
+						<span pTooltip="{{ cvBuilderPercentage }}% " tooltipPosition="top" class="text-gray-700"
+							style="font-size: 9px">CV Details</span>
 					</div>
 					<div class="col-12 mt-4">
 						<p class="mb-0 text-start" style="font-size: 11px">Complete your profile today:</p>
 					</div>
 					<div class="col-12 d-flex gap-2 mt-2">
-						<button class="px-2 py-2 border rounded-lg shadow-md bg-white" style="border-radius: 15px; font-size: 9px; width: -webkit-fill-available" (click)="openMyProfile()" aria-label="Open My Profile">
-							<span style="color: #394d83">My Profile <i class="fa-solid fa-user" style="color: #394d83" aria-hidden="true"></i></span>
+						<button class="px-2 py-2 border rounded-lg shadow-md bg-white"
+							style="border-radius: 15px; font-size: 9px; width: -webkit-fill-available"
+							(click)="openMyProfile()" aria-label="Open My Profile">
+							<span style="color: #394d83">My Profile <i class="fa-solid fa-user" style="color: #394d83"
+									aria-hidden="true"></i></span>
 						</button>
-						<button (click)="redirectToCvBuilder()" class="px-2 py-2 border rounded-lg shadow-md bg-white" style="border-radius: 15px; font-size: 9px; width: -webkit-fill-available" aria-label="Open CV Builder">
-							<span style="color: #394d83">CV Builder <i class="fa-solid fa-file-lines" style="color: #394d83" aria-hidden="true"></i></span>
+						<button (click)="redirectToCvBuilder()" class="px-2 py-2 border rounded-lg shadow-md bg-white"
+							style="border-radius: 15px; font-size: 9px; width: -webkit-fill-available"
+							aria-label="Open CV Builder">
+							<span style="color: #394d83">CV Builder <i class="fa-solid fa-file-lines"
+									style="color: #394d83" aria-hidden="true"></i></span>
 						</button>
-						<button (click)="redirectToTalentConnect()" class="px-2 py-2 border rounded-lg shadow-md bg-white" style="border-radius: 15px; font-size: 9px; width: -webkit-fill-available" aria-label="Open Talent Connect">
-							<span style="color: #394d83">Talent Connect <i class="fa-solid fa-user-tie" style="color: #394d83" aria-hidden="true"></i></span>
+						<button (click)="redirectToTalentConnect()"
+							class="px-2 py-2 border rounded-lg shadow-md bg-white"
+							style="border-radius: 15px; font-size: 9px; width: -webkit-fill-available"
+							aria-label="Open Talent Connect">
+							<span style="color: #394d83">Talent Connect <i class="fa-solid fa-user-tie"
+									style="color: #394d83" aria-hidden="true"></i></span>
 						</button>
 					</div>
 				</div>
@@ -91,14 +125,19 @@
 				<h5 class="mb-0 text-start"><span class="emoji" aria-label="star">⭐</span> Feature Favourites</h5>
 
 				<!-- Carousel Component -->
-				<p-carousel #carousel [circular]="true" [numScroll]="1" [numVisible]="1" [responsiveOptions]="responsiveOptions" [value]="groupedListFav" [showIndicators]="true" [indicatorStyle]="{ width: '10px', height: '10px', borderRadius: '50%' }" aria-label="Feature Favourites Carousel">
+				<p-carousel #carousel [circular]="true" [numScroll]="1" [numVisible]="1"
+					[responsiveOptions]="responsiveOptions" [value]="groupedListFav" [showIndicators]="true"
+					[indicatorStyle]="{ width: '10px', height: '10px', borderRadius: '50%' }"
+					aria-label="Feature Favourites Carousel">
 					<ng-template let-group pTemplate="item">
 						<div class="grid-container">
 							<div *ngFor="let v of group">
-								<div (click)="selectFav(v)" role="button" tabindex="0" class="card-body country-border" (keyup.enter)="selectFav(v)" (keyup.space)="selectFav(v)">
+								<div (click)="selectFav(v)" role="button" tabindex="0" class="card-body country-border"
+									(keyup.enter)="selectFav(v)" (keyup.space)="selectFav(v)">
 									<div class="d-flex justify-content-start gap-3 align-items-center">
 										<div>
-											<img alt="{{ v.moduleName }} icon" class="countryicon" [src]="v.imageLink != '' ? v.imageLink : '../../uniprep-assets/images/mstile-150x150.png'" />
+											<img alt="{{ v.moduleName }} icon" class="countryicon"
+												[src]="v.imageLink != '' ? v.imageLink : '../../uniprep-assets/images/mstile-150x150.png'" />
 										</div>
 										<div class="text-start">
 											<p class="mb-0 text-sm text-capitalize" style="font-size: larger">
@@ -122,19 +161,29 @@
 		<div class="card fav-card mt-2 bg-white">
 			<div class="card-body d-flex flex-column justify-content-between">
 				<div class="flex justify-content-between">
-					<h5 class="mb-0 p-2 text-start"><span class="emoji" aria-label="briefcase">💼</span> Recent Job Applications</h5>
-					<button class="btn btn-rounded text-small px-4 py-2 m-0 mb-2 bg-white" style="border: 1px solid rgb(161, 154, 154)" (click)="viewMoreOpenJobApplication()" aria-label="View all job applications">View All</button>
+					<h5 class="mb-0 p-2 text-start"><span class="emoji" aria-label="briefcase">💼</span> Recent Job
+						Applications</h5>
+					<button class="btn btn-rounded text-small px-4 py-2 m-0 mb-2 bg-white"
+						style="border: 1px solid rgb(161, 154, 154)" (click)="viewMoreOpenJobApplication()"
+						aria-label="View all job applications">View All</button>
 				</div>
 
-				<p-carousel #carousel [circular]="false" [numScroll]="1" [numVisible]="1" *ngIf="!isNoApplicationsData" [responsiveOptions]="responsiveOptions" [value]="groupedListFav2" [showIndicators]="true" [indicatorStyle]="{ width: '10px', height: '10px', borderRadius: '50%' }" aria-label="Recent Job Applications Carousel">
+				<p-carousel #carousel [circular]="false" [numScroll]="1" [numVisible]="1" *ngIf="!isNoApplicationsData"
+					[responsiveOptions]="responsiveOptions" [value]="groupedListFav2" [showIndicators]="true"
+					[indicatorStyle]="{ width: '10px', height: '10px', borderRadius: '50%' }"
+					aria-label="Recent Job Applications Carousel">
 					<ng-template let-group pTemplate="item">
 						<div class="grid-container">
 							<div *ngFor="let v of group">
-								<div (click)="selectFav(v)" role="button" tabindex="0" class="card" (keyup.enter)="selectFav(v)" (keyup.space)="selectFav(v)">
+								<div (click)="selectFav(v)" role="button" tabindex="0" class="card"
+									(keyup.enter)="selectFav(v)" (keyup.space)="selectFav(v)">
 									<div class="card-body">
 										<div class="d-flex gap-2">
 											<div class="border rounded-2 overflow-hidden" style="max-width: 100px">
-												<img alt="{{ v.company_name }} logo" class="w-100 h-100" style="object-fit: cover" (error)="$event.target.src = '/uniprep-assets/images/job.webp'" src="{{ v.company_logo }}" />
+												<img alt="{{ v.company_name }} logo" class="w-100 h-100"
+													style="object-fit: cover"
+													(error)="$event.target.src = '/uniprep-assets/images/job.webp'"
+													src="{{ v.company_logo }}" />
 											</div>
 											<div>
 												<h6 class="mb-0 text-sm text-capitalize">
@@ -143,19 +192,18 @@
 												<p class="text-muted text-small">{{ v.company_name }}</p>
 												<p class="text-muted text-small">Status: {{ v.status }}</p>
 												<p class="mb-0 text-small text-capitalize mt-2">
-													<i class="fa-solid fa-location-dot" style="color: #79ae28" aria-hidden="true"></i>&nbsp;
-													<span style="font-weight: 500px; color: black">{{ v.worklocation }}</span>
+													<i class="fa-solid fa-location-dot" style="color: #79ae28"
+														aria-hidden="true"></i>&nbsp;
+													<span style="font-weight: 500px; color: black">{{ v.worklocation
+														}}</span>
 												</p>
-												<button
-													class="btn btn-rounded text-small m-0 mb-2"
-													[ngStyle]="{
+												<button class="btn btn-rounded text-small m-0 mb-2" [ngStyle]="{
 														border: '1px solid ' + v.color_code,
 														'background-color': v.color_code,
 														color: 'white',
 														'font-size': '10px',
 														'border-radius': '2px'
-													}"
-													aria-label="Hiring stage: {{ v.hiringstage }}">
+													}" aria-label="Hiring stage: {{ v.hiringstage }}">
 													{{ v.hiringstage }}
 												</button>
 											</div>
@@ -183,7 +231,10 @@
 							<h5 class="mb-1 uppercase"><span class="emoji" aria-label="hourglass">⌛</span> Quiz</h5>
 							<p class="mb-0">Get certified for completing the quiz with an extraordinary score.</p>
 						</div>
-						<button pButton severity="warn" (click)="openQuiz()" class="btn btn-rounded font-weight-bold mt-3" style="color: #ff9138; border-color: #ff9138; background-color: #fff1e7" aria-label="Start Quiz">Start Quiz</button>
+						<button pButton severity="warn" (click)="openQuiz()"
+							class="btn btn-rounded font-weight-bold mt-3"
+							style="color: #ff9138; border-color: #ff9138; background-color: #fff1e7"
+							aria-label="Start Quiz">Start Quiz</button>
 					</div>
 				</div>
 			</div>
@@ -191,10 +242,13 @@
 				<div class="card h-100 bg-white">
 					<div class="card-body d-flex flex-column justify-content-between">
 						<div class="text-start">
-							<h5 class="mb-1 uppercase fw-bold"><span class="emoji" aria-label="scroll">📜</span> Certification</h5>
+							<h5 class="mb-1 uppercase fw-bold"><span class="emoji" aria-label="scroll">📜</span>
+								Certification</h5>
 							<p class="mb-0">Get all your certificates in one place to share them on social media.</p>
 						</div>
-						<button pButton (click)="openCertificate()" class="btn btn-rounded mt-3" style="color: #455c9e; background-color: #ecedf3; border-color: #455c9e" aria-label="View My Certificates">My Certificates</button>
+						<button pButton (click)="openCertificate()" class="btn btn-rounded mt-3"
+							style="color: #455c9e; background-color: #ecedf3; border-color: #455c9e"
+							aria-label="View My Certificates">My Certificates</button>
 					</div>
 				</div>
 			</div>
@@ -205,7 +259,8 @@
 	<div class="col-lg-3 col-md-6 col-sm-12 mt-2">
 		<div class="card bg-white h-100 p-3">
 			<div class="calendar-container">
-				<h5 style="text-align: start"><span class="emoji" aria-label="clock">🕒</span> {{ monthName }} {{ currentYear }}</h5>
+				<h5 style="text-align: start"><span class="emoji" aria-label="clock">🕒</span> {{ monthName }} {{
+					currentYear }}</h5>
 
 				<div class="weekdays" role="row">
 					<div *ngFor="let day of weekdays" class="weekday" role="columnheader">{{ day }}</div>
@@ -217,18 +272,11 @@
 					<div *ngFor="let _ of [].constructor(firstDayIndex)" class="empty" role="gridcell"></div>
 
 					<!-- Calendar Days -->
-					<div *ngFor="let day of daysInMonth" 
-						class="day-box" 
-						[ngClass]="getStatusClass(day)"
-						role="gridcell"
-						tabindex="0"
-						aria-label="{{ day }} {{ monthName }} {{ currentYear }}">
+					<div *ngFor="let day of daysInMonth" class="day-box" [ngClass]="getStatusClass(day)" role="gridcell"
+						tabindex="0" aria-label="{{ day }} {{ monthName }} {{ currentYear }}">
 						<!-- Display Usage Data (if available) -->
-						<div *ngFor="let entry of getUsageDataForDay(day)" 
-							class="usage-info" 
-							pTooltip="{{ entry.timeUsage }}" 
-							tooltipPosition="top"
-							role="presentation">
+						<div *ngFor="let entry of getUsageDataForDay(day)" class="usage-info"
+							pTooltip="{{ entry.timeUsage }}" tooltipPosition="top" role="presentation">
 							<span class="dot"></span>
 						</div>
 					</div>
@@ -236,9 +284,14 @@
 
 				<div class="legend">
 					<span class="mt-2"><b>Platform Usage:</b></span>
-					<span class="high" style="background-color: #ff881e; border-radius: 5px; min-width: 20%; text-align: center"> High</span>
-					<span class="medium" style="background-color: #455c9e; border-radius: 5px; min-width: 20%; text-align: center"> Medium</span>
-					<span class="low" style="background-color: #c8cfe5; border-radius: 5px; min-width: 20%; text-align: center">Low</span>
+					<span class="high"
+						style="background-color: #ff881e; border-radius: 5px; min-width: 20%; text-align: center">
+						High</span>
+					<span class="medium"
+						style="background-color: #455c9e; border-radius: 5px; min-width: 20%; text-align: center">
+						Medium</span>
+					<span class="low"
+						style="background-color: #c8cfe5; border-radius: 5px; min-width: 20%; text-align: center">Low</span>
 				</div>
 			</div>
 		</div>
@@ -251,11 +304,17 @@
 		<div class="card trustedcard bg-white">
 			<div class="card-body text-center pb-3 bodyclass">
 				<div class="flex justify-content-between">
-					<h5 class="mb-0 p-2 text-start"><span class="emoji" aria-label="seedling">🌱</span> Trusted by 1000+ Educational Partners</h5>
-					<button class="btn btn-rounded text-small px-4 py-2 m-0 mb-2 bg-white" style="border: 1px solid rgb(161, 154, 154)" (click)="openViewMoreOrg()" aria-label="View all educational partners">View All</button>
+					<h5 class="mb-0 p-2 text-start"><span class="emoji" aria-label="seedling">🌱</span> Trusted by 1000+
+						Educational Partners</h5>
+					<button class="btn btn-rounded text-small px-4 py-2 m-0 mb-2 bg-white"
+						style="border: 1px solid rgb(161, 154, 154)" (click)="openViewMoreOrg()"
+						aria-label="View all educational partners">View All</button>
 				</div>
 				<div class="mb-4">
-					<p-carousel [numScroll]="6" [numVisible]="6" [autoplayInterval]="3000" [circular]="true" [responsiveOptions]="responsiveOptions" [showIndicators]="false" [value]="partnerTrusterLogo" class="text-center" [indicatorStyle]="{ width: '10px', height: '10px', borderRadius: '50%' }" aria-label="Educational Partners Carousel">
+					<p-carousel [numScroll]="6" [numVisible]="6" [autoplayInterval]="3000" [circular]="true"
+						[responsiveOptions]="responsiveOptions" [showIndicators]="false" [value]="partnerTrusterLogo"
+						class="text-center" [indicatorStyle]="{ width: '10px', height: '10px', borderRadius: '50%' }"
+						aria-label="Educational Partners Carousel">
 						<ng-template let-uni pTemplate="item">
 							<img alt="{{ uni.name }} logo" class="trustedbylogo" src="{{ uni.logo }}" />
 						</ng-template>
@@ -268,28 +327,35 @@
 		<div class="card bg=white h-100">
 			<div class="card-body d-flex flex-column justify-content-between">
 				<div class="text-start">
-					<h5 class="mb-1 mt-2 uppercase"><span class="emoji" aria-label="envelope">💌</span> Invite People to Try <span style="color: #ff9138">UNIPREP</span></h5>
+					<h5 class="mb-1 mt-2 uppercase"><span class="emoji" aria-label="envelope">💌</span> Invite People to
+						Try <span style="color: #ff9138">UNIPREP</span></h5>
 					<p class="mb-0">We'll email them instructions and a link to create an account</p>
 				</div>
 				<p-inputgroup>
 					<p-inputgroup-addon>
 						<i class="fa-regular fa-envelope" aria-hidden="true"></i>
 					</p-inputgroup-addon>
-					<input pInputText [(ngModel)]="sendInvite" type="email" placeholder="Enter Email Address" aria-label="Email address to send invite" required />
+					<input pInputText [(ngModel)]="sendInvite" type="email" placeholder="Enter Email Address"
+						aria-label="Email address to send invite" required />
 				</p-inputgroup>
 
-				<button pButton (click)="sendInviteMail()" severity="warn" class="btn btn-rounded font-weight-bold mt-3" style="color: #666666; border-color: #666666; background-color: #ffffff; font-size: 10px" aria-label="Send invite email">Send Invite</button>
+				<button pButton (click)="sendInviteMail()" severity="warn" class="btn btn-rounded font-weight-bold mt-3"
+					style="color: #666666; border-color: #666666; background-color: #ffffff; font-size: 10px"
+					aria-label="Send invite email">Send Invite</button>
 			</div>
 		</div>
 	</div>
 </div>
 
 <!-- Continue Reading Modal -->
-<div [ngStyle]="{ display: continueReading }" class="modal modal-bg" role="dialog" tabindex="-1" aria-modal="true" aria-labelledby="continueReadingHeader">
+<div [ngStyle]="{ display: continueReading }" class="modal modal-bg" role="dialog" tabindex="-1" aria-modal="true"
+	aria-labelledby="continueReadingHeader">
 	<div class="modal-dialog modal-lg modal-dialog-centered modal-dialog-scrollable" role="document">
 		<div class="modal-content card bg-light">
 			<div class="modal-header justify-content-between">
-				<h5 id="continueReadingHeader" class="mb-0 continue-reading-header" tooltipZIndex="auto" tooltipPosition="top" pTooltip="Complete the reading for all modules to get the certificate.">Continue Reading</h5>
+				<h5 id="continueReadingHeader" class="mb-0 continue-reading-header" tooltipZIndex="auto"
+					tooltipPosition="top" pTooltip="Complete the reading for all modules to get the certificate.">
+					Continue Reading</h5>
 				<div class="popupclose">
 					<button (click)="closeReading()" class="close" aria-label="Close continue reading modal">
 						<span aria-hidden="true"><i class="fa-solid fa-circle-x fa-2xl uniprep-primary"></i></span>
@@ -308,7 +374,10 @@
 												<h6 class="fw-semibold">{{ readPro.module_name }}</h6>
 												<div class="d-flex justify-content-between">
 													<div>
-														<div [attr.data-percentage]="readPro.progression" class="progress1" role="progressbar" [attr.aria-valuenow]="readPro.progression" [attr.aria-valuemin]="0" [attr.aria-valuemax]="100">
+														<div [attr.data-percentage]="readPro.progression"
+															class="progress1" role="progressbar"
+															[attr.aria-valuenow]="readPro.progression"
+															[attr.aria-valuemin]="0" [attr.aria-valuemax]="100">
 															<span class="progress1-left">
 																<span class="progress1-bar"></span>
 															</span>
@@ -316,18 +385,24 @@
 																<span class="progress1-bar"></span>
 															</span>
 															<div class="progress1-value">
-																<div>{{ readPro.progression | number : "1.0-0" }} %<br /></div>
+																<div>{{ readPro.progression | number : "1.0-0" }}
+																	%<br /></div>
 															</div>
 														</div>
 													</div>
 													<div class="align-items-center justify-content-center">
-														<div class="d-flex flex-column" *ngIf="readPro.progression_status == 'Pending'">
+														<div class="d-flex flex-column"
+															*ngIf="readPro.progression_status == 'Pending'">
 															<p class="text-center text-small mb-0">
 																{{ readPro.progression_status }}
 															</p>
-															<button pButton (click)="onClickReadProgression(readPro)" class="btn btn-dark" aria-label="Read {{ readPro.module_name }} now">Read Now</button>
+															<button pButton (click)="onClickReadProgression(readPro)"
+																class="btn btn-dark"
+																aria-label="Read {{ readPro.module_name }} now">Read
+																Now</button>
 														</div>
-														<p *ngIf="readPro.progression_status == 'Completed'" class="text-center text-black text-small mb-0">
+														<p *ngIf="readPro.progression_status == 'Completed'"
+															class="text-center text-black text-small mb-0">
 															<strong>{{ readPro.progression_status }}</strong>
 														</p>
 													</div>
@@ -344,7 +419,31 @@
 		</div>
 	</div>
 </div>
-
+<p-popover #op styleClass="reportwidthfix" appendTo="body" aria-label="Report form">
+	<ng-template pTemplate="content">
+		<div class="container px-0">
+			<form [formGroup]="reportSubmitForm" (ngSubmit)="onSubmit(op)" role="form"
+				aria-label="Report submission form">
+				<div class="row report">
+					<p class="report-label text-left mb-0">Issue Type</p>
+					<span class="report-modal">
+						<p-select [options]="reportOptionList" [(ngModel)]="reportOptionNgModel" optionValue="id"
+							formControlName="reportOption" class="w-100" id="reportOption"
+							optionLabel="reportoption_name" aria-label="Select issue type"></p-select>
+					</span>
+					<p class="report-label text-left mb-0">Comment</p>
+					<span class="report-modal">
+						<textarea formControlName="comment" fluid pTextarea autoResize="true" id="comment"
+							aria-label="Enter your comment"></textarea>
+					</span>
+					<span>
+						<button pButton class="btn btn-primary w-100 m-0" aria-label="Submit report">Submit</button>
+					</span>
+				</div>
+			</form>
+		</div>
+	</ng-template>
+</p-popover>
 <!-- Dialogs -->
 <p-dialog [(visible)]="isVideoVisible" [modal]="true" [style]="{ width: '30vw' }" aria-label="Recommended Videos">
 	<ng-template pTemplate="header">
@@ -355,13 +454,15 @@
 	</div>
 </p-dialog>
 
-<p-dialog [(visible)]="isShareWithSocialMedia" [closable]="false" [style]="{ width: 'auto' }" class="p-0 m-0 timerpopup" [modal]="true" [draggable]="false" [resizable]="false" aria-label="Share with Social Media">
+<p-dialog [(visible)]="isShareWithSocialMedia" [closable]="false" [style]="{ width: 'auto' }" class="p-0 m-0 timerpopup"
+	[modal]="true" [draggable]="false" [resizable]="false" aria-label="Share with Social Media">
 	<div class="px-5 pb-5 pt-3">
 		<div class="justify-content-center text-center pb-5 px-5"></div>
 	</div>
 </p-dialog>
 
-<p-dialog [(visible)]="isViewMoreOrgVisible" [closable]="true" [style]="{ width: '75vw' }" class="p-0 m-0" [modal]="true" [draggable]="false" [resizable]="false" aria-label="Educational Partners">
+<p-dialog [(visible)]="isViewMoreOrgVisible" [closable]="true" [style]="{ width: '75vw' }" class="p-0 m-0"
+	[modal]="true" [draggable]="false" [resizable]="false" aria-label="Educational Partners">
 	<ng-template #header>
 		<div class="d-flex text-center justify-content-center w-100">
 			<h4 class="mb-0 fw-semibold uniprep-primary">Trusted by 1000+ Educational Partners</h4>
@@ -369,7 +470,8 @@
 	</ng-template>
 	<div class="container-fluid">
 		<div class="row">
-			<div class="col-xxl-2 col-xl-3 col-lg-4 col-md-4 col-sm-4 col-6 mb-4" *ngFor="let uni of partnerTrusterLogo">
+			<div class="col-xxl-2 col-xl-3 col-lg-4 col-md-4 col-sm-4 col-6 mb-4"
+				*ngFor="let uni of partnerTrusterLogo">
 				<div class="card">
 					<div class="card-body">
 						<img alt="{{ uni.name }} logo" class="w-100 p-3" src="{{ uni.logo }}" />
@@ -380,7 +482,8 @@
 	</div>
 </p-dialog>
 
-<p-dialog [(visible)]="isViewMoreJobApplication" [closable]="true" [style]="{ width: '80vw' }" class="p-0 m-0" [modal]="true" [draggable]="false" [resizable]="false" aria-label="Recent Job Applications">
+<p-dialog [(visible)]="isViewMoreJobApplication" [closable]="true" [style]="{ width: '80vw' }" class="p-0 m-0"
+	[modal]="true" [draggable]="false" [resizable]="false" aria-label="Recent Job Applications">
 	<div class="text-center">
 		<h4 class="mb-0 uniprep-primary">Recent Job Applications</h4>
 	</div>
@@ -392,7 +495,8 @@
 						<div class="card-body country-border text-start">
 							<div class="d-flex justify-content-evenly">
 								<div>
-									<img alt="{{ v.company_name }} logo" width="70" height="70" class="mb-2" src="{{ v.company_logo }}" />
+									<img alt="{{ v.company_name }} logo" width="70" height="70" class="mb-2"
+										src="{{ v.company_logo }}" />
 								</div>
 								<div class="ms-2">
 									<h6 class="mb-0 text-sm text-capitalize">
@@ -401,18 +505,16 @@
 									<p class="text-muted text-medium">{{ v.company_name }}</p>
 									<p class="text-muted text-medium">Status: {{ v.status }}</p>
 									<p class="mb-0 text-medium text-capitalize mt-2">
-										<i class="fa-solid fa-location-dot" style="color: #79ae28" aria-hidden="true"></i>&nbsp;
+										<i class="fa-solid fa-location-dot" style="color: #79ae28"
+											aria-hidden="true"></i>&nbsp;
 										<span style="font-weight: 500px; color: black">{{ v.worklocation }}</span>
 									</p>
-									<button
-										class="btn btn-rounded text-medium m-0 mb-2"
-										[ngStyle]="{
+									<button class="btn btn-rounded text-medium m-0 mb-2" [ngStyle]="{
 											border: '1px solid ' + v.color_code,
 											'background-color': v.color_code,
 											color: 'white',
 											'border-radius': '5px'
-										}"
-										aria-label="Hiring stage: {{ v.hiringstage }}">
+										}" aria-label="Hiring stage: {{ v.hiringstage }}">
 										{{ v.hiringstage }}
 									</button>
 								</div>
