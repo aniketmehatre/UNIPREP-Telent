@@ -7,16 +7,16 @@ const prod_uniapplyb2c_url = 'http://uniapply.ai/auth/login?redirect=/pages/appl
 
 const dev_uniapply_student = 'http://74.225.142.9/uniapplyStudents/public/api'
 const prod_uniapply_student = 'https://apply.uniabroad.io/uniapplyStudents/public/api'
-const employerprodUrl = 'https://employer.uniprep.ai/';
 const employerdevUrl = 'https://dev-employer.uniprep.ai';
+const employerProdUrl = 'https://employer.uniprep.ai';
 
 export const environment = {
-  domain: dev_domain,
+  domain: prod_domain,
   maintenanceMode: false,
   production: true,
-  ApiUrl: dev_url,
-  ApiUrlEmployer: dev_url + '/employer',
-  employerDomain: employerprodUrl,
+  ApiUrl: prod_url,
+  ApiUrlEmployer: prod_url + '/employer',
+  employerDomain: employerProdUrl,
   secretKeySalt: 'WaterMelonTea',
   tokenKey: 'token',
   facebookAppId: '892925195633254',
@@ -24,6 +24,6 @@ export const environment = {
   googleCloud: {
     apiKey: 'AIzaSyCxrgn6ZZL3IsY_3xrSqQJi_3yT_OKr-n0'
   },
-  uniApplyUrl: dev_uniapplyb2c_url,
-  uniapplyAPI: dev_uniapply_student
+  uniApplyUrl: prod_uniapplyb2c_url,
+  uniapplyAPI: prod_uniapply_student
 };

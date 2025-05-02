@@ -205,6 +205,13 @@ export class HeaderComponent implements OnInit, OnDestroy {
 		private storage: StorageService,
 		private promptService: PromptService
 	) {
+
+		this.dataService.openReportWindowSource.subscribe({
+			next: (data) => {
+				console.log('data', data);
+			},
+			error: (error) => console.error("Error in report window subscription:", error),
+		})
 		// Initialize forms in constructor
 		this.reportSubmitForm = this.formBuilder.group({
 			general: [1, [Validators.required]],
@@ -643,7 +650,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
 		});
 		this.getAICreditCount();
 	}
-	aiCreditCount:number = 0;
+	aiCreditCount: number = 0;
 	getAICreditCount() {
 		this.promptService.getAicredits().subscribe({
 			next: resp => {
@@ -792,6 +799,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
 	}
 
 	private handleReportWindowData(data: any) {
+		console.log('varuthu')
 		this.moduleQuestionReport = data
 		this.moduleList = []
 		this.subModuleList = []
@@ -916,6 +924,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
 		this.isQuestionVisible = true
 		this.isVisibleModulesMenu = false
 		// this.dataService.openReportWindowSource.subscribe((data) => {
+		// 	console.log('data', data)
 		// 	if (data.from == 'module') {
 		// 		this.isQuestionVisible = false
 		// 	} else {

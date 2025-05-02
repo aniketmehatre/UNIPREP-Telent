@@ -1,5 +1,5 @@
 import { InputGroupModule } from 'primeng/inputgroup';
-import { Component, Input, OnChanges, OnInit, SimpleChanges, ViewChild, ChangeDetectionStrategy, ChangeDetectorRef, OnDestroy } from "@angular/core"
+import { Component, Input, OnChanges, OnInit, SimpleChanges, ViewChild, ChangeDetectionStrategy, ChangeDetectorRef, OnDestroy, ElementRef } from "@angular/core"
 import { DashboardService } from "./dashboard.service"
 import { AuthService } from "../../Auth/auth.service"
 import { SubSink } from "subsink"
@@ -12,7 +12,7 @@ import { LocationService } from "src/app/location.service"
 import { CommonModule } from "@angular/common"
 import { DialogModule } from "primeng/dialog"
 import { CarouselModule } from "primeng/carousel"
-import { FormsModule, ReactiveFormsModule } from "@angular/forms"
+import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators } from "@angular/forms"
 import { ButtonModule } from "primeng/button"
 import { TooltipModule } from "primeng/tooltip"
 import { RouterModule } from "@angular/router"
@@ -28,19 +28,24 @@ import { TabViewModule } from "primeng/tabview"
 import { MessageService } from "primeng/api"
 import { InputGroupAddonModule } from "primeng/inputgroupaddon"
 import { SeoManagerComponent } from 'src/app/components/seo-manager/seo-manager.component';
+import { PopoverModule } from 'primeng/popover';
+import { TextareaModule } from 'primeng/textarea';
 
 @Component({
 	selector: "uni-dashboard",
 	templateUrl: "./dashboard.component.html",
 	styleUrls: ["./dashboard.component.scss"],
 	standalone: true,
-	imports: [CommonModule, DialogModule, CarouselModule, InputGroupAddonModule, InputGroupModule, FormsModule, ButtonModule, TooltipModule, RouterModule, SelectModule,
-		CalendarModule, DatePickerModule, InputTextModule, TabViewModule, TableModule, AccordionModule, ReactiveFormsModule
+	imports: [CommonModule, DialogModule, CarouselModule, InputGroupAddonModule, InputGroupModule, FormsModule, ButtonModule,
+		TooltipModule, RouterModule, SelectModule,
+		CalendarModule, DatePickerModule, InputTextModule, TabViewModule, TableModule, AccordionModule, ReactiveFormsModule,
+		PopoverModule, TextareaModule
 	],
 	providers: [DashboardService, AuthService, DataService, LocationService, SeoManagerComponent],
 	changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class DashboardComponent implements OnInit, OnChanges, OnDestroy {
+	@ViewChild("op") op!: ElementRef<HTMLInputElement>
 	private subs = new SubSink()
 	userName: any
 	responsiveOptions: any
@@ -101,11 +106,28 @@ export class DashboardComponent implements OnInit, OnChanges, OnDestroy {
 	weekdays: string[] = ['S', 'M', 'T', 'W', 'T', 'F', 'S'];
 	firstDayIndex: number = 0;
 	isNoApplicationsData: boolean = true;
+	reportOptionNgModel: number = 21;
+	reportType: number = 1
+	reportOptionList: any[] = [
+		{
+			"id": 21,
+			"reportoption_name": "General Suggestions",
+			"status": 1,
+			"reporttype": 1,
+			"created_at": null,
+			"updated_at": null
+		},
+	]
+	public reportSubmitForm!: FormGroup
 	constructor(private dashboardService: DashboardService, private service: AuthService, private router: Router,
 		private dataService: DataService, private authService: AuthService, private locationService: LocationService,
 		private cdr: ChangeDetectorRef, private storage: StorageService, private jobSearchService: JobSearchService,
-		private toastr: MessageService, private seoManagerComponent: SeoManagerComponent
+		private toastr: MessageService, private seoManagerComponent: SeoManagerComponent, private formBuilder: FormBuilder,
 	) {
+		this.reportSubmitForm = this.formBuilder.group({
+			reportOption: [""],
+			comment: ["", []],
+		})
 		this.responsiveOptions = [
 			{
 				breakpoint: '1280px',
@@ -740,5 +762,44 @@ export class DashboardComponent implements OnInit, OnChanges, OnDestroy {
 				console.error('Error fetching job listings:', error);
 			}
 		});
+	}
+
+	openReportModal(op: any, event: any) {
+		// this.reportType = 1
+		// this.reportSubmitForm.reset()
+		// this.moduleList = []
+		// this.subModuleList = []
+		// this.questionList = []
+		// this.getModuleList()
+		// this.getReportOption()
+		// this.selectedGenMod = 1
+		// this.onChangeModuleList(1)
+		// this.onChangeSubModuleList(1)
+		// this.moduleQuestionReport = []
+		// this.isQuestionVisible = true
+		// this.isVisibleModulesMenu = false
+		op.toggle(event)
+	}
+
+	onSubmit(op: any) {
+
+		let data = {
+			reportOption: this.reportSubmitForm.value.reportOption,
+			comment: this.reportSubmitForm.value.comment,
+		}
+		this.reportSubmitForm.patchValue({ comment: null })
+
+		this.locationService.reportFaqQuestion(data).subscribe((res) => {
+			if (res.status == 404) {
+			}
+			this.dataService.showFeedBackPopup(true)
+			// this.showReportSuccess = true;
+			setTimeout(() => {
+				this.dataService.showFeedBackPopup(false)
+				op.hide()
+				// this.showReportSuccess = false;
+			}, 3000)
+			// this.locationService.reportFaqQuestionaftersubmit(maildata).subscribe((res) => { })
+		})
 	}
 }

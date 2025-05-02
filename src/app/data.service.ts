@@ -112,6 +112,7 @@ export class DataService {
     }
 
     openReportWindow(data: any) {
+        console.log(data)
         this.openReportWindowSource.next(data);
     }
 
