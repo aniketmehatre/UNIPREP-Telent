@@ -107,7 +107,6 @@ export class FortuneCompaniesListsComponent implements OnInit {
       this.moduleList = res.data;
     });
   }
-
   getCountryList() {
     this.service.getfortunecompaniescountrylists().subscribe((countryList: any) => {
       this.countryLists = countryList;
