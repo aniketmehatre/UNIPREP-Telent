@@ -130,7 +130,7 @@
 			<div class="col-md-6 h-100 d-flex flex-column overflow-hidden gap-2">
 				<div class="flex-fill overflow-y-auto" *ngIf="moduleActiveIndex == 0">
 					<form role="form" class="row" [formGroup]="resumeFormInfoData" #form="ngForm">
-						<ng-container >
+						<ng-container>
 							<div class="col-md-12 mb-3">
 								<div class="d-flex">
 									<h4 class="uniprep-primary">Your Experience Level</h4>
@@ -364,9 +364,15 @@
 										</div>
 										<div class="form-group">
 											<div class="mb-3">
-												<textarea pTextarea formControlName="user_summary" class="mt-2 w-100"
-													placeholder="About yourself" [rows]="3"></textarea>
-												<!-- (ngModelChange)="onTextModelChange($event)"  -->
+												<!-- <textarea pTextarea formControlName="user_summary" class="mt-2 w-100"
+													placeholder="About yourself" [rows]="auto"></textarea>
+												<div *ngIf="submitted && f['user_summary'].errors?.['required']"
+													class="text-danger text-xs">
+													<div>User Summary Required</div>
+												</div> -->
+												<p-editor [style]="{ height: 'auto' }" class="mt-2"
+													formControlName="user_summary" placeholder="Generate Your Content"
+													[modules]="editorModules"></p-editor>
 												<div *ngIf="submitted && f['user_summary'].errors?.['required']"
 													class="text-danger text-xs">
 													<div>User Summary Required</div>
@@ -382,7 +388,7 @@
 								</div>
 							</div>
 						</ng-container>
-						<ng-container >
+						<ng-container>
 							<div class="col-md-12">
 								<div class="d-flex">
 									<h4 class="uniprep-primary">Enter Your Work {{ f["selected_exp_level"].value == 1 ?
@@ -633,11 +639,21 @@
 														<div class="form-group">
 															<div class="mb-3">
 																<!-- <p-editor formControlName="work_job_description" placeholder="About Job Description" [modules]="editorModules"> </p-editor> -->
-																<textarea pTextarea
+																<!-- <textarea pTextarea
 																	formControlName="work_job_description"
 																	class="mt-2 w-100"
 																	placeholder="About Job Description"
 																	[rows]="3"></textarea>
+																<div *ngIf="wrkExp.get('work_job_description')?.invalid && wrkExp.get('work_job_description')?.touched && submitted"
+																	class="text-danger text-xs">
+																	<div
+																		*ngIf="wrkExp.get('work_job_description')?.errors?.['required']">
+																		Job Description required.</div>
+																</div> -->
+																<p-editor [style]="{ height: 'auto' }" class="mt-2"
+																	formControlName="work_job_description"
+																	placeholder="About Job Description"
+																	[modules]="editorModules"></p-editor>
 																<div *ngIf="wrkExp.get('work_job_description')?.invalid && wrkExp.get('work_job_description')?.touched && submitted"
 																	class="text-danger text-xs">
 																	<div
@@ -669,7 +685,7 @@
 								</div>
 							</div>
 						</ng-container>
-						<ng-container >
+						<ng-container>
 							<div class="col-md-12">
 								<h4 class="uniprep-primary">Enter Your Educational Details</h4>
 								<div class="col-md-12">
@@ -979,7 +995,7 @@
 								</ng-container>
 							</div>
 						</ng-container>
-						<ng-container >
+						<ng-container>
 							<div class="col-md-12">
 								<div class="d-flex">
 									<h4 class="uniprep-primary">Your Technical Skills</h4>
@@ -1146,10 +1162,10 @@
                             </div>
                         </div> -->
 						</ng-container>
-						<ng-container >
+						<ng-container>
 							<div class="col-md-12">
 								<h4 class="uniprep-primary">Certifications (Optional)</h4>
-								<div class="card mb-2"
+								<div class="card mb-2 bg-white"
 									*ngFor="let certificate of getCertificatesArray.controls; let i = index"
 									formArrayName="certificatesArray">
 									<div class="card-body">
@@ -1246,7 +1262,8 @@
 							</div>
 							<div class="col-md-12">
 								<div class="d-flex">
-									<h4 class="uniprep-primary">Extra Curricular Activities / Achievements (Optional)</h4>
+									<h4 class="uniprep-primary">Extra Curricular Activities / Achievements (Optional)
+									</h4>
 									<i class="fa-solid fa-circle-question m-2 uniprep-primary"
 										pTooltip="Please list any notable awards, honors, or accomplishments"
 										tooltipPosition="top"></i>

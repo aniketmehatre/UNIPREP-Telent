@@ -27,6 +27,7 @@ import { TextareaModule } from 'primeng/textarea';
 import { PdfViewerModule } from "ng2-pdf-viewer";
 import { ConfirmPopup } from "primeng/confirmpopup";
 import { ToastModule } from 'primeng/toast';
+import { EditorModule } from "primeng/editor";
 declare const pdfjsLib: any;
 
 interface ResumeHistory {
@@ -40,7 +41,7 @@ interface ResumeHistory {
   templateUrl: "./cv-builder.component.html",
   styleUrls: ["./cv-builder.component.scss"],
   standalone: true,
-  imports: [CommonModule, DialogModule, TextareaModule, SidebarModule, PdfViewerModule, RouterModule, CardModule, PaginatorModule, FormsModule, ReactiveFormsModule, CarouselModule, ButtonModule, MultiSelectModule, SelectModule, InputGroupModule, InputTextModule, InputGroupAddonModule, ConfirmPopup, TooltipModule, ToastModule],
+  imports: [CommonModule, DialogModule, TextareaModule, SidebarModule,EditorModule, PdfViewerModule, RouterModule, CardModule, PaginatorModule, FormsModule, ReactiveFormsModule, CarouselModule, ButtonModule, MultiSelectModule, SelectModule, InputGroupModule, InputTextModule, InputGroupAddonModule, ConfirmPopup, TooltipModule, ToastModule],
   providers: [CvBuilderService, ConfirmationService, MessageService]
 })
 export class CvBuilderComponent implements OnInit, AfterViewInit {
