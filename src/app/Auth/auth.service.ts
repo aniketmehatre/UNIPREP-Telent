@@ -626,7 +626,8 @@ export class AuthService {
     else if (
       module === 'career_tools' ||
       // module === 'employer_connect' ||
-      module === 'learning_hub'
+      module === 'learning_hub' ||
+      module === 'pitch_desk'
     ) {
       if (this._userSubscrition?.time_left?.plan === "expired" ||
         this._userSubscrition?.time_left?.plan === "subscription_expired" ||
@@ -634,7 +635,7 @@ export class AuthService {
         planExpired = true;
       }
     }
-    else if (module === 'founders_tools' || module === 'pitch_desk') {
+    else if (module === 'founders_tools') {
       if (this._userSubscrition?.time_left?.plan === "expired" ||
         this._userSubscrition?.time_left?.plan === "subscription_expired" ||
         this._userSubscrition?.subscription_details?.subscription_plan === "Student" ||
