@@ -269,7 +269,6 @@ export class RegistrationComponent implements OnInit {
 					summary: "Success",
 					detail: "Login Successful"
 				})
-				console.log("User data:", res);
 				this.router.navigate(["/pages/dashboard"], { replaceUrl: true })
 			},
 			(error) => {
