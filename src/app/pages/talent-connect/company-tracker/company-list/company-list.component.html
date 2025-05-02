@@ -42,4 +42,5 @@
 		</div>
 	</div>
 </div>
-<app-company-filter [openModal]="displayModal" (closeFilter)="displayModal = false; triggerCloseFilter.emit()" (triggerApplyFiler)="applyFilter($event)" (resetFilter)="applyFilter({})"></app-company-filter>
+<app-company-filter [openModal]="displayModal" (closeFilter)="displayModal = false; triggerCloseFilter.emit()"
+	(triggerApplyFiler)="applyFilter($event)" (resetFilter)="applyFilter({})" [isListView]="false"></app-company-filter>

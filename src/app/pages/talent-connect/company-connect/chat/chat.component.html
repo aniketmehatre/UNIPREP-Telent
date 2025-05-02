@@ -45,7 +45,7 @@
                         </div>
                         <div *ngIf="message.chat" class="message-content text-start"
                             [ngClass]="message.added_by == 'Student' ? 'bg-secondary text-white' : 'bg-secondary-subtle'">
-                            <p>{{ message.chat }}</p>
+                            <p [innerHTML]=" message.chat"></p>
                             <div class="d-flex justify-content-between align-items-center flex-row-reverse">
                                 <div>
                                     <span *ngIf="message.added_by == 'Student'" class="ms-2 text-white-50"> <i
@@ -88,7 +88,7 @@
             <textarea class="form-control border-0 overflow-hidden" [placeholder]="'Text with ... '+ companyDetails?.company_name"
                 #messageInput rows="1" style="resize: none; min-height: 38px; max-height: 200px;" (input)="autoGrow($event.target)"
                 (keyup.enter)="sendMessage(messageInput.value); messageInput.value = ''; autoGrow(messageInput);">
-                                                                        </textarea>
+            </textarea>
             <span role="button" class="input-group-text border-0 bg-white" (click)="fileAttachment.click()">
                 <i class="fa-solid fa-paperclip"></i>
             </span>

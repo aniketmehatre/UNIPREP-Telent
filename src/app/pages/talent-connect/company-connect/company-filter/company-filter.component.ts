@@ -1,11 +1,11 @@
-import { Component, OnInit, Input, Output, EventEmitter, OnChanges, SimpleChanges } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter, OnChanges, SimpleChanges, input } from '@angular/core';
 import { FormBuilder, FormGroup, ReactiveFormsModule } from '@angular/forms';
 import { ButtonModule } from 'primeng/button';
 import { DialogModule } from 'primeng/dialog';
 import { MultiSelectModule } from 'primeng/multiselect';
 import { SelectModule } from 'primeng/select';
 import { TalentConnectService } from '../../talent-connect.service';
-import { forkJoin } from 'rxjs';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-company-filter',
@@ -19,6 +19,7 @@ export class CompanyFilterComponent implements OnInit, OnChanges {
   @Output() triggerApplyFiler: EventEmitter<any> =  new EventEmitter<any>();
   @Output() closeFilter: EventEmitter<any> =  new EventEmitter<any>();
   @Output() resetFilter: EventEmitter<any> =  new EventEmitter<any>();
+  @Input() isListView: boolean;
   companyTypes: any = [];
   industryTypes: any = [];
   globalPresence: any = [];
@@ -26,7 +27,8 @@ export class CompanyFilterComponent implements OnInit, OnChanges {
   companySizes: any = []
   foundedYears: any[] = [];
   companyForm: FormGroup = new FormGroup({});
-  constructor(private talentConnectService: TalentConnectService, private fb: FormBuilder) { }
+  constructor(private talentConnectService: TalentConnectService, private fb: FormBuilder, private route: Router) {
+  }
 
   ngOnInit() {
     this.companyForm = this.fb.group({
@@ -43,9 +45,13 @@ export class CompanyFilterComponent implements OnInit, OnChanges {
   ngOnChanges(changes: SimpleChanges): void {
       if(changes['openModal']) {
         if(this.openModal) {
+          this.route.url.includes('company-tracker') ? this.isListView = false : this.isListView = true;
           this.loadApiData();
         }
       }
+    if (changes['isListView']) {
+      this.isListView = changes['isListView'].currentValue;
+    }
   }
 
   loadApiData() {

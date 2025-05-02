@@ -181,4 +181,6 @@
 	</div>
 </div>
 
-<app-company-filter [openModal]="displayModal" (closeFilter)="displayModal = false" (triggerApplyFiler)="listCompanyData($event)" (resetFilter)="listCompanyData()"></app-company-filter>
+<app-company-filter [openModal]="displayModal" (closeFilter)="displayModal = false"
+	(triggerApplyFiler)="listCompanyData($event)" (resetFilter)="listCompanyData()"
+	[isListView]="true"></app-company-filter>

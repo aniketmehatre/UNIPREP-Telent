@@ -85,7 +85,7 @@ export class ChatComponent implements OnInit, OnChanges {
         if (response.message) {
           this.messages.push({
             added_by: 'Student',
-            chat: message ?? '',
+            chat: this.linkedFy(message) ?? '',
             time: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }),
             attachment_url: this.attachmentFile ? `https://${environment.domain}/uniprepapi/storage/app/public/CompanyConnectAttachment/${this.attachmentFile.name}` : '',
             attachment: this.attachmentFile ? this.attachmentFile.name : '',
@@ -122,9 +122,15 @@ export class ChatComponent implements OnInit, OnChanges {
 
   }
 
-
   uploadFilesChat(event: any) {
     this.attachmentFile = event.target.files[0];
+  }
+
+  linkedFy(text: string) {
+    const urlRegex = /(https?:\/\/[^\s]+)/g;
+    return text.replace(urlRegex, function (url) {
+      return '<a href="' + url + '" target="_blank" class="chat-link">' + url + '</a>';
+    });
   }
 
 }
