@@ -644,10 +644,10 @@ export class CoverLetterBuilderComponent implements OnInit, AfterViewInit {
 			const lastPart = parts[parts.length - 1]
 			this.cvBuilderService.downloadPdf(res, lastPart)
 			this.toaster.add({ severity: "success", summary: "Success", detail: "File Download Successfully." })
-			// this.activePageIndex = 0
-			// this.ngAfterViewInit()
+			this.activePageIndex = 0
+			this.ngAfterViewInit()
 			window.open(res, "_blank")
-			// this.selectedResumeLevel = ""
+			this.selectedResumeLevel = ""
 		})
 	}
 	getVisibleFormControlsChatGptRespons(mode: any): AbstractControl[] {
