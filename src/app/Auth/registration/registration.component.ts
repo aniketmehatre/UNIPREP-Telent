@@ -124,6 +124,7 @@ export class RegistrationComponent implements OnInit {
 					} else {
 						this.storage.set(environment.tokenKey, data?.authorisation?.token)
 					}
+					this.router.navigate(["/pages/dashboard"], { replaceUrl: true })
 				},
 				(error: any) => {
 					this.toastr.add({

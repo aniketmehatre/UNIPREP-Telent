@@ -23,11 +23,11 @@ import { SelectModule } from "primeng/select"
 	encapsulation: ViewEncapsulation.None,
 })
 export class SalaryConverterComponent implements OnInit {
-	salary: any
-	selectedCurrencyCode: string = "INR"
+	salary: number = 0
+	selectedCurrencyCode: string = ""
 	selectedCountryName: any
 	selectedCountryCode: any
-	selectedToCurrencyCode: string = "INR"
+	selectedToCurrencyCode: string = ""
 	selectedToCountryCode: any
 	selectedToCountryName: any
 	taxData: any
