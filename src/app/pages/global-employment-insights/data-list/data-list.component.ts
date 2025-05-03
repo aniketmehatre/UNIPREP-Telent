@@ -7,6 +7,7 @@ import { AuthService } from "src/app/Auth/auth.service";
 import { Meta } from "@angular/platform-browser";
 import { GlobalEmploymentService } from "../global-employment-insights.service";
 import { DataService } from "src/app/data.service";
+import { SocialShareService } from "src/app/shared/social-share.service";
 
 @Component({
   selector: "uni-global-employment-data-list",
@@ -29,6 +30,7 @@ export class GlobalEmploymentDataListComponent implements OnInit {
   loopRange = Array.from({ length: 30 })
     .fill(0)
     .map((_, index) => index);
+
   constructor(
     private location: Location,
     private route: ActivatedRoute,
@@ -39,10 +41,10 @@ export class GlobalEmploymentDataListComponent implements OnInit {
     private meta: Meta,
     private service: GlobalEmploymentService,
     private dataService: DataService,
+    private socialShareService: SocialShareService
   ) { }
-  SelectedCompany: any;
+
   ngOnInit(): void {
-    this.SelectedCompany = this.prepData.companyName;
     this.getList();
     this.checkPlanExpiry();
 
@@ -58,12 +60,17 @@ export class GlobalEmploymentDataListComponent implements OnInit {
         country_id: this.prepData.country_id,
         page: this.page,
         perpage: this.perpage,
+        question_id: this.prepData?.question_id
       })
       .subscribe((response: any) => {
         this.ListData = response.data;
         this.module_id = response.module_id;
         this.totalDataCount = response.totalcount;
         this.isSkeletonVisible = false;
+        if (this.prepData?.question_id) {
+          this.prepData = { ...this.prepData, country: this.ListData[0].country_name };
+          this.readAnswer(this.ListData[0]);
+        }
       });
   }
   goToHome(event: any) {
@@ -91,16 +98,7 @@ export class GlobalEmploymentDataListComponent implements OnInit {
   openVideoPopup(videoLink: string) {
     this.pageFacade.openHowitWorksVideoPopup(videoLink);
   }
-  selectedQuestion = "";
-  selectedAnswer: any;
-  customizedResponse: any;
-  selectedQuestionId: any;
-  readAnswer(quizdata: any) {
-    this.selectedQuestion = quizdata?.ques;
-    this.selectedAnswer = quizdata?.ans;
-    this.selectedQuestionId = quizdata?.id;
-    this.prepData.questionid = quizdata?.id;
-  }
+
   showSocialSharingList() {
     let socialShare: any = document.getElementById("socialSharingList");
     if (socialShare.style.display == "") {
@@ -110,70 +108,21 @@ export class GlobalEmploymentDataListComponent implements OnInit {
         socialShare.style.display == "none" ? "block" : "none";
     }
   }
-  shareViaWhatsapp() {
-    let url = window.location.href + "/" + this.selectedQuestionData?.id;
-    console.log(this.selectedQuestionData);
-    console.log(url);
-    this.meta.updateTag({ property: "og:url", content: url });
-    const shareUrl = `whatsapp://send?text=${encodeURIComponent(url)}`;
-    window.open(shareUrl, "_blank");
+
+  shareQuestion(type: string) {
+    const socialMedias: { [key: string]: string } = this.socialShareService.socialMediaList;
+    const url = encodeURI(window.location.origin + '/pages/global-employment-insights/' + this.prepData.country_id + '/' + this.selectedQuestionData?.id);
+    this.meta.updateTag({ property: 'og:url', content: url });
+    const shareUrl = socialMedias[type] + encodeURIComponent(url);
+    window.open(shareUrl, '_blank');
   }
-  shareViaInstagram() {
-    let url = window.location.href + "/" + this.selectedQuestionData?.id;
-    this.meta.updateTag({ property: "og:url", content: url });
-    const shareUrl = `https://www.instagram.com?url=${encodeURIComponent(url)}`;
-    window.open(shareUrl, "_blank");
-  }
-  shareViaFacebook() {
-    let url = window.location.href + "/" + this.selectedQuestionData?.id;
-    this.meta.updateTag({ property: "og:url", content: url });
-    const shareUrl = `https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(
-      url
-    )}`;
-    window.open(shareUrl, "_blank");
-  }
-  shareViaLinkedIn() {
-    let url = window.location.href + "/" + this.selectedQuestionData?.id;
-    this.meta.updateTag({ property: "og:url", content: url });
-    const shareUrl = `https://www.linkedin.com/shareArticle?url=${encodeURIComponent(
-      url
-    )}`;
-    window.open(shareUrl, "_blank");
-  }
-  shareViaTwitter() {
-    let url = window.location.href + "/" + this.selectedQuestionData?.id;
-    this.meta.updateTag({ property: "og:url", content: url });
-    const shareUrl = `https://twitter.com/intent/tweet?url=${encodeURIComponent(
-      url
-    )}`;
-    window.open(shareUrl, "_blank");
-  }
-  shareViaMail() {
-    let url = window.location.href + "/" + this.selectedQuestionData?.id;
-    this.meta.updateTag({ property: "og:url", content: url });
-    const shareUrl = `mailto:?body=${encodeURIComponent(url)}`;
-    window.open(shareUrl, "_blank");
-  }
+
   copyLink() {
-    const textarea = document.createElement("textarea");
-    const safeUrl = encodeURI(window.location.href);
-    const selectedQuestionId = this.selectedQuestionData?.id || "";
-
-    // Combine data with a safe format
-    textarea.textContent = `${safeUrl}/${selectedQuestionId}`;
-
-    // Append the textarea safely
-    document.body.append(textarea);
-    textarea.select();
-    document.execCommand("copy");
-    textarea.remove();
-    this.toast.add({
-      severity: "success",
-      summary: "Success",
-      detail: "Question Copied",
-    });
+    const textToCopy = encodeURI(window.location.origin + '/pages/global-employment-insights/' + this.prepData.country_id + '/' + this.selectedQuestionData?.id);
+    this.socialShareService.copyQuestion(textToCopy);
   }
-  readSavedResponse(selectedData: any) {
+
+  readAnswer(selectedData: any) {
     this.selectedQuestionData = selectedData;
     this.isQuestionAnswerVisible = true;
   }

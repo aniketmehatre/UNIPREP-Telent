@@ -20,6 +20,7 @@ import { environment } from '@env/environment';
 import { IconFieldModule } from 'primeng/iconfield';
 import { InputIconModule } from 'primeng/inputicon';
 import { AuthService } from 'src/app/Auth/auth.service';
+import { SocialShareService } from 'src/app/shared/social-share.service';
 
 @Component({
   selector: 'uni-course-navigator',
@@ -89,7 +90,8 @@ export class CourseNavigatorComponent implements OnInit {
     private meta: Meta,
     private toast: MessageService,
     private route: ActivatedRoute,
-    private authService: AuthService
+    private authService: AuthService,
+    private socialShareService: SocialShareService
 
   ) { }
 
@@ -245,30 +247,18 @@ export class CourseNavigatorComponent implements OnInit {
   }
 
   shareQuestion(type: string) {
-    const socialMedias: { [key: string]: string } = {
-      "Whatsapp": "whatsapp://send?text=",
-      "Instagram": "https://www.instagram.com?url=",
-      "Facebook": "https://www.facebook.com/sharer/sharer.php?u=",
-      "LinkedIn": "https://www.linkedin.com/shareArticle?url=",
-      "Twitter": "https://twitter.com/intent/tweet?url=",
-      "Mail": "mailto:?body=",
-    }
-    const url = encodeURI(window.location.origin + '/pages/education-tools/course-navigator/' + this.selectedQuestionData?.degree_id + '/' + this.selectedQuestionData?.course_id + '/' + this.selectedQuestionData?.id);
+    const socialMedias: { [key: string]: string } = this.socialShareService.socialMediaList;
+    const url = encodeURI(window.location.origin + '/pages/education-tools/course-navigator/' +
+      this.selectedQuestionData?.degree_id + '/' + this.selectedQuestionData?.course_id + '/' + this.selectedQuestionData?.id);
     this.meta.updateTag({ property: 'og:url', content: url });
     const shareUrl = socialMedias[type] + encodeURIComponent(url);
     window.open(shareUrl, '_blank');
   }
 
   copyLink() {
-    const textToCopy = encodeURI(window.location.origin + '/pages/education-tools/course-navigator/' + this.selectedQuestionData?.degree_id + '/' + this.selectedQuestionData?.course_id + '/' + this.selectedQuestionData?.id);
-    navigator.clipboard.writeText(textToCopy)
-      .then(() => {
-        this.toast.add({ severity: 'success', summary: 'Success', detail: 'Question Copied' });
-      })
-      .catch((err) => {
-        this.toast.add({ severity: "error", summary: "Warning", detail: 'Failed to copy the question' });
-        console.error('Failed to copy text: ', err);
-      });
+    const textToCopy = encodeURI(window.location.origin + '/pages/education-tools/course-navigator/' +
+      this.selectedQuestionData?.degree_id + '/' + this.selectedQuestionData?.course_id + '/' + this.selectedQuestionData?.id);
+    this.socialShareService.copyQuestion(textToCopy);
   }
 
   goBack(type?: string) {

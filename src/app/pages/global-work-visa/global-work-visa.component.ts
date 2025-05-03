@@ -1,6 +1,6 @@
 import { Component, OnInit } from "@angular/core";
 import { GlobalworkvisaService } from "../global-work-visa/global-work-visa.service";
-import { Router, RouterModule } from "@angular/router";
+import { ActivatedRoute, Router, RouterModule } from "@angular/router";
 import { Meta } from "@angular/platform-browser";
 import { MessageService } from "primeng/api";
 import { DataService } from "src/app/data.service";
@@ -12,6 +12,7 @@ import { Card } from "primeng/card";
 import { FormsModule, ReactiveFormsModule } from "@angular/forms";
 import { ButtonModule } from "primeng/button";
 import { AuthService } from "src/app/Auth/auth.service";
+import { SocialShareService } from "src/app/shared/social-share.service";
 
 @Component({
   selector: "uni-global-work-visa",
@@ -60,6 +61,13 @@ export class GlobalWorkVisaComponent implements OnInit {
   selectedQuestionData: any;
   selectedVisaName: string = "";
   selectedVisaCategory: string = "";
+  paramData = {
+    country_id: 0,
+    nationality: 0,
+    visa_type_id: 0,
+    category_id: 0,
+    question_id: 0
+  };
 
   constructor(
     private service: GlobalworkvisaService,
@@ -67,12 +75,30 @@ export class GlobalWorkVisaComponent implements OnInit {
     private meta: Meta,
     private toast: MessageService,
     private dataService: DataService,
-    private authService: AuthService
+    private authService: AuthService,
+    protected socialShareService: SocialShareService,
+    private route: ActivatedRoute
   ) { }
 
   ngOnInit(): void {
     this.getCountriesList();
     this.getVisaCountriesList();
+    const nationalityId = Number(this.route.snapshot.paramMap.get("nationalityId"));
+    const countryId = Number(this.route.snapshot.paramMap.get("countryId"));
+    const visaTypeId = Number(this.route.snapshot.paramMap.get("visaTypeId"));
+    const categoryId = Number(this.route.snapshot.paramMap.get("categoryId"));
+    const questionId = Number(this.route.snapshot.paramMap.get("questionId"));
+    if (questionId) {
+      this.paramData = {
+        country_id: countryId,
+        nationality: nationalityId,
+        visa_type_id: visaTypeId,
+        category_id: categoryId,
+        question_id: questionId,
+      };
+      let categoryData = { id: categoryId, category_name: '' };
+      this.viewQuestions(categoryData);
+    }
   }
   getCountriesList() {
     this.service.getNationalityList().subscribe((response) => {
@@ -112,12 +138,7 @@ export class GlobalWorkVisaComponent implements OnInit {
     this.isRecommendationEachVisaNameData = false;
     this.selectedData = {};
   }
-  paramData = {
-    country_id: 0,
-    nationality: "",
-    visa_type_id: 0,
-    category_id: 0,
-  };
+
   getRecommendation() {
     this.isRecommendationQuestion = false; // if api is done, then have to remove
     this.isRecommendationData = true;
@@ -185,44 +206,21 @@ export class GlobalWorkVisaComponent implements OnInit {
   }
 
   shareQuestion(type: string) {
-    const socialMedias: { [key: string]: string } = {
-      Whatsapp: "whatsapp://send?text=",
-      Instagram: "https://www.instagram.com?url=",
-      Facebook: "https://www.facebook.com/sharer/sharer.php?u=",
-      LinkedIn: "https://www.linkedin.com/shareArticle?url=",
-      Twitter: "https://twitter.com/intent/tweet?url=",
-      Mail: "mailto:?body=",
-    };
-    const url = window.location.href + "/" + this.selectedQuestionData?.id;
-    this.meta.updateTag({ property: "og:url", content: url });
+    const socialMedias: { [key: string]: string } = this.socialShareService.socialMediaList;
+    const url = encodeURI(window.location.origin + '/pages/global-work-visa/' +
+      this.paramData.nationality + '/' + this.paramData?.country_id + '/' + this.paramData?.visa_type_id +
+      '/' + this.paramData.category_id + '/' + this.selectedQuestionData?.id);
+    this.meta.updateTag({ property: 'og:url', content: url });
     const shareUrl = socialMedias[type] + encodeURIComponent(url);
-    window.open(shareUrl, "_blank");
+    window.open(shareUrl, '_blank');
   }
 
   copyLink() {
-    const safeUrl = encodeURI(window.location.href);
-    const selectedDegreeId = this.selectedQuestionData?.degree_id || "";
-    const selectedQuestionId = this.selectedQuestionData?.id || "";
-    const textToCopy = `${safeUrl}/${selectedDegreeId}/${selectedQuestionId}`;
-    navigator.clipboard
-      .writeText(textToCopy)
-      .then(() => {
-        this.toast.add({
-          severity: "success",
-          summary: "Success",
-          detail: "Question Copied",
-        });
-      })
-      .catch((err) => {
-        this.toast.add({
-          severity: "error",
-          summary: "Warning",
-          detail: "Failed to copy the question",
-        });
-        console.error("Failed to copy text: ", err);
-      });
+    const textToCopy = encodeURI(window.location.origin + '/pages/global-work-visa/' +
+      this.paramData.nationality + '/' + this.paramData?.country_id + '/' + this.paramData?.visa_type_id +
+      '/' + this.paramData.category_id + '/' + this.selectedQuestionData?.id);
+    this.socialShareService.copyQuestion(textToCopy);
   }
-
   goBack() {
     if (this.isRecommendationData) {
       this.isRecommendationData = false;
@@ -243,7 +241,7 @@ export class GlobalWorkVisaComponent implements OnInit {
   visaCategoryQuestionList: any[] = [];
   viewQuestions(category: any) {
     this.paramData.category_id = category.id;
-    this.selectedVisaCategory = category.category_name;
+    this.selectedVisaCategory = category?.category_name;
     this.service.getGlobalworkvisaQA(this.paramData).subscribe((response) => {
       this.visaCategoryQuestionList = response;
       this.isRecommendationQuestion = false;

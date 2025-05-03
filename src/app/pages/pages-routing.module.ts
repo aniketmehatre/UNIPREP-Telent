@@ -49,7 +49,7 @@ import { ManagementTeamComponent } from './landing/management-team/management-te
 
 const routes: Routes = [
     {
-        path: '', 
+        path: '',
         component: PagesComponent,
         canActivate: [AuthGuard],
         children: [
@@ -317,7 +317,15 @@ const routes: Routes = [
                 loadChildren: () => import('./global-employment-insights/global-employment-insights.module').then(m => m.GlobalEmploymentModule)
             },
             {
+                path: 'global-employment-insights/:countryId/:questionId',
+                loadChildren: () => import('./global-employment-insights/global-employment-insights.module').then(m => m.GlobalEmploymentModule)
+            },
+            {
                 path: 'global-work-visa',
+                component: GlobalWorkVisaComponent
+            },
+            {
+                path: 'global-work-visa/:nationalityId/:countryId/:visaTypeId/:categoryId/:questionId',
                 component: GlobalWorkVisaComponent
             },
         ]
