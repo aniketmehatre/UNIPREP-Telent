@@ -70,7 +70,7 @@ export class StartupRiskAssessmentComponent implements OnInit {
 	isFromSavedData: boolean = false
 	currencyList: any = []
 	isResponseSkeleton: boolean = false;
-	aiCreditCount: number = 0;
+	
 	userInputs: any;
 
 	constructor(private fb: FormBuilder, private founderToolService: FounderstoolService, private router: Router,
@@ -80,16 +80,10 @@ export class StartupRiskAssessmentComponent implements OnInit {
 	ngOnInit(): void {
 		this.getCurrenyandLocation()
 		// this.getStartUpRiskAssesmentOptionsList();
-		this.getAICreditCount();
+		
 	}
 
-	getAICreditCount() {
-		this.promptService.getAicredits().subscribe({
-			next: resp => {
-				this.aiCreditCount = resp;
-			}
-		})
-	}
+	
 
 	getCurrenyandLocation() {
 		this.founderToolService.getCurrenciesList().subscribe((res: any) => {
@@ -141,15 +135,13 @@ export class StartupRiskAssessmentComponent implements OnInit {
 	}
 
 	getRecommendation(productId: number) {
+		this.recommendationData = "";
 		this.inValidClass = false
 		if (!(productId in this.selectedData)) {
 			this.inValidClass = true
 			return
 		}
-		if (this.aiCreditCount == 0) {
-			this.toast.add({ severity: "error", summary: "Error", detail: "Free AI Credits Over.Please Buy Some Credits..!" });
-			return;
-		}
+		
 		let data: any = {
 			type: this.selectedData[1],
 			model: this.selectedData[2],
@@ -172,7 +164,7 @@ export class StartupRiskAssessmentComponent implements OnInit {
 			next: (response) => {
 				this.isResponseSkeleton = false;
 				this.recommendationData = this.sanitizer.bypassSecurityTrustHtml(response.response)
-				this.getAICreditCount();
+				this.authService.aiCreditCount$.next(true);
 			},
 			error: (error) => {
 				this.isResponseSkeleton = false;

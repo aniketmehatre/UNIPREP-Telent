@@ -51,7 +51,7 @@ export class AverageSalaryComponent implements OnInit {
   invalidClass: boolean = false;
   selectedData: { [key: string]: any } = {};
   filterJobRole: any[] = [];
-  aiCreditCount: number = 0;
+  
   recommendations: { id: number, question: string }[] = [
     {
       id: 1,
@@ -89,16 +89,9 @@ export class AverageSalaryComponent implements OnInit {
     this.getCityList();
     this.getyearsofExperience();
     this.getcurrencies();
-    this.getAICreditCount();
   }
 
-  getAICreditCount() {
-    this.promptService.getAicredits().subscribe({
-      next: resp => {
-        this.aiCreditCount = resp;
-      }
-    })
-  }
+
 
   selectedCardIndex: number | null = null;
 
@@ -186,10 +179,7 @@ export class AverageSalaryComponent implements OnInit {
       this.invalidClass = true;
       return;
     }
-    if (this.aiCreditCount == 0) {
-      this.toast.add({ severity: "error", summary: "Error", detail: "Free AI Credits Over.Please Buy Some Credits..!" });
-      return;
-    }
+
     this.preparedvisibility = true;
     const selectedJob: any = this.jobRoles.find(
       (data: any) => data.id === this.selectedData[1]
@@ -206,7 +196,6 @@ export class AverageSalaryComponent implements OnInit {
       locationid: this.selectedData[4]?.city_id,
       location_name: this.selectedData[4]?.city_name + ', ' + this.selectedData[4]?.country_name,
       experience: this.selectedData[2],
-      aiCredit: this.aiCreditCount
       // currency: this.selectedData[6],
     };
     this.prepData = processedData;

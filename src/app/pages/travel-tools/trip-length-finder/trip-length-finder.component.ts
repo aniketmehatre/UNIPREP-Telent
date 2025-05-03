@@ -55,20 +55,11 @@ export class TripLengthFinderComponent implements OnInit {
   savedResponse: any = [];
   destinationLocationList: City[] = [];
   isResponseSkeleton: boolean = false;
-  aiCreditCount: number = 0;
+  
   userInputs: any;
 
   ngOnInit(): void {
     this.getCityList();
-    this.getAICreditCount();
-  }
-
-  getAICreditCount() {
-    this.prompt.getAicredits().subscribe({
-      next: resp => {
-        this.aiCreditCount = resp;
-      }
-    })
   }
 
   getCityList() {
@@ -80,17 +71,13 @@ export class TripLengthFinderComponent implements OnInit {
   }
 
   getRecommendation(productId: number) {
+    this.recommendationData = "";
     if (this.authService.isInvalidSubscription('travel_tools')) {
       this.authService.hasUserSubscription$.next(true);
       return;
     }
     this.hideWarning(productId);
     if (!this.invalidClass) {
-      if (this.aiCreditCount == 0) {
-        this.toast.add({ severity: "error", summary: "Error", detail: "Free AI Credits Over.Please Buy Some Credits..!" });
-        this.buyCredits();
-        return;
-      }
       let data = {
         country: this.selectedData[1].city_name + ', ' + this.selectedData[1].country_name,
         mode: "trip_length_finder"
@@ -103,7 +90,7 @@ export class TripLengthFinderComponent implements OnInit {
         next: (response: any) => {
           this.recommendationData = this.sanitizer.bypassSecurityTrustHtml(response.response);
           this.isResponseSkeleton = false;
-          this.getAICreditCount();
+          this.authService.aiCreditCount$.next(true);
         },
         error: (error) => {
           console.error(error);

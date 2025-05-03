@@ -31,7 +31,7 @@ import { AssessmentService } from "src/app/pages/assessment/assessment.service"
 import { ModuleServiceService } from "src/app/pages/module-store/module-service.service"
 import { AvatarModule } from "primeng/avatar"
 import { InputTextModule } from "primeng/inputtext"
-import { take } from "rxjs/operators"
+import { take, throwIfEmpty } from "rxjs/operators"
 import { SelectModule } from "primeng/select"
 import { TabViewModule } from "primeng/tabview"
 import { InputGroupModule } from "primeng/inputgroup"
@@ -70,7 +70,7 @@ import { PromptService } from "src/app/pages/prompt.service"
 		AvatarGroupModule,
 		DropdownModule,
 	],
-	providers: [AuthService, LocationService, ThemeService, DashboardService, AssessmentService, AuthTokenService],
+	providers: [LocationService, ThemeService, DashboardService, AssessmentService, AuthTokenService],
 })
 export class HeaderComponent implements OnInit, OnDestroy {
 	@ViewChild("op") op!: ElementRef<HTMLInputElement>
@@ -167,7 +167,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
 	orgnamewhitlabel: any
 	isNotSuccess: boolean = true
 	submitted: boolean = false
-
+	aiCreditCount:number = 0;
 	// Add phone number configuration
 	phoneNumberConfig = {
 		preferredCountries: [CountryISO.India],
@@ -277,6 +277,20 @@ export class HeaderComponent implements OnInit, OnDestroy {
 				this.conditionModuleOrQuestionComponent()
 			}
 		})
+
+		this.service.aiCreditCount$.subscribe(value =>{
+			if(value){
+				this.getAICreditCount();
+			}
+		})
+	}
+
+	buyCredits(){
+		if(this.service.isInvalidSubscription('ai_credit_count')){
+			this.service.hasUserSubscription$.next(true);
+		}else{
+			this.router.navigate(["/pages/export-credit"]);
+		}
 	}
 
 	loadCountryList() {
@@ -648,9 +662,8 @@ export class HeaderComponent implements OnInit, OnDestroy {
 			},
 			error: (error) => console.error('Error in dashboard country subscription:', error)
 		});
-		this.getAICreditCount();
+		
 	}
-	aiCreditCount: number = 0;
 	getAICreditCount() {
 		this.promptService.getAicredits().subscribe({
 			next: resp => {
