@@ -58,7 +58,7 @@
 			<div class="row w-100"
 				[ngClass]="{ 'justify-content-center align-items-center h-100': ListData.length <= 4 }">
 				<div *ngFor="let module of ListData" class="col-lg-2 col-md-3 col-sm-4 col-xs-12 col-12">
-					<div (click)="readSavedResponse(module)" class="card subjectcard mb-3" role="button">
+					<div (click)="readAnswer(module)" class="card subjectcard mb-3" role="button">
 						<div
 							class="card-body d-flex flex-md-column flex-row justify-content-md-between align-items-center px-0 py-2">
 							<div>
@@ -123,12 +123,12 @@
 					<i class="fa-solid fa-share"></i></button>
 				<p-card id="socialSharingList">
 					<ul style="list-style: none; cursor: pointer">
-						<li (click)="shareViaWhatsapp()"><i class="pi pi-whatsapp"></i>Whatsapp</li>
-						<li (click)="shareViaMail()"><i class="pi pi-envelope"></i>Email</li>
-						<li (click)="shareViaFacebook()"><i class="pi pi-facebook"></i>Facebook</li>
-						<li (click)="shareViaTwitter()"><i class="pi pi-twitter"></i>Twitter</li>
-						<li (click)="shareViaInstagram()"><i class="pi pi-instagram"></i>Instagram</li>
-						<li (click)="shareViaLinkedIn()"><i class="pi pi-linkedin"></i>LinkedIn</li>
+						<li (click)="shareQuestion('Whatsapp')"><i class="pi pi-whatsapp"></i>Whatsapp</li>
+						<li (click)="shareQuestion('Mail')"><i class="pi pi-envelope"></i>Email</li>
+						<li (click)="shareQuestion('Facebook')"><i class="pi pi-facebook"></i>Facebook</li>
+						<li (click)="shareQuestion('Twitter')"><i class="pi pi-twitter"></i>Twitter</li>
+						<li (click)="shareQuestion('Instagram')"><i class="pi pi-instagram"></i>Instagram</li>
+						<li (click)="shareQuestion('LinkedIn')"><i class="pi pi-linkedin"></i>LinkedIn</li>
 						<li (click)="copyLink()"><i class="pi pi-link"></i>Copy Link</li>
 					</ul>
 				</p-card>
