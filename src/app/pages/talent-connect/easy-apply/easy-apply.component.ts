@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { Form, FormBuilder, FormGroup } from '@angular/forms';
 import { TalentConnectService } from '../talent-connect.service';
 import { MessageService } from 'primeng/api';
+import { ActivatedRoute, Route } from '@angular/router';
 
 interface JobListing {
   id: number;
@@ -49,9 +50,15 @@ export class EasyApplyComponent {
   displayModal: boolean = false;
   first: number = 0;
   filterForm: FormGroup = new FormGroup({});
-  constructor(private fb: FormBuilder, private talentConnectService: TalentConnectService, private messageService: MessageService) { }
+  constructor(private route: ActivatedRoute, private fb: FormBuilder, private talentConnectService: TalentConnectService, private messageService: MessageService) { }
   ngOnInit(): void {
-    this.getList();
+    this.route.queryParams.subscribe(params => {
+      if (params['company']) {
+        this.getList({ company: params['company'] });
+      } else {
+        this.getList();
+      }
+    });
     this.initializeForm();
     this.getOptionsList();
     this.getCountries();
