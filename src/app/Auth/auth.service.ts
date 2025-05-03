@@ -38,6 +38,7 @@ export class AuthService {
   private readonly CACHE_DURATION = 300000; // 5 minutes cache duration
   _userSubscrition!: SubscriptionResponse;
   public hasUserSubscription$ = new BehaviorSubject<boolean>(false);
+  public aiCreditCount$ = new BehaviorSubject<boolean>(true);
 
   constructor(
     private http: HttpClient,
@@ -616,7 +617,7 @@ export class AuthService {
     let planExpired: boolean = false;
     if (module === 'ai_global_advisor' || module === 'education_tools' || module === 'travel_tools' || module === 'events'
       || module === 'global_repository' || module === 'uni_scholar' || module === 'uni_finder' || module === 'uni_learn'
-      || module === 'language_hub'
+      || module === 'language_hub' || module === 'ai_credit_count' 
     ) {
       if (this._userSubscrition?.time_left?.plan === "expired" ||
         this._userSubscrition?.time_left?.plan === "subscription_expired") {
