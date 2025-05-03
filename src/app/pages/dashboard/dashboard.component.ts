@@ -601,7 +601,7 @@ export class DashboardComponent implements OnInit, OnChanges, OnDestroy {
 			"tooltip": "Craft a standout CV that highlights your skills and experience, ready for any job application.",
 			"imageLink": "https://api.uniprep.ai/uniprepapi/storage/app/public/resources-coverimage/CareerPlanner.svg",
 			"mode": "cv-builder",
-			"url": "/pages/job-tool/careerplannerlist",
+			"url": "/pages/job-tool/careerplannercountrywise",
 			"module": "Career Tools"
 		},
 		{

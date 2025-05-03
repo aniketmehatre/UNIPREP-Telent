@@ -861,16 +861,17 @@ export class CoverLetterBuilderComponent implements OnInit, AfterViewInit {
 
 	cleanObject(obj: any): any {
 		const cleaned: any = {};
-		Object.keys(obj).forEach(key => {
-			let val = obj[key];
-			if (typeof val === 'string') {
-				val = val.trim();
-			}
-			if (val !== undefined) {
-				cleaned[key] = val;
-			}
-		});
-
+		if(obj){
+			Object.keys(obj).forEach(key => {
+				let val = obj[key];
+				if (typeof val === 'string') {
+					val = val.trim();
+				}
+				if (val !== undefined) {
+					cleaned[key] = val;
+				}
+			});
+		}
 		return cleaned;
 	}
 }
