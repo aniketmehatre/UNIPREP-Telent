@@ -345,6 +345,6 @@ export class CareerPlannerComponent implements OnInit {
 	}
 
 	goBack() {
-		this.router.navigate(["/pages/job-tool/career-tool"])
+		this.enableModule ? this.enableModule = false : this.router.navigate(["/pages/job-tool/career-tool"]);
 	}
 }

@@ -12,6 +12,7 @@ export class UserResolver {
     private authService: AuthService
   ) { }
   resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<User> {
+    this.authService.getNewUserTimeLeft().subscribe();
     return this.authService.getMe();
   }
 }
