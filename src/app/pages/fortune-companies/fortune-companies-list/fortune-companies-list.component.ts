@@ -95,10 +95,10 @@ export class FortuneCompaniesListsComponent implements OnInit {
       perPage: this.perpage,
       country: this.filterForm.value.country,
       search: this.filterForm.value.searchinput,
-      industry:this.filterForm.value.industry_interested,
+      industry:Array.isArray(this.filterForm.value.industry_interested)?this.filterForm.value.industry_interested.join(','):'',
       end_year: this.filterForm.value.endYear,
       start_year: this.filterForm.value.startYear,
-      size:this.filterForm.value.employer_size,
+      size:Array.isArray(this.filterForm.value.employer_size)?this.filterForm.value.employer_size.join(','):'',
       hq:this.filterForm.value.location,
     }
     this.service.getfortunecompanieslists(data).subscribe((res) => {
