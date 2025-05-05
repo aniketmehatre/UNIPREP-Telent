@@ -264,7 +264,7 @@ export class CoverLetterBuilderComponent implements OnInit, AfterViewInit {
 			user_summary: ["", [Validators.required]],
 			org_name: ["", [Validators.required]],
 			org_location: ["", [Validators.required]],
-			jobposition: ["", [Validators.required]],
+			// jobposition: ["", [Validators.required]],
 			// job_description: ["", [Validators.required]],
 		})
 		this.getJobRoles();
@@ -542,7 +542,7 @@ export class CoverLetterBuilderComponent implements OnInit, AfterViewInit {
 		const controls: AbstractControl[] = []
 		let controlNames: any = []
 		if (this.moduleActiveIndex === 0) {
-			controlNames = ["user_name", "user_job_title", "user_email", "user_location", "user_phone", "org_name", "org_location", "jobposition", "user_summary"]
+			controlNames = ["user_name", "user_job_title", "user_email", "user_location", "user_phone", "org_name", "org_location", "user_summary"]
 		}
 		// else if (this.moduleActiveIndex === 1) {
 		// 	controlNames = ["org_name", "org_location", "jobposition"]
@@ -657,7 +657,7 @@ export class CoverLetterBuilderComponent implements OnInit, AfterViewInit {
 			controlNames = ["user_job_title"]
 		}
 		if (mode == 'generate_summary') {
-			controlNames = ["user_name", "user_job_title", "user_email", "user_location", "user_phone", "org_name", "org_location", "jobposition"]
+			controlNames = ["user_name", "user_job_title", "user_email", "user_location", "user_phone", "org_name", "org_location"]
 		}
 		controlNames.forEach((controlName: any) => {
 			const control = this.resumeFormInfoData.get(controlName)
