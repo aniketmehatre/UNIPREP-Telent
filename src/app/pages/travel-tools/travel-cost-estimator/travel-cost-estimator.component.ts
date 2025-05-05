@@ -55,7 +55,7 @@ export class TravelCostEstimatorComponent implements OnInit {
 	recommadationSavedQuestionList: TravelCostEstimator[] = []
 	isFromSavedData: boolean = false
 	isResponseSkeleton: boolean = false;
-	aiCreditCount: number = 0;
+	
 	userInputs: any = [];
 
 	constructor(private travelToolsService: TravelToolsService, private router: Router, private costOfLivingService: CostOfLivingService, private toast: MessageService, private sanitizer: DomSanitizer, private promptService: PromptService, private pageFacade: PageFacadeService, private authService: AuthService) { }
@@ -63,7 +63,7 @@ export class TravelCostEstimatorComponent implements OnInit {
 	ngOnInit(): void {
 		this.selectedData = { 3: 1 }
 		this.getCityList();
-		this.getAICreditCount();
+		
 	}
 
 	buyCredits() {
@@ -87,13 +87,7 @@ export class TravelCostEstimatorComponent implements OnInit {
 		this.pageFacade.openHowitWorksVideoPopup(videoLink);
 	}
 
-	getAICreditCount() {
-		this.promptService.getAicredits().subscribe({
-			next: resp => {
-				this.aiCreditCount = resp;
-			}
-		})
-	}
+	
 
 	previous() {
 		this.invalidClass = false
@@ -118,11 +112,7 @@ export class TravelCostEstimatorComponent implements OnInit {
 	}
 
 	getRecommendation() {
-		if (this.aiCreditCount == 0) {
-			this.toast.add({ severity: "error", summary: "Error", detail: "Free AI Credits Over.Please Buy Some Credits..!" });
-			this.buyCredits();
-			return;
-		}
+		this.recommendationData = "";
 		let data: any = {
 			country: this.selectedData[1].city_name + ", " + this.selectedData[1].country_name,
 			destination: this.selectedData[2].city_name + ", " + this.selectedData[2].country_name,
@@ -140,7 +130,7 @@ export class TravelCostEstimatorComponent implements OnInit {
 			next: (response) => {
 				this.isResponseSkeleton = false;
 				this.recommendationData = this.sanitizer.bypassSecurityTrustHtml(response.response)
-				this.getAICreditCount();
+				this.authService.aiCreditCount$.next(true);
 			},
 			error: (error) => {
 				console.error(error);

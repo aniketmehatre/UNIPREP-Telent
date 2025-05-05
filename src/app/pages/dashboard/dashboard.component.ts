@@ -165,7 +165,6 @@ export class DashboardComponent implements OnInit, OnChanges, OnDestroy {
 		this.recentJobs();
 		this.getUserTrackin();
 		this.loadParallelData();
-		this.profileCompletion();
 		this.groupedListFav = this.chunkArray(this.listFav, 4);
 		this.groupedListFav2 = this.chunkArray(this.recentJobApplication, 2);
 		this.locationService.dashboardLocationList().subscribe((countryList: any) => {
@@ -539,7 +538,10 @@ export class DashboardComponent implements OnInit, OnChanges, OnDestroy {
 		// const offset = circumference - (progress / 100) * circumference
 		// circle.style.strokeDasharray = `${circumference} ${circumference}`
 		// circle.style.strokeDashoffset = `${offset}`
+
+		// be low this.progress is basic profile completion percentage and after that only fuction call. Because that fuction will give other two percentage. then after calculate overall percentage inside of that fuction api call
 		this.progress = Math.max(0, Math.min(progress, 100));
+		this.profileCompletion();
 	}
 
 	setProgress1(progress: number) {
@@ -601,7 +603,7 @@ export class DashboardComponent implements OnInit, OnChanges, OnDestroy {
 			"tooltip": "Craft a standout CV that highlights your skills and experience, ready for any job application.",
 			"imageLink": "https://api.uniprep.ai/uniprepapi/storage/app/public/resources-coverimage/CareerPlanner.svg",
 			"mode": "cv-builder",
-			"url": "/pages/job-tool/careerplannerlist",
+			"url": "/pages/job-tool/careerplannercountrywise",
 			"module": "Career Tools"
 		},
 		{
@@ -661,7 +663,7 @@ export class DashboardComponent implements OnInit, OnChanges, OnDestroy {
 			"tooltip": "Craft a standout CV that highlights your skills and experience, ready for any job application.",
 			"imageLink": "https://api.uniprep.ai/uniprepapi/storage/app/public/resources-coverimage/GlobalRepository.svg",
 			"mode": "cv-builder",
-			"url": "/pages/job-tool/cv-builder",
+			"url": "/pages/global-repo",
 			"module": ""
 		},
 		{

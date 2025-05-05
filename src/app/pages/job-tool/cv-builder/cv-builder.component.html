@@ -130,7 +130,7 @@
 			<div class="col-md-6 h-100 d-flex flex-column overflow-hidden gap-2">
 				<div class="flex-fill overflow-y-auto" *ngIf="moduleActiveIndex == 0">
 					<form role="form" class="row" [formGroup]="resumeFormInfoData" #form="ngForm">
-						<ng-container >
+						<ng-container>
 							<div class="col-md-12 mb-3">
 								<div class="d-flex">
 									<h4 class="uniprep-primary">Your Experience Level</h4>
@@ -364,9 +364,15 @@
 										</div>
 										<div class="form-group">
 											<div class="mb-3">
-												<textarea pTextarea formControlName="user_summary" class="mt-2 w-100"
-													placeholder="About yourself" [rows]="3"></textarea>
-												<!-- (ngModelChange)="onTextModelChange($event)"  -->
+												<!-- <textarea pTextarea formControlName="user_summary" class="mt-2 w-100"
+													placeholder="About yourself" [rows]="auto"></textarea>
+												<div *ngIf="submitted && f['user_summary'].errors?.['required']"
+													class="text-danger text-xs">
+													<div>User Summary Required</div>
+												</div> -->
+												<p-editor [style]="{ height: 'auto' }" class="mt-2"
+													formControlName="user_summary" placeholder="Generate Your Content"
+													[modules]="editorModules"></p-editor>
 												<div *ngIf="submitted && f['user_summary'].errors?.['required']"
 													class="text-danger text-xs">
 													<div>User Summary Required</div>
@@ -382,7 +388,7 @@
 								</div>
 							</div>
 						</ng-container>
-						<ng-container >
+						<ng-container>
 							<div class="col-md-12">
 								<div class="d-flex">
 									<h4 class="uniprep-primary">Enter Your Work {{ f["selected_exp_level"].value == 1 ?
@@ -633,11 +639,21 @@
 														<div class="form-group">
 															<div class="mb-3">
 																<!-- <p-editor formControlName="work_job_description" placeholder="About Job Description" [modules]="editorModules"> </p-editor> -->
-																<textarea pTextarea
+																<!-- <textarea pTextarea
 																	formControlName="work_job_description"
 																	class="mt-2 w-100"
 																	placeholder="About Job Description"
 																	[rows]="3"></textarea>
+																<div *ngIf="wrkExp.get('work_job_description')?.invalid && wrkExp.get('work_job_description')?.touched && submitted"
+																	class="text-danger text-xs">
+																	<div
+																		*ngIf="wrkExp.get('work_job_description')?.errors?.['required']">
+																		Job Description required.</div>
+																</div> -->
+																<p-editor [style]="{ height: 'auto' }" class="mt-2"
+																	formControlName="work_job_description"
+																	placeholder="About Job Description"
+																	[modules]="editorModules"></p-editor>
 																<div *ngIf="wrkExp.get('work_job_description')?.invalid && wrkExp.get('work_job_description')?.touched && submitted"
 																	class="text-danger text-xs">
 																	<div
@@ -669,7 +685,7 @@
 								</div>
 							</div>
 						</ng-container>
-						<ng-container >
+						<ng-container>
 							<div class="col-md-12">
 								<h4 class="uniprep-primary">Enter Your Educational Details</h4>
 								<div class="col-md-12">
@@ -979,147 +995,10 @@
 								</ng-container>
 							</div>
 						</ng-container>
-						<ng-container >
-							<div class="col-md-12">
-								<h4 class="uniprep-primary">Certifications (Optional)</h4>
-								<div class="card mb-2"
-									*ngFor="let certificate of getCertificatesArray.controls; let i = index"
-									formArrayName="certificatesArray">
-									<div class="card-body">
-										<div [formGroupName]="i">
-											<div class="row">
-												<div class="col-md-6">
-													<div class="d-flex align-items-center">
-														<label class="uniprep-primarydark fw-bold h6 mb-0">Certificate
-															Name</label>
-														<i class="fa-solid fa-circle-question m-2 uniprep-primary"
-															pTooltip="Please enter the name of the certification you received"
-															tooltipPosition="top"></i>
-													</div>
-													<div class="form-group">
-														<div class="mb-3">
-															<input class="w-100" type="text" placeholder="Name"
-																formControlName="certificate_name" pInputText />
-															<div *ngIf="certificate.get('certificate_name')?.invalid && certificate.get('certificate_name')?.touched && submitted"
-																class="text-danger text-xs">
-																<div>certificate Name required.</div>
-															</div>
-														</div>
-													</div>
-												</div>
-												<div class="col-md-6">
-													<div class="d-flex align-items-center">
-														<label class="uniprep-primarydark fw-bold h6 mb-0">Certificate
-															Issued</label>
-														<i class="fa-solid fa-circle-question m-2 uniprep-primary"
-															pTooltip="Please mention the organization or authority that issued the certification"
-															tooltipPosition="top"></i>
-													</div>
-													<div class="form-group">
-														<div class="mb-3">
-															<input class="w-100" type="text"
-																placeholder="Issued Organization"
-																formControlName="certificate_issued" pInputText />
-															<div *ngIf="certificate.get('certificate_issued')?.invalid && certificate.get('certificate_issued')?.touched && submitted"
-																class="text-danger text-xs">
-																<div>certificate issued required.</div>
-															</div>
-														</div>
-													</div>
-												</div>
-											</div>
-											<div class="row">
-												<div class="col-md-6">
-													<div class="d-flex align-items-center">
-														<label class="uniprep-primarydark fw-bold h6 mb-0">Certificate
-															ID (Optional)</label>
-														<i class="fa-solid fa-circle-question m-2 uniprep-primary"
-															pTooltip="Please enter the unique ID or code associated with the certificate"
-															tooltipPosition="top"></i>
-													</div>
-													<div class="form-group">
-														<div class="mb-3">
-															<input class="w-100" type="text"
-																placeholder="Certificate ID"
-																formControlName="certificate_id" pInputText />
-														</div>
-													</div>
-												</div>
-												<div class="col-md-6">
-													<div class="d-flex align-items-center">
-														<label class="uniprep-primarydark fw-bold h6 mb-0">Certificate
-															Link (Optional)</label>
-														<i class="fa-solid fa-circle-question m-2 uniprep-primary"
-															pTooltip="Please provide a URL where employers can verify your certification"
-															tooltipPosition="top"></i>
-													</div>
-													<div class="form-group">
-														<div class="mb-3">
-															<input class="w-100" type="text"
-																placeholder="certificate Link"
-																formControlName="certicate_link" pInputText />
-														</div>
-													</div>
-												</div>
-											</div>
-										</div>
-										<div class="d-flex justify-content-end align-items-center">
-											<button pButton class="deleteDivButton"
-												(click)="clickDeleteButton('certificate', i)">Delete &nbsp;<i
-													class="fa-solid fa-trash trashIcon"></i></button>
-										</div>
-									</div>
-								</div>
-								<div class="d-flex justify-content-center align-items-center m-3">
-									<button pButton class="addMoreButton"
-										*ngIf="getCertificatesArray.length < certificateLimit"
-										(click)="clickAddMoreButton('certificate')">Add More &nbsp;<i
-											class="fa-solid fa-plus tickIcon"></i></button>
-								</div>
-							</div>
+						<ng-container>
 							<div class="col-md-12">
 								<div class="d-flex">
-									<h4 class="uniprep-primary">Achievements (Optional)</h4>
-									<i class="fa-solid fa-circle-question m-2 uniprep-primary"
-										pTooltip="Please list any notable awards, honors, or accomplishments"
-										tooltipPosition="top"></i>
-								</div>
-								<div *ngFor="let extra of getExtraCurricularArray.controls; let i = index"
-									formArrayName="extraCurricularArray">
-									<div [formGroupName]="i">
-										<div class="row">
-											<div class="col-md-10">
-												<div class="form-group">
-													<div class="mb-3">
-														<input class="w-100" type="text" placeholder="Achievements"
-															formControlName="extra_curricular_activites" pInputText />
-														<div *ngIf="extra.get('extra_curricular_activites')?.invalid && extra.get('extra_curricular_activites')?.touched && submitted"
-															class="text-danger text-xs">
-															<div>Achievements required.</div>
-														</div>
-													</div>
-												</div>
-											</div>
-											<div class="col-md-2 text-end">
-												<button pButton class="deleteDivButton w-100"
-													(click)="clickDeleteButton('extra_curricular', i)">Delete &nbsp;<i
-														class="fa-solid fa-trash trashIcon"></i></button>
-											</div>
-										</div>
-									</div>
-								</div>
-								<div class="d-flex justify-content-center align-items-center m-3">
-									<button pButton class="addMoreButton"
-										*ngIf="getExtraCurricularArray.length < extraCurriLimit"
-										(click)="clickAddMoreButton('extra_curricular')">Add More &nbsp;<i
-											class="fa-solid fa-plus tickIcon"></i></button>
-								</div>
-							</div>
-						</ng-container>
-						<ng-container >
-							<div class="col-md-12">
-								<div class="d-flex">
-									<h4 class="uniprep-primary">Your Skills</h4>
+									<h4 class="uniprep-primary">Your Technical Skills</h4>
 									<i class="fa-solid fa-circle-question m-2 uniprep-primary"
 										pTooltip="We recommend you enter at least five relevant skills"
 										tooltipPosition="top"></i>
@@ -1283,10 +1162,148 @@
                             </div>
                         </div> -->
 						</ng-container>
+						<ng-container>
+							<div class="col-md-12">
+								<h4 class="uniprep-primary">Certifications (Optional)</h4>
+								<div class="card mb-2 bg-white"
+									*ngFor="let certificate of getCertificatesArray.controls; let i = index"
+									formArrayName="certificatesArray">
+									<div class="card-body">
+										<div [formGroupName]="i">
+											<div class="row">
+												<div class="col-md-6">
+													<div class="d-flex align-items-center">
+														<label class="uniprep-primarydark fw-bold h6 mb-0">Certificate
+															Name</label>
+														<i class="fa-solid fa-circle-question m-2 uniprep-primary"
+															pTooltip="Please enter the name of the certification you received"
+															tooltipPosition="top"></i>
+													</div>
+													<div class="form-group">
+														<div class="mb-3">
+															<input class="w-100" type="text" placeholder="Name"
+																formControlName="certificate_name" pInputText />
+															<div *ngIf="certificate.get('certificate_name')?.invalid && certificate.get('certificate_name')?.touched && submitted"
+																class="text-danger text-xs">
+																<div>certificate Name required.</div>
+															</div>
+														</div>
+													</div>
+												</div>
+												<div class="col-md-6">
+													<div class="d-flex align-items-center">
+														<label class="uniprep-primarydark fw-bold h6 mb-0">Certificate
+															Issued</label>
+														<i class="fa-solid fa-circle-question m-2 uniprep-primary"
+															pTooltip="Please mention the organization or authority that issued the certification"
+															tooltipPosition="top"></i>
+													</div>
+													<div class="form-group">
+														<div class="mb-3">
+															<input class="w-100" type="text"
+																placeholder="Issued Organization"
+																formControlName="certificate_issued" pInputText />
+															<div *ngIf="certificate.get('certificate_issued')?.invalid && certificate.get('certificate_issued')?.touched && submitted"
+																class="text-danger text-xs">
+																<div>certificate issued required.</div>
+															</div>
+														</div>
+													</div>
+												</div>
+											</div>
+											<div class="row">
+												<div class="col-md-6">
+													<div class="d-flex align-items-center">
+														<label class="uniprep-primarydark fw-bold h6 mb-0">Certificate
+															ID (Optional)</label>
+														<i class="fa-solid fa-circle-question m-2 uniprep-primary"
+															pTooltip="Please enter the unique ID or code associated with the certificate"
+															tooltipPosition="top"></i>
+													</div>
+													<div class="form-group">
+														<div class="mb-3">
+															<input class="w-100" type="text"
+																placeholder="Certificate ID"
+																formControlName="certificate_id" pInputText />
+														</div>
+													</div>
+												</div>
+												<div class="col-md-6">
+													<div class="d-flex align-items-center">
+														<label class="uniprep-primarydark fw-bold h6 mb-0">Certificate
+															Link (Optional)</label>
+														<i class="fa-solid fa-circle-question m-2 uniprep-primary"
+															pTooltip="Please provide a URL where employers can verify your certification"
+															tooltipPosition="top"></i>
+													</div>
+													<div class="form-group">
+														<div class="mb-3">
+															<input class="w-100" type="text"
+																placeholder="certificate Link"
+																formControlName="certicate_link" pInputText />
+														</div>
+													</div>
+												</div>
+											</div>
+										</div>
+										<div class="d-flex justify-content-end align-items-center">
+											<button pButton class="deleteDivButton"
+												(click)="clickDeleteButton('certificate', i)">Delete &nbsp;<i
+													class="fa-solid fa-trash trashIcon"></i></button>
+										</div>
+									</div>
+								</div>
+								<div class="d-flex justify-content-center align-items-center m-3">
+									<button pButton class="addMoreButton"
+										*ngIf="getCertificatesArray.length < certificateLimit"
+										(click)="clickAddMoreButton('certificate')">Add More &nbsp;<i
+											class="fa-solid fa-plus tickIcon"></i></button>
+								</div>
+							</div>
+							<div class="col-md-12">
+								<div class="d-flex">
+									<h4 class="uniprep-primary">Extra Curricular Activities / Achievements (Optional)
+									</h4>
+									<i class="fa-solid fa-circle-question m-2 uniprep-primary"
+										pTooltip="Please list any notable awards, honors, or accomplishments"
+										tooltipPosition="top"></i>
+								</div>
+								<div *ngFor="let extra of getExtraCurricularArray.controls; let i = index"
+									formArrayName="extraCurricularArray">
+									<div [formGroupName]="i">
+										<div class="row">
+											<div class="col-md-10">
+												<div class="form-group">
+													<div class="mb-3">
+														<input class="w-100" type="text" placeholder="Achievements"
+															formControlName="extra_curricular_activites" pInputText />
+														<div *ngIf="extra.get('extra_curricular_activites')?.invalid && extra.get('extra_curricular_activites')?.touched && submitted"
+															class="text-danger text-xs">
+															<div>Achievements required.</div>
+														</div>
+													</div>
+												</div>
+											</div>
+											<div class="col-md-2 text-end">
+												<button pButton class="deleteDivButton w-100"
+													(click)="clickDeleteButton('extra_curricular', i)">Delete &nbsp;<i
+														class="fa-solid fa-trash trashIcon"></i></button>
+											</div>
+										</div>
+									</div>
+								</div>
+								<div class="d-flex justify-content-center align-items-center m-3">
+									<button pButton class="addMoreButton"
+										*ngIf="getExtraCurricularArray.length < extraCurriLimit"
+										(click)="clickAddMoreButton('extra_curricular')">Add More &nbsp;<i
+											class="fa-solid fa-plus tickIcon"></i></button>
+								</div>
+							</div>
+						</ng-container>
 						<!-- [ngStyle]="{ 'visibility': moduleActiveIndex === 0 ? 'hidden' : 'visible' }" -->
 					</form>
 				</div>
-				<div class="d-flex justify-content-between">
+				<div class="d-flex justify-content-end">
 					<!-- <button pButton pButton type="button" (click)="fieldPreviousButton()"
 						class="btn btn-primary btn-rounded p-1 pe-4">
 						<span class="btn-icon px-2 py-2"><i class="fa-solid fa-arrow-left"></i></span> <span

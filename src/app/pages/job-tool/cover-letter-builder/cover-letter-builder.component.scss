@@ -984,29 +984,6 @@ body {
 	height: 100%;
 }
 
- .dropdown-list {
-	list-style-type: none;
-	margin: 0;
-	padding: 0;
-	max-height: 150px;
-	overflow-y: auto;
-	border: 1px solid #ccc;
-	position: absolute;
-	width: 100%;
-	background-color: white;
-	display: block;
-	z-index: 1001;
-}
-
-.dropdown-list li {
-	padding: 8px;
-	cursor: pointer;
-}
-
-.dropdown-list li:hover {
-	background-color: #f0f0f0;
-}
-
 :host ::ng-deep .p-steps {
 	ul {
 		gap: 2rem;
@@ -1204,7 +1181,7 @@ body {
 	width: 100%;
 	background-color: white;
 	display: block;
-	z-index: 1001;
+	z-index: 10001;
 }
 
 .dropdown-list li {
@@ -1238,34 +1215,7 @@ body {
   :host ::ng-deep.p-editor .p-editor-content.ql-snow{
 	border: 2px solid #ccc !important;
   } 
-  .dropdown-list {
-	overflow-y: auto;
-	position: relative;
-	list-style: none;
-	padding: 0.25rem;
-	border-radius: 10px;
-	width: auto;
-	text-align: left;
-	margin: 0;
-  }
-  
-  .dropdown-list li {
-	padding: 8px;
-	cursor: pointer;
-  }
-  
-  .dropdown-list li:hover {
-	background-color: #f0f0f0;
-  }
-  
-  .dropdown-list li {
-	padding: 8px;
-	cursor: pointer;
-  }
-  
-  .dropdown-list li:hover {
-	background-color: #f0f0f0;
-  }
+
   .history-Button {
 	background-color: var(--uniprep-primary);
 	color: white;

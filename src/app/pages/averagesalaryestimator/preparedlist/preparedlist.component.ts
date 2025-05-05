@@ -44,7 +44,7 @@ export class AverageSalaryPreparedListComponent implements OnInit {
   EstimateResponse: SafeHtml;
   EstimateResponseVisibility = true;
   selectedJobRole: any;
-  aiCreditCount: number = 0;
+  
   userInputs: any;
 
   @Input() prepData: any;
@@ -72,7 +72,6 @@ export class AverageSalaryPreparedListComponent implements OnInit {
       experience: this?.prepData?.experience,
     }
     this.selectedJobRole = this?.prepData?.role;
-    this.aiCreditCount = this.prepData.aiCredit;
     this.getEstimateResponse();
     this.getSavedResponse();
     this.checkPlanExpiry();
@@ -90,13 +89,7 @@ export class AverageSalaryPreparedListComponent implements OnInit {
         this.totalDataCount = this.ListData.length;
       });
   }
-  getAICreditCount() {
-    this.promptService.getAicredits().subscribe({
-      next: resp => {
-        this.aiCreditCount = resp;
-      }
-    })
-  }
+
   downloadRecommadation() {
     let addingInput: string = '';
     this.recommendationsData.forEach(values => {
@@ -133,7 +126,7 @@ export class AverageSalaryPreparedListComponent implements OnInit {
   getEstimateResponse() {
     this.service.getestimates(this.prepData).subscribe((response: any) => {
       this.EstimateResponse = this.sanitizer.bypassSecurityTrustHtml(response?.data);
-      this.getAICreditCount();
+      this.authService.aiCreditCount$.next(true);
       this.EstimateResponseVisibility = true;
       this.isSkeletonVisible = false;
     });

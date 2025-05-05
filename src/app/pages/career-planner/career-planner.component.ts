@@ -148,22 +148,11 @@ export class CareerPlannerComponent implements OnInit {
 	constructor(private careerPlannerService: CareerPlannerService, private pageFacade: PageFacadeService, private authService: AuthService, private router: Router, private locationService: LocationService) { }
 
 	ngOnInit(): void {
-		this.checkCareerPlanExist()
+		this.selectboxValueLoading();
 	}
 
 	toggleClass(buttonName: string) {
 		this.currencyButtonName = buttonName
-	}
-
-	checkCareerPlanExist() {
-		this.careerPlannerService.checkCareerPlanExist().subscribe((res) => {
-			if (res == "Exist") {
-				this.enableModule = true
-				this.listPageDataLoading()
-			} else {
-				this.selectboxValueLoading()
-			}
-		})
 	}
 
 	selectboxValueLoading() {
@@ -356,6 +345,6 @@ export class CareerPlannerComponent implements OnInit {
 	}
 
 	goBack() {
-		this.router.navigate(["/pages/job-tool/career-tool"])
+		this.enableModule ? this.enableModule = false : this.router.navigate(["/pages/job-tool/career-tool"]);
 	}
 }

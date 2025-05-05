@@ -124,6 +124,7 @@ export class RegistrationComponent implements OnInit {
 					} else {
 						this.storage.set(environment.tokenKey, data?.authorisation?.token)
 					}
+					this.router.navigate(["/pages/dashboard"], { replaceUrl: true })
 				},
 				(error: any) => {
 					this.toastr.add({
@@ -264,11 +265,11 @@ export class RegistrationComponent implements OnInit {
 					this.storage.set(environment.tokenKey, res?.authorisation?.token)
 
 				}
-				this.toastr.add({
-					severity: "success",
-					summary: "Success",
-					detail: "Login Successful"
-				})
+				// this.toastr.add({
+				// 	severity: "success",
+				// 	summary: "Success",
+				// 	detail: "Login Successful"
+				// })
 				this.router.navigate(["/pages/dashboard"], { replaceUrl: true })
 			},
 			(error) => {

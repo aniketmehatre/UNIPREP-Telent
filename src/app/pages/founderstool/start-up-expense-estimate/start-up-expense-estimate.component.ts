@@ -70,7 +70,7 @@ export class StartUpExpenseEstimateComponent implements OnInit {
 	locationsList: any = []
 	departureLocationList: any = []
 	isResponseSkeleton: boolean = false;
-	aiCreditCount: number = 0;
+	
 
 	constructor(private fb: FormBuilder, private foundersToolsService: FounderstoolService, private locationService: LocationService, private toast: MessageService, private authService: AuthService, private router: Router, private travelToolService: TravelToolsService, private pageFacade: PageFacadeService, private costOfLiving: CostOfLivingService, private sanitizer: DomSanitizer, private promptService: PromptService) {
 		this.marketingForm = this.fb.group({
@@ -131,15 +131,9 @@ export class StartUpExpenseEstimateComponent implements OnInit {
 
 	ngOnInit(): void {
 		this.getCurrenyandLocation()
-		this.getAICreditCount();
+		
 	}
-	getAICreditCount() {
-		this.promptService.getAicredits().subscribe({
-			next: resp => {
-				this.aiCreditCount = resp;
-			}
-		})
-	}
+	
 	goBack() {
 		this.router.navigateByUrl("/pages/founderstool/founderstoollist")
 	}
@@ -172,6 +166,7 @@ export class StartUpExpenseEstimateComponent implements OnInit {
 	}
 
 	getRecommendation() {
+		this.recommendationData = "";
 		this.submitted = false
 		const formData = this.marketingForm.value
 		if (this.activePageIndex == 2) {
@@ -199,7 +194,7 @@ export class StartUpExpenseEstimateComponent implements OnInit {
 					.replace(/\*\*(.*?)\*\*/g, "<strong>$1</strong>")
 					.replace(/\(see https:\/\/angular\.dev\/best-practices\/security#preventing-cross-site-scripting-xss\)/g, "")
 				this.recommendationData = this.sanitizer.bypassSecurityTrustHtml(chatGptResponse)
-				this.getAICreditCount();
+				this.authService.aiCreditCount$.next(true);
 			},
 			error: (error) => {
 				this.isResponseSkeleton = false;

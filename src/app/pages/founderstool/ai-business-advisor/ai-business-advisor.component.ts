@@ -62,7 +62,7 @@ export class AiBusinessAdvisorComponent implements OnInit {
 	isFromSavedData: boolean = false
 	currencyList: any = []
 	isResponseSkeleton: boolean = false;
-	aiCreditCount: number = 0;
+	
 	userInputs: any;
 
 	constructor(private foundersToolService: FounderstoolService, private router: Router, private toast: MessageService,
@@ -71,15 +71,9 @@ export class AiBusinessAdvisorComponent implements OnInit {
 
 	ngOnInit(): void {
 		this.getCurrenyandLocation()
-		this.getAICreditCount();
+		
 	}
-	getAICreditCount() {
-		this.promptService.getAicredits().subscribe({
-			next: resp => {
-				this.aiCreditCount = resp;
-			}
-		})
-	}
+	
 	getCurrenyandLocation() {
 		this.foundersToolService.getCurrenciesList().subscribe((res: any) => {
 			this.currencyList = res
@@ -119,15 +113,13 @@ export class AiBusinessAdvisorComponent implements OnInit {
 	}
 
 	getRecommendation(productId: number) {
+		this.recommendationData = "";
 		this.inValidClass = false
 		if (!(productId in this.selectedData)) {
 			this.inValidClass = true
 			return
 		}
-		if (this.aiCreditCount == 0) {
-			this.toast.add({ severity: "error", summary: "Error", detail: "Free AI Credits Over.Please Buy Some Credits..!" });
-			return;
-		}
+		
 		let data: any = {
 			type: this.selectedData[1],
 			goals: this.selectedData[2],
@@ -148,7 +140,7 @@ export class AiBusinessAdvisorComponent implements OnInit {
 			next: (response) => {
 				this.isResponseSkeleton = false;
 				this.recommendationData = this.sanitizer.bypassSecurityTrustHtml(response.response)
-				this.getAICreditCount();
+				this.authService.aiCreditCount$.next(true);
 			},
 			error: (error) => {
 				this.isResponseSkeleton = false;

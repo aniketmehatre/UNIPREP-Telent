@@ -27,6 +27,7 @@ import { TextareaModule } from 'primeng/textarea';
 import { PdfViewerModule } from "ng2-pdf-viewer";
 import { ConfirmPopup } from "primeng/confirmpopup";
 import { ToastModule } from 'primeng/toast';
+import { EditorModule } from "primeng/editor";
 declare const pdfjsLib: any;
 
 interface ResumeHistory {
@@ -40,7 +41,7 @@ interface ResumeHistory {
   templateUrl: "./cv-builder.component.html",
   styleUrls: ["./cv-builder.component.scss"],
   standalone: true,
-  imports: [CommonModule, DialogModule, TextareaModule, SidebarModule, PdfViewerModule, RouterModule, CardModule, PaginatorModule, FormsModule, ReactiveFormsModule, CarouselModule, ButtonModule, MultiSelectModule, SelectModule, InputGroupModule, InputTextModule, InputGroupAddonModule, ConfirmPopup, TooltipModule, ToastModule],
+  imports: [CommonModule, DialogModule, TextareaModule, SidebarModule,EditorModule, PdfViewerModule, RouterModule, CardModule, PaginatorModule, FormsModule, ReactiveFormsModule, CarouselModule, ButtonModule, MultiSelectModule, SelectModule, InputGroupModule, InputTextModule, InputGroupAddonModule, ConfirmPopup, TooltipModule, ToastModule],
   providers: [CvBuilderService, ConfirmationService, MessageService]
 })
 export class CvBuilderComponent implements OnInit, AfterViewInit {
@@ -740,18 +741,6 @@ export class CvBuilderComponent implements OnInit, AfterViewInit {
     formGroup.get("project_description")?.updateValueAndValidity();
   }
 
-  resumeFormSubmit() {
-    const visibleFormControls = this.getVisibleFormControls();
-    console.log(visibleFormControls);
-    
-    this.submitted = true;
-    if (!visibleFormControls.every((control) => control.valid)) {
-      this.toaster.add({ severity: "error", summary: "Error", detail: "Please fill all the required fields." });
-      visibleFormControls.forEach((control) => control.markAsTouched());
-    } else {
-      this.fieldNextButton();
-    }
-  }
 
   fieldNextButton() {
     this.storeUserFilledData();
@@ -833,35 +822,106 @@ export class CvBuilderComponent implements OnInit, AfterViewInit {
       this.moduleActiveIndex--;
     }
   }
+  resumeFormSubmit() {
+    const visibleFormControls = this.getVisibleFormControls();
+    const visibleFormControls1 = this.getVisibleFormControls1();
+    const visibleFormControls2 = this.getVisibleFormControls2();
+    const visibleFormControls3 = this.getVisibleFormControls3();
+    const visibleFormControls4 = this.getVisibleFormControls4();
 
-  getVisibleFormControls(): AbstractControl[] {
+    this.submitted = true;
+    if (!visibleFormControls.every((control) => control.valid)) {
+      this.toaster.add({ severity: "error", summary: "Error", detail: "Please fill all the required fields." });
+      visibleFormControls.forEach((control) => control.markAsTouched());
+    }else if(!visibleFormControls1.every((control) => control.valid)){
+      this.toaster.add({ severity: "error", summary: "Error", detail: "Please fill all the required fields." });
+      visibleFormControls.forEach((control) => control.markAsTouched());
+    }else if(!visibleFormControls2.every((control) => control.valid)){
+      this.toaster.add({ severity: "error", summary: "Error", detail: "Please fill all the required fields." });
+      visibleFormControls.forEach((control) => control.markAsTouched());
+    }else if(!visibleFormControls3.every((control) => control.valid)){
+      this.toaster.add({ severity: "error", summary: "Error", detail: "Please fill all the required fields." });
+      visibleFormControls.forEach((control) => control.markAsTouched());
+    }else if(!visibleFormControls4.every((control) => control.valid)){
+      this.toaster.add({ severity: "error", summary: "Error", detail: "Please fill all the required fields." });
+      visibleFormControls.forEach((control) => control.markAsTouched());
+    }
+     else {
+      this.fieldNextButton();
+    }
+  }
+  getVisibleFormControls1(){
     const controls: AbstractControl[] = [];
-    if (this.moduleActiveIndex === 0) {
-      // const controlNames = ["selected_exp_level", "user_name", "user_email", "user_job_title", "user_location", "user_phone", "user_summary"];
-      const controlNames = ["selected_exp_level", "user_name", "user_email", "user_job_title", "user_location", "user_phone", "user_summary"];
-      controlNames.forEach((controlName) => {
-        const control = this.resumeFormInfoData.get(controlName);
-        console.log(control);
-        if (control) {
-          controls.push(control);
-        }
-      });
-    } else if (this.moduleActiveIndex === 1 || this.moduleActiveIndex === 2 || this.moduleActiveIndex === 3 || this.moduleActiveIndex === 4) {
       let controlNames: string[] = [];
       let formControlFields: FormArray[] = [];
 
-      if (this.moduleActiveIndex === 1) {
-        controlNames = ["work_org_name", "work_currently_working", "work_start_year", "work_start_month", "work_end_year", "work_end_month", "work_designation", "work_type", "work_location", "work_job_description"];
-        formControlFields.push(this.resumeFormInfoData.get("workExpArray") as FormArray);
-      } else if (this.moduleActiveIndex === 2) {
+      if (this.moduleActiveIndex === 0) {
         controlNames = ["edu_college_name", "edu_start_year", "edu_end_year", "edu_degree", "edu_location", "edu_percentage", "project_name", "project_start_name", "project_end_name", "project_description"];
         formControlFields.push(this.resumeFormInfoData.get("EduDetailsArray") as FormArray);
         formControlFields.push(this.resumeFormInfoData.get("projectDetailsArray") as FormArray);
-      } else if (this.moduleActiveIndex === 3) {
+      }
+
+      formControlFields.forEach((formArray) => {
+        formArray.controls.forEach((eduGroup: AbstractControl) => {
+          controlNames.forEach((controlName) => {
+            const control = eduGroup.get(controlName);
+            if (control) {
+              controls.push(control);
+            }
+          });
+        });
+      });
+      return controls;
+  }
+  getVisibleFormControls2(){
+    const controls: AbstractControl[] = [];
+      let controlNames: string[] = [];
+      let formControlFields: FormArray[] = [];
+
+      if (this.moduleActiveIndex === 0) {
+        controlNames = ["work_org_name", "work_currently_working", "work_start_year", "work_start_month", "work_end_year", "work_end_month", "work_designation", "work_type", "work_location", "work_job_description"];
+        formControlFields.push(this.resumeFormInfoData.get("workExpArray") as FormArray);
+      }
+
+      formControlFields.forEach((formArray) => {
+        formArray.controls.forEach((eduGroup: AbstractControl) => {
+          controlNames.forEach((controlName) => {
+            const control = eduGroup.get(controlName);
+            if (control) {
+              controls.push(control);
+            }
+          });
+        });
+      });
+      return controls;
+  }
+  getVisibleFormControls3(){
+    const controls: AbstractControl[] = [];
+      let controlNames: string[] = [];
+      let formControlFields: FormArray[] = [];
+
+     if (this.moduleActiveIndex === 0) {
         controlNames = ["certificate_name", "certificate_issued", "extra_curricular_activites"];
         formControlFields.push(this.resumeFormInfoData.get("certificatesArray") as FormArray);
         formControlFields.push(this.resumeFormInfoData.get("extraCurricularArray") as FormArray);
-      } else if (this.moduleActiveIndex === 4) {
+      }
+      formControlFields.forEach((formArray) => {
+        formArray.controls.forEach((eduGroup: AbstractControl) => {
+          controlNames.forEach((controlName) => {
+            const control = eduGroup.get(controlName);
+            if (control) {
+              controls.push(control);
+            }
+          });
+        });
+      });
+      return controls;
+  }
+  getVisibleFormControls4(){
+    const controls: AbstractControl[] = [];
+      let controlNames: string[] = [];
+      let formControlFields: FormArray[] = [];
+       if (this.moduleActiveIndex === 4) {
         controlNames = ["language", "lang_proficiency", "skills", "skills_proficiency"];
         formControlFields.push(this.resumeFormInfoData.get("languagesKnownArray") as FormArray);
         formControlFields.push(this.resumeFormInfoData.get("skillsArray") as FormArray);
@@ -876,6 +936,19 @@ export class CvBuilderComponent implements OnInit, AfterViewInit {
             }
           });
         });
+      });
+      return controls;
+  }
+  getVisibleFormControls(): AbstractControl[] {
+    const controls: AbstractControl[] = [];
+    if (this.moduleActiveIndex === 0) {
+      // const controlNames = ["selected_exp_level", "user_name", "user_email", "user_job_title", "user_location", "user_phone", "user_summary"];
+      const controlNames = ["selected_exp_level", "user_name", "user_email", "user_job_title", "user_location", "user_phone", "user_summary"];
+      controlNames.forEach((controlName) => {
+        const control = this.resumeFormInfoData.get(controlName);
+        if (control) {
+          controls.push(control);
+        }
       });
     }
     return controls;

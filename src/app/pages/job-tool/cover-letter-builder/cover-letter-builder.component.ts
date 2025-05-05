@@ -51,7 +51,7 @@ interface City {
 	styleUrls: ["./cover-letter-builder.component.scss"],
 	standalone: true,
 	imports: [CommonModule, ConfirmPopup, EditorModule, DialogModule, SidebarModule, SkeletonModule, PdfViewerModule, RouterModule, CardModule, PaginatorModule, FormsModule, ReactiveFormsModule, CarouselModule, ButtonModule, MultiSelectModule, SelectModule, InputGroupModule, InputTextModule, InputGroupAddonModule, TextareaModule],
-	providers: [CvBuilderService, ConfirmationService, TooltipModule],
+	providers: [ConfirmationService, TooltipModule],
 })
 export class CoverLetterBuilderComponent implements OnInit, AfterViewInit {
 	@ViewChild("pdfViewer") pdfViewer: any
@@ -359,7 +359,7 @@ export class CoverLetterBuilderComponent implements OnInit, AfterViewInit {
 			this.orgLocation = [];
 		}, 200); // Delay clearing the dropdown by 200 milliseconds
 	}
-	onFocusOutJob(){
+	onFocusOutJob() {
 		this.inputValuesEditOrNot();
 	}
 
@@ -429,11 +429,10 @@ export class CoverLetterBuilderComponent implements OnInit, AfterViewInit {
 			],
 		}
 		this.items = [{ label: "Personal Information" }, { label: "Organisation Details" }, { label: "Letter Area" }]
-
-		this.checkplanExpire()
 		// this.hideHeader()
 		this.getCountryCodeList();
 		this.getLocationsList();
+		this.checkplanExpire()
 	}
 
 	getCountryCodeList() {
@@ -862,16 +861,17 @@ export class CoverLetterBuilderComponent implements OnInit, AfterViewInit {
 
 	cleanObject(obj: any): any {
 		const cleaned: any = {};
-		Object.keys(obj).forEach(key => {
-			let val = obj[key];
-			if (typeof val === 'string') {
-				val = val.trim();
-			}
-			if (val !== undefined) {
-				cleaned[key] = val;
-			}
-		});
-
+		if(obj){
+			Object.keys(obj).forEach(key => {
+				let val = obj[key];
+				if (typeof val === 'string') {
+					val = val.trim();
+				}
+				if (val !== undefined) {
+					cleaned[key] = val;
+				}
+			});
+		}
 		return cleaned;
 	}
 }
