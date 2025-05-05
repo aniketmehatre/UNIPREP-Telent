@@ -1,152 +1,152 @@
 .authsystem {
-	.p-password-input {
-		border-radius: 0 5px 5px 0 !important;
-	}
+  .p-password-input {
+    border-radius: 0 5px 5px 0 !important;
+  }
 
-	.p-inputtext {
-		background: white;
-	}
-
+  .p-inputtext {
+    background: white;
+  }
 }
 
 .p-carousel-viewport {
-	height: 100% !important;
+  height: 100% !important;
 }
 
 .iti {
-	display: flex !important;
+  display: flex !important;
 }
 
 .iti .dropdown-menu.country-dropdown {
-	border-top-left-radius: 0px;
-	border-top-right-radius: 0px;
-	border-color: #c7cace;
-	margin-top: -1px;
+  border-top-left-radius: 0px;
+  border-top-right-radius: 0px;
+  border-color: #c7cace;
+  margin-top: -1px;
 }
 
 .iti .iti__country-list {
-	box-shadow: none;
-	font-size: 14px;
-	margin-left: 0;
-	width: 244px;
-	max-height: 170px;
+  box-shadow: none;
+  font-size: 14px;
+  margin-left: 0;
+  width: 244px;
+  max-height: 170px;
 }
 
 .iti__flag-container {
-	width: 35px;
-	display: flex;
-	justify-content: center;
-	align-items: center;
-	border: 1px solid #c7cace;
-	background: white;
-	border-radius: 5px 0 0 5px;
-	cursor: pointer;
+  width: 35px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border: 1px solid #c7cace;
+  background: white;
+  border-radius: 5px 0 0 5px;
+  cursor: pointer;
 }
 
 .iti__selected-flag {
-	display: flex;
-	justify-content: center;
-	align-items: center;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
-
-.iti__flag-container.open+input {
-	border-bottom-left-radius: 0px;
-	border-bottom-right-radius: 0px;
+.iti__flag-container.open + input {
+  border-bottom-left-radius: 0px;
+  border-bottom-right-radius: 0px;
 }
 
 .iti .search-container input {
-	font-size: 14px;
-	border-color: #c7cace;
-	border-radius: 0;
-	padding: 5px 10px;
+  font-size: 14px;
+  border-color: #c7cace;
+  border-radius: 0;
+  padding: 5px 10px;
 }
 
 .iti .search-container input:focus {
-	outline: none;
+  outline: none;
 }
 
 @media screen and (max-width: 479px) {
-	.iti .iti__country-list {
-		width: 88.3vw;
-	}
+  .iti .iti__country-list {
+    width: 88.3vw;
+  }
 }
 
 ngx-intl-tel-input input {
-	margin-bottom: 20px;
-	padding: 10px;
-	border-style: solid;
-	border-width: 1px;
-	border-color: #c7cace;
-	border-radius: 0 5px 5px 0;
-	font-size: 14px;
-	width: 100%;
+  margin-bottom: 20px;
+  padding: 10px;
+  border-style: solid;
+  border-width: 1px;
+  border-color: #c7cace;
+  border-radius: 0 5px 5px 0;
+  font-size: 14px;
+  width: 100%;
 }
 
 ngx-intl-tel-input.ng-invalid.ng-touched input {
-	border: 1px solid #c0392b;
+  border: 1px solid #c0392b;
 }
 
 ngx-intl-tel-input input:hover {
-	box-shadow: none;
+  box-shadow: none;
 }
 
 ngx-intl-tel-input input:focus {
-	outline: none !important;
-	border-color: #3498db;
-	box-shadow: none;
+  outline: none !important;
+  border-color: #3498db;
+  box-shadow: none;
 }
 
 ngx-intl-tel-input input::-webkit-input-placeholder {
-	color: #bac2c7;
+  color: #bac2c7;
 }
 
 ngx-intl-tel-input input:-ms-input-placeholder {
-	color: #bac2c7;
+  color: #bac2c7;
 }
 
 ngx-intl-tel-input input::-ms-input-placeholder {
-	color: #bac2c7;
+  color: #bac2c7;
 }
 
 ngx-intl-tel-input input::placeholder {
-	color: #bac2c7;
+  color: #bac2c7;
 }
 
 ngx-intl-tel-input input[disabled] {
-	background-color: #e5eaf1;
+  background-color: #e5eaf1;
 }
 
 .p-select-header .p-iconfield {
+  .p-inputtext:not(:last-child) {
+    padding-inline-start: 2.5rem;
+  }
 
-	.p-inputtext:not(:last-child) {
-		padding-inline-start: 2.5rem;
-	}
-
-	.p-inputicon:last-child {
-		left: 10px;
-		width: 0;
-	}
+  .p-inputicon:last-child {
+    left: 10px;
+    width: 0;
+  }
 }
 
 .custom-p-tab {
+  .p-tablist-tab-list {
+    background: #ebedf2;
+    border-radius: 25px;
+    display: flex;
+    align-items: center;
+    padding: 0 10px;
+  }
 
-	.p-tablist-tab-list {
-		background: #ebedf2;
-		border-radius: 25px;
-		display: flex;
-		align-items: center;
-		padding: 0 10px;
-	}
+  .p-tab-active {
+    background: var(--uniprep-primary);
+    color: var(--uniprep-tertiary);
+    border-radius: 15px;
+    height: 35px;
+  }
 
-	.p-tab-active {
-		background: var(--uniprep-primary);
-		color: var(--uniprep-tertiary);
-		border-radius: 15px;
-		height: 35px;
-	}
+  .p-tablist-active-bar {
+    display: none;
+  }
+}
 
-	.p-tablist-active-bar {
-		display: none;
-	}
+.p-datepicker {
+  width: 100% !important;
 }

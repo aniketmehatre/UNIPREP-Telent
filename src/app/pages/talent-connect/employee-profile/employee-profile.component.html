@@ -32,8 +32,8 @@
 					<div class="card-header bg-primary">
 						<div class="rounded-top-4 text-start d-flex justify-content-between align-items-center">
 							<div class="d-flex gap-2 align-items-center">
-								<h5 class="text-white mb-0 fw-medium">{{ isShowAiEvaluation ? "Career Profile
-									Evaluation" : "Edit your Profile" }}</h5>
+								<h5 class="text-white mb-0 fw-medium">
+									{{ isShowAiEvaluation ? "Career Profile Evaluation" : "Edit your Profile" }}</h5>
 								<button class="btn btn-secondary btn-rounded" pButton
 									(click)="openProfileDialog(true)">Profile Sample</button>
 							</div>
@@ -155,7 +155,7 @@
 										<div class="col-12">
 											<label for="location" class="form-label">Current Location<span
 													class="text-danger">*</span></label>
-											<p-select id="location" formControlName="location_id" [options]="locations"
+											<!-- <p-select id="location" formControlName="location_id" [options]="locations"
 												[virtualScroll]="true" [virtualScrollItemSize]="50"
 												placeholder="Select your current location" styleClass="w-100"
 												optionLabel="work_location" optionValue="id" [filter]="true"
@@ -164,145 +164,354 @@
 												(onFocus)="updateMessageBox('location_id')"></p-select>
 											<small class="text-danger"
 												*ngIf="personalInfoForm.get('location_id')?.invalid && personalInfoForm.get('location_id')?.touched">
-												This field is mandatory </small>
+												This field is mandatory </small> -->
+											< </div>
 										</div>
 									</div>
-								</div>
-								<hr class="my-3" />
-								<div class="card-body">
-									<h2 class="card-title mb-1">Education Details</h2>
-									<ng-container class="education" formArrayName="educationDetails">
-										<ng-container *ngFor="let education of educationDetails.controls; let i = index"
-											[formGroupName]="i">
-											<div *ngIf="i > 0" class="d-flex justify-content-between">
-												<h5 class="card-title">Education</h5>
-												<button
-													class="btn btn-outline-danger d-flex align-items-center justify-content-center px-3 py-2"
-													(click)="removeEducation(i)" style="width: fit-content">
-													<span><i class="fa-regular fa-trash fa-lg"></i></span>
-												</button>
-											</div>
-											<div class="row mb-3">
-												<!-- Highest Qualification -->
-												<div class="col-md-6">
-													<label for="highestQualification" class="form-label">Highest
-														Qualification <span class="text-danger">*</span></label>
-													<p-select id="highestQualification"
-														formControlName="education_qualification_id"
-														[options]="qualifications"
-														placeholder="Select your highest qualification"
-														styleClass="w-100" optionLabel="qualification_name"
-														optionValue="id" [filter]="true" filterBy="qualification_name"
-														(focusout)="resetMessageBox()"
-														(onFocus)="updateMessageBox('education_qualification_id')"></p-select>
-													<small class="text-danger"
-														*ngIf="education.get('education_qualification_id')?.invalid && education.get('education_qualification_id')?.touched">This
-														field is mandatory </small>
+									<hr class="my-3" />
+									<div class="card-body">
+										<h2 class="card-title mb-1">Education Details</h2>
+										<ng-container class="education" formArrayName="educationDetails">
+											<ng-container
+												*ngFor="let education of educationDetails.controls; let i = index"
+												[formGroupName]="i">
+												<div *ngIf="i > 0" class="d-flex justify-content-between">
+													<h5 class="card-title">Education</h5>
+													<button
+														class="btn btn-outline-danger d-flex align-items-center justify-content-center px-3 py-2"
+														(click)="removeEducation(i)" style="width: fit-content">
+														<span><i class="fa-regular fa-trash fa-lg"></i></span>
+													</button>
 												</div>
-
-												<!-- University/Institution Name -->
-												<div class="col-md-6">
-													<label for="university" class="form-label">Institution Name <span
-															class="text-danger">*</span></label>
-													<div class="p-inputgroup">
-														<input pInputText fluid id="university"
-															formControlName="education_university_name"
-															placeholder="Enter your institution Name"
-															class="form-control" (focusout)="resetMessageBox()"
-															(focus)="updateMessageBox('education_university_name')" />
-													</div>
-													<small class="text-danger"
-														*ngIf="education.get('education_university_name')?.invalid && education.get('education_university_name')?.touched">
-														This field is mandatory </small>
-												</div>
-											</div>
-											<div class="row mb-3">
-												<!-- Field of Study / Major -->
-												<div class="col-md-6">
-													<label for="fieldOfStudy" class="form-label">Major <span
-															class="text-danger">*</span></label>
-													<p-select id="highestQualification"
-														formControlName="education_field_id" [options]="fieldsOfStudy"
-														placeholder="Select Major" styleClass="w-100"
-														optionLabel="field_name" optionValue="id" [filter]="true"
-														filterBy="field_name" (focusout)="resetMessageBox()"
-														(onFocus)="updateMessageBox('education_field_id')"></p-select>
-													<small class="text-danger"
-														*ngIf="education.get('education_field_id')?.invalid && education.get('education_field_id')?.touched">
-														This field is mandatory </small>
-												</div>
-
-												<!-- Course Name -->
-												<div class="col-md-6">
-													<label for="courseName" class="form-label">Course Name <span
-															class="text-danger">*</span></label>
-													<div class="p-inputgroup">
-														<input pInputText fluid id="courseName"
-															formControlName="education_course_name"
-															placeholder="Enter your course name" class="form-control"
-															(focus)="updateMessageBox('education_course_name')"
-															(focusout)="resetMessageBox()" />
-													</div>
-													<small class="text-danger"
-														*ngIf="education.get('education_course_name')?.invalid && education.get('education_course_name')?.touched">
-														This field is mandatory </small>
-												</div>
-											</div>
-											<div class="row mb-3">
-												<!-- Field of Study / Major -->
-												<div class="col-md-6">
-													<label for="fieldOfStudy" class="form-label">Graduation Year <span
-															class="text-danger">*</span></label>
-													<div class="p-inputgroup">
+												<div class="row mb-3">
+													<!-- Highest Qualification -->
+													<div class="col-md-6">
+														<label for="highestQualification" class="form-label">Highest
+															Qualification <span class="text-danger">*</span></label>
 														<p-select id="highestQualification"
-															formControlName="education_graduation_year_id"
-															[options]="graduationYears"
-															placeholder="Select Graduation Year" styleClass="w-100"
-															optionLabel="graduation_year_name" optionValue="id"
-															(focusout)="resetMessageBox()"
-															(onFocus)="updateMessageBox('education_graduation_year_id')"></p-select>
+															formControlName="education_qualification_id"
+															[options]="qualifications"
+															placeholder="Select your highest qualification"
+															styleClass="w-100" optionLabel="qualification_name"
+															optionValue="id" [filter]="true"
+															filterBy="qualification_name" (focusout)="resetMessageBox()"
+															(onFocus)="updateMessageBox('education_qualification_id')"></p-select>
+														<small class="text-danger"
+															*ngIf="education.get('education_qualification_id')?.invalid && education.get('education_qualification_id')?.touched">This
+															field is mandatory </small>
 													</div>
-													<small class="text-danger"
-														*ngIf="education.get('education_graduation_year_id')?.invalid && education.get('education_graduation_year_id')?.touched">
-														This field is mandatory </small>
+
+													<!-- University/Institution Name -->
+													<div class="col-md-6">
+														<label for="university" class="form-label">Institution Name
+															<span class="text-danger">*</span></label>
+														<div class="p-inputgroup">
+															<input pInputText fluid id="university"
+																formControlName="education_university_name"
+																placeholder="Enter your institution Name"
+																class="form-control" (focusout)="resetMessageBox()"
+																(focus)="updateMessageBox('education_university_name')" />
+														</div>
+														<small class="text-danger"
+															*ngIf="education.get('education_university_name')?.invalid && education.get('education_university_name')?.touched">
+															This field is mandatory </small>
+													</div>
+												</div>
+												<div class="row mb-3">
+													<!-- Field of Study / Major -->
+													<div class="col-md-6">
+														<label for="fieldOfStudy" class="form-label">Major <span
+																class="text-danger">*</span></label>
+														<p-select id="highestQualification"
+															formControlName="education_field_id"
+															[options]="fieldsOfStudy" placeholder="Select Major"
+															styleClass="w-100" optionLabel="field_name" optionValue="id"
+															[filter]="true" filterBy="field_name"
+															(focusout)="resetMessageBox()"
+															(onFocus)="updateMessageBox('education_field_id')"></p-select>
+														<small class="text-danger"
+															*ngIf="education.get('education_field_id')?.invalid && education.get('education_field_id')?.touched">
+															This field is mandatory </small>
+													</div>
+
+													<!-- Course Name -->
+													<div class="col-md-6">
+														<label for="courseName" class="form-label">Course Name <span
+																class="text-danger">*</span></label>
+														<div class="p-inputgroup">
+															<input pInputText fluid id="courseName"
+																formControlName="education_course_name"
+																placeholder="Enter your course name"
+																class="form-control"
+																(focus)="updateMessageBox('education_course_name')"
+																(focusout)="resetMessageBox()" />
+														</div>
+														<small class="text-danger"
+															*ngIf="education.get('education_course_name')?.invalid && education.get('education_course_name')?.touched">
+															This field is mandatory </small>
+													</div>
+												</div>
+												<div class="row mb-3">
+													<!-- Field of Study / Major -->
+													<div class="col-md-6">
+														<label for="fieldOfStudy" class="form-label">Graduation Year
+															<span class="text-danger">*</span></label>
+														<div class="p-inputgroup">
+															<p-select id="highestQualification"
+																formControlName="education_graduation_year_id"
+																[options]="graduationYears"
+																placeholder="Select Graduation Year" styleClass="w-100"
+																optionLabel="graduation_year_name" optionValue="id"
+																(focusout)="resetMessageBox()"
+																(onFocus)="updateMessageBox('education_graduation_year_id')"></p-select>
+														</div>
+														<small class="text-danger"
+															*ngIf="education.get('education_graduation_year_id')?.invalid && education.get('education_graduation_year_id')?.touched">
+															This field is mandatory </small>
+													</div>
+
+													<!-- Course Name -->
+													<div class="col-md-6">
+														<label for="courseName" class="form-label">Percentage</label>
+														<div class="p-inputgroup">
+															<p-inputgroup>
+																<p-input-number id="courseName"
+																	formControlName="education_gpa_percentage"
+																	mode="decimal" placeholder="Enter your GPA"
+																	class="w-100" [maxFractionDigits]="2" [min]="0"
+																	[max]="100" (focusout)="resetMessageBox()"
+																	(onFocus)="updateMessageBox('education_gpa_percentage')" />
+																<p-inputgroup-addon>
+																	<i class="pi pi-percentage"></i>
+																</p-inputgroup-addon>
+															</p-inputgroup>
+															<small class="text-danger"
+																*ngIf="education.get('education_graduation_year_id')?.invalid && education.get('education_gpa_percentage')?.touched">This
+																field need min 0 to max 100 </small>
+														</div>
+													</div>
+												</div>
+											</ng-container>
+										</ng-container>
+										<div class="row">
+											<button class="w-full btn btn-primary" pButton (click)="addEducation()">Add
+												Education Details &nbsp;<i class="fa fa-plus"></i></button>
+										</div>
+									</div>
+									<hr class="my-3" />
+									<div class="card-body">
+										<ng-container class="work-experience" formArrayName="work_experience"
+											*ngIf="personalInfoForm?.get('total_years_of_experience')?.value !== 'Fresher'">
+											<ng-container
+												*ngFor="let experience of workExperience.controls; let i = index"
+												[formGroupName]="i">
+												<div class="d-flex justify-content-between">
+													<h5 class="card-title">Work Experience Details</h5>
+													<button
+														class="btn btn-outline-danger d-flex align-items-center justify-content-center px-3 py-2"
+														(click)="removeWorkExperience(i)" *ngIf="i !== 0">
+														<span><i class="fa-regular fa-trash fa-lg"></i></span>
+													</button>
+												</div>
+												<div class="row mb-3">
+													<div class="col-md-6">
+														<label for="highestQualification" class="form-label">Years of
+															Experience</label><br />
+														<!-- <p-select id="highestQualification" formControlName="years_of_experience" [options]="totalYearExperienceList" placeholder="Select total experience" styleClass="w-100" (focusout)="resetMessageBox()" (onFocus)="updateMessageBox('years_of_experience')" (ngModelChange)="disableFieldsWhenClickFresher(experience, experience.get('years_of_experience')?.value == 'Fresher')"></p-select> -->
+														<input pInputText fluid id="university"
+															formControlName="years_of_experience"
+															placeholder="Years of experience" class="form-control"
+															(focusout)="resetMessageBox()"
+															(focus)="updateMessageBox('years_of_experience')" />
+													</div>
+
+													<!-- University/Institution Name -->
+													<div class="col-md-6">
+														<label for="university" class="form-label">Company Name</label>
+														<div class="p-inputgroup">
+															<input pInputText fluid id="university"
+																formControlName="work_experience_company_name"
+																placeholder="Enter your company" class="form-control"
+																(focusout)="resetMessageBox()"
+																(focus)="updateMessageBox('work_experience_company_name')" />
+														</div>
+													</div>
+												</div>
+												<div class="row mb-3">
+													<!-- Field of Study / Major -->
+													<div class="col-md-6">
+														<label for="fieldOfStudy" class="form-label">Job Title</label>
+														<p-select id="highestQualification" [virtualScroll]="true"
+															[virtualScrollItemSize]="50"
+															formControlName="work_experience_job_title"
+															[options]="jobTitles" placeholder="Select Job Title"
+															styleClass="w-100" optionLabel="job_title"
+															optionValue="job_title" [filter]="true" filterBy="job_title"
+															(focusout)="resetMessageBox()"
+															[disabled]="experience.get('years_of_experience')?.value == 'Fresher'"
+															(onFocus)="updateMessageBox('work_experience_job_title')">
+															<ng-template #header>
+																<div class="p-2">
+																	<p-inputgroup>
+																		<input pInputText class="rounded-end-2 me-1"
+																			placeholder="Custom Job Title" #jobTitleExp
+																			(click)="focusInput(jobTitleExp)" />
+																		<button class="w-full btn btn-primary"
+																			(click)="addCustomJobTitle(jobTitleExp.value, experience.get('work_experience_job_title')); jobTitleExp.value = ''"><i
+																				class="fa fa-plus"></i>&nbsp;Add
+																			New</button>
+																	</p-inputgroup>
+																</div>
+															</ng-template>
+														</p-select>
+													</div>
+
+													<!-- Course Name -->
+													<div class="col-md-6">
+														<label for="courseName" class="form-label">Employment
+															Type</label>
+														<div class="p-inputgroup">
+															<p-select id="highestQualification"
+																formControlName="work_experience_employment_type"
+																[options]="preferredEmploymentType"
+																placeholder="Select employement type" styleClass="w-100"
+																(focusout)="resetMessageBox()"
+																[disabled]="experience.get('years_of_experience')?.value == 'Fresher'"
+																(onFocus)="updateMessageBox('work_experience_employment_type')"></p-select>
+														</div>
+													</div>
+												</div>
+												<div class="row mb-4">
+													<!-- Duration Field -->
+													<div class="col-md-6 mb-3">
+														<label for="duration" class="form-label">Duration</label>
+
+														<div class="d-flex w-100 gap-2">
+															<p-datepicker
+																formControlName="work_experience_duration_from"
+																size="small" placeholder="From Date" view="month"
+																dateFormat="mm/yy" [maxDate]="today" class="flex-grow-1"
+																styleClass="w-100" inputId="icondisplay"
+																[readonlyInput]="true"
+																(onSelect)="updateExperienceDate(experience.get('work_experience_duration_from'), experience.get('work_experience_duration_to'), experience.get('years_of_experience'));" />
+															<p-datepicker formControlName="work_experience_duration_to"
+																size="small" placeholder="To Date" view="month"
+																dateFormat="mm/yy" inputId="icondisplay"
+																class="flex-grow-1" styleClass="w-100"
+																[minDate]="experience.get('work_experience_duration_from')?.value"
+																[maxDate]="today" [readonlyInput]="true"
+																(onSelect)="updateExperienceDate(experience.get('work_experience_duration_from'), experience.get('work_experience_duration_to'), experience.get('years_of_experience'));" />
+														</div>
+														<div *ngIf="(experience.get('work_experience_duration_from')?.value && !experience.get('work_experience_duration_to')?.value) || (!experience.get('work_experience_duration_from')?.value && experience.get('work_experience_duration_to')?.value)"
+															class="text-danger">Please select both from and to values.
+														</div>
+													</div>
+
+													<!-- Salary Field -->
+													<div class="col-md-6 mb-3">
+														<label for="salary" class="form-label">Salary / Month</label>
+														<div class="d-flex w-100 gap-2">
+															<p-select [options]="currencies"
+																styleClass="p-select p-component"
+																optionLabel="currency_code" optionValue="id"
+																placeholder="Select Currency" [filter]="true"
+																filterBy="currency_code" appendTo="body"
+																formControlName="work_experience_currency_id"
+																[style]="{ width: '100px' }"
+																[disabled]="experience.get('years_of_experience')?.value == 'Fresher'">
+															</p-select>
+															<div class="flex-grow-1 me-2">
+																<p-inputNumber id="salary"
+																	placeholder="Enter your salary/month"
+																	styleClass="p-inputtext w-100" [showButtons]="false"
+																	class="w-100"
+																	formControlName="work_experience_salary_per_month"
+																	(focusout)="resetMessageBox()"
+																	(onFocus)="updateMessageBox('work_experience_salary_per_month')"
+																	[disabled]="experience.get('years_of_experience')?.value == 'Fresher'"></p-inputNumber>
+															</div>
+														</div>
+													</div>
 												</div>
 
-												<!-- Course Name -->
-												<div class="col-md-6">
-													<label for="courseName" class="form-label">Percentage</label>
-													<div class="p-inputgroup">
-														<p-inputgroup>
-															<p-input-number id="courseName"
-																formControlName="education_gpa_percentage"
-																mode="decimal" placeholder="Enter your GPA"
-																class="w-100" [maxFractionDigits]="2" [min]="0"
-																[max]="100" (focusout)="resetMessageBox()"
-																(onFocus)="updateMessageBox('education_gpa_percentage')" />
-															<p-inputgroup-addon>
-																<i class="pi pi-percentage"></i>
-															</p-inputgroup-addon>
-														</p-inputgroup>
-														<small class="text-danger"
-															*ngIf="education.get('education_graduation_year_id')?.invalid && education.get('education_gpa_percentage')?.touched">This
-															field need min 0 to max 100 </small>
+												<div class="row mb-4">
+													<div class="col-md-12 mb-3">
+														<div class="d-flex justify-content-between mb-1">
+															<label for="responsibilities" class="form-label">Job
+																Responsibilities</label>
+															<div class="d-flex gap-2">
+																<!-- <p-button type="button" icon="pi pi-refresh" (click)="experience.get('work_experience_job_responsibilities')?.setValue(null);"></p-button> -->
+																<button
+																	*ngIf="!isNotEmptyHtml(experience?.get('work_experience_job_responsibilities')?.value)"
+																	class="text-small btn btn-success btn-rounded d-flex align-items-center gap-2"
+																	style="width: fit-content"
+																	(click)="generateAiSummary('joboverview', { title: experience?.get('work_experience_job_title')?.value, company_name: experience?.get('work_experience_company_name')?.value }, experience?.get('work_experience_job_responsibilities'))"><i
+																		class="fa-solid fa-stars"></i>AI
+																	Generate</button>
+																<button
+																	*ngIf="isNotEmptyHtml(experience?.get('work_experience_job_responsibilities')?.value)"
+																	class="text-small btn btn-danger btn-rounded d-flex align-items-center gap-2"
+																	style="width: fit-content"
+																	(click)="aiRePhraseSummary('joboverview', {  rephrase_content: experience?.get('work_experience_job_responsibilities')?.value }, experience?.get('work_experience_job_responsibilities'))">RePhrase</button>
+															</div>
+														</div>
+														<p-editor #editor
+															[style]="{ height: '150px', maxHeight: 'auto' }"
+															formControlName="work_experience_job_responsibilities"
+															placeholder="Enter your Job Responsibilities & Key Achievements"
+															(onFocus)="updateMessageBox('work_experience_job_responsibilities')"
+															(focusout)="resetMessageBox()"
+															(ngModelChange)="checkMaximumWordsInFields(experience.get('work_experience_job_responsibilities'), 150)" />
+														<!-- <textarea pTextarea id="responsibilities" class="form-control w-100" placeholder="Enter your Job Responsibilities & Key Achievements" rows="5" maxlength="4000" formControlName="work_experience_job_responsibilities" (focusout)="resetMessageBox()" (onFocus)="updateMessageBox('work_experience_job_responsibilities')" #jobRepo></textarea> -->
+														<small class="text-danger text-start"
+															*ngIf="getWordCountUsingControl(experience.get('work_experience_job_responsibilities')) > 150">This
+															field exceed the maximum length</small>
+														<small class="text-muted d-block text-end">{{
+															getWordCountUsingControl(experience.get("work_experience_job_responsibilities"))
+															}}/150</small>
+													</div>
+
+													<!-- Experience Letter Upload -->
+													<div class="col-md-12 mb-3">
+														<label class="form-label fw-medium">Experience Letter <span
+																class="text-muted">(Optional)</span></label>
+														<div class="upload-box" (click)="fileExperieceUpload.click()"
+															[disabled]="experience.get('years_of_experience')?.value == 'Fresher'"
+															(onFocus)="updateMessageBox('work_experience_experience_letter')"
+															(focusout)="resetMessageBox()">
+															<div
+																class="d-flex align-items-center justify-center-center flex-column mt-3">
+																<i
+																	class="pi pi-cloud-upload !border-2 !rounded-full !p-8 !text-4xl !text-muted-color fw-bold"></i>
+																<div class="fw-bold">
+																	{{
+																	experience.get("work_experience_experience_letter")?.value
+																	?
+																	extractLastName(experience.get("work_experience_experience_letter")?.value)
+																	: "Upload your Experience Letter" }}
+																</div>
+															</div>
+															<input type="file" [auto]="true" style="visibility: hidden"
+																accept="application/pdf" [maxFileSize]="1000000"
+																(change)="uploadFile(fileType.EXPERIENCE_LETTER, $event, i)"
+																#fileExperieceUpload
+																[disabled]="experience.get('years_of_experience')?.value == 'Fresher'" />
+														</div>
 													</div>
 												</div>
-											</div>
+											</ng-container>
 										</ng-container>
-									</ng-container>
-									<div class="row">
-										<button class="w-full btn btn-primary" pButton (click)="addEducation()">Add
-											Education Details &nbsp;<i class="fa fa-plus"></i></button>
-									</div>
-								</div>
-								<hr class="my-3" />
-								<div class="card-body">
-									<h2 class="card-title mb-4">Work Experience</h2>
-									<div class="row mb-3">
-										<div class="col-md-12">
-											<label for="highestQualification" class="form-label">Total Years of
-												Experience</label><br />
-											<p-select id="highestQualification"
+										<div class="row">
+											<button class="w-full btn btn-primary" (click)="addWorkExperience()"
+												[disabled]="personalInfoForm?.get('total_years_of_experience')?.value == 'Fresher'">Add
+												Work Experience Details &nbsp;<i class="fa fa-plus"></i></button>
+										</div>
+										<h2 class="card-title mb-4">Work Experience</h2>
+										<div class="row mb-3">
+											<div class="col-md-12">
+												<label for="highestQualification" class="form-label">Total Years of
+													Experience</label><br />
+												<!-- <p-select id="highestQualification"
 												formControlName="total_years_of_experience"
 												[options]="totalYearExperienceList"
 												placeholder="Select total experience" styleClass="w-100"
@@ -310,58 +519,48 @@
 												(onFocus)="updateMessageBox('total_years_of_experience')"></p-select>
 											<small class="text-danger"
 												*ngIf="personalInfoForm.get('total_years_of_experience')?.invalid && personalInfoForm.get('total_years_of_experience')?.touched">
-												This field is mandatory </small>
+												This field is mandatory </small> -->
+												<input pInputText fluid id="total_years_of_experience"
+													formControlName="total_years_of_experience"
+													placeholder="Calculate the total years of experience based on the duration of input from the about section"
+													[readOnly]="true" class="form-control" value="totalDurations" />
+											</div>
 										</div>
 									</div>
-									<ng-container class="work-experience" formArrayName="work_experience"
-										*ngIf="personalInfoForm?.get('total_years_of_experience')?.value !== 'Fresher'">
-										<ng-container *ngFor="let experience of workExperience.controls; let i = index"
-											[formGroupName]="i">
-											<div class="d-flex justify-content-between">
-												<h5 class="card-title">Work Experience Details</h5>
-												<button
-													class="btn btn-outline-danger d-flex align-items-center justify-content-center px-3 py-2"
-													(click)="removeWorkExperience(i)" *ngIf="i !== 0">
-													<span><i class="fa-regular fa-trash fa-lg"></i></span>
-												</button>
-											</div>
+									<hr class="my-3" />
+									<div class="card-body">
+										<h2 class="card-title mb-1">Career Prefrenences & Aspirations</h2>
+										<div class="mb-2">
+											<span class="text-danger fw-bold">Confused about your career?</span>
+											<a (click)="routerBlankPage('/pages/job-tool/careerplannerlist')"
+												class="px-1" role="button">Click here</a> to plan it!
+										</div>
+										<ng-container class="career-experience">
 											<div class="row mb-3">
 												<div class="col-md-6">
-													<label for="highestQualification" class="form-label">Years of
-														Experience</label><br />
-													<!-- <p-select id="highestQualification" formControlName="years_of_experience" [options]="totalYearExperienceList" placeholder="Select total experience" styleClass="w-100" (focusout)="resetMessageBox()" (onFocus)="updateMessageBox('years_of_experience')" (ngModelChange)="disableFieldsWhenClickFresher(experience, experience.get('years_of_experience')?.value == 'Fresher')"></p-select> -->
-													<input pInputText fluid id="university"
-														formControlName="years_of_experience"
-														placeholder="Years of experience" class="form-control"
-														(focusout)="resetMessageBox()"
-														(focus)="updateMessageBox('years_of_experience')" />
+													<label for="highestQualification" class="form-label">Career
+														Status<span class="text-danger">*</span></label>
+													<p-select id="highestQualification"
+														formControlName="career_preference_career_status"
+														[options]="careerStatus" placeholder="Select Career Status"
+														styleClass="w-100" (focusout)="resetMessageBox()"
+														(onFocus)="updateMessageBox('career_preference_career_status')"></p-select>
+													<small class="text-danger"
+														*ngIf="personalInfoForm.get('career_preference_career_status')?.invalid && personalInfoForm.get('career_preference_career_status')?.touched">
+														This field is mandatory </small>
 												</div>
-
-												<!-- University/Institution Name -->
 												<div class="col-md-6">
-													<label for="university" class="form-label">Company Name</label>
-													<div class="p-inputgroup">
-														<input pInputText fluid id="university"
-															formControlName="work_experience_company_name"
-															placeholder="Enter your company" class="form-control"
-															(focusout)="resetMessageBox()"
-															(focus)="updateMessageBox('work_experience_company_name')" />
-													</div>
-												</div>
-											</div>
-											<div class="row mb-3">
-												<!-- Field of Study / Major -->
-												<div class="col-md-6">
-													<label for="fieldOfStudy" class="form-label">Job Title</label>
-													<p-select id="highestQualification" [virtualScroll]="true"
-														[virtualScrollItemSize]="50"
-														formControlName="work_experience_job_title"
+													<label for="highestQualification" class="form-label">Job Title<span
+															class="text-danger">*</span></label>
+													<p-select id="highestQualification"
+														pTooltip="Not able to find please type in this field"
+														[virtualScroll]="true" [virtualScrollItemSize]="50"
+														formControlName="career_preference_job_title_id"
 														[options]="jobTitles" placeholder="Select Job Title"
 														styleClass="w-100" optionLabel="job_title"
 														optionValue="job_title" [filter]="true" filterBy="job_title"
 														(focusout)="resetMessageBox()"
-														[disabled]="experience.get('years_of_experience')?.value == 'Fresher'"
-														(onFocus)="updateMessageBox('work_experience_job_title')">
+														(onFocus)="updateMessageBox('career_preference_job_title_id')">
 														<ng-template #header>
 															<div class="p-2">
 																<p-inputgroup>
@@ -369,849 +568,698 @@
 																		placeholder="Custom Job Title" #jobTitleExp
 																		(click)="focusInput(jobTitleExp)" />
 																	<button class="w-full btn btn-primary"
-																		(click)="addCustomJobTitle(jobTitleExp.value, experience.get('work_experience_job_title')); jobTitleExp.value = ''"><i
+																		(click)="addCustomJobTitle(jobTitleExp.value, personalInfoForm.get('career_preference_job_title_id'))"><i
 																			class="fa fa-plus"></i>&nbsp;Add
 																		New</button>
 																</p-inputgroup>
 															</div>
 														</ng-template>
 													</p-select>
-												</div>
-
-												<!-- Course Name -->
-												<div class="col-md-6">
-													<label for="courseName" class="form-label">Employment Type</label>
-													<div class="p-inputgroup">
-														<p-select id="highestQualification"
-															formControlName="work_experience_employment_type"
-															[options]="preferredEmploymentType"
-															placeholder="Select employement type" styleClass="w-100"
-															(focusout)="resetMessageBox()"
-															[disabled]="experience.get('years_of_experience')?.value == 'Fresher'"
-															(onFocus)="updateMessageBox('work_experience_employment_type')"></p-select>
-													</div>
+													<small class="text-danger"
+														*ngIf="personalInfoForm.get('career_preference_job_title_id')?.invalid && personalInfoForm.get('career_preference_job_title_id')?.touched">
+														This field is mandatory </small>
 												</div>
 											</div>
-											<div class="row mb-4">
-												<!-- Duration Field -->
-												<div class="col-md-6 mb-3">
-													<label for="duration" class="form-label">Duration</label>
-													<div class="d-block d-md-flex gap-2 w-full">
-														<p-datepicker formControlName="work_experience_duration_from"
-															size="small" placeholder="From Date" dateFormat="dd-mm-yy"
-															[maxDate]="today" inputId="icondisplay"
-															[readonlyInput]="true"
-															(onSelect)="updateExperienceDate(experience.get('work_experience_duration_from'), experience.get('work_experience_duration_to'), experience.get('years_of_experience'));" />
-														<p-datepicker formControlName="work_experience_duration_to"
-															size="small" placeholder="To Date" dateFormat="dd-mm-yy"
-															inputId="icondisplay"
-															[minDate]="experience.get('work_experience_duration_from')?.value"
-															[maxDate]="today" [readonlyInput]="true"
-															(onSelect)="updateExperienceDate(experience.get('work_experience_duration_from'), experience.get('work_experience_duration_to'), experience.get('years_of_experience'));" />
-													</div>
-													<div *ngIf="(experience.get('work_experience_duration_from')?.value && !experience.get('work_experience_duration_to')?.value) || (!experience.get('work_experience_duration_from')?.value && experience.get('work_experience_duration_to')?.value)"
-														class="text-danger">Please select both from and to values.</div>
+											<div class="row mb-3">
+												<div class="col-md-6">
+													<label for="highestQualification" class="form-label">Career Interest
+														/
+														Industry<span class="text-danger">*</span></label>
+													<p-multiSelect id="highestQualification"
+														formControlName="career_preference_career_interest_id"
+														[options]="careerInterests" placeholder="Enter career interest"
+														styleClass="w-100" optionLabel="interest" optionValue="id"
+														[filter]="true" filterBy="interest"
+														(focusout)="resetMessageBox()"
+														(onFocus)="updateMessageBox('career_preference_career_interest_id')"></p-multiSelect>
+													<small class="text-danger"
+														*ngIf="personalInfoForm.get('career_preference_career_interest_id')?.invalid && personalInfoForm.get('career_preference_career_interest_id')?.touched">
+														This field is mandatory </small>
 												</div>
 
-												<!-- Salary Field -->
-												<div class="col-md-6 mb-3">
-													<label for="salary" class="form-label">Salary / Month</label>
+												<!-- University/Institution Name -->
+												<div class="col-md-6">
+													<label for="university" class="form-label">Preferred Work
+														Location<span class="text-danger">*</span></label>
+													<div class="p-inputgroup">
+														<p-multiSelect id="highestQualification"
+															formControlName="career_preference_preferred_work_location_id"
+															[options]="locations" [virtualScroll]="true"
+															[virtualScrollItemSize]="50"
+															placeholder="Select Your Location" styleClass="w-100"
+															optionLabel="work_location" optionValue="id" [filter]="true"
+															filterBy="work_location" [appendTo]="'body'"
+															(focusout)="resetMessageBox()"
+															(onFocus)="updateMessageBox('career_preference_preferred_work_location_id')"></p-multiSelect>
+													</div>
+													<small class="text-danger"
+														*ngIf="personalInfoForm.get('career_preference_preferred_work_location_id')?.invalid && personalInfoForm.get('career_preference_preferred_work_location_id')?.touched">
+														This field is mandatory </small>
+												</div>
+											</div>
+											<div class="row mb-3">
+												<div class="col-md-6">
+													<label for="highestQualification" class="form-label">Preferred
+														Employement Type<span class="text-danger">*</span></label>
+													<p-multiSelect id="highestQualification"
+														formControlName="career_preference_preferred_employment_type"
+														[options]="preferredEmploymentType"
+														placeholder="Select Employement Type"
+														styleClass="w-100"></p-multiSelect>
+													<small class="text-danger"
+														*ngIf="personalInfoForm.get('career_preference_preferred_employment_type')?.invalid && personalInfoForm.get('career_preference_preferred_employment_type')?.touched">
+														This field is mandatory </small>
+												</div>
+
+												<!-- University/Institution Name -->
+												<div class="col-md-6">
+													<label for="university" class="form-label">Preferred Workplace
+														Type<span class="text-danger">*</span></label>
+													<div class="p-inputgroup">
+														<p-multiSelect id="highestQualification"
+															formControlName="career_preference_preferred_workplace_type"
+															[options]="preferredWorkplaceType"
+															placeholder="Enter Workplace Type" styleClass="w-100"
+															(focusout)="resetMessageBox()"
+															(onFocus)="updateMessageBox('career_preference_preferred_workplace_type')"
+															(ngModelChange)="handleValidationsForFields(personalInfoForm?.get('career_preference_willingness_to_relocate'), $event == 'Remote Work')"></p-multiSelect>
+													</div>
+													<small class="text-danger"
+														*ngIf="personalInfoForm.get('career_preference_preferred_workplace_type')?.invalid && personalInfoForm.get('career_preference_preferred_workplace_type')?.touched">
+														This field is mandatory </small>
+												</div>
+											</div>
+											<div class="row mb-3">
+												<div class="col-md-6">
+													<label for="highestQualification" class="form-label">Willingness to
+														Relocate?<span class="text-danger">*</span></label>
+													<p-select id="highestQualification"
+														formControlName="career_preference_willingness_to_relocate"
+														[options]="[
+														{ label: 'Yes', value: 'Yes' },
+														{ label: 'No', value: 'No' }
+													]" placeholder="Wiiling to relocate" styleClass="w-100" optionLabel="label" optionValue="value"
+														(focusout)="resetMessageBox()"
+														(onFocus)="updateMessageBox('career_preference_willingness_to_relocate')"
+														[disabled]="personalInfoForm.get('career_preference_preferred_workplace_type')?.value == 'Remote Work'"></p-select>
+													<small class="text-danger"
+														*ngIf="personalInfoForm.get('career_preference_willingness_to_relocate')?.invalid && personalInfoForm.get('career_preference_willingness_to_relocate')?.touched">
+														This field is mandatory </small>
+												</div>
+												<!-- University/Institution Name -->
+												<div class="col-md-6">
+													<label for="university" class="form-label">Expected Salary /
+														Month<span class="text-danger">*</span></label>
 													<div class="d-flex w-100 gap-2">
 														<p-select [options]="currencies"
 															styleClass="p-select p-component"
 															optionLabel="currency_code" optionValue="id"
-															placeholder="Select Currency" [filter]="true"
-															filterBy="currency_code" appendTo="body"
-															formControlName="work_experience_currency_id"
-															[style]="{ width: '100px' }"
-															[disabled]="experience.get('years_of_experience')?.value == 'Fresher'">
+															placeholder="Select" [filter]="true"
+															filterBy="currency_code"
+															formControlName="career_preference_currency_id"
+															[style]="{ width: '100px' }" (focusout)="resetMessageBox()"
+															(onFocus)="updateMessageBox('career_preference_currency_id')">
 														</p-select>
 														<div class="flex-grow-1 me-2">
 															<p-inputNumber id="salary"
 																placeholder="Enter your salary/month"
 																styleClass="p-inputtext w-100" [showButtons]="false"
 																class="w-100"
-																formControlName="work_experience_salary_per_month"
-																(focusout)="resetMessageBox()"
-																(onFocus)="updateMessageBox('work_experience_salary_per_month')"
-																[disabled]="experience.get('years_of_experience')?.value == 'Fresher'"></p-inputNumber>
+																formControlName="career_preference_expected_salary"></p-inputNumber>
 														</div>
 													</div>
-												</div>
-											</div>
-
-											<div class="row mb-4">
-												<div class="col-md-12 mb-3">
-													<div class="d-flex justify-content-between mb-1">
-														<label for="responsibilities" class="form-label">Job
-															Responsibilities</label>
-														<div class="d-flex gap-2">
-															<!-- <p-button type="button" icon="pi pi-refresh" (click)="experience.get('work_experience_job_responsibilities')?.setValue(null);"></p-button> -->
-															<button
-																*ngIf="!isNotEmptyHtml(experience?.get('work_experience_job_responsibilities')?.value)"
-																class="text-small btn btn-success btn-rounded d-flex align-items-center gap-2"
-																style="width: fit-content"
-																(click)="generateAiSummary('joboverview', { title: experience?.get('work_experience_job_title')?.value, company_name: experience?.get('work_experience_company_name')?.value }, experience?.get('work_experience_job_responsibilities'))"><i
-																	class="fa-solid fa-stars"></i>AI Generate</button>
-															<button
-																*ngIf="isNotEmptyHtml(experience?.get('work_experience_job_responsibilities')?.value)"
-																class="text-small btn btn-danger btn-rounded d-flex align-items-center gap-2"
-																style="width: fit-content"
-																(click)="aiRePhraseSummary('joboverview', {  rephrase_content: experience?.get('work_experience_job_responsibilities')?.value }, experience?.get('work_experience_job_responsibilities'))">RePhrase</button>
-														</div>
-													</div>
-													<p-editor #editor [style]="{ height: '150px', maxHeight: 'auto' }"
-														formControlName="work_experience_job_responsibilities"
-														placeholder="Enter your Job Responsibilities & Key Achievements"
-														(onFocus)="updateMessageBox('work_experience_job_responsibilities')"
-														(focusout)="resetMessageBox()"
-														(ngModelChange)="checkMaximumWordsInFields(experience.get('work_experience_job_responsibilities'), 150)" />
-													<!-- <textarea pTextarea id="responsibilities" class="form-control w-100" placeholder="Enter your Job Responsibilities & Key Achievements" rows="5" maxlength="4000" formControlName="work_experience_job_responsibilities" (focusout)="resetMessageBox()" (onFocus)="updateMessageBox('work_experience_job_responsibilities')" #jobRepo></textarea> -->
-													<small class="text-danger text-start"
-														*ngIf="getWordCountUsingControl(experience.get('work_experience_job_responsibilities')) > 150">This
-														field exceed the maximum length</small>
-													<small class="text-muted d-block text-end">{{
-														getWordCountUsingControl(experience.get("work_experience_job_responsibilities"))
-														}}/150</small>
-												</div>
-
-												<!-- Experience Letter Upload -->
-												<div class="col-md-12 mb-3">
-													<label class="form-label fw-medium">Experience Letter <span
-															class="text-muted">(Optional)</span></label>
-													<div class="upload-box" (click)="fileExperieceUpload.click()"
-														[disabled]="experience.get('years_of_experience')?.value == 'Fresher'"
-														(onFocus)="updateMessageBox('work_experience_experience_letter')"
-														(focusout)="resetMessageBox()">
-														<div
-															class="d-flex align-items-center justify-center-center flex-column mt-3">
-															<i
-																class="pi pi-cloud-upload !border-2 !rounded-full !p-8 !text-4xl !text-muted-color fw-bold"></i>
-															<div class="fw-bold">
-																{{
-																experience.get("work_experience_experience_letter")?.value
-																?
-																extractLastName(experience.get("work_experience_experience_letter")?.value)
-																: "Upload your Experience Letter" }}
-															</div>
-														</div>
-														<input type="file" [auto]="true" style="visibility: hidden"
-															accept="application/pdf" [maxFileSize]="1000000"
-															(change)="uploadFile(fileType.EXPERIENCE_LETTER, $event, i)"
-															#fileExperieceUpload
-															[disabled]="experience.get('years_of_experience')?.value == 'Fresher'" />
-													</div>
-												</div>
-											</div>
-										</ng-container>
-									</ng-container>
-									<div class="row">
-										<button class="w-full btn btn-primary" (click)="addWorkExperience()"
-											[disabled]="personalInfoForm?.get('total_years_of_experience')?.value == 'Fresher'">Add
-											Work Experience Details &nbsp;<i class="fa fa-plus"></i></button>
-									</div>
-								</div>
-								<hr class="my-3" />
-								<div class="card-body">
-									<h2 class="card-title mb-1">Career Prefrenences & Aspirations</h2>
-									<div class="mb-2">
-										<span class="text-danger fw-bold">Confused about your career?</span>
-										<a (click)="routerBlankPage('/pages/job-tool/careerplannerlist')" class="px-1"
-											role="button">Click here</a> to plan it!
-									</div>
-									<ng-container class="career-experience">
-										<div class="row mb-3">
-											<div class="col-md-6">
-												<label for="highestQualification" class="form-label">Career Status<span
-														class="text-danger">*</span></label>
-												<p-select id="highestQualification"
-													formControlName="career_preference_career_status"
-													[options]="careerStatus" placeholder="Select Career Status"
-													styleClass="w-100" (focusout)="resetMessageBox()"
-													(onFocus)="updateMessageBox('career_preference_career_status')"></p-select>
-												<small class="text-danger"
-													*ngIf="personalInfoForm.get('career_preference_career_status')?.invalid && personalInfoForm.get('career_preference_career_status')?.touched">
-													This field is mandatory </small>
-											</div>
-											<div class="col-md-6">
-												<label for="highestQualification" class="form-label">Job Title<span
-														class="text-danger">*</span></label>
-												<p-select id="highestQualification"
-													pTooltip="Not able to find please type in this field"
-													[virtualScroll]="true" [virtualScrollItemSize]="50"
-													formControlName="career_preference_job_title_id"
-													[options]="jobTitles" placeholder="Select Job Title"
-													styleClass="w-100" optionLabel="job_title" optionValue="job_title"
-													[filter]="true" filterBy="job_title" (focusout)="resetMessageBox()"
-													(onFocus)="updateMessageBox('career_preference_job_title_id')">
-													<ng-template #header>
-														<div class="p-2">
-															<p-inputgroup>
-																<input pInputText class="rounded-end-2 me-1"
-																	placeholder="Custom Job Title" #jobTitleExp
-																	(click)="focusInput(jobTitleExp)" />
-																<button class="w-full btn btn-primary"
-																	(click)="addCustomJobTitle(jobTitleExp.value, personalInfoForm.get('career_preference_job_title_id'))"><i
-																		class="fa fa-plus"></i>&nbsp;Add New</button>
-															</p-inputgroup>
-														</div>
-													</ng-template>
-												</p-select>
-												<small class="text-danger"
-													*ngIf="personalInfoForm.get('career_preference_job_title_id')?.invalid && personalInfoForm.get('career_preference_job_title_id')?.touched">
-													This field is mandatory </small>
-											</div>
-										</div>
-										<div class="row mb-3">
-											<div class="col-md-6">
-												<label for="highestQualification" class="form-label">Career Interest /
-													Industry<span class="text-danger">*</span></label>
-												<p-multiSelect id="highestQualification"
-													formControlName="career_preference_career_interest_id"
-													[options]="careerInterests" placeholder="Enter career interest"
-													styleClass="w-100" optionLabel="interest" optionValue="id"
-													[filter]="true" filterBy="interest" (focusout)="resetMessageBox()"
-													(onFocus)="updateMessageBox('career_preference_career_interest_id')"></p-multiSelect>
-												<small class="text-danger"
-													*ngIf="personalInfoForm.get('career_preference_career_interest_id')?.invalid && personalInfoForm.get('career_preference_career_interest_id')?.touched">
-													This field is mandatory </small>
-											</div>
-
-											<!-- University/Institution Name -->
-											<div class="col-md-6">
-												<label for="university" class="form-label">Preferred Work Location<span
-														class="text-danger">*</span></label>
-												<div class="p-inputgroup">
-													<p-multiSelect id="highestQualification"
-														formControlName="career_preference_preferred_work_location_id"
-														[options]="locations" [virtualScroll]="true"
-														[virtualScrollItemSize]="50" placeholder="Select Your Location"
-														styleClass="w-100" optionLabel="work_location" optionValue="id"
-														[filter]="true" filterBy="work_location" [appendTo]="'body'"
-														(focusout)="resetMessageBox()"
-														(onFocus)="updateMessageBox('career_preference_preferred_work_location_id')"></p-multiSelect>
-												</div>
-												<small class="text-danger"
-													*ngIf="personalInfoForm.get('career_preference_preferred_work_location_id')?.invalid && personalInfoForm.get('career_preference_preferred_work_location_id')?.touched">
-													This field is mandatory </small>
-											</div>
-										</div>
-										<div class="row mb-3">
-											<div class="col-md-6">
-												<label for="highestQualification" class="form-label">Preferred
-													Employement Type<span class="text-danger">*</span></label>
-												<p-multiSelect id="highestQualification"
-													formControlName="career_preference_preferred_employment_type"
-													[options]="preferredEmploymentType"
-													placeholder="Select Employement Type"
-													styleClass="w-100"></p-multiSelect>
-												<small class="text-danger"
-													*ngIf="personalInfoForm.get('career_preference_preferred_employment_type')?.invalid && personalInfoForm.get('career_preference_preferred_employment_type')?.touched">
-													This field is mandatory </small>
-											</div>
-
-											<!-- University/Institution Name -->
-											<div class="col-md-6">
-												<label for="university" class="form-label">Preferred Workplace Type<span
-														class="text-danger">*</span></label>
-												<div class="p-inputgroup">
-													<p-multiSelect id="highestQualification"
-														formControlName="career_preference_preferred_workplace_type"
-														[options]="preferredWorkplaceType"
-														placeholder="Enter Workplace Type" styleClass="w-100"
-														(focusout)="resetMessageBox()"
-														(onFocus)="updateMessageBox('career_preference_preferred_workplace_type')"
-														(ngModelChange)="handleValidationsForFields(personalInfoForm?.get('career_preference_willingness_to_relocate'), $event == 'Remote Work')"></p-multiSelect>
-												</div>
-												<small class="text-danger"
-													*ngIf="personalInfoForm.get('career_preference_preferred_workplace_type')?.invalid && personalInfoForm.get('career_preference_preferred_workplace_type')?.touched">
-													This field is mandatory </small>
-											</div>
-										</div>
-										<div class="row mb-3">
-											<div class="col-md-6">
-												<label for="highestQualification" class="form-label">Willingness to
-													Relocate?<span class="text-danger">*</span></label>
-												<p-select id="highestQualification"
-													formControlName="career_preference_willingness_to_relocate"
-													[options]="[
-														{ label: 'Yes', value: 'Yes' },
-														{ label: 'No', value: 'No' }
-													]" placeholder="Wiiling to relocate" styleClass="w-100" optionLabel="label" optionValue="value"
-													(focusout)="resetMessageBox()"
-													(onFocus)="updateMessageBox('career_preference_willingness_to_relocate')"
-													[disabled]="personalInfoForm.get('career_preference_preferred_workplace_type')?.value == 'Remote Work'"></p-select>
-												<small class="text-danger"
-													*ngIf="personalInfoForm.get('career_preference_willingness_to_relocate')?.invalid && personalInfoForm.get('career_preference_willingness_to_relocate')?.touched">
-													This field is mandatory </small>
-											</div>
-											<!-- University/Institution Name -->
-											<div class="col-md-6">
-												<label for="university" class="form-label">Expected Salary / Month<span
-														class="text-danger">*</span></label>
-												<div class="d-flex w-100 gap-2">
-													<p-select [options]="currencies" styleClass="p-select p-component"
-														optionLabel="currency_code" optionValue="id"
-														placeholder="Select" [filter]="true" filterBy="currency_code"
-														formControlName="career_preference_currency_id"
-														[style]="{ width: '100px' }" (focusout)="resetMessageBox()"
-														(onFocus)="updateMessageBox('career_preference_currency_id')">
-													</p-select>
-													<div class="flex-grow-1 me-2">
-														<p-inputNumber id="salary" placeholder="Enter your salary/month"
-															styleClass="p-inputtext w-100" [showButtons]="false"
-															class="w-100"
-															formControlName="career_preference_expected_salary"></p-inputNumber>
-													</div>
-												</div>
-												<small class="text-danger"
-													*ngIf="(personalInfoForm.get('career_preference_expected_salary')?.invalid && personalInfoForm.get('career_preference_expected_salary')?.touched) || (personalInfoForm.get('career_preference_currency_id')?.invalid && personalInfoForm.get('career_preference_currency_id')?.touched)">
-													This field with currency is mandatory </small>
-											</div>
-										</div>
-									</ng-container>
-								</div>
-								<hr />
-								<div class="row">
-									<div class="col-12">
-										<h2 class="card-title mb-1">Certifications & Achievements</h2>
-										<div class="mb-2">
-											<div class="mb-2">
-												<span class="text-danger fw-bold">Dont have any certificates yet?</span>
-												<a (click)="routerBlankPage('/pages/modules/learning-hub')" class="px-1"
-													role="button">Click here</a>
-												to plan it!
-											</div>
-										</div>
-										<label class="form-label mb-2">Professional / online Certifications</label>
-										<ng-container class="education mb-3" formArrayName="certifications">
-											<ng-container
-												*ngFor="let certificate of certifications.controls; let i = index"
-												[formGroupName]="i">
-												<div class="row mb-2 align-items-center">
-													<div class="col-md-6">
-														<input pInputText fluid class="form-control"
-															placeholder="Enter certification name" class="w-100"
-															formControlName="certifications_certificate_name"
-															(focusout)="resetMessageBox()"
-															(focus)="updateMessageBox('certifications_certificate_name')" />
-													</div>
-													<div class="col position-relative">
-														<button
-															class="btn btn-light d-flex align-items-center justify-content-center w-100 border border-dash p-2"
-															(click)="certificateFile.click()"
-															(focusout)="resetMessageBox()"
-															(onFocus)="updateMessageBox('certifications_certificate_file')">
-															<i class="pi pi-upload me-2"></i>
-															{{ certificate.get("certifications_certificate_file")?.value
-															?
-															extractLastName(certificate.get("certifications_certificate_file")?.value)
-															: "Upload certificate" }}
-														</button>
-														<input type="file" accept="application/pdf"
-															(change)="uploadFile(fileType.CERTIFICATIONS, $event, i)"
-															style="visibility: hidden; position: absolute"
-															#certificateFile />
-													</div>
-													<div class="col-md-1 d-flex justify-content-center">
-														<button
-															class="btn btn-outline-primary d-flex align-items-center justify-content-center p-2"
-															(click)="addCertifications()">
-															<i class="pi pi-plus"></i>
-														</button>
-													</div>
-													<div *ngIf="i != 0" class="col-md-1 d-flex justify-content-center">
-														<button
-															class="btn btn-outline-danger d-flex align-items-center justify-content-center px-3 py-2"
-															(click)="removeCertification(i)">
-															<span><i class="fa-regular fa-trash fa-lg"></i></span>
-														</button>
-													</div>
-												</div>
-											</ng-container>
-										</ng-container>
-										<ng-container class="education" formArrayName="acheivements">
-											<label class="form-label mb-2">Achievement Name</label>
-											<ng-container
-												*ngFor="let certificate of achievements.controls; let i = index"
-												[formGroupName]="i">
-												<div class="row mb-2 align-items-center">
-													<div class="col-md-6">
-														<input pInputText fluid class="form-control w-100"
-															placeholder="Enter Achievement Name"
-															formControlName="certifications_achievement_name"
-															(focusout)="resetMessageBox()"
-															(focus)="updateMessageBox('certifications_achievement_name')" />
-													</div>
-													<div class="col position-relative">
-														<button
-															class="btn btn-light d-flex align-items-center justify-content-center w-100 border p-2"
-															(click)="acheivementFile.click()"
-															(focusout)="resetMessageBox()"
-															(onFocus)="updateMessageBox('certifications_achievement_file')">
-															<i class="pi pi-upload me-2"></i>
-															{{ certificate.get("certifications_achievement_file")?.value
-															?
-															extractLastName(certificate.get("certifications_achievement_file")?.value)
-															: "Upload Supporting Document" }}
-														</button>
-														<input type="file" accept="application/pdf"
-															(change)="uploadFile(fileType.ACHIEVEMENTS, $event, i)"
-															style="visibility: hidden; position: absolute"
-															#acheivementFile />
-													</div>
-													<div class="col-md-1 d-flex justify-content-center">
-														<button
-															class="btn btn-outline-primary d-flex align-items-center justify-content-center p-2"
-															(click)="addAcheivements()">
-															<i class="pi pi-plus"></i>
-														</button>
-													</div>
-													<div *ngIf="i != 0" class="col-md-1 d-flex justify-content-center">
-														<button
-															class="btn btn-outline-danger d-flex align-items-center justify-content-center px-3 py-2"
-															(click)="removeAchievement(i)">
-															<span><i class="fa-regular fa-trash fa-lg"></i></span>
-														</button>
-													</div>
-												</div>
-											</ng-container>
-										</ng-container>
-										<hr class="my-4" />
-									</div>
-								</div>
-								<div class="card-body">
-									<h2 class="card-title mb-1">Addtional Details</h2>
-									<div class="mb-2">
-										<span class="text-danger fw-bold">Want to learn a new language?</span>
-										<a (click)="routerBlankPage('/pages/language-hub/languages')" class="px-1">Click
-											here</a> to plan it!
-									</div>
-									<ng-container class="work-experience">
-										<div class="row">
-											<div class="col-md-6">
-												<label for="highestQualification" class="form-label">Language known<span
-														class="text-danger">*</span></label>
-											</div>
-											<div class="col-md-6">
-												<label for="highestQualification" class="form-label">Language
-													Proficiency<span class="text-danger">*</span></label>
-											</div>
-										</div>
-										<ng-container formArrayName="languages">
-											<div class="row mb-3"
-												*ngFor="let language of languages.controls; let i = index"
-												[formGroupName]="i">
-												<div class="col-md-6">
-													<p-select id="highestQualification"
-														formControlName="languages_language_id" [options]="languagelist"
-														placeholder="Enter know language" styleClass="w-100"
-														optionLabel="language" optionValue="id" [filter]="true"
-														filterBy="language" (focusout)="resetMessageBox()"
-														(onFocus)="updateMessageBox('languages_language_id')"></p-select>
 													<small class="text-danger"
-														*ngIf="language.get('languages_language_id')?.invalid && language.get('languages_language_id')?.touched">
-														This field is mandatory </small>
+														*ngIf="(personalInfoForm.get('career_preference_expected_salary')?.invalid && personalInfoForm.get('career_preference_expected_salary')?.touched) || (personalInfoForm.get('career_preference_currency_id')?.invalid && personalInfoForm.get('career_preference_currency_id')?.touched)">
+														This field with currency is mandatory </small>
 												</div>
-												<div class="col-md-6">
-													<div class="row">
-														<div class="col">
-															<p-select id="highestQualification"
-																formControlName="languages_proficiency"
-																[options]="languageProficiency"
-																placeholder="Enter language proficiency"
-																styleClass="w-100" (focusout)="resetMessageBox()"
-																(onFocus)="updateMessageBox('languages_proficiency')"></p-select>
-															<small class="text-danger"
-																*ngIf="language.get('languages_proficiency')?.invalid && language.get('languages_proficiency')?.touched">
-																This field is mandatory </small>
+											</div>
+										</ng-container>
+									</div>
+									<hr />
+									<div class="row">
+										<div class="col-12">
+											<h2 class="card-title mb-1">Certifications & Achievements</h2>
+											<div class="mb-2">
+												<div class="mb-2">
+													<span class="text-danger fw-bold">Dont have any certificates
+														yet?</span>
+													<a (click)="routerBlankPage('/pages/modules/learning-hub')"
+														class="px-1" role="button">Click here</a>
+													to plan it!
+												</div>
+											</div>
+											<label class="form-label mb-2">Professional / online Certifications</label>
+											<ng-container class="education mb-3" formArrayName="certifications">
+												<ng-container
+													*ngFor="let certificate of certifications.controls; let i = index"
+													[formGroupName]="i">
+													<div class="row mb-2 align-items-center">
+														<div class="col-md-6">
+															<input pInputText fluid class="form-control"
+																placeholder="Enter certification name" class="w-100"
+																formControlName="certifications_certificate_name"
+																(focusout)="resetMessageBox()"
+																(focus)="updateMessageBox('certifications_certificate_name')" />
 														</div>
-														<div *ngIf="i !== 0" class="col-md-2">
+														<div class="col position-relative">
+															<button
+																class="btn btn-light d-flex align-items-center justify-content-center w-100 border border-dash p-2"
+																(click)="certificateFile.click()"
+																(focusout)="resetMessageBox()"
+																(onFocus)="updateMessageBox('certifications_certificate_file')">
+																<i class="pi pi-upload me-2"></i>
+																{{
+																certificate.get("certifications_certificate_file")?.value
+																?
+																extractLastName(certificate.get("certifications_certificate_file")?.value)
+																: "Upload certificate" }}
+															</button>
+															<input type="file" accept="application/pdf"
+																(change)="uploadFile(fileType.CERTIFICATIONS, $event, i)"
+																style="visibility: hidden; position: absolute"
+																#certificateFile />
+														</div>
+														<div class="col-md-1 d-flex justify-content-center">
+															<button
+																class="btn btn-outline-primary d-flex align-items-center justify-content-center p-2"
+																(click)="addCertifications()">
+																<i class="pi pi-plus"></i>
+															</button>
+														</div>
+														<div *ngIf="i != 0"
+															class="col-md-1 d-flex justify-content-center">
 															<button
 																class="btn btn-outline-danger d-flex align-items-center justify-content-center px-3 py-2"
-																(click)="removeLanguage(i)">
+																(click)="removeCertification(i)">
 																<span><i class="fa-regular fa-trash fa-lg"></i></span>
 															</button>
 														</div>
 													</div>
+												</ng-container>
+											</ng-container>
+											<ng-container class="education" formArrayName="acheivements">
+												<label class="form-label mb-2">Achievement Name</label>
+												<ng-container
+													*ngFor="let certificate of achievements.controls; let i = index"
+													[formGroupName]="i">
+													<div class="row mb-2 align-items-center">
+														<div class="col-md-6">
+															<input pInputText fluid class="form-control w-100"
+																placeholder="Enter Achievement Name"
+																formControlName="certifications_achievement_name"
+																(focusout)="resetMessageBox()"
+																(focus)="updateMessageBox('certifications_achievement_name')" />
+														</div>
+														<div class="col position-relative">
+															<button
+																class="btn btn-light d-flex align-items-center justify-content-center w-100 border p-2"
+																(click)="acheivementFile.click()"
+																(focusout)="resetMessageBox()"
+																(onFocus)="updateMessageBox('certifications_achievement_file')">
+																<i class="pi pi-upload me-2"></i>
+																{{
+																certificate.get("certifications_achievement_file")?.value
+																?
+																extractLastName(certificate.get("certifications_achievement_file")?.value)
+																: "Upload Supporting Document" }}
+															</button>
+															<input type="file" accept="application/pdf"
+																(change)="uploadFile(fileType.ACHIEVEMENTS, $event, i)"
+																style="visibility: hidden; position: absolute"
+																#acheivementFile />
+														</div>
+														<div class="col-md-1 d-flex justify-content-center">
+															<button
+																class="btn btn-outline-primary d-flex align-items-center justify-content-center p-2"
+																(click)="addAcheivements()">
+																<i class="pi pi-plus"></i>
+															</button>
+														</div>
+														<div *ngIf="i != 0"
+															class="col-md-1 d-flex justify-content-center">
+															<button
+																class="btn btn-outline-danger d-flex align-items-center justify-content-center px-3 py-2"
+																(click)="removeAchievement(i)">
+																<span><i class="fa-regular fa-trash fa-lg"></i></span>
+															</button>
+														</div>
+													</div>
+												</ng-container>
+											</ng-container>
+											<hr class="my-4" />
+										</div>
+									</div>
+									<div class="card-body">
+										<h2 class="card-title mb-1">Addtional Details</h2>
+										<div class="mb-2">
+											<span class="text-danger fw-bold">Want to learn a new language?</span>
+											<a (click)="routerBlankPage('/pages/language-hub/languages')"
+												class="px-1">Click
+												here</a> to plan it!
+										</div>
+										<ng-container class="work-experience">
+											<div class="row">
+												<div class="col-md-6">
+													<label for="highestQualification" class="form-label">Language
+														known<span class="text-danger">*</span></label>
+												</div>
+												<div class="col-md-6">
+													<label for="highestQualification" class="form-label">Language
+														Proficiency<span class="text-danger">*</span></label>
+												</div>
+											</div>
+											<ng-container formArrayName="languages">
+												<div class="row mb-3"
+													*ngFor="let language of languages.controls; let i = index"
+													[formGroupName]="i">
+													<div class="col-md-6">
+														<p-select id="highestQualification"
+															formControlName="languages_language_id"
+															[options]="languagelist" placeholder="Enter know language"
+															styleClass="w-100" optionLabel="language" optionValue="id"
+															[filter]="true" filterBy="language"
+															(focusout)="resetMessageBox()"
+															(onFocus)="updateMessageBox('languages_language_id')"></p-select>
+														<small class="text-danger"
+															*ngIf="language.get('languages_language_id')?.invalid && language.get('languages_language_id')?.touched">
+															This field is mandatory </small>
+													</div>
+													<div class="col-md-6">
+														<div class="row">
+															<div class="col">
+																<p-select id="highestQualification"
+																	formControlName="languages_proficiency"
+																	[options]="languageProficiency"
+																	placeholder="Enter language proficiency"
+																	styleClass="w-100" (focusout)="resetMessageBox()"
+																	(onFocus)="updateMessageBox('languages_proficiency')"></p-select>
+																<small class="text-danger"
+																	*ngIf="language.get('languages_proficiency')?.invalid && language.get('languages_proficiency')?.touched">
+																	This field is mandatory </small>
+															</div>
+															<div *ngIf="i !== 0" class="col-md-2">
+																<button
+																	class="btn btn-outline-danger d-flex align-items-center justify-content-center px-3 py-2"
+																	(click)="removeLanguage(i)">
+																	<span><i
+																			class="fa-regular fa-trash fa-lg"></i></span>
+																</button>
+															</div>
+														</div>
+													</div>
+												</div>
+											</ng-container>
+											<div class="row mb-3">
+												<button class="w-full btn btn-primary" (click)="addLanguage()">Add More
+													Language&nbsp;<i class="fa fa-plus"></i></button>
+											</div>
+											<div class="row mb-3">
+												<div class="col-md-12">
+													<label for="highestQualification" class="form-label">Hobbies &
+														Interests</label>
+													<input pInputText fluid id="highestQualification"
+														formControlName="languages_hobby_id"
+														placeholder="Enter if any hobbies and interests"
+														class="form-control w-100" />
 												</div>
 											</div>
 										</ng-container>
-										<div class="row mb-3">
-											<button class="w-full btn btn-primary" (click)="addLanguage()">Add More
-												Language&nbsp;<i class="fa fa-plus"></i></button>
-										</div>
-										<div class="row mb-3">
-											<div class="col-md-12">
-												<label for="highestQualification" class="form-label">Hobbies &
-													Interests</label>
-												<input pInputText fluid id="highestQualification"
-													formControlName="languages_hobby_id"
-													placeholder="Enter if any hobbies and interests"
-													class="form-control w-100" />
-											</div>
-										</div>
-									</ng-container>
-								</div>
-								<hr />
-								<div class="card-body">
-									<h2 class="card-title mb-1">Key Strengths & Professional Traits</h2>
-									<div class="mb-2">
-										<span class="text-danger fw-bold">Showcase your skills and strengths</span>
-										<a (click)="routerBlankPage('/pages/modules/skill-mastery')" class="px-1">Click
-											here</a> to plan it!
 									</div>
-									<ng-container class="work-experience">
-										<div class="row mb-3">
-											<div class="col-md-12">
-												<div class="d-flex justify-content-between">
-													<label for="highestQualification" class="form-label">What sets you
-														apart in your industry?</label>
-													<div class="d-flex gap-2 mb-2">
-														<!-- <p-button type="button" icon="pi pi-refresh" (click)="this.personalInfoForm.get('career_preference_set_industry_apart')?.setValue(null);"></p-button> -->
-														<button
-															*ngIf="!isNotEmptyHtml(this.personalInfoForm.get('career_preference_set_industry_apart')?.value)"
-															class="text-small btn btn-success btn-rounded d-flex align-items-center gap-2"
-															style="width: fit-content"
-															(click)="generateAiSummary('Key_strength', { career_status: personalInfoForm?.get('career_preference_career_status')?.value, industry_type: getListValue(careerInterests, personalInfoForm?.get('career_preference_career_interest_id')?.value, 'interest'), title: personalInfoForm?.get('career_preference_job_title_id')?.value }, personalInfoForm?.get('career_preference_set_industry_apart'))"><i
-																class="fa-solid fa-stars"></i>AI Generate</button>
-														<button
-															*ngIf="isNotEmptyHtml(this.personalInfoForm.get('career_preference_set_industry_apart')?.value)"
-															class="text-small btn btn-danger btn-rounded d-flex align-items-center gap-2"
-															style="width: fit-content"
-															(click)="aiRePhraseSummary('Key_strength', { rephrase_content: personalInfoForm?.get('career_preference_set_industry_apart')?.value }, personalInfoForm?.get('career_preference_set_industry_apart'))">RePhrase</button>
+									<hr />
+									<div class="card-body">
+										<h2 class="card-title mb-1">Key Strengths & Professional Traits</h2>
+										<div class="mb-2">
+											<span class="text-danger fw-bold">Showcase your skills and strengths</span>
+											<a (click)="routerBlankPage('/pages/modules/skill-mastery')"
+												class="px-1">Click
+												here</a> to plan it!
+										</div>
+										<ng-container class="work-experience">
+											<div class="row mb-3">
+												<div class="col-md-12">
+													<div class="d-flex justify-content-between">
+														<label for="highestQualification" class="form-label">What sets
+															you
+															apart in your industry?</label>
+														<div class="d-flex gap-2 mb-2">
+															<!-- <p-button type="button" icon="pi pi-refresh" (click)="this.personalInfoForm.get('career_preference_set_industry_apart')?.setValue(null);"></p-button> -->
+															<button
+																*ngIf="!isNotEmptyHtml(this.personalInfoForm.get('career_preference_set_industry_apart')?.value)"
+																class="text-small btn btn-success btn-rounded d-flex align-items-center gap-2"
+																style="width: fit-content"
+																(click)="generateAiSummary('Key_strength', { career_status: personalInfoForm?.get('career_preference_career_status')?.value, industry_type: getListValue(careerInterests, personalInfoForm?.get('career_preference_career_interest_id')?.value, 'interest'), title: personalInfoForm?.get('career_preference_job_title_id')?.value }, personalInfoForm?.get('career_preference_set_industry_apart'))"><i
+																	class="fa-solid fa-stars"></i>AI Generate</button>
+															<button
+																*ngIf="isNotEmptyHtml(this.personalInfoForm.get('career_preference_set_industry_apart')?.value)"
+																class="text-small btn btn-danger btn-rounded d-flex align-items-center gap-2"
+																style="width: fit-content"
+																(click)="aiRePhraseSummary('Key_strength', { rephrase_content: personalInfoForm?.get('career_preference_set_industry_apart')?.value }, personalInfoForm?.get('career_preference_set_industry_apart'))">RePhrase</button>
+														</div>
+													</div>
+													<div class="position-relative">
+														<p-editor #editor
+															[style]="{ height: '150px', maxHeight: 'auto' }"
+															formControlName="career_preference_set_industry_apart"
+															placeholder="Enter your sets you apart in your industry"
+															(focusout)="resetMessageBox()"
+															(onFocus)="updateMessageBox('career_preference_set_industry_apart')"
+															(ngModelChange)="checkMaximumWordsInFields(personalInfoForm.get('career_preference_set_industry_apart'), 150)" />
+														<small class="text-danger text-start"
+															*ngIf="getWordCountUsingControl(personalInfoForm.get('career_preference_set_industry_apart')) > 150">This
+															field exceed the maximum length</small>
+														<small class="text-muted d-block text-end">{{
+															getWordCountUsingControl(personalInfoForm.get("career_preference_set_industry_apart"))}}/150</small>
 													</div>
 												</div>
-												<div class="position-relative">
-													<p-editor #editor [style]="{ height: '150px', maxHeight: 'auto' }"
-														formControlName="career_preference_set_industry_apart"
-														placeholder="Enter your sets you apart in your industry"
+											</div>
+											<div class="row mb-3">
+												<div class="col-md-6">
+													<label for="highestQualification" class="form-label">Soft
+														skills</label>
+													<p-multi-select pInputText fluid id="highestQualification"
+														formControlName="career_preference_soft_skill_id"
+														[options]="softSkills" optionValue="id" optionLabel="soft_skill"
+														placeholder="Enter Soft Skills" class="form-control p-1 w-100"
 														(focusout)="resetMessageBox()"
-														(onFocus)="updateMessageBox('career_preference_set_industry_apart')"
-														(ngModelChange)="checkMaximumWordsInFields(personalInfoForm.get('career_preference_set_industry_apart'), 150)" />
-													<small class="text-danger text-start"
-														*ngIf="getWordCountUsingControl(personalInfoForm.get('career_preference_set_industry_apart')) > 150">This
-														field exceed the maximum length</small>
-													<small class="text-muted d-block text-end">{{
-														getWordCountUsingControl(personalInfoForm.get("career_preference_set_industry_apart"))}}/150</small>
+														(focus)="updateMessageBox('career_preference_soft_skill_id')"></p-multi-select>
+												</div>
+												<div class="col-md-6">
+													<label for="highestQualification" class="form-label">Your top
+														professional strength</label>
+													<p-multiSelect id="highestQualification"
+														formControlName="career_preference_professional_strength_id"
+														[options]="professionalStrengths"
+														placeholder="Enter know language" styleClass="w-100"
+														optionLabel="strength" optionValue="id"
+														(focusout)="resetMessageBox()"
+														(onFocus)="updateMessageBox('career_preference_professional_strength_id')"></p-multiSelect>
 												</div>
 											</div>
-										</div>
-										<div class="row mb-3">
-											<div class="col-md-6">
-												<label for="highestQualification" class="form-label">Soft skills</label>
-												<p-multi-select pInputText fluid id="highestQualification"
-													formControlName="career_preference_soft_skill_id"
-													[options]="softSkills" optionValue="id" optionLabel="soft_skill"
-													placeholder="Enter Soft Skills" class="form-control p-1 w-100"
-													(focusout)="resetMessageBox()"
-													(focus)="updateMessageBox('career_preference_soft_skill_id')"></p-multi-select>
-											</div>
-											<div class="col-md-6">
-												<label for="highestQualification" class="form-label">Your top
-													professional strength</label>
-												<p-multiSelect id="highestQualification"
-													formControlName="career_preference_professional_strength_id"
-													[options]="professionalStrengths" placeholder="Enter know language"
-													styleClass="w-100" optionLabel="strength" optionValue="id"
-													(focusout)="resetMessageBox()"
-													(onFocus)="updateMessageBox('career_preference_professional_strength_id')"></p-multiSelect>
-											</div>
-										</div>
-										<div class="row mb-3">
-											<div class="col-md-6">
-												<label for="highestQualification" class="form-label">Have a you solved a
-													real-world challenge in your feilds?</label>
-												<div class="position-relative">
+											<div class="row mb-3">
+												<div class="col-md-6">
+													<label for="highestQualification" class="form-label">Have a you
+														solved a
+														real-world challenge in your feilds?</label>
+													<div class="position-relative">
+														<textarea pTextarea id="university"
+															formControlName="career_preference_real_world_challenge"
+															placeholder="Have a you solved a real-world challenge?"
+															rows="5" class="form-control w-100"
+															(focusout)="resetMessageBox()"
+															(onFocus)="updateMessageBox('career_preference_real_world_challenge')"
+															(ngModelChange)="checkMaximumWordsInFields(personalInfoForm.get('career_preference_real_world_challenge'), 150)"></textarea>
+														<small class="text-danger text-start"
+															*ngIf="getWordCountUsingControl(personalInfoForm.get('career_preference_real_world_challenge')) > 150">This
+															field exceed the maximum length</small>
+														<small class="text-muted d-block text-end">{{
+															getWordCountUsingControl(personalInfoForm.get("career_preference_real_world_challenge"))
+															}}/150</small>
+													</div>
+												</div>
+												<div class="col-md-6">
+													<div class="d-flex justify-content-between mb-1">
+														<label for="highestQualification" class="form-label">Have you
+															taken
+															on
+															leadership roles?</label>
+														<div>
+															<button
+																*ngIf="this.personalInfoForm.get('career_preference_leadership_experience')?.value"
+																class="text-small btn btn-danger btn-rounded d-flex align-items-center gap-2"
+																style="width: fit-content"
+																(click)="aiRePhraseSummary('leadership_roles', { rephrase_content: personalInfoForm?.get('career_preference_leadership_experience')?.value }, personalInfoForm?.get('career_preference_leadership_experience'))">RePhrase</button>
+														</div>
+													</div>
 													<textarea pTextarea id="university"
-														formControlName="career_preference_real_world_challenge"
-														placeholder="Have a you solved a real-world challenge?" rows="5"
+														formControlName="career_preference_leadership_experience"
+														placeholder="Have you taken on leadership roles?"
 														class="form-control w-100" (focusout)="resetMessageBox()"
-														(onFocus)="updateMessageBox('career_preference_real_world_challenge')"
-														(ngModelChange)="checkMaximumWordsInFields(personalInfoForm.get('career_preference_real_world_challenge'), 150)"></textarea>
+														rows="5"
+														(onFocus)="updateMessageBox('career_preference_leadership_experience')"
+														(ngModelChange)="checkMaximumWordsInFields(personalInfoForm.get('career_preference_leadership_experience'), 150)"></textarea>
 													<small class="text-danger text-start"
 														*ngIf="getWordCountUsingControl(personalInfoForm.get('career_preference_real_world_challenge')) > 150">This
 														field exceed the maximum length</small>
 													<small class="text-muted d-block text-end">{{
-														getWordCountUsingControl(personalInfoForm.get("career_preference_real_world_challenge"))
+														getWordCountUsingControl(personalInfoForm.get("career_preference_leadership_experience"))
 														}}/150</small>
 												</div>
 											</div>
-											<div class="col-md-6">
-												<div class="d-flex justify-content-between mb-1">
-													<label for="highestQualification" class="form-label">Have you taken
-														on
-														leadership roles?</label>
-													<div>
-														<button
-															*ngIf="this.personalInfoForm.get('career_preference_leadership_experience')?.value"
-															class="text-small btn btn-danger btn-rounded d-flex align-items-center gap-2"
-															style="width: fit-content"
-															(click)="aiRePhraseSummary('leadership_roles', { rephrase_content: personalInfoForm?.get('career_preference_leadership_experience')?.value }, personalInfoForm?.get('career_preference_leadership_experience'))">RePhrase</button>
-													</div>
-												</div>
-												<textarea pTextarea id="university"
-													formControlName="career_preference_leadership_experience"
-													placeholder="Have you taken on leadership roles?"
-													class="form-control w-100" (focusout)="resetMessageBox()" rows="5"
-													(onFocus)="updateMessageBox('career_preference_leadership_experience')"
-													(ngModelChange)="checkMaximumWordsInFields(personalInfoForm.get('career_preference_leadership_experience'), 150)"></textarea>
-												<small class="text-danger text-start"
-													*ngIf="getWordCountUsingControl(personalInfoForm.get('career_preference_real_world_challenge')) > 150">This
-													field exceed the maximum length</small>
-												<small class="text-muted d-block text-end">{{
-													getWordCountUsingControl(personalInfoForm.get("career_preference_leadership_experience"))
-													}}/150</small>
-											</div>
-										</div>
-										<div class="row mb-3">
-											<div class="col-md-12">
-												<div class="d-flex justify-content-between mb-1">
-													<label for="highestQualification" class="form-label">One quality
-														others
-														admire most about you?</label>
-													<div>
-														<button
-															*ngIf="this.personalInfoForm.get('career_preference_admired_quality')?.value"
-															class="text-small btn btn-danger btn-rounded d-flex align-items-center gap-2"
-															style="width: fit-content"
-															(click)="aiRePhraseSummary('admired_quality', { rephrase_content: personalInfoForm?.get('career_preference_admired_quality')?.value }, personalInfoForm?.get('career_preference_admired_quality'))">RePhrase</button>
-													</div>
-												</div>
-												<div class="position-relative">
-													<textarea pTextarea id="responsibilities"
-														formControlName="career_preference_admired_quality"
-														class="form-control w-100"
-														placeholder="Enter one quality others admire most about you"
-														rows="4" (focusout)="resetMessageBox()"
-														(onFocus)="updateMessageBox('career_preference_admired_quality')"
-														(ngModelChange)="checkMaximumWordsInFields(personalInfoForm.get('career_preference_admired_quality'), 150)"></textarea>
-													<small class="text-danger text-start"
-														*ngIf="getWordCountUsingControl(personalInfoForm.get('career_preference_admired_quality')) > 150">This
-														field exceed the maximum length</small>
-													<small class="text-muted d-block text-end">{{
-														getWordCountUsingControl(personalInfoForm.get("career_preference_admired_quality"))
-														}}/150</small>
-												</div>
-											</div>
-										</div>
-									</ng-container>
-								</div>
-								<hr />
-								<div class="card-body">
-									<h2 class="card-title mb-3">Professional Networking & Online Presence</h2>
-									<ng-container class="work-experience">
-										<div class="row mb-3">
-											<div class="col-md-12">
-												<label for="highestQualification" class="form-label">LinkedIn
-													Profile<span class="text-danger">*</span></label>
-												<input pInputText fluid id="university"
-													formControlName="networking_linkedin_profile"
-													placeholder="Linkedin Profile Link" class="form-control w-100"
-													(focusout)="resetMessageBox()"
-													(focus)="updateMessageBox('networking_linkedin_profile')" />
-												<small class="text-danger"
-													*ngIf="personalInfoForm.get('networking_linkedin_profile')?.invalid && personalInfoForm.get('networking_linkedin_profile')?.touched">
-													This field is mandatory with valid url </small>
-											</div>
-										</div>
-										<div class="row mb-3">
-											<div class="col-md-6">
-												<label for="highestQualification" class="form-label">Social
-													Media</label>
-											</div>
-											<div class="col-md-6">
-												<label for="highestQualification" class="form-label">Provide the
-													link</label>
-											</div>
-										</div>
-										<ng-container formArrayName="networking_social_media">
-											<div class="row mb-3"
-												*ngFor="let experience of socialMedia.controls; let i = index"
-												[formGroupName]="i">
-												<div class="col-md-6">
-													<p-select id="highestQualification"
-														formControlName="networking_social_media"
-														[options]="socialMedias"
-														placeholder="Select any social media platform"
-														styleClass="w-100" (focusout)="resetMessageBox()"
-														(ngModelChange)="changeSocialMedia($event)"
-														(onFocus)="updateMessageBox('networking_social_media')"
-														[optionDisabled]="isDisabled">
-														<ng-template let-socialMedia #item>
-															<span>{{ socialMedia }}&nbsp;<span
-																	*ngIf="selectedSocialMedias?.includes(socialMedia)">(Selected)</span></span>
-														</ng-template>
-													</p-select>
-													<small class="text-danger"
-														*ngIf="experience.get('networking_social_media')?.invalid && experience.get('networking_social_media')?.touched">
-														This field is mandatory </small>
-												</div>
-												<div class="col-md-6">
-													<div class="row">
-														<div class="col-md-10">
-															<input pInputText fluid id="university"
-																formControlName="networking_social_media_link"
-																placeholder="Social media link"
-																class="form-control w-100"
-																(focusout)="resetMessageBox()"
-																(focus)="updateMessageBox('networking_social_media_link')" />
-														</div>
-														<div class="col-md-2">
+											<div class="row mb-3">
+												<div class="col-md-12">
+													<div class="d-flex justify-content-between mb-1">
+														<label for="highestQualification" class="form-label">One quality
+															others
+															admire most about you?</label>
+														<div>
 															<button
-																class="btn btn-outline-danger d-flex align-items-center justify-content-center px-3 py-2"
-																(click)="removeSocialMedia(i); removeSelectedSocialMedia(experience.get('networking_social_media')?.value)"
-																style="width: fit-content" *ngIf="i !== 0">
-																<span><i class="fa-regular fa-trash fa-lg"></i></span>
-															</button>
+																*ngIf="this.personalInfoForm.get('career_preference_admired_quality')?.value"
+																class="text-small btn btn-danger btn-rounded d-flex align-items-center gap-2"
+																style="width: fit-content"
+																(click)="aiRePhraseSummary('admired_quality', { rephrase_content: personalInfoForm?.get('career_preference_admired_quality')?.value }, personalInfoForm?.get('career_preference_admired_quality'))">RePhrase</button>
 														</div>
+													</div>
+													<div class="position-relative">
+														<textarea pTextarea id="responsibilities"
+															formControlName="career_preference_admired_quality"
+															class="form-control w-100"
+															placeholder="Enter one quality others admire most about you"
+															rows="4" (focusout)="resetMessageBox()"
+															(onFocus)="updateMessageBox('career_preference_admired_quality')"
+															(ngModelChange)="checkMaximumWordsInFields(personalInfoForm.get('career_preference_admired_quality'), 150)"></textarea>
+														<small class="text-danger text-start"
+															*ngIf="getWordCountUsingControl(personalInfoForm.get('career_preference_admired_quality')) > 150">This
+															field exceed the maximum length</small>
+														<small class="text-muted d-block text-end">{{
+															getWordCountUsingControl(personalInfoForm.get("career_preference_admired_quality"))
+															}}/150</small>
 													</div>
 												</div>
 											</div>
 										</ng-container>
-										<div class="row mb-3">
-											<button class="w-full btn btn-primary" (click)="addSocialMedia()">Add more
-												Social media&nbsp;<i class="fa fa-plus"></i></button>
+									</div>
+									<hr />
+									<div class="card-body">
+										<h2 class="card-title mb-3">Professional Networking & Online Presence</h2>
+										<ng-container class="work-experience">
+											<div class="row mb-3">
+												<div class="col-md-12">
+													<label for="highestQualification" class="form-label">LinkedIn
+														Profile<span class="text-danger">*</span></label>
+													<input pInputText fluid id="university"
+														formControlName="networking_linkedin_profile"
+														placeholder="Linkedin Profile Link" class="form-control w-100"
+														(focusout)="resetMessageBox()"
+														(focus)="updateMessageBox('networking_linkedin_profile')" />
+													<small class="text-danger"
+														*ngIf="personalInfoForm.get('networking_linkedin_profile')?.invalid && personalInfoForm.get('networking_linkedin_profile')?.touched">
+														This field is mandatory with valid url </small>
+												</div>
+											</div>
+											<div class="row mb-3">
+												<div class="col-md-6">
+													<label for="highestQualification" class="form-label">Social
+														Media</label>
+												</div>
+												<div class="col-md-6">
+													<label for="highestQualification" class="form-label">Provide the
+														link</label>
+												</div>
+											</div>
+											<ng-container formArrayName="networking_social_media">
+												<div class="row mb-3"
+													*ngFor="let experience of socialMedia.controls; let i = index"
+													[formGroupName]="i">
+													<div class="col-md-6">
+														<p-select id="highestQualification"
+															formControlName="networking_social_media"
+															[options]="socialMedias"
+															placeholder="Select any social media platform"
+															styleClass="w-100" (focusout)="resetMessageBox()"
+															(ngModelChange)="changeSocialMedia($event)"
+															(onFocus)="updateMessageBox('networking_social_media')"
+															[optionDisabled]="isDisabled">
+															<ng-template let-socialMedia #item>
+																<span>{{ socialMedia }}&nbsp;<span
+																		*ngIf="selectedSocialMedias?.includes(socialMedia)">(Selected)</span></span>
+															</ng-template>
+														</p-select>
+														<small class="text-danger"
+															*ngIf="experience.get('networking_social_media')?.invalid && experience.get('networking_social_media')?.touched">
+															This field is mandatory </small>
+													</div>
+													<div class="col-md-6">
+														<div class="row">
+															<div class="col-md-10">
+																<input pInputText fluid id="university"
+																	formControlName="networking_social_media_link"
+																	placeholder="Social media link"
+																	class="form-control w-100"
+																	(focusout)="resetMessageBox()"
+																	(focus)="updateMessageBox('networking_social_media_link')" />
+															</div>
+															<div class="col-md-2">
+																<button
+																	class="btn btn-outline-danger d-flex align-items-center justify-content-center px-3 py-2"
+																	(click)="removeSocialMedia(i); removeSelectedSocialMedia(experience.get('networking_social_media')?.value)"
+																	style="width: fit-content" *ngIf="i !== 0">
+																	<span><i
+																			class="fa-regular fa-trash fa-lg"></i></span>
+																</button>
+															</div>
+														</div>
+													</div>
+												</div>
+											</ng-container>
+											<div class="row mb-3">
+												<button class="w-full btn btn-primary" (click)="addSocialMedia()">Add
+													more
+													Social media&nbsp;<i class="fa fa-plus"></i></button>
+											</div>
+											<div class="row mb-3">
+												<div class="col-md-12">
+													<label for="highestQualification" class="form-label">Personal
+														Website</label>
+													<input pInputText fluid id="university"
+														formControlName="networking_personal_website"
+														placeholder="Website link" class="form-control w-100"
+														(focusout)="resetMessageBox()"
+														(focus)="updateMessageBox('networking_personal_website')" />
+													<small class="text-danger"
+														*ngIf="personalInfoForm.get('networking_personal_website')?.invalid && personalInfoForm.get('networking_personal_website')?.touched">
+														This field is valid url </small>
+												</div>
+											</div>
+										</ng-container>
+									</div>
+									<hr />
+									<div class="card-body">
+										<h2 class="card-title mb-3">Achievements & Media</h2>
+										<div class="mb-2">
+											<span class="text-danger fw-bold">Don't have a resume </span>
+											<a class="text-primary"
+												(click)="routerBlankPage('/pages/job-tool/cv-builder')">Click here</a>
+											to
+											create one!
 										</div>
-										<div class="row mb-3">
-											<div class="col-md-12">
-												<label for="highestQualification" class="form-label">Personal
-													Website</label>
-												<input pInputText fluid id="university"
-													formControlName="networking_personal_website"
-													placeholder="Website link" class="form-control w-100"
-													(focusout)="resetMessageBox()"
-													(focus)="updateMessageBox('networking_personal_website')" />
+										<div class="row justify-content-center mt-3">
+											<div class="upload-section text-center mb-4 py-2"
+												style="border: 1px dashed lightgray">
+												<h4>{{ personalInfoForm.get("career_preference_cv_filename")?.value ?
+													extractLastName(personalInfoForm.get("career_preference_cv_filename")?.value)
+													: "Upload CV / Resume" }}</h4>
+												<button pButton label="UPLOAD"
+													class="p-button-primary rounded-pill px-5 py-2"
+													(click)="fileUpload.click()" (focusout)="resetMessageBox()"
+													(onFocus)="updateMessageBox('career_preference_cv_filename')"></button>
+												<div class="text-muted mt-2">Supported Formats: doc, docx, pdf upto 2 MB
+												</div>
+												<input type="file" #fileUpload style="visibility: hidden"
+													(change)="uploadFile(fileType.CV, $event, 0)"
+													accept="application/pdf" />
 												<small class="text-danger"
-													*ngIf="personalInfoForm.get('networking_personal_website')?.invalid && personalInfoForm.get('networking_personal_website')?.touched">
+													*ngIf="personalInfoForm.get('career_preference_cv_filename')?.invalid && personalInfoForm.get('career_preference_cv_filename')?.touched">
+													This field is mandatory </small>
+											</div>
+										</div>
+										<div class="row w-100 justify-content-center">
+											<div class="col-md-6 mb-3">
+												<div class="border rounded p-3">
+													<h4 class="mb-3">Introduction Video Upload</h4>
+													<small class="text-muted">(90-120 seconds)</small>
+													<input pInputText fluid placeholder="Provide the video link"
+														class="form-control mt-2"
+														formControlName="career_preference_video_link"
+														(focusout)="resetMessageBox()"
+														(focus)="updateMessageBox('career_preference_video_link')" />
+												</div>
+												<small class="text-danger"
+													*ngIf="personalInfoForm.get('career_preference_video_link')?.invalid && personalInfoForm.get('career_preference_video_link')?.touched">
+													This field is valid url </small>
+											</div>
+
+											<div class="col-md-6 mb-3">
+												<div class="border rounded p-3">
+													<h4 class="mb-3">Portfolio Upload</h4>
+													<small class="text-muted">(For Designers, Writers,
+														Developers)</small>
+													<div class="input-group mt-2">
+														<input pInputText fluid placeholder="Provide the portfolio link"
+															class="form-control"
+															formControlName="career_preference_portfolio_upload_link"
+															(focusout)="resetMessageBox()"
+															(focus)="updateMessageBox('career_preference_portfolio_upload_link')" />
+														<!-- <button pButton label="UPLOAD"
+                                                        class="p-button-secondary ms-2"></button> -->
+													</div>
+												</div>
+												<small class="text-danger"
+													*ngIf="personalInfoForm.get('career_preference_portfolio_upload_link')?.invalid && personalInfoForm.get('career_preference_portfolio_upload_link')?.touched">
 													This field is valid url </small>
 											</div>
 										</div>
-									</ng-container>
-								</div>
-								<hr />
-								<div class="card-body">
-									<h2 class="card-title mb-3">Achievements & Media</h2>
-									<div class="mb-2">
-										<span class="text-danger fw-bold">Don't have a resume </span>
-										<a class="text-primary"
-											(click)="routerBlankPage('/pages/job-tool/cv-builder')">Click here</a> to
-										create one!
 									</div>
-									<div class="row justify-content-center mt-3">
-										<div class="upload-section text-center mb-4 py-2"
-											style="border: 1px dashed lightgray">
-											<h4>{{ personalInfoForm.get("career_preference_cv_filename")?.value ?
-												extractLastName(personalInfoForm.get("career_preference_cv_filename")?.value)
-												: "Upload CV / Resume" }}</h4>
-											<button pButton label="UPLOAD"
-												class="p-button-primary rounded-pill px-5 py-2"
-												(click)="fileUpload.click()" (focusout)="resetMessageBox()"
-												(onFocus)="updateMessageBox('career_preference_cv_filename')"></button>
-											<div class="text-muted mt-2">Supported Formats: doc, docx, pdf upto 2 MB
-											</div>
-											<input type="file" #fileUpload style="visibility: hidden"
-												(change)="uploadFile(fileType.CV, $event, 0)"
-												accept="application/pdf" />
-											<small class="text-danger"
-												*ngIf="personalInfoForm.get('career_preference_cv_filename')?.invalid && personalInfoForm.get('career_preference_cv_filename')?.touched">
-												This field is mandatory </small>
-										</div>
-									</div>
-									<div class="row w-100 justify-content-center">
-										<div class="col-md-6 mb-3">
-											<div class="border rounded p-3">
-												<h4 class="mb-3">Introduction Video Upload</h4>
-												<small class="text-muted">(90-120 seconds)</small>
-												<input pInputText fluid placeholder="Provide the video link"
-													class="form-control mt-2"
-													formControlName="career_preference_video_link"
-													(focusout)="resetMessageBox()"
-													(focus)="updateMessageBox('career_preference_video_link')" />
-											</div>
-											<small class="text-danger"
-												*ngIf="personalInfoForm.get('career_preference_video_link')?.invalid && personalInfoForm.get('career_preference_video_link')?.touched">
-												This field is valid url </small>
-										</div>
-
-										<div class="col-md-6 mb-3">
-											<div class="border rounded p-3">
-												<h4 class="mb-3">Portfolio Upload</h4>
-												<small class="text-muted">(For Designers, Writers, Developers)</small>
-												<div class="input-group mt-2">
-													<input pInputText fluid placeholder="Provide the portfolio link"
-														class="form-control"
-														formControlName="career_preference_portfolio_upload_link"
-														(focusout)="resetMessageBox()"
-														(focus)="updateMessageBox('career_preference_portfolio_upload_link')" />
-													<!-- <button pButton label="UPLOAD"
-                                                        class="p-button-secondary ms-2"></button> -->
+									<hr class="my-3" />
+									<div class="card-body">
+										<h2 class="card-title mb-3">Reference & Endorsement</h2>
+										<ng-container class="work-experience" formArrayName="academicReferences">
+											<ng-container
+												*ngFor="let academic of academicReferences.controls; let i = index"
+												[formGroupName]="i">
+												<div class="d-flex justify-content-between">
+													<h5 class="card-title mb-1">Academic Reference</h5>
+													<button
+														class="btn btn-outline-danger d-flex align-items-center justify-content-center px-3 py-2"
+														(click)="removeAcademicReference(i)" *ngIf="i !== 0">
+														<span><i class="fa-regular fa-trash fa-lg"></i></span>
+													</button>
 												</div>
-											</div>
-											<small class="text-danger"
-												*ngIf="personalInfoForm.get('career_preference_portfolio_upload_link')?.invalid && personalInfoForm.get('career_preference_portfolio_upload_link')?.touched">
-												This field is valid url </small>
-										</div>
-									</div>
-								</div>
-								<hr class="my-3" />
-								<div class="card-body">
-									<h2 class="card-title mb-3">Reference & Endorsement</h2>
-									<ng-container class="work-experience" formArrayName="academicReferences">
-										<ng-container
-											*ngFor="let academic of academicReferences.controls; let i = index"
-											[formGroupName]="i">
-											<div class="d-flex justify-content-between">
-												<h5 class="card-title mb-1">Academic Reference</h5>
-												<button
-													class="btn btn-outline-danger d-flex align-items-center justify-content-center px-3 py-2"
-													(click)="removeAcademicReference(i)" *ngIf="i !== 0">
-													<span><i class="fa-regular fa-trash fa-lg"></i></span>
-												</button>
-											</div>
-											<div class="row mb-3">
-												<div class="col-md-4">
-													<label for="highestQualification" class="form-label">College Name
-														<!-- <span class="text-danger">*</span> -->
-													</label>
-													<input pInputText fluid id="university"
-														formControlName="references_college_name"
-														placeholder="Enter the reference college name"
-														class="form-control w-100" (focusout)="resetMessageBox()"
-														(focus)="updateMessageBox('references_college_name')" />
-													<small class="text-danger"
-														*ngIf="academic.get('references_college_name')?.invalid && academic.get('references_college_name')?.touched">
-														This field is mandatory </small>
+												<div class="row mb-3">
+													<div class="col-md-4">
+														<label for="highestQualification" class="form-label">College
+															Name
+															<!-- <span class="text-danger">*</span> -->
+														</label>
+														<input pInputText fluid id="university"
+															formControlName="references_college_name"
+															placeholder="Enter the reference college name"
+															class="form-control w-100" (focusout)="resetMessageBox()"
+															(focus)="updateMessageBox('references_college_name')" />
+														<small class="text-danger"
+															*ngIf="academic.get('references_college_name')?.invalid && academic.get('references_college_name')?.touched">
+															This field is mandatory </small>
+													</div>
+													<div class="col-md-4">
+														<label for="highestQualification" class="form-label">Referee
+															Name
+															<!-- <span class="text-danger">*</span> -->
+														</label>
+														<input pInputText fluid id="university"
+															formControlName="references_reference_name"
+															placeholder="Enter the reference name"
+															class="form-control w-100" (focusout)="resetMessageBox()"
+															(focus)="updateMessageBox('references_reference_name')" />
+														<small class="text-danger"
+															*ngIf="academic.get('references_reference_name')?.invalid && academic.get('references_reference_name')?.touched">
+															This field is mandatory </small>
+													</div>
+													<div class="col-md-4">
+														<label for="highestQualification"
+															class="form-label">Desigination
+															<!-- <span class="text-danger">*</span> -->
+														</label>
+														<input pInputText fluid id="university"
+															formControlName="references_designation"
+															placeholder="Enter the reference desigination"
+															class="form-control w-100" (focusout)="resetMessageBox()"
+															(focus)="updateMessageBox('references_designation')" />
+														<small class="text-danger"
+															*ngIf="academic.get('references_designation')?.invalid && academic.get('references_designation')?.touched">
+															This field is mandatory </small>
+													</div>
 												</div>
-												<div class="col-md-4">
-													<label for="highestQualification" class="form-label">Referee Name
-														<!-- <span class="text-danger">*</span> -->
-													</label>
-													<input pInputText fluid id="university"
-														formControlName="references_reference_name"
-														placeholder="Enter the reference name"
-														class="form-control w-100" (focusout)="resetMessageBox()"
-														(focus)="updateMessageBox('references_reference_name')" />
-													<small class="text-danger"
-														*ngIf="academic.get('references_reference_name')?.invalid && academic.get('references_reference_name')?.touched">
-														This field is mandatory </small>
-												</div>
-												<div class="col-md-4">
-													<label for="highestQualification" class="form-label">Desigination
-														<!-- <span class="text-danger">*</span> -->
-													</label>
-													<input pInputText fluid id="university"
-														formControlName="references_designation"
-														placeholder="Enter the reference desigination"
-														class="form-control w-100" (focusout)="resetMessageBox()"
-														(focus)="updateMessageBox('references_designation')" />
-													<small class="text-danger"
-														*ngIf="academic.get('references_designation')?.invalid && academic.get('references_designation')?.touched">
-														This field is mandatory </small>
-												</div>
-											</div>
-											<div class="row mb-3">
-												<!-- <div class="col-md-6">
+												<div class="row mb-3">
+													<!-- <div class="col-md-6">
 													<label for="highestQualification" class="form-label"
 														>Phone Number
 														<span class="text-danger">*</span>
@@ -1219,114 +1267,117 @@
 													<p-inputNumber id="university" [useGrouping]="false" placeholder="Enter the reference phone number" styleClass="p-inputtext w-100" [showButtons]="false" class="w-100" formControlName="references_phone_number" (focusout)="resetMessageBox()" (onFocus)="updateMessageBox('references_phone_number')"></p-inputNumber>
 													<small class="text-danger" *ngIf="academic.get('references_phone_number')?.invalid && academic.get('references_phone_number')?.touched"> This field is valid phone number </small>
 												</div> -->
-												<div class="col-md-12">
-													<label for="highestQualification" class="form-label">Email
-														<!-- <span class="text-danger">*</span> -->
-													</label>
-													<input pInputText fluid id="university"
-														formControlName="references_email"
-														placeholder="Enter the reference email"
-														class="form-control w-100" (focusout)="resetMessageBox()"
-														(focus)="updateMessageBox('references_email')" />
-													<small class="text-danger"
-														*ngIf="academic.get('references_email')?.invalid && academic.get('references_email')?.touched">
-														This field is valid email </small>
+													<div class="col-md-12">
+														<label for="highestQualification" class="form-label">Email
+															<!-- <span class="text-danger">*</span> -->
+														</label>
+														<input pInputText fluid id="university"
+															formControlName="references_email"
+															placeholder="Enter the reference email"
+															class="form-control w-100" (focusout)="resetMessageBox()"
+															(focus)="updateMessageBox('references_email')" />
+														<small class="text-danger"
+															*ngIf="academic.get('references_email')?.invalid && academic.get('references_email')?.touched">
+															This field is valid email </small>
+													</div>
 												</div>
+											</ng-container>
+											<div class="row mb-3">
+												<button class="w-full btn btn-primary"
+													(click)="addAcademicReference()">Add
+													Academic Reference&nbsp;<i class="fa fa-plus"></i></button>
 											</div>
 										</ng-container>
-										<div class="row mb-3">
-											<button class="w-full btn btn-primary" (click)="addAcademicReference()">Add
-												Academic Reference&nbsp;<i class="fa fa-plus"></i></button>
-										</div>
-									</ng-container>
-									<ng-container formArrayName="professional_references">
-										<ng-container class="work-experience"
-											*ngFor="let reference of professionalReferences.controls; let i = index"
-											[formGroupName]="i">
-											<div class="d-flex justify-content-between">
-												<h5 class="card-title my-3">Professional Reference</h5>
-												<button
-													class="btn btn-outline-danger d-flex align-items-center justify-content-center px-3 py-2"
-													(click)="removeProfessionalReference(i)" *ngIf="i !== 0">
-													<span><i class="fa-regular fa-trash fa-lg"></i></span>
-												</button>
-											</div>
-											<div class="row mb-3">
-												<div class="col-md-4">
-													<label for="highestQualification" class="form-label">Company
-														Name</label>
-													<input pInputText fluid id="university"
-														formControlName="references_company_name"
-														placeholder="Enter the reference company name"
-														class="form-control w-100" (focusout)="resetMessageBox()"
-														(focus)="updateMessageBox('references_company_name')" />
+										<ng-container formArrayName="professional_references">
+											<ng-container class="work-experience"
+												*ngFor="let reference of professionalReferences.controls; let i = index"
+												[formGroupName]="i">
+												<div class="d-flex justify-content-between">
+													<h5 class="card-title my-3">Professional Reference</h5>
+													<button
+														class="btn btn-outline-danger d-flex align-items-center justify-content-center px-3 py-2"
+														(click)="removeProfessionalReference(i)" *ngIf="i !== 0">
+														<span><i class="fa-regular fa-trash fa-lg"></i></span>
+													</button>
 												</div>
-												<div class="col-md-4">
-													<label for="highestQualification" class="form-label">Referee
-														Name</label>
-													<input pInputText fluid id="university"
-														formControlName="references_reference_name"
-														placeholder="Enter the reference name"
-														class="form-control w-100" (focusout)="resetMessageBox()"
-														(focus)="updateMessageBox('pro_references_reference_name')" />
+												<div class="row mb-3">
+													<div class="col-md-4">
+														<label for="highestQualification" class="form-label">Company
+															Name</label>
+														<input pInputText fluid id="university"
+															formControlName="references_company_name"
+															placeholder="Enter the reference company name"
+															class="form-control w-100" (focusout)="resetMessageBox()"
+															(focus)="updateMessageBox('references_company_name')" />
+													</div>
+													<div class="col-md-4">
+														<label for="highestQualification" class="form-label">Referee
+															Name</label>
+														<input pInputText fluid id="university"
+															formControlName="references_reference_name"
+															placeholder="Enter the reference name"
+															class="form-control w-100" (focusout)="resetMessageBox()"
+															(focus)="updateMessageBox('pro_references_reference_name')" />
+													</div>
+													<div class="col-md-4">
+														<label for="highestQualification"
+															class="form-label">Desigination</label>
+														<input pInputText fluid id="university"
+															formControlName="references_designation"
+															placeholder="Enter the reference desigination"
+															class="form-control w-100" (focusout)="resetMessageBox()"
+															(focus)="updateMessageBox('pro_references_designation')" />
+													</div>
 												</div>
-												<div class="col-md-4">
-													<label for="highestQualification"
-														class="form-label">Desigination</label>
-													<input pInputText fluid id="university"
-														formControlName="references_designation"
-														placeholder="Enter the reference desigination"
-														class="form-control w-100" (focusout)="resetMessageBox()"
-														(focus)="updateMessageBox('pro_references_designation')" />
-												</div>
-											</div>
-											<div class="row mb-3">
-												<!-- <div class="col-md-6">
+												<div class="row mb-3">
+													<!-- <div class="col-md-6">
 													<label for="highestQualification" class="form-label">Phone Number</label>
 													<p-inputNumber id="university" [useGrouping]="false" placeholder="Enter the reference phone number" styleClass="p-inputtext w-100" [showButtons]="false" class="w-100" formControlName="references_phone_number" (focusout)="resetMessageBox()" (onFocus)="updateMessageBox('pro_references_phone_number')"></p-inputNumber>
 													<small class="text-danger" *ngIf="reference.get('references_phone_number')?.invalid && reference.get('references_phone_number')?.touched"> This field is valid phone number </small>
 												</div> -->
-												<div class="col-md-12">
-													<label for="highestQualification" class="form-label">Email</label>
-													<input pInputText fluid id="university"
-														formControlName="references_email"
-														placeholder="Enter the reference email"
-														class="form-control w-100" (focusout)="resetMessageBox()"
-														(focus)="updateMessageBox('pro_references_email')" />
-													<small class="text-danger"
-														*ngIf="reference.get('references_email')?.invalid && reference.get('references_email')?.touched">
-														This field is valid email </small>
+													<div class="col-md-12">
+														<label for="highestQualification"
+															class="form-label">Email</label>
+														<input pInputText fluid id="university"
+															formControlName="references_email"
+															placeholder="Enter the reference email"
+															class="form-control w-100" (focusout)="resetMessageBox()"
+															(focus)="updateMessageBox('pro_references_email')" />
+														<small class="text-danger"
+															*ngIf="reference.get('references_email')?.invalid && reference.get('references_email')?.touched">
+															This field is valid email </small>
+													</div>
 												</div>
+											</ng-container>
+											<div class="row mb-3">
+												<button class="w-full btn btn-primary"
+													(click)="addProfessionalReference()">Add Professional
+													Reference&nbsp;<i class="fa fa-plus"></i></button>
 											</div>
 										</ng-container>
+										<div class="d-flex justify-content-between mb-1">
+											<h5 class="card-title my-3">Add Note</h5>
+											<div>
+												<button
+													*ngIf="isNotEmptyHtml(this.personalInfoForm.get('additional_notes')?.value)"
+													class="text-small btn btn-danger btn-rounded d-flex align-items-center gap-2 h-fit-content"
+													style="width: fit-content"
+													(click)="aiRePhraseSummary('add_note', { rephrase_content: personalInfoForm?.get('additional_notes')?.value }, personalInfoForm?.get('additional_notes'))">RePhrase</button>
+											</div>
+										</div>
 										<div class="row mb-3">
-											<button class="w-full btn btn-primary"
-												(click)="addProfessionalReference()">Add Professional Reference&nbsp;<i
-													class="fa fa-plus"></i></button>
-										</div>
-									</ng-container>
-									<div class="d-flex justify-content-between mb-1">
-										<h5 class="card-title my-3">Add Note</h5>
-										<div>
-											<button
-												*ngIf="isNotEmptyHtml(this.personalInfoForm.get('additional_notes')?.value)"
-												class="text-small btn btn-danger btn-rounded d-flex align-items-center gap-2 h-fit-content"
-												style="width: fit-content"
-												(click)="aiRePhraseSummary('add_note', { rephrase_content: personalInfoForm?.get('additional_notes')?.value }, personalInfoForm?.get('additional_notes'))">RePhrase</button>
-										</div>
-									</div>
-									<div class="row mb-3">
-										<div class="position-relative">
-											<p-editor #editor [style]="{ height: '150px', maxHeight: 'auto' }"
-												formControlName="additional_notes"
-												placeholder="Additional Information" />
-											<!-- <textarea pTextarea id="responsibilities" formControlName="additional_notes" class="form-control w-100" placeholder="Additional Information if any" rows="5" maxlength="500" #additionalNotes></textarea> -->
-											<small class="text-muted d-block text-end">{{
-												personalInfoForm.get("additional_notes")?.value?.length }}/5000</small>
+											<div class="position-relative">
+												<p-editor #editor [style]="{ height: '150px', maxHeight: 'auto' }"
+													formControlName="additional_notes"
+													placeholder="Additional Information" />
+												<!-- <textarea pTextarea id="responsibilities" formControlName="additional_notes" class="form-control w-100" placeholder="Additional Information if any" rows="5" maxlength="500" #additionalNotes></textarea> -->
+												<small class="text-muted d-block text-end">{{
+													personalInfoForm.get("additional_notes")?.value?.length
+													}}/5000</small>
+											</div>
 										</div>
 									</div>
 								</div>
-							</div>
 						</form>
 					</div>
 					<div class="card-body h-100 overflow-y-auto" *ngIf="isShowAiEvaluation">
