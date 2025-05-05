@@ -668,6 +668,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
 		this.promptService.getAicredits().subscribe({
 			next: resp => {
 				this.aiCreditCount = resp;
+				this.service._creditCount = resp;
 			}
 		})
 	}

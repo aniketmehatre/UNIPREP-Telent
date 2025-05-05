@@ -94,6 +94,11 @@ export class TravelVisitPlannerComponent implements OnInit {
 	}
 
 	getRecommendation(productId: number) {
+		if(this.authService._creditCount === 0){
+			this.toast.add({severity: "error",summary: "Error",detail: "Please Buy some Credits...!"});
+			this.router.navigateByUrl('/pages/export-credit')
+			return;
+		}
 		this.recommendationData = "";
 		this.hideWarning(productId)
 		if (!this.invalidClass) {

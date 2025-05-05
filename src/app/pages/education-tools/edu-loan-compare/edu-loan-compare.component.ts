@@ -118,6 +118,11 @@ export class EduLoanCompareComponent implements OnInit {
   }
 
   getRecommendation() {
+    if(this.authService._creditCount === 0){
+      this.toast.add({severity: "error",summary: "Error",detail: "Please Buy some Credits...!"});
+      this.router.navigateByUrl('/pages/export-credit')
+      return;
+    }
     this.recommendationData = "";
     let data: any = {
       ...this.form.value,
