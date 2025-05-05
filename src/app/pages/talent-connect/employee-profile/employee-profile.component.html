@@ -939,14 +939,17 @@
 											</div>
 											<div class="col-md-6">
 												<div class="d-flex justify-content-between mb-1">
-													<label for="highestQualification" class="form-label">Have you taken on
+													<label for="highestQualification" class="form-label">Have you taken
+														on
 														leadership roles?</label>
-														<div>
-															<button *ngIf="this.personalInfoForm.get('career_preference_leadership_experience')?.value"
-																class="text-small btn btn-danger btn-rounded d-flex align-items-center gap-2" style="width: fit-content"
-																(click)="aiRePhraseSummary('leadership_roles', { rephrase_content: personalInfoForm?.get('career_preference_leadership_experience')?.value }, personalInfoForm?.get('career_preference_leadership_experience'))">RePhrase</button>
-														</div>
-														</div>
+													<div>
+														<button
+															*ngIf="this.personalInfoForm.get('career_preference_leadership_experience')?.value"
+															class="text-small btn btn-danger btn-rounded d-flex align-items-center gap-2"
+															style="width: fit-content"
+															(click)="aiRePhraseSummary('leadership_roles', { rephrase_content: personalInfoForm?.get('career_preference_leadership_experience')?.value }, personalInfoForm?.get('career_preference_leadership_experience'))">RePhrase</button>
+													</div>
+												</div>
 												<textarea pTextarea id="university"
 													formControlName="career_preference_leadership_experience"
 													placeholder="Have you taken on leadership roles?"
@@ -964,14 +967,17 @@
 										<div class="row mb-3">
 											<div class="col-md-12">
 												<div class="d-flex justify-content-between mb-1">
-													<label for="highestQualification" class="form-label">One quality others
+													<label for="highestQualification" class="form-label">One quality
+														others
 														admire most about you?</label>
-														<div>
-															<button *ngIf="this.personalInfoForm.get('career_preference_admired_quality')?.value"
-																class="text-small btn btn-danger btn-rounded d-flex align-items-center gap-2" style="width: fit-content"
-																(click)="aiRePhraseSummary('admired_quality', { rephrase_content: personalInfoForm?.get('career_preference_admired_quality')?.value }, personalInfoForm?.get('career_preference_admired_quality'))">RePhrase</button>
-														</div>
-														</div>
+													<div>
+														<button
+															*ngIf="this.personalInfoForm.get('career_preference_admired_quality')?.value"
+															class="text-small btn btn-danger btn-rounded d-flex align-items-center gap-2"
+															style="width: fit-content"
+															(click)="aiRePhraseSummary('admired_quality', { rephrase_content: personalInfoForm?.get('career_preference_admired_quality')?.value }, personalInfoForm?.get('career_preference_admired_quality'))">RePhrase</button>
+													</div>
+												</div>
 												<div class="position-relative">
 													<textarea pTextarea id="responsibilities"
 														formControlName="career_preference_admired_quality"
@@ -1302,12 +1308,13 @@
 									<div class="d-flex justify-content-between mb-1">
 										<h5 class="card-title my-3">Add Note</h5>
 										<div>
-											<button *ngIf="isNotEmptyHtml(this.personalInfoForm.get('additional_notes')?.value)"
+											<button
+												*ngIf="isNotEmptyHtml(this.personalInfoForm.get('additional_notes')?.value)"
 												class="text-small btn btn-danger btn-rounded d-flex align-items-center gap-2 h-fit-content"
 												style="width: fit-content"
 												(click)="aiRePhraseSummary('add_note', { rephrase_content: personalInfoForm?.get('additional_notes')?.value }, personalInfoForm?.get('additional_notes'))">RePhrase</button>
 										</div>
-										</div>
+									</div>
 									<div class="row mb-3">
 										<div class="position-relative">
 											<p-editor #editor [style]="{ height: '150px', maxHeight: 'auto' }"
@@ -1486,7 +1493,7 @@
 														personalInfoForm?.get("career_preference_currency_id")?.value,
 														"currency_code") + " " +
 														personalInfoForm?.get("career_preference_expected_salary")?.value
-														+ "/Month" : "-" }}
+														+ "" : "-" }}
 													</p>
 												</div>
 											</div>
@@ -1676,7 +1683,7 @@
 															personalInfoForm?.get("career_preference_currency_id")?.value,
 															"currency_code") + " " +
 															personalInfoForm?.get("career_preference_expected_salary")?.value
-															+ "/Month" : "-" }}
+															+ "" : "-" }}
 														</p>
 													</div>
 												</div>
