@@ -208,6 +208,8 @@ export class HeaderComponent implements OnInit, OnDestroy {
 
 		this.dataService.openReportWindowSource.subscribe({
 			next: (data) => {
+				console.log('othermodule')
+
 				console.log('data', data);
 			},
 			error: (error) => console.error("Error in report window subscription:", error),
@@ -812,7 +814,6 @@ export class HeaderComponent implements OnInit, OnDestroy {
 	}
 
 	private handleReportWindowData(data: any) {
-		console.log('varuthu')
 		this.moduleQuestionReport = data
 		this.moduleList = []
 		this.subModuleList = []
@@ -822,6 +823,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
 		this.onChangeSubModuleList(data.subModuleId)
 		this.selectedGenMod = 2
 		this.openReportModalFromMoudle(this.op, event)
+
 		this.reportType = 3
 		this.reportlearnlanguagetype = data.reporttype === 8 ? 8 : 0
 		this.subs.sink = this.service.getMe().subscribe((data) => {

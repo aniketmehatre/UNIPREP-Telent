@@ -177,12 +177,13 @@ export class CareerListsComponent implements OnInit {
 		return plainText.length > 75 ? plainText.slice(0, 75) + " ..." : plainText
 	}
 	openReport() {
-		let data: any = {
+		const data = {
 			isVisible: true,
 			moduleId: this.module_id,
 			questionId: this.selectedQuestionData?.id,
 			countryId: this.selectedQuestionData.country_id,
 		}
-		this.dataService.openReportWindow(data)
+		this.dataService.openReportWindow(data);
 	}
+
 }
