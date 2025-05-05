@@ -24,14 +24,15 @@
 				<!-- Politician Selection Section -->
 				<div class="w-25 w-md-100" *ngIf="isShowPoliticians">
 					<div class="d-flex gap-3 align-items-center">
-						<p-multi-select [options]="politicianNamesList" [(ngModel)]="selectedPolitician" optionLabel="name"
-							optionValue="id" (onChange)="getPoliticianList()" [filter]="true" filterBy="name"
-							[showClear]="false" placeholder="Select Politician Name" class="w-50" appendTo="body"></p-multi-select>
-	
+						<p-multi-select [options]="politicianNamesList" [(ngModel)]="selectedPolitician"
+							optionLabel="name" optionValue="id" (onChange)="getPoliticianList()" [filter]="true"
+							filterBy="name" [showClear]="false" placeholder="Select Politician Name" class="w-50"
+							appendTo="body"></p-multi-select>
+
 						<p-multi-select [options]="politicianOccupationList" [(ngModel)]="selectedOccupation"
-							optionLabel="occupation" optionValue="id" (onChange)="getPoliticianList()"
-							[filter]="true" filterBy="occupation" [showClear]="false"
-							placeholder="Select Occupation" class="w-50" appendTo="body"></p-multi-select>
+							optionLabel="occupation" optionValue="id" (onChange)="getPoliticianList()" [filter]="true"
+							filterBy="occupation" [showClear]="false" placeholder="Select Occupation" class="w-50"
+							appendTo="body"></p-multi-select>
 					</div>
 					<div>
 						<div class="fw-bold">Total Politicians: {{totalPolitician}}</div>
@@ -91,7 +92,8 @@
 					<div class="card border-1 h-100 mb-2" style="border-color: orange">
 						<div class="card-body d-flex flex-column justify-content-start align-items-start">
 							<div class="d-flex align-items-center">
-								<img (error)="$event.target.src = '/uniprep-assets/images/avatar.webp'" [src]="politician.image ?? '/uniprep-assets/images/avater.webp'"
+								<img (error)="$event.target.src = '/uniprep-assets/images/avatar.webp'"
+									[src]="politician.image ?? '/uniprep-assets/images/avater.webp'"
 									class="rounded-circle me-3" [alt]="politician.name" width="80" height="80" />
 								<div class="text-start">
 									<h5 class="card-title mb-1">{{ politician.name }}</h5>
@@ -177,12 +179,12 @@
 				</button>
 				<p-card id="socialSharingList">
 					<ul style="list-style: none; cursor: pointer">
-						<li (click)="shareViaWhatsapp()"><i class="pi pi-whatsapp"></i>Whatsapp</li>
-						<li (click)="shareViaMail()"><i class="pi pi-envelope"></i>Email</li>
-						<li (click)="shareViaFacebook()"><i class="pi pi-facebook"></i>Facebook</li>
-						<li (click)="shareViaTwitter()"><i class="pi pi-twitter"></i>Twitter</li>
-						<li (click)="shareViaInstagram()"><i class="pi pi-instagram"></i>Instagram</li>
-						<li (click)="shareViaLinkedIn()"><i class="pi pi-linkedin"></i>LinkedIn</li>
+						<li (click)="shareQuestion('Whatsapp')"><i class="pi pi-whatsapp"></i>Whatsapp</li>
+						<li (click)="shareQuestion('Mail')"><i class="pi pi-envelope"></i>Email</li>
+						<li (click)="shareQuestion('Facebook')"><i class="pi pi-facebook"></i>Facebook</li>
+						<li (click)="shareQuestion('Twitter')"><i class="pi pi-twitter"></i>Twitter</li>
+						<li (click)="shareQuestion('Instagram')"><i class="pi pi-instagram"></i>Instagram</li>
+						<li (click)="shareQuestion('LinkedIn')"><i class="pi pi-linkedin"></i>LinkedIn</li>
 						<li (click)="copyLink()"><i class="pi pi-link"></i>Copy Link</li>
 					</ul>
 				</p-card>

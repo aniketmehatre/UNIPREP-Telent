@@ -21,13 +21,13 @@ import { InputTextModule } from "primeng/inputtext"
 import { InputGroupAddonModule } from "primeng/inputgroupaddon"
 import { DataService } from "src/app/data.service";
 import { SkeletonModule } from "primeng/skeleton";
+import { SocialShareService } from "src/app/shared/social-share.service"
 @Component({
 	selector: "uni-salaryhackslists",
 	templateUrl: "./salaryhackslists.component.html",
 	styleUrls: ["./salaryhackslists.component.scss"],
 	standalone: true,
-	imports: [CommonModule, DialogModule, RouterModule, CardModule, PaginatorModule, FormsModule, ReactiveFormsModule, CarouselModule, ButtonModule, MultiSelectModule, SelectModule, InputGroupModule, InputTextModule, InputGroupAddonModule, SkeletonModule],
-	providers: [MessageService]
+	imports: [CommonModule, DialogModule, RouterModule, CardModule, PaginatorModule, FormsModule, ReactiveFormsModule, CarouselModule, ButtonModule, MultiSelectModule, SelectModule, InputGroupModule, InputTextModule, InputGroupAddonModule, SkeletonModule]
 })
 export class SalaryhacksListsComponent {
 	isSkeletonVisible: boolean = true;
@@ -53,6 +53,7 @@ export class SalaryhacksListsComponent {
 		private meta: Meta,
 		private service: SalaryHacksService,
 		private dataService: DataService,
+		private socialShareService: SocialShareService
 	) { }
 	ngOnInit(): void {
 		this.gethackList();
@@ -130,62 +131,17 @@ export class SalaryhacksListsComponent {
 		}
 	}
 
-	shareViaWhatsapp() {
-		let url = window.location.href + "/" + this.selectedQuestionData?.id
-		this.meta.updateTag({ property: "og:url", content: url })
-		const shareUrl = `whatsapp://send?text=${encodeURIComponent(url)}`
-		window.open(shareUrl, "_blank")
-	}
-
-	shareViaInstagram() {
-		let url = window.location.href + "/" + this.selectedQuestionData?.id
-		this.meta.updateTag({ property: "og:url", content: url })
-		const shareUrl = `https://www.instagram.com?url=${encodeURIComponent(url)}`
-		window.open(shareUrl, "_blank")
-	}
-
-	shareViaFacebook() {
-		let url = window.location.href + "/" + this.selectedQuestionData?.id
-		this.meta.updateTag({ property: "og:url", content: url })
-		const shareUrl = `https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(url)}`
-		window.open(shareUrl, "_blank")
-	}
-
-	shareViaLinkedIn() {
-		let url = window.location.href + "/" + this.selectedQuestionData?.id
-		this.meta.updateTag({ property: "og:url", content: url })
-		const shareUrl = `https://www.linkedin.com/shareArticle?url=${encodeURIComponent(url)}`
-		window.open(shareUrl, "_blank")
-	}
-
-	shareViaTwitter() {
-		let url = window.location.href + "/" + this.selectedQuestionData?.id
-		this.meta.updateTag({ property: "og:url", content: url })
-		const shareUrl = `https://twitter.com/intent/tweet?url=${encodeURIComponent(url)}`
-		window.open(shareUrl, "_blank")
-	}
-
-	shareViaMail() {
-		let url = window.location.href + "/" + this.selectedQuestionData?.id
-		this.meta.updateTag({ property: "og:url", content: url })
-		const shareUrl = `mailto:?body=${encodeURIComponent(url)}`
-		window.open(shareUrl, "_blank")
+	shareQuestion(type: string) {
+		const socialMedias: { [key: string]: string } = this.socialShareService.socialMediaList;
+		const url = encodeURI(window.location.origin + '/pages/salary-hacks/' + this.selectedQuestionData?.id);
+		this.meta.updateTag({ property: 'og:url', content: url });
+		const shareUrl = socialMedias[type] + encodeURIComponent(url);
+		window.open(shareUrl, '_blank');
 	}
 
 	copyLink() {
-		const textarea = document.createElement("textarea")
-		const safeUrl = encodeURI(window.location.href)
-		const selectedQuestionId = this.selectedQuestionData?.id || ""
-		textarea.textContent = `${safeUrl}/${selectedQuestionId}`
-		document.body.append(textarea)
-		textarea.select()
-		document.execCommand("copy")
-		textarea.remove()
-		this.toast.add({
-			severity: "success",
-			summary: "Success",
-			detail: "Question Copied",
-		})
+		const textToCopy = encodeURI(window.location.origin + '/pages/salary-hacks/' + this.selectedQuestionData?.id);
+		this.socialShareService.copyQuestion(textToCopy);
 	}
 
 	readSavedResponse(selectedData: any) {
