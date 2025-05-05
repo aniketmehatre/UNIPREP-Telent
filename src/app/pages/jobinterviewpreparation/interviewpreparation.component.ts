@@ -18,6 +18,7 @@ import { InputTextModule } from 'primeng/inputtext';
 import { InputGroupAddonModule } from 'primeng/inputgroupaddon';
 import { JobPreparedListComponent } from './preparedlist/preparedlist.component';
 import { AuthService } from "src/app/Auth/auth.service";
+import { MessageService } from "primeng/api";
 @Component({
   selector: "uni-job-prep",
   templateUrl: "./interviewpreparation.component.html",
@@ -33,7 +34,8 @@ export class JobPreparationComponent implements OnInit {
     private pageFacade: PageFacadeService,
     private service: InterviewPreparationService,
     private route: ActivatedRoute,
-    private authService: AuthService
+    private authService: AuthService,
+    private toast: MessageService
   ) {
 
   }
@@ -183,6 +185,11 @@ export class JobPreparationComponent implements OnInit {
   }
   preparedvisibility = false;
   getRecommendation() {
+    if(this.authService._creditCount === 0){
+			this.toast.add({severity: "error",summary: "Error",detail: "Please Buy some Credits...!"});
+			this.router.navigateByUrl('/pages/export-credit')
+			return;
+		}
     this.invalidClass = false;
     if (this.selectedCardIndex == null) {
       this.invalidClass = true;

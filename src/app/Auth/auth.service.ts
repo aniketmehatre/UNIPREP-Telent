@@ -39,7 +39,7 @@ export class AuthService {
   _userSubscrition!: SubscriptionResponse;
   public hasUserSubscription$ = new BehaviorSubject<boolean>(false);
   public aiCreditCount$ = new BehaviorSubject<boolean>(true);
-
+  public _creditCount: number = 0;
   constructor(
     private http: HttpClient,
     private store: Store<AuthState>,

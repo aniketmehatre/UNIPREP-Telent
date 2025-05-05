@@ -71,6 +71,11 @@ export class TripLengthFinderComponent implements OnInit {
   }
 
   getRecommendation(productId: number) {
+    if(this.authService._creditCount === 0){
+			this.toast.add({severity: "error",summary: "Error",detail: "Please Buy some Credits...!"});
+			this.router.navigateByUrl('/pages/export-credit')
+			return;
+		}
     this.recommendationData = "";
     if (this.authService.isInvalidSubscription('travel_tools')) {
       this.authService.hasUserSubscription$.next(true);

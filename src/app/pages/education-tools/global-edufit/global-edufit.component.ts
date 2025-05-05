@@ -149,6 +149,11 @@ export class GlobalEdufitComponent implements OnInit {
   }
 
   getRecommendation() {
+    if(this.authService._creditCount === 0){
+      this.toast.add({severity: "error",summary: "Error",detail: "Please Buy some Credits...!"});
+      this.router.navigateByUrl('/pages/export-credit')
+      return;
+    }
     this.recommendationData = "";
     this.submitted = false;
     const formData = this.form.value;

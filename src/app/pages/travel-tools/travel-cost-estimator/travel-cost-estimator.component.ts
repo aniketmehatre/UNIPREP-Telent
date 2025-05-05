@@ -112,6 +112,11 @@ export class TravelCostEstimatorComponent implements OnInit {
 	}
 
 	getRecommendation() {
+		if(this.authService._creditCount === 0){
+			this.toast.add({severity: "error",summary: "Error",detail: "Please Buy some Credits...!"});
+			this.router.navigateByUrl('/pages/export-credit')
+			return;
+		}
 		this.recommendationData = "";
 		let data: any = {
 			country: this.selectedData[1].city_name + ", " + this.selectedData[1].country_name,
