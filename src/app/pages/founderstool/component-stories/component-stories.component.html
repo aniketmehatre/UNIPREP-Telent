@@ -10,15 +10,17 @@
 				</div>
 				<div class="select-title d-flex justify-content-between align-items-center">
 					<div class="d-flex gap-2">
-						<h5 routerLink="/pages/dashboard" role="button" class="mb-0" tooltipPosition="top" pTooltip=""><i class="fa-regular fa-home"></i></h5>
+						<h5 routerLink="/pages/dashboard" role="button" class="mb-0" tooltipPosition="top" pTooltip="">
+							<i class="fa-regular fa-home"></i></h5>
 						<span><i class="fa-solid fa-chevron-right"></i></span>
-						<h5 routerLink="/pages/founderstool/founderstoollist" role="button" class="mb-0" tooltipPosition="top">Founders Tool</h5>
+						<h5 routerLink="/pages/founderstool/founderstoollist" role="button" class="mb-0"
+							tooltipPosition="top">Founders Tool</h5>
 						<span><i class="fa-solid fa-chevron-right"></i></span>
-						<h5 role="button" class="mb-0" tooltipPosition="top" pTooltip="Access resources for starting your business, from ideation to execution.">
+						<h5 role="button" class="mb-0" tooltipPosition="top"
+							pTooltip="Access resources for starting your business, from ideation to execution.">
 							{{ headertooltipname }}
 							<span *ngIf="isShowCountryQuesAns">
-								<span><i class="fa-solid fa-chevron-right"></i></span> {{ countryname }}</span
-							>
+								<span><i class="fa-solid fa-chevron-right"></i></span> {{ countryname }}</span>
 						</h5>
 					</div>
 					<div>
@@ -32,7 +34,8 @@
 	</div>
 	<div class="card-body text-center flex-fill overflow-y-auto" *ngIf="isShowCountryData">
 		<div class="row mb-0">
-			<div *ngFor="let item of countrylist; let i = index" class="col-lg-2 col-md-3 col-sm-4 col-xs-12 col-12 mb-3">
+			<div *ngFor="let item of countrylist; let i = index"
+				class="col-lg-2 col-md-3 col-sm-4 col-xs-12 col-12 mb-3">
 				<div class="row w-100 m-0 justify-content-center h-100">
 					<div class="card subjectcard" role="button">
 						<div class="card-body" (click)="showDatas(item)">
@@ -77,36 +80,38 @@
           </div>
         </div>
       </div> -->
-      <!-- new -->
-      <div *ngFor="let item of questuionanswerlist; let i = index;" class="careerreadingcardgrid my-2">
-        <div class="row w-100 h-100 m-0 justify-content-center" style="align-items: flex-start;">
-            <div (click)="showDataAnswer(item)" role="button" class="card questioncard h-100">
-                <div
-                    class="card-body d-flex flex-sm-column flex-row justify-content-sm-between align-items-center gap-2">
-                    <div class="row justify-content-center w-100">
-                        <div class="col">
-                            <p class="text-start fw-bold questiontext mb-0" title="{{ item.quesions }}">{{
-                              item.quesions }}</p>
-                            <!-- <p class="text-start questiontext mt-2 mb-0 content-preview">
+			<!-- new -->
+			<div *ngFor="let item of questuionanswerlist; let i = index;" class="careerreadingcardgrid my-2">
+				<div class="row w-100 h-100 m-0 justify-content-center" style="align-items: flex-start;">
+					<div (click)="showDataAnswer(item)" role="button" class="card questioncard h-100">
+						<div
+							class="card-body d-flex flex-sm-column flex-row justify-content-sm-between align-items-center gap-2">
+							<div class="row justify-content-center w-100">
+								<div class="col">
+									<p class="text-start fw-bold questiontext mb-0" title="{{ item.quesions }}">{{
+										item.quesions }}</p>
+									<!-- <p class="text-start questiontext mt-2 mb-0 content-preview">
                               {{getContentPreview(item.blogs)}}
                             </p> -->
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-    </div>
-  </div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
 </div>
 
 <!-- question ans -->
-<p-dialog #dialogContent [(visible)]="isQuestionAnswerVisible" [draggable]="false" [modal]="true" header="Header" [closable]="false" (onShow)="onShowModal($event)">
+<p-dialog #dialogContent [(visible)]="isQuestionAnswerVisible" [draggable]="false" [modal]="true" header="Header"
+	[closable]="false" (onShow)="onShowModal($event)">
 	<ng-template pTemplate="header">
 		<div class="card-header border-0 bg-transparent px-4 pt-4 pb-0 w-100">
 			<div class="row justify-content-center">
 				<div class="col-md-12 d-flex gap-2 text-center">
-					<div class="career-homeIcon px-3" role="button" (click)="goToHome($event)"><span class="fa-solid fa-home me-2"></span>Home</div>
+					<div class="career-homeIcon px-3" role="button" (click)="goToHome($event)"><span
+							class="fa-solid fa-home me-2"></span>Home</div>
 					<div class="select-title d-flex flex-fill justify-content-between align-items-center w-100">
 						<div>
 							<h5 class="mb-0">
@@ -114,22 +119,24 @@
 							</h5>
 						</div>
 					</div>
-					<div class="career-reportIcon px-3" role="button" (click)="openReport()"><span class="fa-solid fa-file me-2"></span>Report</div>
+					<div class="career-reportIcon px-3" role="button" (click)="openReport()"><span
+							class="fa-solid fa-file me-2"></span>Report</div>
 					<div class="career-closeIcon" role="button" (click)="goToHome($event)">
 						<span class="fa-solid fa-close"></span>
 					</div>
 				</div>
 			</div>
 			<div class="d-flex align-items-center position-relative mt-1" style="justify-content: end !important">
-				<button pButton class="btn btn-primary socialShareBtn" (click)="showSocialSharingList()"><i class="fa-solid fa-share"></i></button>
+				<button pButton class="btn btn-primary socialShareBtn" (click)="showSocialSharingList()"><i
+						class="fa-solid fa-share"></i></button>
 				<p-card id="socialSharingList">
 					<ul style="list-style: none; cursor: pointer">
-						<li (click)="shareViaWhatsapp()"><i class="pi pi-whatsapp"></i>Whatsapp</li>
-						<li (click)="shareViaMail()"><i class="pi pi-envelope"></i>Email</li>
-						<li (click)="shareViaFacebook()"><i class="pi pi-facebook"></i>Facebook</li>
-						<li (click)="shareViaTwitter()"><i class="pi pi-twitter"></i>Twitter</li>
-						<li (click)="shareViaInstagram()"><i class="pi pi-instagram"></i>Instagram</li>
-						<li (click)="shareViaLinkedIn()"><i class="pi pi-linkedin"></i>LinkedIn</li>
+						<li (click)="shareQuestion('Whatsapp')"><i class="pi pi-whatsapp"></i>Whatsapp</li>
+						<li (click)="shareQuestion('Mail')"><i class="pi pi-envelope"></i>Email</li>
+						<li (click)="shareQuestion('Facebook')"><i class="pi pi-facebook"></i>Facebook</li>
+						<li (click)="shareQuestion('Twitter')"><i class="pi pi-twitter"></i>Twitter</li>
+						<li (click)="shareQuestion('Instagram')"><i class="pi pi-instagram"></i>Instagram</li>
+						<li (click)="shareQuestion('LinkedIn')"><i class="pi pi-linkedin"></i>LinkedIn</li>
 						<li (click)="copyLink()"><i class="pi pi-link"></i>Copy Link</li>
 					</ul>
 				</p-card>
@@ -139,7 +146,8 @@
 	<div class="px-4">
 		<div class="card flex-fill answercard" style="border: none">
 			<div class="card-body text-start">
-				<div class="fw-medium blog-content" style="white-space: inherit; max-height: 80%; min-height: 80%" [innerHTML]="dataanswerquestion?.blogs"></div>
+				<div class="fw-medium blog-content" style="white-space: inherit; max-height: 80%; min-height: 80%"
+					[innerHTML]="dataanswerquestion?.blogs"></div>
 			</div>
 		</div>
 	</div>

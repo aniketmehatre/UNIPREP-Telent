@@ -20,6 +20,7 @@ import { InputGroupModule } from "primeng/inputgroup"
 import { SelectModule } from "primeng/select"
 import { environment } from "@env/environment"
 import { AuthService } from "src/app/Auth/auth.service"
+import { SocialShareService } from "src/app/shared/social-share.service"
 
 @Component({
 	selector: "uni-global-travel-visa",
@@ -70,9 +71,10 @@ export class GlobalTravelVisaComponent implements OnInit {
 	selectedQuestionData: any
 	isNotSelectingDropdown: boolean = false
 	imageUrl: any = `https://${environment.domain}/uniprepapi/storage/app/public/ToolIcons/travel-tools/`;
+	currentEndpoint: string = '';
 
 	constructor(private travelToolService: TravelToolsService, private router: Router, private meta: Meta,
-		private toast: MessageService, private dataService: DataService, private authService: AuthService) { }
+		private toast: MessageService, private dataService: DataService, private authService: AuthService, private socialShareService: SocialShareService) { }
 
 	ngOnInit(): void {
 		this.getCurrentModule()
@@ -81,33 +83,33 @@ export class GlobalTravelVisaComponent implements OnInit {
 	}
 
 	getCurrentModule() {
-		let currentEndpoint = this.router.url.split("/").pop() || ""
+		this.currentEndpoint = this.router.url.split("/").pop() || ""
 		const titles: { [key: string]: string } = {
 			"travel-visa": "Global Travel Visa",
 			"global-work-visa": "Global Work Visa",
 			"enterpreneur-visa": "Global Entrepreneur Visa",
 			"study-visa": "Global Study Visa",
 		}
-		this.title = titles[currentEndpoint] || ""
+		this.title = titles[this.currentEndpoint] || ""
 		const modeName: { [key: string]: string } = {
 			"travel-visa": "global_travel_visa",
 			"enterpreneur-visa": "global_entrepreneur_visa",
 			"study-visa": "global_study_visa",
 		}
-		this.modeName = modeName[currentEndpoint] || ""
+		this.modeName = modeName[this.currentEndpoint] || ""
 		const modeid: { [key: string]: number } = {
 			"travel-visa": 36,
 			"enterpreneur-visa": 35,
 			"study-visa": 37,
 		}
-		this.moduleId = modeid[currentEndpoint] || ""
+		this.moduleId = modeid[this.currentEndpoint] || ""
 
 		const moduleTitile: { [key: string]: string } = {
 			"travel-visa": "Travel Tools",
 			"enterpreneur-visa": "Founders Tools",
 			"study-visa": "Education Tools",
 		}
-		this.moduleTitile = moduleTitile[currentEndpoint] || ""
+		this.moduleTitile = moduleTitile[this.currentEndpoint] || ""
 		// image url
 	}
 
@@ -240,40 +242,18 @@ export class GlobalTravelVisaComponent implements OnInit {
 	}
 
 	shareQuestion(type: string) {
-		const socialMedias: { [key: string]: string } = {
-			Whatsapp: "whatsapp://send?text=",
-			Instagram: "https://www.instagram.com?url=",
-			Facebook: "https://www.facebook.com/sharer/sharer.php?u=",
-			LinkedIn: "https://www.linkedin.com/shareArticle?url=",
-			Twitter: "https://twitter.com/intent/tweet?url=",
-			Mail: "mailto:?body=",
-		}
-		const url = window.location.href + "/" + this.selectedQuestionData?.id
-		this.meta.updateTag({ property: "og:url", content: url })
-		const shareUrl = socialMedias[type] + encodeURIComponent(url)
-		window.open(shareUrl, "_blank")
+		const socialMedias: { [key: string]: string } = this.socialShareService.socialMediaList;
+		const currentUrl = this.getCurrentUrl() + '/' + this.currentEndpoint + '/';
+		const url = encodeURI(window.location.origin + currentUrl + this.selectedQuestionData?.id);
+		this.meta.updateTag({ property: 'og:url', content: url });
+		const shareUrl = socialMedias[type] + encodeURIComponent(url);
+		window.open(shareUrl, '_blank');
 	}
 
 	copyLink() {
-		// this.meta.updateTag(
-		//   { property: 'og:title', content:  this.selectedQuestionName.question},
-		// );
-		// this.meta.updateTag(
-		//   { name: 'title', content:  this.selectedQuestionName.question},
-		// );
-		const safeUrl = encodeURI(window.location.href)
-		const selectedDegreeId = this.selectedQuestionData?.degree_id || ""
-		const selectedQuestionId = this.selectedQuestionData?.id || ""
-		const textToCopy = `${safeUrl}/${selectedDegreeId}/${selectedQuestionId}`
-		navigator.clipboard
-			.writeText(textToCopy)
-			.then(() => {
-				this.toast.add({ severity: "success", summary: "Success", detail: "Question Copied" })
-			})
-			.catch((err) => {
-				this.toast.add({ severity: "error", summary: "Warning", detail: "Failed to copy the question" })
-				console.error("Failed to copy text: ", err)
-			})
+		const currentUrl = this.getCurrentUrl() + '/' + this.currentEndpoint + '/';
+		const textToCopy = encodeURI(window.location.origin + currentUrl + this.selectedQuestionData?.id);
+		this.socialShareService.copyQuestion(textToCopy);
 	}
 
 	goBack() {
@@ -288,16 +268,21 @@ export class GlobalTravelVisaComponent implements OnInit {
 			this.isRecommendationSavedData = false
 			this.isRecommendationEachVisaNameData = true
 		} else {
-			const urls: { [key: string]: string } = {
-				"Global Travel Visa": "/pages/travel-tools",
-				"Global Work Visa": "/pages/job-tool",
-				"Global Entrepreneur Visa": "/pages/founderstool",
-				"Global Study Visa": "/pages/education-tools",
-			}
-			const targetUrl = urls[this.title] || ""
+			const targetUrl = this.getCurrentUrl();
 			this.router.navigateByUrl(targetUrl)
 		}
 	}
+
+	getCurrentUrl() {
+		const urls: { [key: string]: string } = {
+			"Global Travel Visa": "/pages/travel-tools",
+			"Global Work Visa": "/pages/job-tool",
+			"Global Entrepreneur Visa": "/pages/founderstool",
+			"Global Study Visa": "/pages/education-tools",
+		};
+		return urls[this.title];
+	}
+
 	viewQuestions(category: any) {
 		this.visaCategoryTitle = category;
 		this.visaCategoryQuestionList = []
@@ -315,38 +300,12 @@ export class GlobalTravelVisaComponent implements OnInit {
 			questionId: this.selectedQuestionData?.id,
 			countryId: 0,
 		}
-		// if (this.currentModuleId == 8) {
-		//   data.reporttype = 8;
-		// }
 		this.dataService.openReportWindow(data)
 	}
 	goToHome(data: any) {
 		this.isQuestionAnswerVisible = false
 	}
-	// getVisaName(name:string){
-	//   let result = name.includes("Applying for");
-	//   return result
-	// }
-	// getVisaName1(name:string){
-	//   let result = name.includes("Visa Cost");
-	//   return result
-	// }
-	// getVisaName2(name:string){
-	//   let result = name.includes("Business & Residency");
-	//   return result
-	// }
-	// getVisaName3(name:string){
-	//   let result = name.includes("Validity & Restrictions");
-	//   return result
-	// }
-	// getVisaName4(name:string){
-	//   let result = name.includes("Post-Arrival");
-	//   return result
-	// }
-	// getVisaName5(name:string){
-	//   let result = name.includes("Visa Centers");
-	//   return result
-	// }
+
 	getVisaName(name: string) {
 		let image = ""
 		if (name.includes("Applying for")) {

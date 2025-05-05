@@ -70,20 +70,26 @@
 									<p-card id="socialSharingList{{ i }}" class="socialSharingList"
 										[ngClass]="{ show: selectedIndex === i }">
 										<ul class="list-unstyled">
-											<li (click)="shareViaWhatsapp(list.certificate_link)"><i
-													class="pi pi-whatsapp"></i>Whatsapp</li>
-											<li (click)="shareViaMail(list.certificate_link)"><i
-													class="pi pi-envelope"></i>Email</li>
-											<li (click)="shareViaFacebook(list.certificate_link)"><i
-													class="pi pi-facebook"></i>Facebook</li>
-											<li (click)="shareViaTwitter(list.certificate_link)"><i
-													class="pi pi-twitter"></i>Twitter</li>
-											<li (click)="shareViaInstagram(list.certificate_link)"><i
-													class="pi pi-instagram"></i>Instagram</li>
-											<li (click)="shareViaLinkedIn(list.certificate_link)"><i
-													class="pi pi-linkedin"></i>LinkedIn</li>
-											<li (click)="copyLink(list.certificate_link)"><i class="pi pi-link"></i>Copy
-												Link</li>
+											<li (click)="shareQuestion(list.certificate_link,'Whatsapp')">
+												<i class="pi pi-whatsapp"></i>Whatsapp
+											</li>
+											<li (click)="shareQuestion(list.certificate_link,'Mail')">
+												<i class="pi pi-envelope"></i>Email
+											</li>
+											<li (click)="shareQuestion(list.certificate_link,'Facebook')">
+												<i class="pi pi-facebook"></i>Facebook
+											</li>
+											<li (click)="shareQuestion(list.certificate_link,'Twitter')">
+												<i class="pi pi-twitter"></i>Twitter
+											</li>
+											<li (click)="shareQuestion(list.certificate_link,'Instagram')">
+												<i class="pi pi-instagram"></i>Instagram
+											</li>
+											<li (click)="shareQuestion(list.certificate_link,'LinkedIn')">
+												<i class="pi pi-linkedin"></i>LinkedIn
+											</li>
+											<li (click)="copyLink(list.certificate_link)"><i class="pi pi-link"></i>
+												Copy Link</li>
 										</ul>
 									</p-card>
 								</div>

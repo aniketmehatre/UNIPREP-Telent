@@ -232,8 +232,15 @@ export class GlobalWorkVisaComponent implements OnInit {
       this.selectedVisaName = "";
     } else if (this.isRecommendationSavedData) {
       this.isRecommendationSavedData = false;
-      this.isRecommendationEachVisaNameData = true;
       this.selectedVisaCategory = "";
+      if (this.paramData.question_id) {
+        this.paramData.question_id = 0;
+        this.isRecommendationQuestion = true;
+        this.selectedVisaName = "";
+      }
+      else {
+        this.isRecommendationEachVisaNameData = true;
+      }
     } else {
       this.router.navigateByUrl("/pages/job-tool/career-tool");
     }
@@ -248,6 +255,11 @@ export class GlobalWorkVisaComponent implements OnInit {
       this.isRecommendationData = false;
       this.isRecommendationSavedData = true;
       this.isRecommendationEachVisaNameData = false;
+      if (this.paramData.question_id) {
+        this.viewOneQuestion(this.visaCategoryQuestionList[0]);
+        this.selectedVisaCategory = this.visaCategoryQuestionList[0].category_name;
+        this.selectedVisaName = this.visaCategoryQuestionList[0].visa_name;
+      }
     });
   }
   openReport() {

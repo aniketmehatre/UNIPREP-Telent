@@ -19,10 +19,10 @@ export class SocialShareService {
     "Mail": "mailto:?body=",
   }
 
-  copyQuestion(textToCopy: string) {
+  copyQuestion(textToCopy: string, msg?: string) {
     navigator.clipboard.writeText(textToCopy)
       .then(() => {
-        this.toast.add({ severity: 'success', summary: 'Success', detail: 'Question Copied' });
+        this.toast.add({ severity: 'success', summary: 'Success', detail: msg ?? 'Question Copied' });
       })
       .catch((err) => {
         this.toast.add({ severity: "error", summary: "Warning", detail: 'Failed to copy the question' });

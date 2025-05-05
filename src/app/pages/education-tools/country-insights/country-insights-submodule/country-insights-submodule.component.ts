@@ -14,14 +14,15 @@ import { CardModule } from 'primeng/card';
 import { InputGroupModule } from 'primeng/inputgroup';
 import { InputTextModule } from 'primeng/inputtext';
 import { InputGroupAddonModule } from 'primeng/inputgroupaddon';
-import {StorageService} from "../../../../storage.service";
+import { StorageService } from "../../../../storage.service";
 import { PaginatorModule } from 'primeng/paginator';
 import { DataService } from 'src/app/data.service';
+import { SocialShareService } from 'src/app/shared/social-share.service';
 @Component({
-    selector: 'uni-country-insights-submodule',
-    templateUrl: './country-insights-submodule.component.html',
-    styleUrls: ['./country-insights-submodule.component.scss'],
-    standalone: true,
+  selector: 'uni-country-insights-submodule',
+  templateUrl: './country-insights-submodule.component.html',
+  styleUrls: ['./country-insights-submodule.component.scss'],
+  standalone: true,
   imports: [DialogModule, FormsModule, ReactiveFormsModule, PaginatorModule, CarouselModule, ButtonModule, CommonModule, RouterModule, DialogModule, MultiSelectModule, SelectModule, CardModule, InputGroupModule, InputTextModule, InputGroupAddonModule]
 })
 export class CountryInsightsSubmoduleComponent implements OnInit {
@@ -38,7 +39,7 @@ export class CountryInsightsSubmoduleComponent implements OnInit {
   countryname: string = '';
   isSkeletonVisible: boolean = false;
   constructor(private educationToolService: EducationToolsService, private route: ActivatedRoute, private meta: Meta,
-    private storage: StorageService, private dataService: DataService) {
+    private storage: StorageService, private dataService: DataService, private socialShareService: SocialShareService) {
 
   }
 
@@ -91,9 +92,9 @@ export class CountryInsightsSubmoduleComponent implements OnInit {
     socialShare.style.display = "none";
   }
   onShowModal(value: any) {
-		let socialShare: any = document.getElementById("socialSharingList")
-		socialShare.style.display = "none"
-	}
+    let socialShare: any = document.getElementById("socialSharingList")
+    socialShare.style.display = "none"
+  }
   showSocialSharingList(index: any): void {
     let socialShare: any = document.getElementById("socialSharingList");
     if (socialShare.style.display == "") {
@@ -104,53 +105,17 @@ export class CountryInsightsSubmoduleComponent implements OnInit {
     }
   }
 
-  shareViaWhatsapp(link: any) {
-    const { title, answer } = this.questionDetail || {};
-    const message = `*${title}*\n${answer}`;
-    const shareUrl = `whatsapp://send?text=${encodeURIComponent(message)}`;
+  shareQuestion(type: string) {
+    const socialMedias: { [key: string]: string } = this.socialShareService.socialMediaList;
+    const url = encodeURI(window.location.origin + '/pages/education-tools/country-insights/' + this.questionDetail?.id);
+    this.meta.updateTag({ property: 'og:url', content: url });
+    const shareUrl = socialMedias[type] + encodeURIComponent(url);
     window.open(shareUrl, '_blank');
   }
 
-  shareViaInstagram(link: any) {
-    const { title, answer } = this.questionDetail || {};
-    const message = `${title}\n${answer}`;
-    // Instagram doesn't support direct text sharing via URLs.
-    alert('Instagram sharing requires manual pasting. Text has been copied to your clipboard.');
-    this.copyTextToClipboard(message);
-  }
-
-  shareViaFacebook(link: any) {
-    const { title, answer } = this.questionDetail || {};
-    const url = encodeURIComponent(`${title}\n${answer}`);
-    const shareUrl = `https://www.facebook.com/sharer/sharer.php?u=${url}`;
-    window.open(shareUrl, '_blank');
-  }
-
-  shareViaLinkedIn(link: any) {
-    const { title, answer } = this.questionDetail || {};
-    const url = encodeURIComponent(`${title}\n${answer}`);
-    const shareUrl = `https://www.linkedin.com/shareArticle?url=${url}`;
-    window.open(shareUrl, '_blank');
-  }
-
-  shareViaTwitter(link: any) {
-    const { title, answer } = this.questionDetail || {};
-    const message = `${title}\n${answer}`;
-    const shareUrl = `https://twitter.com/intent/tweet?text=${encodeURIComponent(message)}`;
-    window.open(shareUrl, '_blank');
-  }
-
-  shareViaMail(link: any) {
-    const { title, answer } = this.questionDetail || {};
-    const message = `${title}\n\n${answer}`;
-    const shareUrl = `mailto:?subject=${encodeURIComponent(title)}&body=${encodeURIComponent(message)}`;
-    window.open(shareUrl, '_blank');
-  }
-
-  copyLink(link: any) {
-    const { title, answer } = this.questionDetail || {};
-    const message = `${title}\n${answer}`;
-    this.copyTextToClipboard(message);
+  copyLink() {
+    const textToCopy = encodeURI(window.location.origin + '/pages/education-tools/country-insights/' + this.questionDetail?.id);
+    this.socialShareService.copyQuestion(textToCopy);
   }
 
   paginate(event: any) {
@@ -158,17 +123,5 @@ export class CountryInsightsSubmoduleComponent implements OnInit {
     this.pageSize = event.rows;
     this.getQuizQuestionData();
   }
-
-  private copyTextToClipboard(text: string) {
-    const textarea = document.createElement('textarea');
-    textarea.textContent = text;
-    document.body.append(textarea);
-    textarea.select();
-    document.execCommand('copy');
-    textarea.remove();
-    alert('Text copied to clipboard!');
-  }
-
-
 
 }

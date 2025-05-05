@@ -10,6 +10,7 @@ import { CommonModule } from "@angular/common";
 import { DialogModule } from "primeng/dialog";
 import { CardModule } from "primeng/card";
 import { AuthService } from 'src/app/Auth/auth.service';
+import { SocialShareService } from 'src/app/shared/social-share.service';
 @Component({
   selector: 'uni-component-stories',
   templateUrl: './component-stories.component.html',
@@ -21,7 +22,7 @@ export class ComponentStoriesComponent implements OnInit {
 
   constructor(private pageFacade: PageFacadeService, private dataService: DataService, private activatedRoute: ActivatedRoute,
     private meta: Meta, private toast: MessageService, private router: Router, private service: FounderstoolService,
-    private locationService: LocationService, private authService: AuthService) { }
+    private locationService: LocationService, private authService: AuthService, private socialShareService: SocialShareService) { }
   countrylist: any[] = [];
   currentRoute: string = '';
   headertooltipname: any;
@@ -167,65 +168,21 @@ export class ComponentStoriesComponent implements OnInit {
       socialShare.style.display = socialShare.style.display == "none" ? "block" : "none";
     }
   }
-  shareViaWhatsapp() {
-    let url = window.location.href + '/' + this.dataanswerquestion?.id
+
+  shareQuestion(type: string) {
+    const socialMedias: { [key: string]: string } = this.socialShareService.socialMediaList;
+    const url = encodeURI(window.location.origin + '/pages/fortune-companies/' + this.dataanswerquestion?.id);
     this.meta.updateTag({ property: 'og:url', content: url });
-    const shareUrl = `whatsapp://send?text=${encodeURIComponent(url)}`;
+    const shareUrl = socialMedias[type] + encodeURIComponent(url);
     window.open(shareUrl, '_blank');
   }
-  shareViaInstagram() {
-    let url = window.location.href + '/' + this.dataanswerquestion?.id
-    this.meta.updateTag({ property: 'og:url', content: url });
-    const shareUrl = `https://www.instagram.com?url=${encodeURIComponent(url)}`;
-    window.open(shareUrl, '_blank');
-  }
-  shareViaFacebook() {
-    let url = window.location.href + '/' + this.dataanswerquestion?.id
-    this.meta.updateTag({ property: 'og:url', content: url });
-    const shareUrl = `https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(url)}`;
-    window.open(shareUrl, '_blank');
-  }
-  shareViaLinkedIn() {
-    let url = window.location.href + '/' + this.dataanswerquestion?.id
-    this.meta.updateTag({ property: 'og:url', content: url });
-    const shareUrl = `https://www.linkedin.com/shareArticle?url=${encodeURIComponent(url)}`;
-    window.open(shareUrl, '_blank');
-  }
-  shareViaTwitter() {
-    let url = window.location.href + '/' + this.dataanswerquestion?.id
-    this.meta.updateTag({ property: 'og:url', content: url });
-    const shareUrl = `https://twitter.com/intent/tweet?url=${encodeURIComponent(url)}`;
-    window.open(shareUrl, '_blank');
-  }
-  shareViaMail() {
-    let url = window.location.href + '/' + this.dataanswerquestion?.id
-    this.meta.updateTag({ property: 'og:url', content: url });
-    const shareUrl = `mailto:?body=${encodeURIComponent(url)}`;
-    window.open(shareUrl, '_blank');
-  }
+
   copyLink() {
-    const textarea = document.createElement('textarea');
-
-    // this.meta.updateTag(
-    //   { property: 'og:title', content:  this.selectedQuestionName.question},
-    // );
-    // this.meta.updateTag(
-    //   { name: 'title', content:  this.selectedQuestionName.question},
-    // );
-    const safeUrl = encodeURI(window.location.href);
-    const selectedQuestionId = this.dataanswerquestion?.id || '';
-    // const safeCountryId = this.countryId || '';
-
-    // Combine data with a safe format
-    textarea.textContent = `${safeUrl}/${selectedQuestionId}`;
-
-    // Append the textarea safely
-    document.body.append(textarea);
-    textarea.select();
-    document.execCommand('copy');
-    textarea.remove();
-    this.toast.add({ severity: 'success', summary: 'Success', detail: 'Question Copied' });
+    const currentMode = this.modename.replaceAll('_', '-');
+    const textToCopy = encodeURI(window.location.origin + '/pages/founderstool/' + currentMode + '/' + this.dataanswerquestion?.id);
+    this.socialShareService.copyQuestion(textToCopy);
   }
+
   getContentPreview(content: string): string {
     // const plainText = content.replace(/<[^>]*>/g, '');
     // return plainText.length > 75 ? plainText.slice(0, 75) + ' ...' : plainText;
