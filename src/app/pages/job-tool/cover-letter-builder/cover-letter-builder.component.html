@@ -417,6 +417,9 @@
 											<p-editor [style]="{ height: '250px' }" class="mt-2"
 												formControlName="user_summary" placeholder="Generate Your Content"
 												[modules]="editorModules"></p-editor>
+												<div class="text-end text-muted mt-1" style="font-size: 0.85rem;">
+													({{ getWordCount('user_summary') }}/1100)
+												</div>
 											<div *ngIf="submitted && f['user_summary'].errors"
 												class="text-danger text-xs">
 												<div style="margin-left: 10px" *ngIf="f['user_summary'].errors">Required

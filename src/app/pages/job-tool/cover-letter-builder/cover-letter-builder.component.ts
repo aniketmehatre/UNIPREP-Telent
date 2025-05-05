@@ -874,4 +874,16 @@ export class CoverLetterBuilderComponent implements OnInit, AfterViewInit {
 		}
 		return cleaned;
 	}
+	getWordCount(controlName: string): number {
+		const html = this.resumeFormInfoData.get(controlName)?.value || '';
+
+		// Create a temporary element to convert HTML to plain text
+		const div = document.createElement('div');
+		div.innerHTML = html;
+		const text = div.textContent || div.innerText || '';
+
+		const trimmed = text.trim();
+
+		return trimmed ? trimmed.split(/\s+/).length : 0;
+	}
 }
