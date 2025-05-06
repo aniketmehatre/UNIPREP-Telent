@@ -127,7 +127,8 @@
 			<div class="col-md-1">&nbsp;</div>
 		</div> -->
 		<div class="row flex-fill overflow-hidden">
-			<div class="col-md-6 h-100 d-flex flex-column overflow-hidden gap-2">
+			<div *ngIf="!isReviewContent; else showReview"
+				class="col-md-6 h-100 d-flex flex-column overflow-hidden gap-2">
 				<div class="flex-fill overflow-y-auto" *ngIf="moduleActiveIndex == 0">
 					<form role="form" class="row" [formGroup]="resumeFormInfoData" #form="ngForm">
 						<ng-container>
@@ -1313,13 +1314,32 @@
 						<span class="me-2">Next</span><span class="btn-icon px-2 py-2"><i
 								class="fa-solid fa-arrow-right"></i></span>
 					</button> -->
-					<button pButton pButton type="button" (click)="resumeFormSubmit()"
-						class="btn btn-success btn-rounded p-1 ps-4">
-						<span class="me-2">Create</span><span class="btn-icon px-2 py-2"><i
-								class="fa-solid fa-check"></i></span>
+					<button pButton pButton type="button" (click)="onProfileReview()"
+						class="btn btn-primary btn-rounded p-1 ps-4">
+						<span class="me-2">Submit</span><span class="btn-icon px-2 py-2"><i
+								class="fa-solid fa-arrow-right"></i></span>
 					</button>
 				</div>
 			</div>
+			<ng-template #showReview>
+				<div class="col-md-6 h-100 d-flex flex-column overflow-hidden gap-2">
+					<div class="flex-fill overflow-y-auto">
+						<div [innerHTML]="profileOverViewContent"></div>
+					</div>
+					<div class="d-flex justify-content-between">
+						<button pButton pButton type="button" (click)="isReviewContent=false"
+							class="btn btn-primary btn-rounded p-1 ps-4">
+							<span class="me-2">Edit</span><span class="btn-icon px-2 py-2"><i
+									class="fa-solid fa-arrow-left"></i></span>
+						</button>
+						<button pButton pButton type="button" (click)="resumeFormSubmit()"
+							class="btn btn-primary btn-rounded p-1 ps-4">
+							<span class="me-2">Create</span><span class="btn-icon px-2 py-2"><i
+									class="fa-solid fa-check"></i></span>
+						</button>
+					</div>
+				</div>
+			</ng-template>
 			<div class="col-md-6 h-100">
 				<div class="card h-100">
 					<div class="card-header d-flex justify-content-between align-items-center border-0 bg-transparent">

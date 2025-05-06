@@ -218,6 +218,8 @@ export class CvBuilderComponent implements OnInit, AfterViewInit {
   filteredLocations: any = [];
   filteredExpeAndEduLocations: { [key: number]: any[] } = {};
   pdfThumbnails: { [key: string]: string } = {};
+  profileOverViewContent: string = 'Profile Review';
+  isReviewContent: boolean = false;
 
   constructor(private toaster: MessageService, private fb: FormBuilder, private resumeService: CvBuilderService, private router: Router, private confirmService: ConfirmationService, private authService: AuthService, private locationService: LocationService) {
     this.resumeFormInfoData = this.fb.group({
@@ -1585,5 +1587,10 @@ export class CvBuilderComponent implements OnInit, AfterViewInit {
       console.error('Error loading PDF:', error);
       this.pdfLoadError = true;
     });
+  }
+
+  onProfileReview() {
+    this.isReviewContent = true;
+    // Api call for profile review
   }
 }
