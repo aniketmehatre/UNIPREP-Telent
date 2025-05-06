@@ -70,6 +70,55 @@ body {
 	overflow: auto !important;
 }
 
+.floating-buttons1 {
+	position: fixed;
+	right: 0;
+	bottom: 120px;
+	display: flex;
+	flex-direction: column;
+	gap: 10px;
+	z-index: 1000;
+  }
+
+  .floating-btn1 {
+	cursor: pointer;
+  
+	.btn-content1 {
+	  background-color: #25d366;
+	  color: white;
+	  display: flex;
+	  align-items: center;
+	  padding: 15px;
+	  transition: width 0.3s ease, background-color 0.3s ease;
+	  overflow: hidden;
+	  white-space: nowrap;
+  
+	  .icon1 {
+		font-size: 18px;
+		margin-right: 0px;
+	  }
+  
+	  .label1 {
+		font-weight: bold;
+	  }
+  
+	  &.expanded1 {
+		width: 140px;
+		justify-content: flex-start;
+	  }
+	}
+  
+	&.whatsapp .btn-content1 {
+	  background-color: #25d366;
+	}
+  
+	.btn-content1:not(.expanded1) {
+	  width: 50px;
+	  justify-content: center;
+	}
+  }
+
+
 // ::ng-deep ::-webkit-scrollbar-track {
 // 	-webkit-box-shadow: none !important;
 // 	border-radius: 8px !important;

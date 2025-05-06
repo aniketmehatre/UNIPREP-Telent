@@ -170,7 +170,30 @@ export class LandingContentComponent implements OnInit {
     changeImage(imageName: string): void {
       this.currentImage = "/uniprep-assets/images/" + imageName
     }
-  
+
+  userCategories = [
+    {
+      icon: '💼',
+      title: 'For Job Seekers',
+      description: 'Access 30+ premium career features to land your dream job.'
+    },
+    {
+      icon: '👨🏻‍🎓',
+      title: 'For International Students',
+      description: 'Use 15+ education tools to unlock your study abroad goals.'
+    },
+    {
+      icon: '📦',
+      title: 'For Global Travellers',
+      description: 'Make smart moves with 10+ travel resources for that perfect vacation.'
+    },
+    {
+      icon: '🚀',
+      title: 'For Entrepreneurs',
+      description: 'Kickstart your startup journey with 20+ business-building resources.'
+    }
+  ];
+
     faqItems = [
       {
         id: "faqcollapseOne",

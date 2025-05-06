@@ -23,7 +23,8 @@ interface CareerCard {
 })
 export class LandingComponent implements OnInit, OnDestroy {
 	@ViewChild("videoPlayer")
-	videoPlayer!: ElementRef
+	videoPlayer!: ElementRef;
+	hovered1: 'wa' | null = null;
 	isPlaying = false
 	isDarkMode: boolean
 	displaytandc!: boolean
@@ -305,6 +306,12 @@ export class LandingComponent implements OnInit, OnDestroy {
 				this.displaycontactform = false
 			}, 2000)
 		})
+	}
+
+	navigateWhatsappCall() {
+		const whatsappSupportNumber = environment.whatsappSupportNumber;
+		const whatsappUrl = `https://wa.me/${whatsappSupportNumber}`;
+		window.open(whatsappUrl, '_blank');
 	}
 
 	toggleMobileSubmenu(event: Event): void {

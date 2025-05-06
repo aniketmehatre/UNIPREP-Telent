@@ -27,8 +27,8 @@ const routes: Routes = [
         loadComponent: () => import('../compare-uni/compare-uni.component').then(c => c.CompareUniComponent)
       },
       {
-        path: 'landing-new',
-        loadComponent: () => import('../landing-new/landing-new.component').then(c => c.LandingNewComponent)
+        path: 'contact-us',
+        loadComponent: () => import('./contact-us/contact-us.component').then(c => c.ContactUsComponent)
       },
       {
         path: 'about/management',

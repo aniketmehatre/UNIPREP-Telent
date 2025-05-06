@@ -69,6 +69,9 @@
 					<li><a class="dropdown-item text-white hover-black" href="/blogs">Blogs</a></li>
 				</ul>
 			</li>
+            <li class="nav-item">
+                <a class="nav-link active text-white fw-regular" aria-current="page" href="/contact-us">Contact Us</a>
+            </li>
 			<!--			<li class="nav-item">-->
 			<!--				<a class="nav-link text-white fw-regular" aria-label="Key Features" href="#keyfeatures"-->
 			<!--					(click)="scrollToSection($event, 'keyfeatures')">Key Features</a>-->
@@ -851,4 +854,12 @@
 <div class="position-absolute">
 	<p-scrolltop target="window" [threshold]="100" icon="pi pi-arrow-up"
 		[buttonProps]="{ raised: true, rounded: true }" />
+</div>
+<div class="floating-buttons1">
+	<div class="floating-btn1 whatsapp" (mouseenter)="hovered1 = 'wa'" (mouseleave)="hovered1 = null">
+		<div class="btn-content1" [class.expanded1]="hovered1 === 'wa'" (click)="navigateWhatsappCall();">
+			<i class="fa-brands fa-whatsapp icon1"> </i> &nbsp;
+			<span *ngIf="hovered1 === 'wa'" class="label1"> 24/7 Support </span>
+		</div>
+	</div>
 </div>
