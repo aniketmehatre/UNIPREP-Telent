@@ -1303,6 +1303,11 @@ export class CvBuilderComponent implements OnInit, AfterViewInit {
 
   chatGPTIntegration(fieldName: string, iteration: number) {
     // const apiKey = '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';
+    if(this.authService._creditCount === 0){
+			this.toaster.add({severity: "error",summary: "Error",detail: "Please Buy some Credits...!"});
+			this.router.navigateByUrl('/pages/export-credit')
+			return;
+		}
     let formData = this.resumeFormInfoData.value;
     // let prompt: string = "";
     let parameters: any = {
@@ -1351,6 +1356,7 @@ export class CvBuilderComponent implements OnInit, AfterViewInit {
     }
     this.resumeService.openAiIntegration(parameters).subscribe((res) => {
       if (res.response && res.response.length > 0) {
+        this.authService.aiCreditCount$.next(true);
         if (fieldName == "user_summary" || fieldName == "rephrase_summary") {
           this.resumeFormInfoData.patchValue({
             user_summary: res.response,
