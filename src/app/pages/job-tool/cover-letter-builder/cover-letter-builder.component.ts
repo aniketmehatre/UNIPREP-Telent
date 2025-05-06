@@ -670,6 +670,11 @@ export class CoverLetterBuilderComponent implements OnInit, AfterViewInit {
 	// 1st chatgpt response after convert into refrase button , then any changes will in inuput or dropdown that button need to change ai genarate,That why save 1st response for checking
 	chatGptValueSave: any
 	chatGPTIntegration(mode: string) {
+		if(this.authService._creditCount === 0){
+			this.toaster.add({severity: "error",summary: "Error",detail: "Please Buy some Credits...!"});
+			this.router.navigateByUrl('/pages/export-credit')
+			return;
+		}
 		const visibleFormControls = this.getVisibleFormControlsChatGptRespons(mode);
 		// condition for required field for chatgpt
 		if (!visibleFormControls.every((control) => control.valid)) {
@@ -729,6 +734,7 @@ export class CoverLetterBuilderComponent implements OnInit, AfterViewInit {
 					}
 					this.chatGptButtonLoader = false;
 					this.chatGptButtonLoaderSummary = false;
+					this.authService.aiCreditCount$.next(true);
 				} else {
 					console.error("Unexpected response structure:", res)
 				}
