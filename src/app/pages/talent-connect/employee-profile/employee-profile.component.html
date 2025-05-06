@@ -398,20 +398,22 @@
 
 														<div class="d-flex w-100 gap-2">
 															<p-datepicker
-																formControlName="work_experience_duration_from"
-																size="small" placeholder="From Date" view="month"
-																dateFormat="mm/yy" [maxDate]="today" class="flex-grow-1"
-																styleClass="w-100" inputId="icondisplay"
-																[readonlyInput]="true"
-																(onSelect)="updateExperienceDate(experience.get('work_experience_duration_from'), experience.get('work_experience_duration_to'), experience.get('years_of_experience'));" />
-															<p-datepicker formControlName="work_experience_duration_to"
-																size="small" placeholder="To Date" view="month"
-																dateFormat="mm/yy" inputId="icondisplay"
-																class="flex-grow-1" styleClass="w-100"
-                                                                          [disabled]="experience.get('currently_working')?.value"
-																[minDate]="experience.get('work_experience_duration_from')?.value"
-																[maxDate]="today" [readonlyInput]="true"
-																(onSelect)="updateExperienceDate(experience.get('work_experience_duration_from'), experience.get('work_experience_duration_to'), experience.get('years_of_experience'));" />
+                                                                    (onSelect)="updateExperienceDate(experience.get('work_experience_duration_from'), experience.get('work_experience_duration_to'), experience.get('years_of_experience'),experience.get('currently_working'));"
+                                                                    [maxDate]="today" [readonlyInput]="true" class="flex-grow-1"
+                                                                    dateFormat="mm/yy" formControlName="work_experience_duration_from"
+                                                                    inputId="icondisplay"
+                                                                    placeholder="From Date" size="small"
+                                                                    styleClass="w-100"
+                                                                    view="month"/>
+															<p-datepicker (onSelect)="updateExperienceDate(experience.get('work_experience_duration_from'), experience.get('work_experience_duration_to'), experience.get('years_of_experience'), experience.get('currently_working'));"
+                                                                          [disabled]="experience.get('currently_working')?.value" [maxDate]="today"
+                                                                          [minDate]="experience.get('work_experience_duration_from')?.value"
+                                                                          [readonlyInput]="true" class="flex-grow-1"
+                                                                          dateFormat="mm/yy" formControlName="work_experience_duration_to"
+                                                                          inputId="icondisplay"
+                                                                          placeholder="To Date"
+                                                                          size="small" styleClass="w-100"
+                                                                          view="month"/>
 														</div>
                                                         <div *ngIf="(
                                                                 (

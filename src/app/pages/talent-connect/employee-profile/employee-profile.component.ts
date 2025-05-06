@@ -1554,21 +1554,30 @@ export class EmployeeProfileComponent implements OnInit, OnDestroy {
     return { min: years, max: years };
   }
 
-  updateExperienceDate(fromDateControl: FormControl, toDateControl: FormControl, yearsExpControl: FormControl) {
-    if (fromDateControl?.value && toDateControl?.value) {
-      const fromDate = new Date(fromDateControl.value);
-      const toDate = new Date(toDateControl.value);
-
+  updateExperienceDate(
+      fromDateControl: FormControl,
+      toDateControl: FormControl,
+      yearsExpControl: FormControl,
+      currentlyWorkingControl: FormControl
+  ) {
+    const fromDateValue = fromDateControl?.value;
+    const toDateValue = toDateControl?.value;
+    const currentlyWorking = currentlyWorkingControl?.value;
+    if (fromDateValue && (toDateValue || currentlyWorking)) {
+      const fromDate = new Date(fromDateValue);
+      const toDate = currentlyWorking ? new Date() : new Date(toDateValue);
       const duration = intervalToDuration({ start: fromDate, end: toDate });
 
       this.totalDurations.push({ years: duration.years || 0, months: duration.months || 0 });
 
       const result = formatDuration(duration, { format: ['years', 'months'] });
       yearsExpControl.setValue(result);
+
       this.validateTotalExperience();
-      this.calculateTotalExperience1()
+      this.calculateTotalExperience1();
     }
   }
+
 
   calculateTotalExperience1() {
     let totalYears = 0;
