@@ -23,7 +23,7 @@ export const environment = {
   secretKeySalt: 'WaterMelonTea',
   facebookAppId: '892925195633254',
   linkedinId: '86b55xx7n8zomc',
-  whatsappSupportNumber: 9025058497,
+  whatsappSupportNumber: 9876543210,
   googleCloud: {
     apiKey: 'AIzaSyCxrgn6ZZL3IsY_3xrSqQJi_3yT_OKr-n0'
   },
