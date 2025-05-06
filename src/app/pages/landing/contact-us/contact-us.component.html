@@ -1,0 +1,132 @@
+<div class="contact-page">
+    <header>
+        <button pButton icon="pi pi-arrow-left" class="p-button-rounded border text-white border-white bg-black"
+            (click)="goBack()"></button>
+        <button pButton label="Contact Us" class="p-button-rounded border text-white border-white bg-black"></button>
+    </header>
+
+    <main>
+        <h1>Contact Us</h1>
+        <p>Please complete the form that best matches your profile. A UNIPREP representative will reach out shortly.</p>
+        <div class="h-100 row">
+            <div class="col-5">
+                <div class="form-type-selector">
+                    <div [ngClass]="{'active': activeFormType === 'general'}" (click)="changeFormType('general')"
+                        class="form-type-option">
+                        General Inquiry
+                    </div>
+                    <div [ngClass]="{'active': activeFormType === 'indian'}" (click)="changeFormType('indian')"
+                        class="form-type-option">
+                        Indian Institutions
+                    </div>
+                    <div [ngClass]="{'active': activeFormType === 'international'}"
+                        (click)="changeFormType('international')" class="form-type-option">
+                        International Universities
+                    </div>
+                </div>
+            </div>
+            <div class="form-container col-7">
+                <h2 *ngIf="activeFormType === 'general'">General Inquiry - Contact Form</h2>
+                <h2 *ngIf="activeFormType === 'indian'">Indian Institutions - Contact Form</h2>
+                <h2 *ngIf="activeFormType === 'international'">International Universities - Contact Form</h2>
+                <p>All fields marked with <span class="required-marker">*</span> must be filled in.</p>
+
+                <form [formGroup]="contactForm" (ngSubmit)="onSubmit()">
+                    <!-- Common fields for all form types -->
+                    <div class="form-field">
+                        <label for="firstName">First Name <span class="required-marker">*</span></label>
+                        <input id="firstName" type="text" pInputText formControlName="firstName"
+                            [ngClass]="{'ng-invalid ng-dirty': contactForm.get('firstName')?.invalid && contactForm.get('firstName')?.touched}" />
+                    </div>
+
+                    <div class="form-field">
+                        <label for="lastName">Last Name <span class="required-marker">*</span></label>
+                        <input id="lastName" type="text" pInputText formControlName="lastName"
+                            [ngClass]="{'ng-invalid ng-dirty': contactForm.get('lastName')?.invalid && contactForm.get('lastName')?.touched}" />
+                    </div>
+
+                    <!-- Form-specific fields -->
+                    <div *ngIf="activeFormType === 'indian'" class="form-field">
+                        <label for="designation">Designation <span class="required-marker">*</span></label>
+                        <input id="designation" type="text" pInputText formControlName="designation"
+                            [ngClass]="{'ng-invalid ng-dirty': contactForm.get('designation')?.invalid && contactForm.get('designation')?.touched}" />
+                    </div>
+
+                    <div class="form-field">
+                        <label for="email">Email <span class="required-marker">*</span></label>
+                        <input id="email" type="email" pInputText formControlName="email"
+                            [ngClass]="{'ng-invalid ng-dirty': contactForm.get('email')?.invalid && contactForm.get('email')?.touched}" />
+                    </div>
+
+                    <div *ngIf="activeFormType === 'general' || activeFormType === 'international'" class="form-field">
+                        <label for="phoneNumber">Phone Number <span class="required-marker">*</span></label>
+                        <input id="phoneNumber" type="tel" pInputText formControlName="phoneNumber"
+                            [ngClass]="{'ng-invalid ng-dirty': contactForm.get('phoneNumber')?.invalid && contactForm.get('phoneNumber')?.touched}" />
+                    </div>
+
+                    <div *ngIf="activeFormType === 'indian'" class="form-field">
+                        <label for="mobileNumber">Mobile Number</label>
+                        <input id="mobileNumber" type="tel" pInputText formControlName="mobileNumber" />
+                    </div>
+
+                    <div *ngIf="activeFormType === 'general'" class="form-field">
+                        <label for="organization">Organization/Institution</label>
+                        <input id="organization" type="text" pInputText formControlName="organization" />
+                    </div>
+
+                    <div *ngIf="activeFormType === 'international'" class="form-field">
+                        <label for="universityName">University Name <span class="required-marker">*</span></label>
+                        <input id="universityName" type="text" pInputText formControlName="universityName"
+                            [ngClass]="{'ng-invalid ng-dirty': contactForm.get('universityName')?.invalid && contactForm.get('universityName')?.touched}" />
+                    </div>
+
+                    <div *ngIf="activeFormType === 'indian'" class="form-field">
+                        <label for="institutionName">Institution Name <span class="required-marker">*</span></label>
+                        <input id="institutionName" type="text" pInputText formControlName="institutionName"
+                            [ngClass]="{'ng-invalid ng-dirty': contactForm.get('institutionName')?.invalid && contactForm.get('institutionName')?.touched}" />
+                    </div>
+
+                    <div *ngIf="activeFormType === 'indian'" class="form-field">
+                        <label for="institutionNameFull">Institution Name <span class="required-marker">*</span>
+                            (College/University/Group of Institutions/Training Centre)</label>
+                        <input id="institutionNameFull" type="text" pInputText formControlName="institutionNameFull"
+                            [ngClass]="{'ng-invalid ng-dirty': contactForm.get('institutionNameFull')?.invalid && contactForm.get('institutionNameFull')?.touched}" />
+                    </div>
+
+                    <div *ngIf="activeFormType === 'indian'" class="form-field">
+                        <label for="city">City <span class="required-marker">*</span></label>
+                        <input id="city" type="text" pInputText formControlName="city"
+                            [ngClass]="{'ng-invalid ng-dirty': contactForm.get('city')?.invalid && contactForm.get('city')?.touched}" />
+                    </div>
+
+                    <div *ngIf="activeFormType === 'indian'" class="form-field">
+                        <label for="state">State <span class="required-marker">*</span></label>
+                        <input id="state" type="text" pInputText formControlName="state"
+                            [ngClass]="{'ng-invalid ng-dirty': contactForm.get('state')?.invalid && contactForm.get('state')?.touched}" />
+                    </div>
+
+                    <div class="form-field">
+                        <label for="country">Country <span *ngIf="activeFormType !== 'indian'">/ Region</span> <span
+                                class="required-marker">*</span></label>
+                        <input id="country" type="text" pInputText formControlName="country"
+                            [ngClass]="{'ng-invalid ng-dirty': contactForm.get('country')?.invalid && contactForm.get('country')?.touched}" />
+                    </div>
+
+                    <div class="form-field">
+                        <label for="helpMessage">How can we help you? <span class="required-marker">*</span></label>
+                        <textarea id="helpMessage" pInputTextarea formControlName="helpMessage" [rows]="5"
+                            [ngClass]="{'ng-invalid ng-dirty': contactForm.get('helpMessage')?.invalid && contactForm.get('helpMessage')?.touched}"></textarea>
+                    </div>
+
+                    <button pButton type="submit" label="Submit" class="p-button-primary submit-button"></button>
+                </form>
+            </div>
+        </div>
+
+
+        <div class="direct-contact">
+            <p>Prefer to write to us directly?</p>
+            <button pButton label="Email" class="p-button-secondary email-button" (click)="sendEmail()"></button>
+        </div>
+        </main>
+        </div>
