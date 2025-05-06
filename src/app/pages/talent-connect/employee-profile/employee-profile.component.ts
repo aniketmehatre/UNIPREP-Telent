@@ -234,6 +234,7 @@ export class EmployeeProfileComponent implements OnInit, OnDestroy {
       work_experience_job_title: [""],
       work_experience_employment_type: [""],
       work_experience_duration_from: [""],
+      currently_working: [false],
       work_experience_duration_to: [""],
       work_experience_salary_per_month: [""],
       work_experience_currency_id: [""],
@@ -1511,24 +1512,24 @@ export class EmployeeProfileComponent implements OnInit, OnDestroy {
     const selectedExpRange = this.parseExperienceRange(selectedTotalExp);
     const calculatedExp = this.calculateTotalExperience();
 
-    if (calculatedExp < selectedExpRange.min) {
-      this.haveErrorWhileAddExp = true;
-      this.toastService.add({
-        severity: 'error',
-        summary: 'Experience Validation Error',
-        detail: `Your work history shows only ${calculatedExp} years of experience, which is less than the minimum ${selectedExpRange.min} years you selected.`
-      });
-    } else if (calculatedExp > selectedExpRange.max && selectedExpRange.max !== Infinity) {
-      this.haveErrorWhileAddExp = true;
-      this.toastService.add({
-        severity: 'error',
-        summary: 'Experience Validation Error',
-        detail: `Your work history shows ${calculatedExp} years of experience, which exceeds the maximum ${selectedExpRange.max} years you selected.`
-      });
-    } else {
-      this.haveErrorWhileAddExp = false;
-      this.toastService.clear();
-    }
+    // if (calculatedExp < selectedExpRange.min) {
+    //   this.haveErrorWhileAddExp = true;
+    //   this.toastService.add({
+    //     severity: 'error',
+    //     summary: 'Experience Validation Error',
+    //     detail: `Your work history shows only ${calculatedExp} years of experience, which is less than the minimum ${selectedExpRange.min} years you selected.`
+    //   });
+    // } else if (calculatedExp > selectedExpRange.max && selectedExpRange.max !== Infinity) {
+    //   this.haveErrorWhileAddExp = true;
+    //   this.toastService.add({
+    //     severity: 'error',
+    //     summary: 'Experience Validation Error',
+    //     detail: `Your work history shows ${calculatedExp} years of experience, which exceeds the maximum ${selectedExpRange.max} years you selected.`
+    //   });
+    // } else {
+    //   this.haveErrorWhileAddExp = false;
+    //   this.toastService.clear();
+    // }
   }
 
   parseExperienceRange(expString: string): { min: number, max: number } {

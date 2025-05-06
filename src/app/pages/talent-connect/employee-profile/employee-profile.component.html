@@ -384,7 +384,17 @@
 												<div class="row mb-4">
 													<!-- Duration Field -->
 													<div class="col-md-6 mb-3">
-														<label for="duration" class="form-label">Duration</label>
+                                                        <div class="d-flex justify-content-between align-items-center">
+                                                            <label class="form-label mb-0"
+                                                                   for="duration">Duration</label>
+                                                            <div class="form-check">
+                                                                <input class="form-check-input" formControlName="currently_working"
+                                                                       id="currentlyWorking"
+                                                                       type="checkbox"/>
+                                                                <label class="form-check-label text-small text-black"
+                                                                       for="currentlyWorking">Currently Working</label>
+                                                            </div>
+                                                        </div>
 
 														<div class="d-flex w-100 gap-2">
 															<p-datepicker
@@ -398,13 +408,20 @@
 																size="small" placeholder="To Date" view="month"
 																dateFormat="mm/yy" inputId="icondisplay"
 																class="flex-grow-1" styleClass="w-100"
+                                                                          [disabled]="experience.get('currently_working')?.value"
 																[minDate]="experience.get('work_experience_duration_from')?.value"
 																[maxDate]="today" [readonlyInput]="true"
 																(onSelect)="updateExperienceDate(experience.get('work_experience_duration_from'), experience.get('work_experience_duration_to'), experience.get('years_of_experience'));" />
 														</div>
-														<div *ngIf="(experience.get('work_experience_duration_from')?.value && !experience.get('work_experience_duration_to')?.value) || (!experience.get('work_experience_duration_from')?.value && experience.get('work_experience_duration_to')?.value)"
-															class="text-danger">Please select both from and to values.
-														</div>
+                                                        <div *ngIf="(
+                                                                (
+                                                                  (experience.get('work_experience_duration_from')?.value && !experience.get('work_experience_duration_to')?.value) ||
+                                                                  (!experience.get('work_experience_duration_from')?.value && experience.get('work_experience_duration_to')?.value)
+                                                                ) && !experience.get('currently_working')?.value
+                                                              )"
+                                                             class="text-danger">
+                                                            Please select both from and to values.
+                                                        </div>
 													</div>
 
 													<!-- Salary Field -->
