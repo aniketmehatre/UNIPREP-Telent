@@ -43,8 +43,8 @@ export class ChatComponent implements OnInit, OnChanges {
   constructor(private talentConnectService: TalentConnectService,) { }
 
   ngOnInit(): void {
-    this.messageInput.value = '';
-    this.messageInput.nativeElement.style.height = 'auto';
+    // this.messageInput.value = '';
+    // this.messageInput.nativeElement.style.height = 'auto';
     this.getChatMessageForCompanyConnect(this.companyDetails.id);
   }
 
@@ -65,9 +65,10 @@ export class ChatComponent implements OnInit, OnChanges {
         this.aiGenerateChatDetails = {
           job_id: this.companyDetails?.id,
           companyName: this.companyDetails?.company_name,
-          studentName: data?.messages[0]?.userName,
+          studentName: data?.message[0]?.userName,
           createdAt: data.created_at
-        };
+        };  
+        console.log(this.aiGenerateChatDetails);
       },
       error: err => {
 
