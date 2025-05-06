@@ -38,6 +38,7 @@ export class ChatComponent implements OnInit, OnChanges {
   messages: CompanyMessage[] = [];
   userLogo: string = '';
   attachmentFile: File | null = null;
+  aiGenerateChatDetails: any;
 
   constructor(private talentConnectService: TalentConnectService,) { }
 
@@ -61,6 +62,12 @@ export class ChatComponent implements OnInit, OnChanges {
         if (this.messages.length > 0) {
           this.userLogo = this.messages[0].icon;
         }
+        this.aiGenerateChatDetails = {
+          job_id: this.companyDetails?.id,
+          companyName: this.companyDetails?.company_name,
+          studentName: data?.messages[0]?.userName,
+          createdAt: data.created_at
+        };
       },
       error: err => {
 
