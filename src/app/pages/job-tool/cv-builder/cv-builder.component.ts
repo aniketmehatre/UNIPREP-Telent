@@ -28,6 +28,7 @@ import { PdfViewerModule } from "ng2-pdf-viewer";
 import { ConfirmPopup } from "primeng/confirmpopup";
 import { ToastModule } from 'primeng/toast';
 import { EditorModule } from "primeng/editor";
+import { maxWordsValidator } from "src/app/@Supports/max-word-validator";
 declare const pdfjsLib: any;
 
 interface ResumeHistory {
@@ -41,7 +42,7 @@ interface ResumeHistory {
   templateUrl: "./cv-builder.component.html",
   styleUrls: ["./cv-builder.component.scss"],
   standalone: true,
-  imports: [CommonModule, DialogModule, TextareaModule, SidebarModule,EditorModule, PdfViewerModule, RouterModule, CardModule, PaginatorModule, FormsModule, ReactiveFormsModule, CarouselModule, ButtonModule, MultiSelectModule, SelectModule, InputGroupModule, InputTextModule, InputGroupAddonModule, ConfirmPopup, TooltipModule, ToastModule],
+  imports: [CommonModule, DialogModule, TextareaModule, SidebarModule, EditorModule, PdfViewerModule, RouterModule, CardModule, PaginatorModule, FormsModule, ReactiveFormsModule, CarouselModule, ButtonModule, MultiSelectModule, SelectModule, InputGroupModule, InputTextModule, InputGroupAddonModule, ConfirmPopup, TooltipModule, ToastModule],
   providers: [CvBuilderService, ConfirmationService, MessageService]
 })
 export class CvBuilderComponent implements OnInit, AfterViewInit {
@@ -217,6 +218,8 @@ export class CvBuilderComponent implements OnInit, AfterViewInit {
   filteredLocations: any = [];
   filteredExpeAndEduLocations: { [key: number]: any[] } = {};
   pdfThumbnails: { [key: string]: string } = {};
+  profileOverViewContent: string = 'Profile Review';
+  isReviewContent: boolean = false;
 
   constructor(private toaster: MessageService, private fb: FormBuilder, private resumeService: CvBuilderService, private router: Router, private confirmService: ConfirmationService, private authService: AuthService, private locationService: LocationService) {
     this.resumeFormInfoData = this.fb.group({
@@ -230,7 +233,7 @@ export class CvBuilderComponent implements OnInit, AfterViewInit {
       user_linkedin: ["", Validators.required],
       user_linkedin_link: [""],
       user_website: [""],
-      user_summary: ["", Validators.required],
+      user_summary: ["", [Validators.required, maxWordsValidator(50)]],
       // selected_exp_level: ['', [Validators.required]],
       // user_name: ['vivek kaliyaperumal', [Validators.required]],
       // user_job_title: ['full stack developer', [Validators.required]],
@@ -503,7 +506,7 @@ export class CvBuilderComponent implements OnInit, AfterViewInit {
                 work_designation: [activity.work_designation, Validators.required],
                 work_type: [activity.work_type, Validators.required],
                 work_location: [activity.work_location, Validators.required],
-                work_job_description: [activity.work_job_description, Validators.required],
+                work_job_description: [activity.work_job_description, [Validators.required, maxWordsValidator(120)]],
               })
             );
           });
@@ -833,111 +836,111 @@ export class CvBuilderComponent implements OnInit, AfterViewInit {
     if (!visibleFormControls.every((control) => control.valid)) {
       this.toaster.add({ severity: "error", summary: "Error", detail: "Please fill all the required fields." });
       visibleFormControls.forEach((control) => control.markAsTouched());
-    }else if(!visibleFormControls1.every((control) => control.valid)){
+    } else if (!visibleFormControls1.every((control) => control.valid)) {
       this.toaster.add({ severity: "error", summary: "Error", detail: "Please fill all the required fields." });
       visibleFormControls.forEach((control) => control.markAsTouched());
-    }else if(!visibleFormControls2.every((control) => control.valid)){
+    } else if (!visibleFormControls2.every((control) => control.valid)) {
       this.toaster.add({ severity: "error", summary: "Error", detail: "Please fill all the required fields." });
       visibleFormControls.forEach((control) => control.markAsTouched());
-    }else if(!visibleFormControls3.every((control) => control.valid)){
+    } else if (!visibleFormControls3.every((control) => control.valid)) {
       this.toaster.add({ severity: "error", summary: "Error", detail: "Please fill all the required fields." });
       visibleFormControls.forEach((control) => control.markAsTouched());
-    }else if(!visibleFormControls4.every((control) => control.valid)){
+    } else if (!visibleFormControls4.every((control) => control.valid)) {
       this.toaster.add({ severity: "error", summary: "Error", detail: "Please fill all the required fields." });
       visibleFormControls.forEach((control) => control.markAsTouched());
     }
-     else {
+    else {
       this.fieldNextButton();
     }
   }
-  getVisibleFormControls1(){
+  getVisibleFormControls1() {
     const controls: AbstractControl[] = [];
-      let controlNames: string[] = [];
-      let formControlFields: FormArray[] = [];
+    let controlNames: string[] = [];
+    let formControlFields: FormArray[] = [];
 
-      if (this.moduleActiveIndex === 0) {
-        controlNames = ["edu_college_name", "edu_start_year", "edu_end_year", "edu_degree", "edu_location", "edu_percentage", "project_name", "project_start_name", "project_end_name", "project_description"];
-        formControlFields.push(this.resumeFormInfoData.get("EduDetailsArray") as FormArray);
-        formControlFields.push(this.resumeFormInfoData.get("projectDetailsArray") as FormArray);
-      }
+    if (this.moduleActiveIndex === 0) {
+      controlNames = ["edu_college_name", "edu_start_year", "edu_end_year", "edu_degree", "edu_location", "edu_percentage", "project_name", "project_start_name", "project_end_name", "project_description"];
+      formControlFields.push(this.resumeFormInfoData.get("EduDetailsArray") as FormArray);
+      formControlFields.push(this.resumeFormInfoData.get("projectDetailsArray") as FormArray);
+    }
 
-      formControlFields.forEach((formArray) => {
-        formArray.controls.forEach((eduGroup: AbstractControl) => {
-          controlNames.forEach((controlName) => {
-            const control = eduGroup.get(controlName);
-            if (control) {
-              controls.push(control);
-            }
-          });
+    formControlFields.forEach((formArray) => {
+      formArray.controls.forEach((eduGroup: AbstractControl) => {
+        controlNames.forEach((controlName) => {
+          const control = eduGroup.get(controlName);
+          if (control) {
+            controls.push(control);
+          }
         });
       });
-      return controls;
+    });
+    return controls;
   }
-  getVisibleFormControls2(){
+  getVisibleFormControls2() {
     const controls: AbstractControl[] = [];
-      let controlNames: string[] = [];
-      let formControlFields: FormArray[] = [];
+    let controlNames: string[] = [];
+    let formControlFields: FormArray[] = [];
 
-      if (this.moduleActiveIndex === 0) {
-        controlNames = ["work_org_name", "work_currently_working", "work_start_year", "work_start_month", "work_end_year", "work_end_month", "work_designation", "work_type", "work_location", "work_job_description"];
-        formControlFields.push(this.resumeFormInfoData.get("workExpArray") as FormArray);
-      }
+    if (this.moduleActiveIndex === 0) {
+      controlNames = ["work_org_name", "work_currently_working", "work_start_year", "work_start_month", "work_end_year", "work_end_month", "work_designation", "work_type", "work_location", "work_job_description"];
+      formControlFields.push(this.resumeFormInfoData.get("workExpArray") as FormArray);
+    }
 
-      formControlFields.forEach((formArray) => {
-        formArray.controls.forEach((eduGroup: AbstractControl) => {
-          controlNames.forEach((controlName) => {
-            const control = eduGroup.get(controlName);
-            if (control) {
-              controls.push(control);
-            }
-          });
+    formControlFields.forEach((formArray) => {
+      formArray.controls.forEach((eduGroup: AbstractControl) => {
+        controlNames.forEach((controlName) => {
+          const control = eduGroup.get(controlName);
+          if (control) {
+            controls.push(control);
+          }
         });
       });
-      return controls;
+    });
+    return controls;
   }
-  getVisibleFormControls3(){
+  getVisibleFormControls3() {
     const controls: AbstractControl[] = [];
-      let controlNames: string[] = [];
-      let formControlFields: FormArray[] = [];
+    let controlNames: string[] = [];
+    let formControlFields: FormArray[] = [];
 
-     if (this.moduleActiveIndex === 0) {
-        controlNames = ["certificate_name", "certificate_issued", "extra_curricular_activites"];
-        formControlFields.push(this.resumeFormInfoData.get("certificatesArray") as FormArray);
-        formControlFields.push(this.resumeFormInfoData.get("extraCurricularArray") as FormArray);
-      }
-      formControlFields.forEach((formArray) => {
-        formArray.controls.forEach((eduGroup: AbstractControl) => {
-          controlNames.forEach((controlName) => {
-            const control = eduGroup.get(controlName);
-            if (control) {
-              controls.push(control);
-            }
-          });
+    if (this.moduleActiveIndex === 0) {
+      controlNames = ["certificate_name", "certificate_issued", "extra_curricular_activites"];
+      formControlFields.push(this.resumeFormInfoData.get("certificatesArray") as FormArray);
+      formControlFields.push(this.resumeFormInfoData.get("extraCurricularArray") as FormArray);
+    }
+    formControlFields.forEach((formArray) => {
+      formArray.controls.forEach((eduGroup: AbstractControl) => {
+        controlNames.forEach((controlName) => {
+          const control = eduGroup.get(controlName);
+          if (control) {
+            controls.push(control);
+          }
         });
       });
-      return controls;
+    });
+    return controls;
   }
-  getVisibleFormControls4(){
+  getVisibleFormControls4() {
     const controls: AbstractControl[] = [];
-      let controlNames: string[] = [];
-      let formControlFields: FormArray[] = [];
-       if (this.moduleActiveIndex === 4) {
-        controlNames = ["language", "lang_proficiency", "skills", "skills_proficiency"];
-        formControlFields.push(this.resumeFormInfoData.get("languagesKnownArray") as FormArray);
-        formControlFields.push(this.resumeFormInfoData.get("skillsArray") as FormArray);
-      }
+    let controlNames: string[] = [];
+    let formControlFields: FormArray[] = [];
+    if (this.moduleActiveIndex === 4) {
+      controlNames = ["language", "lang_proficiency", "skills", "skills_proficiency"];
+      formControlFields.push(this.resumeFormInfoData.get("languagesKnownArray") as FormArray);
+      formControlFields.push(this.resumeFormInfoData.get("skillsArray") as FormArray);
+    }
 
-      formControlFields.forEach((formArray) => {
-        formArray.controls.forEach((eduGroup: AbstractControl) => {
-          controlNames.forEach((controlName) => {
-            const control = eduGroup.get(controlName);
-            if (control) {
-              controls.push(control);
-            }
-          });
+    formControlFields.forEach((formArray) => {
+      formArray.controls.forEach((eduGroup: AbstractControl) => {
+        controlNames.forEach((controlName) => {
+          const control = eduGroup.get(controlName);
+          if (control) {
+            controls.push(control);
+          }
         });
       });
-      return controls;
+    });
+    return controls;
   }
   getVisibleFormControls(): AbstractControl[] {
     const controls: AbstractControl[] = [];
@@ -1106,7 +1109,7 @@ export class CvBuilderComponent implements OnInit, AfterViewInit {
           work_designation: ["", Validators.required],
           work_type: ["", Validators.required],
           work_location: ["", Validators.required],
-          work_job_description: ["", Validators.required],
+          work_job_description: ["", [Validators.required, maxWordsValidator(120)]],
         })
       );
       // this.getWorkExpArray.push(this.fb.group({
@@ -1302,6 +1305,11 @@ export class CvBuilderComponent implements OnInit, AfterViewInit {
 
   chatGPTIntegration(fieldName: string, iteration: number) {
     // const apiKey = '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';
+    if(this.authService._creditCount === 0){
+			this.toaster.add({severity: "error",summary: "Error",detail: "Please Buy some Credits...!"});
+			this.router.navigateByUrl('/pages/export-credit')
+			return;
+		}
     let formData = this.resumeFormInfoData.value;
     // let prompt: string = "";
     let parameters: any = {
@@ -1350,6 +1358,7 @@ export class CvBuilderComponent implements OnInit, AfterViewInit {
     }
     this.resumeService.openAiIntegration(parameters).subscribe((res) => {
       if (res.response && res.response.length > 0) {
+        this.authService.aiCreditCount$.next(true);
         if (fieldName == "user_summary" || fieldName == "rephrase_summary") {
           this.resumeFormInfoData.patchValue({
             user_summary: res.response,
@@ -1584,5 +1593,10 @@ export class CvBuilderComponent implements OnInit, AfterViewInit {
       console.error('Error loading PDF:', error);
       this.pdfLoadError = true;
     });
+  }
+
+  onProfileReview() {
+    this.isReviewContent = true;
+    // Api call for profile review
   }
 }
