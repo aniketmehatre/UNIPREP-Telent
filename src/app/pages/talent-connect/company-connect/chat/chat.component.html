@@ -72,10 +72,17 @@
         </div>
     </div>
     <div class="card-footer bg-transparent border-0">
-        <div class="w-100 mb-1 text-end bg-transparent" *ngIf="messageInput.value">
-            <!-- <button class="text-small text-end btn btn-danger btn-rounded d-flex align-items-center gap-2"
-                [disabled]="isLoadingAiSummary" style="width: fit-content"
-                (click)="aiRePhraseSummary({ content: messageInput.value }, messageInput)">RePhrase</button> -->
+        <div class="w-100 mb-1 text-end bg-transparent">
+            <button *ngIf="messageInput.value?.length > 0 else isLoadingAiSummary"
+                class="text-small text-end btn btn-danger btn-rounded d-flex align-items-center gap-2"
+                style="width: fit-content"
+                (click)="aiGenerateSummary('student', { content: messageInput.value }, messageInput, 'RePhrase')">RePhrase</button>
+            <ng-template #isLoadingAiSummary>
+                <button class="text-small text-end btn btn-success btn-rounded d-flex align-items-center gap-2"
+                    style="width: fit-content"
+                    (click)="aiGenerateSummary('student', {talent_name: aiGenerateChatDetails?.studentName, company_name: aiGenerateChatDetails.companyName, job_lookingfor: aiGenerateChatDetails?.positionName, created_at:aiGenerateChatDetails?.createdAt  }, messageInput, 'AI generate')">Ai
+                    Generate</button>
+            </ng-template>
         </div>
         <input type="file" class="d-none"
             accept=".doc,.docx,.pdf, application/msword,application/vnd.openxmlformats-officedocument.wordprocessingml.document"
