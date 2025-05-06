@@ -377,6 +377,12 @@
 													class="text-danger text-xs">
 													<div>User Summary Required</div>
 												</div>
+												<div *ngIf="f['user_summary'].errors?.['maxWords']"
+													class="text-danger text-xs">
+													Summary cannot exceed {{ f['user_summary']?.errors?.['maxWords'].max
+													}} words.
+													(Current: {{ f['user_summary']?.errors?.['maxWords'].actual }})
+												</div>
 												<!-- <div *ngIf="f['user_summary'].errors?.['maxWordsExceeded']"
                                                 class="text-danger text-xs">
                                                 <div style="margin-left:10px;">User Summary exceeds the maximum word
@@ -638,18 +644,7 @@
 														<!-- (ngModelChange)="onEditorModelChange($event, i)" -->
 														<div class="form-group">
 															<div class="mb-3">
-																<!-- <p-editor formControlName="work_job_description" placeholder="About Job Description" [modules]="editorModules"> </p-editor> -->
-																<!-- <textarea pTextarea
-																	formControlName="work_job_description"
-																	class="mt-2 w-100"
-																	placeholder="About Job Description"
-																	[rows]="3"></textarea>
-																<div *ngIf="wrkExp.get('work_job_description')?.invalid && wrkExp.get('work_job_description')?.touched && submitted"
-																	class="text-danger text-xs">
-																	<div
-																		*ngIf="wrkExp.get('work_job_description')?.errors?.['required']">
-																		Job Description required.</div>
-																</div> -->
+
 																<p-editor [style]="{ height: 'auto' }" class="mt-2"
 																	formControlName="work_job_description"
 																	placeholder="About Job Description"
@@ -659,6 +654,15 @@
 																	<div
 																		*ngIf="wrkExp.get('work_job_description')?.errors?.['required']">
 																		Job Description required.</div>
+																</div>
+																<div *ngIf="wrkExp.get('work_job_description').errors?.['maxWords']"
+																	class="text-danger text-xs">
+																	Job Description cannot exceed {{
+																	wrkExp.get('work_job_description').errors?.['maxWords'].max
+																	}} words.
+																	(Current: {{
+																	wrkExp.get('work_job_description').errors?.['maxWords'].actual
+																	}})
 																</div>
 																<!-- <div *ngIf="errorMessages[i]" class="text-danger text-xs"
                                                                 style="margin-left:10px;">
