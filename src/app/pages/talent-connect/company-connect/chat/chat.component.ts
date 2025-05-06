@@ -107,11 +107,12 @@ export class ChatComponent implements OnInit, OnChanges {
 
   aiGenerateSummary(mode: string, content: Record<string, any>, element: HTMLTextAreaElement) {
     this.isLoadingAiSummary = true;
-    this.talentConnectService.getJobAiSummary({ mode: mode, ...content }).subscribe({
+    this.talentConnectService.getCompanyConnectAiSummary({ mode: mode, ...content }).subscribe({
       next: (response) => {
         this.isLoadingAiSummary = false;
         if (response) {
-          element.innerHTML = response?.summary;
+          element.innerHTML = response?.response;
+          this.autoGrow(element);
         }
       },
       error: (error) => {
