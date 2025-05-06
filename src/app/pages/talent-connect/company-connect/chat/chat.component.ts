@@ -38,12 +38,13 @@ export class ChatComponent implements OnInit, OnChanges {
   messages: CompanyMessage[] = [];
   userLogo: string = '';
   attachmentFile: File | null = null;
+  aiGenerateChatDetails: any;
 
   constructor(private talentConnectService: TalentConnectService,) { }
 
   ngOnInit(): void {
-    this.messageInput.value = '';
-    this.messageInput.nativeElement.style.height = 'auto';
+    // this.messageInput.value = '';
+    // this.messageInput.nativeElement.style.height = 'auto';
     this.getChatMessageForCompanyConnect(this.companyDetails.id);
   }
 
@@ -61,6 +62,13 @@ export class ChatComponent implements OnInit, OnChanges {
         if (this.messages.length > 0) {
           this.userLogo = this.messages[0].icon;
         }
+        this.aiGenerateChatDetails = {
+          job_id: this.companyDetails?.id,
+          companyName: this.companyDetails?.company_name,
+          studentName: data?.message[0]?.userName,
+          createdAt: data.created_at
+        };  
+        console.log(this.aiGenerateChatDetails);
       },
       error: err => {
 
