@@ -669,4 +669,66 @@ h5 {
     background-color: #f8f9fa;
 }
 
-  
+
+.pricing-col {
+	border: 1px solid rgba(230, 221, 254, 0.031372549);
+	background: linear-gradient(0deg, rgba(255, 255, 255, 0) 0%, rgba(255, 255, 255, 0.05) 100%);
+	box-shadow: 0px 10px 25px 0px rgba(230, 221, 254, 0.1) inset;
+}
+
+.pricing-col-btn {
+	background: transparent;
+	border: 0.5px solid white;
+	color: white;
+	font-size: 0.8rem;
+	border-radius: 10px;
+	padding: 10px;
+	&.pricing-col-btn-sel {
+		background: #ff5c02;
+		border: 0.5px solid #ff5c02;
+	}
+	&:hover {
+		background: #ff5c02;
+		border: 0.5px solid #ff5c02;
+	}
+}
+.pricing-card-body {
+	border-bottom: 1px dashed gray;
+	margin-bottom: 10px;
+}
+.pricing-list {
+	display: flex;
+	gap: 7px;
+	flex-direction: column;
+	li {
+		span.tick {
+			font-weight: bold;
+			color: green;
+		}
+		span.close {
+			font-weight: bold;
+			color: #ff5c02;
+		}
+	}
+}
+.pricing-btn-group {
+	display: flex;
+	gap: 10px;
+	justify-content: center;
+	padding: 6px;
+	border: 1px solid gray;
+	margin-bottom: 15px;
+	border-radius: 5px;
+	button {
+		background: #282828;
+		padding: 8px 15px;
+		border-radius: 5px;
+		border: 0px solid white;
+		color: gray;
+		font-size: 1.2rem;
+		&.selected {
+			background: #ff5c02;
+			color: white;
+		}
+	}
+}

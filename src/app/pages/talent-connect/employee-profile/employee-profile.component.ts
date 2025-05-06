@@ -340,7 +340,16 @@ export class EmployeeProfileComponent implements OnInit, OnDestroy {
     this.removeFormArrayItem(this.educationDetails, index, true)
   }
   removeWorkExperience(index: number): void {
-    this.removeFormArrayItem(this.workExperience, index, false, FileType.EXPERIENCE_LETTER)
+    // this.removeFormArrayItem(this.workExperience, index, false, FileType.EXPERIENCE_LETTER)
+    this.removeFormArrayItem(this.workExperience, index, false, FileType.EXPERIENCE_LETTER);
+
+    // Step 2: Remove the corresponding duration
+    if (this.totalDurations && index >= 0 && index < this.totalDurations.length) {
+      this.totalDurations.splice(index, 1);
+    }
+
+    // Step 3: Recalculate total experience
+    this.calculateTotalExperience();
   }
   removeLanguage(index: number): void {
     this.removeFormArrayItem(this.languages, index, true)
@@ -1502,24 +1511,24 @@ export class EmployeeProfileComponent implements OnInit, OnDestroy {
     const selectedExpRange = this.parseExperienceRange(selectedTotalExp);
     const calculatedExp = this.calculateTotalExperience();
 
-    // if (calculatedExp < selectedExpRange.min) {
-    //   this.haveErrorWhileAddExp = true;
-    //   this.toastService.add({
-    //     severity: 'error',
-    //     summary: 'Experience Validation Error',
-    //     detail: `Your work history shows only ${calculatedExp} years of experience, which is less than the minimum ${selectedExpRange.min} years you selected.`
-    //   });
-    // } else if (calculatedExp > selectedExpRange.max && selectedExpRange.max !== Infinity) {
-    //   this.haveErrorWhileAddExp = true;
-    //   this.toastService.add({
-    //     severity: 'error',
-    //     summary: 'Experience Validation Error',
-    //     detail: `Your work history shows ${calculatedExp} years of experience, which exceeds the maximum ${selectedExpRange.max} years you selected.`
-    //   });
-    // } else {
-    //   this.haveErrorWhileAddExp = false;
-    //   this.toastService.clear();
-    // }
+    if (calculatedExp < selectedExpRange.min) {
+      this.haveErrorWhileAddExp = true;
+      this.toastService.add({
+        severity: 'error',
+        summary: 'Experience Validation Error',
+        detail: `Your work history shows only ${calculatedExp} years of experience, which is less than the minimum ${selectedExpRange.min} years you selected.`
+      });
+    } else if (calculatedExp > selectedExpRange.max && selectedExpRange.max !== Infinity) {
+      this.haveErrorWhileAddExp = true;
+      this.toastService.add({
+        severity: 'error',
+        summary: 'Experience Validation Error',
+        detail: `Your work history shows ${calculatedExp} years of experience, which exceeds the maximum ${selectedExpRange.max} years you selected.`
+      });
+    } else {
+      this.haveErrorWhileAddExp = false;
+      this.toastService.clear();
+    }
   }
 
   parseExperienceRange(expString: string): { min: number, max: number } {
@@ -1552,16 +1561,15 @@ export class EmployeeProfileComponent implements OnInit, OnDestroy {
       const duration = intervalToDuration({ start: fromDate, end: toDate });
 
       this.totalDurations.push({ years: duration.years || 0, months: duration.months || 0 });
-      this.workExperience.get('total_years_of_experience')?.setValue(this.totalDurations);
 
       const result = formatDuration(duration, { format: ['years', 'months'] });
       yearsExpControl.setValue(result);
-
       this.validateTotalExperience();
+      this.calculateTotalExperience1()
     }
   }
 
-  calculateTotalExperience() {
+  calculateTotalExperience1() {
     let totalYears = 0;
     let totalMonths = 0;
 
@@ -1578,7 +1586,27 @@ export class EmployeeProfileComponent implements OnInit, OnDestroy {
     const total = `${totalYears} years ${totalMonths} months`;
 
     // Set this to the form control
-    this.workExperience.get('total_years_of_experience')?.setValue(total);
+    this.personalInfoForm.get('total_years_of_experience')?.setValue(total);
+  }
+
+  calculateTotalExperience(): number {
+    let totalMonths = 0;
+
+    // Iterate through all work experience entries
+    this.workExperience.controls.forEach(control => {
+      const fromDate = control.get('work_experience_duration_from')?.value;
+      const toDate = control.get('work_experience_duration_to')?.value;
+
+      // Skip if either date is missing
+      if (fromDate && toDate) {
+        // Calculate months between the dates
+        const months = differenceInMonths(new Date(toDate), new Date(fromDate));
+        totalMonths += months;
+      }
+    });
+
+    // Convert total months to years with one decimal place
+    return parseFloat((totalMonths / 12).toFixed(1));
   }
 
   clearStoredFiles(): void {
