@@ -119,7 +119,7 @@ export class UserManagementComponent implements OnInit {
 		this.getCountryList();
 		this.getIntrestedCountryList();
 		this.takeBasicProfile();
-		// this.integrationPartActiveOrInactive();
+		this.integrationPartActiveOrInactive();
 		this.authService.userData.subscribe((data) => {
 			if (data) {
 				this.user = data
