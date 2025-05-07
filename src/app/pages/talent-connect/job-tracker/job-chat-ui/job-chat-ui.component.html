@@ -90,15 +90,14 @@
 			</div>
 		</div>
 	</div>
-    <div class="card-footer bg-white p-2 border-0">
+	<div class="card-footer bg-white p-2 border-0 w-100">
 		<div class="w-100 mb-1 text-end bg-transparent">
 			<button *ngIf="messageInput.value?.length > 0 else isLoadingAiSummary"
-				class="text-small text-end btn btn-danger btn-rounded d-flex align-items-center gap-2"
-				[disabled]="isLoadingAiSummary" style="width: fit-content"
+				class="text-small text-end btn btn-danger btn-rounded d-flex align-items-center gap-2" style="width: fit-content"
 				(click)="aiGenerateSummary('student', { content: messageInput.value }, messageInput, 'RePhrase')">RePhrase</button>
 			<ng-template #isLoadingAiSummary>
-				<button class="text-small text-end btn btn-danger btn-rounded d-flex align-items-center gap-2"
-					[disabled]="isLoadingAiSummary" style="width: fit-content"
+				<button class="text-small text-end btn btn-success btn-rounded d-flex align-items-center gap-2"
+					style="width: fit-content"
 						(click)="aiGenerateSummary('student', {student_name: aiGenerateChatDetails?.studentName, company_name: aiGenerateChatDetails.companyName, job_lookingfor: aiGenerateChatDetails?.positionName, created_at:aiGenerateChatDetails?.createdAt  }, messageInput, 'AI generate')">Ai Generate</button>
 				</ng-template>
 		</div>
@@ -109,7 +108,7 @@
 		</div>
 		<div class="input-group border rounded-4 p-1 h-auto">
 		  <textarea 
-			class="form-control border-0 overflow-hidden" 
+			class="form-control border-0 overflow-auto no-scrollbar" 
 			[placeholder]="'Text with ... '+ jobDetails?.company_name" 
 			#messageInput
 			rows="1"

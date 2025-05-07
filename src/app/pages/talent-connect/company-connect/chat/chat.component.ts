@@ -38,12 +38,13 @@ export class ChatComponent implements OnInit, OnChanges {
   messages: CompanyMessage[] = [];
   userLogo: string = '';
   attachmentFile: File | null = null;
+  aiGenerateChatDetails: any;
 
   constructor(private talentConnectService: TalentConnectService,) { }
 
   ngOnInit(): void {
-    this.messageInput.value = '';
-    this.messageInput.nativeElement.style.height = 'auto';
+    // this.messageInput.value = '';
+    // this.messageInput.nativeElement.style.height = 'auto';
     this.getChatMessageForCompanyConnect(this.companyDetails.id);
   }
 
@@ -61,6 +62,13 @@ export class ChatComponent implements OnInit, OnChanges {
         if (this.messages.length > 0) {
           this.userLogo = this.messages[0].icon;
         }
+        this.aiGenerateChatDetails = {
+          job_id: this.companyDetails?.id,
+          companyName: this.companyDetails?.company_name,
+          studentName: data?.message[0]?.userName,
+          createdAt: data.created_at
+        };  
+        console.log(this.aiGenerateChatDetails);
       },
       error: err => {
 
@@ -105,13 +113,14 @@ export class ChatComponent implements OnInit, OnChanges {
     element.style.height = (element.scrollHeight) + 'px';
   }
 
-  aiRePhraseSummary(content: Record<string, any>, element: HTMLTextAreaElement) {
+  aiGenerateSummary(mode: string, content: Record<string, any>, element: HTMLTextAreaElement) {
     this.isLoadingAiSummary = true;
-    this.talentConnectService.getCompanyChatAiSummary(content).subscribe({
+    this.talentConnectService.getCompanyConnectAiSummary({ mode: mode, ...content }).subscribe({
       next: (response) => {
         this.isLoadingAiSummary = false;
         if (response) {
-          element.innerHTML = response?.summary;
+          element.innerHTML = response?.response;
+          this.autoGrow(element);
         }
       },
       error: (error) => {

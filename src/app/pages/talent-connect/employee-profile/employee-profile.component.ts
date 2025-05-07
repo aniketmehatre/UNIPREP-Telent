@@ -234,6 +234,7 @@ export class EmployeeProfileComponent implements OnInit, OnDestroy {
       work_experience_job_title: [""],
       work_experience_employment_type: [""],
       work_experience_duration_from: [""],
+      currently_working: [false],
       work_experience_duration_to: [""],
       work_experience_salary_per_month: [""],
       work_experience_currency_id: [""],
@@ -340,7 +341,16 @@ export class EmployeeProfileComponent implements OnInit, OnDestroy {
     this.removeFormArrayItem(this.educationDetails, index, true)
   }
   removeWorkExperience(index: number): void {
-    this.removeFormArrayItem(this.workExperience, index, false, FileType.EXPERIENCE_LETTER)
+    // this.removeFormArrayItem(this.workExperience, index, false, FileType.EXPERIENCE_LETTER)
+    this.removeFormArrayItem(this.workExperience, index, false, FileType.EXPERIENCE_LETTER);
+
+    // Step 2: Remove the corresponding duration
+    if (this.totalDurations && index >= 0 && index < this.totalDurations.length) {
+      this.totalDurations.splice(index, 1);
+    }
+
+    // Step 3: Recalculate total experience
+    this.calculateTotalExperience();
   }
   removeLanguage(index: number): void {
     this.removeFormArrayItem(this.languages, index, true)
@@ -1544,24 +1554,32 @@ export class EmployeeProfileComponent implements OnInit, OnDestroy {
     return { min: years, max: years };
   }
 
-  updateExperienceDate(fromDateControl: FormControl, toDateControl: FormControl, yearsExpControl: FormControl) {
-    if (fromDateControl?.value && toDateControl?.value) {
-      const fromDate = new Date(fromDateControl.value);
-      const toDate = new Date(toDateControl.value);
-
+  updateExperienceDate(
+      fromDateControl: FormControl,
+      toDateControl: FormControl,
+      yearsExpControl: FormControl,
+      currentlyWorkingControl: FormControl
+  ) {
+    const fromDateValue = fromDateControl?.value;
+    const toDateValue = toDateControl?.value;
+    const currentlyWorking = currentlyWorkingControl?.value;
+    if (fromDateValue && (toDateValue || currentlyWorking)) {
+      const fromDate = new Date(fromDateValue);
+      const toDate = currentlyWorking ? new Date() : new Date(toDateValue);
       const duration = intervalToDuration({ start: fromDate, end: toDate });
 
       this.totalDurations.push({ years: duration.years || 0, months: duration.months || 0 });
-      this.workExperience.get('total_years_of_experience')?.setValue(this.totalDurations);
 
       const result = formatDuration(duration, { format: ['years', 'months'] });
       yearsExpControl.setValue(result);
 
       this.validateTotalExperience();
+      this.calculateTotalExperience1();
     }
   }
 
-  calculateTotalExperience() {
+
+  calculateTotalExperience1() {
     let totalYears = 0;
     let totalMonths = 0;
 
@@ -1578,7 +1596,27 @@ export class EmployeeProfileComponent implements OnInit, OnDestroy {
     const total = `${totalYears} years ${totalMonths} months`;
 
     // Set this to the form control
-    this.workExperience.get('total_years_of_experience')?.setValue(total);
+    this.personalInfoForm.get('total_years_of_experience')?.setValue(total);
+  }
+
+  calculateTotalExperience(): number {
+    let totalMonths = 0;
+
+    // Iterate through all work experience entries
+    this.workExperience.controls.forEach(control => {
+      const fromDate = control.get('work_experience_duration_from')?.value;
+      const toDate = control.get('work_experience_duration_to')?.value;
+
+      // Skip if either date is missing
+      if (fromDate && toDate) {
+        // Calculate months between the dates
+        const months = differenceInMonths(new Date(toDate), new Date(fromDate));
+        totalMonths += months;
+      }
+    });
+
+    // Convert total months to years with one decimal place
+    return parseFloat((totalMonths / 12).toFixed(1));
   }
 
   clearStoredFiles(): void {

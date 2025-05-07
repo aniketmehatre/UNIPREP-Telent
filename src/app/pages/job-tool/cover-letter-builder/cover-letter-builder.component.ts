@@ -670,6 +670,11 @@ export class CoverLetterBuilderComponent implements OnInit, AfterViewInit {
 	// 1st chatgpt response after convert into refrase button , then any changes will in inuput or dropdown that button need to change ai genarate,That why save 1st response for checking
 	chatGptValueSave: any
 	chatGPTIntegration(mode: string) {
+		if(this.authService._creditCount === 0){
+			this.toaster.add({severity: "error",summary: "Error",detail: "Please Buy some Credits...!"});
+			this.router.navigateByUrl('/pages/export-credit')
+			return;
+		}
 		const visibleFormControls = this.getVisibleFormControlsChatGptRespons(mode);
 		// condition for required field for chatgpt
 		if (!visibleFormControls.every((control) => control.valid)) {
@@ -729,6 +734,7 @@ export class CoverLetterBuilderComponent implements OnInit, AfterViewInit {
 					}
 					this.chatGptButtonLoader = false;
 					this.chatGptButtonLoaderSummary = false;
+					this.authService.aiCreditCount$.next(true);
 				} else {
 					console.error("Unexpected response structure:", res)
 				}
@@ -763,28 +769,33 @@ export class CoverLetterBuilderComponent implements OnInit, AfterViewInit {
 		const query = input.value.toLowerCase().trim();
 		if (query && query.length > 3) {
 			const mockJobs = this.jobRoles;
-
 			// Filter jobs that include the query
 			this.filterJobRole = mockJobs.filter((job: any) =>
 				job.jobrole.toLowerCase().includes(query)
 			);
-
-			// Sort the filtered jobs to prioritize exact matches
-			this.filterJobRole.sort((a: any, b: any) => {
-				const aJob = a.jobrole.toLowerCase();
-				const bJob = b.jobrole.toLowerCase();
-				if (aJob === query && bJob !== query) {
-					return -1; // a comes first
-				} else if (aJob !== query && bJob === query) {
-					return 1; // b comes first
-				} else if (aJob.startsWith(query) && !bJob.startsWith(query)) {
-					return -1; // a comes first if it starts with the query
-				} else if (!aJob.startsWith(query) && bJob.startsWith(query)) {
-					return 1; // b comes first if it starts with the query
-				} else {
-					return 0; // Keep original order for other cases
-				}
-			});
+			if(this.filterJobRole.length === 0){
+				this.filterJobRole.unshift({
+					id: 0, // Use 0 or -1 to indicate it's a custom/new item
+  					jobrole: query
+				});
+			}else{
+				// Sort the filtered jobs to prioritize exact matches
+				this.filterJobRole.sort((a: any, b: any) => {
+					const aJob = a.jobrole.toLowerCase();
+					const bJob = b.jobrole.toLowerCase();
+					if (aJob === query && bJob !== query) {
+						return -1; // a comes first
+					} else if (aJob !== query && bJob === query) {
+						return 1; // b comes first
+					} else if (aJob.startsWith(query) && !bJob.startsWith(query)) {
+						return -1; // a comes first if it starts with the query
+					} else if (!aJob.startsWith(query) && bJob.startsWith(query)) {
+						return 1; // b comes first if it starts with the query
+					} else {
+						return 0; // Keep original order for other cases
+					}
+				});
+			}
 		} else if (query.length < 1) {
 			this.filterJobRole = [];
 		}
