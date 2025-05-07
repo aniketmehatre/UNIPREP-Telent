@@ -722,4 +722,66 @@ h5 {
     background-color: #f8f9fa;
 }
 
+
+/* Footer Styles */
+footer {
+	font-family: "Poppins", sans-serif !important;
+  }
+  
+  /* Social Media Section */
+  .social-section {
+	background: linear-gradient(to right, #ee7752, #e73c7e, #9370DB);
+  }
+  
+  .social-icons a {
+	font-size: 1.2rem;
+	transition: all 0.3s ease;
+  }
+  
+  .social-icons a:hover {
+	opacity: 0.8;
+  }
+  
+  /* Main Footer Section */
+  .main-footer {
+	background-color: #111;
+	color: #fff;
+  }
+  
+  .footer-logo {
+	max-width: 150px;
+	margin-bottom: 1.5rem;
+  }
+  
+  .footer-links li {
+	margin-bottom: 0.5rem;
+  }
+  
+  .footer-links a {
+	text-decoration: none;
+	font-size: 13px;
+	transition: all 0.3s ease;
+  }
+  
+  .footer-links a:hover {
+	color: #fff !important;
+  }
+  
+  .address span, .contact-info span:first-child {
+	font-size: 0.8rem;
+	text-transform: uppercase;
+	letter-spacing: 1px;
+	font-family: "Poppins", sans-serif !important;
+  }
+  
+  .address p, .contact-info span:last-child, .contact-info a {
+	font-size: 0.85rem;
+	text-decoration: none;
+  }
+  
+  /* Copyright Section */
+  .copyright-section {
+	background-color: #000;
+	font-size: 0.85rem;
+  }
   
