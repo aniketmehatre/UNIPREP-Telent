@@ -248,4 +248,9 @@ export class TalentConnectService {
             { headers: this.headers });
     }
 
+    getCompanyConnectAiSummary(formData: any) {
+        return this.http.post<any>(
+            environment.ApiUrl + "/companyChatAiGenerate", formData,
+            { headers: this.headers });
+    }
 }

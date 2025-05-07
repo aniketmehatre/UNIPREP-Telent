@@ -15,67 +15,122 @@
         </div>
         <button type="button" class="btn-close" aria-label="Close" (click)="closeChat.emit(true)"></button>
     </div>
-    <div class="card-body overflow-y-auto">
-        <div *ngIf="messages?.length > 0">
-            <!-- Progress bar section -->
-            <div class="progress-container my-2 d-block d-lg-none">
-                <div class="progress-steps d-flex">
-                    <div class="progress-step flex-fill" *ngFor="let stage of stages; let i = index">
-                        <p-progressBar [value]="stage.completed ? 100 : 0" [showValue]="false"
-                            [style]="{ height: '6px'}"></p-progressBar>
-                        <div class="text-left">{{ i+1+' '+stage.name}} </div>
-                    </div>
-                </div>
-            </div>
+    <div class="card-body">
+		<div class="h-100 d-flex flex-column">
+			<!-- Body - Scrollable content -->
+			<div class="card-body p-0 flex-grow-1 overflow-hidden d-flex flex-column  no-scrollbar" style="height: calc(100vh - 450px)">
+				<!-- Initial View (Empty State) -->
+				<div class="chat-body h-100 overflow-y-auto" *ngIf="messages?.length < 1">
+					<div class="description-box m-3 py-4 rounded-3" style="background-color: #edeff4">
+						<h5 class="text-center mb-3">Write a description about yourself</h5>
 
-            <ng-container *ngFor="let message of messages">
-                <div class="d-flex mb-2">
-                    <div class="avatar me-1" *ngIf="message.added_by != 'Student'">
-                        <p-avatar
-                            [image]="companyDetails?.company_logo ?? 'uniprep-assets/images/avatar.webp'"
-                            shape="circle" />
-                    </div>
-                    <div class="w-100 d-flex flex-column align-items-end"
-                        [ngClass]="message.added_by == 'Student' ? 'align-items-end' : 'align-items-start'">
-                        <div *ngIf="message.attachment_url" class="message-content file-message text-start"
-                            style="min-width: 50%">
-                            <a [href]="message.attachment_url" target="_blank" class="text-black">{{
-                                message.attachment }}</a><br />
-                            <small class="message-time text-muted text-start">{{ message.time }}</small>
-                        </div>
-                        <div *ngIf="message.chat" class="message-content text-start"
-                            [ngClass]="message.added_by == 'Student' ? 'bg-secondary text-white' : 'bg-secondary-subtle'">
-                            <p [innerHTML]=" message.chat"></p>
-                            <div class="d-flex justify-content-between align-items-center flex-row-reverse">
-                                <div>
-                                    <span *ngIf="message.added_by == 'Student'" class="ms-2 text-white-50"> <i
-                                            class="fa fa-check"
-                                            [style.color]="message?.markAsRead ? 'skyblue' : 'lightgray'"></i><i
-                                            class="fa fa-check"
-                                            [style.color]="message?.markAsRead ? 'skyblue' : 'lightgray'"></i>
-                                    </span>
+						<div class="upload-section text-center">
+							<p class="mb-1">Upload Cover Letter</p>
+							<p class="small text-muted">Supported Formats: doc, docx, pdf, upto 2 MB</p>
+						</div>
+					</div>
+					<div class="cover-letter-box m-3 py-4 rounded-3" style="background-color: #f9e9d8">
+						<p class="text-center">Need a cover letter?</p>
+						<button pButton class="p-button-text p-button-plain w-100" label="Click here to write one!" routerLink="/pages/job-tool/coverletter-builder"></button>
+					</div>
+				</div>
+
+                <div class="card-body h-100 overflow-y-auto overflow-x-hidden no-scrollbar" *ngIf="messages?.length > 0">
+                    <div >
+                        <!-- Progress bar section -->
+                        <div class="progress-container my-2 d-block d-lg-none">
+                            <div class="progress-steps d-flex">
+                                <div class="progress-step flex-fill" *ngFor="let stage of stages; let i = index">
+                                    <p-progressBar [value]="stage.completed ? 100 : 0" [showValue]="false"
+                                        [style]="{ height: '6px'}"></p-progressBar>
+                                    <div class="text-left">{{ i+1+' '+stage.name}} </div>
                                 </div>
-                                <small class="message-time text-end"
-                                    [ngClass]="message.added_by == 'Student'? 'text-white' : 'text-muted'">
-                                    {{ message.time }}
-                                </small>
                             </div>
                         </div>
-                    </div>
-                    <div class="avatar ms-2" *ngIf="message.added_by == 'Student'">
-                        <p-avatar
-                            [image]="message.icon ?? 'uniprep-assets/images/avatar.webp'"
-                            shape="circle" />
+                        <ng-container *ngFor="let message of messages">
+                            <div class="d-flex mb-2">
+                              <!-- Left Avatar (Company/Admin) -->
+                              <div class="avatar me-1" *ngIf="message.added_by != 'Student'">
+                                <p-avatar
+                                [image]="message?.icon ?? 'uniprep-assets/images/avatar.webp'"
+                                shape="circle" />
+                              </div>
+                          
+                              <div
+                                class="w-100 d-flex flex-column text-end"
+                                [ngClass]="message.added_by == 'Student' ? 'align-items-end' : 'align-items-start'">
+                          
+                                <!-- Text Message -->
+                                <div *ngIf="!message.attachment" class="message-content text-end"
+                                  [ngClass]="message.added_by == 'Student' ? 'bg-secondary text-white' : 'bg-secondary-subtle'"
+                                  [ngStyle]="{ 'max-width': '75%' }">
+                                  <p [innerHTML]="message.chat"></p>
+                                  <div class="d-flex justify-content-between align-items-center flex-row-reverse">
+                                    <div>
+                                      <span *ngIf="message.added_by == 'Student'" class="ms-2 text-white-50">
+                                        <i class="fa fa-check"
+                                          [style.color]="message?.markAsRead ? 'skyblue' : 'lightgray'"></i>
+                                        <i class="fa fa-check"
+                                          [style.color]="message?.markAsRead ? 'skyblue' : 'lightgray'"></i>
+                                      </span>
+                                    </div>
+                                    <small class="message-time text-end"
+                                      [ngClass]="message.added_by == 'Student'? 'text-white' : 'text-muted'">
+                                      {{ message.time }}
+                                    </small>
+                                  </div>
+                                </div>
+                          
+                                <!-- File Message -->
+                                <div *ngIf="message.attachement" class="message-content file-message text-start"
+                                  style="min-width: 50%">
+                                  <a [href]="message.attachment_url" target="_blank" class="text-black text-decoration-none d-flex align-items-center"
+                                    download>
+                                    <i class="fas fa-file-pdf fa-large me-2"></i>
+                                    {{ message.attachment_name || 'File' }}
+                                  </a>
+                                  <div class="">{{ message.content }}</div>
+                                  <small class="message-time text-muted text-start">{{ message.time }}</small>
+                                </div>
+                          
+                                <!-- Button Message -->
+                                <div *ngIf="message.type === 'button'" style="max-width: 75%">
+                                  <button pButton class="p-button-warning w-100 d-flex justify-content-between align-items-center">
+                                    <span>{{ message.chat }}</span>
+                                    <div class="d-flex align-items-center">
+                                      <small class="me-2">{{ message.time }}</small>
+                                    </div>
+                                  </button>
+                                </div>
+                          
+                              </div>
+                          
+                              <!-- Right Avatar (Student) -->
+                              <div class="avatar ms-2" *ngIf="message.added_by == 'Student'">
+                                <p-avatar
+                                [image]="companyDetails?.company_logo ?? 'uniprep-assets/images/avatar.webp'"
+                                 shape="circle" />
+                              </div>
+                            </div>
+                          </ng-container>
                     </div>
                 </div>
-            </ng-container>
-        </div>
-    </div>
-    <div class="card-footer bg-transparent border-0">
-        <div class="w-100 mb-1 text-end bg-transparent" *ngIf="messageInput.value">
-            <!-- <button class="text-small text-end btn btn-danger btn-rounded d-flex align-items-center gap-2"
-                [disabled]="isLoadingAiSummary" style="width: fit-content"
-                (click)="aiRePhraseSummary({ content: messageInput.value }, messageInput)">RePhrase</button> -->
+			</div>
+		</div>
+	</div>
+
+    <div class="card-footer bg-transparent border-0" style="background-color: transparent;">
+        <div class="w-100 mb-1 text-end bg-transparent">
+            <button *ngIf="messageInput.value?.length > 0 else isLoadingAiSummary"
+                class="text-small text-end btn btn-danger btn-rounded d-flex align-items-center gap-2"
+                style="width: fit-content"
+                (click)="aiGenerateSummary('RePhrase', { content: messageInput.value }, messageInput)">RePhrase</button>
+            <ng-template #isLoadingAiSummary>
+                <button class="text-small text-end btn btn-success btn-rounded d-flex align-items-center gap-2"
+                    style="width: fit-content"
+                    (click)="aiGenerateSummary('AI generate', {talent_name: aiGenerateChatDetails?.studentName, company_name: aiGenerateChatDetails.companyName, job_lookingfor: aiGenerateChatDetails?.positionName, created_at:aiGenerateChatDetails?.createdAt  }, messageInput)">Ai
+                    Generate</button>
+            </ng-template>
         </div>
         <input type="file" class="d-none"
             accept=".doc,.docx,.pdf, application/msword,application/vnd.openxmlformats-officedocument.wordprocessingml.document"
@@ -85,9 +140,9 @@
             <i class="fas fa-xmark" (click)="attachmentFile = null; attachmentFileName = null"></i>
         </div>
         <div class="input-group rounded-4 p-1 h-auto" style="border: 1px solid #E8E8E8">
-            <textarea class="form-control border-0 overflow-hidden" [placeholder]="'Text with ... '+ companyDetails?.company_name"
+            <textarea class="form-control border-0 overflow-auto" [placeholder]="'Text with ... '+ companyDetails?.company_name" [(ngModel)]="message"
                 #messageInput rows="1" style="resize: none; min-height: 38px; max-height: 200px;" (input)="autoGrow($event.target)"
-                (keyup.enter)="sendMessage(messageInput.value); messageInput.value = ''; autoGrow(messageInput);">
+                (keyup.enter)="sendMessage(message); message = ''; autoGrow(messageInput);">
             </textarea>
             <span role="button" class="input-group-text border-0 bg-white" (click)="fileAttachment.click()">
                 <i class="fa-solid fa-paperclip"></i>

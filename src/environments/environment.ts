@@ -10,17 +10,20 @@ const dev_uniapply_student = 'http://74.225.142.9/uniapplyStudents/public/api'
 const prod_uniapply_student = 'https://apply.uniabroad.io/uniapplyStudents/public/api'
 const employerdevUrl = 'https://dev-employer.uniprep.ai';
 const employerProdUrl = 'https://employer.uniprep.ai';
+
+
 export const environment = {
   domain: dev_domain,
   maintenanceMode: false,
   production: false,
-  ApiUrl: dev_url,
+  ApiUrl: local_url,
   ApiUrlEmployer: dev_url + '/employer',
   employerDomain: employerdevUrl,
   tokenKey: 'token',
   secretKeySalt: 'WaterMelonTea',
   facebookAppId: '892925195633254',
   linkedinId: '86b55xx7n8zomc',
+  whatsappSupportNumber: 9876543210,
   googleCloud: {
     apiKey: 'AIzaSyCxrgn6ZZL3IsY_3xrSqQJi_3yT_OKr-n0'
   },

@@ -38,6 +38,10 @@ export const appRoutes: Routes = [
 	{ path: "forgot-password", component: ForgotPasswordComponent },
 	{ path: "verification/:email", component: VerificationComponent },
 	{ path: "setpassword/:otp/:email", component: SetpasswordComponent },
+	{
+		path: 'landing-new',
+		loadComponent: () => import('./pages/landing-new/landing-new.component').then(c => c.LandingNewComponent)
+	},
 
 
 	// Protected routes that require authentication
