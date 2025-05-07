@@ -64,7 +64,7 @@ export class JobChatUiComponent implements OnChanges {
   newMessage: string = '';
   currentUser: string = '@uniabroad';
   attachmentFile: any;
-
+  message: string = '';
   constructor(private talentConnectService: TalentConnectService) { }
 
 

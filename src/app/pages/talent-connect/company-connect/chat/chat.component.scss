@@ -16,3 +16,19 @@
   text-align: center;
   color: #495057;
 }
+
+
+.no-scrollbar::-webkit-scrollbar {
+  width: 0px;
+  background: transparent; /* Optional: Hide scrollbar background */
+}
+
+
+.message-content p {
+  margin-bottom: 0.5rem;
+  word-break: break-word;
+}
+
+.file-message {
+  word-break: break-word;
+}
