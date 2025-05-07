@@ -470,10 +470,12 @@ export class UserManagementComponent implements OnInit {
 		}
 		
 	  }
+	  assoiciatedMail:any="";
 	  integrationPartActiveOrInactive(){
 		this.userManagementService.integrationPartActiveOrInactive().subscribe({
 			next: (data: any) => {
 				console.log(data);
+				this.assoiciatedMail=data.mail;
 				
 			},
 			error: (error) => {

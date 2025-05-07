@@ -22,10 +22,10 @@
                     (click)="scrollToSection('inviteCard'); activeSection='inviteCard'">Invite A Friend</li>
                 <hr />
                 <!-- Switch case below -->
-                <li >
+                <li>
                     <a routerLink="/pages/talent-connect/my-profile" class="nav-link">Talent Profile</a>
                 </li>
-                <li >
+                <li>
                     <a routerLink="/pages/job-tool/cv-builder" class="nav-link">My Resumes</a>
                 </li>
                 <hr />
@@ -40,7 +40,8 @@
                         </div>
                         <div class="col-12 mb-4">
                             <div style="display: flex; justify-content: space-between">
-                                <div style="font-size: 2.5rem" aria-label="Profile completion percentage">{{ totalPercentage
+                                <div style="font-size: 2.5rem" aria-label="Profile completion percentage">{{
+                                    totalPercentage
                                     }}%</div>
                             </div>
                         </div>
@@ -85,12 +86,16 @@
                     </span>
                     <h5>{{ PersonalInfo?.name }}</h5>
                     <!-- <span class="badge bg-warning">Student Plan</span> -->
-                    <span class="fontsizecontent"><i class="fab fa-google text-danger"></i>&nbsp;{{ PersonalInfo?.email }}</span> |
-                    <span  class="fontsizecontent"> <i class="fab fa-whatsapp text-success"></i>&nbsp;{{ formatPhoneNumber(PersonalInfo?.country_code, PersonalInfo?.phone) }}</span> <br>
-                    <span  class="fontsizecontent">{{ PersonalInfo?.district }} ,{{ PersonalInfo?.state }},{{ PersonalInfo?.home_country_name }}</span>
+                    <span class="fontsizecontent"><i class="fab fa-google text-danger"></i>&nbsp;{{ PersonalInfo?.email
+                        }}</span> |
+                    <span class="fontsizecontent"> <i class="fab fa-whatsapp text-success"></i>&nbsp;{{
+                        formatPhoneNumber(PersonalInfo?.country_code, PersonalInfo?.phone) }}</span> <br>
+                    <span class="fontsizecontent">{{ PersonalInfo?.district }} ,{{ PersonalInfo?.state }},{{
+                        PersonalInfo?.home_country_name }}</span>
                 </div>
 
-                <button class="btn custom-logout-btn btn-sm" (click)="logout()"><i class="fa-solid fa-power-off"></i> &nbsp;Logout</button>
+                <button class="btn custom-logout-btn btn-sm" (click)="logout()"><i class="fa-solid fa-power-off"></i>
+                    &nbsp;Logout</button>
             </div>
 
             <!-- Body -->
@@ -246,7 +251,7 @@
                                                 </div>
                                                 <div class="col-md-12 col-12 text-md-end text-center mt-3">
                                                     <button pButton type="submit" class="btn btn-primary p-button">
-                                                    Update Password</button>
+                                                        Update Password</button>
                                                 </div>
                                             </div>
                                         </div>
@@ -260,22 +265,22 @@
                             <div class="row">
                                 <div class="col-3">
                                     <h6><strong>Emailer Settings</strong></h6>
-                                     <p class="fontsizecontent">
+                                    <p class="fontsizecontent">
                                         Update your emailer notification settings.
-                                     </p>
+                                    </p>
                                 </div>
                                 <div class="col-9">
                                     <div class="card p-2 mt-2" *ngFor="let setting of settings">
                                         <div class="setting-row">
-                                          <div>
-                                            <strong>{{ setting.title }}</strong>
-                                            <div class="text-muted small">{{ setting.description }}</div>
-                                          </div>
-                                          <p-inputSwitch (click)="emailSettings(setting)" 
-                                          [ngModel]="setting.enabled === 1"
-                                          (ngModelChange)="setting.enabled = $event ? 1 : 0"></p-inputSwitch>
+                                            <div>
+                                                <strong>{{ setting.title }}</strong>
+                                                <div class="text-muted small">{{ setting.description }}</div>
+                                            </div>
+                                            <p-inputSwitch (click)="emailSettings(setting)"
+                                                [ngModel]="setting.enabled === 1"
+                                                (ngModelChange)="setting.enabled = $event ? 1 : 0"></p-inputSwitch>
                                         </div>
-                                      </div>
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -285,20 +290,27 @@
                             <div class="row">
                                 <div class="col-3">
                                     <h6><strong>Integrations</strong></h6>
-                                    <div class="text-muted small">Any accounts that you have used to login to UNIPREP.</div>
+                                    <div class="text-muted small">Any accounts that you have used to login to UNIPREP.
+                                    </div>
                                 </div>
                                 <div class="col-9">
                                     <div class="card p-2 mt-2">
                                         <div class="setting-row">
-                                          <div>
-                                            <strong></strong>
-                                            <div class="text-muted small"></div>
-                                          </div>
+                                            <div>
+                                                <strong>Google</strong>
+                                                <div class="text-muted small"><span *ngIf="associatedMail"><i
+                                                            class="fab fa-google text-danger"></i></span>{{assoiciatedMail}}
+                                                </div>
+                                            </div>
+                                            <div [ngClass]="assoiciatedMail ? 'text-success' : 'text-danger'"
+                                                class="small">
+                                                {{ assoiciatedMail ? "Linked" : "Not Linked" }}
+                                            </div>
                                         </div>
-                                      </div>
+                                    </div>
                                 </div>
                             </div>
-                       
+
                         </div>
                     </div>
                     <div class="col-md-12 mb-3" id="inviteCard">
@@ -306,10 +318,11 @@
                             <div class="row align-items-center">
                                 <div class="col-3">
                                     <div class="text-start">
-                                        <h6 class="mb-1 mt-2"><span class="emoji"
-                                                aria-label="envelope">💌</span> <strong>Invite a friend to
-                                                    try UNIPREP</strong></h6>
-                                        <p class="mb-0 fontsizecontent">We will email them instructions and a link to create an account
+                                        <h6 class="mb-1 mt-2"><span class="emoji" aria-label="envelope">💌</span>
+                                            <strong>Invite a friend to
+                                                try UNIPREP</strong></h6>
+                                        <p class="mb-0 fontsizecontent">We will email them instructions and a link to
+                                            create an account
                                         </p>
                                     </div>
                                 </div>
@@ -335,84 +348,89 @@
                 <!-- ngSwitch Section -->
                 <ng-container [ngSwitch]="activeSection">
                     <div *ngSwitchCase="'subscription'">
-                      <div class="row">
-                        <div class="col-12">
-                            <div class="card p-3 bg-white">
-                                <div class="row align-items-center">
-                                    <div class="col-3">
-                                        <div class="text-start">
-                                            <h6 class="mb-1 mt-2 ">
-                                                <strong>Subscription History</strong></h6>
-                                            <p class="mb-0 fontsizecontent">All the details about your previous subscription parchases
-                                            </p>
-                                            <button  pButton
-                                            class="btn btn-primary p-button" (click)="onClickUpgradePlan();" style="font-size: 0.8rem;"> Upgrade Your Current Plan  &nbsp; <i class="fa-solid fa-stars"></i></button>
+                        <div class="row">
+                            <div class="col-12">
+                                <div class="card p-3 bg-white">
+                                    <div class="row align-items-center">
+                                        <div class="col-3">
+                                            <div class="text-start">
+                                                <h6 class="mb-1 mt-2 ">
+                                                    <strong>Subscription History</strong>
+                                                </h6>
+                                                <p class="mb-0 fontsizecontent">All the details about your previous
+                                                    subscription parchases
+                                                </p>
+                                                <button pButton class="btn btn-primary p-button"
+                                                    (click)="onClickUpgradePlan();" style="font-size: 0.8rem;"> Upgrade
+                                                    Your Current Plan &nbsp; <i class="fa-solid fa-stars"></i></button>
+                                            </div>
+                                        </div>
+                                        <div class="col-9">
+                                            <p-table [value]="subscribedHistoryList" responsiveLayout="scroll">
+                                                <ng-template pTemplate="header">
+                                                    <tr>
+                                                        <th>Subscription Plan</th>
+                                                        <th>Validity</th>
+                                                        <th>Subscription Start</th>
+                                                        <th>Subscription End</th>
+                                                        <th>Amount</th>
+                                                    </tr>
+                                                </ng-template>
+                                                <ng-template pTemplate="body" let-data>
+                                                    <tr class="subscription-history-header">
+                                                        <td>{{ data.product }}</td>
+                                                        <td>{{ data.country }}</td>
+                                                        <td>{{ data.validity }} months</td>
+                                                        <td>{{ data.startdate }}</td>
+                                                        <td>{{ data.enddate }}</td>
+                                                    </tr>
+                                                </ng-template>
+                                            </p-table>
                                         </div>
                                     </div>
-                                    <div class="col-9">
-                                        <p-table [value]="subscribedHistoryList"  responsiveLayout="scroll">
-                                            <ng-template pTemplate="header">
-                                                <tr>
-                                                    <th>Subscription Plan</th>
-                                                    <th>Validity</th>
-                                                    <th>Subscription Start</th>
-                                                    <th>Subscription End</th>
-                                                    <th>Amount</th>
-                                                </tr>
-                                            </ng-template>
-                                            <ng-template pTemplate="body" let-data>
-                                                <tr class="subscription-history-header">
-                                                    <td>{{ data.product }}</td>
-                                                    <td>{{ data.country }}</td>
-                                                    <td>{{ data.validity }} months</td>
-                                                    <td>{{ data.startdate }}</td>
-                                                    <td>{{ data.enddate }}</td>
-                                                </tr>
-                                            </ng-template>
-                                        </p-table>
+                                </div>
+                            </div>
+                            <div class="col-12 mt-2">
+                                <div class="card p-3 bg-white">
+                                    <div class="row align-items-center">
+                                        <div class="col-3">
+                                            <div class="text-start">
+                                                <h6 class="mb-1 mt-2 ">
+                                                    <strong>Transaction History</strong>
+                                                </h6>
+                                                <p class="mb-0 fontsizecontent">Your complete transaction history in our
+                                                    platform
+                                                </p>
+                                            </div>
+                                        </div>
+                                        <div class="col-9">
+                                            <p-table [value]="subscribedHistoryList" responsiveLayout="scroll">
+                                                <ng-template pTemplate="header">
+                                                    <tr>
+                                                        <th>Product</th>
+                                                        <th>Transaction ID</th>
+                                                        <th>Payment Date</th>
+                                                        <th>Status</th>
+                                                        <th>Amount</th>
+                                                        <th>Invoice</th>
+                                                    </tr>
+                                                </ng-template>
+                                                <ng-template pTemplate="body" let-data>
+                                                    <tr class="subscription-history-header">
+                                                        <td>{{ data.product }}</td>
+                                                        <td>{{ data.country }}</td>
+                                                        <td>{{ data.validity }} months</td>
+                                                        <td>{{ data.startdate }}</td>
+                                                        <td>{{ data.enddate }}</td>
+                                                        <td>{{ data.amount }}</td>
+                                                    </tr>
+                                                </ng-template>
+                                            </p-table>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
-                        <div class="col-12 mt-2">
-                            <div class="card p-3 bg-white">
-                                <div class="row align-items-center">
-                                    <div class="col-3">
-                                        <div class="text-start">
-                                            <h6 class="mb-1 mt-2 ">
-                                                <strong>Transaction History</strong></h6>
-                                            <p class="mb-0 fontsizecontent">Your complete transaction history in our platform
-                                            </p>
-                                        </div>
-                                    </div>
-                                    <div class="col-9">
-                                        <p-table [value]="subscribedHistoryList"  responsiveLayout="scroll">
-                                            <ng-template pTemplate="header">
-                                                <tr>
-                                                    <th>Product</th>
-                                                    <th>Transaction ID</th>
-                                                    <th>Payment Date</th>
-                                                    <th>Status</th>
-                                                    <th>Amount</th>
-                                                    <th>Invoice</th>
-                                                </tr>
-                                            </ng-template>
-                                            <ng-template pTemplate="body" let-data>
-                                                <tr class="subscription-history-header">
-                                                    <td>{{ data.product }}</td>
-                                                    <td>{{ data.country }}</td>
-                                                    <td>{{ data.validity }} months</td>
-                                                    <td>{{ data.startdate }}</td>
-                                                    <td>{{ data.enddate }}</td>
-                                                    <td>{{ data.amount }}</td>
-                                                </tr>
-                                            </ng-template>
-                                        </p-table>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                      </div>
                     </div>
                 </ng-container>
             </div>
