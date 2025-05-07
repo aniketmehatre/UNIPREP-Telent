@@ -91,7 +91,7 @@
 		</div>
 	</div>
 	<div class="card-footer bg-white p-2 border-0 w-100">
-		<div class="w-100 mb-1 text-end bg-transparent" style="background-color: transparent;">
+		<div class="w-100 mb-1 text-end bg-transparent">
 			<button *ngIf="messageInput.value?.length > 0 else isLoadingAiSummary"
 				class="text-small text-end btn btn-danger btn-rounded d-flex align-items-center gap-2" style="width: fit-content"
 				(click)="aiGenerateSummary('student', { content: messageInput.value }, messageInput, 'RePhrase')">RePhrase</button>
@@ -112,10 +112,9 @@
 			[placeholder]="'Text with ... '+ jobDetails?.company_name" 
 			#messageInput
 			rows="1"
-			[(ngModel)]="message"
 			style="resize: none; min-height: 38px; max-height: 200px;"
 			(input)="autoGrow($event.target)"
-			(keyup.enter)="sendMessage(message); message = ''; autoGrow(messageInput);">
+			(keyup.enter)="sendMessage(messageInput.value); messageInput.value = ''; autoGrow(messageInput);">
 		  </textarea>
 		<button class="input-group-text border-0 bg-white" (click)="fileAttachment.click();">
 			<i class="fa-solid fa-paperclip"></i>

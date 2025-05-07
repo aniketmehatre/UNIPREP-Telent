@@ -21,6 +21,7 @@ import { environment } from '@env/environment';
   styleUrl: './chat.component.scss'
 })
 export class ChatComponent implements OnInit, OnChanges {
+  @ViewChild('messageInput') messageInput: any;
   @Input() companyDetails!: Company;
   @Output() openInfo: EventEmitter<boolean> = new EventEmitter<boolean>(true);
   @Output() closeChat: EventEmitter<boolean> = new EventEmitter<boolean>(true);
@@ -34,7 +35,6 @@ export class ChatComponent implements OnInit, OnChanges {
     { number: 2, name: 'HR Round', completed: false },
     { number: 3, name: 'Selected', completed: false }
   ];
-  message: string = '';
   messages: CompanyMessage[] = [];
   userLogo: string = '';
   attachmentFile: File | null = null;
