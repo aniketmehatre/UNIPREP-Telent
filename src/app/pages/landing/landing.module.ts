@@ -43,6 +43,10 @@ const routes: Routes = [
         loadComponent: () => import('./landing-language-hub/landing-language-hub.component').then(m => m.LandingLanguageHubComponent),
       },
       {
+        path: 'compare',
+        loadComponent: () => import('./comparison/comparison.component').then(m => m.ComparisonComponent),
+      },
+      {
         path: '',
         redirectTo: '',
         pathMatch: 'full'

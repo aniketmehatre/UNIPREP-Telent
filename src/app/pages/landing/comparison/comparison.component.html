@@ -1,0 +1,101 @@
+<div class="container-fluid comparison-page">
+    <div class="row py-5">
+      <div class="col-12 text-center mb-4">
+        <h1 class="display-4 fw-bold">
+          Compare <span class="uniprep-text">UNIPREP</span> with other Career Platforms
+        </h1>
+        
+        <!-- Country Toggle Switch -->
+        <div class="d-flex justify-content-center align-items-center mt-4">
+          <span class="me-2 country-label" [class.active]="selectedCountry === 'uk'">United Kingdom</span>
+          <div class="form-check form-switch">
+            <input 
+              class="form-check-input" 
+              type="checkbox" 
+              role="switch" 
+              id="countrySwitch" 
+              [checked]="selectedCountry === 'india'"
+              (change)="toggleCountry()"
+            >
+            <label class="form-check-label visually-hidden" for="countrySwitch">Toggle Country</label>
+          </div>
+          <span class="ms-2 country-label" [class.active]="selectedCountry === 'india'">India</span>
+        </div>
+      </div>
+    </div>
+  
+    <!-- Comparison Table -->
+    <div class="row">
+      <div class="col-12">
+        <div class="table-responsive" style="padding-inline: 4rem">
+          <table class="table table-bordered comparison-table">
+            <thead>
+              <tr>
+                <th scope="col">Platform</th>
+                <th scope="col">Inbuilt Hiring Platform</th>
+                <th scope="col">Career Preparation Tools</th>
+                <th scope="col">Entrepreneurship Tools</th>
+                <th scope="col">Global Education Tools</th>
+                <th scope="col">Co Branding to Institutes</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let platform of getPlatformList" [@fadeAnimation]>
+                <td class="platform-cell">
+                  <div class="platform-logo">
+                    <img [src]="platform.logo" [alt]="platform.name + ' logo'" class="img-fluid" [@slideAnimation]>
+                  </div>
+                </td>
+                <td class="text-center">
+                  <i *ngIf="hasFeature(platform, 'inbuiltHiring')" class="fas fa-check text-success fs-3"></i>
+                  <i *ngIf="!hasFeature(platform, 'inbuiltHiring')" class="fas fa-xmark text-danger fs-3"></i>
+                </td>
+                <td class="text-center">
+                  <i *ngIf="hasFeature(platform, 'careerPrep')" class="fas fa-check text-success fs-3"></i>
+                  <i *ngIf="!hasFeature(platform, 'careerPrep')" class="fas fa-xmark text-danger fs-3"></i>
+                </td>
+                <td class="text-center">
+                  <i *ngIf="hasFeature(platform, 'entrepreneurship')" class="fas fa-check text-success fs-3"></i>
+                  <i *ngIf="!hasFeature(platform, 'entrepreneurship')" class="fas fa-xmark text-danger fs-3"></i>
+                </td>
+                <td class="text-center">
+                  <i *ngIf="hasFeature(platform, 'globalEducation')" class="fas fa-check text-success fs-3"></i>
+                  <i *ngIf="!hasFeature(platform, 'globalEducation')" class="fas fa-xmark text-danger fs-3"></i>
+                </td>
+                <td class="text-center">
+                  <i *ngIf="hasFeature(platform, 'coBranding')" class="fas fa-check text-success fs-3"></i>
+                  <i *ngIf="!hasFeature(platform, 'coBranding')" class="fas fa-xmark text-danger fs-3"></i>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  
+    <!-- Why Partner Section -->
+    <div class="row py-5">
+      <div class="col-12 text-center mb-5">
+        <h2 class="display-5 fw-bold">
+          Why Leading Institutions Partner with <span class="uniprep-text">UNIPREP</span> for Career & Student Success
+        </h2>
+        <p class="lead mt-3">
+          UNIPREP is an all-in-one platform designed to elevate student outcomes, employer engagement, and global readiness — all while simplifying your career services ecosystem.
+        </p>
+      </div>
+  
+      <div class="col-12">
+        <div class="row g-4">
+          <div class="col-md-6 col-4" *ngFor="let benefit of benefits" [@slideAnimation]>
+            <div class="benefit-card">
+              <div class="benefit-icon">
+                <i [class]="benefit.icon"></i>
+              </div>
+              <h3 class="benefit-title">{{benefit.title}}</h3>
+              <p class="benefit-description">{{benefit.description}}</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
