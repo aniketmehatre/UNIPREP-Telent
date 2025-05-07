@@ -2,11 +2,12 @@ import { Component, OnInit } from '@angular/core';
 import { trigger, transition, style, animate } from '@angular/animations';
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
+
 @Component({
-  selector: 'uni-compare-uni',
+  selector: 'uni-comparison',
   imports: [CommonModule, RouterModule],
-  templateUrl: './compare-uni.component.html',
-  styleUrls: ['./compare-uni.component.scss'],
+  templateUrl: './comparison.component.html',
+  styleUrls: ['./comparison.component.scss'],
   animations: [
     trigger('fadeAnimation', [
       transition(':enter', [
@@ -28,13 +29,13 @@ import { RouterModule } from '@angular/router';
     ])
   ]
 })
-export class CompareUniComponent {
+export class ComparisonComponent implements OnInit {
   selectedCountry: 'uk' | 'india' = 'uk';
   platforms: any = [];
   platformsInIndia = [
     {
       name: 'Student circle',
-      logo: 'uniprep-assets/brands/studentcircus.webp',
+      logo: 'uniprep-assets/images/student-circle.png',
       features: {
         inbuiltHiring: false,
         careerPrep: false,
@@ -45,7 +46,7 @@ export class CompareUniComponent {
     },
     {
       name: 'Handshake',
-      logo: 'uniprep-assets/brands/handshake.webp',
+      logo: 'uniprep-assets/images/student-circle.png',
       features: {
         inbuiltHiring: false,
         careerPrep: false,
@@ -56,7 +57,7 @@ export class CompareUniComponent {
     },
     {
       name: 'Symplicity',
-      logo: 'uniprep-assets/brands/symplicity.webp',
+      logo: 'uniprep-assets/images/student-circle.png',
       features: {
         inbuiltHiring: false,
         careerPrep: false,
@@ -67,7 +68,7 @@ export class CompareUniComponent {
     },
     {
       name: 'Target Connect',
-      logo: 'uniprep-assets/brands/targetconnect.webp',
+      logo: 'uniprep-assets/images/student-circle.png',
       features: {
         inbuiltHiring: true,
         careerPrep: false,
@@ -78,7 +79,7 @@ export class CompareUniComponent {
     },
     {
       name: 'LinkedIn',
-      logo: 'uniprep-assets/brands/linkedin.webp',
+      logo: 'uniprep-assets/images/student-circle.png',
       features: {
         inbuiltHiring: true,
         careerPrep: true,
@@ -89,7 +90,7 @@ export class CompareUniComponent {
     },
     {
       name: 'UNIPREP',
-      logo: 'uniprep-assets/brands/uniprep.webp',
+      logo: 'uniprep-assets/images/student-circle.png',
       features: {
         inbuiltHiring: true,
         careerPrep: true,
@@ -103,7 +104,7 @@ export class CompareUniComponent {
   platformsInUK = [
     {
       name: 'Superset',
-      logo: 'uniprep-assets/brands/superset.webp',
+      logo: 'uniprep-assets/images/student-circle.png',
       features: {
         inbuiltHiring: true,
         careerPrep: false,
@@ -114,7 +115,7 @@ export class CompareUniComponent {
     },
     {
       name: 'Handshake',
-      logo: 'uniprep-assets/brands/studentcircus.webp',
+      logo: 'uniprep-assets/images/student-circle.png',
       features: {
         inbuiltHiring: false,
         careerPrep: false,
@@ -125,7 +126,7 @@ export class CompareUniComponent {
     },
     {
       name: 'Symplicity',
-      logo: 'uniprep-assets/brands/symplicity.webp',
+      logo: 'uniprep-assets/images/student-circle.png',
       features: {
         inbuiltHiring: false,
         careerPrep: false,
@@ -137,7 +138,7 @@ export class CompareUniComponent {
 
     {
       name: 'Target Connect',
-      logo: 'uniprep-assets/brands/targetconnect.webp',
+      logo: 'uniprep-assets/images/student-circle.png',
       features: {
         inbuiltHiring: true,
         careerPrep: false,
@@ -148,7 +149,7 @@ export class CompareUniComponent {
     },
     {
       name: 'LinkedIn',
-      logo: 'uniprep-assets/brands/linkedin.webp',
+      logo: 'uniprep-assets/images/student-circle.png',
       features: {
         inbuiltHiring: true,
         careerPrep: true,
@@ -159,7 +160,7 @@ export class CompareUniComponent {
     },
     {
       name: 'UNIPREP',
-      logo: 'uniprep-assets/brands/uniprep.webp',
+      logo: 'uniprep-assets/images/student-circle.png',
       features: {
         inbuiltHiring: true,
         careerPrep: true,
