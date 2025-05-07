@@ -174,32 +174,32 @@ export class ComparisonComponent implements OnInit {
   benefits = [
     {
       title: 'Comprehensive Career Ecosystem',
-      icon: 'pi pi-briefcase',
+      icon: '💼',
       description: 'From skill-building and CV optimization to mock interviews, job discovery, and employer outreach — everything is integrated into one seamless platform.'
     },
     {
       title: 'Built-in Direct Hiring Hub',
-      icon: 'pi pi-pc-display',
+      icon: '💻',
       description: 'Employers can directly post jobs, filter top talent, schedule interviews, and extend offers — no need for external tools or third-party platforms.'
     },
     {
       title: 'Smart AI-Powered Career Tools',
-      icon: 'pi pi-robot',
+      icon: '🤖',
       description: 'Includes intelligent tools like CV Reviewer, Career Planner, Average Salary Estimator, and more — tailored to enhance every student\'s career journey.'
     },
     {
       title: '70+ Premium Features in One Platform',
-      icon: 'pi pi-gear',
+      icon: '⚙️',
       description: 'Purpose-built to support Career Growth, Skill Development, Entrepreneurship, and Global Education Access — all under a unified system.'
     },
     {
       title: 'Cost-Effective & Scalable: Just £30 per student/year',
-      icon: 'pi pi-currency-pound',
+      icon: '💰',
       description: 'Replaces 4-5 standalone legacy systems — saving time, cost, and administrative effort.'
     },
     {
       title: 'Globally Compatible & Institution-Friendly',
-      icon: 'pi pi-globe',
+      icon: '🌍',
       description: 'Designed for institutions across regions and industries — adaptable, intuitive, and ready to scale.'
     }
   ];
@@ -211,12 +211,8 @@ export class ComparisonComponent implements OnInit {
   }
 
   toggleCountry(): void {
-    debugger;
     this.selectedCountry = this.selectedCountry === 'uk' ? 'india' : 'uk';
-    if(this.selectedCountry === 'uk')
-      this.platforms == this.platformsInIndia;
-   else 
-     this.platforms = this.platformsInUK;
+    this.platforms = this.selectedCountry === 'uk' ? this.platformsInUK : this.platformsInIndia;
   }
 
   get getPlatformList() {
@@ -225,6 +221,7 @@ export class ComparisonComponent implements OnInit {
 
   // Helper method to determine if a platform has a specific feature
   hasFeature(platform: any, feature: string): boolean {
+    console.log({ platform });
     return platform.features[feature];
   }
 }

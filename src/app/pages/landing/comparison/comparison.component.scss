@@ -1,7 +1,7 @@
 .comparison-page {
     background-color: #121212;
     color: white;
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    font-family: "Poppins", sans-serif !important;
     padding: 4rem 8rem;
     min-height: 100vh;
   }
@@ -96,7 +96,9 @@
   
   // Benefits Section
   .benefit-card {
-    background-color: rgba(30, 30, 30, 0.7);
+    border: 1px solid #e6ddfe08;
+	background: linear-gradient(0deg, rgba(255, 255, 255, 0) 0%, rgba(255, 255, 255, 0.05) 100%);
+	box-shadow: 0px 10px 25px 0px rgba(230, 221, 254, 0.1) inset;
     border-radius: 12px;
     padding: 1.5rem;
     height: 100%;
@@ -109,7 +111,7 @@
   }
   
   .benefit-icon {
-    font-size: 2rem;
+    font-size: 2.4rem;
     color: #FF8C00;
     margin-bottom: 1rem;
   }
