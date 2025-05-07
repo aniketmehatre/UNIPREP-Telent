@@ -1,92 +1,143 @@
-:host {
-  background-color: #07070b;
-  display: block;
+.comparison-page {
+  background-color: #121212;
+  color: white;
+  font-family: "Poppins", sans-serif !important;
+  padding: 4rem 8rem;
+  min-height: 100vh;
 }
-.table-bordered-orange {
-  border: 1px solid orange;
-  th {
-    background-color: #8B4513;
-    vertical-align: middle;
-    padding: 20px;
-    border-bottom: 1px solid orange;
+
+.uniprep-text {
+  color: #FF8C00;
+  font-weight: bold;
+}
+
+// Country Toggle Switch
+.country-label {
+  color: #6c757d;
+  transition: color 0.3s ease;
+  
+  &.active {
+    color: white;
+    font-weight: 500;
   }
-  td {
+}
+
+.form-check-input {
+  background-color: #FF8C00;
+  border-color: #FF8C00;
+  width: 3rem;
+  height: 1.5rem;
+  
+  &:checked {
+    background-color: #FF8C00;
+    border-color: #FF8C00;
+  }
+  
+  &:focus {
+    box-shadow: 0 0 0 0.25rem rgba(255, 140, 0, 0.25);
+    border-color: #FF8C00;
+  }
+}
+
+// Comparison Table
+.comparison-table {
+  border-collapse: collapse;
+  background-color: transparent;
+  border: 2px solid #FF8C00; // Outer border (top, right, bottom, left)
+
+  th {
+      background-color: #663C1A !important;
+  }
+
+  th, td {
     background-color: transparent;
     color: white;
-    padding: 20px;
+    border: none; // Remove internal borders
+    padding: 2rem;
+    text-align: center;
+  }
+
+  th:first-child {
+    text-align: left;
+  }
+
+  td {
+    vertical-align: middle;
+    padding: 1rem;
   }
 }
-td.avail {
-  text-align: center;
-  svg {
-    height: 20px;
-    width: 20px;
-  }
+
+.platform-cell {
+  width: 150px;
 }
-td.img {
-  text-align: center;
-  svg {
-    height: 80px;
-    width: 80px;
-  }
-}
-.toggle-switch {
+
+.platform-logo {
+  width: 100px;
+  height: 100px;
   display: flex;
   align-items: center;
-  gap: 10px;
-}
-
-.label-active {
-  color: #f57c00;
-  font-weight: 600;
-}
-
-.label-inactive {
-  color: #aaa;
-}
-
-.switch {
-  width: 50px;
-  height: 26px;
-  background-color: #f57c00;
-  border-radius: 50px;
-  position: relative;
-  cursor: pointer;
-  transition: background-color 0.3s;
-}
-
-.switch::before {
-  content: "";
-  position: absolute;
-  top: 3px;
-  left: 3px;
-  width: 20px;
-  height: 20px;
+  justify-content: center;
   background-color: white;
-  border-radius: 50%;
-  transition: left 0.3s;
-}
-
-.switch.active::before {
-  left: 27px;
-}
-.card {
-  border-radius: 1.5rem;
-  border: 1px solid #e6ddfe08;
-  background: linear-gradient(0deg, rgba(255, 255, 255, 0) 0%, rgba(255, 255, 255, 0.05) 100%);
-  box-shadow: 0px 10px 25px 0px rgba(230, 221, 254, 0.1) inset;
-  color: white;
-  &:hover {
-    .card-title {
-      color: var(--uniprep-secondary);
-    }
-    .cardicon {
-      font-weight: 700;
+  border-radius: 8px;
+  margin: 0 auto;
+  border-radius: 15px;
+  
+  img {
+    max-width: 100%;
+    max-height: 100%;
+    border-radius: 15px;
+    object-fit: contain;
+    transition: transform 0.3s ease;
+    
+    &:hover {
+      transform: scale(1.1);
     }
   }
 }
-.cardsItem {
-  display: grid;
-  grid-template-columns: 1fr 1fr 1fr;
-  gap: 10px;
+
+// Benefits Section
+.benefit-card {
+  border: 1px solid #e6ddfe08;
+background: linear-gradient(0deg, rgba(255, 255, 255, 0) 0%, rgba(255, 255, 255, 0.05) 100%);
+box-shadow: 0px 10px 25px 0px rgba(230, 221, 254, 0.1) inset;
+  border-radius: 12px;
+  padding: 1.5rem;
+  height: 100%;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  
+  &:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
+  }
+}
+
+.benefit-icon {
+  font-size: 2.4rem;
+  color: #FF8C00;
+  margin-bottom: 1rem;
+}
+
+.benefit-title {
+  color: #FF8C00;
+  font-size: 1.25rem;
+  margin-bottom: 0.75rem;
+}
+
+.benefit-description {
+  color: #adb5bd;
+  font-size: 0.9rem;
+  line-height: 1.5;
+}
+
+// Responsive adjustments
+@media (max-width: 768px) {
+  .platform-logo {
+    width: 80px;
+    height: 80px;
+  }
+  
+  .comparison-table th,
+  .comparison-table td {
+    padding: 0.75rem 0.5rem;
+  }
 }

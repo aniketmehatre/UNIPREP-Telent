@@ -1,169 +1,103 @@
-<section class="container py-5">
-    <h1 class="text-white text-center mb-3">Compare <strong style="color: #f0780e">UNIPREP</strong> with other Career Platforms</h1>
-    <div class="toggle-switch justify-content-center">
-        <span id="label-uk" [class]="{'label-active': active, 'label-inactive': !active}">United Kingdom</span>
-        <div id="toggle" (click)="toggleSwitch()" class="switch" [class]="{'active': !active}"></div>
-        <span id="label-india" [class]="{'label-active': !active, 'label-inactive': active}">India</span>
+<div class="container-fluid comparison-page">
+    <div class="row py-5">
+      <div class="col-12 text-center mb-4">
+        <h1 class="display-4 fw-light">
+          Compare <span class="uniprep-text">UNIPREP</span> with other Career Platforms
+        </h1>
+        
+        <!-- Country Toggle Switch -->
+        <div class="d-flex justify-content-center align-items-center mt-4">
+          <span class="me-2 country-label" [class.active]="selectedCountry === 'uk'">United Kingdom</span>
+          <div class="form-check form-switch">
+            <input 
+              class="form-check-input" 
+              type="checkbox" 
+              role="switch" 
+              id="countrySwitch" 
+              [checked]="selectedCountry === 'india'"
+              (change)="toggleCountry()"
+            >
+            <label class="form-check-label visually-hidden" for="countrySwitch">Toggle Country</label>
+          </div>
+          <span class="ms-2 country-label" [class.active]="selectedCountry === 'india'">India</span>
+        </div>
+      </div>
     </div>
-    <br/>
-    <div class="table-responsive mt-4">
-        <table class="table table-bordered-orange text-white">
-            <thead class="table-dark">
-            <tr>
-                <th class="align-middle">Platform</th>
-                <th class="align-middle">Inbuilt Hiring Platform</th>
-                <th class="align-middle">Career Preparation Tools</th>
-                <th class="align-middle">Entrepreneurship Tools</th>
-                <th class="align-middle">Global Education Tools</th>
-                <th class="align-middle">Co-Branding to Institutes</th>
-            </tr>
+  
+    <!-- Comparison Table -->
+    <div class="row">
+      <div class="col-12">
+        <div class="table-responsive" style="padding-inline: 4rem">
+          <table class="table table-bordered comparison-table">
+            <thead>
+              <tr>
+                <th scope="col">Platform</th>
+                <th scope="col">Inbuilt Hiring Platform</th>
+                <th scope="col">Career Preparation Tools</th>
+                <th scope="col">Entrepreneurship Tools</th>
+                <th scope="col">Global Education Tools</th>
+                <th scope="col">Co Branding to Institutes</th>
+              </tr>
             </thead>
             <tbody>
-            <tr>
-                <td class="align-middle img">
-                    <svg width="200" height="200" xmlns="http://www.w3.org/2000/svg">
-                        <rect width="100%" height="100%" rx="10" ry="10" fill="#D4FF3F"/>
-                        <text x="50%" y="55%" font-family="Arial, sans-serif" font-size="32" font-style="italic" font-weight="bold" fill="#101820" text-anchor="middle" alignment-baseline="middle">
-                            Handshake
-                        </text>
-                    </svg>
+              <tr *ngFor="let platform of getPlatformList" [@fadeAnimation]>
+                <td class="platform-cell">
+                  <div class="platform-logo">
+                    <img [src]="platform.logo" [alt]="platform.name + ' logo'" class="img-fluid" [@slideAnimation]>
+                  </div>
                 </td>
-                <td class="align-middle avail">
-                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48" width="48px" height="48px"><path fill="#F44336" d="M21.5 4.5H26.501V43.5H21.5z" transform="rotate(45.001 24 24)"/><path fill="#F44336" d="M21.5 4.5H26.5V43.501H21.5z" transform="rotate(135.008 24 24)"/></svg>
+                <td class="text-center">
+                  <i *ngIf="hasFeature(platform, 'inbuiltHiring')" class="fas fa-check text-success fs-3"></i>
+                  <i *ngIf="!hasFeature(platform, 'inbuiltHiring')" class="fas fa-xmark text-danger fs-3"></i>
                 </td>
-                <td class="align-middle avail">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="100" height="100" viewBox="0 0 100 100">
-                        <rect x="0" y="0" width="100" height="100" fill="green"/>
-                        <polyline points="25,50 45,70 75,30" fill="none" stroke="white" stroke-width="8" stroke-linecap="round" stroke-linejoin="round"/>
-                    </svg>
+                <td class="text-center">
+                  <i *ngIf="hasFeature(platform, 'careerPrep')" class="fas fa-check text-success fs-3"></i>
+                  <i *ngIf="!hasFeature(platform, 'careerPrep')" class="fas fa-xmark text-danger fs-3"></i>
                 </td>
-                <td class="align-middle avail">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="100" height="100" viewBox="0 0 100 100">
-                        <rect x="0" y="0" width="100" height="100" fill="green"/>
-                        <polyline points="25,50 45,70 75,30" fill="none" stroke="white" stroke-width="8" stroke-linecap="round" stroke-linejoin="round"/>
-                    </svg>
+                <td class="text-center">
+                  <i *ngIf="hasFeature(platform, 'entrepreneurship')" class="fas fa-check text-success fs-3"></i>
+                  <i *ngIf="!hasFeature(platform, 'entrepreneurship')" class="fas fa-xmark text-danger fs-3"></i>
                 </td>
-                <td class="align-middle avail">
-                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48" width="48px" height="48px"><path fill="#F44336" d="M21.5 4.5H26.501V43.5H21.5z" transform="rotate(45.001 24 24)"/><path fill="#F44336" d="M21.5 4.5H26.5V43.501H21.5z" transform="rotate(135.008 24 24)"/></svg>
+                <td class="text-center">
+                  <i *ngIf="hasFeature(platform, 'globalEducation')" class="fas fa-check text-success fs-3"></i>
+                  <i *ngIf="!hasFeature(platform, 'globalEducation')" class="fas fa-xmark text-danger fs-3"></i>
                 </td>
-                <td class="align-middle avail">
-                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48" width="48px" height="48px"><path fill="#F44336" d="M21.5 4.5H26.501V43.5H21.5z" transform="rotate(45.001 24 24)"/><path fill="#F44336" d="M21.5 4.5H26.5V43.501H21.5z" transform="rotate(135.008 24 24)"/></svg>
+                <td class="text-center">
+                  <i *ngIf="hasFeature(platform, 'coBranding')" class="fas fa-check text-success fs-3"></i>
+                  <i *ngIf="!hasFeature(platform, 'coBranding')" class="fas fa-xmark text-danger fs-3"></i>
                 </td>
-            </tr>
-            <tr>
-                <td class="align-middle img">
-                    <svg width="200" height="200" xmlns="http://www.w3.org/2000/svg">
-                        <rect width="100%" height="100%" rx="10" ry="10" fill="#D4FF3F"/>
-                        <text x="50%" y="55%" font-family="Arial, sans-serif" font-size="32" font-style="italic" font-weight="bold" fill="#101820" text-anchor="middle" alignment-baseline="middle">
-                            Handshake
-                        </text>
-                    </svg>
-                </td>
-                <td class="align-middle avail">
-                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48" width="48px" height="48px"><path fill="#F44336" d="M21.5 4.5H26.501V43.5H21.5z" transform="rotate(45.001 24 24)"/><path fill="#F44336" d="M21.5 4.5H26.5V43.501H21.5z" transform="rotate(135.008 24 24)"/></svg>
-                </td>
-                <td class="align-middle avail">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="100" height="100" viewBox="0 0 100 100">
-                        <rect x="0" y="0" width="100" height="100" fill="green"/>
-                        <polyline points="25,50 45,70 75,30" fill="none" stroke="white" stroke-width="8" stroke-linecap="round" stroke-linejoin="round"/>
-                    </svg>
-                </td>
-                <td class="align-middle avail">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="100" height="100" viewBox="0 0 100 100">
-                        <rect x="0" y="0" width="100" height="100" fill="green"/>
-                        <polyline points="25,50 45,70 75,30" fill="none" stroke="white" stroke-width="8" stroke-linecap="round" stroke-linejoin="round"/>
-                    </svg>
-                </td>
-                <td class="align-middle avail">
-                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48" width="48px" height="48px"><path fill="#F44336" d="M21.5 4.5H26.501V43.5H21.5z" transform="rotate(45.001 24 24)"/><path fill="#F44336" d="M21.5 4.5H26.5V43.501H21.5z" transform="rotate(135.008 24 24)"/></svg>
-                </td>
-                <td class="align-middle avail">
-                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48" width="48px" height="48px"><path fill="#F44336" d="M21.5 4.5H26.501V43.5H21.5z" transform="rotate(45.001 24 24)"/><path fill="#F44336" d="M21.5 4.5H26.5V43.501H21.5z" transform="rotate(135.008 24 24)"/></svg>
-                </td>
-            </tr>
-            <tr>
-                <td class="align-middle img">
-                    <svg width="200" height="200" xmlns="http://www.w3.org/2000/svg">
-                        <rect width="100%" height="100%" rx="10" ry="10" fill="#D4FF3F"/>
-                        <text x="50%" y="55%" font-family="Arial, sans-serif" font-size="32" font-style="italic" font-weight="bold" fill="#101820" text-anchor="middle" alignment-baseline="middle">
-                            Handshake
-                        </text>
-                    </svg>
-                </td>
-                <td class="align-middle avail">
-                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48" width="48px" height="48px"><path fill="#F44336" d="M21.5 4.5H26.501V43.5H21.5z" transform="rotate(45.001 24 24)"/><path fill="#F44336" d="M21.5 4.5H26.5V43.501H21.5z" transform="rotate(135.008 24 24)"/></svg>
-                </td>
-                <td class="align-middle avail">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="100" height="100" viewBox="0 0 100 100">
-                        <rect x="0" y="0" width="100" height="100" fill="green"/>
-                        <polyline points="25,50 45,70 75,30" fill="none" stroke="white" stroke-width="8" stroke-linecap="round" stroke-linejoin="round"/>
-                    </svg>
-                </td>
-                <td class="align-middle avail">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="100" height="100" viewBox="0 0 100 100">
-                        <rect x="0" y="0" width="100" height="100" fill="green"/>
-                        <polyline points="25,50 45,70 75,30" fill="none" stroke="white" stroke-width="8" stroke-linecap="round" stroke-linejoin="round"/>
-                    </svg>
-                </td>
-                <td class="align-middle avail">
-                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48" width="48px" height="48px"><path fill="#F44336" d="M21.5 4.5H26.501V43.5H21.5z" transform="rotate(45.001 24 24)"/><path fill="#F44336" d="M21.5 4.5H26.5V43.501H21.5z" transform="rotate(135.008 24 24)"/></svg>
-                </td>
-                <td class="align-middle avail">
-                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48" width="48px" height="48px"><path fill="#F44336" d="M21.5 4.5H26.501V43.5H21.5z" transform="rotate(45.001 24 24)"/><path fill="#F44336" d="M21.5 4.5H26.5V43.501H21.5z" transform="rotate(135.008 24 24)"/></svg>
-                </td>
-            </tr>
-            <tr>
-                <td class="align-middle img">
-                    <svg width="200" height="200" xmlns="http://www.w3.org/2000/svg">
-                        <rect width="100%" height="100%" rx="10" ry="10" fill="#D4FF3F"/>
-                        <text x="50%" y="55%" font-family="Arial, sans-serif" font-size="32" font-style="italic" font-weight="bold" fill="#101820" text-anchor="middle" alignment-baseline="middle">
-                            Handshake
-                        </text>
-                    </svg>
-                </td>
-                <td class="align-middle avail">
-                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48" width="48px" height="48px"><path fill="#F44336" d="M21.5 4.5H26.501V43.5H21.5z" transform="rotate(45.001 24 24)"/><path fill="#F44336" d="M21.5 4.5H26.5V43.501H21.5z" transform="rotate(135.008 24 24)"/></svg>
-                </td>
-                <td class="align-middle avail">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="100" height="100" viewBox="0 0 100 100">
-                        <rect x="0" y="0" width="100" height="100" fill="green"/>
-                        <polyline points="25,50 45,70 75,30" fill="none" stroke="white" stroke-width="8" stroke-linecap="round" stroke-linejoin="round"/>
-                    </svg>
-                </td>
-                <td class="align-middle avail">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="100" height="100" viewBox="0 0 100 100">
-                        <rect x="0" y="0" width="100" height="100" fill="green"/>
-                        <polyline points="25,50 45,70 75,30" fill="none" stroke="white" stroke-width="8" stroke-linecap="round" stroke-linejoin="round"/>
-                    </svg>
-                </td>
-                <td class="align-middle avail">
-                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48" width="48px" height="48px"><path fill="#F44336" d="M21.5 4.5H26.501V43.5H21.5z" transform="rotate(45.001 24 24)"/><path fill="#F44336" d="M21.5 4.5H26.5V43.501H21.5z" transform="rotate(135.008 24 24)"/></svg>
-                </td>
-                <td class="align-middle avail">
-                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48" width="48px" height="48px"><path fill="#F44336" d="M21.5 4.5H26.501V43.5H21.5z" transform="rotate(45.001 24 24)"/><path fill="#F44336" d="M21.5 4.5H26.5V43.501H21.5z" transform="rotate(135.008 24 24)"/></svg>
-                </td>
-            </tr>
+              </tr>
             </tbody>
-        </table>
+          </table>
+        </div>
+      </div>
     </div>
-    <br/><br/>
-    <h1 class="text-white text-center mb-3">Why Leading Institutions Partner with <strong style="color: #f0780e">UNIPREP</strong> for Career & Student Success</h1>
-    <p class="text-white">UNIPREP is an all-in-one platform designed to elevate student outcomes, employer engagement, and global readiness — all while simplifying your career services
-        ecosystem.</p>
-    <br/>
-    <div class="cardsItem">
-        <ng-container *ngFor="let card of cardItems">
-            <div class="card">
-                <div class="card-body py-5 px-4">
-                    <div class="d-flex flex-row align-items-center gap-3">
-                        <img style="height: 30px;width: 30px" [src]="'/assets/'+card.img">
-                        <div class="d-flex flex-column">
-                            <h5 class="mb-1 text-left">{{ card.text }}</h5>
-                            <div class="text-left" *ngIf="card.description" class="text-grey">{{card.description}}</div>
-                        </div>
-                    </div>
-                </div>
+  
+    <!-- Why Partner Section -->
+    <div class="row py-5">
+      <div class="col-12 text-center mb-5">
+        <h2 class="display-5 fw-light fs-1 text-start">
+          Why Leading Institutions Partner with <span class="uniprep-text">UNIPREP</span> for Career & Student Success
+        </h2>
+        <p class="lead mt-3 text-medium text-start">
+          UNIPREP is an all-in-one platform designed to elevate student outcomes, employer engagement, and global readiness — all while simplifying your career services ecosystem.
+        </p>
+      </div>
+  
+      <div class="col-12">
+        <div class="row g-4">
+          <div class="col-md-4 col-sm-12 col-4" *ngFor="let benefit of benefits" [@slideAnimation]>
+            <div class="benefit-card row g-2 align-items-center">
+              <div class="benefit-icon col-md-2">
+                {{benefit.icon}}
+              </div>
+              <div class="col-md-9">
+                  <h3 class="benefit-title">{{benefit.title}}</h3>
+                  <p class="benefit-description">{{benefit.description}}</p>
+              </div>
             </div>
-        </ng-container>
+          </div>
+        </div>
+      </div>
     </div>
-</section>
+  </div>
