@@ -84,7 +84,11 @@
                     <span class="user-initials">
                         {{ getInitials(PersonalInfo?.name) }}
                     </span>
-                    <h5>{{ PersonalInfo?.name }}</h5>
+                    <h5>{{ PersonalInfo?.name }} <span *ngIf="PersonalInfo?.subscription_plan"><button
+                                class="student-plan-btn">
+                                <i class="fa-solid fa-web-awesome" style="color: #fff;"></i>
+                                {{PersonalInfo?.subscription_plan }}
+                            </button></span></h5>
                     <!-- <span class="badge bg-warning">Student Plan</span> -->
                     <span class="fontsizecontent"><i class="fab fa-google text-danger"></i>&nbsp;{{ PersonalInfo?.email
                         }}</span> |
@@ -320,7 +324,8 @@
                                     <div class="text-start">
                                         <h6 class="mb-1 mt-2"><span class="emoji" aria-label="envelope">💌</span>
                                             <strong>Invite a friend to
-                                                try UNIPREP</strong></h6>
+                                                try UNIPREP</strong>
+                                        </h6>
                                         <p class="mb-0 fontsizecontent">We will email them instructions and a link to
                                             create an account
                                         </p>
@@ -369,20 +374,20 @@
                                             <p-table [value]="subscribedHistoryList" responsiveLayout="scroll">
                                                 <ng-template pTemplate="header">
                                                     <tr>
-                                                        <th>Subscription Plan</th>
-                                                        <th>Validity</th>
-                                                        <th>Subscription Start</th>
-                                                        <th>Subscription End</th>
-                                                        <th>Amount</th>
+                                                        <th class="border-cell">Subscription Plan</th>
+                                                        <th class="border-cell">Validity</th>
+                                                        <th class="border-cell">Subscription Start</th>
+                                                        <th class="border-cell">Subscription End</th>
+                                                        <th class="border-cell">Amount</th>
                                                     </tr>
                                                 </ng-template>
                                                 <ng-template pTemplate="body" let-data>
                                                     <tr class="subscription-history-header">
-                                                        <td>{{ data.product }}</td>
-                                                        <td>{{ data.country }}</td>
-                                                        <td>{{ data.validity }} months</td>
-                                                        <td>{{ data.startdate }}</td>
-                                                        <td>{{ data.enddate }}</td>
+                                                        <td class="border-cell">{{ data.product }}</td>
+                                                        <td class="border-cell">{{ data.validity }}months</td>
+                                                        <td class="border-cell">{{ data.startdate }} </td>
+                                                        <td class="border-cell">{{ data.enddate }}</td>
+                                                        <td class="border-cell">{{ data.amount }} {{data.currency}}</td>
                                                     </tr>
                                                 </ng-template>
                                             </p-table>
@@ -404,25 +409,33 @@
                                             </div>
                                         </div>
                                         <div class="col-9">
-                                            <p-table [value]="subscribedHistoryList" responsiveLayout="scroll">
+                                            <p-table [value]="subscribedTransactionList" responsiveLayout="scroll">
                                                 <ng-template pTemplate="header">
                                                     <tr>
-                                                        <th>Product</th>
-                                                        <th>Transaction ID</th>
-                                                        <th>Payment Date</th>
-                                                        <th>Status</th>
-                                                        <th>Amount</th>
-                                                        <th>Invoice</th>
+                                                        <th class="border-cell">Product</th>
+                                                        <th class="border-cell">Transaction ID</th>
+                                                        <th class="border-cell">Payment Date</th>
+                                                        <th class="border-cell">Status</th>
+                                                        <th class="border-cell">Amount</th>
+                                                        <th class="border-cell">Invoice</th>
                                                     </tr>
                                                 </ng-template>
                                                 <ng-template pTemplate="body" let-data>
                                                     <tr class="subscription-history-header">
-                                                        <td>{{ data.product }}</td>
-                                                        <td>{{ data.country }}</td>
-                                                        <td>{{ data.validity }} months</td>
-                                                        <td>{{ data.startdate }}</td>
-                                                        <td>{{ data.enddate }}</td>
-                                                        <td>{{ data.amount }}</td>
+                                                        <td class="border-cell">{{ data.product}}</td>
+                                                        <td class="border-cell">{{ data.transaction_id }}</td>
+                                                        <td class="border-cell">{{ data.date }}</td>
+                                                        <td class="border-cell"><i class="fa-solid fa-check"
+                                                                style="color: aquamarine"></i></td>
+                                                        <td class="border-cell">{{ data.amount }}</td>
+                                                        <td class="border-cell">
+                                                            <button pButton class="btn btn-primary"
+                                                                style="background-color: #90C436 !important;
+                                                                border-color: #90C436;"
+                                                                (click)="downloadInvoice(data.id)"
+                                                                *ngIf="data.invoice != 'no' else noData">
+                                                                Download</button>
+                                                        </td>
                                                     </tr>
                                                 </ng-template>
                                             </p-table>

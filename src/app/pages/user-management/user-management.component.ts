@@ -28,6 +28,7 @@ import { StorageService } from "../../storage.service";
 import { catchError, combineLatest, forkJoin, of } from "rxjs"
 import { InputSwitchModule } from "primeng/inputswitch"
 import { TableModule } from "primeng/table"
+import { SubscriptionService } from "../subscription/subscription.service"
 @Component({
 	selector: "uni-user-management",
 	templateUrl: "./user-management.component.html",
@@ -83,12 +84,14 @@ export class UserManagementComponent implements OnInit {
 	product_update_email_consent:any=0;
 	fieldsToCheck = ["name", "email", "phone", "home_country_id", "selected_country", "location_id", "last_degree_passing_year", "intake_year_looking", "intake_month_looking", "programlevel_id"]
 	settings:any[] = [];
-	@Input() subscribedHistoryList: any
+	subscribedHistoryList: any[]=[];
+	subscribedTransactionList:any[]=[];
+	studentType:number=0;
 	constructor(private authService: AuthService, private formBuilder: FormBuilder,
 		private locationService: LocationService, private toast: MessageService,
 		private dataService: DataService, private dashboardService: DashboardService,
 		private userManagementService: UserManagementService, private router: Router,
-		private _location: Location, private storage: StorageService,) {
+		private _location: Location, private storage: StorageService, private subscription:SubscriptionService) {
 		this.registrationForm = this.formBuilder.group({
 			name: [""],
 			location_id: [""],
@@ -120,6 +123,7 @@ export class UserManagementComponent implements OnInit {
 		this.getIntrestedCountryList();
 		this.takeBasicProfile();
 		this.integrationPartActiveOrInactive();
+		this.getSubscriptions();
 		this.authService.userData.subscribe((data) => {
 			if (data) {
 				this.user = data
@@ -130,7 +134,7 @@ export class UserManagementComponent implements OnInit {
 		this.GetPersonalProfileData()
 		setTimeout(() => {
 			this.hideToolTip = false
-		}, 10000)
+		}, 10000)	
 	}
 
 	// getMonthNumberFromName(monthName: any) {
@@ -239,7 +243,6 @@ export class UserManagementComponent implements OnInit {
 	changeLocation(event: any) {
 		const selectedCountry = this.countryList.find((country: any) => country.id === event.value)
 		if (selectedCountry) {
-			console.log(selectedCountry.flag)
 			this.dataService.changeHomeCountryFlag(selectedCountry.flag)
 		}
 		this.GetLocationList()
@@ -474,9 +477,7 @@ export class UserManagementComponent implements OnInit {
 	  integrationPartActiveOrInactive(){
 		this.userManagementService.integrationPartActiveOrInactive().subscribe({
 			next: (data: any) => {
-				console.log(data);
 				this.assoiciatedMail=data.mail;
-				
 			},
 			error: (error) => {
 				console.error('Error fetching job listings:', error);
@@ -485,5 +486,30 @@ export class UserManagementComponent implements OnInit {
 	}
 	onClickUpgradePlan(){
 		this.router.navigate(["/pages/subscriptions/upgrade-subscription"])
+	}
+	getSubscriptions(){
+		this.subscription.getSubscriptionHistory().subscribe({
+			next: (data: any) => {
+				this.subscribedTransactionList=data.accountbillings;
+				this.subscribedHistoryList=data.subscriptionhistory	
+			},
+			error: (error) => {
+				console.error('Error fetching job listings:', error);
+			}
+		});
+	}
+	
+	downloadInvoice(id: number): void {
+		let data: any = {
+			user_subscription_id: id,
+		}
+		let creditObj = this.subscribedTransactionList.find((item: any) => item.product == "Credit")
+
+		if (creditObj?.id == id) {
+			data.payment_type = creditObj.payment_type
+		}
+		this.subscription.downloadInvoice(data).subscribe((response) => {
+			window.open(response, "_blank")
+		})
 	}
 }
