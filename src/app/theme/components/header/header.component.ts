@@ -405,6 +405,14 @@ export class HeaderComponent implements OnInit, OnDestroy {
 	isResendOTP: boolean = false
 
 	sendOTP() {
+		if (this.phoneVerification.value.verification_phone == null) {
+			this.toast.add({
+				severity: "error",
+				summary: "Error",
+				detail: "Enter valid Phone Number",
+			})
+			return;
+		}
 		this.phoneVerification.disable()
 		let formData = this.phoneVerification.value
 
