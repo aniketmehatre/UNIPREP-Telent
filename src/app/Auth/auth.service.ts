@@ -264,130 +264,13 @@ export class AuthService {
       throw error;
     }
   }
-
-  // private async encryptAndStore(key: string, value: string): Promise<void> {
-  //   try {
-  //     const encryptedValue = await this.encryptData(value);
-  //     this.storage.set(key, encryptedValue);
-  //   } catch (error) {
-  //     console.error(`Error encrypting and storing ${key}:`, error);
-  //     throw error;
-  //   }
-  // }
-
-  private str2ab(str: string): Uint8Array {
-    const buf = new ArrayBuffer(str.length);
-    const bufView = new Uint8Array(buf);
-    for (let i = 0; i < str.length; i++) {
-      bufView[i] = str.charCodeAt(i);
-    }
-    return bufView;
-  }
-
-  private ab2str(buf: ArrayBuffer): string {
-    return String.fromCharCode.apply(null, Array.from(new Uint8Array(buf)));
-  }
-
-  private async getKey(salt: string): Promise<CryptoKey> {
-    const encoder = new TextEncoder();
-    const baseKey = await crypto.subtle.importKey(
-      'raw',
-      encoder.encode(environment.secretKeySalt),
-      { name: 'PBKDF2' },
-      false,
-      ['deriveKey']
-    );
-
-    return crypto.subtle.deriveKey(
-      {
-        name: 'PBKDF2',
-        salt: encoder.encode(salt),
-        iterations: 100000,
-        hash: 'SHA-256'
-      },
-      baseKey,
-      { name: 'AES-GCM', length: 256 },
-      false,
-      ['encrypt', 'decrypt']
-    );
-  }
-
-  // async encryptData(data: any): Promise<string> {
-  //   try {
-  //     const salt = crypto.getRandomValues(new Uint8Array(16));
-  //     const iv = crypto.getRandomValues(new Uint8Array(12));
-  //     const key = await this.getKey(this.ab2str(salt));
-  //
-  //     const encoder = new TextEncoder();
-  //     const dataStr = typeof data === 'string' ? data : JSON.stringify(data);
-  //     const encrypted = await crypto.subtle.encrypt(
-  //       {
-  //         name: 'AES-GCM',
-  //         iv: iv
-  //       },
-  //       key,
-  //       encoder.encode(dataStr)
-  //     );
-  //
-  //     // Combine salt + iv + encrypted data
-  //     const encryptedArray = new Uint8Array(salt.length + iv.length + encrypted.byteLength);
-  //     encryptedArray.set(salt, 0);
-  //     encryptedArray.set(iv, salt.length);
-  //     encryptedArray.set(new Uint8Array(encrypted), salt.length + iv.length);
-  //
-  //     return btoa(String.fromCharCode(...encryptedArray));
-  //   } catch (error) {
-  //     console.error('Error encrypting data:', error);
-  //     throw error;
-  //   }
-  // }
-
-  // async decryptData(encryptedData: string): Promise<string> {
-  //   try {
-  //     if (!encryptedData) {
-  //       throw new Error("Encrypted data is empty!");
-  //     }
-  //
-  //     const encryptedArray = new Uint8Array(
-  //       atob(encryptedData).split('').map(char => char.charCodeAt(0))
-  //     );
-  //
-  //     // Extract salt, iv and encrypted data
-  //     const salt = encryptedArray.slice(0, 16);
-  //     const iv = encryptedArray.slice(16, 28);
-  //     const data = encryptedArray.slice(28);
-  //
-  //     const key = await this.getKey(this.ab2str(salt));
-  //
-  //     const decrypted = await crypto.subtle.decrypt(
-  //       {
-  //         name: 'AES-GCM',
-  //         iv: iv
-  //       },
-  //       key,
-  //       data
-  //     );
-  //
-  //     const decoder = new TextDecoder();
-  //     const decryptedText = decoder.decode(decrypted);
-  //
-  //     return decryptedText;
-  //   } catch (error) {
-  //     console.error('Error decrypting data:', error);
-  //     throw error;
-  //   }
-  // }
-
+  
   getCountry() {
     const headers = new HttpHeaders().set("Accept", "application/json");
     return this.http.get<any>(environment.ApiUrl + "/country", {
       headers: headers,
     });
   }
-
-  // getToken() {
-  //     return of('123');
-  // }
 
   isAuthenticated(val: any): Observable<UserData> {
     return this.http.post<UserData>(environment.ApiUrl + "/login", val);
@@ -443,19 +326,6 @@ export class AuthService {
     });
   }
 
-  // getCountryList() {
-  //     const headers = new HttpHeaders().set("Accept", "application/json");
-  //     return this.http.get<any>(environment.ApiUrl + "/country", {
-  //         headers: headers,
-  //     });
-  // }
-
-  // getNewUserTimeLeft() {
-  //     const headers = new HttpHeaders().set("Accept", "application/json");
-  //     return this.http.post<any>(environment.ApiUrl + "/getsubscriptiontimeleft", {
-  //         headers: headers,
-  //     });
-  // }
   private dataCache$: Observable<any> | null = null;
   getNewUserTimeLeft(): Observable<any> {
     const headers = new HttpHeaders().set("Accept", "application/json");

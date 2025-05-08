@@ -59,7 +59,7 @@ export class LoginComponent implements OnInit, OnDestroy {
 		private toast: MessageService, private dataService: DataService,
 		private locationService: LocationService, private authService: SocialAuthService,
 		private storage: LocalStorageService, private authTokenService: AuthTokenService,
-		private cdr: ChangeDetectorRef, private el: ElementRef, private renderer: Renderer2) { }
+		private cdr: ChangeDetectorRef) { }
 
 	ngOnDestroy() {
 		this.subs.unsubscribe()
@@ -116,19 +116,11 @@ export class LoginComponent implements OnInit, OnDestroy {
 					if (exists === "Exist") {
 						this.handleSocialLogin(user)
 					} else {
-						this.toast.add({
-							severity: "info",
-							summary: "Info",
-							detail: "Email not exist, Try Register"
-						})
+						this.toast.add({ severity: "info", summary: "Info", detail: "Email not exist, Try Register" })
 					}
 				},
 				error: (error) => {
-					this.toast.add({
-						severity: "error",
-						summary: "Error",
-						detail: error.message || 'Social login check failed'
-					})
+					this.toast.add({ severity: "error", summary: "Error", detail: error.message || 'Social login check failed' })
 				}
 			})
 		})
@@ -145,30 +137,14 @@ export class LoginComponent implements OnInit, OnDestroy {
 			})
 		).subscribe({
 			next: (response) => {
-				if ( response.status === "false") {
-					this.toast.add({
-						severity: "error",
-						summary: "Error",
-						detail: response.message || 'Login failed'
-					})
+				if (response.status === "false") {
+					this.toast.add({ severity: "error", summary: "Error", detail: response.message || 'Login failed' })
 					return
 				}
 				this.handleSuccessfulLogin(response.token)
 			},
 			error: (error) => {
-				let message = 'Social login failed'
-			
-				if (error?.error?.message) {
-					message = error.error.message
-				} else if (error?.message) {
-					message = error.message
-				}
-			
-				this.toast.add({
-					severity: "error",
-					summary: "Error",
-					detail: message
-				})
+				this.toast.add({ severity: "error", summary: "Error", detail: error?.error?.message || error.message || 'Social login failed' })
 			}
 		})
 	}
@@ -177,34 +153,20 @@ export class LoginComponent implements OnInit, OnDestroy {
 		this.service.saveToken(token)
 		this.authTokenService.setToken(token)
 		this.storage.set(environment.tokenKey, token)
-
 		this.service.getMe().subscribe({
 			next: (userData) => {
 				this.loadCountryList(userData)
-				this.subs.sink = this.service.selectMessage$().subscribe((message) => {
-					let req = {
-						userId: userData.userdetails[0].user_id,
-						location: this.locationData.city,
-						country: this.locationData.country_name,
-					};
-					this.locationService
-						.sendSessionData(req, "login")
-						.subscribe((response) => {
-						});
-				});
-				this.toast.add({
-					severity: "success",
-					summary: "Success",
-					detail: "Login Successful"
-				})
+				let req = {
+					userId: userData.userdetails[0].user_id,
+					location: this.locationData.city,
+					country: this.locationData.country_name,
+				};
+				this.locationService.sendSessionData(req, "login").subscribe();
+				this.toast.add({ severity: "success", summary: "Success", detail: "Login Successful" })
 				this.route.navigate(["/pages/dashboard"], { replaceUrl: true })
 			},
 			error: (error) => {
-				this.toast.add({
-					severity: "error",
-					summary: "Error",
-					detail: error.message || 'Failed to load user data'
-				})
+				this.toast.add({ severity: "error", summary: "Error", detail: error.message || 'Failed to load user data' })
 			}
 		})
 	}
@@ -226,7 +188,7 @@ export class LoginComponent implements OnInit, OnDestroy {
 	}
 
 	get f() {
-		return this.loginForm.controls
+		return this.loginForm.controls;
 	}
 
 	onSubmit(): void {
