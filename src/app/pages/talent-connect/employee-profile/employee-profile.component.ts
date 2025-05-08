@@ -1440,7 +1440,7 @@ export class EmployeeProfileComponent implements OnInit, OnDestroy {
       this.appendFormData(formData).then(() => {
         this.talentConnectService.getAiEvaluationSummary(formData).subscribe({
           next: (response) => {
-            this.aiEvaluationContent = response.content
+            this.aiEvaluationContent = response.response
             this.isShowAiEvaluation = true
           },
           error: () => {
