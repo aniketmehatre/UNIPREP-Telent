@@ -39,7 +39,7 @@ export const appRoutes: Routes = [
 	{ path: "verification/:email", component: VerificationComponent },
 	{ path: "setpassword/:otp/:email", component: SetpasswordComponent },
 	{
-		path: 'landing-new',
+		path: 'talent-connect',
 		loadComponent: () => import('./pages/landing-new/landing-new.component').then(c => c.LandingNewComponent)
 	},
 
