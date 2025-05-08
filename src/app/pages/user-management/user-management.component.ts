@@ -34,7 +34,7 @@ import { SubscriptionService } from "../subscription/subscription.service"
 	templateUrl: "./user-management.component.html",
 	styleUrls: ["./user-management.component.scss"],
 	standalone: true,
-	imports: [CommonModule, RouterModule,TableModule,InputSwitchModule , FormsModule, ReactiveFormsModule, SkeletonModule, FluidModule, InputTextModule, TooltipModule, ButtonModule, MultiSelectModule, CarouselModule, InputGroupModule, InputGroupAddonModule, FormsModule, ReactiveFormsModule, InputTextModule, SelectModule, DialogModule, CardModule, InputNumberModule],
+	imports: [CommonModule, RouterModule, TableModule, InputSwitchModule, FormsModule, ReactiveFormsModule, SkeletonModule, FluidModule, InputTextModule, TooltipModule, ButtonModule, MultiSelectModule, CarouselModule, InputGroupModule, InputGroupAddonModule, FormsModule, ReactiveFormsModule, InputTextModule, SelectModule, DialogModule, CardModule, InputNumberModule],
 	providers: [UserManagementService],
 })
 export class UserManagementComponent implements OnInit {
@@ -79,19 +79,19 @@ export class UserManagementComponent implements OnInit {
 	totalPercentage: number = 0;
 	progress: number = 0;
 	userData: any;
-	newsletter_consent:any=0;
-	promotional_email_consent:any=0;
-	product_update_email_consent:any=0;
+	newsletter_consent: any = 0;
+	promotional_email_consent: any = 0;
+	product_update_email_consent: any = 0;
 	fieldsToCheck = ["name", "email", "phone", "home_country_id", "selected_country", "location_id", "last_degree_passing_year", "intake_year_looking", "intake_month_looking", "programlevel_id"]
-	settings:any[] = [];
-	subscribedHistoryList: any[]=[];
-	subscribedTransactionList:any[]=[];
-	studentType:number=0;
+	settings: any[] = [];
+	subscribedHistoryList: any[] = [];
+	subscribedTransactionList: any[] = [];
+	studentType: number = 0;
 	constructor(private authService: AuthService, private formBuilder: FormBuilder,
 		private locationService: LocationService, private toast: MessageService,
 		private dataService: DataService, private dashboardService: DashboardService,
 		private userManagementService: UserManagementService, private router: Router,
-		private _location: Location, private storage: StorageService, private subscription:SubscriptionService) {
+		private _location: Location, private storage: StorageService, private subscription: SubscriptionService) {
 		this.registrationForm = this.formBuilder.group({
 			name: [""],
 			location_id: [""],
@@ -134,7 +134,7 @@ export class UserManagementComponent implements OnInit {
 		this.GetPersonalProfileData()
 		setTimeout(() => {
 			this.hideToolTip = false
-		}, 10000)	
+		}, 10000)
 	}
 
 	// getMonthNumberFromName(monthName: any) {
@@ -278,27 +278,27 @@ export class UserManagementComponent implements OnInit {
 		this.registrationForm.disable();
 		this.userManagementService.GetUserPersonalInfo().subscribe((data) => {
 			this.PersonalInfo = data
-			this.newsletter_consent=this.PersonalInfo?.newsletter_consent==1?1:0;
-			this.promotional_email_consent=this.PersonalInfo?.promotional_email_consent==1?1:0;
-			this.product_update_email_consent=this.PersonalInfo?.product_update_email_consent==1?1:0;
+			this.newsletter_consent = this.PersonalInfo?.newsletter_consent == 1 ? 1 : 0;
+			this.promotional_email_consent = this.PersonalInfo?.promotional_email_consent == 1 ? 1 : 0;
+			this.product_update_email_consent = this.PersonalInfo?.product_update_email_consent == 1 ? 1 : 0;
 			this.settings = [
 				{
-				  title: 'Weekly Newsletter',
-				  description: 'Get notified about articles, discounts and new products.',
-				  enabled: this.newsletter_consent
+					title: 'Weekly Newsletter',
+					description: 'Get notified about articles, discounts and new products.',
+					enabled: this.newsletter_consent
 				},
 				{
-				  title: 'Promotional Emails',
-				  description: 'Get personalised emails based on your orders and preferences.',
-				  enabled: this.promotional_email_consent
+					title: 'Promotional Emails',
+					description: 'Get personalised emails based on your orders and preferences.',
+					enabled: this.promotional_email_consent
 				},
 				{
-				  title: 'Product Updates',
-				  description: 'Checking this will enable us to notify you on updates and addition of new features to our product.',
-				  enabled: this.product_update_email_consent
+					title: 'Product Updates',
+					description: 'Checking this will enable us to notify you on updates and addition of new features to our product.',
+					enabled: this.product_update_email_consent
 
 				}
-			  ];
+			];
 			this.registrationForm.patchValue({
 				name: this.PersonalInfo?.name,
 				location_id: this.PersonalInfo?.location_id,
@@ -411,7 +411,7 @@ export class UserManagementComponent implements OnInit {
 			}
 		});
 	}
-	
+
 	logout() {
 		this.locationService.sessionEndApiCall().subscribe((data: any) => { })
 		this.authService.logout().subscribe((data) => {
@@ -424,19 +424,19 @@ export class UserManagementComponent implements OnInit {
 			localStorage.clear()
 			this.router.navigateByUrl("/login")
 		})
-	  } 
+	}
 	// get name short form
 	getInitials(name: string): string {
 		if (!name) return '';
 		const parts = name.trim().split(' ');
 		const initials = parts.map(p => p.charAt(0)).slice(0, 2).join('');
 		return initials.toUpperCase();
-	  }
-	  emailSettings(email:any){
-		const title=email.title
-		if(title=="Weekly Newsletter"){
-			var data={
-				newsletter_consent:email.enabled
+	}
+	emailSettings(email: any) {
+		const title = email.title
+		if (title == "Weekly Newsletter") {
+			var data = {
+				newsletter_consent: email.enabled
 			}
 			this.userManagementService.newsLetterConsent(data).subscribe({
 				next: (data: any) => {
@@ -446,9 +446,9 @@ export class UserManagementComponent implements OnInit {
 					console.error('Error fetching job listings:', error);
 				}
 			});
-		}else if(title=="Promotional Emails"){
-			var data1={
-				promotional_email_consent:email.enabled
+		} else if (title == "Promotional Emails") {
+			var data1 = {
+				promotional_email_consent: email.enabled
 			}
 			this.userManagementService.promotionalEmailConsent(data1).subscribe({
 				next: (data: any) => {
@@ -458,9 +458,9 @@ export class UserManagementComponent implements OnInit {
 					console.error('Error fetching job listings:', error);
 				}
 			});
-		}else{
-			var data2={
-				product_update_email_consent:email.enabled
+		} else {
+			var data2 = {
+				product_update_email_consent: email.enabled
 			}
 			this.userManagementService.productUpdateEmailConsent(data2).subscribe({
 				next: (data: any) => {
@@ -471,34 +471,34 @@ export class UserManagementComponent implements OnInit {
 				}
 			});
 		}
-		
-	  }
-	  assoiciatedMail:any="";
-	  integrationPartActiveOrInactive(){
+
+	}
+	assoiciatedMail: any = "";
+	integrationPartActiveOrInactive() {
 		this.userManagementService.integrationPartActiveOrInactive().subscribe({
 			next: (data: any) => {
-				this.assoiciatedMail=data.mail;
+				this.assoiciatedMail = data.mail;
 			},
 			error: (error) => {
 				console.error('Error fetching job listings:', error);
 			}
 		});
 	}
-	onClickUpgradePlan(){
+	onClickUpgradePlan() {
 		this.router.navigate(["/pages/subscriptions/upgrade-subscription"])
 	}
-	getSubscriptions(){
+	getSubscriptions() {
 		this.subscription.getSubscriptionHistory().subscribe({
 			next: (data: any) => {
-				this.subscribedTransactionList=data.accountbillings;
-				this.subscribedHistoryList=data.subscriptionhistory	
+				this.subscribedTransactionList = data.accountbillings;
+				this.subscribedHistoryList = data.subscriptionhistory
 			},
 			error: (error) => {
 				console.error('Error fetching job listings:', error);
 			}
 		});
 	}
-	
+
 	downloadInvoice(id: number): void {
 		let data: any = {
 			user_subscription_id: id,
@@ -512,4 +512,13 @@ export class UserManagementComponent implements OnInit {
 			window.open(response, "_blank")
 		})
 	}
+	// mobile view side menu
+	isSidebarVisible: boolean = false;
+
+	toggleSidebar(): void {
+		this.isSidebarVisible = !this.isSidebarVisible;
+	}
+	closeMobileMenu() {
+		this.isSidebarVisible = false;
+	  }
 }
