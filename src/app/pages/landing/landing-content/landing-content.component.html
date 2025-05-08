@@ -641,7 +641,7 @@
 		  <h2 class="text-center mb-5">Blogs</h2>
 		  <div class="row">
 			<div class="col-lg-3 col-md-4 col-sm-6 mb-4" *ngFor="let post of blogs">
-			  <div class="card blog-card h-100 p-2">
+			  <div class="card blog-card h-100 p-2" [routerLink]="['/blogs', post.slug]">
 				<div class="blog-image-container">
 				  <img [src]="post.featured_img" class="card-img-top blog-image" [alt]="post.title">
 				</div>
@@ -654,7 +654,7 @@
 					</span>
 					<span class="category-label">{{ post.category }}</span>
 				  </div>
-				  <p class="card-text line-clamp text-small" [innerHTML]="post.content"></p>
+				  <!-- <p class="card-text line-clamp text-small" [innerHTML]="post.content"></p> -->
 				</div>
 			  </div>
 			</div>
