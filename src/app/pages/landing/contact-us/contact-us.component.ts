@@ -4,6 +4,8 @@ import { FormGroup, FormBuilder, Validators, ReactiveFormsModule } from '@angula
 import { ButtonModule } from 'primeng/button';
 import { InputTextModule } from 'primeng/inputtext';
 import { Router } from '@angular/router';
+import { landingServices } from '../landing.service';
+import { MessageService } from 'primeng/api';
 
 @Component({
   selector: 'uni-contact-us',
@@ -20,8 +22,8 @@ import { Router } from '@angular/router';
 export class ContactUsComponent {
   activeFormType: string = 'general';
   contactForm: FormGroup;
-
-  constructor(private fb: FormBuilder, private router: Router) { }
+  institutionTypes = ['College', 'University', 'Group of Institutions', 'Training Centre'];
+  constructor(private fb: FormBuilder, private router: Router, private landingPageService: landingServices, private messageService: MessageService) { }
 
   ngOnInit() {
     this.initForm();
@@ -49,7 +51,7 @@ export class ContactUsComponent {
         designation: ['', Validators.required],
         mobileNumber: [''],
         institutionName: ['', Validators.required],
-        institutionNameFull: ['', Validators.required],
+        institutionType: ['', Validators.required],
         city: ['', Validators.required],
         state: ['', Validators.required],
         country: ['', Validators.required]
@@ -71,9 +73,22 @@ export class ContactUsComponent {
 
   onSubmit() {
     if (this.contactForm.valid) {
-      console.log('Form submitted:', this.contactForm.value);
-      // Here you would typically send the form data to your backend
-      this.contactForm.reset();
+      this.landingPageService.sendContactUsPage({ ...this.contactForm.value, mode: this.activeFormType }).subscribe({
+        next: response => {
+          console.log(response);
+
+          if (response.success) {
+            this.messageService.add({
+              severity: 'success',
+              summary: 'Submitted',
+              detail: response.message
+            });
+          }
+        },
+        error: error => {
+          console.log(error.error.message);
+        }
+      })
     } else {
       // Mark all fields as touched to trigger validation messages
       Object.keys(this.contactForm.controls).forEach(key => {

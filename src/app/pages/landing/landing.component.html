@@ -27,26 +27,26 @@
 				<ul class="dropdown-menu bg-dark" aria-labelledby="exploreDropdown">
 					<li><a class="dropdown-item text-white hover-black" (click)="scrollToSection($event, 'about')">About
 							Uniprep</a></li>
-					<!-- <li><a class="dropdown-item text-white hover-black"
-							routerLink="/landing/about/management">Management Team</a></li> -->
+					<li><a class="dropdown-item text-white hover-black"
+							routerLink="/landing/about/management">Management Team</a></li>
 				</ul>
 			</li>
-			<!--			<li class="nav-item dropdown">-->
-			<!--				<a class="nav-link text-white fw-regular dropdown-toggle" href="/#feature" id="exploreDropdown"-->
-			<!--					role="button" data-bs-toggle="dropdown" aria-expanded="false">-->
-			<!--					Feature-->
-			<!--				</a>-->
-			<!--				<ul class="dropdown-menu bg-dark" aria-labelledby="exploreDropdown">-->
-			<!--					<li><a class="dropdown-item text-white hover-black" routerLink="/landing/explore/job-seekers">For-->
-			<!--							Job Seekers</a></li>-->
-			<!--					<li><a class="dropdown-item text-white hover-black"-->
-			<!--							routerLink="/landing/explore/international-students">For International Students</a></li>-->
-			<!--					<li><a class="dropdown-item text-white hover-black"-->
-			<!--							routerLink="/landing/explore/global-travellers">For Global Travellers</a></li>-->
-			<!--					<li><a class="dropdown-item text-white hover-black" routerLink="/landing/explore/entrepreneurs">For-->
-			<!--							Entrepreneurs</a></li>-->
-			<!--				</ul>-->
-			<!--			</li>-->
+						<li class="nav-item dropdown">
+							<a class="nav-link text-white fw-regular dropdown-toggle" href="/#feature" id="exploreDropdown"
+								role="button" data-bs-toggle="dropdown" aria-expanded="false">
+								Feature
+							</a>
+							<ul class="dropdown-menu bg-dark" aria-labelledby="exploreDropdown">
+								<li><a class="dropdown-item text-white hover-black" routerLink="/landing/explore/job-seekers">For
+										Job Seekers</a></li>
+								<li><a class="dropdown-item text-white hover-black"
+										routerLink="/landing/explore/international-students">For International Students</a></li>
+								<li><a class="dropdown-item text-white hover-black"
+										routerLink="/landing/explore/global-travellers">For Global Travellers</a></li>
+								<li><a class="dropdown-item text-white hover-black" routerLink="/landing/explore/entrepreneurs">For
+										Entrepreneurs</a></li>
+							</ul>
+						</li>
 			<li class="nav-item dropdown">
 				<a class="nav-link text-white fw-regular dropdown-toggle" href="#explore" id="exploreDropdown"
 					role="button" data-bs-toggle="dropdown" aria-expanded="false">
@@ -72,21 +72,21 @@
             <li class="nav-item">
                 <a class="nav-link active text-white fw-regular" aria-current="page" href="/contact-us">Contact Us</a>
             </li>
-			<!--			<li class="nav-item">-->
-			<!--				<a class="nav-link text-white fw-regular" aria-label="Key Features" href="#keyfeatures"-->
-			<!--					(click)="scrollToSection($event, 'keyfeatures')">Key Features</a>-->
-			<!--			</li>-->
-			<!--			<li class="nav-item">-->
-			<!--				<a class="nav-link text-white fw-regular" aria-label="Certificates"-->
-			<!--					href="/certificates">Certificates</a>-->
-			<!--			</li>-->
-			<!--			<li class="nav-item">-->
-			<!--				<a class="nav-link text-white fw-regular" aria-label="Blogs" href="/blogs">Blogs</a>-->
-			<!--			</li>-->
-			<!-- <li class="nav-item">
+						<!-- <li class="nav-item">
+							<a class="nav-link text-white fw-regular" aria-label="Key Features" href="#keyfeatures"
+								(click)="scrollToSection($event, 'keyfeatures')">Key Features</a>
+						</li>
+						<li class="nav-item">
+							<a class="nav-link text-white fw-regular" aria-label="Certificates"
+								href="/certificates">Certificates</a>
+						</li>
+						<li class="nav-item">
+							<a class="nav-link text-white fw-regular" aria-label="Blogs" href="/blogs">Blogs</a>
+						</li> -->
+			<li class="nav-item">
 				<a class="nav-link text-white fw-regular" aria-label="FAQ" href="#faq"
 					(click)="scrollToSection($event, 'faq')">F.A.Q</a>
-			</li> -->
+			</li>
 			<!-- Add other desktop menu items as needed -->
 		</ul>
 
@@ -261,7 +261,10 @@
 			<div class="contact-info">
 			  <div class="d-flex flex-column mb-2">
 				<span class="text-white-50">Phone</span>
-				<span class="text-white small">IND +91 99807 88380</span>
+				<div>
+					<span class="text-white small"><img src="uniprep-assets/icons/india.png" width="13" height="13"/> +91 99807 88380</span>&nbsp;
+					<span class="text-white small"><img src="uniprep-assets/icons/united-kingdom.png" width="13" height="13"/> +44 9900900990</span>
+				</div>
 			  </div>
 			  <div class="d-flex flex-column">
 				<span class="text-white-50">Email</span>

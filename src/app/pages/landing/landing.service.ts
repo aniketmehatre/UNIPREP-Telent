@@ -61,4 +61,8 @@ export class landingServices {
   getManagementTeamMembersList(data: any) {
     return this.http.post<any>(`${environment.ApiUrl}/landingpageactivemanagement`, data);
   }
+
+  sendContactUsPage(data: any) {
+    return this.http.post<any>(`${environment.ApiUrl}/contactussave`, data);
+  }
 }
