@@ -277,6 +277,10 @@ const routes: Routes = [
                 loadChildren: () => import('./career-hacks/careerhacks.module').then(m => m.CareerHacksModule)
             },
             {
+                path: 'career-hacks/:countryId/:questionId',
+                loadChildren: () => import('./career-hacks/careerhacks.module').then(m => m.CareerHacksModule)
+            },
+            {
                 path: 'salary-hacks',
                 loadChildren: () => import('./salary-hacks/salaryhacks.module').then(m => m.SalaryHacksModule)
             },
