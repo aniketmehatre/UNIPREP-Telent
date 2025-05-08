@@ -96,7 +96,7 @@
                     <span class="fontsizecontent"><i class="fab fa-google text-danger"></i>&nbsp;{{ PersonalInfo?.email
                         }}</span> |
                     <span class="fontsizecontent"> <i class="fab fa-whatsapp text-success"></i>&nbsp;{{
-                        formatPhoneNumber(PersonalInfo?.country_code, PersonalInfo?.phone) }}</span> <br>
+                        PersonalInfo?.country_code}} {{PersonalInfo?.phone}}</span> <br>
                     <span class="fontsizecontent">{{ PersonalInfo?.district }} ,{{ PersonalInfo?.state }},{{
                         PersonalInfo?.home_country_name }}</span>
                 </div>
