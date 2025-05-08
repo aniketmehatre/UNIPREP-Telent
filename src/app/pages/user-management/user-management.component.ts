@@ -35,7 +35,6 @@ import { SubscriptionService } from "../subscription/subscription.service"
 	styleUrls: ["./user-management.component.scss"],
 	standalone: true,
 	imports: [CommonModule, RouterModule, TableModule, InputSwitchModule, FormsModule, ReactiveFormsModule, SkeletonModule, FluidModule, InputTextModule, TooltipModule, ButtonModule, MultiSelectModule, CarouselModule, InputGroupModule, InputGroupAddonModule, FormsModule, ReactiveFormsModule, InputTextModule, SelectModule, DialogModule, CardModule, InputNumberModule],
-	providers: [UserManagementService],
 })
 export class UserManagementComponent implements OnInit {
 	user!: User | null
@@ -121,7 +120,7 @@ export class UserManagementComponent implements OnInit {
 		this.getProgramLevelList();
 		this.getCountryList();
 		this.getIntrestedCountryList();
-		this.takeBasicProfile();
+		this.handleUserData();
 		this.integrationPartActiveOrInactive();
 		this.getSubscriptions();
 		this.authService.userData.subscribe((data) => {
@@ -366,26 +365,11 @@ export class UserManagementComponent implements OnInit {
 			}
 		});
 	}
-	takeBasicProfile() {
-		const mainData$ = forkJoin({
-			userData: this.authService.getMe().pipe(catchError(() => of(null))),
-		});
-		this.subs.sink = mainData$.subscribe(({
-			userData
-		}) => {
 
-			// Handle user data
-			if (userData) {
-				this.handleUserData(userData);
-			}
-
-			// this.cdr.markForCheck();
-		});
-	}
-	private handleUserData(userData: any): void {
+	handleUserData() {
 		let filledCount = 0;
 		const totalCount = this.fieldsToCheck.length;
-		this.userData = userData.userdetails[0];
+		this.userData = this.authService._user;
 		this.fieldsToCheck.forEach((field) => {
 			if (this.userData[field] != null && this.userData[field] !== undefined && this.userData[field] !== "") {
 				filledCount++;
