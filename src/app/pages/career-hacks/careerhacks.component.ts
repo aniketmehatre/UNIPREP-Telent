@@ -1,5 +1,5 @@
 import { Component, Input, OnInit } from "@angular/core";
-import { RouterModule } from "@angular/router";
+import { ActivatedRoute, RouterModule } from "@angular/router";
 import { CommonModule } from "@angular/common";
 import { DialogModule } from "primeng/dialog";
 import { CardModule } from 'primeng/card';
@@ -22,8 +22,8 @@ import { PageFacadeService } from "../page-facade.service";
   templateUrl: "./careerhacks.component.html",
   standalone: true,
   imports: [
-    RouterModule, 
-    DialogModule, 
+    RouterModule,
+    DialogModule,
     CommonModule,
     CardModule,
     PaginatorModule,
@@ -48,7 +48,21 @@ export class CareerhacksComponent implements OnInit {
   @Input() prepData: any = {};
   componentswitch: number = 1;
 
+  constructor(private route: ActivatedRoute) {
+
+  }
+
   ngOnInit(): void {
+    const countryId = Number(this.route.snapshot.paramMap.get("countryId"));
+    const questionId = Number(this.route.snapshot.paramMap.get("questionId"));
+    if (countryId && questionId) {
+      this.prepData = {
+        country_id: countryId,
+        question_id: questionId,
+        stage: 2,
+      }
+      this.componentswitch = 2;
+    }
     if (!this.componentswitch) {
       this.componentswitch = 1;
     }

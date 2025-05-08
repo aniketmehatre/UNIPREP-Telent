@@ -40,12 +40,13 @@ const routes: Routes = [
         path: 'startup-failure-stories/:id/:question_id', component: PoliticianInsightsComponent
       },
       {
-        path: 'country-insights',
-        component: CountryInsightsComponent,
+        path: 'country-insights',component: CountryInsightsComponent,
       },
       {
-        path: 'country-insights/:id',
-        component: CountryInsightsSubmoduleComponent
+        path: 'country-insights/:id/:countryId',component: CountryInsightsSubmoduleComponent
+      },
+      {
+        path: 'country-insights/:id/:countryId/:questionId',component: CountryInsightsSubmoduleComponent
       },
       {
         path: 'study-visa', component: GlobalTravelVisaComponent

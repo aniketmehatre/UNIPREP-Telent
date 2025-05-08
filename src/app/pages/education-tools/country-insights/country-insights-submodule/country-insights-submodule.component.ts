@@ -30,7 +30,7 @@ export class CountryInsightsSubmoduleComponent implements OnInit {
   first = 0;
   page = 1;
   pageSize = 25;
-  moduleId: string = '';
+  moduleId: number = 0;
   countryId: string = '';
   questionModal: boolean = false;
   questionDetail: any;
@@ -44,7 +44,7 @@ export class CountryInsightsSubmoduleComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.moduleId = this.route.snapshot.params?.['id'];
+    this.moduleId  = Number(this.route.snapshot.paramMap.get("id"));
     // this.countryId = this.storage.get('country_insights_country') || '';
     // this.countryname = this.storage.get('country_name') || '';
     this.countryId = this.storage.get('country_insights_country') || '';
