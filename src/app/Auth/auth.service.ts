@@ -615,9 +615,10 @@ export class AuthService {
 
   isInvalidSubscription(module: string): boolean {
     let planExpired: boolean = false;
+    //|| module === 'ai_credit_count' 
     if (module === 'ai_global_advisor' || module === 'education_tools' || module === 'travel_tools' || module === 'events'
       || module === 'global_repository' || module === 'uni_scholar' || module === 'uni_finder' || module === 'uni_learn'
-      || module === 'language_hub' || module === 'ai_credit_count' 
+      || module === 'language_hub' 
     ) {
       if (this._userSubscrition?.time_left?.plan === "expired" ||
         this._userSubscrition?.time_left?.plan === "subscription_expired") {
