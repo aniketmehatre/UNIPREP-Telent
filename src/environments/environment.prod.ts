@@ -21,6 +21,7 @@ export const environment = {
   tokenKey: 'token',
   facebookAppId: '892925195633254',
   linkedinId: '86b55xx7n8zomc',
+  whatsappSupportNumber: 9876543210,
   googleCloud: {
     apiKey: 'AIzaSyCxrgn6ZZL3IsY_3xrSqQJi_3yT_OKr-n0'
   },
