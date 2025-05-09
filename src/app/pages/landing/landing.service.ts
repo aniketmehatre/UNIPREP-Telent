@@ -2,6 +2,7 @@ import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import {Injectable} from '@angular/core';
 import {environment} from '@env/environment';
 import {Observable} from 'rxjs';
+import { IPAddress } from './pricing/pricing.component';
 
 @Injectable({
     providedIn: 'root'
@@ -64,5 +65,17 @@ export class landingServices {
 
   sendContactUsPage(data: any) {
     return this.http.post<any>(`${environment.ApiUrl}/contactussave`, data);
+  }
+
+  getCitiesCountry(data: any) {
+    return this.http.get<any>(`${environment.ApiUrl}/getworldcitiescountry`, { params: data });
+  }
+
+  getLandingPageSubscriptionList(data: any) {
+    return this.http.post<IPAddress>(`${environment.ApiUrl}/getlandingpagesubscriptionlist`, data);
+  }
+
+  getCountryName() {
+    return this.http.get('http://ipinfo.io');
   }
 }

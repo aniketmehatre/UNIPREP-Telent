@@ -31,6 +31,10 @@ const routes: Routes = [
         loadComponent: () => import('./contact-us/contact-us.component').then(c => c.ContactUsComponent)
       },
       {
+        path: 'pricing',
+        loadComponent: () => import('./pricing/pricing.component').then(c => c.PricingComponent)
+      },
+      {
         path: 'about/management',
         loadComponent: () => import('./management-team/management-team.component').then(m => m.ManagementTeamComponent),
       },
