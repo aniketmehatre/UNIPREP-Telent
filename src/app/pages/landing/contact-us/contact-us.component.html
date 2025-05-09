@@ -15,7 +15,7 @@
   <div class="contact-content">
     <div class="">
       <div class="">
-        <div class="card mb-4">
+        <div class="card mb-4 w-100">
           <button class="py-4 dropdown btn text-white dropdown-toggle w-100 text-start" type="button" id="headquarterDropdown"
             data-bs-toggle="dropdown" aria-expanded="false">
             {{ selectedHeadquarter }}
@@ -104,8 +104,8 @@
             [searchCountryField]="[SearchCountryField.Iso2, SearchCountryField.Name]" [phoneValidation]="true"
             [selectedCountryISO]="preferredCountry" customPlaceholder="Enter Contact Number"
             formControlName="phoneNumber" aria-label="Enter Whatsapp Number" [maxLength]="10"></ngx-intl-tel-input>
-          <div class="invalid-feedback"
-            *ngIf="contactForm.get('phoneNumber')?.touched && isValidationPhoneNumber">
+          <div class="text-danger mt-2 small"
+            *ngIf="contactForm.get('phoneNumber')?.touched && contactForm.get('phoneNumber')?.errors?.['required']">
             Whatsapp number is required
           </div>
         </div>

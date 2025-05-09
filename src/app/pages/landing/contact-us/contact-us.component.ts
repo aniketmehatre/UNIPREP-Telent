@@ -140,6 +140,13 @@ export class ContactUsComponent {
 
   onSubmit() {
     if (this.contactForm.valid) {
+      if (this.isValidationPhoneNumber) {
+        this.messageService.add({
+          severity: 'error',
+          summary: 'Required',
+          detail: 'Please fill whatsapp number'
+        });
+      }
       this.landingPageServices.sendContactUsPage({ ...this.contactForm.value, phoneNumber: this.cf?.['phoneNumber'].value.number, phoneCountryCode: this.cf?.['phoneNumber'].value.dialCode }).subscribe({
         next: response => {
           console.log(response);
@@ -162,6 +169,7 @@ export class ContactUsComponent {
       Object.keys(this.contactForm.controls).forEach(key => {
         this.contactForm.get(key)?.markAsTouched();
       });
+      console.log(this.contactForm.controls)
     }
   }
 
