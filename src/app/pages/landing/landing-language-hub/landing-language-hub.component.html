@@ -13,7 +13,7 @@
 					</div>
 					<div class="col-md-12">
 						<div class="row align-items-center">
-							<div class="col-md-6 mb-md-0 mb-4">
+							<div class="col-md-5 mb-md-0 mb-4">
 								<h1 class="fw-normal text-white">
 									<span class="fw-bold uniprep-secondary">{{ landingPageData?.herocover?.hero_title?.split('.')[0] }}.</span>
 									{{ landingPageData?.herocover?.hero_title?.split('.').slice(1).join('.') }}
@@ -24,7 +24,7 @@
 									<button class="btn btn-secondary rounded px-4 py-3" routerLink="/login">Try for Free!</button>
 								</div>
 							</div>
-							<div class="col-md-6">
+							<div class="col-md-7">
 								<div class="w-100 overflow-hidden">
 									<!-- <div class="video-container" (click)="toggleVideo()">
                     <i class="fa-solid fa-circle-play uniprep-secondary fa-beat" role="button" *ngIf="!isPlaying"></i>
@@ -32,7 +32,11 @@
                       <source [src]="'https://'+environment.domain+'/uniprepapi/storage/app/public/Landing/welcome.mp4'" type="video/mp4" />
                     </video>
                   </div> -->
-									<img class="w-100" [src]="landingPageData?.herocover.image_url ?? 'uniprep-assets/images/screenshot.png'" alt="Learning Hub Dashboard" />
+									<img class="w-100" [src]="landingPageData?.herocover.image_url ?? 'uniprep-assets/images/mockup.webp'" alt="Learning Hub Dashboard" />
+				  					<div class="position-relative fakemockup">
+										<img class="mockup" src="uniprep-assets/images/mockup-frame.webp">
+										<img class="mockupfit" [src]="landingPageData?.herocover.image_url" alt="Learning Hub Dashboard" />
+									</div>
 								</div>
 							</div>
 						</div>
