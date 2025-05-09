@@ -2,7 +2,7 @@ import { Component, Input, OnInit } from "@angular/core"
 import { FormBuilder, FormGroup, Validators, FormsModule, ReactiveFormsModule } from "@angular/forms"
 import { AuthService } from "../../Auth/auth.service"
 import { LocationService } from "../../location.service"
-import { MessageService } from "primeng/api"
+import { ConfirmationService, MessageService } from "primeng/api"
 import { User } from "../../@Models/user.model"
 import { UserManagementService } from "./user-management.service"
 import { SubSink } from "subsink"
@@ -29,12 +29,14 @@ import { catchError, combineLatest, forkJoin, of } from "rxjs"
 import { InputSwitchModule } from "primeng/inputswitch"
 import { TableModule } from "primeng/table"
 import { SubscriptionService } from "../subscription/subscription.service"
+import { ConfirmDialogModule } from "primeng/confirmdialog"
 @Component({
 	selector: "uni-user-management",
 	templateUrl: "./user-management.component.html",
 	styleUrls: ["./user-management.component.scss"],
 	standalone: true,
-	imports: [CommonModule, RouterModule, TableModule, InputSwitchModule, FormsModule, ReactiveFormsModule, SkeletonModule, FluidModule, InputTextModule, TooltipModule, ButtonModule, MultiSelectModule, CarouselModule, InputGroupModule, InputGroupAddonModule, FormsModule, ReactiveFormsModule, InputTextModule, SelectModule, DialogModule, CardModule, InputNumberModule],
+	imports: [CommonModule, RouterModule,ConfirmDialogModule , TableModule, InputSwitchModule, FormsModule, ReactiveFormsModule, SkeletonModule, FluidModule, InputTextModule, TooltipModule, ButtonModule, MultiSelectModule, CarouselModule, InputGroupModule, InputGroupAddonModule, FormsModule, ReactiveFormsModule, InputTextModule, SelectModule, DialogModule, CardModule, InputNumberModule],
+	providers: [ConfirmationService]
 })
 export class UserManagementComponent implements OnInit {
 	user!: User | null
@@ -90,7 +92,9 @@ export class UserManagementComponent implements OnInit {
 		private locationService: LocationService, private toast: MessageService,
 		private dataService: DataService, private dashboardService: DashboardService,
 		private userManagementService: UserManagementService, private router: Router,
-		private _location: Location, private storage: StorageService, private subscription: SubscriptionService) {
+		private _location: Location, private storage: StorageService, private subscription: SubscriptionService,
+		private confirmationService: ConfirmationService,) {
+			
 		this.registrationForm = this.formBuilder.group({
 			name: [""],
 			location_id: [""],
@@ -284,17 +288,23 @@ export class UserManagementComponent implements OnInit {
 				{
 					title: 'Weekly Newsletter',
 					description: 'Get notified about articles, discounts and new products.',
-					enabled: this.newsletter_consent
+					enabled: this.newsletter_consent,
+					pertrue:"You’ve successfully subscribed to the Weekly Newsletter. Look out for updates in your inbox!",
+					perfalse:"Are you sure you want to unsubscribe from the Weekly Newsletter?"
 				},
 				{
 					title: 'Promotional Emails',
 					description: 'Get personalised emails based on your orders and preferences.',
-					enabled: this.promotional_email_consent
+					enabled: this.promotional_email_consent,
+					pertrue:"You’ve subscribed to promotional emails. Stay tuned for the latest offers and news!",
+					perfalse:"Are you sure you want to stop receiving promotional emails?"
 				},
 				{
 					title: 'Product Updates',
 					description: 'Checking this will enable us to notify you on updates and addition of new features to our product.',
-					enabled: this.product_update_email_consent
+					enabled: this.product_update_email_consent,
+					pertrue:"You’ve subscribed to product updates. We’ll keep you informed about the latest features and improvements!",
+					perfalse:"Are you sure you want to stop receiving product updates?"
 
 				}
 			];
@@ -416,6 +426,23 @@ export class UserManagementComponent implements OnInit {
 		const initials = parts.map(p => p.charAt(0)).slice(0, 2).join('');
 		return initials.toUpperCase();
 	}
+	confirmEmailToggle(event: any, setting: any) {
+		const newValue = event.checked ? 1 : 0;
+		const message = event.checked ?setting.pertrue:setting.perfalse;
+		this.confirmationService.confirm({
+		  message: message,
+		  header: 'Confirm Change',
+		  icon: 'pi pi-exclamation-triangle',
+		  accept: () => {
+			setting.enabled = newValue;
+			this.emailSettings(setting); // Proceed with API call
+		  },
+		  reject: () => {
+			// Revert toggle (optional visual correction)
+			setting.enabled = setting.enabled === 1 ? 0 : 1;
+		  }
+		});
+	  }
 	emailSettings(email: any) {
 		const title = email.title
 		if (title == "Weekly Newsletter") {
