@@ -71,9 +71,9 @@ export class SubscriptionDataComponent implements OnInit {
 	currentCountry: string = ""
 	continent: string = ""
 	currency: string = ""
-	monthlyPlan: number = 6
+	monthlyPlan: number = 1
 	education_level: string = ""
-
+	activeButton: number = 1
 	constructor(private authService: AuthService, private subscriptionService: SubscriptionService, private storage: LocalStorageService, private toast: MessageService, private ngxService: NgxUiLoaderService, private http: HttpClient) {}
 	timeLeftInfoCard: any
 
@@ -119,7 +119,7 @@ export class SubscriptionDataComponent implements OnInit {
 				(data) => {
 					this.ngxService.stopBackground();
 					this.countryList = data;
-					this.getSubscriptionList();
+					this.setActiveButton(this.activeButton)
 					this.getSubscriptionTopupList();
 				},
 				(error) => {
@@ -160,6 +160,13 @@ export class SubscriptionDataComponent implements OnInit {
 	}
 
 	getSubscriptionList() {
+		if(this.activeButton ==1){
+			this.monthlyPlan=1;
+		}else if(this.activeButton ==2){
+			this.monthlyPlan=6;
+		}else{
+			this.monthlyPlan=12;
+		}
 		let data = {
 			page: 1,
 			perpage: 1000,
@@ -463,17 +470,74 @@ export class SubscriptionDataComponent implements OnInit {
 			}
 		)
 	}
-	changeMonthlyPlan(event: any) {
-		let tabIndex = event.index
-		/*  if (tabIndex == 0) {
-      this.monthlyPlan = 3;
-    }
-    else*/
-		if (tabIndex == 0) {
-			this.monthlyPlan = 6
-		} else {
-			this.monthlyPlan = 12
+	// changeMonthlyPlan(event: any) {
+	// 	let tabIndex = event.index
+	// 	if (tabIndex == 0) {
+	// 		this.monthlyPlan = 6
+	// 	} else {
+	// 		this.monthlyPlan = 12
+	// 	}
+	// 	this.getSubscriptionList()
+	// }
+		// Button styles
+		button1Style = {
+			"background-color": "#FFFFFF",
+			border: "1px solid var(--uniprep-primary)",
+			color: "#000000",
 		}
-		this.getSubscriptionList()
+	
+		button2Style = {
+			"background-color": "#FFFFFF",
+			border: "1px solid var(--uniprep-primary)",
+			color: "#000000",
+		}
+		button3Style = {
+			"background-color": "#FFFFFF",
+			border: "1px solid var(--uniprep-primary)",
+			color: "#000000",
+		}
+	setActiveButton(buttonNumber: number): void {
+		this.button1Style = {
+			"background-color": "#FFFFFF",
+			border: "1px solid var(--uniprep-primary)",
+			color: "#000000",
+		}
+
+		this.button2Style = {
+			"background-color": "#FFFFFF",
+			border: "1px solid var(--uniprep-primary)",
+			color: "#000000",
+		}
+		this.button3Style = {
+			"background-color": "#FFFFFF",
+			border: "1px solid var(--uniprep-primary)",
+			color: "#000000",
+		}
+
+		// Set styles for the clicked button
+		if (buttonNumber === 1) {
+			this.activeButton = 1
+			this.button1Style = {
+				"background-color": "var(--uniprep-primary)",
+				border: "1px solid var(--uniprep-primary)",
+				color: "#FFFFFF",
+			}
+		} else if (buttonNumber === 2) {
+			this.activeButton = 2
+			this.button2Style = {
+				"background-color": "var(--uniprep-primary)",
+				border: "1px solid var(--uniprep-primary)",
+				color: "#FFFFFF",
+			}
+		} else if (buttonNumber === 3) {
+			this.activeButton = 3
+			this.button3Style = {
+				"background-color": "var(--uniprep-primary)",
+				border: "1px solid var(--uniprep-primary)",
+				color: "#FFFFFF",
+			}
+		}
+		this.getSubscriptionList();
 	}
+
 }
