@@ -1,157 +1,173 @@
-<div class="contact-page">
+<div class="contact-container">
     <header>
         <button pButton icon="pi pi-arrow-left" class="p-button-rounded border text-white border-white bg-black"
-            (click)="goBack()"></button>
+            routerLink="/"></button>&nbsp;
         <button pButton label="Contact Us" class="p-button-rounded border text-white border-white bg-black"></button>
     </header>
-
-    <main>
-        <h1>Contact Us</h1>
-        <p>Please complete the form that best matches your profile. A UNIPREP representative will reach out shortly.</p>
-        <div class="h-100 row">
-            <div class="col-4 address-cards ">
-                <div class="card p-4 fs-5">
-                    <span class="text-white-50">U.K Office</span>
-                    <p class="text-white small">128 City Road, London, United Kingdom, EC1V 2NX</p>
-                </div>
-                <div class="card p-4 fs-5">
-                    <span class="text-white-50 ">Indian Office</span>
-                    <p class="text-white small">728, 2nd Floor, Thanishka Tower, 1st Main Rd, Yelahanka New Town,<br> 
-                         Bengaluru, Karnataka 560064</p>
-                </div>
-                <div class="card p-4 fs-5">
-                    <span class="text-white-50">Phone</span>
-                    <div>
-                        <span class="text-white small"><img src="uniprep-assets/icons/india.png" width="13" height="13"/> +91 99807 88380</span>&nbsp;
-                        <span class="text-white small"><img src="uniprep-assets/icons/united-kingdom.png" width="13" height="13"/> +44 9900900990</span>
-                    </div>
-                </div>
-                <div class="card p-4 fs-5">
-                    <span class="text-white-50">Email</span>
-                    <a href="mailto:info@uniprep.ai" class="text-white small">{{'info@uniprep.ai'}}</a>
-                </div>
-            </div>
-            <div class="col-8">
-                <div class="form-type-selector">
-                    <div [ngClass]="{'active': activeFormType === 'general'}" class="text-dark" (click)="changeFormType('general')"
-                        class="form-type-option">
-                        General Inquiry
-                    </div>
-                    <div [ngClass]="{'active': activeFormType === 'indian'}" (click)="changeFormType('indian')"
-                        class="form-type-option">
-                        Indian Institutions
-                    </div>
-                    <div [ngClass]="{'active': activeFormType === 'international'}"
-                        (click)="changeFormType('international')" class="form-type-option">
-                        International Universities
-                    </div>
-                </div>
-                <div class="form-container">
-                    <h2 *ngIf="activeFormType === 'general'">General Inquiry - Contact Form</h2>
-                    <h2 *ngIf="activeFormType === 'indian'">Indian Institutions - Contact Form</h2>
-                    <h2 *ngIf="activeFormType === 'international'">International Universities - Contact Form</h2>
-                    <p>All fields marked with <span class="required-marker">*</span> must be filled in.</p>
-    
-                    <form [formGroup]="contactForm" (ngSubmit)="onSubmit()">
-                        <!-- Common fields for all form types -->
-                        <div class="form-field">
-                            <label for="firstName">First Name <span class="required-marker">*</span></label>
-                            <input id="firstName" type="text" pInputText formControlName="firstName"
-                                [ngClass]="{'ng-invalid ng-dirty': contactForm.get('firstName')?.invalid && contactForm.get('firstName')?.touched}" />
-                        </div>
-    
-                        <div class="form-field">
-                            <label for="lastName">Last Name <span class="required-marker">*</span></label>
-                            <input id="lastName" type="text" pInputText formControlName="lastName"
-                                [ngClass]="{'ng-invalid ng-dirty': contactForm.get('lastName')?.invalid && contactForm.get('lastName')?.touched}" />
-                        </div>
-    
-                        <!-- Form-specific fields -->
-                        <div *ngIf="activeFormType === 'indian'" class="form-field">
-                            <label for="designation">Designation <span class="required-marker">*</span></label>
-                            <input id="designation" type="text" pInputText formControlName="designation"
-                                [ngClass]="{'ng-invalid ng-dirty': contactForm.get('designation')?.invalid && contactForm.get('designation')?.touched}" />
-                        </div>
-    
-                        <div class="form-field">
-                            <label for="email">Email <span class="required-marker">*</span></label>
-                            <input id="email" type="email" pInputText formControlName="email"
-                                [ngClass]="{'ng-invalid ng-dirty': contactForm.get('email')?.invalid && contactForm.get('email')?.touched}" />
-                        </div>
-    
-                        <div *ngIf="activeFormType === 'general' || activeFormType === 'international'" class="form-field">
-                            <label for="phoneNumber">Phone Number <span class="required-marker">*</span></label>
-                            <input id="phoneNumber" type="tel" pInputText formControlName="phoneNumber"
-                                [ngClass]="{'ng-invalid ng-dirty': contactForm.get('phoneNumber')?.invalid && contactForm.get('phoneNumber')?.touched}" />
-                        </div>
-    
-                        <div *ngIf="activeFormType === 'indian'" class="form-field">
-                            <label for="mobileNumber">Mobile Number</label>
-                            <input id="mobileNumber" type="tel" pInputText formControlName="mobileNumber" />
-                        </div>
-    
-                        <div *ngIf="activeFormType === 'general'" class="form-field">
-                            <label for="organization">Organization/Institution</label>
-                            <input id="organization" type="text" pInputText formControlName="organization" />
-                        </div>
-    
-                        <div *ngIf="activeFormType === 'international'" class="form-field">
-                            <label for="universityName">University Name <span class="required-marker">*</span></label>
-                            <input id="universityName" type="text" pInputText formControlName="universityName"
-                                [ngClass]="{'ng-invalid ng-dirty': contactForm.get('universityName')?.invalid && contactForm.get('universityName')?.touched}" />
-                        </div>
-    
-                        <div *ngIf="activeFormType === 'indian'" class="form-field">
-                            <label for="institutionName">Institution Name <span class="required-marker">*</span></label>
-                            <input id="institutionName" type="text" pInputText formControlName="institutionName"
-                                [ngClass]="{'ng-invalid ng-dirty': contactForm.get('institutionName')?.invalid && contactForm.get('institutionName')?.touched}" />
-                        </div>
-    
-                        <div *ngIf="activeFormType === 'indian'" class="form-field">
-                            <label for="institutionType">Institution Type <span class="required-marker">*</span></label>
-                            <select id="institutionType" pInputText formControlName="institutionType" class="w-100 bg-dark border border-dark text-white"
-                                [ngClass]="{'border border-danger': contactForm.get('institutionType')?.invalid && contactForm.get('institutionType')?.touched}">
-                                <ng-container *ngFor="let type of institutionTypes">
-                                    <option [value]="type" [name]="type">{{type}}</option>
-                                </ng-container>
-                            </select>
-                        </div>
-    
-                        <div *ngIf="activeFormType === 'indian'" class="form-field">
-                            <label for="city">City <span class="required-marker">*</span></label>
-                            <input id="city" type="text" pInputText formControlName="city"
-                                [ngClass]="{'ng-invalid ng-dirty': contactForm.get('city')?.invalid && contactForm.get('city')?.touched}" />
-                        </div>
-    
-                        <div *ngIf="activeFormType === 'indian'" class="form-field">
-                            <label for="state">State <span class="required-marker">*</span></label>
-                            <input id="state" type="text" pInputText formControlName="state"
-                                [ngClass]="{'ng-invalid ng-dirty': contactForm.get('state')?.invalid && contactForm.get('state')?.touched}" />
-                        </div>
-    
-                        <div class="form-field">
-                            <label for="country">Country <span *ngIf="activeFormType !== 'indian'">/ Region</span> <span
-                                    class="required-marker">*</span></label>
-                            <input id="country" type="text" pInputText formControlName="country"
-                                [ngClass]="{'ng-invalid ng-dirty': contactForm.get('country')?.invalid && contactForm.get('country')?.touched}" />
-                        </div>
-    
-                        <div class="form-field">
-                            <label for="helpMessage">How can we help you? <span class="required-marker">*</span></label>
-                            <textarea id="helpMessage" pInputTextarea formControlName="helpMessage" [rows]="5"
-                                [ngClass]="{'ng-invalid ng-dirty': contactForm.get('helpMessage')?.invalid && contactForm.get('helpMessage')?.touched}"></textarea>
-                        </div>
-    
-                        <button pButton type="submit" label="Submit" class="p-button-primary submit-button"></button>
-                    </form>
-                </div>
-            </div>
+  
+    <div class="contact-header my-5">
+      <h1 class="text-white">Contact Us</h1>
+      <p class="text-white fs-5">Please complete the form that best matches your profile. A UNIPREP representative will reach out shortly.</p>
+    </div>
+  
+    <div class="contact-content">
+      <div class="">
+        <div class="">
+            <div class="card mb-4">
+                <button class="py-4 btn btn-dark dropdown-toggle w-100 text-start" type="button" id="headquarterDropdown" data-bs-toggle="dropdown" aria-expanded="false">
+                  {{ selectedHeadquarter }}
+                </button>
+                <ul class="dropdown-menu w-100" aria-labelledby="headquarterDropdown">
+                  <li *ngFor="let office of offices">
+                    <a class="dropdown-item" (click)="onHeadquarterChange(office.name)">{{ office.name }}</a>
+                  </li>
+                </ul>
+              </div>
         </div>
-
-
-        <div class="direct-contact">
+            <div class="card p-4">
+                <div class="phone-number mb-3">
+                  <div class="text-white-50 fs-5">Phone Number</div>
+                  <div class="d-flex align-items-center">
+                    <i class="fas fa-phone-alt text-white-50 me-2"></i>
+                    <span class="text-white fs-6" >
+                      <img [src]="selectedOffice?.flagIcon" width="13" height="13" alt="flag" /> {{ selectedOffice?.phone }}&nbsp;
+                    </span>
+                  </div>
+                </div>
+        
+                <div class="email mb-3">
+                  <div class="text-white-50 fs-5">Email</div>
+                  <div class="d-flex align-items-center">
+                    <i class="fas fa-envelope text-white-50 me-2 "></i>
+                    <a href="mailto:info@uniprep.ai" class="text-white fs-6">{{'info@uniprep.ai'}}</a>
+                  </div>
+                </div>
+        
+                <div class="address mb-3">
+                  <span class="text-white-50 fs-5">{{ selectedOffice?.name }}</span>
+                  <div class="d-flex align-items-center">
+                    <i class="fas fa-location-dot text-white-50 me-2"></i>
+                  <p class="text-white fs-6">{{ selectedOffice?.address }}</p>
+                  </div>
+                </div>
+        </div>
+  
+        <div class="map-container">
+            <img [src]="selectedOffice.mapUrl" alt="Office location map" class="map-image" />
+          </div>
+      </div>
+  
+      <div class="contact-form pt-0">
+        <div class="form-header">
+          <h2 class="text-white">General Inquiry - Contact Form</h2>
+          <p class="text-white-50">All fields marked with <span class="text-danger">*</span> must be filled in.</p>
+        </div>
+  
+        <form [formGroup]="contactForm">
+          <div class="mb-3">
+            <label for="firstName" class="form-label text-white">Full Name <span class="text-danger">*</span></label>
+            <input 
+              type="text" 
+              class="form-control bg-dark text-white" 
+              id="firstName" 
+              formControlName="firstName"
+              [ngClass]="{'is-invalid': contactForm.get('firstName')?.touched && contactForm.get('firstName')?.invalid}"
+            >
+            <div class="invalid-feedback" *ngIf="contactForm.get('firstName')?.touched && contactForm.get('firstName')?.errors?.['required']">
+              Full name is required
+            </div>
+          </div>
+  
+          <div class="mb-3">
+            <label for="email" class="form-label text-white">Email <span class="text-danger">*</span></label>
+            <input 
+              type="email" 
+              class="form-control bg-dark text-white" 
+              id="email" 
+              formControlName="email"
+              [ngClass]="{'is-invalid': contactForm.get('email')?.touched && contactForm.get('email')?.invalid}"
+            >
+            <div class="invalid-feedback" *ngIf="contactForm.get('email')?.touched && contactForm.get('email')?.errors?.['required']">
+              Email is required
+            </div>
+            <div class="invalid-feedback" *ngIf="contactForm.get('email')?.touched && contactForm.get('email')?.errors?.['email']">
+              Please enter a valid email address
+            </div>
+          </div>
+  
+          <div class="mb-3">
+            <label for="phoneNumber" class="form-label text-white">Whatsapp Number <span class="text-danger">*</span></label>
+							<ngx-intl-tel-input class="intel-input bg-dark w-100" [cssClass]="'form-control bg-dark text-white rounded-start-0 border border-dark'"
+								[preferredCountries]="['in', 'gb']" [enableAutoCountrySelect]="true"
+								[enablePlaceholder]="true" [searchCountryFlag]="true" [maxLength]="15"
+								[searchCountryField]="[SearchCountryField.Iso2, SearchCountryField.Name]"
+								[phoneValidation]="true" [selectedCountryISO]="preferredCountry"
+								customPlaceholder="Enter Contact Number" formControlName="phoneNumber"
+							  aria-label="Enter Whatsapp Number"></ngx-intl-tel-input>
+              <div class="invalid-feedback" *ngIf="contactForm.get('phoneNumber')?.touched && contactForm.get('phoneNumber')?.errors?.['required']">
+                Whatsapp number is required
+              </div>
+              <div class="invalid-feedback" *ngIf="contactForm.get('phoneNumber')?.touched && contactForm.get('phoneNumber')?.errors?.['pattern']">
+                Please enter a valid 10-digit number
+              </div>
+            </div>
+  
+          <div class="mb-3">
+            <label for="enquireType" class="form-label text-white">Enquire Type <span class="text-danger">*</span></label>
+            <select 
+              class="form-select bg-dark text-white" 
+              id="enquireType" 
+              formControlName="enquireType"
+              [ngClass]="{'is-invalid': contactForm.get('enquireType')?.touched && contactForm.get('enquireType')?.invalid}"
+            >
+              <option value="" disabled selected>Select inquiry type</option>
+              <option *ngFor="let type of inquiryTypes" [value]="type">{{ type }}</option>
+            </select>
+            <div class="invalid-feedback" *ngIf="contactForm.get('enquireType')?.touched && contactForm.get('enquireType')?.errors?.['required']">
+              Please select an inquiry type
+            </div>
+          </div>
+  
+          <div class="mb-3">
+            <label for="organization" class="form-label text-white">Organization/Institution</label>
+            <input type="text" class="form-control bg-dark text-white" id="organization" formControlName="organization">
+          </div>
+  
+          <div class="mb-3">
+            <label for="location" class="form-label text-white">Location <span class="text-danger">*</span></label>
+            <input 
+              type="text" 
+              class="form-control bg-dark text-white" 
+              id="location" 
+              formControlName="location"
+              [ngClass]="{'is-invalid': contactForm.get('location')?.touched && contactForm.get('location')?.invalid}"
+            >
+            <div class="invalid-feedback" *ngIf="contactForm.get('location')?.touched && contactForm.get('location')?.errors?.['required']">
+              Location is required
+            </div>
+          </div>
+  
+          <div class="mb-3">
+            <label for="helpMessage" class="form-label text-white">How can we help you? <span class="text-danger">*</span></label>
+            <textarea 
+              class="form-control bg-dark text-white" 
+              id="helpMessage" 
+              rows="5" 
+              formControlName="helpMessage"
+              [ngClass]="{'is-invalid': contactForm.get('helpMessage')?.touched && contactForm.get('helpMessage')?.invalid}"
+            ></textarea>
+            <div class="invalid-feedback" *ngIf="contactForm.get('helpMessage')?.touched && contactForm.get('helpMessage')?.errors?.['required']">
+              Please tell us how we can help you
+            </div>
+          </div>
+  
+          <button type="submit" class="btn btn-warning w-100 py-3 mt-3" (click)="onSubmit()">Submit</button>
+        </form>
+      </div>
+    </div>
+  
+            <div class="direct-contact">
             <p>Prefer to write to us directly?</p>
             <button pButton label="Email" class="p-button-secondary email-button" (click)="sendEmail()"></button>
         </div>
-        </main>
-        </div>
+  </div>
