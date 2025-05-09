@@ -244,7 +244,7 @@ export class TalentConnectService {
 
     getAiEvaluationSummary(formData: any) {
         return this.http.post<any>(
-            environment.ApiUrl + "/getcountryandcurrency",
+            environment.ApiUrl + "/generateyourprofile", formData,
             { headers: this.headers });
     }
 

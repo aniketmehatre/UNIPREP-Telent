@@ -582,3 +582,10 @@ $background-color_4: #fff;
 :host ::ng-deep .disabled .iti__flag-container {
   pointer-events: none;
 }
+.text-primary {
+  color: var(--uniprep-primary) !important; /* Or whatever the exact color is in your design */
+}
+
+a[role="button"]:not(.disabled):hover {
+  text-decoration: underline;
+}

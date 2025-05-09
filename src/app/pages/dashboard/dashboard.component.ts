@@ -41,7 +41,7 @@ import { TextareaModule } from 'primeng/textarea';
 		CalendarModule, DatePickerModule, InputTextModule, TabViewModule, TableModule, AccordionModule, ReactiveFormsModule,
 		PopoverModule, TextareaModule
 	],
-	providers: [DashboardService, AuthService, DataService, LocationService, SeoManagerComponent],
+	providers: [DashboardService, DataService, LocationService, SeoManagerComponent],
 	changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class DashboardComponent implements OnInit, OnChanges, OnDestroy {
@@ -164,6 +164,7 @@ export class DashboardComponent implements OnInit, OnChanges, OnDestroy {
 		this.initializeEssentialData();
 		this.recentJobs();
 		this.getUserTrackin();
+		this.handleUserData();
 		this.loadParallelData();
 		this.groupedListFav = this.chunkArray(this.listFav, 4);
 		this.groupedListFav2 = this.chunkArray(this.recentJobApplication, 2);
@@ -216,7 +217,6 @@ export class DashboardComponent implements OnInit, OnChanges, OnDestroy {
 
 		const mainData$ = forkJoin({
 			partnerLogo: this.dashboardService.getTrustedPartners().pipe(catchError(() => of(null))),
-			userData: this.service.getMe().pipe(catchError(() => of(null))),
 			countryList: this.locationService.dashboardLocationList().pipe(catchError(() => of([]))),
 			planStatus: this.service.getNewUserTimeLeft().pipe(catchError(() => of(null))),
 			readProgression: this.dashboardService.getReadProgression({ countryId: this.selectedCountryId }).pipe(catchError(() => of(null))),
@@ -234,7 +234,6 @@ export class DashboardComponent implements OnInit, OnChanges, OnDestroy {
 
 		this.subs.sink = mainData$.subscribe(({
 			partnerLogo,
-			userData,
 			countryList,
 			planStatus,
 			readProgression,
@@ -242,11 +241,6 @@ export class DashboardComponent implements OnInit, OnChanges, OnDestroy {
 		}) => {
 			// Handle partner logo
 			this.partnerTrusterLogo = partnerLogo;
-
-			// Handle user data
-			if (userData) {
-				this.handleUserData(userData);
-			}
 
 			// Handle country list
 			if (countryList) {
@@ -275,9 +269,9 @@ export class DashboardComponent implements OnInit, OnChanges, OnDestroy {
 		});
 	}
 
-	private handleUserData(userData: any): void {
-		this.userName = userData.userdetails[0].name.toString();
-		this.userData = userData.userdetails[0];
+	handleUserData() {
+		this.userName = this.authService._user?.name.toString();
+		this.userData = this.authService._user;
 
 		let filledCount = 0;
 		const totalCount = this.fieldsToCheck.length;

@@ -401,6 +401,17 @@ export class CvBuilderComponent implements OnInit, AfterViewInit {
     const query = event.target.value.toLowerCase();
     if (query.length > 3) {
       this.filteredJobs = this.getFilteredJobs(query);
+      if(this.filteredJobs.length === 0){
+        const newJobTitle: any = {
+					id: 0, // Use 0 or -1 to indicate it's a custom/new item
+          jobrole: query
+				};
+        this.filteredJobs.unshift(newJobTitle);
+        if(this.occupationList[0].id === 0){
+          this.occupationList.shift();
+        }
+        this.occupationList.unshift(newJobTitle);
+			}
     } else if (query.length < 2) {
       this.filteredJobs = [];
     }

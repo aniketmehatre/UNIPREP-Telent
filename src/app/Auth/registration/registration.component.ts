@@ -456,7 +456,8 @@ export class RegistrationComponent implements OnInit {
 			},
 			(error) => {
 				this.otpError = true;
-				this.toastr.add({ severity: "error", summary: "Error", detail: error.message || "Invalid OTP." });
+				const message = error.error?.message != undefined ? error.error?.message : error?.message
+				this.toastr.add({ severity: "error", summary: "Error", detail: message || "Invalid OTP." });
 			}
 		)
 	}
