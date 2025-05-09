@@ -60,7 +60,8 @@ export class SubscriptionHistoryComponent implements OnInit {
 
 	constructor(private router: Router, private subscriptionService: SubscriptionService, private authService: AuthService, private toast: MessageService) {}
 
-	ngOnInit(): void {}
+	ngOnInit(): void {	
+	}
 
 	get URL() {
 		return `${environment.ApiUrl}/downloadinvoice`

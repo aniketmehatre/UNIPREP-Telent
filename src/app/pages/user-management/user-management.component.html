@@ -283,7 +283,8 @@
                                                 <strong>{{ setting.title }}</strong>
                                                 <div class="text-muted small">{{ setting.description }}</div>
                                             </div>
-                                            <p-inputSwitch (click)="emailSettings(setting)"
+                                            <p-inputSwitch 
+                                                (onChange)="confirmEmailToggle($event, setting)"
                                                 [ngModel]="setting.enabled === 1"
                                                 (ngModelChange)="setting.enabled = $event ? 1 : 0"></p-inputSwitch>
                                         </div>
@@ -452,6 +453,5 @@
             </div>
         </div>
     </div>
-
-
 </div>
+<p-confirmDialog></p-confirmDialog>
