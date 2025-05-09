@@ -60,9 +60,7 @@ export class SubscriptionHistoryComponent implements OnInit {
 
 	constructor(private router: Router, private subscriptionService: SubscriptionService, private authService: AuthService, private toast: MessageService) {}
 
-	ngOnInit(): void {
-		console.log(this.userSubscription);
-		
+	ngOnInit(): void {	
 	}
 
 	get URL() {
