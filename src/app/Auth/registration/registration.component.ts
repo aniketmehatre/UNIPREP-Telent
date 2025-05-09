@@ -242,6 +242,15 @@ export class RegistrationComponent implements OnInit {
 	}
 
 	onSubmit() {
+		if (this.registrationForm.value.password != this.registrationForm.value.confirmPassword) {
+			this.toastr.add({
+				severity: "error",
+				summary: "Error",
+				detail: "Password and Confirm Password should be same",
+			})
+			return
+		}
+
 		this.submitted = true
 		let data = {
 			name: this.registrationForm.value.fullName,
