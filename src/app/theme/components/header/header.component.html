@@ -554,16 +554,18 @@
 					</div>
 					<form [formGroup]="phoneVerification" role="form" aria-label="Phone verification form">
 						<div class="w-100 phonenumberblock mt-2">
-							<p class="m-2">Enter Your Whatsapp number to continue the experience</p>
-							<ngx-intl-tel-input class="intel-input w-100" [cssClass]="'custom'"
+							<p class="m-2">Enter Your {{haveWhatsapp}} number to continue the experience</p>
+							<ngx-intl-tel-input class="intel-input w-100" [cssClass]="'custom-less-padding'"
 								[preferredCountries]="['in', 'gb']" [enableAutoCountrySelect]="true"
+                                                appendTo="body"
 								[enablePlaceholder]="true" [searchCountryFlag]="true" [maxLength]="15"
 								[searchCountryField]="[SearchCountryField.Iso2, SearchCountryField.Name]"
 								[phoneValidation]="true" [selectedCountryISO]="preferredCountry"
-								customPlaceholder="Enter Contact Number" formControlName="verification_phone"
+								customPlaceholder="Enter {{haveWhatsapp}} Number" formControlName="verification_phone"
 								[attr.disabled]="isSendingOTP" aria-label="Enter WhatsApp number"></ngx-intl-tel-input>
 							<div class="d-flex align-items-center mt-2">
 								<input type="checkbox" formControlName="choice" class="form-check-input mt-0"
+                                       (change)="onCheckHaveWhatsappOrPhone($event)"
 									id="noWhatsapp" />
 								<label for="noWhatsapp">I don't have a Whatsapp Number</label>
 							</div>
@@ -632,14 +634,14 @@
 					<form [formGroup]="mobileForm">
 						<div class="w-100 phonenumberblock d-none" *ngIf="formvisbility">
 							<p class="m-1">Enter your number to continue the experience</p>
-							<ngx-intl-tel-input class="intel-input w-100"
-								[cssClass]="isPhoneDisabled ? 'custom disabled' : 'custom'"
+							<ngx-intl-tel-input class="intel-input w-100" appendTo="body"
+								[cssClass]="isPhoneDisabled ? 'custom-less-padding disabled' : 'custom-less-padding'"
 								[preferredCountries]="['in', 'gb']" [enableAutoCountrySelect]="true"
 								[enablePlaceholder]="true" [searchCountryFlag]="true" [maxLength]="15"
 								[searchCountryField]="[SearchCountryField.Iso2, SearchCountryField.Name]"
 								[phoneValidation]="true" [selectedCountryISO]="preferredCountry"
 								[(ngModel)]="phoneNumber" [disabled]="isPhoneDisabled" [attr.disabled]="isPhoneDisabled"
-								customPlaceholder="Enter Contact Number" formControlName="phone"></ngx-intl-tel-input>
+								customPlaceholder="Enter {{haveWhatsapp}} Number" formControlName="phone"></ngx-intl-tel-input>
 						</div>
 						<div class="w-100 phonenumberblock mt-2" *ngIf="formvisbility">
 							<p class="m-1">Select Your Home Country</p>

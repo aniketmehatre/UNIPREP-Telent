@@ -339,14 +339,16 @@
             <div class="col-md-4 mb-3">
               <div class="text-primary fw-bold">LinkedIn Profile</div>
               <a [href]="profileData.linkedin_profile" target="_blank" class="text-break" *ngIf="profileData.linkedin_profile">
-                {{profileData.linkedin_profile}}
+<!--                {{profileData.linkedin_profile}}-->
+                  <i class="pi pi-linkedin"></i>
               </a>
               <div *ngIf="!profileData.linkedin_profile" class="text-muted">Not specified</div>
             </div>
             <div class="col-md-4 mb-3">
               <div class="text-primary fw-bold">Personal Website</div>
               <a [href]="profileData.personal_website" target="_blank" class="text-break" *ngIf="profileData.personal_website">
-                {{profileData.personal_website}}
+<!--                {{profileData.personal_website}}-->
+                  <i class="pi pi-globe"></i>
               </a>
               <div *ngIf="!profileData.personal_website" class="text-muted">Not specified</div>
             </div>

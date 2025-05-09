@@ -23,6 +23,7 @@ import { maxWordsValidator } from "src/app/shared/directives/maxwordValidators.d
 import { differenceInMonths, formatDuration, intervalToDuration } from "date-fns"
 import { HOVER_MESSAGES } from "./view-profile/hover-messages"
 import { Router } from "@angular/router"
+import {AuthService} from "../../../Auth/auth.service";
 
 export enum FileType {
   CERTIFICATIONS = "Certificates",
@@ -93,7 +94,8 @@ export class EmployeeProfileComponent implements OnInit, OnDestroy {
     private talentConnectService: TalentConnectService,
     private toastService: MessageService,
     private changeDetector: ChangeDetectorRef,
-    private router: Router
+    private router: Router,
+    private authService: AuthService
   ) { }
 
   ngOnInit() {
@@ -1390,6 +1392,7 @@ export class EmployeeProfileComponent implements OnInit, OnDestroy {
         next: (response) => {
           this.isLoadingAiSummary = false
           if (response) {
+            this.authService.aiCreditCount$.next(true);
             formControl.patchValue(response.response)
           }
         },
@@ -1906,6 +1909,7 @@ export class EmployeeProfileComponent implements OnInit, OnDestroy {
       next: (response) => {
         this.isLoadingAiSummary = false;
         if (response) {
+          this.authService.aiCreditCount$.next(true);
           formControl.patchValue(response.response)
         }
       },

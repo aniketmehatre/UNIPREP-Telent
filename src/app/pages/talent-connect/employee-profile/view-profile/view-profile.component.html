@@ -358,14 +358,16 @@
               <div class="col-md-4 mb-3">
                 <div class="text-primary fw-bold">LinkedIn Profile</div>
                 <a [href]="profileData.networking.linkedinProfile" target="_blank" class="text-break" *ngIf="profileData.networking.linkedinProfile">
-                  {{profileData.networking.linkedinProfile}}
+<!--                  {{profileData.networking.linkedinProfile}}-->
+                    <i class="pi pi-linkedin"></i>
                 </a>
                 <div *ngIf="!profileData.networking.linkedinProfile" class="text-muted">Not specified</div>
               </div>
               <div class="col-md-4 mb-3">
                 <div class="text-primary fw-bold">Personal Website</div>
                 <a [href]="profileData.networking.personalWebsite" target="_blank" class="text-break" *ngIf="profileData.networking.personalWebsite">
-                  {{profileData.networking.personalWebsite}}
+<!--                  {{profileData.networking.personalWebsite}}-->
+                    <i class="pi pi-globe"></i>
                 </a>
                 <div *ngIf="!profileData.networking.personalWebsite" class="text-muted">Not specified</div>
               </div>
@@ -375,7 +377,8 @@
                 <ng-container *ngFor="let social of profileData.networking.socialMedia">
                   <div>
                     <a [href]="social.link" target="_blank" class="text-break" *ngIf="social.link">
-                      {{social.media}}: {{social.link}}
+<!--                      {{social.media}}: {{social.link}}-->
+                        <i class="pi pi-{{social.media}}"></i>
                     </a>
                   </div>
                 </ng-container>

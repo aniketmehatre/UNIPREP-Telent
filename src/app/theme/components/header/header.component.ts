@@ -169,6 +169,8 @@ export class HeaderComponent implements OnInit, OnDestroy {
 	isNotSuccess: boolean = true
 	submitted: boolean = false
 	aiCreditCount:number = 0;
+
+	haveWhatsapp: string = 'WhatsApp'
 	// Add phone number configuration
 	phoneNumberConfig = {
 		preferredCountries: [CountryISO.India],
@@ -1697,6 +1699,15 @@ export class HeaderComponent implements OnInit, OnDestroy {
 			};
 
 			document.addEventListener('click', closeDropdown);
+		}
+	}
+
+	onCheckHaveWhatsappOrPhone(event: any) {
+		const isChecked = (event.target as HTMLInputElement).checked;
+		if (isChecked) {
+			this.haveWhatsapp = 'Phone'
+		}else {
+			this.haveWhatsapp = 'Whatsapp'
 		}
 	}
 }
