@@ -72,8 +72,8 @@ export class LandingComponent implements OnInit, OnDestroy {
 	aboutLinks = [{ text: "About UNIPREP", url: "/about" }]
 
 	featureLinks = [
-		{ text: "For Job Seekers", url: "/features/job-seekers" },
-		{ text: "For International Students", url: "/features/international-students" },
+		{ text: "For Job Seekers", url: "/landing/feature/job-seekers" },
+		{ text: "For International Students", url: "/landing/feature/international-students" },
 		{ text: "For Global Travellers", url: "/features/global-travellers" },
 		{ text: "For Entrepreneurs", url: "/features/entrepreneurs" },
 	]
