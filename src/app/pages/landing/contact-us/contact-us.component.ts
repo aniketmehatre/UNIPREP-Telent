@@ -6,6 +6,8 @@ import { InputTextModule } from 'primeng/inputtext';
 import { landingServices } from '../landing.service';
 import { MessageService } from 'primeng/api';
 import { CountryISO, NgxIntlTelInputModule, SearchCountryField } from "ngx-intl-tel-input"
+import { SafePipe } from "../../../pipes/safe.pipe";
+import { SelectModule } from 'primeng/select';
 
 interface Office {
   name: string;
@@ -23,7 +25,9 @@ interface Office {
     ReactiveFormsModule,
     InputTextModule,
     ButtonModule,
-    NgxIntlTelInputModule
+    NgxIntlTelInputModule,
+    SafePipe,
+    SelectModule
   ],
   templateUrl: './contact-us.component.html',
   styleUrl: './contact-us.component.scss'
@@ -34,7 +38,8 @@ export class ContactUsComponent {
   selectedOffice!: Office;
   SearchCountryField = SearchCountryField
   CountryISO = CountryISO
-  preferredCountry: any
+  preferredCountry: any;
+  locationsList: { id: number, city_state: string }[] = [];
   preferredCountries: CountryISO[] = [CountryISO.India, CountryISO.UnitedKingdom];
   phoneNumberConfig = {
     preferredCountries: [CountryISO.India],
@@ -51,7 +56,7 @@ export class ContactUsComponent {
       phone: '+44 9900900990',
       phoneCode: '+44',
       flagIcon: 'uniprep-assets/icons/united-kingdom.png',
-      mapUrl: 'uniprep-assets/images/location-maps/uk.png'
+      mapUrl: `https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2482.2334321935673!2d-0.091397823871224!3d51.527278209251634!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x48761ca671d5df0b%3A0x368e18d29207f698!2s128%20City%20Rd%2C%20London%20EC1V%202NX%2C%20UK!5e0!3m2!1sen!2sin!4v1746784936807!5m2!1sen!2sin`
     },
     {
       name: 'Indian Office',
@@ -59,16 +64,14 @@ export class ContactUsComponent {
       phone: '+91 99807 88380',
       phoneCode: '+91',
       flagIcon: 'uniprep-assets/icons/india.png',
-      mapUrl: 'uniprep-assets/images/location-maps/india.png'
+      mapUrl: `https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d7772.044800301689!2d77.57988853201056!3d13.097766879130269!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3bae18604ac9a52f%3A0x3d116ff7a39eaeb2!2sManya%20-%20The%20Princeton%20Review%20%7C%20Study%20Abroad%20Consultant%20-%20GRE%2C%20GMAT%2C%20SAT%20Prep%20%26%20IGCSE%2FIB%20Coaching%20in%20Yelahanka%2C%20Bangalore!5e0!3m2!1sen!2sin!4v1746785988409!5m2!1sen!2sin`
     }
   ];
 
   inquiryTypes: string[] = [
     'General Inquiry',
-    'Support',
-    'Partnership',
-    'Career',
-    'Other'
+    'Indian',
+    'International'
   ];
 
   countryCodes: { code: string, name: string }[] = [
@@ -85,6 +88,7 @@ export class ContactUsComponent {
   async ngOnInit() {
     this.initForm();
     this.selectedOffice = this.offices[0];
+    this.getCitiesCountry('');
     try {
       const response = await fetch('https://ipapi.co/json/');
       const data = await response.json();
@@ -113,8 +117,8 @@ export class ContactUsComponent {
     if (officeData) {
       this.selectedOffice = officeData;
     }
-
   }
+
 
   onCountryCodeChange(code: string): void {
     this.selectedCountryCode = code;
@@ -123,8 +127,26 @@ export class ContactUsComponent {
     });
   }
 
+  getCitiesCountry(search: string) {
+    this.landingPageServices.getCitiesCountry({ search: search }).subscribe({
+      next: response => {
+        this.locationsList = response;
+      },
+      error: error => {
+        console.error(error.error.message);
+      }
+    })
+  }
+
   onSubmit() {
     if (this.contactForm.valid) {
+      if (this.isValidationPhoneNumber) {
+        this.messageService.add({
+          severity: 'error',
+          summary: 'Required',
+          detail: 'Please fill whatsapp number'
+        });
+      }
       this.landingPageServices.sendContactUsPage({ ...this.contactForm.value, phoneNumber: this.cf?.['phoneNumber'].value.number, phoneCountryCode: this.cf?.['phoneNumber'].value.dialCode }).subscribe({
         next: response => {
           console.log(response);
@@ -147,6 +169,7 @@ export class ContactUsComponent {
       Object.keys(this.contactForm.controls).forEach(key => {
         this.contactForm.get(key)?.markAsTouched();
       });
+      console.log(this.contactForm.controls)
     }
   }
 
@@ -159,6 +182,14 @@ export class ContactUsComponent {
   }
 
   sendEmail(): void {
-    window.location.href = 'mailto:info@uniprep.ai';
+    // window.location.href = 'mailto:info@uniprep.ai';
+    // window.open('mailto:info@uniprep.ai', '_blank');
+  }
+
+  get isValidationPhoneNumber() {
+    if (this.cf?.['phoneNumber']?.value?.dialCode && this.cf?.['phoneNumber']?.value?.number) {
+      return false;
+    }
+    return true;
   }
 }

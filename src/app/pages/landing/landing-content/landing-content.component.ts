@@ -40,7 +40,6 @@ export class LandingContentComponent implements OnInit {
   contactSuccess: boolean = false
   welcomevideoLink: string = `https://${environment.domain}/uniprepapi/storage/app/public/Landing/welcome.mp4`;
 
-  selectedPeriod: 'Month' | 'Half_Year' | 'Full_Year' = 'Month';
 
 
   showTandC() {
@@ -331,8 +330,6 @@ export class LandingContentComponent implements OnInit {
       })
     }
 
-  onSelectPeriod(period: 'Month' | 'Half_Year' | 'Full_Year') {
-    this.selectedPeriod = period;
-  }
+
   
 }

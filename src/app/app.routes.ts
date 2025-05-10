@@ -14,8 +14,8 @@ import { DashboardComponent } from "./pages/dashboard/dashboard.component"
 import { ForgotPasswordComponent } from "./Auth/forgot-password/forgot-password.component"
 import { VerificationComponent } from "./Auth/verification/verification.component"
 import { SetpasswordComponent } from "./Auth/setpassword/setpassword.component"
-import { LandingNewComponent } from "./pages/landing-new/landing-new.component";
 import { CoBrandedComponent } from "./Auth/co-branded/co-branded.component"
+import { PricingComponent } from "./pages/landing/pricing/pricing.component"
 export const appRoutes: Routes = [
 	// Public routes that don't require authentication
 	{
@@ -26,6 +26,11 @@ export const appRoutes: Routes = [
 		path: "landing",
 		loadChildren: () => import('./pages/landing/landing.module').then(m => m.LandingModule)
 	},
+	{
+		path: 'contact-us',
+		loadComponent: () => import('./pages/landing/contact-us/contact-us.component').then(c => c.ContactUsComponent)
+	},
+	{ path: "pricing", component: PricingComponent },
 	{ path: "students", component: CoBrandedComponent },
 	{ path: "login", component: LoginComponent },
 	{ path: "students/login", component: LoginComponent },
