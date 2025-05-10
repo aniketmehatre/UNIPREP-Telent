@@ -45,8 +45,9 @@ export const appRoutes: Routes = [
 	{ path: "setpassword/:otp/:email", component: SetpasswordComponent },
 	{
 		path: 'talent-connect',
-		loadComponent: () => import('./pages/landing-new/landing-new.component').then(c => c.LandingNewComponent)
+		loadChildren: () => import('./pages/landing/landing-new/landing-new.module').then(c => c.LandingModule)
 	},
+
 
 
 	// Protected routes that require authentication

@@ -62,7 +62,7 @@
                                         style="margin-top: 35px;">
                                         <h5 class="card-title fw-bold">Student</h5>
                                         <div class="d-flex justify-content-between align-items-center gap-2" *ngIf="studentSubscription.actual_price !== studentSubscription.givenprice">
-                                            <span class="p-2 badge">{{studentSubscription?.discount | number: '1.2'}}%</span> &nbsp;
+                                            <span class="p-2 badge">Save {{studentSubscription?.discount | number: '1.2'}}%</span> &nbsp;
                                             <del class="text-white">{{studentSubscription?.actual_price}}
                                                 {{studentSubscription?.currency}}</del>
                                         </div>
@@ -105,7 +105,7 @@
                                     <div class="d-flex justify-content-between align-items-center">
                                         <h5 class="card-title fw-bold">Career</h5>
                                         <div class="d-flex justify-content-between align-items-center gap-2" *ngIf="careerSubscription.actual_price !== careerSubscription.givenprice">
-                                            <span class="p-2 badge">{{careerSubscription?.discount | number: '1.2'}}%</span> &nbsp;
+                                            <span class="p-2 badge">Save {{careerSubscription?.discount | number: '1.2'}}%</span> &nbsp;
                                             <del class="text-white">{{careerSubscription?.actual_price}}
                                                 {{careerSubscription?.currency}}</del>
                                         </div>
@@ -155,7 +155,7 @@
                                                 <h5 class="card-title fw-bold text-nowrap">Entrepreneur</h5>
                                                 <div class="d-flex justify-content-between align-items-center gap-2" *ngIf="entrepreneurSubscription.actual_price !== entrepreneurSubscription.givenprice">
                                                     <span
-                                                        class="p-2 badge">{{entrepreneurSubscription?.discount | number: '1.2'}}%</span>
+                                                        class="p-2 badge">Save {{entrepreneurSubscription?.discount | number: '1.2'}}%</span>
                                                     &nbsp;
                                                     <del class="text-white">{{entrepreneurSubscription?.actual_price}}
                                                         {{entrepreneurSubscription?.currency}}</del>
