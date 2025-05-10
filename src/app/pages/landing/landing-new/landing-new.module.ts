@@ -21,6 +21,10 @@ const routes: Routes = [
         loadComponent: () => import('./active-jobs/active-jobs.component').then(m => m.ActiveJobsComponent),
       },
       {
+        path: 'employers',
+        loadComponent: () => import('./employers/employers.component').then(m => m.EmployersComponent),
+      },
+      {
         path: '',
         redirectTo: '',
         pathMatch: 'full'

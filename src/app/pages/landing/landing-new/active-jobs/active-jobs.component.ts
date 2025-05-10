@@ -32,8 +32,8 @@ displayUnlockFilter: boolean = false;
   loadJobsData(): void {
     this.landingPageService.getJobsList({ page: this.currentPage, perpage: this.itemsPerPage}).subscribe(
       (response) => {
-        this.jobListings = response.data;
-        this.totalTalents = response.count;
+        this.jobListings = response.jobs;
+        this.totalTalents = response.totaljobs;
         this.totalPages = Math.ceil(this.totalTalents / this.itemsPerPage);
       },
       (error) => {
