@@ -5,6 +5,7 @@ import {
 	Component,
 	CUSTOM_ELEMENTS_SCHEMA,
 	ElementRef,
+	inject,
 	OnDestroy,
 	OnInit,
 	Renderer2,
@@ -28,6 +29,7 @@ import { LocationService } from "../../location.service"
 import { AuthService } from "../auth.service"
 import { finalize } from 'rxjs/operators';
 import { GoogleSigninButtonModule, SocialAuthService, SocialLoginModule, } from '@abacritt/angularx-social-login';
+import { signal } from '@angular/core';
 
 declare var google: any;
 @Component({
@@ -42,24 +44,32 @@ declare var google: any;
 	changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class LoginComponent implements OnInit, OnDestroy {
+	// inject Services
+	private service = inject(AuthService);
+	private formBuilder = inject(FormBuilder);
+	private route = inject(Router);
+	private toast = inject(MessageService);
+	private dataService = inject(DataService);
+	private locationService = inject(LocationService);
+	private authService = inject(SocialAuthService);
+	private storage = inject(LocalStorageService);
+	private authTokenService = inject(AuthTokenService);
+	private cdr = inject(ChangeDetectorRef);
+
 	@ViewChild("button2") button2!: ElementRef
 	private subs = new SubSink()
 	loginForm: FormGroup
-	submitted: boolean = false
-	show: boolean = true
-	password: string = "password"
-	isLoading: boolean = false
-	isDisabled: boolean = false
-	locationData: any
-	imageUrlWhitelabel: string | null = null
-	domainname: string = 'main'
 	domainNameCondition: string
 	ipURL: string = "https://api.ipify.org?format=json"
-	constructor(private service: AuthService, private formBuilder: FormBuilder, private route: Router,
-		private toast: MessageService, private dataService: DataService,
-		private locationService: LocationService, private authService: SocialAuthService,
-		private storage: LocalStorageService, private authTokenService: AuthTokenService,
-		private cdr: ChangeDetectorRef) { }
+	locationData: any
+
+	submitted = signal(false);
+	show = signal(true);
+	isLoading = signal(false);
+	isDisabled = signal(false);
+	imageUrlWhitelabel = signal<string | null>(null);
+	domainname = signal('main');
+	password = signal('password')
 
 	ngOnDestroy() {
 		this.subs.unsubscribe()
@@ -71,9 +81,13 @@ export class LoginComponent implements OnInit, OnDestroy {
 		this.setupSocialAuth()
 	}
 
+	get canSubmit() {
+		return this.loginForm.valid && !this.isLoading();
+	}
+
 	private initializeComponent() {
 		this.domainNameCondition = window.location.hostname
-		this.domainname = this.isDomainMain() ? 'main' : 'sub'
+		this.domainname.set(this.isDomainMain() ? 'main' : 'sub')
 		this.dataService.loggedInAnotherDevice("none")
 		fetch(this.ipURL)
 			.then((response) => response.json())
@@ -81,7 +95,8 @@ export class LoginComponent implements OnInit, OnDestroy {
 				this.locationData = data
 			})
 		this.locationService.getImage().subscribe((imageUrl) => {
-			this.imageUrlWhitelabel = imageUrl
+			this.imageUrlWhitelabel.set(imageUrl);
+			console.log(this.imageUrlWhitelabel)
 			this.cdr.markForCheck()
 		})
 		this.loginForm = this.formBuilder.group({
@@ -103,12 +118,12 @@ export class LoginComponent implements OnInit, OnDestroy {
 		this.subs.sink = this.authService.authState.subscribe(user => {
 			if (!user) return
 
-			this.isLoading = true
+			this.isLoading.set(true)
 			this.cdr.markForCheck()
 
 			this.service.isExist({ email: user.email }).pipe(
 				finalize(() => {
-					this.isLoading = false
+					this.isLoading.set(false)
 					this.cdr.markForCheck()
 				})
 			).subscribe({
@@ -127,12 +142,12 @@ export class LoginComponent implements OnInit, OnDestroy {
 	}
 
 	private handleSocialLogin(user: any) {
-		this.isLoading = true
+		this.isLoading.set(true)
 		this.cdr.markForCheck()
 
 		this.service.gmailLogin(user).pipe(
 			finalize(() => {
-				this.isLoading = false
+				this.isLoading.set(false)
 				this.cdr.markForCheck()
 			})
 		).subscribe({
@@ -192,16 +207,16 @@ export class LoginComponent implements OnInit, OnDestroy {
 	}
 
 	onSubmit(): void {
-		this.submitted = true
+		this.submitted.set(true)
 		if (this.loginForm.invalid) return
 
-		this.isLoading = true
+		this.isLoading.set(true)
 		this.cdr.markForCheck()
 		this.service.canDisableSignIn.next(true)
 
 		this.service.validateSignIn(this.loginForm.value).pipe(
 			finalize(() => {
-				this.isLoading = false
+				this.isLoading.set(false)
 				this.cdr.markForCheck()
 			})
 		).subscribe({
