@@ -115,7 +115,7 @@ export class LandingContentComponent implements OnInit {
       {
         text: "You're eager to travel the world.",
       },
-    ]
+    ];
   
     accordionItems = [
       {
@@ -167,7 +167,7 @@ export class LandingContentComponent implements OnInit {
         image: "uf8.webp",
       },
       // Add more items as needed
-    ]
+    ];
   
     changeImage(imageName: string): void {
       this.currentImage = "/uniprep-assets/images/" + imageName

@@ -45,7 +45,7 @@ export const appRoutes: Routes = [
 	{ path: "setpassword/:otp/:email", component: SetpasswordComponent },
 	{
 		path: 'talent-connect',
-		loadChildren: () => import('./pages/landing/landing-new/landing-new.module').then(c => c.LandingModule)
+		loadChildren: () => import('./pages/landing-talent-connect/landing-new.module').then(c => c.LandingModule)
 	},
 
 
