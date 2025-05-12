@@ -7,9 +7,7 @@ import {
 	ElementRef,
 	inject,
 	OnDestroy,
-	OnInit,
-	Renderer2,
-	ViewChild
+	OnInit, ViewChild
 } from "@angular/core"
 import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators } from "@angular/forms"
 import { Router, RouterModule } from "@angular/router"
@@ -27,9 +25,9 @@ import { DataService } from "src/app/data.service"
 import { SubSink } from "subsink"
 import { LocationService } from "../../location.service"
 import { AuthService } from "../auth.service"
-import { finalize } from 'rxjs/operators';
-import { GoogleSigninButtonModule, SocialAuthService, SocialLoginModule, } from '@abacritt/angularx-social-login';
-import { signal } from '@angular/core';
+import { finalize } from 'rxjs/operators'
+import { GoogleSigninButtonModule, SocialAuthService, SocialLoginModule, } from '@abacritt/angularx-social-login'
+import { signal } from '@angular/core'
 
 declare var google: any;
 @Component({
