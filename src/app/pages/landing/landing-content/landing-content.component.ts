@@ -63,38 +63,38 @@ export class LandingContentComponent implements OnInit {
     this.isDarkMode = this.themeService.getInitialSwitchState()
   }
 
-    stats = [
-      {
-        icon: "fa-globe",
-        number: "28+",
-        text: "Countries Covered",
-      },
-      {
-        icon: "fa-gears",
-        number: "70+",
-        text: "Exclusive Features",
-      },
-      {
-        icon: "fa-earth-americas",
-        number: "100+",
-        text: "Countries Open for Access",
-      },
-      {
-        icon: "fa-hand-holding-circle-dollar",
-        number: "1000+",
-        text: "Courses for Upskilling",
-      },
-      {
-        icon: "fa-language",
-        number: "25+",
-        text: "Languages to Learn",
-      },
-      {
-        icon: "fa-briefcase",
-        number: "1000+",
-        text: "Business Pitches",
-      },
-    ]
+  stats = [
+    {
+      "icon": "fa-globe",
+      "number": "28+",
+      "text": "Countries Covered",
+    },
+    {
+      "icon": "fa-gears",
+      "number": "70+",
+      "text": "Exclusive Features",
+    },
+    {
+      "icon": "fa-earth-americas",
+      "number": "100+",
+      "text": "Countries Open for Access",
+    },
+    {
+      "icon": "fa-hand-holding-circle-dollar",
+      "number": "1000+",
+      "text": "Courses for Upskilling",
+    },
+    {
+      "icon": "fa-language",
+      "number": "25+",
+      "text": "Languages to Learn",
+    },
+    {
+      "icon": "fa-briefcase",
+      "number": "1000+",
+      "text": "Business Pitches",
+    },
+  ];
   
     cardItems = [
       {
