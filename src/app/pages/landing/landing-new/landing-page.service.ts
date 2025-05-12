@@ -22,4 +22,8 @@ export class landingServices {
   getJobsList(params: any): Observable<any> {
     return this.http.post<any>(`${environment.ApiUrl}/activeJobList`, params, { headers: this.headers });
   }
+
+  getCompanyConnectList(params: any): Observable<any> {
+    return this.http.post<any>(`${environment.ApiUrl}/landingpagecompanies`, params, { headers: this.headers });
+  }
 }
