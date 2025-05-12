@@ -8,6 +8,7 @@ import { MessageService } from 'primeng/api';
 import { CountryISO, NgxIntlTelInputModule, SearchCountryField } from "ngx-intl-tel-input"
 import { SafePipe } from "../../../pipes/safe.pipe";
 import { SelectModule } from 'primeng/select';
+import { RouterModule } from '@angular/router';
 
 interface Office {
   name: string;
@@ -27,7 +28,8 @@ interface Office {
     ButtonModule,
     NgxIntlTelInputModule,
     SafePipe,
-    SelectModule
+    SelectModule,
+    RouterModule
   ],
   templateUrl: './contact-us.component.html',
   styleUrl: './contact-us.component.scss'

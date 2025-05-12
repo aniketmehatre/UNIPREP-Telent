@@ -5,16 +5,15 @@
     <div class="container-fluid text-center">
         <div class="row justify-content-center">
             <div class="col-lg-10">
-                <h1 class="display-2 fw-bold text-white mb-3">Connect <span class="with-text">with the</span> Talent
-                </h1>
-                <h2 class="h2 text-white mb-5">You Need Anytime, Anywhere — for Free.</h2>
-
-                <button class="btn btn-primary register-btn px-4 py-2">Register Now</button>
+                <div class="display-3 fw-bold text-white mb-3">Looking for a career move that matters?</div>
+                <h3 class="display-6 h6 text-white mb-3">Discover Real Opportunities. Connect with Employers.</h3>
+                <h3 class="display-6 fw-bold text-secondary mb-5">Take the Next Step in Your Career.</h3>
+                <button class="btn btn-secondary register-btn px-4 py-2" routerLink="/register">Register Now</button>
             </div>
         </div>
 
         <div class="row justify-content-center mt-5">
-            <div class="col-lg-10">
+            <div class="col-lg-12">
                 <div class="video-container" (click)="toggleVideo()">
                     <i class="fa-solid fa-circle-play uniprep-secondary fa-beat" role="button" *ngIf="!isPlaying"></i>
                     <video class="rounded-4" #videoPlayer width="100%" height="100%" preload="none"
@@ -29,25 +28,25 @@
 <!-- Hero Section -->
 <section class="hero-section_1 text-center text-white py-5">
     <div class="container">
-        <h1 class="display-4 fw-bold mb-4">Why Employers Should Choose<br>UNIPREP Talent Connect</h1>
+        <h1 class="display-4 fw-bold mb-4">Why UNIPREP Employer Connect?</h1>
 
-        <p class="lead mx-auto" style="max-width: 900px;">
-            UNIPREP Talent Connect Is A Global Hiring Platform That Empowers You To Filter And Hire
-            Relevant Talent, Manage Applicants With Ease, Collaborate Across Your Team, And Hire
-            Globally — With Full Control And Zero Cost For Your First 6 Months.
+        <p class="lead mx-auto fs-4" style="max-width: 900px;">
+            UNIPREP Employer Connect Is Your Global Gateway To Real Opportunities, Verified Employers, And Powerful Job
+            Search Tools — Helping You Apply Smartly, Track Everything, And Connect With The Right Companies. Completely
+            Free To Join. 24x7 Support.
         </p>
     </div>
 </section>
-<section class="choose-us">
-    <div class="container d-flex flex-column gap-4">
-        <div *ngFor="let feature of chooseUsCards; let i = index" class="">
-            <div class="card bg-dark text-white">
+<section class="choose-us-section py-5">
+    <div class="container w-50">
+        <div *ngFor="let feature of chooseUsCards; let i = index" id="cards">
+            <div class="card bg-dark text-white mb-4">
                 <div class="card-body">
                     <div class="feature-icon" [ngStyle]="{'background-color': feature.color}">
-                        <i class="bi bi-{{feature.icon}}"></i>
+                        <i class="{{feature.icon}}"></i>
                     </div>
                     <h3 class="card-title mt-3">{{feature.title}}</h3>
-                    <div class="card-text fs-6" *ngIf="feature.description.length > 0">
+                    <div class="card-text fs-4" *ngIf="feature.description.length > 0">
                         <p *ngFor="let line of feature.description">{{line}}</p>
                     </div>
                 </div>
@@ -59,7 +58,7 @@
 <section class="features-section py-5">
     <div class="container w-50">
         <ul id="cards">
-            <li class="card bg-black border-secondary" id="card-1"
+            <li class="card bg-black border-secondary" [id]="'card-'+i"
                 *ngFor="let feature of templateCardFeatures; let i = index">
                 <div class="card-body">
                     <div class="feature-icon" [ngStyle]="{'background-color': feature.color}">
@@ -100,10 +99,10 @@
 
                     <!-- Table Rows -->
                     <div class="features-row row m-0" *ngFor="let feature of features; let i = index">
-                        <div class="col-md-5 py-3 feature-title">
+                        <div class="col-md-5 py-3 feature-title fs-5">
                             {{ feature.title }}
                         </div>
-                        <div class="col-md-7 py-3 feature-benefit">
+                        <div class="col-md-7 py-3 feature-benefit fs-5">
                             {{ feature.benefit }}
                         </div>
                     </div>
@@ -135,7 +134,7 @@
         <div class="container">
             <div class="row text-center mb-5">
                 <div class="col-12">
-                    <h2 class="section-title fw-bold mb-4">Designed for All Types of Employers</h2>
+                    <h2 class="section-title fw-bold mb-4">Who Should Join?</h2>
                     <div class="divider mx-auto"></div>
                 </div>
             </div>
@@ -179,7 +178,7 @@
                     <!-- CONTENT -->
                     <div class="row mt-5" [ngClass]="{'flex-row-reverse': step.alignment === 'right'}">
                         <div class="col-md-6"
-                            [ngClass]="{'text-end': step.alignment === 'left', 'text-start': step.alignment === 'right'}">
+                            [ngClass]="{'text-end mx-2': step.alignment === 'left', 'text-start  mx-2': step.alignment === 'right'}">
                             <div class="timeline-content p-3"
                                 [ngClass]="{'ms-auto': step.alignment === 'left', 'me-auto': step.alignment === 'right'}">
                                 <h3 class="timeline-title fw-bold"
@@ -197,12 +196,12 @@
 
 
     <!-- Section 3: CTA -->
-    <section class="cta-section text-center mt-5 py-5">
-        <div class="cta-container mx-auto rounded-4">
-            <h1 class="display-4 fw-bold text-orange mb-3">Start Hiring for Free — Globally</h1>
-            <p class="lead text-white mb-4">Hire the right talent — faster, smarter,<br> and without spending a penny
-            </p>
-            <button class="btn btn-outline-orange btn-lg px-5">Start Now</button>
-        </div>
-    </section>
+<section class="cta-section text-center mt-5 py-5">
+    <div class="cta-container mx-auto rounded-4">
+        <h1 class="display-4 fw-bold text-orange mb-3">Ready to Be Found by the Right Employer?</h1>
+        <p class="lead text-white fs-2 mb-4">Hire the right talent — faster, smarter,<br> and without spending a penny
+        </p>
+        <button class="btn btn-outline-orange btn-lg px-5" routerLink="/register">Start Now</button>
+    </div>
+</section>
 </div>

@@ -150,24 +150,24 @@
         <h2 class="text-center mb-5 fw-light">Discover What <span class="text-warning fw-bold">UNIPREP</span> Can Do for
           You</h2>
 
-        <div class="row">
-          <div class="col-md-3 mb-4" *ngFor="let category of userCategories">
-            <div class="card">
-              <div class="card-body p-4">
-                <div class="card mb-3 d-flex align-items-center justify-content-center"
-                  style="width: 60px; height: 60px">
-                  <span class="fs-2">{{ category.icon }}</span>
-                </div>
-                <h5 class="card-title">
-                  {{ category.title }}
-                </h5>
-                <p class="card-description text-light-emphasis">
-                  {{ category.description }}
-                </p>
-              </div>
-            </div>
-          </div>
+<div class="row g-3 align-items-stretch">
+  <div class="col-md-3 d-flex" *ngFor="let category of userCategories">
+    <div class="card w-100">
+      <div class="card-body d-flex flex-column p-4">
+        <div class="card mb-3 d-flex align-items-center justify-content-center"
+             style="width: 60px; height: 60px">
+          <span class="fs-2">{{ category.icon }}</span>
         </div>
+        <h5 class="card-title">
+          {{ category.title }}
+        </h5>
+        <p class="card-description text-light-emphasis mt-auto">
+          {{ category.description }}
+        </p>
+      </div>
+    </div>
+  </div>
+</div>
       </div>
     </div>
   </div>
@@ -469,7 +469,7 @@
 		</div>
 	</section> -->
 
-<section class="darksection text-white w-100">
+<!-- <section class="darksection text-white w-100">
   <div class="container-fluid w-100">
     <div class="row justify-content-center w-100">
       <div class="col-md-10">
@@ -492,7 +492,7 @@
       </div>
     </div>
   </div>
-</section>
+</section> -->
 
 <section class="blog-section text-white py-5">
   <div class="container-fluid">

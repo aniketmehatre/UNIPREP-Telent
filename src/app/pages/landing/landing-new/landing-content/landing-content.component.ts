@@ -28,194 +28,177 @@ totalStackScrollHeight = 0;
  steps = [
     {
       id: 1,
-      title: 'Register as an Employer:',
-      description: 'Easily sign up to access a vast network of top talent. Begin your recruitment process by creating your employer profile today.',
-      icon: 'fas fa-pen-to-square',
-      alignment: 'right'
-    },
-    {
-      id: 2,
-      title: 'Set Up Your Company Profile',
-      description: 'Showcase your company\'s culture and values to attract the right candidates. Create an engaging profile to highlight what makes your organization unique.',
-      icon: 'fas fa-building-wheat',
-      alignment: 'left'
-    },
-    {
-      id: 3,
-      title: 'Post Job Vacancies (Free)',
-      description: 'Advertise your open positions to a wide pool of candidates at no cost. Post job vacancies effortlessly and start receiving applications immediately.',
-      icon: 'fa-solid fa-magnifying-glass',
-      alignment: 'right'
-    },
-    {
-      id: 4,
-      title: 'Search Talent on Talent - Connect',
-      description: 'Browse through a diverse pool of qualified candidates to find your ideal match. Utilize advanced search filters to narrow down candidates based on your specific needs.',
-      icon: 'fa-solid fa-magnifying-glass',
-      alignment: 'left'
-    },
-    {
-      id: 5,
-      title: 'Skill-Based Shortlisting:',
-      description: 'Shortlist candidates based on the exact skills and qualifications you\'re looking for. Streamline your hiring process by focusing on talent that best fits your role.',
-      icon: 'fas fa-lightbulb',
-      alignment: 'right'
-    },
-    {
-      id: 6,
-      title: 'Connect, Interview, and Hire - from Anywhere in the World:',
-      description: 'Seamlessly connect, interview, and hire top talent, no matter where they\'re located. Take your recruitment process global with remote interviews and easy hiring options.',
-      icon: 'fas fa-earth-africa',
-      alignment: 'left'
-    }
-  ];
+     title: 'Sign Up and Build Your Career  Profile',
+     description: 'Create a professional profile to showcase your skills, experience, and aspirations.',
+     icon: 'fa-solid fa-user-pen',
+     alignment: 'right',
+   },
+   {
+     id: 2,
+     title: 'Discover Local, National & Global-Opportunities',
+     description: 'Explore job openings from employers around the world across industries.',
+     icon: 'fa-solid fa-globe',
+     alignment: 'left',
+   },
+   {
+     id: 3,
+     title: 'Apply to Roles that Match Your Goals',
+     description: 'Advertise your open positions to a wide pool of candidates at no cost. Post job vacancies effortlessly and start receiving applications immediately.',
+     icon: 'fa-solid fa-file-arrow-up',
+     alignment: 'right',
+   },
+   {
+     id: 4,
+     title: 'Stand Out and Get Shortlisted',
+     description: 'Browse through a diverse pool of qualified candidates to find your ideal match. Utilize advanced search filters to narrow down candidates based on your specific needs.',
+     icon: 'fa-solid fa-user-check',
+     alignment: 'left',
+   },
+   {
+     id: 5,
+     title: 'Connect & Interview with Employers',
+     description: 'Engage directly with companies through the platform for interviews and assessments.',
+     icon: 'fa-solid fa-handshake',
+     alignment: 'right',
+   },
+   {
+     id: 6,
+     title: 'Secure Your Next Opportunity',
+     description: 'Land your ideal role and take the next step in your professional journey.',
+     icon: 'fa-solid fa-trophy',
+     alignment: 'left',
+   },
+ ];
 
   employerTypes = [
     {
-      icon: 'fa-thin fa-building',
-      title: 'Small & Medium Enterprises (SMEs)',
-      description: 'Source the right people while keeping costs low.',
-      borderClass: 'border-warning'
+      icon: 'fa-thin fa-user-graduate',
+      title: 'Students',
+      description: 'Looking to kick-start their careers with hands-on experience',
     },
     {
-      icon: 'fa-thin fa-rocket',
-      title: 'Startups',
-      description: 'Hire capable teams to grow with your business.',
-      borderClass: ''
+      icon: 'fa-thin fa-user-check',
+      title: 'Graduates',
+      description: 'Ready to launch their journey into the job market',
     },
     {
-      icon: 'fa-thin fa-industry',
-      title: 'Large Enterprises',
-      description: 'Build global teams and streamline recruitment at scale.',
-      borderClass: ''
+      icon: 'fa-thin fa-user-tie',
+      title: 'Professionals',
+      description: 'Exploring new industries or roles',
     },
     {
-      icon: 'fa-thin fa-bank',
-      title: 'Universities & Institutions',
-      description: 'Advertise internal roles or research opportunities.',
-      borderClass: ''
+      icon: 'fa-thin fa-users',
+      title: 'Jobseekers',
+      description: 'Who want to stay close to home or explore opportunities abroad',
     },
     {
-      icon: 'fa-thin fa-laptop',
-      title: 'Recruitment Agencies',
-      description: 'Find qualified candidates for your clients quickly and efficiently.',
-      borderClass: ''
+      icon: 'fa-thin fa-file-contract',
+      title: 'Candidates',
+      description: 'Looking for remote, hybrid, or flexible roles across sectors',
     },
     {
-      icon: 'fa-thin fa-building-user',
-      title: 'Multi-national Companies',
-      description: 'Build a diverse, global workforce to meet international demands.',
-      borderClass: ''
-    }
+      icon: 'fa-thin fa-briefcase',
+      title: 'Career changers',
+      description: 'Aiming to upskill and transition into high-growth fields',
+    },
   ];
 
   features = [
     {
-      title: 'Post Job & Internship Opportunities',
-      benefit: 'Create detailed listings with qualifications, responsibilities, and deadlines — completely free.'
+      title: 'Create your profile',
+      benefit: 'Craft a profile that showcases your achievements, interests, and readiness',
     },
     {
-      title: 'Receive and Review Applications Instantly',
-      benefit: 'Get direct access to candidate CVs and profiles the moment they apply.'
+      title: 'Browse Openings',
+      benefit: 'Discover curated job and internship listings tailored to different industries, levels, and locations',
     },
     {
-      title: 'Smart Filtering Tools',
-      benefit: 'Narrow down applicants by skills, salary expectations, location, institute, and experience — all in seconds.'
+      title: 'Connect with Employers',
+      benefit: 'Be seen. Be selected. Be hired.',
     },
     {
-      title: 'Skill Match Shortlisting',
-      benefit: 'Automatically surface the best-fit candidates based on role-specific skills — saving you time and effort.'
+      title: 'Apply Seamlessly',
+      benefit: 'Submit your profile and documents directly to employers',
     },
     {
-      title: 'Create an Employer Profile',
-      benefit: 'Showcase your company story and attract high-quality talent.'
+      title: 'Get Skill-Matched',
+      benefit: 'See roles that align with your strengths without the guesswork',
     },
     {
-      title: 'Access a Global Talent Pool',
-      benefit: 'Discover ready-to-hire students, graduates, and professionals from around the world.'
-    }
+      title: 'Track Your Journey',
+      benefit: 'Know where you stand in the application process, always',
+    },
   ];
 
   chooseUsCards = [
     {
-      icon: 'fas fa-gear',
+      icon: 'fas fa-lightbulb',
       color: '#f8943f',
-      title: 'Skill-Based Hiring With Smart Filters',
+      title: 'Apply For Jobs In 100+ Countries',
       description: [
-        'Post Jobs With Targeted Skills',
-        'Filter For Candidates Who Truly Match Your Requirements',
-        'Skip Irrelevant CVs — Focus On What Matters'
+        'Explore Roles In The UK, Europe, UAE, Canada, And More',
+        'Search By Remote, Hybrid, Onsite, Or Relocation-Ready Options',
+        'Apply For Full-Time, Part-Time, Freelance, Or Internships'
       ]
     },
     {
-      icon: 'fas fa-camera-video',
+      icon: 'fas fa-video',
       color: '#a64dff',
       title: 'Introductory Videos – Optional For Students, Required By Employers',
       description: [
-        'Employers Can Make Video Introductions Mandatory See Candidates\' Communication Skills And Confidence Before Interviews\
-         Only Those Who Upload A Video Can Apply (If Required)'
+        'Apply Straight To Employers - No Agents Or Intermediaries',
+        'Faster Responses, Real Opportunities',
+        'Your Career In Your Hands'
       ]
     },
   ]
   
   templateCardFeatures = [
     {
-      icon: 'fas fa-check-circle',
-      color: '#4dcbc0',
-      title: 'Free For The First 6 Months',
-      description: []
-    },
-    {
-      icon: 'fas fa-globe',
-      color: '#4dc970',
-      title: 'Hire Across All Countries And Role Types',
-      description: []
-    },
-    {
-      icon: 'fas fa-arrow-left-right',
-      color: '#5c6bc0',
-      title: 'No Recruiters Or Middlemen',
-      description: []
-    },
-    {
-      icon: 'fas fa-people',
-      color: '#4dcbc0',
-      title: 'Multi-User HR Dashboard With Role-Based Access',
-      description: []
-    },
-    {
-      icon: 'fas fa-funnel',
-      color: '#e74c3c',
-      title: 'Filter Global Talent Before They Apply',
-      description: []
-    },
-    {
-      icon: 'list-check',
-      color: '#5c6bc0',
-      title: 'Filter Job Applicants After They Apply',
-      description: []
-    },
-    {
-      icon: 'search',
+      icon: 'fa-solid fa-wand-magic-sparkles',
       color: '#f8943f',
-      title: 'Talent Tracker – Organize And Revisit Top Candidates',
-      description: []
+      title: 'Create A Talent Profile With Built-In AI Reviewer',
+      description: [],
     },
     {
-      icon: 'person-check-fill',
-      color: '#e74c3c',
-      title: 'Applicant Tracker – Manage All Applications Clearly',
-      description: []
-    },
-    {
-      icon: 'headset',
+      icon: 'fa-solid fa-check-double',
       color: '#4dcbc0',
-      title: '24×7 Support From The UNIPREP Talent Connect Team',
+      title: 'Find And Apply For The Right Jobs — Instantly',
+      description: [],
+    },
+    {
+      icon: 'fa-solid fa-graduation-cap',
+      color: '#5c6bc0',
+      title: 'Use 30+ Career Features & Earn Certifications To Strengthen Your Profile',
+      description: [],
+    },
+    {
+      icon: 'fa-solid fa-list-check',
+      color: '#4dcbc0',
+      title: 'Track Applications Using Job Tracker',
+      description: [],
+    },
+    {
+      icon: 'fa-solid fa-building',
+      color: '#4dc970',
+      title: 'Connect With Companies Using Smart Filters + Company Tracker',
+      description: [],
+    },
+    {
+      icon: 'fa-solid fa-shield-check',
+      color: '#5c6bc0',
+      title: 'Simple, Safe, And Always Transparent',
+      description: [],
+    },
+    {
+      icon: 'fa-solid fa-headset',
+      color: '#f8943f',
+      title: '24×7 Support Whenever You Need It',
       description: [
-        'Need Help Posting Jobs, Filtering Candidates, Or Managing Access? Our Global Support Team Is Available 24X7',
-        'Get Answers Fast — Whenever You Need Them'
-      ]
-    }
+        'Need Help With Applying, Creating Your Profile, Or Using The Platform?',
+        'The UNIPREP Team Is Always Here To Support You — Anytime, Anywhere',
+      ],
+    },
   ];
 
   cardPositions: { top: number, left: number, rotate: number, scale: number, zIndex: number }[] = [];
@@ -223,64 +206,13 @@ totalStackScrollHeight = 0;
   scrollThreshold = 300;
 
   ngOnInit() {
-    this.initializeCardPositions();
   }
 
   ngAfterViewInit() {
   this.totalStackScrollHeight = this.templateCardFeatures.length * this.scrollThresholdPerCard;
 }
 
-initializeCardPositions() {
-  this.cardPositions = this.templateCardFeatures.map((_, index) => ({
-    top: 0,
-    left: 0,
-    rotate: 0,
-    scale: 1,
-    zIndex: this.templateCardFeatures.length - index
-  }));
-}
 
-@HostListener('window:scroll', ['$event'])
-onWindowScroll() {
-  if (!this.cardStackElement) return;
-
-  const rect = this.cardStackElement.nativeElement.getBoundingClientRect();
-  const scrollPosition = window.scrollY + window.innerHeight;
-  const elementTop = rect.top + window.scrollY;
-  const scrollDiff = scrollPosition - elementTop;
-
-  const threshold = this.scrollThreshold || 400; // Adjust as needed
-
-  if (scrollDiff > 0) {
-    const progress = Math.min(scrollDiff / threshold, 1);
-    this.updateCardPositions(progress);
-  } else {
-    this.initializeCardPositions();
-  }
-}
-
-updateCardPositions(progress: number) {
-  const maxOffset = 40;
-  const maxRotation = 6;
-
-  this.cardPositions = this.templateCardFeatures.map((_, index) => {
-    const offsetMultiplier = index;
-    const offset = progress * maxOffset * offsetMultiplier;
-    const rotate = progress * maxRotation * (index % 2 === 0 ? -1 : 1);
-    const left = progress * 15 * (index % 2 === 0 ? -1 : 1);
-    const scale = 1 - (index * 0.03 * progress);
-
-    return {
-      top: offset,
-      left: left,
-      rotate: rotate,
-      scale: scale, 
-      zIndex: this.templateCardFeatures.length - index
-    };
-  });
-
-  this.isStacked = progress === 1;
-}
 
     toggleVideo() {
       const video: HTMLVideoElement = this.videoPlayer.nativeElement

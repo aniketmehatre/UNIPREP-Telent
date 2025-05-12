@@ -6,10 +6,11 @@ import { RouterModule } from '@angular/router';
 import { ButtonModule } from 'primeng/button';
 import { DialogModule } from 'primeng/dialog';
 import { TooltipModule } from 'primeng/tooltip';
+import { PipesModule } from '@pipes/pipes.module';
 
 @Component({
   selector: 'uni-active-jobs',
-  imports: [CommonModule, RouterModule, ButtonModule, TooltipModule, DialogModule],
+  imports: [CommonModule, RouterModule, ButtonModule, TooltipModule, DialogModule, PipesModule],
   templateUrl: './active-jobs.component.html',
   styleUrl: './active-jobs.component.scss'
 })

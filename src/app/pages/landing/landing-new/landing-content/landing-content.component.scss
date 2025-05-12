@@ -6,9 +6,6 @@
 .choose-us {
   background-color: #121212;
 
-.container {
-    width: 550px;
-  }
 }
 
 video::-webkit-media-controls-panel {
@@ -134,6 +131,9 @@ h2 {
   }
 }
 
+.text-secondary {
+  color: #e67e22 !important;
+}
 .dashboard-preview {
   margin-top: 2rem;
   border-radius: 12px;
@@ -183,6 +183,15 @@ h2 {
       font-size: 1.25rem;
     }
   }
+}
+
+.choose-us-section {
+  background-color: #121212;
+  padding: 80px 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding-left: 1.8rem;
 }
 
 .features-section {
@@ -561,7 +570,7 @@ background: linear-gradient(90deg,#161616 60%,  #1A1D30 100%);
   left: 50%;
   transform: translateX(-50%);
   z-index: 1;
-  height: 85%;
+  height: 95%;
 }
 
 .timeline-item {

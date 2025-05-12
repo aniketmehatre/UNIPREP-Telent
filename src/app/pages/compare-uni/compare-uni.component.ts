@@ -219,8 +219,8 @@ export class CompareUniComponent {
   }
 
   // Helper method to determine if a platform has a specific feature
-  hasFeature(platform: any, feature: string): boolean {
-    console.log({ platform });
-    return platform.features[feature];
-  }
+    hasFeature(platform: any, feature: string): boolean {
+      console.log({ platform });
+      return platform.features[feature];
+    }
 }
