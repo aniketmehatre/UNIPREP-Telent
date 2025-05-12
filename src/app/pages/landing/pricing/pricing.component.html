@@ -26,7 +26,7 @@
                         <div class="col-lg-3 col-md-6 cursor-pointer">
                             <div class="card h-100 text-white rounded-4 pricing-col">
                                 <div class="card-body pricing-card-body" style="margin-top: 35px;">
-                                    <h5 class="card-title fw-bold">FREE</h5>
+                                    <h5 class="card-title fw-bold mb-4">FREE</h5>
                                     <p class="card-text text-secondary">A small description about the plan, can go up to
                                         2 lines</p>
                                     <h4>0 INR <small class="text-secondary">/ 60 Minutes</small></h4>
@@ -58,10 +58,10 @@
                         <div class="col-lg-3 col-md-6 cursor-pointer">
                             <div class="card h-100 pricing-col text-white rounded-4">
                                 <div class="card-body pricing-card-body">
-                                    <div class="d-flex justify-content-between align-items-center"
+                                    <div class="d-flex justify-content-between align-items-center mb-3"
                                         style="margin-top: 35px;">
                                         <h5 class="card-title fw-bold">Student</h5>
-                                        <div class="d-flex justify-content-between align-items-center gap-2" *ngIf="studentSubscription.actual_price !== studentSubscription.givenprice">
+                                        <div class="d-flex justify-content-between align-items-center gap-2" *ngIf="studentSubscription?.actual_price !== studentSubscription?.givenprice">
                                             <span class="p-2 badge">Save {{studentSubscription?.discount | number: '1.2'}}%</span> &nbsp;
                                             <del class="text-white">{{studentSubscription?.actual_price}}
                                                 {{studentSubscription?.currency}}</del>
@@ -102,9 +102,9 @@
                                     Most Popular Plan
                                 </div>
                                 <div class="card-body pricing-card-body">
-                                    <div class="d-flex justify-content-between align-items-center">
-                                        <h5 class="card-title fw-bold">Career</h5>
-                                        <div class="d-flex justify-content-between align-items-center gap-2" *ngIf="careerSubscription.actual_price !== careerSubscription.givenprice">
+                                    <div class="d-flex justify-content-between align-items-center mb-3">
+                                        <h5 class="card-title fw-bold">Career</h5>                                       
+                                         <div class="d-flex justify-content-between align-items-center gap-2" *ngIf="careerSubscription?.actual_price !== careerSubscription?.givenprice">
                                             <span class="p-2 badge">Save {{careerSubscription?.discount | number: '1.2'}}%</span> &nbsp;
                                             <del class="text-white">{{careerSubscription?.actual_price}}
                                                 {{careerSubscription?.currency}}</del>
@@ -116,7 +116,7 @@
                                                 class="text-secondary">/ {{selectedPeriod}} Month</small>
                                         </h4>
                                         <button class="btn pricing-col-btn w-100 mt-3">Get Started with the Career plan</button>
-                                    </div>
+                                </div>
                                     <ul class="list-unstyled pricing-list p-3 pt-0">
                                         <li><span class="tick">✔️</span>&nbsp; AI Global
                                             Advisor</li>
@@ -151,12 +151,11 @@
                                     <div class="d-flex justify-content-between align-items-center"
                                         style="margin-top: 35px;">
                                         <div class="card-body pricing-card-body">
-                                            <div class="d-flex justify-content-between align-items-center">
+                                            <div class="d-flex justify-content-between align-items-center gap-4 " [ngClass]="{'mb-3': entrepreneurSubscription?.actual_price == entrepreneurSubscription?.givenprice}">
                                                 <h5 class="card-title fw-bold text-nowrap">Entrepreneur</h5>
-                                                <div class="d-flex justify-content-between align-items-center gap-2" *ngIf="entrepreneurSubscription.actual_price !== entrepreneurSubscription.givenprice">
+                                                <div class="d-flex flex-column align-items-center" *ngIf="entrepreneurSubscription?.actual_price !== entrepreneurSubscription?.givenprice">
                                                     <span
                                                         class="p-2 badge">Save {{entrepreneurSubscription?.discount | number: '1.2'}}%</span>
-                                                    &nbsp;
                                                     <del class="text-white">{{entrepreneurSubscription?.actual_price}}
                                                         {{entrepreneurSubscription?.currency}}</del>
                                                 </div>

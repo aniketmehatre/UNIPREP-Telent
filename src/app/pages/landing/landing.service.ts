@@ -76,6 +76,6 @@ export class landingServices {
   }
 
   getCountryName() {
-    return this.http.get('http://ipinfo.io');
+    return this.http.get('https://ipapi.co/json/');
   }
 }
