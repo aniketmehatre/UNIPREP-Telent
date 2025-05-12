@@ -10,7 +10,7 @@ const dev_uniapply_student = 'http://74.225.142.9/uniapplyStudents/public/api'
 const prod_uniapply_student = 'https://apply.uniabroad.io/uniapplyStudents/public/api'
 const employerdevUrl = 'https://dev-employer.uniprep.ai';
 const employerProdUrl = 'https://employer.uniprep.ai';
-
+const devStudentUrl = 'https://dev-student.uniprep.ai';
 
 export const environment = {
   domain: dev_domain,
@@ -28,5 +28,5 @@ export const environment = {
     apiKey: 'AIzaSyCxrgn6ZZL3IsY_3xrSqQJi_3yT_OKr-n0'
   },
   uniApplyUrl: dev_uniapplyb2c_url,
-  uniapplyAPI: dev_uniapply_student
+  uniapplyAPI: dev_uniapply_student,
 };

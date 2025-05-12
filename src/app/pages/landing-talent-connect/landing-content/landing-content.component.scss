@@ -8,6 +8,9 @@
 
 }
 
+.employer-types-container {
+  background: radial-gradient(circle at bottom center, #5c3416 0%, #1a1a1a 50%, #0e0e0e 100%) !important;
+}
 video::-webkit-media-controls-panel {
 	background-image: none !important;
 }
@@ -46,7 +49,11 @@ video {
 .hero-section {
   position: relative;
   padding: 80px 0;
-  background: linear-gradient(135deg, #432F1C 0%, #2B212A 50%, #1D1D1E 100%);
+  background-image: url('/uniprep-assets/images/landing-talent-bg.svg'),
+      linear-gradient(135deg, #432F1C 0%, #2B212A 50%, #1D1D1E 100%), ;
+    background-position: center center;
+    background-repeat: no-repeat;
+    background-size: cover;
   overflow: hidden;
   display: flex;
   align-items: center;
@@ -191,7 +198,6 @@ h2 {
   display: flex;
   flex-direction: column;
   align-items: center;
-  padding-left: 1.8rem;
 }
 
 .features-section {
@@ -343,6 +349,12 @@ h2 {
   gap: var(--card-margin);
   padding-bottom: calc(var(--numcards) * var(--card-top-offset));
   margin-bottom: var(--card-margin);
+    padding: 0;
+    
+      ul {
+        margin: 0;
+        padding-left: 0 !important;
+      }
 }
 
 #card-1 {

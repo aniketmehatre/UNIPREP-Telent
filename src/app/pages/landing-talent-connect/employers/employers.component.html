@@ -14,8 +14,8 @@
       </div>
 
       <div class="row g-3 talent-card-container">
-			<div class="col-xxl-3 col-xl-4 col-lg-4 col-md-6 col-sm-6 col-12 mb-2" *ngFor="let company of companyConnectList"  (click)="displayUnlockFilter = true;">
-				<div class="card h-100 card-inside" role="button" style="transition: transform 0.3s; border: 1px solid #fda172" [style.border]="company.verified ? '1px solid #FFA500' : '1px solid #fda172'">
+			<div class="col-xxl-4 col-xl-4 col-lg-4 col-md-6 col-sm-6 col-12 mb-2 " *ngFor="let company of companyConnectList"  (click)="displayUnlockFilter = true;">
+				<div class="card h-100 card-inside text-dark bg-white" role="button" style="transition: transform 0.3s; border: 1px solid #fda172" [style.border]="company.verified ? '1px solid #FFA500' : '1px solid #fda172'">
 					<div class="card-body">
 						<div class="row mb-3">
 							<div class="col-3">
@@ -23,11 +23,11 @@
 									<img (error)="$event.target.src = '/uniprep-assets/images/job.webp'" src="{{ company.company_logo }}" alt="Company Logo" style="width: 100%; object-fit: contain; height: 100%" />
 								</div>
 							</div>
-							<div class="col-9 text-start">
+							<div class="col-9 text-start text-dark">
 								<div class="d-flex justify-content-between text-start">
 									<div class="d-block">
 										<h5 class="fw-bold mb-0">{{ company.company_name ? company.company_name : "Company Name" }}</h5>
-										<p class="text-muted text-small">Founded: {{ company.founded_year || "2019" }}</p>
+										<p class="text-muted text-small">Founded: {{ (company.founded_year | date: 'yyyy')  || "2019" }}</p>
 									</div>
 									<a href="#" style="color: #fda172">
 										<i class="fa-regular fa-share-alt fa-xl"></i>
@@ -40,7 +40,7 @@
 								</div>
 							</div>
 						</div>
-						<div class="row text-start">
+						<div class="row text-start text-dark">
 							<!-- First Row -->
 							<hr class="my-1" />
 							<div class="col-6">
@@ -48,8 +48,7 @@
 									<div class="icon-container job-icon">
 										<i class="fas fa-briefcase"></i>
 									</div>
-									<div class="info-container" class="text-decoration-none text-dark"
-										(click)="routerToJobListingPageWithCompanyId($event, company.id);">
+									<div class="info-container" class="text-decoration-none text-dark">
 										<div class="info-label">Open Jobs</div>
 										<div class="info-value">{{ company.jobs }}</div>
 									</div>
@@ -102,7 +101,7 @@
 									</div>
 									<div class="info-container">
 										<div class="info-label">Industry</div>
-										<div class="info-value">{{ company.industry_type }}</div>
+										<div class="info-value">{{ company.industry_type[1]+'+1' }}</div>
 									</div>
 								</div>
 							</div>

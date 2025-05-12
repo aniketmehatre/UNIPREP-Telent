@@ -4,10 +4,11 @@ import { RouterModule } from '@angular/router';
 import { DialogModule } from 'primeng/dialog';
 import { Company } from 'src/app/@Models/company-connect.model';
 import { landingServices } from '../landing-page.service';
+import { ButtonModule } from 'primeng/button';
 
 @Component({
   selector: 'uni-employers',
-  imports: [DialogModule, CommonModule, RouterModule],
+  imports: [DialogModule, CommonModule, RouterModule, ButtonModule],
   templateUrl: './employers.component.html',
   styleUrl: './employers.component.scss'
 })
@@ -29,8 +30,8 @@ export class EmployersComponent {
   loadJobsData(): void {
     this.landingPageService.getCompanyConnectList({ page: this.currentPage, perpage: this.itemsPerPage }).subscribe(
       (response) => {
-        this.companyConnectList = response.data;
-        this.totalTalents = response.count;
+        this.companyConnectList = response.companies;
+        this.totalTalents = response.totalcount;
         this.totalPages = Math.ceil(this.totalTalents / this.itemsPerPage);
       },
       (error) => {
