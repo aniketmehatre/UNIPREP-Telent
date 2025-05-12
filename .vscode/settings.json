@@ -1,5 +1,16 @@
 {
     "cSpell.words": [
         "scrolltop"
-    ]
+    ],
+    "json.schemas": [],
+    "editor.bracketPairColorization.enabled": true,
+    "editor.guides.bracketPairs": "active",
+    "workbench.colorCustomizations": {
+        "editorBracketHighlight.foreground1": "#FFD700", // Gold
+        "editorBracketHighlight.foreground2": "#DA70D6", // Orchid
+        "editorBracketHighlight.foreground3": "#87CEFA", // LightSkyBlue
+        "editorBracketHighlight.foreground4": "#32CD32", // LimeGreen
+        "editorBracketHighlight.foreground5": "#FFA500", // Orange
+        "editorBracketHighlight.foreground6": "#FF69B4" // HotPink
+    }
 }
