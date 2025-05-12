@@ -25,11 +25,12 @@ import { DialogModule } from "primeng/dialog"
 import { CardModule } from "primeng/card"
 import { InputNumberModule } from "primeng/inputnumber"
 import { StorageService } from "../../storage.service";
-import { catchError, combineLatest, forkJoin, of } from "rxjs"
+import { catchError, combineLatest, EMPTY, finalize, forkJoin, of, timeout } from "rxjs"
 import { InputSwitchModule } from "primeng/inputswitch"
 import { TableModule } from "primeng/table"
 import { SubscriptionService } from "../subscription/subscription.service"
 import { ConfirmDialogModule } from "primeng/confirmdialog"
+import { AuthTokenService } from "src/app/core/services/auth-token.service"
 @Component({
 	selector: "uni-user-management",
 	templateUrl: "./user-management.component.html",
@@ -93,7 +94,7 @@ export class UserManagementComponent implements OnInit {
 		private dataService: DataService, private dashboardService: DashboardService,
 		private userManagementService: UserManagementService, private router: Router,
 		private _location: Location, private storage: StorageService, private subscription: SubscriptionService,
-		private confirmationService: ConfirmationService,) {
+		private confirmationService: ConfirmationService,private authTokenService: AuthTokenService,) {
 			
 		this.registrationForm = this.formBuilder.group({
 			name: [""],
@@ -407,17 +408,66 @@ export class UserManagementComponent implements OnInit {
 	}
 
 	logout() {
-		this.locationService.sessionEndApiCall().subscribe((data: any) => { })
-		this.authService.logout().subscribe((data) => {
-			this.toast.add({
-				severity: "info",
-				summary: "Info",
-				detail: "logged out successfully",
-			})
-			window.sessionStorage.clear()
-			localStorage.clear()
-			this.router.navigateByUrl("/login")
-		})
+			// this.isLoading = true;
+			// Create a cleanup function to handle all synchronous operations
+			const cleanupLocalState = () => {
+				window.sessionStorage.clear();
+				localStorage.clear();
+				this.authService.clearCache();
+				this.locationService.clearCache();
+				this.authTokenService.clearToken();
+				// this.isLoading = false;
+			};
+	
+			// Prepare all API calls that need to be made
+			const logoutRequests = [
+				this.authService.logout().pipe(
+					catchError(error => {
+						console.warn('Logout API error:', error);
+						return EMPTY;
+					})
+				),
+				this.locationService.sessionEndApiCall().pipe(
+					catchError(error => {
+						console.warn('Session end API error:', error);
+						return EMPTY;
+					})
+				)
+			];
+	
+			// Execute all logout operations in parallel
+			forkJoin(logoutRequests).pipe(
+				timeout(5000), // 5 second timeout for all requests
+				finalize(() => {
+					// Always clean up local state, even if requests fail
+					cleanupLocalState();
+					// Navigate to login page
+					this.router.navigate(['/login'], { replaceUrl: true });
+				}),
+				catchError(error => {
+					console.warn('Logout process error:', error);
+					// Still clean up and redirect on error
+					cleanupLocalState();
+					this.router.navigate(['/login'], { replaceUrl: true });
+					return EMPTY;
+				})
+			).subscribe({
+				next: () => {
+					this.toast.add({
+						severity: 'success',
+						summary: 'Success',
+						detail: 'Logged out successfully'
+					});
+				},
+				error: (error) => {
+					console.error('Logout error:', error);
+					this.toast.add({
+						severity: 'info',
+						summary: 'Info',
+						detail: 'Logged out with some pending requests'
+					});
+				}
+			});
 	}
 	// get name short form
 	getInitials(name: string): string {
