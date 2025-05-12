@@ -105,7 +105,7 @@
 				</div>
 				<!-- style="visibility:hidden;" -->
 				<div class="d-flex justify-content-between" style="height: 5%">
-					<button pButton pButton type="button" (click)="previous()"
+					<button pButton type="button" (click)="previous()"
 						class="text-white p-ripple p-button-rounded p-button-info-prev p-button p-component p-2"><i
 							class="fa fa-arrow-left exhausted-plan-icon-prev"></i> Previous</button>
 					<button pButton class="downloadButton" style="margin: 0px" (click)="next()">CV Builder
@@ -1304,17 +1304,17 @@
 					</form>
 				</div>
 				<div class="d-flex justify-content-end">
-					<!-- <button pButton pButton type="button" (click)="fieldPreviousButton()"
+					<!-- <button pButton type="button" (click)="fieldPreviousButton()"
 						class="btn btn-primary btn-rounded p-1 pe-4">
 						<span class="btn-icon px-2 py-2"><i class="fa-solid fa-arrow-left"></i></span> <span
 							class="ms-2">Previous</span>
 					</button>
-					<button pButton pButton type="button" (click)="resumeFormSubmit()" *ngIf="moduleActiveIndex != 4"
+					<button pButton type="button" (click)="resumeFormSubmit()" *ngIf="moduleActiveIndex != 4"
 						class="btn btn-primary btn-rounded p-1 ps-4">
 						<span class="me-2">Next</span><span class="btn-icon px-2 py-2"><i
 								class="fa-solid fa-arrow-right"></i></span>
 					</button> -->
-					<button pButton pButton type="button" (click)="onProfileReview()"
+					<button pButton type="button" (click)="onProfileReview()"
 						class="btn btn-primary btn-rounded p-1 ps-4">
 						<span class="me-2">Submit</span><span class="btn-icon px-2 py-2"><i
 								class="fa-solid fa-arrow-right"></i></span>
@@ -1323,16 +1323,16 @@
 			</div>
 			<ng-template #showReview>
 				<div class="col-md-6 h-100 d-flex flex-column overflow-hidden gap-2">
-					<div class="flex-fill overflow-y-auto">
-						<div [innerHTML]="profileOverViewContent"></div>
+					<div class="flex-fill overflow-y-auto ">
+						<div class="profile-content" [innerHTML]="profileOverViewContent"></div>
 					</div>
 					<div class="d-flex justify-content-between">
-						<button pButton pButton type="button" (click)="isReviewContent=false"
+						<button pButton type="button" (click)="isReviewContent=false"
 							class="btn btn-primary btn-rounded p-1 ps-4">
 							<span class="me-2">Edit</span><span class="btn-icon px-2 py-2"><i
 									class="fa-solid fa-arrow-left"></i></span>
 						</button>
-						<button pButton pButton type="button" (click)="resumeFormSubmit()"
+						<button pButton type="button" (click)="resumeFormSubmit()"
 							class="btn btn-primary btn-rounded p-1 ps-4">
 							<span class="me-2">Create</span><span class="btn-icon px-2 py-2"><i
 									class="fa-solid fa-check"></i></span>
