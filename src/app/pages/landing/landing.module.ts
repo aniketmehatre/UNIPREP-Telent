@@ -9,6 +9,7 @@ import { JobSeekersLandingComponent } from './job-seekers-landing/job-seekers-la
 import { LandingLanguageHubComponent } from './landing-language-hub/landing-language-hub.component';
 import { MessageService } from 'primeng/api';
 import { AuthService } from 'src/app/Auth/auth.service';
+import { LandingFooterComponent } from "./landing-footer/landing-footer.component";
 const routes: Routes = [
   {
     path: '',
@@ -61,16 +62,18 @@ const routes: Routes = [
 ]
 @NgModule({
     imports: [
-      CommonModule,
-      FormsModule,
-      ReactiveFormsModule,
-      DialogModule,
-      RouterModule.forChild(routes),
-      ScrollTopModule,
-      LandingLanguageHubComponent,
-      JobSeekersLandingComponent
-      // Empty reducer configuration or actual reducers here
-    ],
+    CommonModule,
+    FormsModule,
+    ReactiveFormsModule,
+    DialogModule,
+    RouterModule.forChild(routes),
+    ScrollTopModule,
+    LandingLanguageHubComponent,
+    JobSeekersLandingComponent
+    // Empty reducer configuration or actual reducers here
+    ,
+    LandingFooterComponent
+  ],
   declarations: [LandingComponent],
   providers: [MessageService, AuthService],
 })

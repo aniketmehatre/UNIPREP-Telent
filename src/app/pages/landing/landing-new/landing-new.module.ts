@@ -7,6 +7,7 @@ import { ScrollTop, ScrollTopModule } from 'primeng/scrolltop';
 import { MessageService } from 'primeng/api';
 import { AuthService } from 'src/app/Auth/auth.service';
 import { LandingNewComponent } from './landing-new.component';
+import { LandingFooterComponent } from "../landing-footer/landing-footer.component";
 const routes: Routes = [
   {
     path: '',
@@ -35,14 +36,14 @@ const routes: Routes = [
 ]
 @NgModule({
     imports: [
-      CommonModule,
-      FormsModule,
-      ReactiveFormsModule,
-      DialogModule,
-      RouterModule.forChild(routes),
-      ScrollTopModule,
-      // Empty reducer configuration or actual reducers here
-    ],
+    CommonModule,
+    FormsModule,
+    ReactiveFormsModule,
+    DialogModule,
+    RouterModule.forChild(routes),
+    ScrollTopModule,
+    LandingFooterComponent
+  ],
   declarations: [LandingNewComponent],
   providers: [MessageService, AuthService],
 })
