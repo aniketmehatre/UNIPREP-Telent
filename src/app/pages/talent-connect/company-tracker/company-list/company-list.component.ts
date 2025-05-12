@@ -144,6 +144,7 @@ export class CompanyListsComponent implements OnInit {
   }
 
   onTabChange(event: any) {
+    this.page = 1;
     this.activeIndex = event.index;
     this.applyFilter({});
   }
