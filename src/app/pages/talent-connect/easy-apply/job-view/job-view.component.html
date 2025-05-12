@@ -40,10 +40,10 @@
 											<div class="col-12 text-md-end text-center mb-2 d-md-block d-none">
 												<button pButton label="Close Info" class="btn btn-primary w-100" (click)="showInfo = false" *ngIf="isShowApplyChat && isApplied"></button>
 												<button pButton class="p-button-success chat-btn w-100" *ngIf="!isShowApplyChat && isApplied" (click)="isShowApplyChat = true"><i class="pi pi-comments"></i> Chat</button>
-												<button *ngIf="!isApplied" pButton label="Apply" icon="fa fa-arrow-pointer" iconPos="right" class="p-button-primary w-100" (click)="applyJob(id)" [disabled]="isApplied"></button>
+												<button *ngIf="!isApplied" pButton label="Apply" icon="fa fa-arrow-pointer" iconPos="right" class="p-button-primary w-100" (click)="applyJob(jobId)" [disabled]="isApplied"></button>
 											</div>
 											<div class="d-block d-md-none">
-												<button *ngIf="!isApplied" pButton label="Apply" icon="fa fa-arrow-pointer" iconPos="right" class="p-button-primary w-100" (click)="applyJob(id)" [disabled]="isApplied"></button>
+												<button *ngIf="!isApplied" pButton label="Apply" icon="fa fa-arrow-pointer" iconPos="right" class="p-button-primary w-100" (click)="applyJob(jobId)" [disabled]="isApplied"></button>
 												<button class="p-button-success chat-btn w-100" pButton *ngIf="isApplied" (click)="visible = true"><i class="pi pi-comments"></i> Chat</button>
 											</div>
 											<div class="col-12 text-lg-end text-start">
@@ -73,7 +73,7 @@
 											</div>
 											<div class="col-md-2 col-6">
 												<div class="d-flex align-items-center gap-3">
-													<span><i class="fa-solid fa-video fa-lg" style="color: #cc660a"></i></span>
+													<span><i class="fa-solid fa-video fa-lg text-muted"></i></span>
 													<div>
 														<p class="text-muted text-small mb-0">Introduction Video</p>
 														<h6 class="mb-0 fw-bold">{{ jobDetails.intro_video == 'No' ? 'Not Mandatory' : 'Mandatory' }}</h6>
@@ -85,7 +85,7 @@
 													{{ jobDetails.matching_skills }}
 												</p>
 												<div class="d-flex flex-wrap gap-1 overflow-y-auto" style="max-height: 4rem">
-													<span *ngFor="let skill of jobDetails?.jobsoftskills" [ngClass]="{ 'bg-badge-color text-white': skill.ismatch }" class="badge border border-secondary text-warn">{{ skill.softskill }}</span>
+													<span *ngFor="let skill of jobDetails?.jobsoftskills" [ngClass]="skill.ismatch ? 'bg-badge-color text-white': 'text-dark'" class="badge border">{{ skill.softskill }}</span>
 												</div>
 											</div>
 										</div>
@@ -172,9 +172,9 @@
 									<div class="col-xxl-2 col-xl-3 col-lg-4 col-md-6 col-sm-6 col-6">
 										<div class="d-flex flex-column">
 											<div class="d-flex align-items-center mb-2">
-												<i class="fas fa-calendar me-2" style="color: red"></i>
+												<i class="fa-solid fa-hourglass me-2" style="color: red"></i>
 												<div>
-													<span class="text-muted">Due Date</span>
+													<span class="text-muted">Application Deadline</span>
 													<div class="fw-bold">{{ jobDetails.due_date }}</div>
 												</div>
 											</div>
@@ -231,32 +231,6 @@
 														<span class="me-1">{{ jobDetails.currency_code }}</span
 														>{{ jobDetails.salary_offer }}
 													</div>
-												</div>
-											</div>
-										</div>
-									</div>
-
-									<!-- Total Applied -->
-									<div class="col-xxl-2 col-xl-3 col-lg-4 col-md-6 col-sm-6 col-6">
-										<div class="d-flex flex-column">
-											<div class="d-flex align-items-center mb-2">
-												<i class="fas fa-user-plus me-2 text-primary"></i>
-												<div>
-													<span class="text-muted">Total Applied</span>
-													<div class="fw-bold">{{ jobDetails.total_applied }}</div>
-												</div>
-											</div>
-										</div>
-									</div>
-
-									<!-- Available Vacancies -->
-									<div class="col-xxl-2 col-xl-3 col-lg-4 col-md-6 col-sm-6 col-6">
-										<div class="d-flex flex-column">
-											<div class="d-flex align-items-center mb-2">
-												<i class="fas fa-users me-2 text-secondary"></i>
-												<div>
-													<span class="text-muted">Available Vacancies</span>
-													<div class="fw-bold">{{ jobDetails.available_vacancies }}</div>
 												</div>
 											</div>
 										</div>
@@ -392,7 +366,7 @@
 										</div>
 										<div class="col-12 col-md-9 font-bold">
 											<div class="d-flex flex-wrap gap-2">
-												<span *ngFor="let comp of jobDetails.compensation_structure" class="badge bg-warning text-dark p-2 rounded mb-2 fs-6">{{ comp }}</span>
+												<span *ngFor="let comp of jobDetails.compensation_structure" class="border border-warning badge bg-warning text-dark p-2 rounded mb-2 fs-6">{{ comp }}</span>
 											</div>
 										</div>
 									</div>
@@ -410,7 +384,7 @@
 										</div>
 										<div class="col-12 col-md-9 font-bold">
 											<div class="d-flex flex-wrap gap-2">
-												<span *ngFor="let benefit of jobDetails.benefits_perks" class="badge bg-warning text-dark p-2 rounded mb-2 fs-6">{{ benefit }}</span>
+												<span *ngFor="let benefit of jobDetails.benefits_perks" class="border border-warning badge bg-warning text-dark p-2 rounded mb-2 fs-6">{{ benefit }}</span>
 											</div>
 										</div>
 									</div>
@@ -428,7 +402,7 @@
 										</div>
 										<div class="col-12 col-md-9 font-bold">
 											<div class="d-flex flex-wrap gap-2">
-												<span *ngFor="let skill of jobDetails?.soft_skills" class="badge bg-warning text-dark p-2 rounded mb-2 fs-6">{{ skill }}</span>
+												<span *ngFor="let skill of jobDetails?.soft_skills" class="border border-warning badge bg-warning text-dark p-2 rounded mb-2 fs-6">{{ skill }}</span>
 											</div>
 										</div>
 									</div>
@@ -445,14 +419,14 @@
 											<h2 class="fs-3 fw-bold">Hiring & Recruitment</h2>
 										</div>
 										<div class="col-12 col-md-9 font-bold">
-											<h6 class="mb-2">Hiring Process Stages</h6>
+											<h6 class="mb-2 text-primary">Hiring Process Stages</h6>
 											<div class="d-flex flex-wrap gap-2 mb-4">
 												<ng-container *ngIf="Array.isArray(jobDetails.hiring_stages) && jobDetails.hiring_stages.length > 0">
 													<ng-container *ngIf="jobDetails.hiring_stages[0].id !== undefined">
-														<span *ngFor="let stage of jobDetails.hiring_stages" class="badge bg-warning text-dark p-2 rounded mb-2 fs-6">{{ stage.name }}</span>
+														<span *ngFor="let stage of jobDetails.hiring_stages" class="border border-warning badge bg-warning text-dark p-2 rounded mb-2 fs-6">{{ stage.name }}</span>
 													</ng-container>
 													<ng-container *ngIf="jobDetails.hiring_stages[0].id === undefined">
-														<span *ngFor="let stage of jobDetails.hiring_stages" class="badge bg-warning text-dark p-2 rounded mb-2 fs-6">{{ stage }}</span>
+														<span *ngFor="let stage of jobDetails.hiring_stages" class="border border-warning badge bg-warning text-dark p-2 rounded mb-2 fs-6">{{ stage }}</span>
 													</ng-container>
 												</ng-container>
 												<ng-container *ngIf="!Array.isArray(jobDetails.hiring_stages)">
@@ -460,10 +434,10 @@
 												</ng-container>
 											</div>
 
-											<h6 class="mb-2">Estimated Hiring Decision Timeframe</h6>
+											<h6 class="mb-2 text-primary">Estimated Hiring Decision Timeframe</h6>
 											<p class="mb-4">{{ jobDetails.hiring_timeframe }}</p>
 
-											<h6 class="mb-2">Interview Format</h6>
+											<h6 class="mb-2 text-primary">Interview Format</h6>
 											<p>{{ jobDetails.interview_format }}</p>
 										</div>
 									</div>

@@ -50,6 +50,8 @@ export class EasyApplyComponent {
   displayModal: boolean = false;
   first: number = 0;
   filterForm: FormGroup = new FormGroup({});
+  currencyOptions: any[]= [];
+
   constructor(private route: ActivatedRoute, private fb: FormBuilder, private talentConnectService: TalentConnectService, private messageService: MessageService) { }
   ngOnInit(): void {
     this.route.queryParams.subscribe(params => {
