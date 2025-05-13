@@ -30,6 +30,8 @@ import { EditorModule } from "primeng/editor";
 import { maxWordsValidator } from "src/app/@Supports/max-word-validator";
 import { DomSanitizer, SafeHtml } from "@angular/platform-browser";
 import { EducationToolsService } from "../../education-tools/education-tools.service";
+import { SkeletonModule } from "primeng/skeleton";
+import { SharedModule } from "primeng/api";
 declare const pdfjsLib: any;
 
 interface ResumeHistory {
@@ -43,7 +45,7 @@ interface ResumeHistory {
   templateUrl: "./cv-builder.component.html",
   styleUrls: ["./cv-builder.component.scss"],
   standalone: true,
-  imports: [CommonModule, DialogModule, TextareaModule, SidebarModule, EditorModule, PdfViewerModule, RouterModule, CardModule, PaginatorModule, FormsModule, ReactiveFormsModule, CarouselModule, ButtonModule, MultiSelectModule, SelectModule, InputGroupModule, InputTextModule, InputGroupAddonModule, ConfirmPopup, TooltipModule, ToastModule],
+  imports: [CommonModule, DialogModule, TextareaModule, SidebarModule, EditorModule, PdfViewerModule, RouterModule, CardModule, PaginatorModule, FormsModule, ReactiveFormsModule, CarouselModule, ButtonModule, MultiSelectModule, SelectModule, InputGroupModule, InputTextModule, InputGroupAddonModule, ConfirmPopup, TooltipModule, ToastModule, SharedModule,SkeletonModule],
   providers: [CvBuilderService, ConfirmationService, MessageService]
 })
 export class CvBuilderComponent implements OnInit, AfterViewInit {
@@ -431,6 +433,17 @@ export class CvBuilderComponent implements OnInit, AfterViewInit {
     const query = event.target.value.toLowerCase();
     if (query.length > 3) {
       this.filteredDesignations[index] = this.getFilteredJobs(query);
+      if(this.filteredDesignations[index].length === 0){
+         const newJobTitle: any = {
+          id: 0, // Use 0 or -1 to indicate it's a custom/new item
+          jobrole: query
+        };
+        this.filteredDesignations[index].unshift(newJobTitle);
+        if (this.occupationList[0].id === 0) {
+          this.occupationList.shift();
+        }
+        this.occupationList.unshift(newJobTitle);
+      }
     } else if (query.length < 2) {
       this.filteredDesignations[index] = [];
     }
@@ -905,6 +918,7 @@ export class CvBuilderComponent implements OnInit, AfterViewInit {
     if (this.moduleActiveIndex === 0) {
       controlNames = ["work_org_name", "work_currently_working", "work_start_year", "work_start_month", "work_end_year", "work_end_month", "work_designation", "work_type", "work_location", "work_job_description"];
       formControlFields.push(this.resumeFormInfoData.get("workExpArray") as FormArray);
+      console.log(formControlFields, "formControlFields");
     }
 
     formControlFields.forEach((formArray) => {
@@ -1574,6 +1588,7 @@ export class CvBuilderComponent implements OnInit, AfterViewInit {
 
   onProfileReview() {
     this.isReviewContent = true;
+    this.profileOverViewContent = "";
     let formData = this.resumeFormInfoData.value;
     let data: any = {
       mode: "cv_builder_profile_review",
@@ -1582,100 +1597,10 @@ export class CvBuilderComponent implements OnInit, AfterViewInit {
     // Api call for profile review
     this.educationService.getChatgptRecommendations(data).subscribe({
       next: response =>{
-        let currentResponse: SafeHtml = response;
-        this.profileOverViewContent = currentResponse
+        let currentResponse: SafeHtml = this.sanitizer.bypassSecurityTrustHtml(response.response);
+        this.profileOverViewContent =  currentResponse;
+        this.authService.aiCreditCount$.next(true);
       }
     })
-    let response = `
-      <div class="container">
-          <div class="section">
-              <div class="section-title">AI Profile Summary</div>
-              <div class="highlight-box">
-                  <p>A highly motivated and detail-oriented fresher Data Analyst with a strong foundation in statistics,
-                      data visualization, and database management. Proficient in Python (Pandas, NumPy), SQL, and Excel,
-                      with hands-on experience in cleaning, analyzing, and interpreting large datasets. Skilled in
-                      creating insightful reports and dashboards using Tableau and Power BI to drive data-driven decision
-                      making. Eager to leverage analytical skills and technical knowledge to support business objectives
-                      and deliver actionable insights.</p>
-              </div>
-          </div>
-          <div class="profile-box">
-              <div class="section-title">Profile Overview</div>
-              <div class="score-container">
-                  <div>
-                      <div class="label">Your Profile<br>Score:</div>
-                      <div class="label1">60 / 100</div>
-                  </div>
-                  <div>
-                      <div class="label">Keyword Match<br>(ATS relevance)</div>
-                      <div class="label1">70%</div>
-                  </div>
-                  <div>
-                      <div class="label">Profile Strength<br>Tag</div>
-                      <div class="label1">Needs Improvement</div>
-                  </div>
-              </div>
-          </div>
-          <div class="section">
-              <div class="section-title">Key Highlights</div>
-              <ul>
-                  <li>🎓 Master's Degree in E&C with an academic score of 85% from Hanze University of Applied Sciences.
-                  </li>
-                  <li>📊 Proficient in data cleaning, data visualization using Tableau and Power BI.</li>
-                  <li>💻 Strong skills in Python (Pandas, NumPy) and SQL.</li>
-                  <li>🔍 Hands-on experience in analyzing and interpreting large datasets.</li>
-                  <li>📈 Eager to support business objectives through actionable insights.</li>
-              </ul>
-          </div>
-          <div class="section">
-              <div class="section-title">Areas to Improve</div>
-              <ul>
-                  <li>📅 Add relevant certifications to enhance profile visibility.</li>
-                  <li>📝 Consider including metrics in experience to quantify achievements.</li>
-                  <li>🔗 Create a LinkedIn profile for networking opportunities.</li>
-                  <li>📈 Expand on skills to include additional relevant tools and technologies.</li>
-                  <li>🗂️ Develop a career objective statement to clarify job goals.</li>
-              </ul>
-          </div>
-          <div class="section">
-              <div class="section-title">Top 3 Action Tips</div>
-              <ul>
-                  <li>🔍 Tailor your resume for each job application to enhance ATS relevance.</li>
-                  <li>📄 Utilize action verbs and quantify accomplishments in your profile.</li>
-                  <li>📚 Engage in online courses to gain certifications in data analytics tools.</li>
-              </ul>
-          </div>
-          <div class="section">
-              <div class="section-title">How to reach a 100/100 Profile Score</div>
-              <table class="comparison-table">
-                  <tr>
-                      <th>Requirement</th>
-                      <th>What to Do</th>
-                  </tr>
-                  <tr>
-                      <td>✅ Online Visibility</td>
-                      <td>Create a LinkedIn profile and engage with industry professionals.</td>
-                  </tr>
-                  <tr>
-                      <td>✅ Certification Details</td>
-                      <td>Consider obtaining certifications in data analysis or related fields.</td>
-                  </tr>
-                  <tr>
-                      <td>✅ Metrics in Experience</td>
-                      <td>Add metrics to showcase your impact in projects or internships.</td>
-                  </tr>
-                  <tr>
-                      <td>✅ Career Objective</td>
-                      <td>Write a clear statement of your career goals and objectives.</td>
-                  </tr>
-                  <tr>
-                      <td>✅ Format Consistency</td>
-                      <td>Ensure your resume format is consistent and professional.</td>
-                  </tr>
-              </table>
-          </div>
-      </div>`;
-      this.profileOverViewContent = this.sanitizer.bypassSecurityTrustHtml(response);
-      
   }
 }

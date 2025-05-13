@@ -1323,9 +1323,27 @@
 			</div>
 			<ng-template #showReview>
 				<div class="col-md-6 h-100 d-flex flex-column overflow-hidden gap-2">
-					<div class="flex-fill overflow-y-auto ">
-						<div class="profile-content" [innerHTML]="profileOverViewContent"></div>
+					<div *ngIf="!profileOverViewContent; else showResponseData" class="card p-3 chatgpt-response bg-white h-100 overflow-y-auto">
+						<p-skeleton width='30rem' height='2rem' styleClass="mb-2"></p-skeleton>
+						<p-skeleton width='100%' height='1rem' styleClass="mb-2"></p-skeleton>
+						<p-skeleton width='100%' height='1rem' styleClass="mb-2"></p-skeleton>
+						<p-skeleton width='90%' height='1rem' styleClass="mb-2"></p-skeleton>
+						<p-skeleton width='100%' height='1rem' styleClass="mb-2"></p-skeleton>
+						<p-skeleton width='95%' height='1rem' styleClass="mb-2"></p-skeleton>
+						<p-skeleton width='50%' height='1rem'></p-skeleton>
+						<div class="divider"></div>
+						<p-skeleton width='30rem' height='2rem' styleClass="mb-2"></p-skeleton>
+						<p-skeleton width='100%' height='1rem' styleClass="mb-2"></p-skeleton>
+						<p-skeleton width='100%' height='1rem' styleClass="mb-2"></p-skeleton>
+						<div class="d-flex justify-content-end">
+							<uni-percentage-loader />
+						</div>
 					</div>
+					<ng-template #showResponseData>
+						<div class="flex-fill overflow-y-auto">
+							<div class="profile-content" [innerHTML]="profileOverViewContent"></div>
+						</div>
+					</ng-template>
 					<div class="d-flex justify-content-between">
 						<button pButton type="button" (click)="isReviewContent=false"
 							class="btn btn-primary btn-rounded p-1 ps-4">
