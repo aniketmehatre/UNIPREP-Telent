@@ -20,6 +20,10 @@ const routes: Routes = [
         loadComponent: () => import('./landing-content/landing-content.component').then(m => m.LandingContentComponent),
       },
       {
+        path: 'about',
+        loadComponent: () => import('./about-us/about-us.component').then(m => m.AboutUsComponent),
+      },
+      {
         path: 'international-sub',
         loadComponent: () => import('../international-subscription/international-subscription.component').then(c => c.InternationalSubscriptionComponent)
       },

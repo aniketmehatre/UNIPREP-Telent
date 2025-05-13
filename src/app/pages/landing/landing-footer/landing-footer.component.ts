@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component } from '@angular/core';
+import { Component, EventEmitter, Output } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { environment } from '@env/environment';
 
@@ -12,6 +12,11 @@ import { environment } from '@env/environment';
 })
 export class LandingFooterComponent {
   currentYear = new Date().getFullYear()
+
+  @Output() openTermsAndCondition: EventEmitter<boolean> = new EventEmitter(true);
+  @Output() openPrivacyPolicy: EventEmitter<boolean> = new EventEmitter(true);
+  @Output() openCancellationPolicy: EventEmitter<boolean> = new EventEmitter(true);
+  @Output() openRefundPolicy: EventEmitter<boolean> = new EventEmitter(true);
 
   socialLinks = [
     { icon: "facebook", url: "https://facebook.com" },
@@ -31,7 +36,7 @@ export class LandingFooterComponent {
 
   exploreLinks = [
     { text: "For Employers", url: environment.employerDomain },
-    { text: "For Talents", url: "/landing/talent-connect" },
+    { text: "For Talents", url: "/talent-connect" },
     { text: "For Institutions", url: "/explore/institutions" },
     { text: "For Partners", url: "/explore/partners" },
   ]
@@ -42,10 +47,10 @@ export class LandingFooterComponent {
   ]
 
   otherLinks = [
-    { text: "Privacy Policy", url: "/privacy-policy" },
-    { text: "Terms & Conditions", url: "/terms-conditions" },
-    { text: "Cancellation Policy", url: "/cancellation-policy" },
-    { text: "Refund Policy", url: "/refund-policy" },
+    { text: "Privacy Policy", url: "/privacy-policy", type: 'privacy' },
+    { text: "Terms & Conditions", url: "/terms-conditions", type: 'terms' },
+    { text: "Cancellation Policy", url: "/cancellation-policy", type: 'cancellation' },
+    { text: "Refund Policy", url: "/refund-policy", type: 'refund' },
   ]
 
   contactInfo = {
@@ -54,5 +59,24 @@ export class LandingFooterComponent {
       { country: "gb", number: "+44 99009 00990" },
     ],
     email: "info@uniprep.ai",
+  }
+
+  onClickPolicies(type: string) {
+    switch (type) {
+      case 'privacy':
+        this.openPrivacyPolicy.emit(true);
+        break;
+      case 'terms':
+        this.openTermsAndCondition.emit(true);
+        break;
+      case 'cancellation':
+        this.openCancellationPolicy.emit(true);
+        break;
+      case 'refund':
+        window.open('/refund-policy', '_blank');
+        break;
+      default:
+        break;
+    }
   }
 }
