@@ -2,12 +2,12 @@
     <div class="container">
         <div class="row mb-5">
             <div class="col-12">
-                <button class="btn btn-outline-dark rounded-circle me-3">
-                    <i class="pi pi-arrow-left"></i>
-                </button>
-                <button class="btn btn-outline-dark rounded-circle px-4">
-                    About UNIPREP
-                </button>
+                <div class="d-flex gap-2 align-items-center mb-2">
+                    <button class="back-button" routerLink="/landing">
+                        <i class="text-white fa-solid fa-arrow-left"></i>
+                    </button>
+                    <span class="text-white pagetitle px-3">About Uniprep</span>
+                </div>
             </div>
         </div>
 
@@ -49,9 +49,14 @@
 
         <p-timeline [value]="timelineData" class="w-full md:w-80" align="alternate">
             <ng-template #marker let-item>
-                <div class="timeline-marker">
-                    <div class="timeline-dot"></div>
+                <div class="timeline-marker" *ngIf="item.icon else withoutIcon">
+                    <div class="timelineWithIconDot">
+                        <i class="{{ item.icon }}"></i>
+                    </div>
                 </div>
+                <ng-template #withoutIcon>
+                    <div class="timeline-dot"></div>
+                </ng-template>
             </ng-template>
             <ng-template #content let-item>
                 <div class="timeline-content">

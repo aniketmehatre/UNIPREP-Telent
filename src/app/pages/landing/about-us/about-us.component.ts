@@ -44,7 +44,7 @@ export class AboutUsComponent implements OnInit {
   welcomeVideoLink: string = `https://${environment.domain}/uniprepapi/storage/app/public/Landing/welcome.mp4`;
   timelineData: TimelineItem[] = [
     {
-      icon: 'fas fa-arrow-down',
+      icon: 'fa-light fa-arrow-down',
       year: '2021',
       title: 'The Spark of Self-Reliance',
       subtitle: 'We began with a simple, yet powerful idea: What if everyone could take full control of their education, career, and entrepreneurial journey, without relying on anyone else?',
@@ -137,7 +137,7 @@ export class AboutUsComponent implements OnInit {
     title: 'WANT TO KNOW MORE?',
     description: 'REQUEST A DEMO OR JOIN THE UNIPREP NETWORK TODAY.',
     buttonText: 'Join Now',
-    buttonLink: '#join', // Replace with the actual link
+    buttonLink: '/register', // Replace with the actual link
   };
 
   constructor() { }

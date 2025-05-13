@@ -20,6 +20,13 @@
   align-items: center;
 }
 
+.badge {
+  background-color: var(--uniprep-secondary);
+  color: white;
+  border-radius: 1.5rem;
+  font-size: 0.6rem;
+  font-weight: 300;
+}
 .darksection {
   background-color: #07070b;
   p {

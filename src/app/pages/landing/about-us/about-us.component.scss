@@ -8,6 +8,27 @@ $timeline-color: $orange;
   display: block;
 }
 
+.back-button {
+    width: 35px;
+    height: 35px;
+    display: flex;
+    border-radius: 100%;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    border: 1px solid white;
+    background: transparent;
+}
+
+.pagetitle {
+    background-color: transparent;
+    border: 1px solid white;
+    border-radius: 100px;
+    height: 35px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
 // Text colors
 .text-orange {
   color: $orange !important;
@@ -110,6 +131,15 @@ video {
   border: 4px solid $timeline-color;
 }
 
+.timelineWithIconDot {
+    width: 30px;
+    height: 30px;
+    background-color: $timeline-color;
+    border-radius: 50%;
+    color: white;
+    text-align: center;
+    line-height: 30px;
+}
 .timeline-content {
   background-color: transparent;
   padding: 20px;

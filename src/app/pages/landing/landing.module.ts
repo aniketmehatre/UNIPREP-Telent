@@ -40,15 +40,15 @@ const routes: Routes = [
         loadComponent: () => import('./pricing/pricing.component').then(c => c.PricingComponent)
       },
       {
-        path: 'about/management',
+        path: 'management-team',
         loadComponent: () => import('./management-team/management-team.component').then(m => m.ManagementTeamComponent),
       },
       {
-        path: 'explore/:category',
+        path: ':category',
         loadComponent: () => import('./job-seekers-landing/job-seekers-landing.component').then(m => m.JobSeekersLandingComponent),
       },
       {
-        path: 'explore/:category/:id',
+        path: ':category/:slug',
         loadComponent: () => import('./landing-language-hub/landing-language-hub.component').then(m => m.LandingLanguageHubComponent),
       },
       {
