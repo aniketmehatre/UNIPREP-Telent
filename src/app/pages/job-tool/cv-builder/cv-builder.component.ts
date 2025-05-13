@@ -6,7 +6,6 @@ import { Router } from "@angular/router";
 import { MenuItem } from "primeng/api";
 import Swiper from "swiper";
 import { AuthService } from "../../../Auth/auth.service";
-import { LocationService } from "../../../location.service";
 import { City } from "src/app/@Models/cost-of-living";
 import { CommonModule } from "@angular/common";
 import { DialogModule } from "primeng/dialog";
@@ -29,6 +28,8 @@ import { ConfirmPopup } from "primeng/confirmpopup";
 import { ToastModule } from 'primeng/toast';
 import { EditorModule } from "primeng/editor";
 import { maxWordsValidator } from "src/app/@Supports/max-word-validator";
+import { DomSanitizer, SafeHtml } from "@angular/platform-browser";
+import { EducationToolsService } from "../../education-tools/education-tools.service";
 declare const pdfjsLib: any;
 
 interface ResumeHistory {
@@ -218,10 +219,19 @@ export class CvBuilderComponent implements OnInit, AfterViewInit {
   filteredLocations: any = [];
   filteredExpeAndEduLocations: { [key: number]: any[] } = {};
   pdfThumbnails: { [key: string]: string } = {};
-  profileOverViewContent: string = 'Profile Review';
+  profileOverViewContent: SafeHtml = '';
   isReviewContent: boolean = false;
 
-  constructor(private toaster: MessageService, private fb: FormBuilder, private resumeService: CvBuilderService, private router: Router, private confirmService: ConfirmationService, private authService: AuthService, private locationService: LocationService) {
+  constructor(
+    private toaster: MessageService, 
+    private fb: FormBuilder, 
+    private resumeService: CvBuilderService, 
+    private router: Router, 
+    private confirmService: ConfirmationService, 
+    private authService: AuthService, 
+    private sanitizer: DomSanitizer,
+    private educationService: EducationToolsService
+  ) {
     this.resumeFormInfoData = this.fb.group({
       selected_exp_level: ["", Validators.required],
       user_name: ["", Validators.required],
@@ -401,17 +411,17 @@ export class CvBuilderComponent implements OnInit, AfterViewInit {
     const query = event.target.value.toLowerCase();
     if (query.length > 3) {
       this.filteredJobs = this.getFilteredJobs(query);
-      if(this.filteredJobs.length === 0){
+      if (this.filteredJobs.length === 0) {
         const newJobTitle: any = {
-					id: 0, // Use 0 or -1 to indicate it's a custom/new item
+          id: 0, // Use 0 or -1 to indicate it's a custom/new item
           jobrole: query
-				};
+        };
         this.filteredJobs.unshift(newJobTitle);
-        if(this.occupationList[0].id === 0){
+        if (this.occupationList[0].id === 0) {
           this.occupationList.shift();
         }
         this.occupationList.unshift(newJobTitle);
-			}
+      }
     } else if (query.length < 2) {
       this.filteredJobs = [];
     }
@@ -1005,20 +1015,21 @@ export class CvBuilderComponent implements OnInit, AfterViewInit {
     this.hideHeader();
   }
 
-  previous() {
-    this.activePageIndex--;
-    this.hideHeader();
-    if (this.activePageIndex == 0 || this.activePageIndex == 1) {
-      this.selectedResumeLevel = "";
-      this.ngAfterViewInit();
-    }
-  }
+  // previous() {
+  //   this.activePageIndex--;
+  //   this.hideHeader();
+  //   if (this.activePageIndex == 0 || this.activePageIndex == 1) {
+  //     this.selectedResumeLevel = "";
+  //     this.ngAfterViewInit();
+  //   }
+  // }
 
   next() {
     if (this.authService.isInvalidSubscription('career_tools')) {
       this.authService.hasUserSubscription$.next(true);
       return;
     }
+    console.log(this.activePageIndex);
     if (this.activePageIndex == 0) {
       this.ngAfterViewInit();
     }
@@ -1316,11 +1327,11 @@ export class CvBuilderComponent implements OnInit, AfterViewInit {
 
   chatGPTIntegration(fieldName: string, iteration: number) {
     // const apiKey = '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';
-    if(this.authService._creditCount === 0){
-			this.toaster.add({severity: "error",summary: "Error",detail: "Please Buy some Credits...!"});
-			this.router.navigateByUrl('/pages/export-credit')
-			return;
-		}
+    if (this.authService._creditCount === 0) {
+      this.toaster.add({ severity: "error", summary: "Error", detail: "Please Buy some Credits...!" });
+      this.router.navigateByUrl('/pages/export-credit')
+      return;
+    }
     let formData = this.resumeFormInfoData.value;
     // let prompt: string = "";
     let parameters: any = {
@@ -1333,21 +1344,15 @@ export class CvBuilderComponent implements OnInit, AfterViewInit {
         return;
       }
       parameters.user_job_title = formData.user_job_title;
-      // parameters.mode =  "user_summary";
 
       if (formData.selected_exp_level == 1) {
         parameters.exp_type = "fresher";
-        // prompt = `Provide a professional summary for a ${formData.user_job_title} role, up to 30 words, suitable for a resume for freshers.`;
       } else {
         parameters.exp_type = "experience";
         const selectedExp = this.experienceLevel[formData.selected_exp_level - 1];
         parameters.experience_level = selectedExp.level;
-        // prompt = `Provide a professional summary for a resume, up to 30 words, tailored to a ${formData.user_job_title} role with ${selectedExp.level} of experience.`;
       }
-      // this.isButtonDisabled = true;
     } else if (fieldName == "work_job_description") {
-      // parameters.mode =  "work_job_description";
-      // this.genreateButtonDisabled[iteration] = true;
       const work_designation = this.getWorkExpArray.value[iteration].work_designation;
       const work_organizationname = this.getWorkExpArray.value[iteration].work_org_name;
       parameters.work_designation = work_designation;
@@ -1387,45 +1392,6 @@ export class CvBuilderComponent implements OnInit, AfterViewInit {
         }
       }
     });
-    // return;
-    // const headers = new HttpHeaders({
-    //   'Content-Type': 'application/json',
-    //   'Authorization': `Bearer ${apiKey}`
-    // });
-
-    // const body = {
-    //   model: "gpt-3.5-turbo",
-    //   messages: [
-    //     { role: "system", content: "You are a helpful assistant." },
-    //     { role: "user", content: prompt }
-    //   ],
-    //   max_tokens: 300
-    // };
-
-    // this.http.post<any>('https://api.openai.com/v1/chat/completions', body, { headers: headers }).subscribe(response => {
-    //   if (response.choices && response.choices.length > 0) {
-    //     const GPTResponse = response.choices[0].message.content.trim();
-    //     if (fieldName == 'user_summary') {
-    //       this.resumeFormInfoData.patchValue({
-    //         user_summary: GPTResponse
-    //       });
-    //     } else if (fieldName == 'work_job_description') {
-    //       const workExpArray = this.getWorkExpArray;
-    //       if (workExpArray.length > 0) {
-    //         const firstWorkExpGroup = workExpArray.at(iteration) as FormGroup;
-    //         firstWorkExpGroup.patchValue({
-    //           work_job_description: GPTResponse
-    //         });
-    //       } else {
-    //         console.error('No work experience entries found.');
-    //       }
-    //     }
-    //   } else {
-    //     console.error('Unexpected response structure:', response);
-    //   }
-    // }, error => {
-    //   console.error('Error:', error);
-    // });
   }
 
   downloadOldResume(resumeLink: string) {
@@ -1608,6 +1574,108 @@ export class CvBuilderComponent implements OnInit, AfterViewInit {
 
   onProfileReview() {
     this.isReviewContent = true;
+    let formData = this.resumeFormInfoData.value;
+    let data: any = {
+      mode: "cv_builder_profile_review",
+      ...formData
+    }
     // Api call for profile review
+    this.educationService.getChatgptRecommendations(data).subscribe({
+      next: response =>{
+        let currentResponse: SafeHtml = response;
+        this.profileOverViewContent = currentResponse
+      }
+    })
+    let response = `
+      <div class="container">
+          <div class="section">
+              <div class="section-title">AI Profile Summary</div>
+              <div class="highlight-box">
+                  <p>A highly motivated and detail-oriented fresher Data Analyst with a strong foundation in statistics,
+                      data visualization, and database management. Proficient in Python (Pandas, NumPy), SQL, and Excel,
+                      with hands-on experience in cleaning, analyzing, and interpreting large datasets. Skilled in
+                      creating insightful reports and dashboards using Tableau and Power BI to drive data-driven decision
+                      making. Eager to leverage analytical skills and technical knowledge to support business objectives
+                      and deliver actionable insights.</p>
+              </div>
+          </div>
+          <div class="profile-box">
+              <div class="section-title">Profile Overview</div>
+              <div class="score-container">
+                  <div>
+                      <div class="label">Your Profile<br>Score:</div>
+                      <div class="label1">60 / 100</div>
+                  </div>
+                  <div>
+                      <div class="label">Keyword Match<br>(ATS relevance)</div>
+                      <div class="label1">70%</div>
+                  </div>
+                  <div>
+                      <div class="label">Profile Strength<br>Tag</div>
+                      <div class="label1">Needs Improvement</div>
+                  </div>
+              </div>
+          </div>
+          <div class="section">
+              <div class="section-title">Key Highlights</div>
+              <ul>
+                  <li>🎓 Master's Degree in E&C with an academic score of 85% from Hanze University of Applied Sciences.
+                  </li>
+                  <li>📊 Proficient in data cleaning, data visualization using Tableau and Power BI.</li>
+                  <li>💻 Strong skills in Python (Pandas, NumPy) and SQL.</li>
+                  <li>🔍 Hands-on experience in analyzing and interpreting large datasets.</li>
+                  <li>📈 Eager to support business objectives through actionable insights.</li>
+              </ul>
+          </div>
+          <div class="section">
+              <div class="section-title">Areas to Improve</div>
+              <ul>
+                  <li>📅 Add relevant certifications to enhance profile visibility.</li>
+                  <li>📝 Consider including metrics in experience to quantify achievements.</li>
+                  <li>🔗 Create a LinkedIn profile for networking opportunities.</li>
+                  <li>📈 Expand on skills to include additional relevant tools and technologies.</li>
+                  <li>🗂️ Develop a career objective statement to clarify job goals.</li>
+              </ul>
+          </div>
+          <div class="section">
+              <div class="section-title">Top 3 Action Tips</div>
+              <ul>
+                  <li>🔍 Tailor your resume for each job application to enhance ATS relevance.</li>
+                  <li>📄 Utilize action verbs and quantify accomplishments in your profile.</li>
+                  <li>📚 Engage in online courses to gain certifications in data analytics tools.</li>
+              </ul>
+          </div>
+          <div class="section">
+              <div class="section-title">How to reach a 100/100 Profile Score</div>
+              <table class="comparison-table">
+                  <tr>
+                      <th>Requirement</th>
+                      <th>What to Do</th>
+                  </tr>
+                  <tr>
+                      <td>✅ Online Visibility</td>
+                      <td>Create a LinkedIn profile and engage with industry professionals.</td>
+                  </tr>
+                  <tr>
+                      <td>✅ Certification Details</td>
+                      <td>Consider obtaining certifications in data analysis or related fields.</td>
+                  </tr>
+                  <tr>
+                      <td>✅ Metrics in Experience</td>
+                      <td>Add metrics to showcase your impact in projects or internships.</td>
+                  </tr>
+                  <tr>
+                      <td>✅ Career Objective</td>
+                      <td>Write a clear statement of your career goals and objectives.</td>
+                  </tr>
+                  <tr>
+                      <td>✅ Format Consistency</td>
+                      <td>Ensure your resume format is consistent and professional.</td>
+                  </tr>
+              </table>
+          </div>
+      </div>`;
+      this.profileOverViewContent = this.sanitizer.bypassSecurityTrustHtml(response);
+      
   }
 }
