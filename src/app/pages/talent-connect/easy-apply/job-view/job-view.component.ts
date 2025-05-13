@@ -43,6 +43,12 @@ export interface Job {
 	stage: string | null;
 	company_logo?: string;
 	jobsoftskills: JobSoftSkills[];
+  languages:LangProficiency[];
+}
+
+interface LangProficiency {
+  lang: string;
+  level: string
 }
 
 export interface JobSoftSkills {

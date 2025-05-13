@@ -5,7 +5,8 @@
 				<div class="row">
 					<div class="col-xxl-1 col-xl-1 col-lg-2 col-md-2 col-sm-3 col-3">
 						<div class="rounded-2 border overflow-hidden">
-							<img [src]="jobDetails.company_logo_url" alt="Company Logo" class="img-fluid" style="max-width: 100%; max-height: 100%; object-fit: contain" />
+							<img [src]="jobDetails.company_logo_url" alt="Company Logo" class="img-fluid"
+								style="max-width: 100%; max-height: 100%; object-fit: contain" />
 						</div>
 					</div>
 					<div class="col-xxl-11 col-xl-11 col-lg-10 col-md-10 col-sm-9 col-9 text-start">
@@ -22,11 +23,14 @@
 							<div class="col-xxl-2 col-xl-4 col-lg-5 col-md-5 col-sm-12 col-12">
 								<div class="row">
 									<div class="col-12 text-md-end text-center mb-2 d-lg-block d-none">
-										<button pButton label="Close Info" class="btn btn-primary w-100" (click)="closeInfo.emit(false)" *ngIf="showChat"></button>
-										<button pButton class="p-button-success chat-btn w-100" *ngIf="!showChat" (click)="openChat.emit(true)"><i class="pi pi-comments"></i> Chat</button>
+										<button pButton label="Close Info" class="btn btn-primary w-100"
+											(click)="closeInfo.emit(false)" *ngIf="showChat"></button>
+										<button pButton class="p-button-success chat-btn w-100" *ngIf="!showChat"
+											(click)="openChat.emit(true)"><i class="pi pi-comments"></i> Chat</button>
 									</div>
 									<div class="col-12 text-md-end text-start">
-										<p class="text-small text-muted">Applied On: {{ jobDetails.created_at | date : "dd-MM-yyyy" }}</p>
+										<p class="text-small text-muted">Applied On: {{ jobDetails.created_at | date :
+											"dd-MM-yyyy" }}</p>
 									</div>
 								</div>
 							</div>
@@ -87,12 +91,14 @@
 					</div>
 					<div class="col-xxl-3 col-xl-3 col-lg-4 col-md-4 col-sm-6 col-6 mb-3">
 						<div class="d-flex text-left align-items-center">
-							<i class="fa-solid fa-building text-secondary me-2 mt-1" style="color: var(--uniprep-secondary)"></i>
+							<i class="fa-solid fa-building text-secondary me-2 mt-1"
+								style="color: var(--uniprep-secondary)"></i>
 							<div>
 								<p class="text-muted mb-1">Work Mode</p>
 								<p class="fw-bold mb-0">
 									<span *ngIf="!array.isArray(jobDetails.work_mode)">{{ jobDetails.work_mode }}</span>
-									<span *ngIf="array.isArray(jobDetails.work_mode)">{{ jobDetails.work_mode.join(", ") }}</span>
+									<span *ngIf="array.isArray(jobDetails.work_mode)">{{ jobDetails.work_mode.join(", ")
+										}}</span>
 								</p>
 							</div>
 						</div>
@@ -103,8 +109,10 @@
 							<div>
 								<p class="text-muted mb-1">Employment Type</p>
 								<p class="fw-bold mb-0">
-									<span *ngIf="!array.isArray(jobDetails.employment_type)">{{ jobDetails.employment_type }}</span>
-									<span *ngIf="array.isArray(jobDetails.employment_type)">{{ jobDetails.employment_type.join(", ") }}</span>
+									<span *ngIf="!array.isArray(jobDetails.employment_type)">{{
+										jobDetails.employment_type }}</span>
+									<span *ngIf="array.isArray(jobDetails.employment_type)">{{
+										jobDetails.employment_type.join(", ") }}</span>
 								</p>
 							</div>
 						</div>
@@ -174,7 +182,7 @@
 							</div>
 						</div>
 					</div>
-					<div class="col-md-12">
+					<!-- <div class="col-md-12">
 						<div class="card mb-4 bg-secondary-subtle">
 							<div class="card-body">
 								<div class="row">
@@ -187,7 +195,7 @@
 								</div>
 							</div>
 						</div>
-					</div>
+					</div> -->
 					<div class="col-md-12">
 						<div class="card mb-4 bg-secondary-subtle">
 							<div class="card-body">
@@ -196,16 +204,15 @@
 										<h3 class="fw-bold mb-0">Language Proficiency</h3>
 									</div>
 									<div class="col-md-7">
-										<!-- Parse the language proficiency string format [language,level] -->
 										<ul class="list-unstyled font-bold">
-											<ng-container *ngIf="jobDetails.language_proficiency && typeof jobDetails.language_proficiency === 'string'">
-												<ng-container *ngFor="let langString of jobDetails.language_proficiency">
-													<div class="d-flex align-items-center">
-														<span class="me-2" style="width: 100px">{{ langString.language }}</span>
-														<p-rating [ngModel]="getProficiencyRating(lang.language_proficiency)" [readonly]="true" />
-													</div>
-												</ng-container>
-											</ng-container>
+											<li *ngFor="let lang of jobDetails?.languages" class="mb-3">
+												<div class="d-flex align-items-center gap-2">
+													<span class="me-2">{{ lang.lang }}</span>
+													<p-rating *ngIf="lang.level" style="font-size: large"
+														[ngModel]="getProficiencyRating(lang.level)"
+														[readonly]="true"></p-rating>
+												</div>
+											</li>
 										</ul>
 									</div>
 								</div>
@@ -223,10 +230,14 @@
 										<div class="d-flex flex-wrap gap-2">
 											<!-- Handle both string and array formats -->
 											<ng-container *ngIf="!array.isArray(jobDetails.compensation_structure)">
-												<span class="badge bg-warning-sub text-dark fw-medium p-2 rounded">{{ jobDetails.compensation_structure }}</span>
+												<span
+													class="border border-warning badge bg-warning text-dark p-2 rounded mb-2 fs-6">{{
+													jobDetails.compensation_structure }}</span>
 											</ng-container>
 											<ng-container *ngIf="array.isArray(jobDetails.compensation_structure)">
-												<span *ngFor="let comp of jobDetails.compensation_structure" class="badge bg-warning-sub text-dark fw-medium p-2 rounded">{{ comp }}</span>
+												<span *ngFor="let comp of jobDetails.compensation_structure"
+													class="border border-warning badge bg-warning text-dark p-2 rounded mb-2 fs-6">{{
+													comp }}</span>
 											</ng-container>
 										</div>
 									</div>
@@ -245,10 +256,14 @@
 										<div class="d-flex flex-wrap gap-2">
 											<!-- Handle both string and array formats -->
 											<ng-container *ngIf="!array.isArray(jobDetails.benefits_perks)">
-												<span class="badge bg-warning-sub text-dark fw-medium p-2 rounded">{{ jobDetails.benefits_perks }}</span>
+												<span
+													class="border border-warning badge bg-warning text-dark p-2 rounded mb-2 fs-6">{{
+													jobDetails.benefits_perks }}</span>
 											</ng-container>
 											<ng-container *ngIf="array.isArray(jobDetails.benefits_perks)">
-												<span *ngFor="let benefit of jobDetails.benefits_perks" class="badge bg-warning-sub text-dark fw-medium p-2 rounded">{{ benefit }}</span>
+												<span *ngFor="let benefit of jobDetails.benefits_perks"
+													class="border border-warning badge bg-warning text-dark p-2 rounded mb-2 fs-6">{{
+													benefit }}</span>
 											</ng-container>
 										</div>
 									</div>
@@ -267,10 +282,14 @@
 										<div class="d-flex flex-wrap gap-2">
 											<!-- Handle both string and array formats -->
 											<ng-container *ngIf="!array.isArray(jobDetails.soft_skills)">
-												<span class="badge bg-warning-sub text-dark fw-medium p-2 rounded">{{ jobDetails.soft_skills }}</span>
+												<span
+													class="border border-warning badge bg-warning text-dark p-2 rounded mb-2 fs-6">{{
+													jobDetails.soft_skills }}</span>
 											</ng-container>
 											<ng-container *ngIf="array.isArray(jobDetails.soft_skills)">
-												<span *ngFor="let skill of jobDetails.soft_skills" class="badge bg-warning-sub text-dark fw-medium p-2 rounded">{{ skill }}</span>
+												<span *ngFor="let skill of jobDetails.soft_skills"
+													class="border border-warning badge bg-warning text-dark p-2 rounded mb-2 fs-6">{{
+													skill }}</span>
 											</ng-container>
 										</div>
 									</div>
@@ -286,26 +305,32 @@
 										<h3 class="fw-bold mb-0">Hiring & Recruitment</h3>
 									</div>
 									<div class="col-md-7 font-bold">
-										<h6 class="mb-2">Hiring Process Stages</h6>
+										<h6 class="mb-2 text-primary">Hiring Process Stages</h6>
 										<div class="d-flex flex-wrap gap-2 mb-4">
 											<!-- Handle different hiring_stages formats -->
 											<ng-container *ngIf="!array.isArray(jobDetails.hiring_stages)">
-												<span class="badge bg-warning-sub text-dark fw-medium p-2 rounded">{{ jobDetails.hiring_stages }}</span>
+												<span
+													class="border border-warning badge bg-warning text-dark p-2 rounded mb-2 fs-6 ">{{
+													jobDetails.hiring_stages }}</span>
 											</ng-container>
 											<ng-container *ngIf="array.isArray(jobDetails.hiring_stages)">
-												<span *ngFor="let stage of jobDetails.hiring_stages" class="badge bg-warning-sub text-dark fw-medium p-2 rounded">
+												<span *ngFor="let stage of jobDetails.hiring_stages"
+													class="border border-warning badge bg-warning text-dark p-2 rounded mb-2 fs-6">
 													{{ stage.name || stage }}
 												</span>
 											</ng-container>
 										</div>
 
-										<h6 class="mb-2">Estimated Hiring Decision Timeframe</h6>
+										<h6 class="mb-2 text-primary">Estimated Hiring Decision Timeframe</h6>
 										<p class="mb-4">{{ jobDetails.hiring_timeframe }}</p>
 
-										<h6 class="mb-2">Interview Format</h6>
-										<span *ngFor="let stage of jobDetails.interview_format" class="badge bg-warning-sub text-dark fw-medium p-2 rounded">
-											{{ stage }}
-										</span>
+										<h6 class="mb-2 text-primary">Interview Format</h6>
+										<div class="d-flex flex-wrap gap-2 mb-4">
+											<span *ngFor="let stage of jobDetails.interview_format"
+												class="border border-warning badge bg-warning text-dark p-2 rounded mb-2 fs-6">
+												{{ stage }}
+											</span>
+										</div>
 									</div>
 								</div>
 							</div>
