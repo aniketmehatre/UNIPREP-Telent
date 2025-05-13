@@ -114,26 +114,20 @@ export class FortuneCompaniesdataListsComponent implements OnInit {
 
   shareQuestion(type: string) {
     const socialMedias: { [key: string]: string } = this.socialShareService.socialMediaList;
-    const url = encodeURI(window.location.origin + '/pages/fortune-companies/' + this.selectedQuestionData?.id);
+    const url = encodeURI(window.location.origin + '/pages/fortune-companies/' + this.prepData.fortune_company_id + '/' + this.selectedQuestionData?.id);
     this.meta.updateTag({ property: 'og:url', content: url });
     const shareUrl = socialMedias[type] + encodeURIComponent(url);
     window.open(shareUrl, '_blank');
   }
 
   copyLink() {
-    const textToCopy = encodeURI(window.location.origin + '/pages/fortune-companies/' + this.selectedQuestionData?.id);
+    const textToCopy = encodeURI(window.location.origin + '/pages/fortune-companies/' + this.prepData.fortune_company_id + '/' + this.selectedQuestionData?.id);
     this.socialShareService.copyQuestion(textToCopy);
   }
 
   readSavedResponse(selectedData: any) {
-    this.service
-      .getfortunecompanyanswer({
-        questionid: selectedData.id,
-      })
-      .subscribe((response: any) => {
-        this.selectedQuestionData = response?.data[0];
-        this.isQuestionAnswerVisible = true;
-      });
+    this.selectedQuestionData = selectedData;
+    this.isQuestionAnswerVisible = true;
   }
   getContentPreview(content: string): string {
     const plainText = content.replace(/<[^>]*>/g, '');
