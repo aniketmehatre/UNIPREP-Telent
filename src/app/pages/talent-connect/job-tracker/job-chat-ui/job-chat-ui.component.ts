@@ -65,6 +65,8 @@ export class JobChatUiComponent implements OnChanges {
   currentUser: string = '@uniabroad';
   attachmentFile: any;
   message: string = '';
+  userActiveStatus: string = '';
+  
   constructor(private talentConnectService: TalentConnectService) { }
 
 
@@ -81,6 +83,7 @@ export class JobChatUiComponent implements OnChanges {
   getMessages(job_id: number) {
     this.talentConnectService.getMessage({ job_id: job_id }).subscribe({
       next: response => {
+        this.userActiveStatus = response.messages.employer_status;
         if (Array.isArray(response?.messages)) {
           this.messages = response?.messages.map((item: any) => {
             return {
@@ -154,7 +157,7 @@ export class JobChatUiComponent implements OnChanges {
       next: (response) => {
         this.isLoadingAiSummary = false;
         if (response) {
-          element.innerHTML = response?.response;
+          this.message = response?.response;
           this.autoGrow(element);
         }
       },

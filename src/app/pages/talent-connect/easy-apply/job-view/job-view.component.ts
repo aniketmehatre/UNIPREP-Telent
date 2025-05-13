@@ -70,7 +70,7 @@ interface Message {
 	imports: [CommonModule, ButtonModule, DrawerModule, TooltipModule, FormsModule, JobChatUiComponent, RouterLink, RatingModule],
 })
 export class JobViewComponent implements OnInit {
-	id!: number;
+	jobId!: number;
 	visible: boolean = false;
 	public Array = Array;
 	appliedId: number = NaN;
@@ -85,12 +85,12 @@ export class JobViewComponent implements OnInit {
 
 	messages: Message[] = [];
 
-	constructor(private activatedRoute: ActivatedRoute, private talentConnectService: TalentConnectService, private message: MessageService) {}
+	constructor(private route: ActivatedRoute, private talentConnectService: TalentConnectService, private message: MessageService) { }
 
 	ngOnInit(): void {
-		this.id = this.activatedRoute?.snapshot?.params?.["id"] as number;
-		if (this.id) {
-			this.getJobDetails(Number(this.id));
+		this.jobId = Number(this.route.snapshot.paramMap.get("id"));
+		if (this.jobId) {
+			this.getJobDetails(this.jobId);
 		}
 	}
 
@@ -128,7 +128,7 @@ export class JobViewComponent implements OnInit {
 					this.isApplied = response?.isapplied;
 					if (response?.isapplied) {
 						this.isShowApplyChat = response?.isapplied;
-						this.getMessages(response?.applied_jobid);
+						this.getMessages();
 					}
 				}
 			},
@@ -175,6 +175,7 @@ export class JobViewComponent implements OnInit {
 				if (response.success) {
 					this.isShowApplyChat = true;
 					this.isApplied = true;
+					this.appliedId = response.id;
 				} else {
 					this.message.add({
 						severity: "error",
@@ -198,24 +199,17 @@ export class JobViewComponent implements OnInit {
 	}
 
 	getProficiencyRating(proficiency: string): number {
-		// Convert proficiency text to a rating number
-		switch (proficiency) {
-			case "Beginner":
-				return 1;
-			case "Elementary":
-				return 2;
-			case "Intermediate":
-				return 3;
-			case "Advanced":
-				return 4;
-			case "Fluent":
-				return 5;
-			default:
-				return 3; // Default to intermediate
-		}
+		const ratings: { [key: string]: number } = {
+			Beginner: 1,
+			Elementary: 2,
+			Intermediate: 3,
+			Advanced: 4,
+			Fluent: 5,
+		};
+		return ratings[proficiency] ?? 3;
 	}
 
-	getMessages(job_id: number) {
+	getMessages() {
 		if (this.appliedId) {
 			this.talentConnectService.getMessage({ job_id: this.appliedId }).subscribe({
 				next: (response) => {
@@ -252,8 +246,6 @@ export class JobViewComponent implements OnInit {
 		formData.append("job_id", this.appliedId.toString());
 		this.talentConnectService.sendMessage(formData).subscribe({
 			next: (response) => {
-				console.log(this.attachmentFile);
-				console.log("Message sent:", response);
 				// If there's a response message from the server, add it
 				if (response.message) {
 					this.messages.push({

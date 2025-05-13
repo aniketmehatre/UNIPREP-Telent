@@ -92,10 +92,9 @@ export class CoBrandedComponent implements OnInit, OnDestroy {
 
   navigateTo(type: string) {
     if (type === 'login') {
-      this.route.navigate(['/students/login']);
+      window.location.href = '/student';
     } else if (type === 'employer') {
-      // window.location.href = '/institute/';
-      this.route.navigate(['/institute/auth/login']);
+      window.location.href = '/institution';
     }
   }
 
