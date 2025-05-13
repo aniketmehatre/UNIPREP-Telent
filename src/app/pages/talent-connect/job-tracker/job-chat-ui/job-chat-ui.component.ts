@@ -8,6 +8,7 @@ import { Button, ButtonModule } from 'primeng/button';
 import { TalentConnectService } from '../../talent-connect.service';
 import { Job } from '../../easy-apply/job-view/job-view.component';
 import { RouterModule } from '@angular/router';
+import { AuthService } from 'src/app/Auth/auth.service';
 
 interface ChatMessage {
   sender: boolean; // Changed from isSender to sender for clarity
@@ -67,7 +68,7 @@ export class JobChatUiComponent implements OnChanges {
   message: string = '';
   userActiveStatus: string = '';
   
-  constructor(private talentConnectService: TalentConnectService) { }
+  constructor(private talentConnectService: TalentConnectService, private authService: AuthService) { }
 
 
   ngOnChanges(changes: SimpleChanges): void {
@@ -153,11 +154,11 @@ export class JobChatUiComponent implements OnChanges {
 
   aiGenerateSummary(mode: string, content: Record<string, any>, element: HTMLTextAreaElement, type: string) {
     this.isLoadingAiSummary = true;
-    this.talentConnectService.getJobAiSummary({ mode: mode, ...content, type: type }).subscribe({
+    this.talentConnectService.getJobAiSummary({ mode: mode, ...content, type: type, student_name:this.authService._user?.name }).subscribe({
       next: (response) => {
         this.isLoadingAiSummary = false;
         if (response) {
-          this.message = response?.response;
+          this.message = this.convertHtmlToPlainText(response?.response);
           this.autoGrow(element);
         }
       },
@@ -167,5 +168,12 @@ export class JobChatUiComponent implements OnChanges {
       },
     })
 
+  }
+
+  convertHtmlToPlainText(html: string): string {
+    const tempDiv = document.createElement('div');
+    tempDiv.innerHTML = html;
+    tempDiv.querySelectorAll('br').forEach(br => br.replaceWith('\n'));
+    return tempDiv.textContent || '';
   }
 }
