@@ -51,7 +51,6 @@ const routes: Routes = [
         path: ':category/:slug',
         loadComponent: () => import('./landing-language-hub/landing-language-hub.component').then(m => m.LandingLanguageHubComponent),
       },
-
       {
         path: '',
         redirectTo: '',
