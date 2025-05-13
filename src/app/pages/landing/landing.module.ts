@@ -28,10 +28,6 @@ const routes: Routes = [
         loadComponent: () => import('../international-subscription/international-subscription.component').then(c => c.InternationalSubscriptionComponent)
       },
       {
-        path: 'compare-uni',
-        loadComponent: () => import('../compare-uni/compare-uni.component').then(c => c.CompareUniComponent)
-      },
-      {
         path: 'contact-us',
         loadComponent: () => import('./contact-us/contact-us.component').then(c => c.ContactUsComponent)
       },
@@ -44,17 +40,18 @@ const routes: Routes = [
         loadComponent: () => import('./management-team/management-team.component').then(m => m.ManagementTeamComponent),
       },
       {
-        path: ':category',
+        path: 'compare/:country',
+        loadComponent: () => import('../compare-uni/compare-uni.component').then(c => c.CompareUniComponent)
+      },
+      {
+        path: 'explore/:category',
         loadComponent: () => import('./job-seekers-landing/job-seekers-landing.component').then(m => m.JobSeekersLandingComponent),
       },
       {
         path: ':category/:slug',
         loadComponent: () => import('./landing-language-hub/landing-language-hub.component').then(m => m.LandingLanguageHubComponent),
       },
-      {
-        path: 'compare',
-        loadComponent: () => import('./comparison/comparison.component').then(m => m.ComparisonComponent),
-      },
+
       {
         path: '',
         redirectTo: '',

@@ -27,7 +27,7 @@ export class LandingLanguageHubComponent implements OnInit {
   videoPlayer!: ElementRef
   isPlaying = false;
   public environment = environment;
-  landingPageId: number = NaN;
+  landingPageId: string = '';
   selectedStep!: Howitswork;
   faqs: Faq[] = [];
   chooseUsList: Chooseuse[] = [];
@@ -133,7 +133,7 @@ export class LandingLanguageHubComponent implements OnInit {
       section.scrollIntoView({ behavior: "smooth" })
     }
   }
-  getLandingPageChooseUs(landingPageId: number) {
+  getLandingPageChooseUs(landingPageId: string) {
     this.landingPageService.getLandingPageChooseUs(landingPageId).subscribe({
       next: response => {
         this.chooseUsList = response.chooseuses?.chooseuses;
@@ -144,7 +144,7 @@ export class LandingLanguageHubComponent implements OnInit {
     });
   }
 
-  getLandingPageHowItsWorks(category: number) {
+  getLandingPageHowItsWorks(category: string) {
     this.landingPageService.getLandingPageHowItsWorks(category).subscribe({
       next: response => {
         // Store the career cards organized by step
@@ -158,7 +158,7 @@ export class LandingLanguageHubComponent implements OnInit {
     });
   }
 
-  getLandingPageWhoItsFor(category: number) {
+  getLandingPageWhoItsFor(category: string) {
     this.landingPageService.getLandingPageWhoItsFors(category).subscribe({
       next: response => {
         // Store the career cards organized by step
@@ -171,7 +171,7 @@ export class LandingLanguageHubComponent implements OnInit {
     });
   }
 
-  getLandingPageFAQs(category: number) {
+  getLandingPageFAQs(category: string) {
     this.landingPageService.getLandingPageFAQ(category).subscribe({
       next: response => {
         this.faqs = response.faqs.faqs;
@@ -182,7 +182,7 @@ export class LandingLanguageHubComponent implements OnInit {
     });
   }
 
-  getLandingPageData(landingPageId: number) {
+  getLandingPageData(landingPageId: string) {
     this.landingPageService.getLandingPageData(landingPageId).subscribe({
       next: response => {
         this.landingPageData = response.landingpages;

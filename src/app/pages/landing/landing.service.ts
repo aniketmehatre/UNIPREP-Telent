@@ -17,28 +17,28 @@ export class landingServices {
         headers: this.headers});
     }
 
-    getLandingPageChooseUs(id: number) {
-      return this.http.post<any>(environment.ApiUrl + "/landingpagechooseus",{id: id}, {
+  getLandingPageChooseUs(slug: string) {
+    return this.http.post<any>(environment.ApiUrl + "/landingpagechooseus", { slug: slug }, {
         headers: this.headers});
     }
 
-    getLandingPageFAQ(id: number) {
-      return this.http.post<any>(environment.ApiUrl + "/landingpagefaqs",{id: id}, {
+  getLandingPageFAQ(slug: string) {
+    return this.http.post<any>(environment.ApiUrl + "/landingpagefaqs", { slug: slug }, {
         headers: this.headers});
     }
 
-    getLandingPageHowItsWorks(id: number) {
-      return this.http.post<any>(environment.ApiUrl + "/landingpagehowitsworks",{id: id}, {
+  getLandingPageHowItsWorks(slug: string) {
+    return this.http.post<any>(environment.ApiUrl + "/landingpagehowitsworks", { slug: slug }, {
         headers: this.headers});
     }
 
-    getLandingPageWhoItsFors(id: number) {
-      return this.http.post<any>(environment.ApiUrl + "/landingpagewhoitsfors",{id: id}, {
+  getLandingPageWhoItsFors(slug: string) {
+    return this.http.post<any>(environment.ApiUrl + "/landingpagewhoitsfors", { slug: slug }, {
         headers: this.headers});
     }
 
-    getLandingPageData(val: any){
-      return this.http.post<any>(`${environment.ApiUrl}/landingpageedit`, {id: val});
+  getLandingPageData(slug: string) {
+    return this.http.post<any>(`${environment.ApiUrl}/landingpageedit`, { slug: slug });
     }
 
   getLandingCategories(id: number) {

@@ -26,10 +26,10 @@ const routes: Routes = [
         path: 'employers',
         loadComponent: () => import('./employers/employers.component').then(m => m.EmployersComponent),
       },
-      // {
-      //   path: 'contact-us',
-      //   loadComponent: () => import('/contact-us/contact-us.component').then(m => m.ContactUsComponent),
-      // },
+      {
+        path: 'contact-us',
+        loadComponent: () => import('../landing/contact-us/contact-us.component').then(m => m.ContactUsComponent),
+      },
       {
         path: '',
         redirectTo: '',
