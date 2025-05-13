@@ -32,7 +32,6 @@ export const appRoutes: Routes = [
 	},
 	{ path: "pricing", component: PricingComponent },
 	{ path: "students", component: CoBrandedComponent },
-	{ path: "login", component: LoginComponent },
 	{ path: "students/login", component: LoginComponent },
 	{ path: "register", component: RegistrationComponent },
 	{ path: "privacy", component: PrivacyComponent },
