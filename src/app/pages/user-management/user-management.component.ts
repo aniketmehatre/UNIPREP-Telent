@@ -373,6 +373,8 @@ export class UserManagementComponent implements OnInit {
 			},
 			error: (error) => {
 				console.error('Error fetching job listings:', error);
+				this.toast.add({ severity: 'success', summary: 'Success', detail: "The email field is required" });
+
 			}
 		});
 	}
