@@ -27,15 +27,15 @@ export class EmployersComponent {
   }
 
   loadJobsData(): void {
-    // this.landingPageService.getCompaniesList({ page: this.currentPage, perpage: this.itemsPerPage }).subscribe(
-    //   (response) => {
-    //     this.companyConnectList = response.data;
-    //     this.totalTalents = response.count;
-    //     this.totalPages = Math.ceil(this.totalTalents / this.itemsPerPage);
-    //   },
-    //   (error) => {
-    //     console.error('Error fetching activeJobs:', error);
-    //   });
+    this.landingPageService.getCompanyConnectList({ page: this.currentPage, perpage: this.itemsPerPage }).subscribe(
+      (response) => {
+        this.companyConnectList = response.data;
+        this.totalTalents = response.count;
+        this.totalPages = Math.ceil(this.totalTalents / this.itemsPerPage);
+      },
+      (error) => {
+        console.error('Error fetching activeJobs:', error);
+      });
   }
 
 

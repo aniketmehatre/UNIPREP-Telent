@@ -76,6 +76,7 @@ export class JobListComponent implements OnInit {
     } else {
       this.filteredAppliedJob = this.appliedJobList;
     }
+    this.page = 1;
   }
 
   getAppliedJobList(params?: any) {

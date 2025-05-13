@@ -203,6 +203,7 @@ export class LocationService {
             headers: headers,
         });
     }
+
     sessionEndApiCall() {
         const sessionData = {
             token: this.storage.get<string>('token')
@@ -212,6 +213,7 @@ export class LocationService {
             headers: headers,
         });
     }
+
     // getwhitlabel website image
     getWhitlabelData(data: any): Observable<any> {
         if (data.domainname === "*.uniprep.ai" || data.domainname === "dev-student.uniprep.ai" || data.domainname === "uniprep.ai" || data.domainname === "localhost") {

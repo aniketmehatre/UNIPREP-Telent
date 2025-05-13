@@ -5,7 +5,7 @@
 				<p-avatar [image]="jobDetails?.company_logo_url ?? 'uniprep-assets/images/avatar.webp'" size="large" shape="circle" />
 			<div>
 				<h5 class="mb-0 fw-bold">{{ jobDetails?.company_name }}</h5>
-				<p class="small text-muted mb-0 text-start">Active</p>
+				<p class="small text-muted mb-0 text-start" >{{userActiveStatus}}</p>
 			</div>
 		</div>
 		<button type="button" *ngIf="showInfo" class="btn-close" aria-label="Close" (click)="closeChat.emit(true)"></button>
@@ -98,7 +98,7 @@
 			<ng-template #isLoadingAiSummary>
 				<button class="text-small text-end btn btn-success btn-rounded d-flex align-items-center gap-2"
 					style="width: fit-content"
-						(click)="aiGenerateSummary('student', {student_name: aiGenerateChatDetails?.studentName, company_name: aiGenerateChatDetails.companyName, job_lookingfor: aiGenerateChatDetails?.positionName, created_at:aiGenerateChatDetails?.createdAt  }, messageInput, 'AI generate')">Ai Generate</button>
+						(click)="aiGenerateSummary('student', {student_name: aiGenerateChatDetails?.studentName, company_name: aiGenerateChatDetails?.companyName, job_lookingfor: aiGenerateChatDetails?.positionName, created_at:aiGenerateChatDetails?.createdAt  }, messageInput, 'AI generate')">Ai Generate</button>
 				</ng-template>
 		</div>
 		<input type="file" class="d-none" accept=".doc,.docx,.pdf, application/msword,application/vnd.openxmlformats-officedocument.wordprocessingml.document" #fileAttachment (change)="uploadFilesChat($event);">
