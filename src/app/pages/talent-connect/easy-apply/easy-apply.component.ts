@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, signal } from '@angular/core';
 import { Form, FormBuilder, FormGroup } from '@angular/forms';
 import { TalentConnectService } from '../talent-connect.service';
 import { MessageService } from 'primeng/api';
@@ -50,7 +50,9 @@ export class EasyApplyComponent {
   displayModal: boolean = false;
   first: number = 0;
   filterForm: FormGroup = new FormGroup({});
-  currencyOptions: any[]= [];
+  currencyOptions: any[] = [];
+  applicantCurrencyCode = signal<string>('');
+  applicantCurrencyValue = signal<number>(0);
 
   constructor(private route: ActivatedRoute, private fb: FormBuilder, private talentConnectService: TalentConnectService, private messageService: MessageService) { }
   ngOnInit(): void {
@@ -149,5 +151,22 @@ export class EasyApplyComponent {
     this.filterForm.reset();
   }
 
-  openVideoPopup(id: string) {}
+  openVideoPopup(id: string) { }
+  
+  onChangeCurrency(convertTo: string, formattedEnd: string) {
+    this.talentConnectService.getCurrencyConverter(this.applicantCurrencyCode(), convertTo, formattedEnd, formattedEnd).subscribe({
+      next: (data: any) => {
+        const today = new Date().toISOString().slice(0, 10); // '2025-05-12'
+        const ratesForToday = data.rates[today]; // { AED: 0.04157 }
+
+        const currency = Object.keys(ratesForToday)[0]; // 'AED'
+        const rate = ratesForToday[currency];           // 0.04157
+
+        console.log(`Currency: ${currency}`, ` Rate: ${rate * this.applicantCurrencyValue()}`);
+      },
+      error: (err) => console.error('Error:', err)
+    });
+  }
+
+
 }
