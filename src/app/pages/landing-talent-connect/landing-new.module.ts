@@ -3,11 +3,12 @@ import { CommonModule } from '@angular/common';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { RouterModule, Routes } from '@angular/router';
 import { DialogModule } from 'primeng/dialog';
-import { ScrollTop, ScrollTopModule } from 'primeng/scrolltop';
+import { ScrollTopModule } from 'primeng/scrolltop';
 import { MessageService } from 'primeng/api';
 import { AuthService } from 'src/app/Auth/auth.service';
 import { LandingNewComponent } from './landing-new.component';
-import { LandingFooterComponent } from "../landing-footer/landing-footer.component";
+import { LandingFooterComponent } from '../landing/landing-footer/landing-footer.component';
+
 const routes: Routes = [
   {
     path: '',
@@ -25,6 +26,10 @@ const routes: Routes = [
         path: 'employers',
         loadComponent: () => import('./employers/employers.component').then(m => m.EmployersComponent),
       },
+      // {
+      //   path: 'contact-us',
+      //   loadComponent: () => import('/contact-us/contact-us.component').then(m => m.ContactUsComponent),
+      // },
       {
         path: '',
         redirectTo: '',

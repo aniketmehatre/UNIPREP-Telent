@@ -2,7 +2,7 @@
   <div class="container">
     <div class="row">
       <!-- Logo and Tagline Section -->
-      <div class="col-lg-4 col-md-6 mb-4 mb-md-0">
+      <div class="col-lg-4 col-md-4 mb-4 mb-md-0">
         <div class="footer-logo">
           <img src="uniprep-assets/images/uniprep-panda.png" alt="UNIPREP Logo" class="img-fluid mb-3">
           <div class="fs-2 text-ambition">
@@ -31,7 +31,7 @@
       </div>
       
       <!-- About Section -->
-      <div class="col-lg-2 col-md-6 mb-4 mb-md-0">
+      <div class="col-lg-2 col-md-4 mb-4 mb-md-0">
         <h5 class="footer-heading">About</h5>
         <ul class="footer-links">
           <li *ngFor="let link of aboutLinks">
@@ -48,7 +48,7 @@
       </div>
       
       <!-- Explore Section -->
-      <div class="col-lg-2 col-md-6 mb-4 mb-md-0">
+      <div class="col-lg-2 col-md-4 mb-4 mb-md-0">
         <h5 class="footer-heading">Explore</h5>
         <ul class="footer-links">
           <li *ngFor="let link of exploreLinks">
@@ -65,17 +65,17 @@
       </div>
       
       <!-- Others Section -->
-      <div class="col-lg-2 col-md-6 mb-4 mb-md-0">
+      <div class="col-lg-2 col-md-4 mb-4 mb-md-0">
         <h5 class="footer-heading">Others</h5>
         <ul class="footer-links">
-          <li *ngFor="let link of otherLinks">
-            <a [href]="link.url">{{ link.text }}</a>
+          <li *ngFor="let link of otherLinks" (click)="onClickPolicies(link.type)">
+            <a>{{ link.text }}</a>
           </li>
         </ul>
       </div>
       
       <!-- Contact Section -->
-      <div class="col-lg-2 col-md-6">
+      <div class="col-lg-2 col-md-4">
         <h5 class="footer-heading">Contact</h5>
         <div class="contact-info">
           <p class="mb-1">Phone</p>

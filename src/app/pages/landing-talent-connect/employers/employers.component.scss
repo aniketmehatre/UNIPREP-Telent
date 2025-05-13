@@ -1,20 +1,25 @@
 /* talent-search.component.scss */
-
-
 .talent-search-container {
-  background: linear-gradient(135deg, #432F1C 0%, #2B212A 50%, #1D1D1E 100%);
-  min-height: 100vh;
+  background-image: url('/uniprep-assets/images/landing-background.svg'),
+      linear-gradient(135deg, #432F1C 0%, #2B212A 50%, #1D1D1E 100%), ;
+    background-position: center center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    min-height: 100vh;
   padding: 25px 10rem;
 }
-
 .card {
-        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-        border-radius: 10px;
-        overflow: hidden;
-        transition: transform 0.3s ease;
-        opacity: 0.6;
-        background-color: transparent;
-        color: #fff !important;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    border-radius: 10px;
+    overflow: hidden;
+    transition: transform 0.3s ease;
+    // opacity: 0.6;
+  background: linear-gradient(135deg,
+        rgba(255, 255, 255, 0.1),
+        rgba(255, 255, 255, 0.05));
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    color: #fff !important;
 
 }
 

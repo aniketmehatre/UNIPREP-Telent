@@ -37,16 +37,16 @@
         </p>
     </div>
 </section>
-<section class="choose-us-section py-5">
-    <div class="container w-50">
-        <div *ngFor="let feature of chooseUsCards; let i = index" id="cards">
-            <div class="card bg-dark text-white mb-4">
+<section class="choose-us py-5 pl-3">
+    <div class="container d-flex flex-column gap-4 w-50">
+        <div *ngFor="let feature of chooseUsCards; let i = index" class="">
+            <div class="card bg-dark text-white">
                 <div class="card-body">
                     <div class="feature-icon" [ngStyle]="{'background-color': feature.color}">
                         <i class="{{feature.icon}}"></i>
                     </div>
                     <h3 class="card-title mt-3">{{feature.title}}</h3>
-                    <div class="card-text fs-4" *ngIf="feature.description.length > 0">
+                    <div class="card-text fs-6" *ngIf="feature.description.length > 0">
                         <p *ngFor="let line of feature.description">{{line}}</p>
                     </div>
                 </div>
@@ -58,7 +58,7 @@
 <section class="features-section py-5">
     <div class="container w-50">
         <ul id="cards">
-            <li class="card bg-black border-secondary" [id]="'card-'+i"
+            <li class="card bg-black border-secondary" id="card-1"
                 *ngFor="let feature of templateCardFeatures; let i = index">
                 <div class="card-body">
                     <div class="feature-icon" [ngStyle]="{'background-color': feature.color}">
@@ -73,6 +73,7 @@
         </ul>
     </div>
 </section>
+
 <section class="platform-features">
     <div class="container">
         <!-- Section Header -->

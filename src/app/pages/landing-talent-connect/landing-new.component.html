@@ -126,7 +126,7 @@
 							<li><a class="dropdown-item text-white hover-black" style="cursor: pointer"
 									(click)="navigateConnectUrl()">Employer Connect</a></li>
 							<li><a class="dropdown-item text-white hover-black"
-									routerLink="/landing/explore/international-students">Talent Connect</a></li>
+									routerLink="/talent-connect">Talent Connect</a></li>
 						</ul>
 					</li>
 					<!-- <li class="nav-item" data-bs-dismiss="offcanvas">
@@ -176,7 +176,9 @@
 </ng-container>
 
 <!-- Footer -->
-<uni-landing-footer></uni-landing-footer>
+<uni-landing-footer (openTermsAndCondition)="showTandC();" (openPrivacyPolicy)="showprivacypolicy()" (openCancellationPolicy)="showcancellationpolicy()"></uni-landing-footer>
+
+
 <p-dialog header="Contact Us" [(visible)]="displaycontactform" [modal]="true" [style]="{ width: '60vw' }"
 	[maximizable]="true" [draggable]="false" [resizable]="false">
 	<div class="col-12 text-start">

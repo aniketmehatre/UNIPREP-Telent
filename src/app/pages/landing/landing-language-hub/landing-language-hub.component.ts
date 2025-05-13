@@ -34,6 +34,8 @@ export class LandingLanguageHubComponent implements OnInit {
   howitsWorks: Howitswork[] = [];
   whoItsFor: Whoitsfor[] = [];
   landingPageData!: LandingPage;
+  welcomeVideoLink: string = `https://${environment.domain}/uniprepapi/storage/app/public/Landing/welcome.mp4`;
+
   // steps = [
   //   {
   //     number: 1,

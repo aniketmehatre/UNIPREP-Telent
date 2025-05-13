@@ -25,10 +25,10 @@
 					About
 				</a>
 				<ul class="dropdown-menu bg-dark" aria-labelledby="exploreDropdown">
-					<li><a class="dropdown-item text-white hover-black" (click)="scrollToSection($event, 'about')">About
+					<li><a class="dropdown-item text-white hover-black" routerLink="/about">About
 							Uniprep</a></li>
 					<li><a class="dropdown-item text-white hover-black"
-							routerLink="/landing/about/management">Management Team</a></li>
+							routerLink=/management-team">Management Team</a></li>
 				</ul>
 			</li>
 			<li class="nav-item dropdown">
@@ -172,7 +172,7 @@
 							<li><a class="dropdown-item text-white hover-black" style="cursor: pointer"
 									(click)="navigateConnectUrl()">Employer Connect</a></li>
 							<li><a class="dropdown-item text-white hover-black"
-									routerLink="/landing/explore/international-students">Talent Connect</a></li>
+									routerLink="/talent-connect">Talent Connect</a></li>
 						</ul>
 					</li>
 					<!-- <li class="nav-item" data-bs-dismiss="offcanvas">
@@ -185,10 +185,19 @@
 					</li> -->
 					<li class="nav-item" data-bs-dismiss="offcanvas">
 						<a class="nav-link text-white fw-medium text-center h4" aria-label="FAQ"
-							href="/certificates">Certificates</a>
+							href="/pricing">Pricing</a>
 					</li>
-					<li class="nav-item" data-bs-dismiss="offcanvas">
-						<a class="nav-link text-white fw-medium text-center h4" aria-label="FAQ" href="/blogs">Blogs</a>
+					<li class="nav-item dropdown">
+						<a class="nav-link dropdown-toggle text-white fw-medium text-center h4" href="#"
+							id="exploreDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+							Resources
+						</a>
+						<ul class="dropdown-menu bg-dark" aria-labelledby="exploreDropdown">
+							<li><a class="dropdown-item text-white hover-black" style="cursor: pointer"
+									routerLink="/blogs">Blogs</a></li>
+							<li><a class="dropdown-item text-white hover-black"
+									routerLink="/certificates">Certificates</a></li>
+						</ul>
 					</li>
 					<!-- Add other mobile menu items as needed -->
 					<li class="nav-item text-center">
@@ -221,7 +230,7 @@
 	<router-outlet></router-outlet>
 </ng-container>
 
-<uni-landing-footer></uni-landing-footer>
+<uni-landing-footer (openTermsAndCondition)="showTandC();" (openPrivacyPolicy)="showprivacypolicy()" (openCancellationPolicy)="showcancellationpolicy()"></uni-landing-footer>
 
 
 <p-dialog header="Contact Us" [(visible)]="displaycontactform" [modal]="true" [style]="{ width: '60vw' }"
