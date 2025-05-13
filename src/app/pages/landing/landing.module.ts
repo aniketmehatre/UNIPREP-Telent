@@ -20,6 +20,10 @@ const routes: Routes = [
     loadComponent: () => import('../../Auth/registration/registration.component').then(m => m.RegistrationComponent),
   },
   {
+    path: 'talent-connect',
+    loadChildren: () => import('../landing-talent-connect/landing-new.module').then(c => c.LandingModule)
+  },
+  {
     path: '',
     component: LandingComponent,
     children: [
