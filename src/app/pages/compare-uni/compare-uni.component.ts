@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { trigger, transition, style, animate } from '@angular/animations';
 import { CommonModule } from '@angular/common';
-import { RouterModule } from '@angular/router';
+import { ActivatedRoute, Params, Route, Router, RouterModule } from '@angular/router';
 @Component({
   selector: 'uni-compare-uni',
   imports: [CommonModule, RouterModule],
@@ -28,7 +28,7 @@ import { RouterModule } from '@angular/router';
     ])
   ]
 })
-export class CompareUniComponent {
+export class CompareUniComponent implements OnInit {
   selectedCountry: 'uk' | 'india' = 'uk';
   platforms: any = [];
   platformsInIndia = [
@@ -203,10 +203,15 @@ export class CompareUniComponent {
     }
   ];
 
-  constructor() { }
+  constructor(private router: ActivatedRoute) { }
 
   ngOnInit(): void {
-    this.platforms = this.platformsInUK;
+    this.router.params.subscribe(params => {
+      params['country'] === 'uk' ? this.selectedCountry = 'uk' : this.selectedCountry = 'india';
+      console.log(this.selectedCountry);
+      this.platforms = this.selectedCountry === 'uk' ? this.platformsInUK : this.platformsInIndia;
+      console.log(this.platforms);
+    });
   }
 
   toggleCountry(): void {
@@ -219,8 +224,7 @@ export class CompareUniComponent {
   }
 
   // Helper method to determine if a platform has a specific feature
-    hasFeature(platform: any, feature: string): boolean {
-      console.log({ platform });
+  hasFeature(platform: any, feature: string): boolean {
       return platform.features[feature];
     }
 }
