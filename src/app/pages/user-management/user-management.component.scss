@@ -260,30 +260,6 @@ html, body {
 	font-family: Arial, sans-serif;
 }
 
-/* MAIN CONTAINER */
-.main-container {
-	height: calc(100vh - 120px);
-	display: flex;
-	overflow: hidden;
-}
-
-/* SIDEBAR */
-.sidebar {
-	width: 29%;
-	padding: 1rem;
-	border-right: 1px solid #ddd;
-	overflow-y: auto;
-	border: 1px solid lightgrey;
-	border-radius: 10px;
-	background-color: #fff;
-	margin-bottom: 1%;
-	scrollbar-width: none; /* Firefox */
-	-ms-overflow-style: none;  /* IE */
-}
-.sidebar::-webkit-scrollbar {
-	display: none; /* Chrome/Safari */
-}
-
 .sidebar .menu {
 	list-style: none;
 	padding: 0;
@@ -300,14 +276,6 @@ html, body {
 	background-color: #ECEDF3;
 }
 
-/* CONTENT AREA */
-.content {
-	flex-grow: 1;
-	display: flex;
-	flex-direction: column;
-	overflow: hidden;
-	width: -webkit-fill-available;
-}
 
 /* HEADER */
 .header {
@@ -325,17 +293,57 @@ html, body {
 	padding: 1rem;
 }
 
+// chatgpt
+/* MAIN CONTAINER */
+.main-container {
+	display: flex;
+	height: calc(100vh - 120px);
+	overflow: hidden;
+}
+
+/* SIDEBAR */
+.sidebar {
+	width: 29%;
+	padding: 1rem;
+	border-right: 1px solid #ddd;
+	border: 1px solid lightgrey;
+	border-radius: 10px;
+	background-color: #fff;
+	margin-bottom: 1%;
+	overflow-y: auto;
+}
+
+/* Remove browser-specific width hack */
+.sidebar::-webkit-scrollbar {
+	display: none;
+}
+.sidebar {
+	scrollbar-width: none;
+	-ms-overflow-style: none;
+}
+
+/* CONTENT */
+.content {
+	flex-grow: 1;
+	display: flex;
+	flex-direction: column;
+	width: 100%;
+	overflow: hidden;
+}
+
+
+/* MOBILE FIX */
 @media (max-width: 768px) {
 	.sidebar {
 		position: fixed;
-		top: 80px; 
+		top: 80px;
 		left: 0;
 		width: 72%;
 		height: calc(100vh - 80px);
-		background-color: #f7f9fb;
-		z-index: 1050;
 		transform: translateX(-100%);
 		transition: transform 0.3s ease;
+		background-color: #f7f9fb;
+		z-index: 1050;
 	}
 
 	.sidebar.mobile-visible {
@@ -344,20 +352,13 @@ html, body {
 
 	.main-container {
 		flex-direction: column;
-		height: calc(100vh - 120px);
-		overflow: hidden;
+		height: auto;
 	}
 
 	.content {
 		width: 100%;
-		flex-grow: 1;
-		display: flex;
-		flex-direction: column;
-		overflow: hidden;
-	}
-
-	.body {
-		flex-grow: 1;
-		overflow-y: auto;
 	}
 }
+
+
+
