@@ -62,14 +62,15 @@ export class CountryInsightsSubmoduleComponent implements OnInit {
       perpage: this.pageSize,
       country: this.countryId,
     }
-    if(this.questionId) {
+    if (this.questionId) {
       req.question_id = this.questionId;
     }
     this.educationToolService.getQuizQuestion(req).subscribe(data => {
       this.questionsList = data?.questions;
       this.totalQuizCount = data.count;
       this.isSkeletonVisible = false;
-      if(this.questionId) {
+      if (this.questionId) {
+        this.countryname = this.questionsList[0].country_name;
         this.viewModal(this.questionsList[0]);
       }
     })

@@ -35,6 +35,7 @@ export interface QuestionsList {
     created_at: string
     updated_at: string;
     module_name: string;
+    country_name: string
 }
 
 export interface QuestionListSuccess {

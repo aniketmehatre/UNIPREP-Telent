@@ -236,15 +236,15 @@ export class CvBuilderComponent implements OnInit, AfterViewInit {
   ) {
     this.resumeFormInfoData = this.fb.group({
       selected_exp_level: ["", Validators.required],
-      user_name: ["", Validators.required],
-      user_job_title: ["", Validators.required],
+      user_name: ["", [Validators.required, maxWordsValidator(12)]],
+      user_job_title: ["", [Validators.required, maxWordsValidator(12)]],
       user_email: ["", [Validators.required, Validators.email]],
-      user_location: ["", Validators.required],
+      user_location: ["", [Validators.required, maxWordsValidator(12)]],
       country_code: ["+91"],
       user_phone: ["", [Validators.required, Validators.pattern("^\\+?[1-9]\\d{1,14}$")]],
-      user_linkedin: ["", Validators.required],
-      user_linkedin_link: [""],
-      user_website: [""],
+      user_linkedin: ["", [Validators.required, maxWordsValidator(12)]],
+      user_linkedin_link: ["", [maxWordsValidator(12)]],
+      user_website: ["", maxWordsValidator(12)],
       user_summary: ["", [Validators.required, maxWordsValidator(50)]],
       // selected_exp_level: ['', [Validators.required]],
       // user_name: ['vivek kaliyaperumal', [Validators.required]],
@@ -1111,12 +1111,12 @@ export class CvBuilderComponent implements OnInit, AfterViewInit {
     if (fieldName == "education_detail") {
       this.getEduDetailsArray.push(
         this.fb.group({
-          edu_college_name: ["", Validators.required],
+          edu_college_name: ["", [Validators.required, maxWordsValidator(12)]],
           edu_still_pursuing: [""],
           edu_start_year: ["", Validators.required],
           edu_end_year: ["", Validators.required],
-          edu_degree: ["", Validators.required],
-          edu_location: ["", Validators.required],
+          edu_degree: ["", [Validators.required, maxWordsValidator(12)]],
+          edu_location: ["", [Validators.required, maxWordsValidator(12)]],
           edu_percentage: ["", Validators.required],
           edu_cgpa_percentage: ["CGPA", Validators.required],
         })
@@ -1136,15 +1136,15 @@ export class CvBuilderComponent implements OnInit, AfterViewInit {
     } else if (fieldName == "work_experience") {
       this.getWorkExpArray.push(
         this.fb.group({
-          work_org_name: ["", Validators.required],
+          work_org_name: ["", [Validators.required, maxWordsValidator(12)]],
           work_currently_working: [""],
           work_start_year: ["", Validators.required],
           work_start_month: ["", Validators.required],
           work_end_year: ["", Validators.required],
           work_end_month: ["", Validators.required],
-          work_designation: ["", Validators.required],
+          work_designation: ["", [Validators.required, maxWordsValidator(12)]],
           work_type: ["", Validators.required],
-          work_location: ["", Validators.required],
+          work_location: ["", [Validators.required, maxWordsValidator(12)]],
           work_job_description: ["", [Validators.required, maxWordsValidator(120)]],
         })
       );
@@ -1198,7 +1198,7 @@ export class CvBuilderComponent implements OnInit, AfterViewInit {
     } else if (fieldName == "extra_curricular") {
       this.getExtraCurricularArray.push(
         this.fb.group({
-          extra_curricular_activites: ["", Validators.required],
+          extra_curricular_activites: ["", [Validators.required, maxWordsValidator(12)]],
         })
       );
       this.removeHideHeaderElement("extra_curricular");
@@ -1211,10 +1211,10 @@ export class CvBuilderComponent implements OnInit, AfterViewInit {
       // }));
       this.getCertificatesArray.push(
         this.fb.group({
-          certificate_name: ["", Validators.required],
-          certificate_issued: ["", Validators.required],
-          certificate_id: [""],
-          certicate_link: [""],
+          certificate_name: ["", [Validators.required, maxWordsValidator(12)]],
+          certificate_issued: ["", [Validators.required, maxWordsValidator(12)]],
+          certificate_id: ["",maxWordsValidator(12)],
+          certicate_link: ["",maxWordsValidator(12)],
         })
       );
       this.removeHideHeaderElement("certificate");

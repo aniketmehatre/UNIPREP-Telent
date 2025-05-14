@@ -293,7 +293,7 @@ const routes: Routes = [
                 loadChildren: () => import('./fortune-companies/fortune-companies.module').then(m => m.FortuneCompaniesModule)
             },
             {
-                path: 'fortune-companies/:countryId/:questionId',
+                path: 'fortune-companies/:companyId/:questionId',
                 loadChildren: () => import('./fortune-companies/fortune-companies.module').then(m => m.FortuneCompaniesModule)
             },
             {
