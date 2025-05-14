@@ -388,7 +388,7 @@
                                                 <ng-template pTemplate="body" let-data>
                                                     <tr class="subscription-history-header" style="background-color: #F9F9F9;">
                                                         <td class="border-cell">{{ data.product }}</td>
-                                                        <td class="border-cell">{{ data.validity }} Months</td>
+                                                        <td class="border-cell">{{ data.validity }} {{data.validity ==1?'Month':'Months'}}</td>
                                                         <td class="border-cell">{{ data.startdate }} </td>
                                                         <td class="border-cell">{{ data.enddate }}</td>
                                                         <td class="border-cell">{{ data.amount }} {{data.currency}}</td>
