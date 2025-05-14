@@ -15,8 +15,19 @@ export class FortuneCompaniesComponent implements OnInit {
   constructor(private route: ActivatedRoute) { }
 
   ngOnInit(): void {
-    this.route.snapshot.queryParamMap.get('countryId')
-    this.route.snapshot.queryParamMap.get('questionId')
+    const companyId = Number(this.route.snapshot.paramMap.get("companyId"));
+    const questionId = Number(this.route.snapshot.paramMap.get("questionId"));
+    if(questionId){
+      let data = {
+        fortune_company_id: companyId,
+        companyName: '',
+        stage: 2,
+        countryId: '',
+        searchText: '',
+        question_id: questionId
+      }
+      this.windowChange(data);
+    }
   }
 
   windowChange(data: any) {

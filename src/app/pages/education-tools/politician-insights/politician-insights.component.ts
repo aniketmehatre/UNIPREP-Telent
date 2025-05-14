@@ -151,7 +151,7 @@ export class PoliticianInsightsComponent implements OnInit {
       politician_id: politicianId
     };
     if (this.questionId) {
-      datas.question_d = this.questionId;
+      datas.question_id = this.questionId;
     }
     this.educationToolService.getQuestionsListByPolitician(datas).subscribe(
       (res: any) => {

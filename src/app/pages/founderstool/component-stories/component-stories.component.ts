@@ -3,7 +3,6 @@ import { PageFacadeService } from '../../page-facade.service';
 import { ActivatedRoute, Router, RouterModule } from '@angular/router';
 import { LocationService } from 'src/app/location.service';
 import { FounderstoolService } from '../founderstool.service';
-import { MessageService } from 'primeng/api';
 import { Meta } from '@angular/platform-browser';
 import { DataService } from 'src/app/data.service';
 import { CommonModule } from "@angular/common";
@@ -21,7 +20,7 @@ import { SocialShareService } from 'src/app/shared/social-share.service';
 export class ComponentStoriesComponent implements OnInit {
 
   constructor(private pageFacade: PageFacadeService, private dataService: DataService, private activatedRoute: ActivatedRoute,
-    private meta: Meta, private toast: MessageService, private router: Router, private service: FounderstoolService,
+    private meta: Meta, private router: Router, private service: FounderstoolService,
     private locationService: LocationService, private authService: AuthService, private socialShareService: SocialShareService) { }
   countrylist: any[] = [];
   currentRoute: string = '';
@@ -117,7 +116,7 @@ export class ComponentStoriesComponent implements OnInit {
     const datas: any = {
       mode: this.modename,
       country: id,
-      ...(question_id ? { share_link_question_id: question_id } : {}) // Include question_id only if it's truthy
+      ...(question_id ? { actual_id: question_id } : {}) // Include question_id only if it's truthy
     };
 
     this.service.entrepreneurToolsSuccess(datas).subscribe(
@@ -171,7 +170,11 @@ export class ComponentStoriesComponent implements OnInit {
 
   shareQuestion(type: string) {
     const socialMedias: { [key: string]: string } = this.socialShareService.socialMediaList;
-    const url = encodeURI(window.location.origin + '/pages/fortune-companies/' + this.dataanswerquestion?.id);
+    const currentMode = this.modename.replaceAll('_', '-');
+    let url : string = '';
+    if (this.currentRoute.includes('startup-funding-hacks')) {
+      url = encodeURI(window.location.origin + '/pages/founderstool/' + currentMode + '/' + this.countryId + '/' + this.dataanswerquestion?.id);
+    }
     this.meta.updateTag({ property: 'og:url', content: url });
     const shareUrl = socialMedias[type] + encodeURIComponent(url);
     window.open(shareUrl, '_blank');
@@ -179,7 +182,10 @@ export class ComponentStoriesComponent implements OnInit {
 
   copyLink() {
     const currentMode = this.modename.replaceAll('_', '-');
-    const textToCopy = encodeURI(window.location.origin + '/pages/founderstool/' + currentMode + '/' + this.dataanswerquestion?.id);
+    let textToCopy : string = '';
+    if (this.currentRoute.includes('startup-funding-hacks')) {
+      textToCopy = encodeURI(window.location.origin + '/pages/founderstool/' + currentMode + '/' + this.countryId + '/' + this.dataanswerquestion?.id);
+    }
     this.socialShareService.copyQuestion(textToCopy);
   }
 
