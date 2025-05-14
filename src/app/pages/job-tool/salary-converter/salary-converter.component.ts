@@ -1,4 +1,4 @@
-import { ChangeDetectorRef, Component, OnInit, ViewEncapsulation } from "@angular/core"
+import { ChangeDetectorRef, Component, inject, OnInit, ViewEncapsulation } from "@angular/core"
 import { SalaryConverterService } from "./salary-converter.service"
 import { Location } from "@angular/common"
 import { Router } from "@angular/router"
@@ -13,6 +13,7 @@ import { InputNumberModule } from "primeng/inputnumber"
 import { CarouselModule } from "primeng/carousel"
 import { ButtonModule } from "primeng/button"
 import { SelectModule } from "primeng/select"
+import { MessageService } from "primeng/api";
 
 @Component({
 	selector: "uni-salary-converter",
@@ -23,6 +24,7 @@ import { SelectModule } from "primeng/select"
 	encapsulation: ViewEncapsulation.None,
 })
 export class SalaryConverterComponent implements OnInit {
+	private messageService = inject(MessageService)
 	salary: number = 0
 	selectedCurrencyCode: string = ""
 	selectedCountryName: any
@@ -77,7 +79,12 @@ export class SalaryConverterComponent implements OnInit {
 		})
 	}
 
-	convert(): void {
+	convert() {
+		if (this.fromCountry == undefined || this.toCountry == undefined) {
+			this.messageService.add({ severity: "error", summary: "Error", detail: 'Fill required fields' })
+			return;
+		}
+
 		if (this.authService.isInvalidSubscription('career_tools')) {
 			this.authService.hasUserSubscription$.next(true);
 			return;

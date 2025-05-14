@@ -103,9 +103,8 @@
 						</div>
 					</div>
 				</div>
-				<!-- style="visibility:hidden;" -->
 				<div class="d-flex justify-content-between" style="height: 5%">
-					<button pButton pButton type="button" (click)="previous()"
+					<button pButton type="button" (click)="previous()"
 						class="text-white p-ripple p-button-rounded p-button-info-prev p-button p-component p-2"><i
 							class="fa fa-arrow-left exhausted-plan-icon-prev"></i> Previous</button>
 					<button pButton class="downloadButton" style="margin: 0px" (click)="next()">CV Builder
@@ -165,6 +164,12 @@
 													class="text-danger text-xs">
 													<div *ngIf="f['user_name'].errors">User Name Required</div>
 												</div>
+												<div *ngIf="f['user_name'].errors?.['maxWords']"
+													class="text-danger text-xs">
+													User Name cannot exceed {{ f['user_name']?.errors?.['maxWords'].max
+													}} words.
+													(Current: {{ f['user_name']?.errors?.['maxWords'].actual }})
+												</div>
 											</div>
 										</div>
 									</div>
@@ -188,6 +193,12 @@
 													<div *ngIf="submitted && f['user_job_title'].errors"
 														class="text-danger text-xs">
 														<div *ngIf="f['user_job_title'].errors">Job Title Required</div>
+													</div>
+													<div *ngIf="f['user_job_title'].errors?.['maxWords']"
+													    class="text-danger text-xs">
+														Job Title cannot exceed {{ f['user_job_title']?.errors?.['maxWords'].max
+														}} words.
+														(Current: {{ f['user_job_title']?.errors?.['maxWords'].actual }})
 													</div>
 												</div>
 											</div>
@@ -221,9 +232,12 @@
 												pTooltip="Please enter your current location" tooltipPosition="top"></i>
 										</div>
 										<div class="form-group">
-											<div class="mb-3">
+											<p-select [options]="cities" placeholder="Location, Country" [filter]="true" filterBy="country_name"
+											styleClass="w-100" formControlName="user_location" optionLabel="country_name" [virtualScroll]="true" [virtualScrollItemSize]="50"
+											optionValue="country_name"></p-select>
+											<!-- <div class="mb-3">
 												<div class="input-wrapper">
-													<input type="text" formControlName="user_location"
+													<input type="text" formControlName="user_location" (focus)="onFocus()"
 														(input)="searchLocation($event)" (focusout)="onFocusOut()"
 														placeholder="Location, Country"
 														class="form-control job-input bg-transparent" />
@@ -237,8 +251,14 @@
 														<div *ngIf="f['user_location'].errors">Current Location Required
 														</div>
 													</div>
+													<div *ngIf="f['user_location'].errors?.['maxWords']"
+														class="text-danger text-xs">
+														Current Location cannot exceed {{ f['user_location']?.errors?.['maxWords'].max
+														}} words.
+														(Current: {{ f['user_location']?.errors?.['maxWords'].actual }})
+													</div>
 												</div>
-											</div>
+											</div> -->
 											<!-- <div class="mb-3">
                                             <p-select [options]="cities" optionValue="country_name" optionLabel="country_name" formControlName="user_location" placeholder="Location, State" [filter]="true" filterBy="country_name" [showClear]="true" [appendTo]="'body'" [style]="{'minWidth': '100%'}" class="w-100 text-start custom-dropdown">
                                                 <ng-template pTemplate="selectedItem" let-selectedOption>
@@ -314,6 +334,12 @@
 													class="text-danger text-xs">
 													<div *ngIf="f['user_linkedin'].errors">Linked In Name Required</div>
 												</div>
+												<div *ngIf="f['user_linkedin'].errors?.['maxWords']"
+													class="text-danger text-xs">
+														LinkedIn Name cannot exceed {{ f['user_linkedin']?.errors?.['maxWords'].max
+														}} words.
+														(Current: {{ f['user_linkedin']?.errors?.['maxWords'].actual }})
+												</div>
 											</div>
 										</div>
 									</div>
@@ -329,6 +355,12 @@
 												<input class="w-100" type="text" placeholder="LinkedIn profile link"
 													formControlName="user_linkedin_link" pInputText />
 											</div>
+											<div *ngIf="f['user_linkedin_link'].errors?.['maxWords']"
+													class="text-danger text-xs">
+														LinkedIn Link cannot exceed {{ f['user_linkedin_link']?.errors?.['maxWords'].max
+														}} words.
+														(Current: {{ f['user_linkedin_link']?.errors?.['maxWords'].actual }})
+												</div>
 										</div>
 									</div>
 									<div class="col-md-12">
@@ -343,6 +375,12 @@
 											<div class="mb-3">
 												<input class="w-100" type="text" placeholder="Website or portfolio Link"
 													formControlName="user_website" pInputText />
+													<div *ngIf="f['user_website'].errors?.['maxWords']"
+													class="text-danger text-xs">
+														Website cannot exceed {{ f['user_website']?.errors?.['maxWords'].max
+														}} words.
+														(Current: {{ f['user_website']?.errors?.['maxWords'].actual }})
+												</div>
 											</div>
 										</div>
 									</div>
@@ -423,6 +461,15 @@
 																	class="text-danger text-xs">
 																	<div>Organization Name required.</div>
 																</div>
+																<div *ngIf="wrkExp.get('work_org_name').errors?.['maxWords']"
+																	class="text-danger text-xs">
+																	Organization Name cannot exceed {{
+																	wrkExp.get('work_org_name').errors?.['maxWords'].max
+																	}} words.
+																	(Current: {{
+																	wrkExp.get('work_org_name').errors?.['maxWords'].actual
+																	}})
+																</div>
 															</div>
 														</div>
 													</div>
@@ -454,6 +501,15 @@
 																		class="text-danger text-xs">
 																		<div>Designation required.</div>
 																	</div>
+																	<div *ngIf="wrkExp.get('work_designation').errors?.['maxWords']"
+																	class="text-danger text-xs">
+																	Designation cannot exceed {{
+																	wrkExp.get('work_designation').errors?.['maxWords'].max
+																	}} words.
+																	(Current: {{
+																	wrkExp.get('work_designation').errors?.['maxWords'].actual
+																	}})
+																</div>
 																</div>
 															</div>
 														</div>
@@ -576,7 +632,7 @@
 														<div class="form-group">
 															<div class="mb-3">
 																<p-select [options]="workTypeValue"
-																	placeholder="Select Work Type"
+																	placeholder="Select Work Type" styleClass="w-100"
 																	formControlName="work_type" optionLabel="value"
 																	optionValue="id"></p-select>
 																<div *ngIf="wrkExp.get('work_type')?.invalid && wrkExp.get('work_type')?.touched && submitted"
@@ -594,7 +650,9 @@
 																pTooltip="Specify the city and country where this job was located"
 																tooltipPosition="top"></i>
 														</div>
-														<div class="form-group">
+														<p-select [options]="cities" placeholder="Location, Country" [filter]="true" filterBy="country_name"
+														styleClass="w-100" formControlName="work_location" optionLabel="country_name" [virtualScroll]="true" [virtualScrollItemSize]="50"optionValue="country_name"></p-select>
+														<!-- <div class="form-group">
 															<div class="mb-3">
 																<div class="input-wrapper">
 																	<input type="text" formControlName="work_location"
@@ -612,9 +670,18 @@
 																		class="text-danger text-xs">
 																		<div>Work Location required.</div>
 																	</div>
+																	<div *ngIf="wrkExp.get('work_location').errors?.['maxWords']"
+																	class="text-danger text-xs">
+																	Work Location cannot exceed {{
+																	wrkExp.get('work_location').errors?.['maxWords'].max
+																	}} words.
+																	(Current: {{
+																	wrkExp.get('work_location').errors?.['maxWords'].actual
+																	}})
+																</div>
 																</div>
 															</div>
-														</div>
+														</div> -->
 													</div>
 													<div class="col-md-12">
 														<div class="d-flex justify-content-between align-items-center">
@@ -713,6 +780,15 @@
 																	class="text-danger text-xs">
 																	<div>College name is required.</div>
 																</div>
+																<div *ngIf="eduDetail.get('edu_college_name').errors?.['maxWords']"
+																	class="text-danger text-xs">
+																	College name cannot exceed {{
+																	eduDetail.get('edu_college_name').errors?.['maxWords'].max
+																	}} words.
+																	(Current: {{
+																	eduDetail.get('edu_college_name').errors?.['maxWords'].actual
+																	}})
+																</div>
 															</div>
 														</div>
 													</div>
@@ -802,6 +878,15 @@
 																	class="text-danger text-xs">
 																	<div>Degree required.</div>
 																</div>
+																<div *ngIf="eduDetail.get('edu_degree').errors?.['maxWords']"
+																	class="text-danger text-xs">
+																	Degree cannot exceed {{
+																	eduDetail.get('edu_degree').errors?.['maxWords'].max
+																	}} words.
+																	(Current: {{
+																	eduDetail.get('edu_degree').errors?.['maxWords'].actual
+																	}})
+																</div>
 															</div>
 														</div>
 													</div>
@@ -816,7 +901,9 @@
 														<div class="form-group">
 															<div class="mb-3">
 																<div class="input-wrapper">
-																	<input type="text" formControlName="edu_location"
+																	<p-select [options]="cities" placeholder="Location, Country" [filter]="true" filterBy="country_name"
+																		styleClass="w-100" formControlName="edu_location" optionLabel="country_name" [virtualScroll]="true" [virtualScrollItemSize]="50" optionValue="country_name"></p-select>
+																	<!-- <input type="text" formControlName="edu_location"
 																		(input)="searchExpandEduLocation($event, i)"
 																		(focusout)="onFocusOut()"
 																		placeholder="Education Location"
@@ -826,11 +913,20 @@
 																		<li *ngFor="let city of filteredExpeAndEduLocations[i]"
 																			(click)="selectLocation(city, 'userEduLocation', i)">
 																			{{ city.country_name }}</li>
-																	</ul>
+																	</ul> -->
 																	<div *ngIf="eduDetail.get('edu_location')?.invalid && eduDetail.get('edu_location')?.touched && submitted"
 																		class="text-danger text-xs">
 																		<div>Location required.</div>
 																	</div>
+																	<div *ngIf="eduDetail.get('edu_location').errors?.['maxWords']"
+																	class="text-danger text-xs">
+																	Location cannot exceed {{
+																	eduDetail.get('edu_location').errors?.['maxWords'].max
+																	}} words.
+																	(Current: {{
+																	eduDetail.get('edu_location').errors?.['maxWords'].actual
+																	}})
+																</div>
 																</div>
 															</div>
 														</div>
@@ -1185,8 +1281,17 @@
 																formControlName="certificate_name" pInputText />
 															<div *ngIf="certificate.get('certificate_name')?.invalid && certificate.get('certificate_name')?.touched && submitted"
 																class="text-danger text-xs">
-																<div>certificate Name required.</div>
+																<div>Certificate Name required.</div>
 															</div>
+															<div *ngIf="certificate.get('certificate_name').errors?.['maxWords']"
+																	class="text-danger text-xs">
+																	Certificate Name cannot exceed {{
+																	certificate.get('certificate_name').errors?.['maxWords'].max
+																	}} words.
+																	(Current: {{
+																	certificate.get('certificate_name').errors?.['maxWords'].actual
+																	}})
+																</div>
 														</div>
 													</div>
 												</div>
@@ -1207,6 +1312,15 @@
 																class="text-danger text-xs">
 																<div>certificate issued required.</div>
 															</div>
+															<div *ngIf="certificate.get('certificate_issued').errors?.['maxWords']"
+																	class="text-danger text-xs">
+																	Certificate issued cannot exceed {{
+																	certificate.get('certificate_issued').errors?.['maxWords'].max
+																	}} words.
+																	(Current: {{
+																	certificate.get('certificate_issued').errors?.['maxWords'].actual
+																	}})
+																</div>
 														</div>
 													</div>
 												</div>
@@ -1225,6 +1339,15 @@
 															<input class="w-100" type="text"
 																placeholder="Certificate ID"
 																formControlName="certificate_id" pInputText />
+																<div *ngIf="certificate.get('certificate_id').errors?.['maxWords']"
+																	class="text-danger text-xs">
+																	Certificate Id cannot exceed {{
+																	certificate.get('certificate_id').errors?.['maxWords'].max
+																	}} words.
+																	(Current: {{
+																	certificate.get('certificate_id').errors?.['maxWords'].actual
+																	}})
+																</div>
 														</div>
 													</div>
 												</div>
@@ -1241,6 +1364,15 @@
 															<input class="w-100" type="text"
 																placeholder="certificate Link"
 																formControlName="certicate_link" pInputText />
+																<div *ngIf="certificate.get('certicate_link').errors?.['maxWords']"
+																	class="text-danger text-xs">
+																	Certificate Link cannot exceed {{
+																	certificate.get('certicate_link').errors?.['maxWords'].max
+																	}} words.
+																	(Current: {{
+																	certificate.get('certicate_link').errors?.['maxWords'].actual
+																	}})
+																</div>
 														</div>
 													</div>
 												</div>
@@ -1281,6 +1413,15 @@
 															class="text-danger text-xs">
 															<div>Achievements required.</div>
 														</div>
+														<div *ngIf="extra.get('extra_curricular_activites').errors?.['maxWords']"
+																	class="text-danger text-xs">
+																	Achievements cannot exceed {{
+																	extra.get('extra_curricular_activites').errors?.['maxWords'].max
+																	}} words.
+																	(Current: {{
+																	extra.get('extra_curricular_activites').errors?.['maxWords'].actual
+																	}})
+																</div>
 													</div>
 												</div>
 											</div>
@@ -1304,17 +1445,17 @@
 					</form>
 				</div>
 				<div class="d-flex justify-content-end">
-					<!-- <button pButton pButton type="button" (click)="fieldPreviousButton()"
+					<!-- <button pButton type="button" (click)="fieldPreviousButton()"
 						class="btn btn-primary btn-rounded p-1 pe-4">
 						<span class="btn-icon px-2 py-2"><i class="fa-solid fa-arrow-left"></i></span> <span
 							class="ms-2">Previous</span>
 					</button>
-					<button pButton pButton type="button" (click)="resumeFormSubmit()" *ngIf="moduleActiveIndex != 4"
+					<button pButton type="button" (click)="resumeFormSubmit()" *ngIf="moduleActiveIndex != 4"
 						class="btn btn-primary btn-rounded p-1 ps-4">
 						<span class="me-2">Next</span><span class="btn-icon px-2 py-2"><i
 								class="fa-solid fa-arrow-right"></i></span>
 					</button> -->
-					<button pButton pButton type="button" (click)="onProfileReview()"
+					<button pButton type="button" (click)="resumeFormSubmit()"
 						class="btn btn-primary btn-rounded p-1 ps-4">
 						<span class="me-2">Submit</span><span class="btn-icon px-2 py-2"><i
 								class="fa-solid fa-arrow-right"></i></span>
@@ -1323,16 +1464,34 @@
 			</div>
 			<ng-template #showReview>
 				<div class="col-md-6 h-100 d-flex flex-column overflow-hidden gap-2">
-					<div class="flex-fill overflow-y-auto">
-						<div [innerHTML]="profileOverViewContent"></div>
+					<div *ngIf="!profileOverViewContent; else showResponseData" class="card p-3 chatgpt-response bg-white h-100 overflow-y-auto">
+						<p-skeleton width='30rem' height='2rem' styleClass="mb-2"></p-skeleton>
+						<p-skeleton width='100%' height='1rem' styleClass="mb-2"></p-skeleton>
+						<p-skeleton width='100%' height='1rem' styleClass="mb-2"></p-skeleton>
+						<p-skeleton width='90%' height='1rem' styleClass="mb-2"></p-skeleton>
+						<p-skeleton width='100%' height='1rem' styleClass="mb-2"></p-skeleton>
+						<p-skeleton width='95%' height='1rem' styleClass="mb-2"></p-skeleton>
+						<p-skeleton width='50%' height='1rem'></p-skeleton>
+						<div class="divider"></div>
+						<p-skeleton width='30rem' height='2rem' styleClass="mb-2"></p-skeleton>
+						<p-skeleton width='100%' height='1rem' styleClass="mb-2"></p-skeleton>
+						<p-skeleton width='100%' height='1rem' styleClass="mb-2"></p-skeleton>
+						<div class="d-flex justify-content-end">
+							<uni-percentage-loader />
+						</div>
 					</div>
+					<ng-template #showResponseData>
+						<div class="flex-fill overflow-y-auto">
+							<div class="profile-content" [innerHTML]="profileOverViewContent"></div>
+						</div>
+					</ng-template>
 					<div class="d-flex justify-content-between">
-						<button pButton pButton type="button" (click)="isReviewContent=false"
+						<button pButton type="button" (click)="isReviewContent=false"
 							class="btn btn-primary btn-rounded p-1 ps-4">
 							<span class="me-2">Edit</span><span class="btn-icon px-2 py-2"><i
 									class="fa-solid fa-arrow-left"></i></span>
 						</button>
-						<button pButton pButton type="button" (click)="resumeFormSubmit()"
+						<button pButton type="button" (click)="next()"
 							class="btn btn-primary btn-rounded p-1 ps-4">
 							<span class="me-2">Create</span><span class="btn-icon px-2 py-2"><i
 									class="fa-solid fa-check"></i></span>

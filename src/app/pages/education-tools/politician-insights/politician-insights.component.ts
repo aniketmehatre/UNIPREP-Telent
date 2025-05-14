@@ -64,6 +64,8 @@ export class PoliticianInsightsComponent implements OnInit {
   politicianOccupationList: { id: number, occupation: string }[] = [];
   selectedPolitician: string[] | null = [];
   selectedOccupation: string[] | null = [];
+  questionId: number = 0;
+
   constructor(
     private pageFacade: PageFacadeService,
     private dataService: DataService,
@@ -83,19 +85,20 @@ export class PoliticianInsightsComponent implements OnInit {
     });
 
     this.activatedRoute.params.subscribe(params => {
-      if (params['id'] && params['question_id']) {
+      if (params['countryId'] && params['politicianId']) {
         this.isShowCountryQuesAns = true;
         this.isShowCountryData = false;
         this.isShowPoliticians = false;
-        this.countryId = params['id'];
-        this.politicianId = params['question_id'];
-        this.getQuestionList(params['id'], params['question_id']);
+        this.countryId = Number(params['countryId']);
+        this.politicianId = Number(params['politicianId']);
+        this.questionId = Number(params['questionId']);
+        this.getQuestionList(this.countryId, this.politicianId);
       }
-      else if (params['id']) {
+      else if (params['countryId']) {
         this.isShowPoliticians = true;
         this.isShowCountryData = false;
-        this.countryId = params['id'];
-        this.getPoliticianList(params['id']);
+        this.countryId = params['countryId'];
+        this.getPoliticianList(params['countryId']);
         this.getPoliticianDropDownList();
       } else {
         this.isShowCountryQuesAns = false;
@@ -142,11 +145,14 @@ export class PoliticianInsightsComponent implements OnInit {
     this.router.navigate(['/pages/education-tools/politician-insights', this.countryId, data]);
   }
 
-  getQuestionList(id: any, questions_id: any) {
+  getQuestionList(id: any, politicianId: number) {
     this.isSkeletonVisible = true;
     const datas: any = {
-      politician_id: questions_id
+      politician_id: politicianId
     };
+    if (this.questionId) {
+      datas.question_id = this.questionId;
+    }
     this.educationToolService.getQuestionsListByPolitician(datas).subscribe(
       (res: any) => {
         this.isShowCountryData = false;
@@ -154,9 +160,9 @@ export class PoliticianInsightsComponent implements OnInit {
         this.isShowCountryQuesAns = true;
         this.questuionanswerlist = res.politicianquestions;
         this.isSkeletonVisible = false;
-        // if (id) {
-        //   this.showDataAnswer(res?.politicianquestions?.[0]);
-        // }
+        if (this.questionId) {
+          this.showDataAnswer(res?.politicianquestions?.[0]);
+        }
       },
       (error) => {
         console.error("Error fetching question data:", error);
@@ -237,14 +243,14 @@ export class PoliticianInsightsComponent implements OnInit {
 
   shareQuestion(type: string) {
     const socialMedias: { [key: string]: string } = this.socialShareService.socialMediaList;
-    const url = encodeURI(window.location.origin + '/pages/education-tools/politician-insights/' + this.dataanswerquestion?.id);
+    const url = encodeURI(window.location.origin + '/pages/education-tools/politician-insights/' + this.countryId + '/' + this.politicianId + '/' + this.dataanswerquestion?.id);
     this.meta.updateTag({ property: 'og:url', content: url });
     const shareUrl = socialMedias[type] + encodeURIComponent(url);
     window.open(shareUrl, '_blank');
   }
 
   copyLink() {
-    const textToCopy = encodeURI(window.location.origin + '/pages/education-tools/politician-insights/' + this.dataanswerquestion?.id);
+    const textToCopy = encodeURI(window.location.origin + '/pages/education-tools/politician-insights/' + this.countryId + '/' + this.politicianId + '/' + this.dataanswerquestion?.id);
     this.socialShareService.copyQuestion(textToCopy);
   }
 

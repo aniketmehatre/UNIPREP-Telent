@@ -1,13 +1,18 @@
 import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
-import {Injectable} from '@angular/core';
-import {environment} from '@env/environment';
-import {Observable} from 'rxjs';
+import { Injectable } from '@angular/core';
+import { environment } from '@env/environment';
+import { Observable } from 'rxjs';
 
 @Injectable({
     providedIn: 'root'
 })
 export class TalentConnectService {
     headers = new HttpHeaders().set("Accept", "application/json");
+    apiUrlCurrencyConversion = 'https://currency-conversion-and-exchange-rates.p.rapidapi.com/timeseries';
+    currencyHeaders = new HttpHeaders({
+        'x-rapidapi-host': 'currency-conversion-and-exchange-rates.p.rapidapi.com',
+        'x-rapidapi-key': 'd08adbb963msh135bd172e57612cp19ee92jsna8b68088b175'
+    });
 
     constructor(private http: HttpClient) { }
 
@@ -129,7 +134,7 @@ export class TalentConnectService {
         const formData = new FormData();
         formData.append("companyId", companyId);
         const headers = new HttpHeaders().set("Accept", "application/json");
-        return this.http.post<any>(environment.ApiUrl + "/shortlistcompany", formData,  {headers: headers});
+        return this.http.post<any>(environment.ApiUrl + "/shortlistcompany", formData, { headers: headers });
     }
 
     // company connect
@@ -185,7 +190,7 @@ export class TalentConnectService {
         const formData = new FormData();
         formData.append("companyId", companyId);
         const headers = new HttpHeaders().set("Accept", "application/json");
-        return this.http.post<any>(environment.ApiUrl + "/followcompany", formData,  {headers: headers});
+        return this.http.post<any>(environment.ApiUrl + "/followcompany", formData, { headers: headers });
     }
 
     getCurrencies() {
@@ -199,7 +204,7 @@ export class TalentConnectService {
         const formData = new FormData();
         formData.append("companyid", companyId);
         const headers = new HttpHeaders().set("Accept", "application/json");
-        return this.http.post<any>(environment.ApiUrl + "/getchatmessages", formData,  {headers: headers});
+        return this.http.post<any>(environment.ApiUrl + "/getchatmessages", formData, { headers: headers });
     }
 
     // sendcompanyconnectusermessage
@@ -209,7 +214,7 @@ export class TalentConnectService {
         formData.append("chat", formDataValue.chat);
         formData.append("attachment", formDataValue.attachment);
         const headers = new HttpHeaders().set("Accept", "application/json");
-        return this.http.post<any>(environment.ApiUrl + "/sendcompanyconnectusermessage", formData,  {headers: headers});
+        return this.http.post<any>(environment.ApiUrl + "/sendcompanyconnectusermessage", formData, { headers: headers });
     }
 
 
@@ -226,13 +231,13 @@ export class TalentConnectService {
 
     getReceivedMessageCompanyTracker(formValues: any) {
         const headers = new HttpHeaders().set("Accept", "application/json");
-        return this.http.post<any>(environment.ApiUrl + "/getreceievedmessagecompanytracker", formValues,  {headers: headers});
+        return this.http.post<any>(environment.ApiUrl + "/getreceievedmessagecompanytracker", formValues, { headers: headers });
     }
 
 
     getSendMessageCompanyTracker(formValues: any) {
         const headers = new HttpHeaders().set("Accept", "application/json");
-        return this.http.post<any>(environment.ApiUrl + "/getsendmessagecompanytracker", formValues,  {headers: headers});
+        return this.http.post<any>(environment.ApiUrl + "/getsendmessagecompanytracker", formValues, { headers: headers });
     }
 
     getStudentProfilesUsingId(id: string) {
@@ -253,4 +258,9 @@ export class TalentConnectService {
             environment.ApiUrl + "/companyChatAiGenerate", formData,
             { headers: this.headers });
     }
+
+    getCurrencyConverter(base: string = 'USD', symbols: string = 'INR', start: string = '2025-05-11', end: string = '2025-05-12') {
+    const url = `${this.apiUrlCurrencyConversion}?start_date=${start}&end_date=${end}&base=${base}&symbols=${symbols}`;
+    return this.http.get(url, { headers: this.currencyHeaders });
+ }
 }

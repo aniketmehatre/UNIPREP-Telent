@@ -31,10 +31,13 @@ const routes: Routes = [
         path: 'politician-insights', component: PoliticianInsightsComponent
       },
       {
-        path: 'politician-insights/:id', component: PoliticianInsightsComponent
+        path: 'politician-insights/:countryId', component: PoliticianInsightsComponent
       },
       {
-        path: 'politician-insights/:id/:question_id', component: PoliticianInsightsComponent
+        path: 'politician-insights/:countryId/:politicianId', component: PoliticianInsightsComponent
+      },
+      {
+        path: 'politician-insights/:countryId/:politicianId/:questionId', component: PoliticianInsightsComponent
       },
       {
         path: 'startup-failure-stories/:id/:question_id', component: PoliticianInsightsComponent

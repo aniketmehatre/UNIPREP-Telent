@@ -86,6 +86,11 @@ export class TravelToolsService {
     });
   }
   
+  downloadAiRecommendation(data: any){
+    return this.http.post<any>(environment.ApiUrl + "/downloadAiRecommendation", data, {
+        headers: this.headers,
+    });
+  }
   convertHTMLtoPDF(data: any): Promise<void> {
     return new Promise((resolve, reject) => {
       const now = new Date();

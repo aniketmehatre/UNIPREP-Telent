@@ -6,7 +6,6 @@ import { Router } from "@angular/router";
 import { MenuItem } from "primeng/api";
 import Swiper from "swiper";
 import { AuthService } from "../../../Auth/auth.service";
-import { LocationService } from "../../../location.service";
 import { City } from "src/app/@Models/cost-of-living";
 import { CommonModule } from "@angular/common";
 import { DialogModule } from "primeng/dialog";
@@ -29,6 +28,10 @@ import { ConfirmPopup } from "primeng/confirmpopup";
 import { ToastModule } from 'primeng/toast';
 import { EditorModule } from "primeng/editor";
 import { maxWordsValidator } from "src/app/@Supports/max-word-validator";
+import { DomSanitizer, SafeHtml } from "@angular/platform-browser";
+import { EducationToolsService } from "../../education-tools/education-tools.service";
+import { SkeletonModule } from "primeng/skeleton";
+import { SharedModule } from "primeng/api";
 declare const pdfjsLib: any;
 
 interface ResumeHistory {
@@ -42,7 +45,7 @@ interface ResumeHistory {
   templateUrl: "./cv-builder.component.html",
   styleUrls: ["./cv-builder.component.scss"],
   standalone: true,
-  imports: [CommonModule, DialogModule, TextareaModule, SidebarModule, EditorModule, PdfViewerModule, RouterModule, CardModule, PaginatorModule, FormsModule, ReactiveFormsModule, CarouselModule, ButtonModule, MultiSelectModule, SelectModule, InputGroupModule, InputTextModule, InputGroupAddonModule, ConfirmPopup, TooltipModule, ToastModule],
+  imports: [CommonModule, DialogModule, TextareaModule, SidebarModule, EditorModule, PdfViewerModule, RouterModule, CardModule, PaginatorModule, FormsModule, ReactiveFormsModule, CarouselModule, ButtonModule, MultiSelectModule, SelectModule, InputGroupModule, InputTextModule, InputGroupAddonModule, ConfirmPopup, TooltipModule, ToastModule, SharedModule,SkeletonModule],
   providers: [CvBuilderService, ConfirmationService, MessageService]
 })
 export class CvBuilderComponent implements OnInit, AfterViewInit {
@@ -218,21 +221,30 @@ export class CvBuilderComponent implements OnInit, AfterViewInit {
   filteredLocations: any = [];
   filteredExpeAndEduLocations: { [key: number]: any[] } = {};
   pdfThumbnails: { [key: string]: string } = {};
-  profileOverViewContent: string = 'Profile Review';
+  profileOverViewContent: SafeHtml = '';
   isReviewContent: boolean = false;
 
-  constructor(private toaster: MessageService, private fb: FormBuilder, private resumeService: CvBuilderService, private router: Router, private confirmService: ConfirmationService, private authService: AuthService, private locationService: LocationService) {
+  constructor(
+    private toaster: MessageService, 
+    private fb: FormBuilder, 
+    private resumeService: CvBuilderService, 
+    private router: Router, 
+    private confirmService: ConfirmationService, 
+    private authService: AuthService, 
+    private sanitizer: DomSanitizer,
+    private educationService: EducationToolsService
+  ) {
     this.resumeFormInfoData = this.fb.group({
       selected_exp_level: ["", Validators.required],
-      user_name: ["", Validators.required],
-      user_job_title: ["", Validators.required],
+      user_name: ["", [Validators.required, maxWordsValidator(12)]],
+      user_job_title: ["", [Validators.required, maxWordsValidator(12)]],
       user_email: ["", [Validators.required, Validators.email]],
-      user_location: ["", Validators.required],
+      user_location: ["", [Validators.required, maxWordsValidator(12)]],
       country_code: ["+91"],
       user_phone: ["", [Validators.required, Validators.pattern("^\\+?[1-9]\\d{1,14}$")]],
-      user_linkedin: ["", Validators.required],
-      user_linkedin_link: [""],
-      user_website: [""],
+      user_linkedin: ["", [Validators.required, maxWordsValidator(12)]],
+      user_linkedin_link: ["", [maxWordsValidator(12)]],
+      user_website: ["", maxWordsValidator(12)],
       user_summary: ["", [Validators.required, maxWordsValidator(50)]],
       // selected_exp_level: ['', [Validators.required]],
       // user_name: ['vivek kaliyaperumal', [Validators.required]],
@@ -401,17 +413,17 @@ export class CvBuilderComponent implements OnInit, AfterViewInit {
     const query = event.target.value.toLowerCase();
     if (query.length > 3) {
       this.filteredJobs = this.getFilteredJobs(query);
-      if(this.filteredJobs.length === 0){
+      if (this.filteredJobs.length === 0) {
         const newJobTitle: any = {
-					id: 0, // Use 0 or -1 to indicate it's a custom/new item
+          id: 0, // Use 0 or -1 to indicate it's a custom/new item
           jobrole: query
-				};
+        };
         this.filteredJobs.unshift(newJobTitle);
-        if(this.occupationList[0].id === 0){
+        if (this.occupationList[0].id === 0) {
           this.occupationList.shift();
         }
         this.occupationList.unshift(newJobTitle);
-			}
+      }
     } else if (query.length < 2) {
       this.filteredJobs = [];
     }
@@ -421,6 +433,17 @@ export class CvBuilderComponent implements OnInit, AfterViewInit {
     const query = event.target.value.toLowerCase();
     if (query.length > 3) {
       this.filteredDesignations[index] = this.getFilteredJobs(query);
+      if(this.filteredDesignations[index].length === 0){
+         const newJobTitle: any = {
+          id: 0, // Use 0 or -1 to indicate it's a custom/new item
+          jobrole: query
+        };
+        this.filteredDesignations[index].unshift(newJobTitle);
+        if (this.occupationList[0].id === 0) {
+          this.occupationList.shift();
+        }
+        this.occupationList.unshift(newJobTitle);
+      }
     } else if (query.length < 2) {
       this.filteredDesignations[index] = [];
     }
@@ -447,50 +470,54 @@ export class CvBuilderComponent implements OnInit, AfterViewInit {
     return mockJobs.filter((job: any) => job.jobrole.toLowerCase().includes(query.toLowerCase()));
   }
 
-  getFilteredLocations(query: string) {
-    const mockLocations = this.cities;
+  // getFilteredLocations(query: string) {
+  //   const mockLocations = this.cities;
 
-    return mockLocations.filter((city: any) => city.country_name.toLowerCase().includes(query.toLowerCase()));
-  }
+  //   return mockLocations.filter((city: any) => city.country_name.toLowerCase().includes(query.toLowerCase()));
+  // }
 
-  searchLocation(event: any) {
-    const query = event.target.value.toLowerCase();
-    if (query.length > 3) {
-      this.filteredLocations = this.getFilteredLocations(query);
-    } else if (query.length < 2) {
-      this.filteredLocations = [];
-    }
-  }
+  // onFocus() {
+  //   this.filteredLocations = [...this.cities]; // Show all locations
+  // }
 
-  searchExpandEduLocation(event: any, index: number) {
-    const query = event.target.value.toLowerCase();
-    if (query.length > 3) {
-      this.filteredExpeAndEduLocations[index] = this.getFilteredLocations(query);
-    } else if (query.length < 2) {
-      this.filteredExpeAndEduLocations[index] = [];
-    }
-  }
+  // searchLocation(event: any) {
+  //   const query = event.target.value.toLowerCase();
+  //   if (query.length > 3) {
+  //     this.filteredLocations = this.getFilteredLocations(query);
+  //   } else if (query.length < 2) {
+  //     this.filteredLocations = [...this.cities];
+  //   }
+  // }
 
-  selectLocation(city: any, fieldName: string, index?: any) {
-    if (fieldName == "userLocation") {
-      this.resumeFormInfoData.patchValue({
-        user_location: city.country_name,
-      });
-      this.filteredLocations = [];
-    } else if (fieldName == "userExpLocation") {
-      const formArray = this.getWorkExpArray as FormArray;
-      formArray.at(index).patchValue({
-        work_location: city.country_name,
-      });
-      this.filteredExpeAndEduLocations[index] = [];
-    } else if (fieldName == "userEduLocation") {
-      const formArray = this.getEduDetailsArray as FormArray;
-      formArray.at(index).patchValue({
-        edu_location: city.country_name,
-      });
-      this.filteredExpeAndEduLocations[index] = [];
-    }
-  }
+  // searchExpandEduLocation(event: any, index: number) {
+  //   const query = event.target.value.toLowerCase();
+  //   if (query.length > 3) {
+  //     this.filteredExpeAndEduLocations[index] = this.getFilteredLocations(query);
+  //   } else if (query.length < 2) {
+  //     this.filteredExpeAndEduLocations[index] = [];
+  //   }
+  // }
+
+  // selectLocation(city: any, fieldName: string, index?: any) {
+  //   if (fieldName == "userLocation") {
+  //     this.resumeFormInfoData.patchValue({
+  //       user_location: city.country_name,
+  //     });
+  //     this.filteredLocations = [];
+  //   } else if (fieldName == "userExpLocation") {
+  //     const formArray = this.getWorkExpArray as FormArray;
+  //     formArray.at(index).patchValue({
+  //       work_location: city.country_name,
+  //     });
+  //     this.filteredExpeAndEduLocations[index] = [];
+  //   } else if (fieldName == "userEduLocation") {
+  //     const formArray = this.getEduDetailsArray as FormArray;
+  //     formArray.at(index).patchValue({
+  //       edu_location: city.country_name,
+  //     });
+  //     this.filteredExpeAndEduLocations[index] = [];
+  //   }
+  // }
 
   getUserPrefilledData() {
     this.resumeService.getCVPrefilledData().subscribe((res) => {
@@ -756,64 +783,64 @@ export class CvBuilderComponent implements OnInit, AfterViewInit {
   }
 
 
-  fieldNextButton() {
-    this.storeUserFilledData();
-    this.moduleActiveIndex++;
-    if (this.moduleActiveIndex > 0) {
-      this.moduleActiveIndex--;
-      this.activePageIndex++;
-      this.filledFields.push("skills", "language_known");
-      return;
-    }
-    const fieldNameArray: string[] = [];
+  // fieldNextButton() {
+    // this.storeUserFilledData();
+    // this.moduleActiveIndex++;
+    // if (this.moduleActiveIndex > 0) {
+    //   this.moduleActiveIndex--;
+    //   this.activePageIndex++;
+    //   // this.filledFields.push("skills", "language_known");
+    //   return;
+    // }
+    // const fieldNameArray: string[] = [];
 
-    switch (this.moduleActiveIndex) {
-      case 1:
-        if (this.getWorkExpArray.length === 0 && !this.hidingHeaders.includes("work_experience")) {
-          fieldNameArray.push("work_experience");
-        }
-        break;
+    // switch (this.moduleActiveIndex) {
+    //   case 1:
+    //     if (this.getWorkExpArray.length === 0 && !this.hidingHeaders.includes("work_experience")) {
+    //       fieldNameArray.push("work_experience");
+    //     }
+    //     break;
 
-      case 2:
-        this.filledFields.push("work_experience");
-        if (this.getEduDetailsArray.length === 0 && !this.hidingHeaders.includes("education_detail")) {
-          fieldNameArray.push("education_detail");
-        }
-        if (this.resumeFormInfoData.value.selected_exp_level == 1 && this.getProjectDetailsArray.length === 0 && !this.hidingHeaders.includes("project_details")) {
-          fieldNameArray.push("project_details");
-        }
-        break;
+    //   case 2:
+    //     this.filledFields.push("work_experience");
+    //     if (this.getEduDetailsArray.length === 0 && !this.hidingHeaders.includes("education_detail")) {
+    //       fieldNameArray.push("education_detail");
+    //     }
+    //     if (this.resumeFormInfoData.value.selected_exp_level == 1 && this.getProjectDetailsArray.length === 0 && !this.hidingHeaders.includes("project_details")) {
+    //       fieldNameArray.push("project_details");
+    //     }
+    //     break;
 
-      case 3:
-        this.filledFields.push("education_detail", "project_details");
-        if (this.getCertificatesArray.length === 0 && !this.hidingHeaders.includes("certificate")) {
-          fieldNameArray.push("certificate");
-        }
-        if (this.getExtraCurricularArray.length === 0 && !this.hidingHeaders.includes("extra_curricular")) {
-          fieldNameArray.push("extra_curricular");
-        }
-        break;
+    //   case 3:
+    //     this.filledFields.push("education_detail", "project_details");
+    //     if (this.getCertificatesArray.length === 0 && !this.hidingHeaders.includes("certificate")) {
+    //       fieldNameArray.push("certificate");
+    //     }
+    //     if (this.getExtraCurricularArray.length === 0 && !this.hidingHeaders.includes("extra_curricular")) {
+    //       fieldNameArray.push("extra_curricular");
+    //     }
+    //     break;
 
-      case 4:
-        this.filledFields.push("certificate", "extra_curricular");
-        if (this.getSkillsArray.length === 0 && !this.hidingHeaders.includes("skills")) {
-          fieldNameArray.push("skills");
-        }
-        if (this.getLanguagesKnownArray.length === 0 && !this.hidingHeaders.includes("language_known")) {
-          fieldNameArray.push("language_known");
-        }
-        this.clickedDownloadButton = false;
-        break;
+    //   case 4:
+    //     this.filledFields.push("certificate", "extra_curricular");
+    //     if (this.getSkillsArray.length === 0 && !this.hidingHeaders.includes("skills")) {
+    //       fieldNameArray.push("skills");
+    //     }
+    //     if (this.getLanguagesKnownArray.length === 0 && !this.hidingHeaders.includes("language_known")) {
+    //       fieldNameArray.push("language_known");
+    //     }
+    //     this.clickedDownloadButton = false;
+    //     break;
 
-      default:
-        break;
-    }
-    if (fieldNameArray.length > 0) {
-      fieldNameArray.forEach((element: string) => {
-        this.clickAddMoreButton(element);
-      });
-    }
-  }
+    //   default:
+    //     break;
+    // }
+    // if (fieldNameArray.length > 0) {
+    //   fieldNameArray.forEach((element: string) => {
+    //     this.clickAddMoreButton(element);
+    //   });
+    // }
+  // }
 
   storeUserFilledData() {
     let formData = this.resumeFormInfoData.value;
@@ -861,7 +888,8 @@ export class CvBuilderComponent implements OnInit, AfterViewInit {
       visibleFormControls.forEach((control) => control.markAsTouched());
     }
     else {
-      this.fieldNextButton();
+      this.onProfileReview();
+      this.storeUserFilledData();
     }
   }
   getVisibleFormControls1() {
@@ -895,6 +923,7 @@ export class CvBuilderComponent implements OnInit, AfterViewInit {
     if (this.moduleActiveIndex === 0) {
       controlNames = ["work_org_name", "work_currently_working", "work_start_year", "work_start_month", "work_end_year", "work_end_month", "work_designation", "work_type", "work_location", "work_job_description"];
       formControlFields.push(this.resumeFormInfoData.get("workExpArray") as FormArray);
+      console.log(formControlFields, "formControlFields");
     }
 
     formControlFields.forEach((formArray) => {
@@ -1021,10 +1050,10 @@ export class CvBuilderComponent implements OnInit, AfterViewInit {
     }
     if (this.activePageIndex == 0) {
       this.ngAfterViewInit();
+      this.isReviewContent = false;
+      this.profileOverViewContent = "";
     }
     this.activePageIndex++;
-    console.log(this.activePageIndex);
-
     if (this.activePageIndex == 4) {
       if (this.clickedDownloadButton) {
         //if the user not donwload the resume,in the presently created resume is not visible in the resume history page.
@@ -1086,12 +1115,12 @@ export class CvBuilderComponent implements OnInit, AfterViewInit {
     if (fieldName == "education_detail") {
       this.getEduDetailsArray.push(
         this.fb.group({
-          edu_college_name: ["", Validators.required],
+          edu_college_name: ["", [Validators.required, maxWordsValidator(12)]],
           edu_still_pursuing: [""],
           edu_start_year: ["", Validators.required],
           edu_end_year: ["", Validators.required],
-          edu_degree: ["", Validators.required],
-          edu_location: ["", Validators.required],
+          edu_degree: ["", [Validators.required, maxWordsValidator(12)]],
+          edu_location: ["", [Validators.required, maxWordsValidator(12)]],
           edu_percentage: ["", Validators.required],
           edu_cgpa_percentage: ["CGPA", Validators.required],
         })
@@ -1111,15 +1140,15 @@ export class CvBuilderComponent implements OnInit, AfterViewInit {
     } else if (fieldName == "work_experience") {
       this.getWorkExpArray.push(
         this.fb.group({
-          work_org_name: ["", Validators.required],
+          work_org_name: ["", [Validators.required, maxWordsValidator(12)]],
           work_currently_working: [""],
           work_start_year: ["", Validators.required],
           work_start_month: ["", Validators.required],
           work_end_year: ["", Validators.required],
           work_end_month: ["", Validators.required],
-          work_designation: ["", Validators.required],
+          work_designation: ["", [Validators.required, maxWordsValidator(12)]],
           work_type: ["", Validators.required],
-          work_location: ["", Validators.required],
+          work_location: ["", [Validators.required, maxWordsValidator(12)]],
           work_job_description: ["", [Validators.required, maxWordsValidator(120)]],
         })
       );
@@ -1173,7 +1202,7 @@ export class CvBuilderComponent implements OnInit, AfterViewInit {
     } else if (fieldName == "extra_curricular") {
       this.getExtraCurricularArray.push(
         this.fb.group({
-          extra_curricular_activites: ["", Validators.required],
+          extra_curricular_activites: ["", [Validators.required, maxWordsValidator(12)]],
         })
       );
       this.removeHideHeaderElement("extra_curricular");
@@ -1186,10 +1215,10 @@ export class CvBuilderComponent implements OnInit, AfterViewInit {
       // }));
       this.getCertificatesArray.push(
         this.fb.group({
-          certificate_name: ["", Validators.required],
-          certificate_issued: ["", Validators.required],
-          certificate_id: [""],
-          certicate_link: [""],
+          certificate_name: ["", [Validators.required, maxWordsValidator(12)]],
+          certificate_issued: ["", [Validators.required, maxWordsValidator(12)]],
+          certificate_id: ["",maxWordsValidator(12)],
+          certicate_link: ["",maxWordsValidator(12)],
         })
       );
       this.removeHideHeaderElement("certificate");
@@ -1316,11 +1345,11 @@ export class CvBuilderComponent implements OnInit, AfterViewInit {
 
   chatGPTIntegration(fieldName: string, iteration: number) {
     // const apiKey = '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';
-    if(this.authService._creditCount === 0){
-			this.toaster.add({severity: "error",summary: "Error",detail: "Please Buy some Credits...!"});
-			this.router.navigateByUrl('/pages/export-credit')
-			return;
-		}
+    if (this.authService._creditCount === 0) {
+      this.toaster.add({ severity: "error", summary: "Error", detail: "Please Buy some Credits...!" });
+      this.router.navigateByUrl('/pages/export-credit')
+      return;
+    }
     let formData = this.resumeFormInfoData.value;
     // let prompt: string = "";
     let parameters: any = {
@@ -1333,21 +1362,15 @@ export class CvBuilderComponent implements OnInit, AfterViewInit {
         return;
       }
       parameters.user_job_title = formData.user_job_title;
-      // parameters.mode =  "user_summary";
 
       if (formData.selected_exp_level == 1) {
         parameters.exp_type = "fresher";
-        // prompt = `Provide a professional summary for a ${formData.user_job_title} role, up to 30 words, suitable for a resume for freshers.`;
       } else {
         parameters.exp_type = "experience";
         const selectedExp = this.experienceLevel[formData.selected_exp_level - 1];
         parameters.experience_level = selectedExp.level;
-        // prompt = `Provide a professional summary for a resume, up to 30 words, tailored to a ${formData.user_job_title} role with ${selectedExp.level} of experience.`;
       }
-      // this.isButtonDisabled = true;
     } else if (fieldName == "work_job_description") {
-      // parameters.mode =  "work_job_description";
-      // this.genreateButtonDisabled[iteration] = true;
       const work_designation = this.getWorkExpArray.value[iteration].work_designation;
       const work_organizationname = this.getWorkExpArray.value[iteration].work_org_name;
       parameters.work_designation = work_designation;
@@ -1387,45 +1410,6 @@ export class CvBuilderComponent implements OnInit, AfterViewInit {
         }
       }
     });
-    // return;
-    // const headers = new HttpHeaders({
-    //   'Content-Type': 'application/json',
-    //   'Authorization': `Bearer ${apiKey}`
-    // });
-
-    // const body = {
-    //   model: "gpt-3.5-turbo",
-    //   messages: [
-    //     { role: "system", content: "You are a helpful assistant." },
-    //     { role: "user", content: prompt }
-    //   ],
-    //   max_tokens: 300
-    // };
-
-    // this.http.post<any>('https://api.openai.com/v1/chat/completions', body, { headers: headers }).subscribe(response => {
-    //   if (response.choices && response.choices.length > 0) {
-    //     const GPTResponse = response.choices[0].message.content.trim();
-    //     if (fieldName == 'user_summary') {
-    //       this.resumeFormInfoData.patchValue({
-    //         user_summary: GPTResponse
-    //       });
-    //     } else if (fieldName == 'work_job_description') {
-    //       const workExpArray = this.getWorkExpArray;
-    //       if (workExpArray.length > 0) {
-    //         const firstWorkExpGroup = workExpArray.at(iteration) as FormGroup;
-    //         firstWorkExpGroup.patchValue({
-    //           work_job_description: GPTResponse
-    //         });
-    //       } else {
-    //         console.error('No work experience entries found.');
-    //       }
-    //     }
-    //   } else {
-    //     console.error('Unexpected response structure:', response);
-    //   }
-    // }, error => {
-    //   console.error('Error:', error);
-    // });
   }
 
   downloadOldResume(resumeLink: string) {
@@ -1608,6 +1592,19 @@ export class CvBuilderComponent implements OnInit, AfterViewInit {
 
   onProfileReview() {
     this.isReviewContent = true;
+    this.profileOverViewContent = "";
+    let formData = this.resumeFormInfoData.value;
+    let data: any = {
+      mode: "cv_builder_profile_review",
+      ...formData
+    }
     // Api call for profile review
+    this.educationService.getChatgptRecommendations(data).subscribe({
+      next: response =>{
+        let currentResponse: SafeHtml = this.sanitizer.bypassSecurityTrustHtml(response.response);
+        this.profileOverViewContent =  currentResponse;
+        this.authService.aiCreditCount$.next(true);
+      }
+    })
   }
 }
